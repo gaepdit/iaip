@@ -14926,27 +14926,33 @@ Public Class SSPPApplicationTrackingLog
 
             Subject = "GA Air Application No. " & txtApplicationNumber.Text & ", dated: " & DTPDateSent.Text
 
-            Body = "Dear " & txtContactSocialTitle.Text & " " & txtContactLastName.Text & ", " & _
-            vbNewLine & vbNewLine & _
-            "This is to acknowledge the receipt of your GA Air Quality Permit application for " & txtFacilityName.Text & _
-            " (Airs No. " & txtAIRSNumber.Text & ") in " & cboFacilityCity.Text & ", GA. " & _
-            "After our initial review of the information and technical data in this application, " & _
-            "we will notify you if more information is needed to complete " & _
-            "the application so that we can finish our review. " & _
-            vbNewLine & vbNewLine & _
-            "If your company qualifies as a small business (generally those with fewer than 100 employees), " & _
-            "you may contact our Small Business Environmental Assistance Program at 404/362-4842 for free and " & _
-            "confidential permitting assistance. " & _
-            vbNewLine & vbNewLine & _
-            "To track the status of the air quality permit application, log on to Georgia Environmental " & _
-            "Protection Division’s Georgia Environmental Connections Online (GECO) at the web address " & _
-            "http://geco.georgiaair.org/" & _
-            " (registration required) and follow the online instructions. " & _
-            vbNewLine & vbNewLine & _
-            "If you have any questions or concerns regarding your application, please contact me at " & _
-            StaffPhone & " or via e-mail at " & StaffEmail & ". Any written correspondence " & _
-            "should reference the above application number that has been assigned to this application " & _
-            "and the facility's AIRS number."
+            Body = "Dear " & txtContactSocialTitle.Text & " " & txtContactLastName.Text & ", " &
+                vbNewLine & vbNewLine &
+                "This is to acknowledge the receipt of your GA Air Quality Permit application for " &
+                txtFacilityName.Text & " (Airs No. " & txtAIRSNumber.Text & ") in " & cboFacilityCity.Text &
+                ", GA. After our initial review of the information and technical data in this application, " &
+                "we will notify you if more information is needed to complete " &
+                "the application so that we can finish our review. " &
+                vbNewLine & vbNewLine &
+                "Other environmental permits may be required. For Industrial Stormwater permits, contact " &
+                "the Watershed Protection Branch at (404) 675-1605; for Solid Waste permits, contact the " &
+                "Land Protection Branch at (404) 362-2537. For more info, http://epd.georgia.gov" &
+                vbNewLine & vbNewLine &
+                "GEOS, the new web-based permit application system is now operational at: " &
+                "https://geos.epd.georgia.gov/GA/GEOS/Public/EnSuite/Shared/Pages/Main/Login.aspx " &
+                vbNewLine & vbNewLine &
+                "To track the status of the air quality permit application, log on to Georgia Environmental " &
+                "Protection Division’s Georgia Environmental Connections Online (GECO) at the web address " &
+                "http://geco.georgiaair.org (registration required) and follow the online instructions." &
+                vbNewLine & vbNewLine &
+                "If your company qualifies as a small business (generally those with fewer than 100 " &
+                "employees), you may contact our Small Business Environmental Assistance Program at " &
+                "(404) 362-4842 for free and confidential permitting assistance." &
+                vbNewLine & vbNewLine &
+                "If you have any questions or concerns regarding your application, please contact me at " &
+                StaffPhone & " or via e-mail at " & StaffEmail & ". Any written correspondence " &
+                "should reference the above application number that has been assigned to this application " &
+                "and the facility's AIRS number."
 
             Dim recipientsTo As String() = {EmailAddress}
             CreateEmail(Subject, Body, recipientsTo, objectSender:=Me)

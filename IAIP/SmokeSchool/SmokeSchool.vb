@@ -2491,25 +2491,17 @@ Public Class SmokeSchool
 
         Try
             Dim title As String = cboSchedule1.SelectedItem.ToString
-
             Dim roster As DataTable = DAL.GetSmokeSchoolRosterAsDataTable(title)
-
-            Dim parameters As New Dictionary(Of String, String)
-            parameters.Add("LocationDateTitle", title)
-
+            Dim parameters As New Dictionary(Of String, String) From {{"LocationDateTitle", title}}
             Dim rpt As New CR.Reports.SmokeSchoolRoster
-
-            Dim crv As New CRViewerForm(rpt, roster, parameters)
-            crv.Title = title
+            Dim crv As New CRViewerForm(rpt, roster, parameters, title)
             crv.Show()
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnPrintRoster_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrintRoster.Click
         PrintRoster()
-
     End Sub
     Private Sub btnPrintPass_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrintPass.Click
         Try

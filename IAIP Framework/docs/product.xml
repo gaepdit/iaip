@@ -74,10 +74,8 @@
         <BypassIf Property="ProcessorArchitecture" Compare="ValueNotEqualTo" Value="AMD64"/>
         
         <!-- Uncomment the below BypassIf entry if you do not want to install the 64bit version CRRuntime redist in the target machine -->      
-        <!--
         <BypassIf Property="ProcessorArchitecture" Compare="ValueEqualTo" Value="AMD64"/>
-        -->
-         
+                 
         <!-- ByPass if the installed version is same or higher --> 
         <BypassIf Property="CRRuntime64Version" Compare="VersionGreaterThanOrEqualTo"  Value="13.0.14"/>
 

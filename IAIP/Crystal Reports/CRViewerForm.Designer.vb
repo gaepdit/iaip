@@ -29,7 +29,6 @@ Partial Class CRViewerForm
         '
         Me.CRViewerControl.ActiveViewIndex = -1
         Me.CRViewerControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CRViewerControl.CachedPageNumberPerDoc = 10
         Me.CRViewerControl.Cursor = System.Windows.Forms.Cursors.Default
         Me.CRViewerControl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.CRViewerControl.EnableDrillDown = False
@@ -39,7 +38,7 @@ Partial Class CRViewerForm
         Me.CRViewerControl.ShowCloseButton = False
         Me.CRViewerControl.ShowGroupTreeButton = False
         Me.CRViewerControl.ShowRefreshButton = False
-        Me.CRViewerControl.Size = New System.Drawing.Size(472, 520)
+        Me.CRViewerControl.Size = New System.Drawing.Size(575, 520)
         Me.CRViewerControl.TabIndex = 0
         Me.CRViewerControl.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
         Me.CRViewerControl.ViewTimeSelectionFormula = ""
@@ -48,7 +47,7 @@ Partial Class CRViewerForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(472, 520)
+        Me.ClientSize = New System.Drawing.Size(575, 520)
         Me.Controls.Add(Me.CRViewerControl)
         Me.Name = "CRViewerForm"
         Me.Text = "Report Preview"

@@ -7,103 +7,109 @@ Imports CrystalDecisions.Windows.Forms
 
 Public Class CRViewerForm
 
-#Region "Properties"
+#Region " Properties "
 
-    Private _crReportDocument As ReportClass
-    Public Property CRReportDocument() As ReportClass
-        Get
-            Return _crReportDocument
-        End Get
-        Set(ByVal value As ReportClass)
-            _crReportDocument = value
+    Private Property CRReportDocument() As ReportClass
+    Private WriteOnly Property Title() As String
+        Set(value As String)
+            If value IsNot Nothing Then
+                Me.Text = "Report Preview: " & value
+            Else
+                Me.Text = "Report Preview"
+            End If
         End Set
     End Property
-
-    Private _title As String
-    Public Property Title() As String
-        Get
-            Return _title
-        End Get
-        Set(ByVal value As String)
-            _title = value
-        End Set
-    End Property
-
-    Private _crParameters As Dictionary(Of String, String)
-    Public Property CRParameters() As Dictionary(Of String, String)
-        Get
-            Return _crParameters
-        End Get
-        Set(ByVal value As Dictionary(Of String, String))
-            _crParameters = value
-        End Set
-    End Property
+    Private Property CRParameters() As Dictionary(Of String, String)
 
 #End Region
 
-#Region "Constructors"
+#Region " Constructors "
 
-    Public Sub New()
+    ' ' No need to open an empty Crystal Reports Viewer, right?
+    'Public Sub New()
+    '    ' This call is required by the Windows Form Designer.
+    '    InitializeComponent()
+    '    ' Add any initialization after the InitializeComponent() call.
+    'End Sub
+
+    ''' <summary>
+    ''' Opens a Crystal Reports Viewer form and loads the specified document with the specified data and parameters
+    ''' </summary>
+    ''' <param name="reportDocument">The Crystal Reports report document to load</param>
+    ''' <param name="dataTable">A DataTable to be used by the report</param>
+    ''' <param name="parameters">A Dictionary of parameters to be used by the report</param>
+    ''' <param name="title">The window title</param>
+    Public Sub New(ByVal reportDocument As ReportClass, ByVal dataTable As DataTable, Optional ByVal parameters As Dictionary(Of String, String) = Nothing, Optional ByVal title As String = Nothing)
         ' This call is required by the Windows Form Designer.
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
-    End Sub
-
-    Public Sub New(ByVal reportDocument As ReportClass, ByVal dataSource As DataTable, Optional ByVal parameters As Dictionary(Of String, String) = Nothing)
-        ' This call is required by the Windows Form Designer.
-        InitializeComponent()
-        ' Add any initialization after the InitializeComponent() call.
+        Me.Title = title
         Me.CRReportDocument = reportDocument
-        Me.CRReportDocument.SetDataSource(dataSource)
+        Me.CRReportDocument.SetDataSource(dataTable)
         Me.CRParameters = parameters
     End Sub
 
-    Public Sub New(ByVal reportDocument As ReportClass, ByVal dataSource As DataSet, Optional ByVal parameters As Dictionary(Of String, String) = Nothing)
+    ''' <summary>
+    ''' Opens a Crystal Reports Viewer form and loads the specified document with the specified data and parameters
+    ''' </summary>
+    ''' <param name="reportDocument">The Crystal Reports report document to load</param>
+    ''' <param name="dataSet">A DataTable to be used by the report</param>
+    ''' <param name="parameters">A Dictionary of parameters to be used by the report</param>
+    ''' <param name="title">The window title</param>
+    Public Sub New(ByVal reportDocument As ReportClass, ByVal dataSet As DataSet, Optional ByVal parameters As Dictionary(Of String, String) = Nothing, Optional ByVal title As String = Nothing)
         ' This call is required by the Windows Form Designer.
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
+        Me.Title = title
         Me.CRReportDocument = reportDocument
-        Me.CRReportDocument.SetDataSource(dataSource)
+        Me.CRReportDocument.SetDataSource(dataSet)
         Me.CRParameters = parameters
     End Sub
 
-    Public Sub New(ByVal reportDocument As ReportClass, ByVal dataSource As IDataReader, Optional ByVal parameters As Dictionary(Of String, String) = Nothing)
-        ' This call is required by the Windows Form Designer.
-        InitializeComponent()
-        ' Add any initialization after the InitializeComponent() call.
-        Me.CRReportDocument = reportDocument
-        Me.CRReportDocument.SetDataSource(dataSource)
-        Me.CRParameters = parameters
-    End Sub
+    ' ' Not currently used
+    ' ''' <summary>
+    ' ''' Opens a Crystal Reports Viewer form and loads the specified document with the specified data and parameters
+    ' ''' </summary>
+    ' ''' <param name="reportDocument">The Crystal Reports report document to load</param>
+    ' ''' <param name="dataSource">A DataTable to be used by the report</param>
+    ' ''' <param name="parameters">A Dictionary of parameters to be used by the report</param>
+    ' ''' <param name="title">The window title</param>
+    'Public Sub New(ByVal reportDocument As ReportClass, ByVal dataSource As IDataReader, Optional ByVal parameters As Dictionary(Of String, String) = Nothing, Optional ByVal title As String = Nothing)
+    '    ' This call is required by the Windows Form Designer.
+    '    InitializeComponent()
+    '    ' Add any initialization after the InitializeComponent() call.
+    '    Me.Title = title
+    '    Me.CRReportDocument = reportDocument
+    '    Me.CRReportDocument.SetDataSource(dataSource)
+    '    Me.CRParameters = parameters
+    'End Sub
 
 #End Region
 
-#Region "Form events"
+#Region " Form events "
 
     Private Sub CrystalReportViewerForm_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-        CRReportDocument.Close()
+        CRViewerControl.ReportSource = Nothing
+        If CRReportDocument IsNot Nothing Then
+            CRReportDocument.Close()
+            CRReportDocument.Dispose()
+        End If
     End Sub
 
     Private Sub CrystalReportViewerForm_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         monitor.TrackFeature("Forms." & Me.Name)
         monitor.TrackFeature("Report." & CRReportDocument.ResourceName)
 
-        If Me.Title IsNot Nothing Then SetFormTitle("Report Preview: " & Me.Title)
-        If Me.CRReportDocument IsNot Nothing Then CRSetDocumentSource(CRViewerControl, Me.CRReportDocument)
-        If Me.CRParameters IsNot Nothing Then CRSetParameters(Me.CRReportDocument, Me.CRParameters)
-        CRViewerTabs(CRViewerControl, False)
+        If Me.CRReportDocument IsNot Nothing Then
+            If Me.CRParameters IsNot Nothing Then CRSetParameters(CRReportDocument, CRParameters)
+            CRViewerControl.ReportSource = Me.CRReportDocument
+            CRViewerTabs(CRViewerControl, False)
+        End If
     End Sub
 
 #End Region
 
-    Private Sub SetFormTitle(ByVal title As String)
-        If title IsNot Nothing Then Me.Text = title
-    End Sub
-
-    Private Sub CRSetDocumentSource(ByVal viewer As CrystalReportViewer, ByVal document As ReportClass)
-        If document IsNot Nothing AndAlso viewer IsNot Nothing Then viewer.ReportSource = document
-    End Sub
-
+#Region " Utilities "
     Private Sub CRSetParameters(ByVal document As ReportClass, ByVal parameters As Dictionary(Of String, String))
         Dim fieldDefinitions As ParameterFieldDefinitions = document.DataDefinition.ParameterFields
         Dim parameterValues As ParameterValues = New ParameterValues()
@@ -136,5 +142,6 @@ Public Class CRViewerForm
             Next
         End If
     End Sub
+#End Region
 
 End Class
