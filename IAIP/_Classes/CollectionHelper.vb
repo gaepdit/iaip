@@ -2,7 +2,6 @@
 
 Public Class CollectionHelper
 
-    ' this is the method I have been using
     Public Shared Function ConvertToDataTable(Of T)(ByVal list As IList) As DataTable
         Dim table As DataTable = CreateTable(Of T)()
         Dim entityType As Type = GetType(T)

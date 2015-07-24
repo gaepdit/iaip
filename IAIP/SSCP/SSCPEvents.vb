@@ -7106,9 +7106,7 @@ Public Class SSCPEvents
         End If
         Try
             Dim acc As CR.Data.CrAcc = New CR.Data.CrAcc(LoadAccFromForm)
-
-            Dim accList As New ArrayList
-            accList.Add(acc)
+            Dim accList As New List(Of CR.Data.CrAcc) From {acc}
 
             Dim dataTable As DataTable = CollectionHelper.ConvertToDataTable(Of CR.Data.CrAcc)(accList)
             Dim title As String = acc.AccReportingYear & " ACC for " & acc.Facility.AirsNumber.FormattedString
