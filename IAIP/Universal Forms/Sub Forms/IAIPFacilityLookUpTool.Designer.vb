@@ -19,55 +19,55 @@ Partial Class IAIPFacilityLookUpTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Me.tcSearchOptions = New System.Windows.Forms.TabControl
-        Me.tpFacilityName = New System.Windows.Forms.TabPage
-        Me.chbHistoricalNames = New System.Windows.Forms.CheckBox
-        Me.btnFacilityNameSearch = New System.Windows.Forms.Button
-        Me.txtFacilityNameSearch = New System.Windows.Forms.TextBox
-        Me.Label69 = New System.Windows.Forms.Label
-        Me.tpAIRSNumber = New System.Windows.Forms.TabPage
-        Me.btnAIRSNumberSearch = New System.Windows.Forms.Button
-        Me.txtAIRSNumberSearch = New System.Windows.Forms.TextBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.tpComplianceSearch = New System.Windows.Forms.TabPage
-        Me.btnComplianceSearch = New System.Windows.Forms.Button
-        Me.txtComplianceEngineer = New System.Windows.Forms.TextBox
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.tpCity = New System.Windows.Forms.TabPage
-        Me.btnCitySearch = New System.Windows.Forms.Button
-        Me.txtCityNameSearch = New System.Windows.Forms.TextBox
-        Me.Label64 = New System.Windows.Forms.Label
-        Me.tpZipCode = New System.Windows.Forms.TabPage
-        Me.btnZipCodeSearch = New System.Windows.Forms.Button
-        Me.txtZipCodeSearch = New System.Windows.Forms.TextBox
-        Me.Label65 = New System.Windows.Forms.Label
-        Me.tpSIC = New System.Windows.Forms.TabPage
-        Me.btnSICCodeSearch = New System.Windows.Forms.Button
-        Me.txtSICCodeSearch = New System.Windows.Forms.TextBox
-        Me.Label70 = New System.Windows.Forms.Label
-        Me.tpCounty = New System.Windows.Forms.TabPage
-        Me.txtCountyNameSearch = New System.Windows.Forms.TextBox
-        Me.btnCountySearch = New System.Windows.Forms.Button
-        Me.Label63 = New System.Windows.Forms.Label
-        Me.tpSubpart = New System.Windows.Forms.TabPage
-        Me.rdbGASIP = New System.Windows.Forms.RadioButton
-        Me.rdbPart63 = New System.Windows.Forms.RadioButton
-        Me.rdbPart60 = New System.Windows.Forms.RadioButton
-        Me.rdbPart61 = New System.Windows.Forms.RadioButton
-        Me.txtSubpartSearch = New System.Windows.Forms.TextBox
-        Me.btnSubpartSearch = New System.Windows.Forms.Button
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.dgvResults = New System.Windows.Forms.DataGridView
-        Me.Label68 = New System.Windows.Forms.Label
-        Me.txtFacilityName = New System.Windows.Forms.TextBox
-        Me.lblSearchResults = New System.Windows.Forms.Label
-        Me.Label67 = New System.Windows.Forms.Label
-        Me.txtAIRSNumber = New System.Windows.Forms.TextBox
-        Me.btnUseAIRSNumber = New System.Windows.Forms.Button
-        Me.btnCancel = New System.Windows.Forms.Button
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip
-        Me.ClearButton = New System.Windows.Forms.ToolStripButton
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Me.tcSearchOptions = New System.Windows.Forms.TabControl()
+        Me.tpFacilityName = New System.Windows.Forms.TabPage()
+        Me.chbHistoricalNames = New System.Windows.Forms.CheckBox()
+        Me.btnFacilityNameSearch = New System.Windows.Forms.Button()
+        Me.txtFacilityNameSearch = New System.Windows.Forms.TextBox()
+        Me.Label69 = New System.Windows.Forms.Label()
+        Me.tpAIRSNumber = New System.Windows.Forms.TabPage()
+        Me.btnAIRSNumberSearch = New System.Windows.Forms.Button()
+        Me.txtAIRSNumberSearch = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.tpComplianceSearch = New System.Windows.Forms.TabPage()
+        Me.btnComplianceSearch = New System.Windows.Forms.Button()
+        Me.txtComplianceEngineer = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.tpCity = New System.Windows.Forms.TabPage()
+        Me.btnCitySearch = New System.Windows.Forms.Button()
+        Me.txtCityNameSearch = New System.Windows.Forms.TextBox()
+        Me.Label64 = New System.Windows.Forms.Label()
+        Me.tpZipCode = New System.Windows.Forms.TabPage()
+        Me.btnZipCodeSearch = New System.Windows.Forms.Button()
+        Me.txtZipCodeSearch = New System.Windows.Forms.TextBox()
+        Me.Label65 = New System.Windows.Forms.Label()
+        Me.tpSIC = New System.Windows.Forms.TabPage()
+        Me.btnSICCodeSearch = New System.Windows.Forms.Button()
+        Me.txtSICCodeSearch = New System.Windows.Forms.TextBox()
+        Me.Label70 = New System.Windows.Forms.Label()
+        Me.tpCounty = New System.Windows.Forms.TabPage()
+        Me.txtCountyNameSearch = New System.Windows.Forms.TextBox()
+        Me.btnCountySearch = New System.Windows.Forms.Button()
+        Me.Label63 = New System.Windows.Forms.Label()
+        Me.tpSubpart = New System.Windows.Forms.TabPage()
+        Me.rdbGASIP = New System.Windows.Forms.RadioButton()
+        Me.rdbPart63 = New System.Windows.Forms.RadioButton()
+        Me.rdbPart60 = New System.Windows.Forms.RadioButton()
+        Me.rdbPart61 = New System.Windows.Forms.RadioButton()
+        Me.txtSubpartSearch = New System.Windows.Forms.TextBox()
+        Me.btnSubpartSearch = New System.Windows.Forms.Button()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.dgvResults = New System.Windows.Forms.DataGridView()
+        Me.Label68 = New System.Windows.Forms.Label()
+        Me.txtFacilityName = New System.Windows.Forms.TextBox()
+        Me.lblSearchResults = New System.Windows.Forms.Label()
+        Me.Label67 = New System.Windows.Forms.Label()
+        Me.txtAIRSNumber = New System.Windows.Forms.TextBox()
+        Me.btnUseAIRSNumber = New System.Windows.Forms.Button()
+        Me.btnCancel = New System.Windows.Forms.Button()
+        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.ClearButton = New System.Windows.Forms.ToolStripButton()
         Me.tcSearchOptions.SuspendLayout()
         Me.tpFacilityName.SuspendLayout()
         Me.tpAIRSNumber.SuspendLayout()
@@ -449,11 +449,11 @@ Partial Class IAIPFacilityLookUpTool
         Me.dgvResults.AllowUserToAddRows = False
         Me.dgvResults.AllowUserToDeleteRows = False
         Me.dgvResults.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvResults.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvResults.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvResults.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvResults.Location = New System.Drawing.Point(0, 215)
         Me.dgvResults.Name = "dgvResults"
@@ -509,7 +509,7 @@ Partial Class IAIPFacilityLookUpTool
         '
         'btnUseAIRSNumber
         '
-        Me.btnUseAIRSNumber.DialogResult = DialogResult.OK
+        Me.btnUseAIRSNumber.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.btnUseAIRSNumber.Enabled = False
         Me.btnUseAIRSNumber.Location = New System.Drawing.Point(306, 138)
         Me.btnUseAIRSNumber.Name = "btnUseAIRSNumber"
@@ -519,7 +519,7 @@ Partial Class IAIPFacilityLookUpTool
         '
         'btnCancel
         '
-        Me.btnCancel.DialogResult = DialogResult.Cancel
+        Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.btnCancel.Location = New System.Drawing.Point(382, 138)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(70, 46)

@@ -1322,6 +1322,7 @@ Public Class IAIPFacilitySummary
         AndAlso Apb.ApbFacilityId.IsValidAirsNumberFormat(facilityLookupDialog.SelectedAirsNumber) Then
             Me.AirsNumber = facilityLookupDialog.SelectedAirsNumber
         End If
+        facilityLookupDialog.Dispose()
     End Sub
 
 #End Region

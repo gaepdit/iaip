@@ -23,57 +23,57 @@ Partial Class SBEAPClientSearchTool
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SBEAPClientSearchTool))
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip
-        Me.tsbClear = New System.Windows.Forms.ToolStripButton
-        Me.TabControl1 = New System.Windows.Forms.TabControl
-        Me.TPClientCompanyName = New System.Windows.Forms.TabPage
-        Me.chbSearchHistoricalNames = New System.Windows.Forms.CheckBox
-        Me.btnSearchCompanyName = New System.Windows.Forms.Button
-        Me.txtSearchCompanyName = New System.Windows.Forms.TextBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.TPAddressSearch = New System.Windows.Forms.TabPage
-        Me.btnSearchStreet = New System.Windows.Forms.Button
-        Me.txtSearchStreet = New System.Windows.Forms.TextBox
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.TPCitySearch = New System.Windows.Forms.TabPage
-        Me.btnSearchCity = New System.Windows.Forms.Button
-        Me.txtSearchCity = New System.Windows.Forms.TextBox
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.TPZipCodeSearch = New System.Windows.Forms.TabPage
-        Me.btnSearchZipCode = New System.Windows.Forms.Button
-        Me.txtSearchZipCode = New System.Windows.Forms.TextBox
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.TPCountySearch = New System.Windows.Forms.TabPage
-        Me.btnSearchCounty = New System.Windows.Forms.Button
-        Me.txtSearchCounty = New System.Windows.Forms.TextBox
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.TPSICSearch = New System.Windows.Forms.TabPage
-        Me.btnSearchSIC = New System.Windows.Forms.Button
-        Me.txtSearchSIC = New System.Windows.Forms.TextBox
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.TPNAICSSearch = New System.Windows.Forms.TabPage
-        Me.btnSearchNAICS = New System.Windows.Forms.Button
-        Me.txtSearchNAICS = New System.Windows.Forms.TextBox
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.TPAIRSNumberSearch = New System.Windows.Forms.TabPage
-        Me.btnSearchAIRSNumber = New System.Windows.Forms.Button
-        Me.txtSearchAIRSNumber = New System.Windows.Forms.TextBox
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.TPNumberOfEmployees = New System.Windows.Forms.TabPage
-        Me.mtbSearchNumberOfEmployees = New System.Windows.Forms.MaskedTextBox
-        Me.Panel2 = New System.Windows.Forms.Panel
-        Me.rdbEmployeeGreaterThan = New System.Windows.Forms.RadioButton
-        Me.rdbEmployeeLessThan = New System.Windows.Forms.RadioButton
-        Me.btnSearchNumberOfEmployees = New System.Windows.Forms.Button
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.dgvClientInformation = New System.Windows.Forms.DataGridView
-        Me.txtClientCompanyName = New System.Windows.Forms.TextBox
-        Me.CompanyNameLabel = New System.Windows.Forms.Label
-        Me.UseSelection = New System.Windows.Forms.Button
-        Me.txtClientID = New System.Windows.Forms.TextBox
-        Me.CustomerIDLabel = New System.Windows.Forms.Label
-        Me.Cancel = New System.Windows.Forms.Button
-        Me.lblSearchResults = New System.Windows.Forms.Label
+        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.tsbClear = New System.Windows.Forms.ToolStripButton()
+        Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.TPClientCompanyName = New System.Windows.Forms.TabPage()
+        Me.chbSearchHistoricalNames = New System.Windows.Forms.CheckBox()
+        Me.btnSearchCompanyName = New System.Windows.Forms.Button()
+        Me.txtSearchCompanyName = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.TPAddressSearch = New System.Windows.Forms.TabPage()
+        Me.btnSearchStreet = New System.Windows.Forms.Button()
+        Me.txtSearchStreet = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.TPCitySearch = New System.Windows.Forms.TabPage()
+        Me.btnSearchCity = New System.Windows.Forms.Button()
+        Me.txtSearchCity = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.TPZipCodeSearch = New System.Windows.Forms.TabPage()
+        Me.btnSearchZipCode = New System.Windows.Forms.Button()
+        Me.txtSearchZipCode = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.TPCountySearch = New System.Windows.Forms.TabPage()
+        Me.btnSearchCounty = New System.Windows.Forms.Button()
+        Me.txtSearchCounty = New System.Windows.Forms.TextBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.TPSICSearch = New System.Windows.Forms.TabPage()
+        Me.btnSearchSIC = New System.Windows.Forms.Button()
+        Me.txtSearchSIC = New System.Windows.Forms.TextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.TPNAICSSearch = New System.Windows.Forms.TabPage()
+        Me.btnSearchNAICS = New System.Windows.Forms.Button()
+        Me.txtSearchNAICS = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.TPAIRSNumberSearch = New System.Windows.Forms.TabPage()
+        Me.btnSearchAIRSNumber = New System.Windows.Forms.Button()
+        Me.txtSearchAIRSNumber = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.TPNumberOfEmployees = New System.Windows.Forms.TabPage()
+        Me.mtbSearchNumberOfEmployees = New System.Windows.Forms.MaskedTextBox()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.rdbEmployeeGreaterThan = New System.Windows.Forms.RadioButton()
+        Me.rdbEmployeeLessThan = New System.Windows.Forms.RadioButton()
+        Me.btnSearchNumberOfEmployees = New System.Windows.Forms.Button()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.dgvClientInformation = New System.Windows.Forms.DataGridView()
+        Me.txtClientCompanyName = New System.Windows.Forms.TextBox()
+        Me.CompanyNameLabel = New System.Windows.Forms.Label()
+        Me.UseSelection = New System.Windows.Forms.Button()
+        Me.txtClientID = New System.Windows.Forms.TextBox()
+        Me.CustomerIDLabel = New System.Windows.Forms.Label()
+        Me.Cancel = New System.Windows.Forms.Button()
+        Me.lblSearchResults = New System.Windows.Forms.Label()
         Me.ToolStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TPClientCompanyName.SuspendLayout()
@@ -510,8 +510,8 @@ Partial Class SBEAPClientSearchTool
         'dgvClientInformation
         '
         Me.dgvClientInformation.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvClientInformation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvClientInformation.Location = New System.Drawing.Point(0, 194)
         Me.dgvClientInformation.Name = "dgvClientInformation"
@@ -537,7 +537,7 @@ Partial Class SBEAPClientSearchTool
         '
         'UseSelection
         '
-        Me.UseSelection.DialogResult = DialogResult.OK
+        Me.UseSelection.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.UseSelection.Enabled = False
         Me.UseSelection.Location = New System.Drawing.Point(286, 117)
         Me.UseSelection.Name = "UseSelection"
@@ -565,7 +565,7 @@ Partial Class SBEAPClientSearchTool
         '
         'Cancel
         '
-        Me.Cancel.DialogResult = DialogResult.Cancel
+        Me.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.Cancel.Location = New System.Drawing.Point(357, 117)
         Me.Cancel.Name = "Cancel"
         Me.Cancel.Size = New System.Drawing.Size(65, 46)
