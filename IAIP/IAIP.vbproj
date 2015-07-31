@@ -189,6 +189,9 @@
       <DependentUpon>crSSPPConfirmationLetter.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SSCP\SubPages\SSCPEnforcementChecklist.Designer.vb">
+      <DependentUpon>SSCPEnforcementChecklist.vb</DependentUpon>
+    </Compile>
     <Compile Include="Universal Forms\BaseForm.Designer.vb">
       <DependentUpon>BaseForm.vb</DependentUpon>
     </Compile>
