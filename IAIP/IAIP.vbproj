@@ -189,14 +189,41 @@
       <DependentUpon>crSSPPConfirmationLetter.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Fees\PASPFeeDeposits.Designer.vb">
+      <DependentUpon>PASPFeeDeposits.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ISMP\ISMPManagersTools.Designer.vb">
+      <DependentUpon>ISMPManagersTools.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ISMP\ISMPMemo.Designer.vb">
+      <DependentUpon>ISMPMemo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ISMP\ISMPTestMemoViewer.Designer.vb">
+      <DependentUpon>ISMPTestMemoViewer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ISMP\SubPages\ISMPAddPollutants.Designer.vb">
+      <DependentUpon>ISMPAddPollutants.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ISMP\SubPages\ISMPAddTestingFirms.Designer.vb">
+      <DependentUpon>ISMPAddTestingFirms.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SSCP\SSCPEvents.Designer.vb">
+      <DependentUpon>SSCPEvents.vb</DependentUpon>
+    </Compile>
     <Compile Include="SSCP\SubPages\SSCPEnforcementChecklist.Designer.vb">
       <DependentUpon>SSCPEnforcementChecklist.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SSCP\SubPages\SSCPWorkEntry.Designer.vb">
+      <DependentUpon>SSCPWorkEntry.vb</DependentUpon>
     </Compile>
     <Compile Include="Universal Forms\BaseForm.Designer.vb">
       <DependentUpon>BaseForm.vb</DependentUpon>
     </Compile>
     <Compile Include="Universal Forms\BaseForm.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universal Forms\ExceptionDialog.Designer.vb">
+      <DependentUpon>ExceptionDialog.vb</DependentUpon>
     </Compile>
     <Compile Include="_Classes\ListViewItemComparer.vb">
       <SubType>Code</SubType>
