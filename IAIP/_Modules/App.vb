@@ -159,7 +159,7 @@ Module App
 
     Public Sub TestCrystalReportsInstallation()
         Try
-            System.Reflection.Assembly.Load("CrystalDecisions.Windows.Forms, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304")
+            System.Reflection.Assembly.Load("CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304")
         Catch ex As FileNotFoundException
             ShowCrystalReportsSupportMessage()
         End Try
