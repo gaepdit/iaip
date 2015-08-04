@@ -277,7 +277,7 @@ Partial Class IAIPLogIn
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Snow
-        Me.ClientSize = New System.Drawing.Size(742, 393)
+        Me.ClientSize = New System.Drawing.Size(742, 414)
         Me.Controls.Add(Me.LogoBox)
         Me.Controls.Add(Me.lblCurrentVersionMessage)
         Me.Controls.Add(Me.lblLicenseLabel)
