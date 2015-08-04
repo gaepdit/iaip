@@ -28,7 +28,6 @@ Public Class IAIPLogIn
 #If BETA Then
             Me.LogoBox.Image = My.Resources.Resources.BetaLogo
             lblIAIP.Text = "IAIP Beta Test"
-            lblCurrentVersionMessage.Text = lblCurrentVersionMessage.Text & " β"
             ToggleServerEnvironment()
 #End If
 
@@ -90,6 +89,9 @@ Public Class IAIPLogIn
             .Text = String.Format("Version: {0}", currentVersion.ToString)
             .Visible = True
         End With
+#If BETA Then
+        lblCurrentVersionMessage.Text = lblCurrentVersionMessage.Text & " β"
+#End If
     End Sub
 
     Private Sub CheckLanguageRegistrySetting()
