@@ -19,68 +19,69 @@ Partial Class IAIPNavigation
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPNavigation))
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.mmiFile = New System.Windows.Forms.MenuItem
-        Me.mmiExit = New System.Windows.Forms.MenuItem
-        Me.mmiTools = New System.Windows.Forms.MenuItem
-        Me.mmiExport = New System.Windows.Forms.MenuItem
-        Me.mmiHelp = New System.Windows.Forms.MenuItem
-        Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
-        Me.mmiResetForm = New System.Windows.Forms.MenuItem
-        Me.mmiSeparator1 = New System.Windows.Forms.MenuItem
-        Me.mmiAbout = New System.Windows.Forms.MenuItem
-        Me.mmiTesting = New System.Windows.Forms.MenuItem
-        Me.mmiPing = New System.Windows.Forms.MenuItem
-        Me.lblTitle = New System.Windows.Forms.Label
-        Me.flpNavButtons = New System.Windows.Forms.FlowLayoutPanel
-        Me.grpQuickAccess = New System.Windows.Forms.GroupBox
-        Me.btnOpenTestReport = New System.Windows.Forms.Button
-        Me.btnOpenApplication = New System.Windows.Forms.Button
-        Me.btnOpenTestLog = New System.Windows.Forms.Button
-        Me.btnOpenSscpItem = New System.Windows.Forms.Button
-        Me.btnOpenEnforcement = New System.Windows.Forms.Button
-        Me.btnOpenFacilitySummary = New System.Windows.Forms.Button
-        Me.SbeapQuickAccessPanel = New System.Windows.Forms.Panel
-        Me.txtOpenSbeapCaseLog = New Iaip.CueTextBox
-        Me.btnOpenSbeapCaseLog = New System.Windows.Forms.Button
-        Me.btnOpenSbeapClient = New System.Windows.Forms.Button
-        Me.SbeapCaseLogNumberLabel = New System.Windows.Forms.Label
-        Me.SbeapClientIDLabel = New System.Windows.Forms.Label
-        Me.txtOpenSbeapClient = New Iaip.CueTextBox
-        Me.txtOpenTestLog = New Iaip.CueTextBox
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.lblOpenFacilitySummary = New System.Windows.Forms.Label
-        Me.txtOpenFacilitySummary = New Iaip.CueTextBox
-        Me.txtOpenSscpItem = New Iaip.CueTextBox
-        Me.lblOpenSscpItem = New System.Windows.Forms.Label
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.txtOpenApplication = New Iaip.CueTextBox
-        Me.lblOpenEnforcement = New System.Windows.Forms.Label
-        Me.txtOpenEnforcement = New Iaip.CueTextBox
-        Me.lblOpenTestReport = New System.Windows.Forms.Label
-        Me.txtOpenTestReport = New Iaip.CueTextBox
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.pnlName = New System.Windows.Forms.ToolStripStatusLabel
-        Me.pnlProgram = New System.Windows.Forms.ToolStripStatusLabel
-        Me.pnlDate = New System.Windows.Forms.ToolStripStatusLabel
-        Me.pnlDbEnv = New System.Windows.Forms.ToolStripStatusLabel
-        Me.rdbPMView = New System.Windows.Forms.RadioButton
-        Me.rdbUCView = New System.Windows.Forms.RadioButton
-        Me.rdbStaffView = New System.Windows.Forms.RadioButton
-        Me.btnChangeWorkViewerContext = New System.Windows.Forms.Button
-        Me.lblWorkViewerContext = New System.Windows.Forms.Label
-        Me.cboWorkViewerContext = New System.Windows.Forms.ComboBox
-        Me.lblResultsCount = New System.Windows.Forms.Label
-        Me.bgrLoadWorkViewer = New System.ComponentModel.BackgroundWorker
-        Me.lblMessageLabel = New System.Windows.Forms.Label
-        Me.bgrUserPermissions = New System.ComponentModel.BackgroundWorker
-        Me.pnlCurrentList = New System.Windows.Forms.Panel
-        Me.ListChangerPanel = New System.Windows.Forms.Panel
-        Me.pnlContextSubView = New System.Windows.Forms.Panel
-        Me.dgvWorkViewer = New System.Windows.Forms.DataGridView
-        Me.mmiThrowError = New System.Windows.Forms.MenuItem
+        Me.mmiFile = New System.Windows.Forms.MenuItem()
+        Me.mmiExit = New System.Windows.Forms.MenuItem()
+        Me.mmiTools = New System.Windows.Forms.MenuItem()
+        Me.mmiExport = New System.Windows.Forms.MenuItem()
+        Me.mmiHelp = New System.Windows.Forms.MenuItem()
+        Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem()
+        Me.mmiResetForm = New System.Windows.Forms.MenuItem()
+        Me.mmiSeparator1 = New System.Windows.Forms.MenuItem()
+        Me.mmiAbout = New System.Windows.Forms.MenuItem()
+        Me.mmiTesting = New System.Windows.Forms.MenuItem()
+        Me.mmiPing = New System.Windows.Forms.MenuItem()
+        Me.mmiThrowError = New System.Windows.Forms.MenuItem()
+        Me.lblTitle = New System.Windows.Forms.Label()
+        Me.flpNavButtons = New System.Windows.Forms.FlowLayoutPanel()
+        Me.grpQuickAccess = New System.Windows.Forms.GroupBox()
+        Me.btnOpenTestReport = New System.Windows.Forms.Button()
+        Me.btnOpenApplication = New System.Windows.Forms.Button()
+        Me.btnOpenTestLog = New System.Windows.Forms.Button()
+        Me.btnOpenSscpItem = New System.Windows.Forms.Button()
+        Me.btnOpenEnforcement = New System.Windows.Forms.Button()
+        Me.btnOpenFacilitySummary = New System.Windows.Forms.Button()
+        Me.SbeapQuickAccessPanel = New System.Windows.Forms.Panel()
+        Me.txtOpenSbeapCaseLog = New Iaip.CueTextBox()
+        Me.btnOpenSbeapCaseLog = New System.Windows.Forms.Button()
+        Me.btnOpenSbeapClient = New System.Windows.Forms.Button()
+        Me.SbeapCaseLogNumberLabel = New System.Windows.Forms.Label()
+        Me.SbeapClientIDLabel = New System.Windows.Forms.Label()
+        Me.txtOpenSbeapClient = New Iaip.CueTextBox()
+        Me.txtOpenTestLog = New Iaip.CueTextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.lblOpenFacilitySummary = New System.Windows.Forms.Label()
+        Me.txtOpenFacilitySummary = New Iaip.CueTextBox()
+        Me.txtOpenSscpItem = New Iaip.CueTextBox()
+        Me.lblOpenSscpItem = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.txtOpenApplication = New Iaip.CueTextBox()
+        Me.lblOpenEnforcement = New System.Windows.Forms.Label()
+        Me.txtOpenEnforcement = New Iaip.CueTextBox()
+        Me.lblOpenTestReport = New System.Windows.Forms.Label()
+        Me.txtOpenTestReport = New Iaip.CueTextBox()
+        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.pnlName = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.pnlProgram = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.pnlDate = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.pnlDbEnv = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.rdbPMView = New System.Windows.Forms.RadioButton()
+        Me.rdbUCView = New System.Windows.Forms.RadioButton()
+        Me.rdbStaffView = New System.Windows.Forms.RadioButton()
+        Me.btnChangeWorkViewerContext = New System.Windows.Forms.Button()
+        Me.lblWorkViewerContext = New System.Windows.Forms.Label()
+        Me.cboWorkViewerContext = New System.Windows.Forms.ComboBox()
+        Me.lblResultsCount = New System.Windows.Forms.Label()
+        Me.bgrLoadWorkViewer = New System.ComponentModel.BackgroundWorker()
+        Me.lblMessageLabel = New System.Windows.Forms.Label()
+        Me.bgrUserPermissions = New System.ComponentModel.BackgroundWorker()
+        Me.pnlCurrentList = New System.Windows.Forms.Panel()
+        Me.ListChangerPanel = New System.Windows.Forms.Panel()
+        Me.pnlContextSubView = New System.Windows.Forms.Panel()
+        Me.dgvWorkViewer = New System.Windows.Forms.DataGridView()
         Me.grpQuickAccess.SuspendLayout()
         Me.SbeapQuickAccessPanel.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -155,6 +156,11 @@ Partial Class IAIPNavigation
         '
         Me.mmiPing.Index = 0
         Me.mmiPing.Text = "PingDB"
+        '
+        'mmiThrowError
+        '
+        Me.mmiThrowError.Index = 1
+        Me.mmiThrowError.Text = "Throw error"
         '
         'lblTitle
         '
@@ -296,7 +302,7 @@ Partial Class IAIPNavigation
         'SbeapQuickAccessPanel
         '
         Me.SbeapQuickAccessPanel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.SbeapQuickAccessPanel.Controls.Add(Me.txtOpenSbeapCaseLog)
         Me.SbeapQuickAccessPanel.Controls.Add(Me.btnOpenSbeapCaseLog)
         Me.SbeapQuickAccessPanel.Controls.Add(Me.btnOpenSbeapClient)
@@ -626,7 +632,7 @@ Partial Class IAIPNavigation
         'cboWorkViewerContext
         '
         Me.cboWorkViewerContext.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cboWorkViewerContext.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboWorkViewerContext.FormattingEnabled = True
         Me.cboWorkViewerContext.Location = New System.Drawing.Point(73, 6)
@@ -678,7 +684,7 @@ Partial Class IAIPNavigation
         'ListChangerPanel
         '
         Me.ListChangerPanel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ListChangerPanel.Controls.Add(Me.btnChangeWorkViewerContext)
         Me.ListChangerPanel.Controls.Add(Me.lblWorkViewerContext)
         Me.ListChangerPanel.Controls.Add(Me.cboWorkViewerContext)
@@ -720,11 +726,6 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.Size = New System.Drawing.Size(686, 187)
         Me.dgvWorkViewer.TabIndex = 4
         '
-        'mmiThrowError
-        '
-        Me.mmiThrowError.Index = 1
-        Me.mmiThrowError.Text = "Throw error"
-        '
         'IAIPNavigation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -737,6 +738,7 @@ Partial Class IAIPNavigation
         Me.Controls.Add(Me.lblTitle)
         Me.Controls.Add(Me.flpNavButtons)
         Me.Controls.Add(Me.lblMessageLabel)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Menu = Me.MainMenu1
         Me.MinimumSize = New System.Drawing.Size(762, 330)

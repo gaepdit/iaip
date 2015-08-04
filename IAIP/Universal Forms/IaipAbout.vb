@@ -1,8 +1,14 @@
-Public Class IaipAbout
+﻿Public Class IaipAbout
 
     Private Sub IaipAbout_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         monitor.TrackFeature("Forms." & Me.Name)
         lblVersion.Text = "Version " & GetCurrentVersion().ToString
+
+#If BETA Then
+        lblVersion.Text = lblVersion.Text & " β"
+        Me.Text = "About IAIP Beta"
+#End If
+
     End Sub
 
     Private Sub lblSupport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblSupport.LinkClicked

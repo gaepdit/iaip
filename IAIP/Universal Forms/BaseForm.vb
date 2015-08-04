@@ -61,6 +61,10 @@ Public Class BaseForm
         End If
 #End If
 
+#If BETA Then
+        Me.Icon = My.Resources.BetaIcon
+#End If
+
         LoadThisFormSettings()
     End Sub
 
