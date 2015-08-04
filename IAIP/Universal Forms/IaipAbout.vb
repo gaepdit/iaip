@@ -7,6 +7,7 @@
 #If BETA Then
         lblVersion.Text = lblVersion.Text & " β"
         Me.Text = "About IAIP Beta"
+        Me.LogoBox.Image = My.Resources.Resources.BetaLogo
 #End If
 
     End Sub

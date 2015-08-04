@@ -314,7 +314,7 @@ Public Class IAIPLogIn
         End If
 
 #If BETA Then
-        Me.BackColor = Color.LavenderBlush
+        Me.BackColor = Color.Snow
 #End If
 
     End Sub

@@ -20,6 +20,7 @@ Partial Class IAIPLogIn
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPLogIn))
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.mmiFile = New System.Windows.Forms.MenuItem()
         Me.mmiExit = New System.Windows.Forms.MenuItem()
@@ -275,7 +276,7 @@ Partial Class IAIPLogIn
         Me.AcceptButton = Me.btnLoginButton
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.LavenderBlush
+        Me.BackColor = System.Drawing.Color.Snow
         Me.ClientSize = New System.Drawing.Size(742, 393)
         Me.Controls.Add(Me.LogoBox)
         Me.Controls.Add(Me.lblCurrentVersionMessage)
@@ -292,6 +293,7 @@ Partial Class IAIPLogIn
         Me.Controls.Add(Me.btnLoginButton)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.HelpButton = True
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MaximizeBox = False
         Me.Menu = Me.MainMenu1
