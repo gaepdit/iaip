@@ -50,6 +50,10 @@ Public Class IAIPNavigation
         ' Start various Timers
         AppTimers.StartAppTimers()
 
+#If BETA Then
+        lblTitle.Text = "IAIP Navigation Screen"
+        Me.Text = "IAIP Beta"
+#End If
     End Sub
 
     Private Sub IAIPNavigation_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
