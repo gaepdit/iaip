@@ -1980,47 +1980,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
     Private Sub btnExportToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportToExcel.Click
-        'Dim ExcelApp As New Excel.Application
-        Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-        Dim i, j As Integer
-
-        Try
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-
-            If dgvDepositsAndPayments.RowCount <> 0 Then
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
-
-                    'For displaying the column name in the the excel file.
-                    For i = 0 To dgvDepositsAndPayments.ColumnCount - 1
-                        .Cells(1, i + 1) = dgvDepositsAndPayments.Columns(i).HeaderText.ToString
-                    Next
-
-                    For i = 0 To dgvDepositsAndPayments.ColumnCount - 1
-                        For j = 0 To dgvDepositsAndPayments.RowCount - 1
-                            .Cells(j + 2, i + 1).numberformat = "@"
-                            .Cells(j + 2, i + 1).value = dgvDepositsAndPayments.Item(i, j).Value.ToString
-                        Next
-                    Next
-
-                End With
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-        Catch ex As Exception
-            If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
-                MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
-            Else
-                ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-            End If
-        Finally
-        End Try
+        dgvDepositsAndPayments.ExportToExcel(Me)
     End Sub
    
 
@@ -3110,66 +3070,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
     Private Sub btnExportFeeReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportFeeReport.Click
-        'Dim ExcelApp As New Excel.Application
-        Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        '  Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-        Dim i, j As Integer
-
-        Try
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-
-            If TPQuickFeeReport.Focus = True Then
-                If dgvLateFeeReport.RowCount <> 0 Then
-                    With ExcelApp
-                        .SheetsInNewWorkbook = 1
-                        .Workbooks.Add()
-                        .Worksheets(1).Select()
-
-                        'For displaying the column name in the the excel file.
-                        For i = 0 To dgvLateFeeReport.ColumnCount - 1
-                            .Cells(1, i + 1) = dgvLateFeeReport.Columns(i).HeaderText.ToString
-                        Next
-
-                        For i = 0 To dgvLateFeeReport.ColumnCount - 1
-                            For j = 0 To dgvLateFeeReport.RowCount - 1
-                                .Cells(j + 2, i + 1).numberformat = "@"
-                                .Cells(j + 2, i + 1).value = dgvLateFeeReport.Item(i, j).Value.ToString
-                            Next
-                        Next
-
-                    End With
-                End If
-            Else
-                If dgvLateFeePayerReport.RowCount <> 0 Then
-                    With ExcelApp
-                        .SheetsInNewWorkbook = 1
-                        .Workbooks.Add()
-                        .Worksheets(1).Select()
-
-                        'For displaying the column name in the the excel file.
-                        For i = 0 To dgvLateFeePayerReport.ColumnCount - 1
-                            .Cells(1, i + 1) = dgvLateFeePayerReport.Columns(i).HeaderText.ToString
-                        Next
-
-                        For i = 0 To dgvLateFeePayerReport.ColumnCount - 1
-                            For j = 0 To dgvLateFeePayerReport.RowCount - 1
-                                .Cells(j + 2, i + 1).numberformat = "@"
-                                .Cells(j + 2, i + 1).value = dgvLateFeePayerReport.Item(i, j).Value.ToString
-                            Next
-                        Next
-
-                    End With
-                End If
-            End If
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        dgvLateFeeReport.ExportToExcel(Me)
     End Sub
     Private Sub chbDepositDateSearch_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbDepositDateSearch.CheckedChanged
         Try
@@ -9262,45 +9163,7 @@ Public Class PASPFeeStatistics
  
    
     Private Sub btnExportFeeStats_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportFeeStats.Click
-        Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        Dim i, j As Integer
-
-        Try
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-
-            If dgvFeeStats.RowCount <> 0 Then
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
-
-                    'For displaying the column name in the the excel file.
-                    For i = 0 To dgvFeeStats.ColumnCount - 1
-                        .Cells(1, i + 1) = dgvFeeStats.Columns(i).HeaderText.ToString
-                    Next
-
-                    For i = 0 To dgvFeeStats.ColumnCount - 1
-                        For j = 0 To dgvFeeStats.RowCount - 1
-                            .Cells(j + 2, i + 1).numberformat = "@"
-                            .Cells(j + 2, i + 1).value = dgvFeeStats.Item(i, j).Value.ToString
-                        Next
-                    Next
-
-                End With
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-        Catch ex As Exception
-            If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
-                MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
-            Else
-                ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-            End If
-        Finally
-        End Try
+        dgvFeeStats.ExportToExcel(Me)
     End Sub
 
     Private Sub dgvFeeStats_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvFeeStats.MouseUp
