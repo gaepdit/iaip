@@ -7,13 +7,13 @@ Imports System.ComponentModel
 
 Module Extensions
 
-#Region "DataGridView"
+#Region " DataGridView "
 
-#Region "Columns"
+#Region " DataGridView Columns "
 
-    <Extension()> _
-    Public Sub SanelyResizeColumns(ByVal datagridview As DataGridView, _
-                                      Optional ByVal maxWidth As Integer = 275)
+    <Extension()>
+    Public Sub SanelyResizeColumns(ByVal datagridview As DataGridView,
+                                   Optional ByVal maxWidth As Integer = 275)
 
         ' Resize all columns to fit current content:
         datagridview.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
@@ -32,42 +32,86 @@ Module Extensions
 
     End Sub
 
-    <Extension()> _
+    <Extension()>
     Public Sub MakeColumnsLookLikeLinks(ByVal dgv As DataGridView, ByVal col As Integer)
         dgv.MakeColumnsLookLikeLinks(New Integer() {col})
     End Sub
 
-    <Extension()> _
+    <Extension()>
     Public Sub MakeColumnsLookLikeLinks(ByVal dgv As DataGridView, ByVal cols As Integer())
         For Each col As Integer In cols
             dgv.Columns(col).DefaultCellStyle.ForeColor = SystemColors.HotTrack
         Next
     End Sub
 
-    <Extension()> _
+    <Extension()>
     Public Sub MakeCellLookLikeHoveredLink(ByVal dgv As DataGridView, ByVal row As Integer, ByVal col As Integer, Optional ByVal hover As Boolean = True)
         If hover Then
             dgv.Cursor = Cursors.Hand
             dgv.Rows(row).Cells(col).Style.ForeColor = Color.Blue
-            dgv.Rows(row).Cells(col).Style.Font = _
+            dgv.Rows(row).Cells(col).Style.Font =
                 New Font(dgv.DefaultCellStyle.Font, FontStyle.Underline)
         Else
             dgv.Cursor = Cursors.Default
             dgv.Rows(row).Cells(col).Style.ForeColor = SystemColors.HotTrack
-            dgv.Rows(row).Cells(col).Style.Font = _
+            dgv.Rows(row).Cells(col).Style.Font =
                 New Font(dgv.DefaultCellStyle.Font, FontStyle.Regular)
         End If
     End Sub
 
 #End Region
 
-#Region "Excel export"
+#Region " DataGridView Excel export "
 
-    <Extension()> _
-    Public Sub ExportToExcel(ByVal dataGridView As DataGridView, _
-                                  Optional ByVal sender As Object = Nothing)
-
+    <Extension()>
+    Public Sub ExportToExcel(ByVal dataGridView As DataGridView, Optional ByVal sender As Object = Nothing)
         If dataGridView Is Nothing OrElse dataGridView.RowCount = 0 Then Exit Sub
+
+        Dim dataTable As DataTable = GetDataTableFromDataGridView(dataGridView)
+        dataTable.ExportToExcel(sender)
+    End Sub
+
+    Private Function GetDataTableFromDataGridView(ByVal dataGridView As DataGridView) As DataTable
+        If dataGridView Is Nothing OrElse dataGridView.RowCount = 0 Then Return Nothing
+
+        Dim dataTable As New DataTable
+
+        If TypeOf dataGridView.DataSource Is DataSet Then
+            dataTable = dataGridView.DataSource.Tables(dataGridView.DataMember)
+        ElseIf TypeOf dataGridView.DataSource Is DataTable Then
+            dataTable = dataGridView.DataSource
+        Else
+            Dim dtColumn As DataColumn
+            Dim dtRow As DataRow
+            For Each dgvColumn As DataGridViewColumn In dataGridView.Columns
+                dtColumn = dataTable.Columns.Add(dgvColumn.Name)
+            Next
+            For Each dgvRow As DataGridViewRow In dataGridView.Rows
+                dtRow = dataTable.NewRow
+                For i As Integer = 0 To dataGridView.ColumnCount - 1
+                    dtRow.Item(i) = dgvRow.Cells(i).Value
+                Next
+                dataTable.Rows.Add(dtRow)
+            Next
+        End If
+
+        ' Replace column names with the defined column header text
+        For i As Integer = 0 To dataGridView.Columns.Count - 1
+            dataTable.Columns(i).Caption = dataGridView.Columns(i).HeaderText
+        Next
+
+        Return dataTable
+    End Function
+
+#End Region
+
+#End Region
+
+#Region " DataTable "
+
+    <Extension()>
+    Public Sub ExportToExcel(ByVal dataTable As DataTable, Optional ByVal sender As Object = Nothing)
+        If dataTable Is Nothing OrElse dataTable.Rows.Count = 0 Then Exit Sub
 
         If sender IsNot Nothing Then
             sender.Cursor = Cursors.AppStarting
@@ -77,13 +121,19 @@ Module Extensions
         With dialog
             .Filter = "Excel File (*.xlsx)|*.xlsx"
             .DefaultExt = ".xlsx"
-            .FileName = "Export_" & System.DateTime.Now.ToString("yyyy-MM-dd-HH.mm.ss") & ".xlsx"
+            .FileName = "Export_" & System.DateTime.Now.ToString("yyyy-MM-dd_HH.mm.ss") & ".xlsx"
             .InitialDirectory = GetUserSetting(UserSetting.ExcelExportLocation)
         End With
 
         If dialog.ShowDialog() = DialogResult.OK Then
             Dim errorMessage As String = ""
-            Dim result As Boolean = SaveAsExcelFile(dataGridView, dialog.FileName, errorMessage)
+            Dim result As Boolean = False
+
+            Try
+                result = CreateExcelFileFromDataTable(dialog.FileName, dataTable, errorMessage)
+            Catch ex As Exception
+                ErrorReport(ex, errorMessage, System.Reflection.MethodBase.GetCurrentMethod.Name)
+            End Try
 
             If result Then
                 If Not Path.GetDirectoryName(dialog.FileName) = dialog.InitialDirectory Then
@@ -102,70 +152,11 @@ Module Extensions
         End If
     End Sub
 
-    Private Function SaveAsExcelFile(ByVal dgv As DataGridView, _
-                                    ByVal fileName As String, _
-                                    <Out()> Optional ByRef errorMessage As String = Nothing _
-                                    ) As Boolean
-
-        Dim result As Boolean = False
-        errorMessage = ""
-
-        If dgv.RowCount = 0 Then Return result
-
-        Dim dataTable As New DataTable
-
-        Try
-            If TypeOf dgv.DataSource Is DataSet Then
-                dataTable = dgv.DataSource.Tables(dgv.DataMember)
-            ElseIf TypeOf dgv.DataSource Is DataTable Then
-                dataTable = dgv.DataSource
-            Else
-                dataTable = GetDataTableFromDgv(dgv)
-            End If
-
-            ' Replace column names with the defined column header text
-            For i As Integer = 0 To dgv.Columns.Count - 1
-                dataTable.Columns(i).Caption = dgv.Columns(i).HeaderText
-            Next
-
-            result = ExportDataTableToExcel(fileName, dataTable, errorMessage)
-        Catch ex As Exception
-            errorMessage = ex.ToString()
-            ErrorReport(ex, dgv.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-        Return result
-    End Function
-
-    Private Function GetDataTableFromDgv(ByVal dgv As DataGridView) As DataTable
-        If dgv.RowCount = 0 Then Return Nothing
-
-        Dim dt As New DataTable
-        Dim dtColumn As DataColumn
-        Dim dtRow As DataRow
-
-        For Each dgvColumn As DataGridViewColumn In dgv.Columns
-            dtColumn = dt.Columns.Add(dgvColumn.Name)
-        Next
-
-        For Each dgvRow As DataGridViewRow In dgv.Rows
-            dtRow = dt.NewRow
-            For i As Integer = 0 To dgv.ColumnCount - 1
-                dtRow.Item(i) = dgvRow.Cells(i).Value
-            Next
-            dt.Rows.Add(dtRow)
-        Next
-
-        Return dt
-    End Function
-
 #End Region
 
-#End Region
+#Region " Dictionary "
 
-#Region "Dictionary"
-
-    <Extension()> _
+    <Extension()>
     Public Function ChangeKey(Of TKey, TValue)(ByVal dict As Dictionary(Of TKey, TValue), ByVal oldKey As TKey, ByVal newKey As TKey) As Boolean
         Dim value As TValue
 
@@ -177,7 +168,7 @@ Module Extensions
         Return True
     End Function
 
-    <Extension()> _
+    <Extension()>
     Public Sub AddBlankRow(ByRef d As Dictionary(Of Integer, String), Optional ByVal blankPrompt As String = "")
         d.Add(0, blankPrompt)
     End Sub
@@ -185,7 +176,7 @@ Module Extensions
 
 #End Region
 
-#Region "SplitContainer"
+#Region " SplitContainer "
 
     ''' <summary>
     ''' Sets the SplitContainer.SplitterDistance property, while taking into account the SplitContainer's dimensions
@@ -194,7 +185,7 @@ Module Extensions
     ''' <param name="dist">The desired SplitterDistance</param>
     ''' <remarks>If the desired SplitterDistance is incompatible with the dimension of the 
     ''' SplitContainer, nothing is changed and no error is returned</remarks>
-    <Extension()> _
+    <Extension()>
     Public Sub SanelySetSplitterDistance(ByVal sc As SplitContainer, ByVal dist As Integer)
         Dim i As Integer = dist
 
@@ -228,7 +219,7 @@ Module Extensions
     ''' <param name="b">One of the values to toggle between</param>
     ''' <remarks>The order of the parameters does not matter. If either parameter is incompatible with 
     ''' the dimension of the SplitContainer, nothing is changed and no error is returned.</remarks>
-    <Extension()> _
+    <Extension()>
     Public Sub ToggleSplitterDistance(ByVal sc As SplitContainer, ByVal a As Integer, ByVal b As Integer)
         ' Bail if a or b are outside the allowable values for SplitterDistance
         If (a < sc.Panel1MinSize) OrElse (b < sc.Panel1MinSize) Then Exit Sub
@@ -251,7 +242,7 @@ Module Extensions
 
 #Region " Enum "
 
-    Private _EnumDescriptions As New Dictionary(Of String, String)
+    Private enumDescriptions As New Dictionary(Of String, String)
 
     ''' <summary>
     ''' If a Description attribute is present for an enum value, returns the description.
@@ -260,7 +251,7 @@ Module Extensions
     ''' <returns>The value of the Description attribute if present, else
     ''' the normal ToString() representation of the enum value.</returns>
     ''' <remarks>http://stackoverflow.com/a/14772005/212978</remarks>
-    <Extension()> _
+    <Extension()>
     Public Function GetDescription(ByVal e As [Enum]) As String
         Dim enumType As Type = e.GetType()
         Dim name As String = e.ToString()
@@ -270,7 +261,7 @@ Module Extensions
 
         ' See if we have looked it up earlier
         Dim enumDescription As String = Nothing
-        If _EnumDescriptions.TryGetValue(fullName, enumDescription) Then
+        If enumDescriptions.TryGetValue(fullName, enumDescription) Then
             ' Yes we have - return previous value
             Return enumDescription
         End If
@@ -286,7 +277,7 @@ Module Extensions
         End If
 
         ' Save the name in the dictionary:
-        _EnumDescriptions.Add(fullName, name)
+        enumDescriptions.Add(fullName, name)
 
         Return name
     End Function
@@ -295,7 +286,7 @@ Module Extensions
 
 #Region " Combobox "
 
-    <Extension()> _
+    <Extension()>
     Public Sub BindToDictionary(ByVal c As ComboBox, ByVal d As Dictionary(Of Integer, String))
         With c
             .DataSource = New BindingSource(d, Nothing)
@@ -304,7 +295,7 @@ Module Extensions
         End With
     End Sub
 
-    <Extension()> _
+    <Extension()>
     Public Sub BindToSortedDictionary(ByVal c As ComboBox, ByVal d As SortedDictionary(Of Integer, String))
         With c
             .DataSource = New BindingSource(d, Nothing)
@@ -313,7 +304,7 @@ Module Extensions
         End With
     End Sub
 
-    <Extension()> _
+    <Extension()>
     Public Sub BindToDictionary(Of T)(ByVal c As ComboBox, ByVal d As Dictionary(Of T, String))
         With c
             .DataSource = New BindingSource(d, Nothing)
@@ -322,7 +313,7 @@ Module Extensions
         End With
     End Sub
 
-    <Extension()> _
+    <Extension()>
     Public Sub BindToKeyValuePairs(ByVal c As ComboBox, ByVal l As List(Of KeyValuePair(Of Integer, String)))
         With c
             .DataSource = New BindingSource(l, Nothing)
@@ -336,7 +327,7 @@ Module Extensions
     ''' </summary>
     ''' <typeparam name="TEnum">The Enum to bind to.</typeparam>
     ''' <param name="c">The Combobox to bind.</param>
-    <Extension()> _
+    <Extension()>
     Public Sub BindToEnum(Of TEnum)(ByVal c As ComboBox)
         Dim enumType As Type = GetType(TEnum)
 

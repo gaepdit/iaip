@@ -34,7 +34,7 @@ Module ExcelExport
     ''' GC.Collect()
     ''' GC.WaitForPendingFinalizers()
     ''' </remarks>
-    Public Function ExportDataTableToExcel(ByVal FileName As String, _
+    Public Function CreateExcelFileFromDataTable(ByVal FileName As String, _
                                            ByVal Table As DataTable, _
                                            <Out()> Optional ByRef ErrorMessage As String = "", _
                                            Optional ByVal SheetName As String = "Sheet1" _
