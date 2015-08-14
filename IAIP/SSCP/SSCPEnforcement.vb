@@ -2102,6 +2102,10 @@ Public Class SscpEnforcement
             MessageBox.Show("Choose a Violation Type before proceeding.", _
                             "No Data Saved", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return False
+        ElseIf ViolationTypeHpv.Checked AndAlso Not DTPDayZero.Checked Then
+            MessageBox.Show("Set an HPV Day Zero before proceeding.", _
+                            "No Data Saved", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
         Else
             Return True
         End If
