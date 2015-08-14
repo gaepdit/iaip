@@ -147,7 +147,7 @@ Public Class ISMPManagersTools
                     TCManagersTools.TabPages.Add(TPUnitStatistics2)
                     TCManagersTools.TabPages.Add(TPUnitStatistics)
                     TCManagersTools.TabPages.Add(TPAIRSReportsPrinted)
-                    TCManagersTools.TabPages.Add(Me.TPExcelFiles)
+                    'TCManagersTools.TabPages.Add(Me.TPExcelFiles)
                     TCManagersTools.TabPages.Add(TPMiscTools)
                     TCMiscTools.TabPages.Add(TPMethods)
 
@@ -160,7 +160,7 @@ Public Class ISMPManagersTools
                         TCManagersTools.TabPages.Add(TPReportAssignment)
                         TCManagersTools.TabPages.Add(TPUnitStatistics2)
                         TCManagersTools.TabPages.Add(TPUnitStatistics)
-                        TCManagersTools.TabPages.Add(Me.TPExcelFiles)
+                        'TCManagersTools.TabPages.Add(Me.TPExcelFiles)
                         TCManagersTools.TabPages.Add(TPMiscTools)
                         TCMiscTools.TabPages.Add(TPMethods)
                         ShowCorrectPanels()
