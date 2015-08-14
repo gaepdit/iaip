@@ -1322,7 +1322,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub mmiExport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExport.Click
-        If dgvWorkViewer.RowCount > 0 Then dgvWorkViewer.ExportToExcel(Me)
+        dgvWorkViewer.ExportToExcel(Me)
     End Sub
 
     Private Sub mmiResetForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiResetForm.Click

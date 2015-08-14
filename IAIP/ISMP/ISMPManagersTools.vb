@@ -4124,8 +4124,6 @@ Public Class ISMPManagersTools
         Dim FileID As String
         Dim FileName As String
         Dim path As New SaveFileDialog
-        'Dim ExcelApp As New Excel.ApplicationClass
-        'Dim excelDoc As Excel.WorkbookClass
         Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
         Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
 
@@ -5982,9 +5980,7 @@ Public Class ISMPManagersTools
         End Try
     End Sub
     Private Sub llbExportToExcel_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbExportToExcel.LinkClicked
-        'Dim ExcelApp As New Excel.Application
         Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
         Dim intRow, intColumnValue As Integer
 
         Try
