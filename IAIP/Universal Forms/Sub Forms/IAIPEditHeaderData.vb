@@ -581,7 +581,7 @@ Public Class IAIPEditHeaderData
                 Dim currentData As DataRow = DAL.FacilityHeaderDataModule.GetFacilityHeaderDataAsDataRow(AirsNumber)
 
                 FacilityHeaderDataHistory.ImportRow(currentData)
-                FacilityHistoryDataGridView.Rows(0).Selected = True
+                FacilityHistoryDataGridView.CurrentCell = FacilityHistoryDataGridView.Rows(0).Cells(2)
 
                 EditData.Checked = False
             Else
