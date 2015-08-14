@@ -5980,51 +5980,7 @@ Public Class ISMPManagersTools
         End Try
     End Sub
     Private Sub llbExportToExcel_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbExportToExcel.LinkClicked
-        Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        Dim intRow, intColumnValue As Integer
-
-        Try
-
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-            With ExcelApp
-                .SheetsInNewWorkbook = 1
-                .Workbooks.Add()
-                .Worksheets(1).Select()
-                'For displaying the column name in the the excel file.
-
-                .Cells(1, 1).value = "Reference #"
-                .Cells(1, 2).value = "Facility Name"
-                .Cells(1, 3).value = "AIRS Number"
-                .Cells(1, 4).value = "Record Status"
-                .Cells(1, 5).value = "Date Started"
-                .Cells(1, 6).value = "Date Received"
-                .Cells(1, 7).value = "Date Completed"
-                .Cells(1, 8).value = "Reviewing Engineer"
-                .Cells(1, 9).value = "WitnessingEngineer"
-
-                'For displaying the column value row-by-row in the the excel file.
-                For intRow = 0 To dsEngineerGrid.Tables(0).Rows.Count - 1
-                    For intColumnValue = 0 To dsEngineerGrid.Tables(0).Columns.Count - 1
-                        .Cells(intRow + 2, intColumnValue + 1).Value = dsEngineerGrid.Tables(0).Rows(intRow).ItemArray(intColumnValue).ToString
-                    Next
-                Next
-            End With
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-
-        Catch ex As Exception
-            If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
-                MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
-            Else
-                ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-            End If
-        Finally
-
-        End Try
-
+        dsEngineerGrid.Tables(0).ExportToExcel(Me)
     End Sub
     Private Sub llbRunSummaryReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs)
         Try
