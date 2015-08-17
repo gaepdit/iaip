@@ -19,16 +19,16 @@ Partial Class IaipAbout
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.lblSubTitle = New System.Windows.Forms.Label
-        Me.lblLicenseLabel = New System.Windows.Forms.Label
-        Me.lblTitle = New System.Windows.Forms.Label
-        Me.LogoBox = New System.Windows.Forms.PictureBox
-        Me.lblVersion = New System.Windows.Forms.Label
-        Me.lblSupport = New System.Windows.Forms.LinkLabel
-        Me.lblDocumentation = New System.Windows.Forms.LinkLabel
-        Me.lblChangelog = New System.Windows.Forms.LinkLabel
-        Me.lblUpdateCheck = New System.Windows.Forms.LinkLabel
-        Me.btnClose = New System.Windows.Forms.Button
+        Me.lblSubTitle = New System.Windows.Forms.Label()
+        Me.lblLicenseLabel = New System.Windows.Forms.Label()
+        Me.lblTitle = New System.Windows.Forms.Label()
+        Me.LogoBox = New System.Windows.Forms.PictureBox()
+        Me.lblVersion = New System.Windows.Forms.Label()
+        Me.lblSupport = New System.Windows.Forms.LinkLabel()
+        Me.lblDocumentation = New System.Windows.Forms.LinkLabel()
+        Me.lblChangelog = New System.Windows.Forms.LinkLabel()
+        Me.lblUpdateCheck = New System.Windows.Forms.LinkLabel()
+        Me.btnClose = New System.Windows.Forms.Button()
         CType(Me.LogoBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -42,7 +42,7 @@ Partial Class IaipAbout
         Me.lblSubTitle.Size = New System.Drawing.Size(274, 48)
         Me.lblSubTitle.TabIndex = 32
         Me.lblSubTitle.Text = "Georgia Department of Natural Resources" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Environmental Protection Division" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Air P" & _
-            "rotection Branch"
+    "rotection Branch"
         '
         'lblLicenseLabel
         '
@@ -134,7 +134,7 @@ Partial Class IaipAbout
         '
         'btnClose
         '
-        Me.btnClose.DialogResult = DialogResult.Cancel
+        Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.btnClose.Location = New System.Drawing.Point(315, 293)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(75, 23)

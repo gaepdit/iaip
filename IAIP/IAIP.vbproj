@@ -62,7 +62,7 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <BootstrapperEnabled>false</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -78,6 +78,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
+    <DefineConstants>BETA = 0</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <DefineTrace>true</DefineTrace>
@@ -92,6 +93,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
+    <DefineConstants>BETA = 0</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
@@ -189,11 +191,41 @@
       <DependentUpon>crSSPPConfirmationLetter.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Fees\PASPFeeDeposits.Designer.vb">
+      <DependentUpon>PASPFeeDeposits.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ISMP\ISMPManagersTools.Designer.vb">
+      <DependentUpon>ISMPManagersTools.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ISMP\ISMPMemo.Designer.vb">
+      <DependentUpon>ISMPMemo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ISMP\ISMPTestMemoViewer.Designer.vb">
+      <DependentUpon>ISMPTestMemoViewer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ISMP\SubPages\ISMPAddPollutants.Designer.vb">
+      <DependentUpon>ISMPAddPollutants.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ISMP\SubPages\ISMPAddTestingFirms.Designer.vb">
+      <DependentUpon>ISMPAddTestingFirms.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SSCP\SSCPEvents.Designer.vb">
+      <DependentUpon>SSCPEvents.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SSCP\SubPages\SSCPEnforcementChecklist.Designer.vb">
+      <DependentUpon>SSCPEnforcementChecklist.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SSCP\SubPages\SSCPWorkEntry.Designer.vb">
+      <DependentUpon>SSCPWorkEntry.vb</DependentUpon>
+    </Compile>
     <Compile Include="Universal Forms\BaseForm.Designer.vb">
       <DependentUpon>BaseForm.vb</DependentUpon>
     </Compile>
     <Compile Include="Universal Forms\BaseForm.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universal Forms\ExceptionDialog.Designer.vb">
+      <DependentUpon>ExceptionDialog.vb</DependentUpon>
     </Compile>
     <Compile Include="_Classes\ListViewItemComparer.vb">
       <SubType>Code</SubType>
@@ -1424,6 +1456,8 @@
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Seal_of_Georgia_unfinished_256x256x32.png" />
+    <None Include="Resources\Seal_of_Georgia_unfinished_Win7.ico" />
     <None Include="IAIP_New_TemporaryKey.pfx" />
     <Content Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>

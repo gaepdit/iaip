@@ -2075,27 +2075,29 @@ Public Class SscpEnforcement
 
     End Sub
     Sub OpenChecklist()
-        Try
-            If txtEnforcementNumber.Text = "" OrElse txtEnforcementNumber.Text = "N/A" Then
-                MsgBox("Please save the current enforcement before linking a Discovery Event.", MsgBoxStyle.Exclamation, "SSCP Enforcement")
-                Exit Sub
-            End If
+        If txtEnforcementNumber.Text = "" OrElse txtEnforcementNumber.Text = "N/A" Then
+            MsgBox("Please save the current enforcement before linking a Discovery Event.", MsgBoxStyle.Exclamation, "SSCP Enforcement")
+            Exit Sub
+        End If
 
-            Dim parameters As New Dictionary(Of String, String)
+        If txtAIRSNumber.Text = "" Then
+            MsgBox("There is no AIRS number.", MsgBoxStyle.Exclamation, "SSCP Enforcement")
+            Exit Sub
+        End If
 
-            If txtAIRSNumber.Text <> "" Then
-                parameters("airsnumber") = txtAIRSNumber.Text
-            End If
-            If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
-                parameters("enforcementnumber") = txtEnforcementNumber.Text
-            End If
-            parameters("trackingnumber") = txtTrackingNumber.Text
+        Dim discoveryEventDialog As New SSCPEnforcementChecklist
+        With discoveryEventDialog
+            .AirsNumber = txtAIRSNumber.Text
+            .EnforcementNumber = txtEnforcementNumber.Text
+            .SelectedDiscoveryEvent = txtTrackingNumber.Text
+            .ShowDialog()
+        End With
 
-            OpenSingleForm(SSCPEnforcementChecklist, Me.ID, parameters, True)
+        If discoveryEventDialog.DialogResult = DialogResult.OK Then
+            txtTrackingNumber.Text = discoveryEventDialog.SelectedDiscoveryEvent
+        End If
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        discoveryEventDialog.Dispose()
     End Sub
     Private Function PresaveCheck() As Boolean
 
@@ -3678,12 +3680,7 @@ Public Class SscpEnforcement
 
 
     Private Sub btnLinkEnforcement_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLinkEnforcement.Click
-        Try
-            OpenChecklist()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        OpenChecklist()
     End Sub
     Private Sub btnOpenEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenEvent.Click
         OpenFormSscpWorkItem(txtTrackingNumber.Text)
@@ -4414,44 +4411,7 @@ Public Class SscpEnforcement
     End Sub
 
     Private Sub btnExportAuditToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportAuditToExcel.Click
-        Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        Dim i, j As Integer
-        Try
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-
-            If dgvAuditHistory.RowCount <> 0 Then
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
-
-                    'For displaying the column name in the the excel file.
-                    For i = 0 To dgvAuditHistory.ColumnCount - 1
-                        .Cells(1, i + 1) = dgvAuditHistory.Columns(i).HeaderText.ToString
-                    Next
-
-                    For i = 0 To dgvAuditHistory.ColumnCount - 1
-                        For j = 0 To dgvAuditHistory.RowCount - 1
-                            .Cells(j + 2, i + 1).numberformat = "@"
-                            .Cells(j + 2, i + 1).value = dgvAuditHistory.Item(i, j).Value.ToString
-                        Next
-                    Next
-
-                End With
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-        Catch ex As Exception
-            If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
-                MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
-            Else
-                ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-            End If
-        Finally
-        End Try
+        dgvAuditHistory.ExportToExcel(Me)
     End Sub
 
     Private Sub btnClearStipulated_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ClearStipulatedPenaltyFormButton.Click

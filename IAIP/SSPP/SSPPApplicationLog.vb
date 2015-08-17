@@ -2144,9 +2144,7 @@ Public Class SSPPApplicationLog
 #End Region
 
     Sub ExportToExcel()
-        If dgvApplicationLog.RowCount > 0 Then
-            dgvApplicationLog.ExportToExcel()
-        End If
+        dgvApplicationLog.ExportToExcel(Me)
     End Sub
 
 #Region "Other procedures"

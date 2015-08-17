@@ -50,6 +50,10 @@ Public Class IAIPNavigation
         ' Start various Timers
         AppTimers.StartAppTimers()
 
+#If BETA Then
+        lblTitle.Text = "IAIP Navigation Screen"
+        Me.Text = "IAIP Beta"
+#End If
     End Sub
 
     Private Sub IAIPNavigation_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
@@ -1318,7 +1322,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub mmiExport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExport.Click
-        If dgvWorkViewer.RowCount > 0 Then dgvWorkViewer.ExportToExcel(Me)
+        dgvWorkViewer.ExportToExcel(Me)
     End Sub
 
     Private Sub mmiResetForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiResetForm.Click

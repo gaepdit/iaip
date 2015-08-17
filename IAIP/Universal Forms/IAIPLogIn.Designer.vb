@@ -19,34 +19,34 @@ Partial Class IAIPLogIn
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.mmiFile = New System.Windows.Forms.MenuItem
-        Me.mmiExit = New System.Windows.Forms.MenuItem
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem
-        Me.mmiRefreshUserID = New System.Windows.Forms.MenuItem
-        Me.mmiResetAllForms = New System.Windows.Forms.MenuItem
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem
-        Me.mmiTestingEnvironment = New System.Windows.Forms.MenuItem
-        Me.mmiHelp = New System.Windows.Forms.MenuItem
-        Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
-        Me.MenuItem4 = New System.Windows.Forms.MenuItem
-        Me.mmiCheckForUpdate = New System.Windows.Forms.MenuItem
-        Me.MenuItem5 = New System.Windows.Forms.MenuItem
-        Me.mmiAbout = New System.Windows.Forms.MenuItem
-        Me.lblPassword = New System.Windows.Forms.Label
-        Me.lblUserID = New System.Windows.Forms.Label
-        Me.txtUserPassword = New System.Windows.Forms.TextBox
-        Me.txtUserID = New System.Windows.Forms.TextBox
-        Me.lblSubTitle = New System.Windows.Forms.Label
-        Me.lblTitle = New System.Windows.Forms.Label
-        Me.btnLoginButton = New System.Windows.Forms.Button
-        Me.lblLicenseLabel = New System.Windows.Forms.Label
-        Me.lblCurrentVersionMessage = New System.Windows.Forms.Label
-        Me.lblGeneralMessage = New System.Windows.Forms.Label
-        Me.lblIAIP = New System.Windows.Forms.Label
-        Me.LogoBox = New System.Windows.Forms.PictureBox
-        Me.LoginProgressBar = New System.Windows.Forms.ProgressBar
+        Me.mmiFile = New System.Windows.Forms.MenuItem()
+        Me.mmiExit = New System.Windows.Forms.MenuItem()
+        Me.MenuItem1 = New System.Windows.Forms.MenuItem()
+        Me.mmiRefreshUserID = New System.Windows.Forms.MenuItem()
+        Me.mmiResetAllForms = New System.Windows.Forms.MenuItem()
+        Me.MenuItem2 = New System.Windows.Forms.MenuItem()
+        Me.mmiTestingEnvironment = New System.Windows.Forms.MenuItem()
+        Me.mmiHelp = New System.Windows.Forms.MenuItem()
+        Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem()
+        Me.MenuItem4 = New System.Windows.Forms.MenuItem()
+        Me.mmiCheckForUpdate = New System.Windows.Forms.MenuItem()
+        Me.MenuItem5 = New System.Windows.Forms.MenuItem()
+        Me.mmiAbout = New System.Windows.Forms.MenuItem()
+        Me.btnLoginButton = New System.Windows.Forms.Button()
+        Me.LogoBox = New System.Windows.Forms.PictureBox()
+        Me.lblCurrentVersionMessage = New System.Windows.Forms.Label()
+        Me.lblLicenseLabel = New System.Windows.Forms.Label()
+        Me.lblPassword = New System.Windows.Forms.Label()
+        Me.lblUserID = New System.Windows.Forms.Label()
+        Me.txtUserPassword = New System.Windows.Forms.TextBox()
+        Me.txtUserID = New System.Windows.Forms.TextBox()
+        Me.lblIAIP = New System.Windows.Forms.Label()
+        Me.lblSubTitle = New System.Windows.Forms.Label()
+        Me.lblTitle = New System.Windows.Forms.Label()
+        Me.lblGeneralMessage = New System.Windows.Forms.Label()
+        Me.LoginProgressBar = New System.Windows.Forms.ProgressBar()
         CType(Me.LogoBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -125,6 +125,51 @@ Partial Class IAIPLogIn
         Me.mmiAbout.Index = 4
         Me.mmiAbout.Text = "&About IAIP"
         '
+        'btnLoginButton
+        '
+        Me.btnLoginButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnLoginButton.Location = New System.Drawing.Point(422, 259)
+        Me.btnLoginButton.Margin = New System.Windows.Forms.Padding(2)
+        Me.btnLoginButton.Name = "btnLoginButton"
+        Me.btnLoginButton.Size = New System.Drawing.Size(175, 38)
+        Me.btnLoginButton.TabIndex = 2
+        Me.btnLoginButton.Text = "Log In"
+        Me.btnLoginButton.UseVisualStyleBackColor = False
+        '
+        'LogoBox
+        '
+        Me.LogoBox.Image = Global.Iaip.My.Resources.Resources.Logo
+        Me.LogoBox.InitialImage = Nothing
+        Me.LogoBox.Location = New System.Drawing.Point(29, 55)
+        Me.LogoBox.Name = "LogoBox"
+        Me.LogoBox.Size = New System.Drawing.Size(256, 256)
+        Me.LogoBox.TabIndex = 0
+        Me.LogoBox.TabStop = False
+        '
+        'lblCurrentVersionMessage
+        '
+        Me.lblCurrentVersionMessage.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCurrentVersionMessage.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.lblCurrentVersionMessage.Location = New System.Drawing.Point(26, 377)
+        Me.lblCurrentVersionMessage.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblCurrentVersionMessage.Name = "lblCurrentVersionMessage"
+        Me.lblCurrentVersionMessage.Size = New System.Drawing.Size(259, 18)
+        Me.lblCurrentVersionMessage.TabIndex = 38
+        Me.lblCurrentVersionMessage.Text = "Current Version Placeholder"
+        Me.lblCurrentVersionMessage.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.lblCurrentVersionMessage.Visible = False
+        '
+        'lblLicenseLabel
+        '
+        Me.lblLicenseLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblLicenseLabel.Location = New System.Drawing.Point(26, 327)
+        Me.lblLicenseLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblLicenseLabel.Name = "lblLicenseLabel"
+        Me.lblLicenseLabel.Size = New System.Drawing.Size(259, 36)
+        Me.lblLicenseLabel.TabIndex = 37
+        Me.lblLicenseLabel.Text = "This product is licensed to Georgia" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "DNR/EPD/APB employees only"
+        Me.lblLicenseLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
         'lblPassword
         '
         Me.lblPassword.AutoSize = True
@@ -168,6 +213,17 @@ Partial Class IAIPLogIn
         Me.txtUserID.TabIndex = 0
         Me.txtUserID.WordWrap = False
         '
+        'lblIAIP
+        '
+        Me.lblIAIP.AutoSize = True
+        Me.lblIAIP.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblIAIP.Location = New System.Drawing.Point(335, 128)
+        Me.lblIAIP.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblIAIP.Name = "lblIAIP"
+        Me.lblIAIP.Size = New System.Drawing.Size(345, 26)
+        Me.lblIAIP.TabIndex = 32
+        Me.lblIAIP.Text = "Integrated Air Information Platform" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        '
         'lblSubTitle
         '
         Me.lblSubTitle.AutoSize = True
@@ -190,41 +246,6 @@ Partial Class IAIPLogIn
         Me.lblTitle.TabIndex = 33
         Me.lblTitle.Text = "GEORGIA DEPARTMENT OF NATURAL RESOURCES"
         '
-        'btnLoginButton
-        '
-        Me.btnLoginButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnLoginButton.Location = New System.Drawing.Point(422, 259)
-        Me.btnLoginButton.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnLoginButton.Name = "btnLoginButton"
-        Me.btnLoginButton.Size = New System.Drawing.Size(175, 38)
-        Me.btnLoginButton.TabIndex = 2
-        Me.btnLoginButton.Text = "Log In"
-        Me.btnLoginButton.UseVisualStyleBackColor = False
-        '
-        'lblLicenseLabel
-        '
-        Me.lblLicenseLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLicenseLabel.Location = New System.Drawing.Point(26, 327)
-        Me.lblLicenseLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.lblLicenseLabel.Name = "lblLicenseLabel"
-        Me.lblLicenseLabel.Size = New System.Drawing.Size(259, 36)
-        Me.lblLicenseLabel.TabIndex = 37
-        Me.lblLicenseLabel.Text = "This product is licensed to Georgia" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "DNR/EPD/APB employees only"
-        Me.lblLicenseLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        '
-        'lblCurrentVersionMessage
-        '
-        Me.lblCurrentVersionMessage.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCurrentVersionMessage.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.lblCurrentVersionMessage.Location = New System.Drawing.Point(26, 377)
-        Me.lblCurrentVersionMessage.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.lblCurrentVersionMessage.Name = "lblCurrentVersionMessage"
-        Me.lblCurrentVersionMessage.Size = New System.Drawing.Size(259, 18)
-        Me.lblCurrentVersionMessage.TabIndex = 38
-        Me.lblCurrentVersionMessage.Text = "Current Version Placeholder"
-        Me.lblCurrentVersionMessage.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.lblCurrentVersionMessage.Visible = False
-        '
         'lblGeneralMessage
         '
         Me.lblGeneralMessage.AutoSize = True
@@ -237,27 +258,6 @@ Partial Class IAIPLogIn
         Me.lblGeneralMessage.TabIndex = 38
         Me.lblGeneralMessage.Text = "Message Placeholder 1" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "4"
         Me.lblGeneralMessage.Visible = False
-        '
-        'lblIAIP
-        '
-        Me.lblIAIP.AutoSize = True
-        Me.lblIAIP.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblIAIP.Location = New System.Drawing.Point(335, 128)
-        Me.lblIAIP.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.lblIAIP.Name = "lblIAIP"
-        Me.lblIAIP.Size = New System.Drawing.Size(345, 26)
-        Me.lblIAIP.TabIndex = 32
-        Me.lblIAIP.Text = "Integrated Air Information Platform" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
-        '
-        'LogoBox
-        '
-        Me.LogoBox.Image = Global.Iaip.My.Resources.Resources.Logo
-        Me.LogoBox.InitialImage = Nothing
-        Me.LogoBox.Location = New System.Drawing.Point(29, 55)
-        Me.LogoBox.Name = "LogoBox"
-        Me.LogoBox.Size = New System.Drawing.Size(256, 256)
-        Me.LogoBox.TabIndex = 0
-        Me.LogoBox.TabStop = False
         '
         'LoginProgressBar
         '

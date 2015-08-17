@@ -19,7 +19,11 @@ Module Analytics
 
         monitor = AnalyticsMonitorFactory.Create(monitorSettings)
         With monitor
+
+#If Not BETA Then
             .Start()
+#End If
+
             .TrackFeatureStart("Runtime")
             .TrackFeatureStart("Startup.Loading")
         End With

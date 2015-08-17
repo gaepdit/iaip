@@ -1,4 +1,4 @@
-Imports Oracle.ManagedDataAccess.Client
+﻿Imports Oracle.ManagedDataAccess.Client
 
 Public Class IAIPLogIn
 
@@ -23,6 +23,12 @@ Public Class IAIPLogIn
             ToggleServerEnvironment()
 #Else
             CheckDBAvailability()
+#End If
+
+#If BETA Then
+            Me.LogoBox.Image = My.Resources.Resources.BetaLogo
+            lblIAIP.Text = "IAIP Beta Test"
+            ToggleServerEnvironment()
 #End If
 
         Catch ex As Exception
@@ -83,6 +89,9 @@ Public Class IAIPLogIn
             .Text = String.Format("Version: {0}", currentVersion.ToString)
             .Visible = True
         End With
+#If BETA Then
+        lblCurrentVersionMessage.Text = lblCurrentVersionMessage.Text & " β"
+#End If
     End Sub
 
     Private Sub CheckLanguageRegistrySetting()
@@ -273,8 +282,12 @@ Public Class IAIPLogIn
 
     Private Sub ToggleServerEnvironment()
         ' Toggle mmiTestingEnvironment menu item
+#If BETA Then
+        mmiTestingEnvironment.Checked = True
+#Else
         mmiTestingEnvironment.Checked = Not mmiTestingEnvironment.Checked
-        DisableLoginButton("Switching servers�")
+#End If
+        DisableLoginButton("Switching servers…")
         Dim buttonText As String
 
         If mmiTestingEnvironment.Checked Then
@@ -290,7 +303,7 @@ Public Class IAIPLogIn
         End If
 
 #If DEBUG Then
-        Me.Text = APP_FRIENDLY_NAME & " � " & CurrentServerEnvironment.ToString
+        Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerEnvironment.ToString
 #End If
 
         ' Reset current connection based on current connection environment
@@ -301,6 +314,11 @@ Public Class IAIPLogIn
         Else
             DisableLoginButton(buttonText)
         End If
+
+#If BETA Then
+        Me.BackColor = Color.Snow
+#End If
+
     End Sub
 
 #End Region

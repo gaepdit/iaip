@@ -838,43 +838,7 @@ Public Class SBEAPCaseLog
         End Try
     End Sub
     Private Sub tsbExport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbExport.Click
-        Try
-            'Dim ExcelGlobal_definst As New Excel.Global
-            'Dim ExcelApp As New Excel.Application
-            'Dim i, j As Integer
-           
-            Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-            Dim i, j As Integer
-
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-            If dgvCaseLog.RowCount <> 0 Then
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
-
-                    'For displaying the column name in the the excel file.
-                    For i = 0 To dgvCaseLog.ColumnCount - 1
-                        .Cells(1, i + 1) = dgvCaseLog.Columns(i).HeaderText.ToString
-                    Next
-
-                    For i = 0 To dgvCaseLog.ColumnCount - 1
-                        For j = 0 To dgvCaseLog.RowCount - 1
-                            .Cells(j + 2, i + 1).value = dgvCaseLog.Item(i, j).Value.ToString
-                        Next
-                    Next
-
-                End With
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        dgvCaseLog.ExportToExcel(Me)
     End Sub
     Private Sub btnResetSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnResetSearch.Click
         Try

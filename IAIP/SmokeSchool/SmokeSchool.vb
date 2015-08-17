@@ -3599,12 +3599,7 @@ Public Class SmokeSchool
         End Try
     End Sub
     Private Sub btnExport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExport.Click
-        Try
-            If dgvRes.RowCount > 0 Then dgvRes.ExportToExcel(Me)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+        dgvRes.ExportToExcel(Me)
     End Sub
 
     Private Sub btnUpdateIDs_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateIDs.Click
@@ -3664,56 +3659,7 @@ Public Class SmokeSchool
         End Try
     End Sub
     Private Sub btnExportPassToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportPassToExcel.Click
-        Try
-            Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-            Dim col, row As Integer
-            Dim x As String
-            Dim y As String
-            Dim c As Integer
-            Dim d As Integer
-            Dim startRow As Integer = 1
-            Dim location As String = cboSchedule3.SelectedItem
-
-            'load Reservation data into Excel
-            If dgvScore3.RowCount <> 0 Then
-
-                ExcelApp.SheetsInNewWorkbook = 1
-                ExcelApp.Workbooks.Add()
-
-                ExcelApp.Cells(startRow, 1).value = location
-
-                ExcelApp.Visible = True
-
-                startRow = startRow + 1
-
-                'For displaying the column name in the the excel file.
-                For col = 0 To dgvScore3.ColumnCount - 1
-                    y = dgvScore3.Columns(col).HeaderText.ToString
-                    ExcelApp.Cells(startRow, col + 1).value = y
-                Next
-
-                startRow = startRow + 1
-                d = dgvScore3.RowCount - 2
-                For row = 0 To d
-
-                    c = dgvScore3.ColumnCount - 1
-                    For col = 0 To c
-                        If IsDBNull(dgvScore3.Item(col, row).Value.ToString) Then
-                            x = ""
-                        Else
-                            x = dgvScore3.Item(col, row).Value.ToString
-                        End If
-                        ExcelApp.Cells(startRow, col + 1).value = x
-
-                    Next
-                    startRow = startRow + 1
-                Next
-
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+        dgvScore3.ExportToExcel(Me)
     End Sub
     Private Sub btnActivate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnActivate.Click
         Try
@@ -3874,8 +3820,7 @@ Public Class SmokeSchool
     End Sub
 
     Private Sub btnExportDiplomas_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportDiplomas.Click
-        If dgvDiplomas.RowCount > 0 Then dgvDiplomas.ExportToExcel(Me)
+        dgvDiplomas.ExportToExcel(Me)
     End Sub
-
 
 End Class

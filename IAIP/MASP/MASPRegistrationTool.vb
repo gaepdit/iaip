@@ -893,9 +893,7 @@ Public Class MASPRegistrationTool
 
 
     Private Sub btnExportRegistrantsToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportRegistrantsToExcel.Click
-        If dgvOverviewRegistrants.RowCount > 0 Then
-            dgvOverviewRegistrants.ExportToExcel()
-        End If
+        dgvOverviewRegistrants.ExportToExcel()
     End Sub
 
 #Region "Emails"

@@ -885,39 +885,7 @@ Public Class SBEAPReports
         End Try
     End Sub
     Private Sub btnExportToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportToExcel.Click
-        Try
-            Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-            Dim i, j As Integer
-
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-            If dgvCaseWork.RowCount <> 0 Then
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
-
-                    'For displaying the column name in the the excel file.
-                    For i = 0 To dgvCaseWork.ColumnCount - 1
-                        .Cells(1, i + 1) = dgvCaseWork.Columns(i).HeaderText.ToString
-                    Next
-
-                    For i = 0 To dgvCaseWork.ColumnCount - 1
-                        For j = 0 To dgvCaseWork.RowCount - 1
-                            .Cells(j + 2, i + 1).value = dgvCaseWork.Item(i, j).Value.ToString
-                        Next
-                    Next
-
-                End With
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        dgvCaseWork.ExportToExcel(Me)
     End Sub
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         Try

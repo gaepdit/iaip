@@ -607,52 +607,6 @@ Public Class SSCPEmissionSummaryTool
         End Try
 
     End Sub
-    Sub ExportEStoExcel()
-        Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-        'Dim ExcelApp As New Excel.Application
-        Dim i As Integer
-        Dim j As Integer
-
-        Try
-            If dgvESDataCount.RowCount <> 0 Then
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
-
-                    For i = 0 To dgvESDataCount.ColumnCount - 1
-                        .Cells(1, i + 1) = dgvESDataCount.Columns(i).HeaderText.ToString
-                    Next
-
-                    For i = 0 To dgvESDataCount.ColumnCount - 1
-                        'For j = 0 To dgvESDataCount.RowCount - 2
-                        For j = 0 To dgvESDataCount.RowCount - 1
-                            .Cells(j + 2, i + 1).numberformat = "@"
-                            .Cells(j + 2, i + 1).value = dgvESDataCount.Item(i, j).Value.ToString
-                        Next
-                    Next
-
-                End With
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-
-        Catch ex As Exception
-            If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
-                MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
-            Else
-                ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-            End If
-        Finally
-
-        End Try
-
-    End Sub
     Private Sub dgvESDataCount_MouseUp1(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvESDataCount.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvESDataCount.HitTest(e.X, e.Y)
 
@@ -1593,13 +1547,7 @@ Public Class SSCPEmissionSummaryTool
         End Try
     End Sub
     Private Sub btnoutofcomplianceExport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnoutofcomplianceExport.Click
-        Try
-            ExportEStoExcel()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        dgvESDataCount.ExportToExcel(Me)
     End Sub
     Private Sub btnPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrint.Click
         Try
@@ -1984,42 +1932,6 @@ Public Class SSCPEmissionSummaryTool
     End Sub
 
     Private Sub btnExportEItoExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportEItoExcel.Click
-        Try
-            'Dim ExcelApp As New Excel.Application
-            Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-            'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-            Dim i, j As Integer
-
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-
-            If dgvEIResults.RowCount <> 0 Then
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
-
-                    'For displaying the column name in the the excel file.
-                    For i = 0 To dgvEIResults.ColumnCount - 1
-                        .Cells(1, i + 1) = dgvEIResults.Columns(i).HeaderText.ToString
-                    Next
-
-                    For i = 0 To dgvEIResults.ColumnCount - 1
-                        For j = 0 To dgvEIResults.RowCount - 1
-                            .Cells(j + 2, i + 1).numberformat = "@"
-                            .Cells(j + 2, i + 1).value = dgvEIResults.Item(i, j).Value.ToString
-                        Next
-                    Next
-
-                End With
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        dgvEIResults.ExportToExcel(Me)
     End Sub
 End Class
