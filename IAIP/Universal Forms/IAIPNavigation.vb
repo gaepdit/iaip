@@ -889,7 +889,7 @@ Public Class IAIPNavigation
         pnlCurrentList.Enabled = True
         btnChangeWorkViewerContext.Text = "Load"
 
-        If dtWorkViewerTable.Rows.Count > 0 Then
+        If dtWorkViewerTable IsNot Nothing AndAlso dtWorkViewerTable.Rows.Count > 0 Then
             dgvWorkViewer.DataSource = dtWorkViewerTable
 
             dgvWorkViewer.Visible = True
