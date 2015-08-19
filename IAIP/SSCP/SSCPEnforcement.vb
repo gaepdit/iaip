@@ -297,15 +297,10 @@ Public Class SscpEnforcement
 
     Private Sub LoadDefaults()
         Try
-            '  TCEnforcement.TabPages.Remove(TPGeneralInfo)
             TCEnforcement.TabPages.Remove(TPLON)
             TCEnforcement.TabPages.Remove(TPNOV)
             TCEnforcement.TabPages.Remove(TPCO)
             TCEnforcement.TabPages.Remove(TPAO)
-            'TCEnforcement.TabPages.Remove(TPPollutants)
-
-            ' TCEnforcement.TabPages.Add(TPGeneralInfo)
-
             DTPDiscoveryDate.Text = OracleDate
             DTPDiscoveryDate.Checked = False
             DTPDayZero.Text = OracleDate
@@ -361,6 +356,7 @@ Public Class SscpEnforcement
             btnEditAirProgramPollutants.Visible = False
             cboPollutantStatus.Visible = False
             ViolationTypeGroupbox.Visible = False
+            HpvToolsPanel.Visible = False
             btnSubmitToUC.Visible = False
             btnSubmitEnforcementToEPA.Visible = False
 
@@ -3376,6 +3372,7 @@ Public Class SscpEnforcement
             chbNOV.Visible = False
             ViolationTypeNone.Checked = True
             ViolationTypeGroupbox.Visible = False
+            HpvToolsPanel.Visible = False
         Else
             TCEnforcement.TabPages.Remove(TPLON)
             chbAO.Visible = True
@@ -3397,6 +3394,9 @@ Public Class SscpEnforcement
                     btnEditAirProgramPollutants.Visible = True
                     cboPollutantStatus.Visible = True
                     ViolationTypeGroupbox.Visible = True
+                    If ViolationTypeHpv.Checked Then
+                        HpvToolsPanel.Visible = True
+                    End If
                     If AccountFormAccess(48, 2) = "1" Then
                         btnSubmitToUC.Visible = True
                     End If
@@ -3420,6 +3420,7 @@ Public Class SscpEnforcement
                     btnEditAirProgramPollutants.Visible = False
                     cboPollutantStatus.Visible = False
                     ViolationTypeGroupbox.Visible = False
+                    HpvToolsPanel.Visible = True
                     btnSubmitToUC.Visible = False
                     btnSubmitEnforcementToEPA.Visible = False
                     chbLON.Visible = True
@@ -3444,6 +3445,9 @@ Public Class SscpEnforcement
                     btnEditAirProgramPollutants.Visible = True
                     cboPollutantStatus.Visible = True
                     ViolationTypeGroupbox.Visible = True
+                    If ViolationTypeHpv.Checked Then
+                        HpvToolsPanel.Visible = True
+                    End If
                     If AccountFormAccess(48, 2) = "1" And txtAFSKeyActionNumber.Text = "" Then
                         btnSubmitToUC.Visible = True
                     End If
@@ -3467,10 +3471,11 @@ Public Class SscpEnforcement
                     btnEditAirProgramPollutants.Visible = False
                     cboPollutantStatus.Visible = False
                     ViolationTypeGroupbox.Visible = False
+                    HpvToolsPanel.Visible = False
                     btnSubmitToUC.Visible = False
                     btnSubmitEnforcementToEPA.Visible = False
                     chbLON.Visible = True
-                End If
+            End If
             End If
 
         Catch ex As Exception
@@ -3491,6 +3496,9 @@ Public Class SscpEnforcement
                     btnEditAirProgramPollutants.Visible = True
                     cboPollutantStatus.Visible = True
                     ViolationTypeGroupbox.Visible = True
+                    If ViolationTypeHpv.Checked Then
+                        HpvToolsPanel.Visible = True
+                    End If
                     If AccountFormAccess(48, 2) = "1" And txtAFSKeyActionNumber.Text = "" Then
                         btnSubmitToUC.Visible = True
                     End If
@@ -3514,6 +3522,7 @@ Public Class SscpEnforcement
                     btnEditAirProgramPollutants.Visible = False
                     cboPollutantStatus.Visible = False
                     ViolationTypeGroupbox.Visible = False
+                    HpvToolsPanel.Visible = False
                     btnSubmitToUC.Visible = False
                     btnSubmitEnforcementToEPA.Visible = False
                     chbLON.Visible = True
@@ -3535,20 +3544,24 @@ Public Class SscpEnforcement
 
         If ViolationTypeNone.Checked Then
             ViolationTypeSelect.Enabled = False
-        Else
+            HpvToolsPanel.Visible = False
+        ElseIf ViolationTypeFrv.Checked Then
+            rowFilter = "(SEVERITYCODE='FRV' AND DEPRECATED = 'FALSE') OR " &
+                "(AIRVIOLATIONTYPECODE = 'BLANK')"
             ViolationTypeSelect.Enabled = True
-
-            If ViolationTypeFrv.Checked Then
-                rowFilter = "(SEVERITYCODE='FRV' AND DEPRECATED = 'FALSE') OR " &
-                    "(AIRVIOLATIONTYPECODE = 'BLANK')"
-            ElseIf ViolationTypeHpv.Checked Then
-                rowFilter = "(SEVERITYCODE='HPV' AND DEPRECATED = 'FALSE') OR " &
-                    "(AIRVIOLATIONTYPECODE = 'BLANK')"
-            Else
-                rowFilter = "(SEVERITYCODE<>'FRV' AND SEVERITYCODE<>'HPV' AND DEPRECATED = 'FALSE') OR " &
-                    "(AIRVIOLATIONTYPECODE = 'BLANK')"
-            End If
-
+            HpvToolsPanel.Visible = False
+            ApplyViolationSelectFilter(rowFilter)
+        ElseIf ViolationTypeHpv.Checked Then
+            rowFilter = "(SEVERITYCODE='HPV' AND DEPRECATED = 'FALSE') OR " &
+                "(AIRVIOLATIONTYPECODE = 'BLANK')"
+            ViolationTypeSelect.Enabled = True
+            HpvToolsPanel.Visible = True
+            ApplyViolationSelectFilter(rowFilter)
+        ElseIf ViolationTypeNonFrv.Checked Then
+            rowFilter = "(SEVERITYCODE<>'FRV' AND SEVERITYCODE<>'HPV' AND DEPRECATED = 'FALSE') OR " &
+                "(AIRVIOLATIONTYPECODE = 'BLANK')"
+            ViolationTypeSelect.Enabled = True
+            HpvToolsPanel.Visible = False
             ApplyViolationSelectFilter(rowFilter)
         End If
 
