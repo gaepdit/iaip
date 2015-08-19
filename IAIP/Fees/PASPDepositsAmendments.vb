@@ -1581,43 +1581,6 @@ Public Class PASPDepositsAmendments
 
 
     End Sub
-    Sub ExportToExcel()
-        Try
-            Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-            'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-            'Dim ExcelApp As New Excel.Application
-            Dim i As Integer
-            Dim j As Integer
-
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-            If dgvDeposit.RowCount <> 0 Then
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
-
-                    For i = 0 To dgvDeposit.ColumnCount - 1
-                        .Cells(1, i + 1) = dgvDeposit.Columns(i).HeaderText.ToString
-                    Next
-                    For i = 0 To dgvDeposit.ColumnCount - 1
-                        For j = 0 To dgvDeposit.RowCount - 1
-                            .Cells(j + 2, i + 1).numberformat = "@"
-                            .Cells(j + 2, i + 1).value = dgvDeposit.Item(i, j).Value.ToString
-                        Next
-                    Next
-                End With
-
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
     Private Sub dgvDeposit_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvDeposit.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvDeposit.HitTest(e.X, e.Y)
         Dim temp As String
@@ -2386,41 +2349,7 @@ Public Class PASPDepositsAmendments
 #End Region
 
     Private Sub btnExportToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportToExcel.Click
-        Try
-            'Dim ExcelApp As New Excel.Application
-            Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-            'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-            Dim i As Integer
-            Dim j As Integer
-
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-            If dgvDeposit.RowCount <> 0 Then
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
-
-                    For i = 0 To dgvDeposit.ColumnCount - 1
-                        .Cells(1, i + 1) = dgvDeposit.Columns(i).HeaderText.ToString
-                    Next
-                    For i = 0 To dgvDeposit.ColumnCount - 1
-                        For j = 0 To dgvDeposit.RowCount - 1
-                            .Cells(j + 2, i + 1).numberformat = "@"
-                            .Cells(j + 2, i + 1).value = dgvDeposit.Item(i, j).Value.ToString
-                        Next
-                    Next
-                End With
-
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+        dgvDeposit.ExportToExcel(Me)
     End Sub
     Private Sub mmiCut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCut.Click
         Try

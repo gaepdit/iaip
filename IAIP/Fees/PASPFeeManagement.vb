@@ -1544,11 +1544,7 @@ Public Class PASPFeeManagement
     End Sub
 
     Private Sub btnExportToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportToExcel.Click
-        Try
-            dgvFeeManagementLists.ExportToExcel(Me)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        dgvFeeManagementLists.ExportToExcel(Me)
     End Sub
 
     Private Sub dgvExistingExemptions_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvExistingExemptions.MouseUp

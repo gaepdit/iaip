@@ -5900,35 +5900,35 @@ Public Class SSCPManagersTools
 #Region "Export to Excel"
 
     Private Sub btnExportToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportToExcel.Click
-        If dgvStatisticalReports.RowCount > 0 Then dgvStatisticalReports.ExportToExcel()
+        dgvStatisticalReports.ExportToExcel(Me)
     End Sub
 
     Private Sub btnExportMiscToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportMiscToExcel.Click
-        If dgvMiscReport.RowCount > 0 Then dgvMiscReport.ExportToExcel()
+        dgvMiscReport.ExportToExcel(Me)
     End Sub
 
     Private Sub btnExportCmsWarningToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportCmsWarningToExcel.Click
-        If dgvCMSWarning.RowCount > 0 Then dgvCMSWarning.ExportToExcel()
+        dgvCMSWarning.ExportToExcel(Me)
     End Sub
 
     Private Sub btnExportPollutantsToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportPollutantsToExcel.Click
-        If dgvPollutantFacilities.RowCount > 0 Then dgvPollutantFacilities.ExportToExcel()
+        dgvPollutantFacilities.ExportToExcel(Me)
     End Sub
 
     Private Sub btnExportWatchListToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportWatchListToExcel.Click
-        If dgvWatchList.RowCount > 0 Then dgvWatchList.ExportToExcel()
+        dgvWatchList.ExportToExcel(Me)
     End Sub
 
     Private Sub btnExportCmsUniverseToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportCmsUniverseToExcel.Click
-        If dgvCMSUniverse.RowCount > 0 Then dgvCMSUniverse.ExportToExcel()
+        dgvCMSUniverse.ExportToExcel(Me)
     End Sub
 
     Private Sub btnExportFiltered_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportFiltered.Click
-        If dgvFilteredFacilityList.RowCount > 0 Then dgvFilteredFacilityList.ExportToExcel()
+        dgvFilteredFacilityList.ExportToExcel(Me)
     End Sub
 
     Private Sub btnExportSelected_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportSelected.Click
-        If dgvSelectedFacilityList.RowCount > 0 Then dgvSelectedFacilityList.ExportToExcel()
+        dgvSelectedFacilityList.ExportToExcel(Me)
     End Sub
 
 #End Region

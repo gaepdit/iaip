@@ -1093,63 +1093,7 @@ Public Class DMUEisGecoTool
          
     End Sub
     Private Sub btnExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExcel.Click
-        Try
-            ExporttoExcel()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-          
-        End Try
-         
-    End Sub
-    Sub ExporttoExcel()
-        Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        '   Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-        'Dim ExcelApp As New Excel.Application
-        Dim i As Integer
-        Dim j As Integer
-
-        Try
-
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-            If dgvEIData.RowCount <> 0 Then
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
-
-
-                    For i = 0 To dgvEIData.ColumnCount - 1
-                        .Cells(1, i + 1) = dgvEIData.Columns(i).HeaderText.ToString
-                    Next
-
-                    For i = 0 To dgvEIData.ColumnCount - 1
-                        For j = 0 To dgvEIData.RowCount - 2
-                            .Cells(j + 2, i + 1).numberformat = "@"
-                            .Cells(j + 2, i + 1).value = dgvEIData.Item(i, j).Value.ToString
-                        Next
-                    Next
-
-                End With
-
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-
-        Catch ex As Exception
-            If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
-                MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
-            Else
-                ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-            End If
-        Finally
-         
-        End Try
-         
-
+        dgvEIData.ExportToExcel(Me)
     End Sub
     Private Sub btnExportEIExport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportEIExport.Click
         Try
@@ -1159,7 +1103,7 @@ Public Class DMUEisGecoTool
                 BindDataGridER()
                 BindDataGridEP()
                 BindDataGridEM()
-                export2Excel()
+                exportSI()
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1671,19 +1615,10 @@ Public Class DMUEisGecoTool
     End Sub
 
 #End Region
-    Private Sub export2Excel()
-        Try
-            exportSI()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
     Private Sub exportSI()
+
         Try
             Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-            'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-            'Dim ExcelApp As Excel.Application = New Excel.ApplicationClass
             Dim col, row As Integer
             Dim x As String
             Dim y As String
@@ -1693,7 +1628,7 @@ Public Class DMUEisGecoTool
             Dim d As Integer
             Dim startRow As Integer = 1
 
-            
+
 
             If ExcelApp.Visible = False Then
                 ExcelApp.Visible = True
@@ -1918,7 +1853,7 @@ Public Class DMUEisGecoTool
                 ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
             End If
         Finally
-             
+
         End Try
 
     End Sub
@@ -2575,51 +2510,7 @@ Public Class DMUEisGecoTool
 
     End Sub
     Sub ExportEStoExcel()
-        Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-        ' Dim ExcelApp As New Excel.Application
-        Dim i As Integer
-        Dim j As Integer
-
-        Try
-            If dgvESDataCount.RowCount <> 0 Then
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
-
-                    For i = 0 To dgvESDataCount.ColumnCount - 1
-                        .Cells(1, i + 1) = dgvESDataCount.Columns(i).HeaderText.ToString
-                    Next
-
-                    For i = 0 To dgvESDataCount.ColumnCount - 1
-                        'For j = 0 To dgvESDataCount.RowCount - 2
-                        For j = 0 To dgvESDataCount.RowCount - 1
-                            .Cells(j + 2, i + 1).numberformat = "@"
-                            .Cells(j + 2, i + 1).value = dgvESDataCount.Item(i, j).Value.ToString
-                        Next
-                    Next
-
-                End With
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-
-        Catch ex As Exception
-            If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
-                MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
-            Else
-                ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-            End If
-        Finally
-
-
-        End Try
-
+        dgvESDataCount.ExportToExcel(Me)
     End Sub
     Private Sub dgvESDataCount_MouseUp1(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvESDataCount.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvESDataCount.HitTest(e.X, e.Y)
@@ -3756,15 +3647,6 @@ Public Class DMUEisGecoTool
         Try
             SaveESMailOut()
             MsgBox("The info has been saved!")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-    Private Sub btnoutofcomplianceExport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnoutofcomplianceExport.Click
-        Try
-            ExportEStoExcel()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -5896,58 +5778,7 @@ Public Class DMUEisGecoTool
 
     End Sub
     Private Sub BtnEIExportExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnEIExportExcel.Click
-        Try
-            ExportEItoExcel()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-             
-        End Try
-    End Sub
-    Sub ExportEItoExcel()
-        Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-        'Dim ExcelApp As New Excel.Application
-        Dim i As Integer
-        Dim j As Integer
-
-        Try
-            If dgvEIDataCount.RowCount <> 0 Then
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
-
-
-                    For i = 0 To dgvEIDataCount.ColumnCount - 1
-                        .Cells(1, i + 1) = dgvEIDataCount.Columns(i).HeaderText.ToString
-                    Next
-
-                    For i = 0 To dgvEIDataCount.ColumnCount - 1
-                        For j = 0 To dgvEIDataCount.RowCount - 1
-                            .Cells(j + 2, i + 1).numberformat = "@"
-                            .Cells(j + 2, i + 1).value = dgvEIDataCount.Item(i, j).Value.ToString
-                        Next
-                    Next
-
-                End With
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-
-        Catch ex As Exception
-            If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
-                MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
-            Else
-                ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-            End If
-        Finally
-             
-        End Try
+        dgvEIDataCount.ExportToExcel(Me)
     End Sub
     Private Sub btnEISave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEISave.Click
         Try
@@ -8960,59 +8791,7 @@ Public Class DMUEisGecoTool
     End Sub
 
     Private Sub BtnEISExportExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnEISExportExcel.Click
-        Try
-            ExportEIStoExcel()
-        Catch ex As Exception
-            'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-
-    Sub ExportEIStoExcel()
-        Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-        'Dim ExcelApp As New Excel.Application
-        Dim i As Integer
-        Dim j As Integer
-
-        Try
-            If dgvEISDataCount.RowCount <> 0 Then
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
-
-
-                    For i = 0 To dgvEISDataCount.ColumnCount - 1
-                        .Cells(1, i + 1) = dgvEISDataCount.Columns(i).HeaderText.ToString
-                    Next
-
-                    For i = 0 To dgvEISDataCount.ColumnCount - 1
-                        For j = 0 To dgvEISDataCount.RowCount - 1
-                            .Cells(j + 2, i + 1).numberformat = "@"
-                            .Cells(j + 2, i + 1).value = dgvEISDataCount.Item(i, j).Value.ToString
-                        Next
-                    Next
-
-                End With
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-
-        Catch ex As Exception
-            If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
-                MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
-            Else
-                'ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-            End If
-        Finally
-
-        End Try
+        dgvEISDataCount.ExportToExcel(Me)
     End Sub
 
 
@@ -11344,60 +11123,6 @@ Public Class DMUEisGecoTool
             lblEISCount.Text = "QA Submitted, EPA Submitted Count"
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-
-    Private Sub btnEISSummaryToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Try
-            'Dim ExcelApp As New Excel.Application
-            Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-            'Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-            Dim i, j As Integer
-
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-
-            If dgvEISStats.RowCount <> 0 Then
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
-
-                    'For displaying the column name in the the excel file.
-                    For i = 0 To dgvEISStats.ColumnCount - 1
-                        If IsDBNull(dgvEISStats.Columns(i).HeaderText.ToString) Then
-                            .Cells(1, i + 1) = "No Header"
-                        Else
-                            .Cells(1, i + 1) = dgvEISStats.Columns(i).HeaderText.ToString
-                        End If
-                    Next
-
-                    For i = 0 To dgvEISStats.ColumnCount - 1
-                        For j = 0 To dgvEISStats.RowCount - 1
-                            If IsDBNull(dgvEISStats.Item(i, j).Value.ToString) Then
-                                .Cells(j + 2, i + 1).numberformat = "@"
-                                .Cells(j + 2, i + 1).value = "  "
-                            Else
-                                .Cells(j + 2, i + 1).numberformat = "@"
-                                .Cells(j + 2, i + 1).value = dgvEISStats.Item(i, j).Value.ToString
-                            End If
-
-                        Next
-                    Next
-                End With
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-
-        Catch ex As Exception
-            If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
-                MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
-            Else
-                ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-            End If
         End Try
     End Sub
 
@@ -14879,51 +14604,7 @@ Public Class DMUEisGecoTool
 
 
     Private Sub btnEISSummaryToExcel_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEISSummaryToExcel.Click
-        Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        '   Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-        'Dim ExcelApp As New Excel.Application
-        Dim i As Integer
-        Dim j As Integer
-
-        Try
-
-            If ExcelApp.Visible = False Then
-                ExcelApp.Visible = True
-            End If
-            If dgvEISStats.RowCount <> 0 Then
-                With ExcelApp
-                    .SheetsInNewWorkbook = 1
-                    .Workbooks.Add()
-                    .Worksheets(1).Select()
-
-                    For i = 0 To dgvEISStats.ColumnCount - 1
-                        .Cells(1, i + 1) = dgvEISStats.Columns(i).HeaderText.ToString
-                    Next
-
-                    For i = 0 To dgvEISStats.ColumnCount - 1
-                        For j = 0 To dgvEISStats.RowCount - 1
-                            .Cells(j + 2, i + 1).numberformat = "@"
-                            .Cells(j + 2, i + 1).value = dgvEISStats.Item(i, j).Value.ToString
-                        Next
-                    Next
-
-                End With
-
-                If ExcelApp.Visible = False Then
-                    ExcelApp.Visible = True
-                End If
-            End If
-
-        Catch ex As Exception
-            If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
-                MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
-            Else
-                ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-            End If
-        Finally
-
-        End Try
-
+        dgvEISStats.ExportToExcel(Me)
     End Sub
 
 #Region " Accept Button "
