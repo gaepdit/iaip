@@ -22,39 +22,40 @@ Partial Class DmuEdtErrorDetail
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.ErrorIDDisplay = New System.Windows.Forms.Label
-        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer
-        Me.GenericErrorMessageLabel = New System.Windows.Forms.Label
-        Me.GenericErrorMessageDisplayContainer = New System.Windows.Forms.Panel
-        Me.GenericErrorMessageDisplay = New System.Windows.Forms.Label
-        Me.BusinessRuleDisplayContainer = New System.Windows.Forms.Panel
-        Me.BusinessRuleDisplay = New System.Windows.Forms.Label
-        Me.BusinessRuleLabel = New System.Windows.Forms.Label
-        Me.UserAssigned = New System.Windows.Forms.ComboBox
-        Me.ChangeStatus = New System.Windows.Forms.Button
-        Me.AssignSelectedToUser = New System.Windows.Forms.Button
-        Me.EdtErrorCodeLabel = New System.Windows.Forms.Label
-        Me.CurrentStatus = New System.Windows.Forms.Label
-        Me.TableNameLabel = New System.Windows.Forms.Label
-        Me.EdtIdLabel = New System.Windows.Forms.Label
-        Me.EdtForeignKeyLabel = New System.Windows.Forms.Label
-        Me.EdtOperationLabel = New System.Windows.Forms.Label
-        Me.EdtStatusLabel = New System.Windows.Forms.Label
-        Me.EdtDateSubmittedLabel = New System.Windows.Forms.Label
-        Me.ErrorMessageDisplayContainer = New System.Windows.Forms.Panel
-        Me.ErrorMessageDisplay = New System.Windows.Forms.Label
-        Me.ErrorMessageLabel = New System.Windows.Forms.Label
-        Me.EdtErrorCode = New System.Windows.Forms.TextBox
-        Me.TableName = New System.Windows.Forms.TextBox
-        Me.EdtId = New System.Windows.Forms.TextBox
-        Me.EdtForeignKey = New System.Windows.Forms.TextBox
-        Me.EdtOperation = New System.Windows.Forms.TextBox
-        Me.EdtStatus = New System.Windows.Forms.TextBox
-        Me.EdtDateSubmitted = New System.Windows.Forms.TextBox
-        Me.IaipIdLabel = New System.Windows.Forms.Label
-        Me.IaipId = New System.Windows.Forms.TextBox
-        Me.IaipForeignIdLabel = New System.Windows.Forms.Label
-        Me.IaipForeignId = New System.Windows.Forms.TextBox
+        Me.ErrorIDDisplay = New System.Windows.Forms.Label()
+        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.GenericErrorMessageLabel = New System.Windows.Forms.Label()
+        Me.GenericErrorMessageDisplayContainer = New System.Windows.Forms.Panel()
+        Me.GenericErrorMessageDisplay = New System.Windows.Forms.Label()
+        Me.BusinessRuleDisplayContainer = New System.Windows.Forms.Panel()
+        Me.BusinessRuleDisplay = New System.Windows.Forms.Label()
+        Me.BusinessRuleLabel = New System.Windows.Forms.Label()
+        Me.UserAssigned = New System.Windows.Forms.ComboBox()
+        Me.ChangeStatus = New System.Windows.Forms.Button()
+        Me.AssignSelectedToUser = New System.Windows.Forms.Button()
+        Me.EdtErrorCodeLabel = New System.Windows.Forms.Label()
+        Me.CurrentStatus = New System.Windows.Forms.Label()
+        Me.TableNameLabel = New System.Windows.Forms.Label()
+        Me.EdtIdLabel = New System.Windows.Forms.Label()
+        Me.EdtForeignKeyLabel = New System.Windows.Forms.Label()
+        Me.EdtOperationLabel = New System.Windows.Forms.Label()
+        Me.EdtStatusLabel = New System.Windows.Forms.Label()
+        Me.EdtDateSubmittedLabel = New System.Windows.Forms.Label()
+        Me.ErrorMessageDisplayContainer = New System.Windows.Forms.Panel()
+        Me.ErrorMessageDisplay = New System.Windows.Forms.Label()
+        Me.ErrorMessageLabel = New System.Windows.Forms.Label()
+        Me.EdtErrorCode = New System.Windows.Forms.TextBox()
+        Me.TableName = New System.Windows.Forms.TextBox()
+        Me.EdtId = New System.Windows.Forms.TextBox()
+        Me.EdtForeignKey = New System.Windows.Forms.TextBox()
+        Me.EdtOperation = New System.Windows.Forms.TextBox()
+        Me.EdtStatus = New System.Windows.Forms.TextBox()
+        Me.EdtDateSubmitted = New System.Windows.Forms.TextBox()
+        Me.IaipIdLabel = New System.Windows.Forms.Label()
+        Me.IaipForeignIdLabel = New System.Windows.Forms.Label()
+        Me.IaipId = New System.Windows.Forms.LinkLabel()
+        Me.IaipForeignId = New System.Windows.Forms.LinkLabel()
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
@@ -76,7 +77,7 @@ Partial Class DmuEdtErrorDetail
         'SplitContainer1
         '
         Me.SplitContainer1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SplitContainer1.IsSplitterFixed = True
         Me.SplitContainer1.Location = New System.Drawing.Point(0, 387)
         Me.SplitContainer1.Name = "SplitContainer1"
@@ -107,7 +108,7 @@ Partial Class DmuEdtErrorDetail
         'GenericErrorMessageDisplayContainer
         '
         Me.GenericErrorMessageDisplayContainer.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GenericErrorMessageDisplayContainer.AutoScroll = True
         Me.GenericErrorMessageDisplayContainer.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.GenericErrorMessageDisplayContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
@@ -120,7 +121,7 @@ Partial Class DmuEdtErrorDetail
         'GenericErrorMessageDisplay
         '
         Me.GenericErrorMessageDisplay.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GenericErrorMessageDisplay.AutoSize = True
         Me.GenericErrorMessageDisplay.Location = New System.Drawing.Point(3, 0)
         Me.GenericErrorMessageDisplay.MaximumSize = New System.Drawing.Size(150, 0)
@@ -131,7 +132,7 @@ Partial Class DmuEdtErrorDetail
         'BusinessRuleDisplayContainer
         '
         Me.BusinessRuleDisplayContainer.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BusinessRuleDisplayContainer.AutoScroll = True
         Me.BusinessRuleDisplayContainer.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.BusinessRuleDisplayContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
@@ -144,7 +145,7 @@ Partial Class DmuEdtErrorDetail
         'BusinessRuleDisplay
         '
         Me.BusinessRuleDisplay.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BusinessRuleDisplay.AutoSize = True
         Me.BusinessRuleDisplay.Location = New System.Drawing.Point(3, 0)
         Me.BusinessRuleDisplay.MaximumSize = New System.Drawing.Size(150, 0)
@@ -265,8 +266,8 @@ Partial Class DmuEdtErrorDetail
         'ErrorMessageDisplayContainer
         '
         Me.ErrorMessageDisplayContainer.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ErrorMessageDisplayContainer.AutoScroll = True
         Me.ErrorMessageDisplayContainer.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.ErrorMessageDisplayContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
@@ -279,7 +280,7 @@ Partial Class DmuEdtErrorDetail
         'ErrorMessageDisplay
         '
         Me.ErrorMessageDisplay.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ErrorMessageDisplay.AutoSize = True
         Me.ErrorMessageDisplay.Location = New System.Drawing.Point(3, 0)
         Me.ErrorMessageDisplay.MaximumSize = New System.Drawing.Size(361, 0)
@@ -375,16 +376,6 @@ Partial Class DmuEdtErrorDetail
         Me.IaipIdLabel.TabIndex = 0
         Me.IaipIdLabel.Text = "IAIP ID"
         '
-        'IaipId
-        '
-        Me.IaipId.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.IaipId.Location = New System.Drawing.Point(125, 152)
-        Me.IaipId.Name = "IaipId"
-        Me.IaipId.ReadOnly = True
-        Me.IaipId.Size = New System.Drawing.Size(271, 13)
-        Me.IaipId.TabIndex = 7
-        Me.IaipId.Text = "N/A"
-        '
         'IaipForeignIdLabel
         '
         Me.IaipForeignIdLabel.AutoSize = True
@@ -394,14 +385,28 @@ Partial Class DmuEdtErrorDetail
         Me.IaipForeignIdLabel.TabIndex = 0
         Me.IaipForeignIdLabel.Text = "IAIP Foreign Key ID"
         '
+        'IaipId
+        '
+        Me.IaipId.AutoSize = True
+        Me.IaipId.Enabled = False
+        Me.IaipId.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
+        Me.IaipId.Location = New System.Drawing.Point(122, 152)
+        Me.IaipId.Name = "IaipId"
+        Me.IaipId.Size = New System.Drawing.Size(27, 13)
+        Me.IaipId.TabIndex = 14
+        Me.IaipId.TabStop = True
+        Me.IaipId.Text = "N/A"
+        '
         'IaipForeignId
         '
-        Me.IaipForeignId.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.IaipForeignId.Location = New System.Drawing.Point(125, 190)
+        Me.IaipForeignId.AutoSize = True
+        Me.IaipForeignId.Enabled = False
+        Me.IaipForeignId.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
+        Me.IaipForeignId.Location = New System.Drawing.Point(122, 190)
         Me.IaipForeignId.Name = "IaipForeignId"
-        Me.IaipForeignId.ReadOnly = True
-        Me.IaipForeignId.Size = New System.Drawing.Size(271, 13)
-        Me.IaipForeignId.TabIndex = 7
+        Me.IaipForeignId.Size = New System.Drawing.Size(27, 13)
+        Me.IaipForeignId.TabIndex = 15
+        Me.IaipForeignId.TabStop = True
         Me.IaipForeignId.Text = "N/A"
         '
         'DmuEdtErrorDetail
@@ -409,12 +414,12 @@ Partial Class DmuEdtErrorDetail
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(415, 502)
+        Me.Controls.Add(Me.IaipForeignId)
+        Me.Controls.Add(Me.IaipId)
         Me.Controls.Add(Me.EdtDateSubmitted)
         Me.Controls.Add(Me.EdtStatus)
         Me.Controls.Add(Me.EdtOperation)
         Me.Controls.Add(Me.EdtForeignKey)
-        Me.Controls.Add(Me.IaipForeignId)
-        Me.Controls.Add(Me.IaipId)
         Me.Controls.Add(Me.EdtId)
         Me.Controls.Add(Me.TableName)
         Me.Controls.Add(Me.EdtErrorCode)
@@ -442,6 +447,7 @@ Partial Class DmuEdtErrorDetail
         Me.SplitContainer1.Panel1.PerformLayout()
         Me.SplitContainer1.Panel2.ResumeLayout(False)
         Me.SplitContainer1.Panel2.PerformLayout()
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
         Me.GenericErrorMessageDisplayContainer.ResumeLayout(False)
         Me.GenericErrorMessageDisplayContainer.PerformLayout()
@@ -483,7 +489,7 @@ Partial Class DmuEdtErrorDetail
     Friend WithEvents EdtStatus As System.Windows.Forms.TextBox
     Friend WithEvents EdtDateSubmitted As System.Windows.Forms.TextBox
     Friend WithEvents IaipIdLabel As System.Windows.Forms.Label
-    Friend WithEvents IaipId As System.Windows.Forms.TextBox
     Friend WithEvents IaipForeignIdLabel As System.Windows.Forms.Label
-    Friend WithEvents IaipForeignId As System.Windows.Forms.TextBox
+    Friend WithEvents IaipId As System.Windows.Forms.LinkLabel
+    Friend WithEvents IaipForeignId As System.Windows.Forms.LinkLabel
 End Class

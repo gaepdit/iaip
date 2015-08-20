@@ -16,8 +16,8 @@ Namespace DAL.SSCP
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
                 " FROM AIRBRANCH.SSCPITEMMASTER " & _
                 " WHERE RowNum = 1 " & _
-                " AND STRTRACKINGNUMBER = :pId "
-            Dim parameter As New OracleParameter("pId", id)
+                " AND STRTRACKINGNUMBER = :id "
+            Dim parameter As New OracleParameter("id", id)
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
             Return Convert.ToBoolean(result)
@@ -37,8 +37,8 @@ Namespace DAL.SSCP
             Dim query As String = "SELECT STRREFERENCENUMBER " & _
                 " FROM AIRBRANCH.SSCPTESTREPORTS " & _
                 " WHERE RowNum = 1 " & _
-                " AND STRTRACKINGNUMBER = :pId "
-            Dim parameter As New OracleParameter("pId", id)
+                " AND STRTRACKINGNUMBER = :id "
+            Dim parameter As New OracleParameter("id", id)
 
             refNum = DB.GetSingleValue(Of String)(query, parameter)
 
@@ -59,11 +59,20 @@ Namespace DAL.SSCP
 
             Dim query As String = "SELECT INSPECTION_ID " & _
             "  FROM AIRBRANCH.GEOS_INSPECTIONS_XREF " & _
-            "  WHERE STRTRACKINGNUMBER = :Id "
-            Dim parameter As New OracleParameter("Id", id)
+            "  WHERE STRTRACKINGNUMBER = :id "
+            Dim parameter As New OracleParameter("id", id)
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
             Return result
+        End Function
+
+        Public Function GetFacilityIdByFceId(id As String) As Apb.ApbFacilityId
+            If id = "" OrElse Not Integer.TryParse(id, Nothing) Then Return Nothing
+
+            Dim query As String = "SELECT STRAIRSNUMBER FROM SSCPFCEMASTER WHERE STRFCENUMBER = :id"
+            Dim parameter As New OracleParameter("id", id)
+
+            Return New Apb.ApbFacilityId(DB.GetSingleValue(Of String)(query, parameter))
         End Function
 
     End Module
