@@ -554,7 +554,7 @@ Public Class IAIPFacilitySummary
             Case ComplianceEnforcementGrid.Name
                 OpenFormEnforcement(id)
             Case ComplianceFceGrid.Name
-                OpenFormFceByYear(Me.AirsNumber, id)
+                OpenFormFce(Me.AirsNumber, id)
             Case ComplianceWorkGrid.Name
                 OpenFormSscpWorkItem(id)
 

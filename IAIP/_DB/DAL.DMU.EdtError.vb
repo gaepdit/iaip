@@ -99,9 +99,9 @@ Namespace DAL.DMU
                 .EdtSubmitDate = DB.GetNullable(Of Date)(row("SUBMITDATE"))
                 .EdtTableName = DB.GetNullable(Of String)(row("TABLENAME"))
                 .IaipID = DB.GetNullable(Of String)(row("IAIPID"))
-                .IaipIDCategory = DB.GetNullable(Of String)(row("IAIPIDCATEGORY"))
+                [Enum].TryParse(DB.GetNullable(Of String)(row("IAIPIDCATEGORY")), .IaipIDCategory)
                 .IaipForeignID = DB.GetNullable(Of String)(row("IAIPFOREIGNID"))
-                .IaipForeignIDCategory = DB.GetNullable(Of String)(row("IAIPFOREIGNIDCATEGORY"))
+                [Enum].TryParse(DB.GetNullable(Of String)(row("IAIPFOREIGNIDCATEGORY")), .IaipForeignIDCategory)
             End With
 
             Dim em As New EdtErrorMessage

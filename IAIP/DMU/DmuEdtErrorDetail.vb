@@ -102,17 +102,24 @@ Public Class DmuEdtErrorDetail
                 EdtOperation.Text = .EdtOperation
                 EdtStatus.Text = .EdtStatus
                 EdtDateSubmitted.Text = .EdtSubmitDate.ToString(DateFormat)
-                If .IaipIDCategory = "AIRFACILITY" Then
+
+                If .IaipIDCategory = DMU.EdtIdCategory.AIRFACILITY Then
                     IaipId.Text = New Apb.ApbFacilityId(.IaipID).FormattedString
                 Else
                     IaipId.Text = .IaipID
                 End If
-                If .IaipForeignIDCategory = "AIRFACILITY" Then
+                If Not .IaipIDCategory = DMU.EdtIdCategory.None Then
+                    IaipId.Enabled = True
+                End If
+
+                If .IaipForeignIDCategory = DMU.EdtIdCategory.AIRFACILITY Then
                     IaipForeignId.Text = New Apb.ApbFacilityId(.IaipForeignID).FormattedString
                 Else
                     IaipForeignId.Text = .IaipForeignID
                 End If
-
+                If Not .IaipForeignIDCategory = DMU.EdtIdCategory.None Then
+                    IaipForeignId.Enabled = True
+                End If
             End With
         End With
 
@@ -164,6 +171,35 @@ Public Class DmuEdtErrorDetail
         Else
             MessageBox.Show("There was an error changing the status for the selected item.", "Error", MessageBoxButtons.OK)
         End If
+    End Sub
+
+#End Region
+
+#Region " Links "
+
+    Private Sub IaipId_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles IaipId.LinkClicked
+        Select Case edtErrorDetails.EdtSubmission.IaipIDCategory
+            Case DMU.EdtIdCategory.AIRFACILITY
+                OpenFormFacilitySummary(IaipId.Text)
+            Case DMU.EdtIdCategory.COMPLIANCEMONITORING
+                OpenFormSscpWorkItem(IaipId.Text)
+            Case DMU.EdtIdCategory.COMPLIANCEMONITORINGFCE
+                OpenFormFceByID(IaipId.Text)
+            Case DMU.EdtIdCategory.CASEFILE, DMU.EdtIdCategory.ENFORCEMENTACTION
+                OpenFormEnforcement(IaipId.Text)
+        End Select
+    End Sub
+    Private Sub IaipForeignId_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles IaipForeignId.LinkClicked
+        Select Case edtErrorDetails.EdtSubmission.IaipForeignIDCategory
+            Case DMU.EdtIdCategory.AIRFACILITY
+                OpenFormFacilitySummary(IaipForeignId.Text)
+            Case DMU.EdtIdCategory.COMPLIANCEMONITORING
+                OpenFormSscpWorkItem(IaipForeignId.Text)
+            Case DMU.EdtIdCategory.COMPLIANCEMONITORINGFCE
+                OpenFormFceByID(IaipForeignId.Text)
+            Case DMU.EdtIdCategory.CASEFILE, DMU.EdtIdCategory.ENFORCEMENTACTION
+                OpenFormEnforcement(IaipForeignId.Text)
+        End Select
     End Sub
 
 #End Region

@@ -60,20 +60,25 @@ Module FormHelpers
 
 #Region " FCE "
 
-    Private Sub OpenFormFce(ByVal airsNumber As ApbFacilityId)
+    Public Sub OpenFormFce(ByVal airsNumber As ApbFacilityId, Optional ByVal year As String = "")
         SSCPFCE = New SSCPFCEWork
         SSCPFCE.txtAirsNumber.Text = airsNumber.ToString
         SSCPFCE.Show()
+        If Not String.IsNullOrEmpty(year) Then
+            SSCPFCE.cboFCEYear.Text = year
+        End If
     End Sub
 
-    Public Sub OpenFormFceByYear(ByVal airsNumber As ApbFacilityId, ByVal year As String)
-        OpenFormFce(airsNumber)
-        SSCPFCE.cboFCEYear.Text = year
-    End Sub
-
-    Public Sub OpenFormFceByID(ByVal airsNumber As ApbFacilityId, Optional ByVal id As String = "")
-        OpenFormFce(airsNumber)
-        If Not String.IsNullOrEmpty(id) Then SSCPFCE.txtFCENumber.Text = id
+    Public Sub OpenFormFceByID(ByVal id As String, Optional ByVal airsNumber As ApbFacilityId = Nothing)
+        If Not String.IsNullOrEmpty(id) Then
+            If airsNumber Is Nothing Then
+                airsNumber = DAL.SSCP.GetFacilityIdByFceId(id)
+            End If
+            If airsNumber IsNot Nothing Then
+                OpenFormFce(airsNumber)
+                SSCPFCE.txtFCENumber.Text = id
+            End If
+        End If
     End Sub
 
 #End Region
