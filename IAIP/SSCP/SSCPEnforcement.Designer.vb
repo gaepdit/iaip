@@ -41,6 +41,10 @@ Partial Class SscpEnforcement
         Me.TCEnforcement = New System.Windows.Forms.TabControl()
         Me.TPGeneralInfo = New System.Windows.Forms.TabPage()
         Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.HpvToolsPanel = New System.Windows.Forms.Panel()
+        Me.btnDayZero = New System.Windows.Forms.Button()
+        Me.DTPDayZero = New System.Windows.Forms.DateTimePicker()
+        Me.lblDayZero = New System.Windows.Forms.Label()
         Me.ViolationTypeGroupbox = New System.Windows.Forms.GroupBox()
         Me.ViolationTypeSelect = New System.Windows.Forms.ComboBox()
         Me.ViolationTypeNone = New System.Windows.Forms.RadioButton()
@@ -70,16 +74,13 @@ Partial Class SscpEnforcement
         Me.txtAFSCOResolvedActionNumber = New System.Windows.Forms.TextBox()
         Me.Label35 = New System.Windows.Forms.Label()
         Me.btnLinkEnforcement = New System.Windows.Forms.Button()
-        Me.btnDayZero = New System.Windows.Forms.Button()
         Me.DTPEnforcementResolved = New System.Windows.Forms.DateTimePicker()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.DTPDiscoveryDate = New System.Windows.Forms.DateTimePicker()
         Me.chbAO = New System.Windows.Forms.CheckBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.chbCO = New System.Windows.Forms.CheckBox()
-        Me.DTPDayZero = New System.Windows.Forms.DateTimePicker()
         Me.chbNOV = New System.Windows.Forms.CheckBox()
-        Me.lblDayZero = New System.Windows.Forms.Label()
         Me.txtTrackingNumber = New System.Windows.Forms.TextBox()
         Me.chbLON = New System.Windows.Forms.CheckBox()
         Me.lblDiscoveryEvent = New System.Windows.Forms.Label()
@@ -238,12 +239,12 @@ Partial Class SscpEnforcement
         Me.Label56 = New System.Windows.Forms.Label()
         Me.Label57 = New System.Windows.Forms.Label()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.HpvToolsPanel = New System.Windows.Forms.Panel()
         Me.ToolStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.TCEnforcement.SuspendLayout()
         Me.TPGeneralInfo.SuspendLayout()
         Me.Panel6.SuspendLayout()
+        Me.HpvToolsPanel.SuspendLayout()
         Me.ViolationTypeGroupbox.SuspendLayout()
         Me.Panel7.SuspendLayout()
         Me.TPPollutants.SuspendLayout()
@@ -271,7 +272,6 @@ Partial Class SscpEnforcement
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.HpvToolsPanel.SuspendLayout()
         Me.SuspendLayout()
         '
         'ToolStrip1
@@ -412,6 +412,49 @@ Partial Class SscpEnforcement
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(878, 463)
         Me.Panel6.TabIndex = 369
+        '
+        'HpvToolsPanel
+        '
+        Me.HpvToolsPanel.Controls.Add(Me.btnDayZero)
+        Me.HpvToolsPanel.Controls.Add(Me.DTPDayZero)
+        Me.HpvToolsPanel.Controls.Add(Me.lblDayZero)
+        Me.HpvToolsPanel.Location = New System.Drawing.Point(461, 29)
+        Me.HpvToolsPanel.Name = "HpvToolsPanel"
+        Me.HpvToolsPanel.Size = New System.Drawing.Size(274, 42)
+        Me.HpvToolsPanel.TabIndex = 372
+        Me.HpvToolsPanel.Visible = False
+        '
+        'btnDayZero
+        '
+        Me.btnDayZero.AutoSize = True
+        Me.btnDayZero.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnDayZero.Location = New System.Drawing.Point(215, 4)
+        Me.btnDayZero.Name = "btnDayZero"
+        Me.btnDayZero.Size = New System.Drawing.Size(49, 23)
+        Me.btnDayZero.TabIndex = 368
+        Me.btnDayZero.Text = "90-day"
+        Me.btnDayZero.UseVisualStyleBackColor = True
+        '
+        'DTPDayZero
+        '
+        Me.DTPDayZero.Checked = False
+        Me.DTPDayZero.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPDayZero.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDayZero.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DTPDayZero.Location = New System.Drawing.Point(8, 4)
+        Me.DTPDayZero.Name = "DTPDayZero"
+        Me.DTPDayZero.ShowCheckBox = True
+        Me.DTPDayZero.Size = New System.Drawing.Size(119, 22)
+        Me.DTPDayZero.TabIndex = 4
+        '
+        'lblDayZero
+        '
+        Me.lblDayZero.AutoSize = True
+        Me.lblDayZero.Location = New System.Drawing.Point(133, 9)
+        Me.lblDayZero.Name = "lblDayZero"
+        Me.lblDayZero.Size = New System.Drawing.Size(76, 13)
+        Me.lblDayZero.TabIndex = 5
+        Me.lblDayZero.Text = "HPV Day Zero"
         '
         'ViolationTypeGroupbox
         '
@@ -699,17 +742,6 @@ Partial Class SscpEnforcement
         Me.btnLinkEnforcement.TabIndex = 337
         Me.btnLinkEnforcement.Text = "Link to Event"
         '
-        'btnDayZero
-        '
-        Me.btnDayZero.AutoSize = True
-        Me.btnDayZero.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnDayZero.Location = New System.Drawing.Point(215, 4)
-        Me.btnDayZero.Name = "btnDayZero"
-        Me.btnDayZero.Size = New System.Drawing.Size(49, 23)
-        Me.btnDayZero.TabIndex = 368
-        Me.btnDayZero.Text = "90-day"
-        Me.btnDayZero.UseVisualStyleBackColor = True
-        '
         'DTPEnforcementResolved
         '
         Me.DTPEnforcementResolved.Checked = False
@@ -772,18 +804,6 @@ Partial Class SscpEnforcement
         Me.chbCO.Text = "CO"
         Me.chbCO.UseVisualStyleBackColor = True
         '
-        'DTPDayZero
-        '
-        Me.DTPDayZero.Checked = False
-        Me.DTPDayZero.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPDayZero.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DTPDayZero.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPDayZero.Location = New System.Drawing.Point(8, 4)
-        Me.DTPDayZero.Name = "DTPDayZero"
-        Me.DTPDayZero.ShowCheckBox = True
-        Me.DTPDayZero.Size = New System.Drawing.Size(119, 22)
-        Me.DTPDayZero.TabIndex = 4
-        '
         'chbNOV
         '
         Me.chbNOV.AutoSize = True
@@ -794,15 +814,6 @@ Partial Class SscpEnforcement
         Me.chbNOV.Text = "NOV"
         Me.chbNOV.UseVisualStyleBackColor = True
         '
-        'lblDayZero
-        '
-        Me.lblDayZero.AutoSize = True
-        Me.lblDayZero.Location = New System.Drawing.Point(133, 9)
-        Me.lblDayZero.Name = "lblDayZero"
-        Me.lblDayZero.Size = New System.Drawing.Size(76, 13)
-        Me.lblDayZero.TabIndex = 5
-        Me.lblDayZero.Text = "HPV Day Zero"
-        '
         'txtTrackingNumber
         '
         Me.txtTrackingNumber.Location = New System.Drawing.Point(191, 5)
@@ -810,6 +821,7 @@ Partial Class SscpEnforcement
         Me.txtTrackingNumber.ReadOnly = True
         Me.txtTrackingNumber.Size = New System.Drawing.Size(64, 20)
         Me.txtTrackingNumber.TabIndex = 3
+        Me.txtTrackingNumber.Visible = False
         '
         'chbLON
         '
@@ -2603,17 +2615,6 @@ Partial Class SscpEnforcement
         Me.DataGridView1.StandardTab = True
         Me.DataGridView1.TabIndex = 4
         '
-        'HpvToolsPanel
-        '
-        Me.HpvToolsPanel.Controls.Add(Me.btnDayZero)
-        Me.HpvToolsPanel.Controls.Add(Me.DTPDayZero)
-        Me.HpvToolsPanel.Controls.Add(Me.lblDayZero)
-        Me.HpvToolsPanel.Location = New System.Drawing.Point(461, 29)
-        Me.HpvToolsPanel.Name = "HpvToolsPanel"
-        Me.HpvToolsPanel.Size = New System.Drawing.Size(274, 42)
-        Me.HpvToolsPanel.TabIndex = 372
-        Me.HpvToolsPanel.Visible = False
-        '
         'SscpEnforcement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2634,6 +2635,8 @@ Partial Class SscpEnforcement
         Me.TPGeneralInfo.ResumeLayout(False)
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
+        Me.HpvToolsPanel.ResumeLayout(False)
+        Me.HpvToolsPanel.PerformLayout()
         Me.ViolationTypeGroupbox.ResumeLayout(False)
         Me.ViolationTypeGroupbox.PerformLayout()
         Me.Panel7.ResumeLayout(False)
@@ -2680,8 +2683,6 @@ Partial Class SscpEnforcement
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.HpvToolsPanel.ResumeLayout(False)
-        Me.HpvToolsPanel.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
