@@ -93,7 +93,7 @@ Partial Class DmuEdtErrorDetail
         Me.SplitContainer1.Panel2.Controls.Add(Me.BusinessRuleLabel)
         Me.SplitContainer1.Size = New System.Drawing.Size(414, 114)
         Me.SplitContainer1.SplitterDistance = 207
-        Me.SplitContainer1.TabIndex = 4
+        Me.SplitContainer1.TabIndex = 15
         '
         'GenericErrorMessageLabel
         '
@@ -275,7 +275,7 @@ Partial Class DmuEdtErrorDetail
         Me.ErrorMessageDisplayContainer.Location = New System.Drawing.Point(12, 298)
         Me.ErrorMessageDisplayContainer.Name = "ErrorMessageDisplayContainer"
         Me.ErrorMessageDisplayContainer.Size = New System.Drawing.Size(391, 73)
-        Me.ErrorMessageDisplayContainer.TabIndex = 12
+        Me.ErrorMessageDisplayContainer.TabIndex = 14
         '
         'ErrorMessageDisplay
         '
@@ -334,7 +334,7 @@ Partial Class DmuEdtErrorDetail
         Me.EdtForeignKey.Name = "EdtForeignKey"
         Me.EdtForeignKey.ReadOnly = True
         Me.EdtForeignKey.Size = New System.Drawing.Size(271, 13)
-        Me.EdtForeignKey.TabIndex = 8
+        Me.EdtForeignKey.TabIndex = 9
         Me.EdtForeignKey.Text = "N/A"
         '
         'EdtOperation
@@ -344,7 +344,7 @@ Partial Class DmuEdtErrorDetail
         Me.EdtOperation.Name = "EdtOperation"
         Me.EdtOperation.ReadOnly = True
         Me.EdtOperation.Size = New System.Drawing.Size(271, 13)
-        Me.EdtOperation.TabIndex = 9
+        Me.EdtOperation.TabIndex = 11
         Me.EdtOperation.Text = "N/A"
         '
         'EdtStatus
@@ -354,7 +354,7 @@ Partial Class DmuEdtErrorDetail
         Me.EdtStatus.Name = "EdtStatus"
         Me.EdtStatus.ReadOnly = True
         Me.EdtStatus.Size = New System.Drawing.Size(271, 13)
-        Me.EdtStatus.TabIndex = 10
+        Me.EdtStatus.TabIndex = 12
         Me.EdtStatus.Text = "N/A"
         '
         'EdtDateSubmitted
@@ -364,7 +364,7 @@ Partial Class DmuEdtErrorDetail
         Me.EdtDateSubmitted.Name = "EdtDateSubmitted"
         Me.EdtDateSubmitted.ReadOnly = True
         Me.EdtDateSubmitted.Size = New System.Drawing.Size(271, 13)
-        Me.EdtDateSubmitted.TabIndex = 11
+        Me.EdtDateSubmitted.TabIndex = 13
         Me.EdtDateSubmitted.Text = "N/A"
         '
         'IaipIdLabel
@@ -393,7 +393,7 @@ Partial Class DmuEdtErrorDetail
         Me.IaipId.Location = New System.Drawing.Point(122, 152)
         Me.IaipId.Name = "IaipId"
         Me.IaipId.Size = New System.Drawing.Size(27, 13)
-        Me.IaipId.TabIndex = 14
+        Me.IaipId.TabIndex = 8
         Me.IaipId.TabStop = True
         Me.IaipId.Text = "N/A"
         '
@@ -405,7 +405,7 @@ Partial Class DmuEdtErrorDetail
         Me.IaipForeignId.Location = New System.Drawing.Point(122, 190)
         Me.IaipForeignId.Name = "IaipForeignId"
         Me.IaipForeignId.Size = New System.Drawing.Size(27, 13)
-        Me.IaipForeignId.TabIndex = 15
+        Me.IaipForeignId.TabIndex = 10
         Me.IaipForeignId.TabStop = True
         Me.IaipForeignId.Text = "N/A"
         '
