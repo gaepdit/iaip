@@ -1217,10 +1217,9 @@ Public Class SscpEnforcement
             End If
             If AIRSNumber <> "" Then
                 txtAIRSNumber.Text = Mid(AIRSNumber, 5)
-                LoadFacilityInfo()
-            Else
-                '  txtAIRSNumber.Clear()
             End If
+            LoadFacilityInfo()
+
             If EnforcementFinalized <> "" Then
                 DTPEnforcementResolved.Text = EnforcementFinalized
                 DTPEnforcementResolved.Checked = True
@@ -1581,9 +1580,15 @@ Public Class SscpEnforcement
     End Sub
 
     Private Sub LoadViolationType(violationTypeCode As String)
-        Dim dr As DataRow = ViolationTypes.Rows.Find(violationTypeCode)
-        Dim severityCode As String = dr("SEVERITYCODE").ToString
+        Dim severityCode As String
         Dim rowFilter As String
+
+        If String.IsNullOrEmpty(violationTypeCode) Then
+            severityCode = "BLANK"
+        Else
+            Dim dr As DataRow = ViolationTypes.Rows.Find(violationTypeCode)
+            severityCode = dr("SEVERITYCODE").ToString
+        End If
 
         Select Case severityCode
             Case "BLANK"
