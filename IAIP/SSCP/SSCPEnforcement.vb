@@ -3842,6 +3842,7 @@ Public Class SscpEnforcement
         Try
 
             SaveEnforcement()
+            LoadEnforcementPollutants2()
 
             If AccountFormAccess(48, 2) = "1" Or AccountFormAccess(48, 3) = "1" Or AccountFormAccess(48, 4) = "1" Then
                 CheckOpenStatus()
