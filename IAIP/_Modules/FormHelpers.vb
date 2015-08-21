@@ -58,6 +58,8 @@ Module FormHelpers
         End If
     End Function
 
+#Region " FCE "
+
     Public Sub OpenFormFce(ByVal airsNumber As ApbFacilityId, Optional ByVal year As String = "")
         SSCPFCE = New SSCPFCEWork
         SSCPFCE.txtAirsNumber.Text = airsNumber.ToString
@@ -78,6 +80,8 @@ Module FormHelpers
             End If
         End If
     End Sub
+
+#End Region
 
     Public Function OpenFormEnforcement(ByVal id As String) As Form
         If DAL.SSCP.EnforcementExists(id) Then

@@ -102,6 +102,15 @@ Namespace DAL.SSCP
             Return enfInfo
         End Function
 
+        Public Function GetViolationTypes() As DataTable
+            Dim query As String =
+                "SELECT AIRVIOLATIONTYPECODE, VIOLATIONTYPEDESC, SEVERITYCODE " &
+                " , POLLUTANTREQUIRED, DEPRECATED " &
+                "FROM AIRBRANCH.LK_VIOLATION_TYPE " &
+                "WHERE STATUS = 'A' "
+            Return DB.GetDataTable(query)
+        End Function
+
     End Module
 
 End Namespace

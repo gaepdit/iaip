@@ -22,227 +22,230 @@ Partial Class SscpEnforcement
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SscpEnforcement))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip
-        Me.tsbSave = New System.Windows.Forms.ToolStripButton
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
-        Me.mmiFile = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiSave = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator
-        Me.mmiClose = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiTools = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiShowAuditHistory = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator
-        Me.mmiDelete = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiHelp = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiOnlineHelp = New System.Windows.Forms.ToolStripMenuItem
-        Me.TCEnforcement = New System.Windows.Forms.TabControl
-        Me.TPGeneralInfo = New System.Windows.Forms.TabPage
-        Me.Panel6 = New System.Windows.Forms.Panel
-        Me.txtSubmitToUC = New System.Windows.Forms.TextBox
-        Me.Panel7 = New System.Windows.Forms.Panel
-        Me.Label40 = New System.Windows.Forms.Label
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.txtAFSAOResolvedActionNumber = New System.Windows.Forms.TextBox
-        Me.Label24 = New System.Windows.Forms.Label
-        Me.Label39 = New System.Windows.Forms.Label
-        Me.txtAFSNOVResolvedNumber = New System.Windows.Forms.TextBox
-        Me.txtAFSCivilCourtActionNumber = New System.Windows.Forms.TextBox
-        Me.txtAFSKeyActionNumber = New System.Windows.Forms.TextBox
-        Me.Label38 = New System.Windows.Forms.Label
-        Me.txtAFSNOVActionNumber = New System.Windows.Forms.TextBox
-        Me.txtAFSAOToAGActionNumber = New System.Windows.Forms.TextBox
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.Label37 = New System.Windows.Forms.Label
-        Me.txtAFSCOProposedActionNumber = New System.Windows.Forms.TextBox
-        Me.txtStipulatedPenalitiesActionNumber = New System.Windows.Forms.TextBox
-        Me.Label23 = New System.Windows.Forms.Label
-        Me.Label36 = New System.Windows.Forms.Label
-        Me.txtAFSCOExecutedActionNumber = New System.Windows.Forms.TextBox
-        Me.txtAFSCOResolvedActionNumber = New System.Windows.Forms.TextBox
-        Me.Label35 = New System.Windows.Forms.Label
-        Me.btnLinkEnforcement = New System.Windows.Forms.Button
-        Me.btnDayZero = New System.Windows.Forms.Button
-        Me.DTPEnforcementResolved = New System.Windows.Forms.DateTimePicker
-        Me.chbHPV = New System.Windows.Forms.CheckBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.cboHPVType = New System.Windows.Forms.ComboBox
-        Me.DTPDiscoveryDate = New System.Windows.Forms.DateTimePicker
-        Me.chbAO = New System.Windows.Forms.CheckBox
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.chbCO = New System.Windows.Forms.CheckBox
-        Me.DTPDayZero = New System.Windows.Forms.DateTimePicker
-        Me.chbNOV = New System.Windows.Forms.CheckBox
-        Me.lblDayZero = New System.Windows.Forms.Label
-        Me.chbLON = New System.Windows.Forms.CheckBox
-        Me.lblDiscoveryEvent = New System.Windows.Forms.Label
-        Me.btnOpenEvent = New System.Windows.Forms.Button
-        Me.txtDiscoveryEventNumber = New System.Windows.Forms.TextBox
-        Me.btnSubmitToUC = New System.Windows.Forms.Button
-        Me.Label34 = New System.Windows.Forms.Label
-        Me.btnSubmitEnforcementToEPA = New System.Windows.Forms.Button
-        Me.txtGeneralComments = New System.Windows.Forms.TextBox
-        Me.cboStaffResponsible = New System.Windows.Forms.ComboBox
-        Me.btnManuallyEnterAFS = New System.Windows.Forms.Button
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.TPPollutants = New System.Windows.Forms.TabPage
-        Me.Panel5 = New System.Windows.Forms.Panel
-        Me.lvPollutants = New System.Windows.Forms.ListView
-        Me.btnEditAirProgramPollutants = New System.Windows.Forms.Button
-        Me.cboPollutantStatus = New System.Windows.Forms.ComboBox
-        Me.lblPollutantStatus = New System.Windows.Forms.Label
-        Me.lblPollutants = New System.Windows.Forms.Label
-        Me.TPLON = New System.Windows.Forms.TabPage
-        Me.txtLONComments = New System.Windows.Forms.TextBox
-        Me.Panel8 = New System.Windows.Forms.Panel
-        Me.DTPLONToUC = New System.Windows.Forms.DateTimePicker
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.DTPLONResolved = New System.Windows.Forms.DateTimePicker
-        Me.DTPLONSent = New System.Windows.Forms.DateTimePicker
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.Label43 = New System.Windows.Forms.Label
-        Me.Label19 = New System.Windows.Forms.Label
-        Me.TPNOV = New System.Windows.Forms.TabPage
-        Me.txtNOVComments = New System.Windows.Forms.TextBox
-        Me.Panel9 = New System.Windows.Forms.Panel
-        Me.DTPNOVToUC = New System.Windows.Forms.DateTimePicker
-        Me.Label46 = New System.Windows.Forms.Label
-        Me.Label17 = New System.Windows.Forms.Label
-        Me.DTPNOVsent = New System.Windows.Forms.DateTimePicker
-        Me.DTPNFAToPM = New System.Windows.Forms.DateTimePicker
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.Label45 = New System.Windows.Forms.Label
-        Me.DTPNOVResponseReceived = New System.Windows.Forms.DateTimePicker
-        Me.DTPNFAToUC = New System.Windows.Forms.DateTimePicker
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.Label44 = New System.Windows.Forms.Label
-        Me.DTPNFALetterSent = New System.Windows.Forms.DateTimePicker
-        Me.DTPNOVToPM = New System.Windows.Forms.DateTimePicker
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.Label26 = New System.Windows.Forms.Label
-        Me.TPCO = New System.Windows.Forms.TabPage
-        Me.txtCOComments = New System.Windows.Forms.TextBox
-        Me.Panel10 = New System.Windows.Forms.Panel
-        Me.nudCoNumber = New System.Windows.Forms.NumericUpDown
-        Me.DTPCOToUC = New System.Windows.Forms.DateTimePicker
-        Me.txtPenaltyComments = New System.Windows.Forms.TextBox
-        Me.txtStipulatedKey = New System.Windows.Forms.TextBox
-        Me.Label29 = New System.Windows.Forms.Label
-        Me.Label21 = New System.Windows.Forms.Label
-        Me.txtCONumber = New System.Windows.Forms.TextBox
-        Me.txtCOPenaltyAmount = New System.Windows.Forms.TextBox
-        Me.Label49 = New System.Windows.Forms.Label
-        Me.Label28 = New System.Windows.Forms.Label
-        Me.Label48 = New System.Windows.Forms.Label
-        Me.DTPCOProposed = New System.Windows.Forms.DateTimePicker
-        Me.DTPCOToPM = New System.Windows.Forms.DateTimePicker
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.Label47 = New System.Windows.Forms.Label
-        Me.DTPCOReceivedfromDirector = New System.Windows.Forms.DateTimePicker
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.DTPCOExecuted = New System.Windows.Forms.DateTimePicker
-        Me.Label16 = New System.Windows.Forms.Label
-        Me.DTPCOReceivedfromCompany = New System.Windows.Forms.DateTimePicker
-        Me.Label20 = New System.Windows.Forms.Label
-        Me.Label18 = New System.Windows.Forms.Label
-        Me.DTPCOResolved = New System.Windows.Forms.DateTimePicker
-        Me.StipulatedPenalties = New System.Windows.Forms.GroupBox
-        Me.txtStipulatedPenalty = New System.Windows.Forms.TextBox
-        Me.Label30 = New System.Windows.Forms.Label
-        Me.dgvStipulatedPenalties = New System.Windows.Forms.DataGridView
-        Me.UpdateStipulatedPenaltyButton = New System.Windows.Forms.Button
-        Me.txtStipulatedComments = New System.Windows.Forms.TextBox
-        Me.ClearStipulatedPenaltyFormButton = New System.Windows.Forms.Button
-        Me.Label31 = New System.Windows.Forms.Label
-        Me.DeletePenaltyButton = New System.Windows.Forms.Button
-        Me.SaveStipulatedPenaltyButton = New System.Windows.Forms.Button
-        Me.TPAO = New System.Windows.Forms.TabPage
-        Me.txtAOComments = New System.Windows.Forms.TextBox
-        Me.Panel11 = New System.Windows.Forms.Panel
-        Me.DTPAOExecuted = New System.Windows.Forms.DateTimePicker
-        Me.Label42 = New System.Windows.Forms.Label
-        Me.Label25 = New System.Windows.Forms.Label
-        Me.DTPAOResolved = New System.Windows.Forms.DateTimePicker
-        Me.Label32 = New System.Windows.Forms.Label
-        Me.Label41 = New System.Windows.Forms.Label
-        Me.DTPAOAppealed = New System.Windows.Forms.DateTimePicker
-        Me.TPAuditHistory = New System.Windows.Forms.TabPage
-        Me.dgvAuditHistory = New System.Windows.Forms.DataGridView
-        Me.Panel12 = New System.Windows.Forms.Panel
-        Me.btnREfreshAudit = New System.Windows.Forms.Button
-        Me.btnHideAudit = New System.Windows.Forms.Button
-        Me.btnExportAuditToExcel = New System.Windows.Forms.Button
-        Me.tabDocuments = New System.Windows.Forms.TabPage
-        Me.lblMessage = New System.Windows.Forms.Label
-        Me.pnlDocument = New System.Windows.Forms.Panel
-        Me.lblDocumentDescription = New System.Windows.Forms.Label
-        Me.btnDocumentDownload = New System.Windows.Forms.Button
-        Me.txtDocumentDescription = New System.Windows.Forms.TextBox
-        Me.btnDocumentUpdate = New System.Windows.Forms.Button
-        Me.lblDocumentName = New System.Windows.Forms.Label
-        Me.lblCurrentFiles = New System.Windows.Forms.Label
-        Me.dgvDocumentList = New System.Windows.Forms.DataGridView
-        Me.Panel4 = New System.Windows.Forms.Panel
-        Me.Label55 = New System.Windows.Forms.Label
-        Me.txtCounty = New System.Windows.Forms.TextBox
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.chbAPCI = New System.Windows.Forms.CheckBox
-        Me.chbAPCF = New System.Windows.Forms.CheckBox
-        Me.chbAPCA = New System.Windows.Forms.CheckBox
-        Me.chbAPCV = New System.Windows.Forms.CheckBox
-        Me.chbAPCM = New System.Windows.Forms.CheckBox
-        Me.chbAPC9 = New System.Windows.Forms.CheckBox
-        Me.chbAPC8 = New System.Windows.Forms.CheckBox
-        Me.chbAPC7 = New System.Windows.Forms.CheckBox
-        Me.chbAPC6 = New System.Windows.Forms.CheckBox
-        Me.chbAPC4 = New System.Windows.Forms.CheckBox
-        Me.chbAPC3 = New System.Windows.Forms.CheckBox
-        Me.chbAPC1 = New System.Windows.Forms.CheckBox
-        Me.chbAPC0 = New System.Windows.Forms.CheckBox
-        Me.Label54 = New System.Windows.Forms.Label
-        Me.txtClassification = New System.Windows.Forms.TextBox
-        Me.DTPLastSave = New System.Windows.Forms.DateTimePicker
-        Me.lblLastEdited = New System.Windows.Forms.Label
-        Me.Label53 = New System.Windows.Forms.Label
-        Me.txtFacilityAddress = New System.Windows.Forms.TextBox
-        Me.Label52 = New System.Windows.Forms.Label
-        Me.txtFacilityName = New System.Windows.Forms.TextBox
-        Me.Label51 = New System.Windows.Forms.Label
-        Me.Label50 = New System.Windows.Forms.Label
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.txtTrackingNumber = New System.Windows.Forms.TextBox
-        Me.txtEnforcementNumber = New System.Windows.Forms.TextBox
-        Me.txtAIRSNumber = New System.Windows.Forms.TextBox
+        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.tsbSave = New System.Windows.Forms.ToolStripButton()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.mmiFile = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiSave = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.mmiClose = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiTools = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiShowAuditHistory = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.mmiDelete = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TCEnforcement = New System.Windows.Forms.TabControl()
+        Me.TPGeneralInfo = New System.Windows.Forms.TabPage()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.HpvToolsPanel = New System.Windows.Forms.Panel()
+        Me.btnDayZero = New System.Windows.Forms.Button()
+        Me.DTPDayZero = New System.Windows.Forms.DateTimePicker()
+        Me.lblDayZero = New System.Windows.Forms.Label()
+        Me.ViolationTypeGroupbox = New System.Windows.Forms.GroupBox()
+        Me.ViolationTypeSelect = New System.Windows.Forms.ComboBox()
+        Me.ViolationTypeNone = New System.Windows.Forms.RadioButton()
+        Me.ViolationTypeNonFrv = New System.Windows.Forms.RadioButton()
+        Me.ViolationTypeHpv = New System.Windows.Forms.RadioButton()
+        Me.ViolationTypeFrv = New System.Windows.Forms.RadioButton()
+        Me.txtSubmitToUC = New System.Windows.Forms.TextBox()
+        Me.Panel7 = New System.Windows.Forms.Panel()
+        Me.Label40 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.txtAFSAOResolvedActionNumber = New System.Windows.Forms.TextBox()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.Label39 = New System.Windows.Forms.Label()
+        Me.txtAFSNOVResolvedNumber = New System.Windows.Forms.TextBox()
+        Me.txtAFSCivilCourtActionNumber = New System.Windows.Forms.TextBox()
+        Me.txtAFSKeyActionNumber = New System.Windows.Forms.TextBox()
+        Me.Label38 = New System.Windows.Forms.Label()
+        Me.txtAFSNOVActionNumber = New System.Windows.Forms.TextBox()
+        Me.txtAFSAOToAGActionNumber = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label37 = New System.Windows.Forms.Label()
+        Me.txtAFSCOProposedActionNumber = New System.Windows.Forms.TextBox()
+        Me.txtStipulatedPenalitiesActionNumber = New System.Windows.Forms.TextBox()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.Label36 = New System.Windows.Forms.Label()
+        Me.txtAFSCOExecutedActionNumber = New System.Windows.Forms.TextBox()
+        Me.txtAFSCOResolvedActionNumber = New System.Windows.Forms.TextBox()
+        Me.Label35 = New System.Windows.Forms.Label()
+        Me.btnLinkEnforcement = New System.Windows.Forms.Button()
+        Me.DTPEnforcementResolved = New System.Windows.Forms.DateTimePicker()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.DTPDiscoveryDate = New System.Windows.Forms.DateTimePicker()
+        Me.chbAO = New System.Windows.Forms.CheckBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.chbCO = New System.Windows.Forms.CheckBox()
+        Me.chbNOV = New System.Windows.Forms.CheckBox()
+        Me.txtTrackingNumber = New System.Windows.Forms.TextBox()
+        Me.chbLON = New System.Windows.Forms.CheckBox()
+        Me.lblDiscoveryEvent = New System.Windows.Forms.Label()
+        Me.btnClearLink = New System.Windows.Forms.Button()
+        Me.btnOpenEvent = New System.Windows.Forms.Button()
+        Me.btnSubmitToUC = New System.Windows.Forms.Button()
+        Me.Label34 = New System.Windows.Forms.Label()
+        Me.btnSubmitEnforcementToEPA = New System.Windows.Forms.Button()
+        Me.txtGeneralComments = New System.Windows.Forms.TextBox()
+        Me.cboStaffResponsible = New System.Windows.Forms.ComboBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.TPPollutants = New System.Windows.Forms.TabPage()
+        Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.lvPollutants = New System.Windows.Forms.ListView()
+        Me.btnEditAirProgramPollutants = New System.Windows.Forms.Button()
+        Me.cboPollutantStatus = New System.Windows.Forms.ComboBox()
+        Me.lblPollutantStatus = New System.Windows.Forms.Label()
+        Me.lblPollutants = New System.Windows.Forms.Label()
+        Me.TPLON = New System.Windows.Forms.TabPage()
+        Me.txtLONComments = New System.Windows.Forms.TextBox()
+        Me.Panel8 = New System.Windows.Forms.Panel()
+        Me.DTPLONToUC = New System.Windows.Forms.DateTimePicker()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.DTPLONResolved = New System.Windows.Forms.DateTimePicker()
+        Me.DTPLONSent = New System.Windows.Forms.DateTimePicker()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label43 = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.TPNOV = New System.Windows.Forms.TabPage()
+        Me.txtNOVComments = New System.Windows.Forms.TextBox()
+        Me.Panel9 = New System.Windows.Forms.Panel()
+        Me.DTPNOVToUC = New System.Windows.Forms.DateTimePicker()
+        Me.Label46 = New System.Windows.Forms.Label()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.DTPNOVsent = New System.Windows.Forms.DateTimePicker()
+        Me.DTPNFAToPM = New System.Windows.Forms.DateTimePicker()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label45 = New System.Windows.Forms.Label()
+        Me.DTPNOVResponseReceived = New System.Windows.Forms.DateTimePicker()
+        Me.DTPNFAToUC = New System.Windows.Forms.DateTimePicker()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label44 = New System.Windows.Forms.Label()
+        Me.DTPNFALetterSent = New System.Windows.Forms.DateTimePicker()
+        Me.DTPNOVToPM = New System.Windows.Forms.DateTimePicker()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.TPCO = New System.Windows.Forms.TabPage()
+        Me.txtCOComments = New System.Windows.Forms.TextBox()
+        Me.Panel10 = New System.Windows.Forms.Panel()
+        Me.nudCoNumber = New System.Windows.Forms.NumericUpDown()
+        Me.DTPCOToUC = New System.Windows.Forms.DateTimePicker()
+        Me.txtPenaltyComments = New System.Windows.Forms.TextBox()
+        Me.txtStipulatedKey = New System.Windows.Forms.TextBox()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.txtCONumber = New System.Windows.Forms.TextBox()
+        Me.txtCOPenaltyAmount = New System.Windows.Forms.TextBox()
+        Me.Label49 = New System.Windows.Forms.Label()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.Label48 = New System.Windows.Forms.Label()
+        Me.DTPCOProposed = New System.Windows.Forms.DateTimePicker()
+        Me.DTPCOToPM = New System.Windows.Forms.DateTimePicker()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label47 = New System.Windows.Forms.Label()
+        Me.DTPCOReceivedfromDirector = New System.Windows.Forms.DateTimePicker()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.DTPCOExecuted = New System.Windows.Forms.DateTimePicker()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.DTPCOReceivedfromCompany = New System.Windows.Forms.DateTimePicker()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.DTPCOResolved = New System.Windows.Forms.DateTimePicker()
+        Me.StipulatedPenalties = New System.Windows.Forms.GroupBox()
+        Me.txtStipulatedPenalty = New System.Windows.Forms.TextBox()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.dgvStipulatedPenalties = New System.Windows.Forms.DataGridView()
+        Me.UpdateStipulatedPenaltyButton = New System.Windows.Forms.Button()
+        Me.txtStipulatedComments = New System.Windows.Forms.TextBox()
+        Me.ClearStipulatedPenaltyFormButton = New System.Windows.Forms.Button()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.DeletePenaltyButton = New System.Windows.Forms.Button()
+        Me.SaveStipulatedPenaltyButton = New System.Windows.Forms.Button()
+        Me.TPAO = New System.Windows.Forms.TabPage()
+        Me.txtAOComments = New System.Windows.Forms.TextBox()
+        Me.Panel11 = New System.Windows.Forms.Panel()
+        Me.DTPAOExecuted = New System.Windows.Forms.DateTimePicker()
+        Me.Label42 = New System.Windows.Forms.Label()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.DTPAOResolved = New System.Windows.Forms.DateTimePicker()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.Label41 = New System.Windows.Forms.Label()
+        Me.DTPAOAppealed = New System.Windows.Forms.DateTimePicker()
+        Me.TPAuditHistory = New System.Windows.Forms.TabPage()
+        Me.dgvAuditHistory = New System.Windows.Forms.DataGridView()
+        Me.Panel12 = New System.Windows.Forms.Panel()
+        Me.btnREfreshAudit = New System.Windows.Forms.Button()
+        Me.btnHideAudit = New System.Windows.Forms.Button()
+        Me.btnExportAuditToExcel = New System.Windows.Forms.Button()
+        Me.tabDocuments = New System.Windows.Forms.TabPage()
+        Me.lblMessage = New System.Windows.Forms.Label()
+        Me.pnlDocument = New System.Windows.Forms.Panel()
+        Me.lblDocumentDescription = New System.Windows.Forms.Label()
+        Me.btnDocumentDownload = New System.Windows.Forms.Button()
+        Me.txtDocumentDescription = New System.Windows.Forms.TextBox()
+        Me.btnDocumentUpdate = New System.Windows.Forms.Button()
+        Me.lblDocumentName = New System.Windows.Forms.Label()
+        Me.lblCurrentFiles = New System.Windows.Forms.Label()
+        Me.dgvDocumentList = New System.Windows.Forms.DataGridView()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.Label55 = New System.Windows.Forms.Label()
+        Me.txtCounty = New System.Windows.Forms.TextBox()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.chbAPCI = New System.Windows.Forms.CheckBox()
+        Me.chbAPCF = New System.Windows.Forms.CheckBox()
+        Me.chbAPCA = New System.Windows.Forms.CheckBox()
+        Me.chbAPCV = New System.Windows.Forms.CheckBox()
+        Me.chbAPCM = New System.Windows.Forms.CheckBox()
+        Me.chbAPC9 = New System.Windows.Forms.CheckBox()
+        Me.chbAPC8 = New System.Windows.Forms.CheckBox()
+        Me.chbAPC7 = New System.Windows.Forms.CheckBox()
+        Me.chbAPC6 = New System.Windows.Forms.CheckBox()
+        Me.chbAPC4 = New System.Windows.Forms.CheckBox()
+        Me.chbAPC3 = New System.Windows.Forms.CheckBox()
+        Me.chbAPC1 = New System.Windows.Forms.CheckBox()
+        Me.chbAPC0 = New System.Windows.Forms.CheckBox()
+        Me.Label54 = New System.Windows.Forms.Label()
+        Me.txtClassification = New System.Windows.Forms.TextBox()
+        Me.DTPLastSave = New System.Windows.Forms.DateTimePicker()
+        Me.lblLastEdited = New System.Windows.Forms.Label()
+        Me.Label53 = New System.Windows.Forms.Label()
+        Me.txtFacilityAddress = New System.Windows.Forms.TextBox()
+        Me.Label52 = New System.Windows.Forms.Label()
+        Me.txtFacilityName = New System.Windows.Forms.TextBox()
+        Me.Label50 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.txtEnforcementNumber = New System.Windows.Forms.TextBox()
+        Me.txtAIRSNumber = New System.Windows.Forms.TextBox()
         Me.EP = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.Panel1 = New System.Windows.Forms.Panel
-        Me.Button1 = New System.Windows.Forms.Button
-        Me.Button2 = New System.Windows.Forms.Button
-        Me.TextBox1 = New System.Windows.Forms.TextBox
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.Label22 = New System.Windows.Forms.Label
-        Me.Button3 = New System.Windows.Forms.Button
-        Me.Label27 = New System.Windows.Forms.Label
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox
-        Me.Panel2 = New System.Windows.Forms.Panel
-        Me.Label33 = New System.Windows.Forms.Label
-        Me.ComboBox2 = New System.Windows.Forms.ComboBox
-        Me.Button4 = New System.Windows.Forms.Button
-        Me.Button5 = New System.Windows.Forms.Button
-        Me.TextBox2 = New System.Windows.Forms.TextBox
-        Me.Button6 = New System.Windows.Forms.Button
-        Me.Label56 = New System.Windows.Forms.Label
-        Me.Label57 = New System.Windows.Forms.Label
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.Button5 = New System.Windows.Forms.Button()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.Button6 = New System.Windows.Forms.Button()
+        Me.Label56 = New System.Windows.Forms.Label()
+        Me.Label57 = New System.Windows.Forms.Label()
+        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.ToolStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.TCEnforcement.SuspendLayout()
         Me.TPGeneralInfo.SuspendLayout()
         Me.Panel6.SuspendLayout()
+        Me.HpvToolsPanel.SuspendLayout()
+        Me.ViolationTypeGroupbox.SuspendLayout()
         Me.Panel7.SuspendLayout()
         Me.TPPollutants.SuspendLayout()
         Me.Panel5.SuspendLayout()
@@ -282,7 +285,7 @@ Partial Class SscpEnforcement
         '
         'tsbSave
         '
-        Me.tsbSave.Image = CType(resources.GetObject("tsbSave.Image"), System.Drawing.Image)
+        Me.tsbSave.Image = Global.Iaip.My.Resources.Resources.SaveButtonImage
         Me.tsbSave.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbSave.Name = "tsbSave"
         Me.tsbSave.Size = New System.Drawing.Size(51, 22)
@@ -291,7 +294,7 @@ Partial Class SscpEnforcement
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiFile, Me.mmiTools, Me.mmiHelp})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiFile, Me.mmiTools})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(892, 24)
@@ -349,20 +352,6 @@ Partial Class SscpEnforcement
         Me.mmiDelete.Size = New System.Drawing.Size(219, 22)
         Me.mmiDelete.Text = "Delete this enforcement"
         '
-        'mmiHelp
-        '
-        Me.mmiHelp.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiOnlineHelp})
-        Me.mmiHelp.Name = "mmiHelp"
-        Me.mmiHelp.Size = New System.Drawing.Size(44, 20)
-        Me.mmiHelp.Text = "&Help"
-        '
-        'mmiOnlineHelp
-        '
-        Me.mmiOnlineHelp.Name = "mmiOnlineHelp"
-        Me.mmiOnlineHelp.ShortcutKeys = System.Windows.Forms.Keys.F1
-        Me.mmiOnlineHelp.Size = New System.Drawing.Size(156, 22)
-        Me.mmiOnlineHelp.Text = "Online &Help"
-        '
         'TCEnforcement
         '
         Me.TCEnforcement.Controls.Add(Me.TPGeneralInfo)
@@ -395,31 +384,28 @@ Partial Class SscpEnforcement
         'Panel6
         '
         Me.Panel6.AutoScroll = True
+        Me.Panel6.Controls.Add(Me.HpvToolsPanel)
+        Me.Panel6.Controls.Add(Me.ViolationTypeGroupbox)
         Me.Panel6.Controls.Add(Me.txtSubmitToUC)
         Me.Panel6.Controls.Add(Me.Panel7)
         Me.Panel6.Controls.Add(Me.btnLinkEnforcement)
-        Me.Panel6.Controls.Add(Me.btnDayZero)
         Me.Panel6.Controls.Add(Me.DTPEnforcementResolved)
-        Me.Panel6.Controls.Add(Me.chbHPV)
         Me.Panel6.Controls.Add(Me.Label1)
-        Me.Panel6.Controls.Add(Me.cboHPVType)
         Me.Panel6.Controls.Add(Me.DTPDiscoveryDate)
         Me.Panel6.Controls.Add(Me.chbAO)
         Me.Panel6.Controls.Add(Me.Label2)
         Me.Panel6.Controls.Add(Me.chbCO)
-        Me.Panel6.Controls.Add(Me.DTPDayZero)
         Me.Panel6.Controls.Add(Me.chbNOV)
-        Me.Panel6.Controls.Add(Me.lblDayZero)
+        Me.Panel6.Controls.Add(Me.txtTrackingNumber)
         Me.Panel6.Controls.Add(Me.chbLON)
         Me.Panel6.Controls.Add(Me.lblDiscoveryEvent)
+        Me.Panel6.Controls.Add(Me.btnClearLink)
         Me.Panel6.Controls.Add(Me.btnOpenEvent)
-        Me.Panel6.Controls.Add(Me.txtDiscoveryEventNumber)
         Me.Panel6.Controls.Add(Me.btnSubmitToUC)
         Me.Panel6.Controls.Add(Me.Label34)
         Me.Panel6.Controls.Add(Me.btnSubmitEnforcementToEPA)
         Me.Panel6.Controls.Add(Me.txtGeneralComments)
         Me.Panel6.Controls.Add(Me.cboStaffResponsible)
-        Me.Panel6.Controls.Add(Me.btnManuallyEnterAFS)
         Me.Panel6.Controls.Add(Me.Label5)
         Me.Panel6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel6.Location = New System.Drawing.Point(3, 3)
@@ -427,11 +413,123 @@ Partial Class SscpEnforcement
         Me.Panel6.Size = New System.Drawing.Size(878, 463)
         Me.Panel6.TabIndex = 369
         '
+        'HpvToolsPanel
+        '
+        Me.HpvToolsPanel.Controls.Add(Me.btnDayZero)
+        Me.HpvToolsPanel.Controls.Add(Me.DTPDayZero)
+        Me.HpvToolsPanel.Controls.Add(Me.lblDayZero)
+        Me.HpvToolsPanel.Location = New System.Drawing.Point(461, 29)
+        Me.HpvToolsPanel.Name = "HpvToolsPanel"
+        Me.HpvToolsPanel.Size = New System.Drawing.Size(274, 42)
+        Me.HpvToolsPanel.TabIndex = 372
+        Me.HpvToolsPanel.Visible = False
+        '
+        'btnDayZero
+        '
+        Me.btnDayZero.AutoSize = True
+        Me.btnDayZero.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnDayZero.Location = New System.Drawing.Point(215, 4)
+        Me.btnDayZero.Name = "btnDayZero"
+        Me.btnDayZero.Size = New System.Drawing.Size(49, 23)
+        Me.btnDayZero.TabIndex = 368
+        Me.btnDayZero.Text = "90-day"
+        Me.btnDayZero.UseVisualStyleBackColor = True
+        '
+        'DTPDayZero
+        '
+        Me.DTPDayZero.Checked = False
+        Me.DTPDayZero.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPDayZero.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPDayZero.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DTPDayZero.Location = New System.Drawing.Point(8, 4)
+        Me.DTPDayZero.Name = "DTPDayZero"
+        Me.DTPDayZero.ShowCheckBox = True
+        Me.DTPDayZero.Size = New System.Drawing.Size(119, 22)
+        Me.DTPDayZero.TabIndex = 4
+        '
+        'lblDayZero
+        '
+        Me.lblDayZero.AutoSize = True
+        Me.lblDayZero.Location = New System.Drawing.Point(133, 9)
+        Me.lblDayZero.Name = "lblDayZero"
+        Me.lblDayZero.Size = New System.Drawing.Size(76, 13)
+        Me.lblDayZero.TabIndex = 5
+        Me.lblDayZero.Text = "HPV Day Zero"
+        '
+        'ViolationTypeGroupbox
+        '
+        Me.ViolationTypeGroupbox.Controls.Add(Me.ViolationTypeSelect)
+        Me.ViolationTypeGroupbox.Controls.Add(Me.ViolationTypeNone)
+        Me.ViolationTypeGroupbox.Controls.Add(Me.ViolationTypeNonFrv)
+        Me.ViolationTypeGroupbox.Controls.Add(Me.ViolationTypeHpv)
+        Me.ViolationTypeGroupbox.Controls.Add(Me.ViolationTypeFrv)
+        Me.ViolationTypeGroupbox.Location = New System.Drawing.Point(11, 71)
+        Me.ViolationTypeGroupbox.Name = "ViolationTypeGroupbox"
+        Me.ViolationTypeGroupbox.Size = New System.Drawing.Size(724, 77)
+        Me.ViolationTypeGroupbox.TabIndex = 371
+        Me.ViolationTypeGroupbox.TabStop = False
+        Me.ViolationTypeGroupbox.Text = "Violation Type"
+        '
+        'ViolationTypeSelect
+        '
+        Me.ViolationTypeSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ViolationTypeSelect.FormattingEnabled = True
+        Me.ViolationTypeSelect.Location = New System.Drawing.Point(7, 43)
+        Me.ViolationTypeSelect.Name = "ViolationTypeSelect"
+        Me.ViolationTypeSelect.Size = New System.Drawing.Size(707, 21)
+        Me.ViolationTypeSelect.TabIndex = 1
+        '
+        'ViolationTypeNone
+        '
+        Me.ViolationTypeNone.AutoSize = True
+        Me.ViolationTypeNone.Checked = True
+        Me.ViolationTypeNone.Location = New System.Drawing.Point(186, 19)
+        Me.ViolationTypeNone.Name = "ViolationTypeNone"
+        Me.ViolationTypeNone.Size = New System.Drawing.Size(51, 17)
+        Me.ViolationTypeNone.TabIndex = 0
+        Me.ViolationTypeNone.TabStop = True
+        Me.ViolationTypeNone.Text = "None"
+        Me.ViolationTypeNone.UseVisualStyleBackColor = True
+        Me.ViolationTypeNone.Visible = False
+        '
+        'ViolationTypeNonFrv
+        '
+        Me.ViolationTypeNonFrv.AutoSize = True
+        Me.ViolationTypeNonFrv.Location = New System.Drawing.Point(111, 19)
+        Me.ViolationTypeNonFrv.Name = "ViolationTypeNonFrv"
+        Me.ViolationTypeNonFrv.Size = New System.Drawing.Size(69, 17)
+        Me.ViolationTypeNonFrv.TabIndex = 0
+        Me.ViolationTypeNonFrv.TabStop = True
+        Me.ViolationTypeNonFrv.Text = "Non-FRV"
+        Me.ViolationTypeNonFrv.UseVisualStyleBackColor = True
+        '
+        'ViolationTypeHpv
+        '
+        Me.ViolationTypeHpv.AutoSize = True
+        Me.ViolationTypeHpv.Location = New System.Drawing.Point(58, 19)
+        Me.ViolationTypeHpv.Name = "ViolationTypeHpv"
+        Me.ViolationTypeHpv.Size = New System.Drawing.Size(47, 17)
+        Me.ViolationTypeHpv.TabIndex = 0
+        Me.ViolationTypeHpv.TabStop = True
+        Me.ViolationTypeHpv.Text = "HPV"
+        Me.ViolationTypeHpv.UseVisualStyleBackColor = True
+        '
+        'ViolationTypeFrv
+        '
+        Me.ViolationTypeFrv.AutoSize = True
+        Me.ViolationTypeFrv.Location = New System.Drawing.Point(6, 19)
+        Me.ViolationTypeFrv.Name = "ViolationTypeFrv"
+        Me.ViolationTypeFrv.Size = New System.Drawing.Size(46, 17)
+        Me.ViolationTypeFrv.TabIndex = 0
+        Me.ViolationTypeFrv.TabStop = True
+        Me.ViolationTypeFrv.Text = "FRV"
+        Me.ViolationTypeFrv.UseVisualStyleBackColor = True
+        '
         'txtSubmitToUC
         '
-        Me.txtSubmitToUC.Location = New System.Drawing.Point(161, 240)
+        Me.txtSubmitToUC.Location = New System.Drawing.Point(164, 293)
         Me.txtSubmitToUC.Name = "txtSubmitToUC"
-        Me.txtSubmitToUC.Size = New System.Drawing.Size(100, 20)
+        Me.txtSubmitToUC.Size = New System.Drawing.Size(24, 20)
         Me.txtSubmitToUC.TabIndex = 370
         Me.txtSubmitToUC.Visible = False
         '
@@ -638,22 +736,11 @@ Partial Class SscpEnforcement
         'btnLinkEnforcement
         '
         Me.btnLinkEnforcement.AutoSize = True
-        Me.btnLinkEnforcement.Location = New System.Drawing.Point(9, 4)
+        Me.btnLinkEnforcement.Location = New System.Drawing.Point(11, 3)
         Me.btnLinkEnforcement.Name = "btnLinkEnforcement"
         Me.btnLinkEnforcement.Size = New System.Drawing.Size(80, 23)
         Me.btnLinkEnforcement.TabIndex = 337
         Me.btnLinkEnforcement.Text = "Link to Event"
-        '
-        'btnDayZero
-        '
-        Me.btnDayZero.AutoSize = True
-        Me.btnDayZero.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnDayZero.Location = New System.Drawing.Point(731, 34)
-        Me.btnDayZero.Name = "btnDayZero"
-        Me.btnDayZero.Size = New System.Drawing.Size(49, 23)
-        Me.btnDayZero.TabIndex = 368
-        Me.btnDayZero.Text = "90-day"
-        Me.btnDayZero.UseVisualStyleBackColor = True
         '
         'DTPEnforcementResolved
         '
@@ -661,39 +748,20 @@ Partial Class SscpEnforcement
         Me.DTPEnforcementResolved.CustomFormat = "dd-MMM-yyyy"
         Me.DTPEnforcementResolved.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPEnforcementResolved.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPEnforcementResolved.Location = New System.Drawing.Point(8, 209)
+        Me.DTPEnforcementResolved.Location = New System.Drawing.Point(11, 263)
         Me.DTPEnforcementResolved.Name = "DTPEnforcementResolved"
         Me.DTPEnforcementResolved.ShowCheckBox = True
         Me.DTPEnforcementResolved.Size = New System.Drawing.Size(119, 22)
         Me.DTPEnforcementResolved.TabIndex = 0
         '
-        'chbHPV
-        '
-        Me.chbHPV.Location = New System.Drawing.Point(6, 63)
-        Me.chbHPV.Name = "chbHPV"
-        Me.chbHPV.Size = New System.Drawing.Size(72, 16)
-        Me.chbHPV.TabIndex = 367
-        Me.chbHPV.Text = "HPV type"
-        '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(131, 214)
+        Me.Label1.Location = New System.Drawing.Point(136, 268)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(66, 13)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "UC Finalized"
-        '
-        'cboHPVType
-        '
-        Me.cboHPVType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cboHPVType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboHPVType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboHPVType.Location = New System.Drawing.Point(16, 82)
-        Me.cboHPVType.Name = "cboHPVType"
-        Me.cboHPVType.Size = New System.Drawing.Size(747, 21)
-        Me.cboHPVType.TabIndex = 366
-        Me.cboHPVType.Visible = False
         '
         'DTPDiscoveryDate
         '
@@ -701,7 +769,7 @@ Partial Class SscpEnforcement
         Me.DTPDiscoveryDate.CustomFormat = "dd-MMM-yyyy"
         Me.DTPDiscoveryDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPDiscoveryDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPDiscoveryDate.Location = New System.Drawing.Point(6, 34)
+        Me.DTPDiscoveryDate.Location = New System.Drawing.Point(11, 33)
         Me.DTPDiscoveryDate.Name = "DTPDiscoveryDate"
         Me.DTPDiscoveryDate.ShowCheckBox = True
         Me.DTPDiscoveryDate.Size = New System.Drawing.Size(119, 22)
@@ -710,7 +778,7 @@ Partial Class SscpEnforcement
         'chbAO
         '
         Me.chbAO.AutoSize = True
-        Me.chbAO.Location = New System.Drawing.Point(357, 37)
+        Me.chbAO.Location = New System.Drawing.Point(387, 37)
         Me.chbAO.Name = "chbAO"
         Me.chbAO.Size = New System.Drawing.Size(41, 17)
         Me.chbAO.TabIndex = 352
@@ -720,7 +788,7 @@ Partial Class SscpEnforcement
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(131, 39)
+        Me.Label2.Location = New System.Drawing.Point(136, 38)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(80, 13)
         Me.Label2.TabIndex = 3
@@ -729,48 +797,36 @@ Partial Class SscpEnforcement
         'chbCO
         '
         Me.chbCO.AutoSize = True
-        Me.chbCO.Location = New System.Drawing.Point(315, 37)
+        Me.chbCO.Location = New System.Drawing.Point(346, 37)
         Me.chbCO.Name = "chbCO"
         Me.chbCO.Size = New System.Drawing.Size(41, 17)
         Me.chbCO.TabIndex = 351
         Me.chbCO.Text = "CO"
         Me.chbCO.UseVisualStyleBackColor = True
         '
-        'DTPDayZero
-        '
-        Me.DTPDayZero.Checked = False
-        Me.DTPDayZero.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPDayZero.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DTPDayZero.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPDayZero.Location = New System.Drawing.Point(448, 34)
-        Me.DTPDayZero.Name = "DTPDayZero"
-        Me.DTPDayZero.ShowCheckBox = True
-        Me.DTPDayZero.Size = New System.Drawing.Size(119, 22)
-        Me.DTPDayZero.TabIndex = 4
-        '
         'chbNOV
         '
         Me.chbNOV.AutoSize = True
-        Me.chbNOV.Location = New System.Drawing.Point(264, 37)
+        Me.chbNOV.Location = New System.Drawing.Point(297, 37)
         Me.chbNOV.Name = "chbNOV"
         Me.chbNOV.Size = New System.Drawing.Size(49, 17)
         Me.chbNOV.TabIndex = 350
         Me.chbNOV.Text = "NOV"
         Me.chbNOV.UseVisualStyleBackColor = True
         '
-        'lblDayZero
+        'txtTrackingNumber
         '
-        Me.lblDayZero.AutoSize = True
-        Me.lblDayZero.Location = New System.Drawing.Point(573, 39)
-        Me.lblDayZero.Name = "lblDayZero"
-        Me.lblDayZero.Size = New System.Drawing.Size(152, 13)
-        Me.lblDayZero.TabIndex = 5
-        Me.lblDayZero.Text = "Day Zero - EPA Required Date"
+        Me.txtTrackingNumber.Location = New System.Drawing.Point(191, 5)
+        Me.txtTrackingNumber.Name = "txtTrackingNumber"
+        Me.txtTrackingNumber.ReadOnly = True
+        Me.txtTrackingNumber.Size = New System.Drawing.Size(64, 20)
+        Me.txtTrackingNumber.TabIndex = 3
+        Me.txtTrackingNumber.Visible = False
         '
         'chbLON
         '
         Me.chbLON.AutoSize = True
-        Me.chbLON.Location = New System.Drawing.Point(217, 37)
+        Me.chbLON.Location = New System.Drawing.Point(249, 37)
         Me.chbLON.Name = "chbLON"
         Me.chbLON.Size = New System.Drawing.Size(48, 17)
         Me.chbLON.TabIndex = 349
@@ -780,35 +836,36 @@ Partial Class SscpEnforcement
         'lblDiscoveryEvent
         '
         Me.lblDiscoveryEvent.AutoSize = True
-        Me.lblDiscoveryEvent.Location = New System.Drawing.Point(93, 9)
+        Me.lblDiscoveryEvent.Location = New System.Drawing.Point(97, 8)
         Me.lblDiscoveryEvent.Name = "lblDiscoveryEvent"
         Me.lblDiscoveryEvent.Size = New System.Drawing.Size(88, 13)
         Me.lblDiscoveryEvent.TabIndex = 338
         Me.lblDiscoveryEvent.Text = "Discovery Event:"
         Me.lblDiscoveryEvent.Visible = False
         '
+        'btnClearLink
+        '
+        Me.btnClearLink.AutoSize = True
+        Me.btnClearLink.Location = New System.Drawing.Point(307, 3)
+        Me.btnClearLink.Name = "btnClearLink"
+        Me.btnClearLink.Size = New System.Drawing.Size(41, 23)
+        Me.btnClearLink.TabIndex = 348
+        Me.btnClearLink.Text = "Clear"
+        Me.btnClearLink.Visible = False
+        '
         'btnOpenEvent
         '
         Me.btnOpenEvent.AutoSize = True
-        Me.btnOpenEvent.Location = New System.Drawing.Point(258, 4)
+        Me.btnOpenEvent.Location = New System.Drawing.Point(261, 3)
         Me.btnOpenEvent.Name = "btnOpenEvent"
         Me.btnOpenEvent.Size = New System.Drawing.Size(40, 23)
         Me.btnOpenEvent.TabIndex = 348
         Me.btnOpenEvent.Text = "View"
         Me.btnOpenEvent.Visible = False
         '
-        'txtDiscoveryEventNumber
-        '
-        Me.txtDiscoveryEventNumber.Location = New System.Drawing.Point(187, 5)
-        Me.txtDiscoveryEventNumber.Name = "txtDiscoveryEventNumber"
-        Me.txtDiscoveryEventNumber.ReadOnly = True
-        Me.txtDiscoveryEventNumber.Size = New System.Drawing.Size(64, 20)
-        Me.txtDiscoveryEventNumber.TabIndex = 339
-        Me.txtDiscoveryEventNumber.Visible = False
-        '
         'btnSubmitToUC
         '
-        Me.btnSubmitToUC.Location = New System.Drawing.Point(8, 237)
+        Me.btnSubmitToUC.Location = New System.Drawing.Point(11, 291)
         Me.btnSubmitToUC.Name = "btnSubmitToUC"
         Me.btnSubmitToUC.Size = New System.Drawing.Size(147, 23)
         Me.btnSubmitToUC.TabIndex = 346
@@ -817,7 +874,7 @@ Partial Class SscpEnforcement
         'Label34
         '
         Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(1, 105)
+        Me.Label34.Location = New System.Drawing.Point(8, 161)
         Me.Label34.Name = "Label34"
         Me.Label34.Size = New System.Drawing.Size(96, 13)
         Me.Label34.TabIndex = 341
@@ -825,7 +882,7 @@ Partial Class SscpEnforcement
         '
         'btnSubmitEnforcementToEPA
         '
-        Me.btnSubmitEnforcementToEPA.Location = New System.Drawing.Point(218, 209)
+        Me.btnSubmitEnforcementToEPA.Location = New System.Drawing.Point(218, 263)
         Me.btnSubmitEnforcementToEPA.Name = "btnSubmitEnforcementToEPA"
         Me.btnSubmitEnforcementToEPA.Size = New System.Drawing.Size(183, 23)
         Me.btnSubmitEnforcementToEPA.TabIndex = 345
@@ -835,12 +892,12 @@ Partial Class SscpEnforcement
         '
         Me.txtGeneralComments.AcceptsReturn = True
         Me.txtGeneralComments.AcceptsTab = True
-        Me.txtGeneralComments.Location = New System.Drawing.Point(16, 120)
+        Me.txtGeneralComments.Location = New System.Drawing.Point(11, 177)
         Me.txtGeneralComments.MaxLength = 4000
         Me.txtGeneralComments.Multiline = True
         Me.txtGeneralComments.Name = "txtGeneralComments"
         Me.txtGeneralComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtGeneralComments.Size = New System.Drawing.Size(741, 80)
+        Me.txtGeneralComments.Size = New System.Drawing.Size(724, 80)
         Me.txtGeneralComments.TabIndex = 340
         '
         'cboStaffResponsible
@@ -849,23 +906,15 @@ Partial Class SscpEnforcement
         Me.cboStaffResponsible.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboStaffResponsible.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStaffResponsible.Enabled = False
-        Me.cboStaffResponsible.Location = New System.Drawing.Point(410, 5)
+        Me.cboStaffResponsible.Location = New System.Drawing.Point(571, 5)
         Me.cboStaffResponsible.Name = "cboStaffResponsible"
         Me.cboStaffResponsible.Size = New System.Drawing.Size(154, 21)
         Me.cboStaffResponsible.TabIndex = 343
         '
-        'btnManuallyEnterAFS
-        '
-        Me.btnManuallyEnterAFS.Location = New System.Drawing.Point(415, 209)
-        Me.btnManuallyEnterAFS.Name = "btnManuallyEnterAFS"
-        Me.btnManuallyEnterAFS.Size = New System.Drawing.Size(184, 23)
-        Me.btnManuallyEnterAFS.TabIndex = 347
-        Me.btnManuallyEnterAFS.Text = "Manually Enter EPA Numbers"
-        '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(318, 9)
+        Me.Label5.Location = New System.Drawing.Point(475, 8)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(90, 13)
         Me.Label5.TabIndex = 342
@@ -1877,7 +1926,7 @@ Partial Class SscpEnforcement
         'pnlDocument
         '
         Me.pnlDocument.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlDocument.Controls.Add(Me.lblDocumentDescription)
         Me.pnlDocument.Controls.Add(Me.btnDocumentDownload)
         Me.pnlDocument.Controls.Add(Me.txtDocumentDescription)
@@ -1913,7 +1962,7 @@ Partial Class SscpEnforcement
         'txtDocumentDescription
         '
         Me.txtDocumentDescription.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtDocumentDescription.Location = New System.Drawing.Point(0, 52)
         Me.txtDocumentDescription.Name = "txtDocumentDescription"
         Me.txtDocumentDescription.Size = New System.Drawing.Size(336, 20)
@@ -1958,8 +2007,8 @@ Partial Class SscpEnforcement
         Me.dgvDocumentList.AllowUserToOrderColumns = True
         Me.dgvDocumentList.AllowUserToResizeRows = False
         Me.dgvDocumentList.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvDocumentList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvDocumentList.Enabled = False
         Me.dgvDocumentList.Location = New System.Drawing.Point(14, 32)
@@ -1986,10 +2035,8 @@ Partial Class SscpEnforcement
         Me.Panel4.Controls.Add(Me.txtFacilityAddress)
         Me.Panel4.Controls.Add(Me.Label52)
         Me.Panel4.Controls.Add(Me.txtFacilityName)
-        Me.Panel4.Controls.Add(Me.Label51)
         Me.Panel4.Controls.Add(Me.Label50)
         Me.Panel4.Controls.Add(Me.Label6)
-        Me.Panel4.Controls.Add(Me.txtTrackingNumber)
         Me.Panel4.Controls.Add(Me.txtEnforcementNumber)
         Me.Panel4.Controls.Add(Me.txtAIRSNumber)
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
@@ -2001,7 +2048,7 @@ Partial Class SscpEnforcement
         'Label55
         '
         Me.Label55.AutoSize = True
-        Me.Label55.Location = New System.Drawing.Point(338, 59)
+        Me.Label55.Location = New System.Drawing.Point(338, 35)
         Me.Label55.Name = "Label55"
         Me.Label55.Size = New System.Drawing.Size(40, 13)
         Me.Label55.TabIndex = 138
@@ -2009,7 +2056,7 @@ Partial Class SscpEnforcement
         '
         'txtCounty
         '
-        Me.txtCounty.Location = New System.Drawing.Point(398, 55)
+        Me.txtCounty.Location = New System.Drawing.Point(398, 31)
         Me.txtCounty.Name = "txtCounty"
         Me.txtCounty.ReadOnly = True
         Me.txtCounty.Size = New System.Drawing.Size(71, 20)
@@ -2212,7 +2259,7 @@ Partial Class SscpEnforcement
         'Label54
         '
         Me.Label54.AutoSize = True
-        Me.Label54.Location = New System.Drawing.Point(338, 35)
+        Me.Label54.Location = New System.Drawing.Point(338, 12)
         Me.Label54.Name = "Label54"
         Me.Label54.Size = New System.Drawing.Size(68, 13)
         Me.Label54.TabIndex = 11
@@ -2220,7 +2267,7 @@ Partial Class SscpEnforcement
         '
         'txtClassification
         '
-        Me.txtClassification.Location = New System.Drawing.Point(409, 31)
+        Me.txtClassification.Location = New System.Drawing.Point(409, 8)
         Me.txtClassification.Name = "txtClassification"
         Me.txtClassification.ReadOnly = True
         Me.txtClassification.Size = New System.Drawing.Size(60, 20)
@@ -2282,15 +2329,6 @@ Partial Class SscpEnforcement
         Me.txtFacilityName.Size = New System.Drawing.Size(233, 20)
         Me.txtFacilityName.TabIndex = 6
         '
-        'Label51
-        '
-        Me.Label51.AutoSize = True
-        Me.Label51.Location = New System.Drawing.Point(338, 12)
-        Me.Label51.Name = "Label51"
-        Me.Label51.Size = New System.Drawing.Size(59, 13)
-        Me.Label51.TabIndex = 5
-        Me.Label51.Text = "Tracking #"
-        '
         'Label50
         '
         Me.Label50.AutoSize = True
@@ -2308,14 +2346,6 @@ Partial Class SscpEnforcement
         Me.Label6.Size = New System.Drawing.Size(42, 13)
         Me.Label6.TabIndex = 1
         Me.Label6.Text = "AIRS #"
-        '
-        'txtTrackingNumber
-        '
-        Me.txtTrackingNumber.Location = New System.Drawing.Point(398, 8)
-        Me.txtTrackingNumber.Name = "txtTrackingNumber"
-        Me.txtTrackingNumber.ReadOnly = True
-        Me.txtTrackingNumber.Size = New System.Drawing.Size(71, 20)
-        Me.txtTrackingNumber.TabIndex = 3
         '
         'txtEnforcementNumber
         '
@@ -2341,7 +2371,7 @@ Partial Class SscpEnforcement
         'Label4
         '
         Me.Label4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label4.BackColor = System.Drawing.Color.OldLace
         Me.Label4.ForeColor = System.Drawing.Color.DarkRed
         Me.Label4.Location = New System.Drawing.Point(277, 303)
@@ -2355,7 +2385,7 @@ Partial Class SscpEnforcement
         'Panel1
         '
         Me.Panel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Panel1.Controls.Add(Me.Button1)
         Me.Panel1.Controls.Add(Me.Button2)
         Me.Panel1.Controls.Add(Me.TextBox1)
@@ -2460,7 +2490,7 @@ Partial Class SscpEnforcement
         'Panel2
         '
         Me.Panel2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Panel2.Controls.Add(Me.Label33)
         Me.Panel2.Controls.Add(Me.ComboBox2)
         Me.Panel2.Controls.Add(Me.Button4)
@@ -2521,7 +2551,7 @@ Partial Class SscpEnforcement
         'TextBox2
         '
         Me.TextBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TextBox2.Location = New System.Drawing.Point(0, 52)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.Size = New System.Drawing.Size(313, 20)
@@ -2570,8 +2600,8 @@ Partial Class SscpEnforcement
         Me.DataGridView1.AllowUserToOrderColumns = True
         Me.DataGridView1.AllowUserToResizeRows = False
         Me.DataGridView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Enabled = False
         Me.DataGridView1.Location = New System.Drawing.Point(276, 35)
@@ -2605,6 +2635,10 @@ Partial Class SscpEnforcement
         Me.TPGeneralInfo.ResumeLayout(False)
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
+        Me.HpvToolsPanel.ResumeLayout(False)
+        Me.HpvToolsPanel.PerformLayout()
+        Me.ViolationTypeGroupbox.ResumeLayout(False)
+        Me.ViolationTypeGroupbox.PerformLayout()
         Me.Panel7.ResumeLayout(False)
         Me.Panel7.PerformLayout()
         Me.TPPollutants.ResumeLayout(False)
@@ -2662,7 +2696,6 @@ Partial Class SscpEnforcement
     Friend WithEvents mmiClose As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mmiTools As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mmiDelete As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiHelp As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TCEnforcement As System.Windows.Forms.TabControl
     Friend WithEvents TPGeneralInfo As System.Windows.Forms.TabPage
     Friend WithEvents Panel6 As System.Windows.Forms.Panel
@@ -2690,9 +2723,7 @@ Partial Class SscpEnforcement
     Friend WithEvents btnLinkEnforcement As System.Windows.Forms.Button
     Friend WithEvents btnDayZero As System.Windows.Forms.Button
     Friend WithEvents DTPEnforcementResolved As System.Windows.Forms.DateTimePicker
-    Friend WithEvents chbHPV As System.Windows.Forms.CheckBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents cboHPVType As System.Windows.Forms.ComboBox
     Friend WithEvents DTPDiscoveryDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents chbAO As System.Windows.Forms.CheckBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
@@ -2703,13 +2734,11 @@ Partial Class SscpEnforcement
     Friend WithEvents chbLON As System.Windows.Forms.CheckBox
     Friend WithEvents lblDiscoveryEvent As System.Windows.Forms.Label
     Friend WithEvents btnOpenEvent As System.Windows.Forms.Button
-    Friend WithEvents txtDiscoveryEventNumber As System.Windows.Forms.TextBox
     Friend WithEvents btnSubmitToUC As System.Windows.Forms.Button
     Friend WithEvents Label34 As System.Windows.Forms.Label
     Friend WithEvents btnSubmitEnforcementToEPA As System.Windows.Forms.Button
     Friend WithEvents txtGeneralComments As System.Windows.Forms.TextBox
     Friend WithEvents cboStaffResponsible As System.Windows.Forms.ComboBox
-    Friend WithEvents btnManuallyEnterAFS As System.Windows.Forms.Button
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents TPPollutants As System.Windows.Forms.TabPage
     Friend WithEvents Panel5 As System.Windows.Forms.Panel
@@ -2808,7 +2837,6 @@ Partial Class SscpEnforcement
     Friend WithEvents txtFacilityAddress As System.Windows.Forms.TextBox
     Friend WithEvents Label52 As System.Windows.Forms.Label
     Friend WithEvents txtFacilityName As System.Windows.Forms.TextBox
-    Friend WithEvents Label51 As System.Windows.Forms.Label
     Friend WithEvents Label50 As System.Windows.Forms.Label
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents txtTrackingNumber As System.Windows.Forms.TextBox
@@ -2831,7 +2859,6 @@ Partial Class SscpEnforcement
     Friend WithEvents StipulatedPenalties As System.Windows.Forms.GroupBox
     Friend WithEvents DeletePenaltyButton As System.Windows.Forms.Button
     Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents mmiOnlineHelp As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents tabDocuments As System.Windows.Forms.TabPage
     Friend WithEvents lblCurrentFiles As System.Windows.Forms.Label
     Friend WithEvents dgvDocumentList As System.Windows.Forms.DataGridView
@@ -2864,4 +2891,12 @@ Partial Class SscpEnforcement
     Friend WithEvents Label57 As System.Windows.Forms.Label
     Friend WithEvents DataGridView1 As System.Windows.Forms.DataGridView
     Friend WithEvents nudCoNumber As System.Windows.Forms.NumericUpDown
+    Friend WithEvents ViolationTypeGroupbox As System.Windows.Forms.GroupBox
+    Friend WithEvents ViolationTypeSelect As System.Windows.Forms.ComboBox
+    Friend WithEvents ViolationTypeNonFrv As System.Windows.Forms.RadioButton
+    Friend WithEvents ViolationTypeHpv As System.Windows.Forms.RadioButton
+    Friend WithEvents ViolationTypeFrv As System.Windows.Forms.RadioButton
+    Friend WithEvents ViolationTypeNone As System.Windows.Forms.RadioButton
+    Friend WithEvents btnClearLink As System.Windows.Forms.Button
+    Friend WithEvents HpvToolsPanel As System.Windows.Forms.Panel
 End Class

@@ -152,11 +152,7 @@ Namespace DAL
                         " 	when datDiscoveryDate is Null then ''   " & _
                         " 	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " & _
                          "END as Violationdate,    " & _
-                         "case    " & _
-                         " 	when strHPV IS NULL then strActionType   " & _
-                         "	When strHPV IS Not Null then 'HPV'    " & _
-                         "   Else 'HPV'   " & _
-                         "END as HPVStatus,   " & _
+                         "strActionType as HPVStatus,   " & _
                          "Case   " & _
                          " 	when datEnforcementFinalized Is Not NULL then 'Closed'   " & _
                          "	when datEnforcementFinalized is NUll then 'Open'   " & _
@@ -189,11 +185,7 @@ Namespace DAL
                         " 	when datDiscoveryDate is Null then ''   " & _
                         " 	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " & _
                         "END as Violationdate,    " & _
-                        "case    " & _
-                        " 	when strHPV IS NULL then strActionType   " & _
-                        " 	When strHPV IS Not Null then 'HPV'    " & _
-                        "   Else 'HPV'   " & _
-                        "END as HPVStatus,   " & _
+                        "strActionType as HPVStatus,   " & _
                         "Case   " & _
                         " 	when datEnforcementFinalized Is Not NULL then 'Closed'   " & _
                         "	when datEnforcementFinalized is NUll then 'Open'   " & _
@@ -229,11 +221,7 @@ Namespace DAL
                      " 	when datDiscoveryDate is Null then ''  " & _
                      "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy')  " & _
                      "END as Violationdate,   " & _
-                     "case   " & _
-                     "	when strHPV IS NULL then strActionType  " & _
-                     "	When strHPV IS Not Null then 'HPV'   " & _
-                     "Else 'HPV'  " & _
-                     "END as HPVStatus,  " & _
+                     "strActionType as HPVStatus,   " & _
                      "Case  " & _
                      " 	when datEnforcementFinalized Is Not NULL then 'Closed'  " & _
                      " 	when datEnforcementFinalized is NUll then 'Open'  " & _
@@ -621,11 +609,7 @@ Namespace DAL
                         " 	when datDiscoveryDate is Null then ''   " & _
                         " 	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " & _
                          "END as Violationdate,    " & _
-                         "case    " & _
-                         " 	when strHPV IS NULL then strActionType   " & _
-                         "	When strHPV IS Not Null then 'HPV'    " & _
-                         "   Else 'HPV'   " & _
-                         "END as HPVStatus,   " & _
+                         "strActionType as HPVStatus,   " & _
                          "Case   " & _
                          " 	when datEnforcementFinalized Is Not NULL then 'Closed'   " & _
                          "	when datEnforcementFinalized is NUll then 'Open'   " & _
@@ -658,11 +642,7 @@ Namespace DAL
                         " 	when datDiscoveryDate is Null then ''   " & _
                         " 	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " & _
                         "END as Violationdate,    " & _
-                        "case    " & _
-                        " 	when strHPV IS NULL then strActionType   " & _
-                        " 	When strHPV IS Not Null then 'HPV'    " & _
-                        "   Else 'HPV'   " & _
-                        "END as HPVStatus,   " & _
+                        "strActionType as HPVStatus,   " & _
                         "Case   " & _
                         " 	when datEnforcementFinalized Is Not NULL then 'Closed'   " & _
                         "	when datEnforcementFinalized is NUll then 'Open'   " & _
@@ -698,11 +678,7 @@ Namespace DAL
                      " 	when datDiscoveryDate is Null then ''  " & _
                      "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy')  " & _
                      "END as Violationdate,   " & _
-                     "case   " & _
-                     "	when strHPV IS NULL then strActionType  " & _
-                     "	When strHPV IS Not Null then 'HPV'   " & _
-                     "Else 'HPV'  " & _
-                     "END as HPVStatus,  " & _
+                     "strActionType as HPVStatus,   " & _
                      "Case  " & _
                      " 	when datEnforcementFinalized Is Not NULL then 'Closed'  " & _
                      " 	when datEnforcementFinalized is NUll then 'Open'  " & _
@@ -864,11 +840,7 @@ Namespace DAL
                       " 	when datDiscoveryDate is Null then ''  " & _
                       "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy')  " & _
                       "END as Violationdate,   " & _
-                      "case   " & _
-                      "	when strHPV IS NULL then strActionType  " & _
-                      "	When strHPV IS Not Null then 'HPV'   " & _
-                      "Else 'HPV'  " & _
-                      "END as HPVStatus,  " & _
+                      "strActionType as HPVStatus,   " & _
                       "Case  " & _
                       " 	when datEnforcementFinalized Is Not NULL then 'Closed'  " & _
                       " 	when datEnforcementFinalized is NUll then 'Open'  " & _
@@ -905,11 +877,7 @@ Namespace DAL
                     " 	when datDiscoveryDate is Null then ''  " & _
                     "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy')  " & _
                     "END as Violationdate,   " & _
-                    "case   " & _
-                    "	when strHPV IS NULL then strActionType  " & _
-                    "	When strHPV IS Not Null then 'HPV'   " & _
-                    "Else 'HPV'  " & _
-                    "END as HPVStatus,  " & _
+                    "strActionType as HPVStatus,   " & _
                     "Case  " & _
                     " 	when datEnforcementFinalized Is Not NULL then 'Closed'  " & _
                     " 	when datEnforcementFinalized is NUll then 'Open'  " & _
@@ -946,11 +914,7 @@ Namespace DAL
                     " 	when datDiscoveryDate is Null then ''  " & _
                     "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy')  " & _
                     "END as Violationdate,   " & _
-                    "case   " & _
-                    "	when strHPV IS NULL then strActionType  " & _
-                    "	When strHPV IS Not Null then 'HPV'   " & _
-                    "Else 'HPV'  " & _
-                    "END as HPVStatus,  " & _
+                    "strActionType as HPVStatus,   " & _
                     "Case  " & _
                     " 	when datEnforcementFinalized Is Not NULL then 'Closed'  " & _
                     " 	when datEnforcementFinalized is NUll then 'Open'  " & _
@@ -986,11 +950,7 @@ Namespace DAL
                    " 	when datDiscoveryDate is Null then ''  " & _
                    "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy')  " & _
                    "END as Violationdate,   " & _
-                   "case   " & _
-                   "	when strHPV IS NULL then strActionType  " & _
-                   "	When strHPV IS Not Null then 'HPV'   " & _
-                   "Else 'HPV'  " & _
-                   "END as HPVStatus,  " & _
+                   "strActionType as HPVStatus,   " & _
                    "Case  " & _
                    " 	when datEnforcementFinalized Is Not NULL then 'Closed'  " & _
                    " 	when datEnforcementFinalized is NUll then 'Open'  " & _

@@ -5811,9 +5811,9 @@ Public Class SSCPManagersTools
 "when strActionType = 'NOVCO' then datCOProposed  " & _
 "when strActionType = 'NOVCOP' then datCOProposed  " & _
 "when strActionType = 'HPV' then datNOVSent   " & _
-"when strActionType = 'HPVCO' then datNOVSent  " & _
-"when strActionType = 'HPVCOP' then datNovsent   " & _
-"when strActionType = 'HPVAO' then datNOVSent   " & _
+"when strActionType = 'HPVCO' then datCOProposed  " & _
+"when strActionType = 'HPVCOP' then datCOProposed   " & _
+"when strActionType = 'HPVAO' then datAOExecuted   " & _
 "end DateIssued, " & _
 "case  " & _
 "when strActionType = 'LON' then datLONResolved   " & _
@@ -5821,9 +5821,9 @@ Public Class SSCPManagersTools
 "when strActionType = 'NOVCO' then datCOResolved  " & _
 "when strActionType = 'NOVCOP' then datCOResolved   " & _
 "when strActionType = 'HPV' then datNFALetterSent  " & _
-"when strActionType = 'HPVCO' then datNFALetterSent  " & _
-"when strActionType = 'HPVCOP' then datNFALetterSent  " & _
-"when strActionType = 'HPVAO' then datNFALetterSent    " & _
+"when strActionType = 'HPVCO' then datCOResolved  " & _
+"when strActionType = 'HPVCOP' then datCOResolved " & _
+"when strActionType = 'HPVAO' then datAOResolved    " & _
 "end DateResolved " & _
 "from airbranch.apbheaderdata, airbranch.APBFacilityInformation,  " & _
 "airbranch.SSCP_AuditedEnforcement, airbranch.SSCPDistrictResponsible " & _
