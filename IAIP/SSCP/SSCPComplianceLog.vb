@@ -781,7 +781,7 @@ Public Class SSCPComplianceLog
                 OpenMultiForm("SscpEnforcement", -1, parameters)
             Else
                 If rdbFCE.Checked = True Then
-                    OpenFormFceByID(Me.txtNewAIRSNumber.Text)
+                    OpenFormFce(Me.txtNewAIRSNumber.Text)
                 Else
                     If rdbPerformanceTest.Checked = True Then
                         If txtTrackingNumber.Text <> "" Then
@@ -1672,7 +1672,7 @@ Public Class SSCPComplianceLog
                 If InStr(txtTestType.Text, "Enforcement") > 0 Then
                     OpenFormEnforcement(txtWorkNumber.Text)
                 ElseIf InStr(txtTestType.Text, "Full Compliance Evaluation") > 0 Then
-                    OpenFormFceByID(New Apb.ApbFacilityId(txtAIRSNumber.Text), txtWorkNumber.Text)
+                    OpenFormFceByID(txtWorkNumber.Text, New Apb.ApbFacilityId(txtAIRSNumber.Text))
                 Else
                     OpenFormSscpWorkItem(txtWorkNumber.Text)
                 End If
