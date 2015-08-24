@@ -48,7 +48,6 @@ Public Class ISMPManagersTools
     Private Sub ISMPManagersTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
         Try
-
             CreateStatusBar()
             ShowCorrectTabs()
             LoadComboBoxDataSets()
@@ -76,14 +75,9 @@ Public Class ISMPManagersTools
             LoadMethods()
             dtpAddTestReportDateReceived.Text = OracleDate
             DTPAddTestReportDateCompleted.Text = OracleDate
-
-            'Me.WindowState = FormWindowState.Maximized
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
 
 #Region "Page Load"
@@ -3761,11 +3755,8 @@ Public Class ISMPManagersTools
         Dim AIRSNumber As String
         Dim dash As String
         Dim ReportType As String
-        Dim tabs() As Integer = {15, 130}
 
         Try
-
-            SendMessage(txtOutOfComplianceReport.Handle, EM_SETTABSTOPS, 2, tabs(0))
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -3813,14 +3804,12 @@ Public Class ISMPManagersTools
 
             End While
 
+            txtOutOfComplianceReport.SelectionTabs = New Integer() {30, 260}
             txtOutOfComplianceReport.Text = Report
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Sub ClearPage()
         Try

@@ -1683,7 +1683,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_Modules\AppTimers.vb" />
-    <Compile Include="_Modules\Win32ApiCalls.vb" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
