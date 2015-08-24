@@ -7,11 +7,9 @@ Public Class PASPFeeDeposits
     Dim panel1 As New StatusBarPanel
     Dim panel2 As New StatusBarPanel
     Dim panel3 As New StatusBarPanel
-    Dim Panel1temp As String
 
     Dim dsWorkEnTry As DataSet
     Dim daWorkEnTry As OracleDataAdapter
-    Dim recExist As Boolean
     Dim feeyear As String
     Dim SQL, SQL2, SQL3 As String
     Dim cmd, cmd2, cmd3 As OracleCommand

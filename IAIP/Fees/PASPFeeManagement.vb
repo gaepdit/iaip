@@ -5,9 +5,6 @@ Public Class PASPFeeManagement
     Dim SQL As String
     Dim ds As DataSet
     Dim da As OracleDataAdapter
-    Dim dtairs As New DataTable
-    Dim FeeYear As String
-    Dim AIRSNumber As String
 
     Private Sub PASPFeeManagement_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)

@@ -2,14 +2,11 @@ Imports Oracle.ManagedDataAccess.Client
 
 
 Public Class SSCPEmissionSummaryTool
-    Dim SQL, SQL2 As String
-    Dim cmd, cmd2 As OracleCommand
-    Dim dr, dr2 As OracleDataReader
-    Dim recexist As Boolean
+    Dim SQL As String
+    Dim cmd As OracleCommand
+    Dim dr As OracleDataReader
     Dim daViewCount As OracleDataAdapter
     Dim dsViewCount As DataSet
-    Dim dsES As DataSet
-    Dim daES As OracleDataAdapter
     Dim ds As DataSet
     Dim da As OracleDataAdapter
 
@@ -1044,8 +1041,6 @@ Public Class SSCPEmissionSummaryTool
     Private Sub lblViewESData_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewESData.LinkClicked
         Dim year As Integer = CInt(cboYear.SelectedItem)
         Try
-
-            dsES = New DataSet
 
             SQL = "SELECT STRAIRSNUMBER, " & _
             "STRFACILITYNAME, " & _

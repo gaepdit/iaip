@@ -12,10 +12,6 @@ Public Class ISMPTestReportAdministrative
     Dim daPollutant As OracleDataAdapter
     Dim dsTestingFirms As DataSet
     Dim daTestingFirms As OracleDataAdapter
-    Dim dsManagers As DataSet
-    Dim daManagers As OracleDataAdapter
-    Dim dsComplianceManagers As DataSet
-    Dim daComplianceManagers As OracleDataAdapter
     Dim dsGrid As DataSet
     Dim daGrid As OracleDataAdapter
     Dim dsFacility As DataSet

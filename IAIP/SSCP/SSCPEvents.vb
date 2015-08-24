@@ -8,8 +8,6 @@ Public Class SSCPEvents
     Dim cmd As OracleCommand
     Dim dr As OracleDataReader
     Dim recExist As Boolean
-    Dim dsItems As DataSet
-    Dim daItems As OracleDataAdapter
     Dim dsNotifications As DataSet
     Friend WithEvents Label35 As System.Windows.Forms.Label
     Friend WithEvents cboStaffResponsible As System.Windows.Forms.ComboBox
@@ -19,7 +17,6 @@ Public Class SSCPEvents
 
     Dim ItemIsDeleted As Boolean = False
     Dim AIRSNumber As String = ""
-    Dim facility As Apb.Facilities.Facility
 
 #Region " Properties "
 

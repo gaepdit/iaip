@@ -12,7 +12,6 @@ Public Class MASPRegistrationTool
 
     Dim selectedEventId As Decimal?
     Dim selectedEvent As ResEvent
-    Dim selecting As Boolean = False
 
 #End Region
 

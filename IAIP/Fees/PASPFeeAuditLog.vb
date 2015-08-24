@@ -7,8 +7,6 @@ Public Class PASPFeeAuditLog
     Dim SQL As String
     Dim ds As DataSet
     Dim da As OracleDataAdapter
-    Dim dtairs As New DataTable
-
     Dim tempContact As Contact
     Dim tempFacility As Facility
 

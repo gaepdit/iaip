@@ -5,7 +5,7 @@ Imports System.Collections.Generic
 Public Class SSCPComplianceLog
     Dim SQL, SQL2, SQL3 As String
     Dim cmd, cmd2, cmd3 As OracleCommand
-    Dim dr, dr2, dr3 As OracleDataReader
+    Dim dr, dr3 As OracleDataReader
     Dim recExist As Boolean
     Dim dsCompliance As DataSet
     Dim daCompliance As OracleDataAdapter
@@ -13,8 +13,6 @@ Public Class SSCPComplianceLog
     Dim daStaff As OracleDataAdapter
     Dim dsWorkEntry As DataSet
     Dim daWorkEntry As OracleDataAdapter
-    Dim dsFacility As DataSet
-    Dim daFacility As OracleDataAdapter
     Dim dsNotifications As DataSet
     Dim daNotifications As OracleDataAdapter
     Dim dsComplianceUnit As DataSet
@@ -866,7 +864,7 @@ Public Class SSCPComplianceLog
                             End While
 
                             If SQL2 <> "" Then
-                                dr2 = cmd2.ExecuteReader
+                                cmd2.ExecuteReader()
                             End If
 
                             OpenFormSscpWorkItem(txtTrackingNumber.Text)

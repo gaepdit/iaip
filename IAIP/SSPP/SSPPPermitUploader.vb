@@ -9,7 +9,6 @@ Public Class SSPPPermitUploader
     Dim dr As OracleDataReader
     Dim recExist As Boolean
     Dim MasterApp As String
-    Dim PathName As String
 
 #Region "Form events"
 

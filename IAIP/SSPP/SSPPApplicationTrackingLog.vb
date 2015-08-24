@@ -9,8 +9,8 @@ Public Class SSPPApplicationTrackingLog
     Dim SQL4, SQL5, SQL6 As String
     Dim SQL7, SQL8, SQL9 As String
     Dim SQL10, SQL11 As String
-    Dim cmd, cmd2, cmd3 As OracleCommand
-    Dim dr, dr2, dr3 As OracleDataReader
+    Dim cmd As OracleCommand
+    Dim dr As OracleDataReader
     Dim recExist As Boolean
     Dim MasterApp As String
     Dim TimeStamp As String
@@ -43,8 +43,6 @@ Public Class SSPPApplicationTrackingLog
     Dim daPart63 As OracleDataAdapter
     Dim dsSIP As DataSet
     Dim daSIP As OracleDataAdapter
-    Dim dsSubpart As DataSet
-    Dim daSubpart As OracleDataAdapter
 
     Private Sub SSPPPermitTrackingLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
@@ -16959,8 +16957,7 @@ Public Class SSPPApplicationTrackingLog
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
-                        dr2 = cmd.ExecuteReader
-                        dr2.Close()
+                        cmd.ExecuteReader()
 
                         SQL = "Delete AIRBRANCH.SSPPSubpartData " & _
                         "where strSubpartKey = '" & txtApplicationNumber.Text & "9' " & _
@@ -16971,8 +16968,7 @@ Public Class SSPPApplicationTrackingLog
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
-                        dr2 = cmd.ExecuteReader
-                        dr2.Close()
+                        cmd.ExecuteReader()
                     End If
                 End If
             End While

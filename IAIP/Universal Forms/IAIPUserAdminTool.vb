@@ -8,8 +8,6 @@ Public Class IAIPUserAdminTool
     Dim daDataGrid As OracleDataAdapter
     Dim dsAccounts As DataSet
     Dim daAccounts As OracleDataAdapter
-    Dim dsPermissions As DataSet
-    Dim daPermissions As OracleDataAdapter
     Dim SQL As String
     Dim cmd As OracleCommand
     Dim dr As OracleDataReader

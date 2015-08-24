@@ -4,9 +4,6 @@ Imports System.Collections.Generic
 
 Public Class SSCPEnforcementSelector
     Dim SQL As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
-    Dim recExist As Boolean
     Dim dsSSCPEnforcement As DataSet
     Dim daSSCPEnforcement As OracleDataAdapter
     Dim dsComplianceUnits As DataSet

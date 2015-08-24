@@ -2,8 +2,8 @@ Imports Oracle.ManagedDataAccess.Client
 
 Public Class SSCPFCEWork
     Dim SQL, SQL2 As String
-    Dim cmd, cmd2 As OracleCommand
-    Dim dr, dr2 As OracleDataReader
+    Dim cmd As OracleCommand
+    Dim dr As OracleDataReader
     Dim recExist As Boolean
     Dim dsFCE As DataSet
     Dim daFCE As OracleDataAdapter

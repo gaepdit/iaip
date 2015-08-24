@@ -10,12 +10,6 @@ Public Class SBEAPCaseLog
     Dim dsActions As DataSet
     Dim dsCaseLogGrid As DataSet
     Dim daCaseLogGrid As OracleDataAdapter
-    Dim FieldType1 As String
-    Dim FieldType2 As String
-    Dim Search1 As String
-    Dim Search2 As String
-    Dim Sort1 As String
-    Dim Sort2 As String
     Dim SQLAction As String
     Dim SQLSearch1 As String
     Dim SQLSearch2 As String

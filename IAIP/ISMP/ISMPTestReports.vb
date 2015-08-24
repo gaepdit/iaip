@@ -22,8 +22,6 @@ Public Class ISMPTestReports
     Dim daISMPUnits As OracleDataAdapter
     Dim dsPollutants As DataSet
     Dim daPollutants As OracleDataAdapter
-    Dim statusBar1 As New StatusBar
-    Dim Paneltemp1 As String
     Dim SQL As String
     Dim cmd As OracleCommand
     Dim dr As OracleDataReader

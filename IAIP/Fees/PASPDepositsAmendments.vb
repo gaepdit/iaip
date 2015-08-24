@@ -2,9 +2,9 @@ Imports Oracle.ManagedDataAccess.Client
 
 
 Public Class PASPDepositsAmendments
-    Dim SQL, SQL2, SQL3 As String
-    Dim cmd, cmd2, cmd3 As OracleCommand
-    Dim dr, dr2, dr3 As OracleDataReader
+    Dim SQL As String
+    Dim cmd As OracleCommand
+    Dim dr As OracleDataReader
     Dim recExist As Boolean
     Dim feeyear As String = Now.Year
     Dim airsnumber As String

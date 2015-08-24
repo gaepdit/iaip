@@ -3,9 +3,6 @@ Imports System.IO
 
 Public Class IAIPQueryGenerator
     Dim SQL As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
-    Dim recExist As Boolean
     Dim dsCounty As DataSet
     Dim daCounty As OracleDataAdapter
     Dim dsDistrict As DataSet

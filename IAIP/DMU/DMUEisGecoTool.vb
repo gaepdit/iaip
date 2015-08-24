@@ -5,40 +5,18 @@ Imports Oracle.ManagedDataAccess.Client
 Public Class DMUEisGecoTool
     Dim daStaff As OracleDataAdapter
     Dim dsStaff As DataSet
-    Dim SQL, SQL2, SQL3 As String
-    Dim cmd, cmd2, cmd3 As OracleCommand
-    Dim dr, dr2, dr3 As OracleDataReader
+    Dim SQL, SQL2 As String
+    Dim cmd, cmd2 As OracleCommand
+    Dim dr, dr2 As OracleDataReader
     Dim recExist As Boolean
-    Dim dsWebPublisher As DataSet
-    Dim daWebPublisher As OracleDataAdapter
-    Dim dsApplicationGrid As DataSet
-    Dim daApplicationGrid As OracleDataAdapter
     Dim ds As DataSet
     Dim da As OracleDataAdapter
-    Dim airsno As String
-    Dim password, encryptpwd As String
-    Dim Startdate As String
-    Dim EndDate As String
-    Dim dsErrorLog As DataSet
-    Dim daErrorLog As OracleDataAdapter
-    Dim dsWebErrorLog As DataSet
-    Dim daWebErrorLog As OracleDataAdapter
-    Dim Emssionyear As String = Now.Year
-    Dim year As String
-    Dim inventoryYear As Integer
     Dim recExist2 As Boolean
-    Dim dsWorkEntry As DataSet
-    Dim daWorkEnTry As OracleDataAdapter
     Public dsES As DataSet
     Public daES As OracleDataAdapter
     Dim dsViewCount As DataSet
     Dim daViewCount As OracleDataAdapter
-    Dim TriggerStatus As String
-    Dim dsAFSVerify As DataSet
-    Dim daAFSVerify As OracleDataAdapter
-    Dim cmdBuild As OracleCommandBuilder
-    Dim dgvRow As New DataGridViewRow
-
+    
     Private Sub DMUStaffTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
         Try
@@ -7486,7 +7464,6 @@ Public Class DMUEisGecoTool
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
-                cmdBuild = New OracleCommandBuilder(daViewCount)
 
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvEIThresholds.DataSource = dsViewCount
@@ -7552,8 +7529,7 @@ Public Class DMUEisGecoTool
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
-            cmdBuild = New OracleCommandBuilder(daViewCount)
-
+            
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEIThresholds.DataSource = dsViewCount
             dgvEIThresholds.DataMember = "ViewCount"
@@ -8844,8 +8820,7 @@ Public Class DMUEisGecoTool
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
-            cmdBuild = New OracleCommandBuilder(daViewCount)
-
+            
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEISDataCount.DataSource = dsViewCount
             dgvEISDataCount.DataMember = "ViewCount"
@@ -8945,8 +8920,7 @@ Public Class DMUEisGecoTool
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
-            cmdBuild = New OracleCommandBuilder(daViewCount)
-
+            
             daViewCount.Fill(dsViewCount, "ViewCount")
             dgvEISDataCount.DataSource = dsViewCount
             dgvEISDataCount.DataMember = "ViewCount"
@@ -9050,8 +9024,7 @@ Public Class DMUEisGecoTool
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
-                cmdBuild = New OracleCommandBuilder(daViewCount)
-
+                
                 daViewCount.Fill(dsViewCount, "ViewCount")
                 dgvEIThresholds.DataSource = dsViewCount
                 dgvEIThresholds.DataMember = "ViewCount"

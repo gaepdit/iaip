@@ -34,7 +34,6 @@ Public Class SscpEnforcement
 
 #Region "Local variables"
     Dim SQL, SQL2, SQL3 As String
-    Dim SQL4 As String
     Dim cmd As OracleCommand
     Dim dr As OracleDataReader
     Dim recExist As Boolean

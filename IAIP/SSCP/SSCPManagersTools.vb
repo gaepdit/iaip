@@ -37,10 +37,6 @@ Public Class SSCPManagersTools
     Dim daVOCStaff As OracleDataAdapter
     Dim dsDistrictStaff As DataSet
     Dim daDistrictStaff As OracleDataAdapter
-    Dim dsFacilityAssignment As DataSet
-    Dim daFacilityAssignment As OracleDataAdapter
-    Dim dsInspectionList As DataSet
-    Dim daInspectionList As OracleDataAdapter
     Dim dsCMSDataSet As DataSet
     Dim daCMSDataSet As OracleDataAdapter
     Dim dsCMSWarningDataSet As DataSet

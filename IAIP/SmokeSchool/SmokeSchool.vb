@@ -3,7 +3,7 @@ Imports Oracle.ManagedDataAccess.Client
 Imports CrystalDecisions.Shared
 
 Public Class SmokeSchool
-    Dim SQL, SQL2 As String
+    Dim SQL As String
     Public dsSchedule As DataSet
     Public daSchedule As OracleDataAdapter
     Public dsYear As DataSet

@@ -5,7 +5,6 @@ Public Class IAIPEditFacilityLocation
     Dim SQL, SQL2 As String
     Dim cmd As OracleCommand
     Dim dr As OracleDataReader
-    Dim recExist As Boolean
     Dim dsFacilityInformation As DataSet
     Dim daFacilityInformation As OracleDataAdapter
     Dim daFacilityInformation2 As OracleDataAdapter

@@ -4,20 +4,12 @@ Imports CrystalDecisions.CrystalReports.Engine
 
 Public Class PASPFeeStatistics
     Dim SQL, SQL2 As String
-    Dim cmd, cmd2 As OracleCommand
+    Dim cmd As OracleCommand
     Dim dr, dr2 As OracleDataReader
     Dim dsViewCount As DataSet
     Dim daViewCount As OracleDataAdapter
     Dim ds As DataSet
     Dim da As OracleDataAdapter
-    Dim ds2 As DataSet
-    Dim da2 As OracleDataAdapter
-    Dim dsWorkEntry As DataSet
-    Dim daWorkEntry As OracleDataAdapter
-    Dim airsno As String
-    Dim recExist As Boolean
-    Dim dtairs As New DataTable
-    Dim dtairs2 As New DataTable
     Dim crParameterFieldDefinitions As ParameterFieldDefinitions
     Dim crParameterFieldDefinition As ParameterFieldDefinition
     Dim crParameterValues As New ParameterValues

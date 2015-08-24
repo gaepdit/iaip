@@ -7,8 +7,6 @@ Public Class IAIPDistrictSourceTool
     Dim cmd As OracleCommand
     Dim dr As OracleDataReader
     Dim recExist As Boolean
-    Dim dsCounty As DataSet
-    Dim daCounty As OracleDataAdapter
     Dim dsDistrict As DataSet
     Dim daDistrict As OracleDataAdapter
     Dim dsDistrictStaff As DataSet
