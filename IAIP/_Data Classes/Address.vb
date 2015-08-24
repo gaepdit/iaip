@@ -73,7 +73,7 @@
         Dim str As String() = {Me.City, Me.State}
         Dim cityState As String = ConcatNonEmptyStrings(", ", str)
         Dim zip As String = Me.PostalCode
-        If zip.Length = 9 AndAlso IsNumeric(zip) Then
+        If zip IsNot Nothing AndAlso zip.Length = 9 AndAlso IsNumeric(zip) Then
             zip = zip.Insert(5, "-")
         End If
         Dim str2 As String() = {Me.Street, Me.Street2, cityState & " " & zip}
