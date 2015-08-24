@@ -131,6 +131,7 @@
 
 #Region " Invalid AIRS number exception "
 
+    <Serializable>
     Public Class InvalidAirsNumberException
         Inherits Exception
 
