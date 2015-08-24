@@ -40,14 +40,7 @@ Namespace DB
         End Function
 
         Public Function ReadByteArrayFromFile(ByVal pathToFile As String) As Byte()
-            Dim fs As New FileStream(pathToFile, FileMode.Open, FileAccess.Read)
-
-            Dim byteArray As Byte() = File.ReadAllBytes(pathToFile)
-
-            fs.Close()
-            fs.Dispose()
-
-            Return byteArray
+            Return File.ReadAllBytes(pathToFile)
         End Function
 
     End Module
