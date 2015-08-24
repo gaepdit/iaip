@@ -196,6 +196,7 @@
     <Compile Include="Fees\PASPFeeDeposits.Designer.vb">
       <DependentUpon>PASPFeeDeposits.vb</DependentUpon>
     </Compile>
+    <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="ISMP\ISMPManagersTools.Designer.vb">
       <DependentUpon>ISMPManagersTools.vb</DependentUpon>
     </Compile>
