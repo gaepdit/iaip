@@ -74,9 +74,9 @@
         Dim shortcutName As String = "\IAIP.lnk"
 
         DeleteFileIfPossible(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) & shortcutName)
-        DeleteFileIfPossible(GetAllUsersDesktopPath() & shortcutName)
+        DeleteFileIfPossible(Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory) & shortcutName)
         DeleteFileIfPossible(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) & shortcutName)
-        DeleteFileIfPossible(GetAllUsersStartMenuPath() & shortcutName)
+        DeleteFileIfPossible(Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu) & shortcutName)
     End Sub
 
     ''' <summary>
