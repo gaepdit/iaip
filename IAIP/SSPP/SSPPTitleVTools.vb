@@ -1447,7 +1447,7 @@ Public Class SSPPTitleVTools
                 "amendment and public notice. A 30-day comment period will follow the public notification. " & vbCrLf & vbCrLf & _
                 "The draft permit, permit review narrative and in most cases the permit application will be available from the " & _
                 "Georgia EPD - Air Protection Branch Title V Draft permit web page located at: " & vbCrLf & vbCrLf & _
-                "http://www.georgiaair.org/airpermit/html/permits/draft.html" & vbCrLf & vbCrLf & _
+                "http://epd.georgia.gov/air/draft-title-v-permit" & vbCrLf & vbCrLf & _
                 "The public comment deadline is posted on the Title V web page. " & vbCrLf & vbCrLf & _
                 "Please reply to acknowledge receipt of this notification. Any questions regarding the draft permits and " & _
                 "amendments may be directed to: " & vbCrLf & vbCrLf & _
@@ -1658,7 +1658,7 @@ Public Class SSPPTitleVTools
                 "amendment and public notice. A 30-day comment period will follow the public notification. " & vbCrLf & vbCrLf & _
                 "The draft permit, permit review narrative and in most cases the permit application will be available from the " & _
                 "Georgia EPD - Air Protection Branch Title V Draft permit web page located at: " & vbCrLf & vbCrLf & _
-                "http://www.georgiaair.org/airpermit/html/permits/draft.html" & vbCrLf & vbCrLf & _
+                "http://epd.georgia.gov/air/draft-title-v-permit" & vbCrLf & vbCrLf & _
                 "The public comment deadline is posted on the Title V web page. " & vbCrLf & vbCrLf & _
                 "Please reply to acknowledge receipt of this notification. Any questions regarding the draft permits and " & _
                 "amendments may be directed to: " & vbCrLf & vbCrLf & _
