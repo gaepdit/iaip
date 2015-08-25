@@ -84,11 +84,12 @@ Module App
         Return New Version(v.Major, v.Minor, v.Build)
     End Function
 
-    Private Function GetVersionAsMajorMinor(ByVal v As Version) As Version
-        ' This converts a Version from four components to three
-        If v.Build = -1 Then Return v ' (A version with fewer than three components gets returned as-is)
-        Return New Version(v.Major, v.Minor)
-    End Function
+    '' Not currently used, but may be useful in the future
+    'Private Function GetVersionAsMajorMinor(ByVal v As Version) As Version
+    '    ' This converts a Version from four components to three
+    '    If v.Build = -1 Then Return v ' (A version with fewer than three components gets returned as-is)
+    '    Return New Version(v.Major, v.Minor)
+    'End Function
 
 #End Region
 

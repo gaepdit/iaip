@@ -63,31 +63,34 @@ Public Class DMUEisGecoTool
 
         End Try
     End Sub
-    Private Sub LoadDataSetInformation()
-        Try
-            SQL = "select " & _
-            "(strLastName||', '||strFirstName) as UserName,  " & _
-            "numUserID  " & _
-            "from AIRBranch.EPDUserProfiles  " & _
-            "order by strLastName  "
 
-            dsStaff = New DataSet
+    '' Removed during Code Analysis review of CA1811
+    'Private Sub LoadDataSetInformation()
+    '    Try
+    '        SQL = "select " & _
+    '        "(strLastName||', '||strFirstName) as UserName,  " & _
+    '        "numUserID  " & _
+    '        "from AIRBranch.EPDUserProfiles  " & _
+    '        "order by strLastName  "
 
-            daStaff = New OracleDataAdapter(SQL, CurrentConnection)
+    '        dsStaff = New DataSet
 
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+    '        daStaff = New OracleDataAdapter(SQL, CurrentConnection)
 
-            daStaff.Fill(dsStaff, "Staff")
+    '        If CurrentConnection.State = ConnectionState.Closed Then
+    '            CurrentConnection.Open()
+    '        End If
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+    '        daStaff.Fill(dsStaff, "Staff")
 
-        End Try
+    '    Catch ex As Exception
+    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
 
-    End Sub
+    '    End Try
+
+    'End Sub
+
     Private Sub loadYear()
         Dim year As String
 
@@ -789,18 +792,6 @@ Public Class DMUEisGecoTool
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub Back()
-        Try
-
-            Me.Hide()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-
 
 #End Region
 
@@ -3388,67 +3379,70 @@ Public Class DMUEisGecoTool
         End Try
 
     End Sub
-    Private Sub AddESMailOut()
-        Dim AirsNo As String = txtESAIRSNo2.Text
-        Dim ESYear As String = txtESYear.Text
-        Dim airsYear As String = AirsNo & ESYear
-        Dim dr As OracleDataReader
-        Dim ESFacilityName As String = txtESFacilityName.Text
-        Dim ESPrefix As String = txtESprefix.Text
-        Dim ESFirstName As String = txtESFirstName.Text
-        Dim ESLastName As String = txtESLastName.Text
-        Dim ESCompanyName As String = txtEScompanyName.Text
-        Dim ESContactAddress1 As String = txtcontactAddress1.Text
-        Dim ESContactAddress2 As String = txtcontactAddress2.Text
-        Dim ESContactCity As String = txtcontactCity.Text
-        Dim EScontactState As String = txtcontactState.Text
-        Dim ESContactZip As String = txtcontactZipCode.Text
-        Dim ESContactEmail As String = txtcontactEmail.Text
 
-        Try
-            SQL = "Insert into AIRBRANCH.ESMailOut(STRAIRSYEAR, " & _
-            "STRAIRSNUMBER, " & _
-            "STRFACILITYNAME, " & _
-            "STRCONTACTPREFIX, " & _
-            "STRCONTACTFIRSTNAME, " & _
-            "STRCONTACTLASTNAME, " & _
-            "STRCONTACTCOMPANYNAME, " & _
-            "STRCONTACTADDRESS1, " & _
-            "STRCONTACTADDRESS2, " & _
-            "STRCONTACTCITY, " & _
-            "STRCONTACTSTATE, " & _
-            "STRCONTACTZIPCODE, " & _
-            "STRESYEAR, " & _
-            "STRCONTACTEMAIL) " & _
-            "values (" & _
-            "'" & Replace(airsYear, "'", "''") & "', " & _
-            "'" & Replace(AirsNo, "'", "''") & "', " & _
-            "'" & Replace(ESFacilityName, "'", "''") & "', " & _
-            "'" & Replace(ESPrefix, "'", "''") & "', " & _
-            "'" & Replace(ESFirstName, "'", "''") & "', " & _
-            "'" & Replace(ESLastName, "'", "''") & "', " & _
-            "'" & Replace(ESCompanyName, "'", "''") & "', " & _
-            "'" & Replace(ESContactAddress1, "'", "''") & "', " & _
-            "'" & Replace(ESContactAddress2, "'", "''") & "', " & _
-            "'" & Replace(ESContactCity, "'", "''") & "', " & _
-            "'" & Replace(EScontactState, "'", "''") & "', " & _
-            "'" & Replace(ESContactZip, "'", "''") & "', " & _
-            "'" & Replace(ESYear, "'", "''") & "', " & _
-            "'" & Replace(ESContactEmail, "'", "''") & "' " & _
-            " )"
+    '' Removed during Code Analysis review of CA1811
+    'Private Sub AddESMailOut()
+    '    Dim AirsNo As String = txtESAIRSNo2.Text
+    '    Dim ESYear As String = txtESYear.Text
+    '    Dim airsYear As String = AirsNo & ESYear
+    '    Dim dr As OracleDataReader
+    '    Dim ESFacilityName As String = txtESFacilityName.Text
+    '    Dim ESPrefix As String = txtESprefix.Text
+    '    Dim ESFirstName As String = txtESFirstName.Text
+    '    Dim ESLastName As String = txtESLastName.Text
+    '    Dim ESCompanyName As String = txtEScompanyName.Text
+    '    Dim ESContactAddress1 As String = txtcontactAddress1.Text
+    '    Dim ESContactAddress2 As String = txtcontactAddress2.Text
+    '    Dim ESContactCity As String = txtcontactCity.Text
+    '    Dim EScontactState As String = txtcontactState.Text
+    '    Dim ESContactZip As String = txtcontactZipCode.Text
+    '    Dim ESContactEmail As String = txtcontactEmail.Text
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
+    '    Try
+    '        SQL = "Insert into AIRBRANCH.ESMailOut(STRAIRSYEAR, " & _
+    '        "STRAIRSNUMBER, " & _
+    '        "STRFACILITYNAME, " & _
+    '        "STRCONTACTPREFIX, " & _
+    '        "STRCONTACTFIRSTNAME, " & _
+    '        "STRCONTACTLASTNAME, " & _
+    '        "STRCONTACTCOMPANYNAME, " & _
+    '        "STRCONTACTADDRESS1, " & _
+    '        "STRCONTACTADDRESS2, " & _
+    '        "STRCONTACTCITY, " & _
+    '        "STRCONTACTSTATE, " & _
+    '        "STRCONTACTZIPCODE, " & _
+    '        "STRESYEAR, " & _
+    '        "STRCONTACTEMAIL) " & _
+    '        "values (" & _
+    '        "'" & Replace(airsYear, "'", "''") & "', " & _
+    '        "'" & Replace(AirsNo, "'", "''") & "', " & _
+    '        "'" & Replace(ESFacilityName, "'", "''") & "', " & _
+    '        "'" & Replace(ESPrefix, "'", "''") & "', " & _
+    '        "'" & Replace(ESFirstName, "'", "''") & "', " & _
+    '        "'" & Replace(ESLastName, "'", "''") & "', " & _
+    '        "'" & Replace(ESCompanyName, "'", "''") & "', " & _
+    '        "'" & Replace(ESContactAddress1, "'", "''") & "', " & _
+    '        "'" & Replace(ESContactAddress2, "'", "''") & "', " & _
+    '        "'" & Replace(ESContactCity, "'", "''") & "', " & _
+    '        "'" & Replace(EScontactState, "'", "''") & "', " & _
+    '        "'" & Replace(ESContactZip, "'", "''") & "', " & _
+    '        "'" & Replace(ESYear, "'", "''") & "', " & _
+    '        "'" & Replace(ESContactEmail, "'", "''") & "' " & _
+    '        " )"
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+    '        cmd = New OracleCommand(SQL, CurrentConnection)
+    '        If CurrentConnection.State = ConnectionState.Closed Then
+    '            CurrentConnection.Open()
+    '        End If
+    '        dr = cmd.ExecuteReader
 
-        End Try
-    End Sub
+    '    Catch ex As Exception
+    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
+
+    '    End Try
+    'End Sub
+
     Private Sub SaveESMailOut()
         Dim AirsNo As String = txtESAIRSNo2.Text
         Dim ESFacilityName As String = txtESFacilityName.Text
@@ -12347,43 +12341,43 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub btnEISEndQA_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Try
-            Dim EISConfirm As String = ""
+    '' Removed during Code Analysis review of CA1811
+    'Private Sub btnEISEndQA_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    '    Try
+    '        Dim EISConfirm As String = ""
 
-            EISConfirm = InputBox("Type in the EIS Year that you have selected to move Facilities into the QA process.", Me.Text)
+    '        EISConfirm = InputBox("Type in the EIS Year that you have selected to move Facilities into the QA process.", Me.Text)
 
-            If EISConfirm = txtSelectedEISStatYear.Text Then
-                temp = ""
+    '        If EISConfirm = txtSelectedEISStatYear.Text Then
+    '            temp = ""
 
-                For i As Integer = 0 To dgvEISStats.Rows.Count - 1
-                    SQL = "Update airbranch.EIS_QAAdmin set " & _
-                    "datDateAQPass = sysdate " & _
-                    "strDMUResponsibleStaff = '" & UserName & "', " & _
-                    "updateUSer = '" & UserName & "', " & _
-                    "updatedateTime = sysdate " & _
-                    "where inventoryYear = '" & EISConfirm & "' " & _
-                    "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' & " ' "
+    '            For i As Integer = 0 To dgvEISStats.Rows.Count - 1
+    '                SQL = "Update airbranch.EIS_QAAdmin set " & _
+    '                "datDateAQPass = sysdate " & _
+    '                "strDMUResponsibleStaff = '" & UserName & "', " & _
+    '                "updateUSer = '" & UserName & "', " & _
+    '                "updatedateTime = sysdate " & _
+    '                "where inventoryYear = '" & EISConfirm & "' " & _
+    '                "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' & " ' "
 
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    cmd.ExecuteReader()
-                Next
+    '                cmd = New OracleCommand(SQL, CurrentConnection)
+    '                If CurrentConnection.State = ConnectionState.Closed Then
+    '                    CurrentConnection.Open()
+    '                End If
+    '                cmd.ExecuteReader()
+    '            Next
 
-                MsgBox(EISConfirm & " QA process began.", MsgBoxStyle.Information, Me.Text)
+    '            MsgBox(EISConfirm & " QA process began.", MsgBoxStyle.Information, Me.Text)
 
-            Else
-                MsgBox("Year does not match selected EIS year")
+    '        Else
+    '            MsgBox("Year does not match selected EIS year")
 
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
+    '        End If
+    '    Catch ex As Exception
+    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    End Try
+    'End Sub
 
     Private Sub btnUpdateQAData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateQAData.Click
         Try
@@ -13224,16 +13218,17 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub txtQAComments_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
-        Try
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(1) Then
-                txtQAComments.SelectAll()
-            End If
+    '' Removed during Code Analysis review of CA1811
+    'Private Sub txtQAComments_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
+    '    Try
+    '        If e.KeyChar = Microsoft.VisualBasic.ChrW(1) Then
+    '            txtQAComments.SelectAll()
+    '        End If
 
-        Catch ex As Exception
+    '    Catch ex As Exception
 
-        End Try
-    End Sub
+    '    End Try
+    'End Sub
 
     Sub ViewPollutantThresholds()
         Try

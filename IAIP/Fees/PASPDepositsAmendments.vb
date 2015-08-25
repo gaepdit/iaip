@@ -205,216 +205,217 @@ Public Class PASPDepositsAmendments
 
 
     End Sub
-    Private Sub GetCalculationInfo()
-        Dim SQL, nspsReason As String
-        Dim i As Integer
-        Dim fee As Double
-        Dim exception As String
 
-        Try
+    '' Removed during Code Analysis review of CA1811
+    'Private Sub GetCalculationInfo()
+    '    Dim SQL, nspsReason As String
+    '    Dim i As Integer
+    '    Dim fee As Double
+    '    Dim exception As String
 
-            nspsReason = "0"
+    '    Try
 
-            SQL = "Select intvoctons, intpmtons, intso2tons, intnoxtons, " _
-                + "numpart70fee, numsmfee, numnspsfee, numtotalfee, " _
-                + "strnspsexempt, strnspsreason, stroperate, numfeerate, " _
-                + "strclass1, strnsps1, strpart70, strsyntheticminor, numcalculatedfee " _
-                + "from AIRBRANCH.FSCalculations " _
-                + "where strairsnumber = '0413" & airsnumber & "' " _
-                + "and intyear = '" & feeyear & "' "
+    '        nspsReason = "0"
 
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
-            cmd.CommandType = CommandType.Text
+    '        SQL = "Select intvoctons, intpmtons, intso2tons, intnoxtons, " _
+    '            + "numpart70fee, numsmfee, numnspsfee, numtotalfee, " _
+    '            + "strnspsexempt, strnspsreason, stroperate, numfeerate, " _
+    '            + "strclass1, strnsps1, strpart70, strsyntheticminor, numcalculatedfee " _
+    '            + "from AIRBRANCH.FSCalculations " _
+    '            + "where strairsnumber = '0413" & airsnumber & "' " _
+    '            + "and intyear = '" & feeyear & "' "
 
-            If CurrentConnection.State = ConnectionState.Open Then
-            Else
-                CurrentConnection.Open()
-            End If
+    '        Dim cmd As New OracleCommand(SQL, CurrentConnection)
+    '        cmd.CommandType = CommandType.Text
 
-            Dim dr As OracleDataReader = cmd.ExecuteReader()
-            Dim recExist As Boolean = dr.Read
+    '        If CurrentConnection.State = ConnectionState.Open Then
+    '        Else
+    '            CurrentConnection.Open()
+    '        End If
 
-            If recExist = True Then
+    '        Dim dr As OracleDataReader = cmd.ExecuteReader()
+    '        Dim recExist As Boolean = dr.Read
 
-                'Getting emission details from FSCalculations. 
-                'This table has all the information that goes into panel fee calculations.
+    '        If recExist = True Then
 
-                If dr.IsDBNull(12) Then
-                Else
-                    ddlClass.Text = dr.Item("strclass1")
-                End If
+    '            'Getting emission details from FSCalculations. 
+    '            'This table has all the information that goes into panel fee calculations.
 
-                If dr.IsDBNull(0) Then
-                    txtvoctons.Text = ""
-                    lblvocfee.Text = ""
-                Else
-                    txtvoctons.Text = dr.Item("intvoctons")
-                    fee = PollutantVOCNOx(CInt(txtvoctons.Text))
-                    lblvocfee.Text = String.Format("{0:C}", fee)
-                End If
+    '            If dr.IsDBNull(12) Then
+    '            Else
+    '                ddlClass.Text = dr.Item("strclass1")
+    '            End If
 
-                If dr.IsDBNull(1) Then
-                    txtpmtons.Text = ""
-                    lblpmfee.Text = ""
-                Else
-                    txtpmtons.Text = dr.Item("intpmtons")
-                    fee = PollutantPMSO2(CInt(txtpmtons.Text))
-                    lblpmfee.Text = String.Format("{0:C}", fee)
+    '            If dr.IsDBNull(0) Then
+    '                txtvoctons.Text = ""
+    '                lblvocfee.Text = ""
+    '            Else
+    '                txtvoctons.Text = dr.Item("intvoctons")
+    '                fee = PollutantVOCNOx(CInt(txtvoctons.Text))
+    '                lblvocfee.Text = String.Format("{0:C}", fee)
+    '            End If
 
-                End If
+    '            If dr.IsDBNull(1) Then
+    '                txtpmtons.Text = ""
+    '                lblpmfee.Text = ""
+    '            Else
+    '                txtpmtons.Text = dr.Item("intpmtons")
+    '                fee = PollutantPMSO2(CInt(txtpmtons.Text))
+    '                lblpmfee.Text = String.Format("{0:C}", fee)
 
-                If dr.IsDBNull(2) Then
-                    txtso2tons.Text = ""
-                    lblso2fee.Text = ""
-                Else
-                    txtso2tons.Text = dr.Item("intso2tons")
-                    fee = PollutantPMSO2(CInt(txtso2tons.Text))
-                    lblso2fee.Text = String.Format("{0:C}", fee)
+    '            End If
 
-                End If
+    '            If dr.IsDBNull(2) Then
+    '                txtso2tons.Text = ""
+    '                lblso2fee.Text = ""
+    '            Else
+    '                txtso2tons.Text = dr.Item("intso2tons")
+    '                fee = PollutantPMSO2(CInt(txtso2tons.Text))
+    '                lblso2fee.Text = String.Format("{0:C}", fee)
 
-                If dr.IsDBNull(3) Then
-                    txtnoxtons.Text = ""
-                    lblnoxfee.Text = ""
-                Else
-                    txtnoxtons.Text = dr.Item("intnoxtons")
-                    fee = PollutantVOCNOx(CInt(txtnoxtons.Text))
-                    lblnoxfee.Text = String.Format("{0:C}", fee)
-                End If
+    '            End If
 
-                If dr.IsDBNull(4) Then
-                    part70fee = 0
-                Else
-                    part70fee = dr.Item("numpart70fee")
-                    'lblPart70Fee.Text = String.Format("{0:C}", dr.Item("numtotalpart70fee"))
-                End If
+    '            If dr.IsDBNull(3) Then
+    '                txtnoxtons.Text = ""
+    '                lblnoxfee.Text = ""
+    '            Else
+    '                txtnoxtons.Text = dr.Item("intnoxtons")
+    '                fee = PollutantVOCNOx(CInt(txtnoxtons.Text))
+    '                lblnoxfee.Text = String.Format("{0:C}", fee)
+    '            End If
 
-                If dr.IsDBNull(5) Then
-                    smfee = 0
-                Else
-                    smfee = dr.Item("numsmfee")
-                    'lblpart70SMFee.Text = String.Format("{0:C}", dr.Item("numpart70smfee"))
-                End If
+    '            If dr.IsDBNull(4) Then
+    '                part70fee = 0
+    '            Else
+    '                part70fee = dr.Item("numpart70fee")
+    '                'lblPart70Fee.Text = String.Format("{0:C}", dr.Item("numtotalpart70fee"))
+    '            End If
 
-                If dr.IsDBNull(6) Then
-                    nspsfee = 0
-                Else
-                    nspsfee = dr.Item("numnspsfee")
-                    'lblNSPSFee.Text = String.Format("{0:C}", dr.Item("numnspsfee"))
-                End If
+    '            If dr.IsDBNull(5) Then
+    '                smfee = 0
+    '            Else
+    '                smfee = dr.Item("numsmfee")
+    '                'lblpart70SMFee.Text = String.Format("{0:C}", dr.Item("numpart70smfee"))
+    '            End If
 
-                If dr.IsDBNull(7) Then
-                    totalfee = 0
-                Else
-                    totalfee = dr.Item("numtotalfee")
-                    'lblTotalFee.Text = String.Format("{0:C}", totalfee)
-                End If
+    '            If dr.IsDBNull(6) Then
+    '                nspsfee = 0
+    '            Else
+    '                nspsfee = dr.Item("numnspsfee")
+    '                'lblNSPSFee.Text = String.Format("{0:C}", dr.Item("numnspsfee"))
+    '            End If
 
-                If dr.IsDBNull(16) Then
-                    calculatedfee = 0
-                Else
-                    calculatedfee = dr.Item("numcalculatedfee")
-                End If
+    '            If dr.IsDBNull(7) Then
+    '                totalfee = 0
+    '            Else
+    '                totalfee = dr.Item("numtotalfee")
+    '                'lblTotalFee.Text = String.Format("{0:C}", totalfee)
+    '            End If
 
-                If IsDBNull(dr.Item("strnsps1")) Then
-                    chkNSPS1.Checked = False
-                Else
-                    If dr.Item("strnsps1") = "YES" Then
-                        chkNSPS1.Checked = True
-                    Else
-                        chkNSPS1.Checked = False
-                    End If
-                End If
+    '            If dr.IsDBNull(16) Then
+    '                calculatedfee = 0
+    '            Else
+    '                calculatedfee = dr.Item("numcalculatedfee")
+    '            End If
 
-                If IsDBNull(dr.Item("strnspsexempt")) Then
-                    chkNSPSExempt.Checked = False
-                Else
-                    If dr.Item("strnspsexempt") = "YES" Then
-                        chkNSPSExempt.Checked = True
-                        cblNSPSExempt.Enabled = True
-                        'nspsfee = 0
-                    Else
-                        chkNSPSExempt.Checked = False
-                    End If
-                End If
+    '            If IsDBNull(dr.Item("strnsps1")) Then
+    '                chkNSPS1.Checked = False
+    '            Else
+    '                If dr.Item("strnsps1") = "YES" Then
+    '                    chkNSPS1.Checked = True
+    '                Else
+    '                    chkNSPS1.Checked = False
+    '                End If
+    '            End If
 
-                If dr.IsDBNull(9) Then
-                    nspsReason = "0"
-                Else
-                    nspsReason = dr.Item("strnspsreason")
-                End If
+    '            If IsDBNull(dr.Item("strnspsexempt")) Then
+    '                chkNSPSExempt.Checked = False
+    '            Else
+    '                If dr.Item("strnspsexempt") = "YES" Then
+    '                    chkNSPSExempt.Checked = True
+    '                    cblNSPSExempt.Enabled = True
+    '                    'nspsfee = 0
+    '                Else
+    '                    chkNSPSExempt.Checked = False
+    '                End If
+    '            End If
 
-                If dr.Item("stroperate") = "NO" Then
-                    chkDidNotOperate.Checked = True
-                    DidNotOperate()
-                Else
-                    chkDidNotOperate.Checked = False
-                End If
+    '            If dr.IsDBNull(9) Then
+    '                nspsReason = "0"
+    '            Else
+    '                nspsReason = dr.Item("strnspsreason")
+    '            End If
 
-                If dr.IsDBNull(14) Then
-                Else
-                    If dr.Item("strpart70") = "YES" Then
-                        chkPart70SM.SelectedIndex = 0
-                    End If
-                End If
+    '            If dr.Item("stroperate") = "NO" Then
+    '                chkDidNotOperate.Checked = True
+    '                DidNotOperate()
+    '            Else
+    '                chkDidNotOperate.Checked = False
+    '            End If
 
-                If dr.IsDBNull(15) Then
-                Else
-                    If dr.Item("strsyntheticminor") = "YES" Then
-                        chkPart70SM.SelectedIndex = 1
-                    End If
-                End If
+    '            If dr.IsDBNull(14) Then
+    '            Else
+    '                If dr.Item("strpart70") = "YES" Then
+    '                    chkPart70SM.SelectedIndex = 0
+    '                End If
+    '            End If
 
-            Else
-                MsgBox("No record exist for this AIRS Number and selected Fee Year", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
+    '            If dr.IsDBNull(15) Then
+    '            Else
+    '                If dr.Item("strsyntheticminor") = "YES" Then
+    '                    chkPart70SM.SelectedIndex = 1
+    '                End If
+    '            End If
 
-            End If
+    '        Else
+    '            MsgBox("No record exist for this AIRS Number and selected Fee Year", MsgBoxStyle.Information, Me.Text)
+    '            Exit Sub
 
-            If nspsReason = "0" Then
-                For i = 1 To cblNSPSExempt.Items.Count
-                    cblNSPSExempt.SetItemCheckState(i - 1, CheckState.Unchecked)
-                Next
-            Else
-                Do While nspsReason.Length <> 0
-                    If nspsReason.Contains(",") Then
-                        exception = Mid(nspsReason, 1, nspsReason.IndexOf(","))
-                        nspsReason = Replace(nspsReason, exception & ",", "")
-                    Else
-                        exception = nspsReason
-                        nspsReason = ""
-                    End If
-                    For i = 0 To cblNSPSExempt.Items.Count - 1
-                        If cblNSPSExempt.GetItemCheckState(i) = CheckState.Unchecked Then
-                            cblNSPSExempt.SetSelected(i, True)
-                            If cblNSPSExempt.SelectedValue = exception Then
-                                cblNSPSExempt.SetItemChecked(i, True)
-                            End If
-                        End If
-                    Next
-                Loop
-            End If
+    '        End If
 
-            'old technic
-            'For i = 1 To nspsReason.Length
-            '    If i = 8 Or i = 9 Then
-            '    Else
-            '        If Mid(nspsReason, i, 1) = 1 Then
-            '            cblNSPSExempt.SetItemCheckState(i - 1, CheckState.Checked)
-            '        Else
-            '            cblNSPSExempt.SetItemCheckState(i - 1, CheckState.Unchecked)
-            '        End If
-            '    End If
-            'Next
+    '        If nspsReason = "0" Then
+    '            For i = 1 To cblNSPSExempt.Items.Count
+    '                cblNSPSExempt.SetItemCheckState(i - 1, CheckState.Unchecked)
+    '            Next
+    '        Else
+    '            Do While nspsReason.Length <> 0
+    '                If nspsReason.Contains(",") Then
+    '                    exception = Mid(nspsReason, 1, nspsReason.IndexOf(","))
+    '                    nspsReason = Replace(nspsReason, exception & ",", "")
+    '                Else
+    '                    exception = nspsReason
+    '                    nspsReason = ""
+    '                End If
+    '                For i = 0 To cblNSPSExempt.Items.Count - 1
+    '                    If cblNSPSExempt.GetItemCheckState(i) = CheckState.Unchecked Then
+    '                        cblNSPSExempt.SetSelected(i, True)
+    '                        If cblNSPSExempt.SelectedValue = exception Then
+    '                            cblNSPSExempt.SetItemChecked(i, True)
+    '                        End If
+    '                    End If
+    '                Next
+    '            Loop
+    '        End If
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+    '        'old technic
+    '        'For i = 1 To nspsReason.Length
+    '        '    If i = 8 Or i = 9 Then
+    '        '    Else
+    '        '        If Mid(nspsReason, i, 1) = 1 Then
+    '        '            cblNSPSExempt.SetItemCheckState(i - 1, CheckState.Checked)
+    '        '        Else
+    '        '            cblNSPSExempt.SetItemCheckState(i - 1, CheckState.Unchecked)
+    '        '        End If
+    '        '    End If
+    '        'Next
 
-        End Try
+    '    Catch ex As Exception
+    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
 
+    '    End Try
+    'End Sub
 
-    End Sub
     Private Sub ClassCalculate()
         Try
 
@@ -774,61 +775,61 @@ Public Class PASPDepositsAmendments
 
 
     End Sub
-    Private Sub ClearPage2()
 
-        Try
+    '' Removed during Code Analysis review of CA1811
+    'Private Sub ClearPage2()
 
-            'cboFacilityName.Text = ""
-            ' cboAirsNo2.Text = ""
-            cboFeeYear2.Text = ""
-            ddlClass.Text = ""
-            chkNSPS1.Checked = False
-            chkDidNotOperate.Checked = False
-            chkNonAttainment.Checked = False
-            chkNSPSExempt.Checked = False
-            txtvoctons.Text = 0
-            txtnoxtons.Text = 0
-            txtso2tons.Text = 0
-            txtpmtons.Text = 0
-            part70fee = 0.0
-            smfee = 0.0
-            totalfee = 0.0
-            nspsfee = 0.0
-            calculatedfee = 0.0
-            lblpart70fee.Text = String.Format("{0:C}", 0.0)
-            lblTotalFee.Text = String.Format("{0:C}", 0.0)
-            lblNSPSFee.Text = String.Format("{0:C}", 0.0)
-            lblPart70SMFee.Text = String.Format("{0:C}", 0.0)
-            lblPart70.Text = String.Format("{0:C}", 0.0)
-            lblSM.Text = String.Format("{0:C}", 0.0)
-            lblcalculated.Text = String.Format("{0:C}", 0.0)
-            lblvocfee.Text = String.Format("{0:C}", 0.0)
-            lblnoxfee.Text = String.Format("{0:C}", 0.0)
-            lblso2fee.Text = String.Format("{0:C}", 0.0)
-            lblpmfee.Text = String.Format("{0:C}", 0.0)
+    '    Try
 
-            chkPart70SM.SetItemCheckState(1, CheckState.Unchecked)
-            chkPart70SM.SetItemCheckState(0, CheckState.Unchecked)
+    '        'cboFacilityName.Text = ""
+    '        ' cboAirsNo2.Text = ""
+    '        cboFeeYear2.Text = ""
+    '        ddlClass.Text = ""
+    '        chkNSPS1.Checked = False
+    '        chkDidNotOperate.Checked = False
+    '        chkNonAttainment.Checked = False
+    '        chkNSPSExempt.Checked = False
+    '        txtvoctons.Text = 0
+    '        txtnoxtons.Text = 0
+    '        txtso2tons.Text = 0
+    '        txtpmtons.Text = 0
+    '        part70fee = 0.0
+    '        smfee = 0.0
+    '        totalfee = 0.0
+    '        nspsfee = 0.0
+    '        calculatedfee = 0.0
+    '        lblpart70fee.Text = String.Format("{0:C}", 0.0)
+    '        lblTotalFee.Text = String.Format("{0:C}", 0.0)
+    '        lblNSPSFee.Text = String.Format("{0:C}", 0.0)
+    '        lblPart70SMFee.Text = String.Format("{0:C}", 0.0)
+    '        lblPart70.Text = String.Format("{0:C}", 0.0)
+    '        lblSM.Text = String.Format("{0:C}", 0.0)
+    '        lblcalculated.Text = String.Format("{0:C}", 0.0)
+    '        lblvocfee.Text = String.Format("{0:C}", 0.0)
+    '        lblnoxfee.Text = String.Format("{0:C}", 0.0)
+    '        lblso2fee.Text = String.Format("{0:C}", 0.0)
+    '        lblpmfee.Text = String.Format("{0:C}", 0.0)
 
-            Dim i As Integer
-            For i = 0 To (cblNSPSExempt.Items.Count - 1)
-                cblNSPSExempt.SetItemCheckState(i, CheckState.Unchecked)
-            Next
+    '        chkPart70SM.SetItemCheckState(1, CheckState.Unchecked)
+    '        chkPart70SM.SetItemCheckState(0, CheckState.Unchecked)
 
-            txtOfficalName.Clear()
-            txtOfficalTitle.Clear()
-            txtAmendmentComments.Clear()
-            DTPAmendmentSubmitted.Text = OracleDate
-            cboAmendmentsPayType.Text = ""
+    '        Dim i As Integer
+    '        For i = 0 To (cblNSPSExempt.Items.Count - 1)
+    '            cblNSPSExempt.SetItemCheckState(i, CheckState.Unchecked)
+    '        Next
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+    '        txtOfficalName.Clear()
+    '        txtOfficalTitle.Clear()
+    '        txtAmendmentComments.Clear()
+    '        DTPAmendmentSubmitted.Text = OracleDate
+    '        cboAmendmentsPayType.Text = ""
 
-        End Try
+    '    Catch ex As Exception
+    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
 
-
-    End Sub
+    '    End Try
+    'End Sub
 
 #End Region
     Private Sub btnAmend_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAmend.Click

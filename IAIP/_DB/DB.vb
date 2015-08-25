@@ -342,10 +342,11 @@ Namespace DB
             Return SPGetSingleValue(Of Boolean)(spName, parameterArray)
         End Function
 
-        Public Function SPGetSingleValue(Of T)(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing) As T
-            Dim parameterArray As OracleParameter() = {parameter}
-            Return SPGetSingleValue(Of T)(spName, parameterArray)
-        End Function
+        '' Not currently used, but may be useful in the future
+        'Public Function SPGetSingleValue(Of T)(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing) As T
+        '    Dim parameterArray As OracleParameter() = {parameter}
+        '    Return SPGetSingleValue(Of T)(spName, parameterArray)
+        'End Function
 
         Public Function SPGetSingleValue(Of T)(ByVal spName As String, ByVal parameterArray As OracleParameter()) As T
             Dim table As DataTable = SPGetDataTable(spName, parameterArray)

@@ -363,55 +363,58 @@ Public Class SBEAPReports
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbViewEmails_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs)
-        Try
-            SQL = "select " & _
-           "numCaseID, " & _
-           "AIRBRANCH.SBEAPClients.ClientID, " & _
-           "strCompanyName, " & _
-           "to_date(datCaseOpened, 'dd-Mon-RRRR') as datCaseOpened, " & _
-           "strWorkDescription " & _
-           "from AIRBRANCH.SBEAPCaseLog, AIRBRANCH.LookUpSBEAPCaseWork, " & _
-           "AIRBRANCH.SBEAPClients " & _
-           "where AIRBRANCH.SBEAPCaseLog.numActionType = AIRBRANCH.LookUpSBEAPCaseWork.numActionType " & _
-           "and AIRBRANCH.SBEAPCaseLog.ClientID = AIRBRANCH.SBEAPClients.ClientID (+) " & _
-           "and datCaseOpened between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' " & _
-           "and numActionType = '3' "
 
-            dsView = New DataSet
-            daView = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daView.Fill(dsView, "ViewCount")
-            dgvCaseWork.DataSource = dsView
-            dgvCaseWork.DataMember = "ViewCount"
+    '' Removed during Code Analysis review of CA1811
+    'Private Sub llbViewEmails_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs)
+    '    Try
+    '        SQL = "select " & _
+    '       "numCaseID, " & _
+    '       "AIRBRANCH.SBEAPClients.ClientID, " & _
+    '       "strCompanyName, " & _
+    '       "to_date(datCaseOpened, 'dd-Mon-RRRR') as datCaseOpened, " & _
+    '       "strWorkDescription " & _
+    '       "from AIRBRANCH.SBEAPCaseLog, AIRBRANCH.LookUpSBEAPCaseWork, " & _
+    '       "AIRBRANCH.SBEAPClients " & _
+    '       "where AIRBRANCH.SBEAPCaseLog.numActionType = AIRBRANCH.LookUpSBEAPCaseWork.numActionType " & _
+    '       "and AIRBRANCH.SBEAPCaseLog.ClientID = AIRBRANCH.SBEAPClients.ClientID (+) " & _
+    '       "and datCaseOpened between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' " & _
+    '       "and numActionType = '3' "
 
-            dgvCaseWork.RowHeadersVisible = False
-            dgvCaseWork.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvCaseWork.AllowUserToResizeColumns = True
-            dgvCaseWork.AllowUserToAddRows = False
-            dgvCaseWork.AllowUserToDeleteRows = False
-            dgvCaseWork.AllowUserToOrderColumns = True
-            dgvCaseWork.AllowUserToResizeRows = True
+    '        dsView = New DataSet
+    '        daView = New OracleDataAdapter(SQL, CurrentConnection)
+    '        If CurrentConnection.State = ConnectionState.Closed Then
+    '            CurrentConnection.Open()
+    '        End If
+    '        daView.Fill(dsView, "ViewCount")
+    '        dgvCaseWork.DataSource = dsView
+    '        dgvCaseWork.DataMember = "ViewCount"
 
-            dgvCaseWork.Columns("numCaseID").HeaderText = "Case #"
-            dgvCaseWork.Columns("numCaseID").DisplayIndex = 0
-            dgvCaseWork.Columns("ClientID").HeaderText = "Customer ID"
-            dgvCaseWork.Columns("ClientID").DisplayIndex = 1
-            dgvCaseWork.Columns("strCompanyName").HeaderText = "Customer Company"
-            dgvCaseWork.Columns("strCompanyName").DisplayIndex = 2
-            dgvCaseWork.Columns("datCaseOpened").HeaderText = "Date Case Opened"
-            dgvCaseWork.Columns("datCaseOpened").DisplayIndex = 3
-            dgvCaseWork.Columns("datCaseOpened").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvCaseWork.Columns("strWorkDescription").HeaderText = "Assist Type"
-            dgvCaseWork.Columns("strWorkDescription").DisplayIndex = 4
+    '        dgvCaseWork.RowHeadersVisible = False
+    '        dgvCaseWork.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+    '        dgvCaseWork.AllowUserToResizeColumns = True
+    '        dgvCaseWork.AllowUserToAddRows = False
+    '        dgvCaseWork.AllowUserToDeleteRows = False
+    '        dgvCaseWork.AllowUserToOrderColumns = True
+    '        dgvCaseWork.AllowUserToResizeRows = True
 
-            txtCount.Text = dgvCaseWork.RowCount.ToString
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
+    '        dgvCaseWork.Columns("numCaseID").HeaderText = "Case #"
+    '        dgvCaseWork.Columns("numCaseID").DisplayIndex = 0
+    '        dgvCaseWork.Columns("ClientID").HeaderText = "Customer ID"
+    '        dgvCaseWork.Columns("ClientID").DisplayIndex = 1
+    '        dgvCaseWork.Columns("strCompanyName").HeaderText = "Customer Company"
+    '        dgvCaseWork.Columns("strCompanyName").DisplayIndex = 2
+    '        dgvCaseWork.Columns("datCaseOpened").HeaderText = "Date Case Opened"
+    '        dgvCaseWork.Columns("datCaseOpened").DisplayIndex = 3
+    '        dgvCaseWork.Columns("datCaseOpened").DefaultCellStyle.Format = "dd-MMM-yyyy"
+    '        dgvCaseWork.Columns("strWorkDescription").HeaderText = "Assist Type"
+    '        dgvCaseWork.Columns("strWorkDescription").DisplayIndex = 4
+
+    '        txtCount.Text = dgvCaseWork.RowCount.ToString
+    '    Catch ex As Exception
+    '        ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    End Try
+    'End Sub
+
     Private Sub llbNewCases_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbNewCases.LinkClicked
         Try
             SQL = "select AIRBRANCH.SBEAPCaseLog.numCaseID, " & _

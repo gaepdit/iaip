@@ -20,19 +20,20 @@ Namespace DAL
             Return DB.SPGetBoolean(spName, parameter)
         End Function
 
-        ''' <summary>
-        ''' Returns whether an AIRS number already exists in the database
-        ''' </summary>
-        ''' <param name="airsNumber">The AIRS number to test as a string.</param>
-        ''' <returns>True if the AIRS number exists; otherwise false.</returns>
-        ''' <remarks>Does not make any judgments about state of facility otherwise.</remarks>
-        Public Function AirsNumberExists(ByVal airsNumber As String) As Boolean
-            If Not ApbFacilityId.IsValidAirsNumberFormat(airsNumber) Then
-                Return False
-            Else
-                Return AirsNumberExists(CType(airsNumber, ApbFacilityId))
-            End If
-        End Function
+        '' Not currently used, but may be useful in the future
+        ' ''' <summary>
+        ' ''' Returns whether an AIRS number already exists in the database
+        ' ''' </summary>
+        ' ''' <param name="airsNumber">The AIRS number to test as a string.</param>
+        ' ''' <returns>True if the AIRS number exists; otherwise false.</returns>
+        ' ''' <remarks>Does not make any judgments about state of facility otherwise.</remarks>
+        'Public Function AirsNumberExists(ByVal airsNumber As String) As Boolean
+        '    If Not ApbFacilityId.IsValidAirsNumberFormat(airsNumber) Then
+        '        Return False
+        '    Else
+        '        Return AirsNumberExists(CType(airsNumber, ApbFacilityId))
+        '    End If
+        'End Function
 
         ''' <summary>
         ''' Returns the facility name for a given AIRS number.

@@ -974,70 +974,73 @@ Public Class SSCPEmissionSummaryTool
 
         End Try
     End Sub
-    Private Sub lblViewESMailOut_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs)
-        Try
 
-            Dim year As String = txtESYear.Text
+    '' Removed during Code Analysis review of CA1811
+    'Private Sub lblViewESMailOut_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs)
+    '    Try
 
-            SQL = "SELECT STRAIRSNUMBER, " & _
-            "STRFACILITYNAME, " & _
-            "STRCONTACTFIRSTNAME, " & _
-            "STRCONTACTLASTNAME, " & _
-            "STRCONTACTCOMPANYname, " & _
-            "STRCONTACTADDRESS1, " & _
-            "STRCONTACTCITY, " & _
-            "STRCONTACTSTATE, " & _
-            "STRCONTACTZIPCODE, " & _
-            "STRCONTACTEMAIL " & _
-            "from AIRBRANCH.esMailOut " & _
-            "where STRESYEAR = '" & year & "' " & _
-            "order by STRFACILITYNAME"
+    '        Dim year As String = txtESYear.Text
 
-            dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+    '        SQL = "SELECT STRAIRSNUMBER, " & _
+    '        "STRFACILITYNAME, " & _
+    '        "STRCONTACTFIRSTNAME, " & _
+    '        "STRCONTACTLASTNAME, " & _
+    '        "STRCONTACTCOMPANYname, " & _
+    '        "STRCONTACTADDRESS1, " & _
+    '        "STRCONTACTCITY, " & _
+    '        "STRCONTACTSTATE, " & _
+    '        "STRCONTACTZIPCODE, " & _
+    '        "STRCONTACTEMAIL " & _
+    '        "from AIRBRANCH.esMailOut " & _
+    '        "where STRESYEAR = '" & year & "' " & _
+    '        "order by STRFACILITYNAME"
 
-            dgvESDataCount.RowHeadersVisible = False
-            dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvESDataCount.AllowUserToResizeColumns = True
-            dgvESDataCount.AllowUserToAddRows = False
-            dgvESDataCount.AllowUserToDeleteRows = False
-            dgvESDataCount.AllowUserToOrderColumns = True
-            dgvESDataCount.AllowUserToResizeRows = True
+    '        dsViewCount = New DataSet
+    '        daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+    '        If CurrentConnection.State = ConnectionState.Closed Then
+    '            CurrentConnection.Open()
+    '        End If
+    '        daViewCount.Fill(dsViewCount, "ViewCount")
+    '        dgvESDataCount.DataSource = dsViewCount
+    '        dgvESDataCount.DataMember = "ViewCount"
 
-            dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-            dgvESDataCount.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvESDataCount.Columns("strFacilityName").DisplayIndex = 1
-            dgvESDataCount.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
-            dgvESDataCount.Columns("STRCONTACTFIRSTNAME").DisplayIndex = 2
-            dgvESDataCount.Columns("STRCONTACTLASTNAME").HeaderText = "Contact Last Name"
-            dgvESDataCount.Columns("STRCONTACTLASTNAME").DisplayIndex = 3
-            dgvESDataCount.Columns("STRCONTACTCOMPANYname").HeaderText = "Contact Company"
-            dgvESDataCount.Columns("STRCONTACTCOMPANYname").DisplayIndex = 4
-            dgvESDataCount.Columns("STRCONTACTADDRESS1").HeaderText = "Address"
-            dgvESDataCount.Columns("STRCONTACTADDRESS1").DisplayIndex = 5
-            dgvESDataCount.Columns("STRCONTACTCITY").HeaderText = "City"
-            dgvESDataCount.Columns("STRCONTACTCITY").DisplayIndex = 6
-            dgvESDataCount.Columns("STRCONTACTSTATE").HeaderText = "State"
-            dgvESDataCount.Columns("STRCONTACTSTATE").DisplayIndex = 7
-            dgvESDataCount.Columns("STRCONTACTZIPCODE").HeaderText = "Zip"
-            dgvESDataCount.Columns("STRCONTACTZIPCODE").DisplayIndex = 8
-            dgvESDataCount.Columns("STRCONTACTEMAIL").HeaderText = "Contact Email"
-            dgvESDataCount.Columns("STRCONTACTEMAIL").DisplayIndex = 9
+    '        dgvESDataCount.RowHeadersVisible = False
+    '        dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+    '        dgvESDataCount.AllowUserToResizeColumns = True
+    '        dgvESDataCount.AllowUserToAddRows = False
+    '        dgvESDataCount.AllowUserToDeleteRows = False
+    '        dgvESDataCount.AllowUserToOrderColumns = True
+    '        dgvESDataCount.AllowUserToResizeRows = True
 
-            txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+    '        dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
+    '        dgvESDataCount.Columns("STRAIRSNUMBER").DisplayIndex = 0
+    '        dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
+    '        dgvESDataCount.Columns("strFacilityName").DisplayIndex = 1
+    '        dgvESDataCount.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
+    '        dgvESDataCount.Columns("STRCONTACTFIRSTNAME").DisplayIndex = 2
+    '        dgvESDataCount.Columns("STRCONTACTLASTNAME").HeaderText = "Contact Last Name"
+    '        dgvESDataCount.Columns("STRCONTACTLASTNAME").DisplayIndex = 3
+    '        dgvESDataCount.Columns("STRCONTACTCOMPANYname").HeaderText = "Contact Company"
+    '        dgvESDataCount.Columns("STRCONTACTCOMPANYname").DisplayIndex = 4
+    '        dgvESDataCount.Columns("STRCONTACTADDRESS1").HeaderText = "Address"
+    '        dgvESDataCount.Columns("STRCONTACTADDRESS1").DisplayIndex = 5
+    '        dgvESDataCount.Columns("STRCONTACTCITY").HeaderText = "City"
+    '        dgvESDataCount.Columns("STRCONTACTCITY").DisplayIndex = 6
+    '        dgvESDataCount.Columns("STRCONTACTSTATE").HeaderText = "State"
+    '        dgvESDataCount.Columns("STRCONTACTSTATE").DisplayIndex = 7
+    '        dgvESDataCount.Columns("STRCONTACTZIPCODE").HeaderText = "Zip"
+    '        dgvESDataCount.Columns("STRCONTACTZIPCODE").DisplayIndex = 8
+    '        dgvESDataCount.Columns("STRCONTACTEMAIL").HeaderText = "Contact Email"
+    '        dgvESDataCount.Columns("STRCONTACTEMAIL").DisplayIndex = 9
 
-        End Try
-    End Sub
+    '        txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
+    '    Catch ex As Exception
+    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
+
+    '    End Try
+    'End Sub
+
     Private Sub lblViewESData_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewESData.LinkClicked
         Dim year As Integer = CInt(cboYear.SelectedItem)
         Try
@@ -1483,28 +1486,31 @@ Public Class SSCPEmissionSummaryTool
         End Try
 
     End Sub
-    Private Sub DeleteESMailOut()
-        Dim AirsNo As String = txtESAirsNo.Text
-        Dim ESyear As String = txtESYear.Text
 
-        Try
-            SQL = "delete from AIRBRANCH.ESMailOut " & _
-            "where AIRBRANCH.ESMailOut.STRAIRSNUMBER = '" & AirsNo & "' " & _
-            "and AIRBRANCH.ESMailOut.STRESYEAR = '" & ESyear & "'"
+    '' Removed during Code Analysis review of CA1811
+    'Private Sub DeleteESMailOut()
+    '    Dim AirsNo As String = txtESAirsNo.Text
+    '    Dim ESyear As String = txtESYear.Text
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+    '    Try
+    '        SQL = "delete from AIRBRANCH.ESMailOut " & _
+    '        "where AIRBRANCH.ESMailOut.STRAIRSNUMBER = '" & AirsNo & "' " & _
+    '        "and AIRBRANCH.ESMailOut.STRESYEAR = '" & ESyear & "'"
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+    '        cmd = New OracleCommand(SQL, CurrentConnection)
+    '        If CurrentConnection.State = ConnectionState.Closed Then
+    '            CurrentConnection.Open()
+    '        End If
+    '        dr = cmd.ExecuteReader
+    '        dr.Close()
 
-        End Try
-    End Sub
+    '    Catch ex As Exception
+    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '    Finally
+
+    '    End Try
+    'End Sub
+
     Private Sub clearESData()
         Try
             txtESAirsNo.Text = ""
