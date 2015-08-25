@@ -411,7 +411,7 @@ Public Class IAIPEditHeaderData
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Return False
             Else
-                If Not ConfirmFacilityShutdown(editedFacility) Then
+                If Not ConfirmFacilityShutdown() Then
                     Return False
                 End If
             End If
@@ -452,7 +452,7 @@ Public Class IAIPEditHeaderData
         Return False
     End Function
 
-    Private Function ConfirmFacilityShutdown(ByVal editedFacility As FacilityHeaderData) As Boolean
+    Private Function ConfirmFacilityShutdown() As Boolean
         Return MessageBox.Show("Are you sure you want to mark this facility as closed/dismantled? " & _
                                "This will revoke all existing permits.", _
                                "Warning", MessageBoxButtons.YesNo, _

@@ -608,7 +608,7 @@ Public Class MASPRegistrationTool
                              DTPEventDate.Text, EndDate, txtEventVenue.Text, _
                              txtEventAddress.Text, txtEventCity.Text, mtbEventState.Text, _
                              mtbEventZipCode.Text, mtbEventCapacity.Text, txtEventNotes.Text, _
-                             cboEventContact.SelectedValue, cboEventWebContact.SelectedValue, mtbEventWebPhoneNumber.Text, _
+                             cboEventContact.SelectedValue, cboEventWebContact.SelectedValue, _
                              chbGECOlogInRequired.CheckState, chbEventPasscode.CheckState, chbEventPasscode.Text, "1", txtEventTime.Text, _
                              txtEventEndTime.Text, txtWebsiteURL.Text) = True Then
                 LoadEvent()
@@ -629,7 +629,7 @@ Public Class MASPRegistrationTool
                              "", "", "", _
                              "", "", "", _
                              "", "", "", _
-                             "", "", "", "", _
+                             "", "", "", _
                              "", "", "0", "", "", "") = True Then
                 MsgBox("Data Saved/Updated", MsgBoxStyle.Information, Me.Text)
             Else
@@ -1052,7 +1052,7 @@ Public Class MASPRegistrationTool
                            ByVal State As String, ByVal ZipCode As String, _
                            ByVal Capacity As String, ByVal Notes As String, _
                            ByVal APBContact As String, _
-                           ByVal WebContact As String, ByVal WebPhoneNumber As String, _
+                           ByVal WebContact As String, _
                            ByVal LogInRequired As String, _
                            ByVal PassCodeRequired As String, ByVal PassCode As String, _
                            ByVal Active As String, ByVal EventTime As String, _

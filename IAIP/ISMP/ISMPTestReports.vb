@@ -2518,7 +2518,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     Case "016"
                         LoadMethod9(txtReferenceNumber.Text)
                     Case "017"
-                        LoadPEMS(txtReferenceNumber.Text)
+                        LoadPEMS()
                     Case "018"
                         LoadMemo(txtReferenceNumber.Text)
                     Case Else
@@ -6506,7 +6506,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
         Finally
         End Try
     End Sub
-    Sub LoadPEMS(ByVal RefNum As String)
+    Sub LoadPEMS()
         Try
             TCDocumentTypes.TabPages.Remove(TPOneStack)
             TCDocumentTypes.TabPages.Remove(TPLoadingRack)
@@ -10737,7 +10737,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                             Case "016"
                                 LoadMethod9(OldRefNum)
                             Case "017"
-                                LoadPEMS(OldRefNum)
+                                LoadPEMS()
                             Case "018"
                                 LoadMemo(OldRefNum)
                             Case Else

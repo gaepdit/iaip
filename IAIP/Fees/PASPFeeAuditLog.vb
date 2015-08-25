@@ -2817,7 +2817,6 @@ Public Class PASPFeeAuditLog
                              dtpEnrollmentDate.Text, rdbMailoutTrue.Checked, _
                              rdbLetterMailedTrue.Checked, dtpLetterMailed.Text, _
                              rdbSubmittalTrue.Checked, dtpSubmittalDate.Text, _
-                             "", _
                              txtFSAdminComments.Text, rdbActiveAdmin.Checked) = True Then
 
                 If rdbInactiveStatus.Checked = True Then
@@ -2858,8 +2857,7 @@ Public Class PASPFeeAuditLog
                           dtpEnrollmentDate.Text, rdbMailoutTrue.Checked, _
                           rdbLetterMailedTrue.Checked, dtpLetterMailed.Text, _
                           rdbSubmittalTrue.Checked, dtpSubmittalDate.Text, _
-                          "", _
-                          txtFSAdminComments.Text, rdbActiveAdmin.Checked) = True Then
+                          txtFSAdminComments.Text) = True Then
 
                 MsgBox("Save completed", MsgBoxStyle.Information, Me.Text)
             Else
@@ -3027,7 +3025,7 @@ Public Class PASPFeeAuditLog
         End Try
     End Sub
 
-    Function InvoiceCheck(ByVal ValidInvoice As String) As Boolean
+    Function InvoiceCheck() As Boolean
         Try
             If IsNumeric(txtInvoiceID.Text) Then
                 SQL = "Select " & _
@@ -3061,7 +3059,6 @@ Public Class PASPFeeAuditLog
 
     Private Sub btnTransactionNew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTransactionNew.Click
         Try
-            Dim InvoiceStatus As String = ""
 
             If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) _
                 Or (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) _
@@ -3090,7 +3087,7 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
-            If InvoiceCheck(InvoiceStatus) = False Then
+            If InvoiceCheck() = False Then
                 MsgBox("The Invoice Number entered is not valid." & vbCrLf & "No Data saved", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
             End If
@@ -3291,7 +3288,6 @@ Public Class PASPFeeAuditLog
     End Sub
     Private Sub btnTransactionUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTransactionUpdate.Click
         Try
-            Dim InvoiceStatus As String = ""
 
             If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) _
                 Or (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) _
@@ -3311,7 +3307,7 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
-            If InvoiceCheck(InvoiceStatus) = False Then
+            If InvoiceCheck() = False Then
                 MsgBox("The Invoice Number entered is not valid." & vbCrLf & "No Data saved", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
             End If
@@ -3352,7 +3348,6 @@ Public Class PASPFeeAuditLog
     End Sub
     Private Sub btnTransactionDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTransactionDelete.Click
         Try
-            Dim InvoiceStatus As String = ""
 
             If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) _
                 Or (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) _
@@ -3367,7 +3362,7 @@ Public Class PASPFeeAuditLog
                 MsgBox("Please select a valid transaction to update." & vbCrLf & "No data modified", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
             End If
-            If InvoiceCheck(InvoiceStatus) = False Then
+            If InvoiceCheck() = False Then
                 MsgBox("The Invoice Number entered is not valid." & vbCrLf & "No Data saved", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
             End If
@@ -5586,8 +5581,7 @@ Public Class PASPFeeAuditLog
                          ByVal DateEnrolled As String, ByVal InitialMailOut As String, _
                          ByVal MailoutSent As String, ByVal DateMailOutSent As String, _
                          ByVal Submittal As String, ByVal DateSubmittal As String, _
-                         ByVal CurrentStatus As String, _
-                         ByVal Comment As String, ByVal Active As String) As Boolean
+                         ByVal Comment As String) As Boolean
         Try
             Dim AdminCheck As String = "0"
 
@@ -5728,7 +5722,6 @@ Public Class PASPFeeAuditLog
                              ByVal DateEnrolled As String, ByVal InitialMailOut As String, _
                              ByVal MailoutSent As String, ByVal DateMailOutSent As String, _
                              ByVal Submittal As String, ByVal DateSubmittal As String, _
-                             ByVal CurrentStatus As String, _
                              ByVal Comment As String, ByVal Active As String) As Boolean
         Try
             Dim SQL As String = ""

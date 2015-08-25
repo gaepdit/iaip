@@ -4396,9 +4396,9 @@ Public Class SSPPTitleVTools
                                               ContactFirstName, ContactLastname, _
                                               ContactPrefix, ContactSuffix, _
                                               ContactTitle, ContactCompany, _
-                                              ContactPhone, "", _
+                                              ContactPhone, _
                                               ContactFax, ContactEmail, _
-                                              ContactAddress, "", _
+                                              ContactAddress, _
                                               ContactCity, ContactState, _
                                               ContactZipCode, "Contact Added from Title V Warehouse from Enforcement Contact")
             Else
@@ -4694,9 +4694,9 @@ Public Class SSPPTitleVTools
                                       ByVal ContactFirstName As String, ByVal ContactLastName As String, _
                                       ByVal ContactPrefix As String, ByVal ContactSuffix As String, _
                                       ByVal ContactTitle As String, ByVal ContactCompanyName As String, _
-                                      ByVal ContactPhoneNumber1 As String, ByVal ContactPhoneNumber2 As String, _
+                                      ByVal ContactPhoneNumber1 As String, _
                                       ByVal ContactFaxNumber As String, ByVal ContactEmail As String, _
-                                      ByVal ContactAddress1 As String, ByVal ContactAddress2 As String, _
+                                      ByVal ContactAddress1 As String, _
                                       ByVal ContactCity As String, ByVal ContactState As String, _
                                       ByVal ContactZipCode As String, ByVal ContactDescription As String) As Boolean
         Try

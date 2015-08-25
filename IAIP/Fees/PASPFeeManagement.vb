@@ -445,7 +445,7 @@ Public Class PASPFeeManagement
             If Insert_FS_FeeRate(txtFeeYear.Text, dtpFeePeriodStart.Text, dtpFeePeriodEnd.Text, _
                                txtTitleVfee.Text, txtAnnualSMFee.Text, txtperTonRate.Text, txtAnnualNSPSFee.Text, _
                                dtpFeeDueDate.Text, txtAdminFeePercent.Text, dtpAdminApplicable.Text, _
-                               txtFeeNotes.Text, "1", dtpFirstQrtDue.Text, dtpSecondQrtDue.Text, _
+                               txtFeeNotes.Text, dtpFirstQrtDue.Text, dtpSecondQrtDue.Text, _
                                dtpThirdQrtDue.Text, dtpFourthQrtDue.Text, txtAttainmentThreshold.Text, _
                                txtNonAttainmentThreshold.Text) = True Then
 
@@ -2616,7 +2616,7 @@ Public Class PASPFeeManagement
                           ByVal PeriodEnd As String, ByVal Part70Fee As String, ByVal SMFee As String, _
                           ByVal PerTonRate As String, ByVal NSPSFee As String, ByVal FeeDueDate As String, _
                           ByVal AdminFee As String, ByVal AdminApplicable As String, ByVal Comments As String, _
-                          ByVal Active As String, ByVal FirstQrtDue As String, ByVal SecondQrtDue As String, _
+                           ByVal FirstQrtDue As String, ByVal SecondQrtDue As String, _
                           ByVal ThirdQrtDue As String, ByVal FourthQrtDue As String, ByVal AAThres As String, _
                           ByVal NAThres As String) As Boolean
         Try
