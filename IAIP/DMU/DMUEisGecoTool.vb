@@ -3,8 +3,6 @@ Imports System.IO
 Imports Oracle.ManagedDataAccess.Client
 
 Public Class DMUEisGecoTool
-    Dim daStaff As OracleDataAdapter
-    Dim dsStaff As DataSet
     Dim SQL, SQL2 As String
     Dim cmd, cmd2 As OracleCommand
     Dim dr, dr2 As OracleDataReader

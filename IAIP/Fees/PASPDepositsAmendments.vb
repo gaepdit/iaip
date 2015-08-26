@@ -7,7 +7,6 @@ Public Class PASPDepositsAmendments
     Dim dr As OracleDataReader
     Dim recExist As Boolean
     Dim feeyear As String = Now.Year
-    Dim airsnumber As String
     Dim feeTon, feeSM, feePart70, feeNSPS As Double
     Dim totalfee, part70fee, smfee, nspsfee, calculatedfee As Double
     Dim ds As DataSet
