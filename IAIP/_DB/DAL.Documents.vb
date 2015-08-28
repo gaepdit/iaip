@@ -149,48 +149,6 @@ Namespace DAL
 
 #End Region
 
-#Region "Retrieve Permit Documents"
-
-        'Public Function GetPermitDocumentsAsList(ByVal applicationNumber As String) As List(Of PermitDocument)
-        '    Dim docsList As New List(Of PermitDocument)
-        '    Dim doc As New PermitDocument
-
-        '    Dim dataTable As DataTable = GetPermitDocumentsAsDataTable(applicationNumber)
-
-        '    For Each row As DataRow In dataTable.Rows
-        '        doc = GetPermitDocumentFromDataRow(row)
-        '        docsList.Add(doc)
-        '    Next
-
-        '    Return docsList
-        'End Function
-
-        'Public Function GetPermitDocumentsAsDataTable(ByVal applicationNumber As String) As DataTable
-        '    Dim query As String = <s><![CDATA[
-        '        SELECT 
-        '          IAIP_LK_SSPPDOCUMENTTYPE.STRDOCUMENTTYPE,
-        '          IAIP_BINARYFILES.STRFILENAME,
-        '          IAIP_SSPP_PERMITDOCS.CREATEDATE,
-        '          IAIP_SSPP_PERMITDOCS.STRCOMMENT,
-        '          IAIP_BINARYFILES.NUMFILESIZE,
-        '          IAIP_BINARYFILES.BINARYFILEID,
-        '          IAIP_BINARYFILES.STRFILEEXTENSION,
-        '          IAIP_SSPP_PERMITDOCS.PERMITDOCSID,
-        '          IAIP_SSPP_PERMITDOCS.STRAPPLICATIONNUMBER,
-        '          IAIP_SSPP_PERMITDOCS.NUMDOCUMENTTYPE
-        '        FROM AIRBRANCH.IAIP_BINARYFILES
-        '        INNER JOIN AIRBRANCH.IAIP_SSPP_PERMITDOCS
-        '        ON IAIP_BINARYFILES.BINARYFILEID = IAIP_SSPP_PERMITDOCS.NUMBINARYFILE
-        '        INNER JOIN AIRBRANCH.IAIP_LK_SSPPDOCUMENTTYPE
-        '        ON IAIP_SSPP_PERMITDOCS.NUMDOCUMENTTYPE = IAIP_LK_SSPPDOCUMENTTYPE.DOCUMENTTYPEID
-        '        WHERE IAIP_SSPP_PERMITDOCS.STRAPPLICATIONNUMBER = :pId
-        '    ]]></s>.Value
-        '    Dim parameter As New OracleParameter("pId", applicationNumber)
-        '    Return DB.GetDataTable(query, parameter)
-        'End Function
-
-#End Region
-
 #Region "Read Documents from DataRow"
 
         Private Function GetEnforcementDocumentFromDataRow(ByVal row As DataRow) As EnforcementDocument
@@ -205,19 +163,6 @@ Namespace DAL
 
             Return doc
         End Function
-
-        'Private Function GetPermitDocumentFromDataRow(ByVal row As DataRow) As PermitDocument
-        '    Dim doc As New PermitDocument
-
-        '    FillDocumentFromDataRow(row, CType(doc, PermitDocument))
-
-        '    With doc
-        '        .DocumentId = CInt(row("PERMITDOCSID"))
-        '        .ApplicationNumber = row("STRAPPLICATIONNUMBER")
-        '    End With
-
-        '    Return doc
-        'End Function
 
         Private Sub FillDocumentFromDataRow(ByVal row As DataRow, ByRef doc As Document)
             With doc
@@ -369,16 +314,6 @@ Namespace DAL
             Return UploadDocument(doc, pathToFile, metaDataQuery, metaDataId, sender)
         End Function
 
-        'Public Function UploadPermitDocument(ByVal doc As PermitDocument, ByVal pathToFile As String, Optional ByVal sender As Object = Nothing) As Boolean
-        '    If doc Is Nothing Then Return False
-        '    Dim metaDataQuery As String = _
-        '        " INSERT INTO AIRBRANCH.IAIP_SSPP_PERMITDOCS " & _
-        '        " (NUMBINARYFILE,STRAPPLICATIONNUMBER,NUMDOCUMENTTYPE,STRCOMMENT,UPDATEUSER) " & _
-        '        " VALUES (:pBinId,:pMetaDataId,:pDocTypeId,:pComment,:pUser) "
-        '    Dim metaDataId As String = doc.ApplicationNumber
-        '    Return UploadDocument(doc, pathToFile, metaDataQuery, metaDataId, sender)
-        'End Function
-
         Private Function GetNextBinaryFileSequenceValue() As Integer
             Dim query As String = " SELECT AIRBRANCH.IAIP_BINARYFILES_SEQ.NEXTVAL FROM DUAL "
             Return DB.GetSingleValue(Of Integer)(query)
@@ -420,17 +355,6 @@ Namespace DAL
             Return UpdateDocument(doc, query, sender)
         End Function
 
-        'Public Function UpdatePermitDocument(ByVal doc As PermitDocument, Optional ByVal sender As Object = Nothing) As Boolean
-        '    If doc Is Nothing Then Return False
-        '    Dim query As String = _
-        '        " UPDATE AIRBRANCH.IAIP_SSPP_PERMITDOCS " & _
-        '        " SET NUMDOCUMENTTYPE = :pDocTypeId, " & _
-        '        " STRCOMMENT = :pComment, " & _
-        '        " UPDATEUSER = :pUser " & _
-        '        " WHERE PERMITDOCSID = :pDocId "
-        '    Return UpdateDocument(doc, query, sender)
-        'End Function
-
         Public Function UpdateDocument(ByVal doc As Document, ByVal query As String, Optional ByVal sender As Object = Nothing) As Boolean
             If sender IsNot Nothing Then
                 sender.Cursor = Cursors.AppStarting
@@ -456,15 +380,6 @@ Namespace DAL
 #End Region
 
 #Region "Document Types"
-
-        'Public Function GetPermitDocumentTypesAsDictionary() As Dictionary(Of Integer, String)
-        '    Dim query As String = "SELECT DOCUMENTTYPEID, " & _
-        '        " STRDOCUMENTTYPE " & _
-        '        " FROM AIRBRANCH.IAIP_LK_SSPPDOCUMENTTYPE " & _
-        '        " WHERE FACTIVE = '" & Boolean.TrueString & "' " & _
-        '        " ORDER BY NUMORDINAL, STRDOCUMENTTYPE "
-        '    Return DB.GetLookupDictionary(query)
-        'End Function
 
         Public Function GetEnforcementDocumentTypesDict() As Dictionary(Of Integer, String)
             Dim query As String = "SELECT DOCUMENTTYPEID, " & _

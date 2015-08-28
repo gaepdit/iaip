@@ -1,4 +1,4 @@
-﻿Namespace DMU
+﻿Namespace Dmu
 
     ''' <summary>
     ''' An EDT Error Message category and description

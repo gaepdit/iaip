@@ -1,5 +1,5 @@
 ﻿Imports Oracle.ManagedDataAccess.Client
-Imports Iaip.DMU
+Imports Iaip.Dmu
 Imports System.Collections.Generic
 
 Namespace DAL.DMU

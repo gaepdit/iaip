@@ -808,6 +808,10 @@
     <Compile Include="SSPP\Sub Forms\SSPPAttainmentStatus.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="_Data Models\DocumentType.vb" />
+    <Compile Include="_Data Models\Res.Registrant.vb" />
+    <Compile Include="_Data Models\Res.EventRegistration.vb" />
+    <Compile Include="_Data Models\Location.vb" />
     <Compile Include="_DB\DB.vb" />
     <Compile Include="_Modules\ErrorReporting.vb" />
     <Compile Include="_Modules\ExcelExport.vb" />
@@ -1502,12 +1506,12 @@
     </Compile>
     <Compile Include="_Classes\BooleanFormatProvider.vb" />
     <Compile Include="_Classes\IaipExceptionManager.vb" />
-    <Compile Include="_Data Models\ApbFacilityId.vb" />
+    <Compile Include="_Data Models\Apb.ApbFacilityId.vb" />
     <Compile Include="_Data Models\Contact.vb" />
-    <Compile Include="_Data Models\DMU.EdtError.vb" />
+    <Compile Include="_Data Models\Dmu.EdtError.vb" />
     <Compile Include="_Data Models\FacilityEnums.vb" />
     <Compile Include="_Data Models\FacilityHeaderData.vb" />
-    <Compile Include="_Data Models\SSPP.Permit.vb" />
+    <Compile Include="_Data Models\Apb.SSPP.Permit.vb" />
     <Compile Include="_DB\DAL.DMU.EdtError.vb" />
     <Compile Include="_DB\DAL.FacilitySummary.vb" />
     <Compile Include="_DB\DAL.ISMP.StackTest.vb">
@@ -1620,12 +1624,12 @@
     </Compile>
     <Compile Include="_DB\DAL.SmokeSchoolRoster.vb" />
     <Compile Include="_Classes\CollectionHelper.vb" />
-    <Compile Include="_Data Models\SSCP.WorkItem.vb" />
+    <Compile Include="_Data Models\Apb.SSCP.WorkItem.vb" />
     <Compile Include="_Data Models\Person.vb" />
     <Compile Include="_Data Models\Res.ResEvent.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Data Models\SSCP.Acc.vb" />
+    <Compile Include="_Data Models\Apb.SSCP.Acc.vb" />
     <Compile Include="_DB\DAL.Facility.vb" />
     <Compile Include="_DB\DAL.Staff.vb" />
     <Compile Include="SSCP\SscpDocuments.Designer.vb">
@@ -1647,12 +1651,11 @@
     <Compile Include="_Data Models\Facility.vb" />
     <Compile Include="_Classes\FileSizeFormatProvider.vb" />
     <Compile Include="_Classes\SettingsHelper.vb" />
-    <Compile Include="_Data Models\SSCP.Document.vb" />
-    <Compile Include="_Data Models\SSCP.EnforcementInfo.vb" />
-    <Compile Include="_Data Models\SSPP.ApplicationInfo.vb">
+    <Compile Include="_Data Models\Apb.SSCP.Document.vb" />
+    <Compile Include="_Data Models\Apb.SSCP.EnforcementInfo.vb" />
+    <Compile Include="_Data Models\Apb.SSPP.ApplicationInfo.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Data Models\SSPP.Document.vb" />
     <Compile Include="_Data Models\Staff.vb" />
     <Compile Include="_DB\DAL.SSCP.Enforcement.vb" />
     <Compile Include="_DB\DAL.Documents.vb" />

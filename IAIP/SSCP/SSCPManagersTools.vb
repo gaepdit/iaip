@@ -5974,9 +5974,6 @@ Public Class SSCPManagersTools
                 .HeaderText = "Name"
                 .DisplayIndex = 2
             End With
-            'With .Columns("ActiveString")
-            '    .Visible = False
-            'End With
         End With
     End Sub
 
