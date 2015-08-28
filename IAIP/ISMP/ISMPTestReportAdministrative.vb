@@ -854,8 +854,6 @@ Public Class ISMPTestReportAdministrative
     End Sub
     Private Sub Find()
         Dim SQL As String
-        Dim AirList As String = ""
-        Dim AirProgramCodes As String = ""
 
         Try
 

@@ -5067,12 +5067,10 @@ Public Class SSPPApplicationTrackingLog
         Try
 
             Dim Attainment As String = ""
-            Dim AttainmentStatus As String = ""
-            Dim StateProgramCodes As String = ""
 
             If txtAIRSNumber.Text <> "" Then
                 SQL = "Select " & _
-                "strAttainmentStatus, strStateProgramCodes " & _
+                "strAttainmentStatus " & _
                 "from AIRBRANCH.APBHeaderData " & _
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
@@ -5088,14 +5086,8 @@ Public Class SSPPApplicationTrackingLog
                     Else
                         Attainment = dr.Item("strAttainmentstatus")
                     End If
-                    If IsDBNull(dr.Item("strStateProgramCodes")) Then
-                        StateProgramCodes = "00000"
-                    Else
-                        StateProgramCodes = dr.Item("strStateProgramCodes")
-                    End If
                 Else
                     Attainment = "00000"
-                    StateProgramCodes = "00000"
                 End If
                 dr.Close()
             End If
@@ -5134,22 +5126,6 @@ Public Class SSPPApplicationTrackingLog
                 Case Else
                     txtPM.Text = "No"
             End Select
-            'Select Case Mid(StateProgramCodes, 1, 1)
-            '    Case 0
-            '        chbNSRMajor.Checked = False
-            '    Case 1
-            '        chbNSRMajor.Checked = True
-            '    Case Else
-            '        chbNSRMajor.Checked = False
-            'End Select
-            'Select Case Mid(StateProgramCodes, 2, 1)
-            '    Case 0
-            '        chbHAPsMajor.Checked = False
-            '    Case 1
-            '        chbHAPsMajor.Checked = True
-            '    Case Else
-            '        chbHAPsMajor.Checked = False
-            'End Select
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -5161,7 +5137,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Sub LoadContactData()
         Try
-            Dim temp As String = ""
             SQL = "Select strApplicationNumber " & _
             "From AIRBRANCH.SSPPApplicationContact " & _
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
@@ -6109,7 +6084,6 @@ Public Class SSPPApplicationTrackingLog
             Dim ClassificationLine As String = ""
             Dim AirProgramCodes As String = ""
             Dim AirPrograms As String = ""
-            Dim AirProgramCheck As String = ""
             Dim AirProgramLine As String = ""
             Dim SIC As String = ""
             Dim SICLine As String = ""
@@ -8397,14 +8371,12 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Sub LinkApplications()
         Dim MasterApplication As String
-        Dim MasterAppType As String
         Dim i As Integer
 
         Try
 
             If lbLinkApplications.Items.Count > 1 Then
                 MasterApplication = txtApplicationNumber.Text
-                MasterAppType = cboApplicationType.SelectedValue
 
                 For i = 0 To lbLinkApplications.Items.Count - 1
                     If lbLinkApplications.Items.Item(i) <> txtApplicationNumber.Text Then
@@ -8822,12 +8794,10 @@ Public Class SSPPApplicationTrackingLog
         Dim AirProgramCodes As String = ""
         Dim SICCode As String = ""
         Dim NAICSCode As String = ""
-        Dim PermitNumber As String = ""
         Dim PlantDescription As String = ""
         Dim StateProgramCodes As String = ""
         Dim temp As String = "0"
         Dim Subpart As String = ""
-        Dim Action As String = ""
 
         Try
 
@@ -8898,11 +8868,6 @@ Public Class SSPPApplicationTrackingLog
                     NAICSCode = "000000"
                 Else
                     NAICSCode = dr.Item("strNAICSCode")
-                End If
-                If IsDBNull(dr.Item("strPermitNumber")) Then
-                    PermitNumber = ""
-                Else
-                    PermitNumber = dr.Item("strPermitNumber")
                 End If
                 If IsDBNull(dr.Item("strPlantDescription")) Then
                     PlantDescription = ""
@@ -10195,16 +10160,10 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Sub FindMasterApp()
         Dim temp As String = ""
-        Dim Status As String = ""
         Dim AppType As String = ""
 
         Try
             AppType = cboApplicationType.Text
-            If chbClosedOut.Checked = True Then
-                Status = "Closed"
-            Else
-                Status = ""
-            End If
 
             SQL = "select strMasterApplication " & _
               "from AIRBRANCH.SSPPApplicationLinking " & _
@@ -10494,7 +10453,6 @@ Public Class SSPPApplicationTrackingLog
             If Flag <> "00" Then
                 Dim rowCount As String = ""
                 Dim da As OracleDataAdapter
-                Dim cmdCB As OracleCommandBuilder
                 Dim ds As DataSet
 
                 SQL = "Delete AIRBRANCH.APBPermits " & _
@@ -10560,7 +10518,6 @@ Public Class SSPPApplicationTrackingLog
                     CurrentConnection.Open()
                 End If
                 da = New OracleDataAdapter(SQL, CurrentConnection)
-                cmdCB = New OracleCommandBuilder(da)
                 ds = New DataSet("PDF")
                 da.MissingSchemaAction = MissingSchemaAction.AddWithKey
 
@@ -10594,31 +10551,10 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Sub DownloadFile(ByVal FileName As String, ByVal FileType As String)
         Try
-            Dim PermitNumber As String = ""
             Dim path As New SaveFileDialog
             Dim DestFilePath As String = "N/A"
 
             If FileType <> "00" Then
-                SQL = "select strApplicationNumber, " & _
-                "strPermitNumber,  " & _
-                "(substr(strPermitNumber,1, 4) ||'-'||substr(strPermitNumber, 5,3) " & _
-                "   ||'-'||substr(strPermitNumber, 8,4)||'-'||substr(strPermitNumber, 12, 1)  " & _
-                "   ||'-'||substr(strPermitNumber, 13, 2) ||'-'||substr(strPermitNumber, 15,1)) as PermitNumber " & _
-                "from AIRBRANCH.SSPPApplicationData  " & _
-                "where strApplicationNumber like '" & MasterApp & "' "
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
-                    PermitNumber = dr.Item("PermitNumber")
-                Else
-                    PermitNumber = Mid(FileName, 3)
-                End If
-                dr.Close()
 
                 Select Case FileType
                     Case "10"
@@ -10770,33 +10706,6 @@ Public Class SSPPApplicationTrackingLog
                 End If
 
             End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-    Sub CheckApplicationStatus()
-        Try
-            Dim CloseStatus As String = ""
-
-            SQL = "Select datFinalizedDate " & _
-            "from AIRBRANCH.SSPPApplicationMaster " & _
-            "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("datFinalizedDate")) Then
-                    CloseStatus = ""
-                Else
-                    CloseStatus = dr.Item("datFinalizedDate")
-                End If
-            End While
-            dr.Close()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -14281,7 +14190,6 @@ Public Class SSPPApplicationTrackingLog
     Private Sub llbPermitNumber_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbPermitNumber.LinkClicked
         Try
             Dim URL As String = ""
-            Dim DocFile As String = ""
             Dim PDFFile As String = ""
 
             SQL = "select " & _
@@ -14300,11 +14208,6 @@ Public Class SSPPApplicationTrackingLog
             dr = cmd.ExecuteReader
             While dr.Read
                 temp = dr.Item("strFileName")
-                If IsDBNull(dr.Item("strDocFileSize")) Then
-                    DocFile = ""
-                Else
-                    DocFile = dr.Item("strDocFileSize")
-                End If
                 If IsDBNull(dr.Item("strPDFFileSize")) Then
                     PDFFile = ""
                 Else
@@ -14344,7 +14247,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnGetCurrentPermittingContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGetCurrentPermittingContact.Click
         Try
-            Dim temp As String = ""
 
             SQL = "Select " & _
              "strContactFirstName, " & _
@@ -15303,7 +15205,6 @@ Public Class SSPPApplicationTrackingLog
             Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
-            Dim Desc As String = ""
             Dim Action As String = ""
 
             If dgvSIPSubParts.CurrentRow IsNot Nothing Then
@@ -15312,7 +15213,6 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             Subpart = dgvSIPSubParts(1, dgvSIPSubParts.CurrentRow.Index).Value
-            Desc = dgvSIPSubParts(2, dgvSIPSubParts.CurrentRow.Index).Value
             Action = dgvSIPSubParts(4, dgvSIPSubParts.CurrentRow.Index).Value
 
             For i = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
@@ -15368,8 +15268,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnSIPUndelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSIPUndelete.Click
         Try
-            Dim dgvRow As New DataGridViewRow
-            Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
 
@@ -15402,13 +15300,11 @@ Public Class SSPPApplicationTrackingLog
             Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
-            Dim Desc As String = ""
             Dim Action As String = ""
             Dim j As Integer = 0
 
             For i = 0 To dgvSIPSubParts.Rows.Count - 1
                 Subpart = dgvSIPSubParts(1, i).Value
-                Desc = dgvSIPSubParts(2, i).Value
                 Action = dgvSIPSubParts(4, i).Value
 
                 For j = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
@@ -15452,7 +15348,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnSIPUndeleteAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSIPUndeleteAll.Click
         Try
-            Dim dgvRow As New DataGridViewRow
             Dim temp2 As String = ""
             Dim Subpart As String = ""
 
@@ -15475,7 +15370,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnClearSIPDeletes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearSIPDeletes.Click
         Try
-            Dim dgvRow As New DataGridViewRow
             Dim temp2 As String = ""
             Dim Subpart As String = ""
 
@@ -15604,7 +15498,6 @@ Public Class SSPPApplicationTrackingLog
             Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
-            Dim Desc As String = ""
             Dim Action As String = ""
 
             If dgvSIPSubParts.CurrentRow IsNot Nothing Then
@@ -15613,7 +15506,6 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             Subpart = dgvSIPSubParts(1, dgvSIPSubParts.CurrentRow.Index).Value
-            Desc = dgvSIPSubParts(2, dgvSIPSubParts.CurrentRow.Index).Value
             Action = dgvSIPSubParts(4, dgvSIPSubParts.CurrentRow.Index).Value
 
             For i = 0 To dgvSIPSubPartDelete.Rows.Count - 1
@@ -15672,8 +15564,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnSIPUnedit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSIPUnedit.Click
         Try
-            Dim dgvRow As New DataGridViewRow
-            Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
             Dim Action As String = ""
@@ -15708,12 +15598,10 @@ Public Class SSPPApplicationTrackingLog
             Dim dgvRow As New DataGridViewRow
             Dim temp2 As String = ""
             Dim Subpart As String = ""
-            Dim Desc As String = ""
             Dim Action As String = ""
 
             For i As Integer = 0 To dgvSIPSubParts.Rows.Count - 1
                 Subpart = dgvSIPSubParts(1, i).Value
-                Desc = dgvSIPSubParts(2, i).Value
                 Action = dgvSIPSubParts(4, i).Value
 
                 For j As Integer = 0 To dgvSIPSubPartDelete.Rows.Count - 1
@@ -15759,13 +15647,9 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnSIPUneditAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSIPUneditAll.Click
         Try
-            Dim dgvRow As New DataGridViewRow
             Dim i As Integer
-            Dim temp2 As String = ""
             Dim Subpart As String = ""
             Dim TempRemove As String = ""
-            Dim TempRemove2 As String = ""
-            Dim Action As String = ""
 
             For i = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
                 Subpart = dgvSIPSubpartAddEdit(0, i).Value
@@ -15783,7 +15667,6 @@ Public Class SSPPApplicationTrackingLog
 
             Do While TempRemove <> ""
                 i = Mid(TempRemove, 1, InStr(TempRemove, ",", CompareMethod.Text))
-                Action = dgvSIPSubParts(4, i).Value
                 ' If Action <> "Added" Then
                 dgvSIPSubpartAddEdit.Rows.RemoveAt(i)
                 'End If
@@ -15798,7 +15681,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnClearAddModifiedSIPs_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearAddModifiedSIPs.Click
         Try
-            Dim dgvRow As New DataGridViewRow
             Dim temp2 As String = ""
             Dim Subpart As String = ""
             Dim Action As String = ""
@@ -15833,8 +15715,6 @@ Public Class SSPPApplicationTrackingLog
     Sub SaveSIPSubpart()
         Try
             Dim Subpart As String = ""
-            Dim AFSStatus As String = ""
-            Dim AppStatus As String = ""
             Dim Action As String = ""
             Dim i As Integer = 0
 
@@ -16295,7 +16175,6 @@ Public Class SSPPApplicationTrackingLog
             Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
-            Dim Desc As String = ""
             Dim Action As String = ""
 
             If dgvNSPSSubParts.CurrentRow IsNot Nothing Then
@@ -16304,7 +16183,6 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             Subpart = dgvNSPSSubParts(1, dgvNSPSSubParts.CurrentRow.Index).Value
-            Desc = dgvNSPSSubParts(2, dgvNSPSSubParts.CurrentRow.Index).Value
             Action = dgvNSPSSubParts(4, dgvNSPSSubParts.CurrentRow.Index).Value
 
             For i = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
@@ -16360,8 +16238,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnNSPSUndelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNSPSUndelete.Click
         Try
-            Dim dgvRow As New DataGridViewRow
-            Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
 
@@ -16394,13 +16270,11 @@ Public Class SSPPApplicationTrackingLog
             Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
-            Dim Desc As String = ""
             Dim Action As String = ""
             Dim j As Integer = 0
 
             For i = 0 To dgvNSPSSubParts.Rows.Count - 1
                 Subpart = dgvNSPSSubParts(1, i).Value
-                Desc = dgvNSPSSubParts(2, i).Value
                 Action = dgvNSPSSubParts(4, i).Value
 
                 For j = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
@@ -16444,7 +16318,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnNSPSUndeleteAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNSPSUndeleteAll.Click
         Try
-            Dim dgvRow As New DataGridViewRow
             Dim temp2 As String = ""
             Dim Subpart As String = ""
 
@@ -16467,7 +16340,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnClearNSPSDeletes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearNSPSDeletes.Click
         Try
-            Dim dgvRow As New DataGridViewRow
             Dim temp2 As String = ""
             Dim Subpart As String = ""
 
@@ -16596,7 +16468,6 @@ Public Class SSPPApplicationTrackingLog
             Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
-            Dim Desc As String = ""
             Dim Action As String = ""
 
             If dgvNSPSSubParts.CurrentRow IsNot Nothing Then
@@ -16605,7 +16476,6 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             Subpart = dgvNSPSSubParts(1, dgvNSPSSubParts.CurrentRow.Index).Value
-            Desc = dgvNSPSSubParts(2, dgvNSPSSubParts.CurrentRow.Index).Value
             Action = dgvNSPSSubParts(4, dgvNSPSSubParts.CurrentRow.Index).Value
 
             For i = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
@@ -16664,7 +16534,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnNSPSUnedit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNSPSUnedit.Click
         Try
-            Dim dgvRow As New DataGridViewRow
             Dim temp2 As String = ""
             Dim Subpart As String = ""
             Dim Action As String = ""
@@ -16699,12 +16568,10 @@ Public Class SSPPApplicationTrackingLog
             Dim dgvRow As New DataGridViewRow
             Dim temp2 As String = ""
             Dim Subpart As String = ""
-            Dim Desc As String = ""
             Dim Action As String = ""
 
             For i As Integer = 0 To dgvNSPSSubParts.Rows.Count - 1
                 Subpart = dgvNSPSSubParts(1, i).Value
-                Desc = dgvNSPSSubParts(2, i).Value
                 Action = dgvNSPSSubParts(4, i).Value
 
                 For j As Integer = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
@@ -16750,13 +16617,9 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnNSPSUneditAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNSPSUneditAll.Click
         Try
-            Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
-            Dim temp2 As String = ""
             Dim Subpart As String = ""
             Dim TempRemove As String = ""
-            Dim TempRemove2 As String = ""
-            Dim Action As String = ""
 
             For i = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
                 Subpart = dgvNSPSSubpartAddEdit(0, i).Value
@@ -16774,14 +16637,9 @@ Public Class SSPPApplicationTrackingLog
 
             Do While TempRemove <> ""
                 i = Mid(TempRemove, 1, InStr(TempRemove, ",", CompareMethod.Text))
-                Action = dgvNSPSSubParts(4, i).Value
-                ' If Action <> "Added" Then
                 dgvNSPSSubpartAddEdit.Rows.RemoveAt(i)
-                'End If
                 TempRemove = Replace(TempRemove, i & ",", "")
             Loop
-            'dgvNSPSSubpartAddEdit.Rows.Clear()
-            Exit Sub
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -16789,7 +16647,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnClearAddModifiedNSPSs_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearAddModifiedNSPSs.Click
         Try
-            Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
@@ -16825,8 +16682,6 @@ Public Class SSPPApplicationTrackingLog
     Sub SaveNSPSSubpart()
         Try
             Dim Subpart As String = ""
-            Dim AFSStatus As String = ""
-            Dim AppStatus As String = ""
             Dim Action As String = ""
             Dim i As Integer = 0
 
@@ -16916,8 +16771,6 @@ Public Class SSPPApplicationTrackingLog
     Sub SaveNSPSSubpart2()
         Try
             Dim Subpart As String = ""
-            Dim AFSStatus As String = ""
-            Dim AppStatus As String = ""
             Dim Action As String = ""
             Dim i As Integer = 0
 
@@ -16976,7 +16829,6 @@ Public Class SSPPApplicationTrackingLog
 
             For i = 0 To dgvNSPSSubParts.Rows.Count - 1
                 Subpart = dgvNSPSSubParts(1, i).Value
-                AppStatus = ""
 
                 SQL = "Select strSubPart " & _
                 "from AIRBRANCH.APBSubpartData " & _
@@ -17005,8 +16857,6 @@ Public Class SSPPApplicationTrackingLog
                     "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
                     "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
                     "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')))"
-                    AFSStatus = "Add"
-                    AppStatus = "Add"
                 End If
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
@@ -17601,7 +17451,6 @@ Public Class SSPPApplicationTrackingLog
             Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
-            Dim Desc As String = ""
             Dim Action As String = ""
 
             If dgvNESHAPSubParts.CurrentRow IsNot Nothing Then
@@ -17610,7 +17459,6 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             Subpart = dgvNESHAPSubParts(1, dgvNESHAPSubParts.CurrentRow.Index).Value
-            Desc = dgvNESHAPSubParts(2, dgvNESHAPSubParts.CurrentRow.Index).Value
             Action = dgvNESHAPSubParts(4, dgvNESHAPSubParts.CurrentRow.Index).Value
 
             For i = 0 To dgvNESHAPSubpartAddEdit.Rows.Count - 1
@@ -17666,8 +17514,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnNESHAPUndelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNESHAPUndelete.Click
         Try
-            Dim dgvRow As New DataGridViewRow
-            Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
 
@@ -17700,13 +17546,11 @@ Public Class SSPPApplicationTrackingLog
             Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
-            Dim Desc As String = ""
             Dim Action As String = ""
             Dim j As Integer = 0
 
             For i = 0 To dgvNESHAPSubParts.Rows.Count - 1
                 Subpart = dgvNESHAPSubParts(1, i).Value
-                Desc = dgvNESHAPSubParts(2, i).Value
                 Action = dgvNESHAPSubParts(4, i).Value
 
                 For j = 0 To dgvNESHAPSubpartAddEdit.Rows.Count - 1
@@ -17750,7 +17594,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnNESHAPUndeleteAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNESHAPUndeleteAll.Click
         Try
-            Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
@@ -17774,7 +17617,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnClearNESHAPDeletes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearNESHAPDeletes.Click
         Try
-            Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
@@ -17905,7 +17747,6 @@ Public Class SSPPApplicationTrackingLog
             Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
-            Dim Desc As String = ""
             Dim Action As String = ""
 
             If dgvNESHAPSubParts.CurrentRow IsNot Nothing Then
@@ -17914,7 +17755,6 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             Subpart = dgvNESHAPSubParts(1, dgvNESHAPSubParts.CurrentRow.Index).Value
-            Desc = dgvNESHAPSubParts(2, dgvNESHAPSubParts.CurrentRow.Index).Value
             Action = dgvNESHAPSubParts(4, dgvNESHAPSubParts.CurrentRow.Index).Value
 
             For i = 0 To dgvNESHAPSubPartDelete.Rows.Count - 1
@@ -17973,8 +17813,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnNESHAPUnedit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNESHAPUnedit.Click
         Try
-            Dim dgvRow As New DataGridViewRow
-            Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
             Dim Action As String = ""
@@ -18010,12 +17848,10 @@ Public Class SSPPApplicationTrackingLog
             Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
-            Dim Desc As String = ""
             Dim Action As String = ""
 
             For i = 0 To dgvNESHAPSubParts.Rows.Count - 1
                 Subpart = dgvNESHAPSubParts(1, i).Value
-                Desc = dgvNESHAPSubParts(2, i).Value
                 Action = dgvNESHAPSubParts(4, i).Value
 
                 For j As Integer = 0 To dgvNESHAPSubPartDelete.Rows.Count - 1
@@ -18061,13 +17897,9 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnNESHAPUneditAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNESHAPUneditAll.Click
         Try
-            Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
-            Dim temp2 As String = ""
             Dim Subpart As String = ""
             Dim TempRemove As String = ""
-            Dim TempRemove2 As String = ""
-            Dim Action As String = ""
 
             For i = 0 To dgvNESHAPSubpartAddEdit.Rows.Count - 1
                 Subpart = dgvNESHAPSubpartAddEdit(0, i).Value
@@ -18085,14 +17917,9 @@ Public Class SSPPApplicationTrackingLog
 
             Do While TempRemove <> ""
                 i = Mid(TempRemove, 1, InStr(TempRemove, ",", CompareMethod.Text))
-                Action = dgvNESHAPSubParts(4, i).Value
-                ' If Action <> "Added" Then
                 dgvNESHAPSubpartAddEdit.Rows.RemoveAt(i)
-                'End If
                 TempRemove = Replace(TempRemove, i & ",", "")
             Loop
-            'dgvNESHAPSubpartAddEdit.Rows.Clear()
-            Exit Sub
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -18100,7 +17927,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnClearAddModifiedNESHAPs_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearAddModifiedNESHAPs.Click
         Try
-            Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
@@ -18136,8 +17962,6 @@ Public Class SSPPApplicationTrackingLog
     Sub SaveNESHAPSubpart()
         Try
             Dim Subpart As String = ""
-            Dim AFSStatus As String = ""
-            Dim AppStatus As String = ""
             Dim Action As String = ""
             Dim i As Integer = 0
 
@@ -18590,7 +18414,6 @@ Public Class SSPPApplicationTrackingLog
             Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
-            Dim Desc As String = ""
             Dim Action As String = ""
 
             If dgvMACTSubParts.CurrentRow IsNot Nothing Then
@@ -18599,7 +18422,6 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             Subpart = dgvMACTSubParts(1, dgvMACTSubParts.CurrentRow.Index).Value
-            Desc = dgvMACTSubParts(2, dgvMACTSubParts.CurrentRow.Index).Value
             Action = dgvMACTSubParts(4, dgvMACTSubParts.CurrentRow.Index).Value
 
             For i = 0 To dgvMACTSubpartAddEdit.Rows.Count - 1
@@ -18655,8 +18477,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnMACTUndelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnMACTUndelete.Click
         Try
-            Dim dgvRow As New DataGridViewRow
-            Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
 
@@ -18689,13 +18509,11 @@ Public Class SSPPApplicationTrackingLog
             Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
-            Dim Desc As String = ""
             Dim Action As String = ""
             Dim j As Integer = 0
 
             For i = 0 To dgvMACTSubParts.Rows.Count - 1
                 Subpart = dgvMACTSubParts(1, i).Value
-                Desc = dgvMACTSubParts(2, i).Value
                 Action = dgvMACTSubParts(4, i).Value
 
                 For j = 0 To dgvMACTSubpartAddEdit.Rows.Count - 1
@@ -18739,7 +18557,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnMACTUndeleteAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnMACTUndeleteAll.Click
         Try
-            Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
@@ -18763,7 +18580,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnClearMACTDeletes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearMACTDeletes.Click
         Try
-            Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
@@ -18893,7 +18709,6 @@ Public Class SSPPApplicationTrackingLog
             Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
-            Dim Desc As String = ""
             Dim Action As String = ""
 
             If dgvMACTSubParts.CurrentRow IsNot Nothing Then
@@ -18902,7 +18717,6 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             Subpart = dgvMACTSubParts(1, dgvMACTSubParts.CurrentRow.Index).Value
-            Desc = dgvMACTSubParts(2, dgvMACTSubParts.CurrentRow.Index).Value
             Action = dgvMACTSubParts(4, dgvMACTSubParts.CurrentRow.Index).Value
 
             For i = 0 To dgvMACTSubPartDelete.Rows.Count - 1
@@ -18961,8 +18775,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnMACTUnedit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnMACTUnedit.Click
         Try
-            Dim dgvRow As New DataGridViewRow
-            Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
             Dim Action As String = ""
@@ -18998,12 +18810,10 @@ Public Class SSPPApplicationTrackingLog
             Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
-            Dim Desc As String = ""
             Dim Action As String = ""
 
             For i = 0 To dgvMACTSubParts.Rows.Count - 1
                 Subpart = dgvMACTSubParts(1, i).Value
-                Desc = dgvMACTSubParts(2, i).Value
                 Action = dgvMACTSubParts(4, i).Value
 
                 For j As Integer = 0 To dgvMACTSubPartDelete.Rows.Count - 1
@@ -19049,13 +18859,9 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnMACTUneditAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnMACTUneditAll.Click
         Try
-            Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
-            Dim temp2 As String = ""
             Dim Subpart As String = ""
             Dim TempRemove As String = ""
-            Dim TempRemove2 As String = ""
-            Dim Action As String = ""
 
             For i = 0 To dgvMACTSubpartAddEdit.Rows.Count - 1
                 Subpart = dgvMACTSubpartAddEdit(0, i).Value
@@ -19073,14 +18879,9 @@ Public Class SSPPApplicationTrackingLog
 
             Do While TempRemove <> ""
                 i = Mid(TempRemove, 1, InStr(TempRemove, ",", CompareMethod.Text))
-                Action = dgvMACTSubParts(4, i).Value
-                ' If Action <> "Added" Then
                 dgvMACTSubpartAddEdit.Rows.RemoveAt(i)
-                'End If
                 TempRemove = Replace(TempRemove, i & ",", "")
             Loop
-            'dgvMACTSubpartAddEdit.Rows.Clear()
-            Exit Sub
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -19088,7 +18889,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnClearAddModifiedMACTs_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearAddModifiedMACTs.Click
         Try
-            Dim dgvRow As New DataGridViewRow
             Dim temp2 As String = ""
             Dim Subpart As String = ""
             Dim Action As String = ""
@@ -19123,8 +18923,6 @@ Public Class SSPPApplicationTrackingLog
     Sub SaveMACTSubpart()
         Try
             Dim Subpart As String = ""
-            Dim AFSStatus As String = ""
-            Dim AppStatus As String = ""
             Dim Action As String = ""
             Dim i As Integer = 0
 
@@ -19232,7 +19030,6 @@ Public Class SSPPApplicationTrackingLog
             Dim temp2 As String = ""
             Dim Subpart As String = ""
             Dim Action As String = ""
-            Dim Desc As String = ""
 
             If FormStatus = "" Then
                 If chbCDS_0.CheckState = CheckState.Unchecked Then
@@ -19263,7 +19060,6 @@ Public Class SSPPApplicationTrackingLog
 
                         For i = 0 To dgvSIPSubParts.Rows.Count - 1
                             Subpart = dgvSIPSubParts(1, i).Value
-                            Desc = dgvSIPSubParts(2, i).Value
                             Action = dgvSIPSubParts(4, i).Value
 
                             For j = 0 To dgvSIPSubpartAddEdit.Rows.Count - 1
@@ -19318,7 +19114,6 @@ Public Class SSPPApplicationTrackingLog
             Dim temp2 As String = ""
             Dim Subpart As String = ""
             Dim Action As String = ""
-            Dim Desc As String = ""
 
             If FormStatus = "" Then
                 If chbCDS_8.CheckState = CheckState.Unchecked Then
@@ -19349,7 +19144,6 @@ Public Class SSPPApplicationTrackingLog
 
                         For i = 0 To dgvNESHAPSubParts.Rows.Count - 1
                             Subpart = dgvNESHAPSubParts(1, i).Value
-                            Desc = dgvNESHAPSubParts(2, i).Value
                             Action = dgvNESHAPSubParts(4, i).Value
 
                             For j = 0 To dgvNESHAPSubpartAddEdit.Rows.Count - 1
@@ -19405,7 +19199,6 @@ Public Class SSPPApplicationTrackingLog
             Dim temp2 As String = ""
             Dim Subpart As String = ""
             Dim Action As String = ""
-            Dim Desc As String = ""
 
             If FormStatus = "" Then
                 If chbCDS_9.CheckState = CheckState.Unchecked Then
@@ -19436,7 +19229,6 @@ Public Class SSPPApplicationTrackingLog
 
                         For i = 0 To dgvNSPSSubParts.Rows.Count - 1
                             Subpart = dgvNSPSSubParts(1, i).Value
-                            Desc = dgvNSPSSubParts(2, i).Value
                             Action = dgvNSPSSubParts(4, i).Value
 
                             For j = 0 To dgvNSPSSubpartAddEdit.Rows.Count - 1
@@ -19494,7 +19286,6 @@ Public Class SSPPApplicationTrackingLog
             Dim temp2 As String = ""
             Dim Subpart As String = ""
             Dim Action As String = ""
-            Dim Desc As String = ""
 
             If FormStatus = "" Then
                 If chbCDS_M.CheckState = CheckState.Unchecked Then
@@ -19525,7 +19316,6 @@ Public Class SSPPApplicationTrackingLog
 
                         For i = 0 To dgvMACTSubParts.Rows.Count - 1
                             Subpart = dgvMACTSubParts(1, i).Value
-                            Desc = dgvMACTSubParts(2, i).Value
                             Action = dgvMACTSubParts(4, i).Value
 
                             For j = 0 To dgvMACTSubpartAddEdit.Rows.Count - 1

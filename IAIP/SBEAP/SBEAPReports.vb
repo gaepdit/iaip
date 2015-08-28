@@ -931,7 +931,6 @@ Public Class SBEAPReports
             If txtTotalActionCount.Text <> "" And txtTotalActionCount.Text <> "0" Then
                 If cboActionTypes.SelectedValue <> " " Then
                     txtActionTypeCount.Text = "1"
-                    Dim dtActionCount As New DataTable
                     Dim drDSRow As DataRow
                     Dim temp As String = 0
                     For Each drDSRow In dsAction.Tables("ActionCount").Select("numActionType = " & cboActionTypes.SelectedValue)

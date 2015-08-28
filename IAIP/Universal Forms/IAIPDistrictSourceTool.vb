@@ -554,9 +554,6 @@ Public Class IAIPDistrictSourceTool
                         cboDistrictManager.Text = ""
                         cboDistrictManager.SelectedIndex = 0
                     Else
-                        Dim temp As String = ""
-                        temp = dr.Item("strDistrictManager")
-
                         cboDistrictManager.SelectedValue = dr.Item("strDistrictManager")
                     End If
                 Else

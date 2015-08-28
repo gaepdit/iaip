@@ -983,9 +983,7 @@ Public Class PASPFeeStatistics
     End Sub
     Private Sub btnViewBalance_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewBalance.Click
         Try
-            Dim PaymentType As String
-            Dim PayType As String
-
+            
             Select Case cboStatPayType.Text
                 Case "ALL"
                     SQL = "select * from " & _
@@ -1506,9 +1504,6 @@ Public Class PASPFeeStatistics
                        "and TOTALDUE.INTYEAR = TOTALPAID.INTYEAR " & _
                        "and TOTALDUE.INTYEAR = '" & cboStatYear.Text & "' " & _
                        "and AIRBranch.fs_feeAuditedData.numFeeYear = '" & cboStatYear.Text & "') "
-                Case Else
-                    PaymentType = "N/A"
-                    PayType = cboStatPayType.Text
             End Select
             If chbNonZeroBalance.Checked = True Then
                 SQL = SQL & " where (TOTALDUE - TOTALPAID) <> '0'  "
@@ -3264,9 +3259,6 @@ Public Class PASPFeeStatistics
                 drNewRow("strfacilityname") = drDSRow("strfacilityname")
                 dtAIRS.Rows.Add(drNewRow)
             Next
-            Dim temp As String
-
-            temp = dtAIRS.Rows.Count
 
             With cboAirsNo
                 .DataSource = dtAIRS

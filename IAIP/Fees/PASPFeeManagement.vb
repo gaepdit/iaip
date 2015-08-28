@@ -696,7 +696,6 @@ Public Class PASPFeeManagement
         Try
             Dim ReasonID As String = ""
             Dim i As Integer = 0
-            Dim x As Integer = 0
 
             If dgvNSPSExemptionsByYear.RowCount > 0 Then
                 'dgvNSPSExemptionsByYear.Rows.Clear()
@@ -744,7 +743,6 @@ Public Class PASPFeeManagement
 
         Try
             Dim x As Integer = 0
-            Dim y As Integer = 0
             Dim ReasonID As String
             Dim Order As String
             Dim temp As String = ""
@@ -1388,11 +1386,7 @@ Public Class PASPFeeManagement
             Dim ContactLastName As String = ""
             Dim ContactPrefix As String = ""
             Dim ContactSuffix As String = ""
-            Dim ContactTitle As String = ""
             Dim ContactCompanyName As String = ""
-            Dim ContactPhone As String = ""
-            Dim ContactFax As String = ""
-            Dim ContactEmail As String = ""
             Dim ContactAddress As String = ""
             Dim ContactCity As String = ""
             Dim ContactState As String = ""
@@ -1446,30 +1440,10 @@ Public Class PASPFeeManagement
                         Else
                             ContactSuffix = dr2.Item("strContactSuffix")
                         End If
-                        If IsDBNull(dr2.Item("strContactTitle")) Then
-                            ContactTitle = ""
-                        Else
-                            ContactTitle = dr2.Item("strContactTitle")
-                        End If
                         If IsDBNull(dr2.Item("strContactCompanyName")) Then
                             ContactCompanyName = ""
                         Else
                             ContactCompanyName = dr2.Item("strContactCompanyName")
-                        End If
-                        If IsDBNull(dr2.Item("strContactPhoneNumber1")) Then
-                            ContactPhone = ""
-                        Else
-                            ContactPhone = dr2.Item("strContactPhoneNumber1")
-                        End If
-                        If IsDBNull(dr2.Item("strContactFaxNumber")) Then
-                            ContactFax = ""
-                        Else
-                            ContactFax = dr2.Item("strContactFaxNumber")
-                        End If
-                        If IsDBNull(dr2.Item("strcontactEmail")) Then
-                            ContactEmail = ""
-                        Else
-                            ContactEmail = dr2.Item("strContactEmail")
                         End If
                         If IsDBNull(dr2.Item("strContactAddress1")) Then
                             ContactAddress = ""

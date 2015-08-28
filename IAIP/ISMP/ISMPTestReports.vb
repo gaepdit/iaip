@@ -340,7 +340,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             Dim dtWitnessingEngineer2 As New DataTable
             Dim dtComplianceStatus As New DataTable
             Dim dtCCList As New DataTable
-            Dim dtUnits As New DataTable
             Dim dtISMPUnits As New DataTable
             Dim dtComplianceManager As New DataTable
             Dim dtReportType As New DataTable
@@ -19880,7 +19879,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             Dim tValue As Double
             Dim ConfidenceCoeff As Double
             Dim RelAccuracy As Double
-            Dim SigFig As Integer = 0
             Dim x As Integer = 0
 
             If txtRefMethodRata1.Text <> "" And IsNumeric(txtRefMethodRata1.Text) And chbOmitRunRata1.Checked = False Then

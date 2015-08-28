@@ -3481,7 +3481,6 @@ Public Class PASPFeeAuditLog
             Dim AuditEnd As String = ""
             Dim EndCollections As String = ""
             Dim CollectionsDate As String = ""
-            Dim x As Integer = 0
 
             If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) _
                 Or (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) _
@@ -4478,7 +4477,6 @@ Public Class PASPFeeAuditLog
     End Sub
     Private Sub btnVOIDInvoice_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnVOIDInvoice.Click
         Try
-            Dim TransactionID As String = ""
             Dim Payment As String = "0"
 
             If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
@@ -4490,7 +4488,7 @@ Public Class PASPFeeAuditLog
             End If
 
             SQL = "Select " & _
-            "TransactionID, numPayment " & _
+            "numPayment " & _
             "from AIRBRANCH.FS_Transactions " & _
             "where invoiceID = '" & txtInvoice.Text & "' " & _
             "and Active <> '0' "
@@ -4501,11 +4499,6 @@ Public Class PASPFeeAuditLog
             End If
             dr = cmd.ExecuteReader
             While dr.Read
-                If IsDBNull(dr.Item("TransactionID")) Then
-                    TransactionID = ""
-                Else
-                    TransactionID = dr.Item("TransactionID")
-                End If
                 If IsDBNull(dr.Item("numPayment")) Then
                     Payment = "0"
                 Else
@@ -4667,7 +4660,6 @@ Public Class PASPFeeAuditLog
             Dim AuditEnd As String = ""
             Dim EndCollections As String = ""
             Dim CollectionsDate As String = ""
-            Dim x As Integer = 0
 
             If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
                 MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " & _
@@ -5003,10 +4995,6 @@ Public Class PASPFeeAuditLog
     End Sub
     Private Sub btnSelectAuditToEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSelectAuditToEdit.Click
         Try
-            Dim dgvRow As New DataGridViewRow
-            Dim i As Integer = 0
-            Dim temp2 As String = ""
-            Dim AuditID As String = ""
             Dim AuditLevel As String = ""
             Dim NSPSExempt As String = ""
             Dim NSPSExemptions As String = ""
@@ -5256,11 +5244,8 @@ Public Class PASPFeeAuditLog
                         End If
                         Dim x As Integer = 0
                         While x < dgvEditExemptions.Rows.Count
-                            Dim y As Integer = 0
                             If dgvEditExemptions(1, x).Value = temp Then
                                 dgvEditExemptions(0, x).Value = True
-                            Else
-                                '   temp2 = dgvEditExemptions(1, x).Value
                             End If
                             x += 1
                         End While

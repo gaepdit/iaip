@@ -5643,7 +5643,7 @@ Public Class SSCPManagersTools
                 MessageBox.Show("Warning: This may take a VERY, VERY long time. The IAIP will be unresponsive until finished. " & _
                                 "Are you sure you want to proceed?", "Confirm Patience", _
                     MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
-            If DialogResult = DialogResult.Cancel Then
+            If confirmResult = DialogResult.Cancel Then
                 Exit Sub
             End If
 
@@ -6019,7 +6019,7 @@ Public Class SSCPManagersTools
             End If
         End With
 
-        Dim saved As Boolean = DAL.SaveEnforcementDocumentType(newEnfDocType, Me)
+        DAL.SaveEnforcementDocumentType(newEnfDocType, Me)
 
         ClearNewEnfDocTypesForm()
         LoadEnforcementDocumentTypes()

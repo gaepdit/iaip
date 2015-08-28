@@ -806,7 +806,6 @@ Public Class IAIPListTool
             Dim myStringIndex As String
             Dim temp As String = ""
             Dim temp2 As String = ""
-            Dim temp3 As String = ""
             Dim tempForm As String = ""
             Dim dgvRow As New DataGridViewRow
 
@@ -852,7 +851,6 @@ Public Class IAIPListTool
                             Dim c As DataGridViewCell = dgvAvailableForms.Rows(x).Cells(y)
                             If Not c.Value Is DBNull.Value Or Nothing Then
                                 If CType(c.Value, String) = temp2 Then
-                                    temp3 = x.ToString()
                                     dgvRow = New DataGridViewRow
                                     dgvRow.CreateCells(dgvSelectedForms)
                                     dgvRow.Cells(0).Value = dgvAvailableForms(0, x).Value

@@ -299,14 +299,12 @@ Public Class PASPFeeDeposits
     End Sub
     Private Sub dgvDeposit_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvDeposit.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvDeposit.HitTest(e.X, e.Y)
-        Dim temp As String
 
         Try
 
             If hti.Type = DataGrid.HitTestType.Cell Then
 
                 If dgvDeposit.RowCount > 0 And hti.RowIndex <> -1 Then
-                    temp = dgvDeposit.Columns(1).HeaderText
 
                     If dgvDeposit.Columns(0).HeaderText = "AIRS Number" Then
                         mtbAirsNo.Text = dgvDeposit(0, hti.RowIndex).Value

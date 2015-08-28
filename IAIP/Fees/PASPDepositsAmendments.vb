@@ -60,7 +60,6 @@ Public Class PASPDepositsAmendments
 #Region "Page Load Functions"
     Sub LoadComboBoxes()
         Try
-            Dim dtAIRS As New DataTable
             Dim dtPayType As New DataTable
             Dim drDSRow As DataRow
             Dim drNewRow As DataRow
@@ -1119,7 +1118,7 @@ Public Class PASPDepositsAmendments
                 CurrentConnection.Open()
             End If
 
-            Dim dr As OracleDataReader = cmd.ExecuteReader
+            cmd.ExecuteReader()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1583,14 +1582,12 @@ Public Class PASPDepositsAmendments
     End Sub
     Private Sub dgvDeposit_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvDeposit.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvDeposit.HitTest(e.X, e.Y)
-        Dim temp As String
 
         Try
 
             If hti.Type = DataGrid.HitTestType.Cell Then
 
                 If dgvDeposit.RowCount > 0 And hti.RowIndex <> -1 Then
-                    temp = dgvDeposit.Columns(1).HeaderText
 
                     If dgvDeposit.Columns(0).HeaderText = "AIRS Number" Then
                         mtbAirsNo.Text = dgvDeposit(0, hti.RowIndex).Value
@@ -2150,9 +2147,6 @@ Public Class PASPDepositsAmendments
                 drNewRow("strfacilityname") = drDSRow("strfacilityname")
                 dtAIRS.Rows.Add(drNewRow)
             Next
-            Dim temp As String
-
-            temp = dtAIRS.Rows.Count
 
             With cboAirsNo3
                 .DataSource = dtAIRS
@@ -2745,12 +2739,10 @@ Public Class PASPDepositsAmendments
     Private Sub dgvDeposits_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvDeposits.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvDeposits.HitTest(e.X, e.Y)
-            Dim temp As String
 
             If hti.Type = DataGrid.HitTestType.Cell Then
 
                 If dgvDeposits.RowCount > 0 And hti.RowIndex <> -1 Then
-                    temp = dgvDeposits.Columns(1).HeaderText
 
                     If dgvDeposits.Columns(0).HeaderText = "AIRS Number" Then
                         mtbAIRSNumber.Text = dgvDeposits(0, hti.RowIndex).Value
@@ -2850,11 +2842,9 @@ Public Class PASPDepositsAmendments
     Private Sub dgvInvoices_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvInvoices.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvInvoices.HitTest(e.X, e.Y)
-            Dim temp As String
 
             If hti.Type = DataGrid.HitTestType.Cell Then
                 If dgvInvoices.RowCount > 0 And hti.RowIndex <> -1 Then
-                    temp = dgvInvoices.Columns(1).HeaderText
 
                     If dgvInvoices.Columns(0).HeaderText = "AIRS Number" Then
                         mtbAIRSNumber.Text = dgvInvoices(0, hti.RowIndex).Value
@@ -2947,11 +2937,6 @@ Public Class PASPDepositsAmendments
     End Sub
     Private Sub btnAddNewCheckDeposit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNewCheckDeposit.Click
         Try
-            '  Dim InvoiceNumber As String = ""
-            Dim PayId As String = ""
-            Dim DepositNo As String = ""
-            Dim Submittal As String = ""
-
             ValidatingState = True
             ValidateData()
             If ValidatingState = False Then
@@ -3065,7 +3050,6 @@ Public Class PASPDepositsAmendments
 
     Private Sub btnUpdateExistingDeposit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateExistingDeposit.Click
         Try
-            Dim InvoiceNumber As String = ""
             If txtTransactionID.Text <> "" Then
                 ValidatingState = True
                 ValidateData()

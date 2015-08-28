@@ -896,7 +896,6 @@ Public Class SmokeSchool
             Dim city As String = cboCity.SelectedItem
             Dim startDate As String = dtpStartDate.Value.Month.ToString & "/" & dtpStartDate.Value.Day.ToString & "/" & dtpStartDate.Value.Year.ToString
             Dim endDate As String = dtpEndDate.Value.Month.ToString & "/" & dtpEndDate.Value.Day.ToString & "/" & dtpEndDate.Value.Year.ToString
-            Dim display As String = cboDisplay.SelectedItem
             Dim schedule As String
             Dim scheduleShort As String
             Dim checkDate As String = Now.Month.ToString & "/" & Now.Day.ToString & "/" & Now.Year.ToString
@@ -992,14 +991,7 @@ Public Class SmokeSchool
             Dim state As String = txtState1.Text.ToUpper
             Dim zip As String = txtZip1.Text
             Dim phone As String = txtPhoneAC1.Text & txtPhoneEXC1.Text & txtPhoneNBR1.Text & txtPhoneExt1.Text
-            Dim phoneac As String = txtPhoneAC1.Text
-            Dim phoneexc As String = txtPhoneEXC1.Text
-            Dim phonenbr As String = txtPhoneNBR1.Text
-            Dim extention As String = txtPhoneExt1.Text
             Dim fax As String = txtFaxAC1.Text & txtFaxEXC1.Text & txtFaxNBR1.Text
-            Dim faxac As String = txtFaxAC1.Text
-            Dim faxexc As String = txtFaxEXC1.Text
-            Dim faxnbr As String = txtFaxNBR1.Text
             Dim email As String = txtEmail1.Text
             Dim day1 As String = Format(Now.Date, "dd-MMM-yyyy")
             Dim hr As String = Now.Hour
@@ -1007,11 +999,9 @@ Public Class SmokeSchool
             Dim sec As String = Now.Second
             Dim time24 As String = hr & ":" & min & ":" & sec
             Dim TransactionDate As String = day1
-            Dim RequestDate As String
             Dim LocationTerm As String = cboSchedule1.SelectedItem
             Dim ConfirmNbr As String = txtConfirmation.Text
             Dim lecture As String = cboLecture.SelectedItem
-            Dim schedule As String = txtSchedule1.Text
             Dim msgResult As Integer = 0
             Dim messageOut As String = ""
 
@@ -1054,7 +1044,6 @@ Public Class SmokeSchool
 
                 If txtConfirmation.Text = "" Then
                     'Create confirmation number
-                    RequestDate = Format(Now.Date, "dd-MMM-yyyy")
                     ConfirmNbr = "1111" & Now.Date.ToString("yyyy MM dd").Replace(" ", "")
                     ConfirmNbr = ConfirmNbr & time24.Replace(":", "")
                 End If
@@ -1308,8 +1297,6 @@ Public Class SmokeSchool
             Dim lName As String = txtLastName1.Text
             Dim fName As String = txtFirstName1.Text
 
-            Dim x As String
-            x = cboSchedule1.SelectedItem
             If cboSchedule1.SelectedIndex = 0 Or cboSchedule1.SelectedIndex = 1 Then
                 MsgBox("You must select a Location/Term")
             Else
@@ -1370,7 +1357,6 @@ Public Class SmokeSchool
             Dim scoreKey As String = ""
             Dim locationDate As String = ""
             Dim email As String = ""
-            Dim QuizScore As String = ""
             Dim Comment As String = "NA"
             Dim Run1 As String = "No Test"
             Dim Run2 As String = "No Test"
@@ -1383,10 +1369,6 @@ Public Class SmokeSchool
             Dim Run9 As String = "No Test"
             Dim Run10 As String = "No Test"
             Dim day1 As String = Format(CDate(Now.Date), "dd-MMM-yyyy")
-            Dim hr As String = Now.Hour
-            Dim min As String = Now.Minute
-            Dim sec As String = Now.Second
-            Dim time24 As String = hr & ":" & min & ":" & sec
             Dim TransactionDate As String = day1
             Dim colon As Integer = 0
 
@@ -1535,7 +1517,6 @@ Public Class SmokeSchool
             Dim CompanyName As String = txtCompanyName1.Text
             Dim locationDate As String = cboSchedule1.SelectedItem
             Dim scoreKey As String = locationDate & " - " & name
-            Dim email As String = txtEmail1.Text
             Dim Comment As String = "NA"
             Dim Run1 As String = "No Test"
             Dim Run2 As String = "No Test"
@@ -1548,10 +1529,6 @@ Public Class SmokeSchool
             Dim Run9 As String = "No Test"
             Dim Run10 As String = "No Test"
             Dim day1 As String = Format(CDate(Now.Date), "dd-MMM-yyyy")
-            Dim hr As String = Now.Hour
-            Dim min As String = Now.Minute
-            Dim sec As String = Now.Second
-            Dim time24 As String = hr & ":" & min & ":" & sec
             Dim TransactionDate As String = day1
             Dim colon As Integer = 0
 
@@ -1755,13 +1732,10 @@ Public Class SmokeSchool
     End Sub
     Private Sub saveScores()
         Try
-            Dim StudentID As String = ""
             Dim name As String = txtStudentName3.Text
             Dim fname As String = txtFirstName3.Text
             Dim lname As String = txtLastName3.Text
-            Dim email As String = ""
             Dim CompanyName As String = ""
-            Dim ScoreKey As String = ""
             Dim LocationTerm As String = ""
             Dim PassFailNoShow As String = ""
             Dim QuizScore As String = ""
@@ -1780,10 +1754,6 @@ Public Class SmokeSchool
             Dim datePassed As String = ""
             Dim space1 As Integer = 0
             Dim day1 As String = Format(CDate(Now.Date), "dd-MMM-yyyy")
-            Dim hr As String = Now.Hour
-            Dim min As String = Now.Minute
-            Dim sec As String = Now.Second
-            Dim time24 As String = hr & ":" & min & ":" & sec
             Dim TransactionDate As String = day1
             Dim colon As Integer = 0
 
@@ -1909,8 +1879,6 @@ Public Class SmokeSchool
                     LocationTerm = cboSchedule3.SelectedItem
                     colon = InStr(LocationTerm, ":")
                     LocationTerm = Mid(LocationTerm, 1, colon - 1)
-                    StudentID = txtStudentID3.Text
-                    ScoreKey = LocationTerm & " - " & name
 
                     PassFailNoShow = cboPassFail.SelectedItem
                     QuizScore = txtQuizGrade.Text
@@ -2042,8 +2010,6 @@ Public Class SmokeSchool
     Private Sub deleteScores()
         Try
             Dim name As String = txtStudentName3.Text
-            Dim LocationTerm As String = cboSchedule3.SelectedItem
-            Dim colon As Integer = 0
             Dim i As Integer = 0
 
             If txtScoreKey.Text <> "" Then
@@ -2528,7 +2494,6 @@ Public Class SmokeSchool
             Dim name As String = txtStudentName3.Text
             Dim FacilityName As String = ""
             Dim LocationTerm As String = ""
-            Dim LocationTermOriginal As String = ""
             Dim PassFailNoShow As String = ""
             Dim VisualRestrictions As String = ""
             Dim datePassed As String = ""
@@ -2548,7 +2513,6 @@ Public Class SmokeSchool
 
 
             LocationTerm = cboSchedule3.SelectedItem
-            LocationTermOriginal = cboSchedule3.SelectedItem
             colon = InStr(LocationTerm, ":")
             LocationTerm = Mid(LocationTerm, 1, colon - 1)
 
@@ -2721,7 +2685,6 @@ Public Class SmokeSchool
             Dim name As String = txtStudentName3.Text
             Dim FacilityName As String = ""
             Dim LocationTerm As String = ""
-            Dim LocationTermOriginal As String = ""
             Dim PassFailNoShow As String = ""
             Dim VisualRestrictions As String = ""
             Dim datePassed As String = ""
@@ -2738,10 +2701,8 @@ Public Class SmokeSchool
             Dim schedule As String = ""
             Dim dash As Integer = 0
             Dim colon As Integer = 0
-            Dim cnt As Integer = 0
 
             LocationTerm = cboSchedule3.SelectedItem
-            LocationTermOriginal = cboSchedule3.SelectedItem
             colon = InStr(LocationTerm, ":")
             LocationTerm = Mid(LocationTerm, 1, colon - 1)
 

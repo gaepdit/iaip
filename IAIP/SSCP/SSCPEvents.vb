@@ -1663,7 +1663,6 @@ Public Class SSCPEvents
     End Sub
     Sub SaveDate()
         Dim CompleteDate As String
-        Dim ReceivedDate As String
         Dim Staff As String = ""
         Dim AcknoledgmentLetter As String
         Dim UpdateCode As String
@@ -1798,7 +1797,6 @@ Public Class SSCPEvents
                 End If
 
                 If TPACC.Focus = True Then
-                    ReceivedDate = DTPACCReceivedDate.Text
                     SQL = "Select strTrackingNumber " & _
                     "from AIRBRANCH.SSCPItemMaster " & _
                     "where strTrackingnumber = '" & CStr(CInt(txtTrackingNumber.Text + 1)) & "' " & _

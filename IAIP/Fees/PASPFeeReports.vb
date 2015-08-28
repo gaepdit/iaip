@@ -121,9 +121,6 @@ Public Class PASPFeeReports
                 drNewRow("strfacilityname") = drDSRow("strfacilityname")
                 dtAIRS.Rows.Add(drNewRow)
             Next
-            Dim temp As String
-
-            temp = dtAIRS.Rows.Count
 
             With cboAirsNo
                 .DataSource = dtAIRS

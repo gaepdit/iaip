@@ -1490,9 +1490,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
     Sub UpdateLetter()
         Try
             Dim FileName As String = ""
-            Dim path As New SaveFileDialog
             Dim DestFilePath As String = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "temp.rtf")
-            Dim OutPutFile As String = ""
             Dim ReviewingManager As String = ""
             Dim ReviewedDate As String = ""
             Dim PublishingStaff As String = ""
@@ -1572,7 +1570,6 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     fs.Close()
 
                     Dim da As OracleDataAdapter
-                    Dim cmdCB As OracleCommandBuilder
                     Dim ds As DataSet
 
                     SQL = "Select * " & _
@@ -1583,7 +1580,6 @@ Public Class SSPPPublicNoticiesAndAdvisories
                         CurrentConnection.Open()
                     End If
                     da = New OracleDataAdapter(SQL, CurrentConnection)
-                    cmdCB = New OracleCommandBuilder(da)
                     ds = New DataSet("IAIPData")
                     da.MissingSchemaAction = MissingSchemaAction.AddWithKey
 
@@ -2013,9 +2009,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
     Private Sub btnSavePAPNChanges_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSavePAPNChanges.Click
         Try
             Dim FileName As String = ""
-            Dim path As New SaveFileDialog
             Dim DestFilePath As String = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "temp.rtf")
-            Dim OutPutFile As String = ""
             Dim ReviewingManager As String = ""
             Dim ReviewedDate As String = ""
             Dim PublishingStaff As String = ""
@@ -2094,7 +2088,6 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     fs.Close()
 
                     Dim da As OracleDataAdapter
-                    Dim cmdCB As OracleCommandBuilder
                     Dim ds As DataSet
 
                     SQL = "Select * " & _
@@ -2105,7 +2098,6 @@ Public Class SSPPPublicNoticiesAndAdvisories
                         CurrentConnection.Open()
                     End If
                     da = New OracleDataAdapter(SQL, CurrentConnection)
-                    cmdCB = New OracleCommandBuilder(da)
                     ds = New DataSet("IAIPData")
                     da.MissingSchemaAction = MissingSchemaAction.AddWithKey
 

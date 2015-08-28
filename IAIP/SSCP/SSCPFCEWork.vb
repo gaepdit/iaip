@@ -2081,7 +2081,6 @@ Public Class SSCPFCEWork
     Sub LoadSSCPFCEReport()
         Dim Commissioner As String = ""
         Dim Director As String = ""
-        Dim ProgramManager As String = ""
         Dim FiscalYear As String = ""
         Dim AIRSNumber As String = ""
         Dim FacilityName As String = ""
@@ -2107,7 +2106,6 @@ Public Class SSCPFCEWork
 
         Dim rpt As New CRFCE3
         monitor.TrackFeature("Report." & rpt.ResourceName)
-        Dim temp As String = ""
 
         If DTPFCECompleteDate.Text <> "" Then
             FiveYearDate = Format(DTPFCECompleteDate.Value.AddDays(-1825), "dd-MMM-yyyy")
@@ -2176,11 +2174,6 @@ Public Class SSCPFCEWork
                     Director = "N/A"
                 Else
                     Director = dr.Item("strDirector")
-                End If
-                If IsDBNull(dr.Item("STRSSCPPROGRAMMANG")) Then
-                    ProgramManager = "N/A"
-                Else
-                    ProgramManager = dr.Item("STRSSCPPROGRAMMANG")
                 End If
                 If IsDBNull(dr.Item("strAIRSNumber")) Then
                     AIRSNumber = "N/A"

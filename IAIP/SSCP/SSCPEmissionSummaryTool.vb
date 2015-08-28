@@ -172,7 +172,6 @@ Public Class SSCPEmissionSummaryTool
         Dim extraOptincount As Integer
         Dim extraOptOutCount As Integer
         Dim TotalResponsecount As Integer
-        Dim year As Integer = CInt(cboYear.SelectedItem)
         txtESYear.Text = cboYear.SelectedItem
         Dim ESYear As String = txtESYear.Text
         Dim intESyear As Integer = CInt(ESYear)

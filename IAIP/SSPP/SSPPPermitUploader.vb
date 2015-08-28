@@ -585,7 +585,6 @@ Public Class SSPPPermitUploader
             If Flag <> "00" Then
                 Dim rowCount As String = ""
                 Dim da As OracleDataAdapter
-                Dim cmdCB As OracleCommandBuilder
                 Dim ds As DataSet
 
                 If Flag <> "00" Then
@@ -666,7 +665,6 @@ Public Class SSPPPermitUploader
                         CurrentConnection.Open()
                     End If
                     da = New OracleDataAdapter(SQL, CurrentConnection)
-                    cmdCB = New OracleCommandBuilder(da)
                     ds = New DataSet("PDF")
                     da.MissingSchemaAction = MissingSchemaAction.AddWithKey
 

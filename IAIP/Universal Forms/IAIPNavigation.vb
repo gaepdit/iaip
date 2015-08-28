@@ -1183,10 +1183,8 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub CreateNavButtons()
-        Dim margin As Integer = 7
         Dim buttonHeight As Integer = 38
         Dim buttonWidth As Integer = 90
-        Dim currentYPosition As Integer = margin
 
         For Each newCategory As NavButtonCategory In AllTheNavButtonCategories
             If AllTheNavButtons.ContainsKey(newCategory.Category) Then

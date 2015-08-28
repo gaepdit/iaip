@@ -544,9 +544,6 @@ Public Class DMUEisGecoTool
                 drNewRow("struseremail") = drDSRow("struseremail")
                 dtAIRS.Rows.Add(drNewRow)
             Next
-            Dim temp As String
-
-            temp = dtAIRS.Rows.Count
 
             With cboUserEmail
                 .DataSource = dtAIRS
@@ -1589,8 +1586,6 @@ Public Class DMUEisGecoTool
             Dim col, row As Integer
             Dim x As String
             Dim y As String
-            Dim a As Integer
-            Dim b As Integer
             Dim c As Integer
             Dim d As Integer
             Dim startRow As Integer = 1
@@ -1651,9 +1646,6 @@ Public Class DMUEisGecoTool
                     ExcelApp.Cells(startRow, col + 1).value = y
                 Next
 
-                a = dgvEU.ColumnCount - 1
-                b = dgvEU.RowCount - 1
-
                 'For col = 0 To dgvEU.RowCount - 1
                 '    For row = 0 To dgvEU.ColumnCount - 1
                 startRow = startRow + 1
@@ -1694,9 +1686,6 @@ Public Class DMUEisGecoTool
                     y = dgvER.Columns(col).HeaderText.ToString
                     ExcelApp.Cells(startRow, col + 1).value = y
                 Next
-
-                a = dgvER.ColumnCount - 1
-                b = dgvER.RowCount - 1
 
                 startRow = startRow + 1
                 d = dgvER.RowCount - 2
@@ -1740,9 +1729,6 @@ Public Class DMUEisGecoTool
                     ExcelApp.Cells(startRow, col + 1).value = y
                 Next
 
-                a = dgvEP.ColumnCount - 1
-                b = dgvEP.RowCount - 1
-
                 startRow = startRow + 1
                 d = dgvEP.RowCount - 2
                 For row = 0 To d
@@ -1783,9 +1769,6 @@ Public Class DMUEisGecoTool
                     y = dgvEM.Columns(col).HeaderText.ToString
                     ExcelApp.Cells(startRow, col + 1).value = y
                 Next
-
-                a = dgvEM.ColumnCount - 1
-                b = dgvEM.RowCount - 1
 
                 startRow = startRow + 1
                 d = dgvEM.RowCount - 2
@@ -3663,7 +3646,6 @@ Public Class DMUEisGecoTool
         Dim FACILITYNAME As String = " "
         Dim CONTACTCOMPANYNAME As String = " "
         Dim CONTACTADDRESS1 As String = " "
-        Dim CONTACTADDRESS2 As String = " "
         Dim CONTACTCITY As String = " "
         Dim CONTACTSTATE As String = " "
         Dim CONTACTZIPCODE As String = " "
@@ -4206,10 +4188,8 @@ Public Class DMUEisGecoTool
         Dim mailoutNonresponderscount As Integer
         Dim extraNonresponderscount As Integer
 
-        Dim year As Integer = CInt(cboEIYear2.SelectedItem)
         txtEIYear.Text = cboEIYear2.SelectedItem
         Dim EIYear As String = txtEIYear.Text
-        Dim deadline As String = "30-Sep-2007"
         Try
             Try
 
@@ -4503,7 +4483,7 @@ Public Class DMUEisGecoTool
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-           
+
         End Try
     End Sub
     Private Sub findEIMailOut()
@@ -5423,7 +5403,6 @@ Public Class DMUEisGecoTool
         Dim FACILITYNAME As String = " "
         Dim CONTACTCOMPANYNAME As String = " "
         Dim CONTACTADDRESS1 As String = " "
-        Dim CONTACTADDRESS2 As String = " "
         Dim CONTACTCITY As String = " "
         Dim CONTACTSTATE As String = " "
         Dim CONTACTZIPCODE As String = " "
@@ -6675,7 +6654,6 @@ Public Class DMUEisGecoTool
     Private Sub btncheckEnrollment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btncheckEnrollment.Click
         Dim AirsNo As String = "0413" & txtEIairsNumber.Text
         Dim EIYear As Integer = txtaddEIYear.Text
-        Dim airsYear As String = AirsNo & EIYear
 
         Try
             SQL = "Select * " & _
@@ -6955,7 +6933,6 @@ Public Class DMUEisGecoTool
     Private Sub btnCheckESstatus_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCheckESstatus.Click
         Dim AirsNo As String = "0413" & txtESairNumber.Text
         Dim ESYear As Integer = txtESYearforFacility.Text
-        Dim airsYear As String = AirsNo & ESYear
 
         Try
             SQL = "Select strAIRSYear as RowCount " &
@@ -7382,7 +7359,6 @@ Public Class DMUEisGecoTool
     End Sub
     Private Sub btnAddNewEIType_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNewEIType.Click
         Dim EItype2 As String = txtNewEIType.Text
-        Dim EItypeYear As String = lblEITypeYear.Text
         Dim temp As String
 
         Try
@@ -7565,7 +7541,6 @@ Public Class DMUEisGecoTool
         Dim facilitySiteID As String = txtaddEISAirsno.Text
         Dim airsno As String = "0413" & facilitySiteID
         Dim facilityName As String
-        Dim facilityLocation As String
         Dim facilityLocationCity As String
         Dim facilityLocastionZipcode As String
         Dim faciltyMailingAddress As String
@@ -7613,7 +7588,6 @@ Public Class DMUEisGecoTool
                 facilityMailingCity = dr("STRFACILITYCITY")
                 facilityMailingState = dr("STRFACILITYSTATE")
                 faciityMailingZipcode = dr("STRFACILITYZIPCODE")
-                facilityLocation = dr("STRFACILITYSTREET1")
                 facilityLongitude = dr("NUMFACILITYLONGITUDE")
                 facilityLatitude = dr("NUMFACILITYLATITUDE")
                 HorizontalCollectionCode = dr("STRHORIZONTALCOLLECTIONCODE")
@@ -8131,8 +8105,6 @@ Public Class DMUEisGecoTool
                 DrNewRow("STRDESC") = drDSRow("STRDESC")
                 dtCode.Rows.Add(DrNewRow)
             Next
-            Dim temp As String
-            temp = dtCode.Rows.Count
 
             With cboEILogStatusCode
                 .DataSource = dtCode
@@ -8202,7 +8174,6 @@ Public Class DMUEisGecoTool
     Sub EISMailoutenrollment()
         Dim facilitySiteID As String
         Dim EISYear As Integer = CInt(cboEISMailoutEnrollmentYear.SelectedItem)
-        Dim UpdateUser As String = UserGCode
         Dim active As String
         Dim enrollment As String
         Dim EISAccessCode As String
@@ -8388,11 +8359,9 @@ Public Class DMUEisGecoTool
     Sub GenerateEISMailOutList()
         Dim FacilitySiteID As String
         Dim airsNumber As String '= "0413" & FacilitySiteID
-        Dim airsYear As String
         Dim FACILITYNAME As String = " "
         Dim CONTACTCOMPANYNAME As String = " "
         Dim CONTACTADDRESS1 As String = " "
-        Dim CONTACTADDRESS2 As String = " "
         Dim CONTACTCITY As String = " "
         Dim CONTACTSTATE As String = " "
         Dim CONTACTZIPCODE As String = " "
@@ -8451,7 +8420,6 @@ Public Class DMUEisGecoTool
                         While dr.Read
                             airsNumber = dr("strAirsNumber")
                             FacilitySiteID = Mid(airsNumber, 5, 8)
-                            airsYear = airsNumber & EISYear
                             EISYear = cboEISMailoutEnrollmentYear.SelectedItem
                             If IsDBNull(dr("STRFACILITYNAME")) Then
                                 FACILITYNAME = " "
@@ -8944,7 +8912,6 @@ Public Class DMUEisGecoTool
 
     Private Sub btnaddNewEISType_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnaddNewEISType.Click
         Dim EIStype2 As String = txtNewEISType.Text
-        Dim EIStypeYear As String = "2010"
         Dim temp As String
 
         Try
@@ -10639,7 +10606,6 @@ Public Class DMUEisGecoTool
 
     Sub ViewEISStats()
         Try
-            Dim CurrentTabPage As TabPage = TCEISStats.SelectedTab
 
             txtSelectedEISStatYear.Text = cboEISStatisticsYear.Text
 
@@ -12313,12 +12279,6 @@ Public Class DMUEisGecoTool
 
     Private Sub btnEILogAddNewFacility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEILogAddNewFacility.Click
         Try
-            Dim EISAccess As String = " "
-            Dim OptOut As String = ""
-            Dim EISStatus As String = ""
-            Dim Enrollment As String = ""
-            Dim Mailout As String = ""
-            Dim ActiveStatus As String = ""
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()

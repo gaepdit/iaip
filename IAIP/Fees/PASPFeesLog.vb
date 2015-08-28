@@ -255,10 +255,8 @@ Public Class PASPFeesLog
     End Sub
     Private Sub dgvExistingYearAdmin_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvExistingYearAdmin.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvExistingYearAdmin.HitTest(e.X, e.Y)
-        Dim WorkType As String = ""
 
         Try
-
 
             If dgvExistingYearAdmin.RowCount > 0 And hti.RowIndex <> -1 Then
                 mtbSelectedAIRSNumber.Text = dgvExistingYearAdmin(0, hti.RowIndex).Value

@@ -784,7 +784,6 @@ Public Class SSCPComplianceLog
                     If rdbPerformanceTest.Checked = True Then
                         If txtTrackingNumber.Text <> "" Then
                             Dim RefNum As String = ""
-                            Dim DocType As String = ""
 
                             SQL = "Select " & _
                             "AIRBRANCH.ISMPReportInformation.strReferenceNumber, " & _
@@ -802,10 +801,8 @@ Public Class SSCPComplianceLog
                             recExist = dr.Read
                             If recExist = True Then
                                 RefNum = dr.Item("strReferenceNumber")
-                                DocType = dr.Item("strDocumentType")
                             Else
                                 RefNum = ""
-                                DocType = ""
                             End If
                             dr.Close()
                             If RefNum <> "" Then
@@ -1610,10 +1607,8 @@ Public Class SSCPComplianceLog
     End Sub
     Private Sub dgvWork_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvWork.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvWork.HitTest(e.X, e.Y)
-        Dim WorkType As String = ""
 
         Try
-
 
             If dgvWork.RowCount > 0 And hti.RowIndex <> -1 Then
                 txtAIRSNumber.Text = dgvWork(0, hti.RowIndex).Value

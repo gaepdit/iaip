@@ -127,7 +127,6 @@ Public Class SBEAPClientSummary
             Dim SIC As String = ""
             Dim SICDesc As String = ""
             Dim NAICS As String = ""
-            Dim NAICSDesc As String = ""
             Dim Employees As String = ""
             Dim AIRSNumber As String = ""
             Dim AirProgramCode As String = ""
@@ -616,8 +615,6 @@ Public Class SBEAPClientSummary
             Dim City As String = ""
             Dim State As String = ""
             Dim ZipCode As String = ""
-            Dim Creator As String = ""
-            Dim DateCreated As String = ""
             Dim MainContact As String = ""
 
             If txtFirstName.Text <> "" Then
@@ -827,11 +824,8 @@ Public Class SBEAPClientSummary
             Dim City As String = ""
             Dim State As String = ""
             Dim ZipCode As String = ""
-            Dim Creator As String = ""
-            Dim DateCreated As String = ""
             Dim MainContact As String = ""
             Dim ContactNotes As String = ""
-
 
             If txtFirstName.Text <> "" Then
                 Firstname = txtFirstName.Text
@@ -1018,8 +1012,6 @@ Public Class SBEAPClientSummary
             Dim City As String = ""
             Dim State As String = ""
             Dim ZipCode As String = ""
-            Dim Creator As String = ""
-            Dim DateCreated As String = ""
             Dim MainContact As String = ""
             Dim ContactNotes As String = ""
 
@@ -1393,7 +1385,6 @@ Public Class SBEAPClientSummary
             Dim ClientState As String = ""
             Dim ClientZipCode As String = ""
             Dim ClientCounty As String = ""
-            Dim ClientDistrict As String = ""
             Dim ClientLatitude As String = ""
             Dim ClientLongitude As String = ""
             Dim MailingAddress As String = ""
@@ -1402,7 +1393,6 @@ Public Class SBEAPClientSummary
             Dim MailingState As String = ""
             Dim MailingZipCode As String = ""
             Dim ClientCreator As String = ""
-            Dim CreationDate As String = ""
 
             Dim ClientDescription As String = ""
             Dim WebSite As String = ""
@@ -2331,7 +2321,6 @@ Public Class SBEAPClientSummary
     Private Sub mmiDeleteClient_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiDeleteClient.Click
         Try
             Dim Result As DialogResult
-            Dim ClientID As String = ""
             Dim ContactID As String = ""
             Dim CaseID As String = ""
             Dim ActionID As String = ""
@@ -2548,11 +2537,6 @@ Public Class SBEAPClientSummary
                             End If
                             dr = cmd.ExecuteReader
                             While dr.Read
-                                If IsDBNull(dr.Item("ClientID")) Then
-                                    ClientID = "Done"
-                                Else
-                                    ClientID = dr.Item("ClientID")
-                                End If
                                 If IsDBNull(dr.Item("ClientContactID")) Then
                                     ContactID = "Done"
                                 Else

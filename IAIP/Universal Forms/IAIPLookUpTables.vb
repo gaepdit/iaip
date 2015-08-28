@@ -445,7 +445,6 @@ Public Class IAIPLookUpTables
     Private Sub dgvLookUpManagement_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvLookUpManagement.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvLookUpManagement.HitTest(e.X, e.Y)
-            Dim temp As String = ""
 
             If dgvLookUpManagement.RowCount > 0 And hti.RowIndex <> -1 Then
                 If dgvLookUpManagement.Columns(0).HeaderText = "ID" Then
