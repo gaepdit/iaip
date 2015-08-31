@@ -12757,7 +12757,8 @@ Public Class DMUEisGecoTool
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "0", _
           " and EISStatusCode >= 3 ", "", _
           " and datQAComplete is null and (strFIError = 'False' or strFIError is null) and " & _
-          "(strPointError = 'False' or strPointError is null) ")
+          "(strPointError = 'False' or strPointError is null) " & _
+          "and QAStatusCode is not null")
 
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "QA Submitted, Started Count"
