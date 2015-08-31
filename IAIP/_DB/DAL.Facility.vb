@@ -13,7 +13,7 @@ Namespace DAL
         ''' </summary>
         ''' <param name="airsNumber">The AIRS number to test.</param>
         ''' <returns>True if the AIRS number exists; otherwise false.</returns>
-        ''' <remarks>Does not make any judgments about state of facility otherwise.</remarks>
+        ''' <remarks>Looks for value in APBMASTERAIRS table. Does not make any judgments about state of facility otherwise.</remarks>
         Public Function AirsNumberExists(ByVal airsNumber As ApbFacilityId) As Boolean
             Dim spName As String = "AIRBRANCH.IAIP_FACILITY.DoesAirsNumberExist"
             Dim parameter As New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
@@ -62,6 +62,12 @@ Namespace DAL
             End If
         End Function
 
+        ''' <summary>
+        ''' Returns basic info for a specified facility as a DataRow object
+        ''' </summary>
+        ''' <param name="airsNumber">The AIRS number of the specified facility</param>
+        ''' <returns>DataRow containing basic info for the specified facility</returns>
+        ''' <remarks>Data retrieved from VW_FACILITY_BASICINFO view.</remarks>
         Private Function GetFacilityAsDataRow(ByVal airsNumber As ApbFacilityId) As DataRow
             Dim spName As String = "AIRBRANCH.IAIP_FACILITY.GetFacilityBasicInfo"
             Dim parameter As New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
@@ -105,6 +111,7 @@ Namespace DAL
         ''' </summary>
         ''' <param name="airsNumber">The AIRS number to check</param>
         ''' <returns>True if facility has been approved; otherwise, false</returns>
+        ''' <remarks>Looks at STRUPDATESTATUS in AFSFACILITYDATA table.</remarks>
         Public Function FacilityHasBeenApproved(ByVal airsNumber As Apb.ApbFacilityId) As Boolean
             Dim spName As String = "AIRBRANCH.IAIP_FACILITY.HasFacilityBeenApproved"
             Dim parameter As New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
@@ -116,12 +123,19 @@ Namespace DAL
         ''' </summary>
         ''' <param name="airsNumber">The AIRS number of the facility to query</param>
         ''' <returns>A Dictionary with string keys and date values.</returns>
+        ''' <remarks>Data retrieved from VW_FACILITY_DATADATES view.</remarks>
         Public Function GetDataExchangeDates(ByVal airsNumber As ApbFacilityId) As DataRow
             Dim spName As String = "AIRBRANCH.IAIP_FACILITY.GetDataDates"
             Dim parameter As New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
             Return DB.SPGetDataRow(spName, parameter)
         End Function
 
+        ''' <summary>
+        ''' Returns list of Pollutant Compliance Statuses that apply to a given facility.
+        ''' </summary>
+        ''' <param name="airsNumber">The AIRS number of the facility to query</param>
+        ''' <returns>A List of distinct PollutantComplianceStatus values applicable to the facility.</returns>
+        ''' <remarks>Data retrieved from APBAIRPROGRAMPOLLUTANTS table.</remarks>
         Public Function GetComplianceStatusList(ByVal airsNumber As ApbFacilityId) As List(Of PollutantComplianceStatus)
             Dim spName As String = "AIRBRANCH.IAIP_FACILITY.GetComplianceStatusList"
             Dim parameter As New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
@@ -173,7 +187,7 @@ Namespace DAL
         ''' <param name="airsNumber">The AIRS number to delete</param>
         ''' <returns>True if successful; otherwise false</returns>
         Public Function DeleteFacility(ByVal airsNumber As ApbFacilityId) As Boolean
-            Dim spName As String = "AIRBRANCH.IAIP_FACILITY.ShutDownFacility"
+            Dim spName As String = "AIRBRANCH.IAIP_FACILITY.DeleteFacility"
             Dim parameter As OracleParameter = New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
             Return DB.SPRunCommand(spName, parameter)
         End Function

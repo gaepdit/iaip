@@ -65,7 +65,7 @@ Namespace DAL
         ''' </summary>
         ''' <param name="airsNumber">The AIRS number of the specified facility</param>
         ''' <returns>DataRow containing header data for the specified facility</returns>
-        ''' <remarks></remarks>
+        ''' <remarks>Data retrieved from VW_FACILITY_HEADERDATA view.</remarks>
         Public Function GetFacilityHeaderDataAsDataRow(ByVal airsNumber As ApbFacilityId) As DataRow
             Dim spName As String = "AIRBRANCH.IAIP_FACILITY.GetFacilityHeaderData"
             Dim parameter As New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
@@ -118,7 +118,7 @@ Namespace DAL
         ''' </summary>
         ''' <param name="airsNumber">The AIRS number of the specified facility</param>
         ''' <returns>A DataTable of historical header data for the specified facility</returns>
-        ''' <remarks></remarks>
+        ''' <remarks>Data retrieved from VW_HB_APBHEADERDATA view.</remarks>
         Public Function GetFacilityHeaderDataHistoryAsDataTable(ByVal airsNumber As ApbFacilityId) As DataTable
             Dim spName As String = "AIRBRANCH.IAIP_FACILITY.GetFacilityHeaderDataHistory"
             Dim parameter As New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
