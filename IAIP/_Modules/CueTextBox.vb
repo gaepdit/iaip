@@ -18,7 +18,10 @@ Friend Class CueTextBox
 
     Private _cue As String
 
-    Public WriteOnly Property Cue() As String
+    Public Property Cue() As String
+        Get
+            Return _cue
+        End Get
         Set(ByVal value As String)
             _cue = value
             UpdateCue()
