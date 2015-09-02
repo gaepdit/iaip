@@ -43,5 +43,37 @@ Namespace DB
             Return File.ReadAllBytes(pathToFile)
         End Function
 
+        Public Function DumbConvertToBoolean(value As String, conversionType As DumbConvertBooleanType) As Boolean
+            Select Case conversionType
+                Case DumbConvertBooleanType.TrueOrDBNull
+                    If value Is Nothing OrElse IsDBNull(value) OrElse value.ToString = "null" Then
+                        Return False
+                    Else
+                        Return Boolean.Parse(value) ' Will throw an exception if value is not equal to Boolean.TrueString
+                    End If
+            End Select
+
+            ' Fallback
+            Return Boolean.Parse(value)
+        End Function
+
+        Public Function DumbConvertFromBoolean(value As Boolean, conversionType As DumbConvertBooleanType) As String
+            Select Case conversionType
+                Case DumbConvertBooleanType.TrueOrDBNull
+                    If value Then
+                        Return Boolean.TrueString
+                    Else
+                        Return Nothing
+                    End If
+            End Select
+
+            ' Fallback
+            Return value.ToString
+        End Function
+
+        Public Enum DumbConvertBooleanType
+            TrueOrDBNull
+        End Enum
+
     End Module
 End Namespace

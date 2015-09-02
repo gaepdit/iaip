@@ -25,7 +25,7 @@
             Me.SignedByResponsibleOfficial = acc.SignedByResponsibleOfficial
             Me.StaffResponsible = acc.StaffResponsible
             Me.SubmittalNumber = acc.SubmittalNumber
-            Me.TrackingNumber = acc.TrackingNumber
+            Me.SscpTrackingNumber = acc.SscpTrackingNumber
             Me.UnreportedDeviationsReported = acc.UnreportedDeviationsReported
         End Sub
 

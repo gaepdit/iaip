@@ -66,20 +66,6 @@ Namespace DAL.Sscp
             Return result
         End Function
 
-        ''' <summary>
-        ''' Retrieves the facility ID associated with an FCE
-        ''' </summary>
-        ''' <param name="id">The FCE tracking number.</param>
-        ''' <returns>A facility ID</returns>
-        Public Function GetFacilityIdByFceId(fceNumber As String) As Apb.ApbFacilityId
-            If fceNumber = "" OrElse Not Integer.TryParse(fceNumber, Nothing) Then Return Nothing
-
-            Dim query As String = "SELECT STRAIRSNUMBER FROM SSCPFCEMASTER WHERE STRFCENUMBER = :fceNumber"
-            Dim parameter As New OracleParameter("fceNumber", fceNumber)
-
-            Return New Apb.ApbFacilityId(DB.GetSingleValue(Of String)(query, parameter))
-        End Function
-
     End Module
 
 End Namespace

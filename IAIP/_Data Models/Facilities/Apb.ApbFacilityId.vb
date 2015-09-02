@@ -80,7 +80,7 @@
         End Function
 
         Public Overrides Function Equals(ByVal obj As Object) As Boolean
-            If obj Is Nothing Then Return MyBase.Equals(obj)
+            If obj Is Nothing Then Return False
             If TypeOf obj Is ApbFacilityId Then Return Equals(DirectCast(obj, ApbFacilityId))
             Return False
         End Function
@@ -97,7 +97,7 @@
         ''' Determines whether a string is in the format of a valid AIRS number.
         ''' </summary>
         ''' <param name="airsNumber">The string to test</param>
-        ''' <returns>True if airsNumber is valid; otherwise, false.</returns>
+        ''' <returns>True if airsNumber is valid; otherwise, False.</returns>
         ''' <remarks>Valid AIRS numbers are in the form 000-00000 or 04-13-000-0000 (with or without the dashes)</remarks>
         <DebuggerStepThrough()> _
         Public Shared Function IsValidAirsNumberFormat(ByVal airsNumber As String) As Boolean
@@ -142,13 +142,11 @@
         End Sub
 
         Public Sub New(ByVal auxMessage As String)
-            MyBase.New(String.Format("{0} - {1}", _
-                invalidAirsNumberMessage, auxMessage))
+            MyBase.New(String.Format("{0} - {1}", invalidAirsNumberMessage, auxMessage))
         End Sub
 
         Public Sub New(ByVal auxMessage As String, ByVal inner As Exception)
-            MyBase.New(String.Format("{0} - {1}", _
-                invalidAirsNumberMessage, auxMessage), inner)
+            MyBase.New(String.Format("{0} - {1}", invalidAirsNumberMessage, auxMessage), inner)
         End Sub
     End Class
 

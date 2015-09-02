@@ -808,6 +808,7 @@
     <Compile Include="SSPP\Sub Forms\SSPPAttainmentStatus.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="_DAL\SSCP\DAL.Sscp.Fce.vb" />
     <Compile Include="_Data Models\Dmu\Dmu.EdtErrorMessage.vb" />
     <Compile Include="_Data Models\Dmu\Dmu.EdtSubmission.vb" />
     <Compile Include="_Data Models\DocumentType.vb" />
@@ -815,6 +816,15 @@
     <Compile Include="_Data Models\Event Registration\Res.EventRegistration.vb" />
     <Compile Include="_Data Models\Facilities\Location.vb" />
     <Compile Include="_DAL\_DB\DB.vb" />
+    <Compile Include="_Data Models\ISMP\Ismp.ReferenceNumber.vb" />
+    <Compile Include="_Data Models\SSCP\Apb.Sscp.Fce.vb" />
+    <Compile Include="_Data Models\SSCP\Apb.Sscp.Inspection.vb" />
+    <Compile Include="_Data Models\SSCP\Apb.Sscp.Notification.vb" />
+    <Compile Include="_Data Models\SSCP\Apb.Sscp.AccSubmittals.vb" />
+    <Compile Include="_Data Models\SSCP\Apb.Sscp.ReportSubmittals.vb" />
+    <Compile Include="_Data Models\SSCP\Apb.Sscp.Report.vb" />
+    <Compile Include="_Data Models\SSCP\Apb.Sscp.RmpInspection.vb" />
+    <Compile Include="_Data Models\SSCP\Apb.Sscp.StackTest.vb" />
     <Compile Include="_Modules\ErrorReporting.vb" />
     <Compile Include="_Modules\ExcelExport.vb" />
     <Compile Include="_Modules\Extensions.vb" />

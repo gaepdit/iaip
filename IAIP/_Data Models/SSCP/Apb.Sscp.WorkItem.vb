@@ -2,17 +2,26 @@
 
     Public MustInherit Class WorkItem
 
-        Public Property TrackingNumber() As String
+        ' Data from SSCPITEMMASTER table
+        Public Property SscpTrackingNumber() As String
         Public Property Facility() As Apb.Facilities.Facility
         Public Property DateReceived() As Date
+        Public Property StaffResponsible() As Staff
         Public Property DateComplete() As Date?
+        Public Property Deleted() As Boolean
+        Public Property DeletedDbCode As String
+            Get
+                Return DB.DumbConvertFromBoolean(Me.Deleted, DB.DumbConvertBooleanType.TrueOrDBNull)
+            End Get
+            Set(value As String)
+                Me.Deleted = DB.DumbConvertToBoolean(value, DB.DumbConvertBooleanType.TrueOrDBNull)
+            End Set
+        End Property
         Public Property DateAcknowledgmentLetterSent() As Date?
         Public Overridable Property EventType() As WorkItemEventType
-        Public Overridable Property EventTypeCode() As String
+        Public Overridable Property EventTypeDbCode() As String
             Get
                 Select Case EventType
-                    Case WorkItemEventType.Unknown
-                        Return "00"
                     Case WorkItemEventType.Report
                         Return "01"
                     Case WorkItemEventType.Inspection
@@ -31,8 +40,6 @@
             End Get
             Set(ByVal value As String)
                 Select Case value
-                    Case "00"
-                        EventType = WorkItemEventType.Unknown
                     Case "01"
                         EventType = WorkItemEventType.Report
                     Case "02"
@@ -52,8 +59,8 @@
                 End Select
             End Set
         End Property
-        Public Property StaffResponsible() As Staff
-        Public Property Deleted() As Boolean
+
+        ' Common data from event-type-specific tables
         Public Property Comments() As String
 
         Public Enum WorkItemEventType
