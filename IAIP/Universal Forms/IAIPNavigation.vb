@@ -236,11 +236,11 @@ Public Class IAIPNavigation
             Dim id As String = txtOpenTestReport.Text
             If id = "" Then Exit Sub
 
-            If DAL.ISMP.StackTestExists(id) Then
+            If DAL.Ismp.StackTestExists(id) Then
                 If UserProgram = "3" Then
                     OpenMultiForm("ISMPTestReports", id)
                 Else
-                    If DAL.ISMP.StackTestIsClosedOut(id) Then
+                    If DAL.Ismp.StackTestIsClosedOut(id) Then
                         If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
                             PrintOut.Dispose()
                         End If
@@ -277,7 +277,7 @@ Public Class IAIPNavigation
             Dim id As String = txtOpenTestLog.Text
             If id = "" Then Exit Sub
 
-            If DAL.ISMP.TestNotificationExists(id) Then
+            If DAL.Ismp.TestNotificationExists(id) Then
                 If ISMPNotificationLogForm IsNot Nothing AndAlso Not ISMPNotificationLogForm.IsDisposed Then
                     ISMPNotificationLogForm.Dispose()
                 End If
@@ -298,7 +298,7 @@ Public Class IAIPNavigation
             Dim id As String = txtOpenSbeapClient.Text
             If id = "" Then Exit Sub
 
-            If DAL.SBEAP.ClientExists(id) Then
+            If DAL.Sbeap.ClientExists(id) Then
                 If ClientSummary IsNot Nothing AndAlso Not ClientSummary.IsDisposed Then
                     ClientSummary.Dispose()
                 End If
@@ -320,7 +320,7 @@ Public Class IAIPNavigation
             Dim id As String = txtOpenSbeapCaseLog.Text
             If id = "" Then Exit Sub
 
-            If DAL.SBEAP.CaseExists(id) Then
+            If DAL.Sbeap.CaseExists(id) Then
 
                 If CaseWork IsNot Nothing AndAlso Not CaseWork.IsDisposed Then
                     CaseWork.Dispose()

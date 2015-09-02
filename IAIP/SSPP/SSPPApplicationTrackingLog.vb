@@ -6694,12 +6694,12 @@ Public Class SSPPApplicationTrackingLog
 
         Try
             If txtApplicationNumber.Text <> "" Then
-                If Not DAL.FacilityHeaderDataModule.SicCodeIsValid(txtSICCode.Text) Then
+                If Not DAL.FacilityHeaderDataData.SicCodeIsValid(txtSICCode.Text) Then
                     MsgBox("ERROR" & vbCrLf & "The SIC Code is not valid and must be fixed before proceeding.", MsgBoxStyle.Exclamation, Me.Text)
                     Exit Sub
                 End If
 
-                If DAL.FacilityHeaderDataModule.NaicsCodeIsValid(txtNAICSCode.Text) = False Then
+                If DAL.FacilityHeaderDataData.NaicsCodeIsValid(txtNAICSCode.Text) = False Then
                     MsgBox("ERROR" & vbCrLf & "The NAICS Code is not valid and must be fixed before proceeding.", MsgBoxStyle.Exclamation, Me.Text)
                     Exit Sub
                 End If
@@ -7321,7 +7321,7 @@ Public Class SSPPApplicationTrackingLog
 
                 If DTPFinalAction.Checked And chbClosedOut.Checked And Apb.ApbFacilityId.IsValidAirsNumberFormat(txtAIRSNumber.Text) Then
 
-                    If Not DAL.FacilityHeaderDataModule.SicCodeIsValid(txtSICCode.Text) Then
+                    If Not DAL.FacilityHeaderDataData.SicCodeIsValid(txtSICCode.Text) Then
                         MessageBox.Show("The SIC code entered is not valid. The application cannot be closed out without a valid SIC code.", _
                                         "Invalid SIC code", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                         chbClosedOut.Checked = False
@@ -7355,7 +7355,7 @@ Public Class SSPPApplicationTrackingLog
                         UpdateAPBTables()
                     End If
 
-                    If Apb.SSPP.Permit.IsValidPermitNumber(txtPermitNumber.Text) Then
+                    If Apb.Sspp.Permit.IsValidPermitNumber(txtPermitNumber.Text) Then
                         PermitRevocationQuery()
                         SaveIssuedPermit()
                     End If
@@ -7374,24 +7374,24 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub PermitRevocationQuery()
         ' Check for existing permits first
-        Dim activePermits As List(Of Apb.SSPP.Permit) = DAL.SSPP.GetActivePermitsAsList(txtAIRSNumber.Text)
+        Dim activePermits As List(Of Apb.Sspp.Permit) = DAL.Sspp.GetActivePermitsAsList(txtAIRSNumber.Text)
 
-        activePermits.RemoveAll(Function(permit As Apb.SSPP.Permit) permit.Equals(New Apb.SSPP.Permit(txtPermitNumber.Text)))
+        activePermits.RemoveAll(Function(permit As Apb.Sspp.Permit) permit.Equals(New Apb.Sspp.Permit(txtPermitNumber.Text)))
 
         If activePermits IsNot Nothing AndAlso activePermits.Count > 0 Then
 
             Dim permitRevocationDialog As New SsppPermitRevocationDialog
             permitRevocationDialog.ActivePermits = activePermits ' Send list of existing permits to dialog
             permitRevocationDialog.ShowDialog()
-            Dim revokedPermits As List(Of Apb.SSPP.Permit) = permitRevocationDialog.PermitsToRevoke
+            Dim revokedPermits As List(Of Apb.Sspp.Permit) = permitRevocationDialog.PermitsToRevoke
 
             If revokedPermits IsNot Nothing AndAlso revokedPermits.Count > 0 Then
-                For Each p As Apb.SSPP.Permit In revokedPermits
+                For Each p As Apb.Sspp.Permit In revokedPermits
                     p.RevokedDate = DTPFinalAction.Value
                     p.Active = False
                 Next
 
-                Dim result As Boolean = DAL.SSPP.UpdatePermits(revokedPermits)
+                Dim result As Boolean = DAL.Sspp.UpdatePermits(revokedPermits)
                 If Not result Then
                     MessageBox.Show("There was an error revoking permits." & vbNewLine & _
                                     "Please contact the Data Management Unit.", "Error", _
@@ -7403,17 +7403,17 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub SaveIssuedPermit()
         Dim result As Boolean = False
-        Dim permit As Apb.SSPP.Permit
+        Dim permit As Apb.Sspp.Permit
 
-        If Not DAL.SSPP.PermitExists(txtPermitNumber.Text) Then
-            permit = New Apb.SSPP.Permit(txtAIRSNumber.Text, txtPermitNumber.Text, _
+        If Not DAL.Sspp.PermitExists(txtPermitNumber.Text) Then
+            permit = New Apb.Sspp.Permit(txtAIRSNumber.Text, txtPermitNumber.Text, _
                                          DTPFinalAction.Value, True, cboApplicationType.SelectedValue)
-            result = DAL.SSPP.AddPermit(permit)
+            result = DAL.Sspp.AddPermit(permit)
         Else
-            permit = DAL.SSPP.GetPermit(txtPermitNumber.Text)
+            permit = DAL.Sspp.GetPermit(txtPermitNumber.Text)
             permit.IssuedDate = DTPFinalAction.Value
             permit.PermitTypeCode = cboApplicationType.SelectedValue
-            result = DAL.SSPP.UpdatePermit(permit)
+            result = DAL.Sspp.UpdatePermit(permit)
         End If
 
         If Not result Then

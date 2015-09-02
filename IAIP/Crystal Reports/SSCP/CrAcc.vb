@@ -3,9 +3,9 @@
     ' This class flattens the Apb.SSCP.Acc class so Crystal Reports (VS 2008) can see all the properties
     ' Newer versions of Crystal Reports reportedly can view multi-level classes
     Public Class CrAcc
-        Inherits Apb.SSCP.Acc
+        Inherits Apb.Sscp.Acc
 
-        Public Sub New(ByVal acc As Apb.SSCP.Acc)
+        Public Sub New(ByVal acc As Apb.Sscp.Acc)
             Me.AccReportingYear = acc.AccReportingYear
             Me.AllDeviationsReported = acc.AllDeviationsReported
             Me.AllTitleVConditionsListed = acc.AllTitleVConditionsListed

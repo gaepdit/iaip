@@ -1,6 +1,6 @@
 ﻿Imports Oracle.ManagedDataAccess.Client
 Imports System.Collections.Generic
-Imports Iaip.DAL.EventRegistration
+Imports Iaip.DAL.EventRegistrationData
 Imports Iaip.Apb.Res
 
 Public Class MASPRegistrationTool

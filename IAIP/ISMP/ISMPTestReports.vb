@@ -10726,7 +10726,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
         Dim diag As DialogResult = MessageBox.Show("This will clear all data from this test repot. Are you sure you want to proceed?", "Delete all data", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
 
         If diag = DialogResult.Yes Then
-            Dim result As Boolean = DAL.ISMP.ClearStackTestData(txtReferenceNumber.Text)
+            Dim result As Boolean = DAL.Ismp.ClearStackTestData(txtReferenceNumber.Text)
 
             If result Then
                 MessageBox.Show("The test report data has been cleared. " & _

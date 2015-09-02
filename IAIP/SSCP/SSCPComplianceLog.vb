@@ -806,7 +806,7 @@ Public Class SSCPComplianceLog
                             End If
                             dr.Close()
                             If RefNum <> "" Then
-                                If DAL.ISMP.StackTestExists(RefNum) Then OpenMultiForm("ISMPTestReports", RefNum)
+                                If DAL.Ismp.StackTestExists(RefNum) Then OpenMultiForm("ISMPTestReports", RefNum)
                             Else
                                 MsgBox("The Reference Number is not valid." & vbCrLf & _
                                 "Please check the number you entered.", MsgBoxStyle.Information, "SSCP Compliance Log")
@@ -1676,7 +1676,7 @@ Public Class SSCPComplianceLog
     End Sub
     Private Sub txtNewAIRSNumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtNewAIRSNumber.TextChanged
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtNewAIRSNumber.Text) Then
-            Dim fac As Apb.Facilities.Facility = DAL.FacilityModule.GetFacility(txtNewAIRSNumber.Text)
+            Dim fac As Apb.Facilities.Facility = DAL.FacilityData.GetFacility(txtNewAIRSNumber.Text)
             txtFacilityInformation.Text = fac.LongDisplay
         Else
             txtFacilityInformation.Text = ""

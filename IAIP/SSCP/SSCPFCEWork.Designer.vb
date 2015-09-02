@@ -19,99 +19,99 @@ Partial Class SSCPFCEWork
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPFCEWork))
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar
-        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
+        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar()
+        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MenuFile = New System.Windows.Forms.MenuItem
-        Me.MenuSave = New System.Windows.Forms.MenuItem
-        Me.MenuPrint = New System.Windows.Forms.MenuItem
-        Me.MenuClose = New System.Windows.Forms.MenuItem
-        Me.MenuHelp = New System.Windows.Forms.MenuItem
-        Me.MenuOpenHelp = New System.Windows.Forms.MenuItem
-        Me.TBFCE = New System.Windows.Forms.ToolBar
-        Me.TbbSave = New System.Windows.Forms.ToolBarButton
-        Me.TbbPring = New System.Windows.Forms.ToolBarButton
-        Me.txtAirsNumber = New System.Windows.Forms.TextBox
-        Me.ReviewDataTabs = New System.Windows.Forms.TabControl
-        Me.TPInspections = New System.Windows.Forms.TabPage
-        Me.dgrFCEInspections = New System.Windows.Forms.DataGrid
-        Me.PanelFCE = New System.Windows.Forms.Panel
-        Me.llbFCEInspections = New System.Windows.Forms.LinkLabel
-        Me.txtInspectionTrackingNumber = New System.Windows.Forms.TextBox
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.TPCorrespondance = New System.Windows.Forms.TabPage
-        Me.PanelNotifications = New System.Windows.Forms.Panel
-        Me.dgrFCECorrespondance = New System.Windows.Forms.DataGrid
-        Me.PanelFCENotifications = New System.Windows.Forms.Panel
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.txtNotificationTrackingNumber = New System.Windows.Forms.TextBox
-        Me.llbNotification = New System.Windows.Forms.LinkLabel
-        Me.TPTitleVACC = New System.Windows.Forms.TabPage
-        Me.dgrFCEACC = New System.Windows.Forms.DataGrid
-        Me.PanelFCE3 = New System.Windows.Forms.Panel
-        Me.llbFCEACC = New System.Windows.Forms.LinkLabel
-        Me.txtACCTrackingNumber = New System.Windows.Forms.TextBox
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.TPReports = New System.Windows.Forms.TabPage
-        Me.dgrFCEReports = New System.Windows.Forms.DataGrid
-        Me.PanelFCE2 = New System.Windows.Forms.Panel
-        Me.llbFCEReports = New System.Windows.Forms.LinkLabel
-        Me.txtReportTrackingNumber = New System.Windows.Forms.TextBox
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.TPISMPSummaryReports = New System.Windows.Forms.TabPage
-        Me.dgrISMPSummaryReports = New System.Windows.Forms.DataGrid
-        Me.PanelFCE5 = New System.Windows.Forms.Panel
-        Me.llbISMPSummaryReports = New System.Windows.Forms.LinkLabel
-        Me.txtISMPReferenceNumber = New System.Windows.Forms.TextBox
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.TPPerformanceTests = New System.Windows.Forms.TabPage
-        Me.dgrPerformanceTests = New System.Windows.Forms.DataGrid
-        Me.PanelPerformanceTests = New System.Windows.Forms.Panel
-        Me.llbPerformanceTests = New System.Windows.Forms.LinkLabel
-        Me.txtPerformanceTests = New System.Windows.Forms.TextBox
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.TPEnforcement = New System.Windows.Forms.TabPage
-        Me.dgrFCEEnforcement = New System.Windows.Forms.DataGrid
-        Me.PanelEnforcement = New System.Windows.Forms.Panel
-        Me.llbFCEEnforcement = New System.Windows.Forms.LinkLabel
-        Me.txtEnforcement = New System.Windows.Forms.TextBox
-        Me.Label16 = New System.Windows.Forms.Label
-        Me.FceDataGroup = New System.Windows.Forms.GroupBox
-        Me.CompleteOrIncomplete = New System.Windows.Forms.GroupBox
-        Me.rdbFCEIncomplete = New System.Windows.Forms.RadioButton
-        Me.rdbFCEComplete = New System.Windows.Forms.RadioButton
-        Me.OnsiteOrOffsite = New System.Windows.Forms.GroupBox
-        Me.rdbFCENoOnsite = New System.Windows.Forms.RadioButton
-        Me.rdbFCEOnSite = New System.Windows.Forms.RadioButton
-        Me.cboReviewer = New System.Windows.Forms.ComboBox
-        Me.txtFCENumber = New System.Windows.Forms.TextBox
-        Me.txtFCEComments = New System.Windows.Forms.TextBox
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.DTPFCECompleteDate = New System.Windows.Forms.DateTimePicker
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.cboFCEYear = New System.Windows.Forms.ComboBox
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.DTPFilterStartDate = New System.Windows.Forms.DateTimePicker
-        Me.DTPFilterEndDate = New System.Windows.Forms.DateTimePicker
-        Me.llbViewFCEData = New System.Windows.Forms.LinkLabel
-        Me.TabControlFCE = New System.Windows.Forms.TabControl
-        Me.TabPageFCEData = New System.Windows.Forms.TabPage
-        Me.FacilityInfoPanel = New System.Windows.Forms.Panel
-        Me.txtFacilityInformation = New System.Windows.Forms.TextBox
-        Me.labReferenceNumber = New System.Windows.Forms.Label
-        Me.ReviewDataGroup = New System.Windows.Forms.GroupBox
-        Me.ReviewDataSelectorPanel = New System.Windows.Forms.Panel
-        Me.TabPageFCEPrint = New System.Windows.Forms.TabPage
-        Me.CRViewer = New CrystalDecisions.Windows.Forms.CrystalReportViewer
+        Me.MenuFile = New System.Windows.Forms.MenuItem()
+        Me.MenuSave = New System.Windows.Forms.MenuItem()
+        Me.MenuPrint = New System.Windows.Forms.MenuItem()
+        Me.MenuClose = New System.Windows.Forms.MenuItem()
+        Me.MenuHelp = New System.Windows.Forms.MenuItem()
+        Me.MenuOpenHelp = New System.Windows.Forms.MenuItem()
+        Me.TBFCE = New System.Windows.Forms.ToolBar()
+        Me.TbbSave = New System.Windows.Forms.ToolBarButton()
+        Me.TbbPring = New System.Windows.Forms.ToolBarButton()
+        Me.txtAirsNumber = New System.Windows.Forms.TextBox()
+        Me.ReviewDataTabs = New System.Windows.Forms.TabControl()
+        Me.TPInspections = New System.Windows.Forms.TabPage()
+        Me.dgrFCEInspections = New System.Windows.Forms.DataGrid()
+        Me.PanelFCE = New System.Windows.Forms.Panel()
+        Me.llbFCEInspections = New System.Windows.Forms.LinkLabel()
+        Me.txtInspectionTrackingNumber = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.TPCorrespondance = New System.Windows.Forms.TabPage()
+        Me.PanelNotifications = New System.Windows.Forms.Panel()
+        Me.dgrFCECorrespondance = New System.Windows.Forms.DataGrid()
+        Me.PanelFCENotifications = New System.Windows.Forms.Panel()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.txtNotificationTrackingNumber = New System.Windows.Forms.TextBox()
+        Me.llbNotification = New System.Windows.Forms.LinkLabel()
+        Me.TPTitleVACC = New System.Windows.Forms.TabPage()
+        Me.dgrFCEACC = New System.Windows.Forms.DataGrid()
+        Me.PanelFCE3 = New System.Windows.Forms.Panel()
+        Me.llbFCEACC = New System.Windows.Forms.LinkLabel()
+        Me.txtACCTrackingNumber = New System.Windows.Forms.TextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.TPReports = New System.Windows.Forms.TabPage()
+        Me.dgrFCEReports = New System.Windows.Forms.DataGrid()
+        Me.PanelFCE2 = New System.Windows.Forms.Panel()
+        Me.llbFCEReports = New System.Windows.Forms.LinkLabel()
+        Me.txtReportTrackingNumber = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.TPISMPSummaryReports = New System.Windows.Forms.TabPage()
+        Me.dgrISMPSummaryReports = New System.Windows.Forms.DataGrid()
+        Me.PanelFCE5 = New System.Windows.Forms.Panel()
+        Me.llbISMPSummaryReports = New System.Windows.Forms.LinkLabel()
+        Me.txtISMPReferenceNumber = New System.Windows.Forms.TextBox()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.TPPerformanceTests = New System.Windows.Forms.TabPage()
+        Me.dgrPerformanceTests = New System.Windows.Forms.DataGrid()
+        Me.PanelPerformanceTests = New System.Windows.Forms.Panel()
+        Me.llbPerformanceTests = New System.Windows.Forms.LinkLabel()
+        Me.txtPerformanceTests = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.TPEnforcement = New System.Windows.Forms.TabPage()
+        Me.dgrFCEEnforcement = New System.Windows.Forms.DataGrid()
+        Me.PanelEnforcement = New System.Windows.Forms.Panel()
+        Me.llbFCEEnforcement = New System.Windows.Forms.LinkLabel()
+        Me.txtEnforcement = New System.Windows.Forms.TextBox()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.FceDataGroup = New System.Windows.Forms.GroupBox()
+        Me.CompleteOrIncomplete = New System.Windows.Forms.GroupBox()
+        Me.rdbFCEIncomplete = New System.Windows.Forms.RadioButton()
+        Me.rdbFCEComplete = New System.Windows.Forms.RadioButton()
+        Me.OnsiteOrOffsite = New System.Windows.Forms.GroupBox()
+        Me.rdbFCENoOnsite = New System.Windows.Forms.RadioButton()
+        Me.rdbFCEOnSite = New System.Windows.Forms.RadioButton()
+        Me.cboReviewer = New System.Windows.Forms.ComboBox()
+        Me.txtFCENumber = New System.Windows.Forms.TextBox()
+        Me.txtFCEComments = New System.Windows.Forms.TextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.DTPFCECompleteDate = New System.Windows.Forms.DateTimePicker()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.cboFCEYear = New System.Windows.Forms.ComboBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.DTPFilterStartDate = New System.Windows.Forms.DateTimePicker()
+        Me.DTPFilterEndDate = New System.Windows.Forms.DateTimePicker()
+        Me.llbViewFCEData = New System.Windows.Forms.LinkLabel()
+        Me.TabControlFCE = New System.Windows.Forms.TabControl()
+        Me.TabPageFCEData = New System.Windows.Forms.TabPage()
+        Me.FacilityInfoPanel = New System.Windows.Forms.Panel()
+        Me.txtFacilityInformation = New System.Windows.Forms.TextBox()
+        Me.labReferenceNumber = New System.Windows.Forms.Label()
+        Me.ReviewDataGroup = New System.Windows.Forms.GroupBox()
+        Me.ReviewDataSelectorPanel = New System.Windows.Forms.Panel()
+        Me.TabPageFCEPrint = New System.Windows.Forms.TabPage()
+        Me.CRViewer = New CrystalDecisions.Windows.Forms.CrystalReportViewer()
         Me.StatusStrip1.SuspendLayout()
         Me.ReviewDataTabs.SuspendLayout()
         Me.TPInspections.SuspendLayout()
@@ -164,8 +164,8 @@ Partial Class SSCPFCEWork
         'Panel1
         '
         Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.Panel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.Panel1.Name = "Panel1"
@@ -176,8 +176,8 @@ Partial Class SSCPFCEWork
         'Panel2
         '
         Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(4, 17)
@@ -185,8 +185,8 @@ Partial Class SSCPFCEWork
         'Panel3
         '
         Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(4, 17)
@@ -1076,7 +1076,7 @@ Partial Class SSCPFCEWork
         'txtFacilityInformation
         '
         Me.txtFacilityInformation.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtFacilityInformation.Location = New System.Drawing.Point(107, 6)
         Me.txtFacilityInformation.Multiline = True
         Me.txtFacilityInformation.Name = "txtFacilityInformation"
