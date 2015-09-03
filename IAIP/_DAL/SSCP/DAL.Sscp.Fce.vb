@@ -44,23 +44,23 @@ Namespace DAL.Sscp
         ''' <param name="airs">The ID of the facility of interest.</param>
         ''' <returns>A List of FCE's.</returns>
         Public Function GetFceList(airs As Apb.ApbFacilityId) As List(Of Fce)
-            Dim fceList As New List(Of Fce)
-            Dim fceTable As DataTable = GetFceDataTable(airs)
+            Dim list As New List(Of Fce)
+            Dim dt As DataTable = GetFceDataTable(airs)
 
-            If fceTable IsNot Nothing And fceTable.Rows.Count > 0 Then
-                For Each row As DataRow In fceTable.Rows
-                    fceList.Add(GetFceFromDataRow(row))
+            If dt IsNot Nothing And dt.Rows.Count > 0 Then
+                For Each row As DataRow In dt.Rows
+                    list.Add(GetFceFromDataRow(row))
                 Next
             End If
 
-            Return fceList
+            Return list
         End Function
 
         ''' <summary>
-        ''' Returns an FCE using the data in a DataRow
+        ''' Parses an FCE using the data in a DataRow
         ''' </summary>
-        ''' <param name="row">The DataRow to parse</param>
-        ''' <returns>An FCE parsed from the DataRow</returns>
+        ''' <param name="row">The DataRow to parse.</param>
+        ''' <returns>An FCE parsed from the DataRow.</returns>
         Private Function GetFceFromDataRow(row As DataRow) As Fce
             If IsNothing(row) Then Return Nothing
 

@@ -1,6 +1,8 @@
-﻿Namespace Apb.Sscp
+﻿Imports System.Collections.Generic
 
-    Public MustInherit Class WorkItem
+Namespace Apb.Sscp
+
+    Public Class WorkItem
 
         ' Data from SSCPITEMMASTER table
         Public Property SscpTrackingNumber() As String
@@ -21,22 +23,7 @@
         Public Overridable Property EventType() As WorkItemEventType
         Public Overridable Property EventTypeDbCode() As String
             Get
-                Select Case EventType
-                    Case WorkItemEventType.Report
-                        Return "01"
-                    Case WorkItemEventType.Inspection
-                        Return "02"
-                    Case WorkItemEventType.StackTest
-                        Return "03"
-                    Case WorkItemEventType.TvAcc
-                        Return "04"
-                    Case WorkItemEventType.Notification
-                        Return "05"
-                    Case WorkItemEventType.RmpInspection
-                        Return "07"
-                    Case Else
-                        Return "00"
-                End Select
+                Return EventTypeDbCodes(EventType)
             End Get
             Set(ByVal value As String)
                 Select Case value
@@ -72,6 +59,16 @@
             TvAcc
             RmpInspection
         End Enum
+
+        Public Shared EventTypeDbCodes As New Dictionary(Of WorkItemEventType, String) From {
+            {WorkItemEventType.Report, "01"},
+            {WorkItemEventType.Inspection, "02"},
+            {WorkItemEventType.StackTest, "03"},
+            {WorkItemEventType.TvAcc, "04"},
+            {WorkItemEventType.Notification, "05"},
+            {WorkItemEventType.RmpInspection, "07"},
+            {WorkItemEventType.Unknown, "00"}
+        }
 
     End Class
 

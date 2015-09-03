@@ -41,7 +41,7 @@ Module FormHelpers
     Public Function OpenFormSscpWorkItem(ByVal id As String) As Form
         If DAL.SSCP.WorkItemExists(id) Then
             Dim refNum As String = ""
-            If DAL.SSCP.WorkItemIsAStackTest(id, refNum) Then
+            If DAL.SSCP.TryGetRefNumForWorkItem(id, refNum) Then
                 Return OpenMultiForm("ISMPTestReports", refNum)
             ElseIf SingleFormIsOpen("SSCPEvents") _
             AndAlso CType(SingleForm("SSCPEvents"), SSCPEvents).txtTrackingNumber.Text = id Then
