@@ -3392,10 +3392,7 @@ Public Class PASPFeeStatistics
             crParameterValues.Add(crParameterDiscreteValue)
             crParameterFieldDefinition.ApplyCurrentValues(crParameterValues)
 
-            CRFeesReports.ReportSource = rpt
-            DisplayReport(CRFeesReports, cboAirsNo.Text)
-            CRFeesReports.Refresh()
-
+            SetUpCrystalReportViewer(rpt, CRFeesReports, cboAirsNo.Text)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3440,11 +3437,7 @@ Public Class PASPFeeStatistics
 
             rpt.SetDataSource(ds)
 
-
-
-            CRFeesReports.ReportSource = rpt
-            DisplayReport(CRFeesReports, "Annual Emission and Fee")
-            CRFeesReports.Refresh()
+            SetUpCrystalReportViewer(rpt, CRFeesReports, "Annual Emission and Fee")
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3473,10 +3466,8 @@ Public Class PASPFeeStatistics
 
             rpt.SetDataSource(ds)
 
-            CRFeesReports.ReportSource = rpt
-            DisplayReport(CRFeesReports, "Facility Classification Totals")
-            CRFeesReports.Refresh()
-
+            SetUpCrystalReportViewer(rpt, CRFeesReports, "Facility Classification Totals")
+            
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -3593,14 +3584,11 @@ Public Class PASPFeeStatistics
             'Load Variables into the Fields
             CRFeesReports.ParameterFieldInfo = ParameterFields
 
-            CRFeesReports.ReportSource = rpt
             If chbFacilityBalance.Checked = False Then
-                DisplayReport(CRFeesReports, "Facility Fee Balance")
+                SetUpCrystalReportViewer(rpt, CRFeesReports, "Facility Fee Balance")
             Else
-                DisplayReport(CRFeesReports, "Facility Fee Balance with Zero Balance")
+                SetUpCrystalReportViewer(rpt, CRFeesReports, "Facility Fee Balance with Zero Balance")
             End If
-
-            CRFeesReports.Refresh()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3666,13 +3654,9 @@ Public Class PASPFeeStatistics
 
             rpt.SetDataSource(ds)
 
-            CRFeesReports.ReportSource = rpt
-            DisplayReport(CRFeesReports, "Overall Fee Balance")
+            SetUpCrystalReportViewer(rpt, CRFeesReports, "Overall Fee Balance")
             CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
-            CRFeesReports.ShowGroupTreeButton = False
-            CRFeesReports.Refresh()
-
-
+            
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -3763,13 +3747,8 @@ Public Class PASPFeeStatistics
             p.Add(p2)
             CRFeesReports.ParameterFieldInfo = p
 
-            'rpt.SetDatabaseLogon("AIRBranch_App_User", SimpleCrypt("çòáðò±ì"))
-            CRFeesReports.ReportSource = rpt
-            DisplayReport(CRFeesReports, "Payments by Date - " & Format(DateTimePicker1.Value, "dd-MMM-yyyy") & " --> " & Format(DateTimePicker2.Value, "dd-MMM-yyyy"))
-            CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
-            CRFeesReports.ShowGroupTreeButton = False
-            CRFeesReports.Refresh()
-
+            SetUpCrystalReportViewer(rpt, CRFeesReports, "Payments by Date - " & Format(DateTimePicker1.Value, "dd-MMM-yyyy") & " --> " & Format(DateTimePicker2.Value, "dd-MMM-yyyy"))
+            
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -3834,13 +3813,7 @@ Public Class PASPFeeStatistics
             p.Add(p2)
             CRFeesReports.ParameterFieldInfo = p
 
-            'rpt.SetDatabaseLogon("AIRBranch_App_User", SimpleCrypt("çòáðò±ì"))
-            CRFeesReports.ReportSource = rpt
-            DisplayReport(CRFeesReports, "Payments by Date - " & Format(DateTimePicker1.Value, "dd-MMM-yyyy") & " --> " & Format(DateTimePicker2.Value, "dd-MMM-yyyy"))
-            CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
-            CRFeesReports.ShowGroupTreeButton = False
-            CRFeesReports.Refresh()
-
+            SetUpCrystalReportViewer(rpt, CRFeesReports, "Payments by Date - " & Format(DateTimePicker1.Value, "dd-MMM-yyyy") & " --> " & Format(DateTimePicker2.Value, "dd-MMM-yyyy"))
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3904,14 +3877,8 @@ Public Class PASPFeeStatistics
             da.Fill(ds, "FeesDue")
             rpt.SetDataSource(ds)
 
-            CRFeesReports.ReportSource = rpt
-            DisplayReport(CRFeesReports, "Total Fee by Year")
-            CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
-            CRFeesReports.ShowGroupTreeButton = False
-            CRFeesReports.Refresh()
-
-
-
+            SetUpCrystalReportViewer(rpt, CRFeesReports, "Total Fee by Year")
+            
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -3973,12 +3940,8 @@ Public Class PASPFeeStatistics
             'Load Variables into the Fields
             CRFeesReports.ParameterFieldInfo = ParameterFields
 
-            CRFeesReports.ReportSource = rpt
-            DisplayReport(CRFeesReports, "Variance Report")
-            CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
-            CRFeesReports.ShowGroupTreeButton = False
-            CRFeesReports.Refresh()
-
+            SetUpCrystalReportViewer(rpt, CRFeesReports, "Variance Report")
+            
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4098,31 +4061,8 @@ Public Class PASPFeeStatistics
             p.Add(p1)
             CRFeesReports.ParameterFieldInfo = p
 
-            'Dim p As New ParameterFields
-            'Dim p1 As New ParameterField
-            'Dim p2 As New ParameterField
-            'Dim p3 As New ParameterDiscreteValue
-            'Dim p4 As New ParameterDiscreteValue
-
-            'p1.ParameterFieldName = "DepositNo"
-            'p3.Value = depositno
-            'p1.CurrentValues.Add(p3)
-            'p.Add(p1)
-            'CRFeesReports.ParameterFieldInfo = p
-
-            'p2.ParameterFieldName = "AirsNo"
-            'p4.Value = "0413" & airsno
-            'p2.CurrentValues.Add(p4)
-            'p.Add(p2)
-            'CRFeesReports.ParameterFieldInfo = p
-
-            'rpt.SetDatabaseLogon("AIRBranch_App_User", SimpleCrypt("çòáðò±ì"))
-            CRFeesReports.ReportSource = rpt
-            DisplayReport(CRFeesReports, header)
-            CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
-            CRFeesReports.ShowGroupTreeButton = False
-            CRFeesReports.Refresh()
-
+            SetUpCrystalReportViewer(rpt, CRFeesReports, header)
+            
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -4215,12 +4155,10 @@ Public Class PASPFeeStatistics
             monitor.TrackFeature("Report." & rpt.ResourceName)
             rpt.SetDataSource(ds)
 
-
             pnlNSPS.Visible = False
-            CRFeesReports.ReportSource = rpt
-            DisplayReport(CRFeesReports, "NSPS Exempt - Subject but exempt")
-            CRFeesReports.Refresh()
 
+            SetUpCrystalReportViewer(rpt, CRFeesReports, "NSPS Exempt - Subject but exempt")
+            
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -4249,11 +4187,9 @@ Public Class PASPFeeStatistics
             da.Fill(ds, "VW_NSPS_Status")
             rpt.SetDataSource(ds)
 
-
             pnlNSPS.Visible = False
-            CRFeesReports.ReportSource = rpt
-            DisplayReport(CRFeesReports, "NSPS Subject - Not subject")
-            CRFeesReports.Refresh()
+
+            SetUpCrystalReportViewer(rpt, CRFeesReports, "NSPS Subject - Not subject")
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -4283,12 +4219,10 @@ Public Class PASPFeeStatistics
             da.Fill(ds, "VW_NSPS_Status")
             rpt.SetDataSource(ds)
 
-
             pnlNSPS.Visible = False
-            CRFeesReports.ReportSource = rpt
-            DisplayReport(CRFeesReports, "NSPS, Did not Operate")
-            CRFeesReports.Refresh()
 
+            SetUpCrystalReportViewer(rpt, CRFeesReports, "NSPS, Did not Operate")
+            
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -4334,12 +4268,8 @@ Public Class PASPFeeStatistics
             da.Fill(ds, "VW_NonRespondent")
             rpt.SetDataSource(ds)
 
-
-
-            CRFeesReports.ReportSource = rpt
-            DisplayReport(CRFeesReports, "Failed to Submit Fee Data - " & mtbNonRespondentYear.Text)
-            CRFeesReports.Refresh()
-
+            SetUpCrystalReportViewer(rpt, CRFeesReports, "Failed to Submit Fee Data - " & mtbNonRespondentYear.Text)
+            
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -4390,12 +4320,8 @@ Public Class PASPFeeStatistics
             da.Fill(ds, "VW_No_Operate")
             rpt.SetDataSource(ds)
 
-
-
-            CRFeesReports.ReportSource = rpt
-            DisplayReport(CRFeesReports, "Did Not Operate")
-            CRFeesReports.Refresh()
-
+            SetUpCrystalReportViewer(rpt, CRFeesReports, "Did Not Operate")
+            
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -4433,14 +4359,8 @@ Public Class PASPFeeStatistics
             da.Fill(ds, "FSPAYANDSUBMIT")
             rpt.SetDataSource(ds)
 
-            'rpt.SetDatabaseLogon("AIRBranch_App_User", SimpleCrypt("çòáðò±ì"))
-            CRFeesReports.ReportSource = rpt
-            DisplayReport(CRFeesReports, "Facility Comments")
-            CRFeesReports.ReportSource = rpt
-            CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
-            CRFeesReports.ShowGroupTreeButton = False
-            CRFeesReports.Refresh()
-
+            SetUpCrystalReportViewer(rpt, CRFeesReports, "Facility Comments")
+            
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -4468,13 +4388,8 @@ Public Class PASPFeeStatistics
             da.Fill(ds, "VW_Facility_Info")
             rpt.SetDataSource(ds)
 
-
-            CRFeesReports.ReportSource = rpt
-            DisplayReport(CRFeesReports, "Facility Info")
-            CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
-            CRFeesReports.ShowGroupTreeButton = False
-            CRFeesReports.Refresh()
-
+            SetUpCrystalReportViewer(rpt, CRFeesReports, "Facility Info")
+            
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -4500,13 +4415,9 @@ Public Class PASPFeeStatistics
             da.Fill(ds, "VW_Training_reg")
             rpt.SetDataSource(ds)
 
-
-            CRFeesReports.ReportSource = rpt
-            DisplayReport(CRFeesReports, "Training Registrants")
-            CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
+            SetUpCrystalReportViewer(rpt, CRFeesReports, "Training Registrants")
             CRFeesReports.ShowGroupTreeButton = False
-            CRFeesReports.Refresh()
-
+            
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally

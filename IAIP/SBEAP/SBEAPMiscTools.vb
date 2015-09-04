@@ -167,11 +167,8 @@ Public Class SBEAPMiscTools
             da.Fill(ds, "VW_SBEAP_Case_Log")
             rpt.SetDataSource(ds)
 
-
-            CRVCaseWork.ReportSource = rpt
-            DisplayReport(CRVCaseWork, "Case Log")
-            CRVCaseWork.Refresh()
-
+            SetUpCrystalReportViewer(rpt, CRVCaseWork, "Case Log")
+            
         Catch ex As Exception
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
