@@ -112,11 +112,11 @@ Public Class IAIPNavigation
             pnlDbEnv.Text = "TESTING ENVIRONMENT"
             pnlDbEnv.BackColor = Color.Tomato
             pnlDbEnv.Visible = True
-            EnableAndShow(mmiTesting)
+            EnableAndShow(TestingMenu)
         Else
             pnlDbEnv.Text = "PRD"
             pnlDbEnv.Visible = False
-            DisableAndHide(mmiTesting)
+            DisableAndHide(TestingMenu)
         End If
 
 #If DEBUG Then
@@ -1341,13 +1341,18 @@ Public Class IAIPNavigation
 
 #Region " Testing Menu click events "
 
-    Private Sub mmiPing_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPing.Click
+    Private Sub mmiPing_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestPingDb.Click
         DB.PingDBConnection(CurrentConnection)
     End Sub
 
-    Private Sub mmiThrowError_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiThrowError.Click
+    Private Sub mmiThrowError_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestThrowError.Click
         Throw New Exception("Unhandled exception testing")
     End Sub
+
+    Private Sub TestFacilityPrintout_Click(sender As Object, e As EventArgs) Handles TestFacilityPrintout.Click
+
+    End Sub
+
 
 #End Region
 
