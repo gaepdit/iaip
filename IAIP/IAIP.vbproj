@@ -58,7 +58,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>installer.html</WebPage>
     <ApplicationRevision>101</ApplicationRevision>
-    <ApplicationVersion>4.1.1.%2a</ApplicationVersion>
+    <ApplicationVersion>4.1.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
