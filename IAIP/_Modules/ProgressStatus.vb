@@ -4,10 +4,8 @@ Public Class ProgressStatus
     Private pb As PictureBox = New PictureBox
     Dim t As Timer = New Timer
 
-    Dim mysb As StatusBar
     Sub New(ByVal sb As StatusBar)
         Try
-            mysb = sb
             pb.Hide()
 
             'add control

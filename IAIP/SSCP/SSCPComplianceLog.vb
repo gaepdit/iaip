@@ -5,7 +5,7 @@ Imports System.Collections.Generic
 Public Class SSCPComplianceLog
     Dim SQL, SQL2, SQL3 As String
     Dim cmd, cmd2, cmd3 As OracleCommand
-    Dim dr, dr2, dr3 As OracleDataReader
+    Dim dr, dr3 As OracleDataReader
     Dim recExist As Boolean
     Dim dsCompliance As DataSet
     Dim daCompliance As OracleDataAdapter
@@ -13,8 +13,6 @@ Public Class SSCPComplianceLog
     Dim daStaff As OracleDataAdapter
     Dim dsWorkEntry As DataSet
     Dim daWorkEntry As OracleDataAdapter
-    Dim dsFacility As DataSet
-    Dim daFacility As OracleDataAdapter
     Dim dsNotifications As DataSet
     Dim daNotifications As OracleDataAdapter
     Dim dsComplianceUnit As DataSet
@@ -786,7 +784,6 @@ Public Class SSCPComplianceLog
                     If rdbPerformanceTest.Checked = True Then
                         If txtTrackingNumber.Text <> "" Then
                             Dim RefNum As String = ""
-                            Dim DocType As String = ""
 
                             SQL = "Select " & _
                             "AIRBRANCH.ISMPReportInformation.strReferenceNumber, " & _
@@ -804,10 +801,8 @@ Public Class SSCPComplianceLog
                             recExist = dr.Read
                             If recExist = True Then
                                 RefNum = dr.Item("strReferenceNumber")
-                                DocType = dr.Item("strDocumentType")
                             Else
                                 RefNum = ""
-                                DocType = ""
                             End If
                             dr.Close()
                             If RefNum <> "" Then
@@ -866,7 +861,7 @@ Public Class SSCPComplianceLog
                             End While
 
                             If SQL2 <> "" Then
-                                dr2 = cmd2.ExecuteReader
+                                cmd2.ExecuteReader()
                             End If
 
                             OpenFormSscpWorkItem(txtTrackingNumber.Text)
@@ -1612,10 +1607,8 @@ Public Class SSCPComplianceLog
     End Sub
     Private Sub dgvWork_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvWork.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvWork.HitTest(e.X, e.Y)
-        Dim WorkType As String = ""
 
         Try
-
 
             If dgvWork.RowCount > 0 And hti.RowIndex <> -1 Then
                 txtAIRSNumber.Text = dgvWork(0, hti.RowIndex).Value

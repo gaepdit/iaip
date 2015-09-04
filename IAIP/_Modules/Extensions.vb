@@ -81,10 +81,9 @@ Module Extensions
         ElseIf TypeOf dataGridView.DataSource Is DataTable Then
             dataTable = dataGridView.DataSource
         Else
-            Dim dtColumn As DataColumn
             Dim dtRow As DataRow
             For Each dgvColumn As DataGridViewColumn In dataGridView.Columns
-                dtColumn = dataTable.Columns.Add(dgvColumn.Name)
+                dataTable.Columns.Add(dgvColumn.Name)
             Next
             For Each dgvRow As DataGridViewRow In dataGridView.Rows
                 dtRow = dataTable.NewRow

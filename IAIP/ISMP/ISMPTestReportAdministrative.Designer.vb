@@ -19,165 +19,165 @@ Partial Class ISMPTestReportAdministrative
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ISMPTestReportAdministrative))
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem
-        Me.MmiSave = New System.Windows.Forms.MenuItem
-        Me.MenuItem7 = New System.Windows.Forms.MenuItem
-        Me.MmiReferenceNumber = New System.Windows.Forms.MenuItem
-        Me.MenuItem8 = New System.Windows.Forms.MenuItem
-        Me.MmiBack = New System.Windows.Forms.MenuItem
-        Me.MenuItem9 = New System.Windows.Forms.MenuItem
-        Me.MmiExit = New System.Windows.Forms.MenuItem
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem
-        Me.MmiClear = New System.Windows.Forms.MenuItem
-        Me.MenuItem6 = New System.Windows.Forms.MenuItem
-        Me.MmiCut = New System.Windows.Forms.MenuItem
-        Me.MmiCopy = New System.Windows.Forms.MenuItem
-        Me.MmiPaste = New System.Windows.Forms.MenuItem
-        Me.MenuItem11 = New System.Windows.Forms.MenuItem
-        Me.MmiDelete = New System.Windows.Forms.MenuItem
-        Me.MenuItem3 = New System.Windows.Forms.MenuItem
-        Me.MmiOpenRecords = New System.Windows.Forms.MenuItem
-        Me.MmiClosedRecords = New System.Windows.Forms.MenuItem
-        Me.MenuItem12 = New System.Windows.Forms.MenuItem
-        Me.MmiViewByTestType = New System.Windows.Forms.MenuItem
-        Me.MmiAllTestReports = New System.Windows.Forms.MenuItem
-        Me.MenuItem10 = New System.Windows.Forms.MenuItem
-        Me.MmiUnassigned = New System.Windows.Forms.MenuItem
-        Me.MenuItem29 = New System.Windows.Forms.MenuItem
-        Me.MmiOneStackTwoRun = New System.Windows.Forms.MenuItem
-        Me.MmiOneStackThreeRun = New System.Windows.Forms.MenuItem
-        Me.MmiOneStackFourRun = New System.Windows.Forms.MenuItem
-        Me.MenuItem30 = New System.Windows.Forms.MenuItem
-        Me.MmiTwoStackStandard = New System.Windows.Forms.MenuItem
-        Me.MmiTwoStackDRE = New System.Windows.Forms.MenuItem
-        Me.MenuItem31 = New System.Windows.Forms.MenuItem
-        Me.MmiLoadingRack = New System.Windows.Forms.MenuItem
-        Me.MmiFlare = New System.Windows.Forms.MenuItem
-        Me.MenuItem32 = New System.Windows.Forms.MenuItem
-        Me.MmiPondTreatment = New System.Windows.Forms.MenuItem
-        Me.MmiGasConcentration = New System.Windows.Forms.MenuItem
-        Me.MenuItem33 = New System.Windows.Forms.MenuItem
-        Me.MmiRata = New System.Windows.Forms.MenuItem
-        Me.MmiPEMS = New System.Windows.Forms.MenuItem
-        Me.MenuItem34 = New System.Windows.Forms.MenuItem
-        Me.MmiMemoStandard = New System.Windows.Forms.MenuItem
-        Me.MmiMemoToFile = New System.Windows.Forms.MenuItem
-        Me.MmiMemoPTE = New System.Windows.Forms.MenuItem
-        Me.MenuItem35 = New System.Windows.Forms.MenuItem
-        Me.MmiMethod9Single = New System.Windows.Forms.MenuItem
-        Me.MmiMethod9Multi = New System.Windows.Forms.MenuItem
-        Me.MmiMethod22 = New System.Windows.Forms.MenuItem
-        Me.MenuItem14 = New System.Windows.Forms.MenuItem
-        Me.MmiShowDeletedRecords = New System.Windows.Forms.MenuItem
-        Me.MenuItem13 = New System.Windows.Forms.MenuItem
-        Me.MmiViewByFacility = New System.Windows.Forms.MenuItem
-        Me.MenuItem4 = New System.Windows.Forms.MenuItem
-        Me.MmiShowToolbar = New System.Windows.Forms.MenuItem
-        Me.MenuItem5 = New System.Windows.Forms.MenuItem
-        Me.mmiMemo = New System.Windows.Forms.MenuItem
-        Me.mmiAddTestingFirm = New System.Windows.Forms.MenuItem
-        Me.mmiAddPollutant = New System.Windows.Forms.MenuItem
-        Me.mmiRefreshLists = New System.Windows.Forms.MenuItem
+        Me.MenuItem1 = New System.Windows.Forms.MenuItem()
+        Me.MmiSave = New System.Windows.Forms.MenuItem()
+        Me.MenuItem7 = New System.Windows.Forms.MenuItem()
+        Me.MmiReferenceNumber = New System.Windows.Forms.MenuItem()
+        Me.MenuItem8 = New System.Windows.Forms.MenuItem()
+        Me.MmiBack = New System.Windows.Forms.MenuItem()
+        Me.MenuItem9 = New System.Windows.Forms.MenuItem()
+        Me.MmiExit = New System.Windows.Forms.MenuItem()
+        Me.MenuItem2 = New System.Windows.Forms.MenuItem()
+        Me.MmiClear = New System.Windows.Forms.MenuItem()
+        Me.MenuItem6 = New System.Windows.Forms.MenuItem()
+        Me.MmiCut = New System.Windows.Forms.MenuItem()
+        Me.MmiCopy = New System.Windows.Forms.MenuItem()
+        Me.MmiPaste = New System.Windows.Forms.MenuItem()
+        Me.MenuItem11 = New System.Windows.Forms.MenuItem()
+        Me.MmiDelete = New System.Windows.Forms.MenuItem()
+        Me.MenuItem3 = New System.Windows.Forms.MenuItem()
+        Me.MmiOpenRecords = New System.Windows.Forms.MenuItem()
+        Me.MmiClosedRecords = New System.Windows.Forms.MenuItem()
+        Me.MenuItem12 = New System.Windows.Forms.MenuItem()
+        Me.MmiViewByTestType = New System.Windows.Forms.MenuItem()
+        Me.MmiAllTestReports = New System.Windows.Forms.MenuItem()
+        Me.MenuItem10 = New System.Windows.Forms.MenuItem()
+        Me.MmiUnassigned = New System.Windows.Forms.MenuItem()
+        Me.MenuItem29 = New System.Windows.Forms.MenuItem()
+        Me.MmiOneStackTwoRun = New System.Windows.Forms.MenuItem()
+        Me.MmiOneStackThreeRun = New System.Windows.Forms.MenuItem()
+        Me.MmiOneStackFourRun = New System.Windows.Forms.MenuItem()
+        Me.MenuItem30 = New System.Windows.Forms.MenuItem()
+        Me.MmiTwoStackStandard = New System.Windows.Forms.MenuItem()
+        Me.MmiTwoStackDRE = New System.Windows.Forms.MenuItem()
+        Me.MenuItem31 = New System.Windows.Forms.MenuItem()
+        Me.MmiLoadingRack = New System.Windows.Forms.MenuItem()
+        Me.MmiFlare = New System.Windows.Forms.MenuItem()
+        Me.MenuItem32 = New System.Windows.Forms.MenuItem()
+        Me.MmiPondTreatment = New System.Windows.Forms.MenuItem()
+        Me.MmiGasConcentration = New System.Windows.Forms.MenuItem()
+        Me.MenuItem33 = New System.Windows.Forms.MenuItem()
+        Me.MmiRata = New System.Windows.Forms.MenuItem()
+        Me.MmiPEMS = New System.Windows.Forms.MenuItem()
+        Me.MenuItem34 = New System.Windows.Forms.MenuItem()
+        Me.MmiMemoStandard = New System.Windows.Forms.MenuItem()
+        Me.MmiMemoToFile = New System.Windows.Forms.MenuItem()
+        Me.MmiMemoPTE = New System.Windows.Forms.MenuItem()
+        Me.MenuItem35 = New System.Windows.Forms.MenuItem()
+        Me.MmiMethod9Single = New System.Windows.Forms.MenuItem()
+        Me.MmiMethod9Multi = New System.Windows.Forms.MenuItem()
+        Me.MmiMethod22 = New System.Windows.Forms.MenuItem()
+        Me.MenuItem14 = New System.Windows.Forms.MenuItem()
+        Me.MmiShowDeletedRecords = New System.Windows.Forms.MenuItem()
+        Me.MenuItem13 = New System.Windows.Forms.MenuItem()
+        Me.MmiViewByFacility = New System.Windows.Forms.MenuItem()
+        Me.MenuItem4 = New System.Windows.Forms.MenuItem()
+        Me.MmiShowToolbar = New System.Windows.Forms.MenuItem()
+        Me.MenuItem5 = New System.Windows.Forms.MenuItem()
+        Me.mmiMemo = New System.Windows.Forms.MenuItem()
+        Me.mmiAddTestingFirm = New System.Windows.Forms.MenuItem()
+        Me.mmiAddPollutant = New System.Windows.Forms.MenuItem()
+        Me.mmiRefreshLists = New System.Windows.Forms.MenuItem()
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
-        Me.cmPrint = New System.Windows.Forms.ContextMenu
-        Me.cmiPrintTestReport = New System.Windows.Forms.MenuItem
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.TBFacilityInfo = New System.Windows.Forms.ToolBar
-        Me.TbbSave = New System.Windows.Forms.ToolBarButton
-        Me.TbbFind = New System.Windows.Forms.ToolBarButton
-        Me.TbbForward = New System.Windows.Forms.ToolBarButton
-        Me.TbbAddMemo = New System.Windows.Forms.ToolBarButton
-        Me.TbbClear = New System.Windows.Forms.ToolBarButton
-        Me.TbbDelete = New System.Windows.Forms.ToolBarButton
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.btnLoadCombos = New System.Windows.Forms.Button
-        Me.btnSearchForAIRS = New System.Windows.Forms.Button
-        Me.btnClearReferenceNumber = New System.Windows.Forms.Button
-        Me.btnCloseTestReport = New System.Windows.Forms.Button
-        Me.clbReferenceNumbers = New System.Windows.Forms.CheckedListBox
-        Me.btnDeleteTestReport = New System.Windows.Forms.Button
-        Me.btnInsert = New System.Windows.Forms.Button
-        Me.DTPTestDateStart = New System.Windows.Forms.DateTimePicker
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.txtDaysInAPB = New System.Windows.Forms.TextBox
-        Me.Label24 = New System.Windows.Forms.Label
-        Me.Label45 = New System.Windows.Forms.Label
-        Me.DTPTestDateEnd = New System.Windows.Forms.DateTimePicker
-        Me.cboPollutant = New System.Windows.Forms.ComboBox
-        Me.txtEmissionSource = New System.Windows.Forms.TextBox
-        Me.cboTestingFirms = New System.Windows.Forms.ComboBox
-        Me.Label51 = New System.Windows.Forms.Label
-        Me.Label47 = New System.Windows.Forms.Label
-        Me.Label46 = New System.Windows.Forms.Label
-        Me.LLFacilityName = New System.Windows.Forms.LinkLabel
-        Me.Label41 = New System.Windows.Forms.Label
-        Me.cboFacilityName = New System.Windows.Forms.ComboBox
-        Me.Label42 = New System.Windows.Forms.Label
-        Me.txtFacilityAddress = New System.Windows.Forms.TextBox
-        Me.txtFacilityCity = New System.Windows.Forms.TextBox
-        Me.txtFacilityState = New System.Windows.Forms.TextBox
-        Me.txtFacilityZipCode = New System.Windows.Forms.TextBox
-        Me.cboAIRSNumber = New System.Windows.Forms.ComboBox
-        Me.Label40 = New System.Windows.Forms.Label
-        Me.DTPDateReceived = New System.Windows.Forms.DateTimePicker
-        Me.Label21 = New System.Windows.Forms.Label
-        Me.DTPDateClosed = New System.Windows.Forms.DateTimePicker
-        Me.Label17 = New System.Windows.Forms.Label
-        Me.GBRecordStatus = New System.Windows.Forms.GroupBox
-        Me.rdbCloseReport = New System.Windows.Forms.RadioButton
-        Me.rdbOpenReport = New System.Windows.Forms.RadioButton
-        Me.chbOverright = New System.Windows.Forms.CheckBox
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.txtReferenceNumber = New System.Windows.Forms.TextBox
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.dgvFacilityInfo = New System.Windows.Forms.DataGridView
-        Me.TCTestReports = New System.Windows.Forms.TabControl
-        Me.TPNewTestReports = New System.Windows.Forms.TabPage
-        Me.TPHistoricalReports = New System.Windows.Forms.TabPage
-        Me.Panel11 = New System.Windows.Forms.Panel
-        Me.btnOpenTestReport = New System.Windows.Forms.Button
-        Me.Panel12 = New System.Windows.Forms.Panel
-        Me.btnReOpenHistoricTestReport = New System.Windows.Forms.Button
-        Me.btnCloseHistoricTestReport = New System.Windows.Forms.Button
-        Me.txtCloseTestReportRefNum = New System.Windows.Forms.TextBox
-        Me.Label78 = New System.Windows.Forms.Label
-        Me.Label77 = New System.Windows.Forms.Label
-        Me.Label76 = New System.Windows.Forms.Label
-        Me.DTPAddTestReportDateCompleted = New System.Windows.Forms.DateTimePicker
-        Me.Label67 = New System.Windows.Forms.Label
-        Me.btnClearAddTestReport = New System.Windows.Forms.Button
-        Me.mtbAddTestReportAIRSNumber = New System.Windows.Forms.MaskedTextBox
-        Me.dtpAddTestReportDateReceived = New System.Windows.Forms.DateTimePicker
-        Me.txtAddTestReportCommissioner = New System.Windows.Forms.TextBox
-        Me.txtAddTestReportDirector = New System.Windows.Forms.TextBox
-        Me.txtAddTestReportProgramManager = New System.Windows.Forms.TextBox
-        Me.Label74 = New System.Windows.Forms.Label
-        Me.Label75 = New System.Windows.Forms.Label
-        Me.Label66 = New System.Windows.Forms.Label
-        Me.Label63 = New System.Windows.Forms.Label
-        Me.Label62 = New System.Windows.Forms.Label
-        Me.txtAddTestReportRefNum = New System.Windows.Forms.TextBox
-        Me.btnAddTestReport = New System.Windows.Forms.Button
-        Me.Label61 = New System.Windows.Forms.Label
-        Me.bgw1 = New System.ComponentModel.BackgroundWorker
-        Me.bgwAIRS = New System.ComponentModel.BackgroundWorker
-        Me.StatusStrip1.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
-        Me.GBRecordStatus.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
-        CType(Me.dgvFacilityInfo, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TCTestReports.SuspendLayout()
-        Me.TPNewTestReports.SuspendLayout()
-        Me.TPHistoricalReports.SuspendLayout()
-        Me.Panel11.SuspendLayout()
-        Me.Panel12.SuspendLayout()
-        Me.SuspendLayout()
+        Me.cmPrint = New System.Windows.Forms.ContextMenu()
+        Me.cmiPrintTestReport = New System.Windows.Forms.MenuItem()
+        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.TBFacilityInfo = New System.Windows.Forms.ToolBar()
+        Me.TbbSave = New System.Windows.Forms.ToolBarButton()
+        Me.TbbFind = New System.Windows.Forms.ToolBarButton()
+        Me.TbbForward = New System.Windows.Forms.ToolBarButton()
+        Me.TbbAddMemo = New System.Windows.Forms.ToolBarButton()
+        Me.TbbClear = New System.Windows.Forms.ToolBarButton()
+        Me.TbbDelete = New System.Windows.Forms.ToolBarButton()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.btnLoadCombos = New System.Windows.Forms.Button()
+        Me.btnSearchForAIRS = New System.Windows.Forms.Button()
+        Me.btnClearReferenceNumber = New System.Windows.Forms.Button()
+        Me.btnCloseTestReport = New System.Windows.Forms.Button()
+        Me.clbReferenceNumbers = New System.Windows.Forms.CheckedListBox()
+        Me.btnDeleteTestReport = New System.Windows.Forms.Button()
+        Me.btnInsert = New System.Windows.Forms.Button()
+        Me.DTPTestDateStart = New System.Windows.Forms.DateTimePicker()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.txtDaysInAPB = New System.Windows.Forms.TextBox()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.Label45 = New System.Windows.Forms.Label()
+        Me.DTPTestDateEnd = New System.Windows.Forms.DateTimePicker()
+        Me.cboPollutant = New System.Windows.Forms.ComboBox()
+        Me.txtEmissionSource = New System.Windows.Forms.TextBox()
+        Me.cboTestingFirms = New System.Windows.Forms.ComboBox()
+        Me.Label51 = New System.Windows.Forms.Label()
+        Me.Label47 = New System.Windows.Forms.Label()
+        Me.Label46 = New System.Windows.Forms.Label()
+        Me.LLFacilityName = New System.Windows.Forms.LinkLabel()
+        Me.Label41 = New System.Windows.Forms.Label()
+        Me.cboFacilityName = New System.Windows.Forms.ComboBox()
+        Me.Label42 = New System.Windows.Forms.Label()
+        Me.txtFacilityAddress = New System.Windows.Forms.TextBox()
+        Me.txtFacilityCity = New System.Windows.Forms.TextBox()
+        Me.txtFacilityState = New System.Windows.Forms.TextBox()
+        Me.txtFacilityZipCode = New System.Windows.Forms.TextBox()
+        Me.cboAIRSNumber = New System.Windows.Forms.ComboBox()
+        Me.Label40 = New System.Windows.Forms.Label()
+        Me.DTPDateReceived = New System.Windows.Forms.DateTimePicker()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.DTPDateClosed = New System.Windows.Forms.DateTimePicker()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.GBRecordStatus = New System.Windows.Forms.GroupBox()
+        Me.rdbCloseReport = New System.Windows.Forms.RadioButton()
+        Me.rdbOpenReport = New System.Windows.Forms.RadioButton()
+        Me.chbOverright = New System.Windows.Forms.CheckBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.txtReferenceNumber = New System.Windows.Forms.TextBox()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.dgvFacilityInfo = New System.Windows.Forms.DataGridView()
+        Me.TCTestReports = New System.Windows.Forms.TabControl()
+        Me.TPNewTestReports = New System.Windows.Forms.TabPage()
+        Me.TPHistoricalReports = New System.Windows.Forms.TabPage()
+        Me.Panel11 = New System.Windows.Forms.Panel()
+        Me.btnOpenTestReport = New System.Windows.Forms.Button()
+        Me.Panel12 = New System.Windows.Forms.Panel()
+        Me.btnReOpenHistoricTestReport = New System.Windows.Forms.Button()
+        Me.btnCloseHistoricTestReport = New System.Windows.Forms.Button()
+        Me.txtCloseTestReportRefNum = New System.Windows.Forms.TextBox()
+        Me.Label78 = New System.Windows.Forms.Label()
+        Me.Label77 = New System.Windows.Forms.Label()
+        Me.Label76 = New System.Windows.Forms.Label()
+        Me.DTPAddTestReportDateCompleted = New System.Windows.Forms.DateTimePicker()
+        Me.Label67 = New System.Windows.Forms.Label()
+        Me.btnClearAddTestReport = New System.Windows.Forms.Button()
+        Me.mtbAddTestReportAIRSNumber = New System.Windows.Forms.MaskedTextBox()
+        Me.dtpAddTestReportDateReceived = New System.Windows.Forms.DateTimePicker()
+        Me.txtAddTestReportCommissioner = New System.Windows.Forms.TextBox()
+        Me.txtAddTestReportDirector = New System.Windows.Forms.TextBox()
+        Me.txtAddTestReportProgramManager = New System.Windows.Forms.TextBox()
+        Me.Label74 = New System.Windows.Forms.Label()
+        Me.Label75 = New System.Windows.Forms.Label()
+        Me.Label66 = New System.Windows.Forms.Label()
+        Me.Label63 = New System.Windows.Forms.Label()
+        Me.Label62 = New System.Windows.Forms.Label()
+        Me.txtAddTestReportRefNum = New System.Windows.Forms.TextBox()
+        Me.btnAddTestReport = New System.Windows.Forms.Button()
+        Me.Label61 = New System.Windows.Forms.Label()
+        Me.bgw1 = New System.ComponentModel.BackgroundWorker()
+        Me.bgwAIRS = New System.ComponentModel.BackgroundWorker()
+        Me.StatusStrip1.SuspendLayout
+        Me.GroupBox1.SuspendLayout
+        Me.GBRecordStatus.SuspendLayout
+        Me.GroupBox2.SuspendLayout
+        CType(Me.dgvFacilityInfo,System.ComponentModel.ISupportInitialize).BeginInit
+        Me.TCTestReports.SuspendLayout
+        Me.TPNewTestReports.SuspendLayout
+        Me.TPHistoricalReports.SuspendLayout
+        Me.Panel11.SuspendLayout
+        Me.Panel12.SuspendLayout
+        Me.SuspendLayout
         '
         'MainMenu1
         '
@@ -485,7 +485,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'Image_List_All
         '
-        Me.Image_List_All.ImageStream = CType(resources.GetObject("Image_List_All.ImageStream"), System.Windows.Forms.ImageListStreamer)
+        Me.Image_List_All.ImageStream = CType(resources.GetObject("Image_List_All.ImageStream"),System.Windows.Forms.ImageListStreamer)
         Me.Image_List_All.TransparentColor = System.Drawing.Color.Transparent
         Me.Image_List_All.Images.SetKeyName(0, "")
         Me.Image_List_All.Images.SetKeyName(1, "")
@@ -593,20 +593,20 @@ Partial Class ISMPTestReportAdministrative
         '
         'Panel1
         '
-        Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)  _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)  _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom),System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(793, 17)
-        Me.Panel1.Spring = True
+        Me.Panel1.Spring = true
         Me.Panel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Panel2
         '
-        Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)  _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)  _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom),System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(4, 17)
@@ -614,9 +614,9 @@ Partial Class ISMPTestReportAdministrative
         '
         'Panel3
         '
-        Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)  _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)  _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom),System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(4, 17)
@@ -627,11 +627,11 @@ Partial Class ISMPTestReportAdministrative
         Me.TBFacilityInfo.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TbbSave, Me.TbbFind, Me.TbbForward, Me.TbbAddMemo, Me.TbbClear, Me.TbbDelete})
         Me.TBFacilityInfo.ButtonSize = New System.Drawing.Size(23, 22)
         Me.TBFacilityInfo.ContextMenu = Me.cmPrint
-        Me.TBFacilityInfo.DropDownArrows = True
+        Me.TBFacilityInfo.DropDownArrows = true
         Me.TBFacilityInfo.ImageList = Me.Image_List_All
         Me.TBFacilityInfo.Location = New System.Drawing.Point(0, 0)
         Me.TBFacilityInfo.Name = "TBFacilityInfo"
-        Me.TBFacilityInfo.ShowToolTips = True
+        Me.TBFacilityInfo.ShowToolTips = true
         Me.TBFacilityInfo.Size = New System.Drawing.Size(816, 28)
         Me.TBFacilityInfo.TabIndex = 47
         '
@@ -709,59 +709,59 @@ Partial Class ISMPTestReportAdministrative
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(802, 279)
         Me.GroupBox1.TabIndex = 48
-        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.TabStop = false
         '
         'btnLoadCombos
         '
-        Me.btnLoadCombos.AutoSize = True
+        Me.btnLoadCombos.AutoSize = true
         Me.btnLoadCombos.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnLoadCombos.Location = New System.Drawing.Point(652, 13)
         Me.btnLoadCombos.Name = "btnLoadCombos"
         Me.btnLoadCombos.Size = New System.Drawing.Size(137, 23)
         Me.btnLoadCombos.TabIndex = 221
         Me.btnLoadCombos.Text = "Load AIRS/Facility Name"
-        Me.btnLoadCombos.UseVisualStyleBackColor = True
+        Me.btnLoadCombos.UseVisualStyleBackColor = true
         '
         'btnSearchForAIRS
         '
-        Me.btnSearchForAIRS.AutoSize = True
+        Me.btnSearchForAIRS.AutoSize = true
         Me.btnSearchForAIRS.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnSearchForAIRS.Location = New System.Drawing.Point(216, 38)
         Me.btnSearchForAIRS.Name = "btnSearchForAIRS"
         Me.btnSearchForAIRS.Size = New System.Drawing.Size(51, 23)
         Me.btnSearchForAIRS.TabIndex = 220
         Me.btnSearchForAIRS.Text = "Search"
-        Me.btnSearchForAIRS.UseVisualStyleBackColor = True
+        Me.btnSearchForAIRS.UseVisualStyleBackColor = true
         '
         'btnClearReferenceNumber
         '
-        Me.btnClearReferenceNumber.AutoSize = True
+        Me.btnClearReferenceNumber.AutoSize = true
         Me.btnClearReferenceNumber.ImageIndex = 84
         Me.btnClearReferenceNumber.ImageList = Me.Image_List_All
         Me.btnClearReferenceNumber.Location = New System.Drawing.Point(188, 13)
         Me.btnClearReferenceNumber.Name = "btnClearReferenceNumber"
         Me.btnClearReferenceNumber.Size = New System.Drawing.Size(22, 22)
         Me.btnClearReferenceNumber.TabIndex = 219
-        Me.btnClearReferenceNumber.UseVisualStyleBackColor = True
+        Me.btnClearReferenceNumber.UseVisualStyleBackColor = true
         '
         'btnCloseTestReport
         '
-        Me.btnCloseTestReport.AutoSize = True
-        Me.btnCloseTestReport.Enabled = False
+        Me.btnCloseTestReport.AutoSize = true
+        Me.btnCloseTestReport.Enabled = false
         Me.btnCloseTestReport.Location = New System.Drawing.Point(629, 196)
         Me.btnCloseTestReport.Name = "btnCloseTestReport"
         Me.btnCloseTestReport.Size = New System.Drawing.Size(120, 23)
         Me.btnCloseTestReport.TabIndex = 15
         Me.btnCloseTestReport.Text = "Close Out Report(s)"
-        Me.btnCloseTestReport.UseVisualStyleBackColor = True
+        Me.btnCloseTestReport.UseVisualStyleBackColor = true
         '
         'clbReferenceNumbers
         '
-        Me.clbReferenceNumbers.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.clbReferenceNumbers.CheckOnClick = True
-        Me.clbReferenceNumbers.FormattingEnabled = True
-        Me.clbReferenceNumbers.HorizontalScrollbar = True
+        Me.clbReferenceNumbers.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left)  _
+            Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+        Me.clbReferenceNumbers.CheckOnClick = true
+        Me.clbReferenceNumbers.FormattingEnabled = true
+        Me.clbReferenceNumbers.HorizontalScrollbar = true
         Me.clbReferenceNumbers.Location = New System.Drawing.Point(509, 39)
         Me.clbReferenceNumbers.Name = "clbReferenceNumbers"
         Me.clbReferenceNumbers.Size = New System.Drawing.Size(280, 109)
@@ -769,23 +769,23 @@ Partial Class ISMPTestReportAdministrative
         '
         'btnDeleteTestReport
         '
-        Me.btnDeleteTestReport.AutoSize = True
+        Me.btnDeleteTestReport.AutoSize = true
         Me.btnDeleteTestReport.Location = New System.Drawing.Point(301, 250)
         Me.btnDeleteTestReport.Name = "btnDeleteTestReport"
         Me.btnDeleteTestReport.Size = New System.Drawing.Size(120, 23)
         Me.btnDeleteTestReport.TabIndex = 11
         Me.btnDeleteTestReport.Text = "Delete Test Report"
-        Me.btnDeleteTestReport.UseVisualStyleBackColor = True
+        Me.btnDeleteTestReport.UseVisualStyleBackColor = true
         '
         'btnInsert
         '
-        Me.btnInsert.AutoSize = True
+        Me.btnInsert.AutoSize = true
         Me.btnInsert.Location = New System.Drawing.Point(116, 250)
         Me.btnInsert.Name = "btnInsert"
         Me.btnInsert.Size = New System.Drawing.Size(135, 23)
         Me.btnInsert.TabIndex = 10
         Me.btnInsert.Text = "Add/Update Test Report"
-        Me.btnInsert.UseVisualStyleBackColor = True
+        Me.btnInsert.UseVisualStyleBackColor = true
         '
         'DTPTestDateStart
         '
@@ -798,7 +798,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'Label3
         '
-        Me.Label3.AutoSize = True
+        Me.Label3.AutoSize = true
         Me.Label3.Location = New System.Drawing.Point(390, 146)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(31, 13)
@@ -809,13 +809,13 @@ Partial Class ISMPTestReportAdministrative
         '
         Me.txtDaysInAPB.Location = New System.Drawing.Point(328, 142)
         Me.txtDaysInAPB.Name = "txtDaysInAPB"
-        Me.txtDaysInAPB.ReadOnly = True
+        Me.txtDaysInAPB.ReadOnly = true
         Me.txtDaysInAPB.Size = New System.Drawing.Size(61, 20)
         Me.txtDaysInAPB.TabIndex = 200
         '
         'Label24
         '
-        Me.Label24.AutoSize = True
+        Me.Label24.AutoSize = true
         Me.Label24.Location = New System.Drawing.Point(226, 146)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(96, 13)
@@ -824,7 +824,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'Label45
         '
-        Me.Label45.AutoSize = True
+        Me.Label45.AutoSize = true
         Me.Label45.Location = New System.Drawing.Point(26, 228)
         Me.Label45.Name = "Label45"
         Me.Label45.Size = New System.Drawing.Size(80, 13)
@@ -869,7 +869,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'Label51
         '
-        Me.Label51.AutoSize = True
+        Me.Label51.AutoSize = true
         Me.Label51.Location = New System.Drawing.Point(44, 175)
         Me.Label51.Name = "Label51"
         Me.Label51.Size = New System.Drawing.Size(62, 13)
@@ -878,7 +878,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'Label47
         '
-        Me.Label47.AutoSize = True
+        Me.Label47.AutoSize = true
         Me.Label47.Location = New System.Drawing.Point(444, 228)
         Me.Label47.Name = "Label47"
         Me.Label47.Size = New System.Drawing.Size(51, 13)
@@ -887,7 +887,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'Label46
         '
-        Me.Label46.AutoSize = True
+        Me.Label46.AutoSize = true
         Me.Label46.Location = New System.Drawing.Point(39, 201)
         Me.Label46.Name = "Label46"
         Me.Label46.Size = New System.Drawing.Size(67, 13)
@@ -896,17 +896,17 @@ Partial Class ISMPTestReportAdministrative
         '
         'LLFacilityName
         '
-        Me.LLFacilityName.AutoSize = True
+        Me.LLFacilityName.AutoSize = true
         Me.LLFacilityName.Location = New System.Drawing.Point(33, 67)
         Me.LLFacilityName.Name = "LLFacilityName"
         Me.LLFacilityName.Size = New System.Drawing.Size(73, 13)
         Me.LLFacilityName.TabIndex = 180
-        Me.LLFacilityName.TabStop = True
+        Me.LLFacilityName.TabStop = true
         Me.LLFacilityName.Text = "Facility Name:"
         '
         'Label41
         '
-        Me.Label41.AutoSize = True
+        Me.Label41.AutoSize = true
         Me.Label41.Location = New System.Drawing.Point(23, 94)
         Me.Label41.Name = "Label41"
         Me.Label41.Size = New System.Drawing.Size(83, 13)
@@ -924,7 +924,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'Label42
         '
-        Me.Label42.AutoSize = True
+        Me.Label42.AutoSize = true
         Me.Label42.Location = New System.Drawing.Point(29, 120)
         Me.Label42.Name = "Label42"
         Me.Label42.Size = New System.Drawing.Size(77, 13)
@@ -935,39 +935,39 @@ Partial Class ISMPTestReportAdministrative
         '
         Me.txtFacilityAddress.Location = New System.Drawing.Point(116, 90)
         Me.txtFacilityAddress.Name = "txtFacilityAddress"
-        Me.txtFacilityAddress.ReadOnly = True
+        Me.txtFacilityAddress.ReadOnly = true
         Me.txtFacilityAddress.Size = New System.Drawing.Size(304, 20)
         Me.txtFacilityAddress.TabIndex = 177
-        Me.txtFacilityAddress.TabStop = False
+        Me.txtFacilityAddress.TabStop = false
         '
         'txtFacilityCity
         '
         Me.txtFacilityCity.Location = New System.Drawing.Point(117, 116)
         Me.txtFacilityCity.Name = "txtFacilityCity"
-        Me.txtFacilityCity.ReadOnly = True
+        Me.txtFacilityCity.ReadOnly = true
         Me.txtFacilityCity.Size = New System.Drawing.Size(144, 20)
         Me.txtFacilityCity.TabIndex = 178
-        Me.txtFacilityCity.TabStop = False
+        Me.txtFacilityCity.TabStop = false
         '
         'txtFacilityState
         '
         Me.txtFacilityState.Location = New System.Drawing.Point(267, 116)
         Me.txtFacilityState.MaxLength = 5
         Me.txtFacilityState.Name = "txtFacilityState"
-        Me.txtFacilityState.ReadOnly = True
+        Me.txtFacilityState.ReadOnly = true
         Me.txtFacilityState.Size = New System.Drawing.Size(40, 20)
         Me.txtFacilityState.TabIndex = 179
-        Me.txtFacilityState.TabStop = False
+        Me.txtFacilityState.TabStop = false
         '
         'txtFacilityZipCode
         '
         Me.txtFacilityZipCode.Location = New System.Drawing.Point(313, 116)
         Me.txtFacilityZipCode.MaxLength = 5
         Me.txtFacilityZipCode.Name = "txtFacilityZipCode"
-        Me.txtFacilityZipCode.ReadOnly = True
+        Me.txtFacilityZipCode.ReadOnly = true
         Me.txtFacilityZipCode.Size = New System.Drawing.Size(108, 20)
         Me.txtFacilityZipCode.TabIndex = 174
-        Me.txtFacilityZipCode.TabStop = False
+        Me.txtFacilityZipCode.TabStop = false
         '
         'cboAIRSNumber
         '
@@ -981,7 +981,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'Label40
         '
-        Me.Label40.AutoSize = True
+        Me.Label40.AutoSize = true
         Me.Label40.Location = New System.Drawing.Point(31, 43)
         Me.Label40.Name = "Label40"
         Me.Label40.Size = New System.Drawing.Size(75, 13)
@@ -1000,7 +1000,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'Label21
         '
-        Me.Label21.AutoSize = True
+        Me.Label21.AutoSize = true
         Me.Label21.Location = New System.Drawing.Point(24, 146)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(82, 13)
@@ -1010,7 +1010,7 @@ Partial Class ISMPTestReportAdministrative
         'DTPDateClosed
         '
         Me.DTPDateClosed.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPDateClosed.Enabled = False
+        Me.DTPDateClosed.Enabled = false
         Me.DTPDateClosed.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPDateClosed.Location = New System.Drawing.Point(509, 197)
         Me.DTPDateClosed.Name = "DTPDateClosed"
@@ -1020,7 +1020,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'Label17
         '
-        Me.Label17.AutoSize = True
+        Me.Label17.AutoSize = true
         Me.Label17.Location = New System.Drawing.Point(433, 201)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(68, 13)
@@ -1035,7 +1035,7 @@ Partial Class ISMPTestReportAdministrative
         Me.GBRecordStatus.Name = "GBRecordStatus"
         Me.GBRecordStatus.Size = New System.Drawing.Size(240, 40)
         Me.GBRecordStatus.TabIndex = 160
-        Me.GBRecordStatus.TabStop = False
+        Me.GBRecordStatus.TabStop = false
         Me.GBRecordStatus.Text = "Report Status"
         '
         'rdbCloseReport
@@ -1048,13 +1048,13 @@ Partial Class ISMPTestReportAdministrative
         '
         'rdbOpenReport
         '
-        Me.rdbOpenReport.Checked = True
-        Me.rdbOpenReport.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.rdbOpenReport.Checked = true
+        Me.rdbOpenReport.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.rdbOpenReport.Location = New System.Drawing.Point(16, 16)
         Me.rdbOpenReport.Name = "rdbOpenReport"
         Me.rdbOpenReport.Size = New System.Drawing.Size(104, 16)
         Me.rdbOpenReport.TabIndex = 12
-        Me.rdbOpenReport.TabStop = True
+        Me.rdbOpenReport.TabStop = true
         Me.rdbOpenReport.Text = "Report Open"
         '
         'chbOverright
@@ -1067,7 +1067,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'Label10
         '
-        Me.Label10.AutoSize = True
+        Me.Label10.AutoSize = true
         Me.Label10.Location = New System.Drawing.Point(6, 19)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(100, 13)
@@ -1079,7 +1079,7 @@ Partial Class ISMPTestReportAdministrative
         Me.txtReferenceNumber.Location = New System.Drawing.Point(112, 15)
         Me.txtReferenceNumber.MaxLength = 9
         Me.txtReferenceNumber.Name = "txtReferenceNumber"
-        Me.txtReferenceNumber.ReadOnly = True
+        Me.txtReferenceNumber.ReadOnly = true
         Me.txtReferenceNumber.Size = New System.Drawing.Size(70, 20)
         Me.txtReferenceNumber.TabIndex = 1
         '
@@ -1091,7 +1091,7 @@ Partial Class ISMPTestReportAdministrative
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(816, 181)
         Me.GroupBox2.TabIndex = 213
-        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.TabStop = false
         Me.GroupBox2.Text = "Test Reports"
         '
         'dgvFacilityInfo
@@ -1100,7 +1100,7 @@ Partial Class ISMPTestReportAdministrative
         Me.dgvFacilityInfo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvFacilityInfo.Location = New System.Drawing.Point(3, 16)
         Me.dgvFacilityInfo.Name = "dgvFacilityInfo"
-        Me.dgvFacilityInfo.ReadOnly = True
+        Me.dgvFacilityInfo.ReadOnly = true
         Me.dgvFacilityInfo.Size = New System.Drawing.Size(810, 162)
         Me.dgvFacilityInfo.TabIndex = 213
         '
@@ -1124,7 +1124,7 @@ Partial Class ISMPTestReportAdministrative
         Me.TPNewTestReports.Size = New System.Drawing.Size(808, 288)
         Me.TPNewTestReports.TabIndex = 0
         Me.TPNewTestReports.Text = "Add/Edit New Test Reports"
-        Me.TPNewTestReports.UseVisualStyleBackColor = True
+        Me.TPNewTestReports.UseVisualStyleBackColor = true
         '
         'TPHistoricalReports
         '
@@ -1135,7 +1135,7 @@ Partial Class ISMPTestReportAdministrative
         Me.TPHistoricalReports.Size = New System.Drawing.Size(808, 288)
         Me.TPHistoricalReports.TabIndex = 1
         Me.TPHistoricalReports.Text = "Historical Test Reports"
-        Me.TPHistoricalReports.UseVisualStyleBackColor = True
+        Me.TPHistoricalReports.UseVisualStyleBackColor = true
         '
         'Panel11
         '
@@ -1167,14 +1167,14 @@ Partial Class ISMPTestReportAdministrative
         '
         'btnOpenTestReport
         '
-        Me.btnOpenTestReport.AutoSize = True
+        Me.btnOpenTestReport.AutoSize = true
         Me.btnOpenTestReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnOpenTestReport.Location = New System.Drawing.Point(259, 218)
         Me.btnOpenTestReport.Name = "btnOpenTestReport"
         Me.btnOpenTestReport.Size = New System.Drawing.Size(102, 23)
         Me.btnOpenTestReport.TabIndex = 13
         Me.btnOpenTestReport.Text = "Open Test Report"
-        Me.btnOpenTestReport.UseVisualStyleBackColor = True
+        Me.btnOpenTestReport.UseVisualStyleBackColor = true
         '
         'Panel12
         '
@@ -1190,25 +1190,25 @@ Partial Class ISMPTestReportAdministrative
         '
         'btnReOpenHistoricTestReport
         '
-        Me.btnReOpenHistoricTestReport.AutoSize = True
+        Me.btnReOpenHistoricTestReport.AutoSize = true
         Me.btnReOpenHistoricTestReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnReOpenHistoricTestReport.Location = New System.Drawing.Point(106, 61)
         Me.btnReOpenHistoricTestReport.Name = "btnReOpenHistoricTestReport"
         Me.btnReOpenHistoricTestReport.Size = New System.Drawing.Size(119, 23)
         Me.btnReOpenHistoricTestReport.TabIndex = 9
         Me.btnReOpenHistoricTestReport.Text = "Re-Open Test Report"
-        Me.btnReOpenHistoricTestReport.UseVisualStyleBackColor = True
+        Me.btnReOpenHistoricTestReport.UseVisualStyleBackColor = true
         '
         'btnCloseHistoricTestReport
         '
-        Me.btnCloseHistoricTestReport.AutoSize = True
+        Me.btnCloseHistoricTestReport.AutoSize = true
         Me.btnCloseHistoricTestReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnCloseHistoricTestReport.Location = New System.Drawing.Point(106, 32)
         Me.btnCloseHistoricTestReport.Name = "btnCloseHistoricTestReport"
         Me.btnCloseHistoricTestReport.Size = New System.Drawing.Size(102, 23)
         Me.btnCloseHistoricTestReport.TabIndex = 8
         Me.btnCloseHistoricTestReport.Text = "Close Test Report"
-        Me.btnCloseHistoricTestReport.UseVisualStyleBackColor = True
+        Me.btnCloseHistoricTestReport.UseVisualStyleBackColor = true
         '
         'txtCloseTestReportRefNum
         '
@@ -1219,7 +1219,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'Label78
         '
-        Me.Label78.AutoSize = True
+        Me.Label78.AutoSize = true
         Me.Label78.Location = New System.Drawing.Point(3, 9)
         Me.Label78.Name = "Label78"
         Me.Label78.Size = New System.Drawing.Size(97, 13)
@@ -1228,18 +1228,18 @@ Partial Class ISMPTestReportAdministrative
         '
         'Label77
         '
-        Me.Label77.AutoSize = True
+        Me.Label77.AutoSize = true
         Me.Label77.Location = New System.Drawing.Point(359, 102)
         Me.Label77.Name = "Label77"
         Me.Label77.Size = New System.Drawing.Size(233, 52)
         Me.Label77.TabIndex = 10
-        Me.Label77.Text = "Please enter the " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Commissioner, Director, and Program Managers " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "from the origin" & _
-            "al Test Report " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "not the Current individuals if different. "
+        Me.Label77.Text = "Please enter the "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"Commissioner, Director, and Program Managers "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"from the origin"& _ 
+    "al Test Report "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"not the Current individuals if different. "
         '
         'Label76
         '
-        Me.Label76.AutoSize = True
-        Me.Label76.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label76.AutoSize = true
+        Me.Label76.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline),System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Label76.Location = New System.Drawing.Point(18, 11)
         Me.Label76.Name = "Label76"
         Me.Label76.Size = New System.Drawing.Size(458, 25)
@@ -1249,7 +1249,7 @@ Partial Class ISMPTestReportAdministrative
         'DTPAddTestReportDateCompleted
         '
         Me.DTPAddTestReportDateCompleted.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPAddTestReportDateCompleted.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPAddTestReportDateCompleted.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.DTPAddTestReportDateCompleted.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPAddTestReportDateCompleted.Location = New System.Drawing.Point(345, 176)
         Me.DTPAddTestReportDateCompleted.Name = "DTPAddTestReportDateCompleted"
@@ -1259,7 +1259,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'Label67
         '
-        Me.Label67.AutoSize = True
+        Me.Label67.AutoSize = true
         Me.Label67.Location = New System.Drawing.Point(256, 181)
         Me.Label67.Name = "Label67"
         Me.Label67.Size = New System.Drawing.Size(83, 13)
@@ -1268,14 +1268,14 @@ Partial Class ISMPTestReportAdministrative
         '
         'btnClearAddTestReport
         '
-        Me.btnClearAddTestReport.AutoSize = True
+        Me.btnClearAddTestReport.AutoSize = true
         Me.btnClearAddTestReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnClearAddTestReport.Location = New System.Drawing.Point(386, 218)
         Me.btnClearAddTestReport.Name = "btnClearAddTestReport"
         Me.btnClearAddTestReport.Size = New System.Drawing.Size(67, 23)
         Me.btnClearAddTestReport.TabIndex = 8
         Me.btnClearAddTestReport.Text = "Clear Data"
-        Me.btnClearAddTestReport.UseVisualStyleBackColor = True
+        Me.btnClearAddTestReport.UseVisualStyleBackColor = true
         '
         'mtbAddTestReportAIRSNumber
         '
@@ -1289,7 +1289,7 @@ Partial Class ISMPTestReportAdministrative
         'dtpAddTestReportDateReceived
         '
         Me.dtpAddTestReportDateReceived.CustomFormat = "dd-MMM-yyyy"
-        Me.dtpAddTestReportDateReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtpAddTestReportDateReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.dtpAddTestReportDateReceived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpAddTestReportDateReceived.Location = New System.Drawing.Point(124, 176)
         Me.dtpAddTestReportDateReceived.Name = "dtpAddTestReportDateReceived"
@@ -1320,7 +1320,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'Label74
         '
-        Me.Label74.AutoSize = True
+        Me.Label74.AutoSize = true
         Me.Label74.Location = New System.Drawing.Point(20, 181)
         Me.Label74.Name = "Label74"
         Me.Label74.Size = New System.Drawing.Size(79, 13)
@@ -1329,7 +1329,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'Label75
         '
-        Me.Label75.AutoSize = True
+        Me.Label75.AutoSize = true
         Me.Label75.Location = New System.Drawing.Point(20, 155)
         Me.Label75.Name = "Label75"
         Me.Label75.Size = New System.Drawing.Size(91, 13)
@@ -1338,7 +1338,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'Label66
         '
-        Me.Label66.AutoSize = True
+        Me.Label66.AutoSize = true
         Me.Label66.Location = New System.Drawing.Point(20, 131)
         Me.Label66.Name = "Label66"
         Me.Label66.Size = New System.Drawing.Size(44, 13)
@@ -1347,7 +1347,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'Label63
         '
-        Me.Label63.AutoSize = True
+        Me.Label63.AutoSize = true
         Me.Label63.Location = New System.Drawing.Point(20, 106)
         Me.Label63.Name = "Label63"
         Me.Label63.Size = New System.Drawing.Size(74, 13)
@@ -1356,7 +1356,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'Label62
         '
-        Me.Label62.AutoSize = True
+        Me.Label62.AutoSize = true
         Me.Label62.Location = New System.Drawing.Point(20, 80)
         Me.Label62.Name = "Label62"
         Me.Label62.Size = New System.Drawing.Size(72, 13)
@@ -1372,18 +1372,18 @@ Partial Class ISMPTestReportAdministrative
         '
         'btnAddTestReport
         '
-        Me.btnAddTestReport.AutoSize = True
+        Me.btnAddTestReport.AutoSize = true
         Me.btnAddTestReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnAddTestReport.Location = New System.Drawing.Point(124, 218)
         Me.btnAddTestReport.Name = "btnAddTestReport"
         Me.btnAddTestReport.Size = New System.Drawing.Size(95, 23)
         Me.btnAddTestReport.TabIndex = 7
         Me.btnAddTestReport.Text = "Add Test Report"
-        Me.btnAddTestReport.UseVisualStyleBackColor = True
+        Me.btnAddTestReport.UseVisualStyleBackColor = true
         '
         'Label61
         '
-        Me.Label61.AutoSize = True
+        Me.Label61.AutoSize = true
         Me.Label61.Location = New System.Drawing.Point(20, 55)
         Me.Label61.Name = "Label61"
         Me.Label61.Size = New System.Drawing.Size(97, 13)
@@ -1395,7 +1395,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'ISMPTestReportAdministrative
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(816, 545)
         Me.Controls.Add(Me.GroupBox2)
@@ -1405,24 +1405,24 @@ Partial Class ISMPTestReportAdministrative
         Me.Menu = Me.MainMenu1
         Me.Name = "ISMPTestReportAdministrative"
         Me.Text = "ISMP Test Report Administrative"
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
-        Me.GBRecordStatus.ResumeLayout(False)
-        Me.GroupBox2.ResumeLayout(False)
-        CType(Me.dgvFacilityInfo, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TCTestReports.ResumeLayout(False)
-        Me.TPNewTestReports.ResumeLayout(False)
-        Me.TPHistoricalReports.ResumeLayout(False)
-        Me.Panel11.ResumeLayout(False)
-        Me.Panel11.PerformLayout()
-        Me.Panel12.ResumeLayout(False)
-        Me.Panel12.PerformLayout()
-        Me.ResumeLayout(False)
-        Me.PerformLayout()
+        Me.StatusStrip1.ResumeLayout(false)
+        Me.StatusStrip1.PerformLayout
+        Me.GroupBox1.ResumeLayout(false)
+        Me.GroupBox1.PerformLayout
+        Me.GBRecordStatus.ResumeLayout(false)
+        Me.GroupBox2.ResumeLayout(false)
+        CType(Me.dgvFacilityInfo,System.ComponentModel.ISupportInitialize).EndInit
+        Me.TCTestReports.ResumeLayout(false)
+        Me.TPNewTestReports.ResumeLayout(false)
+        Me.TPHistoricalReports.ResumeLayout(false)
+        Me.Panel11.ResumeLayout(false)
+        Me.Panel11.PerformLayout
+        Me.Panel12.ResumeLayout(false)
+        Me.Panel12.PerformLayout
+        Me.ResumeLayout(false)
+        Me.PerformLayout
 
-    End Sub
+End Sub
     Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
     Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
     Friend WithEvents MmiSave As System.Windows.Forms.MenuItem

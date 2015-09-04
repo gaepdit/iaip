@@ -28,7 +28,7 @@ Public Class DmuEdtErrorDetail
         End Set
     End Property
 
-    Private edtErrorDetails As DMU.EdtError
+    Private edtErrorDetails As Dmu.EdtError
 
 #End Region
 
@@ -103,21 +103,21 @@ Public Class DmuEdtErrorDetail
                 EdtStatus.Text = .EdtStatus
                 EdtDateSubmitted.Text = .EdtSubmitDate.ToString(DateFormat)
 
-                If .IaipIDCategory = DMU.EdtIdCategory.AIRFACILITY Then
+                If .IaipIDCategory = Dmu.EdtIdCategory.AIRFACILITY Then
                     IaipId.Text = New Apb.ApbFacilityId(.IaipID).FormattedString
                 Else
                     IaipId.Text = .IaipID
                 End If
-                If Not .IaipIDCategory = DMU.EdtIdCategory.None Then
+                If Not .IaipIDCategory = Dmu.EdtIdCategory.None Then
                     IaipId.Enabled = True
                 End If
 
-                If .IaipForeignIDCategory = DMU.EdtIdCategory.AIRFACILITY Then
+                If .IaipForeignIDCategory = Dmu.EdtIdCategory.AIRFACILITY Then
                     IaipForeignId.Text = New Apb.ApbFacilityId(.IaipForeignID).FormattedString
                 Else
                     IaipForeignId.Text = .IaipForeignID
                 End If
-                If Not .IaipForeignIDCategory = DMU.EdtIdCategory.None Then
+                If Not .IaipForeignIDCategory = Dmu.EdtIdCategory.None Then
                     IaipForeignId.Enabled = True
                 End If
             End With
@@ -157,7 +157,7 @@ Public Class DmuEdtErrorDetail
         Dim resolving As Boolean = Not edtErrorDetails.Resolved
 
         result = DAL.DMU.SetResolvedStatus(resolving, Me.EdtErrorID)
-        
+
         If result = True Then
             edtErrorDetails.Resolved = resolving
             If resolving Then
@@ -179,25 +179,25 @@ Public Class DmuEdtErrorDetail
 
     Private Sub IaipId_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles IaipId.LinkClicked
         Select Case edtErrorDetails.EdtSubmission.IaipIDCategory
-            Case DMU.EdtIdCategory.AIRFACILITY
+            Case Dmu.EdtIdCategory.AIRFACILITY
                 OpenFormFacilitySummary(IaipId.Text)
-            Case DMU.EdtIdCategory.COMPLIANCEMONITORING
+            Case Dmu.EdtIdCategory.COMPLIANCEMONITORING
                 OpenFormSscpWorkItem(IaipId.Text)
-            Case DMU.EdtIdCategory.COMPLIANCEMONITORINGFCE
+            Case Dmu.EdtIdCategory.COMPLIANCEMONITORINGFCE
                 OpenFormFceByID(IaipId.Text)
-            Case DMU.EdtIdCategory.CASEFILE, DMU.EdtIdCategory.ENFORCEMENTACTION
+            Case Dmu.EdtIdCategory.CASEFILE, Dmu.EdtIdCategory.ENFORCEMENTACTION
                 OpenFormEnforcement(IaipId.Text)
         End Select
     End Sub
     Private Sub IaipForeignId_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles IaipForeignId.LinkClicked
         Select Case edtErrorDetails.EdtSubmission.IaipForeignIDCategory
-            Case DMU.EdtIdCategory.AIRFACILITY
+            Case Dmu.EdtIdCategory.AIRFACILITY
                 OpenFormFacilitySummary(IaipForeignId.Text)
-            Case DMU.EdtIdCategory.COMPLIANCEMONITORING
+            Case Dmu.EdtIdCategory.COMPLIANCEMONITORING
                 OpenFormSscpWorkItem(IaipForeignId.Text)
-            Case DMU.EdtIdCategory.COMPLIANCEMONITORINGFCE
+            Case Dmu.EdtIdCategory.COMPLIANCEMONITORINGFCE
                 OpenFormFceByID(IaipForeignId.Text)
-            Case DMU.EdtIdCategory.CASEFILE, DMU.EdtIdCategory.ENFORCEMENTACTION
+            Case Dmu.EdtIdCategory.CASEFILE, Dmu.EdtIdCategory.ENFORCEMENTACTION
                 OpenFormEnforcement(IaipForeignId.Text)
         End Select
     End Sub

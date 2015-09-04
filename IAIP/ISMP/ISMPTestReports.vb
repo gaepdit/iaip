@@ -22,8 +22,6 @@ Public Class ISMPTestReports
     Dim daISMPUnits As OracleDataAdapter
     Dim dsPollutants As DataSet
     Dim daPollutants As OracleDataAdapter
-    Dim statusBar1 As New StatusBar
-    Dim Paneltemp1 As String
     Dim SQL As String
     Dim cmd As OracleCommand
     Dim dr As OracleDataReader
@@ -342,7 +340,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             Dim dtWitnessingEngineer2 As New DataTable
             Dim dtComplianceStatus As New DataTable
             Dim dtCCList As New DataTable
-            Dim dtUnits As New DataTable
             Dim dtISMPUnits As New DataTable
             Dim dtComplianceManager As New DataTable
             Dim dtReportType As New DataTable
@@ -2093,7 +2090,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             TCDocumentTypes.TabPages.Remove(TPPondTreatment)
             TCDocumentTypes.TabPages.Remove(TPGasConcentration)
             TCDocumentTypes.TabPages.Remove(TPFlare)
-            TCDocumentTypes.TabPages.Remove(TPPEMS)
             TCDocumentTypes.TabPages.Remove(TPMethodNine)
             TCDocumentTypes.TabPages.Remove(TPMemorandum)
             TCDocumentTypes.TabPages.Remove(TPRata)
@@ -2113,7 +2109,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             TCDocumentTypes.TabPages.Add(TPPondTreatment)
             TCDocumentTypes.TabPages.Add(TPGasConcentration)
             TCDocumentTypes.TabPages.Add(TPFlare)
-            TCDocumentTypes.TabPages.Add(TPPEMS)
             TCDocumentTypes.TabPages.Add(TPMethodNine)
             TCMethodNine.TabPages.Remove(TPMethodNineSingle)
             TCMethodNine.TabPages.Remove(TPMethodNineMultiple)
@@ -2519,8 +2514,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         LoadMethod22(txtReferenceNumber.Text)
                     Case "016"
                         LoadMethod9(txtReferenceNumber.Text)
-                    Case "017"
-                        LoadPEMS(txtReferenceNumber.Text)
                     Case "018"
                         LoadMemo(txtReferenceNumber.Text)
                     Case Else
@@ -2575,7 +2568,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             TCDocumentTypes.TabPages.Remove(TPPondTreatment)
             TCDocumentTypes.TabPages.Remove(TPGasConcentration)
             TCDocumentTypes.TabPages.Remove(TPFlare)
-            TCDocumentTypes.TabPages.Remove(TPPEMS)
             TCDocumentTypes.TabPages.Remove(TPMethodNine)
             TCDocumentTypes.TabPages.Remove(TPMemorandum)
             TCDocumentTypes.TabPages.Remove(TPRata)
@@ -3369,7 +3361,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             TCDocumentTypes.TabPages.Remove(TPPondTreatment)
             TCDocumentTypes.TabPages.Remove(TPGasConcentration)
             TCDocumentTypes.TabPages.Remove(TPFlare)
-            TCDocumentTypes.TabPages.Remove(TPPEMS)
             TCDocumentTypes.TabPages.Remove(TPMethodNine)
             TCDocumentTypes.TabPages.Remove(TPMemorandum)
             TCDocumentTypes.TabPages.Remove(TPRata)
@@ -4560,7 +4551,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             TCDocumentTypes.TabPages.Remove(TPPondTreatment)
             TCDocumentTypes.TabPages.Remove(TPGasConcentration)
             TCDocumentTypes.TabPages.Remove(TPFlare)
-            TCDocumentTypes.TabPages.Remove(TPPEMS)
             TCDocumentTypes.TabPages.Remove(TPMethodNine)
             TCDocumentTypes.TabPages.Remove(TPMemorandum)
             TCDocumentTypes.TabPages.Remove(TPRata)
@@ -4749,7 +4739,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             TCDocumentTypes.TabPages.Remove(TPLoadingRack)
             TCDocumentTypes.TabPages.Remove(TPGasConcentration)
             TCDocumentTypes.TabPages.Remove(TPFlare)
-            TCDocumentTypes.TabPages.Remove(TPPEMS)
             TCDocumentTypes.TabPages.Remove(TPMethodNine)
             TCDocumentTypes.TabPages.Remove(TPMemorandum)
             TCDocumentTypes.TabPages.Remove(TPRata)
@@ -4990,7 +4979,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             TCDocumentTypes.TabPages.Remove(TPLoadingRack)
             TCDocumentTypes.TabPages.Remove(TPPondTreatment)
             TCDocumentTypes.TabPages.Remove(TPFlare)
-            TCDocumentTypes.TabPages.Remove(TPPEMS)
             TCDocumentTypes.TabPages.Remove(TPMethodNine)
             TCDocumentTypes.TabPages.Remove(TPMemorandum)
             TCDocumentTypes.TabPages.Remove(TPRata)
@@ -5231,7 +5219,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             TCDocumentTypes.TabPages.Remove(TPLoadingRack)
             TCDocumentTypes.TabPages.Remove(TPPondTreatment)
             TCDocumentTypes.TabPages.Remove(TPGasConcentration)
-            TCDocumentTypes.TabPages.Remove(TPPEMS)
             TCDocumentTypes.TabPages.Remove(TPMethodNine)
             TCDocumentTypes.TabPages.Remove(TPMemorandum)
             TCDocumentTypes.TabPages.Remove(TPRata)
@@ -5420,7 +5407,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             TCDocumentTypes.TabPages.Remove(TPPondTreatment)
             TCDocumentTypes.TabPages.Remove(TPGasConcentration)
             TCDocumentTypes.TabPages.Remove(TPFlare)
-            TCDocumentTypes.TabPages.Remove(TPPEMS)
             TCDocumentTypes.TabPages.Remove(TPMethodNine)
             TCDocumentTypes.TabPages.Remove(TPMemorandum)
             TCDocumentTypes.TabPages.Remove(TPTwoStack)
@@ -5806,7 +5792,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             TCDocumentTypes.TabPages.Remove(TPPondTreatment)
             TCDocumentTypes.TabPages.Remove(TPGasConcentration)
             TCDocumentTypes.TabPages.Remove(TPFlare)
-            TCDocumentTypes.TabPages.Remove(TPPEMS)
             TCDocumentTypes.TabPages.Remove(TPMethodNine)
             TCDocumentTypes.TabPages.Remove(TPRata)
             TCDocumentTypes.TabPages.Remove(TPTwoStack)
@@ -6012,7 +5997,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             TCDocumentTypes.TabPages.Remove(TPPondTreatment)
             TCDocumentTypes.TabPages.Remove(TPGasConcentration)
             TCDocumentTypes.TabPages.Remove(TPFlare)
-            TCDocumentTypes.TabPages.Remove(TPPEMS)
             TCDocumentTypes.TabPages.Remove(TPMemorandum)
             TCDocumentTypes.TabPages.Remove(TPRata)
             TCDocumentTypes.TabPages.Remove(TPTwoStack)
@@ -6416,7 +6400,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             TCDocumentTypes.TabPages.Remove(TPPondTreatment)
             TCDocumentTypes.TabPages.Remove(TPGasConcentration)
             TCDocumentTypes.TabPages.Remove(TPFlare)
-            TCDocumentTypes.TabPages.Remove(TPPEMS)
             TCDocumentTypes.TabPages.Remove(TPMethodNine)
             TCDocumentTypes.TabPages.Remove(TPMemorandum)
             TCDocumentTypes.TabPages.Remove(TPRata)
@@ -6502,26 +6485,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
             End Select
             dr.Close()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
-    Sub LoadPEMS(ByVal RefNum As String)
-        Try
-            TCDocumentTypes.TabPages.Remove(TPOneStack)
-            TCDocumentTypes.TabPages.Remove(TPLoadingRack)
-            TCDocumentTypes.TabPages.Remove(TPPondTreatment)
-            TCDocumentTypes.TabPages.Remove(TPGasConcentration)
-            TCDocumentTypes.TabPages.Remove(TPFlare)
-            TCDocumentTypes.TabPages.Remove(TPMethodNine)
-            TCDocumentTypes.TabPages.Remove(TPMemorandum)
-            TCDocumentTypes.TabPages.Remove(TPRata)
-            TCDocumentTypes.TabPages.Remove(TPTwoStack)
-            TCDocumentTypes.TabPages.Remove(TPMethodTwentyTwo)
-            TCDocumentTypes.TabPages.Remove(TPSSCPWork)
-
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -7522,8 +7485,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         txtTestDurationMethod9Single.ReadOnly = False
                         txtOpacityMethod9Single.ReadOnly = False
                         txtOtherInformationMethod9.ReadOnly = False
-
-                    Case "017" 'PEMS
 
                     Case "018" 'Memo PTE 
                         txtApplicableRegulationMemorandum.ReadOnly = False
@@ -8968,8 +8929,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         txtTestDurationMethod9Single.ReadOnly = True
                         txtOpacityMethod9Single.ReadOnly = True
                         txtOtherInformationMethod9.ReadOnly = True
-
-                    Case "017" 'PEMS
 
                     Case "018" 'Memo PTE 
                         txtApplicableRegulationMemorandum.ReadOnly = True
@@ -10738,8 +10697,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                                 LoadMethod22(OldRefNum)
                             Case "016"
                                 LoadMethod9(OldRefNum)
-                            Case "017"
-                                LoadPEMS(OldRefNum)
                             Case "018"
                                 LoadMemo(OldRefNum)
                             Case Else
@@ -11170,11 +11127,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                                                             '    ControlEquip = "N/A"
                                                             'End If
                                                         Else
-                                                            If TCDocumentTypes.TabPages.Contains(TPPEMS) Then
-                                                                DocumentType = "017"
-                                                            Else
-                                                                DocumentType = "001"
-                                                            End If
+                                                            DocumentType = "001"
                                                         End If
                                                     End If
                                                 End If
@@ -11313,127 +11266,123 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                                             ControlEquip = "N/A"
                                         End If
                                     Else
-                                        If TPPEMS.Focus = True Then
-                                            DocumentType = "017"
-                                        Else
-                                            If TPMethodNine.Focus = True Then
-                                                If txtOtherInformationMethod9.Text <> "" Then
-                                                    Comments = txtOtherInformationMethod9.Text
+                                        If TPMethodNine.Focus = True Then
+                                            If txtOtherInformationMethod9.Text <> "" Then
+                                                Comments = txtOtherInformationMethod9.Text
+                                            Else
+                                                Comments = "N/A"
+                                            End If
+                                            If TPMethodNineSingle.Focus = True Then
+                                                DocumentType = "016"
+                                                If Me.txtApplicableRegulationMethod9Single.Text <> "" Then
+                                                    ApplicableReg = txtApplicableRegulationMethod9Single.Text
                                                 Else
-                                                    Comments = "N/A"
+                                                    ApplicableReg = "Incomplete"
                                                 End If
-                                                If TPMethodNineSingle.Focus = True Then
-                                                    DocumentType = "016"
-                                                    If Me.txtApplicableRegulationMethod9Single.Text <> "" Then
-                                                        ApplicableReg = txtApplicableRegulationMethod9Single.Text
+                                                If txtControlEquipmentOperatingDataMethod9Single.Text <> "" Then
+                                                    ControlEquip = txtControlEquipmentOperatingDataMethod9Single.Text
+                                                Else
+                                                    ControlEquip = "N/A"
+                                                End If
+                                            Else
+                                                If TPMethodNineMultiple.Focus = True Or TPMethodNineMultiple2.Focus = True Then
+                                                    DocumentType = "014"
+                                                    If Me.txtApplicableRegulationMethod9Multi.Text <> "" Then
+                                                        ApplicableReg = txtApplicableRegulationMethod9Multi.Text
                                                     Else
                                                         ApplicableReg = "Incomplete"
                                                     End If
-                                                    If txtControlEquipmentOperatingDataMethod9Single.Text <> "" Then
-                                                        ControlEquip = txtControlEquipmentOperatingDataMethod9Single.Text
+                                                    If txtControlEquipmentOperatingDataMethod9Multi.Text <> "" Then
+                                                        ControlEquip = txtControlEquipmentOperatingDataMethod9Multi.Text
                                                     Else
                                                         ControlEquip = "N/A"
                                                     End If
                                                 Else
-                                                    If TPMethodNineMultiple.Focus = True Or TPMethodNineMultiple2.Focus = True Then
-                                                        DocumentType = "014"
-                                                        If Me.txtApplicableRegulationMethod9Multi.Text <> "" Then
-                                                            ApplicableReg = txtApplicableRegulationMethod9Multi.Text
-                                                        Else
-                                                            ApplicableReg = "Incomplete"
-                                                        End If
-                                                        If txtControlEquipmentOperatingDataMethod9Multi.Text <> "" Then
-                                                            ControlEquip = txtControlEquipmentOperatingDataMethod9Multi.Text
-                                                        Else
-                                                            ControlEquip = "N/A"
-                                                        End If
+                                                    DocumentType = "001"
+                                                End If
+                                            End If
+                                        Else
+                                            If TPMemorandum.Focus = True Then
+                                                If Me.txtApplicableRegulationMemorandum.Text <> "" Then
+                                                    ApplicableReg = txtApplicableRegulationMemorandum.Text
+                                                Else
+                                                    ApplicableReg = "Incomplete"
+                                                End If
+                                                Comments = "N/A"
+                                                If Me.TPMemoStandard.Focus = True Then
+                                                    DocumentType = "012"
+                                                Else
+                                                    If Me.TPMemoToFile.Focus = True Then
+                                                        DocumentType = "013"
                                                     Else
-                                                        DocumentType = "001"
+                                                        If Me.TPMemoPTE.Focus = True Then
+                                                            DocumentType = "018"
+                                                            If Me.txtControlEquipmentOperatingDataMemorandumPTE.Text <> "" Then
+                                                                ControlEquip = txtControlEquipmentOperatingDataMemorandumPTE.Text
+                                                            Else
+                                                                ControlEquip = "N/A"
+                                                            End If
+                                                        Else
+                                                            DocumentType = "001"
+                                                        End If
                                                     End If
                                                 End If
                                             Else
-                                                If TPMemorandum.Focus = True Then
-                                                    If Me.txtApplicableRegulationMemorandum.Text <> "" Then
-                                                        ApplicableReg = txtApplicableRegulationMemorandum.Text
+                                                If TPRata.Focus = True Then
+                                                    DocumentType = "011"
+                                                    If Me.txtApplicableRegulationRata.Text <> "" Then
+                                                        ApplicableReg = txtApplicableRegulationRata.Text
                                                     Else
                                                         ApplicableReg = "Incomplete"
                                                     End If
-                                                    Comments = "N/A"
-                                                    If Me.TPMemoStandard.Focus = True Then
-                                                        DocumentType = "012"
+                                                    If txtOtherInformationRata.Text <> "" Then
+                                                        Comments = txtOtherInformationRata.Text
                                                     Else
-                                                        If Me.TPMemoToFile.Focus = True Then
-                                                            DocumentType = "013"
-                                                        Else
-                                                            If Me.TPMemoPTE.Focus = True Then
-                                                                DocumentType = "018"
-                                                                If Me.txtControlEquipmentOperatingDataMemorandumPTE.Text <> "" Then
-                                                                    ControlEquip = txtControlEquipmentOperatingDataMemorandumPTE.Text
-                                                                Else
-                                                                    ControlEquip = "N/A"
-                                                                End If
-                                                            Else
-                                                                DocumentType = "001"
-                                                            End If
-                                                        End If
+                                                        Comments = "N/A"
                                                     End If
+                                                    ControlEquip = "N/A"
                                                 Else
-                                                    If TPRata.Focus = True Then
-                                                        DocumentType = "011"
-                                                        If Me.txtApplicableRegulationRata.Text <> "" Then
-                                                            ApplicableReg = txtApplicableRegulationRata.Text
+                                                    If TPTwoStack.Focus = True Then
+                                                        If Me.txtApplicableRegulationTwoStack.Text <> "" Then
+                                                            ApplicableReg = txtApplicableRegulationTwoStack.Text
                                                         Else
                                                             ApplicableReg = "Incomplete"
                                                         End If
-                                                        If txtOtherInformationRata.Text <> "" Then
-                                                            Comments = txtOtherInformationRata.Text
+                                                        If txtOtherInformationTwoStack.Text <> "" Then
+                                                            Comments = txtOtherInformationTwoStack.Text
                                                         Else
                                                             Comments = "N/A"
                                                         End If
-                                                        ControlEquip = "N/A"
-                                                    Else
-                                                        If TPTwoStack.Focus = True Then
-                                                            If Me.txtApplicableRegulationTwoStack.Text <> "" Then
-                                                                ApplicableReg = txtApplicableRegulationTwoStack.Text
-                                                            Else
-                                                                ApplicableReg = "Incomplete"
-                                                            End If
-                                                            If txtOtherInformationTwoStack.Text <> "" Then
-                                                                Comments = txtOtherInformationTwoStack.Text
-                                                            Else
-                                                                Comments = "N/A"
-                                                            End If
-                                                            If txtControlEquipmentOperatingDataTwoStack.Text <> "" Then
-                                                                ControlEquip = txtControlEquipmentOperatingDataTwoStack.Text
-                                                            Else
-                                                                ControlEquip = "N/A"
-                                                            End If
-                                                            If Me.TPTwoStackStandard.Focus = True Then
-                                                                DocumentType = "005"
-                                                            Else
-                                                                If Me.TPTwoStackDRE.Focus = True Then
-                                                                    DocumentType = "006"
-                                                                Else
-                                                                    DocumentType = "001"
-                                                                End If
-                                                            End If
+                                                        If txtControlEquipmentOperatingDataTwoStack.Text <> "" Then
+                                                            ControlEquip = txtControlEquipmentOperatingDataTwoStack.Text
                                                         Else
-                                                            If TPMethodTwentyTwo.Focus = True Then
-                                                                DocumentType = "015"
-                                                                If Me.txtApplicableRegulationMethod22.Text <> "" Then
-                                                                    ApplicableReg = txtApplicableRegulationMethod22.Text
-                                                                Else
-                                                                    ApplicableReg = "Incomplete"
-                                                                End If
-                                                                If txtOtherInformationMethod22.Text <> "" Then
-                                                                    Comments = txtOtherInformationMethod22.Text
-                                                                Else
-                                                                    Comments = "N/A"
-                                                                End If
-                                                                ControlEquip = "N/A"
+                                                            ControlEquip = "N/A"
+                                                        End If
+                                                        If Me.TPTwoStackStandard.Focus = True Then
+                                                            DocumentType = "005"
+                                                        Else
+                                                            If Me.TPTwoStackDRE.Focus = True Then
+                                                                DocumentType = "006"
                                                             Else
                                                                 DocumentType = "001"
                                                             End If
+                                                        End If
+                                                    Else
+                                                        If TPMethodTwentyTwo.Focus = True Then
+                                                            DocumentType = "015"
+                                                            If Me.txtApplicableRegulationMethod22.Text <> "" Then
+                                                                ApplicableReg = txtApplicableRegulationMethod22.Text
+                                                            Else
+                                                                ApplicableReg = "Incomplete"
+                                                            End If
+                                                            If txtOtherInformationMethod22.Text <> "" Then
+                                                                Comments = txtOtherInformationMethod22.Text
+                                                            Else
+                                                                Comments = "N/A"
+                                                            End If
+                                                            ControlEquip = "N/A"
+                                                        Else
+                                                            DocumentType = "001"
                                                         End If
                                                     End If
                                                 End If
@@ -11517,8 +11466,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     SaveMethodOpacity("22")
                 Case "016"
                     SaveMethodOpacity("Single")
-                Case "017"
-                    SavePEMS()
                 Case "018"
                     SaveMemorandum("PTE")
                 Case Else
@@ -11593,7 +11540,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         TCDocumentTypes.TabPages.Remove(TPPondTreatment)
                         TCDocumentTypes.TabPages.Remove(TPGasConcentration)
                         TCDocumentTypes.TabPages.Remove(TPFlare)
-                        TCDocumentTypes.TabPages.Remove(TPPEMS)
                         TCDocumentTypes.TabPages.Remove(TPMethodNine)
                         TCDocumentTypes.TabPages.Remove(TPMemorandum)
                         TCDocumentTypes.TabPages.Remove(TPRata)
@@ -11606,7 +11552,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         TCDocumentTypes.TabPages.Remove(TPPondTreatment)
                         TCDocumentTypes.TabPages.Remove(TPGasConcentration)
                         TCDocumentTypes.TabPages.Remove(TPFlare)
-                        TCDocumentTypes.TabPages.Remove(TPPEMS)
                         TCDocumentTypes.TabPages.Remove(TPMethodNine)
                         TCDocumentTypes.TabPages.Remove(TPMemorandum)
                         TCDocumentTypes.TabPages.Remove(TPRata)
@@ -11619,7 +11564,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         TCDocumentTypes.TabPages.Remove(TPPondTreatment)
                         TCDocumentTypes.TabPages.Remove(TPGasConcentration)
                         TCDocumentTypes.TabPages.Remove(TPFlare)
-                        TCDocumentTypes.TabPages.Remove(TPPEMS)
                         TCDocumentTypes.TabPages.Remove(TPMethodNine)
                         TCDocumentTypes.TabPages.Remove(TPMemorandum)
                         TCDocumentTypes.TabPages.Remove(TPRata)
@@ -11633,7 +11577,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         TCDocumentTypes.TabPages.Remove(TPPondTreatment)
                         TCDocumentTypes.TabPages.Remove(TPGasConcentration)
                         TCDocumentTypes.TabPages.Remove(TPFlare)
-                        TCDocumentTypes.TabPages.Remove(TPPEMS)
                         TCDocumentTypes.TabPages.Remove(TPMethodNine)
                         TCDocumentTypes.TabPages.Remove(TPMemorandum)
                         TCDocumentTypes.TabPages.Remove(TPRata)
@@ -11645,7 +11588,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         TCDocumentTypes.TabPages.Remove(TPPondTreatment)
                         TCDocumentTypes.TabPages.Remove(TPGasConcentration)
                         TCDocumentTypes.TabPages.Remove(TPFlare)
-                        TCDocumentTypes.TabPages.Remove(TPPEMS)
                         TCDocumentTypes.TabPages.Remove(TPMethodNine)
                         TCDocumentTypes.TabPages.Remove(TPMemorandum)
                         TCDocumentTypes.TabPages.Remove(TPRata)
@@ -11656,7 +11598,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         TCDocumentTypes.TabPages.Remove(TPPondTreatment)
                         TCDocumentTypes.TabPages.Remove(TPGasConcentration)
                         TCDocumentTypes.TabPages.Remove(TPFlare)
-                        TCDocumentTypes.TabPages.Remove(TPPEMS)
                         TCDocumentTypes.TabPages.Remove(TPMethodNine)
                         TCDocumentTypes.TabPages.Remove(TPMemorandum)
                         TCDocumentTypes.TabPages.Remove(TPRata)
@@ -11667,7 +11608,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         TCDocumentTypes.TabPages.Remove(TPLoadingRack)
                         TCDocumentTypes.TabPages.Remove(TPGasConcentration)
                         TCDocumentTypes.TabPages.Remove(TPFlare)
-                        TCDocumentTypes.TabPages.Remove(TPPEMS)
                         TCDocumentTypes.TabPages.Remove(TPMethodNine)
                         TCDocumentTypes.TabPages.Remove(TPMemorandum)
                         TCDocumentTypes.TabPages.Remove(TPRata)
@@ -11678,7 +11618,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         TCDocumentTypes.TabPages.Remove(TPLoadingRack)
                         TCDocumentTypes.TabPages.Remove(TPPondTreatment)
                         TCDocumentTypes.TabPages.Remove(TPFlare)
-                        TCDocumentTypes.TabPages.Remove(TPPEMS)
                         TCDocumentTypes.TabPages.Remove(TPMethodNine)
                         TCDocumentTypes.TabPages.Remove(TPMemorandum)
                         TCDocumentTypes.TabPages.Remove(TPRata)
@@ -11689,7 +11628,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         TCDocumentTypes.TabPages.Remove(TPLoadingRack)
                         TCDocumentTypes.TabPages.Remove(TPPondTreatment)
                         TCDocumentTypes.TabPages.Remove(TPGasConcentration)
-                        TCDocumentTypes.TabPages.Remove(TPPEMS)
                         TCDocumentTypes.TabPages.Remove(TPMethodNine)
                         TCDocumentTypes.TabPages.Remove(TPMemorandum)
                         TCDocumentTypes.TabPages.Remove(TPRata)
@@ -11701,7 +11639,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         TCDocumentTypes.TabPages.Remove(TPPondTreatment)
                         TCDocumentTypes.TabPages.Remove(TPGasConcentration)
                         TCDocumentTypes.TabPages.Remove(TPFlare)
-                        TCDocumentTypes.TabPages.Remove(TPPEMS)
                         TCDocumentTypes.TabPages.Remove(TPMethodNine)
                         TCDocumentTypes.TabPages.Remove(TPMemorandum)
                         TCDocumentTypes.TabPages.Remove(TPTwoStack)
@@ -11712,7 +11649,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         TCDocumentTypes.TabPages.Remove(TPPondTreatment)
                         TCDocumentTypes.TabPages.Remove(TPGasConcentration)
                         TCDocumentTypes.TabPages.Remove(TPFlare)
-                        TCDocumentTypes.TabPages.Remove(TPPEMS)
                         TCDocumentTypes.TabPages.Remove(TPMethodNine)
                         TCDocumentTypes.TabPages.Remove(TPRata)
                         TCDocumentTypes.TabPages.Remove(TPTwoStack)
@@ -11725,7 +11661,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         TCDocumentTypes.TabPages.Remove(TPPondTreatment)
                         TCDocumentTypes.TabPages.Remove(TPGasConcentration)
                         TCDocumentTypes.TabPages.Remove(TPFlare)
-                        TCDocumentTypes.TabPages.Remove(TPPEMS)
                         TCDocumentTypes.TabPages.Remove(TPMethodNine)
                         TCDocumentTypes.TabPages.Remove(TPRata)
                         TCDocumentTypes.TabPages.Remove(TPTwoStack)
@@ -11738,7 +11673,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         TCDocumentTypes.TabPages.Remove(TPPondTreatment)
                         TCDocumentTypes.TabPages.Remove(TPGasConcentration)
                         TCDocumentTypes.TabPages.Remove(TPFlare)
-                        TCDocumentTypes.TabPages.Remove(TPPEMS)
                         TCDocumentTypes.TabPages.Remove(TPMemorandum)
                         TCDocumentTypes.TabPages.Remove(TPRata)
                         TCDocumentTypes.TabPages.Remove(TPTwoStack)
@@ -11750,7 +11684,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         TCDocumentTypes.TabPages.Remove(TPPondTreatment)
                         TCDocumentTypes.TabPages.Remove(TPGasConcentration)
                         TCDocumentTypes.TabPages.Remove(TPFlare)
-                        TCDocumentTypes.TabPages.Remove(TPPEMS)
                         TCDocumentTypes.TabPages.Remove(TPMethodNine)
                         TCDocumentTypes.TabPages.Remove(TPMemorandum)
                         TCDocumentTypes.TabPages.Remove(TPRata)
@@ -11761,31 +11694,18 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         TCDocumentTypes.TabPages.Remove(TPPondTreatment)
                         TCDocumentTypes.TabPages.Remove(TPGasConcentration)
                         TCDocumentTypes.TabPages.Remove(TPFlare)
-                        TCDocumentTypes.TabPages.Remove(TPPEMS)
                         TCDocumentTypes.TabPages.Remove(TPMemorandum)
                         TCDocumentTypes.TabPages.Remove(TPRata)
                         TCDocumentTypes.TabPages.Remove(TPTwoStack)
                         TCDocumentTypes.TabPages.Remove(TPMethodTwentyTwo)
                         TCMethodNine.TabPages.Remove(TPMethodNineMultiple)
                         TCMethodNine.TabPages.Remove(TPMethodNineMultiple2)
-                    Case "017"
-                        TCDocumentTypes.TabPages.Remove(TPOneStack)
-                        TCDocumentTypes.TabPages.Remove(TPLoadingRack)
-                        TCDocumentTypes.TabPages.Remove(TPPondTreatment)
-                        TCDocumentTypes.TabPages.Remove(TPGasConcentration)
-                        TCDocumentTypes.TabPages.Remove(TPFlare)
-                        TCDocumentTypes.TabPages.Remove(TPMethodNine)
-                        TCDocumentTypes.TabPages.Remove(TPMemorandum)
-                        TCDocumentTypes.TabPages.Remove(TPRata)
-                        TCDocumentTypes.TabPages.Remove(TPTwoStack)
-                        TCDocumentTypes.TabPages.Remove(TPMethodTwentyTwo)
                     Case "018"
                         TCDocumentTypes.TabPages.Remove(TPOneStack)
                         TCDocumentTypes.TabPages.Remove(TPLoadingRack)
                         TCDocumentTypes.TabPages.Remove(TPPondTreatment)
                         TCDocumentTypes.TabPages.Remove(TPGasConcentration)
                         TCDocumentTypes.TabPages.Remove(TPFlare)
-                        TCDocumentTypes.TabPages.Remove(TPPEMS)
                         TCDocumentTypes.TabPages.Remove(TPMethodNine)
                         TCDocumentTypes.TabPages.Remove(TPRata)
                         TCDocumentTypes.TabPages.Remove(TPTwoStack)
@@ -11798,7 +11718,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         TCDocumentTypes.TabPages.Remove(TPPondTreatment)
                         TCDocumentTypes.TabPages.Remove(TPGasConcentration)
                         TCDocumentTypes.TabPages.Remove(TPFlare)
-                        TCDocumentTypes.TabPages.Remove(TPPEMS)
                         TCDocumentTypes.TabPages.Remove(TPMethodNine)
                         TCDocumentTypes.TabPages.Remove(TPMemorandum)
                         TCDocumentTypes.TabPages.Remove(TPRata)
@@ -11806,22 +11725,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         TCDocumentTypes.TabPages.Remove(TPMethodTwentyTwo)
                 End Select
             End If
-
-            'If lblPreComplianceStatus.Visible = True Then
-            '    If cboComplianceStatus.SelectedValue = "01" Or cboComplianceStatus.SelectedValue = "05" Then
-
-            '    Else
-            '        cboComplianceStatus.BackColor = Color.White
-            '        lblPreComplianceStatus.Visible = False
-            '    End If
-            'End If
-            'If cboComplianceStatus.SelectedValue = "05" Then
-            '    cboComplianceStatus.BackColor = Color.Tomato
-            'Else
-            '    If cboComplianceStatus.SelectedValue <> "01" Then
-            '        cboComplianceStatus.BackColor = Color.White
-            '    End If
-            'End If
 
             cboComplianceStatus.BackColor = Color.White
             If cboComplianceStatus.SelectedValue = "05" Then
@@ -11834,27 +11737,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 End If
             End If
 
-            'If dr.Item("strComplianceStatus") = "01" Or dr.Item("strComplianceStatus") = "05" Then
-            '    If IsDBNull(dr.Item("strPreComplianceStatus")) Then
-            '        lblPreComplianceStatus.Visible = False
-            '        cboComplianceStatus.BackColor = Color.White
-            '    Else
-            '        If dr.Item("strPreComplianceStatus") = "True" Then
-            '            lblPreComplianceStatus.Visible = True
-            '            cboComplianceStatus.BackColor = Color.Pink
-            '        Else
-            '            lblPreComplianceStatus.Visible = False
-            '            cboComplianceStatus.BackColor = Color.White
-            '        End If
-            '    End If
-            'Else
-            '    lblPreComplianceStatus.Visible = False
-            '    cboComplianceStatus.BackColor = Color.White
-            'End If
-
-            'Else
-
-            'End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -15328,14 +15210,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
         Finally
         End Try
     End Sub
-    Sub SavePEMS()
-        Try
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
     Private Sub OpenEnforcement()
         Try
             Dim parameters As New Generic.Dictionary(Of String, String)
@@ -17550,9 +17424,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         End If
                     End If
                 Case "P"
-                    If DocumentType = "017" Then
-
-                    End If
                 Case "Q"
                     If DocumentType = "018" Then
                         If Mid(ConfidentialData, 26, 1) = "1" Then
@@ -20008,7 +19879,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             Dim tValue As Double
             Dim ConfidenceCoeff As Double
             Dim RelAccuracy As Double
-            Dim SigFig As Integer = 0
             Dim x As Integer = 0
 
             If txtRefMethodRata1.Text <> "" And IsNumeric(txtRefMethodRata1.Text) And chbOmitRunRata1.Checked = False Then

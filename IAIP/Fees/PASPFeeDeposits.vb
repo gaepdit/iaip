@@ -7,11 +7,9 @@ Public Class PASPFeeDeposits
     Dim panel1 As New StatusBarPanel
     Dim panel2 As New StatusBarPanel
     Dim panel3 As New StatusBarPanel
-    Dim Panel1temp As String
 
     Dim dsWorkEnTry As DataSet
     Dim daWorkEnTry As OracleDataAdapter
-    Dim recExist As Boolean
     Dim feeyear As String
     Dim SQL, SQL2, SQL3 As String
     Dim cmd, cmd2, cmd3 As OracleCommand
@@ -301,14 +299,12 @@ Public Class PASPFeeDeposits
     End Sub
     Private Sub dgvDeposit_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvDeposit.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvDeposit.HitTest(e.X, e.Y)
-        Dim temp As String
 
         Try
 
             If hti.Type = DataGrid.HitTestType.Cell Then
 
                 If dgvDeposit.RowCount > 0 And hti.RowIndex <> -1 Then
-                    temp = dgvDeposit.Columns(1).HeaderText
 
                     If dgvDeposit.Columns(0).HeaderText = "AIRS Number" Then
                         mtbAirsNo.Text = dgvDeposit(0, hti.RowIndex).Value

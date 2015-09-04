@@ -32,7 +32,6 @@ Public Class ISMPManagersTools
     Dim dsTestReportAssignments As DataSet
     Dim daTestreportAssignments As OracleDataAdapter
     Dim daFacilityList As OracleDataAdapter
-    Dim ManagersUnit As String
     Dim dsEngineerGrid As DataSet
     Dim daEngineerGrid As OracleDataAdapter
     Dim dsSummaryReport As DataSet
@@ -48,7 +47,6 @@ Public Class ISMPManagersTools
     Private Sub ISMPManagersTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
         Try
-
             CreateStatusBar()
             ShowCorrectTabs()
             LoadComboBoxDataSets()
@@ -76,14 +74,9 @@ Public Class ISMPManagersTools
             LoadMethods()
             dtpAddTestReportDateReceived.Text = OracleDate
             DTPAddTestReportDateCompleted.Text = OracleDate
-
-            'Me.WindowState = FormWindowState.Maximized
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
 
 #Region "Page Load"
@@ -276,8 +269,6 @@ Public Class ISMPManagersTools
             Dim drCity As DataRow()
 
             Dim row As DataRow
-            Dim temp As String
-            temp = ManagersUnit
 
             cboEngineer.Items.Add(" ")
 
@@ -2737,14 +2728,12 @@ Public Class ISMPManagersTools
         Dim OpenWitnessedTotal As String = "X"
         Dim OpenComplianceTotal As String = "X"
         Dim OpenGreaterTotal As String = "X"
-        Dim OpenGrearerDaysTotal As String = "X"
         Dim OpenMedianTotal As String = "X"
         Dim PercentileOpenTotalDay As String = "X"
         Dim ClosedTotal As String = "X"
         Dim ClosedWitnessedTotal As String = "X"
         Dim ClosedComplianceTotal As String = "X"
         Dim ClosedGreaterTotal As String = "X"
-        Dim ClosedGreaterDaysTotal As String = "X"
         Dim ClosedMedianTotal As String = "X"
         Dim PercentileClosedTotalDay As String = "X"
         Dim Statement As String = ""
@@ -3199,13 +3188,11 @@ Public Class ISMPManagersTools
                         i += 1
                     End While
 
-                    Dim tempX As String
 
                     dr3 = cmd3.ExecuteReader
                     While dr3.Read
                         ReDim Preserve MedianArrayByDateClose(j)
                         MedianArrayByDateClose(j) = CInt(dr3.Item("DaysCloseByDate"))
-                        tempX = CInt(dr3.Item("DaysCloseByDate"))
                         j += 1
                     End While
 
@@ -3526,7 +3513,6 @@ Public Class ISMPManagersTools
     End Sub
     Sub EngineerOpenTestReports()
         Dim strObject As Object
-        Dim DateBias As String = ""
         Dim Engineer As String = "and ("
         Dim dtEngineers As New DataTable
         dtEngineers = dsEngineer.Tables("Engineers")
@@ -3761,11 +3747,8 @@ Public Class ISMPManagersTools
         Dim AIRSNumber As String
         Dim dash As String
         Dim ReportType As String
-        Dim tabs() As Integer = {15, 130}
 
         Try
-
-            SendMessage(txtOutOfComplianceReport.Handle, EM_SETTABSTOPS, 2, tabs(0))
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -3813,14 +3796,12 @@ Public Class ISMPManagersTools
 
             End While
 
+            txtOutOfComplianceReport.SelectionTabs = New Integer() {30, 260}
             txtOutOfComplianceReport.Text = Report
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Sub ClearPage()
         Try
@@ -3926,7 +3907,6 @@ Public Class ISMPManagersTools
                 FileName = Mid(FileName, 1, 50)
 
                 Dim da As OracleDataAdapter
-                Dim cmdCB As OracleCommandBuilder
                 Dim ds As DataSet
                 Dim Fs As FileStream = New FileStream(PathName, FileMode.Open, FileAccess.Read)
                 Dim DocData As Byte()
@@ -3942,7 +3922,6 @@ Public Class ISMPManagersTools
                     CurrentConnection.Open()
                 End If
                 da = New OracleDataAdapter(SQL, CurrentConnection)
-                cmdCB = New OracleCommandBuilder(da)
                 ds = New DataSet("IAIPData")
                 da.MissingSchemaAction = MissingSchemaAction.AddWithKey
 
@@ -4129,7 +4108,6 @@ Public Class ISMPManagersTools
 
         Dim DestFilePath As String = "N/A"
 
-        Dim OutPutFile As String = ""
 
         Try
 

@@ -77,14 +77,12 @@ Public Class ISMPStaffReports
         Dim OpenWitnessedTotal As String = "X"
         Dim OpenComplianceTotal As String = "X"
         Dim OpenGreaterTotal As String = "X"
-        Dim OpenGrearerDaysTotal As String = "X"
         Dim OpenMedianTotal As String = "X"
         Dim PercentileOpenTotalDay As String = "X"
         Dim ClosedTotal As String = "X"
         Dim ClosedWitnessedTotal As String = "X"
         Dim ClosedComplianceTotal As String = "X"
         Dim ClosedGreaterTotal As String = "X"
-        Dim ClosedGreaterDaysTotal As String = "X"
         Dim ClosedMedianTotal As String = "X"
         Dim PercentileClosedTotalDay As String = "X"
         Dim Statement As String = ""
@@ -468,13 +466,10 @@ Public Class ISMPStaffReports
                         i += 1
                     End While
 
-                    Dim tempX As String
-
                     dr3 = cmd3.ExecuteReader
                     While dr3.Read
                         ReDim Preserve MedianArrayByDateClose(j)
                         MedianArrayByDateClose(j) = CInt(dr3.Item("DaysCloseByDate"))
-                        tempX = CInt(dr3.Item("DaysCloseByDate"))
                         j += 1
                     End While
 

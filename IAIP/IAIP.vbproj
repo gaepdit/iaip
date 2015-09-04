@@ -58,7 +58,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>installer.html</WebPage>
     <ApplicationRevision>101</ApplicationRevision>
-    <ApplicationVersion>4.1.1.%2a</ApplicationVersion>
+    <ApplicationVersion>4.1.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -76,7 +76,7 @@
     <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\Code Analysis\IAIP.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
     <DefineConstants>BETA = 0</DefineConstants>
   </PropertyGroup>
@@ -94,6 +94,8 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
     <DefineConstants>BETA = 0</DefineConstants>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
@@ -194,6 +196,7 @@
     <Compile Include="Fees\PASPFeeDeposits.Designer.vb">
       <DependentUpon>PASPFeeDeposits.vb</DependentUpon>
     </Compile>
+    <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="ISMP\ISMPManagersTools.Designer.vb">
       <DependentUpon>ISMPManagersTools.vb</DependentUpon>
     </Compile>
@@ -805,6 +808,10 @@
     <Compile Include="SSPP\Sub Forms\SSPPAttainmentStatus.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="_Data Models\DocumentType.vb" />
+    <Compile Include="_Data Models\Res.Registrant.vb" />
+    <Compile Include="_Data Models\Res.EventRegistration.vb" />
+    <Compile Include="_Data Models\Location.vb" />
     <Compile Include="_DB\DB.vb" />
     <Compile Include="_Modules\ErrorReporting.vb" />
     <Compile Include="_Modules\ExcelExport.vb" />
@@ -1499,12 +1506,12 @@
     </Compile>
     <Compile Include="_Classes\BooleanFormatProvider.vb" />
     <Compile Include="_Classes\IaipExceptionManager.vb" />
-    <Compile Include="_Data Classes\ApbFacilityId.vb" />
-    <Compile Include="_Data Classes\Contact.vb" />
-    <Compile Include="_Data Classes\DMU.EdtError.vb" />
-    <Compile Include="_Data Classes\FacilityEnums.vb" />
-    <Compile Include="_Data Classes\FacilityHeaderData.vb" />
-    <Compile Include="_Data Classes\SSPP.Permit.vb" />
+    <Compile Include="_Data Models\Apb.ApbFacilityId.vb" />
+    <Compile Include="_Data Models\Contact.vb" />
+    <Compile Include="_Data Models\Dmu.EdtError.vb" />
+    <Compile Include="_Data Models\FacilityEnums.vb" />
+    <Compile Include="_Data Models\FacilityHeaderData.vb" />
+    <Compile Include="_Data Models\Apb.SSPP.Permit.vb" />
     <Compile Include="_DB\DAL.DMU.EdtError.vb" />
     <Compile Include="_DB\DAL.FacilitySummary.vb" />
     <Compile Include="_DB\DAL.ISMP.StackTest.vb">
@@ -1609,7 +1616,7 @@
     <Compile Include="Universal Forms\IaipAbout.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="_Data Classes\IaipUser.vb" />
+    <Compile Include="_Data Models\IaipUser.vb" />
     <Compile Include="_DB\DAL.SSCP.WorkItem.vb" />
     <Compile Include="_DB\DAL.IaipUser.vb" />
     <Compile Include="_DB\DAL.NavigationScreen.vb">
@@ -1617,12 +1624,12 @@
     </Compile>
     <Compile Include="_DB\DAL.SmokeSchoolRoster.vb" />
     <Compile Include="_Classes\CollectionHelper.vb" />
-    <Compile Include="_Data Classes\SSCP.WorkItem.vb" />
-    <Compile Include="_Data Classes\Person.vb" />
-    <Compile Include="_Data Classes\Res.ResEvent.vb">
+    <Compile Include="_Data Models\Apb.SSCP.WorkItem.vb" />
+    <Compile Include="_Data Models\Person.vb" />
+    <Compile Include="_Data Models\Res.ResEvent.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Data Classes\SSCP.Acc.vb" />
+    <Compile Include="_Data Models\Apb.SSCP.Acc.vb" />
     <Compile Include="_DB\DAL.Facility.vb" />
     <Compile Include="_DB\DAL.Staff.vb" />
     <Compile Include="SSCP\SscpDocuments.Designer.vb">
@@ -1637,20 +1644,19 @@
     <Compile Include="SSCP\SSCPEnforcement.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="_Data Classes\Address.vb" />
-    <Compile Include="_Data Classes\Document.vb">
+    <Compile Include="_Data Models\Address.vb" />
+    <Compile Include="_Data Models\Document.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Data Classes\Facility.vb" />
+    <Compile Include="_Data Models\Facility.vb" />
     <Compile Include="_Classes\FileSizeFormatProvider.vb" />
     <Compile Include="_Classes\SettingsHelper.vb" />
-    <Compile Include="_Data Classes\SSCP.Document.vb" />
-    <Compile Include="_Data Classes\SSCP.EnforcementInfo.vb" />
-    <Compile Include="_Data Classes\SSPP.ApplicationInfo.vb">
+    <Compile Include="_Data Models\Apb.SSCP.Document.vb" />
+    <Compile Include="_Data Models\Apb.SSCP.EnforcementInfo.vb" />
+    <Compile Include="_Data Models\Apb.SSPP.ApplicationInfo.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Data Classes\SSPP.Document.vb" />
-    <Compile Include="_Data Classes\Staff.vb" />
+    <Compile Include="_Data Models\Staff.vb" />
     <Compile Include="_DB\DAL.SSCP.Enforcement.vb" />
     <Compile Include="_DB\DAL.Documents.vb" />
     <Compile Include="_DB\DAL.EventRegistration.vb" />
@@ -1681,7 +1687,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_Modules\AppTimers.vb" />
-    <Compile Include="_Modules\Win32ApiCalls.vb" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">

@@ -7,8 +7,6 @@ Public Class ISMPMemo
     Dim panel1 As New StatusBarPanel
     Dim panel2 As New StatusBarPanel
     Dim panel3 As New StatusBarPanel
-    Dim Paneltemp1 As String
-
 
     Private Sub ISMPMemo_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)

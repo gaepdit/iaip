@@ -12,10 +12,6 @@ Namespace Apb.Facilities
         Public Sub New()
         End Sub
 
-        Public Sub New(ByVal airsNumber As String)
-            Me.AirsNumber = airsNumber
-        End Sub
-
         Public Sub New(ByVal airsNumber As ApbFacilityId)
             Me.AirsNumber = airsNumber
         End Sub
@@ -24,24 +20,7 @@ Namespace Apb.Facilities
 #Region " Properties "
 
         Public Property AirsNumber() As ApbFacilityId
-            Get
-                Return _airsNumber
-            End Get
-            Set(ByVal value As ApbFacilityId)
-                _airsNumber = value
-            End Set
-        End Property
-        Private _airsNumber As ApbFacilityId
-
         Public Property FacilityName() As String
-            Get
-                Return _facilityName
-            End Get
-            Set(ByVal value As String)
-                _facilityName = value
-            End Set
-        End Property
-        Private _facilityName As String
 
         ''' <summary>
         ''' Facility Location is where the facility is actually located, distinct 
@@ -49,24 +28,8 @@ Namespace Apb.Facilities
         ''' postal address, but will have some of the elements of a postal address
         ''' </summary>
         Public Property FacilityLocation() As Location
-            Get
-                Return _facilityLocation
-            End Get
-            Set(ByVal value As Location)
-                _facilityLocation = value
-            End Set
-        End Property
-        Private _facilityLocation As Location
 
         Public Property HeaderData() As FacilityHeaderData
-            Get
-                Return _headerData
-            End Get
-            Set(ByVal value As FacilityHeaderData)
-                _headerData = value
-            End Set
-        End Property
-        Private _headerData As FacilityHeaderData
 
         Public ReadOnly Property SubjectToNsps() As Boolean?
             Get
@@ -88,15 +51,7 @@ Namespace Apb.Facilities
             End Get
         End Property
 
-        Private _comment As String
         Public Property Comment() As String
-            Get
-                Return _comment
-            End Get
-            Set(ByVal value As String)
-                _comment = value
-            End Set
-        End Property
 
         Public ReadOnly Property LongDisplay() As String
             Get
@@ -119,49 +74,14 @@ Namespace Apb.Facilities
             End Get
         End Property
 
-        Private _approvedByApb As Boolean?
         Public Property ApprovedByApb() As Boolean?
-            Get
-                Return _approvedByApb
-            End Get
-            Set(ByVal value As Boolean?)
-                _approvedByApb = value
-            End Set
-        End Property
-
-        Private _districtOfficeLocation As String
         Public Property DistrictOfficeLocation() As String
-            Get
-                Return _districtOfficeLocation
-            End Get
-            Set(ByVal value As String)
-                _districtOfficeLocation = value
-            End Set
-        End Property
-
-        Private _districtResponsible As Boolean?
         Public Property DistrictResponsible() As Boolean?
-            Get
-                Return _districtResponsible
-            End Get
-            Set(ByVal value As Boolean?)
-                _districtResponsible = value
-            End Set
-        End Property
-
-        Private _complianceStatusList As List(Of PollutantComplianceStatus)
         Public Property ComplianceStatusList() As List(Of PollutantComplianceStatus)
-            Get
-                Return _complianceStatusList
-            End Get
-            Set(ByVal value As List(Of PollutantComplianceStatus))
-                _complianceStatusList = value
-            End Set
-        End Property
 
         Public ReadOnly Property ControllingComplianceStatus() As PollutantComplianceStatus
             Get
-                If _complianceStatusList Is Nothing OrElse _complianceStatusList.Count = 0 Then
+                If _ComplianceStatusList Is Nothing OrElse _ComplianceStatusList.Count = 0 Then
                     Return PollutantComplianceStatus.NoValue
                 Else
                     Return ComplianceStatusList.Max

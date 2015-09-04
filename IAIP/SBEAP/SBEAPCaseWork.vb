@@ -1214,7 +1214,6 @@ Public Class SBEAPCaseWork
         Try
             Dim ClientList As String = ""
             Dim Staff As String = ""
-            Dim CaseDate As String = ""
             Dim ClientID As String = ""
             Dim CloseDate As String = ""
             Dim InterAgency As String = ""
@@ -1228,7 +1227,6 @@ Public Class SBEAPCaseWork
             Else
                 Staff = ""
             End If
-            CaseDate = DTPCaseOpened.Text
             If DTPCaseClosed.Checked = True Then
                 CloseDate = DTPCaseClosed.Text
             Else

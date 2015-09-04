@@ -4,10 +4,7 @@ Imports CrystalDecisions.Shared
 Imports CrystalDecisions.CrystalReports.Engine
 
 Public Class PASPFeeReports
-    Dim Paneltemp1 As String
     Dim SQL As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
     Dim ds As DataSet
     Dim da As OracleDataAdapter
     Dim progress1 As ProgressStatus
@@ -124,9 +121,6 @@ Public Class PASPFeeReports
                 drNewRow("strfacilityname") = drDSRow("strfacilityname")
                 dtAIRS.Rows.Add(drNewRow)
             Next
-            Dim temp As String
-
-            temp = dtAIRS.Rows.Count
 
             With cboAirsNo
                 .DataSource = dtAIRS

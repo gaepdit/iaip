@@ -36,20 +36,21 @@ Namespace DAL.SSPP
             Return GetPermitFromDataRow(dt.Rows(0))
         End Function
 
-        Public Function GetPermitsAsList(ByVal airsNumber As String) As List(Of Permit)
+        '' Not currently used, but may be useful in the future
+        'Public Function GetPermitsAsList(ByVal airsNumber As String) As List(Of Permit)
 
-            Dim permitList As New List(Of Permit)
-            Dim permit As New Permit
+        '    Dim permitList As New List(Of Permit)
+        '    Dim permit As New Permit
 
-            Dim dataTable As DataTable = GetPermitsAsTable(airsNumber)
+        '    Dim dataTable As DataTable = GetPermitsAsTable(airsNumber)
 
-            For Each row As DataRow In dataTable.Rows
-                permit = GetPermitFromDataRow(row)
-                permitList.Add(permit)
-            Next
+        '    For Each row As DataRow In dataTable.Rows
+        '        permit = GetPermitFromDataRow(row)
+        '        permitList.Add(permit)
+        '    Next
 
-            Return permitList
-        End Function
+        '    Return permitList
+        'End Function
 
         Public Function GetActivePermitsAsList(ByVal airsNumber As String) As List(Of Permit)
 
@@ -66,22 +67,23 @@ Namespace DAL.SSPP
             Return permitList
         End Function
 
-        Public Function GetPermitsAsTable(ByVal airsNumber As String) As DataTable
-            Dim query As String = _
-                " SELECT ISSUEDPERMITID, " & _
-                "   STRAIRSNUMBER, " & _
-                "   STRPERMITNUMBER, " & _
-                "   DATISSUED, " & _
-                "   DATREVOKED, " & _
-                "   ACTIVE, " & _
-                "   PERMITTYPECODE " & _
-                " FROM AIRBRANCH.APBISSUEDPERMIT " & _
-                " WHERE STRAIRSNUMBER = :airsnumber " & _
-                " ORDER BY DATISSUED DESC Nulls FIRST "
+        '' Not currently used, but may be useful in the future
+        'Public Function GetPermitsAsTable(ByVal airsNumber As String) As DataTable
+        '    Dim query As String = _
+        '        " SELECT ISSUEDPERMITID, " & _
+        '        "   STRAIRSNUMBER, " & _
+        '        "   STRPERMITNUMBER, " & _
+        '        "   DATISSUED, " & _
+        '        "   DATREVOKED, " & _
+        '        "   ACTIVE, " & _
+        '        "   PERMITTYPECODE " & _
+        '        " FROM AIRBRANCH.APBISSUEDPERMIT " & _
+        '        " WHERE STRAIRSNUMBER = :airsnumber " & _
+        '        " ORDER BY DATISSUED DESC Nulls FIRST "
 
-            Dim parameter As New OracleParameter("airsnumber", airsNumber)
-            Return DB.GetDataTable(query, parameter)
-        End Function
+        '    Dim parameter As New OracleParameter("airsnumber", airsNumber)
+        '    Return DB.GetDataTable(query, parameter)
+        'End Function
 
         Public Function GetActivePermitsAsTable(ByVal airsNumber As String) As DataTable
             Dim query As String = _

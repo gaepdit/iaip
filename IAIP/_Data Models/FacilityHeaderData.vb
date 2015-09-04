@@ -14,10 +14,6 @@ Namespace Apb.Facilities
         Public Sub New()
         End Sub
 
-        Public Sub New(ByVal airsNumber As String)
-            Me.AirsNumber = airsNumber
-        End Sub
-
         Public Sub New(ByVal airsNumber As Apb.ApbFacilityId)
             Me.AirsNumber = airsNumber
         End Sub
@@ -29,15 +25,6 @@ Namespace Apb.Facilities
 #Region " Standard "
 
         Public Property AirsNumber() As ApbFacilityId
-            Get
-                Return _airsNumber
-            End Get
-            Set(ByVal value As ApbFacilityId)
-                _airsNumber = value
-            End Set
-        End Property
-        Private _airsNumber As ApbFacilityId
-
         Public Property SicCode() As String
             Get
                 Return _sic
@@ -49,24 +36,8 @@ Namespace Apb.Facilities
         Private _sic As String
 
         Public Property StartupDate() As Date?
-            Get
-                Return _startupDate
-            End Get
-            Set(ByVal value As Date?)
-                _startupDate = value
-            End Set
-        End Property
-        Private _startupDate As Date?
 
         Public Property ShutdownDate() As Date?
-            Get
-                Return _shutdownDate
-            End Get
-            Set(ByVal value As Date?)
-                _shutdownDate = value
-            End Set
-        End Property
-        Private _shutdownDate As Date?
 
         Public Property Naics() As String
             Get
@@ -113,60 +84,29 @@ Namespace Apb.Facilities
         Private _headerUpdateComment As String
 
         Public Property DateDataModified() As Date?
-            Get
-                Return _DateDataModified
-            End Get
-            Set(ByVal value As Date?)
-                _DateDataModified = value
-            End Set
-        End Property
-        Private _DateDataModified As Date?
 
         Public Property WhoModified() As String
-            Get
-                Return _WhoModified
-            End Get
-            Set(ByVal value As String)
-                _WhoModified = value
-            End Set
-        End Property
-        Private _WhoModified As String
 
         Public Property WhereModified() As HeaderDataModificationLocation
-            Get
-                Return _whereModified
-            End Get
-            Set(ByVal value As HeaderDataModificationLocation)
-                _whereModified = value
-            End Set
-        End Property
-        Private _whereModified As HeaderDataModificationLocation
         Public Property WhereModifiedCode() As String
             Get
-                Return _whereModified.ToString
+                Return WhereModified.ToString
             End Get
             Set(ByVal value As String)
-                _whereModified = [Enum].Parse(GetType(HeaderDataModificationLocation), value)
+                WhereModified = [Enum].Parse(GetType(HeaderDataModificationLocation), value)
             End Set
         End Property
         Public ReadOnly Property WhereModifiedDescription() As String
             Get
-                Return _whereModified.GetDescription()
+                Return WhereModified.GetDescription()
             End Get
         End Property
+
 #End Region
 
 #Region " Operational Status "
 
         Public Property OperationalStatus() As FacilityOperationalStatus
-            Get
-                Return _operationalStatus
-            End Get
-            Set(ByVal value As FacilityOperationalStatus)
-                _operationalStatus = value
-            End Set
-        End Property
-        Private _operationalStatus As FacilityOperationalStatus
 
         ''' <summary>
         ''' A single-character string representing the operational status. 
@@ -177,16 +117,16 @@ Namespace Apb.Facilities
         ''' <remarks>Used to encode operational status. Stored in database as a single-character string.</remarks>
         Public Property OperationalStatusCode() As String
             Get
-                Return _operationalStatus.ToString()
+                Return OperationalStatus.ToString()
             End Get
             Set(ByVal value As String)
-                _operationalStatus = [Enum].Parse(GetType(FacilityOperationalStatus), value)
+                OperationalStatus = [Enum].Parse(GetType(FacilityOperationalStatus), value)
             End Set
         End Property
 
         Public ReadOnly Property OperationalStatusDescription() As String
             Get
-                Return _operationalStatus.GetDescription
+                Return OperationalStatus.GetDescription
             End Get
         End Property
 
@@ -195,14 +135,6 @@ Namespace Apb.Facilities
 #Region " Classification "
 
         Public Property Classification() As FacilityClassification
-            Get
-                Return _classification
-            End Get
-            Set(ByVal value As FacilityClassification)
-                _classification = value
-            End Set
-        End Property
-        Private _classification As FacilityClassification
 
         ''' <summary>
         ''' A one or two-character string representing the facility classification.
@@ -213,28 +145,20 @@ Namespace Apb.Facilities
         ''' <remarks>Used to encode facility classification. Stored in database as a one or two-character string.</remarks>
         Public Property ClassificationCode() As String
             Get
-                Return _classification.ToString()
+                Return Classification.ToString()
             End Get
             Set(ByVal value As String)
-                _classification = [Enum].Parse(GetType(FacilityClassification), value)
+                Classification = [Enum].Parse(GetType(FacilityClassification), value)
             End Set
         End Property
 
         Public ReadOnly Property ClassificationDescription() As String
             Get
-                Return _classification.GetDescription()
+                Return Classification.GetDescription()
             End Get
         End Property
 
         Public Property CmsMember() As FacilityCmsMember
-            Get
-                Return _cmsMember
-            End Get
-            Set(ByVal value As FacilityCmsMember)
-                _cmsMember = value
-            End Set
-        End Property
-        Private _cmsMember As FacilityCmsMember
 
         ''' <summary>
         ''' A single-character string representing the facility classification. 
@@ -245,16 +169,16 @@ Namespace Apb.Facilities
         ''' <remarks>Used to encode facility classification. Stored in database as a single-character string.</remarks>
         Public Property CmsMemberCode() As String
             Get
-                Return _cmsMember.ToString()
+                Return CmsMember.ToString()
             End Get
             Set(ByVal value As String)
-                _cmsMember = [Enum].Parse(GetType(FacilityCmsMember), value)
+                CmsMember = [Enum].Parse(GetType(FacilityCmsMember), value)
             End Set
         End Property
 
         Public ReadOnly Property CmsMemberDescription() As String
             Get
-                Return _cmsMember.GetDescription()
+                Return CmsMember.GetDescription()
             End Get
         End Property
 
@@ -262,35 +186,9 @@ Namespace Apb.Facilities
 
 #Region " Nonattainment statuses "
 
-        Private _oneHourOzone As OneHourOzoneNonattainmentStatus
         Public Property OneHourOzoneNonAttainment() As OneHourOzoneNonattainmentStatus
-            Get
-                Return _oneHourOzone
-            End Get
-            Set(ByVal value As OneHourOzoneNonattainmentStatus)
-                _oneHourOzone = value
-            End Set
-        End Property
-
-        Private _eightHourOzone As EightHourOzoneNonattainmentStatus
         Public Property EightHourOzoneNonAttainment() As EightHourOzoneNonattainmentStatus
-            Get
-                Return _eightHourOzone
-            End Get
-            Set(ByVal value As EightHourOzoneNonattainmentStatus)
-                _eightHourOzone = value
-            End Set
-        End Property
-
-        Private _pmFine As PMFineNonattainmentStatus
         Public Property PMFineNonAttainmentState() As PMFineNonattainmentStatus
-            Get
-                Return _pmFine
-            End Get
-            Set(ByVal value As PMFineNonattainmentStatus)
-                _pmFine = value
-            End Set
-        End Property
 
         ''' <summary>
         ''' A five-character string representing all nonattainment area statuses. 
@@ -326,15 +224,7 @@ Namespace Apb.Facilities
 
 #Region " Program Codes "
 
-        Private _airPrograms As AirProgram
         Public Property AirPrograms() As AirProgram
-            Get
-                Return _airPrograms
-            End Get
-            Set(ByVal value As AirProgram)
-                _airPrograms = value
-            End Set
-        End Property
 
         ''' <summary>
         ''' A 15-character string representing all air programs a facility is subjec to. 
@@ -349,20 +239,13 @@ Namespace Apb.Facilities
                 Return ConvertEnumToBitFlags(Of AirProgram)(Me.AirPrograms, AirProgramsCodeLength)
             End Get
             Set(ByVal value As String)
-                _airPrograms = ConvertBitFieldToEnum(Of AirProgram)(value)
+                AirPrograms = ConvertBitFieldToEnum(Of AirProgram)(value)
             End Set
         End Property
+
         Private Shared AirProgramsCodeLength As Integer = 15
 
-        Private _airProgramClassifications As AirProgramClassification
         Public Property AirProgramClassifications() As AirProgramClassification
-            Get
-                Return _airProgramClassifications
-            End Get
-            Set(ByVal value As AirProgramClassification)
-                _airProgramClassifications = value
-            End Set
-        End Property
 
         ''' <summary>
         ''' A five-character string representing a facility's air program classifications. 
@@ -377,9 +260,10 @@ Namespace Apb.Facilities
                 Return ConvertEnumToBitFlags(Of AirProgramClassification)(Me.AirProgramClassifications, AirProgramClassificationsCodeLength)
             End Get
             Set(ByVal value As String)
-                _airProgramClassifications = ConvertBitFieldToEnum(Of AirProgramClassification)(value)
+                AirProgramClassifications = ConvertBitFieldToEnum(Of AirProgramClassification)(value)
             End Set
         End Property
+
         Private Shared AirProgramClassificationsCodeLength As Integer = 5
 
 #End Region

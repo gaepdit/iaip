@@ -19,117 +19,117 @@ Partial Class SSCPComplianceLog
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPComplianceLog))
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.mmiFile = New System.Windows.Forms.MenuItem
-        Me.mmiClose = New System.Windows.Forms.MenuItem
-        Me.mmiTools = New System.Windows.Forms.MenuItem
-        Me.mmiSearch = New System.Windows.Forms.MenuItem
-        Me.mmiRunFilter = New System.Windows.Forms.MenuItem
-        Me.mmiClear = New System.Windows.Forms.MenuItem
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem
-        Me.mmiExport = New System.Windows.Forms.MenuItem
-        Me.mmiHelp = New System.Windows.Forms.MenuItem
-        Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem
-        Me.TBWork_EnTry = New System.Windows.Forms.ToolBar
-        Me.tbbSearch = New System.Windows.Forms.ToolBarButton
-        Me.tbbExportToExcel = New System.Windows.Forms.ToolBarButton
-        Me.tbbClear = New System.Windows.Forms.ToolBarButton
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.pnlFilterPanel = New System.Windows.Forms.Panel
-        Me.GBWorkTypes = New System.Windows.Forms.GroupBox
-        Me.chbRMPInspections = New System.Windows.Forms.CheckBox
-        Me.GBNotifications = New System.Windows.Forms.GroupBox
-        Me.clbNotifications = New System.Windows.Forms.CheckedListBox
-        Me.chbFCE = New System.Windows.Forms.CheckBox
-        Me.chbEnforcement = New System.Windows.Forms.CheckBox
-        Me.chbAllWork = New System.Windows.Forms.CheckBox
-        Me.chbNotifications = New System.Windows.Forms.CheckBox
-        Me.chbPerformanceTests = New System.Windows.Forms.CheckBox
-        Me.chbReports = New System.Windows.Forms.CheckBox
-        Me.chbInspections = New System.Windows.Forms.CheckBox
-        Me.chbACCs = New System.Windows.Forms.CheckBox
-        Me.GBEnforcementDates = New System.Windows.Forms.GroupBox
-        Me.chbLastModifiedDate = New System.Windows.Forms.CheckBox
-        Me.chbFilterDates = New System.Windows.Forms.CheckBox
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.DTPFilterEnd = New System.Windows.Forms.DateTimePicker
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.DTPFilterStart = New System.Windows.Forms.DateTimePicker
-        Me.Label20 = New System.Windows.Forms.Label
-        Me.txtWorkCount = New System.Windows.Forms.TextBox
-        Me.btnRunFilter = New System.Windows.Forms.Button
-        Me.GroupBox5 = New System.Windows.Forms.GroupBox
-        Me.chbCompletedWork = New System.Windows.Forms.CheckBox
-        Me.chbOpenWork = New System.Windows.Forms.CheckBox
-        Me.chbDeletedWork = New System.Windows.Forms.CheckBox
-        Me.GroupBox7 = New System.Windows.Forms.GroupBox
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.txtFacilityNameFilter = New System.Windows.Forms.TextBox
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.txtFCENumberFilter = New System.Windows.Forms.TextBox
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.txtEnforcementNumberFilter = New System.Windows.Forms.TextBox
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.txtTrackingNumberFilter = New System.Windows.Forms.TextBox
-        Me.txtAIRSNumberFilter = New System.Windows.Forms.TextBox
-        Me.GBEngineer = New System.Windows.Forms.GroupBox
-        Me.Label17 = New System.Windows.Forms.Label
-        Me.Label16 = New System.Windows.Forms.Label
-        Me.clbDistrictOffices = New System.Windows.Forms.CheckedListBox
-        Me.clbAirBranchUnits = New System.Windows.Forms.CheckedListBox
-        Me.Panel5 = New System.Windows.Forms.Panel
-        Me.rdbUseUnits = New System.Windows.Forms.RadioButton
-        Me.rdbUseEngineer = New System.Windows.Forms.RadioButton
-        Me.rdbIgnoreEngineer = New System.Windows.Forms.RadioButton
-        Me.clbEngineer = New System.Windows.Forms.CheckedListBox
-        Me.chbEngineer = New System.Windows.Forms.CheckBox
-        Me.TCComplianceLog = New System.Windows.Forms.TabControl
-        Me.TPSelectWork = New System.Windows.Forms.TabPage
-        Me.btnOpenSummary = New System.Windows.Forms.Button
-        Me.btnUndeleteWork = New System.Windows.Forms.Button
-        Me.btnDeleteWork = New System.Windows.Forms.Button
-        Me.btnSelectWork = New System.Windows.Forms.Button
-        Me.lblWorkType = New System.Windows.Forms.Label
-        Me.txtFacilityCounty = New System.Windows.Forms.TextBox
-        Me.txtWorkNumber = New System.Windows.Forms.TextBox
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.txtFacilityCity = New System.Windows.Forms.TextBox
-        Me.txtFacilityName = New System.Windows.Forms.TextBox
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.txtTestType = New System.Windows.Forms.TextBox
-        Me.txtAIRSNumber = New System.Windows.Forms.TextBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.TPStartNewWork = New System.Windows.Forms.TabPage
-        Me.pnlOtherEvents = New System.Windows.Forms.Panel
-        Me.txtTrackingNumber = New System.Windows.Forms.TextBox
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.lblOtherNumber = New System.Windows.Forms.Label
-        Me.cboEvent = New System.Windows.Forms.ComboBox
-        Me.LabEventDescription = New System.Windows.Forms.Label
-        Me.DTPDateReceived = New System.Windows.Forms.DateTimePicker
-        Me.lblDateField = New System.Windows.Forms.Label
-        Me.Panel4 = New System.Windows.Forms.Panel
-        Me.rdbPerformanceTest = New System.Windows.Forms.RadioButton
-        Me.rdbOther = New System.Windows.Forms.RadioButton
-        Me.rdbFCE = New System.Windows.Forms.RadioButton
-        Me.rdbEnforcementAction = New System.Windows.Forms.RadioButton
-        Me.btnAddNewEntry = New System.Windows.Forms.Button
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.txtFacilityInformation = New System.Windows.Forms.TextBox
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.txtNewAIRSNumber = New System.Windows.Forms.TextBox
-        Me.dgvWork = New System.Windows.Forms.DataGridView
-        Me.Splitter1 = New System.Windows.Forms.Splitter
+        Me.mmiFile = New System.Windows.Forms.MenuItem()
+        Me.mmiClose = New System.Windows.Forms.MenuItem()
+        Me.mmiTools = New System.Windows.Forms.MenuItem()
+        Me.mmiSearch = New System.Windows.Forms.MenuItem()
+        Me.mmiRunFilter = New System.Windows.Forms.MenuItem()
+        Me.mmiClear = New System.Windows.Forms.MenuItem()
+        Me.MenuItem2 = New System.Windows.Forms.MenuItem()
+        Me.mmiExport = New System.Windows.Forms.MenuItem()
+        Me.mmiHelp = New System.Windows.Forms.MenuItem()
+        Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem()
+        Me.TBWork_EnTry = New System.Windows.Forms.ToolBar()
+        Me.tbbSearch = New System.Windows.Forms.ToolBarButton()
+        Me.tbbExportToExcel = New System.Windows.Forms.ToolBarButton()
+        Me.tbbClear = New System.Windows.Forms.ToolBarButton()
+        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.pnlFilterPanel = New System.Windows.Forms.Panel()
+        Me.GBWorkTypes = New System.Windows.Forms.GroupBox()
+        Me.chbRMPInspections = New System.Windows.Forms.CheckBox()
+        Me.GBNotifications = New System.Windows.Forms.GroupBox()
+        Me.clbNotifications = New System.Windows.Forms.CheckedListBox()
+        Me.chbFCE = New System.Windows.Forms.CheckBox()
+        Me.chbEnforcement = New System.Windows.Forms.CheckBox()
+        Me.chbAllWork = New System.Windows.Forms.CheckBox()
+        Me.chbNotifications = New System.Windows.Forms.CheckBox()
+        Me.chbPerformanceTests = New System.Windows.Forms.CheckBox()
+        Me.chbReports = New System.Windows.Forms.CheckBox()
+        Me.chbInspections = New System.Windows.Forms.CheckBox()
+        Me.chbACCs = New System.Windows.Forms.CheckBox()
+        Me.GBEnforcementDates = New System.Windows.Forms.GroupBox()
+        Me.chbLastModifiedDate = New System.Windows.Forms.CheckBox()
+        Me.chbFilterDates = New System.Windows.Forms.CheckBox()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.DTPFilterEnd = New System.Windows.Forms.DateTimePicker()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.DTPFilterStart = New System.Windows.Forms.DateTimePicker()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.txtWorkCount = New System.Windows.Forms.TextBox()
+        Me.btnRunFilter = New System.Windows.Forms.Button()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.chbCompletedWork = New System.Windows.Forms.CheckBox()
+        Me.chbOpenWork = New System.Windows.Forms.CheckBox()
+        Me.chbDeletedWork = New System.Windows.Forms.CheckBox()
+        Me.GroupBox7 = New System.Windows.Forms.GroupBox()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.txtFacilityNameFilter = New System.Windows.Forms.TextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.txtFCENumberFilter = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.txtEnforcementNumberFilter = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.txtTrackingNumberFilter = New System.Windows.Forms.TextBox()
+        Me.txtAIRSNumberFilter = New System.Windows.Forms.TextBox()
+        Me.GBEngineer = New System.Windows.Forms.GroupBox()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.clbDistrictOffices = New System.Windows.Forms.CheckedListBox()
+        Me.clbAirBranchUnits = New System.Windows.Forms.CheckedListBox()
+        Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.rdbUseUnits = New System.Windows.Forms.RadioButton()
+        Me.rdbUseEngineer = New System.Windows.Forms.RadioButton()
+        Me.rdbIgnoreEngineer = New System.Windows.Forms.RadioButton()
+        Me.clbEngineer = New System.Windows.Forms.CheckedListBox()
+        Me.chbEngineer = New System.Windows.Forms.CheckBox()
+        Me.TCComplianceLog = New System.Windows.Forms.TabControl()
+        Me.TPSelectWork = New System.Windows.Forms.TabPage()
+        Me.btnOpenSummary = New System.Windows.Forms.Button()
+        Me.btnUndeleteWork = New System.Windows.Forms.Button()
+        Me.btnDeleteWork = New System.Windows.Forms.Button()
+        Me.btnSelectWork = New System.Windows.Forms.Button()
+        Me.lblWorkType = New System.Windows.Forms.Label()
+        Me.txtFacilityCounty = New System.Windows.Forms.TextBox()
+        Me.txtWorkNumber = New System.Windows.Forms.TextBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.txtFacilityCity = New System.Windows.Forms.TextBox()
+        Me.txtFacilityName = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.txtTestType = New System.Windows.Forms.TextBox()
+        Me.txtAIRSNumber = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.TPStartNewWork = New System.Windows.Forms.TabPage()
+        Me.pnlOtherEvents = New System.Windows.Forms.Panel()
+        Me.txtTrackingNumber = New System.Windows.Forms.TextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.lblOtherNumber = New System.Windows.Forms.Label()
+        Me.cboEvent = New System.Windows.Forms.ComboBox()
+        Me.LabEventDescription = New System.Windows.Forms.Label()
+        Me.DTPDateReceived = New System.Windows.Forms.DateTimePicker()
+        Me.lblDateField = New System.Windows.Forms.Label()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.rdbPerformanceTest = New System.Windows.Forms.RadioButton()
+        Me.rdbOther = New System.Windows.Forms.RadioButton()
+        Me.rdbFCE = New System.Windows.Forms.RadioButton()
+        Me.rdbEnforcementAction = New System.Windows.Forms.RadioButton()
+        Me.btnAddNewEntry = New System.Windows.Forms.Button()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.txtFacilityInformation = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.txtNewAIRSNumber = New System.Windows.Forms.TextBox()
+        Me.dgvWork = New System.Windows.Forms.DataGridView()
+        Me.Splitter1 = New System.Windows.Forms.Splitter()
         Me.StatusStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.pnlFilterPanel.SuspendLayout()
@@ -338,8 +338,8 @@ Partial Class SSCPComplianceLog
         'Panel1
         '
         Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(808, 17)
@@ -349,8 +349,8 @@ Partial Class SSCPComplianceLog
         'Panel2
         '
         Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(4, 17)
@@ -358,8 +358,8 @@ Partial Class SSCPComplianceLog
         'Panel3
         '
         Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(4, 17)

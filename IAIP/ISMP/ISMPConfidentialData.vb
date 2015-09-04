@@ -70,7 +70,6 @@ Public Class ISMPConfidentialData
                     TCDocuments.TabPages.Remove(Me.TPPulpCondensate)
                     TCDocuments.TabPages.Remove(Me.TPGasConcentration)
                     TCDocuments.TabPages.Remove(Me.TPFlare)
-                    TCDocuments.TabPages.Remove(Me.TPPEM)
                     TCDocuments.TabPages.Remove(Me.TPMethod9)
                     TCDocuments.TabPages.Remove(Me.TPMemorandum)
                     TCDocuments.TabPages.Remove(Me.TPRATA)
@@ -82,7 +81,6 @@ Public Class ISMPConfidentialData
                     TCDocuments.TabPages.Remove(Me.TPPulpCondensate)
                     TCDocuments.TabPages.Remove(Me.TPGasConcentration)
                     TCDocuments.TabPages.Remove(Me.TPFlare)
-                    TCDocuments.TabPages.Remove(Me.TPPEM)
                     TCDocuments.TabPages.Remove(Me.TPMethod9)
                     TCDocuments.TabPages.Remove(Me.TPMemorandum)
                     TCDocuments.TabPages.Remove(Me.TPRATA)
@@ -97,7 +95,6 @@ Public Class ISMPConfidentialData
                     TCDocuments.TabPages.Remove(Me.TPPulpCondensate)
                     TCDocuments.TabPages.Remove(Me.TPGasConcentration)
                     TCDocuments.TabPages.Remove(Me.TPFlare)
-                    TCDocuments.TabPages.Remove(Me.TPPEM)
                     TCDocuments.TabPages.Remove(Me.TPMethod9)
                     TCDocuments.TabPages.Remove(Me.TPMemorandum)
                     TCDocuments.TabPages.Remove(Me.TPRATA)
@@ -112,7 +109,6 @@ Public Class ISMPConfidentialData
                     TCDocuments.TabPages.Remove(Me.TPPulpCondensate)
                     TCDocuments.TabPages.Remove(Me.TPGasConcentration)
                     TCDocuments.TabPages.Remove(Me.TPFlare)
-                    TCDocuments.TabPages.Remove(Me.TPPEM)
                     TCDocuments.TabPages.Remove(Me.TPMethod9)
                     TCDocuments.TabPages.Remove(Me.TPMemorandum)
                     TCDocuments.TabPages.Remove(Me.TPRATA)
@@ -128,7 +124,6 @@ Public Class ISMPConfidentialData
                     TCDocuments.TabPages.Remove(Me.TPPulpCondensate)
                     TCDocuments.TabPages.Remove(Me.TPGasConcentration)
                     TCDocuments.TabPages.Remove(Me.TPFlare)
-                    TCDocuments.TabPages.Remove(Me.TPPEM)
                     TCDocuments.TabPages.Remove(Me.TPMethod9)
                     TCDocuments.TabPages.Remove(Me.TPMemorandum)
                     TCDocuments.TabPages.Remove(Me.TPRATA)
@@ -142,7 +137,6 @@ Public Class ISMPConfidentialData
                     TCDocuments.TabPages.Remove(Me.TPPulpCondensate)
                     TCDocuments.TabPages.Remove(Me.TPGasConcentration)
                     TCDocuments.TabPages.Remove(Me.TPFlare)
-                    TCDocuments.TabPages.Remove(Me.TPPEM)
                     TCDocuments.TabPages.Remove(Me.TPMethod9)
                     TCDocuments.TabPages.Remove(Me.TPMemorandum)
                     TCDocuments.TabPages.Remove(Me.TPRATA)
@@ -156,7 +150,6 @@ Public Class ISMPConfidentialData
                     TCDocuments.TabPages.Remove(Me.TPPulpCondensate)
                     TCDocuments.TabPages.Remove(Me.TPGasConcentration)
                     TCDocuments.TabPages.Remove(Me.TPFlare)
-                    TCDocuments.TabPages.Remove(Me.TPPEM)
                     TCDocuments.TabPages.Remove(Me.TPMethod9)
                     TCDocuments.TabPages.Remove(Me.TPMemorandum)
                     TCDocuments.TabPages.Remove(Me.TPRATA)
@@ -168,7 +161,6 @@ Public Class ISMPConfidentialData
                     TCDocuments.TabPages.Remove(Me.TPTwoStack)
                     TCDocuments.TabPages.Remove(Me.TPGasConcentration)
                     TCDocuments.TabPages.Remove(Me.TPFlare)
-                    TCDocuments.TabPages.Remove(Me.TPPEM)
                     TCDocuments.TabPages.Remove(Me.TPMethod9)
                     TCDocuments.TabPages.Remove(Me.TPMemorandum)
                     TCDocuments.TabPages.Remove(Me.TPRATA)
@@ -180,7 +172,6 @@ Public Class ISMPConfidentialData
                     TCDocuments.TabPages.Remove(Me.TPPulpCondensate)
                     TCDocuments.TabPages.Remove(Me.TPTwoStack)
                     TCDocuments.TabPages.Remove(Me.TPFlare)
-                    TCDocuments.TabPages.Remove(Me.TPPEM)
                     TCDocuments.TabPages.Remove(Me.TPMethod9)
                     TCDocuments.TabPages.Remove(Me.TPMemorandum)
                     TCDocuments.TabPages.Remove(Me.TPRATA)
@@ -192,7 +183,6 @@ Public Class ISMPConfidentialData
                     TCDocuments.TabPages.Remove(Me.TPPulpCondensate)
                     TCDocuments.TabPages.Remove(Me.TPGasConcentration)
                     TCDocuments.TabPages.Remove(Me.TPTwoStack)
-                    TCDocuments.TabPages.Remove(Me.TPPEM)
                     TCDocuments.TabPages.Remove(Me.TPMethod9)
                     TCDocuments.TabPages.Remove(Me.TPMemorandum)
                     TCDocuments.TabPages.Remove(Me.TPRATA)
@@ -204,7 +194,6 @@ Public Class ISMPConfidentialData
                     TCDocuments.TabPages.Remove(Me.TPPulpCondensate)
                     TCDocuments.TabPages.Remove(Me.TPGasConcentration)
                     TCDocuments.TabPages.Remove(Me.TPFlare)
-                    TCDocuments.TabPages.Remove(Me.TPPEM)
                     TCDocuments.TabPages.Remove(Me.TPMethod9)
                     TCDocuments.TabPages.Remove(Me.TPMemorandum)
                     TCDocuments.TabPages.Remove(Me.TPTwoStack)
@@ -216,7 +205,6 @@ Public Class ISMPConfidentialData
                     TCDocuments.TabPages.Remove(Me.TPPulpCondensate)
                     TCDocuments.TabPages.Remove(Me.TPGasConcentration)
                     TCDocuments.TabPages.Remove(Me.TPFlare)
-                    TCDocuments.TabPages.Remove(Me.TPPEM)
                     TCDocuments.TabPages.Remove(Me.TPMethod9)
                     TCDocuments.TabPages.Remove(Me.TPTwoStack)
                     TCDocuments.TabPages.Remove(Me.TPRATA)
@@ -231,7 +219,6 @@ Public Class ISMPConfidentialData
                     TCDocuments.TabPages.Remove(Me.TPPulpCondensate)
                     TCDocuments.TabPages.Remove(Me.TPGasConcentration)
                     TCDocuments.TabPages.Remove(Me.TPFlare)
-                    TCDocuments.TabPages.Remove(Me.TPPEM)
                     TCDocuments.TabPages.Remove(Me.TPMethod9)
                     TCDocuments.TabPages.Remove(Me.TPTwoStack)
                     TCDocuments.TabPages.Remove(Me.TPRATA)
@@ -246,7 +233,6 @@ Public Class ISMPConfidentialData
                     TCDocuments.TabPages.Remove(Me.TPPulpCondensate)
                     TCDocuments.TabPages.Remove(Me.TPGasConcentration)
                     TCDocuments.TabPages.Remove(Me.TPFlare)
-                    TCDocuments.TabPages.Remove(Me.TPPEM)
                     TCDocuments.TabPages.Remove(Me.TPMemorandum)
                     TCDocuments.TabPages.Remove(Me.TPRATA)
                     TCDocuments.TabPages.Remove(Me.TPTwoStack)
@@ -260,7 +246,6 @@ Public Class ISMPConfidentialData
                     TCDocuments.TabPages.Remove(Me.TPPulpCondensate)
                     TCDocuments.TabPages.Remove(Me.TPGasConcentration)
                     TCDocuments.TabPages.Remove(Me.TPFlare)
-                    TCDocuments.TabPages.Remove(Me.TPPEM)
                     TCDocuments.TabPages.Remove(Me.TPMethod9)
                     TCDocuments.TabPages.Remove(Me.TPMemorandum)
                     TCDocuments.TabPages.Remove(Me.TPRATA)
@@ -272,7 +257,6 @@ Public Class ISMPConfidentialData
                     TCDocuments.TabPages.Remove(Me.TPPulpCondensate)
                     TCDocuments.TabPages.Remove(Me.TPGasConcentration)
                     TCDocuments.TabPages.Remove(Me.TPFlare)
-                    TCDocuments.TabPages.Remove(Me.TPPEM)
                     TCDocuments.TabPages.Remove(Me.TPMemorandum)
                     TCDocuments.TabPages.Remove(Me.TPRATA)
                     TCDocuments.TabPages.Remove(Me.TPTwoStack)
@@ -280,25 +264,12 @@ Public Class ISMPConfidentialData
                     TCDocuments.TabPages.Remove(Me.TPSSCPWork)
 
                     TCMethod9.TabPages.Remove(Me.TPMethod9Multi)
-                Case "017"
-                    TCDocuments.TabPages.Remove(Me.TPOneStack)
-                    TCDocuments.TabPages.Remove(Me.TPLoadingRack)
-                    TCDocuments.TabPages.Remove(Me.TPPulpCondensate)
-                    TCDocuments.TabPages.Remove(Me.TPGasConcentration)
-                    TCDocuments.TabPages.Remove(Me.TPFlare)
-                    TCDocuments.TabPages.Remove(Me.TPMethod9)
-                    TCDocuments.TabPages.Remove(Me.TPMemorandum)
-                    TCDocuments.TabPages.Remove(Me.TPRATA)
-                    TCDocuments.TabPages.Remove(Me.TPTwoStack)
-                    TCDocuments.TabPages.Remove(Me.TPMethod22)
-                    TCDocuments.TabPages.Remove(Me.TPSSCPWork)
                 Case "018"
                     TCDocuments.TabPages.Remove(TPOneStack)
                     TCDocuments.TabPages.Remove(Me.TPLoadingRack)
                     TCDocuments.TabPages.Remove(Me.TPPulpCondensate)
                     TCDocuments.TabPages.Remove(Me.TPGasConcentration)
                     TCDocuments.TabPages.Remove(Me.TPFlare)
-                    TCDocuments.TabPages.Remove(Me.TPPEM)
                     TCDocuments.TabPages.Remove(Me.TPMethod9)
                     TCDocuments.TabPages.Remove(Me.TPTwoStack)
                     TCDocuments.TabPages.Remove(Me.TPRATA)
@@ -313,7 +284,6 @@ Public Class ISMPConfidentialData
                     TCDocuments.TabPages.Remove(Me.TPPulpCondensate)
                     TCDocuments.TabPages.Remove(Me.TPGasConcentration)
                     TCDocuments.TabPages.Remove(Me.TPFlare)
-                    TCDocuments.TabPages.Remove(Me.TPPEM)
                     TCDocuments.TabPages.Remove(Me.TPMethod9)
                     TCDocuments.TabPages.Remove(Me.TPMemorandum)
                     TCDocuments.TabPages.Remove(Me.TPRATA)
@@ -2395,8 +2365,7 @@ Public Class ISMPConfidentialData
                         Else
                             chbMethod9OtherInfo.Checked = False
                         End If
-                    Case "P" 'PEM
-
+                    
                     Case "Q" 'PTE
                         If Mid(ConfidentialData, 26, 1) = "1" Then
                             Me.chbMemoAppRequire.Checked = True
@@ -4537,9 +4506,6 @@ Public Class ISMPConfidentialData
                         Else
                             ConfidentialData = ConfidentialData & "0"
                         End If
-
-                    Case "017"
-                        ConfidentialData = "0" & "P" & Mid(ConfidentialData, 3)
 
                     Case "018"
                         ConfidentialData = "0" & "Q" & Mid(ConfidentialData, 3)

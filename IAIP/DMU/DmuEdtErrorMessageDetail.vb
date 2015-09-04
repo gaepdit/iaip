@@ -26,7 +26,7 @@ Public Class DmuEdtErrorMessageDetail
 
     Private edtErrorMessagesTable As DataTable
     Private edtErrorMessagesBindingSource As BindingSource
-    Private edtErrorMessageDetails As DMU.EdtErrorMessage
+    Private edtErrorMessageDetails As Dmu.EdtErrorMessage
     Private statusOfSelectedRows As SelectedRowsState
     Private headerSuccess As Boolean
     Private activeUsersList As List(Of KeyValuePair(Of Integer, String))

@@ -122,8 +122,8 @@ Public Class IAIPProfileUpdate
 
             Dim myInput2 As String = mtbPhoneNumber.Text.Trim()
             Dim pattern2 As String = "^1?\s*-?\s*(\d{3}|\(\s*\d{3}\s*\))\s*-?\s*\d{3}\s*-?\s*\d{4}$"
-            Dim myRegEx2 As New System.Text.RegularExpressions.Regex(pattern)
-            If myRegEx2.IsMatch(myInput) Then
+            Dim myRegEx2 As New System.Text.RegularExpressions.Regex(pattern2)
+            If myRegEx2.IsMatch(myInput2) Then
                 SQL = "Update AIRBRANCH.EPDUserProfiles set " & _
                 "strPhone = '" & mtbPhoneNumber.Text & "' " & _
                 "where numuserID = '" & UserGCode & "' "

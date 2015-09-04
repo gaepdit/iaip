@@ -120,14 +120,15 @@ Namespace DAL
             Return dataTable.Rows(0)
         End Function
 
-        Public Function GetResEventById(ByVal id As Integer) As ResEvent
-            Dim dataRow As DataRow = GetResEventByIdAsDataRow(id)
-            Dim resEvent As New ResEvent
+        '' Not currently used, but may be useful in the future
+        'Public Function GetResEventById(ByVal id As Integer) As ResEvent
+        '    Dim dataRow As DataRow = GetResEventByIdAsDataRow(id)
+        '    Dim resEvent As New ResEvent
 
-            FillResEventInfoFromDataRow(dataRow, ResEvent)
+        '    FillResEventInfoFromDataRow(dataRow, ResEvent)
 
-            Return resEvent
-        End Function
+        '    Return resEvent
+        'End Function
 
         Public Sub FillResEventInfoFromDataRow(ByVal row As DataRow, ByRef re As ResEvent)
             Dim address As New Address

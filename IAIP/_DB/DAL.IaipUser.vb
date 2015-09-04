@@ -50,49 +50,50 @@ Namespace DAL
             Return user
         End Function
 
-        Public Function GetIaipUser(ByVal userName As String) As IaipUser
+        '' Not currently used, but may be useful in the future
+        'Public Function GetIaipUser(ByVal userName As String) As IaipUser
 
-            Dim query As String = " SELECT EPDUSERS.NUMUSERID, " & _
-                "   EPDUSERS.STRUSERNAME, " & _
-                "   IAIPPERMISSIONS.STRIAIPPERMISSIONS, " & _
-                "   EPDUSERPROFILES.NUMBRANCH, " & _
-                "   EPDUSERPROFILES.NUMPROGRAM, " & _
-                "   EPDUSERPROFILES.NUMUNIT, " & _
-                "   EPDUSERPROFILES.NUMEMPLOYEESTATUS, " & _
-                "   EPDUSERPROFILES.STRPHONE, " & _
-                "   EPDUSERPROFILES.STREMAILADDRESS, " & _
-                "   EPDUSERPROFILES.STRFIRSTNAME, " & _
-                "   EPDUSERPROFILES.STRLASTNAME, " & _
-                "   LOOKUPEPDBRANCHES.STRBRANCHDESC, " & _
-                "   LOOKUPEPDPROGRAMS.STRPROGRAMDESC, " & _
-                "   LOOKUPEPDUNITS.STRUNITDESC " & _
-                " FROM AIRBRANCH.EPDUSERS " & _
-                " INNER JOIN AIRBRANCH.IAIPPERMISSIONS " & _
-                " ON EPDUSERS.NUMUSERID = IAIPPERMISSIONS.NUMUSERID " & _
-                " INNER JOIN AIRBRANCH.EPDUSERPROFILES " & _
-                " ON EPDUSERS.NUMUSERID = EPDUSERPROFILES.NUMUSERID " & _
-                " LEFT JOIN AIRBRANCH.LOOKUPEPDBRANCHES " & _
-                " ON EPDUSERPROFILES.NUMBRANCH = LOOKUPEPDBRANCHES.NUMBRANCHCODE " & _
-                " LEFT JOIN AIRBRANCH.LOOKUPEPDPROGRAMS " & _
-                " ON EPDUSERPROFILES.NUMPROGRAM = LOOKUPEPDPROGRAMS.NUMPROGRAMCODE " & _
-                " LEFT JOIN AIRBRANCH.LOOKUPEPDUNITS " & _
-                " ON EPDUSERPROFILES.NUMUNIT = LOOKUPEPDUNITS.NUMUNITCODE " & _
-                " WHERE UPPER(EPDUSERS.STRUSERNAME) = :username  "
+        '    Dim query As String = " SELECT EPDUSERS.NUMUSERID, " & _
+        '        "   EPDUSERS.STRUSERNAME, " & _
+        '        "   IAIPPERMISSIONS.STRIAIPPERMISSIONS, " & _
+        '        "   EPDUSERPROFILES.NUMBRANCH, " & _
+        '        "   EPDUSERPROFILES.NUMPROGRAM, " & _
+        '        "   EPDUSERPROFILES.NUMUNIT, " & _
+        '        "   EPDUSERPROFILES.NUMEMPLOYEESTATUS, " & _
+        '        "   EPDUSERPROFILES.STRPHONE, " & _
+        '        "   EPDUSERPROFILES.STREMAILADDRESS, " & _
+        '        "   EPDUSERPROFILES.STRFIRSTNAME, " & _
+        '        "   EPDUSERPROFILES.STRLASTNAME, " & _
+        '        "   LOOKUPEPDBRANCHES.STRBRANCHDESC, " & _
+        '        "   LOOKUPEPDPROGRAMS.STRPROGRAMDESC, " & _
+        '        "   LOOKUPEPDUNITS.STRUNITDESC " & _
+        '        " FROM AIRBRANCH.EPDUSERS " & _
+        '        " INNER JOIN AIRBRANCH.IAIPPERMISSIONS " & _
+        '        " ON EPDUSERS.NUMUSERID = IAIPPERMISSIONS.NUMUSERID " & _
+        '        " INNER JOIN AIRBRANCH.EPDUSERPROFILES " & _
+        '        " ON EPDUSERS.NUMUSERID = EPDUSERPROFILES.NUMUSERID " & _
+        '        " LEFT JOIN AIRBRANCH.LOOKUPEPDBRANCHES " & _
+        '        " ON EPDUSERPROFILES.NUMBRANCH = LOOKUPEPDBRANCHES.NUMBRANCHCODE " & _
+        '        " LEFT JOIN AIRBRANCH.LOOKUPEPDPROGRAMS " & _
+        '        " ON EPDUSERPROFILES.NUMPROGRAM = LOOKUPEPDPROGRAMS.NUMPROGRAMCODE " & _
+        '        " LEFT JOIN AIRBRANCH.LOOKUPEPDUNITS " & _
+        '        " ON EPDUSERPROFILES.NUMUNIT = LOOKUPEPDUNITS.NUMUNITCODE " & _
+        '        " WHERE UPPER(EPDUSERS.STRUSERNAME) = :username  "
 
-            Dim parameters As OracleParameter()
+        '    Dim parameters As OracleParameter()
 
-            parameters = New OracleParameter() { _
-                New OracleParameter("username", userName) _
-            }
+        '    parameters = New OracleParameter() { _
+        '        New OracleParameter("username", userName) _
+        '    }
 
-            Dim dataTable As DataTable = DB.GetDataTable(query, parameters)
-            If dataTable Is Nothing OrElse dataTable.Rows.Count = 0 Then Return Nothing
+        '    Dim dataTable As DataTable = DB.GetDataTable(query, parameters)
+        '    If dataTable Is Nothing OrElse dataTable.Rows.Count = 0 Then Return Nothing
 
-            Dim dataRow As DataRow = dataTable.Rows(0)
-            Dim user As IaipUser = FillIaipUserFromDataRow(dataRow)
+        '    Dim dataRow As DataRow = dataTable.Rows(0)
+        '    Dim user As IaipUser = FillIaipUserFromDataRow(dataRow)
 
-            Return user
-        End Function
+        '    Return user
+        'End Function
 
         Private Function FillIaipUserFromDataRow(ByVal row As DataRow) As IaipUser
             Dim user As New IaipUser
