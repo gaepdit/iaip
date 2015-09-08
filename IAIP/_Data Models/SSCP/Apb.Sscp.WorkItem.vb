@@ -4,6 +4,8 @@ Namespace Apb.Sscp
 
     Public Class WorkItem
 
+#Region " Properties "
+
         ' Data from SSCPITEMMASTER table
         Public Property SscpTrackingNumber() As String
         Public Property Facility() As Apb.Facilities.Facility
@@ -50,6 +52,10 @@ Namespace Apb.Sscp
         ' Common data from event-type-specific tables
         Public Property Comments() As String
 
+#End Region
+
+#Region " Enums "
+
         Public Enum WorkItemEventType
             Unknown
             Report
@@ -69,6 +75,37 @@ Namespace Apb.Sscp
             {WorkItemEventType.RmpInspection, "07"},
             {WorkItemEventType.Unknown, "00"}
         }
+
+#End Region
+
+#Region " Read-only Display Properties"
+        ' Mostly for use by Crystal Reports
+
+        Public ReadOnly Property DisplayFacilityName() As String
+            Get
+                Return Me.Facility.FacilityName
+            End Get
+        End Property
+
+        Public ReadOnly Property DisplayAirsNumber() As String
+            Get
+                Return Me.Facility.AirsNumber.FormattedString
+            End Get
+        End Property
+
+        Public ReadOnly Property DisplayStaffName() As String
+            Get
+                Return Me.StaffResponsible.FullName
+            End Get
+        End Property
+
+        Public ReadOnly Property DisplayFacilityCity() As String
+            Get
+                Return Me.Facility.FacilityLocation.Address.City
+            End Get
+        End Property
+
+#End Region
 
     End Class
 

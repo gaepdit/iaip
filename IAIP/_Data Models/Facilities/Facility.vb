@@ -20,7 +20,15 @@ Namespace Apb.Facilities
 #Region " Properties "
 
         Public Property AirsNumber() As ApbFacilityId
+        Private _FacilityName As String
         Public Property FacilityName() As String
+            Get
+                Return _FacilityName
+            End Get
+            Set(value As String)
+                _FacilityName = SanitizeFacilityNameForDb(value)
+            End Set
+        End Property
 
         ''' <summary>
         ''' Facility Location is where the facility is actually located, distinct 

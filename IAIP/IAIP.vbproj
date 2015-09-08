@@ -1571,7 +1571,6 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Crystal Reports\CR Data Models\CrAcc.vb" />
     <Compile Include="Crystal Reports\SSCP\AccMemo.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

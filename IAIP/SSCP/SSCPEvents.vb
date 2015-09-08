@@ -4150,10 +4150,10 @@ Public Class SSCPEvents
             Exit Sub
         End If
         Try
-            Dim acc As CR.Data.CrAcc = New CR.Data.CrAcc(LoadAccFromForm)
-            Dim accList As New List(Of CR.Data.CrAcc) From {acc}
+            Dim acc As Apb.Sscp.Acc = LoadAccFromForm()
+            Dim accList As New List(Of Apb.Sscp.Acc) From {acc}
 
-            Dim dataTable As DataTable = CollectionHelper.ConvertToDataTable(Of CR.Data.CrAcc)(accList)
+            Dim dataTable As DataTable = CollectionHelper.ConvertToDataTable(Of Apb.Sscp.Acc)(accList)
             Dim title As String = acc.AccReportingYear & " ACC for " & acc.Facility.AirsNumber.FormattedString
             Dim crv As New CRViewerForm(New CR.Reports.AccMemo, dataTable, title:=title)
             crv.Show()

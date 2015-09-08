@@ -32,9 +32,9 @@ Partial Class IAIPNavigation
         Me.mmiSeparator1 = New System.Windows.Forms.MenuItem()
         Me.mmiAbout = New System.Windows.Forms.MenuItem()
         Me.TestingMenu = New System.Windows.Forms.MenuItem()
+        Me.TestFacilityPrintout = New System.Windows.Forms.MenuItem()
         Me.TestPingDb = New System.Windows.Forms.MenuItem()
         Me.TestThrowError = New System.Windows.Forms.MenuItem()
-        Me.TestFacilityPrintout = New System.Windows.Forms.MenuItem()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.flpNavButtons = New System.Windows.Forms.FlowLayoutPanel()
         Me.grpQuickAccess = New System.Windows.Forms.GroupBox()
@@ -152,6 +152,11 @@ Partial Class IAIPNavigation
         Me.TestingMenu.Text = "Testin&g"
         Me.TestingMenu.Visible = False
         '
+        'TestFacilityPrintout
+        '
+        Me.TestFacilityPrintout.Index = 0
+        Me.TestFacilityPrintout.Text = "Facility Printout"
+        '
         'TestPingDb
         '
         Me.TestPingDb.Index = 1
@@ -161,11 +166,6 @@ Partial Class IAIPNavigation
         '
         Me.TestThrowError.Index = 2
         Me.TestThrowError.Text = "Throw error"
-        '
-        'TestFacilityPrintout
-        '
-        Me.TestFacilityPrintout.Index = 0
-        Me.TestFacilityPrintout.Text = "Facility Printout"
         '
         'lblTitle
         '
