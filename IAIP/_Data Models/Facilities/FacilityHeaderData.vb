@@ -286,6 +286,41 @@ Namespace Apb.Facilities
             Return rgx.IsMatch(rmpID)
         End Function
 
+        Public Shared Function GetAirProgramDbKey(ByVal selectedAirProgram As AirProgram) As String
+            Select Case selectedAirProgram
+                Case AirProgram.AcidPrecipitation
+                    Return "A"
+                Case AirProgram.CfcTracking
+                    Return "4"
+                Case AirProgram.FederalSIP
+                    Return "1"
+                Case AirProgram.FESOP
+                    Return "F"
+                Case AirProgram.MACT
+                    Return "M"
+                Case AirProgram.NativeAmerican
+                    Return "I"
+                Case AirProgram.NESHAP
+                    Return "8"
+                Case AirProgram.NonFederalSIP
+                    Return "3"
+                Case AirProgram.NSPS
+                    Return "9"
+                Case AirProgram.NSR
+                    Return "7"
+                Case AirProgram.PSD
+                    Return "6"
+                Case AirProgram.RMP
+                    Return "R"
+                Case AirProgram.SIP
+                    Return "0"
+                Case AirProgram.TitleV
+                    Return "V"
+                Case Else
+                    Return ""
+            End Select
+        End Function
+
 #End Region
 
     End Class

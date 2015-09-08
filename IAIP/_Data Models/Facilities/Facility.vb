@@ -36,15 +36,60 @@ Namespace Apb.Facilities
         ''' postal address, but will have some of the elements of a postal address
         ''' </summary>
         Public Property FacilityLocation() As Location
-
         Public Property HeaderData() As FacilityHeaderData
+        Public Property Comment() As String
+        Public Property ApprovedByApb() As Boolean?
+        Public Property DistrictOfficeLocation() As String
+        Public Property DistrictResponsible() As Boolean?
+        Public Property ComplianceStatusList() As List(Of PollutantComplianceStatus)
+
+#End Region
+
+#Region " Methods "
+
+        Public Sub RetrieveHeaderData()
+            If Me IsNot Nothing Then
+                HeaderData = DAL.GetFacilityHeaderData(Me.AirsNumber)
+            End If
+        End Sub
+
+        Public Sub RetrieveComplianceStatusList()
+            If Me IsNot Nothing Then
+                ComplianceStatusList = DAL.FacilityData.GetComplianceStatusList(Me.AirsNumber)
+            End If
+        End Sub
+
+#End Region
+
+#Region " Public shared functions "
+
+        ''' <summary>
+        ''' Sanitizes a string for use as a facility name by replacing brackets with parentheses
+        ''' </summary>
+        ''' <param name="name">The string to sanitize.</param>
+        ''' <returns>A sanitized string.</returns>
+        ''' <remarks>This is required because of a quirk in the current database setup.</remarks>
+        Public Shared Function SanitizeFacilityNameForDb(ByVal name As String) As String
+            If String.IsNullOrEmpty(name) Then
+                Return Nothing
+            End If
+
+            Dim sanitizedName As New System.Text.StringBuilder(name)
+            sanitizedName.Replace("[", "(").Replace("]", ")")
+
+            Return sanitizedName.ToString
+        End Function
+
+#End Region
+
+#Region " Read-only convenience properties"
 
         Public ReadOnly Property SubjectToNsps() As Boolean?
             Get
                 If HeaderData Is Nothing Then
                     Return Nothing
                 Else
-                    Return Convert.ToBoolean((Me.HeaderData.AirPrograms And AirProgram.NSPS) > 0)
+                    Return HeaderData.AirPrograms.HasFlag(AirProgram.NSPS)
                 End If
             End Get
         End Property
@@ -54,12 +99,10 @@ Namespace Apb.Facilities
                 If HeaderData Is Nothing Then
                     Return Nothing
                 Else
-                    Return Convert.ToBoolean((Me.HeaderData.AirPrograms And AirProgram.TitleV) > 0)
+                    Return HeaderData.AirPrograms.HasFlag(AirProgram.TitleV)
                 End If
             End Get
         End Property
-
-        Public Property Comment() As String
 
         Public ReadOnly Property LongDisplay() As String
             Get
@@ -82,87 +125,15 @@ Namespace Apb.Facilities
             End Get
         End Property
 
-        Public Property ApprovedByApb() As Boolean?
-        Public Property DistrictOfficeLocation() As String
-        Public Property DistrictResponsible() As Boolean?
-        Public Property ComplianceStatusList() As List(Of PollutantComplianceStatus)
-
         Public ReadOnly Property ControllingComplianceStatus() As PollutantComplianceStatus
             Get
-                If _ComplianceStatusList Is Nothing OrElse _ComplianceStatusList.Count = 0 Then
+                If ComplianceStatusList Is Nothing OrElse ComplianceStatusList.Count = 0 Then
                     Return PollutantComplianceStatus.NoValue
                 Else
                     Return ComplianceStatusList.Max
                 End If
             End Get
         End Property
-
-
-#End Region
-
-#Region " Methods "
-
-        Public Sub RetrieveHeaderData()
-            If Me IsNot Nothing Then
-                HeaderData = DAL.GetFacilityHeaderData(Me.AirsNumber)
-            End If
-        End Sub
-
-        Public Sub RetrieveComplianceStatusList()
-            If Me IsNot Nothing Then
-                ComplianceStatusList = DAL.FacilityData.GetComplianceStatusList(Me.AirsNumber)
-            End If
-        End Sub
-
-#End Region
-
-#Region " Public shared functions "
-
-        Public Shared Function SanitizeFacilityNameForDb(ByVal name As String) As String
-            If String.IsNullOrEmpty(name) Then
-                Return Nothing
-            End If
-
-            Dim sanitizedName As New System.Text.StringBuilder(name)
-            sanitizedName.Replace("[", "(").Replace("]", ")")
-
-            Return sanitizedName.ToString
-        End Function
-
-        Public Shared Function GetAirProgramDbKey(ByVal selectedAirProgram As AirProgram) As String
-            Select Case selectedAirProgram
-                Case AirProgram.AcidPrecipitation
-                    Return "A"
-                Case AirProgram.CfcTracking
-                    Return "4"
-                Case AirProgram.FederalSIP
-                    Return "1"
-                Case AirProgram.FESOP
-                    Return "F"
-                Case AirProgram.MACT
-                    Return "M"
-                Case AirProgram.NativeAmerican
-                    Return "I"
-                Case AirProgram.NESHAP
-                    Return "8"
-                Case AirProgram.NonFederalSIP
-                    Return "3"
-                Case AirProgram.NSPS
-                    Return "9"
-                Case AirProgram.NSR
-                    Return "7"
-                Case AirProgram.PSD
-                    Return "6"
-                Case AirProgram.RMP
-                    Return "R"
-                Case AirProgram.SIP
-                    Return "0"
-                Case AirProgram.TitleV
-                    Return "V"
-                Case Else
-                    Return ""
-            End Select
-        End Function
 
 #End Region
 

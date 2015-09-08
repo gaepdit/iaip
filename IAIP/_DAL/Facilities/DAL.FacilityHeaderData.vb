@@ -212,7 +212,7 @@ Namespace DAL
                 End If
 
                 ' TODO DWW: Change to HasFlag after converting to .NET 4.0
-                If (headerData.AirPrograms And apc) <> 0 Then
+                If (headerData.AirPrograms.HasFlag(apc)) Then
 
                     ' 3a. For each active APC, update all existing keys in 
                     '     ApbAirProgramPollutants with new operating status
@@ -256,7 +256,7 @@ Namespace DAL
                     )
                     parametersList.Add(New OracleParameter() { _
                         New OracleParameter("airsnumber", headerData.AirsNumber.DbFormattedString), _
-                        New OracleParameter("airpollkey", headerData.AirsNumber.DbFormattedString & Facility.GetAirProgramDbKey(apc)), _
+                        New OracleParameter("airpollkey", headerData.AirsNumber.DbFormattedString & FacilityHeaderData.GetAirProgramDbKey(apc)), _
                         New OracleParameter("pollkey", "OT"), _
                         New OracleParameter("compliancestatus", "C"), _
                         New OracleParameter("modifiedby", UserGCode), _
@@ -276,7 +276,7 @@ Namespace DAL
                     parametersList.Add(New OracleParameter() { _
                         New OracleParameter("active", "0"), _
                         New OracleParameter("modifiedby", UserGCode), _
-                        New OracleParameter("airpollkey", headerData.AirsNumber.DbFormattedString & Facility.GetAirProgramDbKey(apc)) _
+                        New OracleParameter("airpollkey", headerData.AirsNumber.DbFormattedString & FacilityHeaderData.GetAirProgramDbKey(apc)) _
                     })
 
                 End If
