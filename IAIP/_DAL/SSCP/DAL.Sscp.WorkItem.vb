@@ -10,7 +10,7 @@ Namespace DAL.Sscp
         ''' <summary>
         ''' Tests whether an SSCP work item tracking number exists.
         ''' </summary>
-        ''' <param name="id">The SSCP work item tracking number to test.</param>
+        ''' <param name="trackingNumber">The SSCP work item tracking number to test.</param>
         ''' <returns>Returns True if the work item exists; otherwise, returns False.</returns>
         Public Function WorkItemExists(ByVal trackingNumber As String) As Boolean
             If trackingNumber = "" OrElse Not Integer.TryParse(trackingNumber, Nothing) Then Return False
@@ -106,7 +106,7 @@ Namespace DAL.Sscp
         ''' Tests whether an SSCP work item tracking number refers to a stack test. If it is, the ISMP reference number associated 
         ''' with the SSCP work item reference number is stored in the refNum output parameter.
         ''' </summary>
-        ''' <param name="id">The SSCP work item reference number to test.</param>
+        ''' <param name="trackingNumber">The SSCP work item reference number to test.</param>
         ''' <param name="refNum">When this function returns, contains the ISMP reference number associated with the SSCP work 
         ''' item reference number if one exists. Otherwise, contains an empty string.</param>
         ''' <returns>Returns True if the SSCP work item reference number refers to a stack test; otherwise, returns False.</returns>

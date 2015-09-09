@@ -9,7 +9,7 @@ Namespace DAL.Sscp
         ''' <summary>
         ''' Tests whether an SSCP FCE tracking number exists.
         ''' </summary>
-        ''' <param name="id">The FCE tracking number to test.</param>
+        ''' <param name="fceNumber">The FCE tracking number to test.</param>
         ''' <returns>Returns True if the FCE exists; otherwise, returns False.</returns>
         Public Function FceExists(ByVal fceNumber As String) As Boolean
             If fceNumber = "" OrElse Not Integer.TryParse(fceNumber, Nothing) Then Return False
@@ -27,7 +27,7 @@ Namespace DAL.Sscp
         ''' <summary>
         ''' Retrieves the facility ID associated with an FCE
         ''' </summary>
-        ''' <param name="id">The FCE tracking number.</param>
+        ''' <param name="fceNumber">The FCE tracking number.</param>
         ''' <returns>A facility ID</returns>
         Public Function GetFacilityIdByFceId(fceNumber As String) As Apb.ApbFacilityId
             If fceNumber = "" OrElse Not Integer.TryParse(fceNumber, Nothing) Then Return Nothing

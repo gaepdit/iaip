@@ -70,7 +70,7 @@ Public Class CRViewerForm
     ''' Opens a Crystal Reports Viewer form and loads the specified document with the specified data and parameters
     ''' </summary>
     ''' <param name="reportDocument">The Crystal Reports report document to load</param>
-    ''' <param name="dataSet">A DataTable to be used by the report</param>
+    ''' <param name="data">IEnumerable data to be used by the report</param>
     ''' <param name="parameters">A Dictionary of parameters to be used by the report</param>
     ''' <param name="title">The window title</param>
     Public Sub New(ByVal reportDocument As ReportClass, ByVal data As IEnumerable, Optional ByVal parameters As Dictionary(Of String, String) = Nothing, Optional ByVal title As String = Nothing)
