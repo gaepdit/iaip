@@ -3922,6 +3922,7 @@ Public Class ISMPManagersTools
                     CurrentConnection.Open()
                 End If
                 da = New OracleDataAdapter(SQL, CurrentConnection)
+                Dim cmdCB As OracleCommandBuilder = New OracleCommandBuilder(da)
                 ds = New DataSet("IAIPData")
                 da.MissingSchemaAction = MissingSchemaAction.AddWithKey
 
