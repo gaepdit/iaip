@@ -10518,6 +10518,7 @@ Public Class SSPPApplicationTrackingLog
                     CurrentConnection.Open()
                 End If
                 da = New OracleDataAdapter(SQL, CurrentConnection)
+                Dim cmdCB As OracleCommandBuilder = New OracleCommandBuilder(da)
                 ds = New DataSet("PDF")
                 da.MissingSchemaAction = MissingSchemaAction.AddWithKey
 
