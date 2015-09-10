@@ -86,19 +86,16 @@ Namespace Apb.Sscp
                 Return Me.Facility.FacilityName
             End Get
         End Property
-
         Public ReadOnly Property DisplayAirsNumber() As String
             Get
                 Return Me.Facility.AirsNumber.FormattedString
             End Get
         End Property
-
         Public ReadOnly Property DisplayStaffName() As String
             Get
                 Return Me.StaffResponsible.FullName
             End Get
         End Property
-
         Public ReadOnly Property DisplayFacilityCity() As String
             Get
                 Return Me.Facility.FacilityLocation.Address.City

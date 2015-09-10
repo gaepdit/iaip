@@ -14,7 +14,7 @@
   <xs:element name="CrDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="CrDataSet" msprop:Generator_UserDSName="CrDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="VW_APBFACILITYHEADER" msprop:Generator_TableClassName="VW_APBFACILITYHEADERDataTable" msprop:Generator_TableVarName="tableVW_APBFACILITYHEADER" msprop:Generator_RowChangedName="VW_APBFACILITYHEADERRowChanged" msprop:Generator_TablePropName="VW_APBFACILITYHEADER" msprop:Generator_RowDeletingName="VW_APBFACILITYHEADERRowDeleting" msprop:Generator_RowChangingName="VW_APBFACILITYHEADERRowChanging" msprop:Generator_RowEvHandlerName="VW_APBFACILITYHEADERRowChangeEventHandler" msprop:Generator_RowDeletedName="VW_APBFACILITYHEADERRowDeleted" msprop:Generator_RowClassName="VW_APBFACILITYHEADERRow" msprop:Generator_UserTableName="VW_APBFACILITYHEADER" msprop:Generator_RowEvArgName="VW_APBFACILITYHEADERRowChangeEvent">
+        <xs:element name="VW_APBFACILITYHEADER" msprop:Generator_TableClassName="VW_APBFACILITYHEADERDataTable" msprop:Generator_TableVarName="tableVW_APBFACILITYHEADER" msprop:Generator_TablePropName="VW_APBFACILITYHEADER" msprop:Generator_RowDeletingName="VW_APBFACILITYHEADERRowDeleting" msprop:Generator_RowChangingName="VW_APBFACILITYHEADERRowChanging" msprop:Generator_RowEvHandlerName="VW_APBFACILITYHEADERRowChangeEventHandler" msprop:Generator_RowDeletedName="VW_APBFACILITYHEADERRowDeleted" msprop:Generator_UserTableName="VW_APBFACILITYHEADER" msprop:Generator_RowChangedName="VW_APBFACILITYHEADERRowChanged" msprop:Generator_RowEvArgName="VW_APBFACILITYHEADERRowChangeEvent" msprop:Generator_RowClassName="VW_APBFACILITYHEADERRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="STRAIRSNUMBER" msprop:Generator_ColumnVarNameInTable="columnSTRAIRSNUMBER" msprop:Generator_ColumnPropNameInRow="STRAIRSNUMBER" msprop:Generator_ColumnPropNameInTable="STRAIRSNUMBERColumn" msprop:Generator_UserColumnName="STRAIRSNUMBER">
@@ -141,7 +141,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="VW_APBFACILITYLOCATION" msprop:Generator_TableClassName="VW_APBFACILITYLOCATIONDataTable" msprop:Generator_TableVarName="tableVW_APBFACILITYLOCATION" msprop:Generator_RowChangedName="VW_APBFACILITYLOCATIONRowChanged" msprop:Generator_TablePropName="VW_APBFACILITYLOCATION" msprop:Generator_RowDeletingName="VW_APBFACILITYLOCATIONRowDeleting" msprop:Generator_RowChangingName="VW_APBFACILITYLOCATIONRowChanging" msprop:Generator_RowEvHandlerName="VW_APBFACILITYLOCATIONRowChangeEventHandler" msprop:Generator_RowDeletedName="VW_APBFACILITYLOCATIONRowDeleted" msprop:Generator_RowClassName="VW_APBFACILITYLOCATIONRow" msprop:Generator_UserTableName="VW_APBFACILITYLOCATION" msprop:Generator_RowEvArgName="VW_APBFACILITYLOCATIONRowChangeEvent">
+        <xs:element name="VW_APBFACILITYLOCATION" msprop:Generator_TableClassName="VW_APBFACILITYLOCATIONDataTable" msprop:Generator_TableVarName="tableVW_APBFACILITYLOCATION" msprop:Generator_TablePropName="VW_APBFACILITYLOCATION" msprop:Generator_RowDeletingName="VW_APBFACILITYLOCATIONRowDeleting" msprop:Generator_RowChangingName="VW_APBFACILITYLOCATIONRowChanging" msprop:Generator_RowEvHandlerName="VW_APBFACILITYLOCATIONRowChangeEventHandler" msprop:Generator_RowDeletedName="VW_APBFACILITYLOCATIONRowDeleted" msprop:Generator_UserTableName="VW_APBFACILITYLOCATION" msprop:Generator_RowChangedName="VW_APBFACILITYLOCATIONRowChanged" msprop:Generator_RowEvArgName="VW_APBFACILITYLOCATIONRowChangeEvent" msprop:Generator_RowClassName="VW_APBFACILITYLOCATIONRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="STRAIRSNUMBER" msprop:Generator_ColumnVarNameInTable="columnSTRAIRSNUMBER" msprop:Generator_ColumnPropNameInRow="STRAIRSNUMBER" msprop:Generator_ColumnPropNameInTable="STRAIRSNUMBERColumn" msprop:Generator_UserColumnName="STRAIRSNUMBER">
@@ -254,11 +254,11 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="EmptyDataTable" msprop:Generator_TableClassName="EmptyDataTableDataTable" msprop:Generator_TableVarName="tableEmptyDataTable" msprop:Generator_RowChangedName="EmptyDataTableRowChanged" msprop:Generator_TablePropName="EmptyDataTable" msprop:Generator_RowDeletingName="EmptyDataTableRowDeleting" msprop:Generator_RowChangingName="EmptyDataTableRowChanging" msprop:Generator_RowEvHandlerName="EmptyDataTableRowChangeEventHandler" msprop:Generator_RowDeletedName="EmptyDataTableRowDeleted" msprop:Generator_RowClassName="EmptyDataTableRow" msprop:Generator_UserTableName="EmptyDataTable" msprop:Generator_RowEvArgName="EmptyDataTableRowChangeEvent">
+        <xs:element name="EmptyDataTable" msprop:Generator_TableClassName="EmptyDataTableDataTable" msprop:Generator_TableVarName="tableEmptyDataTable" msprop:Generator_TablePropName="EmptyDataTable" msprop:Generator_RowDeletingName="EmptyDataTableRowDeleting" msprop:Generator_RowChangingName="EmptyDataTableRowChanging" msprop:Generator_RowEvHandlerName="EmptyDataTableRowChangeEventHandler" msprop:Generator_RowDeletedName="EmptyDataTableRowDeleted" msprop:Generator_UserTableName="EmptyDataTable" msprop:Generator_RowChangedName="EmptyDataTableRowChanged" msprop:Generator_RowEvArgName="EmptyDataTableRowChangeEvent" msprop:Generator_RowClassName="EmptyDataTableRow">
           <xs:complexType>
           </xs:complexType>
         </xs:element>
-        <xs:element name="VW_SSPP_ACKNOWLEDGE" msprop:Generator_TableClassName="VW_SSPP_ACKNOWLEDGEDataTable" msprop:Generator_TableVarName="tableVW_SSPP_ACKNOWLEDGE" msprop:Generator_TablePropName="VW_SSPP_ACKNOWLEDGE" msprop:Generator_RowDeletingName="VW_SSPP_ACKNOWLEDGERowDeleting" msprop:Generator_RowChangingName="VW_SSPP_ACKNOWLEDGERowChanging" msprop:Generator_RowEvHandlerName="VW_SSPP_ACKNOWLEDGERowChangeEventHandler" msprop:Generator_RowDeletedName="VW_SSPP_ACKNOWLEDGERowDeleted" msprop:Generator_UserTableName="VW_SSPP_ACKNOWLEDGE" msprop:Generator_RowChangedName="VW_SSPP_ACKNOWLEDGERowChanged" msprop:Generator_RowEvArgName="VW_SSPP_ACKNOWLEDGERowChangeEvent" msprop:Generator_RowClassName="VW_SSPP_ACKNOWLEDGERow">
+        <xs:element name="VW_SSPP_ACKNOWLEDGE" msprop:Generator_TableClassName="VW_SSPP_ACKNOWLEDGEDataTable" msprop:Generator_TableVarName="tableVW_SSPP_ACKNOWLEDGE" msprop:Generator_RowChangedName="VW_SSPP_ACKNOWLEDGERowChanged" msprop:Generator_TablePropName="VW_SSPP_ACKNOWLEDGE" msprop:Generator_RowDeletingName="VW_SSPP_ACKNOWLEDGERowDeleting" msprop:Generator_RowChangingName="VW_SSPP_ACKNOWLEDGERowChanging" msprop:Generator_RowEvHandlerName="VW_SSPP_ACKNOWLEDGERowChangeEventHandler" msprop:Generator_RowDeletedName="VW_SSPP_ACKNOWLEDGERowDeleted" msprop:Generator_RowClassName="VW_SSPP_ACKNOWLEDGERow" msprop:Generator_UserTableName="VW_SSPP_ACKNOWLEDGE" msprop:Generator_RowEvArgName="VW_SSPP_ACKNOWLEDGERowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="STRAPPLICATIONNUMBER" msprop:Generator_ColumnVarNameInTable="columnSTRAPPLICATIONNUMBER" msprop:Generator_ColumnPropNameInRow="STRAPPLICATIONNUMBER" msprop:Generator_ColumnPropNameInTable="STRAPPLICATIONNUMBERColumn" msprop:Generator_UserColumnName="STRAPPLICATIONNUMBER">
@@ -398,12 +398,69 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="VW_SSCP_INSPECTIONS" msprop:Generator_TableClassName="VW_SSCP_INSPECTIONSDataTable" msprop:Generator_TableVarName="tableVW_SSCP_INSPECTIONS" msprop:Generator_TablePropName="VW_SSCP_INSPECTIONS" msprop:Generator_RowDeletingName="VW_SSCP_INSPECTIONSRowDeleting" msprop:Generator_RowChangingName="VW_SSCP_INSPECTIONSRowChanging" msprop:Generator_RowEvHandlerName="VW_SSCP_INSPECTIONSRowChangeEventHandler" msprop:Generator_RowDeletedName="VW_SSCP_INSPECTIONSRowDeleted" msprop:Generator_UserTableName="VW_SSCP_INSPECTIONS" msprop:Generator_RowChangedName="VW_SSCP_INSPECTIONSRowChanged" msprop:Generator_RowEvArgName="VW_SSCP_INSPECTIONSRowChangeEvent" msprop:Generator_RowClassName="VW_SSCP_INSPECTIONSRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="STRTRACKINGNUMBER" msprop:Generator_ColumnVarNameInTable="columnSTRTRACKINGNUMBER" msprop:Generator_ColumnPropNameInRow="STRTRACKINGNUMBER" msprop:Generator_ColumnPropNameInTable="STRTRACKINGNUMBERColumn" msprop:Generator_UserColumnName="STRTRACKINGNUMBER" type="xs:long" />
+              <xs:element name="STRAIRSNUMBER" msprop:Generator_ColumnVarNameInTable="columnSTRAIRSNUMBER" msprop:Generator_ColumnPropNameInRow="STRAIRSNUMBER" msprop:Generator_ColumnPropNameInTable="STRAIRSNUMBERColumn" msprop:Generator_UserColumnName="STRAIRSNUMBER">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="12" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATINSPECTIONDATESTART" msprop:Generator_ColumnVarNameInTable="columnDATINSPECTIONDATESTART" msprop:Generator_ColumnPropNameInRow="DATINSPECTIONDATESTART" msprop:Generator_ColumnPropNameInTable="DATINSPECTIONDATESTARTColumn" msprop:Generator_UserColumnName="DATINSPECTIONDATESTART" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="STRINSPECTIONREASON" msprop:Generator_ColumnVarNameInTable="columnSTRINSPECTIONREASON" msprop:Generator_ColumnPropNameInRow="STRINSPECTIONREASON" msprop:Generator_ColumnPropNameInTable="STRINSPECTIONREASONColumn" msprop:Generator_UserColumnName="STRINSPECTIONREASON">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="35" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRFACILITYOPERATING" msprop:Generator_ColumnVarNameInTable="columnSTRFACILITYOPERATING" msprop:Generator_ColumnPropNameInRow="STRFACILITYOPERATING" msprop:Generator_ColumnPropNameInTable="STRFACILITYOPERATINGColumn" msprop:Generator_UserColumnName="STRFACILITYOPERATING">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRINSPECTIONCOMPLIANCESTATUS" msprop:Generator_ColumnVarNameInTable="columnSTRINSPECTIONCOMPLIANCESTATUS" msprop:Generator_ColumnPropNameInRow="STRINSPECTIONCOMPLIANCESTATUS" msprop:Generator_ColumnPropNameInTable="STRINSPECTIONCOMPLIANCESTATUSColumn" msprop:Generator_UserColumnName="STRINSPECTIONCOMPLIANCESTATUS">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="35" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRFIRSTNAME" msprop:Generator_ColumnVarNameInTable="columnSTRFIRSTNAME" msprop:Generator_ColumnPropNameInRow="STRFIRSTNAME" msprop:Generator_ColumnPropNameInTable="STRFIRSTNAMEColumn" msprop:Generator_UserColumnName="STRFIRSTNAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRLASTNAME" msprop:Generator_ColumnVarNameInTable="columnSTRLASTNAME" msprop:Generator_ColumnPropNameInRow="STRLASTNAME" msprop:Generator_ColumnPropNameInTable="STRLASTNAMEColumn" msprop:Generator_UserColumnName="STRLASTNAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRINSPECTIONCOMMENTS" msprop:Generator_ColumnVarNameInTable="columnSTRINSPECTIONCOMMENTS" msprop:Generator_ColumnPropNameInRow="STRINSPECTIONCOMMENTS" msprop:Generator_ColumnPropNameInTable="STRINSPECTIONCOMMENTSColumn" msprop:Generator_UserColumnName="STRINSPECTIONCOMMENTS">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="VW_APBFACILITYHEADER_VW_APBFACILITYLOCATION" msdata:parent="VW_APBFACILITYHEADER" msdata:child="VW_APBFACILITYLOCATION" msdata:parentkey="STRAIRSNUMBER" msdata:childkey="STRAIRSNUMBER" msprop:Generator_UserChildTable="VW_APBFACILITYLOCATION" msprop:Generator_ChildPropName="GetVW_APBFACILITYLOCATIONRows" msprop:Generator_UserRelationName="VW_APBFACILITYHEADER_VW_APBFACILITYLOCATION" msprop:Generator_RelationVarName="relationVW_APBFACILITYHEADER_VW_APBFACILITYLOCATION" msprop:Generator_UserParentTable="VW_APBFACILITYHEADER" msprop:Generator_ParentPropName="VW_APBFACILITYHEADERRow" />
+      <msdata:Relationship name="VW_APBFACILITYHEADER_VW_APBFACILITYLOCATION" msdata:parent="VW_APBFACILITYHEADER" msdata:child="VW_APBFACILITYLOCATION" msdata:parentkey="STRAIRSNUMBER" msdata:childkey="STRAIRSNUMBER" msprop:Generator_UserChildTable="VW_APBFACILITYLOCATION" msprop:Generator_ChildPropName="GetVW_APBFACILITYLOCATIONRows" msprop:Generator_UserRelationName="VW_APBFACILITYHEADER_VW_APBFACILITYLOCATION" msprop:Generator_ParentPropName="VW_APBFACILITYHEADERRow" msprop:Generator_RelationVarName="relationVW_APBFACILITYHEADER_VW_APBFACILITYLOCATION" msprop:Generator_UserParentTable="VW_APBFACILITYHEADER" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

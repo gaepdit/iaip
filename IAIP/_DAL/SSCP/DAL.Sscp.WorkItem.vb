@@ -1,5 +1,6 @@
 ﻿Imports Oracle.ManagedDataAccess.Client
 Imports Iaip.Apb.Sscp
+Imports Iaip.Apb.Sscp.WorkItem
 Imports System.Runtime.InteropServices
 Imports System.Collections.Generic
 
@@ -87,7 +88,7 @@ Namespace DAL.Sscp
         ''' <param name="eventType">The work type desired.</param>
         ''' <returns>A DataTable of SSCP Work Items of a specific work type.</returns>
         ''' <remarks></remarks>
-        Public Function GetWorkItemDataTable(airs As Apb.ApbFacilityId, eventType As WorkItem.WorkItemEventType) As DataTable
+        Public Function GetWorkItemDataTable(airs As Apb.ApbFacilityId, eventType As WorkItemEventType) As DataTable
             Dim query As String =
                 "SELECT STRTRACKINGNUMBER , STRAIRSNUMBER , DATRECEIVEDDATE , " &
                 "  STREVENTTYPE , STRRESPONSIBLESTAFF , DATCOMPLETEDATE , " &
@@ -97,7 +98,7 @@ Namespace DAL.Sscp
                 "  STREVENTTYPE = :eventtype"
             Dim parameters As OracleParameter() = {
                 New OracleParameter("airs", airs.DbFormattedString),
-                New OracleParameter("eventtype", WorkItem.EventTypeDbCodes(eventType))
+                New OracleParameter("eventtype", EventTypeDbCodes(eventType))
             }
             Return DB.GetDataTable(query, parameters)
         End Function
@@ -172,6 +173,22 @@ Namespace DAL.Sscp
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
             Return result
+        End Function
+
+        ''' <summary>
+        ''' Returns a DataTable of a inspections for a given facility.
+        ''' </summary>
+        ''' <param name="airs">The Facility ID.</param>
+        ''' <returns>A DataTable of SSCP Work Items of a specific work type.</returns>
+        ''' <remarks></remarks>
+        Public Function GetInspectionDataTable(airs As Apb.ApbFacilityId) As DataTable
+            Dim query As String =
+                "SELECT * FROM AIRBRANCH.VW_SSCP_INSPECTIONS " &
+                "WHERE STRAIRSNUMBER = :airs ORDER BY DATINSPECTIONDATESTART DESC"
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("airs", airs.DbFormattedString)
+            }
+            Return DB.GetDataTable(query, parameters)
         End Function
 
 #End Region

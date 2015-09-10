@@ -199,8 +199,8 @@
       <DependentUpon>FacilityBasicReport.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Crystal Reports\Subreports\FacilityComplianceMonitoring.vb">
-      <DependentUpon>FacilityComplianceMonitoring.rpt</DependentUpon>
+    <Compile Include="Crystal Reports\Subreports\SSCP\SscpInspections.vb">
+      <DependentUpon>SscpInspections.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
@@ -972,9 +972,9 @@
       <LastGenOutput>FacilityBasicReport.vb</LastGenOutput>
       <CustomToolNamespace>CR.Reports</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Subreports\FacilityComplianceMonitoring.rpt">
+    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpInspections.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>FacilityComplianceMonitoring.vb</LastGenOutput>
+      <LastGenOutput>SscpInspections.vb</LastGenOutput>
       <CustomToolNamespace>CR.ReportDetails</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\Subreports\FacilityBasicInfo.rpt">
