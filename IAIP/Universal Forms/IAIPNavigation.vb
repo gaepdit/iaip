@@ -1350,24 +1350,26 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub TestFacilityPrintout_Click(sender As Object, e As EventArgs) Handles TestFacilityPrintout.Click
+        Dim airs As New Apb.ApbFacilityId("05100007")
 
-        'Dim dl As New List(Of Apb.Facilities.Facility)
-        'dl.Add(DAL.GetFacility("03900001").RetrieveHeaderData)
-        'dl.Add(DAL.GetFacility("05100007").RetrieveHeaderData)
-        'dl.Add(DAL.GetFacility("00100001").RetrieveHeaderData)
-        'dl.Add(DAL.GetFacility("05100015").RetrieveHeaderData)
-        'dl.Add(DAL.GetFacility("02100001").RetrieveHeaderData)
-
-        'Dim dt As DataTable = CollectionHelper.ConvertToDataTable(Of Apb.Facilities.Facility)(dl)
+        Dim dt1 As New DataTable
+        dt1 = CollectionHelper.ConvertToDataTable(Of Apb.Facilities.Facility)(New Apb.Facilities.Facility() {DAL.GetFacility(airs).RetrieveHeaderData})
 
         'Dim rpt As New CR.Reports.FacilityBasicReport
         'rpt.Subreports("FacilityBasicDetail.rpt").SetDataSource(dt)
 
-        'Dim crv2 As New CRViewerForm(rpt, title:="Howdy")
-        'crv2.Show()
 
-        Dim dt As DataTable = DAL.Sscp.GetInspectionDataTable("05100007")
-        Dim cr As New CRViewerForm(New CR.ReportDetails.SscpInspections, dt)
+        Dim dt2 As New DataTable("VW_SSCP_INSPECTIONS")
+        dt2 = DAL.Sscp.GetInspectionDataTable(airs)
+
+        'Dim ds As New DataSet("FacilityDetailedReport")
+        'ds.Tables.AddRange(New DataTable() {dt1, dt2})
+
+        Dim rpt As New CR.Reports.FacilityDetailedReport
+        rpt.Subreports("SscpInspections.rpt").SetDataSource(dt2)
+        rpt.Subreports("FacilityBasicInfo.rpt").SetDataSource(dt1)
+
+        Dim cr As New CRViewerForm(rpt)
         cr.Show()
     End Sub
 

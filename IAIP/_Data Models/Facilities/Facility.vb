@@ -54,11 +54,12 @@ Namespace Apb.Facilities
             Return Me
         End Function
 
-        Public Sub RetrieveComplianceStatusList()
+        Public Function RetrieveComplianceStatusList() As Facility
             If Me IsNot Nothing Then
                 ComplianceStatusList = DAL.FacilityData.GetComplianceStatusList(Me.AirsNumber)
             End If
-        End Sub
+            Return Me
+        End Function
 
 #End Region
 
@@ -141,6 +142,11 @@ Namespace Apb.Facilities
         Public ReadOnly Property DisplayAirsNumber As String
             Get
                 Return AirsNumber.FormattedString
+            End Get
+        End Property
+        Public ReadOnly Property DisplayDbAirsNumber As String
+            Get
+                Return AirsNumber.DbFormattedString
             End Get
         End Property
         Public ReadOnly Property DisplayFacilityAddress As String
