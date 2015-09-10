@@ -1351,6 +1351,21 @@ Public Class IAIPNavigation
 
     Private Sub TestFacilityPrintout_Click(sender As Object, e As EventArgs) Handles TestFacilityPrintout.Click
 
+        Dim dl As New List(Of Apb.Facilities.Facility)
+        dl.Add(DAL.GetFacility("03900001").RetrieveHeaderData)
+        dl.Add(DAL.GetFacility("05100007").RetrieveHeaderData)
+        dl.Add(DAL.GetFacility("00100001").RetrieveHeaderData)
+        dl.Add(DAL.GetFacility("05100015").RetrieveHeaderData)
+        dl.Add(DAL.GetFacility("02100001").RetrieveHeaderData)
+
+        Dim dt As DataTable = CollectionHelper.ConvertToDataTable(Of Apb.Facilities.Facility)(dl)
+
+        Dim rpt As New CR.Reports.FacilityBasicReport
+        rpt.Subreports("FacilityBasicDetail.rpt").SetDataSource(dt)
+
+        Dim crv2 As New CRViewerForm(rpt, title:="Howdy")
+        crv2.Show()
+
     End Sub
 
 

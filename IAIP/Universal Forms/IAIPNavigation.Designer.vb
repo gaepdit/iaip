@@ -155,6 +155,7 @@ Partial Class IAIPNavigation
         'TestFacilityPrintout
         '
         Me.TestFacilityPrintout.Index = 0
+        Me.TestFacilityPrintout.Shortcut = System.Windows.Forms.Shortcut.AltBksp
         Me.TestFacilityPrintout.Text = "Facility Printout"
         '
         'TestPingDb

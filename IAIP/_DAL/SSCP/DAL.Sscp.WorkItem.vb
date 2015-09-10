@@ -7,6 +7,8 @@ Namespace DAL.Sscp
 
     Module WorkItemData
 
+#Region " Generic Work Items "
+
         ''' <summary>
         ''' Tests whether an SSCP work item tracking number exists.
         ''' </summary>
@@ -39,22 +41,34 @@ Namespace DAL.Sscp
                 "FROM SSCPITEMMASTER " &
                 "WHERE STRTRACKINGNUMBER = :trackingNumber"
             Dim parameter As New OracleParameter("trackingNumber", trackingNumber)
-            Return GetWorkItemFromDataRow(DB.GetDataRow(query, parameter))
+            Return ParseWorkItemFromDataRow(DB.GetDataRow(query, parameter))
         End Function
 
+        ''' <summary>
+        ''' Returns a list of SSCP work items for a given facility.
+        ''' </summary>
+        ''' <param name="airs">The Facility ID.</param>
+        ''' <returns>A List of SSCP Work Items</returns>
+        ''' <remarks></remarks>
         Public Function GetWorkItemList(airs As Apb.ApbFacilityId) As List(Of WorkItem)
             Dim list As New List(Of WorkItem)
             Dim dt As DataTable = GetWorkItemDataTable(airs)
 
             If dt IsNot Nothing And dt.Rows.Count > 0 Then
                 For Each row As DataRow In dt.Rows
-                    list.Add(GetWorkItemFromDataRow(row))
+                    list.Add(ParseWorkItemFromDataRow(row))
                 Next
             End If
 
             Return list
         End Function
 
+        ''' <summary>
+        ''' Returns a DataTable of SSCP work items for a given facility.
+        ''' </summary>
+        ''' <param name="airs">The Facility ID.</param>
+        ''' <returns>A DataTable of SSCP Work Items</returns>
+        ''' <remarks></remarks>
         Public Function GetWorkItemDataTable(airs As Apb.ApbFacilityId) As DataTable
             Dim query As String =
                 "SELECT STRTRACKINGNUMBER , STRAIRSNUMBER , DATRECEIVEDDATE , " &
@@ -66,6 +80,13 @@ Namespace DAL.Sscp
             Return DB.GetDataTable(query, parameter)
         End Function
 
+        ''' <summary>
+        ''' Returns a DataTable of a specific SSCP work type for a given facility.
+        ''' </summary>
+        ''' <param name="airs">The Facility ID.</param>
+        ''' <param name="eventType">The work type desired.</param>
+        ''' <returns>A DataTable of SSCP Work Items of a specific work type.</returns>
+        ''' <remarks></remarks>
         Public Function GetWorkItemDataTable(airs As Apb.ApbFacilityId, eventType As WorkItem.WorkItemEventType) As DataTable
             Dim query As String =
                 "SELECT STRTRACKINGNUMBER , STRAIRSNUMBER , DATRECEIVEDDATE , " &
@@ -86,7 +107,7 @@ Namespace DAL.Sscp
         ''' </summary>
         ''' <param name="row">The DataRow to parse.</param>
         ''' <returns>An SSCP work item parsed from the DataRow</returns>
-        Public Function GetWorkItemFromDataRow(row As DataRow) As WorkItem
+        Public Function ParseWorkItemFromDataRow(row As DataRow) As WorkItem
             If IsNothing(row) Then Return Nothing
             Dim workItem As New WorkItem
             With workItem
@@ -101,6 +122,10 @@ Namespace DAL.Sscp
             End With
             Return workItem
         End Function
+
+#End Region
+
+#Region " Stack Tests "
 
         ''' <summary>
         ''' Tests whether an SSCP work item tracking number refers to a stack test. If it is, the ISMP reference number associated 
@@ -128,6 +153,10 @@ Namespace DAL.Sscp
             End If
         End Function
 
+#End Region
+
+#Region " Inspections "
+
         ''' <summary>
         ''' Returns the GEOS ID for an inspection if one exists; otherwise, returns an empty string
         ''' </summary>
@@ -144,6 +173,8 @@ Namespace DAL.Sscp
             Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
             Return result
         End Function
+
+#End Region
 
     End Module
 

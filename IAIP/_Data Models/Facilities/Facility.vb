@@ -47,11 +47,12 @@ Namespace Apb.Facilities
 
 #Region " Methods "
 
-        Public Sub RetrieveHeaderData()
+        Public Function RetrieveHeaderData() As Facility
             If Me IsNot Nothing Then
                 HeaderData = DAL.GetFacilityHeaderData(Me.AirsNumber)
             End If
-        End Sub
+            Return Me
+        End Function
 
         Public Sub RetrieveComplianceStatusList()
             If Me IsNot Nothing Then
@@ -134,6 +135,92 @@ Namespace Apb.Facilities
                 End If
             End Get
         End Property
+
+        ' These are for Crystal Reports compatibility
+
+        Public ReadOnly Property DisplayAirsNumber As String
+            Get
+                Return AirsNumber.FormattedString
+            End Get
+        End Property
+        Public ReadOnly Property DisplayFacilityAddress As String
+            Get
+                Return FacilityLocation.Address.ToString
+            End Get
+        End Property
+        Public ReadOnly Property DisplayLatitude As String
+            Get
+                Return FacilityLocation.Latitude.ToString
+            End Get
+        End Property
+        Public ReadOnly Property DisplayLongitude As String
+            Get
+                Return FacilityLocation.Longitude.ToString
+            End Get
+        End Property
+        Public ReadOnly Property DisplayCity As String
+            Get
+                Return FacilityLocation.Address.City
+            End Get
+        End Property
+        Public ReadOnly Property DisplayCounty As String
+            Get
+                Return FacilityLocation.County
+            End Get
+        End Property
+        Public ReadOnly Property DisplayClassification As String
+            Get
+                If HeaderData Is Nothing Then Return Nothing
+                Return HeaderData.ClassificationDescription
+            End Get
+        End Property
+        Public ReadOnly Property DisplaySIC As String
+            Get
+                If HeaderData Is Nothing Then Return Nothing
+                Return HeaderData.SicCode
+            End Get
+        End Property
+        Public ReadOnly Property DisplayNAICS As String
+            Get
+                Return HeaderData.Naics
+            End Get
+        End Property
+        Public ReadOnly Property DisplayOperatingStatus As String
+            Get
+                If HeaderData Is Nothing Then Return Nothing
+                Return HeaderData.OperationalStatusDescription
+            End Get
+        End Property
+        Public ReadOnly Property DisplayCmsStatus As String
+            Get
+                If HeaderData Is Nothing Then Return Nothing
+                Return HeaderData.CmsMemberDescription
+            End Get
+        End Property
+        Public ReadOnly Property DisplayAirPrograms As String
+            Get
+                If HeaderData Is Nothing Then Return Nothing
+                Return String.Join(", ", HeaderData.AirPrograms.GetUniqueFlagDescriptions)
+            End Get
+        End Property
+        Public ReadOnly Property DisplayAirProgramClassifications As String
+            Get
+                If HeaderData Is Nothing Then Return Nothing
+                Return String.Join(", ", HeaderData.AirProgramClassifications.GetUniqueFlagDescriptions)
+            End Get
+        End Property
+        Public ReadOnly Property DisplayDescription As String
+            Get
+                Return HeaderData.FacilityDescription
+            End Get
+        End Property
+
+        'Public ReadOnly Property Display As String
+        '    Get
+        '        If HeaderData Is Nothing Then Return Nothing
+        '        Return ""
+        '    End Get
+        'End Property
 
 #End Region
 

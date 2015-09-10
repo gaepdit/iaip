@@ -104,12 +104,12 @@ Namespace Apb.Facilities
         <Description("CFC Tracking")> CfcTracking = 8
         <Description("PSD")> PSD = 16
         <Description("NSR")> NSR = 32
-        <Description("NESHAP (Part 61)")> NESHAP = 64
+        <Description("NESHAP")> NESHAP = 64
         <Description("NSPS")> NSPS = 128
         <Description("FESOP")> FESOP = 256
         <Description("Acid Precipitation")> AcidPrecipitation = 512
         <Description("Native American")> NativeAmerican = 1024
-        <Description("MACT (Part63)")> MACT = 2048
+        <Description("MACT")> MACT = 2048
         <Description("Title V")> TitleV = 4096
         <Description("Risk Management Plan")> RMP = 8192
     End Enum
