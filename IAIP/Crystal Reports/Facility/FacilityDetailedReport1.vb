@@ -17,9 +17,9 @@ Imports CrystalDecisions.Shared
 Imports System
 Imports System.ComponentModel
 
-Namespace CR.SubReports
+Namespace CR.Reports
     
-    Public Class SscpInspections
+    Public Class FacilityDetailedReport
         Inherits ReportClass
         
         Public Sub New()
@@ -28,7 +28,7 @@ Namespace CR.SubReports
         
         Public Overrides Property ResourceName() As String
             Get
-                Return "SscpInspections.rpt"
+                Return "FacilityDetailedReport.rpt"
             End Get
             Set
                 'Do nothing
@@ -46,7 +46,7 @@ Namespace CR.SubReports
         
         Public Overrides Property FullResourceName() As String
             Get
-                Return "Iaip.SscpInspections.rpt"
+                Return "Iaip.FacilityDetailedReport.rpt"
             End Get
             Set
                 'Do nothing
@@ -71,7 +71,7 @@ Namespace CR.SubReports
         
         <Browsable(false),  _
          DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-        Public ReadOnly Property InspectionDetails() As CrystalDecisions.CrystalReports.Engine.Section
+        Public ReadOnly Property BasicInfo() As CrystalDecisions.CrystalReports.Engine.Section
             Get
                 Return Me.ReportDefinition.Sections(2)
             End Get
@@ -79,7 +79,7 @@ Namespace CR.SubReports
         
         <Browsable(false),  _
          DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-        Public ReadOnly Property InspectionComments() As CrystalDecisions.CrystalReports.Engine.Section
+        Public ReadOnly Property Inspections() As CrystalDecisions.CrystalReports.Engine.Section
             Get
                 Return Me.ReportDefinition.Sections(3)
             End Get
@@ -87,7 +87,7 @@ Namespace CR.SubReports
         
         <Browsable(false),  _
          DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-        Public ReadOnly Property ShownIfNone() As CrystalDecisions.CrystalReports.Engine.Section
+        Public ReadOnly Property Acc() As CrystalDecisions.CrystalReports.Engine.Section
             Get
                 Return Me.ReportDefinition.Sections(4)
             End Get
@@ -111,7 +111,7 @@ Namespace CR.SubReports
     End Class
     
     <System.Drawing.ToolboxBitmapAttribute(GetType(CrystalDecisions.[Shared].ExportOptions), "report.bmp")>  _
-    Public Class CachedSscpInspections
+    Public Class CachedFacilityDetailedReport
         Inherits Component
         Implements ICachedReport
         
@@ -153,7 +153,7 @@ Namespace CR.SubReports
         End Property
         
         Public Overridable Function CreateReport() As CrystalDecisions.CrystalReports.Engine.ReportDocument Implements CrystalDecisions.ReportSource.ICachedReport.CreateReport
-            Dim rpt As SscpInspections = New SscpInspections()
+            Dim rpt As FacilityDetailedReport = New FacilityDetailedReport()
             rpt.Site = Me.Site
             Return rpt
         End Function

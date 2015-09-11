@@ -6,7 +6,7 @@ Namespace Apb.Sscp
 
         ' Data from SSCPACCSHISTORY table
         Public Property SscpTrackingNumber() As String
-        Public Property AllReportSubmittals As List(Of Acc)
+        Public Property AllAccSubmittals As List(Of Acc)
 
         ' Data from SSCPACCS table
         Public Property PrimarySubmittalNumber As Integer

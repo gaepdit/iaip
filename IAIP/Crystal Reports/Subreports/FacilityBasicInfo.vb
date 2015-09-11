@@ -17,7 +17,7 @@ Imports CrystalDecisions.Shared
 Imports System
 Imports System.ComponentModel
 
-Namespace CR.ReportDetails
+Namespace CR.SubReports
     
     Public Class FacilityBasicInfo
         Inherits ReportClass

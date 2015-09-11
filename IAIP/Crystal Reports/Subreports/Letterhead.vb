@@ -17,7 +17,7 @@ Imports CrystalDecisions.Shared
 Imports System
 Imports System.ComponentModel
 
-Namespace CR.Reports
+Namespace CR.SubReports
     
     Public Class Letterhead
         Inherits ReportClass

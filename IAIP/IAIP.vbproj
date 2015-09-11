@@ -187,17 +187,23 @@
     <Compile Include="Crystal Reports\CrDataSet.vb">
       <DependentUpon>CrDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Crystal Reports\Facility\FacilityDetailedReport.vb">
-      <DependentUpon>FacilityDetailedReport.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Crystal Reports\Facility\FacilityBasicReport.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FacilityBasicReport.rpt</DependentUpon>
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Crystal Reports\Facility\FacilityDetailedReport1.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FacilityDetailedReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Crystal Reports\Subreports\SSCP\SscpAcc.vb">
+      <DependentUpon>SscpAcc.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Crystal Reports\Subreports\SSCP\SscpInspections.vb">
       <DependentUpon>SscpInspections.rpt</DependentUpon>
@@ -964,23 +970,28 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\Facility\FacilityDetailedReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>FacilityDetailedReport.vb</LastGenOutput>
       <CustomToolNamespace>CR.Reports</CustomToolNamespace>
+      <LastGenOutput>FacilityDetailedReport1.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\Facility\FacilityBasicReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>FacilityBasicReport.vb</LastGenOutput>
       <CustomToolNamespace>CR.Reports</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpAcc.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SscpAcc.vb</LastGenOutput>
+      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpInspections.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>SscpInspections.vb</LastGenOutput>
-      <CustomToolNamespace>CR.ReportDetails</CustomToolNamespace>
+      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\Subreports\FacilityBasicInfo.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>FacilityBasicInfo.vb</LastGenOutput>
-      <CustomToolNamespace>CR.ReportDetails</CustomToolNamespace>
+      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\Oracle 10.1\SSPP\crSSPPConfirmationLetter.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -1202,7 +1213,7 @@
     <EmbeddedResource Include="Crystal Reports\Subreports\Letterhead.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Letterhead.vb</LastGenOutput>
-      <CustomToolNamespace>CR.Reports</CustomToolNamespace>
+      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="DMU\DMUDeveloperTool.resx">
       <DependentUpon>DMUDeveloperTool.vb</DependentUpon>

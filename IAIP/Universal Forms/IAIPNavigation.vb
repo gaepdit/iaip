@@ -1350,24 +1350,23 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub TestFacilityPrintout_Click(sender As Object, e As EventArgs) Handles TestFacilityPrintout.Click
-        Dim airs As New Apb.ApbFacilityId("05100007")
+        Dim airs As New Apb.ApbFacilityId("27500008")
+        Dim date1 As New Date(2009, 1, 1)
+        Dim date2 As New Date(2013, 1, 1)
 
         Dim dt1 As New DataTable
         dt1 = CollectionHelper.ConvertToDataTable(Of Apb.Facilities.Facility)(New Apb.Facilities.Facility() {DAL.GetFacility(airs).RetrieveHeaderData})
 
-        'Dim rpt As New CR.Reports.FacilityBasicReport
-        'rpt.Subreports("FacilityBasicDetail.rpt").SetDataSource(dt)
-
-
         Dim dt2 As New DataTable("VW_SSCP_INSPECTIONS")
-        dt2 = DAL.Sscp.GetInspectionDataTable(airs)
+        dt2 = DAL.Sscp.GetInspectionDataTable(date1, date2, airs)
 
-        'Dim ds As New DataSet("FacilityDetailedReport")
-        'ds.Tables.AddRange(New DataTable() {dt1, dt2})
+        Dim dt3 As New DataTable("VW_SSCP_ACCS")
+        dt3 = DAL.Sscp.GetAccDataTable(date1, date2, airs)
 
         Dim rpt As New CR.Reports.FacilityDetailedReport
-        rpt.Subreports("SscpInspections.rpt").SetDataSource(dt2)
         rpt.Subreports("FacilityBasicInfo.rpt").SetDataSource(dt1)
+        rpt.Subreports("SscpInspections.rpt").SetDataSource(dt2)
+        rpt.Subreports("SscpAcc.rpt").SetDataSource(dt3)
 
         Dim cr As New CRViewerForm(rpt)
         cr.Show()
