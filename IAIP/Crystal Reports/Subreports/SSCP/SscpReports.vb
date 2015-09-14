@@ -19,7 +19,7 @@ Imports System.ComponentModel
 
 Namespace CR.SubReports
     
-    Public Class SscpAcc
+    Public Class SscpReports
         Inherits ReportClass
         
         Public Sub New()
@@ -28,7 +28,7 @@ Namespace CR.SubReports
         
         Public Overrides Property ResourceName() As String
             Get
-                Return "SscpAcc.rpt"
+                Return "SscpReports.rpt"
             End Get
             Set
                 'Do nothing
@@ -46,7 +46,7 @@ Namespace CR.SubReports
         
         Public Overrides Property FullResourceName() As String
             Get
-                Return "Iaip.SscpAcc.rpt"
+                Return "Iaip.SscpReports.rpt"
             End Get
             Set
                 'Do nothing
@@ -111,7 +111,7 @@ Namespace CR.SubReports
     End Class
     
     <System.Drawing.ToolboxBitmapAttribute(GetType(CrystalDecisions.[Shared].ExportOptions), "report.bmp")>  _
-    Public Class CachedSscpAcc
+    Public Class CachedSscpReports
         Inherits Component
         Implements ICachedReport
         
@@ -153,7 +153,7 @@ Namespace CR.SubReports
         End Property
         
         Public Overridable Function CreateReport() As CrystalDecisions.CrystalReports.Engine.ReportDocument Implements CrystalDecisions.ReportSource.ICachedReport.CreateReport
-            Dim rpt As SscpAcc = New SscpAcc()
+            Dim rpt As SscpReports = New SscpReports()
             rpt.Site = Me.Site
             Return rpt
         End Function

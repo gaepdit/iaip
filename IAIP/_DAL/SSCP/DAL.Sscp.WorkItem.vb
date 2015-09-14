@@ -185,6 +185,63 @@ Namespace DAL.Sscp
             End If
         End Function
 
+        ''' <summary>
+        ''' Returns a DataTable of a SSCP stack test reviews for a given facility.
+        ''' </summary>
+        ''' <param name="airs">An optional Facility ID to filter for.</param>
+        ''' <param name="staffId">An optional Staff ID to filter for.</param>
+        ''' <param name="complete">Whether to filter for complete items or not. Defaults to all items.</param>
+        ''' <param name="deleted">Whether to filter for deleted items or not. Defaults to items that are not deleted.</param>
+        ''' <returns>A DataTable of SSCP stack test reviews.</returns>
+        Public Function GetCompStackTestDataTable(
+        Optional airs As Apb.ApbFacilityId = Nothing,
+        Optional staffId As String = Nothing,
+        Optional complete As WorkItemComplete = WorkItemComplete.All,
+        Optional deleted As WorkItemDeleted = WorkItemDeleted.NotDeleted
+                                              ) As DataTable
+            Dim query As String =
+                "SELECT * FROM AIRBRANCH.VW_SSCP_STACKTESTS " &
+                " WHERE 1=1 "
+            query &= QueryFilter(airs, staffId, complete, deleted)
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("airs", airs.DbFormattedString),
+                New OracleParameter("staffId", staffId)
+            }
+            Return DB.GetDataTable(query, parameters)
+        End Function
+
+        ''' <summary>
+        ''' Returns a DataTable of a SSCP inspections for a given facility.
+        ''' </summary>
+        ''' <param name="dateRangeEnd">Ending date of a date range to filter for.</param>
+        ''' <param name="dateRangeStart">Starting date of a date range to filter for.</param>
+        ''' <param name="airs">An optional Facility ID to filter for.</param>
+        ''' <param name="staffId">An optional Staff ID to filter for.</param>
+        ''' <param name="complete">Whether to filter for complete items or not. Defaults to all items.</param>
+        ''' <param name="deleted">Whether to filter for deleted items or not. Defaults to items that are not deleted.</param>
+        ''' <returns>A DataTable of SSCP inspections.</returns>
+        ''' <remarks></remarks>
+        Public Function GetCompStackTestDataTable(
+                dateRangeStart As Date, dateRangeEnd As Date,
+                Optional airs As Apb.ApbFacilityId = Nothing,
+                Optional staffId As String = Nothing,
+                Optional complete As WorkItemComplete = WorkItemComplete.All,
+                Optional deleted As WorkItemDeleted = WorkItemDeleted.NotDeleted
+                                                      ) As DataTable
+
+            Dim query As String =
+                "SELECT * FROM AIRBRANCH.VW_SSCP_STACKTESTS " &
+                " WHERE TRUNC(DATRECEIVEDFROMFACILITY) BETWEEN :datestart AND :dateend "
+            query &= QueryFilter(airs, staffId, complete, deleted)
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("datestart", dateRangeStart),
+                New OracleParameter("dateend", dateRangeEnd),
+                New OracleParameter("airs", airs.DbFormattedString),
+                New OracleParameter("staffId", staffId)
+            }
+            Return DB.GetDataTable(query, parameters)
+        End Function
+
 #End Region
 
 #Region " Inspections "
@@ -315,6 +372,189 @@ Namespace DAL.Sscp
             Dim query As String =
                 "SELECT * FROM AIRBRANCH.VW_SSCP_ACCS " &
                 " WHERE TRUNC(DATRECEIVEDDATE) BETWEEN :datestart AND :dateend "
+            query &= QueryFilter(airs, staffId, complete, deleted)
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("datestart", dateRangeStart),
+                New OracleParameter("dateend", dateRangeEnd),
+                New OracleParameter("airs", airs.DbFormattedString),
+                New OracleParameter("staffId", staffId)
+            }
+            Return DB.GetDataTable(query, parameters)
+        End Function
+
+#End Region
+
+#Region " Notification "
+
+        ''' <summary>
+        ''' Returns a DataTable of a SSCP notifications for a given facility.
+        ''' </summary>
+        ''' <param name="airs">An optional Facility ID to filter for.</param>
+        ''' <param name="staffId">An optional Staff ID to filter for.</param>
+        ''' <param name="complete">Whether to filter for complete items or not. Defaults to all items.</param>
+        ''' <param name="deleted">Whether to filter for deleted items or not. Defaults to items that are not deleted.</param>
+        ''' <returns>A DataTable of SSCP notifications.</returns>
+        Public Function GetCompNotificationsDataTable(
+        Optional airs As Apb.ApbFacilityId = Nothing,
+        Optional staffId As String = Nothing,
+        Optional complete As WorkItemComplete = WorkItemComplete.All,
+        Optional deleted As WorkItemDeleted = WorkItemDeleted.NotDeleted
+                                              ) As DataTable
+            Dim query As String =
+                "SELECT * FROM AIRBRANCH.VW_SSCP_NOTIFICATIONS " &
+                " WHERE 1=1 "
+            query &= QueryFilter(airs, staffId, complete, deleted)
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("airs", airs.DbFormattedString),
+                New OracleParameter("staffId", staffId)
+            }
+            Return DB.GetDataTable(query, parameters)
+        End Function
+
+        ''' <summary>
+        ''' Returns a DataTable of a SSCP notifications for a given facility.
+        ''' </summary>
+        ''' <param name="dateRangeEnd">Ending date of a date range to filter for.</param>
+        ''' <param name="dateRangeStart">Starting date of a date range to filter for.</param>
+        ''' <param name="airs">An optional Facility ID to filter for.</param>
+        ''' <param name="staffId">An optional Staff ID to filter for.</param>
+        ''' <param name="complete">Whether to filter for complete items or not. Defaults to all items.</param>
+        ''' <param name="deleted">Whether to filter for deleted items or not. Defaults to items that are not deleted.</param>
+        ''' <returns>A DataTable of SSCP notifications.</returns>
+        ''' <remarks></remarks>
+        Public Function GetCompNotificationsDataTable(
+                dateRangeStart As Date, dateRangeEnd As Date,
+                Optional airs As Apb.ApbFacilityId = Nothing,
+                Optional staffId As String = Nothing,
+                Optional complete As WorkItemComplete = WorkItemComplete.All,
+                Optional deleted As WorkItemDeleted = WorkItemDeleted.NotDeleted
+                                                      ) As DataTable
+
+            Dim query As String =
+                "SELECT * FROM AIRBRANCH.VW_SSCP_NOTIFICATIONS " &
+                " WHERE TRUNC(DATRECEIVEDDATE) BETWEEN :datestart AND :dateend "
+            query &= QueryFilter(airs, staffId, complete, deleted)
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("datestart", dateRangeStart),
+                New OracleParameter("dateend", dateRangeEnd),
+                New OracleParameter("airs", airs.DbFormattedString),
+                New OracleParameter("staffId", staffId)
+            }
+            Return DB.GetDataTable(query, parameters)
+        End Function
+
+#End Region
+
+#Region " Reports "
+
+        ''' <summary>
+        ''' Returns a DataTable of a SSCP reports for a given facility.
+        ''' </summary>
+        ''' <param name="airs">An optional Facility ID to filter for.</param>
+        ''' <param name="staffId">An optional Staff ID to filter for.</param>
+        ''' <param name="complete">Whether to filter for complete items or not. Defaults to all items.</param>
+        ''' <param name="deleted">Whether to filter for deleted items or not. Defaults to items that are not deleted.</param>
+        ''' <returns>A DataTable of SSCP reports.</returns>
+        Public Function GetCompReportsDataTable(
+        Optional airs As Apb.ApbFacilityId = Nothing,
+        Optional staffId As String = Nothing,
+        Optional complete As WorkItemComplete = WorkItemComplete.All,
+        Optional deleted As WorkItemDeleted = WorkItemDeleted.NotDeleted
+                                              ) As DataTable
+            Dim query As String =
+                "SELECT * FROM AIRBRANCH.VW_SSCP_REPORTS " &
+                " WHERE 1=1 "
+            query &= QueryFilter(airs, staffId, complete, deleted)
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("airs", airs.DbFormattedString),
+                New OracleParameter("staffId", staffId)
+            }
+            Return DB.GetDataTable(query, parameters)
+        End Function
+
+        ''' <summary>
+        ''' Returns a DataTable of a SSCP reports for a given facility.
+        ''' </summary>
+        ''' <param name="dateRangeEnd">Ending date of a date range to filter for.</param>
+        ''' <param name="dateRangeStart">Starting date of a date range to filter for.</param>
+        ''' <param name="airs">An optional Facility ID to filter for.</param>
+        ''' <param name="staffId">An optional Staff ID to filter for.</param>
+        ''' <param name="complete">Whether to filter for complete items or not. Defaults to all items.</param>
+        ''' <param name="deleted">Whether to filter for deleted items or not. Defaults to items that are not deleted.</param>
+        ''' <returns>A DataTable of SSCP reports.</returns>
+        ''' <remarks></remarks>
+        Public Function GetCompReportsDataTable(
+                dateRangeStart As Date, dateRangeEnd As Date,
+                Optional airs As Apb.ApbFacilityId = Nothing,
+                Optional staffId As String = Nothing,
+                Optional complete As WorkItemComplete = WorkItemComplete.All,
+                Optional deleted As WorkItemDeleted = WorkItemDeleted.NotDeleted
+                                                      ) As DataTable
+
+            Dim query As String =
+                "SELECT * FROM AIRBRANCH.VW_SSCP_REPORTS " &
+                " WHERE TRUNC(DATRECEIVEDDATE) BETWEEN :datestart AND :dateend "
+            query &= QueryFilter(airs, staffId, complete, deleted)
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("datestart", dateRangeStart),
+                New OracleParameter("dateend", dateRangeEnd),
+                New OracleParameter("airs", airs.DbFormattedString),
+                New OracleParameter("staffId", staffId)
+            }
+            Return DB.GetDataTable(query, parameters)
+        End Function
+
+#End Region
+
+#Region " RMP Inspections "
+
+        ''' <summary>
+        ''' Returns a DataTable of a RMP inspections for a given facility.
+        ''' </summary>
+        ''' <param name="airs">An optional Facility ID to filter for.</param>
+        ''' <param name="staffId">An optional Staff ID to filter for.</param>
+        ''' <param name="complete">Whether to filter for complete items or not. Defaults to all items.</param>
+        ''' <param name="deleted">Whether to filter for deleted items or not. Defaults to items that are not deleted.</param>
+        ''' <returns>A DataTable of RMP inspections.</returns>
+        Public Function GetRmpInspectionDataTable(
+                Optional airs As Apb.ApbFacilityId = Nothing,
+                Optional staffId As String = Nothing,
+                Optional complete As WorkItemComplete = WorkItemComplete.All,
+                Optional deleted As WorkItemDeleted = WorkItemDeleted.NotDeleted
+                                                      ) As DataTable
+            Dim query As String =
+                "SELECT * FROM AIRBRANCH.VW_SSCP_RMPINSPECTIONS " &
+                " WHERE 1=1 "
+            query &= QueryFilter(airs, staffId, complete, deleted)
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("airs", airs.DbFormattedString),
+                New OracleParameter("staffId", staffId)
+            }
+            Return DB.GetDataTable(query, parameters)
+        End Function
+
+        ''' <summary>
+        ''' Returns a DataTable of a RMP inspections for a given facility.
+        ''' </summary>
+        ''' <param name="dateRangeEnd">Ending date of a date range to filter for.</param>
+        ''' <param name="dateRangeStart">Starting date of a date range to filter for.</param>
+        ''' <param name="airs">An optional Facility ID to filter for.</param>
+        ''' <param name="staffId">An optional Staff ID to filter for.</param>
+        ''' <param name="complete">Whether to filter for complete items or not. Defaults to all items.</param>
+        ''' <param name="deleted">Whether to filter for deleted items or not. Defaults to items that are not deleted.</param>
+        ''' <returns>A DataTable of RMP inspections.</returns>
+        ''' <remarks></remarks>
+        Public Function GetRmpInspectionDataTable(
+                dateRangeStart As Date, dateRangeEnd As Date,
+                Optional airs As Apb.ApbFacilityId = Nothing,
+                Optional staffId As String = Nothing,
+                Optional complete As WorkItemComplete = WorkItemComplete.All,
+                Optional deleted As WorkItemDeleted = WorkItemDeleted.NotDeleted
+                                                      ) As DataTable
+
+            Dim query As String =
+                "SELECT * FROM AIRBRANCH.VW_SSCP_RMPINSPECTIONS " &
+                " WHERE TRUNC(DATINSPECTIONDATESTART) BETWEEN :datestart AND :dateend "
             query &= QueryFilter(airs, staffId, complete, deleted)
             Dim parameters As OracleParameter() = {
                 New OracleParameter("datestart", dateRangeStart),

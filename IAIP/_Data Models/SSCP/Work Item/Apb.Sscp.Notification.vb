@@ -9,14 +9,11 @@ Namespace Apb.Sscp
         Public Property NotificationDue As Date?
         Public Property NotificationSentByFacility As Date?
         Public Property TypeOfNotification As NotificationType
-        'Public Property NotificationTypeDbCode As String
-        '    Get
-        '        Return NotificationTypeDbCodes(TypeOfNotification)
-        '    End Get
-        '    Set(value As String)
-
-        '    End Set
+        Public Property OtherTypeOfNotification As String
         'End Property
+        Public Property FollowUpActionTaken As Boolean
+
+#Region " Enums "
 
         Public Enum NotificationType
             Other
@@ -36,15 +33,7 @@ Namespace Apb.Sscp
             {NotificationType.Deviation, "Deviation"}
         }
 
-        'Public NotificationTypeDbCodes As New Dictionary(Of NotificationType, String) From {
-        '    {NotificationType.Other, "01"},
-        '    {NotificationType.Startup, "02"},
-        '    {NotificationType.PermitRevocation, "03"},
-        '    {NotificationType.ResponseLetter, "06"},
-        '    {NotificationType.Malfunction, "07"},
-        '    {NotificationType.Deviation, "08"}
-        '}
-
+#End Region
 
     End Class
 

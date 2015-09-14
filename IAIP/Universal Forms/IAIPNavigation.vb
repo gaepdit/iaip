@@ -1350,23 +1350,38 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub TestFacilityPrintout_Click(sender As Object, e As EventArgs) Handles TestFacilityPrintout.Click
-        Dim airs As New Apb.ApbFacilityId("27500008")
-        Dim date1 As New Date(2009, 1, 1)
+        Dim airs As New Apb.ApbFacilityId("05100007")
+        Dim date1 As New Date(2010, 1, 1)
         Dim date2 As New Date(2013, 1, 1)
+        Dim rpt As New CR.Reports.FacilityDetailedReport
 
         Dim dt1 As New DataTable
         dt1 = CollectionHelper.ConvertToDataTable(Of Apb.Facilities.Facility)(New Apb.Facilities.Facility() {DAL.GetFacility(airs).RetrieveHeaderData})
+        rpt.Subreports("FacilityBasicInfo.rpt").SetDataSource(dt1)
 
         Dim dt2 As New DataTable("VW_SSCP_INSPECTIONS")
         dt2 = DAL.Sscp.GetInspectionDataTable(date1, date2, airs)
-
-        Dim dt3 As New DataTable("VW_SSCP_ACCS")
-        dt3 = DAL.Sscp.GetAccDataTable(date1, date2, airs)
-
-        Dim rpt As New CR.Reports.FacilityDetailedReport
-        rpt.Subreports("FacilityBasicInfo.rpt").SetDataSource(dt1)
         rpt.Subreports("SscpInspections.rpt").SetDataSource(dt2)
-        rpt.Subreports("SscpAcc.rpt").SetDataSource(dt3)
+
+        Dim dt3 As New DataTable("VW_SSCP_RMPINSPECTIONS")
+        dt3 = DAL.Sscp.GetRmpInspectionDataTable(date1, date2, airs)
+        rpt.Subreports("SscpRmpInspections.rpt").SetDataSource(dt3)
+
+        Dim dt4 As New DataTable("VW_SSCP_ACCS")
+        dt4 = DAL.Sscp.GetAccDataTable(date1, date2, airs)
+        rpt.Subreports("SscpAcc.rpt").SetDataSource(dt4)
+
+        Dim dt5 As New DataTable("VW_SSCP_REPORTS")
+        dt5 = DAL.Sscp.GetCompReportsDataTable(date1, date2, airs)
+        rpt.Subreports("SscpReports.rpt").SetDataSource(dt5)
+
+        Dim dt6 As New DataTable("VW_SSCP_NOTIFICATIONS")
+        dt6 = DAL.Sscp.GetCompNotificationsDataTable(date1, date2, airs)
+        rpt.Subreports("SscpNotifications.rpt").SetDataSource(dt6)
+
+        Dim dt7 As New DataTable("VW_SSCP_STACKTESTS")
+        dt7 = DAL.Sscp.GetCompStackTestDataTable(date1, date2, airs)
+        rpt.Subreports("SscpStackTests.rpt").SetDataSource(dt7)
 
         Dim cr As New CRViewerForm(rpt)
         cr.Show()

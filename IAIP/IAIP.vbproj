@@ -199,6 +199,30 @@
       <DependentUpon>FacilityDetailedReport.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Crystal Reports\Subreports\SSCP\SscpNotifications.vb">
+      <DependentUpon>SscpNotifications.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Crystal Reports\Subreports\SSCP\SscpStackTests.vb">
+      <DependentUpon>SscpStackTests.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Crystal Reports\Subreports\SSCP\SscpRmpInspections.vb">
+      <DependentUpon>SscpRmpInspections.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Crystal Reports\Subreports\SSCP\SscpReports.vb">
+      <DependentUpon>SscpReports.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Crystal Reports\Subreports\SSCP\SscpAcc.vb">
       <DependentUpon>SscpAcc.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -848,13 +872,13 @@
     <Compile Include="_DAL\_DB\DB.vb" />
     <Compile Include="_Data Models\ISMP\Ismp.ReferenceNumber.vb" />
     <Compile Include="_Data Models\SSCP\Apb.Sscp.Fce.vb" />
-    <Compile Include="_Data Models\SSCP\Apb.Sscp.Inspection.vb" />
-    <Compile Include="_Data Models\SSCP\Apb.Sscp.Notification.vb" />
-    <Compile Include="_Data Models\SSCP\Apb.Sscp.AccSubmittals.vb" />
-    <Compile Include="_Data Models\SSCP\Apb.Sscp.ReportSubmittals.vb" />
-    <Compile Include="_Data Models\SSCP\Apb.Sscp.Report.vb" />
-    <Compile Include="_Data Models\SSCP\Apb.Sscp.RmpInspection.vb" />
-    <Compile Include="_Data Models\SSCP\Apb.Sscp.StackTest.vb" />
+    <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.Inspection.vb" />
+    <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.Notification.vb" />
+    <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.AccSubmittals.vb" />
+    <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.ReportSubmittals.vb" />
+    <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.Report.vb" />
+    <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.RmpInspection.vb" />
+    <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.StackTest.vb" />
     <Compile Include="_Modules\ErrorReporting.vb" />
     <Compile Include="_Modules\ExcelExport.vb" />
     <Compile Include="_Modules\Extensions.vb" />
@@ -977,6 +1001,26 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>FacilityBasicReport.vb</LastGenOutput>
       <CustomToolNamespace>CR.Reports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpNotifications.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SscpNotifications.vb</LastGenOutput>
+      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpStackTests.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SscpStackTests.vb</LastGenOutput>
+      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpRmpInspections.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SscpRmpInspections.vb</LastGenOutput>
+      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpReports.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SscpReports.vb</LastGenOutput>
+      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpAcc.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -1688,12 +1732,12 @@
     </Compile>
     <Compile Include="_DAL\DAL.SmokeSchool.vb" />
     <Compile Include="_Classes\CollectionHelper.vb" />
-    <Compile Include="_Data Models\SSCP\Apb.Sscp.WorkItem.vb" />
+    <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.WorkItem.vb" />
     <Compile Include="_Data Models\People\Person.vb" />
     <Compile Include="_Data Models\Event Registration\Res.ResEvent.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Data Models\SSCP\Apb.Sscp.Acc.vb" />
+    <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.Acc.vb" />
     <Compile Include="_DAL\Facilities\DAL.Facility.vb" />
     <Compile Include="_DAL\DAL.Staff.vb" />
     <Compile Include="SSCP\SscpDocuments.Designer.vb">

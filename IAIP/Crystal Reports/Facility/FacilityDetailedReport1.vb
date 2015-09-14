@@ -87,7 +87,7 @@ Namespace CR.Reports
         
         <Browsable(false),  _
          DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-        Public ReadOnly Property Acc() As CrystalDecisions.CrystalReports.Engine.Section
+        Public ReadOnly Property RmpInspections() As CrystalDecisions.CrystalReports.Engine.Section
             Get
                 Return Me.ReportDefinition.Sections(4)
             End Get
@@ -95,7 +95,7 @@ Namespace CR.Reports
         
         <Browsable(false),  _
          DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-        Public ReadOnly Property Section4() As CrystalDecisions.CrystalReports.Engine.Section
+        Public ReadOnly Property Acc() As CrystalDecisions.CrystalReports.Engine.Section
             Get
                 Return Me.ReportDefinition.Sections(5)
             End Get
@@ -103,9 +103,41 @@ Namespace CR.Reports
         
         <Browsable(false),  _
          DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-        Public ReadOnly Property Section5() As CrystalDecisions.CrystalReports.Engine.Section
+        Public ReadOnly Property Reports() As CrystalDecisions.CrystalReports.Engine.Section
             Get
                 Return Me.ReportDefinition.Sections(6)
+            End Get
+        End Property
+        
+        <Browsable(false),  _
+         DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
+        Public ReadOnly Property Notifications() As CrystalDecisions.CrystalReports.Engine.Section
+            Get
+                Return Me.ReportDefinition.Sections(7)
+            End Get
+        End Property
+        
+        <Browsable(false),  _
+         DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
+        Public ReadOnly Property StackTests() As CrystalDecisions.CrystalReports.Engine.Section
+            Get
+                Return Me.ReportDefinition.Sections(8)
+            End Get
+        End Property
+        
+        <Browsable(false),  _
+         DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
+        Public ReadOnly Property Section4() As CrystalDecisions.CrystalReports.Engine.Section
+            Get
+                Return Me.ReportDefinition.Sections(9)
+            End Get
+        End Property
+        
+        <Browsable(false),  _
+         DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
+        Public ReadOnly Property Section5() As CrystalDecisions.CrystalReports.Engine.Section
+            Get
+                Return Me.ReportDefinition.Sections(10)
             End Get
         End Property
     End Class

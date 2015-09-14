@@ -5,7 +5,6 @@
 
         ' Data from SSCPACCS or SSCPACCSHISTORY table
         Public Property AccReportingYear() As Integer?
-        Public Property SubmittalNumber() As Integer
         Public Property DatePostmarked() As Date
         Public Property PostmarkedByDeadline() As Boolean
         Public Property SignedByResponsibleOfficial() As Boolean
@@ -17,6 +16,7 @@
         Public Property EnforcementNeeded() As Boolean
         Public Property AllDeviationsReported() As Boolean
         Public Property ResubmittalRequested() As Boolean
+        Public Property SubmittalNumber() As Integer
 
     End Class
 

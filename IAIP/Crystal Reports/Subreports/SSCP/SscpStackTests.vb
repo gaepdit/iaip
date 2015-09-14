@@ -19,7 +19,7 @@ Imports System.ComponentModel
 
 Namespace CR.SubReports
     
-    Public Class SscpAcc
+    Public Class SscpStackTests
         Inherits ReportClass
         
         Public Sub New()
@@ -28,7 +28,7 @@ Namespace CR.SubReports
         
         Public Overrides Property ResourceName() As String
             Get
-                Return "SscpAcc.rpt"
+                Return "SscpStackTests.rpt"
             End Get
             Set
                 'Do nothing
@@ -46,7 +46,7 @@ Namespace CR.SubReports
         
         Public Overrides Property FullResourceName() As String
             Get
-                Return "Iaip.SscpAcc.rpt"
+                Return "Iaip.SscpStackTests.rpt"
             End Get
             Set
                 'Do nothing
@@ -79,7 +79,7 @@ Namespace CR.SubReports
         
         <Browsable(false),  _
          DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-        Public ReadOnly Property Comments() As CrystalDecisions.CrystalReports.Engine.Section
+        Public ReadOnly Property TestDetails() As CrystalDecisions.CrystalReports.Engine.Section
             Get
                 Return Me.ReportDefinition.Sections(3)
             End Get
@@ -87,7 +87,7 @@ Namespace CR.SubReports
         
         <Browsable(false),  _
          DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-        Public ReadOnly Property ShownIfNone() As CrystalDecisions.CrystalReports.Engine.Section
+        Public ReadOnly Property Comments() As CrystalDecisions.CrystalReports.Engine.Section
             Get
                 Return Me.ReportDefinition.Sections(4)
             End Get
@@ -95,7 +95,7 @@ Namespace CR.SubReports
         
         <Browsable(false),  _
          DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-        Public ReadOnly Property Section4() As CrystalDecisions.CrystalReports.Engine.Section
+        Public ReadOnly Property ShownIfNone() As CrystalDecisions.CrystalReports.Engine.Section
             Get
                 Return Me.ReportDefinition.Sections(5)
             End Get
@@ -103,15 +103,23 @@ Namespace CR.SubReports
         
         <Browsable(false),  _
          DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-        Public ReadOnly Property Section5() As CrystalDecisions.CrystalReports.Engine.Section
+        Public ReadOnly Property Section4() As CrystalDecisions.CrystalReports.Engine.Section
             Get
                 Return Me.ReportDefinition.Sections(6)
+            End Get
+        End Property
+        
+        <Browsable(false),  _
+         DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
+        Public ReadOnly Property Section5() As CrystalDecisions.CrystalReports.Engine.Section
+            Get
+                Return Me.ReportDefinition.Sections(7)
             End Get
         End Property
     End Class
     
     <System.Drawing.ToolboxBitmapAttribute(GetType(CrystalDecisions.[Shared].ExportOptions), "report.bmp")>  _
-    Public Class CachedSscpAcc
+    Public Class CachedSscpStackTests
         Inherits Component
         Implements ICachedReport
         
@@ -153,7 +161,7 @@ Namespace CR.SubReports
         End Property
         
         Public Overridable Function CreateReport() As CrystalDecisions.CrystalReports.Engine.ReportDocument Implements CrystalDecisions.ReportSource.ICachedReport.CreateReport
-            Dim rpt As SscpAcc = New SscpAcc()
+            Dim rpt As SscpStackTests = New SscpStackTests()
             rpt.Site = Me.Site
             Return rpt
         End Function

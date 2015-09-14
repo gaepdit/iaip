@@ -71,7 +71,7 @@ Namespace CR.SubReports
         
         <Browsable(false),  _
          DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-        Public ReadOnly Property InspectionDetails() As CrystalDecisions.CrystalReports.Engine.Section
+        Public ReadOnly Property Details() As CrystalDecisions.CrystalReports.Engine.Section
             Get
                 Return Me.ReportDefinition.Sections(2)
             End Get
@@ -79,7 +79,7 @@ Namespace CR.SubReports
         
         <Browsable(false),  _
          DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-        Public ReadOnly Property InspectionComments() As CrystalDecisions.CrystalReports.Engine.Section
+        Public ReadOnly Property Comments() As CrystalDecisions.CrystalReports.Engine.Section
             Get
                 Return Me.ReportDefinition.Sections(3)
             End Get

@@ -7,6 +7,7 @@ Namespace Apb.Sscp
 
         ' Data from SSCPREPORTS or SSCPREPORTSHISTORY table
         Public Property ReportingPeriod As ReportingPeriodTypes
+        Public Property ReportingPeriodComments As String
         Public Property ReportingPeriodStart As Date
         Public Property ReportingPeriodEnd As Date
         Public Property ReportDue As Date
