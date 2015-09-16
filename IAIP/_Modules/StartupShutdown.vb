@@ -84,7 +84,7 @@
     ''' </summary>
     ''' <remarks></remarks>
     Friend Sub CloseIaip()
-        CurrentConnection.Dispose()
+        If CurrentConnection IsNot Nothing Then CurrentConnection.Dispose()
         Application.Exit()
     End Sub
 
