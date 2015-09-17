@@ -22,7 +22,7 @@ Module subMain
     Friend DocumentationUrl As New Uri("https://sites.google.com/site/iaipdocs/")
     Friend SupportUrl As New Uri("http://dmu.georgiaair.org/iaip/")
     Friend ChangelogUrl As New Uri("http://dmu.georgiaair.org/iaip/changelog.html")
-    Friend MapUrlFragment As New String("http://maps.google.com/maps?z=14&q=")
+    Friend MapUrlFragment As New String("http://maps.google.com/maps?q=")
     Friend PermitSearchUrlFragment As New String("http://search.georgiaair.org/?AirsNumber=")
 
     Friend DateFormat As String = "dd-MMM-yyyy"
