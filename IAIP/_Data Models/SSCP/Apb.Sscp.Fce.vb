@@ -30,6 +30,17 @@
             OffSite
         End Enum
 
+#Region " Read-only Display Properties"
+        ' Mostly for use by Crystal Reports
+
+        Public ReadOnly Property DisplayStaffName() As String
+            Get
+                Return Me.StaffResponsible.FullName
+            End Get
+        End Property
+
+#End Region
+
     End Class
 
 End Namespace

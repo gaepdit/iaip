@@ -199,6 +199,18 @@
       <DependentUpon>FacilityDetailedReport.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Crystal Reports\SSCP\SscpFceReport.vb">
+      <DependentUpon>SscpFceReport.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Crystal Reports\Subreports\SSCP\SscpFce.vb">
+      <DependentUpon>SscpFce.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Crystal Reports\Subreports\SSCP\SscpNotifications.vb">
       <DependentUpon>SscpNotifications.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1001,6 +1013,16 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>FacilityBasicReport.vb</LastGenOutput>
       <CustomToolNamespace>CR.Reports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\SSCP\SscpFceReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SscpFceReport.vb</LastGenOutput>
+      <CustomToolNamespace>CR.Reports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpFce.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SscpFce.vb</LastGenOutput>
+      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpNotifications.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
