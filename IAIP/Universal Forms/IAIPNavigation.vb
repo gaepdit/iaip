@@ -1401,6 +1401,11 @@ Public Class IAIPNavigation
         dt9 = DAL.Sscp.GetFceDataTable("05100007", year:="2011")
         rpt.SetDataSource(dt9)
 
+        Dim dt10 As New DataTable("VW_FEES_FACILITY_SUMMARY")
+        dt10 = DAL.FeesData.GetFeesFacilitySummaryAsDataTable(date1.Year, date2.Year, airs)
+        rpt.Subreports("FeesFacilitySum.rpt").SetDataSource(dt10)
+        rpt3.Subreports("FeesFacilitySum.rpt").SetDataSource(dt10)
+
         Dim pd As New Dictionary(Of String, String) From {
             {"StartDate", String.Format("{0:MMMM d, yyyy}", date1)},
             {"EndDate", String.Format("{0:MMMM d, yyyy}", date2)}

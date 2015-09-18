@@ -47,6 +47,8 @@ Partial Public Class CrDataSet
     
     Private tableVW_SSCP_FCES As VW_SSCP_FCESDataTable
     
+    Private tableVW_FEES_FACILITY_SUMMARY As VW_FEES_FACILITY_SUMMARYDataTable
+    
     Private relationVW_APBFACILITYHEADER_VW_APBFACILITYLOCATION As Global.System.Data.DataRelation
     
     Private _schemaSerializationMode As Global.System.Data.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
@@ -110,6 +112,9 @@ Partial Public Class CrDataSet
             End If
             If (Not (ds.Tables("VW_SSCP_FCES")) Is Nothing) Then
                 MyBase.Tables.Add(New VW_SSCP_FCESDataTable(ds.Tables("VW_SSCP_FCES")))
+            End If
+            If (Not (ds.Tables("VW_FEES_FACILITY_SUMMARY")) Is Nothing) Then
+                MyBase.Tables.Add(New VW_FEES_FACILITY_SUMMARYDataTable(ds.Tables("VW_FEES_FACILITY_SUMMARY")))
             End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
@@ -240,6 +245,16 @@ Partial Public Class CrDataSet
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+     Global.System.ComponentModel.Browsable(false),  _
+     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
+    Public ReadOnly Property VW_FEES_FACILITY_SUMMARY() As VW_FEES_FACILITY_SUMMARYDataTable
+        Get
+            Return Me.tableVW_FEES_FACILITY_SUMMARY
+        End Get
+    End Property
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
      Global.System.ComponentModel.BrowsableAttribute(true),  _
      Global.System.ComponentModel.DesignerSerializationVisibilityAttribute(Global.System.ComponentModel.DesignerSerializationVisibility.Visible)>  _
     Public Overrides Property SchemaSerializationMode() As Global.System.Data.SchemaSerializationMode
@@ -337,6 +352,9 @@ Partial Public Class CrDataSet
             End If
             If (Not (ds.Tables("VW_SSCP_FCES")) Is Nothing) Then
                 MyBase.Tables.Add(New VW_SSCP_FCESDataTable(ds.Tables("VW_SSCP_FCES")))
+            End If
+            If (Not (ds.Tables("VW_FEES_FACILITY_SUMMARY")) Is Nothing) Then
+                MyBase.Tables.Add(New VW_FEES_FACILITY_SUMMARYDataTable(ds.Tables("VW_FEES_FACILITY_SUMMARY")))
             End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
@@ -436,6 +454,12 @@ Partial Public Class CrDataSet
                 Me.tableVW_SSCP_FCES.InitVars
             End If
         End If
+        Me.tableVW_FEES_FACILITY_SUMMARY = CType(MyBase.Tables("VW_FEES_FACILITY_SUMMARY"),VW_FEES_FACILITY_SUMMARYDataTable)
+        If (initTable = true) Then
+            If (Not (Me.tableVW_FEES_FACILITY_SUMMARY) Is Nothing) Then
+                Me.tableVW_FEES_FACILITY_SUMMARY.InitVars
+            End If
+        End If
         Me.relationVW_APBFACILITYHEADER_VW_APBFACILITYLOCATION = Me.Relations("VW_APBFACILITYHEADER_VW_APBFACILITYLOCATION")
     End Sub
     
@@ -469,6 +493,8 @@ Partial Public Class CrDataSet
         MyBase.Tables.Add(Me.tableVW_SSCP_STACKTESTS)
         Me.tableVW_SSCP_FCES = New VW_SSCP_FCESDataTable()
         MyBase.Tables.Add(Me.tableVW_SSCP_FCES)
+        Me.tableVW_FEES_FACILITY_SUMMARY = New VW_FEES_FACILITY_SUMMARYDataTable()
+        MyBase.Tables.Add(Me.tableVW_FEES_FACILITY_SUMMARY)
         Me.relationVW_APBFACILITYHEADER_VW_APBFACILITYLOCATION = New Global.System.Data.DataRelation("VW_APBFACILITYHEADER_VW_APBFACILITYLOCATION", New Global.System.Data.DataColumn() {Me.tableVW_APBFACILITYHEADER.STRAIRSNUMBERColumn}, New Global.System.Data.DataColumn() {Me.tableVW_APBFACILITYLOCATION.STRAIRSNUMBERColumn}, false)
         Me.Relations.Add(Me.relationVW_APBFACILITYHEADER_VW_APBFACILITYLOCATION)
     End Sub
@@ -536,6 +562,12 @@ Partial Public Class CrDataSet
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Private Function ShouldSerializeVW_SSCP_FCES() As Boolean
+        Return false
+    End Function
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Private Function ShouldSerializeVW_FEES_FACILITY_SUMMARY() As Boolean
         Return false
     End Function
     
@@ -629,6 +661,9 @@ Partial Public Class CrDataSet
     
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Public Delegate Sub VW_SSCP_FCESRowChangeEventHandler(ByVal sender As Object, ByVal e As VW_SSCP_FCESRowChangeEvent)
+    
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Public Delegate Sub VW_FEES_FACILITY_SUMMARYRowChangeEventHandler(ByVal sender As Object, ByVal e As VW_FEES_FACILITY_SUMMARYRowChangeEvent)
     
     '''<summary>
     '''Represents the strongly named DataTable class.
@@ -5990,6 +6025,327 @@ Partial Public Class CrDataSet
     End Class
     
     '''<summary>
+    '''Represents the strongly named DataTable class.
+    '''</summary>
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
+    Partial Public Class VW_FEES_FACILITY_SUMMARYDataTable
+        Inherits Global.System.Data.TypedTableBase(Of VW_FEES_FACILITY_SUMMARYRow)
+        
+        Private columnSTRAIRSNUMBER As Global.System.Data.DataColumn
+        
+        Private columnNUMFEEYEAR As Global.System.Data.DataColumn
+        
+        Private columnSTRIAIPDESC As Global.System.Data.DataColumn
+        
+        Private columnINVOICEDAMOUNT As Global.System.Data.DataColumn
+        
+        Private columnPAYMENTAMOUNT As Global.System.Data.DataColumn
+        
+        Private columnBALANCE As Global.System.Data.DataColumn
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New()
+            MyBase.New
+            Me.TableName = "VW_FEES_FACILITY_SUMMARY"
+            Me.BeginInit
+            Me.InitClass
+            Me.EndInit
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub New(ByVal table As Global.System.Data.DataTable)
+            MyBase.New
+            Me.TableName = table.TableName
+            If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
+                Me.CaseSensitive = table.CaseSensitive
+            End If
+            If (table.Locale.ToString <> table.DataSet.Locale.ToString) Then
+                Me.Locale = table.Locale
+            End If
+            If (table.Namespace <> table.DataSet.Namespace) Then
+                Me.Namespace = table.Namespace
+            End If
+            Me.Prefix = table.Prefix
+            Me.MinimumCapacity = table.MinimumCapacity
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
+            MyBase.New(info, context)
+            Me.InitVars
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property STRAIRSNUMBERColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnSTRAIRSNUMBER
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property NUMFEEYEARColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnNUMFEEYEAR
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property STRIAIPDESCColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnSTRIAIPDESC
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property INVOICEDAMOUNTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnINVOICEDAMOUNT
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property PAYMENTAMOUNTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPAYMENTAMOUNT
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property BALANCEColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnBALANCE
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
+        Public ReadOnly Property Count() As Integer
+            Get
+                Return Me.Rows.Count
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As VW_FEES_FACILITY_SUMMARYRow
+            Get
+                Return CType(Me.Rows(index),VW_FEES_FACILITY_SUMMARYRow)
+            End Get
+        End Property
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event VW_FEES_FACILITY_SUMMARYRowChanging As VW_FEES_FACILITY_SUMMARYRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event VW_FEES_FACILITY_SUMMARYRowChanged As VW_FEES_FACILITY_SUMMARYRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event VW_FEES_FACILITY_SUMMARYRowDeleting As VW_FEES_FACILITY_SUMMARYRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event VW_FEES_FACILITY_SUMMARYRowDeleted As VW_FEES_FACILITY_SUMMARYRowChangeEventHandler
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overloads Sub AddVW_FEES_FACILITY_SUMMARYRow(ByVal row As VW_FEES_FACILITY_SUMMARYRow)
+            Me.Rows.Add(row)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overloads Function AddVW_FEES_FACILITY_SUMMARYRow(ByVal STRAIRSNUMBER As String, ByVal NUMFEEYEAR As Short, ByVal STRIAIPDESC As String, ByVal INVOICEDAMOUNT As Decimal, ByVal PAYMENTAMOUNT As Decimal, ByVal BALANCE As Decimal) As VW_FEES_FACILITY_SUMMARYRow
+            Dim rowVW_FEES_FACILITY_SUMMARYRow As VW_FEES_FACILITY_SUMMARYRow = CType(Me.NewRow,VW_FEES_FACILITY_SUMMARYRow)
+            Dim columnValuesArray() As Object = New Object() {STRAIRSNUMBER, NUMFEEYEAR, STRIAIPDESC, INVOICEDAMOUNT, PAYMENTAMOUNT, BALANCE}
+            rowVW_FEES_FACILITY_SUMMARYRow.ItemArray = columnValuesArray
+            Me.Rows.Add(rowVW_FEES_FACILITY_SUMMARYRow)
+            Return rowVW_FEES_FACILITY_SUMMARYRow
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overrides Function Clone() As Global.System.Data.DataTable
+            Dim cln As VW_FEES_FACILITY_SUMMARYDataTable = CType(MyBase.Clone,VW_FEES_FACILITY_SUMMARYDataTable)
+            cln.InitVars
+            Return cln
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
+            Return New VW_FEES_FACILITY_SUMMARYDataTable()
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub InitVars()
+            Me.columnSTRAIRSNUMBER = MyBase.Columns("STRAIRSNUMBER")
+            Me.columnNUMFEEYEAR = MyBase.Columns("NUMFEEYEAR")
+            Me.columnSTRIAIPDESC = MyBase.Columns("STRIAIPDESC")
+            Me.columnINVOICEDAMOUNT = MyBase.Columns("INVOICEDAMOUNT")
+            Me.columnPAYMENTAMOUNT = MyBase.Columns("PAYMENTAMOUNT")
+            Me.columnBALANCE = MyBase.Columns("BALANCE")
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitClass()
+            Me.columnSTRAIRSNUMBER = New Global.System.Data.DataColumn("STRAIRSNUMBER", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnSTRAIRSNUMBER)
+            Me.columnNUMFEEYEAR = New Global.System.Data.DataColumn("NUMFEEYEAR", GetType(Short), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnNUMFEEYEAR)
+            Me.columnSTRIAIPDESC = New Global.System.Data.DataColumn("STRIAIPDESC", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnSTRIAIPDESC)
+            Me.columnINVOICEDAMOUNT = New Global.System.Data.DataColumn("INVOICEDAMOUNT", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnINVOICEDAMOUNT)
+            Me.columnPAYMENTAMOUNT = New Global.System.Data.DataColumn("PAYMENTAMOUNT", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPAYMENTAMOUNT)
+            Me.columnBALANCE = New Global.System.Data.DataColumn("BALANCE", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnBALANCE)
+            Me.columnSTRAIRSNUMBER.AllowDBNull = false
+            Me.columnSTRAIRSNUMBER.MaxLength = 12
+            Me.columnNUMFEEYEAR.AllowDBNull = false
+            Me.columnSTRIAIPDESC.MaxLength = 200
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function NewVW_FEES_FACILITY_SUMMARYRow() As VW_FEES_FACILITY_SUMMARYRow
+            Return CType(Me.NewRow,VW_FEES_FACILITY_SUMMARYRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
+            Return New VW_FEES_FACILITY_SUMMARYRow(builder)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function GetRowType() As Global.System.Type
+            Return GetType(VW_FEES_FACILITY_SUMMARYRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanged(e)
+            If (Not (Me.VW_FEES_FACILITY_SUMMARYRowChangedEvent) Is Nothing) Then
+                RaiseEvent VW_FEES_FACILITY_SUMMARYRowChanged(Me, New VW_FEES_FACILITY_SUMMARYRowChangeEvent(CType(e.Row,VW_FEES_FACILITY_SUMMARYRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanging(e)
+            If (Not (Me.VW_FEES_FACILITY_SUMMARYRowChangingEvent) Is Nothing) Then
+                RaiseEvent VW_FEES_FACILITY_SUMMARYRowChanging(Me, New VW_FEES_FACILITY_SUMMARYRowChangeEvent(CType(e.Row,VW_FEES_FACILITY_SUMMARYRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleted(e)
+            If (Not (Me.VW_FEES_FACILITY_SUMMARYRowDeletedEvent) Is Nothing) Then
+                RaiseEvent VW_FEES_FACILITY_SUMMARYRowDeleted(Me, New VW_FEES_FACILITY_SUMMARYRowChangeEvent(CType(e.Row,VW_FEES_FACILITY_SUMMARYRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleting(e)
+            If (Not (Me.VW_FEES_FACILITY_SUMMARYRowDeletingEvent) Is Nothing) Then
+                RaiseEvent VW_FEES_FACILITY_SUMMARYRowDeleting(Me, New VW_FEES_FACILITY_SUMMARYRowChangeEvent(CType(e.Row,VW_FEES_FACILITY_SUMMARYRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub RemoveVW_FEES_FACILITY_SUMMARYRow(ByVal row As VW_FEES_FACILITY_SUMMARYRow)
+            Me.Rows.Remove(row)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
+            Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
+            Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
+            Dim ds As CrDataSet = New CrDataSet()
+            Dim any1 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any1.Namespace = "http://www.w3.org/2001/XMLSchema"
+            any1.MinOccurs = New Decimal(0)
+            any1.MaxOccurs = Decimal.MaxValue
+            any1.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any1)
+            Dim any2 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1"
+            any2.MinOccurs = New Decimal(1)
+            any2.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any2)
+            Dim attribute1 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute1.Name = "namespace"
+            attribute1.FixedValue = ds.Namespace
+            type.Attributes.Add(attribute1)
+            Dim attribute2 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute2.Name = "tableTypeName"
+            attribute2.FixedValue = "VW_FEES_FACILITY_SUMMARYDataTable"
+            type.Attributes.Add(attribute2)
+            type.Particle = sequence
+            Dim dsSchema As Global.System.Xml.Schema.XmlSchema = ds.GetSchemaSerializable
+            If xs.Contains(dsSchema.TargetNamespace) Then
+                Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Try 
+                    Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
+                    dsSchema.Write(s1)
+                    Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
+                    Do While schemas.MoveNext
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
+                        s2.SetLength(0)
+                        schema.Write(s2)
+                        If (s1.Length = s2.Length) Then
+                            s1.Position = 0
+                            s2.Position = 0
+                            
+                            Do While ((s1.Position <> s1.Length)  _
+                                        AndAlso (s1.ReadByte = s2.ReadByte))
+                                
+                                
+                            Loop
+                            If (s1.Position = s1.Length) Then
+                                Return type
+                            End If
+                        End If
+                        
+                    Loop
+                Finally
+                    If (Not (s1) Is Nothing) Then
+                        s1.Close
+                    End If
+                    If (Not (s2) Is Nothing) Then
+                        s2.Close
+                    End If
+                End Try
+            End If
+            xs.Add(dsSchema)
+            Return type
+        End Function
+    End Class
+    
+    '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class VW_APBFACILITYHEADERRow
@@ -9779,6 +10135,155 @@ Partial Public Class CrDataSet
     End Class
     
     '''<summary>
+    '''Represents strongly named DataRow class.
+    '''</summary>
+    Partial Public Class VW_FEES_FACILITY_SUMMARYRow
+        Inherits Global.System.Data.DataRow
+        
+        Private tableVW_FEES_FACILITY_SUMMARY As VW_FEES_FACILITY_SUMMARYDataTable
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
+            MyBase.New(rb)
+            Me.tableVW_FEES_FACILITY_SUMMARY = CType(Me.Table,VW_FEES_FACILITY_SUMMARYDataTable)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property STRAIRSNUMBER() As String
+            Get
+                Return CType(Me(Me.tableVW_FEES_FACILITY_SUMMARY.STRAIRSNUMBERColumn),String)
+            End Get
+            Set
+                Me(Me.tableVW_FEES_FACILITY_SUMMARY.STRAIRSNUMBERColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property NUMFEEYEAR() As Short
+            Get
+                Return CType(Me(Me.tableVW_FEES_FACILITY_SUMMARY.NUMFEEYEARColumn),Short)
+            End Get
+            Set
+                Me(Me.tableVW_FEES_FACILITY_SUMMARY.NUMFEEYEARColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property STRIAIPDESC() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableVW_FEES_FACILITY_SUMMARY.STRIAIPDESCColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'STRIAIPDESC' in table 'VW_FEES_FACILITY_SUMMARY' is DBNull."& _ 
+                            "", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableVW_FEES_FACILITY_SUMMARY.STRIAIPDESCColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property INVOICEDAMOUNT() As Decimal
+            Get
+                Try 
+                    Return CType(Me(Me.tableVW_FEES_FACILITY_SUMMARY.INVOICEDAMOUNTColumn),Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'INVOICEDAMOUNT' in table 'VW_FEES_FACILITY_SUMMARY' is DBNu"& _ 
+                            "ll.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableVW_FEES_FACILITY_SUMMARY.INVOICEDAMOUNTColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property PAYMENTAMOUNT() As Decimal
+            Get
+                Try 
+                    Return CType(Me(Me.tableVW_FEES_FACILITY_SUMMARY.PAYMENTAMOUNTColumn),Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PAYMENTAMOUNT' in table 'VW_FEES_FACILITY_SUMMARY' is DBNul"& _ 
+                            "l.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableVW_FEES_FACILITY_SUMMARY.PAYMENTAMOUNTColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property BALANCE() As Decimal
+            Get
+                Try 
+                    Return CType(Me(Me.tableVW_FEES_FACILITY_SUMMARY.BALANCEColumn),Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'BALANCE' in table 'VW_FEES_FACILITY_SUMMARY' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableVW_FEES_FACILITY_SUMMARY.BALANCEColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsSTRIAIPDESCNull() As Boolean
+            Return Me.IsNull(Me.tableVW_FEES_FACILITY_SUMMARY.STRIAIPDESCColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetSTRIAIPDESCNull()
+            Me(Me.tableVW_FEES_FACILITY_SUMMARY.STRIAIPDESCColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsINVOICEDAMOUNTNull() As Boolean
+            Return Me.IsNull(Me.tableVW_FEES_FACILITY_SUMMARY.INVOICEDAMOUNTColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetINVOICEDAMOUNTNull()
+            Me(Me.tableVW_FEES_FACILITY_SUMMARY.INVOICEDAMOUNTColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsPAYMENTAMOUNTNull() As Boolean
+            Return Me.IsNull(Me.tableVW_FEES_FACILITY_SUMMARY.PAYMENTAMOUNTColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetPAYMENTAMOUNTNull()
+            Me(Me.tableVW_FEES_FACILITY_SUMMARY.PAYMENTAMOUNTColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsBALANCENull() As Boolean
+            Return Me.IsNull(Me.tableVW_FEES_FACILITY_SUMMARY.BALANCEColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetBALANCENull()
+            Me(Me.tableVW_FEES_FACILITY_SUMMARY.BALANCEColumn) = Global.System.Convert.DBNull
+        End Sub
+    End Class
+    
+    '''<summary>
     '''Row event argument class
     '''</summary>
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
@@ -10160,6 +10665,42 @@ Partial Public Class CrDataSet
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property Row() As VW_SSCP_FCESRow
+            Get
+                Return Me.eventRow
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property Action() As Global.System.Data.DataRowAction
+            Get
+                Return Me.eventAction
+            End Get
+        End Property
+    End Class
+    
+    '''<summary>
+    '''Row event argument class
+    '''</summary>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Public Class VW_FEES_FACILITY_SUMMARYRowChangeEvent
+        Inherits Global.System.EventArgs
+        
+        Private eventRow As VW_FEES_FACILITY_SUMMARYRow
+        
+        Private eventAction As Global.System.Data.DataRowAction
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New(ByVal row As VW_FEES_FACILITY_SUMMARYRow, ByVal action As Global.System.Data.DataRowAction)
+            MyBase.New
+            Me.eventRow = row
+            Me.eventAction = action
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property Row() As VW_FEES_FACILITY_SUMMARYRow
             Get
                 Return Me.eventRow
             End Get
