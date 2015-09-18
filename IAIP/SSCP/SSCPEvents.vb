@@ -734,57 +734,64 @@ Public Class SSCPEvents
     End Sub
 #End Region
 
-    Private Sub cboReportSchedule_SelectedValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cboReportSchedule.TextChanged
-        Dim Year As String
-        Try
+    Private Sub cboReportSchedule_SelectedValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cboReportSchedule.SelectedIndexChanged
+        Dim today As Date = Date.Today
+        Dim year As String = today.Year
 
-            Year = Date.Now.Year
-
-            Select Case cboReportSchedule.Text
-                Case "First Quarter"
-                    DTPReportPeriodStart.Value = "1-Jan-" & Year
-                    DTPReportPeriodEnd.Value = "31-Mar-" & Year
-                Case "Second Quarter"
-                    DTPReportPeriodStart.Value = "1-Apr-" & Year
-                    DTPReportPeriodEnd.Value = "30-Jun-" & Year
-                Case "Third Quarter"
-                    DTPReportPeriodStart.Value = "1-Jul-" & Year
-                    DTPReportPeriodEnd.Value = "30-Sep-" & Year
-                Case "Fourth Quarter"
-                    DTPReportPeriodStart.Value = "1-Oct-" & Year
-                    DTPReportPeriodEnd.Value = "31-Dec-" & Year
-                Case "First Semiannual"
-                    DTPReportPeriodStart.Value = "1-Jan-" & Year
-                    DTPReportPeriodEnd.Value = "30-Jun-" & Year
-                Case "Second Semiannual"
-                    DTPReportPeriodStart.Value = "1-Jul-" & Year
-                    DTPReportPeriodEnd.Value = "31-Dec-" & Year
-                Case "Annual"
-                    DTPReportPeriodStart.Value = "1-Jan-" & Year
-                    DTPReportPeriodEnd.Value = "31-Dec-" & Year
-                Case "Other"
-                    DTPReportPeriodStart.Value = "1-Jul-" & Year
-                    DTPReportPeriodEnd.Value = "1-Jul-" & Year
-                Case "Monthly"
-                    DTPReportPeriodStart.Value = Date.Today.AddMonths(-1)
-                    DTPReportPeriodEnd.Value = Date.Today
-                Case "Malfunction/Deviation"
-                    DTPReportPeriodStart.Value = OracleDate
-                    DTPReportPeriodEnd.Value = OracleDate
-                Case Else
-                    DTPReportPeriodStart.Value = OracleDate
-                    DTPReportPeriodEnd.Value = OracleDate
-            End Select
-
-
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
+        Select Case cboReportSchedule.Text
+            Case "First Quarter"
+                If Date.Compare(today, New Date(year, 3, 31)) > 0 Then
+                    DTPReportPeriodStart.Value = New Date(year, 1, 1)
+                    DTPReportPeriodEnd.Value = New Date(year, 3, 31)
+                Else
+                    DTPReportPeriodStart.Value = New Date(year - 1, 1, 1)
+                    DTPReportPeriodEnd.Value = New Date(year - 1, 3, 31)
+                End If
+            Case "Second Quarter"
+                If Date.Compare(today, New Date(year, 6, 30)) > 0 Then
+                    DTPReportPeriodStart.Value = New Date(year, 4, 1)
+                    DTPReportPeriodEnd.Value = New Date(year, 6, 30)
+                Else
+                    DTPReportPeriodStart.Value = New Date(year - 1, 4, 1)
+                    DTPReportPeriodEnd.Value = New Date(year - 1, 6, 30)
+                End If
+            Case "Third Quarter"
+                If Date.Compare(today, New Date(year, 9, 30)) > 0 Then
+                    DTPReportPeriodStart.Value = New Date(year, 7, 1)
+                    DTPReportPeriodEnd.Value = New Date(year, 9, 30)
+                Else
+                    DTPReportPeriodStart.Value = New Date(year - 1, 7, 1)
+                    DTPReportPeriodEnd.Value = New Date(year - 1, 9, 30)
+                End If
+            Case "Fourth Quarter"
+                DTPReportPeriodStart.Value = New Date(year - 1, 10, 1)
+                DTPReportPeriodEnd.Value = New Date(year - 1, 12, 31)
+            Case "First Semiannual"
+                If Date.Compare(today, New Date(year, 6, 30)) > 0 Then
+                    DTPReportPeriodStart.Value = New Date(year, 1, 1)
+                    DTPReportPeriodEnd.Value = New Date(year, 6, 30)
+                Else
+                    DTPReportPeriodStart.Value = New Date(year - 1, 1, 1)
+                    DTPReportPeriodEnd.Value = New Date(year - 1, 6, 30)
+                End If
+            Case "Second Semiannual"
+                DTPReportPeriodStart.Value = New Date(year - 1, 7, 1)
+                DTPReportPeriodEnd.Value = New Date(year - 1, 12, 31)
+            Case "Annual"
+                DTPReportPeriodStart.Value = New Date(year - 1, 1, 1)
+                DTPReportPeriodEnd.Value = New Date(year - 1, 12, 31)
+            Case "Monthly"
+                If today.Month = 1 Then
+                    DTPReportPeriodStart.Value = New Date(year - 1, 12, 1)
+                    DTPReportPeriodEnd.Value = New Date(year - 1, 12, 31)
+                Else
+                    DTPReportPeriodStart.Value = New Date(year, today.Month - 1, 1)
+                    DTPReportPeriodEnd.Value = New Date(year, today.Month, 1).AddDays(-1)
+                End If
+            Case Else
+                DTPReportPeriodStart.Value = today.AddDays(-1)
+                DTPReportPeriodEnd.Value = today.AddDays(-1)
+        End Select
     End Sub
 
 #Region "Opening Enforcement Actions"
