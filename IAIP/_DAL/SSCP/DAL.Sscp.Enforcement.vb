@@ -5,6 +5,57 @@ Namespace DAL.Sscp
 
     Module EnforcementData
 
+        ''' <summary>
+        ''' Returns a DataTable of enforcement summary data for a given facility
+        ''' </summary>
+        ''' <param name="airs">An optional Facility ID to filter for.</param>
+        ''' <param name="staffId">An optional Staff ID to filter for.</param>
+        ''' <returns>A DataTable of enforcement summary data</returns>
+        Public Function GetEnforcementSummaryDataTable(
+                Optional airs As Apb.ApbFacilityId = Nothing,
+                Optional staffId As String = Nothing) As DataTable
+            Dim query As String =
+                "SELECT * FROM AIRBRANCH.VW_SSCP_ENFORCEMENT_SUMMARY " &
+                " WHERE 1=1 "
+
+            If airs IsNot Nothing Then query &= " AND STRAIRSNUMBER = :airs "
+            If Not String.IsNullOrEmpty(staffId) Then query &= " AND NUMSTAFFRESPONSIBLE = :staffId "
+
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("airs", airs.DbFormattedString),
+                New OracleParameter("staffId", staffId)
+            }
+            Return DB.GetDataTable(query, parameters)
+        End Function
+
+        ''' <summary>
+        ''' Returns a DataTable of enforcement summary data  for a given facility
+        ''' </summary>
+        ''' <param name="dateRangeEnd">Ending date of a date range to filter for.</param>
+        ''' <param name="dateRangeStart">Starting date of a date range to filter for.</param>
+        ''' <param name="airs">An optional Facility ID to filter for.</param>
+        ''' <param name="staffId">An optional Staff ID to filter for.</param>
+        ''' <returns>A DataTable of enforcement summary data</returns>
+        Public Function GetEnforcementSummaryDataTable(
+                dateRangeStart As Date, dateRangeEnd As Date,
+                Optional airs As Apb.ApbFacilityId = Nothing,
+                Optional staffId As String = Nothing) As DataTable
+            Dim query As String =
+                "SELECT * FROM AIRBRANCH.VW_SSCP_ENFORCEMENT_SUMMARY " &
+                " WHERE TRUNC(EnforcementDate) BETWEEN :datestart AND :dateend "
+
+            If airs IsNot Nothing Then query &= " AND STRAIRSNUMBER = :airs "
+            If Not String.IsNullOrEmpty(staffId) Then query &= " AND NUMSTAFFRESPONSIBLE = :staffId "
+
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("datestart", dateRangeStart),
+                New OracleParameter("dateend", dateRangeEnd),
+                New OracleParameter("airs", airs.DbFormattedString),
+                New OracleParameter("staffId", staffId)
+            }
+            Return DB.GetDataTable(query, parameters)
+        End Function
+
         Public Function EnforcementExists(ByVal id As String) As Boolean
             If id = "" OrElse Not Integer.TryParse(id, Nothing) Then Return False
 

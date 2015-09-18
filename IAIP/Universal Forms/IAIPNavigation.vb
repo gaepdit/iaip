@@ -1350,8 +1350,8 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub TestFacilityPrintout_Click(sender As Object, e As EventArgs) Handles TestFacilityPrintout.Click
-        Dim airs As New Apb.ApbFacilityId("05100007")
-        Dim date1 As New Date(2010, 1, 1)
+        Dim airs As New Apb.ApbFacilityId("00100030")
+        Dim date1 As New Date(2006, 1, 1)
         Dim date2 As New Date(2013, 1, 1)
         Dim rpt As New CR.Reports.SscpFceReport
         Dim rpt2 As New CR.Reports.FacilityBasicReport
@@ -1398,7 +1398,7 @@ Public Class IAIPNavigation
         rpt3.Subreports("SscpFce.rpt").SetDataSource(dt8)
 
         Dim dt9 As New DataTable("VW_SSCP_FCES")
-        dt9 = DAL.Sscp.GetFceDataTable("05100007", year:="2011")
+        dt9 = DAL.Sscp.GetFceDataTable(airs, year:="2011")
         rpt.SetDataSource(dt9)
 
         Dim dt10 As New DataTable("VW_FEES_FACILITY_SUMMARY")
@@ -1406,16 +1406,20 @@ Public Class IAIPNavigation
         rpt.Subreports("FeesFacilitySum.rpt").SetDataSource(dt10)
         rpt3.Subreports("FeesFacilitySum.rpt").SetDataSource(dt10)
 
+        Dim dt11 As New DataTable("VW_SSCP_ENFORCEMENT_SUMMARY")
+        dt11 = DAL.Sscp.GetEnforcementSummaryDataTable(date1, date2, airs)
+        rpt3.Subreports("SscpEnforcementSum.rpt").SetDataSource(dt11)
+
         Dim pd As New Dictionary(Of String, String) From {
             {"StartDate", String.Format("{0:MMMM d, yyyy}", date1)},
             {"EndDate", String.Format("{0:MMMM d, yyyy}", date2)}
         }
 
-        Dim cr As New CRViewerForm(rpt, pd)
-        cr.Show()
+        'Dim cr As New CRViewerForm(rpt, pd)
+        'cr.Show()
 
-        Dim cr2 As New CRViewerForm(rpt2)
-        cr2.Show()
+        'Dim cr2 As New CRViewerForm(rpt2)
+        'cr2.Show()
 
         Dim cr3 As New CRViewerForm(rpt3, pd)
         cr3.Show()

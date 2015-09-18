@@ -49,6 +49,8 @@ Partial Public Class CrDataSet
     
     Private tableVW_FEES_FACILITY_SUMMARY As VW_FEES_FACILITY_SUMMARYDataTable
     
+    Private tableVW_SSCP_ENFORCEMENT_SUMMARY As VW_SSCP_ENFORCEMENT_SUMMARYDataTable
+    
     Private relationVW_APBFACILITYHEADER_VW_APBFACILITYLOCATION As Global.System.Data.DataRelation
     
     Private _schemaSerializationMode As Global.System.Data.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
@@ -115,6 +117,9 @@ Partial Public Class CrDataSet
             End If
             If (Not (ds.Tables("VW_FEES_FACILITY_SUMMARY")) Is Nothing) Then
                 MyBase.Tables.Add(New VW_FEES_FACILITY_SUMMARYDataTable(ds.Tables("VW_FEES_FACILITY_SUMMARY")))
+            End If
+            If (Not (ds.Tables("VW_SSCP_ENFORCEMENT_SUMMARY")) Is Nothing) Then
+                MyBase.Tables.Add(New VW_SSCP_ENFORCEMENT_SUMMARYDataTable(ds.Tables("VW_SSCP_ENFORCEMENT_SUMMARY")))
             End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
@@ -255,6 +260,16 @@ Partial Public Class CrDataSet
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+     Global.System.ComponentModel.Browsable(false),  _
+     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
+    Public ReadOnly Property VW_SSCP_ENFORCEMENT_SUMMARY() As VW_SSCP_ENFORCEMENT_SUMMARYDataTable
+        Get
+            Return Me.tableVW_SSCP_ENFORCEMENT_SUMMARY
+        End Get
+    End Property
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
      Global.System.ComponentModel.BrowsableAttribute(true),  _
      Global.System.ComponentModel.DesignerSerializationVisibilityAttribute(Global.System.ComponentModel.DesignerSerializationVisibility.Visible)>  _
     Public Overrides Property SchemaSerializationMode() As Global.System.Data.SchemaSerializationMode
@@ -355,6 +370,9 @@ Partial Public Class CrDataSet
             End If
             If (Not (ds.Tables("VW_FEES_FACILITY_SUMMARY")) Is Nothing) Then
                 MyBase.Tables.Add(New VW_FEES_FACILITY_SUMMARYDataTable(ds.Tables("VW_FEES_FACILITY_SUMMARY")))
+            End If
+            If (Not (ds.Tables("VW_SSCP_ENFORCEMENT_SUMMARY")) Is Nothing) Then
+                MyBase.Tables.Add(New VW_SSCP_ENFORCEMENT_SUMMARYDataTable(ds.Tables("VW_SSCP_ENFORCEMENT_SUMMARY")))
             End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
@@ -460,6 +478,12 @@ Partial Public Class CrDataSet
                 Me.tableVW_FEES_FACILITY_SUMMARY.InitVars
             End If
         End If
+        Me.tableVW_SSCP_ENFORCEMENT_SUMMARY = CType(MyBase.Tables("VW_SSCP_ENFORCEMENT_SUMMARY"),VW_SSCP_ENFORCEMENT_SUMMARYDataTable)
+        If (initTable = true) Then
+            If (Not (Me.tableVW_SSCP_ENFORCEMENT_SUMMARY) Is Nothing) Then
+                Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.InitVars
+            End If
+        End If
         Me.relationVW_APBFACILITYHEADER_VW_APBFACILITYLOCATION = Me.Relations("VW_APBFACILITYHEADER_VW_APBFACILITYLOCATION")
     End Sub
     
@@ -495,6 +519,8 @@ Partial Public Class CrDataSet
         MyBase.Tables.Add(Me.tableVW_SSCP_FCES)
         Me.tableVW_FEES_FACILITY_SUMMARY = New VW_FEES_FACILITY_SUMMARYDataTable()
         MyBase.Tables.Add(Me.tableVW_FEES_FACILITY_SUMMARY)
+        Me.tableVW_SSCP_ENFORCEMENT_SUMMARY = New VW_SSCP_ENFORCEMENT_SUMMARYDataTable()
+        MyBase.Tables.Add(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY)
         Me.relationVW_APBFACILITYHEADER_VW_APBFACILITYLOCATION = New Global.System.Data.DataRelation("VW_APBFACILITYHEADER_VW_APBFACILITYLOCATION", New Global.System.Data.DataColumn() {Me.tableVW_APBFACILITYHEADER.STRAIRSNUMBERColumn}, New Global.System.Data.DataColumn() {Me.tableVW_APBFACILITYLOCATION.STRAIRSNUMBERColumn}, false)
         Me.Relations.Add(Me.relationVW_APBFACILITYHEADER_VW_APBFACILITYLOCATION)
     End Sub
@@ -568,6 +594,12 @@ Partial Public Class CrDataSet
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Private Function ShouldSerializeVW_FEES_FACILITY_SUMMARY() As Boolean
+        Return false
+    End Function
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Private Function ShouldSerializeVW_SSCP_ENFORCEMENT_SUMMARY() As Boolean
         Return false
     End Function
     
@@ -664,6 +696,9 @@ Partial Public Class CrDataSet
     
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Public Delegate Sub VW_FEES_FACILITY_SUMMARYRowChangeEventHandler(ByVal sender As Object, ByVal e As VW_FEES_FACILITY_SUMMARYRowChangeEvent)
+    
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Public Delegate Sub VW_SSCP_ENFORCEMENT_SUMMARYRowChangeEventHandler(ByVal sender As Object, ByVal e As VW_SSCP_ENFORCEMENT_SUMMARYRowChangeEvent)
     
     '''<summary>
     '''Represents the strongly named DataTable class.
@@ -6346,6 +6381,340 @@ Partial Public Class CrDataSet
     End Class
     
     '''<summary>
+    '''Represents the strongly named DataTable class.
+    '''</summary>
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
+    Partial Public Class VW_SSCP_ENFORCEMENT_SUMMARYDataTable
+        Inherits Global.System.Data.TypedTableBase(Of VW_SSCP_ENFORCEMENT_SUMMARYRow)
+        
+        Private columnSTRAIRSNUMBER As Global.System.Data.DataColumn
+        
+        Private columnENFORCEMENTDESCRIPTION As Global.System.Data.DataColumn
+        
+        Private columnSTRENFORCEMENTNUMBER As Global.System.Data.DataColumn
+        
+        Private columnENFORCEMENTDATE As Global.System.Data.DataColumn
+        
+        Private columnSTRFIRSTNAME As Global.System.Data.DataColumn
+        
+        Private columnSTRLASTNAME As Global.System.Data.DataColumn
+        
+        Private columnNUMSTAFFRESPONSIBLE As Global.System.Data.DataColumn
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New()
+            MyBase.New
+            Me.TableName = "VW_SSCP_ENFORCEMENT_SUMMARY"
+            Me.BeginInit
+            Me.InitClass
+            Me.EndInit
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub New(ByVal table As Global.System.Data.DataTable)
+            MyBase.New
+            Me.TableName = table.TableName
+            If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
+                Me.CaseSensitive = table.CaseSensitive
+            End If
+            If (table.Locale.ToString <> table.DataSet.Locale.ToString) Then
+                Me.Locale = table.Locale
+            End If
+            If (table.Namespace <> table.DataSet.Namespace) Then
+                Me.Namespace = table.Namespace
+            End If
+            Me.Prefix = table.Prefix
+            Me.MinimumCapacity = table.MinimumCapacity
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
+            MyBase.New(info, context)
+            Me.InitVars
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property STRAIRSNUMBERColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnSTRAIRSNUMBER
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property ENFORCEMENTDESCRIPTIONColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnENFORCEMENTDESCRIPTION
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property STRENFORCEMENTNUMBERColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnSTRENFORCEMENTNUMBER
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property ENFORCEMENTDATEColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnENFORCEMENTDATE
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property STRFIRSTNAMEColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnSTRFIRSTNAME
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property STRLASTNAMEColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnSTRLASTNAME
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property NUMSTAFFRESPONSIBLEColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnNUMSTAFFRESPONSIBLE
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
+        Public ReadOnly Property Count() As Integer
+            Get
+                Return Me.Rows.Count
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As VW_SSCP_ENFORCEMENT_SUMMARYRow
+            Get
+                Return CType(Me.Rows(index),VW_SSCP_ENFORCEMENT_SUMMARYRow)
+            End Get
+        End Property
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event VW_SSCP_ENFORCEMENT_SUMMARYRowChanging As VW_SSCP_ENFORCEMENT_SUMMARYRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event VW_SSCP_ENFORCEMENT_SUMMARYRowChanged As VW_SSCP_ENFORCEMENT_SUMMARYRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event VW_SSCP_ENFORCEMENT_SUMMARYRowDeleting As VW_SSCP_ENFORCEMENT_SUMMARYRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event VW_SSCP_ENFORCEMENT_SUMMARYRowDeleted As VW_SSCP_ENFORCEMENT_SUMMARYRowChangeEventHandler
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overloads Sub AddVW_SSCP_ENFORCEMENT_SUMMARYRow(ByVal row As VW_SSCP_ENFORCEMENT_SUMMARYRow)
+            Me.Rows.Add(row)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overloads Function AddVW_SSCP_ENFORCEMENT_SUMMARYRow(ByVal STRAIRSNUMBER As String, ByVal ENFORCEMENTDESCRIPTION As String, ByVal STRENFORCEMENTNUMBER As Long, ByVal ENFORCEMENTDATE As Date, ByVal STRFIRSTNAME As String, ByVal STRLASTNAME As String, ByVal NUMSTAFFRESPONSIBLE As Decimal) As VW_SSCP_ENFORCEMENT_SUMMARYRow
+            Dim rowVW_SSCP_ENFORCEMENT_SUMMARYRow As VW_SSCP_ENFORCEMENT_SUMMARYRow = CType(Me.NewRow,VW_SSCP_ENFORCEMENT_SUMMARYRow)
+            Dim columnValuesArray() As Object = New Object() {STRAIRSNUMBER, ENFORCEMENTDESCRIPTION, STRENFORCEMENTNUMBER, ENFORCEMENTDATE, STRFIRSTNAME, STRLASTNAME, NUMSTAFFRESPONSIBLE}
+            rowVW_SSCP_ENFORCEMENT_SUMMARYRow.ItemArray = columnValuesArray
+            Me.Rows.Add(rowVW_SSCP_ENFORCEMENT_SUMMARYRow)
+            Return rowVW_SSCP_ENFORCEMENT_SUMMARYRow
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overrides Function Clone() As Global.System.Data.DataTable
+            Dim cln As VW_SSCP_ENFORCEMENT_SUMMARYDataTable = CType(MyBase.Clone,VW_SSCP_ENFORCEMENT_SUMMARYDataTable)
+            cln.InitVars
+            Return cln
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
+            Return New VW_SSCP_ENFORCEMENT_SUMMARYDataTable()
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub InitVars()
+            Me.columnSTRAIRSNUMBER = MyBase.Columns("STRAIRSNUMBER")
+            Me.columnENFORCEMENTDESCRIPTION = MyBase.Columns("ENFORCEMENTDESCRIPTION")
+            Me.columnSTRENFORCEMENTNUMBER = MyBase.Columns("STRENFORCEMENTNUMBER")
+            Me.columnENFORCEMENTDATE = MyBase.Columns("ENFORCEMENTDATE")
+            Me.columnSTRFIRSTNAME = MyBase.Columns("STRFIRSTNAME")
+            Me.columnSTRLASTNAME = MyBase.Columns("STRLASTNAME")
+            Me.columnNUMSTAFFRESPONSIBLE = MyBase.Columns("NUMSTAFFRESPONSIBLE")
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitClass()
+            Me.columnSTRAIRSNUMBER = New Global.System.Data.DataColumn("STRAIRSNUMBER", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnSTRAIRSNUMBER)
+            Me.columnENFORCEMENTDESCRIPTION = New Global.System.Data.DataColumn("ENFORCEMENTDESCRIPTION", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnENFORCEMENTDESCRIPTION)
+            Me.columnSTRENFORCEMENTNUMBER = New Global.System.Data.DataColumn("STRENFORCEMENTNUMBER", GetType(Long), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnSTRENFORCEMENTNUMBER)
+            Me.columnENFORCEMENTDATE = New Global.System.Data.DataColumn("ENFORCEMENTDATE", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnENFORCEMENTDATE)
+            Me.columnSTRFIRSTNAME = New Global.System.Data.DataColumn("STRFIRSTNAME", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnSTRFIRSTNAME)
+            Me.columnSTRLASTNAME = New Global.System.Data.DataColumn("STRLASTNAME", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnSTRLASTNAME)
+            Me.columnNUMSTAFFRESPONSIBLE = New Global.System.Data.DataColumn("NUMSTAFFRESPONSIBLE", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnNUMSTAFFRESPONSIBLE)
+            Me.columnSTRAIRSNUMBER.MaxLength = 12
+            Me.columnENFORCEMENTDESCRIPTION.MaxLength = 277
+            Me.columnSTRFIRSTNAME.MaxLength = 100
+            Me.columnSTRLASTNAME.MaxLength = 100
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function NewVW_SSCP_ENFORCEMENT_SUMMARYRow() As VW_SSCP_ENFORCEMENT_SUMMARYRow
+            Return CType(Me.NewRow,VW_SSCP_ENFORCEMENT_SUMMARYRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
+            Return New VW_SSCP_ENFORCEMENT_SUMMARYRow(builder)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function GetRowType() As Global.System.Type
+            Return GetType(VW_SSCP_ENFORCEMENT_SUMMARYRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanged(e)
+            If (Not (Me.VW_SSCP_ENFORCEMENT_SUMMARYRowChangedEvent) Is Nothing) Then
+                RaiseEvent VW_SSCP_ENFORCEMENT_SUMMARYRowChanged(Me, New VW_SSCP_ENFORCEMENT_SUMMARYRowChangeEvent(CType(e.Row,VW_SSCP_ENFORCEMENT_SUMMARYRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanging(e)
+            If (Not (Me.VW_SSCP_ENFORCEMENT_SUMMARYRowChangingEvent) Is Nothing) Then
+                RaiseEvent VW_SSCP_ENFORCEMENT_SUMMARYRowChanging(Me, New VW_SSCP_ENFORCEMENT_SUMMARYRowChangeEvent(CType(e.Row,VW_SSCP_ENFORCEMENT_SUMMARYRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleted(e)
+            If (Not (Me.VW_SSCP_ENFORCEMENT_SUMMARYRowDeletedEvent) Is Nothing) Then
+                RaiseEvent VW_SSCP_ENFORCEMENT_SUMMARYRowDeleted(Me, New VW_SSCP_ENFORCEMENT_SUMMARYRowChangeEvent(CType(e.Row,VW_SSCP_ENFORCEMENT_SUMMARYRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleting(e)
+            If (Not (Me.VW_SSCP_ENFORCEMENT_SUMMARYRowDeletingEvent) Is Nothing) Then
+                RaiseEvent VW_SSCP_ENFORCEMENT_SUMMARYRowDeleting(Me, New VW_SSCP_ENFORCEMENT_SUMMARYRowChangeEvent(CType(e.Row,VW_SSCP_ENFORCEMENT_SUMMARYRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub RemoveVW_SSCP_ENFORCEMENT_SUMMARYRow(ByVal row As VW_SSCP_ENFORCEMENT_SUMMARYRow)
+            Me.Rows.Remove(row)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
+            Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
+            Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
+            Dim ds As CrDataSet = New CrDataSet()
+            Dim any1 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any1.Namespace = "http://www.w3.org/2001/XMLSchema"
+            any1.MinOccurs = New Decimal(0)
+            any1.MaxOccurs = Decimal.MaxValue
+            any1.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any1)
+            Dim any2 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1"
+            any2.MinOccurs = New Decimal(1)
+            any2.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any2)
+            Dim attribute1 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute1.Name = "namespace"
+            attribute1.FixedValue = ds.Namespace
+            type.Attributes.Add(attribute1)
+            Dim attribute2 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute2.Name = "tableTypeName"
+            attribute2.FixedValue = "VW_SSCP_ENFORCEMENT_SUMMARYDataTable"
+            type.Attributes.Add(attribute2)
+            type.Particle = sequence
+            Dim dsSchema As Global.System.Xml.Schema.XmlSchema = ds.GetSchemaSerializable
+            If xs.Contains(dsSchema.TargetNamespace) Then
+                Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Try 
+                    Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
+                    dsSchema.Write(s1)
+                    Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
+                    Do While schemas.MoveNext
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
+                        s2.SetLength(0)
+                        schema.Write(s2)
+                        If (s1.Length = s2.Length) Then
+                            s1.Position = 0
+                            s2.Position = 0
+                            
+                            Do While ((s1.Position <> s1.Length)  _
+                                        AndAlso (s1.ReadByte = s2.ReadByte))
+                                
+                                
+                            Loop
+                            If (s1.Position = s1.Length) Then
+                                Return type
+                            End If
+                        End If
+                        
+                    Loop
+                Finally
+                    If (Not (s1) Is Nothing) Then
+                        s1.Close
+                    End If
+                    If (Not (s2) Is Nothing) Then
+                        s2.Close
+                    End If
+                End Try
+            End If
+            xs.Add(dsSchema)
+            Return type
+        End Function
+    End Class
+    
+    '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class VW_APBFACILITYHEADERRow
@@ -10284,6 +10653,218 @@ Partial Public Class CrDataSet
     End Class
     
     '''<summary>
+    '''Represents strongly named DataRow class.
+    '''</summary>
+    Partial Public Class VW_SSCP_ENFORCEMENT_SUMMARYRow
+        Inherits Global.System.Data.DataRow
+        
+        Private tableVW_SSCP_ENFORCEMENT_SUMMARY As VW_SSCP_ENFORCEMENT_SUMMARYDataTable
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
+            MyBase.New(rb)
+            Me.tableVW_SSCP_ENFORCEMENT_SUMMARY = CType(Me.Table,VW_SSCP_ENFORCEMENT_SUMMARYDataTable)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property STRAIRSNUMBER() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.STRAIRSNUMBERColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'STRAIRSNUMBER' in table 'VW_SSCP_ENFORCEMENT_SUMMARY' is DB"& _ 
+                            "Null.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.STRAIRSNUMBERColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ENFORCEMENTDESCRIPTION() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.ENFORCEMENTDESCRIPTIONColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ENFORCEMENTDESCRIPTION' in table 'VW_SSCP_ENFORCEMENT_SUMMA"& _ 
+                            "RY' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.ENFORCEMENTDESCRIPTIONColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property STRENFORCEMENTNUMBER() As Long
+            Get
+                Try 
+                    Return CType(Me(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.STRENFORCEMENTNUMBERColumn),Long)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'STRENFORCEMENTNUMBER' in table 'VW_SSCP_ENFORCEMENT_SUMMARY"& _ 
+                            "' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.STRENFORCEMENTNUMBERColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ENFORCEMENTDATE() As Date
+            Get
+                Try 
+                    Return CType(Me(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.ENFORCEMENTDATEColumn),Date)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ENFORCEMENTDATE' in table 'VW_SSCP_ENFORCEMENT_SUMMARY' is "& _ 
+                            "DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.ENFORCEMENTDATEColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property STRFIRSTNAME() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.STRFIRSTNAMEColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'STRFIRSTNAME' in table 'VW_SSCP_ENFORCEMENT_SUMMARY' is DBN"& _ 
+                            "ull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.STRFIRSTNAMEColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property STRLASTNAME() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.STRLASTNAMEColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'STRLASTNAME' in table 'VW_SSCP_ENFORCEMENT_SUMMARY' is DBNu"& _ 
+                            "ll.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.STRLASTNAMEColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property NUMSTAFFRESPONSIBLE() As Decimal
+            Get
+                Try 
+                    Return CType(Me(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.NUMSTAFFRESPONSIBLEColumn),Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'NUMSTAFFRESPONSIBLE' in table 'VW_SSCP_ENFORCEMENT_SUMMARY'"& _ 
+                            " is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.NUMSTAFFRESPONSIBLEColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsSTRAIRSNUMBERNull() As Boolean
+            Return Me.IsNull(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.STRAIRSNUMBERColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetSTRAIRSNUMBERNull()
+            Me(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.STRAIRSNUMBERColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsENFORCEMENTDESCRIPTIONNull() As Boolean
+            Return Me.IsNull(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.ENFORCEMENTDESCRIPTIONColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetENFORCEMENTDESCRIPTIONNull()
+            Me(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.ENFORCEMENTDESCRIPTIONColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsSTRENFORCEMENTNUMBERNull() As Boolean
+            Return Me.IsNull(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.STRENFORCEMENTNUMBERColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetSTRENFORCEMENTNUMBERNull()
+            Me(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.STRENFORCEMENTNUMBERColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsENFORCEMENTDATENull() As Boolean
+            Return Me.IsNull(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.ENFORCEMENTDATEColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetENFORCEMENTDATENull()
+            Me(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.ENFORCEMENTDATEColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsSTRFIRSTNAMENull() As Boolean
+            Return Me.IsNull(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.STRFIRSTNAMEColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetSTRFIRSTNAMENull()
+            Me(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.STRFIRSTNAMEColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsSTRLASTNAMENull() As Boolean
+            Return Me.IsNull(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.STRLASTNAMEColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetSTRLASTNAMENull()
+            Me(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.STRLASTNAMEColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsNUMSTAFFRESPONSIBLENull() As Boolean
+            Return Me.IsNull(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.NUMSTAFFRESPONSIBLEColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetNUMSTAFFRESPONSIBLENull()
+            Me(Me.tableVW_SSCP_ENFORCEMENT_SUMMARY.NUMSTAFFRESPONSIBLEColumn) = Global.System.Convert.DBNull
+        End Sub
+    End Class
+    
+    '''<summary>
     '''Row event argument class
     '''</summary>
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
@@ -10701,6 +11282,42 @@ Partial Public Class CrDataSet
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property Row() As VW_FEES_FACILITY_SUMMARYRow
+            Get
+                Return Me.eventRow
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property Action() As Global.System.Data.DataRowAction
+            Get
+                Return Me.eventAction
+            End Get
+        End Property
+    End Class
+    
+    '''<summary>
+    '''Row event argument class
+    '''</summary>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Public Class VW_SSCP_ENFORCEMENT_SUMMARYRowChangeEvent
+        Inherits Global.System.EventArgs
+        
+        Private eventRow As VW_SSCP_ENFORCEMENT_SUMMARYRow
+        
+        Private eventAction As Global.System.Data.DataRowAction
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New(ByVal row As VW_SSCP_ENFORCEMENT_SUMMARYRow, ByVal action As Global.System.Data.DataRowAction)
+            MyBase.New
+            Me.eventRow = row
+            Me.eventAction = action
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property Row() As VW_SSCP_ENFORCEMENT_SUMMARYRow
             Get
                 Return Me.eventRow
             End Get

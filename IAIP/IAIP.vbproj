@@ -211,6 +211,12 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Crystal Reports\Subreports\SSCP\SscpEnforcementSum.vb">
+      <DependentUpon>SscpEnforcementSum.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Crystal Reports\Subreports\SSCP\SscpFce.vb">
       <DependentUpon>SscpFce.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1028,6 +1034,11 @@
     <EmbeddedResource Include="Crystal Reports\Subreports\Fees\FeesFacilitySum.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>FeesFacilitySum.vb</LastGenOutput>
+      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpEnforcementSum.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SscpEnforcementSum.vb</LastGenOutput>
       <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpFce.rpt">
