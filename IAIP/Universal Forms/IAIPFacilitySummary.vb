@@ -1424,9 +1424,10 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub OpenFacilitySummaryPrintTool()
-        Dim facilityPrintOut As IaipFacilitySummaryPrint = OpenMultiForm("IaipFacilitySummaryPrint", Me.AirsNumber.GetHashCode)
-        facilityPrintOut.AirsNumber.Text = Me.AirsNumber.ShortString
-        facilityPrintOut.FacilityName.Text = Me.ThisFacility.FacilityName
+        Dim facilityPrintOut As New IaipFacilitySummaryPrint
+        facilityPrintOut.AirsNumber = Me.AirsNumber
+        facilityPrintOut.FacilityName = Me.ThisFacility.FacilityName
+        facilityPrintOut.Show()
     End Sub
 
 #End Region

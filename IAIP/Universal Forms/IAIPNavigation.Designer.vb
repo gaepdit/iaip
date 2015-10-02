@@ -32,7 +32,6 @@ Partial Class IAIPNavigation
         Me.mmiSeparator1 = New System.Windows.Forms.MenuItem()
         Me.mmiAbout = New System.Windows.Forms.MenuItem()
         Me.TestingMenu = New System.Windows.Forms.MenuItem()
-        Me.TestFacilityPrintout = New System.Windows.Forms.MenuItem()
         Me.TestPingDb = New System.Windows.Forms.MenuItem()
         Me.TestThrowError = New System.Windows.Forms.MenuItem()
         Me.lblTitle = New System.Windows.Forms.Label()
@@ -148,24 +147,18 @@ Partial Class IAIPNavigation
         'TestingMenu
         '
         Me.TestingMenu.Index = 3
-        Me.TestingMenu.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.TestFacilityPrintout, Me.TestPingDb, Me.TestThrowError})
+        Me.TestingMenu.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.TestPingDb, Me.TestThrowError})
         Me.TestingMenu.Text = "Testin&g"
         Me.TestingMenu.Visible = False
         '
-        'TestFacilityPrintout
-        '
-        Me.TestFacilityPrintout.Index = 0
-        Me.TestFacilityPrintout.Shortcut = System.Windows.Forms.Shortcut.AltBksp
-        Me.TestFacilityPrintout.Text = "Facility Printout"
-        '
         'TestPingDb
         '
-        Me.TestPingDb.Index = 1
+        Me.TestPingDb.Index = 0
         Me.TestPingDb.Text = "PingDB"
         '
         'TestThrowError
         '
-        Me.TestThrowError.Index = 2
+        Me.TestThrowError.Index = 1
         Me.TestThrowError.Text = "Throw error"
         '
         'lblTitle
@@ -826,5 +819,4 @@ Partial Class IAIPNavigation
     Friend WithEvents dgvWorkViewer As System.Windows.Forms.DataGridView
     Friend WithEvents ListChangerPanel As System.Windows.Forms.Panel
     Friend WithEvents TestThrowError As System.Windows.Forms.MenuItem
-    Friend WithEvents TestFacilityPrintout As System.Windows.Forms.MenuItem
 End Class
