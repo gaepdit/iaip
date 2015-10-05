@@ -2767,7 +2767,7 @@ Partial Class IAIPFacilitySummary
         Me.Controls.Add(Me.NavigationPanel)
         Me.Controls.Add(Me.FSMenuStrip)
         Me.MainMenuStrip = Me.FSMenuStrip
-        Me.MinimumSize = New System.Drawing.Size(666, 545)
+        Me.MinimumSize = New System.Drawing.Size(666, 566)
         Me.Name = "IAIPFacilitySummary"
         Me.Text = "Facility Summary"
         Me.NavigationPanel.ResumeLayout(False)
