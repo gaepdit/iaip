@@ -438,6 +438,18 @@ Public Class DMUEisGecoTool
             dgvEISStats.Columns("DATFINALIZE").DisplayIndex = 26
             dgvEISStats.Columns("DATFINALIZE").Visible = True
 
+            dgvEISStats.Columns.Add("FITrackingNumber", "FI Tracking Number")
+            dgvEISStats.Columns("FITrackingNumber").DisplayIndex = 27
+            dgvEISStats.Columns("FITrackingNumber").Visible = True
+
+            dgvEISStats.Columns.Add("PointTrackingNumber", "Point Tracking Number")
+            dgvEISStats.Columns("PointTrackingNumber").DisplayIndex = 28
+            dgvEISStats.Columns("PointTrackingNumber").Visible = True
+
+            dgvEISStats.Columns.Add("Comments", "Comments")
+            dgvEISStats.Columns("Comments").DisplayIndex = 29
+            dgvEISStats.Columns("Comments").Visible = True
+
         Catch ex As Exception
 
         End Try
@@ -14334,8 +14346,11 @@ Public Class DMUEisGecoTool
             "EISADDRESS2, EISCITY, " & _
             "EISSTATE, EISZIPCODE, " & _
             "EISPREFIX, EISFIRSTNAME, " & _
-            "EISLASTNAME, DATFINALIZE " & _
-            "from AIRBranch.VW_EIS_Stats " & _
+            "EISLASTNAME, DATFINALIZE, " & _
+            "strComment as Comments, " & _
+            "STRFITRACKINGNUMBER as FITrackingNumber, " & _
+            "STRPOINTTRACKINGNUMBER as PointTrackingNumber " & _
+            " from AIRBranch.VW_EIS_Stats " & _
             "where inventoryyear = '" & EISYear & "' " & _
             "and Active = '" & EISActive & "' "
 
@@ -14519,8 +14534,11 @@ Public Class DMUEisGecoTool
                     dgvRow.Cells(26).Value = dr.Item("DATFINALIZE")
                 End If
 
-                dgvEISStats.Rows.Add(dgvRow)
+                dgvRow.Cells(27).Value = DB.GetNullable(Of String)(dr.Item("FITrackingNumber"))
+                dgvRow.Cells(28).Value = DB.GetNullable(Of String)(dr.Item("PointTrackingNumber"))
+                dgvRow.Cells(29).Value = DB.GetNullable(Of String)(dr.Item("Comments"))
 
+                dgvEISStats.Rows.Add(dgvRow)
             End While
             dr.Close()
 
