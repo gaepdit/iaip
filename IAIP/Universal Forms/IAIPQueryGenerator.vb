@@ -6101,6 +6101,6 @@ Public Class IAIPQueryGenerator
             Me.SubmittedQuery = New Generic.KeyValuePair(Of String, Integer)("-- Truncated: " & Me.SubmittedQuery.Key.Substring(0, 3985), Me.SubmittedQuery.Value)
         End If
 
-        DAL.QueryGenerator.LogQuery(Me.SubmittedQuery)
+        DAL.QueryGeneratorData.LogQuery(Me.SubmittedQuery)
     End Sub
 End Class

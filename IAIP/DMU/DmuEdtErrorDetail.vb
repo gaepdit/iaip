@@ -49,7 +49,7 @@ Public Class DmuEdtErrorDetail
 #Region " Data "
 
     Private Sub GetData()
-        edtErrorDetails = DAL.DMU.GetErrorDetail(EdtErrorID)
+        edtErrorDetails = DAL.Dmu.GetErrorDetail(EdtErrorID)
 
         If edtErrorDetails Is Nothing Then
             CurrentStatus.Text = "No data"
@@ -145,7 +145,7 @@ Public Class DmuEdtErrorDetail
 
     Private Sub AssignSelectedToUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AssignSelectedToUser.Click
 
-        If DAL.DMU.AssignErrorToUser(UserAssigned.SelectedValue, Me.EdtErrorID) Then
+        If DAL.Dmu.AssignErrorToUser(UserAssigned.SelectedValue, Me.EdtErrorID) Then
             MessageBox.Show("User assigned.", "Success", MessageBoxButtons.OK)
         Else
             MessageBox.Show("There was an error assigning the user.", "Error", MessageBoxButtons.OK)
@@ -156,7 +156,7 @@ Public Class DmuEdtErrorDetail
         Dim result As Boolean = False
         Dim resolving As Boolean = Not edtErrorDetails.Resolved
 
-        result = DAL.DMU.SetResolvedStatus(resolving, Me.EdtErrorID)
+        result = DAL.Dmu.SetResolvedStatus(resolving, Me.EdtErrorID)
 
         If result = True Then
             edtErrorDetails.Resolved = resolving
@@ -184,7 +184,7 @@ Public Class DmuEdtErrorDetail
             Case Dmu.EdtIdCategory.COMPLIANCEMONITORING
                 OpenFormSscpWorkItem(IaipId.Text)
             Case Dmu.EdtIdCategory.COMPLIANCEMONITORINGFCE
-                OpenFormFceByID(IaipId.Text)
+                OpenFormFce(IaipId.Text)
             Case Dmu.EdtIdCategory.CASEFILE, Dmu.EdtIdCategory.ENFORCEMENTACTION
                 OpenFormEnforcement(IaipId.Text)
         End Select
@@ -196,7 +196,7 @@ Public Class DmuEdtErrorDetail
             Case Dmu.EdtIdCategory.COMPLIANCEMONITORING
                 OpenFormSscpWorkItem(IaipForeignId.Text)
             Case Dmu.EdtIdCategory.COMPLIANCEMONITORINGFCE
-                OpenFormFceByID(IaipForeignId.Text)
+                OpenFormFce(IaipForeignId.Text)
             Case Dmu.EdtIdCategory.CASEFILE, Dmu.EdtIdCategory.ENFORCEMENTACTION
                 OpenFormEnforcement(IaipForeignId.Text)
         End Select

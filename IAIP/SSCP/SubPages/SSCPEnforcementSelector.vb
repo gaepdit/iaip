@@ -140,7 +140,7 @@ Public Class SSCPEnforcementSelector
         Try
             If txtAIRSNumber.Text.Length = 8 Then
                 Dim airsNum As String = txtAIRSNumber.Text
-                Dim facName As String = DAL.FacilityModule.GetFacilityName(airsNum)
+                Dim facName As String = DAL.FacilityData.GetFacilityName(airsNum)
                 If facName IsNot Nothing Then
                     txtFacilityName.Text = facName
                     LoadSSCPEnforcementDataGrid("Single")

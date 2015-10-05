@@ -1014,7 +1014,7 @@ Public Class ISMPTestReportAdministrative
     Sub MoveOn()
         Try
             Dim id As String = txtReferenceNumber.Text
-            If DAL.ISMP.StackTestExists(id) Then OpenMultiForm("ISMPTestReports", id)
+            If DAL.Ismp.StackTestExists(id) Then OpenMultiForm("ISMPTestReports", id)
             Me.Hide()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1034,7 +1034,7 @@ Public Class ISMPTestReportAdministrative
             For Each RefNum As String In Me.clbReferenceNumbers.CheckedItems
                 RefNum = Mid(RefNum, 1, (RefNum.IndexOf(" -")))
 
-                If DAL.ISMP.StackTestExists(RefNum) Then
+                If DAL.Ismp.StackTestExists(RefNum) Then
                     Dim parameter As New OracleParameter("ref", RefNum)
 
                     SQL = "Update AIRBRANCH.ISMPReportInformation set " & _
@@ -2688,7 +2688,7 @@ Public Class ISMPTestReportAdministrative
     Private Sub btnOpenTestReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenTestReport.Click
         Try
             Dim id As String = txtAddTestReportRefNum.Text
-            If DAL.ISMP.StackTestExists(id) Then OpenMultiForm("ISMPTestReports", id)
+            If DAL.Ismp.StackTestExists(id) Then OpenMultiForm("ISMPTestReports", id)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

@@ -28,7 +28,6 @@ Partial Class CRViewerForm
         'CRViewerControl
         '
         Me.CRViewerControl.ActiveViewIndex = -1
-        Me.CRViewerControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CRViewerControl.Cursor = System.Windows.Forms.Cursors.Default
         Me.CRViewerControl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.CRViewerControl.EnableDrillDown = False
@@ -37,6 +36,8 @@ Partial Class CRViewerForm
         Me.CRViewerControl.SelectionFormula = ""
         Me.CRViewerControl.ShowCloseButton = False
         Me.CRViewerControl.ShowGroupTreeButton = False
+        Me.CRViewerControl.ShowLogo = False
+        Me.CRViewerControl.ShowParameterPanelButton = False
         Me.CRViewerControl.ShowRefreshButton = False
         Me.CRViewerControl.Size = New System.Drawing.Size(575, 520)
         Me.CRViewerControl.TabIndex = 0

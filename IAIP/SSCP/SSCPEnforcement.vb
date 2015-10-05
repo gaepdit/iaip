@@ -1,8 +1,8 @@
 ﻿Imports System.Collections.Generic
 Imports System.IO
-Imports Iaip.Apb.SSCP
-Imports Iaip.DAL.SSCP
-Imports Iaip.DAL.Documents
+Imports Iaip.Apb.Sscp
+Imports Iaip.DAL.Sscp
+Imports Iaip.DAL.DocumentData
 Imports Oracle.ManagedDataAccess.Types
 Imports Oracle.ManagedDataAccess.Client
 

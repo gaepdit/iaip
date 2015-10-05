@@ -68,9 +68,9 @@ Public Class IAIPEditHeaderData
     End Sub
 
     Private Sub LoadFacilityData()
-        FacilityHeaderDataHistory = DAL.FacilityHeaderDataModule.GetFacilityHeaderDataHistoryAsDataTable(AirsNumber)
+        FacilityHeaderDataHistory = DAL.FacilityHeaderDataData.GetFacilityHeaderDataHistoryAsDataTable(AirsNumber)
 
-        Dim currentData As DataRow = DAL.FacilityHeaderDataModule.GetFacilityHeaderDataAsDataRow(AirsNumber)
+        Dim currentData As DataRow = DAL.FacilityHeaderDataData.GetFacilityHeaderDataAsDataRow(AirsNumber)
 
         FacilityHeaderDataHistory.ImportRow(currentData)
 
@@ -283,7 +283,7 @@ Public Class IAIPEditHeaderData
 
     Private Sub DisplayFacilityData(ByVal row As DataRow)
         Dim displayedFacility As FacilityHeaderData = New FacilityHeaderData(AirsNumber)
-        DAL.FacilityHeaderDataModule.FillFacilityHeaderDataFromDataRow(row, displayedFacility)
+        DAL.FacilityHeaderDataData.FillFacilityHeaderDataFromDataRow(row, displayedFacility)
 
         DisplayFacilityData(displayedFacility)
     End Sub
@@ -499,14 +499,14 @@ Public Class IAIPEditHeaderData
             invalidControls.Add(OperationalStatusLabel)
         End If
 
-        If Not DAL.FacilityHeaderDataModule.SicCodeIsValid(SicCode.Text) Then
+        If Not DAL.FacilityHeaderDataData.SicCodeIsValid(SicCode.Text) Then
             MessageBox.Show("Please enter a valid SIC code.", _
                             "Invalid SIC", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             valid = False
             invalidControls.Add(SicCodeLabel)
         End If
 
-        If Not DAL.FacilityHeaderDataModule.NaicsCodeIsValid(NaicsCode.Text) Then
+        If Not DAL.FacilityHeaderDataData.NaicsCodeIsValid(NaicsCode.Text) Then
             MessageBox.Show("Please enter a valid NAICS code.", _
                             "Invalid NAICS", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             valid = False
@@ -578,7 +578,7 @@ Public Class IAIPEditHeaderData
                 CurrentFacilityHeaderData = editedFacility
 
                 ' Add to datagridview
-                Dim currentData As DataRow = DAL.FacilityHeaderDataModule.GetFacilityHeaderDataAsDataRow(AirsNumber)
+                Dim currentData As DataRow = DAL.FacilityHeaderDataData.GetFacilityHeaderDataAsDataRow(AirsNumber)
 
                 FacilityHeaderDataHistory.ImportRow(currentData)
                 FacilityHistoryDataGridView.CurrentCell = FacilityHistoryDataGridView.Rows(0).Cells(2)

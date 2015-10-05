@@ -2,7 +2,7 @@
 Imports Iaip.Apb
 Imports Iaip.Apb.ApbFacilityId
 Imports Iaip.Apb.Facilities
-Imports Iaip.DAL.FacilitySummary
+Imports Iaip.DAL.FacilitySummaryData
 
 Public Class IAIPFacilitySummary
 
@@ -157,7 +157,7 @@ Public Class IAIPFacilitySummary
         RemoveHandler ComplianceTabControl.SelectedIndexChanged, AddressOf TabControl_SelectedIndexChanged
         RemoveHandler FinancialTabControl.SelectedIndexChanged, AddressOf TabControl_SelectedIndexChanged
         RemoveHandler EiTabControl.SelectedIndexChanged, AddressOf TabControl_SelectedIndexChanged
-        
+
         FSMainTabControl.SelectedTab = FSInfo
         ContactsTabControl.SelectedTab = TPStateContacts
         TestingTabControl.SelectedTab = TPTestReport
@@ -234,7 +234,7 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub LoadBasicFacilityAndHeaderData()
-        ThisFacility = DAL.FacilityModule.GetFacility(Me.AirsNumber)
+        ThisFacility = DAL.FacilityData.GetFacility(Me.AirsNumber)
 
         If ThisFacility Is Nothing Then
             FacilityNameDisplay.Text = "Facility does not exist"
@@ -305,7 +305,7 @@ Public Class IAIPFacilitySummary
         End With
 
         'Data Dates
-        Dim dataDates As DataRow = DAL.FacilityModule.GetDataExchangeDates(Me.AirsNumber)
+        Dim dataDates As DataRow = DAL.FacilityData.GetDataExchangeDates(Me.AirsNumber)
         If dataDates IsNot Nothing Then
             CreatedDateDisplay.Text = String.Format(DateStringFormat, dataDates("DbRecordCreated"))
             FisDateDisplay.Text = String.Format(DateStringFormat, dataDates("FisExchangeDate"))
@@ -1319,7 +1319,7 @@ Public Class IAIPFacilitySummary
 
     Private Sub UpdateEpaData()
         If ThisFacility IsNot Nothing Then
-            If DAL.FacilityModule.TriggerDataUpdateAtEPA(Me.AirsNumber.ToString) Then
+            If DAL.FacilityData.TriggerDataUpdateAtEPA(Me.AirsNumber.ToString) Then
                 MessageBox.Show("Data for this facility will be sent to EPA the next time the database update procedures run.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Else
                 MessageBox.Show("There was an error attempting to flag this facility to update.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1465,9 +1465,10 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub OpenFacilitySummaryPrintTool()
-        Dim facilityPrintOut As IaipFacilitySummaryPrint = OpenMultiForm("IaipFacilitySummaryPrint", Me.AirsNumber.GetHashCode)
-        facilityPrintOut.AirsNumber.Text = Me.AirsNumber.ShortString
-        facilityPrintOut.FacilityName.Text = Me.ThisFacility.FacilityName
+        Dim facilityPrintOut As New IaipFacilitySummaryPrint
+        facilityPrintOut.AirsNumber = Me.AirsNumber
+        facilityPrintOut.FacilityName = Me.ThisFacility.FacilityName
+        facilityPrintOut.Show()
     End Sub
 
 #End Region
