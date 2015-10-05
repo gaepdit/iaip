@@ -2061,6 +2061,8 @@ Public Class SSCPFCEWork
 #Region "Print"
 
     Private Sub LoadSSCPFCEReport()
+        Me.Cursor = Cursors.WaitCursor
+
         Dim airs As New Apb.ApbFacilityId(txtAirsNumber.Text)
         Dim date2 As Date = DTPFCECompleteDate.Value
         Dim date1 As Date = date2.AddYears(-1)
@@ -2105,6 +2107,8 @@ Public Class SSCPFCEWork
 
         Dim cr As New CRViewerForm(rpt, pd)
         cr.Show()
+
+        Me.Cursor = Cursors.Default
     End Sub
 
 #End Region
