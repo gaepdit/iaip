@@ -184,7 +184,7 @@ Public Class DmuEdtErrorDetail
             Case Dmu.EdtIdCategory.COMPLIANCEMONITORING
                 OpenFormSscpWorkItem(IaipId.Text)
             Case Dmu.EdtIdCategory.COMPLIANCEMONITORINGFCE
-                OpenFormFceByID(IaipId.Text)
+                OpenFormFce(IaipId.Text)
             Case Dmu.EdtIdCategory.CASEFILE, Dmu.EdtIdCategory.ENFORCEMENTACTION
                 OpenFormEnforcement(IaipId.Text)
         End Select
@@ -196,7 +196,7 @@ Public Class DmuEdtErrorDetail
             Case Dmu.EdtIdCategory.COMPLIANCEMONITORING
                 OpenFormSscpWorkItem(IaipForeignId.Text)
             Case Dmu.EdtIdCategory.COMPLIANCEMONITORINGFCE
-                OpenFormFceByID(IaipForeignId.Text)
+                OpenFormFce(IaipForeignId.Text)
             Case Dmu.EdtIdCategory.CASEFILE, Dmu.EdtIdCategory.ENFORCEMENTACTION
                 OpenFormEnforcement(IaipForeignId.Text)
         End Select

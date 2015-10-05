@@ -1665,7 +1665,7 @@ Public Class SSCPComplianceLog
                 If InStr(txtTestType.Text, "Enforcement") > 0 Then
                     OpenFormEnforcement(txtWorkNumber.Text)
                 ElseIf InStr(txtTestType.Text, "Full Compliance Evaluation") > 0 Then
-                    OpenFormFceByID(txtWorkNumber.Text, New Apb.ApbFacilityId(txtAIRSNumber.Text))
+                    OpenFormFce(txtWorkNumber.Text)
                 Else
                     OpenFormSscpWorkItem(txtWorkNumber.Text)
                 End If

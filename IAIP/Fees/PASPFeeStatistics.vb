@@ -3030,7 +3030,7 @@ Public Class PASPFeeStatistics
             If txtFeeComplianceEvent.Text <> "" Then
                 Select Case txtFeeComplianceEventType.Text
                     Case "FCE"
-                        OpenFormFceByID(txtFeeComplianceEvent.Text, New Apb.ApbFacilityId(txtFeeAIRSNumber.Text))
+                        OpenFormFce(txtFeeComplianceEvent.Text)
                     Case "Enforcement"
                         OpenFormEnforcement(txtFeeComplianceEvent.Text)
                     Case Else

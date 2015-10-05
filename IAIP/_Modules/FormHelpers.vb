@@ -69,14 +69,12 @@ Module FormHelpers
         End If
     End Sub
 
-    Public Sub OpenFormFceByID(ByVal id As String, Optional ByVal airsNumber As ApbFacilityId = Nothing)
-        If Not String.IsNullOrEmpty(id) Then
-            If airsNumber Is Nothing Then
-                airsNumber = DAL.Sscp.GetFacilityIdByFceId(id)
-            End If
+    Public Sub OpenFormFce(ByVal fceNumber As String)
+        If Not String.IsNullOrEmpty(fceNumber) Then
+            Dim airsNumber As ApbFacilityId = DAL.Sscp.GetFacilityIdByFceId(fceNumber)
             If airsNumber IsNot Nothing Then
                 OpenFormFce(airsNumber)
-                SSCPFCE.txtFCENumber.Text = id
+                SSCPFCE.txtFCENumber.Text = fceNumber
             End If
         End If
     End Sub

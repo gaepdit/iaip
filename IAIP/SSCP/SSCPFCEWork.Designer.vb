@@ -21,19 +21,12 @@ Partial Class SSCPFCEWork
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPFCEWork))
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
-        Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar()
-        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.MenuFile = New System.Windows.Forms.MenuItem()
         Me.MenuSave = New System.Windows.Forms.MenuItem()
         Me.MenuPrint = New System.Windows.Forms.MenuItem()
         Me.MenuClose = New System.Windows.Forms.MenuItem()
-        Me.MenuHelp = New System.Windows.Forms.MenuItem()
-        Me.MenuOpenHelp = New System.Windows.Forms.MenuItem()
         Me.TBFCE = New System.Windows.Forms.ToolBar()
         Me.TbbSave = New System.Windows.Forms.ToolBarButton()
         Me.TbbPring = New System.Windows.Forms.ToolBarButton()
@@ -83,9 +76,6 @@ Partial Class SSCPFCEWork
         Me.txtEnforcement = New System.Windows.Forms.TextBox()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.FceDataGroup = New System.Windows.Forms.GroupBox()
-        Me.CompleteOrIncomplete = New System.Windows.Forms.GroupBox()
-        Me.rdbFCEIncomplete = New System.Windows.Forms.RadioButton()
-        Me.rdbFCEComplete = New System.Windows.Forms.RadioButton()
         Me.OnsiteOrOffsite = New System.Windows.Forms.GroupBox()
         Me.rdbFCENoOnsite = New System.Windows.Forms.RadioButton()
         Me.rdbFCEOnSite = New System.Windows.Forms.RadioButton()
@@ -110,9 +100,6 @@ Partial Class SSCPFCEWork
         Me.labReferenceNumber = New System.Windows.Forms.Label()
         Me.ReviewDataGroup = New System.Windows.Forms.GroupBox()
         Me.ReviewDataSelectorPanel = New System.Windows.Forms.Panel()
-        Me.TabPageFCEPrint = New System.Windows.Forms.TabPage()
-        Me.CRViewer = New CrystalDecisions.Windows.Forms.CrystalReportViewer()
-        Me.StatusStrip1.SuspendLayout()
         Me.ReviewDataTabs.SuspendLayout()
         Me.TPInspections.SuspendLayout()
         CType(Me.dgrFCEInspections, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -137,59 +124,13 @@ Partial Class SSCPFCEWork
         CType(Me.dgrFCEEnforcement, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelEnforcement.SuspendLayout()
         Me.FceDataGroup.SuspendLayout()
-        Me.CompleteOrIncomplete.SuspendLayout()
         Me.OnsiteOrOffsite.SuspendLayout()
         Me.TabControlFCE.SuspendLayout()
         Me.TabPageFCEData.SuspendLayout()
         Me.FacilityInfoPanel.SuspendLayout()
         Me.ReviewDataGroup.SuspendLayout()
         Me.ReviewDataSelectorPanel.SuspendLayout()
-        Me.TabPageFCEPrint.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar1, Me.Panel1, Me.Panel2, Me.Panel3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 620)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(877, 22)
-        Me.StatusStrip1.TabIndex = 201
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'ToolStripProgressBar1
-        '
-        Me.ToolStripProgressBar1.Name = "ToolStripProgressBar1"
-        Me.ToolStripProgressBar1.Size = New System.Drawing.Size(100, 16)
-        '
-        'Panel1
-        '
-        Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(752, 17)
-        Me.Panel1.Spring = True
-        Me.Panel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Panel2
-        '
-        Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(4, 17)
-        '
-        'Panel3
-        '
-        Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(4, 17)
         '
         'Image_List_All
         '
@@ -283,7 +224,7 @@ Partial Class SSCPFCEWork
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuFile, Me.MenuHelp})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuFile})
         '
         'MenuFile
         '
@@ -309,19 +250,6 @@ Partial Class SSCPFCEWork
         Me.MenuClose.Shortcut = System.Windows.Forms.Shortcut.CtrlW
         Me.MenuClose.Text = "&Close"
         '
-        'MenuHelp
-        '
-        Me.MenuHelp.Index = 1
-        Me.MenuHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuOpenHelp})
-        Me.MenuHelp.ShowShortcut = False
-        Me.MenuHelp.Text = "&Help"
-        '
-        'MenuOpenHelp
-        '
-        Me.MenuOpenHelp.Index = 0
-        Me.MenuOpenHelp.Shortcut = System.Windows.Forms.Shortcut.F1
-        Me.MenuOpenHelp.Text = "Online &Help"
-        '
         'TBFCE
         '
         Me.TBFCE.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TbbSave, Me.TbbPring})
@@ -333,16 +261,19 @@ Partial Class SSCPFCEWork
         Me.TBFCE.ShowToolTips = True
         Me.TBFCE.Size = New System.Drawing.Size(877, 28)
         Me.TBFCE.TabIndex = 202
+        Me.TBFCE.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
         '
         'TbbSave
         '
         Me.TbbSave.ImageIndex = 65
         Me.TbbSave.Name = "TbbSave"
+        Me.TbbSave.Text = "Save"
         '
         'TbbPring
         '
         Me.TbbPring.ImageIndex = 19
         Me.TbbPring.Name = "TbbPring"
+        Me.TbbPring.Text = "Print"
         '
         'txtAirsNumber
         '
@@ -823,7 +754,6 @@ Partial Class SSCPFCEWork
         '
         'FceDataGroup
         '
-        Me.FceDataGroup.Controls.Add(Me.CompleteOrIncomplete)
         Me.FceDataGroup.Controls.Add(Me.OnsiteOrOffsite)
         Me.FceDataGroup.Controls.Add(Me.cboReviewer)
         Me.FceDataGroup.Controls.Add(Me.txtFCENumber)
@@ -841,38 +771,6 @@ Partial Class SSCPFCEWork
         Me.FceDataGroup.TabIndex = 0
         Me.FceDataGroup.TabStop = False
         Me.FceDataGroup.Text = "FCE Entry"
-        '
-        'CompleteOrIncomplete
-        '
-        Me.CompleteOrIncomplete.Controls.Add(Me.rdbFCEIncomplete)
-        Me.CompleteOrIncomplete.Controls.Add(Me.rdbFCEComplete)
-        Me.CompleteOrIncomplete.Location = New System.Drawing.Point(571, 62)
-        Me.CompleteOrIncomplete.Name = "CompleteOrIncomplete"
-        Me.CompleteOrIncomplete.Size = New System.Drawing.Size(87, 58)
-        Me.CompleteOrIncomplete.TabIndex = 5
-        Me.CompleteOrIncomplete.TabStop = False
-        Me.CompleteOrIncomplete.Text = "Deprecated"
-        Me.CompleteOrIncomplete.Visible = False
-        '
-        'rdbFCEIncomplete
-        '
-        Me.rdbFCEIncomplete.Location = New System.Drawing.Point(6, 41)
-        Me.rdbFCEIncomplete.Name = "rdbFCEIncomplete"
-        Me.rdbFCEIncomplete.Size = New System.Drawing.Size(78, 16)
-        Me.rdbFCEIncomplete.TabIndex = 9
-        Me.rdbFCEIncomplete.Text = "Incomplete"
-        Me.rdbFCEIncomplete.Visible = False
-        '
-        'rdbFCEComplete
-        '
-        Me.rdbFCEComplete.Checked = True
-        Me.rdbFCEComplete.Location = New System.Drawing.Point(6, 19)
-        Me.rdbFCEComplete.Name = "rdbFCEComplete"
-        Me.rdbFCEComplete.Size = New System.Drawing.Size(72, 16)
-        Me.rdbFCEComplete.TabIndex = 8
-        Me.rdbFCEComplete.TabStop = True
-        Me.rdbFCEComplete.Text = "Complete"
-        Me.rdbFCEComplete.Visible = False
         '
         'OnsiteOrOffsite
         '
@@ -1042,12 +940,11 @@ Partial Class SSCPFCEWork
         'TabControlFCE
         '
         Me.TabControlFCE.Controls.Add(Me.TabPageFCEData)
-        Me.TabControlFCE.Controls.Add(Me.TabPageFCEPrint)
         Me.TabControlFCE.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControlFCE.Location = New System.Drawing.Point(0, 28)
         Me.TabControlFCE.Name = "TabControlFCE"
         Me.TabControlFCE.SelectedIndex = 0
-        Me.TabControlFCE.Size = New System.Drawing.Size(877, 592)
+        Me.TabControlFCE.Size = New System.Drawing.Size(877, 614)
         Me.TabControlFCE.TabIndex = 243
         '
         'TabPageFCEData
@@ -1058,7 +955,7 @@ Partial Class SSCPFCEWork
         Me.TabPageFCEData.Location = New System.Drawing.Point(4, 22)
         Me.TabPageFCEData.Name = "TabPageFCEData"
         Me.TabPageFCEData.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPageFCEData.Size = New System.Drawing.Size(869, 566)
+        Me.TabPageFCEData.Size = New System.Drawing.Size(869, 588)
         Me.TabPageFCEData.TabIndex = 0
         Me.TabPageFCEData.Text = "FCE Data"
         Me.TabPageFCEData.UseVisualStyleBackColor = True
@@ -1100,7 +997,7 @@ Partial Class SSCPFCEWork
         Me.ReviewDataGroup.Controls.Add(Me.ReviewDataSelectorPanel)
         Me.ReviewDataGroup.Controls.Add(Me.ReviewDataTabs)
         Me.ReviewDataGroup.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.ReviewDataGroup.Location = New System.Drawing.Point(3, 308)
+        Me.ReviewDataGroup.Location = New System.Drawing.Point(3, 330)
         Me.ReviewDataGroup.Name = "ReviewDataGroup"
         Me.ReviewDataGroup.Size = New System.Drawing.Size(863, 255)
         Me.ReviewDataGroup.TabIndex = 1
@@ -1120,32 +1017,6 @@ Partial Class SSCPFCEWork
         Me.ReviewDataSelectorPanel.Size = New System.Drawing.Size(857, 29)
         Me.ReviewDataSelectorPanel.TabIndex = 3
         '
-        'TabPageFCEPrint
-        '
-        Me.TabPageFCEPrint.Controls.Add(Me.CRViewer)
-        Me.TabPageFCEPrint.Location = New System.Drawing.Point(4, 22)
-        Me.TabPageFCEPrint.Name = "TabPageFCEPrint"
-        Me.TabPageFCEPrint.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPageFCEPrint.Size = New System.Drawing.Size(869, 566)
-        Me.TabPageFCEPrint.TabIndex = 1
-        Me.TabPageFCEPrint.Text = "FCE Printout"
-        Me.TabPageFCEPrint.UseVisualStyleBackColor = True
-        '
-        'CRViewer
-        '
-        Me.CRViewer.ActiveViewIndex = -1
-        Me.CRViewer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CRViewer.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.CRViewer.Location = New System.Drawing.Point(3, 3)
-        Me.CRViewer.Margin = New System.Windows.Forms.Padding(2)
-        Me.CRViewer.Name = "CRViewer"
-        Me.CRViewer.SelectionFormula = ""
-        Me.CRViewer.ShowGroupTreeButton = False
-        Me.CRViewer.ShowRefreshButton = False
-        Me.CRViewer.Size = New System.Drawing.Size(863, 560)
-        Me.CRViewer.TabIndex = 250
-        Me.CRViewer.ViewTimeSelectionFormula = ""
-        '
         'SSCPFCEWork
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1154,12 +1025,9 @@ Partial Class SSCPFCEWork
         Me.Controls.Add(Me.TabControlFCE)
         Me.Controls.Add(Me.txtAirsNumber)
         Me.Controls.Add(Me.TBFCE)
-        Me.Controls.Add(Me.StatusStrip1)
         Me.Menu = Me.MainMenu1
         Me.Name = "SSCPFCEWork"
         Me.Text = "Full Compliance Evaluation"
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
         Me.ReviewDataTabs.ResumeLayout(False)
         Me.TPInspections.ResumeLayout(False)
         CType(Me.dgrFCEInspections, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1192,7 +1060,6 @@ Partial Class SSCPFCEWork
         Me.PanelEnforcement.PerformLayout()
         Me.FceDataGroup.ResumeLayout(False)
         Me.FceDataGroup.PerformLayout()
-        Me.CompleteOrIncomplete.ResumeLayout(False)
         Me.OnsiteOrOffsite.ResumeLayout(False)
         Me.OnsiteOrOffsite.PerformLayout()
         Me.TabControlFCE.ResumeLayout(False)
@@ -1202,20 +1069,14 @@ Partial Class SSCPFCEWork
         Me.ReviewDataGroup.ResumeLayout(False)
         Me.ReviewDataSelectorPanel.ResumeLayout(False)
         Me.ReviewDataSelectorPanel.PerformLayout()
-        Me.TabPageFCEPrint.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents ToolStripProgressBar1 As System.Windows.Forms.ToolStripProgressBar
-    Friend WithEvents Panel2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
     Friend WithEvents MenuFile As System.Windows.Forms.MenuItem
     Friend WithEvents MenuSave As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuHelp As System.Windows.Forms.MenuItem
     Friend WithEvents TBFCE As System.Windows.Forms.ToolBar
     Friend WithEvents TbbSave As System.Windows.Forms.ToolBarButton
     Friend WithEvents TbbPrint As System.Windows.Forms.ToolBarButton
@@ -1274,9 +1135,6 @@ Partial Class SSCPFCEWork
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents DTPFilterStartDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents DTPFilterEndDate As System.Windows.Forms.DateTimePicker
-    Friend WithEvents CompleteOrIncomplete As System.Windows.Forms.GroupBox
-    Friend WithEvents rdbFCEIncomplete As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbFCEComplete As System.Windows.Forms.RadioButton
     Friend WithEvents txtFCEComments As System.Windows.Forms.TextBox
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents Label7 As System.Windows.Forms.Label
@@ -1287,17 +1145,13 @@ Partial Class SSCPFCEWork
     Friend WithEvents TabControlFCE As System.Windows.Forms.TabControl
     Friend WithEvents TabPageFCEData As System.Windows.Forms.TabPage
     Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
-    Friend WithEvents CRViewer As CrystalDecisions.Windows.Forms.CrystalReportViewer
-    Friend WithEvents TabPageFCEPrint As System.Windows.Forms.TabPage
     Friend WithEvents TbbPring As System.Windows.Forms.ToolBarButton
     Friend WithEvents MenuPrint As System.Windows.Forms.MenuItem
     Friend WithEvents MenuClose As System.Windows.Forms.MenuItem
     Friend WithEvents DTPFCECompleteDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents ReviewDataGroup As System.Windows.Forms.GroupBox
-    Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents FacilityInfoPanel As System.Windows.Forms.Panel
     Friend WithEvents txtFacilityInformation As System.Windows.Forms.TextBox
     Friend WithEvents labReferenceNumber As System.Windows.Forms.Label
     Friend WithEvents ReviewDataSelectorPanel As System.Windows.Forms.Panel
-    Friend WithEvents MenuOpenHelp As System.Windows.Forms.MenuItem
 End Class

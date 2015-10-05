@@ -81,6 +81,7 @@ Partial Class IAIPNavigation
         Me.ListChangerPanel = New System.Windows.Forms.Panel()
         Me.pnlContextSubView = New System.Windows.Forms.Panel()
         Me.dgvWorkViewer = New System.Windows.Forms.DataGridView()
+        Me.MenuItem1 = New System.Windows.Forms.MenuItem()
         Me.grpQuickAccess.SuspendLayout()
         Me.SbeapQuickAccessPanel.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -147,7 +148,7 @@ Partial Class IAIPNavigation
         'TestingMenu
         '
         Me.TestingMenu.Index = 3
-        Me.TestingMenu.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.TestPingDb, Me.TestThrowError})
+        Me.TestingMenu.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.TestPingDb, Me.TestThrowError, Me.MenuItem1})
         Me.TestingMenu.Text = "Testin&g"
         Me.TestingMenu.Visible = False
         '
@@ -725,6 +726,11 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.Size = New System.Drawing.Size(686, 187)
         Me.dgvWorkViewer.TabIndex = 4
         '
+        'MenuItem1
+        '
+        Me.MenuItem1.Index = 2
+        Me.MenuItem1.Text = "Open New FCE form"
+        '
         'IAIPNavigation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -819,4 +825,5 @@ Partial Class IAIPNavigation
     Friend WithEvents dgvWorkViewer As System.Windows.Forms.DataGridView
     Friend WithEvents ListChangerPanel As System.Windows.Forms.Panel
     Friend WithEvents TestThrowError As System.Windows.Forms.MenuItem
+    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
 End Class

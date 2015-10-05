@@ -7,7 +7,9 @@
         monitor.TrackFeature("Forms." & Me.Name)
         FullPrintStartDate.Value = Today.AddMonths(-12)
         FullPrintEndDate.Value = Today
-        FacilityDisplay.Text = AirsNumber.FormattedString & ", " & FacilityName
+        If AirsNumber IsNot Nothing Then
+            FacilityDisplay.Text = AirsNumber.FormattedString & ", " & FacilityName
+        End If
     End Sub
 
     Private Sub ShowReport(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ShowBasicReportButton.Click, ShowFullReportButton.Click

@@ -1349,6 +1349,12 @@ Public Class IAIPNavigation
         Throw New Exception("Unhandled exception testing")
     End Sub
 
+    Private Sub MenuItem1_Click(sender As Object, e As EventArgs) Handles MenuItem1.Click
+        'Dim f As New SscpFceEvent
+        'f.AirsNumber = New Apb.ApbFacilityId("00100001")
+        'f.Show()
+    End Sub
+
 #End Region
 
 End Class
