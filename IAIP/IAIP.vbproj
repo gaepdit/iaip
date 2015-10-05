@@ -58,7 +58,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>installer.html</WebPage>
     <ApplicationRevision>103</ApplicationRevision>
-    <ApplicationVersion>4.1.3.%2a</ApplicationVersion>
+    <ApplicationVersion>4.1.4.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1463,6 +1463,7 @@
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\GeorgiaStaticMap.png" />
     <None Include="Resources\Seal_of_Georgia_unfinished_256x256x32.png" />
     <None Include="Resources\Seal_of_Georgia_unfinished_Win7.ico" />
     <None Include="IAIP_New_TemporaryKey.pfx" />
