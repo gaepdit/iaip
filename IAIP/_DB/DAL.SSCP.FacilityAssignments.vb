@@ -58,7 +58,7 @@ Namespace DAL.SSCP
             Dim recordsInserted As Integer = 0
 
             Dim query1 As String = " SELECT   STRAIRSNUMBER " & _
-                "  FROM SSCPINSPECTIONSREQUIRED " & _
+                "  FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " & _
                 "  WHERE INTYEAR = :oldYear " & _
                 "  ORDER BY STRAIRSNUMBER "
             Dim parameter1 As New OracleParameter("oldYear", oldYear)
