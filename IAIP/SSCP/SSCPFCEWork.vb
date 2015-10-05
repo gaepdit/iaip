@@ -2097,7 +2097,7 @@ Public Class SSCPFCEWork
         rpt.Subreports("SscpStackTests.rpt").SetDataSource(dt7)
 
         Dim dt9 As New DataTable("VW_SSCP_FCES")
-        dt9 = DAL.Sscp.GetFceDataTable("05100007", year:=cboFCEYear.Text)
+        dt9 = DAL.Sscp.GetFceDataTable(airs, year:=cboFCEYear.Text)
         rpt.SetDataSource(dt9)
 
         Dim pd As New Generic.Dictionary(Of String, String) From {
