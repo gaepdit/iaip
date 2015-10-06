@@ -35,6 +35,8 @@
     End Sub
 
     Private Sub ShowBasicReport()
+        Me.Cursor = Cursors.WaitCursor
+
         Dim rpt As New CR.Reports.FacilityBasicReport
 
         Dim dt As DataTable = CollectionHelper.ConvertToDataTable(Of Apb.Facilities.Facility)(New Apb.Facilities.Facility() {DAL.GetFacility(AirsNumber).RetrieveHeaderData})
@@ -42,9 +44,13 @@
 
         Dim crv As New CRViewerForm(rpt)
         crv.Show()
+
+        Me.Cursor = Cursors.Default
     End Sub
 
     Private Sub ShowFullReport()
+        Me.Cursor = Cursors.WaitCursor
+
         Dim rpt As New CR.Reports.FacilityDetailedReport
 
         Dim startdate As Date = FullPrintStartDate.Value
@@ -102,6 +108,7 @@
         Dim crv As New CRViewerForm(rpt, pd)
         crv.Show()
 
+        Me.Cursor = Cursors.Default
     End Sub
 
 End Class
