@@ -112,11 +112,11 @@ Public Class IAIPNavigation
             pnlDbEnv.Text = "TESTING ENVIRONMENT"
             pnlDbEnv.BackColor = Color.Tomato
             pnlDbEnv.Visible = True
-            EnableAndShow(mmiTesting)
+            EnableAndShow(TestingMenu)
         Else
             pnlDbEnv.Text = "PRD"
             pnlDbEnv.Visible = False
-            DisableAndHide(mmiTesting)
+            DisableAndHide(TestingMenu)
         End If
 
 #If DEBUG Then
@@ -236,11 +236,11 @@ Public Class IAIPNavigation
             Dim id As String = txtOpenTestReport.Text
             If id = "" Then Exit Sub
 
-            If DAL.ISMP.StackTestExists(id) Then
+            If DAL.Ismp.StackTestExists(id) Then
                 If UserProgram = "3" Then
                     OpenMultiForm("ISMPTestReports", id)
                 Else
-                    If DAL.ISMP.StackTestIsClosedOut(id) Then
+                    If DAL.Ismp.StackTestIsClosedOut(id) Then
                         If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
                             PrintOut.Dispose()
                         End If
@@ -277,7 +277,7 @@ Public Class IAIPNavigation
             Dim id As String = txtOpenTestLog.Text
             If id = "" Then Exit Sub
 
-            If DAL.ISMP.TestNotificationExists(id) Then
+            If DAL.Ismp.TestNotificationExists(id) Then
                 If ISMPNotificationLogForm IsNot Nothing AndAlso Not ISMPNotificationLogForm.IsDisposed Then
                     ISMPNotificationLogForm.Dispose()
                 End If
@@ -298,7 +298,7 @@ Public Class IAIPNavigation
             Dim id As String = txtOpenSbeapClient.Text
             If id = "" Then Exit Sub
 
-            If DAL.SBEAP.ClientExists(id) Then
+            If DAL.Sbeap.ClientExists(id) Then
                 If ClientSummary IsNot Nothing AndAlso Not ClientSummary.IsDisposed Then
                     ClientSummary.Dispose()
                 End If
@@ -320,7 +320,7 @@ Public Class IAIPNavigation
             Dim id As String = txtOpenSbeapCaseLog.Text
             If id = "" Then Exit Sub
 
-            If DAL.SBEAP.CaseExists(id) Then
+            If DAL.Sbeap.CaseExists(id) Then
 
                 If CaseWork IsNot Nothing AndAlso Not CaseWork.IsDisposed Then
                     CaseWork.Dispose()
@@ -1341,12 +1341,18 @@ Public Class IAIPNavigation
 
 #Region " Testing Menu click events "
 
-    Private Sub mmiPing_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPing.Click
+    Private Sub mmiPing_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestPingDb.Click
         DB.PingDBConnection(CurrentConnection)
     End Sub
 
-    Private Sub mmiThrowError_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiThrowError.Click
+    Private Sub mmiThrowError_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestThrowError.Click
         Throw New Exception("Unhandled exception testing")
+    End Sub
+
+    Private Sub MenuItem1_Click(sender As Object, e As EventArgs) Handles MenuItem1.Click
+        'Dim f As New SscpFceEvent
+        'f.AirsNumber = New Apb.ApbFacilityId("00100001")
+        'f.Show()
     End Sub
 
 #End Region

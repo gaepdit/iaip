@@ -20,7 +20,7 @@ Public Class SSCPEvents
 
 #Region " Properties "
 
-    Private eventType As Apb.SSCP.WorkItem.WorkItemEventType
+    Private eventType As Apb.Sscp.WorkItem.WorkItemEventType
 
 #End Region
 
@@ -160,7 +160,7 @@ Public Class SSCPEvents
         Select Case EventTypeDbString
 
             Case "01" ' Report
-                Me.eventType = Apb.SSCP.WorkItem.WorkItemEventType.Report
+                Me.eventType = Apb.Sscp.WorkItem.WorkItemEventType.Report
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPReport)
                 DTPReportReceivedDate.Text = ReceivedDate
@@ -171,7 +171,7 @@ Public Class SSCPEvents
                 FormatReportsDGR()
 
             Case "02" ' Inspection
-                Me.eventType = Apb.SSCP.WorkItem.WorkItemEventType.Inspection
+                Me.eventType = Apb.Sscp.WorkItem.WorkItemEventType.Inspection
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPInspection)
                 DTPInspectionDateStart.Text = ReceivedDate
@@ -181,7 +181,7 @@ Public Class SSCPEvents
                 LoadInspection()
 
             Case "03" ' Test report
-                Me.eventType = Apb.SSCP.WorkItem.WorkItemEventType.StackTest
+                Me.eventType = Apb.Sscp.WorkItem.WorkItemEventType.StackTest
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPTestReports)
                 txtTestReportReceivedbySSCPDate.Text = ReceivedDate
@@ -189,7 +189,7 @@ Public Class SSCPEvents
                 LoadTestReport()
 
             Case "04" ' ACC
-                Me.eventType = Apb.SSCP.WorkItem.WorkItemEventType.TvAcc
+                Me.eventType = Apb.Sscp.WorkItem.WorkItemEventType.TvAcc
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPACC)
                 DTPACCReceivedDate.Text = ReceivedDate
@@ -204,7 +204,7 @@ Public Class SSCPEvents
                 tbbPrint.Visible = True
 
             Case "05" ' Notification
-                Me.eventType = Apb.SSCP.WorkItem.WorkItemEventType.Notification
+                Me.eventType = Apb.Sscp.WorkItem.WorkItemEventType.Notification
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPNotifications)
                 DTPNotificationReceived.Text = ReceivedDate
@@ -214,7 +214,7 @@ Public Class SSCPEvents
                 btnEnforcementProcess.Visible = False
 
             Case "07" ' Risk Management Plan Inspection
-                Me.eventType = Apb.SSCP.WorkItem.WorkItemEventType.RmpInspection
+                Me.eventType = Apb.Sscp.WorkItem.WorkItemEventType.RmpInspection
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPInspection)
                 TPInspection.Text = "Risk Mgmt. Plan Inspection"
@@ -363,7 +363,7 @@ Public Class SSCPEvents
                 "Classification - " & dr.Item("strClass") & vbCrLf & _
                 "Air Program Code(s) - " & vbCrLf
 
-                If Me.eventType = Apb.SSCP.WorkItem.WorkItemEventType.Inspection Then
+                If Me.eventType = Apb.Sscp.WorkItem.WorkItemEventType.Inspection Then
                     Dim geosInspectionId As String = DAL.SSCP.GetGeosInspectionId(txtTrackingNumber.Text)
                     If geosInspectionId <> "" Then
                         txtEventInformation.Text = "GEOS Inspection ID " & geosInspectionId & vbNewLine & txtEventInformation.Text
@@ -724,7 +724,7 @@ Public Class SSCPEvents
     End Sub
     Sub CheckEnforcement()
         Dim enfNum As String = ""
-        If DAL.SSCP.EnforcementExistsForTrackingNumber(txtTrackingNumber.Text, enfNum) Then
+        If DAL.Sscp.EnforcementExistsForTrackingNumber(txtTrackingNumber.Text, enfNum) Then
             txtEnforcementNumber.Text = enfNum
             txtEnforcementNumber.Visible = True
         Else
@@ -4157,10 +4157,10 @@ Public Class SSCPEvents
             Exit Sub
         End If
         Try
-            Dim acc As CR.Data.CrAcc = New CR.Data.CrAcc(LoadAccFromForm)
-            Dim accList As New List(Of CR.Data.CrAcc) From {acc}
+            Dim acc As Apb.Sscp.Acc = LoadAccFromForm()
+            Dim accList As New List(Of Apb.Sscp.Acc) From {acc}
 
-            Dim dataTable As DataTable = CollectionHelper.ConvertToDataTable(Of CR.Data.CrAcc)(accList)
+            Dim dataTable As DataTable = CollectionHelper.ConvertToDataTable(Of Apb.Sscp.Acc)(accList)
             Dim title As String = acc.AccReportingYear & " ACC for " & acc.Facility.AirsNumber.FormattedString
             Dim crv As New CRViewerForm(New CR.Reports.AccMemo, dataTable, title:=title)
             crv.Show()
@@ -4169,8 +4169,8 @@ Public Class SSCPEvents
         End Try
     End Sub
 
-    Private Function LoadAccFromForm() As Apb.SSCP.Acc
-        Dim thisAcc As New Apb.SSCP.Acc
+    Private Function LoadAccFromForm() As Apb.Sscp.Acc
+        Dim thisAcc As New Apb.Sscp.Acc
 
         With thisAcc
             If dtpAccReportingYear.Checked Then .AccReportingYear = dtpAccReportingYear.Value.Year
@@ -4190,7 +4190,7 @@ Public Class SSCPEvents
             .PostmarkedByDeadline = rdbACCPostmarkYes.Checked
             .ResubmittalRequested = rdbACCResubmittalRequestedYes.Checked
             .SignedByResponsibleOfficial = rdbACCROYes.Checked
-            .StaffResponsible = DAL.GetStaffInfoById(cboStaffResponsible.SelectedValue)
+            .StaffResponsible = DAL.GetStaff(cboStaffResponsible.SelectedValue)
             .UnreportedDeviationsReported = rdbACCPreviouslyUnreportedDeviationsYes.Checked
         End With
 

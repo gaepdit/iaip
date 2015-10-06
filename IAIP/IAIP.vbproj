@@ -57,8 +57,8 @@
     <MinimumRequiredVersion>4.1.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>installer.html</WebPage>
-    <ApplicationRevision>105</ApplicationRevision>
-    <ApplicationVersion>4.1.5.%2a</ApplicationVersion>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>4.2.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -186,6 +186,84 @@
     </Compile>
     <Compile Include="Crystal Reports\CrDataSet.vb">
       <DependentUpon>CrDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Crystal Reports\Facility\FacilityBasicReport.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FacilityBasicReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Crystal Reports\Facility\FacilityDetailedReport1.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FacilityDetailedReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Crystal Reports\SSCP\SscpFceReport.vb">
+      <DependentUpon>SscpFceReport.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Crystal Reports\Subreports\Fees\FeesFacilitySum.vb">
+      <DependentUpon>FeesFacilitySum.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Crystal Reports\Subreports\SSCP\SscpEnforcementSum.vb">
+      <DependentUpon>SscpEnforcementSum.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Crystal Reports\Subreports\SSCP\SscpFce.vb">
+      <DependentUpon>SscpFce.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Crystal Reports\Subreports\SSCP\SscpNotifications.vb">
+      <DependentUpon>SscpNotifications.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Crystal Reports\Subreports\SSCP\SscpStackTests.vb">
+      <DependentUpon>SscpStackTests.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Crystal Reports\Subreports\SSCP\SscpRmpInspections.vb">
+      <DependentUpon>SscpRmpInspections.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Crystal Reports\Subreports\SSCP\SscpReports.vb">
+      <DependentUpon>SscpReports.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Crystal Reports\Subreports\SSCP\SscpAcc.vb">
+      <DependentUpon>SscpAcc.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Crystal Reports\Subreports\SSCP\SscpInspections.vb">
+      <DependentUpon>SscpInspections.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Crystal Reports\Subreports\FacilityBasicInfo.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FacilityBasicInfo.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Crystal Reports\Oracle 10.1\SSPP\crSSPPConfirmationLetter.vb">
       <AutoGen>True</AutoGen>
@@ -467,7 +545,7 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Crystal Reports\Letterhead.vb">
+    <Compile Include="Crystal Reports\Subreports\Letterhead.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Letterhead.rpt</DependentUpon>
@@ -808,11 +886,23 @@
     <Compile Include="SSPP\Sub Forms\SSPPAttainmentStatus.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="_DAL\SSCP\DAL.Sscp.Fce.vb" />
+    <Compile Include="_Data Models\Dmu\Dmu.EdtErrorMessage.vb" />
+    <Compile Include="_Data Models\Dmu\Dmu.EdtSubmission.vb" />
     <Compile Include="_Data Models\DocumentType.vb" />
-    <Compile Include="_Data Models\Res.Registrant.vb" />
-    <Compile Include="_Data Models\Res.EventRegistration.vb" />
-    <Compile Include="_Data Models\Location.vb" />
-    <Compile Include="_DB\DB.vb" />
+    <Compile Include="_Data Models\Event Registration\Res.Registrant.vb" />
+    <Compile Include="_Data Models\Event Registration\Res.EventRegistration.vb" />
+    <Compile Include="_Data Models\Facilities\Location.vb" />
+    <Compile Include="_DAL\_DB\DB.vb" />
+    <Compile Include="_Data Models\ISMP\Ismp.ReferenceNumber.vb" />
+    <Compile Include="_Data Models\SSCP\Apb.Sscp.Fce.vb" />
+    <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.Inspection.vb" />
+    <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.Notification.vb" />
+    <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.AccSubmittals.vb" />
+    <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.ReportSubmittals.vb" />
+    <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.Report.vb" />
+    <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.RmpInspection.vb" />
+    <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.StackTest.vb" />
     <Compile Include="_Modules\ErrorReporting.vb" />
     <Compile Include="_Modules\ExcelExport.vb" />
     <Compile Include="_Modules\Extensions.vb" />
@@ -925,6 +1015,71 @@
     </Compile>
     <EmbeddedResource Include="Crystal Reports\CRViewerForm.resx">
       <DependentUpon>CRViewerForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\Facility\FacilityDetailedReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <CustomToolNamespace>CR.Reports</CustomToolNamespace>
+      <LastGenOutput>FacilityDetailedReport1.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\Facility\FacilityBasicReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FacilityBasicReport.vb</LastGenOutput>
+      <CustomToolNamespace>CR.Reports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\SSCP\SscpFceReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SscpFceReport.vb</LastGenOutput>
+      <CustomToolNamespace>CR.Reports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\Subreports\Fees\FeesFacilitySum.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FeesFacilitySum.vb</LastGenOutput>
+      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpEnforcementSum.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SscpEnforcementSum.vb</LastGenOutput>
+      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpFce.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SscpFce.vb</LastGenOutput>
+      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpNotifications.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SscpNotifications.vb</LastGenOutput>
+      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpStackTests.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SscpStackTests.vb</LastGenOutput>
+      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpRmpInspections.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SscpRmpInspections.vb</LastGenOutput>
+      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpReports.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SscpReports.vb</LastGenOutput>
+      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpAcc.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SscpAcc.vb</LastGenOutput>
+      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\Subreports\SSCP\SscpInspections.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SscpInspections.vb</LastGenOutput>
+      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crystal Reports\Subreports\FacilityBasicInfo.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FacilityBasicInfo.vb</LastGenOutput>
+      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\Oracle 10.1\SSPP\crSSPPConfirmationLetter.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -1143,10 +1298,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CRTitleVRenewal10.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Letterhead.rpt">
+    <EmbeddedResource Include="Crystal Reports\Subreports\Letterhead.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Letterhead.vb</LastGenOutput>
-      <CustomToolNamespace>CR.Reports</CustomToolNamespace>
+      <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="DMU\DMUDeveloperTool.resx">
       <DependentUpon>DMUDeveloperTool.vb</DependentUpon>
@@ -1507,29 +1662,29 @@
     </Compile>
     <Compile Include="_Classes\BooleanFormatProvider.vb" />
     <Compile Include="_Classes\IaipExceptionManager.vb" />
-    <Compile Include="_Data Models\Apb.ApbFacilityId.vb" />
-    <Compile Include="_Data Models\Contact.vb" />
-    <Compile Include="_Data Models\Dmu.EdtError.vb" />
-    <Compile Include="_Data Models\FacilityEnums.vb" />
-    <Compile Include="_Data Models\FacilityHeaderData.vb" />
-    <Compile Include="_Data Models\Apb.SSPP.Permit.vb" />
-    <Compile Include="_DB\DAL.DMU.EdtError.vb" />
-    <Compile Include="_DB\DAL.FacilitySummary.vb" />
-    <Compile Include="_DB\DAL.ISMP.StackTest.vb">
+    <Compile Include="_Data Models\Facilities\Apb.ApbFacilityId.vb" />
+    <Compile Include="_Data Models\People\Contact.vb" />
+    <Compile Include="_Data Models\Dmu\Dmu.EdtError.vb" />
+    <Compile Include="_Data Models\Facilities\FacilityEnums.vb" />
+    <Compile Include="_Data Models\Facilities\FacilityHeaderData.vb" />
+    <Compile Include="_Data Models\SSPP\Apb.Sspp.Permit.vb" />
+    <Compile Include="_DAL\DAL.Dmu.EdtError.vb" />
+    <Compile Include="_DAL\Facilities\DAL.FacilitySummary.vb" />
+    <Compile Include="_DAL\DAL.Ismp.StackTest.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_DB\DAL.SSCP.FacilityAssignments.vb" />
-    <Compile Include="_DB\DAL.AppData.vb" />
-    <Compile Include="_DB\DAL.FacilityHeaderData.vb" />
-    <Compile Include="_DB\DAL.Contacts.vb" />
-    <Compile Include="_DB\DAL.Fees.vb" />
-    <Compile Include="_DB\DAL.QueryGenerator.vb" />
-    <Compile Include="_DB\DAL.SBEAP.vb" />
-    <Compile Include="_DB\DAL.SSPP.Applications.vb">
+    <Compile Include="_DAL\SSCP\DAL.Sscp.FacilityAssignments.vb" />
+    <Compile Include="_DAL\DAL.AppData.vb" />
+    <Compile Include="_DAL\Facilities\DAL.FacilityHeaderData.vb" />
+    <Compile Include="_DAL\DAL.Contacts.vb" />
+    <Compile Include="_DAL\DAL.Fees.vb" />
+    <Compile Include="_DAL\DAL.QueryGenerator.vb" />
+    <Compile Include="_DAL\DAL.Sbeap.vb" />
+    <Compile Include="_DAL\DAL.Sspp.Applications.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_DB\DAL.SSPP.Permit.vb" />
-    <Compile Include="_DB\DB.Connections.vb" />
+    <Compile Include="_DAL\DAL.Sspp.Permit.vb" />
+    <Compile Include="_DAL\_DB\DB.Connections.vb" />
     <Compile Include="Crystal Reports\CRViewerForm.Designer.vb">
       <DependentUpon>CRViewerForm.vb</DependentUpon>
     </Compile>
@@ -1560,14 +1715,11 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Crystal Reports\SSCP\CrAcc.vb" />
     <Compile Include="Crystal Reports\SSCP\AccMemo.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AccMemo.rpt</DependentUpon>
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\SmokeSchool\CrSmokeSchoolRoster.vb">
     </Compile>
     <Compile Include="SBEAP\SBEAPCaseLog.Designer.vb">
       <DependentUpon>SBEAPCaseLog.vb</DependentUpon>
@@ -1618,21 +1770,21 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="_Data Models\IaipUser.vb" />
-    <Compile Include="_DB\DAL.SSCP.WorkItem.vb" />
-    <Compile Include="_DB\DAL.IaipUser.vb" />
-    <Compile Include="_DB\DAL.NavigationScreen.vb">
+    <Compile Include="_DAL\SSCP\DAL.Sscp.WorkItem.vb" />
+    <Compile Include="_DAL\DAL.IaipUser.vb" />
+    <Compile Include="_DAL\DAL.NavigationScreen.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_DB\DAL.SmokeSchoolRoster.vb" />
+    <Compile Include="_DAL\DAL.SmokeSchool.vb" />
     <Compile Include="_Classes\CollectionHelper.vb" />
-    <Compile Include="_Data Models\Apb.SSCP.WorkItem.vb" />
-    <Compile Include="_Data Models\Person.vb" />
-    <Compile Include="_Data Models\Res.ResEvent.vb">
+    <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.WorkItem.vb" />
+    <Compile Include="_Data Models\People\Person.vb" />
+    <Compile Include="_Data Models\Event Registration\Res.ResEvent.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Data Models\Apb.SSCP.Acc.vb" />
-    <Compile Include="_DB\DAL.Facility.vb" />
-    <Compile Include="_DB\DAL.Staff.vb" />
+    <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.Acc.vb" />
+    <Compile Include="_DAL\Facilities\DAL.Facility.vb" />
+    <Compile Include="_DAL\DAL.Staff.vb" />
     <Compile Include="SSCP\SscpDocuments.Designer.vb">
       <DependentUpon>SscpDocuments.vb</DependentUpon>
     </Compile>
@@ -1645,23 +1797,23 @@
     <Compile Include="SSCP\SSCPEnforcement.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="_Data Models\Address.vb" />
+    <Compile Include="_Data Models\Facilities\Address.vb" />
     <Compile Include="_Data Models\Document.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Data Models\Facility.vb" />
+    <Compile Include="_Data Models\Facilities\Facility.vb" />
     <Compile Include="_Classes\FileSizeFormatProvider.vb" />
     <Compile Include="_Classes\SettingsHelper.vb" />
-    <Compile Include="_Data Models\Apb.SSCP.Document.vb" />
-    <Compile Include="_Data Models\Apb.SSCP.EnforcementInfo.vb" />
-    <Compile Include="_Data Models\Apb.SSPP.ApplicationInfo.vb">
+    <Compile Include="_Data Models\SSCP\Apb.Sscp.Document.vb" />
+    <Compile Include="_Data Models\SSCP\Apb.Sscp.EnforcementInfo.vb" />
+    <Compile Include="_Data Models\SSPP\Apb.Sspp.ApplicationInfo.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Data Models\Staff.vb" />
-    <Compile Include="_DB\DAL.SSCP.Enforcement.vb" />
-    <Compile Include="_DB\DAL.Documents.vb" />
-    <Compile Include="_DB\DAL.EventRegistration.vb" />
-    <Compile Include="_DB\DB.Utilities.vb" />
+    <Compile Include="_Data Models\People\Staff.vb" />
+    <Compile Include="_DAL\SSCP\DAL.Sscp.Enforcement.vb" />
+    <Compile Include="_DAL\DAL.Documents.vb" />
+    <Compile Include="_DAL\DAL.EventRegistration.vb" />
+    <Compile Include="_DAL\_DB\DB.Utilities.vb" />
     <Compile Include="_Modules\Analytics.vb" />
     <Compile Include="_Modules\BitFields.vb" />
     <Compile Include="_Modules\CrystalReports.vb" />

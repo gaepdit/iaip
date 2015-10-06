@@ -1,6 +1,6 @@
 ﻿Imports System.Windows.Forms
 Imports System.Collections.Generic
-Imports Iaip.Apb.SSPP
+Imports Iaip.Apb.Sspp
 Imports System.Linq
 
 Public Class SsppPermitRevocationDialog

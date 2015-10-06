@@ -31,9 +31,9 @@ Partial Class IAIPNavigation
         Me.mmiResetForm = New System.Windows.Forms.MenuItem()
         Me.mmiSeparator1 = New System.Windows.Forms.MenuItem()
         Me.mmiAbout = New System.Windows.Forms.MenuItem()
-        Me.mmiTesting = New System.Windows.Forms.MenuItem()
-        Me.mmiPing = New System.Windows.Forms.MenuItem()
-        Me.mmiThrowError = New System.Windows.Forms.MenuItem()
+        Me.TestingMenu = New System.Windows.Forms.MenuItem()
+        Me.TestPingDb = New System.Windows.Forms.MenuItem()
+        Me.TestThrowError = New System.Windows.Forms.MenuItem()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.flpNavButtons = New System.Windows.Forms.FlowLayoutPanel()
         Me.grpQuickAccess = New System.Windows.Forms.GroupBox()
@@ -81,6 +81,7 @@ Partial Class IAIPNavigation
         Me.ListChangerPanel = New System.Windows.Forms.Panel()
         Me.pnlContextSubView = New System.Windows.Forms.Panel()
         Me.dgvWorkViewer = New System.Windows.Forms.DataGridView()
+        Me.MenuItem1 = New System.Windows.Forms.MenuItem()
         Me.grpQuickAccess.SuspendLayout()
         Me.SbeapQuickAccessPanel.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -92,7 +93,7 @@ Partial Class IAIPNavigation
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiTools, Me.mmiHelp, Me.mmiTesting})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiTools, Me.mmiHelp, Me.TestingMenu})
         '
         'mmiFile
         '
@@ -144,22 +145,22 @@ Partial Class IAIPNavigation
         Me.mmiAbout.Index = 3
         Me.mmiAbout.Text = "&About IAIP"
         '
-        'mmiTesting
+        'TestingMenu
         '
-        Me.mmiTesting.Index = 3
-        Me.mmiTesting.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiPing, Me.mmiThrowError})
-        Me.mmiTesting.Text = "Testing"
-        Me.mmiTesting.Visible = False
+        Me.TestingMenu.Index = 3
+        Me.TestingMenu.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.TestPingDb, Me.TestThrowError, Me.MenuItem1})
+        Me.TestingMenu.Text = "Testin&g"
+        Me.TestingMenu.Visible = False
         '
-        'mmiPing
+        'TestPingDb
         '
-        Me.mmiPing.Index = 0
-        Me.mmiPing.Text = "PingDB"
+        Me.TestPingDb.Index = 0
+        Me.TestPingDb.Text = "PingDB"
         '
-        'mmiThrowError
+        'TestThrowError
         '
-        Me.mmiThrowError.Index = 1
-        Me.mmiThrowError.Text = "Throw error"
+        Me.TestThrowError.Index = 1
+        Me.TestThrowError.Text = "Throw error"
         '
         'lblTitle
         '
@@ -725,6 +726,11 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.Size = New System.Drawing.Size(686, 187)
         Me.dgvWorkViewer.TabIndex = 4
         '
+        'MenuItem1
+        '
+        Me.MenuItem1.Index = 2
+        Me.MenuItem1.Text = "Open New FCE form"
+        '
         'IAIPNavigation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -789,11 +795,11 @@ Partial Class IAIPNavigation
     Friend WithEvents rdbStaffView As System.Windows.Forms.RadioButton
     Friend WithEvents mmiExport As System.Windows.Forms.MenuItem
     Friend WithEvents mmiSeparator1 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiTesting As System.Windows.Forms.MenuItem
+    Friend WithEvents TestingMenu As System.Windows.Forms.MenuItem
     Friend WithEvents mmiResetForm As System.Windows.Forms.MenuItem
     Friend WithEvents pnlCurrentList As System.Windows.Forms.Panel
     Friend WithEvents pnlContextSubView As System.Windows.Forms.Panel
-    Friend WithEvents mmiPing As System.Windows.Forms.MenuItem
+    Friend WithEvents TestPingDb As System.Windows.Forms.MenuItem
     Friend WithEvents flpNavButtons As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents SbeapCaseLogNumberLabel As System.Windows.Forms.Label
     Friend WithEvents SbeapClientIDLabel As System.Windows.Forms.Label
@@ -818,5 +824,6 @@ Partial Class IAIPNavigation
     Private WithEvents bgrUserPermissions As System.ComponentModel.BackgroundWorker
     Friend WithEvents dgvWorkViewer As System.Windows.Forms.DataGridView
     Friend WithEvents ListChangerPanel As System.Windows.Forms.Panel
-    Friend WithEvents mmiThrowError As System.Windows.Forms.MenuItem
+    Friend WithEvents TestThrowError As System.Windows.Forms.MenuItem
+    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
 End Class
