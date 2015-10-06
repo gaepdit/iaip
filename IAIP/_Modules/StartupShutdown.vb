@@ -7,13 +7,6 @@
     Friend Sub Init()
         AddHandler Application.ThreadException, AddressOf IaipExceptionManager.Application_ThreadException
 
-#If DEBUG Then
-        Console.WriteLine("Me.Startup")
-        Console.WriteLine("Environment.MachineName: " & Environment.MachineName)
-        Console.WriteLine("Environment.UserName: " & Environment.UserName)
-#End If
-
-
         ' Upgrades: Should run each time program is upgraded
         If My.Settings.CallUpgrade Then
             ' Put items to run before settings are migrated here

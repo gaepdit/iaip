@@ -122,21 +122,22 @@ Module App
 
                 If (Not info.IsUpdateRequired) Then
                     Dim dr As DialogResult
-                    dr = MessageBox.Show("An update is available (" & _
-                                         info.AvailableVersion.ToString & "). Would you like to install it now?", _
+                    dr = MessageBox.Show("An update is available (" &
+                                         GetVersionAsMajorMinorBuild(info.AvailableVersion).ToString &
+                                         "). Would you like to install it now?",
                                          "Update Available", MessageBoxButtons.YesNo)
                     If (Not DialogResult.Yes = dr) Then doUpdate = False
                 Else
                     ' Display a message that the app MUST reboot. Display the minimum required version.
-                    MessageBox.Show("A mandatory update will now be installed (" & info.AvailableVersion.ToString & "). ", _
-                                    "Update Available", MessageBoxButtons.OK, _
-                                    MessageBoxIcon.Information)
+                    MessageBox.Show("A mandatory update will now be installed (" &
+                                    GetVersionAsMajorMinorBuild(info.AvailableVersion).ToString & "). ",
+                                    "Update Available", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If
 
                 If (doUpdate) Then
                     Try
                         AD.Update()
-                        MessageBox.Show("The IAIP has been updated and will now restart.")
+                        'MessageBox.Show("The IAIP has been updated and will now restart.")
                         Application.Restart()
                     Catch dde As DeploymentDownloadException
                         MessageBox.Show("The IAIP cannot be updated right now. " & vbNewLine & vbNewLine & _
