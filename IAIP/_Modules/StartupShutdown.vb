@@ -9,8 +9,10 @@
 
         ' Upgrades: Should run each time program is upgraded
         If My.Settings.CallUpgrade Then
-            ' Put items to run before settings are migrated here
             AppUpgraded = True
+
+            ' Put items to run before settings are migrated here
+            ' [None currently]
 
             ' Upgrade() folds in settings from previous version
             My.Settings.Upgrade()
@@ -26,13 +28,16 @@
         ' (A 'False' setting for My.Settings.FirstRun should be migrated by My.Settings.Upgrade() above
         ' before getting here.)
         If My.Settings.FirstRun Then
-            ' Put items to run on first installation here
             AppFirstRun = True
+
+            ' Put items to run on first installation here
             DeleteOldShortcuts()
 
             ' Prevents this from running in the future
             My.Settings.FirstRun = False
         End If
+
+        My.Settings.Save()
 
         ' EQATEC analytics monitor
         InitializeMonitor()
