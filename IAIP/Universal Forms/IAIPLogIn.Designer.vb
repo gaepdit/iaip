@@ -46,7 +46,6 @@ Partial Class IAIPLogIn
         Me.lblSubTitle = New System.Windows.Forms.Label()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.lblGeneralMessage = New System.Windows.Forms.Label()
-        Me.LoginProgressBar = New System.Windows.Forms.ProgressBar()
         CType(Me.LogoBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -259,17 +258,6 @@ Partial Class IAIPLogIn
         Me.lblGeneralMessage.Text = "Message Placeholder 1" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "4"
         Me.lblGeneralMessage.Visible = False
         '
-        'LoginProgressBar
-        '
-        Me.LoginProgressBar.Location = New System.Drawing.Point(422, 302)
-        Me.LoginProgressBar.MarqueeAnimationSpeed = 10
-        Me.LoginProgressBar.Name = "LoginProgressBar"
-        Me.LoginProgressBar.Size = New System.Drawing.Size(175, 23)
-        Me.LoginProgressBar.Step = 20
-        Me.LoginProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee
-        Me.LoginProgressBar.TabIndex = 46
-        Me.LoginProgressBar.Visible = False
-        '
         'IAIPLogIn
         '
         Me.AcceptButton = Me.btnLoginButton
@@ -287,7 +275,6 @@ Partial Class IAIPLogIn
         Me.Controls.Add(Me.lblSubTitle)
         Me.Controls.Add(Me.lblTitle)
         Me.Controls.Add(Me.lblGeneralMessage)
-        Me.Controls.Add(Me.LoginProgressBar)
         Me.Controls.Add(Me.btnLoginButton)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.HelpButton = True
@@ -324,7 +311,6 @@ Partial Class IAIPLogIn
     Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
     Friend WithEvents lblIAIP As System.Windows.Forms.Label
     Friend WithEvents LogoBox As System.Windows.Forms.PictureBox
-    Friend WithEvents LoginProgressBar As System.Windows.Forms.ProgressBar
     Friend WithEvents MenuItem4 As System.Windows.Forms.MenuItem
     Friend WithEvents mmiAbout As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem

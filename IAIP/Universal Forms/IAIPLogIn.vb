@@ -159,8 +159,7 @@ Public Class IAIPLogIn
             Exit Sub
         End If
 
-        LoginProgressBar.Visible = True
-        LoginProgressBar.Refresh()
+        Me.Cursor = Cursors.WaitCursor
 
         Try
 
@@ -178,7 +177,7 @@ Public Class IAIPLogIn
                 MsgBox("Login information is incorrect." & vbCrLf & "Please try again.", MsgBoxStyle.Exclamation, "Login Error")
                 txtUserPassword.Clear()
                 FocusLogin()
-                LoginProgressBar.Visible = False
+                Me.Cursor = Cursors.Default
                 monitor.TrackFeatureCancel("Startup.LoggingIn")
                 Exit Sub
             End If
@@ -202,7 +201,7 @@ Public Class IAIPLogIn
             If EmployeeStatus = "0" Then
                 MsgBox("Your status has been flagged as inactive." & vbCrLf & "Please contact your manager for more information.", MsgBoxStyle.Exclamation, "Login Error")
                 txtUserPassword.Clear()
-                LoginProgressBar.Visible = False
+                Me.Cursor = Cursors.Default
                 monitor.TrackFeatureCancel("Startup.LoggingIn")
                 Exit Sub
             End If
@@ -211,7 +210,7 @@ Public Class IAIPLogIn
                 MsgBox("Login information is incorrect." & vbCrLf & "Please try again.", MsgBoxStyle.Exclamation, "Login Error")
                 txtUserPassword.Clear()
                 FocusLogin()
-                LoginProgressBar.Visible = False
+                Me.Cursor = Cursors.Default
                 monitor.TrackFeatureCancel("Startup.LoggingIn")
                 Exit Sub
             End If
@@ -252,7 +251,7 @@ Public Class IAIPLogIn
                     ProfileUpdate.txtConfirmPassword.BackColor = Color.Tomato
                 End If
 
-                LoginProgressBar.Visible = False
+                Me.Cursor = Cursors.Default
                 monitor.TrackFeatureCancel("Startup.LoggingIn")
                 Exit Sub
             End If
@@ -276,7 +275,7 @@ Public Class IAIPLogIn
             Me.Close()
 
         Catch ex As Exception
-            LoginProgressBar.Visible = False
+            Me.Cursor = Cursors.Default
             monitor.TrackFeatureCancel("Startup.LoggingIn")
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

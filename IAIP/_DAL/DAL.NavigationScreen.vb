@@ -1368,10 +1368,5 @@ Namespace DAL
             Return SQL
         End Function
 
-        Public Function GetAccountFormAccessLookup() As DataTable
-            Dim query As String = " SELECT NUMACCOUNTCODE, STRFORMACCESS FROM AIRBRANCH.LOOKUPIAIPACCOUNTS "
-            Return DB.GetDataTable(query)
-        End Function
-
     End Module
 End Namespace
