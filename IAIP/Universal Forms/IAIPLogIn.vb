@@ -9,7 +9,7 @@ Public Class IAIPLogIn
         FocusLogin()
         DisplayVersion()
         monitor.TrackFeatureStop("Startup.Loading")
-        If AppFirstRun Or AppUpgraded Then
+        If AppFirstRun Or AppUpdated Then
             App.TestCrystalReportsInstallation()
         End If
     End Sub
@@ -86,7 +86,7 @@ Public Class IAIPLogIn
         Dim currentVersion As Version = GetCurrentVersionAsMajorMinorBuild()
 
         With lblCurrentVersionMessage
-            If AppUpgraded Then
+            If AppUpdated Then
                 .Text = String.Format("The IAIP has been updated. Current version: {0}", currentVersion.ToString)
                 .BackColor = System.Drawing.SystemColors.Info
                 .ForeColor = System.Drawing.SystemColors.InfoText
