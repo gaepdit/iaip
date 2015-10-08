@@ -5,9 +5,6 @@ Public Class PASPFeeManagement
     Dim SQL As String
     Dim ds As DataSet
     Dim da As OracleDataAdapter
-    Dim dtairs As New DataTable
-    Dim FeeYear As String
-    Dim AIRSNumber As String
 
     Private Sub PASPFeeManagement_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
@@ -448,7 +445,7 @@ Public Class PASPFeeManagement
             If Insert_FS_FeeRate(txtFeeYear.Text, dtpFeePeriodStart.Text, dtpFeePeriodEnd.Text, _
                                txtTitleVfee.Text, txtAnnualSMFee.Text, txtperTonRate.Text, txtAnnualNSPSFee.Text, _
                                dtpFeeDueDate.Text, txtAdminFeePercent.Text, dtpAdminApplicable.Text, _
-                               txtFeeNotes.Text, "1", dtpFirstQrtDue.Text, dtpSecondQrtDue.Text, _
+                               txtFeeNotes.Text, dtpFirstQrtDue.Text, dtpSecondQrtDue.Text, _
                                dtpThirdQrtDue.Text, dtpFourthQrtDue.Text, txtAttainmentThreshold.Text, _
                                txtNonAttainmentThreshold.Text) = True Then
 
@@ -699,7 +696,6 @@ Public Class PASPFeeManagement
         Try
             Dim ReasonID As String = ""
             Dim i As Integer = 0
-            Dim x As Integer = 0
 
             If dgvNSPSExemptionsByYear.RowCount > 0 Then
                 'dgvNSPSExemptionsByYear.Rows.Clear()
@@ -747,7 +743,6 @@ Public Class PASPFeeManagement
 
         Try
             Dim x As Integer = 0
-            Dim y As Integer = 0
             Dim ReasonID As String
             Dim Order As String
             Dim temp As String = ""
@@ -1391,11 +1386,7 @@ Public Class PASPFeeManagement
             Dim ContactLastName As String = ""
             Dim ContactPrefix As String = ""
             Dim ContactSuffix As String = ""
-            Dim ContactTitle As String = ""
             Dim ContactCompanyName As String = ""
-            Dim ContactPhone As String = ""
-            Dim ContactFax As String = ""
-            Dim ContactEmail As String = ""
             Dim ContactAddress As String = ""
             Dim ContactCity As String = ""
             Dim ContactState As String = ""
@@ -1449,30 +1440,10 @@ Public Class PASPFeeManagement
                         Else
                             ContactSuffix = dr2.Item("strContactSuffix")
                         End If
-                        If IsDBNull(dr2.Item("strContactTitle")) Then
-                            ContactTitle = ""
-                        Else
-                            ContactTitle = dr2.Item("strContactTitle")
-                        End If
                         If IsDBNull(dr2.Item("strContactCompanyName")) Then
                             ContactCompanyName = ""
                         Else
                             ContactCompanyName = dr2.Item("strContactCompanyName")
-                        End If
-                        If IsDBNull(dr2.Item("strContactPhoneNumber1")) Then
-                            ContactPhone = ""
-                        Else
-                            ContactPhone = dr2.Item("strContactPhoneNumber1")
-                        End If
-                        If IsDBNull(dr2.Item("strContactFaxNumber")) Then
-                            ContactFax = ""
-                        Else
-                            ContactFax = dr2.Item("strContactFaxNumber")
-                        End If
-                        If IsDBNull(dr2.Item("strcontactEmail")) Then
-                            ContactEmail = ""
-                        Else
-                            ContactEmail = dr2.Item("strContactEmail")
                         End If
                         If IsDBNull(dr2.Item("strContactAddress1")) Then
                             ContactAddress = ""
@@ -2619,7 +2590,7 @@ Public Class PASPFeeManagement
                           ByVal PeriodEnd As String, ByVal Part70Fee As String, ByVal SMFee As String, _
                           ByVal PerTonRate As String, ByVal NSPSFee As String, ByVal FeeDueDate As String, _
                           ByVal AdminFee As String, ByVal AdminApplicable As String, ByVal Comments As String, _
-                          ByVal Active As String, ByVal FirstQrtDue As String, ByVal SecondQrtDue As String, _
+                           ByVal FirstQrtDue As String, ByVal SecondQrtDue As String, _
                           ByVal ThirdQrtDue As String, ByVal FourthQrtDue As String, ByVal AAThres As String, _
                           ByVal NAThres As String) As Boolean
         Try

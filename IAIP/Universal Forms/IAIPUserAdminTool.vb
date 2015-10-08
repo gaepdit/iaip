@@ -8,8 +8,6 @@ Public Class IAIPUserAdminTool
     Dim daDataGrid As OracleDataAdapter
     Dim dsAccounts As DataSet
     Dim daAccounts As OracleDataAdapter
-    Dim dsPermissions As DataSet
-    Dim daPermissions As OracleDataAdapter
     Dim SQL As String
     Dim cmd As OracleCommand
     Dim dr As OracleDataReader
@@ -786,7 +784,7 @@ Public Class IAIPUserAdminTool
 
         End Try
     End Sub
-    Sub UpdatePermissions(ByVal UserId As String)
+    Sub UpdatePermissions()
         Try
             SQL = "Select " & _
             "numUserId " & _
@@ -914,7 +912,7 @@ Public Class IAIPUserAdminTool
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        UpdatePermissions(lblUserID.Text)
+                        UpdatePermissions()
 
                         LoadUserData()
 
@@ -1010,7 +1008,7 @@ Public Class IAIPUserAdminTool
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        UpdatePermissions(lblUserID.Text)
+                        UpdatePermissions()
 
                         LoadUserData()
 
@@ -1685,7 +1683,7 @@ Public Class IAIPUserAdminTool
             lblPermissions.Text = ""
 
             If lblUserID.Text <> "" Then
-                UpdatePermissions(lblUserID.Text)
+                UpdatePermissions()
             End If
 
         Catch ex As Exception

@@ -23,7 +23,7 @@ Module FormHelpers
     End Function
 
     Public Function OpenFormFacilitySummary(ByVal airsNumber As ApbFacilityId) As Form
-        If Not DAL.FacilityModule.AirsNumberExists(airsNumber) Then
+        If Not DAL.FacilityData.AirsNumberExists(airsNumber) Then
             MessageBox.Show("AIRS number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return Nothing
         Else
@@ -41,7 +41,7 @@ Module FormHelpers
     Public Function OpenFormSscpWorkItem(ByVal id As String) As Form
         If DAL.SSCP.WorkItemExists(id) Then
             Dim refNum As String = ""
-            If DAL.SSCP.WorkItemIsAStackTest(id, refNum) Then
+            If DAL.SSCP.TryGetRefNumForWorkItem(id, refNum) Then
                 Return OpenMultiForm("ISMPTestReports", refNum)
             ElseIf SingleFormIsOpen("SSCPEvents") _
             AndAlso CType(SingleForm("SSCPEvents"), SSCPEvents).txtTrackingNumber.Text = id Then
@@ -69,14 +69,12 @@ Module FormHelpers
         End If
     End Sub
 
-    Public Sub OpenFormFceByID(ByVal id As String, Optional ByVal airsNumber As ApbFacilityId = Nothing)
-        If Not String.IsNullOrEmpty(id) Then
-            If airsNumber Is Nothing Then
-                airsNumber = DAL.SSCP.GetFacilityIdByFceId(id)
-            End If
+    Public Sub OpenFormFce(ByVal fceNumber As String)
+        If Not String.IsNullOrEmpty(fceNumber) Then
+            Dim airsNumber As ApbFacilityId = DAL.Sscp.GetFacilityIdByFceId(fceNumber)
             If airsNumber IsNot Nothing Then
                 OpenFormFce(airsNumber)
-                SSCPFCE.txtFCENumber.Text = id
+                SSCPFCE.txtFCENumber.Text = fceNumber
             End If
         End If
     End Sub
@@ -84,7 +82,7 @@ Module FormHelpers
 #End Region
 
     Public Function OpenFormEnforcement(ByVal id As String) As Form
-        If DAL.SSCP.EnforcementExists(id) Then
+        If DAL.Sscp.EnforcementExists(id) Then
             Return OpenMultiForm("SscpEnforcement", id)
         Else
             MessageBox.Show("Enforcement number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -97,11 +95,11 @@ Module FormHelpers
 #Region " ISMP "
 
     Public Sub OpenFormTestPrintout(ByVal referenceNumber As String)
-        If DAL.ISMP.StackTestExists(referenceNumber) Then
+        If DAL.Ismp.StackTestExists(referenceNumber) Then
             If UserProgram = "3" Then
                 OpenMultiForm("ISMPTestReports", referenceNumber)
             Else
-                If DAL.ISMP.StackTestIsClosedOut(referenceNumber) Then
+                If DAL.Ismp.StackTestIsClosedOut(referenceNumber) Then
                     PrintOut = New IAIPPrintOut
                     PrintOut.txtReferenceNumber.Text = referenceNumber
                     PrintOut.txtPrintType.Text = "SSCP"
@@ -116,7 +114,7 @@ Module FormHelpers
     End Sub
 
     Public Sub OpenFormTestNotification(ByVal id As String)
-        If DAL.ISMP.TestNotificationExists(id) Then
+        If DAL.Ismp.TestNotificationExists(id) Then
             ISMPNotificationLogForm = New ISMPNotificationLog
             ISMPNotificationLogForm.txtTestNotificationNumber.Text = id
             ISMPNotificationLogForm.Show()
@@ -126,7 +124,7 @@ Module FormHelpers
     End Sub
 
     Public Sub OpenFormTestMemo(ByVal referenceNumber As String)
-        If DAL.ISMP.StackTestExists(referenceNumber) Then
+        If DAL.Ismp.StackTestExists(referenceNumber) Then
             ISMPMemoEdit = New ISMPMemo
             ISMPMemoEdit.txtReferenceNumber.Text = referenceNumber
             ISMPMemoEdit.Show()
@@ -139,7 +137,7 @@ Module FormHelpers
 #Region " SSPP "
 
     Public Function OpenFormPermitApplication(ByVal applicationNumber As String) As Form
-        If DAL.SSPP.ApplicationExists(applicationNumber) Then
+        If DAL.Sspp.ApplicationExists(applicationNumber) Then
             Dim app As SSPPApplicationTrackingLog = OpenSingleForm("SSPPApplicationTrackingLog", applicationNumber)
             app.txtApplicationNumber.Text = applicationNumber
             app.LoadApplication()

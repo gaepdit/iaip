@@ -40,8 +40,6 @@ Public Class IAIPEditContacts
 
     Dim SQL As String
     Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
-    Dim recExist As Boolean
     Dim dsContacts As DataSet
     Dim daContacts As OracleDataAdapter
 

@@ -2,7 +2,7 @@
 Imports Iaip.Apb
 Imports Iaip.Apb.ApbFacilityId
 Imports Iaip.Apb.Facilities
-Imports Iaip.DAL.FacilitySummary
+Imports Iaip.DAL.FacilitySummaryData
 
 Public Class IAIPFacilitySummary
 
@@ -157,7 +157,7 @@ Public Class IAIPFacilitySummary
         RemoveHandler ComplianceTabControl.SelectedIndexChanged, AddressOf TabControl_SelectedIndexChanged
         RemoveHandler FinancialTabControl.SelectedIndexChanged, AddressOf TabControl_SelectedIndexChanged
         RemoveHandler EiTabControl.SelectedIndexChanged, AddressOf TabControl_SelectedIndexChanged
-        
+
         FSMainTabControl.SelectedTab = FSInfo
         ContactsTabControl.SelectedTab = TPStateContacts
         TestingTabControl.SelectedTab = TPTestReport
@@ -199,8 +199,11 @@ Public Class IAIPFacilitySummary
         'Location
         LocationDisplay.Text = ""
         MapAddressLink.Enabled = False
+        CountyDisplay.Text = ""
+        MapCountyLink.Enabled = False
         LatLonDisplay.Text = ""
         MapLatLonLink.Enabled = False
+        MapPictureBox.Visible = False
 
         'Description
         InfoDescDisplay.Text = ""
@@ -231,7 +234,7 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub LoadBasicFacilityAndHeaderData()
-        ThisFacility = DAL.FacilityModule.GetFacility(Me.AirsNumber)
+        ThisFacility = DAL.FacilityData.GetFacility(Me.AirsNumber)
 
         If ThisFacility Is Nothing Then
             FacilityNameDisplay.Text = "Facility does not exist"
@@ -248,6 +251,8 @@ Public Class IAIPFacilitySummary
 
     Private Sub DisplayBasicFacilityData()
 
+        DisplayMap()
+
         'Navigation Panel
         AirsNumberEntry.Text = Me.AirsNumber.FormattedString
 
@@ -259,15 +264,17 @@ Public Class IAIPFacilitySummary
             With .FacilityLocation
                 'Location
                 LocationDisplay.Text = .Address.ToString
-                CountyDisplay.Text = .County.ToString
                 If .Address IsNot Nothing Then
                     MapAddressLink.Enabled = True
+                End If
+                CountyDisplay.Text = .County.ToString
+                If .County IsNot Nothing Then
+                    MapCountyLink.Enabled = True
                 End If
                 LatLonDisplay.Text = .Latitude.ToString & _
                     ", " & _
                     .Longitude.ToString
-                If .Latitude IsNot Nothing _
-                AndAlso .Longitude IsNot Nothing Then
+                If .Latitude.HasValue AndAlso .Longitude.HasValue Then
                     MapLatLonLink.Enabled = True
                 End If
             End With
@@ -298,7 +305,7 @@ Public Class IAIPFacilitySummary
         End With
 
         'Data Dates
-        Dim dataDates As DataRow = DAL.FacilityModule.GetDataExchangeDates(Me.AirsNumber)
+        Dim dataDates As DataRow = DAL.FacilityData.GetDataExchangeDates(Me.AirsNumber)
         If dataDates IsNot Nothing Then
             CreatedDateDisplay.Text = String.Format(DateStringFormat, dataDates("DbRecordCreated"))
             FisDateDisplay.Text = String.Format(DateStringFormat, dataDates("FisExchangeDate"))
@@ -338,9 +345,43 @@ Public Class IAIPFacilitySummary
         OpenMapUrl(ThisFacility.FacilityLocation.Address.ToLinearString, Me)
     End Sub
 
+    Private Sub MapCountyLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles MapCountyLink.LinkClicked
+        OpenMapUrl(ThisFacility.FacilityLocation.County & " County", Me)
+    End Sub
+
     Private Sub MapLatLonLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles MapLatLonLink.LinkClicked
         OpenMapUrl(ThisFacility.FacilityLocation.Latitude.ToString & "," & _
                    ThisFacility.FacilityLocation.Longitude.ToString, Me)
+    End Sub
+
+    Private Sub DisplayMap()
+        ' Blank map: https://maps.googleapis.com/maps/api/staticmap?key=AIzaSyAOMeyIrtZeEJb1Pci5jgtn_Uh3wr0NP14&size=230x280&zoom=6&center=32.9,-83.3&style=feature:all|element:labels|visibility:off&style=feature:road|visibility:off
+
+        MapPictureBox.Visible = False
+
+        Dim ApiKey As String = "AIzaSyAOMeyIrtZeEJb1Pci5jgtn_Uh3wr0NP14"
+        Dim StaticMapsUrl As New System.Text.StringBuilder("https://maps.googleapis.com/maps/api/staticmap?")
+        StaticMapsUrl.Append("key=" & ApiKey)
+        StaticMapsUrl.Append("&size=" & MapPictureBox.Width.ToString & "x" & MapPictureBox.Height.ToString)
+        StaticMapsUrl.Append("&zoom=6&center=32.9,-83.3")
+
+        With ThisFacility.FacilityLocation
+            If .Latitude.HasValue AndAlso .Longitude.HasValue Then
+                StaticMapsUrl.Append("&markers=" & Math.Round(.Latitude.Value, 6).ToString & "," & Math.Round(.Longitude.Value, 6).ToString)
+            ElseIf Not String.IsNullOrWhiteSpace(.Address.ToLinearString) Then
+                StaticMapsUrl.Append("&markers=" & .Address.ToLinearString)
+            Else
+                Exit Sub
+            End If
+        End With
+
+        MapPictureBox.Visible = True
+
+        Console.WriteLine(StaticMapsUrl.ToString)
+        Try
+            MapPictureBox.LoadAsync(StaticMapsUrl.ToString)
+        Catch ex As Exception
+        End Try
     End Sub
 
 #End Region
@@ -1278,7 +1319,7 @@ Public Class IAIPFacilitySummary
 
     Private Sub UpdateEpaData()
         If ThisFacility IsNot Nothing Then
-            If DAL.FacilityModule.TriggerDataUpdateAtEPA(Me.AirsNumber.ToString) Then
+            If DAL.FacilityData.TriggerDataUpdateAtEPA(Me.AirsNumber.ToString) Then
                 MessageBox.Show("Data for this facility will be sent to EPA the next time the database update procedures run.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Else
                 MessageBox.Show("There was an error attempting to flag this facility to update.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1424,9 +1465,10 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub OpenFacilitySummaryPrintTool()
-        Dim facilityPrintOut As IaipFacilitySummaryPrint = OpenMultiForm("IaipFacilitySummaryPrint", Me.AirsNumber.GetHashCode)
-        facilityPrintOut.AirsNumber.Text = Me.AirsNumber.ShortString
-        facilityPrintOut.FacilityName.Text = Me.ThisFacility.FacilityName
+        Dim facilityPrintOut As New IaipFacilitySummaryPrint
+        facilityPrintOut.AirsNumber = Me.AirsNumber
+        facilityPrintOut.FacilityName = Me.ThisFacility.FacilityName
+        facilityPrintOut.Show()
     End Sub
 
 #End Region

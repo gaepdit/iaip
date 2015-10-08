@@ -34,9 +34,9 @@ Module OutlookEmail
             mail.Subject = subject
             mail.Body = body
 
-            If recipientsTo IsNot Nothing Then AddRecipients(outlookApp, mail, recipientsTo, Outlook.OlMailRecipientType.olTo)
-            If recipientsCC IsNot Nothing Then AddRecipients(outlookApp, mail, recipientsCC, Outlook.OlMailRecipientType.olCC)
-            If recipientsBCC IsNot Nothing Then AddRecipients(outlookApp, mail, recipientsBCC, Outlook.OlMailRecipientType.olBCC)
+            If recipientsTo IsNot Nothing Then AddRecipients(mail, recipientsTo, Outlook.OlMailRecipientType.olTo)
+            If recipientsCC IsNot Nothing Then AddRecipients(mail, recipientsCC, Outlook.OlMailRecipientType.olCC)
+            If recipientsBCC IsNot Nothing Then AddRecipients(mail, recipientsBCC, Outlook.OlMailRecipientType.olBCC)
 
             mail.Save()
             mail.Display()
@@ -52,7 +52,7 @@ Module OutlookEmail
         End Try
     End Function
 
-    Private Sub AddRecipients(ByVal outlookApp As Outlook.Application, ByRef mail As Outlook.MailItem, ByVal recipientArray As String(), ByVal toType As Outlook.OlMailRecipientType)
+    Private Sub AddRecipients(ByRef mail As Outlook.MailItem, ByVal recipientArray As String(), ByVal toType As Outlook.OlMailRecipientType)
         Dim recipients As Outlook.Recipients = Nothing
         Dim recipient As Outlook.Recipient = Nothing
 

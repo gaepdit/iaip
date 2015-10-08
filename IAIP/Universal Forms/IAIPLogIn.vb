@@ -86,12 +86,23 @@ Public Class IAIPLogIn
         Dim currentVersion As Version = GetCurrentVersionAsMajorMinorBuild()
 
         With lblCurrentVersionMessage
-            .Text = String.Format("Version: {0}", currentVersion.ToString)
+            If AppUpgraded Then
+                .Text = String.Format("The IAIP has been updated. Current version: {0}", currentVersion.ToString)
+                .BackColor = System.Drawing.SystemColors.Info
+                .ForeColor = System.Drawing.SystemColors.InfoText
+                .AutoSize = True
+                .TextAlign = ContentAlignment.TopLeft
+            Else
+                .Text = String.Format("Version: {0}", currentVersion.ToString)
+            End If
+
             .Visible = True
         End With
+
 #If BETA Then
         lblCurrentVersionMessage.Text = lblCurrentVersionMessage.Text & " β"
 #End If
+
     End Sub
 
     Private Sub CheckLanguageRegistrySetting()

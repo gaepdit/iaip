@@ -12,10 +12,6 @@ Public Class ISMPTestReportAdministrative
     Dim daPollutant As OracleDataAdapter
     Dim dsTestingFirms As DataSet
     Dim daTestingFirms As OracleDataAdapter
-    Dim dsManagers As DataSet
-    Dim daManagers As OracleDataAdapter
-    Dim dsComplianceManagers As DataSet
-    Dim daComplianceManagers As OracleDataAdapter
     Dim dsGrid As DataSet
     Dim daGrid As OracleDataAdapter
     Dim dsFacility As DataSet
@@ -392,7 +388,7 @@ Public Class ISMPTestReportAdministrative
         End Try
 
     End Sub
-    Sub FillTestReportList(ByVal ReferenceNumber As String)
+    Sub FillTestReportList()
         Try
 
 
@@ -673,7 +669,7 @@ Public Class ISMPTestReportAdministrative
                 If rdbCloseReport.Checked = True Then
                     TBFacilityInfo.Buttons.Item(0).Enabled = False
                 End If
-                Find(txtReferenceNumber.Text)
+                Find()
                 MsgBox("Done", MsgBoxStyle.Information, "ISMP Facility/Test Report Information")
             Else
                 MsgBox("You must Provide a Reference Number with a length of 9 characters or less.", _
@@ -843,7 +839,7 @@ Public Class ISMPTestReportAdministrative
             bgw1.RunWorkerAsync()
 
             clbReferenceNumbers.Items.Clear()
-            FillTestReportList(txtReferenceNumber.Text)
+            FillTestReportList()
 
             MsgBox("Done", MsgBoxStyle.Exclamation, "ISMP Test Report Information")
 
@@ -856,17 +852,13 @@ Public Class ISMPTestReportAdministrative
 
 
     End Sub
-    Private Sub Find(ByVal RefNum As String)
+    Private Sub Find()
         Dim SQL As String
-        Dim AirList As String = ""
-        Dim AirProgramCodes As String = ""
-        Dim temp As String = ""
 
         Try
 
 
             If txtReferenceNumber.Text <> "" Then
-                temp = txtReferenceNumber.Text
 
                 SQL = "Select strAIRSNumber from AIRBRANCH.ISMPMaster where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
                 Dim cmd As New OracleCommand(SQL, CurrentConnection)
@@ -958,7 +950,7 @@ Public Class ISMPTestReportAdministrative
                     End While
                     dr.Close()
 
-                    FillTestReportList(temp)
+                    FillTestReportList()
                 Else
 
                 End If
@@ -1022,7 +1014,7 @@ Public Class ISMPTestReportAdministrative
     Sub MoveOn()
         Try
             Dim id As String = txtReferenceNumber.Text
-            If DAL.ISMP.StackTestExists(id) Then OpenMultiForm("ISMPTestReports", id)
+            If DAL.Ismp.StackTestExists(id) Then OpenMultiForm("ISMPTestReports", id)
             Me.Hide()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1042,7 +1034,7 @@ Public Class ISMPTestReportAdministrative
             For Each RefNum As String In Me.clbReferenceNumbers.CheckedItems
                 RefNum = Mid(RefNum, 1, (RefNum.IndexOf(" -")))
 
-                If DAL.ISMP.StackTestExists(RefNum) Then
+                If DAL.Ismp.StackTestExists(RefNum) Then
                     Dim parameter As New OracleParameter("ref", RefNum)
 
                     SQL = "Update AIRBRANCH.ISMPReportInformation set " & _
@@ -2251,7 +2243,7 @@ Public Class ISMPTestReportAdministrative
         Try
 
             If txtReferenceNumber.Text <> "" Then
-                Find(txtReferenceNumber.Text)
+                Find()
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2696,7 +2688,7 @@ Public Class ISMPTestReportAdministrative
     Private Sub btnOpenTestReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenTestReport.Click
         Try
             Dim id As String = txtAddTestReportRefNum.Text
-            If DAL.ISMP.StackTestExists(id) Then OpenMultiForm("ISMPTestReports", id)
+            If DAL.Ismp.StackTestExists(id) Then OpenMultiForm("ISMPTestReports", id)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

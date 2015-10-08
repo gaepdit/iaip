@@ -7,7 +7,6 @@ Public Class ISMPAddPollutants
     Dim panel1 As New StatusBarPanel
     Dim panel2 As New StatusBarPanel
     Dim panel3 As New StatusBarPanel
-    Dim Paneltemp1 As String
     Dim SQL As String
     Dim cmd As OracleCommand
     Dim dr As OracleDataReader

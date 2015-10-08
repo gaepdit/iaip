@@ -22,26 +22,22 @@ Partial Class IaipFacilitySummaryPrint
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.Panel1 = New System.Windows.Forms.Panel
-        Me.FacilityName = New System.Windows.Forms.TextBox
-        Me.FacilityLabel = New System.Windows.Forms.Label
-        Me.AirsNumber = New System.Windows.Forms.MaskedTextBox
-        Me.ShowFullReport = New System.Windows.Forms.Button
-        Me.ShowBasicReport = New System.Windows.Forms.Button
-        Me.EndDateLabel = New System.Windows.Forms.Label
-        Me.StartDateLabel = New System.Windows.Forms.Label
-        Me.FullPrintEndDate = New System.Windows.Forms.DateTimePicker
-        Me.FullPrintStartDate = New System.Windows.Forms.DateTimePicker
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.ShowFullReportButton = New System.Windows.Forms.Button()
+        Me.ShowBasicReportButton = New System.Windows.Forms.Button()
+        Me.EndDateLabel = New System.Windows.Forms.Label()
+        Me.StartDateLabel = New System.Windows.Forms.Label()
+        Me.FullPrintEndDate = New System.Windows.Forms.DateTimePicker()
+        Me.FullPrintStartDate = New System.Windows.Forms.DateTimePicker()
+        Me.FacilityDisplay = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
         '
-        Me.Panel1.Controls.Add(Me.FacilityName)
-        Me.Panel1.Controls.Add(Me.FacilityLabel)
-        Me.Panel1.Controls.Add(Me.AirsNumber)
-        Me.Panel1.Controls.Add(Me.ShowFullReport)
-        Me.Panel1.Controls.Add(Me.ShowBasicReport)
+        Me.Panel1.Controls.Add(Me.FacilityDisplay)
+        Me.Panel1.Controls.Add(Me.ShowFullReportButton)
+        Me.Panel1.Controls.Add(Me.ShowBasicReportButton)
         Me.Panel1.Controls.Add(Me.EndDateLabel)
         Me.Panel1.Controls.Add(Me.StartDateLabel)
         Me.Panel1.Controls.Add(Me.FullPrintEndDate)
@@ -52,54 +48,23 @@ Partial Class IaipFacilitySummaryPrint
         Me.Panel1.Size = New System.Drawing.Size(406, 162)
         Me.Panel1.TabIndex = 0
         '
-        'FacilityName
+        'ShowFullReportButton
         '
-        Me.FacilityName.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.FacilityName.Location = New System.Drawing.Point(128, 15)
-        Me.FacilityName.Name = "FacilityName"
-        Me.FacilityName.ReadOnly = True
-        Me.FacilityName.Size = New System.Drawing.Size(258, 13)
-        Me.FacilityName.TabIndex = 383
-        Me.FacilityName.TabStop = False
+        Me.ShowFullReportButton.Location = New System.Drawing.Point(225, 52)
+        Me.ShowFullReportButton.Name = "ShowFullReportButton"
+        Me.ShowFullReportButton.Size = New System.Drawing.Size(161, 41)
+        Me.ShowFullReportButton.TabIndex = 1
+        Me.ShowFullReportButton.Text = "&Full Facility Report"
+        Me.ShowFullReportButton.UseVisualStyleBackColor = True
         '
-        'FacilityLabel
+        'ShowBasicReportButton
         '
-        Me.FacilityLabel.AutoSize = True
-        Me.FacilityLabel.Location = New System.Drawing.Point(18, 15)
-        Me.FacilityLabel.Name = "FacilityLabel"
-        Me.FacilityLabel.Size = New System.Drawing.Size(42, 13)
-        Me.FacilityLabel.TabIndex = 382
-        Me.FacilityLabel.Text = "Facility:"
-        '
-        'AirsNumber
-        '
-        Me.AirsNumber.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.AirsNumber.Location = New System.Drawing.Point(66, 15)
-        Me.AirsNumber.Mask = "000-00000, "
-        Me.AirsNumber.Name = "AirsNumber"
-        Me.AirsNumber.ReadOnly = True
-        Me.AirsNumber.Size = New System.Drawing.Size(62, 13)
-        Me.AirsNumber.TabIndex = 380
-        Me.AirsNumber.TabStop = False
-        Me.AirsNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        '
-        'ShowFullReport
-        '
-        Me.ShowFullReport.Location = New System.Drawing.Point(225, 52)
-        Me.ShowFullReport.Name = "ShowFullReport"
-        Me.ShowFullReport.Size = New System.Drawing.Size(161, 41)
-        Me.ShowFullReport.TabIndex = 1
-        Me.ShowFullReport.Text = "&Full Facility Report"
-        Me.ShowFullReport.UseVisualStyleBackColor = True
-        '
-        'ShowBasicReport
-        '
-        Me.ShowBasicReport.Location = New System.Drawing.Point(21, 52)
-        Me.ShowBasicReport.Name = "ShowBasicReport"
-        Me.ShowBasicReport.Size = New System.Drawing.Size(161, 41)
-        Me.ShowBasicReport.TabIndex = 0
-        Me.ShowBasicReport.Text = "&Basic Facility Report"
-        Me.ShowBasicReport.UseVisualStyleBackColor = True
+        Me.ShowBasicReportButton.Location = New System.Drawing.Point(21, 52)
+        Me.ShowBasicReportButton.Name = "ShowBasicReportButton"
+        Me.ShowBasicReportButton.Size = New System.Drawing.Size(161, 41)
+        Me.ShowBasicReportButton.TabIndex = 0
+        Me.ShowBasicReportButton.Text = "&Basic Facility Report"
+        Me.ShowBasicReportButton.UseVisualStyleBackColor = True
         '
         'EndDateLabel
         '
@@ -139,6 +104,16 @@ Partial Class IaipFacilitySummaryPrint
         Me.FullPrintStartDate.TabIndex = 2
         Me.FullPrintStartDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
+        'FacilityDisplay
+        '
+        Me.FacilityDisplay.AutoSize = True
+        Me.FacilityDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FacilityDisplay.Location = New System.Drawing.Point(18, 19)
+        Me.FacilityDisplay.Name = "FacilityDisplay"
+        Me.FacilityDisplay.Size = New System.Drawing.Size(130, 17)
+        Me.FacilityDisplay.TabIndex = 384
+        Me.FacilityDisplay.Text = " No facility selected"
+        '
         'IaipFacilitySummaryPrint
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -157,9 +132,7 @@ Partial Class IaipFacilitySummaryPrint
     Friend WithEvents EndDateLabel As System.Windows.Forms.Label
     Friend WithEvents StartDateLabel As System.Windows.Forms.Label
     Friend WithEvents FullPrintEndDate As System.Windows.Forms.DateTimePicker
-    Friend WithEvents ShowBasicReport As System.Windows.Forms.Button
-    Friend WithEvents AirsNumber As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents FacilityLabel As System.Windows.Forms.Label
-    Friend WithEvents FacilityName As System.Windows.Forms.TextBox
-    Friend WithEvents ShowFullReport As System.Windows.Forms.Button
+    Friend WithEvents ShowBasicReportButton As System.Windows.Forms.Button
+    Friend WithEvents ShowFullReportButton As System.Windows.Forms.Button
+    Friend WithEvents FacilityDisplay As System.Windows.Forms.Label
 End Class

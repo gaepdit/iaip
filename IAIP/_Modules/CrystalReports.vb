@@ -1,33 +1,39 @@
-﻿Module CrystalReports
+﻿Imports CrystalDecisions.Windows.Forms
+Imports CrystalDecisions.CrystalReports.Engine
+
+Module CrystalReports
 
 #Region "Crystal Reports displayer"
 
-    Public Sub DisplayReport(ByVal crReport As Object, ByVal TabText As String)
-        Try
-            crReport.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
-            crReport.DisplayToolbar = True
-            crReport.showrefreshbutton = False
-            crReport.visible = True
+    Public Sub SetUpCrystalReportViewer(ByVal report As ReportClass, ByVal crReportViewer As CrystalReportViewer, ByVal TabText As String)
+        crReportViewer.ReportSource = report
 
-            Dim I As Integer
-            Do While I < crReport.Controls.Count
-                If TypeOf (crReport.Controls(I)) Is CrystalDecisions.Windows.Forms.PageView Then
-                    Dim J As Integer
-                    Do While J < crReport.Controls(I).Controls.Count
-                        If CType(crReport.Controls(I).Controls(J), System.Windows.Forms.TabControl).TabPages.Count > 0 Then
-                            'Change the tab text..
-                            CType(crReport.Controls(I).Controls(J), System.Windows.Forms.TabControl).TabPages.Item(0).Text = TabText
-                            Exit Do
-                        End If
-                    Loop
-                    Exit Do
-                Else
-                    crReport.Controls(I).Visible = False
-                End If
-            Loop
-        Catch ex As Exception
-            ErrorReport(ex, "MRFunctions.DisplayReport")
-        End Try
+        crReportViewer.ToolPanelView = ToolPanelViewType.None
+        crReportViewer.DisplayToolbar = True
+        crReportViewer.ShowRefreshButton = False
+        crReportViewer.Visible = True
+        crReportViewer.ShowGroupTreeButton = False
+        crReportViewer.ShowLogo = False
+        crReportViewer.ShowParameterPanelButton = False
+
+        Dim i As Integer
+        Do While i < crReportViewer.Controls.Count
+            If TypeOf (crReportViewer.Controls(i)) Is PageView Then
+                Dim j As Integer
+                Do While j < crReportViewer.Controls(i).Controls.Count
+                    If CType(crReportViewer.Controls(i).Controls(j), TabControl).TabPages.Count > 0 Then
+                        ' Change the tab text
+                        CType(crReportViewer.Controls(i).Controls(j), TabControl).TabPages.Item(0).Text = TabText
+                        Exit Do
+                    End If
+                Loop
+                Exit Do
+            Else
+                crReportViewer.Controls(i).Visible = False
+            End If
+        Loop
+
+        crReportViewer.Refresh()
     End Sub
 
 #End Region

@@ -26,7 +26,7 @@ Public Class DmuEdtErrorMessageDetail
 
     Private edtErrorMessagesTable As DataTable
     Private edtErrorMessagesBindingSource As BindingSource
-    Private edtErrorMessageDetails As DMU.EdtErrorMessage
+    Private edtErrorMessageDetails As Dmu.EdtErrorMessage
     Private statusOfSelectedRows As SelectedRowsState
     Private headerSuccess As Boolean
     Private activeUsersList As List(Of KeyValuePair(Of Integer, String))
@@ -84,7 +84,7 @@ Public Class DmuEdtErrorMessageDetail
     End Sub
 
     Private Function GetHeaderData() As Boolean
-        edtErrorMessageDetails = DAL.DMU.GetErrorMessageDetail(EdtErrorCode)
+        edtErrorMessageDetails = DAL.Dmu.GetErrorMessageDetail(EdtErrorCode)
 
         If edtErrorMessageDetails IsNot Nothing Then
             ErrorMessageDisplay.Text = edtErrorMessageDetails.ErrorCategory & vbNewLine & vbNewLine & edtErrorMessageDetails.ErrorMessage
@@ -110,7 +110,7 @@ Public Class DmuEdtErrorMessageDetail
     Private Function GetTableData() As Boolean
         statusOfSelectedRows = SelectedRowsState.NoneSelected
 
-        edtErrorMessagesTable = DAL.DMU.GetErrors(EdtErrorCode)
+        edtErrorMessagesTable = DAL.Dmu.GetErrors(EdtErrorCode)
         Dim keys(1) As DataColumn
         keys(0) = edtErrorMessagesTable.Columns("ERRORID")
         edtErrorMessagesTable.PrimaryKey = keys
@@ -347,7 +347,7 @@ Public Class DmuEdtErrorMessageDetail
 #Region " Update data "
 
     Private Sub AssignDefaultUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AssignDefaultUser.Click
-        If DAL.DMU.SetDefaultUser(EdtErrorCode, UserAsDefault.SelectedValue) Then
+        If DAL.Dmu.SetDefaultUser(EdtErrorCode, UserAsDefault.SelectedValue) Then
             MessageBox.Show("Default user set.", "Success", MessageBoxButtons.OK)
         Else
             MessageBox.Show("There was an error setting the default user.", "Error", MessageBoxButtons.OK)
@@ -359,7 +359,7 @@ Public Class DmuEdtErrorMessageDetail
         Dim result As Boolean = False
 
         If idArray IsNot Nothing Then
-            result = DAL.DMU.AssignErrorToUser(UserToAssign.SelectedValue, idArray)
+            result = DAL.Dmu.AssignErrorToUser(UserToAssign.SelectedValue, idArray)
         End If
 
         If result = True Then
@@ -390,9 +390,9 @@ Public Class DmuEdtErrorMessageDetail
 
             If idArray IsNot Nothing Then
                 If statusOfSelectedRows = SelectedRowsState.AllOpen Then
-                    result = DAL.DMU.SetResolvedStatus(True, idArray)
+                    result = DAL.Dmu.SetResolvedStatus(True, idArray)
                 ElseIf statusOfSelectedRows = SelectedRowsState.AllResolved Then
-                    result = DAL.DMU.SetResolvedStatus(False, idArray)
+                    result = DAL.Dmu.SetResolvedStatus(False, idArray)
                 End If
             End If
 

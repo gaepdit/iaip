@@ -84,11 +84,12 @@ Module App
         Return New Version(v.Major, v.Minor, v.Build)
     End Function
 
-    Private Function GetVersionAsMajorMinor(ByVal v As Version) As Version
-        ' This converts a Version from four components to three
-        If v.Build = -1 Then Return v ' (A version with fewer than three components gets returned as-is)
-        Return New Version(v.Major, v.Minor)
-    End Function
+    '' Not currently used, but may be useful in the future
+    'Private Function GetVersionAsMajorMinor(ByVal v As Version) As Version
+    '    ' This converts a Version from four components to three
+    '    If v.Build = -1 Then Return v ' (A version with fewer than three components gets returned as-is)
+    '    Return New Version(v.Major, v.Minor)
+    'End Function
 
 #End Region
 
@@ -121,21 +122,22 @@ Module App
 
                 If (Not info.IsUpdateRequired) Then
                     Dim dr As DialogResult
-                    dr = MessageBox.Show("An update is available (" & _
-                                         info.AvailableVersion.ToString & "). Would you like to install it now?", _
+                    dr = MessageBox.Show("An update is available (" &
+                                         GetVersionAsMajorMinorBuild(info.AvailableVersion).ToString &
+                                         "). Would you like to install it now?",
                                          "Update Available", MessageBoxButtons.YesNo)
                     If (Not DialogResult.Yes = dr) Then doUpdate = False
                 Else
                     ' Display a message that the app MUST reboot. Display the minimum required version.
-                    MessageBox.Show("A mandatory update will now be installed (" & info.AvailableVersion.ToString & "). ", _
-                                    "Update Available", MessageBoxButtons.OK, _
-                                    MessageBoxIcon.Information)
+                    MessageBox.Show("A mandatory update will now be installed (" &
+                                    GetVersionAsMajorMinorBuild(info.AvailableVersion).ToString & "). ",
+                                    "Update Available", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If
 
                 If (doUpdate) Then
                     Try
                         AD.Update()
-                        MessageBox.Show("The IAIP has been updated and will now restart.")
+                        'MessageBox.Show("The IAIP has been updated and will now restart.")
                         Application.Restart()
                     Catch dde As DeploymentDownloadException
                         MessageBox.Show("The IAIP cannot be updated right now. " & vbNewLine & vbNewLine & _
@@ -173,7 +175,7 @@ Module App
                         MessageBoxIcon.Exclamation, _
                         MessageBoxDefaultButton.Button2, _
                         0, _
-                        "http://dmu.georgiaair.org/support/crystal-reports.html")
+                        "http://dmu.georgiaair.org/iaip/pre-install/")
     End Sub
 
 #End Region

@@ -37,10 +37,6 @@ Public Class SSCPManagersTools
     Dim daVOCStaff As OracleDataAdapter
     Dim dsDistrictStaff As DataSet
     Dim daDistrictStaff As OracleDataAdapter
-    Dim dsFacilityAssignment As DataSet
-    Dim daFacilityAssignment As OracleDataAdapter
-    Dim dsInspectionList As DataSet
-    Dim daInspectionList As OracleDataAdapter
     Dim dsCMSDataSet As DataSet
     Dim daCMSDataSet As OracleDataAdapter
     Dim dsCMSWarningDataSet As DataSet
@@ -5647,18 +5643,18 @@ Public Class SSCPManagersTools
                 MessageBox.Show("Warning: This may take a VERY, VERY long time. The IAIP will be unresponsive until finished. " & _
                                 "Are you sure you want to proceed?", "Confirm Patience", _
                     MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
-            If DialogResult = DialogResult.Cancel Then
+            If confirmResult = DialogResult.Cancel Then
                 Exit Sub
             End If
 
-            If DAL.SSCP.AssignmentYearExists(targetYear) Then
+            If DAL.Sscp.AssignmentYearExists(targetYear) Then
                 If chbClearExistingData.Checked = True Then
                     Dim dialogResult As DialogResult = _
                         MessageBox.Show("Warning: This will delete all facility assignments for " & mtbNewYear.Text & _
                                         ". Are you sure you want to proceed?", "Confirm Delete", _
                                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
                     If dialogResult = DialogResult.Yes Then
-                        Dim deleteResult As Boolean = DAL.SSCP.DeleteAssignmentYear(targetYear)
+                        Dim deleteResult As Boolean = DAL.Sscp.DeleteAssignmentYear(targetYear)
                         If Not deleteResult Then
                             MsgBox("There was an error when attempting to clear data from target year. " & _
                                    "Please check the value and try again." & vbCrLf & "No data altered.", _
@@ -5677,7 +5673,7 @@ Public Class SSCPManagersTools
                 End If
             End If
 
-            Dim recordsAdded As Integer = DAL.SSCP.CopyAssignmentYear(oldYear, targetYear)
+            Dim recordsAdded As Integer = DAL.Sscp.CopyAssignmentYear(oldYear, targetYear)
             If recordsAdded > 0 Then
                 If Not cboExistingYears.Items.Contains(targetYear) Then
                     cboExistingYears.Items.Add(targetYear)
@@ -5978,9 +5974,6 @@ Public Class SSCPManagersTools
                 .HeaderText = "Name"
                 .DisplayIndex = 2
             End With
-            'With .Columns("ActiveString")
-            '    .Visible = False
-            'End With
         End With
     End Sub
 
@@ -6023,7 +6016,7 @@ Public Class SSCPManagersTools
             End If
         End With
 
-        Dim saved As Boolean = DAL.SaveEnforcementDocumentType(newEnfDocType, Me)
+        DAL.SaveEnforcementDocumentType(newEnfDocType, Me)
 
         ClearNewEnfDocTypesForm()
         LoadEnforcementDocumentTypes()

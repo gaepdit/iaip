@@ -14,7 +14,7 @@
   <xs:element name="CrDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="CrDataSet" msprop:Generator_UserDSName="CrDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="VW_APBFACILITYHEADER" msprop:Generator_TableClassName="VW_APBFACILITYHEADERDataTable" msprop:Generator_TableVarName="tableVW_APBFACILITYHEADER" msprop:Generator_RowChangedName="VW_APBFACILITYHEADERRowChanged" msprop:Generator_TablePropName="VW_APBFACILITYHEADER" msprop:Generator_RowDeletingName="VW_APBFACILITYHEADERRowDeleting" msprop:Generator_RowChangingName="VW_APBFACILITYHEADERRowChanging" msprop:Generator_RowEvHandlerName="VW_APBFACILITYHEADERRowChangeEventHandler" msprop:Generator_RowDeletedName="VW_APBFACILITYHEADERRowDeleted" msprop:Generator_RowClassName="VW_APBFACILITYHEADERRow" msprop:Generator_UserTableName="VW_APBFACILITYHEADER" msprop:Generator_RowEvArgName="VW_APBFACILITYHEADERRowChangeEvent">
+        <xs:element name="VW_APBFACILITYHEADER" msprop:Generator_TableClassName="VW_APBFACILITYHEADERDataTable" msprop:Generator_TableVarName="tableVW_APBFACILITYHEADER" msprop:Generator_TablePropName="VW_APBFACILITYHEADER" msprop:Generator_RowDeletingName="VW_APBFACILITYHEADERRowDeleting" msprop:Generator_RowChangingName="VW_APBFACILITYHEADERRowChanging" msprop:Generator_RowEvHandlerName="VW_APBFACILITYHEADERRowChangeEventHandler" msprop:Generator_RowDeletedName="VW_APBFACILITYHEADERRowDeleted" msprop:Generator_UserTableName="VW_APBFACILITYHEADER" msprop:Generator_RowChangedName="VW_APBFACILITYHEADERRowChanged" msprop:Generator_RowEvArgName="VW_APBFACILITYHEADERRowChangeEvent" msprop:Generator_RowClassName="VW_APBFACILITYHEADERRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="STRAIRSNUMBER" msprop:Generator_ColumnVarNameInTable="columnSTRAIRSNUMBER" msprop:Generator_ColumnPropNameInRow="STRAIRSNUMBER" msprop:Generator_ColumnPropNameInTable="STRAIRSNUMBERColumn" msprop:Generator_UserColumnName="STRAIRSNUMBER">
@@ -141,7 +141,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="VW_APBFACILITYLOCATION" msprop:Generator_TableClassName="VW_APBFACILITYLOCATIONDataTable" msprop:Generator_TableVarName="tableVW_APBFACILITYLOCATION" msprop:Generator_RowChangedName="VW_APBFACILITYLOCATIONRowChanged" msprop:Generator_TablePropName="VW_APBFACILITYLOCATION" msprop:Generator_RowDeletingName="VW_APBFACILITYLOCATIONRowDeleting" msprop:Generator_RowChangingName="VW_APBFACILITYLOCATIONRowChanging" msprop:Generator_RowEvHandlerName="VW_APBFACILITYLOCATIONRowChangeEventHandler" msprop:Generator_RowDeletedName="VW_APBFACILITYLOCATIONRowDeleted" msprop:Generator_RowClassName="VW_APBFACILITYLOCATIONRow" msprop:Generator_UserTableName="VW_APBFACILITYLOCATION" msprop:Generator_RowEvArgName="VW_APBFACILITYLOCATIONRowChangeEvent">
+        <xs:element name="VW_APBFACILITYLOCATION" msprop:Generator_TableClassName="VW_APBFACILITYLOCATIONDataTable" msprop:Generator_TableVarName="tableVW_APBFACILITYLOCATION" msprop:Generator_TablePropName="VW_APBFACILITYLOCATION" msprop:Generator_RowDeletingName="VW_APBFACILITYLOCATIONRowDeleting" msprop:Generator_RowChangingName="VW_APBFACILITYLOCATIONRowChanging" msprop:Generator_RowEvHandlerName="VW_APBFACILITYLOCATIONRowChangeEventHandler" msprop:Generator_RowDeletedName="VW_APBFACILITYLOCATIONRowDeleted" msprop:Generator_UserTableName="VW_APBFACILITYLOCATION" msprop:Generator_RowChangedName="VW_APBFACILITYLOCATIONRowChanged" msprop:Generator_RowEvArgName="VW_APBFACILITYLOCATIONRowChangeEvent" msprop:Generator_RowClassName="VW_APBFACILITYLOCATIONRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="STRAIRSNUMBER" msprop:Generator_ColumnVarNameInTable="columnSTRAIRSNUMBER" msprop:Generator_ColumnPropNameInRow="STRAIRSNUMBER" msprop:Generator_ColumnPropNameInTable="STRAIRSNUMBERColumn" msprop:Generator_UserColumnName="STRAIRSNUMBER">
@@ -254,11 +254,11 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="EmptyDataTable" msprop:Generator_TableClassName="EmptyDataTableDataTable" msprop:Generator_TableVarName="tableEmptyDataTable" msprop:Generator_RowChangedName="EmptyDataTableRowChanged" msprop:Generator_TablePropName="EmptyDataTable" msprop:Generator_RowDeletingName="EmptyDataTableRowDeleting" msprop:Generator_RowChangingName="EmptyDataTableRowChanging" msprop:Generator_RowEvHandlerName="EmptyDataTableRowChangeEventHandler" msprop:Generator_RowDeletedName="EmptyDataTableRowDeleted" msprop:Generator_RowClassName="EmptyDataTableRow" msprop:Generator_UserTableName="EmptyDataTable" msprop:Generator_RowEvArgName="EmptyDataTableRowChangeEvent">
+        <xs:element name="EmptyDataTable" msprop:Generator_TableClassName="EmptyDataTableDataTable" msprop:Generator_TableVarName="tableEmptyDataTable" msprop:Generator_TablePropName="EmptyDataTable" msprop:Generator_RowDeletingName="EmptyDataTableRowDeleting" msprop:Generator_RowChangingName="EmptyDataTableRowChanging" msprop:Generator_RowEvHandlerName="EmptyDataTableRowChangeEventHandler" msprop:Generator_RowDeletedName="EmptyDataTableRowDeleted" msprop:Generator_UserTableName="EmptyDataTable" msprop:Generator_RowChangedName="EmptyDataTableRowChanged" msprop:Generator_RowEvArgName="EmptyDataTableRowChangeEvent" msprop:Generator_RowClassName="EmptyDataTableRow">
           <xs:complexType>
           </xs:complexType>
         </xs:element>
-        <xs:element name="VW_SSPP_ACKNOWLEDGE" msprop:Generator_TableClassName="VW_SSPP_ACKNOWLEDGEDataTable" msprop:Generator_TableVarName="tableVW_SSPP_ACKNOWLEDGE" msprop:Generator_TablePropName="VW_SSPP_ACKNOWLEDGE" msprop:Generator_RowDeletingName="VW_SSPP_ACKNOWLEDGERowDeleting" msprop:Generator_RowChangingName="VW_SSPP_ACKNOWLEDGERowChanging" msprop:Generator_RowEvHandlerName="VW_SSPP_ACKNOWLEDGERowChangeEventHandler" msprop:Generator_RowDeletedName="VW_SSPP_ACKNOWLEDGERowDeleted" msprop:Generator_UserTableName="VW_SSPP_ACKNOWLEDGE" msprop:Generator_RowChangedName="VW_SSPP_ACKNOWLEDGERowChanged" msprop:Generator_RowEvArgName="VW_SSPP_ACKNOWLEDGERowChangeEvent" msprop:Generator_RowClassName="VW_SSPP_ACKNOWLEDGERow">
+        <xs:element name="VW_SSPP_ACKNOWLEDGE" msprop:Generator_TableClassName="VW_SSPP_ACKNOWLEDGEDataTable" msprop:Generator_TableVarName="tableVW_SSPP_ACKNOWLEDGE" msprop:Generator_RowChangedName="VW_SSPP_ACKNOWLEDGERowChanged" msprop:Generator_TablePropName="VW_SSPP_ACKNOWLEDGE" msprop:Generator_RowDeletingName="VW_SSPP_ACKNOWLEDGERowDeleting" msprop:Generator_RowChangingName="VW_SSPP_ACKNOWLEDGERowChanging" msprop:Generator_RowEvHandlerName="VW_SSPP_ACKNOWLEDGERowChangeEventHandler" msprop:Generator_RowDeletedName="VW_SSPP_ACKNOWLEDGERowDeleted" msprop:Generator_RowClassName="VW_SSPP_ACKNOWLEDGERow" msprop:Generator_UserTableName="VW_SSPP_ACKNOWLEDGE" msprop:Generator_RowEvArgName="VW_SSPP_ACKNOWLEDGERowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="STRAPPLICATIONNUMBER" msprop:Generator_ColumnVarNameInTable="columnSTRAPPLICATIONNUMBER" msprop:Generator_ColumnPropNameInRow="STRAPPLICATIONNUMBER" msprop:Generator_ColumnPropNameInTable="STRAPPLICATIONNUMBERColumn" msprop:Generator_UserColumnName="STRAPPLICATIONNUMBER">
@@ -398,12 +398,737 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="VW_SSCP_INSPECTIONS" msprop:Generator_TableClassName="VW_SSCP_INSPECTIONSDataTable" msprop:Generator_TableVarName="tableVW_SSCP_INSPECTIONS" msprop:Generator_RowChangedName="VW_SSCP_INSPECTIONSRowChanged" msprop:Generator_TablePropName="VW_SSCP_INSPECTIONS" msprop:Generator_RowDeletingName="VW_SSCP_INSPECTIONSRowDeleting" msprop:Generator_RowChangingName="VW_SSCP_INSPECTIONSRowChanging" msprop:Generator_RowEvHandlerName="VW_SSCP_INSPECTIONSRowChangeEventHandler" msprop:Generator_RowDeletedName="VW_SSCP_INSPECTIONSRowDeleted" msprop:Generator_RowClassName="VW_SSCP_INSPECTIONSRow" msprop:Generator_UserTableName="VW_SSCP_INSPECTIONS" msprop:Generator_RowEvArgName="VW_SSCP_INSPECTIONSRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="STRTRACKINGNUMBER" msprop:Generator_ColumnVarNameInTable="columnSTRTRACKINGNUMBER" msprop:Generator_ColumnPropNameInRow="STRTRACKINGNUMBER" msprop:Generator_ColumnPropNameInTable="STRTRACKINGNUMBERColumn" msprop:Generator_UserColumnName="STRTRACKINGNUMBER" type="xs:long" />
+              <xs:element name="STRAIRSNUMBER" msprop:Generator_ColumnVarNameInTable="columnSTRAIRSNUMBER" msprop:Generator_ColumnPropNameInRow="STRAIRSNUMBER" msprop:Generator_ColumnPropNameInTable="STRAIRSNUMBERColumn" msprop:Generator_UserColumnName="STRAIRSNUMBER">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="12" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATRECEIVEDDATE" msprop:Generator_ColumnVarNameInTable="columnDATRECEIVEDDATE" msprop:Generator_ColumnPropNameInRow="DATRECEIVEDDATE" msprop:Generator_ColumnPropNameInTable="DATRECEIVEDDATEColumn" msprop:Generator_UserColumnName="DATRECEIVEDDATE" type="xs:dateTime" />
+              <xs:element name="STRRESPONSIBLESTAFF" msprop:Generator_ColumnVarNameInTable="columnSTRRESPONSIBLESTAFF" msprop:Generator_ColumnPropNameInRow="STRRESPONSIBLESTAFF" msprop:Generator_ColumnPropNameInTable="STRRESPONSIBLESTAFFColumn" msprop:Generator_UserColumnName="STRRESPONSIBLESTAFF" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRFIRSTNAME" msprop:Generator_ColumnVarNameInTable="columnSTRFIRSTNAME" msprop:Generator_ColumnPropNameInRow="STRFIRSTNAME" msprop:Generator_ColumnPropNameInTable="STRFIRSTNAMEColumn" msprop:Generator_UserColumnName="STRFIRSTNAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRLASTNAME" msprop:Generator_ColumnVarNameInTable="columnSTRLASTNAME" msprop:Generator_ColumnPropNameInRow="STRLASTNAME" msprop:Generator_ColumnPropNameInTable="STRLASTNAMEColumn" msprop:Generator_UserColumnName="STRLASTNAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATCOMPLETEDATE" msprop:Generator_ColumnVarNameInTable="columnDATCOMPLETEDATE" msprop:Generator_ColumnPropNameInRow="DATCOMPLETEDATE" msprop:Generator_ColumnPropNameInTable="DATCOMPLETEDATEColumn" msprop:Generator_UserColumnName="DATCOMPLETEDATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="STRDELETE" msprop:Generator_ColumnVarNameInTable="columnSTRDELETE" msprop:Generator_ColumnPropNameInRow="STRDELETE" msprop:Generator_ColumnPropNameInTable="STRDELETEColumn" msprop:Generator_UserColumnName="STRDELETE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATACKNOLEDGMENTLETTERSENT" msprop:Generator_ColumnVarNameInTable="columnDATACKNOLEDGMENTLETTERSENT" msprop:Generator_ColumnPropNameInRow="DATACKNOLEDGMENTLETTERSENT" msprop:Generator_ColumnPropNameInTable="DATACKNOLEDGMENTLETTERSENTColumn" msprop:Generator_UserColumnName="DATACKNOLEDGMENTLETTERSENT" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="STRINSPECTIONCOMMENTS" msprop:Generator_ColumnVarNameInTable="columnSTRINSPECTIONCOMMENTS" msprop:Generator_ColumnPropNameInRow="STRINSPECTIONCOMMENTS" msprop:Generator_ColumnPropNameInTable="STRINSPECTIONCOMMENTSColumn" msprop:Generator_UserColumnName="STRINSPECTIONCOMMENTS">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATINSPECTIONDATESTART" msprop:Generator_ColumnVarNameInTable="columnDATINSPECTIONDATESTART" msprop:Generator_ColumnPropNameInRow="DATINSPECTIONDATESTART" msprop:Generator_ColumnPropNameInTable="DATINSPECTIONDATESTARTColumn" msprop:Generator_UserColumnName="DATINSPECTIONDATESTART" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DATINSPECTIONDATEEND" msprop:Generator_ColumnVarNameInTable="columnDATINSPECTIONDATEEND" msprop:Generator_ColumnPropNameInRow="DATINSPECTIONDATEEND" msprop:Generator_ColumnPropNameInTable="DATINSPECTIONDATEENDColumn" msprop:Generator_UserColumnName="DATINSPECTIONDATEEND" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="STRINSPECTIONREASON" msprop:Generator_ColumnVarNameInTable="columnSTRINSPECTIONREASON" msprop:Generator_ColumnPropNameInRow="STRINSPECTIONREASON" msprop:Generator_ColumnPropNameInTable="STRINSPECTIONREASONColumn" msprop:Generator_UserColumnName="STRINSPECTIONREASON">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="35" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRWEATHERCONDITIONS" msprop:Generator_ColumnVarNameInTable="columnSTRWEATHERCONDITIONS" msprop:Generator_ColumnPropNameInRow="STRWEATHERCONDITIONS" msprop:Generator_ColumnPropNameInTable="STRWEATHERCONDITIONSColumn" msprop:Generator_UserColumnName="STRWEATHERCONDITIONS">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRINSPECTIONGUIDE" msprop:Generator_ColumnVarNameInTable="columnSTRINSPECTIONGUIDE" msprop:Generator_ColumnPropNameInRow="STRINSPECTIONGUIDE" msprop:Generator_ColumnPropNameInTable="STRINSPECTIONGUIDEColumn" msprop:Generator_UserColumnName="STRINSPECTIONGUIDE">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRFACILITYOPERATING" msprop:Generator_ColumnVarNameInTable="columnSTRFACILITYOPERATING" msprop:Generator_ColumnPropNameInRow="STRFACILITYOPERATING" msprop:Generator_ColumnPropNameInTable="STRFACILITYOPERATINGColumn" msprop:Generator_UserColumnName="STRFACILITYOPERATING">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRINSPECTIONCOMPLIANCESTATUS" msprop:Generator_ColumnVarNameInTable="columnSTRINSPECTIONCOMPLIANCESTATUS" msprop:Generator_ColumnPropNameInRow="STRINSPECTIONCOMPLIANCESTATUS" msprop:Generator_ColumnPropNameInTable="STRINSPECTIONCOMPLIANCESTATUSColumn" msprop:Generator_UserColumnName="STRINSPECTIONCOMPLIANCESTATUS">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="35" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRINSPECTIONFOLLOWUP" msprop:Generator_ColumnVarNameInTable="columnSTRINSPECTIONFOLLOWUP" msprop:Generator_ColumnPropNameInRow="STRINSPECTIONFOLLOWUP" msprop:Generator_ColumnPropNameInTable="STRINSPECTIONFOLLOWUPColumn" msprop:Generator_UserColumnName="STRINSPECTIONFOLLOWUP">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VW_SSCP_ACCS" msprop:Generator_TableClassName="VW_SSCP_ACCSDataTable" msprop:Generator_TableVarName="tableVW_SSCP_ACCS" msprop:Generator_TablePropName="VW_SSCP_ACCS" msprop:Generator_RowDeletingName="VW_SSCP_ACCSRowDeleting" msprop:Generator_RowChangingName="VW_SSCP_ACCSRowChanging" msprop:Generator_RowEvHandlerName="VW_SSCP_ACCSRowChangeEventHandler" msprop:Generator_RowDeletedName="VW_SSCP_ACCSRowDeleted" msprop:Generator_UserTableName="VW_SSCP_ACCS" msprop:Generator_RowChangedName="VW_SSCP_ACCSRowChanged" msprop:Generator_RowEvArgName="VW_SSCP_ACCSRowChangeEvent" msprop:Generator_RowClassName="VW_SSCP_ACCSRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="STRTRACKINGNUMBER" msprop:Generator_ColumnVarNameInTable="columnSTRTRACKINGNUMBER" msprop:Generator_ColumnPropNameInRow="STRTRACKINGNUMBER" msprop:Generator_ColumnPropNameInTable="STRTRACKINGNUMBERColumn" msprop:Generator_UserColumnName="STRTRACKINGNUMBER" type="xs:long" />
+              <xs:element name="STRAIRSNUMBER" msprop:Generator_ColumnVarNameInTable="columnSTRAIRSNUMBER" msprop:Generator_ColumnPropNameInRow="STRAIRSNUMBER" msprop:Generator_ColumnPropNameInTable="STRAIRSNUMBERColumn" msprop:Generator_UserColumnName="STRAIRSNUMBER">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="12" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATRECEIVEDDATE" msprop:Generator_ColumnVarNameInTable="columnDATRECEIVEDDATE" msprop:Generator_ColumnPropNameInRow="DATRECEIVEDDATE" msprop:Generator_ColumnPropNameInTable="DATRECEIVEDDATEColumn" msprop:Generator_UserColumnName="DATRECEIVEDDATE" type="xs:dateTime" />
+              <xs:element name="STRRESPONSIBLESTAFF" msprop:Generator_ColumnVarNameInTable="columnSTRRESPONSIBLESTAFF" msprop:Generator_ColumnPropNameInRow="STRRESPONSIBLESTAFF" msprop:Generator_ColumnPropNameInTable="STRRESPONSIBLESTAFFColumn" msprop:Generator_UserColumnName="STRRESPONSIBLESTAFF" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRFIRSTNAME" msprop:Generator_ColumnVarNameInTable="columnSTRFIRSTNAME" msprop:Generator_ColumnPropNameInRow="STRFIRSTNAME" msprop:Generator_ColumnPropNameInTable="STRFIRSTNAMEColumn" msprop:Generator_UserColumnName="STRFIRSTNAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRLASTNAME" msprop:Generator_ColumnVarNameInTable="columnSTRLASTNAME" msprop:Generator_ColumnPropNameInRow="STRLASTNAME" msprop:Generator_ColumnPropNameInTable="STRLASTNAMEColumn" msprop:Generator_UserColumnName="STRLASTNAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATCOMPLETEDATE" msprop:Generator_ColumnVarNameInTable="columnDATCOMPLETEDATE" msprop:Generator_ColumnPropNameInRow="DATCOMPLETEDATE" msprop:Generator_ColumnPropNameInTable="DATCOMPLETEDATEColumn" msprop:Generator_UserColumnName="DATCOMPLETEDATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="STRDELETE" msprop:Generator_ColumnVarNameInTable="columnSTRDELETE" msprop:Generator_ColumnPropNameInRow="STRDELETE" msprop:Generator_ColumnPropNameInTable="STRDELETEColumn" msprop:Generator_UserColumnName="STRDELETE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATACKNOLEDGMENTLETTERSENT" msprop:Generator_ColumnVarNameInTable="columnDATACKNOLEDGMENTLETTERSENT" msprop:Generator_ColumnPropNameInRow="DATACKNOLEDGMENTLETTERSENT" msprop:Generator_ColumnPropNameInTable="DATACKNOLEDGMENTLETTERSENTColumn" msprop:Generator_UserColumnName="DATACKNOLEDGMENTLETTERSENT" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="STRCOMMENTS" msprop:Generator_ColumnVarNameInTable="columnSTRCOMMENTS" msprop:Generator_ColumnPropNameInRow="STRCOMMENTS" msprop:Generator_ColumnPropNameInTable="STRCOMMENTSColumn" msprop:Generator_UserColumnName="STRCOMMENTS">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATACCREPORTINGYEAR" msprop:Generator_ColumnVarNameInTable="columnDATACCREPORTINGYEAR" msprop:Generator_ColumnPropNameInRow="DATACCREPORTINGYEAR" msprop:Generator_ColumnPropNameInTable="DATACCREPORTINGYEARColumn" msprop:Generator_UserColumnName="DATACCREPORTINGYEAR" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DATPOSTMARKDATE" msprop:Generator_ColumnVarNameInTable="columnDATPOSTMARKDATE" msprop:Generator_ColumnPropNameInRow="DATPOSTMARKDATE" msprop:Generator_ColumnPropNameInTable="DATPOSTMARKDATEColumn" msprop:Generator_UserColumnName="DATPOSTMARKDATE" type="xs:dateTime" />
+              <xs:element name="STRPOSTMARKEDONTIME" msprop:Generator_ColumnVarNameInTable="columnSTRPOSTMARKEDONTIME" msprop:Generator_ColumnPropNameInRow="STRPOSTMARKEDONTIME" msprop:Generator_ColumnPropNameInTable="STRPOSTMARKEDONTIMEColumn" msprop:Generator_UserColumnName="STRPOSTMARKEDONTIME">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRSIGNEDBYRO" msprop:Generator_ColumnVarNameInTable="columnSTRSIGNEDBYRO" msprop:Generator_ColumnPropNameInRow="STRSIGNEDBYRO" msprop:Generator_ColumnPropNameInTable="STRSIGNEDBYROColumn" msprop:Generator_UserColumnName="STRSIGNEDBYRO">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRCORRECTACCFORMS" msprop:Generator_ColumnVarNameInTable="columnSTRCORRECTACCFORMS" msprop:Generator_ColumnPropNameInRow="STRCORRECTACCFORMS" msprop:Generator_ColumnPropNameInTable="STRCORRECTACCFORMSColumn" msprop:Generator_UserColumnName="STRCORRECTACCFORMS">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRTITLEVCONDITIONSLISTED" msprop:Generator_ColumnVarNameInTable="columnSTRTITLEVCONDITIONSLISTED" msprop:Generator_ColumnPropNameInRow="STRTITLEVCONDITIONSLISTED" msprop:Generator_ColumnPropNameInTable="STRTITLEVCONDITIONSLISTEDColumn" msprop:Generator_UserColumnName="STRTITLEVCONDITIONSLISTED">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRACCCORRECTLYFILLEDOUT" msprop:Generator_ColumnVarNameInTable="columnSTRACCCORRECTLYFILLEDOUT" msprop:Generator_ColumnPropNameInRow="STRACCCORRECTLYFILLEDOUT" msprop:Generator_ColumnPropNameInTable="STRACCCORRECTLYFILLEDOUTColumn" msprop:Generator_UserColumnName="STRACCCORRECTLYFILLEDOUT">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRREPORTEDDEVIATIONS" msprop:Generator_ColumnVarNameInTable="columnSTRREPORTEDDEVIATIONS" msprop:Generator_ColumnPropNameInRow="STRREPORTEDDEVIATIONS" msprop:Generator_ColumnPropNameInTable="STRREPORTEDDEVIATIONSColumn" msprop:Generator_UserColumnName="STRREPORTEDDEVIATIONS">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRDEVIATIONSUNREPORTED" msprop:Generator_ColumnVarNameInTable="columnSTRDEVIATIONSUNREPORTED" msprop:Generator_ColumnPropNameInRow="STRDEVIATIONSUNREPORTED" msprop:Generator_ColumnPropNameInTable="STRDEVIATIONSUNREPORTEDColumn" msprop:Generator_UserColumnName="STRDEVIATIONSUNREPORTED">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRENFORCEMENTNEEDED" msprop:Generator_ColumnVarNameInTable="columnSTRENFORCEMENTNEEDED" msprop:Generator_ColumnPropNameInRow="STRENFORCEMENTNEEDED" msprop:Generator_ColumnPropNameInTable="STRENFORCEMENTNEEDEDColumn" msprop:Generator_UserColumnName="STRENFORCEMENTNEEDED">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRKNOWNDEVIATIONSREPORTED" msprop:Generator_ColumnVarNameInTable="columnSTRKNOWNDEVIATIONSREPORTED" msprop:Generator_ColumnPropNameInRow="STRKNOWNDEVIATIONSREPORTED" msprop:Generator_ColumnPropNameInTable="STRKNOWNDEVIATIONSREPORTEDColumn" msprop:Generator_UserColumnName="STRKNOWNDEVIATIONSREPORTED" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRRESUBMITTALREQUIRED" msprop:Generator_ColumnVarNameInTable="columnSTRRESUBMITTALREQUIRED" msprop:Generator_ColumnPropNameInRow="STRRESUBMITTALREQUIRED" msprop:Generator_ColumnPropNameInTable="STRRESUBMITTALREQUIREDColumn" msprop:Generator_UserColumnName="STRRESUBMITTALREQUIRED" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VW_SSCP_NOTIFICATIONS" msprop:Generator_TableClassName="VW_SSCP_NOTIFICATIONSDataTable" msprop:Generator_TableVarName="tableVW_SSCP_NOTIFICATIONS" msprop:Generator_RowChangedName="VW_SSCP_NOTIFICATIONSRowChanged" msprop:Generator_TablePropName="VW_SSCP_NOTIFICATIONS" msprop:Generator_RowDeletingName="VW_SSCP_NOTIFICATIONSRowDeleting" msprop:Generator_RowChangingName="VW_SSCP_NOTIFICATIONSRowChanging" msprop:Generator_RowEvHandlerName="VW_SSCP_NOTIFICATIONSRowChangeEventHandler" msprop:Generator_RowDeletedName="VW_SSCP_NOTIFICATIONSRowDeleted" msprop:Generator_RowClassName="VW_SSCP_NOTIFICATIONSRow" msprop:Generator_UserTableName="VW_SSCP_NOTIFICATIONS" msprop:Generator_RowEvArgName="VW_SSCP_NOTIFICATIONSRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="STRTRACKINGNUMBER" msprop:Generator_ColumnVarNameInTable="columnSTRTRACKINGNUMBER" msprop:Generator_ColumnPropNameInRow="STRTRACKINGNUMBER" msprop:Generator_ColumnPropNameInTable="STRTRACKINGNUMBERColumn" msprop:Generator_UserColumnName="STRTRACKINGNUMBER" type="xs:long" />
+              <xs:element name="STRAIRSNUMBER" msprop:Generator_ColumnVarNameInTable="columnSTRAIRSNUMBER" msprop:Generator_ColumnPropNameInRow="STRAIRSNUMBER" msprop:Generator_ColumnPropNameInTable="STRAIRSNUMBERColumn" msprop:Generator_UserColumnName="STRAIRSNUMBER">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="12" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATRECEIVEDDATE" msprop:Generator_ColumnVarNameInTable="columnDATRECEIVEDDATE" msprop:Generator_ColumnPropNameInRow="DATRECEIVEDDATE" msprop:Generator_ColumnPropNameInTable="DATRECEIVEDDATEColumn" msprop:Generator_UserColumnName="DATRECEIVEDDATE" type="xs:dateTime" />
+              <xs:element name="STRRESPONSIBLESTAFF" msprop:Generator_ColumnVarNameInTable="columnSTRRESPONSIBLESTAFF" msprop:Generator_ColumnPropNameInRow="STRRESPONSIBLESTAFF" msprop:Generator_ColumnPropNameInTable="STRRESPONSIBLESTAFFColumn" msprop:Generator_UserColumnName="STRRESPONSIBLESTAFF" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRFIRSTNAME" msprop:Generator_ColumnVarNameInTable="columnSTRFIRSTNAME" msprop:Generator_ColumnPropNameInRow="STRFIRSTNAME" msprop:Generator_ColumnPropNameInTable="STRFIRSTNAMEColumn" msprop:Generator_UserColumnName="STRFIRSTNAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRLASTNAME" msprop:Generator_ColumnVarNameInTable="columnSTRLASTNAME" msprop:Generator_ColumnPropNameInRow="STRLASTNAME" msprop:Generator_ColumnPropNameInTable="STRLASTNAMEColumn" msprop:Generator_UserColumnName="STRLASTNAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATCOMPLETEDATE" msprop:Generator_ColumnVarNameInTable="columnDATCOMPLETEDATE" msprop:Generator_ColumnPropNameInRow="DATCOMPLETEDATE" msprop:Generator_ColumnPropNameInTable="DATCOMPLETEDATEColumn" msprop:Generator_UserColumnName="DATCOMPLETEDATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="STRDELETE" msprop:Generator_ColumnVarNameInTable="columnSTRDELETE" msprop:Generator_ColumnPropNameInRow="STRDELETE" msprop:Generator_ColumnPropNameInTable="STRDELETEColumn" msprop:Generator_UserColumnName="STRDELETE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATACKNOLEDGMENTLETTERSENT" msprop:Generator_ColumnVarNameInTable="columnDATACKNOLEDGMENTLETTERSENT" msprop:Generator_ColumnPropNameInRow="DATACKNOLEDGMENTLETTERSENT" msprop:Generator_ColumnPropNameInTable="DATACKNOLEDGMENTLETTERSENTColumn" msprop:Generator_UserColumnName="DATACKNOLEDGMENTLETTERSENT" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="STRNOTIFICATIONCOMMENT" msprop:Generator_ColumnVarNameInTable="columnSTRNOTIFICATIONCOMMENT" msprop:Generator_ColumnPropNameInRow="STRNOTIFICATIONCOMMENT" msprop:Generator_ColumnPropNameInTable="STRNOTIFICATIONCOMMENTColumn" msprop:Generator_UserColumnName="STRNOTIFICATIONCOMMENT" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATNOTIFICATIONDUE" msprop:Generator_ColumnVarNameInTable="columnDATNOTIFICATIONDUE" msprop:Generator_ColumnPropNameInRow="DATNOTIFICATIONDUE" msprop:Generator_ColumnPropNameInTable="DATNOTIFICATIONDUEColumn" msprop:Generator_UserColumnName="DATNOTIFICATIONDUE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DATNOTIFICATIONSENT" msprop:Generator_ColumnVarNameInTable="columnDATNOTIFICATIONSENT" msprop:Generator_ColumnPropNameInRow="DATNOTIFICATIONSENT" msprop:Generator_ColumnPropNameInTable="DATNOTIFICATIONSENTColumn" msprop:Generator_UserColumnName="DATNOTIFICATIONSENT" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="STRNOTIFICATIONTYPE" msprop:Generator_ColumnVarNameInTable="columnSTRNOTIFICATIONTYPE" msprop:Generator_ColumnPropNameInRow="STRNOTIFICATIONTYPE" msprop:Generator_ColumnPropNameInTable="STRNOTIFICATIONTYPEColumn" msprop:Generator_UserColumnName="STRNOTIFICATIONTYPE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRNOTIFICATIONTYPEOTHER" msprop:Generator_ColumnVarNameInTable="columnSTRNOTIFICATIONTYPEOTHER" msprop:Generator_ColumnPropNameInRow="STRNOTIFICATIONTYPEOTHER" msprop:Generator_ColumnPropNameInTable="STRNOTIFICATIONTYPEOTHERColumn" msprop:Generator_UserColumnName="STRNOTIFICATIONTYPEOTHER" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRNOTIFICATIONDESC" msprop:Generator_ColumnVarNameInTable="columnSTRNOTIFICATIONDESC" msprop:Generator_ColumnPropNameInRow="STRNOTIFICATIONDESC" msprop:Generator_ColumnPropNameInTable="STRNOTIFICATIONDESCColumn" msprop:Generator_UserColumnName="STRNOTIFICATIONDESC" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="NOTIFICATIONDESCRIPTION" msprop:Generator_ColumnVarNameInTable="columnNOTIFICATIONDESCRIPTION" msprop:Generator_ColumnPropNameInRow="NOTIFICATIONDESCRIPTION" msprop:Generator_ColumnPropNameInTable="NOTIFICATIONDESCRIPTIONColumn" msprop:Generator_UserColumnName="NOTIFICATIONDESCRIPTION" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VW_SSCP_REPORTS" msprop:Generator_TableClassName="VW_SSCP_REPORTSDataTable" msprop:Generator_TableVarName="tableVW_SSCP_REPORTS" msprop:Generator_RowChangedName="VW_SSCP_REPORTSRowChanged" msprop:Generator_TablePropName="VW_SSCP_REPORTS" msprop:Generator_RowDeletingName="VW_SSCP_REPORTSRowDeleting" msprop:Generator_RowChangingName="VW_SSCP_REPORTSRowChanging" msprop:Generator_RowEvHandlerName="VW_SSCP_REPORTSRowChangeEventHandler" msprop:Generator_RowDeletedName="VW_SSCP_REPORTSRowDeleted" msprop:Generator_RowClassName="VW_SSCP_REPORTSRow" msprop:Generator_UserTableName="VW_SSCP_REPORTS" msprop:Generator_RowEvArgName="VW_SSCP_REPORTSRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="STRTRACKINGNUMBER" msprop:Generator_ColumnVarNameInTable="columnSTRTRACKINGNUMBER" msprop:Generator_ColumnPropNameInRow="STRTRACKINGNUMBER" msprop:Generator_ColumnPropNameInTable="STRTRACKINGNUMBERColumn" msprop:Generator_UserColumnName="STRTRACKINGNUMBER" type="xs:long" />
+              <xs:element name="STRAIRSNUMBER" msprop:Generator_ColumnVarNameInTable="columnSTRAIRSNUMBER" msprop:Generator_ColumnPropNameInRow="STRAIRSNUMBER" msprop:Generator_ColumnPropNameInTable="STRAIRSNUMBERColumn" msprop:Generator_UserColumnName="STRAIRSNUMBER">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="12" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATRECEIVEDDATE" msprop:Generator_ColumnVarNameInTable="columnDATRECEIVEDDATE" msprop:Generator_ColumnPropNameInRow="DATRECEIVEDDATE" msprop:Generator_ColumnPropNameInTable="DATRECEIVEDDATEColumn" msprop:Generator_UserColumnName="DATRECEIVEDDATE" type="xs:dateTime" />
+              <xs:element name="STRRESPONSIBLESTAFF" msprop:Generator_ColumnVarNameInTable="columnSTRRESPONSIBLESTAFF" msprop:Generator_ColumnPropNameInRow="STRRESPONSIBLESTAFF" msprop:Generator_ColumnPropNameInTable="STRRESPONSIBLESTAFFColumn" msprop:Generator_UserColumnName="STRRESPONSIBLESTAFF" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRFIRSTNAME" msprop:Generator_ColumnVarNameInTable="columnSTRFIRSTNAME" msprop:Generator_ColumnPropNameInRow="STRFIRSTNAME" msprop:Generator_ColumnPropNameInTable="STRFIRSTNAMEColumn" msprop:Generator_UserColumnName="STRFIRSTNAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRLASTNAME" msprop:Generator_ColumnVarNameInTable="columnSTRLASTNAME" msprop:Generator_ColumnPropNameInRow="STRLASTNAME" msprop:Generator_ColumnPropNameInTable="STRLASTNAMEColumn" msprop:Generator_UserColumnName="STRLASTNAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATCOMPLETEDATE" msprop:Generator_ColumnVarNameInTable="columnDATCOMPLETEDATE" msprop:Generator_ColumnPropNameInRow="DATCOMPLETEDATE" msprop:Generator_ColumnPropNameInTable="DATCOMPLETEDATEColumn" msprop:Generator_UserColumnName="DATCOMPLETEDATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="STRDELETE" msprop:Generator_ColumnVarNameInTable="columnSTRDELETE" msprop:Generator_ColumnPropNameInRow="STRDELETE" msprop:Generator_ColumnPropNameInTable="STRDELETEColumn" msprop:Generator_UserColumnName="STRDELETE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATACKNOLEDGMENTLETTERSENT" msprop:Generator_ColumnVarNameInTable="columnDATACKNOLEDGMENTLETTERSENT" msprop:Generator_ColumnPropNameInRow="DATACKNOLEDGMENTLETTERSENT" msprop:Generator_ColumnPropNameInTable="DATACKNOLEDGMENTLETTERSENTColumn" msprop:Generator_UserColumnName="DATACKNOLEDGMENTLETTERSENT" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="STRGENERALCOMMENTS" msprop:Generator_ColumnVarNameInTable="columnSTRGENERALCOMMENTS" msprop:Generator_ColumnPropNameInRow="STRGENERALCOMMENTS" msprop:Generator_ColumnPropNameInTable="STRGENERALCOMMENTSColumn" msprop:Generator_UserColumnName="STRGENERALCOMMENTS">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRREPORTPERIOD" msprop:Generator_ColumnVarNameInTable="columnSTRREPORTPERIOD" msprop:Generator_ColumnPropNameInRow="STRREPORTPERIOD" msprop:Generator_ColumnPropNameInTable="STRREPORTPERIODColumn" msprop:Generator_UserColumnName="STRREPORTPERIOD">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="25" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRREPORTINGPERIODCOMMENTS" msprop:Generator_ColumnVarNameInTable="columnSTRREPORTINGPERIODCOMMENTS" msprop:Generator_ColumnPropNameInRow="STRREPORTINGPERIODCOMMENTS" msprop:Generator_ColumnPropNameInTable="STRREPORTINGPERIODCOMMENTSColumn" msprop:Generator_UserColumnName="STRREPORTINGPERIODCOMMENTS">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATREPORTINGPERIODSTART" msprop:Generator_ColumnVarNameInTable="columnDATREPORTINGPERIODSTART" msprop:Generator_ColumnPropNameInRow="DATREPORTINGPERIODSTART" msprop:Generator_ColumnPropNameInTable="DATREPORTINGPERIODSTARTColumn" msprop:Generator_UserColumnName="DATREPORTINGPERIODSTART" type="xs:dateTime" />
+              <xs:element name="DATREPORTINGPERIODEND" msprop:Generator_ColumnVarNameInTable="columnDATREPORTINGPERIODEND" msprop:Generator_ColumnPropNameInRow="DATREPORTINGPERIODEND" msprop:Generator_ColumnPropNameInTable="DATREPORTINGPERIODENDColumn" msprop:Generator_UserColumnName="DATREPORTINGPERIODEND" type="xs:dateTime" />
+              <xs:element name="DATREPORTDUEDATE" msprop:Generator_ColumnVarNameInTable="columnDATREPORTDUEDATE" msprop:Generator_ColumnPropNameInRow="DATREPORTDUEDATE" msprop:Generator_ColumnPropNameInTable="DATREPORTDUEDATEColumn" msprop:Generator_UserColumnName="DATREPORTDUEDATE" type="xs:dateTime" />
+              <xs:element name="DATSENTBYFACILITYDATE" msprop:Generator_ColumnVarNameInTable="columnDATSENTBYFACILITYDATE" msprop:Generator_ColumnPropNameInRow="DATSENTBYFACILITYDATE" msprop:Generator_ColumnPropNameInTable="DATSENTBYFACILITYDATEColumn" msprop:Generator_UserColumnName="DATSENTBYFACILITYDATE" type="xs:dateTime" />
+              <xs:element name="STRCOMPLETESTATUS" msprop:Generator_ColumnVarNameInTable="columnSTRCOMPLETESTATUS" msprop:Generator_ColumnPropNameInRow="STRCOMPLETESTATUS" msprop:Generator_ColumnPropNameInTable="STRCOMPLETESTATUSColumn" msprop:Generator_UserColumnName="STRCOMPLETESTATUS">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRENFORCEMENTNEEDED" msprop:Generator_ColumnVarNameInTable="columnSTRENFORCEMENTNEEDED" msprop:Generator_ColumnPropNameInRow="STRENFORCEMENTNEEDED" msprop:Generator_ColumnPropNameInTable="STRENFORCEMENTNEEDEDColumn" msprop:Generator_UserColumnName="STRENFORCEMENTNEEDED">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRSHOWDEVIATION" msprop:Generator_ColumnVarNameInTable="columnSTRSHOWDEVIATION" msprop:Generator_ColumnPropNameInRow="STRSHOWDEVIATION" msprop:Generator_ColumnPropNameInTable="STRSHOWDEVIATIONColumn" msprop:Generator_UserColumnName="STRSHOWDEVIATION">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRSUBMITTALNUMBER" msprop:Generator_ColumnVarNameInTable="columnSTRSUBMITTALNUMBER" msprop:Generator_ColumnPropNameInRow="STRSUBMITTALNUMBER" msprop:Generator_ColumnPropNameInTable="STRSUBMITTALNUMBERColumn" msprop:Generator_UserColumnName="STRSUBMITTALNUMBER">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VW_SSCP_RMPINSPECTIONS" msprop:Generator_TableClassName="VW_SSCP_RMPINSPECTIONSDataTable" msprop:Generator_TableVarName="tableVW_SSCP_RMPINSPECTIONS" msprop:Generator_RowChangedName="VW_SSCP_RMPINSPECTIONSRowChanged" msprop:Generator_TablePropName="VW_SSCP_RMPINSPECTIONS" msprop:Generator_RowDeletingName="VW_SSCP_RMPINSPECTIONSRowDeleting" msprop:Generator_RowChangingName="VW_SSCP_RMPINSPECTIONSRowChanging" msprop:Generator_RowEvHandlerName="VW_SSCP_RMPINSPECTIONSRowChangeEventHandler" msprop:Generator_RowDeletedName="VW_SSCP_RMPINSPECTIONSRowDeleted" msprop:Generator_RowClassName="VW_SSCP_RMPINSPECTIONSRow" msprop:Generator_UserTableName="VW_SSCP_RMPINSPECTIONS" msprop:Generator_RowEvArgName="VW_SSCP_RMPINSPECTIONSRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="STRTRACKINGNUMBER" msprop:Generator_ColumnVarNameInTable="columnSTRTRACKINGNUMBER" msprop:Generator_ColumnPropNameInRow="STRTRACKINGNUMBER" msprop:Generator_ColumnPropNameInTable="STRTRACKINGNUMBERColumn" msprop:Generator_UserColumnName="STRTRACKINGNUMBER" type="xs:long" />
+              <xs:element name="STRAIRSNUMBER" msprop:Generator_ColumnVarNameInTable="columnSTRAIRSNUMBER" msprop:Generator_ColumnPropNameInRow="STRAIRSNUMBER" msprop:Generator_ColumnPropNameInTable="STRAIRSNUMBERColumn" msprop:Generator_UserColumnName="STRAIRSNUMBER">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="12" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATRECEIVEDDATE" msprop:Generator_ColumnVarNameInTable="columnDATRECEIVEDDATE" msprop:Generator_ColumnPropNameInRow="DATRECEIVEDDATE" msprop:Generator_ColumnPropNameInTable="DATRECEIVEDDATEColumn" msprop:Generator_UserColumnName="DATRECEIVEDDATE" type="xs:dateTime" />
+              <xs:element name="STRRESPONSIBLESTAFF" msprop:Generator_ColumnVarNameInTable="columnSTRRESPONSIBLESTAFF" msprop:Generator_ColumnPropNameInRow="STRRESPONSIBLESTAFF" msprop:Generator_ColumnPropNameInTable="STRRESPONSIBLESTAFFColumn" msprop:Generator_UserColumnName="STRRESPONSIBLESTAFF" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRFIRSTNAME" msprop:Generator_ColumnVarNameInTable="columnSTRFIRSTNAME" msprop:Generator_ColumnPropNameInRow="STRFIRSTNAME" msprop:Generator_ColumnPropNameInTable="STRFIRSTNAMEColumn" msprop:Generator_UserColumnName="STRFIRSTNAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRLASTNAME" msprop:Generator_ColumnVarNameInTable="columnSTRLASTNAME" msprop:Generator_ColumnPropNameInRow="STRLASTNAME" msprop:Generator_ColumnPropNameInTable="STRLASTNAMEColumn" msprop:Generator_UserColumnName="STRLASTNAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATCOMPLETEDATE" msprop:Generator_ColumnVarNameInTable="columnDATCOMPLETEDATE" msprop:Generator_ColumnPropNameInRow="DATCOMPLETEDATE" msprop:Generator_ColumnPropNameInTable="DATCOMPLETEDATEColumn" msprop:Generator_UserColumnName="DATCOMPLETEDATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="STRDELETE" msprop:Generator_ColumnVarNameInTable="columnSTRDELETE" msprop:Generator_ColumnPropNameInRow="STRDELETE" msprop:Generator_ColumnPropNameInTable="STRDELETEColumn" msprop:Generator_UserColumnName="STRDELETE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATACKNOLEDGMENTLETTERSENT" msprop:Generator_ColumnVarNameInTable="columnDATACKNOLEDGMENTLETTERSENT" msprop:Generator_ColumnPropNameInRow="DATACKNOLEDGMENTLETTERSENT" msprop:Generator_ColumnPropNameInTable="DATACKNOLEDGMENTLETTERSENTColumn" msprop:Generator_UserColumnName="DATACKNOLEDGMENTLETTERSENT" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="STRINSPECTIONCOMMENTS" msprop:Generator_ColumnVarNameInTable="columnSTRINSPECTIONCOMMENTS" msprop:Generator_ColumnPropNameInRow="STRINSPECTIONCOMMENTS" msprop:Generator_ColumnPropNameInTable="STRINSPECTIONCOMMENTSColumn" msprop:Generator_UserColumnName="STRINSPECTIONCOMMENTS">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATINSPECTIONDATESTART" msprop:Generator_ColumnVarNameInTable="columnDATINSPECTIONDATESTART" msprop:Generator_ColumnPropNameInRow="DATINSPECTIONDATESTART" msprop:Generator_ColumnPropNameInTable="DATINSPECTIONDATESTARTColumn" msprop:Generator_UserColumnName="DATINSPECTIONDATESTART" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DATINSPECTIONDATEEND" msprop:Generator_ColumnVarNameInTable="columnDATINSPECTIONDATEEND" msprop:Generator_ColumnPropNameInRow="DATINSPECTIONDATEEND" msprop:Generator_ColumnPropNameInTable="DATINSPECTIONDATEENDColumn" msprop:Generator_UserColumnName="DATINSPECTIONDATEEND" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="STRINSPECTIONREASON" msprop:Generator_ColumnVarNameInTable="columnSTRINSPECTIONREASON" msprop:Generator_ColumnPropNameInRow="STRINSPECTIONREASON" msprop:Generator_ColumnPropNameInTable="STRINSPECTIONREASONColumn" msprop:Generator_UserColumnName="STRINSPECTIONREASON">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="35" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRWEATHERCONDITIONS" msprop:Generator_ColumnVarNameInTable="columnSTRWEATHERCONDITIONS" msprop:Generator_ColumnPropNameInRow="STRWEATHERCONDITIONS" msprop:Generator_ColumnPropNameInTable="STRWEATHERCONDITIONSColumn" msprop:Generator_UserColumnName="STRWEATHERCONDITIONS">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRINSPECTIONGUIDE" msprop:Generator_ColumnVarNameInTable="columnSTRINSPECTIONGUIDE" msprop:Generator_ColumnPropNameInRow="STRINSPECTIONGUIDE" msprop:Generator_ColumnPropNameInTable="STRINSPECTIONGUIDEColumn" msprop:Generator_UserColumnName="STRINSPECTIONGUIDE">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRFACILITYOPERATING" msprop:Generator_ColumnVarNameInTable="columnSTRFACILITYOPERATING" msprop:Generator_ColumnPropNameInRow="STRFACILITYOPERATING" msprop:Generator_ColumnPropNameInTable="STRFACILITYOPERATINGColumn" msprop:Generator_UserColumnName="STRFACILITYOPERATING">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRINSPECTIONCOMPLIANCESTATUS" msprop:Generator_ColumnVarNameInTable="columnSTRINSPECTIONCOMPLIANCESTATUS" msprop:Generator_ColumnPropNameInRow="STRINSPECTIONCOMPLIANCESTATUS" msprop:Generator_ColumnPropNameInTable="STRINSPECTIONCOMPLIANCESTATUSColumn" msprop:Generator_UserColumnName="STRINSPECTIONCOMPLIANCESTATUS">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="35" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRINSPECTIONFOLLOWUP" msprop:Generator_ColumnVarNameInTable="columnSTRINSPECTIONFOLLOWUP" msprop:Generator_ColumnPropNameInRow="STRINSPECTIONFOLLOWUP" msprop:Generator_ColumnPropNameInTable="STRINSPECTIONFOLLOWUPColumn" msprop:Generator_UserColumnName="STRINSPECTIONFOLLOWUP">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VW_SSCP_STACKTESTS" msprop:Generator_TableClassName="VW_SSCP_STACKTESTSDataTable" msprop:Generator_TableVarName="tableVW_SSCP_STACKTESTS" msprop:Generator_RowChangedName="VW_SSCP_STACKTESTSRowChanged" msprop:Generator_TablePropName="VW_SSCP_STACKTESTS" msprop:Generator_RowDeletingName="VW_SSCP_STACKTESTSRowDeleting" msprop:Generator_RowChangingName="VW_SSCP_STACKTESTSRowChanging" msprop:Generator_RowEvHandlerName="VW_SSCP_STACKTESTSRowChangeEventHandler" msprop:Generator_RowDeletedName="VW_SSCP_STACKTESTSRowDeleted" msprop:Generator_RowClassName="VW_SSCP_STACKTESTSRow" msprop:Generator_UserTableName="VW_SSCP_STACKTESTS" msprop:Generator_RowEvArgName="VW_SSCP_STACKTESTSRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="STRTRACKINGNUMBER" msprop:Generator_ColumnVarNameInTable="columnSTRTRACKINGNUMBER" msprop:Generator_ColumnPropNameInRow="STRTRACKINGNUMBER" msprop:Generator_ColumnPropNameInTable="STRTRACKINGNUMBERColumn" msprop:Generator_UserColumnName="STRTRACKINGNUMBER" type="xs:long" />
+              <xs:element name="STRAIRSNUMBER" msprop:Generator_ColumnVarNameInTable="columnSTRAIRSNUMBER" msprop:Generator_ColumnPropNameInRow="STRAIRSNUMBER" msprop:Generator_ColumnPropNameInTable="STRAIRSNUMBERColumn" msprop:Generator_UserColumnName="STRAIRSNUMBER">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="12" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATRECEIVEDDATE" msprop:Generator_ColumnVarNameInTable="columnDATRECEIVEDDATE" msprop:Generator_ColumnPropNameInRow="DATRECEIVEDDATE" msprop:Generator_ColumnPropNameInTable="DATRECEIVEDDATEColumn" msprop:Generator_UserColumnName="DATRECEIVEDDATE" type="xs:dateTime" />
+              <xs:element name="SSCPRESPONSIBLESTAFF" msprop:Generator_ColumnVarNameInTable="columnSSCPRESPONSIBLESTAFF" msprop:Generator_ColumnPropNameInRow="SSCPRESPONSIBLESTAFF" msprop:Generator_ColumnPropNameInTable="SSCPRESPONSIBLESTAFFColumn" msprop:Generator_UserColumnName="SSCPRESPONSIBLESTAFF" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SSCPFIRSTNAME" msprop:Generator_ColumnVarNameInTable="columnSSCPFIRSTNAME" msprop:Generator_ColumnPropNameInRow="SSCPFIRSTNAME" msprop:Generator_ColumnPropNameInTable="SSCPFIRSTNAMEColumn" msprop:Generator_UserColumnName="SSCPFIRSTNAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SSCPLASTNAME" msprop:Generator_ColumnVarNameInTable="columnSSCPLASTNAME" msprop:Generator_ColumnPropNameInRow="SSCPLASTNAME" msprop:Generator_ColumnPropNameInTable="SSCPLASTNAMEColumn" msprop:Generator_UserColumnName="SSCPLASTNAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATCOMPLETEDATE" msprop:Generator_ColumnVarNameInTable="columnDATCOMPLETEDATE" msprop:Generator_ColumnPropNameInRow="DATCOMPLETEDATE" msprop:Generator_ColumnPropNameInTable="DATCOMPLETEDATEColumn" msprop:Generator_UserColumnName="DATCOMPLETEDATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="STRDELETE" msprop:Generator_ColumnVarNameInTable="columnSTRDELETE" msprop:Generator_ColumnPropNameInRow="STRDELETE" msprop:Generator_ColumnPropNameInTable="STRDELETEColumn" msprop:Generator_UserColumnName="STRDELETE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATACKNOLEDGMENTLETTERSENT" msprop:Generator_ColumnVarNameInTable="columnDATACKNOLEDGMENTLETTERSENT" msprop:Generator_ColumnPropNameInRow="DATACKNOLEDGMENTLETTERSENT" msprop:Generator_ColumnPropNameInTable="DATACKNOLEDGMENTLETTERSENTColumn" msprop:Generator_UserColumnName="DATACKNOLEDGMENTLETTERSENT" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="STRTESTREPORTCOMMENTS" msprop:Generator_ColumnVarNameInTable="columnSTRTESTREPORTCOMMENTS" msprop:Generator_ColumnPropNameInRow="STRTESTREPORTCOMMENTS" msprop:Generator_ColumnPropNameInTable="STRTESTREPORTCOMMENTSColumn" msprop:Generator_UserColumnName="STRTESTREPORTCOMMENTS">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRREFERENCENUMBER" msprop:Generator_ColumnVarNameInTable="columnSTRREFERENCENUMBER" msprop:Generator_ColumnPropNameInRow="STRREFERENCENUMBER" msprop:Generator_ColumnPropNameInTable="STRREFERENCENUMBERColumn" msprop:Generator_UserColumnName="STRREFERENCENUMBER">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="9" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATTESTREPORTDUE" msprop:Generator_ColumnVarNameInTable="columnDATTESTREPORTDUE" msprop:Generator_ColumnPropNameInRow="DATTESTREPORTDUE" msprop:Generator_ColumnPropNameInTable="DATTESTREPORTDUEColumn" msprop:Generator_UserColumnName="DATTESTREPORTDUE" type="xs:dateTime" />
+              <xs:element name="STRTESTREPORTFOLLOWUP" msprop:Generator_ColumnVarNameInTable="columnSTRTESTREPORTFOLLOWUP" msprop:Generator_ColumnPropNameInRow="STRTESTREPORTFOLLOWUP" msprop:Generator_ColumnPropNameInTable="STRTESTREPORTFOLLOWUPColumn" msprop:Generator_UserColumnName="STRTESTREPORTFOLLOWUP">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STREMISSIONSOURCE" msprop:Generator_ColumnVarNameInTable="columnSTREMISSIONSOURCE" msprop:Generator_ColumnPropNameInRow="STREMISSIONSOURCE" msprop:Generator_ColumnPropNameInTable="STREMISSIONSOURCEColumn" msprop:Generator_UserColumnName="STREMISSIONSOURCE">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRPOLLUTANTDESCRIPTION" msprop:Generator_ColumnVarNameInTable="columnSTRPOLLUTANTDESCRIPTION" msprop:Generator_ColumnPropNameInRow="STRPOLLUTANTDESCRIPTION" msprop:Generator_ColumnPropNameInTable="STRPOLLUTANTDESCRIPTIONColumn" msprop:Generator_UserColumnName="STRPOLLUTANTDESCRIPTION" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="75" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ISMPREVIEWINGENGINEER" msprop:Generator_ColumnVarNameInTable="columnISMPREVIEWINGENGINEER" msprop:Generator_ColumnPropNameInRow="ISMPREVIEWINGENGINEER" msprop:Generator_ColumnPropNameInTable="ISMPREVIEWINGENGINEERColumn" msprop:Generator_UserColumnName="ISMPREVIEWINGENGINEER">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ISMPLASTNAME" msprop:Generator_ColumnVarNameInTable="columnISMPLASTNAME" msprop:Generator_ColumnPropNameInRow="ISMPLASTNAME" msprop:Generator_ColumnPropNameInTable="ISMPLASTNAMEColumn" msprop:Generator_UserColumnName="ISMPLASTNAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ISMPFIRSTNAME" msprop:Generator_ColumnVarNameInTable="columnISMPFIRSTNAME" msprop:Generator_ColumnPropNameInRow="ISMPFIRSTNAME" msprop:Generator_ColumnPropNameInTable="ISMPFIRSTNAMEColumn" msprop:Generator_UserColumnName="ISMPFIRSTNAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATTESTDATEEND" msprop:Generator_ColumnVarNameInTable="columnDATTESTDATEEND" msprop:Generator_ColumnPropNameInRow="DATTESTDATEEND" msprop:Generator_ColumnPropNameInTable="DATTESTDATEENDColumn" msprop:Generator_UserColumnName="DATTESTDATEEND" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DATRECEIVEDFROMFACILITY" msprop:Generator_ColumnVarNameInTable="columnDATRECEIVEDFROMFACILITY" msprop:Generator_ColumnPropNameInRow="DATRECEIVEDFROMFACILITY" msprop:Generator_ColumnPropNameInTable="DATRECEIVEDFROMFACILITYColumn" msprop:Generator_UserColumnName="DATRECEIVEDFROMFACILITY" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="STRCOMPLIANCESTATUS" msprop:Generator_ColumnVarNameInTable="columnSTRCOMPLIANCESTATUS" msprop:Generator_ColumnPropNameInRow="STRCOMPLIANCESTATUS" msprop:Generator_ColumnPropNameInTable="STRCOMPLIANCESTATUSColumn" msprop:Generator_UserColumnName="STRCOMPLIANCESTATUS">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VW_SSCP_FCES" msprop:Generator_TableClassName="VW_SSCP_FCESDataTable" msprop:Generator_TableVarName="tableVW_SSCP_FCES" msprop:Generator_TablePropName="VW_SSCP_FCES" msprop:Generator_RowDeletingName="VW_SSCP_FCESRowDeleting" msprop:Generator_RowChangingName="VW_SSCP_FCESRowChanging" msprop:Generator_RowEvHandlerName="VW_SSCP_FCESRowChangeEventHandler" msprop:Generator_RowDeletedName="VW_SSCP_FCESRowDeleted" msprop:Generator_UserTableName="VW_SSCP_FCES" msprop:Generator_RowChangedName="VW_SSCP_FCESRowChanged" msprop:Generator_RowEvArgName="VW_SSCP_FCESRowChangeEvent" msprop:Generator_RowClassName="VW_SSCP_FCESRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="STRFCENUMBER" msprop:Generator_ColumnVarNameInTable="columnSTRFCENUMBER" msprop:Generator_ColumnPropNameInRow="STRFCENUMBER" msprop:Generator_ColumnPropNameInTable="STRFCENUMBERColumn" msprop:Generator_UserColumnName="STRFCENUMBER" type="xs:long" />
+              <xs:element name="STRAIRSNUMBER" msprop:Generator_ColumnVarNameInTable="columnSTRAIRSNUMBER" msprop:Generator_ColumnPropNameInRow="STRAIRSNUMBER" msprop:Generator_ColumnPropNameInTable="STRAIRSNUMBERColumn" msprop:Generator_UserColumnName="STRAIRSNUMBER">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="12" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRREVIEWER" msprop:Generator_ColumnVarNameInTable="columnSTRREVIEWER" msprop:Generator_ColumnPropNameInRow="STRREVIEWER" msprop:Generator_ColumnPropNameInTable="STRREVIEWERColumn" msprop:Generator_UserColumnName="STRREVIEWER">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DATFCECOMPLETED" msprop:Generator_ColumnVarNameInTable="columnDATFCECOMPLETED" msprop:Generator_ColumnPropNameInRow="DATFCECOMPLETED" msprop:Generator_ColumnPropNameInTable="DATFCECOMPLETEDColumn" msprop:Generator_UserColumnName="DATFCECOMPLETED" type="xs:dateTime" />
+              <xs:element name="STRFCECOMMENTS" msprop:Generator_ColumnVarNameInTable="columnSTRFCECOMMENTS" msprop:Generator_ColumnPropNameInRow="STRFCECOMMENTS" msprop:Generator_ColumnPropNameInTable="STRFCECOMMENTSColumn" msprop:Generator_UserColumnName="STRFCECOMMENTS">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRSITEINSPECTION" msprop:Generator_ColumnVarNameInTable="columnSTRSITEINSPECTION" msprop:Generator_ColumnPropNameInRow="STRSITEINSPECTION" msprop:Generator_ColumnPropNameInTable="STRSITEINSPECTIONColumn" msprop:Generator_UserColumnName="STRSITEINSPECTION" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRFCEYEAR" msprop:Generator_ColumnVarNameInTable="columnSTRFCEYEAR" msprop:Generator_ColumnPropNameInRow="STRFCEYEAR" msprop:Generator_ColumnPropNameInTable="STRFCEYEARColumn" msprop:Generator_UserColumnName="STRFCEYEAR" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRFIRSTNAME" msprop:Generator_ColumnVarNameInTable="columnSTRFIRSTNAME" msprop:Generator_ColumnPropNameInRow="STRFIRSTNAME" msprop:Generator_ColumnPropNameInTable="STRFIRSTNAMEColumn" msprop:Generator_UserColumnName="STRFIRSTNAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRLASTNAME" msprop:Generator_ColumnVarNameInTable="columnSTRLASTNAME" msprop:Generator_ColumnPropNameInRow="STRLASTNAME" msprop:Generator_ColumnPropNameInTable="STRLASTNAMEColumn" msprop:Generator_UserColumnName="STRLASTNAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VW_FEES_FACILITY_SUMMARY" msprop:Generator_TableClassName="VW_FEES_FACILITY_SUMMARYDataTable" msprop:Generator_TableVarName="tableVW_FEES_FACILITY_SUMMARY" msprop:Generator_RowChangedName="VW_FEES_FACILITY_SUMMARYRowChanged" msprop:Generator_TablePropName="VW_FEES_FACILITY_SUMMARY" msprop:Generator_RowDeletingName="VW_FEES_FACILITY_SUMMARYRowDeleting" msprop:Generator_RowChangingName="VW_FEES_FACILITY_SUMMARYRowChanging" msprop:Generator_RowEvHandlerName="VW_FEES_FACILITY_SUMMARYRowChangeEventHandler" msprop:Generator_RowDeletedName="VW_FEES_FACILITY_SUMMARYRowDeleted" msprop:Generator_RowClassName="VW_FEES_FACILITY_SUMMARYRow" msprop:Generator_UserTableName="VW_FEES_FACILITY_SUMMARY" msprop:Generator_RowEvArgName="VW_FEES_FACILITY_SUMMARYRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="STRAIRSNUMBER" msprop:Generator_ColumnVarNameInTable="columnSTRAIRSNUMBER" msprop:Generator_ColumnPropNameInRow="STRAIRSNUMBER" msprop:Generator_ColumnPropNameInTable="STRAIRSNUMBERColumn" msprop:Generator_UserColumnName="STRAIRSNUMBER">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="12" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="NUMFEEYEAR" msprop:Generator_ColumnVarNameInTable="columnNUMFEEYEAR" msprop:Generator_ColumnPropNameInRow="NUMFEEYEAR" msprop:Generator_ColumnPropNameInTable="NUMFEEYEARColumn" msprop:Generator_UserColumnName="NUMFEEYEAR" type="xs:short" />
+              <xs:element name="STRIAIPDESC" msprop:Generator_ColumnVarNameInTable="columnSTRIAIPDESC" msprop:Generator_ColumnPropNameInRow="STRIAIPDESC" msprop:Generator_ColumnPropNameInTable="STRIAIPDESCColumn" msprop:Generator_UserColumnName="STRIAIPDESC" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="200" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="INVOICEDAMOUNT" msprop:Generator_ColumnVarNameInTable="columnINVOICEDAMOUNT" msprop:Generator_ColumnPropNameInRow="INVOICEDAMOUNT" msprop:Generator_ColumnPropNameInTable="INVOICEDAMOUNTColumn" msprop:Generator_UserColumnName="INVOICEDAMOUNT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PAYMENTAMOUNT" msprop:Generator_ColumnVarNameInTable="columnPAYMENTAMOUNT" msprop:Generator_ColumnPropNameInRow="PAYMENTAMOUNT" msprop:Generator_ColumnPropNameInTable="PAYMENTAMOUNTColumn" msprop:Generator_UserColumnName="PAYMENTAMOUNT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BALANCE" msprop:Generator_ColumnVarNameInTable="columnBALANCE" msprop:Generator_ColumnPropNameInRow="BALANCE" msprop:Generator_ColumnPropNameInTable="BALANCEColumn" msprop:Generator_UserColumnName="BALANCE" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VW_SSCP_ENFORCEMENT_SUMMARY" msprop:Generator_TableClassName="VW_SSCP_ENFORCEMENT_SUMMARYDataTable" msprop:Generator_TableVarName="tableVW_SSCP_ENFORCEMENT_SUMMARY" msprop:Generator_TablePropName="VW_SSCP_ENFORCEMENT_SUMMARY" msprop:Generator_RowDeletingName="VW_SSCP_ENFORCEMENT_SUMMARYRowDeleting" msprop:Generator_RowChangingName="VW_SSCP_ENFORCEMENT_SUMMARYRowChanging" msprop:Generator_RowEvHandlerName="VW_SSCP_ENFORCEMENT_SUMMARYRowChangeEventHandler" msprop:Generator_RowDeletedName="VW_SSCP_ENFORCEMENT_SUMMARYRowDeleted" msprop:Generator_UserTableName="VW_SSCP_ENFORCEMENT_SUMMARY" msprop:Generator_RowChangedName="VW_SSCP_ENFORCEMENT_SUMMARYRowChanged" msprop:Generator_RowEvArgName="VW_SSCP_ENFORCEMENT_SUMMARYRowChangeEvent" msprop:Generator_RowClassName="VW_SSCP_ENFORCEMENT_SUMMARYRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="STRAIRSNUMBER" msprop:Generator_ColumnVarNameInTable="columnSTRAIRSNUMBER" msprop:Generator_ColumnPropNameInRow="STRAIRSNUMBER" msprop:Generator_ColumnPropNameInTable="STRAIRSNUMBERColumn" msprop:Generator_UserColumnName="STRAIRSNUMBER" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="12" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ENFORCEMENTDESCRIPTION" msprop:Generator_ColumnVarNameInTable="columnENFORCEMENTDESCRIPTION" msprop:Generator_ColumnPropNameInRow="ENFORCEMENTDESCRIPTION" msprop:Generator_ColumnPropNameInTable="ENFORCEMENTDESCRIPTIONColumn" msprop:Generator_UserColumnName="ENFORCEMENTDESCRIPTION" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="277" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRENFORCEMENTNUMBER" msprop:Generator_ColumnVarNameInTable="columnSTRENFORCEMENTNUMBER" msprop:Generator_ColumnPropNameInRow="STRENFORCEMENTNUMBER" msprop:Generator_ColumnPropNameInTable="STRENFORCEMENTNUMBERColumn" msprop:Generator_UserColumnName="STRENFORCEMENTNUMBER" type="xs:long" minOccurs="0" />
+              <xs:element name="ENFORCEMENTDATE" msprop:Generator_ColumnVarNameInTable="columnENFORCEMENTDATE" msprop:Generator_ColumnPropNameInRow="ENFORCEMENTDATE" msprop:Generator_ColumnPropNameInTable="ENFORCEMENTDATEColumn" msprop:Generator_UserColumnName="ENFORCEMENTDATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="STRFIRSTNAME" msprop:Generator_ColumnVarNameInTable="columnSTRFIRSTNAME" msprop:Generator_ColumnPropNameInRow="STRFIRSTNAME" msprop:Generator_ColumnPropNameInTable="STRFIRSTNAMEColumn" msprop:Generator_UserColumnName="STRFIRSTNAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="STRLASTNAME" msprop:Generator_ColumnVarNameInTable="columnSTRLASTNAME" msprop:Generator_ColumnPropNameInRow="STRLASTNAME" msprop:Generator_ColumnPropNameInTable="STRLASTNAMEColumn" msprop:Generator_UserColumnName="STRLASTNAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="NUMSTAFFRESPONSIBLE" msprop:Generator_ColumnVarNameInTable="columnNUMSTAFFRESPONSIBLE" msprop:Generator_ColumnPropNameInRow="NUMSTAFFRESPONSIBLE" msprop:Generator_ColumnPropNameInTable="NUMSTAFFRESPONSIBLEColumn" msprop:Generator_UserColumnName="NUMSTAFFRESPONSIBLE" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="VW_APBFACILITYHEADER_VW_APBFACILITYLOCATION" msdata:parent="VW_APBFACILITYHEADER" msdata:child="VW_APBFACILITYLOCATION" msdata:parentkey="STRAIRSNUMBER" msdata:childkey="STRAIRSNUMBER" msprop:Generator_UserChildTable="VW_APBFACILITYLOCATION" msprop:Generator_ChildPropName="GetVW_APBFACILITYLOCATIONRows" msprop:Generator_UserRelationName="VW_APBFACILITYHEADER_VW_APBFACILITYLOCATION" msprop:Generator_RelationVarName="relationVW_APBFACILITYHEADER_VW_APBFACILITYLOCATION" msprop:Generator_UserParentTable="VW_APBFACILITYHEADER" msprop:Generator_ParentPropName="VW_APBFACILITYHEADERRow" />
+      <msdata:Relationship name="VW_APBFACILITYHEADER_VW_APBFACILITYLOCATION" msdata:parent="VW_APBFACILITYHEADER" msdata:child="VW_APBFACILITYLOCATION" msdata:parentkey="STRAIRSNUMBER" msdata:childkey="STRAIRSNUMBER" msprop:Generator_UserChildTable="VW_APBFACILITYLOCATION" msprop:Generator_ChildPropName="GetVW_APBFACILITYLOCATIONRows" msprop:Generator_UserRelationName="VW_APBFACILITYHEADER_VW_APBFACILITYLOCATION" msprop:Generator_ParentPropName="VW_APBFACILITYHEADERRow" msprop:Generator_RelationVarName="relationVW_APBFACILITYHEADER_VW_APBFACILITYLOCATION" msprop:Generator_UserParentTable="VW_APBFACILITYHEADER" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

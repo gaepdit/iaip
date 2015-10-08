@@ -10,13 +10,11 @@ Public Class SSPPStatisticalTools
     Dim daViewCount As OracleDataAdapter
     Dim dsPermittingUnits As DataSet
     Dim daPermittingUnits As OracleDataAdapter
-    Dim dsEngineers As DataSet
-    Dim daEngineers As OracleDataAdapter
     Dim tempLoad As String
 
     Dim SQL, SQL2, SQL3, SQL4 As String
-    Dim cmd, cmd2 As OracleCommand
-    Dim dr, dr2 As OracleDataReader
+    Dim cmd As OracleCommand
+    Dim dr As OracleDataReader
     Dim dsPart60 As DataSet
     Dim daPart60 As OracleDataAdapter
     Dim dsPart61 As DataSet

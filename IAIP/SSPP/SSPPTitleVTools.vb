@@ -182,7 +182,6 @@ Public Class SSPPTitleVTools
             'Formatting our DataGrid
             Dim objGrid As New DataGridTableStyle
             Dim objtextcol As New DataGridTextBoxColumn
-            Dim objbooleancol As New DataGridBoolColumn
 
             objGrid.AlternatingBackColor = Color.WhiteSmoke
             objGrid.MappingName = "WebPublisher"
@@ -1263,7 +1262,6 @@ Public Class SSPPTitleVTools
             Dim PNExpires As String = ""
             Dim AppLine As String = ""
             Dim LinkedApp As String = ""
-            Dim SQLLine As String = ""
             Dim SQLLine2 As String = ""
             Dim temp As String = ""
             Dim strObject As Object
@@ -1447,7 +1445,7 @@ Public Class SSPPTitleVTools
                 "amendment and public notice. A 30-day comment period will follow the public notification. " & vbCrLf & vbCrLf & _
                 "The draft permit, permit review narrative and in most cases the permit application will be available from the " & _
                 "Georgia EPD - Air Protection Branch Title V Draft permit web page located at: " & vbCrLf & vbCrLf & _
-                "http://www.georgiaair.org/airpermit/html/permits/draft.html" & vbCrLf & vbCrLf & _
+                "http://epd.georgia.gov/air/draft-title-v-permit" & vbCrLf & vbCrLf & _
                 "The public comment deadline is posted on the Title V web page. " & vbCrLf & vbCrLf & _
                 "Please reply to acknowledge receipt of this notification. Any questions regarding the draft permits and " & _
                 "amendments may be directed to: " & vbCrLf & vbCrLf & _
@@ -1483,7 +1481,6 @@ Public Class SSPPTitleVTools
             Dim County As String = ""
             Dim AppLine As String = ""
             Dim LinkedApp As String = ""
-            Dim SQLLine As String = ""
             Dim SQLLine2 As String = ""
             Dim temp As String = ""
             Dim strObject As Object
@@ -1658,7 +1655,7 @@ Public Class SSPPTitleVTools
                 "amendment and public notice. A 30-day comment period will follow the public notification. " & vbCrLf & vbCrLf & _
                 "The draft permit, permit review narrative and in most cases the permit application will be available from the " & _
                 "Georgia EPD - Air Protection Branch Title V Draft permit web page located at: " & vbCrLf & vbCrLf & _
-                "http://www.georgiaair.org/airpermit/html/permits/draft.html" & vbCrLf & vbCrLf & _
+                "http://epd.georgia.gov/air/draft-title-v-permit" & vbCrLf & vbCrLf & _
                 "The public comment deadline is posted on the Title V web page. " & vbCrLf & vbCrLf & _
                 "Please reply to acknowledge receipt of this notification. Any questions regarding the draft permits and " & _
                 "amendments may be directed to: " & vbCrLf & vbCrLf & _
@@ -1912,7 +1909,6 @@ Public Class SSPPTitleVTools
             Dim County As String = ""
             Dim AppLine As String = ""
             Dim LinkedApp As String = ""
-            Dim SQLLine As String = ""
             Dim SQLLine2 As String = ""
             Dim temp As String = ""
             Dim strObject As Object
@@ -2119,7 +2115,6 @@ Public Class SSPPTitleVTools
             Dim County As String = ""
             Dim AppLine As String = ""
             Dim LinkedApp As String = ""
-            Dim SQLLine As String = ""
             Dim SQLLine2 As String = ""
             Dim temp As String = ""
             Dim strObject As Object
@@ -2527,7 +2522,6 @@ Public Class SSPPTitleVTools
             Dim DateIssued As String = ""
             Dim AppLine As String = ""
             Dim LinkedApp As String = ""
-            Dim SQLLine As String = ""
             Dim SQLLine2 As String = ""
             Dim temp As String = ""
             Dim strObject As Object
@@ -3475,7 +3469,6 @@ Public Class SSPPTitleVTools
         Try
 
             Dim SQLLine As String = "*"
-            Dim temp As String = ""
 
             If Me.txtRenewalCount.Text <> "" And txtRenewalCount.Text <> "0" Then
                 PrintOut = Nothing
@@ -3818,7 +3811,6 @@ Public Class SSPPTitleVTools
         Try
 
             Dim SQLLine As String = "*"
-            Dim temp As String = ""
 
             If txtTitleVSingleLetter.Text <> "" Then
                 SQLLine = txtTitleVSingleLetter.Text
@@ -3857,7 +3849,6 @@ Public Class SSPPTitleVTools
     End Sub
     Sub LoadContactData()
         Try
-            Dim temp As String = ""
             SQL = "Select strApplicationNumber " & _
             "From AIRBRANCH.SSPPApplicationContact " & _
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
@@ -4005,7 +3996,6 @@ Public Class SSPPTitleVTools
     End Sub
     Private Sub btnGetCurrentPermittingContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGetCurrentPermittingContact.Click
         Try
-            Dim temp As String = ""
 
             SQL = "Select " & _
             "strContactFirstName, " & _
@@ -4296,7 +4286,6 @@ Public Class SSPPTitleVTools
             Dim ContactCity As String = " "
             Dim ContactState As String = " "
             Dim ContactZipCode As String = " "
-            Dim ContactDescription As String = " "
 
             If txtContactFirstNameCompliance.Text <> "" Then
                 ContactFirstName = txtContactFirstNameCompliance.Text
@@ -4363,15 +4352,6 @@ Public Class SSPPTitleVTools
             Else
                 ContactZipCode = "00000"
             End If
-            If txtContactDescriptionCompliance.Text <> "" Then
-                ContactDescription = txtContactDescriptionCompliance.Text
-            Else
-                If txtApplicationNumber.Text <> "" Then
-                    ContactDescription = "Added by Title V Tool"
-                Else
-                    ContactDescription = " "
-                End If
-            End If
 
             SQL = "Select count(*) as SSCPContact " & _
             "From AIRBRANCH.APBContactInformation " & _
@@ -4396,9 +4376,9 @@ Public Class SSPPTitleVTools
                                               ContactFirstName, ContactLastname, _
                                               ContactPrefix, ContactSuffix, _
                                               ContactTitle, ContactCompany, _
-                                              ContactPhone, "", _
+                                              ContactPhone, _
                                               ContactFax, ContactEmail, _
-                                              ContactAddress, "", _
+                                              ContactAddress, _
                                               ContactCity, ContactState, _
                                               ContactZipCode, "Contact Added from Title V Warehouse from Enforcement Contact")
             Else
@@ -4694,9 +4674,9 @@ Public Class SSPPTitleVTools
                                       ByVal ContactFirstName As String, ByVal ContactLastName As String, _
                                       ByVal ContactPrefix As String, ByVal ContactSuffix As String, _
                                       ByVal ContactTitle As String, ByVal ContactCompanyName As String, _
-                                      ByVal ContactPhoneNumber1 As String, ByVal ContactPhoneNumber2 As String, _
+                                      ByVal ContactPhoneNumber1 As String, _
                                       ByVal ContactFaxNumber As String, ByVal ContactEmail As String, _
-                                      ByVal ContactAddress1 As String, ByVal ContactAddress2 As String, _
+                                      ByVal ContactAddress1 As String, _
                                       ByVal ContactCity As String, ByVal ContactState As String, _
                                       ByVal ContactZipCode As String, ByVal ContactDescription As String) As Boolean
         Try

@@ -4,9 +4,6 @@ Imports System.Collections.Generic
 
 Public Class SSCPEnforcementSelector
     Dim SQL As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
-    Dim recExist As Boolean
     Dim dsSSCPEnforcement As DataSet
     Dim daSSCPEnforcement As OracleDataAdapter
     Dim dsComplianceUnits As DataSet
@@ -143,7 +140,7 @@ Public Class SSCPEnforcementSelector
         Try
             If txtAIRSNumber.Text.Length = 8 Then
                 Dim airsNum As String = txtAIRSNumber.Text
-                Dim facName As String = DAL.FacilityModule.GetFacilityName(airsNum)
+                Dim facName As String = DAL.FacilityData.GetFacilityName(airsNum)
                 If facName IsNot Nothing Then
                     txtFacilityName.Text = facName
                     LoadSSCPEnforcementDataGrid("Single")

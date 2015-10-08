@@ -33,7 +33,7 @@ Public Class DmuEdtErrorMessages
     End Sub
 
     Private Sub GetData()
-        edtErrorMessagesTable = DAL.DMU.GetErrorCounts(CurrentUser.UserID)
+        edtErrorMessagesTable = DAL.Dmu.GetErrorCounts(CurrentUser.UserID)
 
         If edtErrorMessagesTable IsNot Nothing Then
             edtErrorMessagesBindingSource = New BindingSource

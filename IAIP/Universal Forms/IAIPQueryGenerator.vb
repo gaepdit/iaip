@@ -3,9 +3,6 @@ Imports System.IO
 
 Public Class IAIPQueryGenerator
     Dim SQL As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
-    Dim recExist As Boolean
     Dim dsCounty As DataSet
     Dim daCounty As OracleDataAdapter
     Dim dsDistrict As DataSet
@@ -4941,17 +4938,8 @@ Public Class IAIPQueryGenerator
     End Sub
     Sub UpdateDefaultSearch()
         Dim DefaultsText As String = ""
-        'Dim UpdatedText As String = ""
-        Dim CheckBoxes As String = ""
-        Dim SearchText As String = ""
-        Dim BooleanText As String = ""
-        Dim SearchOrder As String = ""
 
         Try
-            CheckBoxes = ""
-            SearchText = ""
-            BooleanText = ""
-            SearchOrder = "AIRSNumber#xxxx#%xxxx%*And*@Equal@^3^rebmuNSRIA"
 
             If Me.chbAIRSNumber.Checked = True Then
                 DefaultsText = DefaultsText & "AIRSNumber"
@@ -6113,6 +6101,6 @@ Public Class IAIPQueryGenerator
             Me.SubmittedQuery = New Generic.KeyValuePair(Of String, Integer)("-- Truncated: " & Me.SubmittedQuery.Key.Substring(0, 3985), Me.SubmittedQuery.Value)
         End If
 
-        DAL.QueryGenerator.LogQuery(Me.SubmittedQuery)
+        DAL.QueryGeneratorData.LogQuery(Me.SubmittedQuery)
     End Sub
 End Class

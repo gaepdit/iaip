@@ -3,12 +3,9 @@ Imports Oracle.ManagedDataAccess.Client
 
 Public Class SSCPWorkEnTry
     Inherits BaseForm
-    Dim dsWorkEnTry As DataSet
-    Dim daWorkEnTry As OracleDataAdapter
     Dim SQL, SQL2 As String
     Dim cmd, cmd2 As OracleCommand
-    Dim dr, dr2 As OracleDataReader
-    Dim recExist As Boolean
+    Dim dr2 As OracleDataReader
     Dim dsCompliance As DataSet
     Dim daCompliance As OracleDataAdapter
 
@@ -120,7 +117,7 @@ Public Class SSCPWorkEnTry
                     CurrentConnection.Open()
                 End If
 
-                dr = cmd.ExecuteReader
+                cmd.ExecuteReader()
 
                 dr2 = cmd2.ExecuteReader
                 While dr2.Read
@@ -157,13 +154,10 @@ Public Class SSCPWorkEnTry
 
     End Sub
     Sub Back()
-        SSCPEngWork = Nothing
         Me.Hide()
     End Sub
 #End Region
-    Private Sub SSCPWorkEnTry_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        SSCPEngWork = Nothing
-    End Sub
+
     Private Sub TBComplianceEvents_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBComplianceEvents.ButtonClick
         Try
 

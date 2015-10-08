@@ -8,8 +8,6 @@ Public Class SSCPEvents
     Dim cmd As OracleCommand
     Dim dr As OracleDataReader
     Dim recExist As Boolean
-    Dim dsItems As DataSet
-    Dim daItems As OracleDataAdapter
     Dim dsNotifications As DataSet
     Friend WithEvents Label35 As System.Windows.Forms.Label
     Friend WithEvents cboStaffResponsible As System.Windows.Forms.ComboBox
@@ -19,11 +17,10 @@ Public Class SSCPEvents
 
     Dim ItemIsDeleted As Boolean = False
     Dim AIRSNumber As String = ""
-    Dim facility As Apb.Facilities.Facility
 
 #Region " Properties "
 
-    Private eventType As Apb.SSCP.WorkItem.WorkItemEventType
+    Private eventType As Apb.Sscp.WorkItem.WorkItemEventType
 
 #End Region
 
@@ -163,7 +160,7 @@ Public Class SSCPEvents
         Select Case EventTypeDbString
 
             Case "01" ' Report
-                Me.eventType = Apb.SSCP.WorkItem.WorkItemEventType.Report
+                Me.eventType = Apb.Sscp.WorkItem.WorkItemEventType.Report
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPReport)
                 DTPReportReceivedDate.Text = ReceivedDate
@@ -174,7 +171,7 @@ Public Class SSCPEvents
                 FormatReportsDGR()
 
             Case "02" ' Inspection
-                Me.eventType = Apb.SSCP.WorkItem.WorkItemEventType.Inspection
+                Me.eventType = Apb.Sscp.WorkItem.WorkItemEventType.Inspection
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPInspection)
                 DTPInspectionDateStart.Text = ReceivedDate
@@ -184,7 +181,7 @@ Public Class SSCPEvents
                 LoadInspection()
 
             Case "03" ' Test report
-                Me.eventType = Apb.SSCP.WorkItem.WorkItemEventType.StackTest
+                Me.eventType = Apb.Sscp.WorkItem.WorkItemEventType.StackTest
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPTestReports)
                 txtTestReportReceivedbySSCPDate.Text = ReceivedDate
@@ -192,7 +189,7 @@ Public Class SSCPEvents
                 LoadTestReport()
 
             Case "04" ' ACC
-                Me.eventType = Apb.SSCP.WorkItem.WorkItemEventType.TvAcc
+                Me.eventType = Apb.Sscp.WorkItem.WorkItemEventType.TvAcc
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPACC)
                 DTPACCReceivedDate.Text = ReceivedDate
@@ -207,7 +204,7 @@ Public Class SSCPEvents
                 tbbPrint.Visible = True
 
             Case "05" ' Notification
-                Me.eventType = Apb.SSCP.WorkItem.WorkItemEventType.Notification
+                Me.eventType = Apb.Sscp.WorkItem.WorkItemEventType.Notification
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPNotifications)
                 DTPNotificationReceived.Text = ReceivedDate
@@ -217,7 +214,7 @@ Public Class SSCPEvents
                 btnEnforcementProcess.Visible = False
 
             Case "07" ' Risk Management Plan Inspection
-                Me.eventType = Apb.SSCP.WorkItem.WorkItemEventType.RmpInspection
+                Me.eventType = Apb.Sscp.WorkItem.WorkItemEventType.RmpInspection
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPInspection)
                 TPInspection.Text = "Risk Mgmt. Plan Inspection"
@@ -366,7 +363,7 @@ Public Class SSCPEvents
                 "Classification - " & dr.Item("strClass") & vbCrLf & _
                 "Air Program Code(s) - " & vbCrLf
 
-                If Me.eventType = Apb.SSCP.WorkItem.WorkItemEventType.Inspection Then
+                If Me.eventType = Apb.Sscp.WorkItem.WorkItemEventType.Inspection Then
                     Dim geosInspectionId As String = DAL.SSCP.GetGeosInspectionId(txtTrackingNumber.Text)
                     If geosInspectionId <> "" Then
                         txtEventInformation.Text = "GEOS Inspection ID " & geosInspectionId & vbNewLine & txtEventInformation.Text
@@ -727,7 +724,7 @@ Public Class SSCPEvents
     End Sub
     Sub CheckEnforcement()
         Dim enfNum As String = ""
-        If DAL.SSCP.EnforcementExistsForTrackingNumber(txtTrackingNumber.Text, enfNum) Then
+        If DAL.Sscp.EnforcementExistsForTrackingNumber(txtTrackingNumber.Text, enfNum) Then
             txtEnforcementNumber.Text = enfNum
             txtEnforcementNumber.Visible = True
         Else
@@ -737,57 +734,64 @@ Public Class SSCPEvents
     End Sub
 #End Region
 
-    Private Sub cboReportSchedule_SelectedValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cboReportSchedule.TextChanged
-        Dim Year As String
-        Try
+    Private Sub cboReportSchedule_SelectedValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cboReportSchedule.SelectedIndexChanged
+        Dim today As Date = Date.Today
+        Dim year As String = today.Year
 
-            Year = Date.Now.Year
-
-            Select Case cboReportSchedule.Text
-                Case "First Quarter"
-                    DTPReportPeriodStart.Value = "1-Jan-" & Year
-                    DTPReportPeriodEnd.Value = "31-Mar-" & Year
-                Case "Second Quarter"
-                    DTPReportPeriodStart.Value = "1-Apr-" & Year
-                    DTPReportPeriodEnd.Value = "30-Jun-" & Year
-                Case "Third Quarter"
-                    DTPReportPeriodStart.Value = "1-Jul-" & Year
-                    DTPReportPeriodEnd.Value = "30-Sep-" & Year
-                Case "Fourth Quarter"
-                    DTPReportPeriodStart.Value = "1-Oct-" & Year
-                    DTPReportPeriodEnd.Value = "31-Dec-" & Year
-                Case "First Semiannual"
-                    DTPReportPeriodStart.Value = "1-Jan-" & Year
-                    DTPReportPeriodEnd.Value = "30-Jun-" & Year
-                Case "Second Semiannual"
-                    DTPReportPeriodStart.Value = "1-Jul-" & Year
-                    DTPReportPeriodEnd.Value = "31-Dec-" & Year
-                Case "Annual"
-                    DTPReportPeriodStart.Value = "1-Jan-" & Year
-                    DTPReportPeriodEnd.Value = "31-Dec-" & Year
-                Case "Other"
-                    DTPReportPeriodStart.Value = "1-Jul-" & Year
-                    DTPReportPeriodEnd.Value = "1-Jul-" & Year
-                Case "Monthly"
-                    DTPReportPeriodStart.Value = Date.Today.AddMonths(-1)
-                    DTPReportPeriodEnd.Value = Date.Today
-                Case "Malfunction/Deviation"
-                    DTPReportPeriodStart.Value = OracleDate
-                    DTPReportPeriodEnd.Value = OracleDate
-                Case Else
-                    DTPReportPeriodStart.Value = OracleDate
-                    DTPReportPeriodEnd.Value = OracleDate
-            End Select
-
-
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
+        Select Case cboReportSchedule.Text
+            Case "First Quarter"
+                If Date.Compare(today, New Date(year, 3, 31)) > 0 Then
+                    DTPReportPeriodStart.Value = New Date(year, 1, 1)
+                    DTPReportPeriodEnd.Value = New Date(year, 3, 31)
+                Else
+                    DTPReportPeriodStart.Value = New Date(year - 1, 1, 1)
+                    DTPReportPeriodEnd.Value = New Date(year - 1, 3, 31)
+                End If
+            Case "Second Quarter"
+                If Date.Compare(today, New Date(year, 6, 30)) > 0 Then
+                    DTPReportPeriodStart.Value = New Date(year, 4, 1)
+                    DTPReportPeriodEnd.Value = New Date(year, 6, 30)
+                Else
+                    DTPReportPeriodStart.Value = New Date(year - 1, 4, 1)
+                    DTPReportPeriodEnd.Value = New Date(year - 1, 6, 30)
+                End If
+            Case "Third Quarter"
+                If Date.Compare(today, New Date(year, 9, 30)) > 0 Then
+                    DTPReportPeriodStart.Value = New Date(year, 7, 1)
+                    DTPReportPeriodEnd.Value = New Date(year, 9, 30)
+                Else
+                    DTPReportPeriodStart.Value = New Date(year - 1, 7, 1)
+                    DTPReportPeriodEnd.Value = New Date(year - 1, 9, 30)
+                End If
+            Case "Fourth Quarter"
+                DTPReportPeriodStart.Value = New Date(year - 1, 10, 1)
+                DTPReportPeriodEnd.Value = New Date(year - 1, 12, 31)
+            Case "First Semiannual"
+                If Date.Compare(today, New Date(year, 6, 30)) > 0 Then
+                    DTPReportPeriodStart.Value = New Date(year, 1, 1)
+                    DTPReportPeriodEnd.Value = New Date(year, 6, 30)
+                Else
+                    DTPReportPeriodStart.Value = New Date(year - 1, 1, 1)
+                    DTPReportPeriodEnd.Value = New Date(year - 1, 6, 30)
+                End If
+            Case "Second Semiannual"
+                DTPReportPeriodStart.Value = New Date(year - 1, 7, 1)
+                DTPReportPeriodEnd.Value = New Date(year - 1, 12, 31)
+            Case "Annual"
+                DTPReportPeriodStart.Value = New Date(year - 1, 1, 1)
+                DTPReportPeriodEnd.Value = New Date(year - 1, 12, 31)
+            Case "Monthly"
+                If today.Month = 1 Then
+                    DTPReportPeriodStart.Value = New Date(year - 1, 12, 1)
+                    DTPReportPeriodEnd.Value = New Date(year - 1, 12, 31)
+                Else
+                    DTPReportPeriodStart.Value = New Date(year, today.Month - 1, 1)
+                    DTPReportPeriodEnd.Value = New Date(year, today.Month, 1).AddDays(-1)
+                End If
+            Case Else
+                DTPReportPeriodStart.Value = today.AddDays(-1)
+                DTPReportPeriodEnd.Value = today.AddDays(-1)
+        End Select
     End Sub
 
 #Region "Opening Enforcement Actions"
@@ -1666,7 +1670,6 @@ Public Class SSCPEvents
     End Sub
     Sub SaveDate()
         Dim CompleteDate As String
-        Dim ReceivedDate As String
         Dim Staff As String = ""
         Dim AcknoledgmentLetter As String
         Dim UpdateCode As String
@@ -1801,7 +1804,6 @@ Public Class SSCPEvents
                 End If
 
                 If TPACC.Focus = True Then
-                    ReceivedDate = DTPACCReceivedDate.Text
                     SQL = "Select strTrackingNumber " & _
                     "from AIRBRANCH.SSCPItemMaster " & _
                     "where strTrackingnumber = '" & CStr(CInt(txtTrackingNumber.Text + 1)) & "' " & _
@@ -4155,10 +4157,10 @@ Public Class SSCPEvents
             Exit Sub
         End If
         Try
-            Dim acc As CR.Data.CrAcc = New CR.Data.CrAcc(LoadAccFromForm)
-            Dim accList As New List(Of CR.Data.CrAcc) From {acc}
+            Dim acc As Apb.Sscp.Acc = LoadAccFromForm()
+            Dim accList As New List(Of Apb.Sscp.Acc) From {acc}
 
-            Dim dataTable As DataTable = CollectionHelper.ConvertToDataTable(Of CR.Data.CrAcc)(accList)
+            Dim dataTable As DataTable = CollectionHelper.ConvertToDataTable(Of Apb.Sscp.Acc)(accList)
             Dim title As String = acc.AccReportingYear & " ACC for " & acc.Facility.AirsNumber.FormattedString
             Dim crv As New CRViewerForm(New CR.Reports.AccMemo, dataTable, title:=title)
             crv.Show()
@@ -4167,8 +4169,8 @@ Public Class SSCPEvents
         End Try
     End Sub
 
-    Private Function LoadAccFromForm() As Apb.SSCP.Acc
-        Dim thisAcc As New Apb.SSCP.Acc
+    Private Function LoadAccFromForm() As Apb.Sscp.Acc
+        Dim thisAcc As New Apb.Sscp.Acc
 
         With thisAcc
             If dtpAccReportingYear.Checked Then .AccReportingYear = dtpAccReportingYear.Value.Year
@@ -4188,7 +4190,7 @@ Public Class SSCPEvents
             .PostmarkedByDeadline = rdbACCPostmarkYes.Checked
             .ResubmittalRequested = rdbACCResubmittalRequestedYes.Checked
             .SignedByResponsibleOfficial = rdbACCROYes.Checked
-            .StaffResponsible = DAL.GetStaffInfoById(cboStaffResponsible.SelectedValue)
+            .StaffResponsible = DAL.GetStaff(cboStaffResponsible.SelectedValue)
             .UnreportedDeviationsReported = rdbACCPreviouslyUnreportedDeviationsYes.Checked
         End With
 

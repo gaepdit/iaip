@@ -52,11 +52,6 @@ Public Class IAIPPrintOut
 
                 Dim Commissioner As String = ""
                 Dim Director As String = ""
-                Dim PermitCount As String = "0"
-                Dim MonitoringCount As String = "0"
-                Dim EnforcementCount As String = "0"
-                Dim FCECount As String = "0"
-                Dim ComplianceCount As String = "0"
 
                 Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
                 Dim ParameterField As CrystalDecisions.Shared.ParameterField

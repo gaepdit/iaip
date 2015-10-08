@@ -22,13 +22,13 @@ Module subMain
     Friend DocumentationUrl As New Uri("https://sites.google.com/site/iaipdocs/")
     Friend SupportUrl As New Uri("http://dmu.georgiaair.org/iaip/")
     Friend ChangelogUrl As New Uri("http://dmu.georgiaair.org/iaip/changelog.html")
-    Friend MapUrlFragment As New String("http://maps.google.com/maps?z=14&q=")
+    Friend MapUrlFragment As New String("http://maps.google.com/maps?q=")
     Friend PermitSearchUrlFragment As New String("http://search.georgiaair.org/?AirsNumber=")
 
     Friend DateFormat As String = "dd-MMM-yyyy"
-    Friend DateTimeFormat As String = "dd-MMM-yyyy h:mm tt"
     Friend DateStringFormat As String = "{0:dd-MMM-yyyy}"
-    Friend DateTimeStringFormat As String = "{0:dd-MMM-yyyy h:mm tt}"
+    'Friend DateTimeFormat As String = "dd-MMM-yyyy h:mm tt"
+    'Friend DateTimeStringFormat As String = "{0:dd-MMM-yyyy h:mm tt}"
 
     Friend CurrentUser As IaipUser
     Friend AppFirstRun As Boolean = False
@@ -46,8 +46,8 @@ Module subMain
     Public UserUnit As String
     Public AccountFormAccess(150, 4) As String
 
-    Public cmd, cmd2, cmd3 As OracleCommand
-    Public dr, dr2, dr3 As OracleDataReader
+    Public cmd, cmd2 As OracleCommand
+    Public dr, dr2 As OracleDataReader
     Public recExist As Boolean
     Public temp As String
 #End Region
@@ -73,13 +73,10 @@ Module subMain
 #End Region
 
 #Region " SSCP Screens "
-    Public SSCP_Work As SSCPComplianceLog
     Public SSCPFCE As SSCPFCEWork
-    Public SSCPEngWork As SSCPWorkEnTry
 #End Region
 
 #Region " SSPP Screens "
-    Public AttainmentStatus As SSPPAttainmentStatus
     Public FeeContact As SSPP_FeeContact
 #End Region
 

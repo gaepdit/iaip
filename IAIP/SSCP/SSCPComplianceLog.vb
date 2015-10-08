@@ -5,7 +5,7 @@ Imports System.Collections.Generic
 Public Class SSCPComplianceLog
     Dim SQL, SQL2, SQL3 As String
     Dim cmd, cmd2, cmd3 As OracleCommand
-    Dim dr, dr2, dr3 As OracleDataReader
+    Dim dr, dr3 As OracleDataReader
     Dim recExist As Boolean
     Dim dsCompliance As DataSet
     Dim daCompliance As OracleDataAdapter
@@ -13,8 +13,6 @@ Public Class SSCPComplianceLog
     Dim daStaff As OracleDataAdapter
     Dim dsWorkEntry As DataSet
     Dim daWorkEntry As OracleDataAdapter
-    Dim dsFacility As DataSet
-    Dim daFacility As OracleDataAdapter
     Dim dsNotifications As DataSet
     Dim daNotifications As OracleDataAdapter
     Dim dsComplianceUnit As DataSet
@@ -779,101 +777,94 @@ Public Class SSCPComplianceLog
                 Dim parameters As New Dictionary(Of String, String)
                 parameters("airsnumber") = txtNewAIRSNumber.Text
                 OpenMultiForm("SscpEnforcement", -1, parameters)
-            Else
-                If rdbFCE.Checked = True Then
-                    OpenFormFce(Me.txtNewAIRSNumber.Text)
-                Else
-                    If rdbPerformanceTest.Checked = True Then
-                        If txtTrackingNumber.Text <> "" Then
-                            Dim RefNum As String = ""
-                            Dim DocType As String = ""
+            ElseIf rdbFCE.Checked = True Then
+                OpenFormFce(New Apb.ApbFacilityId(txtNewAIRSNumber.Text))
+            ElseIf rdbPerformanceTest.Checked = True Then
+                If txtTrackingNumber.Text <> "" Then
+                    Dim RefNum As String = ""
 
-                            SQL = "Select " & _
-                            "AIRBRANCH.ISMPReportInformation.strReferenceNumber, " & _
-                            "AIRBRANCH.ISMPDocumentType.strDocumentType " & _
-                            "from AIRBRANCH.ISMPReportInformation, " & _
-                            "AIRBRANCH.ISMPDocumentType " & _
-                            "where AIRBRANCH.ISMPReportInformation.strDocumentType = AIRBRANCH.ISMPDocumentType.strKEy " & _
-                            "and strReferenceNumber = '" & txtTrackingNumber.Text & "' "
+                    SQL = "Select " & _
+                    "AIRBRANCH.ISMPReportInformation.strReferenceNumber, " & _
+                    "AIRBRANCH.ISMPDocumentType.strDocumentType " & _
+                    "from AIRBRANCH.ISMPReportInformation, " & _
+                    "AIRBRANCH.ISMPDocumentType " & _
+                    "where AIRBRANCH.ISMPReportInformation.strDocumentType = AIRBRANCH.ISMPDocumentType.strKEy " & _
+                    "and strReferenceNumber = '" & txtTrackingNumber.Text & "' "
 
-                            cmd = New OracleCommand(SQL, CurrentConnection)
-                            If CurrentConnection.State = ConnectionState.Closed Then
-                                CurrentConnection.Open()
-                            End If
-                            dr = cmd.ExecuteReader
-                            recExist = dr.Read
-                            If recExist = True Then
-                                RefNum = dr.Item("strReferenceNumber")
-                                DocType = dr.Item("strDocumentType")
-                            Else
-                                RefNum = ""
-                                DocType = ""
-                            End If
-                            dr.Close()
-                            If RefNum <> "" Then
-                                If DAL.ISMP.StackTestExists(RefNum) Then OpenMultiForm("ISMPTestReports", RefNum)
-                            Else
-                                MsgBox("The Reference Number is not valid." & vbCrLf & _
-                                "Please check the number you entered.", MsgBoxStyle.Information, "SSCP Compliance Log")
-                            End If
-                        End If
-                    Else
-                        If Me.rdbOther.Checked = True And Me.cboEvent.SelectedIndex > 0 Then
-                            SQL = "Insert into AIRBRANCH.SSCPItemMaster " & _
-                            "(strTrackingNumber, strAIRSNumber, " & _
-                            "datReceivedDate, strEventType, " & _
-                            "strResponsibleStaff, datCompleteDate, " & _
-                            "strModifingPerson, datModifingDate) " & _
-                            "values " & _
-                            "(AIRBRANCH.SSCPTrackingNumber.nextval, '0413" & txtNewAIRSNumber.Text & "', " & _
-                            "'" & DTPDateReceived.Text & "', " & _
-                            "'" & cboEvent.SelectedValue & "', " & _
-                            "'" & UserGCode & "', '', " & _
-                            "'" & UserGCode & "', '" & OracleDate & "')"
-
-                            If cboEvent.SelectedValue = "04" Then
-                                SQL2 = "Insert into AIRBRANCH.SSCPItemMaster " & _
-                                "(strTrackingNumber, strAIRSNumber, " & _
-                                "datReceivedDate, strEventType, " & _
-                                "strResponsibleStaff, datCompleteDate, " & _
-                                "strModifingPerson, datModifingDate) " & _
-                                "values " & _
-                                "(AIRBRANCH.SSCPTrackingNumber.nextval, '0413" & txtNewAIRSNumber.Text & "', " & _
-                                "'" & DTPDateReceived.Text & "', " & _
-                                "'06', " & _
-                                "'" & UserGCode & "', '" & DTPDateReceived.Text & "', " & _
-                                "'" & UserGCode & "', '" & OracleDate & "')"
-                            Else
-                                SQL2 = ""
-                            End If
-
-                            SQL3 = "Select AIRBRANCH.SSCPTrackingNumber.Currval from Dual"
-
-                            cmd = New OracleCommand(SQL, CurrentConnection)
-                            cmd2 = New OracleCommand(SQL2, CurrentConnection)
-                            cmd3 = New OracleCommand(SQL3, CurrentConnection)
-
-                            If CurrentConnection.State = ConnectionState.Closed Then
-                                CurrentConnection.Open()
-                            End If
-
-                            dr = cmd.ExecuteReader
-                            dr3 = cmd3.ExecuteReader
-
-
-                            While dr3.Read
-                                txtTrackingNumber.Text = dr3.Item(0)
-                            End While
-
-                            If SQL2 <> "" Then
-                                dr2 = cmd2.ExecuteReader
-                            End If
-
-                            OpenFormSscpWorkItem(txtTrackingNumber.Text)
-                        Else
-                            MsgBox("Select a Work type and event type if needed.", MsgBoxStyle.Information, "Work Entry")
-                        End If
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
                     End If
+                    dr = cmd.ExecuteReader
+                    recExist = dr.Read
+                    If recExist = True Then
+                        RefNum = dr.Item("strReferenceNumber")
+                    Else
+                        RefNum = ""
+                    End If
+                    dr.Close()
+                    If RefNum <> "" Then
+                        If DAL.Ismp.StackTestExists(RefNum) Then OpenMultiForm("ISMPTestReports", RefNum)
+                    Else
+                        MsgBox("The Reference Number is not valid." & vbCrLf & _
+                        "Please check the number you entered.", MsgBoxStyle.Information, "SSCP Compliance Log")
+                    End If
+                End If
+            ElseIf Me.rdbOther.Checked = True Then
+                If Me.cboEvent.SelectedIndex > 0 Then
+                    SQL = "Insert into AIRBRANCH.SSCPItemMaster " & _
+                    "(strTrackingNumber, strAIRSNumber, " & _
+                    "datReceivedDate, strEventType, " & _
+                    "strResponsibleStaff, datCompleteDate, " & _
+                    "strModifingPerson, datModifingDate) " & _
+                    "values " & _
+                    "(AIRBRANCH.SSCPTrackingNumber.nextval, '0413" & txtNewAIRSNumber.Text & "', " & _
+                    "'" & DTPDateReceived.Text & "', " & _
+                    "'" & cboEvent.SelectedValue & "', " & _
+                    "'" & UserGCode & "', '', " & _
+                    "'" & UserGCode & "', '" & OracleDate & "')"
+
+                    If cboEvent.SelectedValue = "04" Then
+                        SQL2 = "Insert into AIRBRANCH.SSCPItemMaster " & _
+                        "(strTrackingNumber, strAIRSNumber, " & _
+                        "datReceivedDate, strEventType, " & _
+                        "strResponsibleStaff, datCompleteDate, " & _
+                        "strModifingPerson, datModifingDate) " & _
+                        "values " & _
+                        "(AIRBRANCH.SSCPTrackingNumber.nextval, '0413" & txtNewAIRSNumber.Text & "', " & _
+                        "'" & DTPDateReceived.Text & "', " & _
+                        "'06', " & _
+                        "'" & UserGCode & "', '" & DTPDateReceived.Text & "', " & _
+                        "'" & UserGCode & "', '" & OracleDate & "')"
+                    Else
+                        SQL2 = ""
+                    End If
+
+                    SQL3 = "Select AIRBRANCH.SSCPTrackingNumber.Currval from Dual"
+
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    cmd3 = New OracleCommand(SQL3, CurrentConnection)
+
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
+                    End If
+
+                    dr = cmd.ExecuteReader
+                    dr3 = cmd3.ExecuteReader
+
+
+                    While dr3.Read
+                        txtTrackingNumber.Text = dr3.Item(0)
+                    End While
+
+                    If SQL2 <> "" Then
+                        cmd2.ExecuteReader()
+                    End If
+
+                    OpenFormSscpWorkItem(txtTrackingNumber.Text)
+                Else
+                    MsgBox("Select a Work type and event type if needed.", MsgBoxStyle.Information, "Work Entry")
                 End If
             End If
 
@@ -1612,10 +1603,8 @@ Public Class SSCPComplianceLog
     End Sub
     Private Sub dgvWork_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvWork.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvWork.HitTest(e.X, e.Y)
-        Dim WorkType As String = ""
 
         Try
-
 
             If dgvWork.RowCount > 0 And hti.RowIndex <> -1 Then
                 txtAIRSNumber.Text = dgvWork(0, hti.RowIndex).Value
@@ -1672,7 +1661,7 @@ Public Class SSCPComplianceLog
                 If InStr(txtTestType.Text, "Enforcement") > 0 Then
                     OpenFormEnforcement(txtWorkNumber.Text)
                 ElseIf InStr(txtTestType.Text, "Full Compliance Evaluation") > 0 Then
-                    OpenFormFceByID(txtWorkNumber.Text, New Apb.ApbFacilityId(txtAIRSNumber.Text))
+                    OpenFormFce(txtWorkNumber.Text)
                 Else
                     OpenFormSscpWorkItem(txtWorkNumber.Text)
                 End If
@@ -1683,7 +1672,7 @@ Public Class SSCPComplianceLog
     End Sub
     Private Sub txtNewAIRSNumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtNewAIRSNumber.TextChanged
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtNewAIRSNumber.Text) Then
-            Dim fac As Apb.Facilities.Facility = DAL.FacilityModule.GetFacility(txtNewAIRSNumber.Text)
+            Dim fac As Apb.Facilities.Facility = DAL.FacilityData.GetFacility(txtNewAIRSNumber.Text)
             txtFacilityInformation.Text = fac.LongDisplay
         Else
             txtFacilityInformation.Text = ""
@@ -1737,7 +1726,7 @@ Public Class SSCPComplianceLog
     End Sub
     Private Sub btnAddNewEnTry_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNewEntry.Click
         Try
-            If txtNewAIRSNumber.Text.Length = 8 And txtFacilityInformation.Text <> "Invalid AIRS Number" Then
+            If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtNewAIRSNumber.Text) Then
                 AddNewEvent()
             Else
                 MsgBox("Invalid AIRS Number.", MsgBoxStyle.Information, "Work Entry")

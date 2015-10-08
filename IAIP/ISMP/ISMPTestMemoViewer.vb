@@ -8,7 +8,6 @@ Public Class ISMPTestMemoViewer
     Dim panel1 As New StatusBarPanel
     Dim panel2 As New StatusBarPanel
     Dim panel3 As New StatusBarPanel
-    Dim Paneltemp1 As String
     Dim dsMemo As DataSet
     Dim daMemo As OracleDataAdapter
 
@@ -233,7 +232,7 @@ Public Class ISMPTestMemoViewer
     Sub SelectTestReport()
         Try
             Dim id As String = txtReferenceNumber.Text
-            If DAL.ISMP.StackTestExists(id) Then OpenMultiForm("ISMPTestReports", id)
+            If DAL.Ismp.StackTestExists(id) Then OpenMultiForm("ISMPTestReports", id)
             Me.Hide()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

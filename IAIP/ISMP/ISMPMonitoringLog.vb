@@ -2,7 +2,7 @@ Imports Oracle.ManagedDataAccess.Client
 
 
 Public Class ISMPMonitoringLog
-    Dim SQL, SQL2 As String
+    Dim SQL As String
     Dim cmd As OracleCommand
     Dim dr As OracleDataReader
     Dim recExist As Boolean
@@ -903,11 +903,11 @@ Public Class ISMPMonitoringLog
             Dim id As String = txtReferenceNumber.Text
             If id = "" Then Exit Sub
 
-            If DAL.ISMP.StackTestExists(id) Then
+            If DAL.Ismp.StackTestExists(id) Then
                 If UserProgram = "3" Then
                     OpenMultiForm("ISMPTestReports", id)
                 Else
-                    If DAL.ISMP.StackTestIsClosedOut(id) Then
+                    If DAL.Ismp.StackTestIsClosedOut(id) Then
                         If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
                             PrintOut.Dispose()
                         End If

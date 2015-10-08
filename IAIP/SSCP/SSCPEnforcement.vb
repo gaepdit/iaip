@@ -1,8 +1,8 @@
 ﻿Imports System.Collections.Generic
 Imports System.IO
-Imports Iaip.Apb.SSCP
-Imports Iaip.DAL.SSCP
-Imports Iaip.DAL.Documents
+Imports Iaip.Apb.Sscp
+Imports Iaip.DAL.Sscp
+Imports Iaip.DAL.DocumentData
 Imports Oracle.ManagedDataAccess.Types
 Imports Oracle.ManagedDataAccess.Client
 
@@ -34,7 +34,6 @@ Public Class SscpEnforcement
 
 #Region "Local variables"
     Dim SQL, SQL2, SQL3 As String
-    Dim SQL4 As String
     Dim cmd As OracleCommand
     Dim dr As OracleDataReader
     Dim recExist As Boolean
@@ -366,7 +365,6 @@ Public Class SscpEnforcement
     End Sub
 
     Private Sub LoadCombos()
-        Dim dtAirPrograms As New DataTable
         Dim dtComplianceStatus As New DataTable
         Dim dtStaff As New DataTable
 
@@ -773,7 +771,6 @@ Public Class SscpEnforcement
             Dim DiscoveryDate As String = ""
             Dim DayZero As String = ""
             Dim ViolationTypeCode As String = ""
-            Dim Pollutants As String = ""
             Dim PollutantStatus As String = ""
             Dim LONToUC As String = ""
             Dim LONSent As String = ""
@@ -801,7 +798,6 @@ Public Class SscpEnforcement
             Dim COPenaltyComments As String = ""
             Dim COComments As String = ""
             Dim Stipulated As String = ""
-            Dim COResolvedEnforcement As String = ""
             Dim AOExecuted As String = ""
             Dim AOAppealed As String = ""
             Dim AOComments As String = ""
@@ -813,9 +809,7 @@ Public Class SscpEnforcement
             Dim AFSCOExecutedNumber As String = ""
             Dim AFSCOResolvedNumber As String = ""
             Dim AFSAOtoAGNumber As String = ""
-            Dim AFSCivilCourtNumber As String = ""
             Dim AFSAOResolvedNumber As String = ""
-            Dim ModifingPerson As String = ""
             Dim ModifingDate As String = ""
 
             If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
@@ -901,11 +895,6 @@ Public Class SscpEnforcement
                         ViolationTypeCode = "BLANK"
                     Else
                         ViolationTypeCode = dr.Item("strHPV")
-                    End If
-                    If IsDBNull(dr.Item("strPollutants")) Then
-                        Pollutants = ""
-                    Else
-                        Pollutants = dr.Item("strPollutants")
                     End If
                     If IsDBNull(dr.Item("strPollutantStatus")) Then
                         PollutantStatus = ""
@@ -1110,11 +1099,6 @@ Public Class SscpEnforcement
                     Else
                         Stipulated = dr.Item("strStipulatedPenalty")
                     End If
-                    If IsDBNull(dr.Item("strCOResolvedEnforcement")) Then
-                        COResolvedEnforcement = ""
-                    Else
-                        COResolvedEnforcement = dr.Item("strCOResolvedEnforcement")
-                    End If
                     If IsDBNull(dr.Item("strAOExecuted")) Then
                         AOExecuted = ""
                     Else
@@ -1182,20 +1166,10 @@ Public Class SscpEnforcement
                     Else
                         AFSAOtoAGNumber = dr.Item("strAFSAOtoAGNumber")
                     End If
-                    If IsDBNull(dr.Item("strAFSCivilCourtNumber")) Then
-                        AFSCivilCourtNumber = ""
-                    Else
-                        AFSCivilCourtNumber = dr.Item("strAFSCivilCourtNumber")
-                    End If
                     If IsDBNull(dr.Item("strAFSAOResolvedNumber")) Then
                         AFSAOResolvedNumber = ""
                     Else
                         AFSAOResolvedNumber = dr.Item("strAFSAOResolvedNumber")
-                    End If
-                    If IsDBNull(dr.Item("strModifingPerson")) Then
-                        ModifingPerson = ""
-                    Else
-                        ModifingPerson = dr.Item("strModifingPerson")
                     End If
                     If IsDBNull(dr.Item("datModifingDate")) Then
                         ModifingDate = ""
@@ -1628,26 +1602,11 @@ Public Class SscpEnforcement
 
     Private Sub LoadFacilityInfo()
         Try
-            Dim AIRSNumber As String = ""
-            Dim EnforcementNumber As String = ""
-            Dim TrackingNumber As String = ""
-            Dim EnforcementType As String = ""
             Dim FacName As String = ""
             Dim FacAddress As String = ""
             Dim FacCounty As String = ""
             Dim Classification As String = ""
             Dim AirProgramCode As String = ""
-            Dim AirPrograms As String = ""
-
-            If txtAIRSNumber.Text <> "" Then
-                AIRSNumber = txtAIRSNumber.Text
-            End If
-            If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
-                EnforcementNumber = txtEnforcementNumber.Text
-            End If
-            If txtTrackingNumber.Text <> "" Then
-                TrackingNumber = txtTrackingNumber.Text
-            End If
 
             SQL = "Select strFacilityName, strFacilityStreet1, " & _
             "strFacilityCity, strCountyName, strFacilityState, strFacilityZipCode, " & _
@@ -1835,8 +1794,6 @@ Public Class SscpEnforcement
             Dim PollutantDesc As String
             Dim Compliance As String
             Dim Pollutants As String = ""
-            Dim AirCode As String = ""
-            Dim PollutantCode As String = ""
             Dim PollCheck As String = ""
 
             lvPollutants.Items.Clear()
@@ -1872,15 +1829,11 @@ Public Class SscpEnforcement
                     ColumnArray(1, 6) = AirPollutantKey
 
                     Dim item1 As New ListViewItem("")
-                    Dim tempshow As String
 
                     item1.Checked = False
 
                     If temp > 1 Then
                         For i = 2 To temp
-
-                            tempshow = ColumnArray(1, i)
-
                             item1.SubItems.Add(ColumnArray(1, i))
                         Next
                     End If
@@ -1947,15 +1900,11 @@ Public Class SscpEnforcement
                     ColumnArray(1, 6) = AirPollutantKey
 
                     Dim item1 As New ListViewItem("")
-                    Dim tempshow As String
 
                     item1.Checked = False
 
                     If temp > 1 Then
                         For i = 2 To temp
-
-                            tempshow = ColumnArray(1, i)
-
                             item1.SubItems.Add(ColumnArray(1, i))
                         Next
                     End If
@@ -2191,9 +2140,6 @@ Public Class SscpEnforcement
             Dim AFSAOtoAGNumber As String = ""
             Dim AFSCivilCourtNumber As String = ""
             Dim AFSAOResolvedNumber As String = ""
-            Dim AirProgram As String = ""
-            Dim Pollutant As String = ""
-
 
             If AccountFormAccess(48, 2) = "0" And AccountFormAccess(48, 3) = "0" And AccountFormAccess(48, 4) = "0" Then
                 MsgBox("You do not have sufficent permission to save Compliance Events.", MsgBoxStyle.Information, "Compliance Events")
@@ -3842,6 +3788,7 @@ Public Class SscpEnforcement
         Try
 
             SaveEnforcement()
+            LoadEnforcementPollutants2()
 
             If AccountFormAccess(48, 2) = "1" Or AccountFormAccess(48, 3) = "1" Or AccountFormAccess(48, 4) = "1" Then
                 CheckOpenStatus()
