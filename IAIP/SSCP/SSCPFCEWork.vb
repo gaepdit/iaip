@@ -2064,8 +2064,10 @@ Public Class SSCPFCEWork
         Me.Cursor = Cursors.WaitCursor
 
         Dim airs As New Apb.ApbFacilityId(txtAirsNumber.Text)
-        Dim date2 As Date = DTPFCECompleteDate.Value
-        Dim date1 As Date = date2.AddYears(-1)
+        Dim endDate As Date = DTPFCECompleteDate.Value
+        Dim startDate As Date = endDate.AddYears(-1)
+        Dim enforcementStartDate As Date = endDate.AddYears(-5)
+
         Dim rpt As New CR.Reports.SscpFceReport
 
         Dim dt1 As New DataTable
@@ -2073,27 +2075,27 @@ Public Class SSCPFCEWork
         rpt.Subreports("FacilityBasicInfo.rpt").SetDataSource(dt1)
 
         Dim dt2 As New DataTable("VW_SSCP_INSPECTIONS")
-        dt2 = DAL.Sscp.GetInspectionDataTable(date1, date2, airs)
+        dt2 = DAL.Sscp.GetInspectionDataTable(startDate, endDate, airs)
         rpt.Subreports("SscpInspections.rpt").SetDataSource(dt2)
 
         Dim dt3 As New DataTable("VW_SSCP_RMPINSPECTIONS")
-        dt3 = DAL.Sscp.GetRmpInspectionDataTable(date1, date2, airs)
+        dt3 = DAL.Sscp.GetRmpInspectionDataTable(startDate, endDate, airs)
         rpt.Subreports("SscpRmpInspections.rpt").SetDataSource(dt3)
 
         Dim dt4 As New DataTable("VW_SSCP_ACCS")
-        dt4 = DAL.Sscp.GetAccDataTable(date1, date2, airs)
+        dt4 = DAL.Sscp.GetAccDataTable(startDate, endDate, airs)
         rpt.Subreports("SscpAcc.rpt").SetDataSource(dt4)
 
         Dim dt5 As New DataTable("VW_SSCP_REPORTS")
-        dt5 = DAL.Sscp.GetCompReportsDataTable(date1, date2, airs)
+        dt5 = DAL.Sscp.GetCompReportsDataTable(startDate, endDate, airs)
         rpt.Subreports("SscpReports.rpt").SetDataSource(dt5)
 
         Dim dt6 As New DataTable("VW_SSCP_NOTIFICATIONS")
-        dt6 = DAL.Sscp.GetCompNotificationsDataTable(date1, date2, airs)
+        dt6 = DAL.Sscp.GetCompNotificationsDataTable(startDate, endDate, airs)
         rpt.Subreports("SscpNotifications.rpt").SetDataSource(dt6)
 
         Dim dt7 As New DataTable("VW_SSCP_STACKTESTS")
-        dt7 = DAL.Sscp.GetCompStackTestDataTable(date1, date2, airs)
+        dt7 = DAL.Sscp.GetCompStackTestDataTable(startDate, endDate, airs)
         rpt.Subreports("SscpStackTests.rpt").SetDataSource(dt7)
 
         Dim dt9 As New DataTable("VW_SSCP_FCES")
@@ -2101,12 +2103,16 @@ Public Class SSCPFCEWork
         rpt.SetDataSource(dt9)
 
         Dim dt10 As New DataTable("VW_FEES_FACILITY_SUMMARY")
-        dt10 = DAL.FeesData.GetFeesFacilitySummaryAsDataTable(date1.Year, date2.Year, airs)
+        dt10 = DAL.FeesData.GetFeesFacilitySummaryAsDataTable(startDate.Year, endDate.Year, airs)
         rpt.Subreports("FeesFacilitySum.rpt").SetDataSource(dt10)
 
+        Dim dt11 As New DataTable("VW_SSCP_ENFORCEMENT_SUMMARY")
+        dt11 = DAL.Sscp.GetEnforcementSummaryDataTable(enforcementStartDate, endDate, airs)
+        rpt.Subreports("SscpEnforcementSum.rpt").SetDataSource(dt11)
+
         Dim pd As New Generic.Dictionary(Of String, String) From {
-            {"StartDate", String.Format("{0:MMMM d, yyyy}", date1)},
-            {"EndDate", String.Format("{0:MMMM d, yyyy}", date2)}
+            {"StartDate", String.Format("{0:MMMM d, yyyy}", startDate)},
+            {"EndDate", String.Format("{0:MMMM d, yyyy}", endDate)}
         }
 
         Dim cr As New CRViewerForm(rpt, pd)
