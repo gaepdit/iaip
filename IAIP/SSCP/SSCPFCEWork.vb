@@ -2100,6 +2100,10 @@ Public Class SSCPFCEWork
         dt9 = DAL.Sscp.GetFceDataTable(airs, year:=cboFCEYear.Text)
         rpt.SetDataSource(dt9)
 
+        Dim dt10 As New DataTable("VW_FEES_FACILITY_SUMMARY")
+        dt10 = DAL.FeesData.GetFeesFacilitySummaryAsDataTable(date1.Year, date2.Year, airs)
+        rpt.Subreports("FeesFacilitySum.rpt").SetDataSource(dt10)
+
         Dim pd As New Generic.Dictionary(Of String, String) From {
             {"StartDate", String.Format("{0:MMMM d, yyyy}", date1)},
             {"EndDate", String.Format("{0:MMMM d, yyyy}", date2)}
