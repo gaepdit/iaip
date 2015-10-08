@@ -32,7 +32,7 @@ Module subMain
 
     Friend CurrentUser As IaipUser
     Friend AppFirstRun As Boolean = False
-    Friend AppUpgraded As Boolean = False
+    Friend AppUpdated As Boolean = False
 
 #End Region
 
