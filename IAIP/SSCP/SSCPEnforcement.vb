@@ -30,6 +30,26 @@ Public Class SscpEnforcement
         End Set
     End Property
 
+    Private _message As IaipMessage
+    Private Property Message As IaipMessage
+        Get
+            Return _message
+        End Get
+        Set(value As IaipMessage)
+            If value Is Nothing And Message IsNot Nothing Then
+                Message.Clear()
+            End If
+            _message = value
+            If value IsNot Nothing Then
+                If Message.WarningLevel = IaipMessage.WarningLevels.ErrorReport Then
+                    Message.Display(lblMessage, EP)
+                Else
+                    Message.Display(lblMessage)
+                End If
+            End If
+        End Set
+    End Property
+
 #End Region
 
 #Region "Local variables"
@@ -144,7 +164,7 @@ Public Class SscpEnforcement
 #Region "Clear form sections"
 
     Private Sub ClearEverything()
-        ClearMessage(lblMessage, EP)
+        Me.Message = Nothing
         ClearDocumentList()
     End Sub
 
@@ -169,17 +189,17 @@ Public Class SscpEnforcement
     End Sub
 
     Private Sub btnDocumentDownload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDocumentDownload.Click
-        ClearMessage(lblMessage, EP)
+        Me.Message = Nothing
 
         Dim doc As EnforcementDocument = EnforcementDocumentFromFileListRow(dgvDocumentList.CurrentRow)
-        DisplayMessage(lblMessage, String.Format(GetDocumentMessage(DocumentMessageType.DownloadingFile), doc.FileName))
-
+        Me.Message = New IaipMessage(String.Format(GetDocumentMessage(DocumentMessageType.DownloadingFile), doc.FileName))
+        
         Dim canceled As Boolean = False
         Dim downloaded As Boolean = DownloadDocument(doc, canceled, Me)
         If downloaded Or canceled Then
-            ClearMessage(lblMessage, EP)
+            Me.Message = Nothing
         Else
-            DisplayMessage(lblMessage, String.Format(GetDocumentMessage(DocumentMessageType.DownloadFailure), lblDocumentName), True, EP, lblMessage)
+            Me.Message = New IaipMessage(String.Format(GetDocumentMessage(DocumentMessageType.DownloadFailure), lblDocumentName), IaipMessage.WarningLevels.ErrorReport)
         End If
     End Sub
 
@@ -188,10 +208,10 @@ Public Class SscpEnforcement
         doc.Comment = txtDocumentDescription.Text
         Dim updated As Boolean = UpdateEnforcementDocument(doc, Me)
         If updated Then
-            DisplayMessage(lblMessage, String.Format(GetDocumentMessage(DocumentMessageType.UpdateSuccess), doc.FileName))
+            Me.Message = New IaipMessage(String.Format(GetDocumentMessage(DocumentMessageType.UpdateSuccess), doc.FileName))
             LoadDocuments()
         Else
-            DisplayMessage(lblMessage, String.Format(GetDocumentMessage(DocumentMessageType.UpdateFailure), lblDocumentName), True, EP)
+            Me.Message = New IaipMessage(String.Format(GetDocumentMessage(DocumentMessageType.UpdateFailure), lblDocumentName))
         End If
     End Sub
 

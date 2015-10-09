@@ -5,6 +5,7 @@
     Public Property MessageText As String
     Public Property WarningLevel As WarningLevels
     Public Enum WarningLevels
+        None
         Success
         Info
         Warning
@@ -24,7 +25,7 @@
     ''' </summary>
     ''' <param name="messageText">The text of the message</param>
     ''' <param name="warningLevel">The warning level of the message</param>
-    Public Sub New(messageText As String, warningLevel As WarningLevels)
+    Public Sub New(messageText As String, Optional warningLevel As WarningLevels = WarningLevels.None)
         Me.MessageText = messageText
         Me.WarningLevel = warningLevel
     End Sub
@@ -36,10 +37,12 @@
     ''' <summary>
     ''' Displays a precomposed message in a Label. Label is formatted based on the message WarningLevel. Optionally sets up an ErrorProvider.
     ''' </summary>
-    ''' <param name="displayLabel">The label in which to display the message</param>
-    ''' <param name="errorProvider">The optional ErrorProvider</param>
-    ''' <param name="errorControl">The optional control to attach the ErrorProvider to</param>
+    ''' <param name="displayLabel">The label in which to display the message.</param>
+    ''' <param name="errorProvider">The optional ErrorProvider.</param>
+    ''' <param name="errorControl">The optional control to attach the ErrorProvider to. If not set, then displayLabel is used.</param>
     Public Sub Display(ByVal displayLabel As Label, Optional ByVal errorProvider As ErrorProvider = Nothing, Optional ByVal errorControl As Control = Nothing)
+        If Me Is Nothing Then Exit Sub
+
         Me.DisplayLabel = displayLabel
         Me.ErrorProvider = errorProvider
         Me.ErrorControl = errorControl
@@ -47,10 +50,6 @@
         Select Case Me.WarningLevel
             Case WarningLevels.ErrorReport
                 Me.DisplayLabel.ForeColor = Color.DarkRed
-                If errorProvider IsNot Nothing AndAlso errorControl IsNot Nothing Then
-                    errorProvider.SetError(errorControl, Me.MessageText)
-                    errorProvider.SetIconAlignment(errorControl, System.Windows.Forms.ErrorIconAlignment.TopLeft)
-                End If
 
             Case WarningLevels.Warning
                 Me.DisplayLabel.ForeColor = Color.DarkRed
@@ -66,6 +65,15 @@
         Me.DisplayLabel.Text = Me.MessageText
         Me.DisplayLabel.Visible = True
 
+        If Me.ErrorProvider IsNot Nothing Then
+            If Me.ErrorControl IsNot Nothing Then
+                Me.ErrorProvider.SetError(Me.ErrorControl, Me.MessageText)
+                Me.ErrorProvider.SetIconAlignment(Me.ErrorControl, System.Windows.Forms.ErrorIconAlignment.TopLeft)
+            Else
+                Me.ErrorProvider.SetError(displayLabel, Me.MessageText)
+                Me.ErrorProvider.SetIconAlignment(displayLabel, System.Windows.Forms.ErrorIconAlignment.TopLeft)
+            End If
+        End If
     End Sub
 
     ''' <summary>

@@ -1912,8 +1912,8 @@ Partial Class SscpEnforcement
         '
         Me.lblMessage.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lblMessage.AutoSize = True
-        Me.lblMessage.BackColor = System.Drawing.Color.OldLace
-        Me.lblMessage.ForeColor = System.Drawing.Color.DarkRed
+        Me.lblMessage.BackColor = System.Drawing.Color.LightYellow
+        Me.lblMessage.ForeColor = System.Drawing.Color.Black
         Me.lblMessage.Location = New System.Drawing.Point(15, 300)
         Me.lblMessage.MaximumSize = New System.Drawing.Size(550, 0)
         Me.lblMessage.Name = "lblMessage"
