@@ -907,6 +907,7 @@
     <Compile Include="_Modules\ExcelExport.vb" />
     <Compile Include="_Modules\Extensions.vb" />
     <Compile Include="_Modules\App.vb" />
+    <Compile Include="_Modules\IaipMessage.vb" />
     <Compile Include="_Modules\UserSettings.vb" />
     <Compile Include="_Modules\subMain.vb">
       <SubType>Code</SubType>
@@ -1827,7 +1828,7 @@
     <Compile Include="_Modules\FormSettings.vb" />
     <Compile Include="_Modules\General.vb" />
     <Compile Include="_Modules\MD5.vb" />
-    <Compile Include="_Modules\Messages.vb" />
+    <Compile Include="_Modules\DocumentMessages.vb" />
     <Compile Include="_Modules\Email.Outlook.vb" />
     <Compile Include="_Modules\Encryption.vb" />
     <Compile Include="_Modules\ProgressStatus.Designer.vb">
