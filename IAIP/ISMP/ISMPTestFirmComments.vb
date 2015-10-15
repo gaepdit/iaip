@@ -275,8 +275,8 @@ Public Class ISMPTestFirmComments
                     "'" & TestFirmKey & "', " & _
                     "'" & AIRSNum & "', '" & TestLogNum & "', " & _
                     "'" & RefNum & "', '" & SaveType & "', " & _
-                    "'" & UserGCode & "', sysdate, " & _
-                    "'" & Replace(Comment, "'", "''") & "', '" & UserGCode & "', " & _
+                    "'" & CurrentUser.UserID & "', sysdate, " & _
+                    "'" & Replace(Comment, "'", "''") & "', '" & CurrentUser.UserID & "', " & _
                     "sysdate) "
                 Else
                     SQL = "Update AIRBRANCH.ISMPTestFirmComments set " & _
@@ -285,10 +285,10 @@ Public Class ISMPTestFirmComments
                     "strTestLogNumber = '" & TestLogNum & "', " & _
                     "strReferenceNumber = '" & RefNum & "', " & _
                     "strCommentType = '" & SaveType & "', " & _
-                    "strStaffresponsible = '" & UserGCode & "', " & _
+                    "strStaffresponsible = '" & CurrentUser.UserID & "', " & _
                     "datCommentDate = sysdate, " & _
                     "strComment = '" & Replace(Comment, "'", "''") & "', " & _
-                    "strModifingPerson = '" & UserGCode & "', " & _
+                    "strModifingPerson = '" & CurrentUser.UserID & "', " & _
                     "datModifingdate = sysdate " & _
                     "where numcommentsID = '" & CommentID & "' "
                 End If
@@ -469,7 +469,7 @@ Public Class ISMPTestFirmComments
                     "strAIRSNumber = '" & AIRSNum & "', " & _
                     "strTestLogNumber = '" & TestLogNum & "', " & _
                     "strReferenceNumber = '" & RefNum & "', " & _
-                    "strModifingPerson = '" & UserGCode & "', " & _
+                    "strModifingPerson = '" & CurrentUser.UserID & "', " & _
                     "datModifingdate = sysdate " & _
                     "where numcommentsID = '" & CommentID & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -649,9 +649,9 @@ Public Class ISMPTestFirmComments
                 "strTestLogNumber = '" & TestLogNum & "', " & _
                 "strReferenceNumber = '" & RefNum & "', " & _
                 "strComment = '" & Replace(txtAddComments.Text, "'", "''") & "', " & _
-                "strStaffresponsible = '" & UserGCode & "', " & _
+                "strStaffresponsible = '" & CurrentUser.UserID & "', " & _
                 "datCommentDate = sysdate, " & _
-                "strModifingPerson = '" & UserGCode & "', " & _
+                "strModifingPerson = '" & CurrentUser.UserID & "', " & _
                 "datModifingDate = sysdate " & _
                 "where numCommentsID = '" & CommentID & "' "
 

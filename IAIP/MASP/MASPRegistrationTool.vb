@@ -998,7 +998,7 @@ Public Class MASPRegistrationTool
                      "'" & Replace(Capacity, "'", "''") & "', '" & Replace(Notes, "'", "''") & "', " & _
                      "'', " & _
                      "'" & Active & "', " & _
-                     "sysdate, '" & UserGCode & "', " & _
+                     "sysdate, '" & CurrentUser.UserID & "', " & _
                      "sysdate, '" & LogInRequired & "', " & _
                      "'" & Replace(PassCode, "'", "''") & "', '" & Replace(Address, "'", "''") & "', " & _
                      "'" & Replace(City, "'", "''") & "', '" & Replace(State, "'", "''") & "',  " & _
@@ -1187,7 +1187,7 @@ Public Class MASPRegistrationTool
             End If
             If SQL <> "" Then
                 SQL = "Update AIRBRANCH.Res_Event set " & _
-                SQL & "updateUser = '" & UserGCode & "', " & _
+                SQL & "updateUser = '" & CurrentUser.UserID & "', " & _
                 "updateDateTime = '" & OracleDate & "' " & _
                 "where numRes_EventID = '" & Res_EventID & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)

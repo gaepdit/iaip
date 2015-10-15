@@ -48,11 +48,14 @@
         Me.ErrorControl = errorControl
 
         Select Case Me.WarningLevel
+
             Case WarningLevels.ErrorReport
                 Me.DisplayLabel.ForeColor = Color.DarkRed
+                Me.DisplayLabel.BackColor = SystemColors.Info
 
             Case WarningLevels.Warning
                 Me.DisplayLabel.ForeColor = Color.DarkRed
+                Me.DisplayLabel.BackColor = SystemColors.Info
 
             Case WarningLevels.Info
                 Me.DisplayLabel.ForeColor = SystemColors.InfoText
@@ -60,6 +63,8 @@
 
             Case WarningLevels.Success
                 Me.DisplayLabel.ForeColor = Color.DarkGreen
+                Me.DisplayLabel.BackColor = SystemColors.Info
+
         End Select
 
         Me.DisplayLabel.Text = Me.MessageText
@@ -80,18 +85,18 @@
     ''' Clears a previously displayed message. 
     ''' </summary>
     Public Sub Clear()
-        If Me.DisplayLabel IsNot Nothing Then
-            Me.DisplayLabel.Text = ""
-            Me.DisplayLabel.Visible = False
+        If DisplayLabel IsNot Nothing Then
+            DisplayLabel.Text = ""
+            DisplayLabel.Visible = False
+            DisplayLabel.ForeColor = SystemColors.ControlText
+            DisplayLabel.BackColor = SystemColors.Control
         End If
 
-        If Me.ErrorProvider IsNot Nothing Then
-            Me.ErrorProvider.Clear()
-        End If
+        If ErrorProvider IsNot Nothing Then ErrorProvider.Clear()
 
-        Me.DisplayLabel = Nothing
-        Me.ErrorProvider = Nothing
-        Me.ErrorControl = Nothing
+        DisplayLabel = Nothing
+        ErrorProvider = Nothing
+        ErrorControl = Nothing
     End Sub
 
 

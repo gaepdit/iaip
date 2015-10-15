@@ -975,7 +975,7 @@ Public Class PASPFeeManagement
             SQL = "Update AIRBRANCH.FS_Admin set " & _
             "strEnrolled = '1', " & _
             "datEnrollment = sysdate, " & _
-            "updateUser = 'IAIP||" & UserName & "', " & _
+            "updateUser = 'IAIP||" & CurrentUser.AlphaName & "', " & _
             "UpdateDateTime = '" & OracleDate & "', " & _
              "numCurrentStatus = 3 " & _
             "where numFeeYear = '" & cboAvailableFeeYears.Text & "' " & _
@@ -1048,7 +1048,7 @@ Public Class PASPFeeManagement
             "strEnrolled = '0', " & _
             "datEnrollment = '', " & _
             "datInitialEnrollment = '', " & _
-            "updateUser = 'IAIP||" & UserName & "', " & _
+            "updateUser = 'IAIP||" & CurrentUser.AlphaName & "', " & _
             "UpdateDateTime = '" & OracleDate & "' " & _
             "where numFeeYear = '" & cboAvailableFeeYears.Text & "' " & _
             "and ACTIVE = '1' "
@@ -2668,7 +2668,7 @@ Public Class PASPFeeManagement
             "'" & NSPSFee & "', '" & FeeDueDate & "', " & _
             "'" & AdminFee & "', " & _
             "'" & AdminApplicable & "', '" & Replace(Comments, "'", "''") & "', " & _
-            "'1', '" & UserGCode & "', " & _
+            "'1', '" & CurrentUser.UserID & "', " & _
             "(to_char(sysdate, 'DD-mon-YY HH12:MI:SS')), " & _
             "(to_char(sysdate, 'DD-mon-YY HH12:MI:SS')), " & _
             "'" & FirstQrtDue & "', '" & SecondQrtDue & "', " & _
@@ -2778,7 +2778,7 @@ Public Class PASPFeeManagement
             "datAdminApplicable = '" & AdminApplicable & "', " & _
             "strComments = '" & Replace(Comments, "'", "''") & "', " & _
             "Active = '" & Active & "', " & _
-            "UpdateUser = '" & UserGCode & "', " & _
+            "UpdateUser = '" & CurrentUser.UserID & "', " & _
             "upDateDateTime = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
             "datFirstQrtDue = '" & FirstQrtDue & "', " & _
             "datSecondQrtDue = '" & SecondQrtDue & "', " & _
@@ -2807,7 +2807,7 @@ Public Class PASPFeeManagement
             "Values " & _
             "((select max(NSPSReasonCode) + 1 from AIRBRANCH.FSLK_NSPSReason), " & _
             "'" & Replace(Description, "'", "''") & "', " & _
-            "'1', '" & UserGCode & "', " & _
+            "'1', '" & CurrentUser.UserID & "', " & _
             "'" & OracleDate & "', '" & OracleDate & "') "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2830,14 +2830,14 @@ Public Class PASPFeeManagement
             If Description = "" Then
                 Sql = "Update AIRBRANCH.FSLK_NSPSReason set " & _
                 "Active = '" & ActiveStatus & "', " & _
-                "updateUser = '" & UserGCode & "', " & _
+                "updateUser = '" & CurrentUser.UserID & "', " & _
                 "UpdateDateTime = '" & OracleDate & "' " & _
                 "where NSPSReasonCode = '" & NSPSReasonCode & "' "
             Else
                 Sql = "Update AIRBRANCH.FSLK_NSPSReason set " & _
                 "Description = '" & Replace(Description, "'", "''") & "', " & _
                 "Active = '" & ActiveStatus & "', " & _
-                "updateUser = '" & UserGCode & "', " & _
+                "updateUser = '" & CurrentUser.UserID & "', " & _
                 "UpdateDateTime = '" & OracleDate & "' " & _
                 "where NSPSReasonCode = '" & NSPSReasonCode & "' "
             End If
@@ -2862,7 +2862,7 @@ Public Class PASPFeeManagement
             "values " & _
             "('" & numFeeYear & "', '" & NSPSReasonCode & "', " & _
             "'" & DisplayOrder & "', '1', " & _
-            "'" & UserGCode & "', '" & OracleDate & "', " & _
+            "'" & CurrentUser.UserID & "', '" & OracleDate & "', " & _
             "'" & OracleDate & "') "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2883,7 +2883,7 @@ Public Class PASPFeeManagement
             "NSPSReasonCode = '" & NSPSReasonCode & "', " & _
             "DisplayOrder = '" & DisplayOrder & "', " & _
             "Active = '" & ActiveStatus & "', " & _
-            "updateUser = '" & UserGCode & "', " & _
+            "updateUser = '" & CurrentUser.UserID & "', " & _
             "updateDateTime = '" & OracleDate & "' " & _
             "where numFeeYear = '" & numFeeYear & "' " & _
             "and NSPSReasonCode = '" & NSPSReasonCode & "' "

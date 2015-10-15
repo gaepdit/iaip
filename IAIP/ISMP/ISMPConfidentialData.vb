@@ -14,7 +14,7 @@ Public Class ISMPConfidentialData
         monitor.TrackFeature("Forms." & Me.Name)
         Try
             Panel1.Text = "Mark field to be redacted..."
-            Panel2.Text = UserName
+            Panel2.Text = CurrentUser.AlphaName
             Panel3.Text = OracleDate
 
             LoadData()

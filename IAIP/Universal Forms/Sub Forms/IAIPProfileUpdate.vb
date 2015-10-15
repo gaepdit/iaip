@@ -20,7 +20,7 @@ Public Class IAIPProfileUpdate
 
                 SQL = "Update AIRBRANCH.EPDUserProfiles set " & _
                 "strEmailAddress = '" & txtEmailAddress.Text & "' " & _
-                "where numUserID = '" & UserGCode & "' "
+                "where numUserID = '" & CurrentUser.UserID & "' "
 
                 cmd = New OracleCommand(Sql, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -48,7 +48,7 @@ Public Class IAIPProfileUpdate
             If myRegEx.IsMatch(myInput) Then
                 Dim SQL As String = "Update AIRBRANCH.EPDUserProfiles set " & _
                 "strPhone = '" & mtbPhoneNumber.Text & "' " & _
-                "where numuserID = '" & UserGCode & "' "
+                "where numuserID = '" & CurrentUser.UserID & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -71,7 +71,7 @@ Public Class IAIPProfileUpdate
                 If txtUserPassword.Text = txtConfirmPassword.Text Then
                     Dim SQL As String = "Update AIRBRANCH.EPDUsers set " & _
                     "strPassword = '" & Replace(EncryptDecrypt.EncryptText(txtUserPassword.Text), "'", "''") & "' " & _
-                    "where numUserId = '" & UserGCode & "' "
+                    "where numUserId = '" & CurrentUser.UserID & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -104,7 +104,7 @@ Public Class IAIPProfileUpdate
 
                 SQL = "Update AIRBRANCH.EPDUserProfiles set " & _
                 "strEmailAddress = '" & txtEmailAddress.Text & "' " & _
-                "where numUserID = '" & UserGCode & "' "
+                "where numUserID = '" & CurrentUser.UserID & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -126,7 +126,7 @@ Public Class IAIPProfileUpdate
             If myRegEx2.IsMatch(myInput2) Then
                 SQL = "Update AIRBRANCH.EPDUserProfiles set " & _
                 "strPhone = '" & mtbPhoneNumber.Text & "' " & _
-                "where numuserID = '" & UserGCode & "' "
+                "where numuserID = '" & CurrentUser.UserID & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -145,7 +145,7 @@ Public Class IAIPProfileUpdate
                 If txtUserPassword.Text = txtConfirmPassword.Text Then
                     SQL = "Update AIRBRANCH.EPDUsers set " & _
                     "strPassword = '" & Replace(EncryptDecrypt.EncryptText(txtUserPassword.Text), "'", "''") & "' " & _
-                    "where numUserId = '" & UserGCode & "' "
+                    "where numUserId = '" & CurrentUser.UserID & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then

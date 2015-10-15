@@ -164,7 +164,7 @@ Public Class SscpEnforcement
 #Region "Clear form sections"
 
     Private Sub ClearEverything()
-        Me.Message = Nothing
+        If Message IsNot Nothing Then Message.Clear()
         ClearDocumentList()
     End Sub
 
@@ -189,7 +189,7 @@ Public Class SscpEnforcement
     End Sub
 
     Private Sub btnDocumentDownload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDocumentDownload.Click
-        Me.Message = Nothing
+        If Message IsNot Nothing Then Message.Clear()
 
         Dim doc As EnforcementDocument = EnforcementDocumentFromFileListRow(dgvDocumentList.CurrentRow)
         Me.Message = New IaipMessage(String.Format(GetDocumentMessage(DocumentMessageType.DownloadingFile), doc.FileName))
@@ -197,7 +197,7 @@ Public Class SscpEnforcement
         Dim canceled As Boolean = False
         Dim downloaded As Boolean = DownloadDocument(doc, canceled, Me)
         If downloaded Or canceled Then
-            Me.Message = Nothing
+            If Message IsNot Nothing Then Message.Clear()
         Else
             Me.Message = New IaipMessage(String.Format(GetDocumentMessage(DocumentMessageType.DownloadFailure), lblDocumentName), IaipMessage.WarningLevels.ErrorReport)
         End If
@@ -263,7 +263,7 @@ Public Class SscpEnforcement
             LoadViolationTypeValues()
 
             btnSubmitEnforcementToEPA.Visible = False
-            cboStaffResponsible.SelectedValue = UserGCode
+            cboStaffResponsible.SelectedValue = CurrentUser.UserID
 
             LoadEnforcement()
             If txtStipulatedKey.Text <> "" Then
@@ -652,7 +652,7 @@ Public Class SscpEnforcement
                     DTPEnforcementResolved.Enabled = True
                 End If
             Else
-                If AccountFormAccess(48, 4) = "1" And AccountFormAccess(4, 4) = "0" And Not UserAccounts.Contains("(114)") Then 'District
+                If AccountFormAccess(48, 4) = "1" And AccountFormAccess(4, 4) = "0" And Not CurrentUser.IaipAccountCodes.Contains(114) Then 'District
                     btnEditAirProgramPollutants.Enabled = False
                     cboPollutantStatus.Enabled = False
                     btnSubmitEnforcementToEPA.Enabled = False
@@ -1224,7 +1224,7 @@ Public Class SscpEnforcement
             If StaffResponsible <> "" Then
                 cboStaffResponsible.SelectedValue = StaffResponsible
             Else
-                cboStaffResponsible.SelectedValue = UserGCode
+                cboStaffResponsible.SelectedValue = CurrentUser.UserID
             End If
 
             If NOVSent <> "" Or NOVToUC <> "" Or NOVTOPM <> "" _
@@ -2186,7 +2186,7 @@ Public Class SscpEnforcement
                 End If
                 StaffResponsible = cboStaffResponsible.SelectedValue
                 If StaffResponsible = "" Then
-                    StaffResponsible = UserGCode
+                    StaffResponsible = CurrentUser.UserID
                 End If
                 If txtSubmitToUC.Text <> "" Then
                     EnforcementStatus = "UC"
@@ -2529,7 +2529,7 @@ Public Class SscpEnforcement
                     "'" & AFSCOExecutedNumber & "', '" & AFSCOResolvedNumber & "', " & _
                     "'" & AFSAOtoAGNumber & "', '" & AFSCivilCourtNumber & "', " & _
                     "'" & AFSAOResolvedNumber & "', " & _
-                    "'" & UserGCode & "', sysdate ) "
+                    "'" & CurrentUser.UserID & "', sysdate ) "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -2598,7 +2598,7 @@ Public Class SscpEnforcement
                     "'" & AFSCOExecutedNumber & "', '" & AFSCOResolvedNumber & "', " & _
                     "'" & AFSAOtoAGNumber & "', '" & AFSCivilCourtNumber & "', " & _
                     "'" & AFSAOResolvedNumber & "', " & _
-                    "'" & UserGCode & "', sysdate ) "
+                    "'" & CurrentUser.UserID & "', sysdate ) "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -2627,7 +2627,7 @@ Public Class SscpEnforcement
 
                         SQL = "Update AIRBRANCH.APBAirProgramPollutants set " & _
                         "strComplianceStatus = '" & cboPollutantStatus.SelectedValue & "', " & _
-                        "strModifingPerson = '" & UserGCode & "', " & _
+                        "strModifingPerson = '" & CurrentUser.UserID & "', " & _
                         "datModifingDate = '" & OracleDate & "' " & _
                         "where strAirPollutantKey = '" & lvPollutants.Items.Item(i).SubItems(5).Text & "' " & _
                         "and strPollutantkey = '" & lvPollutants.Items.Item(i).SubItems(2).Text & "' "
@@ -2771,7 +2771,7 @@ Public Class SscpEnforcement
                         .Parameters.Add(":stipPenalty", txtStipulatedPenalty.Text)
                         .Parameters.Add(":stipComments", txtStipulatedComments.Text)
                         .Parameters.Add(":afsNumber", AFSNumber)
-                        .Parameters.Add(":userGCode", UserGCode)
+                        .Parameters.Add(":userGCode", CurrentUser.UserID)
                         .Parameters.Add(":oracleDate", OracleDate)
                     End With
                     Try

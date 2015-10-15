@@ -22,14 +22,14 @@ Public Class SBEAPCaseLog
         monitor.TrackFeature("Forms." & Me.Name)
         Try
             label1.Text = "Select Case Work"
-            Label2.Text = UserName
+            Label2.Text = CurrentUser.AlphaName
             Label3.Text = OracleDate
 
             LoadDataSets()
             FormLoad()
             rdbOpenCases.Checked = True
 
-            cboSearchText2.SelectedValue = UserGCode
+            cboSearchText2.SelectedValue = CurrentUser.UserID
 
             btnSearchCaseLog.Enabled = False
             btnResetSearch.Enabled = False

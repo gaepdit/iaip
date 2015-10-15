@@ -67,7 +67,7 @@ Public Class PASPFeeReports
             pnl2.AutoSize = StatusBarPanelAutoSize.Contents
             pnl2.BorderStyle = StatusBarPanelBorderStyle.Sunken
             pnl2.Alignment = HorizontalAlignment.Center
-            pnl2.Text = UserName
+            pnl2.Text = CurrentUser.AlphaName
             sb.Panels.Add(pnl2)
 
             'Dim pnl3 As StatusBarPanel = New StatusBarPanel

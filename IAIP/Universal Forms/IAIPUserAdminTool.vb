@@ -19,7 +19,7 @@ Public Class IAIPUserAdminTool
             LoadDataSets()
             LoadCombos()
             LoadDataGrid("Self")
-            lblUserID.Text = UserGCode
+            lblUserID.Text = CurrentUser.UserID
 
             mtbPhoneNumber.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals
             mtbFaxNumber.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals
@@ -60,7 +60,7 @@ Public Class IAIPUserAdminTool
                     End If
                 End If
             End If
-            cboBranch.SelectedValue = UserBranch
+            cboBranch.SelectedValue = CurrentUser.BranchID
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -798,7 +798,7 @@ Public Class IAIPUserAdminTool
             recExist = dr.Read
             dr.Close()
 
-            If UserUnit = "14" And AccountFormAccess(129, 3) = "1" Then
+            If CurrentUser.UnitId = 14 And AccountFormAccess(129, 3) = "1" Then
             Else
                 lblPermissions.Text.Replace("(118)", "")
             End If
@@ -919,9 +919,9 @@ Public Class IAIPUserAdminTool
                         MsgBox("Successfully Done. Please restart the IAIP and create an identical user in the testing environment.", MsgBoxStyle.Information, "IAIP User Admin Tool")
 
                     End If
-            Else
-                MsgBox("Please enter a User Name and Password.", MsgBoxStyle.Exclamation, "IAIP User Admin Tool")
-            End If
+                Else
+                    MsgBox("Please enter a User Name and Password.", MsgBoxStyle.Exclamation, "IAIP User Admin Tool")
+                End If
             Else
                 MsgBox("Please enter a First and Last name.", MsgBoxStyle.Exclamation, "IAIP User Admin Tool")
             End If
@@ -1053,7 +1053,7 @@ Public Class IAIPUserAdminTool
                     "and AIRBRANCH.EPDUserProfiles.numBranch = AIRBRANCH.LookupEPDBranches.numBranchcode (+)  " & _
                     "and AIRBRANCH.EPDUserProfiles.numProgram = AIRBRANCH.lookupEPDPrograms.numProgramcode (+)  " & _
                     "and AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitcode (+) " & _
-                    "and AIRBRANCH.EPDUsers.numUserId = '" & UserGCode & "' "
+                    "and AIRBRANCH.EPDUsers.numUserId = '" & CurrentUser.UserID & "' "
                 Case "Search"
                     SQL = "select " & _
                     "AIRBRANCH.EPDUsers.numUserID, " & _
@@ -1341,12 +1341,12 @@ Public Class IAIPUserAdminTool
             txtCurrentPermissions.Clear()
 
             If cboBranch.Enabled = False Then
-                cboBranch.SelectedValue = UserBranch
-                cboPermissionBranch.SelectedValue = UserBranch
+                cboBranch.SelectedValue = CurrentUser.BranchID
+                cboPermissionBranch.SelectedValue = CurrentUser.BranchID
             End If
             If cboProgram.Enabled = False Then
-                cboProgram.SelectedValue = UserProgram
-                cboPermissionProgram.SelectedValue = UserProgram
+                cboProgram.SelectedValue = CurrentUser.ProgramID
+                cboPermissionProgram.SelectedValue = CurrentUser.ProgramID
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1447,7 +1447,7 @@ Public Class IAIPUserAdminTool
         Try
             If lblUserID.Text <> "" And lblUserID.Text <> "numUserID" Then
                 If AccountFormAccess(8, 2) = "0" And AccountFormAccess(8, 3) = "0" And AccountFormAccess(8, 4) = "0" Then
-                    If lblUserID.Text = UserGCode Then
+                    If lblUserID.Text = CurrentUser.UserID Then
                         UpdateUser()
                     Else
                         MsgBox("You only have authorization to edit your own data.", MsgBoxStyle.Information, "IAIP User Admin Tool")
@@ -1455,14 +1455,14 @@ Public Class IAIPUserAdminTool
                 Else
                     If AccountFormAccess(8, 4) = "0" Then
                         If AccountFormAccess(8, 3) = "0" Then
-                            If UserBranch.ToString = cboBranch.SelectedValue.ToString And UserProgram.ToString = cboProgram.SelectedValue.ToString Then
+                            If CurrentUser.BranchID = cboBranch.SelectedValue And CurrentUser.ProgramID = cboProgram.SelectedValue Then
                                 UpdateUser()
                             Else
                                 MsgBox("You only have authorization to edit users in your Branch and Program.", _
                                          MsgBoxStyle.Information, "IAIP User Admin Tool")
                             End If
                         Else
-                            If UserBranch.ToString = cboBranch.SelectedValue.ToString Then
+                            If CurrentUser.BranchID = cboBranch.SelectedValue Then
                                 UpdateUser()
                             Else
                                 MsgBox("You only have authorization to edit users in your Branch.", _

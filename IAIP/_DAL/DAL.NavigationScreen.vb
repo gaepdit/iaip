@@ -207,7 +207,7 @@ Namespace DAL
                         "order by strENforcementNumber DESC   "
 
                 Case WorkViewerType.SSCP_Staff
-                    ' Requires :pId = UserGCode
+                    ' Requires :pId = CurrentUser.UserID
                     SQL = "Select to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
                      "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
                      "case  " & _
@@ -402,7 +402,7 @@ Namespace DAL
                          "or (APBUnit = :pId ))  "
 
                 Case WorkViewerType.SSPP_Administrative
-                    ' Requires :pId = UserGCode
+                    ' Requires :pId = CurrentUser.UserID
                     SQL = "Select " & _
                         "distinct(to_Number(AIRBranch.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,   " & _
                         "case   " & _
@@ -482,7 +482,7 @@ Namespace DAL
                          "and numUserID = :pId  "
 
                 Case WorkViewerType.SSPP_Staff
-                    ' Requires :pId = UserGCode
+                    ' Requires :pId = CurrentUser.UserID
                     SQL = "Select " & _
                     "distinct(to_Number(AIRBranch.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,   " & _
                     "case   " & _
@@ -664,7 +664,7 @@ Namespace DAL
                         "order by strENforcementNumber DESC   "
 
                 Case WorkViewerType.ProgCoord_Staff
-                    ' Requires :pId = UserGCode
+                    ' Requires :pId = CurrentUser.UserID
                     SQL = "Select to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
                      "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
                      "case  " & _
@@ -711,7 +711,7 @@ Namespace DAL
                    "order by AIRSNumber  "
 
                 Case WorkViewerType.ComplianceFacilitiesAssigned_Staff
-                    ' Requires :pId = UserGCode
+                    ' Requires :pId = CurrentUser.UserID
                     SQL = "Select distinct " & _
                    "substr(AIRBranch.SSCPInspectionsRequired.strAIRSnumber, 5) as AIRSNumber, " & _
                    "AIRBranch.APBFacilityInformation.strFacilityName, " & _
@@ -724,7 +724,7 @@ Namespace DAL
                    "order by AIRSNumber  "
 
                 Case WorkViewerType.ComplianceWork_Staff
-                    ' Requires :pId = UserGCode
+                    ' Requires :pId = CurrentUser.UserID
                     SQL = "Select " & _
                         "to_number(AIRBranch.SSCPItemMaster.strTrackingNumber) as strTrackingNumber,  " & _
                         "substr(AIRBranch.SSCPItemMaster.strAIRSNumber, 5) as AIRSNumber,  " & _
@@ -825,7 +825,7 @@ Namespace DAL
                     "or (strCMSMember = 'S' and LastFCE < '" & StartCMSS & "')) "
 
                 Case WorkViewerType.Enforcement_Staff
-                    ' Requires :pId = UserGCode
+                    ' Requires :pId = CurrentUser.UserID
                     SQL = "Select " & _
                       "to_number(AIRBranch.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber,  " & _
                       "substr(AIRBranch.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
@@ -1103,7 +1103,7 @@ Namespace DAL
                     "and strClosed = 'False'  "
 
                 Case WorkViewerType.PermitApplications_Staff
-                    ' Requires :pId = UserGCode
+                    ' Requires :pId = CurrentUser.UserID
                     SQL = "Select " & _
               "distinct(to_Number(AIRBranch.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber, " & _
               "case " & _
@@ -1347,7 +1347,7 @@ Namespace DAL
                       "order by AIRBranch.SSPPApplicationMaster.strApplicationNumber DESC  "
 
                 Case WorkViewerType.SBEAP_Staff
-                    ' Requires :pId = UserGCode
+                    ' Requires :pId = CurrentUser.UserID
                     SQL = "select * " & _
                     "from AIRBRANCH.VW_SBEAP_CaseLog " & _
                     "where caseclosed is null " & _

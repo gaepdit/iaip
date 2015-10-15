@@ -41,7 +41,7 @@ Public Class ISMPStaffReports
         Try
 
             txtEngineerStatistics.Clear()
-            RunUnitEngineerStatistics(UserGCode)
+            RunUnitEngineerStatistics(CurrentUser.UserID)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

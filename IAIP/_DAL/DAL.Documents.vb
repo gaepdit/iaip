@@ -277,7 +277,7 @@ Namespace DAL
                 New OracleParameter("pFileExt", doc.FileExtension), _
                 New OracleParameter("pFileSize", doc.FileSize), _
                 New OracleParameter("pBinFile", OracleDbType.Blob, DB.ReadByteArrayFromFile(pathToFile), ParameterDirection.Input), _
-                New OracleParameter("pUser", UserGCode), _
+                New OracleParameter("pUser", CurrentUser.UserID), _
                 New OracleParameter("pUpdateDate", Date.Now), _
                 New OracleParameter("pCreateDate", Date.Now) _
             }
@@ -289,7 +289,7 @@ Namespace DAL
                 New OracleParameter("pMetaDataId", metaDataId), _
                 New OracleParameter("pDocTypeId", doc.DocumentTypeId), _
                 New OracleParameter("pComment", doc.Comment), _
-                New OracleParameter("pUser", UserGCode), _
+                New OracleParameter("pUser", CurrentUser.UserID), _
                 New OracleParameter("pUpdateDate", Date.Now), _
                 New OracleParameter("pCreateDate", Date.Now) _
             }
@@ -363,7 +363,7 @@ Namespace DAL
             Dim parameters As OracleParameter() = { _
                 New OracleParameter("pDocTypeId", doc.DocumentTypeId), _
                 New OracleParameter("pComment", doc.Comment), _
-                New OracleParameter("pUser", UserGCode), _
+                New OracleParameter("pUser", CurrentUser.UserID), _
                 New OracleParameter("pUpdateDate", Date.Now), _
                 New OracleParameter("pDocId", doc.DocumentId) _
             }

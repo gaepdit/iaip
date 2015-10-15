@@ -163,7 +163,7 @@ Public Class DmuEdtErrorDetail
             If resolving Then
                 With edtErrorDetails
                     .ResolvedByUserID = CurrentUser.UserID
-                    .ResolvedByUserName = CurrentUser.Staff.AlphaName
+                    .ResolvedByUserName = CurrentUser.AlphaName
                     .ResolvedDate = Now
                 End With
             End If

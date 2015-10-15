@@ -11,13 +11,14 @@
 
     Public ReadOnly Property FullName() As String
         Get
-            Return Convert.ToString(FirstName & " " & LastName)
+            Return ConcatNonEmptyStrings(" ", {FirstName, LastName})
         End Get
     End Property
 
     Public ReadOnly Property AlphaName() As String
         Get
-            Return Convert.ToString(LastName & ", " & FirstName)
+            Dim a As String = ConcatNonEmptyStrings(", ", {LastName, FirstName})
+            Return If(a, " ")
         End Get
     End Property
 

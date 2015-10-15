@@ -30,7 +30,7 @@ Namespace DAL
                 .LastName = DB.GetNullable(Of String)(row("STRLASTNAME"))
                 .PhoneNumber = DB.GetNullable(Of String)(row("STRPHONE"))
                 .EmailAddress = DB.GetNullable(Of String)(row("STREMAILADDRESS"))
-                .ActiveStatus = Convert.ToBoolean(DB.GetNullable(Of Integer)(row("NUMEMPLOYEESTATUS")))
+                .ActiveEmployee = Convert.ToBoolean(DB.GetNullable(Of Integer)(row("NUMEMPLOYEESTATUS")))
             End With
             Return staff
         End Function

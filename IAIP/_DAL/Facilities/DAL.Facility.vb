@@ -175,7 +175,7 @@ Namespace DAL
                 New OracleParameter("ShutDownDate", shutdownDate), _
                 New OracleParameter("Comments", comments), _
                 New OracleParameter("FromUiLocation", Convert.ToInt32(fromLocation)), _
-                New OracleParameter("UserId", UserGCode) _
+                New OracleParameter("UserId", CurrentUser.UserID) _
             }
 
             Return DB.SPRunCommand(spName, parameters)

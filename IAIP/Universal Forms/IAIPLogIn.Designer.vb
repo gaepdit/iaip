@@ -249,9 +249,9 @@ Partial Class IAIPLogIn
         '
         Me.lblGeneralMessage.AutoSize = True
         Me.lblGeneralMessage.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGeneralMessage.ForeColor = System.Drawing.Color.Maroon
-        Me.lblGeneralMessage.Location = New System.Drawing.Point(337, 185)
+        Me.lblGeneralMessage.Location = New System.Drawing.Point(337, 309)
         Me.lblGeneralMessage.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblGeneralMessage.MaximumSize = New System.Drawing.Size(382, 96)
         Me.lblGeneralMessage.Name = "lblGeneralMessage"
         Me.lblGeneralMessage.Size = New System.Drawing.Size(163, 72)
         Me.lblGeneralMessage.TabIndex = 38

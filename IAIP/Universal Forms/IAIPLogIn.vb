@@ -2,6 +2,19 @@
 
 Public Class IAIPLogIn
 
+    Private _message As IaipMessage
+    Private Property Message As IaipMessage
+        Get
+            Return _message
+        End Get
+        Set(value As IaipMessage)
+            If value Is Nothing And Message IsNot Nothing Then Message.Clear()
+            _message = value
+            If value IsNot Nothing Then Message.Display(lblGeneralMessage)
+        End Set
+    End Property
+
+
 #Region " Page Load "
 
     Private Sub IAIPLogIn_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
@@ -36,40 +49,19 @@ Public Class IAIPLogIn
         End Try
     End Sub
 
-    Private Sub DisableLoginButton(Optional ByVal message As String = "")
-        btnLoginButton.Enabled = False
-        If message IsNot Nothing AndAlso message <> "" Then
-            btnLoginButton.Text = message
-        End If
-    End Sub
-
-    Private Sub EnableLoginButton(Optional ByVal message As String = "")
-        btnLoginButton.Enabled = True
-        If message IsNot Nothing AndAlso message <> "" Then
-            btnLoginButton.Text = message
-        End If
-    End Sub
-
-    Private Sub DisableLogin(Optional ByVal message As String = "")
+    Private Sub DisableLogin(Optional ByVal messageText As String = Nothing)
         Dim loginControls As Control() = {txtUserID, lblUserID, txtUserPassword, lblPassword, btnLoginButton}
-        DisableAndHide(loginControls)
-
+        DisableControls(loginControls)
         Me.AcceptButton = Nothing
-        With lblGeneralMessage
-            .Text = message
-            .Visible = True
-        End With
+        Me.Message = New IaipMessage(messageText, IaipMessage.WarningLevels.Warning)
     End Sub
 
     Private Sub EnableLogin()
         Dim loginControls As Control() = {txtUserID, lblUserID, txtUserPassword, lblPassword, btnLoginButton}
-        EnableAndShow(loginControls)
+        EnableControls(loginControls)
 
         Me.AcceptButton = btnLoginButton
-        With lblGeneralMessage
-            .Text = ""
-            .Visible = False
-        End With
+        If Message IsNot Nothing Then Message.Clear()
 
         FocusLogin()
     End Sub
@@ -84,25 +76,22 @@ Public Class IAIPLogIn
 
     Private Sub DisplayVersion()
         Dim currentVersion As Version = GetCurrentVersionAsMajorMinorBuild()
+        Dim msgText As String
+        Dim msg As IaipMessage
 
-        With lblCurrentVersionMessage
-            If AppUpdated Then
-                .Text = String.Format("The IAIP has been updated. Current version: {0}", currentVersion.ToString)
-                .BackColor = System.Drawing.SystemColors.Info
-                .ForeColor = System.Drawing.SystemColors.InfoText
-                .AutoSize = True
-                .TextAlign = ContentAlignment.TopLeft
-            Else
-                .Text = String.Format("Version: {0}", currentVersion.ToString)
-            End If
-
-            .Visible = True
-        End With
+        If AppUpdated Then
+            msgText = String.Format("The IAIP has been updated. Current version: {0}", currentVersion.ToString)
+            msg = New IaipMessage(msgText, IaipMessage.WarningLevels.Info)
+        Else
+            msgText = String.Format("Version: {0}", currentVersion.ToString)
+            msg = New IaipMessage(msgText, IaipMessage.WarningLevels.None)
+        End If
 
 #If BETA Then
         lblCurrentVersionMessage.Text = lblCurrentVersionMessage.Text & " β"
 #End If
 
+        msg.Display(lblCurrentVersionMessage)
     End Sub
 
     Private Sub CheckLanguageRegistrySetting()
@@ -116,19 +105,15 @@ Public Class IAIPLogIn
     End Sub
 
     Private Function CheckDBAvailability() As Boolean
-#If DEBUG Then
-        Console.WriteLine("CurrentServerEnvironment: " & CurrentServerEnvironment.ToString)
-#End If
-
         If DAL.AppIsEnabled Then
             EnableLogin()
             Return True
         Else
-            DisableLogin("The IAIP is currently unavailable. Please check " & vbNewLine & _
-                         "back later. If you are working remotely, you must " & vbNewLine & _
-                         "connect to the VPN before using the IAIP. " & vbNewLine & vbNewLine & _
-                         "Otherwise, if you continue to see this message after " & vbNewLine & _
-                         "two hours, please inform the Data Management Unit. " & vbNewLine & vbNewLine & _
+            DisableLogin("The IAIP is currently unavailable. Please check " &
+                         "back later. If you are working remotely, you must " &
+                         "connect to the VPN before using the IAIP. " &
+                         "If you continue to see this message after " &
+                         "two hours, please inform the Data Management Unit. " &
                          "Thank you.")
             Return False
         End If
@@ -141,149 +126,127 @@ Public Class IAIPLogIn
 #Region " Login "
 
     Private Sub LogInCheck()
-        If txtUserID.Text = "" OrElse txtUserPassword.Text = "" Then Exit Sub
+        If Message IsNot Nothing Then Message.Clear()
 
-        monitor.TrackFeatureStart("Startup.LoggingIn")
-
-#If DEBUG Then
-        Console.WriteLine("CurrentServerEnvironment: " & CurrentServerEnvironment.ToString)
-#End If
-
-        If Not DAL.AppIsEnabled Then
-            DisableLogin("The IAIP is currently unavailable. Please check " & vbNewLine & _
-                             "back later. If you continue to see this message after " & vbNewLine & _
-                             "two hours, please inform the Data Management Unit. " & vbNewLine & _
-                             "Thank you.")
-            txtUserPassword.Clear()
-            monitor.TrackFeatureCancel("Startup.LoggingIn")
+        If txtUserID.Text = "" OrElse txtUserPassword.Text = "" Then
             Exit Sub
         End If
 
         Me.Cursor = Cursors.WaitCursor
+        monitor.TrackFeatureStart("Startup.LoggingIn")
 
-        Try
+        If Not CheckDBAvailability() Then
+            CancelLogin()
+            Exit Sub
+        End If
 
-            Dim EmployeeStatus As String = ""
-            Dim PhoneNumber As String = ""
-            Dim EmailAddress As String = ""
-            Dim InvalidUserData As Boolean = False
-            Dim LastName As String = ""
+        CurrentUser = DAL.LoginIaipUser(txtUserID.Text.ToUpper, EncryptDecrypt.EncryptText(txtUserPassword.Text))
 
-            UserGCode = ""
+        If CurrentUser Is Nothing OrElse CurrentUser.StaffId = 0 Then
+            Me.Message = New IaipMessage("Login information is incorrect. Please try again.", IaipMessage.WarningLevels.ErrorReport)
+            CancelLogin()
+            Exit Sub
+        End If
 
-            CurrentUser = DAL.LoginIaipUser(txtUserID.Text.ToUpper, EncryptDecrypt.EncryptText(txtUserPassword.Text))
+        If Not CurrentUser.ActiveEmployee Then
+            Me.Message = New IaipMessage("Your user status has been flagged as inactive. Please contact your manager for more information.", IaipMessage.WarningLevels.ErrorReport)
+            CancelLogin()
+            Exit Sub
+        End If
 
-            If CurrentUser Is Nothing Then
-                MsgBox("Login information is incorrect." & vbCrLf & "Please try again.", MsgBoxStyle.Exclamation, "Login Error")
-                txtUserPassword.Clear()
-                FocusLogin()
-                Me.Cursor = Cursors.Default
-                monitor.TrackFeatureCancel("Startup.LoggingIn")
-                Exit Sub
-            End If
+        If CheckForRequiredPasswordUpdate(txtUserPassword.Text) Then
+            CancelLogin()
+            Exit Sub
+        End If
 
-            UserGCode = CurrentUser.Staff.StaffId
-            UserAccounts = CurrentUser.PermissionsString
-            If UserAccounts = "" Then UserAccounts = "(0)"
-            UserName = CurrentUser.Staff.AlphaName
-            If UserName = "" Then UserName = " "
-            UserBranch = CurrentUser.Staff.BranchID.ToString
-            If UserBranch = "0" OrElse UserBranch = "" Then UserBranch = "---"
-            UserProgram = CurrentUser.Staff.ProgramID.ToString
-            If UserProgram = "0" OrElse UserProgram = "" Then UserProgram = "---"
-            UserUnit = CurrentUser.Staff.UnitId.ToString
-            If UserUnit = "0" OrElse UserUnit = "" Then UserUnit = "---"
-            EmployeeStatus = If(CurrentUser.Staff.ActiveStatus, "1", "0")
-            PhoneNumber = CurrentUser.Staff.PhoneNumber
-            EmailAddress = CurrentUser.Staff.EmailAddress
-            LastName = CurrentUser.Staff.LastName
+        If Not ValidateUserData() Then
+            CancelLogin()
+            Exit Sub
+        End If
 
-            If EmployeeStatus = "0" Then
-                MsgBox("Your status has been flagged as inactive." & vbCrLf & "Please contact your manager for more information.", MsgBoxStyle.Exclamation, "Login Error")
-                txtUserPassword.Clear()
-                Me.Cursor = Cursors.Default
-                monitor.TrackFeatureCancel("Startup.LoggingIn")
-                Exit Sub
-            End If
+        ' Add additional installation meta data for analytics
+        monitorInstallationInfo.Add("IaipUserName", CurrentUser.UserName)
+        monitor.SetInstallationInfo(CurrentUser.UserName, monitorInstallationInfo)
+        If (CurrentServerEnvironment <> DB.DefaultServerEnvironment) Then
+            monitor.TrackFeature("Main.TestingEnvironment")
+        End If
+        monitor.ForceSync()
 
-            If UserGCode = "" Then
-                MsgBox("Login information is incorrect." & vbCrLf & "Please try again.", MsgBoxStyle.Exclamation, "Login Error")
-                txtUserPassword.Clear()
-                FocusLogin()
-                Me.Cursor = Cursors.Default
-                monitor.TrackFeatureCancel("Startup.LoggingIn")
-                Exit Sub
-            End If
+        SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
+        OpenSingleForm(IAIPNavigation)
 
-            'Check for valid user data
-            If EmailAddress = "" Then
-                InvalidUserData = True
-                EmailAddress = "Require"
-            End If
-            If PhoneNumber = "" Or PhoneNumber = "4043637000" Then
-                InvalidUserData = True
-                PhoneNumber = "Require"
-            End If
-            If LastName.ToUpper = txtUserPassword.Text.ToUpper Then
-                InvalidUserData = True
-                LastName = "Require"
-            End If
-            If InvalidUserData Then
-                ProfileUpdate = Nothing
-                If ProfileUpdate Is Nothing Then ProfileUpdate = New IAIPProfileUpdate
-                ProfileUpdate.Show()
-                txtUserPassword.Clear()
-                If EmailAddress = "Require" Then
-                    ProfileUpdate.pnlEmailAddress.Visible = True
-                    ProfileUpdate.txtEmailAddress.BackColor = Color.Tomato
-                Else
-                    ProfileUpdate.txtEmailAddress.Text = EmailAddress
-                End If
-                If PhoneNumber = "Require" Then
-                    ProfileUpdate.pnlPhoneNumber.Visible = True
-                    ProfileUpdate.mtbPhoneNumber.BackColor = Color.Tomato
-                Else
-                    ProfileUpdate.mtbPhoneNumber.Text = PhoneNumber
-                End If
-                If LastName = "Require" Then
-                    ProfileUpdate.pnlUserIDPassword.Visible = True
-                    ProfileUpdate.txtUserPassword.BackColor = Color.Tomato
-                    ProfileUpdate.txtConfirmPassword.BackColor = Color.Tomato
-                End If
-
-                Me.Cursor = Cursors.Default
-                monitor.TrackFeatureCancel("Startup.LoggingIn")
-                Exit Sub
-            End If
-
-            If ProfileUpdate IsNot Nothing Then
-                ProfileUpdate.Close()
-                ProfileUpdate = Nothing
-            End If
-
-            ' Add additional installation meta data for analytics
-            monitorInstallationInfo.Add("IaipUserName", CurrentUser.UserName)
-            monitor.SetInstallationInfo(CurrentUser.UserName, monitorInstallationInfo)
-            If (CurrentServerEnvironment <> DB.DefaultServerEnvironment) Then
-                monitor.TrackFeature("Main.TestingEnvironment")
-            End If
-            monitor.ForceSync()
-
-            SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
-            OpenSingleForm(IAIPNavigation)
-
-            Me.Close()
-
-        Catch ex As Exception
-            Me.Cursor = Cursors.Default
-            monitor.TrackFeatureCancel("Startup.LoggingIn")
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        Me.Close()
     End Sub
+
+    Private Sub CancelLogin()
+        monitor.TrackFeatureCancel("Startup.LoggingIn")
+        CurrentUser = Nothing
+        txtUserPassword.Clear()
+        FocusLogin()
+        Me.Cursor = Cursors.Default
+    End Sub
+
+    Private Function CheckForRequiredPasswordUpdate(currentPassword As String) As Boolean
+        If Not (CurrentUser.LastName.ToUpper = currentPassword.ToUpper) Then Return False
+
+        Dim dialog As New IaipChangePassword
+        dialog.ShowDialog()
+        If dialog.PasswordSuccessfullyChanged Then
+            Me.Message = New IaipMessage("Password successfully changed", IaipMessage.WarningLevels.Success)
+        End If
+        dialog.Dispose()
+        Return True
+    End Function
+
+    Private Function ValidateUserData() As Boolean
+
+        Dim ValidUserData As Boolean = True
+        Dim PhoneNumber As String = CurrentUser.PhoneNumber
+        Dim EmailAddress As String = CurrentUser.EmailAddress
+
+
+        'Check for valid user data
+        If EmailAddress = "" Then
+            ValidUserData = False
+            EmailAddress = "Require"
+        End If
+        If PhoneNumber = "" Or PhoneNumber = "4043637000" Then
+            ValidUserData = False
+            PhoneNumber = "Require"
+        End If
+        If Not ValidUserData Then
+            ProfileUpdate = Nothing
+            If ProfileUpdate Is Nothing Then ProfileUpdate = New IAIPProfileUpdate
+            ProfileUpdate.Show()
+            txtUserPassword.Clear()
+            If EmailAddress = "Require" Then
+                ProfileUpdate.pnlEmailAddress.Visible = True
+                ProfileUpdate.txtEmailAddress.BackColor = Color.Tomato
+            Else
+                ProfileUpdate.txtEmailAddress.Text = EmailAddress
+            End If
+            If PhoneNumber = "Require" Then
+                ProfileUpdate.pnlPhoneNumber.Visible = True
+                ProfileUpdate.mtbPhoneNumber.BackColor = Color.Tomato
+            Else
+                ProfileUpdate.mtbPhoneNumber.Text = PhoneNumber
+            End If
+        End If
+
+        If ProfileUpdate IsNot Nothing Then
+            ProfileUpdate.Close()
+            ProfileUpdate = Nothing
+        End If
+
+        Return ValidUserData
+    End Function
 
     Private Sub btnLoginButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoginButton.Click
         LogInCheck()
+        If ProfileUpdate IsNot Nothing Then
+            ProfileUpdate.Close()
+            ProfileUpdate = Nothing
+        End If
     End Sub
 
 #End Region
@@ -297,19 +260,17 @@ Public Class IAIPLogIn
 #Else
         mmiTestingEnvironment.Checked = Not mmiTestingEnvironment.Checked
 #End If
-        DisableLoginButton("Switching servers…")
-        Dim buttonText As String
 
         If mmiTestingEnvironment.Checked Then
             ' Switch to DEV environment
             CurrentServerEnvironment = DB.ServerEnvironment.DEV
             Me.BackColor = Color.PapayaWhip
-            buttonText = "Testing Environment"
+            btnLoginButton.Text = "Testing Environment"
         Else
             ' Switch to PRD environment
             CurrentServerEnvironment = DB.ServerEnvironment.PRD
             Me.BackColor = SystemColors.Control
-            buttonText = "Log In"
+            btnLoginButton.Text = "Log In"
         End If
 
 #If DEBUG Then
@@ -319,11 +280,7 @@ Public Class IAIPLogIn
         ' Reset current connection based on current connection environment
         ' and check connection/app availability
         CurrentConnection = New OracleConnection(DB.CurrentConnectionString)
-        If CheckDBAvailability() Then
-            EnableLoginButton(buttonText)
-        Else
-            DisableLoginButton(buttonText)
-        End If
+        CheckDBAvailability()
 
 #If BETA Then
         Me.BackColor = Color.Snow

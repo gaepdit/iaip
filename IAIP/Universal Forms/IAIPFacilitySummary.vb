@@ -71,7 +71,7 @@ Public Class IAIPFacilitySummary
         ' TODO DWW: Better permissions definition
 
         ' Menu items
-        UpdateEpaMenuItem.Available = (UserGCode = "1" Or UserGCode = "345")
+        UpdateEpaMenuItem.Available = (CurrentUser.UserID = "1" Or CurrentUser.UserID = "345")
         CreateFacilityMenuItem.Available = (AccountFormAccess(138, 0) IsNot Nothing _
                                           AndAlso AccountFormAccess(138, 0) = "138" _
                                           AndAlso (AccountFormAccess(138, 1) = "1" _
@@ -81,7 +81,7 @@ Public Class IAIPFacilitySummary
         ToolsMenuSeparator.Visible = (CreateFacilityMenuItem.Available And UpdateEpaMenuItem.Available)
 
         ' Edit location/header data
-        If UserUnit = "---" Or AccountFormAccess(22, 3) = "1" Or AccountFormAccess(1, 3) = "1" Then
+        If CurrentUser.UnitId = 0 Or AccountFormAccess(22, 3) = "1" Or AccountFormAccess(1, 3) = "1" Then
             EditFacilityLocationButton.Visible = True
             EditHeaderDataButton.Visible = True
         Else

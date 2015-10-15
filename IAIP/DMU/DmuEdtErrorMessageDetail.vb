@@ -415,7 +415,7 @@ Public Class DmuEdtErrorMessageDetail
                     .Item("Resolved") = True
                     .Item("ResolvedDate") = Now
                     .Item("ResolvedByUserID") = CurrentUser.UserID
-                    .Item("ResolvedByUserName") = CurrentUser.Staff.AlphaName
+                    .Item("ResolvedByUserName") = CurrentUser.AlphaName
                 End With
             Next
 

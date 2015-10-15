@@ -678,16 +678,16 @@ Public Class SSPPApplicationLog
             txtSearchText2.Clear()
 
             cboApplicationStatus.Text = "Active"
-            If AccountFormAccess(3, 3) = "1" And UserUnit = "---" Then
+            If AccountFormAccess(3, 3) = "1" And CurrentUser.UnitId = 0 Then
                 'All active Applications
                 cboApplicationType.Text = "All"
                 'cboApplicationType.Text = "Title V"
             Else
-                If AccountFormAccess(3, 3) = "1" And UserUnit <> "---" Then
+                If AccountFormAccess(3, 3) = "1" And CurrentUser.UnitId <> 0 Then
                     'All Active Applications from UC's Unit
                     SQL = "Select numUnit " & _
                     "from AIRBRANCH.EPDUserProfiles " & _
-                    "where numUserID = '" & UserGCode & "' " & _
+                    "where numUserID = '" & CurrentUser.UserID & "' " & _
                     "and numProgram = '5' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -708,11 +708,11 @@ Public Class SSPPApplicationLog
                     End If
                     dr.Close()
                 Else
-                    cboEngineer.SelectedValue = UserGCode
+                    cboEngineer.SelectedValue = CurrentUser.UserID
                     'If AccountArray(3, 2) = "1" Then
-                    '    cboEngineer.SelectedValue = UserGCode
+                    '    cboEngineer.SelectedValue = CurrentUser.UserID
                     'Else
-                    '    cboEngineer.SelectedValue = UserGCode
+                    '    cboEngineer.SelectedValue = CurrentUser.UserID
                     'End If
                     'If cboEngineer.SelectedIndex < 0 Then
                     '    cboEngineer.SelectedIndex = 0

@@ -371,7 +371,7 @@ Public Class IAIPFacilityCreator
             "((select '0413'||substr((max(strAIRSNumber) + 1), 4) " & _
             "from AIRBRANCH.APBMasterAIRS " & _
             "where substr(strAIRSNumber, 1, 7) = '0413" & cboCounty.SelectedValue & "'), " & _
-            "'" & UserGCode & "', '" & OracleDate & "' ) "
+            "'" & CurrentUser.UserID & "', '" & OracleDate & "' ) "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -562,12 +562,12 @@ Public Class IAIPFacilityCreator
                 MailingZipCode = "00000"
             End If
             If txtFacilityComments.Text = "" Then
-                Comments = "Created with Facility Creator tool by " & UserName & " on " & OracleDate & vbCrLf
+                Comments = "Created with Facility Creator tool by " & CurrentUser.AlphaName & " on " & OracleDate & vbCrLf
             End If
 
-            If txtFacilityComments.Text.Contains("Created by Facility Creator by " & UserName & " on " & OracleDate) Then
+            If txtFacilityComments.Text.Contains("Created by Facility Creator by " & CurrentUser.AlphaName & " on " & OracleDate) Then
             Else
-                Comments = "Created with Facility Creator tool by " & UserName & " on " & OracleDate & _
+                Comments = "Created with Facility Creator tool by " & CurrentUser.AlphaName & " on " & OracleDate & _
                                vbCrLf & txtFacilityComments.Text & vbCrLf
             End If
             If txtApplicationNumber.Text <> "App No." And _
@@ -593,7 +593,7 @@ Public Class IAIPFacilityCreator
             "('" & AIRSNumber & "', '" & Replace(FacilityName, "'", "''") & "', " & _
             "'" & Replace(FacilityStreet, "'", "''") & "', 'N/A', " & _
             "'" & Replace(FacilityCity, "'", "''") & "', 'GA', " & _
-            "'" & Replace(FacilityZipCode, "-", "") & "', '" & UserGCode & "', " & _
+            "'" & Replace(FacilityZipCode, "-", "") & "', '" & CurrentUser.UserID & "', " & _
             "'" & OracleDate & "', " & FacilityLongitude & ", " & _
             "" & FacilityLatitude & ", '007', " & _
             "'25', '002', '4' ) "
@@ -639,7 +639,7 @@ Public Class IAIPFacilityCreator
             "('" & AIRSNumber & "', '" & OperatingStatus & "', " & _
             "'" & Classification & "', " & _
             "'" & AirProgramCode & "', '" & SICCode & "', " & _
-            "'N/A', '" & UserGCode & "', " & _
+            "'N/A', '" & CurrentUser.UserID & "', " & _
             "'" & OracleDate & "', '', '', " & _
             "'" & Replace(Comments, "'", "''") & "', " & _
             "'" & Replace(PlantDesc, "'", "''") & "', '" & AttainmentStatus & "', " & _
@@ -660,7 +660,7 @@ Public Class IAIPFacilityCreator
             "strAFSActionNumber, STRRMPID) " & _
             "values " & _
              "('" & AIRSNumber & "', '', " & _
-             "'" & UserGCode & "', '" & OracleDate & "', " & _
+             "'" & CurrentUser.UserID & "', '" & OracleDate & "', " & _
              "'" & DistrictOffice & "', '', " & _
              "'00001', '" & Replace(RMPNumber, "'", "''") & "' ) "
 
@@ -692,7 +692,7 @@ Public Class IAIPFacilityCreator
             "'N/A', 'N/A', " & _
             "'" & Replace(MailingStreet, "'", "''") & "', 'N/A', " & _
             "'" & Replace(MailingCity, "'", "''") & "', '" & MailingState & "', " & _
-            "'" & Replace(MailingZipCode, "-", "") & "', '" & UserGCode & "', " & _
+            "'" & Replace(MailingZipCode, "-", "") & "', '" & CurrentUser.UserID & "', " & _
             "'" & OracleDate & "') "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -711,7 +711,7 @@ Public Class IAIPFacilityCreator
                 "values " & _
                 "('" & AIRSNumber & "', '" & AIRSNumber & "0', " & _
                 "'OT', 'C', " & _
-                "'" & UserGCode & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -729,7 +729,7 @@ Public Class IAIPFacilityCreator
                 "values " & _
                 "('" & AIRSNumber & "', '" & AIRSNumber & "1', " & _
                 "'OT', 'C', " & _
-                "'" & UserGCode & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -747,7 +747,7 @@ Public Class IAIPFacilityCreator
                 "values " & _
                 "('" & AIRSNumber & "', '" & AIRSNumber & "3', " & _
                 "'OT', 'C', " & _
-                "'" & UserGCode & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -765,7 +765,7 @@ Public Class IAIPFacilityCreator
                 "values " & _
                 "('" & AIRSNumber & "', '" & AIRSNumber & "4', " & _
                 "'OT', 'C', " & _
-                "'" & UserGCode & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -783,7 +783,7 @@ Public Class IAIPFacilityCreator
                 "values " & _
                 "('" & AIRSNumber & "', '" & AIRSNumber & "6', " & _
                 "'OT', 'C', " & _
-                "'" & UserGCode & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -801,7 +801,7 @@ Public Class IAIPFacilityCreator
                 "values " & _
                 "('" & AIRSNumber & "', '" & AIRSNumber & "7', " & _
                 "'OT', 'C', " & _
-                "'" & UserGCode & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -819,7 +819,7 @@ Public Class IAIPFacilityCreator
                 "values " & _
                 "('" & AIRSNumber & "', '" & AIRSNumber & "8', " & _
                 "'OT', 'C', " & _
-                "'" & UserGCode & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -837,7 +837,7 @@ Public Class IAIPFacilityCreator
                 "values " & _
                 "('" & AIRSNumber & "', '" & AIRSNumber & "9', " & _
                 "'OT', 'C', " & _
-                "'" & UserGCode & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -855,7 +855,7 @@ Public Class IAIPFacilityCreator
                 "values " & _
                 "('" & AIRSNumber & "', '" & AIRSNumber & "F', " & _
                 "'OT', 'C', " & _
-                "'" & UserGCode & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -873,7 +873,7 @@ Public Class IAIPFacilityCreator
                 "values " & _
                 "('" & AIRSNumber & "', '" & AIRSNumber & "A', " & _
                 "'OT', 'C', " & _
-                "'" & UserGCode & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -891,7 +891,7 @@ Public Class IAIPFacilityCreator
                 "values " & _
                 "('" & AIRSNumber & "', '" & AIRSNumber & "I', " & _
                 "'OT', 'C', " & _
-                "'" & UserGCode & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -909,7 +909,7 @@ Public Class IAIPFacilityCreator
                 "values " & _
                 "('" & AIRSNumber & "', '" & AIRSNumber & "M', " & _
                 "'OT', 'C', " & _
-                "'" & UserGCode & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -927,7 +927,7 @@ Public Class IAIPFacilityCreator
                 "values " & _
                 "('" & AIRSNumber & "', '" & AIRSNumber & "V', " & _
                 "'OT', 'C', " & _
-                "'" & UserGCode & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1598,10 +1598,10 @@ Public Class IAIPFacilityCreator
 
                 If SSCPSignOff = "" And SSPPSignOff = "" Then
                     SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
-                    "numApprovingSSCP = '" & UserGCode & "', " & _
+                    "numApprovingSSCP = '" & CurrentUser.UserID & "', " & _
                     "datApproveDateSSCP = '" & DTPSSCPApproveDate.Text & "', " & _
                     "strCommentSSCP = '" & txtSSCPComments.Text & "', " & _
-                     "numApprovingSSPP = '" & UserGCode & "', " & _
+                     "numApprovingSSPP = '" & CurrentUser.UserID & "', " & _
                     "datApproveDateSSPP = '" & DTPSSCPApproveDate.Text & "', " & _
                     "strCommentSSPP = '" & txtSSCPComments.Text & "' " & _
                     "where strAIRSnumber = '0413" & txtNewAIRSNumber.Text & "' "
@@ -1616,7 +1616,7 @@ Public Class IAIPFacilityCreator
                 Else
                     If SSCPSignOff = "" Then
                         SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
-                         "numApprovingSSCP = '" & UserGCode & "', " & _
+                         "numApprovingSSCP = '" & CurrentUser.UserID & "', " & _
                          "datApproveDateSSCP = '" & DTPSSCPApproveDate.Text & "', " & _
                          "strCommentSSCP = '" & txtSSCPComments.Text & "' " & _
                          "where strAIRSnumber = '0413" & txtNewAIRSNumber.Text & "' "
@@ -1631,7 +1631,7 @@ Public Class IAIPFacilityCreator
                     End If
                     If SSPPSignOff = "" Then
                         SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
-                        "numApprovingSSPP = '" & UserGCode & "', " & _
+                        "numApprovingSSPP = '" & CurrentUser.UserID & "', " & _
                         "datApproveDateSSPP = '" & DTPSSCPApproveDate.Text & "', " & _
                         "strCommentSSPP = '" & txtSSCPComments.Text & "' " & _
                         "where strAIRSnumber = '0413" & txtNewAIRSNumber.Text & "' "
@@ -1710,7 +1710,7 @@ Public Class IAIPFacilityCreator
             End If
 
             SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
-            "numApprovingSSCP = '" & UserGCode & "', " & _
+            "numApprovingSSCP = '" & CurrentUser.UserID & "', " & _
             "datApproveDateSSCP = '" & DTPSSCPApproveDate.Text & "', " & _
             "strCommentSSCP = '" & txtSSCPComments.Text & "' " & _
             "where strAIRSnumber = '0413" & txtNewAIRSNumber.Text & "' "
@@ -1723,7 +1723,7 @@ Public Class IAIPFacilityCreator
             dr = cmd.ExecuteReader
             dr.Close()
             LoadPendingFacilities()
-            txtSSCPApprover.Text = UserName
+            txtSSCPApprover.Text = CurrentUser.AlphaName
             MsgBox("Approval Saved.", MsgBoxStyle.Information, Me.Text)
 
         Catch ex As Exception
@@ -1738,7 +1738,7 @@ Public Class IAIPFacilityCreator
             End If
 
             SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
-            "numApprovingSSpp = '" & UserGCode & "', " & _
+            "numApprovingSSpp = '" & CurrentUser.UserID & "', " & _
             "datApproveDateSSpP = '" & DTPSSPPApproveDate.Text & "', " & _
             "strCommentSSpP = '" & txtSSPPComments.Text & "' " & _
             "where strAIRSnumber = '0413" & txtNewAIRSNumber.Text & "' "
@@ -1751,7 +1751,7 @@ Public Class IAIPFacilityCreator
             dr = cmd.ExecuteReader
             dr.Close()
             LoadPendingFacilities()
-            txtSSPPApprover.Text = UserName
+            txtSSPPApprover.Text = CurrentUser.AlphaName
             MsgBox("Approval Saved.", MsgBoxStyle.Information, Me.Text)
 
         Catch ex As Exception
@@ -2132,12 +2132,12 @@ Public Class IAIPFacilityCreator
                 MailingZipCode = "00000"
             End If
             If txtFacilityComments.Text = "" Then
-                Comments = "Created with Facility Creator tool by " & UserName & " on " & OracleDate & vbCrLf
+                Comments = "Created with Facility Creator tool by " & CurrentUser.AlphaName & " on " & OracleDate & vbCrLf
             End If
 
-            If txtFacilityComments.Text.Contains("Created by Facility Creator by " & UserName & " on " & OracleDate) Then
+            If txtFacilityComments.Text.Contains("Created by Facility Creator by " & CurrentUser.AlphaName & " on " & OracleDate) Then
             Else
-                Comments = "Created with Facility Creator tool by " & UserName & " on " & OracleDate & _
+                Comments = "Created with Facility Creator tool by " & CurrentUser.AlphaName & " on " & OracleDate & _
                                vbCrLf & txtFacilityComments.Text & vbCrLf
             End If
             If txtApplicationNumber.Text <> "App No." And _
@@ -2150,7 +2150,7 @@ Public Class IAIPFacilityCreator
             "strFacilityStreet1 = '" & Replace(FacilityStreet, "'", "''") & "', " & _
             "strFacilityCity = '" & Replace(FacilityCity, "'", "''") & "', " & _
             "strFacilityZipCode = '" & Replace(FacilityZipCode, "'", "''") & "', " & _
-            "strModifingPerson = '" & UserGCode & "', " & _
+            "strModifingPerson = '" & CurrentUser.UserID & "', " & _
             "datModifingdate = '" & OracleDate & "', " & _
             "numfacilitylongitude = '" & Replace(FacilityLongitude, "'", "''") & "', " & _
             "numFacilityLatitude = '" & Replace(FacilityLatitude, "'", "''") & "' " & _
@@ -2171,7 +2171,7 @@ Public Class IAIPFacilityCreator
             "strNAICSCode = '" & Replace(NAICSCode, "'", "''") & "', " & _
             "strPlantDescription = '" & Replace(PlantDesc, "'", "''") & "', " & _
             "strComments = '" & Replace(Comments, "'", "''") & "', " & _
-            "strModifingPerson = '" & UserGCode & "', " & _
+            "strModifingPerson = '" & CurrentUser.UserID & "', " & _
             "datModifingDate = '" & OracleDate & "' " & _
             "where strAIRSNumber = '" & AIRSNumber & "' "
 
@@ -2184,7 +2184,7 @@ Public Class IAIPFacilityCreator
 
             SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
             "strDistrictOffice = '" & Replace(DistrictOffice, "'", "''") & "', " & _
-            "strModifingPerson = '" & UserGCode & "', " & _
+            "strModifingPerson = '" & CurrentUser.UserID & "', " & _
             "datModifingDate = '" & OracleDate & "' " & _
             "where strAIRSNumber = '" & AIRSNumber & "' "
 
@@ -2206,7 +2206,7 @@ Public Class IAIPFacilityCreator
             "strContactSuffix = '" & Replace(ContactSuffix, "'", "''") & "', " & _
             "strContactTitle = '" & Replace(ContactTitle, "'", "''") & "', " & _
             "strContactPhoneNumber1 = '" & Replace(ContactPhoneNumber, "'", "''") & "', " & _
-            "strModifingPerson = '" & UserGCode & "', " & _
+            "strModifingPerson = '" & CurrentUser.UserID & "', " & _
             "datModifingDate = '" & OracleDate & "' " & _
             "where strAIRSNumber = '" & AIRSNumber & "' " & _
             "and strContactKey = '" & AIRSNumber & "30' " & _

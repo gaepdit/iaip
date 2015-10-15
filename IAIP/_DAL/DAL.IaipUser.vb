@@ -96,27 +96,22 @@ Namespace DAL
         'End Function
 
         Private Function FillIaipUserFromDataRow(ByVal row As DataRow) As IaipUser
-            Dim user As New IaipUser
+            If row Is Nothing Then Return Nothing
 
-            Dim staff As New Staff
-            With staff
+            Dim user As New IaipUser
+            With user
                 .StaffId = DB.GetNullable(Of Integer)(row("numUserID"))
                 .FirstName = DB.GetNullable(Of String)(row("strFirstName"))
                 .LastName = DB.GetNullable(Of String)(row("strLastName"))
                 .PhoneNumber = DB.GetNullable(Of String)(row("strPhone"))
                 .EmailAddress = DB.GetNullable(Of String)(row("strEmailAddress"))
-                .ActiveStatus = Convert.ToBoolean(DB.GetNullable(Of Integer)(row("numEmployeeStatus")))
+                .ActiveEmployee = Convert.ToBoolean(DB.GetNullable(Of Integer)(row("numEmployeeStatus")))
                 .BranchID = DB.GetNullable(Of Integer)(row("numBranch"))
                 .BranchName = DB.GetNullable(Of String)(row("strBranchDesc"))
                 .ProgramID = DB.GetNullable(Of Integer)(row("numProgram"))
                 .ProgramName = DB.GetNullable(Of String)(row("strProgramDesc"))
                 .UnitId = DB.GetNullable(Of Integer)(row("numUnit"))
                 .UnitName = DB.GetNullable(Of String)(row("strUnitDesc"))
-            End With
-
-            With user
-                .Staff = staff
-                .UserID = DB.GetNullable(Of Integer)(row("numUserID"))
                 .UserName = DB.GetNullable(Of String)(row("strUserName"))
                 .PermissionsString = DB.GetNullable(Of String)(row("strIAIPPermissions"))
             End With

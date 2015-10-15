@@ -161,7 +161,7 @@ Public Class IAIPEditHeaderData
             SaveChangesButton, _
             CancelEditButton _
         }
-        EnableControls(EditableControls)
+        AllowControls(EditableControls)
 
         If CurrentFacilityHeaderData.OperationalStatus = FacilityOperationalStatus.X Then
             OperationalDropDown.Enabled = False
@@ -189,7 +189,7 @@ Public Class IAIPEditHeaderData
             SaveChangesButton, _
             CancelEditButton _
         }
-        DisableControls(EditableControls)
+        PreventControls(EditableControls)
 
         FacilityHistoryDataGridView.Enabled = True
     End Sub
@@ -237,7 +237,7 @@ Public Class IAIPEditHeaderData
                 RmpId _
             }
             If UserIsTryingToCloseFacility() Then
-                DisableControls(NonShutdownControls)
+                PreventControls(NonShutdownControls)
                 ShutdownDate.Checked = True
                 ShutdownDate.Enabled = True
                 ModifiedDescDisplay.Text = "When changing operating status to Closed/Dismantled, " & _
@@ -247,7 +247,7 @@ Public Class IAIPEditHeaderData
                 ModifiedDescDisplay.BackColor = Color.Yellow
             Else
                 ResetControlHighlights()
-                EnableControls(NonShutdownControls)
+                AllowControls(NonShutdownControls)
                 ShutdownDate.Checked = False
                 ShutdownDate.Enabled = False
                 ModifiedDescDisplay.Text = "Editing current facility data."
@@ -596,33 +596,13 @@ Public Class IAIPEditHeaderData
 
 #Region " Permissions "
 
-    Private Function UserHasPermission(ByVal permissionCode As String) As Boolean
-        If UserAccounts.Contains(permissionCode) Then Return True
-        Return False
-    End Function
-
-    Private Function UserHasPermission(ByVal permissionsAllowed As String()) As Boolean
-        For Each permissionCode As String In permissionsAllowed
-            If UserHasPermission(permissionCode) Then Return True
-        Next
-        Return False
-    End Function
-
     Private Function EditingIsAllowed() As Boolean
-        If AccountFormAccess(29, 2) = "1" Or AccountFormAccess(29, 3) = "1" Or AccountFormAccess(29, 4) = "1" Then
-            Return True
-        Else
-            Return False
-        End If
+        Return (AccountFormAccess(29, 2) = "1" Or AccountFormAccess(29, 3) = "1" Or AccountFormAccess(29, 4) = "1")
     End Function
 
     Private Function UserCanShutDownFacility() As Boolean
         ' SSCP Unit Manager, SSCP Program Manager, Branch Chief, District Liasion, DMU, SSPP Program Manager
-        If UserHasPermission(New String() {"(114)", "(19)", "(102)", "(27)", "(118)", "(28)"}) Then
-            Return True
-        Else
-            Return False
-        End If
+        Return CurrentUser.HasPermissionCode({114, 19, 102, 27, 118, 28})
     End Function
 
 #End Region

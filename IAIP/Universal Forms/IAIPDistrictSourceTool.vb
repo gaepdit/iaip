@@ -19,7 +19,7 @@ Public Class IAIPDistrictSourceTool
 
 
             Panel1.Text = "Select a Function..."
-            Panel2.Text = UserName
+            Panel2.Text = CurrentUser.AlphaName
             Panel3.Text = OracleDate
 
             LoadDistrictListBox()

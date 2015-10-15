@@ -43,7 +43,7 @@ Public Class PASPFeeDeposits
         Try
 
             panel1.Text = "Select a Deposit Number or AIRS Number..."
-            panel2.Text = UserName
+            panel2.Text = CurrentUser.AlphaName
             panel3.Text = OracleDate
 
             panel1.AutoSize = StatusBarPanelAutoSize.Spring
@@ -378,7 +378,7 @@ Public Class PASPFeeDeposits
              + " " & CInt(txtYear.Text) & " ,  " & CDec(txtPayment.Text) & " , '" & txtDepositdate.Text & "', " _
              + "'" & txtCheckNo.Text & "', '" & txtDepositNo.Text & "', " _
              + "'" & cboPayType.Text & "', '" & txtbatchNo.Text & "', " _
-             + "'" & UserGCode & "', '" & Replace(txtComments.Text, "'", "''") & "', AIRBRANCH.seqfsdeposit.nextval)"
+             + "'" & CurrentUser.UserID & "', '" & Replace(txtComments.Text, "'", "''") & "', AIRBRANCH.seqfsdeposit.nextval)"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
@@ -467,7 +467,7 @@ Public Class PASPFeeDeposits
             + "strdepositno = '" & txtDepositNo.Text & "', " _
             + "intyear = '" & CInt(txtYear.Text) & "', " _
             + "strcomments = '" & Replace(txtComments.Text, "'", "''") & "', " _
-            + "strentryperson = '" & UserGCode & "' " _
+            + "strentryperson = '" & CurrentUser.UserID & "' " _
             + "where intpayid = '" & txtPayId.Text & "'"
 
             cmd = New OracleCommand(SQL, CurrentConnection)

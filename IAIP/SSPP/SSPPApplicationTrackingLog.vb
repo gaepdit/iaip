@@ -1262,7 +1262,7 @@ Public Class SSPPApplicationTrackingLog
                 btnClearLinks.Enabled = True
             End If
             If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or _
-(AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0")   Then
+                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
                 btnClearLinks.BackColor = Color.LightGreen
             End If
             If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(138, 0) Is Nothing) Or _
@@ -1826,7 +1826,7 @@ Public Class SSPPApplicationTrackingLog
             If AccountFormAccess(129, 3) = "1" Or _
                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or _
                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or _
-                UserAccounts.Contains("(29)") Then
+                CurrentUser.IaipAccountCodes.Contains(29) Then
                 chbConfidential.Enabled = True
             End If
             'chbPAReady
@@ -2381,7 +2381,7 @@ Public Class SSPPApplicationTrackingLog
                 txtFacilityName.ReadOnly = True
             End If
             If (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or _
-   (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
+                (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Then
                 txtFacilityName.BackColor = Color.LightGreen
             End If
             If (AccountFormAccess(51, 4) = "1" And AccountFormAccess(23, 3) = "1" And AccountFormAccess(138, 1) = "1") Then
@@ -2607,1426 +2607,9 @@ Public Class SSPPApplicationTrackingLog
                 txtSSCPComments.BackColor = Color.Yellow
             End If
 
-
-
-
-            Exit Sub
-
-            '---DMU managment 
-            'AccountArray(129, 3) = "1"
-
-            '---SSPP Program Manager
-            'AccountArray(24, 3) = "1" And AccountArray(3, 4) = "1" And AccountArray(12, 1) = "1" And AccountArray(12, 2) = "0"
-
-            '---SSPP Unit Managers
-            'AccountArray(24, 3) = "1" And AccountArray(12, 1) = "1" And AccountArray(12, 2) = "0" And AccountArray(3, 4) = "0"
-
-            '---SSPP Administrator (Kella Johnson & Cathy Toney) 
-            'AccountArray(51, 4) = "1" And AccountArray(23, 3) = "1" And AccountArray(138, 1) = "1"
-
-            '---SSPP Administrator 2 (Nancy Johns) 
-            'AccountArray(51, 4) = "1" And AccountArray(12, 1) = "1" And AccountArray(138, 0) Is Nothing
-
-            '---Web USers i.e. Lynn
-            'AccountArray(131, 2) = "1" And AccountArray(127, 3) = "1" And AccountArray(127, 4) = "0"
-
-            '---SSPP Engineer
-            'AccountArray(3, 2) = "1" And AccountArray(3, 4) = "0"
-
-            '---SSCP Users
-            'AccountArray(48, 2) = "1" And AccountArray(48, 3) = "0" And AccountArray(48, 4) = "0"
-
-            '---ISMP Users
-            'AccountArray(67, 2) = "1"
-
-            '---Branch Chief
-            'AccountArray(51, 3) = "1" And AccountArray(20, 3) = "1" And AccountArray(51, 1) = "0"
-
-
-            ' If AccountArray(129, 3) = "1" Or _
-            '(AccountArray(24, 3) = "1" And AccountArray(3, 4) = "1" And AccountArray(12, 1) = "1" And AccountArray(12, 2) = "0") Or _
-            '(AccountArray(24, 3) = "1" And AccountArray(12, 1) = "1" And AccountArray(12, 2) = "0" And AccountArray(3, 4) = "0") Or _
-            '(AccountArray(51, 4) = "1" And AccountArray(23, 3) = "1" And AccountArray(138, 1) = "1") Or _
-            '(AccountArray(51, 4) = "1" And AccountArray(12, 1) = "1" And AccountArray(138, 0) Is Nothing) Or _
-            '(AccountArray(131, 2) = "1" And AccountArray(127, 3) = "1" And AccountArray(127, 4) = "0") Or _
-            '(AccountArray(3, 2) = "1" And AccountArray(3, 4) = "0") Or _
-            '(AccountArray(48, 2) = "1" And AccountArray(48, 3) = "0" And AccountArray(48, 4) = "0") Or _
-            ' AccountArray(67, 2) = "1" Or _
-            '(AccountArray(51, 3) = "1" And AccountArray(20, 3) = "1" And AccountArray(51, 1) = "0") Then
-            ' End If
-
-
-
-
-
-
-
-
-            'Show Correct Tabs 
-            If UserAccounts.Contains("(1)") Or UserAccounts.Contains("(69)") Then 'DMU Manager and DMU Developer 
-                If TCApplicationTrackingLog.TabPages.Contains(TPTrackingLog) Then
-                Else
-                    TCApplicationTrackingLog.TabPages.Add(TPTrackingLog)
-                End If
-                If TCApplicationTrackingLog.TabPages.Contains(TPReviews) Then
-                Else
-                    TCApplicationTrackingLog.TabPages.Add(TPReviews)
-                End If
-                If TCApplicationTrackingLog.TabPages.Contains(TPApplicationHistroy) Then
-                Else
-                    TCApplicationTrackingLog.TabPages.Add(TPApplicationHistroy)
-                End If
-                If TCApplicationTrackingLog.TabPages.Contains(TPInformationRequests) Then
-                Else
-                    TCApplicationTrackingLog.TabPages.Add(TPInformationRequests)
-                End If
-                If TCApplicationTrackingLog.TabPages.Contains(TPWebPublisher) Then
-                Else
-                    TCApplicationTrackingLog.TabPages.Add(TPWebPublisher)
-                End If
-                If TCApplicationTrackingLog.TabPages.Contains(TPOtherInfo) Then
-                Else
-                    TCApplicationTrackingLog.TabPages.Add(TPOtherInfo)
-                End If
-                If TCApplicationTrackingLog.TabPages.Contains(TPContactInformation) Then
-                Else
-                    TCApplicationTrackingLog.TabPages.Add(TPContactInformation)
-                    btnGetCurrentPermittingContact.Visible = True
-                End If
-            Else
-            End If
-
-            If UserAccounts.Contains("(28)") Then 'SSPP Program Manager
-                If TCApplicationTrackingLog.TabPages.Contains(TPTrackingLog) Then
-                Else
-                    TCApplicationTrackingLog.TabPages.Add(TPTrackingLog)
-                End If
-                If TCApplicationTrackingLog.TabPages.Contains(TPReviews) Then
-                Else
-                    TCApplicationTrackingLog.TabPages.Add(TPReviews)
-                End If
-                If TCApplicationTrackingLog.TabPages.Contains(TPApplicationHistroy) Then
-                Else
-                    TCApplicationTrackingLog.TabPages.Add(TPApplicationHistroy)
-                End If
-                If TCApplicationTrackingLog.TabPages.Contains(TPInformationRequests) Then
-                Else
-                    TCApplicationTrackingLog.TabPages.Add(TPInformationRequests)
-                End If
-                If TCApplicationTrackingLog.TabPages.Contains(TPWebPublisher) Then
-                Else
-                    TCApplicationTrackingLog.TabPages.Add(TPWebPublisher)
-                End If
-                If TCApplicationTrackingLog.TabPages.Contains(TPOtherInfo) Then
-                Else
-                    TCApplicationTrackingLog.TabPages.Add(TPOtherInfo)
-                End If
-                If TCApplicationTrackingLog.TabPages.Contains(TPContactInformation) Then
-                Else
-                    TCApplicationTrackingLog.TabPages.Add(TPContactInformation)
-                    btnGetCurrentPermittingContact.Visible = True
-                End If
-
-                txtAIRSNumber.BackColor = Color.PeachPuff
-                chbClosedOut.BackColor = Color.LightBlue
-                cboEngineer.BackColor = Color.LightBlue
-                lblEngineer.BackColor = Color.LightBlue
-                cboApplicationUnit.BackColor = Color.LightBlue
-                lblApplicationUnit.BackColor = Color.LightBlue
-                cboApplicationType.BackColor = Color.LightGreen
-                lblApplicationType.BackColor = Color.LightGreen
-                txtFacilityName.BackColor = Color.LightGreen
-                txtFacilityStreetAddress.BackColor = Color.LightGreen
-                cboFacilityCity.BackColor = Color.LightGreen
-                txtFacilityZipCode.BackColor = Color.LightGreen
-                txtSICCode.BackColor = Color.LightGreen
-                txtNAICSCode.BackColor = Color.LightGreen
-                cboOperationalStatus.BackColor = Color.LightGreen
-                lblOperationalStatus.BackColor = Color.LightGreen
-                cboClassification.BackColor = Color.LightGreen
-                lblClassification.BackColor = Color.LightGreen
-                lblDated.BackColor = Color.PeachPuff
-                lblReceived.BackColor = Color.PeachPuff
-                lblDateAssigned.BackColor = Color.LightBlue
-                lblDateReassigned.BackColor = Color.LightBlue
-                lblDateAcknowledge.BackColor = Color.LightGreen
-                cboPublicAdvisory.BackColor = Color.LightBlue
-                lblPublicAdvisory.BackColor = Color.LightGreen
-                chbPAReady.BackColor = Color.LightGreen
-                chbPNReady.BackColor = Color.LightGreen
-                lblDatePAExpires.BackColor = Color.PeachPuff
-                lblDateToUC.BackColor = Color.LightGreen
-                lblDateToPM.BackColor = Color.LightBlue
-                lblDraftIssued.BackColor = Color.PeachPuff
-                lblDatePNExpires.BackColor = Color.PeachPuff
-                lblEPAWaived.BackColor = Color.PeachPuff
-                lblEPAEnds.BackColor = Color.PeachPuff
-                lblDatetoBC.BackColor = Color.PeachPuff
-                txtPlantDescription.BackColor = Color.LightGreen
-                lblDateToDO.BackColor = Color.PeachPuff
-                lblFinalAction.BackColor = Color.PeachPuff
-                chbHAPsMajor.BackColor = Color.LightBlue
-                chbNSRMajor.BackColor = Color.LightBlue
-
-                lblDeadline.BackColor = Color.LightBlue
-                txtPermitNumber.BackColor = Color.LightGreen
-                lblPermitNumber.BackColor = Color.LightGreen
-                cboPermitAction.BackColor = Color.LightGreen
-                lblPermitAction.BackColor = Color.LightGreen
-
-                txtReasonAppSubmitted.BackColor = Color.LightGreen
-                txtComments.BackColor = Color.LightGreen
-                chbCDS_0.BackColor = Color.LightGreen
-                chbCDS_6.BackColor = Color.LightGreen
-                chbCDS_7.BackColor = Color.LightGreen
-                chbCDS_8.BackColor = Color.LightGreen
-                chbCDS_9.BackColor = Color.LightGreen
-                chbCDS_M.BackColor = Color.LightGreen
-                chbCDS_V.BackColor = Color.LightGreen
-                chbCDS_A.BackColor = Color.LightGreen
-                chbCDS_RMP.BackColor = Color.LightGreen
-
-                txtSignificantComments.BackColor = Color.LightGreen
-                lblReviewSubmitted.BackColor = Color.LightGreen
-                btnLoadFacilityApplicationHistory.BackColor = Color.LightGreen
-                btnAddApplicationToList.BackColor = Color.LightGreen
-                btnLinkApplications.BackColor = Color.LightGreen
-                btnClearLinks.BackColor = Color.LightGreen
-                btnClearList.BackColor = Color.LightGreen
-                btnViewInformationRequests.BackColor = Color.LightGreen
-                lblInformationRequested.BackColor = Color.LightGreen
-                lblInformationReceived.BackColor = Color.LightGreen
-                txtInformationRequested.BackColor = Color.LightGreen
-                txtInformationReceived.BackColor = Color.LightGreen
-                btnClearInformationRequest.BackColor = Color.LightGreen
-                btnSaveInformationRequest.BackColor = Color.LightGreen
-                btnDeleteInformationRequest.BackColor = Color.LightGreen
-
-                lblNotifiedAppReceived.BackColor = Color.PeachPuff
-                lblDraftOnWeb.BackColor = Color.PeachPuff
-                lbEPAStatesNotified.BackColor = Color.PeachPuff
-                lblFinalOnWeb.BackColor = Color.PeachPuff
-                lblEPANotifiedFinalOnWeb.BackColor = Color.PeachPuff
-                lblEffectiveDateofPermit.BackColor = Color.PeachPuff
-                lblExperationDate.BackColor = Color.PeachPuff
-                txtEPATargetedComments.BackColor = Color.PeachPuff
-                btnSaveWebPublisher.BackColor = Color.PeachPuff
-                lblPNExpires.BackColor = Color.PeachPuff
-            Else
-                If UserAccounts.Contains("(31)") Or UserAccounts.Contains("(33)") Or UserAccounts.Contains("(35)") _
-                             Or UserAccounts.Contains("(37)") Or UserAccounts.Contains("(39)") Then     'SSPP Unit Managers
-                    If TCApplicationTrackingLog.TabPages.Contains(TPTrackingLog) Then
-                    Else
-                        TCApplicationTrackingLog.TabPages.Add(TPTrackingLog)
-                    End If
-                    If TCApplicationTrackingLog.TabPages.Contains(TPReviews) Then
-                    Else
-                        TCApplicationTrackingLog.TabPages.Add(TPReviews)
-                    End If
-                    If TCApplicationTrackingLog.TabPages.Contains(TPApplicationHistroy) Then
-                    Else
-                        TCApplicationTrackingLog.TabPages.Add(TPApplicationHistroy)
-                    End If
-                    If TCApplicationTrackingLog.TabPages.Contains(TPInformationRequests) Then
-                    Else
-                        TCApplicationTrackingLog.TabPages.Add(TPInformationRequests)
-                    End If
-                    If TCApplicationTrackingLog.TabPages.Contains(TPOtherInfo) Then
-                    Else
-                        TCApplicationTrackingLog.TabPages.Add(TPOtherInfo)
-                    End If
-                    If TCApplicationTrackingLog.TabPages.Contains(TPContactInformation) Then
-                    Else
-                        TCApplicationTrackingLog.TabPages.Add(TPContactInformation)
-                        btnGetCurrentPermittingContact.Visible = True
-                    End If
-
-                    chbClosedOut.BackColor = Color.LightBlue
-                    cboEngineer.BackColor = Color.LightBlue
-                    cboApplicationUnit.BackColor = Color.LightBlue
-                    cboApplicationType.BackColor = Color.LightGreen
-                    lblEngineer.BackColor = Color.LightBlue
-                    lblApplicationUnit.BackColor = Color.LightBlue
-                    lblApplicationType.BackColor = Color.LightGreen
-                    txtFacilityName.BackColor = Color.LightGreen
-                    txtFacilityStreetAddress.BackColor = Color.LightGreen
-                    cboFacilityCity.BackColor = Color.LightGreen
-                    txtFacilityZipCode.BackColor = Color.LightGreen
-                    txtSICCode.BackColor = Color.LightGreen
-                    txtNAICSCode.BackColor = Color.LightGreen
-                    cboOperationalStatus.BackColor = Color.LightGreen
-                    cboClassification.BackColor = Color.LightGreen
-                    lblOperationalStatus.BackColor = Color.LightGreen
-                    lblClassification.BackColor = Color.LightGreen
-                    lblDated.BackColor = Color.PeachPuff
-                    lblReceived.BackColor = Color.PeachPuff
-                    cboPublicAdvisory.BackColor = Color.LightGreen
-                    lblPublicAdvisory.BackColor = Color.LightGreen
-                    chbPAReady.BackColor = Color.LightGreen
-                    lblDateToUC.BackColor = Color.LightGreen
-                    chbPNReady.BackColor = Color.LightGreen
-                    txtPlantDescription.BackColor = Color.LightGreen
-                    txtPermitNumber.BackColor = Color.LightGreen
-                    lblPermitNumber.BackColor = Color.LightGreen
-                    cboPermitAction.BackColor = Color.LightGreen
-                    lblPermitAction.BackColor = Color.LightGreen
-                    txtReasonAppSubmitted.BackColor = Color.LightGreen
-                    txtComments.BackColor = Color.LightGreen
-                    chbCDS_0.BackColor = Color.LightGreen
-                    chbCDS_6.BackColor = Color.LightGreen
-                    chbCDS_7.BackColor = Color.LightGreen
-                    chbCDS_8.BackColor = Color.LightGreen
-                    chbCDS_9.BackColor = Color.LightGreen
-                    chbCDS_M.BackColor = Color.LightGreen
-                    chbCDS_V.BackColor = Color.LightGreen
-                    chbCDS_A.BackColor = Color.LightGreen
-                    chbCDS_RMP.BackColor = Color.LightGreen
-
-                    lblDateAssigned.BackColor = Color.LightBlue
-                    lblDateReassigned.BackColor = Color.LightBlue
-                    lblDateAcknowledge.BackColor = Color.LightGreen
-                    lblDateToPM.BackColor = Color.LightBlue
-                    lblDraftIssued.BackColor = Color.PeachPuff
-                    lblFinalAction.BackColor = Color.PeachPuff
-                    chbHAPsMajor.BackColor = Color.LightBlue
-                    chbNSRMajor.BackColor = Color.LightBlue
-
-                    lblDeadline.BackColor = Color.LightBlue
-                    lblDatePAExpires.BackColor = Color.PeachPuff
-                    lblDatePNExpires.BackColor = Color.PeachPuff
-                    lblReviewSubmitted.BackColor = Color.LightGreen
-
-                    txtSignificantComments.BackColor = Color.LightGreen
-
-                    btnLoadFacilityApplicationHistory.BackColor = Color.LightGreen
-                    btnAddApplicationToList.BackColor = Color.LightGreen
-                    btnLinkApplications.BackColor = Color.LightGreen
-                    btnClearLinks.BackColor = Color.LightGreen
-                    btnClearList.BackColor = Color.LightGreen
-                    btnViewInformationRequests.BackColor = Color.LightGreen
-                    lblInformationRequested.BackColor = Color.LightGreen
-                    lblInformationReceived.BackColor = Color.LightGreen
-                    txtInformationRequested.BackColor = Color.LightGreen
-                    txtInformationReceived.BackColor = Color.LightGreen
-                    btnClearInformationRequest.BackColor = Color.LightGreen
-                    btnSaveInformationRequest.BackColor = Color.LightGreen
-                    btnDeleteInformationRequest.BackColor = Color.LightGreen
-                Else
-                    If UserAccounts.Contains("(29)") Then  'SSPP Administrator (Kella Johnson & Cathy Toney) 
-                        If TCApplicationTrackingLog.TabPages.Contains(TPTrackingLog) Then
-                        Else
-                            TCApplicationTrackingLog.TabPages.Add(TPTrackingLog)
-                        End If
-                        If TCApplicationTrackingLog.TabPages.Contains(TPWebPublisher) Then
-                        Else
-                            TCApplicationTrackingLog.TabPages.Add(TPWebPublisher)
-                        End If
-                        If TCApplicationTrackingLog.TabPages.Contains(TPApplicationHistroy) Then
-                        Else
-                            TCApplicationTrackingLog.TabPages.Add(TPApplicationHistroy)
-                        End If
-                        If TCApplicationTrackingLog.TabPages.Contains(TPOtherInfo) Then
-                        Else
-                            TCApplicationTrackingLog.TabPages.Add(TPOtherInfo)
-                        End If
-                        If TCApplicationTrackingLog.TabPages.Contains(TPContactInformation) Then
-                        Else
-                            TCApplicationTrackingLog.TabPages.Add(TPContactInformation)
-                            btnGetCurrentPermittingContact.Visible = True
-                        End If
-
-                        txtApplicationNumber.BackColor = Color.PeachPuff
-                        txtAIRSNumber.BackColor = Color.PeachPuff
-                        chbClosedOut.BackColor = Color.PeachPuff
-                        cboApplicationUnit.BackColor = Color.PeachPuff
-                        cboApplicationType.BackColor = Color.PeachPuff
-                        lblApplicationUnit.BackColor = Color.PeachPuff
-                        lblApplicationType.BackColor = Color.PeachPuff
-                        txtFacilityName.BackColor = Color.PeachPuff
-                        txtFacilityStreetAddress.BackColor = Color.PeachPuff
-                        cboFacilityCity.BackColor = Color.PeachPuff
-                        txtFacilityZipCode.BackColor = Color.PeachPuff
-                        txtSICCode.BackColor = Color.PeachPuff
-                        txtNAICSCode.BackColor = Color.PeachPuff
-                        cboOperationalStatus.BackColor = Color.PeachPuff
-                        lblOperationalStatus.BackColor = Color.PeachPuff
-                        lblDated.BackColor = Color.PeachPuff
-                        lblReceived.BackColor = Color.PeachPuff
-                        lblDatePAExpires.BackColor = Color.PeachPuff
-                        lblDraftIssued.BackColor = Color.PeachPuff
-                        txtFacilityStreetAddress.BackColor = Color.PeachPuff
-                        txtReasonAppSubmitted.BackColor = Color.PeachPuff
-                        txtPlantDescription.BackColor = Color.PeachPuff
-                        txtFacilityName.BackColor = Color.PeachPuff
-                        txtFacilityZipCode.BackColor = Color.PeachPuff
-                        cboFacilityCity.BackColor = Color.PeachPuff
-                        lblEPAWaived.BackColor = Color.PeachPuff
-                        lblEPAEnds.BackColor = Color.PeachPuff
-                        lblDatetoBC.BackColor = Color.PeachPuff
-                        lblDateToDO.BackColor = Color.PeachPuff
-                        lblFinalAction.BackColor = Color.PeachPuff
-                    Else
-                        If UserAccounts.Contains("(30)") Then   'SSPP Administrator 2 (Nancy Johns) 
-                            If TCApplicationTrackingLog.TabPages.Contains(TPTrackingLog) Then
-                            Else
-                                TCApplicationTrackingLog.TabPages.Add(TPTrackingLog)
-                            End If
-                            If TCApplicationTrackingLog.TabPages.Contains(TPReviews) Then
-                            Else
-                                TCApplicationTrackingLog.TabPages.Add(TPReviews)
-                            End If
-                            If TCApplicationTrackingLog.TabPages.Contains(TPApplicationHistroy) Then
-                            Else
-                                TCApplicationTrackingLog.TabPages.Add(TPApplicationHistroy)
-                            End If
-                            If TCApplicationTrackingLog.TabPages.Contains(TPInformationRequests) Then
-                            Else
-                                TCApplicationTrackingLog.TabPages.Add(TPInformationRequests)
-                            End If
-                            If TCApplicationTrackingLog.TabPages.Contains(TPOtherInfo) Then
-                            Else
-                                TCApplicationTrackingLog.TabPages.Add(TPOtherInfo)
-                            End If
-                            If TCApplicationTrackingLog.TabPages.Contains(TPContactInformation) Then
-                            Else
-                                TCApplicationTrackingLog.TabPages.Add(TPContactInformation)
-                                btnGetCurrentPermittingContact.Visible = True
-                            End If
-
-                            cboApplicationType.BackColor = Color.Yellow
-                            lblApplicationType.BackColor = Color.Yellow
-                            txtFacilityName.BackColor = Color.Yellow
-                            txtFacilityStreetAddress.BackColor = Color.Yellow
-                            cboFacilityCity.BackColor = Color.Yellow
-                            txtFacilityZipCode.BackColor = Color.Yellow
-                            txtSICCode.BackColor = Color.Yellow
-                            txtNAICSCode.BackColor = Color.Yellow
-                            cboOperationalStatus.BackColor = Color.Yellow
-                            cboClassification.BackColor = Color.Yellow
-                            cboPublicAdvisory.BackColor = Color.Yellow
-                            lblOperationalStatus.BackColor = Color.Yellow
-                            lblClassification.BackColor = Color.Yellow
-                            lblPublicAdvisory.BackColor = Color.Yellow
-                            chbPAReady.BackColor = Color.Yellow
-                            lblDateToUC.BackColor = Color.Yellow
-                            chbPNReady.BackColor = Color.Yellow
-                            txtPlantDescription.BackColor = Color.Yellow
-                            txtPermitNumber.BackColor = Color.Yellow
-                            cboPermitAction.BackColor = Color.Yellow
-                            lblPermitAction.BackColor = Color.Yellow
-                            txtReasonAppSubmitted.BackColor = Color.Yellow
-                            txtComments.BackColor = Color.Yellow
-                            chbCDS_0.BackColor = Color.Yellow
-                            chbCDS_6.BackColor = Color.Yellow
-                            chbCDS_7.BackColor = Color.Yellow
-                            chbCDS_8.BackColor = Color.Yellow
-                            chbCDS_9.BackColor = Color.Yellow
-                            chbCDS_M.BackColor = Color.Yellow
-                            chbCDS_V.BackColor = Color.Yellow
-                            chbCDS_A.BackColor = Color.Yellow
-                            chbCDS_RMP.BackColor = Color.Yellow
-
-                            lblReviewSubmitted.BackColor = Color.Yellow
-                            btnLoadFacilityApplicationHistory.BackColor = Color.Yellow
-                            btnAddApplicationToList.BackColor = Color.Yellow
-                            btnLinkApplications.BackColor = Color.Yellow
-                            btnClearLinks.BackColor = Color.Yellow
-                            btnClearList.BackColor = Color.Yellow
-                            btnViewInformationRequests.BackColor = Color.Yellow
-                            lblInformationRequested.BackColor = Color.Yellow
-                            lblInformationReceived.BackColor = Color.Yellow
-                            txtInformationRequested.BackColor = Color.Yellow
-                            txtInformationReceived.BackColor = Color.Yellow
-                            btnClearInformationRequest.BackColor = Color.Yellow
-                            btnSaveInformationRequest.BackColor = Color.Yellow
-                            btnDeleteInformationRequest.BackColor = Color.Yellow
-                            txtSignificantComments.BackColor = Color.LightYellow
-
-                            lblDatePAExpires.BackColor = Color.LightYellow
-                            lblDraftIssued.BackColor = Color.LightYellow
-                            lblEPAWaived.BackColor = Color.LightYellow
-                            lblEPAEnds.BackColor = Color.LightYellow
-                            lblDatetoBC.BackColor = Color.LightYellow
-                            lblDateToDO.BackColor = Color.LightYellow
-                            lblFinalAction.BackColor = Color.LightYellow
-                        Else
-                            If UserAccounts.Contains("(10)") Then 'Web USers i.e. Lynn
-                                If TCApplicationTrackingLog.TabPages.Contains(TPTrackingLog) Then
-                                Else
-                                    TCApplicationTrackingLog.TabPages.Add(TPTrackingLog)
-                                End If
-                                If TCApplicationTrackingLog.TabPages.Contains(TPWebPublisher) Then
-                                Else
-                                    TCApplicationTrackingLog.TabPages.Add(TPWebPublisher)
-                                End If
-                                If TCApplicationTrackingLog.TabPages.Contains(TPApplicationHistroy) Then
-                                Else
-                                    TCApplicationTrackingLog.TabPages.Add(TPApplicationHistroy)
-                                End If
-                                If TCApplicationTrackingLog.TabPages.Contains(TPOtherInfo) Then
-                                Else
-                                    TCApplicationTrackingLog.TabPages.Add(TPOtherInfo)
-                                End If
-                                If TCApplicationTrackingLog.TabPages.Contains(TPContactInformation) Then
-                                Else
-                                    TCApplicationTrackingLog.TabPages.Add(TPContactInformation)
-                                    btnGetCurrentPermittingContact.Visible = True
-                                End If
-
-                                lblDatePNExpires.BackColor = Color.PeachPuff
-                                lblNotifiedAppReceived.BackColor = Color.PeachPuff
-                                lblDraftOnWeb.BackColor = Color.PeachPuff
-                                lbEPAStatesNotified.BackColor = Color.PeachPuff
-                                lblFinalOnWeb.BackColor = Color.PeachPuff
-                                lblEPANotifiedFinalOnWeb.BackColor = Color.PeachPuff
-                                lblEffectiveDateofPermit.BackColor = Color.PeachPuff
-                                lblExperationDate.BackColor = Color.PeachPuff
-                                txtEPATargetedComments.BackColor = Color.PeachPuff
-                                btnSaveWebPublisher.BackColor = Color.PeachPuff
-                                lblPNExpires.BackColor = Color.PeachPuff
-
-                            Else
-                                If UserProgram = "3" Then    'ISMP Users
-                                    If TCApplicationTrackingLog.TabPages.Contains(TPTrackingLog) Then
-                                    Else
-                                        TCApplicationTrackingLog.TabPages.Add(TPTrackingLog)
-                                    End If
-                                    If TCApplicationTrackingLog.TabPages.Contains(TPReviews) Then
-                                    Else
-                                        TCApplicationTrackingLog.TabPages.Add(TPReviews)
-                                    End If
-                                    If TCApplicationTrackingLog.TabPages.Contains(TPOtherInfo) Then
-                                    Else
-                                        TCApplicationTrackingLog.TabPages.Add(TPOtherInfo)
-                                    End If
-                                    If TCApplicationTrackingLog.TabPages.Contains(TPContactInformation) Then
-                                    Else
-                                        TCApplicationTrackingLog.TabPages.Add(TPContactInformation)
-                                        btnGetCurrentPermittingContact.Visible = False
-                                    End If
-
-                                    lblISMPReview.BackColor = Color.Yellow
-                                    cboISMPStaff.BackColor = Color.Yellow
-                                    lblISMPStaff.BackColor = Color.Yellow
-                                    rdbISMPYes.BackColor = Color.Yellow
-                                    rdbISMPNo.BackColor = Color.Yellow
-                                    txtISMPComments.BackColor = Color.Yellow
-
-                                Else
-                                    If UserProgram = "4" Then   'SSCP Users
-                                        If TCApplicationTrackingLog.TabPages.Contains(TPTrackingLog) Then
-                                        Else
-                                            TCApplicationTrackingLog.TabPages.Add(TPTrackingLog)
-                                        End If
-                                        If TCApplicationTrackingLog.TabPages.Contains(TPReviews) Then
-                                        Else
-                                            TCApplicationTrackingLog.TabPages.Add(TPReviews)
-                                        End If
-                                        If TCApplicationTrackingLog.TabPages.Contains(TPOtherInfo) Then
-                                        Else
-                                            TCApplicationTrackingLog.TabPages.Add(TPOtherInfo)
-                                        End If
-                                        If TCApplicationTrackingLog.TabPages.Contains(TPContactInformation) Then
-                                        Else
-                                            TCApplicationTrackingLog.TabPages.Add(TPContactInformation)
-                                            btnGetCurrentPermittingContact.Visible = False
-                                        End If
-
-                                        lblSSCPReview.BackColor = Color.Yellow
-                                        cboSSCPStaff.BackColor = Color.Yellow
-                                        lblSSCPStaff.BackColor = Color.Yellow
-                                        rdbSSCPYes.BackColor = Color.Yellow
-                                        rdbSSCPNo.BackColor = Color.Yellow
-                                        txtSSCPComments.BackColor = Color.Yellow
-
-                                    Else
-                                        If AccountFormAccess(51, 2) = "1" Then  'SSPP Engineer 
-                                            If TCApplicationTrackingLog.TabPages.Contains(TPTrackingLog) Then
-                                            Else
-                                                TCApplicationTrackingLog.TabPages.Add(TPTrackingLog)
-                                            End If
-                                            If TCApplicationTrackingLog.TabPages.Contains(TPReviews) Then
-                                            Else
-                                                TCApplicationTrackingLog.TabPages.Add(TPReviews)
-                                            End If
-                                            If TCApplicationTrackingLog.TabPages.Contains(TPApplicationHistroy) Then
-                                            Else
-                                                TCApplicationTrackingLog.TabPages.Add(TPApplicationHistroy)
-                                            End If
-                                            If TCApplicationTrackingLog.TabPages.Contains(TPInformationRequests) Then
-                                            Else
-                                                TCApplicationTrackingLog.TabPages.Add(TPInformationRequests)
-                                            End If
-                                            If TCApplicationTrackingLog.TabPages.Contains(TPOtherInfo) Then
-                                            Else
-                                                TCApplicationTrackingLog.TabPages.Add(TPOtherInfo)
-                                            End If
-                                            If TCApplicationTrackingLog.TabPages.Contains(TPContactInformation) Then
-                                            Else
-                                                TCApplicationTrackingLog.TabPages.Add(TPContactInformation)
-                                                btnGetCurrentPermittingContact.Visible = False
-                                            End If
-
-                                            cboApplicationType.BackColor = Color.Yellow
-                                            lblApplicationType.BackColor = Color.Yellow
-                                            txtFacilityName.BackColor = Color.Yellow
-                                            txtFacilityStreetAddress.BackColor = Color.Yellow
-                                            cboFacilityCity.BackColor = Color.Yellow
-                                            txtFacilityZipCode.BackColor = Color.Yellow
-                                            txtSICCode.BackColor = Color.Yellow
-                                            txtNAICSCode.BackColor = Color.Yellow
-                                            cboOperationalStatus.BackColor = Color.Yellow
-                                            lblOperationalStatus.BackColor = Color.Yellow
-                                            cboClassification.BackColor = Color.Yellow
-                                            cboPublicAdvisory.BackColor = Color.Yellow
-                                            lblClassification.BackColor = Color.Yellow
-                                            lblPublicAdvisory.BackColor = Color.Yellow
-                                            chbPAReady.BackColor = Color.Yellow
-                                            lblDateAcknowledge.BackColor = Color.Yellow
-                                            lblDateToUC.BackColor = Color.Yellow
-                                            chbPNReady.BackColor = Color.Yellow
-                                            txtPlantDescription.BackColor = Color.Yellow
-                                            txtPermitNumber.BackColor = Color.Yellow
-                                            cboPermitAction.BackColor = Color.Yellow
-                                            lblPermitAction.BackColor = Color.Yellow
-                                            txtReasonAppSubmitted.BackColor = Color.Yellow
-                                            txtComments.BackColor = Color.Yellow
-                                            chbCDS_0.BackColor = Color.Yellow
-                                            chbCDS_6.BackColor = Color.Yellow
-                                            chbCDS_7.BackColor = Color.Yellow
-                                            chbCDS_8.BackColor = Color.Yellow
-                                            chbCDS_9.BackColor = Color.Yellow
-                                            chbCDS_M.BackColor = Color.Yellow
-                                            chbCDS_V.BackColor = Color.Yellow
-                                            chbCDS_A.BackColor = Color.Yellow
-                                            chbCDS_RMP.BackColor = Color.Yellow
-
-                                            lblReviewSubmitted.BackColor = Color.Yellow
-                                            btnLoadFacilityApplicationHistory.BackColor = Color.Yellow
-                                            btnAddApplicationToList.BackColor = Color.Yellow
-                                            btnLinkApplications.BackColor = Color.Yellow
-                                            btnClearLinks.BackColor = Color.Yellow
-                                            btnClearList.BackColor = Color.Yellow
-                                            btnViewInformationRequests.BackColor = Color.Yellow
-                                            lblInformationRequested.BackColor = Color.Yellow
-                                            lblInformationReceived.BackColor = Color.Yellow
-                                            txtInformationRequested.BackColor = Color.Yellow
-                                            txtInformationReceived.BackColor = Color.Yellow
-                                            btnClearInformationRequest.BackColor = Color.Yellow
-                                            btnSaveInformationRequest.BackColor = Color.Yellow
-                                            btnDeleteInformationRequest.BackColor = Color.Yellow
-                                            txtSignificantComments.BackColor = Color.LightYellow
-                                            lblSSCPReview.BackColor = Color.Yellow
-                                            cboSSCPStaff.BackColor = Color.Yellow
-                                            lblSSCPStaff.BackColor = Color.Yellow
-                                            rdbSSCPYes.BackColor = Color.Yellow
-                                            rdbSSCPNo.BackColor = Color.Yellow
-                                            txtSSCPComments.BackColor = Color.Yellow
-                                            lblISMPReview.BackColor = Color.Yellow
-                                            cboISMPStaff.BackColor = Color.Yellow
-                                            lblISMPStaff.BackColor = Color.Yellow
-                                            rdbISMPYes.BackColor = Color.Yellow
-                                            rdbISMPNo.BackColor = Color.Yellow
-                                            txtISMPComments.BackColor = Color.Yellow
-                                        Else
-                                            'All Others 
-                                            TBSSPPPermitTrackingLog.Buttons.Item(0).Visible = False
-                                            mmiSave.Visible = False
-
-                                            If TCApplicationTrackingLog.TabPages.Contains(TPTrackingLog) Then
-                                            Else
-                                                TCApplicationTrackingLog.TabPages.Add(TPTrackingLog)
-                                            End If
-                                            If TCApplicationTrackingLog.TabPages.Contains(TPOtherInfo) Then
-                                            Else
-                                                TCApplicationTrackingLog.TabPages.Add(TPOtherInfo)
-                                            End If
-                                            If TCApplicationTrackingLog.TabPages.Contains(TPContactInformation) Then
-                                            Else
-                                                TCApplicationTrackingLog.TabPages.Add(TPContactInformation)
-                                                btnGetCurrentPermittingContact.Visible = False
-                                            End If
-                                        End If
-                                    End If
-                                End If
-                            End If
-                        End If
-                    End If
-                End If
-            End If
-
-            If UserAccounts.Contains("(1)") Or UserAccounts.Contains("(69)") Then 'DMU Manager and DMU Developer 
-                txtApplicationNumber.ReadOnly = False
-                btnRefreshAppNo.Visible = True
-                btnRefreshAppNo.Enabled = True
-                txtAIRSNumber.ReadOnly = False
-                btnRefreshAIRSNo.Visible = True
-                btnRefreshAIRSNo.Enabled = True
-                chbClosedOut.Enabled = True
-                cboEngineer.Enabled = True
-                cboApplicationUnit.Enabled = True
-                cboApplicationType.Enabled = True
-                lblEngineer.Enabled = True
-                lblApplicationUnit.Enabled = True
-                lblApplicationType.Enabled = True
-                txtFacilityName.ReadOnly = False
-                txtFacilityStreetAddress.ReadOnly = False
-                cboFacilityCity.Enabled = True
-                txtFacilityZipCode.ReadOnly = False
-                cboCounty.Enabled = True
-                lblCounty.Enabled = True
-                txtSICCode.ReadOnly = False
-                txtNAICSCode.ReadOnly = False
-                cboOperationalStatus.Enabled = True
-                cboClassification.Enabled = True
-                lblOperationalStatus.Enabled = True
-                lblClassification.Enabled = True
-                DTPDateSent.Enabled = True
-                DTPDateReceived.Enabled = True
-                DTPDateAssigned.Enabled = True
-                DTPDateReassigned.Enabled = True
-                DTPDateAcknowledge.Enabled = True
-                cboPublicAdvisory.Enabled = True
-                lblPublicAdvisory.Enabled = True
-                chbPAReady.Enabled = True
-                DTPDatePAExpires.Enabled = True
-                DTPDateToUC.Enabled = True
-                DTPDateToPM.Enabled = True
-                DTPDraftIssued.Enabled = True
-                chbPNReady.Enabled = True
-                DTPDatePNExpires.Enabled = True
-                DTPEPAWaived.Enabled = True
-                DTPEPAEnds.Enabled = True
-                DTPDateToBC.Enabled = True
-                txtPlantDescription.ReadOnly = False
-                DTPDateToDO.Enabled = True
-                DTPFinalAction.Enabled = True
-                DTPDeadline.Enabled = True
-                txtPermitNumber.ReadOnly = False
-                cboPermitAction.Enabled = True
-                lblPermitAction.Enabled = True
-                chbCDS_0.Enabled = True
-                chbCDS_6.Enabled = True
-                chbCDS_7.Enabled = True
-                chbCDS_8.Enabled = True
-                chbCDS_9.Enabled = True
-                chbCDS_M.Enabled = True
-                chbCDS_V.Enabled = True
-                chbCDS_A.Enabled = True
-                chbCDS_RMP.Enabled = True
-
-                chbNSRMajor.Enabled = True
-                chbHAPsMajor.Enabled = True
-                txtReasonAppSubmitted.ReadOnly = False
-                txtComments.ReadOnly = False
-                chbPSD.Enabled = True
-                chbNAANSR.Enabled = True
-                chb112g.Enabled = True
-                chbRulett.Enabled = True
-                chbRuleyy.Enabled = True
-                chbPal.Enabled = True
-                chbExpedited.Enabled = True
-                chbConfidential.Enabled = True
-                txtSignificantComments.ReadOnly = False
-                DTPReviewSubmitted.Enabled = True
-                DTPReviewSubmitted.Enabled = True
-                btnLoadFacilityApplicationHistory.Enabled = True
-                btnAddApplicationToList.Enabled = True
-                btnLinkApplications.Enabled = True
-                btnClearLinks.Enabled = True
-                btnClearList.Enabled = True
-                btnViewInformationRequests.Enabled = True
-                DTPInformationRequested.Enabled = True
-                DTPInformationReceived.Enabled = True
-                txtInformationRequested.ReadOnly = False
-                txtInformationReceived.ReadOnly = False
-                btnClearInformationRequest.Enabled = True
-                btnSaveInformationRequest.Enabled = True
-                btnDeleteInformationRequest.Enabled = True
-                btnRefreshAppNo.Visible = True
-                btnRefreshAppNo.Enabled = True
-                btnRefreshAIRSNo.Visible = True
-                btnRefreshAIRSNo.Enabled = True
-
-                DTPNotifiedAppReceived.Enabled = True
-                DTPDraftOnWeb.Enabled = True
-                DTPEPAStatesNotified.Enabled = True
-                DTPFinalOnWeb.Enabled = True
-                DTPEPANotifiedPermitOnWeb.Enabled = True
-                DTPEffectiveDateofPermit.Enabled = True
-                DTPExperationDate.Enabled = True
-                txtEPATargetedComments.ReadOnly = False
-                btnSaveWebPublisher.Enabled = True
-                DTPPNExpires.Enabled = True
-
-                'Subpart Tools
-                btnSaveSIPSubpart.Enabled = True
-                btnClearSIPDeletes.Enabled = True
-                btnClearAddModifiedSIPs.Enabled = True
-                btnAddNewSIPSubpart.Enabled = True
-                btnSIPDelete.Enabled = True
-                btnSIPUndelete.Enabled = True
-                btnSIPDeleteAll.Enabled = True
-                btnSIPUndeleteAll.Enabled = True
-                btnSIPEdit.Enabled = True
-                btnSIPUnedit.Enabled = True
-                btnSIPEditAll.Enabled = True
-                btnSIPUneditAll.Enabled = True
-
-                btnSaveNESHAPSubpart.Enabled = True
-                btnClearNESHAPDeletes.Enabled = True
-                btnClearAddModifiedNESHAPs.Enabled = True
-                btnAddNewNESHAPSubpart.Enabled = True
-                btnNESHAPDelete.Enabled = True
-                btnNESHAPUndelete.Enabled = True
-                btnNESHAPDeleteAll.Enabled = True
-                btnNESHAPUndeleteAll.Enabled = True
-                btnNESHAPEdit.Enabled = True
-                btnNESHAPUnedit.Enabled = True
-                btnNESHAPEditAll.Enabled = True
-                btnNESHAPUneditAll.Enabled = True
-
-                btnSaveNSPSSubpart.Enabled = True
-                btnClearNSPSDeletes.Enabled = True
-                btnClearAddModifiedNSPSs.Enabled = True
-                btnAddNewNSPSSubpart.Enabled = True
-                btnNSPSDelete.Enabled = True
-                btnNSPSUndelete.Enabled = True
-                btnNSPSDeleteAll.Enabled = True
-                btnNSPSUndeleteAll.Enabled = True
-                btnNSPSEdit.Enabled = True
-                btnNSPSUnedit.Enabled = True
-                btnNSPSEditAll.Enabled = True
-                btnNSPSUneditAll.Enabled = True
-
-                btnSaveMACTSubpart.Enabled = True
-                btnClearMACTDeletes.Enabled = True
-                btnClearAddModifiedMACTs.Enabled = True
-                btnAddNewMACTSubpart.Enabled = True
-                btnMACTDelete.Enabled = True
-                btnMACTUndelete.Enabled = True
-                btnMACTDeleteAll.Enabled = True
-                btnMACTUndeleteAll.Enabled = True
-                btnMACTEdit.Enabled = True
-                btnMACTUnedit.Enabled = True
-                btnMACTEditAll.Enabled = True
-                btnMACTUneditAll.Enabled = True
-            Else
-                If UserAccounts.Contains("(28)") Then 'SSPP Program Manager
-                    mmiNewApplication.Visible = True
-                    mmiNewApplication.Enabled = True
-                    txtAIRSNumber.ReadOnly = False
-                    chbClosedOut.Enabled = True
-                    cboEngineer.Enabled = True
-                    cboApplicationUnit.Enabled = True
-                    cboApplicationType.Enabled = True
-                    txtFacilityName.ReadOnly = False
-                    txtFacilityStreetAddress.ReadOnly = False
-                    cboFacilityCity.Enabled = True
-                    txtFacilityZipCode.ReadOnly = False
-                    txtSICCode.ReadOnly = False
-                    txtNAICSCode.ReadOnly = False
-                    cboOperationalStatus.Enabled = True
-                    cboClassification.Enabled = True
-                    DTPDateSent.Enabled = True
-                    DTPDateReceived.Enabled = True
-                    DTPDateAssigned.Enabled = True
-                    DTPDateReassigned.Enabled = True
-                    DTPDateAcknowledge.Enabled = True
-                    cboPublicAdvisory.Enabled = True
-                    chbPAReady.Enabled = True
-                    chbPNReady.Enabled = True
-                    DTPDatePAExpires.Enabled = True
-                    DTPDateToUC.Enabled = True
-                    DTPDateToPM.Enabled = True
-                    DTPDraftIssued.Enabled = True
-                    chbPNReady.Enabled = True
-                    DTPDatePNExpires.Enabled = True
-                    DTPEPAWaived.Enabled = True
-                    DTPEPAEnds.Enabled = True
-                    DTPDateToBC.Enabled = True
-                    txtPlantDescription.ReadOnly = False
-                    DTPDateToDO.Enabled = True
-                    DTPFinalAction.Enabled = True
-                    chbHAPsMajor.Enabled = True
-                    chbNSRMajor.Enabled = True
-
-                    DTPDeadline.Enabled = True
-                    txtPermitNumber.ReadOnly = False
-                    cboPermitAction.Enabled = True
-
-                    txtReasonAppSubmitted.ReadOnly = False
-                    txtComments.ReadOnly = False
-                    chbCDS_0.Enabled = False
-                    chbCDS_6.Enabled = True
-                    chbCDS_7.Enabled = True
-                    chbCDS_8.Enabled = True
-                    chbCDS_9.Enabled = True
-                    chbCDS_M.Enabled = True
-                    chbCDS_V.Enabled = True
-                    chbCDS_A.Enabled = True
-                    chbCDS_RMP.Enabled = True
-
-                    chbPSD.Enabled = True
-                    chbNAANSR.Enabled = True
-                    chb112g.Enabled = True
-                    chbRulett.Enabled = True
-                    chbRuleyy.Enabled = True
-                    chbPal.Enabled = True
-                    chbExpedited.Enabled = True
-                    chbConfidential.Enabled = True
-                    txtSignificantComments.ReadOnly = False
-
-                    DTPReviewSubmitted.Enabled = True
-                    btnLoadFacilityApplicationHistory.Enabled = True
-                    btnAddApplicationToList.Enabled = True
-                    btnLinkApplications.Enabled = True
-                    btnClearLinks.Enabled = True
-                    btnClearList.Enabled = True
-                    btnViewInformationRequests.Enabled = True
-                    DTPInformationRequested.Enabled = True
-                    DTPInformationReceived.Enabled = True
-                    txtInformationRequested.ReadOnly = False
-                    txtInformationReceived.ReadOnly = False
-                    btnClearInformationRequest.Enabled = True
-                    btnSaveInformationRequest.Enabled = True
-                    btnDeleteInformationRequest.Enabled = True
-                    btnRefreshAppNo.Visible = True
-                    btnRefreshAppNo.Enabled = True
-                    btnRefreshAIRSNo.Visible = True
-                    btnRefreshAIRSNo.Enabled = True
-
-                    DTPNotifiedAppReceived.Enabled = True
-                    DTPDraftOnWeb.Enabled = True
-                    DTPEPAStatesNotified.Enabled = True
-                    DTPFinalOnWeb.Enabled = True
-                    DTPEPANotifiedPermitOnWeb.Enabled = True
-                    DTPEffectiveDateofPermit.Enabled = True
-                    DTPExperationDate.Enabled = True
-                    txtEPATargetedComments.ReadOnly = False
-                    btnSaveWebPublisher.Enabled = True
-                    DTPPNExpires.Enabled = True
-
-                    'Subpart Tools
-                    btnSaveSIPSubpart.Enabled = True
-                    btnClearSIPDeletes.Enabled = True
-                    btnClearAddModifiedSIPs.Enabled = True
-                    btnAddNewSIPSubpart.Enabled = True
-                    btnSIPDelete.Enabled = True
-                    btnSIPUndelete.Enabled = True
-                    btnSIPDeleteAll.Enabled = True
-                    btnSIPUndeleteAll.Enabled = True
-                    btnSIPEdit.Enabled = True
-                    btnSIPUnedit.Enabled = True
-                    btnSIPEditAll.Enabled = True
-                    btnSIPUneditAll.Enabled = True
-
-                    btnSaveNESHAPSubpart.Enabled = True
-                    btnClearNESHAPDeletes.Enabled = True
-                    btnClearAddModifiedNESHAPs.Enabled = True
-                    btnAddNewNESHAPSubpart.Enabled = True
-                    btnNESHAPDelete.Enabled = True
-                    btnNESHAPUndelete.Enabled = True
-                    btnNESHAPDeleteAll.Enabled = True
-                    btnNESHAPUndeleteAll.Enabled = True
-                    btnNESHAPEdit.Enabled = True
-                    btnNESHAPUnedit.Enabled = True
-                    btnNESHAPEditAll.Enabled = True
-                    btnNESHAPUneditAll.Enabled = True
-
-                    btnSaveNSPSSubpart.Enabled = True
-                    btnClearNSPSDeletes.Enabled = True
-                    btnClearAddModifiedNSPSs.Enabled = True
-                    btnAddNewNSPSSubpart.Enabled = True
-                    btnNSPSDelete.Enabled = True
-                    btnNSPSUndelete.Enabled = True
-                    btnNSPSDeleteAll.Enabled = True
-                    btnNSPSUndeleteAll.Enabled = True
-                    btnNSPSEdit.Enabled = True
-                    btnNSPSUnedit.Enabled = True
-                    btnNSPSEditAll.Enabled = True
-                    btnNSPSUneditAll.Enabled = True
-
-                    btnSaveMACTSubpart.Enabled = True
-                    btnClearMACTDeletes.Enabled = True
-                    btnClearAddModifiedMACTs.Enabled = True
-                    btnAddNewMACTSubpart.Enabled = True
-                    btnMACTDelete.Enabled = True
-                    btnMACTUndelete.Enabled = True
-                    btnMACTDeleteAll.Enabled = True
-                    btnMACTUndeleteAll.Enabled = True
-                    btnMACTEdit.Enabled = True
-                    btnMACTUnedit.Enabled = True
-                    btnMACTEditAll.Enabled = True
-                    btnMACTUneditAll.Enabled = True
-                Else
-                    If UserAccounts.Contains("(31)") Or UserAccounts.Contains("(33)") Or UserAccounts.Contains("(35)") _
-                                 Or UserAccounts.Contains("(37)") Or UserAccounts.Contains("(39)") Then     'SSPP Unit Managers
-                        txtAIRSNumber.ReadOnly = False
-                        chbClosedOut.Enabled = True
-                        cboEngineer.Enabled = True
-                        cboApplicationUnit.Enabled = True
-                        cboApplicationType.Enabled = True
-                        txtFacilityName.ReadOnly = False
-                        txtFacilityStreetAddress.ReadOnly = False
-                        cboFacilityCity.Enabled = True
-                        txtFacilityZipCode.ReadOnly = False
-                        txtSICCode.ReadOnly = False
-                        txtNAICSCode.ReadOnly = False
-                        cboOperationalStatus.Enabled = True
-                        cboClassification.Enabled = True
-                        DTPDateSent.Enabled = True
-                        DTPDateReceived.Enabled = True
-                        cboPublicAdvisory.Enabled = True
-                        chbPAReady.Enabled = True
-                        DTPDateToUC.Enabled = True
-                        chbPNReady.Enabled = True
-                        txtPlantDescription.ReadOnly = False
-                        txtPermitNumber.ReadOnly = False
-                        cboPermitAction.Enabled = True
-                        txtReasonAppSubmitted.ReadOnly = False
-                        txtComments.ReadOnly = False
-                        chbCDS_0.Enabled = False
-                        chbCDS_6.Enabled = True
-                        chbCDS_7.Enabled = True
-                        chbCDS_8.Enabled = True
-                        chbCDS_9.Enabled = True
-                        chbCDS_M.Enabled = True
-                        chbCDS_V.Enabled = True
-                        chbCDS_A.Enabled = True
-                        chbCDS_RMP.Enabled = True
-
-                        DTPDateAssigned.Enabled = True
-                        DTPDateReassigned.Enabled = True
-                        DTPDateAcknowledge.Enabled = True
-                        DTPDateToPM.Enabled = True
-                        DTPDraftIssued.Enabled = True
-                        DTPFinalAction.Enabled = True
-                        chbHAPsMajor.Enabled = True
-                        chbNSRMajor.Enabled = True
-
-                        DTPDeadline.Enabled = True
-                        DTPDatePAExpires.Enabled = True
-                        DTPDatePNExpires.Enabled = True
-                        DTPReviewSubmitted.Enabled = True
-
-                        chbPSD.Enabled = True
-                        chbNAANSR.Enabled = True
-                        chb112g.Enabled = True
-                        chbRulett.Enabled = True
-                        chbRuleyy.Enabled = True
-                        chbPal.Enabled = True
-                        chbExpedited.Enabled = True
-                        chbConfidential.Enabled = True
-                        txtSignificantComments.ReadOnly = False
-                        btnLoadFacilityApplicationHistory.Enabled = True
-                        btnAddApplicationToList.Enabled = True
-                        btnLinkApplications.Enabled = True
-                        btnClearLinks.Enabled = True
-                        btnClearList.Enabled = True
-                        btnViewInformationRequests.Enabled = True
-                        DTPInformationRequested.Enabled = True
-                        DTPInformationReceived.Enabled = True
-                        txtInformationRequested.ReadOnly = False
-                        txtInformationReceived.ReadOnly = False
-                        btnClearInformationRequest.Enabled = True
-                        btnSaveInformationRequest.Enabled = True
-                        btnDeleteInformationRequest.Enabled = True
-
-                        'Subpart Tools
-                        btnSaveSIPSubpart.Enabled = True
-                        btnClearSIPDeletes.Enabled = True
-                        btnClearAddModifiedSIPs.Enabled = True
-                        btnAddNewSIPSubpart.Enabled = True
-                        btnSIPDelete.Enabled = True
-                        btnSIPUndelete.Enabled = True
-                        btnSIPDeleteAll.Enabled = True
-                        btnSIPUndeleteAll.Enabled = True
-                        btnSIPEdit.Enabled = True
-                        btnSIPUnedit.Enabled = True
-                        btnSIPEditAll.Enabled = True
-                        btnSIPUneditAll.Enabled = True
-
-                        btnSaveNESHAPSubpart.Enabled = True
-                        btnClearNESHAPDeletes.Enabled = True
-                        btnClearAddModifiedNESHAPs.Enabled = True
-                        btnAddNewNESHAPSubpart.Enabled = True
-                        btnNESHAPDelete.Enabled = True
-                        btnNESHAPUndelete.Enabled = True
-                        btnNESHAPDeleteAll.Enabled = True
-                        btnNESHAPUndeleteAll.Enabled = True
-                        btnNESHAPEdit.Enabled = True
-                        btnNESHAPUnedit.Enabled = True
-                        btnNESHAPEditAll.Enabled = True
-                        btnNESHAPUneditAll.Enabled = True
-
-                        btnSaveNSPSSubpart.Enabled = True
-                        btnClearNSPSDeletes.Enabled = True
-                        btnClearAddModifiedNSPSs.Enabled = True
-                        btnAddNewNSPSSubpart.Enabled = True
-                        btnNSPSDelete.Enabled = True
-                        btnNSPSUndelete.Enabled = True
-                        btnNSPSDeleteAll.Enabled = True
-                        btnNSPSUndeleteAll.Enabled = True
-                        btnNSPSEdit.Enabled = True
-                        btnNSPSUnedit.Enabled = True
-                        btnNSPSEditAll.Enabled = True
-                        btnNSPSUneditAll.Enabled = True
-
-                        btnSaveMACTSubpart.Enabled = True
-                        btnClearMACTDeletes.Enabled = True
-                        btnClearAddModifiedMACTs.Enabled = True
-                        btnAddNewMACTSubpart.Enabled = True
-                        btnMACTDelete.Enabled = True
-                        btnMACTUndelete.Enabled = True
-                        btnMACTDeleteAll.Enabled = True
-                        btnMACTUndeleteAll.Enabled = True
-                        btnMACTEdit.Enabled = True
-                        btnMACTUnedit.Enabled = True
-                        btnMACTEditAll.Enabled = True
-                        btnMACTUneditAll.Enabled = True
-                    Else
-                        If UserAccounts.Contains("(29)") Then  'SSPP Administrator (Kella Johnson & Cathy Toney) 
-                            mmiNewApplication.Visible = True
-                            mmiNewApplication.Enabled = True
-                            txtApplicationNumber.ReadOnly = False
-                            txtAIRSNumber.ReadOnly = False
-                            chbClosedOut.Enabled = True
-                            cboApplicationUnit.Enabled = True
-                            cboApplicationType.Enabled = True
-                            txtFacilityName.ReadOnly = False
-                            txtFacilityStreetAddress.ReadOnly = False
-                            cboFacilityCity.Enabled = True
-                            txtFacilityZipCode.ReadOnly = False
-                            txtSICCode.ReadOnly = False
-                            txtNAICSCode.ReadOnly = False
-                            cboOperationalStatus.Enabled = True
-                            DTPDateSent.Enabled = True
-                            DTPDateReceived.Enabled = True
-                            btnRefreshAppNo.Visible = True
-                            btnRefreshAppNo.Enabled = True
-                            btnRefreshAIRSNo.Visible = True
-                            btnRefreshAIRSNo.Enabled = True
-
-                            DTPDatePAExpires.Enabled = True
-                            DTPDraftIssued.Enabled = True
-                            txtFacilityStreetAddress.ReadOnly = False
-                            txtReasonAppSubmitted.ReadOnly = False
-                            txtPlantDescription.ReadOnly = False
-                            txtFacilityName.ReadOnly = False
-                            txtFacilityZipCode.ReadOnly = False
-                            cboFacilityCity.Enabled = True
-                            DTPEPAWaived.Enabled = True
-                            DTPEPAEnds.Enabled = True
-                            DTPDateToBC.Enabled = True
-                            DTPDateToDO.Enabled = True
-                            DTPFinalAction.Enabled = True
-
-                            'Subpart Tools
-                            btnSaveSIPSubpart.Enabled = True
-                            btnClearSIPDeletes.Enabled = True
-                            btnClearAddModifiedSIPs.Enabled = True
-                            btnAddNewSIPSubpart.Enabled = True
-                            btnSIPDelete.Enabled = True
-                            btnSIPUndelete.Enabled = True
-                            btnSIPDeleteAll.Enabled = True
-                            btnSIPUndeleteAll.Enabled = True
-                            btnSIPEdit.Enabled = True
-                            btnSIPUnedit.Enabled = True
-                            btnSIPEditAll.Enabled = True
-                            btnSIPUneditAll.Enabled = True
-
-                            btnSaveNESHAPSubpart.Enabled = True
-                            btnClearNESHAPDeletes.Enabled = True
-                            btnClearAddModifiedNESHAPs.Enabled = True
-                            btnAddNewNESHAPSubpart.Enabled = True
-                            btnNESHAPDelete.Enabled = True
-                            btnNESHAPUndelete.Enabled = True
-                            btnNESHAPDeleteAll.Enabled = True
-                            btnNESHAPUndeleteAll.Enabled = True
-                            btnNESHAPEdit.Enabled = True
-                            btnNESHAPUnedit.Enabled = True
-                            btnNESHAPEditAll.Enabled = True
-                            btnNESHAPUneditAll.Enabled = True
-
-                            btnSaveNSPSSubpart.Enabled = True
-                            btnClearNSPSDeletes.Enabled = True
-                            btnClearAddModifiedNSPSs.Enabled = True
-                            btnAddNewNSPSSubpart.Enabled = True
-                            btnNSPSDelete.Enabled = True
-                            btnNSPSUndelete.Enabled = True
-                            btnNSPSDeleteAll.Enabled = True
-                            btnNSPSUndeleteAll.Enabled = True
-                            btnNSPSEdit.Enabled = True
-                            btnNSPSUnedit.Enabled = True
-                            btnNSPSEditAll.Enabled = True
-                            btnNSPSUneditAll.Enabled = True
-
-                            btnSaveMACTSubpart.Enabled = True
-                            btnClearMACTDeletes.Enabled = True
-                            btnClearAddModifiedMACTs.Enabled = True
-                            btnAddNewMACTSubpart.Enabled = True
-                            btnMACTDelete.Enabled = True
-                            btnMACTUndelete.Enabled = True
-                            btnMACTDeleteAll.Enabled = True
-                            btnMACTUndeleteAll.Enabled = True
-                            btnMACTEdit.Enabled = True
-                            btnMACTUnedit.Enabled = True
-                            btnMACTEditAll.Enabled = True
-                            btnMACTUneditAll.Enabled = True
-                        Else
-                            If UserAccounts.Contains("(30)") Then   'SSPP Administrator 2 (Nancy Johns) 
-                                cboApplicationType.Enabled = True
-                                txtFacilityName.ReadOnly = False
-                                txtFacilityStreetAddress.ReadOnly = False
-                                cboFacilityCity.Enabled = True
-                                txtFacilityZipCode.ReadOnly = False
-                                txtSICCode.ReadOnly = False
-                                txtNAICSCode.ReadOnly = False
-                                cboOperationalStatus.Enabled = True
-                                cboClassification.Enabled = True
-                                cboPublicAdvisory.Enabled = True
-                                chbPAReady.Enabled = True
-                                DTPDateToUC.Enabled = True
-                                chbPNReady.Enabled = True
-                                txtPlantDescription.ReadOnly = False
-                                txtPermitNumber.ReadOnly = False
-                                cboPermitAction.Enabled = True
-                                txtReasonAppSubmitted.ReadOnly = False
-                                txtComments.ReadOnly = False
-                                chbCDS_0.Enabled = False
-                                chbCDS_6.Enabled = True
-                                chbCDS_7.Enabled = True
-                                chbCDS_8.Enabled = True
-                                chbCDS_9.Enabled = True
-                                chbCDS_M.Enabled = True
-                                chbCDS_V.Enabled = True
-                                chbCDS_A.Enabled = True
-                                chbCDS_RMP.Enabled = True
-
-                                DTPReviewSubmitted.Enabled = True
-                                btnLoadFacilityApplicationHistory.Enabled = True
-                                btnAddApplicationToList.Enabled = True
-                                btnLinkApplications.Enabled = True
-                                btnClearLinks.Enabled = True
-                                btnClearList.Enabled = True
-                                btnViewInformationRequests.Enabled = True
-                                DTPInformationRequested.Enabled = True
-                                DTPInformationReceived.Enabled = True
-                                txtInformationRequested.ReadOnly = False
-                                txtInformationReceived.ReadOnly = False
-                                btnClearInformationRequest.Enabled = True
-                                btnSaveInformationRequest.Enabled = True
-                                btnDeleteInformationRequest.Enabled = True
-                                txtSignificantComments.ReadOnly = False
-                                DTPDatePAExpires.Enabled = True
-                                DTPDraftIssued.Enabled = True
-                                DTPEPAWaived.Enabled = True
-                                DTPEPAEnds.Enabled = True
-                                DTPDateToBC.Enabled = True
-                                DTPDateToDO.Enabled = True
-                                DTPFinalAction.Enabled = True
-
-                                'Subpart Tools
-                                btnSaveSIPSubpart.Enabled = True
-                                btnClearSIPDeletes.Enabled = True
-                                btnClearAddModifiedSIPs.Enabled = True
-                                btnAddNewSIPSubpart.Enabled = True
-                                btnSIPDelete.Enabled = True
-                                btnSIPUndelete.Enabled = True
-                                btnSIPDeleteAll.Enabled = True
-                                btnSIPUndeleteAll.Enabled = True
-                                btnSIPEdit.Enabled = True
-                                btnSIPUnedit.Enabled = True
-                                btnSIPEditAll.Enabled = True
-                                btnSIPUneditAll.Enabled = True
-
-                                btnSaveNESHAPSubpart.Enabled = True
-                                btnClearNESHAPDeletes.Enabled = True
-                                btnClearAddModifiedNESHAPs.Enabled = True
-                                btnAddNewNESHAPSubpart.Enabled = True
-                                btnNESHAPDelete.Enabled = True
-                                btnNESHAPUndelete.Enabled = True
-                                btnNESHAPDeleteAll.Enabled = True
-                                btnNESHAPUndeleteAll.Enabled = True
-                                btnNESHAPEdit.Enabled = True
-                                btnNESHAPUnedit.Enabled = True
-                                btnNESHAPEditAll.Enabled = True
-                                btnNESHAPUneditAll.Enabled = True
-
-                                btnSaveNSPSSubpart.Enabled = True
-                                btnClearNSPSDeletes.Enabled = True
-                                btnClearAddModifiedNSPSs.Enabled = True
-                                btnAddNewNSPSSubpart.Enabled = True
-                                btnNSPSDelete.Enabled = True
-                                btnNSPSUndelete.Enabled = True
-                                btnNSPSDeleteAll.Enabled = True
-                                btnNSPSUndeleteAll.Enabled = True
-                                btnNSPSEdit.Enabled = True
-                                btnNSPSUnedit.Enabled = True
-                                btnNSPSEditAll.Enabled = True
-                                btnNSPSUneditAll.Enabled = True
-
-                                btnSaveMACTSubpart.Enabled = True
-                                btnClearMACTDeletes.Enabled = True
-                                btnClearAddModifiedMACTs.Enabled = True
-                                btnAddNewMACTSubpart.Enabled = True
-                                btnMACTDelete.Enabled = True
-                                btnMACTUndelete.Enabled = True
-                                btnMACTDeleteAll.Enabled = True
-                                btnMACTUndeleteAll.Enabled = True
-                                btnMACTEdit.Enabled = True
-                                btnMACTUnedit.Enabled = True
-                                btnMACTEditAll.Enabled = True
-                                btnMACTUneditAll.Enabled = True
-                            Else
-                                If UserAccounts.Contains("(10)") Then 'Web USers 
-                                    'PN Ready added 8/22/2011
-                                    chbPNReady.Enabled = True
-
-                                    DTPDatePNExpires.Enabled = True
-                                    DTPNotifiedAppReceived.Enabled = True
-                                    DTPDraftOnWeb.Enabled = True
-                                    DTPEPAStatesNotified.Enabled = True
-                                    DTPFinalOnWeb.Enabled = True
-                                    DTPEPANotifiedPermitOnWeb.Enabled = True
-                                    DTPEffectiveDateofPermit.Enabled = True
-                                    DTPExperationDate.Enabled = True
-                                    txtEPATargetedComments.ReadOnly = False
-                                    btnSaveWebPublisher.Enabled = True
-                                    DTPPNExpires.Enabled = True
-                                Else
-                                    If UserProgram = "3" Then    'ISMP Users
-                                        DTPISMPReview.Enabled = True
-                                    Else
-                                        If UserProgram = "4" Then   'SSCP Users
-                                            DTPSSCPReview.Enabled = True
-                                        Else
-                                            If AccountFormAccess(51, 2) = "1" Then  'SSPP Engineer 
-                                                cboApplicationType.Enabled = True
-                                                txtFacilityName.ReadOnly = False
-                                                txtFacilityStreetAddress.ReadOnly = False
-                                                cboFacilityCity.Enabled = True
-                                                txtFacilityZipCode.ReadOnly = False
-                                                txtSICCode.ReadOnly = False
-                                                txtNAICSCode.ReadOnly = False
-                                                cboOperationalStatus.Enabled = True
-                                                cboClassification.Enabled = True
-                                                cboPublicAdvisory.Enabled = True
-                                                chbPAReady.Enabled = True
-                                                DTPDateAcknowledge.Enabled = True
-                                                DTPDateToUC.Enabled = True
-                                                chbPNReady.Enabled = True
-                                                txtPlantDescription.ReadOnly = False
-                                                txtPermitNumber.ReadOnly = False
-                                                cboPermitAction.Enabled = True
-                                                txtReasonAppSubmitted.ReadOnly = False
-                                                txtComments.ReadOnly = False
-                                                chbCDS_0.Enabled = False
-                                                chbCDS_6.Enabled = True
-                                                chbCDS_7.Enabled = True
-                                                chbCDS_8.Enabled = True
-                                                chbCDS_9.Enabled = True
-                                                chbCDS_M.Enabled = True
-                                                chbCDS_V.Enabled = True
-                                                chbCDS_A.Enabled = True
-                                                chbCDS_RMP.Enabled = True
-
-                                                DTPReviewSubmitted.Enabled = True
-                                                btnLoadFacilityApplicationHistory.Enabled = True
-                                                btnAddApplicationToList.Enabled = True
-                                                btnLinkApplications.Enabled = True
-                                                btnClearLinks.Enabled = True
-                                                btnClearList.Enabled = True
-                                                btnViewInformationRequests.Enabled = True
-                                                DTPInformationRequested.Enabled = True
-                                                DTPInformationReceived.Enabled = True
-                                                txtInformationRequested.ReadOnly = False
-                                                txtInformationReceived.ReadOnly = False
-                                                btnClearInformationRequest.Enabled = True
-                                                btnSaveInformationRequest.Enabled = True
-                                                btnDeleteInformationRequest.Enabled = True
-                                                txtSignificantComments.ReadOnly = False
-                                                DTPSSCPReview.Enabled = True
-                                                DTPISMPReview.Enabled = True
-
-                                                'Subpart Tools
-                                                btnSaveSIPSubpart.Enabled = True
-                                                btnClearSIPDeletes.Enabled = True
-                                                btnClearAddModifiedSIPs.Enabled = True
-                                                btnAddNewSIPSubpart.Enabled = True
-                                                btnSIPDelete.Enabled = True
-                                                btnSIPUndelete.Enabled = True
-                                                btnSIPDeleteAll.Enabled = True
-                                                btnSIPUndeleteAll.Enabled = True
-                                                btnSIPEdit.Enabled = True
-                                                btnSIPUnedit.Enabled = True
-                                                btnSIPEditAll.Enabled = True
-                                                btnSIPUneditAll.Enabled = True
-
-                                                btnSaveNESHAPSubpart.Enabled = True
-                                                btnClearNESHAPDeletes.Enabled = True
-                                                btnClearAddModifiedNESHAPs.Enabled = True
-                                                btnAddNewNESHAPSubpart.Enabled = True
-                                                btnNESHAPDelete.Enabled = True
-                                                btnNESHAPUndelete.Enabled = True
-                                                btnNESHAPDeleteAll.Enabled = True
-                                                btnNESHAPUndeleteAll.Enabled = True
-                                                btnNESHAPEdit.Enabled = True
-                                                btnNESHAPUnedit.Enabled = True
-                                                btnNESHAPEditAll.Enabled = True
-                                                btnNESHAPUneditAll.Enabled = True
-
-                                                btnSaveNSPSSubpart.Enabled = True
-                                                btnClearNSPSDeletes.Enabled = True
-                                                btnClearAddModifiedNSPSs.Enabled = True
-                                                btnAddNewNSPSSubpart.Enabled = True
-                                                btnNSPSDelete.Enabled = True
-                                                btnNSPSUndelete.Enabled = True
-                                                btnNSPSDeleteAll.Enabled = True
-                                                btnNSPSUndeleteAll.Enabled = True
-                                                btnNSPSEdit.Enabled = True
-                                                btnNSPSUnedit.Enabled = True
-                                                btnNSPSEditAll.Enabled = True
-                                                btnNSPSUneditAll.Enabled = True
-
-                                                btnSaveMACTSubpart.Enabled = True
-                                                btnClearMACTDeletes.Enabled = True
-                                                btnClearAddModifiedMACTs.Enabled = True
-                                                btnAddNewMACTSubpart.Enabled = True
-                                                btnMACTDelete.Enabled = True
-                                                btnMACTUndelete.Enabled = True
-                                                btnMACTDeleteAll.Enabled = True
-                                                btnMACTUndeleteAll.Enabled = True
-                                                btnMACTEdit.Enabled = True
-                                                btnMACTUnedit.Enabled = True
-                                                btnMACTEditAll.Enabled = True
-                                                btnMACTUneditAll.Enabled = True
-                                            Else
-                                            End If
-                                        End If
-                                    End If
-                                End If
-                            End If
-                        End If
-                    End If
-                End If
-            End If
-
-            If TCApplicationTrackingLog.TabPages.Contains(TPPermitUploader) Then
-            Else
-                TCApplicationTrackingLog.TabPages.Add(TPPermitUploader)
-            End If
-            If AccountFormAccess(51, 3) = "1" Then
-                mmiNewApplication.Visible = True
-            End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-         
     End Sub
     Sub LoadFacilityApplicationHistory()
         Dim AIRSNumber As String = ""
@@ -6721,7 +5304,7 @@ Public Class SSPPApplicationTrackingLog
                     "strModifingPerson, datModifingDate) " & _
                     "values " & _
                     "('" & txtApplicationNumber.Text & "', '0413" & txtAIRSNumber.Text & "', " & _
-                    "'" & UserGCode & "', '" & OracleDate & "') "
+                    "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
@@ -6734,7 +5317,7 @@ Public Class SSPPApplicationTrackingLog
                     "(strApplicationNumber, strModifingPerson, " & _
                     "datModifingDate) " & _
                     "values " & _
-                    "('" & txtApplicationNumber.Text & "', '" & UserGCode & "', " & _
+                    "('" & txtApplicationNumber.Text & "', '" & CurrentUser.UserID & "', " & _
                     "'" & OracleDate & "') "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -6750,7 +5333,7 @@ Public Class SSPPApplicationTrackingLog
                     "datModifingDate) " & _
                     "values " & _
                     "('" & txtApplicationNumber.Text & "', '1', " & _
-                    "'', '" & UserGCode & "', " & _
+                    "'', '" & CurrentUser.UserID & "', " & _
                     "'" & OracleDate & "') "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -6833,7 +5416,7 @@ Public Class SSPPApplicationTrackingLog
                "strPermitType = '" & Replace(PermitType, "'", "''") & "', " & _
                "APBUnit = '" & Replace(Unit, "'", "''") & "', " & _
                "datFinalizedDate = '" & DateFinalized & "', " & _
-               "strModifingperson = '" & UserGCode & "', " & _
+               "strModifingperson = '" & CurrentUser.UserID & "', " & _
                "datModifingdate = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
                "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
@@ -7075,7 +5658,7 @@ Public Class SSPPApplicationTrackingLog
                 "strPNReady = '" & PNReady & "', " & _
                 "STRSIGNIFICANTCOMMENTS = '" & Replace(SignificantComments, "'", "''") & "', " & _
                 "strPublicInvolvement = '" & PublicInvolved & "', " & _
-                "strModifingperson = '" & UserGCode & "', " & _
+                "strModifingperson = '" & CurrentUser.UserID & "', " & _
                 "datModifingdate = '" & OracleDate & "' " & _
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
@@ -7187,7 +5770,7 @@ Public Class SSPPApplicationTrackingLog
                 "datApplicationDeadline = '" & AppDeadline & "', " & _
                 "datWithdrawn = '" & Withdrawn & "', " & _
                 "datDraftIssued = '" & DraftIssued & "', " & _
-                "strModifingPerson = '" & UserGCode & "', " & _
+                "strModifingPerson = '" & CurrentUser.UserID & "', " & _
                 "datModifingDate = '" & OracleDate & "', " & _
                 "datEPAWaived = '" & EPAWaived & "', " & _
                 "datEPAEnds = '" & EPAEnds & "', " & _
@@ -7220,7 +5803,7 @@ Public Class SSPPApplicationTrackingLog
                             SQL = "Update AIRBRANCH.SSPPApplicationMaster set " & _
                             "datFinalizedDate = '" & DateFinalized & "', " & _
                             "strPermitType = '" & Replace(PermitType, "'", "''") & "', " & _
-                            "strModifingperson = '" & UserGCode & "', " & _
+                            "strModifingperson = '" & CurrentUser.UserID & "', " & _
                             "datModifingdate = '" & OracleDate & "' " & _
                             "where strApplicationNumber = '" & LinkedApplication & "' "
 
@@ -7244,7 +5827,7 @@ Public Class SSPPApplicationTrackingLog
                            "strPNReady = '" & PNReady & "', " & _
                            "strSignificantComments = '" & Replace(SignificantComments, "'", "''") & "', " & _
                            "strPublicInvolvement = '" & Replace(PublicInvolved, "'", "''") & "', " & _
-                           "strModifingperson = '" & UserGCode & "', " & _
+                           "strModifingperson = '" & CurrentUser.UserID & "', " & _
                            "datModifingdate = '" & OracleDate & "' " & _
                            "where strApplicationNumber = '" & LinkedApplication & "' "
 
@@ -7266,7 +5849,7 @@ Public Class SSPPApplicationTrackingLog
                             "datPNExpires = '" & PNExpires & "', " & _
                             "datToBranchCheif = '" & ToBC & "', " & _
                             "datToDirector = '" & ToDO & "', " & _
-                            "strModifingPerson = '" & UserGCode & "', " & _
+                            "strModifingPerson = '" & CurrentUser.UserID & "', " & _
                             "datModifingDate = '" & OracleDate & "' " & _
                             "where strApplicationNumber = '" & LinkedApplication & "' "
 
@@ -7511,7 +6094,7 @@ Public Class SSPPApplicationTrackingLog
                         "strInformationRequested = '" & InformationRequested & "', " & _
                         "datInformationReceived = '" & DateInfoReceived & "', " & _
                         "strInformationReceived = '" & InformationReceived & "', " & _
-                        "strModifingPerson = '" & UserGCode & "', " & _
+                        "strModifingPerson = '" & CurrentUser.UserID & "', " & _
                         "datModifingDate = '" & OracleDate & "' " & _
                         "where strApplicationNumber = '" & txtApplicationNumber.Text & "' " & _
                         "and strRequestKey = '" & InformationRequestKey & "' "
@@ -7526,7 +6109,7 @@ Public Class SSPPApplicationTrackingLog
                         "('" & txtApplicationNumber.Text & "', '" & InformationRequestKey & "', " & _
                         "'" & DateInfoRequested & "', '" & InformationRequested & "', " & _
                         "'" & DateInfoReceived & "', '" & InformationReceived & "', " & _
-                        "'" & UserGCode & "', '" & OracleDate & "') "
+                        "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
                     End If
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -8752,7 +7335,7 @@ Public Class SSPPApplicationTrackingLog
                 "datModifingDate) " & _
                 "values " & _
                 "('" & txtApplicationNumber.Text & "', '" & ActionNumber & "', " & _
-                "'" & UpdateStatus & "', '" & UserGCode & "', " & _
+                "'" & UpdateStatus & "', '" & CurrentUser.UserID & "', " & _
                 "'" & OracleDate & "') "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -8890,9 +7473,9 @@ Public Class SSPPApplicationTrackingLog
             "strFacilityStreet2 = '" & Replace(FacilityStreet2, "'", "''") & "', " & _
             "strFacilityCity = '" & Replace(City, "'", "''") & "', " & _
             "strFacilityZipCode = '" & ZipCode & "', " & _
-            "strComments = 'Updated by " & UserName & ", through Permitting Action.', " & _
+            "strComments = 'Updated by " & CurrentUser.AlphaName & ", through Permitting Action.', " & _
             "strModifingLocation = '1', " & _
-            "strModifingPerson = '" & UserGCode & "', " & _
+            "strModifingPerson = '" & CurrentUser.UserID & "', " & _
             "datModifingdate = '" & OracleDate & "' " & _
             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
@@ -8924,9 +7507,9 @@ Public Class SSPPApplicationTrackingLog
             "strNAICSCode = '" & NAICSCode & "', " & _
             "strPlantDescription = '" & Replace(PlantDescription, "'", "''") & "', " & _
             "strStateProgramCodes = '" & StateProgramCodes & "', " & _
-            "strComments = 'Updated by " & UserName & ", through Permitting Action.', " & _
+            "strComments = 'Updated by " & CurrentUser.AlphaName & ", through Permitting Action.', " & _
             "strModifingLocation = '1', " & _
-            "strModifingPerson = '" & UserGCode & "', " & _
+            "strModifingPerson = '" & CurrentUser.UserID & "', " & _
             "datModifingDate = '" & OracleDate & "' " & _
             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
@@ -8960,7 +7543,7 @@ Public Class SSPPApplicationTrackingLog
                          "values " & _
                          "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "0', " & _
                          "'OT', 'C', " & _
-                         "'" & UserGCode & "', '" & OracleDate & "', " & _
+                         "'" & CurrentUser.UserID & "', '" & OracleDate & "', " & _
                          "'O')"
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9011,7 +7594,7 @@ Public Class SSPPApplicationTrackingLog
 
                         SQL = "Update AIRBRANCH.APBSubpartData set " & _
                         "Active = '0', " & _
-                        "updateUser = '" & UserGCode & "', " & _
+                        "updateUser = '" & CurrentUser.UserID & "', " & _
                         "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
                         "where strSubpartKey = '0413" & txtAIRSNumber.Text & "0' " & _
                         "and strSubpart = '" & Subpart & "' "
@@ -9042,7 +7625,7 @@ Public Class SSPPApplicationTrackingLog
                         If recExist = True Then
                             SQL = "Update AIRBRANCH.APBSubpartData set " & _
                             "Active = '1', " & _
-                            "updateUser = '" & UserGCode & "', " & _
+                            "updateUser = '" & CurrentUser.UserID & "', " & _
                             "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
                             "where strSubpartKey = '0413" & txtAIRSNumber.Text & "0' " & _
                             "and strSubpart = '" & Subpart & "' "
@@ -9052,7 +7635,7 @@ Public Class SSPPApplicationTrackingLog
                             "    UPDATEDATETIME, ACTIVE, CREATEDATETIME " & _
                             "  ) VALUES " & _
                             "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "0', " & _
-                            "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
+                            "'" & Replace(Subpart, "'", "''") & "', '" & CurrentUser.UserID & "', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
                         End If
@@ -9065,7 +7648,7 @@ Public Class SSPPApplicationTrackingLog
                     Next
                 Else
                     SQL = "Update AIRBRANCH.APBSubPartData set " & _
-                    "updateUser = '" & UserGCode & "', " & _
+                    "updateUser = '" & CurrentUser.UserID & "', " & _
                     "UpdateDateTime = '" & OracleDate & "', " & _
                     "Active = '0' " & _
                     "where strSubpartKey = '0413" & txtAIRSNumber.Text & "0' "
@@ -9098,7 +7681,7 @@ Public Class SSPPApplicationTrackingLog
                          "values " & _
                          "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "1', " & _
                          "'OT', 'C', " & _
-                         "'" & UserGCode & "', '" & OracleDate & "', " & _
+                         "'" & CurrentUser.UserID & "', '" & OracleDate & "', " & _
                          "'O')"
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9167,7 +7750,7 @@ Public Class SSPPApplicationTrackingLog
                          "values " & _
                          "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "3', " & _
                          "'OT', 'C', " & _
-                         "'" & UserGCode & "', '" & OracleDate & "', " & _
+                         "'" & CurrentUser.UserID & "', '" & OracleDate & "', " & _
                          "'O')"
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9236,7 +7819,7 @@ Public Class SSPPApplicationTrackingLog
                          "values " & _
                          "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "4', " & _
                          "'OT', 'C', " & _
-                         "'" & UserGCode & "', '" & OracleDate & "', " & _
+                         "'" & CurrentUser.UserID & "', '" & OracleDate & "', " & _
                          "'O')"
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9305,7 +7888,7 @@ Public Class SSPPApplicationTrackingLog
                          "values " & _
                          "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "6', " & _
                          "'OT', 'C', " & _
-                         "'" & UserGCode & "', '" & OracleDate & "', " & _
+                         "'" & CurrentUser.UserID & "', '" & OracleDate & "', " & _
                          "'O')"
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9374,7 +7957,7 @@ Public Class SSPPApplicationTrackingLog
                          "values " & _
                          "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "7', " & _
                          "'OT', 'C', " & _
-                         "'" & UserGCode & "', '" & OracleDate & "', " & _
+                         "'" & CurrentUser.UserID & "', '" & OracleDate & "', " & _
                          "'O')"
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9443,7 +8026,7 @@ Public Class SSPPApplicationTrackingLog
                          "values " & _
                          "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "8', " & _
                          "'OT', 'C', " & _
-                         "'" & UserGCode & "', '" & OracleDate & "', " & _
+                         "'" & CurrentUser.UserID & "', '" & OracleDate & "', " & _
                          "'O')"
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9494,7 +8077,7 @@ Public Class SSPPApplicationTrackingLog
 
                         SQL = "Update AIRBRANCH.APBSubpartData set " & _
                         "Active = '0', " & _
-                        "updateUser = '" & UserGCode & "', " & _
+                        "updateUser = '" & CurrentUser.UserID & "', " & _
                         "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
                         "where strSubpartKey = '0413" & txtAIRSNumber.Text & "8' " & _
                         "and strSubpart = '" & Subpart & "' "
@@ -9525,7 +8108,7 @@ Public Class SSPPApplicationTrackingLog
                         If recExist = True Then
                             SQL = "Update AIRBRANCH.APBSubpartData set " & _
                             "Active = '1', " & _
-                            "updateUser = '" & UserGCode & "', " & _
+                            "updateUser = '" & CurrentUser.UserID & "', " & _
                             "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
                             "where strSubpartKey = '0413" & txtAIRSNumber.Text & "8' " & _
                             "and strSubpart = '" & Subpart & "' "
@@ -9535,7 +8118,7 @@ Public Class SSPPApplicationTrackingLog
                             "    UPDATEDATETIME, ACTIVE, CREATEDATETIME " & _
                             "  ) VALUES " & _
                             "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "8', " & _
-                            "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
+                            "'" & Replace(Subpart, "'", "''") & "', '" & CurrentUser.UserID & "', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) ) "
                         End If
@@ -9548,7 +8131,7 @@ Public Class SSPPApplicationTrackingLog
                     Next
                 Else
                     SQL = "Update AIRBRANCH.APBSubPartData set " & _
-                    "updateUser = '" & UserGCode & "', " & _
+                    "updateUser = '" & CurrentUser.UserID & "', " & _
                     "UpdateDateTime = '" & OracleDate & "', " & _
                     "Active = '0' " & _
                     "where strSubpartKey = '0413" & txtAIRSNumber.Text & "8' "
@@ -9581,7 +8164,7 @@ Public Class SSPPApplicationTrackingLog
                          "values " & _
                          "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " & _
                          "'OT', 'C', " & _
-                         "'" & UserGCode & "', '" & OracleDate & "', " & _
+                         "'" & CurrentUser.UserID & "', '" & OracleDate & "', " & _
                          "'O')"
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9632,7 +8215,7 @@ Public Class SSPPApplicationTrackingLog
 
                         SQL = "Update AIRBRANCH.APBSubpartData set " & _
                         "Active = '0', " & _
-                        "updateUser = '" & UserGCode & "', " & _
+                        "updateUser = '" & CurrentUser.UserID & "', " & _
                         "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
                         "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " & _
                         "and strSubpart = '" & Subpart & "' "
@@ -9663,7 +8246,7 @@ Public Class SSPPApplicationTrackingLog
                         If recExist = True Then
                             SQL = "Update AIRBRANCH.APBSubpartData set " & _
                             "Active = '1', " & _
-                            "updateUser = '" & UserGCode & "', " & _
+                            "updateUser = '" & CurrentUser.UserID & "', " & _
                             "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
                             "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " & _
                             "and strSubpart = '" & Subpart & "' "
@@ -9673,7 +8256,7 @@ Public Class SSPPApplicationTrackingLog
                             "    UPDATEDATETIME, ACTIVE, CREATEDATETIME " & _
                             "  ) VALUES " & _
                             "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " & _
-                            "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
+                            "'" & Replace(Subpart, "'", "''") & "', '" & CurrentUser.UserID & "', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) )"
                         End If
@@ -9686,7 +8269,7 @@ Public Class SSPPApplicationTrackingLog
                     Next
                 Else
                     SQL = "Update AIRBRANCH.APBSubPartData set " & _
-                    "updateUser = '" & UserGCode & "', " & _
+                    "updateUser = '" & CurrentUser.UserID & "', " & _
                     "UpdateDateTime = '" & OracleDate & "', " & _
                     "Active = '0' " & _
                     "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' "
@@ -9719,7 +8302,7 @@ Public Class SSPPApplicationTrackingLog
                          "values " & _
                          "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "F', " & _
                          "'OT', 'C', " & _
-                         "'" & UserGCode & "', '" & OracleDate & "', " & _
+                         "'" & CurrentUser.UserID & "', '" & OracleDate & "', " & _
                          "'O')"
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9788,7 +8371,7 @@ Public Class SSPPApplicationTrackingLog
                          "values " & _
                          "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "A', " & _
                          "'OT', 'C', " & _
-                         "'" & UserGCode & "', '" & OracleDate & "', " & _
+                         "'" & CurrentUser.UserID & "', '" & OracleDate & "', " & _
                          "'O')"
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9857,7 +8440,7 @@ Public Class SSPPApplicationTrackingLog
                          "values " & _
                          "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "I', " & _
                          "'OT', 'C', " & _
-                         "'" & UserGCode & "', '" & OracleDate & "', " & _
+                         "'" & CurrentUser.UserID & "', '" & OracleDate & "', " & _
                          "'O')"
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9926,7 +8509,7 @@ Public Class SSPPApplicationTrackingLog
                          "values " & _
                          "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "M', " & _
                          "'OT', 'C', " & _
-                         "'" & UserGCode & "', '" & OracleDate & "', " & _
+                         "'" & CurrentUser.UserID & "', '" & OracleDate & "', " & _
                          "'O')"
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -9977,7 +8560,7 @@ Public Class SSPPApplicationTrackingLog
 
                         SQL = "Update AIRBRANCH.APBSubpartData set " & _
                         "Active = '0', " & _
-                        "updateUser = '" & UserGCode & "', " & _
+                        "updateUser = '" & CurrentUser.UserID & "', " & _
                         "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
                         "where strSubpartKey = '0413" & txtAIRSNumber.Text & "M' " & _
                         "and strSubpart = '" & Subpart & "' "
@@ -10008,7 +8591,7 @@ Public Class SSPPApplicationTrackingLog
                         If recExist = True Then
                             SQL = "Update AIRBRANCH.APBSubpartData set " & _
                             "Active = '1', " & _
-                            "updateUser = '" & UserGCode & "', " & _
+                            "updateUser = '" & CurrentUser.UserID & "', " & _
                             "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
                             "where strSubpartKey = '0413" & txtAIRSNumber.Text & "M' " & _
                             "and strSubpart = '" & Subpart & "' "
@@ -10018,7 +8601,7 @@ Public Class SSPPApplicationTrackingLog
                             "    UPDATEDATETIME, ACTIVE, CREATEDATETIME " & _
                             "  ) VALUES " & _
                             "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "M', " & _
-                            "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
+                            "'" & Replace(Subpart, "'", "''") & "', '" & CurrentUser.UserID & "', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
                             "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) )"
                         End If
@@ -10031,7 +8614,7 @@ Public Class SSPPApplicationTrackingLog
                     Next
                 Else
                     SQL = "Update AIRBRANCH.APBSubPartData set " & _
-                    "updateUser = '" & UserGCode & "', " & _
+                    "updateUser = '" & CurrentUser.UserID & "', " & _
                     "UpdateDateTime = '" & OracleDate & "', " & _
                     "Active = '0' " & _
                     "where strSubpartKey = '0413" & txtAIRSNumber.Text & "M' "
@@ -10064,7 +8647,7 @@ Public Class SSPPApplicationTrackingLog
                          "values " & _
                          "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "V', " & _
                          "'OT', 'C', " & _
-                         "'" & UserGCode & "', '" & OracleDate & "', " & _
+                         "'" & CurrentUser.UserID & "', '" & OracleDate & "', " & _
                          "'O')"
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -10529,12 +9112,12 @@ Public Class SSPPApplicationTrackingLog
                 If DocLocation <> "" And Mid(Flag, 1, 1) = "1" Then
                     row("docPermitData") = rawData
                     row("strDocFileSize") = rawData.Length
-                    row("strDocModifingPerson") = UserGCode
+                    row("strDocModifingPerson") = CurrentUser.UserID
                     row("datDocModifingDate") = OracleDate
                 Else
                     row("pdfPermitData") = rawData
                     row("strPDFFileSize") = rawData.Length
-                    row("strPDFModifingPerson") = UserGCode
+                    row("strPDFModifingPerson") = CurrentUser.UserID
                     row("datPDFModifingDate") = OracleDate
                 End If
                 ds.Tables("PDF").Rows.Add(row)
@@ -11195,9 +9778,10 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub PreSaveCheckThenSave()
-        If UserProgram = 5 Or (AccountFormAccess(51, 1) = "1" And UserUnit = "14") Or AccountFormAccess(51, 3) = "1" Or AccountFormAccess(51, 4) = "1" Then  'SSPP users and Web Users 
-            'End If
-            'If Mid(Permissions, 26, 5) <> "00000" Or Mid(Permissions, 41, 1) = "1" Or Mid(Permissions, 42, 1) = "1" Then
+        If CurrentUser.ProgramID = 5 _
+            Or (AccountFormAccess(51, 1) = "1" And CurrentUser.UnitId = 14) _
+            Or AccountFormAccess(51, 3) = "1" _
+            Or AccountFormAccess(51, 4) = "1" Then  'SSPP users and Web Users 
 
             SQL = "Select datModifingDate " & _
             "from AIRBRANCH.SSPPApplicationMaster " & _
@@ -14804,7 +13388,7 @@ Public Class SSPPApplicationTrackingLog
             "'('||substr(strPhone, 1, 3)||') '||substr(strPhone, 4,3)||'-'||substr(strPhone, 7) as StaffPhone, " & _
             "strEmailAddress, strPhone " & _
             "from AIRBranch.EPDUserProfiles " & _
-            "where numUserID = '" & UserGCode & "' "
+            "where numUserID = '" & CurrentUser.UserID & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -15739,7 +14323,7 @@ Public Class SSPPApplicationTrackingLog
                 "values " & _
                 "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "0', " & _
                 "'" & Subpart & "', '0', " & _
-                "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
+                "'" & CurrentUser.UserID & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
                 "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -15774,14 +14358,14 @@ Public Class SSPPApplicationTrackingLog
                         "values " & _
                         "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "0', " & _
                         "'" & Subpart & "', '1', " & _
-                        "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
+                        "'" & CurrentUser.UserID & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
                         "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
                     Case "Modify"
                         SQL = "Insert into AIRBRANCH.SSPPSubpartData " & _
                         "values " & _
                         "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "0', " & _
                         "'" & Subpart & "', '2', " & _
-                        "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
+                        "'" & CurrentUser.UserID & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
                         "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
                     Case Else
                         SQL = ""
@@ -16706,7 +15290,7 @@ Public Class SSPPApplicationTrackingLog
                 "values " & _
                 "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "9', " & _
                 "'" & Subpart & "', '0', " & _
-                "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
+                "'" & CurrentUser.UserID & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
                 "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -16741,14 +15325,14 @@ Public Class SSPPApplicationTrackingLog
                         "values " & _
                         "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "9', " & _
                         "'" & Subpart & "', '1', " & _
-                        "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
+                        "'" & CurrentUser.UserID & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
                         "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
                     Case "Modify"
                         SQL = "Insert into AIRBRANCH.SSPPSubpartData " & _
                         "values " & _
                         "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "9', " & _
                         "'" & Subpart & "', '2', " & _
-                        "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
+                        "'" & CurrentUser.UserID & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
                         "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
                     Case Else
                         SQL = ""
@@ -16803,7 +15387,7 @@ Public Class SSPPApplicationTrackingLog
                     If temp <> "Ignore" Then
                         SQL = "Update AIRBRANCH.APBSubpartData set " & _
                         "Active = '9', " & _
-                        "updateUser = '" & UserGCode & "', " & _
+                        "updateUser = '" & CurrentUser.UserID & "', " & _
                         "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
                         "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " & _
                         "and strSubpart = '" & Subpart & "' "
@@ -16845,7 +15429,7 @@ Public Class SSPPApplicationTrackingLog
                 If recExist = True Then
                     SQL = "Update AIRBRANCH.APBSubpartData set " & _
                     "Active = '1', " & _
-                    "updateUser = '" & UserGCode & "', " & _
+                    "updateUser = '" & CurrentUser.UserID & "', " & _
                     "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
                     "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " & _
                     "and strSubpart = '" & Subpart & "' "
@@ -16855,7 +15439,7 @@ Public Class SSPPApplicationTrackingLog
                     "    UPDATEDATETIME, ACTIVE, CREATEDATETIME " & _
                     "  ) VALUES " & _
                     "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " & _
-                    "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " & _
+                    "'" & Replace(Subpart, "'", "''") & "', '" & CurrentUser.UserID & "', " & _
                     "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " & _
                     "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')))"
                 End If
@@ -16901,7 +15485,7 @@ Public Class SSPPApplicationTrackingLog
 
                 SQL = "Update AIRBRANCH.APBSubpartData set " & _
                 "Active = '9', " & _
-                "updateUser = '" & UserGCode & "', " & _
+                "updateUser = '" & CurrentUser.UserID & "', " & _
                 "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
                 "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " & _
                 "and strSubpart = '" & Subpart & "' "
@@ -16930,7 +15514,7 @@ Public Class SSPPApplicationTrackingLog
                 If recExist = True Then
                     SQL = "Update AIRBRANCH.SSPPSubpartData set " & _
                     "strApplicationActivity = '9', " & _
-                    "updateUser = '" & UserGCode & "', " & _
+                    "updateUser = '" & CurrentUser.UserID & "', " & _
                     "updateDateTime = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
                     "where strApplicationNumber = '" & txtApplicationNumber.Text & "' " & _
                     "and strSubPart = '" & Subpart & "' " & _
@@ -16940,7 +15524,7 @@ Public Class SSPPApplicationTrackingLog
                     "values " & _
                     "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "9', " & _
                     "'" & Subpart & "', '9', " & _
-                    "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
+                    "'" & CurrentUser.UserID & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
                     "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
                 End If
 
@@ -16976,7 +15560,7 @@ Public Class SSPPApplicationTrackingLog
                         If recExist = True Then
                             SQL = "Update AIRBRANCH.SSPPSubpartData set " & _
                             "strApplicationActivity = '1', " & _
-                            "updateUser = '" & UserGCode & "', " & _
+                            "updateUser = '" & CurrentUser.UserID & "', " & _
                             "updateDateTime = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
                             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' " & _
                             "and strSubPart = '" & Subpart & "' " & _
@@ -16986,14 +15570,14 @@ Public Class SSPPApplicationTrackingLog
                             "values " & _
                             "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "9', " & _
                             "'" & Subpart & "', '1', " & _
-                            "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
+                            "'" & CurrentUser.UserID & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
                             "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
                         End If
                     Case "Modify"
                         If recExist = True Then
                             SQL = "Update AIRBRANCH.SSPPSubpartData set " & _
                             "strApplicationActivity = '2', " & _
-                            "updateUser = '" & UserGCode & "', " & _
+                            "updateUser = '" & CurrentUser.UserID & "', " & _
                             "updateDateTime = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')) " & _
                             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' " & _
                             "and strSubPart = '" & Subpart & "' " & _
@@ -17003,7 +15587,7 @@ Public Class SSPPApplicationTrackingLog
                             "values " & _
                             "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "9', " & _
                             "'" & Subpart & "', '2', " & _
-                            "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
+                            "'" & CurrentUser.UserID & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
                             "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
                         End If
                     Case Else
@@ -17054,7 +15638,7 @@ Public Class SSPPApplicationTrackingLog
                 "  VALUES" & _
                 "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " & _
                 "'OT', '3', " & _
-                "'" & UserGCode & "', '" & OracleDate & "', " & _
+                "'" & CurrentUser.UserID & "', '" & OracleDate & "', " & _
                 "'O') "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -17067,7 +15651,7 @@ Public Class SSPPApplicationTrackingLog
                 "values " & _
                 "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " & _
                 "'OT', 'A', " & _
-                "'" & UserGCode & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -17982,7 +16566,7 @@ Public Class SSPPApplicationTrackingLog
                 "values " & _
                 "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "8', " & _
                 "'" & Subpart & "', '0', " & _
-                "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
+                "'" & CurrentUser.UserID & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
                 "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -18017,14 +16601,14 @@ Public Class SSPPApplicationTrackingLog
                         "values " & _
                         "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "8', " & _
                         "'" & Subpart & "', '1', " & _
-                        "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
+                        "'" & CurrentUser.UserID & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
                         "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
                     Case "Modify"
                         SQL = "Insert into AIRBRANCH.SSPPSubpartData " & _
                         "values " & _
                         "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "8', " & _
                         "'" & Subpart & "', '2', " & _
-                        "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
+                        "'" & CurrentUser.UserID & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
                         "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
                     Case Else
                         SQL = ""
@@ -18943,7 +17527,7 @@ Public Class SSPPApplicationTrackingLog
                 "values " & _
                 "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "M', " & _
                 "'" & Subpart & "', '0', " & _
-                "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
+                "'" & CurrentUser.UserID & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
                 "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -18978,14 +17562,14 @@ Public Class SSPPApplicationTrackingLog
                         "values " & _
                         "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "M', " & _
                         "'" & Subpart & "', '1', " & _
-                        "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
+                        "'" & CurrentUser.UserID & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
                         "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
                     Case "Modify"
                         SQL = "Insert into AIRBRANCH.SSPPSubpartData " & _
                         "values " & _
                         "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "M', " & _
                         "'" & Subpart & "', '2', " & _
-                        "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
+                        "'" & CurrentUser.UserID & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
                         "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
                     Case Else
                         SQL = ""

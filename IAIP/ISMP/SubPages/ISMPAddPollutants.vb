@@ -36,7 +36,7 @@ Public Class ISMPAddPollutants
         Try
 
             panel1.Text = "Select a Function..."
-            panel2.Text = UserName
+            panel2.Text = CurrentUser.AlphaName
             panel3.Text = OracleDate
 
             panel1.AutoSize = StatusBarPanelAutoSize.Spring

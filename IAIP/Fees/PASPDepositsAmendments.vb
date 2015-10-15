@@ -21,7 +21,7 @@ Public Class PASPDepositsAmendments
         monitor.TrackFeature("Forms." & Me.Name)
         Try
             pnl1.Text = " "
-            pnl2.Text = UserName
+            pnl2.Text = CurrentUser.AlphaName
             pnl3.Text = OracleDate
             feeyear = Now.AddYears(-1).Year
             dtpBatchDepositDate.Text = OracleDate
@@ -1009,7 +1009,7 @@ Public Class PASPDepositsAmendments
             + "NUMCALCULATEDFEE, STRCLASS1, STRNSPS1, " _
             + "to_date('" & Format$(Now, "dd-MMM-yyyy hh:mm:ss") & "', " _
             + "'dd-mon-yyyy hh:mi:ss'), " _
-            + "'" & UserGCode & "' from AIRBRANCH.FSCalculations " _
+            + "'" & CurrentUser.UserID & "' from AIRBRANCH.FSCalculations " _
             + "where strairsnumber = '0413" & cboAirsNo2.Text & "' " _
             + "and intyear = '" & cboFeeYear2.Text & "' "
 
@@ -1194,7 +1194,7 @@ Public Class PASPDepositsAmendments
                 "values " & _
                 "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                 "'Entire Annual Year', 1, " & _
-                "'" & Replace(UserName, "'", "''") & "', 'GA APB Employee', " & _
+                "'" & Replace(CurrentUser.AlphaName, "'", "''") & "', 'GA APB Employee', " & _
                 "sysdate, '') "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1317,7 +1317,7 @@ Public Class PASPDepositsAmendments
                     "values " & _
                     "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                     "'0', '', '', '', " & _
-                    "'ANNUAL', '', '" & UserGCode & "', " & _
+                    "'ANNUAL', '', '" & CurrentUser.UserID & "', " & _
                     "'" & Replace(txtAmendmentComments.Text, "'", "''") & "', '', " & _
                     "AIRBRANCH.SeqFSDeposit.nextval, " & _
                     "'" & cboAirsNo2.Text & "-A1-" & cboFeeYear2.Text & "') "
@@ -1332,7 +1332,7 @@ Public Class PASPDepositsAmendments
                     "values " & _
                     "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                     "'0', '', '', '', " & _
-                    "'QUARTER ONE', '', '" & UserGCode & "', " & _
+                    "'QUARTER ONE', '', '" & CurrentUser.UserID & "', " & _
                     "'" & Replace(txtAmendmentComments.Text, "'", "''") & "', '', " & _
                     "AIRBRANCH.SeqFSDeposit.nextval, " & _
                     "'" & cboAirsNo2.Text & "-Q1-" & cboFeeYear2.Text & "') "
@@ -1348,7 +1348,7 @@ Public Class PASPDepositsAmendments
                    "values " & _
                    "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                    "'0', '', '', '', " & _
-                   "'QUARTER TWO', '', '" & UserGCode & "', " & _
+                   "'QUARTER TWO', '', '" & CurrentUser.UserID & "', " & _
                    "'" & Replace(txtAmendmentComments.Text, "'", "''") & "', '', " & _
                    "AIRBRANCH.SeqFSDeposit.nextval, " & _
                    "'" & cboAirsNo2.Text & "-Q2-" & cboFeeYear2.Text & "') "
@@ -1364,7 +1364,7 @@ Public Class PASPDepositsAmendments
                    "values " & _
                    "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                    "'0', '', '', '', " & _
-                   "'QUARTER THREE', '', '" & UserGCode & "', " & _
+                   "'QUARTER THREE', '', '" & CurrentUser.UserID & "', " & _
                    "'" & Replace(txtAmendmentComments.Text, "'", "''") & "', '', " & _
                    "AIRBRANCH.SeqFSDeposit.nextval, " & _
                    "'" & cboAirsNo2.Text & "-Q3-" & cboFeeYear2.Text & "') "
@@ -1380,7 +1380,7 @@ Public Class PASPDepositsAmendments
                    "values " & _
                    "('0413" & cboAirsNo2.Text & "', '" & cboFeeYear2.Text & "', " & _
                    "'0', '', '', '', " & _
-                   "'QUARTER FOUR', '', '" & UserGCode & "', " & _
+                   "'QUARTER FOUR', '', '" & CurrentUser.UserID & "', " & _
                    "'" & Replace(txtAmendmentComments.Text, "'", "''") & "', '', " & _
                    "AIRBRANCH.SeqFSDeposit.nextval, " & _
                    "'" & cboAirsNo2.Text & "-Q4-" & cboFeeYear2.Text & "') "
@@ -1743,7 +1743,7 @@ Public Class PASPDepositsAmendments
                 + "intYear = '" & CInt(txtYear.Text) & "', " _
                 + "strComments = '" & Replace(txtComments.Text, "'", "''") & "', " _
                 + "strInvoiceNo = '" & Replace(InvoiceNumber, "'", "''") & "', " _
-                + "strEntryPerson = '" & UserGCode & "' " _
+                + "strEntryPerson = '" & CurrentUser.UserID & "' " _
                 + "where intpayid = '" & txtPayId.Text & "'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2291,7 +2291,7 @@ Public Class PASPDepositsAmendments
             SQL = "Insert into AIRBRANCH.FSConfirmation (" & _
             "strairsnumber, intyear, strconfirmation, numuserid, datconfirmation) values(" & _
             "'0413" & cboAirsNo3.Text & "', '" & CInt(txtYear3.Text) & "', " & _
-            "'" & confirmation & "', '" & UserGCode & "', " & _
+            "'" & confirmation & "', '" & CurrentUser.UserID & "', " & _
             "to_date('" & Format$(Now, "dd-MMM-yyyy hh:mm:ss") & "', 'dd-mon-yyyy hh:mi:ss'))"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2952,8 +2952,8 @@ Public Class PASPDepositsAmendments
                     "'" & Replace(Replace(Replace(txtDepositAmount.Text, "'", "''"), ",", ""), "$", "") & "', " & _
                     "'" & Replace(txtCheckNumberField.Text, "'", "''") & "', " & _
                     "'" & Replace(txtDepositNumberField.Text, "'", "''") & "', '" & Replace(txtBatchNoField.Text, "'", "''") & "', " & _
-                    "'" & UserGCode & "', '" & Replace(txtDepositComments.Text, "'", "''") & "', " & _
-                    "'1', '" & UserGCode & "', " & _
+                    "'" & CurrentUser.UserID & "', '" & Replace(txtDepositComments.Text, "'", "''") & "', " & _
+                    "'1', '" & CurrentUser.UserID & "', " & _
                     "'" & OracleDate & "', '" & OracleDate & "', " & _
                     "'0413" & mtbAIRSNumber.Text & "', " & _
                     "'" & mtbFeeYear2.Text & "', '" & Replace(txtCreditCardNo.Text, "'", "''") & "') "
@@ -3067,7 +3067,7 @@ Public Class PASPDepositsAmendments
                             "strBatchNo = '" & txtBatchNoField.Text & "', " & _
                             "strComment = '" & Replace(txtDepositComments.Text, "'", "''") & "', " & _
                             "active = '1', " & _
-                            "updateUser = '" & UserGCode & "', " & _
+                            "updateUser = '" & CurrentUser.UserID & "', " & _
                             "updateDateTime = sysdate, " & _
                             "strCreditCardNo = '" & txtCreditCardNo.Text & "' " & _
                             "where TransactionID = '" & txtTransactionID.Text & "' "

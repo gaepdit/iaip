@@ -30,7 +30,7 @@ Public Class IAIPQueryGenerator
         lblQueryCount.Text = ""
         Try
             Panel1.Text = "Select Filter options...."
-            Panel2.Text = UserName
+            Panel2.Text = CurrentUser.AlphaName
             Panel3.Text = OracleDate
 
             cboCountySearch1.Visible = False

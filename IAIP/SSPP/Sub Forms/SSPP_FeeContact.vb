@@ -163,7 +163,7 @@ Public Class SSPP_FeeContact
         Try
             txtDescription.Clear()
             txtDescription.Text = "Fee Contact. " & vbCrLf & _
-            "Modified by: " & UserName & vbCrLf & _
+            "Modified by: " & CurrentUser.AlphaName & vbCrLf & _
             "Modified on: " & OracleDate & vbCrLf & _
             "Via Application # " & txtApplicationNumber.Text
 
@@ -224,7 +224,7 @@ Public Class SSPP_FeeContact
                 "strContactCity = '" & Replace(txtCity.Text, "'", "''") & "', " & _
                 "strContactState = '" & Replace(txtState.Text, "'", "''") & "', " & _
                 "strContactZipCode = '" & Replace(mtbZipCode.Text, "'", "''") & "', " & _
-                "strModifingPerson = '" & UserGCode & "', " & _
+                "strModifingPerson = '" & CurrentUser.UserID & "', " & _
                 "datModifingDate = '" & OracleDate & "', " & _
                 "strContactDescription = '" & Replace(txtDescription.Text, "'", "''") & "' " & _
                 "where strContactKey = '0413" & txtAIRSNumber.Text & "40' "

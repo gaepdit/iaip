@@ -59,13 +59,11 @@ Module ErrorReporting
     End Sub
 
     Private Function LogError(ByVal errorMessage As String, ByVal errorLocation As String) As Boolean
-        If UserGCode = "" Then UserGCode = "0"
-
         Dim query As String = "INSERT INTO AIRBRANCH.IAIPERRORLOG " & _
             " (STRERRORNUMBER, STRUSER, STRERRORLOCATION, STRERRORMESSAGE, DATERRORDATE) " & _
             " values (AIRBRANCH.IAIPERRORNUMBER.NEXTVAL, :UserID, :ErrorLocation, :ErrorMessage, SYSDATE) "
         Dim parameters As OracleParameter() = New OracleParameter() { _
-            New OracleParameter("UserID", UserGCode), _
+            New OracleParameter("UserID", CurrentUser.UserID), _
             New OracleParameter("ErrorLocation", errorLocation), _
             New OracleParameter("ErrorMessage", errorMessage) _
         }

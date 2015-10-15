@@ -230,8 +230,7 @@ Public Class IAIPEditSubParts
             If _
                 AccountFormAccess(26, 1) = "1" Or AccountFormAccess(26, 2) = "1" Or _
                 AccountFormAccess(26, 3) = "1" Or AccountFormAccess(26, 4) = "1" Or _
-                UserAccounts.Contains("(19)") Or UserAccounts.Contains("(113)") Or _
-                UserAccounts.Contains("(114)") Or UserAccounts.Contains("(141)") _
+                CurrentUser.HasPermissionCode({19, 113, 114, 141}) _
             Then
             Else
                 btnSaveSIPSubpart.Enabled = False
@@ -505,7 +504,7 @@ Public Class IAIPEditSubParts
             If recExist = True Then
                 SQL = "Update AIRBRANCH.APBSubpartData set " & _
                 "Active = '1', " & _
-                "UpdateUser = '" & UserGCode & "', " & _
+                "UpdateUser = '" & CurrentUser.UserID & "', " & _
                 "updateDateTime = '" & OracleDate & "' " & _
                 "where strSubpartKey = '0413" & txtAIRSNumber.Text & "0' " & _
                 "and strSubpart = '" & cboSIPSubpart.SelectedValue & "' "
@@ -515,7 +514,7 @@ Public Class IAIPEditSubParts
                 "    UPDATEDATETIME, ACTIVE, CREATEDATETIME " & _
                 "  ) VALUES " & _
                 "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "0', " & _
-                "'" & cboSIPSubpart.SelectedValue & "', '" & UserGCode & "', " & _
+                "'" & cboSIPSubpart.SelectedValue & "', '" & CurrentUser.UserID & "', " & _
                 "'" & OracleDate & "', '1', " & _
                 "'" & OracleDate & "') "
             End If
@@ -564,7 +563,7 @@ Public Class IAIPEditSubParts
             If recExist = True Then
                 SQL = "Update AIRBRANCH.APBSubpartData set " & _
                 "Active = '1', " & _
-                "UpdateUser = '" & UserGCode & "', " & _
+                "UpdateUser = '" & CurrentUser.UserID & "', " & _
                 "updateDateTime = '" & OracleDate & "' " & _
                 "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " & _
                 "and strSubpart = '" & cboNSPSSubpart.SelectedValue & "' "
@@ -574,7 +573,7 @@ Public Class IAIPEditSubParts
                 "    UPDATEDATETIME, ACTIVE, CREATEDATETIME " & _
                 "  ) VALUES " & _
                 "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " & _
-                "'" & cboNSPSSubpart.SelectedValue & "', '" & UserGCode & "', " & _
+                "'" & cboNSPSSubpart.SelectedValue & "', '" & CurrentUser.UserID & "', " & _
                 "'" & OracleDate & "', '1', " & _
                 "'" & OracleDate & "') "
             End If
@@ -623,7 +622,7 @@ Public Class IAIPEditSubParts
             If recExist = True Then
                 SQL = "Update AIRBRANCH.APBSubpartData set " & _
                 "Active = '1', " & _
-                "UpdateUser = '" & UserGCode & "', " & _
+                "UpdateUser = '" & CurrentUser.UserID & "', " & _
                 "updateDateTime = '" & OracleDate & "' " & _
                 "where strSubpartKey = '0413" & txtAIRSNumber.Text & "8' " & _
                 "and strSubpart = '" & cboNESHAPSubpart.SelectedValue & "' "
@@ -633,7 +632,7 @@ Public Class IAIPEditSubParts
                 "    UPDATEDATETIME, ACTIVE, CREATEDATETIME " & _
                 "  ) VALUES " & _
                 "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "8', " & _
-                "'" & cboNESHAPSubpart.SelectedValue & "', '" & UserGCode & "', " & _
+                "'" & cboNESHAPSubpart.SelectedValue & "', '" & CurrentUser.UserID & "', " & _
                 "'" & OracleDate & "', '1', " & _
                 "'" & OracleDate & "' ) "
             End If
@@ -682,7 +681,7 @@ Public Class IAIPEditSubParts
             If recExist = True Then
                 SQL = "Update AIRBRANCH.APBSubpartData set " & _
                 "Active = '1', " & _
-                "UpdateUser = '" & UserGCode & "', " & _
+                "UpdateUser = '" & CurrentUser.UserID & "', " & _
                 "updateDateTime = '" & OracleDate & "' " & _
                 "where strSubpartKey = '0413" & txtAIRSNumber.Text & "M' " & _
                 "and strSubpart = '" & cboMACTSubPart.SelectedValue & "' "
@@ -692,7 +691,7 @@ Public Class IAIPEditSubParts
                 "    UPDATEDATETIME, ACTIVE, CREATEDATETIME " & _
                 "  ) VALUES " & _
                 "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "M', " & _
-                "'" & cboMACTSubPart.SelectedValue & "', '" & UserGCode & "', " & _
+                "'" & cboMACTSubPart.SelectedValue & "', '" & CurrentUser.UserID & "', " & _
                 "'" & OracleDate & "', '1', " & _
                 "'" & OracleDate & "' ) "
             End If
@@ -738,7 +737,7 @@ Public Class IAIPEditSubParts
                     Subpart = Mid(clbSIP.Items.Item(count), 1, ((clbSIP.Items.Item(count).ToString.IndexOf("-")) - 1))
                     SQL = "Update AIRBRANCH.APBSubpartData set " & _
                     "active = '0', " & _
-                    "UpdateUser = '" & UserGCode & "', " & _
+                    "UpdateUser = '" & CurrentUser.UserID & "', " & _
                     "updateDateTime = '" & OracleDate & "' " & _
                     "where strSubPartKey = '0413" & txtAIRSNumber.Text & "0' " & _
                     "and strSubpart = '" & Subpart & "' "
@@ -801,7 +800,7 @@ Public Class IAIPEditSubParts
                     Subpart = Mid(clbNSPS.Items.Item(count), 1, ((clbNSPS.Items.Item(count).ToString.IndexOf("-")) - 1))
                     SQL = "Update AIRBRANCH.APBSubpartData set " & _
                     "active = '0', " & _
-                    "UpdateUser = '" & UserGCode & "', " & _
+                    "UpdateUser = '" & CurrentUser.UserID & "', " & _
                     "updateDateTime = '" & OracleDate & "' " & _
                     "where strSubPartKey = '0413" & txtAIRSNumber.Text & "9' " & _
                     "and strSubpart = '" & Subpart & "' "
@@ -865,7 +864,7 @@ Public Class IAIPEditSubParts
                     Subpart = Mid(clbNESHAP.Items.Item(count), 1, ((clbNESHAP.Items.Item(count).ToString.IndexOf("-")) - 1))
                     SQL = "Update AIRBRANCH.APBSubpartData set " & _
                     "active = '0', " & _
-                    "UpdateUser = '" & UserGCode & "', " & _
+                    "UpdateUser = '" & CurrentUser.UserID & "', " & _
                     "updateDateTime = '" & OracleDate & "' " & _
                     "where strSubPartKey = '0413" & txtAIRSNumber.Text & "8' " & _
                     "and strSubpart = '" & Subpart & "' "
@@ -929,7 +928,7 @@ Public Class IAIPEditSubParts
                     Subpart = Mid(clbMACT.Items.Item(count), 1, ((clbMACT.Items.Item(count).ToString.IndexOf("-")) - 1))
                     SQL = "Update AIRBRANCH.APBSubpartData set " & _
                     "active = '0', " & _
-                    "UpdateUser = '" & UserGCode & "', " & _
+                    "UpdateUser = '" & CurrentUser.UserID & "', " & _
                     "updateDateTime = '" & OracleDate & "' " & _
                     "where strSubPartKey = '0413" & txtAIRSNumber.Text & "M' " & _
                     "and strSubpart = '" & Subpart & "' "

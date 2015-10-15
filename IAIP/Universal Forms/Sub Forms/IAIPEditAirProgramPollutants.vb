@@ -26,7 +26,7 @@ Public Class IAIPEditAirProgramPollutants
             LoadPollutantCombos()
             LoadDataGrid()
 
-            If AccountFormAccess(27, 3) = "1" Or AccountFormAccess(27, 2) = "1" Or (UserBranch = "1" And UserUnit = "---") Then
+            If AccountFormAccess(27, 3) = "1" Or AccountFormAccess(27, 2) = "1" Or (CurrentUser.BranchID = 1 And CurrentUser.UnitId = 0) Then
                 cboComplianceStatus.Enabled = True
                 cboComplianceStatus.SelectedValue = 4
             Else
@@ -34,9 +34,9 @@ Public Class IAIPEditAirProgramPollutants
                 cboComplianceStatus.SelectedValue = 4
             End If
 
-            If UserProgram = "7" Or UserProgram = "9" Or UserProgram = "10" _
-                Or UserProgram = "11" Or UserProgram = "12" Or UserProgram = "13" _
-                    Or UserProgram = "14" Or UserProgram = "15" Then
+            If CurrentUser.ProgramID = 7 Or CurrentUser.ProgramID = 9 Or CurrentUser.ProgramID = 10 _
+                Or CurrentUser.ProgramID = 11 Or CurrentUser.ProgramID = 12 Or CurrentUser.ProgramID = 13 _
+                Or CurrentUser.ProgramID = 14 Or CurrentUser.ProgramID = 15 Then
                 btnSaveNewPollutant.Enabled = False
             End If
 
@@ -291,9 +291,7 @@ Public Class IAIPEditAirProgramPollutants
     Sub Save()
         Try
 
-            'If Mid(Permissions, 21, 5) = "00000" Then
-            If UserProgram <> "4" And Mid(UserAccounts, 27, 2) = "0" And Mid(UserAccounts, 27, 3) = "0" _
-               And Mid(UserAccounts, 27, 4) = "0" Then
+            If CurrentUser.ProgramID <> 4 Then
                 MsgBox("You do not have sufficient privileges to save pollutant data.", MsgBoxStyle.Information, "Air Program Pollutants")
             Else
                 Dim AIRSPollutantKey As String
@@ -450,7 +448,7 @@ Public Class IAIPEditAirProgramPollutants
                         If ProgramStatus = "True" Then
                             SQL = "Update AIRBRANCH.APBAirProgramPollutants set " & _
                             "strComplianceStatus = '" & cboComplianceStatus.SelectedValue & "', " & _
-                            "strModifingperson = '" & UserGCode & "', " & _
+                            "strModifingperson = '" & CurrentUser.UserID & "', " & _
                             "datModifingdate = '" & OracleDate & "' " & _
                             "where strAIRPollutantKey = '" & AIRSPollutantKey & "' " & _
                             "and strAIRSnumber = '0413" & AirsNumberDisplay.Text & "' " & _
@@ -458,7 +456,7 @@ Public Class IAIPEditAirProgramPollutants
                         Else
                             SQL = "Update AIRBRANCH.APBAirProgramPollutants set " & _
                             "strComplianceStatus = '9', " & _
-                            "strModifingperson = '" & UserGCode & "', " & _
+                            "strModifingperson = '" & CurrentUser.UserID & "', " & _
                             "datModifingdate = '" & OracleDate & "', " & _
                             "strOperationalStatus = 'X' " & _
                             "where strAIRPollutantKey = '" & AIRSPollutantKey & "' " & _
@@ -474,7 +472,7 @@ Public Class IAIPEditAirProgramPollutants
                         "values " & _
                         "('0413" & AirsNumberDisplay.Text & "', '" & AIRSPollutantKey & "', " & _
                         "'" & cboPollutants.SelectedValue & "', '" & cboComplianceStatus.SelectedValue & "', " & _
-                        "'" & UserGCode & "', '" & OracleDate & "', 'O') "
+                        "'" & CurrentUser.UserID & "', '" & OracleDate & "', 'O') "
                     End If
 
                     cmd = New OracleCommand(SQL, CurrentConnection)

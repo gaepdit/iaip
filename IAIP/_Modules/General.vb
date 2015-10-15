@@ -9,7 +9,7 @@
     ''' <param name="items">An array of strings to concatenate</param>
     ''' <returns>A concatenated string separated by the specified separator. Null or empty strings are ignored.</returns>
     ''' <remarks></remarks>
-    Public Function ConcatNonEmptyStrings(ByVal separator As String, ByVal items() As String) As String
+    Public Function ConcatNonEmptyStrings(ByVal separator As String, ByVal items As String()) As String
         Return String.Join(separator, Array.FindAll(items, Function(s) Not String.IsNullOrEmpty(s)))
     End Function
 
@@ -97,10 +97,21 @@
     End Sub
 
     ''' <summary>
-    ''' Disables all Controls in an array by setting their .Enabled or .ReadOnly properties to False, depending on the Object type
+    ''' Disables Controls in an array by setting their .Enabled properties to False
     ''' </summary>
     ''' <param name="controls">An array of Controls to disable</param>
     Public Sub DisableControls(ByVal controls As Control())
+        For Each control As Control In controls
+            control.Enabled = False
+        Next
+    End Sub
+
+    ''' <summary>
+    ''' Prevents use of Controls in an array by setting their .Enabled or .ReadOnly properties to False, depending on the Object type
+    ''' </summary>
+    ''' <param name="controls">An array of Controls to prevent use of</param>
+    ''' <remarks>Does not disable textboxes so they can still be easily read or selected.</remarks>
+    Public Sub PreventControls(ByVal controls As Control())
         For Each control As Control In controls
             Dim type As Type = control.GetType
             If type Is GetType(TextBox) Then
@@ -137,10 +148,21 @@
     End Sub
 
     ''' <summary>
-    ''' Enables all Controls in an array by setting their .Enabled or .ReadOnly properties to True, depending on the Object type
+    ''' Enables all Controls in an array by setting their .Enabled properties to True
     ''' </summary>
     ''' <param name="controls">An array of Controls to enable</param>
     Public Sub EnableControls(ByVal controls As Control())
+        For Each control As Control In controls
+            control.Enabled = True
+        Next
+    End Sub
+
+    ''' <summary>
+    ''' Allows use of Controls in an array by setting their .Enabled or .ReadOnly properties to True, depending on the Object type
+    ''' </summary>
+    ''' <param name="controls">An array of Controls to allow use of</param>
+    ''' <remarks>Opposite of the PreventControls procedure</remarks>
+    Public Sub AllowControls(ByVal controls As Control())
         For Each control As Control In controls
             Dim type As Type = control.GetType
             If type Is GetType(TextBox) Then

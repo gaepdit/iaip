@@ -186,7 +186,7 @@ Namespace DAL
                 New OracleParameter("AirProgramClassifications", headerData.AirProgramClassificationsCode), _
                 New OracleParameter("fromLocation", Convert.ToInt32(fromLocation)), _
                 New OracleParameter("Naics", headerData.Naics), _
-                New OracleParameter("modifiedby", UserGCode), _
+                New OracleParameter("modifiedby", CurrentUser.UserID), _
                 New OracleParameter("airsnumber", headerData.AirsNumber.DbFormattedString) _
             })
 
@@ -199,7 +199,7 @@ Namespace DAL
                 "  WHERE STRAIRSNUMBER   = :airsnumber " _
             )
             parametersList.Add(New OracleParameter() { _
-                New OracleParameter("modifiedby", UserGCode), _
+                New OracleParameter("modifiedby", CurrentUser.UserID), _
                 New OracleParameter("rmp", headerData.RmpId), _
                 New OracleParameter("airsnumber", headerData.AirsNumber.DbFormattedString) _
             })
@@ -259,7 +259,7 @@ Namespace DAL
                         New OracleParameter("airpollkey", headerData.AirsNumber.DbFormattedString & FacilityHeaderData.GetAirProgramDbKey(apc)), _
                         New OracleParameter("pollkey", "OT"), _
                         New OracleParameter("compliancestatus", "C"), _
-                        New OracleParameter("modifiedby", UserGCode), _
+                        New OracleParameter("modifiedby", CurrentUser.UserID), _
                         New OracleParameter("operatingstatus", headerData.OperationalStatus.ToString) _
                     })
 
@@ -275,7 +275,7 @@ Namespace DAL
                     )
                     parametersList.Add(New OracleParameter() { _
                         New OracleParameter("active", "0"), _
-                        New OracleParameter("modifiedby", UserGCode), _
+                        New OracleParameter("modifiedby", CurrentUser.UserID), _
                         New OracleParameter("airpollkey", headerData.AirsNumber.DbFormattedString & FacilityHeaderData.GetAirProgramDbKey(apc)) _
                     })
 
@@ -292,7 +292,7 @@ Namespace DAL
                 "    AND STRUPDATESTATUS = 'N' " _
             )
             parametersList.Add(New OracleParameter() { _
-                New OracleParameter("modifiedby", UserGCode), _
+                New OracleParameter("modifiedby", CurrentUser.UserID), _
                 New OracleParameter("airsnumber", headerData.AirsNumber.DbFormattedString) _
             })
 

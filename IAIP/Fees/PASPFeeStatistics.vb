@@ -3201,7 +3201,7 @@ Public Class PASPFeeStatistics
             pnl2.AutoSize = StatusBarPanelAutoSize.Contents
             pnl2.BorderStyle = StatusBarPanelBorderStyle.Sunken
             pnl2.Alignment = HorizontalAlignment.Center
-            pnl2.Text = UserName
+            pnl2.Text = CurrentUser.AlphaName
             sb.Panels.Add(pnl2)
 
             'Dim pnl3 As StatusBarPanel = New StatusBarPanel
@@ -3467,7 +3467,7 @@ Public Class PASPFeeStatistics
             rpt.SetDataSource(ds)
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, "Facility Classification Totals")
-            
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -3656,7 +3656,7 @@ Public Class PASPFeeStatistics
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, "Overall Fee Balance")
             CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
-            
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -3748,7 +3748,7 @@ Public Class PASPFeeStatistics
             CRFeesReports.ParameterFieldInfo = p
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, "Payments by Date - " & Format(DateTimePicker1.Value, "dd-MMM-yyyy") & " --> " & Format(DateTimePicker2.Value, "dd-MMM-yyyy"))
-            
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -3878,7 +3878,7 @@ Public Class PASPFeeStatistics
             rpt.SetDataSource(ds)
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, "Total Fee by Year")
-            
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -3941,7 +3941,7 @@ Public Class PASPFeeStatistics
             CRFeesReports.ParameterFieldInfo = ParameterFields
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, "Variance Report")
-            
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4062,7 +4062,7 @@ Public Class PASPFeeStatistics
             CRFeesReports.ParameterFieldInfo = p
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, header)
-            
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -4158,7 +4158,7 @@ Public Class PASPFeeStatistics
             pnlNSPS.Visible = False
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, "NSPS Exempt - Subject but exempt")
-            
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -4222,7 +4222,7 @@ Public Class PASPFeeStatistics
             pnlNSPS.Visible = False
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, "NSPS, Did not Operate")
-            
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -4269,7 +4269,7 @@ Public Class PASPFeeStatistics
             rpt.SetDataSource(ds)
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, "Failed to Submit Fee Data - " & mtbNonRespondentYear.Text)
-            
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -4321,7 +4321,7 @@ Public Class PASPFeeStatistics
             rpt.SetDataSource(ds)
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, "Did Not Operate")
-            
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -4360,7 +4360,7 @@ Public Class PASPFeeStatistics
             rpt.SetDataSource(ds)
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, "Facility Comments")
-            
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -4389,7 +4389,7 @@ Public Class PASPFeeStatistics
             rpt.SetDataSource(ds)
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, "Facility Info")
-            
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -4417,7 +4417,7 @@ Public Class PASPFeeStatistics
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, "Training Registrants")
             CRFeesReports.ShowGroupTreeButton = False
-            
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -4432,10 +4432,10 @@ Public Class PASPFeeStatistics
 
 #End Region
 
- 
-  
-  
-    
+
+
+
+
     Private Sub btnViewStats_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewStats.Click
         Try
 
@@ -5108,7 +5108,7 @@ Public Class PASPFeeStatistics
                 dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
- 
+
             SQL = "Select  " & _
             "substr(AIRBranch.FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " & _
             "from airbranch.FS_Admin, AIRBranch.APBFacilityInformation, " & _
@@ -5166,7 +5166,7 @@ Public Class PASPFeeStatistics
                 dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
- 
+
             SQL = "Select  " & _
             "substr(AIRBranch.FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " & _
             "from airbranch.FS_Admin, AIRBranch.APBFacilityInformation, " & _
@@ -5225,7 +5225,7 @@ Public Class PASPFeeStatistics
                 dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
- 
+
             SQL = "Select  " & _
             "substr(AIRBranch.FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " & _
             "from airbranch.FS_Admin, AIRBranch.APBFacilityInformation, " & _
@@ -5534,7 +5534,7 @@ Public Class PASPFeeStatistics
                 dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
-             
+
             SQL = "Select  " & _
             "substr(AIRBranch.FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " & _
             "from airbranch.FS_Admin, AIRBranch.APBFacilityInformation, " & _
@@ -6003,7 +6003,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    
+
     Private Sub llbDetailFeeUniverse_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailFeeUniverse.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
@@ -9055,8 +9055,8 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
- 
-   
+
+
     Private Sub btnExportFeeStats_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportFeeStats.Click
         dgvFeeStats.ExportToExcel(Me)
     End Sub
@@ -9084,7 +9084,7 @@ Public Class PASPFeeStatistics
             If cboFeeStatYear.Text <> "" Then
                 SQL = "Update airbranch.FS_FeeInvoice set " & _
                 "strInvoiceStatus = '1', " & _
-                "UpdateUser = '" & Replace(UserName, "'", "''") & "',  " & _
+                "UpdateUser = '" & Replace(CurrentUser.AlphaName, "'", "''") & "',  " & _
                 "updateDateTime = sysdate " & _
                 "where numFeeYear = '" & cboFeeStatYear.Text & "' " & _
                 "and numAmount = '0' " & _
@@ -9104,7 +9104,7 @@ Public Class PASPFeeStatistics
                 "where numAmount = '0' " & _
                 "and strInvoiceStatus = '1' " & _
                 "and Active = '1' " & _
-                "and updateUser = '" & Replace(UserName, "'", "''") & "' " & _
+                "and updateUser = '" & Replace(CurrentUser.AlphaName, "'", "''") & "' " & _
                 "and numFeeyear = '" & cboFeeStatYear.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
