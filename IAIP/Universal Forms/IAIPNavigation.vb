@@ -1331,4 +1331,8 @@ Public Class IAIPNavigation
 
 #End Region
 
+    Private Sub MenuItem2_Click(sender As Object, e As EventArgs) Handles MenuItem2.Click
+        Dim pf As New IaipUserProfile
+        MessageBox.Show(pf.ShowDialog.ToString)
+    End Sub
 End Class

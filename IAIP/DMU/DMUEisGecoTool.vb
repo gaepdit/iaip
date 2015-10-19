@@ -9789,7 +9789,7 @@ Public Class DMUEisGecoTool
     Private Sub btnChangeEmailAddress_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnChangeEmailAddress.Click
         Try
             If txtWebUserID.Text <> "" Then
-                If EmailAddressIsValid(txtEditEmail.Text) Then
+                If IsValidEmailAddress(txtEditEmail.Text) Then
                     SQL = "Select " & _
                     "numUserID, strUserPassword " & _
                     "from AIRBRANCH.OLAPUserLogIN " & _

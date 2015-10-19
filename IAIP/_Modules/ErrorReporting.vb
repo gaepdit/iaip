@@ -63,7 +63,7 @@ Module ErrorReporting
             " (STRERRORNUMBER, STRUSER, STRERRORLOCATION, STRERRORMESSAGE, DATERRORDATE) " & _
             " values (AIRBRANCH.IAIPERRORNUMBER.NEXTVAL, :UserID, :ErrorLocation, :ErrorMessage, SYSDATE) "
         Dim parameters As OracleParameter() = New OracleParameter() { _
-            New OracleParameter("UserID", CurrentUser.UserID), _
+            New OracleParameter("UserID", If(CurrentUser IsNot Nothing, CurrentUser.UserID, 0)), _
             New OracleParameter("ErrorLocation", errorLocation), _
             New OracleParameter("ErrorMessage", errorMessage) _
         }

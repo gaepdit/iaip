@@ -34,6 +34,7 @@ Public Class IAIPLogIn
 
 #If DEBUG Then
             ToggleServerEnvironment()
+            TestingMenuItem.Visible = True
 #Else
             CheckDBAvailability()
 #End If
@@ -136,31 +137,32 @@ Public Class IAIPLogIn
         monitor.TrackFeatureStart("Startup.LoggingIn")
 
         If Not CheckDBAvailability() Then
-            CancelLogin()
+            CancelLogin(True)
             Exit Sub
         End If
 
-        CurrentUser = DAL.LoginIaipUser(txtUserID.Text.ToUpper, EncryptDecrypt.EncryptText(txtUserPassword.Text))
+        CurrentUser = DAL.LoginIaipUser(txtUserID.Text, EncryptDecrypt.EncryptText(txtUserPassword.Text))
 
         If CurrentUser Is Nothing OrElse CurrentUser.StaffId = 0 Then
             Me.Message = New IaipMessage("Login information is incorrect. Please try again.", IaipMessage.WarningLevels.ErrorReport)
-            CancelLogin()
+            CancelLogin(False)
             Exit Sub
         End If
 
         If Not CurrentUser.ActiveEmployee Then
             Me.Message = New IaipMessage("Your user status has been flagged as inactive. Please contact your manager for more information.", IaipMessage.WarningLevels.ErrorReport)
-            CancelLogin()
+            CancelLogin(True)
             Exit Sub
         End If
 
         If CheckForRequiredPasswordUpdate(txtUserPassword.Text) Then
-            CancelLogin()
+            CancelLogin(True)
             Exit Sub
         End If
 
         If Not ValidateUserData() Then
-            CancelLogin()
+            Me.Message = New IaipMessage("Your profile must be updated before you can log in.", IaipMessage.WarningLevels.Warning)
+            CancelLogin(False)
             Exit Sub
         End If
 
@@ -178,75 +180,61 @@ Public Class IAIPLogIn
         Me.Close()
     End Sub
 
-    Private Sub CancelLogin()
+    Private Sub CancelLogin(Optional clearPasswordField As Boolean = False)
         monitor.TrackFeatureCancel("Startup.LoggingIn")
         CurrentUser = Nothing
-        txtUserPassword.Clear()
+        If clearPasswordField Then txtUserPassword.Clear()
         FocusLogin()
         Me.Cursor = Cursors.Default
     End Sub
 
     Private Function CheckForRequiredPasswordUpdate(currentPassword As String) As Boolean
-        If Not (CurrentUser.LastName.ToUpper = currentPassword.ToUpper) Then Return False
+        If CurrentUser.RequirePasswordChange _
+            OrElse (CurrentUser.LastName.ToUpper = currentPassword.ToUpper) Then
 
-        Dim dialog As New IaipChangePassword
-        dialog.ShowDialog()
-        If dialog.PasswordSuccessfullyChanged Then
-            Me.Message = New IaipMessage("Password successfully changed", IaipMessage.WarningLevels.Success)
+            Using changePassword As New IaipChangePassword
+                changePassword.Message = New IaipMessage("You must change your password before you can log in.", IaipMessage.WarningLevels.Info)
+                changePassword.Message.Display(changePassword.MessageDisplay)
+                Dim dr As DialogResult = changePassword.ShowDialog()
+                If dr = System.Windows.Forms.DialogResult.OK Then
+                    Me.Message = New IaipMessage("Password successfully changed. Please log in with new password.", IaipMessage.WarningLevels.Success)
+                Else
+                    Me.Message = New IaipMessage("You must change your password before you can log in.", IaipMessage.WarningLevels.ErrorReport)
+                End If
+            End Using
+
+            Return True
         End If
-        dialog.Dispose()
-        Return True
+
+        Return False
     End Function
 
     Private Function ValidateUserData() As Boolean
+        ' Returns false only if profile info is incomplete and user doesn't update it
+        If CurrentUser.EmailAddress = "" OrElse CurrentUser.PhoneNumber = "" _
+            OrElse CurrentUser.FirstName = "" OrElse CurrentUser.LastName = "" Then
 
-        Dim ValidUserData As Boolean = True
-        Dim PhoneNumber As String = CurrentUser.PhoneNumber
-        Dim EmailAddress As String = CurrentUser.EmailAddress
-
-
-        'Check for valid user data
-        If EmailAddress = "" Then
-            ValidUserData = False
-            EmailAddress = "Require"
-        End If
-        If PhoneNumber = "" Or PhoneNumber = "4043637000" Then
-            ValidUserData = False
-            PhoneNumber = "Require"
-        End If
-        If Not ValidUserData Then
-            ProfileUpdate = Nothing
-            If ProfileUpdate Is Nothing Then ProfileUpdate = New IAIPProfileUpdate
-            ProfileUpdate.Show()
-            txtUserPassword.Clear()
-            If EmailAddress = "Require" Then
-                ProfileUpdate.pnlEmailAddress.Visible = True
-                ProfileUpdate.txtEmailAddress.BackColor = Color.Tomato
-            Else
-                ProfileUpdate.txtEmailAddress.Text = EmailAddress
-            End If
-            If PhoneNumber = "Require" Then
-                ProfileUpdate.pnlPhoneNumber.Visible = True
-                ProfileUpdate.mtbPhoneNumber.BackColor = Color.Tomato
-            Else
-                ProfileUpdate.mtbPhoneNumber.Text = PhoneNumber
-            End If
+            Using editProfile As New IaipUserProfile
+                editProfile.Message = New IaipMessage("Your profile must be completed before you can log in.", IaipMessage.WarningLevels.Info)
+                editProfile.Message.Display(editProfile.MessageDisplay)
+                Dim dr As DialogResult = editProfile.ShowDialog()
+                If dr = System.Windows.Forms.DialogResult.Cancel Then
+                    Return False
+                End If
+            End Using
+        ElseIf CurrentUser.RequestProfileUpdate Then
+            Using editProfile As New IaipUserProfile
+                editProfile.Message = New IaipMessage("Please verify that your profile information is correct.", IaipMessage.WarningLevels.Info)
+                editProfile.Message.Display(editProfile.MessageDisplay)
+                editProfile.ShowDialog()
+            End Using
         End If
 
-        If ProfileUpdate IsNot Nothing Then
-            ProfileUpdate.Close()
-            ProfileUpdate = Nothing
-        End If
-
-        Return ValidUserData
+        Return True
     End Function
 
     Private Sub btnLoginButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoginButton.Click
         LogInCheck()
-        If ProfileUpdate IsNot Nothing Then
-            ProfileUpdate.Close()
-            ProfileUpdate = Nothing
-        End If
     End Sub
 
 #End Region
@@ -348,4 +336,8 @@ Public Class IAIPLogIn
 
 #End Region
 
+    Private Sub MenuItem6_Click(sender As Object, e As EventArgs) Handles MenuItem6.Click
+        Dim pf As New IaipUserProfile
+        pf.ShowDialog()
+    End Sub
 End Class

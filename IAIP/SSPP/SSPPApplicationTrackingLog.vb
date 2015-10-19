@@ -13377,7 +13377,7 @@ Public Class SSPPApplicationTrackingLog
                 Exit Sub
             End If
 
-            If Not EmailAddressIsValid(txtContactEmailAddress.Text) Then
+            If Not IsValidEmailAddress(txtContactEmailAddress.Text) Then
                 MessageBox.Show("Invalid Email Address", "Application Tracking Log", MessageBoxButtons.OKCancel)
                 Exit Sub
             Else

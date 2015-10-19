@@ -22,9 +22,9 @@ Partial Class IAIPUserAdminTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.lblUserName = New System.Windows.Forms.Label()
         Me.lblPermissions = New System.Windows.Forms.Label()
         Me.btnCreateNewUser = New System.Windows.Forms.Button()
@@ -35,8 +35,7 @@ Partial Class IAIPUserAdminTool
         Me.rdbInactiveStatus = New System.Windows.Forms.RadioButton()
         Me.rdbActiveStatus = New System.Windows.Forms.RadioButton()
         Me.txtOfficeNumber = New System.Windows.Forms.TextBox()
-        Me.mtbPhoneNumber = New System.Windows.Forms.MaskedTextBox()
-        Me.mtbFaxNumber = New System.Windows.Forms.MaskedTextBox()
+        Me.txtPhoneNumber = New System.Windows.Forms.MaskedTextBox()
         Me.cboUnit = New System.Windows.Forms.ComboBox()
         Me.cboProgram = New System.Windows.Forms.ComboBox()
         Me.cboBranch = New System.Windows.Forms.ComboBox()
@@ -50,7 +49,6 @@ Partial Class IAIPUserAdminTool
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
-        Me.Label8 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.TPPermission = New System.Windows.Forms.TabPage()
@@ -167,8 +165,7 @@ Partial Class IAIPUserAdminTool
         '
         Me.TPUserInformation.Controls.Add(Me.Panel3)
         Me.TPUserInformation.Controls.Add(Me.txtOfficeNumber)
-        Me.TPUserInformation.Controls.Add(Me.mtbPhoneNumber)
-        Me.TPUserInformation.Controls.Add(Me.mtbFaxNumber)
+        Me.TPUserInformation.Controls.Add(Me.txtPhoneNumber)
         Me.TPUserInformation.Controls.Add(Me.cboUnit)
         Me.TPUserInformation.Controls.Add(Me.cboProgram)
         Me.TPUserInformation.Controls.Add(Me.cboBranch)
@@ -182,7 +179,6 @@ Partial Class IAIPUserAdminTool
         Me.TPUserInformation.Controls.Add(Me.Label12)
         Me.TPUserInformation.Controls.Add(Me.Label10)
         Me.TPUserInformation.Controls.Add(Me.Label9)
-        Me.TPUserInformation.Controls.Add(Me.Label8)
         Me.TPUserInformation.Controls.Add(Me.Label7)
         Me.TPUserInformation.Controls.Add(Me.Label3)
         Me.TPUserInformation.Location = New System.Drawing.Point(4, 22)
@@ -225,26 +221,18 @@ Partial Class IAIPUserAdminTool
         '
         'txtOfficeNumber
         '
-        Me.txtOfficeNumber.Location = New System.Drawing.Point(90, 136)
+        Me.txtOfficeNumber.Location = New System.Drawing.Point(90, 110)
         Me.txtOfficeNumber.Name = "txtOfficeNumber"
         Me.txtOfficeNumber.Size = New System.Drawing.Size(139, 20)
         Me.txtOfficeNumber.TabIndex = 5
         '
-        'mtbPhoneNumber
+        'txtPhoneNumber
         '
-        Me.mtbPhoneNumber.Location = New System.Drawing.Point(90, 84)
-        Me.mtbPhoneNumber.Mask = "(999) 000-0000 ext.00000"
-        Me.mtbPhoneNumber.Name = "mtbPhoneNumber"
-        Me.mtbPhoneNumber.Size = New System.Drawing.Size(139, 20)
-        Me.mtbPhoneNumber.TabIndex = 3
-        '
-        'mtbFaxNumber
-        '
-        Me.mtbFaxNumber.Location = New System.Drawing.Point(90, 110)
-        Me.mtbFaxNumber.Mask = "(999) 000-0000 ext.00000"
-        Me.mtbFaxNumber.Name = "mtbFaxNumber"
-        Me.mtbFaxNumber.Size = New System.Drawing.Size(139, 20)
-        Me.mtbFaxNumber.TabIndex = 4
+        Me.txtPhoneNumber.Location = New System.Drawing.Point(90, 84)
+        Me.txtPhoneNumber.Mask = "(999) 000-0000 ext.00000"
+        Me.txtPhoneNumber.Name = "txtPhoneNumber"
+        Me.txtPhoneNumber.Size = New System.Drawing.Size(139, 20)
+        Me.txtPhoneNumber.TabIndex = 3
         '
         'cboUnit
         '
@@ -303,7 +291,7 @@ Partial Class IAIPUserAdminTool
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(8, 139)
+        Me.Label16.Location = New System.Drawing.Point(8, 113)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(58, 13)
         Me.Label16.TabIndex = 14
@@ -362,15 +350,6 @@ Partial Class IAIPUserAdminTool
         Me.Label9.Size = New System.Drawing.Size(41, 13)
         Me.Label9.TabIndex = 7
         Me.Label9.Text = "Phone:"
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(8, 113)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(27, 13)
-        Me.Label8.TabIndex = 6
-        Me.Label8.Text = "Fax:"
         '
         'Label7
         '
@@ -884,34 +863,34 @@ Partial Class IAIPUserAdminTool
         Me.dgvUserAdminTool.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvUserAdminTool.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvUserAdminTool.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvUserAdminTool.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvUserAdminTool.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvUserAdminTool.DefaultCellStyle = DataGridViewCellStyle5
         Me.dgvUserAdminTool.Location = New System.Drawing.Point(0, 396)
         Me.dgvUserAdminTool.Name = "dgvUserAdminTool"
         Me.dgvUserAdminTool.ReadOnly = True
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvUserAdminTool.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvUserAdminTool.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.dgvUserAdminTool.Size = New System.Drawing.Size(737, 165)
         Me.dgvUserAdminTool.TabIndex = 4
         '
@@ -949,7 +928,7 @@ Partial Class IAIPUserAdminTool
         Me.Controls.Add(Me.lblUserName)
         Me.MinimumSize = New System.Drawing.Size(711, 526)
         Me.Name = "IAIPUserAdminTool"
-        Me.Text = "IAIP Profile Management"
+        Me.Text = "IAIP User Management"
         Me.TCUserData.ResumeLayout(False)
         Me.TPUserInformation.ResumeLayout(False)
         Me.TPUserInformation.PerformLayout()
@@ -981,15 +960,13 @@ Partial Class IAIPUserAdminTool
     Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents Label9 As System.Windows.Forms.Label
-    Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Panel3 As System.Windows.Forms.Panel
     Friend WithEvents rdbInactiveStatus As System.Windows.Forms.RadioButton
     Friend WithEvents rdbActiveStatus As System.Windows.Forms.RadioButton
     Friend WithEvents txtOfficeNumber As System.Windows.Forms.TextBox
-    Friend WithEvents mtbPhoneNumber As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents mtbFaxNumber As System.Windows.Forms.MaskedTextBox
+    Friend WithEvents txtPhoneNumber As System.Windows.Forms.MaskedTextBox
     Friend WithEvents cboUnit As System.Windows.Forms.ComboBox
     Friend WithEvents cboProgram As System.Windows.Forms.ComboBox
     Friend WithEvents cboBranch As System.Windows.Forms.ComboBox

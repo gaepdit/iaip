@@ -45,12 +45,17 @@ Namespace DB
 
         Public Function DumbConvertToBoolean(value As String, conversionType As DumbConvertBooleanType) As Boolean
             Select Case conversionType
+
                 Case DumbConvertBooleanType.TrueOrDBNull
                     If value Is Nothing OrElse IsDBNull(value) OrElse value.ToString = "null" Then
                         Return False
                     Else
                         Return Boolean.Parse(value) ' Will throw an exception if value is not equal to Boolean.TrueString
                     End If
+
+                Case DumbConvertBooleanType.OneOrZero
+                    Return Convert.ToBoolean(Integer.Parse(value))
+
             End Select
 
             ' Fallback
@@ -59,12 +64,21 @@ Namespace DB
 
         Public Function DumbConvertFromBoolean(value As Boolean, conversionType As DumbConvertBooleanType) As String
             Select Case conversionType
+
                 Case DumbConvertBooleanType.TrueOrDBNull
                     If value Then
                         Return Boolean.TrueString
                     Else
                         Return Nothing
                     End If
+
+                Case DumbConvertBooleanType.OneOrZero
+                    If value Then
+                        Return "1"
+                    Else
+                        Return "0"
+                    End If
+
             End Select
 
             ' Fallback
@@ -73,6 +87,7 @@ Namespace DB
 
         Public Enum DumbConvertBooleanType
             TrueOrDBNull
+            OneOrZero
         End Enum
 
     End Module

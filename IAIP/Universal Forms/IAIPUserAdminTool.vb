@@ -1,6 +1,5 @@
 Imports Oracle.ManagedDataAccess.Client
 
-
 Public Class IAIPUserAdminTool
     Dim dsOrginizations As DataSet
     Dim daOrginizations As OracleDataAdapter
@@ -21,8 +20,7 @@ Public Class IAIPUserAdminTool
             LoadDataGrid("Self")
             lblUserID.Text = CurrentUser.UserID
 
-            mtbPhoneNumber.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals
-            mtbFaxNumber.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals
+            txtPhoneNumber.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals
 
             If AccountFormAccess(8, 4) = "1" Then
                 cboPermissionBranch.Enabled = True
@@ -50,8 +48,7 @@ Public Class IAIPUserAdminTool
                             txtFirstName.ReadOnly = True
                             txtLastName.ReadOnly = True
                             txtEmailAddress.ReadOnly = True
-                            mtbPhoneNumber.ReadOnly = True
-                            mtbFaxNumber.ReadOnly = True
+                            txtPhoneNumber.ReadOnly = True
                             btnSave.Enabled = False
                             txtUserName.ReadOnly = True
                             txtPassword.ReadOnly = True
@@ -829,106 +826,44 @@ Public Class IAIPUserAdminTool
     End Sub
     Sub CreateNewUser()
         Try
-            Dim EmployeeStatus As String = "0"
-            Dim EmployeeId As String = "000"
+            If String.IsNullOrEmpty(txtFirstName.Text) OrElse String.IsNullOrEmpty(txtLastName.Text) Then
+                MsgBox("Please enter first and last name.", MsgBoxStyle.Exclamation, "IAIP User Admin Tool")
+                Exit Sub
+            End If
 
-            If txtFirstName.Text <> "" And txtLastName.Text <> "" Then
-                If txtUserName.Text <> "" And txtPassword.Text <> "" Then
-                    If rdbActiveStatus.Checked = True Then
-                        EmployeeStatus = "1"
-                    Else
-                        EmployeeStatus = "0"
-                    End If
+            If String.IsNullOrEmpty(txtUserName.Text) Then
+                MsgBox("Please enter a user name.", MsgBoxStyle.Exclamation, "IAIP User Admin Tool")
+                Exit Sub
+            End If
 
-                    SQL = "Select " & _
-                    "strUserName " & _
-                    "from AIRBRANCH.EPDUsers " & _
-                    "where strUsername = '" & txtUserName.Text & "' "
+            If String.IsNullOrEmpty(txtPassword.Text) Then
+                MsgBox("Please enter a password.", MsgBoxStyle.Exclamation, "IAIP User Admin Tool")
+                Exit Sub
+            End If
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    dr.Close()
-                    If recExist = True Then
-                        MsgBox("The User Name is already in use by another user." & vbCrLf & "Please choose another User Name.", MsgBoxStyle.Exclamation, "IAIP User Admin Tool")
-                    Else
-                        SQL = "Insert into AIRBRANCH.EPDUsers " & _
-                        "(numUserID, strUserName, " & _
-                        "strPassword) " & _
-                        "values " & _
-                        "((select (max(numUserID) + 1) from AIRBRANCH.EPDUsers), " & _
-                        "'" & Replace(txtUserName.Text, "'", "''") & "', " & _
-                        "'" & Replace(EncryptDecrypt.EncryptText(txtPassword.Text), "'", "''") & "') "
+            If DAL.UserNameExists(txtUserName.Text) Then
+                MsgBox("That user name is already in use. Please choose another User Name.", MsgBoxStyle.Exclamation, "IAIP User Admin Tool")
+                Exit Sub
+            End If
 
-                        cmd = New OracleCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        dr.Close()
-
-
-                        'SQL = "select AIRBRANCH.SEQ_EPD_Users.currval " & _
-                        '"from dual "
-                        SQL = "select max(numUserID) as maxUser " & _
-                        "from AIRBRANCH.EPDUsers "
-
-                        cmd = New OracleCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        While dr.Read
-                            lblUserID.Text = dr.Item("maxUser")
-                        End While
-                        dr.Close()
-
-                        EmployeeId = "000"
-
-                        SQL = "Insert into AIRBRANCH.EPDUSerProfiles " & _
-                        "(numUserID, strEmployeeID, " & _
-                        "strLastName, strFirstName, " & _
-                        "strEmailAddress, strPhone, " & _
-                        "strFax, numBranch, " & _
-                        "numProgram, numUnit, " & _
-                        "strOffice, numEmployeeStatus) " & _
-                        "values " & _
-                        "('" & lblUserID.Text & "', '" & Replace(EmployeeId, "'", "''") & "', " & _
-                        "'" & Replace(txtLastName.Text, "'", "''") & "', '" & Replace(txtFirstName.Text, "'", "''") & "', " & _
-                        "'" & Replace(txtEmailAddress.Text, "'", "''") & "', " & _
-                        "'" & mtbPhoneNumber.Text & "', " & _
-                        "'" & mtbFaxNumber.Text & "', " & _
-                        "'" & cboBranch.SelectedValue & "', " & _
-                        "'" & cboProgram.SelectedValue & "', '" & cboUnit.SelectedValue & "', " & _
-                        "'" & Replace(txtOfficeNumber.Text, "'", "''") & "', '" & EmployeeStatus & "') "
-
-                        cmd = New OracleCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        dr.Close()
-
-                        UpdatePermissions()
-
-                        LoadUserData()
-
-                        MsgBox("Successfully Done. Please restart the IAIP and create an identical user in the testing environment.", MsgBoxStyle.Information, "IAIP User Admin Tool")
-
-                    End If
+            Dim result As Boolean = DAL.CreateNewUser(txtUserName.Text, txtPassword.Text, txtLastName.Text,
+                                                      txtFirstName.Text, txtEmailAddress.Text, txtPhoneNumber.Text,
+                                                      cboBranch.SelectedValue, cboProgram.SelectedValue, cboUnit.SelectedValue,
+                                                      txtOfficeNumber.Text, rdbActiveStatus.Checked)
+            If result Then
+                UpdatePermissions()
+                LoadUserData()
+                If CurrentServerEnvironment = DB.ServerEnvironment.PRD Then
+                    MsgBox("Successfully Done. Please restart the IAIP and create an identical user in the testing environment.", MsgBoxStyle.Information, "IAIP User Admin Tool")
                 Else
-                    MsgBox("Please enter a User Name and Password.", MsgBoxStyle.Exclamation, "IAIP User Admin Tool")
+                    MsgBox("Successfully Done.", MsgBoxStyle.Information, "IAIP User Admin Tool")
                 End If
             Else
-                MsgBox("Please enter a First and Last name.", MsgBoxStyle.Exclamation, "IAIP User Admin Tool")
+                MsgBox("There was an error. No new user created.", MsgBoxStyle.Exclamation, "IAIP User Admin Tool")
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Sub UpdateUser()
@@ -992,8 +927,7 @@ Public Class IAIPUserAdminTool
                         "strLastName = '" & Replace(txtLastName.Text, "'", "''") & "', " & _
                         "strFirstName = '" & Replace(txtFirstName.Text, "'", "''") & "', " & _
                         "strEmailAddress = '" & Replace(txtEmailAddress.Text, "'", "''") & "', " & _
-                        "strPhone = '" & mtbPhoneNumber.Text & "', " & _
-                        "strFax = '" & mtbFaxNumber.Text & "', " & _
+                        "strPhone = '" & txtPhoneNumber.Text & "', " & _
                         "numBranch = '" & cboBranch.SelectedValue & "', " & _
                         "numProgram = '" & cboProgram.SelectedValue & "', " & _
                         "numUnit = '" & cboUnit.SelectedValue & "', " & _
@@ -1220,14 +1154,9 @@ Public Class IAIPUserAdminTool
                     txtEmailAddress.Text = dr.Item("strEmailAddress")
                 End If
                 If IsDBNull(dr.Item("strPhone")) Then
-                    mtbPhoneNumber.Clear()
+                    txtPhoneNumber.Clear()
                 Else
-                    mtbPhoneNumber.Text = dr.Item("strPhone")
-                End If
-                If IsDBNull(dr.Item("strFax")) Then
-                    mtbFaxNumber.Clear()
-                Else
-                    mtbFaxNumber.Text = dr.Item("strFax")
+                    txtPhoneNumber.Text = dr.Item("strPhone")
                 End If
                 If IsDBNull(dr.Item("strUserName")) Then
                     lblUserName.Text = "User Name: "
@@ -1324,8 +1253,7 @@ Public Class IAIPUserAdminTool
             txtLastName.Clear()
             lblEmailAddress.Text = "Email: "
             txtEmailAddress.Clear()
-            mtbPhoneNumber.Clear()
-            mtbFaxNumber.Clear()
+            txtPhoneNumber.Clear()
             lblUserName.Text = "User Name: "
             txtUserName.Clear()
             txtPassword.Clear()

@@ -157,6 +157,10 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="_Modules\Validation.vb" />
+    <EmbeddedResource Include="Universal Forms\Sub Forms\IaipUserProfile.resx">
+      <DependentUpon>IaipUserProfile.vb</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Crystal Reports\CrDataSet.xsc">
       <DependentUpon>CrDataSet.xsd</DependentUpon>
@@ -307,6 +311,18 @@
     </Compile>
     <Compile Include="Universal Forms\ExceptionDialog.Designer.vb">
       <DependentUpon>ExceptionDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universal Forms\Sub Forms\IaipChangePassword.Designer.vb">
+      <DependentUpon>IaipChangePassword.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universal Forms\Sub Forms\IaipChangePassword.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universal Forms\Sub Forms\IaipUserProfile.Designer.vb">
+      <DependentUpon>IaipUserProfile.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universal Forms\Sub Forms\IaipUserProfile.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="_Classes\ListViewItemComparer.vb">
       <SubType>Code</SubType>
@@ -1008,12 +1024,6 @@
     <Compile Include="Universal Forms\Sub Forms\IAIPListTool.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\Sub Forms\IAIPProfileUpdate.Designer.vb">
-      <DependentUpon>IAIPProfileUpdate.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Universal Forms\Sub Forms\IAIPProfileUpdate.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <EmbeddedResource Include="Crystal Reports\CRViewerForm.resx">
       <DependentUpon>CRViewerForm.vb</DependentUpon>
     </EmbeddedResource>
@@ -1573,6 +1583,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>IAIPUserAdminTool.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Universal Forms\Sub Forms\IaipChangePassword.resx">
+      <DependentUpon>IaipChangePassword.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Universal Forms\Sub Forms\IAIPFacilityCreator.resx">
       <DependentUpon>IAIPFacilityCreator.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -1608,10 +1621,6 @@
     <EmbeddedResource Include="Universal Forms\Sub Forms\IAIPListTool.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPListTool.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\Sub Forms\IAIPProfileUpdate.resx">
-      <DependentUpon>IAIPProfileUpdate.vb</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

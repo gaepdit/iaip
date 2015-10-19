@@ -9,6 +9,8 @@ Public Class IaipUser
             Return Me.StaffId
         End Get
     End Property
+    Public Property RequirePasswordChange As Boolean
+    Public Property RequestProfileUpdate As Boolean
     Public Property IaipAccountCodes As Generic.List(Of Integer)
     Public WriteOnly Property PermissionsString() As String
         Set(value As String)

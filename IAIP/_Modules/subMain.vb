@@ -53,7 +53,6 @@ Module subMain
 
 #Region " Universal Screens "
     Public PrintOut As IAIPPrintOut
-    Public ProfileUpdate As IAIPProfileUpdate
 #End Region
 
 #Region " ISMP Screens "

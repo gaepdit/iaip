@@ -46,12 +46,14 @@ Partial Class IAIPLogIn
         Me.lblSubTitle = New System.Windows.Forms.Label()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.lblGeneralMessage = New System.Windows.Forms.Label()
+        Me.TestingMenuItem = New System.Windows.Forms.MenuItem()
+        Me.MenuItem6 = New System.Windows.Forms.MenuItem()
         CType(Me.LogoBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.MenuItem1, Me.mmiHelp})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.MenuItem1, Me.mmiHelp, Me.TestingMenuItem})
         '
         'mmiFile
         '
@@ -258,6 +260,18 @@ Partial Class IAIPLogIn
         Me.lblGeneralMessage.Text = "Message Placeholder 1" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "4"
         Me.lblGeneralMessage.Visible = False
         '
+        'TestingMenuItem
+        '
+        Me.TestingMenuItem.Index = 3
+        Me.TestingMenuItem.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem6})
+        Me.TestingMenuItem.Text = "T&est"
+        Me.TestingMenuItem.Visible = False
+        '
+        'MenuItem6
+        '
+        Me.MenuItem6.Index = 0
+        Me.MenuItem6.Text = "&profile"
+        '
         'IAIPLogIn
         '
         Me.AcceptButton = Me.btnLoginButton
@@ -317,4 +331,6 @@ Partial Class IAIPLogIn
     Friend WithEvents mmiResetAllForms As System.Windows.Forms.MenuItem
     Friend WithEvents mmiCheckForUpdate As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem5 As System.Windows.Forms.MenuItem
+    Friend WithEvents TestingMenuItem As System.Windows.Forms.MenuItem
+    Friend WithEvents MenuItem6 As System.Windows.Forms.MenuItem
 End Class

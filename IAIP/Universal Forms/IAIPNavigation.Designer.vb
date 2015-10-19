@@ -34,6 +34,7 @@ Partial Class IAIPNavigation
         Me.TestingMenu = New System.Windows.Forms.MenuItem()
         Me.TestPingDb = New System.Windows.Forms.MenuItem()
         Me.TestThrowError = New System.Windows.Forms.MenuItem()
+        Me.MenuItem1 = New System.Windows.Forms.MenuItem()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.flpNavButtons = New System.Windows.Forms.FlowLayoutPanel()
         Me.grpQuickAccess = New System.Windows.Forms.GroupBox()
@@ -81,7 +82,7 @@ Partial Class IAIPNavigation
         Me.ListChangerPanel = New System.Windows.Forms.Panel()
         Me.pnlContextSubView = New System.Windows.Forms.Panel()
         Me.dgvWorkViewer = New System.Windows.Forms.DataGridView()
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem()
+        Me.MenuItem2 = New System.Windows.Forms.MenuItem()
         Me.grpQuickAccess.SuspendLayout()
         Me.SbeapQuickAccessPanel.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -148,8 +149,8 @@ Partial Class IAIPNavigation
         'TestingMenu
         '
         Me.TestingMenu.Index = 3
-        Me.TestingMenu.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.TestPingDb, Me.TestThrowError, Me.MenuItem1})
-        Me.TestingMenu.Text = "Testin&g"
+        Me.TestingMenu.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.TestPingDb, Me.TestThrowError, Me.MenuItem1, Me.MenuItem2})
+        Me.TestingMenu.Text = "T&esting"
         Me.TestingMenu.Visible = False
         '
         'TestPingDb
@@ -161,6 +162,11 @@ Partial Class IAIPNavigation
         '
         Me.TestThrowError.Index = 1
         Me.TestThrowError.Text = "Throw error"
+        '
+        'MenuItem1
+        '
+        Me.MenuItem1.Index = 2
+        Me.MenuItem1.Text = "Open New FCE form"
         '
         'lblTitle
         '
@@ -726,10 +732,10 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.Size = New System.Drawing.Size(686, 187)
         Me.dgvWorkViewer.TabIndex = 4
         '
-        'MenuItem1
+        'MenuItem2
         '
-        Me.MenuItem1.Index = 2
-        Me.MenuItem1.Text = "Open New FCE form"
+        Me.MenuItem2.Index = 3
+        Me.MenuItem2.Text = "&Profile"
         '
         'IAIPNavigation
         '
@@ -826,4 +832,5 @@ Partial Class IAIPNavigation
     Friend WithEvents ListChangerPanel As System.Windows.Forms.Panel
     Friend WithEvents TestThrowError As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
+    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
 End Class

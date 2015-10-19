@@ -1,4 +1,4 @@
-﻿Class IaipMessage
+﻿Friend Class IaipMessage
 
 #Region " Properties "
 
@@ -18,7 +18,14 @@
 
 #End Region
 
-#Region " Constructor "
+#Region " Constructors "
+
+    ''' <summary>
+    ''' Creates a new empty IaipMessage
+    ''' </summary>
+    Public Sub New()
+        Me.WarningLevel = WarningLevels.None
+    End Sub
 
     ''' <summary>
     ''' Creates a new IaipMessage
