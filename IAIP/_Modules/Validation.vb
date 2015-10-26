@@ -2,48 +2,39 @@
 
 Module Validation
 
-    Public Function ValidateAsNonEmptyString(textBox As TextBox, errorProvider As ErrorProvider, readableName As String) As Boolean
-        If Not String.IsNullOrWhiteSpace(textBox.Text.Trim) Then
-            errorProvider.SetError(textBox, String.Empty)
-            Return True
-        Else
-            errorProvider.SetError(textBox, readableName & " is required")
-            Return False
-        End If
+    Public Function IsValidNonEmptyString(s As String, Optional minLength As Integer = 0) As Boolean
+        If String.IsNullOrWhiteSpace(s.Trim) Then Return False
+        If minLength > 0 AndAlso s.Trim.Length < minLength Then Return False
+        Return True
     End Function
 
-    Public Function ValidateAsEmailAddress(textBox As TextBox, errorProvider As ErrorProvider, readableName As String) As Boolean
-        If IsValidEmailAddress(textBox.Text.Trim) Then
-            errorProvider.SetError(textBox, String.Empty)
-            Return True
-        Else
-            errorProvider.SetError(textBox, readableName & " is required")
-            Return False
-        End If
-    End Function
-
-    Public Function ValidateAsPhoneNumber(maskedTextBox As MaskedTextBox, errorProvider As ErrorProvider, readableName As String) As Boolean
-        If IsValidPhoneNumber(maskedTextBox.Text) Then
-            errorProvider.SetError(maskedTextBox, String.Empty)
-            Return True
-        Else
-            errorProvider.SetError(maskedTextBox, readableName & " is required")
-            Return False
-        End If
-    End Function
-
-    Public Function IsValidEmailAddress(ByVal email As String) As Boolean
-        If String.IsNullOrEmpty(email) Then Return False
+    Public Function IsValidEmailAddress(ByVal emailAddress As String) As Boolean
+        If String.IsNullOrEmpty(emailAddress) Then Return False
         Try
-            Dim testEmail As Net.Mail.MailAddress = New Net.Mail.MailAddress(email)
+            Dim testEmail As Net.Mail.MailAddress = New Net.Mail.MailAddress(emailAddress)
         Catch ex As Exception
             Return False
         End Try
         Return True
     End Function
 
-    Public Function IsValidPhoneNumber(phoneNumber As String) As Boolean
-        Return Regex.IsMatch(phoneNumber, "^[2-9][0-9]{2}[2-9][0-9]{2}[0-9]{4}$")
+    Public Enum UserNameValidationResult
+        Valid
+        Empty
+        TooShort
+        InvalidCharacters
+    End Enum
+
+    Public Function IsValidUserName(username As String, Optional minLength As Integer = MinUsernameLength) As UserNameValidationResult
+        If String.IsNullOrEmpty(username) Then Return UserNameValidationResult.Empty
+        If Not Regex.IsMatch(username, AlphaNumericPattern) Then Return UserNameValidationResult.InvalidCharacters
+        If username.Length < minLength Then Return UserNameValidationResult.TooShort
+        Return UserNameValidationResult.Valid
     End Function
+
+    'Public Function IsValidPhoneNumber(phoneNumber As String) As Boolean
+    '    If String.IsNullOrEmpty(phoneNumber) Then Return False
+    '    Return Regex.IsMatch(phoneNumber, MatchPhoneNumberPattern)
+    'End Function
 
 End Module

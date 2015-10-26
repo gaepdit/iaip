@@ -22,7 +22,7 @@
     ''' <remarks></remarks>
     Public Function FormatStringAsPhoneNumber(ByVal p As String, Optional ByVal formal As Boolean = True) As String
         If p Is Nothing Then Return p
-        If Not System.Text.RegularExpressions.Regex.IsMatch(p, "^[0-9 ]+$") Then Return p
+        If Not System.Text.RegularExpressions.Regex.IsMatch(p, NumericPattern) Then Return p
         If Not (p.Length = 7 Or p.Length >= 10) Then Return p
 
         If p.Length = 7 Then

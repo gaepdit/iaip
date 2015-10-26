@@ -102,10 +102,7 @@
         <DebuggerStepThrough()> _
         Public Shared Function IsValidAirsNumberFormat(ByVal airsNumber As String) As Boolean
             If airsNumber Is Nothing Then Return False
-            ' Valid AIRS numbers are in the form 000-00000 or 04-13-000-0000
-            ' (with or without the dashes)
-            Dim rgx As New System.Text.RegularExpressions.Regex("^(04-?13-?)?\d{3}-?\d{5}$")
-            Return rgx.IsMatch(airsNumber)
+            Return System.Text.RegularExpressions.Regex.IsMatch(airsNumber, AirsNumberPattern)
         End Function
 
         ''' <summary>

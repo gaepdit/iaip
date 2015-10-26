@@ -2,6 +2,7 @@
 Imports Iaip.Apb
 Imports Iaip.Apb.Facilities
 Imports System.Collections.Generic
+Imports System.Text.RegularExpressions
 
 Namespace DAL
     Module FacilityHeaderDataData
@@ -16,10 +17,7 @@ Namespace DAL
         ''' <remarks>Does not make any judgments about appropriateness of SIC Code otherwise.</remarks>
         Public Function SicCodeIsValid(ByVal sicCode As String) As Boolean
             If sicCode Is Nothing OrElse String.IsNullOrEmpty(sicCode) Then Return False
-
-            ' Valid SIC Codes are one to four digits
-            Dim rgx As New System.Text.RegularExpressions.Regex("^\d{1,4}$")
-            If Not rgx.IsMatch(sicCode) Then Return False
+            If Not Regex.IsMatch(sicCode, SicCodePattern) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
                 " FROM AIRBRANCH.LK_SIC " & _
@@ -40,10 +38,7 @@ Namespace DAL
         ''' <remarks>Does not make any judgments about appropriateness of NAICS Code otherwise.</remarks>
         Public Function NaicsCodeIsValid(ByVal naicsCode As String) As Boolean
             If naicsCode Is Nothing OrElse String.IsNullOrEmpty(naicsCode) Then Return False
-
-            ' Valid NAICS Codes are two to six digits
-            Dim rgx As New System.Text.RegularExpressions.Regex("^\d{2,6}$")
-            If Not rgx.IsMatch(naicsCode) Then Return False
+            If Not Regex.IsMatch(naicsCode, NaicsCodePattern) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
                 " FROM AIRBRANCH.LK_NAICS " & _

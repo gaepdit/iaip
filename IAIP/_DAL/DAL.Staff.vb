@@ -10,8 +10,8 @@ Namespace DAL
         ''' <param name="id">The ID of the Program to describe</param>
         ''' <returns>A text description of the Branch Program</returns>
         Public Function GetProgramDescription(ByVal id As Integer) As String
-            Dim query As String = "SELECT STRPROGRAMDESC FROM AIRBRANCH.LOOKUPEPDPROGRAMS WHERE NUMPROGRAMCODE = :pId"
-            Dim parameter As New OracleParameter("pId", id)
+            Dim query As String = "SELECT STRPROGRAMDESC FROM AIRBRANCH.LOOKUPEPDPROGRAMS WHERE NUMPROGRAMCODE = :id"
+            Dim parameter As New OracleParameter("id", id)
             Return DB.GetSingleValue(Of String)(query, parameter)
         End Function
 
@@ -64,9 +64,9 @@ Namespace DAL
                 "     (STRLASTNAME || ', ' || STRFIRSTNAME) AS AlphaName " & _
                 " FROM AIRBRANCH.EPDUSERPROFILES " & _
                 " WHERE NUMEMPLOYEESTATUS = 1 " & _
-                " AND NUMBRANCH           = :pBranch " & _
+                " AND NUMBRANCH           = :branch " & _
                 " ORDER BY STRLASTNAME, STRFIRSTNAME "
-            Dim parameter As New OracleParameter("pBranch", branch)
+            Dim parameter As New OracleParameter("branch", branch)
 
             Return DB.GetDataTable(query, parameter)
         End Function
@@ -94,7 +94,7 @@ Namespace DAL
                 New OracleParameter("ProgramID", staff.ProgramID), _
                 New OracleParameter("UnitId", staff.UnitId), _
                 New OracleParameter("OfficeNumber", staff.OfficeNumber), _
-                New OracleParameter("ActiveEmployee", DB.DumbConvertFromBoolean(staff.ActiveEmployee, DB.DumbConvertBooleanType.OneOrZero))
+                New OracleParameter("ActiveEmployee", DB.ConvertFromBooleanToDbValue(staff.ActiveEmployee, DB.DumbConvertBooleanType.OneOrZero))
             }
             queryList.Add(query)
             parametersList.Add(parameters)

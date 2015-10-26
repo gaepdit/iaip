@@ -34,6 +34,8 @@ Partial Class IAIPLogIn
         Me.mmiCheckForUpdate = New System.Windows.Forms.MenuItem()
         Me.MenuItem5 = New System.Windows.Forms.MenuItem()
         Me.mmiAbout = New System.Windows.Forms.MenuItem()
+        Me.TestingMenuItem = New System.Windows.Forms.MenuItem()
+        Me.MenuItem6 = New System.Windows.Forms.MenuItem()
         Me.btnLoginButton = New System.Windows.Forms.Button()
         Me.LogoBox = New System.Windows.Forms.PictureBox()
         Me.lblCurrentVersionMessage = New System.Windows.Forms.Label()
@@ -46,8 +48,6 @@ Partial Class IAIPLogIn
         Me.lblSubTitle = New System.Windows.Forms.Label()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.lblGeneralMessage = New System.Windows.Forms.Label()
-        Me.TestingMenuItem = New System.Windows.Forms.MenuItem()
-        Me.MenuItem6 = New System.Windows.Forms.MenuItem()
         CType(Me.LogoBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -126,10 +126,22 @@ Partial Class IAIPLogIn
         Me.mmiAbout.Index = 4
         Me.mmiAbout.Text = "&About IAIP"
         '
+        'TestingMenuItem
+        '
+        Me.TestingMenuItem.Index = 3
+        Me.TestingMenuItem.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem6})
+        Me.TestingMenuItem.Text = "T&est"
+        Me.TestingMenuItem.Visible = False
+        '
+        'MenuItem6
+        '
+        Me.MenuItem6.Index = 0
+        Me.MenuItem6.Text = "&profile"
+        '
         'btnLoginButton
         '
         Me.btnLoginButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnLoginButton.Location = New System.Drawing.Point(422, 259)
+        Me.btnLoginButton.Location = New System.Drawing.Point(423, 259)
         Me.btnLoginButton.Margin = New System.Windows.Forms.Padding(2)
         Me.btnLoginButton.Name = "btnLoginButton"
         Me.btnLoginButton.Size = New System.Drawing.Size(175, 38)
@@ -178,9 +190,9 @@ Partial Class IAIPLogIn
         Me.lblPassword.Location = New System.Drawing.Point(336, 223)
         Me.lblPassword.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblPassword.Name = "lblPassword"
-        Me.lblPassword.Size = New System.Drawing.Size(82, 20)
+        Me.lblPassword.Size = New System.Drawing.Size(78, 20)
         Me.lblPassword.TabIndex = 36
-        Me.lblPassword.Text = "Password:"
+        Me.lblPassword.Text = "Password"
         '
         'lblUserID
         '
@@ -189,14 +201,14 @@ Partial Class IAIPLogIn
         Me.lblUserID.Location = New System.Drawing.Point(336, 184)
         Me.lblUserID.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblUserID.Name = "lblUserID"
-        Me.lblUserID.Size = New System.Drawing.Size(68, 20)
+        Me.lblUserID.Size = New System.Drawing.Size(83, 20)
         Me.lblUserID.TabIndex = 35
-        Me.lblUserID.Text = "User ID:"
+        Me.lblUserID.Text = "Username"
         '
         'txtUserPassword
         '
         Me.txtUserPassword.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtUserPassword.Location = New System.Drawing.Point(422, 220)
+        Me.txtUserPassword.Location = New System.Drawing.Point(423, 220)
         Me.txtUserPassword.Margin = New System.Windows.Forms.Padding(2)
         Me.txtUserPassword.Name = "txtUserPassword"
         Me.txtUserPassword.Size = New System.Drawing.Size(175, 26)
@@ -207,7 +219,7 @@ Partial Class IAIPLogIn
         'txtUserID
         '
         Me.txtUserID.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtUserID.Location = New System.Drawing.Point(422, 181)
+        Me.txtUserID.Location = New System.Drawing.Point(423, 181)
         Me.txtUserID.Margin = New System.Windows.Forms.Padding(2)
         Me.txtUserID.Name = "txtUserID"
         Me.txtUserID.Size = New System.Drawing.Size(175, 26)
@@ -259,18 +271,6 @@ Partial Class IAIPLogIn
         Me.lblGeneralMessage.TabIndex = 38
         Me.lblGeneralMessage.Text = "Message Placeholder 1" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "4"
         Me.lblGeneralMessage.Visible = False
-        '
-        'TestingMenuItem
-        '
-        Me.TestingMenuItem.Index = 3
-        Me.TestingMenuItem.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem6})
-        Me.TestingMenuItem.Text = "T&est"
-        Me.TestingMenuItem.Visible = False
-        '
-        'MenuItem6
-        '
-        Me.MenuItem6.Index = 0
-        Me.MenuItem6.Text = "&profile"
         '
         'IAIPLogIn
         '

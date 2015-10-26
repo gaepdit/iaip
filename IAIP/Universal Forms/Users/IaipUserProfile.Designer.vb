@@ -27,7 +27,6 @@ Partial Class IaipUserProfile
         Me.Cancel = New System.Windows.Forms.Button()
         Me.MessageDisplay = New System.Windows.Forms.Label()
         Me.OfficeNumber = New System.Windows.Forms.TextBox()
-        Me.PhoneNumber = New System.Windows.Forms.MaskedTextBox()
         Me.EmailAddress = New System.Windows.Forms.TextBox()
         Me.LastName = New System.Windows.Forms.TextBox()
         Me.FirstName = New System.Windows.Forms.TextBox()
@@ -36,9 +35,10 @@ Partial Class IaipUserProfile
         Me.Label9 = New System.Windows.Forms.Label()
         Me.LNameLabel = New System.Windows.Forms.Label()
         Me.FNameLabel = New System.Windows.Forms.Label()
-        Me.ProfileEP = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.Label1 = New System.Windows.Forms.Label()
-        CType(Me.ProfileEP, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.EP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.RequiredLabel = New System.Windows.Forms.Label()
+        Me.PhoneNumber = New System.Windows.Forms.TextBox()
+        CType(Me.EP, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Save
@@ -74,24 +74,17 @@ Partial Class IaipUserProfile
         '
         'OfficeNumber
         '
+        Me.OfficeNumber.CausesValidation = False
         Me.OfficeNumber.Location = New System.Drawing.Point(111, 129)
+        Me.OfficeNumber.MaxLength = 10
         Me.OfficeNumber.Name = "OfficeNumber"
         Me.OfficeNumber.Size = New System.Drawing.Size(103, 20)
         Me.OfficeNumber.TabIndex = 4
         '
-        'PhoneNumber
-        '
-        Me.PhoneNumber.HidePromptOnLeave = True
-        Me.PhoneNumber.Location = New System.Drawing.Point(111, 103)
-        Me.PhoneNumber.Mask = "(000) 000-0000"
-        Me.PhoneNumber.Name = "PhoneNumber"
-        Me.PhoneNumber.Size = New System.Drawing.Size(103, 20)
-        Me.PhoneNumber.TabIndex = 3
-        Me.PhoneNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        '
         'EmailAddress
         '
         Me.EmailAddress.Location = New System.Drawing.Point(111, 77)
+        Me.EmailAddress.MaxLength = 100
         Me.EmailAddress.Name = "EmailAddress"
         Me.EmailAddress.Size = New System.Drawing.Size(184, 20)
         Me.EmailAddress.TabIndex = 2
@@ -99,6 +92,7 @@ Partial Class IaipUserProfile
         'LastName
         '
         Me.LastName.Location = New System.Drawing.Point(111, 51)
+        Me.LastName.MaxLength = 100
         Me.LastName.Name = "LastName"
         Me.LastName.Size = New System.Drawing.Size(183, 20)
         Me.LastName.TabIndex = 1
@@ -106,6 +100,7 @@ Partial Class IaipUserProfile
         'FirstName
         '
         Me.FirstName.Location = New System.Drawing.Point(111, 25)
+        Me.FirstName.MaxLength = 100
         Me.FirstName.Name = "FirstName"
         Me.FirstName.Size = New System.Drawing.Size(183, 20)
         Me.FirstName.TabIndex = 0
@@ -133,9 +128,9 @@ Partial Class IaipUserProfile
         Me.Label9.AutoSize = True
         Me.Label9.Location = New System.Drawing.Point(25, 106)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(45, 13)
+        Me.Label9.Size = New System.Drawing.Size(38, 13)
         Me.Label9.TabIndex = 23
-        Me.Label9.Text = "Phone *"
+        Me.Label9.Text = "Phone"
         '
         'LNameLabel
         '
@@ -157,17 +152,26 @@ Partial Class IaipUserProfile
         '
         'ProfileEP
         '
-        Me.ProfileEP.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink
-        Me.ProfileEP.ContainerControl = Me
+        Me.EP.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink
+        Me.EP.ContainerControl = Me
         '
-        'Label1
+        'RequiredLabel
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(25, 171)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(63, 13)
-        Me.Label1.TabIndex = 23
-        Me.Label1.Text = "(* Required)"
+        Me.RequiredLabel.AutoSize = True
+        Me.RequiredLabel.Location = New System.Drawing.Point(25, 171)
+        Me.RequiredLabel.Name = "RequiredLabel"
+        Me.RequiredLabel.Size = New System.Drawing.Size(58, 13)
+        Me.RequiredLabel.TabIndex = 23
+        Me.RequiredLabel.Text = "(* required)"
+        '
+        'PhoneNumber
+        '
+        Me.PhoneNumber.CausesValidation = False
+        Me.PhoneNumber.Location = New System.Drawing.Point(111, 103)
+        Me.PhoneNumber.MaxLength = 15
+        Me.PhoneNumber.Name = "PhoneNumber"
+        Me.PhoneNumber.Size = New System.Drawing.Size(103, 20)
+        Me.PhoneNumber.TabIndex = 4
         '
         'IaipUserProfile
         '
@@ -187,7 +191,7 @@ Partial Class IaipUserProfile
         Me.Controls.Add(Me.Save)
         Me.Controls.Add(Me.Label16)
         Me.Controls.Add(Me.Label10)
-        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.RequiredLabel)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.LNameLabel)
         Me.Controls.Add(Me.FNameLabel)
@@ -196,13 +200,12 @@ Partial Class IaipUserProfile
         Me.MinimizeBox = False
         Me.Name = "IaipUserProfile"
         Me.Text = "User Profile"
-        CType(Me.ProfileEP, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.EP, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
     Friend WithEvents OfficeNumber As System.Windows.Forms.TextBox
-    Friend WithEvents PhoneNumber As System.Windows.Forms.MaskedTextBox
     Friend WithEvents EmailAddress As System.Windows.Forms.TextBox
     Friend WithEvents LastName As System.Windows.Forms.TextBox
     Friend WithEvents FirstName As System.Windows.Forms.TextBox
@@ -213,7 +216,8 @@ Partial Class IaipUserProfile
     Friend WithEvents FNameLabel As System.Windows.Forms.Label
     Friend WithEvents Save As System.Windows.Forms.Button
     Friend WithEvents Cancel As System.Windows.Forms.Button
-    Friend WithEvents ProfileEP As System.Windows.Forms.ErrorProvider
+    Friend WithEvents EP As System.Windows.Forms.ErrorProvider
     Friend WithEvents MessageDisplay As System.Windows.Forms.Label
-    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents RequiredLabel As System.Windows.Forms.Label
+    Friend WithEvents PhoneNumber As System.Windows.Forms.TextBox
 End Class

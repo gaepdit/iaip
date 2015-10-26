@@ -824,48 +824,19 @@ Public Class IAIPUserAdminTool
         Finally
         End Try
     End Sub
+
     Sub CreateNewUser()
-        Try
-            If String.IsNullOrEmpty(txtFirstName.Text) OrElse String.IsNullOrEmpty(txtLastName.Text) Then
-                MsgBox("Please enter first and last name.", MsgBoxStyle.Exclamation, "IAIP User Admin Tool")
-                Exit Sub
-            End If
-
-            If String.IsNullOrEmpty(txtUserName.Text) Then
-                MsgBox("Please enter a user name.", MsgBoxStyle.Exclamation, "IAIP User Admin Tool")
-                Exit Sub
-            End If
-
-            If String.IsNullOrEmpty(txtPassword.Text) Then
-                MsgBox("Please enter a password.", MsgBoxStyle.Exclamation, "IAIP User Admin Tool")
-                Exit Sub
-            End If
-
-            If DAL.UserNameExists(txtUserName.Text) Then
-                MsgBox("That user name is already in use. Please choose another User Name.", MsgBoxStyle.Exclamation, "IAIP User Admin Tool")
-                Exit Sub
-            End If
-
-            Dim result As Boolean = DAL.CreateNewUser(txtUserName.Text, txtPassword.Text, txtLastName.Text,
-                                                      txtFirstName.Text, txtEmailAddress.Text, txtPhoneNumber.Text,
-                                                      cboBranch.SelectedValue, cboProgram.SelectedValue, cboUnit.SelectedValue,
-                                                      txtOfficeNumber.Text, rdbActiveStatus.Checked)
-            If result Then
-                UpdatePermissions()
+        Using newUserForm As New IaipCreateUser
+            Dim dr As DialogResult = newUserForm.ShowDialog()
+            If dr = System.Windows.Forms.DialogResult.OK Then
+                ' Load new user
+                LoadDataGrid("User", newUserForm.NewUserId)
+                lblUserID.Text = newUserForm.NewUserId
                 LoadUserData()
-                If CurrentServerEnvironment = DB.ServerEnvironment.PRD Then
-                    MsgBox("Successfully Done. Please restart the IAIP and create an identical user in the testing environment.", MsgBoxStyle.Information, "IAIP User Admin Tool")
-                Else
-                    MsgBox("Successfully Done.", MsgBoxStyle.Information, "IAIP User Admin Tool")
-                End If
-            Else
-                MsgBox("There was an error. No new user created.", MsgBoxStyle.Exclamation, "IAIP User Admin Tool")
             End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        End Using
     End Sub
+
     Sub UpdateUser()
         Try
             Dim EmployeeStatus As String = "0"
@@ -961,10 +932,11 @@ Public Class IAIPUserAdminTool
         Finally
         End Try
     End Sub
-    Sub LoadDataGrid(ByVal SearchType As String)
+    Sub LoadDataGrid(ByVal SearchType As String, Optional userId As Integer = 0)
         Try
             Select Case SearchType
-                Case "Self"
+                Case "Self", "User"
+                    If userId = 0 Then userId = CurrentUser.UserID
                     SQL = "select " & _
                     "AIRBRANCH.EPDUsers.numUserID, " & _
                     "strUserName, strPassword,  " & _
@@ -987,7 +959,7 @@ Public Class IAIPUserAdminTool
                     "and AIRBRANCH.EPDUserProfiles.numBranch = AIRBRANCH.LookupEPDBranches.numBranchcode (+)  " & _
                     "and AIRBRANCH.EPDUserProfiles.numProgram = AIRBRANCH.lookupEPDPrograms.numProgramcode (+)  " & _
                     "and AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitcode (+) " & _
-                    "and AIRBRANCH.EPDUsers.numUserId = '" & CurrentUser.UserID & "' "
+                    "and AIRBRANCH.EPDUsers.numUserId = '" & userId & "' "
                 Case "Search"
                     SQL = "select " & _
                     "AIRBRANCH.EPDUsers.numUserID, " & _
@@ -1364,12 +1336,7 @@ Public Class IAIPUserAdminTool
         End Try
     End Sub
     Private Sub btnCreateNewUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCreateNewUser.Click
-        Try
-            CreateNewUser()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+        CreateNewUser()
     End Sub
     Private Sub btnSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSave.Click
         Try

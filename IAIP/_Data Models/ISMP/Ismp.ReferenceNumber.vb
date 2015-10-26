@@ -66,14 +66,6 @@
             Else
                 Return True
             End If
-
-
-            ' Valid Reference numbers are in one of two forms:
-            ' * yyyyxxxxx -- where yyyy is a year greater than or equal to 2004, 
-            '                and xxxxx is a five-digit sequence number
-            ' * ???
-            'Dim rgx As New System.Text.RegularExpressions.Regex("")
-            'Return rgx.IsMatch(referenceNumber)
         End Function
 
 #End Region

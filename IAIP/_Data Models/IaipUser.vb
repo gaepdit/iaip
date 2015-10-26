@@ -3,7 +3,7 @@
 Public Class IaipUser
     Inherits Staff
 
-    Public Property UserName() As String
+    Public Property Username() As String
     Public ReadOnly Property UserID() As Integer
         Get
             Return Me.StaffId

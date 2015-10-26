@@ -43,7 +43,7 @@ Namespace DB
             Return File.ReadAllBytes(pathToFile)
         End Function
 
-        Public Function DumbConvertToBoolean(value As String, conversionType As DumbConvertBooleanType) As Boolean
+        Public Function ConvertFromDbValueToBoolean(value As String, conversionType As DumbConvertBooleanType) As Boolean
             Select Case conversionType
 
                 Case DumbConvertBooleanType.TrueOrDBNull
@@ -62,7 +62,7 @@ Namespace DB
             Return Boolean.Parse(value)
         End Function
 
-        Public Function DumbConvertFromBoolean(value As Boolean, conversionType As DumbConvertBooleanType) As String
+        Public Function ConvertFromBooleanToDbValue(value As Boolean, conversionType As DumbConvertBooleanType) As String
             Select Case conversionType
 
                 Case DumbConvertBooleanType.TrueOrDBNull

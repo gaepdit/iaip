@@ -157,8 +157,21 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Universal Forms\Users\IaipCreateUser.Designer.vb">
+      <DependentUpon>IaipCreateUser.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universal Forms\Users\IaipCreateUser.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="_Classes\RandomHelper.vb" />
+    <Compile Include="_DAL\DAL.Organization.vb" />
+    <Compile Include="_Data Services\OrganizationService.vb" />
+    <Compile Include="_Modules\RegexPatterns.vb" />
     <Compile Include="_Modules\Validation.vb" />
-    <EmbeddedResource Include="Universal Forms\Sub Forms\IaipUserProfile.resx">
+    <EmbeddedResource Include="Universal Forms\Users\IaipCreateUser.resx">
+      <DependentUpon>IaipCreateUser.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universal Forms\Users\IaipUserProfile.resx">
       <DependentUpon>IaipUserProfile.vb</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
@@ -312,16 +325,16 @@
     <Compile Include="Universal Forms\ExceptionDialog.Designer.vb">
       <DependentUpon>ExceptionDialog.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universal Forms\Sub Forms\IaipChangePassword.Designer.vb">
+    <Compile Include="Universal Forms\Users\IaipChangePassword.Designer.vb">
       <DependentUpon>IaipChangePassword.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universal Forms\Sub Forms\IaipChangePassword.vb">
+    <Compile Include="Universal Forms\Users\IaipChangePassword.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\Sub Forms\IaipUserProfile.Designer.vb">
+    <Compile Include="Universal Forms\Users\IaipUserProfile.Designer.vb">
       <DependentUpon>IaipUserProfile.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universal Forms\Sub Forms\IaipUserProfile.vb">
+    <Compile Include="Universal Forms\Users\IaipUserProfile.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="_Classes\ListViewItemComparer.vb">
@@ -964,10 +977,10 @@
     <Compile Include="Universal Forms\IAIPLogIn.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\IAIPUserAdminTool.Designer.vb">
+    <Compile Include="Universal Forms\Users\IAIPUserAdminTool.Designer.vb">
       <DependentUpon>IAIPUserAdminTool.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universal Forms\IAIPUserAdminTool.vb">
+    <Compile Include="Universal Forms\Users\IAIPUserAdminTool.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Universal Forms\Sub Forms\IAIPFacilityCreator.Designer.vb">
@@ -1579,11 +1592,11 @@
       <SubType>Designer</SubType>
       <DependentUpon>IAIPLogIn.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\IAIPUserAdminTool.resx">
+    <EmbeddedResource Include="Universal Forms\Users\IAIPUserAdminTool.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPUserAdminTool.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\Sub Forms\IaipChangePassword.resx">
+    <EmbeddedResource Include="Universal Forms\Users\IaipChangePassword.resx">
       <DependentUpon>IaipChangePassword.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Universal Forms\Sub Forms\IAIPFacilityCreator.resx">
@@ -1628,6 +1641,7 @@
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\EmailNewUserWelcome.txt" />
     <None Include="Resources\GeorgiaStaticMap.png" />
     <None Include="Resources\Seal_of_Georgia_unfinished_256x256x32.png" />
     <None Include="Resources\Seal_of_Georgia_unfinished_Win7.ico" />

@@ -13384,6 +13384,8 @@ Public Class SSPPApplicationTrackingLog
                 EmailAddress = txtContactEmailAddress.Text
             End If
 
+            Me.Cursor = Cursors.AppStarting
+
             SQL = "select " & _
             "'('||substr(strPhone, 1, 3)||') '||substr(strPhone, 4,3)||'-'||substr(strPhone, 7) as StaffPhone, " & _
             "strEmailAddress, strPhone " & _
@@ -13439,11 +13441,14 @@ Public Class SSPPApplicationTrackingLog
                 "should reference the above application number that has been assigned to this application " &
                 "and the facility's AIRS number."
 
-            Dim recipientsTo As String() = {EmailAddress}
-            CreateEmail(Subject, Body, recipientsTo, objectSender:=Me)
+            If Not CreateEmail(Subject, Body, {EmailAddress}) Then
+                MsgBox("There was an error sending the message. Please try again.", MsgBoxStyle.OkOnly, "Error")
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+            Me.Cursor = Nothing
         End Try
     End Sub
 #Region "SIP Subpart"

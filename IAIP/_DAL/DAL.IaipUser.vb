@@ -42,7 +42,7 @@ Namespace DAL
         End Function
 
         '' Not currently used, but may be useful in the future
-        'Public Function GetIaipUser(ByVal userName As String) As IaipUser
+        'Public Function GetIaipUser(ByVal username As String) As IaipUser
 
         '    Dim query As String = " -- ... " & _
         '        " WHERE UPPER(EPDUSERS.STRUSERNAME) = :username  "
@@ -50,7 +50,7 @@ Namespace DAL
         '    Dim parameters As OracleParameter()
 
         '    parameters = New OracleParameter() { _
-        '        New OracleParameter("username", userName) _
+        '        New OracleParameter("username", username) _
         '    }
 
         '    Dim dataTable As DataTable = DB.GetDataTable(query, parameters)
@@ -80,7 +80,7 @@ Namespace DAL
                 .ProgramName = DB.GetNullable(Of String)(row("STRPROGRAMDESC"))
                 .UnitId = DB.GetNullable(Of Integer)(row("NUMUNIT"))
                 .UnitName = DB.GetNullable(Of String)(row("STRUNITDESC"))
-                .UserName = DB.GetNullable(Of String)(row("STRUSERNAME"))
+                .Username = DB.GetNullable(Of String)(row("STRUSERNAME"))
                 .PermissionsString = DB.GetNullable(Of String)(row("STRIAIPPERMISSIONS"))
                 .RequirePasswordChange = Convert.ToBoolean(row("REQUIREPASSWORDCHANGE"))
                 .RequestProfileUpdate = Convert.ToBoolean(row("REQUESTPROFILEUPDATE"))
@@ -99,13 +99,23 @@ Namespace DAL
             Return DB.GetDataTable(query)
         End Function
 
-        Public Function UserNameExists(userName As String) As Boolean
-            If userName = "" Then Return False
+        Public Function UsernameExists(username As String) As Boolean
+            If username = "" Then Return False
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
                 " FROM AIRBRANCH.EPDUSERS " & _
                 " WHERE RowNum = 1 " & _
-                " AND lower(STRUSERNAME) = :userName "
-            Dim parameter As New OracleParameter("userName", userName.ToLower)
+                " AND lower(STRUSERNAME) = :username "
+            Dim parameter As New OracleParameter("username", username.ToLower)
+            Return DB.GetBoolean(query, parameter)
+        End Function
+
+        Public Function EmailIsInUse(email As String) As Boolean
+            If email.Trim = "" Then Return False
+            Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
+                " FROM AIRBRANCH.EPDUSERPROFILES " & _
+                " WHERE RowNum = 1 " & _
+                " AND lower(STREMAILADDRESS) = :email "
+            Dim parameter As New OracleParameter("email", email.Trim.ToLower)
             Return DB.GetBoolean(query, parameter)
         End Function
 
@@ -158,8 +168,9 @@ Namespace DAL
         Public Function CreateNewUser(username As String, password As String, lastname As String,
                                       firstname As String, emailaddress As String, phone As String,
                                       branchid As Integer, programid As Integer, unitid As Integer,
-                                      office As String, status As Boolean) As Boolean
-            Dim nextId As Integer = DAL.GetNextUserId
+                                      office As String, status As Boolean, ByRef newUserId As Integer) As Boolean
+            newUserId = DAL.GetNextUserId()
+            If newUserId = 0 Then Return False
 
             Dim queryList As New List(Of String)
             Dim parametersList As New List(Of OracleParameter())
@@ -169,12 +180,12 @@ Namespace DAL
                 "VALUES " &
                 "(:userid, :username, :password, :created_by ) "
             Dim params1 As OracleParameter() = New OracleParameter() { _
-                New OracleParameter("userid", nextId), _
+                New OracleParameter("userid", newUserId), _
                 New OracleParameter("username", username), _
                 New OracleParameter("password", EncryptDecrypt.EncryptText(password)), _
                 New OracleParameter("created_by", CurrentUser.UserID) _
             }
-            Dim query2 As String = "INTO AIRBRANCH.EPDUSERPROFILES " &
+            Dim query2 As String = "INSERT INTO AIRBRANCH.EPDUSERPROFILES " &
                 "( NUMUSERID , STREMPLOYEEID , STRLASTNAME , STRFIRSTNAME , " &
                 "  STREMAILADDRESS , STRPHONE , " &
                 "  NUMBRANCH , NUMPROGRAM , NUMUNIT , STROFFICE , " &
@@ -184,17 +195,17 @@ Namespace DAL
                 "  :branchid, :programid, :unitid, :office, " &
                 "  :status )"
             Dim params2 As OracleParameter() = New OracleParameter() { _
-                New OracleParameter("userid", nextId), _
+                New OracleParameter("userid", newUserId), _
                 New OracleParameter("employeeid", "000"), _
                 New OracleParameter("lastname", lastname), _
                 New OracleParameter("firstname", firstname), _
                 New OracleParameter("emailaddress", emailaddress), _
                 New OracleParameter("phone", phone), _
-                New OracleParameter("branchid", branchid), _
-                New OracleParameter("programid", programid), _
-                New OracleParameter("unitid", unitid), _
+                New OracleParameter("branchid", If(branchid < 1, DBNull.Value, branchid)), _
+                New OracleParameter("programid", If(programid < 1, DBNull.Value, programid)), _
+                New OracleParameter("unitid", If(unitid < 1, DBNull.Value, unitid)), _
                 New OracleParameter("office", office), _
-                New OracleParameter("status", DB.DumbConvertToBoolean(status, DB.DumbConvertBooleanType.OneOrZero)) _
+                New OracleParameter("status", DB.ConvertFromBooleanToDbValue(status, DB.DumbConvertBooleanType.OneOrZero)) _
             }
 
             queryList.Add(query1)

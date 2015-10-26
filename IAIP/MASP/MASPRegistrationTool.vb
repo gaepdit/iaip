@@ -906,7 +906,11 @@ Public Class MASPRegistrationTool
 
         Dim recipientsBCC As List(Of String) = GetCorrectRecipients(whichSet)
 
-        CreateEmail(subject, body, recipientsBCC:=recipientsBCC.ToArray, objectSender:=Me)
+        Me.Cursor = Cursors.AppStarting
+        If Not CreateEmail(subject, body, recipientsBCC:=recipientsBCC.ToArray) Then
+            MsgBox("There was an error sending the message. Please try again.", MsgBoxStyle.OkOnly, "Error")
+        End If
+        Me.Cursor = Nothing
     End Sub
 
     Private Function GetCorrectRecipients(Optional ByVal statusFilter As String = "") As List(Of String)

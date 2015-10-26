@@ -18,6 +18,7 @@ Module subMain
     Friend Const APP_NAME As String = "IAIP"
     Friend Const APP_FRIENDLY_NAME As String = "Integrated Air Information Platform"
     Friend Const APP_ROOT_NAMESPACE As String = "Iaip"
+    Friend Const MinUsernameLength As Integer = 3
 
     Friend DocumentationUrl As New Uri("https://sites.google.com/site/iaipdocs/")
     Friend SupportUrl As New Uri("http://dmu.georgiaair.org/iaip/")

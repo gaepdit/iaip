@@ -1,4 +1,6 @@
-﻿Namespace Apb.Sspp
+﻿Imports System.Text.RegularExpressions
+
+Namespace Apb.Sspp
 
     Public Class Permit
         Implements IEquatable(Of Permit)
@@ -60,9 +62,7 @@
             ' Valid permit numbers are in the form 0000-000-0000-A-00-?
             ' (with the dashes)
             If permitNumber Is Nothing Then Return False
-            ' Test regex here: http://regexr.com/39l4d
-            Dim rgx As New System.Text.RegularExpressions.Regex("^\d{4}-\d{3}-\d{4}-[A-Z]-\d{2}-[A-Z0-9]$")
-            Return rgx.IsMatch(permitNumber)
+            Return Regex.IsMatch(permitNumber, PermitNumberPattern)
         End Function
 
 #End Region

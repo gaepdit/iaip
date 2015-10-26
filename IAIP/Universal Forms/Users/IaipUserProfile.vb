@@ -24,7 +24,7 @@ Public Class IaipUserProfile
     End Sub
 
     Private Sub Save_Click(sender As Object, e As EventArgs) Handles Save.Click
-        ProfileEP.Clear()
+        EP.Clear()
         InvalidEntries.Clear()
         Message.Clear()
 
@@ -39,20 +39,20 @@ Public Class IaipUserProfile
     Private Function SaveProfileData() As Boolean
         Dim updatedStaff As Staff = CurrentUser.Clone
 
-        updatedStaff.FirstName = FirstName.Text
-        updatedStaff.LastName = LastName.Text
-        updatedStaff.EmailAddress = EmailAddress.Text
-        updatedStaff.PhoneNumber = PhoneNumber.Text
-        updatedStaff.OfficeNumber = OfficeNumber.Text
+        updatedStaff.FirstName = FirstName.Text.Trim
+        updatedStaff.LastName = LastName.Text.Trim
+        updatedStaff.EmailAddress = EmailAddress.Text.Trim
+        updatedStaff.PhoneNumber = PhoneNumber.Text.Trim
+        updatedStaff.OfficeNumber = OfficeNumber.Text.Trim
 
         Dim result As Boolean = DAL.UpdateStaffInfo(updatedStaff)
 
         If result Then
-            CurrentUser.FirstName = FirstName.Text
-            CurrentUser.LastName = LastName.Text
-            CurrentUser.EmailAddress = EmailAddress.Text
-            CurrentUser.PhoneNumber = PhoneNumber.Text
-            CurrentUser.OfficeNumber = OfficeNumber.Text
+            CurrentUser.FirstName = FirstName.Text.Trim
+            CurrentUser.LastName = LastName.Text.Trim
+            CurrentUser.EmailAddress = EmailAddress.Text.Trim
+            CurrentUser.PhoneNumber = PhoneNumber.Text.Trim
+            CurrentUser.OfficeNumber = OfficeNumber.Text.Trim
             Return True
         Else
             Message = New IaipMessage("An unknown error occurred. Profile not updated.", _
@@ -67,49 +67,45 @@ Public Class IaipUserProfile
         sb.AppendLine("Please correct the following errors:")
 
         For Each c As Control In InvalidEntries
-            sb.AppendLine("• " & ProfileEP.GetError(c))
+            sb.AppendLine("• " & EP.GetError(c))
         Next
 
         Message = New IaipMessage(sb.ToString, IaipMessage.WarningLevels.ErrorReport)
         Message.Display(MessageDisplay)
     End Sub
 
-#Region " File validation "
+#Region " Field validation "
+
     Private Sub FirstName_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles FirstName.Validating
-        If Not ValidateAsNonEmptyString(FirstName, ProfileEP, "First name") Then
-            e.Cancel = True
-            If Not InvalidEntries.Contains(FirstName) Then InvalidEntries.Add(FirstName)
+        If IsValidNonEmptyString(FirstName.Text) Then
+            EP.SetError(FirstName, String.Empty)
         Else
-            ProfileEP.SetError(FirstName, String.Empty)
+            e.Cancel = True
+            EP.SetError(FirstName, "First name is required")
+            If Not InvalidEntries.Contains(FirstName) Then InvalidEntries.Add(FirstName)
         End If
     End Sub
 
     Private Sub LastName_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles LastName.Validating
-        If Not ValidateAsNonEmptyString(LastName, ProfileEP, "Last name") Then
-            e.Cancel = True
-            If Not InvalidEntries.Contains(LastName) Then InvalidEntries.Add(LastName)
+        If IsValidNonEmptyString(LastName.Text) Then
+            EP.SetError(LastName, String.Empty)
         Else
-            ProfileEP.SetError(LastName, String.Empty)
+            e.Cancel = True
+            EP.SetError(LastName, "Last name is required")
+            If Not InvalidEntries.Contains(LastName) Then InvalidEntries.Add(LastName)
         End If
     End Sub
 
     Private Sub EmailAddress_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles EmailAddress.Validating
-        If Not ValidateAsEmailAddress(EmailAddress, ProfileEP, "Valid email address") Then
-            e.Cancel = True
-            If Not InvalidEntries.Contains(EmailAddress) Then InvalidEntries.Add(EmailAddress)
+        If IsValidEmailAddress(EmailAddress.Text) Then
+            EP.SetError(EmailAddress, String.Empty)
         Else
-            ProfileEP.SetError(EmailAddress, String.Empty)
+            e.Cancel = True
+            EP.SetError(EmailAddress, "Valid email address is required")
+            If Not InvalidEntries.Contains(EmailAddress) Then InvalidEntries.Add(EmailAddress)
         End If
     End Sub
 
-    Private Sub PhoneNumber_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles PhoneNumber.Validating
-        If Not ValidateAsPhoneNumber(PhoneNumber, ProfileEP, "Valid telephone number") Then
-            e.Cancel = True
-            If Not InvalidEntries.Contains(PhoneNumber) Then InvalidEntries.Add(PhoneNumber)
-        Else
-            ProfileEP.SetError(PhoneNumber, String.Empty)
-        End If
-    End Sub
 #End Region
 
 End Class
