@@ -65,6 +65,7 @@ Partial Class IaipUserProfile
         '
         Me.MessageDisplay.AutoSize = True
         Me.MessageDisplay.Location = New System.Drawing.Point(25, 202)
+        Me.MessageDisplay.MaximumSize = New System.Drawing.Size(270, 0)
         Me.MessageDisplay.MinimumSize = New System.Drawing.Size(270, 0)
         Me.MessageDisplay.Name = "MessageDisplay"
         Me.MessageDisplay.Size = New System.Drawing.Size(270, 65)
@@ -74,7 +75,6 @@ Partial Class IaipUserProfile
         '
         'OfficeNumber
         '
-        Me.OfficeNumber.CausesValidation = False
         Me.OfficeNumber.Location = New System.Drawing.Point(111, 129)
         Me.OfficeNumber.MaxLength = 10
         Me.OfficeNumber.Name = "OfficeNumber"
@@ -150,7 +150,7 @@ Partial Class IaipUserProfile
         Me.FNameLabel.TabIndex = 20
         Me.FNameLabel.Text = "First Name *"
         '
-        'ProfileEP
+        'EP
         '
         Me.EP.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink
         Me.EP.ContainerControl = Me
@@ -166,7 +166,6 @@ Partial Class IaipUserProfile
         '
         'PhoneNumber
         '
-        Me.PhoneNumber.CausesValidation = False
         Me.PhoneNumber.Location = New System.Drawing.Point(111, 103)
         Me.PhoneNumber.MaxLength = 15
         Me.PhoneNumber.Name = "PhoneNumber"

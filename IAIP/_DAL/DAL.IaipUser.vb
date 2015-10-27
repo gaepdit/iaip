@@ -105,16 +105,19 @@ Namespace DAL
                 " FROM AIRBRANCH.EPDUSERS " & _
                 " WHERE RowNum = 1 " & _
                 " AND lower(STRUSERNAME) = :username "
+
             Dim parameter As New OracleParameter("username", username.ToLower)
             Return DB.GetBoolean(query, parameter)
         End Function
 
-        Public Function EmailIsInUse(email As String) As Boolean
+        Public Function EmailIsInUse(email As String, Optional ignoreUser As Integer = 0) As Boolean
             If email.Trim = "" Then Return False
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
                 " FROM AIRBRANCH.EPDUSERPROFILES " & _
                 " WHERE RowNum = 1 " & _
-                " AND lower(STREMAILADDRESS) = :email "
+                " AND trim(lower(STREMAILADDRESS)) = :email "
+            If ignoreUser > 0 Then query &= " AND NUMUSERID <> " & ignoreUser
+
             Dim parameter As New OracleParameter("email", email.Trim.ToLower)
             Return DB.GetBoolean(query, parameter)
         End Function

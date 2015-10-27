@@ -8,8 +8,10 @@ Module Validation
         Return True
     End Function
 
-    Public Function IsValidEmailAddress(ByVal emailAddress As String) As Boolean
+    Public Function IsValidEmailAddress(ByVal emailAddress As String, Optional requireDnrAddress As Boolean = False) As Boolean
         If String.IsNullOrEmpty(emailAddress) Then Return False
+        If requireDnrAddress AndAlso Not Regex.IsMatch(emailAddress, DnrEmailPattern) Then Return False
+
         Try
             Dim testEmail As Net.Mail.MailAddress = New Net.Mail.MailAddress(emailAddress)
         Catch ex As Exception

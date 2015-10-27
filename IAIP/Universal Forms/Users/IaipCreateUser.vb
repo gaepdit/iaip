@@ -228,15 +228,15 @@ Public Class IaipCreateUser
     End Sub
 
     Private Sub EmailAddress_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles EmailAddress.Validating
-        If DAL.EmailIsInUse(EmailAddress.Text) Then
-            EP.SetError(EmailAddress, "Email address is already in use; choose another")
+        If DAL.EmailIsInUse(EmailAddress.Text.Trim) Then
+            EP.SetError(EmailAddress, "Email address is already in use")
             e.Cancel = True
             If Not InvalidEntries.Contains(EmailAddress) Then InvalidEntries.Add(EmailAddress)
-        ElseIf IsValidEmailAddress(EmailAddress.Text.Trim) Then
+        ElseIf IsValidEmailAddress(EmailAddress.Text.Trim, True) Then
             EP.SetError(EmailAddress, String.Empty)
         Else
             e.Cancel = True
-            EP.SetError(EmailAddress, "Valid email address is required")
+            EP.SetError(EmailAddress, "Valid DNR email address is required (remember to use @dnr.ga.gov, not @dnr.state.ga.us)")
             If Not InvalidEntries.Contains(EmailAddress) Then InvalidEntries.Add(EmailAddress)
         End If
     End Sub

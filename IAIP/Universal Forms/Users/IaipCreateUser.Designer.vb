@@ -73,6 +73,7 @@ Partial Class IaipCreateUser
         '
         Me.MessageDisplay.AutoSize = True
         Me.MessageDisplay.Location = New System.Drawing.Point(27, 305)
+        Me.MessageDisplay.MaximumSize = New System.Drawing.Size(264, 0)
         Me.MessageDisplay.MinimumSize = New System.Drawing.Size(264, 0)
         Me.MessageDisplay.Name = "MessageDisplay"
         Me.MessageDisplay.Size = New System.Drawing.Size(264, 65)

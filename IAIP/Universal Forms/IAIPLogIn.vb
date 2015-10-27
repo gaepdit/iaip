@@ -211,8 +211,8 @@ Public Class IAIPLogIn
 
     Private Function ValidateUserData() As Boolean
         ' Returns false only if profile info is incomplete and user doesn't update it
-        If CurrentUser.EmailAddress = "" OrElse CurrentUser.PhoneNumber = "" _
-            OrElse CurrentUser.FirstName = "" OrElse CurrentUser.LastName = "" Then
+        If CurrentUser.PhoneNumber = "" OrElse CurrentUser.FirstName = "" OrElse CurrentUser.LastName = "" _
+            OrElse CurrentUser.EmailAddress = "" Then
 
             Using editProfile As New IaipUserProfile
                 editProfile.Message = New IaipMessage("Your profile must be completed before you can log in.", IaipMessage.WarningLevels.Info)
@@ -222,12 +222,26 @@ Public Class IAIPLogIn
                     Return False
                 End If
             End Using
-        ElseIf CurrentUser.RequestProfileUpdate Then
+
+        ElseIf Not IsValidEmailAddress(CurrentUser.EmailAddress, True) Then
+
             Using editProfile As New IaipUserProfile
-                editProfile.Message = New IaipMessage("Please verify that your profile information is correct.", IaipMessage.WarningLevels.Info)
+                editProfile.Message = New IaipMessage("Your email address must be updated with a valid DNR address.", IaipMessage.WarningLevels.Info)
+                editProfile.Message.Display(editProfile.MessageDisplay)
+                Dim dr As DialogResult = editProfile.ShowDialog()
+                If dr = System.Windows.Forms.DialogResult.Cancel Then
+                    Return False
+                End If
+            End Using
+
+        ElseIf CurrentUser.RequestProfileUpdate Then
+
+            Using editProfile As New IaipUserProfile
+                editProfile.Message = New IaipMessage("Please verify and confirm that your profile information is correct.", IaipMessage.WarningLevels.Info)
                 editProfile.Message.Display(editProfile.MessageDisplay)
                 editProfile.ShowDialog()
             End Using
+
         End If
 
         Return True
