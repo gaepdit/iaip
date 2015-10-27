@@ -15,7 +15,9 @@ Public Class IaipUser
     Public WriteOnly Property PermissionsString() As String
         Set(value As String)
             IaipAccountCodes = New Generic.List(Of Integer)
-            IaipAccountCodes.AddRange(Array.ConvertAll(Of String, Integer)(value.Split(New Char() {"("c, ")"c}, StringSplitOptions.RemoveEmptyEntries), Function(s) Integer.Parse(s)))
+            If value IsNot Nothing Then
+                IaipAccountCodes.AddRange(Array.ConvertAll(Of String, Integer)(value.Split(New Char() {"("c, ")"c}, StringSplitOptions.RemoveEmptyEntries), Function(s) Integer.Parse(s)))
+            End If
             If Not IaipAccountCodes.Any() Then IaipAccountCodes.Add(0)
         End Set
     End Property
