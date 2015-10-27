@@ -1221,7 +1221,7 @@ Public Class IAIPNavigation
         ' General
         AddNavButtonIfAccountHasFormAccess(1, "Facility Summary", "IAIPFacilitySummary", NavButtonCategories.General)
         AddNavButtonIfAccountHasFormAccess(7, "Query Generator", "IAIPQueryGenerator", NavButtonCategories.General)
-        AddNavButtonIfAccountHasFormAccess(8, "Profile Management", "IAIPUserAdminTool", NavButtonCategories.General)
+        AddNavButtonIfAccountHasFormAccess(8, "User Admin", "IAIPUserAdminTool", NavButtonCategories.General)
 
         ' SSPP
         AddNavButtonIfAccountHasFormAccess(3, "Application Log", "SSPPApplicationLog", NavButtonCategories.SSPP)
@@ -1233,15 +1233,14 @@ Public Class IAIPNavigation
 
         ' SSCP
         AddNavButtonIfAccountHasFormAccess(4, "Compliance Log", "SSCPComplianceLog", NavButtonCategories.SSCP)
-        AddNavButtonIfAccountHasFormAccess(22, "Compliance Managers", "SSCPManagersTools", NavButtonCategories.SSCP)
-        AddNavButtonIfUserHasPermission({19, 20, 21, 23, 25, 118, 114}, _
-                                        "Enforcement Documents", "SscpDocuments", NavButtonCategories.SSCP)
+        AddNavButtonIfAccountHasFormAccess(22, "Compliance Management", "SSCPManagersTools", NavButtonCategories.SSCP)
+        AddNavButtonIfUserHasPermission({19, 20, 21, 23, 25, 118, 114}, "Enforcement Documents", "SscpDocuments", NavButtonCategories.SSCP)
 
         ' ISMP
         AddNavButtonIfAccountHasFormAccess(5, "Monitoring Log", "ISMPMonitoringLog", NavButtonCategories.ISMP)
         AddNavButtonIfAccountHasFormAccess(14, "Test Report Information", "ISMPTestReportAdministrative", NavButtonCategories.ISMP)
         AddNavButtonIfAccountHasFormAccess(15, "Memo Viewer", "ISMPTestMemoViewer", NavButtonCategories.ISMP)
-        AddNavButtonIfAccountHasFormAccess(17, "ISMP Managers", "ISMPManagersTools", NavButtonCategories.ISMP)
+        AddNavButtonIfAccountHasFormAccess(17, "ISMP Management", "ISMPManagersTools", NavButtonCategories.ISMP)
         AddNavButtonIfAccountHasFormAccess(128, "Smoke School", "SmokeSchool", NavButtonCategories.ISMP)
 
         ' Fees
@@ -1256,10 +1255,9 @@ Public Class IAIPNavigation
 
         ' DMU
         AddNavButtonIfAccountHasFormAccess(129, "Error Logs", "DMUDeveloperTool", NavButtonCategories.DMU)
-        AddNavButtonIfUserHasPermission({118, 19, 28}, _
-                                        "EDT Errors", "DmuEdtErrorMessages", NavButtonCategories.DMU)
+        AddNavButtonIfUserHasPermission({118, 19, 28}, "EDT Errors", "DmuEdtErrorMessages", NavButtonCategories.DMU)
         AddNavButtonIfAccountHasFormAccess(10, "District Tools", "IAIPDistrictSourceTool", NavButtonCategories.DMU)
-        AddNavButtonIfAccountHasFormAccess(133, "Look Up Tables", "IAIPLookUpTables", NavButtonCategories.DMU)
+        AddNavButtonIfAccountHasFormAccess(133, "Lookup Tables", "IAIPLookUpTables", NavButtonCategories.DMU)
         AddNavButtonIfUserHasPermission(118, "Organization Editor", "IAIPListTool", NavButtonCategories.DMU)
         If (CurrentUser.UserID = "345") Then
             AddNavButtonIfAccountHasFormAccess(63, "Special Tools", "DMUDangerousTool", NavButtonCategories.DMU)
@@ -1270,16 +1268,11 @@ Public Class IAIPNavigation
         AddNavButtonIfAccountHasFormAccess(130, "EIS && GECO Tools", "DMUEisGecoTool", NavButtonCategories.EIS)
 
         'SBEAP
-        AddNavButtonIfUserHasPermission({142, 143, 118}, _
-                                "Customer Summary", "SBEAPClientSummary", NavButtonCategories.SBEAP)
-        AddNavButtonIfUserHasPermission({142, 143, 118}, _
-                                "Case Log", "SBEAPCaseLog", NavButtonCategories.SBEAP)
-        AddNavButtonIfUserHasPermission({142, 143, 118}, _
-                                "Report Tool", "SBEAPReports", NavButtonCategories.SBEAP)
-        AddNavButtonIfUserHasPermission({142, 143, 118}, _
-                                "Phone Log", "SBEAPPhoneLog", NavButtonCategories.SBEAP)
-        AddNavButtonIfUserHasPermission({142, 143, 118}, _
-                                "Misc. Tools", "SBEAPMiscTools", NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission({142, 143, 118}, "Customer Summary", "SBEAPClientSummary", NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission({142, 143, 118}, "Case Log", "SBEAPCaseLog", NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission({142, 143, 118}, "Report Tool", "SBEAPReports", NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission({142, 143, 118}, "Phone Log", "SBEAPPhoneLog", NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission({142, 143, 118}, "Misc. Tools", "SBEAPMiscTools", NavButtonCategories.SBEAP)
 
     End Sub
 
@@ -1295,6 +1288,22 @@ Public Class IAIPNavigation
 
     Private Sub mmiExport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExport.Click
         dgvWorkViewer.ExportToExcel(Me)
+    End Sub
+
+    Private Sub UpdateProfile_Click(sender As Object, e As EventArgs) Handles UpdateProfile.Click
+        Dim pf As New IaipUserProfile
+        pf.ShowDialog()
+        If pf.DialogResult = System.Windows.Forms.DialogResult.OK Then
+            MessageBox.Show("Profile successfully updated.", "Success", MessageBoxButtons.OK)
+        End If
+    End Sub
+
+    Private Sub ChangePassword_Click(sender As Object, e As EventArgs) Handles ChangePassword.Click
+        Dim cp As New IaipChangePassword
+        cp.ShowDialog()
+        If cp.DialogResult = System.Windows.Forms.DialogResult.OK Then
+            MessageBox.Show("Password successfully updated.", "Success", MessageBoxButtons.OK)
+        End If
     End Sub
 
     Private Sub mmiResetForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiResetForm.Click
@@ -1323,16 +1332,6 @@ Public Class IAIPNavigation
         Throw New Exception("Unhandled exception testing")
     End Sub
 
-    Private Sub MenuItem1_Click(sender As Object, e As EventArgs) Handles MenuItem1.Click
-        'Dim f As New SscpFceEvent
-        'f.AirsNumber = New Apb.ApbFacilityId("00100001")
-        'f.Show()
-    End Sub
-
 #End Region
 
-    Private Sub MenuItem2_Click(sender As Object, e As EventArgs) Handles MenuItem2.Click
-        Dim pf As New IaipUserProfile
-        MessageBox.Show(pf.ShowDialog.ToString)
-    End Sub
 End Class

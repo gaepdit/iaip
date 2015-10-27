@@ -22,41 +22,34 @@ Public Class IAIPUserAdminTool
 
             txtPhoneNumber.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals
 
-            If AccountFormAccess(8, 4) = "1" Then
-                cboPermissionBranch.Enabled = True
-                cboBranch.Enabled = True
-            Else
+            If Not AccountFormAccess(8, 4) = "1" Then
                 cboPermissionBranch.Enabled = False
                 cboBranch.Enabled = False
-                If AccountFormAccess(8, 3) = "1" Then
 
-                Else
+                If Not AccountFormAccess(8, 3) = "1" Then
                     cboPermissionProgram.Enabled = False
                     cboProgram.Enabled = False
-                    If AccountFormAccess(8, 2) = "1" Then
 
-                    Else
-                        If AccountFormAccess(8, 1) = "1" Then
-                            btnClearAllPermissions.Enabled = False
-                            cboPermissionProgram.Enabled = False
-                            cboProgram.Enabled = False
-                            cboUnit.Enabled = False
-                            rdbActiveStatus.Enabled = False
-                            rdbInactiveStatus.Enabled = False
-                            btnCreateNewUser.Visible = False
-                        Else
-                            txtFirstName.ReadOnly = True
-                            txtLastName.ReadOnly = True
-                            txtEmailAddress.ReadOnly = True
-                            txtPhoneNumber.ReadOnly = True
-                            btnSave.Enabled = False
-                            txtUserName.ReadOnly = True
-                            txtPassword.ReadOnly = True
-                            btnClearAllPermissions.Enabled = False
-                        End If
+                    If Not AccountFormAccess(8, 2) = "1" Then
+                        btnClearAllPermissions.Enabled = False
+                        cboPermissionProgram.Enabled = False
+                        cboProgram.Enabled = False
+                        cboUnit.Enabled = False
+                        rdbActiveStatus.Enabled = False
+                        rdbInactiveStatus.Enabled = False
+                        btnCreateNewUser.Visible = False
+                        txtFirstName.ReadOnly = True
+                        txtLastName.ReadOnly = True
+                        txtEmailAddress.ReadOnly = True
+                        txtPhoneNumber.ReadOnly = True
+                        btnSave.Enabled = False
+                        txtUserName.ReadOnly = True
+                        txtPassword.ReadOnly = True
+                        btnClearAllPermissions.Enabled = False
                     End If
                 End If
             End If
+
             cboBranch.SelectedValue = CurrentUser.BranchID
 
         Catch ex As Exception

@@ -20,12 +20,15 @@ Partial Class IAIPNavigation
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.mmiFile = New System.Windows.Forms.MenuItem()
         Me.mmiExit = New System.Windows.Forms.MenuItem()
         Me.mmiTools = New System.Windows.Forms.MenuItem()
         Me.mmiExport = New System.Windows.Forms.MenuItem()
+        Me.ProfileMenuItem = New System.Windows.Forms.MenuItem()
+        Me.UpdateProfile = New System.Windows.Forms.MenuItem()
+        Me.ChangePassword = New System.Windows.Forms.MenuItem()
         Me.mmiHelp = New System.Windows.Forms.MenuItem()
         Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem()
         Me.mmiResetForm = New System.Windows.Forms.MenuItem()
@@ -34,7 +37,6 @@ Partial Class IAIPNavigation
         Me.TestingMenu = New System.Windows.Forms.MenuItem()
         Me.TestPingDb = New System.Windows.Forms.MenuItem()
         Me.TestThrowError = New System.Windows.Forms.MenuItem()
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.flpNavButtons = New System.Windows.Forms.FlowLayoutPanel()
         Me.grpQuickAccess = New System.Windows.Forms.GroupBox()
@@ -82,7 +84,6 @@ Partial Class IAIPNavigation
         Me.ListChangerPanel = New System.Windows.Forms.Panel()
         Me.pnlContextSubView = New System.Windows.Forms.Panel()
         Me.dgvWorkViewer = New System.Windows.Forms.DataGridView()
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem()
         Me.grpQuickAccess.SuspendLayout()
         Me.SbeapQuickAccessPanel.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -94,7 +95,7 @@ Partial Class IAIPNavigation
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiTools, Me.mmiHelp, Me.TestingMenu})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiTools, Me.ProfileMenuItem, Me.mmiHelp, Me.TestingMenu})
         '
         'mmiFile
         '
@@ -119,9 +120,25 @@ Partial Class IAIPNavigation
         Me.mmiExport.Index = 0
         Me.mmiExport.Text = "&Export list to Excel"
         '
+        'ProfileMenuItem
+        '
+        Me.ProfileMenuItem.Index = 2
+        Me.ProfileMenuItem.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.UpdateProfile, Me.ChangePassword})
+        Me.ProfileMenuItem.Text = "&Profile"
+        '
+        'UpdateProfile
+        '
+        Me.UpdateProfile.Index = 0
+        Me.UpdateProfile.Text = "&Update profile"
+        '
+        'ChangePassword
+        '
+        Me.ChangePassword.Index = 1
+        Me.ChangePassword.Text = "&Change password"
+        '
         'mmiHelp
         '
-        Me.mmiHelp.Index = 2
+        Me.mmiHelp.Index = 3
         Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp, Me.mmiResetForm, Me.mmiSeparator1, Me.mmiAbout})
         Me.mmiHelp.Text = "&Help"
         '
@@ -129,12 +146,12 @@ Partial Class IAIPNavigation
         '
         Me.mmiOnlineHelp.Index = 0
         Me.mmiOnlineHelp.Shortcut = System.Windows.Forms.Shortcut.F1
-        Me.mmiOnlineHelp.Text = "Online &Help"
+        Me.mmiOnlineHelp.Text = "Online &help"
         '
         'mmiResetForm
         '
         Me.mmiResetForm.Index = 1
-        Me.mmiResetForm.Text = "&Reset All Forms"
+        Me.mmiResetForm.Text = "&Reset all IAIP forms"
         '
         'mmiSeparator1
         '
@@ -148,8 +165,8 @@ Partial Class IAIPNavigation
         '
         'TestingMenu
         '
-        Me.TestingMenu.Index = 3
-        Me.TestingMenu.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.TestPingDb, Me.TestThrowError, Me.MenuItem1, Me.MenuItem2})
+        Me.TestingMenu.Index = 4
+        Me.TestingMenu.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.TestPingDb, Me.TestThrowError})
         Me.TestingMenu.Text = "T&esting"
         Me.TestingMenu.Visible = False
         '
@@ -162,11 +179,6 @@ Partial Class IAIPNavigation
         '
         Me.TestThrowError.Index = 1
         Me.TestThrowError.Text = "Throw error"
-        '
-        'MenuItem1
-        '
-        Me.MenuItem1.Index = 2
-        Me.MenuItem1.Text = "Open New FCE form"
         '
         'lblTitle
         '
@@ -718,8 +730,8 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.AllowUserToDeleteRows = False
         Me.dgvWorkViewer.AllowUserToOrderColumns = True
         Me.dgvWorkViewer.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvWorkViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvWorkViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvWorkViewer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.dgvWorkViewer.ColumnHeadersHeight = 35
         Me.dgvWorkViewer.Dock = System.Windows.Forms.DockStyle.Fill
@@ -731,11 +743,6 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvWorkViewer.Size = New System.Drawing.Size(686, 187)
         Me.dgvWorkViewer.TabIndex = 4
-        '
-        'MenuItem2
-        '
-        Me.MenuItem2.Index = 3
-        Me.MenuItem2.Text = "&Profile"
         '
         'IAIPNavigation
         '
@@ -831,6 +838,7 @@ Partial Class IAIPNavigation
     Friend WithEvents dgvWorkViewer As System.Windows.Forms.DataGridView
     Friend WithEvents ListChangerPanel As System.Windows.Forms.Panel
     Friend WithEvents TestThrowError As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
+    Friend WithEvents ProfileMenuItem As System.Windows.Forms.MenuItem
+    Friend WithEvents UpdateProfile As System.Windows.Forms.MenuItem
+    Friend WithEvents ChangePassword As System.Windows.Forms.MenuItem
 End Class
