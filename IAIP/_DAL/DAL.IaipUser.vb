@@ -130,7 +130,7 @@ Namespace DAL
         Public Function UpdateUserPassword(userId As Integer, newPassword As String, oldPassword As String) As PasswordUpdateResponse
             If userId = 0 Then Return PasswordUpdateResponse.InvalidInput
             If newPassword = "" Then Return PasswordUpdateResponse.InvalidNewPassword
-            If oldPassword = "" OrElse Not CheckUserPassword(oldPassword) Then Return PasswordUpdateResponse.InvalidOldPassword
+            If oldPassword = "" OrElse Not CheckUserPassword(userId, oldPassword) Then Return PasswordUpdateResponse.InvalidOldPassword
 
             Dim query As String = "UPDATE AIRBRANCH.EPDUSERS " &
                 "SET STRPASSWORD = :newPassword , " &
@@ -158,14 +158,18 @@ Namespace DAL
             UnknownError
         End Enum
 
-        Private Function CheckUserPassword(password As String) As Boolean
+        Private Function CheckUserPassword(userId As Integer, password As String) As Boolean
             If password = "" Then Return False
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
                 " FROM AIRBRANCH.EPDUSERS " & _
                 " WHERE RowNum = 1 " & _
-                " AND STRPASSWORD = :password"
-            Dim parameter As New OracleParameter("password", EncryptDecrypt.EncryptText(password))
-            Return DB.GetBoolean(query, parameter)
+                " AND NUMUSERID = :userId AND STRPASSWORD = :password"
+
+            Dim parameters As OracleParameter() = { _
+                New OracleParameter("userId", userId), _
+                New OracleParameter("password", EncryptDecrypt.EncryptText(password)) _
+            }
+            Return DB.GetBoolean(query, parameters)
         End Function
 
         Public Function CreateNewUser(username As String, password As String, lastname As String,
