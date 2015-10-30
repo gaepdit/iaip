@@ -20,7 +20,7 @@ Partial Class IAIPNavigation
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.mmiFile = New System.Windows.Forms.MenuItem()
         Me.mmiExit = New System.Windows.Forms.MenuItem()
@@ -84,6 +84,8 @@ Partial Class IAIPNavigation
         Me.ListChangerPanel = New System.Windows.Forms.Panel()
         Me.pnlContextSubView = New System.Windows.Forms.Panel()
         Me.dgvWorkViewer = New System.Windows.Forms.DataGridView()
+        Me.LogOut = New System.Windows.Forms.MenuItem()
+        Me.MenuItem2 = New System.Windows.Forms.MenuItem()
         Me.grpQuickAccess.SuspendLayout()
         Me.SbeapQuickAccessPanel.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -123,13 +125,13 @@ Partial Class IAIPNavigation
         'ProfileMenuItem
         '
         Me.ProfileMenuItem.Index = 2
-        Me.ProfileMenuItem.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.UpdateProfile, Me.ChangePassword})
-        Me.ProfileMenuItem.Text = "&Profile"
+        Me.ProfileMenuItem.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.UpdateProfile, Me.ChangePassword, Me.MenuItem2, Me.LogOut})
+        Me.ProfileMenuItem.Text = "&Account"
         '
         'UpdateProfile
         '
         Me.UpdateProfile.Index = 0
-        Me.UpdateProfile.Text = "&Update profile"
+        Me.UpdateProfile.Text = "Update &Profile"
         '
         'ChangePassword
         '
@@ -146,7 +148,7 @@ Partial Class IAIPNavigation
         '
         Me.mmiOnlineHelp.Index = 0
         Me.mmiOnlineHelp.Shortcut = System.Windows.Forms.Shortcut.F1
-        Me.mmiOnlineHelp.Text = "Online &help"
+        Me.mmiOnlineHelp.Text = "Online &Help"
         '
         'mmiResetForm
         '
@@ -730,8 +732,8 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.AllowUserToDeleteRows = False
         Me.dgvWorkViewer.AllowUserToOrderColumns = True
         Me.dgvWorkViewer.AllowUserToResizeRows = False
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvWorkViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvWorkViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvWorkViewer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.dgvWorkViewer.ColumnHeadersHeight = 35
         Me.dgvWorkViewer.Dock = System.Windows.Forms.DockStyle.Fill
@@ -743,6 +745,16 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvWorkViewer.Size = New System.Drawing.Size(686, 187)
         Me.dgvWorkViewer.TabIndex = 4
+        '
+        'LogOut
+        '
+        Me.LogOut.Index = 3
+        Me.LogOut.Text = "&Log Out"
+        '
+        'MenuItem2
+        '
+        Me.MenuItem2.Index = 2
+        Me.MenuItem2.Text = "-"
         '
         'IAIPNavigation
         '
@@ -841,4 +853,6 @@ Partial Class IAIPNavigation
     Friend WithEvents ProfileMenuItem As System.Windows.Forms.MenuItem
     Friend WithEvents UpdateProfile As System.Windows.Forms.MenuItem
     Friend WithEvents ChangePassword As System.Windows.Forms.MenuItem
+    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
+    Friend WithEvents LogOut As System.Windows.Forms.MenuItem
 End Class

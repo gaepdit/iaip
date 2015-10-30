@@ -36,13 +36,23 @@ Module Analytics
         monitor.SetInstallationInfo(Environment.MachineName, monitorInstallationInfo)
     End Sub
 
+    Public Sub AddMonitorLoginData()
+        ' Add additional installation meta data for analytics
+        monitorInstallationInfo.Add("IaipUsername", CurrentUser.Username)
+        monitor.SetInstallationInfo(CurrentUser.Username, monitorInstallationInfo)
+        If (CurrentServerEnvironment <> DB.DefaultServerEnvironment) Then
+            monitor.TrackFeature("Main.TestingEnvironment")
+        End If
+        monitor.ForceSync()
+    End Sub
+
     Public Sub StopMonitor()
         With monitor
             .TrackFeatureStop("Runtime")
             .Stop()
             .Dispose()
         End With
-
+        monitorInstallationInfo.Clear()
     End Sub
 
 End Module

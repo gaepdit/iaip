@@ -6,31 +6,10 @@ Public Class IAIPNavigation
 
 #Region " Local variables and properties "
 
-#Region " WorkViewer properties "
-
-    Private dtWorkViewerTable As DataTable
-
-    Private _currentWorkViewerContext As WorkViewerType
-    Private Property CurrentWorkViewerContext() As WorkViewerType
-        Get
-            Return _currentWorkViewerContext
-        End Get
-        Set(ByVal value As WorkViewerType)
-            _currentWorkViewerContext = value
-        End Set
-    End Property
-
-    Private _currentWorkViewerContextParameter As String
-    Private Property CurrentWorkViewerContextParameter() As String
-        Get
-            Return _currentWorkViewerContextParameter
-        End Get
-        Set(ByVal value As String)
-            _currentWorkViewerContextParameter = value
-        End Set
-    End Property
-
-#End Region
+    Private Property WorkViewerTable As DataTable
+    Private Property CurrentWorkViewerContext As WorkViewerType = WorkViewerType.None
+    Private Property CurrentWorkViewerContextParameter As String = ""
+    Private Property ExitWhenClosed As Boolean = True
 
 #End Region
 
@@ -64,7 +43,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub IAIPNavigation_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-        StartupShutdown.CloseIaip()
+        If ExitWhenClosed Then StartupShutdown.CloseIaip()
     End Sub
 
 #End Region
@@ -874,8 +853,8 @@ Public Class IAIPNavigation
 
     Private Sub bgrLoadWorkViewer_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bgrLoadWorkViewer.DoWork
         Try
-            dtWorkViewerTable = New DataTable
-            dtWorkViewerTable = DAL.GetWorkViewerListAsDataTable(CurrentWorkViewerContext, CurrentWorkViewerContextParameter)
+            WorkViewerTable = New DataTable
+            WorkViewerTable = DAL.GetWorkViewerListAsDataTable(CurrentWorkViewerContext, CurrentWorkViewerContextParameter)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -885,14 +864,14 @@ Public Class IAIPNavigation
         pnlCurrentList.Enabled = True
         btnChangeWorkViewerContext.Text = "Load"
 
-        If dtWorkViewerTable IsNot Nothing AndAlso dtWorkViewerTable.Rows.Count > 0 Then
-            dgvWorkViewer.DataSource = dtWorkViewerTable
+        If WorkViewerTable IsNot Nothing AndAlso WorkViewerTable.Rows.Count > 0 Then
+            dgvWorkViewer.DataSource = WorkViewerTable
 
             dgvWorkViewer.Visible = True
             lblMessageLabel.Visible = False
             lblMessageLabel.Text = ""
             lblResultsCount.Visible = True
-            lblResultsCount.Text = dtWorkViewerTable.Rows.Count & " results"
+            lblResultsCount.Text = WorkViewerTable.Rows.Count & " results"
 
             FormatWorkViewer()
         Else
@@ -1303,6 +1282,28 @@ Public Class IAIPNavigation
         cp.ShowDialog()
         If cp.DialogResult = System.Windows.Forms.DialogResult.OK Then
             MessageBox.Show("Password successfully updated.", "Success", MessageBoxButtons.OK)
+        End If
+    End Sub
+
+    Private Sub LogOut_Click(sender As Object, e As EventArgs) Handles LogOut.Click
+        Dim currentlyOpenForms As FormCollection = Application.OpenForms
+
+        If currentlyOpenForms Is Nothing Then
+            CloseIaip()
+        ElseIf currentlyOpenForms.Count > 1 Then
+            MessageBox.Show("Close all open IAIP windows before logging off.", "Save your work", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            For Each f As Form In currentlyOpenForms
+                If f.WindowState = FormWindowState.Minimized Then
+                    f.WindowState = FormWindowState.Normal
+                End If
+                f.Show()
+                f.Activate()
+            Next
+        Else
+            ExitWhenClosed = False
+            LogOutUser()
+            OpenSingleForm(IAIPLogIn)
+            Me.Close()
         End If
     End Sub
 

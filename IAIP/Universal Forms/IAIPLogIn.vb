@@ -166,14 +166,7 @@ Public Class IAIPLogIn
             Exit Sub
         End If
 
-        ' Add additional installation meta data for analytics
-        monitorInstallationInfo.Add("IaipUsername", CurrentUser.Username)
-        monitor.SetInstallationInfo(CurrentUser.Username, monitorInstallationInfo)
-        If (CurrentServerEnvironment <> DB.DefaultServerEnvironment) Then
-            monitor.TrackFeature("Main.TestingEnvironment")
-        End If
-        monitor.ForceSync()
-
+        AddMonitorLoginData()
         SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
         OpenSingleForm(IAIPNavigation)
 

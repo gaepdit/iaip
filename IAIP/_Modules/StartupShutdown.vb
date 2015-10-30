@@ -74,4 +74,11 @@
         Application.Exit()
     End Sub
 
+    Friend Sub LogOutUser()
+        CurrentUser = Nothing
+        monitor.TrackFeature("Main.LogOut")
+        StopMonitor()
+        InitializeMonitor()
+    End Sub
+
 End Module
