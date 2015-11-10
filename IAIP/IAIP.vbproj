@@ -31,8 +31,8 @@
     </UpgradeBackupLocation>
     <TargetZone>LocalIntranet</TargetZone>
     <GenerateManifests>true</GenerateManifests>
-    <ManifestCertificateThumbprint>D1015B3FFCAA08C33A50ABF7604A4488A73397CA</ManifestCertificateThumbprint>
-    <ManifestKeyFile>IAIP_New_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestCertificateThumbprint>B151AE02D05EE4D592DB6846765D8EB1BFAE9B18</ManifestCertificateThumbprint>
+    <ManifestKeyFile>IAIP_TemporaryKey.pfx</ManifestKeyFile>
     <SignManifests>true</SignManifests>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OldToolsVersion>3.5</OldToolsVersion>
@@ -169,6 +169,7 @@
     <None Include="Crystal Reports\CrDataSet.xss">
       <DependentUpon>CrDataSet.xsd</DependentUpon>
     </None>
+    <None Include="IAIP_TemporaryKey.pfx" />
     <None Include="My Project\Settings.settings">
       <CustomToolNamespace>My</CustomToolNamespace>
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -1621,7 +1622,6 @@
     <None Include="Resources\GeorgiaStaticMap.png" />
     <None Include="Resources\Seal_of_Georgia_unfinished_256x256x32.png" />
     <None Include="Resources\Seal_of_Georgia_unfinished_Win7.ico" />
-    <None Include="IAIP_New_TemporaryKey.pfx" />
     <Content Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
