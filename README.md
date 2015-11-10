@@ -17,12 +17,19 @@ Prerequisites
 
 + [Microsoft .NET Framework 4.5.2 Developer Pack](http://www.microsoft.com/en-us/download/details.aspx?id=42637)
 
-+ [SAP Crystal Reports, developer version for Microsoft Visual Studio](http://scn.sap.com/docs/DOC-7824). Be sure to download the Install Executable, not the MSI. I'm currently using v.13.0.14.
++ [SAP Crystal Reports, developer version for Microsoft Visual Studio](http://scn.sap.com/docs/DOC-7824). Be sure to download the Install Executable, not the MSI. I'm currently using v.13.0.15.
 
-+ Some NuGet packages are required. Open the NuGet Package Manager and click Restore to install them:
++ Some NuGet packages are required. They should be restored automatically. If not, open the NuGet Package Manager and click Restore to install them:
+  - Oracle ODP.NET, Managed Driver
+  - Telerik Analytics Monitor
 
-  + Oracle ODP.NET, Managed Driver
-  + Telerik Analytics Monitor
+
+Setup
+-----
+
+* Make sure you have a good hgignore file set up or you will have lots of unnecessary and temporary files invading your repository. Use the example in the [Common Libraries repo](https://bitbucket.org/dougwaldron/common-libraries/src/default/Mercurial%20settings/hgignore.ini?fileviewer=file-view-default)
+
+* Before publishing, you will need to [create a Test Certificate](https://msdn.microsoft.com/en-us/library/che5h906%28v=vs.120%29.aspx) for signing the ClickOnce manifest. Recommended: Use a single space character as the password.
 
 
 Branches
