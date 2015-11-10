@@ -5,7 +5,7 @@ IAIP Notes for Developers
 Source Code
 -----------
 
-The IAIP currently targets the .NET Framework version 4.5.1. It is built in Visual Studio 2013 (but other versions may work).
+The IAIP currently targets the .NET Framework version 4.5.2. It is built in Visual Studio 2013 (but other versions may work).
 
 The repository is on [Bitbucket](https://bitbucket.org/bgregory/iaip).
 
@@ -14,6 +14,8 @@ Prerequisites
 -------------
 
 + Visual Studio 2013
+
++ [Microsoft .NET Framework 4.5.2 Developer Pack](http://www.microsoft.com/en-us/download/details.aspx?id=42637)
 
 + [SAP Crystal Reports, developer version for Microsoft Visual Studio](http://scn.sap.com/docs/DOC-7824). Be sure to download the Install Executable, not the MSI. I'm currently using v.13.0.14.
 
