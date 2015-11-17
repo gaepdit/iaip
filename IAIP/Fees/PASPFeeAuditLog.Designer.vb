@@ -1411,7 +1411,6 @@ Partial Class PASPFeeAuditLog
         '
         Me.crFeeStatsAndInvoices.ActiveViewIndex = -1
         Me.crFeeStatsAndInvoices.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.crFeeStatsAndInvoices.CachedPageNumberPerDoc = 10
         Me.crFeeStatsAndInvoices.Cursor = System.Windows.Forms.Cursors.Default
         Me.crFeeStatsAndInvoices.Dock = System.Windows.Forms.DockStyle.Fill
         Me.crFeeStatsAndInvoices.Location = New System.Drawing.Point(0, 0)
@@ -4382,7 +4381,6 @@ Partial Class PASPFeeAuditLog
         Me.btnCheckInvoices.TabIndex = 19
         Me.btnCheckInvoices.Text = "Validate all Invoices"
         Me.btnCheckInvoices.UseVisualStyleBackColor = True
-        Me.btnCheckInvoices.Visible = False
         '
         'EditContactsButton
         '
