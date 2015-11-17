@@ -3640,7 +3640,7 @@ Public Class SSPPApplicationTrackingLog
                 txtDistrict.BackColor = Color.Tomato
             End If
         Catch ex As Exception
-            ErrorReport(ex, txtAIRSNumber.Text, "SSPPPermitTracking.LoadBasicFacilityInfo")
+            ErrorReport(ex, txtAIRSNumber.Text, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4648,7 +4648,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, temp, "SSPPPermitTracking.LoadApplicationData")
+            ErrorReport(ex, temp, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -7070,7 +7070,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, SQL & vbCrLf & txtAIRSNumber.Text, "SSPPPermitTracking.LinkApplications")
+            ErrorReport(ex, SQL & vbCrLf & txtAIRSNumber.Text, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -9542,12 +9542,6 @@ Public Class SSPPApplicationTrackingLog
 
         End Try
 
-    End Sub
-    Private Sub TBSSPPPermitTrackingLog_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBSSPPPermitTrackingLog.ButtonClick
-        Select Case TBSSPPPermitTrackingLog.Buttons.IndexOf(e.Button)
-            Case 0
-                PreSaveCheckThenSave()
-        End Select
     End Sub
     Private Sub btnSaveInformationRequest_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveInformationRequest.Click
         Try
@@ -17966,5 +17960,9 @@ Public Class SSPPApplicationTrackingLog
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
+    End Sub
+
+    Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
+        PreSaveCheckThenSave()
     End Sub
 End Class

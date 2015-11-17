@@ -7761,7 +7761,7 @@ Public Class PASPFeeStatistics
             "    AND AD.NUMFEEYEAR        = CI.NUMFEEYEAR(+) " & _
             "    AND AD.NUMFEEYEAR        = TRX.NUMFEEYEAR(+) " & _
             "    AND AD.NUMCURRENTSTATUS  = LK_AS.ID " & _
-            "    AND AD.NUMFEEYEAR        = '2013' " & _
+            "    AND AD.NUMFEEYEAR        = '" & cboFeeStatYear.Text & "' " & _
             "    AND (AD.STRENROLLED      = '1' " & _
             "    OR AD.STRENROLLED       IS NULL) " & _
             "    AND AD.NUMCURRENTSTATUS <= '8' " & _
@@ -9082,56 +9082,52 @@ Public Class PASPFeeStatistics
     Private Sub btnCheckInvoices_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCheckInvoices.Click
         Try
             If cboFeeStatYear.Text <> "" Then
-                SQL = "Update airbranch.FS_FeeInvoice set " & _
+                Dim query As String = "Update airbranch.FS_FeeInvoice set " & _
                 "strInvoiceStatus = '1', " & _
-                "UpdateUser = '" & Replace(CurrentUser.AlphaName, "'", "''") & "',  " & _
+                "UpdateUser = :Username,  " & _
                 "updateDateTime = sysdate " & _
-                "where numFeeYear = '" & cboFeeStatYear.Text & "' " & _
+                "where numFeeYear = :FeeYear " & _
                 "and numAmount = '0' " & _
                 "and strInvoiceStatus = '0' " & _
                 "and active = '1' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                Dim parameters As OracleParameter() = New OracleParameter() { _
+                    New OracleParameter("Username", UserName), _
+                    New OracleParameter("FeeYear", cboFeeStatYear.Text)
+                }
 
-                SQL = "Select " & _
+                If Not DB.RunCommand(query, parameters) Then
+                    MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End If
+
+                query = "Select " & _
                 "strAirsnumber " & _
                 "from AIRBranch.FS_FeeInvoice " & _
                 "where numAmount = '0' " & _
                 "and strInvoiceStatus = '1' " & _
                 "and Active = '1' " & _
-                "and updateUser = '" & Replace(CurrentUser.AlphaName, "'", "''") & "' " & _
-                "and numFeeyear = '" & cboFeeStatYear.Text & "' "
+                "and updateUser = :Username " & _
+                "and numFeeyear = :FeeYear "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("strAIRSNumber")) Then
-                        temp = ""
-                    Else
-                        temp = dr.Item("strAIRSNumber")
-                    End If
-                    If temp <> "" Then
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        cmd = New OracleCommand("AIRBranch.PD_FEE_STATUS", CurrentConnection)
-                        cmd.CommandType = CommandType.StoredProcedure
+                Using connection As New OracleConnection(DB.CurrentConnectionString)
+                    Using cmd As OracleCommand = connection.CreateCommand
+                        cmd.CommandType = CommandType.Text
+                        cmd.BindByName = True
+                        cmd.CommandText = query
 
-                        cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = cboFeeStatYear.Text
-                        cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleDbType.Varchar2)).Value = temp
-
-                        cmd.ExecuteNonQuery()
-                    End If
-                End While
-                dr.Close()
+                        cmd.Parameters.AddRange(parameters)
+                        cmd.Connection.Open()
+                        dr = cmd.ExecuteReader
+                        While dr.Read
+                            If Not IsDBNull(dr.Item("strAIRSNumber")) Then
+                                DAL.Update_FS_Admin_Status(cboFeeStatYear.Text, dr.Item("strAIRSNumber"))
+                            End If
+                        End While
+                        dr.Close()
+                        cmd.Connection.Close()
+                    End Using
+                End Using
 
                 MsgBox("Fee Invoices validated.", MsgBoxStyle.Information, Me.Text)
             End If
