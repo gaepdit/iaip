@@ -7761,7 +7761,7 @@ Public Class PASPFeeStatistics
             "    AND AD.NUMFEEYEAR        = CI.NUMFEEYEAR(+) " & _
             "    AND AD.NUMFEEYEAR        = TRX.NUMFEEYEAR(+) " & _
             "    AND AD.NUMCURRENTSTATUS  = LK_AS.ID " & _
-            "    AND AD.NUMFEEYEAR        = '2013' " & _
+            "    AND AD.NUMFEEYEAR        = '" & cboFeeStatYear.Text & "' " & _
             "    AND (AD.STRENROLLED      = '1' " & _
             "    OR AD.STRENROLLED       IS NULL) " & _
             "    AND AD.NUMCURRENTSTATUS <= '8' " & _
