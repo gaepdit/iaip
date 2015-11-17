@@ -1514,7 +1514,6 @@ Partial Class PASPFeeStatistics
         Me.btnCheckInvoices.TabIndex = 218
         Me.btnCheckInvoices.Text = "Validate all Invoices"
         Me.btnCheckInvoices.UseVisualStyleBackColor = True
-        Me.btnCheckInvoices.Visible = False
         '
         'llbFSSummaryPaidNotFinalized
         '
@@ -2898,7 +2897,6 @@ Partial Class PASPFeeStatistics
         '
         Me.CRFeesReports.ActiveViewIndex = -1
         Me.CRFeesReports.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CRFeesReports.CachedPageNumberPerDoc = 10
         Me.CRFeesReports.Cursor = System.Windows.Forms.Cursors.Default
         Me.CRFeesReports.DisplayToolbar = False
         Me.CRFeesReports.Dock = System.Windows.Forms.DockStyle.Fill
