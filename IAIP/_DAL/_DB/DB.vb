@@ -73,6 +73,31 @@ Namespace DB
             End Using
         End Function
 
+        Public Function ValueExists(query As String, Optional parameter As OracleParameter = Nothing) As Boolean
+            Dim parameterArray As OracleParameter() = {parameter}
+            Return ValueExists(query, parameterArray)
+        End Function
+
+        Public Function ValueExists(query As String, parameterArray As OracleParameter()) As Boolean
+            Dim result As Object = Nothing
+            Using connection As New OracleConnection(CurrentConnectionString)
+                Using command As New OracleCommand(query, connection)
+                    command.CommandType = CommandType.Text
+                    command.BindByName = True
+                    command.Parameters.AddRange(parameterArray)
+                    Try
+                        command.Connection.Open()
+                        result = command.ExecuteScalar()
+                        command.Connection.Close()
+                    Catch ee As OracleException
+                        MessageBox.Show("Database error: " & ee.ToString)
+                    End Try
+
+                    Return Not (result Is Nothing OrElse IsDBNull(result) OrElse result.ToString = "null")
+                End Using
+            End Using
+        End Function
+
 #End Region
 
 #Region " Read (Lookup Dictionary) "
