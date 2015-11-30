@@ -1,5 +1,6 @@
 ﻿Imports Oracle.ManagedDataAccess.Client
 Imports System.Collections.Generic
+Imports System.IO
 
 Namespace DB
     Module DB
@@ -168,12 +169,35 @@ Namespace DB
 
 #Region " Read (ByteArray) "
 
-        Public Function GetByteArrayFromBlob(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing) As Byte()
+        Public Function SaveBinaryFileFromDB(filePath As String, query As String, Optional ByVal parameter As OracleParameter = Nothing) As Boolean
+            Dim parameterArray As OracleParameter() = {parameter}
+            Return SaveBinaryFileFromDB(filePath, query, parameterArray)
+        End Function
+
+        Public Function SaveBinaryFileFromDB(filePath As String, query As String, ByVal parameterArray As OracleParameter()) As Boolean
+            Dim byteArray As Byte() = DB.GetByteArrayFromBlob(query, parameterArray)
+
+            Try
+                Using fs As New FileStream(filePath, FileMode.Create, FileAccess.Write)
+                    Using bw As New BinaryWriter(fs)
+                        bw.Write(byteArray)
+                        bw.Close()
+                    End Using ' bw
+                    fs.Close()
+                End Using ' fs
+
+                Return True
+            Catch ex As Exception
+                Return False
+            End Try
+        End Function
+
+        Private Function GetByteArrayFromBlob(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing) As Byte()
             Dim parameterArray As OracleParameter() = {parameter}
             Return GetByteArrayFromBlob(query, parameterArray)
         End Function
 
-        Public Function GetByteArrayFromBlob(ByVal query As String, ByVal parameterArray As OracleParameter()) As Byte()
+        Private Function GetByteArrayFromBlob(ByVal query As String, ByVal parameterArray As OracleParameter()) As Byte()
             Using connection As New OracleConnection(CurrentConnectionString)
                 Using command As New OracleCommand(query, connection)
                     command.CommandType = CommandType.Text

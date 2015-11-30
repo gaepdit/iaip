@@ -220,28 +220,12 @@ Namespace DAL
             Return result
         End Function
 
-        Public Function DownloadFile(ByVal id As Integer, ByVal path As String) As Boolean
+        Public Function DownloadFile(ByVal id As Integer, ByVal filePath As String) As Boolean
             Dim query As String = " SELECT IAIP_BINARYFILES.BLOBDOCUMENT " & _
                                 " FROM AIRBRANCH.IAIP_BINARYFILES " & _
                                 " WHERE IAIP_BINARYFILES.BINARYFILEID = :pBinId "
             Dim parameter As OracleParameter = New OracleParameter("pBinId", id)
-
-            Dim byteArray As Byte() = DB.GetByteArrayFromBlob(query, parameter)
-
-            Try
-                Using fs As New FileStream(path, FileMode.Create, FileAccess.Write)
-                    Using bw As New BinaryWriter(fs)
-                        bw.Write(byteArray)
-                        bw.Close()
-                    End Using ' bw
-                    fs.Close()
-                End Using ' fs
-
-                Return True
-            Catch ex As Exception
-                Return False
-            End Try
-
+            Return DB.SaveBinaryFileFromDB(filePath, query, parameter)
         End Function
 
 #End Region
