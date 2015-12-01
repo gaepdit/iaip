@@ -74,6 +74,10 @@ Namespace DB
             End Using
         End Function
 
+#End Region
+
+#Region " Value Exists "
+
         Public Function ValueExists(query As String, Optional parameter As OracleParameter = Nothing) As Boolean
             Dim parameterArray As OracleParameter() = {parameter}
             Return ValueExists(query, parameterArray)

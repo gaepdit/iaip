@@ -4,7 +4,6 @@ Imports System.Collections.Generic
 
 Public Class SSPPApplicationTrackingLog
     ' Get rid of these
-    Dim SQL As String
     Dim cmd As OracleCommand
     Dim dr As OracleDataReader
     Dim recExist As Boolean
@@ -6801,7 +6800,7 @@ Public Class SSPPApplicationTrackingLog
                                     cmd.CommandType = CommandType.Text
                                     cmd.BindByName = True
                                     cmd.CommandText = query
-                                    cmd.Parameters.Add(parameters)
+                                    cmd.Parameters.AddRange(parameters)
                                     cmd.Connection.Open()
                                     Using dr As OracleDataReader = cmd.ExecuteReader
 
@@ -7405,8 +7404,8 @@ Public Class SSPPApplicationTrackingLog
             If chbClosedOut.Checked = True And txtAIRSNumber.Text.Length = 8 And IsNumeric(txtAIRSNumber.Text) Then
                 query = "select strKey " &
                 "from AIRBRANCH.APBContactInformation, AIRBRANCH.SSPPApplicationContact  " &
-                "where AIRBRANCH.APBContactInformation.strContactKey = '0413" & txtAIRSNumber.Text & "30'  " &
-                "and AIRBRANCH.SSPPApplicationContact.strApplicationNumber = '" & txtApplicationNumber.Text & "'  " &
+                "where AIRBRANCH.APBContactInformation.strContactKey = :key " &
+                "and AIRBRANCH.SSPPApplicationContact.strApplicationNumber = :app " &
                 "and Upper(AIRBRANCH.APBContactInformation.strContactFirstName) = Upper(AIRBRANCH.SSPPApplicationContact.strContactFirstName) " &
                 "and upper(AIRBRANCH.APBContactInformation.strContactLastName) = Upper(AIRBRANCH.SSPPApplicationContact.strContactLastName)  " &
                 "and Upper(AIRBRANCH.APBContactInformation.strContactPrefix) = Upper(AIRBRANCH.SSPPApplicationContact.strContactPrefix) " &
@@ -8162,7 +8161,7 @@ Public Class SSPPApplicationTrackingLog
                     cmd.CommandType = CommandType.Text
                     cmd.BindByName = True
                     cmd.CommandText = query
-                    cmd.Parameters.Add(params)
+                    cmd.Parameters.AddRange(params)
                     cmd.Connection.Open()
                     Using dr As OracleDataReader = cmd.ExecuteReader
 
@@ -12371,7 +12370,7 @@ Public Class SSPPApplicationTrackingLog
                     cmd.CommandType = CommandType.Text
                     cmd.BindByName = True
                     cmd.CommandText = query
-                    cmd.Parameters.Add(parameter)
+                    cmd.Parameters.AddRange(parameter)
                     cmd.Connection.Open()
                     Using dr As OracleDataReader = cmd.ExecuteReader
 
@@ -12640,7 +12639,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Action As String = ""
             Dim i As Integer = 0
             Dim query As String
-            Dim parameters As OracleParameter()
+            Dim parameter As OracleParameter()
 
             dgvSIPSubParts.Rows.Clear()
             dgvSIPSubParts.Columns.Clear()
@@ -12693,14 +12692,14 @@ Public Class SSPPApplicationTrackingLog
             "where AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubpartSIP.strSubpart   " &
             "and AIRBRANCH.APBSubPartData.strSubpartKey = :key " &
             "and Active = '1' "
-            parameters = {New OracleParameter("key", "0413" & txtAIRSNumber.Text & "0")}
+            parameter = {New OracleParameter("key", "0413" & txtAIRSNumber.Text & "0")}
 
             Using connection As New OracleConnection(DB.CurrentConnectionString)
                 Using cmd As OracleCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
                     cmd.BindByName = True
                     cmd.CommandText = query
-                    cmd.Parameters.Add(parameters)
+                    cmd.Parameters.AddRange(parameter)
                     cmd.Connection.Open()
                     Using dr As OracleDataReader = cmd.ExecuteReader
                         While dr.Read
@@ -12748,10 +12747,10 @@ Public Class SSPPApplicationTrackingLog
                     "and strAIRSnumber = :airs " &
                     "and substr(strSubpartkey, 6,1) = '0'  " &
                     "and strSubpart = :SubPart " &
-                    "and AIRBRANCH.SSPPSubpartData.strApplicationNumber  = :appnum '" & txtApplicationNumber.Text & "'  " &
+                    "and AIRBRANCH.SSPPSubpartData.strApplicationNumber  = :appnum " &
                     "order by createdatetime "
 
-                    parameters = {
+                    parameter = {
                         New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString),
                         New OracleParameter("SubPart", SubPart),
                         New OracleParameter("appnum", txtApplicationNumber.Text)
@@ -12762,7 +12761,7 @@ Public Class SSPPApplicationTrackingLog
                             cmd.CommandType = CommandType.Text
                             cmd.BindByName = True
                             cmd.CommandText = query
-                            cmd.Parameters.Add(parameters)
+                            cmd.Parameters.AddRange(parameter)
                             cmd.Connection.Open()
                             Using dr As OracleDataReader = cmd.ExecuteReader
                                 While dr.Read
@@ -12861,15 +12860,15 @@ Public Class SSPPApplicationTrackingLog
             "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = " &
             "AIRBRANCH.SSPPSubpartData.strApplicationNumber   " &
             "and AIRBRANCH.SSPPSubPartData.strSubPart = AIRBRANCH.LookUpSubPartSIP.strSubPart  " &
-            "and AIRBRANCH.SSPPSubpartData.strSubpartKey  = :key '" & txtApplicationNumber.Text & "0'"
-            parameters = {New OracleParameter("key", txtApplicationNumber.Text & "0")}
+            "and AIRBRANCH.SSPPSubpartData.strSubpartKey  = :key "
+            parameter = {New OracleParameter("key", txtApplicationNumber.Text & "0")}
 
             Using connection As New OracleConnection(DB.CurrentConnectionString)
                 Using cmd As OracleCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
                     cmd.BindByName = True
                     cmd.CommandText = query
-                    cmd.Parameters.Add(parameters)
+                    cmd.Parameters.AddRange(parameter)
                     cmd.Connection.Open()
                     Using dr As OracleDataReader = cmd.ExecuteReader
                         While dr.Read
@@ -13624,7 +13623,7 @@ Public Class SSPPApplicationTrackingLog
                 "AIRBRANCH.apbsubpartdata.strSubpart, " &
                 "strDescription, CreateDateTime " &
                 "from AIRBRANCH.APBsubpartdata, AIRBRANCH.LookUpSubPart60  " &
-                "where AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubpart60.strSubpart   " &
+                "where AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubpart60.strSubpart " &
                 "and AIRBRANCH.APBSubPartData.strSubpartKey = :key " &
                 "and Active = '1' "
             parameter = {New OracleParameter("key", "0413" & txtAIRSNumber.Text & "9")}
@@ -13634,7 +13633,7 @@ Public Class SSPPApplicationTrackingLog
                     cmd.CommandType = CommandType.Text
                     cmd.BindByName = True
                     cmd.CommandText = query
-                    cmd.Parameters.Add(parameter)
+                    cmd.Parameters.AddRange(parameter)
                     cmd.Connection.Open()
                     Using dr As OracleDataReader = cmd.ExecuteReader
                         While dr.Read
@@ -13696,7 +13695,7 @@ Public Class SSPPApplicationTrackingLog
                             cmd.CommandType = CommandType.Text
                             cmd.BindByName = True
                             cmd.CommandText = query
-                            cmd.Parameters.Add(parameter)
+                            cmd.Parameters.AddRange(parameter)
                             cmd.Connection.Open()
                             Using dr As OracleDataReader = cmd.ExecuteReader
                                 While dr.Read
@@ -13804,7 +13803,7 @@ Public Class SSPPApplicationTrackingLog
                     cmd.CommandType = CommandType.Text
                     cmd.BindByName = True
                     cmd.CommandText = query
-                    cmd.Parameters.Add(parameter)
+                    cmd.Parameters.AddRange(parameter)
                     cmd.Connection.Open()
                     Using dr As OracleDataReader = cmd.ExecuteReader
                         While dr.Read
@@ -14517,182 +14516,159 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
             Dim i As Integer = 0
+            Dim parameter As OracleParameter()
 
-            SQL = "Select " &
+            Dim query As String = "Select " &
             "strSubpart " &
             "from AIRBRANCH.SSPPSubpartData " &
-            "where strSubpartKey = '" & txtApplicationNumber.Text & "9' " &
+            "where strSubpartKey = :key " &
             "and strApplicationActivity = '1' "
+            parameter = {New OracleParameter("key", txtApplicationNumber.Text & "9")}
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strSubpart")) Then
-                    Subpart = ""
-                Else
-                    Subpart = dr.Item("strSubpart")
-                End If
+            Using connection As New OracleConnection(DB.CurrentConnectionString)
+                Using cmd As OracleCommand = connection.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.BindByName = True
+                    cmd.CommandText = query
+                    cmd.Parameters.AddRange(parameter)
+                    cmd.Connection.Open()
+                    Using dr As OracleDataReader = cmd.ExecuteReader
+                        While dr.Read
+                            If IsDBNull(dr.Item("strSubpart")) Then
+                                Subpart = ""
+                            Else
+                                Subpart = dr.Item("strSubpart")
+                            End If
 
-                temp = ""
-                If Subpart <> "" Then
-                    For i = 0 To dgvNSPSSubParts.Rows.Count - 1
-                        If Subpart = dgvNSPSSubParts(1, i).Value Then
-                            temp = "Ignore"
-                        End If
-                    Next
-                    If temp <> "Ignore" Then
-                        SQL = "Update AIRBRANCH.APBSubpartData set " &
-                        "Active = '9', " &
-                        "updateUser = '" & UserGCode & "', " &
-                        "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
-                        "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " &
-                        "and strSubpart = '" & Subpart & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        cmd.ExecuteReader()
+                            Dim temp As String = ""
+                            If Subpart <> "" Then
+                                For i = 0 To dgvNSPSSubParts.Rows.Count - 1
+                                    If Subpart = dgvNSPSSubParts(1, i).Value Then
+                                        temp = "Ignore"
+                                    End If
+                                Next
+                                If temp <> "Ignore" Then
+                                    query = "Update AIRBRANCH.APBSubpartData set " &
+                                        "Active = '9', " &
+                                        "updateUser = :UserGCode , " &
+                                        "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
+                                        "where strSubpartKey = :key " &
+                                        "and strSubpart = :Subpart "
+                                    parameter = {
+                                        New OracleParameter("UserGCode", UserGCode),
+                                        New OracleParameter("key", "0413" & txtAIRSNumber.Text & "9"),
+                                        New OracleParameter("Subpart", Subpart)
+                                    }
+                                    DB.RunCommand(query,parameter)
 
-                        SQL = "Delete AIRBRANCH.SSPPSubpartData " &
-                        "where strSubpartKey = '" & txtApplicationNumber.Text & "9' " &
-                        "and strApplicationActivity = '1' " &
-                        "and strSubpart = '" & Subpart & "' "
+                                    query = "Delete AIRBRANCH.SSPPSubpartData " &
+                                    "where strSubpartKey = :key " &
+                                    "and strApplicationActivity = '1' " &
+                                    "and strSubpart = :Subpart "
+                                    parameter = {
+                                        New OracleParameter("key", txtApplicationNumber.Text & "9"),
+                                        New OracleParameter("Subpart", Subpart)
+                                    }
+                                    DB.RunCommand(query, parameter)
+                                End If
+                            End If
+                        End While
+                        dr.Close()
+                    End Using
+                    cmd.Connection.Close()
+                End Using
+            End Using
 
-                        cmd = New OracleCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        cmd.ExecuteReader()
-                    End If
-                End If
-            End While
-            dr.Close()
 
             For i = 0 To dgvNSPSSubParts.Rows.Count - 1
                 Subpart = dgvNSPSSubParts(1, i).Value
 
-                SQL = "Select strSubPart " &
+                query = "Select strSubPart " &
                 "from AIRBRANCH.APBSubpartData " &
-                "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " &
-                "and strSubpart = '" & Replace(Subpart, "'", "''") & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
-                    SQL = "Update AIRBRANCH.APBSubpartData set " &
+                "where strSubpartKey = :key '0413" & txtAIRSNumber.Text & "9' " &
+                "and strSubpart = Subpart "
+                parameter = {
+                    New OracleParameter("airsnum", "0413" & txtAIRSNumber.Text),
+                    New OracleParameter("UserGCode", UserGCode),
+                    New OracleParameter("key", "0413" & txtAIRSNumber.Text & "9"),
+                    New OracleParameter("Subpart", Subpart)
+                }
+
+                If DB.ValueExists(query, parameter) Then
+                    query = "Update AIRBRANCH.APBSubpartData set " &
                     "Active = '1', " &
-                    "updateUser = '" & UserGCode & "', " &
+                    "updateUser = :UserGCode " &
                     "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
-                    "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " &
-                    "and strSubpart = '" & Subpart & "' "
+                    "where strSubpartKey = :key " &
+                    "and strSubpart = :Subpart "
                 Else
-                    SQL = "INSERT INTO AIRBRANCH.APBSUBPARTDATA " &
+                    query = "INSERT INTO AIRBRANCH.APBSUBPARTDATA " &
                     "  ( STRAIRSNUMBER, STRSUBPARTKEY, STRSUBPART, UPDATEUSER , " &
                     "    UPDATEDATETIME, ACTIVE, CREATEDATETIME " &
                     "  ) VALUES " &
-                    "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " &
-                    "'" & Replace(Subpart, "'", "''") & "', '" & UserGCode & "', " &
+                    "(:airsnum, :key, :Subpart, :UserGCode, " &
                     "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " &
                     "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')))"
                 End If
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                dr = cmd.ExecuteReader
-                dr.Close()
-
-                SQL = "Select strApplicationNumber " &
-                "from AIRBRANCH.SSPPSubpartData " &
-                "where strSubpartKey = '" & txtApplicationNumber.Text & "9' " &
-                "and strSubpart = '" & Subpart & "' " &
-                "and strApplicationActivity = '1' "
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
-
-                End If
+                DB.RunCommand(query, parameter)
             Next
 
-            SQL = "Delete AIRBRANCH.SSPPSubpartData " &
-            "where strSubpartKey = '" & txtApplicationNumber.Text & "9' " &
+            query = "Delete AIRBRANCH.SSPPSubpartData " &
+            "where strSubpartKey = :key " &
             "and strApplicationActivity <> '1' "
-
-            'SQL = "Delete AIRBRANCH.SSPPSubpartData " & _
-            '"where strSubpartKey = '" & txtApplicationNumber.Text & "9' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            parameter = {New OracleParameter("key", txtApplicationNumber.Text & "9")}
+            DB.RunCommand(query, parameter)
 
             'Removed 
             For i = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
                 Subpart = dgvNSPSSubPartDelete(0, i).Value
 
-                SQL = "Update AIRBRANCH.APBSubpartData set " &
-                "Active = '9', " &
-                "updateUser = '" & UserGCode & "', " &
-                "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
-                "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " &
-                "and strSubpart = '" & Subpart & "' "
+                query = "Update AIRBRANCH.APBSubpartData set " &
+                    "Active = '9', " &
+                    "updateUser = :UserGCode , " &
+                    "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
+                    "where strSubpartKey = :key " &
+                    "and strSubpart = :Subpart "
+                parameter = {
+                    New OracleParameter("UserGCode", UserGCode),
+                    New OracleParameter("key", "0413" & txtAIRSNumber.Text & "9"),
+                    New OracleParameter("Subpart", Subpart)
+                }
+                DB.RunCommand(query, parameter)
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
-
-                SQL = "Select " &
+                query = "Select " &
                 "strSubpart " &
                 "from AIRBRANCH.SSPPSubpartData " &
-                "where strSubpartKey = '" & txtApplicationNumber.Text & "9' " &
-                "and strSubpart = '" & Replace(Subpart, "'", "''") & "' "
+                "where strSubpartKey = :key " &
+                "and strSubpart = :Subpart "
+                parameter = {
+                    New OracleParameter("UserGCode", UserGCode),
+                    New OracleParameter("appnum", txtApplicationNumber.Text),
+                    New OracleParameter("key", txtApplicationNumber.Text & "9"),
+                    New OracleParameter("Subpart", Subpart)
+                }
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-
-                If recExist = True Then
-                    SQL = "Update AIRBRANCH.SSPPSubpartData set " &
-                    "strApplicationActivity = '9', " &
-                    "updateUser = '" & UserGCode & "', " &
-                    "updateDateTime = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
-                    "where strApplicationNumber = '" & txtApplicationNumber.Text & "' " &
-                    "and strSubPart = '" & Subpart & "' " &
-                    "and strSubPartKey = '" & txtApplicationNumber.Text & "9' "
+                If DB.ValueExists(query, parameter) Then
+                    query = "Update AIRBRANCH.SSPPSubpartData set " &
+                        "strApplicationActivity = '9', " &
+                        "updateUser = :UserGCode , " &
+                        "updateDateTime = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
+                        "where strApplicationNumber = :appnum " &
+                        "and strSubPartKey = :key " &
+                        "and strSubPart = :Subpart "
                 Else
-                    SQL = "Insert into AIRBRANCH.SSPPSubpartData " &
-                    "values " &
-                    "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "9', " &
-                    "'" & Subpart & "', '9', " &
-                    "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " &
-                    "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
+                    query = "INTO AIRBRANCH.SSPPSUBPARTDATA " &
+                        "  ( " &
+                        "    STRAPPLICATIONNUMBER, STRSUBPARTKEY, STRSUBPART, " &
+                        "    STRAPPLICATIONACTIVITY, UPDATEUSER, UPDATEDATETIME, " &
+                        "    CREATEDATETIME " &
+                        "  ) " &
+                        "  VALUES " &
+                        "  ( " &
+                        "    :appnum, :key, :Subpart, '9', :UserGCode, sysdate, sysdate " &
+                        "  ) "
                 End If
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                DB.RunCommand(query, parameter)
             Next
 
             'Added/Modified
@@ -14700,123 +14676,106 @@ Public Class SSPPApplicationTrackingLog
                 Action = dgvNSPSSubpartAddEdit(3, i).Value
                 Subpart = dgvNSPSSubpartAddEdit(0, i).Value
 
-                SQL = "Select " &
+                query = "Select " &
                 "strSubpart " &
                 "from AIRBRANCH.SSPPSubpartData " &
-                "where strSubpartKey = '" & txtApplicationNumber.Text & "9'  " &
-                "and strSubpart = '" & Replace(Subpart, "'", "''") & "' "
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
+                "where strSubpartKey = :key " &
+                "and strSubpart = :Subpart "
+                parameter = {
+                    New OracleParameter("UserGCode", UserGCode),
+                    New OracleParameter("appnum", txtApplicationNumber.Text),
+                    New OracleParameter("key", txtApplicationNumber.Text & "9"),
+                    New OracleParameter("Subpart", Subpart)
+                }
 
                 Select Case Action
                     Case "Added"
-                        If recExist = True Then
-                            SQL = "Update AIRBRANCH.SSPPSubpartData set " &
-                            "strApplicationActivity = '1', " &
-                            "updateUser = '" & UserGCode & "', " &
-                            "updateDateTime = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
-                            "where strApplicationNumber = '" & txtApplicationNumber.Text & "' " &
-                            "and strSubPart = '" & Subpart & "' " &
-                            "and strSubPartKey = '" & txtApplicationNumber.Text & "9' "
+                        If DB.ValueExists(query, parameter) Then
+                            query = "Update AIRBRANCH.SSPPSubpartData set " &
+                                "strApplicationActivity = '1', " &
+                                "updateUser = :UserGCode , " &
+                                "updateDateTime = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
+                                "where strApplicationNumber = :appnum " &
+                                "and strSubPartKey = :key " &
+                                "and strSubPart = :Subpart "
                         Else
-                            SQL = "Insert into AIRBRANCH.SSPPSubpartData " &
-                            "values " &
-                            "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "9', " &
-                            "'" & Subpart & "', '1', " &
-                            "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " &
-                            "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
+                            query = "INTO AIRBRANCH.SSPPSUBPARTDATA " &
+                                "  ( " &
+                                "    STRAPPLICATIONNUMBER, STRSUBPARTKEY, STRSUBPART, " &
+                                "    STRAPPLICATIONACTIVITY, UPDATEUSER, UPDATEDATETIME, " &
+                                "    CREATEDATETIME " &
+                                "  ) " &
+                                "  VALUES " &
+                                "  ( " &
+                                "    :appnum, :key, :Subpart, '1', :UserGCode, sysdate, sysdate " &
+                                "  ) "
                         End If
                     Case "Modify"
-                        If recExist = True Then
-                            SQL = "Update AIRBRANCH.SSPPSubpartData set " &
-                            "strApplicationActivity = '2', " &
-                            "updateUser = '" & UserGCode & "', " &
-                            "updateDateTime = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
-                            "where strApplicationNumber = '" & txtApplicationNumber.Text & "' " &
-                            "and strSubPart = '" & Subpart & "' " &
-                            "and strSubPartKey = '" & txtApplicationNumber.Text & "9' "
+                        If DB.ValueExists(query, parameter) Then
+                            query = "Update AIRBRANCH.SSPPSubpartData set " &
+                                "strApplicationActivity = '2', " &
+                                "updateUser = :UserGCode , " &
+                                "updateDateTime = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
+                                "where strApplicationNumber = :appnum " &
+                                "and strSubPartKey = :key " &
+                                "and strSubPart = :Subpart "
                         Else
-                            SQL = "Insert into AIRBRANCH.SSPPSubpartData " &
-                            "values " &
-                            "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "9', " &
-                            "'" & Subpart & "', '2', " &
-                            "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " &
-                            "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
+                            query = "INTO AIRBRANCH.SSPPSUBPARTDATA " &
+                                "  ( " &
+                                "    STRAPPLICATIONNUMBER, STRSUBPARTKEY, STRSUBPART, " &
+                                "    STRAPPLICATIONACTIVITY, UPDATEUSER, UPDATEDATETIME, " &
+                                "    CREATEDATETIME " &
+                                "  ) " &
+                                "  VALUES " &
+                                "  ( " &
+                                "    :appnum, :key, :Subpart, '2', :UserGCode, sysdate, sysdate " &
+                                "  ) "
                         End If
                     Case Else
-                        SQL = ""
+                        query = ""
                 End Select
-                If SQL <> "" Then
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
-                End If
 
+                If query <> "" Then
+                    DB.RunCommand(query, parameter)
+                End If
             Next
 
-            SQL = "Select " &
+            query = "Select " &
             "strPollutantKey " &
             "from AIRBRANCH.AFSAirPollutantData " &
-            "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "9' "
+            "where strAirPollutantKey = :key "
+            parameter = {
+                New OracleParameter("airsnum", "0413" & txtAIRSNumber.Text),
+                New OracleParameter("key", "0413" & txtAIRSNumber.Text & "9"),
+                New OracleParameter("UserGCode", UserGCode)
+            }
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            dr.Close()
-
-            If recExist = True Then
-                SQL = "Update AIRBRANCH.AFSAirPollutantData set " &
+            If DB.ValueExists(query, parameter) Then
+                query = "Update AIRBRANCH.AFSAirPollutantData set " &
                 "strUpdateStatus = 'C' " &
-                "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "9' " &
+                "where strAirPollutantKey = :key " &
                 "and strUpdateStatus <> 'A' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                DB.RunCommand(query, parameter)
             Else
-                SQL = "INSERT INTO AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " &
+                query = "INSERT INTO AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " &
                 "  ( " &
                 "    STRAIRSNUMBER , STRAIRPOLLUTANTKEY , STRPOLLUTANTKEY , " &
                 "    STRCOMPLIANCESTATUS , STRMODIFINGPERSON , DATMODIFINGDATE , " &
                 "    STROPERATIONALSTATUS " &
                 "  ) " &
                 "  VALUES" &
-                "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " &
+                "(:airsnum, :key, " &
                 "'OT', '3', " &
-                "'" & UserGCode & "', '" & OracleDate & "', " &
+                ":UserGCode, sysdate, " &
                 "'O') "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                DB.RunCommand(query, parameter)
 
-                SQL = "Insert into AIRBRANCH.AFSAirPollutantData " &
+                query = "Insert into AIRBRANCH.AFSAirPollutantData " &
                 "values " &
-                "('0413" & txtAIRSNumber.Text & "', '0413" & txtAIRSNumber.Text & "9', " &
+                "(:airsnum, :key, " &
                 "'OT', 'A', " &
-                "'" & UserGCode & "', '" & OracleDate & "') "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                ":UserGCode, sysdate) "
+                DB.RunCommand(query, parameter)
             End If
 
             LoadSSPPNSPSSubPartInformation()
@@ -14854,6 +14813,8 @@ Public Class SSPPApplicationTrackingLog
             Dim CreateDateTime As String = ""
             Dim Action As String = ""
             Dim i As Integer = 0
+            Dim query As String
+            Dim parameter As OracleParameter()
 
             dgvNESHAPSubParts.Rows.Clear()
             dgvNESHAPSubParts.Columns.Clear()
@@ -14861,16 +14822,6 @@ Public Class SSPPApplicationTrackingLog
             dgvNESHAPSubPartDelete.Columns.Clear()
             dgvNESHAPSubpartAddEdit.Rows.Clear()
             dgvNESHAPSubpartAddEdit.Columns.Clear()
-
-            SQL = "select distinct   " &
-            "strAIRSnumber, " &
-            "'' as AppNum, " &
-            "AIRBRANCH.apbsubpartdata.strSubpart, " &
-            "strDescription, CreateDateTime " &
-            "from AIRBRANCH.APBsubpartdata, AIRBRANCH.LookUpSubPart61   " &
-            "where AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubPart61.strSubpart   " &
-            "and AIRBRANCH.APBSubPartData.strSubpartKey = '0413" & txtAIRSNumber.Text & "8' " &
-            "and Active = '1' "
 
             dgvNESHAPSubParts.RowHeadersVisible = False
             dgvNESHAPSubParts.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -14907,84 +14858,116 @@ Public Class SSPPApplicationTrackingLog
             dgvNESHAPSubParts.Columns("Origins").Width = 50
             dgvNESHAPSubParts.Columns("Origins").ReadOnly = True
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvNESHAPSubParts)
-                If IsDBNull(dr.Item("AppNum")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("AppNum")
-                End If
-                If IsDBNull(dr.Item("strSubpart")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("strSubpart")
-                End If
-                If IsDBNull(dr.Item("strDescription")) Then
-                    dgvRow.Cells(2).Value = ""
-                Else
-                    dgvRow.Cells(2).Value = dr.Item("strDescription")
-                End If
-                If IsDBNull(dr.Item("CreateDateTime")) Then
-                    dgvRow.Cells(3).Value = ""
-                Else
-                    dgvRow.Cells(3).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
-                End If
-                dgvRow.Cells(4).Value = "Existing"
-                dgvNESHAPSubParts.Rows.Add(dgvRow)
-            End While
-            dr.Close()
+            query = "select distinct   " &
+            "strAIRSnumber, " &
+            "'' as AppNum, " &
+            "AIRBRANCH.apbsubpartdata.strSubpart, " &
+            "strDescription, CreateDateTime " &
+            "from AIRBRANCH.APBsubpartdata, AIRBRANCH.LookUpSubPart61   " &
+            "where AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubPart61.strSubpart   " &
+            "and AIRBRANCH.APBSubPartData.strSubpartKey = :key " &
+            "and Active = '1' "
+            parameter = {New OracleParameter("key", "0413" & txtAIRSNumber.Text & "8")}
+
+            Using connection As New OracleConnection(DB.CurrentConnectionString)
+                Using cmd As OracleCommand = connection.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.BindByName = True
+                    cmd.CommandText = query
+                    cmd.Parameters.AddRange(parameter)
+                    cmd.Connection.Open()
+                    Using dr As OracleDataReader = cmd.ExecuteReader
+                        While dr.Read
+                            dgvRow = New DataGridViewRow
+                            dgvRow.CreateCells(dgvNESHAPSubParts)
+                            If IsDBNull(dr.Item("AppNum")) Then
+                                dgvRow.Cells(0).Value = ""
+                            Else
+                                dgvRow.Cells(0).Value = dr.Item("AppNum")
+                            End If
+                            If IsDBNull(dr.Item("strSubpart")) Then
+                                dgvRow.Cells(1).Value = ""
+                            Else
+                                dgvRow.Cells(1).Value = dr.Item("strSubpart")
+                            End If
+                            If IsDBNull(dr.Item("strDescription")) Then
+                                dgvRow.Cells(2).Value = ""
+                            Else
+                                dgvRow.Cells(2).Value = dr.Item("strDescription")
+                            End If
+                            If IsDBNull(dr.Item("CreateDateTime")) Then
+                                dgvRow.Cells(3).Value = ""
+                            Else
+                                dgvRow.Cells(3).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
+                            End If
+                            dgvRow.Cells(4).Value = "Existing"
+                            dgvNESHAPSubParts.Rows.Add(dgvRow)
+                        End While
+                        dr.Close()
+                    End Using
+                    cmd.Connection.Close()
+                End Using
+            End Using
 
             If dgvNESHAPSubParts.RowCount > 0 Then
                 For i = 0 To dgvNESHAPSubParts.RowCount - 1
                     SubPart = dgvNESHAPSubParts.Item(1, i).Value
-                    SQL = "select " &
+                    
+                    query = "select " &
                     "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " &
                     "strSubpart, strApplicationActivity,   " &
                     "CreateDateTime " &
                     "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPSubpartData   " &
                     "where AIRBRANCH.SSPPSubpartData.strApplicationNumber = AIRBRANCH.SSPPApplicationMaster.strApplicationNumber  " &
-                    "and strAIRSnumber = '0413" & txtAIRSNumber.Text & "'  " &
+                    "and strAIRSnumber = :airsnum " &
                     "and substr(strSubpartkey, 6,1) = '8'  " &
-                    "and strSubpart = '" & SubPart & "'  " &
-                        "and AIRBRANCH.SSPPSubpartData.strApplicationNumber  = '" & txtApplicationNumber.Text & "'  " &
+                    "and strSubpart = :SubPart " &
+                    "and AIRBRANCH.SSPPSubpartData.strApplicationNumber  = :appnum " &
                     "order by createdatetime "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        If IsDBNull(dr.Item("strApplicationNumber")) Then
-                        Else
-                            dgvNESHAPSubParts(0, i).Value = dr.Item("strApplicationNumber")
-                        End If
-                        If IsDBNull(dr.Item("strApplicationActivity")) Then
-                        Else
-                            Select Case dr.Item("strApplicationActivity").ToString
-                                Case "1"
-                                    'Added' 
-                                    dgvNESHAPSubParts(4, i).Value = "Added"
-                                Case "2"
-                                    'Modified' 
-                                    dgvNESHAPSubParts(4, i).Value = "Modify"
-                                Case Else
-                                    'Existing
-                                    dgvNESHAPSubParts(4, i).Value = "Existing"
-                            End Select
-                        End If
-                        If IsDBNull(dr.Item("CreateDateTime")) Then
-                        Else
-                            dgvNESHAPSubParts(3, i).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
-                        End If
-                    End While
-                    dr.Close()
+                    parameter = {
+                        New OracleParameter("airsnum", txtApplicationNumber.Text),
+                        New OracleParameter("appnum", txtApplicationNumber.Text),
+                        New OracleParameter("Subpart", SubPart)
+                    }
+
+                    Using connection As New OracleConnection(DB.CurrentConnectionString)
+                        Using cmd As OracleCommand = connection.CreateCommand
+                            cmd.CommandType = CommandType.Text
+                            cmd.BindByName = True
+                            cmd.CommandText = query
+                            cmd.Parameters.AddRange(parameter)
+                            cmd.Connection.Open()
+                            Using dr As OracleDataReader = cmd.ExecuteReader
+                                While dr.Read
+                                    If IsDBNull(dr.Item("strApplicationNumber")) Then
+                                    Else
+                                        dgvNESHAPSubParts(0, i).Value = dr.Item("strApplicationNumber")
+                                    End If
+                                    If IsDBNull(dr.Item("strApplicationActivity")) Then
+                                    Else
+                                        Select Case dr.Item("strApplicationActivity").ToString
+                                            Case "1"
+                                                'Added' 
+                                                dgvNESHAPSubParts(4, i).Value = "Added"
+                                            Case "2"
+                                                'Modified' 
+                                                dgvNESHAPSubParts(4, i).Value = "Modify"
+                                            Case Else
+                                                'Existing
+                                                dgvNESHAPSubParts(4, i).Value = "Existing"
+                                        End Select
+                                    End If
+                                    If IsDBNull(dr.Item("CreateDateTime")) Then
+                                    Else
+                                        dgvNESHAPSubParts(3, i).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
+                                    End If
+                                End While
+                                dr.Close()
+                            End Using
+                            cmd.Connection.Close()
+                        End Using
+                    End Using
                 Next
             End If
 
@@ -15037,7 +15020,7 @@ Public Class SSPPApplicationTrackingLog
             dgvNESHAPSubpartAddEdit.Columns("Origins").Width = 100
             dgvNESHAPSubpartAddEdit.Columns("Origins").ReadOnly = True
 
-            SQL = "select  " &
+            query = "select  " &
             "strAIRSNumber, " &
             "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " &
             "AIRBRANCH.SSPPSubPartData.strSubpart, strDescription,  " &
@@ -15048,142 +15031,149 @@ Public Class SSPPApplicationTrackingLog
             "end Action,  " &
             "CreatedateTime  " &
             "from AIRBRANCH.SSPPSubpartData, AIRBRANCH.SSPPApplicationMaster,   " &
-            "AIRBRANCH.LookUpSubPart61   " &
+            "AIRBRANCH.LookUpSubPart60   " &
             "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = " &
             "AIRBRANCH.SSPPSubpartData.strApplicationNumber   " &
-            "and AIRBRANCH.SSPPSubPartData.strSubPart = AIRBRANCH.LookUpSubPart61.strSubPart  " &
-            "and AIRBRANCH.SSPPSubpartData.strSubpartKey  = '" & txtApplicationNumber.Text & "8'"
+            "and AIRBRANCH.SSPPSubPartData.strSubPart = AIRBRANCH.LookUpSubPart60.strSubPart  " &
+            "and AIRBRANCH.SSPPSubpartData.strSubPartKey  = :key "
+            parameter = {New OracleParameter("key", "0413" & txtAIRSNumber.Text & "8")}
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strApplicationNumber")) Then
-                    AppNum = ""
-                Else
-                    AppNum = dr.Item("strApplicationNumber")
-                End If
-                If IsDBNull(dr.Item("strSubpart")) Then
-                    SubPart = ""
-                Else
-                    SubPart = dr.Item("strSubpart")
-                End If
-                If IsDBNull(dr.Item("strDescription")) Then
-                    Desc = ""
-                Else
-                    Desc = dr.Item("strDescription")
-                End If
-                If IsDBNull(dr.Item("Action")) Then
-                    Action = ""
-                Else
-                    Action = dr.Item("Action")
-                End If
-                If IsDBNull(dr.Item("CreateDateTime")) Then
-                    CreateDateTime = ""
-                Else
-                    CreateDateTime = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
-                End If
-
-                Select Case Action
-                    Case "Removed"
-                        temp = ""
-                        For i = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                            If SubPart = dgvNESHAPSubParts(1, i).Value Then
-                                dgvNESHAPSubParts(0, i).Value = AppNum
-                                dgvNESHAPSubParts(4, i).Value = "Removed"
-                                temp = "Removed"
-                                With Me.dgvNESHAPSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.Tomato
-                                End With
+            Using connection As New OracleConnection(DB.CurrentConnectionString)
+                Using cmd As OracleCommand = connection.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.BindByName = True
+                    cmd.CommandText = query
+                    cmd.Parameters.AddRange(parameter)
+                    cmd.Connection.Open()
+                    Using dr As OracleDataReader = cmd.ExecuteReader
+                        While dr.Read
+                            If IsDBNull(dr.Item("strApplicationNumber")) Then
+                                AppNum = ""
+                            Else
+                                AppNum = dr.Item("strApplicationNumber")
                             End If
-                        Next
-
-                        If temp = "" Then
-                            dgvRow = New DataGridViewRow
-                            dgvRow.CreateCells(dgvNESHAPSubParts)
-                            dgvRow.Cells(0).Value = AppNum
-                            dgvRow.Cells(1).Value = SubPart
-                            dgvRow.Cells(2).Value = Desc
-                            dgvRow.Cells(3).Value = CreateDateTime
-                            dgvRow.Cells(4).Value = "Removed"
-                            dgvNESHAPSubParts.Rows.Add(dgvRow)
-                            i = dgvNESHAPSubParts.Rows.Count - 1
-                            With Me.dgvNESHAPSubParts.Rows(i)
-                                .DefaultCellStyle.BackColor = Color.Tomato
-                            End With
-                        End If
-
-                        dgvRow = New DataGridViewRow
-                        dgvRow.CreateCells(dgvNESHAPSubPartDelete)
-                        dgvRow.Cells(0).Value = SubPart
-                        dgvRow.Cells(1).Value = Desc
-                        dgvNESHAPSubPartDelete.Rows.Add(dgvRow)
-                    Case "Added"
-                        temp = ""
-                        For i = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                            If SubPart = dgvNESHAPSubParts(1, i).Value Then
-                                dgvNESHAPSubParts(4, i).Value = "Added"
-                                temp = "Added"
-                                With Me.dgvNESHAPSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.LightGreen
-                                End With
+                            If IsDBNull(dr.Item("strSubpart")) Then
+                                SubPart = ""
+                            Else
+                                SubPart = dr.Item("strSubpart")
                             End If
-                        Next
-                        If temp <> "Added" Then
-                            dgvRow = New DataGridViewRow
-                            dgvRow.CreateCells(dgvNESHAPSubParts)
-                            dgvRow.Cells(0).Value = AppNum
-                            dgvRow.Cells(1).Value = SubPart
-                            dgvRow.Cells(2).Value = Desc
-                            dgvRow.Cells(3).Value = CreateDateTime
-                            dgvRow.Cells(4).Value = "Added"
-                            dgvNESHAPSubParts.Rows.Add(dgvRow)
-                            i = dgvNESHAPSubParts.Rows.Count - 1
-                            With Me.dgvNESHAPSubParts.Rows(i)
-                                .DefaultCellStyle.BackColor = Color.LightGreen
-                            End With
-                        End If
-
-                        dgvRow = New DataGridViewRow
-                        dgvRow.CreateCells(dgvNESHAPSubpartAddEdit)
-                        dgvRow.Cells(0).Value = SubPart
-                        dgvRow.Cells(1).Value = Desc
-                        dgvRow.Cells(2).Value = CreateDateTime
-                        dgvRow.Cells(3).Value = "Added"
-                        dgvNESHAPSubpartAddEdit.Rows.Add(dgvRow)
-                        i = dgvNESHAPSubpartAddEdit.Rows.Count - 1
-                        With Me.dgvNESHAPSubpartAddEdit.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.LightGreen
-                        End With
-
-                    Case "Modified"
-                        temp = ""
-                        For i = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                            If SubPart = dgvNESHAPSubParts(1, i).Value Then
-                                dgvNESHAPSubParts(0, i).Value = AppNum
-                                temp = "Modify"
-                                With Me.dgvNESHAPSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.LightBlue
-                                End With
+                            If IsDBNull(dr.Item("strDescription")) Then
+                                Desc = ""
+                            Else
+                                Desc = dr.Item("strDescription")
                             End If
-                        Next
-
-                        dgvRow = New DataGridViewRow
-                        dgvRow.CreateCells(dgvNESHAPSubpartAddEdit)
-                        dgvRow.Cells(0).Value = SubPart
-                        dgvRow.Cells(1).Value = Desc
-                        dgvRow.Cells(2).Value = CreateDateTime
-                        dgvRow.Cells(3).Value = "Modify"
-                        dgvNESHAPSubpartAddEdit.Rows.Add(dgvRow)
-                    Case Else
-
-                End Select
-
-            End While
-            dr.Close()
+                            If IsDBNull(dr.Item("Action")) Then
+                                Action = ""
+                            Else
+                                Action = dr.Item("Action")
+                            End If
+                            If IsDBNull(dr.Item("CreateDateTime")) Then
+                                CreateDateTime = ""
+                            Else
+                                CreateDateTime = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
+                            End If
+            
+                            Select Case Action
+                                Case "Removed"
+                                    temp = ""
+                                    For i = 0 To dgvNESHAPSubParts.Rows.Count - 1
+                                        If SubPart = dgvNESHAPSubParts(1, i).Value Then
+                                            dgvNESHAPSubParts(0, i).Value = AppNum
+                                            dgvNESHAPSubParts(4, i).Value = "Removed"
+                                            temp = "Removed"
+                                            With Me.dgvNESHAPSubParts.Rows(i)
+                                                .DefaultCellStyle.BackColor = Color.Tomato
+                                            End With
+                                        End If
+                                    Next
+            
+                                    If temp = "" Then
+                                        dgvRow = New DataGridViewRow
+                                        dgvRow.CreateCells(dgvNESHAPSubParts)
+                                        dgvRow.Cells(0).Value = AppNum
+                                        dgvRow.Cells(1).Value = SubPart
+                                        dgvRow.Cells(2).Value = Desc
+                                        dgvRow.Cells(3).Value = CreateDateTime
+                                        dgvRow.Cells(4).Value = "Removed"
+                                        dgvNESHAPSubParts.Rows.Add(dgvRow)
+                                        i = dgvNESHAPSubParts.Rows.Count - 1
+                                        With Me.dgvNESHAPSubParts.Rows(i)
+                                            .DefaultCellStyle.BackColor = Color.Tomato
+                                        End With
+                                    End If
+            
+                                    dgvRow = New DataGridViewRow
+                                    dgvRow.CreateCells(dgvNESHAPSubPartDelete)
+                                    dgvRow.Cells(0).Value = SubPart
+                                    dgvRow.Cells(1).Value = Desc
+                                    dgvNESHAPSubPartDelete.Rows.Add(dgvRow)
+                                Case "Added"
+                                    temp = ""
+                                    For i = 0 To dgvNESHAPSubParts.Rows.Count - 1
+                                        If SubPart = dgvNESHAPSubParts(1, i).Value Then
+                                            dgvNESHAPSubParts(4, i).Value = "Added"
+                                            temp = "Added"
+                                            With Me.dgvNESHAPSubParts.Rows(i)
+                                                .DefaultCellStyle.BackColor = Color.LightGreen
+                                            End With
+                                        End If
+                                    Next
+                                    If temp <> "Added" Then
+                                        dgvRow = New DataGridViewRow
+                                        dgvRow.CreateCells(dgvNESHAPSubParts)
+                                        dgvRow.Cells(0).Value = AppNum
+                                        dgvRow.Cells(1).Value = SubPart
+                                        dgvRow.Cells(2).Value = Desc
+                                        dgvRow.Cells(3).Value = CreateDateTime
+                                        dgvRow.Cells(4).Value = "Added"
+                                        dgvNESHAPSubParts.Rows.Add(dgvRow)
+                                        i = dgvNESHAPSubParts.Rows.Count - 1
+                                        With Me.dgvNESHAPSubParts.Rows(i)
+                                            .DefaultCellStyle.BackColor = Color.LightGreen
+                                        End With
+                                    End If
+            
+                                    dgvRow = New DataGridViewRow
+                                    dgvRow.CreateCells(dgvNESHAPSubpartAddEdit)
+                                    dgvRow.Cells(0).Value = SubPart
+                                    dgvRow.Cells(1).Value = Desc
+                                    dgvRow.Cells(2).Value = CreateDateTime
+                                    dgvRow.Cells(3).Value = "Added"
+                                    dgvNESHAPSubpartAddEdit.Rows.Add(dgvRow)
+                                    i = dgvNESHAPSubpartAddEdit.Rows.Count - 1
+                                    With Me.dgvNESHAPSubpartAddEdit.Rows(i)
+                                        .DefaultCellStyle.BackColor = Color.LightGreen
+                                    End With
+            
+                                Case "Modified"
+                                    temp = ""
+                                    For i = 0 To dgvNESHAPSubParts.Rows.Count - 1
+                                        If SubPart = dgvNESHAPSubParts(1, i).Value Then
+                                            dgvNESHAPSubParts(0, i).Value = AppNum
+                                            temp = "Modify"
+                                            With Me.dgvNESHAPSubParts.Rows(i)
+                                                .DefaultCellStyle.BackColor = Color.LightBlue
+                                            End With
+                                        End If
+                                    Next
+            
+                                    dgvRow = New DataGridViewRow
+                                    dgvRow.CreateCells(dgvNESHAPSubpartAddEdit)
+                                    dgvRow.Cells(0).Value = SubPart
+                                    dgvRow.Cells(1).Value = Desc
+                                    dgvRow.Cells(2).Value = CreateDateTime
+                                    dgvRow.Cells(3).Value = "Modify"
+                                    dgvNESHAPSubpartAddEdit.Rows.Add(dgvRow)
+                                Case Else
+            
+                            End Select
+            
+                        End While
+                        dr.Close()
+                    End Using
+                    cmd.Connection.Close()
+                End Using
+            End Using
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -15709,77 +15699,23 @@ Public Class SSPPApplicationTrackingLog
             Dim Action As String = ""
             Dim i As Integer = 0
 
-            SQL = "Delete AIRBRANCH.SSPPSubpartData " &
-            "where strSubpartKey = '" & txtApplicationNumber.Text & "8' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            DeleteProgramSubparts(txtApplicationNumber.Text, "8")
 
             For i = 0 To dgvNESHAPSubPartDelete.Rows.Count - 1
-                Subpart = dgvNESHAPSubPartDelete(0, i).Value
-                SQL = "Insert into AIRBRANCH.SSPPSubpartData " &
-                "values " &
-                "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "8', " &
-                "'" & Subpart & "', '0', " &
-                "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " &
-                "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                Subpart = dgvNSPSSubPartDelete(0, i).Value
+                SaveProgramSubpartData(txtApplicationNumber.Text, "8", Subpart, "0")
             Next
 
             For i = 0 To dgvNESHAPSubpartAddEdit.Rows.Count - 1
                 Action = dgvNESHAPSubpartAddEdit(3, i).Value
                 Subpart = dgvNESHAPSubpartAddEdit(0, i).Value
 
-                SQL = "Select " &
-                "strSubpart " &
-                "from AIRBRANCH.SSPPSubpartData " &
-                "where strSubpartKey = '" & txtApplicationNumber.Text & "8'  " &
-                "and strSubpart = '" & Replace(Subpart, "'", "''") & "' "
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-
                 Select Case Action
                     Case "Added"
-                        SQL = "Insert into AIRBRANCH.SSPPSubpartData " &
-                        "values " &
-                        "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "8', " &
-                        "'" & Subpart & "', '1', " &
-                        "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " &
-                        "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
+                        SaveProgramSubpartData(txtApplicationNumber.Text, "8", Subpart, "1")
                     Case "Modify"
-                        SQL = "Insert into AIRBRANCH.SSPPSubpartData " &
-                        "values " &
-                        "('" & txtApplicationNumber.Text & "', '" & txtApplicationNumber.Text & "8', " &
-                        "'" & Subpart & "', '2', " &
-                        "'" & UserGCode & "', (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " &
-                        "(to_char(sysdate, 'DD-Mon-YY HH12:MI:SS'))) "
-                    Case Else
-                        SQL = ""
+                        SaveProgramSubpartData(txtApplicationNumber.Text, "8", Subpart, "2")
                 End Select
-                If SQL <> "" Then
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
-                End If
             Next
 
             LoadSSPPNESHAPSubPartInformation()
@@ -15816,6 +15752,8 @@ Public Class SSPPApplicationTrackingLog
             Dim CreateDateTime As String = ""
             Dim Action As String = ""
             Dim i As Integer = 0
+            Dim query As String
+            Dim parameter As OracleParameter()
 
             dgvMACTSubParts.Rows.Clear()
             dgvMACTSubParts.Columns.Clear()
@@ -15823,17 +15761,6 @@ Public Class SSPPApplicationTrackingLog
             dgvMACTSubPartDelete.Columns.Clear()
             dgvMACTSubpartAddEdit.Rows.Clear()
             dgvMACTSubpartAddEdit.Columns.Clear()
-
-            SQL = "select distinct   " &
-            "strAIRSnumber, " &
-            "'' as AppNum, " &
-            "AIRBRANCH.apbsubpartdata.strSubpart, " &
-            "strDescription, CreateDateTime " &
-            "from AIRBRANCH.APBsubpartdata, AIRBRANCH.LookUpSubPart63   " &
-            "where AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubPart63.strSubpart   " &
-            "and AIRBRANCH.APBSubPartData.strSubpartKey = '0413" & txtAIRSNumber.Text & "M' " &
-            "and Active = '1' "
-
 
             dgvMACTSubParts.RowHeadersVisible = False
             dgvMACTSubParts.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -15870,84 +15797,116 @@ Public Class SSPPApplicationTrackingLog
             dgvMACTSubParts.Columns("Origins").Width = 50
             dgvMACTSubParts.Columns("Origins").ReadOnly = True
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvMACTSubParts)
-                If IsDBNull(dr.Item("AppNum")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("AppNum")
-                End If
-                If IsDBNull(dr.Item("strSubpart")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("strSubpart")
-                End If
-                If IsDBNull(dr.Item("strDescription")) Then
-                    dgvRow.Cells(2).Value = ""
-                Else
-                    dgvRow.Cells(2).Value = dr.Item("strDescription")
-                End If
-                If IsDBNull(dr.Item("CreateDateTime")) Then
-                    dgvRow.Cells(3).Value = ""
-                Else
-                    dgvRow.Cells(3).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
-                End If
-                dgvRow.Cells(4).Value = "Existing"
-                dgvMACTSubParts.Rows.Add(dgvRow)
-            End While
-            dr.Close()
+            query = "select distinct   " &
+            "strAIRSnumber, " &
+            "'' as AppNum, " &
+            "AIRBRANCH.apbsubpartdata.strSubpart, " &
+            "strDescription, CreateDateTime " &
+            "from AIRBRANCH.APBsubpartdata, AIRBRANCH.LookUpSubPartSIP   " &
+            "where AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubpartSIP.strSubpart   " &
+            "and AIRBRANCH.APBSubPartData.strSubpartKey = :key " &
+            "and Active = '1' "
+            parameter = {New OracleParameter("key", "0413" & txtAIRSNumber.Text & "M")}
+
+            Using connection As New OracleConnection(DB.CurrentConnectionString)
+                Using cmd As OracleCommand = connection.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.BindByName = True
+                    cmd.CommandText = query
+                    cmd.Parameters.AddRange(parameter)
+                    cmd.Connection.Open()
+                    Using dr As OracleDataReader = cmd.ExecuteReader
+                        While dr.Read
+                            dgvRow = New DataGridViewRow
+                            dgvRow.CreateCells(dgvMACTSubParts)
+                            If IsDBNull(dr.Item("AppNum")) Then
+                                dgvRow.Cells(0).Value = ""
+                            Else
+                                dgvRow.Cells(0).Value = dr.Item("AppNum")
+                            End If
+                            If IsDBNull(dr.Item("strSubpart")) Then
+                                dgvRow.Cells(1).Value = ""
+                            Else
+                                dgvRow.Cells(1).Value = dr.Item("strSubpart")
+                            End If
+                            If IsDBNull(dr.Item("strDescription")) Then
+                                dgvRow.Cells(2).Value = ""
+                            Else
+                                dgvRow.Cells(2).Value = dr.Item("strDescription")
+                            End If
+                            If IsDBNull(dr.Item("CreateDateTime")) Then
+                                dgvRow.Cells(3).Value = ""
+                            Else
+                                dgvRow.Cells(3).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
+                            End If
+                            dgvRow.Cells(4).Value = "Existing"
+                            dgvMACTSubParts.Rows.Add(dgvRow)
+                        End While
+                        dr.Close()
+                    End Using
+                    cmd.Connection.Close()
+                End Using
+            End Using
 
             If dgvMACTSubParts.RowCount > 0 Then
                 For i = 0 To dgvMACTSubParts.RowCount - 1
                     SubPart = dgvMACTSubParts.Item(1, i).Value
-                    SQL = "select " &
+
+                    query = "select " &
                     "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " &
                     "strSubpart, strApplicationActivity,   " &
                     "CreateDateTime " &
                     "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPSubpartData   " &
                     "where AIRBRANCH.SSPPSubpartData.strApplicationNumber = AIRBRANCH.SSPPApplicationMaster.strApplicationNumber  " &
-                    "and strAIRSnumber = '0413" & txtAIRSNumber.Text & "'  " &
+                    "and strAIRSnumber = :airs " &
                     "and substr(strSubpartkey, 6,1) = 'M'  " &
-                    "and strSubpart = '" & SubPart & "'  " &
-                    "and AIRBRANCH.SSPPSubpartData.strApplicationNumber  = '" & txtApplicationNumber.Text & "'  " &
+                    "and strSubpart = :SubPart " &
+                    "and AIRBRANCH.SSPPSubpartData.strApplicationNumber  = :appnum " &
                     "order by createdatetime "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        If IsDBNull(dr.Item("strApplicationNumber")) Then
-                        Else
-                            dgvMACTSubParts(0, i).Value = dr.Item("strApplicationNumber")
-                        End If
-                        If IsDBNull(dr.Item("strApplicationActivity")) Then
-                        Else
-                            Select Case dr.Item("strApplicationActivity").ToString
-                                Case "1"
-                                    'Added' 
-                                    dgvMACTSubParts(4, i).Value = "Added"
-                                Case "2"
-                                    'Modified' 
-                                    dgvMACTSubParts(4, i).Value = "Modify"
-                                Case Else
-                                    'Existing
-                                    dgvMACTSubParts(4, i).Value = "Existing"
-                            End Select
-                        End If
-                        If IsDBNull(dr.Item("CreateDateTime")) Then
-                        Else
-                            dgvMACTSubParts(3, i).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
-                        End If
-                    End While
-                    dr.Close()
+                    parameter = {
+                        New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString),
+                        New OracleParameter("SubPart", SubPart),
+                        New OracleParameter("appnum", txtApplicationNumber.Text)
+                    }
+
+                    Using connection As New OracleConnection(DB.CurrentConnectionString)
+                        Using cmd As OracleCommand = connection.CreateCommand
+                            cmd.CommandType = CommandType.Text
+                            cmd.BindByName = True
+                            cmd.CommandText = query
+                            cmd.Parameters.AddRange(parameter)
+                            cmd.Connection.Open()
+                            Using dr As OracleDataReader = cmd.ExecuteReader
+                                While dr.Read
+                                    If IsDBNull(dr.Item("strApplicationNumber")) Then
+                                    Else
+                                        dgvMACTSubParts(0, i).Value = dr.Item("strApplicationNumber")
+                                    End If
+                                    If IsDBNull(dr.Item("strApplicationActivity")) Then
+                                    Else
+                                        Select Case dr.Item("strApplicationActivity").ToString
+                                            Case "1"
+                                                'Added' 
+                                                dgvMACTSubParts(4, i).Value = "Added"
+                                            Case "2"
+                                                'Modified' 
+                                                dgvMACTSubParts(4, i).Value = "Modify"
+                                            Case Else
+                                                'Existing
+                                                dgvMACTSubParts(4, i).Value = "Existing"
+                                        End Select
+                                    End If
+                                    If IsDBNull(dr.Item("CreateDateTime")) Then
+                                    Else
+                                        dgvMACTSubParts(3, i).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
+                                    End If
+                                End While
+                                dr.Close()
+                            End Using
+                            cmd.Connection.Close()
+                        End Using
+                    End Using
                 Next
             End If
 
@@ -16000,7 +15959,7 @@ Public Class SSPPApplicationTrackingLog
             dgvMACTSubpartAddEdit.Columns("Origins").Width = 100
             dgvMACTSubpartAddEdit.Columns("Origins").ReadOnly = True
 
-            SQL = "select  " &
+            query = "select  " &
             "strAIRSNumber, " &
             "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " &
             "AIRBRANCH.SSPPSubPartData.strSubpart, strDescription,  " &
@@ -16011,142 +15970,149 @@ Public Class SSPPApplicationTrackingLog
             "end Action,  " &
             "CreatedateTime  " &
             "from AIRBRANCH.SSPPSubpartData, AIRBRANCH.SSPPApplicationMaster,   " &
-            "AIRBRANCH.LookUpSubPart63   " &
+            "AIRBRANCH.LookUpSubPartSIP   " &
             "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = " &
             "AIRBRANCH.SSPPSubpartData.strApplicationNumber   " &
-            "and AIRBRANCH.SSPPSubPartData.strSubPart = AIRBRANCH.LookUpSubPart63.strSubPart  " &
-            "and AIRBRANCH.SSPPSubpartData.strSubpartKey  = '" & txtApplicationNumber.Text & "M'"
+            "and AIRBRANCH.SSPPSubPartData.strSubPart = AIRBRANCH.LookUpSubPartSIP.strSubPart  " &
+            "and AIRBRANCH.SSPPSubpartData.strSubpartKey  = :key "
+            parameter = {New OracleParameter("key", txtApplicationNumber.Text & "M")}
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strApplicationNumber")) Then
-                    AppNum = ""
-                Else
-                    AppNum = dr.Item("strApplicationNumber")
-                End If
-                If IsDBNull(dr.Item("strSubpart")) Then
-                    SubPart = ""
-                Else
-                    SubPart = dr.Item("strSubpart")
-                End If
-                If IsDBNull(dr.Item("strDescription")) Then
-                    Desc = ""
-                Else
-                    Desc = dr.Item("strDescription")
-                End If
-                If IsDBNull(dr.Item("Action")) Then
-                    Action = ""
-                Else
-                    Action = dr.Item("Action")
-                End If
-                If IsDBNull(dr.Item("CreateDateTime")) Then
-                    CreateDateTime = ""
-                Else
-                    CreateDateTime = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
-                End If
-
-                Select Case Action
-                    Case "Removed"
-                        temp = ""
-                        For i = 0 To dgvMACTSubParts.Rows.Count - 1
-                            If SubPart = dgvMACTSubParts(1, i).Value Then
-                                dgvMACTSubParts(0, i).Value = AppNum
-                                dgvMACTSubParts(4, i).Value = "Removed"
-                                temp = "Removed"
-                                With Me.dgvMACTSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.Tomato
-                                End With
+            Using connection As New OracleConnection(DB.CurrentConnectionString)
+                Using cmd As OracleCommand = connection.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.BindByName = True
+                    cmd.CommandText = query
+                    cmd.Parameters.AddRange(parameter)
+                    cmd.Connection.Open()
+                    Using dr As OracleDataReader = cmd.ExecuteReader
+                        While dr.Read
+                            If IsDBNull(dr.Item("strApplicationNumber")) Then
+                                AppNum = ""
+                            Else
+                                AppNum = dr.Item("strApplicationNumber")
                             End If
-                        Next
-
-                        If temp = "" Then
-                            dgvRow = New DataGridViewRow
-                            dgvRow.CreateCells(dgvMACTSubParts)
-                            dgvRow.Cells(0).Value = AppNum
-                            dgvRow.Cells(1).Value = SubPart
-                            dgvRow.Cells(2).Value = Desc
-                            dgvRow.Cells(3).Value = CreateDateTime
-                            dgvRow.Cells(4).Value = "Removed"
-                            dgvMACTSubParts.Rows.Add(dgvRow)
-                            i = dgvMACTSubParts.Rows.Count - 1
-                            With Me.dgvMACTSubParts.Rows(i)
-                                .DefaultCellStyle.BackColor = Color.Tomato
-                            End With
-                        End If
-
-                        dgvRow = New DataGridViewRow
-                        dgvRow.CreateCells(dgvMACTSubPartDelete)
-                        dgvRow.Cells(0).Value = SubPart
-                        dgvRow.Cells(1).Value = Desc
-                        dgvMACTSubPartDelete.Rows.Add(dgvRow)
-                    Case "Added"
-                        temp = ""
-                        For i = 0 To dgvMACTSubParts.Rows.Count - 1
-                            If SubPart = dgvMACTSubParts(1, i).Value Then
-                                dgvMACTSubParts(4, i).Value = "Added"
-                                temp = "Added"
-                                With Me.dgvMACTSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.LightGreen
-                                End With
+                            If IsDBNull(dr.Item("strSubpart")) Then
+                                SubPart = ""
+                            Else
+                                SubPart = dr.Item("strSubpart")
                             End If
-                        Next
-                        If temp <> "Added" Then
-                            dgvRow = New DataGridViewRow
-                            dgvRow.CreateCells(dgvMACTSubParts)
-                            dgvRow.Cells(0).Value = AppNum
-                            dgvRow.Cells(1).Value = SubPart
-                            dgvRow.Cells(2).Value = Desc
-                            dgvRow.Cells(3).Value = CreateDateTime
-                            dgvRow.Cells(4).Value = "Added"
-                            dgvMACTSubParts.Rows.Add(dgvRow)
-                            i = dgvMACTSubParts.Rows.Count - 1
-                            With Me.dgvMACTSubParts.Rows(i)
-                                .DefaultCellStyle.BackColor = Color.LightGreen
-                            End With
-                        End If
-
-                        dgvRow = New DataGridViewRow
-                        dgvRow.CreateCells(dgvMACTSubpartAddEdit)
-                        dgvRow.Cells(0).Value = SubPart
-                        dgvRow.Cells(1).Value = Desc
-                        dgvRow.Cells(2).Value = CreateDateTime
-                        dgvRow.Cells(3).Value = "Added"
-                        dgvMACTSubpartAddEdit.Rows.Add(dgvRow)
-                        i = dgvMACTSubpartAddEdit.Rows.Count - 1
-                        With Me.dgvMACTSubpartAddEdit.Rows(i)
-                            .DefaultCellStyle.BackColor = Color.LightGreen
-                        End With
-
-                    Case "Modified"
-                        temp = ""
-                        For i = 0 To dgvMACTSubParts.Rows.Count - 1
-                            If SubPart = dgvMACTSubParts(1, i).Value Then
-                                dgvMACTSubParts(0, i).Value = AppNum
-                                temp = "Modify"
-                                With Me.dgvMACTSubParts.Rows(i)
-                                    .DefaultCellStyle.BackColor = Color.LightBlue
-                                End With
+                            If IsDBNull(dr.Item("strDescription")) Then
+                                Desc = ""
+                            Else
+                                Desc = dr.Item("strDescription")
                             End If
-                        Next
-
-                        dgvRow = New DataGridViewRow
-                        dgvRow.CreateCells(dgvMACTSubpartAddEdit)
-                        dgvRow.Cells(0).Value = SubPart
-                        dgvRow.Cells(1).Value = Desc
-                        dgvRow.Cells(2).Value = CreateDateTime
-                        dgvRow.Cells(3).Value = "Modify"
-                        dgvMACTSubpartAddEdit.Rows.Add(dgvRow)
-                    Case Else
-
-                End Select
-
-            End While
-            dr.Close()
+                            If IsDBNull(dr.Item("Action")) Then
+                                Action = ""
+                            Else
+                                Action = dr.Item("Action")
+                            End If
+                            If IsDBNull(dr.Item("CreateDateTime")) Then
+                                CreateDateTime = ""
+                            Else
+                                CreateDateTime = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
+                            End If
+            
+                            Select Case Action
+                                Case "Removed"
+                                    temp = ""
+                                    For i = 0 To dgvMACTSubParts.Rows.Count - 1
+                                        If SubPart = dgvMACTSubParts(1, i).Value Then
+                                            dgvMACTSubParts(0, i).Value = AppNum
+                                            dgvMACTSubParts(4, i).Value = "Removed"
+                                            temp = "Removed"
+                                            With Me.dgvMACTSubParts.Rows(i)
+                                                .DefaultCellStyle.BackColor = Color.Tomato
+                                            End With
+                                        End If
+                                    Next
+            
+                                    If temp = "" Then
+                                        dgvRow = New DataGridViewRow
+                                        dgvRow.CreateCells(dgvMACTSubParts)
+                                        dgvRow.Cells(0).Value = AppNum
+                                        dgvRow.Cells(1).Value = SubPart
+                                        dgvRow.Cells(2).Value = Desc
+                                        dgvRow.Cells(3).Value = CreateDateTime
+                                        dgvRow.Cells(4).Value = "Removed"
+                                        dgvMACTSubParts.Rows.Add(dgvRow)
+                                        i = dgvMACTSubParts.Rows.Count - 1
+                                        With Me.dgvMACTSubParts.Rows(i)
+                                            .DefaultCellStyle.BackColor = Color.Tomato
+                                        End With
+                                    End If
+            
+                                    dgvRow = New DataGridViewRow
+                                    dgvRow.CreateCells(dgvMACTSubPartDelete)
+                                    dgvRow.Cells(0).Value = SubPart
+                                    dgvRow.Cells(1).Value = Desc
+                                    dgvMACTSubPartDelete.Rows.Add(dgvRow)
+                                Case "Added"
+                                    temp = ""
+                                    For i = 0 To dgvMACTSubParts.Rows.Count - 1
+                                        If SubPart = dgvMACTSubParts(1, i).Value Then
+                                            dgvMACTSubParts(4, i).Value = "Added"
+                                            temp = "Added"
+                                            With Me.dgvMACTSubParts.Rows(i)
+                                                .DefaultCellStyle.BackColor = Color.LightGreen
+                                            End With
+                                        End If
+                                    Next
+                                    If temp <> "Added" Then
+                                        dgvRow = New DataGridViewRow
+                                        dgvRow.CreateCells(dgvMACTSubParts)
+                                        dgvRow.Cells(0).Value = AppNum
+                                        dgvRow.Cells(1).Value = SubPart
+                                        dgvRow.Cells(2).Value = Desc
+                                        dgvRow.Cells(3).Value = CreateDateTime
+                                        dgvRow.Cells(4).Value = "Added"
+                                        dgvMACTSubParts.Rows.Add(dgvRow)
+                                        i = dgvMACTSubParts.Rows.Count - 1
+                                        With Me.dgvMACTSubParts.Rows(i)
+                                            .DefaultCellStyle.BackColor = Color.LightGreen
+                                        End With
+                                    End If
+            
+                                    dgvRow = New DataGridViewRow
+                                    dgvRow.CreateCells(dgvMACTSubpartAddEdit)
+                                    dgvRow.Cells(0).Value = SubPart
+                                    dgvRow.Cells(1).Value = Desc
+                                    dgvRow.Cells(2).Value = CreateDateTime
+                                    dgvRow.Cells(3).Value = "Added"
+                                    dgvMACTSubpartAddEdit.Rows.Add(dgvRow)
+                                    i = dgvMACTSubpartAddEdit.Rows.Count - 1
+                                    With Me.dgvMACTSubpartAddEdit.Rows(i)
+                                        .DefaultCellStyle.BackColor = Color.LightGreen
+                                    End With
+            
+                                Case "Modified"
+                                    temp = ""
+                                    For i = 0 To dgvMACTSubParts.Rows.Count - 1
+                                        If SubPart = dgvMACTSubParts(1, i).Value Then
+                                            dgvMACTSubParts(0, i).Value = AppNum
+                                            temp = "Modify"
+                                            With Me.dgvMACTSubParts.Rows(i)
+                                                .DefaultCellStyle.BackColor = Color.LightBlue
+                                            End With
+                                        End If
+                                    Next
+            
+                                    dgvRow = New DataGridViewRow
+                                    dgvRow.CreateCells(dgvMACTSubpartAddEdit)
+                                    dgvRow.Cells(0).Value = SubPart
+                                    dgvRow.Cells(1).Value = Desc
+                                    dgvRow.Cells(2).Value = CreateDateTime
+                                    dgvRow.Cells(3).Value = "Modify"
+                                    dgvMACTSubpartAddEdit.Rows.Add(dgvRow)
+                                Case Else
+            
+                            End Select
+            
+                        End While
+                        dr.Close()
+                    End Using
+                    cmd.Connection.Close()
+                End Using
+            End Using
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
