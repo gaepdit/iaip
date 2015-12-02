@@ -5836,10 +5836,10 @@ Public Class PASPFeeAuditLog
             "and strInvoiceStatus = '0' " & _
             "and active = '1' "
 
-            Dim parameters As OracleParameter() = New OracleParameter() { _
-                New OracleParameter("Username", UserName), _
-                New OracleParameter("FeeYear", FeeYear), _
-                New OracleParameter("AirsNumber", AirsNumber) _
+            Dim parameters As OracleParameter() = New OracleParameter() {
+                New OracleParameter("Username", CurrentUser.AlphaName),
+                New OracleParameter("FeeYear", FeeYear),
+                New OracleParameter("AirsNumber", AirsNumber)
             }
 
             If Not DB.RunCommand(SQL, parameters) Then

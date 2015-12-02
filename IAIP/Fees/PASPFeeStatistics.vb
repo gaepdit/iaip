@@ -9091,8 +9091,8 @@ Public Class PASPFeeStatistics
                 "and strInvoiceStatus = '0' " & _
                 "and active = '1' "
 
-                Dim parameters As OracleParameter() = New OracleParameter() { _
-                    New OracleParameter("Username", UserName), _
+                Dim parameters As OracleParameter() = New OracleParameter() {
+                    New OracleParameter("Username", CurrentUser.AlphaName),
                     New OracleParameter("FeeYear", cboFeeStatYear.Text)
                 }
 

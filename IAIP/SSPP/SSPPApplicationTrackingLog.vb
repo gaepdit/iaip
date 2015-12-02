@@ -4799,7 +4799,7 @@ Public Class SSPPApplicationTrackingLog
                                     "values (:appnumber, :airsnumber, :updateuser, :updatedate) ")
                     parametersList.Add({New OracleParameter("appnumber", txtApplicationNumber.Text),
                                         New OracleParameter("airsnumber", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString),
-                                        New OracleParameter("updateuser", UserGCode),
+                                        New OracleParameter("updateuser", CurrentUser.UserID),
                                         New OracleParameter("updatedate", OracleDate)})
 
                     queriesList.Add("Insert into AIRBRANCH.SSPPApplicationData " &
@@ -4807,7 +4807,7 @@ Public Class SSPPApplicationTrackingLog
                                     "datModifingDate) " &
                                     "values (:appnumber, :updateuser, :updatedate) ")
                     parametersList.Add({New OracleParameter("appnumber", txtApplicationNumber.Text),
-                                        New OracleParameter("updateuser", UserGCode),
+                                        New OracleParameter("updateuser", CurrentUser.UserID),
                                         New OracleParameter("updatedate", OracleDate)})
 
                     queriesList.Add("Insert into AIRBRANCH.SSPPApplicationTracking " &
@@ -4816,7 +4816,7 @@ Public Class SSPPApplicationTrackingLog
                                     "values (:appnumber, :submittalnumber, :updateuser, :updatedate) ")
                     parametersList.Add({New OracleParameter("appnumber", txtApplicationNumber.Text),
                                         New OracleParameter("submittalnumber", "1"),
-                                        New OracleParameter("updateuser", UserGCode),
+                                        New OracleParameter("updateuser", CurrentUser.UserID),
                                         New OracleParameter("updatedate", OracleDate)})
 
                     DB.RunCommand(queriesList, parametersList)
@@ -4901,7 +4901,7 @@ Public Class SSPPApplicationTrackingLog
                     New OracleParameter("permittype", PermitType),
                     New OracleParameter("unit", Unit),
                     New OracleParameter("datefinalized", DateFinalized),
-                    New OracleParameter("updateuser", UserGCode),
+                    New OracleParameter("updateuser", CurrentUser.UserID),
                     New OracleParameter("appnumber", txtApplicationNumber.Text)
                 }
                 DB.RunCommand(query, parameters)
@@ -5148,7 +5148,7 @@ Public Class SSPPApplicationTrackingLog
                     New OracleParameter("PNReady", PNReady),
                     New OracleParameter("SignificantComments", SignificantComments),
                     New OracleParameter("PublicInvolved", PublicInvolved),
-                    New OracleParameter("UserGCode", UserGCode),
+                    New OracleParameter("UserGCode", CurrentUser.UserID),
                     New OracleParameter("OracleDate", OracleDate),
                     New OracleParameter("txtApplicationNumber", txtApplicationNumber.Text)
                 }
@@ -5266,7 +5266,7 @@ Public Class SSPPApplicationTrackingLog
                     New OracleParameter("AppDeadline", AppDeadline),
                     New OracleParameter("Withdrawn", Withdrawn),
                     New OracleParameter("DraftIssued", DraftIssued),
-                    New OracleParameter("UserGCode", UserGCode),
+                    New OracleParameter("UserGCode", CurrentUser.UserID),
                     New OracleParameter("OracleDate", OracleDate),
                     New OracleParameter("EPAWaived", EPAWaived),
                     New OracleParameter("EPAEnds", EPAEnds),
@@ -5302,7 +5302,7 @@ Public Class SSPPApplicationTrackingLog
                             parametersList.Add({
                                 New OracleParameter("DateFinalized", DateFinalized),
                                 New OracleParameter("PermitType", PermitType),
-                                New OracleParameter("UserGCode", UserGCode),
+                                New OracleParameter("UserGCode", CurrentUser.UserID),
                                 New OracleParameter("OracleDate", OracleDate),
                                 New OracleParameter("LinkedApplication", LinkedApplication)
                             })
@@ -5334,7 +5334,7 @@ Public Class SSPPApplicationTrackingLog
                                                New OracleParameter("PNReady", PNReady),
                                                New OracleParameter("SignificantComments", SignificantComments),
                                                New OracleParameter("PublicInvolved", PublicInvolved),
-                                               New OracleParameter("UserGCode", UserGCode),
+                                               New OracleParameter("UserGCode", CurrentUser.UserID),
                                                New OracleParameter("OracleDate", OracleDate),
                                                New OracleParameter("LinkedApplication", LinkedApplication)
                                            })
@@ -5360,7 +5360,7 @@ Public Class SSPPApplicationTrackingLog
                                                New OracleParameter("PNExpires", PNExpires),
                                                New OracleParameter("ToBC", ToBC),
                                                New OracleParameter("ToDO", ToDO),
-                                               New OracleParameter("UserGCode", UserGCode),
+                                               New OracleParameter("UserGCode", CurrentUser.UserID),
                                                New OracleParameter("OracleDate", OracleDate),
                                                New OracleParameter("LinkedApplication", LinkedApplication)
                                            })
@@ -5584,7 +5584,7 @@ Public Class SSPPApplicationTrackingLog
                             New OracleParameter("InformationRequested", InformationRequested),
                             New OracleParameter("DateInfoReceived", DateInfoReceived),
                             New OracleParameter("InformationReceived", InformationReceived),
-                            New OracleParameter("UserGCode", UserGCode),
+                            New OracleParameter("UserGCode", CurrentUser.UserID),
                             New OracleParameter("OracleDate", OracleDate),
                             New OracleParameter("txtApplicationNumber", txtApplicationNumber.Text),
                             New OracleParameter("InformationRequestKey", InformationRequestKey)
@@ -5608,7 +5608,7 @@ Public Class SSPPApplicationTrackingLog
                             New OracleParameter("InformationRequested", InformationRequested),
                             New OracleParameter("DateInfoReceived", DateInfoReceived),
                             New OracleParameter("InformationReceived", InformationReceived),
-                            New OracleParameter("UserGCode", UserGCode),
+                            New OracleParameter("UserGCode", CurrentUser.UserID),
                             New OracleParameter("OracleDate", OracleDate)
                         }
                     End If
@@ -6677,7 +6677,7 @@ Public Class SSPPApplicationTrackingLog
                     New OracleParameter("txtApplicationNumber", txtApplicationNumber.Text),
                     New OracleParameter("ActionNumber", ActionNumber),
                     New OracleParameter("UpdateStatus", UpdateStatus),
-                    New OracleParameter("UserGCode", UserGCode),
+                    New OracleParameter("UserGCode", CurrentUser.UserID),
                     New OracleParameter("OracleDate", OracleDate)
                 }
                 DB.RunCommand(query, params)
@@ -6831,8 +6831,8 @@ Public Class SSPPApplicationTrackingLog
                  New OracleParameter("FacilityStreet2", FacilityStreet2),
                  New OracleParameter("City", City),
                  New OracleParameter("ZipCode", ZipCode),
-                 New OracleParameter("Comments", "Updated by " & UserName & ", through Permitting Action."),
-                 New OracleParameter("UserGCode", UserGCode),
+                 New OracleParameter("Comments", "Updated by " & CurrentUser.AlphaName & ", through Permitting Action."),
+                 New OracleParameter("UserGCode", CurrentUser.UserID),
                  New OracleParameter("OracleDate", OracleDate),
                  New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString)
                 })
@@ -6864,8 +6864,8 @@ Public Class SSPPApplicationTrackingLog
                  New OracleParameter("FacilityStreet2", FacilityStreet2),
                  New OracleParameter("City", City),
                  New OracleParameter("ZipCode", ZipCode),
-                 New OracleParameter("Comments", "Updated by " & UserName & ", through Permitting Action."),
-                 New OracleParameter("UserGCode", UserGCode),
+                 New OracleParameter("Comments", "Updated by " & CurrentUser.AlphaName & ", through Permitting Action."),
+                 New OracleParameter("UserGCode", CurrentUser.UserID),
                  New OracleParameter("OracleDate", OracleDate),
                  New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString)
                 })
@@ -7014,7 +7014,7 @@ Public Class SSPPApplicationTrackingLog
             params = {
                 New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString),
                 New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & key),
-                New OracleParameter("UserGCode", UserGCode),
+                New OracleParameter("UserGCode", CurrentUser.UserID),
                 New OracleParameter("OracleDate", OracleDate)
             }
             DB.RunCommand(query, params)
@@ -7025,7 +7025,7 @@ Public Class SSPPApplicationTrackingLog
             paramsList.Add({
                 New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString),
                 New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & key),
-                New OracleParameter("UserGCode", UserGCode),
+                New OracleParameter("UserGCode", CurrentUser.UserID),
                 New OracleParameter("OracleDate", OracleDate)
             })
 
@@ -7050,7 +7050,7 @@ Public Class SSPPApplicationTrackingLog
                           "where strSubpartKey = :pKey ")
             paramsList.Add(
                 {
-                    New OracleParameter("UserGCode", UserGCode),
+                    New OracleParameter("UserGCode", CurrentUser.UserID),
                     New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & key)
                 })
         Else
@@ -7063,7 +7063,7 @@ Public Class SSPPApplicationTrackingLog
                               "and strSubpart = :Subpart ")
                 paramsList.Add(
                     {
-                        New OracleParameter("UserGCode", UserGCode),
+                        New OracleParameter("UserGCode", CurrentUser.UserID),
                         New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & key),
                         New OracleParameter("Subpart", subpart)
                     })
@@ -7092,7 +7092,7 @@ Public Class SSPPApplicationTrackingLog
                     "where strSubpartKey = :pKey " &
                     "and strSubpart = :subpart "
                 params = {
-                    New OracleParameter("UserGCode", UserGCode),
+                    New OracleParameter("UserGCode", CurrentUser.UserID),
                     New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & key)
                 }
             Else
@@ -7106,7 +7106,7 @@ Public Class SSPPApplicationTrackingLog
                     New OracleParameter("airs", "0413" & txtAIRSNumber.Text),
                     New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & key),
                     New OracleParameter("subpart", subpart),
-                    New OracleParameter("UserGCode", UserGCode)
+                    New OracleParameter("UserGCode", CurrentUser.UserID)
                 }
             End If
         Next
@@ -11156,7 +11156,7 @@ Public Class SSPPApplicationTrackingLog
             "strEmailAddress, strPhone " &
             "from AIRBranch.EPDUserProfiles " &
             "where numUserID = :UserGCode "
-            Dim parameter As New OracleParameter("UserGCode", UserGCode)
+            Dim parameter As New OracleParameter("UserGCode", CurrentUser.UserID)
 
             Using connection As New OracleConnection(DB.CurrentConnectionString)
                 Using cmd As OracleCommand = connection.CreateCommand
@@ -13063,7 +13063,7 @@ Public Class SSPPApplicationTrackingLog
             New OracleParameter("pKey", appnum & programKey),
             New OracleParameter("subpart", subpart),
             New OracleParameter("activity", activity),
-            New OracleParameter("pUser", UserGCode)
+            New OracleParameter("pUser", CurrentUser.UserID)
         }
         DB.RunCommand(query, parameters)
     End Sub
@@ -13143,7 +13143,7 @@ Public Class SSPPApplicationTrackingLog
                                         "where strSubpartKey = :pKey " &
                                         "and strSubpart = :Subpart "
                                     parameter = {
-                                        New OracleParameter("UserGCode", UserGCode),
+                                        New OracleParameter("UserGCode", CurrentUser.UserID),
                                         New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & "9"),
                                         New OracleParameter("Subpart", Subpart)
                                     }
@@ -13177,7 +13177,7 @@ Public Class SSPPApplicationTrackingLog
                 "and strSubpart = Subpart "
                 parameter = {
                     New OracleParameter("airsnum", "0413" & txtAIRSNumber.Text),
-                    New OracleParameter("UserGCode", UserGCode),
+                    New OracleParameter("UserGCode", CurrentUser.UserID),
                     New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & "9"),
                     New OracleParameter("Subpart", Subpart)
                 }
@@ -13218,7 +13218,7 @@ Public Class SSPPApplicationTrackingLog
                     "where strSubpartKey = :pKey " &
                     "and strSubpart = :Subpart "
                 parameter = {
-                    New OracleParameter("UserGCode", UserGCode),
+                    New OracleParameter("UserGCode", CurrentUser.UserID),
                     New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & "9"),
                     New OracleParameter("Subpart", Subpart)
                 }
@@ -13230,7 +13230,7 @@ Public Class SSPPApplicationTrackingLog
                 "where strSubpartKey = :pKey " &
                 "and strSubpart = :Subpart "
                 parameter = {
-                    New OracleParameter("UserGCode", UserGCode),
+                    New OracleParameter("UserGCode", CurrentUser.UserID),
                     New OracleParameter("appnum", txtApplicationNumber.Text),
                     New OracleParameter("pKey", txtApplicationNumber.Text & "9"),
                     New OracleParameter("Subpart", Subpart)
@@ -13270,7 +13270,7 @@ Public Class SSPPApplicationTrackingLog
                 "where strSubpartKey = :pKey " &
                 "and strSubpart = :Subpart "
                 parameter = {
-                    New OracleParameter("UserGCode", UserGCode),
+                    New OracleParameter("UserGCode", CurrentUser.UserID),
                     New OracleParameter("appnum", txtApplicationNumber.Text),
                     New OracleParameter("pKey", txtApplicationNumber.Text & "9"),
                     New OracleParameter("Subpart", Subpart)
@@ -13335,7 +13335,7 @@ Public Class SSPPApplicationTrackingLog
             parameter = {
                 New OracleParameter("airsnum", "0413" & txtAIRSNumber.Text),
                 New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & "9"),
-                New OracleParameter("UserGCode", UserGCode)
+                New OracleParameter("UserGCode", CurrentUser.UserID)
             }
 
             If DB.ValueExists(query, parameter) Then
