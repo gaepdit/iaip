@@ -408,4 +408,14 @@ Module Extensions
 
 #End Region
 
+#Region " List "
+
+    <Extension>
+    Public Function AddBlankRowToList(l As List(Of String), Optional blankPrompt As String = "") As List(Of String)
+        l.Insert(0, blankPrompt)
+        Return l
+    End Function
+
+#End Region
+
 End Module

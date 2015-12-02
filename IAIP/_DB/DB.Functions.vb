@@ -39,19 +39,47 @@ Namespace DB
 
 #Region " Read (Scalar) "
 
+        ''' <summary>
+        ''' Retrieves a boolean value from the database.
+        ''' </summary>
+        ''' <param name="query">The SQL query to send.</param>
+        ''' <param name="parameter">An optional OracleParameter to send.</param>
+        ''' <param name="failSilently">If true, OracleExceptions will be suppressed.</param>
+        ''' <returns>A boolean value.</returns>
         Public Function GetBoolean(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing, Optional ByVal failSilently As Boolean = False) As Boolean
             Return Convert.ToBoolean(GetSingleValue(Of Boolean)(query, parameter, failSilently))
         End Function
 
+        ''' <summary>
+        ''' Retrieves a boolean value from the database.
+        ''' </summary>
+        ''' <param name="query">The SQL query to send.</param>
+        ''' <param name="parameterArray">An optional OracleParameter array to send.</param>
+        ''' <param name="failSilently">If true, OracleExceptions will be suppressed.</param>
+        ''' <returns>A boolean value.</returns>
         Public Function GetBoolean(ByVal query As String, ByVal parameterArray As OracleParameter(), Optional ByVal failSilently As Boolean = False) As Boolean
             Return Convert.ToBoolean(GetSingleValue(Of Boolean)(query, parameterArray, failSilently))
         End Function
 
+        ''' <summary>
+        ''' Retrieves a single value of the specified type from the database.
+        ''' </summary>
+        ''' <param name="query">The SQL query to send.</param>
+        ''' <param name="parameter">An optional OracleParameter to send.</param>
+        ''' <param name="failSilently">If true, OracleExceptions will be suppressed.</param>
+        ''' <returns>A value of the specified type.</returns>
         Public Function GetSingleValue(Of T)(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing, Optional ByVal failSilently As Boolean = False) As T
             Dim parameterArray As OracleParameter() = {parameter}
             Return GetSingleValue(Of T)(query, parameterArray, failSilently)
         End Function
 
+        ''' <summary>
+        ''' Retrieves a single value of the specified type from the database.
+        ''' </summary>
+        ''' <param name="query">The SQL query to send.</param>
+        ''' <param name="parameterArray">An optional OracleParameter array to send.</param>
+        ''' <param name="failSilently">If true, OracleExceptions will be suppressed.</param>
+        ''' <returns>A value of the specified type.</returns>
         Public Function GetSingleValue(Of T)(ByVal query As String, ByVal parameterArray As OracleParameter(), Optional ByVal failSilently As Boolean = False) As T
             Dim result As Object = Nothing
             Using connection As New OracleConnection(CurrentConnectionString)
@@ -78,11 +106,23 @@ Namespace DB
 
 #Region " Value Exists "
 
+        ''' <summary>
+        ''' Determines whether a value as indicated by the SQL query exists in the database.
+        ''' </summary>
+        ''' <param name="query">The SQL query to send.</param>
+        ''' <param name="parameter">An optional OracleParameter to send.</param>
+        ''' <returns>A boolean value signifying whether the indicated value exists.</returns>
         Public Function ValueExists(query As String, Optional parameter As OracleParameter = Nothing) As Boolean
             Dim parameterArray As OracleParameter() = {parameter}
             Return ValueExists(query, parameterArray)
         End Function
 
+        ''' <summary>
+        ''' Determines whether a value as indicated by the SQL query exists in the database.
+        ''' </summary>
+        ''' <param name="query">The SQL query to send.</param>
+        ''' <param name="parameterArray">An optional OracleParameter array to send.</param>
+        ''' <returns>A boolean value signifying whether the indicated value exists.</returns>
         Public Function ValueExists(query As String, parameterArray As OracleParameter()) As Boolean
             Dim result As Object = Nothing
             Using connection As New OracleConnection(CurrentConnectionString)
@@ -107,11 +147,17 @@ Namespace DB
 
 #Region " Read (Lookup Dictionary) "
 
-        Public Function GetLookupDictionary(ByVal query As String) _
+        ''' <summary>
+        ''' Retrieves a dictionary of (integer -> string) values from the database
+        ''' </summary>
+        ''' <param name="query">The SQL query to send.</param>
+        ''' <param name="parameter">An optional OracleParameter to send.</param>
+        ''' <returns>A lookup dictionary.</returns>
+        Public Function GetLookupDictionary(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing) _
         As Dictionary(Of Integer, String)
             Dim d As New Dictionary(Of Integer, String)
 
-            Dim dataTable As DataTable = DB.GetDataTable(query)
+            Dim dataTable As DataTable = GetDataTable(query, parameter)
 
             For Each row As DataRow In dataTable.Rows
                 d.Add(row.Item(0), row.Item(1))
@@ -124,11 +170,23 @@ Namespace DB
 
 #Region " Read (DataRow) "
 
+        ''' <summary>
+        ''' Retrieves a single row of values from the database.
+        ''' </summary>
+        ''' <param name="query">The SQL query to send.</param>
+        ''' <param name="parameter">An optional OracleParameter to send.</param>
+        ''' <returns>A DataRow of values.</returns>
         Public Function GetDataRow(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing) As DataRow
             Dim parameterArray As OracleParameter() = {parameter}
             Return GetDataRow(query, parameterArray)
         End Function
 
+        ''' <summary>
+        ''' Retrieves a single row of values from the database.
+        ''' </summary>
+        ''' <param name="query">The SQL query to send.</param>
+        ''' <param name="parameterArray">An optional OracleParameter array to send.</param>
+        ''' <returns>A DataRow of values.</returns>
         Public Function GetDataRow(ByVal query As String, ByVal parameterArray As OracleParameter()) As DataRow
             Dim resultTable As DataTable = GetDataTable(query, parameterArray)
             If resultTable IsNot Nothing And resultTable.Rows.Count = 1 Then
@@ -142,11 +200,23 @@ Namespace DB
 
 #Region " Read (DataTable) "
 
+        ''' <summary>
+        ''' Retrieves a DataTable of values from the database.
+        ''' </summary>
+        ''' <param name="query">The SQL query to send.</param>
+        ''' <param name="parameter">An optional OracleParameter to send.</param>
+        ''' <returns>A DataTable of values.</returns>
         Public Function GetDataTable(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing) As DataTable
             Dim parameterArray As OracleParameter() = {parameter}
             Return GetDataTable(query, parameterArray)
         End Function
 
+        ''' <summary>
+        ''' Retrieves a DataTable of values from the database.
+        ''' </summary>
+        ''' <param name="query">The SQL query to send.</param>
+        ''' <param name="parameterArray">An optional OracleParameter array to send.</param>
+        ''' <returns>A DataTable of values.</returns>
         Public Function GetDataTable(ByVal query As String, ByVal parameterArray As OracleParameter()) As DataTable
             Dim table As New DataTable
             Using connection As New OracleConnection(CurrentConnectionString)
@@ -179,7 +249,7 @@ Namespace DB
         End Function
 
         Public Function SaveBinaryFileFromDB(filePath As String, query As String, ByVal parameterArray As OracleParameter()) As Boolean
-            Dim byteArray As Byte() = DB.GetByteArrayFromBlob(query, parameterArray)
+            Dim byteArray As Byte() = GetByteArrayFromBlob(query, parameterArray)
 
             Try
                 Using fs As New FileStream(filePath, FileMode.Create, FileAccess.Write)
@@ -481,7 +551,7 @@ Namespace DB
         Public Function SPGetListOfKeyValuePair(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing) _
         As List(Of KeyValuePair(Of Integer, String))
             Dim l As New List(Of KeyValuePair(Of Integer, String))
-            Dim dt As DataTable = DB.SPGetDataTable(spName, parameter)
+            Dim dt As DataTable = SPGetDataTable(spName, parameter)
 
             For Each r As DataRow In dt.Rows
                 l.Add(New KeyValuePair(Of Integer, String)(r.Item(0), GetNullable(Of String)(r.Item(1))))
@@ -492,7 +562,7 @@ Namespace DB
 
         Public Function SPGetList(Of T)(ByVal spname As String, Optional ByVal parameter As OracleParameter = Nothing) As List(Of T)
             Dim l As New List(Of T)
-            Dim dt As DataTable = DB.SPGetDataTable(spname, parameter)
+            Dim dt As DataTable = SPGetDataTable(spname, parameter)
 
             For Each r As DataRow In dt.Rows
                 l.Add(GetNullable(Of T)(r.Item(0)))
@@ -513,7 +583,7 @@ Namespace DB
         '''' keys and values -- and furthermore that the keys are never null.</remarks>
         'Public Function SPGetDictionary(Of TKey, TValue)(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing) As Dictionary(Of TKey, TValue)
         '    Dim d As New Dictionary(Of TKey, TValue)
-        '    Dim t As DataTable = DB.SPGetDataTable(spName, parameter)
+        '    Dim t As DataTable = SPGetDataTable(spName, parameter)
 
         '    For Each r As DataRow In t.Rows
         '        d.Add(r.Item(0), GetNullable(Of TValue)(r.Item(1)))
