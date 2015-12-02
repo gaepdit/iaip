@@ -40,7 +40,7 @@
         End Function
 
         Private Structure DatabaseConnectionParameters
-            Public Sub New(ByVal host As String, ByVal port As String, ByVal sid As String, _
+            Public Sub New(ByVal host As String, ByVal port As String, ByVal sid As String,
                            ByVal user As String, ByVal pwd As String)
                 Me.Host = host
                 Me.Port = port
@@ -76,8 +76,8 @@
         Private Function GetConnectionString(ByVal env As ServerEnvironment) As String
 
             ' Oracle connection method without tnsnames.ora
-            Dim oracleConnectionStringTemplate As String = "Data Source=(DESCRIPTION=(ADDRESS_LIST=" & _
-                "(ADDRESS=(PROTOCOL=TCP)(HOST={0})(PORT={1})))(CONNECT_DATA=(SERVER=DEDICATED)(SID={2})));" & _
+            Dim oracleConnectionStringTemplate As String = "Data Source=(DESCRIPTION=(ADDRESS_LIST=" &
+                "(ADDRESS=(PROTOCOL=TCP)(HOST={0})(PORT={1})))(CONNECT_DATA=(SERVER=DEDICATED)(SID={2})));" &
                 "User Id={3}; Password = {4};"
 
             ' Standard Oracle connection method (requires tnsnames.ora on client)

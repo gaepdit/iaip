@@ -894,7 +894,7 @@
     <Compile Include="_Data Models\Event Registration\Res.Registrant.vb" />
     <Compile Include="_Data Models\Event Registration\Res.EventRegistration.vb" />
     <Compile Include="_Data Models\Facilities\Location.vb" />
-    <Compile Include="_DAL\_DB\DB.vb" />
+    <Compile Include="_DB\DB.vb" />
     <Compile Include="_Data Models\ISMP\Ismp.ReferenceNumber.vb" />
     <Compile Include="_Data Models\SSCP\Apb.Sscp.Fce.vb" />
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.Inspection.vb" />
@@ -1684,7 +1684,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_DAL\DAL.Sspp.Permit.vb" />
-    <Compile Include="_DAL\_DB\DB.Connections.vb" />
+    <Compile Include="_DB\DB.Connections.vb" />
     <Compile Include="Crystal Reports\CRViewerForm.Designer.vb">
       <DependentUpon>CRViewerForm.vb</DependentUpon>
     </Compile>
@@ -1813,7 +1813,7 @@
     <Compile Include="_DAL\SSCP\DAL.Sscp.Enforcement.vb" />
     <Compile Include="_DAL\DAL.Documents.vb" />
     <Compile Include="_DAL\DAL.EventRegistration.vb" />
-    <Compile Include="_DAL\_DB\DB.Utilities.vb" />
+    <Compile Include="_DB\DB.Utilities.vb" />
     <Compile Include="_Modules\Analytics.vb" />
     <Compile Include="_Modules\BitFields.vb" />
     <Compile Include="_Modules\CrystalReports.vb" />

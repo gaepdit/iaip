@@ -34,11 +34,6 @@ Namespace DB
             End Try
         End Function
 
-        Public Function AddBlankRowToList(ByRef l As List(Of String), Optional ByVal blankPrompt As String = "") As List(Of String)
-            l.Insert(0, blankPrompt)
-            Return l
-        End Function
-
         Public Function ReadByteArrayFromFile(ByVal pathToFile As String) As Byte()
             Return File.ReadAllBytes(pathToFile)
         End Function
