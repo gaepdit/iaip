@@ -1,5 +1,6 @@
 ﻿Imports Oracle.ManagedDataAccess.Client
 Imports System.Collections.Generic
+Imports System.IO
 
 Namespace DB
     Module DB
@@ -75,6 +76,35 @@ Namespace DB
 
 #End Region
 
+#Region " Value Exists "
+
+        Public Function ValueExists(query As String, Optional parameter As OracleParameter = Nothing) As Boolean
+            Dim parameterArray As OracleParameter() = {parameter}
+            Return ValueExists(query, parameterArray)
+        End Function
+
+        Public Function ValueExists(query As String, parameterArray As OracleParameter()) As Boolean
+            Dim result As Object = Nothing
+            Using connection As New OracleConnection(CurrentConnectionString)
+                Using command As New OracleCommand(query, connection)
+                    command.CommandType = CommandType.Text
+                    command.BindByName = True
+                    command.Parameters.AddRange(parameterArray)
+                    Try
+                        command.Connection.Open()
+                        result = command.ExecuteScalar()
+                        command.Connection.Close()
+                    Catch ee As OracleException
+                        MessageBox.Show("Database error: " & ee.ToString)
+                    End Try
+
+                    Return Not (result Is Nothing OrElse IsDBNull(result) OrElse result.ToString = "null")
+                End Using
+            End Using
+        End Function
+
+#End Region
+
 #Region " Read (Lookup Dictionary) "
 
         Public Function GetLookupDictionary(ByVal query As String) _
@@ -143,12 +173,35 @@ Namespace DB
 
 #Region " Read (ByteArray) "
 
-        Public Function GetByteArrayFromBlob(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing) As Byte()
+        Public Function SaveBinaryFileFromDB(filePath As String, query As String, Optional ByVal parameter As OracleParameter = Nothing) As Boolean
+            Dim parameterArray As OracleParameter() = {parameter}
+            Return SaveBinaryFileFromDB(filePath, query, parameterArray)
+        End Function
+
+        Public Function SaveBinaryFileFromDB(filePath As String, query As String, ByVal parameterArray As OracleParameter()) As Boolean
+            Dim byteArray As Byte() = DB.GetByteArrayFromBlob(query, parameterArray)
+
+            Try
+                Using fs As New FileStream(filePath, FileMode.Create, FileAccess.Write)
+                    Using bw As New BinaryWriter(fs)
+                        bw.Write(byteArray)
+                        bw.Close()
+                    End Using ' bw
+                    fs.Close()
+                End Using ' fs
+
+                Return True
+            Catch ex As Exception
+                Return False
+            End Try
+        End Function
+
+        Private Function GetByteArrayFromBlob(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing) As Byte()
             Dim parameterArray As OracleParameter() = {parameter}
             Return GetByteArrayFromBlob(query, parameterArray)
         End Function
 
-        Public Function GetByteArrayFromBlob(ByVal query As String, ByVal parameterArray As OracleParameter()) As Byte()
+        Private Function GetByteArrayFromBlob(ByVal query As String, ByVal parameterArray As OracleParameter()) As Byte()
             Using connection As New OracleConnection(CurrentConnectionString)
                 Using command As New OracleCommand(query, connection)
                     command.CommandType = CommandType.Text
