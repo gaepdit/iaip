@@ -15,10 +15,10 @@ Namespace Apb.Sscp
         Public Property Deleted() As Boolean
         Public Property DeletedDbCode As String
             Get
-                Return DB.DumbConvertFromBoolean(Me.Deleted, DB.DumbConvertBooleanType.TrueOrDBNull)
+                Return DB.ConvertBooleanToDBValue(Me.Deleted, DB.BooleanDBConversionType.TrueOrDBNull)
             End Get
             Set(value As String)
-                Me.Deleted = DB.DumbConvertToBoolean(value, DB.DumbConvertBooleanType.TrueOrDBNull)
+                Me.Deleted = DB.ConvertDBValueToBoolean(value, DB.BooleanDBConversionType.TrueOrDBNull)
             End Set
         End Property
         Public Property DateAcknowledgmentLetterSent() As Date?

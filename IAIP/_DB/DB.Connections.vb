@@ -28,18 +28,21 @@
         ''' <param name="env">A ConnectionEnvironment enum designating which connection string is desired</param>
         ''' <returns>Database connection parameters</returns>
         ''' <remarks>Currently built to return Oracle connection parameters</remarks>
-        Private Function GetDatabaseConnectionParameters(ByVal env As ServerEnvironment) As DatabaseConnectionParameters
+        Private Function GetDatabaseConnectionParameters(ByVal env As ServerEnvironment) As OracleConnectionParameters
             Select Case env
                 Case ServerEnvironment.PRD
-                    Return New DatabaseConnectionParameters("167.195.93.68", "1521", "PRD", "AIRBRANCH_APP_USER", SimpleCrypt("çòáðò±ì"))
+                    Return New OracleConnectionParameters("167.195.93.68", "1521", "PRD", "AIRBRANCH_APP_USER", SimpleCrypt("çòáðò±ì"))
                 Case ServerEnvironment.DEV
-                    Return New DatabaseConnectionParameters("167.195.93.100", "1521", "DEV", "AIRBRANCH", SimpleCrypt("óíïçáìåòô"))
+                    Return New OracleConnectionParameters("167.195.93.100", "1521", "DEV", "AIRBRANCH", SimpleCrypt("óíïçáìåòô"))
                 Case Else
                     Return Nothing
             End Select
         End Function
 
-        Private Structure DatabaseConnectionParameters
+        ''' <summary>
+        ''' Just the properties needed to form an Oracle connection string
+        ''' </summary>
+        Private Structure OracleConnectionParameters
             Public Sub New(ByVal host As String, ByVal port As String, ByVal sid As String,
                            ByVal user As String, ByVal pwd As String)
                 Me.Host = host
@@ -79,15 +82,9 @@
             Dim oracleConnectionStringTemplate As String = "Data Source=(DESCRIPTION=(ADDRESS_LIST=" &
                 "(ADDRESS=(PROTOCOL=TCP)(HOST={0})(PORT={1})))(CONNECT_DATA=(SERVER=DEDICATED)(SID={2})));" &
                 "User Id={3}; Password = {4};"
+            Dim oraParams As OracleConnectionParameters = GetDatabaseConnectionParameters(env)
 
-            ' Standard Oracle connection method (requires tnsnames.ora on client)
-            'Private oracleConnectionStringTemplate As String = "Data Source = {2}; User ID = {3}; Password = {4};"
-
-            ' Oracle EZ Connect method (maybe requires EZCONNECT enabled in sqlnet.ora file?)
-            'Private oracleConnectionStringTemplate As String = "{3}/{4}@//{0}:{1}/{2}"
-
-            Dim dbParams As DatabaseConnectionParameters = GetDatabaseConnectionParameters(env)
-            Return String.Format(oracleConnectionStringTemplate, dbParams.Host, dbParams.Port, dbParams.SID, dbParams.User, dbParams.Password)
+            Return String.Format(oracleConnectionStringTemplate, oraParams.Host, oraParams.Port, oraParams.SID, oraParams.User, oraParams.Password)
         End Function
 
     End Module
