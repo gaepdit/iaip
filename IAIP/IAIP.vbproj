@@ -266,7 +266,7 @@
       <DependentUpon>FacilityBasicInfo.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Crystal Reports\SSPP\crSSPPConfirmationLetter.vb">
+    <Compile Include="Crystal Reports\Subreports\SSPP\crSSPPConfirmationLetter.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>crSSPPConfirmationLetter.rpt</DependentUpon>
@@ -998,7 +998,7 @@
       <LastGenOutput>FacilityBasicInfo.vb</LastGenOutput>
       <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\SSPP\crSSPPConfirmationLetter.rpt">
+    <EmbeddedResource Include="Crystal Reports\Subreports\SSPP\crSSPPConfirmationLetter.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crSSPPConfirmationLetter.vb</LastGenOutput>
     </EmbeddedResource>
