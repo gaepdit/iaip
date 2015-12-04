@@ -509,132 +509,6 @@ Public Class PASPFeeReports
         'crReportDocument.Close()
     End Sub
 
-    Private Sub btnPayDate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPayDate.Click
-        Try
-
-            DateTimePicker1.Text = OracleDate
-            DateTimePicker2.Text = OracleDate
-            DateTimePicker1.Visible = True
-            DateTimePicker2.Visible = True
-            pnlDateRange.Visible = True
-            Label3.Visible = True
-            Label4.Visible = True
-            Label5.Visible = True
-
-            rdb2005Variance.Visible = False
-            rdb2006Variance.Visible = False
-            btnRunVarianceReport.Visible = False
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-
-    Private Sub btnDateReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDateReport.Click
-        Try
-            pnlDateRange.Visible = False
-
-            progress1.progress = -1
-            ds = New DataSet
-            Dim p As New ParameterFields
-            Dim p1 As New ParameterField
-            Dim p2 As New ParameterField
-            Dim p3 As New ParameterDiscreteValue
-            Dim p4 As New ParameterDiscreteValue
-
-            rpt = New DepositDataQA10
-            monitor.TrackFeature("Report." & rpt.ResourceName)
-
-            SQL = "Select * from AIRBRANCH.FSAddPaid " & _
-            "where datPayDate between '" & Format(DateTimePicker1.Value, "dd-MMM-yyyy") & "' and '" & Format(DateTimePicker2.Value, "dd-MMM-yyyy") & "' " & _
-            "order by strBatchNo "
-
-            da = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            ds.EnforceConstraints = False
-            da.Fill(ds, "FSAddPaid")
-
-            rpt.SetDataSource(ds)
-
-            p1.ParameterFieldName = "StartDate"
-            p3.Value = DateTimePicker1.Value
-            p1.CurrentValues.Add(p3)
-            p.Add(p1)
-            CRFeesReports.ParameterFieldInfo = p
-
-            p2.ParameterFieldName = "EndDate"
-            p4.Value = DateTimePicker2.Value
-            p2.CurrentValues.Add(p4)
-            p.Add(p2)
-            CRFeesReports.ParameterFieldInfo = p
-
-            SetUpCrystalReportViewer(rpt, CRFeesReports, "Payments by Date - " & Format(DateTimePicker1.Value, "dd-MMM-yyyy") & " --> " & Format(DateTimePicker2.Value, "dd-MMM-yyyy"))
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-        progress1.progress = 0
-
-    End Sub
-
-    Private Sub btndeposit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btndeposit.Click
-        Try
-            pnlDateRange.Visible = False
-
-            progress1.progress = -1
-            ds = New DataSet
-            rpt = New DepositData10
-            monitor.TrackFeature("Report." & rpt.ResourceName)
-
-            SQL = "Select * from AIRBRANCH.FSAddPaid " & _
-            "where datPayDate between '" & Format(DateTimePicker1.Value, "dd-MMM-yyyy") & "' and '" & Format(DateTimePicker2.Value, "dd-MMM-yyyy") & "' "
-
-            da = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            ds.EnforceConstraints = False
-            da.Fill(ds, "FSAddPaid")
-            rpt.SetDataSource(ds)
-
-            Dim p As New ParameterFields
-            Dim p1 As New ParameterField
-            Dim p2 As New ParameterField
-            Dim p3 As New ParameterDiscreteValue
-            Dim p4 As New ParameterDiscreteValue
-
-            p1.ParameterFieldName = "StartDate"
-            p3.Value = DateTimePicker1.Value
-            p1.CurrentValues.Add(p3)
-            p.Add(p1)
-            CRFeesReports.ParameterFieldInfo = p
-
-            p2.ParameterFieldName = "EndDate"
-            p4.Value = DateTimePicker2.Value
-            p2.CurrentValues.Add(p4)
-            p.Add(p2)
-            CRFeesReports.ParameterFieldInfo = p
-
-            SetUpCrystalReportViewer(rpt, CRFeesReports, "Payments by Date - " & Format(DateTimePicker1.Value, "dd-MMM-yyyy") & " --> " & Format(DateTimePicker2.Value, "dd-MMM-yyyy"))
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-        progress1.progress = 0
-        'crReportDocument.Close()
-    End Sub
-
     Private Sub btnBankrupt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBankrupt.Click
         Try
             pnlDateRange.Visible = False
@@ -769,25 +643,10 @@ Public Class PASPFeeReports
         End Try
     End Sub
     Private Sub btnvariance_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnvariance.Click
-        Try
-            rdb2005Variance.Visible = True
-            rdb2006Variance.Visible = True
-            btnRunVarianceReport.Visible = True
-            pnlDateRange.Visible = True
-
-            DateTimePicker1.Visible = False
-            DateTimePicker2.Visible = False
-            btndeposit.Visible = False
-            btnDateReport.Visible = False
-            Label3.Visible = False
-            Label4.Visible = False
-            Label5.Visible = False
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        rdb2005Variance.Visible = True
+        rdb2006Variance.Visible = True
+        btnRunVarianceReport.Visible = True
+        pnlDateRange.Visible = True
     End Sub
 
 #End Region

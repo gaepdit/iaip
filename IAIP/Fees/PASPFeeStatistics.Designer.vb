@@ -282,18 +282,10 @@ Partial Class PASPFeeStatistics
         Me.btnRunVarianceReport = New System.Windows.Forms.Button()
         Me.rdb2006Variance = New System.Windows.Forms.RadioButton()
         Me.rdb2005Variance = New System.Windows.Forms.RadioButton()
-        Me.btndeposit = New System.Windows.Forms.Button()
-        Me.btnDateReport = New System.Windows.Forms.Button()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.btnvariance = New System.Windows.Forms.Button()
         Me.btnFeeByYear = New System.Windows.Forms.Button()
         Me.btnBankrupt = New System.Windows.Forms.Button()
-        Me.btnPayDate = New System.Windows.Forms.Button()
         Me.btnPayment = New System.Windows.Forms.Button()
         Me.TPYearSpecific = New System.Windows.Forms.TabPage()
         Me.Panel7 = New System.Windows.Forms.Panel()
@@ -3014,13 +3006,6 @@ Partial Class PASPFeeStatistics
         Me.pnlDateRange.Controls.Add(Me.btnRunVarianceReport)
         Me.pnlDateRange.Controls.Add(Me.rdb2006Variance)
         Me.pnlDateRange.Controls.Add(Me.rdb2005Variance)
-        Me.pnlDateRange.Controls.Add(Me.btndeposit)
-        Me.pnlDateRange.Controls.Add(Me.btnDateReport)
-        Me.pnlDateRange.Controls.Add(Me.Label5)
-        Me.pnlDateRange.Controls.Add(Me.DateTimePicker2)
-        Me.pnlDateRange.Controls.Add(Me.Label4)
-        Me.pnlDateRange.Controls.Add(Me.Label3)
-        Me.pnlDateRange.Controls.Add(Me.DateTimePicker1)
         Me.pnlDateRange.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlDateRange.Location = New System.Drawing.Point(2, 26)
         Me.pnlDateRange.Margin = New System.Windows.Forms.Padding(2)
@@ -3033,7 +3018,7 @@ Partial Class PASPFeeStatistics
         '
         Me.btnRunVarianceReport.AutoSize = True
         Me.btnRunVarianceReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRunVarianceReport.Location = New System.Drawing.Point(500, 20)
+        Me.btnRunVarianceReport.Location = New System.Drawing.Point(219, 3)
         Me.btnRunVarianceReport.Name = "btnRunVarianceReport"
         Me.btnRunVarianceReport.Size = New System.Drawing.Size(117, 23)
         Me.btnRunVarianceReport.TabIndex = 9
@@ -3043,7 +3028,7 @@ Partial Class PASPFeeStatistics
         'rdb2006Variance
         '
         Me.rdb2006Variance.AutoSize = True
-        Me.rdb2006Variance.Location = New System.Drawing.Point(6, 21)
+        Me.rdb2006Variance.Location = New System.Drawing.Point(6, 23)
         Me.rdb2006Variance.Name = "rdb2006Variance"
         Me.rdb2006Variance.Size = New System.Drawing.Size(207, 17)
         Me.rdb2006Variance.TabIndex = 8
@@ -3062,82 +3047,11 @@ Partial Class PASPFeeStatistics
         Me.rdb2005Variance.Text = "Fee Variance between 2004 and 2005"
         Me.rdb2005Variance.UseVisualStyleBackColor = True
         '
-        'btndeposit
-        '
-        Me.btndeposit.AutoSize = True
-        Me.btndeposit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btndeposit.Location = New System.Drawing.Point(375, 21)
-        Me.btndeposit.Margin = New System.Windows.Forms.Padding(2)
-        Me.btndeposit.Name = "btndeposit"
-        Me.btndeposit.Size = New System.Drawing.Size(108, 23)
-        Me.btndeposit.TabIndex = 6
-        Me.btndeposit.Text = "Get Deposit Report"
-        '
-        'btnDateReport
-        '
-        Me.btnDateReport.AutoSize = True
-        Me.btnDateReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnDateReport.Location = New System.Drawing.Point(258, 20)
-        Me.btnDateReport.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnDateReport.Name = "btnDateReport"
-        Me.btnDateReport.Size = New System.Drawing.Size(99, 23)
-        Me.btnDateReport.TabIndex = 5
-        Me.btnDateReport.Text = "Get Detail Report"
-        '
-        'Label5
-        '
-        Me.Label5.Location = New System.Drawing.Point(138, 23)
-        Me.Label5.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(24, 13)
-        Me.Label5.TabIndex = 4
-        Me.Label5.Text = "To: "
-        '
-        'DateTimePicker2
-        '
-        Me.DateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DateTimePicker2.Location = New System.Drawing.Point(162, 20)
-        Me.DateTimePicker2.Margin = New System.Windows.Forms.Padding(2)
-        Me.DateTimePicker2.Name = "DateTimePicker2"
-        Me.DateTimePicker2.Size = New System.Drawing.Size(92, 20)
-        Me.DateTimePicker2.TabIndex = 3
-        Me.DateTimePicker2.Value = New Date(2008, 8, 12, 0, 0, 0, 0)
-        '
-        'Label4
-        '
-        Me.Label4.Location = New System.Drawing.Point(0, 23)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(36, 13)
-        Me.Label4.TabIndex = 2
-        Me.Label4.Text = "From: "
-        '
-        'Label3
-        '
-        Me.Label3.Location = New System.Drawing.Point(0, 0)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(588, 19)
-        Me.Label3.TabIndex = 1
-        Me.Label3.Text = "Select the Date Range and click on ""Get Report"" button. If no date is selected, t" & _
-    "oday's date will be assumed."
-        '
-        'DateTimePicker1
-        '
-        Me.DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DateTimePicker1.Location = New System.Drawing.Point(42, 20)
-        Me.DateTimePicker1.Margin = New System.Windows.Forms.Padding(2)
-        Me.DateTimePicker1.Name = "DateTimePicker1"
-        Me.DateTimePicker1.Size = New System.Drawing.Size(92, 20)
-        Me.DateTimePicker1.TabIndex = 0
-        Me.DateTimePicker1.Value = New Date(2008, 8, 12, 0, 0, 0, 0)
-        '
         'Panel6
         '
         Me.Panel6.Controls.Add(Me.btnvariance)
         Me.Panel6.Controls.Add(Me.btnFeeByYear)
         Me.Panel6.Controls.Add(Me.btnBankrupt)
-        Me.Panel6.Controls.Add(Me.btnPayDate)
         Me.Panel6.Controls.Add(Me.btnPayment)
         Me.Panel6.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel6.Location = New System.Drawing.Point(2, 2)
@@ -3153,7 +3067,7 @@ Partial Class PASPFeeStatistics
         Me.btnvariance.CausesValidation = False
         Me.btnvariance.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.btnvariance.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.btnvariance.Location = New System.Drawing.Point(422, 0)
+        Me.btnvariance.Location = New System.Drawing.Point(320, 0)
         Me.btnvariance.Margin = New System.Windows.Forms.Padding(2)
         Me.btnvariance.Name = "btnvariance"
         Me.btnvariance.Size = New System.Drawing.Size(94, 23)
@@ -3170,7 +3084,7 @@ Partial Class PASPFeeStatistics
         Me.btnFeeByYear.CausesValidation = False
         Me.btnFeeByYear.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.btnFeeByYear.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.btnFeeByYear.Location = New System.Drawing.Point(314, 0)
+        Me.btnFeeByYear.Location = New System.Drawing.Point(212, 0)
         Me.btnFeeByYear.Margin = New System.Windows.Forms.Padding(2)
         Me.btnFeeByYear.Name = "btnFeeByYear"
         Me.btnFeeByYear.Size = New System.Drawing.Size(109, 23)
@@ -3186,7 +3100,7 @@ Partial Class PASPFeeStatistics
         Me.btnBankrupt.CausesValidation = False
         Me.btnBankrupt.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.btnBankrupt.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.btnBankrupt.Location = New System.Drawing.Point(214, 0)
+        Me.btnBankrupt.Location = New System.Drawing.Point(112, 0)
         Me.btnBankrupt.Margin = New System.Windows.Forms.Padding(2)
         Me.btnBankrupt.Name = "btnBankrupt"
         Me.btnBankrupt.Size = New System.Drawing.Size(103, 23)
@@ -3194,22 +3108,6 @@ Partial Class PASPFeeStatistics
         Me.btnBankrupt.Text = "Bankrupt Facilities"
         Me.btnBankrupt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.btnBankrupt.UseVisualStyleBackColor = False
-        '
-        'btnPayDate
-        '
-        Me.btnPayDate.AutoSize = True
-        Me.btnPayDate.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.btnPayDate.CausesValidation = False
-        Me.btnPayDate.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnPayDate.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.btnPayDate.Location = New System.Drawing.Point(112, 0)
-        Me.btnPayDate.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnPayDate.Name = "btnPayDate"
-        Me.btnPayDate.Size = New System.Drawing.Size(103, 23)
-        Me.btnPayDate.TabIndex = 1
-        Me.btnPayDate.Text = "Payments by Date"
-        Me.btnPayDate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnPayDate.UseVisualStyleBackColor = False
         '
         'btnPayment
         '
@@ -3872,18 +3770,10 @@ Partial Class PASPFeeStatistics
     Friend WithEvents btnRunVarianceReport As System.Windows.Forms.Button
     Friend WithEvents rdb2006Variance As System.Windows.Forms.RadioButton
     Friend WithEvents rdb2005Variance As System.Windows.Forms.RadioButton
-    Friend WithEvents btndeposit As System.Windows.Forms.Button
-    Friend WithEvents btnDateReport As System.Windows.Forms.Button
-    Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents DateTimePicker2 As System.Windows.Forms.DateTimePicker
-    Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents DateTimePicker1 As System.Windows.Forms.DateTimePicker
     Friend WithEvents Panel6 As System.Windows.Forms.Panel
     Friend WithEvents btnvariance As System.Windows.Forms.Button
     Friend WithEvents btnFeeByYear As System.Windows.Forms.Button
     Friend WithEvents btnBankrupt As System.Windows.Forms.Button
-    Friend WithEvents btnPayDate As System.Windows.Forms.Button
     Friend WithEvents btnPayment As System.Windows.Forms.Button
     Friend WithEvents TPYearSpecific As System.Windows.Forms.TabPage
     Friend WithEvents Panel7 As System.Windows.Forms.Panel
