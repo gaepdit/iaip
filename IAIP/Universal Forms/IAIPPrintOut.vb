@@ -45,151 +45,112 @@ Public Class IAIPPrintOut
 
         Try
 
-            If txtPrintType.Text = "Letter" Or txtPrintType.Text = "BasicFacilityReport" Then
-
-                rpt = New crAPBPrintOut2
-                monitor.TrackFeature("Report." & rpt.ResourceName)
-
-                Dim Commissioner As String = ""
-                Dim Director As String = ""
-
-                Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
-                Dim ParameterField As CrystalDecisions.Shared.ParameterField
-                Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
-
-                'Do this just once at the start
-                ParameterFields = New CrystalDecisions.Shared.ParameterFields
-
-                SQL = "Select " & _
-                "strManagementName from " & _
-                "AIRBRANCH.LookUpAPBManagementType " & _
-                "where strCurrentContact = '1' " & _
-                "and strKey = '1' "
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("strManagementName")) Then
-                        Director = ""
-                    Else
-                        Director = dr.Item("strManagementName")
-                    End If
-                End While
-                dr.Close()
-
-                SQL = "Select " & _
-                "strManagementName from " & _
-                "AIRBRANCH.LookUpAPBManagementType " & _
-                "where strCurrentContact = '1' " & _
-                "and strKey = '2' "
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("strManagementName")) Then
-                        Commissioner = ""
-                    Else
-                        Commissioner = dr.Item("strManagementName")
-                    End If
-                End While
-                dr.Close()
-
-                'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-                ParameterField.ParameterFieldName = "Director"
-                spValue.Value = Director
-                ParameterField.CurrentValues.Add(spValue)
-                ParameterFields.Add(ParameterField)
-
-                'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-                ParameterField.ParameterFieldName = "Commissioner"
-                spValue.Value = Commissioner
-                ParameterField.CurrentValues.Add(spValue)
-                ParameterFields.Add(ParameterField)
-
-                Select Case txtPrintType.Text
-                    Case "Letter"
-                        Select Case txtOther.Text
-                            Case "SSPP Confirm"
-                                SQL = "Select * " & _
-                                "from AIRBRANCH.VW_SSPP_Acknowledge " & _
-                                "where strApplicationNumber = '" & txtAIRSNumber.Text & "' "
-
-                                da = New OracleDataAdapter(SQL, CurrentConnection)
-                                If CurrentConnection.State = ConnectionState.Closed Then
-                                    CurrentConnection.Open()
-                                End If
-                                ds.EnforceConstraints = False
-                                da.Fill(ds, "VW_SSPP_Acknowledge")
-
-                                'Do this at the beginning of every new entry 
-                                ParameterField = New CrystalDecisions.Shared.ParameterField
-                                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-                                ParameterField.ParameterFieldName = "ReportType"
-                                spValue.Value = txtOther.Text
-                                ParameterField.CurrentValues.Add(spValue)
-                                ParameterFields.Add(ParameterField)
-                            Case Else
-                        End Select
-                    Case "BasicFacilityReport"
-                        'Do this at the beginning of every new entry 
-                        ParameterField = New CrystalDecisions.Shared.ParameterField
-                        spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-                        ParameterField.ParameterFieldName = "ReportType"
-                        spValue.Value = "Basic Report"
-                        ParameterField.CurrentValues.Add(spValue)
-                        ParameterFields.Add(ParameterField)
-
-                        SQL = "select " & _
-                        "* " & _
-                        "from AIRBRANCH.VW_APBFacilityLocation " & _
-                        "where AIRBRANCH.VW_APBFacilityLocation.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-
-                        da = New OracleDataAdapter(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        ds.EnforceConstraints = False
-                        da.Fill(ds, "VW_APBFacilityLocation")
-
-                        SQL = "select " & _
-                        "* " & _
-                        "from AIRBRANCH.VW_APBFacilityHeader " & _
-                        "where AIRBRANCH.VW_APBFacilityHeader.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-
-                        da = New OracleDataAdapter(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        ds.EnforceConstraints = False
-                        da.Fill(ds, "VW_APBFacilityHeader")
-
-                End Select
-
-                rpt.SetDataSource(ds)
-
-                'Load Variables into the Fields
-                CRViewer.ParameterFieldInfo = ParameterFields
-                CRViewer.ReportSource = rpt
-                CRViewer.Refresh()
-
-                Exit Sub
-            End If
-
             Select Case txtPrintType.Text
+
+                Case "Letter"
+
+                    rpt = New crAPBPrintOut2
+                    monitor.TrackFeature("Report." & rpt.ResourceName)
+
+                    Dim Commissioner As String = ""
+                    Dim Director As String = ""
+
+                    Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
+                    Dim ParameterField As CrystalDecisions.Shared.ParameterField
+                    Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
+
+                    'Do this just once at the start
+                    ParameterFields = New CrystalDecisions.Shared.ParameterFields
+
+                    SQL = "Select " & _
+                    "strManagementName from " & _
+                    "AIRBRANCH.LookUpAPBManagementType " & _
+                    "where strCurrentContact = '1' " & _
+                    "and strKey = '1' "
+
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
+                    End If
+                    dr = cmd.ExecuteReader
+                    While dr.Read
+                        If IsDBNull(dr.Item("strManagementName")) Then
+                            Director = ""
+                        Else
+                            Director = dr.Item("strManagementName")
+                        End If
+                    End While
+                    dr.Close()
+
+                    SQL = "Select " & _
+                    "strManagementName from " & _
+                    "AIRBRANCH.LookUpAPBManagementType " & _
+                    "where strCurrentContact = '1' " & _
+                    "and strKey = '2' "
+
+                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    If CurrentConnection.State = ConnectionState.Closed Then
+                        CurrentConnection.Open()
+                    End If
+                    dr = cmd.ExecuteReader
+                    While dr.Read
+                        If IsDBNull(dr.Item("strManagementName")) Then
+                            Commissioner = ""
+                        Else
+                            Commissioner = dr.Item("strManagementName")
+                        End If
+                    End While
+                    dr.Close()
+
+                    'Do this at the beginning of every new entry 
+                    ParameterField = New CrystalDecisions.Shared.ParameterField
+                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+
+                    ParameterField.ParameterFieldName = "Director"
+                    spValue.Value = Director
+                    ParameterField.CurrentValues.Add(spValue)
+                    ParameterFields.Add(ParameterField)
+
+                    'Do this at the beginning of every new entry 
+                    ParameterField = New CrystalDecisions.Shared.ParameterField
+                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+
+                    ParameterField.ParameterFieldName = "Commissioner"
+                    spValue.Value = Commissioner
+                    ParameterField.CurrentValues.Add(spValue)
+                    ParameterFields.Add(ParameterField)
+
+                    Select Case txtOther.Text
+                        Case "SSPP Confirm"
+                            SQL = "Select * " & _
+                            "from AIRBRANCH.VW_SSPP_Acknowledge " & _
+                            "where strApplicationNumber = '" & txtAIRSNumber.Text & "' "
+
+                            da = New OracleDataAdapter(SQL, CurrentConnection)
+                            If CurrentConnection.State = ConnectionState.Closed Then
+                                CurrentConnection.Open()
+                            End If
+                            ds.EnforceConstraints = False
+                            da.Fill(ds, "VW_SSPP_Acknowledge")
+
+                            'Do this at the beginning of every new entry 
+                            ParameterField = New CrystalDecisions.Shared.ParameterField
+                            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+
+                            ParameterField.ParameterFieldName = "ReportType"
+                            spValue.Value = txtOther.Text
+                            ParameterField.CurrentValues.Add(spValue)
+                            ParameterFields.Add(ParameterField)
+                        Case Else
+                    End Select
+
+                    rpt.SetDataSource(ds)
+
+                    'Load Variables into the Fields
+                    CRViewer.ParameterFieldInfo = ParameterFields
+                    CRViewer.ReportSource = rpt
+                    CRViewer.Refresh()
+
                 Case "ISMPTestReport"
                     If txtReferenceNumber.Text <> "" Then
                         SQL = "select AIRBRANCH.ISMPDocumentType.strDocumentType " & _
@@ -313,349 +274,11 @@ Public Class IAIPPrintOut
                     End If
                 Case "TitleVRenewal"
                     PrintOutTitleVRenewals()
-                Case "FullFacilityReport"
-                    rpt = New CRFullPrint
-                    monitor.TrackFeature("Report." & rpt.ResourceName)
-
-                    Dim PermitCount As String = "0"
-                    Dim MonitoringCount As String = "0"
-                    Dim EnforcementCount As String = "0"
-                    Dim FCECount As String = "0"
-                    Dim ComplianceCount As String = "0"
-
-                    Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
-                    Dim ParameterField As CrystalDecisions.Shared.ParameterField
-                    Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
-
-                    'Do this just once at the start
-                    ParameterFields = New CrystalDecisions.Shared.ParameterFields
-
-                    SQL = "select " & _
-                    "strDirector, strCommissioner " & _
-                    "from AIRBRANCH.LookUpAPBManagement "
-
-                    da = New OracleDataAdapter(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    ds.EnforceConstraints = False
-                    da.Fill(ds, "LookUpAPBManagement")
-
-                    SQL = "select " & _
-                    "* " & _
-                    "from AIRBRANCH.VW_APBFacilityLocation " & _
-                    "where AIRBRANCH.VW_APBFacilityLocation.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-
-                    da = New OracleDataAdapter(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    ds.EnforceConstraints = False
-                    da.Fill(ds, "VW_APBFacilityLocation")
-
-                    SQL = "select " & _
-                    "* " & _
-                    "from AIRBRANCH.VW_APBFacilityHeader " & _
-                    "where AIRBRANCH.VW_APBFacilityHeader.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-
-                    da = New OracleDataAdapter(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    ds.EnforceConstraints = False
-                    da.Fill(ds, "VW_APBFacilityHeader")
-
-                    SQL = "select " & _
-                    "* " & _
-                    "From AIRBRANCH.VW_AIR_PROGRAM_POLLUTANTS " & _
-                    "where AIRBRANCH.VW_AIR_PROGRAM_POLLUTANTS.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
-                    "order by aircode desc "
-
-                    da = New OracleDataAdapter(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    ds.EnforceConstraints = False
-                    da.Fill(ds, "VW_AIR_PROGRAM_POLLUTANTS")
-
-                    SQL = "select " & _
-                    "* " & _
-                    "From AIRBRANCH.APBContactInformation " & _
-                    "where AIRBRANCH.APBContactInformation.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-
-                    da = New OracleDataAdapter(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    ds.EnforceConstraints = False
-                    da.Fill(ds, "APBContactInformation")
-
-                    SQL = "select " & _
-                    "* " & _
-                    "From AIRBRANCH.VW_Report_OLAPUSERS " & _
-                    "where AIRBRANCH.VW_Report_OLAPUSERS.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-
-                    da = New OracleDataAdapter(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    ds.EnforceConstraints = False
-                    da.Fill(ds, "VW_Report_OLAPUSERS")
-
-                    SQL = "select " & _
-                    "* " & _
-                    "From AIRBRANCH.VW_REPORT_STATECONTACTS " & _
-                    "where AIRBRANCH.VW_REPORT_STATECONTACTS.SSPPAIRS = '0413" & txtAIRSNumber.Text & "' "
-
-                    da = New OracleDataAdapter(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    ds.EnforceConstraints = False
-                    da.Fill(ds, "VW_REPORT_STATECONTACTS")
-
-                    SQL = "select " & _
-                    "* " & _
-                    "from AIRBRANCH.APBContactInformation " & _
-                    "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "' " & _
-                    "order by substr(strKey,1,1) desc, substr(strKey, 2,1) desc  "
-
-                    da = New OracleDataAdapter(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    ds.EnforceConstraints = False
-                    da.Fill(ds, "APBContactInformation")
-
-                    SQL = "select " & _
-                    "* " & _
-                    "from AIRBRANCH.VW_Report_SSPP " & _
-                    "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "' " & _
-                    "and (datFinalizedDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "' " & _
-                    "or datReceivedDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "') " & _
-                    "order by datReceivedDate desc "
-
-                    da = New OracleDataAdapter(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    ds.EnforceConstraints = False
-                    da.Fill(ds, "VW_Report_SSPP")
-
-                    SQL = "select " & _
-                    "count(*) as PermitCount " & _
-                    "from AIRBRANCH.VW_Report_SSPP " & _
-                    "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "' " & _
-                    "and (datFinalizedDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "' " & _
-                    "or datReceivedDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "') " & _
-                    "order by datReceivedDate desc "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        If IsDBNull(dr.Item("PermitCount")) Then
-                            PermitCount = "0"
-                        Else
-                            PermitCount = dr.Item("PermitCount")
-                        End If
-                    End While
-                    dr.Close()
-
-                    'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-                    ParameterField.ParameterFieldName = "PermitCount"
-                    spValue.Value = PermitCount
-                    ParameterField.CurrentValues.Add(spValue)
-                    ParameterFields.Add(ParameterField)
-
-                    SQL = "select * from " & _
-                    "AIRBRANCH.VW_REPORT_ISMP " & _
-                    "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "' " & _
-                    "and (datReceivedDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "') " & _
-                    "order by datReceivedDate desc, strReferenceNumber desc  "
-
-                    da = New OracleDataAdapter(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    ds.EnforceConstraints = False
-                    da.Fill(ds, "VW_REPORT_ISMP")
-
-                    SQL = "select count(*) as MonitoringCount " & _
-                    "from AIRBRANCH.VW_REPORT_ISMP " & _
-                    "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "' " & _
-                    "and (datReceivedDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "') " & _
-                    "order by datReceivedDate desc, strReferenceNumber desc  "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        If IsDBNull(dr.Item("MonitoringCount")) Then
-                            MonitoringCount = "0"
-                        Else
-                            MonitoringCount = dr.Item("MonitoringCount")
-                        End If
-                    End While
-                    dr.Close()
-
-                    'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-                    ParameterField.ParameterFieldName = "MonitoringCount"
-                    spValue.Value = MonitoringCount
-                    ParameterField.CurrentValues.Add(spValue)
-                    ParameterFields.Add(ParameterField)
-
-                    SQL = "Select * " & _
-                    "From AIRBRANCH.VW_REPORT_Enforcement " & _
-                    "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
-                    "and ((datDiscoveryDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "') " & _
-                    "or (datDayZero between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "') " & _
-                    "or (datEnforcementFinalized between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "')) " & _
-                    "order by datDiscoveryDate desc "
-
-                    da = New OracleDataAdapter(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    ds.EnforceConstraints = False
-                    da.Fill(ds, "VW_REPORT_Enforcement")
-
-                    SQL = "Select count(*) as EnforcementCount " & _
-                    "From AIRBRANCH.VW_REPORT_Enforcement " & _
-                    "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
-                    "and ((datDiscoveryDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "') " & _
-                    "or (datDayZero between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "') " & _
-                    "or (datEnforcementFinalized between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "')) " & _
-                    "order by datDiscoveryDate desc "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        If IsDBNull(dr.Item("EnforcementCount")) Then
-                            EnforcementCount = "0"
-                        Else
-                            EnforcementCount = dr.Item("EnforcementCount")
-                        End If
-                    End While
-                    dr.Close()
-
-                    'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-                    ParameterField.ParameterFieldName = "EnforcementCount"
-                    spValue.Value = EnforcementCount
-                    ParameterField.CurrentValues.Add(spValue)
-                    ParameterFields.Add(ParameterField)
-
-                    SQL = "Select * " & _
-                    "From AIRBRANCH.VW_REPORT_SSCP_FCE " & _
-                    "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
-                    "and strFCEYear between '" & CDate(txtStartDate.Text).Year.ToString & "' and '" & CDate(txtEndDate.Text).Year.ToString & "' " & _
-                    "order by strFCEYear desc "
-
-                    da = New OracleDataAdapter(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    ds.EnforceConstraints = False
-                    da.Fill(ds, "VW_REPORT_SSCP_FCE")
-
-
-                    SQL = "Select count(*) as FCECount " & _
-                   "From AIRBRANCH.VW_REPORT_SSCP_FCE " & _
-                   "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
-                   "and strFCEYear between '" & CDate(txtStartDate.Text).Year.ToString & "' and '" & CDate(txtEndDate.Text).Year.ToString & "' " & _
-                   "order by strFCEYear desc "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        If IsDBNull(dr.Item("FCECount")) Then
-                            FCECount = "0"
-                        Else
-                            FCECount = dr.Item("FCECount")
-                        End If
-                    End While
-                    dr.Close()
-
-                    'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-                    ParameterField.ParameterFieldName = "FCECount"
-                    spValue.Value = FCECount
-                    ParameterField.CurrentValues.Add(spValue)
-                    ParameterFields.Add(ParameterField)
-
-                    SQL = "Select * " & _
-                    "From AIRBRANCH.VW_REPORT_SSCP_EVENT " & _
-                    "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
-                    "and (datReceivedDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "' " & _
-                    "or datCompleteDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "') " & _
-                    "order by datReceivedDate desc "
-
-                    da = New OracleDataAdapter(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    ds.EnforceConstraints = False
-                    da.Fill(ds, "VW_REPORT_SSCP_EVENT")
-
-                    SQL = "Select count(*) as ComplianceCount " & _
-                    "From AIRBRANCH.VW_REPORT_SSCP_EVENT " & _
-                    "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
-                    "and (datReceivedDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "' " & _
-                    "or datCompleteDate between '" & txtStartDate.Text & "' and '" & txtEndDate.Text & "') " & _
-                    "order by datReceivedDate desc "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        If IsDBNull(dr.Item("ComplianceCount")) Then
-                            ComplianceCount = "0"
-                        Else
-                            ComplianceCount = dr.Item("ComplianceCount")
-                        End If
-                    End While
-                    dr.Close()
-
-                    'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-                    ParameterField.ParameterFieldName = "ComplianceCount"
-                    spValue.Value = ComplianceCount
-                    ParameterField.CurrentValues.Add(spValue)
-                    ParameterFields.Add(ParameterField)
-
-                    rpt.SetDataSource(ds)
-                    'Load Variables into the Fields
-                    CRViewer.ParameterFieldInfo = ParameterFields
-
-                    CRViewer.ReportSource = rpt
-                    CRViewer.Refresh()
 
                 Case Else
+                    MsgBox("Unable to print; please contact the DMU.")
+                    Me.Close()
+
             End Select
 
         Catch ex As Exception
