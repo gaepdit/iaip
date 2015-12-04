@@ -1074,18 +1074,6 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crSSPPConfirmationLetter.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\SBEAP\crCaseReport.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crCaseReport.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\SBEAP\crCaseSummary.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crCaseSummary.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\SBEAP\crCaseWorkLog.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crCaseWorkLog.vb</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\SmokeSchool\SmokeSchoolRoster.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>SmokeSchoolRoster.vb</LastGenOutput>
@@ -1670,24 +1658,6 @@
     </Compile>
     <Compile Include="Crystal Reports\CRViewerForm.vb">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\SBEAP\crCaseReport.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crCaseReport.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\SBEAP\crCaseSummary.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crCaseSummary.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\SBEAP\crCaseWorkLog.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crCaseWorkLog.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Crystal Reports\SmokeSchool\SmokeSchoolRoster.vb">
       <DependentUpon>SmokeSchoolRoster.rpt</DependentUpon>
