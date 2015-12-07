@@ -377,26 +377,26 @@ Public Class PASPFeeReports
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
             SQL = "SELECT " & _
-            "strFacilityName, " & _
-            "AIRBranch.FeeDetails.strAIRSNumber, " & _
-            "AIRBranch.FeeDetails.intyear, " & _
-            "totalDue, totalPaid, " & _
-            "strContactFirstName, strContactLastName, " & _
-            "strContactPhoneNumber1, strContactFaxNumber, " & _
-            "strContactEmail, strContactAddress1, " & _
-            "strContactCity, strContactState, " & _
-            "strContactZipCode, strSICCode, " & _
-            "strPaymentType, PaidYear   " & _
-            "FROM AIRBranch.APBFacilityInformation, " & _
-            "AIRBranch.FeeDetails, AIRBranch.FeesContact, " & _
-            "AIRBranch.APBHeaderData, AIRBranch.FSPayAndSubmit  " & _
-            "WHERE AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FeeDetails.strAIRSNumber " & _
-            "AND AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FeesContact.strAIRSnumber " & _
-            "AND AIRBranch.APBFacilityInformation.strAIRSnumber = AIRBranch.APBHeaderData.strAIRSNumber " & _
-            "AND AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FSPayAndSubmit.strAIRSNumber " & _
-            "and airbranch.feedetails.intyear = AIRBranch.fsPayAndSubmit.intYear " & _
-            "and airbranch.feedetails.intyear = '" & mtbFacilityBalanceYear.Text & "' " & _
-            "order by strairsnumber "
+        "strFacilityName, " & _
+        "AIRBranch.FeeDetails.strAIRSNumber, " & _
+        "AIRBranch.FeeDetails.intyear, " & _
+        "totalDue, totalPaid, " & _
+        "strContactFirstName, strContactLastName, " & _
+        "strContactPhoneNumber1, strContactFaxNumber, " & _
+        "strContactEmail, strContactAddress1, " & _
+        "strContactCity, strContactState, " & _
+        "strContactZipCode, strSICCode, " & _
+        "numPayment, PaidYear   " & _
+        "FROM AIRBranch.APBFacilityInformation, " & _
+        "AIRBranch.FeeDetails, AIRBranch.FeesContact, " & _
+        "AIRBranch.APBHeaderData, AIRBranch.FS_Transactions  " & _
+        "WHERE AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FeeDetails.strAIRSNumber " & _
+        "AND AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FeesContact.strAIRSnumber " & _
+        "AND AIRBranch.APBFacilityInformation.strAIRSnumber = AIRBranch.APBHeaderData.strAIRSNumber " & _
+        "AND AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FS_Transactions.strAIRSNumber " & _
+        "and airbranch.feedetails.intyear = AIRBranch.FS_Transactions.numFeeYear " & _
+        "and airbranch.feedetails.intyear = '" & mtbFacilityBalanceYear.Text & "' " & _
+        "order by strairsnumber "
 
             da = New OracleDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -509,40 +509,6 @@ Public Class PASPFeeReports
         'crReportDocument.Close()
     End Sub
 
-    Private Sub btnBankrupt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBankrupt.Click
-        Try
-            pnlDateRange.Visible = False
-
-            progress1.progress = -1
-            ds = New DataSet
-            rpt = New Bankrupt10
-            monitor.TrackFeature("Report." & rpt.ResourceName)
-
-            SQL = "select * from AIRBRANCH.VW_Bankrupt"
-            da = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            ds.EnforceConstraints = False
-            da.Fill(ds, "VW_Bankrupt")
-            rpt.SetDataSource(ds)
-
-            CRFeesReports.ReportSource = rpt
-            CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
-            CRFeesReports.ShowGroupTreeButton = False
-            CRFeesReports.Refresh()
-
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-        progress1.progress = 0
-        'crReportDocument.Close()
-    End Sub
-
     Private Sub btnFeeByYear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFeeByYear.Click
         Try
             pnlDateRange.Visible = False
@@ -572,82 +538,6 @@ Public Class PASPFeeReports
         progress1.progress = 0
         'crReportDocument.Close()
     End Sub
-    Sub VarianceReport()
-        Try
-            pnlDateRange.Visible = False
-
-            progress1.progress = -1
-            Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
-            Dim ParameterField As CrystalDecisions.Shared.ParameterField
-            Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
-
-            ds = New DataSet
-            rpt = New Variance10
-            monitor.TrackFeature("Report." & rpt.ResourceName)
-
-            If rdb2005Variance.Checked = True Then
-                SQL = "Select * from AIRBRANCH.FeeVariance " & _
-                "where difference2005 <> '0' and vCheck2005 <> 'YES' "
-
-            Else
-                SQL = "Select * from AIRBRANCH.FeeVariance " & _
-                "where difference2006 <> '0' and vCheck2006 <> 'YES' "
-
-            End If
-
-            da = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            ds.EnforceConstraints = False
-            da.Fill(ds, "FeeVariance")
-            rpt.SetDataSource(ds)
-
-
-
-            'Do this just once at the start
-            ParameterFields = New CrystalDecisions.Shared.ParameterFields
-
-            'Do this at the beginning of every new entry 
-            ParameterField = New CrystalDecisions.Shared.ParameterField
-            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-            ParameterField.ParameterFieldName = "Year"
-            If rdb2005Variance.Checked = True Then
-                spValue.Value = "2005"
-            Else
-                spValue.Value = "2006"
-            End If
-            ParameterField.CurrentValues.Add(spValue)
-            ParameterFields.Add(ParameterField)
-
-            'Load Variables into the Fields
-            CRFeesReports.ParameterFieldInfo = ParameterFields
-
-            SetUpCrystalReportViewer(rpt, CRFeesReports, "Variance Report")
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-        progress1.progress = 0
-    End Sub
-
-    Private Sub btnRunVarianceReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunVarianceReport.Click
-        Try
-            VarianceReport()
-            pnlDateRange.Visible = False
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnvariance_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnvariance.Click
-        rdb2005Variance.Visible = True
-        rdb2006Variance.Visible = True
-        btnRunVarianceReport.Visible = True
-        pnlDateRange.Visible = True
-    End Sub
 
 #End Region
 
@@ -667,6 +557,7 @@ Public Class PASPFeeReports
 
                 SQL = "Select * from AIRBRANCH.FS_Transactions " & _
                 "where strDepositNo like '%" & cboDepositNo.Text & "%' " & _
+                "and Active = '1' " & _
                 "order by nuMFeeYear desc  "
             Else
                 If cboAirs.Text <> "" Then
@@ -676,6 +567,7 @@ Public Class PASPFeeReports
 
                     SQL = "Select * from AIRBRANCH.FS_Transactions " & _
                     "where strAIRSNumber like '0413%" & cboAirs.Text & "%' " & _
+                    "and Active = '1' " & _
                     "order by nuMFeeYear desc  "
                 End If
             End If
@@ -684,6 +576,7 @@ Public Class PASPFeeReports
                 '"order by intyear desc  "
 
                 SQL = "Select * from AIRBRANCH.FS_Transactions " & _
+                "where Active = '1' " & _
                 "order by nuMFeeYear desc  "
             End If
 
@@ -692,8 +585,8 @@ Public Class PASPFeeReports
                 CurrentConnection.Open()
             End If
             ds.EnforceConstraints = False
-            da.Fill(ds, "FSAddPaid")
-            rpt = New DepositQA10
+            da.Fill(ds, "FS_Transactions")
+            rpt = New DepositQA11
             monitor.TrackFeature("Report." & rpt.ResourceName)
             rpt.SetDataSource(ds)
 
@@ -715,20 +608,16 @@ Public Class PASPFeeReports
 
             Dim p As New ParameterFields
             Dim p1 As New ParameterField
-            Dim p2 As New ParameterField
-            Dim p3 As New ParameterDiscreteValue
-            Dim p4 As New ParameterDiscreteValue
+            Dim p2 As New ParameterDiscreteValue
 
-            p1.ParameterFieldName = "DepositNo"
-            p3.Value = depositno
-            p1.CurrentValues.Add(p3)
+            p1.ParameterFieldName = "SearchType"
+            If cboDepositNo.Text = "" Then
+                p2.Value = "Deposit"
+            Else
+                p2.Value = "AIRS"
+            End If
+            p1.CurrentValues.Add(p2)
             p.Add(p1)
-            CRFeesReports.ParameterFieldInfo = p
-
-            p2.ParameterFieldName = "AirsNo"
-            p4.Value = "0413" & airsno
-            p2.CurrentValues.Add(p4)
-            p.Add(p2)
             CRFeesReports.ParameterFieldInfo = p
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, header)
@@ -751,9 +640,6 @@ Public Class PASPFeeReports
         progress1.progress = -1
         Try
             pnlNSPS.Visible = False
-            mtbNonRespondentYear.Visible = False
-            btnRunNonRespondent.Visible = False
-            lblNonRespondant.Visible = False
 
             ds = New DataSet
             rpt = New ClassChanged10
@@ -785,23 +671,10 @@ Public Class PASPFeeReports
     End Sub
 
     Private Sub btnNSPSChange_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNSPSChange.Click
-        Try
-
-            pnlNSPS.Visible = True
-
-            lblNSPS1.Visible = True
-            lblNSPS2.Visible = True
-            lblNSPS3.Visible = True
-
-            mtbNonRespondentYear.Visible = False
-            btnRunNonRespondent.Visible = False
-            lblNonRespondant.Visible = False
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        pnlNSPS.Visible = True
+        lblNSPS1.Visible = True
+        lblNSPS2.Visible = True
+        lblNSPS3.Visible = True
     End Sub
 
     Private Sub lblNSPS1_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblNSPS1.LinkClicked
@@ -812,7 +685,7 @@ Public Class PASPFeeReports
             SQL = "Select * " & _
             "from AIRBRANCH.VW_NSPS_Status " & _
             "where strnsps = 'YES' " & _
-            "and STRnspsexempt = 'YES'"
+            "and STRnspsexempt = '1'"
 
             da = New OracleDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -902,79 +775,10 @@ Public Class PASPFeeReports
         progress1.progress = 0
         'crReportDocument.Close()
     End Sub
-    Private Sub btnRunNonRespondent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunNonRespondent.Click
-        Try
-
-            If mtbNonRespondentYear.Text.Length <> 4 Or mtbNonRespondentYear.Text = "" Then
-                mtbNonRespondentYear.Text = Date.Today.Year.ToString
-            End If
-
-            NoResponse()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Sub NoResponse()
-        Try
-            pnlNSPS.Visible = False
-            mtbNonRespondentYear.Visible = False
-            btnRunNonRespondent.Visible = False
-            lblNonRespondant.Visible = False
-
-            progress1.progress = -1
-            ds = New DataSet
-            rpt = New NonRespondent10
-            monitor.TrackFeature("Report." & rpt.ResourceName)
-
-            SQL = "Select * from AIRBRANCH.VW_NonRespondent " & _
-            "where intYear = '" & mtbNonRespondentYear.Text & "' " & _
-            "and intSubmittal <> '1' "
-
-            da = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            ds.EnforceConstraints = False
-            da.Fill(ds, "VW_NonRespondent")
-            rpt.SetDataSource(ds)
-
-            SetUpCrystalReportViewer(rpt, CRFeesReports, "Failed to Submit Fee Data - " & mtbNonRespondentYear.Text)
-            
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-
-        progress1.progress = 0
-
-    End Sub
-    Private Sub btnNoResponse_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNoResponse.Click
-        Try
-
-            pnlNSPS.Visible = True
-
-            lblNSPS1.Visible = False
-            lblNSPS2.Visible = False
-            lblNSPS3.Visible = False
-
-            mtbNonRespondentYear.Visible = True
-            btnRunNonRespondent.Visible = True
-            lblNonRespondant.Visible = True
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
-    End Sub
 
     Private Sub btnNoOperate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNoOperate.Click
         Try
             pnlNSPS.Visible = False
-            mtbNonRespondentYear.Visible = False
-            btnRunNonRespondent.Visible = False
-            lblNonRespondant.Visible = False
 
             progress1.progress = -1
             ds = New DataSet
@@ -1006,36 +810,6 @@ Public Class PASPFeeReports
 
 #Region "General"
 
-    Private Sub btnComments_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnComments.Click
-        Try
-            progress1.progress = -1
-            ds = New DataSet
-            rpt = New FacilityComments10
-            monitor.TrackFeature("Report." & rpt.ResourceName)
-
-            SQL = "Select * from AIRBRANCH.FSPAYANDSUBMIT " & _
-            "where strComments is not Null "
-
-            da = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            ds.EnforceConstraints = False
-            da.Fill(ds, "FSPAYANDSUBMIT")
-            rpt.SetDataSource(ds)
-
-            SetUpCrystalReportViewer(rpt, CRFeesReports, "Facility Comments")
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-        progress1.progress = 0
-        'crReportDocument.Close()
-    End Sub
-
     Private Sub btnFacInfoChange_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFacInfoChange.Click
         Try
             progress1.progress = -1
@@ -1054,34 +828,7 @@ Public Class PASPFeeReports
             rpt.SetDataSource(ds)
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, "Facility Info")
-            
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
 
-        End Try
-
-        progress1.progress = 0
-    End Sub
-
-    Private Sub btnTrainingReg_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTrainingReg.Click
-        Try
-            progress1.progress = -1
-            ds = New DataSet
-            rpt = New TrainingReg10
-            monitor.TrackFeature("Report." & rpt.ResourceName)
-
-            SQL = "Select * from AIRBranch.VW_Training_reg "
-            da = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            ds.EnforceConstraints = False
-            da.Fill(ds, "VW_Training_reg")
-            rpt.SetDataSource(ds)
-
-            SetUpCrystalReportViewer(rpt, CRFeesReports, "Training Registrants")
-            
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally

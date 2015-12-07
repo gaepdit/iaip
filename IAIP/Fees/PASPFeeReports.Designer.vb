@@ -28,13 +28,8 @@ Partial Class PASPFeeReports
         Me.Label = New System.Windows.Forms.Label()
         Me.TPFinancial = New System.Windows.Forms.TabPage()
         Me.pnlDateRange = New System.Windows.Forms.Panel()
-        Me.btnRunVarianceReport = New System.Windows.Forms.Button()
-        Me.rdb2006Variance = New System.Windows.Forms.RadioButton()
-        Me.rdb2005Variance = New System.Windows.Forms.RadioButton()
         Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.btnvariance = New System.Windows.Forms.Button()
         Me.btnFeeByYear = New System.Windows.Forms.Button()
-        Me.btnBankrupt = New System.Windows.Forms.Button()
         Me.btnPayment = New System.Windows.Forms.Button()
         Me.TPYearSpecific = New System.Windows.Forms.TabPage()
         Me.Panel5 = New System.Windows.Forms.Panel()
@@ -54,27 +49,21 @@ Partial Class PASPFeeReports
         Me.Label2 = New System.Windows.Forms.Label()
         Me.TPCompliance = New System.Windows.Forms.TabPage()
         Me.pnlNSPS = New System.Windows.Forms.Panel()
-        Me.btnRunNonRespondent = New System.Windows.Forms.Button()
-        Me.lblNonRespondant = New System.Windows.Forms.Label()
-        Me.mtbNonRespondentYear = New System.Windows.Forms.MaskedTextBox()
         Me.lblNSPS3 = New System.Windows.Forms.LinkLabel()
         Me.lblNSPS2 = New System.Windows.Forms.LinkLabel()
         Me.lblNSPS1 = New System.Windows.Forms.LinkLabel()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.btnNSPSChange = New System.Windows.Forms.Button()
         Me.btnNoOperate = New System.Windows.Forms.Button()
-        Me.btnNoResponse = New System.Windows.Forms.Button()
         Me.btnClassChange = New System.Windows.Forms.Button()
         Me.TPGeneral = New System.Windows.Forms.TabPage()
         Me.Panel7 = New System.Windows.Forms.Panel()
-        Me.btnTrainingReg = New System.Windows.Forms.Button()
         Me.btnFacInfoChange = New System.Windows.Forms.Button()
         Me.btnComments = New System.Windows.Forms.Button()
         Me.CRFeesReports = New CrystalDecisions.Windows.Forms.CrystalReportViewer()
         Me.tabReport.SuspendLayout()
         Me.TPFacilitySpecific.SuspendLayout()
         Me.TPFinancial.SuspendLayout()
-        Me.pnlDateRange.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.TPYearSpecific.SuspendLayout()
         Me.Panel5.SuspendLayout()
@@ -188,9 +177,6 @@ Partial Class PASPFeeReports
         '
         'pnlDateRange
         '
-        Me.pnlDateRange.Controls.Add(Me.btnRunVarianceReport)
-        Me.pnlDateRange.Controls.Add(Me.rdb2006Variance)
-        Me.pnlDateRange.Controls.Add(Me.rdb2005Variance)
         Me.pnlDateRange.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlDateRange.Location = New System.Drawing.Point(2, 26)
         Me.pnlDateRange.Margin = New System.Windows.Forms.Padding(2)
@@ -199,43 +185,9 @@ Partial Class PASPFeeReports
         Me.pnlDateRange.TabIndex = 149
         Me.pnlDateRange.Visible = False
         '
-        'btnRunVarianceReport
-        '
-        Me.btnRunVarianceReport.AutoSize = True
-        Me.btnRunVarianceReport.Location = New System.Drawing.Point(219, 5)
-        Me.btnRunVarianceReport.Name = "btnRunVarianceReport"
-        Me.btnRunVarianceReport.Size = New System.Drawing.Size(117, 23)
-        Me.btnRunVarianceReport.TabIndex = 9
-        Me.btnRunVarianceReport.Text = "Run Variance Report"
-        Me.btnRunVarianceReport.UseVisualStyleBackColor = True
-        '
-        'rdb2006Variance
-        '
-        Me.rdb2006Variance.AutoSize = True
-        Me.rdb2006Variance.Location = New System.Drawing.Point(6, 22)
-        Me.rdb2006Variance.Name = "rdb2006Variance"
-        Me.rdb2006Variance.Size = New System.Drawing.Size(207, 17)
-        Me.rdb2006Variance.TabIndex = 8
-        Me.rdb2006Variance.TabStop = True
-        Me.rdb2006Variance.Text = "Fee Variance between 2005 and 2006"
-        Me.rdb2006Variance.UseVisualStyleBackColor = True
-        '
-        'rdb2005Variance
-        '
-        Me.rdb2005Variance.AutoSize = True
-        Me.rdb2005Variance.Location = New System.Drawing.Point(6, 3)
-        Me.rdb2005Variance.Name = "rdb2005Variance"
-        Me.rdb2005Variance.Size = New System.Drawing.Size(207, 17)
-        Me.rdb2005Variance.TabIndex = 7
-        Me.rdb2005Variance.TabStop = True
-        Me.rdb2005Variance.Text = "Fee Variance between 2004 and 2005"
-        Me.rdb2005Variance.UseVisualStyleBackColor = True
-        '
         'Panel4
         '
-        Me.Panel4.Controls.Add(Me.btnvariance)
         Me.Panel4.Controls.Add(Me.btnFeeByYear)
-        Me.Panel4.Controls.Add(Me.btnBankrupt)
         Me.Panel4.Controls.Add(Me.btnPayment)
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel4.Location = New System.Drawing.Point(2, 2)
@@ -244,22 +196,6 @@ Partial Class PASPFeeReports
         Me.Panel4.Size = New System.Drawing.Size(657, 24)
         Me.Panel4.TabIndex = 147
         '
-        'btnvariance
-        '
-        Me.btnvariance.AutoSize = True
-        Me.btnvariance.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.btnvariance.CausesValidation = False
-        Me.btnvariance.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnvariance.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.btnvariance.Location = New System.Drawing.Point(320, 0)
-        Me.btnvariance.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnvariance.Name = "btnvariance"
-        Me.btnvariance.Size = New System.Drawing.Size(94, 23)
-        Me.btnvariance.TabIndex = 4
-        Me.btnvariance.Text = "Variance Report"
-        Me.btnvariance.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnvariance.UseVisualStyleBackColor = False
-        '
         'btnFeeByYear
         '
         Me.btnFeeByYear.AutoSize = True
@@ -267,7 +203,7 @@ Partial Class PASPFeeReports
         Me.btnFeeByYear.CausesValidation = False
         Me.btnFeeByYear.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.btnFeeByYear.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.btnFeeByYear.Location = New System.Drawing.Point(212, 0)
+        Me.btnFeeByYear.Location = New System.Drawing.Point(112, 0)
         Me.btnFeeByYear.Margin = New System.Windows.Forms.Padding(2)
         Me.btnFeeByYear.Name = "btnFeeByYear"
         Me.btnFeeByYear.Size = New System.Drawing.Size(109, 23)
@@ -275,22 +211,6 @@ Partial Class PASPFeeReports
         Me.btnFeeByYear.Text = "Facility Fee by Year"
         Me.btnFeeByYear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.btnFeeByYear.UseVisualStyleBackColor = False
-        '
-        'btnBankrupt
-        '
-        Me.btnBankrupt.AutoSize = True
-        Me.btnBankrupt.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.btnBankrupt.CausesValidation = False
-        Me.btnBankrupt.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnBankrupt.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.btnBankrupt.Location = New System.Drawing.Point(112, 0)
-        Me.btnBankrupt.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnBankrupt.Name = "btnBankrupt"
-        Me.btnBankrupt.Size = New System.Drawing.Size(103, 23)
-        Me.btnBankrupt.TabIndex = 2
-        Me.btnBankrupt.Text = "Bankrupt Facilities"
-        Me.btnBankrupt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnBankrupt.UseVisualStyleBackColor = False
         '
         'btnPayment
         '
@@ -525,9 +445,6 @@ Partial Class PASPFeeReports
         '
         'pnlNSPS
         '
-        Me.pnlNSPS.Controls.Add(Me.btnRunNonRespondent)
-        Me.pnlNSPS.Controls.Add(Me.lblNonRespondant)
-        Me.pnlNSPS.Controls.Add(Me.mtbNonRespondentYear)
         Me.pnlNSPS.Controls.Add(Me.lblNSPS3)
         Me.pnlNSPS.Controls.Add(Me.lblNSPS2)
         Me.pnlNSPS.Controls.Add(Me.lblNSPS1)
@@ -538,33 +455,6 @@ Partial Class PASPFeeReports
         Me.pnlNSPS.Size = New System.Drawing.Size(661, 59)
         Me.pnlNSPS.TabIndex = 149
         Me.pnlNSPS.Visible = False
-        '
-        'btnRunNonRespondent
-        '
-        Me.btnRunNonRespondent.AutoSize = True
-        Me.btnRunNonRespondent.Location = New System.Drawing.Point(46, 14)
-        Me.btnRunNonRespondent.Name = "btnRunNonRespondent"
-        Me.btnRunNonRespondent.Size = New System.Drawing.Size(126, 23)
-        Me.btnRunNonRespondent.TabIndex = 5
-        Me.btnRunNonRespondent.Text = "Run Non Respondents"
-        Me.btnRunNonRespondent.UseVisualStyleBackColor = True
-        '
-        'lblNonRespondant
-        '
-        Me.lblNonRespondant.AutoSize = True
-        Me.lblNonRespondant.Location = New System.Drawing.Point(1, 1)
-        Me.lblNonRespondant.Name = "lblNonRespondant"
-        Me.lblNonRespondant.Size = New System.Drawing.Size(292, 13)
-        Me.lblNonRespondant.TabIndex = 4
-        Me.lblNonRespondant.Text = "Enter a year - if none is entered the current year will be used."
-        '
-        'mtbNonRespondentYear
-        '
-        Me.mtbNonRespondentYear.Location = New System.Drawing.Point(4, 17)
-        Me.mtbNonRespondentYear.Mask = "0000"
-        Me.mtbNonRespondentYear.Name = "mtbNonRespondentYear"
-        Me.mtbNonRespondentYear.Size = New System.Drawing.Size(36, 20)
-        Me.mtbNonRespondentYear.TabIndex = 3
         '
         'lblNSPS3
         '
@@ -603,7 +493,6 @@ Partial Class PASPFeeReports
         '
         Me.Panel6.Controls.Add(Me.btnNSPSChange)
         Me.Panel6.Controls.Add(Me.btnNoOperate)
-        Me.Panel6.Controls.Add(Me.btnNoResponse)
         Me.Panel6.Controls.Add(Me.btnClassChange)
         Me.Panel6.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel6.Location = New System.Drawing.Point(0, 0)
@@ -635,7 +524,7 @@ Partial Class PASPFeeReports
         Me.btnNoOperate.CausesValidation = False
         Me.btnNoOperate.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.btnNoOperate.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.btnNoOperate.Location = New System.Drawing.Point(358, 0)
+        Me.btnNoOperate.Location = New System.Drawing.Point(257, 0)
         Me.btnNoOperate.Margin = New System.Windows.Forms.Padding(2)
         Me.btnNoOperate.Name = "btnNoOperate"
         Me.btnNoOperate.Size = New System.Drawing.Size(94, 23)
@@ -643,22 +532,6 @@ Partial Class PASPFeeReports
         Me.btnNoOperate.Text = "Did Not Operate"
         Me.btnNoOperate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.btnNoOperate.UseVisualStyleBackColor = False
-        '
-        'btnNoResponse
-        '
-        Me.btnNoResponse.AutoSize = True
-        Me.btnNoResponse.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.btnNoResponse.CausesValidation = False
-        Me.btnNoResponse.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnNoResponse.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.btnNoResponse.Location = New System.Drawing.Point(257, 0)
-        Me.btnNoResponse.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNoResponse.Name = "btnNoResponse"
-        Me.btnNoResponse.Size = New System.Drawing.Size(103, 23)
-        Me.btnNoResponse.TabIndex = 1
-        Me.btnNoResponse.Text = "Non Respondents"
-        Me.btnNoResponse.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnNoResponse.UseVisualStyleBackColor = False
         '
         'btnClassChange
         '
@@ -689,7 +562,6 @@ Partial Class PASPFeeReports
         '
         'Panel7
         '
-        Me.Panel7.Controls.Add(Me.btnTrainingReg)
         Me.Panel7.Controls.Add(Me.btnFacInfoChange)
         Me.Panel7.Controls.Add(Me.btnComments)
         Me.Panel7.Dock = System.Windows.Forms.DockStyle.Fill
@@ -698,23 +570,6 @@ Partial Class PASPFeeReports
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(661, 88)
         Me.Panel7.TabIndex = 148
-        '
-        'btnTrainingReg
-        '
-        Me.btnTrainingReg.AutoSize = True
-        Me.btnTrainingReg.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.btnTrainingReg.CausesValidation = False
-        Me.btnTrainingReg.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnTrainingReg.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.btnTrainingReg.Location = New System.Drawing.Point(212, 0)
-        Me.btnTrainingReg.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnTrainingReg.Name = "btnTrainingReg"
-        Me.btnTrainingReg.Size = New System.Drawing.Size(111, 23)
-        Me.btnTrainingReg.TabIndex = 4
-        Me.btnTrainingReg.Text = "Training Registrants"
-        Me.btnTrainingReg.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnTrainingReg.UseVisualStyleBackColor = False
-        Me.btnTrainingReg.Visible = False
         '
         'btnFacInfoChange
         '
@@ -778,8 +633,6 @@ Partial Class PASPFeeReports
         Me.TPFacilitySpecific.ResumeLayout(False)
         Me.TPFacilitySpecific.PerformLayout()
         Me.TPFinancial.ResumeLayout(False)
-        Me.pnlDateRange.ResumeLayout(False)
-        Me.pnlDateRange.PerformLayout()
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
         Me.TPYearSpecific.ResumeLayout(False)
@@ -812,9 +665,7 @@ Partial Class PASPFeeReports
     Friend WithEvents llbViewAll As System.Windows.Forms.LinkLabel
     Friend WithEvents Label As System.Windows.Forms.Label
     Friend WithEvents Panel4 As System.Windows.Forms.Panel
-    Friend WithEvents btnvariance As System.Windows.Forms.Button
     Friend WithEvents btnFeeByYear As System.Windows.Forms.Button
-    Friend WithEvents btnBankrupt As System.Windows.Forms.Button
     Friend WithEvents btnPayment As System.Windows.Forms.Button
     Friend WithEvents pnlDateRange As System.Windows.Forms.Panel
     Friend WithEvents Panel5 As System.Windows.Forms.Panel
@@ -829,7 +680,6 @@ Partial Class PASPFeeReports
     Friend WithEvents Panel6 As System.Windows.Forms.Panel
     Friend WithEvents btnNSPSChange As System.Windows.Forms.Button
     Friend WithEvents btnNoOperate As System.Windows.Forms.Button
-    Friend WithEvents btnNoResponse As System.Windows.Forms.Button
     Friend WithEvents btnClassChange As System.Windows.Forms.Button
     Friend WithEvents pnlNSPS As System.Windows.Forms.Panel
     Friend WithEvents lblNSPS3 As System.Windows.Forms.LinkLabel
@@ -839,16 +689,9 @@ Partial Class PASPFeeReports
     Friend WithEvents btnFacInfoChange As System.Windows.Forms.Button
     Friend WithEvents btnComments As System.Windows.Forms.Button
     Friend WithEvents btnFeeBalanceZero As System.Windows.Forms.Button
-    Friend WithEvents btnTrainingReg As System.Windows.Forms.Button
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents btnRunBalanceReport As System.Windows.Forms.Button
     Friend WithEvents chbFacilityBalance As System.Windows.Forms.CheckBox
     Friend WithEvents lblFacilityBalanceReportTag As System.Windows.Forms.Label
     Friend WithEvents mtbFacilityBalanceYear As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents rdb2006Variance As System.Windows.Forms.RadioButton
-    Friend WithEvents rdb2005Variance As System.Windows.Forms.RadioButton
-    Friend WithEvents btnRunVarianceReport As System.Windows.Forms.Button
-    Friend WithEvents mtbNonRespondentYear As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents btnRunNonRespondent As System.Windows.Forms.Button
-    Friend WithEvents lblNonRespondant As System.Windows.Forms.Label
 End Class
