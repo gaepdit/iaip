@@ -44,7 +44,7 @@ Public Class DmuEdtErrorMessageDetail
     End Sub
 
     Private Sub PrepUserComboBoxes()
-        activeUsersList = DAL.GetActiveUsers
+        activeUsersList = UsersService.ActiveUsers
         activeUsersList.Insert(0, New KeyValuePair(Of Integer, String)(0, "Unassigned"))
         UserAsDefault.BindToKeyValuePairs(activeUsersList)
         UserToAssign.BindToKeyValuePairs(activeUsersList)

@@ -165,6 +165,7 @@
     </Compile>
     <Compile Include="_Classes\RandomHelper.vb" />
     <Compile Include="_DAL\DAL.Organization.vb" />
+    <Compile Include="_Data Services\UsersService.vb" />
     <Compile Include="_Data Services\OrganizationService.vb" />
     <Compile Include="_Modules\RegexPatterns.vb" />
     <Compile Include="_Modules\Validation.vb" />
