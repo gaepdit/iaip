@@ -1146,6 +1146,7 @@ Partial Class SSPPApplicationTrackingLog
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cboSIPSubpart.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboSIPSubpart.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboSIPSubpart.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSIPSubpart.FormattingEnabled = True
         Me.cboSIPSubpart.Location = New System.Drawing.Point(6, 12)
         Me.cboSIPSubpart.Name = "cboSIPSubpart"
@@ -1430,6 +1431,7 @@ Partial Class SSPPApplicationTrackingLog
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cboNSPSSubpart.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboNSPSSubpart.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboNSPSSubpart.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboNSPSSubpart.FormattingEnabled = True
         Me.cboNSPSSubpart.Location = New System.Drawing.Point(6, 12)
         Me.cboNSPSSubpart.Name = "cboNSPSSubpart"
@@ -1715,6 +1717,7 @@ Partial Class SSPPApplicationTrackingLog
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cboNESHAPSubpart.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboNESHAPSubpart.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboNESHAPSubpart.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboNESHAPSubpart.FormattingEnabled = True
         Me.cboNESHAPSubpart.Location = New System.Drawing.Point(6, 12)
         Me.cboNESHAPSubpart.Name = "cboNESHAPSubpart"
@@ -1999,6 +2002,7 @@ Partial Class SSPPApplicationTrackingLog
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cboMACTSubpart.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboMACTSubpart.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboMACTSubpart.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboMACTSubpart.FormattingEnabled = True
         Me.cboMACTSubpart.Location = New System.Drawing.Point(6, 12)
         Me.cboMACTSubpart.Name = "cboMACTSubpart"
