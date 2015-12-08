@@ -90,7 +90,7 @@ Namespace DAL
         End Function
 
         Public Function GetActiveUsers() As List(Of KeyValuePair(Of Integer, String))
-            Dim spName As String = "AIRBRANCH.IAIP.GetActiveUsers"
+            Dim spName As String = "AIRBRANCH.IAIP_USER.GetActiveUsers"
             Return DB.SPGetListOfKeyValuePair(spName)
         End Function
 
