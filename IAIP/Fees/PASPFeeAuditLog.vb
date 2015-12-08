@@ -131,7 +131,7 @@ Public Class PASPFeeAuditLog
     End Sub
 
     Private Sub LoadFeeYears()
-        FeeYearsComboBox.DataSource = DB.AddBlankRowToList(DAL.GetAllFeeYears(), "Select…")
+        FeeYearsComboBox.DataSource = DAL.GetAllFeeYears().AddBlankRowToList("Select…")
     End Sub
 
     Sub LoadPayTypes()

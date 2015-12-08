@@ -54,11 +54,11 @@
     <SupportUrl>http://dmu.georgiaair.org/iaip/</SupportUrl>
     <ProductName>Integrated Air Information Platform</ProductName>
     <PublisherName>State of Georgia</PublisherName>
-    <MinimumRequiredVersion>4.2.4.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>4.2.5.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>installer.html</WebPage>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>4.2.4.0</ApplicationVersion>
+    <ApplicationVersion>4.2.5.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -260,13 +260,13 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Crystal Reports\Subreports\FacilityBasicInfo.vb">
+    <Compile Include="Crystal Reports\Subreports\Facility\FacilityBasicInfo.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FacilityBasicInfo.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\SSPP\crSSPPConfirmationLetter.vb">
+    <Compile Include="Crystal Reports\Subreports\SSPP\crSSPPConfirmationLetter.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>crSSPPConfirmationLetter.rpt</DependentUpon>
@@ -318,229 +318,109 @@
     <Compile Include="Fees\PASPFeeStatistics.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\crFS_Invoice.vb">
+    <Compile Include="Crystal Reports\Fees\crFS_Invoice.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>crFS_Invoice.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\APB\CRBasicPrint.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRBasicPrint.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\APB\SubReports\CRAirProgramCodes.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRAirProgramCodes.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\APB\SubReports\CRContact.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRContact.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\APB\CRFullPrint.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRFullPrint.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\APB\SubReports\CREnforcement.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CREnforcement.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\APB\SubReports\CRFCEPrint.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRFCEPrint.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\APB\SubReports\CRISMPFull.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRISMPFull.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\APB\SubReports\CRSSCPPrint.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRSSCPPrint.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\APB\SubReports\CRSSPPFull.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRSSPPFull.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\APB\SubReports\CRStateContacts.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRStateContacts.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\APB\SubReports\CRWebContacts.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CRWebContacts.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\crAPBPrintOut2.vb">
+    <Compile Include="Crystal Reports\SSPP\crAPBPrintOut2.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>crAPBPrintOut2.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\DepositQA11.vb">
+    <Compile Include="Crystal Reports\Fees\DepositQA11.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DepositQA11.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\PASP\Bankrupt10.vb">
-      <DependentUpon>Bankrupt10.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\PASP\ClassChanged10.vb">
+    <Compile Include="Crystal Reports\Fees\ClassChanged10.vb">
       <DependentUpon>ClassChanged10.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\PASP\DepositData10.vb">
-      <DependentUpon>DepositData10.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\PASP\DepositDataQA10.vb">
-      <DependentUpon>DepositDataQA10.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\PASP\DepositQA10.vb">
-      <DependentUpon>DepositQA10.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\PASP\FacilityBalance10.vb">
+    <Compile Include="Crystal Reports\Fees\FacilityBalance10.vb">
       <DependentUpon>FacilityBalance10.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\PASP\FacilityBalancewithZero10.vb">
+    <Compile Include="Crystal Reports\Fees\FacilityBalancewithZero10.vb">
       <DependentUpon>FacilityBalancewithZero10.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\PASP\FacilityClassification10.vb">
+    <Compile Include="Crystal Reports\Fees\FacilityClassification10.vb">
       <DependentUpon>FacilityClassification10.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\PASP\FacilityComments10.vb">
-      <DependentUpon>FacilityComments10.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\PASP\FacilityFee10.vb">
+    <Compile Include="Crystal Reports\Fees\FacilityFee10.vb">
       <DependentUpon>FacilityFee10.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\PASP\FacilityInfo10.vb">
+    <Compile Include="Crystal Reports\Fees\FacilityInfo10.vb">
       <DependentUpon>FacilityInfo10.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\PASP\feeByYear10.vb">
+    <Compile Include="Crystal Reports\Fees\feeByYear10.vb">
       <DependentUpon>feeByYear10.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\PASP\NonRespondent10.vb">
-      <DependentUpon>NonRespondent10.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\PASP\NoOperate10.vb">
+    <Compile Include="Crystal Reports\Fees\NoOperate10.vb">
       <DependentUpon>NoOperate10.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\PASP\NSPSStatus10.vb">
+    <Compile Include="Crystal Reports\Fees\NSPSStatus10.vb">
       <DependentUpon>NSPSStatus10.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\PASP\NSPSStatus1_10.vb">
+    <Compile Include="Crystal Reports\Fees\NSPSStatus1_10.vb">
       <DependentUpon>NSPSStatus1_10.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\PASP\NSPSStatus2_10.vb">
+    <Compile Include="Crystal Reports\Fees\NSPSStatus2_10.vb">
       <DependentUpon>NSPSStatus2_10.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\PASP\TotalFee10.vb">
+    <Compile Include="Crystal Reports\Fees\TotalFee10.vb">
       <DependentUpon>TotalFee10.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\PASP\TotalPayment10.vb">
+    <Compile Include="Crystal Reports\Fees\TotalPayment10.vb">
       <DependentUpon>TotalPayment10.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\PASP\TrainingReg10.vb">
-      <DependentUpon>TrainingReg10.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\PASP\Variance10.vb">
-      <DependentUpon>Variance10.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\SmokeSchool\crPassFailNoShow.vb">
+    <Compile Include="Crystal Reports\SmokeSchool\crPassFailNoShow.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>crPassFailNoShow.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\SSCP\CRFCE3.vb">
-      <DependentUpon>CRFCE3.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\Oracle 10.1\SSPP\CRTitleVRenewal10.vb">
+    <Compile Include="Crystal Reports\SSPP\CRTitleVRenewal10.vb">
       <DependentUpon>CRTitleVRenewal10.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
@@ -686,103 +566,103 @@
     <Compile Include="ISMP\ISMPTestFirmComments.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 9.2\ISMP\CRFlare.vb">
+    <Compile Include="Crystal Reports\ISMP\CRFlare.vb">
       <DependentUpon>CRFlare.rpt</DependentUpon>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 9.2\ISMP\CRGasConcentration.vb">
+    <Compile Include="Crystal Reports\ISMP\CRGasConcentration.vb">
       <DependentUpon>CRGasConcentration.rpt</DependentUpon>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 9.2\ISMP\CRLoadingRack.vb">
+    <Compile Include="Crystal Reports\ISMP\CRLoadingRack.vb">
       <DependentUpon>CRLoadingRack.rpt</DependentUpon>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 9.2\ISMP\CRMemorandumPTE.vb">
+    <Compile Include="Crystal Reports\ISMP\CRMemorandumPTE.vb">
       <DependentUpon>CRMemorandumPTE.rpt</DependentUpon>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 9.2\ISMP\CRMemorandumStandard.vb">
+    <Compile Include="Crystal Reports\ISMP\CRMemorandumStandard.vb">
       <DependentUpon>CRMemorandumStandard.rpt</DependentUpon>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 9.2\ISMP\CRMemorandumToFile.vb">
+    <Compile Include="Crystal Reports\ISMP\CRMemorandumToFile.vb">
       <DependentUpon>CRMemorandumToFile.rpt</DependentUpon>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 9.2\ISMP\CRMethod22.vb">
+    <Compile Include="Crystal Reports\ISMP\CRMethod22.vb">
       <DependentUpon>CRMethod22.rpt</DependentUpon>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 9.2\ISMP\CRMethod9Multi.vb">
+    <Compile Include="Crystal Reports\ISMP\CRMethod9Multi.vb">
       <DependentUpon>CRMethod9Multi.rpt</DependentUpon>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 9.2\ISMP\CRMethod9Single.vb">
+    <Compile Include="Crystal Reports\ISMP\CRMethod9Single.vb">
       <DependentUpon>CRMethod9Single.rpt</DependentUpon>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 9.2\ISMP\CROneStackFourRuns.vb">
+    <Compile Include="Crystal Reports\ISMP\CROneStackFourRuns.vb">
       <DependentUpon>CROneStackFourRuns.rpt</DependentUpon>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 9.2\ISMP\CROneStackThreeRuns.vb">
+    <Compile Include="Crystal Reports\ISMP\CROneStackThreeRuns.vb">
       <DependentUpon>CROneStackThreeRuns.rpt</DependentUpon>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 9.2\ISMP\CROneStackTwoRuns.vb">
+    <Compile Include="Crystal Reports\ISMP\CROneStackTwoRuns.vb">
       <DependentUpon>CROneStackTwoRuns.rpt</DependentUpon>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 9.2\ISMP\CRPondTreatment.vb">
+    <Compile Include="Crystal Reports\ISMP\CRPondTreatment.vb">
       <DependentUpon>CRPondTreatment.rpt</DependentUpon>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 9.2\ISMP\CRRata.vb">
+    <Compile Include="Crystal Reports\ISMP\CRRata.vb">
       <DependentUpon>CRRata.rpt</DependentUpon>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 9.2\ISMP\CRTwoStackDRE.vb">
+    <Compile Include="Crystal Reports\ISMP\CRTwoStackDRE.vb">
       <DependentUpon>CRTwoStackDRE.rpt</DependentUpon>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 9.2\ISMP\CRTwoStackStandard.vb">
+    <Compile Include="Crystal Reports\ISMP\CRTwoStackStandard.vb">
       <DependentUpon>CRTwoStackStandard.rpt</DependentUpon>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Crystal Reports\Oracle 9.2\SSPP\SSPPPublicNotice.vb">
+    <Compile Include="Crystal Reports\SSPP\SSPPPublicNotice.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SSPPPublicNotice.rpt</DependentUpon>
@@ -894,7 +774,6 @@
     <Compile Include="_Data Models\Event Registration\Res.Registrant.vb" />
     <Compile Include="_Data Models\Event Registration\Res.EventRegistration.vb" />
     <Compile Include="_Data Models\Facilities\Location.vb" />
-    <Compile Include="_DAL\_DB\DB.vb" />
     <Compile Include="_Data Models\ISMP\Ismp.ReferenceNumber.vb" />
     <Compile Include="_Data Models\SSCP\Apb.Sscp.Fce.vb" />
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.Inspection.vb" />
@@ -904,6 +783,7 @@
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.Report.vb" />
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.RmpInspection.vb" />
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.StackTest.vb" />
+    <Compile Include="_DB\DB.Functions.vb" />
     <Compile Include="_Modules\ErrorReporting.vb" />
     <Compile Include="_Modules\ExcelExport.vb" />
     <Compile Include="_Modules\Extensions.vb" />
@@ -1077,26 +957,14 @@
       <LastGenOutput>SscpInspections.vb</LastGenOutput>
       <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Subreports\FacilityBasicInfo.rpt">
+    <EmbeddedResource Include="Crystal Reports\Subreports\Facility\FacilityBasicInfo.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>FacilityBasicInfo.vb</LastGenOutput>
       <CustomToolNamespace>CR.SubReports</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\SSPP\crSSPPConfirmationLetter.rpt">
+    <EmbeddedResource Include="Crystal Reports\Subreports\SSPP\crSSPPConfirmationLetter.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crSSPPConfirmationLetter.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\SBEAP\crCaseReport.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crCaseReport.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\SBEAP\crCaseSummary.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crCaseSummary.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\SBEAP\crCaseWorkLog.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crCaseWorkLog.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\SmokeSchool\SmokeSchoolRoster.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -1147,155 +1015,75 @@
     <EmbeddedResource Include="SSCP\SSCPEnforcement.resx">
       <DependentUpon>SSCPEnforcement.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\crFS_Invoice.rpt">
+    <EmbeddedResource Include="Crystal Reports\Fees\crFS_Invoice.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crFS_Invoice.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\APB\CRBasicPrint.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRBasicPrint.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\APB\SubReports\CRAirProgramCodes.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRAirProgramCodes.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\APB\SubReports\CRContact.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRContact.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\APB\CRFullPrint.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRFullPrint.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\APB\SubReports\CREnforcement.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CREnforcement.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\APB\SubReports\CRFCEPrint.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRFCEPrint.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\APB\SubReports\CRISMPFull.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRISMPFull.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\APB\SubReports\CRSSCPPrint.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRSSCPPrint.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\APB\SubReports\CRSSPPFull.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRSSPPFull.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\APB\SubReports\CRStateContacts.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRStateContacts.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\APB\SubReports\CRWebContacts.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRWebContacts.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\crAPBPrintOut2.rpt">
+    <EmbeddedResource Include="Crystal Reports\SSPP\crAPBPrintOut2.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crAPBPrintOut2.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\DepositQA11.rpt">
+    <EmbeddedResource Include="Crystal Reports\Fees\DepositQA11.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>DepositQA11.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\PASP\Bankrupt10.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>Bankrupt10.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\PASP\ClassChanged10.rpt">
+    <EmbeddedResource Include="Crystal Reports\Fees\ClassChanged10.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ClassChanged10.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\PASP\DepositData10.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>DepositData10.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\PASP\DepositDataQA10.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>DepositDataQA10.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\PASP\DepositQA10.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>DepositQA10.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\PASP\FacilityBalance10.rpt">
+    <EmbeddedResource Include="Crystal Reports\Fees\FacilityBalance10.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>FacilityBalance10.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\PASP\FacilityBalancewithZero10.rpt">
+    <EmbeddedResource Include="Crystal Reports\Fees\FacilityBalancewithZero10.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>FacilityBalancewithZero10.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\PASP\FacilityClassification10.rpt">
+    <EmbeddedResource Include="Crystal Reports\Fees\FacilityClassification10.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>FacilityClassification10.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\PASP\FacilityComments10.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>FacilityComments10.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\PASP\FacilityFee10.rpt">
+    <EmbeddedResource Include="Crystal Reports\Fees\FacilityFee10.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>FacilityFee10.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\PASP\FacilityInfo10.rpt">
+    <EmbeddedResource Include="Crystal Reports\Fees\FacilityInfo10.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>FacilityInfo10.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\PASP\feeByYear10.rpt">
+    <EmbeddedResource Include="Crystal Reports\Fees\feeByYear10.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>feeByYear10.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\PASP\NonRespondent10.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>NonRespondent10.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\PASP\NoOperate10.rpt">
+    <EmbeddedResource Include="Crystal Reports\Fees\NoOperate10.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>NoOperate10.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\PASP\NSPSStatus10.rpt">
+    <EmbeddedResource Include="Crystal Reports\Fees\NSPSStatus10.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>NSPSStatus10.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\PASP\NSPSStatus1_10.rpt">
+    <EmbeddedResource Include="Crystal Reports\Fees\NSPSStatus1_10.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>NSPSStatus1_10.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\PASP\NSPSStatus2_10.rpt">
+    <EmbeddedResource Include="Crystal Reports\Fees\NSPSStatus2_10.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>NSPSStatus2_10.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\PASP\TotalFee10.rpt">
+    <EmbeddedResource Include="Crystal Reports\Fees\TotalFee10.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>TotalFee10.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\PASP\TotalPayment10.rpt">
+    <EmbeddedResource Include="Crystal Reports\Fees\TotalPayment10.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>TotalPayment10.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\PASP\TrainingReg10.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>TrainingReg10.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\PASP\Variance10.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>Variance10.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\SmokeSchool\crPassFailNoShow.rpt">
+    <EmbeddedResource Include="Crystal Reports\SmokeSchool\crPassFailNoShow.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crPassFailNoShow.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\SSCP\CRFCE3.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CRFCE3.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 10.1\SSPP\CRTitleVRenewal10.rpt">
+    <EmbeddedResource Include="Crystal Reports\SSPP\CRTitleVRenewal10.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CRTitleVRenewal10.vb</LastGenOutput>
     </EmbeddedResource>
@@ -1391,75 +1179,75 @@
       <SubType>Designer</SubType>
       <DependentUpon>ISMPTestFirmComments.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 9.2\ISMP\CRFlare.resx">
+    <EmbeddedResource Include="Crystal Reports\ISMP\CRFlare.resx">
       <DependentUpon>CRFlare.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 9.2\ISMP\CRFlare.rpt">
+    <EmbeddedResource Include="Crystal Reports\ISMP\CRFlare.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CRFlare.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 9.2\ISMP\CRGasConcentration.rpt">
+    <EmbeddedResource Include="Crystal Reports\ISMP\CRGasConcentration.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CRGasConcentration.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 9.2\ISMP\CRLoadingRack.rpt">
+    <EmbeddedResource Include="Crystal Reports\ISMP\CRLoadingRack.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CRLoadingRack.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 9.2\ISMP\CRMemorandumPTE.rpt">
+    <EmbeddedResource Include="Crystal Reports\ISMP\CRMemorandumPTE.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CRMemorandumPTE.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 9.2\ISMP\CRMemorandumStandard.rpt">
+    <EmbeddedResource Include="Crystal Reports\ISMP\CRMemorandumStandard.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CRMemorandumStandard.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 9.2\ISMP\CRMemorandumToFile.rpt">
+    <EmbeddedResource Include="Crystal Reports\ISMP\CRMemorandumToFile.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CRMemorandumToFile.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 9.2\ISMP\CRMethod22.rpt">
+    <EmbeddedResource Include="Crystal Reports\ISMP\CRMethod22.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CRMethod22.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 9.2\ISMP\CRMethod9Multi.rpt">
+    <EmbeddedResource Include="Crystal Reports\ISMP\CRMethod9Multi.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CRMethod9Multi.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 9.2\ISMP\CRMethod9Single.rpt">
+    <EmbeddedResource Include="Crystal Reports\ISMP\CRMethod9Single.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CRMethod9Single.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 9.2\ISMP\CROneStackFourRuns.rpt">
+    <EmbeddedResource Include="Crystal Reports\ISMP\CROneStackFourRuns.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CROneStackFourRuns.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 9.2\ISMP\CROneStackThreeRuns.rpt">
+    <EmbeddedResource Include="Crystal Reports\ISMP\CROneStackThreeRuns.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CROneStackThreeRuns.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 9.2\ISMP\CROneStackTwoRuns.rpt">
+    <EmbeddedResource Include="Crystal Reports\ISMP\CROneStackTwoRuns.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CROneStackTwoRuns.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 9.2\ISMP\CRPondTreatment.rpt">
+    <EmbeddedResource Include="Crystal Reports\ISMP\CRPondTreatment.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CRPondTreatment.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 9.2\ISMP\CRRata.rpt">
+    <EmbeddedResource Include="Crystal Reports\ISMP\CRRata.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CRRata.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 9.2\ISMP\CRTwoStackDRE.rpt">
+    <EmbeddedResource Include="Crystal Reports\ISMP\CRTwoStackDRE.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CRTwoStackDRE.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 9.2\ISMP\CRTwoStackStandard.rpt">
+    <EmbeddedResource Include="Crystal Reports\ISMP\CRTwoStackStandard.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CRTwoStackStandard.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\Oracle 9.2\SSPP\SSPPPublicNotice.rpt">
+    <EmbeddedResource Include="Crystal Reports\SSPP\SSPPPublicNotice.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>SSPPPublicNotice.vb</LastGenOutput>
     </EmbeddedResource>
@@ -1684,30 +1472,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_DAL\DAL.Sspp.Permit.vb" />
-    <Compile Include="_DAL\_DB\DB.Connections.vb" />
+    <Compile Include="_DB\DB.Connections.vb" />
     <Compile Include="Crystal Reports\CRViewerForm.Designer.vb">
       <DependentUpon>CRViewerForm.vb</DependentUpon>
     </Compile>
     <Compile Include="Crystal Reports\CRViewerForm.vb">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\SBEAP\crCaseReport.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crCaseReport.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\SBEAP\crCaseSummary.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crCaseSummary.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\SBEAP\crCaseWorkLog.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crCaseWorkLog.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Crystal Reports\SmokeSchool\SmokeSchoolRoster.vb">
       <DependentUpon>SmokeSchoolRoster.rpt</DependentUpon>
@@ -1813,7 +1583,7 @@
     <Compile Include="_DAL\SSCP\DAL.Sscp.Enforcement.vb" />
     <Compile Include="_DAL\DAL.Documents.vb" />
     <Compile Include="_DAL\DAL.EventRegistration.vb" />
-    <Compile Include="_DAL\_DB\DB.Utilities.vb" />
+    <Compile Include="_DB\DB.Utilities.vb" />
     <Compile Include="_Modules\Analytics.vb" />
     <Compile Include="_Modules\BitFields.vb" />
     <Compile Include="_Modules\CrystalReports.vb" />
@@ -1878,9 +1648,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Crystal Reports\Oracle 9.2\SSCP\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
   </ItemGroup>
   <ItemGroup />
