@@ -201,18 +201,18 @@ Namespace DAL
                 "  :emailaddress, :phone, " &
                 "  :branchid, :programid, :unitid, :office, " &
                 "  :status )"
-            Dim params2 As OracleParameter() = New OracleParameter() { _
-                New OracleParameter("userid", newUserId), _
-                New OracleParameter("employeeid", "000"), _
-                New OracleParameter("lastname", lastname), _
-                New OracleParameter("firstname", firstname), _
-                New OracleParameter("emailaddress", emailaddress), _
-                New OracleParameter("phone", phone), _
-                New OracleParameter("branchid", If(branchid < 1, DBNull.Value, branchid)), _
-                New OracleParameter("programid", If(programid < 1, DBNull.Value, programid)), _
-                New OracleParameter("unitid", If(unitid < 1, DBNull.Value, unitid)), _
-                New OracleParameter("office", office), _
-                New OracleParameter("status", DB.ConvertFromBooleanToDbValue(status, DB.DumbConvertBooleanType.OneOrZero)) _
+            Dim params2 As OracleParameter() = New OracleParameter() {
+                New OracleParameter("userid", newUserId),
+                New OracleParameter("employeeid", "000"),
+                New OracleParameter("lastname", lastname),
+                New OracleParameter("firstname", firstname),
+                New OracleParameter("emailaddress", emailaddress),
+                New OracleParameter("phone", phone),
+                New OracleParameter("branchid", If(branchid < 1, DBNull.Value, branchid)),
+                New OracleParameter("programid", If(programid < 1, DBNull.Value, programid)),
+                New OracleParameter("unitid", If(unitid < 1, DBNull.Value, unitid)),
+                New OracleParameter("office", office),
+                New OracleParameter("status", DB.ConvertBooleanToDBValue(status, DB.Utilities.BooleanDBConversionType.OneOrZero))
             }
 
             queryList.Add(query1)

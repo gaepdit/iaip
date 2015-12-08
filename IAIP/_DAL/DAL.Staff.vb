@@ -84,17 +84,17 @@ Namespace DAL
                 "  NUMUNIT = :UnitId , STROFFICE = :OfficeNumber , " &
                 "  NUMEMPLOYEESTATUS = :ActiveEmployee " &
                 "WHERE NUMUSERID = :StaffId"
-            Dim parameters As OracleParameter() = { _
-                New OracleParameter("StaffId", staff.StaffId), _
-                New OracleParameter("LastName", staff.LastName), _
-                New OracleParameter("FirstName", staff.FirstName), _
-                New OracleParameter("EmailAddress", staff.EmailAddress), _
-                New OracleParameter("PhoneNumber", staff.PhoneNumber), _
-                New OracleParameter("BranchID", staff.BranchID), _
-                New OracleParameter("ProgramID", staff.ProgramID), _
-                New OracleParameter("UnitId", staff.UnitId), _
-                New OracleParameter("OfficeNumber", staff.OfficeNumber), _
-                New OracleParameter("ActiveEmployee", DB.ConvertFromBooleanToDbValue(staff.ActiveEmployee, DB.DumbConvertBooleanType.OneOrZero))
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("StaffId", staff.StaffId),
+                New OracleParameter("LastName", staff.LastName),
+                New OracleParameter("FirstName", staff.FirstName),
+                New OracleParameter("EmailAddress", staff.EmailAddress),
+                New OracleParameter("PhoneNumber", staff.PhoneNumber),
+                New OracleParameter("BranchID", staff.BranchID),
+                New OracleParameter("ProgramID", staff.ProgramID),
+                New OracleParameter("UnitId", staff.UnitId),
+                New OracleParameter("OfficeNumber", staff.OfficeNumber),
+                New OracleParameter("ActiveEmployee", DB.ConvertBooleanToDBValue(staff.ActiveEmployee, DB.BooleanDBConversionType.OneOrZero))
             }
             queryList.Add(query)
             parametersList.Add(parameters)

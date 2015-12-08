@@ -69,7 +69,7 @@ Namespace DB
                         Return Boolean.Parse(value) ' Will throw an exception if value is not equal to Boolean.TrueString
                     End If
 
-                Case DumbConvertBooleanType.OneOrZero
+                Case BooleanDBConversionType.OneOrZero
                     Return Convert.ToBoolean(Integer.Parse(value))
 
             End Select
@@ -93,7 +93,7 @@ Namespace DB
                         Return Nothing
                     End If
 
-                Case DumbConvertBooleanType.OneOrZero
+                Case BooleanDBConversionType.OneOrZero
                     If value Then
                         Return "1"
                     Else
