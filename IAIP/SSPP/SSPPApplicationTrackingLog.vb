@@ -7370,7 +7370,7 @@ Public Class SSPPApplicationTrackingLog
                 ":ContactAddress, " &
                 ":ContactCity, " &
                 ":ContactState, " &
-                ":ContactZipCode, , " &
+                ":ContactZipCode, " &
                 ":ContactDescription) "
                 params = {
                     New OracleParameter("txtApplicationNumber", txtApplicationNumber.Text),
@@ -8237,7 +8237,7 @@ Public Class SSPPApplicationTrackingLog
             "strModifingLocation = '1', " &
             "strModifingPerson = :UserGCode , " &
             "datModifingdate = :OracleDate  " &
-            "where strAIRSNumber = :airs '0413" & txtAIRSNumber.Text & "' ")
+            "where strAIRSNumber = :airs ")
             paramsList.Add(
                 {New OracleParameter("FacilityName", FacilityName),
                  New OracleParameter("FacilityStreet1", FacilityStreet1),
@@ -8296,13 +8296,13 @@ Public Class SSPPApplicationTrackingLog
                     For Each row As DataGridViewRow In dgvSIPSubPartDelete.Rows
                         subpartList.Add(row.Cells(0).Value.ToString)
                     Next
-                    UpdateDeletedSubpartData("0", subpartList)
+                    If subpartList.Count > 0 Then UpdateDeletedSubpartData("0", subpartList)
 
                     subpartList.Clear()
                     For Each row As DataGridViewRow In dgvSIPSubpartAddEdit.Rows
                         subpartList.Add(row.Cells(0).Value.ToString)
                     Next
-                    UpdateAddedSubpartData("0", subpartList)
+                    If subpartList.Count > 0 Then UpdateAddedSubpartData("0", subpartList)
                 Else
                     UpdateDeletedSubpartData("0")
                 End If
@@ -8334,13 +8334,13 @@ Public Class SSPPApplicationTrackingLog
                     For Each row As DataGridViewRow In dgvNESHAPSubPartDelete.Rows
                         subpartList.Add(row.Cells(0).Value.ToString)
                     Next
-                    UpdateDeletedSubpartData("8", subpartList)
+                    If subpartList.Count > 0 Then UpdateDeletedSubpartData("8", subpartList)
 
                     subpartList.Clear()
                     For Each row As DataGridViewRow In dgvNESHAPSubpartAddEdit.Rows
                         subpartList.Add(row.Cells(0).Value.ToString)
                     Next
-                    UpdateAddedSubpartData("8", subpartList)
+                    If subpartList.Count > 0 Then UpdateAddedSubpartData("8", subpartList)
                 Else
                     UpdateDeletedSubpartData("8")
                 End If
@@ -8352,13 +8352,13 @@ Public Class SSPPApplicationTrackingLog
                     For Each row As DataGridViewRow In dgvNSPSSubPartDelete.Rows
                         subpartList.Add(row.Cells(0).Value.ToString)
                     Next
-                    UpdateDeletedSubpartData("9", subpartList)
+                    If subpartList.Count > 0 Then UpdateDeletedSubpartData("9", subpartList)
 
                     subpartList.Clear()
                     For Each row As DataGridViewRow In dgvNSPSSubpartAddEdit.Rows
                         subpartList.Add(row.Cells(0).Value.ToString)
                     Next
-                    UpdateAddedSubpartData("9", subpartList)
+                    If subpartList.Count > 0 Then UpdateAddedSubpartData("9", subpartList)
                 Else
                     UpdateDeletedSubpartData("9")
                 End If
@@ -8382,13 +8382,13 @@ Public Class SSPPApplicationTrackingLog
                     For Each row As DataGridViewRow In dgvMACTSubPartDelete.Rows
                         subpartList.Add(row.Cells(0).Value.ToString)
                     Next
-                    UpdateDeletedSubpartData("M", subpartList)
+                    If subpartList.Count > 0 Then UpdateDeletedSubpartData("M", subpartList)
 
                     subpartList.Clear()
                     For Each row As DataGridViewRow In dgvMACTSubpartAddEdit.Rows
                         subpartList.Add(row.Cells(0).Value.ToString)
                     Next
-                    UpdateAddedSubpartData("M", subpartList)
+                    If subpartList.Count > 0 Then UpdateAddedSubpartData("M", subpartList)
                 Else
                     UpdateDeletedSubpartData("M")
                 End If
@@ -8456,7 +8456,7 @@ Public Class SSPPApplicationTrackingLog
         Dim queryList As New List(Of String)
         Dim paramsList As New List(Of OracleParameter())
 
-        If IsNothing(subpartList) Then
+        If subpartList Is Nothing OrElse subpartList.Count = 0 Then
             queryList.Add("Update AIRBRANCH.APBSubpartData set " &
                           "Active = '0', " &
                           "updateUser = :UserGCode , " &
@@ -8488,7 +8488,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub UpdateAddedSubpartData(key As String, subpartList As List(Of String))
-        If subpartList Is Nothing Then Exit Sub
+        If subpartList Is Nothing OrElse subpartList.Count = 0 Then Exit Sub
 
         Dim pKey As String = "0413" & txtAIRSNumber.Text & key
         Dim query As String = ""
