@@ -4008,7 +4008,7 @@ Public Class SSPPApplicationTrackingLog
             "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber " &
             "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCPDistrictResponsible.strAIRSnumber (+) " &
             "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = :AirsNumber "
-            Dim parameter As New OracleParameter("AirsNumber", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString)
+            Dim parameter As New OracleParameter("AirsNumber", "0413" & txtAIRSNumber.Text)
 
             Using connection As New OracleConnection(DB.CurrentConnectionString)
                 Using cmd As OracleCommand = connection.CreateCommand
@@ -4625,7 +4625,7 @@ Public Class SSPPApplicationTrackingLog
             "from AIRBRANCH.APBHeaderData " &
             "where strAIRSNumber = :airsnumber "
 
-            Dim parameter As New OracleParameter("airsnumber", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString)
+            Dim parameter As New OracleParameter("airsnumber", "0413" & txtAIRSNumber.Text)
 
             Attainment = DB.GetSingleValue(Of String)(query, parameter)
             If Attainment = "" Then Attainment = "00000"
@@ -5627,7 +5627,7 @@ Public Class SSPPApplicationTrackingLog
             "and AIRBRANCH.LookUpDistrictInformation.strDistrictCode = AIRBRANCH.LookUpDistricts.strDistrictCode  " &
             "and AIRBRANCH.APBHeaderData.strAIRSNumber = :airsnumber"
 
-            Dim parameter As New OracleParameter("airsnumber", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString)
+            Dim parameter As New OracleParameter("airsnumber", "0413" & txtAIRSNumber.Text)
 
             Using connection As New OracleConnection(DB.CurrentConnectionString)
                 Using cmd As OracleCommand = connection.CreateCommand
@@ -6055,7 +6055,7 @@ Public Class SSPPApplicationTrackingLog
                "from AIRBRANCH.SSPPApplicationMaster " &
                "where datFinalizedDate Is Null " &
                "and strAirsNumber = :airsnumber"
-            Dim parameter As New OracleParameter("airsnumber", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString)
+            Dim parameter As New OracleParameter("airsnumber", "0413" & txtAIRSNumber.Text)
 
             txtOutstandingApplication.Text = DB.GetSingleValue(Of String)(query, parameter)
             If txtOutstandingApplication.Text = "" Then txtOutstandingApplication.Text = "0"
@@ -6212,7 +6212,7 @@ Public Class SSPPApplicationTrackingLog
                                     "strModifingPerson, datModifingDate) " &
                                     "values (:appnumber, :airsnumber, :updateuser, :updatedate) ")
                     parametersList.Add({New OracleParameter("appnumber", txtApplicationNumber.Text),
-                                        New OracleParameter("airsnumber", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString),
+                                        New OracleParameter("airsnumber", "0413" & txtAIRSNumber.Text),
                                         New OracleParameter("updateuser", UserGCode),
                                         New OracleParameter("updatedate", OracleDate)})
 
@@ -6309,7 +6309,7 @@ Public Class SSPPApplicationTrackingLog
                     "datModifingdate = sysdate " &
                     "where strApplicationNumber = :appnumber "
                 parameters = {
-                    New OracleParameter("airsnumber", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString),
+                    New OracleParameter("airsnumber", "0413" & txtAIRSNumber.Text),
                     New OracleParameter("staff", StaffResponsible),
                     New OracleParameter("applicationtype", ApplicationType),
                     New OracleParameter("permittype", PermitType),
@@ -7425,7 +7425,7 @@ Public Class SSPPApplicationTrackingLog
                     "from AIRBRANCH.APBContactInformation " &
                     "where strAIRSNumber = :airs " &
                     "and substr(strkey, 1, 1) = '3' "
-                    params = {New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString)}
+                    params = {New OracleParameter("airs", "0413" & txtAIRSNumber.Text)}
 
                     MaxKey = DB.GetSingleValue(Of String)(query, params)
 
@@ -7460,7 +7460,7 @@ Public Class SSPPApplicationTrackingLog
                         "where strAIRSnumber = :airs " &
                         "and strKey = :pKey "
                         params = {
-                            New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString),
+                            New OracleParameter("airs", "0413" & txtAIRSNumber.Text),
                             New OracleParameter("pKey", "3" & i.ToString)
                         }
                         DB.RunCommand(query, params)
@@ -7473,7 +7473,7 @@ Public Class SSPPApplicationTrackingLog
                             "where strAIRSNumber = :airs " &
                             "and strKey = :pKey "
                         params = {
-                            New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString),
+                            New OracleParameter("airs", "0413" & txtAIRSNumber.Text),
                             New OracleParameter("pKey", "3" & i.ToString)
                         }
                         recExists = DB.ValueExists(query, params)
@@ -8075,7 +8075,7 @@ Public Class SSPPApplicationTrackingLog
                 query = "Select strAFSActionNumber " &
                     "from AIRBRANCH.APBSupplamentalData " &
                     "where strAIRSNumber = :airs"
-                params = {New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString)}
+                params = {New OracleParameter("airs", "0413" & txtAIRSNumber.Text)}
                 ActionNumber = DB.GetSingleValue(Of String)(query, params)
 
                 query = "Insert into AIRBRANCH.AFSSSPPRecords " &
@@ -8102,7 +8102,7 @@ Public Class SSPPApplicationTrackingLog
                 "where strAIRSNumber = :airs "
                 params = {
                     New OracleParameter("ActionNumber", ActionNumber),
-                    New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString)
+                    New OracleParameter("airs", "0413" & txtAIRSNumber.Text)
                 }
                 DB.RunCommand(query, params)
 
@@ -8247,7 +8247,7 @@ Public Class SSPPApplicationTrackingLog
                  New OracleParameter("Comments", "Updated by " & UserName & ", through Permitting Action."),
                  New OracleParameter("UserGCode", UserGCode),
                  New OracleParameter("OracleDate", OracleDate),
-                 New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString)
+                 New OracleParameter("airs", "0413" & txtAIRSNumber.Text)
                 })
 
             queryList.Add("Update AIRBRANCH.OLAPUserAccess set " &
@@ -8255,7 +8255,7 @@ Public Class SSPPApplicationTrackingLog
             "where strAIRSNumber = :airs ")
             paramsList.Add(
                 {New OracleParameter("FacilityName", FacilityName),
-                 New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString)
+                 New OracleParameter("airs", "0413" & txtAIRSNumber.Text)
                 })
 
             queryList.Add("Update AIRBRANCH.APBHeaderData set " &
@@ -8282,7 +8282,7 @@ Public Class SSPPApplicationTrackingLog
                  New OracleParameter("Comments", "Updated by " & UserName & ", through Permitting Action."),
                  New OracleParameter("UserGCode", UserGCode),
                  New OracleParameter("OracleDate", OracleDate),
-                 New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString)
+                 New OracleParameter("airs", "0413" & txtAIRSNumber.Text)
                 })
             DB.RunCommand(queryList, paramsList)
             queryList.Clear()
@@ -8428,7 +8428,7 @@ Public Class SSPPApplicationTrackingLog
              ":UserGCode , :OracleDate , " &
              "'O')"
             params = {
-                New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString),
+                New OracleParameter("airs", "0413" & txtAIRSNumber.Text),
                 New OracleParameter("pKey", pKey),
                 New OracleParameter("UserGCode", UserGCode),
                 New OracleParameter("OracleDate", OracleDate)
@@ -12751,7 +12751,7 @@ Public Class SSPPApplicationTrackingLog
                     "order by createdatetime "
 
                     parameter = {
-                        New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString),
+                        New OracleParameter("airs", "0413" & txtAIRSNumber.Text),
                         New OracleParameter("SubPart", SubPart),
                         New OracleParameter("appnum", txtApplicationNumber.Text)
                     }
@@ -15865,7 +15865,7 @@ Public Class SSPPApplicationTrackingLog
                     "order by createdatetime "
 
                     parameter = {
-                        New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString),
+                        New OracleParameter("airs", "0413" & txtAIRSNumber.Text),
                         New OracleParameter("SubPart", SubPart),
                         New OracleParameter("appnum", txtApplicationNumber.Text)
                     }
