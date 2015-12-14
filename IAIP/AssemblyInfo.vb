@@ -23,5 +23,5 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyTrademark("")> 
 <Assembly: CLSCompliant(True)> 
 <Assembly: ComVisibleAttribute(False)> 
-<Assembly: AssemblyVersion("4.2.7.0")> 
-<Assembly: AssemblyFileVersionAttribute("4.2.7.0")> 
+<Assembly: AssemblyVersion("4.2.8.0")> 
+<Assembly: AssemblyFileVersionAttribute("4.2.8.0")> 
