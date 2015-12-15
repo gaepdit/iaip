@@ -2567,13 +2567,13 @@ Public Class PASPFeeManagement
     End Sub
 
     Private Sub btnOpenFeesLog_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenFeesLog.Click
-        Dim parameters As New Generic.Dictionary(Of String, String)
+        Dim parameters As New Generic.Dictionary(Of BaseForm.FormParameter, String)
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbCheckAIRSNumber.Text) Then
-            parameters("airsnumber") = mtbCheckAIRSNumber.Text
+            parameters(FormParameter.AirsNumber) = mtbCheckAIRSNumber.Text
         End If
-        parameters("feeyear") = cboAvailableFeeYears.Text
+        parameters(FormParameter.FeeYear) = cboAvailableFeeYears.Text
 
-        OpenSingleForm("PASPFeeAuditLog", parameters:=parameters, closeFirst:=True)
+        OpenSingleForm(PASPFeeAuditLog, parameters:=parameters, closeFirst:=True)
     End Sub
 
     Private Sub dgvFeeManagementLists_SelectionChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles dgvFeeManagementLists.SelectionChanged

@@ -8966,13 +8966,13 @@ Public Class PASPFeeStatistics
     End Sub
 
     Private Sub btnOpenFeesLog_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenFeesLog.Click
-        Dim parameters As New Generic.Dictionary(Of String, String)
+        Dim parameters As New Generic.Dictionary(Of BaseForm.FormParameter, String)
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtFeeStatAirsNumber.Text) Then
-            parameters("airsnumber") = txtFeeStatAirsNumber.Text
+            parameters(FormParameter.AirsNumber) = txtFeeStatAirsNumber.Text
         End If
-        parameters("feeyear") = cboFeeStatYear.Text
+        parameters(FormParameter.FeeYear) = cboFeeStatYear.Text
 
-        OpenSingleForm("PASPFeeAuditLog", parameters:=parameters, closeFirst:=True)
+        OpenSingleForm(PASPFeeAuditLog, parameters:=parameters, closeFirst:=True)
     End Sub
 
     Private Sub btnInvoiceReportVariance_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnInvoiceReportVariance.Click

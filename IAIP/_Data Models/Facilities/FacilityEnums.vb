@@ -148,7 +148,7 @@ Namespace Apb.Facilities
     ''' </summary>
     ''' <remarks>Stored in database as a one-character string. The enum values are 
     ''' significant as they are used to determine controlling compliance status.</remarks>
-    Public Enum PollutantComplianceStatus
+    Public Enum LegacyComplianceStatus
         <Description("In violation, procedural & emissions")> Status_B = 35
         <Description("In violation, no schedule")> Status_1 = 34
         <Description("In violation, not meeting schedule")> Status_6 = 33

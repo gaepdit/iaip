@@ -41,7 +41,7 @@ Namespace Apb.Facilities
         Public Property ApprovedByApb() As Boolean?
         Public Property DistrictOfficeLocation() As String
         Public Property DistrictResponsible() As Boolean?
-        Public Property ComplianceStatusList() As List(Of PollutantComplianceStatus)
+        Public Property ComplianceStatusList() As List(Of LegacyComplianceStatus)
 
 #End Region
 
@@ -127,10 +127,10 @@ Namespace Apb.Facilities
             End Get
         End Property
 
-        Public ReadOnly Property ControllingComplianceStatus() As PollutantComplianceStatus
+        Public ReadOnly Property ControllingComplianceStatus() As LegacyComplianceStatus
             Get
                 If ComplianceStatusList Is Nothing OrElse ComplianceStatusList.Count = 0 Then
-                    Return PollutantComplianceStatus.NoValue
+                    Return LegacyComplianceStatus.NoValue
                 Else
                     Return ComplianceStatusList.Max
                 End If

@@ -99,9 +99,9 @@ Public Class PASPFeeAuditLog
 
     Private Sub ParseParameters()
         If Parameters IsNot Nothing Then
-            If Parameters.ContainsKey("airsnumber") Then
+            If Parameters.ContainsKey(FormParameter.AirsNumber) Then
                 Try
-                    Me.AirsNumber = Parameters("airsnumber")
+                    Me.AirsNumber = Parameters(FormParameter.AirsNumber)
                     mtbAirsNumber.Text = Me.AirsNumber.FormattedString
                 Catch ex As Apb.InvalidAirsNumberException
                     Me.AirsNumber = Nothing
@@ -109,8 +109,8 @@ Public Class PASPFeeAuditLog
                 End Try
             End If
 
-            If Parameters.ContainsKey("feeyear") Then
-                Me.FeeYear = Parameters("feeyear")
+            If Parameters.ContainsKey(FormParameter.FeeYear) Then
+                Me.FeeYear = Parameters(FormParameter.FeeYear)
             End If
         End If
 
@@ -2616,11 +2616,11 @@ Public Class PASPFeeAuditLog
             Exit Sub
         End If
 
-        Dim parameters As New Generic.Dictionary(Of String, String)
-        parameters("airsnumber") = AirsNumber.ToString
-        parameters("facilityname") = txtFeeAdminFacilityName.Text
-        parameters("key") = DAL.ContactKey.Fees.ToString
-        OpenMultiForm("IAIPEditContacts", AirsNumber.ToString, parameters)
+        Dim parameters As New Generic.Dictionary(Of FormParameter, String)
+        parameters(FormParameter.AirsNumber) = AirsNumber.ToString
+        parameters(FormParameter.FacilityName) = txtFeeAdminFacilityName.Text
+        parameters(FormParameter.Key) = DAL.ContactKey.Fees.ToString
+        OpenMultiForm(IAIPEditContacts, AirsNumber.ToString, parameters)
     End Sub
 
     Private Sub ReloadButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ReloadButton.Click

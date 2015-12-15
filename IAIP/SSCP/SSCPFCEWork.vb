@@ -129,73 +129,38 @@ Public Class SSCPFCEWork
     Sub LoadFCEDataset()
         Try
 
-
-            SQL = "select " & _
-            "AIRBRANCH.SSCPFCE.strFCENumber, " & _
-            "strFCEYear as FCEYear " & _
-            "from AIRBRANCH.SSCPFCE, AIRBRANCH.SSCPFCEMaster " & _
-            "Where AIRBRANCH.SSCPFCE.strFCENumber = AIRBRANCH.SSCPFCEMaster.strFCENumber " & _
-            "and AIRBRANCH.SSCPFCEMaster.strairsnumber = '0413" & txtAirsNumber.Text & "' " & _
+            SQL = "select " &
+            "AIRBRANCH.SSCPFCE.strFCENumber, " &
+            "strFCEYear as FCEYear " &
+            "from AIRBRANCH.SSCPFCE, AIRBRANCH.SSCPFCEMaster " &
+            "Where AIRBRANCH.SSCPFCE.strFCENumber = AIRBRANCH.SSCPFCEMaster.strFCENumber " &
+            "and AIRBRANCH.SSCPFCEMaster.strairsnumber = '0413" & txtAirsNumber.Text & "' " &
             "order by datFCECompleted DESC "
 
-            'SQL2 = "Select distinct(numUserID), " & _
-            '"(strLastName||', '||strFirstName) as StaffName, " & _
-            '"strLastName " & _
-            '"from AIRBRANCH.EPDUserProfiles, AIRBRANCH.SSCP_AuditedEnforcement " & _
-            '"where numProgram = '4' " & _
-            '"or numUserID = numStaffResponsible " & _
-            '"or (numBranch = '5' " & _
-            '"and strLastName = 'District') " & _
-            '"order by strLastName "
-
-            SQL2 = "select numuserID, Staff as StaffName, strLastName " & _
-            "from AIRBranch.VW_ComplianceStaff "
-
             dsFCE = New DataSet
-            dsStaff = New DataSet
-
             daFCE = New OracleDataAdapter(SQL, CurrentConnection)
-            daStaff = New OracleDataAdapter(SQL2, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
             daFCE.Fill(dsFCE, "FCEdata")
-            daStaff.Fill(dsStaff, "Staff")
 
-
+            Dim dtStaff As DataTable = SharedData.GetTable(SharedData.Tables.AllComplianceStaff)
+            dtStaff.TableName = "Staff"
+            dsStaff.Tables.Add(dtStaff)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
     Sub FillFCEData()
         Dim dtFCE As New DataTable
-        Dim dtStaff As New DataTable
         Dim drDSRow As DataRow
-        Dim drDSRow2 As DataRow
         Dim drNewRow As DataRow
         Dim i As Integer
         Dim flag As String
 
         Try
 
-
-            dtStaff.Columns.Add("StaffName", GetType(System.String))
-            dtStaff.Columns.Add("numUserID", GetType(System.String))
-
-            For Each drDSRow2 In dsStaff.Tables("Staff").Rows()
-                drNewRow = dtStaff.NewRow()
-                drNewRow("StaffName") = drDSRow2("StaffName")
-                drNewRow("numUserID") = drDSRow2("numUserID")
-                dtStaff.Rows.Add(drNewRow)
-            Next
-
             With cboReviewer
-                .DataSource = dtStaff
-                .DisplayMember = "StaffName"
+                .DataSource = dsStaff.Tables("Staff")
+                .DisplayMember = "Staff"
                 .ValueMember = "numUserID"
                 .SelectedIndex = 0
             End With

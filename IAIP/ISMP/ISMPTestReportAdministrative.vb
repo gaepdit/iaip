@@ -1014,7 +1014,7 @@ Public Class ISMPTestReportAdministrative
     Sub MoveOn()
         Try
             Dim id As String = txtReferenceNumber.Text
-            If DAL.Ismp.StackTestExists(id) Then OpenMultiForm("ISMPTestReports", id)
+            If DAL.Ismp.StackTestExists(id) Then OpenMultiForm(ISMPTestReports, id)
             Me.Hide()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2688,7 +2688,7 @@ Public Class ISMPTestReportAdministrative
     Private Sub btnOpenTestReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenTestReport.Click
         Try
             Dim id As String = txtAddTestReportRefNum.Text
-            If DAL.Ismp.StackTestExists(id) Then OpenMultiForm("ISMPTestReports", id)
+            If DAL.Ismp.StackTestExists(id) Then OpenMultiForm(ISMPTestReports, id)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

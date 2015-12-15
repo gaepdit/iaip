@@ -186,7 +186,7 @@ Public Class IAIPFacilitySummary
 #Region " Basic Info data "
 
     Private Sub EditFacilityLocationButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditFacilityLocationButton.Click
-        Dim editFacilityLocation As IAIPEditFacilityLocation = OpenMultiForm("IAIPEditFacilityLocation", Me.AirsNumber.GetHashCode)
+        Dim editFacilityLocation As IAIPEditFacilityLocation = OpenMultiForm(IAIPEditFacilityLocation, Me.AirsNumber.GetHashCode)
         editFacilityLocation.txtAirsNumber.Text = Me.AirsNumber.ToString
     End Sub
 
@@ -394,7 +394,7 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub EditSubpartsButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditSubpartsButton.Click
-        Dim editSubParts As IAIPEditSubParts = OpenMultiForm("IAIPEditSubParts", Me.AirsNumber.GetHashCode)
+        Dim editSubParts As IAIPEditSubParts = OpenMultiForm(IAIPEditSubParts, Me.AirsNumber.GetHashCode)
         editSubParts.txtAIRSNumber.Text = Me.AirsNumber.ToString
     End Sub
 
@@ -851,10 +851,10 @@ Public Class IAIPFacilitySummary
 #Region " Contacts data "
 
     Private Sub EditContactsButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditContactsButton.Click
-        Dim parameters As New Dictionary(Of String, String)
-        parameters("airsnumber") = Me.AirsNumber.ShortString
-        parameters("facilityname") = Me.ThisFacility.FacilityName
-        OpenMultiForm("IAIPEditContacts", Me.AirsNumber.ShortString, parameters)
+        Dim parameters As New Dictionary(Of FormParameter, String)
+        parameters(FormParameter.AirsNumber) = Me.AirsNumber.ShortString
+        parameters(FormParameter.FacilityName) = Me.ThisFacility.FacilityName
+        OpenMultiForm(IAIPEditContacts, Me.AirsNumber.ShortString, parameters)
     End Sub
 
     Private Sub LoadContactsData()
@@ -1334,7 +1334,7 @@ Public Class IAIPFacilitySummary
 #Region " Navigation Panel "
 
     Private Sub FacilityApprovalLinkLabel_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles FacilityApprovalLinkLabel.LinkClicked
-        OpenSingleForm("IAIPFacilityCreator")
+        OpenSingleForm(IAIPFacilityCreator)
     End Sub
 
     Private Sub ViewData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ViewDataButton.Click
@@ -1387,7 +1387,7 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub FacilityCreatorToolToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CreateFacilityMenuItem.Click
-        OpenSingleForm("IAIPFacilityCreator")
+        OpenSingleForm(IAIPFacilityCreator)
     End Sub
 
     Private Sub UpdateAllDataSentToEPAToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UpdateEpaMenuItem.Click

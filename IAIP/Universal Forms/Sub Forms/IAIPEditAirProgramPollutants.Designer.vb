@@ -19,17 +19,17 @@ Partial Class IAIPEditAirProgramPollutants
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.cboComplianceStatus = New System.Windows.Forms.ComboBox
-        Me.lblComplianceStatus = New System.Windows.Forms.Label
-        Me.cboAirProgramCodes = New System.Windows.Forms.ComboBox
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.cboPollutants = New System.Windows.Forms.ComboBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.dgvAirProgramPollutants = New System.Windows.Forms.DataGridView
-        Me.btnSaveNewPollutant = New System.Windows.Forms.Button
-        Me.PanelPollutants = New System.Windows.Forms.Panel
-        Me.FacilityNameDisplay = New System.Windows.Forms.Label
-        Me.AirsNumberDisplay = New System.Windows.Forms.Label
+        Me.cboComplianceStatus = New System.Windows.Forms.ComboBox()
+        Me.lblComplianceStatus = New System.Windows.Forms.Label()
+        Me.cboAirProgramCodes = New System.Windows.Forms.ComboBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.cboPollutants = New System.Windows.Forms.ComboBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.dgvAirProgramPollutants = New System.Windows.Forms.DataGridView()
+        Me.btnSaveNewPollutant = New System.Windows.Forms.Button()
+        Me.PanelPollutants = New System.Windows.Forms.Panel()
+        Me.FacilityNameDisplay = New System.Windows.Forms.Label()
+        Me.AirsNumberDisplay = New System.Windows.Forms.Label()
         CType(Me.dgvAirProgramPollutants, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelPollutants.SuspendLayout()
         Me.SuspendLayout()
@@ -38,6 +38,7 @@ Partial Class IAIPEditAirProgramPollutants
         '
         Me.cboComplianceStatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboComplianceStatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboComplianceStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboComplianceStatus.Location = New System.Drawing.Point(416, 72)
         Me.cboComplianceStatus.Name = "cboComplianceStatus"
         Me.cboComplianceStatus.Size = New System.Drawing.Size(199, 21)
@@ -56,6 +57,7 @@ Partial Class IAIPEditAirProgramPollutants
         '
         Me.cboAirProgramCodes.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboAirProgramCodes.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboAirProgramCodes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboAirProgramCodes.Location = New System.Drawing.Point(12, 72)
         Me.cboAirProgramCodes.Name = "cboAirProgramCodes"
         Me.cboAirProgramCodes.Size = New System.Drawing.Size(135, 21)
@@ -74,6 +76,7 @@ Partial Class IAIPEditAirProgramPollutants
         '
         Me.cboPollutants.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboPollutants.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboPollutants.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboPollutants.Location = New System.Drawing.Point(153, 72)
         Me.cboPollutants.Name = "cboPollutants"
         Me.cboPollutants.Size = New System.Drawing.Size(257, 21)

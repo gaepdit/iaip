@@ -64,56 +64,20 @@ Public Class SSCPEvents
 #Region "Page Load Functions"
 
     Private Sub Loadcombos()
-        Dim dtStaff As New DataTable
-
-        Dim drNewRow As DataRow
-        Dim drDSRow As DataRow
-
         Try
 
-            SQL = "select numuserID, Staff as StaffName, strLastName " & _
-            "from AIRBranch.VW_ComplianceStaff "
-
-
-            dsStaff = New DataSet
-
-            daStaff = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daStaff.Fill(dsStaff, "Staff")
-
-            dtStaff.Columns.Add("numUserID", GetType(System.String))
-            dtStaff.Columns.Add("StaffName", GetType(System.String))
-
-            drNewRow = dtStaff.NewRow()
-            drNewRow("numUserID") = "0"
-            drNewRow("StaffName") = "N/A"
-            dtStaff.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsStaff.Tables("Staff").Rows()
-                drNewRow = dtStaff.NewRow
-                drNewRow("numUserID") = drDSRow("numUserID")
-                drNewRow("StaffName") = drDSRow("StaffName")
-                dtStaff.Rows.Add(drNewRow)
-            Next
+            Dim dtStaff As DataTable = SharedData.GetTable(SharedData.Tables.AllComplianceStaff)
 
             With cboStaffResponsible
                 .DataSource = dtStaff
-                .DisplayMember = "StaffName"
+                .DisplayMember = "Staff"
                 .ValueMember = "numUserID"
                 .SelectedIndex = 0
             End With
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
-
     End Sub
     Sub ShowCorrectTab()
         Dim EventTypeDbString As String = ""
@@ -801,8 +765,8 @@ Public Class SSCPEvents
                 OpenFormEnforcement(txtEnforcementNumber.Text)
             Else
                 Dim parameters As New Dictionary(Of String, String)
-                parameters("airsnumber") = txtAIRSNumber.Text
-                If txtTrackingNumber.Text <> "" Then parameters("trackingnumber") = txtTrackingNumber.Text
+                parameters(FormParameter.AirsNumber) = txtAIRSNumber.Text
+                If txtTrackingNumber.Text <> "" Then parameters(FormParameter.TrackingNumber) = txtTrackingNumber.Text
                 OpenSingleForm(SSCPEnforcementSelector, parameters:=parameters, closeFirst:=True)
             End If
         Catch ex As Exception
