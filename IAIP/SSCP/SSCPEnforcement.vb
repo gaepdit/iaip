@@ -1,5 +1,6 @@
 ﻿Imports System.Collections.Generic
 Imports System.Linq
+Imports System.Text
 Imports Iaip.Apb.Sscp
 Imports Iaip.DAL.DocumentData
 Imports Oracle.ManagedDataAccess.Client
@@ -14,11 +15,11 @@ Public Class SscpEnforcement
     Public Property Facility As Apb.Facilities.Facility
     Public Property LinkedEventId As String
 
-    Dim SscpStaff As DataTable
-    Dim ViolationTypes As DataTable
+    Private SscpStaff As DataTable
+    Private ViolationTypes As DataTable
     Private ExistingFiles As List(Of EnforcementDocument)
 
-    Dim nullableDates As New Dictionary(Of Date?, DateTimePicker) From {
+    Private nullableDates As New Dictionary(Of Date?, DateTimePicker) From {
         {EnforcementCase.DateFinalized, ResolvedDate},
         {EnforcementCase.AoAppealed, AOAppealed},
         {EnforcementCase.AoExecuted, AOExecuted},
@@ -43,7 +44,47 @@ Public Class SscpEnforcement
         {EnforcementCase.NovToUc, NovToUC}
     }
 
-    Dim SelectedStipulatedPenaltyItem As Int16 = 0
+    Private SelectedStipulatedPenaltyItem As Int16 = 0
+
+    Private ValidationErrors As Dictionary(Of Control, String)
+
+    Private _generalMessage As IaipMessage
+    Private Property GeneralMessage As IaipMessage
+        Get
+            Return _generalMessage
+        End Get
+        Set(value As IaipMessage)
+            If value Is Nothing And Message IsNot Nothing Then
+                GeneralMessage.Clear()
+                DismissMessageButton.Visible = False
+            End If
+            _generalMessage = value
+            If value IsNot Nothing Then
+                GeneralMessage.Display(MessageDisplay)
+                DismissMessageButton.Visible = True
+            End If
+        End Set
+    End Property
+
+    Private _message As IaipMessage
+    Private Property Message As IaipMessage
+        Get
+            Return _message
+        End Get
+        Set(value As IaipMessage)
+            If value Is Nothing And Message IsNot Nothing Then
+                Message.Clear()
+            End If
+            _message = value
+            If value IsNot Nothing Then
+                If Message.WarningLevel = IaipMessage.WarningLevels.ErrorReport Then
+                    Message.Display(DocumentMessageDisplay, DocumentsErrorProvider)
+                Else
+                    Message.Display(DocumentMessageDisplay)
+                End If
+            End If
+        End Set
+    End Property
 
 #End Region
 
@@ -413,7 +454,7 @@ Public Class SscpEnforcement
 
     Private Sub OpenEventLinker()
         If EnforcementId Is Nothing Then
-            MessageBox.Show("Current enforcement must be saved before linking a discovery event.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            GeneralMessage = New IaipMessage("Current enforcement must be saved before linking a discovery event.", IaipMessage.WarningLevels.Warning)
             Exit Sub
         End If
 
@@ -556,7 +597,7 @@ Public Class SscpEnforcement
 
     Private Sub EditAirProgramPollutantsButton_Click(sender As Object, e As EventArgs) Handles EditAirProgramPollutantsButton.Click
         If EnforcementId Is Nothing Then
-            MessageBox.Show("Current enforcement must be saved before adding pollutants.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            GeneralMessage = New IaipMessage("Current enforcement must be saved before adding pollutants.", IaipMessage.WarningLevels.Warning)
         Else
             Dim EditAirProgramPollutants As IAIPEditAirProgramPollutants = OpenSingleForm(IAIPEditAirProgramPollutants)
             EditAirProgramPollutants.AirsNumberDisplay.Text = AirsNumber.ShortString
@@ -584,11 +625,11 @@ Public Class SscpEnforcement
 
     Private Sub SaveNewStipulatedPenalty_Click(sender As Object, e As EventArgs) Handles SaveNewStipulatedPenaltyButton.Click
         If EnforcementId Is Nothing Then
-            MessageBox.Show("Current enforcement must be saved before saving stipulated penalties.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            GeneralMessage = New IaipMessage("Current enforcement must be saved before saving stipulated penalties.", IaipMessage.WarningLevels.Warning)
         ElseIf String.IsNullOrEmpty(StipulatedPenaltyAmount.Text) Then
-            MessageBox.Show("Enter a stipulated penalty amount first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            GeneralMessage = New IaipMessage("Enter a stipulated penalty amount first.", IaipMessage.WarningLevels.Warning)
         ElseIf Not Decimal.TryParse(StipulatedPenaltyAmount.Text, Nothing) Then
-            MessageBox.Show("Stipulated penalty amount must be a number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            GeneralMessage = New IaipMessage("Stipulated penalty amount must be a number.", IaipMessage.WarningLevels.ErrorReport)
         Else
             SaveNewStipulatedPenalty()
         End If
@@ -602,20 +643,21 @@ Public Class SscpEnforcement
         If result Then
             LoadStipulatedPenalties()
             ClearStipulatedPenaltyForm()
+            GeneralMessage = New IaipMessage("Stipulated penalty saved.", IaipMessage.WarningLevels.Success)
         Else
-            MessageBox.Show("There was an error saving the new stipulated penalty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            GeneralMessage = New IaipMessage("Error: There was an error saving the new stipulated penalty.", IaipMessage.WarningLevels.ErrorReport)
         End If
     End Sub
 
     Private Sub UpdateStipulatedPenalty_Click(sender As Object, e As EventArgs) Handles UpdateStipulatedPenaltyButton.Click
         If EnforcementId Is Nothing Then
-            MessageBox.Show("Current enforcement must be saved before modifying stipulated penalties.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            GeneralMessage = New IaipMessage("Current enforcement must be saved before modifying stipulated penalties.", IaipMessage.WarningLevels.Warning)
         ElseIf SelectedStipulatedPenaltyItem = 0 Then
-            MessageBox.Show("Select an existing stipulated penalty first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            GeneralMessage = New IaipMessage("Select an existing stipulated penalty first.", IaipMessage.WarningLevels.Warning)
         ElseIf String.IsNullOrEmpty(StipulatedPenaltyAmount.Text) Then
-            MessageBox.Show("Enter a stipulated penalty amount first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            GeneralMessage = New IaipMessage("Enter a stipulated penalty amount first.", IaipMessage.WarningLevels.Warning)
         ElseIf Not Decimal.TryParse(StipulatedPenaltyAmount.Text, Nothing) Then
-            MessageBox.Show("Stipulated penalty amount must be a number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            GeneralMessage = New IaipMessage("Stipulated penalty amount must be a number.", IaipMessage.WarningLevels.Warning)
         Else
             UpdateStipulatedPenalty()
         End If
@@ -627,16 +669,17 @@ Public Class SscpEnforcement
         If result Then
             LoadStipulatedPenalties()
             ClearStipulatedPenaltyForm()
+            GeneralMessage = New IaipMessage("Stipulated penalty saved.", IaipMessage.WarningLevels.Success)
         Else
-            MessageBox.Show("There was an error updating the stipulated penalty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            GeneralMessage = New IaipMessage("Error: There was an error updating the stipulated penalty.", IaipMessage.WarningLevels.ErrorReport)
         End If
     End Sub
 
     Private Sub DeleteStipulatedPenalty_Click(sender As Object, e As EventArgs) Handles DeleteStipulatedPenaltyButton.Click
         If EnforcementId Is Nothing Then
-            MessageBox.Show("Current enforcement must be saved before modifying stipulated penalties.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            GeneralMessage = New IaipMessage("Current enforcement must be saved before modifying stipulated penalties.", IaipMessage.WarningLevels.Warning)
         ElseIf SelectedStipulatedPenaltyItem = 0 Then
-            MessageBox.Show("Select an existing stipulated penalty first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            GeneralMessage = New IaipMessage("Select an existing stipulated penalty first.", IaipMessage.WarningLevels.Warning)
         Else
             DeleteSelectedStipulatedPenalty()
         End If
@@ -648,8 +691,9 @@ Public Class SscpEnforcement
         If result Then
             LoadStipulatedPenalties()
             ClearStipulatedPenaltyForm()
+            GeneralMessage = New IaipMessage("Stipulated penalty deleted.", IaipMessage.WarningLevels.Success)
         Else
-            MessageBox.Show("There was an error deleting the stipulated penalty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            GeneralMessage = New IaipMessage("Error: There was an error deleting the stipulated penalty.", IaipMessage.WarningLevels.ErrorReport)
         End If
     End Sub
 
@@ -688,11 +732,15 @@ Public Class SscpEnforcement
         DocumentList.DataSource = Nothing
         ExistingFiles = GetEnforcementDocumentsAsList(EnforcementCase.EnforcementId)
         If ExistingFiles.Count > 0 Then
+            lblCurrentFiles.Text = "Current Documents"
             With DocumentList
                 .DataSource = New BindingSource(ExistingFiles, Nothing)
                 .Enabled = True
                 .ClearSelection()
             End With
+        Else
+            DocumentList.Visible = False
+            lblCurrentFiles.Text = "No documents are attached to this enforcement case."
         End If
     End Sub
 
@@ -767,17 +815,17 @@ Public Class SscpEnforcement
     End Sub
 
     Private Sub btnDocumentDownload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDocumentDownload.Click
-        ClearMessage(lblMessage, EP)
+        If Message IsNot Nothing Then Message.Clear()
 
         Dim doc As EnforcementDocument = EnforcementDocumentFromFileListRow(DocumentList.CurrentRow)
-        DisplayMessage(lblMessage, String.Format(GetDocumentMessage(DocumentMessageType.DownloadingFile), doc.FileName))
+        Me.Message = New IaipMessage(String.Format(GetDocumentMessage(DocumentMessageType.DownloadingFile), doc.FileName))
 
         Dim canceled As Boolean = False
         Dim downloaded As Boolean = DownloadDocument(doc, canceled, Me)
         If downloaded Or canceled Then
-            ClearMessage(lblMessage, EP)
+            If Message IsNot Nothing Then Message.Clear()
         Else
-            DisplayMessage(lblMessage, String.Format(GetDocumentMessage(DocumentMessageType.DownloadFailure), lblDocumentName), True, EP, lblMessage)
+            Me.Message = New IaipMessage(String.Format(GetDocumentMessage(DocumentMessageType.DownloadFailure), lblDocumentName), IaipMessage.WarningLevels.ErrorReport)
         End If
     End Sub
 
@@ -786,10 +834,10 @@ Public Class SscpEnforcement
         doc.Comment = txtDocumentDescription.Text
         Dim updated As Boolean = UpdateEnforcementDocument(doc, Me)
         If updated Then
-            DisplayMessage(lblMessage, String.Format(GetDocumentMessage(DocumentMessageType.UpdateSuccess), doc.FileName))
+            Me.Message = New IaipMessage(String.Format(GetDocumentMessage(DocumentMessageType.UpdateSuccess), doc.FileName))
             LoadDocuments()
         Else
-            DisplayMessage(lblMessage, String.Format(GetDocumentMessage(DocumentMessageType.UpdateFailure), lblDocumentName), True, EP)
+            Me.Message = New IaipMessage(String.Format(GetDocumentMessage(DocumentMessageType.UpdateFailure), lblDocumentName))
         End If
     End Sub
 
@@ -955,32 +1003,103 @@ Public Class SscpEnforcement
 
 
 
-#Region " Save data "
+#Region " Validation "
 
-    Private Sub SaveClick()
-        If ValidateFormData() Then
-            If SaveEnforcement() Then
-                MsgBox("Current data saved.", MsgBoxStyle.Information, "SSCP Enforcement")
-            Else
-                MsgBox("Current data not saved.", MsgBoxStyle.Information, "SSCP Enforcement")
+    Private Sub DisplayValidationErrors()
+        ClearErrorsMenuItem.Enabled = True
+        Dim messageText As New StringBuilder("Please correct the following issues before saving:")
+        Dim lines As Int16 = 1
+
+        For Each kvp As KeyValuePair(Of Control, String) In ValidationErrors
+            If lines < 4 Then
+                messageText.AppendLine()
+                messageText.Append("* " & kvp.Value)
+                lines += 1
+            ElseIf lines = 4 Then
+                messageText.AppendLine()
+                messageText.Append("* More...")
+                lines += 1
             End If
+            GeneralErrorProvider.SetError(kvp.Key, kvp.Value)
+            GeneralErrorProvider.SetIconAlignment(kvp.Key, ErrorIconAlignment.MiddleLeft)
+        Next
+
+        GeneralMessage = New IaipMessage(messageText.ToString, IaipMessage.WarningLevels.Warning)
+    End Sub
+
+    Private Sub ClearErrors()
+        ClearErrorsMenuItem.Enabled = False
+        If ValidationErrors IsNot Nothing Then
+            For Each kvp As KeyValuePair(Of Control, String) In ValidationErrors
+                GeneralErrorProvider.SetError(kvp.Key, String.Empty)
+            Next
         End If
+        ValidationErrors = New Dictionary(Of Control, String)
     End Sub
 
     Private Function ValidateFormData() As Boolean
+        ClearErrors()
+        Return ValidateDates() And
+            ValidateViolationType() And
+            ValidatePrograms() And
+            ValidatePollutants() And
+            ValidateLinkedEvent()
+    End Function
+
+    Private Function ValidateLinkedEvent() As Boolean
         Throw New NotImplementedException()
     End Function
 
-    Private Function ViolationTypeCheck() As Boolean
+    Private Function ValidatePollutants() As Boolean
+        Throw New NotImplementedException()
+    End Function
+
+    Private Function ValidatePrograms() As Boolean
+        Throw New NotImplementedException()
+    End Function
+
+    Private Function ValidateDates() As Boolean
+        Throw New NotImplementedException()
+        If LonCheckBox.Checked Then
+            ValidateLonDates()
+        End If
+    End Function
+
+    Private Sub ValidateLonDates()
+        Throw New NotImplementedException()
+    End Sub
+
+    Private Function ValidateViolationType() As Boolean
         If (NovCheckBox.Checked Or COCheckBox.Checked Or AOCheckBox.Checked) AndAlso
             (ViolationTypeNone.Checked Or ViolationTypeSelect.SelectedValue = "BLANK") Then
-            MessageBox.Show("Choose a Violation Type before proceeding.",
-                            "No Data Saved", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+            ValidationErrors.Add(ViolationTypeGroupbox, "Choose a Violation Type")
             Return False
         Else
             Return True
         End If
     End Function
+
+#End Region
+
+#Region " Save data "
+
+    Private Sub SaveClick()
+        If ValidateFormData() Then
+            If SaveEnforcement() Then
+
+
+
+                MsgBox("Current data saved.", MsgBoxStyle.Information, "SSCP Enforcement")
+            Else
+
+
+                MsgBox("Current data not saved.", MsgBoxStyle.Information, "SSCP Enforcement")
+            End If
+        Else
+            DisplayValidationErrors()
+        End If
+    End Sub
 
     Private Function SaveEnforcement() As Boolean
         Dim TrackingNumber As String = ""
@@ -1996,7 +2115,7 @@ Public Class SscpEnforcement
 
     Private Sub btnSubmitToUC_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SubmitToUC.Click
         Try
-            If Not ViolationTypeCheck() Then Exit Sub
+            If Not ValidateViolationType() Then Exit Sub
 
             txtSubmitToUC.Text = "UC"
             SubmitToUC.Visible = False
@@ -2009,7 +2128,7 @@ Public Class SscpEnforcement
 
     Private Sub btnSubmitEnforcementToEPA_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SubmitToEpa.Click
         Try
-            If Not ViolationTypeCheck() Then Exit Sub
+            If Not ValidateViolationType() Then Exit Sub
 
             If LinkedEvent.Text = "" Then
                 Dim result As DialogResult
@@ -2049,15 +2168,15 @@ Public Class SscpEnforcement
         SaveClick()
     End Sub
 
-    Private Sub mmiClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClose.Click
+    Private Sub mmiClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CloseMenuItem.Click
         Me.Close()
     End Sub
 
-    Private Sub mmiShowAuditHistory_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiShowAuditHistory.Click
+    Private Sub mmiShowAuditHistory_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ShowAuditHistoryMenuItem.Click
         ShowAuditHistory()
     End Sub
 
-    Private Sub mmiShowEpaActionNumbersToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mmiShowEpaActionNumbersToolStripMenuItem.Click
+    Private Sub mmiShowEpaActionNumbersToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowEpaActionNumbersMenuItem.Click
         ShowEpaValues()
     End Sub
 
@@ -2065,8 +2184,15 @@ Public Class SscpEnforcement
         DeleteEnforcement()
     End Sub
 
-
+    Private Sub ClearErrorsMenuItem_Click(sender As Object, e As EventArgs) Handles ClearErrorsMenuItem.Click
+        ClearErrors()
+    End Sub
 
 #End Region
+
+    Private Sub DismissMessageButton_Click(sender As Object, e As EventArgs) Handles DismissMessageButton.Click
+        If GeneralMessage IsNot Nothing Then GeneralMessage.Clear()
+        DismissMessageButton.Visible = False
+    End Sub
 
 End Class
