@@ -1,5 +1,4 @@
 ﻿Imports System.Collections.Generic
-Imports System.Linq
 Imports Iaip.Apb.Sscp
 Imports Iaip.Apb.Facilities
 Imports Oracle.ManagedDataAccess.Client
@@ -202,7 +201,7 @@ Namespace DAL.Sscp
                 .DayZeroDate = DB.GetNullableDateTimeFromString(row("DATDAYZERO"))
                 .DiscoveryDate = DB.GetNullableDateTimeFromString(row("DATDISCOVERYDATE"))
                 .EnforcementId = DB.GetNullable(Of Integer)(row("STRENFORCEMENTNUMBER"))
-                .EnforcementTypeCode = DB.GetNullable(Of String)(row("STRHPV"))
+                .LegacyEnforcementTypeCode = DB.GetNullable(Of String)(row("STRHPV"))
                 .AfsKeyActionNumber = DB.GetNullable(Of Integer)(row("STRAFSKEYACTIONNUMBER"))
                 .LinkedWorkItemId = DB.GetNullable(Of Integer)(row("STRTRACKINGNUMBER"))
                 .LonComment = DB.GetNullable(Of String)(row("STRLONCOMMENTS"))
@@ -220,6 +219,7 @@ Namespace DAL.Sscp
                 .NovToPm = DB.GetNullableDateTimeFromString(row("DATNOVTOPM"))
                 .NovToUc = DB.GetNullableDateTimeFromString(row("DATNOVTOUC"))
                 .Open = Not DB.GetNullable(Of Boolean)(row("STRENFORCEMENTFINALIZED"))
+                .ProgramPollutants = DB.GetNullable(Of String)(row("STRPOLLUTANTS"))
                 .LegacyComplianceStatusCode = DB.GetNullable(Of String)(row("STRPOLLUTANTSTATUS"))
                 .SubmittedToUcCode = DB.GetNullable(Of String)(row("STRSTATUS"))
                 .ViolationType = DB.GetNullable(Of String)(row("STRACTIONTYPE"))
@@ -244,7 +244,7 @@ Namespace DAL.Sscp
 
                 .SubmittedToEpa = .AfsKeyActionNumber > 0
 
-                .ComplianceStatus = ConvertComplianceStatus(enfCase.LegacyComplianceStatus)
+                .ComplianceStatus = ConvertLegacyComplianceStatus(enfCase.LegacyComplianceStatus)
             End With
 
             Return enfCase
@@ -291,10 +291,9 @@ Namespace DAL.Sscp
         End Function
 
         Public Function SaveNewStipulatedPenalty(enforcementId As String, airsNumber As Apb.ApbFacilityId,
-                                                 penalty As Decimal, comment As String,
-                                                 ByRef enfKey As Integer, ByRef afsKey As Integer) As Boolean
-            enfKey = GetNextStipulatedPenaltyKey(enforcementId)
-            afsKey = GetNextAfsActionNumber(airsNumber)
+                                                 penalty As Decimal, comment As String) As Boolean
+            Dim enfKey As Integer = GetNextStipulatedPenaltyKey(enforcementId)
+            Dim afsKey As Integer = GetNextAfsActionNumber(airsNumber)
 
             Dim queries As New List(Of String)
             Dim parameters As New List(Of OracleParameter())
@@ -395,33 +394,6 @@ Namespace DAL.Sscp
 
 #End Region
 
-#Region " Pollutants/Programs "
-
-        Public Function GetEnforcementPollutants(enforcementId As String) As String()
-            Dim p As String() = GetEnforcementProgPoll(enforcementId)
-            For i As Integer = 0 To p.Length - 1
-                p(i) = p(i).Substring(1)
-            Next
-            Return p.Distinct.ToArray
-        End Function
-
-        Public Function GetEnforcementPrograms(enforcementId As String) As String()
-            Dim p As String() = GetEnforcementProgPoll(enforcementId)
-            For i As Integer = 0 To p.Length - 1
-                p(i) = p(i).Substring(0, 1)
-            Next
-            Return p.Distinct.ToArray
-        End Function
-
-        Private Function GetEnforcementProgPoll(enforcementId As String) As String()
-            Dim query As String = "SELECT STRPOLLUTANTS FROM AIRBRANCH.SSCP_AUDITEDENFORCEMENT WHERE STRENFORCEMENTNUMBER = :enforcementId"
-            Dim parameter As New OracleParameter("enforcementId", enforcementId)
-            Dim pollString As String = DB.GetSingleValue(Of String)(query, parameter)
-            Return pollString.Split({","c}, StringSplitOptions.RemoveEmptyEntries)
-        End Function
-
-#End Region
-
 #Region " Lookup table "
 
         Public Function GetViolationTypes() As DataTable
@@ -445,24 +417,21 @@ Namespace DAL.Sscp
 
 #Region " Utilities "
 
-        Private Function ConvertComplianceStatus(legacyComplianceStatus As LegacyComplianceStatus) As ComplianceStatus
+        Public Function ConvertLegacyComplianceStatus(legacyComplianceStatus As LegacyComplianceStatus) As ComplianceStatus
             Select Case legacyComplianceStatus
                 Case LegacyComplianceStatus.NoValue,
                      LegacyComplianceStatus.Status_P,
                      LegacyComplianceStatus.Status_A,
                      LegacyComplianceStatus.Status_0
                     Return ComplianceStatus.Unknown
-
                 Case LegacyComplianceStatus.Status_B,
                      LegacyComplianceStatus.Status_1,
                      LegacyComplianceStatus.Status_6,
                      LegacyComplianceStatus.Status_W,
                      LegacyComplianceStatus.Status_8
                     Return ComplianceStatus.InViolation
-
                 Case LegacyComplianceStatus.Status_5
                     Return ComplianceStatus.MeetingComplianceSchedule
-
                 Case LegacyComplianceStatus.Status_2,
                      LegacyComplianceStatus.Status_3,
                      LegacyComplianceStatus.Status_4,
@@ -470,7 +439,19 @@ Namespace DAL.Sscp
                      LegacyComplianceStatus.Status_C,
                      LegacyComplianceStatus.Status_M
                     Return ComplianceStatus.InCompliance
+            End Select
+        End Function
 
+        Public Function ConvertComplianceStatus(complianceStatus As ComplianceStatus) As LegacyComplianceStatus
+            Select Case complianceStatus
+                Case ComplianceStatus.InCompliance
+                    Return LegacyComplianceStatus.Status_C
+                Case ComplianceStatus.InViolation
+                    Return LegacyComplianceStatus.Status_W
+                Case ComplianceStatus.MeetingComplianceSchedule
+                    Return LegacyComplianceStatus.Status_5
+                Case ComplianceStatus.Unknown
+                    Return LegacyComplianceStatus.Status_0
             End Select
         End Function
 

@@ -1,4 +1,6 @@
 ﻿Imports System.Collections.Generic
+Imports System.Linq
+Imports System.Text
 Imports Iaip.Apb.Facilities
 
 Namespace Apb.Sscp
@@ -16,7 +18,7 @@ Namespace Apb.Sscp
         ' Enforcement Info
         Public Property EnforcementActions As List(Of EnforcementActionType)
         Public Property LegacyEnforcementType As LegacyEnforcementType ' STRACTIONTYPE	VARCHAR2(15 BYTE)
-        Public Property EnforcementTypeCode As String
+        Public Property LegacyEnforcementTypeCode As String
             Get
                 Return LegacyEnforcementType.ToString()
             End Get
@@ -53,8 +55,19 @@ Namespace Apb.Sscp
         Public Property DiscoveryDate As Date? ' STRDISCOVERYDATE	VARCHAR2(5 BYTE); DATDISCOVERYDATE	DATE
         Public Property DayZeroDate As Date? ' STRDAYZERO	VARCHAR2(5 BYTE); DATDAYZERO	DATE
 
-        ' Pollutants
-        Public Property Pollutants As List(Of String) ' STRPOLLUTANTS	VARCHAR2(4000 BYTE)
+        ' Programs & Pollutants
+        Public Property ProgramPollutants As String ' STRPOLLUTANTS	VARCHAR2(4000 BYTE)
+            Get
+                Return CombineProgramPollutants()
+            End Get
+            Set(value As String)
+                Pollutants = ParseEnforcementPollutants(value)
+                Programs = ParseEnforcementPrograms(value)
+            End Set
+        End Property
+
+        Public Property Pollutants As String()
+        Public Property Programs As String()
 
         ' Compliance status
         Public Property ComplianceStatus As ComplianceStatus
@@ -115,6 +128,37 @@ Namespace Apb.Sscp
         Public Property AfsAoToAGActionNumber As Integer ' STRAFSAOTOAGNUMBER	VARCHAR2(5 BYTE)
         Public Property AfsCivilCourtActionNumber As Integer ' STRAFSCIVILCOURTNUMBER	VARCHAR2(5 BYTE)
         Public Property AfsAoResolvedActionNumber As Integer ' STRAFSAORESOLVEDNUMBER	VARCHAR2(5 BYTE)
+
+#Region " Pollutants/Programs "
+
+        Private Function ParseEnforcementPollutants(progPoll As String) As String()
+            Dim p As String() = progPoll.Split({","c}, StringSplitOptions.RemoveEmptyEntries)
+            For i As Integer = 0 To p.Length - 1
+                p(i) = p(i).Substring(1)
+            Next
+            Return p.Distinct.ToArray
+        End Function
+
+        Private Function ParseEnforcementPrograms(progPoll As String) As String()
+            Dim p As String() = progPoll.Split({","c}, StringSplitOptions.RemoveEmptyEntries)
+            For i As Integer = 0 To p.Length - 1
+                p(i) = p(i).Substring(0, 1)
+            Next
+            Return p.Distinct.ToArray
+        End Function
+
+        Private Function CombineProgramPollutants() As String
+            If Programs.Length < 1 OrElse Pollutants.Length < 1 Then Return Nothing
+            Dim result As New StringBuilder
+            For i As Integer = 0 To Programs.Length - 1
+                For j As Integer = 0 To Pollutants.Length - 1
+                    result.Append(Programs(i) & Pollutants(j) & ",")
+                Next
+            Next
+            Return result.ToString
+        End Function
+
+#End Region
 
     End Class
 
