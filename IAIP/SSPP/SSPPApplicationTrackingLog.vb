@@ -7483,41 +7483,41 @@ Public Class SSPPApplicationTrackingLog
                         If recExist = True Then
                             query = "Update AIRBRANCH.APBContactInformation set " &
                             "strContactFirstName = (select strContactFirstName from AIRBRANCH.APBContactInformation " &
-                            "where strContactKey = :oldKey,  " &
+                            "where strContactKey = :oldKey),  " &
                             "strContactLastname = (select strContactLastname from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactPrefix = (select strContactPrefix from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactSuffix = (select strContactSuffix from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactTitle = (select strContactTitle from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactCompanyName = (select strContactCompanyName from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactPhoneNumber1 = (select strContactPhoneNumber1 from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactPhoneNumber2 = (select strContactPhoneNumber2 from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactFaxNumber = (select strContactFaxNumber from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactEmail = (select strContactEmail from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactAddress1 = (select strContactAddress1 from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactAddress2 = (select strContactAddress2 from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactCity = (select strContactCity from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactState = (select strContactState from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactZipCode = (select strContactZipCode from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strModifingPerson = (select strModifingPerson from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "datModifingDate = (select datModifingDate from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactDescription = (select strContactDescription from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey " &
+                            "Where strCOntactKey = :oldKey) " &
                             "where strContactKey = :newKey "
                             params = {
                                 New OracleParameter("oldKey", "0413" & txtAIRSNumber.Text & "3" & i.ToString),
@@ -7549,8 +7549,8 @@ Public Class SSPPApplicationTrackingLog
                             "strContactZipCode, strModifingPerson,  " &
                             "datModifingDate, strContactDescription " &
                             "from AIRBRANCH.APBContactInformation  " &
-                            "where strAIRSnumber = :airs '0413" & txtAIRSNumber.Text & "'  " &
-                            "and strKey = :pKey '3" & i + 1 & "'  "
+                            "where strAIRSnumber = :airs " &
+                            "and strKey = :pKey "
                             params = {
                                 New OracleParameter("airs", "0413" & txtAIRSNumber.Text),
                                 New OracleParameter("pKey", "3" & (i + 1).ToString)
@@ -8503,7 +8503,7 @@ Public Class SSPPApplicationTrackingLog
                 New OracleParameter("subpart", subpart)
             }
 
-            If DB.ValueExists(query) Then
+            If DB.ValueExists(query, params) Then
                 query = "Update AIRBRANCH.APBSubpartData set " &
                     "Active = '1', " &
                     "updateUser = :UserGCode , " &
