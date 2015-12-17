@@ -242,8 +242,6 @@ Public Class SscpEnforcement
                 LoadViolationType()
                 GeneralComments.Text = .Comment
                 If .DayZeroDate.HasValue Then DayZeroDisplay.Text = "Day Zero: " & .DayZeroDate.Value.ToString
-                SubmitToEpa.Visible = Not .SubmittedToEpa
-                SubmitToUC.Visible = Not .SubmittedToUc
 
                 ' LON
                 If .EnforcementActions.Contains(EnforcementActionType.LON) Then
@@ -493,6 +491,9 @@ Public Class SscpEnforcement
             NovCheckBox.Visible = False
             ViolationTypeNone.Checked = True
             ViolationTypeGroupbox.Visible = False
+            If Not EnforcementCase.SubmittedToUc And EnforcementId IsNot Nothing Then
+                SubmitToUC.Visible = True
+            End If
         Else
             EnforcementTabs.TabPages.Remove(LonTabPage)
             AOCheckBox.Visible = True
@@ -545,7 +546,7 @@ Public Class SscpEnforcement
             If Not EnforcementCase.SubmittedToUc And EnforcementId IsNot Nothing Then
                 SubmitToUC.Visible = True
             End If
-            If Not EnforcementCase.SubmittedToEpa And EnforcementId IsNot Nothing Then
+            If Not EnforcementCase.SubmittedToEpa And EnforcementId IsNot Nothing AndAlso CurrentUserCanResolveEnforcement() Then
                 SubmitToEpa.Visible = True
             End If
             If Not EnforcementTabs.TabPages.Contains(PollutantsTabPage) Then EnforcementTabs.TabPages.Add(PollutantsTabPage)
@@ -561,48 +562,33 @@ Public Class SscpEnforcement
 
 #End Region
 
-#Region " Pollutants/Programs tab "
+#Region " General tab: Submit to UC/EPA "
 
-    Public Sub LoadPollutants()
-        ' All available pollutants
-        Dim dt As DataTable = DAL.GetFacilityPollutants(AirsNumber)
-        PollutantsListView.Items.Clear()
-        For Each row As DataRow In dt.Rows
-            PollutantsListView.Items.Add(New ListViewItem({row(0), row(1)}))
-        Next
+    Private Sub SubmitToUC_Click(sender As Object, e As EventArgs) Handles SubmitToUC.Click
+        If EnforcementCase.SubmittedToUc = True Then Exit Sub
 
-        ' Pollutants associated with this case
-        For i As Integer = 0 To PollutantsListView.Items.Count - 1
-            If EnforcementCase.Pollutants.Contains(PollutantsListView.Items.Item(i).SubItems(0).Text) Then
-                PollutantsListView.Items.Item(i).Checked = True
-            End If
-        Next
-    End Sub
-
-    Private Sub LoadAirPrograms()
-        ' All available air programs
-        Dim dt As DataTable = DAL.GetFacilityAirProgramsAsDataTable(AirsNumber)
-        ProgramsListView.Items.Clear()
-        For Each row As DataRow In dt.Rows
-            ProgramsListView.Items.Add(New ListViewItem({row(0), row(1)}))
-        Next
-
-        ' Programs associated with this case
-        For i As Integer = 0 To ProgramsListView.Items.Count - 1
-            If EnforcementCase.Programs.Contains(ProgramsListView.Items.Item(i).SubItems(0).Text) Then
-                ProgramsListView.Items.Item(i).Checked = True
-            End If
-        Next
-    End Sub
-
-    Private Sub EditAirProgramPollutantsButton_Click(sender As Object, e As EventArgs) Handles EditAirProgramPollutantsButton.Click
-        If EnforcementId Is Nothing Then
-            GeneralMessage = New IaipMessage("Current enforcement must be saved before adding pollutants.", IaipMessage.WarningLevels.Warning)
+        EnforcementCase.SubmittedToUc = True
+        If ValidateAndSave() Then
+            SubmitToUC.Visible = False
         Else
-            Throw New NotImplementedException
-            ' Change IAIPEditAirProgramPollutants  to dialog; return lists of pollutants/programs; reload ListViews
-            'Dim EditAirProgramPollutants As IAIPEditAirProgramPollutants = OpenSingleForm(IAIPEditAirProgramPollutants)
-            'EditAirProgramPollutants.AirsNumberDisplay.Text = AirsNumber.ShortString
+            EnforcementCase.SubmittedToUc = False
+        End If
+    End Sub
+
+    Private Sub SubmitToEpa_Click(sender As Object, e As EventArgs) Handles SubmitToEpa.Click
+        If EnforcementCase.SubmittedToEpa = True Then Exit Sub
+
+        If Not CurrentUserCanResolveEnforcement() Then
+            GeneralMessage = New IaipMessage("You do not have sufficent permission to submit enforcement case to EPA.", IaipMessage.WarningLevels.ErrorReport)
+            Exit Sub
+        End If
+
+        EnforcementCase.SubmittedToEpa = True
+        If ValidateAndSave() Then
+            SubmitToEpa.Visible = False
+            ShowEpaValues()
+        Else
+            EnforcementCase.SubmittedToEpa = False
         End If
     End Sub
 
@@ -993,15 +979,95 @@ Public Class SscpEnforcement
 
 #End Region
 
+#Region " Menu and Toolbar "
+
+    Private Sub SaveButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SaveButton.Click
+        ValidateAndSave()
+    End Sub
+
+    Private Sub SaveMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SaveMenuItem.Click
+        ValidateAndSave()
+    End Sub
+
+    Private Sub CloseMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CloseMenuItem.Click
+        Me.Close()
+    End Sub
+
+    Private Sub ShowAuditHistoryMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ShowAuditHistoryMenuItem.Click
+        ShowAuditHistory()
+    End Sub
+
+    Private Sub ShowEpaActionNumbersMenuItem_Click(sender As Object, e As EventArgs) Handles ShowEpaActionNumbersMenuItem.Click
+        ShowEpaValues()
+    End Sub
+
+    Private Sub DeleteEnforcement_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DeleteEnforcementMenuItem.Click
+        DeleteEnforcement()
+    End Sub
+
+    Private Sub ClearErrorsMenuItem_Click(sender As Object, e As EventArgs) Handles ClearErrorsMenuItem.Click
+        ClearErrors()
+    End Sub
+
+    Private Sub DismissMessageButton_Click(sender As Object, e As EventArgs) Handles DismissMessageButton.Click
+        If GeneralMessage IsNot Nothing Then GeneralMessage.Clear()
+        DismissMessageButton.Visible = False
+    End Sub
+
+#End Region
 
 
 
 
 
+    ' TODO .........................................................................
 
 
 
+#Region " Pollutants/Programs tab "
 
+    Public Sub LoadPollutants()
+        ' All available pollutants
+        Dim dt As DataTable = DAL.GetFacilityPollutants(AirsNumber)
+        PollutantsListView.Items.Clear()
+        For Each row As DataRow In dt.Rows
+            PollutantsListView.Items.Add(New ListViewItem({row(0), row(1)}))
+        Next
+
+        ' Pollutants associated with this case
+        For i As Integer = 0 To PollutantsListView.Items.Count - 1
+            If EnforcementCase.Pollutants.Contains(PollutantsListView.Items.Item(i).SubItems(0).Text) Then
+                PollutantsListView.Items.Item(i).Checked = True
+            End If
+        Next
+    End Sub
+
+    Private Sub LoadAirPrograms()
+        ' All available air programs
+        Dim dt As DataTable = DAL.GetFacilityAirProgramsAsDataTable(AirsNumber)
+        ProgramsListView.Items.Clear()
+        For Each row As DataRow In dt.Rows
+            ProgramsListView.Items.Add(New ListViewItem({row(0), row(1)}))
+        Next
+
+        ' Programs associated with this case
+        For i As Integer = 0 To ProgramsListView.Items.Count - 1
+            If EnforcementCase.Programs.Contains(ProgramsListView.Items.Item(i).SubItems(0).Text) Then
+                ProgramsListView.Items.Item(i).Checked = True
+            End If
+        Next
+    End Sub
+
+    Private Sub EditAirProgramPollutantsButton_Click(sender As Object, e As EventArgs) Handles EditAirProgramPollutantsButton.Click
+        Throw New NotImplementedException
+        ' Change IAIPEditAirProgramPollutants to dialog; return lists of pollutants/programs; reload ListViews
+        ' (reloading ListViews: recently checked/unchecked items may not be saved to db yet, so grab those, repopulate lists, restore checked items
+
+        'Dim EditAirProgramPollutants As IAIPEditAirProgramPollutants = OpenSingleForm(IAIPEditAirProgramPollutants)
+        'EditAirProgramPollutants.AirsNumberDisplay.Text = AirsNumber.ShortString
+    End Sub
+
+#End Region
 
 #Region " Validation "
 
@@ -1086,6 +1152,19 @@ Public Class SscpEnforcement
 
     Private Function ValidateLinkedEvent() As Boolean
         Throw New NotImplementedException()
+
+        If LinkedEvent.Text = "" Then
+            Dim result As DialogResult
+
+            result = MessageBox.Show("There is no linked event for this enforcement action." & vbCrLf &
+                "Do you want to submit this enforcement to EPA without an initiating action?", "Enforcement",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
+            Select Case result
+                Case DialogResult.No
+                    Exit Sub
+            End Select
+        End If
+
     End Function
 
     Private Function ValidatePollutants() As Boolean
@@ -1130,26 +1209,29 @@ Public Class SscpEnforcement
     Private Function ValidateAndSave() As Boolean
         If Not CurrentUserCanSaveData() Then
             GeneralMessage = New IaipMessage("You do not have sufficent permission to save enforcement cases.", IaipMessage.WarningLevels.ErrorReport)
-            Exit Function
+            Return False
         End If
 
-        If ValidateFormData() Then
-            If NewSaveEnforcement() Then
-                GeneralMessage = New IaipMessage("Current data saved.", IaipMessage.WarningLevels.Success)
-                Return True
-            Else
-                GeneralMessage = New IaipMessage("There was an error saving the current data.", IaipMessage.WarningLevels.ErrorReport)
-                Return False
-            End If
-        Else
+        If Not ValidateFormData() Then
             DisplayValidationErrors()
             Return False
         End If
+
+        Return SaveEnforcement()
     End Function
 
-    Private Function NewSaveEnforcement() As Boolean
+    Private Function SaveEnforcement() As Boolean
+        DetermineAfsActionNumbers()
+
         ReadEnforcementCaseFromForm()
-        Throw New NotImplementedException()
+
+        If DAL.Sscp.SaveEnforcement(EnforcementCase) Then
+            GeneralMessage = New IaipMessage("Current data saved.", IaipMessage.WarningLevels.Success)
+            Return True
+        Else
+            GeneralMessage = New IaipMessage("There was an error saving the current data.", IaipMessage.WarningLevels.ErrorReport)
+            Return False
+        End If
     End Function
 
     Private Sub ReadEnforcementCaseFromForm()
@@ -1175,6 +1257,14 @@ Public Class SscpEnforcement
             .ViolationType = ViolationTypeSelect.SelectedValue
         End With
         GetNullableDatesFromForm()
+    End Sub
+
+    Private Sub DetermineAfsActionNumbers()
+        Throw New NotImplementedException()
+
+        If EnforcementCase.SubmittedToEpa Then
+
+        End If
     End Sub
 
     Private Function DetermineProgramsFromForm() As String()
@@ -1231,6 +1321,18 @@ Public Class SscpEnforcement
             Return Nothing
         End If
     End Function
+
+#End Region
+
+#Region " Delete enforcement "
+
+    Private Sub DeleteEnforcement()
+
+    End Sub
+
+#End Region
+
+#Region " Old save/delete procedures for reference "
 
     Private Function OldSaveEnforcement() As Boolean
         Dim TrackingNumber As String = ""
@@ -2063,11 +2165,7 @@ Public Class SscpEnforcement
         End Try
     End Sub
 
-#End Region
-
-#Region " Delete enforcement "
-
-    Private Sub DeleteEnforcement()
+    Private Sub OldDeleteEnforcement()
         Try
             Dim AFSStatus As String = ""
             Dim tempAIRS As String = ""
@@ -2227,92 +2325,7 @@ Public Class SscpEnforcement
 
 #End Region
 
-#Region " General tab: Submit to UC/EPA "
-
-    Private Sub SubmitToUC_Click(sender As Object, e As EventArgs) Handles SubmitToUC.Click
-        EnforcementCase.SubmittedToUc = True
-        If ValidateAndSave() Then
-            SubmitToUC.Visible = False
-        Else
-            EnforcementCase.SubmittedToUc = False
-        End If
-    End Sub
-
-    Private Sub SubmitToEpa_Click(sender As Object, e As EventArgs) Handles SubmitToEpa.Click
-        If CurrentUserCanResolveEnforcement() Then
-
-            DetermineAfsActionNumbers()
-            If ValidateAndSave() Then
-                SubmitToUC.Visible = False
-            Else
-                EnforcementCase.SubmittedToUc = False
-            End If
-
-        Else
 
 
-        End If
-
-
-        If LinkedEvent.Text = "" Then
-            Dim result As DialogResult
-
-            result = MessageBox.Show("There is no linked event for this enforcement action." & vbCrLf &
-                "Do you want to submit this enforcement to EPA without an initiating action?", "Enforcement",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
-            Select Case result
-                Case DialogResult.No
-                    Exit Sub
-            End Select
-        End If
-
-        SaveAFSInformation()
-        OldSaveEnforcement()
-        MsgBox("Current data saved.", MsgBoxStyle.Information, "SSCP Enforcement")
-
-    End Sub
-
-#End Region
-
-
-
-
-
-#Region " Menu and Toolbar "
-
-    Private Sub SaveButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SaveButton.Click
-        ValidateAndSave()
-    End Sub
-
-    Private Sub SaveMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SaveMenuItem.Click
-        ValidateAndSave()
-    End Sub
-
-    Private Sub CloseMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CloseMenuItem.Click
-        Me.Close()
-    End Sub
-
-    Private Sub ShowAuditHistoryMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ShowAuditHistoryMenuItem.Click
-        ShowAuditHistory()
-    End Sub
-
-    Private Sub ShowEpaActionNumbersMenuItem_Click(sender As Object, e As EventArgs) Handles ShowEpaActionNumbersMenuItem.Click
-        ShowEpaValues()
-    End Sub
-
-    Private Sub DeleteEnforcement_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DeleteEnforcementMenuItem.Click
-        DeleteEnforcement()
-    End Sub
-
-    Private Sub ClearErrorsMenuItem_Click(sender As Object, e As EventArgs) Handles ClearErrorsMenuItem.Click
-        ClearErrors()
-    End Sub
-
-    Private Sub DismissMessageButton_Click(sender As Object, e As EventArgs) Handles DismissMessageButton.Click
-        If GeneralMessage IsNot Nothing Then GeneralMessage.Clear()
-        DismissMessageButton.Visible = False
-    End Sub
-
-#End Region
 
 End Class

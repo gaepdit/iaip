@@ -269,6 +269,14 @@ Namespace DAL.Sscp
 
 #End Region
 
+#Region " Save enforcement "
+
+        Public Function SaveEnforcement(enforcementCase As EnforcementCase) As Boolean
+            Throw New NotImplementedException()
+        End Function
+
+#End Region
+
 #Region " Stipulated Penalties "
 
         Public Function GetStipulatedPenalties(enforcementId As String) As DataTable
