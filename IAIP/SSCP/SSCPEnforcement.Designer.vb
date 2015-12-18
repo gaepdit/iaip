@@ -49,7 +49,7 @@ Partial Class SscpEnforcement
         Me.ClearErrorsMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ShowAuditHistoryMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ShowEpaActionNumbersMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.DeleteEnforcementToolStripSeparator = New System.Windows.Forms.ToolStripSeparator()
         Me.DeleteEnforcementMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EnforcementTabs = New System.Windows.Forms.TabControl()
         Me.InfoTabPage = New System.Windows.Forms.TabPage()
@@ -268,7 +268,7 @@ Partial Class SscpEnforcement
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SaveButton})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(911, 25)
+        Me.ToolStrip1.Size = New System.Drawing.Size(796, 25)
         Me.ToolStrip1.TabIndex = 5
         Me.ToolStrip1.Text = "ToolStrip1"
         '
@@ -286,7 +286,7 @@ Partial Class SscpEnforcement
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileMenu, Me.ToolsMenu})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(911, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(796, 24)
         Me.MenuStrip1.TabIndex = 3
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -318,7 +318,7 @@ Partial Class SscpEnforcement
         '
         'ToolsMenu
         '
-        Me.ToolsMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ClearErrorsMenuItem, Me.ShowAuditHistoryMenuItem, Me.ShowEpaActionNumbersMenuItem, Me.ToolStripSeparator1, Me.DeleteEnforcementMenuItem})
+        Me.ToolsMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ClearErrorsMenuItem, Me.ShowAuditHistoryMenuItem, Me.ShowEpaActionNumbersMenuItem, Me.DeleteEnforcementToolStripSeparator, Me.DeleteEnforcementMenuItem})
         Me.ToolsMenu.Name = "ToolsMenu"
         Me.ToolsMenu.Size = New System.Drawing.Size(48, 20)
         Me.ToolsMenu.Text = "&Tools"
@@ -336,17 +336,20 @@ Partial Class SscpEnforcement
         Me.ShowAuditHistoryMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.H), System.Windows.Forms.Keys)
         Me.ShowAuditHistoryMenuItem.Size = New System.Drawing.Size(219, 22)
         Me.ShowAuditHistoryMenuItem.Text = "Show Audit &History"
+        Me.ShowAuditHistoryMenuItem.Visible = False
         '
         'ShowEpaActionNumbersMenuItem
         '
         Me.ShowEpaActionNumbersMenuItem.Name = "ShowEpaActionNumbersMenuItem"
         Me.ShowEpaActionNumbersMenuItem.Size = New System.Drawing.Size(219, 22)
         Me.ShowEpaActionNumbersMenuItem.Text = "Show &EPA Action Numbers"
+        Me.ShowEpaActionNumbersMenuItem.Visible = False
         '
-        'ToolStripSeparator1
+        'DeleteEnforcementToolStripSeparator
         '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(216, 6)
+        Me.DeleteEnforcementToolStripSeparator.Name = "DeleteEnforcementToolStripSeparator"
+        Me.DeleteEnforcementToolStripSeparator.Size = New System.Drawing.Size(216, 6)
+        Me.DeleteEnforcementToolStripSeparator.Visible = False
         '
         'DeleteEnforcementMenuItem
         '
@@ -354,6 +357,7 @@ Partial Class SscpEnforcement
         Me.DeleteEnforcementMenuItem.Name = "DeleteEnforcementMenuItem"
         Me.DeleteEnforcementMenuItem.Size = New System.Drawing.Size(219, 22)
         Me.DeleteEnforcementMenuItem.Text = "Delete this enforcement"
+        Me.DeleteEnforcementMenuItem.Visible = False
         '
         'EnforcementTabs
         '
@@ -370,7 +374,7 @@ Partial Class SscpEnforcement
         Me.EnforcementTabs.Location = New System.Drawing.Point(0, 152)
         Me.EnforcementTabs.Name = "EnforcementTabs"
         Me.EnforcementTabs.SelectedIndex = 0
-        Me.EnforcementTabs.Size = New System.Drawing.Size(911, 400)
+        Me.EnforcementTabs.Size = New System.Drawing.Size(796, 400)
         Me.EnforcementTabs.TabIndex = 267
         '
         'InfoTabPage
@@ -391,7 +395,7 @@ Partial Class SscpEnforcement
         Me.InfoTabPage.Location = New System.Drawing.Point(4, 22)
         Me.InfoTabPage.Name = "InfoTabPage"
         Me.InfoTabPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.InfoTabPage.Size = New System.Drawing.Size(903, 374)
+        Me.InfoTabPage.Size = New System.Drawing.Size(788, 374)
         Me.InfoTabPage.TabIndex = 0
         Me.InfoTabPage.Text = "General Information"
         Me.InfoTabPage.UseVisualStyleBackColor = True
@@ -473,7 +477,7 @@ Partial Class SscpEnforcement
         Me.ViolationTypeGroupbox.Controls.Add(Me.ViolationTypeFrv)
         Me.ViolationTypeGroupbox.Location = New System.Drawing.Point(229, 77)
         Me.ViolationTypeGroupbox.Name = "ViolationTypeGroupbox"
-        Me.ViolationTypeGroupbox.Size = New System.Drawing.Size(663, 77)
+        Me.ViolationTypeGroupbox.Size = New System.Drawing.Size(548, 77)
         Me.ViolationTypeGroupbox.TabIndex = 371
         Me.ViolationTypeGroupbox.TabStop = False
         Me.ViolationTypeGroupbox.Text = "Violation Type"
@@ -487,14 +491,14 @@ Partial Class SscpEnforcement
         Me.ViolationTypeSelect.FormattingEnabled = True
         Me.ViolationTypeSelect.Location = New System.Drawing.Point(7, 43)
         Me.ViolationTypeSelect.Name = "ViolationTypeSelect"
-        Me.ViolationTypeSelect.Size = New System.Drawing.Size(647, 21)
+        Me.ViolationTypeSelect.Size = New System.Drawing.Size(532, 21)
         Me.ViolationTypeSelect.TabIndex = 1
         '
         'DayZeroDisplay
         '
         Me.DayZeroDisplay.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.DayZeroDisplay.AutoSize = True
-        Me.DayZeroDisplay.Location = New System.Drawing.Point(578, 20)
+        Me.DayZeroDisplay.Location = New System.Drawing.Point(463, 20)
         Me.DayZeroDisplay.Name = "DayZeroDisplay"
         Me.DayZeroDisplay.Size = New System.Drawing.Size(76, 13)
         Me.DayZeroDisplay.TabIndex = 5
@@ -568,7 +572,7 @@ Partial Class SscpEnforcement
         'LastEditedDateDisplay
         '
         Me.LastEditedDateDisplay.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LastEditedDateDisplay.Location = New System.Drawing.Point(768, 25)
+        Me.LastEditedDateDisplay.Location = New System.Drawing.Point(653, 25)
         Me.LastEditedDateDisplay.Name = "LastEditedDateDisplay"
         Me.LastEditedDateDisplay.Size = New System.Drawing.Size(124, 15)
         Me.LastEditedDateDisplay.TabIndex = 7
@@ -608,7 +612,7 @@ Partial Class SscpEnforcement
         Me.GeneralComments.Multiline = True
         Me.GeneralComments.Name = "GeneralComments"
         Me.GeneralComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.GeneralComments.Size = New System.Drawing.Size(881, 80)
+        Me.GeneralComments.Size = New System.Drawing.Size(766, 80)
         Me.GeneralComments.TabIndex = 340
         '
         'SubmitToEpa
@@ -645,7 +649,7 @@ Partial Class SscpEnforcement
         Me.PollutantsTabPage.Controls.Add(Me.Panel5)
         Me.PollutantsTabPage.Location = New System.Drawing.Point(4, 22)
         Me.PollutantsTabPage.Name = "PollutantsTabPage"
-        Me.PollutantsTabPage.Size = New System.Drawing.Size(894, 582)
+        Me.PollutantsTabPage.Size = New System.Drawing.Size(656, 374)
         Me.PollutantsTabPage.TabIndex = 5
         Me.PollutantsTabPage.Text = "Pollutants & Programs"
         Me.PollutantsTabPage.UseVisualStyleBackColor = True
@@ -665,8 +669,8 @@ Partial Class SscpEnforcement
         '
         Me.PollutantsProgramSplitContainer.Panel2.Controls.Add(Me.ProgramsListView)
         Me.PollutantsProgramSplitContainer.Panel2.Controls.Add(Me.Panel4)
-        Me.PollutantsProgramSplitContainer.Size = New System.Drawing.Size(894, 545)
-        Me.PollutantsProgramSplitContainer.SplitterDistance = 442
+        Me.PollutantsProgramSplitContainer.Size = New System.Drawing.Size(656, 337)
+        Me.PollutantsProgramSplitContainer.SplitterDistance = 324
         Me.PollutantsProgramSplitContainer.TabIndex = 374
         '
         'PollutantsListView
@@ -679,7 +683,7 @@ Partial Class SscpEnforcement
         Me.PollutantsListView.HoverSelection = True
         Me.PollutantsListView.Location = New System.Drawing.Point(0, 37)
         Me.PollutantsListView.Name = "PollutantsListView"
-        Me.PollutantsListView.Size = New System.Drawing.Size(442, 508)
+        Me.PollutantsListView.Size = New System.Drawing.Size(324, 300)
         Me.PollutantsListView.TabIndex = 371
         Me.PollutantsListView.UseCompatibleStateImageBehavior = False
         Me.PollutantsListView.View = System.Windows.Forms.View.List
@@ -690,7 +694,7 @@ Partial Class SscpEnforcement
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel3.Location = New System.Drawing.Point(0, 0)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(442, 37)
+        Me.Panel3.Size = New System.Drawing.Size(324, 37)
         Me.Panel3.TabIndex = 372
         '
         'Label2
@@ -712,7 +716,7 @@ Partial Class SscpEnforcement
         Me.ProgramsListView.HoverSelection = True
         Me.ProgramsListView.Location = New System.Drawing.Point(0, 37)
         Me.ProgramsListView.Name = "ProgramsListView"
-        Me.ProgramsListView.Size = New System.Drawing.Size(448, 508)
+        Me.ProgramsListView.Size = New System.Drawing.Size(328, 300)
         Me.ProgramsListView.TabIndex = 371
         Me.ProgramsListView.UseCompatibleStateImageBehavior = False
         Me.ProgramsListView.View = System.Windows.Forms.View.List
@@ -723,7 +727,7 @@ Partial Class SscpEnforcement
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel4.Location = New System.Drawing.Point(0, 0)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(448, 37)
+        Me.Panel4.Size = New System.Drawing.Size(328, 37)
         Me.Panel4.TabIndex = 373
         '
         'Label6
@@ -740,9 +744,9 @@ Partial Class SscpEnforcement
         Me.Panel5.Controls.Add(Me.EditAirProgramPollutantsButton)
         Me.Panel5.Controls.Add(Me.lblPollutants)
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel5.Location = New System.Drawing.Point(0, 545)
+        Me.Panel5.Location = New System.Drawing.Point(0, 337)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(894, 37)
+        Me.Panel5.Size = New System.Drawing.Size(656, 37)
         Me.Panel5.TabIndex = 373
         '
         'EditAirProgramPollutantsButton
@@ -776,7 +780,7 @@ Partial Class SscpEnforcement
         Me.LonTabPage.Location = New System.Drawing.Point(4, 22)
         Me.LonTabPage.Name = "LonTabPage"
         Me.LonTabPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.LonTabPage.Size = New System.Drawing.Size(894, 582)
+        Me.LonTabPage.Size = New System.Drawing.Size(788, 374)
         Me.LonTabPage.TabIndex = 1
         Me.LonTabPage.Text = "Letter of Noncompliance"
         Me.LonTabPage.UseVisualStyleBackColor = True
@@ -812,7 +816,7 @@ Partial Class SscpEnforcement
         Me.LonComments.Multiline = True
         Me.LonComments.Name = "LonComments"
         Me.LonComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.LonComments.Size = New System.Drawing.Size(368, 80)
+        Me.LonComments.Size = New System.Drawing.Size(253, 80)
         Me.LonComments.TabIndex = 341
         '
         'LonResolved
@@ -887,7 +891,7 @@ Partial Class SscpEnforcement
         Me.NovTabPage.Controls.Add(Me.Label9)
         Me.NovTabPage.Location = New System.Drawing.Point(4, 22)
         Me.NovTabPage.Name = "NovTabPage"
-        Me.NovTabPage.Size = New System.Drawing.Size(894, 582)
+        Me.NovTabPage.Size = New System.Drawing.Size(903, 374)
         Me.NovTabPage.TabIndex = 2
         Me.NovTabPage.Text = "Notice of Violation"
         Me.NovTabPage.UseVisualStyleBackColor = True
@@ -1089,7 +1093,7 @@ Partial Class SscpEnforcement
         Me.COTabPage.Controls.Add(Me.Label47)
         Me.COTabPage.Location = New System.Drawing.Point(4, 22)
         Me.COTabPage.Name = "COTabPage"
-        Me.COTabPage.Size = New System.Drawing.Size(894, 582)
+        Me.COTabPage.Size = New System.Drawing.Size(903, 374)
         Me.COTabPage.TabIndex = 3
         Me.COTabPage.Text = "Consent Order"
         Me.COTabPage.UseVisualStyleBackColor = True
@@ -1132,7 +1136,7 @@ Partial Class SscpEnforcement
         Me.COComments.Multiline = True
         Me.COComments.Name = "COComments"
         Me.COComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.COComments.Size = New System.Drawing.Size(368, 80)
+        Me.COComments.Size = New System.Drawing.Size(334, 80)
         Me.COComments.TabIndex = 394
         '
         'COPenaltyAmount
@@ -1491,7 +1495,7 @@ Partial Class SscpEnforcement
         Me.AOTabPage.Controls.Add(Me.Label41)
         Me.AOTabPage.Location = New System.Drawing.Point(4, 22)
         Me.AOTabPage.Name = "AOTabPage"
-        Me.AOTabPage.Size = New System.Drawing.Size(894, 582)
+        Me.AOTabPage.Size = New System.Drawing.Size(903, 374)
         Me.AOTabPage.TabIndex = 4
         Me.AOTabPage.Text = "Administrative Order"
         Me.AOTabPage.UseVisualStyleBackColor = True
@@ -1590,7 +1594,7 @@ Partial Class SscpEnforcement
         Me.DocumentsTabPage.Location = New System.Drawing.Point(4, 22)
         Me.DocumentsTabPage.Name = "DocumentsTabPage"
         Me.DocumentsTabPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.DocumentsTabPage.Size = New System.Drawing.Size(894, 582)
+        Me.DocumentsTabPage.Size = New System.Drawing.Size(903, 374)
         Me.DocumentsTabPage.TabIndex = 7
         Me.DocumentsTabPage.Text = "Documents"
         Me.DocumentsTabPage.UseVisualStyleBackColor = True
@@ -1739,7 +1743,7 @@ Partial Class SscpEnforcement
         Me.AuditHistoryTabPage.Controls.Add(Me.Panel12)
         Me.AuditHistoryTabPage.Location = New System.Drawing.Point(4, 22)
         Me.AuditHistoryTabPage.Name = "AuditHistoryTabPage"
-        Me.AuditHistoryTabPage.Size = New System.Drawing.Size(894, 582)
+        Me.AuditHistoryTabPage.Size = New System.Drawing.Size(903, 374)
         Me.AuditHistoryTabPage.TabIndex = 6
         Me.AuditHistoryTabPage.Text = "Audit History"
         Me.AuditHistoryTabPage.UseVisualStyleBackColor = True
@@ -1784,7 +1788,7 @@ Partial Class SscpEnforcement
         Me.AuditHistory.RowHeadersDefaultCellStyle = DataGridViewCellStyle11
         Me.AuditHistory.RowHeadersVisible = False
         Me.AuditHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
-        Me.AuditHistory.Size = New System.Drawing.Size(894, 516)
+        Me.AuditHistory.Size = New System.Drawing.Size(903, 308)
         Me.AuditHistory.TabIndex = 1
         '
         'Panel12
@@ -1794,7 +1798,7 @@ Partial Class SscpEnforcement
         Me.Panel12.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel12.Location = New System.Drawing.Point(0, 0)
         Me.Panel12.Name = "Panel12"
-        Me.Panel12.Size = New System.Drawing.Size(894, 66)
+        Me.Panel12.Size = New System.Drawing.Size(903, 66)
         Me.Panel12.TabIndex = 0
         '
         'RefreshAuditHistory
@@ -1844,7 +1848,7 @@ Partial Class SscpEnforcement
         Me.EpaValuesTabPage.Location = New System.Drawing.Point(4, 22)
         Me.EpaValuesTabPage.Name = "EpaValuesTabPage"
         Me.EpaValuesTabPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.EpaValuesTabPage.Size = New System.Drawing.Size(894, 582)
+        Me.EpaValuesTabPage.Size = New System.Drawing.Size(903, 374)
         Me.EpaValuesTabPage.TabIndex = 8
         Me.EpaValuesTabPage.Text = "EPA Values"
         Me.EpaValuesTabPage.UseVisualStyleBackColor = True
@@ -2025,7 +2029,7 @@ Partial Class SscpEnforcement
         '
         Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(681, 43)
+        Me.Label5.Location = New System.Drawing.Point(566, 43)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(90, 13)
         Me.Label5.TabIndex = 342
@@ -2038,7 +2042,7 @@ Partial Class SscpEnforcement
         Me.StaffResponsible.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.StaffResponsible.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.StaffResponsible.Enabled = False
-        Me.StaffResponsible.Location = New System.Drawing.Point(777, 40)
+        Me.StaffResponsible.Location = New System.Drawing.Point(662, 40)
         Me.StaffResponsible.Name = "StaffResponsible"
         Me.StaffResponsible.Size = New System.Drawing.Size(119, 21)
         Me.StaffResponsible.TabIndex = 343
@@ -2051,7 +2055,7 @@ Partial Class SscpEnforcement
         Me.ResolvedDate.Enabled = False
         Me.ResolvedDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ResolvedDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.ResolvedDate.Location = New System.Drawing.Point(777, 67)
+        Me.ResolvedDate.Location = New System.Drawing.Point(662, 67)
         Me.ResolvedDate.Name = "ResolvedDate"
         Me.ResolvedDate.Size = New System.Drawing.Size(119, 22)
         Me.ResolvedDate.TabIndex = 0
@@ -2073,7 +2077,7 @@ Partial Class SscpEnforcement
         Me.HeaderPanel.Dock = System.Windows.Forms.DockStyle.Top
         Me.HeaderPanel.Location = New System.Drawing.Point(0, 49)
         Me.HeaderPanel.Name = "HeaderPanel"
-        Me.HeaderPanel.Size = New System.Drawing.Size(911, 103)
+        Me.HeaderPanel.Size = New System.Drawing.Size(796, 103)
         Me.HeaderPanel.TabIndex = 268
         '
         'DismissMessageButton
@@ -2081,7 +2085,7 @@ Partial Class SscpEnforcement
         Me.DismissMessageButton.AutoSize = True
         Me.DismissMessageButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.DismissMessageButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.DismissMessageButton.Location = New System.Drawing.Point(186, 3)
+        Me.DismissMessageButton.Location = New System.Drawing.Point(170, 0)
         Me.DismissMessageButton.Name = "DismissMessageButton"
         Me.DismissMessageButton.Size = New System.Drawing.Size(24, 23)
         Me.DismissMessageButton.TabIndex = 376
@@ -2096,7 +2100,7 @@ Partial Class SscpEnforcement
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.MessageDisplay.AutoSize = True
         Me.MessageDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MessageDisplay.Location = New System.Drawing.Point(186, 0)
+        Me.MessageDisplay.Location = New System.Drawing.Point(170, 0)
         Me.MessageDisplay.MinimumSize = New System.Drawing.Size(483, 0)
         Me.MessageDisplay.Name = "MessageDisplay"
         Me.MessageDisplay.Padding = New System.Windows.Forms.Padding(0, 6, 0, 6)
@@ -2111,7 +2115,7 @@ Partial Class SscpEnforcement
         Me.ResolvedCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ResolvedCheckBox.AutoSize = True
         Me.ResolvedCheckBox.Enabled = False
-        Me.ResolvedCheckBox.Location = New System.Drawing.Point(700, 71)
+        Me.ResolvedCheckBox.Location = New System.Drawing.Point(585, 71)
         Me.ResolvedCheckBox.Name = "ResolvedCheckBox"
         Me.ResolvedCheckBox.Size = New System.Drawing.Size(71, 17)
         Me.ResolvedCheckBox.TabIndex = 375
@@ -2137,7 +2141,7 @@ Partial Class SscpEnforcement
         Me.FacilityNameDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FacilityNameDisplay.Location = New System.Drawing.Point(95, 41)
         Me.FacilityNameDisplay.Name = "FacilityNameDisplay"
-        Me.FacilityNameDisplay.Size = New System.Drawing.Size(589, 46)
+        Me.FacilityNameDisplay.Size = New System.Drawing.Size(474, 46)
         Me.FacilityNameDisplay.TabIndex = 13
         Me.FacilityNameDisplay.Text = "Facility Name, City"
         '
@@ -2145,7 +2149,7 @@ Partial Class SscpEnforcement
         '
         Me.ComplianceStatusDisplay.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ComplianceStatusDisplay.AutoSize = True
-        Me.ComplianceStatusDisplay.Location = New System.Drawing.Point(801, 14)
+        Me.ComplianceStatusDisplay.Location = New System.Drawing.Point(686, 14)
         Me.ComplianceStatusDisplay.Name = "ComplianceStatusDisplay"
         Me.ComplianceStatusDisplay.Size = New System.Drawing.Size(95, 13)
         Me.ComplianceStatusDisplay.TabIndex = 373
@@ -2457,12 +2461,12 @@ Partial Class SscpEnforcement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(911, 552)
+        Me.ClientSize = New System.Drawing.Size(796, 552)
         Me.Controls.Add(Me.EnforcementTabs)
         Me.Controls.Add(Me.HeaderPanel)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.MinimumSize = New System.Drawing.Size(639, 590)
+        Me.MinimumSize = New System.Drawing.Size(812, 590)
         Me.Name = "SscpEnforcement"
         Me.Text = "New Enforcement Case"
         Me.ToolStrip1.ResumeLayout(False)
@@ -2625,7 +2629,7 @@ Partial Class SscpEnforcement
     Friend WithEvents UpdateStipulatedPenaltyButton As System.Windows.Forms.Button
     Friend WithEvents StipulatedPenaltiesGroupBox As System.Windows.Forms.GroupBox
     Friend WithEvents DeleteStipulatedPenaltyButton As System.Windows.Forms.Button
-    Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents DeleteEnforcementToolStripSeparator As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents DocumentsTabPage As System.Windows.Forms.TabPage
     Friend WithEvents lblCurrentFiles As System.Windows.Forms.Label
     Friend WithEvents DocumentList As System.Windows.Forms.DataGridView

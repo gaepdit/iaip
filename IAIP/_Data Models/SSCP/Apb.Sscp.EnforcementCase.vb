@@ -11,7 +11,7 @@ Namespace Apb.Sscp
 
         ' General Info
         Public Property AirsNumber As ApbFacilityId ' STRAIRSNUMBER	VARCHAR2(12 BYTE)
-        Public Property StaffResponsible As Staff ' NUMSTAFFRESPONSIBLE	NUMBER
+        Public Property StaffResponsibleId As Integer ' NUMSTAFFRESPONSIBLE	NUMBER
         Public Property LinkedWorkItemId As Integer ' STRTRACKINGNUMBER	NUMBER(10,0)
         Public Property Comment As String ' STRGENERALCOMMENTS	VARCHAR2(4000 BYTE)
 
@@ -66,8 +66,8 @@ Namespace Apb.Sscp
             End Set
         End Property
 
-        Public Property Pollutants As String()
-        Public Property Programs As String()
+        Public Property Pollutants As List(Of String)
+        Public Property Programs As List(Of String)
 
         ' Compliance status
         Public Property ComplianceStatus As ComplianceStatus
@@ -131,28 +131,34 @@ Namespace Apb.Sscp
 
 #Region " Pollutants/Programs "
 
-        Private Function ParseEnforcementPollutants(progPoll As String) As String()
+        Private Function ParseEnforcementPollutants(progPoll As String) As List(Of String)
             Dim p As String() = progPoll.Split({","c}, StringSplitOptions.RemoveEmptyEntries)
             For i As Integer = 0 To p.Length - 1
                 p(i) = p(i).Substring(1)
             Next
-            Return p.Distinct.ToArray
+            Return p.Distinct.ToList
         End Function
 
-        Private Function ParseEnforcementPrograms(progPoll As String) As String()
+        Private Function ParseEnforcementPrograms(progPoll As String) As List(Of String)
             Dim p As String() = progPoll.Split({","c}, StringSplitOptions.RemoveEmptyEntries)
             For i As Integer = 0 To p.Length - 1
                 p(i) = p(i).Substring(0, 1)
             Next
-            Return p.Distinct.ToArray
+            Return p.Distinct.ToList
         End Function
 
         Private Function CombineProgramPollutants() As String
-            If Programs.Length < 1 OrElse Pollutants.Length < 1 Then Return Nothing
+            If Programs Is Nothing OrElse
+                Programs.Count = 0 OrElse
+                Pollutants Is Nothing OrElse
+                Pollutants.Count = 0 Then
+                Return Nothing
+            End If
+
             Dim result As New StringBuilder
-            For i As Integer = 0 To Programs.Length - 1
-                For j As Integer = 0 To Pollutants.Length - 1
-                    result.Append(Programs(i) & Pollutants(j) & ",")
+            For Each pr As String In Programs
+                For Each pl As String In Pollutants
+                    result.Append(pr & pl & ",")
                 Next
             Next
             Return result.ToString
