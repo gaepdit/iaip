@@ -101,7 +101,7 @@ Module FormHelpers
     End Function
 
     Public Function OpenFormEnforcement(airsNumber As ApbFacilityId, Optional trackingNumber As String = Nothing) As Form
-        Dim parameters As New Dictionary(Of String, String)
+        Dim parameters As New Dictionary(Of FormParameter, String)
         If DAL.AirsNumberExists(airsNumber) Then
             parameters(FormParameter.AirsNumber) = airsNumber.ToString
             If trackingNumber IsNot Nothing AndAlso DAL.Sscp.WorkItemExists(trackingNumber) Then

@@ -13,7 +13,7 @@ Public Class SscpEnforcement
     Public Property EnforcementCase() As New EnforcementCase
     Public Property AirsNumber As Apb.ApbFacilityId
     Public Property Facility As Apb.Facilities.Facility
-    Public Property LinkedEventId As String
+    Public Property LinkedEventId As Integer
 
     Private sscpStaff As DataTable
     Private violationTypes As DataTable
@@ -140,13 +140,18 @@ Public Class SscpEnforcement
         Next
     End Sub
 
+#End Region
+
+#Region " Permissions "
+
     Private Sub SetUserPermissions()
-        If CurrentUserCanResolveEnforcement() Then
+        If CheckPermissions(AccessLevel.UserCanResolveEnforcement) Then
             ' Enable full access to resolve/delete/submit to EPA
             ResolvedCheckBox.Enabled = True
             DeleteEnforcementMenuItem.Enabled = True
             SubmitToEpa.Enabled = True
-        ElseIf Not CurrentUserCanSaveData() Then
+            SubmitToEpa2.Enabled = True
+        ElseIf Not CheckPermissions(AccessLevel.UserCanSaveData) Then
             ' Disable any save/write access
             SaveButton.Enabled = False
             SaveMenuItem.Enabled = False
@@ -159,16 +164,25 @@ Public Class SscpEnforcement
         End If
     End Sub
 
-    Private Function CurrentUserCanSaveData() As Boolean
-        Return (UserBranch = "5") OrElse             ' District offices or
-            (UserProgram = "3" Or UserProgram = "4") ' DMU or SSCP
+    Private Function CheckPermissions(access As AccessLevel) As Boolean
+        Select Case access
+
+            Case AccessLevel.UserCanSaveData
+                Return (UserBranch = "5") OrElse             ' District offices or
+                    (UserProgram = "3" Or UserProgram = "4") ' DMU or SSCP
+
+            Case AccessLevel.UserCanResolveEnforcement
+                Return UserAccounts.Contains("(19)") OrElse ' SSCP Program Manager
+                    UserAccounts.Contains("(114)") OrElse   ' SSCP Unit Manager
+                    UserAccounts.Contains("(118)")          ' DMU Management
+
+        End Select
     End Function
 
-    Private Function CurrentUserCanResolveEnforcement() As Boolean
-        Return UserAccounts.Contains("(19)") OrElse ' SSCP Program Manager
-            UserAccounts.Contains("(114)") OrElse   ' SSCP Unit Manager
-            UserAccounts.Contains("(118)")          ' DMU Management
-    End Function
+    Private Enum AccessLevel
+        UserCanSaveData
+        UserCanResolveEnforcement
+    End Enum
 
 #End Region
 
@@ -178,7 +192,7 @@ Public Class SscpEnforcement
         If Parameters IsNot Nothing Then
             If Parameters.ContainsKey(FormParameter.EnforcementId) Then EnforcementId = Parameters(FormParameter.EnforcementId)
             If Parameters.ContainsKey(FormParameter.AirsNumber) Then AirsNumber = Parameters(FormParameter.AirsNumber)
-            If Parameters.ContainsKey(FormParameter.TrackingNumber) Then LinkedEventId = Parameters(FormParameter.TrackingNumber)
+            If Parameters.ContainsKey(FormParameter.TrackingNumber) Then LinkedEventId = CInt(Parameters(FormParameter.TrackingNumber))
         End If
     End Sub
 
@@ -265,7 +279,7 @@ Public Class SscpEnforcement
                     COComments.Text = .CoComment
                     Dim parts As String() = .CoNumber.Split("-"c)
                     CoNumber.Value = Math.Min(Convert.ToInt32(parts(parts.Length - 1)), 999999)
-                    COPenaltyAmount.Text = .CoPenaltyAmount
+                    COPenaltyAmount.Text = .CoPenaltyAmount.ToString("C")
                     COPenaltyComments.Text = .CoPenaltyAmountComment
                     StipulatedPenaltiesGroupBox.Enabled = True
                     LoadStipulatedPenalties()
@@ -280,6 +294,10 @@ Public Class SscpEnforcement
                 ' All nullable Dates
                 DisplayNullableDates()
 
+                If EnforcementTabs.TabPages.Contains(EpaValuesTabPage) Then
+                    DisplayEpaValues()
+                End If
+
             End With
         End If
     End Sub
@@ -287,28 +305,28 @@ Public Class SscpEnforcement
     Private Sub DisplayNullableDates()
 
         Dim nullableDates As New Dictionary(Of DateTimePicker, Date?) From {
-        {ResolvedDate, EnforcementCase.DateFinalized},
-        {AOAppealed, EnforcementCase.AoAppealed},
-        {AOExecuted, EnforcementCase.AoExecuted},
-        {AOResolved, EnforcementCase.AoResolved},
-        {COExecuted, EnforcementCase.CoExecuted},
-        {COProposed, EnforcementCase.CoProposed},
-        {COReceivedfromCompany, EnforcementCase.CoReceivedFromCompany},
-        {COReceivedFromDirector, EnforcementCase.CoReceivedFromDirector},
-        {COResolved, EnforcementCase.CoResolved},
-        {COToPM, EnforcementCase.CoToPm},
-        {COToUC, EnforcementCase.CoToUc},
-        {DiscoveryDate, EnforcementCase.DiscoveryDate},
-        {LonResolved, EnforcementCase.LonResolved},
-        {LonSent, EnforcementCase.LonSent},
-        {LonToUC, EnforcementCase.LonToUc},
-        {NfaSent, EnforcementCase.NfaSent},
-        {NfaToPM, EnforcementCase.NfaToPm},
-        {NfaToUC, EnforcementCase.NfaToUc,                },
-        {NovResponseReceived, EnforcementCase.NovResponseReceived},
-        {NovSent, EnforcementCase.NovSent},
-        {NovToPM, EnforcementCase.NovToPm},
-        {NovToUC, EnforcementCase.NovToUc}
+            {ResolvedDate, EnforcementCase.DateFinalized},
+            {AOAppealed, EnforcementCase.AoAppealed},
+            {AOExecuted, EnforcementCase.AoExecuted},
+            {AOResolved, EnforcementCase.AoResolved},
+            {COExecuted, EnforcementCase.CoExecuted},
+            {COProposed, EnforcementCase.CoProposed},
+            {COReceivedfromCompany, EnforcementCase.CoReceivedFromCompany},
+            {COReceivedFromDirector, EnforcementCase.CoReceivedFromDirector},
+            {COResolved, EnforcementCase.CoResolved},
+            {COToPM, EnforcementCase.CoToPm},
+            {COToUC, EnforcementCase.CoToUc},
+            {DiscoveryDate, EnforcementCase.DiscoveryDate},
+            {LonResolved, EnforcementCase.LonResolved},
+            {LonSent, EnforcementCase.LonSent},
+            {LonToUC, EnforcementCase.LonToUc},
+            {NfaSent, EnforcementCase.NfaSent},
+            {NfaToPM, EnforcementCase.NfaToPm},
+            {NfaToUC, EnforcementCase.NfaToUc},
+            {NovResponseReceived, EnforcementCase.NovResponseReceived},
+            {NovSent, EnforcementCase.NovSent},
+            {NovToPM, EnforcementCase.NovToPm},
+            {NovToUC, EnforcementCase.NovToUc}
         }
 
         For Each kvp As KeyValuePair(Of DateTimePicker, Date?) In nullableDates
@@ -483,7 +501,7 @@ Public Class SscpEnforcement
     End Sub
 
     Private Sub LinkedEventDisplay_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkedEventDisplay.LinkClicked
-        OpenFormSscpWorkItem(LinkedEventId)
+        If LinkedEventId > 0 Then OpenFormSscpWorkItem(LinkedEventId)
     End Sub
 
 #End Region
@@ -553,8 +571,10 @@ Public Class SscpEnforcement
             If Not EnforcementCase.SubmittedToUc And EnforcementId IsNot Nothing Then
                 SubmitToUC.Visible = True
             End If
-            If Not EnforcementCase.SubmittedToEpa And EnforcementId IsNot Nothing AndAlso CurrentUserCanResolveEnforcement() Then
+            If Not EnforcementCase.SubmittedToEpa And EnforcementId IsNot Nothing AndAlso CheckPermissions(AccessLevel.UserCanResolveEnforcement) Then
                 SubmitToEpa.Visible = True
+                SubmitToEpa2.Visible = True
+                NotSubmittedToEpaLabel.Visible = True
             End If
             If Not EnforcementTabs.TabPages.Contains(PollutantsTabPage) Then EnforcementTabs.TabPages.Add(PollutantsTabPage)
         Else
@@ -562,6 +582,8 @@ Public Class SscpEnforcement
             ViolationTypeGroupbox.Visible = False
             SubmitToUC.Visible = False
             SubmitToEpa.Visible = False
+            SubmitToEpa2.Visible = False
+            NotSubmittedToEpaLabel.Visible = False
             LonCheckBox.Visible = True
             If EnforcementTabs.TabPages.Contains(PollutantsTabPage) Then EnforcementTabs.TabPages.Remove(PollutantsTabPage)
         End If
@@ -582,10 +604,12 @@ Public Class SscpEnforcement
         End If
     End Sub
 
-    Private Sub SubmitToEpa_Click(sender As Object, e As EventArgs) Handles SubmitToEpa.Click
+    Private Sub SubmitToEpa_Click(sender As Object, e As EventArgs) _
+        Handles SubmitToEpa.Click, SubmitToEpa2.Click
+
         If EnforcementCase.SubmittedToEpa = True Then Exit Sub
 
-        If Not CurrentUserCanResolveEnforcement() Then
+        If Not CheckPermissions(AccessLevel.UserCanResolveEnforcement) Then
             GeneralMessage = New IaipMessage("You do not have sufficent permission to submit enforcement case to EPA.", IaipMessage.WarningLevels.ErrorReport)
             Exit Sub
         End If
@@ -593,6 +617,8 @@ Public Class SscpEnforcement
         EnforcementCase.SubmittedToEpa = True
         If ValidateAndSave() Then
             SubmitToEpa.Visible = False
+            SubmitToEpa2.Visible = False
+            NotSubmittedToEpaLabel.Visible = False
             ShowEpaValues()
         Else
             EnforcementCase.SubmittedToEpa = False
@@ -697,7 +723,7 @@ Public Class SscpEnforcement
     Private Sub StipulatedPenalties_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles StipulatedPenalties.CellContentClick
         If e.RowIndex <> -1 And e.RowIndex < StipulatedPenalties.RowCount Then
             selectedStipulatedPenaltyItem = StipulatedPenalties.Rows(e.RowIndex).Cells(0).Value.ToString
-            StipulatedPenaltyAmount.Text = StipulatedPenalties.Rows(e.RowIndex).Cells(1).Value.ToString
+            StipulatedPenaltyAmount.Text = StipulatedPenalties.Rows(e.RowIndex).Cells(1).Value.ToString("C")
             StipulatedPenaltyComments.Text = StipulatedPenalties.Rows(e.RowIndex).Cells(3).Value.ToString
             UpdateStipulatedPenaltyButton.Visible = True
             DeleteStipulatedPenaltyButton.Visible = True
@@ -967,20 +993,38 @@ Public Class SscpEnforcement
 
     Private Sub DisplayEpaValues()
         With EnforcementCase
-            AfsKeyActionNumber.Text = .AfsKeyActionNumber
-            AfsNovActionNumber.Text = .AfsNovActionNumber
-            AfsNfaActionNumber.Text = .AfsNfaActionNumber
-            AfsCoProposedActionNumber.Text = .AfsCoProposedNumber
-            AfsCoExecutedActionNumber.Text = .AfsCoActionNumber
-            AfsCoResolvedActionNumber.Text = .AfsCoResolvedActionNumber
-            AfsAoCivilCourtActionNumber.Text = .AfsCivilCourtActionNumber
-            AfsAoToAgActionNumber.Text = .AfsAoToAGActionNumber
-            AfsAoResolvedActionNumber.Text = .AfsAoResolvedActionNumber
-            Dim sp As New List(Of String)
-            For Each row As DataRow In StipulatedPenalties.Rows
-                sp.Add(row("STRAFSSTIPULATEDPENALTYNUMBER").ToString)
-            Next
-            AfsStipulatedPenalitiesActionNumbers.Text = String.Join(", ", sp)
+            If .SubmittedToEpa Then
+
+                ' AFS action numbers
+                AfsKeyActionNumber.Text = .AfsKeyActionNumber.ToString(DisplayZeroAsNA)
+                AfsNovActionNumber.Text = .AfsNovActionNumber.ToString(DisplayZeroAsNA)
+                AfsNfaActionNumber.Text = .AfsNfaActionNumber.ToString(DisplayZeroAsNA)
+                AfsCoProposedActionNumber.Text = .AfsCoProposedNumber.ToString(DisplayZeroAsNA)
+                AfsCoExecutedActionNumber.Text = .AfsCoActionNumber.ToString(DisplayZeroAsNA)
+                AfsCoResolvedActionNumber.Text = .AfsCoResolvedActionNumber.ToString(DisplayZeroAsNA)
+                AfsAoCivilCourtActionNumber.Text = .AfsCivilCourtActionNumber.ToString(DisplayZeroAsNA)
+                AfsAoToAgActionNumber.Text = .AfsAoToAGActionNumber.ToString(DisplayZeroAsNA)
+                AfsAoResolvedActionNumber.Text = .AfsAoResolvedActionNumber.ToString(DisplayZeroAsNA)
+
+                ' Stipulated penalties
+                If StipulatedPenalties.Rows.Count = 0 Then
+                    AfsStipulatedPenalitiesActionNumbers.Text = "N/A"
+                Else
+                    Dim sp As New List(Of String)
+                    For Each row As DataRow In StipulatedPenalties.Rows
+                        sp.Add(row("STRAFSSTIPULATEDPENALTYNUMBER").ToString)
+                    Next
+                    AfsStipulatedPenalitiesActionNumbers.Text = String.Join(", ", sp)
+                End If
+
+                ' EPA IDs
+                EpaCaseFileId.Text = .CaseFileId
+                EpaNovId.Text = .NovEnforcementActionId
+                EpaCoId.Text = .CoEnforcementActionId
+                EpaAoId.Text = .AoEnforcementActionId
+
+                EpaDayZero.Text = .DayZeroDate.ToString(DateFormat)
+            End If
         End With
     End Sub
 
@@ -1026,8 +1070,8 @@ Public Class SscpEnforcement
 #Region " Save data "
 
     Private Function ValidateAndSave() As Boolean
-        If Not CurrentUserCanSaveData() Then
-            GeneralMessage = New IaipMessage("You do not have sufficent permission to save enforcement cases.", IaipMessage.WarningLevels.ErrorReport)
+        If Not CheckPermissions(AccessLevel.UserCanSaveData) Then
+            GeneralMessage = New IaipMessage("You do not have sufficent permission to save changes to enforcement cases.", IaipMessage.WarningLevels.ErrorReport)
             Return False
         End If
 
@@ -1118,7 +1162,7 @@ Public Class SscpEnforcement
             Exit Sub
         End If
 
-        If Not CurrentUserCanResolveEnforcement() Then
+        If Not CheckPermissions(AccessLevel.UserCanResolveEnforcement) Then
             GeneralMessage = New IaipMessage("You do not have sufficent permission to delete enforcement cases.", IaipMessage.WarningLevels.ErrorReport)
             Exit Sub
         End If
@@ -1141,6 +1185,231 @@ Public Class SscpEnforcement
             End If
         End If
     End Sub
+
+#End Region
+
+#Region " Gather data from form "
+
+    Private Sub ReadEnforcementCaseFromForm()
+        ReadEnforcementActionDataFromForm()
+
+        With EnforcementCase
+            .AirsNumber = AirsNumber
+            .Comment = GeneralComments.Text
+            .ComplianceStatus = DetermineComplianceStatusFromForm()
+            .DayZeroDate = DetermineDayZeroFromForm()
+            .EnforcementId = EnforcementId
+            .LegacyComplianceStatus = EnforcementCase.ConvertComplianceStatus(.ComplianceStatus)
+            .LegacyEnforcementType = DetermineEnforcementTypeCodeFromForm()
+            .LinkedWorkItemId = LinkedEventId
+            .Open = Not ResolvedCheckBox.Checked
+            .Pollutants = ReadPollutantsFromForm()
+            .Programs = ReadProgramsFromForm()
+            .StaffResponsibleId = StaffResponsible.SelectedValue
+            .ViolationType = ViolationTypeSelect.SelectedValue
+            .DateFinalized = GetNullableDateFromDateTimePicker(ResolvedDate)
+            .DiscoveryDate = GetNullableDateFromDateTimePicker(DiscoveryDate)
+        End With
+    End Sub
+
+    Private Sub ReadEnforcementActionDataFromForm()
+        If Not (FormIsCaseFile()) Then EnforcementCase.SubmittedToEpa = False
+        ' No ELSE: We're just removing the flag here if it might have been unset during editing
+        ' The flag is only added on the "Send to EPA" button click.
+
+        EnforcementCase.EnforcementActions = New List(Of EnforcementActionType)
+        ReadLonDataFromForm()
+        ReadNovDataFromForm()
+        ReadCoDataFromForm()
+        ReadAoDataFromForm()
+    End Sub
+
+    Private Sub ReadLonDataFromForm()
+        With EnforcementCase
+            If LonCheckBox.Checked AndAlso
+                (LonResolved.Checked Or LonSent.Checked Or LonToUC.Checked) Then
+
+                .EnforcementActions.Add(EnforcementActionType.LON)
+                .LonResolved = GetNullableDateFromDateTimePicker(LonResolved)
+                .LonSent = GetNullableDateFromDateTimePicker(LonSent)
+                .LonToUc = GetNullableDateFromDateTimePicker(LonToUC)
+            Else
+                .LonResolved = Nothing
+                .LonSent = Nothing
+                .LonToUc = Nothing
+                .LonComment = Nothing
+            End If
+        End With
+    End Sub
+
+    Private Sub ReadNovDataFromForm()
+        With EnforcementCase
+            If NovCheckBox.Checked AndAlso
+                (NovSent.Checked Or NovToPM.Checked Or NovToUC.Checked Or
+                NfaSent.Checked Or NfaToPM.Checked Or NfaToUC.Checked) Then
+
+                .EnforcementActions.Add(EnforcementActionType.NOV)
+                .NovResponseReceived = GetNullableDateFromDateTimePicker(NovResponseReceived)
+                .NovSent = GetNullableDateFromDateTimePicker(NovSent)
+                .NovToPm = GetNullableDateFromDateTimePicker(NovToPM)
+                .NovToUc = GetNullableDateFromDateTimePicker(NovToUC)
+                .NfaSent = GetNullableDateFromDateTimePicker(NfaSent)
+                .NfaToPm = GetNullableDateFromDateTimePicker(NfaToPM)
+                .NfaToUc = GetNullableDateFromDateTimePicker(NfaToUC)
+                .NovComment = NovComments.Text
+            Else
+                .NovResponseReceived = Nothing
+                .NovSent = Nothing
+                .NovToPm = Nothing
+                .NovToUc = Nothing
+                .NfaSent = Nothing
+                .NfaToPm = Nothing
+                .NfaToUc = Nothing
+                .NovComment = Nothing
+            End If
+        End With
+    End Sub
+
+    Private Sub ReadCoDataFromForm()
+        With EnforcementCase
+            If COCheckBox.Checked AndAlso
+                (COExecuted.Checked Or COProposed.Checked Or COToPM.Checked Or COToUC.Checked) Then
+
+                .EnforcementActions.Add(EnforcementActionType.CO)
+                .CoExecuted = GetNullableDateFromDateTimePicker(COExecuted)
+                .CoProposed = GetNullableDateFromDateTimePicker(COProposed)
+                .CoReceivedFromCompany = GetNullableDateFromDateTimePicker(COReceivedfromCompany)
+                .CoReceivedFromDirector = GetNullableDateFromDateTimePicker(COReceivedFromDirector)
+                .CoResolved = GetNullableDateFromDateTimePicker(COResolved)
+                .CoToPm = GetNullableDateFromDateTimePicker(COToPM)
+                .CoToUc = GetNullableDateFromDateTimePicker(COToUC)
+                .CoComment = COComments.Text
+                .CoNumber = If(CoNumber.Value = 0, "", "EPD-AQC-" & CoNumber.Value.ToString)
+                .CoPenaltyAmount = ConvertCurrencyStringToDecimal(COPenaltyAmount.Text)
+                .CoPenaltyAmountComment = COPenaltyComments.Text
+            Else
+                .CoExecuted = Nothing
+                .CoProposed = Nothing
+                .CoReceivedFromCompany = Nothing
+                .CoReceivedFromDirector = Nothing
+                .CoResolved = Nothing
+                .CoToPm = Nothing
+                .CoToUc = Nothing
+                .CoComment = Nothing
+                .CoNumber = Nothing
+                .CoPenaltyAmount = Nothing
+                .CoPenaltyAmountComment = Nothing
+            End If
+        End With
+    End Sub
+
+    Private Sub ReadAoDataFromForm()
+        With EnforcementCase
+            If AOCheckBox.Checked AndAlso
+                (AOAppealed.Checked Or AOExecuted.Checked Or AOResolved.Checked) Then
+
+                .EnforcementActions.Add(EnforcementActionType.AO)
+                .AoAppealed = GetNullableDateFromDateTimePicker(AOAppealed)
+                .AoExecuted = GetNullableDateFromDateTimePicker(AOExecuted)
+                .AoResolved = GetNullableDateFromDateTimePicker(AOResolved)
+            Else
+                .AoAppealed = Nothing
+                .AoExecuted = Nothing
+                .AoResolved = Nothing
+            End If
+        End With
+    End Sub
+
+    Private Function ConvertCurrencyStringToDecimal(c As String) As Decimal
+        Dim result As Decimal
+        If Decimal.TryParse(c.Trim({"$"c, " "c}).Replace(",", ""), result) Then
+            Return result
+        Else
+            Return 0
+        End If
+    End Function
+
+    Private Function GetNullableDateFromDateTimePicker(dtp As DateTimePicker) As Date?
+        If dtp.Checked Then
+            Return dtp.Value
+        Else
+            Return Nothing
+        End If
+    End Function
+
+    Private Function ReadProgramsFromForm() As List(Of String)
+        Dim pList As New List(Of String)
+        For Each item As ListViewItem In ProgramsListView.CheckedItems
+            pList.Add(item.SubItems(1).ToString)
+        Next
+        Return pList
+    End Function
+
+    Private Function ReadPollutantsFromForm() As List(Of String)
+        Dim pList As New List(Of String)
+        For Each item As ListViewItem In PollutantsListView.CheckedItems
+            pList.Add(item.SubItems(1).ToString)
+        Next
+        Return pList
+    End Function
+
+    Private Function DetermineEnforcementTypeCodeFromForm() As LegacyEnforcementType
+        With EnforcementCase.EnforcementActions
+            If .Contains(EnforcementActionType.LON) Then
+                Return LegacyEnforcementType.LON
+
+            ElseIf .Contains(EnforcementActionType.AO) Then
+                Return If(ViolationTypeHpv.Checked, LegacyEnforcementType.HPVAO, LegacyEnforcementType.NOVAO)
+
+            ElseIf .Contains(EnforcementActionType.CO) Then
+                If NovSent.Checked Then
+                    Return If(ViolationTypeHpv.Checked, LegacyEnforcementType.HPVCO, LegacyEnforcementType.NOVCO)
+                Else
+                    Return If(ViolationTypeHpv.Checked, LegacyEnforcementType.HPVCOP, LegacyEnforcementType.NOVCOP)
+                End If
+
+            ElseIf .Contains(EnforcementActionType.NOV) Then
+                Return If(ViolationTypeHpv.Checked, LegacyEnforcementType.HPV, LegacyEnforcementType.NOV)
+
+            Else
+                Return LegacyEnforcementType.None
+
+            End If
+        End With
+    End Function
+
+    Private Function DetermineDayZeroFromForm() As Date?
+        If FormIsCaseFile() Then
+            Dim dl As New List(Of Date)
+
+            If DiscoveryDate.Checked Then dl.Add(DiscoveryDate.Value.AddDays(90))
+            If NovCheckBox.Checked AndAlso NovSent.Checked Then dl.Add(NovSent.Value)
+            If COCheckBox.Checked AndAlso COProposed.Checked Then dl.Add(COProposed.Value)
+            If COCheckBox.Checked AndAlso COExecuted.Checked Then dl.Add(COExecuted.Value)
+            If AOCheckBox.Checked AndAlso AOExecuted.Checked Then dl.Add(AOExecuted.Value)
+
+            Return dl.Min
+        End If
+        Return Nothing
+    End Function
+
+    Private Function DetermineComplianceStatusFromForm() As ComplianceStatus
+        With EnforcementCase
+            If .LonResolved.HasValue Then
+                Return ComplianceStatus.InCompliance
+            ElseIf .LonSent.HasValue Then
+                Return ComplianceStatus.MeetingComplianceSchedule
+            ElseIf .NfaSent.HasValue Or .CoResolved.HasValue Or .AoResolved.HasValue Then
+                Return ComplianceStatus.InCompliance
+            ElseIf .CoExecuted.HasValue Or .AoExecuted.HasValue Then
+                Return ComplianceStatus.MeetingComplianceSchedule
+            ElseIf .NovSent.HasValue Then
+                Return ComplianceStatus.InViolation
+            Else
+                Return ComplianceStatus.Unknown
+            End If
+        End With
+    End Function
 
 #End Region
 
@@ -1188,6 +1457,7 @@ Public Class SscpEnforcement
 
     Private Sub EditAirProgramPollutantsButton_Click(sender As Object, e As EventArgs) Handles EditAirProgramPollutantsButton.Click
         Throw New NotImplementedException
+
         ' Change IAIPEditAirProgramPollutants to dialog; return lists of pollutants/programs; reload ListViews
         ' (reloading ListViews: recently checked/unchecked items may not be saved to db yet, so grab those, repopulate lists, restore checked items
 
@@ -1232,6 +1502,8 @@ Public Class SscpEnforcement
     End Sub
 
     Private Function ValidateFormData() As Boolean
+        Throw New NotImplementedException()
+
         ClearErrors()
         Return ValidateDates() And
             ValidateViolationType() And
@@ -1256,23 +1528,18 @@ Public Class SscpEnforcement
         Return Decimal.TryParse(s.Trim({"$"c, " "c}).Replace(",", ""), Nothing)
     End Function
 
-    Private Function ConvertCurrencyStringToDecimal(c As String) As Decimal
-        Dim result As Decimal
-        If Decimal.TryParse(c.Trim({"$"c, " "c}).Replace(",", ""), result) Then
-            Return result
-        Else
-            Return 0
-        End If
-    End Function
-
     Private Function ValidateViolationType() As Boolean
-        If (NovCheckBox.Checked Or COCheckBox.Checked Or AOCheckBox.Checked) AndAlso
+        If FormIsCaseFile() AndAlso
             (ViolationTypeNone.Checked Or ViolationTypeSelect.SelectedValue = "BLANK") Then
 
             validationErrors.Add(ViolationTypeGroupbox, "Choose a Violation Type")
             Return False
         End If
         Return True
+    End Function
+
+    Private Function FormIsCaseFile() As Boolean
+        Return NovCheckBox.Checked OrElse COCheckBox.Checked OrElse AOCheckBox.Checked
     End Function
 
     Private Function ValidateFacility() As Boolean
@@ -1285,24 +1552,20 @@ Public Class SscpEnforcement
     End Function
 
     Private Function ValidateLinkedEvent() As Boolean
-        Throw New NotImplementedException()
-
-        If LinkedEvent.Text = "" Then
-            Dim result As DialogResult
-
-            result = MessageBox.Show("There is no linked event for this enforcement action." & vbCrLf &
-                "Do you want to submit this enforcement to EPA without an initiating action?", "Enforcement",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
-            Select Case result
-                Case DialogResult.No
-                    Exit Sub
-            End Select
+        If EnforcementCase.SubmittedToEpa And LinkedEventId = 0 Then
+            Dim dr As DialogResult = MessageBox.Show(
+                "There is no discovery event linked to this enforcement case. Do you want to submit to EPA without an initiating action?",
+                "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+            If dr = DialogResult.No Then
+                validationErrors.Add(LinkToEvent, "Missing discovery event.")
+                Return False
+            End If
         End If
-
+        Return True
     End Function
 
     Private Function ValidatePollutants() As Boolean
-        If NovCheckBox.Checked Or COCheckBox.Checked Or AOCheckBox.Checked Then
+        If FormIsCaseFile() Then
             If PollutantsListView.CheckedIndices.Count = 0 Then
                 validationErrors.Add(PollutantsListView, "At least one pollutant must be selected.")
                 Return False
@@ -1312,7 +1575,7 @@ Public Class SscpEnforcement
     End Function
 
     Private Function ValidatePrograms() As Boolean
-        If NovCheckBox.Checked Or COCheckBox.Checked Or AOCheckBox.Checked Then
+        If FormIsCaseFile() Then
             If ProgramsListView.CheckedIndices.Count = 0 Then
                 validationErrors.Add(ProgramsListView, "At least one air program must be selected.")
                 Return False
@@ -1336,31 +1599,29 @@ Public Class SscpEnforcement
     End Function
 
     Private Function ValidateLonDates() As Boolean
+        Throw New NotImplementedException()
+
         Dim result As Boolean = True
 
-        If LonResolved.Checked And
-            (Not LonSent.Checked OrElse LonSent.Value > LonResolved.Value) Then
-            validationErrors.Add(LonResolved, "LON cannot be resolved before it is sent.")
-            result = False
+        If LonToUC.Checked Then
+            result = result And CheckDate(LonToUC.Value,
+                                          antecedents:=New List(Of DateTimePicker) From {DiscoveryDate},
+                                          subsequents:=New List(Of DateTimePicker) From {LonSent, LonResolved})
         End If
 
-        If LonSent.Checked And
-            (LonSent.Value < LonToUC.Value) Then
-            validationErrors.Add(LonSent, "Date LON Sent cannot be earlier than Date to UC.")
-            result = False
+        If LonSent.Checked Then
+            result = result And CheckDate(LonSent.Value,
+                                          antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, LonToUC},
+                                          subsequents:=New List(Of DateTimePicker) From {LonResolved})
         End If
 
-        If DiscoveryDate.Checked And
-            (LonSent.Checked AndAlso LonSent.Value < DiscoveryDate.Value) Then
-            validationErrors.Add(DiscoveryDate, "Date LON Sent cannot be earlier than Discovery Date.")
-            result = False
+        If LonResolved.Checked Then
+            result = result And CheckDate(LonResolved.Value,
+                                          antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, LonToUC},
+                                          requiredAntecedents:=New List(Of DateTimePicker) From {LonSent})
         End If
 
-        ' To genericize: CheckFunction(DateToCheck, ListOfPrecedents(of date), ListOfAntecedents(of Date),
-        ' ListOfRequiredPrecedents(of date), ListOfRequiredAntecedents(of Date))
-
-
-
+        If Not result Then validationErrors.Add(LonSent, "LON dates are invalid.")
 
         Return result
     End Function
@@ -1377,145 +1638,13 @@ Public Class SscpEnforcement
         Throw New NotImplementedException()
     End Function
 
-#End Region
+    Private Function CheckDate(dateToCheck As Date,
+                               Optional antecedents As List(Of DateTimePicker) = Nothing,
+                               Optional subsequents As List(Of DateTimePicker) = Nothing,
+                               Optional requiredAntecedents As List(Of DateTimePicker) = Nothing,
+                               Optional requiredSubsequents As List(Of DateTimePicker) = Nothing
+                               ) As Boolean
 
-#Region " Gather data from form "
-
-    Private Sub ReadEnforcementCaseFromForm()
-        With EnforcementCase
-            .AirsNumber = AirsNumber
-            .Comment = GeneralComments.Text
-            .ComplianceStatus = DetermineComplianceStatusFromForm()
-            .DayZeroDate = DetermineDayZeroFromForm()
-            .EnforcementId = EnforcementId
-            .LegacyComplianceStatus = DAL.Sscp.ConvertComplianceStatus(.ComplianceStatus)
-            .LegacyEnforcementType = DetermineEnforcementTypeCodeFromForm()
-            .LinkedWorkItemId = LinkedEventId
-            .Open = Not ResolvedCheckBox.Checked
-            .Pollutants = ReadPollutantsFromForm()
-            .Programs = ReadProgramsFromForm()
-            .StaffResponsibleId = StaffResponsible.SelectedValue
-            .ViolationType = ViolationTypeSelect.SelectedValue
-            .DateFinalized = GetNullableDateFromDateTimePicker(ResolvedDate)
-            .DiscoveryDate = GetNullableDateFromDateTimePicker(DiscoveryDate)
-        End With
-
-        ReadEnforcementActionDataFromForm()
-    End Sub
-
-    Private Sub ReadEnforcementActionDataFromForm()
-        With EnforcementCase
-            If Not (NovCheckBox.Checked OrElse COCheckBox.Checked OrElse AOCheckBox.Checked) Then
-                .SubmittedToEpa = False
-                ' No ELSE: We're just removing the flag here if it might have been unset.
-                ' The flag is only added on the "Send to EPA" button click.
-            End If
-
-            .EnforcementActions = New List(Of EnforcementActionType)
-            If LonCheckBox.Checked Then
-                .EnforcementActions.Add(EnforcementActionType.LON)
-                .LonResolved = GetNullableDateFromDateTimePicker(LonResolved)
-                .LonSent = GetNullableDateFromDateTimePicker(LonSent)
-                .LonToUc = GetNullableDateFromDateTimePicker(LonToUC)
-            Else
-                .LonResolved = Nothing
-                .LonSent = Nothing
-                .LonToUc = Nothing
-                .LonComment = Nothing
-            End If
-            If NovCheckBox.Checked Then
-                .EnforcementActions.Add(EnforcementActionType.NOV)
-                .NovResponseReceived = GetNullableDateFromDateTimePicker(NovResponseReceived)
-                .NovSent = GetNullableDateFromDateTimePicker(NovSent)
-                .NovToPm = GetNullableDateFromDateTimePicker(NovToPM)
-                .NovToUc = GetNullableDateFromDateTimePicker(NovToUC)
-                .NfaSent = GetNullableDateFromDateTimePicker(NfaSent)
-                .NfaToPm = GetNullableDateFromDateTimePicker(NfaToPM)
-                .NfaToUc = GetNullableDateFromDateTimePicker(NfaToUC)
-                .NovComment = NovComments.Text
-            Else
-                .NovResponseReceived = Nothing
-                .NovSent = Nothing
-                .NovToPm = Nothing
-                .NovToUc = Nothing
-                .NfaSent = Nothing
-                .NfaToPm = Nothing
-                .NfaToUc = Nothing
-                .NovComment = Nothing
-            End If
-            If COCheckBox.Checked Then
-                .EnforcementActions.Add(EnforcementActionType.CO)
-                .CoExecuted = GetNullableDateFromDateTimePicker(COExecuted)
-                .CoProposed = GetNullableDateFromDateTimePicker(COProposed)
-                .CoReceivedFromCompany = GetNullableDateFromDateTimePicker(COReceivedfromCompany)
-                .CoReceivedFromDirector = GetNullableDateFromDateTimePicker(COReceivedFromDirector)
-                .CoResolved = GetNullableDateFromDateTimePicker(COResolved)
-                .CoToPm = GetNullableDateFromDateTimePicker(COToPM)
-                .CoToUc = GetNullableDateFromDateTimePicker(COToUC)
-                .CoComment = COComments.Text
-                .CoNumber = If(CoNumber.Value = 0, "", "EPD-AQC-" & CoNumber.Value.ToString)
-                .CoPenaltyAmount = ConvertCurrencyStringToDecimal(COPenaltyAmount.Text)
-                .CoPenaltyAmountComment = COPenaltyComments.Text
-            Else
-                .CoExecuted = Nothing
-                .CoProposed = Nothing
-                .CoReceivedFromCompany = Nothing
-                .CoReceivedFromDirector = Nothing
-                .CoResolved = Nothing
-                .CoToPm = Nothing
-                .CoToUc = Nothing
-                .CoComment = Nothing
-                .CoNumber = Nothing
-                .CoPenaltyAmount = Nothing
-                .CoPenaltyAmountComment = Nothing
-            End If
-            If AOCheckBox.Checked Then
-                .EnforcementActions.Add(EnforcementActionType.AO)
-                .AoAppealed = GetNullableDateFromDateTimePicker(AOAppealed)
-                .AoExecuted = GetNullableDateFromDateTimePicker(AOExecuted)
-                .AoResolved = GetNullableDateFromDateTimePicker(AOResolved)
-            Else
-                .AoAppealed = Nothing
-                .AoExecuted = Nothing
-                .AoResolved = Nothing
-            End If
-        End With
-    End Sub
-
-    Private Function GetNullableDateFromDateTimePicker(dtp As DateTimePicker) As Date?
-        If dtp.Checked Then
-            Return dtp.Value
-        Else
-            Return Nothing
-        End If
-    End Function
-
-    Private Function ReadProgramsFromForm() As List(Of String)
-        Dim pList As New List(Of String)
-        For Each item As ListViewItem In ProgramsListView.CheckedItems
-            pList.Add(item.SubItems(1).ToString)
-        Next
-        Return pList
-    End Function
-
-    Private Function ReadPollutantsFromForm() As List(Of String)
-        Dim pList As New List(Of String)
-        For Each item As ListViewItem In PollutantsListView.CheckedItems
-            pList.Add(item.SubItems(1).ToString)
-        Next
-        Return pList
-    End Function
-
-    Private Function DetermineEnforcementTypeCodeFromForm() As LegacyEnforcementType
-        Throw New NotImplementedException()
-    End Function
-
-    Private Function DetermineDayZeroFromForm() As Date?
-        Throw New NotImplementedException()
-    End Function
-
-    Private Function DetermineComplianceStatusFromForm() As ComplianceStatus
-        Throw New NotImplementedException()
     End Function
 
 #End Region

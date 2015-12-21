@@ -41,7 +41,7 @@ Namespace Apb.Facilities
         Public Property ApprovedByApb() As Boolean?
         Public Property DistrictOfficeLocation() As String
         Public Property DistrictResponsible() As Boolean?
-        Public Property ComplianceStatusList() As List(Of LegacyComplianceStatus)
+        Public Property ComplianceStatusList() As List(Of Apb.Sscp.LegacyComplianceStatus)
 
 #End Region
 
@@ -127,10 +127,16 @@ Namespace Apb.Facilities
             End Get
         End Property
 
-        Public ReadOnly Property ControllingComplianceStatus() As LegacyComplianceStatus
+        Public ReadOnly Property ControllingComplianceStatus() As Sscp.ComplianceStatus
+            Get
+                Return Sscp.EnforcementCase.ConvertLegacyComplianceStatus(ControllingLegacyComplianceStatus)
+            End Get
+        End Property
+
+        Public ReadOnly Property ControllingLegacyComplianceStatus() As Sscp.LegacyComplianceStatus
             Get
                 If ComplianceStatusList Is Nothing OrElse ComplianceStatusList.Count = 0 Then
-                    Return LegacyComplianceStatus.NoValue
+                    Return Sscp.LegacyComplianceStatus.NoValue
                 Else
                     Return ComplianceStatusList.Max
                 End If

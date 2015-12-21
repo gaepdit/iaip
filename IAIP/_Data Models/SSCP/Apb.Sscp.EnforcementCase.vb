@@ -1,11 +1,13 @@
 ﻿Imports System.Collections.Generic
+Imports System.ComponentModel
 Imports System.Linq
 Imports System.Text
-Imports Iaip.Apb.Facilities
 
 Namespace Apb.Sscp
 
     Public Class EnforcementCase
+
+#Region " Properties "
 
         Public Property EnforcementId As Integer ' STRENFORCEMENTNUMBER	NUMBER(10,0)
 
@@ -129,6 +131,40 @@ Namespace Apb.Sscp
         Public Property AfsCivilCourtActionNumber As Integer ' STRAFSCIVILCOURTNUMBER	VARCHAR2(5 BYTE)
         Public Property AfsAoResolvedActionNumber As Integer ' STRAFSAORESOLVEDNUMBER	VARCHAR2(5 BYTE)
 
+#End Region
+
+#Region " EPA IDs "
+
+        Public ReadOnly Property CaseFileId As String
+            Get
+                Return EpaIdFromActionNumber(AfsKeyActionNumber)
+            End Get
+        End Property
+        Public ReadOnly Property NovEnforcementActionId As String
+            Get
+                Return EpaIdFromActionNumber(AfsNovActionNumber)
+            End Get
+        End Property
+        Public ReadOnly Property CoEnforcementActionId As String
+            Get
+                Return EpaIdFromActionNumber(AfsCoActionNumber)
+            End Get
+        End Property
+        Public ReadOnly Property AoEnforcementActionId As String
+            Get
+                Return EpaIdFromActionNumber(AfsAoToAGActionNumber)
+            End Get
+        End Property
+
+        Private Function EpaIdFromActionNumber(afs As Integer) As String
+            If afs = 0 Then
+                Return ""
+            End If
+            Return GaStateCode & "000A0000" & GaStateNumericCode & AirsNumber.ShortString & afs.ToString("00000")
+        End Function
+
+#End Region
+
 #Region " Pollutants/Programs "
 
         Private Function ParseEnforcementPollutants(progPoll As String) As List(Of String)
@@ -166,13 +202,79 @@ Namespace Apb.Sscp
 
 #End Region
 
+#Region " Compliance status "
+
+        Public Shared Function ConvertLegacyComplianceStatus(legacyComplianceStatus As LegacyComplianceStatus) As ComplianceStatus
+            Select Case legacyComplianceStatus
+                Case LegacyComplianceStatus.NoValue,
+                     LegacyComplianceStatus.Status_P,
+                     LegacyComplianceStatus.Status_A,
+                     LegacyComplianceStatus.Status_0
+                    Return ComplianceStatus.Unknown
+                Case LegacyComplianceStatus.Status_B,
+                     LegacyComplianceStatus.Status_1,
+                     LegacyComplianceStatus.Status_6,
+                     LegacyComplianceStatus.Status_W,
+                     LegacyComplianceStatus.Status_8
+                    Return ComplianceStatus.InViolation
+                Case LegacyComplianceStatus.Status_5
+                    Return ComplianceStatus.MeetingComplianceSchedule
+                Case LegacyComplianceStatus.Status_2,
+                     LegacyComplianceStatus.Status_3,
+                     LegacyComplianceStatus.Status_4,
+                     LegacyComplianceStatus.Status_9,
+                     LegacyComplianceStatus.Status_C,
+                     LegacyComplianceStatus.Status_M
+                    Return ComplianceStatus.InCompliance
+            End Select
+        End Function
+
+        Public Shared Function ConvertComplianceStatus(complianceStatus As ComplianceStatus) As LegacyComplianceStatus
+            Select Case complianceStatus
+                Case ComplianceStatus.InCompliance
+                    Return LegacyComplianceStatus.Status_C
+                Case ComplianceStatus.InViolation
+                    Return LegacyComplianceStatus.Status_W
+                Case ComplianceStatus.MeetingComplianceSchedule
+                    Return LegacyComplianceStatus.Status_5
+                Case ComplianceStatus.Unknown
+                    Return LegacyComplianceStatus.Status_0
+            End Select
+        End Function
+
+#End Region
+
     End Class
 
+    ''' <summary>
+    ''' Compliance Status codes. These are applied on a per-pollutant, per-rule basis. 
+    ''' </summary>
+    ''' <remarks>Stored in database as a one-character string. The enum values are 
+    ''' significant as they are used to determine controlling compliance status.</remarks>
+    Public Enum LegacyComplianceStatus
+        <Description("In violation, procedural & emissions")> Status_B = 35
+        <Description("In violation, no schedule")> Status_1 = 34
+        <Description("In violation, not meeting schedule")> Status_6 = 33
+        <Description("In violation, procedural")> Status_W = 32
+        <Description("In violation, no applicable state reg")> Status_8 = 31
+        <Description("Unknown compliance status")> Status_P = 23
+        <Description("Unknown compliance status")> Status_A = 22
+        <Description("Unknown compliance status")> Status_0 = 21
+        <Description("Meeting compliance schedule")> Status_5 = 11
+        <Description("In compliance, source test")> Status_2 = 6
+        <Description("In compliance, inspection ")> Status_3 = 5
+        <Description("In compliance, certification ")> Status_4 = 4
+        <Description("In compliance, shut down")> Status_9 = 3
+        <Description("In compliance, procedural")> Status_C = 2
+        <Description("In compliance, CEMS data")> Status_M = 1
+        <Description("No value")> NoValue = 0
+    End Enum
+
     Public Enum ComplianceStatus
-        Unknown
-        InViolation
-        MeetingComplianceSchedule
-        InCompliance
+        <Description("Unknown compliance status")> Unknown = 0
+        <Description("In violation")> InViolation = 4
+        <Description("Subject to compliance schedule")> MeetingComplianceSchedule = 3
+        <Description("In compliance")> InCompliance = 1
     End Enum
 
     Public Enum EnforcementActionType
@@ -183,6 +285,7 @@ Namespace Apb.Sscp
     End Enum
 
     Public Enum LegacyEnforcementType
+        None
         LON
         NOV
         NOVCO
@@ -190,6 +293,7 @@ Namespace Apb.Sscp
         NOVAO
         HPV
         HPVCO
+        HPVCOP
         HPVAO
     End Enum
 

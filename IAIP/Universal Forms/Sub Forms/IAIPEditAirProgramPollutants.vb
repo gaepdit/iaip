@@ -494,7 +494,7 @@ Public Class IAIPEditAirProgramPollutants
                     If MultiForm IsNot Nothing AndAlso MultiForm.ContainsKey(SscpEnforcement.Name) Then
                         For Each kvp As KeyValuePair(Of Integer, BaseForm) In MultiForm(SscpEnforcement.Name)
                             Dim enf As SscpEnforcement = kvp.Value
-                            enf.LoadEnforcementPollutants2()
+                            'enf.LoadEnforcementPollutants2()
                         Next
                     End If
 

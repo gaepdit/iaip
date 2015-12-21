@@ -23,21 +23,21 @@ Partial Class SscpEnforcement
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle57 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle58 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle59 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle60 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SscpEnforcement))
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle61 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle62 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle63 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle64 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle65 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle66 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle67 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle68 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle69 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle70 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.SaveButton = New System.Windows.Forms.ToolStripButton()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
@@ -171,26 +171,38 @@ Partial Class SscpEnforcement
         Me.RefreshAuditHistory = New System.Windows.Forms.Button()
         Me.ExportAuditHistory = New System.Windows.Forms.Button()
         Me.EpaValuesTabPage = New System.Windows.Forms.TabPage()
-        Me.Label40 = New System.Windows.Forms.Label()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.AfsAoResolvedActionNumber = New System.Windows.Forms.TextBox()
-        Me.Label24 = New System.Windows.Forms.Label()
-        Me.Label39 = New System.Windows.Forms.Label()
-        Me.AfsNfaActionNumber = New System.Windows.Forms.TextBox()
-        Me.AfsAoCivilCourtActionNumber = New System.Windows.Forms.TextBox()
-        Me.AfsKeyActionNumber = New System.Windows.Forms.TextBox()
-        Me.Label38 = New System.Windows.Forms.Label()
-        Me.AfsNovActionNumber = New System.Windows.Forms.TextBox()
-        Me.AfsAoToAgActionNumber = New System.Windows.Forms.TextBox()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.Label37 = New System.Windows.Forms.Label()
-        Me.AfsCoProposedActionNumber = New System.Windows.Forms.TextBox()
-        Me.AfsStipulatedPenalitiesActionNumbers = New System.Windows.Forms.TextBox()
+        Me.SubmitToEpa2 = New System.Windows.Forms.Button()
+        Me.InfoDescLabel = New System.Windows.Forms.Label()
+        Me.Label58 = New System.Windows.Forms.Label()
+        Me.Label55 = New System.Windows.Forms.Label()
+        Me.Label54 = New System.Windows.Forms.Label()
+        Me.Label53 = New System.Windows.Forms.Label()
+        Me.Label52 = New System.Windows.Forms.Label()
+        Me.Label51 = New System.Windows.Forms.Label()
+        Me.Label50 = New System.Windows.Forms.Label()
         Me.Label23 = New System.Windows.Forms.Label()
-        Me.Label36 = New System.Windows.Forms.Label()
-        Me.AfsCoExecutedActionNumber = New System.Windows.Forms.TextBox()
+        Me.Label37 = New System.Windows.Forms.Label()
+        Me.Label59 = New System.Windows.Forms.Label()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.InfoOperLabel = New System.Windows.Forms.Label()
+        Me.AfsStipulatedPenalitiesActionNumbers = New System.Windows.Forms.TextBox()
+        Me.AfsAoResolvedActionNumber = New System.Windows.Forms.TextBox()
+        Me.AfsAoCivilCourtActionNumber = New System.Windows.Forms.TextBox()
+        Me.AfsAoToAgActionNumber = New System.Windows.Forms.TextBox()
         Me.AfsCoResolvedActionNumber = New System.Windows.Forms.TextBox()
-        Me.Label35 = New System.Windows.Forms.Label()
+        Me.AfsCoExecutedActionNumber = New System.Windows.Forms.TextBox()
+        Me.AfsCoProposedActionNumber = New System.Windows.Forms.TextBox()
+        Me.AfsNfaActionNumber = New System.Windows.Forms.TextBox()
+        Me.EpaDayZero = New System.Windows.Forms.TextBox()
+        Me.AfsNovActionNumber = New System.Windows.Forms.TextBox()
+        Me.EpaAoId = New System.Windows.Forms.TextBox()
+        Me.EpaCoId = New System.Windows.Forms.TextBox()
+        Me.EpaNovId = New System.Windows.Forms.TextBox()
+        Me.EpaCaseFileId = New System.Windows.Forms.TextBox()
+        Me.AfsKeyActionNumber = New System.Windows.Forms.TextBox()
+        Me.NotSubmittedToEpaLabel = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.StaffResponsible = New System.Windows.Forms.ComboBox()
         Me.ResolvedDate = New System.Windows.Forms.DateTimePicker()
@@ -620,9 +632,9 @@ Partial Class SscpEnforcement
         Me.SubmitToEpa.Enabled = False
         Me.SubmitToEpa.Location = New System.Drawing.Point(11, 346)
         Me.SubmitToEpa.Name = "SubmitToEpa"
-        Me.SubmitToEpa.Size = New System.Drawing.Size(158, 23)
+        Me.SubmitToEpa.Size = New System.Drawing.Size(149, 23)
         Me.SubmitToEpa.TabIndex = 345
-        Me.SubmitToEpa.Text = "Submit Enforcement to EPA"
+        Me.SubmitToEpa.Text = "Submit to EPA"
         Me.SubmitToEpa.Visible = False
         '
         'Label34
@@ -638,9 +650,9 @@ Partial Class SscpEnforcement
         '
         Me.SubmitToUC.Location = New System.Drawing.Point(11, 317)
         Me.SubmitToUC.Name = "SubmitToUC"
-        Me.SubmitToUC.Size = New System.Drawing.Size(158, 23)
+        Me.SubmitToUC.Size = New System.Drawing.Size(149, 23)
         Me.SubmitToUC.TabIndex = 346
-        Me.SubmitToUC.Text = "Submit Enforcement to UC"
+        Me.SubmitToUC.Text = "Submit to UC"
         Me.SubmitToUC.Visible = False
         '
         'PollutantsTabPage
@@ -649,7 +661,7 @@ Partial Class SscpEnforcement
         Me.PollutantsTabPage.Controls.Add(Me.Panel5)
         Me.PollutantsTabPage.Location = New System.Drawing.Point(4, 22)
         Me.PollutantsTabPage.Name = "PollutantsTabPage"
-        Me.PollutantsTabPage.Size = New System.Drawing.Size(656, 374)
+        Me.PollutantsTabPage.Size = New System.Drawing.Size(788, 374)
         Me.PollutantsTabPage.TabIndex = 5
         Me.PollutantsTabPage.Text = "Pollutants & Programs"
         Me.PollutantsTabPage.UseVisualStyleBackColor = True
@@ -669,8 +681,8 @@ Partial Class SscpEnforcement
         '
         Me.PollutantsProgramSplitContainer.Panel2.Controls.Add(Me.ProgramsListView)
         Me.PollutantsProgramSplitContainer.Panel2.Controls.Add(Me.Panel4)
-        Me.PollutantsProgramSplitContainer.Size = New System.Drawing.Size(656, 337)
-        Me.PollutantsProgramSplitContainer.SplitterDistance = 324
+        Me.PollutantsProgramSplitContainer.Size = New System.Drawing.Size(788, 337)
+        Me.PollutantsProgramSplitContainer.SplitterDistance = 389
         Me.PollutantsProgramSplitContainer.TabIndex = 374
         '
         'PollutantsListView
@@ -683,7 +695,7 @@ Partial Class SscpEnforcement
         Me.PollutantsListView.HoverSelection = True
         Me.PollutantsListView.Location = New System.Drawing.Point(0, 37)
         Me.PollutantsListView.Name = "PollutantsListView"
-        Me.PollutantsListView.Size = New System.Drawing.Size(324, 300)
+        Me.PollutantsListView.Size = New System.Drawing.Size(389, 300)
         Me.PollutantsListView.TabIndex = 371
         Me.PollutantsListView.UseCompatibleStateImageBehavior = False
         Me.PollutantsListView.View = System.Windows.Forms.View.List
@@ -694,7 +706,7 @@ Partial Class SscpEnforcement
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel3.Location = New System.Drawing.Point(0, 0)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(324, 37)
+        Me.Panel3.Size = New System.Drawing.Size(389, 37)
         Me.Panel3.TabIndex = 372
         '
         'Label2
@@ -716,7 +728,7 @@ Partial Class SscpEnforcement
         Me.ProgramsListView.HoverSelection = True
         Me.ProgramsListView.Location = New System.Drawing.Point(0, 37)
         Me.ProgramsListView.Name = "ProgramsListView"
-        Me.ProgramsListView.Size = New System.Drawing.Size(328, 300)
+        Me.ProgramsListView.Size = New System.Drawing.Size(395, 300)
         Me.ProgramsListView.TabIndex = 371
         Me.ProgramsListView.UseCompatibleStateImageBehavior = False
         Me.ProgramsListView.View = System.Windows.Forms.View.List
@@ -727,7 +739,7 @@ Partial Class SscpEnforcement
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel4.Location = New System.Drawing.Point(0, 0)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(328, 37)
+        Me.Panel4.Size = New System.Drawing.Size(395, 37)
         Me.Panel4.TabIndex = 373
         '
         'Label6
@@ -746,7 +758,7 @@ Partial Class SscpEnforcement
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.Panel5.Location = New System.Drawing.Point(0, 337)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(656, 37)
+        Me.Panel5.Size = New System.Drawing.Size(788, 37)
         Me.Panel5.TabIndex = 373
         '
         'EditAirProgramPollutantsButton
@@ -891,7 +903,7 @@ Partial Class SscpEnforcement
         Me.NovTabPage.Controls.Add(Me.Label9)
         Me.NovTabPage.Location = New System.Drawing.Point(4, 22)
         Me.NovTabPage.Name = "NovTabPage"
-        Me.NovTabPage.Size = New System.Drawing.Size(903, 374)
+        Me.NovTabPage.Size = New System.Drawing.Size(788, 374)
         Me.NovTabPage.TabIndex = 2
         Me.NovTabPage.Text = "Notice of Violation"
         Me.NovTabPage.UseVisualStyleBackColor = True
@@ -1093,7 +1105,7 @@ Partial Class SscpEnforcement
         Me.COTabPage.Controls.Add(Me.Label47)
         Me.COTabPage.Location = New System.Drawing.Point(4, 22)
         Me.COTabPage.Name = "COTabPage"
-        Me.COTabPage.Size = New System.Drawing.Size(903, 374)
+        Me.COTabPage.Size = New System.Drawing.Size(788, 374)
         Me.COTabPage.TabIndex = 3
         Me.COTabPage.Text = "Consent Order"
         Me.COTabPage.UseVisualStyleBackColor = True
@@ -1131,12 +1143,12 @@ Partial Class SscpEnforcement
         Me.COComments.AcceptsReturn = True
         Me.COComments.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.COComments.Location = New System.Drawing.Point(11, 295)
+        Me.COComments.Location = New System.Drawing.Point(88, 276)
         Me.COComments.MaxLength = 4000
         Me.COComments.Multiline = True
         Me.COComments.Name = "COComments"
         Me.COComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.COComments.Size = New System.Drawing.Size(334, 80)
+        Me.COComments.Size = New System.Drawing.Size(334, 71)
         Me.COComments.TabIndex = 394
         '
         'COPenaltyAmount
@@ -1208,42 +1220,42 @@ Partial Class SscpEnforcement
         '
         Me.StipulatedPenalties.AllowUserToAddRows = False
         Me.StipulatedPenalties.AllowUserToDeleteRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.StipulatedPenalties.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle57.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.StipulatedPenalties.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle57
         Me.StipulatedPenalties.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.StipulatedPenalties.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.StipulatedPenalties.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle58.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle58.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle58.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle58.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle58.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle58.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle58.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.StipulatedPenalties.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle58
         Me.StipulatedPenalties.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.StipulatedPenalties.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle59.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle59.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle59.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle59.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle59.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle59.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle59.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.StipulatedPenalties.DefaultCellStyle = DataGridViewCellStyle59
         Me.StipulatedPenalties.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.StipulatedPenalties.Location = New System.Drawing.Point(9, 100)
         Me.StipulatedPenalties.MultiSelect = False
         Me.StipulatedPenalties.Name = "StipulatedPenalties"
         Me.StipulatedPenalties.ReadOnly = True
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.StipulatedPenalties.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle60.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle60.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle60.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle60.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle60.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle60.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle60.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.StipulatedPenalties.RowHeadersDefaultCellStyle = DataGridViewCellStyle60
         Me.StipulatedPenalties.RowHeadersVisible = False
         Me.StipulatedPenalties.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.StipulatedPenalties.Size = New System.Drawing.Size(358, 157)
@@ -1495,7 +1507,7 @@ Partial Class SscpEnforcement
         Me.AOTabPage.Controls.Add(Me.Label41)
         Me.AOTabPage.Location = New System.Drawing.Point(4, 22)
         Me.AOTabPage.Name = "AOTabPage"
-        Me.AOTabPage.Size = New System.Drawing.Size(903, 374)
+        Me.AOTabPage.Size = New System.Drawing.Size(788, 374)
         Me.AOTabPage.TabIndex = 4
         Me.AOTabPage.Text = "Administrative Order"
         Me.AOTabPage.UseVisualStyleBackColor = True
@@ -1594,7 +1606,7 @@ Partial Class SscpEnforcement
         Me.DocumentsTabPage.Location = New System.Drawing.Point(4, 22)
         Me.DocumentsTabPage.Name = "DocumentsTabPage"
         Me.DocumentsTabPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.DocumentsTabPage.Size = New System.Drawing.Size(903, 374)
+        Me.DocumentsTabPage.Size = New System.Drawing.Size(788, 374)
         Me.DocumentsTabPage.TabIndex = 7
         Me.DocumentsTabPage.Text = "Documents"
         Me.DocumentsTabPage.UseVisualStyleBackColor = True
@@ -1700,37 +1712,37 @@ Partial Class SscpEnforcement
         Me.DocumentList.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DocumentList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle61.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle61.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle61.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle61.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle61.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle61.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle61.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DocumentList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle61
         Me.DocumentList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DocumentList.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle62.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle62.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle62.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle62.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle62.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle62.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle62.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DocumentList.DefaultCellStyle = DataGridViewCellStyle62
         Me.DocumentList.Enabled = False
         Me.DocumentList.Location = New System.Drawing.Point(14, 32)
         Me.DocumentList.MinimumSize = New System.Drawing.Size(300, 55)
         Me.DocumentList.MultiSelect = False
         Me.DocumentList.Name = "DocumentList"
         Me.DocumentList.ReadOnly = True
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DocumentList.RowHeadersDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle63.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle63.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle63.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle63.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle63.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle63.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle63.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DocumentList.RowHeadersDefaultCellStyle = DataGridViewCellStyle63
         Me.DocumentList.RowHeadersVisible = False
         Me.DocumentList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DocumentList.Size = New System.Drawing.Size(582, 241)
@@ -1743,7 +1755,7 @@ Partial Class SscpEnforcement
         Me.AuditHistoryTabPage.Controls.Add(Me.Panel12)
         Me.AuditHistoryTabPage.Location = New System.Drawing.Point(4, 22)
         Me.AuditHistoryTabPage.Name = "AuditHistoryTabPage"
-        Me.AuditHistoryTabPage.Size = New System.Drawing.Size(903, 374)
+        Me.AuditHistoryTabPage.Size = New System.Drawing.Size(788, 374)
         Me.AuditHistoryTabPage.TabIndex = 6
         Me.AuditHistoryTabPage.Text = "Audit History"
         Me.AuditHistoryTabPage.UseVisualStyleBackColor = True
@@ -1753,42 +1765,42 @@ Partial Class SscpEnforcement
         Me.AuditHistory.AllowUserToAddRows = False
         Me.AuditHistory.AllowUserToDeleteRows = False
         Me.AuditHistory.AllowUserToOrderColumns = True
-        DataGridViewCellStyle8.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.AuditHistory.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle64.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.AuditHistory.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle64
         Me.AuditHistory.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.AuditHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle65.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle65.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle65.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle65.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle65.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle65.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle65.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.AuditHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle65
         Me.AuditHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.AuditHistory.DefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle66.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle66.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle66.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle66.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle66.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle66.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle66.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.AuditHistory.DefaultCellStyle = DataGridViewCellStyle66
         Me.AuditHistory.Dock = System.Windows.Forms.DockStyle.Fill
         Me.AuditHistory.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.AuditHistory.Location = New System.Drawing.Point(0, 66)
         Me.AuditHistory.Name = "AuditHistory"
         Me.AuditHistory.ReadOnly = True
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.AuditHistory.RowHeadersDefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle67.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle67.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle67.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle67.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle67.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle67.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle67.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.AuditHistory.RowHeadersDefaultCellStyle = DataGridViewCellStyle67
         Me.AuditHistory.RowHeadersVisible = False
         Me.AuditHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
-        Me.AuditHistory.Size = New System.Drawing.Size(903, 308)
+        Me.AuditHistory.Size = New System.Drawing.Size(788, 308)
         Me.AuditHistory.TabIndex = 1
         '
         'Panel12
@@ -1798,7 +1810,7 @@ Partial Class SscpEnforcement
         Me.Panel12.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel12.Location = New System.Drawing.Point(0, 0)
         Me.Panel12.Name = "Panel12"
-        Me.Panel12.Size = New System.Drawing.Size(903, 66)
+        Me.Panel12.Size = New System.Drawing.Size(788, 66)
         Me.Panel12.TabIndex = 0
         '
         'RefreshAuditHistory
@@ -1825,205 +1837,409 @@ Partial Class SscpEnforcement
         '
         'EpaValuesTabPage
         '
-        Me.EpaValuesTabPage.Controls.Add(Me.Label40)
-        Me.EpaValuesTabPage.Controls.Add(Me.Label10)
-        Me.EpaValuesTabPage.Controls.Add(Me.AfsAoResolvedActionNumber)
-        Me.EpaValuesTabPage.Controls.Add(Me.Label24)
-        Me.EpaValuesTabPage.Controls.Add(Me.Label39)
-        Me.EpaValuesTabPage.Controls.Add(Me.AfsNfaActionNumber)
-        Me.EpaValuesTabPage.Controls.Add(Me.AfsAoCivilCourtActionNumber)
-        Me.EpaValuesTabPage.Controls.Add(Me.AfsKeyActionNumber)
-        Me.EpaValuesTabPage.Controls.Add(Me.Label38)
-        Me.EpaValuesTabPage.Controls.Add(Me.AfsNovActionNumber)
-        Me.EpaValuesTabPage.Controls.Add(Me.AfsAoToAgActionNumber)
-        Me.EpaValuesTabPage.Controls.Add(Me.Label11)
-        Me.EpaValuesTabPage.Controls.Add(Me.Label37)
-        Me.EpaValuesTabPage.Controls.Add(Me.AfsCoProposedActionNumber)
-        Me.EpaValuesTabPage.Controls.Add(Me.AfsStipulatedPenalitiesActionNumbers)
+        Me.EpaValuesTabPage.Controls.Add(Me.SubmitToEpa2)
+        Me.EpaValuesTabPage.Controls.Add(Me.InfoDescLabel)
+        Me.EpaValuesTabPage.Controls.Add(Me.Label58)
+        Me.EpaValuesTabPage.Controls.Add(Me.Label55)
+        Me.EpaValuesTabPage.Controls.Add(Me.Label54)
+        Me.EpaValuesTabPage.Controls.Add(Me.Label53)
+        Me.EpaValuesTabPage.Controls.Add(Me.Label52)
+        Me.EpaValuesTabPage.Controls.Add(Me.Label51)
+        Me.EpaValuesTabPage.Controls.Add(Me.Label50)
         Me.EpaValuesTabPage.Controls.Add(Me.Label23)
-        Me.EpaValuesTabPage.Controls.Add(Me.Label36)
-        Me.EpaValuesTabPage.Controls.Add(Me.AfsCoExecutedActionNumber)
+        Me.EpaValuesTabPage.Controls.Add(Me.Label37)
+        Me.EpaValuesTabPage.Controls.Add(Me.Label59)
+        Me.EpaValuesTabPage.Controls.Add(Me.Label17)
+        Me.EpaValuesTabPage.Controls.Add(Me.Label11)
+        Me.EpaValuesTabPage.Controls.Add(Me.Label10)
+        Me.EpaValuesTabPage.Controls.Add(Me.InfoOperLabel)
+        Me.EpaValuesTabPage.Controls.Add(Me.AfsStipulatedPenalitiesActionNumbers)
+        Me.EpaValuesTabPage.Controls.Add(Me.AfsAoResolvedActionNumber)
+        Me.EpaValuesTabPage.Controls.Add(Me.AfsAoCivilCourtActionNumber)
+        Me.EpaValuesTabPage.Controls.Add(Me.AfsAoToAgActionNumber)
         Me.EpaValuesTabPage.Controls.Add(Me.AfsCoResolvedActionNumber)
-        Me.EpaValuesTabPage.Controls.Add(Me.Label35)
+        Me.EpaValuesTabPage.Controls.Add(Me.AfsCoExecutedActionNumber)
+        Me.EpaValuesTabPage.Controls.Add(Me.AfsCoProposedActionNumber)
+        Me.EpaValuesTabPage.Controls.Add(Me.AfsNfaActionNumber)
+        Me.EpaValuesTabPage.Controls.Add(Me.EpaDayZero)
+        Me.EpaValuesTabPage.Controls.Add(Me.AfsNovActionNumber)
+        Me.EpaValuesTabPage.Controls.Add(Me.EpaAoId)
+        Me.EpaValuesTabPage.Controls.Add(Me.EpaCoId)
+        Me.EpaValuesTabPage.Controls.Add(Me.EpaNovId)
+        Me.EpaValuesTabPage.Controls.Add(Me.EpaCaseFileId)
+        Me.EpaValuesTabPage.Controls.Add(Me.AfsKeyActionNumber)
+        Me.EpaValuesTabPage.Controls.Add(Me.NotSubmittedToEpaLabel)
         Me.EpaValuesTabPage.Location = New System.Drawing.Point(4, 22)
         Me.EpaValuesTabPage.Name = "EpaValuesTabPage"
         Me.EpaValuesTabPage.Padding = New System.Windows.Forms.Padding(3)
-        Me.EpaValuesTabPage.Size = New System.Drawing.Size(903, 374)
+        Me.EpaValuesTabPage.Size = New System.Drawing.Size(788, 374)
         Me.EpaValuesTabPage.TabIndex = 8
         Me.EpaValuesTabPage.Text = "EPA Values"
         Me.EpaValuesTabPage.UseVisualStyleBackColor = True
         '
-        'Label40
+        'SubmitToEpa2
         '
-        Me.Label40.AutoSize = True
-        Me.Label40.Location = New System.Drawing.Point(34, 322)
-        Me.Label40.Name = "Label40"
-        Me.Label40.Size = New System.Drawing.Size(143, 13)
-        Me.Label40.TabIndex = 352
-        Me.Label40.Text = "AO Resolved Action Number"
+        Me.SubmitToEpa2.Enabled = False
+        Me.SubmitToEpa2.Location = New System.Drawing.Point(313, 47)
+        Me.SubmitToEpa2.Name = "SubmitToEpa2"
+        Me.SubmitToEpa2.Size = New System.Drawing.Size(124, 23)
+        Me.SubmitToEpa2.TabIndex = 359
+        Me.SubmitToEpa2.Text = "Submit to EPA"
+        Me.SubmitToEpa2.Visible = False
         '
-        'Label10
+        'InfoDescLabel
         '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(79, 35)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(98, 13)
-        Me.Label10.TabIndex = 334
-        Me.Label10.Text = "Key Action Number"
+        Me.InfoDescLabel.AutoSize = True
+        Me.InfoDescLabel.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.InfoDescLabel.Location = New System.Drawing.Point(310, 161)
+        Me.InfoDescLabel.Name = "InfoDescLabel"
+        Me.InfoDescLabel.Size = New System.Drawing.Size(100, 13)
+        Me.InfoDescLabel.TabIndex = 358
+        Me.InfoDescLabel.Text = "Stipulated Penalties"
         '
-        'AfsAoResolvedActionNumber
+        'Label58
         '
-        Me.AfsAoResolvedActionNumber.Location = New System.Drawing.Point(183, 319)
-        Me.AfsAoResolvedActionNumber.Name = "AfsAoResolvedActionNumber"
-        Me.AfsAoResolvedActionNumber.ReadOnly = True
-        Me.AfsAoResolvedActionNumber.Size = New System.Drawing.Size(40, 20)
-        Me.AfsAoResolvedActionNumber.TabIndex = 351
+        Me.Label58.AutoSize = True
+        Me.Label58.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label58.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.Label58.Location = New System.Drawing.Point(78, 294)
+        Me.Label58.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label58.Name = "Label58"
+        Me.Label58.Size = New System.Drawing.Size(70, 13)
+        Me.Label58.TabIndex = 357
+        Me.Label58.Text = "AO Resolved"
         '
-        'Label24
+        'Label55
         '
-        Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(76, 113)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(101, 13)
-        Me.Label24.TabIndex = 340
-        Me.Label24.Text = "NFA Action Number"
+        Me.Label55.AutoSize = True
+        Me.Label55.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label55.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.Label55.Location = New System.Drawing.Point(64, 275)
+        Me.Label55.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label55.Name = "Label55"
+        Me.Label55.Size = New System.Drawing.Size(84, 13)
+        Me.Label55.TabIndex = 357
+        Me.Label55.Text = "AO to Civil Court"
         '
-        'Label39
+        'Label54
         '
-        Me.Label39.AutoSize = True
-        Me.Label39.Location = New System.Drawing.Point(50, 270)
-        Me.Label39.Name = "Label39"
-        Me.Label39.Size = New System.Drawing.Size(127, 13)
-        Me.Label39.TabIndex = 350
-        Me.Label39.Text = "Civil Court Action Number"
+        Me.Label54.AutoSize = True
+        Me.Label54.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label54.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.Label54.Location = New System.Drawing.Point(78, 256)
+        Me.Label54.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label54.Name = "Label54"
+        Me.Label54.Size = New System.Drawing.Size(70, 13)
+        Me.Label54.TabIndex = 357
+        Me.Label54.Text = "AO Executed"
         '
-        'AfsNfaActionNumber
+        'Label53
         '
-        Me.AfsNfaActionNumber.Location = New System.Drawing.Point(183, 110)
-        Me.AfsNfaActionNumber.Name = "AfsNfaActionNumber"
-        Me.AfsNfaActionNumber.ReadOnly = True
-        Me.AfsNfaActionNumber.Size = New System.Drawing.Size(40, 20)
-        Me.AfsNfaActionNumber.TabIndex = 339
+        Me.Label53.AutoSize = True
+        Me.Label53.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label53.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.Label53.Location = New System.Drawing.Point(78, 199)
+        Me.Label53.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label53.Name = "Label53"
+        Me.Label53.Size = New System.Drawing.Size(70, 13)
+        Me.Label53.TabIndex = 357
+        Me.Label53.Text = "CO Resolved"
         '
-        'AfsAoCivilCourtActionNumber
+        'Label52
         '
-        Me.AfsAoCivilCourtActionNumber.Location = New System.Drawing.Point(183, 267)
-        Me.AfsAoCivilCourtActionNumber.Name = "AfsAoCivilCourtActionNumber"
-        Me.AfsAoCivilCourtActionNumber.ReadOnly = True
-        Me.AfsAoCivilCourtActionNumber.Size = New System.Drawing.Size(40, 20)
-        Me.AfsAoCivilCourtActionNumber.TabIndex = 349
+        Me.Label52.AutoSize = True
+        Me.Label52.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label52.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.Label52.Location = New System.Drawing.Point(78, 180)
+        Me.Label52.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label52.Name = "Label52"
+        Me.Label52.Size = New System.Drawing.Size(70, 13)
+        Me.Label52.TabIndex = 357
+        Me.Label52.Text = "CO Executed"
         '
-        'AfsKeyActionNumber
+        'Label51
         '
-        Me.AfsKeyActionNumber.Location = New System.Drawing.Point(183, 32)
-        Me.AfsKeyActionNumber.Name = "AfsKeyActionNumber"
-        Me.AfsKeyActionNumber.ReadOnly = True
-        Me.AfsKeyActionNumber.Size = New System.Drawing.Size(40, 20)
-        Me.AfsKeyActionNumber.TabIndex = 333
+        Me.Label51.AutoSize = True
+        Me.Label51.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label51.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.Label51.Location = New System.Drawing.Point(78, 161)
+        Me.Label51.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label51.Name = "Label51"
+        Me.Label51.Size = New System.Drawing.Size(70, 13)
+        Me.Label51.TabIndex = 357
+        Me.Label51.Text = "CO Proposed"
         '
-        'Label38
+        'Label50
         '
-        Me.Label38.AutoSize = True
-        Me.Label38.Location = New System.Drawing.Point(26, 296)
-        Me.Label38.Name = "Label38"
-        Me.Label38.Size = New System.Drawing.Size(151, 13)
-        Me.Label38.TabIndex = 348
-        Me.Label38.Text = "Referred to AG Action Number"
-        '
-        'AfsNovActionNumber
-        '
-        Me.AfsNovActionNumber.Location = New System.Drawing.Point(183, 84)
-        Me.AfsNovActionNumber.Name = "AfsNovActionNumber"
-        Me.AfsNovActionNumber.ReadOnly = True
-        Me.AfsNovActionNumber.Size = New System.Drawing.Size(40, 20)
-        Me.AfsNovActionNumber.TabIndex = 335
-        '
-        'AfsAoToAgActionNumber
-        '
-        Me.AfsAoToAgActionNumber.Location = New System.Drawing.Point(183, 293)
-        Me.AfsAoToAgActionNumber.Name = "AfsAoToAgActionNumber"
-        Me.AfsAoToAgActionNumber.ReadOnly = True
-        Me.AfsAoToAgActionNumber.Size = New System.Drawing.Size(40, 20)
-        Me.AfsAoToAgActionNumber.TabIndex = 347
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(74, 87)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(103, 13)
-        Me.Label11.TabIndex = 336
-        Me.Label11.Text = "NOV Action Number"
-        '
-        'Label37
-        '
-        Me.Label37.AutoSize = True
-        Me.Label37.Location = New System.Drawing.Point(240, 165)
-        Me.Label37.Name = "Label37"
-        Me.Label37.Size = New System.Drawing.Size(178, 13)
-        Me.Label37.TabIndex = 346
-        Me.Label37.Text = "Stipulated Penalties Action Numbers"
-        '
-        'AfsCoProposedActionNumber
-        '
-        Me.AfsCoProposedActionNumber.Location = New System.Drawing.Point(183, 163)
-        Me.AfsCoProposedActionNumber.Name = "AfsCoProposedActionNumber"
-        Me.AfsCoProposedActionNumber.ReadOnly = True
-        Me.AfsCoProposedActionNumber.Size = New System.Drawing.Size(40, 20)
-        Me.AfsCoProposedActionNumber.TabIndex = 337
-        '
-        'AfsStipulatedPenalitiesActionNumbers
-        '
-        Me.AfsStipulatedPenalitiesActionNumbers.Location = New System.Drawing.Point(243, 189)
-        Me.AfsStipulatedPenalitiesActionNumbers.Multiline = True
-        Me.AfsStipulatedPenalitiesActionNumbers.Name = "AfsStipulatedPenalitiesActionNumbers"
-        Me.AfsStipulatedPenalitiesActionNumbers.ReadOnly = True
-        Me.AfsStipulatedPenalitiesActionNumbers.Size = New System.Drawing.Size(175, 46)
-        Me.AfsStipulatedPenalitiesActionNumbers.TabIndex = 345
-        Me.AfsStipulatedPenalitiesActionNumbers.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.Label50.AutoSize = True
+        Me.Label50.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label50.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.Label50.Location = New System.Drawing.Point(95, 104)
+        Me.Label50.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label50.Name = "Label50"
+        Me.Label50.Size = New System.Drawing.Size(53, 13)
+        Me.Label50.TabIndex = 357
+        Me.Label50.Text = "NFA Sent"
         '
         'Label23
         '
         Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(31, 165)
+        Me.Label23.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label23.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.Label23.Location = New System.Drawing.Point(310, 85)
+        Me.Label23.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(143, 13)
-        Me.Label23.TabIndex = 338
-        Me.Label23.Text = "CO Proposed Action Number"
+        Me.Label23.Size = New System.Drawing.Size(51, 13)
+        Me.Label23.TabIndex = 357
+        Me.Label23.Text = "Day Zero"
         '
-        'Label36
+        'Label37
         '
-        Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(34, 218)
-        Me.Label36.Name = "Label36"
-        Me.Label36.Size = New System.Drawing.Size(143, 13)
-        Me.Label36.TabIndex = 344
-        Me.Label36.Text = "CO Resolved Action Number"
+        Me.Label37.AutoSize = True
+        Me.Label37.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label37.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.Label37.Location = New System.Drawing.Point(93, 85)
+        Me.Label37.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label37.Name = "Label37"
+        Me.Label37.Size = New System.Drawing.Size(55, 13)
+        Me.Label37.TabIndex = 357
+        Me.Label37.Text = "NOV Sent"
         '
-        'AfsCoExecutedActionNumber
+        'Label59
         '
-        Me.AfsCoExecutedActionNumber.Location = New System.Drawing.Point(183, 189)
-        Me.AfsCoExecutedActionNumber.Name = "AfsCoExecutedActionNumber"
-        Me.AfsCoExecutedActionNumber.ReadOnly = True
-        Me.AfsCoExecutedActionNumber.Size = New System.Drawing.Size(40, 20)
-        Me.AfsCoExecutedActionNumber.TabIndex = 341
+        Me.Label59.AutoSize = True
+        Me.Label59.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label59.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.Label59.Location = New System.Drawing.Point(16, 313)
+        Me.Label59.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label59.Name = "Label59"
+        Me.Label59.Size = New System.Drawing.Size(132, 13)
+        Me.Label59.TabIndex = 357
+        Me.Label59.Text = "AO Enforcement Action ID"
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label17.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.Label17.Location = New System.Drawing.Point(16, 218)
+        Me.Label17.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(132, 13)
+        Me.Label17.TabIndex = 357
+        Me.Label17.Text = "CO Enforcement Action ID"
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label11.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.Label11.Location = New System.Drawing.Point(8, 123)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(140, 13)
+        Me.Label11.TabIndex = 357
+        Me.Label11.Text = "NOV Enforcement Action ID"
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.Label10.Location = New System.Drawing.Point(84, 47)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(64, 13)
+        Me.Label10.TabIndex = 357
+        Me.Label10.Text = "Case File ID"
+        '
+        'InfoOperLabel
+        '
+        Me.InfoOperLabel.AutoSize = True
+        Me.InfoOperLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.InfoOperLabel.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.InfoOperLabel.Location = New System.Drawing.Point(50, 28)
+        Me.InfoOperLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.InfoOperLabel.Name = "InfoOperLabel"
+        Me.InfoOperLabel.Size = New System.Drawing.Size(98, 13)
+        Me.InfoOperLabel.TabIndex = 357
+        Me.InfoOperLabel.Text = "Key Action Number"
+        '
+        'AfsStipulatedPenalitiesActionNumbers
+        '
+        Me.AfsStipulatedPenalitiesActionNumbers.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.AfsStipulatedPenalitiesActionNumbers.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.AfsStipulatedPenalitiesActionNumbers.Location = New System.Drawing.Point(313, 180)
+        Me.AfsStipulatedPenalitiesActionNumbers.Multiline = True
+        Me.AfsStipulatedPenalitiesActionNumbers.Name = "AfsStipulatedPenalitiesActionNumbers"
+        Me.AfsStipulatedPenalitiesActionNumbers.ReadOnly = True
+        Me.AfsStipulatedPenalitiesActionNumbers.Size = New System.Drawing.Size(124, 89)
+        Me.AfsStipulatedPenalitiesActionNumbers.TabIndex = 354
+        Me.AfsStipulatedPenalitiesActionNumbers.Text = "N/A"
+        '
+        'AfsAoResolvedActionNumber
+        '
+        Me.AfsAoResolvedActionNumber.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.AfsAoResolvedActionNumber.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.AfsAoResolvedActionNumber.Location = New System.Drawing.Point(166, 294)
+        Me.AfsAoResolvedActionNumber.Name = "AfsAoResolvedActionNumber"
+        Me.AfsAoResolvedActionNumber.ReadOnly = True
+        Me.AfsAoResolvedActionNumber.Size = New System.Drawing.Size(138, 13)
+        Me.AfsAoResolvedActionNumber.TabIndex = 353
+        Me.AfsAoResolvedActionNumber.Text = "N/A"
+        '
+        'AfsAoCivilCourtActionNumber
+        '
+        Me.AfsAoCivilCourtActionNumber.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.AfsAoCivilCourtActionNumber.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.AfsAoCivilCourtActionNumber.Location = New System.Drawing.Point(166, 275)
+        Me.AfsAoCivilCourtActionNumber.Name = "AfsAoCivilCourtActionNumber"
+        Me.AfsAoCivilCourtActionNumber.ReadOnly = True
+        Me.AfsAoCivilCourtActionNumber.Size = New System.Drawing.Size(138, 13)
+        Me.AfsAoCivilCourtActionNumber.TabIndex = 353
+        Me.AfsAoCivilCourtActionNumber.Text = "N/A"
+        '
+        'AfsAoToAgActionNumber
+        '
+        Me.AfsAoToAgActionNumber.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.AfsAoToAgActionNumber.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.AfsAoToAgActionNumber.Location = New System.Drawing.Point(166, 256)
+        Me.AfsAoToAgActionNumber.Name = "AfsAoToAgActionNumber"
+        Me.AfsAoToAgActionNumber.ReadOnly = True
+        Me.AfsAoToAgActionNumber.Size = New System.Drawing.Size(138, 13)
+        Me.AfsAoToAgActionNumber.TabIndex = 353
+        Me.AfsAoToAgActionNumber.Text = "N/A"
         '
         'AfsCoResolvedActionNumber
         '
-        Me.AfsCoResolvedActionNumber.Location = New System.Drawing.Point(183, 215)
+        Me.AfsCoResolvedActionNumber.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.AfsCoResolvedActionNumber.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.AfsCoResolvedActionNumber.Location = New System.Drawing.Point(166, 199)
         Me.AfsCoResolvedActionNumber.Name = "AfsCoResolvedActionNumber"
         Me.AfsCoResolvedActionNumber.ReadOnly = True
-        Me.AfsCoResolvedActionNumber.Size = New System.Drawing.Size(40, 20)
-        Me.AfsCoResolvedActionNumber.TabIndex = 343
+        Me.AfsCoResolvedActionNumber.Size = New System.Drawing.Size(138, 13)
+        Me.AfsCoResolvedActionNumber.TabIndex = 353
+        Me.AfsCoResolvedActionNumber.Text = "N/A"
         '
-        'Label35
+        'AfsCoExecutedActionNumber
         '
-        Me.Label35.AutoSize = True
-        Me.Label35.Location = New System.Drawing.Point(34, 192)
-        Me.Label35.Name = "Label35"
-        Me.Label35.Size = New System.Drawing.Size(143, 13)
-        Me.Label35.TabIndex = 342
-        Me.Label35.Text = "CO Executed Action Number"
+        Me.AfsCoExecutedActionNumber.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.AfsCoExecutedActionNumber.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.AfsCoExecutedActionNumber.Location = New System.Drawing.Point(166, 180)
+        Me.AfsCoExecutedActionNumber.Name = "AfsCoExecutedActionNumber"
+        Me.AfsCoExecutedActionNumber.ReadOnly = True
+        Me.AfsCoExecutedActionNumber.Size = New System.Drawing.Size(138, 13)
+        Me.AfsCoExecutedActionNumber.TabIndex = 353
+        Me.AfsCoExecutedActionNumber.Text = "N/A"
+        '
+        'AfsCoProposedActionNumber
+        '
+        Me.AfsCoProposedActionNumber.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.AfsCoProposedActionNumber.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.AfsCoProposedActionNumber.Location = New System.Drawing.Point(166, 161)
+        Me.AfsCoProposedActionNumber.Name = "AfsCoProposedActionNumber"
+        Me.AfsCoProposedActionNumber.ReadOnly = True
+        Me.AfsCoProposedActionNumber.Size = New System.Drawing.Size(138, 13)
+        Me.AfsCoProposedActionNumber.TabIndex = 353
+        Me.AfsCoProposedActionNumber.Text = "N/A"
+        '
+        'AfsNfaActionNumber
+        '
+        Me.AfsNfaActionNumber.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.AfsNfaActionNumber.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.AfsNfaActionNumber.Location = New System.Drawing.Point(166, 104)
+        Me.AfsNfaActionNumber.Name = "AfsNfaActionNumber"
+        Me.AfsNfaActionNumber.ReadOnly = True
+        Me.AfsNfaActionNumber.Size = New System.Drawing.Size(138, 13)
+        Me.AfsNfaActionNumber.TabIndex = 353
+        Me.AfsNfaActionNumber.Text = "N/A"
+        '
+        'EpaDayZero
+        '
+        Me.EpaDayZero.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.EpaDayZero.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.EpaDayZero.Location = New System.Drawing.Point(366, 85)
+        Me.EpaDayZero.Name = "EpaDayZero"
+        Me.EpaDayZero.ReadOnly = True
+        Me.EpaDayZero.Size = New System.Drawing.Size(138, 13)
+        Me.EpaDayZero.TabIndex = 353
+        Me.EpaDayZero.Text = "N/A"
+        '
+        'AfsNovActionNumber
+        '
+        Me.AfsNovActionNumber.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.AfsNovActionNumber.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.AfsNovActionNumber.Location = New System.Drawing.Point(166, 85)
+        Me.AfsNovActionNumber.Name = "AfsNovActionNumber"
+        Me.AfsNovActionNumber.ReadOnly = True
+        Me.AfsNovActionNumber.Size = New System.Drawing.Size(138, 13)
+        Me.AfsNovActionNumber.TabIndex = 353
+        Me.AfsNovActionNumber.Text = "N/A"
+        '
+        'EpaAoId
+        '
+        Me.EpaAoId.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.EpaAoId.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.EpaAoId.Location = New System.Drawing.Point(166, 313)
+        Me.EpaAoId.Name = "EpaAoId"
+        Me.EpaAoId.ReadOnly = True
+        Me.EpaAoId.Size = New System.Drawing.Size(138, 13)
+        Me.EpaAoId.TabIndex = 353
+        Me.EpaAoId.Text = "N/A"
+        '
+        'EpaCoId
+        '
+        Me.EpaCoId.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.EpaCoId.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.EpaCoId.Location = New System.Drawing.Point(166, 218)
+        Me.EpaCoId.Name = "EpaCoId"
+        Me.EpaCoId.ReadOnly = True
+        Me.EpaCoId.Size = New System.Drawing.Size(138, 13)
+        Me.EpaCoId.TabIndex = 353
+        Me.EpaCoId.Text = "N/A"
+        '
+        'EpaNovId
+        '
+        Me.EpaNovId.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.EpaNovId.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.EpaNovId.Location = New System.Drawing.Point(166, 123)
+        Me.EpaNovId.Name = "EpaNovId"
+        Me.EpaNovId.ReadOnly = True
+        Me.EpaNovId.Size = New System.Drawing.Size(138, 13)
+        Me.EpaNovId.TabIndex = 353
+        Me.EpaNovId.Text = "N/A"
+        '
+        'EpaCaseFileId
+        '
+        Me.EpaCaseFileId.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.EpaCaseFileId.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.EpaCaseFileId.Location = New System.Drawing.Point(166, 47)
+        Me.EpaCaseFileId.Name = "EpaCaseFileId"
+        Me.EpaCaseFileId.ReadOnly = True
+        Me.EpaCaseFileId.Size = New System.Drawing.Size(138, 13)
+        Me.EpaCaseFileId.TabIndex = 353
+        Me.EpaCaseFileId.Text = "N/A"
+        '
+        'AfsKeyActionNumber
+        '
+        Me.AfsKeyActionNumber.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.AfsKeyActionNumber.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.AfsKeyActionNumber.Location = New System.Drawing.Point(166, 28)
+        Me.AfsKeyActionNumber.Name = "AfsKeyActionNumber"
+        Me.AfsKeyActionNumber.ReadOnly = True
+        Me.AfsKeyActionNumber.Size = New System.Drawing.Size(138, 13)
+        Me.AfsKeyActionNumber.TabIndex = 353
+        Me.AfsKeyActionNumber.Text = "N/A"
+        '
+        'NotSubmittedToEpaLabel
+        '
+        Me.NotSubmittedToEpaLabel.AutoSize = True
+        Me.NotSubmittedToEpaLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.NotSubmittedToEpaLabel.Location = New System.Drawing.Point(310, 26)
+        Me.NotSubmittedToEpaLabel.Name = "NotSubmittedToEpaLabel"
+        Me.NotSubmittedToEpaLabel.Size = New System.Drawing.Size(258, 17)
+        Me.NotSubmittedToEpaLabel.TabIndex = 12
+        Me.NotSubmittedToEpaLabel.Text = "Enforcement case not submitted to EPA"
         '
         'Label5
         '
@@ -2415,37 +2631,37 @@ Partial Class SscpEnforcement
         Me.DataGridView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle68.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle68.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle68.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle68.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle68.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle68.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle68.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle68
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle13.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle69.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle69.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle69.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle69.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle69.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle69.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle69.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle69
         Me.DataGridView1.Enabled = False
         Me.DataGridView1.Location = New System.Drawing.Point(276, 35)
         Me.DataGridView1.MinimumSize = New System.Drawing.Size(300, 55)
         Me.DataGridView1.MultiSelect = False
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
-        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle14.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle14
+        DataGridViewCellStyle70.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle70.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle70.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle70.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle70.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle70.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle70.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle70
         Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView1.Size = New System.Drawing.Size(572, 173)
@@ -2674,26 +2890,6 @@ Partial Class SscpEnforcement
     Friend WithEvents EnforcementIdDisplay As Label
     Friend WithEvents EpaValuesTabPage As TabPage
     Friend WithEvents ShowEpaActionNumbersMenuItem As ToolStripMenuItem
-    Friend WithEvents Label35 As Label
-    Friend WithEvents AfsCoResolvedActionNumber As TextBox
-    Friend WithEvents AfsCoExecutedActionNumber As TextBox
-    Friend WithEvents Label36 As Label
-    Friend WithEvents Label23 As Label
-    Friend WithEvents AfsStipulatedPenalitiesActionNumbers As TextBox
-    Friend WithEvents AfsCoProposedActionNumber As TextBox
-    Friend WithEvents Label37 As Label
-    Friend WithEvents Label11 As Label
-    Friend WithEvents AfsAoToAgActionNumber As TextBox
-    Friend WithEvents AfsNovActionNumber As TextBox
-    Friend WithEvents Label38 As Label
-    Friend WithEvents AfsKeyActionNumber As TextBox
-    Friend WithEvents AfsAoCivilCourtActionNumber As TextBox
-    Friend WithEvents AfsNfaActionNumber As TextBox
-    Friend WithEvents Label39 As Label
-    Friend WithEvents Label24 As Label
-    Friend WithEvents AfsAoResolvedActionNumber As TextBox
-    Friend WithEvents Label10 As Label
-    Friend WithEvents Label40 As Label
     Friend WithEvents DayZeroDisplay As Label
     Friend WithEvents EAGroupBox As GroupBox
     Friend WithEvents ComplianceStatusDisplay As Label
@@ -2717,4 +2913,36 @@ Partial Class SscpEnforcement
     Friend WithEvents DismissMessageButton As Button
     Friend WithEvents ClearErrorsMenuItem As ToolStripMenuItem
     Friend WithEvents ToolTip As ToolTip
+    Friend WithEvents NotSubmittedToEpaLabel As Label
+    Friend WithEvents AfsKeyActionNumber As TextBox
+    Friend WithEvents AfsStipulatedPenalitiesActionNumbers As TextBox
+    Friend WithEvents InfoDescLabel As System.Windows.Forms.Label
+    Friend WithEvents InfoOperLabel As System.Windows.Forms.Label
+    Friend WithEvents Label58 As Label
+    Friend WithEvents Label55 As Label
+    Friend WithEvents Label54 As Label
+    Friend WithEvents Label53 As Label
+    Friend WithEvents Label52 As Label
+    Friend WithEvents Label51 As Label
+    Friend WithEvents Label50 As Label
+    Friend WithEvents AfsAoResolvedActionNumber As TextBox
+    Friend WithEvents AfsAoCivilCourtActionNumber As TextBox
+    Friend WithEvents AfsAoToAgActionNumber As TextBox
+    Friend WithEvents AfsCoResolvedActionNumber As TextBox
+    Friend WithEvents AfsCoExecutedActionNumber As TextBox
+    Friend WithEvents AfsCoProposedActionNumber As TextBox
+    Friend WithEvents AfsNfaActionNumber As TextBox
+    Friend WithEvents AfsNovActionNumber As TextBox
+    Friend WithEvents EpaCaseFileId As TextBox
+    Friend WithEvents Label10 As Label
+    Friend WithEvents Label37 As Label
+    Friend WithEvents Label17 As Label
+    Friend WithEvents EpaCoId As TextBox
+    Friend WithEvents EpaNovId As TextBox
+    Friend WithEvents Label11 As Label
+    Friend WithEvents Label59 As Label
+    Friend WithEvents EpaAoId As TextBox
+    Friend WithEvents SubmitToEpa2 As Button
+    Friend WithEvents Label23 As Label
+    Friend WithEvents EpaDayZero As TextBox
 End Class

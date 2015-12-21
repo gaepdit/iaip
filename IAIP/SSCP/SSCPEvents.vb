@@ -764,7 +764,7 @@ Public Class SSCPEvents
             If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" And txtFacilityInformation.Text <> "" Then
                 OpenFormEnforcement(txtEnforcementNumber.Text)
             Else
-                Dim parameters As New Dictionary(Of String, String)
+                Dim parameters As New Dictionary(Of FormParameter, String)
                 parameters(FormParameter.AirsNumber) = txtAIRSNumber.Text
                 If txtTrackingNumber.Text <> "" Then parameters(FormParameter.TrackingNumber) = txtTrackingNumber.Text
                 OpenSingleForm(SSCPEnforcementSelector, parameters:=parameters, closeFirst:=True)

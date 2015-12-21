@@ -207,6 +207,7 @@ Public Class IAIPFacilitySummary
 
         'Description
         InfoDescDisplay.Text = ""
+        EpaDateDisplay.Text = ""
 
         'Status
         InfoClassDisplay.Text = ""
@@ -228,7 +229,7 @@ Public Class IAIPFacilitySummary
 
         'Data Dates
         FisDateDisplay.Text = ""
-        EpaDateDisplay.Text = ""
+        EpaFacilityIdDisplay.Text = ""
         DataUpdateDateDisplay.Text = ""
 
     End Sub
@@ -271,8 +272,8 @@ Public Class IAIPFacilitySummary
                 If .County IsNot Nothing Then
                     MapCountyLink.Enabled = True
                 End If
-                LatLonDisplay.Text = .Latitude.ToString & _
-                    ", " & _
+                LatLonDisplay.Text = .Latitude.ToString &
+                    ", " &
                     .Longitude.ToString
                 If .Latitude.HasValue AndAlso .Longitude.HasValue Then
                     MapLatLonLink.Enabled = True
@@ -302,6 +303,7 @@ Public Class IAIPFacilitySummary
             DistrictOfficeDisplay.Text = .DistrictOfficeLocation
             ResponsibleOfficeDisplay.Text = If(.DistrictResponsible, "District Office", "Air Branch")
 
+            EpaFacilityIdDisplay.Text = .AirsNumber.EpaFacilityIdentifier
         End With
 
         'Data Dates
@@ -317,16 +319,17 @@ Public Class IAIPFacilitySummary
 
     Private Sub ColorCodeComplianceStatusDisplay()
         With ComplianceStatusDisplay
-            If ThisFacility.ControllingComplianceStatus > 20 Then
-                .BackColor = Color.Pink
-                .BorderStyle = BorderStyle.FixedSingle
-            ElseIf ThisFacility.ControllingComplianceStatus > 10 Then
-                .BackColor = Color.LemonChiffon
-                .BorderStyle = BorderStyle.FixedSingle
-            Else
-                .BackColor = SystemColors.ControlLightLight
-                .BorderStyle = BorderStyle.None
-            End If
+            Select Case ThisFacility.ControllingComplianceStatus
+                Case Sscp.ComplianceStatus.InViolation
+                    .BackColor = Color.Pink
+                    .BorderStyle = BorderStyle.FixedSingle
+                Case Sscp.ComplianceStatus.MeetingComplianceSchedule Or Sscp.ComplianceStatus.Unknown
+                    .BackColor = Color.LemonChiffon
+                    .BorderStyle = BorderStyle.FixedSingle
+                Case Else
+                    .BackColor = SystemColors.ControlLightLight
+                    .BorderStyle = BorderStyle.None
+            End Select
         End With
     End Sub
 
@@ -350,7 +353,7 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub MapLatLonLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles MapLatLonLink.LinkClicked
-        OpenMapUrl(ThisFacility.FacilityLocation.Latitude.ToString & "," & _
+        OpenMapUrl(ThisFacility.FacilityLocation.Latitude.ToString & "," &
                    ThisFacility.FacilityLocation.Longitude.ToString, Me)
     End Sub
 
@@ -1432,8 +1435,8 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub TabControl_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) _
-    Handles ContactsTabControl.SelectedIndexChanged, TestingTabControl.SelectedIndexChanged, _
-    PermittingTabControl.SelectedIndexChanged, ComplianceTabControl.SelectedIndexChanged, _
+    Handles ContactsTabControl.SelectedIndexChanged, TestingTabControl.SelectedIndexChanged,
+    PermittingTabControl.SelectedIndexChanged, ComplianceTabControl.SelectedIndexChanged,
     FinancialTabControl.SelectedIndexChanged, EiTabControl.SelectedIndexChanged
 
         Dim tabcontrol As TabControl = CType(sender, TabControl)
@@ -1448,15 +1451,15 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub DisplayEmptyTextBoxAsNA(ByVal sender As System.Object, ByVal e As System.EventArgs) _
-    Handles InfoDescDisplay.TextChanged, LocationDisplay.TextChanged, LatLonDisplay.TextChanged, _
-        InfoDescDisplay.TextChanged, InfoClassDisplay.TextChanged, InfoOperStatusDisplay.TextChanged, _
-        CmsDisplay.TextChanged, ComplianceStatusDisplay.TextChanged, DistrictOfficeDisplay.TextChanged, _
-        ResponsibleOfficeDisplay.TextChanged, InfoStartupDateDisplay.TextChanged, _
-        InfoPermitRevocationDateDisplay.TextChanged, CreatedDateDisplay.TextChanged, FisDateDisplay.TextChanged, _
-        EpaDateDisplay.TextChanged, DataUpdateDateDisplay.TextChanged, _
-        HeaderClassDisplay.TextChanged, HeaderOperStatusDisplay.TextChanged, SicDisplay.TextChanged, _
-        NaicsDisplay.TextChanged, RmpIdDisplay.TextChanged, HeaderStartupDisplay.TextChanged, _
-        HeaderRevocationDateDisplay.TextChanged, HeaderDescDisplay.TextChanged
+    Handles InfoDescDisplay.TextChanged, LocationDisplay.TextChanged, LatLonDisplay.TextChanged,
+        InfoDescDisplay.TextChanged, InfoClassDisplay.TextChanged, InfoOperStatusDisplay.TextChanged,
+        CmsDisplay.TextChanged, ComplianceStatusDisplay.TextChanged, DistrictOfficeDisplay.TextChanged,
+        ResponsibleOfficeDisplay.TextChanged, InfoStartupDateDisplay.TextChanged,
+        InfoPermitRevocationDateDisplay.TextChanged, CreatedDateDisplay.TextChanged, FisDateDisplay.TextChanged,
+        EpaDateDisplay.TextChanged, DataUpdateDateDisplay.TextChanged,
+        HeaderClassDisplay.TextChanged, HeaderOperStatusDisplay.TextChanged, SicDisplay.TextChanged,
+        NaicsDisplay.TextChanged, RmpIdDisplay.TextChanged, HeaderStartupDisplay.TextChanged,
+        HeaderRevocationDateDisplay.TextChanged, HeaderDescDisplay.TextChanged, EpaFacilityIdDisplay.TextChanged
 
         Dim t As TextBox = CType(sender, TextBox)
         If t.Text = "" Then

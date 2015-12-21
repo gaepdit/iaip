@@ -15,24 +15,37 @@ Module subMain
 
 #Region " New public variables (by Doug) "
 
-    Friend Const APP_NAME As String = "IAIP"
-    Friend Const APP_FRIENDLY_NAME As String = "Integrated Air Information Platform"
-    Friend Const APP_ROOT_NAMESPACE As String = "Iaip"
-
+    ' URLs
     Friend DocumentationUrl As New Uri("https://sites.google.com/site/iaipdocs/")
     Friend SupportUrl As New Uri("http://dmu.georgiaair.org/iaip/")
     Friend ChangelogUrl As New Uri("http://dmu.georgiaair.org/iaip/changelog.html")
     Friend MapUrlFragment As New String("http://maps.google.com/maps?q=")
     Friend PermitSearchUrlFragment As New String("http://search.georgiaair.org/?AirsNumber=")
 
-    Friend DateFormat As String = "dd-MMM-yyyy"
-    Friend DateStringFormat As String = "{0:dd-MMM-yyyy}"
-    'Friend DateTimeFormat As String = "dd-MMM-yyyy h:mm tt"
-    'Friend DateTimeStringFormat As String = "{0:dd-MMM-yyyy h:mm tt}"
-
     Friend CurrentUser As IaipUser
     Friend AppFirstRun As Boolean = False
     Friend AppUpdated As Boolean = False
+
+#End Region
+
+#Region " Constants "
+
+    ' App
+    Friend Const APP_NAME As String = "IAIP"
+    Friend Const APP_FRIENDLY_NAME As String = "Integrated Air Information Platform"
+    Friend Const APP_ROOT_NAMESPACE As String = "Iaip"
+
+    ' String formats
+    Friend Const DateFormat As String = "dd-MMM-yyyy"
+    Friend Const DateStringFormat As String = "{0:dd-MMM-yyyy}"
+    'Friend Const DateTimeFormat As String = "dd-MMM-yyyy h:mm tt"
+    'Friend Const DateTimeStringFormat As String = "{0:dd-MMM-yyyy h:mm tt}"
+    Friend Const DisplayZeroAsBlank As String = "0;; "
+    Friend Const DisplayZeroAsNA As String = "0;;N/A"
+
+    Friend Const GaStateCode As String = "GA"
+    Friend Const GaStateNumericCode As String = "13"
+    Friend Const GaEpaRegionCode As String = "04"
 
 #End Region
 

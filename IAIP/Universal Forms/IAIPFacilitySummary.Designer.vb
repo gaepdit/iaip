@@ -246,6 +246,8 @@ Partial Class IAIPFacilitySummary
         Me.UpdateEpaMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EpaFacilityIdDisplay = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.NavigationPanel.SuspendLayout()
         Me.FSMainTabControl.SuspendLayout()
         Me.FSInfo.SuspendLayout()
@@ -425,10 +427,12 @@ Partial Class IAIPFacilitySummary
         Me.FSInfo.Controls.Add(Me.FisDateLabel)
         Me.FSInfo.Controls.Add(Me.InfoStartupDateLabel)
         Me.FSInfo.Controls.Add(Me.DataUpdateDateLabel)
+        Me.FSInfo.Controls.Add(Me.Label1)
         Me.FSInfo.Controls.Add(Me.EpaDateLabel)
         Me.FSInfo.Controls.Add(Me.InfoPermitRevocationDateLabel)
         Me.FSInfo.Controls.Add(Me.ResponsibleOfficeDisplay)
         Me.FSInfo.Controls.Add(Me.DataUpdateDateDisplay)
+        Me.FSInfo.Controls.Add(Me.EpaFacilityIdDisplay)
         Me.FSInfo.Controls.Add(Me.EpaDateDisplay)
         Me.FSInfo.Controls.Add(Me.InfoPermitRevocationDateDisplay)
         Me.FSInfo.Controls.Add(Me.CreatedDateDisplay)
@@ -2758,6 +2762,29 @@ Partial Class IAIPFacilitySummary
         Me.HelpMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.HelpMenuItem.Text = "Online &Help"
         '
+        'EpaFacilityIdDisplay
+        '
+        Me.EpaFacilityIdDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.EpaFacilityIdDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.EpaFacilityIdDisplay.Location = New System.Drawing.Point(468, 397)
+        Me.EpaFacilityIdDisplay.Name = "EpaFacilityIdDisplay"
+        Me.EpaFacilityIdDisplay.ReadOnly = True
+        Me.EpaFacilityIdDisplay.Size = New System.Drawing.Size(138, 13)
+        Me.EpaFacilityIdDisplay.TabIndex = 19
+        Me.EpaFacilityIdDisplay.Text = "N/A"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.Label1.Location = New System.Drawing.Point(332, 397)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(121, 13)
+        Me.Label1.TabIndex = 334
+        Me.Label1.Text = "EPA Air Facility Identifier"
+        '
         'IAIPFacilitySummary
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -3039,4 +3066,6 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents FinancialFeeGrid As System.Windows.Forms.DataGridView
     Friend WithEvents MapPictureBox As System.Windows.Forms.PictureBox
     Friend WithEvents MapCountyLink As System.Windows.Forms.LinkLabel
+    Friend WithEvents Label1 As Label
+    Friend WithEvents EpaFacilityIdDisplay As TextBox
 End Class

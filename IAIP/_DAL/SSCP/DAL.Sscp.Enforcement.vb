@@ -1,6 +1,5 @@
 ﻿Imports System.Collections.Generic
 Imports Iaip.Apb.Sscp
-Imports Iaip.Apb.Facilities
 Imports Oracle.ManagedDataAccess.Client
 
 Namespace DAL.Sscp
@@ -240,7 +239,7 @@ Namespace DAL.Sscp
 
                 .SubmittedToEpa = .AfsKeyActionNumber > 0
 
-                .ComplianceStatus = ConvertLegacyComplianceStatus(enfCase.LegacyComplianceStatus)
+                .ComplianceStatus = EnforcementCase.ConvertLegacyComplianceStatus(enfCase.LegacyComplianceStatus)
             End With
 
             Return enfCase
@@ -272,72 +271,74 @@ Namespace DAL.Sscp
                 enforcementCase.EnforcementId = GetNextEnforcementId()
             End If
 
-            Dim query As String = "INSERT INTO AIRBRANCH.SSCP_ENFORCEMENT " &
-                "  ( " &
-                "    ID, STRENFORCEMENTNUMBER, STRTRACKINGNUMBER, STRAIRSNUMBER, " &
-                "    STRENFORCEMENTFINALIZED, DATENFORCEMENTFINALIZED, " &
-                "    NUMSTAFFRESPONSIBLE, STRSTATUS, STRACTIONTYPE, " &
-                "    STRGENERALCOMMENTS, STRDISCOVERYDATE, DATDISCOVERYDATE, " &
-                "    STRDAYZERO, DATDAYZERO, STRHPV, STRPOLLUTANTS, " &
-                "    STRPOLLUTANTSTATUS, STRLONTOUC, DATLONTOUC, STRLONSENT, " &
-                "    DATLONSENT, STRLONRESOLVED, DATLONRESOLVED, STRLONCOMMENTS, " &
-                "    STRNOVTOUC, DATNOVTOUC, " &
-                "    STRNOVTOPM, DATNOVTOPM, STRNOVSENT, DATNOVSENT, " &
-                "    STRNOVRESPONSERECEIVED, DATNOVRESPONSERECEIVED, STRNFATOUC, " &
-                "    DATNFATOUC, STRNFATOPM, DATNFATOPM, STRNFALETTERSENT, " &
-                "    DATNFALETTERSENT, STRNOVCOMMENT, " &
-                "    STRCOTOUC, DATCOTOUC, STRCOTOPM, DATCOTOPM, STRCOPROPOSED, " &
-                "    DATCOPROPOSED, STRCORECEIVEDFROMCOMPANY, " &
-                "    DATCORECEIVEDFROMCOMPANY, STRCORECEIVEDFROMDIRECTOR, " &
-                "    DATCORECEIVEDFROMDIRECTOR, STRCOEXECUTED, DATCOEXECUTED, " &
-                "    STRCONUMBER, STRCORESOLVED, DATCORESOLVED, " &
-                "    STRCOPENALTYAMOUNT, STRCOPENALTYAMOUNTCOMMENTS, " &
-                "    STRCOCOMMENT, " &
-                "    STRAOEXECUTED, DATAOEXECUTED, " &
-                "    STRAOAPPEALED, DATAOAPPEALED, STRAORESOLVED, DATAORESOLVED, " &
-                "    STRAOCOMMENT, STRAFSKEYACTIONNUMBER, STRAFSNOVSENTNUMBER, " &
-                "    STRAFSNOVRESOLVEDNUMBER, STRAFSCOPROPOSEDNUMBER, " &
-                "    STRAFSCOEXECUTEDNUMBER, STRAFSCORESOLVEDNUMBER, " &
-                "    STRAFSAOTOAGNUMBER, STRAFSCIVILCOURTNUMBER, " &
-                "    STRAFSAORESOLVEDNUMBER, STRMODIFINGPERSON, DATMODIFINGDATE " &
-                "  ) " &
-                "  VALUES " &
-                "  ( " &
-                "    SELECT MAX(ID) + 1 FROM AIRBRANCH.SSCP_ENFORCEMENT, " &
-                "    :STRENFORCEMENTNUMBER, :STRTRACKINGNUMBER, " &
-                "    :STRAIRSNUMBER, :STRENFORCEMENTFINALIZED, " &
-                "    :DATENFORCEMENTFINALIZED, :NUMSTAFFRESPONSIBLE, :STRSTATUS, " &
-                "    :STRACTIONTYPE, :STRGENERALCOMMENTS, :STRDISCOVERYDATE, " &
-                "    :DATDISCOVERYDATE, :STRDAYZERO, :DATDAYZERO, :STRHPV, " &
-                "    :STRPOLLUTANTS, :STRPOLLUTANTSTATUS, :STRLONTOUC, " &
-                "    :DATLONTOUC, :STRLONSENT, :DATLONSENT, :STRLONRESOLVED, " &
-                "    :DATLONRESOLVED, :STRLONCOMMENTS, " &
-                "    :STRNOVTOUC, :DATNOVTOUC, " &
-                "    :STRNOVTOPM, :DATNOVTOPM, :STRNOVSENT, :DATNOVSENT, " &
-                "    :STRNOVRESPONSERECEIVED, :DATNOVRESPONSERECEIVED, " &
-                "    :STRNFATOUC, :DATNFATOUC, :STRNFATOPM, :DATNFATOPM, " &
-                "    :STRNFALETTERSENT, :DATNFALETTERSENT, :STRNOVCOMMENT, " &
-                "    :STRCOTOUC, :DATCOTOUC, " &
-                "    :STRCOTOPM, :DATCOTOPM, :STRCOPROPOSED, :DATCOPROPOSED, " &
-                "    :STRCORECEIVEDFROMCOMPANY, :DATCORECEIVEDFROMCOMPANY, " &
-                "    :STRCORECEIVEDFROMDIRECTOR, :DATCORECEIVEDFROMDIRECTOR, " &
-                "    :STRCOEXECUTED, :DATCOEXECUTED, :STRCONUMBER, " &
-                "    :STRCORESOLVED, :DATCORESOLVED, :STRCOPENALTYAMOUNT, " &
-                "    :STRCOPENALTYAMOUNTCOMMENTS, :STRCOCOMMENT, " &
-                "    :STRAOEXECUTED, :DATAOEXECUTED, :STRAOAPPEALED, " &
-                "    :DATAOAPPEALED, :STRAORESOLVED, :DATAORESOLVED, " &
-                "    :STRAOCOMMENT, :STRAFSKEYACTIONNUMBER, :STRAFSNOVSENTNUMBER, " &
-                "    :STRAFSNOVRESOLVEDNUMBER, :STRAFSCOPROPOSEDNUMBER, " &
-                "    :STRAFSCOEXECUTEDNUMBER, :STRAFSCORESOLVEDNUMBER, " &
-                "    :STRAFSAOTOAGNUMBER, :STRAFSCIVILCOURTNUMBER, " &
-                "    :STRAFSAORESOLVEDNUMBER, :STRMODIFINGPERSON, " &
-                "    sysdate " &
-                "  ) "
-            Dim parameters As OracleParameter()
+            Dim queries As New List(Of String)
+
+            queries.Add("INSERT INTO AIRBRANCH.SSCP_ENFORCEMENT " &
+                        "  ( " &
+                        "    ID, STRENFORCEMENTNUMBER, STRTRACKINGNUMBER, STRAIRSNUMBER, " &
+                        "    STRENFORCEMENTFINALIZED, DATENFORCEMENTFINALIZED, " &
+                        "    NUMSTAFFRESPONSIBLE, STRSTATUS, STRACTIONTYPE, " &
+                        "    STRGENERALCOMMENTS, STRDISCOVERYDATE, DATDISCOVERYDATE, " &
+                        "    STRDAYZERO, DATDAYZERO, STRHPV, STRPOLLUTANTS, " &
+                        "    STRPOLLUTANTSTATUS, STRLONTOUC, DATLONTOUC, STRLONSENT, " &
+                        "    DATLONSENT, STRLONRESOLVED, DATLONRESOLVED, STRLONCOMMENTS, " &
+                        "    STRNOVTOUC, DATNOVTOUC, " &
+                        "    STRNOVTOPM, DATNOVTOPM, STRNOVSENT, DATNOVSENT, " &
+                        "    STRNOVRESPONSERECEIVED, DATNOVRESPONSERECEIVED, STRNFATOUC, " &
+                        "    DATNFATOUC, STRNFATOPM, DATNFATOPM, STRNFALETTERSENT, " &
+                        "    DATNFALETTERSENT, STRNOVCOMMENT, " &
+                        "    STRCOTOUC, DATCOTOUC, STRCOTOPM, DATCOTOPM, STRCOPROPOSED, " &
+                        "    DATCOPROPOSED, STRCORECEIVEDFROMCOMPANY, " &
+                        "    DATCORECEIVEDFROMCOMPANY, STRCORECEIVEDFROMDIRECTOR, " &
+                        "    DATCORECEIVEDFROMDIRECTOR, STRCOEXECUTED, DATCOEXECUTED, " &
+                        "    STRCONUMBER, STRCORESOLVED, DATCORESOLVED, " &
+                        "    STRCOPENALTYAMOUNT, STRCOPENALTYAMOUNTCOMMENTS, " &
+                        "    STRCOCOMMENT, " &
+                        "    STRAOEXECUTED, DATAOEXECUTED, " &
+                        "    STRAOAPPEALED, DATAOAPPEALED, STRAORESOLVED, DATAORESOLVED, " &
+                        "    STRAOCOMMENT, STRAFSKEYACTIONNUMBER, STRAFSNOVSENTNUMBER, " &
+                        "    STRAFSNOVRESOLVEDNUMBER, STRAFSCOPROPOSEDNUMBER, " &
+                        "    STRAFSCOEXECUTEDNUMBER, STRAFSCORESOLVEDNUMBER, " &
+                        "    STRAFSAOTOAGNUMBER, STRAFSCIVILCOURTNUMBER, " &
+                        "    STRAFSAORESOLVEDNUMBER, STRMODIFINGPERSON, DATMODIFINGDATE " &
+                        "  ) " &
+                        "  VALUES " &
+                        "  ( " &
+                        "    SELECT MAX(ID) + 1 FROM AIRBRANCH.SSCP_ENFORCEMENT, " &
+                        "    :STRENFORCEMENTNUMBER, :STRTRACKINGNUMBER, " &
+                        "    :STRAIRSNUMBER, :STRENFORCEMENTFINALIZED, " &
+                        "    :DATENFORCEMENTFINALIZED, :NUMSTAFFRESPONSIBLE, :STRSTATUS, " &
+                        "    :STRACTIONTYPE, :STRGENERALCOMMENTS, :STRDISCOVERYDATE, " &
+                        "    :DATDISCOVERYDATE, :STRDAYZERO, :DATDAYZERO, :STRHPV, " &
+                        "    :STRPOLLUTANTS, :STRPOLLUTANTSTATUS, :STRLONTOUC, " &
+                        "    :DATLONTOUC, :STRLONSENT, :DATLONSENT, :STRLONRESOLVED, " &
+                        "    :DATLONRESOLVED, :STRLONCOMMENTS, " &
+                        "    :STRNOVTOUC, :DATNOVTOUC, " &
+                        "    :STRNOVTOPM, :DATNOVTOPM, :STRNOVSENT, :DATNOVSENT, " &
+                        "    :STRNOVRESPONSERECEIVED, :DATNOVRESPONSERECEIVED, " &
+                        "    :STRNFATOUC, :DATNFATOUC, :STRNFATOPM, :DATNFATOPM, " &
+                        "    :STRNFALETTERSENT, :DATNFALETTERSENT, :STRNOVCOMMENT, " &
+                        "    :STRCOTOUC, :DATCOTOUC, " &
+                        "    :STRCOTOPM, :DATCOTOPM, :STRCOPROPOSED, :DATCOPROPOSED, " &
+                        "    :STRCORECEIVEDFROMCOMPANY, :DATCORECEIVEDFROMCOMPANY, " &
+                        "    :STRCORECEIVEDFROMDIRECTOR, :DATCORECEIVEDFROMDIRECTOR, " &
+                        "    :STRCOEXECUTED, :DATCOEXECUTED, :STRCONUMBER, " &
+                        "    :STRCORESOLVED, :DATCORESOLVED, :STRCOPENALTYAMOUNT, " &
+                        "    :STRCOPENALTYAMOUNTCOMMENTS, :STRCOCOMMENT, " &
+                        "    :STRAOEXECUTED, :DATAOEXECUTED, :STRAOAPPEALED, " &
+                        "    :DATAOAPPEALED, :STRAORESOLVED, :DATAORESOLVED, " &
+                        "    :STRAOCOMMENT, :STRAFSKEYACTIONNUMBER, :STRAFSNOVSENTNUMBER, " &
+                        "    :STRAFSNOVRESOLVEDNUMBER, :STRAFSCOPROPOSEDNUMBER, " &
+                        "    :STRAFSCOEXECUTEDNUMBER, :STRAFSCORESOLVEDNUMBER, " &
+                        "    :STRAFSAOTOAGNUMBER, :STRAFSCIVILCOURTNUMBER, " &
+                        "    :STRAFSAORESOLVEDNUMBER, :STRMODIFINGPERSON, " &
+                        "    sysdate " &
+                        "  ) ")
+            Dim parameters As New List(Of OracleParameter())
             With enforcementCase
-                parameters = {
+                parameters.Add({
                     New OracleParameter(":STRENFORCEMENTNUMBER", .EnforcementId),
-                    New OracleParameter(":STRTRACKINGNUMBER", .LinkedWorkItemId),
+                    New OracleParameter(":STRTRACKINGNUMBER", DB.StoreNothingIfZero(.LinkedWorkItemId)),
                     New OracleParameter(":STRAIRSNUMBER", .AirsNumber),
                     New OracleParameter(":STRENFORCEMENTFINALIZED", .DateFinalized.HasValue),
                     New OracleParameter(":DATENFORCEMENTFINALIZED", .DateFinalized),
@@ -409,8 +410,11 @@ Namespace DAL.Sscp
                     New OracleParameter(":STRAFSCIVILCOURTNUMBER", DB.StoreNothingIfZero(.AfsCivilCourtActionNumber)),
                     New OracleParameter(":STRAFSAORESOLVEDNUMBER", DB.StoreNothingIfZero(.AfsAoResolvedActionNumber)),
                     New OracleParameter(":STRMODIFINGPERSON", UserGCode)
-                }
-                If DB.RunCommand(query, parameters) Then
+                })
+
+                queries.Add("")
+
+                If DB.RunCommand(queries, parameters) Then
                     Dim param As OracleParameter = New OracleParameter("ENFORCEMENT", .EnforcementId)
                     DB.SPRunCommand("AIRBRANCH.PD_SSCPENFORCEMENT", param)
                     Return .EnforcementId
@@ -593,57 +597,6 @@ Namespace DAL.Sscp
             dt.Rows.Add(emptyRow)
 
             Return dt
-        End Function
-
-#End Region
-
-#Region " Utilities "
-
-        Public Function ConvertLegacyComplianceStatus(legacyComplianceStatus As LegacyComplianceStatus) As ComplianceStatus
-            Select Case legacyComplianceStatus
-                Case LegacyComplianceStatus.NoValue,
-                     LegacyComplianceStatus.Status_P,
-                     LegacyComplianceStatus.Status_A,
-                     LegacyComplianceStatus.Status_0
-                    Return ComplianceStatus.Unknown
-                Case LegacyComplianceStatus.Status_B,
-                     LegacyComplianceStatus.Status_1,
-                     LegacyComplianceStatus.Status_6,
-                     LegacyComplianceStatus.Status_W,
-                     LegacyComplianceStatus.Status_8
-                    Return ComplianceStatus.InViolation
-                Case LegacyComplianceStatus.Status_5
-                    Return ComplianceStatus.MeetingComplianceSchedule
-                Case LegacyComplianceStatus.Status_2,
-                     LegacyComplianceStatus.Status_3,
-                     LegacyComplianceStatus.Status_4,
-                     LegacyComplianceStatus.Status_9,
-                     LegacyComplianceStatus.Status_C,
-                     LegacyComplianceStatus.Status_M
-                    Return ComplianceStatus.InCompliance
-            End Select
-        End Function
-
-        Public Function ConvertComplianceStatus(complianceStatus As ComplianceStatus) As LegacyComplianceStatus
-            Select Case complianceStatus
-                Case ComplianceStatus.InCompliance
-                    Return LegacyComplianceStatus.Status_C
-                Case ComplianceStatus.InViolation
-                    Return LegacyComplianceStatus.Status_W
-                Case ComplianceStatus.MeetingComplianceSchedule
-                    Return LegacyComplianceStatus.Status_5
-                Case ComplianceStatus.Unknown
-                    Return LegacyComplianceStatus.Status_0
-            End Select
-        End Function
-
-        Private Function AnyOfTheseDatesHasValue(dates As List(Of Date?)) As Boolean
-            For Each d As Date? In dates
-                If d.HasValue Then
-                    Return True
-                End If
-            Next
-            Return False
         End Function
 
 #End Region
