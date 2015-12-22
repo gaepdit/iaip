@@ -23,21 +23,21 @@ Partial Class SscpEnforcement
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle57 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle58 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle59 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle60 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle169 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle170 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle171 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle172 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SscpEnforcement))
-        Dim DataGridViewCellStyle61 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle62 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle63 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle64 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle65 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle66 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle67 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle68 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle69 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle70 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle173 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle174 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle175 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle176 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle177 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle178 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle179 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle180 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle181 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle182 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.SaveButton = New System.Windows.Forms.ToolStripButton()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
@@ -61,7 +61,6 @@ Partial Class SscpEnforcement
         Me.AOCheckBox = New System.Windows.Forms.CheckBox()
         Me.ViolationTypeGroupbox = New System.Windows.Forms.GroupBox()
         Me.ViolationTypeSelect = New System.Windows.Forms.ComboBox()
-        Me.DayZeroDisplay = New System.Windows.Forms.Label()
         Me.ViolationTypeNone = New System.Windows.Forms.RadioButton()
         Me.ViolationTypeNonFrv = New System.Windows.Forms.RadioButton()
         Me.ViolationTypeHpv = New System.Windows.Forms.RadioButton()
@@ -339,6 +338,7 @@ Partial Class SscpEnforcement
         '
         Me.ClearErrorsMenuItem.Enabled = False
         Me.ClearErrorsMenuItem.Name = "ClearErrorsMenuItem"
+        Me.ClearErrorsMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.E), System.Windows.Forms.Keys)
         Me.ClearErrorsMenuItem.Size = New System.Drawing.Size(219, 22)
         Me.ClearErrorsMenuItem.Text = "&Clear Errors"
         '
@@ -432,7 +432,7 @@ Partial Class SscpEnforcement
         Me.EAGroupBox.Controls.Add(Me.AOCheckBox)
         Me.EAGroupBox.Location = New System.Drawing.Point(11, 77)
         Me.EAGroupBox.Name = "EAGroupBox"
-        Me.EAGroupBox.Size = New System.Drawing.Size(212, 77)
+        Me.EAGroupBox.Size = New System.Drawing.Size(202, 77)
         Me.EAGroupBox.TabIndex = 375
         Me.EAGroupBox.TabStop = False
         Me.EAGroupBox.Text = "Enforcement Actions"
@@ -440,7 +440,7 @@ Partial Class SscpEnforcement
         'COCheckBox
         '
         Me.COCheckBox.AutoSize = True
-        Me.COCheckBox.Location = New System.Drawing.Point(117, 29)
+        Me.COCheckBox.Location = New System.Drawing.Point(72, 45)
         Me.COCheckBox.Name = "COCheckBox"
         Me.COCheckBox.Size = New System.Drawing.Size(41, 17)
         Me.COCheckBox.TabIndex = 351
@@ -450,7 +450,7 @@ Partial Class SscpEnforcement
         'NovCheckBox
         '
         Me.NovCheckBox.AutoSize = True
-        Me.NovCheckBox.Location = New System.Drawing.Point(62, 29)
+        Me.NovCheckBox.Location = New System.Drawing.Point(17, 45)
         Me.NovCheckBox.Name = "NovCheckBox"
         Me.NovCheckBox.Size = New System.Drawing.Size(49, 17)
         Me.NovCheckBox.TabIndex = 350
@@ -460,7 +460,7 @@ Partial Class SscpEnforcement
         'LonCheckBox
         '
         Me.LonCheckBox.AutoSize = True
-        Me.LonCheckBox.Location = New System.Drawing.Point(8, 29)
+        Me.LonCheckBox.Location = New System.Drawing.Point(17, 20)
         Me.LonCheckBox.Name = "LonCheckBox"
         Me.LonCheckBox.Size = New System.Drawing.Size(48, 17)
         Me.LonCheckBox.TabIndex = 349
@@ -470,7 +470,7 @@ Partial Class SscpEnforcement
         'AOCheckBox
         '
         Me.AOCheckBox.AutoSize = True
-        Me.AOCheckBox.Location = New System.Drawing.Point(164, 29)
+        Me.AOCheckBox.Location = New System.Drawing.Point(119, 45)
         Me.AOCheckBox.Name = "AOCheckBox"
         Me.AOCheckBox.Size = New System.Drawing.Size(41, 17)
         Me.AOCheckBox.TabIndex = 352
@@ -482,14 +482,13 @@ Partial Class SscpEnforcement
         Me.ViolationTypeGroupbox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ViolationTypeGroupbox.Controls.Add(Me.ViolationTypeSelect)
-        Me.ViolationTypeGroupbox.Controls.Add(Me.DayZeroDisplay)
         Me.ViolationTypeGroupbox.Controls.Add(Me.ViolationTypeNone)
         Me.ViolationTypeGroupbox.Controls.Add(Me.ViolationTypeNonFrv)
         Me.ViolationTypeGroupbox.Controls.Add(Me.ViolationTypeHpv)
         Me.ViolationTypeGroupbox.Controls.Add(Me.ViolationTypeFrv)
         Me.ViolationTypeGroupbox.Location = New System.Drawing.Point(229, 77)
         Me.ViolationTypeGroupbox.Name = "ViolationTypeGroupbox"
-        Me.ViolationTypeGroupbox.Size = New System.Drawing.Size(548, 77)
+        Me.ViolationTypeGroupbox.Size = New System.Drawing.Size(453, 77)
         Me.ViolationTypeGroupbox.TabIndex = 371
         Me.ViolationTypeGroupbox.TabStop = False
         Me.ViolationTypeGroupbox.Text = "Violation Type"
@@ -503,19 +502,8 @@ Partial Class SscpEnforcement
         Me.ViolationTypeSelect.FormattingEnabled = True
         Me.ViolationTypeSelect.Location = New System.Drawing.Point(7, 43)
         Me.ViolationTypeSelect.Name = "ViolationTypeSelect"
-        Me.ViolationTypeSelect.Size = New System.Drawing.Size(532, 21)
+        Me.ViolationTypeSelect.Size = New System.Drawing.Size(437, 21)
         Me.ViolationTypeSelect.TabIndex = 1
-        '
-        'DayZeroDisplay
-        '
-        Me.DayZeroDisplay.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.DayZeroDisplay.AutoSize = True
-        Me.DayZeroDisplay.Location = New System.Drawing.Point(463, 20)
-        Me.DayZeroDisplay.Name = "DayZeroDisplay"
-        Me.DayZeroDisplay.Size = New System.Drawing.Size(76, 13)
-        Me.DayZeroDisplay.TabIndex = 5
-        Me.DayZeroDisplay.Text = "HPV Day Zero"
-        Me.DayZeroDisplay.Visible = False
         '
         'ViolationTypeNone
         '
@@ -584,9 +572,9 @@ Partial Class SscpEnforcement
         'LastEditedDateDisplay
         '
         Me.LastEditedDateDisplay.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LastEditedDateDisplay.Location = New System.Drawing.Point(653, 25)
+        Me.LastEditedDateDisplay.Location = New System.Drawing.Point(481, 25)
         Me.LastEditedDateDisplay.Name = "LastEditedDateDisplay"
-        Me.LastEditedDateDisplay.Size = New System.Drawing.Size(124, 15)
+        Me.LastEditedDateDisplay.Size = New System.Drawing.Size(201, 17)
         Me.LastEditedDateDisplay.TabIndex = 7
         Me.LastEditedDateDisplay.Text = "Last edited date"
         Me.LastEditedDateDisplay.TextAlign = System.Drawing.ContentAlignment.TopRight
@@ -617,14 +605,12 @@ Partial Class SscpEnforcement
         'GeneralComments
         '
         Me.GeneralComments.AcceptsReturn = True
-        Me.GeneralComments.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GeneralComments.Location = New System.Drawing.Point(11, 202)
         Me.GeneralComments.MaxLength = 4000
         Me.GeneralComments.Multiline = True
         Me.GeneralComments.Name = "GeneralComments"
         Me.GeneralComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.GeneralComments.Size = New System.Drawing.Size(766, 80)
+        Me.GeneralComments.Size = New System.Drawing.Size(671, 80)
         Me.GeneralComments.TabIndex = 340
         '
         'SubmitToEpa
@@ -689,13 +675,13 @@ Partial Class SscpEnforcement
         '
         Me.PollutantsListView.Activation = System.Windows.Forms.ItemActivation.OneClick
         Me.PollutantsListView.AutoArrange = False
+        Me.PollutantsListView.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.PollutantsListView.CheckBoxes = True
-        Me.PollutantsListView.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PollutantsListView.HotTracking = True
         Me.PollutantsListView.HoverSelection = True
-        Me.PollutantsListView.Location = New System.Drawing.Point(0, 37)
+        Me.PollutantsListView.Location = New System.Drawing.Point(11, 43)
         Me.PollutantsListView.Name = "PollutantsListView"
-        Me.PollutantsListView.Size = New System.Drawing.Size(389, 300)
+        Me.PollutantsListView.Size = New System.Drawing.Size(375, 288)
         Me.PollutantsListView.TabIndex = 371
         Me.PollutantsListView.UseCompatibleStateImageBehavior = False
         Me.PollutantsListView.View = System.Windows.Forms.View.List
@@ -722,13 +708,13 @@ Partial Class SscpEnforcement
         '
         Me.ProgramsListView.Activation = System.Windows.Forms.ItemActivation.OneClick
         Me.ProgramsListView.AutoArrange = False
+        Me.ProgramsListView.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.ProgramsListView.CheckBoxes = True
-        Me.ProgramsListView.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ProgramsListView.HotTracking = True
         Me.ProgramsListView.HoverSelection = True
-        Me.ProgramsListView.Location = New System.Drawing.Point(0, 37)
+        Me.ProgramsListView.Location = New System.Drawing.Point(11, 43)
         Me.ProgramsListView.Name = "ProgramsListView"
-        Me.ProgramsListView.Size = New System.Drawing.Size(395, 300)
+        Me.ProgramsListView.Size = New System.Drawing.Size(376, 288)
         Me.ProgramsListView.TabIndex = 371
         Me.ProgramsListView.UseCompatibleStateImageBehavior = False
         Me.ProgramsListView.View = System.Windows.Forms.View.List
@@ -821,14 +807,12 @@ Partial Class SscpEnforcement
         'LonComments
         '
         Me.LonComments.AcceptsReturn = True
-        Me.LonComments.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LonComments.Location = New System.Drawing.Point(11, 159)
         Me.LonComments.MaxLength = 4000
         Me.LonComments.Multiline = True
         Me.LonComments.Name = "LonComments"
         Me.LonComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.LonComments.Size = New System.Drawing.Size(253, 80)
+        Me.LonComments.Size = New System.Drawing.Size(368, 80)
         Me.LonComments.TabIndex = 341
         '
         'LonResolved
@@ -941,8 +925,6 @@ Partial Class SscpEnforcement
         'NovComments
         '
         Me.NovComments.AcceptsReturn = True
-        Me.NovComments.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.NovComments.Location = New System.Drawing.Point(11, 191)
         Me.NovComments.MaxLength = 4000
         Me.NovComments.Multiline = True
@@ -1113,12 +1095,11 @@ Partial Class SscpEnforcement
         'COPenaltyComments
         '
         Me.COPenaltyComments.AcceptsReturn = True
-        Me.COPenaltyComments.AcceptsTab = True
-        Me.COPenaltyComments.Location = New System.Drawing.Point(453, 58)
+        Me.COPenaltyComments.Location = New System.Drawing.Point(510, 62)
         Me.COPenaltyComments.MaxLength = 4000
         Me.COPenaltyComments.Multiline = True
         Me.COPenaltyComments.Name = "COPenaltyComments"
-        Me.COPenaltyComments.Size = New System.Drawing.Size(373, 48)
+        Me.COPenaltyComments.Size = New System.Drawing.Size(267, 48)
         Me.COPenaltyComments.TabIndex = 355
         '
         'CoNumber
@@ -1132,28 +1113,26 @@ Partial Class SscpEnforcement
         'Label29
         '
         Me.Label29.AutoSize = True
-        Me.Label29.Location = New System.Drawing.Point(350, 61)
+        Me.Label29.Location = New System.Drawing.Point(410, 65)
         Me.Label29.Name = "Label29"
-        Me.Label29.Size = New System.Drawing.Size(97, 13)
+        Me.Label29.Size = New System.Drawing.Size(94, 13)
         Me.Label29.TabIndex = 353
-        Me.Label29.Text = "Penalty Comments:"
+        Me.Label29.Text = "Penalty Comments"
         '
         'COComments
         '
         Me.COComments.AcceptsReturn = True
-        Me.COComments.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.COComments.Location = New System.Drawing.Point(88, 276)
+        Me.COComments.Location = New System.Drawing.Point(11, 276)
         Me.COComments.MaxLength = 4000
         Me.COComments.Multiline = True
         Me.COComments.Name = "COComments"
         Me.COComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.COComments.Size = New System.Drawing.Size(334, 71)
+        Me.COComments.Size = New System.Drawing.Size(368, 71)
         Me.COComments.TabIndex = 394
         '
         'COPenaltyAmount
         '
-        Me.COPenaltyAmount.Location = New System.Drawing.Point(453, 34)
+        Me.COPenaltyAmount.Location = New System.Drawing.Point(510, 34)
         Me.COPenaltyAmount.MaxLength = 20
         Me.COPenaltyAmount.Name = "COPenaltyAmount"
         Me.COPenaltyAmount.Size = New System.Drawing.Size(100, 20)
@@ -1174,11 +1153,11 @@ Partial Class SscpEnforcement
         'Label28
         '
         Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(354, 37)
+        Me.Label28.Location = New System.Drawing.Point(414, 37)
         Me.Label28.Name = "Label28"
-        Me.Label28.Size = New System.Drawing.Size(93, 13)
+        Me.Label28.Size = New System.Drawing.Size(90, 13)
         Me.Label28.TabIndex = 344
-        Me.Label28.Text = "Penalty Assessed:"
+        Me.Label28.Text = "Penalty Assessed"
         '
         'StipulatedPenaltiesGroupBox
         '
@@ -1190,17 +1169,15 @@ Partial Class SscpEnforcement
         Me.StipulatedPenaltiesGroupBox.Controls.Add(Me.StipulatedPenaltyControls)
         Me.StipulatedPenaltiesGroupBox.Enabled = False
         Me.StipulatedPenaltiesGroupBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.StipulatedPenaltiesGroupBox.Location = New System.Drawing.Point(453, 112)
+        Me.StipulatedPenaltiesGroupBox.Location = New System.Drawing.Point(404, 144)
         Me.StipulatedPenaltiesGroupBox.Name = "StipulatedPenaltiesGroupBox"
-        Me.StipulatedPenaltiesGroupBox.Size = New System.Drawing.Size(373, 263)
+        Me.StipulatedPenaltiesGroupBox.Size = New System.Drawing.Size(373, 203)
         Me.StipulatedPenaltiesGroupBox.TabIndex = 397
         Me.StipulatedPenaltiesGroupBox.TabStop = False
         Me.StipulatedPenaltiesGroupBox.Text = "Stipulated Penalties"
         '
         'StipulatedPenaltyAmount
         '
-        Me.StipulatedPenaltyAmount.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.StipulatedPenaltyAmount.Location = New System.Drawing.Point(58, 18)
         Me.StipulatedPenaltyAmount.Name = "StipulatedPenaltyAmount"
         Me.StipulatedPenaltyAmount.Size = New System.Drawing.Size(91, 20)
@@ -1212,53 +1189,53 @@ Partial Class SscpEnforcement
         Me.Label30.AutoSize = True
         Me.Label30.Location = New System.Drawing.Point(6, 21)
         Me.Label30.Name = "Label30"
-        Me.Label30.Size = New System.Drawing.Size(46, 13)
+        Me.Label30.Size = New System.Drawing.Size(43, 13)
         Me.Label30.TabIndex = 348
-        Me.Label30.Text = "Amount:"
+        Me.Label30.Text = "Amount"
         '
         'StipulatedPenalties
         '
         Me.StipulatedPenalties.AllowUserToAddRows = False
         Me.StipulatedPenalties.AllowUserToDeleteRows = False
-        DataGridViewCellStyle57.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.StipulatedPenalties.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle57
+        DataGridViewCellStyle169.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.StipulatedPenalties.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle169
         Me.StipulatedPenalties.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.StipulatedPenalties.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
-        DataGridViewCellStyle58.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle58.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle58.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle58.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle58.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle58.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle58.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.StipulatedPenalties.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle58
+        DataGridViewCellStyle170.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle170.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle170.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle170.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle170.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle170.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle170.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.StipulatedPenalties.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle170
         Me.StipulatedPenalties.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle59.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle59.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle59.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle59.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle59.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle59.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle59.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.StipulatedPenalties.DefaultCellStyle = DataGridViewCellStyle59
+        DataGridViewCellStyle171.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle171.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle171.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle171.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle171.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle171.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle171.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.StipulatedPenalties.DefaultCellStyle = DataGridViewCellStyle171
         Me.StipulatedPenalties.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.StipulatedPenalties.Location = New System.Drawing.Point(9, 100)
         Me.StipulatedPenalties.MultiSelect = False
         Me.StipulatedPenalties.Name = "StipulatedPenalties"
         Me.StipulatedPenalties.ReadOnly = True
-        DataGridViewCellStyle60.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle60.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle60.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle60.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle60.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle60.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle60.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.StipulatedPenalties.RowHeadersDefaultCellStyle = DataGridViewCellStyle60
+        DataGridViewCellStyle172.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle172.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle172.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle172.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle172.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle172.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle172.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.StipulatedPenalties.RowHeadersDefaultCellStyle = DataGridViewCellStyle172
         Me.StipulatedPenalties.RowHeadersVisible = False
         Me.StipulatedPenalties.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.StipulatedPenalties.Size = New System.Drawing.Size(358, 157)
+        Me.StipulatedPenalties.Size = New System.Drawing.Size(358, 97)
         Me.StipulatedPenalties.TabIndex = 382
         Me.StipulatedPenalties.Visible = False
         '
@@ -1278,9 +1255,9 @@ Partial Class SscpEnforcement
         Me.Label31.AutoSize = True
         Me.Label31.Location = New System.Drawing.Point(6, 41)
         Me.Label31.Name = "Label31"
-        Me.Label31.Size = New System.Drawing.Size(105, 13)
+        Me.Label31.Size = New System.Drawing.Size(102, 13)
         Me.Label31.TabIndex = 350
-        Me.Label31.Text = "Comments (optional):"
+        Me.Label31.Text = "Comments (optional)"
         '
         'StipulatedPenaltyControls
         '
@@ -1344,7 +1321,7 @@ Partial Class SscpEnforcement
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(8, 279)
+        Me.Label21.Location = New System.Drawing.Point(8, 260)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(74, 13)
         Me.Label21.TabIndex = 359
@@ -1536,14 +1513,12 @@ Partial Class SscpEnforcement
         'AOComments
         '
         Me.AOComments.AcceptsReturn = True
-        Me.AOComments.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.AOComments.Location = New System.Drawing.Point(7, 155)
+        Me.AOComments.Location = New System.Drawing.Point(11, 155)
         Me.AOComments.MaxLength = 4000
         Me.AOComments.Multiline = True
         Me.AOComments.Name = "AOComments"
         Me.AOComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.AOComments.Size = New System.Drawing.Size(372, 80)
+        Me.AOComments.Size = New System.Drawing.Size(368, 80)
         Me.AOComments.TabIndex = 389
         '
         'Label25
@@ -1617,7 +1592,7 @@ Partial Class SscpEnforcement
         Me.DocumentMessageDisplay.AutoSize = True
         Me.DocumentMessageDisplay.BackColor = System.Drawing.Color.OldLace
         Me.DocumentMessageDisplay.ForeColor = System.Drawing.Color.DarkRed
-        Me.DocumentMessageDisplay.Location = New System.Drawing.Point(15, 368)
+        Me.DocumentMessageDisplay.Location = New System.Drawing.Point(15, 274)
         Me.DocumentMessageDisplay.MaximumSize = New System.Drawing.Size(550, 0)
         Me.DocumentMessageDisplay.Name = "DocumentMessageDisplay"
         Me.DocumentMessageDisplay.Padding = New System.Windows.Forms.Padding(5)
@@ -1636,9 +1611,9 @@ Partial Class SscpEnforcement
         Me.pnlDocument.Controls.Add(Me.DocumentUpdateButton)
         Me.pnlDocument.Controls.Add(Me.lblDocumentName)
         Me.pnlDocument.Enabled = False
-        Me.pnlDocument.Location = New System.Drawing.Point(14, 279)
+        Me.pnlDocument.Location = New System.Drawing.Point(14, 185)
         Me.pnlDocument.Name = "pnlDocument"
-        Me.pnlDocument.Size = New System.Drawing.Size(582, 73)
+        Me.pnlDocument.Size = New System.Drawing.Size(487, 73)
         Me.pnlDocument.TabIndex = 16
         Me.pnlDocument.Visible = False
         '
@@ -1655,7 +1630,7 @@ Partial Class SscpEnforcement
         'btnDocumentDownload
         '
         Me.btnDocumentDownload.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnDocumentDownload.Location = New System.Drawing.Point(470, 50)
+        Me.btnDocumentDownload.Location = New System.Drawing.Point(375, 50)
         Me.btnDocumentDownload.Name = "btnDocumentDownload"
         Me.btnDocumentDownload.Size = New System.Drawing.Size(112, 23)
         Me.btnDocumentDownload.TabIndex = 2
@@ -1668,14 +1643,14 @@ Partial Class SscpEnforcement
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtDocumentDescription.Location = New System.Drawing.Point(0, 52)
         Me.txtDocumentDescription.Name = "txtDocumentDescription"
-        Me.txtDocumentDescription.Size = New System.Drawing.Size(346, 20)
+        Me.txtDocumentDescription.Size = New System.Drawing.Size(251, 20)
         Me.txtDocumentDescription.TabIndex = 0
         '
         'DocumentUpdateButton
         '
         Me.DocumentUpdateButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.DocumentUpdateButton.AutoSize = True
-        Me.DocumentUpdateButton.Location = New System.Drawing.Point(352, 50)
+        Me.DocumentUpdateButton.Location = New System.Drawing.Point(257, 50)
         Me.DocumentUpdateButton.Name = "DocumentUpdateButton"
         Me.DocumentUpdateButton.Size = New System.Drawing.Size(112, 23)
         Me.DocumentUpdateButton.TabIndex = 1
@@ -1712,40 +1687,40 @@ Partial Class SscpEnforcement
         Me.DocumentList.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        DataGridViewCellStyle61.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle61.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle61.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle61.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle61.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle61.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle61.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DocumentList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle61
+        DataGridViewCellStyle173.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle173.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle173.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle173.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle173.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle173.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle173.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DocumentList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle173
         Me.DocumentList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle62.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle62.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle62.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle62.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle62.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle62.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle62.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DocumentList.DefaultCellStyle = DataGridViewCellStyle62
+        DataGridViewCellStyle174.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle174.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle174.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle174.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle174.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle174.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle174.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DocumentList.DefaultCellStyle = DataGridViewCellStyle174
         Me.DocumentList.Enabled = False
         Me.DocumentList.Location = New System.Drawing.Point(14, 32)
         Me.DocumentList.MinimumSize = New System.Drawing.Size(300, 55)
         Me.DocumentList.MultiSelect = False
         Me.DocumentList.Name = "DocumentList"
         Me.DocumentList.ReadOnly = True
-        DataGridViewCellStyle63.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle63.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle63.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle63.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle63.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle63.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle63.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DocumentList.RowHeadersDefaultCellStyle = DataGridViewCellStyle63
+        DataGridViewCellStyle175.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle175.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle175.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle175.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle175.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle175.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle175.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DocumentList.RowHeadersDefaultCellStyle = DataGridViewCellStyle175
         Me.DocumentList.RowHeadersVisible = False
         Me.DocumentList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DocumentList.Size = New System.Drawing.Size(582, 241)
+        Me.DocumentList.Size = New System.Drawing.Size(487, 147)
         Me.DocumentList.StandardTab = True
         Me.DocumentList.TabIndex = 0
         '
@@ -1765,39 +1740,39 @@ Partial Class SscpEnforcement
         Me.AuditHistory.AllowUserToAddRows = False
         Me.AuditHistory.AllowUserToDeleteRows = False
         Me.AuditHistory.AllowUserToOrderColumns = True
-        DataGridViewCellStyle64.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.AuditHistory.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle64
+        DataGridViewCellStyle176.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.AuditHistory.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle176
         Me.AuditHistory.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
-        DataGridViewCellStyle65.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle65.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle65.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle65.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle65.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle65.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle65.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.AuditHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle65
+        DataGridViewCellStyle177.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle177.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle177.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle177.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle177.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle177.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle177.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.AuditHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle177
         Me.AuditHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle66.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle66.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle66.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle66.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle66.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle66.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle66.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.AuditHistory.DefaultCellStyle = DataGridViewCellStyle66
+        DataGridViewCellStyle178.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle178.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle178.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle178.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle178.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle178.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle178.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.AuditHistory.DefaultCellStyle = DataGridViewCellStyle178
         Me.AuditHistory.Dock = System.Windows.Forms.DockStyle.Fill
         Me.AuditHistory.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.AuditHistory.Location = New System.Drawing.Point(0, 66)
         Me.AuditHistory.Name = "AuditHistory"
         Me.AuditHistory.ReadOnly = True
-        DataGridViewCellStyle67.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle67.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle67.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle67.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle67.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle67.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle67.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.AuditHistory.RowHeadersDefaultCellStyle = DataGridViewCellStyle67
+        DataGridViewCellStyle179.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle179.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle179.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle179.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle179.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle179.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle179.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.AuditHistory.RowHeadersDefaultCellStyle = DataGridViewCellStyle179
         Me.AuditHistory.RowHeadersVisible = False
         Me.AuditHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
         Me.AuditHistory.Size = New System.Drawing.Size(788, 308)
@@ -2298,10 +2273,11 @@ Partial Class SscpEnforcement
         '
         'DismissMessageButton
         '
+        Me.DismissMessageButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.DismissMessageButton.AutoSize = True
         Me.DismissMessageButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.DismissMessageButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.DismissMessageButton.Location = New System.Drawing.Point(170, 0)
+        Me.DismissMessageButton.Location = New System.Drawing.Point(533, 3)
         Me.DismissMessageButton.Name = "DismissMessageButton"
         Me.DismissMessageButton.Size = New System.Drawing.Size(24, 23)
         Me.DismissMessageButton.TabIndex = 376
@@ -2314,16 +2290,13 @@ Partial Class SscpEnforcement
         '
         Me.MessageDisplay.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.MessageDisplay.AutoSize = True
         Me.MessageDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MessageDisplay.Location = New System.Drawing.Point(170, 0)
-        Me.MessageDisplay.MinimumSize = New System.Drawing.Size(483, 0)
+        Me.MessageDisplay.Location = New System.Drawing.Point(15, 0)
         Me.MessageDisplay.Name = "MessageDisplay"
-        Me.MessageDisplay.Padding = New System.Windows.Forms.Padding(0, 6, 0, 6)
-        Me.MessageDisplay.Size = New System.Drawing.Size(483, 87)
+        Me.MessageDisplay.Padding = New System.Windows.Forms.Padding(6, 6, 30, 6)
+        Me.MessageDisplay.Size = New System.Drawing.Size(545, 87)
         Me.MessageDisplay.TabIndex = 12
         Me.MessageDisplay.Text = "Message Display" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "1" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "4"
-        Me.MessageDisplay.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.MessageDisplay.Visible = False
         '
         'ResolvedCheckBox
@@ -2331,7 +2304,7 @@ Partial Class SscpEnforcement
         Me.ResolvedCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ResolvedCheckBox.AutoSize = True
         Me.ResolvedCheckBox.Enabled = False
-        Me.ResolvedCheckBox.Location = New System.Drawing.Point(585, 71)
+        Me.ResolvedCheckBox.Location = New System.Drawing.Point(569, 70)
         Me.ResolvedCheckBox.Name = "ResolvedCheckBox"
         Me.ResolvedCheckBox.Size = New System.Drawing.Size(71, 17)
         Me.ResolvedCheckBox.TabIndex = 375
@@ -2357,19 +2330,22 @@ Partial Class SscpEnforcement
         Me.FacilityNameDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FacilityNameDisplay.Location = New System.Drawing.Point(95, 41)
         Me.FacilityNameDisplay.Name = "FacilityNameDisplay"
-        Me.FacilityNameDisplay.Size = New System.Drawing.Size(474, 46)
+        Me.FacilityNameDisplay.Size = New System.Drawing.Size(474, 48)
         Me.FacilityNameDisplay.TabIndex = 13
         Me.FacilityNameDisplay.Text = "Facility Name, City"
         '
         'ComplianceStatusDisplay
         '
         Me.ComplianceStatusDisplay.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ComplianceStatusDisplay.AutoSize = True
-        Me.ComplianceStatusDisplay.Location = New System.Drawing.Point(686, 14)
+        Me.ComplianceStatusDisplay.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.ComplianceStatusDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ComplianceStatusDisplay.Location = New System.Drawing.Point(569, 8)
+        Me.ComplianceStatusDisplay.MinimumSize = New System.Drawing.Size(0, 17)
         Me.ComplianceStatusDisplay.Name = "ComplianceStatusDisplay"
-        Me.ComplianceStatusDisplay.Size = New System.Drawing.Size(95, 13)
+        Me.ComplianceStatusDisplay.Size = New System.Drawing.Size(212, 25)
         Me.ComplianceStatusDisplay.TabIndex = 373
-        Me.ComplianceStatusDisplay.Text = "Compliance Status"
+        Me.ComplianceStatusDisplay.Text = "Subject to compliance schedule"
+        Me.ComplianceStatusDisplay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.ComplianceStatusDisplay.Visible = False
         '
         'AirsNumberDisplay
@@ -2631,37 +2607,37 @@ Partial Class SscpEnforcement
         Me.DataGridView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        DataGridViewCellStyle68.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle68.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle68.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle68.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle68.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle68.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle68.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle68
+        DataGridViewCellStyle180.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle180.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle180.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle180.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle180.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle180.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle180.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle180
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle69.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle69.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle69.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle69.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle69.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle69.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle69.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle69
+        DataGridViewCellStyle181.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle181.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle181.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle181.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle181.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle181.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle181.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle181
         Me.DataGridView1.Enabled = False
         Me.DataGridView1.Location = New System.Drawing.Point(276, 35)
         Me.DataGridView1.MinimumSize = New System.Drawing.Size(300, 55)
         Me.DataGridView1.MultiSelect = False
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
-        DataGridViewCellStyle70.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle70.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle70.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle70.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle70.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle70.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle70.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle70
+        DataGridViewCellStyle182.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle182.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle182.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle182.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle182.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle182.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle182.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle182
         Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView1.Size = New System.Drawing.Size(572, 173)
@@ -2890,7 +2866,6 @@ Partial Class SscpEnforcement
     Friend WithEvents EnforcementIdDisplay As Label
     Friend WithEvents EpaValuesTabPage As TabPage
     Friend WithEvents ShowEpaActionNumbersMenuItem As ToolStripMenuItem
-    Friend WithEvents DayZeroDisplay As Label
     Friend WithEvents EAGroupBox As GroupBox
     Friend WithEvents ComplianceStatusDisplay As Label
     Friend WithEvents FacilityNotApprovedDisplay As Label

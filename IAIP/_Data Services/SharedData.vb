@@ -1,6 +1,4 @@
-﻿Imports System.Collections.Generic
-
-Public Class SharedData
+﻿Public Class SharedData
     Private Shared _initLock As Object = New Object()
     Private Shared _ds As DataSet
 
@@ -30,6 +28,9 @@ Public Class SharedData
                 Case Tables.AllComplianceStaff
                     _dt = DAL.StaffData.GetAllComplianceStaff()
 
+                Case Tables.Pollutants
+                    _dt = DAL.CommonData.GetPollutantsTable()
+
             End Select
 
             _dt.TableName = table.ToString
@@ -39,6 +40,7 @@ Public Class SharedData
     End Sub
 
     Public Enum Tables
+        Pollutants
         ViolationTypes
         AllComplianceStaff
     End Enum

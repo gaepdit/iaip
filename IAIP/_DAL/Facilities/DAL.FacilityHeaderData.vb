@@ -126,6 +126,14 @@ Namespace DAL
             Return DB.SPGetDataTable(spName, parameter)
         End Function
 
+        Public Function GetFacilityAirPrograms(airsNumber As ApbFacilityId) As AirProgram
+            Dim query As String = "SELECT STRAIRPROGRAMCODES FROM AIRBRANCH.APBHEADERDATA WHERE STRAIRSNUMBER = :airsNumber"
+            Dim parameter As New OracleParameter("airsNumber", airsNumber.DbFormattedString)
+            Dim hd As New FacilityHeaderData
+            hd.AirProgramsCode = DB.GetSingleValue(Of String)(query, parameter)
+            Return hd.AirPrograms
+        End Function
+
 #End Region
 
 #Region " Write "

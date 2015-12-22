@@ -36,6 +36,7 @@ Public Class SscpEnforcement
             If value IsNot Nothing Then
                 GeneralMessage.Display(MessageDisplay)
                 DismissMessageButton.Visible = True
+                DismissMessageButton.BringToFront()
             End If
         End Set
     End Property
@@ -205,10 +206,19 @@ Public Class SscpEnforcement
         End If
         AirsNumber = EnforcementCase.AirsNumber
         LinkedEventId = EnforcementCase.LinkedWorkItemId
-        LoadStipulatedPenalties()
+        ShowCorrectTabs()
         LoadPollutants()
         LoadAirPrograms()
         LoadDocuments()
+    End Sub
+
+    Private Sub ShowCorrectTabs()
+        With EnforcementCase
+            LonCheckBox.Checked = .EnforcementActions.Contains(EnforcementActionType.LON)
+            NovCheckBox.Checked = .EnforcementActions.Contains(EnforcementActionType.NOV)
+            COCheckBox.Checked = .EnforcementActions.Contains(EnforcementActionType.CO)
+            AOCheckBox.Checked = .EnforcementActions.Contains(EnforcementActionType.AO)
+        End With
     End Sub
 
     Private Sub LoadCurrentFacility()
@@ -231,6 +241,9 @@ Public Class SscpEnforcement
             FacilityNameDisplay.Text &= ", " & Facility.FacilityLocation.Address.City
         End If
 
+        If EnforcementCase Is Nothing OrElse EnforcementCase.EnforcementId = 0 Then
+            Text = "New Enforcement for " & AirsNumber.FormattedString & ", " & Facility.FacilityName
+        End If
         FacilityNotApprovedDisplay.Visible = Not Facility.ApprovedByApb
     End Sub
 
@@ -238,47 +251,51 @@ Public Class SscpEnforcement
         If EnforcementCase IsNot Nothing AndAlso EnforcementCase.EnforcementId > 0 Then
             With EnforcementCase
                 ' Form
-                Text = "Enforcement # " & .EnforcementId
+                Text = "Enforcement #" & .EnforcementId & " — " & AirsNumber.FormattedString & ", " & Facility.FacilityName
                 ShowAuditHistoryMenuItem.Visible = True
                 ShowEpaActionNumbersMenuItem.Visible = True
                 DeleteEnforcementMenuItem.Visible = True
                 DeleteEnforcementToolStripSeparator.Visible = False
 
                 ' Header
-                EnforcementIdDisplay.Text = "Enforcement # " & .EnforcementId
+                EnforcementIdDisplay.Text = "Enforcement #" & .EnforcementId
                 ComplianceStatusDisplay.Visible = True
-                ComplianceStatusDisplay.Text = .ComplianceStatus
+                ComplianceStatusDisplay.Text = .ComplianceStatus.GetDescription
+                ColorCodeComplianceStatusDisplay()
                 ResolvedCheckBox.Visible = True
                 ResolvedDate.Visible = True
                 ResolvedCheckBox.Checked = Not .Open
                 StaffResponsible.SelectedValue = .StaffResponsibleId
 
                 ' General tab
-                LastEditedDateDisplay.Visible = True
-                LastEditedDateDisplay.Text = "Last edited on " & .DateModified.ToString
+                If .DateModified.HasValue Then
+                    LastEditedDateDisplay.Visible = True
+                    LastEditedDateDisplay.Text = "Last edited on " & .DateModified.Value.ToString(DateFormat)
+                End If
 
                 LoadViolationType()
                 GeneralComments.Text = .Comment
-                If .DayZeroDate.HasValue Then DayZeroDisplay.Text = "Day Zero: " & .DayZeroDate.Value.ToString
 
                 ' LON
-                If .EnforcementActions.Contains(EnforcementActionType.LON) Then
-                    LonCheckBox.Checked = True
-                    LonComments.Text = .LonComment
-                End If
+                If .EnforcementActions.Contains(EnforcementActionType.LON) Then LonComments.Text = .LonComment
 
                 ' NOV
-                If .EnforcementActions.Contains(EnforcementActionType.NOV) Then
-                    NovCheckBox.Checked = True
-                    NovComments.Text = .NovComment
-                End If
+                If .EnforcementActions.Contains(EnforcementActionType.NOV) Then NovComments.Text = .NovComment
 
                 ' CO
                 If .EnforcementActions.Contains(EnforcementActionType.CO) Then
-                    COCheckBox.Checked = True
                     COComments.Text = .CoComment
-                    Dim parts As String() = .CoNumber.Split("-"c)
-                    CoNumber.Value = Math.Min(Convert.ToInt32(parts(parts.Length - 1)), 999999)
+                    If .CoNumber <> "" AndAlso .CoNumber.Contains("-"c) Then
+                        Dim parts As String() = .CoNumber.Split("-"c)
+                        If IsNumeric(parts(parts.Length - 1)) Then
+                            CoNumber.Value = Math.Min(Convert.ToInt32(parts(parts.Length - 1)), 999999)
+                        End If
+                    Else
+                        If IsNumeric(.CoNumber) Then
+                            CoNumber.Value = Math.Min(Convert.ToInt32(.CoNumber), 999999)
+                        End If
+                    End If
+
                     COPenaltyAmount.Text = .CoPenaltyAmount.ToString("C")
                     COPenaltyComments.Text = .CoPenaltyAmountComment
                     StipulatedPenaltiesGroupBox.Enabled = True
@@ -286,10 +303,7 @@ Public Class SscpEnforcement
                 End If
 
                 ' AO
-                If .EnforcementActions.Contains(EnforcementActionType.AO) Then
-                    AOCheckBox.Checked = True
-                    AOComments.Text = .AoComment
-                End If
+                If .EnforcementActions.Contains(EnforcementActionType.AO) Then AOComments.Text = .AoComment
 
                 ' All nullable Dates
                 DisplayNullableDates()
@@ -332,9 +346,22 @@ Public Class SscpEnforcement
         For Each kvp As KeyValuePair(Of DateTimePicker, Date?) In nullableDates
             If kvp.Value.HasValue Then
                 kvp.Key.Checked = True
-                kvp.Key.Value = kvp.Key.Value
+                kvp.Key.Value = kvp.Value.Value
             End If
         Next
+    End Sub
+
+    Private Sub ColorCodeComplianceStatusDisplay()
+        With ComplianceStatusDisplay
+            Select Case EnforcementCase.ComplianceStatus
+                Case ComplianceStatus.InViolation
+                    .BackColor = Color.Pink
+                Case ComplianceStatus.MeetingComplianceSchedule Or ComplianceStatus.Unknown
+                    .BackColor = Color.LemonChiffon
+                Case Else
+                    .BackColor = SystemColors.ControlLightLight
+            End Select
+        End With
     End Sub
 
 #End Region
@@ -377,6 +404,7 @@ Public Class SscpEnforcement
 
         If String.IsNullOrEmpty(EnforcementCase.ViolationType) Then
             severityCode = "BLANK"
+            EnforcementCase.ViolationType = "BLANK"
         Else
             Dim dr As DataRow = violationTypes.Rows.Find(EnforcementCase.ViolationType)
             severityCode = dr("SEVERITYCODE").ToString
@@ -428,24 +456,20 @@ Public Class SscpEnforcement
 
         If ViolationTypeNone.Checked Then
             ViolationTypeSelect.Enabled = False
-            DayZeroDisplay.Visible = False
         ElseIf ViolationTypeFrv.Checked Then
             rowFilter = "(SEVERITYCODE='FRV' AND DEPRECATED = 'FALSE') OR " &
                 "(AIRVIOLATIONTYPECODE = 'BLANK')"
             ViolationTypeSelect.Enabled = True
-            DayZeroDisplay.Visible = False
             ApplyViolationSelectFilter(rowFilter)
         ElseIf ViolationTypeHpv.Checked Then
             rowFilter = "(SEVERITYCODE='HPV' AND DEPRECATED = 'FALSE') OR " &
                 "(AIRVIOLATIONTYPECODE = 'BLANK')"
             ViolationTypeSelect.Enabled = True
-            DayZeroDisplay.Visible = True
             ApplyViolationSelectFilter(rowFilter)
         ElseIf ViolationTypeNonFrv.Checked Then
             rowFilter = "(SEVERITYCODE<>'FRV' AND SEVERITYCODE<>'HPV' AND DEPRECATED = 'FALSE') OR " &
                 "(AIRVIOLATIONTYPECODE = 'BLANK')"
             ViolationTypeSelect.Enabled = True
-            DayZeroDisplay.Visible = False
             ApplyViolationSelectFilter(rowFilter)
         End If
 
@@ -566,7 +590,6 @@ Public Class SscpEnforcement
     Private Sub EnableCaseFileTools(enabler As EnableOrDisable)
         If enabler = EnableOrDisable.Enable Then
             LonCheckBox.Visible = False
-            DayZeroDisplay.Visible = True
             ViolationTypeGroupbox.Visible = True
             If Not EnforcementCase.SubmittedToUc And EnforcementId IsNot Nothing Then
                 SubmitToUC.Visible = True
@@ -578,7 +601,6 @@ Public Class SscpEnforcement
             End If
             If Not EnforcementTabs.TabPages.Contains(PollutantsTabPage) Then EnforcementTabs.TabPages.Add(PollutantsTabPage)
         Else
-            DayZeroDisplay.Visible = False
             ViolationTypeGroupbox.Visible = False
             SubmitToUC.Visible = False
             SubmitToEpa.Visible = False
@@ -627,12 +649,64 @@ Public Class SscpEnforcement
 
 #End Region
 
+#Region " Pollutants/Programs tab "
+
+    Public Sub LoadPollutants()
+        ' All available pollutants
+        Dim dt As DataTable = DAL.GetFacilityPollutants(AirsNumber)
+        PollutantsListView.Items.Clear()
+        For Each row As DataRow In dt.Rows
+            PollutantsListView.Items.Add(New ListViewItem({row(0), row(1)}))
+        Next
+
+        ' Pollutants associated with this case
+        If EnforcementCase.Pollutants IsNot Nothing Then
+            For i As Integer = 0 To PollutantsListView.Items.Count - 1
+                If EnforcementCase.Pollutants.Contains(PollutantsListView.Items.Item(i).SubItems(1).Text) Then
+                    PollutantsListView.Items.Item(i).Checked = True
+                End If
+            Next
+        End If
+    End Sub
+
+    Private Sub LoadAirPrograms()
+        ' All available air programs
+        Dim dt As DataTable = DAL.GetFacilityAirProgramsAsDataTable(AirsNumber)
+        ProgramsListView.Items.Clear()
+        For Each row As DataRow In dt.Rows
+            ProgramsListView.Items.Add(New ListViewItem({row(0), row(1)}))
+        Next
+
+        ' Programs associated with this case
+        If EnforcementCase.Programs IsNot Nothing Then
+            For i As Integer = 0 To ProgramsListView.Items.Count - 1
+                If EnforcementCase.Programs.Contains(ProgramsListView.Items.Item(i).SubItems(1).Text) Then
+                    ProgramsListView.Items.Item(i).Checked = True
+                End If
+            Next
+        End If
+    End Sub
+
+    Private Sub EditAirProgramPollutantsButton_Click(sender As Object, e As EventArgs) Handles EditAirProgramPollutantsButton.Click
+        Throw New NotImplementedException
+
+        ' Change IAIPEditAirProgramPollutants to dialog; return lists of pollutants/programs; reload ListViews
+        ' (reloading ListViews: recently checked/unchecked items may not be saved to db yet, so grab those, repopulate lists, restore checked items
+
+        'Dim EditAirProgramPollutants As IAIPEditAirProgramPollutants = OpenSingleForm(IAIPEditAirProgramPollutants)
+        'EditAirProgramPollutants.AirsNumberDisplay.Text = AirsNumber.ShortString
+    End Sub
+
+#End Region
+
 #Region " CO tab: Stipulated Penalties "
 
     Private Sub LoadStipulatedPenalties()
         Dim dt As DataTable = DAL.Sscp.GetStipulatedPenalties(EnforcementId)
 
         StipulatedPenalties.DataSource = dt
+        StipulatedPenalties.Refresh()
+
 
         StipulatedPenalties.Columns("STRENFORCEMENTKEY").Visible = False
         StipulatedPenalties.Columns("STRSTIPULATEDPENALTY").HeaderText = "Penalty Amount"
@@ -917,7 +991,7 @@ Public Class SscpEnforcement
         AuditHistory.Columns("STRTRACKINGNUMBER").HeaderText = "Linked event"
         AuditHistory.Columns("DATENFORCEMENTFINALIZED").HeaderText = "Date Closed"
         AuditHistory.Columns("DATENFORCEMENTFINALIZED").DefaultCellStyle.Format = "dd-MMM-yyyy"
-        AuditHistory.Columns("Status").HeaderText = "Submitted to UC"
+        AuditHistory.Columns("STRSTATUS").HeaderText = "Submitted to UC"
         AuditHistory.Columns("STRACTIONTYPE").HeaderText = "Action Type"
         AuditHistory.Columns("STRGENERALCOMMENTS").HeaderText = "Comments"
         AuditHistory.Columns("DATDISCOVERYDATE").HeaderText = "Date Discovered"
@@ -955,7 +1029,7 @@ Public Class SscpEnforcement
         AuditHistory.Columns("DATCOTOPM").DefaultCellStyle.Format = "dd-MMM-yyyy"
         AuditHistory.Columns("DATCOPROPOSED").HeaderText = "Date CO Proposed"
         AuditHistory.Columns("DATCOPROPOSED").DefaultCellStyle.Format = "dd-MMM-yyyy"
-        AuditHistory.Columns("DATCORECEIVEDFROMCOMPANY").HeaderText = "Date CO Recieved From Company"
+        AuditHistory.Columns("DATCORECEIVEDFROMCOMPANY").HeaderText = "Date CO Received From Company"
         AuditHistory.Columns("DATCORECEIVEDFROMCOMPANY").DefaultCellStyle.Format = "dd-MMM-yyyy"
         AuditHistory.Columns("DATCORECEIVEDFROMDIRECTOR").HeaderText = "Date CO Received From Director"
         AuditHistory.Columns("DATCORECEIVEDFROMDIRECTOR").DefaultCellStyle.Format = "dd-MMM-yyyy"
@@ -1061,13 +1135,12 @@ Public Class SscpEnforcement
     End Sub
 
     Private Sub DismissMessageButton_Click(sender As Object, e As EventArgs) Handles DismissMessageButton.Click
-        If GeneralMessage IsNot Nothing Then GeneralMessage.Clear()
-        DismissMessageButton.Visible = False
+        ClearMessages()
     End Sub
 
 #End Region
 
-#Region " Save data "
+#Region " Save enforcement data "
 
     Private Function ValidateAndSave() As Boolean
         If Not CheckPermissions(AccessLevel.UserCanSaveData) Then
@@ -1154,7 +1227,375 @@ Public Class SscpEnforcement
 
 #End Region
 
-#Region " Delete enforcement "
+#Region " Validation "
+
+    Private Sub DisplayValidationErrors()
+        ClearErrorsMenuItem.Enabled = True
+        Dim messageText As New StringBuilder("Please correct the following issues before saving:")
+        Dim lines As Int16 = 1
+
+        For Each kvp As KeyValuePair(Of Control, String) In validationErrors
+            If lines < 4 Then
+                messageText.AppendLine()
+                messageText.Append("* " & kvp.Value)
+                lines += 1
+            ElseIf lines = 4 Then
+                messageText.AppendLine()
+                messageText.Append("* More...")
+                lines += 1
+            End If
+            GeneralErrorProvider.SetError(kvp.Key, kvp.Value)
+            GeneralErrorProvider.SetIconAlignment(kvp.Key, ErrorIconAlignment.MiddleLeft)
+        Next
+
+        GeneralMessage = New IaipMessage(messageText.ToString, IaipMessage.WarningLevels.Warning)
+    End Sub
+
+    Private Sub ClearErrors()
+        ClearErrorsMenuItem.Enabled = False
+        If validationErrors IsNot Nothing Then
+            For Each kvp As KeyValuePair(Of Control, String) In validationErrors
+                GeneralErrorProvider.SetError(kvp.Key, String.Empty)
+            Next
+        End If
+        validationErrors = New Dictionary(Of Control, String)
+        ClearMessages()
+    End Sub
+
+    Private Sub ClearMessages()
+        If GeneralMessage IsNot Nothing Then GeneralMessage.Clear()
+        DismissMessageButton.Visible = False
+    End Sub
+
+    Private Function ValidateFormData() As Boolean
+        ClearErrors()
+        Return ValidateDates() And
+            ValidateViolationType() And
+            ValidatePrograms() And
+            ValidatePollutants() And
+            ValidateLinkedEvent() And
+            ValidateFacility() And
+            ValidatePenaltyAmount()
+    End Function
+
+    Private Function ValidatePenaltyAmount() As Boolean
+        If COCheckBox.Checked AndAlso
+            COPenaltyAmount.Text <> "" AndAlso
+            Not StringValidatesAsCurrency(COPenaltyAmount.Text) Then
+            validationErrors.Add(COPenaltyAmount, "Penalty amount must be a number.")
+            Return False
+        End If
+        Return True
+    End Function
+
+    Private Function StringValidatesAsCurrency(s As String) As Boolean
+        Return Decimal.TryParse(s.Trim({"$"c, " "c}).Replace(",", ""), Nothing)
+    End Function
+
+    Private Function ValidateViolationType() As Boolean
+        If FormIsCaseFile() AndAlso
+            (ViolationTypeNone.Checked Or ViolationTypeSelect.SelectedValue = "BLANK") Then
+
+            validationErrors.Add(ViolationTypeGroupbox, "Choose a Violation Type")
+            Return False
+        End If
+        Return True
+    End Function
+
+    Private Function FormIsCaseFile() As Boolean
+        Return NovCheckBox.Checked OrElse COCheckBox.Checked OrElse AOCheckBox.Checked
+    End Function
+
+    Private Function ValidateFacility() As Boolean
+        If AirsNumber Is Nothing OrElse Not DAL.FacilityData.AirsNumberExists(AirsNumber) Then
+
+            validationErrors.Add(AirsNumberDisplay, "Invalid or missing AIRS number.")
+            Return False
+        End If
+        Return True
+    End Function
+
+    Private Function ValidateLinkedEvent() As Boolean
+        If EnforcementCase.SubmittedToEpa And LinkedEventId = 0 Then
+            Dim dr As DialogResult = MessageBox.Show(
+                "There is no discovery event linked to this enforcement case. Do you want to submit to EPA without an initiating action?",
+                "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+            If dr = DialogResult.No Then
+                validationErrors.Add(LinkToEvent, "Missing discovery event.")
+                Return False
+            End If
+        End If
+        Return True
+    End Function
+
+    Private Function ValidatePollutants() As Boolean
+        If FormIsCaseFile() Then
+            If PollutantsListView.CheckedIndices.Count = 0 Then
+                validationErrors.Add(PollutantsListView, "At least one pollutant must be selected.")
+                Return False
+            End If
+        End If
+        Return True
+    End Function
+
+    Private Function ValidatePrograms() As Boolean
+        If FormIsCaseFile() Then
+            If ProgramsListView.CheckedIndices.Count = 0 Then
+                validationErrors.Add(ProgramsListView, "At least one air program must be selected.")
+                Return False
+            End If
+        End If
+        Return True
+    End Function
+
+    Private Function ValidateDates() As Boolean
+        Dim result As Boolean = True
+
+        If LonCheckBox.Checked Then
+            result = ValidateLonDates()
+        Else
+            If NovCheckBox.Checked Then result = result And ValidateNovDates()
+            If NovCheckBox.Checked Then result = result And ValidateNfaDates()
+            If COCheckBox.Checked Then result = result And ValidateCODates()
+            If AOCheckBox.Checked Then result = result And ValidateAODates()
+        End If
+
+        Return result
+    End Function
+
+    Private Function ValidateLonDates() As Boolean
+        Dim result As Boolean = True
+
+        If LonToUC.Checked Then
+            result = result And CheckTheseDates(
+                LonToUC.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate},
+                subsequents:=New List(Of DateTimePicker) From {LonSent, LonResolved})
+        End If
+
+        If LonSent.Checked Then
+            result = result And CheckTheseDates(
+                LonSent.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, LonToUC},
+                subsequents:=New List(Of DateTimePicker) From {LonResolved})
+        End If
+
+        If LonResolved.Checked Then
+            result = result And CheckTheseDates(
+                LonResolved.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, LonToUC},
+                requiredAntecedents:=New List(Of DateTimePicker) From {LonSent})
+        End If
+
+        If Not result Then
+            validationErrors.Add(LonTabPage, "LON dates are invalid.")
+        End If
+
+        Return result
+    End Function
+
+    Private Function ValidateNovDates() As Boolean
+        Dim result As Boolean = True
+
+        If NovToUC.Checked Then
+            result = result And CheckTheseDates(
+                NovToUC.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate},
+                subsequents:=New List(Of DateTimePicker) From
+                {NovToPM, NovSent, NovResponseReceived, NfaToUC, NfaToPM, NfaSent,
+                COToUC, COToPM, COProposed, COReceivedfromCompany, COReceivedFromDirector,
+                COExecuted, COResolved})
+        End If
+
+        If NovToPM.Checked Then
+            result = result And CheckTheseDates(
+                NovToPM.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, NovToUC},
+                subsequents:=New List(Of DateTimePicker) From
+                {NovSent, NovResponseReceived, NfaToUC, NfaToPM, NfaSent,
+                COToUC, COToPM, COProposed, COReceivedfromCompany, COReceivedFromDirector,
+                COExecuted, COResolved})
+        End If
+
+        If NovSent.Checked Then
+            result = result And CheckTheseDates(
+                NovSent.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, NovToUC, NovToPM},
+                subsequents:=New List(Of DateTimePicker) From
+                {NovResponseReceived, NfaToUC, NfaToPM, NfaSent,
+                COToUC, COToPM, COProposed, COReceivedfromCompany, COReceivedFromDirector,
+                COExecuted, COResolved})
+        End If
+
+        If NovResponseReceived.Checked Then
+            result = result And CheckTheseDates(
+                NovResponseReceived.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, NovToUC, NovToPM},
+                subsequents:=New List(Of DateTimePicker) From
+                {NfaToUC, NfaToPM, NfaSent,
+                COToUC, COToPM, COProposed, COReceivedfromCompany, COReceivedFromDirector,
+                COExecuted, COResolved},
+                requiredAntecedents:=New List(Of DateTimePicker) From {NovSent})
+        End If
+
+        If Not result Then
+            validationErrors.Add(NovTabPage, "NOV dates are invalid.")
+        End If
+
+        Return result
+    End Function
+
+    Private Function ValidateNfaDates() As Boolean
+        Dim result As Boolean = True
+
+        If NfaToUC.Checked Then
+            result = result And CheckTheseDates(
+                NfaToUC.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, NovToUC},
+                subsequents:=New List(Of DateTimePicker) From {NfaToPM, NfaSent})
+        End If
+
+        If NfaToPM.Checked Then
+            result = result And CheckTheseDates(
+                NfaToUC.Value,
+                antecedents:=New List(Of DateTimePicker) From
+                {DiscoveryDate, NovToUC, NovToPM, NfaToUC},
+                subsequents:=New List(Of DateTimePicker) From {NfaSent})
+        End If
+
+        If NfaSent.Checked Then
+            result = result And CheckTheseDates(
+                NfaSent.Value,
+                antecedents:=New List(Of DateTimePicker) From
+                {DiscoveryDate, NovToUC, NovToPM, NovSent,
+                NfaToUC, NfaToPM},
+                requiredAntecedents:=New List(Of DateTimePicker) From {NovSent})
+        End If
+
+        If Not result Then
+            validationErrors.Add(NovTabPage, "NFA dates are invalid.")
+        End If
+
+        Return result
+    End Function
+
+    Private Function ValidateCODates() As Boolean
+        Dim result As Boolean = True
+
+        If COToUC.Checked Then
+            result = result And CheckTheseDates(
+                COToUC.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate},
+                subsequents:=New List(Of DateTimePicker) From
+                {COToPM, COProposed, COExecuted, COResolved})
+        End If
+
+        If COToPM.Checked Then
+            result = result And CheckTheseDates(
+                COToPM.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, COToUC},
+                subsequents:=New List(Of DateTimePicker) From {COProposed, COExecuted, COResolved})
+        End If
+
+        If COProposed.Checked Then
+            result = result And CheckTheseDates(
+                COProposed.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, COToUC, COToPM},
+                subsequents:=New List(Of DateTimePicker) From {COExecuted, COResolved})
+        End If
+
+        If COExecuted.Checked Then
+            result = result And CheckTheseDates(
+                COExecuted.Value,
+                antecedents:=New List(Of DateTimePicker) From
+                {DiscoveryDate, COToUC, COToPM, COProposed},
+                subsequents:=New List(Of DateTimePicker) From {COResolved})
+        End If
+
+        If COResolved.Checked Then
+            result = result And CheckTheseDates(
+                COResolved.Value,
+                antecedents:=New List(Of DateTimePicker) From
+                {DiscoveryDate, COToUC, COToPM, COProposed},
+                requiredAntecedents:=New List(Of DateTimePicker) From {COExecuted})
+        End If
+
+        If Not result Then
+            validationErrors.Add(NovTabPage, "CO dates are invalid.")
+        End If
+
+        Return result
+    End Function
+
+    Private Function ValidateAODates() As Boolean
+        Dim result As Boolean = True
+
+        If AOExecuted.Checked Then
+            result = result And CheckTheseDates(
+                AOExecuted.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate},
+                subsequents:=New List(Of DateTimePicker) From {AOAppealed, AOResolved})
+        End If
+
+        If AOAppealed.Checked Then
+            result = result And CheckTheseDates(
+                AOAppealed.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate},
+                subsequents:=New List(Of DateTimePicker) From {AOResolved},
+                requiredAntecedents:=New List(Of DateTimePicker) From {AOExecuted})
+        End If
+
+        If AOResolved.Checked Then
+            result = result And CheckTheseDates(
+                AOResolved.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, AOAppealed},
+                requiredAntecedents:=New List(Of DateTimePicker) From {AOExecuted})
+        End If
+
+        If Not result Then
+            validationErrors.Add(NovTabPage, "AO dates are invalid.")
+        End If
+
+        Return result
+    End Function
+
+    Private Function CheckTheseDates(dateToCheck As Date,
+                               Optional antecedents As List(Of DateTimePicker) = Nothing,
+                               Optional subsequents As List(Of DateTimePicker) = Nothing,
+                               Optional requiredAntecedents As List(Of DateTimePicker) = Nothing,
+                               Optional requiredSubsequents As List(Of DateTimePicker) = Nothing
+                               ) As Boolean
+
+        If antecedents IsNot Nothing Then
+            For Each dtp As DateTimePicker In antecedents
+                If dtp.Checked AndAlso dtp.Value > dateToCheck Then Return False
+            Next
+        End If
+
+        If subsequents IsNot Nothing Then
+            For Each dtp As DateTimePicker In subsequents
+                If dtp.Checked AndAlso dtp.Value < dateToCheck Then Return False
+            Next
+        End If
+
+        If requiredAntecedents IsNot Nothing Then
+            For Each dtp As DateTimePicker In requiredAntecedents
+                If Not dtp.Checked OrElse dtp.Value > dateToCheck Then Return False
+            Next
+        End If
+
+        If requiredSubsequents IsNot Nothing Then
+            For Each dtp As DateTimePicker In requiredSubsequents
+                If Not dtp.Checked OrElse dtp.Value < dateToCheck Then Return False
+            Next
+        End If
+
+        Return True
+    End Function
+
+#End Region
+
+#Region " Delete enforcement data "
 
     Private Sub DeleteEnforcement()
         If EnforcementId Is Nothing OrElse EnforcementId = 0 Then
@@ -1409,242 +1850,6 @@ Public Class SscpEnforcement
                 Return ComplianceStatus.Unknown
             End If
         End With
-    End Function
-
-#End Region
-
-
-
-
-
-    ' TODO .........................................................................
-
-
-
-#Region " Pollutants/Programs tab "
-
-    Public Sub LoadPollutants()
-        ' All available pollutants
-        Dim dt As DataTable = DAL.GetFacilityPollutants(AirsNumber)
-        PollutantsListView.Items.Clear()
-        For Each row As DataRow In dt.Rows
-            PollutantsListView.Items.Add(New ListViewItem({row(0), row(1)}))
-        Next
-
-        ' Pollutants associated with this case
-        For i As Integer = 0 To PollutantsListView.Items.Count - 1
-            If EnforcementCase.Pollutants.Contains(PollutantsListView.Items.Item(i).SubItems(1).Text) Then
-                PollutantsListView.Items.Item(i).Checked = True
-            End If
-        Next
-    End Sub
-
-    Private Sub LoadAirPrograms()
-        ' All available air programs
-        Dim dt As DataTable = DAL.GetFacilityAirProgramsAsDataTable(AirsNumber)
-        ProgramsListView.Items.Clear()
-        For Each row As DataRow In dt.Rows
-            ProgramsListView.Items.Add(New ListViewItem({row(0), row(1)}))
-        Next
-
-        ' Programs associated with this case
-        For i As Integer = 0 To ProgramsListView.Items.Count - 1
-            If EnforcementCase.Programs.Contains(ProgramsListView.Items.Item(i).SubItems(1).Text) Then
-                ProgramsListView.Items.Item(i).Checked = True
-            End If
-        Next
-    End Sub
-
-    Private Sub EditAirProgramPollutantsButton_Click(sender As Object, e As EventArgs) Handles EditAirProgramPollutantsButton.Click
-        Throw New NotImplementedException
-
-        ' Change IAIPEditAirProgramPollutants to dialog; return lists of pollutants/programs; reload ListViews
-        ' (reloading ListViews: recently checked/unchecked items may not be saved to db yet, so grab those, repopulate lists, restore checked items
-
-        'Dim EditAirProgramPollutants As IAIPEditAirProgramPollutants = OpenSingleForm(IAIPEditAirProgramPollutants)
-        'EditAirProgramPollutants.AirsNumberDisplay.Text = AirsNumber.ShortString
-    End Sub
-
-#End Region
-
-#Region " Validation "
-
-    Private Sub DisplayValidationErrors()
-        ClearErrorsMenuItem.Enabled = True
-        Dim messageText As New StringBuilder("Please correct the following issues before saving:")
-        Dim lines As Int16 = 1
-
-        For Each kvp As KeyValuePair(Of Control, String) In validationErrors
-            If lines < 4 Then
-                messageText.AppendLine()
-                messageText.Append("* " & kvp.Value)
-                lines += 1
-            ElseIf lines = 4 Then
-                messageText.AppendLine()
-                messageText.Append("* More...")
-                lines += 1
-            End If
-            GeneralErrorProvider.SetError(kvp.Key, kvp.Value)
-            GeneralErrorProvider.SetIconAlignment(kvp.Key, ErrorIconAlignment.MiddleLeft)
-        Next
-
-        GeneralMessage = New IaipMessage(messageText.ToString, IaipMessage.WarningLevels.Warning)
-    End Sub
-
-    Private Sub ClearErrors()
-        ClearErrorsMenuItem.Enabled = False
-        If validationErrors IsNot Nothing Then
-            For Each kvp As KeyValuePair(Of Control, String) In validationErrors
-                GeneralErrorProvider.SetError(kvp.Key, String.Empty)
-            Next
-        End If
-        validationErrors = New Dictionary(Of Control, String)
-    End Sub
-
-    Private Function ValidateFormData() As Boolean
-        Throw New NotImplementedException()
-
-        ClearErrors()
-        Return ValidateDates() And
-            ValidateViolationType() And
-            ValidatePrograms() And
-            ValidatePollutants() And
-            ValidateLinkedEvent() And
-            ValidateFacility() And
-            ValidatePenaltyAmount()
-    End Function
-
-    Private Function ValidatePenaltyAmount() As Boolean
-        If COCheckBox.Checked AndAlso
-            COPenaltyAmount.Text <> "" AndAlso
-            Not StringValidatesAsCurrency(COPenaltyAmount.Text) Then
-            validationErrors.Add(COPenaltyAmount, "Penalty amount must be a number.")
-            Return False
-        End If
-        Return True
-    End Function
-
-    Private Function StringValidatesAsCurrency(s As String) As Boolean
-        Return Decimal.TryParse(s.Trim({"$"c, " "c}).Replace(",", ""), Nothing)
-    End Function
-
-    Private Function ValidateViolationType() As Boolean
-        If FormIsCaseFile() AndAlso
-            (ViolationTypeNone.Checked Or ViolationTypeSelect.SelectedValue = "BLANK") Then
-
-            validationErrors.Add(ViolationTypeGroupbox, "Choose a Violation Type")
-            Return False
-        End If
-        Return True
-    End Function
-
-    Private Function FormIsCaseFile() As Boolean
-        Return NovCheckBox.Checked OrElse COCheckBox.Checked OrElse AOCheckBox.Checked
-    End Function
-
-    Private Function ValidateFacility() As Boolean
-        If AirsNumber Is Nothing OrElse Not DAL.FacilityData.AirsNumberExists(AirsNumber) Then
-
-            validationErrors.Add(AirsNumberDisplay, "Invalid or missing AIRS number.")
-            Return False
-        End If
-        Return True
-    End Function
-
-    Private Function ValidateLinkedEvent() As Boolean
-        If EnforcementCase.SubmittedToEpa And LinkedEventId = 0 Then
-            Dim dr As DialogResult = MessageBox.Show(
-                "There is no discovery event linked to this enforcement case. Do you want to submit to EPA without an initiating action?",
-                "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
-            If dr = DialogResult.No Then
-                validationErrors.Add(LinkToEvent, "Missing discovery event.")
-                Return False
-            End If
-        End If
-        Return True
-    End Function
-
-    Private Function ValidatePollutants() As Boolean
-        If FormIsCaseFile() Then
-            If PollutantsListView.CheckedIndices.Count = 0 Then
-                validationErrors.Add(PollutantsListView, "At least one pollutant must be selected.")
-                Return False
-            End If
-        End If
-        Return True
-    End Function
-
-    Private Function ValidatePrograms() As Boolean
-        If FormIsCaseFile() Then
-            If ProgramsListView.CheckedIndices.Count = 0 Then
-                validationErrors.Add(ProgramsListView, "At least one air program must be selected.")
-                Return False
-            End If
-        End If
-        Return True
-    End Function
-
-    Private Function ValidateDates() As Boolean
-        Dim result As Boolean = True
-
-        If LonCheckBox.Checked Then
-            result = ValidateLonDates()
-        Else
-            If COCheckBox.Checked Then result = result And ValidateCODates()
-            If AOCheckBox.Checked Then result = result And ValidateAODates()
-            If NovCheckBox.Checked Then result = result And ValidateNovDates()
-        End If
-
-        Return result
-    End Function
-
-    Private Function ValidateLonDates() As Boolean
-        Throw New NotImplementedException()
-
-        Dim result As Boolean = True
-
-        If LonToUC.Checked Then
-            result = result And CheckDate(LonToUC.Value,
-                                          antecedents:=New List(Of DateTimePicker) From {DiscoveryDate},
-                                          subsequents:=New List(Of DateTimePicker) From {LonSent, LonResolved})
-        End If
-
-        If LonSent.Checked Then
-            result = result And CheckDate(LonSent.Value,
-                                          antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, LonToUC},
-                                          subsequents:=New List(Of DateTimePicker) From {LonResolved})
-        End If
-
-        If LonResolved.Checked Then
-            result = result And CheckDate(LonResolved.Value,
-                                          antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, LonToUC},
-                                          requiredAntecedents:=New List(Of DateTimePicker) From {LonSent})
-        End If
-
-        If Not result Then validationErrors.Add(LonSent, "LON dates are invalid.")
-
-        Return result
-    End Function
-
-    Private Function ValidateNovDates() As Boolean
-        Throw New NotImplementedException()
-    End Function
-
-    Private Function ValidateAODates() As Boolean
-        Throw New NotImplementedException()
-    End Function
-
-    Private Function ValidateCODates() As Boolean
-        Throw New NotImplementedException()
-    End Function
-
-    Private Function CheckDate(dateToCheck As Date,
-                               Optional antecedents As List(Of DateTimePicker) = Nothing,
-                               Optional subsequents As List(Of DateTimePicker) = Nothing,
-                               Optional requiredAntecedents As List(Of DateTimePicker) = Nothing,
-                               Optional requiredSubsequents As List(Of DateTimePicker) = Nothing
-                               ) As Boolean
-
     End Function
 
 #End Region

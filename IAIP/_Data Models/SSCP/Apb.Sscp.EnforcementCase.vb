@@ -82,6 +82,17 @@ Namespace Apb.Sscp
                 LegacyComplianceStatus = [Enum].Parse(GetType(LegacyComplianceStatus), value)
             End Set
         End Property
+        Public Property LegacyComplianceStatusDbCode As String
+            Get
+                If LegacyComplianceStatus = LegacyComplianceStatus.NoValue Then
+                    Return "0"
+                End If
+                Return LegacyComplianceStatusCode.Substring(7)
+            End Get
+            Set(ByVal value As String)
+                LegacyComplianceStatus = [Enum].Parse(GetType(LegacyComplianceStatus), "Status_" & value)
+            End Set
+        End Property
 
         ' LON
         Public Property LonToUc As Date? ' STRLONTOUC	VARCHAR2(5 BYTE); DATLONTOUC	DATE
@@ -168,6 +179,8 @@ Namespace Apb.Sscp
 #Region " Pollutants/Programs "
 
         Private Function ParseEnforcementPollutants(progPoll As String) As List(Of String)
+            If progPoll = "" OrElse Not progPoll.Contains(","c) Then Return Nothing
+
             Dim p As String() = progPoll.Split({","c}, StringSplitOptions.RemoveEmptyEntries)
             For i As Integer = 0 To p.Length - 1
                 p(i) = p(i).Substring(1)
@@ -176,6 +189,8 @@ Namespace Apb.Sscp
         End Function
 
         Private Function ParseEnforcementPrograms(progPoll As String) As List(Of String)
+            If progPoll = "" OrElse Not progPoll.Contains(","c) Then Return Nothing
+
             Dim p As String() = progPoll.Split({","c}, StringSplitOptions.RemoveEmptyEntries)
             For i As Integer = 0 To p.Length - 1
                 p(i) = p(i).Substring(0, 1)
@@ -271,10 +286,10 @@ Namespace Apb.Sscp
     End Enum
 
     Public Enum ComplianceStatus
-        <Description("Unknown compliance status")> Unknown = 0
-        <Description("In violation")> InViolation = 4
-        <Description("Subject to compliance schedule")> MeetingComplianceSchedule = 3
-        <Description("In compliance")> InCompliance = 1
+        <Description("Unknown compliance status")> Unknown
+        <Description("In compliance")> InCompliance
+        <Description("Subject to compliance schedule")> MeetingComplianceSchedule
+        <Description("In violation")> InViolation
     End Enum
 
     Public Enum EnforcementActionType

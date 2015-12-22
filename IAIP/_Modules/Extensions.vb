@@ -251,7 +251,7 @@ Module Extensions
     ''' <returns>The value of the Description attribute if present, else
     ''' the normal ToString() representation of the enum value.</returns>
     ''' <remarks>http://stackoverflow.com/a/14772005/212978</remarks>
-    <Extension()>
+    <Extension>
     Public Function GetDescription(ByVal e As [Enum]) As String
         Dim enumType As Type = e.GetType()
         Dim name As String = e.ToString()
@@ -315,6 +315,20 @@ Module Extensions
         For Each value As [Enum] In flagValues.GetUniqueFlags
             Yield value.GetDescription
         Next
+    End Function
+
+    Public Function EnumToDataTable(enumType As Type) As DataTable
+        Dim dt As New DataTable()
+        dt.Columns.Add("ID", [Enum].GetUnderlyingType(enumType))
+        dt.Columns.Add("Description", GetType(String))
+
+        Dim e As [Enum]
+        For Each name As String In [Enum].GetNames(enumType)
+            e = [Enum].Parse(enumType, name)
+            dt.Rows.Add(e, e.GetDescription)
+        Next
+
+        Return dt
     End Function
 
 #End Region

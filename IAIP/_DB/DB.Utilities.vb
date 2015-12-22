@@ -27,6 +27,7 @@ Namespace DB
         ''' </summary>
         ''' <param name="obj">The database value to convert.</param>
         ''' <returns>If database value is DBNull or value cannot be converted to a DateTime, returns Nothing; otherwise, returns the value converted to a DateTime.</returns>
+        <DebuggerStepThrough()>
         Public Function GetNullableDateTimeFromString(ByVal obj As Object) As DateTime?
             Try
 

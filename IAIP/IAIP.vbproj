@@ -767,6 +767,7 @@
     <Compile Include="SSPP\Sub Forms\SSPPAttainmentStatus.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="_DAL\Common Data\DAL.Afs.vb" />
     <Compile Include="_DAL\Facilities\DAL.FacilityPollProg.vb" />
     <Compile Include="_DAL\Facilities\DAL.Afs.vb" />
     <Compile Include="_DAL\SSCP\DAL.Sscp.Fce.vb" />
