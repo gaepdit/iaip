@@ -9,8 +9,6 @@ Public Class SSCPComplianceLog
     Dim recExist As Boolean
     Dim dsCompliance As DataSet
     Dim daCompliance As OracleDataAdapter
-    Dim dsStaff As DataSet
-    Dim daStaff As OracleDataAdapter
     Dim dsWorkEntry As DataSet
     Dim daWorkEntry As OracleDataAdapter
     Dim dsNotifications As DataSet
@@ -19,6 +17,7 @@ Public Class SSCPComplianceLog
     Dim daComplianceUnit As OracleDataAdapter
     Dim dsDistrictUnit As DataSet
     Dim daDistrictUnit As OracleDataAdapter
+    Dim dtStaff As DataTable
 
     Private Sub DevWorkEntry_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
@@ -76,7 +75,6 @@ Public Class SSCPComplianceLog
         Try
 
             dsCompliance = New DataSet
-            dsStaff = New DataSet
             dsNotifications = New DataSet
             dsComplianceUnit = New DataSet
             dsDistrictUnit = New DataSet
@@ -120,9 +118,7 @@ Public Class SSCPComplianceLog
             daComplianceUnit.Fill(dsComplianceUnit, "ComplianceUnit")
             daDistrictUnit.Fill(dsDistrictUnit, "DistrictUnit")
 
-            Dim dtStaff As DataTable = SharedData.GetTable(SharedData.Tables.AllComplianceStaff)
-            dtStaff.TableName = "Staff"
-            dsStaff.Tables.Add(dtStaff)
+            dtStaff = SharedData.GetTable(SharedData.Tables.AllComplianceStaff)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -130,7 +126,6 @@ Public Class SSCPComplianceLog
     End Sub
     Sub LoadComboBoxes()
         Dim dtActivity As New DataTable
-        Dim dtStaff As New DataTable
         Dim dtNotifications As New DataTable
         Dim dtComplianceUnit As New DataTable
         Dim dtDistrictUnit As New DataTable
@@ -163,16 +158,6 @@ Public Class SSCPComplianceLog
                     .SelectedIndex = 0
                 End If
             End With
-
-            dtStaff.Columns.Add("Staff", GetType(System.String))
-            dtStaff.Columns.Add("numUserID", GetType(System.String))
-
-            For Each drDSRow In dsStaff.Tables("Staff").Rows()
-                drNewRow = dtStaff.NewRow
-                drNewRow("Staff") = drDSRow("Staff")
-                drNewRow("numUserID") = drDSRow("numUserId")
-                dtStaff.Rows.Add(drNewRow)
-            Next
 
             With clbEngineer
                 .DataSource = dtStaff

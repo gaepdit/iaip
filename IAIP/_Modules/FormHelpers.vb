@@ -107,7 +107,7 @@ Module FormHelpers
             If trackingNumber IsNot Nothing AndAlso DAL.Sscp.WorkItemExists(trackingNumber) Then
                 parameters(FormParameter.TrackingNumber) = trackingNumber
             End If
-            Return OpenMultiForm(SscpEnforcement, -Convert.ToInt16(airsNumber.ToString), parameters)
+            Return OpenMultiForm(SscpEnforcement, -Convert.ToInt32(airsNumber.ToString), parameters)
         Else
             MessageBox.Show("AIRS number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return Nothing

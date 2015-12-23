@@ -352,7 +352,7 @@ Namespace DAL.Sscp
                     New OracleParameter(":DATDISCOVERYDATE", .DiscoveryDate),
                     New OracleParameter(":STRDAYZERO", .DayZeroDate.HasValue.ToString),
                     New OracleParameter(":DATDAYZERO", .DayZeroDate),
-                    New OracleParameter(":STRHPV", .ViolationType),
+                    New OracleParameter(":STRHPV", If(.ViolationType = "BLANK", "", .ViolationType)),
                     New OracleParameter(":STRPOLLUTANTS", .ProgramPollutants),
                     New OracleParameter(":STRPOLLUTANTSTATUS", .LegacyComplianceStatusDbCode),
                     New OracleParameter(":STRLONTOUC", .LonToUc.HasValue.ToString),
@@ -414,7 +414,7 @@ Namespace DAL.Sscp
                     New OracleParameter(":STRMODIFINGPERSON", UserGCode)
                 })
 
-                For Each prog As String In .Programs
+                For Each prog As String In .LegacyAirPrograms
                     For Each poll As String In .Pollutants
                         queriesList.Add("UPDATE AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " &
                                     "SET STRCOMPLIANCESTATUS = :STRCOMPLIANCESTATUS, " &
@@ -492,7 +492,7 @@ Namespace DAL.Sscp
                 "FROM AIRBRANCH.SSCPENFORCEMENTSTIPULATED es " &
                 "WHERE es.STRENFORCEMENTNUMBER = :enforcementId"
             Dim parameter As New OracleParameter("enforcementId", enforcementId)
-            Dim key As Int16 = DB.GetSingleValue(Of Int16)(query, parameter)
+            Dim key As Integer = DB.GetSingleValue(Of Integer)(query, parameter)
             Return key + 1
         End Function
 
@@ -542,8 +542,8 @@ Namespace DAL.Sscp
                 "SET STRSTIPULATEDPENALTY = :penalty, " &
                 "  STRSTIPULATEDPENALTYCOMMENTS = :penaltyComment, " &
                 "  STRMODIFINGPERSON = :userid, DATMODIFINGDATE = SYSDATE " &
-                "WHERE STRENFORCEMENTNUMBER = :enforcementId AND STRENFORCEMENTKEY = " &
-                "  :enfKey"
+                "WHERE STRENFORCEMENTNUMBER = :enforcementId AND " &
+                "  STRENFORCEMENTKEY = :enfKey"
             Dim parameters As OracleParameter() = {
                 New OracleParameter("penalty", penalty.ToString),
                 New OracleParameter("penaltyComment", comment),
@@ -557,8 +557,8 @@ Namespace DAL.Sscp
         Public Function DeleteStipulatedPenalty(enforcementId As String, enfKey As Integer) As Boolean
             Dim query As String = "DELETE " &
                 "FROM AIRBRANCH.SSCPENFORCEMENTSTIPULATED " &
-                "WHERE STRENFORCEMENTNUMBER = :enforcementId AND STRENFORCEMENTKEY = " &
-                "  :enfKey"
+                "WHERE STRENFORCEMENTNUMBER = :enforcementId AND " &
+                "  STRENFORCEMENTKEY = :enfKey"
             Dim parameters As OracleParameter() = {
                 New OracleParameter("enforcementId", enforcementId),
                 New OracleParameter("enfKey", enfKey)

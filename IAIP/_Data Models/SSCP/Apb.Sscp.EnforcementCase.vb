@@ -64,12 +64,22 @@ Namespace Apb.Sscp
             End Get
             Set(value As String)
                 Pollutants = ParseEnforcementPollutants(value)
-                Programs = ParseEnforcementPrograms(value)
+                LegacyAirPrograms = ParseEnforcementPrograms(value)
             End Set
         End Property
 
         Public Property Pollutants As List(Of String)
-        Public Property Programs As List(Of String)
+
+        Public ReadOnly Property AirPrograms As List(Of String)
+            Get
+                Dim ap As New List(Of String)
+                For Each p As String In LegacyAirPrograms
+                    ap.Add(Facilities.FacilityHeaderData.ConvertAirProgramLegacyCodes(p).ToString)
+                Next
+                Return ap
+            End Get
+        End Property
+        Public Property LegacyAirPrograms As List(Of String)
 
         ' Compliance status
         Public Property ComplianceStatus As ComplianceStatus
@@ -199,15 +209,15 @@ Namespace Apb.Sscp
         End Function
 
         Private Function CombineProgramPollutants() As String
-            If Programs Is Nothing OrElse
-                Programs.Count = 0 OrElse
+            If LegacyAirPrograms Is Nothing OrElse
+                LegacyAirPrograms.Count = 0 OrElse
                 Pollutants Is Nothing OrElse
                 Pollutants.Count = 0 Then
                 Return Nothing
             End If
 
             Dim result As New StringBuilder
-            For Each pr As String In Programs
+            For Each pr As String In LegacyAirPrograms
                 For Each pl As String In Pollutants
                     result.Append(pr & pl & ",")
                 Next

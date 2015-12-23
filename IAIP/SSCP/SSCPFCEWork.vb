@@ -21,8 +21,7 @@ Public Class SSCPFCEWork
     Dim daEnforcement As OracleDataAdapter
     Dim dsPerformanceTest As DataSet
     Dim daPerformanceTest As OracleDataAdapter
-    Dim dsStaff As DataSet
-    Dim daStaff As OracleDataAdapter
+    Dim dtStaff As DataTable
 
 
     Private Sub SSCPFCE_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -141,9 +140,7 @@ Public Class SSCPFCEWork
             daFCE = New OracleDataAdapter(SQL, CurrentConnection)
             daFCE.Fill(dsFCE, "FCEdata")
 
-            Dim dtStaff As DataTable = SharedData.GetTable(SharedData.Tables.AllComplianceStaff)
-            dtStaff.TableName = "Staff"
-            dsStaff.Tables.Add(dtStaff)
+            dtStaff = SharedData.GetTable(SharedData.Tables.AllComplianceStaff)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -159,7 +156,7 @@ Public Class SSCPFCEWork
         Try
 
             With cboReviewer
-                .DataSource = dsStaff.Tables("Staff")
+                .DataSource = dtStaff
                 .DisplayMember = "Staff"
                 .ValueMember = "numUserID"
                 .SelectedIndex = 0

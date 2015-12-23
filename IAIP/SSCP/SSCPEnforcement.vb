@@ -494,9 +494,9 @@ Public Class SscpEnforcement
             ClearLinkedEvent.Visible = False
             LinkToEvent.Visible = True
         Else
-            LinkedEventDisplay.Visible = False
-            ClearLinkedEvent.Visible = False
-            LinkToEvent.Visible = True
+            LinkedEventDisplay.Visible = True
+            ClearLinkedEvent.Visible = True
+            LinkToEvent.Visible = False
             LinkedEventDisplay.Text = "Discovery Event: " & LinkedEventId.ToString
             LinkedEventDisplay.LinkArea = New LinkArea(17, LinkedEventDisplay.Text.Length)
         End If
@@ -599,7 +599,7 @@ Public Class SscpEnforcement
                 SubmitToEpa2.Visible = True
                 NotSubmittedToEpaLabel.Visible = True
             End If
-            If Not EnforcementTabs.TabPages.Contains(PollutantsTabPage) Then EnforcementTabs.TabPages.Add(PollutantsTabPage)
+            If Not EnforcementTabs.TabPages.Contains(PollutantsTabPage) Then EnforcementTabs.TabPages.Insert(1, PollutantsTabPage)
         Else
             ViolationTypeGroupbox.Visible = False
             SubmitToUC.Visible = False
@@ -656,13 +656,13 @@ Public Class SscpEnforcement
         Dim dt As DataTable = DAL.GetFacilityPollutants(AirsNumber)
         PollutantsListView.Items.Clear()
         For Each row As DataRow In dt.Rows
-            PollutantsListView.Items.Add(New ListViewItem({row(0), row(1)}))
+            PollutantsListView.Items.Add(New ListViewItem({row(1), row(0)}))
         Next
 
         ' Pollutants associated with this case
         If EnforcementCase.Pollutants IsNot Nothing Then
             For i As Integer = 0 To PollutantsListView.Items.Count - 1
-                If EnforcementCase.Pollutants.Contains(PollutantsListView.Items.Item(i).SubItems(1).Text) Then
+                If EnforcementCase.Pollutants.Contains(PollutantsListView.Items(i).SubItems(1).Text) Then
                     PollutantsListView.Items.Item(i).Checked = True
                 End If
             Next
@@ -674,13 +674,13 @@ Public Class SscpEnforcement
         Dim dt As DataTable = DAL.GetFacilityAirProgramsAsDataTable(AirsNumber)
         ProgramsListView.Items.Clear()
         For Each row As DataRow In dt.Rows
-            ProgramsListView.Items.Add(New ListViewItem({row(0), row(1)}))
+            ProgramsListView.Items.Add(New ListViewItem({row(1), row(0)}))
         Next
 
         ' Programs associated with this case
-        If EnforcementCase.Programs IsNot Nothing Then
+        If EnforcementCase.AirPrograms IsNot Nothing Then
             For i As Integer = 0 To ProgramsListView.Items.Count - 1
-                If EnforcementCase.Programs.Contains(ProgramsListView.Items.Item(i).SubItems(1).Text) Then
+                If EnforcementCase.AirPrograms.Contains(ProgramsListView.Items(i).SubItems(1).Text) Then
                     ProgramsListView.Items.Item(i).Checked = True
                 End If
             Next
@@ -705,15 +705,13 @@ Public Class SscpEnforcement
         Dim dt As DataTable = DAL.Sscp.GetStipulatedPenalties(EnforcementId)
 
         StipulatedPenalties.DataSource = dt
-        StipulatedPenalties.Refresh()
-
-
         StipulatedPenalties.Columns("STRENFORCEMENTKEY").Visible = False
         StipulatedPenalties.Columns("STRSTIPULATEDPENALTY").HeaderText = "Penalty Amount"
         StipulatedPenalties.Columns("STRSTIPULATEDPENALTY").DisplayIndex = 0
         StipulatedPenalties.Columns("STRSTIPULATEDPENALTYCOMMENTS").HeaderText = "Comments"
         StipulatedPenalties.Columns("STRSTIPULATEDPENALTYCOMMENTS").DisplayIndex = 1
         StipulatedPenalties.Columns("STRAFSSTIPULATEDPENALTYNUMBER").Visible = False
+        StipulatedPenalties.SanelyResizeColumns
 
         If EnforcementTabs.TabPages.Contains(EpaValuesTabPage) Then DisplayEpaValues()
     End Sub
@@ -794,11 +792,15 @@ Public Class SscpEnforcement
         ClearStipulatedPenaltyForm()
     End Sub
 
-    Private Sub StipulatedPenalties_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles StipulatedPenalties.CellContentClick
+    Private Sub StipulatedPenalties_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles StipulatedPenalties.CellClick
+
         If e.RowIndex <> -1 And e.RowIndex < StipulatedPenalties.RowCount Then
-            selectedStipulatedPenaltyItem = StipulatedPenalties.Rows(e.RowIndex).Cells(0).Value.ToString
-            StipulatedPenaltyAmount.Text = StipulatedPenalties.Rows(e.RowIndex).Cells(1).Value.ToString("C")
-            StipulatedPenaltyComments.Text = StipulatedPenalties.Rows(e.RowIndex).Cells(3).Value.ToString
+            selectedStipulatedPenaltyItem = StipulatedPenalties.Rows(e.RowIndex).Cells("STRENFORCEMENTKEY").Value.ToString
+            Dim sp As String = StipulatedPenalties.Rows(e.RowIndex).Cells("STRSTIPULATEDPENALTY").Value
+            If StringValidatesAsCurrency(sp) Then
+                StipulatedPenaltyAmount.Text = ConvertCurrencyStringToDecimal(sp).ToString("C")
+            End If
+            StipulatedPenaltyComments.Text = StipulatedPenalties.Rows(e.RowIndex).Cells("STRSTIPULATEDPENALTYCOMMENTS").Value.ToString
             UpdateStipulatedPenaltyButton.Visible = True
             DeleteStipulatedPenaltyButton.Visible = True
             SaveNewStipulatedPenaltyButton.Visible = False
@@ -980,7 +982,7 @@ Public Class SscpEnforcement
 
     Private Sub ShowAuditHistory()
         If Not EnforcementTabs.TabPages.Contains(AuditHistoryTabPage) Then EnforcementTabs.TabPages.Add(AuditHistoryTabPage)
-        EnforcementTabs.SelectedTab = AuditHistoryTabPage
+        EnforcementTabs.SelectTab(AuditHistoryTabPage)
         LoadAuditData()
     End Sub
 
@@ -1061,7 +1063,7 @@ Public Class SscpEnforcement
 
     Private Sub ShowEpaValues()
         If Not EnforcementTabs.TabPages.Contains(EpaValuesTabPage) Then EnforcementTabs.TabPages.Add(EpaValuesTabPage)
-        EnforcementTabs.SelectedTab = EpaValuesTabPage
+        EnforcementTabs.SelectTab(EpaValuesTabPage)
         DisplayEpaValues()
     End Sub
 
@@ -1171,9 +1173,10 @@ Public Class SscpEnforcement
                 If .EnforcementId = 0 Then
                     .EnforcementId = result
                     message &= " New enforcement ID: " & .EnforcementId
-                    DisplayEnforcementCase()
                 End If
+                .DateModified = Today
             End With
+            DisplayEnforcementCase()
             GeneralMessage = New IaipMessage(message, IaipMessage.WarningLevels.Success)
             Return True
         End If
@@ -1473,7 +1476,7 @@ Public Class SscpEnforcement
         End If
 
         If Not result Then
-            validationErrors.Add(NovTabPage, "NFA dates are invalid.")
+            If Not validationErrors.ContainsKey(NovTabPage) Then validationErrors.Add(NovTabPage, "NFA dates are invalid.")
         End If
 
         Return result
@@ -1521,7 +1524,7 @@ Public Class SscpEnforcement
         End If
 
         If Not result Then
-            validationErrors.Add(NovTabPage, "CO dates are invalid.")
+            validationErrors.Add(COTabPage, "CO dates are invalid.")
         End If
 
         Return result
@@ -1645,7 +1648,7 @@ Public Class SscpEnforcement
             .LinkedWorkItemId = LinkedEventId
             .Open = Not ResolvedCheckBox.Checked
             .Pollutants = ReadPollutantsFromForm()
-            .Programs = ReadProgramsFromForm()
+            .LegacyAirPrograms = ReadProgramsFromForm()
             .StaffResponsibleId = StaffResponsible.SelectedValue
             .ViolationType = ViolationTypeSelect.SelectedValue
             .DateFinalized = GetNullableDateFromDateTimePicker(ResolvedDate)
@@ -1781,7 +1784,7 @@ Public Class SscpEnforcement
     Private Function ReadProgramsFromForm() As List(Of String)
         Dim pList As New List(Of String)
         For Each item As ListViewItem In ProgramsListView.CheckedItems
-            pList.Add(item.SubItems(1).ToString)
+            pList.Add(Apb.Facilities.FacilityHeaderData.ConvertAirProgramToLegacyCode(item.SubItems(1).Text))
         Next
         Return pList
     End Function
@@ -1789,7 +1792,7 @@ Public Class SscpEnforcement
     Private Function ReadPollutantsFromForm() As List(Of String)
         Dim pList As New List(Of String)
         For Each item As ListViewItem In PollutantsListView.CheckedItems
-            pList.Add(item.SubItems(1).ToString)
+            pList.Add(item.SubItems(1).Text)
         Next
         Return pList
     End Function

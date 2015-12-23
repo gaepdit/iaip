@@ -1,40 +1,46 @@
-﻿Public Class SharedData
+﻿Imports System.Collections.Generic
+
+Public Class SharedData
     Private Shared _initLock As Object = New Object()
-    Private Shared _ds As DataSet
+    Private Shared _tableDictionary As Dictionary(Of Tables, DataTable)
 
     Public Shared Function GetTable(table As Tables) As DataTable
-        If _ds Is Nothing Then
-            _ds = New DataSet
+        If _tableDictionary Is Nothing Then
+            _tableDictionary = New Dictionary(Of Tables, DataTable)
         End If
 
-        If Not _ds.Tables.Contains(table.ToString) OrElse _ds.Tables(table.ToString) Is Nothing Then
+        If Not _tableDictionary.ContainsKey(table) OrElse _tableDictionary(table) Is Nothing Then
             InitializeData(table)
         End If
 
-        Return _ds.Tables(table.ToString)
+        Return _tableDictionary(table)
     End Function
 
     Private Shared Sub InitializeData(table As Tables)
         SyncLock _initLock
 
-            Dim _dt As New DataTable
+            Dim dt As New DataTable
 
             Select Case table
 
                 Case Tables.ViolationTypes
-                    _dt = DAL.Sscp.GetViolationTypes()
-                    _dt.PrimaryKey = New DataColumn() {_dt.Columns("AIRVIOLATIONTYPECODE")}
+                    dt = DAL.Sscp.GetViolationTypes()
+                    dt.PrimaryKey = New DataColumn() {dt.Columns("AIRVIOLATIONTYPECODE")}
 
                 Case Tables.AllComplianceStaff
-                    _dt = DAL.StaffData.GetAllComplianceStaff()
+                    dt = DAL.StaffData.GetAllComplianceStaff()
 
                 Case Tables.Pollutants
-                    _dt = DAL.CommonData.GetPollutantsTable()
+                    dt = DAL.CommonData.GetPollutantsTable()
 
             End Select
 
-            _dt.TableName = table.ToString
-            _ds.Tables.Add(_dt)
+            dt.TableName = table.ToString
+
+            If _tableDictionary.ContainsKey(table) Then
+                _tableDictionary.Remove(table)
+            End If
+            _tableDictionary.Add(table, dt)
 
         End SyncLock
     End Sub
