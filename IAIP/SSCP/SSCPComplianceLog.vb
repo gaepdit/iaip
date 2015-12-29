@@ -1605,11 +1605,10 @@ Public Class SSCPComplianceLog
         End Try
     End Sub
     Private Sub txtNewAIRSNumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtNewAIRSNumber.TextChanged
+        txtFacilityInformation.Text = ""
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtNewAIRSNumber.Text) Then
             Dim fac As Apb.Facilities.Facility = DAL.FacilityData.GetFacility(txtNewAIRSNumber.Text)
-            txtFacilityInformation.Text = fac.LongDisplay
-        Else
-            txtFacilityInformation.Text = ""
+            If fac IsNot Nothing Then txtFacilityInformation.Text = fac.LongDisplay
         End If
     End Sub
     Private Sub rdbPerformanceTest_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdbPerformanceTest.CheckedChanged

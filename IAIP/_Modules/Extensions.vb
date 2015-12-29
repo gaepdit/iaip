@@ -251,6 +251,7 @@ Module Extensions
     ''' <returns>The value of the Description attribute if present, else
     ''' the normal ToString() representation of the enum value.</returns>
     ''' <remarks>http://stackoverflow.com/a/14772005/212978</remarks>
+    <DebuggerStepThrough>
     <Extension>
     Public Function GetDescription(ByVal e As [Enum]) As String
         Dim enumType As Type = e.GetType()

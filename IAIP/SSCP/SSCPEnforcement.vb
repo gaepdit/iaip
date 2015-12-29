@@ -235,20 +235,18 @@ Public Class SscpEnforcement
 
     Private Sub DisplayFacility()
         AirsNumberDisplay.Text = AirsNumber.FormattedString
-
         FacilityNameDisplay.Text = Facility.FacilityName
         If Facility.FacilityLocation.Address.City IsNot Nothing Then
             FacilityNameDisplay.Text &= ", " & Facility.FacilityLocation.Address.City
-        End If
-
-        If EnforcementCase Is Nothing OrElse EnforcementCase.EnforcementId = 0 Then
-            Text = "New Enforcement for " & AirsNumber.FormattedString & ", " & Facility.FacilityName
         End If
         FacilityNotApprovedDisplay.Visible = Not Facility.ApprovedByApb
     End Sub
 
     Private Sub DisplayEnforcementCase()
-        If EnforcementCase IsNot Nothing AndAlso EnforcementCase.EnforcementId > 0 Then
+        If EnforcementCase Is Nothing OrElse EnforcementCase.EnforcementId = 0 Then
+            Text = "New Enforcement for " & AirsNumber.FormattedString & ", " & Facility.FacilityName
+            EnforcementIdDisplay.Text = "New enforcement (unsaved)"
+        Else
             With EnforcementCase
                 ' Form
                 Text = "Enforcement #" & .EnforcementId & " — " & AirsNumber.FormattedString & ", " & Facility.FacilityName
@@ -366,7 +364,7 @@ Public Class SscpEnforcement
 
 #End Region
 
-#Region " Header tab: Resolving "
+#Region " Header tab "
 
     Private Sub ResolvedCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles ResolvedCheckBox.CheckedChanged
         If ResolvedCheckBox.Checked Then
@@ -392,6 +390,10 @@ Public Class SscpEnforcement
         AuditHistoryTabPage.Enabled = enabled
         EpaValuesTabPage.Enabled = enabled
         StaffResponsible.Enabled = enabled
+    End Sub
+
+    Private Sub AirsNumberDisplay_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles AirsNumberDisplay.LinkClicked
+        OpenFormFacilitySummary(AirsNumber)
     End Sub
 
 #End Region
@@ -535,9 +537,9 @@ Public Class SscpEnforcement
     Private Sub LonCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles LonCheckBox.CheckedChanged
         If LonCheckBox.Checked Then
             EnforcementTabs.TabPages.Add(LonTabPage)
-            AOCheckBox.Visible = False
-            COCheckBox.Visible = False
-            NovCheckBox.Visible = False
+            AOCheckBox.Enabled = False
+            COCheckBox.Enabled = False
+            NovCheckBox.Enabled = False
             ViolationTypeNone.Checked = True
             ViolationTypeGroupbox.Visible = False
             If Not EnforcementCase.SubmittedToUc And EnforcementId IsNot Nothing Then
@@ -545,9 +547,9 @@ Public Class SscpEnforcement
             End If
         Else
             EnforcementTabs.TabPages.Remove(LonTabPage)
-            AOCheckBox.Visible = True
-            COCheckBox.Visible = True
-            NovCheckBox.Visible = True
+            AOCheckBox.Enabled = True
+            COCheckBox.Enabled = True
+            NovCheckBox.Enabled = True
         End If
     End Sub
 
@@ -589,7 +591,7 @@ Public Class SscpEnforcement
 
     Private Sub EnableCaseFileTools(enabler As EnableOrDisable)
         If enabler = EnableOrDisable.Enable Then
-            LonCheckBox.Visible = False
+            LonCheckBox.Enabled = False
             ViolationTypeGroupbox.Visible = True
             If Not EnforcementCase.SubmittedToUc And EnforcementId IsNot Nothing Then
                 SubmitToUC.Visible = True
@@ -606,7 +608,7 @@ Public Class SscpEnforcement
             SubmitToEpa.Visible = False
             SubmitToEpa2.Visible = False
             NotSubmittedToEpaLabel.Visible = False
-            LonCheckBox.Visible = True
+            LonCheckBox.Enabled = True
             If EnforcementTabs.TabPages.Contains(PollutantsTabPage) Then EnforcementTabs.TabPages.Remove(PollutantsTabPage)
         End If
     End Sub
@@ -688,13 +690,24 @@ Public Class SscpEnforcement
     End Sub
 
     Private Sub EditAirProgramPollutantsButton_Click(sender As Object, e As EventArgs) Handles EditAirProgramPollutantsButton.Click
-        Throw New NotImplementedException
+        'Throw New NotImplementedException
+
+        Dim editProgPollDialog As New IAIPEditAirProgramPollutants
+        editProgPollDialog.AirsNumber = AirsNumber
+        editProgPollDialog.FacilityName = Facility.FacilityName & ", " & Facility.DisplayCity
+
+        editProgPollDialog.ShowDialog()
+
+        'If editProgPollDialog.SomethingWasSaved Then
+
+        'End If
+
+        editProgPollDialog.Dispose()
 
         ' Change IAIPEditAirProgramPollutants to dialog; return lists of pollutants/programs; reload ListViews
-        ' (reloading ListViews: recently checked/unchecked items may not be saved to db yet, so grab those, repopulate lists, restore checked items
+        ' (reloading ListViews: recently checked/unchecked items may not be saved to db yet, 
+        ' so grab those, repopulate lists, restore checked items)
 
-        'Dim EditAirProgramPollutants As IAIPEditAirProgramPollutants = OpenSingleForm(IAIPEditAirProgramPollutants)
-        'EditAirProgramPollutants.AirsNumberDisplay.Text = AirsNumber.ShortString
     End Sub
 
 #End Region
@@ -1160,24 +1173,22 @@ Public Class SscpEnforcement
 
     Private Function SaveEnforcement() As Boolean
         ReadEnforcementCaseFromForm()
-
         DetermineAfsActionNumbers()
+
+        Dim enforcementIsNew As Boolean = (EnforcementCase.EnforcementId = 0)
 
         Dim result As Integer = DAL.Sscp.SaveEnforcement(EnforcementCase)
         If result = 0 Then
             GeneralMessage = New IaipMessage("There was an error saving the current data.", IaipMessage.WarningLevels.ErrorReport)
             Return False
         Else
-            Dim message As String = "Current data saved."
-            With EnforcementCase
-                If .EnforcementId = 0 Then
-                    .EnforcementId = result
-                    message &= " New enforcement ID: " & .EnforcementId
-                End If
-                .DateModified = Today
-            End With
+            EnforcementCase.DateModified = Today
             DisplayEnforcementCase()
+
+            Dim message As String = "Current data saved."
+            If enforcementIsNew Then message &= vbNewLine & "New enforcement ID: " & EnforcementCase.EnforcementId
             GeneralMessage = New IaipMessage(message, IaipMessage.WarningLevels.Success)
+
             Return True
         End If
     End Function
@@ -1312,7 +1323,7 @@ Public Class SscpEnforcement
     Private Function ValidateFacility() As Boolean
         If AirsNumber Is Nothing OrElse Not DAL.FacilityData.AirsNumberExists(AirsNumber) Then
 
-            validationErrors.Add(AirsNumberDisplay, "Invalid or missing AIRS number.")
+            validationErrors.Add(FacilityNameDisplay, "Invalid or missing AIRS number.")
             Return False
         End If
         Return True
@@ -1334,7 +1345,7 @@ Public Class SscpEnforcement
     Private Function ValidatePollutants() As Boolean
         If FormIsCaseFile() Then
             If PollutantsListView.CheckedIndices.Count = 0 Then
-                validationErrors.Add(PollutantsListView, "At least one pollutant must be selected.")
+                validationErrors.Add(PollutantsListLabel, "At least one pollutant must be selected.")
                 Return False
             End If
         End If
@@ -1344,7 +1355,7 @@ Public Class SscpEnforcement
     Private Function ValidatePrograms() As Boolean
         If FormIsCaseFile() Then
             If ProgramsListView.CheckedIndices.Count = 0 Then
-                validationErrors.Add(ProgramsListView, "At least one air program must be selected.")
+                validationErrors.Add(ProgramsListLabel, "At least one air program must be selected.")
                 Return False
             End If
         End If
@@ -1354,13 +1365,31 @@ Public Class SscpEnforcement
     Private Function ValidateDates() As Boolean
         Dim result As Boolean = True
 
+        result = ValidateDiscoveryDate()
+
         If LonCheckBox.Checked Then
-            result = ValidateLonDates()
+            result = result And ValidateLonDates()
         Else
             If NovCheckBox.Checked Then result = result And ValidateNovDates()
             If NovCheckBox.Checked Then result = result And ValidateNfaDates()
             If COCheckBox.Checked Then result = result And ValidateCODates()
             If AOCheckBox.Checked Then result = result And ValidateAODates()
+        End If
+
+        Return result
+    End Function
+
+    Private Function ValidateDiscoveryDate() As Boolean
+        Dim result As Boolean = CheckTheseDates(
+            DiscoveryDate.Value,
+            subsequents:=New List(Of DateTimePicker) From
+            {LonSent, LonResolved,
+            NovSent, NovResponseReceived, NfaSent,
+            COProposed, COReceivedfromCompany, COReceivedFromDirector, COExecuted, COResolved,
+            AOAppealed, AOExecuted, AOResolved})
+
+        If Not result Then
+            validationErrors.Add(DiscoveryDate, "Discovery date is invalid.")
         End If
 
         Return result
@@ -1391,7 +1420,7 @@ Public Class SscpEnforcement
         End If
 
         If Not result Then
-            validationErrors.Add(LonTabPage, "LON dates are invalid.")
+            validationErrors.Add(LonToUC, "LON dates are invalid.")
         End If
 
         Return result
@@ -1442,7 +1471,7 @@ Public Class SscpEnforcement
         End If
 
         If Not result Then
-            validationErrors.Add(NovTabPage, "NOV dates are invalid.")
+            validationErrors.Add(NovToUC, "NOV dates are invalid.")
         End If
 
         Return result
@@ -1476,7 +1505,7 @@ Public Class SscpEnforcement
         End If
 
         If Not result Then
-            If Not validationErrors.ContainsKey(NovTabPage) Then validationErrors.Add(NovTabPage, "NFA dates are invalid.")
+            validationErrors.Add(NfaToUC, "NFA dates are invalid.")
         End If
 
         Return result
@@ -1524,7 +1553,7 @@ Public Class SscpEnforcement
         End If
 
         If Not result Then
-            validationErrors.Add(COTabPage, "CO dates are invalid.")
+            validationErrors.Add(COToUC, "CO dates are invalid.")
         End If
 
         Return result
@@ -1556,7 +1585,7 @@ Public Class SscpEnforcement
         End If
 
         If Not result Then
-            validationErrors.Add(NovTabPage, "AO dates are invalid.")
+            validationErrors.Add(AOExecuted, "AO dates are invalid.")
         End If
 
         Return result

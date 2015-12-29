@@ -72,6 +72,10 @@ Namespace Apb.Sscp
 
         Public ReadOnly Property AirPrograms As List(Of String)
             Get
+                If LegacyAirPrograms Is Nothing Then
+                    Return Nothing
+                End If
+
                 Dim ap As New List(Of String)
                 For Each p As String In LegacyAirPrograms
                     ap.Add(Facilities.FacilityHeaderData.ConvertAirProgramLegacyCodes(p).ToString)

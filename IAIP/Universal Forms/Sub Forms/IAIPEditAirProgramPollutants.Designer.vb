@@ -113,7 +113,6 @@ Partial Class IAIPEditAirProgramPollutants
         'SaveButton
         '
         Me.SaveButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.SaveButton.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.SaveButton.Location = New System.Drawing.Point(15, 111)
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(135, 23)

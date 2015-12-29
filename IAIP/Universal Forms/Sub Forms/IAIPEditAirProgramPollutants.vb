@@ -1,4 +1,5 @@
 Imports System.Collections.Generic
+Imports System.Linq
 Imports Iaip.Apb.Facilities
 Imports Iaip.Apb.Sscp
 Imports Oracle.ManagedDataAccess.Client
@@ -14,23 +15,23 @@ Public Class IAIPEditAirProgramPollutants
     Private Sub IAIPEditAirProgramPollutants_Load(sender As Object, e As EventArgs) Handles Me.Load
         monitor.TrackFeature("Forms." & Me.Name)
 
-        LoadPollutants()
-        LoadComplianceStatuses()
-        SetPermissions()
-    End Sub
-
-    Private Sub IAIPEditAirProgramPollutants_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
         If AirsNumber Is Nothing OrElse Not DAL.AirsNumberExists(AirsNumber) Then
             MessageBox.Show("Invalid AIRS number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Me.Close()
         End If
 
         DisplayFacility()
-        LoadFacilityData()
+        SetPermissions()
+
+        LoadPollutants()
+        LoadComplianceStatuses()
+        LoadFacilityAirPrograms()
+
+        LoadFacilityProgramPollutants()
     End Sub
 
     Private Sub SetPermissions()
-        Throw New NotImplementedException()
+        'Throw New NotImplementedException()
         'If AccountFormAccess(27, 3) = "1" Or AccountFormAccess(27, 2) = "1" Or (UserBranch = "1" And UserUnit = "---") Then
         '    ComplianceStatusSelect.Enabled = True
         '    ComplianceStatusSelect.SelectedValue = 4
@@ -55,7 +56,7 @@ Public Class IAIPEditAirProgramPollutants
             .DataSource = SharedData.GetTable(SharedData.Tables.Pollutants)
             .DisplayMember = "Pollutant"
             .ValueMember = "Pollutant Code"
-            .SelectedValue = 0
+            .SelectedValue = -1
         End With
     End Sub
 
@@ -64,7 +65,7 @@ Public Class IAIPEditAirProgramPollutants
             .DataSource = EnumToDataTable(GetType(ComplianceStatus))
             .DisplayMember = "Description"
             .ValueMember = "ID"
-            .SelectedValue = 0
+            .SelectedValue = -1
         End With
     End Sub
 
@@ -78,21 +79,17 @@ Public Class IAIPEditAirProgramPollutants
         FacilityDisplay.Text = FacilityName
     End Sub
 
-    Private Sub LoadFacilityData()
-        LoadFacilityAirPrograms()
-        LoadFacilityPollutants()
-    End Sub
-
     Private Sub LoadFacilityAirPrograms()
         AirPrograms = DAL.FacilityHeaderDataData.GetFacilityAirPrograms(AirsNumber)
-        AirProgramSelect.DataSource = AirPrograms.GetUniqueFlags
+        AirProgramSelect.DataSource = AirPrograms.GetUniqueFlags.ToArray
+        AirProgramSelect.SelectedIndex = -1
     End Sub
 
-    Private Sub LoadFacilityPollutants()
+    Private Sub LoadFacilityProgramPollutants()
         Dim query As String = "SELECT SUBSTR(app.STRAIRPOLLUTANTKEY, 13, 1) AS " &
             "  ""Air Program Code"", lkpl.STRPOLLUTANTCODE AS " &
             "  ""Pollutant Code"", lkpl.STRPOLLUTANTDESCRIPTION AS " &
-            "  ""Pollutant"", lkcs.STRCOMPLIANCECODE AS " &
+            "  ""Pollutant"", 'Status_' || lkcs.STRCOMPLIANCECODE AS " &
             "  ""Legacy Compliance Code"", app.DATMODIFINGDATE AS " &
             "  ""Date Modified"",(up.STRLASTNAME || ', ' || up.STRFIRSTNAME) " &
             "  AS ""Modified By"" " &
@@ -118,7 +115,7 @@ Public Class IAIPEditAirProgramPollutants
         Dim lcs As LegacyComplianceStatus
 
         For Each row As DataRow In dt.Rows
-            ap = [Enum].Parse(GetType(AirProgram), row("Air Program Code").ToString)
+            ap = FacilityHeaderData.ConvertAirProgramLegacyCodes(row("Air Program Code").ToString)
             row("Air Program") = ap.GetDescription
             lcs = [Enum].Parse(GetType(LegacyComplianceStatus), row("Legacy Compliance Code").ToString)
             row("Compliance Status Code") = EnforcementCase.ConvertLegacyComplianceStatus(lcs).ToString
