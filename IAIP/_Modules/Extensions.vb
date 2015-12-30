@@ -320,7 +320,7 @@ Module Extensions
 
     Public Function EnumToDataTable(enumType As Type) As DataTable
         Dim dt As New DataTable()
-        dt.Columns.Add("ID", [Enum].GetUnderlyingType(enumType))
+        dt.Columns.Add("Key", [Enum].GetUnderlyingType(enumType))
         dt.Columns.Add("Description", GetType(String))
 
         Dim e As [Enum]

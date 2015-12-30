@@ -3,7 +3,6 @@ Imports System.Linq
 Imports System.Text
 Imports Iaip.Apb.Sscp
 Imports Iaip.DAL.DocumentData
-Imports Oracle.ManagedDataAccess.Client
 
 Public Class SscpEnforcement
 
@@ -146,44 +145,26 @@ Public Class SscpEnforcement
 #Region " Permissions "
 
     Private Sub SetUserPermissions()
-        If CheckPermissions(AccessLevel.UserCanResolveEnforcement) Then
+        If UserPermissions.CheckAuth(UserCan.ResolveEnforcement) Then
             ' Enable full access to resolve/delete/submit to EPA
             ResolvedCheckBox.Enabled = True
             DeleteEnforcementMenuItem.Enabled = True
             SubmitToEpa.Enabled = True
             SubmitToEpa2.Enabled = True
-        ElseIf Not CheckPermissions(AccessLevel.UserCanSaveData) Then
+
+        ElseIf Not UserPermissions.CheckAuth(UserCan.SaveEnforcement) Then
             ' Disable any save/write access
             SaveButton.Enabled = False
             SaveMenuItem.Enabled = False
             SubmitToUC.Enabled = False
-            EditAirProgramPollutantsButton.Enabled = False
+            AddPollutantsButton.Enabled = False
             StipulatedPenaltyControls.Enabled = False
             DocumentUpdateButton.Enabled = False
             LinkToEvent.Enabled = False
             ClearLinkedEvent.Enabled = False
+
         End If
     End Sub
-
-    Private Function CheckPermissions(access As AccessLevel) As Boolean
-        Select Case access
-
-            Case AccessLevel.UserCanSaveData
-                Return (UserBranch = "5") OrElse             ' District offices or
-                    (UserProgram = "3" Or UserProgram = "4") ' DMU or SSCP
-
-            Case AccessLevel.UserCanResolveEnforcement
-                Return UserAccounts.Contains("(19)") OrElse ' SSCP Program Manager
-                    UserAccounts.Contains("(114)") OrElse   ' SSCP Unit Manager
-                    UserAccounts.Contains("(118)")          ' DMU Management
-
-        End Select
-    End Function
-
-    Private Enum AccessLevel
-        UserCanSaveData
-        UserCanResolveEnforcement
-    End Enum
 
 #End Region
 
@@ -550,6 +531,7 @@ Public Class SscpEnforcement
             AOCheckBox.Enabled = True
             COCheckBox.Enabled = True
             NovCheckBox.Enabled = True
+            SubmitToUC.Visible = False
         End If
     End Sub
 
@@ -596,7 +578,7 @@ Public Class SscpEnforcement
             If Not EnforcementCase.SubmittedToUc And EnforcementId IsNot Nothing Then
                 SubmitToUC.Visible = True
             End If
-            If Not EnforcementCase.SubmittedToEpa And EnforcementId IsNot Nothing AndAlso CheckPermissions(AccessLevel.UserCanResolveEnforcement) Then
+            If Not EnforcementCase.SubmittedToEpa And EnforcementId IsNot Nothing AndAlso UserPermissions.CheckAuth(UserCan.ResolveEnforcement) Then
                 SubmitToEpa.Visible = True
                 SubmitToEpa2.Visible = True
                 NotSubmittedToEpaLabel.Visible = True
@@ -633,7 +615,7 @@ Public Class SscpEnforcement
 
         If EnforcementCase.SubmittedToEpa = True Then Exit Sub
 
-        If Not CheckPermissions(AccessLevel.UserCanResolveEnforcement) Then
+        If Not UserPermissions.CheckAuth(UserCan.ResolveEnforcement) Then
             GeneralMessage = New IaipMessage("You do not have sufficent permission to submit enforcement case to EPA.", IaipMessage.WarningLevels.ErrorReport)
             Exit Sub
         End If
@@ -673,7 +655,7 @@ Public Class SscpEnforcement
 
     Private Sub LoadAirPrograms()
         ' All available air programs
-        Dim dt As DataTable = DAL.GetFacilityAirProgramsAsDataTable(AirsNumber)
+        Dim dt As DataTable = DAL.GetFacilityAirProgramsAsDataTable(AirsNumber, True)
         ProgramsListView.Items.Clear()
         For Each row As DataRow In dt.Rows
             ProgramsListView.Items.Add(New ListViewItem({row(1), row(0)}))
@@ -689,7 +671,7 @@ Public Class SscpEnforcement
         End If
     End Sub
 
-    Private Sub EditAirProgramPollutantsButton_Click(sender As Object, e As EventArgs) Handles EditAirProgramPollutantsButton.Click
+    Private Sub EditAirProgramPollutantsButton_Click(sender As Object, e As EventArgs) Handles AddPollutantsButton.Click
         'Throw New NotImplementedException
 
         Dim editProgPollDialog As New IAIPEditAirProgramPollutants
@@ -1158,7 +1140,7 @@ Public Class SscpEnforcement
 #Region " Save enforcement data "
 
     Private Function ValidateAndSave() As Boolean
-        If Not CheckPermissions(AccessLevel.UserCanSaveData) Then
+        If Not UserPermissions.CheckAuth(UserCan.SaveEnforcement) Then
             GeneralMessage = New IaipMessage("You do not have sufficent permission to save changes to enforcement cases.", IaipMessage.WarningLevels.ErrorReport)
             Return False
         End If
@@ -1635,7 +1617,7 @@ Public Class SscpEnforcement
             Exit Sub
         End If
 
-        If Not CheckPermissions(AccessLevel.UserCanResolveEnforcement) Then
+        If Not UserPermissions.CheckAuth(UserCan.ResolveEnforcement) Then
             GeneralMessage = New IaipMessage("You do not have sufficent permission to delete enforcement cases.", IaipMessage.WarningLevels.ErrorReport)
             Exit Sub
         End If

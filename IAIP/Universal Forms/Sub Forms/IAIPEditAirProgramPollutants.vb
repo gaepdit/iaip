@@ -6,9 +6,26 @@ Imports Oracle.ManagedDataAccess.Client
 
 Public Class IAIPEditAirProgramPollutants
 
+#Region " Properties "
+
     Public Property AirsNumber As Apb.ApbFacilityId
     Public Property FacilityName As String
-    Private Property AirPrograms() As AirProgram
+    Public Property SomethingChanged As Boolean = False
+    Public ReadOnly Property UniquePollutants As HashSet(Of String)
+        Get
+            Dim up As New HashSet(Of String)
+            For Each row As DataGridViewRow In FacilityAirProgramPollutants.Rows
+                If row.Cells("Pollutant Code") IsNot Nothing Then
+                    up.Add(row.Cells("Pollutant Code").Value)
+                End If
+            Next
+            Return up
+        End Get
+    End Property
+
+    Private facilityOperatingStatus As FacilityOperationalStatus = FacilityOperationalStatus.O
+
+#End Region
 
 #Region " Form load "
 
@@ -21,76 +38,95 @@ Public Class IAIPEditAirProgramPollutants
         End If
 
         DisplayFacility()
-        SetPermissions()
 
+        LoadFacilityAirPrograms()
         LoadPollutants()
         LoadComplianceStatuses()
-        LoadFacilityAirPrograms()
+        LoadOperatingStatuses()
 
         LoadFacilityProgramPollutants()
-    End Sub
 
-    Private Sub SetPermissions()
-        'Throw New NotImplementedException()
-        'If AccountFormAccess(27, 3) = "1" Or AccountFormAccess(27, 2) = "1" Or (UserBranch = "1" And UserUnit = "---") Then
-        '    ComplianceStatusSelect.Enabled = True
-        '    ComplianceStatusSelect.SelectedValue = 4
-        'Else
-        '    ComplianceStatusSelect.Enabled = False
-        '    ComplianceStatusSelect.SelectedValue = 4
-        'End If
-
-        'If UserProgram = "7" Or UserProgram = "9" Or UserProgram = "10" _
-        '        Or UserProgram = "11" Or UserProgram = "12" Or UserProgram = "13" _
-        '            Or UserProgram = "14" Or UserProgram = "15" Then
-        '    SaveButton.Enabled = False
-        'End If
+        SetPermissions()
     End Sub
 
 #End Region
 
-#Region " Common data "
+#Region " Selectors "
+
+    Private Sub LoadFacilityAirPrograms()
+        With AirProgramSelect
+            .DataSource = DAL.GetFacilityAirProgramsAsDataTable(AirsNumber, False)
+            .ValueMember = "Key"
+            .DisplayMember = "Description"
+            .SelectedIndex = -1
+        End With
+    End Sub
 
     Private Sub LoadPollutants()
         With PollutantSelect
             .DataSource = SharedData.GetTable(SharedData.Tables.Pollutants)
-            .DisplayMember = "Pollutant"
             .ValueMember = "Pollutant Code"
-            .SelectedValue = -1
+            .DisplayMember = "Pollutant"
+            .SelectedIndex = -1
         End With
     End Sub
 
     Private Sub LoadComplianceStatuses()
         With ComplianceStatusSelect
             .DataSource = EnumToDataTable(GetType(ComplianceStatus))
+            .ValueMember = "Key"
             .DisplayMember = "Description"
-            .ValueMember = "ID"
-            .SelectedValue = -1
+            .SelectedValue = ComplianceStatus.InCompliance
+        End With
+    End Sub
+
+    Private Sub LoadOperatingStatuses()
+        With OperatingStatusSelect
+            .DataSource = EnumToDataTable(GetType(FacilityOperationalStatus))
+            .ValueMember = "Key"
+            .DisplayMember = "Description"
+            .SelectedValue = facilityOperatingStatus
         End With
     End Sub
 
 #End Region
 
-#Region " Facility-specific data "
+#Region " Permissions "
+
+    Private Sub SetPermissions()
+        If Not UserPermissions.CheckAuth(UserCan.AddPollutantsToFacility) Then
+            ControlPanel.Enabled = False
+        Else
+            If Not UserPermissions.CheckAuth(UserCan.ChangeComplianceStatus) Then
+                ComplianceStatusSelect.Enabled = False
+            End If
+            If Not UserPermissions.CheckAuth(UserCan.EditHeaderData) Then
+                OperatingStatusSelect.Enabled = False
+            End If
+        End If
+    End Sub
+
+#End Region
+
+#Region " Facility data "
 
     Private Sub DisplayFacility()
         AirsNumberDisplay.Text = AirsNumber.FormattedString
         If FacilityName = "" Then FacilityName = DAL.GetFacilityName(AirsNumber)
         FacilityDisplay.Text = FacilityName
-    End Sub
-
-    Private Sub LoadFacilityAirPrograms()
-        AirPrograms = DAL.FacilityHeaderDataData.GetFacilityAirPrograms(AirsNumber)
-        AirProgramSelect.DataSource = AirPrograms.GetUniqueFlags.ToArray
-        AirProgramSelect.SelectedIndex = -1
+        facilityOperatingStatus = DAL.GetFacilityOperationalStatus(AirsNumber)
+        FacilityOperatingStatusDisplay.Text = "Facility status: " & facilityOperatingStatus.GetDescription
     End Sub
 
     Private Sub LoadFacilityProgramPollutants()
+        RemoveHandler FacilityAirProgramPollutants.SelectionChanged, AddressOf FacilityAirProgramPollutants_SelectionChanged
+
         Dim query As String = "SELECT SUBSTR(app.STRAIRPOLLUTANTKEY, 13, 1) AS " &
             "  ""Air Program Code"", lkpl.STRPOLLUTANTCODE AS " &
             "  ""Pollutant Code"", lkpl.STRPOLLUTANTDESCRIPTION AS " &
             "  ""Pollutant"", 'Status_' || lkcs.STRCOMPLIANCECODE AS " &
-            "  ""Legacy Compliance Code"", app.DATMODIFINGDATE AS " &
+            "  ""Legacy Compliance Code"", app.STROPERATIONALSTATUS AS " &
+            "  ""Operating Status Code"", app.DATMODIFINGDATE AS " &
             "  ""Date Modified"",(up.STRLASTNAME || ', ' || up.STRFIRSTNAME) " &
             "  AS ""Modified By"" " &
             "FROM AIRBRANCH.APBAirProgramPollutants app " &
@@ -101,42 +137,58 @@ Public Class IAIPEditAirProgramPollutants
             "INNER JOIN AIRBRANCH.EPDUserProfiles up ON " &
             "  app.STRMODIFINGPERSON = up.NUMUSERID " &
             "WHERE app.STRAIRSNUMBER = :airsNumber " &
-            "ORDER BY ""Air Program Code"", lkpl.STRPOLLUTANTCODE"
+            "ORDER BY ""Air Program Code"", ""Pollutant Code"""
 
         Dim parameter As New OracleParameter("airsNumber", AirsNumber.DbFormattedString)
 
         Dim dt As DataTable = DB.GetDataTable(query, parameter)
 
         dt.Columns.Add("Air Program", GetType(String))
+        dt.Columns.Add("Air Program Enum", GetType(AirProgram))
         dt.Columns.Add("Compliance Status", GetType(String))
-        dt.Columns.Add("Compliance Status Code", GetType(String))
+        dt.Columns.Add("Compliance Status Enum", GetType(ComplianceStatus))
+        dt.Columns.Add("Operating Status", GetType(String))
+        dt.Columns.Add("Operating Status Enum", GetType(FacilityOperationalStatus))
 
         Dim ap As AirProgram
         Dim lcs As LegacyComplianceStatus
+        Dim os As FacilityOperationalStatus
 
         For Each row As DataRow In dt.Rows
             ap = FacilityHeaderData.ConvertAirProgramLegacyCodes(row("Air Program Code").ToString)
+            row("Air Program Enum") = ap
             row("Air Program") = ap.GetDescription
+
             lcs = [Enum].Parse(GetType(LegacyComplianceStatus), row("Legacy Compliance Code").ToString)
-            row("Compliance Status Code") = EnforcementCase.ConvertLegacyComplianceStatus(lcs).ToString
+            row("Compliance Status Enum") = EnforcementCase.ConvertLegacyComplianceStatus(lcs)
             row("Compliance Status") = EnforcementCase.ConvertLegacyComplianceStatus(lcs).GetDescription
+
+            os = [Enum].Parse(GetType(FacilityOperationalStatus), row("Operating Status Code").ToString)
+            row("Operating Status Enum") = os
+            row("Operating Status") = os.GetDescription
         Next
 
         With FacilityAirProgramPollutants
             .DataSource = dt
             .Columns("Air Program Code").Visible = False
+            .Columns("Air Program Enum").Visible = False
             .Columns("Pollutant Code").Visible = False
             .Columns("Legacy Compliance Code").Visible = False
-            .Columns("Compliance Status Code").Visible = False
+            .Columns("Compliance Status Enum").Visible = False
+            .Columns("Operating Status Code").Visible = False
+            .Columns("Operating Status Enum").Visible = False
 
             .Columns("Air Program").DisplayIndex = 0
             .Columns("Pollutant").DisplayIndex = 1
             .Columns("Compliance Status").DisplayIndex = 2
-            .Columns("Date Modified").DisplayIndex = 3
-            .Columns("Modified By").DisplayIndex = 4
+            .Columns("Operating Status").DisplayIndex = 3
+            .Columns("Date Modified").DisplayIndex = 4
+            .Columns("Modified By").DisplayIndex = 5
 
             .SanelyResizeColumns
         End With
+
+        AddHandler FacilityAirProgramPollutants.SelectionChanged, AddressOf FacilityAirProgramPollutants_SelectionChanged
     End Sub
 
 #End Region
@@ -144,218 +196,39 @@ Public Class IAIPEditAirProgramPollutants
 #Region " Save data "
 
     Private Sub SaveValue()
-        'If UserProgram <> "4" And Mid(UserAccounts, 27, 2) = "0" And Mid(UserAccounts, 27, 3) = "0" _
-        '   And Mid(UserAccounts, 27, 4) = "0" Then
-        '    MsgBox("You do not have sufficient privileges to save pollutant data.", MsgBoxStyle.Information, "Air Program Pollutants")
-        'Else
-        '    Dim AIRSPollutantKey As String
-        '    If AirProgramSelect.Text <> "" And
-        '                  PollutantSelect.SelectedValue <> Nothing And PollutantSelect.Text <> "" And
-        '                       ComplianceStatusSelect.SelectedValue <> Nothing And ComplianceStatusSelect.Text <> "" Then
-        '        Select Case AirProgramSelect.Text
-        '            Case "0 - SIP"
-        '                AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "0"
-        '            Case "1 - Fed. SIP"
-        '                AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "1"
-        '            Case "3 - Non Fed."
-        '                AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "3"
-        '            Case "4 - CFC Tracking"
-        '                AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "4"
-        '            Case "6 - PSD"
-        '                AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "6"
-        '            Case "7 - NSR"
-        '                AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "7"
-        '            Case "8 - NESHAP"
-        '                AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "8"
-        '            Case "9 - NSPS"
-        '                AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "9"
-        '            Case "F - FESOP"
-        '                AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "F"
-        '            Case "A - Acid Precip."
-        '                AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "A"
-        '            Case "I - Native American"
-        '                AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "I"
-        '            Case "M - MACT"
-        '                AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "M"
-        '            Case "V - Title V"
-        '                AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "V"
-        '            Case Else
-        '                AIRSPollutantKey = "0413" & AirsNumberDisplay.Text & "0"
-        '        End Select
+        Console.WriteLine(AirProgramSelect.SelectedValue)
+        Console.WriteLine(PollutantSelect.SelectedValue)
+        Console.WriteLine(ComplianceStatusSelect.SelectedValue)
+        Console.WriteLine(OperatingStatusSelect.SelectedValue)
 
-        '        Sql = "Select strairsnumber " &
-        '            "from AIRBRANCH.APBAirProgramPollutants " &
-        '            "where strAIRPollutantKey = '" & AIRSPollutantKey & "' " &
-        '            "and strPollutantKey = '" & PollutantSelect.SelectedValue & "' "
+        If VerifyUpdate() Then
 
-        '        cmd = New OracleCommand(Sql, CurrentConnection)
-        '        If CurrentConnection.State = ConnectionState.Closed Then
-        '            CurrentConnection.Open()
-        '        End If
-        '        dr = cmd.ExecuteReader
-        '        recExist = dr.Read
+            Dim result As Boolean =
+            DAL.PollutantsPrograms.SaveFacilityAirProgramPollutant(AirsNumber,
+                                                                   AirProgramSelect.SelectedValue,
+                                                                   PollutantSelect.SelectedValue,
+                                                                   ComplianceStatusSelect.SelectedValue,
+                                                                   OperatingStatusSelect.SelectedValue)
 
-        '        dr.Close()
+            If result Then
+                SomethingChanged = True
+                LoadFacilityProgramPollutants()
+                MessageBox.Show("Successfully saved data.", "Saved", MessageBoxButtons.OK)
+            Else
+                MessageBox.Show("There was an error saving the data.", "Error", MessageBoxButtons.OK)
+            End If
 
-        '        If recExist = True Then
-        '            Dim AirProgramCodes As String
-        '            Dim ProgramStatus As String
-
-        '            Sql = "select strAirProgramCodes " &
-        '                "from AIRBRANCH.APBHeaderData  " &
-        '                "where strAIRSnumber = '0413" & AirsNumberDisplay.Text & "' "
-        '            cmd = New OracleCommand(Sql, CurrentConnection)
-        '            If CurrentConnection.State = ConnectionState.Closed Then
-        '                CurrentConnection.Open()
-        '            End If
-        '            dr = cmd.ExecuteReader
-        '            recExist = dr.Read
-        '            If recExist = True Then
-        '                AirProgramCodes = dr.Item("strAirProgramCodes")
-        '            Else
-        '                AirProgramCodes = "000000000000000 "
-        '            End If
-        '            dr.Close()
-
-        '            Select Case Me.AirProgramSelect.Text
-        '                Case "0 - SIP"
-        '                    If Mid(AirProgramCodes, 1, 1) = "1" Then
-        '                        ProgramStatus = "True"
-        '                    Else
-        '                        ProgramStatus = "False"
-        '                    End If
-        '                Case "1 - Fed. SIP"
-        '                    If Mid(AirProgramCodes, 2, 1) = "1" Then
-        '                        ProgramStatus = "True"
-        '                    Else
-        '                        ProgramStatus = "False"
-        '                    End If
-        '                Case "3 - Non Fed."
-        '                    If Mid(AirProgramCodes, 3, 1) = "1" Then
-        '                        ProgramStatus = "True"
-        '                    Else
-        '                        ProgramStatus = "False"
-        '                    End If
-        '                Case "4 - CFC Tracking"
-        '                    If Mid(AirProgramCodes, 4, 1) = "1" Then
-        '                        ProgramStatus = "True"
-        '                    Else
-        '                        ProgramStatus = "False"
-        '                    End If
-        '                Case "6 - PSD"
-        '                    If Mid(AirProgramCodes, 5, 1) = "1" Then
-        '                        ProgramStatus = "True"
-        '                    Else
-        '                        ProgramStatus = "False"
-        '                    End If
-        '                Case "7 - NSR"
-        '                    If Mid(AirProgramCodes, 6, 1) = "1" Then
-        '                        ProgramStatus = "True"
-        '                    Else
-        '                        ProgramStatus = "False"
-        '                    End If
-        '                Case "8 - NESHAP"
-        '                    If Mid(AirProgramCodes, 7, 1) = "1" Then
-        '                        ProgramStatus = "True"
-        '                    Else
-        '                        ProgramStatus = "False"
-        '                    End If
-        '                Case "9 - NSPS"
-        '                    If Mid(AirProgramCodes, 8, 1) = "1" Then
-        '                        ProgramStatus = "True"
-        '                    Else
-        '                        ProgramStatus = "False"
-        '                    End If
-        '                Case "F - FESOP"
-        '                    If Mid(AirProgramCodes, 9, 1) = "1" Then
-        '                        ProgramStatus = "True"
-        '                    Else
-        '                        ProgramStatus = "False"
-        '                    End If
-        '                Case "A - Acid Precip."
-        '                    If Mid(AirProgramCodes, 10, 1) = "1" Then
-        '                        ProgramStatus = "True"
-        '                    Else
-        '                        ProgramStatus = "False"
-        '                    End If
-        '                Case "I - Native American"
-        '                    If Mid(AirProgramCodes, 11, 1) = "1" Then
-        '                        ProgramStatus = "True"
-        '                    Else
-        '                        ProgramStatus = "False"
-        '                    End If
-        '                Case "M - MACT"
-        '                    If Mid(AirProgramCodes, 12, 1) = "1" Then
-        '                        ProgramStatus = "True"
-        '                    Else
-        '                        ProgramStatus = "False"
-        '                    End If
-        '                Case "V - Title V"
-        '                    If Mid(AirProgramCodes, 13, 1) = "1" Then
-        '                        ProgramStatus = "True"
-        '                    Else
-        '                        ProgramStatus = "False"
-        '                    End If
-        '                Case Else
-        '                    ProgramStatus = "False"
-        '            End Select
-        '            If ProgramStatus = "True" Then
-        '                Sql = "Update AIRBRANCH.APBAirProgramPollutants set " &
-        '                    "strComplianceStatus = '" & ComplianceStatusSelect.SelectedValue & "', " &
-        '                    "strModifingperson = '" & UserGCode & "', " &
-        '                    "datModifingdate = '" & OracleDate & "' " &
-        '                    "where strAIRPollutantKey = '" & AIRSPollutantKey & "' " &
-        '                    "and strAIRSnumber = '0413" & AirsNumberDisplay.Text & "' " &
-        '                    "and strPOllutantKey = '" & PollutantSelect.SelectedValue & "' "
-        '            Else
-        '                Sql = "Update AIRBRANCH.APBAirProgramPollutants set " &
-        '                    "strComplianceStatus = '9', " &
-        '                    "strModifingperson = '" & UserGCode & "', " &
-        '                    "datModifingdate = '" & OracleDate & "', " &
-        '                    "strOperationalStatus = 'X' " &
-        '                    "where strAIRPollutantKey = '" & AIRSPollutantKey & "' " &
-        '                    "and strAIRSnumber = '0413" & AirsNumberDisplay.Text & "' " &
-        '                    "and strPOllutantKey = '" & PollutantSelect.SelectedValue & "' "
-        '            End If
-        '        Else
-        '            Sql = "Insert into AIRBRANCH.APBAirProgramPollutants " &
-        '                "(strAIRSnumber, strAIRPollutantKey, " &
-        '                "strPOllutantKey, strComplianceStatus, " &
-        '                "strModifingperson, datModifingdate, " &
-        '                "strOperationalStatus) " &
-        '                "values " &
-        '                "('0413" & AirsNumberDisplay.Text & "', '" & AIRSPollutantKey & "', " &
-        '                "'" & PollutantSelect.SelectedValue & "', '" & ComplianceStatusSelect.SelectedValue & "', " &
-        '                "'" & UserGCode & "', '" & OracleDate & "', 'O') "
-        '        End If
-
-        '        cmd = New OracleCommand(Sql, CurrentConnection)
-        '        If CurrentConnection.State = ConnectionState.Closed Then
-        '            CurrentConnection.Open()
-        '        End If
-        '        Try
-
-        '            dr = cmd.ExecuteReader
-        '        Catch ex As Exception
-        '            MsgBox(ex.ToString())
-        '        End Try
-
-        '        MsgBox("Pollutant added to Air Program Code.", MsgBoxStyle.Information, "Edit Air Program Code Pollutants")
-
-        '        If MultiForm IsNot Nothing AndAlso MultiForm.ContainsKey(SscpEnforcement.Name) Then
-        '            For Each kvp As KeyValuePair(Of Integer, BaseForm) In MultiForm(SscpEnforcement.Name)
-        '                Dim enf As SscpEnforcement = kvp.Value
-        '                'enf.LoadEnforcementPollutants2()
-        '            Next
-        '        End If
-
-        '    Else
-        '        MsgBox("No Data Saved", MsgBoxStyle.Exclamation, "Edit Air Program Code Pollutants")
-        '    End If
-
-        'End If
-
+        End If
     End Sub
+
+    Private Function VerifyUpdate() As Boolean
+        If (OperatingStatusSelect.SelectedValue <> facilityOperatingStatus) Then
+            Dim dr As DialogResult = MessageBox.Show("The selected pollutant operating status is not the same as the Facility operating status. Do you really want to save?",
+                                                     "Confirm", MessageBoxButtons.OKCancel)
+            If dr = DialogResult.No Then Return False
+        End If
+        Return True
+    End Function
 
     Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
         SaveValue()
@@ -363,13 +236,45 @@ Public Class IAIPEditAirProgramPollutants
 
 #End Region
 
-    Private Sub FacilityAirProgramPollutants_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles FacilityAirProgramPollutants.CellClick
-        Throw New NotImplementedException()
-        If e.RowIndex <> -1 AndAlso e.RowIndex < FacilityAirProgramPollutants.RowCount Then
-            AirProgramSelect.SelectedValue = FacilityAirProgramPollutants.Rows(e.RowIndex).Cells("Air Program Code")
-            PollutantSelect.SelectedValue = FacilityAirProgramPollutants.Rows(e.RowIndex).Cells("Pollutant Code")
-            ComplianceStatusSelect.SelectedValue = FacilityAirProgramPollutants.Rows(e.RowIndex).Cells("Compliance Status Code")
+#Region " Selection events "
+
+    Private Sub FacilityAirProgramPollutants_SelectionChanged(sender As Object, e As EventArgs) Handles FacilityAirProgramPollutants.SelectionChanged
+        If FacilityAirProgramPollutants.CurrentRow IsNot Nothing Then
+            Dim row As DataGridViewRow = FacilityAirProgramPollutants.CurrentRow
+
+            AirProgramSelect.SelectedValue = row.Cells("Air Program Enum").Value
+            PollutantSelect.SelectedValue = row.Cells("Pollutant Code").Value
+            ComplianceStatusSelect.SelectedValue = row.Cells("Compliance Status Enum").Value
+            OperatingStatusSelect.SelectedValue = row.Cells("Operating Status Enum").Value
         End If
     End Sub
+
+    Private Sub SelectedIndexChanged(sender As Object, e As EventArgs) _
+        Handles AirProgramSelect.SelectedIndexChanged, PollutantSelect.SelectedIndexChanged, ComplianceStatusSelect.SelectedIndexChanged, OperatingStatusSelect.SelectedIndexChanged
+        If SelectionExists() Then
+            If UserPermissions.CheckAuth(UserCan.ChangeComplianceStatus) OrElse
+               UserPermissions.CheckAuth(UserCan.EditHeaderData) Then
+                SaveButton.Text = "Update pollutant statuses"
+                SaveButton.Visible = True
+            Else
+                SaveButton.Visible = False
+            End If
+        Else
+            SaveButton.Text = "Add new air program/pollutant"
+            SaveButton.Visible = True
+        End If
+    End Sub
+
+    Private Function SelectionExists() As Boolean
+        For Each row As DataGridViewRow In FacilityAirProgramPollutants.Rows
+            If (AirProgramSelect.SelectedValue = row.Cells("Air Program Enum").Value) AndAlso
+                (PollutantSelect.SelectedValue = row.Cells("Pollutant Code").Value) Then
+                Return True
+            End If
+        Next
+        Return False
+    End Function
+
+#End Region
 
 End Class

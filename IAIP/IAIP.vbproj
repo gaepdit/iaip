@@ -768,7 +768,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="_DAL\Common Data\DAL.CommonData.vb" />
-    <Compile Include="_DAL\Facilities\DAL.FacilityPollProg.vb" />
+    <Compile Include="_DAL\Facilities\DAL.PollutantsPrograms.vb" />
     <Compile Include="_DAL\Facilities\DAL.Afs.vb" />
     <Compile Include="_DAL\SSCP\DAL.Sscp.Fce.vb" />
     <Compile Include="_Data Models\Dmu\Dmu.EdtErrorMessage.vb" />
@@ -794,6 +794,7 @@
     <Compile Include="_Modules\Extensions.vb" />
     <Compile Include="_Modules\App.vb" />
     <Compile Include="_Modules\IaipMessage.vb" />
+    <Compile Include="_Modules\UserPermissions.vb" />
     <Compile Include="_Modules\UserSettings.vb" />
     <Compile Include="_Modules\subMain.vb">
       <SubType>Code</SubType>
