@@ -30,12 +30,14 @@ Public Class SscpEnforcement
             If value Is Nothing And Message IsNot Nothing Then
                 GeneralMessage.Clear()
                 DismissMessageButton.Visible = False
+                ClearMessageMenuItem.Enabled = False
             End If
             _generalMessage = value
             If value IsNot Nothing Then
                 GeneralMessage.Display(MessageDisplay)
                 DismissMessageButton.Visible = True
                 DismissMessageButton.BringToFront()
+                ClearMessageMenuItem.Enabled = True
             End If
         End Set
     End Property
@@ -137,6 +139,7 @@ Public Class SscpEnforcement
     Private Sub SetDtpMaxDates(maxDate As DateTime, dateControls As List(Of DateTimePicker))
         For Each dateControl As DateTimePicker In dateControls
             dateControl.MaxDate = maxDate
+            dateControl.Checked = False
         Next
     End Sub
 
@@ -244,6 +247,7 @@ Public Class SscpEnforcement
                 ResolvedCheckBox.Visible = True
                 ResolvedDate.Visible = True
                 ResolvedCheckBox.Checked = Not .Open
+                ResolvedDate.Checked = Not .Open
                 StaffResponsible.SelectedValue = .StaffResponsibleId
 
                 ' General tab
@@ -350,10 +354,12 @@ Public Class SscpEnforcement
     Private Sub ResolvedCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles ResolvedCheckBox.CheckedChanged
         If ResolvedCheckBox.Checked Then
             ResolvedDate.Enabled = True
+            ResolvedDate.Checked = True
             EnforcementCase.Open = False
             EnableDisableChanges(EnableOrDisable.Disable)
         Else
             ResolvedDate.Enabled = False
+            ResolvedDate.Checked = False
             EnforcementCase.Open = True
             EnableDisableChanges(EnableOrDisable.Enable)
         End If
@@ -672,24 +678,52 @@ Public Class SscpEnforcement
     End Sub
 
     Private Sub EditAirProgramPollutantsButton_Click(sender As Object, e As EventArgs) Handles AddPollutantsButton.Click
-        'Throw New NotImplementedException
+        Using editProgPollDialog As New IAIPEditAirProgramPollutants
+            With editProgPollDialog
 
-        Dim editProgPollDialog As New IAIPEditAirProgramPollutants
-        editProgPollDialog.AirsNumber = AirsNumber
-        editProgPollDialog.FacilityName = Facility.FacilityName & ", " & Facility.DisplayCity
+                .AirsNumber = AirsNumber
+                .FacilityName = Facility.FacilityName & ", " & Facility.DisplayCity
+                .ShowDialog()
 
-        editProgPollDialog.ShowDialog()
+                If .SomethingChanged Then
+                    ' Get sets of existing/checked pollutants
+                    Dim existingPollutantsSet As New HashSet(Of String)
+                    For Each pi As ListViewItem In PollutantsListView.Items
+                        existingPollutantsSet.Add(pi.SubItems(1).Text)
+                    Next
 
-        'If editProgPollDialog.SomethingWasSaved Then
+                    Dim checkedPollutantsSet As New HashSet(Of String)
+                    For Each pi As ListViewItem In PollutantsListView.CheckedItems
+                        checkedPollutantsSet.Add(pi.SubItems(1).Text)
+                    Next
 
-        'End If
+                    ' Reload pollutants list
+                    LoadPollutants()
 
-        editProgPollDialog.Dispose()
+                    ' Uncheck all 
+                    For Each lvi As ListViewItem In PollutantsListView.Items
+                        lvi.Checked = False
+                    Next
 
-        ' Change IAIPEditAirProgramPollutants to dialog; return lists of pollutants/programs; reload ListViews
-        ' (reloading ListViews: recently checked/unchecked items may not be saved to db yet, 
-        ' so grab those, repopulate lists, restore checked items)
+                    ' Remove previously existing pollutants (existingPollutantsSet) from new set of pollutants (.UniqueFacilityPollutants)
+                    .FacilityPollutantsSet.ExceptWith(existingPollutantsSet)
 
+                    ' Add new pollutants to set of checked pollutants
+                    checkedPollutantsSet.UnionWith(.FacilityPollutantsSet)
+
+                    ' Check all pollutants in new set of checked pollutants
+                    If checkedPollutantsSet.Count > 0 Then
+                        For i As Integer = 0 To PollutantsListView.Items.Count - 1
+                            If checkedPollutantsSet.Contains(PollutantsListView.Items(i).SubItems(1).Text) Then
+                                PollutantsListView.Items.Item(i).Checked = True
+                            End If
+                        Next
+                    End If
+
+                End If
+
+            End With
+        End Using
     End Sub
 
 #End Region
@@ -1127,12 +1161,16 @@ Public Class SscpEnforcement
         DeleteEnforcement()
     End Sub
 
+    Private Sub ClearMessageMenuItem_Click(sender As Object, e As EventArgs) Handles ClearMessageMenuItem.Click
+        ClearMessage()
+    End Sub
+
     Private Sub ClearErrorsMenuItem_Click(sender As Object, e As EventArgs) Handles ClearErrorsMenuItem.Click
         ClearErrors()
     End Sub
 
     Private Sub DismissMessageButton_Click(sender As Object, e As EventArgs) Handles DismissMessageButton.Click
-        ClearMessages()
+        ClearMessage()
     End Sub
 
 #End Region
@@ -1255,12 +1293,13 @@ Public Class SscpEnforcement
             Next
         End If
         validationErrors = New Dictionary(Of Control, String)
-        ClearMessages()
+        ClearMessage()
     End Sub
 
-    Private Sub ClearMessages()
+    Private Sub ClearMessage()
         If GeneralMessage IsNot Nothing Then GeneralMessage.Clear()
         DismissMessageButton.Visible = False
+        ClearMessageMenuItem.Enabled = False
     End Sub
 
     Private Function ValidateFormData() As Boolean

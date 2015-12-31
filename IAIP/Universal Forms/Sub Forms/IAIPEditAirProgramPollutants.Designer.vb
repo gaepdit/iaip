@@ -19,7 +19,7 @@ Partial Class IAIPEditAirProgramPollutants
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.FacilityAirProgramPollutants = New System.Windows.Forms.DataGridView()
         Me.HeaderPanel = New System.Windows.Forms.Panel()
         Me.ControlPanel = New System.Windows.Forms.Panel()
@@ -45,8 +45,8 @@ Partial Class IAIPEditAirProgramPollutants
         Me.FacilityAirProgramPollutants.AllowUserToAddRows = False
         Me.FacilityAirProgramPollutants.AllowUserToDeleteRows = False
         Me.FacilityAirProgramPollutants.AllowUserToResizeRows = False
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.FacilityAirProgramPollutants.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.FacilityAirProgramPollutants.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.FacilityAirProgramPollutants.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.FacilityAirProgramPollutants.Dock = System.Windows.Forms.DockStyle.Fill
         Me.FacilityAirProgramPollutants.Location = New System.Drawing.Point(0, 254)
@@ -56,7 +56,7 @@ Partial Class IAIPEditAirProgramPollutants
         Me.FacilityAirProgramPollutants.RowHeadersVisible = False
         Me.FacilityAirProgramPollutants.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.FacilityAirProgramPollutants.Size = New System.Drawing.Size(543, 157)
-        Me.FacilityAirProgramPollutants.TabIndex = 1
+        Me.FacilityAirProgramPollutants.TabIndex = 0
         '
         'HeaderPanel
         '
@@ -68,7 +68,7 @@ Partial Class IAIPEditAirProgramPollutants
         Me.HeaderPanel.Location = New System.Drawing.Point(0, 0)
         Me.HeaderPanel.Name = "HeaderPanel"
         Me.HeaderPanel.Size = New System.Drawing.Size(543, 254)
-        Me.HeaderPanel.TabIndex = 0
+        Me.HeaderPanel.TabIndex = 1
         '
         'ControlPanel
         '

@@ -391,9 +391,14 @@ Public Class IAIPFacilitySummary
 
 #Region " Header data "
 
-    Private Sub btnEditAirProgramPollutants_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditPollutantsButton.Click
-        Dim EditAirProgramPollutants As IAIPEditAirProgramPollutants = OpenSingleForm(IAIPEditAirProgramPollutants)
-        EditAirProgramPollutants.AirsNumberDisplay.Text = Me.AirsNumber.ToString
+    Private Sub EditPollutantsButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditPollutantsButton.Click
+        Using editProgPollDialog As New IAIPEditAirProgramPollutants
+            With editProgPollDialog
+                .AirsNumber = AirsNumber
+                .FacilityName = ThisFacility.FacilityName & ", " & ThisFacility.DisplayCity
+                .ShowDialog()
+            End With
+        End Using
     End Sub
 
     Private Sub EditSubpartsButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditSubpartsButton.Click

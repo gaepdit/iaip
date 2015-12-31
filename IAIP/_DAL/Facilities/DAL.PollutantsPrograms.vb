@@ -56,6 +56,28 @@ Namespace DAL
             Return dt
         End Function
 
+        Public Function GetFacilityProgramPollutantStatuses(airsNumber As ApbFacilityId) As DataTable
+            Dim query As String = "SELECT SUBSTR(app.STRAIRPOLLUTANTKEY, 13, 1) AS " &
+                "  ""Air Program Code"", lkpl.STRPOLLUTANTCODE AS " &
+                "  ""Pollutant Code"", lkpl.STRPOLLUTANTDESCRIPTION AS " &
+                "  ""Pollutant"", 'Status_' || lkcs.STRCOMPLIANCECODE AS " &
+                "  ""Legacy Compliance Code"", app.STROPERATIONALSTATUS AS " &
+                "  ""Operating Status Code"", app.DATMODIFINGDATE AS " &
+                "  ""Date Modified"",(up.STRLASTNAME || ', ' || up.STRFIRSTNAME) " &
+                "  AS ""Modified By"" " &
+                "FROM AIRBRANCH.APBAirProgramPollutants app " &
+                "INNER JOIN AIRBRANCH.LookUPPollutants lkpl ON " &
+                "  app.STRPOLLUTANTKEY = lkpl.STRPOLLUTANTCODE " &
+                "INNER JOIN AIRBRANCH.LookUpComplianceStatus lkcs ON " &
+                "  lkcs.STRCOMPLIANCECODE = app.STRCOMPLIANCESTATUS " &
+                "INNER JOIN AIRBRANCH.EPDUserProfiles up ON " &
+                "  app.STRMODIFINGPERSON = up.NUMUSERID " &
+                "WHERE app.STRAIRSNUMBER = :airsNumber " &
+                "ORDER BY ""Air Program Code"", ""Pollutant Code"""
+            Dim parameter As New OracleParameter("airsNumber", airsNumber.DbFormattedString)
+            Return DB.GetDataTable(query, parameter)
+        End Function
+
         Public Function SaveFacilityAirProgramPollutant(airsNumber As ApbFacilityId,
                                                         airProgram As AirProgram,
                                                         pollutantCode As String,
@@ -93,7 +115,7 @@ Namespace DAL
 
             Dim parameters As OracleParameter() = {
                 New OracleParameter("STRAIRSNUMBER", airsNumber.DbFormattedString),
-                New OracleParameter("STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram)),
+                New OracleParameter("STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram.ToString)),
                 New OracleParameter("STRPOLLUTANTKEY", pollutantCode),
                 New OracleParameter("STRCOMPLIANCESTATUS", EnforcementCase.ConvertComplianceStatus(complianceStatus).ToString.Substring(7)),
                 New OracleParameter("STROPERATIONALSTATUS", operatingStatus.ToString),

@@ -32,6 +32,7 @@ Public Class SharedData
 
                 Case Tables.Pollutants
                     dt = DAL.CommonData.GetPollutantsTable()
+                    dt.PrimaryKey = New DataColumn() {dt.Columns("Pollutant Code")}
 
             End Select
 

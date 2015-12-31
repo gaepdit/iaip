@@ -11,17 +11,7 @@ Public Class IAIPEditAirProgramPollutants
     Public Property AirsNumber As Apb.ApbFacilityId
     Public Property FacilityName As String
     Public Property SomethingChanged As Boolean = False
-    Public ReadOnly Property UniquePollutants As HashSet(Of String)
-        Get
-            Dim up As New HashSet(Of String)
-            For Each row As DataGridViewRow In FacilityAirProgramPollutants.Rows
-                If row.Cells("Pollutant Code") IsNot Nothing Then
-                    up.Add(row.Cells("Pollutant Code").Value)
-                End If
-            Next
-            Return up
-        End Get
-    End Property
+    Public Property FacilityPollutantsSet As HashSet(Of String)
 
     Private facilityOperatingStatus As FacilityOperationalStatus = FacilityOperationalStatus.O
 
@@ -47,6 +37,13 @@ Public Class IAIPEditAirProgramPollutants
         LoadFacilityProgramPollutants()
 
         SetPermissions()
+    End Sub
+
+    Private Sub SelectFirstRow()
+        If FacilityAirProgramPollutants.RowCount > 0 Then
+            FacilityAirProgramPollutants.CurrentCell = Nothing
+            FacilityAirProgramPollutants.Rows(0).Selected = True
+        End If
     End Sub
 
 #End Region
@@ -119,30 +116,7 @@ Public Class IAIPEditAirProgramPollutants
     End Sub
 
     Private Sub LoadFacilityProgramPollutants()
-        RemoveHandler FacilityAirProgramPollutants.SelectionChanged, AddressOf FacilityAirProgramPollutants_SelectionChanged
-
-        Dim query As String = "SELECT SUBSTR(app.STRAIRPOLLUTANTKEY, 13, 1) AS " &
-            "  ""Air Program Code"", lkpl.STRPOLLUTANTCODE AS " &
-            "  ""Pollutant Code"", lkpl.STRPOLLUTANTDESCRIPTION AS " &
-            "  ""Pollutant"", 'Status_' || lkcs.STRCOMPLIANCECODE AS " &
-            "  ""Legacy Compliance Code"", app.STROPERATIONALSTATUS AS " &
-            "  ""Operating Status Code"", app.DATMODIFINGDATE AS " &
-            "  ""Date Modified"",(up.STRLASTNAME || ', ' || up.STRFIRSTNAME) " &
-            "  AS ""Modified By"" " &
-            "FROM AIRBRANCH.APBAirProgramPollutants app " &
-            "INNER JOIN AIRBRANCH.LookUPPollutants lkpl ON " &
-            "  app.STRPOLLUTANTKEY = lkpl.STRPOLLUTANTCODE " &
-            "INNER JOIN AIRBRANCH.LookUpComplianceStatus lkcs ON " &
-            "  lkcs.STRCOMPLIANCECODE = app.STRCOMPLIANCESTATUS " &
-            "INNER JOIN AIRBRANCH.EPDUserProfiles up ON " &
-            "  app.STRMODIFINGPERSON = up.NUMUSERID " &
-            "WHERE app.STRAIRSNUMBER = :airsNumber " &
-            "ORDER BY ""Air Program Code"", ""Pollutant Code"""
-
-        Dim parameter As New OracleParameter("airsNumber", AirsNumber.DbFormattedString)
-
-        Dim dt As DataTable = DB.GetDataTable(query, parameter)
-
+        Dim dt As DataTable = DAL.PollutantsPrograms.GetFacilityProgramPollutantStatuses(AirsNumber)
         dt.Columns.Add("Air Program", GetType(String))
         dt.Columns.Add("Air Program Enum", GetType(AirProgram))
         dt.Columns.Add("Compliance Status", GetType(String))
@@ -153,6 +127,8 @@ Public Class IAIPEditAirProgramPollutants
         Dim ap As AirProgram
         Dim lcs As LegacyComplianceStatus
         Dim os As FacilityOperationalStatus
+
+        FacilityPollutantsSet = New HashSet(Of String)
 
         For Each row As DataRow In dt.Rows
             ap = FacilityHeaderData.ConvertAirProgramLegacyCodes(row("Air Program Code").ToString)
@@ -166,6 +142,8 @@ Public Class IAIPEditAirProgramPollutants
             os = [Enum].Parse(GetType(FacilityOperationalStatus), row("Operating Status Code").ToString)
             row("Operating Status Enum") = os
             row("Operating Status") = os.GetDescription
+
+            FacilityPollutantsSet.Add(row("Pollutant Code").ToString)
         Next
 
         With FacilityAirProgramPollutants
@@ -187,8 +165,6 @@ Public Class IAIPEditAirProgramPollutants
 
             .SanelyResizeColumns
         End With
-
-        AddHandler FacilityAirProgramPollutants.SelectionChanged, AddressOf FacilityAirProgramPollutants_SelectionChanged
     End Sub
 
 #End Region
@@ -196,20 +172,13 @@ Public Class IAIPEditAirProgramPollutants
 #Region " Save data "
 
     Private Sub SaveValue()
-        Console.WriteLine(AirProgramSelect.SelectedValue)
-        Console.WriteLine(PollutantSelect.SelectedValue)
-        Console.WriteLine(ComplianceStatusSelect.SelectedValue)
-        Console.WriteLine(OperatingStatusSelect.SelectedValue)
-
         If VerifyUpdate() Then
-
             Dim result As Boolean =
             DAL.PollutantsPrograms.SaveFacilityAirProgramPollutant(AirsNumber,
                                                                    AirProgramSelect.SelectedValue,
                                                                    PollutantSelect.SelectedValue,
                                                                    ComplianceStatusSelect.SelectedValue,
                                                                    OperatingStatusSelect.SelectedValue)
-
             If result Then
                 SomethingChanged = True
                 LoadFacilityProgramPollutants()
@@ -223,7 +192,7 @@ Public Class IAIPEditAirProgramPollutants
 
     Private Function VerifyUpdate() As Boolean
         If (OperatingStatusSelect.SelectedValue <> facilityOperatingStatus) Then
-            Dim dr As DialogResult = MessageBox.Show("The selected pollutant operating status is not the same as the Facility operating status. Do you really want to save?",
+            Dim dr As DialogResult = MessageBox.Show("The selected pollutant operating status is not the same as the facility operating status. Do you really want to save?",
                                                      "Confirm", MessageBoxButtons.OKCancel)
             If dr = DialogResult.No Then Return False
         End If
@@ -254,7 +223,7 @@ Public Class IAIPEditAirProgramPollutants
         If SelectionExists() Then
             If UserPermissions.CheckAuth(UserCan.ChangeComplianceStatus) OrElse
                UserPermissions.CheckAuth(UserCan.EditHeaderData) Then
-                SaveButton.Text = "Update pollutant statuses"
+                SaveButton.Text = "Update pollutant status"
                 SaveButton.Visible = True
             Else
                 SaveButton.Visible = False

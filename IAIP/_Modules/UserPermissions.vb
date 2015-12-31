@@ -1,16 +1,17 @@
 ﻿Class UserPermissions
 
     Public Shared Function CheckAuth(capability As UserCan) As Boolean
+        If UserAccounts.Contains("(118)") Then Return True ' DMU Management
+
         Select Case capability
 
             Case UserCan.SaveEnforcement Or UserCan.ChangeComplianceStatus
-                Return (UserBranch = "5") OrElse             ' District offices or
-                    (UserProgram = "3" Or UserProgram = "4") ' DMU or SSCP
+                Return (UserBranch = "5") OrElse              ' District offices or
+                    (UserProgram = "3" Or UserProgram = "4")  ' DMU or SSCP
 
             Case UserCan.ResolveEnforcement
                 Return UserAccounts.Contains("(19)") OrElse ' SSCP Program Manager
-                    UserAccounts.Contains("(114)") OrElse   ' SSCP Unit Manager
-                    UserAccounts.Contains("(118)")          ' DMU Management
+                    UserAccounts.Contains("(114)")          ' SSCP Unit Manager
 
             Case UserCan.AddPollutantsToFacility
                 Return (UserBranch = "1") ' Air Branch
@@ -19,8 +20,8 @@
                 Return (AccountFormAccess(29, 2) = "1" Or AccountFormAccess(29, 3) = "1" Or AccountFormAccess(29, 4) = "1")
 
             Case UserCan.ShutDownFacility
-                ' SSCP Unit Manager, SSCP Program Manager, Branch Chief, District Liasion, DMU, SSPP Program Manager
-                Return UserHasPermission(New String() {"(114)", "(19)", "(102)", "(27)", "(118)", "(28)"})
+                ' SSCP Unit Manager, SSCP Program Manager, Branch Chief, District Liasion, SSPP Program Manager
+                Return UserHasPermission(New String() {"(114)", "(19)", "(102)", "(27)", "(28)"})
 
         End Select
     End Function

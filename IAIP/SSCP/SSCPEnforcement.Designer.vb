@@ -23,21 +23,21 @@ Partial Class SscpEnforcement
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SscpEnforcement))
-        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Button1 = New System.Windows.Forms.Button()
@@ -83,18 +83,6 @@ Partial Class SscpEnforcement
         Me.SubmitToEpa = New System.Windows.Forms.Button()
         Me.Label34 = New System.Windows.Forms.Label()
         Me.SubmitToUC = New System.Windows.Forms.Button()
-        Me.PollutantsTabPage = New System.Windows.Forms.TabPage()
-        Me.PollutantsProgramSplitContainer = New System.Windows.Forms.SplitContainer()
-        Me.PollutantsListView = New System.Windows.Forms.ListView()
-        Me.Panel3 = New System.Windows.Forms.Panel()
-        Me.PollutantsListLabel = New System.Windows.Forms.Label()
-        Me.ProgramsListView = New System.Windows.Forms.ListView()
-        Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.ProgramsListLabel = New System.Windows.Forms.Label()
-        Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.AddPollutantsButton = New System.Windows.Forms.Button()
         Me.LonTabPage = New System.Windows.Forms.TabPage()
         Me.LonToUC = New System.Windows.Forms.DateTimePicker()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -104,6 +92,14 @@ Partial Class SscpEnforcement
         Me.Label19 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label43 = New System.Windows.Forms.Label()
+        Me.PollutantsTabPage = New System.Windows.Forms.TabPage()
+        Me.PollutantsProgramSplitContainer = New System.Windows.Forms.SplitContainer()
+        Me.PollutantsListView = New System.Windows.Forms.ListView()
+        Me.PollutantsListLabel = New System.Windows.Forms.Label()
+        Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.AddPollutantsButton = New System.Windows.Forms.Button()
+        Me.ProgramsListView = New System.Windows.Forms.ListView()
+        Me.ProgramsListLabel = New System.Windows.Forms.Label()
         Me.NovTabPage = New System.Windows.Forms.TabPage()
         Me.NovToUC = New System.Windows.Forms.DateTimePicker()
         Me.Label46 = New System.Windows.Forms.Label()
@@ -143,6 +139,7 @@ Partial Class SscpEnforcement
         Me.Label21 = New System.Windows.Forms.Label()
         Me.COResolved = New System.Windows.Forms.DateTimePicker()
         Me.Label18 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.Label49 = New System.Windows.Forms.Label()
         Me.Label20 = New System.Windows.Forms.Label()
         Me.COReceivedfromCompany = New System.Windows.Forms.DateTimePicker()
@@ -231,7 +228,9 @@ Partial Class SscpEnforcement
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.CloseMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolsMenu = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ClearMessageMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ClearErrorsMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.ShowAuditHistoryMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ShowEpaActionNumbersMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DeleteEnforcementToolStripSeparator = New System.Windows.Forms.ToolStripSeparator()
@@ -245,15 +244,13 @@ Partial Class SscpEnforcement
         Me.InfoTabPage.SuspendLayout()
         Me.EAGroupBox.SuspendLayout()
         Me.ViolationTypeGroupbox.SuspendLayout()
+        Me.LonTabPage.SuspendLayout()
         Me.PollutantsTabPage.SuspendLayout()
         CType(Me.PollutantsProgramSplitContainer, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PollutantsProgramSplitContainer.Panel1.SuspendLayout()
         Me.PollutantsProgramSplitContainer.Panel2.SuspendLayout()
         Me.PollutantsProgramSplitContainer.SuspendLayout()
-        Me.Panel3.SuspendLayout()
-        Me.Panel4.SuspendLayout()
         Me.Panel5.SuspendLayout()
-        Me.LonTabPage.SuspendLayout()
         Me.NovTabPage.SuspendLayout()
         Me.COTabPage.SuspendLayout()
         CType(Me.CoNumber, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -509,37 +506,37 @@ Partial Class SscpEnforcement
         Me.DataGridView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle15.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle15
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle16.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle16
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle2
         Me.DataGridView1.Enabled = False
         Me.DataGridView1.Location = New System.Drawing.Point(276, 35)
         Me.DataGridView1.MinimumSize = New System.Drawing.Size(300, 55)
         Me.DataGridView1.MultiSelect = False
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
-        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle17.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle17
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView1.Size = New System.Drawing.Size(572, 173)
@@ -548,9 +545,6 @@ Partial Class SscpEnforcement
         '
         'DismissMessageButton
         '
-        Me.DismissMessageButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.DismissMessageButton.AutoSize = True
-        Me.DismissMessageButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.DismissMessageButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.DismissMessageButton.Location = New System.Drawing.Point(523, 3)
         Me.DismissMessageButton.Name = "DismissMessageButton"
@@ -564,8 +558,8 @@ Partial Class SscpEnforcement
         'EnforcementTabs
         '
         Me.EnforcementTabs.Controls.Add(Me.InfoTabPage)
-        Me.EnforcementTabs.Controls.Add(Me.PollutantsTabPage)
         Me.EnforcementTabs.Controls.Add(Me.LonTabPage)
+        Me.EnforcementTabs.Controls.Add(Me.PollutantsTabPage)
         Me.EnforcementTabs.Controls.Add(Me.NovTabPage)
         Me.EnforcementTabs.Controls.Add(Me.COTabPage)
         Me.EnforcementTabs.Controls.Add(Me.AOTabPage)
@@ -606,7 +600,7 @@ Partial Class SscpEnforcement
         '
         Me.LinkedEventDisplay.AutoSize = True
         Me.LinkedEventDisplay.LinkArea = New System.Windows.Forms.LinkArea(17, 17)
-        Me.LinkedEventDisplay.Location = New System.Drawing.Point(322, 24)
+        Me.LinkedEventDisplay.Location = New System.Drawing.Point(329, 24)
         Me.LinkedEventDisplay.Name = "LinkedEventDisplay"
         Me.LinkedEventDisplay.Size = New System.Drawing.Size(89, 17)
         Me.LinkedEventDisplay.TabIndex = 2
@@ -619,7 +613,7 @@ Partial Class SscpEnforcement
         Me.EAGroupBox.Controls.Add(Me.NovCheckBox)
         Me.EAGroupBox.Controls.Add(Me.LonCheckBox)
         Me.EAGroupBox.Controls.Add(Me.AOCheckBox)
-        Me.EAGroupBox.Location = New System.Drawing.Point(11, 60)
+        Me.EAGroupBox.Location = New System.Drawing.Point(19, 60)
         Me.EAGroupBox.Name = "EAGroupBox"
         Me.EAGroupBox.Size = New System.Drawing.Size(202, 77)
         Me.EAGroupBox.TabIndex = 3
@@ -628,10 +622,10 @@ Partial Class SscpEnforcement
         '
         'COCheckBox
         '
-        Me.COCheckBox.Appearance = System.Windows.Forms.Appearance.Button
-        Me.COCheckBox.Location = New System.Drawing.Point(100, 31)
+        Me.COCheckBox.AutoSize = True
+        Me.COCheckBox.Location = New System.Drawing.Point(115, 34)
         Me.COCheckBox.Name = "COCheckBox"
-        Me.COCheckBox.Size = New System.Drawing.Size(40, 23)
+        Me.COCheckBox.Size = New System.Drawing.Size(41, 17)
         Me.COCheckBox.TabIndex = 2
         Me.COCheckBox.Text = "CO"
         Me.COCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -639,10 +633,10 @@ Partial Class SscpEnforcement
         '
         'NovCheckBox
         '
-        Me.NovCheckBox.Appearance = System.Windows.Forms.Appearance.Button
-        Me.NovCheckBox.Location = New System.Drawing.Point(54, 31)
+        Me.NovCheckBox.AutoSize = True
+        Me.NovCheckBox.Location = New System.Drawing.Point(60, 34)
         Me.NovCheckBox.Name = "NovCheckBox"
-        Me.NovCheckBox.Size = New System.Drawing.Size(40, 23)
+        Me.NovCheckBox.Size = New System.Drawing.Size(49, 17)
         Me.NovCheckBox.TabIndex = 1
         Me.NovCheckBox.Text = "NOV"
         Me.NovCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -650,10 +644,10 @@ Partial Class SscpEnforcement
         '
         'LonCheckBox
         '
-        Me.LonCheckBox.Appearance = System.Windows.Forms.Appearance.Button
-        Me.LonCheckBox.Location = New System.Drawing.Point(8, 31)
+        Me.LonCheckBox.AutoSize = True
+        Me.LonCheckBox.Location = New System.Drawing.Point(6, 34)
         Me.LonCheckBox.Name = "LonCheckBox"
-        Me.LonCheckBox.Size = New System.Drawing.Size(40, 23)
+        Me.LonCheckBox.Size = New System.Drawing.Size(48, 17)
         Me.LonCheckBox.TabIndex = 0
         Me.LonCheckBox.Text = "LON"
         Me.LonCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -661,10 +655,10 @@ Partial Class SscpEnforcement
         '
         'AOCheckBox
         '
-        Me.AOCheckBox.Appearance = System.Windows.Forms.Appearance.Button
-        Me.AOCheckBox.Location = New System.Drawing.Point(146, 31)
+        Me.AOCheckBox.AutoSize = True
+        Me.AOCheckBox.Location = New System.Drawing.Point(162, 34)
         Me.AOCheckBox.Name = "AOCheckBox"
-        Me.AOCheckBox.Size = New System.Drawing.Size(40, 23)
+        Me.AOCheckBox.Size = New System.Drawing.Size(41, 17)
         Me.AOCheckBox.TabIndex = 3
         Me.AOCheckBox.Text = "AO"
         Me.AOCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -677,9 +671,9 @@ Partial Class SscpEnforcement
         Me.ViolationTypeGroupbox.Controls.Add(Me.ViolationTypeNonFrv)
         Me.ViolationTypeGroupbox.Controls.Add(Me.ViolationTypeHpv)
         Me.ViolationTypeGroupbox.Controls.Add(Me.ViolationTypeFrv)
-        Me.ViolationTypeGroupbox.Location = New System.Drawing.Point(229, 60)
+        Me.ViolationTypeGroupbox.Location = New System.Drawing.Point(236, 60)
         Me.ViolationTypeGroupbox.Name = "ViolationTypeGroupbox"
-        Me.ViolationTypeGroupbox.Size = New System.Drawing.Size(453, 77)
+        Me.ViolationTypeGroupbox.Size = New System.Drawing.Size(466, 77)
         Me.ViolationTypeGroupbox.TabIndex = 4
         Me.ViolationTypeGroupbox.TabStop = False
         Me.ViolationTypeGroupbox.Text = "Violation Type"
@@ -693,7 +687,7 @@ Partial Class SscpEnforcement
         Me.ViolationTypeSelect.FormattingEnabled = True
         Me.ViolationTypeSelect.Location = New System.Drawing.Point(7, 43)
         Me.ViolationTypeSelect.Name = "ViolationTypeSelect"
-        Me.ViolationTypeSelect.Size = New System.Drawing.Size(437, 21)
+        Me.ViolationTypeSelect.Size = New System.Drawing.Size(450, 21)
         Me.ViolationTypeSelect.TabIndex = 4
         '
         'ViolationTypeNone
@@ -745,7 +739,7 @@ Partial Class SscpEnforcement
         'DiscoveryDateLabel
         '
         Me.DiscoveryDateLabel.AutoSize = True
-        Me.DiscoveryDateLabel.Location = New System.Drawing.Point(8, 24)
+        Me.DiscoveryDateLabel.Location = New System.Drawing.Point(16, 24)
         Me.DiscoveryDateLabel.Name = "DiscoveryDateLabel"
         Me.DiscoveryDateLabel.Size = New System.Drawing.Size(80, 13)
         Me.DiscoveryDateLabel.TabIndex = 3
@@ -754,7 +748,7 @@ Partial Class SscpEnforcement
         'LinkToEvent
         '
         Me.LinkToEvent.AutoSize = True
-        Me.LinkToEvent.Location = New System.Drawing.Point(229, 19)
+        Me.LinkToEvent.Location = New System.Drawing.Point(236, 18)
         Me.LinkToEvent.Name = "LinkToEvent"
         Me.LinkToEvent.Size = New System.Drawing.Size(87, 23)
         Me.LinkToEvent.TabIndex = 1
@@ -762,7 +756,7 @@ Partial Class SscpEnforcement
         '
         'LastEditedDateDisplay
         '
-        Me.LastEditedDateDisplay.Location = New System.Drawing.Point(481, 24)
+        Me.LastEditedDateDisplay.Location = New System.Drawing.Point(501, 24)
         Me.LastEditedDateDisplay.Name = "LastEditedDateDisplay"
         Me.LastEditedDateDisplay.Size = New System.Drawing.Size(201, 17)
         Me.LastEditedDateDisplay.TabIndex = 7
@@ -773,7 +767,7 @@ Partial Class SscpEnforcement
         'ClearLinkedEvent
         '
         Me.ClearLinkedEvent.AutoSize = True
-        Me.ClearLinkedEvent.Location = New System.Drawing.Point(229, 19)
+        Me.ClearLinkedEvent.Location = New System.Drawing.Point(236, 19)
         Me.ClearLinkedEvent.Name = "ClearLinkedEvent"
         Me.ClearLinkedEvent.Size = New System.Drawing.Size(87, 23)
         Me.ClearLinkedEvent.TabIndex = 1
@@ -786,7 +780,7 @@ Partial Class SscpEnforcement
         Me.DiscoveryDate.CustomFormat = "dd-MMM-yyyy"
         Me.DiscoveryDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DiscoveryDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DiscoveryDate.Location = New System.Drawing.Point(94, 19)
+        Me.DiscoveryDate.Location = New System.Drawing.Point(102, 19)
         Me.DiscoveryDate.Name = "DiscoveryDate"
         Me.DiscoveryDate.ShowCheckBox = True
         Me.DiscoveryDate.Size = New System.Drawing.Size(119, 22)
@@ -795,18 +789,18 @@ Partial Class SscpEnforcement
         'GeneralComments
         '
         Me.GeneralComments.AcceptsReturn = True
-        Me.GeneralComments.Location = New System.Drawing.Point(11, 169)
+        Me.GeneralComments.Location = New System.Drawing.Point(19, 169)
         Me.GeneralComments.MaxLength = 4000
         Me.GeneralComments.Multiline = True
         Me.GeneralComments.Name = "GeneralComments"
         Me.GeneralComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.GeneralComments.Size = New System.Drawing.Size(671, 80)
+        Me.GeneralComments.Size = New System.Drawing.Size(683, 80)
         Me.GeneralComments.TabIndex = 5
         '
         'SubmitToEpa
         '
         Me.SubmitToEpa.Enabled = False
-        Me.SubmitToEpa.Location = New System.Drawing.Point(11, 297)
+        Me.SubmitToEpa.Location = New System.Drawing.Point(19, 297)
         Me.SubmitToEpa.Name = "SubmitToEpa"
         Me.SubmitToEpa.Size = New System.Drawing.Size(149, 23)
         Me.SubmitToEpa.TabIndex = 7
@@ -816,7 +810,7 @@ Partial Class SscpEnforcement
         'Label34
         '
         Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(8, 153)
+        Me.Label34.Location = New System.Drawing.Point(16, 153)
         Me.Label34.Name = "Label34"
         Me.Label34.Size = New System.Drawing.Size(96, 13)
         Me.Label34.TabIndex = 341
@@ -824,129 +818,12 @@ Partial Class SscpEnforcement
         '
         'SubmitToUC
         '
-        Me.SubmitToUC.Location = New System.Drawing.Point(11, 268)
+        Me.SubmitToUC.Location = New System.Drawing.Point(19, 268)
         Me.SubmitToUC.Name = "SubmitToUC"
         Me.SubmitToUC.Size = New System.Drawing.Size(149, 23)
         Me.SubmitToUC.TabIndex = 6
         Me.SubmitToUC.Text = "Submit to UC"
         Me.SubmitToUC.Visible = False
-        '
-        'PollutantsTabPage
-        '
-        Me.PollutantsTabPage.Controls.Add(Me.PollutantsProgramSplitContainer)
-        Me.PollutantsTabPage.Location = New System.Drawing.Point(4, 22)
-        Me.PollutantsTabPage.Name = "PollutantsTabPage"
-        Me.PollutantsTabPage.Size = New System.Drawing.Size(723, 364)
-        Me.PollutantsTabPage.TabIndex = 1
-        Me.PollutantsTabPage.Text = "Pollutants & Programs"
-        Me.PollutantsTabPage.UseVisualStyleBackColor = True
-        '
-        'PollutantsProgramSplitContainer
-        '
-        Me.PollutantsProgramSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PollutantsProgramSplitContainer.IsSplitterFixed = True
-        Me.PollutantsProgramSplitContainer.Location = New System.Drawing.Point(0, 0)
-        Me.PollutantsProgramSplitContainer.Name = "PollutantsProgramSplitContainer"
-        '
-        'PollutantsProgramSplitContainer.Panel1
-        '
-        Me.PollutantsProgramSplitContainer.Panel1.Controls.Add(Me.PollutantsListView)
-        Me.PollutantsProgramSplitContainer.Panel1.Controls.Add(Me.Panel5)
-        Me.PollutantsProgramSplitContainer.Panel1.Controls.Add(Me.Panel3)
-        Me.PollutantsProgramSplitContainer.Panel1.Padding = New System.Windows.Forms.Padding(12)
-        '
-        'PollutantsProgramSplitContainer.Panel2
-        '
-        Me.PollutantsProgramSplitContainer.Panel2.Controls.Add(Me.ProgramsListView)
-        Me.PollutantsProgramSplitContainer.Panel2.Controls.Add(Me.Panel4)
-        Me.PollutantsProgramSplitContainer.Panel2.Padding = New System.Windows.Forms.Padding(12)
-        Me.PollutantsProgramSplitContainer.Size = New System.Drawing.Size(723, 364)
-        Me.PollutantsProgramSplitContainer.SplitterDistance = 356
-        Me.PollutantsProgramSplitContainer.TabIndex = 0
-        Me.PollutantsProgramSplitContainer.TabStop = False
-        '
-        'PollutantsListView
-        '
-        Me.PollutantsListView.Alignment = System.Windows.Forms.ListViewAlignment.Left
-        Me.PollutantsListView.AutoArrange = False
-        Me.PollutantsListView.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.PollutantsListView.CheckBoxes = True
-        Me.PollutantsListView.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PollutantsListView.Location = New System.Drawing.Point(12, 49)
-        Me.PollutantsListView.MultiSelect = False
-        Me.PollutantsListView.Name = "PollutantsListView"
-        Me.PollutantsListView.Size = New System.Drawing.Size(332, 272)
-        Me.PollutantsListView.TabIndex = 0
-        Me.PollutantsListView.UseCompatibleStateImageBehavior = False
-        Me.PollutantsListView.View = System.Windows.Forms.View.SmallIcon
-        '
-        'Panel3
-        '
-        Me.Panel3.Controls.Add(Me.PollutantsListLabel)
-        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel3.Location = New System.Drawing.Point(12, 12)
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(332, 37)
-        Me.Panel3.TabIndex = 372
-        '
-        'PollutantsListLabel
-        '
-        Me.PollutantsListLabel.AutoSize = True
-        Me.PollutantsListLabel.Location = New System.Drawing.Point(20, 6)
-        Me.PollutantsListLabel.Name = "PollutantsListLabel"
-        Me.PollutantsListLabel.Size = New System.Drawing.Size(210, 13)
-        Me.PollutantsListLabel.TabIndex = 0
-        Me.PollutantsListLabel.Text = "Pollutants associated with this enforcement"
-        '
-        'ProgramsListView
-        '
-        Me.ProgramsListView.Alignment = System.Windows.Forms.ListViewAlignment.Left
-        Me.ProgramsListView.AutoArrange = False
-        Me.ProgramsListView.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.ProgramsListView.CheckBoxes = True
-        Me.ProgramsListView.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2})
-        Me.ProgramsListView.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ProgramsListView.Location = New System.Drawing.Point(12, 49)
-        Me.ProgramsListView.Name = "ProgramsListView"
-        Me.ProgramsListView.Size = New System.Drawing.Size(339, 303)
-        Me.ProgramsListView.TabIndex = 0
-        Me.ProgramsListView.UseCompatibleStateImageBehavior = False
-        Me.ProgramsListView.View = System.Windows.Forms.View.SmallIcon
-        '
-        'Panel4
-        '
-        Me.Panel4.Controls.Add(Me.ProgramsListLabel)
-        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel4.Location = New System.Drawing.Point(12, 12)
-        Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(339, 37)
-        Me.Panel4.TabIndex = 373
-        '
-        'ProgramsListLabel
-        '
-        Me.ProgramsListLabel.AutoSize = True
-        Me.ProgramsListLabel.Location = New System.Drawing.Point(20, 6)
-        Me.ProgramsListLabel.Name = "ProgramsListLabel"
-        Me.ProgramsListLabel.Size = New System.Drawing.Size(222, 13)
-        Me.ProgramsListLabel.TabIndex = 0
-        Me.ProgramsListLabel.Text = "Air programs associated with this enforcement"
-        '
-        'Panel5
-        '
-        Me.Panel5.Controls.Add(Me.AddPollutantsButton)
-        Me.Panel5.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel5.Location = New System.Drawing.Point(12, 321)
-        Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(332, 31)
-        Me.Panel5.TabIndex = 1
-        '
-        'AddPollutantsButton
-        '
-        Me.AddPollutantsButton.Location = New System.Drawing.Point(0, 5)
-        Me.AddPollutantsButton.Name = "AddPollutantsButton"
-        Me.AddPollutantsButton.Size = New System.Drawing.Size(157, 23)
-        Me.AddPollutantsButton.TabIndex = 0
-        Me.AddPollutantsButton.Text = "Add Pollutants to Facility"
         '
         'LonTabPage
         '
@@ -973,7 +850,7 @@ Partial Class SscpEnforcement
         Me.LonToUC.CustomFormat = "dd-MMM-yyyy"
         Me.LonToUC.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LonToUC.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.LonToUC.Location = New System.Drawing.Point(17, 19)
+        Me.LonToUC.Location = New System.Drawing.Point(19, 19)
         Me.LonToUC.Name = "LonToUC"
         Me.LonToUC.ShowCheckBox = True
         Me.LonToUC.Size = New System.Drawing.Size(119, 22)
@@ -982,7 +859,7 @@ Partial Class SscpEnforcement
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(142, 80)
+        Me.Label3.Location = New System.Drawing.Point(144, 80)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(103, 13)
         Me.Label3.TabIndex = 282
@@ -991,7 +868,7 @@ Partial Class SscpEnforcement
         'LonComments
         '
         Me.LonComments.AcceptsReturn = True
-        Me.LonComments.Location = New System.Drawing.Point(17, 129)
+        Me.LonComments.Location = New System.Drawing.Point(19, 129)
         Me.LonComments.MaxLength = 4000
         Me.LonComments.Multiline = True
         Me.LonComments.Name = "LonComments"
@@ -1005,7 +882,7 @@ Partial Class SscpEnforcement
         Me.LonResolved.CustomFormat = "dd-MMM-yyyy"
         Me.LonResolved.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LonResolved.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.LonResolved.Location = New System.Drawing.Point(17, 75)
+        Me.LonResolved.Location = New System.Drawing.Point(19, 75)
         Me.LonResolved.Name = "LonResolved"
         Me.LonResolved.ShowCheckBox = True
         Me.LonResolved.Size = New System.Drawing.Size(119, 22)
@@ -1017,7 +894,7 @@ Partial Class SscpEnforcement
         Me.LonSent.CustomFormat = "dd-MMM-yyyy"
         Me.LonSent.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LonSent.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.LonSent.Location = New System.Drawing.Point(17, 47)
+        Me.LonSent.Location = New System.Drawing.Point(19, 47)
         Me.LonSent.Name = "LonSent"
         Me.LonSent.ShowCheckBox = True
         Me.LonSent.Size = New System.Drawing.Size(119, 22)
@@ -1026,7 +903,7 @@ Partial Class SscpEnforcement
         'Label19
         '
         Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(14, 113)
+        Me.Label19.Location = New System.Drawing.Point(16, 113)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(81, 13)
         Me.Label19.TabIndex = 278
@@ -1035,7 +912,7 @@ Partial Class SscpEnforcement
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(142, 52)
+        Me.Label7.Location = New System.Drawing.Point(144, 52)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(80, 13)
         Me.Label7.TabIndex = 3
@@ -1044,11 +921,114 @@ Partial Class SscpEnforcement
         'Label43
         '
         Me.Label43.AutoSize = True
-        Me.Label43.Location = New System.Drawing.Point(142, 24)
+        Me.Label43.Location = New System.Drawing.Point(144, 24)
         Me.Label43.Name = "Label43"
-        Me.Label43.Size = New System.Drawing.Size(60, 13)
+        Me.Label43.Size = New System.Drawing.Size(85, 13)
         Me.Label43.TabIndex = 280
-        Me.Label43.Text = "Date to UC"
+        Me.Label43.Text = "Date LON to UC"
+        '
+        'PollutantsTabPage
+        '
+        Me.PollutantsTabPage.Controls.Add(Me.PollutantsProgramSplitContainer)
+        Me.PollutantsTabPage.Location = New System.Drawing.Point(4, 22)
+        Me.PollutantsTabPage.Name = "PollutantsTabPage"
+        Me.PollutantsTabPage.Size = New System.Drawing.Size(723, 364)
+        Me.PollutantsTabPage.TabIndex = 1
+        Me.PollutantsTabPage.Text = "Pollutants & Programs"
+        Me.PollutantsTabPage.UseVisualStyleBackColor = True
+        '
+        'PollutantsProgramSplitContainer
+        '
+        Me.PollutantsProgramSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PollutantsProgramSplitContainer.IsSplitterFixed = True
+        Me.PollutantsProgramSplitContainer.Location = New System.Drawing.Point(0, 0)
+        Me.PollutantsProgramSplitContainer.Name = "PollutantsProgramSplitContainer"
+        '
+        'PollutantsProgramSplitContainer.Panel1
+        '
+        Me.PollutantsProgramSplitContainer.Panel1.Controls.Add(Me.PollutantsListView)
+        Me.PollutantsProgramSplitContainer.Panel1.Controls.Add(Me.PollutantsListLabel)
+        Me.PollutantsProgramSplitContainer.Panel1.Controls.Add(Me.Panel5)
+        Me.PollutantsProgramSplitContainer.Panel1.Padding = New System.Windows.Forms.Padding(16)
+        '
+        'PollutantsProgramSplitContainer.Panel2
+        '
+        Me.PollutantsProgramSplitContainer.Panel2.Controls.Add(Me.ProgramsListView)
+        Me.PollutantsProgramSplitContainer.Panel2.Controls.Add(Me.ProgramsListLabel)
+        Me.PollutantsProgramSplitContainer.Panel2.Padding = New System.Windows.Forms.Padding(16)
+        Me.PollutantsProgramSplitContainer.Size = New System.Drawing.Size(723, 364)
+        Me.PollutantsProgramSplitContainer.SplitterDistance = 356
+        Me.PollutantsProgramSplitContainer.TabIndex = 0
+        Me.PollutantsProgramSplitContainer.TabStop = False
+        '
+        'PollutantsListView
+        '
+        Me.PollutantsListView.Alignment = System.Windows.Forms.ListViewAlignment.Left
+        Me.PollutantsListView.AutoArrange = False
+        Me.PollutantsListView.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.PollutantsListView.CheckBoxes = True
+        Me.PollutantsListView.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PollutantsListView.Location = New System.Drawing.Point(16, 39)
+        Me.PollutantsListView.MultiSelect = False
+        Me.PollutantsListView.Name = "PollutantsListView"
+        Me.PollutantsListView.Size = New System.Drawing.Size(324, 283)
+        Me.PollutantsListView.TabIndex = 0
+        Me.PollutantsListView.UseCompatibleStateImageBehavior = False
+        Me.PollutantsListView.View = System.Windows.Forms.View.SmallIcon
+        '
+        'PollutantsListLabel
+        '
+        Me.PollutantsListLabel.AutoSize = True
+        Me.PollutantsListLabel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PollutantsListLabel.Location = New System.Drawing.Point(16, 16)
+        Me.PollutantsListLabel.Name = "PollutantsListLabel"
+        Me.PollutantsListLabel.Padding = New System.Windows.Forms.Padding(0, 0, 0, 10)
+        Me.PollutantsListLabel.Size = New System.Drawing.Size(210, 23)
+        Me.PollutantsListLabel.TabIndex = 0
+        Me.PollutantsListLabel.Text = "Pollutants associated with this enforcement"
+        '
+        'Panel5
+        '
+        Me.Panel5.AutoSize = True
+        Me.Panel5.Controls.Add(Me.AddPollutantsButton)
+        Me.Panel5.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Panel5.Location = New System.Drawing.Point(16, 322)
+        Me.Panel5.Name = "Panel5"
+        Me.Panel5.Size = New System.Drawing.Size(324, 26)
+        Me.Panel5.TabIndex = 1
+        '
+        'AddPollutantsButton
+        '
+        Me.AddPollutantsButton.Location = New System.Drawing.Point(3, 0)
+        Me.AddPollutantsButton.Name = "AddPollutantsButton"
+        Me.AddPollutantsButton.Size = New System.Drawing.Size(157, 23)
+        Me.AddPollutantsButton.TabIndex = 0
+        Me.AddPollutantsButton.Text = "Add Pollutants to Facility"
+        '
+        'ProgramsListView
+        '
+        Me.ProgramsListView.Alignment = System.Windows.Forms.ListViewAlignment.Left
+        Me.ProgramsListView.AutoArrange = False
+        Me.ProgramsListView.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.ProgramsListView.CheckBoxes = True
+        Me.ProgramsListView.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ProgramsListView.Location = New System.Drawing.Point(16, 39)
+        Me.ProgramsListView.Name = "ProgramsListView"
+        Me.ProgramsListView.Size = New System.Drawing.Size(331, 309)
+        Me.ProgramsListView.TabIndex = 0
+        Me.ProgramsListView.UseCompatibleStateImageBehavior = False
+        Me.ProgramsListView.View = System.Windows.Forms.View.SmallIcon
+        '
+        'ProgramsListLabel
+        '
+        Me.ProgramsListLabel.AutoSize = True
+        Me.ProgramsListLabel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.ProgramsListLabel.Location = New System.Drawing.Point(16, 16)
+        Me.ProgramsListLabel.Name = "ProgramsListLabel"
+        Me.ProgramsListLabel.Padding = New System.Windows.Forms.Padding(0, 0, 0, 10)
+        Me.ProgramsListLabel.Size = New System.Drawing.Size(222, 23)
+        Me.ProgramsListLabel.TabIndex = 0
+        Me.ProgramsListLabel.Text = "Air programs associated with this enforcement"
         '
         'NovTabPage
         '
@@ -1082,7 +1062,7 @@ Partial Class SscpEnforcement
         Me.NovToUC.CustomFormat = "dd-MMM-yyyy"
         Me.NovToUC.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.NovToUC.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.NovToUC.Location = New System.Drawing.Point(17, 19)
+        Me.NovToUC.Location = New System.Drawing.Point(19, 19)
         Me.NovToUC.Name = "NovToUC"
         Me.NovToUC.ShowCheckBox = True
         Me.NovToUC.Size = New System.Drawing.Size(119, 22)
@@ -1091,7 +1071,7 @@ Partial Class SscpEnforcement
         'Label46
         '
         Me.Label46.AutoSize = True
-        Me.Label46.Location = New System.Drawing.Point(448, 52)
+        Me.Label46.Location = New System.Drawing.Point(450, 52)
         Me.Label46.Name = "Label46"
         Me.Label46.Size = New System.Drawing.Size(85, 13)
         Me.Label46.TabIndex = 379
@@ -1100,7 +1080,7 @@ Partial Class SscpEnforcement
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(8, 141)
+        Me.Label1.Location = New System.Drawing.Point(10, 141)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(82, 13)
         Me.Label1.TabIndex = 380
@@ -1109,7 +1089,7 @@ Partial Class SscpEnforcement
         'NovComments
         '
         Me.NovComments.AcceptsReturn = True
-        Me.NovComments.Location = New System.Drawing.Point(17, 157)
+        Me.NovComments.Location = New System.Drawing.Point(19, 157)
         Me.NovComments.MaxLength = 4000
         Me.NovComments.Multiline = True
         Me.NovComments.Name = "NovComments"
@@ -1123,7 +1103,7 @@ Partial Class SscpEnforcement
         Me.NovSent.CustomFormat = "dd-MMM-yyyy"
         Me.NovSent.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.NovSent.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.NovSent.Location = New System.Drawing.Point(17, 75)
+        Me.NovSent.Location = New System.Drawing.Point(19, 75)
         Me.NovSent.Name = "NovSent"
         Me.NovSent.ShowCheckBox = True
         Me.NovSent.Size = New System.Drawing.Size(119, 22)
@@ -1135,7 +1115,7 @@ Partial Class SscpEnforcement
         Me.NfaToPM.CustomFormat = "dd-MMM-yyyy"
         Me.NfaToPM.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.NfaToPM.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.NfaToPM.Location = New System.Drawing.Point(324, 47)
+        Me.NfaToPM.Location = New System.Drawing.Point(326, 47)
         Me.NfaToPM.Name = "NfaToPM"
         Me.NfaToPM.ShowCheckBox = True
         Me.NfaToPM.Size = New System.Drawing.Size(119, 22)
@@ -1144,7 +1124,7 @@ Partial Class SscpEnforcement
         'Label26
         '
         Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(142, 24)
+        Me.Label26.Location = New System.Drawing.Point(144, 24)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(86, 13)
         Me.Label26.TabIndex = 373
@@ -1153,7 +1133,7 @@ Partial Class SscpEnforcement
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(142, 80)
+        Me.Label8.Location = New System.Drawing.Point(144, 80)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(81, 13)
         Me.Label8.TabIndex = 367
@@ -1162,7 +1142,7 @@ Partial Class SscpEnforcement
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(448, 80)
+        Me.Label13.Location = New System.Drawing.Point(450, 80)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(109, 13)
         Me.Label13.TabIndex = 371
@@ -1171,7 +1151,7 @@ Partial Class SscpEnforcement
         'Label45
         '
         Me.Label45.AutoSize = True
-        Me.Label45.Location = New System.Drawing.Point(448, 24)
+        Me.Label45.Location = New System.Drawing.Point(450, 24)
         Me.Label45.Name = "Label45"
         Me.Label45.Size = New System.Drawing.Size(84, 13)
         Me.Label45.TabIndex = 377
@@ -1183,7 +1163,7 @@ Partial Class SscpEnforcement
         Me.NovToPM.CustomFormat = "dd-MMM-yyyy"
         Me.NovToPM.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.NovToPM.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.NovToPM.Location = New System.Drawing.Point(17, 47)
+        Me.NovToPM.Location = New System.Drawing.Point(19, 47)
         Me.NovToPM.Name = "NovToPM"
         Me.NovToPM.ShowCheckBox = True
         Me.NovToPM.Size = New System.Drawing.Size(119, 22)
@@ -1195,7 +1175,7 @@ Partial Class SscpEnforcement
         Me.NovResponseReceived.CustomFormat = "dd-MMM-yyyy"
         Me.NovResponseReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.NovResponseReceived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.NovResponseReceived.Location = New System.Drawing.Point(17, 103)
+        Me.NovResponseReceived.Location = New System.Drawing.Point(19, 103)
         Me.NovResponseReceived.Name = "NovResponseReceived"
         Me.NovResponseReceived.ShowCheckBox = True
         Me.NovResponseReceived.Size = New System.Drawing.Size(119, 22)
@@ -1207,7 +1187,7 @@ Partial Class SscpEnforcement
         Me.NfaSent.CustomFormat = "dd-MMM-yyyy"
         Me.NfaSent.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.NfaSent.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.NfaSent.Location = New System.Drawing.Point(324, 75)
+        Me.NfaSent.Location = New System.Drawing.Point(326, 75)
         Me.NfaSent.Name = "NfaSent"
         Me.NfaSent.ShowCheckBox = True
         Me.NfaSent.Size = New System.Drawing.Size(119, 22)
@@ -1219,7 +1199,7 @@ Partial Class SscpEnforcement
         Me.NfaToUC.CustomFormat = "dd-MMM-yyyy"
         Me.NfaToUC.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.NfaToUC.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.NfaToUC.Location = New System.Drawing.Point(324, 19)
+        Me.NfaToUC.Location = New System.Drawing.Point(326, 19)
         Me.NfaToUC.Name = "NfaToUC"
         Me.NfaToUC.ShowCheckBox = True
         Me.NfaToUC.Size = New System.Drawing.Size(119, 22)
@@ -1228,7 +1208,7 @@ Partial Class SscpEnforcement
         'Label44
         '
         Me.Label44.AutoSize = True
-        Me.Label44.Location = New System.Drawing.Point(142, 52)
+        Me.Label44.Location = New System.Drawing.Point(144, 52)
         Me.Label44.Name = "Label44"
         Me.Label44.Size = New System.Drawing.Size(87, 13)
         Me.Label44.TabIndex = 375
@@ -1237,7 +1217,7 @@ Partial Class SscpEnforcement
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(142, 108)
+        Me.Label9.Location = New System.Drawing.Point(144, 108)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(156, 13)
         Me.Label9.TabIndex = 369
@@ -1257,6 +1237,7 @@ Partial Class SscpEnforcement
         Me.COTabPage.Controls.Add(Me.Label21)
         Me.COTabPage.Controls.Add(Me.COResolved)
         Me.COTabPage.Controls.Add(Me.Label18)
+        Me.COTabPage.Controls.Add(Me.Label2)
         Me.COTabPage.Controls.Add(Me.Label49)
         Me.COTabPage.Controls.Add(Me.Label20)
         Me.COTabPage.Controls.Add(Me.COReceivedfromCompany)
@@ -1279,16 +1260,16 @@ Partial Class SscpEnforcement
         'COPenaltyComments
         '
         Me.COPenaltyComments.AcceptsReturn = True
-        Me.COPenaltyComments.Location = New System.Drawing.Point(446, 49)
+        Me.COPenaltyComments.Location = New System.Drawing.Point(447, 161)
         Me.COPenaltyComments.MaxLength = 4000
         Me.COPenaltyComments.Multiline = True
         Me.COPenaltyComments.Name = "COPenaltyComments"
-        Me.COPenaltyComments.Size = New System.Drawing.Size(266, 48)
+        Me.COPenaltyComments.Size = New System.Drawing.Size(255, 48)
         Me.COPenaltyComments.TabIndex = 10
         '
         'CoNumber
         '
-        Me.CoNumber.Location = New System.Drawing.Point(145, 228)
+        Me.CoNumber.Location = New System.Drawing.Point(507, 21)
         Me.CoNumber.Maximum = New Decimal(New Integer() {999999, 0, 0, 0})
         Me.CoNumber.Name = "CoNumber"
         Me.CoNumber.Size = New System.Drawing.Size(60, 20)
@@ -1297,7 +1278,7 @@ Partial Class SscpEnforcement
         'Label29
         '
         Me.Label29.AutoSize = True
-        Me.Label29.Location = New System.Drawing.Point(345, 52)
+        Me.Label29.Location = New System.Drawing.Point(346, 164)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(94, 13)
         Me.Label29.TabIndex = 353
@@ -1306,17 +1287,17 @@ Partial Class SscpEnforcement
         'COComments
         '
         Me.COComments.AcceptsReturn = True
-        Me.COComments.Location = New System.Drawing.Point(17, 280)
+        Me.COComments.Location = New System.Drawing.Point(447, 47)
         Me.COComments.MaxLength = 4000
         Me.COComments.Multiline = True
         Me.COComments.Name = "COComments"
         Me.COComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.COComments.Size = New System.Drawing.Size(297, 71)
+        Me.COComments.Size = New System.Drawing.Size(255, 76)
         Me.COComments.TabIndex = 8
         '
         'COPenaltyAmount
         '
-        Me.COPenaltyAmount.Location = New System.Drawing.Point(446, 21)
+        Me.COPenaltyAmount.Location = New System.Drawing.Point(447, 133)
         Me.COPenaltyAmount.MaxLength = 20
         Me.COPenaltyAmount.Name = "COPenaltyAmount"
         Me.COPenaltyAmount.Size = New System.Drawing.Size(100, 20)
@@ -1328,7 +1309,7 @@ Partial Class SscpEnforcement
         Me.COToUC.CustomFormat = "dd-MMM-yyyy"
         Me.COToUC.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.COToUC.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.COToUC.Location = New System.Drawing.Point(17, 19)
+        Me.COToUC.Location = New System.Drawing.Point(19, 19)
         Me.COToUC.Name = "COToUC"
         Me.COToUC.ShowCheckBox = True
         Me.COToUC.Size = New System.Drawing.Size(119, 22)
@@ -1337,7 +1318,7 @@ Partial Class SscpEnforcement
         'Label28
         '
         Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(345, 24)
+        Me.Label28.Location = New System.Drawing.Point(346, 136)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(90, 13)
         Me.Label28.TabIndex = 344
@@ -1345,6 +1326,8 @@ Partial Class SscpEnforcement
         '
         'StipulatedPenaltiesGroupBox
         '
+        Me.StipulatedPenaltiesGroupBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.StipulatedPenaltiesGroupBox.Controls.Add(Me.StipulatedPenaltyAmount)
         Me.StipulatedPenaltiesGroupBox.Controls.Add(Me.Label30)
         Me.StipulatedPenaltiesGroupBox.Controls.Add(Me.StipulatedPenalties)
@@ -1353,18 +1336,16 @@ Partial Class SscpEnforcement
         Me.StipulatedPenaltiesGroupBox.Controls.Add(Me.StipulatedPenaltyControls)
         Me.StipulatedPenaltiesGroupBox.Enabled = False
         Me.StipulatedPenaltiesGroupBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.StipulatedPenaltiesGroupBox.Location = New System.Drawing.Point(340, 136)
+        Me.StipulatedPenaltiesGroupBox.Location = New System.Drawing.Point(19, 233)
         Me.StipulatedPenaltiesGroupBox.Name = "StipulatedPenaltiesGroupBox"
-        Me.StipulatedPenaltiesGroupBox.Size = New System.Drawing.Size(373, 223)
+        Me.StipulatedPenaltiesGroupBox.Size = New System.Drawing.Size(683, 120)
         Me.StipulatedPenaltiesGroupBox.TabIndex = 11
         Me.StipulatedPenaltiesGroupBox.TabStop = False
         Me.StipulatedPenaltiesGroupBox.Text = "Stipulated Penalties"
         '
         'StipulatedPenaltyAmount
         '
-        Me.StipulatedPenaltyAmount.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.StipulatedPenaltyAmount.Location = New System.Drawing.Point(58, 25)
+        Me.StipulatedPenaltyAmount.Location = New System.Drawing.Point(58, 21)
         Me.StipulatedPenaltyAmount.Name = "StipulatedPenaltyAmount"
         Me.StipulatedPenaltyAmount.Size = New System.Drawing.Size(91, 20)
         Me.StipulatedPenaltyAmount.TabIndex = 0
@@ -1373,7 +1354,7 @@ Partial Class SscpEnforcement
         'Label30
         '
         Me.Label30.AutoSize = True
-        Me.Label30.Location = New System.Drawing.Point(6, 28)
+        Me.Label30.Location = New System.Drawing.Point(6, 24)
         Me.Label30.Name = "Label30"
         Me.Label30.Size = New System.Drawing.Size(43, 13)
         Me.Label30.TabIndex = 348
@@ -1384,63 +1365,62 @@ Partial Class SscpEnforcement
         Me.StipulatedPenalties.AllowUserToAddRows = False
         Me.StipulatedPenalties.AllowUserToDeleteRows = False
         Me.StipulatedPenalties.AllowUserToResizeRows = False
-        DataGridViewCellStyle18.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.StipulatedPenalties.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle18
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.StipulatedPenalties.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
         Me.StipulatedPenalties.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.StipulatedPenalties.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.StipulatedPenalties.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
-        DataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle19.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.StipulatedPenalties.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle19
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.StipulatedPenalties.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
         Me.StipulatedPenalties.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle20.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.StipulatedPenalties.DefaultCellStyle = DataGridViewCellStyle20
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.StipulatedPenalties.DefaultCellStyle = DataGridViewCellStyle6
         Me.StipulatedPenalties.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.StipulatedPenalties.Location = New System.Drawing.Point(9, 116)
+        Me.StipulatedPenalties.Location = New System.Drawing.Point(373, 19)
         Me.StipulatedPenalties.MultiSelect = False
         Me.StipulatedPenalties.Name = "StipulatedPenalties"
         Me.StipulatedPenalties.ReadOnly = True
-        DataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle21.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.StipulatedPenalties.RowHeadersDefaultCellStyle = DataGridViewCellStyle21
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.StipulatedPenalties.RowHeadersDefaultCellStyle = DataGridViewCellStyle7
         Me.StipulatedPenalties.RowHeadersVisible = False
         Me.StipulatedPenalties.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.StipulatedPenalties.Size = New System.Drawing.Size(358, 99)
+        Me.StipulatedPenalties.Size = New System.Drawing.Size(299, 91)
         Me.StipulatedPenalties.TabIndex = 2
         '
         'StipulatedPenaltyComments
         '
-        Me.StipulatedPenaltyComments.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.StipulatedPenaltyComments.Location = New System.Drawing.Point(8, 74)
+        Me.StipulatedPenaltyComments.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.StipulatedPenaltyComments.Location = New System.Drawing.Point(8, 69)
         Me.StipulatedPenaltyComments.Multiline = True
         Me.StipulatedPenaltyComments.Name = "StipulatedPenaltyComments"
-        Me.StipulatedPenaltyComments.Size = New System.Drawing.Size(359, 36)
+        Me.StipulatedPenaltyComments.Size = New System.Drawing.Size(359, 41)
         Me.StipulatedPenaltyComments.TabIndex = 1
         Me.StipulatedPenaltyComments.Tag = ""
         '
         'Label31
         '
         Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(6, 58)
+        Me.Label31.Location = New System.Drawing.Point(6, 53)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(102, 13)
         Me.Label31.TabIndex = 350
@@ -1448,12 +1428,11 @@ Partial Class SscpEnforcement
         '
         'StipulatedPenaltyControls
         '
-        Me.StipulatedPenaltyControls.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.StipulatedPenaltyControls.Controls.Add(Me.UpdateStipulatedPenaltyButton)
         Me.StipulatedPenaltyControls.Controls.Add(Me.DeleteStipulatedPenaltyButton)
         Me.StipulatedPenaltyControls.Controls.Add(Me.SaveNewStipulatedPenaltyButton)
         Me.StipulatedPenaltyControls.Controls.Add(Me.ClearStipulatedPenaltyFormButton)
-        Me.StipulatedPenaltyControls.Location = New System.Drawing.Point(152, 23)
+        Me.StipulatedPenaltyControls.Location = New System.Drawing.Point(152, 19)
         Me.StipulatedPenaltyControls.Name = "StipulatedPenaltyControls"
         Me.StipulatedPenaltyControls.Size = New System.Drawing.Size(215, 32)
         Me.StipulatedPenaltyControls.TabIndex = 3
@@ -1508,7 +1487,7 @@ Partial Class SscpEnforcement
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(14, 264)
+        Me.Label21.Location = New System.Drawing.Point(346, 52)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(74, 13)
         Me.Label21.TabIndex = 359
@@ -1520,7 +1499,7 @@ Partial Class SscpEnforcement
         Me.COResolved.CustomFormat = "dd-MMM-yyyy"
         Me.COResolved.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.COResolved.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.COResolved.Location = New System.Drawing.Point(17, 187)
+        Me.COResolved.Location = New System.Drawing.Point(19, 187)
         Me.COResolved.Name = "COResolved"
         Me.COResolved.ShowCheckBox = True
         Me.COResolved.Size = New System.Drawing.Size(119, 22)
@@ -1529,29 +1508,38 @@ Partial Class SscpEnforcement
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(142, 108)
+        Me.Label18.Location = New System.Drawing.Point(144, 108)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(144, 13)
         Me.Label18.TabIndex = 379
         Me.Label18.Text = "CO Received From Company"
         '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(444, 24)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(57, 13)
+        Me.Label2.TabIndex = 389
+        Me.Label2.Text = "EPD-AQC-"
+        '
         'Label49
         '
         Me.Label49.AutoSize = True
-        Me.Label49.Location = New System.Drawing.Point(51, 230)
+        Me.Label49.Location = New System.Drawing.Point(346, 24)
         Me.Label49.Name = "Label49"
-        Me.Label49.Size = New System.Drawing.Size(85, 13)
+        Me.Label49.Size = New System.Drawing.Size(62, 13)
         Me.Label49.TabIndex = 389
-        Me.Label49.Text = "CO # EPD-AQC-"
+        Me.Label49.Text = "CO Number"
         '
         'Label20
         '
         Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(142, 192)
+        Me.Label20.Location = New System.Drawing.Point(144, 192)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(123, 13)
+        Me.Label20.Size = New System.Drawing.Size(96, 13)
         Me.Label20.TabIndex = 381
-        Me.Label20.Text = "Consent Order Resolved"
+        Me.Label20.Text = "Date CO Resolved"
         '
         'COReceivedfromCompany
         '
@@ -1559,7 +1547,7 @@ Partial Class SscpEnforcement
         Me.COReceivedfromCompany.CustomFormat = "dd-MMM-yyyy"
         Me.COReceivedfromCompany.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.COReceivedfromCompany.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.COReceivedfromCompany.Location = New System.Drawing.Point(17, 103)
+        Me.COReceivedfromCompany.Location = New System.Drawing.Point(19, 103)
         Me.COReceivedfromCompany.Name = "COReceivedfromCompany"
         Me.COReceivedfromCompany.ShowCheckBox = True
         Me.COReceivedfromCompany.Size = New System.Drawing.Size(119, 22)
@@ -1568,7 +1556,7 @@ Partial Class SscpEnforcement
         'Label48
         '
         Me.Label48.AutoSize = True
-        Me.Label48.Location = New System.Drawing.Point(142, 52)
+        Me.Label48.Location = New System.Drawing.Point(144, 52)
         Me.Label48.Name = "Label48"
         Me.Label48.Size = New System.Drawing.Size(79, 13)
         Me.Label48.TabIndex = 388
@@ -1577,11 +1565,11 @@ Partial Class SscpEnforcement
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(142, 164)
+        Me.Label16.Location = New System.Drawing.Point(144, 164)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(126, 13)
+        Me.Label16.Size = New System.Drawing.Size(99, 13)
         Me.Label16.TabIndex = 377
-        Me.Label16.Text = "Consent Order Executed "
+        Me.Label16.Text = "Date CO Executed "
         '
         'COProposed
         '
@@ -1589,7 +1577,7 @@ Partial Class SscpEnforcement
         Me.COProposed.CustomFormat = "dd-MMM-yyyy"
         Me.COProposed.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.COProposed.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.COProposed.Location = New System.Drawing.Point(17, 75)
+        Me.COProposed.Location = New System.Drawing.Point(19, 75)
         Me.COProposed.Name = "COProposed"
         Me.COProposed.ShowCheckBox = True
         Me.COProposed.Size = New System.Drawing.Size(119, 22)
@@ -1601,7 +1589,7 @@ Partial Class SscpEnforcement
         Me.COExecuted.CustomFormat = "dd-MMM-yyyy"
         Me.COExecuted.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.COExecuted.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.COExecuted.Location = New System.Drawing.Point(17, 159)
+        Me.COExecuted.Location = New System.Drawing.Point(19, 159)
         Me.COExecuted.Name = "COExecuted"
         Me.COExecuted.ShowCheckBox = True
         Me.COExecuted.Size = New System.Drawing.Size(119, 22)
@@ -1613,7 +1601,7 @@ Partial Class SscpEnforcement
         Me.COToPM.CustomFormat = "dd-MMM-yyyy"
         Me.COToPM.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.COToPM.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.COToPM.Location = New System.Drawing.Point(17, 47)
+        Me.COToPM.Location = New System.Drawing.Point(19, 47)
         Me.COToPM.Name = "COToPM"
         Me.COToPM.ShowCheckBox = True
         Me.COToPM.Size = New System.Drawing.Size(119, 22)
@@ -1622,7 +1610,7 @@ Partial Class SscpEnforcement
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(142, 136)
+        Me.Label15.Location = New System.Drawing.Point(144, 136)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(172, 13)
         Me.Label15.TabIndex = 375
@@ -1631,11 +1619,11 @@ Partial Class SscpEnforcement
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(142, 80)
+        Me.Label14.Location = New System.Drawing.Point(144, 80)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(149, 13)
+        Me.Label14.Size = New System.Drawing.Size(96, 13)
         Me.Label14.TabIndex = 373
-        Me.Label14.Text = "Date Consent Order Proposed"
+        Me.Label14.Text = "Date CO Proposed"
         '
         'COReceivedFromDirector
         '
@@ -1643,7 +1631,7 @@ Partial Class SscpEnforcement
         Me.COReceivedFromDirector.CustomFormat = "dd-MMM-yyyy"
         Me.COReceivedFromDirector.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.COReceivedFromDirector.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.COReceivedFromDirector.Location = New System.Drawing.Point(17, 131)
+        Me.COReceivedFromDirector.Location = New System.Drawing.Point(19, 131)
         Me.COReceivedFromDirector.Name = "COReceivedFromDirector"
         Me.COReceivedFromDirector.ShowCheckBox = True
         Me.COReceivedFromDirector.Size = New System.Drawing.Size(119, 22)
@@ -1652,7 +1640,7 @@ Partial Class SscpEnforcement
         'Label24
         '
         Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(142, 24)
+        Me.Label24.Location = New System.Drawing.Point(144, 24)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(78, 13)
         Me.Label24.TabIndex = 386
@@ -1682,7 +1670,7 @@ Partial Class SscpEnforcement
         Me.AOExecuted.CustomFormat = "dd-MMM-yyyy"
         Me.AOExecuted.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.AOExecuted.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.AOExecuted.Location = New System.Drawing.Point(17, 19)
+        Me.AOExecuted.Location = New System.Drawing.Point(19, 19)
         Me.AOExecuted.Name = "AOExecuted"
         Me.AOExecuted.ShowCheckBox = True
         Me.AOExecuted.Size = New System.Drawing.Size(119, 22)
@@ -1691,16 +1679,16 @@ Partial Class SscpEnforcement
         'Label42
         '
         Me.Label42.AutoSize = True
-        Me.Label42.Location = New System.Drawing.Point(143, 80)
+        Me.Label42.Location = New System.Drawing.Point(144, 80)
         Me.Label42.Name = "Label42"
-        Me.Label42.Size = New System.Drawing.Size(149, 13)
+        Me.Label42.Size = New System.Drawing.Size(96, 13)
         Me.Label42.TabIndex = 387
-        Me.Label42.Text = "Administrative Order Resolved"
+        Me.Label42.Text = "Date AO Resolved"
         '
         'AOComments
         '
         Me.AOComments.AcceptsReturn = True
-        Me.AOComments.Location = New System.Drawing.Point(17, 129)
+        Me.AOComments.Location = New System.Drawing.Point(19, 129)
         Me.AOComments.MaxLength = 4000
         Me.AOComments.Multiline = True
         Me.AOComments.Name = "AOComments"
@@ -1711,7 +1699,7 @@ Partial Class SscpEnforcement
         'Label25
         '
         Me.Label25.AutoSize = True
-        Me.Label25.Location = New System.Drawing.Point(8, 113)
+        Me.Label25.Location = New System.Drawing.Point(16, 113)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(74, 13)
         Me.Label25.TabIndex = 339
@@ -1723,7 +1711,7 @@ Partial Class SscpEnforcement
         Me.AOResolved.CustomFormat = "dd-MMM-yyyy"
         Me.AOResolved.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.AOResolved.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.AOResolved.Location = New System.Drawing.Point(17, 75)
+        Me.AOResolved.Location = New System.Drawing.Point(19, 75)
         Me.AOResolved.Name = "AOResolved"
         Me.AOResolved.ShowCheckBox = True
         Me.AOResolved.Size = New System.Drawing.Size(119, 22)
@@ -1735,7 +1723,7 @@ Partial Class SscpEnforcement
         Me.AOAppealed.CustomFormat = "dd-MMM-yyyy"
         Me.AOAppealed.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.AOAppealed.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.AOAppealed.Location = New System.Drawing.Point(17, 47)
+        Me.AOAppealed.Location = New System.Drawing.Point(19, 47)
         Me.AOAppealed.Name = "AOAppealed"
         Me.AOAppealed.ShowCheckBox = True
         Me.AOAppealed.Size = New System.Drawing.Size(119, 22)
@@ -1744,20 +1732,20 @@ Partial Class SscpEnforcement
         'Label32
         '
         Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(143, 24)
+        Me.Label32.Location = New System.Drawing.Point(144, 24)
         Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(289, 13)
+        Me.Label32.Size = New System.Drawing.Size(236, 13)
         Me.Label32.TabIndex = 383
-        Me.Label32.Text = "Administrative Order Executed (Referral to Attorney General)"
+        Me.Label32.Text = "Date AO Executed (Referral to Attorney General)"
         '
         'Label41
         '
         Me.Label41.AutoSize = True
-        Me.Label41.Location = New System.Drawing.Point(143, 52)
+        Me.Label41.Location = New System.Drawing.Point(144, 52)
         Me.Label41.Name = "Label41"
-        Me.Label41.Size = New System.Drawing.Size(239, 13)
+        Me.Label41.Size = New System.Drawing.Size(186, 13)
         Me.Label41.TabIndex = 385
-        Me.Label41.Text = "Administrative Order Appealed to Civil State Court"
+        Me.Label41.Text = "Date AO Appealed to Civil State Court"
         '
         'DocumentsTabPage
         '
@@ -1779,7 +1767,7 @@ Partial Class SscpEnforcement
         Me.DocumentMessageDisplay.AutoSize = True
         Me.DocumentMessageDisplay.BackColor = System.Drawing.Color.OldLace
         Me.DocumentMessageDisplay.ForeColor = System.Drawing.Color.DarkRed
-        Me.DocumentMessageDisplay.Location = New System.Drawing.Point(15, 274)
+        Me.DocumentMessageDisplay.Location = New System.Drawing.Point(20, 274)
         Me.DocumentMessageDisplay.MaximumSize = New System.Drawing.Size(550, 0)
         Me.DocumentMessageDisplay.Name = "DocumentMessageDisplay"
         Me.DocumentMessageDisplay.Padding = New System.Windows.Forms.Padding(5)
@@ -1798,7 +1786,7 @@ Partial Class SscpEnforcement
         Me.pnlDocument.Controls.Add(Me.DocumentUpdateButton)
         Me.pnlDocument.Controls.Add(Me.lblDocumentName)
         Me.pnlDocument.Enabled = False
-        Me.pnlDocument.Location = New System.Drawing.Point(14, 185)
+        Me.pnlDocument.Location = New System.Drawing.Point(19, 185)
         Me.pnlDocument.Name = "pnlDocument"
         Me.pnlDocument.Size = New System.Drawing.Size(487, 73)
         Me.pnlDocument.TabIndex = 16
@@ -1859,7 +1847,7 @@ Partial Class SscpEnforcement
         'lblCurrentFiles
         '
         Me.lblCurrentFiles.AutoSize = True
-        Me.lblCurrentFiles.Location = New System.Drawing.Point(14, 16)
+        Me.lblCurrentFiles.Location = New System.Drawing.Point(16, 16)
         Me.lblCurrentFiles.Name = "lblCurrentFiles"
         Me.lblCurrentFiles.Size = New System.Drawing.Size(98, 13)
         Me.lblCurrentFiles.TabIndex = 5
@@ -1874,37 +1862,37 @@ Partial Class SscpEnforcement
         Me.DocumentList.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle22.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DocumentList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle22
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DocumentList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle8
         Me.DocumentList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle23.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DocumentList.DefaultCellStyle = DataGridViewCellStyle23
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DocumentList.DefaultCellStyle = DataGridViewCellStyle9
         Me.DocumentList.Enabled = False
-        Me.DocumentList.Location = New System.Drawing.Point(14, 32)
+        Me.DocumentList.Location = New System.Drawing.Point(19, 32)
         Me.DocumentList.MinimumSize = New System.Drawing.Size(300, 55)
         Me.DocumentList.MultiSelect = False
         Me.DocumentList.Name = "DocumentList"
         Me.DocumentList.ReadOnly = True
-        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle24.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DocumentList.RowHeadersDefaultCellStyle = DataGridViewCellStyle24
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DocumentList.RowHeadersDefaultCellStyle = DataGridViewCellStyle10
         Me.DocumentList.RowHeadersVisible = False
         Me.DocumentList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DocumentList.Size = New System.Drawing.Size(487, 147)
@@ -1927,39 +1915,39 @@ Partial Class SscpEnforcement
         Me.AuditHistory.AllowUserToAddRows = False
         Me.AuditHistory.AllowUserToDeleteRows = False
         Me.AuditHistory.AllowUserToOrderColumns = True
-        DataGridViewCellStyle25.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.AuditHistory.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle25
+        DataGridViewCellStyle11.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.AuditHistory.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle11
         Me.AuditHistory.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
-        DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle26.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle26.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle26.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.AuditHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle26
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.AuditHistory.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle12
         Me.AuditHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle27.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle27.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle27.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle27.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.AuditHistory.DefaultCellStyle = DataGridViewCellStyle27
+        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle13.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.AuditHistory.DefaultCellStyle = DataGridViewCellStyle13
         Me.AuditHistory.Dock = System.Windows.Forms.DockStyle.Fill
         Me.AuditHistory.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.AuditHistory.Location = New System.Drawing.Point(0, 60)
         Me.AuditHistory.Name = "AuditHistory"
         Me.AuditHistory.ReadOnly = True
-        DataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle28.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle28.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle28.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle28.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle28.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.AuditHistory.RowHeadersDefaultCellStyle = DataGridViewCellStyle28
+        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle14.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.AuditHistory.RowHeadersDefaultCellStyle = DataGridViewCellStyle14
         Me.AuditHistory.RowHeadersVisible = False
         Me.AuditHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
         Me.AuditHistory.Size = New System.Drawing.Size(723, 304)
@@ -1979,7 +1967,7 @@ Partial Class SscpEnforcement
         '
         Me.RefreshAuditHistory.AutoSize = True
         Me.RefreshAuditHistory.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.RefreshAuditHistory.Location = New System.Drawing.Point(109, 19)
+        Me.RefreshAuditHistory.Location = New System.Drawing.Point(117, 19)
         Me.RefreshAuditHistory.Name = "RefreshAuditHistory"
         Me.RefreshAuditHistory.Size = New System.Drawing.Size(54, 23)
         Me.RefreshAuditHistory.TabIndex = 1
@@ -1990,7 +1978,7 @@ Partial Class SscpEnforcement
         '
         Me.ExportAuditHistory.AutoSize = True
         Me.ExportAuditHistory.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ExportAuditHistory.Location = New System.Drawing.Point(11, 19)
+        Me.ExportAuditHistory.Location = New System.Drawing.Point(19, 19)
         Me.ExportAuditHistory.Name = "ExportAuditHistory"
         Me.ExportAuditHistory.Size = New System.Drawing.Size(88, 23)
         Me.ExportAuditHistory.TabIndex = 0
@@ -2042,7 +2030,7 @@ Partial Class SscpEnforcement
         'SubmitToEpa2
         '
         Me.SubmitToEpa2.Enabled = False
-        Me.SubmitToEpa2.Location = New System.Drawing.Point(313, 38)
+        Me.SubmitToEpa2.Location = New System.Drawing.Point(321, 38)
         Me.SubmitToEpa2.Name = "SubmitToEpa2"
         Me.SubmitToEpa2.Size = New System.Drawing.Size(124, 23)
         Me.SubmitToEpa2.TabIndex = 13
@@ -2053,7 +2041,7 @@ Partial Class SscpEnforcement
         '
         Me.InfoDescLabel.AutoSize = True
         Me.InfoDescLabel.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.InfoDescLabel.Location = New System.Drawing.Point(310, 152)
+        Me.InfoDescLabel.Location = New System.Drawing.Point(318, 152)
         Me.InfoDescLabel.Name = "InfoDescLabel"
         Me.InfoDescLabel.Size = New System.Drawing.Size(100, 13)
         Me.InfoDescLabel.TabIndex = 358
@@ -2064,7 +2052,7 @@ Partial Class SscpEnforcement
         Me.Label58.AutoSize = True
         Me.Label58.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label58.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.Label58.Location = New System.Drawing.Point(78, 285)
+        Me.Label58.Location = New System.Drawing.Point(86, 285)
         Me.Label58.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label58.Name = "Label58"
         Me.Label58.Size = New System.Drawing.Size(70, 13)
@@ -2076,7 +2064,7 @@ Partial Class SscpEnforcement
         Me.Label55.AutoSize = True
         Me.Label55.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label55.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.Label55.Location = New System.Drawing.Point(64, 266)
+        Me.Label55.Location = New System.Drawing.Point(72, 266)
         Me.Label55.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label55.Name = "Label55"
         Me.Label55.Size = New System.Drawing.Size(84, 13)
@@ -2088,7 +2076,7 @@ Partial Class SscpEnforcement
         Me.Label54.AutoSize = True
         Me.Label54.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label54.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.Label54.Location = New System.Drawing.Point(78, 247)
+        Me.Label54.Location = New System.Drawing.Point(86, 247)
         Me.Label54.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label54.Name = "Label54"
         Me.Label54.Size = New System.Drawing.Size(70, 13)
@@ -2100,7 +2088,7 @@ Partial Class SscpEnforcement
         Me.Label53.AutoSize = True
         Me.Label53.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label53.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.Label53.Location = New System.Drawing.Point(78, 190)
+        Me.Label53.Location = New System.Drawing.Point(86, 190)
         Me.Label53.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label53.Name = "Label53"
         Me.Label53.Size = New System.Drawing.Size(70, 13)
@@ -2112,7 +2100,7 @@ Partial Class SscpEnforcement
         Me.Label52.AutoSize = True
         Me.Label52.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label52.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.Label52.Location = New System.Drawing.Point(78, 171)
+        Me.Label52.Location = New System.Drawing.Point(86, 171)
         Me.Label52.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label52.Name = "Label52"
         Me.Label52.Size = New System.Drawing.Size(70, 13)
@@ -2124,7 +2112,7 @@ Partial Class SscpEnforcement
         Me.Label51.AutoSize = True
         Me.Label51.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label51.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.Label51.Location = New System.Drawing.Point(78, 152)
+        Me.Label51.Location = New System.Drawing.Point(86, 152)
         Me.Label51.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label51.Name = "Label51"
         Me.Label51.Size = New System.Drawing.Size(70, 13)
@@ -2136,7 +2124,7 @@ Partial Class SscpEnforcement
         Me.Label50.AutoSize = True
         Me.Label50.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label50.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.Label50.Location = New System.Drawing.Point(95, 95)
+        Me.Label50.Location = New System.Drawing.Point(103, 95)
         Me.Label50.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label50.Name = "Label50"
         Me.Label50.Size = New System.Drawing.Size(53, 13)
@@ -2148,7 +2136,7 @@ Partial Class SscpEnforcement
         Me.Label23.AutoSize = True
         Me.Label23.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label23.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.Label23.Location = New System.Drawing.Point(310, 76)
+        Me.Label23.Location = New System.Drawing.Point(318, 76)
         Me.Label23.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(51, 13)
@@ -2160,7 +2148,7 @@ Partial Class SscpEnforcement
         Me.Label37.AutoSize = True
         Me.Label37.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label37.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.Label37.Location = New System.Drawing.Point(93, 76)
+        Me.Label37.Location = New System.Drawing.Point(101, 76)
         Me.Label37.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label37.Name = "Label37"
         Me.Label37.Size = New System.Drawing.Size(55, 13)
@@ -2172,7 +2160,7 @@ Partial Class SscpEnforcement
         Me.Label59.AutoSize = True
         Me.Label59.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label59.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.Label59.Location = New System.Drawing.Point(16, 304)
+        Me.Label59.Location = New System.Drawing.Point(24, 304)
         Me.Label59.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label59.Name = "Label59"
         Me.Label59.Size = New System.Drawing.Size(132, 13)
@@ -2184,7 +2172,7 @@ Partial Class SscpEnforcement
         Me.Label17.AutoSize = True
         Me.Label17.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label17.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.Label17.Location = New System.Drawing.Point(16, 209)
+        Me.Label17.Location = New System.Drawing.Point(24, 209)
         Me.Label17.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(132, 13)
@@ -2196,7 +2184,7 @@ Partial Class SscpEnforcement
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label11.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.Label11.Location = New System.Drawing.Point(8, 114)
+        Me.Label11.Location = New System.Drawing.Point(16, 114)
         Me.Label11.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(140, 13)
@@ -2208,7 +2196,7 @@ Partial Class SscpEnforcement
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label10.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.Label10.Location = New System.Drawing.Point(84, 38)
+        Me.Label10.Location = New System.Drawing.Point(92, 38)
         Me.Label10.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(64, 13)
@@ -2220,7 +2208,7 @@ Partial Class SscpEnforcement
         Me.InfoOperLabel.AutoSize = True
         Me.InfoOperLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.InfoOperLabel.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.InfoOperLabel.Location = New System.Drawing.Point(50, 19)
+        Me.InfoOperLabel.Location = New System.Drawing.Point(58, 19)
         Me.InfoOperLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.InfoOperLabel.Name = "InfoOperLabel"
         Me.InfoOperLabel.Size = New System.Drawing.Size(98, 13)
@@ -2231,7 +2219,7 @@ Partial Class SscpEnforcement
         '
         Me.AfsStipulatedPenalitiesActionNumbers.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.AfsStipulatedPenalitiesActionNumbers.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.AfsStipulatedPenalitiesActionNumbers.Location = New System.Drawing.Point(313, 171)
+        Me.AfsStipulatedPenalitiesActionNumbers.Location = New System.Drawing.Point(321, 171)
         Me.AfsStipulatedPenalitiesActionNumbers.Multiline = True
         Me.AfsStipulatedPenalitiesActionNumbers.Name = "AfsStipulatedPenalitiesActionNumbers"
         Me.AfsStipulatedPenalitiesActionNumbers.ReadOnly = True
@@ -2243,7 +2231,7 @@ Partial Class SscpEnforcement
         '
         Me.AfsAoResolvedActionNumber.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.AfsAoResolvedActionNumber.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.AfsAoResolvedActionNumber.Location = New System.Drawing.Point(166, 285)
+        Me.AfsAoResolvedActionNumber.Location = New System.Drawing.Point(174, 285)
         Me.AfsAoResolvedActionNumber.Name = "AfsAoResolvedActionNumber"
         Me.AfsAoResolvedActionNumber.ReadOnly = True
         Me.AfsAoResolvedActionNumber.Size = New System.Drawing.Size(138, 13)
@@ -2254,7 +2242,7 @@ Partial Class SscpEnforcement
         '
         Me.AfsAoCivilCourtActionNumber.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.AfsAoCivilCourtActionNumber.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.AfsAoCivilCourtActionNumber.Location = New System.Drawing.Point(166, 266)
+        Me.AfsAoCivilCourtActionNumber.Location = New System.Drawing.Point(174, 266)
         Me.AfsAoCivilCourtActionNumber.Name = "AfsAoCivilCourtActionNumber"
         Me.AfsAoCivilCourtActionNumber.ReadOnly = True
         Me.AfsAoCivilCourtActionNumber.Size = New System.Drawing.Size(138, 13)
@@ -2265,7 +2253,7 @@ Partial Class SscpEnforcement
         '
         Me.AfsAoToAgActionNumber.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.AfsAoToAgActionNumber.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.AfsAoToAgActionNumber.Location = New System.Drawing.Point(166, 247)
+        Me.AfsAoToAgActionNumber.Location = New System.Drawing.Point(174, 247)
         Me.AfsAoToAgActionNumber.Name = "AfsAoToAgActionNumber"
         Me.AfsAoToAgActionNumber.ReadOnly = True
         Me.AfsAoToAgActionNumber.Size = New System.Drawing.Size(138, 13)
@@ -2276,7 +2264,7 @@ Partial Class SscpEnforcement
         '
         Me.AfsCoResolvedActionNumber.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.AfsCoResolvedActionNumber.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.AfsCoResolvedActionNumber.Location = New System.Drawing.Point(166, 190)
+        Me.AfsCoResolvedActionNumber.Location = New System.Drawing.Point(174, 190)
         Me.AfsCoResolvedActionNumber.Name = "AfsCoResolvedActionNumber"
         Me.AfsCoResolvedActionNumber.ReadOnly = True
         Me.AfsCoResolvedActionNumber.Size = New System.Drawing.Size(138, 13)
@@ -2287,7 +2275,7 @@ Partial Class SscpEnforcement
         '
         Me.AfsCoExecutedActionNumber.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.AfsCoExecutedActionNumber.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.AfsCoExecutedActionNumber.Location = New System.Drawing.Point(166, 171)
+        Me.AfsCoExecutedActionNumber.Location = New System.Drawing.Point(174, 171)
         Me.AfsCoExecutedActionNumber.Name = "AfsCoExecutedActionNumber"
         Me.AfsCoExecutedActionNumber.ReadOnly = True
         Me.AfsCoExecutedActionNumber.Size = New System.Drawing.Size(138, 13)
@@ -2298,7 +2286,7 @@ Partial Class SscpEnforcement
         '
         Me.AfsCoProposedActionNumber.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.AfsCoProposedActionNumber.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.AfsCoProposedActionNumber.Location = New System.Drawing.Point(166, 152)
+        Me.AfsCoProposedActionNumber.Location = New System.Drawing.Point(174, 152)
         Me.AfsCoProposedActionNumber.Name = "AfsCoProposedActionNumber"
         Me.AfsCoProposedActionNumber.ReadOnly = True
         Me.AfsCoProposedActionNumber.Size = New System.Drawing.Size(138, 13)
@@ -2309,7 +2297,7 @@ Partial Class SscpEnforcement
         '
         Me.AfsNfaActionNumber.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.AfsNfaActionNumber.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.AfsNfaActionNumber.Location = New System.Drawing.Point(166, 95)
+        Me.AfsNfaActionNumber.Location = New System.Drawing.Point(174, 95)
         Me.AfsNfaActionNumber.Name = "AfsNfaActionNumber"
         Me.AfsNfaActionNumber.ReadOnly = True
         Me.AfsNfaActionNumber.Size = New System.Drawing.Size(138, 13)
@@ -2320,7 +2308,7 @@ Partial Class SscpEnforcement
         '
         Me.EpaDayZero.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.EpaDayZero.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.EpaDayZero.Location = New System.Drawing.Point(366, 76)
+        Me.EpaDayZero.Location = New System.Drawing.Point(374, 76)
         Me.EpaDayZero.Name = "EpaDayZero"
         Me.EpaDayZero.ReadOnly = True
         Me.EpaDayZero.Size = New System.Drawing.Size(138, 13)
@@ -2331,7 +2319,7 @@ Partial Class SscpEnforcement
         '
         Me.AfsNovActionNumber.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.AfsNovActionNumber.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.AfsNovActionNumber.Location = New System.Drawing.Point(166, 76)
+        Me.AfsNovActionNumber.Location = New System.Drawing.Point(174, 76)
         Me.AfsNovActionNumber.Name = "AfsNovActionNumber"
         Me.AfsNovActionNumber.ReadOnly = True
         Me.AfsNovActionNumber.Size = New System.Drawing.Size(138, 13)
@@ -2342,7 +2330,7 @@ Partial Class SscpEnforcement
         '
         Me.EpaAoId.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.EpaAoId.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.EpaAoId.Location = New System.Drawing.Point(166, 304)
+        Me.EpaAoId.Location = New System.Drawing.Point(174, 304)
         Me.EpaAoId.Name = "EpaAoId"
         Me.EpaAoId.ReadOnly = True
         Me.EpaAoId.Size = New System.Drawing.Size(138, 13)
@@ -2353,7 +2341,7 @@ Partial Class SscpEnforcement
         '
         Me.EpaCoId.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.EpaCoId.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.EpaCoId.Location = New System.Drawing.Point(166, 209)
+        Me.EpaCoId.Location = New System.Drawing.Point(174, 209)
         Me.EpaCoId.Name = "EpaCoId"
         Me.EpaCoId.ReadOnly = True
         Me.EpaCoId.Size = New System.Drawing.Size(138, 13)
@@ -2364,7 +2352,7 @@ Partial Class SscpEnforcement
         '
         Me.EpaNovId.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.EpaNovId.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.EpaNovId.Location = New System.Drawing.Point(166, 114)
+        Me.EpaNovId.Location = New System.Drawing.Point(174, 114)
         Me.EpaNovId.Name = "EpaNovId"
         Me.EpaNovId.ReadOnly = True
         Me.EpaNovId.Size = New System.Drawing.Size(138, 13)
@@ -2375,7 +2363,7 @@ Partial Class SscpEnforcement
         '
         Me.EpaCaseFileId.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.EpaCaseFileId.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.EpaCaseFileId.Location = New System.Drawing.Point(166, 38)
+        Me.EpaCaseFileId.Location = New System.Drawing.Point(174, 38)
         Me.EpaCaseFileId.Name = "EpaCaseFileId"
         Me.EpaCaseFileId.ReadOnly = True
         Me.EpaCaseFileId.Size = New System.Drawing.Size(138, 13)
@@ -2386,7 +2374,7 @@ Partial Class SscpEnforcement
         '
         Me.AfsKeyActionNumber.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.AfsKeyActionNumber.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.AfsKeyActionNumber.Location = New System.Drawing.Point(166, 19)
+        Me.AfsKeyActionNumber.Location = New System.Drawing.Point(174, 19)
         Me.AfsKeyActionNumber.Name = "AfsKeyActionNumber"
         Me.AfsKeyActionNumber.ReadOnly = True
         Me.AfsKeyActionNumber.Size = New System.Drawing.Size(138, 13)
@@ -2397,7 +2385,7 @@ Partial Class SscpEnforcement
         '
         Me.NotSubmittedToEpaLabel.AutoSize = True
         Me.NotSubmittedToEpaLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NotSubmittedToEpaLabel.Location = New System.Drawing.Point(310, 17)
+        Me.NotSubmittedToEpaLabel.Location = New System.Drawing.Point(318, 17)
         Me.NotSubmittedToEpaLabel.Name = "NotSubmittedToEpaLabel"
         Me.NotSubmittedToEpaLabel.Size = New System.Drawing.Size(258, 17)
         Me.NotSubmittedToEpaLabel.TabIndex = 12
@@ -2426,7 +2414,7 @@ Partial Class SscpEnforcement
         '
         Me.AirsNumberDisplay.AutoSize = True
         Me.AirsNumberDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.AirsNumberDisplay.Location = New System.Drawing.Point(12, 41)
+        Me.AirsNumberDisplay.Location = New System.Drawing.Point(20, 41)
         Me.AirsNumberDisplay.Name = "AirsNumberDisplay"
         Me.AirsNumberDisplay.Size = New System.Drawing.Size(77, 17)
         Me.AirsNumberDisplay.TabIndex = 3
@@ -2435,8 +2423,6 @@ Partial Class SscpEnforcement
         '
         'MessageDisplay
         '
-        Me.MessageDisplay.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.MessageDisplay.AutoSize = True
         Me.MessageDisplay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.MessageDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -2452,7 +2438,7 @@ Partial Class SscpEnforcement
         'FacilityNotApprovedDisplay
         '
         Me.FacilityNotApprovedDisplay.AutoSize = True
-        Me.FacilityNotApprovedDisplay.Location = New System.Drawing.Point(12, 87)
+        Me.FacilityNotApprovedDisplay.Location = New System.Drawing.Point(20, 87)
         Me.FacilityNotApprovedDisplay.Name = "FacilityNotApprovedDisplay"
         Me.FacilityNotApprovedDisplay.Size = New System.Drawing.Size(371, 13)
         Me.FacilityNotApprovedDisplay.TabIndex = 5
@@ -2465,9 +2451,9 @@ Partial Class SscpEnforcement
         Me.FacilityNameDisplay.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.FacilityNameDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FacilityNameDisplay.Location = New System.Drawing.Point(95, 41)
+        Me.FacilityNameDisplay.Location = New System.Drawing.Point(103, 41)
         Me.FacilityNameDisplay.Name = "FacilityNameDisplay"
-        Me.FacilityNameDisplay.Size = New System.Drawing.Size(409, 48)
+        Me.FacilityNameDisplay.Size = New System.Drawing.Size(395, 48)
         Me.FacilityNameDisplay.TabIndex = 4
         Me.FacilityNameDisplay.Text = "Facility Name, City"
         '
@@ -2476,7 +2462,7 @@ Partial Class SscpEnforcement
         Me.ComplianceStatusDisplay.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ComplianceStatusDisplay.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ComplianceStatusDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComplianceStatusDisplay.Location = New System.Drawing.Point(504, 8)
+        Me.ComplianceStatusDisplay.Location = New System.Drawing.Point(507, 8)
         Me.ComplianceStatusDisplay.MinimumSize = New System.Drawing.Size(0, 17)
         Me.ComplianceStatusDisplay.Name = "ComplianceStatusDisplay"
         Me.ComplianceStatusDisplay.Size = New System.Drawing.Size(212, 25)
@@ -2489,7 +2475,7 @@ Partial Class SscpEnforcement
         '
         Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(501, 43)
+        Me.Label5.Location = New System.Drawing.Point(504, 43)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(90, 13)
         Me.Label5.TabIndex = 342
@@ -2502,7 +2488,7 @@ Partial Class SscpEnforcement
         Me.StaffResponsible.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.StaffResponsible.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.StaffResponsible.Enabled = False
-        Me.StaffResponsible.Location = New System.Drawing.Point(597, 40)
+        Me.StaffResponsible.Location = New System.Drawing.Point(600, 40)
         Me.StaffResponsible.Name = "StaffResponsible"
         Me.StaffResponsible.Size = New System.Drawing.Size(119, 21)
         Me.StaffResponsible.TabIndex = 7
@@ -2511,7 +2497,7 @@ Partial Class SscpEnforcement
         '
         Me.EnforcementIdDisplay.AutoSize = True
         Me.EnforcementIdDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.EnforcementIdDisplay.Location = New System.Drawing.Point(12, 12)
+        Me.EnforcementIdDisplay.Location = New System.Drawing.Point(20, 12)
         Me.EnforcementIdDisplay.Name = "EnforcementIdDisplay"
         Me.EnforcementIdDisplay.Size = New System.Drawing.Size(211, 17)
         Me.EnforcementIdDisplay.TabIndex = 2
@@ -2523,11 +2509,11 @@ Partial Class SscpEnforcement
         Me.ResolvedDate.Checked = False
         Me.ResolvedDate.CustomFormat = "dd-MMM-yyyy"
         Me.ResolvedDate.Enabled = False
-        Me.ResolvedDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ResolvedDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ResolvedDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.ResolvedDate.Location = New System.Drawing.Point(597, 67)
+        Me.ResolvedDate.Location = New System.Drawing.Point(600, 67)
         Me.ResolvedDate.Name = "ResolvedDate"
-        Me.ResolvedDate.Size = New System.Drawing.Size(119, 22)
+        Me.ResolvedDate.Size = New System.Drawing.Size(119, 23)
         Me.ResolvedDate.TabIndex = 9
         Me.ResolvedDate.Visible = False
         '
@@ -2536,11 +2522,11 @@ Partial Class SscpEnforcement
         Me.ResolvedCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ResolvedCheckBox.AutoSize = True
         Me.ResolvedCheckBox.Enabled = False
-        Me.ResolvedCheckBox.Location = New System.Drawing.Point(504, 70)
+        Me.ResolvedCheckBox.Location = New System.Drawing.Point(527, 70)
         Me.ResolvedCheckBox.Name = "ResolvedCheckBox"
-        Me.ResolvedCheckBox.Size = New System.Drawing.Size(71, 17)
+        Me.ResolvedCheckBox.Size = New System.Drawing.Size(67, 17)
         Me.ResolvedCheckBox.TabIndex = 8
-        Me.ResolvedCheckBox.Text = "Resolved"
+        Me.ResolvedCheckBox.Text = "Finalized"
         Me.ResolvedCheckBox.UseVisualStyleBackColor = True
         Me.ResolvedCheckBox.Visible = False
         '
@@ -2599,21 +2585,33 @@ Partial Class SscpEnforcement
         '
         'ToolsMenu
         '
-        Me.ToolsMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ClearErrorsMenuItem, Me.ShowAuditHistoryMenuItem, Me.ShowEpaActionNumbersMenuItem, Me.DeleteEnforcementToolStripSeparator, Me.DeleteEnforcementMenuItem})
+        Me.ToolsMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ClearMessageMenuItem, Me.ClearErrorsMenuItem, Me.ToolStripSeparator1, Me.ShowAuditHistoryMenuItem, Me.ShowEpaActionNumbersMenuItem, Me.DeleteEnforcementToolStripSeparator, Me.DeleteEnforcementMenuItem})
         Me.ToolsMenu.Name = "ToolsMenu"
         Me.ToolsMenu.Size = New System.Drawing.Size(48, 20)
         Me.ToolsMenu.Text = "&Tools"
+        '
+        'ClearMessageMenuItem
+        '
+        Me.ClearMessageMenuItem.Enabled = False
+        Me.ClearMessageMenuItem.Name = "ClearMessageMenuItem"
+        Me.ClearMessageMenuItem.Size = New System.Drawing.Size(219, 22)
+        Me.ClearMessageMenuItem.Text = "Clear &Message"
         '
         'ClearErrorsMenuItem
         '
         Me.ClearErrorsMenuItem.Enabled = False
         Me.ClearErrorsMenuItem.Name = "ClearErrorsMenuItem"
-        Me.ClearErrorsMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.E), System.Windows.Forms.Keys)
         Me.ClearErrorsMenuItem.Size = New System.Drawing.Size(219, 22)
         Me.ClearErrorsMenuItem.Text = "&Clear Errors"
         '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(216, 6)
+        '
         'ShowAuditHistoryMenuItem
         '
+        Me.ShowAuditHistoryMenuItem.Enabled = False
         Me.ShowAuditHistoryMenuItem.Name = "ShowAuditHistoryMenuItem"
         Me.ShowAuditHistoryMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.H), System.Windows.Forms.Keys)
         Me.ShowAuditHistoryMenuItem.Size = New System.Drawing.Size(219, 22)
@@ -2672,20 +2670,19 @@ Partial Class SscpEnforcement
         Me.InfoTabPage.ResumeLayout(False)
         Me.InfoTabPage.PerformLayout()
         Me.EAGroupBox.ResumeLayout(False)
+        Me.EAGroupBox.PerformLayout()
         Me.ViolationTypeGroupbox.ResumeLayout(False)
         Me.ViolationTypeGroupbox.PerformLayout()
-        Me.PollutantsTabPage.ResumeLayout(False)
-        Me.PollutantsProgramSplitContainer.Panel1.ResumeLayout(False)
-        Me.PollutantsProgramSplitContainer.Panel2.ResumeLayout(False)
-        CType(Me.PollutantsProgramSplitContainer, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.PollutantsProgramSplitContainer.ResumeLayout(False)
-        Me.Panel3.ResumeLayout(False)
-        Me.Panel3.PerformLayout()
-        Me.Panel4.ResumeLayout(False)
-        Me.Panel4.PerformLayout()
-        Me.Panel5.ResumeLayout(False)
         Me.LonTabPage.ResumeLayout(False)
         Me.LonTabPage.PerformLayout()
+        Me.PollutantsTabPage.ResumeLayout(False)
+        Me.PollutantsProgramSplitContainer.Panel1.ResumeLayout(False)
+        Me.PollutantsProgramSplitContainer.Panel1.PerformLayout()
+        Me.PollutantsProgramSplitContainer.Panel2.ResumeLayout(False)
+        Me.PollutantsProgramSplitContainer.Panel2.PerformLayout()
+        CType(Me.PollutantsProgramSplitContainer, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PollutantsProgramSplitContainer.ResumeLayout(False)
+        Me.Panel5.ResumeLayout(False)
         Me.NovTabPage.ResumeLayout(False)
         Me.NovTabPage.PerformLayout()
         Me.COTabPage.ResumeLayout(False)
@@ -2870,10 +2867,8 @@ Partial Class SscpEnforcement
     Friend WithEvents ResolvedCheckBox As CheckBox
     Friend WithEvents LinkedEventDisplay As LinkLabel
     Friend WithEvents PollutantsProgramSplitContainer As SplitContainer
-    Friend WithEvents Panel3 As Panel
     Friend WithEvents PollutantsListLabel As Label
     Friend WithEvents ProgramsListView As ListView
-    Friend WithEvents Panel4 As Panel
     Friend WithEvents ProgramsListLabel As Label
     Friend WithEvents AOComments As TextBox
     Friend WithEvents COComments As TextBox
@@ -2916,9 +2911,10 @@ Partial Class SscpEnforcement
     Friend WithEvents SubmitToEpa2 As Button
     Friend WithEvents Label23 As Label
     Friend WithEvents EpaDayZero As TextBox
-    Friend WithEvents ColumnHeader1 As ColumnHeader
-    Friend WithEvents ColumnHeader2 As ColumnHeader
     Friend WithEvents SubmitToEpa As Button
     Friend WithEvents Label24 As Label
     Friend WithEvents AirsNumberDisplay As LinkLabel
+    Friend WithEvents Label2 As Label
+    Friend WithEvents ClearMessageMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
 End Class
