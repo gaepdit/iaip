@@ -2,12 +2,6 @@ Imports System
 Imports System.Reflection
 Imports System.Runtime.InteropServices
 
-' General Information about an assembly is controlled through the following 
-' set of attributes. Change these attribute values to modify the information
-' associated with an assembly.
-
-' Review the values of the assembly attributes
-
 #If BETA Then
 
 <Assembly: AssemblyTitle("IAIP Horizon")> 
@@ -29,16 +23,5 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyTrademark("")> 
 <Assembly: CLSCompliant(True)> 
 <Assembly: ComVisibleAttribute(False)> 
-
-' Version information for an assembly consists of the following four values:
-'
-'      Major Version
-'      Minor Version 
-'      Build Number
-'      Revision
-'2.
-' You can specify all the values or you can default the Build and Revision Numbers 
-' by using the '*' as shown below:
-
-<Assembly: AssemblyVersion("4.2.4.0")> 
-<Assembly: AssemblyFileVersionAttribute("4.2.4.0")> 
+<Assembly: AssemblyVersion("4.2.9.0")> 
+<Assembly: AssemblyFileVersionAttribute("4.2.9.0")> 

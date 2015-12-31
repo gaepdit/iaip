@@ -57,6 +57,15 @@
             End Get
         End Property
 
+        ''' <summary>
+        ''' Displays county substring as a 3-character string 
+        ''' </summary>
+        Public ReadOnly Property CountySubstring() As String
+            Get
+                Return Mid(_value, 1, 3)
+            End Get
+        End Property
+
 #End Region
 
 #Region " Operators "

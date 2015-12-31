@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class SscpEnforcement
     Inherits BaseForm
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class SscpEnforcement
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -136,7 +136,6 @@ Partial Class SscpEnforcement
         Me.txtStipulatedKey = New System.Windows.Forms.TextBox()
         Me.Label29 = New System.Windows.Forms.Label()
         Me.Label21 = New System.Windows.Forms.Label()
-        Me.txtCONumber = New System.Windows.Forms.TextBox()
         Me.txtCOPenaltyAmount = New System.Windows.Forms.TextBox()
         Me.Label49 = New System.Windows.Forms.Label()
         Me.Label28 = New System.Windows.Forms.Label()
@@ -1335,7 +1334,6 @@ Partial Class SscpEnforcement
         Me.Panel10.Controls.Add(Me.txtStipulatedKey)
         Me.Panel10.Controls.Add(Me.Label29)
         Me.Panel10.Controls.Add(Me.Label21)
-        Me.Panel10.Controls.Add(Me.txtCONumber)
         Me.Panel10.Controls.Add(Me.txtCOPenaltyAmount)
         Me.Panel10.Controls.Add(Me.Label49)
         Me.Panel10.Controls.Add(Me.Label28)
@@ -1417,14 +1415,6 @@ Partial Class SscpEnforcement
         Me.Label21.Size = New System.Drawing.Size(74, 13)
         Me.Label21.TabIndex = 359
         Me.Label21.Text = "CO Comments"
-        '
-        'txtCONumber
-        '
-        Me.txtCONumber.Location = New System.Drawing.Point(310, 140)
-        Me.txtCONumber.MaxLength = 6
-        Me.txtCONumber.Name = "txtCONumber"
-        Me.txtCONumber.Size = New System.Drawing.Size(100, 20)
-        Me.txtCONumber.TabIndex = 390
         '
         'txtCOPenaltyAmount
         '
@@ -2773,7 +2763,6 @@ Partial Class SscpEnforcement
     Friend WithEvents DTPNOVsent As System.Windows.Forms.DateTimePicker
     Friend WithEvents txtNOVComments As System.Windows.Forms.TextBox
     Friend WithEvents TPCO As System.Windows.Forms.TabPage
-    Friend WithEvents txtCONumber As System.Windows.Forms.TextBox
     Friend WithEvents Label49 As System.Windows.Forms.Label
     Friend WithEvents Label48 As System.Windows.Forms.Label
     Friend WithEvents DTPCOToPM As System.Windows.Forms.DateTimePicker
