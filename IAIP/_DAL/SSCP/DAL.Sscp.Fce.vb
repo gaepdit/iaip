@@ -32,7 +32,7 @@ Namespace DAL.Sscp
         Public Function GetFacilityIdByFceId(fceNumber As String) As Apb.ApbFacilityId
             If fceNumber = "" OrElse Not Integer.TryParse(fceNumber, Nothing) Then Return Nothing
 
-            Dim query As String = "SELECT STRAIRSNUMBER FROM SSCPFCEMASTER WHERE STRFCENUMBER = :fceNumber"
+            Dim query As String = "SELECT STRAIRSNUMBER FROM AIRBRANCH.SSCPFCEMASTER WHERE STRFCENUMBER = :fceNumber"
             Dim parameter As New OracleParameter("fceNumber", fceNumber)
 
             Return New Apb.ApbFacilityId(DB.GetSingleValue(Of String)(query, parameter))

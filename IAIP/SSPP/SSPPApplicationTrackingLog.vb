@@ -244,7 +244,7 @@ Public Class SSPPApplicationTrackingLog
                 .DataSource = dtEngineerList
                 .DisplayMember = "EngineerName"
                 .ValueMember = "NUMUSERID"
-                .SelectedIndex = 0
+                .SelectedValue = 0
             End With
 
             query = "SELECT 'N/A' AS EngineerName, 0 AS NUMUSERID " &
@@ -260,7 +260,7 @@ Public Class SSPPApplicationTrackingLog
                 .DataSource = dtSSCPList
                 .DisplayMember = "EngineerName"
                 .ValueMember = "NUMUSERID"
-                .SelectedIndex = 0
+                .SelectedValue = 0
             End With
 
             query = "SELECT 'N/A' AS EngineerName, 0 AS NUMUSERID " &
@@ -276,13 +276,13 @@ Public Class SSPPApplicationTrackingLog
                 .DataSource = dtISMPList
                 .DisplayMember = "EngineerName"
                 .ValueMember = "numUserID"
-                .SelectedIndex = 0
+                .SelectedValue = 0
             End With
 
             query = "SELECT STRCOUNTYCODE, STRCOUNTYNAME " &
                 "FROM AIRBRANCH.LOOKUPCOUNTYINFORMATION " &
                 "UNION " &
-                "SELECT '000', 'N/A' FROM DUAL ORDER BY STRCOUNTYNAME"
+                "SELECT '000', ' N/A' FROM DUAL ORDER BY STRCOUNTYNAME"
             Dim dtCountyList As DataTable = DB.GetDataTable(query)
             With cboCounty
                 .DataSource = dtCountyList
@@ -302,7 +302,7 @@ Public Class SSPPApplicationTrackingLog
                 .DataSource = dtApplicationType
                 .DisplayMember = "strApplicationTypeDesc"
                 .ValueMember = "strApplicationTypeCode"
-                .SelectedIndex = 0
+                .SelectedValue = 0
             End With
 
             query = "SELECT STRPERMITTYPECODE, STRPERMITTYPEDESCRIPTION " &
@@ -337,7 +337,7 @@ Public Class SSPPApplicationTrackingLog
                 .DataSource = dtSSPPUnit
                 .DisplayMember = "strUnitDesc"
                 .ValueMember = "numUnitCode"
-                .SelectedIndex = 0
+                .SelectedValue = 0
             End With
 
             query = "SELECT STRUNITDESC, NUMUNITCODE " &
@@ -350,7 +350,7 @@ Public Class SSPPApplicationTrackingLog
                 .DataSource = dtSSCPUnit
                 .DisplayMember = "strUnitDesc"
                 .ValueMember = "numUnitCode"
-                .SelectedIndex = 0
+                .SelectedValue = 0
             End With
 
             query = "SELECT STRUNITDESC, NUMUNITCODE " &
@@ -363,7 +363,7 @@ Public Class SSPPApplicationTrackingLog
                 .DataSource = dtISMPUnit
                 .DisplayMember = "strUnitDesc"
                 .ValueMember = "numUnitCode"
-                .SelectedIndex = 0
+                .SelectedValue = 0
             End With
 
         Catch ex As Exception
@@ -4008,7 +4008,7 @@ Public Class SSPPApplicationTrackingLog
             "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber " &
             "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCPDistrictResponsible.strAIRSnumber (+) " &
             "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = :AirsNumber "
-            Dim parameter As New OracleParameter("AirsNumber", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString)
+            Dim parameter As New OracleParameter("AirsNumber", "0413" & txtAIRSNumber.Text)
 
             Using connection As New OracleConnection(DB.CurrentConnectionString)
                 Using cmd As OracleCommand = connection.CreateCommand
@@ -4625,7 +4625,7 @@ Public Class SSPPApplicationTrackingLog
             "from AIRBRANCH.APBHeaderData " &
             "where strAIRSNumber = :airsnumber "
 
-            Dim parameter As New OracleParameter("airsnumber", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString)
+            Dim parameter As New OracleParameter("airsnumber", "0413" & txtAIRSNumber.Text)
 
             Attainment = DB.GetSingleValue(Of String)(query, parameter)
             If Attainment = "" Then Attainment = "00000"
@@ -5627,7 +5627,7 @@ Public Class SSPPApplicationTrackingLog
             "and AIRBRANCH.LookUpDistrictInformation.strDistrictCode = AIRBRANCH.LookUpDistricts.strDistrictCode  " &
             "and AIRBRANCH.APBHeaderData.strAIRSNumber = :airsnumber"
 
-            Dim parameter As New OracleParameter("airsnumber", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString)
+            Dim parameter As New OracleParameter("airsnumber", "0413" & txtAIRSNumber.Text)
 
             Using connection As New OracleConnection(DB.CurrentConnectionString)
                 Using cmd As OracleCommand = connection.CreateCommand
@@ -6055,7 +6055,7 @@ Public Class SSPPApplicationTrackingLog
                "from AIRBRANCH.SSPPApplicationMaster " &
                "where datFinalizedDate Is Null " &
                "and strAirsNumber = :airsnumber"
-            Dim parameter As New OracleParameter("airsnumber", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString)
+            Dim parameter As New OracleParameter("airsnumber", "0413" & txtAIRSNumber.Text)
 
             txtOutstandingApplication.Text = DB.GetSingleValue(Of String)(query, parameter)
             If txtOutstandingApplication.Text = "" Then txtOutstandingApplication.Text = "0"
@@ -6212,7 +6212,7 @@ Public Class SSPPApplicationTrackingLog
                                     "strModifingPerson, datModifingDate) " &
                                     "values (:appnumber, :airsnumber, :updateuser, :updatedate) ")
                     parametersList.Add({New OracleParameter("appnumber", txtApplicationNumber.Text),
-                                        New OracleParameter("airsnumber", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString),
+                                        New OracleParameter("airsnumber", "0413" & txtAIRSNumber.Text),
                                         New OracleParameter("updateuser", UserGCode),
                                         New OracleParameter("updatedate", OracleDate)})
 
@@ -6309,7 +6309,7 @@ Public Class SSPPApplicationTrackingLog
                     "datModifingdate = sysdate " &
                     "where strApplicationNumber = :appnumber "
                 parameters = {
-                    New OracleParameter("airsnumber", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString),
+                    New OracleParameter("airsnumber", "0413" & txtAIRSNumber.Text),
                     New OracleParameter("staff", StaffResponsible),
                     New OracleParameter("applicationtype", ApplicationType),
                     New OracleParameter("permittype", PermitType),
@@ -7147,8 +7147,8 @@ Public Class SSPPApplicationTrackingLog
                     })
 
                     queryList.Add("Update AIRBRANCH.SSPPApplicationTracking set " &
-                    "datSSCPReviewDate = :DTPSSCPReview.Text " &
-                    "where strApplicationNumber = :txtApplicationNumber.Text ")
+                    "datSSCPReviewDate = :DTPSSCPReview " &
+                    "where strApplicationNumber = :txtApplicationNumber ")
                     paramList.Add({
                         New OracleParameter("DTPSSCPReview", DTPSSCPReview.Text),
                         New OracleParameter("txtApplicationNumber", txtApplicationNumber.Text)
@@ -7370,7 +7370,7 @@ Public Class SSPPApplicationTrackingLog
                 ":ContactAddress, " &
                 ":ContactCity, " &
                 ":ContactState, " &
-                ":ContactZipCode, , " &
+                ":ContactZipCode, " &
                 ":ContactDescription) "
                 params = {
                     New OracleParameter("txtApplicationNumber", txtApplicationNumber.Text),
@@ -7425,7 +7425,7 @@ Public Class SSPPApplicationTrackingLog
                     "from AIRBRANCH.APBContactInformation " &
                     "where strAIRSNumber = :airs " &
                     "and substr(strkey, 1, 1) = '3' "
-                    params = {New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString)}
+                    params = {New OracleParameter("airs", "0413" & txtAIRSNumber.Text)}
 
                     MaxKey = DB.GetSingleValue(Of String)(query, params)
 
@@ -7460,7 +7460,7 @@ Public Class SSPPApplicationTrackingLog
                         "where strAIRSnumber = :airs " &
                         "and strKey = :pKey "
                         params = {
-                            New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString),
+                            New OracleParameter("airs", "0413" & txtAIRSNumber.Text),
                             New OracleParameter("pKey", "3" & i.ToString)
                         }
                         DB.RunCommand(query, params)
@@ -7473,7 +7473,7 @@ Public Class SSPPApplicationTrackingLog
                             "where strAIRSNumber = :airs " &
                             "and strKey = :pKey "
                         params = {
-                            New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString),
+                            New OracleParameter("airs", "0413" & txtAIRSNumber.Text),
                             New OracleParameter("pKey", "3" & i.ToString)
                         }
                         recExists = DB.ValueExists(query, params)
@@ -7483,41 +7483,41 @@ Public Class SSPPApplicationTrackingLog
                         If recExist = True Then
                             query = "Update AIRBRANCH.APBContactInformation set " &
                             "strContactFirstName = (select strContactFirstName from AIRBRANCH.APBContactInformation " &
-                            "where strContactKey = :oldKey,  " &
+                            "where strContactKey = :oldKey),  " &
                             "strContactLastname = (select strContactLastname from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactPrefix = (select strContactPrefix from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactSuffix = (select strContactSuffix from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactTitle = (select strContactTitle from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactCompanyName = (select strContactCompanyName from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactPhoneNumber1 = (select strContactPhoneNumber1 from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactPhoneNumber2 = (select strContactPhoneNumber2 from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactFaxNumber = (select strContactFaxNumber from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactEmail = (select strContactEmail from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactAddress1 = (select strContactAddress1 from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactAddress2 = (select strContactAddress2 from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactCity = (select strContactCity from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactState = (select strContactState from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactZipCode = (select strContactZipCode from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strModifingPerson = (select strModifingPerson from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "datModifingDate = (select datModifingDate from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey,  " &
+                            "Where strCOntactKey = :oldKey),  " &
                             "strContactDescription = (select strContactDescription from AIRBRANCH.APBContactInformation " &
-                            "Where strCOntactKey = :oldKey " &
+                            "Where strCOntactKey = :oldKey) " &
                             "where strContactKey = :newKey "
                             params = {
                                 New OracleParameter("oldKey", "0413" & txtAIRSNumber.Text & "3" & i.ToString),
@@ -7549,8 +7549,8 @@ Public Class SSPPApplicationTrackingLog
                             "strContactZipCode, strModifingPerson,  " &
                             "datModifingDate, strContactDescription " &
                             "from AIRBRANCH.APBContactInformation  " &
-                            "where strAIRSnumber = :airs '0413" & txtAIRSNumber.Text & "'  " &
-                            "and strKey = :pKey '3" & i + 1 & "'  "
+                            "where strAIRSnumber = :airs " &
+                            "and strKey = :pKey "
                             params = {
                                 New OracleParameter("airs", "0413" & txtAIRSNumber.Text),
                                 New OracleParameter("pKey", "3" & (i + 1).ToString)
@@ -7831,8 +7831,7 @@ Public Class SSPPApplicationTrackingLog
 
                     If recExists Then
                         query = "Update AIRBRANCH.SSPPApplicationLinking set " &
-                        "strMasterApplication = :MasterApp , " &
-                        "strApplicationNumber = :appItem " &
+                        "strMasterApplication = :MasterApp " &
                         "where strApplicationnumber = :appItem "
                     Else
                         query = "Insert into AIRBRANCH.SSPPApplicationLinking " &
@@ -7976,7 +7975,7 @@ Public Class SSPPApplicationTrackingLog
 
                 queryList.Add("Update AIRBRANCH.SSPPApplicationData set " &
                               "strTargeted = :TargetedComments " &
-                              "where strApplicationNumber = :txtApplicationNumber.Text  ")
+                              "where strApplicationNumber = :txtApplicationNumber ")
                 paramsList.Add(
                     {New OracleParameter("TargetedComments", TargetedComments),
                      New OracleParameter("txtApplicationNumber", txtApplicationNumber.Text)
@@ -8076,7 +8075,7 @@ Public Class SSPPApplicationTrackingLog
                 query = "Select strAFSActionNumber " &
                     "from AIRBRANCH.APBSupplamentalData " &
                     "where strAIRSNumber = :airs"
-                params = {New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString)}
+                params = {New OracleParameter("airs", "0413" & txtAIRSNumber.Text)}
                 ActionNumber = DB.GetSingleValue(Of String)(query, params)
 
                 query = "Insert into AIRBRANCH.AFSSSPPRecords " &
@@ -8084,7 +8083,7 @@ Public Class SSPPApplicationTrackingLog
                     "strUpDateStatus, strModifingPerson, " &
                     "datModifingDate) " &
                     "values " &
-                    "(:txtApplicationNumber.Text , :ActionNumber , " &
+                    "(:txtApplicationNumber, :ActionNumber , " &
                     ":UpdateStatus , :UserGCode , " &
                     ":OracleDate ) "
                 params = {
@@ -8103,7 +8102,7 @@ Public Class SSPPApplicationTrackingLog
                 "where strAIRSNumber = :airs "
                 params = {
                     New OracleParameter("ActionNumber", ActionNumber),
-                    New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString)
+                    New OracleParameter("airs", "0413" & txtAIRSNumber.Text)
                 }
                 DB.RunCommand(query, params)
 
@@ -8238,7 +8237,7 @@ Public Class SSPPApplicationTrackingLog
             "strModifingLocation = '1', " &
             "strModifingPerson = :UserGCode , " &
             "datModifingdate = :OracleDate  " &
-            "where strAIRSNumber = :airs '0413" & txtAIRSNumber.Text & "' ")
+            "where strAIRSNumber = :airs ")
             paramsList.Add(
                 {New OracleParameter("FacilityName", FacilityName),
                  New OracleParameter("FacilityStreet1", FacilityStreet1),
@@ -8248,7 +8247,7 @@ Public Class SSPPApplicationTrackingLog
                  New OracleParameter("Comments", "Updated by " & UserName & ", through Permitting Action."),
                  New OracleParameter("UserGCode", UserGCode),
                  New OracleParameter("OracleDate", OracleDate),
-                 New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString)
+                 New OracleParameter("airs", "0413" & txtAIRSNumber.Text)
                 })
 
             queryList.Add("Update AIRBRANCH.OLAPUserAccess set " &
@@ -8256,7 +8255,7 @@ Public Class SSPPApplicationTrackingLog
             "where strAIRSNumber = :airs ")
             paramsList.Add(
                 {New OracleParameter("FacilityName", FacilityName),
-                 New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString)
+                 New OracleParameter("airs", "0413" & txtAIRSNumber.Text)
                 })
 
             queryList.Add("Update AIRBRANCH.APBHeaderData set " &
@@ -8273,15 +8272,17 @@ Public Class SSPPApplicationTrackingLog
             "datModifingDate = :OracleDate  " &
             "where strAIRSNumber = :airs ")
             paramsList.Add(
-                {New OracleParameter("FacilityName", FacilityName),
-                 New OracleParameter("FacilityStreet1", FacilityStreet1),
-                 New OracleParameter("FacilityStreet2", FacilityStreet2),
-                 New OracleParameter("City", City),
-                 New OracleParameter("ZipCode", ZipCode),
+                {New OracleParameter("OpStatus", OpStatus),
+                 New OracleParameter("Classification", Classification),
+                 New OracleParameter("AirProgramCodes", AirProgramCodes),
+                 New OracleParameter("SICCode", SICCode),
+                 New OracleParameter("NAICSCode", NAICSCode),
+                 New OracleParameter("PlantDescription", PlantDescription),
+                 New OracleParameter("StateProgramCodes", StateProgramCodes),
                  New OracleParameter("Comments", "Updated by " & UserName & ", through Permitting Action."),
                  New OracleParameter("UserGCode", UserGCode),
                  New OracleParameter("OracleDate", OracleDate),
-                 New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString)
+                 New OracleParameter("airs", "0413" & txtAIRSNumber.Text)
                 })
             DB.RunCommand(queryList, paramsList)
             queryList.Clear()
@@ -8289,111 +8290,111 @@ Public Class SSPPApplicationTrackingLog
 
             If AirProgramCodes <> "000000000000000" Then
                 If Mid(AirProgramCodes, 1, 1) = "1" Then
-                    UpdateProgramPollutantKey("0")
+                    UpdateProgramPollutantKey("0", OpStatus)
 
                     subpartList.Clear()
                     For Each row As DataGridViewRow In dgvSIPSubPartDelete.Rows
                         subpartList.Add(row.Cells(0).Value.ToString)
                     Next
-                    UpdateDeletedSubpartData("0", subpartList)
+                    If subpartList.Count > 0 Then UpdateDeletedSubpartData("0", subpartList)
 
                     subpartList.Clear()
                     For Each row As DataGridViewRow In dgvSIPSubpartAddEdit.Rows
                         subpartList.Add(row.Cells(0).Value.ToString)
                     Next
-                    UpdateAddedSubpartData("0", subpartList)
+                    If subpartList.Count > 0 Then UpdateAddedSubpartData("0", subpartList)
                 Else
                     UpdateDeletedSubpartData("0")
                 End If
 
                 If Mid(AirProgramCodes, 2, 1) = "1" Then
-                    UpdateProgramPollutantKey("1")
+                    UpdateProgramPollutantKey("1", OpStatus)
                 End If
 
                 If Mid(AirProgramCodes, 3, 1) = "1" Then
-                    UpdateProgramPollutantKey("3")
+                    UpdateProgramPollutantKey("3", OpStatus)
                 End If
 
                 If Mid(AirProgramCodes, 4, 1) = "1" Then
-                    UpdateProgramPollutantKey("4")
+                    UpdateProgramPollutantKey("4", OpStatus)
                 End If
 
                 If Mid(AirProgramCodes, 5, 1) = "1" Then
-                    UpdateProgramPollutantKey("6")
+                    UpdateProgramPollutantKey("6", OpStatus)
                 End If
 
                 If Mid(AirProgramCodes, 6, 1) = "1" Then
-                    UpdateProgramPollutantKey("7")
+                    UpdateProgramPollutantKey("7", OpStatus)
                 End If
 
                 If Mid(AirProgramCodes, 7, 1) = "1" Then
-                    UpdateProgramPollutantKey("8")
+                    UpdateProgramPollutantKey("8", OpStatus)
 
                     subpartList.Clear()
                     For Each row As DataGridViewRow In dgvNESHAPSubPartDelete.Rows
                         subpartList.Add(row.Cells(0).Value.ToString)
                     Next
-                    UpdateDeletedSubpartData("8", subpartList)
+                    If subpartList.Count > 0 Then UpdateDeletedSubpartData("8", subpartList)
 
                     subpartList.Clear()
                     For Each row As DataGridViewRow In dgvNESHAPSubpartAddEdit.Rows
                         subpartList.Add(row.Cells(0).Value.ToString)
                     Next
-                    UpdateAddedSubpartData("8", subpartList)
+                    If subpartList.Count > 0 Then UpdateAddedSubpartData("8", subpartList)
                 Else
                     UpdateDeletedSubpartData("8")
                 End If
 
                 If Mid(AirProgramCodes, 8, 1) = "1" Then
-                    UpdateProgramPollutantKey("9")
+                    UpdateProgramPollutantKey("9", OpStatus)
 
                     subpartList.Clear()
                     For Each row As DataGridViewRow In dgvNSPSSubPartDelete.Rows
                         subpartList.Add(row.Cells(0).Value.ToString)
                     Next
-                    UpdateDeletedSubpartData("9", subpartList)
+                    If subpartList.Count > 0 Then UpdateDeletedSubpartData("9", subpartList)
 
                     subpartList.Clear()
                     For Each row As DataGridViewRow In dgvNSPSSubpartAddEdit.Rows
                         subpartList.Add(row.Cells(0).Value.ToString)
                     Next
-                    UpdateAddedSubpartData("9", subpartList)
+                    If subpartList.Count > 0 Then UpdateAddedSubpartData("9", subpartList)
                 Else
                     UpdateDeletedSubpartData("9")
                 End If
 
                 If Mid(AirProgramCodes, 9, 1) = "1" Then
-                    UpdateProgramPollutantKey("F")
+                    UpdateProgramPollutantKey("F", OpStatus)
                 End If
 
                 If Mid(AirProgramCodes, 10, 1) = "1" Then
-                    UpdateProgramPollutantKey("A")
+                    UpdateProgramPollutantKey("A", OpStatus)
                 End If
 
                 If Mid(AirProgramCodes, 11, 1) = "1" Then
-                    UpdateProgramPollutantKey("I")
+                    UpdateProgramPollutantKey("I", OpStatus)
                 End If
 
                 If Mid(AirProgramCodes, 12, 1) = "1" Then
-                    UpdateProgramPollutantKey("M")
+                    UpdateProgramPollutantKey("M", OpStatus)
 
                     subpartList.Clear()
                     For Each row As DataGridViewRow In dgvMACTSubPartDelete.Rows
                         subpartList.Add(row.Cells(0).Value.ToString)
                     Next
-                    UpdateDeletedSubpartData("M", subpartList)
+                    If subpartList.Count > 0 Then UpdateDeletedSubpartData("M", subpartList)
 
                     subpartList.Clear()
                     For Each row As DataGridViewRow In dgvMACTSubpartAddEdit.Rows
                         subpartList.Add(row.Cells(0).Value.ToString)
                     Next
-                    UpdateAddedSubpartData("M", subpartList)
+                    If subpartList.Count > 0 Then UpdateAddedSubpartData("M", subpartList)
                 Else
                     UpdateDeletedSubpartData("M")
                 End If
 
                 If Mid(AirProgramCodes, 13, 1) = "1" Then
-                    UpdateProgramPollutantKey("V")
+                    UpdateProgramPollutantKey("V", OpStatus)
                 End If
 
             End If
@@ -8403,7 +8404,8 @@ Public Class SSPPApplicationTrackingLog
         End Try
     End Sub
 
-    Private Sub UpdateProgramPollutantKey(key As String)
+    Private Sub UpdateProgramPollutantKey(key As String, OpStatus As String)
+        Dim pKey As String = "0413" & txtAIRSNumber.Text & key
         Dim query As String = ""
         Dim params As OracleParameter()
         Dim queryList As New List(Of String)
@@ -8412,7 +8414,7 @@ Public Class SSPPApplicationTrackingLog
         query = "Select strPollutantKey " &
                 "from AIRBRANCH.APBAirProgramPollutants " &
                 "where strAIRPollutantKey = :pKey "
-        params = {New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & "0")}
+        params = {New OracleParameter("pKey", pKey)}
 
         If Not DB.ValueExists(query, params) Then
             query = "Insert into AIRBRANCH.APBAirProgramPollutants " &
@@ -8426,8 +8428,8 @@ Public Class SSPPApplicationTrackingLog
              ":UserGCode , :OracleDate , " &
              "'O')"
             params = {
-                New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString),
-                New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & key),
+                New OracleParameter("airs", "0413" & txtAIRSNumber.Text),
+                New OracleParameter("pKey", pKey),
                 New OracleParameter("UserGCode", UserGCode),
                 New OracleParameter("OracleDate", OracleDate)
             }
@@ -8437,10 +8439,8 @@ Public Class SSPPApplicationTrackingLog
             "strOperationalStatus = :OpStatus  " &
             "where strAirPOllutantKey = :pKey ")
             paramsList.Add({
-                New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString),
-                New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & key),
-                New OracleParameter("UserGCode", UserGCode),
-                New OracleParameter("OracleDate", OracleDate)
+                New OracleParameter("OpStatus", OpStatus),
+                New OracleParameter("pKey", pKey)
             })
 
             queryList.Add("update AIRBRANCH.AFSAirPollutantData set " &
@@ -8456,7 +8456,7 @@ Public Class SSPPApplicationTrackingLog
         Dim queryList As New List(Of String)
         Dim paramsList As New List(Of OracleParameter())
 
-        If IsNothing(subpartList) Then
+        If subpartList Is Nothing OrElse subpartList.Count = 0 Then
             queryList.Add("Update AIRBRANCH.APBSubpartData set " &
                           "Active = '0', " &
                           "updateUser = :UserGCode , " &
@@ -8488,17 +8488,22 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub UpdateAddedSubpartData(key As String, subpartList As List(Of String))
-        If subpartList Is Nothing Then Exit Sub
+        If subpartList Is Nothing OrElse subpartList.Count = 0 Then Exit Sub
 
+        Dim pKey As String = "0413" & txtAIRSNumber.Text & key
         Dim query As String = ""
         Dim params As OracleParameter() = Nothing
 
         For Each subpart As String In subpartList
-            query = ("Select Active from AIRBRANCH.APBSubpartData " &
-                     "where strSubpartKey = :pKey " &
-                     "and strSubpart = :Subpart ")
+            query = "Select Active from AIRBRANCH.APBSubpartData " &
+                "where strSubpartKey = :pKey " &
+                "and strSubpart = :subpart "
+            params = {
+                New OracleParameter("pKey", pKey),
+                New OracleParameter("subpart", subpart)
+            }
 
-            If DB.ValueExists(query) Then
+            If DB.ValueExists(query, params) Then
                 query = "Update AIRBRANCH.APBSubpartData set " &
                     "Active = '1', " &
                     "updateUser = :UserGCode , " &
@@ -8507,7 +8512,8 @@ Public Class SSPPApplicationTrackingLog
                     "and strSubpart = :subpart "
                 params = {
                     New OracleParameter("UserGCode", UserGCode),
-                    New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & key)
+                    New OracleParameter("pKey", pKey),
+                    New OracleParameter("subpart", subpart)
                 }
             Else
                 query = "INSERT INTO AIRBRANCH.APBSUBPARTDATA " &
@@ -8518,7 +8524,7 @@ Public Class SSPPApplicationTrackingLog
                     "sysdate, '1', sysdate)"
                 params = {
                     New OracleParameter("airs", "0413" & txtAIRSNumber.Text),
-                    New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & key),
+                    New OracleParameter("pKey", pKey),
                     New OracleParameter("subpart", subpart),
                     New OracleParameter("UserGCode", UserGCode)
                 }
@@ -8594,7 +8600,7 @@ Public Class SSPPApplicationTrackingLog
             }
             Dim fn As String = DB.GetSingleValue(Of String)(query, parameter)
             If fn <> "" Then
-                Dim temp As String = Mid(dr.Item("strFileName"), 1, 1)
+                Dim temp As String = Mid(fn, 1, 1)
                 Select Case temp
                     Case "V"
                         rdbTitleVPermit.Checked = True
@@ -12745,7 +12751,7 @@ Public Class SSPPApplicationTrackingLog
                     "order by createdatetime "
 
                     parameter = {
-                        New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString),
+                        New OracleParameter("airs", "0413" & txtAIRSNumber.Text),
                         New OracleParameter("SubPart", SubPart),
                         New OracleParameter("appnum", txtApplicationNumber.Text)
                     }
@@ -13680,8 +13686,8 @@ Public Class SSPPApplicationTrackingLog
 
                     parameter = {
                         New OracleParameter("airsnum", txtApplicationNumber.Text),
-                        New OracleParameter("appnum", txtApplicationNumber.Text),
-                        New OracleParameter("Subpart", SubPart)
+                        New OracleParameter("Subpart", SubPart),
+                        New OracleParameter("appnum", txtApplicationNumber.Text)
                     }
 
                     Using connection As New OracleConnection(DB.CurrentConnectionString)
@@ -14579,8 +14585,8 @@ Public Class SSPPApplicationTrackingLog
 
                 query = "Select strSubPart " &
                 "from AIRBRANCH.APBSubpartData " &
-                "where strSubpartKey = :pKey '0413" & txtAIRSNumber.Text & "9' " &
-                "and strSubpart = Subpart "
+                "where strSubpartKey = :pKey  " &
+                "and strSubpart = :Subpart "
                 parameter = {
                     New OracleParameter("airsnum", "0413" & txtAIRSNumber.Text),
                     New OracleParameter("UserGCode", UserGCode),
@@ -14651,7 +14657,7 @@ Public Class SSPPApplicationTrackingLog
                         "and strSubPartKey = :pKey " &
                         "and strSubPart = :Subpart "
                 Else
-                    query = "INTO AIRBRANCH.SSPPSUBPARTDATA " &
+                    query = "INSERT INTO AIRBRANCH.SSPPSUBPARTDATA " &
                         "  ( " &
                         "    STRAPPLICATIONNUMBER, STRSUBPARTKEY, STRSUBPART, " &
                         "    STRAPPLICATIONACTIVITY, UPDATEUSER, UPDATEDATETIME, " &
@@ -14693,7 +14699,7 @@ Public Class SSPPApplicationTrackingLog
                                 "and strSubPartKey = :pKey " &
                                 "and strSubPart = :Subpart "
                         Else
-                            query = "INTO AIRBRANCH.SSPPSUBPARTDATA " &
+                            query = "INSERT INTO AIRBRANCH.SSPPSUBPARTDATA " &
                                 "  ( " &
                                 "    STRAPPLICATIONNUMBER, STRSUBPARTKEY, STRSUBPART, " &
                                 "    STRAPPLICATIONACTIVITY, UPDATEUSER, UPDATEDATETIME, " &
@@ -14714,7 +14720,7 @@ Public Class SSPPApplicationTrackingLog
                                 "and strSubPartKey = :pKey " &
                                 "and strSubPart = :Subpart "
                         Else
-                            query = "INTO AIRBRANCH.SSPPSUBPARTDATA " &
+                            query = "INSERT INTO AIRBRANCH.SSPPSUBPARTDATA " &
                                 "  ( " &
                                 "    STRAPPLICATIONNUMBER, STRSUBPARTKEY, STRSUBPART, " &
                                 "    STRAPPLICATIONACTIVITY, UPDATEUSER, UPDATEDATETIME, " &
@@ -14920,9 +14926,9 @@ Public Class SSPPApplicationTrackingLog
                     "order by createdatetime "
 
                     parameter = {
-                        New OracleParameter("airsnum", txtApplicationNumber.Text),
-                        New OracleParameter("appnum", txtApplicationNumber.Text),
-                        New OracleParameter("Subpart", SubPart)
+                        New OracleParameter("airsnum", "0413" & txtAIRSNumber.Text),
+                        New OracleParameter("SubPart", SubPart),
+                        New OracleParameter("appnum", txtApplicationNumber.Text)
                     }
 
                     Using connection As New OracleConnection(DB.CurrentConnectionString)
@@ -15859,7 +15865,7 @@ Public Class SSPPApplicationTrackingLog
                     "order by createdatetime "
 
                     parameter = {
-                        New OracleParameter("airs", New Apb.ApbFacilityId(txtAIRSNumber.Text).DbFormattedString),
+                        New OracleParameter("airs", "0413" & txtAIRSNumber.Text),
                         New OracleParameter("SubPart", SubPart),
                         New OracleParameter("appnum", txtApplicationNumber.Text)
                     }
