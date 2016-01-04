@@ -9,8 +9,6 @@ Public Class SSCPComplianceLog
     Dim recExist As Boolean
     Dim dsCompliance As DataSet
     Dim daCompliance As OracleDataAdapter
-    Dim dsStaff As DataSet
-    Dim daStaff As OracleDataAdapter
     Dim dsWorkEntry As DataSet
     Dim daWorkEntry As OracleDataAdapter
     Dim dsNotifications As DataSet
@@ -19,6 +17,7 @@ Public Class SSCPComplianceLog
     Dim daComplianceUnit As OracleDataAdapter
     Dim dsDistrictUnit As DataSet
     Dim daDistrictUnit As OracleDataAdapter
+    Dim dtStaff As DataTable
 
     Private Sub DevWorkEntry_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
@@ -76,110 +75,57 @@ Public Class SSCPComplianceLog
         Try
 
             dsCompliance = New DataSet
-            dsStaff = New DataSet
             dsNotifications = New DataSet
             dsComplianceUnit = New DataSet
             dsDistrictUnit = New DataSet
 
 
-            SQL = "select strActivityType, strActivityName, strActivityDescription " & _
-            "from AIRBRANCH.LookUPComplianceActivities " & _
-            "where strActivityName <> 'Performance Tests' " & _
+            SQL = "select strActivityType, strActivityName, strActivityDescription " &
+            "from AIRBRANCH.LookUPComplianceActivities " &
+            "where strActivityName <> 'Performance Tests' " &
             "order by strActivityName"
 
             daCompliance = New OracleDataAdapter(SQL, CurrentConnection)
 
-            'SQL = "Select " & _
-            '"(StrLastName||', '||strFirstname) as Staff, " & _
-            '"numUserID " & _
-            '"from AIRBRANCH.EPDUserProfiles " & _
-            '"where numProgram = '4' " & _
-            '"Order by strLastName "
-
-            'SQL = "select * " & _
-            '"from " & _
-            '"(Select  " & _
-            '"distinct(numUserID) as numUserID, " & _
-            '"(StrLastName||', '||strFirstname) as Staff " & _
-            '"from AIRBRANCH.EPDUserProfiles  " & _
-            '"where numProgram = '4' " & _
-            '"union " & _
-            '"Select  " & _
-            '"distinct(numUserID) as numUserID, " & _
-            '"(StrLastName||', '||strFirstname) as Staff " & _
-            '"from AIRBRANCH.EPDUserProfiles, AIRBRANCH.SSCPItemMaster   " & _
-            '"where AIRBRANCH.EPDUserProfiles.numuserID = AIRBRANCH.SSCPItemMaster.strResponsibleStaff) " & _
-            '"where numUserID <> '0' " & _
-            '"order by Staff "
-
-            'SQL = "select * " & _
-            '"from " & _
-            '"(Select  " & _
-            '"distinct(numUserID) as numUserID, " & _
-            '"(StrLastName||', '||strFirstname) as Staff " & _
-            '"from AIRBRANCH.EPDUserProfiles  " & _
-            '"where numProgram = '4' " & _
-            '"union " & _
-            '"Select  " & _
-            '"distinct(numUserID) as numUserID, " & _
-            '"(StrLastName||', '||strFirstname) as Staff " & _
-            '"from AIRBRANCH.EPDUserProfiles, AIRBRANCH.SSCPItemMaster   " & _
-            '"where AIRBRANCH.EPDUserProfiles.numuserID = AIRBRANCH.SSCPItemMaster.strResponsibleStaff) " & _
-            '"order by Staff "
-            'VW_COMPLIANCESTAFF
-
-            SQL = "Select " & _
-            "numUserID, Staff " & _
-            "from AIRBranch.VW_ComplianceStaff " & _
-            "order by Staff "
-
-            daStaff = New OracleDataAdapter(SQL, CurrentConnection)
-
-            SQL = "Select " & _
-            "strNotificationDesc, strNotificationKey " & _
-            "from AIRBRANCH.LookUpSSCPNotifications " & _
+            SQL = "Select " &
+            "strNotificationDesc, strNotificationKey " &
+            "from AIRBRANCH.LookUpSSCPNotifications " &
             "order by strNotificationDesc "
 
             daNotifications = New OracleDataAdapter(SQL, CurrentConnection)
 
-            SQL = "select " & _
-            "strUnitDesc, numUnitCode " & _
-            "from AIRBranch.LookUPEPDUnits " & _
-            "where numProgramCode = '4'" & _
+            SQL = "select " &
+            "strUnitDesc, numUnitCode " &
+            "from AIRBranch.LookUPEPDUnits " &
+            "where numProgramCode = '4'" &
             "order by strUnitDesc "
 
             daComplianceUnit = New OracleDataAdapter(SQL, CurrentConnection)
 
-            SQL = "select " & _
-            "strProgramDesc, numProgramCode  " & _
-            "from airbranch.lookupepdprograms " & _
-            "where numbranchcode = '5' " & _
-            "and strProgramdesc <> 'Vacant' " & _
-            "and strProgramDesc <> 'Small Business Assistance Program' " & _
+            SQL = "select " &
+            "strProgramDesc, numProgramCode  " &
+            "from airbranch.lookupepdprograms " &
+            "where numbranchcode = '5' " &
+            "and strProgramdesc <> 'Vacant' " &
+            "and strProgramDesc <> 'Small Business Assistance Program' " &
             "order by strprogramDesc "
 
             daDistrictUnit = New OracleDataAdapter(SQL, CurrentConnection)
 
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
             daCompliance.Fill(dsCompliance, "ComplianceActivity")
-            daStaff.Fill(dsStaff, "Staff")
+
             daNotifications.Fill(dsNotifications, "Notifications")
             daComplianceUnit.Fill(dsComplianceUnit, "ComplianceUnit")
             daDistrictUnit.Fill(dsDistrictUnit, "DistrictUnit")
 
+            dtStaff = SharedData.GetTable(SharedData.Tables.AllComplianceStaff)
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
-
     End Sub
     Sub LoadComboBoxes()
         Dim dtActivity As New DataTable
-        Dim dtStaff As New DataTable
         Dim dtNotifications As New DataTable
         Dim dtComplianceUnit As New DataTable
         Dim dtDistrictUnit As New DataTable
@@ -212,16 +158,6 @@ Public Class SSCPComplianceLog
                     .SelectedIndex = 0
                 End If
             End With
-
-            dtStaff.Columns.Add("Staff", GetType(System.String))
-            dtStaff.Columns.Add("numUserID", GetType(System.String))
-
-            For Each drDSRow In dsStaff.Tables("Staff").Rows()
-                drNewRow = dtStaff.NewRow
-                drNewRow("Staff") = drDSRow("Staff")
-                drNewRow("numUserID") = drDSRow("numUserId")
-                dtStaff.Rows.Add(drNewRow)
-            Next
 
             With clbEngineer
                 .DataSource = dtStaff
@@ -774,9 +710,7 @@ Public Class SSCPComplianceLog
     Sub AddNewEvent()
         Try
             If rdbEnforcementAction.Checked = True Then
-                Dim parameters As New Dictionary(Of String, String)
-                parameters("airsnumber") = txtNewAIRSNumber.Text
-                OpenMultiForm("SscpEnforcement", -1, parameters)
+                OpenFormEnforcement(New Apb.ApbFacilityId(txtNewAIRSNumber.Text))
             ElseIf rdbFCE.Checked = True Then
                 OpenFormFce(New Apb.ApbFacilityId(txtNewAIRSNumber.Text))
             ElseIf rdbPerformanceTest.Checked = True Then
@@ -804,7 +738,7 @@ Public Class SSCPComplianceLog
                     End If
                     dr.Close()
                     If RefNum <> "" Then
-                        If DAL.Ismp.StackTestExists(RefNum) Then OpenMultiForm("ISMPTestReports", RefNum)
+                        If DAL.Ismp.StackTestExists(RefNum) Then OpenMultiForm(ISMPTestReports, RefNum)
                     Else
                         MsgBox("The Reference Number is not valid." & vbCrLf & _
                         "Please check the number you entered.", MsgBoxStyle.Information, "SSCP Compliance Log")
@@ -1671,11 +1605,10 @@ Public Class SSCPComplianceLog
         End Try
     End Sub
     Private Sub txtNewAIRSNumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtNewAIRSNumber.TextChanged
+        txtFacilityInformation.Text = ""
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtNewAIRSNumber.Text) Then
             Dim fac As Apb.Facilities.Facility = DAL.FacilityData.GetFacility(txtNewAIRSNumber.Text)
-            txtFacilityInformation.Text = fac.LongDisplay
-        Else
-            txtFacilityInformation.Text = ""
+            If fac IsNot Nothing Then txtFacilityInformation.Text = fac.LongDisplay
         End If
     End Sub
     Private Sub rdbPerformanceTest_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdbPerformanceTest.CheckedChanged

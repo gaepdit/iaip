@@ -2549,10 +2549,6 @@ Public Class SSCPManagersTools
     Private Sub btnViewFacilities_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewFacilities.Click
         FilterPollutantSearch()
     End Sub
-    Private Sub btnEditAirProgramPollutants_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditAirProgramPollutants.Click
-        Dim EditAirProgramPollutants As IAIPEditAirProgramPollutants = OpenSingleForm(IAIPEditAirProgramPollutants)
-        EditAirProgramPollutants.AirsNumberDisplay.Text = Me.txtAIRSNumber.Text
-    End Sub
     Private Sub dgvPollutantFacilities_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvPollutantFacilities.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvPollutantFacilities.HitTest(e.X, e.Y)
 

@@ -81,24 +81,12 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public Property CallUpgrade() As Boolean
+        Public Property JustInstalled() As Boolean
             Get
-                Return CType(Me("CallUpgrade"),Boolean)
+                Return CType(Me("JustInstalled"),Boolean)
             End Get
             Set
-                Me("CallUpgrade") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public Property FirstRun() As Boolean
-            Get
-                Return CType(Me("FirstRun"),Boolean)
-            End Get
-            Set
-                Me("FirstRun") = value
+                Me("JustInstalled") = value
             End Set
         End Property
     End Class

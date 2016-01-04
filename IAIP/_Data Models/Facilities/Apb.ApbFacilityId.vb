@@ -53,7 +53,25 @@
         ''' </summary>
         Public ReadOnly Property DbFormattedString() As String
             Get
-                Return "0413" & Me.ShortString
+                Return GaEpaRegionCode & GaStateNumericCode & Me.ShortString
+            End Get
+        End Property
+
+        ''' <summary>
+        ''' Displays county substring as a 3-character string 
+        ''' </summary>
+        Public ReadOnly Property CountySubstring() As String
+            Get
+                Return Mid(_value, 1, 3)
+            End Get
+        End Property
+
+        ''' <summary>
+        ''' Displays the facility identifier used by EPA's ICIS-Air system
+        ''' </summary>
+        Public ReadOnly Property EpaFacilityIdentifier() As String
+            Get
+                Return GaStateCode & "000000" & GaStateNumericCode & ShortString
             End Get
         End Property
 

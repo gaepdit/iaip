@@ -7,37 +7,25 @@
     Friend Sub Init()
         AddHandler Application.ThreadException, AddressOf IaipExceptionManager.Application_ThreadException
 
-        ' Upgrades: Should run each time program is upgraded
-        If My.Settings.CallUpgrade Then
-            AppUpgraded = True
-
-            ' Put items to run before settings are migrated here
-            ' [None currently]
-
-            ' Upgrade() folds in settings from previous version
+        ' Updates: Should run each time program is updated
+        If App.JustUpdated Then
+            ' Settings.Upgrade() folds in settings from previous version
             My.Settings.Upgrade()
-
-            ' Put items to run after settings are migrated here
-            ' [None currently]
-
-            ' Prevents this from running until next upgrade
-            My.Settings.CallUpgrade = False
+            AppUpdated = True
         End If
 
         ' First Run: Should only run the first time a new installation is run
-        ' (A 'False' setting for My.Settings.FirstRun should be migrated by My.Settings.Upgrade() above
+        ' (A 'False' setting for My.Settings.JustInstalled should be migrated by My.Settings.Upgrade() above
         ' before getting here.)
-        If My.Settings.FirstRun Then
+        If My.Settings.JustInstalled Then
             AppFirstRun = True
 
-            ' Put items to run on first installation here
             DeleteOldShortcuts()
 
             ' Prevents this from running in the future
-            My.Settings.FirstRun = False
+            My.Settings.JustInstalled = False
+            My.Settings.Save()
         End If
-
-        My.Settings.Save()
 
         ' EQATEC analytics monitor
         InitializeMonitor()

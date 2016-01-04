@@ -296,18 +296,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             "select staff as username, numuserID " & _
             "from AIRBranch.VW_ComplianceStaff) "
 
-
-
-            '" & _
-            '           "select  " & _
-            '           "distinct(strLastName|| ', ' ||strFirstName) as UserName,  " & _
-            '           "numUserID  " & _
-            '           "from airbranch.EPDUserProfiles, airbranch.SSCP_AuditedEnforcement   " & _
-            '           "where airbranch.EPDUserProfiles.numUserID = AIRBranch.SSCP_AuditedEnforcement.numStaffResponsible ) "
-
-
-
-
             daComplianceStaff = New OracleDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -15212,9 +15200,9 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
     End Sub
     Private Sub OpenEnforcement()
         Try
-            Dim parameters As New Generic.Dictionary(Of String, String)
-            parameters("airsnumber") = txtAirsNumber.Text
-            If txtTrackingNumber.Text <> "" Then parameters("trackingnumber") = txtTrackingNumber.Text
+            Dim parameters As New Generic.Dictionary(Of BaseForm.FormParameter, String)
+            parameters(FormParameter.AirsNumber) = txtAirsNumber.Text
+            If txtTrackingNumber.Text <> "" Then parameters(FormParameter.TrackingNumber) = txtTrackingNumber.Text
             OpenSingleForm(SSCPEnforcementSelector, parameters:=parameters, closeFirst:=True)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

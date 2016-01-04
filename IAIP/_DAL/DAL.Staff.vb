@@ -37,16 +37,21 @@ Namespace DAL
 
         Public Function GetAllActiveStaffAsDataTable(Optional ByVal branch As Integer = 1) As DataTable
             ' Default to Air Branch if no branch code is provided
-            Dim query As String = _
-                " SELECT NUMUSERID, STRLASTNAME, STRFIRSTNAME, STREMAILADDRESS, STRPHONE, NUMEMPLOYEESTATUS, " & _
-                "     (STRLASTNAME || ', ' || STRFIRSTNAME) AS AlphaName " & _
-                " FROM AIRBRANCH.EPDUSERPROFILES " & _
-                " WHERE NUMEMPLOYEESTATUS = 1 " & _
-                " AND NUMBRANCH           = :pBranch " & _
+            Dim query As String =
+                " SELECT NUMUSERID, STRLASTNAME, STRFIRSTNAME, STREMAILADDRESS, STRPHONE, NUMEMPLOYEESTATUS, " &
+                "     (STRLASTNAME || ', ' || STRFIRSTNAME) AS AlphaName " &
+                " FROM AIRBRANCH.EPDUSERPROFILES " &
+                " WHERE NUMEMPLOYEESTATUS = 1 " &
+                " AND NUMBRANCH           = :pBranch " &
                 " ORDER BY STRLASTNAME, STRFIRSTNAME "
             Dim parameter As New OracleParameter("pBranch", branch)
 
             Return DB.GetDataTable(query, parameter)
+        End Function
+
+        Public Function GetAllComplianceStaff() As DataTable
+            Dim query As String = "SELECT NUMUSERID, STAFF, STRLASTNAME FROM AIRBRANCH.VW_COMPLIANCESTAFF"
+            Return DB.GetDataTable(query)
         End Function
 
     End Module

@@ -134,16 +134,16 @@ Namespace DAL
         ''' Returns list of Pollutant Compliance Statuses that apply to a given facility.
         ''' </summary>
         ''' <param name="airsNumber">The AIRS number of the facility to query</param>
-        ''' <returns>A List of distinct PollutantComplianceStatus values applicable to the facility.</returns>
+        ''' <returns>A List of distinct LegacyComplianceStatus values applicable to the facility.</returns>
         ''' <remarks>Data retrieved from APBAIRPROGRAMPOLLUTANTS table.</remarks>
-        Public Function GetComplianceStatusList(ByVal airsNumber As ApbFacilityId) As List(Of PollutantComplianceStatus)
+        Public Function GetComplianceStatusList(ByVal airsNumber As ApbFacilityId) As List(Of Apb.Sscp.LegacyComplianceStatus)
             Dim spName As String = "AIRBRANCH.IAIP_FACILITY.GetComplianceStatusList"
             Dim parameter As New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
             Dim s As List(Of String) = DB.SPGetList(Of String)(spName, parameter)
 
-            Dim l As New List(Of PollutantComplianceStatus)
+            Dim l As New List(Of Apb.Sscp.LegacyComplianceStatus)
             For Each value As String In s
-                l.Add([Enum].Parse(GetType(PollutantComplianceStatus), value))
+                l.Add([Enum].Parse(GetType(Apb.Sscp.LegacyComplianceStatus), value))
             Next
 
             Return l

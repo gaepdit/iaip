@@ -1,29 +1,29 @@
 ﻿Imports System.Collections.Generic
+Imports Iaip.BaseForm
 
 Module FormHandler
     Public MultiForm As Dictionary(Of String, Dictionary(Of Integer, BaseForm))
     Public SingleForm As Dictionary(Of String, BaseForm)
 
-    Public Function OpenMultiForm(ByVal formName As String, _
-                                  ByVal id As Integer, _
-                                  Optional ByVal parameters As Dictionary(Of String, String) = Nothing) _
-                                  As Form
-        Dim formType As Type = GetFormTypeByName(formName)
-        Return OpenMultiForm(formType, formName, id, parameters)
-    End Function
+    ' Deprecated
+    'Public Function OpenMultiForm(ByVal formName As String,
+    '                              ByVal id As Integer,
+    '                              Optional ByVal parameters As Dictionary(Of FormParameter, String) = Nothing) As Form
+    '    Dim formType As Type = GetFormTypeByName(formName)
+    '    Return OpenMultiForm(formType, formName, id, parameters)
+    'End Function
 
-    Public Function OpenMultiForm(ByVal formClass As BaseForm, _
-                                  ByVal id As Integer, _
-                                  Optional ByVal parameters As Dictionary(Of String, String) = Nothing) _
-                                  As Form
+    Public Function OpenMultiForm(ByVal formClass As BaseForm,
+                                  ByVal id As Integer,
+                                  Optional ByVal parameters As Dictionary(Of FormParameter, String) = Nothing) As Form
         Return OpenMultiForm(formClass.GetType, formClass.Name, id, parameters)
     End Function
 
-    Private Function OpenMultiForm(ByVal formType As Type, _
-                                   ByVal formName As String, _
-                                   ByVal id As Integer, _
-                                   Optional ByVal parameters As Dictionary(Of String, String) = Nothing) _
-                                   As Form
+    Private Function OpenMultiForm(ByVal formType As Type,
+                                   ByVal formName As String,
+                                   ByVal id As Integer,
+                                   Optional ByVal parameters As Dictionary(Of FormParameter, String) = Nothing) As Form
+
         If MultiForm Is Nothing Then MultiForm = New Dictionary(Of String, Dictionary(Of Integer, BaseForm))
 
         If formName Is Nothing Then formName = formType.Name
@@ -48,38 +48,36 @@ Module FormHandler
         Return MultiFormIsOpen(formClass.Name, id)
     End Function
 
-    Public Function MultiFormIsOpen(ByVal formName As String, ByVal id As Integer) As Boolean
-        Return (MultiForm IsNot Nothing _
-        AndAlso MultiForm.ContainsKey(formName) _
-        AndAlso MultiForm(formName) IsNot Nothing _
-        AndAlso MultiForm(formName).ContainsKey(id) _
-        AndAlso MultiForm(formName)(id) IsNot Nothing _
-        AndAlso Not MultiForm(formName)(id).IsDisposed)
+    Private Function MultiFormIsOpen(ByVal formName As String, ByVal id As Integer) As Boolean
+        Return (MultiForm IsNot Nothing AndAlso
+            MultiForm.ContainsKey(formName) AndAlso
+            MultiForm(formName) IsNot Nothing AndAlso
+            MultiForm(formName).ContainsKey(id) AndAlso
+            MultiForm(formName)(id) IsNot Nothing AndAlso
+        Not MultiForm(formName)(id).IsDisposed)
     End Function
 
-    Public Function OpenSingleForm(ByVal formName As String, _
-                                   Optional ByVal id As Integer = -1, _
-                                   Optional ByVal parameters As Dictionary(Of String, String) = Nothing, _
-                                   Optional ByVal closeFirst As Boolean = False) _
-                                   As Form
+    Public Function OpenSingleForm(ByVal formName As String,
+                                   Optional ByVal id As Integer = -1,
+                                   Optional ByVal parameters As Dictionary(Of FormParameter, String) = Nothing,
+                                   Optional ByVal closeFirst As Boolean = False) As Form
         Dim formType As Type = GetFormTypeByName(formName)
         Return OpenSingleForm(formType, formName, id, parameters, closeFirst)
     End Function
 
-    Public Function OpenSingleForm(ByVal formClass As BaseForm, _
-                                   Optional ByVal id As Integer = -1, _
-                                   Optional ByVal parameters As Dictionary(Of String, String) = Nothing, _
-                                   Optional ByVal closeFirst As Boolean = False) _
-                                   As Form
+    Public Function OpenSingleForm(ByVal formClass As BaseForm,
+                                   Optional ByVal id As Integer = -1,
+                                   Optional ByVal parameters As Dictionary(Of FormParameter, String) = Nothing,
+                                   Optional ByVal closeFirst As Boolean = False) As Form
         Return OpenSingleForm(formClass.GetType, formClass.Name, id, parameters, closeFirst)
     End Function
 
-    Private Function OpenSingleForm(ByVal formType As Type, _
-                                    ByVal formName As String, _
-                                    Optional ByVal id As Integer = -1, _
-                                    Optional ByVal parameters As Dictionary(Of String, String) = Nothing, _
-                                    Optional ByVal closeFirst As Boolean = False) _
-                                    As Form
+    Private Function OpenSingleForm(ByVal formType As Type,
+                                    ByVal formName As String,
+                                    Optional ByVal id As Integer = -1,
+                                    Optional ByVal parameters As Dictionary(Of FormParameter, String) = Nothing,
+                                    Optional ByVal closeFirst As Boolean = False) As Form
+
         If SingleForm Is Nothing Then SingleForm = New Dictionary(Of String, BaseForm)
 
         If formName Is Nothing Then formName = formType.Name
@@ -106,11 +104,11 @@ Module FormHandler
         Return SingleFormIsOpen(formClass.Name)
     End Function
 
-    Public Function SingleFormIsOpen(ByVal formName As String) As Boolean
-        Return (SingleForm IsNot Nothing _
-        AndAlso SingleForm.ContainsKey(formName) _
-        AndAlso SingleForm(formName) IsNot Nothing _
-        AndAlso Not SingleForm(formName).IsDisposed)
+    Private Function SingleFormIsOpen(ByVal formName As String) As Boolean
+        Return (SingleForm IsNot Nothing AndAlso
+            SingleForm.ContainsKey(formName) AndAlso
+            SingleForm(formName) IsNot Nothing AndAlso
+            Not SingleForm(formName).IsDisposed)
     End Function
 
     Private Function GetFormTypeByName(ByVal formName As String) As Type

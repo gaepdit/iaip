@@ -12,25 +12,9 @@ Public Class PASPFeeAuditLog
 
 #Region " Properties "
 
-    Private _feeYear As String
     Public Property FeeYear() As String
-        Get
-            Return _feeYear
-        End Get
-        Set(ByVal value As String)
-            _feeYear = value
-        End Set
-    End Property
 
-    Private _airsNumber As Apb.ApbFacilityId
     Public Property AirsNumber() As Apb.ApbFacilityId
-        Get
-            Return _airsNumber
-        End Get
-        Set(ByVal value As Apb.ApbFacilityId)
-            _airsNumber = value
-        End Set
-    End Property
 
     Public ReadOnly Property ExpandedAirsNumber() As String
         Get
@@ -115,9 +99,9 @@ Public Class PASPFeeAuditLog
 
     Private Sub ParseParameters()
         If Parameters IsNot Nothing Then
-            If Parameters.ContainsKey("airsnumber") Then
+            If Parameters.ContainsKey(FormParameter.AirsNumber) Then
                 Try
-                    Me.AirsNumber = Parameters("airsnumber")
+                    Me.AirsNumber = Parameters(FormParameter.AirsNumber)
                     mtbAirsNumber.Text = Me.AirsNumber.FormattedString
                 Catch ex As Apb.InvalidAirsNumberException
                     Me.AirsNumber = Nothing
@@ -125,8 +109,8 @@ Public Class PASPFeeAuditLog
                 End Try
             End If
 
-            If Parameters.ContainsKey("feeyear") Then
-                Me.FeeYear = Parameters("feeyear")
+            If Parameters.ContainsKey(FormParameter.FeeYear) Then
+                Me.FeeYear = Parameters(FormParameter.FeeYear)
             End If
         End If
 
@@ -147,7 +131,7 @@ Public Class PASPFeeAuditLog
     End Sub
 
     Private Sub LoadFeeYears()
-        FeeYearsComboBox.DataSource = DB.AddBlankRowToList(DAL.GetAllFeeYears(), "Select…")
+        FeeYearsComboBox.DataSource = DAL.GetAllFeeYears().AddBlankRowToList("Select…")
     End Sub
 
     Sub LoadPayTypes()
@@ -2632,11 +2616,11 @@ Public Class PASPFeeAuditLog
             Exit Sub
         End If
 
-        Dim parameters As New Generic.Dictionary(Of String, String)
-        parameters("airsnumber") = AirsNumber.ToString
-        parameters("facilityname") = txtFeeAdminFacilityName.Text
-        parameters("key") = DAL.ContactKey.Fees.ToString
-        OpenMultiForm("IAIPEditContacts", AirsNumber.ToString, parameters)
+        Dim parameters As New Generic.Dictionary(Of FormParameter, String)
+        parameters(FormParameter.AirsNumber) = AirsNumber.ToString
+        parameters(FormParameter.FacilityName) = txtFeeAdminFacilityName.Text
+        parameters(FormParameter.Key) = DAL.ContactKey.Fees.ToString
+        OpenMultiForm(IAIPEditContacts, AirsNumber.ToString, parameters)
     End Sub
 
     Private Sub ReloadButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ReloadButton.Click
@@ -4446,22 +4430,12 @@ Public Class PASPFeeAuditLog
             "'" & InvoiceStatus & "') "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
             dr = cmd.ExecuteReader
             dr.Close()
 
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
+            If Not DAL.Update_FS_Admin_Status(Me.FeeYear, Me.AirsNumber.ToString) Then
+                MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
-            cmd = New OracleCommand("AIRBranch.PD_FEE_STATUS", CurrentConnection)
-            cmd.CommandType = CommandType.StoredProcedure
-
-            cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = Me.FeeYear
-            cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleDbType.Varchar2)).Value = Me.ExpandedAirsNumber
-
-            cmd.ExecuteNonQuery()
 
             ViewAllInvoices()
 
@@ -5520,13 +5494,7 @@ Public Class PASPFeeAuditLog
         End Try
     End Sub
     Private Sub btnCheckInvoices_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCheckInvoices.Click
-        Try
-
-            Validate_FS_Invoices(Me.FeeYear, Me.AirsNumber.ShortString)
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        Validate_FS_Invoices(Me.FeeYear, Me.AirsNumber.ShortString)
     End Sub
 
     Private Sub chbChangeInvoiceNumber_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbChangeInvoiceNumber.CheckedChanged
@@ -5856,43 +5824,36 @@ Public Class PASPFeeAuditLog
         End Try
     End Function
 
-    Function Validate_FS_Invoices(ByVal FeeYear As String, ByVal AIRSNumber As String) As Boolean
+    Sub Validate_FS_Invoices(ByVal FeeYear As String, ByVal AirsNumber As String)
         Try
-
             Dim SQL As String = "Update airbranch.FS_FeeInvoice set " & _
             "strInvoiceStatus = '1', " & _
-            "UpdateUser = '" & Replace(UserName, "'", "''") & "',  " & _
+            "UpdateUser = :Username,  " & _
             "updateDateTime = sysdate " & _
-            "where numFeeYear = '" & FeeYear & "' " & _
-            "and strAIRSNumber = '0413" & AIRSNumber & "'  " & _
+            "where numFeeYear = :FeeYear " & _
+            "and strAIRSNumber = :AirsNumber " & _
             "and numAmount = '0' " & _
             "and strInvoiceStatus = '0' " & _
             "and active = '1' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
+            Dim parameters As OracleParameter() = New OracleParameter() { _
+                New OracleParameter("Username", UserName), _
+                New OracleParameter("FeeYear", FeeYear), _
+                New OracleParameter("AirsNumber", AirsNumber) _
+            }
+
+            If Not DB.RunCommand(SQL, parameters) Then
+                MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Else
+                If Not DAL.Update_FS_Admin_Status(FeeYear, AirsNumber) Then
+                    MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
             End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            cmd = New OracleCommand("AIRBranch.PD_FEE_STATUS", CurrentConnection)
-            cmd.CommandType = CommandType.StoredProcedure
-
-            cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = FeeYear
-            cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleDbType.Varchar2)).Value = "0413" & AIRSNumber
-
-            cmd.ExecuteNonQuery()
-
-            Return True
 
         Catch ex As Exception
             ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-    End Function
+    End Sub
 
 #End Region
 

@@ -155,6 +155,16 @@ Module App
         End If
     End Sub
 
+    Public ReadOnly Property JustUpdated As Boolean
+        Get
+            If (ApplicationDeployment.IsNetworkDeployed) Then
+                Return ApplicationDeployment.CurrentDeployment.IsFirstRun
+            Else
+                Return False
+            End If
+        End Get
+    End Property
+
 #End Region
 
 #Region " Crystal Reports "
@@ -177,6 +187,20 @@ Module App
                         0, _
                         "http://dmu.georgiaair.org/iaip/pre-install/")
     End Sub
+
+#End Region
+
+#Region " Alternate booleans "
+
+    Public Enum EnableOrDisable
+        Enable
+        Disable
+    End Enum
+
+    Public Enum OpenOrClosed
+        Open
+        Closed
+    End Enum
 
 #End Region
 

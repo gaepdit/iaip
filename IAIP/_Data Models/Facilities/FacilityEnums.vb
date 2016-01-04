@@ -143,30 +143,6 @@ Namespace Apb.Facilities
         <Description("IAIP Facility Creation Tool")> FacilityCreationTool = 4
     End Enum
 
-    ''' <summary>
-    ''' Compliance Status codes. These are applied on a per-pollutant, per-rule basis. 
-    ''' </summary>
-    ''' <remarks>Stored in database as a one-character string. The enum values are 
-    ''' significant as they are used to determine controlling compliance status.</remarks>
-    Public Enum PollutantComplianceStatus
-        <Description("In violation, procedural & emissions")> Status_B = 35
-        <Description("In violation, no schedule")> Status_1 = 34
-        <Description("In violation, not meeting schedule")> Status_6 = 33
-        <Description("In violation, procedural")> Status_W = 32
-        <Description("In violation, no applicable state reg")> Status_8 = 31
-        <Description("Unknown compliance status")> Status_P = 23
-        <Description("Unknown compliance status")> Status_A = 22
-        <Description("Unknown compliance status")> Status_0 = 21
-        <Description("Meeting compliance schedule")> Status_5 = 11
-        <Description("In compliance, source test")> Status_2 = 6
-        <Description("In compliance, inspection ")> Status_3 = 5
-        <Description("In compliance, certification ")> Status_4 = 4
-        <Description("In compliance, shut down")> Status_9 = 3
-        <Description("In compliance, procedural")> Status_C = 2
-        <Description("In compliance, CEMS data")> Status_M = 1
-        <Description("No value")> NoValue = 0
-    End Enum
-
 #End Region
 
 End Namespace

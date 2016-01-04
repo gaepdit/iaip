@@ -271,13 +271,13 @@ Public Class PASPFeesLog
 
     End Sub
     Private Sub btnOpenFeeWorkTool_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenFeeWorkTool.Click
-        Dim parameters As New Generic.Dictionary(Of String, String)
+        Dim parameters As New Generic.Dictionary(Of BaseForm.FormParameter, String)
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbSelectedAIRSNumber.Text) Then
-            parameters("airsnumber") = mtbSelectedAIRSNumber.Text
+            parameters(FormParameter.AirsNumber) = mtbSelectedAIRSNumber.Text
         End If
-        parameters("feeyear") = mtbSelectedFeeYear.Text
+        parameters(FormParameter.FeeYear) = mtbSelectedFeeYear.Text
 
-        OpenSingleForm("PASPFeeAuditLog", parameters:=parameters, closeFirst:=True)
+        OpenSingleForm(PASPFeeAuditLog, parameters:=parameters, closeFirst:=True)
     End Sub
     Private Sub btnExportToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportToExcel.Click
         dgvExistingYearAdmin.ExportToExcel(Me)

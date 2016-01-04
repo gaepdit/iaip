@@ -20,336 +20,335 @@ Partial Class SSCPManagersTools
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPManagersTools))
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Me.chbALLDates = New System.Windows.Forms.CheckBox
-        Me.txtUserSSCPUnit = New System.Windows.Forms.TextBox
-        Me.DTPEndDate = New System.Windows.Forms.DateTimePicker
-        Me.Label27 = New System.Windows.Forms.Label
-        Me.DTPStartDate = New System.Windows.Forms.DateTimePicker
-        Me.Label28 = New System.Windows.Forms.Label
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.llbPrintStaffReport = New System.Windows.Forms.LinkLabel
-        Me.Label21 = New System.Windows.Forms.Label
-        Me.lblRunInspectionReport = New System.Windows.Forms.LinkLabel
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.Panel8 = New System.Windows.Forms.Panel
-        Me.rdbCMSClassA = New System.Windows.Forms.RadioButton
-        Me.rdbCMSClassS = New System.Windows.Forms.RadioButton
-        Me.clbEngineers = New System.Windows.Forms.CheckedListBox
-        Me.Splitter2 = New System.Windows.Forms.Splitter
-        Me.PanelCMSUniverse = New System.Windows.Forms.Panel
-        Me.btnDeleteFacilityFromCms = New System.Windows.Forms.Button
-        Me.btnAddToCmsUniverse = New System.Windows.Forms.Button
-        Me.btnExportCmsUniverseToExcel = New System.Windows.Forms.Button
-        Me.txtCMSState = New System.Windows.Forms.TextBox
-        Me.txtCMSCount = New System.Windows.Forms.TextBox
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.Label20 = New System.Windows.Forms.Label
-        Me.txtCMSAssignedEngineer = New System.Windows.Forms.TextBox
-        Me.llbCMSOpenFacilitySummary = New System.Windows.Forms.LinkLabel
-        Me.llbViewCMSUniverse = New System.Windows.Forms.LinkLabel
-        Me.cboCMSFrequency = New System.Windows.Forms.ComboBox
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.txtCMSFacilityName = New System.Windows.Forms.TextBox
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.txtCMSOperationalStatus = New System.Windows.Forms.TextBox
-        Me.txtCMSLastFCE = New System.Windows.Forms.TextBox
-        Me.txtCMSClassification = New System.Windows.Forms.TextBox
-        Me.txtCMSAIRSNumber = New System.Windows.Forms.TextBox
-        Me.cboComplianceUnits = New System.Windows.Forms.ComboBox
-        Me.Label29 = New System.Windows.Forms.Label
-        Me.Splitter4 = New System.Windows.Forms.Splitter
-        Me.TPUniverse = New System.Windows.Forms.TabPage
-        Me.dgvCMSUniverse = New System.Windows.Forms.DataGridView
-        Me.rtbInspectionReport = New System.Windows.Forms.RichTextBox
-        Me.TPStaffReports = New System.Windows.Forms.TabPage
-        Me.Panel7 = New System.Windows.Forms.Panel
-        Me.txtCMSAssignedEngineer2 = New System.Windows.Forms.TextBox
-        Me.llbCMSOpenFacilitySummary2 = New System.Windows.Forms.LinkLabel
-        Me.txtCMSFacilityName2 = New System.Windows.Forms.TextBox
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.Label16 = New System.Windows.Forms.Label
-        Me.Label17 = New System.Windows.Forms.Label
-        Me.Label18 = New System.Windows.Forms.Label
-        Me.Label19 = New System.Windows.Forms.Label
-        Me.txtCMSOperationalStatus2 = New System.Windows.Forms.TextBox
-        Me.txtCMSLastFCE2 = New System.Windows.Forms.TextBox
-        Me.txtCMSClassification2 = New System.Windows.Forms.TextBox
-        Me.txtCMSAIRSNumber2 = New System.Windows.Forms.TextBox
-        Me.cboCMSWarningFrequency = New System.Windows.Forms.ComboBox
-        Me.lblCMSWarning = New System.Windows.Forms.LinkLabel
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox
-        Me.chbNoFCE = New System.Windows.Forms.CheckBox
-        Me.rdbFCEPerformedWithinYear = New System.Windows.Forms.RadioButton
-        Me.rdbFCEOverdue = New System.Windows.Forms.RadioButton
-        Me.rdbNextYear = New System.Windows.Forms.RadioButton
-        Me.rdbNext120Days = New System.Windows.Forms.RadioButton
-        Me.rdbNext90Days = New System.Windows.Forms.RadioButton
-        Me.rdbNext60Days = New System.Windows.Forms.RadioButton
-        Me.Label30 = New System.Windows.Forms.Label
-        Me.PanelCMSWarning = New System.Windows.Forms.Panel
-        Me.btnExportCmsWarningToExcel = New System.Windows.Forms.Button
-        Me.txtCMSWarningCount = New System.Windows.Forms.TextBox
-        Me.dgvCMSWarning = New System.Windows.Forms.DataGridView
-        Me.TPCMSWarning = New System.Windows.Forms.TabPage
-        Me.Splitter3 = New System.Windows.Forms.Splitter
-        Me.TCManagerTools = New System.Windows.Forms.TabControl
-        Me.TPFacilityAssignments = New System.Windows.Forms.TabPage
-        Me.Panel10 = New System.Windows.Forms.Panel
-        Me.GroupBox9 = New System.Windows.Forms.GroupBox
-        Me.btnSaveFCEReq = New System.Windows.Forms.Button
-        Me.rdbFCENotRequired = New System.Windows.Forms.RadioButton
-        Me.rdbFCERequired = New System.Windows.Forms.RadioButton
-        Me.GroupBox8 = New System.Windows.Forms.GroupBox
-        Me.Label61 = New System.Windows.Forms.Label
-        Me.rdbCMS_None = New System.Windows.Forms.RadioButton
-        Me.btnSaveCMS = New System.Windows.Forms.Button
-        Me.rdbCMS_SM = New System.Windows.Forms.RadioButton
-        Me.rdbCMS_A = New System.Windows.Forms.RadioButton
-        Me.btnClearSSCPUnitAssignment = New System.Windows.Forms.Button
-        Me.btnClearEngineerAssignment = New System.Windows.Forms.Button
-        Me.Label59 = New System.Windows.Forms.Label
-        Me.btnSaveAllSettings = New System.Windows.Forms.Button
-        Me.GroupBox6 = New System.Windows.Forms.GroupBox
-        Me.btnSaveInspectionReq = New System.Windows.Forms.Button
-        Me.rdbInspectionNotRequired = New System.Windows.Forms.RadioButton
-        Me.rdbInspectionRequired = New System.Windows.Forms.RadioButton
-        Me.GroupBox7 = New System.Windows.Forms.GroupBox
-        Me.btnSaveDistResponsible = New System.Windows.Forms.Button
-        Me.rdbDistResponsibleFalse = New System.Windows.Forms.RadioButton
-        Me.rdbDistResponsibleTrue = New System.Windows.Forms.RadioButton
-        Me.btnSaveSSCPUnitAssignment = New System.Windows.Forms.Button
-        Me.Label55 = New System.Windows.Forms.Label
-        Me.Label56 = New System.Windows.Forms.Label
-        Me.btnSaveEngineerResponsibility = New System.Windows.Forms.Button
-        Me.cboSSCPEngineer = New System.Windows.Forms.ComboBox
-        Me.Label57 = New System.Windows.Forms.Label
-        Me.cboSSCPUnit2 = New System.Windows.Forms.ComboBox
-        Me.Label58 = New System.Windows.Forms.Label
-        Me.Panel9 = New System.Windows.Forms.Panel
-        Me.TCNewFacilitySearch = New System.Windows.Forms.TabControl
-        Me.TabPage1 = New System.Windows.Forms.TabPage
-        Me.chbIgnoreFiscalYear = New System.Windows.Forms.CheckBox
-        Me.cboDistrictFilter2 = New System.Windows.Forms.ComboBox
-        Me.cboDistrictFilter1 = New System.Windows.Forms.ComboBox
-        Me.cboCountyFilter2 = New System.Windows.Forms.ComboBox
-        Me.cboCountyFilter1 = New System.Windows.Forms.ComboBox
-        Me.cboCMSMemberFilter2 = New System.Windows.Forms.ComboBox
-        Me.cboCMSMemberFilter1 = New System.Windows.Forms.ComboBox
-        Me.cboClassFilter2 = New System.Windows.Forms.ComboBox
-        Me.cboClassFilter1 = New System.Windows.Forms.ComboBox
-        Me.cboSSCPUnitFilter = New System.Windows.Forms.ComboBox
-        Me.cboSSCPUnitFilter2 = New System.Windows.Forms.ComboBox
-        Me.txtFacSearch1 = New System.Windows.Forms.TextBox
-        Me.cboFilterEngineer1 = New System.Windows.Forms.ComboBox
-        Me.cboOpStatus2 = New System.Windows.Forms.ComboBox
-        Me.cboOpStatus1 = New System.Windows.Forms.ComboBox
-        Me.pnlDistResp2 = New System.Windows.Forms.Panel
-        Me.rdbDistResp2False = New System.Windows.Forms.RadioButton
-        Me.rdbDistResp2True = New System.Windows.Forms.RadioButton
-        Me.cboFilterEngineer2 = New System.Windows.Forms.ComboBox
-        Me.chbViewAllFields = New System.Windows.Forms.CheckBox
-        Me.btnFacilitySearch = New System.Windows.Forms.Button
-        Me.cboFacSearch1 = New System.Windows.Forms.ComboBox
-        Me.Label51 = New System.Windows.Forms.Label
-        Me.txtFacSearch2 = New System.Windows.Forms.TextBox
-        Me.Label52 = New System.Windows.Forms.Label
-        Me.Label53 = New System.Windows.Forms.Label
-        Me.Label50 = New System.Windows.Forms.Label
-        Me.cboSortOrder2 = New System.Windows.Forms.ComboBox
-        Me.Label49 = New System.Windows.Forms.Label
-        Me.cboSort2 = New System.Windows.Forms.ComboBox
-        Me.cboFacSearch2 = New System.Windows.Forms.ComboBox
-        Me.cboSortOrder1 = New System.Windows.Forms.ComboBox
-        Me.cboSort1 = New System.Windows.Forms.ComboBox
-        Me.pnlDistResp1 = New System.Windows.Forms.Panel
-        Me.rdbDistResp1False = New System.Windows.Forms.RadioButton
-        Me.rdbDistResp1True = New System.Windows.Forms.RadioButton
-        Me.TabPage2 = New System.Windows.Forms.TabPage
-        Me.btnClearManualAIRSNum = New System.Windows.Forms.Button
-        Me.btnFilterManualAIRSList = New System.Windows.Forms.Button
-        Me.Label54 = New System.Windows.Forms.Label
-        Me.txtManualAIRSNumber = New System.Windows.Forms.TextBox
-        Me.TabPage3 = New System.Windows.Forms.TabPage
-        Me.btnForceAIRSNumber = New System.Windows.Forms.Button
-        Me.mtbForcedAIRS = New System.Windows.Forms.MaskedTextBox
-        Me.Label60 = New System.Windows.Forms.Label
-        Me.TPCopyYear = New System.Windows.Forms.TabPage
-        Me.chbClearExistingData = New System.Windows.Forms.CheckBox
-        Me.btnCopyYear = New System.Windows.Forms.Button
-        Me.mtbNewYear = New System.Windows.Forms.MaskedTextBox
-        Me.Label64 = New System.Windows.Forms.Label
-        Me.cboExistingYears = New System.Windows.Forms.ComboBox
-        Me.Label63 = New System.Windows.Forms.Label
-        Me.pnlFacilityAssignments = New System.Windows.Forms.Panel
-        Me.Panel11 = New System.Windows.Forms.Panel
-        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer
-        Me.Panel13 = New System.Windows.Forms.Panel
-        Me.Panel14 = New System.Windows.Forms.Panel
-        Me.dgvFilteredFacilityList = New System.Windows.Forms.DataGridView
-        Me.Panel16 = New System.Windows.Forms.Panel
-        Me.btnExportFiltered = New System.Windows.Forms.Button
-        Me.lblFilteredCount = New System.Windows.Forms.Label
-        Me.Panel15 = New System.Windows.Forms.Panel
-        Me.btnSelectFacility = New System.Windows.Forms.Button
-        Me.btnSelectAllFacilities = New System.Windows.Forms.Button
-        Me.btnUnselectAllFacilities = New System.Windows.Forms.Button
-        Me.btnUnselectFacility = New System.Windows.Forms.Button
-        Me.Panel12 = New System.Windows.Forms.Panel
-        Me.dgvSelectedFacilityList = New System.Windows.Forms.DataGridView
-        Me.Panel17 = New System.Windows.Forms.Panel
-        Me.lblSelectedCount = New System.Windows.Forms.Label
-        Me.btnExportSelected = New System.Windows.Forms.Button
-        Me.Panel18 = New System.Windows.Forms.Panel
-        Me.cboFiscalYear = New System.Windows.Forms.ComboBox
-        Me.Label62 = New System.Windows.Forms.Label
-        Me.TPPollutantBubbleUp = New System.Windows.Forms.TabPage
-        Me.dgvPollutantFacilities = New System.Windows.Forms.DataGridView
-        Me.GroupBox5 = New System.Windows.Forms.GroupBox
-        Me.OpenFacilityButton = New System.Windows.Forms.Button
-        Me.btnExportPollutantsToExcel = New System.Windows.Forms.Button
-        Me.txtPollutantCount = New System.Windows.Forms.TextBox
-        Me.txtAIRSNumber = New System.Windows.Forms.TextBox
-        Me.btnEditAirProgramPollutants = New System.Windows.Forms.Button
-        Me.btnViewFacilities = New System.Windows.Forms.Button
-        Me.chbStatusM = New System.Windows.Forms.CheckBox
-        Me.chbStatus4 = New System.Windows.Forms.CheckBox
-        Me.chbStatus3 = New System.Windows.Forms.CheckBox
-        Me.chbStatus2 = New System.Windows.Forms.CheckBox
-        Me.chbStatusC = New System.Windows.Forms.CheckBox
-        Me.chbStatus9 = New System.Windows.Forms.CheckBox
-        Me.chbStatus0 = New System.Windows.Forms.CheckBox
-        Me.chbStatus8 = New System.Windows.Forms.CheckBox
-        Me.chbStatus5 = New System.Windows.Forms.CheckBox
-        Me.chbStatusW = New System.Windows.Forms.CheckBox
-        Me.chbStatus6 = New System.Windows.Forms.CheckBox
-        Me.chbStatus1 = New System.Windows.Forms.CheckBox
-        Me.chbStatusB = New System.Windows.Forms.CheckBox
-        Me.TPStatisticalPage = New System.Windows.Forms.TabPage
-        Me.SCStatisticalReports = New System.Windows.Forms.SplitContainer
-        Me.TCComplianceStaff = New System.Windows.Forms.TabControl
-        Me.TPAdministrative = New System.Windows.Forms.TabPage
-        Me.clbAdministrative = New System.Windows.Forms.CheckedListBox
-        Me.TPAirToxics = New System.Windows.Forms.TabPage
-        Me.clbAirToxicUnit = New System.Windows.Forms.CheckedListBox
-        Me.TPChemicals = New System.Windows.Forms.TabPage
-        Me.clbChemicalsMinerals = New System.Windows.Forms.CheckedListBox
-        Me.TPVOC = New System.Windows.Forms.TabPage
-        Me.clbVOCCombustion = New System.Windows.Forms.CheckedListBox
-        Me.TPDistricts = New System.Windows.Forms.TabPage
-        Me.clbDistricts = New System.Windows.Forms.CheckedListBox
-        Me.TCStatisticalTools = New System.Windows.Forms.TabControl
-        Me.TPACCStats = New System.Windows.Forms.TabPage
-        Me.llbACCLONTaken = New System.Windows.Forms.LinkLabel
-        Me.llbACCNOVTaken = New System.Windows.Forms.LinkLabel
-        Me.btnRunStatisticalReport = New System.Windows.Forms.Button
-        Me.llbACCCOTaken = New System.Windows.Forms.LinkLabel
-        Me.llbACCEnforcementTaken = New System.Windows.Forms.LinkLabel
-        Me.DTPSearchDateStart = New System.Windows.Forms.DateTimePicker
-        Me.DTPSearchDateEnd = New System.Windows.Forms.DateTimePicker
-        Me.llbACCDeviationsNotReported = New System.Windows.Forms.LinkLabel
-        Me.llbACCDeviationsInFinal = New System.Windows.Forms.LinkLabel
-        Me.llbACCDeviationsIncorrectlyReported = New System.Windows.Forms.LinkLabel
-        Me.llbACCDeviationsReportedCorrectly = New System.Windows.Forms.LinkLabel
-        Me.llbACCDeviationsReported = New System.Windows.Forms.LinkLabel
-        Me.llbACCSubmittedLate = New System.Windows.Forms.LinkLabel
-        Me.llbACCRequiringResubmittal = New System.Windows.Forms.LinkLabel
-        Me.llbACCReporting = New System.Windows.Forms.LinkLabel
-        Me.llbViewACCTotalAssigned = New System.Windows.Forms.LinkLabel
-        Me.txtLONTaken = New System.Windows.Forms.TextBox
-        Me.Label44 = New System.Windows.Forms.Label
-        Me.txtNOVTaken = New System.Windows.Forms.TextBox
-        Me.Label43 = New System.Windows.Forms.Label
-        Me.txtCOTaken = New System.Windows.Forms.TextBox
-        Me.Label42 = New System.Windows.Forms.Label
-        Me.txtEnforcementActionTaken = New System.Windows.Forms.TextBox
-        Me.Label41 = New System.Windows.Forms.Label
-        Me.txtDeviationsNotPreviouslyReported = New System.Windows.Forms.TextBox
-        Me.Label40 = New System.Windows.Forms.Label
-        Me.txtDeviationsReportedInFinal = New System.Windows.Forms.TextBox
-        Me.Label38 = New System.Windows.Forms.Label
-        Me.txtDeviationsIncorrectlyReported = New System.Windows.Forms.TextBox
-        Me.txtDeviationsCorrectlyReported = New System.Windows.Forms.TextBox
-        Me.Label37 = New System.Windows.Forms.Label
-        Me.txtDeviationsReportedInOrigional = New System.Windows.Forms.TextBox
-        Me.Label36 = New System.Windows.Forms.Label
-        Me.txtSubmittedLate = New System.Windows.Forms.TextBox
-        Me.Label35 = New System.Windows.Forms.Label
-        Me.txtResubmittals = New System.Windows.Forms.TextBox
-        Me.Label34 = New System.Windows.Forms.Label
-        Me.txtFacilitiesReporting = New System.Windows.Forms.TextBox
-        Me.Label32 = New System.Windows.Forms.Label
-        Me.txtTotalFacilities = New System.Windows.Forms.TextBox
-        Me.Label31 = New System.Windows.Forms.Label
-        Me.TPEnforcement = New System.Windows.Forms.TabPage
-        Me.chbUseEnforcementDateRange = New System.Windows.Forms.CheckBox
-        Me.dtpEnforcementStartDate = New System.Windows.Forms.DateTimePicker
-        Me.dtpEnforcementEndDate = New System.Windows.Forms.DateTimePicker
-        Me.Label47 = New System.Windows.Forms.Label
-        Me.llbViewEnforcements = New System.Windows.Forms.LinkLabel
-        Me.mtbEnforcementSummary = New System.Windows.Forms.MaskedTextBox
-        Me.Label46 = New System.Windows.Forms.Label
-        Me.btnPenaltySummary = New System.Windows.Forms.Button
-        Me.txtEnforcementAIRSNumber = New System.Windows.Forms.TextBox
-        Me.TPTitleVRenewals = New System.Windows.Forms.TabPage
-        Me.Label66 = New System.Windows.Forms.Label
-        Me.btnRunTitleVSearch = New System.Windows.Forms.Button
-        Me.llbViewRecord = New System.Windows.Forms.LinkLabel
-        Me.lblStatisticalRecords = New System.Windows.Forms.Label
-        Me.txtStatisticalCount = New System.Windows.Forms.TextBox
-        Me.Label45 = New System.Windows.Forms.Label
-        Me.txtRecordNumber = New System.Windows.Forms.TextBox
-        Me.btnExportToExcel = New System.Windows.Forms.Button
-        Me.dgvStatisticalReports = New System.Windows.Forms.DataGridView
-        Me.TPWatchList = New System.Windows.Forms.TabPage
-        Me.dgvWatchList = New System.Windows.Forms.DataGridView
-        Me.Panel6 = New System.Windows.Forms.Panel
-        Me.btnExportWatchListToExcel = New System.Windows.Forms.Button
-        Me.rdbInComplianceCEMSData = New System.Windows.Forms.RadioButton
-        Me.rdbInComplianceProcedural = New System.Windows.Forms.RadioButton
-        Me.rdbInComplianceShutDown = New System.Windows.Forms.RadioButton
-        Me.rdbInComplianceCertification = New System.Windows.Forms.RadioButton
-        Me.rdbInComplianceInspection = New System.Windows.Forms.RadioButton
-        Me.rdbInComplianceSourceTest = New System.Windows.Forms.RadioButton
-        Me.rdbNoApplicableStateReg = New System.Windows.Forms.RadioButton
-        Me.rdbMeetingCompliance = New System.Windows.Forms.RadioButton
-        Me.rdbUnknownCompliance = New System.Windows.Forms.RadioButton
-        Me.rdbInViolationProcedural = New System.Windows.Forms.RadioButton
-        Me.rdbInViolationNotMeetingSchedule = New System.Windows.Forms.RadioButton
-        Me.rdbInViolationNoSchedule = New System.Windows.Forms.RadioButton
-        Me.rdbInViolationProceduralEmissions = New System.Windows.Forms.RadioButton
-        Me.rdbAllNegativeStatus = New System.Windows.Forms.RadioButton
-        Me.btnViewWatchListFacilities = New System.Windows.Forms.Button
-        Me.lblWatchListCount = New System.Windows.Forms.Label
-        Me.TPMiscReports = New System.Windows.Forms.TabPage
-        Me.dgvMiscReport = New System.Windows.Forms.DataGridView
-        Me.Panel19 = New System.Windows.Forms.Panel
-        Me.btnExportMiscToExcel = New System.Windows.Forms.Button
-        Me.txtMiscReportCount = New System.Windows.Forms.TextBox
-        Me.Label67 = New System.Windows.Forms.Label
-        Me.btnRunComplianceReport = New System.Windows.Forms.Button
-        Me.TPDocuments = New System.Windows.Forms.TabPage
-        Me.lblAddNewEnfDocType = New System.Windows.Forms.Label
-        Me.pnlUpdateDocumentType = New System.Windows.Forms.Panel
-        Me.btnUpdateDocumentType = New System.Windows.Forms.Button
-        Me.lblUpdateEnfDocType = New System.Windows.Forms.Label
-        Me.chkUpdateActive = New System.Windows.Forms.CheckBox
-        Me.mtxtUpdatePosition = New System.Windows.Forms.MaskedTextBox
-        Me.txtUpdateName = New System.Windows.Forms.TextBox
-        Me.lblUpdatePosition = New System.Windows.Forms.Label
-        Me.btnAddDocumentType = New System.Windows.Forms.Button
-        Me.mtxtNewPosition = New System.Windows.Forms.MaskedTextBox
-        Me.txtNewName = New System.Windows.Forms.TextBox
-        Me.lblNewPosition = New System.Windows.Forms.Label
-        Me.lblEnfDocumentTypes = New System.Windows.Forms.Label
-        Me.dgvEnfDocumentTypes = New System.Windows.Forms.DataGridView
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Me.chbALLDates = New System.Windows.Forms.CheckBox()
+        Me.txtUserSSCPUnit = New System.Windows.Forms.TextBox()
+        Me.DTPEndDate = New System.Windows.Forms.DateTimePicker()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.DTPStartDate = New System.Windows.Forms.DateTimePicker()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.llbPrintStaffReport = New System.Windows.Forms.LinkLabel()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.lblRunInspectionReport = New System.Windows.Forms.LinkLabel()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Panel8 = New System.Windows.Forms.Panel()
+        Me.rdbCMSClassA = New System.Windows.Forms.RadioButton()
+        Me.rdbCMSClassS = New System.Windows.Forms.RadioButton()
+        Me.clbEngineers = New System.Windows.Forms.CheckedListBox()
+        Me.Splitter2 = New System.Windows.Forms.Splitter()
+        Me.PanelCMSUniverse = New System.Windows.Forms.Panel()
+        Me.btnDeleteFacilityFromCms = New System.Windows.Forms.Button()
+        Me.btnAddToCmsUniverse = New System.Windows.Forms.Button()
+        Me.btnExportCmsUniverseToExcel = New System.Windows.Forms.Button()
+        Me.txtCMSState = New System.Windows.Forms.TextBox()
+        Me.txtCMSCount = New System.Windows.Forms.TextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.txtCMSAssignedEngineer = New System.Windows.Forms.TextBox()
+        Me.llbCMSOpenFacilitySummary = New System.Windows.Forms.LinkLabel()
+        Me.llbViewCMSUniverse = New System.Windows.Forms.LinkLabel()
+        Me.cboCMSFrequency = New System.Windows.Forms.ComboBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.txtCMSFacilityName = New System.Windows.Forms.TextBox()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.txtCMSOperationalStatus = New System.Windows.Forms.TextBox()
+        Me.txtCMSLastFCE = New System.Windows.Forms.TextBox()
+        Me.txtCMSClassification = New System.Windows.Forms.TextBox()
+        Me.txtCMSAIRSNumber = New System.Windows.Forms.TextBox()
+        Me.cboComplianceUnits = New System.Windows.Forms.ComboBox()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.Splitter4 = New System.Windows.Forms.Splitter()
+        Me.TPUniverse = New System.Windows.Forms.TabPage()
+        Me.dgvCMSUniverse = New System.Windows.Forms.DataGridView()
+        Me.rtbInspectionReport = New System.Windows.Forms.RichTextBox()
+        Me.TPStaffReports = New System.Windows.Forms.TabPage()
+        Me.Panel7 = New System.Windows.Forms.Panel()
+        Me.txtCMSAssignedEngineer2 = New System.Windows.Forms.TextBox()
+        Me.llbCMSOpenFacilitySummary2 = New System.Windows.Forms.LinkLabel()
+        Me.txtCMSFacilityName2 = New System.Windows.Forms.TextBox()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.txtCMSOperationalStatus2 = New System.Windows.Forms.TextBox()
+        Me.txtCMSLastFCE2 = New System.Windows.Forms.TextBox()
+        Me.txtCMSClassification2 = New System.Windows.Forms.TextBox()
+        Me.txtCMSAIRSNumber2 = New System.Windows.Forms.TextBox()
+        Me.cboCMSWarningFrequency = New System.Windows.Forms.ComboBox()
+        Me.lblCMSWarning = New System.Windows.Forms.LinkLabel()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.chbNoFCE = New System.Windows.Forms.CheckBox()
+        Me.rdbFCEPerformedWithinYear = New System.Windows.Forms.RadioButton()
+        Me.rdbFCEOverdue = New System.Windows.Forms.RadioButton()
+        Me.rdbNextYear = New System.Windows.Forms.RadioButton()
+        Me.rdbNext120Days = New System.Windows.Forms.RadioButton()
+        Me.rdbNext90Days = New System.Windows.Forms.RadioButton()
+        Me.rdbNext60Days = New System.Windows.Forms.RadioButton()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.PanelCMSWarning = New System.Windows.Forms.Panel()
+        Me.btnExportCmsWarningToExcel = New System.Windows.Forms.Button()
+        Me.txtCMSWarningCount = New System.Windows.Forms.TextBox()
+        Me.dgvCMSWarning = New System.Windows.Forms.DataGridView()
+        Me.TPCMSWarning = New System.Windows.Forms.TabPage()
+        Me.Splitter3 = New System.Windows.Forms.Splitter()
+        Me.TCManagerTools = New System.Windows.Forms.TabControl()
+        Me.TPFacilityAssignments = New System.Windows.Forms.TabPage()
+        Me.Panel10 = New System.Windows.Forms.Panel()
+        Me.GroupBox9 = New System.Windows.Forms.GroupBox()
+        Me.btnSaveFCEReq = New System.Windows.Forms.Button()
+        Me.rdbFCENotRequired = New System.Windows.Forms.RadioButton()
+        Me.rdbFCERequired = New System.Windows.Forms.RadioButton()
+        Me.GroupBox8 = New System.Windows.Forms.GroupBox()
+        Me.Label61 = New System.Windows.Forms.Label()
+        Me.rdbCMS_None = New System.Windows.Forms.RadioButton()
+        Me.btnSaveCMS = New System.Windows.Forms.Button()
+        Me.rdbCMS_SM = New System.Windows.Forms.RadioButton()
+        Me.rdbCMS_A = New System.Windows.Forms.RadioButton()
+        Me.btnClearSSCPUnitAssignment = New System.Windows.Forms.Button()
+        Me.btnClearEngineerAssignment = New System.Windows.Forms.Button()
+        Me.Label59 = New System.Windows.Forms.Label()
+        Me.btnSaveAllSettings = New System.Windows.Forms.Button()
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.btnSaveInspectionReq = New System.Windows.Forms.Button()
+        Me.rdbInspectionNotRequired = New System.Windows.Forms.RadioButton()
+        Me.rdbInspectionRequired = New System.Windows.Forms.RadioButton()
+        Me.GroupBox7 = New System.Windows.Forms.GroupBox()
+        Me.btnSaveDistResponsible = New System.Windows.Forms.Button()
+        Me.rdbDistResponsibleFalse = New System.Windows.Forms.RadioButton()
+        Me.rdbDistResponsibleTrue = New System.Windows.Forms.RadioButton()
+        Me.btnSaveSSCPUnitAssignment = New System.Windows.Forms.Button()
+        Me.Label55 = New System.Windows.Forms.Label()
+        Me.Label56 = New System.Windows.Forms.Label()
+        Me.btnSaveEngineerResponsibility = New System.Windows.Forms.Button()
+        Me.cboSSCPEngineer = New System.Windows.Forms.ComboBox()
+        Me.Label57 = New System.Windows.Forms.Label()
+        Me.cboSSCPUnit2 = New System.Windows.Forms.ComboBox()
+        Me.Label58 = New System.Windows.Forms.Label()
+        Me.Panel9 = New System.Windows.Forms.Panel()
+        Me.TCNewFacilitySearch = New System.Windows.Forms.TabControl()
+        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.chbIgnoreFiscalYear = New System.Windows.Forms.CheckBox()
+        Me.cboDistrictFilter2 = New System.Windows.Forms.ComboBox()
+        Me.cboDistrictFilter1 = New System.Windows.Forms.ComboBox()
+        Me.cboCountyFilter2 = New System.Windows.Forms.ComboBox()
+        Me.cboCountyFilter1 = New System.Windows.Forms.ComboBox()
+        Me.cboCMSMemberFilter2 = New System.Windows.Forms.ComboBox()
+        Me.cboCMSMemberFilter1 = New System.Windows.Forms.ComboBox()
+        Me.cboClassFilter2 = New System.Windows.Forms.ComboBox()
+        Me.cboClassFilter1 = New System.Windows.Forms.ComboBox()
+        Me.cboSSCPUnitFilter = New System.Windows.Forms.ComboBox()
+        Me.cboSSCPUnitFilter2 = New System.Windows.Forms.ComboBox()
+        Me.txtFacSearch1 = New System.Windows.Forms.TextBox()
+        Me.cboFilterEngineer1 = New System.Windows.Forms.ComboBox()
+        Me.cboOpStatus2 = New System.Windows.Forms.ComboBox()
+        Me.cboOpStatus1 = New System.Windows.Forms.ComboBox()
+        Me.pnlDistResp2 = New System.Windows.Forms.Panel()
+        Me.rdbDistResp2False = New System.Windows.Forms.RadioButton()
+        Me.rdbDistResp2True = New System.Windows.Forms.RadioButton()
+        Me.cboFilterEngineer2 = New System.Windows.Forms.ComboBox()
+        Me.chbViewAllFields = New System.Windows.Forms.CheckBox()
+        Me.btnFacilitySearch = New System.Windows.Forms.Button()
+        Me.cboFacSearch1 = New System.Windows.Forms.ComboBox()
+        Me.Label51 = New System.Windows.Forms.Label()
+        Me.txtFacSearch2 = New System.Windows.Forms.TextBox()
+        Me.Label52 = New System.Windows.Forms.Label()
+        Me.Label53 = New System.Windows.Forms.Label()
+        Me.Label50 = New System.Windows.Forms.Label()
+        Me.cboSortOrder2 = New System.Windows.Forms.ComboBox()
+        Me.Label49 = New System.Windows.Forms.Label()
+        Me.cboSort2 = New System.Windows.Forms.ComboBox()
+        Me.cboFacSearch2 = New System.Windows.Forms.ComboBox()
+        Me.cboSortOrder1 = New System.Windows.Forms.ComboBox()
+        Me.cboSort1 = New System.Windows.Forms.ComboBox()
+        Me.pnlDistResp1 = New System.Windows.Forms.Panel()
+        Me.rdbDistResp1False = New System.Windows.Forms.RadioButton()
+        Me.rdbDistResp1True = New System.Windows.Forms.RadioButton()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.btnClearManualAIRSNum = New System.Windows.Forms.Button()
+        Me.btnFilterManualAIRSList = New System.Windows.Forms.Button()
+        Me.Label54 = New System.Windows.Forms.Label()
+        Me.txtManualAIRSNumber = New System.Windows.Forms.TextBox()
+        Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.btnForceAIRSNumber = New System.Windows.Forms.Button()
+        Me.mtbForcedAIRS = New System.Windows.Forms.MaskedTextBox()
+        Me.Label60 = New System.Windows.Forms.Label()
+        Me.TPCopyYear = New System.Windows.Forms.TabPage()
+        Me.chbClearExistingData = New System.Windows.Forms.CheckBox()
+        Me.btnCopyYear = New System.Windows.Forms.Button()
+        Me.mtbNewYear = New System.Windows.Forms.MaskedTextBox()
+        Me.Label64 = New System.Windows.Forms.Label()
+        Me.cboExistingYears = New System.Windows.Forms.ComboBox()
+        Me.Label63 = New System.Windows.Forms.Label()
+        Me.pnlFacilityAssignments = New System.Windows.Forms.Panel()
+        Me.Panel11 = New System.Windows.Forms.Panel()
+        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.Panel13 = New System.Windows.Forms.Panel()
+        Me.Panel14 = New System.Windows.Forms.Panel()
+        Me.dgvFilteredFacilityList = New System.Windows.Forms.DataGridView()
+        Me.Panel16 = New System.Windows.Forms.Panel()
+        Me.btnExportFiltered = New System.Windows.Forms.Button()
+        Me.lblFilteredCount = New System.Windows.Forms.Label()
+        Me.Panel15 = New System.Windows.Forms.Panel()
+        Me.btnSelectFacility = New System.Windows.Forms.Button()
+        Me.btnSelectAllFacilities = New System.Windows.Forms.Button()
+        Me.btnUnselectAllFacilities = New System.Windows.Forms.Button()
+        Me.btnUnselectFacility = New System.Windows.Forms.Button()
+        Me.Panel12 = New System.Windows.Forms.Panel()
+        Me.dgvSelectedFacilityList = New System.Windows.Forms.DataGridView()
+        Me.Panel17 = New System.Windows.Forms.Panel()
+        Me.lblSelectedCount = New System.Windows.Forms.Label()
+        Me.btnExportSelected = New System.Windows.Forms.Button()
+        Me.Panel18 = New System.Windows.Forms.Panel()
+        Me.cboFiscalYear = New System.Windows.Forms.ComboBox()
+        Me.Label62 = New System.Windows.Forms.Label()
+        Me.TPPollutantBubbleUp = New System.Windows.Forms.TabPage()
+        Me.dgvPollutantFacilities = New System.Windows.Forms.DataGridView()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.OpenFacilityButton = New System.Windows.Forms.Button()
+        Me.btnExportPollutantsToExcel = New System.Windows.Forms.Button()
+        Me.txtPollutantCount = New System.Windows.Forms.TextBox()
+        Me.txtAIRSNumber = New System.Windows.Forms.TextBox()
+        Me.btnViewFacilities = New System.Windows.Forms.Button()
+        Me.chbStatusM = New System.Windows.Forms.CheckBox()
+        Me.chbStatus4 = New System.Windows.Forms.CheckBox()
+        Me.chbStatus3 = New System.Windows.Forms.CheckBox()
+        Me.chbStatus2 = New System.Windows.Forms.CheckBox()
+        Me.chbStatusC = New System.Windows.Forms.CheckBox()
+        Me.chbStatus9 = New System.Windows.Forms.CheckBox()
+        Me.chbStatus0 = New System.Windows.Forms.CheckBox()
+        Me.chbStatus8 = New System.Windows.Forms.CheckBox()
+        Me.chbStatus5 = New System.Windows.Forms.CheckBox()
+        Me.chbStatusW = New System.Windows.Forms.CheckBox()
+        Me.chbStatus6 = New System.Windows.Forms.CheckBox()
+        Me.chbStatus1 = New System.Windows.Forms.CheckBox()
+        Me.chbStatusB = New System.Windows.Forms.CheckBox()
+        Me.TPStatisticalPage = New System.Windows.Forms.TabPage()
+        Me.SCStatisticalReports = New System.Windows.Forms.SplitContainer()
+        Me.TCComplianceStaff = New System.Windows.Forms.TabControl()
+        Me.TPAdministrative = New System.Windows.Forms.TabPage()
+        Me.clbAdministrative = New System.Windows.Forms.CheckedListBox()
+        Me.TPAirToxics = New System.Windows.Forms.TabPage()
+        Me.clbAirToxicUnit = New System.Windows.Forms.CheckedListBox()
+        Me.TPChemicals = New System.Windows.Forms.TabPage()
+        Me.clbChemicalsMinerals = New System.Windows.Forms.CheckedListBox()
+        Me.TPVOC = New System.Windows.Forms.TabPage()
+        Me.clbVOCCombustion = New System.Windows.Forms.CheckedListBox()
+        Me.TPDistricts = New System.Windows.Forms.TabPage()
+        Me.clbDistricts = New System.Windows.Forms.CheckedListBox()
+        Me.TCStatisticalTools = New System.Windows.Forms.TabControl()
+        Me.TPACCStats = New System.Windows.Forms.TabPage()
+        Me.llbACCLONTaken = New System.Windows.Forms.LinkLabel()
+        Me.llbACCNOVTaken = New System.Windows.Forms.LinkLabel()
+        Me.btnRunStatisticalReport = New System.Windows.Forms.Button()
+        Me.llbACCCOTaken = New System.Windows.Forms.LinkLabel()
+        Me.llbACCEnforcementTaken = New System.Windows.Forms.LinkLabel()
+        Me.DTPSearchDateStart = New System.Windows.Forms.DateTimePicker()
+        Me.DTPSearchDateEnd = New System.Windows.Forms.DateTimePicker()
+        Me.llbACCDeviationsNotReported = New System.Windows.Forms.LinkLabel()
+        Me.llbACCDeviationsInFinal = New System.Windows.Forms.LinkLabel()
+        Me.llbACCDeviationsIncorrectlyReported = New System.Windows.Forms.LinkLabel()
+        Me.llbACCDeviationsReportedCorrectly = New System.Windows.Forms.LinkLabel()
+        Me.llbACCDeviationsReported = New System.Windows.Forms.LinkLabel()
+        Me.llbACCSubmittedLate = New System.Windows.Forms.LinkLabel()
+        Me.llbACCRequiringResubmittal = New System.Windows.Forms.LinkLabel()
+        Me.llbACCReporting = New System.Windows.Forms.LinkLabel()
+        Me.llbViewACCTotalAssigned = New System.Windows.Forms.LinkLabel()
+        Me.txtLONTaken = New System.Windows.Forms.TextBox()
+        Me.Label44 = New System.Windows.Forms.Label()
+        Me.txtNOVTaken = New System.Windows.Forms.TextBox()
+        Me.Label43 = New System.Windows.Forms.Label()
+        Me.txtCOTaken = New System.Windows.Forms.TextBox()
+        Me.Label42 = New System.Windows.Forms.Label()
+        Me.txtEnforcementActionTaken = New System.Windows.Forms.TextBox()
+        Me.Label41 = New System.Windows.Forms.Label()
+        Me.txtDeviationsNotPreviouslyReported = New System.Windows.Forms.TextBox()
+        Me.Label40 = New System.Windows.Forms.Label()
+        Me.txtDeviationsReportedInFinal = New System.Windows.Forms.TextBox()
+        Me.Label38 = New System.Windows.Forms.Label()
+        Me.txtDeviationsIncorrectlyReported = New System.Windows.Forms.TextBox()
+        Me.txtDeviationsCorrectlyReported = New System.Windows.Forms.TextBox()
+        Me.Label37 = New System.Windows.Forms.Label()
+        Me.txtDeviationsReportedInOrigional = New System.Windows.Forms.TextBox()
+        Me.Label36 = New System.Windows.Forms.Label()
+        Me.txtSubmittedLate = New System.Windows.Forms.TextBox()
+        Me.Label35 = New System.Windows.Forms.Label()
+        Me.txtResubmittals = New System.Windows.Forms.TextBox()
+        Me.Label34 = New System.Windows.Forms.Label()
+        Me.txtFacilitiesReporting = New System.Windows.Forms.TextBox()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.txtTotalFacilities = New System.Windows.Forms.TextBox()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.TPEnforcement = New System.Windows.Forms.TabPage()
+        Me.chbUseEnforcementDateRange = New System.Windows.Forms.CheckBox()
+        Me.dtpEnforcementStartDate = New System.Windows.Forms.DateTimePicker()
+        Me.dtpEnforcementEndDate = New System.Windows.Forms.DateTimePicker()
+        Me.Label47 = New System.Windows.Forms.Label()
+        Me.llbViewEnforcements = New System.Windows.Forms.LinkLabel()
+        Me.mtbEnforcementSummary = New System.Windows.Forms.MaskedTextBox()
+        Me.Label46 = New System.Windows.Forms.Label()
+        Me.btnPenaltySummary = New System.Windows.Forms.Button()
+        Me.txtEnforcementAIRSNumber = New System.Windows.Forms.TextBox()
+        Me.TPTitleVRenewals = New System.Windows.Forms.TabPage()
+        Me.Label66 = New System.Windows.Forms.Label()
+        Me.btnRunTitleVSearch = New System.Windows.Forms.Button()
+        Me.llbViewRecord = New System.Windows.Forms.LinkLabel()
+        Me.lblStatisticalRecords = New System.Windows.Forms.Label()
+        Me.txtStatisticalCount = New System.Windows.Forms.TextBox()
+        Me.Label45 = New System.Windows.Forms.Label()
+        Me.txtRecordNumber = New System.Windows.Forms.TextBox()
+        Me.btnExportToExcel = New System.Windows.Forms.Button()
+        Me.dgvStatisticalReports = New System.Windows.Forms.DataGridView()
+        Me.TPWatchList = New System.Windows.Forms.TabPage()
+        Me.dgvWatchList = New System.Windows.Forms.DataGridView()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.btnExportWatchListToExcel = New System.Windows.Forms.Button()
+        Me.rdbInComplianceCEMSData = New System.Windows.Forms.RadioButton()
+        Me.rdbInComplianceProcedural = New System.Windows.Forms.RadioButton()
+        Me.rdbInComplianceShutDown = New System.Windows.Forms.RadioButton()
+        Me.rdbInComplianceCertification = New System.Windows.Forms.RadioButton()
+        Me.rdbInComplianceInspection = New System.Windows.Forms.RadioButton()
+        Me.rdbInComplianceSourceTest = New System.Windows.Forms.RadioButton()
+        Me.rdbNoApplicableStateReg = New System.Windows.Forms.RadioButton()
+        Me.rdbMeetingCompliance = New System.Windows.Forms.RadioButton()
+        Me.rdbUnknownCompliance = New System.Windows.Forms.RadioButton()
+        Me.rdbInViolationProcedural = New System.Windows.Forms.RadioButton()
+        Me.rdbInViolationNotMeetingSchedule = New System.Windows.Forms.RadioButton()
+        Me.rdbInViolationNoSchedule = New System.Windows.Forms.RadioButton()
+        Me.rdbInViolationProceduralEmissions = New System.Windows.Forms.RadioButton()
+        Me.rdbAllNegativeStatus = New System.Windows.Forms.RadioButton()
+        Me.btnViewWatchListFacilities = New System.Windows.Forms.Button()
+        Me.lblWatchListCount = New System.Windows.Forms.Label()
+        Me.TPMiscReports = New System.Windows.Forms.TabPage()
+        Me.dgvMiscReport = New System.Windows.Forms.DataGridView()
+        Me.Panel19 = New System.Windows.Forms.Panel()
+        Me.btnExportMiscToExcel = New System.Windows.Forms.Button()
+        Me.txtMiscReportCount = New System.Windows.Forms.TextBox()
+        Me.Label67 = New System.Windows.Forms.Label()
+        Me.btnRunComplianceReport = New System.Windows.Forms.Button()
+        Me.TPDocuments = New System.Windows.Forms.TabPage()
+        Me.lblAddNewEnfDocType = New System.Windows.Forms.Label()
+        Me.pnlUpdateDocumentType = New System.Windows.Forms.Panel()
+        Me.btnUpdateDocumentType = New System.Windows.Forms.Button()
+        Me.lblUpdateEnfDocType = New System.Windows.Forms.Label()
+        Me.chkUpdateActive = New System.Windows.Forms.CheckBox()
+        Me.mtxtUpdatePosition = New System.Windows.Forms.MaskedTextBox()
+        Me.txtUpdateName = New System.Windows.Forms.TextBox()
+        Me.lblUpdatePosition = New System.Windows.Forms.Label()
+        Me.btnAddDocumentType = New System.Windows.Forms.Button()
+        Me.mtxtNewPosition = New System.Windows.Forms.MaskedTextBox()
+        Me.txtNewName = New System.Windows.Forms.TextBox()
+        Me.lblNewPosition = New System.Windows.Forms.Label()
+        Me.lblEnfDocumentTypes = New System.Windows.Forms.Label()
+        Me.dgvEnfDocumentTypes = New System.Windows.Forms.DataGridView()
         Me.Panel8.SuspendLayout()
         Me.PanelCMSUniverse.SuspendLayout()
         Me.TPUniverse.SuspendLayout()
@@ -377,6 +376,7 @@ Partial Class SSCPManagersTools
         Me.TPCopyYear.SuspendLayout()
         Me.pnlFacilityAssignments.SuspendLayout()
         Me.Panel11.SuspendLayout()
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
@@ -393,6 +393,7 @@ Partial Class SSCPManagersTools
         CType(Me.dgvPollutantFacilities, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox5.SuspendLayout()
         Me.TPStatisticalPage.SuspendLayout()
+        CType(Me.SCStatisticalReports, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SCStatisticalReports.Panel1.SuspendLayout()
         Me.SCStatisticalReports.Panel2.SuspendLayout()
         Me.SCStatisticalReports.SuspendLayout()
@@ -515,7 +516,7 @@ Partial Class SSCPManagersTools
         'Label11
         '
         Me.Label11.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label11.Location = New System.Drawing.Point(-8, 157)
         Me.Label11.Name = "Label11"
@@ -1289,8 +1290,8 @@ Partial Class SSCPManagersTools
         Me.Label61.Name = "Label61"
         Me.Label61.Size = New System.Drawing.Size(151, 52)
         Me.Label61.TabIndex = 154
-        Me.Label61.Text = "The button below is the only " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "  mechanism to save the CMS " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "  state on this tab." & _
-            "" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.Label61.Text = "The button below is the only " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "  mechanism to save the CMS " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "  state on this tab." &
+    "" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
         'rdbCMS_None
         '
@@ -1953,8 +1954,8 @@ Partial Class SSCPManagersTools
         Me.Label54.Name = "Label54"
         Me.Label54.Size = New System.Drawing.Size(80, 96)
         Me.Label54.TabIndex = 134
-        Me.Label54.Text = "Enter one AIRS Number per line.  EXAMPLE                       00100001    001000" & _
-            "02        00100003"
+        Me.Label54.Text = "Enter one AIRS Number per line.  EXAMPLE                       00100001    001000" &
+    "02        00100003"
         '
         'txtManualAIRSNumber
         '
@@ -2007,9 +2008,9 @@ Partial Class SSCPManagersTools
         Me.Label60.Name = "Label60"
         Me.Label60.Size = New System.Drawing.Size(316, 98)
         Me.Label60.TabIndex = 1
-        Me.Label60.Text = "" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Enter an AIRS # to attempt to add it directly to the Selected Facilities. " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "I" & _
-            "f the AIRS # does not appear in the Selected Facilities box then the Facility ma" & _
-            "ny not exist in the system."
+        Me.Label60.Text = "" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Enter an AIRS # to attempt to add it directly to the Selected Facilities. " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "I" &
+    "f the AIRS # does not appear in the Selected Facilities box then the Facility ma" &
+    "ny not exist in the system."
         '
         'TPCopyYear
         '
@@ -2328,35 +2329,35 @@ Partial Class SSCPManagersTools
         '
         'dgvPollutantFacilities
         '
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvPollutantFacilities.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvPollutantFacilities.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvPollutantFacilities.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvPollutantFacilities.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvPollutantFacilities.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvPollutantFacilities.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvPollutantFacilities.Location = New System.Drawing.Point(0, 220)
         Me.dgvPollutantFacilities.Name = "dgvPollutantFacilities"
         Me.dgvPollutantFacilities.ReadOnly = True
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvPollutantFacilities.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvPollutantFacilities.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvPollutantFacilities.Size = New System.Drawing.Size(1184, 479)
         Me.dgvPollutantFacilities.TabIndex = 1
         '
@@ -2366,7 +2367,6 @@ Partial Class SSCPManagersTools
         Me.GroupBox5.Controls.Add(Me.btnExportPollutantsToExcel)
         Me.GroupBox5.Controls.Add(Me.txtPollutantCount)
         Me.GroupBox5.Controls.Add(Me.txtAIRSNumber)
-        Me.GroupBox5.Controls.Add(Me.btnEditAirProgramPollutants)
         Me.GroupBox5.Controls.Add(Me.btnViewFacilities)
         Me.GroupBox5.Controls.Add(Me.chbStatusM)
         Me.GroupBox5.Controls.Add(Me.chbStatus4)
@@ -2390,7 +2390,7 @@ Partial Class SSCPManagersTools
         '
         'OpenFacilityButton
         '
-        Me.OpenFacilityButton.Location = New System.Drawing.Point(296, 189)
+        Me.OpenFacilityButton.Location = New System.Drawing.Point(112, 189)
         Me.OpenFacilityButton.Name = "OpenFacilityButton"
         Me.OpenFacilityButton.Size = New System.Drawing.Size(75, 23)
         Me.OpenFacilityButton.TabIndex = 316
@@ -2416,19 +2416,10 @@ Partial Class SSCPManagersTools
         '
         'txtAIRSNumber
         '
-        Me.txtAIRSNumber.Location = New System.Drawing.Point(190, 191)
+        Me.txtAIRSNumber.Location = New System.Drawing.Point(6, 191)
         Me.txtAIRSNumber.Name = "txtAIRSNumber"
         Me.txtAIRSNumber.Size = New System.Drawing.Size(100, 20)
         Me.txtAIRSNumber.TabIndex = 312
-        '
-        'btnEditAirProgramPollutants
-        '
-        Me.btnEditAirProgramPollutants.Location = New System.Drawing.Point(7, 189)
-        Me.btnEditAirProgramPollutants.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnEditAirProgramPollutants.Name = "btnEditAirProgramPollutants"
-        Me.btnEditAirProgramPollutants.Size = New System.Drawing.Size(168, 22)
-        Me.btnEditAirProgramPollutants.TabIndex = 311
-        Me.btnEditAirProgramPollutants.Text = "Air Program Pollutants"
         '
         'btnViewFacilities
         '
@@ -2639,7 +2630,7 @@ Partial Class SSCPManagersTools
         Me.clbAdministrative.Location = New System.Drawing.Point(3, 3)
         Me.clbAdministrative.Name = "clbAdministrative"
         Me.clbAdministrative.ScrollAlwaysVisible = True
-        Me.clbAdministrative.Size = New System.Drawing.Size(248, 259)
+        Me.clbAdministrative.Size = New System.Drawing.Size(248, 268)
         Me.clbAdministrative.TabIndex = 1
         '
         'TPAirToxics
@@ -2661,7 +2652,7 @@ Partial Class SSCPManagersTools
         Me.clbAirToxicUnit.Location = New System.Drawing.Point(3, 3)
         Me.clbAirToxicUnit.Name = "clbAirToxicUnit"
         Me.clbAirToxicUnit.ScrollAlwaysVisible = True
-        Me.clbAirToxicUnit.Size = New System.Drawing.Size(248, 259)
+        Me.clbAirToxicUnit.Size = New System.Drawing.Size(248, 268)
         Me.clbAirToxicUnit.TabIndex = 1
         '
         'TPChemicals
@@ -3284,9 +3275,9 @@ Partial Class SSCPManagersTools
         Me.Label66.Name = "Label66"
         Me.Label66.Size = New System.Drawing.Size(350, 97)
         Me.Label66.TabIndex = 42
-        Me.Label66.Text = "The number of facilities that have not submitted a Title V Renewal Permit applica" & _
-            "tion that are less than 9 months from the 5-year expiration date of the previous" & _
-            " Initial/Renewal TV permit issuance."
+        Me.Label66.Text = "The number of facilities that have not submitted a Title V Renewal Permit applica" &
+    "tion that are less than 9 months from the 5-year expiration date of the previous" &
+    " Initial/Renewal TV permit issuance."
         '
         'btnRunTitleVSearch
         '
@@ -3354,8 +3345,8 @@ Partial Class SSCPManagersTools
         'dgvStatisticalReports
         '
         Me.dgvStatisticalReports.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvStatisticalReports.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvStatisticalReports.Location = New System.Drawing.Point(0, 47)
         Me.dgvStatisticalReports.Name = "dgvStatisticalReports"
@@ -3872,6 +3863,7 @@ Partial Class SSCPManagersTools
         Me.Panel11.ResumeLayout(False)
         Me.SplitContainer1.Panel1.ResumeLayout(False)
         Me.SplitContainer1.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
         Me.Panel13.ResumeLayout(False)
         Me.Panel14.ResumeLayout(False)
@@ -3894,6 +3886,7 @@ Partial Class SSCPManagersTools
         Me.SCStatisticalReports.Panel1.ResumeLayout(False)
         Me.SCStatisticalReports.Panel2.ResumeLayout(False)
         Me.SCStatisticalReports.Panel2.PerformLayout()
+        CType(Me.SCStatisticalReports, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SCStatisticalReports.ResumeLayout(False)
         Me.TCComplianceStaff.ResumeLayout(False)
         Me.TPAdministrative.ResumeLayout(False)
@@ -4013,7 +4006,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents chbStatusM As System.Windows.Forms.CheckBox
     Friend WithEvents dgvPollutantFacilities As System.Windows.Forms.DataGridView
     Friend WithEvents btnViewFacilities As System.Windows.Forms.Button
-    Friend WithEvents btnEditAirProgramPollutants As System.Windows.Forms.Button
     Friend WithEvents txtAIRSNumber As System.Windows.Forms.TextBox
     Friend WithEvents txtPollutantCount As System.Windows.Forms.TextBox
     Friend WithEvents TPStatisticalPage As System.Windows.Forms.TabPage
