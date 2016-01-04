@@ -6,15 +6,15 @@ Public Class IaipExceptionManager
         ' to keep this class from being creatable as an instance.
     End Sub
 
-    Public Shared Sub Application_ThreadException(ByVal sender As Object, ByVal e As Threading.ThreadExceptionEventArgs)
+    Public Shared Sub Application_ThreadException(sender As Object, e As Threading.ThreadExceptionEventArgs)
         ' Handles Application.ThreadException
         ' Handler added in StartupShutdown.Init
         monitor.TrackException(e.Exception, sender.ToString)
 
-        Dim WhatHappened As String = "An unexpected error has occurred." & Environment.NewLine & Environment.NewLine & _
+        Dim WhatHappened As String = "An unexpected error has occurred." & Environment.NewLine & Environment.NewLine &
             "The action you requested was not performed. When you click Exit, the IAIP will close."
 
-        Dim WhatUserCanDo As String = "• Restart the IAIP and try repeating your last action." & Environment.NewLine & Environment.NewLine & _
+        Dim WhatUserCanDo As String = "• Restart the IAIP and try repeating your last action." & Environment.NewLine & Environment.NewLine &
             "• If you continue to see this error, please email the DMU. Describe what you were doing and paste the error details below into your email."
 
         ShowErrorDialog(e.Exception, WhatHappened, WhatUserCanDo, True)
@@ -25,19 +25,19 @@ Public Class IaipExceptionManager
     '-- 
     '--  method to show error dialog
     '--
-    Public Shared Function ShowErrorDialog(ByVal exc As Exception, _
-                                           Optional ByVal WhatHappened As String = "", _
-                                           Optional ByVal WhatUserCanDo As String = "", _
-                                           Optional ByVal showExitButton As Boolean = False _
+    Public Shared Function ShowErrorDialog(exc As Exception,
+                                           Optional WhatHappened As String = "",
+                                           Optional WhatUserCanDo As String = "",
+                                           Optional showExitButton As Boolean = False
                                            ) As DialogResult
 
         If WhatHappened = "" Then
-            WhatHappened = "An unexpected error has occurred. The action you requested was not performed." & Environment.NewLine & Environment.NewLine & _
+            WhatHappened = "An unexpected error has occurred. The action you requested was not performed." & Environment.NewLine & Environment.NewLine &
             "When you click OK, the IAIP will close."
         End If
 
         If WhatUserCanDo = "" Then
-            WhatUserCanDo = "Restart the IAIP and try repeating your last action." & Environment.NewLine & Environment.NewLine & _
+            WhatUserCanDo = "Restart the IAIP and try repeating your last action." & Environment.NewLine & Environment.NewLine &
             "If you continue to see this error, please email the DMU. Describe what you were doing and paste the error details below into your email."
         End If
 
