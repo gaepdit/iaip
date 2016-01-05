@@ -124,11 +124,11 @@ Public Class IAIPLogIn
             EnableLogin()
             Return True
         Else
-            DisableLogin("The IAIP is currently unavailable. Please check " & vbNewLine & _
-                         "back later. If you are working remotely, you must " & vbNewLine & _
-                         "connect to the VPN before using the IAIP. " & vbNewLine & vbNewLine & _
-                         "Otherwise, if you continue to see this message after " & vbNewLine & _
-                         "two hours, please inform the Data Management Unit. " & vbNewLine & vbNewLine & _
+            DisableLogin("The IAIP is currently unavailable. Please check " & vbNewLine &
+                         "back later. If you are working remotely, you must " & vbNewLine &
+                         "connect to the VPN before using the IAIP. " & vbNewLine & vbNewLine &
+                         "Otherwise, if you continue to see this message after " & vbNewLine &
+                         "two hours, please inform the Data Management Unit. " & vbNewLine & vbNewLine &
                          "Thank you.")
             Return False
         End If
@@ -150,9 +150,9 @@ Public Class IAIPLogIn
 #End If
 
         If Not DAL.AppIsEnabled Then
-            DisableLogin("The IAIP is currently unavailable. Please check " & vbNewLine & _
-                             "back later. If you continue to see this message after " & vbNewLine & _
-                             "two hours, please inform the Data Management Unit. " & vbNewLine & _
+            DisableLogin("The IAIP is currently unavailable. Please check " & vbNewLine &
+                             "back later. If you continue to see this message after " & vbNewLine &
+                             "two hours, please inform the Data Management Unit. " & vbNewLine &
                              "Thank you.")
             txtUserPassword.Clear()
             monitor.TrackFeatureCancel("Startup.LoggingIn")
@@ -273,7 +273,7 @@ Public Class IAIPLogIn
                 monitor.TrackFeature("Main.TestingEnvironment")
             End If
             monitor.ForceSync()
-            ApplicationInsights.UpdateUser()
+            ApplicationInsights.UpdateTelemetryUser()
             ApplicationInsights.telemetryClient.TrackEvent("Successful Login")
 
             SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)

@@ -1,7 +1,7 @@
 ﻿Imports System.Collections.Generic
 Imports EQATEC.Analytics.Monitor
 
-Module Analytics
+Module EqatecAnalytics
     ' Initialize and set up EQATEC.Analytics.Monitor Library
 
     Public monitor As IAnalyticsMonitor

@@ -1,6 +1,7 @@
 ﻿Imports System.Collections.Generic
 Imports System.Globalization
 Imports Microsoft.ApplicationInsights
+Imports Microsoft.ApplicationInsights.Extensibility
 
 Friend Class ApplicationInsights
 
@@ -13,6 +14,7 @@ Friend Class ApplicationInsights
         telemetryClient = New TelemetryClient
 
         telemetryClient.InstrumentationKey = "fc9b3ee9-eae9-4af4-a62d-ca041194890d"
+
 
         With telemetryClient.Context
             .Session.Id = Guid.NewGuid.ToString
@@ -27,6 +29,13 @@ Friend Class ApplicationInsights
 
             .User.Id = Environment.UserName
         End With
+
+#If DEBUG Then
+        TelemetryConfiguration.Active.TelemetryChannel.DeveloperMode = True
+        AddTelemetryProperty(TelemetryProperty.DebugMode, True.ToString)
+#Else
+        AddTelemetryProperty(TelemetryProperty.DebugMode, False.ToString)
+#End If
 
 #If BETA Then
         AddTelemetryProperty(TelemetryProperty.ReleaseChannel, "Beta")
@@ -63,7 +72,7 @@ Friend Class ApplicationInsights
         End If
     End Sub
 
-    Public Shared Sub UpdateUser()
+    Public Shared Sub UpdateTelemetryUser()
         With telemetryClient.Context
             .User.AuthenticatedUserId = CurrentUser.UserID
             AddTelemetryProperty(TelemetryProperty.IaipUserName, CurrentUser.UserName)
@@ -99,4 +108,5 @@ Public Enum TelemetryProperty
     ProcessorCount
     ClrVersion
     ReleaseChannel
+    DebugMode
 End Enum
