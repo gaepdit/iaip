@@ -156,6 +156,7 @@ Public Class IAIPLogIn
                              "Thank you.")
             txtUserPassword.Clear()
             monitor.TrackFeatureCancel("Startup.LoggingIn")
+            ApplicationInsights.telemetryClient.TrackEvent("Application unavailable")
             Exit Sub
         End If
 
@@ -180,6 +181,7 @@ Public Class IAIPLogIn
                 FocusLogin()
                 LoginProgressBar.Visible = False
                 monitor.TrackFeatureCancel("Startup.LoggingIn")
+                ApplicationInsights.telemetryClient.TrackEvent("Invalid Login")
                 Exit Sub
             End If
 
@@ -204,6 +206,7 @@ Public Class IAIPLogIn
                 txtUserPassword.Clear()
                 LoginProgressBar.Visible = False
                 monitor.TrackFeatureCancel("Startup.LoggingIn")
+                ApplicationInsights.telemetryClient.TrackEvent("Inactive user")
                 Exit Sub
             End If
 
@@ -213,6 +216,7 @@ Public Class IAIPLogIn
                 FocusLogin()
                 LoginProgressBar.Visible = False
                 monitor.TrackFeatureCancel("Startup.LoggingIn")
+                ApplicationInsights.telemetryClient.TrackEvent("Invalid login")
                 Exit Sub
             End If
 
@@ -269,6 +273,8 @@ Public Class IAIPLogIn
                 monitor.TrackFeature("Main.TestingEnvironment")
             End If
             monitor.ForceSync()
+            ApplicationInsights.UpdateUser()
+            ApplicationInsights.telemetryClient.TrackEvent("Successful Login")
 
             SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
             OpenSingleForm(IAIPNavigation)

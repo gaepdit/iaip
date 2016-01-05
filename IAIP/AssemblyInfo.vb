@@ -21,7 +21,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyCompany("State of Georgia")> 
 <Assembly: AssemblyCopyright("")> 
 <Assembly: AssemblyTrademark("")> 
-<Assembly: CLSCompliant(True)> 
-<Assembly: ComVisibleAttribute(False)> 
-<Assembly: AssemblyVersion("4.2.9.0")> 
-<Assembly: AssemblyFileVersionAttribute("4.2.9.0")> 
+<Assembly: CLSCompliant(True)>
+<Assembly: ComVisible(False)>
+<Assembly: AssemblyVersion("4.2.9.0")>
+<Assembly: AssemblyFileVersion("4.2.9.0")>
