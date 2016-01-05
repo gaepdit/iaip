@@ -106,6 +106,10 @@
       <HintPath>..\packages\EQATEC.Analytics.Monitor.3.2.61\lib\Net20\EQATEC.Analytics.Monitor.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.0.0-beta3\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
@@ -789,6 +793,7 @@
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.StackTest.vb" />
     <Compile Include="_Data Services\SharedData.vb" />
     <Compile Include="_DB\DB.Functions.vb" />
+    <Compile Include="_Modules\ApplicationInsights.vb" />
     <Compile Include="_Modules\ErrorReporting.vb" />
     <Compile Include="_Modules\ExcelExport.vb" />
     <Compile Include="_Modules\Extensions.vb" />
@@ -1591,7 +1596,7 @@
     <Compile Include="_DAL\DAL.Documents.vb" />
     <Compile Include="_DAL\DAL.EventRegistration.vb" />
     <Compile Include="_DB\DB.Utilities.vb" />
-    <Compile Include="_Modules\Analytics.vb" />
+    <Compile Include="_Modules\EqatecAnalytics.vb" />
     <Compile Include="_Modules\BitFields.vb" />
     <Compile Include="_Modules\CrystalReports.vb" />
     <Compile Include="_Modules\CueTextBox.vb">

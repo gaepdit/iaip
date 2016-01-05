@@ -1,4 +1,5 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Collections.Generic
+Imports Oracle.ManagedDataAccess.Client
 
 Module ErrorReporting
 
@@ -7,7 +8,7 @@ Module ErrorReporting
     ''' </summary>
     ''' <param name="exc">The exception to be handled.</param>
     ''' <param name="contextMessage">A string representing the context of the error.</param>
-    Public Sub ErrorReport(ByVal exc As System.Exception, ByVal contextMessage As String)
+    Public Sub ErrorReport(exc As Exception, contextMessage As String)
         ErrorReport(exc, "", contextMessage)
     End Sub
 
@@ -17,10 +18,11 @@ Module ErrorReporting
     ''' <param name="exc">The exception to be handled.</param>
     ''' <param name="supplementalMessage">A string containing supplementary information to be logged.</param>
     ''' <param name="contextMessage">A string representing the calling function.</param>
-    Public Sub ErrorReport(ByVal exc As System.Exception, ByVal supplementalMessage As String, ByVal contextMessage As String)
+    Public Sub ErrorReport(exc As Exception, supplementalMessage As String, contextMessage As String)
 
         ' First, track the exception using our analytics program. This is more reliable.
         monitor.TrackException(exc, contextMessage)
+        ApplicationInsights.TrackException(exc, contextMessage)
 
         ' Second, try logging the error message to the IAIP database. This requires a connection so will sometimes fail.
         Dim errorMessage As String = exc.Message
@@ -43,7 +45,7 @@ Module ErrorReporting
             WhatUserCanDo = "• Wait for the process to finish before continuing." & Environment.NewLine & Environment.NewLine
         ElseIf errorMessage.Contains("ORA-") Then
             WhatHappened = "The IAIP experienced a database connection error."
-            WhatUserCanDo = "• Check your Internet connection. " & Environment.NewLine & Environment.NewLine & _
+            WhatUserCanDo = "• Check your Internet connection. " & Environment.NewLine & Environment.NewLine &
             "• If operating from a remote location, check your VPN connection. " & Environment.NewLine & Environment.NewLine
         ElseIf errorMessage.Contains("Exception of type 'System.OutOfMemoryException' was thrown") Then
             WhatHappened = "This computer has run out of memory."
@@ -52,7 +54,7 @@ Module ErrorReporting
             WhatHappened = "An error has occurred."
         End If
 
-        WhatUserCanDo = WhatUserCanDo & "• Close and restart the IAIP and try repeating your last action." & Environment.NewLine & Environment.NewLine & _
+        WhatUserCanDo = WhatUserCanDo & "• Close and restart the IAIP and try repeating your last action." & Environment.NewLine & Environment.NewLine &
         "• If you continue to see this error, please email the DMU. Describe what you were doing and paste the error details below into your email."
 
         IaipExceptionManager.ShowErrorDialog(exc, WhatHappened, WhatUserCanDo)

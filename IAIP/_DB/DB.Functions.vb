@@ -1,6 +1,7 @@
 ﻿Imports Oracle.ManagedDataAccess.Client
 Imports System.Collections.Generic
 Imports System.IO
+Imports System.Reflection
 
 Namespace DB
     Module DB
@@ -23,16 +24,24 @@ Namespace DB
         ''' function...
         ''' </remarks>
         Public Function PingDBConnection(ByVal conn As OracleConnection) As Boolean
-            Dim sql As String = "SELECT 1 FROM DUAL"
-            Using cmd As New OracleCommand(sql, conn)
+            Dim query As String = "SELECT 1 FROM DUAL"
+            Dim success As Boolean = True
+            Dim startTime As Date = Date.UtcNow
+            Dim timer As Stopwatch = Stopwatch.StartNew
+
+            Using cmd As New OracleCommand(query, conn)
                 Try
                     If conn.State = ConnectionState.Closed Then conn.Open()
                     cmd.ExecuteScalar()
-                    Return True
                 Catch ex As Exception
-                    Return False
+                    success = False
+                Finally
+                    timer.Stop()
+                    ApplicationInsights.telemetryClient.TrackDependency("Oracle-" & MethodBase.GetCurrentMethod.Name, query, startTime, timer.Elapsed, success)
                 End Try
             End Using
+
+            Return success
         End Function
 
 #End Region
@@ -82,24 +91,34 @@ Namespace DB
         ''' <returns>A value of the specified type.</returns>
         Public Function GetSingleValue(Of T)(ByVal query As String, ByVal parameterArray As OracleParameter(), Optional ByVal failSilently As Boolean = False) As T
             Dim result As Object = Nothing
+            Dim success As Boolean = True
+            Dim startTime As Date = Date.UtcNow
+            Dim timer As Stopwatch = Stopwatch.StartNew
+
             Using connection As New OracleConnection(CurrentConnectionString)
                 Using command As New OracleCommand(query, connection)
                     command.CommandType = CommandType.Text
                     command.BindByName = True
                     command.Parameters.AddRange(parameterArray)
+
                     Try
                         command.Connection.Open()
                         result = command.ExecuteScalar()
                         command.Connection.Close()
                     Catch ee As OracleException
+                        success = False
                         If Not failSilently Then
                             MessageBox.Show("Database error: " & ee.ToString)
                         End If
+                    Finally
+                        timer.Stop()
+                        ApplicationInsights.telemetryClient.TrackDependency("Oracle-" & MethodBase.GetCurrentMethod.Name, query, startTime, timer.Elapsed, success)
                     End Try
 
-                    Return GetNullable(Of T)(result)
                 End Using
             End Using
+
+            Return GetNullable(Of T)(result)
         End Function
 
 #End Region
@@ -125,6 +144,10 @@ Namespace DB
         ''' <returns>A boolean value signifying whether the indicated value exists.</returns>
         Public Function ValueExists(query As String, parameterArray As OracleParameter()) As Boolean
             Dim result As Object = Nothing
+            Dim success As Boolean = True
+            Dim startTime As Date = Date.UtcNow
+            Dim timer As Stopwatch = Stopwatch.StartNew
+
             Using connection As New OracleConnection(CurrentConnectionString)
                 Using command As New OracleCommand(query, connection)
                     command.CommandType = CommandType.Text
@@ -135,12 +158,17 @@ Namespace DB
                         result = command.ExecuteScalar()
                         command.Connection.Close()
                     Catch ee As OracleException
+                        success = False
                         MessageBox.Show("Database error: " & ee.ToString)
+                    Finally
+                        timer.Stop()
+                        ApplicationInsights.telemetryClient.TrackDependency("Oracle-" & MethodBase.GetCurrentMethod.Name, query, startTime, timer.Elapsed, success)
                     End Try
 
-                    Return Not (result Is Nothing OrElse IsDBNull(result) OrElse result.ToString = "null")
                 End Using
             End Using
+
+            Return Not (result Is Nothing OrElse IsDBNull(result) OrElse result.ToString = "null")
         End Function
 
 #End Region
@@ -219,24 +247,35 @@ Namespace DB
         ''' <returns>A DataTable of values.</returns>
         Public Function GetDataTable(ByVal query As String, ByVal parameterArray As OracleParameter()) As DataTable
             Dim table As New DataTable
+            Dim success As Boolean = True
+            Dim startTime As Date = Date.UtcNow
+            Dim timer As Stopwatch = Stopwatch.StartNew
+
             Using connection As New OracleConnection(CurrentConnectionString)
                 Using command As New OracleCommand(query, connection)
                     command.CommandType = CommandType.Text
                     command.BindByName = True
                     command.Parameters.AddRange(parameterArray)
                     Using adapter As New OracleDataAdapter(command)
+
                         Try
                             command.Connection.Open()
                             adapter.Fill(table)
                             command.Connection.Close()
-                            Return table
                         Catch ee As OracleException
-                            ErrorReport(ee, System.Reflection.MethodBase.GetCurrentMethod.Name)
-                            Return Nothing
+                            success = False
+                            table = Nothing
+                            ErrorReport(ee, MethodBase.GetCurrentMethod.Name)
+                        Finally
+                            timer.Stop()
+                            ApplicationInsights.telemetryClient.TrackDependency("Oracle-" & MethodBase.GetCurrentMethod.Name, query, startTime, timer.Elapsed, success)
                         End Try
+
                     End Using
                 End Using
             End Using
+
+            Return table
         End Function
 
 #End Region
@@ -272,6 +311,10 @@ Namespace DB
         End Function
 
         Private Function GetByteArrayFromBlob(ByVal query As String, ByVal parameterArray As OracleParameter()) As Byte()
+            Dim success As Boolean = True
+            Dim startTime As Date = Date.UtcNow
+            Dim timer As Stopwatch = Stopwatch.StartNew
+
             Using connection As New OracleConnection(CurrentConnectionString)
                 Using command As New OracleCommand(query, connection)
                     command.CommandType = CommandType.Text
@@ -293,11 +336,16 @@ Namespace DB
 
                         Return byteArray
                     Catch ee As OracleException
+                        success = False
                         MessageBox.Show("Database error: " & ee.ToString)
                         Return Nothing
                     Catch ex As Exception
+                        success = False
                         MessageBox.Show("Error: " & ex.ToString)
                         Return Nothing
+                    Finally
+                        timer.Stop()
+                        ApplicationInsights.telemetryClient.TrackDependency("Oracle", MethodBase.GetCurrentMethod.Name, startTime, timer.Elapsed, success)
                     End Try
 
                 End Using
@@ -370,6 +418,9 @@ Namespace DB
             If countList Is Nothing Then countList = New List(Of Integer)
             countList.Clear()
             If queryList.Count <> parametersList.Count Then Return False
+            Dim success As Boolean = True
+            Dim startTime As Date = Date.UtcNow
+            Dim timer As Stopwatch = Stopwatch.StartNew
 
             Using connection As New OracleConnection(CurrentConnectionString)
                 Using command As OracleCommand = connection.CreateCommand
@@ -381,6 +432,7 @@ Namespace DB
                         command.Connection.Open()
                         transaction = connection.BeginTransaction
                         command.Transaction = transaction
+
                         Try
                             For index As Integer = 0 To queryList.Count - 1
                                 command.Parameters.Clear()
@@ -390,28 +442,31 @@ Namespace DB
                                 countList.Insert(index, rowsAffected)
                             Next
                             transaction.Commit()
-                            Return True
                         Catch ee As OracleException
+                            success = False
                             countList.Clear()
                             transaction.Rollback()
                             If Not failSilently Then
                                 MessageBox.Show("There was an error updating the database.")
                             End If
-                            Return False
                         End Try
 
                         command.Connection.Close()
                     Catch ee As OracleException
+                        success = False
                         If Not failSilently Then
                             MessageBox.Show("There was an error connecting to the database.")
                         End If
-                        Return False
                     Finally
                         If transaction IsNot Nothing Then transaction.Dispose()
+                        timer.Stop()
+                        ApplicationInsights.telemetryClient.TrackDependency("Oracle-" & MethodBase.GetCurrentMethod.Name, String.Join("; ", queryList.ToArray), startTime, timer.Elapsed, success)
                     End Try
 
                 End Using
             End Using
+
+            Return success
         End Function
 
 #End Region
@@ -538,6 +593,9 @@ Namespace DB
             AddRefCursorParameter(parameterArray)
 
             Dim table As New DataTable
+            Dim success As Boolean = True
+            Dim startTime As Date = Date.UtcNow
+            Dim timer As Stopwatch = Stopwatch.StartNew
 
             Using connection As New OracleConnection(CurrentConnectionString)
                 Using command As New OracleCommand(spName, connection)
@@ -549,14 +607,19 @@ Namespace DB
                             command.Connection.Open()
                             adapter.Fill(table)
                             command.Connection.Close()
-                            Return table
                         Catch ee As OracleException
+                            success = False
                             ErrorReport(ee, System.Reflection.MethodBase.GetCurrentMethod.Name)
-                            Return Nothing
+                            table = Nothing
+                        Finally
+                            timer.Stop()
+                            ApplicationInsights.telemetryClient.TrackDependency("Oracle-" & MethodBase.GetCurrentMethod.Name, spName, startTime, timer.Elapsed, success)
                         End Try
                     End Using
                 End Using
             End Using
+
+            Return table
         End Function
 
 #End Region
@@ -652,6 +715,10 @@ Namespace DB
         End Function
 
         Public Function SPRunCommand(ByVal spName As String, ByRef parameterArray As OracleParameter()) As Boolean
+            Dim success As Boolean = True
+            Dim startTime As Date = Date.UtcNow
+            Dim timer As Stopwatch = Stopwatch.StartNew
+
             Using connection As New OracleConnection(CurrentConnectionString)
                 Using command As New OracleCommand(spName, connection)
                     command.CommandType = CommandType.StoredProcedure
@@ -661,13 +728,17 @@ Namespace DB
                         command.ExecuteNonQuery()
                         command.Connection.Close()
                         command.Parameters.CopyTo(parameterArray, 0)
-                        Return True
                     Catch ee As OracleException
+                        success = False
                         MessageBox.Show("Database error: " & ee.ToString)
-                        Return False
+                    Finally
+                        timer.Stop()
+                        ApplicationInsights.telemetryClient.TrackDependency("Oracle-" & MethodBase.GetCurrentMethod.Name, spName, startTime, timer.Elapsed, success)
                     End Try
                 End Using
             End Using
+
+            Return success
         End Function
 
 #End Region

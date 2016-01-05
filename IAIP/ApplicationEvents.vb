@@ -1,4 +1,5 @@
-﻿Imports Microsoft.VisualBasic.ApplicationServices
+﻿Imports System.Collections.Generic
+Imports Microsoft.VisualBasic.ApplicationServices
 
 Namespace My
 
@@ -27,7 +28,9 @@ Namespace My
             My.Application.Log.WriteEntry("MyApplication_UnhandledException " & e.Exception.Message, TraceEventType.Error)
             MessageBox.Show("MyApplication_UnhandledException")
             monitor.TrackException(e.Exception, sender.ToString)
+            ApplicationInsights.TrackException(e.Exception, sender.ToString)
             StopMonitor()
+            ApplicationInsights.StopTelemetryClient()
         End Sub
     End Class
 

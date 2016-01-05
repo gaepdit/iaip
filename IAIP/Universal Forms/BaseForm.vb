@@ -1,13 +1,15 @@
 ﻿Imports System.Collections.Generic
+Imports Microsoft.ApplicationInsights.DataContracts
 
 Public Class BaseForm
 
 #Region "Properties"
 
     Public Property ID() As Integer
-
     Public Property Parameters() As Dictionary(Of FormParameter, String)
-
+    Private whenOpened As Date = Date.Now
+    Private pageViewTelemetryData As PageViewTelemetry
+    
     Public Enum FormParameter
         AirsNumber
         FeeYear
@@ -22,20 +24,9 @@ Public Class BaseForm
 
 #Region "Form events"
 
-    Private Sub BaseForm_Disposed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Disposed
-        If MultiForm IsNot Nothing AndAlso
-            MultiForm.ContainsKey(Me.Name) AndAlso
-            MultiForm(Me.Name).ContainsKey(Me.ID) Then
-            MultiForm(Me.Name).Remove(Me.ID)
-        ElseIf SingleForm IsNot Nothing AndAlso
-            SingleForm.ContainsKey(Me.Name) Then
-            SingleForm.Remove(Me.Name)
-            End If
-    End Sub
+    Private Sub BaseForm_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
-    Private Sub BaseForm_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
-#If Not Debug Then
+#If Not DEBUG Then
         ' CurrentConnectionEnvironment variable is not available in design mode
         If Not Me.DesignMode _
         AndAlso (CurrentServerEnvironment <> DB.DefaultServerEnvironment) Then
@@ -48,10 +39,28 @@ Public Class BaseForm
 #End If
 
         LoadThisFormSettings()
+
+        pageViewTelemetryData = New PageViewTelemetry(Me.Name)
     End Sub
 
-    Private Sub BaseForm_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub BaseForm_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+        LogPageView()
+
         SaveThisFormSettings()
+
+        If MultiForm IsNot Nothing AndAlso
+        MultiForm.ContainsKey(Me.Name) AndAlso
+        MultiForm(Me.Name).ContainsKey(Me.ID) Then
+            MultiForm(Me.Name).Remove(Me.ID)
+        ElseIf SingleForm IsNot Nothing AndAlso
+        SingleForm.ContainsKey(Me.Name) Then
+            SingleForm.Remove(Me.Name)
+        End If
+    End Sub
+
+    Private Sub LogPageView()
+        pageViewTelemetryData.Duration = Date.Now - whenOpened
+        ApplicationInsights.telemetryClient.TrackPageView(pageViewTelemetryData)
     End Sub
 
 #End Region

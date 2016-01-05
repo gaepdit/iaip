@@ -124,11 +124,11 @@ Public Class IAIPLogIn
             EnableLogin()
             Return True
         Else
-            DisableLogin("The IAIP is currently unavailable. Please check " & vbNewLine & _
-                         "back later. If you are working remotely, you must " & vbNewLine & _
-                         "connect to the VPN before using the IAIP. " & vbNewLine & vbNewLine & _
-                         "Otherwise, if you continue to see this message after " & vbNewLine & _
-                         "two hours, please inform the Data Management Unit. " & vbNewLine & vbNewLine & _
+            DisableLogin("The IAIP is currently unavailable. Please check " & vbNewLine &
+                         "back later. If you are working remotely, you must " & vbNewLine &
+                         "connect to the VPN before using the IAIP. " & vbNewLine & vbNewLine &
+                         "Otherwise, if you continue to see this message after " & vbNewLine &
+                         "two hours, please inform the Data Management Unit. " & vbNewLine & vbNewLine &
                          "Thank you.")
             Return False
         End If
@@ -150,12 +150,13 @@ Public Class IAIPLogIn
 #End If
 
         If Not DAL.AppIsEnabled Then
-            DisableLogin("The IAIP is currently unavailable. Please check " & vbNewLine & _
-                             "back later. If you continue to see this message after " & vbNewLine & _
-                             "two hours, please inform the Data Management Unit. " & vbNewLine & _
+            DisableLogin("The IAIP is currently unavailable. Please check " & vbNewLine &
+                             "back later. If you continue to see this message after " & vbNewLine &
+                             "two hours, please inform the Data Management Unit. " & vbNewLine &
                              "Thank you.")
             txtUserPassword.Clear()
             monitor.TrackFeatureCancel("Startup.LoggingIn")
+            ApplicationInsights.telemetryClient.TrackEvent("Application unavailable")
             Exit Sub
         End If
 
@@ -180,6 +181,7 @@ Public Class IAIPLogIn
                 FocusLogin()
                 LoginProgressBar.Visible = False
                 monitor.TrackFeatureCancel("Startup.LoggingIn")
+                ApplicationInsights.telemetryClient.TrackEvent("Invalid Login")
                 Exit Sub
             End If
 
@@ -204,6 +206,7 @@ Public Class IAIPLogIn
                 txtUserPassword.Clear()
                 LoginProgressBar.Visible = False
                 monitor.TrackFeatureCancel("Startup.LoggingIn")
+                ApplicationInsights.telemetryClient.TrackEvent("Inactive user")
                 Exit Sub
             End If
 
@@ -213,6 +216,7 @@ Public Class IAIPLogIn
                 FocusLogin()
                 LoginProgressBar.Visible = False
                 monitor.TrackFeatureCancel("Startup.LoggingIn")
+                ApplicationInsights.telemetryClient.TrackEvent("Invalid login")
                 Exit Sub
             End If
 
@@ -269,6 +273,8 @@ Public Class IAIPLogIn
                 monitor.TrackFeature("Main.TestingEnvironment")
             End If
             monitor.ForceSync()
+            ApplicationInsights.UpdateTelemetryUser()
+            ApplicationInsights.telemetryClient.TrackEvent("Successful Login")
 
             SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
             OpenSingleForm(IAIPNavigation)
