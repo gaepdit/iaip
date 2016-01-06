@@ -7,7 +7,7 @@ Public Class DMUDangerousTool
     Dim RecExist As Boolean
 
     Private Sub DMUDangerousTool_Load(sender As Object, e As EventArgs) Handles Me.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
     End Sub
 
     Private Sub btnMoveAIRSData_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnMoveAIRSData.Click

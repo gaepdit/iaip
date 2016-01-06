@@ -45,7 +45,7 @@ Public Class ISMPManagersTools
 
 
     Private Sub ISMPManagersTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
             CreateStatusBar()
             ShowCorrectTabs()

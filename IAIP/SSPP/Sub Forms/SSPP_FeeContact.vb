@@ -6,7 +6,7 @@ Public Class SSPP_FeeContact
     Dim dr As OracleDataReader
 
     Private Sub SSPP_FeeContact_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
     End Sub
     Sub LoadCurrentFeeContact()
         Try

@@ -16,7 +16,7 @@ Public Class DMUEisGecoTool
     Dim daViewCount As OracleDataAdapter
     
     Private Sub DMUStaffTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
 
             LoadPermissions()

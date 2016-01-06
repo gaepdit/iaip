@@ -9,7 +9,7 @@ Public Class ISMPMemo
     Dim panel3 As New StatusBarPanel
 
     Private Sub ISMPMemo_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
             TCISMPMemo.TabPages.Remove(TPFuturePrintOption)
 

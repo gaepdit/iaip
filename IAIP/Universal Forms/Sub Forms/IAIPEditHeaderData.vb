@@ -45,7 +45,7 @@ Public Class IAIPEditHeaderData
 #Region " Form Load "
 
     Private Sub IAIPEditHeaderData_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
 
         AirsNumberDisplay.Text = Me.AirsNumber.FormattedString
         FacilityNameDisplay.Text = Me.FacilityName

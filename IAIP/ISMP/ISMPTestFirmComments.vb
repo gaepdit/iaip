@@ -11,7 +11,7 @@ Public Class ISMPTestFirmComments
     Dim daTestingFirms As OracleDataAdapter
 
     Private Sub ISMPTestFirmComments_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
             ClearPage()
             lblComment.Visible = False

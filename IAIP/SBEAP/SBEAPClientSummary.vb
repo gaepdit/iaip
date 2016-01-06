@@ -25,7 +25,7 @@ Public Class SBEAPClientSummary
     End Sub
 
     Private Sub SBEAPClientMaintenance_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
             pnl1.Text = "Client Summary"
             pnl2.Text = UserName

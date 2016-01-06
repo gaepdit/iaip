@@ -53,7 +53,7 @@ Public Class ISMPTestReports
     End Property
 
     Private Sub ISMPTestReports_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
             txtReferenceNumber.Text = Me.ReferenceNumber
 

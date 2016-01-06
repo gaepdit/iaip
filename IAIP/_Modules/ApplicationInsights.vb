@@ -1,22 +1,23 @@
 ﻿Imports System.Collections.Generic
 Imports System.Globalization
 Imports Microsoft.ApplicationInsights
+Imports Microsoft.ApplicationInsights.DataContracts
 Imports Microsoft.ApplicationInsights.Extensibility
 
 Friend Class ApplicationInsights
 
+    Private Shared iaipTelemetryClient As TelemetryClient
+
     Private Sub New()
     End Sub
 
-    Public Shared telemetryClient As TelemetryClient
-
     Public Shared Sub InitializeTelemetryClient()
-        telemetryClient = New TelemetryClient
+        iaipTelemetryClient = New TelemetryClient
 
-        telemetryClient.InstrumentationKey = "fc9b3ee9-eae9-4af4-a62d-ca041194890d"
+        iaipTelemetryClient.InstrumentationKey = "fc9b3ee9-eae9-4af4-a62d-ca041194890d"
 
 
-        With telemetryClient.Context
+        With iaipTelemetryClient.Context
             .Session.Id = Guid.NewGuid.ToString
             .Session.IsFirst = AppFirstRun
 
@@ -32,23 +33,23 @@ Friend Class ApplicationInsights
 
 #If DEBUG Then
         TelemetryConfiguration.Active.TelemetryChannel.DeveloperMode = True
-        AddTelemetryProperty(TelemetryProperty.DebugMode, True.ToString)
+        AddTelemetryClientProperty(TelemetryContextProperty.DebugMode, True.ToString)
 #Else
-        AddTelemetryProperty(TelemetryProperty.DebugMode, False.ToString)
+        AddTelemetryClientProperty(TelemetryContextProperty.DebugMode, False.ToString)
 #End If
 
 #If BETA Then
-        AddTelemetryProperty(TelemetryProperty.ReleaseChannel, "Beta")
+        AddTelemetryClientProperty(TelemetryContextProperty.ReleaseChannel, "Beta")
 #Else
-        AddTelemetryProperty(TelemetryProperty.ReleaseChannel, "Production")
+        AddTelemetryClientProperty(TelemetryContextProperty.ReleaseChannel, "Production")
 #End If
 
-        AddTelemetryProperty(TelemetryProperty.OS64Bit, Environment.Is64BitOperatingSystem.ToString)
-        AddTelemetryProperty(TelemetryProperty.ProcessorCount, Environment.ProcessorCount.ToString)
-        AddTelemetryProperty(TelemetryProperty.ClrVersion, Environment.Version.ToString)
+        AddTelemetryClientProperty(TelemetryContextProperty.OS64Bit, Environment.Is64BitOperatingSystem.ToString)
+        AddTelemetryClientProperty(TelemetryContextProperty.ProcessorCount, Environment.ProcessorCount.ToString)
+        AddTelemetryClientProperty(TelemetryContextProperty.ClrVersion, Environment.Version.ToString)
 
-        telemetryClient.TrackEvent("Application Start")
-        telemetryClient.Flush()
+        iaipTelemetryClient.TrackEvent("Application Start")
+        iaipTelemetryClient.Flush()
     End Sub
 
     Private Shared Function GetScreenResolution() As String
@@ -66,25 +67,28 @@ Friend Class ApplicationInsights
     End Function
 
     Public Shared Sub StopTelemetryClient()
-        If telemetryClient IsNot Nothing Then
-            telemetryClient.TrackEvent("Application End")
-            telemetryClient.Flush()
+        If iaipTelemetryClient IsNot Nothing Then
+            iaipTelemetryClient.TrackEvent("Application End")
+            iaipTelemetryClient.Flush()
         End If
     End Sub
 
-    Public Shared Sub UpdateTelemetryUser()
-        With telemetryClient.Context
+    Public Shared Sub UpdateTelemetryClientUser()
+        With iaipTelemetryClient.Context
             .User.AuthenticatedUserId = CurrentUser.UserID
-            AddTelemetryProperty(TelemetryProperty.IaipUserName, CurrentUser.UserName)
-            AddTelemetryProperty(TelemetryProperty.ServerEnvironment, CurrentServerEnvironment.ToString)
+            AddTelemetryClientProperty(TelemetryContextProperty.IaipUserName, CurrentUser.UserName)
+            AddTelemetryClientProperty(TelemetryContextProperty.ServerEnvironment, CurrentServerEnvironment.ToString)
         End With
-        telemetryClient.Flush()
+        iaipTelemetryClient.Flush()
     End Sub
 
-    Public Shared Sub AddTelemetryProperty(prop As TelemetryProperty, value As String)
-        telemetryClient.Context.Properties.Add(prop.ToString, value)
+    Public Shared Sub AddTelemetryClientProperty(prop As TelemetryContextProperty, value As String)
+        iaipTelemetryClient.Context.Properties.Add(prop.ToString, value)
     End Sub
 
+#Region " General use methods "
+
+#Region " Track Exceptions "
     Public Shared Sub TrackException(exc As Exception, context As String)
         TrackException(exc, Nothing, context)
     End Sub
@@ -96,12 +100,51 @@ Friend Class ApplicationInsights
             telemetryProperties.Add("SupplementalMessage", message)
         End If
 
-        telemetryClient.TrackException(exc, telemetryProperties)
+        iaipTelemetryClient.TrackException(exc, telemetryProperties)
     End Sub
+
+#End Region
+
+#Region " Track Page Views "
+
+    Public Shared Sub TrackPageView(pageViewType As TelemetryPageViewType, name As String)
+        iaipTelemetryClient.TrackPageView(pageViewType.ToString & "." & name)
+    End Sub
+
+    Public Shared Sub TrackPageView(pageViewType As TelemetryPageViewType, name As String, duration As TimeSpan)
+        Dim pageViewTelemetryData As New PageViewTelemetry(pageViewType.ToString & "." & name)
+        If Not duration.Equals(TimeSpan.Zero) Then pageViewTelemetryData.Duration = duration
+        iaipTelemetryClient.TrackPageView(pageViewTelemetryData)
+    End Sub
+
+#End Region
+
+#Region " Track Events "
+
+    Public Shared Sub TrackEvent(eventName As String, Optional properties As IDictionary(Of String, String) = Nothing, Optional metrics As IDictionary(Of String, Double) = Nothing)
+        iaipTelemetryClient.TrackEvent(eventName, properties, metrics)
+    End Sub
+
+    Public Shared Sub TrackEvent(eventName As String, propertyName As String, value As String)
+        Dim properties As New Dictionary(Of String, String) From {{propertyName, value}}
+        iaipTelemetryClient.TrackEvent(eventName, properties)
+    End Sub
+
+#End Region
+
+#Region " Track Dependencies "
+
+    Public Shared Sub TrackDependency(dependencyType As TelemetryDependencyType, dependencyName As String, commandName As String, startTime As DateTimeOffset, duration As TimeSpan, success As Boolean)
+        iaipTelemetryClient.TrackDependency(dependencyType.ToString & "." & dependencyName, commandName, startTime, duration, success)
+    End Sub
+
+#End Region
+
+#End Region
 
 End Class
 
-Public Enum TelemetryProperty
+Public Enum TelemetryContextProperty
     IaipUserName
     ServerEnvironment
     OS64Bit
@@ -109,4 +152,14 @@ Public Enum TelemetryProperty
     ClrVersion
     ReleaseChannel
     DebugMode
+End Enum
+
+Public Enum TelemetryPageViewType
+    IaipForms
+    IaipCrReport
+    IaipFacilitySummaryTab
+End Enum
+
+Public Enum TelemetryDependencyType
+    Oracle
 End Enum

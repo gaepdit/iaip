@@ -12,7 +12,7 @@ Public Class SBEAPPhoneLog
     End Property
 
     Private Sub SBEAPPhoneLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
 
             pnlClientInfo.Visible = False

@@ -27,7 +27,7 @@ Public Class SSCPEvents
 #Region " Form load "
 
     Private Sub SSCP_Reports_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
             tbbPrint.Enabled = False
             tbbPrint.Visible = False

@@ -16,7 +16,7 @@ Public Class IAIPEditSubParts
     Dim daSIP As OracleDataAdapter
 
     Private Sub DevEditSubParts_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
 
             LoadSubPartData()

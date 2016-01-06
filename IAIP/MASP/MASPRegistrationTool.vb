@@ -18,7 +18,7 @@ Public Class MASPRegistrationTool
 #Region "Form events"
 
     Private Sub MASPRegistrationTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
 
         LoadComboBoxes()
         LoadEvent()

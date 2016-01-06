@@ -13,7 +13,7 @@ Public Class ISMPTestMemoViewer
 
 
     Private Sub ISMPTestMemoViewer_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
 
             CreateStatusBar()

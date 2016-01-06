@@ -10,7 +10,7 @@ Public Class SSCPWorkEnTry
     Dim daCompliance As OracleDataAdapter
 
     Private Sub SSCPWorkEnTry_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
 
             DTPDateReceived.Value = Date.Today

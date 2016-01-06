@@ -18,7 +18,7 @@ Public Class ISMPTestReportAdministrative
     Dim daFacility As OracleDataAdapter
 
     Private Sub DevTestReportAdministrative_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
 
             DTPDateReceived.Text = Date.Today

@@ -25,7 +25,7 @@ Public Class PASPFeeAuditLog
 #End Region
 
     Private Sub PASPFeeAuditLog_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
             LoadSelectedNSPSExemptions()
             LoadTransactionTypes()
@@ -4138,6 +4138,7 @@ Public Class PASPFeeAuditLog
 
             rpt = New crFS_Invoice
             monitor.TrackFeature("Report." & rpt.ResourceName)
+            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
 
             'Do this just once at the start
             ParameterFields = New CrystalDecisions.Shared.ParameterFields
