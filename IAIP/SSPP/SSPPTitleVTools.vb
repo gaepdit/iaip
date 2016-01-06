@@ -17,7 +17,7 @@ Public Class SSPPTitleVTools
     Dim EndDate As String
 
     Private Sub DMUTitleVTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
 
             LoadPermissions()

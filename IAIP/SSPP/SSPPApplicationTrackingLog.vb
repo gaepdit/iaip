@@ -10,7 +10,7 @@ Public Class SSPPApplicationTrackingLog
     Dim dtFacInfoHistory As DataTable
 
     Private Sub SSPPPermitTrackingLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
 
             FormStatus = "Loading"

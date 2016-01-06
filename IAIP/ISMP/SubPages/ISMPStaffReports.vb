@@ -17,7 +17,7 @@ Public Class ISMPStaffReports
     Dim dr4, dr5, dr6 As OracleDataReader
 
     Private Sub ISMPStaffReports_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
 
             DTPUnitStart.Text = Format(Date.Today.AddMonths(-6), "dd-MMM-yyyy")

@@ -10,7 +10,7 @@ Public Class IAIPEditFacilityLocation
     Dim daFacilityInformation2 As OracleDataAdapter
 
     Private Sub IAIPEditFacilityLocation_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
             If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtAirsNumber.Text) Then
                 LoadFacilityInformation()

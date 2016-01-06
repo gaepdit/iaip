@@ -130,7 +130,7 @@ Public Class DmuEdtErrorDetail
 #Region " Form resize "
 
     Private Sub DmuEdtErrorDetail_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
     End Sub
 
     Private Sub DmuEdtErrorDetail_Resize(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Resize

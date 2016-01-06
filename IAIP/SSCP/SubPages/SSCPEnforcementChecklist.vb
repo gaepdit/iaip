@@ -21,7 +21,7 @@ Public Class SSCPEnforcementChecklist
 #Region " Page Load "
 
     Private Sub SSCPEnforcementChecklist_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         If Not Me.Modal Then Me.Close()
 
         CollapseFilterOptions()

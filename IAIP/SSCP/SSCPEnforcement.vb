@@ -232,7 +232,7 @@ Public Class SscpEnforcement
 #Region " Form events "
 
     Private Sub SscpEnforcement_Load(sender As Object, e As EventArgs) Handles Me.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
             txtEnforcementNumber.Text = Me.EnforcementNumber
 

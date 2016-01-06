@@ -156,7 +156,7 @@ Public Class IAIPLogIn
                              "Thank you.")
             txtUserPassword.Clear()
             monitor.TrackFeatureCancel("Startup.LoggingIn")
-            ApplicationInsights.telemetryClient.TrackEvent("Application unavailable")
+            ApplicationInsights.TrackEvent("Application unavailable", "ServerEvent", CurrentServerEnvironment)
             Exit Sub
         End If
 
@@ -181,7 +181,7 @@ Public Class IAIPLogIn
                 FocusLogin()
                 LoginProgressBar.Visible = False
                 monitor.TrackFeatureCancel("Startup.LoggingIn")
-                ApplicationInsights.telemetryClient.TrackEvent("Invalid Login")
+                ApplicationInsights.TrackEvent("Invalid Login", "AttemptedUserName", txtUserID.Text)
                 Exit Sub
             End If
 
@@ -206,7 +206,7 @@ Public Class IAIPLogIn
                 txtUserPassword.Clear()
                 LoginProgressBar.Visible = False
                 monitor.TrackFeatureCancel("Startup.LoggingIn")
-                ApplicationInsights.telemetryClient.TrackEvent("Inactive user")
+                ApplicationInsights.TrackEvent("Inactive user", "AttemptedUserName", txtUserID.Text)
                 Exit Sub
             End If
 
@@ -216,7 +216,7 @@ Public Class IAIPLogIn
                 FocusLogin()
                 LoginProgressBar.Visible = False
                 monitor.TrackFeatureCancel("Startup.LoggingIn")
-                ApplicationInsights.telemetryClient.TrackEvent("Invalid login")
+                ApplicationInsights.TrackEvent("Invalid login", "AttemptedUserName", txtUserID.Text)
                 Exit Sub
             End If
 
@@ -273,8 +273,8 @@ Public Class IAIPLogIn
                 monitor.TrackFeature("Main.TestingEnvironment")
             End If
             monitor.ForceSync()
-            ApplicationInsights.UpdateTelemetryUser()
-            ApplicationInsights.telemetryClient.TrackEvent("Successful Login")
+            ApplicationInsights.UpdateTelemetryClientUser()
+            ApplicationInsights.TrackEvent("Successful Login")
 
             SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
             OpenSingleForm(IAIPNavigation)

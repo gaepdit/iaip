@@ -15,7 +15,7 @@ Public Class IAIPEditAirProgramPollutants
     Dim daDataGrid As OracleDataAdapter
 
     Private Sub DevEditAirProgramPollutants_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
     End Sub
 
     Private Sub IAIPEditAirProgramPollutants_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown

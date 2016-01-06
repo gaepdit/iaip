@@ -8,26 +8,51 @@ Module App
 
     Public Sub OpenDocumentationUrl(Optional ByVal objectSender As Form = Nothing)
         monitor.TrackFeature("Url.OpenHelp")
+        If objectSender Is Nothing Then
+            ApplicationInsights.TrackEvent("Url.OpenHelp")
+        Else
+            ApplicationInsights.TrackEvent("Url.OpenHelp", "FromForm", objectSender.Name)
+        End If
         OpenUri(DocumentationUrl, objectSender)
     End Sub
 
     Public Sub OpenSupportUrl(Optional ByVal objectSender As Form = Nothing)
         monitor.TrackFeature("Url.OpenSupport")
+        If objectSender Is Nothing Then
+            ApplicationInsights.TrackEvent("Url.OpenSupport")
+        Else
+            ApplicationInsights.TrackEvent("Url.OpenSupport", "FromForm", objectSender.Name)
+        End If
         OpenUri(SupportUrl, objectSender)
     End Sub
 
     Public Sub OpenChangelogUrl(Optional ByVal objectSender As Form = Nothing)
         monitor.TrackFeature("Url.OpenChangelog")
+        If objectSender Is Nothing Then
+            ApplicationInsights.TrackEvent("Url.OpenChangelog")
+        Else
+            ApplicationInsights.TrackEvent("Url.OpenChangelog", "FromForm", objectSender.Name)
+        End If
         OpenUri(ChangelogUrl, objectSender)
     End Sub
 
     Public Sub OpenMapUrl(ByVal addressString As String, Optional ByVal objectSender As Form = Nothing)
         monitor.TrackFeature("Url.OpenMap")
+        If objectSender Is Nothing Then
+            ApplicationInsights.TrackEvent("Url.OpenMap")
+        Else
+            ApplicationInsights.TrackEvent("Url.OpenMap", "FromForm", objectSender.Name)
+        End If
         OpenUri(New Uri(MapUrlFragment & addressString), objectSender)
     End Sub
 
     Public Sub OpenPermitSearchUrl(ByVal airsNumber As Apb.ApbFacilityId, Optional ByVal objectSender As Form = Nothing)
         monitor.TrackFeature("Url.OpenPermitSearch")
+        If objectSender Is Nothing Then
+            ApplicationInsights.TrackEvent("Url.OpenPermitSearch")
+        Else
+            ApplicationInsights.TrackEvent("Url.OpenPermitSearch", "FromForm", objectSender.Name)
+        End If
         OpenUri(New Uri(PermitSearchUrlFragment & airsNumber.ToString), objectSender)
     End Sub
 
@@ -40,8 +65,8 @@ Module App
             Process.Start(uriString)
             Return True
         Catch ee As Exception When _
-        TypeOf ee Is System.ComponentModel.Win32Exception OrElse _
-        TypeOf ee Is System.ObjectDisposedException OrElse _
+        TypeOf ee Is System.ComponentModel.Win32Exception OrElse
+        TypeOf ee Is System.ObjectDisposedException OrElse
         TypeOf ee Is System.IO.FileNotFoundException
             Return False
         Finally

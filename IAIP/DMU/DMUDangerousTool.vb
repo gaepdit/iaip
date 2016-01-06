@@ -9,7 +9,7 @@ Public Class DMUDangerousTool
     Dim RecExist As Boolean
     
     Private Sub DMUTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
     End Sub
 
     Private Sub btnDeleteEnforcement_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteEnforcement.Click

@@ -5,7 +5,7 @@ Public Class DMUDeveloperTool
 #Region " Page Load Functions "
 
     Private Sub DMUDeveloperTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         LoadPermissions()
     End Sub
 

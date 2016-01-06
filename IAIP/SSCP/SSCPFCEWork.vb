@@ -26,7 +26,7 @@ Public Class SSCPFCEWork
 
 
     Private Sub SSCPFCE_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
 
             DTPFCECompleteDate.Text = OracleDate

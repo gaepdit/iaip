@@ -54,7 +54,7 @@ Public Class IAIPFacilitySummary
 #Region " Form Load "
 
     Private Sub IAIPFacilitySummary_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         LoadPermissions()
         InitializeDataTables()
         InitializeGridEvents()
@@ -1404,6 +1404,7 @@ Public Class IAIPFacilitySummary
 
     Private Sub FSMainTabControl_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FSMainTabControl.SelectedIndexChanged
         monitor.TrackFeature("FacilitySummaryTab." & FSMainTabControl.SelectedTab.Name)
+        ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipFacilitySummaryTab, FSMainTabControl.SelectedTab.Name)
 
         Select Case FSMainTabControl.SelectedTab.Name
 
@@ -1437,6 +1438,7 @@ Public Class IAIPFacilitySummary
     FinancialTabControl.SelectedIndexChanged, EiTabControl.SelectedIndexChanged
 
         Dim tabcontrol As TabControl = CType(sender, TabControl)
+        ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipFacilitySummaryTab, tabcontrol.SelectedTab.Name)
         monitor.TrackFeature("FacilitySummaryTab." & tabcontrol.SelectedTab.Name)
 
     End Sub

@@ -13,7 +13,7 @@ Public Class SSPPPermitUploader
 #Region "Form events"
 
     Private Sub IAIPPermitUploader_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
 
 

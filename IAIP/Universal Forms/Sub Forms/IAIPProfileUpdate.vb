@@ -3,7 +3,7 @@
 Public Class IAIPProfileUpdate
 
     Private Sub IAIPProfileUpdate_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
     End Sub
 
     Private Sub btnUpdateEmail_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateEmail.Click

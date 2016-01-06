@@ -46,7 +46,7 @@ Public Class IAIPEditContacts
 #Region "Page Load"
 
     Private Sub APBAddContacts_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         ParseParameters()
         LoadContactsDataset()
         If Key <> ContactKey.None AndAlso [Enum].IsDefined(GetType(ContactKey), Key) Then

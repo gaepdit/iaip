@@ -11,7 +11,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
 
     Private Sub DevPublicNoticiesAndAdvisories_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
             Panel1.Text = "Public Advisories Letter Generator"
             Panel2.Text = UserName
@@ -1675,6 +1675,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
     Sub ExportPDF()
         Try
             Dim rpt As New SSPPPublicNotice
+            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             monitor.TrackFeature("Report." & rpt.ResourceName)
             Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
             Dim ParameterField As CrystalDecisions.Shared.ParameterField
@@ -1966,6 +1967,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
     Private Sub btnViewOldPDFs_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewOldPDFs.Click
         Try
             Dim rpt As New SSPPPublicNotice
+            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             monitor.TrackFeature("Report." & rpt.ResourceName)
             Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
             Dim ParameterField As CrystalDecisions.Shared.ParameterField

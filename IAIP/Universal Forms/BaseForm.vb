@@ -8,7 +8,6 @@ Public Class BaseForm
     Public Property ID() As Integer
     Public Property Parameters() As Dictionary(Of String, String)
     Private whenOpened As Date = Date.Now
-    Private pageViewTelemetryData As PageViewTelemetry
 
 #End Region
 
@@ -29,8 +28,6 @@ Public Class BaseForm
 #End If
 
         LoadThisFormSettings()
-
-        pageViewTelemetryData = New PageViewTelemetry(Me.Name)
     End Sub
 
     Private Sub BaseForm_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
@@ -51,8 +48,8 @@ Public Class BaseForm
     End Sub
 
     Private Sub LogPageView()
-        pageViewTelemetryData.Duration = Date.Now - whenOpened
-        ApplicationInsights.telemetryClient.TrackPageView(pageViewTelemetryData)
+        ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipForms, Me.Name, Date.Now - whenOpened)
+        monitor.TrackFeature("Forms." & Me.Name)
     End Sub
 
 #End Region

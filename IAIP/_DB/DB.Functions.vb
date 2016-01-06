@@ -37,7 +37,7 @@ Namespace DB
                     success = False
                 Finally
                     timer.Stop()
-                    ApplicationInsights.telemetryClient.TrackDependency("Oracle-" & MethodBase.GetCurrentMethod.Name, query, startTime, timer.Elapsed, success)
+                    ApplicationInsights.TrackDependency(TelemetryDependencyType.Oracle, MethodBase.GetCurrentMethod.Name, query, startTime, timer.Elapsed, success)
                 End Try
             End Using
 
@@ -112,7 +112,7 @@ Namespace DB
                         End If
                     Finally
                         timer.Stop()
-                        ApplicationInsights.telemetryClient.TrackDependency("Oracle-" & MethodBase.GetCurrentMethod.Name, query, startTime, timer.Elapsed, success)
+                        ApplicationInsights.TrackDependency(TelemetryDependencyType.Oracle, MethodBase.GetCurrentMethod.Name, query, startTime, timer.Elapsed, success)
                     End Try
 
                 End Using
@@ -162,7 +162,7 @@ Namespace DB
                         MessageBox.Show("Database error: " & ee.ToString)
                     Finally
                         timer.Stop()
-                        ApplicationInsights.telemetryClient.TrackDependency("Oracle-" & MethodBase.GetCurrentMethod.Name, query, startTime, timer.Elapsed, success)
+                        ApplicationInsights.TrackDependency(TelemetryDependencyType.Oracle, MethodBase.GetCurrentMethod.Name, query, startTime, timer.Elapsed, success)
                     End Try
 
                 End Using
@@ -268,7 +268,7 @@ Namespace DB
                             ErrorReport(ee, MethodBase.GetCurrentMethod.Name)
                         Finally
                             timer.Stop()
-                            ApplicationInsights.telemetryClient.TrackDependency("Oracle-" & MethodBase.GetCurrentMethod.Name, query, startTime, timer.Elapsed, success)
+                            ApplicationInsights.TrackDependency(TelemetryDependencyType.Oracle, MethodBase.GetCurrentMethod.Name, query, startTime, timer.Elapsed, success)
                         End Try
 
                     End Using
@@ -345,7 +345,7 @@ Namespace DB
                         Return Nothing
                     Finally
                         timer.Stop()
-                        ApplicationInsights.telemetryClient.TrackDependency("Oracle", MethodBase.GetCurrentMethod.Name, startTime, timer.Elapsed, success)
+                        ApplicationInsights.TrackDependency(TelemetryDependencyType.Oracle, MethodBase.GetCurrentMethod.Name, query, startTime, timer.Elapsed, success)
                     End Try
 
                 End Using
@@ -437,7 +437,7 @@ Namespace DB
                     Finally
                         If transaction IsNot Nothing Then transaction.Dispose()
                         timer.Stop()
-                        ApplicationInsights.telemetryClient.TrackDependency("Oracle-" & MethodBase.GetCurrentMethod.Name, String.Join("; ", queryList.ToArray), startTime, timer.Elapsed, success)
+                        ApplicationInsights.TrackDependency(TelemetryDependencyType.Oracle, MethodBase.GetCurrentMethod.Name, String.Join("; ", queryList.ToArray), startTime, timer.Elapsed, success)
                     End Try
 
                 End Using
@@ -590,7 +590,7 @@ Namespace DB
                             table = Nothing
                         Finally
                             timer.Stop()
-                            ApplicationInsights.telemetryClient.TrackDependency("Oracle-" & MethodBase.GetCurrentMethod.Name, spName, startTime, timer.Elapsed, success)
+                            ApplicationInsights.TrackDependency(TelemetryDependencyType.Oracle, MethodBase.GetCurrentMethod.Name, spName, startTime, timer.Elapsed, success)
                         End Try
                     End Using
                 End Using
@@ -710,7 +710,7 @@ Namespace DB
                         MessageBox.Show("Database error: " & ee.ToString)
                     Finally
                         timer.Stop()
-                        ApplicationInsights.telemetryClient.TrackDependency("Oracle-" & MethodBase.GetCurrentMethod.Name, spName, startTime, timer.Elapsed, success)
+                        ApplicationInsights.TrackDependency(TelemetryDependencyType.Oracle, MethodBase.GetCurrentMethod.Name, spName, startTime, timer.Elapsed, success)
                     End Try
                 End Using
             End Using

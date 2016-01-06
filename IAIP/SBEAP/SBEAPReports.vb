@@ -14,7 +14,7 @@ Public Class SBEAPReports
     Dim daAction As OracleDataAdapter
 
     Private Sub SBEAPReports_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
             DTPReportStartDate.Text = Format(Date.Today.AddMonths(-3), "dd-MMM-yyyy")
             DTPReportEndDate.Text = OracleDate

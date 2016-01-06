@@ -9,26 +9,8 @@ Public Class IAIPNavigation
 #Region " WorkViewer properties "
 
     Private dtWorkViewerTable As DataTable
-
-    Private _currentWorkViewerContext As WorkViewerType
     Private Property CurrentWorkViewerContext() As WorkViewerType
-        Get
-            Return _currentWorkViewerContext
-        End Get
-        Set(ByVal value As WorkViewerType)
-            _currentWorkViewerContext = value
-        End Set
-    End Property
-
-    Private _currentWorkViewerContextParameter As String
     Private Property CurrentWorkViewerContextParameter() As String
-        Get
-            Return _currentWorkViewerContextParameter
-        End Get
-        Set(ByVal value As String)
-            _currentWorkViewerContextParameter = value
-        End Set
-    End Property
 
 #End Region
 
@@ -145,6 +127,7 @@ Public Class IAIPNavigation
         Dim thisButton As Button = CType(sender, Button)
         monitor.TrackFeature("QuickAccess." & thisButton.Name)
         monitor.TrackFeature("NavScreen.QuickAccess")
+        ApplicationInsights.TrackEvent("NavScreen.QuickAccess", "ButtonName", thisButton.Name)
         Select Case thisButton.Name
             Case btnOpenApplication.Name
                 OpenApplication()
@@ -534,6 +517,7 @@ Public Class IAIPNavigation
     Private Sub btnChangeWorkViewerContext_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnChangeWorkViewerContext.Click
         monitor.TrackFeature("NavScreen.ChangeWorkViewer")
         LoadWorkViewerData()
+        ApplicationInsights.TrackEvent("NavScreen.ChangeWorkViewer", "WorkViewerContext", CurrentWorkViewerContext.ToString)
     End Sub
 
     Private Sub pnlCurrentList_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles pnlCurrentList.Enter
@@ -970,6 +954,7 @@ Public Class IAIPNavigation
     Private Sub OpenSelectedItem()
         monitor.TrackFeature("NavScreen.WorkViewerLink")
         monitor.TrackFeature("WorkViewerLink." & dgvWorkViewer.Columns(0).HeaderText.Replace(" ", "_"))
+        ApplicationInsights.TrackEvent("NavScreen.WorkViewerLink", "WorkViewerLink", dgvWorkViewer.Columns(0).HeaderText)
         Select Case dgvWorkViewer.Columns(0).HeaderText
             Case "Case ID" ' SBEAP cases
                 OpenSbeapCaseLog()
@@ -1179,6 +1164,7 @@ Public Class IAIPNavigation
         Dim nb As NavButton = CType(CType(sender, Button).Tag, NavButton)
         monitor.TrackFeature("NavScreen.NavButton")
         monitor.TrackFeature("NavButton." & nb.FormName)
+        ApplicationInsights.TrackEvent("NavScreen.NavButton", "NavButton", nb.FormName)
         OpenSingleForm(nb.FormName)
     End Sub
 

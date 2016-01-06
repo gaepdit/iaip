@@ -4,7 +4,7 @@
     Public Property FacilityName As String
 
     Private Sub IaipFacilitySummaryPrintLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         FullPrintStartDate.Value = Today.AddMonths(-12)
         FullPrintEndDate.Value = Today
         If AirsNumber IsNot Nothing Then
