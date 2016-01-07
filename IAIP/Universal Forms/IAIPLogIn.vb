@@ -84,6 +84,9 @@ Public Class IAIPLogIn
 
     Private Sub DisplayVersion()
         Dim currentVersion As Version = GetCurrentVersionAsMajorMinorBuild()
+#If BETA Then
+        currentVersion = GetCurrentVersion()
+#End If
 
         With lblCurrentVersionMessage
             If AppUpdated Then
