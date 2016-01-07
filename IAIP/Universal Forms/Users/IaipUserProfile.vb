@@ -105,7 +105,7 @@ Public Class IaipUserProfile
             EP.SetError(EmailAddress, String.Empty)
         Else
             e.Cancel = True
-            EP.SetError(EmailAddress, "Valid DNR email address is required (remember to use @dnr.ga.gov, not @dnr.state.ga.us)")
+            EP.SetError(EmailAddress, "A valid DNR email address is required")
             If Not InvalidEntries.Contains(EmailAddress) Then InvalidEntries.Add(EmailAddress)
         End If
     End Sub

@@ -17,7 +17,7 @@ Public Class IAIPLogIn
 
 #Region " Page Load "
 
-    Private Sub IAIPLogIn_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
+    Private Sub IAIPLogIn_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         If txtUserID.Enabled Then txtUserID.Text = GetUserSetting(UserSetting.PrefillLoginId)
         FocusLogin()
         DisplayVersion()
@@ -27,7 +27,7 @@ Public Class IAIPLogIn
         End If
     End Sub
 
-    Private Sub IAIPLogIn_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub IAIPLogIn_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Main." & Me.Name)
         Try
             CheckLanguageRegistrySetting()
@@ -46,11 +46,11 @@ Public Class IAIPLogIn
 #End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub DisableLogin(Optional ByVal messageText As String = Nothing)
+    Private Sub DisableLogin(Optional messageText As String = Nothing)
         Dim loginControls As Control() = {txtUserID, lblUserID, txtUserPassword, lblPassword, btnLoginButton}
         DisableControls(loginControls)
         Me.AcceptButton = Nothing
@@ -189,7 +189,7 @@ Public Class IAIPLogIn
                 changePassword.Message = New IaipMessage("You must change your password before you can log in.", IaipMessage.WarningLevels.Info)
                 changePassword.Message.Display(changePassword.MessageDisplay)
                 Dim dr As DialogResult = changePassword.ShowDialog()
-                If dr = System.Windows.Forms.DialogResult.OK Then
+                If dr = DialogResult.OK Then
                     Me.Message = New IaipMessage("Password successfully changed. Please log in with new password.", IaipMessage.WarningLevels.Success)
                 Else
                     Me.Message = New IaipMessage("You must change your password before you can log in.", IaipMessage.WarningLevels.ErrorReport)
@@ -211,7 +211,7 @@ Public Class IAIPLogIn
                 editProfile.Message = New IaipMessage("Your profile must be completed before you can log in.", IaipMessage.WarningLevels.Info)
                 editProfile.Message.Display(editProfile.MessageDisplay)
                 Dim dr As DialogResult = editProfile.ShowDialog()
-                If dr = System.Windows.Forms.DialogResult.Cancel Then
+                If dr = DialogResult.Cancel Then
                     Return False
                 End If
             End Using
@@ -219,10 +219,10 @@ Public Class IAIPLogIn
         ElseIf Not IsValidEmailAddress(CurrentUser.EmailAddress, True) Then
 
             Using editProfile As New IaipUserProfile
-                editProfile.Message = New IaipMessage("Your email address must be updated with a valid DNR address.", IaipMessage.WarningLevels.Info)
+                editProfile.Message = New IaipMessage("Your profile must be updated with a valid DNR email address.", IaipMessage.WarningLevels.Info)
                 editProfile.Message.Display(editProfile.MessageDisplay)
                 Dim dr As DialogResult = editProfile.ShowDialog()
-                If dr = System.Windows.Forms.DialogResult.Cancel Then
+                If dr = DialogResult.Cancel Then
                     Return False
                 End If
             End Using
@@ -240,7 +240,7 @@ Public Class IAIPLogIn
         Return True
     End Function
 
-    Private Sub btnLoginButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoginButton.Click
+    Private Sub btnLoginButton_Click(sender As Object, e As EventArgs) Handles btnLoginButton.Click
         LogInCheck()
     End Sub
 
@@ -287,12 +287,12 @@ Public Class IAIPLogIn
 
 #Region " Close application "
 
-    Private Sub Form_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
+    Private Sub Form_Closed(sender As Object, e As EventArgs) Handles MyBase.Closed
         If Not SingleFormIsOpen(IAIPNavigation) Then
             StartupShutdown.CloseIaip()
         End If
     End Sub
-    Private Sub mmiExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExit.Click
+    Private Sub mmiExit_Click(sender As Object, e As EventArgs) Handles mmiExit.Click
         StartupShutdown.CloseIaip()
     End Sub
 
@@ -300,11 +300,11 @@ Public Class IAIPLogIn
 
 #Region " Form usability "
 
-    Private Sub lblUserID_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lblUserID.Click
+    Private Sub lblUserID_Click(sender As Object, e As EventArgs) Handles lblUserID.Click
         txtUserID.Focus()
     End Sub
 
-    Private Sub lblPassword_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lblPassword.Click
+    Private Sub lblPassword_Click(sender As Object, e As EventArgs) Handles lblPassword.Click
         txtUserPassword.Focus()
     End Sub
 
@@ -312,32 +312,32 @@ Public Class IAIPLogIn
 
 #Region " Menu items "
 
-    Private Sub mmiRefreshUserID_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiRefreshUserID.Click
+    Private Sub mmiRefreshUserID_Click(sender As Object, e As EventArgs) Handles mmiRefreshUserID.Click
         ResetUserSetting(UserSetting.PrefillLoginId)
         txtUserID.Text = ""
     End Sub
 
-    Private Sub mmiResetAllForms_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiResetAllForms.Click
+    Private Sub mmiResetAllForms_Click(sender As Object, e As EventArgs) Handles mmiResetAllForms.Click
         ResetAllFormSettings()
     End Sub
 
-    Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
+    Private Sub mmiOnlineHelp_Click(sender As Object, e As EventArgs) Handles mmiOnlineHelp.Click
         OpenDocumentationUrl(Me)
     End Sub
 
-    Private Sub mmiAbout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiAbout.Click
+    Private Sub mmiAbout_Click(sender As Object, e As EventArgs) Handles mmiAbout.Click
         IaipAbout.ShowDialog()
     End Sub
 
-    Private Sub IAIPLogIn_HelpButtonClicked(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.HelpButtonClicked
+    Private Sub IAIPLogIn_HelpButtonClicked(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.HelpButtonClicked
         OpenSupportUrl(Me)
     End Sub
 
-    Private Sub mmiTestingEnvironment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiTestingEnvironment.Click
+    Private Sub mmiTestingEnvironment_Click(sender As Object, e As EventArgs) Handles mmiTestingEnvironment.Click
         ToggleServerEnvironment()
     End Sub
 
-    Private Sub mmiCheckForUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCheckForUpdate.Click
+    Private Sub mmiCheckForUpdate_Click(sender As Object, e As EventArgs) Handles mmiCheckForUpdate.Click
         App.CheckForUpdate()
     End Sub
 

@@ -232,12 +232,12 @@ Public Class IaipCreateUser
             EP.SetError(EmailAddress, "Email address is already in use")
             e.Cancel = True
             If Not InvalidEntries.Contains(EmailAddress) Then InvalidEntries.Add(EmailAddress)
-        ElseIf IsValidEmailAddress(EmailAddress.Text.Trim, True) Then
-            EP.SetError(EmailAddress, String.Empty)
-        Else
+        ElseIf Not IsValidEmailAddress(EmailAddress.Text.Trim, True) Then
             e.Cancel = True
-            EP.SetError(EmailAddress, "Valid DNR email address is required (remember to use @dnr.ga.gov, not @dnr.state.ga.us)")
+            EP.SetError(EmailAddress, "A valid DNR email address is required")
             If Not InvalidEntries.Contains(EmailAddress) Then InvalidEntries.Add(EmailAddress)
+        Else
+            EP.SetError(EmailAddress, String.Empty)
         End If
     End Sub
 

@@ -1,4 +1,4 @@
-﻿Module RegexPatterns
+﻿Public Module RegexPatterns
 
     ' Letters and numbers
     Friend Const AlphaNumericPattern As String = "^[a-zA-Z0-9]+$"
@@ -24,9 +24,16 @@
     ' Test regex here: http://regexr.com/39l4d
     Friend Const PermitNumberPattern As String = "^\d{4}-\d{3}-\d{4}-[A-Z]-\d{2}-[A-Z0-9]$"
 
-    ' Official DNR email address
-    ' Test regex here: http://regexr.com/3c2nl
-    Friend Const DnrEmailPattern As String = ".@dnr\.ga\.gov$"
+    ' Official DNR email address:
+    '   user.name@dnr.ga.gov
+    '   user.name@dnr.state.ga.us
+    '   user.name@gadnr.org
+    '   user.name@gaepd.com
+    '   user.name@gaepd.org
+    '   user.name@georgiaepd.com
+    '   user.name@georgiaepd.org
+    ' Test regex here: http://regexr.com/3chkr
+    Public Const DnrEmailPattern As String = "^\w+\.\w+@(dnr\.(ga\.gov|state\.ga\.us)|gadnr\.org|(ga|georgia)epd\.(com|org))$"
 
     ' Currently unused
     ' See https://stackoverflow.com/questions/123559/a-comprehensive-regex-for-phone-number-validation#comment2795100_123666
