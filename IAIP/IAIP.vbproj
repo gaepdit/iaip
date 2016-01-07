@@ -797,6 +797,9 @@
     <Compile Include="SSPP\Sub Forms\SSPPAttainmentStatus.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="_DAL\Common Data\DAL.CommonData.vb" />
+    <Compile Include="_DAL\Facilities\DAL.PollutantsPrograms.vb" />
+    <Compile Include="_DAL\Facilities\DAL.Afs.vb" />
     <Compile Include="_DAL\SSCP\DAL.Sscp.Fce.vb" />
     <Compile Include="_Data Models\Dmu\Dmu.EdtErrorMessage.vb" />
     <Compile Include="_Data Models\Dmu\Dmu.EdtSubmission.vb" />
@@ -805,6 +808,7 @@
     <Compile Include="_Data Models\Event Registration\Res.EventRegistration.vb" />
     <Compile Include="_Data Models\Facilities\Location.vb" />
     <Compile Include="_Data Models\ISMP\Ismp.ReferenceNumber.vb" />
+    <Compile Include="_Data Models\SSCP\Apb.Sscp.EnforcementCase.vb" />
     <Compile Include="_Data Models\SSCP\Apb.Sscp.Fce.vb" />
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.Inspection.vb" />
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.Notification.vb" />
@@ -813,12 +817,14 @@
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.Report.vb" />
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.RmpInspection.vb" />
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.StackTest.vb" />
+    <Compile Include="_Data Services\SharedData.vb" />
     <Compile Include="_DB\DB.Functions.vb" />
     <Compile Include="_Modules\ErrorReporting.vb" />
     <Compile Include="_Modules\ExcelExport.vb" />
     <Compile Include="_Modules\Extensions.vb" />
     <Compile Include="_Modules\App.vb" />
     <Compile Include="_Modules\IaipMessage.vb" />
+    <Compile Include="_Modules\UserPermissions.vb" />
     <Compile Include="_Modules\UserSettings.vb" />
     <Compile Include="_Modules\subMain.vb">
       <SubType>Code</SubType>
@@ -1037,8 +1043,8 @@
     <EmbeddedResource Include="SSCP\SscpDocuments.resx">
       <DependentUpon>SscpDocuments.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SSCP\SSCPEnforcement.resx">
-      <DependentUpon>SSCPEnforcement.vb</DependentUpon>
+    <EmbeddedResource Include="SSCP\SscpEnforcement.resx">
+      <DependentUpon>SscpEnforcement.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\Fees\crFS_Invoice.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -1586,10 +1592,10 @@
     <Compile Include="SSCP\SscpDocuments.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SSCP\SSCPEnforcement.Designer.vb">
-      <DependentUpon>SSCPEnforcement.vb</DependentUpon>
+    <Compile Include="SSCP\SscpEnforcement.Designer.vb">
+      <DependentUpon>SscpEnforcement.vb</DependentUpon>
     </Compile>
-    <Compile Include="SSCP\SSCPEnforcement.vb">
+    <Compile Include="SSCP\SscpEnforcement.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="_Data Models\Facilities\Address.vb" />

@@ -28,8 +28,8 @@ Public Class SSCPEnforcementSelector
     End Sub
     Private Sub ParseParameters()
         If Parameters IsNot Nothing Then
-            If Parameters.ContainsKey("airsnumber") Then txtAIRSNumber.Text = Parameters("airsnumber")
-            If Parameters.ContainsKey("trackingnumber") Then txtTrackingNumber.Text = Parameters("trackingnumber")
+            If Parameters.ContainsKey(FormParameter.AirsNumber) Then txtAIRSNumber.Text = Parameters(FormParameter.AirsNumber)
+            If Parameters.ContainsKey(FormParameter.TrackingNumber) Then txtTrackingNumber.Text = Parameters(FormParameter.TrackingNumber)
         End If
     End Sub
     Private Sub LoadComplianceUnits()
@@ -192,20 +192,17 @@ Public Class SSCPEnforcementSelector
     Sub OpenEnforcement()
         Try
 
-            If txtFacilityName.Text <> "" And txtFacilityName.Text <> "Invalid AIRS Number" Then
+            If DAL.AirsNumberExists(txtAIRSNumber.Text) Then
 
                 If txtEnforcementNumber.Text <> "" Then
                     OpenFormEnforcement(txtEnforcementNumber.Text)
+                ElseIf txtTrackingNumber.Text = "" Then
+                    OpenFormEnforcement(New Apb.ApbFacilityId(txtAIRSNumber.Text))
                 Else
-
-                    Dim parameters As New Dictionary(Of String, String)
-                    parameters("airsnumber") = txtAIRSNumber.Text
-                    If txtTrackingNumber.Text <> "" Then parameters("trackingnumber") = txtTrackingNumber.Text
-                    OpenMultiForm("SscpEnforcement", -1, parameters)
-
+                    OpenFormEnforcement(New Apb.ApbFacilityId(txtAIRSNumber.Text), txtTrackingNumber.Text)
                 End If
 
-                Me.Dispose()
+                Me.Close()
 
             Else
                 MsgBox("Please verify that the AIRS Number is correct", MsgBoxStyle.Information, "Enforcement Selection Tool Warning")
@@ -400,9 +397,9 @@ Public Class SSCPEnforcementSelector
                 CurrentConnection.Open()
             End If
 
-            daSSCPEnforcement.Fill(dsSSCPEnforcement, "SSCPEnforcement")
+            daSSCPEnforcement.Fill(dsSSCPEnforcement, "SSCPEnforcementTable")
             dgvSSCPEnforcement.DataSource = dsSSCPEnforcement
-            dgvSSCPEnforcement.DataMember = "SSCPEnforcement"
+            dgvSSCPEnforcement.DataMember = "SSCPEnforcementTable"
 
 
 

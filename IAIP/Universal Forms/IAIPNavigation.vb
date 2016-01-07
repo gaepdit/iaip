@@ -213,7 +213,7 @@ Public Class IAIPNavigation
 
             If DAL.Ismp.StackTestExists(id) Then
                 If CurrentUser.ProgramID = 3 Then
-                    OpenMultiForm("ISMPTestReports", id)
+                    OpenMultiForm(ISMPTestReports, id)
                 Else
                     If DAL.Ismp.StackTestIsClosedOut(id) Then
                         If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then

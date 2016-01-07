@@ -56,20 +56,20 @@ Public Class IAIPEditContacts
 
     Private Sub ParseParameters()
         If Parameters IsNot Nothing Then
-            If Parameters.ContainsKey("airsnumber") Then
+            If Parameters.ContainsKey(FormParameter.AirsNumber) Then
                 Try
-                    Me.AirsNumber = Parameters("airsnumber")
+                    Me.AirsNumber = Parameters(FormParameter.AirsNumber)
                     lblAirsNumber.Text = Me.AirsNumber.FormattedString
                 Catch ex As Exception
                     Me.AirsNumber = Nothing
                 End Try
             End If
-            If Parameters.ContainsKey("facilityname") Then
-                Me.FacilityName = Parameters("facilityname")
+            If Parameters.ContainsKey(FormParameter.FacilityName) Then
+                Me.FacilityName = Parameters(FormParameter.FacilityName)
                 lblFacilityName.Text = FacilityName
             End If
-            If Parameters.ContainsKey("key") Then
-                Me.Key = [Enum].Parse(GetType(ContactKey), Parameters("key"))
+            If Parameters.ContainsKey(FormParameter.Key) Then
+                Me.Key = [Enum].Parse(GetType(ContactKey), Parameters(FormParameter.Key))
             End If
         End If
     End Sub

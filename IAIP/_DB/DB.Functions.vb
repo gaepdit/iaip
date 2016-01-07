@@ -306,6 +306,29 @@ Namespace DB
 
 #End Region
 
+#Region " Read: Lists "
+
+        ''' <summary>
+        ''' Returns a list of values from the database
+        ''' </summary>
+        ''' <typeparam name="T">The list item type to return</typeparam>
+        ''' <param name="query">The SQL query to send.</param>
+        ''' <param name="parameter">A single Oracle Parameter to pass in</param>
+        ''' <returns>List of items of the specified type</returns>
+        Public Function GetList(Of T)(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing) As List(Of T)
+            Dim l As New List(Of T)
+            Dim dt As DataTable = GetDataTable(query, parameter)
+
+            For Each r As DataRow In dt.Rows
+                l.Add(GetNullable(Of T)(r.Item(0)))
+            Next
+
+            Return l
+        End Function
+
+#End Region
+
+
 #Region " Write (ExecuteNonQuery) "
 
         Public Function RunCommand(ByVal query As String, _

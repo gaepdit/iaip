@@ -597,12 +597,11 @@ Public Class IAIPEditHeaderData
 #Region " Permissions "
 
     Private Function EditingIsAllowed() As Boolean
-        Return (AccountFormAccess(29, 2) = "1" Or AccountFormAccess(29, 3) = "1" Or AccountFormAccess(29, 4) = "1")
+        Return UserPermissions.CheckAuth(UserCan.EditHeaderData)
     End Function
 
     Private Function UserCanShutDownFacility() As Boolean
-        ' SSCP Unit Manager, SSCP Program Manager, Branch Chief, District Liasion, DMU, SSPP Program Manager
-        Return CurrentUser.HasPermissionCode({114, 19, 102, 27, 118, 28})
+        Return UserPermissions.CheckAuth(UserCan.ShutDownFacility)
     End Function
 
 #End Region

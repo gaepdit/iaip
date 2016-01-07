@@ -22,18 +22,16 @@ Partial Class DMUDangerousTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.lblEisYear = New System.Windows.Forms.Label
-        Me.txtEISYear = New System.Windows.Forms.TextBox
-        Me.lblEisAirs = New System.Windows.Forms.Label
-        Me.txtEISAIRSNumber = New System.Windows.Forms.TextBox
-        Me.PD_EIS_QASTART = New System.Windows.Forms.Button
-        Me.lblNewAirs = New System.Windows.Forms.Label
-        Me.lblOldAirs = New System.Windows.Forms.Label
-        Me.txtNewAIRS = New System.Windows.Forms.TextBox
-        Me.txtOldAIRS = New System.Windows.Forms.TextBox
-        Me.btnMoveAIRSData = New System.Windows.Forms.Button
-        Me.txtEnforcementNumber = New System.Windows.Forms.TextBox
-        Me.btnDeleteEnforcement = New System.Windows.Forms.Button
+        Me.lblEisYear = New System.Windows.Forms.Label()
+        Me.txtEISYear = New System.Windows.Forms.TextBox()
+        Me.lblEisAirs = New System.Windows.Forms.Label()
+        Me.txtEISAIRSNumber = New System.Windows.Forms.TextBox()
+        Me.PD_EIS_QASTART = New System.Windows.Forms.Button()
+        Me.lblNewAirs = New System.Windows.Forms.Label()
+        Me.lblOldAirs = New System.Windows.Forms.Label()
+        Me.txtNewAIRS = New System.Windows.Forms.TextBox()
+        Me.txtOldAIRS = New System.Windows.Forms.TextBox()
+        Me.btnMoveAIRSData = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'lblEisYear
@@ -125,24 +123,6 @@ Partial Class DMUDangerousTool
         Me.btnMoveAIRSData.Text = "Move Data between AIRS #:"
         Me.btnMoveAIRSData.UseVisualStyleBackColor = True
         '
-        'txtEnforcementNumber
-        '
-        Me.txtEnforcementNumber.Location = New System.Drawing.Point(129, 23)
-        Me.txtEnforcementNumber.Name = "txtEnforcementNumber"
-        Me.txtEnforcementNumber.Size = New System.Drawing.Size(100, 20)
-        Me.txtEnforcementNumber.TabIndex = 9
-        '
-        'btnDeleteEnforcement
-        '
-        Me.btnDeleteEnforcement.AutoSize = True
-        Me.btnDeleteEnforcement.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnDeleteEnforcement.Location = New System.Drawing.Point(12, 21)
-        Me.btnDeleteEnforcement.Name = "btnDeleteEnforcement"
-        Me.btnDeleteEnforcement.Size = New System.Drawing.Size(111, 23)
-        Me.btnDeleteEnforcement.TabIndex = 8
-        Me.btnDeleteEnforcement.Text = "Delete Enforcement"
-        Me.btnDeleteEnforcement.UseVisualStyleBackColor = True
-        '
         'DMUDangerousTool
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -151,9 +131,7 @@ Partial Class DMUDangerousTool
         Me.Controls.Add(Me.lblEisYear)
         Me.Controls.Add(Me.txtEISYear)
         Me.Controls.Add(Me.lblEisAirs)
-        Me.Controls.Add(Me.btnDeleteEnforcement)
         Me.Controls.Add(Me.txtEISAIRSNumber)
-        Me.Controls.Add(Me.txtEnforcementNumber)
         Me.Controls.Add(Me.PD_EIS_QASTART)
         Me.Controls.Add(Me.btnMoveAIRSData)
         Me.Controls.Add(Me.txtOldAIRS)
@@ -166,8 +144,6 @@ Partial Class DMUDangerousTool
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents txtEnforcementNumber As System.Windows.Forms.TextBox
-    Friend WithEvents btnDeleteEnforcement As System.Windows.Forms.Button
     Friend WithEvents txtNewAIRS As System.Windows.Forms.TextBox
     Friend WithEvents txtOldAIRS As System.Windows.Forms.TextBox
     Friend WithEvents btnMoveAIRSData As System.Windows.Forms.Button

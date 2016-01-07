@@ -190,4 +190,18 @@ Module App
 
 #End Region
 
+#Region " Alternate booleans "
+
+    Public Enum EnableOrDisable
+        Enable
+        Disable
+    End Enum
+
+    Public Enum OpenOrClosed
+        Open
+        Closed
+    End Enum
+
+#End Region
+
 End Module

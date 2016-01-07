@@ -71,6 +71,11 @@ Namespace DAL
             Return DB.GetDataTable(query, parameter)
         End Function
 
+        Public Function GetAllComplianceStaff() As DataTable
+            Dim query As String = "SELECT NUMUSERID, STAFF, STRLASTNAME FROM AIRBRANCH.VW_COMPLIANCESTAFF"
+            Return DB.GetDataTable(query)
+        End Function
+        
         Public Function UpdateStaffInfo(staff As Staff) As Boolean
             If staff.StaffId = 0 Then Return False
 

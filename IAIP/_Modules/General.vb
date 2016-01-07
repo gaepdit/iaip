@@ -1,4 +1,6 @@
-﻿Module General
+﻿Imports System.Collections.Generic
+
+Module General
 
 #Region " String functions "
 
@@ -67,6 +69,20 @@
         If Not IsDate(d) Then Return Nothing
         If d.Equals(New Date(1776, 7, 4)) Then Return Nothing
         Return d
+    End Function
+
+    ''' <summary>
+    ''' Determines whether any of a list of nullable dates contains a value
+    ''' </summary>
+    ''' <param name="dates">A list of nullable dates</param>
+    ''' <returns>Returns True if any of the nullable dates has a value; otherwise returns False.</returns>
+    Public Function AnyOfTheseDatesHasValue(dates As List(Of Date?)) As Boolean
+        For Each d As Date? In dates
+            If d.HasValue Then
+                Return True
+            End If
+        Next
+        Return False
     End Function
 
 #End Region

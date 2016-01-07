@@ -1,31 +1,43 @@
 ﻿Imports System.Collections.Generic
-Imports System.IO
+Imports System.Linq
+Imports System.Text
 Imports Iaip.Apb.Sscp
-Imports Iaip.DAL.Sscp
 Imports Iaip.DAL.DocumentData
-Imports Oracle.ManagedDataAccess.Types
-Imports Oracle.ManagedDataAccess.Client
 
 Public Class SscpEnforcement
 
-#Region " Properties "
+#Region " Properties and Fields "
 
-    Public Property EnforcementInfo() As EnforcementInfo
+    Public Property EnforcementId() As String
+    Public Property EnforcementCase() As New EnforcementCase
+    Public Property AirsNumber As Apb.ApbFacilityId
+    Public Property Facility As Apb.Facilities.Facility
+    Public Property LinkedEventId As Integer
 
-    Public Property EnforcementNumber() As String
+    Private sscpStaff As DataTable
+    Private violationTypes As DataTable
+    Private existingFiles As List(Of EnforcementDocument)
+    Private selectedStipulatedPenaltyItem As Integer = 0
+    Private validationErrors As Dictionary(Of Control, String)
+    Private nextAfsKey As Integer
+
+    Private _generalMessage As IaipMessage
+    Private Property GeneralMessage As IaipMessage
         Get
-            If Me.ID = -1 Then
-                Return ""
-            Else
-                Return Me.ID.ToString
-            End If
+            Return _generalMessage
         End Get
-        Set(ByVal value As String)
-            Dim i As Integer = -1
-            If Integer.TryParse(value, i) Then
-                Me.ID = i
-            Else
-                Me.ID = -1
+        Set(value As IaipMessage)
+            If value Is Nothing And Message IsNot Nothing Then
+                GeneralMessage.Clear()
+                DismissMessageButton.Visible = False
+                ClearMessageMenuItem.Enabled = False
+            End If
+            _generalMessage = value
+            If value IsNot Nothing Then
+                GeneralMessage.Display(MessageDisplay)
+                DismissMessageButton.Visible = True
+                DismissMessageButton.BringToFront()
+                ClearMessageMenuItem.Enabled = True
             End If
         End Set
     End Property
@@ -42,9 +54,9 @@ Public Class SscpEnforcement
             _message = value
             If value IsNot Nothing Then
                 If Message.WarningLevel = IaipMessage.WarningLevels.ErrorReport Then
-                    Message.Display(lblMessage, EP)
+                    Message.Display(DocumentMessageDisplay, DocumentsErrorProvider)
                 Else
-                    Message.Display(lblMessage)
+                    Message.Display(DocumentMessageDisplay)
                 End If
             End If
         End Set
@@ -52,50 +64,824 @@ Public Class SscpEnforcement
 
 #End Region
 
-#Region "Local variables"
-    Dim SQL, SQL2, SQL3 As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
-    Dim recExist As Boolean
+#Region " Form load event "
 
-    Dim ds As DataSet
-    Dim da As OracleDataAdapter
+    Private Sub SscpEnforcement_Load(sender As Object, e As EventArgs) Handles Me.Load
+        monitor.TrackFeature("Forms." & Me.Name)
 
-    Dim dsStaff As DataSet
-    Dim daStaff As OracleDataAdapter
-    Dim dsComplianceStatus As DataSet
-    Dim daComplianceStatus As OracleDataAdapter
-    Dim dsStipulatedPenalty As DataSet
-    Dim daStipulatedPenalty As OracleDataAdapter
+        ' Set up form/defaults/permissions
+        GetLookupTables()
+        LoadComboBoxes()
+        SetUpForm()
+        SetUserPermissions()
 
-    Dim ViolationTypes As DataTable
-#End Region
+        ' Parse parameters load initial data
+        ParseParameters()
+        LoadCurrentEnforcement()
+        LoadCurrentFacility()
 
-#Region "Document uploads"
+        ' Display initial data
+        DisplayFacility()
+        DisplayEnforcementCase()
+        DisplayLinkedEvent()
 
-#Region "Local variables"
-
-    Private ExistingFiles As List(Of EnforcementDocument)
+    End Sub
 
 #End Region
 
-#Region "Display files"
+#Region " Form setup "
 
-    Private Sub LoadDocuments()
-        DisableDocument()
-        dgvDocumentList.DataSource = Nothing
-        ExistingFiles = GetEnforcementDocumentsAsList(EnforcementInfo.EnforcementNumber)
-        If ExistingFiles.Count > 0 Then
-            With dgvDocumentList
-                .DataSource = New BindingSource(ExistingFiles, Nothing)
-                .Enabled = True
-                .ClearSelection()
+    Private Sub GetLookupTables()
+        sscpStaff = SharedData.GetTable(SharedData.Tables.AllComplianceStaff)
+        violationTypes = SharedData.GetTable(SharedData.Tables.ViolationTypes)
+    End Sub
+
+    Private Sub LoadComboBoxes()
+        LoadStaffComboBox()
+    End Sub
+
+    Private Sub LoadStaffComboBox()
+        With StaffResponsible
+            .DataSource = sscpStaff
+            .DisplayMember = "Staff"
+            .ValueMember = "numUserID"
+            .SelectedIndex = 0
+        End With
+    End Sub
+
+    Private Sub SetUpForm()
+        ' Tabs
+        EnforcementTabs.TabPages.Remove(LonTabPage)
+        EnforcementTabs.TabPages.Remove(NovTabPage)
+        EnforcementTabs.TabPages.Remove(COTabPage)
+        EnforcementTabs.TabPages.Remove(AOTabPage)
+        EnforcementTabs.TabPages.Remove(PollutantsTabPage)
+        EnforcementTabs.TabPages.Remove(DocumentsTabPage)
+        EnforcementTabs.TabPages.Remove(AuditHistoryTabPage)
+        EnforcementTabs.TabPages.Remove(EpaValuesTabPage)
+
+        ' Header
+        StaffResponsible.SelectedValue = CurrentUser.UserID
+
+        ' Dates
+        SetDtpMaxDates(Today, New List(Of DateTimePicker) From {
+                       ResolvedDate, DiscoveryDate,
+                       LonToUC, LonSent, LonResolved,
+                       NovToUC, NovToPM, NovSent, NovResponseReceived,
+                       NfaToUC, NfaToPM, NfaSent,
+                       COToUC, COToPM, COProposed,
+                       COReceivedfromCompany, COReceivedFromDirector,
+                       COExecuted, COResolved,
+                       AOExecuted, AOAppealed, AOResolved
+                       })
+    End Sub
+
+    Private Sub SetDtpMaxDates(maxDate As DateTime, dateControls As List(Of DateTimePicker))
+        For Each dateControl As DateTimePicker In dateControls
+            dateControl.MaxDate = maxDate
+            dateControl.Checked = False
+        Next
+    End Sub
+
+#End Region
+
+#Region " Permissions "
+
+    Private Sub SetUserPermissions()
+        If UserPermissions.CheckAuth(UserCan.ResolveEnforcement) Then
+            ' Enable full access to resolve/delete/submit to EPA
+            ResolvedCheckBox.Enabled = True
+            DeleteEnforcementMenuItem.Enabled = True
+            SubmitToEpa.Enabled = True
+            SubmitToEpa2.Enabled = True
+
+        ElseIf Not UserPermissions.CheckAuth(UserCan.SaveEnforcement) Then
+            ' Disable any save/write access
+            SaveButton.Enabled = False
+            SaveMenuItem.Enabled = False
+            SubmitToUC.Enabled = False
+            AddPollutantsButton.Enabled = False
+            StipulatedPenaltyControls.Enabled = False
+            DocumentUpdateButton.Enabled = False
+            LinkToEvent.Enabled = False
+            ClearLinkedEvent.Enabled = False
+
+        End If
+    End Sub
+
+#End Region
+
+#Region " Load initial data "
+
+    Private Sub ParseParameters()
+        If Parameters IsNot Nothing Then
+            If Parameters.ContainsKey(FormParameter.EnforcementId) Then EnforcementId = Parameters(FormParameter.EnforcementId)
+            If Parameters.ContainsKey(FormParameter.AirsNumber) Then AirsNumber = Parameters(FormParameter.AirsNumber)
+            If Parameters.ContainsKey(FormParameter.TrackingNumber) Then LinkedEventId = CInt(Parameters(FormParameter.TrackingNumber))
+        End If
+    End Sub
+
+    Private Sub LoadCurrentEnforcement()
+        If EnforcementId Is Nothing Then Exit Sub
+        EnforcementCase = DAL.Sscp.GetEnforcementCase(EnforcementId)
+        If EnforcementCase Is Nothing Then
+            MessageBox.Show("Invalid enforcement number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Me.Close()
+        End If
+        AirsNumber = EnforcementCase.AirsNumber
+        LinkedEventId = EnforcementCase.LinkedWorkItemId
+        ShowCorrectTabs()
+        LoadPollutants()
+        LoadAirPrograms()
+        LoadDocuments()
+    End Sub
+
+    Private Sub ShowCorrectTabs()
+        With EnforcementCase
+            LonCheckBox.Checked = .EnforcementActions.Contains(EnforcementActionType.LON)
+            NovCheckBox.Checked = .EnforcementActions.Contains(EnforcementActionType.NOV)
+            COCheckBox.Checked = .EnforcementActions.Contains(EnforcementActionType.CO)
+            AOCheckBox.Checked = .EnforcementActions.Contains(EnforcementActionType.AO)
+        End With
+    End Sub
+
+    Private Sub LoadCurrentFacility()
+        Facility = DAL.GetFacility(AirsNumber)
+        If Facility Is Nothing Then
+            MessageBox.Show("Invalid AIRS number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Me.Close()
+        End If
+    End Sub
+
+#End Region
+
+#Region " Display data "
+
+    Private Sub DisplayFacility()
+        AirsNumberDisplay.Text = AirsNumber.FormattedString
+        FacilityNameDisplay.Text = Facility.FacilityName
+        If Facility.FacilityLocation.Address.City IsNot Nothing Then
+            FacilityNameDisplay.Text &= ", " & Facility.FacilityLocation.Address.City
+        End If
+        FacilityNotApprovedDisplay.Visible = Not Facility.ApprovedByApb
+    End Sub
+
+    Private Sub DisplayEnforcementCase()
+        If EnforcementCase Is Nothing OrElse EnforcementCase.EnforcementId = 0 Then
+            Text = "New Enforcement for " & AirsNumber.FormattedString & ", " & Facility.FacilityName
+            EnforcementIdDisplay.Text = "New enforcement (unsaved)"
+        Else
+            With EnforcementCase
+                ' Form
+                Text = "Enforcement #" & .EnforcementId & " — " & AirsNumber.FormattedString & ", " & Facility.FacilityName
+                ShowAuditHistoryMenuItem.Visible = True
+                ShowEpaActionNumbersMenuItem.Visible = True
+                DeleteEnforcementMenuItem.Visible = True
+                DeleteEnforcementToolStripSeparator.Visible = False
+
+                ' Header
+                EnforcementIdDisplay.Text = "Enforcement #" & .EnforcementId
+                ComplianceStatusDisplay.Visible = True
+                ComplianceStatusDisplay.Text = .ComplianceStatus.GetDescription
+                ColorCodeComplianceStatusDisplay()
+                ResolvedCheckBox.Visible = True
+                ResolvedDate.Visible = True
+                ResolvedCheckBox.Checked = Not .Open
+                ResolvedDate.Checked = Not .Open
+                StaffResponsible.SelectedValue = .StaffResponsibleId
+
+                ' General tab
+                If .DateModified.HasValue Then
+                    LastEditedDateDisplay.Visible = True
+                    LastEditedDateDisplay.Text = "Last edited on " & .DateModified.Value.ToString(DateFormat)
+                End If
+
+                LoadViolationType()
+                GeneralComments.Text = .Comment
+
+                ' LON
+                If .EnforcementActions.Contains(EnforcementActionType.LON) Then LonComments.Text = .LonComment
+
+                ' NOV
+                If .EnforcementActions.Contains(EnforcementActionType.NOV) Then NovComments.Text = .NovComment
+
+                ' CO
+                If .EnforcementActions.Contains(EnforcementActionType.CO) Then
+                    COComments.Text = .CoComment
+                    If .CoNumber <> "" AndAlso .CoNumber.Contains("-"c) Then
+                        Dim parts As String() = .CoNumber.Split("-"c)
+                        If IsNumeric(parts(parts.Length - 1)) Then
+                            CoNumber.Value = Math.Min(Convert.ToInt32(parts(parts.Length - 1)), 999999)
+                        End If
+                    Else
+                        If IsNumeric(.CoNumber) Then
+                            CoNumber.Value = Math.Min(Convert.ToInt32(.CoNumber), 999999)
+                        End If
+                    End If
+
+                    COPenaltyAmount.Text = .CoPenaltyAmount.ToString("C")
+                    COPenaltyComments.Text = .CoPenaltyAmountComment
+                    StipulatedPenaltiesGroupBox.Enabled = True
+                    LoadStipulatedPenalties()
+                End If
+
+                ' AO
+                If .EnforcementActions.Contains(EnforcementActionType.AO) Then AOComments.Text = .AoComment
+
+                ' All nullable Dates
+                DisplayNullableDates()
+
+                If EnforcementTabs.TabPages.Contains(EpaValuesTabPage) Then
+                    DisplayEpaValues()
+                End If
+
             End With
         End If
     End Sub
 
+    Private Sub DisplayNullableDates()
+
+        Dim nullableDates As New Dictionary(Of DateTimePicker, Date?) From {
+            {ResolvedDate, EnforcementCase.DateFinalized},
+            {AOAppealed, EnforcementCase.AoAppealed},
+            {AOExecuted, EnforcementCase.AoExecuted},
+            {AOResolved, EnforcementCase.AoResolved},
+            {COExecuted, EnforcementCase.CoExecuted},
+            {COProposed, EnforcementCase.CoProposed},
+            {COReceivedfromCompany, EnforcementCase.CoReceivedFromCompany},
+            {COReceivedFromDirector, EnforcementCase.CoReceivedFromDirector},
+            {COResolved, EnforcementCase.CoResolved},
+            {COToPM, EnforcementCase.CoToPm},
+            {COToUC, EnforcementCase.CoToUc},
+            {DiscoveryDate, EnforcementCase.DiscoveryDate},
+            {LonResolved, EnforcementCase.LonResolved},
+            {LonSent, EnforcementCase.LonSent},
+            {LonToUC, EnforcementCase.LonToUc},
+            {NfaSent, EnforcementCase.NfaSent},
+            {NfaToPM, EnforcementCase.NfaToPm},
+            {NfaToUC, EnforcementCase.NfaToUc},
+            {NovResponseReceived, EnforcementCase.NovResponseReceived},
+            {NovSent, EnforcementCase.NovSent},
+            {NovToPM, EnforcementCase.NovToPm},
+            {NovToUC, EnforcementCase.NovToUc}
+        }
+
+        For Each kvp As KeyValuePair(Of DateTimePicker, Date?) In nullableDates
+            If kvp.Value.HasValue Then
+                kvp.Key.Checked = True
+                kvp.Key.Value = kvp.Value.Value
+            End If
+        Next
+    End Sub
+
+    Private Sub ColorCodeComplianceStatusDisplay()
+        With ComplianceStatusDisplay
+            Select Case EnforcementCase.ComplianceStatus
+                Case ComplianceStatus.InViolation
+                    .BackColor = Color.Pink
+                Case ComplianceStatus.MeetingComplianceSchedule Or ComplianceStatus.Unknown
+                    .BackColor = Color.LemonChiffon
+                Case Else
+                    .BackColor = SystemColors.ControlLightLight
+            End Select
+        End With
+    End Sub
+
+#End Region
+
+#Region " Header tab "
+
+    Private Sub ResolvedCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles ResolvedCheckBox.CheckedChanged
+        If ResolvedCheckBox.Checked Then
+            ResolvedDate.Enabled = True
+            ResolvedDate.Checked = True
+            EnforcementCase.Open = False
+            EnableDisableChanges(EnableOrDisable.Disable)
+        Else
+            ResolvedDate.Enabled = False
+            ResolvedDate.Checked = False
+            EnforcementCase.Open = True
+            EnableDisableChanges(EnableOrDisable.Enable)
+        End If
+    End Sub
+
+    Private Sub EnableDisableChanges(enabler As EnableOrDisable)
+        Dim enabled As Boolean = (enabler = EnableOrDisable.Enable)
+        InfoTabPage.Enabled = enabled
+        PollutantsTabPage.Enabled = enabled
+        LonTabPage.Enabled = enabled
+        NovTabPage.Enabled = enabled
+        COTabPage.Enabled = enabled
+        AOTabPage.Enabled = enabled
+        DocumentsTabPage.Enabled = enabled
+        AuditHistoryTabPage.Enabled = enabled
+        EpaValuesTabPage.Enabled = enabled
+        StaffResponsible.Enabled = enabled
+    End Sub
+
+    Private Sub AirsNumberDisplay_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles AirsNumberDisplay.LinkClicked
+        OpenFormFacilitySummary(AirsNumber)
+    End Sub
+
+#End Region
+
+#Region " General tab: Violation Types "
+
+    Private Sub LoadViolationType()
+        Dim severityCode As String
+        Dim rowFilter As String
+
+        If String.IsNullOrEmpty(EnforcementCase.ViolationType) Then
+            severityCode = "BLANK"
+            EnforcementCase.ViolationType = "BLANK"
+        Else
+            Dim dr As DataRow = violationTypes.Rows.Find(EnforcementCase.ViolationType)
+            severityCode = dr("SEVERITYCODE").ToString
+        End If
+
+        Select Case severityCode
+            Case "BLANK"
+                ViolationTypeNone.Checked = True
+                rowFilter = "AIRVIOLATIONTYPECODE = 'BLANK'"
+            Case "HPV"
+                ViolationTypeHpv.Checked = True
+                rowFilter = "(SEVERITYCODE='HPV' AND DEPRECATED = 'FALSE') OR " &
+                    "(AIRVIOLATIONTYPECODE = 'BLANK') OR " &
+                    "(AIRVIOLATIONTYPECODE = '" & EnforcementCase.ViolationType & "')"
+            Case "FRV"
+                ViolationTypeFrv.Checked = True
+                rowFilter = "(SEVERITYCODE='FRV' AND DEPRECATED = 'FALSE') OR " &
+                    "(AIRVIOLATIONTYPECODE = 'BLANK') OR " &
+                    "(AIRVIOLATIONTYPECODE = '" & EnforcementCase.ViolationType & "')"
+            Case Else
+                ViolationTypeNonFrv.Checked = True
+                rowFilter = "(SEVERITYCODE<>'FRV' AND SEVERITYCODE<>'FRV' AND DEPRECATED = 'FALSE') OR " &
+                    "(AIRVIOLATIONTYPECODE = 'BLANK')"
+        End Select
+
+        ApplyViolationSelectFilter(rowFilter)
+        ViolationTypeSelect.SelectedValue = EnforcementCase.ViolationType
+    End Sub
+
+    Private Sub ApplyViolationSelectFilter(rowFilter As String)
+        Dim dv As New DataView(violationTypes)
+        dv.RowFilter = rowFilter
+        dv.Sort = "VIOLATIONTYPEDESC ASC"
+
+        With ViolationTypeSelect
+            .DataSource = dv
+            .ValueMember = "AIRVIOLATIONTYPECODE"
+            .DisplayMember = "VIOLATIONTYPEDESC"
+        End With
+    End Sub
+
+    Private Sub ViolationType_CheckedChanged(sender As Object, e As EventArgs) _
+        Handles ViolationTypeFrv.CheckedChanged, ViolationTypeHpv.CheckedChanged,
+        ViolationTypeNonFrv.CheckedChanged, ViolationTypeNone.CheckedChanged
+
+        Dim rowFilter As String
+
+        ViolationTypeSelect.SelectedValue = "BLANK"
+
+        If ViolationTypeNone.Checked Then
+            ViolationTypeSelect.Enabled = False
+        ElseIf ViolationTypeFrv.Checked Then
+            rowFilter = "(SEVERITYCODE='FRV' AND DEPRECATED = 'FALSE') OR " &
+                "(AIRVIOLATIONTYPECODE = 'BLANK')"
+            ViolationTypeSelect.Enabled = True
+            ApplyViolationSelectFilter(rowFilter)
+        ElseIf ViolationTypeHpv.Checked Then
+            rowFilter = "(SEVERITYCODE='HPV' AND DEPRECATED = 'FALSE') OR " &
+                "(AIRVIOLATIONTYPECODE = 'BLANK')"
+            ViolationTypeSelect.Enabled = True
+            ApplyViolationSelectFilter(rowFilter)
+        ElseIf ViolationTypeNonFrv.Checked Then
+            rowFilter = "(SEVERITYCODE<>'FRV' AND SEVERITYCODE<>'HPV' AND DEPRECATED = 'FALSE') OR " &
+                "(AIRVIOLATIONTYPECODE = 'BLANK')"
+            ViolationTypeSelect.Enabled = True
+            ApplyViolationSelectFilter(rowFilter)
+        End If
+
+    End Sub
+
+#End Region
+
+#Region " General tab: Link work item "
+
+    Private Sub LinkToEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LinkToEvent.Click
+        OpenEventLinker()
+    End Sub
+
+    Private Sub ClearLinkedEvent_Click(sender As Object, e As EventArgs) Handles ClearLinkedEvent.Click
+        LinkedEventId = 0
+        DisplayLinkedEvent()
+    End Sub
+
+    Private Sub DisplayLinkedEvent()
+        If LinkedEventId = 0 Then
+            LinkedEventDisplay.Visible = False
+            ClearLinkedEvent.Visible = False
+            LinkToEvent.Visible = True
+        Else
+            LinkedEventDisplay.Visible = True
+            ClearLinkedEvent.Visible = True
+            LinkToEvent.Visible = False
+            LinkedEventDisplay.Text = "Discovery Event: " & LinkedEventId.ToString
+            LinkedEventDisplay.LinkArea = New LinkArea(17, LinkedEventDisplay.Text.Length)
+        End If
+    End Sub
+
+    Private Sub OpenEventLinker()
+        If EnforcementId Is Nothing Then
+            GeneralMessage = New IaipMessage("Current enforcement must be saved before linking a discovery event.", IaipMessage.WarningLevels.Warning)
+            Exit Sub
+        End If
+
+        Dim discoveryEventDialog As New SSCPEnforcementChecklist
+        With discoveryEventDialog
+            .AirsNumber = AirsNumber
+            .EnforcementNumber = EnforcementId
+            .SelectedDiscoveryEvent = LinkedEventId
+            .ShowDialog()
+        End With
+
+        If discoveryEventDialog.DialogResult = DialogResult.OK Then
+            LinkedEventId = discoveryEventDialog.SelectedDiscoveryEvent
+            DisplayLinkedEvent()
+        End If
+
+        discoveryEventDialog.Dispose()
+    End Sub
+
+    Private Sub LinkedEventDisplay_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkedEventDisplay.LinkClicked
+        If LinkedEventId > 0 Then OpenFormSscpWorkItem(LinkedEventId)
+    End Sub
+
+#End Region
+
+#Region " General tab: Enforcement action checkboxes "
+
+    Private Sub LonCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles LonCheckBox.CheckedChanged
+        If LonCheckBox.Checked Then
+            EnforcementTabs.TabPages.Add(LonTabPage)
+            AOCheckBox.Enabled = False
+            COCheckBox.Enabled = False
+            NovCheckBox.Enabled = False
+            ViolationTypeNone.Checked = True
+            ViolationTypeGroupbox.Visible = False
+            If Not EnforcementCase.SubmittedToUc And EnforcementId IsNot Nothing Then
+                SubmitToUC.Visible = True
+            End If
+        Else
+            EnforcementTabs.TabPages.Remove(LonTabPage)
+            AOCheckBox.Enabled = True
+            COCheckBox.Enabled = True
+            NovCheckBox.Enabled = True
+            SubmitToUC.Visible = False
+        End If
+    End Sub
+
+    Private Sub NovCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles NovCheckBox.CheckedChanged
+        If NovCheckBox.Checked Then
+            EnforcementTabs.TabPages.Add(NovTabPage)
+            EnableCaseFileTools(EnableOrDisable.Enable)
+        Else
+            EnforcementTabs.TabPages.Remove(NovTabPage)
+            If Not (COCheckBox.Checked Or AOCheckBox.Checked) Then
+                EnableCaseFileTools(EnableOrDisable.Disable)
+            End If
+        End If
+    End Sub
+
+    Private Sub COCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles COCheckBox.CheckedChanged
+        If COCheckBox.Checked Then
+            EnforcementTabs.TabPages.Add(COTabPage)
+            EnableCaseFileTools(EnableOrDisable.Enable)
+        Else
+            EnforcementTabs.TabPages.Remove(COTabPage)
+            If Not (NovCheckBox.Checked Or AOCheckBox.Checked) Then
+                EnableCaseFileTools(EnableOrDisable.Disable)
+            End If
+        End If
+    End Sub
+
+    Private Sub AOCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles AOCheckBox.CheckedChanged
+        If AOCheckBox.Checked Then
+            EnforcementTabs.TabPages.Add(AOTabPage)
+            EnableCaseFileTools(EnableOrDisable.Enable)
+        Else
+            EnforcementTabs.TabPages.Remove(AOTabPage)
+            If Not (COCheckBox.Checked Or NovCheckBox.Checked) Then
+                EnableCaseFileTools(EnableOrDisable.Disable)
+            End If
+        End If
+    End Sub
+
+    Private Sub EnableCaseFileTools(enabler As EnableOrDisable)
+        If enabler = EnableOrDisable.Enable Then
+            LonCheckBox.Enabled = False
+            ViolationTypeGroupbox.Visible = True
+            If Not EnforcementCase.SubmittedToUc And EnforcementId IsNot Nothing Then
+                SubmitToUC.Visible = True
+            End If
+            If Not EnforcementCase.SubmittedToEpa And EnforcementId IsNot Nothing AndAlso UserPermissions.CheckAuth(UserCan.ResolveEnforcement) Then
+                SubmitToEpa.Visible = True
+                SubmitToEpa2.Visible = True
+                NotSubmittedToEpaLabel.Visible = True
+            End If
+            If Not EnforcementTabs.TabPages.Contains(PollutantsTabPage) Then EnforcementTabs.TabPages.Insert(1, PollutantsTabPage)
+        Else
+            ViolationTypeGroupbox.Visible = False
+            SubmitToUC.Visible = False
+            SubmitToEpa.Visible = False
+            SubmitToEpa2.Visible = False
+            NotSubmittedToEpaLabel.Visible = False
+            LonCheckBox.Enabled = True
+            If EnforcementTabs.TabPages.Contains(PollutantsTabPage) Then EnforcementTabs.TabPages.Remove(PollutantsTabPage)
+        End If
+    End Sub
+
+#End Region
+
+#Region " General tab: Submit to UC/EPA buttons "
+
+    Private Sub SubmitToUC_Click(sender As Object, e As EventArgs) Handles SubmitToUC.Click
+        If EnforcementCase.SubmittedToUc = True Then Exit Sub
+
+        EnforcementCase.SubmittedToUc = True
+        If ValidateAndSave() Then
+            SubmitToUC.Visible = False
+        Else
+            EnforcementCase.SubmittedToUc = False
+        End If
+    End Sub
+
+    Private Sub SubmitToEpa_Click(sender As Object, e As EventArgs) _
+        Handles SubmitToEpa.Click, SubmitToEpa2.Click
+
+        If EnforcementCase.SubmittedToEpa = True Then Exit Sub
+
+        If Not UserPermissions.CheckAuth(UserCan.ResolveEnforcement) Then
+            GeneralMessage = New IaipMessage("You do not have sufficent permission to submit enforcement case to EPA.", IaipMessage.WarningLevels.ErrorReport)
+            Exit Sub
+        End If
+
+        EnforcementCase.SubmittedToEpa = True
+        If ValidateAndSave() Then
+            SubmitToEpa.Visible = False
+            SubmitToEpa2.Visible = False
+            NotSubmittedToEpaLabel.Visible = False
+            ShowEpaValues()
+        Else
+            EnforcementCase.SubmittedToEpa = False
+        End If
+    End Sub
+
+#End Region
+
+#Region " Pollutants/Programs tab "
+
+    Public Sub LoadPollutants()
+        ' All available pollutants
+        Dim dt As DataTable = DAL.GetFacilityPollutants(AirsNumber)
+        PollutantsListView.Items.Clear()
+        For Each row As DataRow In dt.Rows
+            PollutantsListView.Items.Add(New ListViewItem({row(1), row(0)}))
+        Next
+
+        ' Pollutants associated with this case
+        If EnforcementCase.Pollutants IsNot Nothing Then
+            For i As Integer = 0 To PollutantsListView.Items.Count - 1
+                If EnforcementCase.Pollutants.Contains(PollutantsListView.Items(i).SubItems(1).Text) Then
+                    PollutantsListView.Items.Item(i).Checked = True
+                End If
+            Next
+        End If
+    End Sub
+
+    Private Sub LoadAirPrograms()
+        ' All available air programs
+        Dim dt As DataTable = DAL.GetFacilityAirProgramsAsDataTable(AirsNumber, True)
+        ProgramsListView.Items.Clear()
+        For Each row As DataRow In dt.Rows
+            ProgramsListView.Items.Add(New ListViewItem({row(1), row(0)}))
+        Next
+
+        ' Programs associated with this case
+        If EnforcementCase.AirPrograms IsNot Nothing Then
+            For i As Integer = 0 To ProgramsListView.Items.Count - 1
+                If EnforcementCase.AirPrograms.Contains(ProgramsListView.Items(i).SubItems(1).Text) Then
+                    ProgramsListView.Items.Item(i).Checked = True
+                End If
+            Next
+        End If
+    End Sub
+
+    Private Sub EditAirProgramPollutantsButton_Click(sender As Object, e As EventArgs) Handles AddPollutantsButton.Click
+        Using editProgPollDialog As New IAIPEditAirProgramPollutants
+            With editProgPollDialog
+
+                .AirsNumber = AirsNumber
+                .FacilityName = Facility.FacilityName & ", " & Facility.DisplayCity
+                .ShowDialog()
+
+                If .SomethingChanged Then
+                    ' Get sets of existing/checked pollutants
+                    Dim existingPollutantsSet As New HashSet(Of String)
+                    For Each pi As ListViewItem In PollutantsListView.Items
+                        existingPollutantsSet.Add(pi.SubItems(1).Text)
+                    Next
+
+                    Dim checkedPollutantsSet As New HashSet(Of String)
+                    For Each pi As ListViewItem In PollutantsListView.CheckedItems
+                        checkedPollutantsSet.Add(pi.SubItems(1).Text)
+                    Next
+
+                    ' Reload pollutants list
+                    LoadPollutants()
+
+                    ' Uncheck all 
+                    For Each lvi As ListViewItem In PollutantsListView.Items
+                        lvi.Checked = False
+                    Next
+
+                    ' Remove previously existing pollutants (existingPollutantsSet) from new set of pollutants (.UniqueFacilityPollutants)
+                    .FacilityPollutantsSet.ExceptWith(existingPollutantsSet)
+
+                    ' Add new pollutants to set of checked pollutants
+                    checkedPollutantsSet.UnionWith(.FacilityPollutantsSet)
+
+                    ' Check all pollutants in new set of checked pollutants
+                    If checkedPollutantsSet.Count > 0 Then
+                        For i As Integer = 0 To PollutantsListView.Items.Count - 1
+                            If checkedPollutantsSet.Contains(PollutantsListView.Items(i).SubItems(1).Text) Then
+                                PollutantsListView.Items.Item(i).Checked = True
+                            End If
+                        Next
+                    End If
+
+                End If
+
+            End With
+        End Using
+    End Sub
+
+#End Region
+
+#Region " CO tab: Stipulated Penalties "
+
+    Private Sub LoadStipulatedPenalties()
+        Dim dt As DataTable = DAL.Sscp.GetStipulatedPenalties(EnforcementId)
+
+        StipulatedPenalties.DataSource = dt
+        StipulatedPenalties.Columns("STRENFORCEMENTKEY").Visible = False
+        StipulatedPenalties.Columns("STRSTIPULATEDPENALTY").HeaderText = "Penalty Amount"
+        StipulatedPenalties.Columns("STRSTIPULATEDPENALTY").DisplayIndex = 0
+        StipulatedPenalties.Columns("STRSTIPULATEDPENALTYCOMMENTS").HeaderText = "Comments"
+        StipulatedPenalties.Columns("STRSTIPULATEDPENALTYCOMMENTS").DisplayIndex = 1
+        StipulatedPenalties.Columns("STRAFSSTIPULATEDPENALTYNUMBER").Visible = False
+        StipulatedPenalties.SanelyResizeColumns
+
+        If EnforcementTabs.TabPages.Contains(EpaValuesTabPage) Then DisplayEpaValues()
+    End Sub
+
+    Private Sub SaveNewStipulatedPenalty_Click(sender As Object, e As EventArgs) Handles SaveNewStipulatedPenaltyButton.Click
+        If EnforcementId Is Nothing Then
+            GeneralMessage = New IaipMessage("Current enforcement must be saved before saving stipulated penalties.", IaipMessage.WarningLevels.Warning)
+        ElseIf String.IsNullOrEmpty(StipulatedPenaltyAmount.Text) Then
+            GeneralMessage = New IaipMessage("Enter a stipulated penalty amount first.", IaipMessage.WarningLevels.Warning)
+        ElseIf Not StringValidatesAsCurrency(StipulatedPenaltyAmount.Text) Then
+            GeneralMessage = New IaipMessage("Stipulated penalty amount must be a number.", IaipMessage.WarningLevels.ErrorReport)
+        Else
+            SaveNewStipulatedPenalty()
+        End If
+    End Sub
+
+    Private Sub SaveNewStipulatedPenalty()
+        Dim result As Boolean = DAL.Sscp.SaveNewStipulatedPenalty(EnforcementId, AirsNumber, ConvertCurrencyStringToDecimal(StipulatedPenaltyAmount.Text), StipulatedPenaltyComments.Text)
+
+        If result Then
+            LoadStipulatedPenalties()
+            ClearStipulatedPenaltyForm()
+            GeneralMessage = New IaipMessage("Stipulated penalty saved.", IaipMessage.WarningLevels.Success)
+        Else
+            GeneralMessage = New IaipMessage("Error: There was an error saving the new stipulated penalty.", IaipMessage.WarningLevels.ErrorReport)
+        End If
+    End Sub
+
+    Private Sub UpdateStipulatedPenalty_Click(sender As Object, e As EventArgs) Handles UpdateStipulatedPenaltyButton.Click
+        If EnforcementId Is Nothing Then
+            GeneralMessage = New IaipMessage("Current enforcement must be saved before modifying stipulated penalties.", IaipMessage.WarningLevels.Warning)
+        ElseIf selectedStipulatedPenaltyItem = 0 Then
+            GeneralMessage = New IaipMessage("Select an existing stipulated penalty first.", IaipMessage.WarningLevels.Warning)
+        ElseIf String.IsNullOrEmpty(StipulatedPenaltyAmount.Text) Then
+            GeneralMessage = New IaipMessage("Enter a stipulated penalty amount first.", IaipMessage.WarningLevels.Warning)
+        ElseIf Not StringValidatesAsCurrency(StipulatedPenaltyAmount.Text) Then
+            GeneralMessage = New IaipMessage("Stipulated penalty amount must be a number.", IaipMessage.WarningLevels.Warning)
+        Else
+            UpdateStipulatedPenalty()
+        End If
+    End Sub
+
+    Private Sub UpdateStipulatedPenalty()
+        Dim result As Boolean = DAL.Sscp.UpdateStipulatedPenalty(EnforcementId, ConvertCurrencyStringToDecimal(StipulatedPenaltyAmount.Text), StipulatedPenaltyComments.Text, selectedStipulatedPenaltyItem)
+
+        If result Then
+            LoadStipulatedPenalties()
+            ClearStipulatedPenaltyForm()
+            GeneralMessage = New IaipMessage("Stipulated penalty saved.", IaipMessage.WarningLevels.Success)
+        Else
+            GeneralMessage = New IaipMessage("Error: There was an error updating the stipulated penalty.", IaipMessage.WarningLevels.ErrorReport)
+        End If
+    End Sub
+
+    Private Sub DeleteStipulatedPenalty_Click(sender As Object, e As EventArgs) Handles DeleteStipulatedPenaltyButton.Click
+        If EnforcementId Is Nothing Then
+            GeneralMessage = New IaipMessage("Current enforcement must be saved before modifying stipulated penalties.", IaipMessage.WarningLevels.Warning)
+        ElseIf selectedStipulatedPenaltyItem = 0 Then
+            GeneralMessage = New IaipMessage("Select an existing stipulated penalty first.", IaipMessage.WarningLevels.Warning)
+        Else
+            DeleteSelectedStipulatedPenalty()
+        End If
+    End Sub
+
+    Private Sub DeleteSelectedStipulatedPenalty()
+        Dim result As Boolean = DAL.Sscp.DeleteStipulatedPenalty(EnforcementId, selectedStipulatedPenaltyItem)
+
+        If result Then
+            LoadStipulatedPenalties()
+            ClearStipulatedPenaltyForm()
+            GeneralMessage = New IaipMessage("Stipulated penalty deleted.", IaipMessage.WarningLevels.Success)
+        Else
+            GeneralMessage = New IaipMessage("Error: There was an error deleting the stipulated penalty.", IaipMessage.WarningLevels.ErrorReport)
+        End If
+    End Sub
+
+    Private Sub ClearStipulatedPenaltyFormButton_Click(sender As Object, e As EventArgs) Handles ClearStipulatedPenaltyFormButton.Click
+        ClearStipulatedPenaltyForm()
+    End Sub
+
+    Private Sub StipulatedPenalties_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles StipulatedPenalties.CellClick
+
+        If e.RowIndex <> -1 And e.RowIndex < StipulatedPenalties.RowCount Then
+            selectedStipulatedPenaltyItem = StipulatedPenalties.Rows(e.RowIndex).Cells("STRENFORCEMENTKEY").Value.ToString
+            Dim sp As String = StipulatedPenalties.Rows(e.RowIndex).Cells("STRSTIPULATEDPENALTY").Value
+            If StringValidatesAsCurrency(sp) Then
+                StipulatedPenaltyAmount.Text = ConvertCurrencyStringToDecimal(sp).ToString("C")
+            End If
+            StipulatedPenaltyComments.Text = StipulatedPenalties.Rows(e.RowIndex).Cells("STRSTIPULATEDPENALTYCOMMENTS").Value.ToString
+            UpdateStipulatedPenaltyButton.Visible = True
+            DeleteStipulatedPenaltyButton.Visible = True
+            SaveNewStipulatedPenaltyButton.Visible = False
+        End If
+    End Sub
+
+    Private Sub ClearStipulatedPenaltyForm()
+        StipulatedPenaltyAmount.Text = ""
+        StipulatedPenaltyComments.Text = ""
+        UpdateStipulatedPenaltyButton.Visible = False
+        DeleteStipulatedPenaltyButton.Visible = False
+        SaveNewStipulatedPenaltyButton.Visible = True
+        selectedStipulatedPenaltyItem = 0
+    End Sub
+
+#End Region
+
+#Region " Documents tab "
+
+#Region " Display Document files "
+
+    Private Sub LoadDocuments()
+        EnableOrDisableDocuments(EnableOrDisable.Disable)
+        DocumentList.DataSource = Nothing
+        existingFiles = GetEnforcementDocumentsAsList(EnforcementCase.EnforcementId)
+        If existingFiles.Count > 0 Then
+            lblCurrentFiles.Text = "Current Documents"
+            With DocumentList
+                .DataSource = New BindingSource(existingFiles, Nothing)
+                .Enabled = True
+                .ClearSelection()
+            End With
+        Else
+            DocumentList.Visible = False
+            lblCurrentFiles.Text = "No documents are attached to this enforcement case."
+        End If
+    End Sub
+
+    Private Sub EnableOrDisableDocuments(ByVal enabler As EnableOrDisable)
+        Dim enabled As Boolean = (enabler = EnableOrDisable.Enable)
+        With pnlDocument
+            .Enabled = enabled
+            .Visible = enabled
+        End With
+        If enabled Then
+            txtDocumentDescription.Text = DocumentList.CurrentRow.Cells("Comment").Value
+            lblDocumentName.Text = DocumentList.CurrentRow.Cells("FileName").Value
+        End If
+    End Sub
+
     Private Sub FormatDocumentList()
-        With dgvDocumentList
+        With DocumentList
             .Columns("EnforcementNumber").Visible = False
             .Columns("BinaryFileId").Visible = False
             With .Columns("Comment")
@@ -127,73 +913,37 @@ Public Class SscpEnforcement
         End With
     End Sub
 
-    Private Sub dataGridView_CellFormatting(ByVal sender As Object, ByVal e As DataGridViewCellFormattingEventArgs) Handles dgvDocumentList.CellFormatting
+    Private Sub dataGridView_CellFormatting(ByVal sender As Object, ByVal e As DataGridViewCellFormattingEventArgs) Handles DocumentList.CellFormatting
         If TypeOf e.CellStyle.FormatProvider Is ICustomFormatter Then
             e.Value = TryCast(e.CellStyle.FormatProvider.GetFormat(GetType(ICustomFormatter)), ICustomFormatter).Format(e.CellStyle.Format, e.Value, e.CellStyle.FormatProvider)
             e.FormattingApplied = True
         End If
     End Sub
 
-    Private Sub dgvDocumentList_DataBindingComplete(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewBindingCompleteEventArgs) Handles dgvDocumentList.DataBindingComplete
+    Private Sub dgvDocumentList_DataBindingComplete(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewBindingCompleteEventArgs) Handles DocumentList.DataBindingComplete
         FormatDocumentList()
-        CType(sender, DataGridView).SanelyResizeColumns()
-        CType(sender, DataGridView).ClearSelection()
+        DocumentList.SanelyResizeColumns()
+        DocumentList.ClearSelection()
     End Sub
 
 #End Region
 
-#Region "Enable/Disable Form Regions"
-    Private Sub EnableDocument()
-        EnableOrDisableDocument(True)
-    End Sub
-    Private Sub DisableDocument()
-        EnableOrDisableDocument(False)
-    End Sub
-    Private Sub EnableOrDisableDocument(ByVal enable As Boolean)
-        With pnlDocument
-            .Enabled = enable
-            .Visible = enable
-        End With
-        If enable Then
-            txtDocumentDescription.Text = dgvDocumentList.CurrentRow.Cells("Comment").Value
-            lblDocumentName.Text = dgvDocumentList.CurrentRow.Cells("FileName").Value
-        End If
-    End Sub
-#End Region
+#Region " Document update/download/delete "
 
-#Region "Clear form sections"
-
-    Private Sub ClearEverything()
-        If Message IsNot Nothing Then Message.Clear()
-        ClearDocumentList()
-    End Sub
-
-    Private Sub ClearDocumentList()
-        With dgvDocumentList
-            .DataSource = Nothing
-            .Enabled = False
-        End With
-        DisableDocument()
-    End Sub
-
-#End Region
-
-#Region "Document update/download/delete"
-
-    Private Sub dgvDocumentList_SelectionChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles dgvDocumentList.SelectionChanged
-        If dgvDocumentList.SelectedRows.Count = 1 Then
-            EnableDocument()
+    Private Sub dgvDocumentList_SelectionChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DocumentList.SelectionChanged
+        If DocumentList.SelectedRows.Count = 1 Then
+            EnableOrDisableDocuments(EnableOrDisable.Enable)
         Else
-            DisableDocument()
+            EnableOrDisableDocuments(EnableOrDisable.Disable)
         End If
     End Sub
 
     Private Sub btnDocumentDownload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDocumentDownload.Click
         If Message IsNot Nothing Then Message.Clear()
 
-        Dim doc As EnforcementDocument = EnforcementDocumentFromFileListRow(dgvDocumentList.CurrentRow)
+        Dim doc As EnforcementDocument = EnforcementDocumentFromFileListRow(DocumentList.CurrentRow)
         Me.Message = New IaipMessage(String.Format(GetDocumentMessage(DocumentMessageType.DownloadingFile), doc.FileName))
-        
+
         Dim canceled As Boolean = False
         Dim downloaded As Boolean = DownloadDocument(doc, canceled, Me)
         If downloaded Or canceled Then
@@ -203,8 +953,8 @@ Public Class SscpEnforcement
         End If
     End Sub
 
-    Private Sub btnDocumentUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDocumentUpdate.Click
-        Dim doc As EnforcementDocument = EnforcementDocumentFromFileListRow(dgvDocumentList.CurrentRow)
+    Private Sub btnDocumentUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DocumentUpdateButton.Click
+        Dim doc As EnforcementDocument = EnforcementDocumentFromFileListRow(DocumentList.CurrentRow)
         doc.Comment = txtDocumentDescription.Text
         Dim updated As Boolean = UpdateEnforcementDocument(doc, Me)
         If updated Then
@@ -233,7 +983,7 @@ Public Class SscpEnforcement
 
 #End Region
 
-#Region "Accept Button"
+#Region " Accept Button (Documents) "
 
     Private Sub NoAcceptButton(ByVal sender As System.Object, ByVal e As System.EventArgs) _
     Handles txtDocumentDescription.Leave
@@ -242,4019 +992,918 @@ Public Class SscpEnforcement
 
     Private Sub FileProperties_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
     Handles txtDocumentDescription.Enter
-        Me.AcceptButton = btnDocumentUpdate
+        Me.AcceptButton = DocumentUpdateButton
     End Sub
 
 #End Region
 
 #End Region
 
-#Region " Form events "
+#Region " Audit History tab "
 
-    Private Sub SscpEnforcement_Load(sender As Object, e As EventArgs) Handles Me.Load
-        monitor.TrackFeature("Forms." & Me.Name)
-        Try
-            txtEnforcementNumber.Text = Me.EnforcementNumber
+    Private Sub RefreshAuditHistory_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RefreshAuditHistory.Click
+        LoadAuditData()
+    End Sub
 
-            ParseParameters()
+    Private Sub ExportAuditHistory_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExportAuditHistory.Click
+        AuditHistory.ExportToExcel(Me)
+    End Sub
 
-            LoadDefaults()
-            LoadCombos()
-            LoadViolationTypeValues()
+    Private Sub ShowAuditHistory()
+        If Not EnforcementTabs.TabPages.Contains(AuditHistoryTabPage) Then EnforcementTabs.TabPages.Add(AuditHistoryTabPage)
+        EnforcementTabs.SelectTab(AuditHistoryTabPage)
+        LoadAuditData()
+    End Sub
 
-            btnSubmitEnforcementToEPA.Visible = False
-            cboStaffResponsible.SelectedValue = CurrentUser.UserID
+    Private Sub LoadAuditData()
+        AuditHistory.DataSource = DAL.Sscp.GetEnforcementAuditHistory(EnforcementId)
 
-            LoadEnforcement()
-            If txtStipulatedKey.Text <> "" Then
-                LoadStipulatedPenalties()
-            End If
-            ClearStipulatedPenaltyForm()
-            LoadEnforcementInfo()
+        AuditHistory.Columns("StaffResponsible").HeaderText = "Staff Responsible"
+        AuditHistory.Columns("STRTRACKINGNUMBER").HeaderText = "Linked event"
+        AuditHistory.Columns("DATENFORCEMENTFINALIZED").HeaderText = "Date Closed"
+        AuditHistory.Columns("DATENFORCEMENTFINALIZED").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        AuditHistory.Columns("STRSTATUS").HeaderText = "Submitted to UC"
+        AuditHistory.Columns("STRACTIONTYPE").HeaderText = "Action Type"
+        AuditHistory.Columns("STRGENERALCOMMENTS").HeaderText = "Comments"
+        AuditHistory.Columns("DATDISCOVERYDATE").HeaderText = "Date Discovered"
+        AuditHistory.Columns("DATDISCOVERYDATE").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        AuditHistory.Columns("DATDAYZERO").HeaderText = "Day Zero"
+        AuditHistory.Columns("DATDAYZERO").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        AuditHistory.Columns("STRHPV").HeaderText = "Violation Type"
+        AuditHistory.Columns("STRPOLLUTANTS").HeaderText = "Pollutants"
+        AuditHistory.Columns("STRPOLLUTANTSTATUS").HeaderText = "Compliance Status"
+        AuditHistory.Columns("DATLONTOUC").HeaderText = "Date LON to UC"
+        AuditHistory.Columns("DATLONTOUC").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        AuditHistory.Columns("DATLONSENT").HeaderText = "Date LON Sent"
+        AuditHistory.Columns("DATLONSENT").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        AuditHistory.Columns("DATLONRESOLVED").HeaderText = "Date LON Resolved"
+        AuditHistory.Columns("DATLONRESOLVED").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        AuditHistory.Columns("STRLONCOMMENTS").HeaderText = "LON Comments"
+        AuditHistory.Columns("DATNOVTOUC").HeaderText = "Date NOV to UC"
+        AuditHistory.Columns("DATNOVTOUC").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        AuditHistory.Columns("DATNOVTOPM").HeaderText = "Date NOV to PM"
+        AuditHistory.Columns("DATNOVTOPM").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        AuditHistory.Columns("DATNOVSENT").HeaderText = "Date NOV Sent"
+        AuditHistory.Columns("DATNOVSENT").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        AuditHistory.Columns("DATNOVRESPONSERECEIVED").HeaderText = "Date NOV Response Recieved"
+        AuditHistory.Columns("DATNOVRESPONSERECEIVED").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        AuditHistory.Columns("DATNFATOUC").HeaderText = "Date NFA to UC"
+        AuditHistory.Columns("DATNFATOUC").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        AuditHistory.Columns("DATNFATOPM").HeaderText = "Date NFA to PM"
+        AuditHistory.Columns("DATNFATOPM").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        AuditHistory.Columns("DATNFALETTERSENT").HeaderText = "Date NFA Letter Sent"
+        AuditHistory.Columns("DATNFALETTERSENT").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        AuditHistory.Columns("STRNOVCOMMENT").HeaderText = "NOV Comment"
+        AuditHistory.Columns("DATCOTOUC").HeaderText = "Date CO to UC"
+        AuditHistory.Columns("DATCOTOUC").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        AuditHistory.Columns("DATCOTOPM").HeaderText = "Date CO to PM"
+        AuditHistory.Columns("DATCOTOPM").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        AuditHistory.Columns("DATCOPROPOSED").HeaderText = "Date CO Proposed"
+        AuditHistory.Columns("DATCOPROPOSED").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        AuditHistory.Columns("DATCORECEIVEDFROMCOMPANY").HeaderText = "Date CO Received From Company"
+        AuditHistory.Columns("DATCORECEIVEDFROMCOMPANY").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        AuditHistory.Columns("DATCORECEIVEDFROMDIRECTOR").HeaderText = "Date CO Received From Director"
+        AuditHistory.Columns("DATCORECEIVEDFROMDIRECTOR").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        AuditHistory.Columns("DATCOEXECUTED").HeaderText = "Date CO Executed"
+        AuditHistory.Columns("DATCOEXECUTED").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        AuditHistory.Columns("STRCONUMBER").HeaderText = "CO Number"
+        AuditHistory.Columns("DATCORESOLVED").HeaderText = "Date CO Resolved"
+        AuditHistory.Columns("DATCORESOLVED").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        AuditHistory.Columns("STRCOCOMMENT").HeaderText = "CO Comment"
+        AuditHistory.Columns("STRCOPENALTYAMOUNT").HeaderText = "CO Penalty Amount"
+        AuditHistory.Columns("STRCOPENALTYAMOUNTCOMMENTS").HeaderText = "CO Penalty Amount Comments"
+        AuditHistory.Columns("DATAOEXECUTED").HeaderText = "Date AO Executed"
+        AuditHistory.Columns("DATAOEXECUTED").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        AuditHistory.Columns("DATAOAPPEALED").HeaderText = "Date AO Appealed"
+        AuditHistory.Columns("DATAOAPPEALED").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        AuditHistory.Columns("DATAORESOLVED").HeaderText = "Date AO Resolved"
+        AuditHistory.Columns("DATAORESOLVED").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        AuditHistory.Columns("STRAOCOMMENT").HeaderText = "AO Comments"
+        AuditHistory.Columns("ModifiedBy").HeaderText = "Modified By"
+        AuditHistory.Columns("DATMODIFINGDATE").HeaderText = "Date Modified"
+        AuditHistory.Columns("DATMODIFINGDATE").DefaultCellStyle.Format = "dd-MMM-yyyy"
 
-            If AccountFormAccess(48, 3) = "1" Or AccountFormAccess(22, 3) = "1" Then
-                DTPEnforcementResolved.Enabled = True
-            Else
-                DTPEnforcementResolved.Enabled = False
-            End If
-
-            SetUserPermissions()
-
-            If AccountFormAccess(48, 2) = "1" Or AccountFormAccess(48, 3) = "1" Or AccountFormAccess(48, 4) = "1" Then
-                CheckOpenStatus()
-            End If
-
-            If TCEnforcement.TabPages.Contains(TPAuditHistory) Then
-                TCEnforcement.TabPages.Remove(TPAuditHistory)
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        AuditHistory.SanelyResizeColumns()
     End Sub
 
 #End Region
 
-#Region " Page Load Functions "
+#Region " EPA values tab "
 
-    Private Sub ParseParameters()
-        If Parameters IsNot Nothing Then
-            If Parameters.ContainsKey("airsnumber") Then txtAIRSNumber.Text = Parameters("airsnumber")
-            If Parameters.ContainsKey("trackingnumber") Then txtTrackingNumber.Text = Parameters("trackingnumber")
-        End If
+    Private Sub ShowEpaValues()
+        If Not EnforcementTabs.TabPages.Contains(EpaValuesTabPage) Then EnforcementTabs.TabPages.Add(EpaValuesTabPage)
+        EnforcementTabs.SelectTab(EpaValuesTabPage)
+        DisplayEpaValues()
     End Sub
 
-    Private Sub LoadEnforcementInfo()
-        EnforcementInfo = Nothing
-        Dim enfNum As String = txtEnforcementNumber.Text
-        If EnforcementExists(enfNum) Then
-            EnforcementInfo = GetEnforcementInfo(enfNum)
-            LoadDocuments()
-        End If
-    End Sub
+    Private Sub DisplayEpaValues()
+        With EnforcementCase
+            If .SubmittedToEpa Then
 
-    Private Sub LoadDefaults()
-        Try
-            TCEnforcement.TabPages.Remove(TPLON)
-            TCEnforcement.TabPages.Remove(TPNOV)
-            TCEnforcement.TabPages.Remove(TPCO)
-            TCEnforcement.TabPages.Remove(TPAO)
-            DTPDiscoveryDate.Text = OracleDate
-            DTPDiscoveryDate.Checked = False
-            DTPDayZero.Text = OracleDate
-            DTPDayZero.Checked = False
-            DTPEnforcementResolved.Text = OracleDate
-            DTPEnforcementResolved.Checked = False
-            DTPLONToUC.Text = OracleDate
-            DTPLONToUC.Checked = False
-            DTPLONSent.Text = OracleDate
-            DTPLONSent.Checked = False
-            DTPLONResolved.Text = OracleDate
-            DTPLONResolved.Checked = False
-            DTPNOVToUC.Text = OracleDate
-            DTPNOVToUC.Checked = False
-            DTPNOVToPM.Text = OracleDate
-            DTPNOVToPM.Checked = False
-            DTPNOVsent.Text = OracleDate
-            DTPNOVsent.Checked = False
-            DTPNOVResponseReceived.Text = OracleDate
-            DTPNOVResponseReceived.Checked = False
-            DTPNFAToUC.Text = OracleDate
-            DTPNFAToUC.Checked = False
-            DTPNFAToPM.Text = OracleDate
-            DTPNFAToPM.Checked = False
-            DTPNFALetterSent.Text = OracleDate
-            DTPNFALetterSent.Checked = False
-            DTPCOToUC.Text = OracleDate
-            DTPCOToUC.Checked = False
-            DTPCOToPM.Text = OracleDate
-            DTPCOToPM.Checked = False
-            DTPCOProposed.Text = OracleDate
-            DTPCOProposed.Checked = False
-            DTPCOReceivedfromCompany.Text = OracleDate
-            DTPCOReceivedfromCompany.Checked = False
-            DTPCOReceivedfromDirector.Text = OracleDate
-            DTPCOReceivedfromDirector.Checked = False
-            DTPCOExecuted.Text = OracleDate
-            DTPCOExecuted.Checked = False
-            DTPCOResolved.Text = OracleDate
-            DTPCOResolved.Checked = False
-            DTPAOExecuted.Text = OracleDate
-            DTPAOExecuted.Checked = False
-            DTPAOAppealed.Text = OracleDate
-            DTPAOAppealed.Checked = False
-            DTPAOResolved.Text = OracleDate
-            DTPAOResolved.Checked = False
+                ' AFS action numbers
+                AfsKeyActionNumber.Text = .AfsKeyActionNumber.ToString(DisplayZeroAsNA)
+                AfsNovActionNumber.Text = .AfsNovActionNumber.ToString(DisplayZeroAsNA)
+                AfsNfaActionNumber.Text = .AfsNfaActionNumber.ToString(DisplayZeroAsNA)
+                AfsCoProposedActionNumber.Text = .AfsCoProposedNumber.ToString(DisplayZeroAsNA)
+                AfsCoExecutedActionNumber.Text = .AfsCoActionNumber.ToString(DisplayZeroAsNA)
+                AfsCoResolvedActionNumber.Text = .AfsCoResolvedActionNumber.ToString(DisplayZeroAsNA)
+                AfsAoCivilCourtActionNumber.Text = .AfsCivilCourtActionNumber.ToString(DisplayZeroAsNA)
+                AfsAoToAgActionNumber.Text = .AfsAoToAGActionNumber.ToString(DisplayZeroAsNA)
+                AfsAoResolvedActionNumber.Text = .AfsAoResolvedActionNumber.ToString(DisplayZeroAsNA)
 
-            DTPDayZero.Visible = False
-            btnDayZero.Visible = False
-            lblDayZero.Visible = False
-            lblPollutants.Visible = False
-            lblPollutantStatus.Visible = False
-            btnEditAirProgramPollutants.Visible = False
-            cboPollutantStatus.Visible = False
-            ViolationTypeGroupbox.Visible = False
-            HpvToolsPanel.Visible = False
-            btnSubmitToUC.Visible = False
-            btnSubmitEnforcementToEPA.Visible = False
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub LoadCombos()
-        Dim dtComplianceStatus As New DataTable
-        Dim dtStaff As New DataTable
-
-        Dim drNewRow As DataRow
-        Dim drDSRow As DataRow
-        Dim drDSRow3 As DataRow
-
-        Try
-
-            SQL = "Select " & _
-            "strComplianceCode, " & _
-            "(strComplianceCode || ' - ' || strComplianceDesc) as ComplianceDesc " & _
-            "from AIRBRANCH.LookUpComplianceStatus "
-
-            SQL3 = "select numuserID, Staff as StaffName " & _
-            "from AIRBranch.VW_ComplianceStaff "
-
-            dsComplianceStatus = New DataSet
-            dsStaff = New DataSet
-
-            daComplianceStatus = New OracleDataAdapter(SQL, CurrentConnection)
-            daStaff = New OracleDataAdapter(SQL3, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daComplianceStatus.Fill(dsComplianceStatus, "ComplianceStatus")
-            daStaff.Fill(dsStaff, "Staff")
-
-            dtComplianceStatus.Columns.Add("ComplianceDesc", GetType(System.String))
-            dtComplianceStatus.Columns.Add("strComplianceCode", GetType(System.String))
-
-            dtStaff.Columns.Add("numUserID", GetType(System.String))
-            dtStaff.Columns.Add("StaffName", GetType(System.String))
-
-            drNewRow = dtComplianceStatus.NewRow()
-            drNewRow("ComplianceDesc") = " "
-            drNewRow("strComplianceCode") = ""
-            dtComplianceStatus.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsComplianceStatus.Tables("ComplianceStatus").Rows()
-                drNewRow = dtComplianceStatus.NewRow
-                drNewRow("ComplianceDesc") = drDSRow("ComplianceDesc")
-                drNewRow("strComplianceCode") = drDSRow("strComplianceCode")
-                dtComplianceStatus.Rows.Add(drNewRow)
-            Next
-
-            With cboPollutantStatus
-                .DataSource = dtComplianceStatus
-                .DisplayMember = "ComplianceDesc"
-                .ValueMember = "strComplianceCode"
-                .SelectedIndex = 0
-            End With
-
-            drNewRow = dtStaff.NewRow()
-            drNewRow("numUserID") = "0"
-            drNewRow("StaffName") = "N/A"
-            dtStaff.Rows.Add(drNewRow)
-
-            For Each drDSRow3 In dsStaff.Tables("Staff").Rows()
-                drNewRow = dtStaff.NewRow
-                drNewRow("numUserID") = drDSRow3("numUserID")
-                drNewRow("StaffName") = drDSRow3("StaffName")
-                dtStaff.Rows.Add(drNewRow)
-            Next
-
-            With cboStaffResponsible
-                .DataSource = dtStaff
-                .DisplayMember = "StaffName"
-                .ValueMember = "numUserID"
-                .SelectedIndex = 0
-            End With
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub LoadViolationTypeValues()
-        ViolationTypes = GetViolationTypes()
-        ViolationTypes.PrimaryKey = New DataColumn() {ViolationTypes.Columns("AIRVIOLATIONTYPECODE")}
-
-        Dim emptyRow As DataRow = ViolationTypes.NewRow
-        emptyRow("AIRVIOLATIONTYPECODE") = "BLANK"
-        emptyRow("SEVERITYCODE") = "BLANK"
-        emptyRow("VIOLATIONTYPEDESC") = " "
-        ViolationTypes.Rows.Add(emptyRow)
-
-        ApplyViolationSelectFilter("AIRVIOLATIONTYPECODE = 'BLANK'")
-    End Sub
-
-    Private Sub SetUserPermissions()
-        Try
-            If AccountFormAccess(48, 3) = "1" Or AccountFormAccess(48, 2) = "1" Then
-                btnLinkEnforcement.Enabled = True
-                DTPDiscoveryDate.Enabled = True
-                chbLON.Enabled = True
-                chbNOV.Enabled = True
-                chbCO.Enabled = True
-                chbAO.Enabled = True
-                DTPDayZero.Enabled = True
-                btnEditAirProgramPollutants.Enabled = True
-                cboPollutantStatus.Enabled = True
-                cboStaffResponsible.Enabled = True
-                txtGeneralComments.ReadOnly = False
-                ViolationTypeGroupbox.Enabled = True
-                btnSubmitToUC.Enabled = True
-                btnSubmitEnforcementToEPA.Enabled = True
-                DTPLONToUC.Enabled = True
-                DTPLONSent.Enabled = True
-                DTPLONResolved.Enabled = True
-                txtLONComments.ReadOnly = False
-                DTPNOVToUC.Enabled = True
-                DTPNOVToPM.Enabled = True
-                DTPNOVsent.Enabled = True
-                DTPNOVResponseReceived.Enabled = True
-                DTPNFAToUC.Enabled = True
-                DTPNFAToPM.Enabled = True
-                DTPNFALetterSent.Enabled = True
-                txtNOVComments.ReadOnly = False
-                DTPCOToUC.Enabled = True
-                DTPCOToPM.Enabled = True
-                DTPCOProposed.Enabled = True
-                DTPCOReceivedfromCompany.Enabled = True
-                DTPCOReceivedfromDirector.Enabled = True
-                DTPCOExecuted.Enabled = True
-                nudCoNumber.ReadOnly = False
-                DTPCOResolved.Enabled = True
-                txtCOPenaltyAmount.ReadOnly = False
-                txtPenaltyComments.ReadOnly = False
-                txtCOComments.ReadOnly = False
-                txtStipulatedPenalty.ReadOnly = False
-                SaveStipulatedPenaltyButton.Enabled = True
-                ClearStipulatedPenaltyFormButton.Enabled = True
-                txtStipulatedComments.ReadOnly = False
-                dgvStipulatedPenalties.Enabled = True
-                DTPAOExecuted.Enabled = True
-                DTPAOAppealed.Enabled = True
-                DTPAOResolved.Enabled = True
-                txtAOComments.ReadOnly = False
-                tsbSave.Enabled = True
-                mmiSave.Enabled = True
-            Else
-                btnLinkEnforcement.Enabled = False
-                DTPDiscoveryDate.Enabled = False
-                chbLON.Enabled = False
-                chbNOV.Enabled = False
-                chbCO.Enabled = False
-                chbAO.Enabled = False
-                DTPDayZero.Enabled = False
-                btnEditAirProgramPollutants.Enabled = False
-                cboPollutantStatus.Enabled = False
-                cboStaffResponsible.Enabled = False
-                txtGeneralComments.ReadOnly = True
-                ViolationTypeGroupbox.Enabled = False
-                DTPEnforcementResolved.Enabled = False
-                btnSubmitToUC.Enabled = False
-                btnSubmitEnforcementToEPA.Enabled = False
-                DTPLONToUC.Enabled = False
-                DTPLONSent.Enabled = False
-                DTPLONResolved.Enabled = False
-                txtLONComments.ReadOnly = True
-                DTPNOVToUC.Enabled = False
-                DTPNOVToPM.Enabled = False
-                DTPNOVsent.Enabled = False
-                DTPNOVResponseReceived.Enabled = False
-                DTPNFAToUC.Enabled = False
-                DTPNFAToPM.Enabled = False
-                DTPNFALetterSent.Enabled = False
-                txtNOVComments.ReadOnly = True
-                DTPCOToUC.Enabled = False
-                DTPCOToPM.Enabled = False
-                DTPCOProposed.Enabled = False
-                DTPCOReceivedfromCompany.Enabled = False
-                DTPCOReceivedfromDirector.Enabled = False
-                DTPCOExecuted.Enabled = False
-                nudCoNumber.ReadOnly = True
-                DTPCOResolved.Enabled = False
-                txtCOPenaltyAmount.ReadOnly = True
-                txtPenaltyComments.ReadOnly = True
-                txtCOComments.ReadOnly = True
-                txtStipulatedPenalty.ReadOnly = True
-                SaveStipulatedPenaltyButton.Enabled = False
-                ClearStipulatedPenaltyFormButton.Enabled = False
-                txtStipulatedComments.ReadOnly = True
-                dgvStipulatedPenalties.Enabled = False
-                DTPAOExecuted.Enabled = False
-                DTPAOAppealed.Enabled = False
-                DTPAOResolved.Enabled = False
-                txtAOComments.ReadOnly = True
-                tsbSave.Enabled = False
-                mmiSave.Enabled = False
-                mmiSave.Visible = False
-                tsbSave.Visible = False
-                mmiDelete.Visible = False
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-#End Region
-
-#Region " Load data "
-
-    Private Sub CheckOpenStatus()
-        Try
-            If DTPEnforcementResolved.Checked = True Then
-                btnLinkEnforcement.Enabled = False
-                DTPDiscoveryDate.Enabled = False
-                chbLON.Enabled = False
-                chbNOV.Enabled = False
-                chbCO.Enabled = False
-                chbAO.Enabled = False
-                DTPDayZero.Enabled = False
-                btnEditAirProgramPollutants.Enabled = False
-                cboPollutantStatus.Enabled = False
-                cboStaffResponsible.Enabled = False
-                txtGeneralComments.ReadOnly = True
-                ViolationTypeGroupbox.Enabled = False
-                DTPEnforcementResolved.Enabled = False
-                btnSubmitToUC.Enabled = False
-                btnSubmitEnforcementToEPA.Enabled = False
-                DTPLONToUC.Enabled = False
-                DTPLONSent.Enabled = False
-                DTPLONResolved.Enabled = False
-                txtLONComments.ReadOnly = True
-                DTPNOVToUC.Enabled = False
-                DTPNOVToPM.Enabled = False
-                DTPNOVsent.Enabled = False
-                DTPNOVResponseReceived.Enabled = False
-                DTPNFAToUC.Enabled = False
-                DTPNFAToPM.Enabled = False
-                DTPNFALetterSent.Enabled = False
-                txtNOVComments.ReadOnly = True
-                DTPCOToUC.Enabled = False
-                DTPCOToPM.Enabled = False
-                DTPCOProposed.Enabled = False
-                DTPCOReceivedfromCompany.Enabled = False
-                DTPCOReceivedfromDirector.Enabled = False
-                DTPCOExecuted.Enabled = False
-                nudCoNumber.ReadOnly = True
-                DTPCOResolved.Enabled = False
-                txtCOPenaltyAmount.ReadOnly = True
-                txtPenaltyComments.ReadOnly = True
-                txtCOComments.ReadOnly = True
-                txtStipulatedPenalty.ReadOnly = True
-                SaveStipulatedPenaltyButton.Enabled = False
-                ClearStipulatedPenaltyFormButton.Enabled = False
-                txtStipulatedComments.ReadOnly = True
-                dgvStipulatedPenalties.Enabled = False
-                DTPAOExecuted.Enabled = False
-                DTPAOAppealed.Enabled = False
-                DTPAOResolved.Enabled = False
-                txtAOComments.ReadOnly = True
-                tsbSave.Enabled = False
-                mmiSave.Enabled = False
-                mmiSave.Visible = False
-                tsbSave.Visible = False
-                mmiDelete.Visible = False
-
-                If AccountFormAccess(48, 3) = "1" Then
-                    DTPEnforcementResolved.Enabled = True
-                End If
-            Else
-                If AccountFormAccess(48, 4) = "1" And AccountFormAccess(4, 4) = "0" And Not CurrentUser.IaipAccountCodes.Contains(114) Then 'District
-                    btnEditAirProgramPollutants.Enabled = False
-                    cboPollutantStatus.Enabled = False
-                    btnSubmitEnforcementToEPA.Enabled = False
-
-                    chbLON.Enabled = True
-                    chbNOV.Enabled = False
-                    chbCO.Enabled = False
-                    chbAO.Enabled = False
-                    ViolationTypeGroupbox.Enabled = False
-                    btnLinkEnforcement.Enabled = True
-                    'btnSubmitToUC.Enabled = False
-                    DTPDayZero.Enabled = False
-
-                    DTPDiscoveryDate.Enabled = True
-                    DTPDayZero.Enabled = True
-                    cboStaffResponsible.Enabled = True
-                    txtGeneralComments.ReadOnly = False
-                    btnDayZero.Visible = False
-                    SaveStipulatedPenaltyButton.Visible = False
-                    UpdateStipulatedPenaltyButton.Visible = False
-                    ClearStipulatedPenaltyFormButton.Visible = False
-                    'btnUploadCO.Visible = False
-                    'btnDownloadCO.Visible = False
-                    'btnUploadCO.Visible = False
-
-                    DTPLONToUC.Enabled = True
-                    DTPLONSent.Enabled = True
-                    DTPLONResolved.Enabled = True
-                    txtLONComments.ReadOnly = False
-                    DTPNOVToUC.Enabled = False
-                    DTPNOVToPM.Enabled = False
-                    DTPNOVsent.Enabled = False
-                    DTPNOVResponseReceived.Enabled = False
-                    DTPNFAToUC.Enabled = False
-                    DTPNFAToPM.Enabled = False
-                    DTPNFALetterSent.Enabled = False
-                    txtNOVComments.ReadOnly = True
-                    DTPCOToUC.Enabled = False
-                    DTPCOToPM.Enabled = False
-                    DTPCOProposed.Enabled = False
-                    DTPCOReceivedfromCompany.Enabled = False
-                    DTPCOReceivedfromDirector.Enabled = False
-                    DTPCOExecuted.Enabled = False
-                    nudCoNumber.ReadOnly = True
-                    DTPCOResolved.Enabled = False
-                    txtCOPenaltyAmount.ReadOnly = True
-                    txtPenaltyComments.ReadOnly = True
-                    txtCOComments.ReadOnly = True
-                    txtStipulatedPenalty.ReadOnly = True
-                    SaveStipulatedPenaltyButton.Enabled = True
-                    ClearStipulatedPenaltyFormButton.Enabled = True
-                    txtStipulatedComments.ReadOnly = True
-                    dgvStipulatedPenalties.Enabled = False
-                    DTPAOExecuted.Enabled = False
-                    DTPAOAppealed.Enabled = False
-                    DTPAOResolved.Enabled = False
-                    txtAOComments.ReadOnly = True
-                    tsbSave.Visible = True
-                    tsbSave.Enabled = True
-                    mmiSave.Visible = True
-                    mmiSave.Enabled = True
-
+                ' Stipulated penalties
+                If StipulatedPenalties.Rows.Count = 0 Then
+                    AfsStipulatedPenalitiesActionNumbers.Text = "N/A"
                 Else
-                    If AccountFormAccess(48, 2) = "1" Or AccountFormAccess(48, 3) = "1" Or AccountFormAccess(48, 4) = "1" Then
-                        btnLinkEnforcement.Enabled = True
-                        DTPDiscoveryDate.Enabled = True
-                        chbLON.Enabled = True
-                        chbNOV.Enabled = True
-                        chbCO.Enabled = True
-                        chbAO.Enabled = True
-                        DTPDayZero.Enabled = True
-                        btnEditAirProgramPollutants.Enabled = True
-                        cboPollutantStatus.Enabled = True
-                        cboStaffResponsible.Enabled = True
-                        txtGeneralComments.ReadOnly = False
-                        ViolationTypeGroupbox.Enabled = True
-                        btnSubmitToUC.Enabled = True
-                        btnSubmitEnforcementToEPA.Enabled = True
-                        DTPLONToUC.Enabled = True
-                        DTPLONSent.Enabled = True
-                        DTPLONResolved.Enabled = True
-                        txtLONComments.ReadOnly = False
-                        DTPNOVToUC.Enabled = True
-                        DTPNOVToPM.Enabled = True
-                        DTPNOVsent.Enabled = True
-                        DTPNOVResponseReceived.Enabled = True
-                        DTPNFAToUC.Enabled = True
-                        DTPNFAToPM.Enabled = True
-                        DTPNFALetterSent.Enabled = True
-                        txtNOVComments.ReadOnly = False
-                        DTPCOToUC.Enabled = True
-                        DTPCOToPM.Enabled = True
-                        DTPCOProposed.Enabled = True
-                        DTPCOReceivedfromCompany.Enabled = True
-                        DTPCOReceivedfromDirector.Enabled = True
-                        DTPCOExecuted.Enabled = True
-                        nudCoNumber.ReadOnly = False
-                        DTPCOResolved.Enabled = True
-                        txtCOPenaltyAmount.ReadOnly = False
-                        txtPenaltyComments.ReadOnly = False
-                        txtCOComments.ReadOnly = False
-                        txtStipulatedPenalty.ReadOnly = False
-                        SaveStipulatedPenaltyButton.Enabled = True
-                        ClearStipulatedPenaltyFormButton.Enabled = True
-                        txtStipulatedComments.ReadOnly = False
-                        dgvStipulatedPenalties.Enabled = True
-                        DTPAOExecuted.Enabled = True
-                        DTPAOAppealed.Enabled = True
-                        DTPAOResolved.Enabled = True
-                        txtAOComments.ReadOnly = False
-                        tsbSave.Visible = True
-                        tsbSave.Enabled = True
-                        mmiSave.Visible = True
-                        mmiSave.Enabled = True
-                    End If
+                    Dim sp As New List(Of String)
+                    For Each row As DataRow In StipulatedPenalties.Rows
+                        sp.Add(row("STRAFSSTIPULATEDPENALTYNUMBER").ToString)
+                    Next
+                    AfsStipulatedPenalitiesActionNumbers.Text = String.Join(", ", sp)
                 End If
-            End If
 
+                ' EPA IDs
+                EpaCaseFileId.Text = .CaseFileId
+                EpaNovId.Text = .NovEnforcementActionId
+                EpaCoId.Text = .CoEnforcementActionId
+                EpaAoId.Text = .AoEnforcementActionId
 
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-
-    Private Sub LoadEnforcement()
-        Try
-            Dim TrackingNumber As String = ""
-            Dim AIRSNumber As String = ""
-            Dim EnforcementFinalized As String = ""
-            Dim StaffResponsible As String = ""
-            Dim Status As String = ""
-            Dim ActionType As String = ""
-            Dim GeneralComments As String = ""
-            Dim DiscoveryDate As String = ""
-            Dim DayZero As String = ""
-            Dim ViolationTypeCode As String = ""
-            Dim PollutantStatus As String = ""
-            Dim LONToUC As String = ""
-            Dim LONSent As String = ""
-            Dim LONResolved As String = ""
-            Dim LONComments As String = ""
-            Dim LONResolvedEnforcement As String = ""
-            Dim NOVToUC As String = ""
-            Dim NOVTOPM As String = ""
-            Dim NOVSent As String = ""
-            Dim NOVResponseReceived As String = ""
-            Dim NFAToUC As String = ""
-            Dim NFAToPM As String = ""
-            Dim NFALetterSent As String = ""
-            Dim NOVComments As String = ""
-            Dim NOVResolvedEnforcement As String = ""
-            Dim COToUC As String = ""
-            Dim COToPM As String = ""
-            Dim COProposed As String = ""
-            Dim COReceivedFromCompany As String = ""
-            Dim COReceivedFromDirector As String = ""
-            Dim COExecuted As String = ""
-            Dim CONumberString As String = ""
-            Dim COResolved As String = ""
-            Dim COPenaltyAmount As String = ""
-            Dim COPenaltyComments As String = ""
-            Dim COComments As String = ""
-            Dim Stipulated As String = ""
-            Dim AOExecuted As String = ""
-            Dim AOAppealed As String = ""
-            Dim AOComments As String = ""
-            Dim AOResolved As String = ""
-            Dim AFSKeyActionNumber As String = ""
-            Dim AFSNOVSentNumber As String = ""
-            Dim AFSNOVResolvedNumber As String = ""
-            Dim AFSCOProposedNumber As String = ""
-            Dim AFSCOExecutedNumber As String = ""
-            Dim AFSCOResolvedNumber As String = ""
-            Dim AFSAOtoAGNumber As String = ""
-            Dim AFSAOResolvedNumber As String = ""
-            Dim ModifingDate As String = ""
-
-            If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
-                SQL = "Select * " & _
-                "from AIRBRANCH.SSCP_AuditedEnforcement " & _
-                "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("strTrackingNumber")) Then
-                        TrackingNumber = ""
-                    Else
-                        TrackingNumber = dr.Item("strTrackingNumber")
-                    End If
-                    If IsDBNull(dr.Item("strAIRSNumber")) Then
-                        AIRSNumber = ""
-                    Else
-                        AIRSNumber = dr.Item("strAIRSNumber")
-                    End If
-                    If IsDBNull(dr.Item("strEnforcementFinalized")) Then
-                        EnforcementFinalized = ""
-                    Else
-                        If dr.Item("strEnforcementFinalized") = "True" Then
-                            If IsDBNull(dr.Item("datEnforcementFinalized")) Then
-                                EnforcementFinalized = ""
-                            Else
-                                EnforcementFinalized = dr.Item("datEnforcementFinalized")
-                            End If
-                        Else
-                            EnforcementFinalized = ""
-                        End If
-                    End If
-                    If IsDBNull(dr.Item("numStaffResponsible")) Then
-                        StaffResponsible = ""
-                    Else
-                        StaffResponsible = dr.Item("numStaffresponsible")
-                    End If
-                    If IsDBNull(dr.Item("strStatus")) Then
-                        Status = ""
-                    Else
-                        Status = dr.Item("strStatus")
-                    End If
-                    If IsDBNull(dr.Item("strActionType")) Then
-                        ActionType = ""
-                    Else
-                        ActionType = dr.Item("strActionType")
-                    End If
-                    If IsDBNull(dr.Item("strGeneralComments")) Then
-                        GeneralComments = ""
-                    Else
-                        GeneralComments = dr.Item("strGeneralComments")
-                    End If
-                    If IsDBNull(dr.Item("strDiscoveryDate")) Then
-                        DiscoveryDate = ""
-                    Else
-                        If dr.Item("strDiscoveryDate") = "True" Then
-                            If IsDBNull(dr.Item("datDiscoveryDate")) Then
-                                DiscoveryDate = ""
-                            Else
-                                DiscoveryDate = dr.Item("datDiscoveryDate")
-                            End If
-                        Else
-                            DiscoveryDate = ""
-                        End If
-                    End If
-                    If IsDBNull(dr.Item("strDayZero")) Then
-                        DayZero = ""
-                    Else
-                        If dr.Item("strDayZero") = "True" Then
-                            If IsDBNull(dr.Item("datDayZero")) Then
-                                DayZero = ""
-                            Else
-                                DayZero = dr.Item("datDayZero")
-                            End If
-                        Else
-                            DayZero = ""
-                        End If
-                    End If
-                    If IsDBNull(dr.Item("strHPV")) Then
-                        ViolationTypeCode = "BLANK"
-                    Else
-                        ViolationTypeCode = dr.Item("strHPV")
-                    End If
-                    If IsDBNull(dr.Item("strPollutantStatus")) Then
-                        PollutantStatus = ""
-                    Else
-                        PollutantStatus = dr.Item("strPollutantStatus")
-                    End If
-                    If IsDBNull(dr.Item("strLONtoUC")) Then
-                        LONToUC = ""
-                    Else
-                        If dr.Item("strLONtoUC") = "True" Then
-                            LONToUC = dr.Item("datLONtoUC")
-                        Else
-                            LONToUC = ""
-                        End If
-                    End If
-                    If IsDBNull(dr.Item("strLONSent")) Then
-                        LONSent = ""
-                    Else
-                        If dr.Item("strLONSent") = "True" Then
-                            LONSent = dr.Item("datLONSent")
-                        Else
-                            LONSent = ""
-                        End If
-                    End If
-                    If IsDBNull(dr.Item("strLONResolved")) Then
-                        LONResolved = ""
-                    Else
-                        If dr.Item("strLONResolved") = "True" Then
-                            LONResolved = dr.Item("datLONResolved")
-                        Else
-                            LONResolved = ""
-                        End If
-                    End If
-                    If IsDBNull(dr.Item("strLONComments")) Then
-                        LONComments = ""
-                    Else
-                        LONComments = dr.Item("strLONComments")
-                    End If
-                    If IsDBNull(dr.Item("strLONResolvedEnforcement")) Then
-                        LONResolvedEnforcement = ""
-                    Else
-                        LONResolvedEnforcement = dr.Item("strLONResolvedEnforcement")
-                    End If
-                    If IsDBNull(dr.Item("strNOVtoUC")) Then
-                        NOVToUC = ""
-                    Else
-                        If dr.Item("strNOVtoUC") = "True" Then
-                            NOVToUC = dr.Item("datNOVtoUC")
-                        Else
-                            NOVToUC = ""
-                        End If
-                    End If
-                    If IsDBNull(dr.Item("strNOVtoPM")) Then
-                        NOVTOPM = ""
-                    Else
-                        If dr.Item("strNOVtoPM") = "True" Then
-                            NOVTOPM = dr.Item("datNOVtoPM")
-                        Else
-                            NOVTOPM = ""
-                        End If
-                    End If
-                    If IsDBNull(dr.Item("strNOVSent")) Then
-                        NOVSent = ""
-                    Else
-                        If dr.Item("strNOVSent") = "True" Then
-                            NOVSent = dr.Item("datNOVSent")
-                        Else
-                            NOVSent = ""
-                        End If
-                    End If
-                    If IsDBNull(dr.Item("strNOVResponseReceived")) Then
-                        NOVResponseReceived = ""
-                    Else
-                        If dr.Item("strNOVResponseReceived") = "True" Then
-                            NOVResponseReceived = dr.Item("datNOVResponseReceived")
-                        Else
-                            NOVResponseReceived = ""
-                        End If
-                    End If
-                    If IsDBNull(dr.Item("strNFAtoUC")) Then
-                        NFAToUC = ""
-                    Else
-                        If dr.Item("strNFAtoUC") = "True" Then
-                            NFAToUC = dr.Item("datNFAtoUC")
-                        Else
-                            NFAToUC = ""
-                        End If
-                    End If
-                    If IsDBNull(dr.Item("strNFAtoPM")) Then
-                        NFAToPM = ""
-                    Else
-                        If dr.Item("strNFAtoPM") = "True" Then
-                            NFAToPM = dr.Item("datNFAtoPM")
-                        Else
-                            NFAToPM = ""
-                        End If
-                    End If
-                    If IsDBNull(dr.Item("strNFALetterSent")) Then
-                        NFALetterSent = ""
-                    Else
-                        If dr.Item("strNFALetterSent") = "True" Then
-                            NFALetterSent = dr.Item("datNFALetterSent")
-                        Else
-                            NFALetterSent = ""
-                        End If
-                    End If
-                    If IsDBNull(dr.Item("strNOVComment")) Then
-                        NOVComments = ""
-                    Else
-                        NOVComments = dr.Item("strNOVComment")
-                    End If
-                    If IsDBNull(dr.Item("strNOVResolvedEnforcement")) Then
-                        NOVResolvedEnforcement = ""
-                    Else
-                        NOVResolvedEnforcement = dr.Item("strNOVResolvedEnforcement")
-                    End If
-                    If IsDBNull(dr.Item("strCOtoUC")) Then
-                        COToUC = ""
-                    Else
-                        If dr.Item("strCOtoUC") = "True" Then
-                            COToUC = dr.Item("datCOtoUC")
-                        Else
-                            COToUC = ""
-                        End If
-                    End If
-                    If IsDBNull(dr.Item("strCOtoPM")) Then
-                        COToPM = ""
-                    Else
-                        If dr.Item("strCOtoPM") = "True" Then
-                            COToPM = dr.Item("datCOtoPM")
-                        Else
-                            COToPM = ""
-                        End If
-                    End If
-                    If IsDBNull(dr.Item("strCOProposed")) Then
-                        COProposed = ""
-                    Else
-                        If dr.Item("strCOProposed") = "True" Then
-                            COProposed = dr.Item("datCOProposed")
-                        Else
-                            COProposed = ""
-                        End If
-                    End If
-                    If IsDBNull(dr.Item("strCOReceivedFromCompany")) Then
-                        COReceivedFromCompany = ""
-                    Else
-                        If dr.Item("strCOReceivedFromCompany") = "True" Then
-                            COReceivedFromCompany = dr.Item("datCOReceivedFromCompany")
-                        Else
-                            COReceivedFromCompany = ""
-                        End If
-                    End If
-                    If IsDBNull(dr.Item("strCOReceivedFromDirector")) Then
-                        COReceivedFromDirector = ""
-                    Else
-                        If dr.Item("strCOReceivedFromDirector") = "True" Then
-                            COReceivedFromDirector = dr.Item("datCOReceivedFromDirector")
-                        Else
-                            COReceivedFromDirector = ""
-                        End If
-                    End If
-                    If IsDBNull(dr.Item("strCOExecuted")) Then
-                        COExecuted = ""
-                    Else
-                        If dr.Item("strCOExecuted") = "True" Then
-                            COExecuted = dr.Item("datCOExecuted")
-                        Else
-                            COExecuted = ""
-                        End If
-                    End If
-                    If IsDBNull(dr.Item("strCONumber")) Then
-                        CONumberString = ""
-                    Else
-                        CONumberString = dr.Item("strCONumber")
-                    End If
-                    If IsDBNull(dr.Item("strCOResolved")) Then
-                        COResolved = ""
-                    Else
-                        If dr.Item("strCOResolved") = "True" Then
-                            COResolved = dr.Item("datCOResolved")
-                        Else
-                            COResolved = ""
-                        End If
-                    End If
-                    If IsDBNull(dr.Item("STRCOPENALTYAMOUNT")) Then
-                        COPenaltyAmount = ""
-                    Else
-                        COPenaltyAmount = dr.Item("STRCOPENALTYAMOUNT")
-                    End If
-                    If IsDBNull(dr.Item("strCOPenaltyAmountComments")) Then
-                        COPenaltyComments = ""
-                    Else
-                        COPenaltyComments = dr.Item("strCOPenaltyAmountComments")
-                    End If
-                    If IsDBNull(dr.Item("strCOComment")) Then
-                        COComments = ""
-                    Else
-                        COComments = dr.Item("strCOComment")
-                    End If
-                    If IsDBNull(dr.Item("strStipulatedPenalty")) Then
-                        Stipulated = ""
-                    Else
-                        Stipulated = dr.Item("strStipulatedPenalty")
-                    End If
-                    If IsDBNull(dr.Item("strAOExecuted")) Then
-                        AOExecuted = ""
-                    Else
-                        If dr.Item("strAOExecuted") = "True" Then
-                            AOExecuted = dr.Item("datAOExecuted")
-                        Else
-                            AOExecuted = ""
-                        End If
-                    End If
-                    If IsDBNull(dr.Item("strAOAppealed")) Then
-                        AOAppealed = ""
-                    Else
-                        If dr.Item("strAOAppealed") = "True" Then
-                            AOAppealed = dr.Item("datAOAppealed")
-                        Else
-                            AOAppealed = ""
-                        End If
-                    End If
-                    If IsDBNull(dr.Item("strAOResolved")) Then
-                        AOResolved = ""
-                    Else
-                        If dr.Item("strAOResolved") = "True" Then
-                            AOResolved = dr.Item("datAOResolved")
-                        Else
-                            AOResolved = ""
-                        End If
-                    End If
-                    If IsDBNull(dr.Item("strAOComment")) Then
-                        AOComments = ""
-                    Else
-                        AOComments = dr.Item("strAOComment")
-                    End If
-                    If IsDBNull(dr.Item("strAFSKeyActionNumber")) Then
-                        AFSKeyActionNumber = ""
-                    Else
-                        AFSKeyActionNumber = dr.Item("strAFSKeyActionNumber")
-                    End If
-                    If IsDBNull(dr.Item("strAFSNOVSentNumber")) Then
-                        AFSNOVSentNumber = ""
-                    Else
-                        AFSNOVSentNumber = dr.Item("strAFSNOVSentNumber")
-                    End If
-                    If IsDBNull(dr.Item("strAFSNOVResolvedNumber")) Then
-                        AFSNOVResolvedNumber = ""
-                    Else
-                        AFSNOVResolvedNumber = dr.Item("strAFSNOVResolvedNumber")
-                    End If
-                    If IsDBNull(dr.Item("strAFSCOProposedNumber")) Then
-                        AFSCOProposedNumber = ""
-                    Else
-                        AFSCOProposedNumber = dr.Item("strAFSCOProposedNumber")
-                    End If
-                    If IsDBNull(dr.Item("strAFSCOExecutedNumber")) Then
-                        AFSCOExecutedNumber = ""
-                    Else
-                        AFSCOExecutedNumber = dr.Item("strAFSCOExecutedNumber")
-                    End If
-                    If IsDBNull(dr.Item("strAFSCOResolvedNumber")) Then
-                        AFSCOResolvedNumber = ""
-                    Else
-                        AFSCOResolvedNumber = dr.Item("strAFSCOResolvedNumber")
-                    End If
-                    If IsDBNull(dr.Item("strAFSAOtoAGnumber")) Then
-                        AFSAOtoAGNumber = ""
-                    Else
-                        AFSAOtoAGNumber = dr.Item("strAFSAOtoAGNumber")
-                    End If
-                    If IsDBNull(dr.Item("strAFSAOResolvedNumber")) Then
-                        AFSAOResolvedNumber = ""
-                    Else
-                        AFSAOResolvedNumber = dr.Item("strAFSAOResolvedNumber")
-                    End If
-                    If IsDBNull(dr.Item("datModifingDate")) Then
-                        ModifingDate = ""
-                    Else
-                        ModifingDate = dr.Item("datModifingDate")
-                    End If
-                End While
-                dr.Close()
-            Else
-                If txtTrackingNumber.Text <> "" Then
-                    TrackingNumber = txtTrackingNumber.Text
-                End If
+                EpaDayZero.Text = .DayZeroDate.ToString(DateFormat)
             End If
-
-            If TrackingNumber <> "" Then
-                txtTrackingNumber.Text = TrackingNumber
-            Else
-                txtTrackingNumber.Clear()
-            End If
-            If AIRSNumber <> "" Then
-                txtAIRSNumber.Text = Mid(AIRSNumber, 5)
-            End If
-            LoadFacilityInfo()
-
-            If EnforcementFinalized <> "" Then
-                DTPEnforcementResolved.Text = EnforcementFinalized
-                DTPEnforcementResolved.Checked = True
-            Else
-                DTPEnforcementResolved.Text = OracleDate
-                DTPEnforcementResolved.Checked = False
-            End If
-            If StaffResponsible <> "" Then
-                cboStaffResponsible.SelectedValue = StaffResponsible
-            Else
-                cboStaffResponsible.SelectedValue = CurrentUser.UserID
-            End If
-
-            If NOVSent <> "" Or NOVToUC <> "" Or NOVTOPM <> "" _
-                    Or NOVResponseReceived <> "" Or NOVResolvedEnforcement <> "" Or NOVComments <> "" _
-                    Or NFALetterSent <> "" Or NFAToUC <> "" Or NFAToPM <> "" Then
-                chbNOV.Checked = True
-            Else
-                chbNOV.Checked = False
-            End If
-            If COExecuted <> "" Or COToUC <> "" Or COToPM <> "" _
-                         Or COProposed <> "" Or COReceivedFromCompany <> "" Or COReceivedFromDirector <> "" _
-                             Or COResolved <> "" Then
-                chbCO.Checked = True
-            Else
-                chbCO.Checked = False
-            End If
-            If AOExecuted <> "" Or AOAppealed <> "" Or AOResolved <> "" Then
-                chbAO.Checked = True
-            Else
-                chbAO.Checked = False
-            End If
-            If ActionType <> "" Then
-                Select Case ActionType
-                    Case "LON"
-                        chbLON.Checked = True
-                        chbNOV.Checked = False
-                        chbCO.Checked = False
-                        chbAO.Checked = False
-                    Case "NOV"
-                        chbLON.Checked = False
-                        chbNOV.Checked = True
-                        chbCO.Checked = False
-                        chbAO.Checked = False
-                    Case "NOVCOP"
-                        chbLON.Checked = False
-                        chbNOV.Checked = True
-                        chbCO.Checked = True
-                        chbAO.Checked = False
-                    Case "NOVCO"
-                        chbLON.Checked = False
-                        chbNOV.Checked = True
-                        chbCO.Checked = True
-                        chbAO.Checked = False
-                    Case "NOVAO"
-                        chbLON.Checked = False
-                        chbNOV.Checked = True
-                        chbAO.Checked = True
-                    Case "HPV"
-                        chbLON.Checked = False
-                        chbCO.Checked = False
-                        chbAO.Checked = False
-                    Case "HPVCOP"
-                        chbLON.Checked = False
-                        chbCO.Checked = True
-                        chbAO.Checked = False
-                    Case "HPVCO"
-                        chbLON.Checked = False
-                        chbCO.Checked = True
-                        chbAO.Checked = False
-                    Case "HPVAO"
-                        chbLON.Checked = False
-                        chbAO.Checked = True
-                End Select
-            End If
-            If GeneralComments <> "" Then
-                txtGeneralComments.Text = GeneralComments
-            Else
-                txtGeneralComments.Clear()
-            End If
-            If DiscoveryDate <> "" Then
-                DTPDiscoveryDate.Text = DiscoveryDate
-                DTPDiscoveryDate.Checked = True
-            Else
-                DTPDiscoveryDate.Text = OracleDate
-                DTPDiscoveryDate.Checked = False
-            End If
-            If DayZero <> "" Then
-                DTPDayZero.Text = DayZero
-                DTPDayZero.Checked = True
-            Else
-                DTPDayZero.Text = OracleDate
-                DTPDayZero.Checked = False
-            End If
-
-            LoadViolationType(ViolationTypeCode)
-
-            If LONToUC <> "" Then
-                DTPLONToUC.Text = LONToUC
-                DTPLONToUC.Checked = True
-            Else
-                DTPLONToUC.Text = OracleDate
-                DTPLONToUC.Checked = False
-            End If
-            If LONSent <> "" Then
-                DTPLONSent.Text = LONSent
-                DTPLONSent.Checked = True
-            Else
-                DTPLONSent.Text = OracleDate
-                DTPLONSent.Checked = False
-            End If
-            If LONResolved <> "" Then
-                DTPLONResolved.Text = LONResolved
-                DTPLONResolved.Checked = True
-            Else
-                DTPLONResolved.Text = OracleDate
-                DTPLONResolved.Checked = False
-            End If
-            If LONComments <> "" Then
-                txtLONComments.Text = LONComments
-            Else
-                txtLONComments.Clear()
-            End If
-            If LONResolvedEnforcement <> "" Then
-
-            End If
-            If NOVToUC <> "" Then
-                DTPNOVToUC.Text = NOVToUC
-                DTPNOVToUC.Checked = True
-            Else
-                DTPNOVToUC.Text = OracleDate
-                DTPNOVToUC.Checked = False
-            End If
-            If NOVTOPM <> "" Then
-                DTPNOVToPM.Text = NOVTOPM
-                DTPNOVToPM.Checked = True
-            Else
-                DTPNOVToPM.Text = OracleDate
-                DTPNOVToPM.Checked = False
-            End If
-            If NOVSent <> "" Then
-                DTPNOVsent.Text = NOVSent
-                DTPNOVsent.Checked = True
-            Else
-                DTPNOVsent.Text = OracleDate
-                DTPNOVsent.Checked = False
-            End If
-            If NOVResponseReceived <> "" Then
-                DTPNOVResponseReceived.Text = NOVResponseReceived
-                DTPNOVResponseReceived.Checked = True
-            Else
-                DTPNOVResponseReceived.Text = OracleDate
-                DTPNOVResponseReceived.Checked = False
-            End If
-            If NFAToUC <> "" Then
-                DTPNFAToUC.Text = NFAToUC
-                DTPNFAToUC.Checked = True
-            Else
-                DTPNFAToUC.Text = OracleDate
-                DTPNFAToUC.Checked = False
-            End If
-            If NFAToPM <> "" Then
-                DTPNFAToPM.Text = NFAToPM
-                DTPNFAToPM.Checked = True
-            Else
-                DTPNFAToPM.Text = OracleDate
-                DTPNFAToPM.Checked = False
-            End If
-            If NFALetterSent <> "" Then
-                DTPNFALetterSent.Text = NFALetterSent
-                DTPNFALetterSent.Checked = True
-            Else
-                DTPNFALetterSent.Text = OracleDate
-                DTPNFALetterSent.Checked = False
-            End If
-            If NOVComments <> "" Then
-                txtNOVComments.Text = NOVComments
-            Else
-                txtNOVComments.Clear()
-            End If
-            If COToUC <> "" Then
-                DTPCOToUC.Text = COToUC
-                DTPCOToUC.Checked = True
-            Else
-                DTPCOToUC.Text = OracleDate
-                DTPCOToUC.Checked = False
-            End If
-            If COToPM <> "" Then
-                DTPCOToPM.Text = COToPM
-                DTPCOToPM.Checked = True
-            Else
-                DTPCOToPM.Text = OracleDate
-                DTPCOToPM.Checked = False
-            End If
-            If COProposed <> "" Then
-                DTPCOProposed.Text = COProposed
-                DTPCOProposed.Checked = True
-            Else
-                DTPCOProposed.Text = OracleDate
-                DTPCOProposed.Checked = False
-            End If
-            If COReceivedFromCompany <> "" Then
-                DTPCOReceivedfromCompany.Text = COReceivedFromCompany
-                DTPCOReceivedfromCompany.Checked = True
-            Else
-                DTPCOReceivedfromCompany.Text = OracleDate
-                DTPCOReceivedfromCompany.Checked = False
-            End If
-            If COReceivedFromDirector <> "" Then
-                DTPCOReceivedfromDirector.Text = COReceivedFromDirector
-                DTPCOReceivedfromDirector.Checked = True
-            Else
-                DTPCOReceivedfromDirector.Text = OracleDate
-                DTPCOReceivedfromDirector.Checked = False
-            End If
-            If COExecuted <> "" Then
-                DTPCOExecuted.Text = COExecuted
-                DTPCOExecuted.Checked = True
-            Else
-                DTPCOExecuted.Text = OracleDate
-                DTPCOExecuted.Checked = False
-            End If
-            If CONumberString <> "" Then
-                Dim parts As String() = CONumberString.Split("-"c)
-                nudCoNumber.Value = Math.Min(Convert.ToInt32(parts(parts.Length - 1)), 999999)
-            Else
-                nudCoNumber.Value = 0
-            End If
-            If COResolved <> "" Then
-                DTPCOResolved.Text = COResolved
-                DTPCOResolved.Checked = True
-            Else
-                DTPCOResolved.Text = OracleDate
-                DTPCOResolved.Checked = False
-            End If
-            If COPenaltyAmount <> "" Then
-                txtCOPenaltyAmount.Text = COPenaltyAmount
-            Else
-                txtCOPenaltyAmount.Clear()
-            End If
-            If COPenaltyComments <> "" Then
-                txtPenaltyComments.Text = COPenaltyComments
-            Else
-                txtPenaltyComments.Clear()
-            End If
-            If COComments <> "" Then
-                txtCOComments.Text = COComments
-            Else
-                txtCOComments.Clear()
-            End If
-            If AOExecuted <> "" Then
-                DTPAOExecuted.Text = AOExecuted
-                DTPAOExecuted.Checked = True
-            Else
-                DTPAOExecuted.Text = OracleDate
-                DTPAOExecuted.Checked = False
-            End If
-            If AOAppealed <> "" Then
-                DTPAOAppealed.Text = AOAppealed
-                DTPAOAppealed.Checked = True
-            Else
-                DTPAOAppealed.Text = OracleDate
-                DTPAOAppealed.Checked = False
-            End If
-            If AOResolved <> "" Then
-                DTPAOResolved.Text = AOResolved
-                DTPAOResolved.Checked = True
-            Else
-                DTPAOResolved.Text = OracleDate
-                DTPAOResolved.Checked = False
-            End If
-            If AOComments <> "" Then
-                txtAOComments.Text = AOComments
-            Else
-                txtAOComments.Clear()
-            End If
-            If AFSKeyActionNumber <> "" Then
-                txtAFSKeyActionNumber.Text = AFSKeyActionNumber
-                btnSubmitToUC.Visible = False
-            Else
-                txtAFSKeyActionNumber.Clear()
-            End If
-            If AFSNOVSentNumber <> "" Then
-                txtAFSNOVActionNumber.Text = AFSNOVSentNumber
-            Else
-                txtAFSNOVActionNumber.Clear()
-            End If
-            If AFSNOVResolvedNumber <> "" Then
-                txtAFSNOVResolvedNumber.Text = AFSNOVResolvedNumber
-            Else
-                txtAFSNOVResolvedNumber.Clear()
-            End If
-            If AFSCOProposedNumber <> "" Then
-                txtAFSCOProposedActionNumber.Text = AFSCOProposedNumber
-            Else
-                txtAFSCOProposedActionNumber.Clear()
-            End If
-            If AFSCOExecutedNumber <> "" Then
-                txtAFSCOExecutedActionNumber.Text = AFSCOExecutedNumber
-            Else
-                txtAFSCOExecutedActionNumber.Clear()
-            End If
-            If AFSCOResolvedNumber <> "" Then
-                txtAFSCOResolvedActionNumber.Text = AFSCOResolvedNumber
-            Else
-                txtAFSCOResolvedActionNumber.Clear()
-            End If
-            If AFSAOtoAGNumber <> "" Then
-                txtAFSAOToAGActionNumber.Text = AFSAOtoAGNumber
-            Else
-                txtAFSAOToAGActionNumber.Clear()
-            End If
-            If AFSAOResolvedNumber <> "" Then
-                txtAFSAOResolvedActionNumber.Text = AFSAOResolvedNumber
-            Else
-                txtAFSAOResolvedActionNumber.Clear()
-            End If
-            If ModifingDate <> "" Then
-                DTPLastSave.Text = ModifingDate
-            Else
-                DTPLastSave.Text = OracleDate
-            End If
-            If txtAIRSNumber.Text <> "" Then
-                LoadEnforcementPollutants2()
-            End If
-            If PollutantStatus <> "" Then
-                cboPollutantStatus.SelectedValue = PollutantStatus
-            Else
-                cboPollutantStatus.SelectedValue = "0"
-            End If
-            If Stipulated <> "" Then
-                LoadStipulatedPenalties()
-                ' txtStipulatedKey.Text = Stipulated
-                txtStipulatedKey.Clear()
-            Else
-                txtStipulatedKey.Clear()
-            End If
-            txtSubmitToUC.Text = Status
-            If Status <> "" Then
-                If AccountFormAccess(48, 2) = "1" Then
-                    Select Case Status
-                        Case ""
-                            btnSubmitToUC.Visible = True
-                        Case "UC"
-                            btnSubmitToUC.Visible = False
-                        Case Else
-                            btnSubmitToUC.Visible = True
-                    End Select
-                End If
-            Else
-                btnSubmitToUC.Visible = True
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-
-    Private Sub LoadViolationType(violationTypeCode As String)
-        Dim severityCode As String
-        Dim rowFilter As String
-
-        If String.IsNullOrEmpty(violationTypeCode) Then
-            severityCode = "BLANK"
-        Else
-            Dim dr As DataRow = ViolationTypes.Rows.Find(violationTypeCode)
-            severityCode = dr("SEVERITYCODE").ToString
-        End If
-
-        Select Case severityCode
-            Case "BLANK"
-                ViolationTypeNone.Checked = True
-                rowFilter = "AIRVIOLATIONTYPECODE = 'BLANK'"
-            Case "HPV"
-                ViolationTypeHpv.Checked = True
-                rowFilter = "(SEVERITYCODE='HPV' AND DEPRECATED = 'FALSE') OR " &
-                    "(AIRVIOLATIONTYPECODE = 'BLANK') OR " &
-                    "(AIRVIOLATIONTYPECODE = '" & violationTypeCode & "')"
-            Case "FRV"
-                ViolationTypeFrv.Checked = True
-                rowFilter = "(SEVERITYCODE='FRV' AND DEPRECATED = 'FALSE') OR " &
-                    "(AIRVIOLATIONTYPECODE = 'BLANK') OR " &
-                    "(AIRVIOLATIONTYPECODE = '" & violationTypeCode & "')"
-            Case Else
-                ViolationTypeNonFrv.Checked = True
-                rowFilter = "(SEVERITYCODE<>'FRV' AND SEVERITYCODE<>'FRV' AND DEPRECATED = 'FALSE') OR " &
-                    "(AIRVIOLATIONTYPECODE = 'BLANK')"
-        End Select
-
-        ApplyViolationSelectFilter(rowFilter)
-        ViolationTypeSelect.SelectedValue = violationTypeCode
-    End Sub
-
-    Private Sub ApplyViolationSelectFilter(rowFilter As String)
-        Dim dv As New DataView(ViolationTypes)
-        dv.RowFilter = rowFilter
-        dv.Sort = "VIOLATIONTYPEDESC ASC"
-
-        With ViolationTypeSelect
-            .DataSource = dv
-            .ValueMember = "AIRVIOLATIONTYPECODE"
-            .DisplayMember = "VIOLATIONTYPEDESC"
         End With
     End Sub
 
-    Private Sub LoadFacilityInfo()
-        Try
-            Dim FacName As String = ""
-            Dim FacAddress As String = ""
-            Dim FacCounty As String = ""
-            Dim Classification As String = ""
-            Dim AirProgramCode As String = ""
+#End Region
 
-            SQL = "Select strFacilityName, strFacilityStreet1, " & _
-            "strFacilityCity, strCountyName, strFacilityState, strFacilityZipCode, " & _
-            "strClass, strAIRProgramCodes " & _
-            "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.LookUpCountyInformation, " & _
-            "AIRBRANCH.APBHeaderData " & _
-            "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
-            "and strCountyCode = '" & Mid(txtAIRSNumber.Text, 1, 3) & "' " & _
-            "and AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.APBHeaderData.strairsnumber"
+#Region " Menu and Toolbar "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            If recExist Then
-
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    FacName = ""
-                Else
-                    FacName = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("strFacilityStreet1")) Then
-                    FacAddress = ""
-                Else
-                    FacAddress = dr.Item("strFacilityStreet1")
-                End If
-                If IsDBNull(dr.Item("strFacilityCity")) Then
-                    FacAddress = FacAddress
-                Else
-                    FacAddress = FacAddress & vbCrLf & dr.Item("strFacilityCity") & ", GA "
-                End If
-                If IsDBNull(dr.Item("strFacilityZipCode")) Then
-                    FacAddress = FacAddress
-                Else
-                    If dr.Item("strFacilityZipCode").ToString.Length > 5 Then
-                        FacAddress = FacAddress & Mid(dr.Item("strFacilityZipCode"), 1, 5) & "-" & Mid(dr.Item("strFacilityZipCode"), 6)
-                    Else
-                        FacAddress = FacAddress & dr.Item("strFacilityZipCode")
-                    End If
-                End If
-                If IsDBNull(dr.Item("strCountyName")) Then
-                    FacCounty = ""
-                Else
-                    FacCounty = dr.Item("strCountyName")
-                End If
-                If IsDBNull(dr.Item("strClass")) Then
-                    Classification = ""
-                Else
-                    Classification = dr.Item("strClass")
-                End If
-                If IsDBNull(dr.Item("strAIRProgramCodes")) Then
-                    AirProgramCode = ""
-                Else
-                    AirProgramCode = dr.Item("strAIRProgramCodes")
-                End If
-            End If
-            txtFacilityName.Text = FacName
-            txtFacilityAddress.Text = FacAddress
-            txtCounty.Text = FacCounty
-            txtClassification.Text = Classification
-
-            If Mid(AirProgramCode, 1, 1) = 1 Then
-                chbAPC0.Checked = True
-            Else
-                chbAPC0.Checked = False
-            End If
-            If Mid(AirProgramCode, 2, 1) = 1 Then
-                chbAPC1.Checked = True
-            Else
-                chbAPC1.Checked = False
-            End If
-            If Mid(AirProgramCode, 3, 1) = 1 Then
-                chbAPC3.Checked = True
-            Else
-                chbAPC3.Checked = False
-            End If
-            If Mid(AirProgramCode, 4, 1) = 1 Then
-                chbAPC4.Checked = True
-            Else
-                chbAPC4.Checked = False
-            End If
-            If Mid(AirProgramCode, 5, 1) = 1 Then
-                chbAPC6.Checked = True
-            Else
-                chbAPC6.Checked = False
-            End If
-            If Mid(AirProgramCode, 6, 1) = 1 Then
-                chbAPC7.Checked = True
-            Else
-                chbAPC7.Checked = False
-            End If
-            If Mid(AirProgramCode, 7, 1) = 1 Then
-                chbAPC8.Checked = True
-            Else
-                chbAPC8.Checked = False
-            End If
-            If Mid(AirProgramCode, 8, 1) = 1 Then
-                chbAPC9.Checked = True
-            Else
-                chbAPC9.Checked = False
-            End If
-            If Mid(AirProgramCode, 9, 1) = 1 Then
-                chbAPCA.Checked = True
-            Else
-                chbAPCA.Checked = False
-            End If
-            If Mid(AirProgramCode, 10, 1) = 1 Then
-                chbAPCF.Checked = True
-            Else
-                chbAPCF.Checked = False
-            End If
-            If Mid(AirProgramCode, 11, 1) = 1 Then
-                chbAPCI.Checked = True
-            Else
-                chbAPCI.Checked = False
-            End If
-            If Mid(AirProgramCode, 12, 1) = 1 Then
-                chbAPCM.Checked = True
-            Else
-                chbAPCM.Checked = False
-            End If
-            If Mid(AirProgramCode, 13, 1) = 1 Then
-                chbAPCV.Checked = True
-            Else
-                chbAPCV.Checked = False
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+    Private Sub SaveButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SaveButton.Click
+        ValidateAndSave()
     End Sub
 
-    Public Sub LoadEnforcementPollutants2()
-        Try
-            SQL = "Select " & _
-            "strAIRPollutantKey, strPollutantKey, " & _
-            "case " & _
-            "when substr(strAirPollutantKey, 13,1) = '0' then '0 - SIP' " & _
-            "when substr(strAirPollutantKey, 13,1) = '1' then '1 - Fed SIP' " & _
-            "when substr(strAirPollutantKey, 13,1) = '3' then '3 - Non-Fed SIP' " & _
-            "when substr(strAirPollutantKey, 13,1) = '4' then '4 - CFC' " & _
-            "when substr(strAirPollutantKey, 13,1) = '6' then '6 - PSD' " & _
-            "when substr(strAirPollutantKey, 13,1) = '7' then '7 - NSR' " & _
-            "when substr(strAirPollutantKey, 13,1) = '8' then '8 - NESHAP' " & _
-            "when substr(strAirPollutantKey, 13,1) = '9' then '9 - NSPS' " & _
-            "when substr(strAirPollutantKey, 13,1) = 'A' then 'A - Acid Rain' " & _
-            "when substr(strAirPollutantKey, 13,1) = 'F' then 'F - FESOP' " & _
-            "when substr(strAirPollutantKey, 13,1) = 'I' then 'I - Native American' " & _
-            "when substr(strAirPollutantKey, 13,1) = 'M' then 'M - MACT' " & _
-            "when substr(strAirPollutantKey, 13,1) = 'V' then 'V - Title V' " & _
-            "else '' " & _
-            "end AirProgram, " & _
-            "strPollutantDescription, " & _
-            "(strCompliancestatus|| ' - '||strComplianceDesc) as ComplianceStatus " & _
-            "from AIRBRANCH.APBAirProgramPollutants, AIRBranch.LookUpPollutants, " & _
-            "AIRBranch.LookUpComplianceStatus  " & _
-            "where AIRBranch.APBAirProgramPollutants.strPollutantKEy = AIRBranch.LookUpPollutants.strPollutantCode  " & _
-            "and AIRBranch.APBAirProgramPollutants.strComplianceStatus = AIRBranch.LookUpComplianceStatus.strComplianceCode " & _
-            "and strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
-            "order by AirProgram, strPollutantDescription, ComplianceStatus "
-
-            ds = New DataSet
-            da = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "AirPollutants")
-
-            Dim dtAirProgramPollutants As New DataTable
-            dtAirProgramPollutants = ds.Tables("AirPollutants")
-
-            Dim drAirProgramPollutants As DataRow()
-            Dim row As DataRow
-            Dim temp As String = 6
-            Dim ColumnArray(1, 13) As String
-            Dim i As Integer
-            Dim AirPollutantKey As String
-            Dim PollutantKey As String
-            Dim AirProgram As String
-            Dim PollutantDesc As String
-            Dim Compliance As String
-            Dim Pollutants As String = ""
-            Dim PollCheck As String = ""
-
-            lvPollutants.Items.Clear()
-            lvPollutants.Columns.Clear()
-            lvPollutants.View = View.Details
-            lvPollutants.AllowColumnReorder = True
-
-            lvPollutants.GridLines = True
-            lvPollutants.FullRowSelect = True
-
-            If AccountFormAccess(48, 2) = "1" And AccountFormAccess(48, 4) = "1" And AccountFormAccess(48, 3) = "0" Then
-                lvPollutants.Columns.Add("", 0, HorizontalAlignment.Left)
-                lvPollutants.Columns.Add("Air Program", 75, HorizontalAlignment.Left)
-                lvPollutants.Columns.Add("Pollutant", 100, HorizontalAlignment.Left)
-                lvPollutants.Columns.Add("Full Pollutant Desc.", 200, HorizontalAlignment.Left)
-                lvPollutants.Columns.Add("Compliance Status", 200, HorizontalAlignment.Left)
-                lvPollutants.Columns.Add("strAIRPollutantKey", 0, HorizontalAlignment.Left)
-
-                drAirProgramPollutants = dtAirProgramPollutants.Select()
-
-                For Each row In drAirProgramPollutants
-                    AirPollutantKey = row("strAIRPollutantKey").ToString()
-                    PollutantKey = row("strPollutantKey").ToString()
-                    AirProgram = row("AirProgram").ToString()
-                    PollutantDesc = row("strPollutantDescription").ToString()
-                    Compliance = row("ComplianceStatus").ToString()
-
-                    ColumnArray(1, 1) = ""
-                    ColumnArray(1, 2) = AirProgram
-                    ColumnArray(1, 3) = PollutantKey
-                    ColumnArray(1, 4) = PollutantDesc
-                    ColumnArray(1, 5) = Compliance
-                    ColumnArray(1, 6) = AirPollutantKey
-
-                    Dim item1 As New ListViewItem("")
-
-                    item1.Checked = False
-
-                    If temp > 1 Then
-                        For i = 2 To temp
-                            item1.SubItems.Add(ColumnArray(1, i))
-                        Next
-                    End If
-                    lvPollutants.Items.AddRange(New ListViewItem() {item1})
-                Next row
-
-                If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
-                    SQL = "Select " & _
-                    "strPollutants " & _
-                    "from AIRBRANCH.SSCP_AuditedEnforcement " & _
-                    "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        If IsDBNull(dr.Item("strPollutants")) Then
-                            Pollutants = ""
-                        Else
-                            Pollutants = dr.Item("strPollutants")
-                        End If
-                    End While
-                    dr.Close()
-
-                    Do While Pollutants <> ""
-                        temp = Mid(Pollutants, 1, InStr(Pollutants, ",", CompareMethod.Text) - 1)
-                        i = 0
-                        For i = 0 To lvPollutants.Items.Count - 1
-                            PollCheck = "0413" & txtAIRSNumber.Text & Mid(temp, 1, 1)
-                            If lvPollutants.Items.Item(i).SubItems(5).Text = PollCheck And _
-                                       lvPollutants.Items.Item(i).SubItems(2).Text = Mid(temp, 2) Then
-                                lvPollutants.Items.Item(i).Checked = True
-                            End If
-                        Next
-                        Pollutants = Replace(Pollutants, (temp & ","), "")
-                    Loop
-                End If
-            Else
-                lvPollutants.CheckBoxes = True
-
-                lvPollutants.Columns.Add("", 25, HorizontalAlignment.Left)
-                lvPollutants.Columns.Add("Air Program", 75, HorizontalAlignment.Left)
-                lvPollutants.Columns.Add("Pollutant", 100, HorizontalAlignment.Left)
-                lvPollutants.Columns.Add("Full Pollutant Desc.", 200, HorizontalAlignment.Left)
-                lvPollutants.Columns.Add("Compliance Status", 200, HorizontalAlignment.Left)
-                lvPollutants.Columns.Add("strAIRPollutantKey", 0, HorizontalAlignment.Left)
-
-                drAirProgramPollutants = dtAirProgramPollutants.Select()
-
-                For Each row In drAirProgramPollutants
-                    AirPollutantKey = row("strAIRPollutantKey").ToString()
-                    PollutantKey = row("strPollutantKey").ToString()
-                    AirProgram = row("AirProgram").ToString()
-                    PollutantDesc = row("strPollutantDescription").ToString()
-                    Compliance = row("ComplianceStatus").ToString()
-
-                    ColumnArray(1, 1) = ""
-                    ColumnArray(1, 2) = AirProgram
-                    ColumnArray(1, 3) = PollutantKey
-                    ColumnArray(1, 4) = PollutantDesc
-                    ColumnArray(1, 5) = Compliance
-                    ColumnArray(1, 6) = AirPollutantKey
-
-                    Dim item1 As New ListViewItem("")
-
-                    item1.Checked = False
-
-                    If temp > 1 Then
-                        For i = 2 To temp
-                            item1.SubItems.Add(ColumnArray(1, i))
-                        Next
-                    End If
-                    lvPollutants.Items.AddRange(New ListViewItem() {item1})
-                Next row
-
-                If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
-                    SQL = "Select " & _
-                    "strPollutants " & _
-                    "from AIRBRANCH.SSCP_AuditedEnforcement " & _
-                    "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        If IsDBNull(dr.Item("strPollutants")) Then
-                            Pollutants = ""
-                        Else
-                            Pollutants = dr.Item("strPollutants")
-                        End If
-                    End While
-                    dr.Close()
-
-                    Do While Pollutants <> ""
-                        temp = Mid(Pollutants, 1, InStr(Pollutants, ",", CompareMethod.Text) - 1)
-                        i = 0
-                        For i = 0 To lvPollutants.Items.Count - 1
-                            PollCheck = "0413" & txtAIRSNumber.Text & Mid(temp, 1, 1)
-                            If lvPollutants.Items.Item(i).SubItems(5).Text = PollCheck And _
-                                       lvPollutants.Items.Item(i).SubItems(2).Text = Mid(temp, 2) Then
-                                lvPollutants.Items.Item(i).Checked = True
-                            End If
-                        Next
-                        Pollutants = Replace(Pollutants, (temp & ","), "")
-                    Loop
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub SaveMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SaveMenuItem.Click
+        ValidateAndSave()
     End Sub
 
-    Private Sub LoadStipulatedPenalties()
-        Try
-            If txtEnforcementNumber.Text <> "" _
-              And TCEnforcement.TabPages.Contains(TPCO) = True _
-            And txtEnforcementNumber.Text <> "N/A" Then
-                SQL = "Select " & _
-                "strStipulatedPenalty, " & _
-                "Case " & _
-                "    When strStipulatedPenaltyComments IS Null THen 'N/A' " & _
-                "Else strStipulatedPenaltyComments  " & _
-                "End StipulatedPenaltyComments, " & _
-                "strAFSStipulatedPenaltyNumber, " & _
-                "strEnforcementKey " & _
-                "from AIRBRANCH.SSCPENforcementStipulated " & _
-                "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' " & _
-                "order by strEnforcementKey "
+    Private Sub CloseMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CloseMenuItem.Click
+        Me.Close()
+    End Sub
 
-                dsStipulatedPenalty = New DataSet
-                daStipulatedPenalty = New OracleDataAdapter(SQL, CurrentConnection)
+    Private Sub ShowAuditHistoryMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ShowAuditHistoryMenuItem.Click
+        ShowAuditHistory()
+    End Sub
 
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
+    Private Sub ShowEpaActionNumbersMenuItem_Click(sender As Object, e As EventArgs) Handles ShowEpaActionNumbersMenuItem.Click
+        ShowEpaValues()
+    End Sub
 
-                daStipulatedPenalty.Fill(dsStipulatedPenalty, "StipulatedPenalty")
-                dgvStipulatedPenalties.DataSource = dsStipulatedPenalty
-                dgvStipulatedPenalties.DataMember = "StipulatedPenalty"
+    Private Sub DeleteEnforcement_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DeleteEnforcementMenuItem.Click
+        DeleteEnforcement()
+    End Sub
 
-                dgvStipulatedPenalties.RowHeadersVisible = False
-                dgvStipulatedPenalties.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                dgvStipulatedPenalties.AllowUserToResizeColumns = True
-                dgvStipulatedPenalties.AllowUserToAddRows = False
-                dgvStipulatedPenalties.AllowUserToDeleteRows = False
-                dgvStipulatedPenalties.AllowUserToOrderColumns = True
-                dgvStipulatedPenalties.AllowUserToResizeRows = True
-                dgvStipulatedPenalties.Columns("strStipulatedPenalty").HeaderText = "Penalty Amount"
-                dgvStipulatedPenalties.Columns("strStipulatedPenalty").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-                dgvStipulatedPenalties.Columns("strStipulatedPenalty").DisplayIndex = 0
-                dgvStipulatedPenalties.Columns("StipulatedPenaltyComments").HeaderText = "Comments"
-                dgvStipulatedPenalties.Columns("StipulatedPenaltyComments").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-                dgvStipulatedPenalties.Columns("StipulatedPenaltyComments").DisplayIndex = 1
-                dgvStipulatedPenalties.Columns("strAFSStipulatedPenaltyNumber").HeaderText = "EPA Action Number"
-                dgvStipulatedPenalties.Columns("strAFSStipulatedPenaltyNumber").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-                dgvStipulatedPenalties.Columns("strAFSStipulatedPenaltyNumber").DisplayIndex = 2
-                dgvStipulatedPenalties.Columns("strEnforcementKey").HeaderText = "Penalty #"
-                dgvStipulatedPenalties.Columns("strEnforcementKey").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-                dgvStipulatedPenalties.Columns("strEnforcementKey").DisplayIndex = 3
-                dgvStipulatedPenalties.Columns("strEnforcementKey").Visible = False
-                txtStipulatedPenalitiesActionNumber.Clear()
-                For i As Integer = 0 To dgvStipulatedPenalties.RowCount - 1
-                    txtStipulatedPenalitiesActionNumber.Text = txtStipulatedPenalitiesActionNumber.Text & _
-                    dgvStipulatedPenalties.Item(2, i).Value & ", "
-                Next
-            Else
-                dsStipulatedPenalty = New DataSet
-                txtStipulatedPenalitiesActionNumber.Clear()
-            End If
-            txtStipulatedKey.Clear()
+    Private Sub ClearMessageMenuItem_Click(sender As Object, e As EventArgs) Handles ClearMessageMenuItem.Click
+        ClearMessage()
+    End Sub
 
-        Catch ex As Exception
-            ErrorReport(ex, txtEnforcementNumber.Text, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub ClearErrorsMenuItem_Click(sender As Object, e As EventArgs) Handles ClearErrorsMenuItem.Click
+        ClearErrors()
+    End Sub
 
+    Private Sub DismissMessageButton_Click(sender As Object, e As EventArgs) Handles DismissMessageButton.Click
+        ClearMessage()
     End Sub
 
 #End Region
 
-    Private Sub OpenChecklist()
-        If txtEnforcementNumber.Text = "" OrElse txtEnforcementNumber.Text = "N/A" Then
-            MsgBox("Please save the current enforcement before linking a Discovery Event.", MsgBoxStyle.Exclamation, "SSCP Enforcement")
-            Exit Sub
-        End If
+#Region " Save enforcement data "
 
-        If txtAIRSNumber.Text = "" Then
-            MsgBox("There is no AIRS number.", MsgBoxStyle.Exclamation, "SSCP Enforcement")
-            Exit Sub
-        End If
-
-        Dim discoveryEventDialog As New SSCPEnforcementChecklist
-        With discoveryEventDialog
-            .AirsNumber = txtAIRSNumber.Text
-            .EnforcementNumber = txtEnforcementNumber.Text
-            .SelectedDiscoveryEvent = txtTrackingNumber.Text
-            .ShowDialog()
-        End With
-
-        If discoveryEventDialog.DialogResult = DialogResult.OK Then
-            txtTrackingNumber.Text = discoveryEventDialog.SelectedDiscoveryEvent
-        End If
-
-        discoveryEventDialog.Dispose()
-    End Sub
-
-#Region " Save data "
-
-    Private Function ViolationTypeCheck() As Boolean
-        If (chbNOV.Checked Or chbCO.Checked Or chbAO.Checked) AndAlso
-            (ViolationTypeNone.Checked Or ViolationTypeSelect.SelectedValue = "BLANK") Then
-            MessageBox.Show("Choose a Violation Type before proceeding.", _
-                            "No Data Saved", MessageBoxButtons.OK, MessageBoxIcon.Error)
+    Private Function ValidateAndSave() As Boolean
+        If Not UserPermissions.CheckAuth(UserCan.SaveEnforcement) Then
+            GeneralMessage = New IaipMessage("You do not have sufficent permission to save changes to enforcement cases.", IaipMessage.WarningLevels.ErrorReport)
             Return False
-        ElseIf ViolationTypeHpv.Checked AndAlso Not DTPDayZero.Checked Then
-            MessageBox.Show("Set an HPV Day Zero before proceeding.", _
-                            "No Data Saved", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
+
+        If Not ValidateFormData() Then
+            DisplayValidationErrors()
+            Return False
+        End If
+
+        Return SaveEnforcement()
+    End Function
+
+    Private Function SaveEnforcement() As Boolean
+        ReadEnforcementCaseFromForm()
+        DetermineAfsActionNumbers()
+
+        Dim enforcementIsNew As Boolean = (EnforcementCase.EnforcementId = 0)
+
+        Dim result As Integer = DAL.Sscp.SaveEnforcement(EnforcementCase)
+        If result = 0 Then
+            GeneralMessage = New IaipMessage("There was an error saving the current data.", IaipMessage.WarningLevels.ErrorReport)
             Return False
         Else
+            EnforcementCase.DateModified = Today
+            DisplayEnforcementCase()
+
+            Dim message As String = "Current data saved."
+            If enforcementIsNew Then message &= vbNewLine & "New enforcement ID: " & EnforcementCase.EnforcementId
+            GeneralMessage = New IaipMessage(message, IaipMessage.WarningLevels.Success)
+
             Return True
         End If
     End Function
 
-    Private Sub SaveEnforcement()
-        If Not ViolationTypeCheck() Then Exit Sub
+    Private Sub DetermineAfsActionNumbers()
+        With EnforcementCase
+            If EnforcementCase.SubmittedToEpa Then
+                nextAfsKey = DAL.GetNextAfsActionNumber(AirsNumber)
+                Dim prevAfsKey As Integer = nextAfsKey
 
-        Try
-            Dim TrackingNumber As String = ""
-            Dim AIRSNumber As String = ""
-            Dim EnforcementFinalizedCheck As String = ""
-            Dim EnforcementFinalized As String = ""
-            Dim StaffResponsible As String = ""
-            Dim EnforcementStatus As String = ""
-            Dim ActionType As String = ""
-            Dim GeneralComments As String = ""
-            Dim DiscoveryDateCheck As String = ""
-            Dim DiscoveryDate As String = ""
-            Dim DayZeroCheck As String = ""
-            Dim DayZero As String = ""
-            Dim ViolationType As String = ""
-            Dim Pollutants As String = ""
-            Dim PollutantStatus As String = ""
-            Dim LONtoUCCheck As String = ""
-            Dim LONToUC As String = ""
-            Dim LONSentCheck As String = ""
-            Dim LonSent As String = ""
-            Dim LONResolvedCheck As String = ""
-            Dim LONResolved As String = ""
-            Dim LONComments As String = ""
-            Dim LONResolvedEnforcement As String = ""
-            Dim NOVtoUCCheck As String = ""
-            Dim NOVToUC As String = ""
-            Dim NOVtoPMCheck As String = ""
-            Dim NOVToPM As String = ""
-            Dim NOVSentCheck As String = ""
-            Dim NOVSent As String = ""
-            Dim NOVResponseRecieveCheck As String = ""
-            Dim NOVResponseReceived As String = ""
-            Dim NFAtoUCCheck As String = ""
-            Dim NFAToUC As String = ""
-            Dim NFAtoPMCheck As String = ""
-            Dim NFAToPM As String = ""
-            Dim NFALetterSentCheck As String = ""
-            Dim NFALetterSent As String = ""
-            Dim NOVCommetns As String = ""
-            Dim NOVResolvedEnforcement As String = ""
-            Dim COtoUCCheck As String = ""
-            Dim COToUC As String = ""
-            Dim COtoPMCheck As String = ""
-            Dim COToPM As String = ""
-            Dim CoProposedCheck As String = ""
-            Dim COProposed As String = ""
-            Dim COReceivedCompanyCheck As String = ""
-            Dim COReceivedCompany As String = ""
-            Dim CORecievedDirectorCheck As String = ""
-            Dim COReceivedDirector As String = ""
-            Dim COExecutedCheck As String = ""
-            Dim COExecuted As String = ""
-            Dim CONumber As String = ""
-            Dim COResolvedCheck As String = ""
-            Dim COResolved As String = ""
-            Dim COPenaltyAmount As String = ""
-            Dim COPenaltyAmountComments As String = ""
-            Dim COComment As String = ""
-            Dim COResolvedEnforcement As String = ""
-            Dim StipulatedPenalty As String = ""
-            Dim AOExecutedCheck As String = ""
-            Dim AOExecuted As String = ""
-            Dim AOAppealedCheck As String = ""
-            Dim AOAppealed As String = ""
-            Dim AOResolvedCheck As String = ""
-            Dim AOResolved As String = ""
-            Dim AOComment As String = ""
-            Dim AFSKeyActionNumber As String = ""
-            Dim AFSNOVSentNumber As String = ""
-            Dim AFSNOVResolvedNumber As String = ""
-            Dim AFSCOProposedNumber As String = ""
-            Dim AFSCOExecutedNumber As String = ""
-            Dim AFSCOResolvedNumber As String = ""
-            Dim AFSAOtoAGNumber As String = ""
-            Dim AFSCivilCourtNumber As String = ""
-            Dim AFSAOResolvedNumber As String = ""
+                AssignAfsKey(.AfsKeyActionNumber)
+                AssignAfsKey(.AfsNovActionNumber, .NovSent Is Nothing)
+                AssignAfsKey(.AfsNfaActionNumber, .NfaSent Is Nothing)
+                AssignAfsKey(.AfsCoProposedNumber, .CoProposed Is Nothing)
+                AssignAfsKey(.AfsCoActionNumber, .CoExecuted Is Nothing)
+                AssignAfsKey(.AfsCoResolvedActionNumber, .CoResolved Is Nothing)
+                AssignAfsKey(.AfsAoToAGActionNumber, .AoExecuted Is Nothing)
+                AssignAfsKey(.AfsCivilCourtActionNumber, .AoAppealed Is Nothing)
+                AssignAfsKey(.AfsAoResolvedActionNumber, .AoResolved Is Nothing)
 
-            If AccountFormAccess(48, 2) = "0" And AccountFormAccess(48, 3) = "0" And AccountFormAccess(48, 4) = "0" Then
-                MsgBox("You do not have sufficent permission to save Compliance Events.", MsgBoxStyle.Information, "Compliance Events")
-                Exit Sub
+                If nextAfsKey > prevAfsKey Then
+                    DAL.AfsData.SaveNextAfsActionNumber(AirsNumber, nextAfsKey)
+                End If
             Else
-                If txtTrackingNumber.Text <> "" Then
-                    TrackingNumber = txtTrackingNumber.Text
-                Else
-                    TrackingNumber = ""
-                End If
-                If txtAIRSNumber.Text <> "" Then
-                    AIRSNumber = txtAIRSNumber.Text
-                Else
-                    MsgBox("There is no AIRS #. An Enforcement Action cannot be saved without an AIRS #." & _
-                           "No Data Saved", MsgBoxStyle.Exclamation, Me.Text)
-                    Exit Sub
-                End If
-                If DTPEnforcementResolved.Checked = True Then
-                    EnforcementFinalized = Format(DTPEnforcementResolved.Value, "dd-MMM-yyyy")
-                    EnforcementFinalizedCheck = "True"
-                Else
-                    EnforcementFinalized = ""
-                    EnforcementFinalizedCheck = "False"
-                End If
-                StaffResponsible = cboStaffResponsible.SelectedValue
-                If StaffResponsible = "" Then
-                    StaffResponsible = CurrentUser.UserID
-                End If
-                If txtSubmitToUC.Text <> "" Then
-                    EnforcementStatus = "UC"
-                Else
-                    EnforcementStatus = ""
-                End If
-
-                If chbLON.Checked And Not (chbNOV.Checked Or chbCO.Checked Or chbAO.Checked) Then
-                    ActionType = "LON"
-                ElseIf chbNOV.Checked And Not (chbCO.Checked Or chbAO.Checked Or ViolationTypeHpv.Checked) Then
-                    ActionType = "NOV"
-                ElseIf chbCO.Checked And Not (chbAO.Checked Or ViolationTypeHpv.Checked Or DTPCOExecuted.Checked) Then
-                    ActionType = "NOVCOP"
-                ElseIf chbCO.Checked And Not (chbAO.Checked Or ViolationTypeHpv.Checked) And DTPCOExecuted.Checked Then
-                    ActionType = "NOVCO"
-                ElseIf chbAO.Checked And Not ViolationTypeHpv.Checked Then
-                    ActionType = "NOVAO"
-                ElseIf chbCO.Checked And ViolationTypeHpv.Checked And Not (chbAO.Checked Or DTPCOExecuted.Checked) Then
-                    ActionType = "HPVCOP"
-                ElseIf ViolationTypeHpv.Checked And chbCO.Checked And Not chbAO.Checked And DTPCOExecuted.Checked Then
-                    ActionType = "HPVCO"
-                ElseIf ViolationTypeHpv.Checked And chbAO.Checked Then
-                    ActionType = "HPVAO"
-                ElseIf ViolationTypeHpv.Checked And Not (chbCO.Checked Or chbAO.Checked) Then
-                    ActionType = "HPV"
-                End If
-
-                If txtGeneralComments.Text <> "" Then
-                    GeneralComments = txtGeneralComments.Text
-                Else
-                    GeneralComments = ""
-                End If
-                If DTPDiscoveryDate.Checked = True Then
-                    DiscoveryDate = Format(DTPDiscoveryDate.Value, "dd-MMM-yyyy")
-                    DiscoveryDateCheck = "True"
-                Else
-                    DiscoveryDate = ""
-                    DiscoveryDateCheck = "False"
-                End If
-                If DTPDayZero.Checked = True Then
-                    DayZero = Format(DTPDayZero.Value, "dd-MMM-yyyy")
-                    DayZeroCheck = "True"
-                Else
-                    DayZero = ""
-                    DayZeroCheck = "False"
-                End If
-
-                If ViolationTypeSelect.SelectedValue = "BLANK" Then
-                    ViolationType = ""
-                Else
-                    ViolationType = ViolationTypeSelect.SelectedValue
-                End If
-
-                Dim i As Integer
-                For i = 0 To lvPollutants.Items.Count - 1
-                    If lvPollutants.Items.Item(i).Checked = True Then
-                        Pollutants = Pollutants & Mid(lvPollutants.Items.Item(i).SubItems(1).Text, 1, 1) & lvPollutants.Items.Item(i).SubItems(2).Text & ","
-                    End If
-                Next
-
-                PollutantStatus = cboPollutantStatus.SelectedValue
-                If DTPLONToUC.Checked = True Then
-                    LONToUC = Format(DTPLONToUC.Value, "dd-MMM-yyyy")
-                    LONtoUCCheck = "True"
-                Else
-                    LONToUC = ""
-                    LONtoUCCheck = "False"
-                End If
-                If DTPLONSent.Checked = True Then
-                    LonSent = Format(DTPLONSent.Value, "dd-MMM-yyyy")
-                    LONSentCheck = "True"
-                Else
-                    LonSent = ""
-                    LONSentCheck = "False"
-                End If
-                If DTPLONResolved.Checked = True Then
-                    LONResolved = Format(DTPLONResolved.Value, "dd-MMM-yyyy")
-                    LONResolvedCheck = "True"
-                Else
-                    LONResolved = ""
-                    LONResolvedCheck = "False"
-                End If
-                If txtLONComments.Text <> "" Then
-                    LONComments = txtLONComments.Text
-                Else
-                    LONComments = ""
-                End If
-                LONResolvedEnforcement = ""
-                If DTPNOVToUC.Checked = True Then
-                    NOVToUC = Format(DTPNOVToUC.Value, "dd-MMM-yyyy")
-                    NOVtoUCCheck = "True"
-                Else
-                    NOVToUC = ""
-                    NOVtoUCCheck = "False"
-                End If
-                If DTPNOVToPM.Checked = True Then
-                    NOVToPM = Format(DTPNOVToPM.Value, "dd-MMM-yyyy")
-                    NOVtoPMCheck = "True"
-                Else
-                    NOVToPM = ""
-                    NOVtoPMCheck = "False"
-                End If
-                If DTPNOVsent.Checked = True Then
-                    NOVSent = Format(DTPNOVsent.Value, "dd-MMM-yyyy")
-                    NOVSentCheck = "True"
-                Else
-                    NOVSent = ""
-                    NOVSentCheck = "False"
-                End If
-                If DTPNOVResponseReceived.Checked = True Then
-                    NOVResponseReceived = Format(DTPNOVResponseReceived.Value, "dd-MMM-yyyy")
-                    NOVResponseRecieveCheck = "True"
-                Else
-                    NOVResponseReceived = ""
-                    NOVResponseRecieveCheck = "False"
-                End If
-                If DTPNFAToUC.Checked = True Then
-                    NFAToUC = Format(DTPNFAToUC.Value, "dd-MMM-yyyy")
-                    NFAtoUCCheck = "True"
-                Else
-                    NFAToUC = ""
-                    NFAtoUCCheck = "False"
-                End If
-                If DTPNFAToPM.Checked = True Then
-                    NFAToPM = Format(DTPNFAToPM.Value, "dd-MMM-yyyy")
-                    NFAtoPMCheck = "True"
-                Else
-                    NFAToPM = ""
-                    NFAtoPMCheck = "False"
-                End If
-                If DTPNFALetterSent.Checked = True Then
-                    NFALetterSent = Format(DTPNFALetterSent.Value, "dd-MMM-yyyy")
-                    NFALetterSentCheck = "True"
-                Else
-                    NFALetterSent = ""
-                    NFALetterSentCheck = "False"
-                End If
-                If txtNOVComments.Text <> "" Then
-                    NOVCommetns = txtNOVComments.Text
-                Else
-                    NOVCommetns = ""
-                End If
-                If DTPCOToUC.Checked = True Then
-                    COToUC = Format(DTPCOToUC.Value, "dd-MMM-yyyy")
-                    COtoUCCheck = "True"
-                Else
-                    COToUC = ""
-                    COtoUCCheck = "False"
-                End If
-                If DTPCOToPM.Checked = True Then
-                    COToPM = Format(DTPCOToPM.Value, "dd-MMM-yyyy")
-                    COtoPMCheck = "True"
-                Else
-                    COToPM = ""
-                    COtoPMCheck = "False"
-                End If
-                If DTPCOProposed.Checked = True Then
-                    COProposed = Format(DTPCOProposed.Value, "dd-MMM-yyyy")
-                    CoProposedCheck = "True"
-                Else
-                    COProposed = ""
-                    CoProposedCheck = "False"
-                End If
-                If DTPCOReceivedfromCompany.Checked = True Then
-                    COReceivedCompany = Format(DTPCOReceivedfromCompany.Value, "dd-MMM-yyyy")
-                    COReceivedCompanyCheck = "True"
-                Else
-                    COReceivedCompany = ""
-                    COReceivedCompanyCheck = "False"
-                End If
-                If DTPCOReceivedfromDirector.Checked = True Then
-                    COReceivedDirector = Format(DTPCOReceivedfromDirector.Value, "dd-MMM-yyyy")
-                    CORecievedDirectorCheck = "True"
-                Else
-                    COReceivedDirector = ""
-                    CORecievedDirectorCheck = "False"
-                End If
-                If DTPCOExecuted.Checked = True Then
-                    COExecuted = Format(DTPCOExecuted.Value, "dd-MMM-yyyy")
-                    COExecutedCheck = "True"
-                Else
-                    COExecuted = ""
-                    COExecutedCheck = "False"
-                End If
-                If nudCoNumber.Value = 0 Then
-                    CONumber = ""
-                Else
-                    CONumber = "EPD-AQC-" & nudCoNumber.Value.ToString
-                End If
-                If DTPCOResolved.Checked = True Then
-                    COResolved = Format(DTPCOResolved.Value, "dd-MMM-yyyy")
-                    COResolvedCheck = "True"
-                Else
-                    COResolved = ""
-                    COResolvedCheck = "False"
-                End If
-                If txtCOPenaltyAmount.Text <> "" Then
-                    COPenaltyAmount = txtCOPenaltyAmount.Text
-                Else
-                    COPenaltyAmount = ""
-                End If
-                If txtPenaltyComments.Text <> "" Then
-                    COPenaltyAmountComments = txtPenaltyComments.Text
-                Else
-                    COPenaltyAmountComments = ""
-                End If
-                If txtCOComments.Text <> "" Then
-                    COComment = txtCOComments.Text
-                Else
-                    COComment = ""
-                End If
-                If DTPAOExecuted.Checked = True Then
-                    AOExecuted = Format(DTPAOExecuted.Value, "dd-MMM-yyyy")
-                    AOExecutedCheck = "True"
-                Else
-                    AOExecuted = ""
-                    AOExecutedCheck = "False"
-                End If
-                If DTPAOAppealed.Checked = True Then
-                    AOAppealed = Format(DTPAOAppealed.Value, "dd-MMM-yyyy")
-                    AOAppealedCheck = "True"
-                Else
-                    AOAppealed = ""
-                    AOAppealedCheck = "False"
-                End If
-                If DTPAOResolved.Checked = True Then
-                    AOResolved = Format(DTPAOResolved.Value, "dd-MMM-yyyy")
-                    AOResolvedCheck = "True"
-                Else
-                    AOResolved = ""
-                    AOResolvedCheck = "False"
-                End If
-                If txtAOComments.Text <> "" Then
-                    AOComment = txtAOComments.Text
-                Else
-                    AOComment = ""
-                End If
-
-                'For Each row As DataGridViewRow In dgvStipulatedPenalties.Rows
-                '    StipulatedPenalty = StipulatedPenalty + CDec(row.Cells(0).Value)
-                'Next
-                If IsDBNull(dgvStipulatedPenalties.RowCount.ToString) Then
-                    StipulatedPenalty = ""
-                Else
-                    StipulatedPenalty = dgvStipulatedPenalties.RowCount.ToString
-                End If
-                'If txtStipulatedKey.Text <> "" Then
-                '    StipulatedPenalty = txtStipulatedKey.Text
-                'Else
-                '    StipulatedPenalty = ""
-                'End If
-                If txtAFSKeyActionNumber.Text <> "" Then
-                    AFSKeyActionNumber = txtAFSKeyActionNumber.Text
-                Else
-                    AFSKeyActionNumber = ""
-                End If
-                If txtAFSNOVActionNumber.Text <> "" Then
-                    AFSNOVSentNumber = txtAFSNOVActionNumber.Text
-                Else
-                    AFSNOVSentNumber = ""
-                End If
-                If txtAFSNOVResolvedNumber.Text <> "" Then
-                    AFSNOVResolvedNumber = txtAFSNOVResolvedNumber.Text
-                Else
-                    AFSNOVResolvedNumber = ""
-                End If
-                If txtAFSCOProposedActionNumber.Text <> "" Then
-                    AFSCOProposedNumber = txtAFSCOProposedActionNumber.Text
-                Else
-                    AFSCOProposedNumber = ""
-                End If
-                If txtAFSCOExecutedActionNumber.Text <> "" Then
-                    AFSCOExecutedNumber = txtAFSCOExecutedActionNumber.Text
-                Else
-                    AFSCOExecutedNumber = ""
-                End If
-                If txtAFSCOResolvedActionNumber.Text <> "" Then
-                    AFSCOResolvedNumber = txtAFSCOResolvedActionNumber.Text
-                Else
-                    AFSCOResolvedNumber = ""
-                End If
-                If txtAFSAOToAGActionNumber.Text <> "" Then
-                    AFSAOtoAGNumber = txtAFSAOToAGActionNumber.Text
-                Else
-                    AFSAOtoAGNumber = ""
-                End If
-                If txtAFSCivilCourtActionNumber.Text <> "" Then
-                    AFSCivilCourtNumber = txtAFSCivilCourtActionNumber.Text
-                Else
-                    AFSCivilCourtNumber = ""
-                End If
-                If txtAFSAOResolvedActionNumber.Text <> "" Then
-                    AFSAOResolvedNumber = txtAFSAOResolvedActionNumber.Text
-                Else
-                    AFSAOResolvedNumber = ""
-                End If
-
-                If txtEnforcementNumber.Text = "" Or txtEnforcementNumber.Text = "N/A" Then
-                    SQL = "Insert into AIRBRANCH.SSCP_Enforcement " & _
-                    "values " & _
-                    "((select max(ID) + 1 from AIRBRANCH.SSCP_Enforcement), " & _
-                    "AIRBRANCH.SSCPEnforcementNumber.nextval, " & _
-                    "'" & TrackingNumber & "', '0413" & AIRSNumber & "', " & _
-                    "'" & EnforcementFinalizedCheck & "', '" & EnforcementFinalized & "', " & _
-                    "'" & StaffResponsible & "', '" & EnforcementStatus & "', " & _
-                    "'" & ActionType & "', '" & Replace(GeneralComments, "'", "''") & "', " & _
-                    "'" & DiscoveryDateCheck & "', '" & DiscoveryDate & "', " & _
-                    "'" & DayZeroCheck & "', '" & DayZero & "', " & _
-                    "'" & ViolationType & "', '" & Pollutants & "', " & _
-                    "'" & PollutantStatus & "',  " & _
-                    "'" & LONtoUCCheck & "', '" & LONToUC & "', " & _
-                    "'" & LONSentCheck & "', '" & LonSent & "', " & _
-                    "'" & LONResolvedCheck & "', '" & LONResolved & "', " & _
-                    "'" & Replace(LONComments, "'", "''") & "', '" & LONResolvedEnforcement & "', " & _
-                    "'" & NOVtoUCCheck & "', '" & NOVToUC & "', " & _
-                    "'" & NOVtoPMCheck & "', '" & NOVToPM & "', " & _
-                    "'" & NOVSentCheck & "', '" & NOVSent & "', " & _
-                    "'" & NOVResponseRecieveCheck & "', '" & NOVResponseReceived & "', " & _
-                    "'" & NFAtoUCCheck & "', '" & NFAToUC & "', " & _
-                    "'" & NFAtoPMCheck & "', '" & NFAToPM & "', " & _
-                    "'" & NFALetterSentCheck & "', '" & NFALetterSent & "', " & _
-                    "'" & Replace(NOVCommetns, "'", "''") & "', '" & NOVResolvedEnforcement & "', " & _
-                    "'" & COtoUCCheck & "', '" & COToUC & "', " & _
-                    "'" & COtoPMCheck & "', '" & COToPM & "', " & _
-                    "'" & CoProposedCheck & "', '" & COProposed & "', " & _
-                    "'" & COReceivedCompanyCheck & "', '" & COReceivedCompany & "', " & _
-                    "'" & CORecievedDirectorCheck & "', '" & COReceivedDirector & "', " & _
-                    "'" & COExecutedCheck & "', '" & COExecuted & "', " & _
-                    "'" & CONumber & "', " & _
-                    "'" & COResolvedCheck & "', '" & COResolved & "', " & _
-                    "'" & COPenaltyAmount & "', '" & Replace(COPenaltyAmountComments, "'", "''") & "', " & _
-                    "'" & Replace(COComment, "'", "''") & "', '" & StipulatedPenalty.ToString & "', " & _
-                    "'" & COResolvedEnforcement & "', " & _
-                    "'" & AOExecutedCheck & "', '" & AOExecuted & "', " & _
-                    "'" & AOAppealedCheck & "', '" & AOAppealed & "', " & _
-                    "'" & AOResolvedCheck & "', '" & AOResolved & "', " & _
-                    "'" & Replace(AOComment, "'", "''") & "', " & _
-                    "'" & AFSKeyActionNumber & "', '" & AFSNOVSentNumber & "', " & _
-                    "'" & AFSNOVResolvedNumber & "', '" & AFSCOProposedNumber & "', " & _
-                    "'" & AFSCOExecutedNumber & "', '" & AFSCOResolvedNumber & "', " & _
-                    "'" & AFSAOtoAGNumber & "', '" & AFSCivilCourtNumber & "', " & _
-                    "'" & AFSAOResolvedNumber & "', " & _
-                    "'" & CurrentUser.UserID & "', sysdate ) "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
-
-                    SQL = "Select AIRBRANCH.SSCPEnforcementnumber.currval from dual "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        txtEnforcementNumber.Text = dr.Item(0)
-                        If Me.ID = -1 Then
-                            Me.ID = CInt(txtEnforcementNumber.Text)
-                            MultiForm(Me.Name).ChangeKey(-1, CInt(txtEnforcementNumber.Text))
-                        End If
-                    End While
-
-                    dr.Close()
-                Else
-                    SQL = "Insert into AIRBRANCH.SSCP_Enforcement " & _
-                    "values " & _
-                    "((select max(ID) + 1 from AIRBRANCH.SSCP_Enforcement), " & _
-                    "'" & txtEnforcementNumber.Text & "', " & _
-                    "'" & TrackingNumber & "', '0413" & AIRSNumber & "', " & _
-                    "'" & EnforcementFinalizedCheck & "', '" & EnforcementFinalized & "', " & _
-                    "'" & StaffResponsible & "', '" & EnforcementStatus & "', " & _
-                    "'" & ActionType & "', '" & Replace(GeneralComments, "'", "''") & "', " & _
-                    "'" & DiscoveryDateCheck & "', '" & DiscoveryDate & "', " & _
-                    "'" & DayZeroCheck & "', '" & DayZero & "', " & _
-                    "'" & ViolationType & "', '" & Pollutants & "', " & _
-                    "'" & PollutantStatus & "',  " & _
-                    "'" & LONtoUCCheck & "', '" & LONToUC & "', " & _
-                    "'" & LONSentCheck & "', '" & LonSent & "', " & _
-                    "'" & LONResolvedCheck & "', '" & LONResolved & "', " & _
-                    "'" & Replace(LONComments, "'", "''") & "', '" & LONResolvedEnforcement & "', " & _
-                    "'" & NOVtoUCCheck & "', '" & NOVToUC & "', " & _
-                    "'" & NOVtoPMCheck & "', '" & NOVToPM & "', " & _
-                    "'" & NOVSentCheck & "', '" & NOVSent & "', " & _
-                    "'" & NOVResponseRecieveCheck & "', '" & NOVResponseReceived & "', " & _
-                    "'" & NFAtoUCCheck & "', '" & NFAToUC & "', " & _
-                    "'" & NFAtoPMCheck & "', '" & NFAToPM & "', " & _
-                    "'" & NFALetterSentCheck & "', '" & NFALetterSent & "', " & _
-                    "'" & Replace(NOVCommetns, "'", "''") & "', '" & NOVResolvedEnforcement & "', " & _
-                    "'" & COtoUCCheck & "', '" & COToUC & "', " & _
-                    "'" & COtoPMCheck & "', '" & COToPM & "', " & _
-                    "'" & CoProposedCheck & "', '" & COProposed & "', " & _
-                    "'" & COReceivedCompanyCheck & "', '" & COReceivedCompany & "', " & _
-                    "'" & CORecievedDirectorCheck & "', '" & COReceivedDirector & "', " & _
-                    "'" & COExecutedCheck & "', '" & COExecuted & "', " & _
-                    "'" & CONumber & "', " & _
-                    "'" & COResolvedCheck & "', '" & COResolved & "', " & _
-                    "'" & COPenaltyAmount & "', '" & Replace(COPenaltyAmountComments, "'", "''") & "', " & _
-                    "'" & Replace(COComment, "'", "''") & "', '" & StipulatedPenalty & "', " & _
-                    "'" & COResolvedEnforcement & "', " & _
-                    "'" & AOExecutedCheck & "', '" & AOExecuted & "', " & _
-                    "'" & AOAppealedCheck & "', '" & AOAppealed & "', " & _
-                    "'" & AOResolvedCheck & "', '" & AOResolved & "', " & _
-                    "'" & Replace(AOComment, "'", "''") & "', " & _
-                    "'" & AFSKeyActionNumber & "', '" & AFSNOVSentNumber & "', " & _
-                    "'" & AFSNOVResolvedNumber & "', '" & AFSCOProposedNumber & "', " & _
-                    "'" & AFSCOExecutedNumber & "', '" & AFSCOResolvedNumber & "', " & _
-                    "'" & AFSAOtoAGNumber & "', '" & AFSCivilCourtNumber & "', " & _
-                    "'" & AFSAOResolvedNumber & "', " & _
-                    "'" & CurrentUser.UserID & "', sysdate ) "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
-                End If
-
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd = New OracleCommand("AIRBranch.PD_SSCPEnforcement", CurrentConnection)
-                cmd.CommandType = CommandType.StoredProcedure
-
-                cmd.Parameters.Add(New OracleParameter("ENFORCEMENT", OracleDbType.Varchar2)).Value = txtEnforcementNumber.Text
-                cmd.ExecuteNonQuery()
-
-                If cboPollutantStatus.SelectedValue = "" Then
-                    cboPollutantStatus.SelectedValue = "0"
-                End If
-                'Update Pollutant Status in Header Tables 
-                i = 0
-                For i = 0 To lvPollutants.Items.Count - 1
-                    If lvPollutants.Items.Item(i).Checked = True Then
-
-                        SQL = "Update AIRBRANCH.APBAirProgramPollutants set " & _
-                        "strComplianceStatus = '" & cboPollutantStatus.SelectedValue & "', " & _
-                        "strModifingPerson = '" & CurrentUser.UserID & "', " & _
-                        "datModifingDate = '" & OracleDate & "' " & _
-                        "where strAirPollutantKey = '" & lvPollutants.Items.Item(i).SubItems(5).Text & "' " & _
-                        "and strPollutantkey = '" & lvPollutants.Items.Item(i).SubItems(2).Text & "' "
-
-                        cmd = New OracleCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        dr.Close()
-                    End If
-                Next
+                .AfsKeyActionNumber = 0
+                .AfsNovActionNumber = 0
+                .AfsNfaActionNumber = 0
+                .AfsCoProposedNumber = 0
+                .AfsCoActionNumber = 0
+                .AfsCoResolvedActionNumber = 0
+                .AfsAoToAGActionNumber = 0
+                .AfsCivilCourtActionNumber = 0
+                .AfsAoResolvedActionNumber = 0
             End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        End With
     End Sub
 
-    Private Sub SaveStipulatedPenalties()
-        If txtEnforcementNumber.Text = "" OrElse txtEnforcementNumber.Text = "N/A" Then
-            MsgBox("Save the current enforcement before saving stipulated penalties.", MsgBoxStyle.Exclamation, "No data saved")
-            Exit Sub
+    Private Sub AssignAfsKey(ByRef assignee As Integer, Optional remove As Boolean = False)
+        ' Assigns or deletes (sets to zero) an AFS action number. 
+        ' If remove is true, AFS key is set to zero.
+        ' Otherwise, if key as already set, then it is left as is.
+        ' Otherwise, key is assigned the next sequential key
+        If remove Then
+            assignee = 0
+        ElseIf assignee = 0 Then
+            assignee = nextAfsKey
+            nextAfsKey += 1
         End If
-
-        Try
-            Dim stipulatedKey As String = ""
-            Dim AFSNumber As String = ""
-            Dim temp As String = ""
-            Dim query As String
-
-            If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
-                query = "SELECT MAX(SSCPENFORCEMENTSTIPULATED.STRENFORCEMENTKEY) AS MaxKey " & _
-                "FROM AIRBRANCH.SSCPENFORCEMENTSTIPULATED " & _
-                "WHERE SSCPENFORCEMENTSTIPULATED.STRENFORCEMENTNUMBER = :enfNumber"
-                Using connection As New OracleConnection(DB.CurrentConnectionString)
-                    Using command As New OracleCommand(query, connection) With {.CommandType = CommandType.Text}
-                        With command
-                            .BindByName = True
-                            .Parameters.Add(":enfNumber", txtEnforcementNumber.Text)
-                        End With
-                        Try
-                            connection.Open()
-                            Dim reader As OracleDataReader = command.ExecuteReader
-                            While reader.Read
-                                If Not IsDBNull(reader.Item("MaxKey")) Then
-                                    stipulatedKey = reader.Item("MaxKey")
-                                Else
-                                    stipulatedKey = "0"
-                                End If
-                            End While
-                        Catch ee As OracleException
-                            MessageBox.Show("Could not connect to the database.")
-                        End Try
-                    End Using
-                End Using
-            Else
-                stipulatedKey = "0"
-            End If
-
-            stipulatedKey = CStr(CInt(stipulatedKey) + 1)
-
-            If txtAFSKeyActionNumber.Text <> "" Then
-                SQL = "Select strAFSActionNumber " & _
-                "from AIRBRANCH.APBSupplamentalData " & _
-                "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    AFSNumber = dr.Item("strAFSActionNumber")
-                End While
-                dr.Close()
-
-                temp = CStr(CInt(AFSNumber) + 1)
-
-                SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
-                "strAFSActionNumber = '" & temp & "' " & _
-                "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
-            Else
-                SQL = "Select strAFSActionNumber " & _
-                "from AIRBRANCH.APBSupplamentalData " & _
-                "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    AFSNumber = dr.Item("strAFSActionNumber")
-                End While
-                dr.Close()
-
-                txtAFSKeyActionNumber.Text = AFSNumber
-
-                temp = CStr(CInt(AFSNumber) + 1)
-
-                SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
-                "strAFSActionNumber = '" & temp & "' " & _
-                "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
-
-                AFSNumber = temp
-                temp = CStr(CInt(AFSNumber) + 1)
-
-                SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
-                "strAFSActionNumber = '" & temp & "' " & _
-                "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
-            End If
-
-            If txtEnforcementNumber.Text = "" Or txtEnforcementNumber.Text = "N/A" Then SaveEnforcement()
-
-            query = "Insert into AIRBRANCH.SSCPEnforcementStipulated " & _
-            "values (:enfNumber,:stipKey,:stipPenalty,:stipComments,:afsNumber,:userGCode,:oracleDate)"
-            Using connection As New OracleConnection(DB.CurrentConnectionString)
-                Using command As New OracleCommand(query, connection) With {.CommandType = CommandType.Text}
-                    With command
-                        .BindByName = True
-                        .Parameters.Add(":enfNumber", txtEnforcementNumber.Text)
-                        .Parameters.Add(":stipKey", stipulatedKey.ToString)
-                        .Parameters.Add(":stipPenalty", txtStipulatedPenalty.Text)
-                        .Parameters.Add(":stipComments", txtStipulatedComments.Text)
-                        .Parameters.Add(":afsNumber", AFSNumber)
-                        .Parameters.Add(":userGCode", CurrentUser.UserID)
-                        .Parameters.Add(":oracleDate", OracleDate)
-                    End With
-                    Try
-                        connection.Open()
-                        command.ExecuteNonQuery()
-                    Catch ee As OracleException
-                        MessageBox.Show("Could not connect to the database.")
-                    End Try
-                End Using
-            End Using
-
-            LoadStipulatedPenalties()
-            SaveEnforcement()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-
-    Private Sub SaveAFSInformation()
-        Dim KeyActionNumber As String = ""
-        Dim NOVActionNumber As String = ""
-        Dim NFAActionNumber As String = ""
-        Dim COProposedActionNumber As String = ""
-        Dim COExecutedActionNumber As String = ""
-        Dim COResolvedActionNumber As String = ""
-        Dim AOtoAGActionNumber As String = ""
-        Dim AOtoCivilCourtActionNumber As String = ""
-        Dim AOResolvedActionNumber As String = ""
-
-        Try
-            If chbNOV.Checked Or chbCO.Checked Or chbAO.Checked Then
-
-                If txtAFSKeyActionNumber.Text = "" Then
-                    SQL = "Select strAFSActionNumber " & _
-                    "from AIRBRANCH.APBSupplamentalData " & _
-                    "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        KeyActionNumber = dr.Item("strAFSActionNumber")
-                    End While
-                    dr.Close()
-
-                    txtAFSKeyActionNumber.Text = KeyActionNumber
-
-                    KeyActionNumber = CStr(CInt(KeyActionNumber) + 1)
-
-                    SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
-                    "strAFSActionNUmber = '" & KeyActionNumber & "' " & _
-                    "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
-                End If
-
-                If DTPNOVsent.Checked AndAlso txtAFSNOVActionNumber.Text = "" Then
-                    SQL = "Select strAFSActionNumber " & _
-                    "from AIRBRANCH.APBSupplamentalData " & _
-                    "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        NOVActionNumber = dr.Item("strAFSActionNumber")
-                    End While
-                    dr.Close()
-
-                    txtAFSNOVActionNumber.Text = NOVActionNumber
-
-                    NOVActionNumber = CStr(CInt(NOVActionNumber) + 1)
-
-                    SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
-                    "strAFSActionNUmber = '" & NOVActionNumber & "' " & _
-                    "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
-                End If
-
-                If DTPNFALetterSent.Checked AndAlso txtAFSNOVResolvedNumber.Text = "" Then
-                    SQL = "Select strAFSActionNumber " & _
-                    "from AIRBRANCH.APBSupplamentalData " & _
-                    "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        NFAActionNumber = dr.Item("strAFSActionNumber")
-                    End While
-                    dr.Close()
-
-                    txtAFSNOVResolvedNumber.Text = NFAActionNumber
-
-                    NFAActionNumber = CStr(CInt(NFAActionNumber) + 1)
-
-                    SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
-                    "strAFSActionNumber = '" & NFAActionNumber & "' " & _
-                    "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
-                End If
-
-                If DTPCOProposed.Checked AndAlso txtAFSCOProposedActionNumber.Text = "" Then
-                    SQL = "Select strAFSActionNumber " & _
-                    "from AIRBRANCH.APBSupplamentalData " & _
-                    "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        COProposedActionNumber = dr.Item("strAFSActionNumber")
-                    End While
-                    dr.Close()
-
-                    txtAFSCOProposedActionNumber.Text = COProposedActionNumber
-
-                    COProposedActionNumber = CStr(CInt(COProposedActionNumber) + 1)
-
-                    SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
-                    "strAFSActionNumber = '" & COProposedActionNumber & "' " & _
-                    "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
-                End If
-
-                If DTPCOExecuted.Checked AndAlso txtAFSCOExecutedActionNumber.Text = "" Then
-                    SQL = "Select strAFSActionNumber " & _
-                    "from AIRBRANCH.APBSupplamentalData " & _
-                    "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        COExecutedActionNumber = dr.Item("strAFSActionNumber")
-                    End While
-                    dr.Close()
-
-                    txtAFSCOExecutedActionNumber.Text = COExecutedActionNumber
-
-                    COExecutedActionNumber = CStr(CInt(COExecutedActionNumber) + 1)
-
-                    SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
-                    "strAFSActionNumber = '" & COExecutedActionNumber & "' " & _
-                    "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
-                End If
-
-                If DTPCOResolved.Checked AndAlso txtAFSCOResolvedActionNumber.Text = "" Then
-                    SQL = "Select strAFSActionNumber " & _
-                    "from AIRBRANCH.APBSupplamentalData " & _
-                    "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        COResolvedActionNumber = dr.Item("strAFSActionNumber")
-                    End While
-                    dr.Close()
-
-                    txtAFSCOResolvedActionNumber.Text = COResolvedActionNumber
-
-                    COResolvedActionNumber = CStr(CInt(COResolvedActionNumber) + 1)
-
-                    SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
-                    "strAFSActionNumber = '" & COResolvedActionNumber & "' " & _
-                    "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
-                End If
-
-                If DTPAOExecuted.Checked AndAlso txtAFSAOToAGActionNumber.Text = "" Then
-                    SQL = "Select strAFSActionNumber " & _
-                    "from AIRBRANCH.APBSupplamentalData " & _
-                    "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        AOtoAGActionNumber = dr.Item("strAFSActionNumber")
-                    End While
-                    dr.Close()
-
-                    txtAFSAOToAGActionNumber.Text = AOtoAGActionNumber
-
-                    AOtoAGActionNumber = CStr(CInt(AOtoAGActionNumber) + 1)
-
-                    SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
-                    "strAFSActionNumber = '" & AOtoAGActionNumber & "' " & _
-                    "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
-                End If
-
-                If DTPAOAppealed.Checked AndAlso txtAFSCivilCourtActionNumber.Text = "" Then
-                    SQL = "Select strAFSActionNumber " & _
-                    "from AIRBRANCH.APBSupplamentalData " & _
-                    "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        AOtoCivilCourtActionNumber = dr.Item("strAFSActionNumber")
-                    End While
-                    dr.Close()
-
-                    txtAFSCivilCourtActionNumber.Text = AOtoCivilCourtActionNumber
-
-                    AOtoCivilCourtActionNumber = CStr(CInt(AOtoCivilCourtActionNumber) + 1)
-
-                    SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
-                    "strAFSActionNumber = '" & AOtoCivilCourtActionNumber & "' " & _
-                    "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
-                End If
-
-                If DTPAOResolved.Checked AndAlso txtAFSAOResolvedActionNumber.Text = "" Then
-                    SQL = "Select strAFSActionNumber " & _
-                    "from AIRBRANCH.APBSupplamentalData " & _
-                    "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        AOResolvedActionNumber = dr.Item("strAFSActionNumber")
-                    End While
-                    dr.Close()
-
-                    txtAFSAOResolvedActionNumber.Text = AOResolvedActionNumber
-
-                    AOResolvedActionNumber = CStr(CInt(AOResolvedActionNumber) + 1)
-
-                    SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
-                    "strAFSActionNumber = '" & AOResolvedActionNumber & "' " & _
-                    "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
     End Sub
 
 #End Region
 
-#Region " Remove data "
+#Region " Validation "
 
-    Private Sub ClearEnforcement()
-        Try
-            txtAOComments.Clear()
-            DTPAOResolved.Text = OracleDate
-            DTPAOResolved.Checked = False
-            DTPAOAppealed.Text = OracleDate
-            DTPAOAppealed.Checked = False
-            DTPAOExecuted.Text = OracleDate
-            DTPAOExecuted.Checked = False
-            txtStipulatedComments.Clear()
-            txtStipulatedKey.Clear()
-            txtStipulatedPenalty.Clear()
-            dsStipulatedPenalty = New DataSet
-            txtCOComments.Clear()
-            txtPenaltyComments.Clear()
-            txtCOPenaltyAmount.Clear()
-            DTPCOResolved.Text = OracleDate
-            DTPCOResolved.Checked = False
-            nudCoNumber.Value = 0
-            DTPCOExecuted.Text = OracleDate
-            DTPCOExecuted.Checked = False
-            DTPCOReceivedfromDirector.Text = OracleDate
-            DTPCOReceivedfromDirector.Checked = False
-            DTPCOReceivedfromCompany.Text = OracleDate
-            DTPCOReceivedfromCompany.Checked = False
-            DTPCOProposed.Text = OracleDate
-            DTPCOProposed.Checked = False
-            DTPCOToPM.Text = OracleDate
-            DTPCOToPM.Checked = False
-            DTPCOToUC.Text = OracleDate
-            DTPCOToUC.Checked = False
-            txtNOVComments.Clear()
-            DTPNFALetterSent.Text = OracleDate
-            DTPNFALetterSent.Checked = False
-            DTPNFAToPM.Text = OracleDate
-            DTPNFAToPM.Checked = False
-            DTPNFAToUC.Text = OracleDate
-            DTPNFAToUC.Checked = False
-            DTPNOVResponseReceived.Text = OracleDate
-            DTPNOVResponseReceived.Checked = False
-            DTPNOVsent.Text = OracleDate
-            DTPNOVsent.Checked = False
-            DTPNOVToPM.Text = OracleDate
-            DTPNOVToPM.Checked = False
-            DTPNOVToUC.Text = OracleDate
-            DTPNOVToUC.Checked = False
-            txtLONComments.Clear()
-            DTPLONSent.Text = OracleDate
-            DTPLONSent.Checked = False
-            DTPLONResolved.Text = OracleDate
-            DTPLONResolved.Checked = False
-            DTPLONToUC.Text = OracleDate
-            DTPLONToUC.Checked = False
-            txtStipulatedPenalitiesActionNumber.Clear()
-            txtAFSAOResolvedActionNumber.Clear()
+    Private Sub DisplayValidationErrors()
+        ClearErrorsMenuItem.Enabled = True
+        Dim messageText As New StringBuilder("Please correct the following issues before saving:")
+        Dim lines As Int16 = 1
 
-            txtAFSCOProposedActionNumber.Clear()
-            txtAFSNOVResolvedNumber.Clear()
-            txtAFSAOToAGActionNumber.Clear()
-            txtAFSCOResolvedActionNumber.Clear()
-            txtAFSNOVActionNumber.Clear()
-            txtAFSCivilCourtActionNumber.Clear()
-            txtAFSCOExecutedActionNumber.Clear()
-            txtAFSKeyActionNumber.Clear()
-            DTPEnforcementResolved.Text = OracleDate
-            DTPEnforcementResolved.Checked = False
-            ViolationTypeNone.Checked = True
-            txtGeneralComments.Clear()
-            DTPDayZero.Text = OracleDate
-            DTPDayZero.Checked = False
-            DTPDiscoveryDate.Text = OracleDate
-            DTPDiscoveryDate.Checked = False
-            chbLON.Checked = False
-            chbNOV.Checked = False
-            chbCO.Checked = False
-            chbAO.Checked = False
-            cboStaffResponsible.Text = ""
-            DTPLastSave.Text = OracleDate
-            txtTrackingNumber.Clear()
-            txtEnforcementNumber.Clear()
+        For Each kvp As KeyValuePair(Of Control, String) In validationErrors
+            If lines < 4 Then
+                messageText.AppendLine()
+                messageText.Append("* " & kvp.Value)
+                lines += 1
+            ElseIf lines = 4 Then
+                messageText.AppendLine()
+                messageText.Append("* More...")
+                lines += 1
+            End If
+            GeneralErrorProvider.SetError(kvp.Key, kvp.Value)
+            GeneralErrorProvider.SetIconAlignment(kvp.Key, ErrorIconAlignment.MiddleLeft)
+        Next
 
-            LoadEnforcement()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        GeneralMessage = New IaipMessage(messageText.ToString, IaipMessage.WarningLevels.Warning)
     End Sub
+
+    Private Sub ClearErrors()
+        ClearErrorsMenuItem.Enabled = False
+        If validationErrors IsNot Nothing Then
+            For Each kvp As KeyValuePair(Of Control, String) In validationErrors
+                GeneralErrorProvider.SetError(kvp.Key, String.Empty)
+            Next
+        End If
+        validationErrors = New Dictionary(Of Control, String)
+        ClearMessage()
+    End Sub
+
+    Private Sub ClearMessage()
+        If GeneralMessage IsNot Nothing Then GeneralMessage.Clear()
+        DismissMessageButton.Visible = False
+        ClearMessageMenuItem.Enabled = False
+    End Sub
+
+    Private Function ValidateFormData() As Boolean
+        ClearErrors()
+        Return ValidateDates() And
+            ValidateViolationType() And
+            ValidatePrograms() And
+            ValidatePollutants() And
+            ValidateLinkedEvent() And
+            ValidateFacility() And
+            ValidatePenaltyAmount()
+    End Function
+
+    Private Function ValidatePenaltyAmount() As Boolean
+        If COCheckBox.Checked AndAlso
+            COPenaltyAmount.Text <> "" AndAlso
+            Not StringValidatesAsCurrency(COPenaltyAmount.Text) Then
+            validationErrors.Add(COPenaltyAmount, "Penalty amount must be a number.")
+            Return False
+        End If
+        Return True
+    End Function
+
+    Private Function StringValidatesAsCurrency(s As String) As Boolean
+        Return Decimal.TryParse(s.Trim({"$"c, " "c}).Replace(",", ""), Nothing)
+    End Function
+
+    Private Function ValidateViolationType() As Boolean
+        If FormIsCaseFile() AndAlso
+            (ViolationTypeNone.Checked Or ViolationTypeSelect.SelectedValue = "BLANK") Then
+
+            validationErrors.Add(ViolationTypeGroupbox, "Choose a Violation Type")
+            Return False
+        End If
+        Return True
+    End Function
+
+    Private Function FormIsCaseFile() As Boolean
+        Return NovCheckBox.Checked OrElse COCheckBox.Checked OrElse AOCheckBox.Checked
+    End Function
+
+    Private Function ValidateFacility() As Boolean
+        If AirsNumber Is Nothing OrElse Not DAL.FacilityData.AirsNumberExists(AirsNumber) Then
+
+            validationErrors.Add(FacilityNameDisplay, "Invalid or missing AIRS number.")
+            Return False
+        End If
+        Return True
+    End Function
+
+    Private Function ValidateLinkedEvent() As Boolean
+        If EnforcementCase.SubmittedToEpa And LinkedEventId = 0 Then
+            Dim dr As DialogResult = MessageBox.Show(
+                "There is no discovery event linked to this enforcement case. Do you want to submit to EPA without an initiating action?",
+                "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+            If dr = DialogResult.No Then
+                validationErrors.Add(LinkToEvent, "Missing discovery event.")
+                Return False
+            End If
+        End If
+        Return True
+    End Function
+
+    Private Function ValidatePollutants() As Boolean
+        If FormIsCaseFile() Then
+            If PollutantsListView.CheckedIndices.Count = 0 Then
+                validationErrors.Add(PollutantsListLabel, "At least one pollutant must be selected.")
+                Return False
+            End If
+        End If
+        Return True
+    End Function
+
+    Private Function ValidatePrograms() As Boolean
+        If FormIsCaseFile() Then
+            If ProgramsListView.CheckedIndices.Count = 0 Then
+                validationErrors.Add(ProgramsListLabel, "At least one air program must be selected.")
+                Return False
+            End If
+        End If
+        Return True
+    End Function
+
+    Private Function ValidateDates() As Boolean
+        Dim result As Boolean = True
+
+        result = ValidateDiscoveryDate()
+
+        If LonCheckBox.Checked Then
+            result = result And ValidateLonDates()
+        Else
+            If NovCheckBox.Checked Then result = result And ValidateNovDates()
+            If NovCheckBox.Checked Then result = result And ValidateNfaDates()
+            If COCheckBox.Checked Then result = result And ValidateCODates()
+            If AOCheckBox.Checked Then result = result And ValidateAODates()
+        End If
+
+        Return result
+    End Function
+
+    Private Function ValidateDiscoveryDate() As Boolean
+        Dim result As Boolean = CheckTheseDates(
+            DiscoveryDate.Value,
+            subsequents:=New List(Of DateTimePicker) From
+            {LonSent, LonResolved,
+            NovSent, NovResponseReceived, NfaSent,
+            COProposed, COReceivedfromCompany, COReceivedFromDirector, COExecuted, COResolved,
+            AOAppealed, AOExecuted, AOResolved})
+
+        If Not result Then
+            validationErrors.Add(DiscoveryDate, "Discovery date is invalid.")
+        End If
+
+        Return result
+    End Function
+
+    Private Function ValidateLonDates() As Boolean
+        Dim result As Boolean = True
+
+        If LonToUC.Checked Then
+            result = result And CheckTheseDates(
+                LonToUC.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate},
+                subsequents:=New List(Of DateTimePicker) From {LonSent, LonResolved})
+        End If
+
+        If LonSent.Checked Then
+            result = result And CheckTheseDates(
+                LonSent.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, LonToUC},
+                subsequents:=New List(Of DateTimePicker) From {LonResolved})
+        End If
+
+        If LonResolved.Checked Then
+            result = result And CheckTheseDates(
+                LonResolved.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, LonToUC},
+                requiredAntecedents:=New List(Of DateTimePicker) From {LonSent})
+        End If
+
+        If Not result Then
+            validationErrors.Add(LonToUC, "LON dates are invalid.")
+        End If
+
+        Return result
+    End Function
+
+    Private Function ValidateNovDates() As Boolean
+        Dim result As Boolean = True
+
+        If NovToUC.Checked Then
+            result = result And CheckTheseDates(
+                NovToUC.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate},
+                subsequents:=New List(Of DateTimePicker) From
+                {NovToPM, NovSent, NovResponseReceived, NfaToUC, NfaToPM, NfaSent,
+                COToUC, COToPM, COProposed, COReceivedfromCompany, COReceivedFromDirector,
+                COExecuted, COResolved})
+        End If
+
+        If NovToPM.Checked Then
+            result = result And CheckTheseDates(
+                NovToPM.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, NovToUC},
+                subsequents:=New List(Of DateTimePicker) From
+                {NovSent, NovResponseReceived, NfaToUC, NfaToPM, NfaSent,
+                COToUC, COToPM, COProposed, COReceivedfromCompany, COReceivedFromDirector,
+                COExecuted, COResolved})
+        End If
+
+        If NovSent.Checked Then
+            result = result And CheckTheseDates(
+                NovSent.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, NovToUC, NovToPM},
+                subsequents:=New List(Of DateTimePicker) From
+                {NovResponseReceived, NfaToUC, NfaToPM, NfaSent,
+                COToUC, COToPM, COProposed, COReceivedfromCompany, COReceivedFromDirector,
+                COExecuted, COResolved})
+        End If
+
+        If NovResponseReceived.Checked Then
+            result = result And CheckTheseDates(
+                NovResponseReceived.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, NovToUC, NovToPM},
+                subsequents:=New List(Of DateTimePicker) From
+                {NfaToUC, NfaToPM, NfaSent,
+                COToUC, COToPM, COProposed, COReceivedfromCompany, COReceivedFromDirector,
+                COExecuted, COResolved},
+                requiredAntecedents:=New List(Of DateTimePicker) From {NovSent})
+        End If
+
+        If Not result Then
+            validationErrors.Add(NovToUC, "NOV dates are invalid.")
+        End If
+
+        Return result
+    End Function
+
+    Private Function ValidateNfaDates() As Boolean
+        Dim result As Boolean = True
+
+        If NfaToUC.Checked Then
+            result = result And CheckTheseDates(
+                NfaToUC.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, NovToUC},
+                subsequents:=New List(Of DateTimePicker) From {NfaToPM, NfaSent})
+        End If
+
+        If NfaToPM.Checked Then
+            result = result And CheckTheseDates(
+                NfaToUC.Value,
+                antecedents:=New List(Of DateTimePicker) From
+                {DiscoveryDate, NovToUC, NovToPM, NfaToUC},
+                subsequents:=New List(Of DateTimePicker) From {NfaSent})
+        End If
+
+        If NfaSent.Checked Then
+            result = result And CheckTheseDates(
+                NfaSent.Value,
+                antecedents:=New List(Of DateTimePicker) From
+                {DiscoveryDate, NovToUC, NovToPM, NovSent,
+                NfaToUC, NfaToPM},
+                requiredAntecedents:=New List(Of DateTimePicker) From {NovSent})
+        End If
+
+        If Not result Then
+            validationErrors.Add(NfaToUC, "NFA dates are invalid.")
+        End If
+
+        Return result
+    End Function
+
+    Private Function ValidateCODates() As Boolean
+        Dim result As Boolean = True
+
+        If COToUC.Checked Then
+            result = result And CheckTheseDates(
+                COToUC.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate},
+                subsequents:=New List(Of DateTimePicker) From
+                {COToPM, COProposed, COExecuted, COResolved})
+        End If
+
+        If COToPM.Checked Then
+            result = result And CheckTheseDates(
+                COToPM.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, COToUC},
+                subsequents:=New List(Of DateTimePicker) From {COProposed, COExecuted, COResolved})
+        End If
+
+        If COProposed.Checked Then
+            result = result And CheckTheseDates(
+                COProposed.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, COToUC, COToPM},
+                subsequents:=New List(Of DateTimePicker) From {COExecuted, COResolved})
+        End If
+
+        If COExecuted.Checked Then
+            result = result And CheckTheseDates(
+                COExecuted.Value,
+                antecedents:=New List(Of DateTimePicker) From
+                {DiscoveryDate, COToUC, COToPM, COProposed},
+                subsequents:=New List(Of DateTimePicker) From {COResolved})
+        End If
+
+        If COResolved.Checked Then
+            result = result And CheckTheseDates(
+                COResolved.Value,
+                antecedents:=New List(Of DateTimePicker) From
+                {DiscoveryDate, COToUC, COToPM, COProposed},
+                requiredAntecedents:=New List(Of DateTimePicker) From {COExecuted})
+        End If
+
+        If Not result Then
+            validationErrors.Add(COToUC, "CO dates are invalid.")
+        End If
+
+        Return result
+    End Function
+
+    Private Function ValidateAODates() As Boolean
+        Dim result As Boolean = True
+
+        If AOExecuted.Checked Then
+            result = result And CheckTheseDates(
+                AOExecuted.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate},
+                subsequents:=New List(Of DateTimePicker) From {AOAppealed, AOResolved})
+        End If
+
+        If AOAppealed.Checked Then
+            result = result And CheckTheseDates(
+                AOAppealed.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate},
+                subsequents:=New List(Of DateTimePicker) From {AOResolved},
+                requiredAntecedents:=New List(Of DateTimePicker) From {AOExecuted})
+        End If
+
+        If AOResolved.Checked Then
+            result = result And CheckTheseDates(
+                AOResolved.Value,
+                antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, AOAppealed},
+                requiredAntecedents:=New List(Of DateTimePicker) From {AOExecuted})
+        End If
+
+        If Not result Then
+            validationErrors.Add(AOExecuted, "AO dates are invalid.")
+        End If
+
+        Return result
+    End Function
+
+    Private Function CheckTheseDates(dateToCheck As Date,
+                               Optional antecedents As List(Of DateTimePicker) = Nothing,
+                               Optional subsequents As List(Of DateTimePicker) = Nothing,
+                               Optional requiredAntecedents As List(Of DateTimePicker) = Nothing,
+                               Optional requiredSubsequents As List(Of DateTimePicker) = Nothing
+                               ) As Boolean
+
+        If antecedents IsNot Nothing Then
+            For Each dtp As DateTimePicker In antecedents
+                If dtp.Checked AndAlso dtp.Value > dateToCheck Then Return False
+            Next
+        End If
+
+        If subsequents IsNot Nothing Then
+            For Each dtp As DateTimePicker In subsequents
+                If dtp.Checked AndAlso dtp.Value < dateToCheck Then Return False
+            Next
+        End If
+
+        If requiredAntecedents IsNot Nothing Then
+            For Each dtp As DateTimePicker In requiredAntecedents
+                If Not dtp.Checked OrElse dtp.Value > dateToCheck Then Return False
+            Next
+        End If
+
+        If requiredSubsequents IsNot Nothing Then
+            For Each dtp As DateTimePicker In requiredSubsequents
+                If Not dtp.Checked OrElse dtp.Value < dateToCheck Then Return False
+            Next
+        End If
+
+        Return True
+    End Function
+
+#End Region
+
+#Region " Delete enforcement data "
 
     Private Sub DeleteEnforcement()
-        Try
-            Dim AFSStatus As String = ""
-            Dim tempAIRS As String = ""
+        If EnforcementId Is Nothing OrElse EnforcementId = 0 Then
+            GeneralMessage = New IaipMessage("Current enforcement must be saved before you can delete it. I know, sounds weird, right?", IaipMessage.WarningLevels.ErrorReport)
+            Exit Sub
+        End If
 
-            SQL = "Select strUpDateStatus " & _
-            "from AIRBRANCH.AFSSSCPEnforcementRecords " & _
-            "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
+        If Not UserPermissions.CheckAuth(UserCan.ResolveEnforcement) Then
+            GeneralMessage = New IaipMessage("You do not have sufficent permission to delete enforcement cases.", IaipMessage.WarningLevels.ErrorReport)
+            Exit Sub
+        End If
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            If recExist = True Then
-                AFSStatus = dr.Item("strUpDateStatus")
+        Dim dr As DialogResult = MessageBox.Show(
+            "Are you sure you want to delete enforcement case #" & EnforcementId.ToString &
+            "? This cannot be undone.",
+            "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+        If dr = DialogResult.Yes Then
+            If DAL.Sscp.DeleteEnforcement(EnforcementId) Then
+                MessageBox.Show(
+                    "Enforcement case #" & EnforcementId.ToString &
+                    " was successfully deleted." & vbNewLine & vbNewLine &
+                    "If it has already been sent to EPA, it will deleted from EPA's " &
+                    "database during the next batch update.",
+                    "Success", MessageBoxButtons.OK)
+                Me.Close()
             Else
-                AFSStatus = "X"
+                GeneralMessage = New IaipMessage("There was an error deleting the enforcement case.", IaipMessage.WarningLevels.ErrorReport)
             End If
-            dr.Close()
-
-            If AFSStatus = "C" Or AFSStatus = "N" Then
-                MsgBox("This Enforcement has already been submitted to the EPA." & vbCrLf & _
-                "Please contact your manager and Michael Floyd to have this enforcement Deleted.", _
-                MsgBoxStyle.Exclamation, "Enforcement")
-            Else
-                Dim Result As DialogResult
-
-                Result = MessageBox.Show("Are you certain that you want to delete this enforcement?", _
-                  "Enforcement", MessageBoxButtons.YesNoCancel, _
-                    MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-
-                Select Case Result
-                    Case DialogResult.Yes
-                        SQL = "Select strAIRSNumber " & _
-                        "from AIRBRANCH.SSCP_AuditedEnforcement " & _
-                        "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
-
-                        cmd = New OracleCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        While dr.Read
-                            If IsDBNull(dr.Item("strAIRSNumber")) Then
-                                tempAIRS = ""
-                            Else
-                                tempAIRS = dr.Item("strAIRSNumber")
-                            End If
-                        End While
-                        dr.Close()
-
-                        SQL = "Delete AIRBRANCH.AFSSSCPEnforcementRecords " & _
-                        "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        dr.Close()
-
-                        SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
-                               "values " & _
-                               "(" & _
-                               "(select " & _
-                               "case when max(numCounter) is null then 1 " & _
-                               "else max(numCounter) + 1 " & _
-                               "end numCounter " & _
-                               "from AIRBRANCH.AFSDeletions), " & _
-                               "'" & tempAIRS & "', " & _
-                               "'" & Replace(SQL, "'", "''") & "', 'True', " & _
-                               "'" & OracleDate & "', '', " & _
-                               "'') "
-
-                        cmd = New OracleCommand(SQL2, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        dr.Close()
-
-                        SQL = "Delete AIRBRANCH.SSCPENforcementStipulated " & _
-                        "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        dr.Close()
-
-                        SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
-                               "values " & _
-                               "(" & _
-                               "(select " & _
-                               "case when max(numCounter) is null then 1 " & _
-                               "else max(numCounter) + 1 " & _
-                               "end numCounter " & _
-                               "from AIRBRANCH.AFSDeletions), " & _
-                               "'" & tempAIRS & "', " & _
-                               "'" & Replace(SQL, "'", "''") & "', 'True', " & _
-                               "'" & OracleDate & "', '', " & _
-                               "'') "
-
-                        cmd = New OracleCommand(SQL2, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        dr.Close()
-
-                        SQL = "Delete AIRBRANCH.SSCP_AuditedEnforcement " & _
-                        "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        dr.Close()
-
-                        SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
-                               "values " & _
-                               "(" & _
-                               "(select " & _
-                               "case when max(numCounter) is null then 1 " & _
-                               "else max(numCounter) + 1 " & _
-                               "end numCounter " & _
-                               "from AIRBRANCH.AFSDeletions), " & _
-                               "'" & tempAIRS & "', " & _
-                               "'" & Replace(SQL, "'", "''") & "', 'True', " & _
-                               "'" & OracleDate & "', '', " & _
-                               "'') "
-
-                        cmd = New OracleCommand(SQL2, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        dr.Close()
-
-                        MsgBox("Enforcement Deleted.", MsgBoxStyle.Information, "Enforcement")
-                        ClearEnforcement()
-
-                    Case DialogResult.No
-                        SQL = ""
-                    Case DialogResult.Cancel
-                        SQL = ""
-                    Case Else
-                        SQL = ""
-                End Select
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        End If
     End Sub
 
 #End Region
 
-#Region " Control events "
-    Private Sub chbLON_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbLON.CheckedChanged
-        If chbLON.Checked Then
-            TCEnforcement.TabPages.Add(TPLON)
-            chbAO.Visible = False
-            chbCO.Visible = False
-            chbNOV.Visible = False
-            ViolationTypeNone.Checked = True
-            ViolationTypeGroupbox.Visible = False
-            HpvToolsPanel.Visible = False
-        Else
-            TCEnforcement.TabPages.Remove(TPLON)
-            chbAO.Visible = True
-            chbCO.Visible = True
-            chbNOV.Visible = True
-        End If
+#Region " Gather data from form "
+
+    Private Sub ReadEnforcementCaseFromForm()
+        ReadEnforcementActionDataFromForm()
+
+        With EnforcementCase
+            .AirsNumber = AirsNumber
+            .Comment = GeneralComments.Text
+            .ComplianceStatus = DetermineComplianceStatusFromForm()
+            .DayZeroDate = DetermineDayZeroFromForm()
+            .EnforcementId = EnforcementId
+            .LegacyComplianceStatus = EnforcementCase.ConvertComplianceStatus(.ComplianceStatus)
+            .LegacyEnforcementType = DetermineEnforcementTypeCodeFromForm()
+            .LinkedWorkItemId = LinkedEventId
+            .Open = Not ResolvedCheckBox.Checked
+            .Pollutants = ReadPollutantsFromForm()
+            .LegacyAirPrograms = ReadProgramsFromForm()
+            .StaffResponsibleId = StaffResponsible.SelectedValue
+            .ViolationType = ViolationTypeSelect.SelectedValue
+            .DateFinalized = GetNullableDateFromDateTimePicker(ResolvedDate)
+            .DiscoveryDate = GetNullableDateFromDateTimePicker(DiscoveryDate)
+        End With
     End Sub
 
-    Private Sub chbNOV_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbNOV.CheckedChanged
-        Try
-            If chbNOV.Checked Then
-                TCEnforcement.TabPages.Add(TPNOV)
-                If Not (chbCO.Checked Or chbAO.Checked) Then
-                    DTPDayZero.Visible = True
-                    btnDayZero.Visible = True
-                    lblDayZero.Visible = True
-                    lblPollutants.Visible = True
-                    lblPollutantStatus.Visible = True
-                    btnEditAirProgramPollutants.Visible = True
-                    cboPollutantStatus.Visible = True
-                    ViolationTypeGroupbox.Visible = True
-                    If ViolationTypeHpv.Checked Then
-                        HpvToolsPanel.Visible = True
-                    End If
-                    If AccountFormAccess(48, 2) = "1" Then
-                        btnSubmitToUC.Visible = True
-                    End If
-                    If AccountFormAccess(48, 3) = "1" Then
-                        btnSubmitEnforcementToEPA.Visible = True
-                        btnSubmitToUC.Visible = False
-                    End If
-                    If txtAFSKeyActionNumber.Text <> "" Then
-                        btnSubmitEnforcementToEPA.Visible = True
-                    End If
-                    chbLON.Visible = False
-                End If
+    Private Sub ReadEnforcementActionDataFromForm()
+        If Not (FormIsCaseFile()) Then EnforcementCase.SubmittedToEpa = False
+        ' No ELSE: We're just removing the flag here if it might have been unset during editing
+        ' The flag is only added on the "Send to EPA" button click.
+
+        EnforcementCase.EnforcementActions = New List(Of EnforcementActionType)
+        ReadLonDataFromForm()
+        ReadNovDataFromForm()
+        ReadCoDataFromForm()
+        ReadAoDataFromForm()
+    End Sub
+
+    Private Sub ReadLonDataFromForm()
+        With EnforcementCase
+            If LonCheckBox.Checked AndAlso
+                (LonResolved.Checked Or LonSent.Checked Or LonToUC.Checked) Then
+
+                .EnforcementActions.Add(EnforcementActionType.LON)
+                .LonResolved = GetNullableDateFromDateTimePicker(LonResolved)
+                .LonSent = GetNullableDateFromDateTimePicker(LonSent)
+                .LonToUc = GetNullableDateFromDateTimePicker(LonToUC)
             Else
-                TCEnforcement.TabPages.Remove(TPNOV)
-                If Not (chbCO.Checked Or chbAO.Checked) Then
-                    DTPDayZero.Visible = False
-                    btnDayZero.Visible = False
-                    lblDayZero.Visible = False
-                    lblPollutants.Visible = False
-                    lblPollutantStatus.Visible = False
-                    btnEditAirProgramPollutants.Visible = False
-                    cboPollutantStatus.Visible = False
-                    ViolationTypeGroupbox.Visible = False
-                    HpvToolsPanel.Visible = True
-                    btnSubmitToUC.Visible = False
-                    btnSubmitEnforcementToEPA.Visible = False
-                    chbLON.Visible = True
-                End If
+                .LonResolved = Nothing
+                .LonSent = Nothing
+                .LonToUc = Nothing
+                .LonComment = Nothing
             End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        End With
     End Sub
 
-    Private Sub chbCO_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbCO.CheckedChanged
-        Try
-            If chbCO.Checked Then
-                TCEnforcement.TabPages.Add(TPCO)
-                If Not (chbNOV.Checked Or chbAO.Checked) Then
-                    DTPDayZero.Visible = True
-                    btnDayZero.Visible = True
-                    lblDayZero.Visible = True
-                    lblPollutants.Visible = True
-                    lblPollutantStatus.Visible = True
-                    btnEditAirProgramPollutants.Visible = True
-                    cboPollutantStatus.Visible = True
-                    ViolationTypeGroupbox.Visible = True
-                    If ViolationTypeHpv.Checked Then
-                        HpvToolsPanel.Visible = True
-                    End If
-                    If AccountFormAccess(48, 2) = "1" And txtAFSKeyActionNumber.Text = "" Then
-                        btnSubmitToUC.Visible = True
-                    End If
-                    If AccountFormAccess(48, 3) = "1" Then
-                        btnSubmitEnforcementToEPA.Visible = True
-                        btnSubmitToUC.Visible = False
-                    End If
-                    If txtAFSKeyActionNumber.Text <> "" Then
-                        btnSubmitEnforcementToEPA.Visible = True
-                    End If
-                    chbLON.Visible = False
-                End If
+    Private Sub ReadNovDataFromForm()
+        With EnforcementCase
+            If NovCheckBox.Checked AndAlso
+                (NovSent.Checked Or NovToPM.Checked Or NovToUC.Checked Or
+                NfaSent.Checked Or NfaToPM.Checked Or NfaToUC.Checked) Then
+
+                .EnforcementActions.Add(EnforcementActionType.NOV)
+                .NovResponseReceived = GetNullableDateFromDateTimePicker(NovResponseReceived)
+                .NovSent = GetNullableDateFromDateTimePicker(NovSent)
+                .NovToPm = GetNullableDateFromDateTimePicker(NovToPM)
+                .NovToUc = GetNullableDateFromDateTimePicker(NovToUC)
+                .NfaSent = GetNullableDateFromDateTimePicker(NfaSent)
+                .NfaToPm = GetNullableDateFromDateTimePicker(NfaToPM)
+                .NfaToUc = GetNullableDateFromDateTimePicker(NfaToUC)
+                .NovComment = NovComments.Text
             Else
-                TCEnforcement.TabPages.Remove(TPCO)
-                If Not (chbNOV.Checked Or chbAO.Checked) Then
-                    DTPDayZero.Visible = False
-                    btnDayZero.Visible = False
-                    lblDayZero.Visible = False
-                    lblPollutants.Visible = False
-                    lblPollutantStatus.Visible = False
-                    btnEditAirProgramPollutants.Visible = False
-                    cboPollutantStatus.Visible = False
-                    ViolationTypeGroupbox.Visible = False
-                    HpvToolsPanel.Visible = False
-                    btnSubmitToUC.Visible = False
-                    btnSubmitEnforcementToEPA.Visible = False
-                    chbLON.Visible = True
+                .NovResponseReceived = Nothing
+                .NovSent = Nothing
+                .NovToPm = Nothing
+                .NovToUc = Nothing
+                .NfaSent = Nothing
+                .NfaToPm = Nothing
+                .NfaToUc = Nothing
+                .NovComment = Nothing
             End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        End With
     End Sub
 
-    Private Sub chbAO_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbAO.CheckedChanged
-        Try
-            If chbAO.Checked Then
-                TCEnforcement.TabPages.Add(TPAO)
-                If Not (chbNOV.Checked Or chbCO.Checked) Then
-                    DTPDayZero.Visible = True
-                    btnDayZero.Visible = True
-                    lblDayZero.Visible = True
-                    lblPollutants.Visible = True
-                    lblPollutantStatus.Visible = True
-                    btnEditAirProgramPollutants.Visible = True
-                    cboPollutantStatus.Visible = True
-                    ViolationTypeGroupbox.Visible = True
-                    If ViolationTypeHpv.Checked Then
-                        HpvToolsPanel.Visible = True
-                    End If
-                    If AccountFormAccess(48, 2) = "1" And txtAFSKeyActionNumber.Text = "" Then
-                        btnSubmitToUC.Visible = True
-                    End If
-                    If AccountFormAccess(48, 3) = "1" Then
-                        btnSubmitEnforcementToEPA.Visible = True
-                        btnSubmitToUC.Visible = False
-                    End If
-                    If txtAFSKeyActionNumber.Text <> "" Then
-                        btnSubmitEnforcementToEPA.Visible = True
-                    End If
-                    chbLON.Visible = False
-                End If
+    Private Sub ReadCoDataFromForm()
+        With EnforcementCase
+            If COCheckBox.Checked AndAlso
+                (COExecuted.Checked Or COProposed.Checked Or COToPM.Checked Or COToUC.Checked) Then
+
+                .EnforcementActions.Add(EnforcementActionType.CO)
+                .CoExecuted = GetNullableDateFromDateTimePicker(COExecuted)
+                .CoProposed = GetNullableDateFromDateTimePicker(COProposed)
+                .CoReceivedFromCompany = GetNullableDateFromDateTimePicker(COReceivedfromCompany)
+                .CoReceivedFromDirector = GetNullableDateFromDateTimePicker(COReceivedFromDirector)
+                .CoResolved = GetNullableDateFromDateTimePicker(COResolved)
+                .CoToPm = GetNullableDateFromDateTimePicker(COToPM)
+                .CoToUc = GetNullableDateFromDateTimePicker(COToUC)
+                .CoComment = COComments.Text
+                .CoNumber = If(CoNumber.Value = 0, "", "EPD-AQC-" & CoNumber.Value.ToString)
+                .CoPenaltyAmount = ConvertCurrencyStringToDecimal(COPenaltyAmount.Text)
+                .CoPenaltyAmountComment = COPenaltyComments.Text
             Else
-                TCEnforcement.TabPages.Remove(TPAO)
-                If Not (chbNOV.Checked Or chbCO.Checked) Then
-                    DTPDayZero.Visible = False
-                    btnDayZero.Visible = False
-                    lblDayZero.Visible = False
-                    lblPollutants.Visible = False
-                    lblPollutantStatus.Visible = False
-                    btnEditAirProgramPollutants.Visible = False
-                    cboPollutantStatus.Visible = False
-                    ViolationTypeGroupbox.Visible = False
-                    HpvToolsPanel.Visible = False
-                    btnSubmitToUC.Visible = False
-                    btnSubmitEnforcementToEPA.Visible = False
-                    chbLON.Visible = True
-                End If
+                .CoExecuted = Nothing
+                .CoProposed = Nothing
+                .CoReceivedFromCompany = Nothing
+                .CoReceivedFromDirector = Nothing
+                .CoResolved = Nothing
+                .CoToPm = Nothing
+                .CoToUc = Nothing
+                .CoComment = Nothing
+                .CoNumber = Nothing
+                .CoPenaltyAmount = Nothing
+                .CoPenaltyAmountComment = Nothing
             End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        End With
     End Sub
 
-    Private Sub ViolationType_CheckedChanged(sender As Object, e As EventArgs) _
-        Handles ViolationTypeFrv.CheckedChanged, ViolationTypeHpv.CheckedChanged, _
-        ViolationTypeNonFrv.CheckedChanged, ViolationTypeNone.CheckedChanged
+    Private Sub ReadAoDataFromForm()
+        With EnforcementCase
+            If AOCheckBox.Checked AndAlso
+                (AOAppealed.Checked Or AOExecuted.Checked Or AOResolved.Checked) Then
 
-        Dim rowFilter As String
-
-        ViolationTypeSelect.SelectedValue = "BLANK"
-
-        If ViolationTypeNone.Checked Then
-            ViolationTypeSelect.Enabled = False
-            HpvToolsPanel.Visible = False
-        ElseIf ViolationTypeFrv.Checked Then
-            rowFilter = "(SEVERITYCODE='FRV' AND DEPRECATED = 'FALSE') OR " &
-                "(AIRVIOLATIONTYPECODE = 'BLANK')"
-            ViolationTypeSelect.Enabled = True
-            HpvToolsPanel.Visible = False
-            ApplyViolationSelectFilter(rowFilter)
-        ElseIf ViolationTypeHpv.Checked Then
-            rowFilter = "(SEVERITYCODE='HPV' AND DEPRECATED = 'FALSE') OR " &
-                "(AIRVIOLATIONTYPECODE = 'BLANK')"
-            ViolationTypeSelect.Enabled = True
-            HpvToolsPanel.Visible = True
-            ApplyViolationSelectFilter(rowFilter)
-        ElseIf ViolationTypeNonFrv.Checked Then
-            rowFilter = "(SEVERITYCODE<>'FRV' AND SEVERITYCODE<>'HPV' AND DEPRECATED = 'FALSE') OR " &
-                "(AIRVIOLATIONTYPECODE = 'BLANK')"
-            ViolationTypeSelect.Enabled = True
-            HpvToolsPanel.Visible = False
-            ApplyViolationSelectFilter(rowFilter)
-        End If
-
-    End Sub
-
-    Private Sub btnEditAirProgramPollutants_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditAirProgramPollutants.Click
-        If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
-            Dim EditAirProgramPollutants As IAIPEditAirProgramPollutants = OpenSingleForm(IAIPEditAirProgramPollutants)
-            EditAirProgramPollutants.AirsNumberDisplay.Text = Me.txtAIRSNumber.Text
-        Else
-            MsgBox("Save this Enforcement Action at least once before you try to add pollutants.", MsgBoxStyle.Information, "Enforcement")
-        End If
-    End Sub
-
-    Private Sub btnLinkEnforcement_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLinkEnforcement.Click
-        OpenChecklist()
-    End Sub
-
-    Private Sub btnOpenEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenEvent.Click
-        OpenFormSscpWorkItem(txtTrackingNumber.Text)
-    End Sub
-
-    Private Sub btnSaveStipulatedPenalty_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SaveStipulatedPenaltyButton.Click
-        If String.IsNullOrEmpty(txtStipulatedPenalty.Text) Then
-            MsgBox("Enter a stipulated penalty amount first.")
-        Else
-            SaveStipulatedPenalties()
-            ClearStipulatedPenaltyForm()
-        End If
-    End Sub
-
-    Private Sub DeletePenalty(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DeletePenaltyButton.Click
-        If txtEnforcementNumber.Text = "" OrElse txtEnforcementNumber.Text = "N/A" Then
-            MsgBox("Save the current enforcement before changing stipulated penalties.", MsgBoxStyle.Exclamation, "No data saved")
-            Exit Sub
-        End If
-
-        Dim query As String = "Delete from AIRBRANCH.SSCPENforcementStipulated " & _
-        "where strEnforcementNumber = :enfNumber and strEnforcementKey = :enfKey"
-
-        Using connection As New OracleConnection(DB.CurrentConnectionString)
-            Using command As New OracleCommand(query, connection) With {.CommandType = CommandType.Text}
-                With command
-                    .BindByName = True
-                    .Parameters.Add(":enfNumber", txtEnforcementNumber.Text)
-                    .Parameters.Add(":enfKey", txtStipulatedKey.Text)
-                End With
-
-                Try
-                    connection.Open()
-                    command.ExecuteNonQuery()
-                Catch ee As OracleException
-                    MessageBox.Show("Could not connect to the database.")
-                End Try
-            End Using
-        End Using
-
-        LoadStipulatedPenalties()
-        SaveEnforcement()
-        ClearStipulatedPenaltyForm()
-
-    End Sub
-
-    Private Sub dgvStipulatedPenalties_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvStipulatedPenalties.MouseUp
-        Dim hti As DataGridView.HitTestInfo = dgvStipulatedPenalties.HitTest(e.X, e.Y)
-
-        Try
-            If dgvStipulatedPenalties.RowCount > 0 And hti.RowIndex <> -1 Then
-                txtStipulatedKey.Text = dgvStipulatedPenalties(3, hti.RowIndex).Value
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-
-    Private Sub txtStipulatedKey_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtStipulatedKey.TextChanged
-        If txtStipulatedKey.Text <> "" Then
-            Dim success As Boolean = False
-
-            Dim query As String = "Select strStipulatedPenalty, strStipulatedPenaltyComments " & _
-            "from AIRBRANCH.SSCPENforcementStipulated " & _
-            "where strEnforcementNumber = :enfNumber and strEnforcementKey = :enfKey"
-
-            Using connection As New OracleConnection(DB.CurrentConnectionString)
-                Using command As New OracleCommand(query, connection) With {.CommandType = CommandType.Text}
-                    With command
-                        .BindByName = True
-                        .Parameters.Add(":enfNumber", txtEnforcementNumber.Text)
-                        .Parameters.Add(":enfKey", txtStipulatedKey.Text)
-                    End With
-                    Try
-                        connection.Open()
-                        Dim reader As OracleDataReader = command.ExecuteReader
-                        While reader.Read
-                            If IsDBNull(reader.Item("strStipulatedPenalty")) Then
-                                txtStipulatedPenalty.Text = ""
-                            Else
-                                txtStipulatedPenalty.Text = reader.Item("strStipulatedPenalty")
-                            End If
-                            If IsDBNull(reader.Item("strStipulatedPenaltyComments")) Then
-                                txtStipulatedComments.Text = ""
-                            Else
-                                txtStipulatedComments.Text = reader.Item("strStipulatedPenaltyComments")
-                            End If
-                        End While
-                        success = True
-                    Catch ee As OracleException
-                        MessageBox.Show("Could not connect to the database.")
-                    End Try
-                End Using
-            End Using
-
-            If success Then
-                Dim ctrl As Control
-                Dim tag As String
-                For Each ctrl In StipulatedPenalties.Controls
-                    If ctrl.Tag IsNot Nothing Then
-                        tag = ctrl.Tag.ToString
-                        If tag.Contains("GroupExistingStipulatedPenalty") Then
-                            If TypeOf (ctrl) Is Button Then
-                                With ctrl
-                                    .Visible = True
-                                    .Enabled = True
-                                End With
-                            End If
-                        ElseIf tag.Contains("GroupEmptyStipulatedPenalty") Then
-                            If TypeOf (ctrl) Is Button Then
-                                With ctrl
-                                    .Visible = False
-                                    .Enabled = False
-                                End With
-                            End If
-                        End If
-                    End If
-                Next
+                .EnforcementActions.Add(EnforcementActionType.AO)
+                .AoAppealed = GetNullableDateFromDateTimePicker(AOAppealed)
+                .AoExecuted = GetNullableDateFromDateTimePicker(AOExecuted)
+                .AoResolved = GetNullableDateFromDateTimePicker(AOResolved)
             Else
-                ClearStipulatedPenaltyForm()
+                .AoAppealed = Nothing
+                .AoExecuted = Nothing
+                .AoResolved = Nothing
             End If
-
-        Else
-            ClearStipulatedPenaltyForm()
-        End If
+        End With
     End Sub
 
-    Private Sub ClearStipulatedPenaltyForm()
-        Dim ctrl As Control
-        Dim tag As String
-        For Each ctrl In StipulatedPenalties.Controls
-            If ctrl.Tag IsNot Nothing Then
-                tag = ctrl.Tag.ToString
-                If tag.Contains("GroupExistingStipulatedPenalty") Then
-                    If TypeOf (ctrl) Is Button Then
-                        With ctrl
-                            .Visible = False
-                            .Enabled = False
-                        End With
-                    End If
-                ElseIf tag.Contains("GroupEmptyStipulatedPenalty") Then
-                    If TypeOf (ctrl) Is Button Then
-                        With ctrl
-                            .Visible = True
-                            .Enabled = True
-                        End With
-                    End If
-                ElseIf tag.Contains("GroupStipulatedPenaltyInput") Then
-                    If TypeOf (ctrl) Is TextBox Then
-                        ctrl.Text = String.Empty
-                    End If
-                End If
-            End If
+    Private Function ConvertCurrencyStringToDecimal(c As String) As Decimal
+        Dim result As Decimal
+        If Decimal.TryParse(c.Trim({"$"c, " "c}).Replace(",", ""), result) Then
+            Return result
+        Else
+            Return 0
+        End If
+    End Function
+
+    Private Function GetNullableDateFromDateTimePicker(dtp As DateTimePicker) As Date?
+        If dtp.Checked Then
+            Return dtp.Value
+        Else
+            Return Nothing
+        End If
+    End Function
+
+    Private Function ReadProgramsFromForm() As List(Of String)
+        Dim pList As New List(Of String)
+        For Each item As ListViewItem In ProgramsListView.CheckedItems
+            pList.Add(Apb.Facilities.FacilityHeaderData.ConvertAirProgramToLegacyCode(item.SubItems(1).Text))
         Next
-    End Sub
+        Return pList
+    End Function
 
-    Private Sub btnSubmitToUC_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSubmitToUC.Click
-        Try
-            If Not ViolationTypeCheck() Then Exit Sub
+    Private Function ReadPollutantsFromForm() As List(Of String)
+        Dim pList As New List(Of String)
+        For Each item As ListViewItem In PollutantsListView.CheckedItems
+            pList.Add(item.SubItems(1).Text)
+        Next
+        Return pList
+    End Function
 
-            txtSubmitToUC.Text = "UC"
-            btnSubmitToUC.Visible = False
-            SaveEnforcement()
-            MsgBox("Current data saved.", MsgBoxStyle.Information, "SSCP Enforcement")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
+    Private Function DetermineEnforcementTypeCodeFromForm() As LegacyEnforcementType
+        With EnforcementCase.EnforcementActions
+            If .Contains(EnforcementActionType.LON) Then
+                Return LegacyEnforcementType.LON
 
-    Private Sub btnSubmitEnforcementToEPA_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSubmitEnforcementToEPA.Click
-        Try
-            If Not ViolationTypeCheck() Then Exit Sub
+            ElseIf .Contains(EnforcementActionType.AO) Then
+                Return If(ViolationTypeHpv.Checked, LegacyEnforcementType.HPVAO, LegacyEnforcementType.NOVAO)
 
-            If txtTrackingNumber.Text = "" Then
-                Dim result As DialogResult
+            ElseIf .Contains(EnforcementActionType.CO) Then
+                If NovSent.Checked Then
+                    Return If(ViolationTypeHpv.Checked, LegacyEnforcementType.HPVCO, LegacyEnforcementType.NOVCO)
+                Else
+                    Return If(ViolationTypeHpv.Checked, LegacyEnforcementType.HPVCOP, LegacyEnforcementType.NOVCOP)
+                End If
 
-                result = MessageBox.Show("There is no linked event for this enforcement action." & vbCrLf & _
-                "Do you want to submit this enforcement to EPA without an initiating action?", "Enforcement", _
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
-                Select Case result
-                    Case DialogResult.No
-                        Exit Sub
-                End Select
-            End If
+            ElseIf .Contains(EnforcementActionType.NOV) Then
+                Return If(ViolationTypeHpv.Checked, LegacyEnforcementType.HPV, LegacyEnforcementType.NOV)
 
-            SaveAFSInformation()
-            SaveEnforcement()
-            MsgBox("Current data saved.", MsgBoxStyle.Information, "SSCP Enforcement")
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-
-    Private Sub DTPEnforcementResolved_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DTPEnforcementResolved.ValueChanged
-        Try
-
-            If DTPEnforcementResolved.Checked = False Then
-                CheckOpenStatus()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-
-    Private Sub btnDayZero_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDayZero.Click
-        Try
-            Dim ViolationDate As String = ""
-            Dim DayZero As String = ""
-
-            If DTPDiscoveryDate.Checked = True Then
-                ViolationDate = Format(DTPDiscoveryDate.Value, "dd-MMM-yyyy")
             Else
-                ViolationDate = OracleDate
+                Return LegacyEnforcementType.None
+
             End If
+        End With
+    End Function
 
-            DayZero = CStr(Format(CDate(ViolationDate).AddDays(90), "dd-MMM-yyyy"))
+    Private Function DetermineDayZeroFromForm() As Date?
+        If FormIsCaseFile() Then
+            Dim dl As New List(Of Date)
 
-            DTPDayZero.Checked = True
-            DTPDayZero.Text = DayZero
+            If DiscoveryDate.Checked Then dl.Add(DiscoveryDate.Value.AddDays(90))
+            If NovCheckBox.Checked AndAlso NovSent.Checked Then dl.Add(NovSent.Value)
+            If COCheckBox.Checked AndAlso COProposed.Checked Then dl.Add(COProposed.Value)
+            If COCheckBox.Checked AndAlso COExecuted.Checked Then dl.Add(COExecuted.Value)
+            If AOCheckBox.Checked AndAlso AOExecuted.Checked Then dl.Add(AOExecuted.Value)
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-
-    Private Sub txtTrackingNumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtTrackingNumber.TextChanged
-        If txtTrackingNumber.Text = "" Then
-            txtTrackingNumber.Visible = False
-            lblDiscoveryEvent.Visible = False
-            btnOpenEvent.Visible = False
-            btnClearLink.Visible = False
-        Else
-            txtTrackingNumber.Visible = True
-            lblDiscoveryEvent.Visible = True
-            btnOpenEvent.Visible = True
-            btnClearLink.Visible = True
+            Return dl.Min
         End If
-    End Sub
+        Return Nothing
+    End Function
 
-    Private Sub mmiSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSave.Click
-        SaveClick()
-    End Sub
-
-    Private Sub tsbSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbSave.Click
-        SaveClick()
-    End Sub
-
-    Private Sub SaveClick()
-        Try
-
-            SaveEnforcement()
-            LoadEnforcementPollutants2()
-
-            If AccountFormAccess(48, 2) = "1" Or AccountFormAccess(48, 3) = "1" Or AccountFormAccess(48, 4) = "1" Then
-                CheckOpenStatus()
-            End If
-
-            MsgBox("Current data saved.", MsgBoxStyle.Information, "SSCP Enforcement")
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub mmiClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClose.Click
-        Me.Dispose()
-    End Sub
-
-    Private Sub mmiDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiDelete.Click
-        Try
-
-            If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
-                DeleteEnforcement()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-
-    Private Sub lvPollutants_ColumnClick(ByVal sender As Object, ByVal e As System.Windows.Forms.ColumnClickEventArgs) Handles lvPollutants.ColumnClick
-        Try
-
-            ' Set the ListViewItemSorter property to a new ListViewItemComparer object.
-            lvPollutants.ListViewItemSorter = New ListViewItemComparer(e.Column)
-            ' Call the sort method to manually sort the column based on the ListViewItemComparer implementation.
-            lvPollutants.Sort()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-
-    Private Sub mmiShowAuditHistory_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiShowAuditHistory.Click
-        Try
-            If TCEnforcement.TabPages.Contains(TPAuditHistory) Then
+    Private Function DetermineComplianceStatusFromForm() As ComplianceStatus
+        With EnforcementCase
+            If .LonResolved.HasValue Then
+                Return ComplianceStatus.InCompliance
+            ElseIf .LonSent.HasValue Then
+                Return ComplianceStatus.MeetingComplianceSchedule
+            ElseIf .NfaSent.HasValue Or .CoResolved.HasValue Or .AoResolved.HasValue Then
+                Return ComplianceStatus.InCompliance
+            ElseIf .CoExecuted.HasValue Or .AoExecuted.HasValue Then
+                Return ComplianceStatus.MeetingComplianceSchedule
+            ElseIf .NovSent.HasValue Then
+                Return ComplianceStatus.InViolation
             Else
-                TCEnforcement.TabPages.Add(TPAuditHistory)
-                LoadAuditData()
+                Return ComplianceStatus.Unknown
             End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub btnHideAudit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnHideAudit.Click
-        Try
-            If TCEnforcement.TabPages.Contains(TPAuditHistory) Then
-                TCEnforcement.TabPages.Remove(TPAuditHistory)
-            Else
-
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub LoadAuditData()
-        Try
-
-            SQL = "select sb1.ID, sb1.strEnforcementNumber, " & _
-       "strTrackingNumber, substr(strAIRSNumber, 5) as strAIRSnumber, " & _
-       "strEnforcementFinalized, datEnforcementFinalized, " & _
-       "(select (strLastName||', '||strFirstName) from AIRBRANCH.EPDUserProfiles, " & _
-       "AIRBRANCH.SSCP_Enforcement " & _
-       "where AIRBRANCH.epduserprofiles.numUserID = AIRBRANCH.SSCP_enforcement.numstaffresponsible " & _
-       "and AIRBRANCH.SSCP_Enforcement.id = sb1.id) as StaffResponsible, numStaffResponsible, " & _
-       "strStatus, strActionType, " & _
-       "strGeneralCOmments, strDiscoveryDate, " & _
-       "strDayZero, datDayZero, " & _
-       "strHPV, strPollutants, " & _
-       "strPOllutantStatus, " & _
-       "strLONToUC, datLONtoUC, " & _
-       "strLONSent, datLONSEnt, " & _
-       "strLOnresolved, datLONResolved, " & _
-       "strLONComments, strLONResolvedEnforcement, " & _
-       "strNOVToUC, datNOVtoUC, " & _
-       "strNOVtoPM, datNOVtoPM, " & _
-       "strNOVSent, datNOVsent, " & _
-       "strNOVResponsereceived, datNOVResponseReceived, " & _
-       "strNFAtoUC, datNFAtoUC, " & _
-       "strNFAtoPM, datNFAtoPM, " & _
-       "strNFALetterSent, datNFALetterSent, " & _
-       "strNOVComment, strNOVResolvedEnforcement, " & _
-       "strCOtoUC, datCOtoUC, " & _
-       "strCOtoPM, datCOtoPM, " & _
-       "strCOProposed, datCOProposed, " & _
-       "strCOReceivedFromCompany, datCOReceivedFromCompany, " & _
-       "strCOReceivedFromDirector, datCOReceivedFromDirector, " & _
-       "strCOExecuted, datCOExecuted, " & _
-       "strCONumber, " & _
-       "strCOResolved, datCOResolved, " & _
-       "strCOPenaltyAmount, strCOPenaltyAmountComments, " & _
-       "strCOComment, strStipulatedPenalty, " & _
-       "strCOResolvedEnforcement, " & _
-       "strAOExecuted, datAOExecuted, " & _
-       "strAOAppealed, datAOAppealed, " & _
-       "strAOResolved, datAOResolved, " & _
-       "strAOComment, " & _
-       "(select " & _
-       "(strLastName||', '||strFirstName) from AIRBRANCH.EPDUserProfiles, " & _
-       "AIRBRANCH.SSCP_Enforcement " & _
-       "where AIRBRANCH.epduserprofiles.numUserID = AIRBRANCH.SSCP_enforcement.strModifingPerson " & _
-       "and AIRBRANCH.SSCP_Enforcement.id = sb1.id) as ModifingPerson, strModifingPerson, " & _
-       "DatModifingDate " & _
-       "from " & _
-       "(Select * " & _
-       "From AIRBRANCH.SSCP_Enforcement " & _
-       "where strEnforcementNumber = '" & txtEnforcementNumber.Text & "' order by ID desc)  sb1 "
-
-            ds = New DataSet
-            da = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            da.Fill(ds, "AuditHistory")
-            dgvAuditHistory.DataSource = ds
-            dgvAuditHistory.DataMember = "AuditHistory"
-
-            dgvAuditHistory.RowHeadersVisible = False
-            dgvAuditHistory.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvAuditHistory.AllowUserToResizeColumns = True
-            dgvAuditHistory.AllowUserToAddRows = False
-            dgvAuditHistory.AllowUserToDeleteRows = False
-            dgvAuditHistory.AllowUserToOrderColumns = True
-            dgvAuditHistory.AllowUserToResizeRows = True
-            dgvAuditHistory.ReadOnly = True
-
-            dgvAuditHistory.Columns("ID").HeaderText = "ID"
-            dgvAuditHistory.Columns("ID").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("ID").DisplayIndex = 0
-
-            dgvAuditHistory.Columns("strEnforcementNumber").HeaderText = "Enforcement #"
-            dgvAuditHistory.Columns("strEnforcementNumber").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strEnforcementNumber").DisplayIndex = 1
-            dgvAuditHistory.Columns("strTrackingNumber").HeaderText = "Tracking #"
-            dgvAuditHistory.Columns("strTrackingNumber").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strTrackingNumber").DisplayIndex = 2
-            dgvAuditHistory.Columns("strAIRSNumber").HeaderText = "AIRS #"
-            dgvAuditHistory.Columns("strAIRSNumber").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strAIRSNumber").DisplayIndex = 3
-            dgvAuditHistory.Columns("strEnforcementFinalized").HeaderText = "Enforcement Finalized"
-            dgvAuditHistory.Columns("strEnforcementFinalized").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strEnforcementFinalized").DisplayIndex = 4
-            dgvAuditHistory.Columns("datEnforcementFinalized").HeaderText = "Enforcement Finalized Date"
-            dgvAuditHistory.Columns("datEnforcementFinalized").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("datEnforcementFinalized").DisplayIndex = 5
-            dgvAuditHistory.Columns("datEnforcementFinalized").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvAuditHistory.Columns("StaffResponsible").HeaderText = "Staff Responsible"
-            dgvAuditHistory.Columns("StaffResponsible").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("StaffResponsible").DisplayIndex = 6
-            dgvAuditHistory.Columns("numStaffResponsible").HeaderText = "Staff ID"
-            dgvAuditHistory.Columns("numStaffResponsible").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("numStaffResponsible").DisplayIndex = 7
-            dgvAuditHistory.Columns("strStatus").HeaderText = "Status"
-            dgvAuditHistory.Columns("strStatus").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strStatus").DisplayIndex = 8
-            dgvAuditHistory.Columns("strActionType").HeaderText = "Action Type"
-            dgvAuditHistory.Columns("strActionType").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strActionType").DisplayIndex = 9
-            dgvAuditHistory.Columns("strGeneralCOmments").HeaderText = "General Comments"
-            dgvAuditHistory.Columns("strGeneralCOmments").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strGeneralCOmments").DisplayIndex = 10
-            dgvAuditHistory.Columns("strDiscoveryDate").HeaderText = "Discovery Date"
-            dgvAuditHistory.Columns("strDiscoveryDate").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strDiscoveryDate").DisplayIndex = 11
-            dgvAuditHistory.Columns("strDayZero").HeaderText = "Day Zero"
-            dgvAuditHistory.Columns("strDayZero").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strDayZero").DisplayIndex = 12
-            dgvAuditHistory.Columns("datDayZero").HeaderText = "Day Zero Date"
-            dgvAuditHistory.Columns("datDayZero").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("datDayZero").DisplayIndex = 13
-            dgvAuditHistory.Columns("datDayZero").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvAuditHistory.Columns("strHPV").HeaderText = "HPV Type"
-            dgvAuditHistory.Columns("strHPV").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strHPV").DisplayIndex = 14
-            dgvAuditHistory.Columns("strPollutants").HeaderText = "Pollutants"
-            dgvAuditHistory.Columns("strPollutants").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strPollutants").DisplayIndex = 15
-            dgvAuditHistory.Columns("strPOllutantStatus").HeaderText = "Pollutant Status"
-            dgvAuditHistory.Columns("strPOllutantStatus").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strPOllutantStatus").DisplayIndex = 16
-            dgvAuditHistory.Columns("strLONToUC").HeaderText = "LON to UC"
-            dgvAuditHistory.Columns("strLONToUC").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strLONToUC").DisplayIndex = 17
-            dgvAuditHistory.Columns("datLONtoUC").HeaderText = "Date LON to UC"
-            dgvAuditHistory.Columns("datLONtoUC").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("datLONtoUC").DisplayIndex = 18
-            dgvAuditHistory.Columns("datLONtoUC").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvAuditHistory.Columns("strLONSent").HeaderText = "LON Sent"
-            dgvAuditHistory.Columns("strLONSent").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strLONSent").DisplayIndex = 19
-            dgvAuditHistory.Columns("datLONSEnt").HeaderText = "Date LON Sent"
-            dgvAuditHistory.Columns("datLONSEnt").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("datLONSEnt").DisplayIndex = 20
-            dgvAuditHistory.Columns("datLONSEnt").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvAuditHistory.Columns("strLOnresolved").HeaderText = "LON Resolved"
-            dgvAuditHistory.Columns("strLOnresolved").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strLOnresolved").DisplayIndex = 21
-            dgvAuditHistory.Columns("datLONResolved").HeaderText = "Date LON Resolved"
-            dgvAuditHistory.Columns("datLONResolved").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("datLONResolved").DisplayIndex = 22
-            dgvAuditHistory.Columns("datLONResolved").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvAuditHistory.Columns("strLONComments").HeaderText = "LON Comments"
-            dgvAuditHistory.Columns("strLONComments").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strLONComments").DisplayIndex = 23
-            dgvAuditHistory.Columns("strLONResolvedEnforcement").HeaderText = "LON Resoved Enforcement"
-            dgvAuditHistory.Columns("strLONResolvedEnforcement").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strLONResolvedEnforcement").DisplayIndex = 24
-            dgvAuditHistory.Columns("strNOVToUC").HeaderText = "NOV to UC"
-            dgvAuditHistory.Columns("strNOVToUC").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strNOVToUC").DisplayIndex = 25
-            dgvAuditHistory.Columns("datNOVtoUC").HeaderText = "Date NOV to UC"
-            dgvAuditHistory.Columns("datNOVtoUC").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("datNOVtoUC").DisplayIndex = 26
-            dgvAuditHistory.Columns("datNOVtoUC").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvAuditHistory.Columns("strNOVtoPM").HeaderText = "NOV to PM"
-            dgvAuditHistory.Columns("strNOVtoPM").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strNOVtoPM").DisplayIndex = 27
-            dgvAuditHistory.Columns("datNOVtoPM").HeaderText = "Date NOV to PM"
-            dgvAuditHistory.Columns("datNOVtoPM").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("datNOVtoPM").DisplayIndex = 28
-            dgvAuditHistory.Columns("datNOVtoPM").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvAuditHistory.Columns("strNOVSent").HeaderText = "NOV Sent"
-            dgvAuditHistory.Columns("strNOVSent").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strNOVSent").DisplayIndex = 29
-            dgvAuditHistory.Columns("datNOVsent").HeaderText = "Date NOV Sent"
-            dgvAuditHistory.Columns("datNOVsent").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("datNOVsent").DisplayIndex = 30
-            dgvAuditHistory.Columns("datNOVsent").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvAuditHistory.Columns("strNOVResponsereceived").HeaderText = "NOV Response Recieved"
-            dgvAuditHistory.Columns("strNOVResponsereceived").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strNOVResponsereceived").DisplayIndex = 31
-            dgvAuditHistory.Columns("datNOVResponseReceived").HeaderText = "Date NOV Response Recieved"
-            dgvAuditHistory.Columns("datNOVResponseReceived").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("datNOVResponseReceived").DisplayIndex = 32
-            dgvAuditHistory.Columns("datNOVResponseReceived").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvAuditHistory.Columns("strNFAtoUC").HeaderText = "NFA to UC"
-            dgvAuditHistory.Columns("strNFAtoUC").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strNFAtoUC").DisplayIndex = 33
-            dgvAuditHistory.Columns("datNFAtoUC").HeaderText = "Date NFA to UC"
-            dgvAuditHistory.Columns("datNFAtoUC").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("datNFAtoUC").DisplayIndex = 34
-            dgvAuditHistory.Columns("datNFAtoUC").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvAuditHistory.Columns("strNFAtoPM").HeaderText = "NFA to PM"
-            dgvAuditHistory.Columns("strNFAtoPM").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strNFAtoPM").DisplayIndex = 35
-            dgvAuditHistory.Columns("datNFAtoPM").HeaderText = "Date NFA to PM"
-            dgvAuditHistory.Columns("datNFAtoPM").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("datNFAtoPM").DisplayIndex = 36
-            dgvAuditHistory.Columns("datNFAtoPM").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvAuditHistory.Columns("strNFALetterSent").HeaderText = "NFA Letter Sent"
-            dgvAuditHistory.Columns("strNFALetterSent").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strNFALetterSent").DisplayIndex = 37
-            dgvAuditHistory.Columns("datNFALetterSent").HeaderText = "Date NFA Letter Sent"
-            dgvAuditHistory.Columns("datNFALetterSent").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("datNFALetterSent").DisplayIndex = 38
-            dgvAuditHistory.Columns("datNFALetterSent").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvAuditHistory.Columns("strNOVComment").HeaderText = "NOV Comment"
-            dgvAuditHistory.Columns("strNOVComment").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strNOVComment").DisplayIndex = 39
-            dgvAuditHistory.Columns("strNOVResolvedEnforcement").HeaderText = "NOV Resolved"
-            dgvAuditHistory.Columns("strNOVResolvedEnforcement").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strNOVResolvedEnforcement").DisplayIndex = 40
-            dgvAuditHistory.Columns("strCOtoUC").HeaderText = "CO to UC"
-            dgvAuditHistory.Columns("strCOtoUC").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strCOtoUC").DisplayIndex = 41
-            dgvAuditHistory.Columns("datCOtoUC").HeaderText = "Date CO to UC"
-            dgvAuditHistory.Columns("datCOtoUC").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("datCOtoUC").DisplayIndex = 42
-            dgvAuditHistory.Columns("datCOtoUC").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvAuditHistory.Columns("strCOtoPM").HeaderText = "CO to PM"
-            dgvAuditHistory.Columns("strCOtoPM").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strCOtoPM").DisplayIndex = 43
-            dgvAuditHistory.Columns("datCOtoPM").HeaderText = "Date CO to PM"
-            dgvAuditHistory.Columns("datCOtoPM").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("datCOtoPM").DisplayIndex = 44
-            dgvAuditHistory.Columns("datCOtoPM").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvAuditHistory.Columns("strCOProposed").HeaderText = "CO Proposed"
-            dgvAuditHistory.Columns("strCOProposed").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strCOProposed").DisplayIndex = 45
-            dgvAuditHistory.Columns("datCOProposed").HeaderText = "Date CO Proposed"
-            dgvAuditHistory.Columns("datCOProposed").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("datCOProposed").DisplayIndex = 46
-            dgvAuditHistory.Columns("datCOProposed").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvAuditHistory.Columns("strCOReceivedFromCompany").HeaderText = "CO Received From Company"
-            dgvAuditHistory.Columns("strCOReceivedFromCompany").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strCOReceivedFromCompany").DisplayIndex = 47
-            dgvAuditHistory.Columns("datCOReceivedFromCompany").HeaderText = "Date CO Recieved From Company"
-            dgvAuditHistory.Columns("datCOReceivedFromCompany").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("datCOReceivedFromCompany").DisplayIndex = 48
-            dgvAuditHistory.Columns("datCOReceivedFromCompany").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvAuditHistory.Columns("strCOReceivedFromDirector").HeaderText = "CO Received From Director"
-            dgvAuditHistory.Columns("strCOReceivedFromDirector").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strCOReceivedFromDirector").DisplayIndex = 49
-            dgvAuditHistory.Columns("datCOReceivedFromDirector").HeaderText = "Date CO Received From Director"
-            dgvAuditHistory.Columns("datCOReceivedFromDirector").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("datCOReceivedFromDirector").DisplayIndex = 50
-            dgvAuditHistory.Columns("datCOReceivedFromDirector").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvAuditHistory.Columns("strCOExecuted").HeaderText = "CO Executed"
-            dgvAuditHistory.Columns("strCOExecuted").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strCOExecuted").DisplayIndex = 51
-            dgvAuditHistory.Columns("datCOExecuted").HeaderText = "Date CO Executed"
-            dgvAuditHistory.Columns("datCOExecuted").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("datCOExecuted").DisplayIndex = 52
-            dgvAuditHistory.Columns("datCOExecuted").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvAuditHistory.Columns("strCONumber").HeaderText = "CO Number"
-            dgvAuditHistory.Columns("strCONumber").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strCONumber").DisplayIndex = 53
-            dgvAuditHistory.Columns("strCOResolved").HeaderText = "CO Resolved"
-            dgvAuditHistory.Columns("strCOResolved").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strCOResolved").DisplayIndex = 54
-            dgvAuditHistory.Columns("datCOResolved").HeaderText = "Date CO Resolved"
-            dgvAuditHistory.Columns("datCOResolved").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("datCOResolved").DisplayIndex = 55
-            dgvAuditHistory.Columns("datCOResolved").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvAuditHistory.Columns("strCOPenaltyAmount").HeaderText = "CO Penalty Amount"
-            dgvAuditHistory.Columns("strCOPenaltyAmount").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strCOPenaltyAmount").DisplayIndex = 56
-            dgvAuditHistory.Columns("strCOPenaltyAmountComments").HeaderText = "CO Penalty Amount Comments"
-            dgvAuditHistory.Columns("strCOPenaltyAmountComments").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strCOPenaltyAmountComments").DisplayIndex = 57
-            dgvAuditHistory.Columns("strCOComment").HeaderText = "CO Comment"
-            dgvAuditHistory.Columns("strCOComment").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strCOComment").DisplayIndex = 58
-            dgvAuditHistory.Columns("strStipulatedPenalty").HeaderText = "Stipulated Penalty"
-            dgvAuditHistory.Columns("strStipulatedPenalty").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strStipulatedPenalty").DisplayIndex = 59
-            dgvAuditHistory.Columns("strCOResolvedEnforcement").HeaderText = "CO Resolved"
-            dgvAuditHistory.Columns("strCOResolvedEnforcement").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strCOResolvedEnforcement").DisplayIndex = 60
-            dgvAuditHistory.Columns("strAOExecuted").HeaderText = "AO Executed"
-            dgvAuditHistory.Columns("strAOExecuted").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strAOExecuted").DisplayIndex = 61
-            dgvAuditHistory.Columns("datAOExecuted").HeaderText = "Date AO Executed"
-            dgvAuditHistory.Columns("datAOExecuted").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("datAOExecuted").DisplayIndex = 62
-            dgvAuditHistory.Columns("datAOExecuted").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvAuditHistory.Columns("strAOAppealed").HeaderText = "AO Appealed"
-            dgvAuditHistory.Columns("strAOAppealed").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strAOAppealed").DisplayIndex = 63
-            dgvAuditHistory.Columns("datAOAppealed").HeaderText = "Date AO Appealed"
-            dgvAuditHistory.Columns("datAOAppealed").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("datAOAppealed").DisplayIndex = 64
-            dgvAuditHistory.Columns("datAOAppealed").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvAuditHistory.Columns("strAOResolved").HeaderText = "AO Resolved"
-            dgvAuditHistory.Columns("strAOResolved").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strAOResolved").DisplayIndex = 65
-            dgvAuditHistory.Columns("datAOResolved").HeaderText = "Date AO Resolved"
-            dgvAuditHistory.Columns("datAOResolved").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("datAOResolved").DisplayIndex = 66
-            dgvAuditHistory.Columns("datAOResolved").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvAuditHistory.Columns("strAOComment").HeaderText = "AO Comments"
-            dgvAuditHistory.Columns("strAOComment").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strAOComment").DisplayIndex = 67
-            dgvAuditHistory.Columns("ModifingPerson").HeaderText = "Modifing Person"
-            dgvAuditHistory.Columns("ModifingPerson").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("ModifingPerson").DisplayIndex = 68
-            dgvAuditHistory.Columns("strModifingPerson").HeaderText = "Modifing ID"
-            dgvAuditHistory.Columns("strModifingPerson").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("strModifingPerson").DisplayIndex = 69
-            dgvAuditHistory.Columns("DatModifingDate").HeaderText = "Modifing Date"
-            dgvAuditHistory.Columns("DatModifingDate").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-            dgvAuditHistory.Columns("DatModifingDate").DisplayIndex = 70
-            dgvAuditHistory.Columns("DatModifingDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-
-        Catch ex As Exception
-
-        End Try
-    End Sub
-
-    Private Sub btnREfreshAudit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnREfreshAudit.Click
-        Try
-            If TCEnforcement.TabPages.Contains(TPAuditHistory) Then
-                LoadAuditData()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub btnUpdateStipulatedPenalty_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UpdateStipulatedPenaltyButton.Click
-        If String.IsNullOrEmpty(txtStipulatedKey.Text) Then
-            MsgBox("Select an existing stipulated penalty first.", MsgBoxStyle.Information, Me.Text)
-            Exit Sub
-        End If
-
-        If String.IsNullOrEmpty(txtStipulatedPenalty.Text) Then
-            MsgBox("Enter a stipulated penalty amount first.")
-            Exit Sub
-        End If
-
-        Try
-            SaveEnforcement()
-
-            SQL = "Update AIRBRANCH.SSCPEnforcementStipulated set " & _
-            "strStipulatedPenalty = '" & Replace(txtStipulatedPenalty.Text, "'", "''") & "', " & _
-            "strStipulatedPenaltyCOmments = '" & Replace(txtStipulatedComments.Text, "'", "''") & "' " & _
-            "where strEnforcementNumber = '" & Replace(txtEnforcementNumber.Text, "'", "''") & "' " & _
-            "and strEnforcementKey = '" & txtStipulatedKey.Text & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            LoadStipulatedPenalties()
-            ClearStipulatedPenaltyForm()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub btnExportAuditToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportAuditToExcel.Click
-        dgvAuditHistory.ExportToExcel(Me)
-    End Sub
-
-    Private Sub btnClearStipulated_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ClearStipulatedPenaltyFormButton.Click
-        ClearStipulatedPenaltyForm()
-    End Sub
-
-    Private Sub dgvFileList_DataBindingComplete(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewBindingCompleteEventArgs) Handles dgvDocumentList.DataBindingComplete
-        dgvDocumentList.SanelyResizeColumns()
-        dgvDocumentList.ClearSelection()
-    End Sub
-
-    Private Sub btnClearLink_Click(sender As Object, e As EventArgs) Handles btnClearLink.Click
-        txtTrackingNumber.Clear()
-    End Sub
+        End With
+    End Function
 
 #End Region
 
