@@ -55,7 +55,7 @@ Partial Class IAIPEditAirProgramPollutants
         Me.FacilityAirProgramPollutants.ReadOnly = True
         Me.FacilityAirProgramPollutants.RowHeadersVisible = False
         Me.FacilityAirProgramPollutants.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.FacilityAirProgramPollutants.Size = New System.Drawing.Size(543, 157)
+        Me.FacilityAirProgramPollutants.Size = New System.Drawing.Size(484, 159)
         Me.FacilityAirProgramPollutants.TabIndex = 0
         '
         'HeaderPanel
@@ -67,7 +67,7 @@ Partial Class IAIPEditAirProgramPollutants
         Me.HeaderPanel.Dock = System.Windows.Forms.DockStyle.Top
         Me.HeaderPanel.Location = New System.Drawing.Point(0, 0)
         Me.HeaderPanel.Name = "HeaderPanel"
-        Me.HeaderPanel.Size = New System.Drawing.Size(543, 254)
+        Me.HeaderPanel.Size = New System.Drawing.Size(484, 254)
         Me.HeaderPanel.TabIndex = 1
         '
         'ControlPanel
@@ -85,13 +85,13 @@ Partial Class IAIPEditAirProgramPollutants
         Me.ControlPanel.Controls.Add(Me.Label3)
         Me.ControlPanel.Location = New System.Drawing.Point(0, 85)
         Me.ControlPanel.Name = "ControlPanel"
-        Me.ControlPanel.Size = New System.Drawing.Size(543, 169)
+        Me.ControlPanel.Size = New System.Drawing.Size(484, 169)
         Me.ControlPanel.TabIndex = 0
         '
         'SaveButton
         '
         Me.SaveButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.SaveButton.Location = New System.Drawing.Point(15, 120)
+        Me.SaveButton.Location = New System.Drawing.Point(15, 116)
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(196, 30)
         Me.SaveButton.TabIndex = 3
@@ -103,9 +103,9 @@ Partial Class IAIPEditAirProgramPollutants
         Me.OperatingStatusSelect.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.OperatingStatusSelect.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.OperatingStatusSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.OperatingStatusSelect.Location = New System.Drawing.Point(227, 72)
+        Me.OperatingStatusSelect.Location = New System.Drawing.Point(270, 67)
         Me.OperatingStatusSelect.Name = "OperatingStatusSelect"
-        Me.OperatingStatusSelect.Size = New System.Drawing.Size(248, 21)
+        Me.OperatingStatusSelect.Size = New System.Drawing.Size(196, 21)
         Me.OperatingStatusSelect.TabIndex = 2
         '
         'ComplianceStatusSelect
@@ -113,7 +113,7 @@ Partial Class IAIPEditAirProgramPollutants
         Me.ComplianceStatusSelect.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.ComplianceStatusSelect.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.ComplianceStatusSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComplianceStatusSelect.Location = New System.Drawing.Point(15, 72)
+        Me.ComplianceStatusSelect.Location = New System.Drawing.Point(270, 19)
         Me.ComplianceStatusSelect.Name = "ComplianceStatusSelect"
         Me.ComplianceStatusSelect.Size = New System.Drawing.Size(196, 21)
         Me.ComplianceStatusSelect.TabIndex = 2
@@ -121,7 +121,7 @@ Partial Class IAIPEditAirProgramPollutants
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(224, 56)
+        Me.Label2.Location = New System.Drawing.Point(267, 51)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(130, 13)
         Me.Label2.TabIndex = 236
@@ -130,7 +130,7 @@ Partial Class IAIPEditAirProgramPollutants
         'lblComplianceStatus
         '
         Me.lblComplianceStatus.AutoSize = True
-        Me.lblComplianceStatus.Location = New System.Drawing.Point(12, 56)
+        Me.lblComplianceStatus.Location = New System.Drawing.Point(267, 3)
         Me.lblComplianceStatus.Name = "lblComplianceStatus"
         Me.lblComplianceStatus.Size = New System.Drawing.Size(139, 13)
         Me.lblComplianceStatus.TabIndex = 236
@@ -141,9 +141,9 @@ Partial Class IAIPEditAirProgramPollutants
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(12, 3)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(101, 13)
+        Me.Label1.Size = New System.Drawing.Size(61, 13)
         Me.Label1.TabIndex = 230
-        Me.Label1.Text = "Facility Air Programs"
+        Me.Label1.Text = "Air Program"
         '
         'AirProgramSelect
         '
@@ -152,7 +152,7 @@ Partial Class IAIPEditAirProgramPollutants
         Me.AirProgramSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.AirProgramSelect.Location = New System.Drawing.Point(15, 19)
         Me.AirProgramSelect.Name = "AirProgramSelect"
-        Me.AirProgramSelect.Size = New System.Drawing.Size(196, 21)
+        Me.AirProgramSelect.Size = New System.Drawing.Size(228, 21)
         Me.AirProgramSelect.TabIndex = 0
         '
         'PollutantSelect
@@ -160,15 +160,15 @@ Partial Class IAIPEditAirProgramPollutants
         Me.PollutantSelect.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.PollutantSelect.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.PollutantSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.PollutantSelect.Location = New System.Drawing.Point(227, 19)
+        Me.PollutantSelect.Location = New System.Drawing.Point(15, 67)
         Me.PollutantSelect.Name = "PollutantSelect"
-        Me.PollutantSelect.Size = New System.Drawing.Size(248, 21)
+        Me.PollutantSelect.Size = New System.Drawing.Size(228, 21)
         Me.PollutantSelect.TabIndex = 1
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(224, 3)
+        Me.Label3.Location = New System.Drawing.Point(12, 51)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(48, 13)
         Me.Label3.TabIndex = 232
@@ -212,12 +212,12 @@ Partial Class IAIPEditAirProgramPollutants
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(543, 411)
+        Me.ClientSize = New System.Drawing.Size(484, 413)
         Me.Controls.Add(Me.FacilityAirProgramPollutants)
         Me.Controls.Add(Me.HeaderPanel)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.MinimumSize = New System.Drawing.Size(450, 350)
+        Me.MinimumSize = New System.Drawing.Size(500, 350)
         Me.Name = "IAIPEditAirProgramPollutants"
         Me.ShowIcon = False
         Me.Text = "Facility Air Programs/Pollutants"

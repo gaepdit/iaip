@@ -225,12 +225,14 @@ Public Class IAIPEditAirProgramPollutants
                UserPermissions.CheckAuth(UserCan.EditHeaderData) Then
                 SaveButton.Text = "Update pollutant status"
                 SaveButton.Visible = True
+                SaveButton.Location = New Point(270, SaveButton.Location.Y)
             Else
                 SaveButton.Visible = False
             End If
         Else
             SaveButton.Text = "Add new air program/pollutant"
             SaveButton.Visible = True
+            SaveButton.Location = New Point(15, SaveButton.Location.Y)
         End If
     End Sub
 
