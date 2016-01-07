@@ -411,7 +411,7 @@ Namespace DAL.Sscp
                     New OracleParameter(":STRAFSAOTOAGNUMBER", DB.StoreNothingIfZero(.AfsAoToAGActionNumber)),
                     New OracleParameter(":STRAFSCIVILCOURTNUMBER", DB.StoreNothingIfZero(.AfsCivilCourtActionNumber)),
                     New OracleParameter(":STRAFSAORESOLVEDNUMBER", DB.StoreNothingIfZero(.AfsAoResolvedActionNumber)),
-                    New OracleParameter(":STRMODIFINGPERSON", UserGCode)
+                    New OracleParameter(":STRMODIFINGPERSON", CurrentUser.UserID)
                 })
 
                 For Each prog As String In .LegacyAirPrograms
@@ -424,7 +424,7 @@ Namespace DAL.Sscp
                                     "  STRPOLLUTANTKEY = :STRPOLLUTANTKEY")
                         parametersList.Add(New OracleParameter() {
                             New OracleParameter(":STRCOMPLIANCESTATUS", .LegacyComplianceStatusDbCode),
-                            New OracleParameter(":STRMODIFINGPERSON", UserGCode),
+                            New OracleParameter(":STRMODIFINGPERSON", CurrentUser.UserID),
                             New OracleParameter(":STRAIRPOLLUTANTKEY", .AirsNumber.DbFormattedString & prog),
                             New OracleParameter(":STRPOLLUTANTKEY", poll)
                         })
@@ -531,7 +531,7 @@ Namespace DAL.Sscp
                 New OracleParameter("penalty", penalty.ToString),
                 New OracleParameter("penaltyComment", comment),
                 New OracleParameter("afsKey", afsKey.ToString),
-                New OracleParameter("userid", UserGCode)
+                New OracleParameter("userid", CurrentUser.UserID)
             })
 
             Return DB.RunCommand(queries, parameters)
@@ -547,7 +547,7 @@ Namespace DAL.Sscp
             Dim parameters As OracleParameter() = {
                 New OracleParameter("penalty", penalty.ToString),
                 New OracleParameter("penaltyComment", comment),
-                New OracleParameter("userid", UserGCode),
+                New OracleParameter("userid", CurrentUser.UserID),
                 New OracleParameter("enforcementId", enforcementId),
                 New OracleParameter("enfKey", enfKey)
             }
