@@ -483,12 +483,6 @@
     <Compile Include="Fees\PASPFeeManagement.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Fees\PASPFeeReports.Designer.vb">
-      <DependentUpon>PASPFeeReports.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Fees\PASPFeeReports.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Fees\PASPFeesLog.Designer.vb">
       <DependentUpon>PASPFeesLog.vb</DependentUpon>
     </Compile>
@@ -1110,9 +1104,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Fees\PASPFeeManagement.resx">
       <DependentUpon>PASPFeeManagement.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Fees\PASPFeeReports.resx">
-      <DependentUpon>PASPFeeReports.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Fees\PASPFeesLog.resx">
       <DependentUpon>PASPFeesLog.vb</DependentUpon>

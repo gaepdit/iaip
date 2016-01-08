@@ -3284,7 +3284,7 @@ Public Class PASPFeeStatistics
             If dr.IsClosed = False Then dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, "PASPFeeReports.LoadComboBoxesD(Sub1)")
+            ErrorReport(ex, "(Sub1)", Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
 
@@ -3310,7 +3310,7 @@ Public Class PASPFeeStatistics
             Loop While dr.Read
             If dr.IsClosed = False Then dr.Close()
         Catch ex As Exception
-            ErrorReport(ex, "PASPFeeReports.LoadComboBoxesD(Sub2)")
+            ErrorReport(ex, "(Sub2)", Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
 
