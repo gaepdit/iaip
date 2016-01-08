@@ -272,9 +272,6 @@
       <DependentUpon>crSSPPConfirmationLetter.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Fees\PASPFeeDeposits.Designer.vb">
-      <DependentUpon>PASPFeeDeposits.vb</DependentUpon>
-    </Compile>
     <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="ISMP\ISMPManagersTools.Designer.vb">
       <DependentUpon>ISMPManagersTools.vb</DependentUpon>
@@ -478,9 +475,6 @@
       <DependentUpon>PASPDepositsAmendments.vb</DependentUpon>
     </Compile>
     <Compile Include="Fees\PASPDepositsAmendments.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Fees\PASPFeeDeposits.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Fees\PASPFeeManagement.Designer.vb">
@@ -810,12 +804,6 @@
     <Compile Include="Universal Forms\IAIPNavigation.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SSPP\SSPPPermitUploader.Designer.vb">
-      <DependentUpon>SSPPPermitUploader.vb</DependentUpon>
-    </Compile>
-    <Compile Include="SSPP\SSPPPermitUploader.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Universal Forms\IAIPPrintOut.Designer.vb">
       <DependentUpon>IAIPPrintOut.vb</DependentUpon>
     </Compile>
@@ -1120,9 +1108,6 @@
     <EmbeddedResource Include="Fees\PASPDepositsAmendments.resx">
       <DependentUpon>PASPDepositsAmendments.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Fees\PASPFeeDeposits.resx">
-      <DependentUpon>PASPFeeDeposits.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Fees\PASPFeeManagement.resx">
       <DependentUpon>PASPFeeManagement.vb</DependentUpon>
     </EmbeddedResource>
@@ -1344,10 +1329,6 @@
     <EmbeddedResource Include="Universal Forms\IAIPNavigation.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPNavigation.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SSPP\SSPPPermitUploader.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>SSPPPermitUploader.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Universal Forms\IAIPPrintOut.resx">
       <SubType>Designer</SubType>

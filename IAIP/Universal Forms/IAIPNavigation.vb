@@ -1252,7 +1252,6 @@ Public Class IAIPNavigation
 
         ' SSPP
         AddNavButtonIfAccountHasFormAccess(3, "Application Log", "SSPPApplicationLog", NavButtonCategories.SSPP)
-        AddNavButtonIfAccountHasFormAccess(9, "Permit File Uploader", "SSPPPermitUploader", NavButtonCategories.SSPP)
         AddNavButtonIfAccountHasFormAccess(19, "Attainment Status Tool", "SSPPAttainmentStatus", NavButtonCategories.SSPP)
         AddNavButtonIfAccountHasFormAccess(23, "PA/PN Report", "SSPPPublicNoticiesAndAdvisories", NavButtonCategories.SSPP)
         AddNavButtonIfAccountHasFormAccess(24, "SSPP Statistical Tools", "SSPPStatisticalTools", NavButtonCategories.SSPP)
