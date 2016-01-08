@@ -38,6 +38,7 @@ Public Class IAIPNavigation
 
     Private Sub IAIPNavigation_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         monitor.TrackFeature("Main." & Me.Name)
+        monitor.TrackFeature("Forms." & Me.Name)
 
         ' UI adjustments
         AssociateQuickNavButtons()
