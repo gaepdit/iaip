@@ -3091,52 +3091,30 @@ Public Class PASPFeeStatistics
 
     Private Sub btnRunDepositReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunDepositReport.Click
         Try
-            Dim StartDate As String
-            Dim EndDate As String
+            Dim query As String = "SELECT SUBSTR(fi.STRAIRSNUMBER, 5) AS AIRSNUMBER, " &
+                "  fi.STRFACILITYNAME, tr.TRANSACTIONTYPECODE, " &
+                "  CASE WHEN tr.TRANSACTIONTYPECODE = '1' THEN 'Deposit' WHEN " &
+                "      tr.TRANSACTIONTYPECODE = '2'       THEN 'Refund' ELSE " &
+                "      'N/A' " &
+                "  END AS TRANSACTIONTYPE, SUM(tr.NUMPAYMENT) AS PaidAmount, " &
+                "  tr.STRDEPOSITNO, tr.STRBATCHNO, tr.DATTRANSACTIONDATE, " &
+                "  tr.STRCHECKNO, tr.INVOICEID, tr.NUMFEEYEAR " &
+                "FROM AIRBRANCH.FS_TRANSACTIONS tr " &
+                "INNER JOIN AIRBRANCH.APBFACILITYINFORMATION fi ON " &
+                "  tr.STRAIRSNUMBER = fi.STRAIRSNUMBER " &
+                "WHERE tr.DATTRANSACTIONDATE BETWEEN :StartDate AND :EndDate AND " &
+                "  tr.ACTIVE = '1' " &
+                "GROUP BY fi.STRFACILITYNAME, tr.TRANSACTIONTYPECODE, " &
+                "  tr.STRDEPOSITNO, tr.STRBATCHNO, tr.DATTRANSACTIONDATE, " &
+                "  tr.STRCHECKNO, tr.INVOICEID, tr.NUMFEEYEAR, fi.STRAIRSNUMBER, " &
+                "  tr.TRANSACTIONTYPECODE"
 
-            StartDate = dtpStartDepositDate.Text
-            EndDate = dtpEndDepositDate.Text
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("StartDate", dtpStartDepositDate.Value),
+                New OracleParameter("EndDate", dtpEndDepositDate.Value)
+            }
 
-            'SQL = "select " & _
-            '"substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " & _
-            '"strFacilityName, " & _
-            '"strPayType, numPayment, " & _
-            '"strDepositNo, datPayDate, " & _
-            '"strCheckNo, strInvoiceNo, " & _
-            '"AIRBRANCH.FSAddPaid.intYear " & _
-            '"From AIRBRANCH.APBFacilityInformation, AIRBRANCH.FSAddPaid " & _
-            '"where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.FSAddPaid.strAIRSNumber " & _
-            '"and datPaydate between '" & StartDate & "' and '" & EndDate & "' "
-
-            SQL = "select " & _
-            "substr(airbranch.APBFacilityInformation.strAIRSNumber, 5) as AIRSNUmber, " & _
-            "strFacilityName, " & _
-            "case " & _
-            "when transactionTypeCode = '1' then 'Deposit' " & _
-            "when transactionTypeCode = '2' then 'Refund' " & _
-            "else 'N/A' " & _
-            "end transactionTypeCode, " & _
-            "sum(numPayment) as PaidAmount, strDepositNo, " & _
-            "strBatchNo, datTransactionDate, " & _
-            "strCheckNo, " & _
-            "InvoiceID, numFeeYear " & _
-            "from AIRBranch.FS_Transactions, airbranch.apbfacilityinformation " & _
-            "where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FS_Transactions.strAIRSNumber " & _
-            "and datTransactionDate between '" & StartDate & "' and '" & EndDate & "' " & _
-            "and FS_Transactions.active = '1' " & _
-            "group by airbranch.APBFacilityInformation.strAIRSNumber, strFacilityName, " & _
-            "transactionTypeCode, strDepositNo, strBatchNo, datTransactionDate, " & _
-            "strCheckNo, InvoiceID, numFeeYear "
-
-            ds = New DataSet
-            da = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            da.Fill(ds, "PaymentDue")
-            dgvDepositsAndPayments.DataSource = ds
-            dgvDepositsAndPayments.DataMember = "PaymentDue"
+            dgvDepositsAndPayments.DataSource = DB.GetDataTable(query, parameters)
 
             dgvDepositsAndPayments.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvDepositsAndPayments.AllowUserToResizeColumns = True
@@ -3148,7 +3126,6 @@ Public Class PASPFeeStatistics
             dgvDepositsAndPayments.Columns("AIRSNUmber").DisplayIndex = 0
             dgvDepositsAndPayments.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvDepositsAndPayments.Columns("strFacilityName").DisplayIndex = 1
-            dgvDepositsAndPayments.Columns("strFacilityName").Width = 300
             dgvDepositsAndPayments.Columns("transactionTypeCode").HeaderText = "Pay Type"
             dgvDepositsAndPayments.Columns("transactionTypeCode").DisplayIndex = 2
             dgvDepositsAndPayments.Columns("PaidAmount").HeaderText = "Amount Paid"
@@ -3156,19 +3133,19 @@ Public Class PASPFeeStatistics
             dgvDepositsAndPayments.Columns("PaidAmount").DefaultCellStyle.Format = "c"
             dgvDepositsAndPayments.Columns("strDepositNo").HeaderText = "Deposit #"
             dgvDepositsAndPayments.Columns("strDepositNo").DisplayIndex = 5
+            dgvDepositsAndPayments.Columns("strBatchNo").HeaderText = "Batch #"
+            dgvDepositsAndPayments.Columns("strBatchNo").DisplayIndex = 6
             dgvDepositsAndPayments.Columns("datTransactionDate").HeaderText = "Pay Date"
-            dgvDepositsAndPayments.Columns("datTransactionDate").DisplayIndex = 6
+            dgvDepositsAndPayments.Columns("datTransactionDate").DisplayIndex = 7
             dgvDepositsAndPayments.Columns("datTransactionDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvDepositsAndPayments.Columns("strCheckNo").HeaderText = "Check #"
-            dgvDepositsAndPayments.Columns("strCheckNo").DisplayIndex = 7
+            dgvDepositsAndPayments.Columns("strCheckNo").DisplayIndex = 8
             dgvDepositsAndPayments.Columns("InvoiceID").HeaderText = "Invoice #"
-            dgvDepositsAndPayments.Columns("InvoiceID").DisplayIndex = 8
+            dgvDepositsAndPayments.Columns("InvoiceID").DisplayIndex = 9
             dgvDepositsAndPayments.Columns("numFeeYear").HeaderText = "Year"
             dgvDepositsAndPayments.Columns("numFeeYear").DisplayIndex = 4
-            '
-            dgvDepositsAndPayments.Columns("strBatchNo").HeaderText = "Batch #"
-            dgvDepositsAndPayments.Columns("strBatchNo").DisplayIndex = 9
-            dgvDepositsAndPayments.Columns("strBatchNo").Visible = False
+
+            dgvDepositsAndPayments.SanelyResizeColumns()
 
             txtCount.Text = dgvDepositsAndPayments.RowCount.ToString
 
