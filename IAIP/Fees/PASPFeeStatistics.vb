@@ -3199,64 +3199,19 @@ Public Class PASPFeeStatistics
 
     End Sub
     Sub LoadComboBoxesF()
-        Dim dtAIRS As New DataTable
-        Dim drDSRow As DataRow
-        Dim drNewRow As DataRow
+        With cboAirsNo
+            .DataSource = FeesService.AllFeeFacilities
+            .DisplayMember = "AIRS Number"
+            .ValueMember = "STRAIRSNUMBER"
+            .SelectedIndex = 0
+        End With
 
-        Try
-            SQL = "Select DISTINCT substr(AIRBRANCH.FSCalculations.strairsnumber, 5) as strairsnumber, " _
-            + "strfacilityname " _
-            + "from AIRBRANCH.FSCalculations, AIRBRANCH.APBFacilityInformation " _
-            + "where AIRBRANCH.FSCalculations.strairsnumber = AIRBRANCH.APBFacilityInformation.strairsnumber " _
-            + "Order by strfacilityname "
-
-            ds = New DataSet
-            da = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Open Then
-            Else
-                CurrentConnection.Open()
-            End If
-
-            da.Fill(ds, "facilityInfo")
-
-
-
-            dtAIRS.Columns.Add("strairsnumber", GetType(System.String))
-            dtAIRS.Columns.Add("strfacilityname", GetType(System.String))
-
-            drNewRow = dtAIRS.NewRow()
-            drNewRow("strfacilityname") = " "
-            drNewRow("strairsnumber") = " "
-            dtAIRS.Rows.Add(drNewRow)
-
-            For Each drDSRow In ds.Tables("facilityInfo").Rows()
-                drNewRow = dtAIRS.NewRow()
-                drNewRow("strairsnumber") = drDSRow("strairsnumber")
-                drNewRow("strfacilityname") = drDSRow("strfacilityname")
-                dtAIRS.Rows.Add(drNewRow)
-            Next
-
-            With cboAirsNo
-                .DataSource = dtAIRS
-                .DisplayMember = "strairsnumber"
-                .ValueMember = "strairsnumber"
-                .SelectedIndex = 0
-            End With
-
-            With cboFacilityName
-                .DataSource = dtAIRS
-                .DisplayMember = "strfacilityname"
-                .ValueMember = "strairsnumber"
-                .SelectedIndex = 0
-            End With
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
-        End Try
+        With cboFacilityName
+            .DataSource = FeesService.AllFeeFacilities
+            .DisplayMember = "Facility Name"
+            .ValueMember = "STRAIRSNUMBER"
+            .SelectedIndex = 0
+        End With
     End Sub
     Sub LoadComboBoxesD()
 
@@ -3361,7 +3316,7 @@ Public Class PASPFeeStatistics
             da.Fill(ds, "VW_Facility_Fee")
             rpt.SetDataSource(ds)
 
-            crParameterDiscreteValue.Value = "0413" & cboAirsNo.Text
+            crParameterDiscreteValue.Value = "0413" & cboAirsNo.SelectedValue
             crParameterFieldDefinitions = rpt.DataDefinition.ParameterFields
             crParameterFieldDefinition = crParameterFieldDefinitions.Item("AirsNo")
             crParameterValues = crParameterFieldDefinition.CurrentValues

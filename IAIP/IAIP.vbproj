@@ -771,6 +771,7 @@
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.Report.vb" />
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.RmpInspection.vb" />
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.StackTest.vb" />
+    <Compile Include="_Data Services\FeesService.vb" />
     <Compile Include="_DB\DB.Functions.vb" />
     <Compile Include="_Modules\ErrorReporting.vb" />
     <Compile Include="_Modules\ExcelExport.vb" />
