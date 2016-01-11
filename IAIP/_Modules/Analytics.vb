@@ -11,19 +11,14 @@ Module Analytics
         Dim AnalyticsApiKey As String = "F635C42ABA7B4DE886EEFCEE31C98000"
         Dim monitorSettings As IAnalyticsMonitorSettings = AnalyticsMonitorFactory.CreateSettings(AnalyticsApiKey)
 
-#If DEBUG Then
+#If DEBUG Or BETA Then
         monitorSettings.TestMode = True
 #End If
 
         monitorSettings.UseSSL = True
-
         monitor = AnalyticsMonitorFactory.Create(monitorSettings)
         With monitor
-
-#If Not BETA Then
             .Start()
-#End If
-
             .TrackFeatureStart("Runtime")
             .TrackFeatureStart("Startup.Loading")
         End With
@@ -37,12 +32,13 @@ Module Analytics
     End Sub
 
     Public Sub StopMonitor()
-        With monitor
-            .TrackFeatureStop("Runtime")
-            .Stop()
-            .Dispose()
-        End With
-
+        If monitor IsNot Nothing Then
+            With monitor
+                .TrackFeatureStop("Runtime")
+                .Stop()
+                .Dispose()
+            End With
+        End If
     End Sub
 
 End Module

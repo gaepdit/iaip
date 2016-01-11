@@ -69,8 +69,6 @@ Partial Class PASPDepositsAmendments
         Me.pnlDepositSearchs = New System.Windows.Forms.Panel()
         Me.btnClearForm = New System.Windows.Forms.Button()
         Me.txtBatchNumber = New System.Windows.Forms.TextBox()
-        Me.Label44 = New System.Windows.Forms.Label()
-        Me.txtDepositNumber = New System.Windows.Forms.TextBox()
         Me.Label45 = New System.Windows.Forms.Label()
         Me.dtpBatchDepositDate = New System.Windows.Forms.DateTimePicker()
         Me.Label46 = New System.Windows.Forms.Label()
@@ -78,6 +76,10 @@ Partial Class PASPDepositsAmendments
         Me.dgvDeposits = New System.Windows.Forms.DataGridView()
         Me.bgwDeposits = New System.ComponentModel.BackgroundWorker()
         Me.bgwInvoices = New System.ComponentModel.BackgroundWorker()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.dtpDepositReportEndDate = New System.Windows.Forms.DateTimePicker()
+        Me.dtpDepositReportStartDate = New System.Windows.Forms.DateTimePicker()
         CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer2.Panel1.SuspendLayout()
         Me.SplitContainer2.Panel2.SuspendLayout()
@@ -576,10 +578,12 @@ Partial Class PASPDepositsAmendments
         'pnlDepositSearchs
         '
         Me.pnlDepositSearchs.AutoScroll = True
+        Me.pnlDepositSearchs.Controls.Add(Me.Label2)
+        Me.pnlDepositSearchs.Controls.Add(Me.Label3)
+        Me.pnlDepositSearchs.Controls.Add(Me.dtpDepositReportEndDate)
+        Me.pnlDepositSearchs.Controls.Add(Me.dtpDepositReportStartDate)
         Me.pnlDepositSearchs.Controls.Add(Me.btnClearForm)
         Me.pnlDepositSearchs.Controls.Add(Me.txtBatchNumber)
-        Me.pnlDepositSearchs.Controls.Add(Me.Label44)
-        Me.pnlDepositSearchs.Controls.Add(Me.txtDepositNumber)
         Me.pnlDepositSearchs.Controls.Add(Me.Label45)
         Me.pnlDepositSearchs.Controls.Add(Me.dtpBatchDepositDate)
         Me.pnlDepositSearchs.Controls.Add(Me.Label46)
@@ -594,7 +598,7 @@ Partial Class PASPDepositsAmendments
         '
         Me.btnClearForm.AutoSize = True
         Me.btnClearForm.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnClearForm.Location = New System.Drawing.Point(700, 11)
+        Me.btnClearForm.Location = New System.Drawing.Point(700, 22)
         Me.btnClearForm.Name = "btnClearForm"
         Me.btnClearForm.Size = New System.Drawing.Size(55, 23)
         Me.btnClearForm.TabIndex = 4
@@ -603,31 +607,15 @@ Partial Class PASPDepositsAmendments
         '
         'txtBatchNumber
         '
-        Me.txtBatchNumber.Location = New System.Drawing.Point(349, 13)
+        Me.txtBatchNumber.Location = New System.Drawing.Point(373, 25)
         Me.txtBatchNumber.Name = "txtBatchNumber"
         Me.txtBatchNumber.Size = New System.Drawing.Size(100, 20)
         Me.txtBatchNumber.TabIndex = 2
         '
-        'Label44
-        '
-        Me.Label44.AutoSize = True
-        Me.Label44.Location = New System.Drawing.Point(3, 16)
-        Me.Label44.Name = "Label44"
-        Me.Label44.Size = New System.Drawing.Size(80, 13)
-        Me.Label44.TabIndex = 0
-        Me.Label44.Text = "Entry Deposit #"
-        '
-        'txtDepositNumber
-        '
-        Me.txtDepositNumber.Location = New System.Drawing.Point(89, 13)
-        Me.txtDepositNumber.Name = "txtDepositNumber"
-        Me.txtDepositNumber.Size = New System.Drawing.Size(100, 20)
-        Me.txtDepositNumber.TabIndex = 0
-        '
         'Label45
         '
         Me.Label45.AutoSize = True
-        Me.Label45.Location = New System.Drawing.Point(298, 16)
+        Me.Label45.Location = New System.Drawing.Point(372, 9)
         Me.Label45.Name = "Label45"
         Me.Label45.Size = New System.Drawing.Size(45, 13)
         Me.Label45.TabIndex = 2
@@ -636,18 +624,17 @@ Partial Class PASPDepositsAmendments
         'dtpBatchDepositDate
         '
         Me.dtpBatchDepositDate.CustomFormat = "dd-MMM-yyyy"
-        Me.dtpBatchDepositDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpBatchDepositDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpBatchDepositDate.Location = New System.Drawing.Point(568, 12)
+        Me.dtpBatchDepositDate.Location = New System.Drawing.Point(499, 25)
         Me.dtpBatchDepositDate.Name = "dtpBatchDepositDate"
-        Me.dtpBatchDepositDate.Size = New System.Drawing.Size(114, 22)
+        Me.dtpBatchDepositDate.Size = New System.Drawing.Size(114, 20)
         Me.dtpBatchDepositDate.TabIndex = 3
         Me.dtpBatchDepositDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
         '
         'Label46
         '
         Me.Label46.AutoSize = True
-        Me.Label46.Location = New System.Drawing.Point(459, 16)
+        Me.Label46.Location = New System.Drawing.Point(496, 9)
         Me.Label46.Name = "Label46"
         Me.Label46.Size = New System.Drawing.Size(103, 13)
         Me.Label46.TabIndex = 6
@@ -657,7 +644,7 @@ Partial Class PASPDepositsAmendments
         '
         Me.btnSearchDeposits.AutoSize = True
         Me.btnSearchDeposits.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSearchDeposits.Location = New System.Drawing.Point(195, 11)
+        Me.btnSearchDeposits.Location = New System.Drawing.Point(227, 23)
         Me.btnSearchDeposits.Name = "btnSearchDeposits"
         Me.btnSearchDeposits.Size = New System.Drawing.Size(90, 23)
         Me.btnSearchDeposits.TabIndex = 1
@@ -679,6 +666,42 @@ Partial Class PASPDepositsAmendments
         '
         'bgwInvoices
         '
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(118, 9)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(52, 13)
+        Me.Label2.TabIndex = 412
+        Me.Label2.Text = "End Date"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(12, 9)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(55, 13)
+        Me.Label3.TabIndex = 411
+        Me.Label3.Text = "Start Date"
+        '
+        'dtpDepositReportEndDate
+        '
+        Me.dtpDepositReportEndDate.CustomFormat = "dd-MMM-yyyy"
+        Me.dtpDepositReportEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpDepositReportEndDate.Location = New System.Drawing.Point(121, 25)
+        Me.dtpDepositReportEndDate.Name = "dtpDepositReportEndDate"
+        Me.dtpDepositReportEndDate.Size = New System.Drawing.Size(100, 20)
+        Me.dtpDepositReportEndDate.TabIndex = 410
+        '
+        'dtpDepositReportStartDate
+        '
+        Me.dtpDepositReportStartDate.CustomFormat = "dd-MMM-yyyy"
+        Me.dtpDepositReportStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpDepositReportStartDate.Location = New System.Drawing.Point(15, 25)
+        Me.dtpDepositReportStartDate.Name = "dtpDepositReportStartDate"
+        Me.dtpDepositReportStartDate.Size = New System.Drawing.Size(100, 20)
+        Me.dtpDepositReportStartDate.TabIndex = 409
         '
         'PASPDepositsAmendments
         '
@@ -723,8 +746,6 @@ Partial Class PASPDepositsAmendments
     Friend WithEvents pnlDepositSearchs As System.Windows.Forms.Panel
     Friend WithEvents btnClearForm As System.Windows.Forms.Button
     Friend WithEvents txtBatchNumber As System.Windows.Forms.TextBox
-    Friend WithEvents Label44 As System.Windows.Forms.Label
-    Friend WithEvents txtDepositNumber As System.Windows.Forms.TextBox
     Friend WithEvents Label45 As System.Windows.Forms.Label
     Friend WithEvents dtpBatchDepositDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label46 As System.Windows.Forms.Label
@@ -763,4 +784,8 @@ Partial Class PASPDepositsAmendments
     Friend WithEvents Label56 As System.Windows.Forms.Label
     Friend WithEvents llbSearchForInvoice As System.Windows.Forms.LinkLabel
     Friend WithEvents txtSearchInvoice As System.Windows.Forms.TextBox
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents dtpDepositReportEndDate As System.Windows.Forms.DateTimePicker
+    Friend WithEvents dtpDepositReportStartDate As System.Windows.Forms.DateTimePicker
 End Class
