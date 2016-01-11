@@ -1,4 +1,3 @@
-Imports System
 Imports System.Reflection
 Imports System.Runtime.InteropServices
 
@@ -13,19 +12,17 @@ Imports System.Runtime.InteropServices
 
 #Else
 
-<Assembly: AssemblyTitle("Integrated Air Information Platform")> 
-<Assembly: AssemblyDescription("GA Air Protection Branch integrated database system")> 
-<Assembly: AssemblyProduct("Integrated Air Information Platform")> 
+<Assembly: AssemblyTitle("Integrated Air Information Platform")>
+<Assembly: AssemblyDescription("GA Air Protection Branch integrated database system")>
+<Assembly: AssemblyProduct("Integrated Air Information Platform")>
 <Assembly: Guid("9F83B6AF-EE06-4324-83E9-7AB1D5E8BE5F")>
 <Assembly: AssemblyVersion("4.2.10.0")>
 <Assembly: AssemblyFileVersion("4.2.10.0")>
 
 #End If
 
-<Assembly: AssemblyCompany("State of Georgia")> 
-<Assembly: AssemblyCopyright("")> 
-<Assembly: AssemblyTrademark("")> 
+<Assembly: AssemblyCompany("State of Georgia")>
+<Assembly: AssemblyCopyright("")>
+<Assembly: AssemblyTrademark("")>
 <Assembly: CLSCompliant(True)>
 <Assembly: ComVisible(False)>
-<Assembly: AssemblyVersion("4.2.9.0")>
-<Assembly: AssemblyFileVersion("4.2.9.0")>
