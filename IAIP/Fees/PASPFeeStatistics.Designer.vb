@@ -272,45 +272,40 @@ Partial Class PASPFeeStatistics
         Me.CRFeesReports = New CrystalDecisions.Windows.Forms.CrystalReportViewer()
         Me.tabReport = New System.Windows.Forms.TabControl()
         Me.TPFacilitySpecific = New System.Windows.Forms.TabPage()
+        Me.btnViewFacilitySpecificData = New System.Windows.Forms.Button()
         Me.cboFacilityName = New System.Windows.Forms.ComboBox()
         Me.cboAirsNo = New System.Windows.Forms.ComboBox()
         Me.Label10 = New System.Windows.Forms.Label()
-        Me.llbViewAll = New System.Windows.Forms.LinkLabel()
         Me.Label = New System.Windows.Forms.Label()
         Me.TPFinancial = New System.Windows.Forms.TabPage()
-        Me.pnlDateRange = New System.Windows.Forms.Panel()
-        Me.Panel6 = New System.Windows.Forms.Panel()
         Me.btnFeeByYear = New System.Windows.Forms.Button()
         Me.btnPayment = New System.Windows.Forms.Button()
         Me.TPYearSpecific = New System.Windows.Forms.TabPage()
-        Me.Panel7 = New System.Windows.Forms.Panel()
+        Me.btnClassification = New System.Windows.Forms.Button()
+        Me.btnFeesandEmissions = New System.Windows.Forms.Button()
+        Me.TPAnnualBalance = New System.Windows.Forms.TabPage()
         Me.mtbFacilityBalanceYear = New System.Windows.Forms.MaskedTextBox()
         Me.chbFacilityBalance = New System.Windows.Forms.CheckBox()
         Me.lblFacilityBalanceReportTag = New System.Windows.Forms.Label()
         Me.btnRunBalanceReport = New System.Windows.Forms.Button()
-        Me.btnFeeBalanceZero = New System.Windows.Forms.Button()
-        Me.btnFeeBalance = New System.Windows.Forms.Button()
-        Me.btnClassification = New System.Windows.Forms.Button()
-        Me.btnFeesandEmissions = New System.Windows.Forms.Button()
         Me.TPDeposits = New System.Windows.Forms.TabPage()
-        Me.cboDepositNo = New System.Windows.Forms.ComboBox()
+        Me.btnViewDepositsReportByDate = New System.Windows.Forms.Button()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.dtpDepositReportEndDate = New System.Windows.Forms.DateTimePicker()
+        Me.dtpDepositReportStartDate = New System.Windows.Forms.DateTimePicker()
+        Me.btnViewFacilityDepositsReport = New System.Windows.Forms.Button()
         Me.cboAirs = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.lblDepositData = New System.Windows.Forms.LinkLabel()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.TPCompliance = New System.Windows.Forms.TabPage()
-        Me.pnlNSPS = New System.Windows.Forms.Panel()
+        Me.btnClassChange = New System.Windows.Forms.Button()
+        Me.btnNoOperate = New System.Windows.Forms.Button()
+        Me.TPNsps = New System.Windows.Forms.TabPage()
         Me.lblNSPS3 = New System.Windows.Forms.LinkLabel()
         Me.lblNSPS2 = New System.Windows.Forms.LinkLabel()
         Me.lblNSPS1 = New System.Windows.Forms.LinkLabel()
-        Me.Panel8 = New System.Windows.Forms.Panel()
-        Me.btnNSPSChange = New System.Windows.Forms.Button()
-        Me.btnNoOperate = New System.Windows.Forms.Button()
-        Me.btnClassChange = New System.Windows.Forms.Button()
         Me.TPGeneral = New System.Windows.Forms.TabPage()
-        Me.Panel9 = New System.Windows.Forms.Panel()
         Me.btnFacInfoChange = New System.Windows.Forms.Button()
-        Me.btnComments = New System.Windows.Forms.Button()
         Me.TCMailoutAndStats.SuspendLayout()
         Me.TPDepositAndPaymentStats.SuspendLayout()
         CType(Me.dgvDepositsAndPayments, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -336,15 +331,12 @@ Partial Class PASPFeeStatistics
         Me.tabReport.SuspendLayout()
         Me.TPFacilitySpecific.SuspendLayout()
         Me.TPFinancial.SuspendLayout()
-        Me.Panel6.SuspendLayout()
         Me.TPYearSpecific.SuspendLayout()
-        Me.Panel7.SuspendLayout()
+        Me.TPAnnualBalance.SuspendLayout()
         Me.TPDeposits.SuspendLayout()
         Me.TPCompliance.SuspendLayout()
-        Me.pnlNSPS.SuspendLayout()
-        Me.Panel8.SuspendLayout()
+        Me.TPNsps.SuspendLayout()
         Me.TPGeneral.SuspendLayout()
-        Me.Panel9.SuspendLayout()
         Me.SuspendLayout()
         '
         'bgwEmails
@@ -2895,8 +2887,10 @@ Partial Class PASPFeeStatistics
         Me.tabReport.Controls.Add(Me.TPFacilitySpecific)
         Me.tabReport.Controls.Add(Me.TPFinancial)
         Me.tabReport.Controls.Add(Me.TPYearSpecific)
+        Me.tabReport.Controls.Add(Me.TPAnnualBalance)
         Me.tabReport.Controls.Add(Me.TPDeposits)
         Me.tabReport.Controls.Add(Me.TPCompliance)
+        Me.tabReport.Controls.Add(Me.TPNsps)
         Me.tabReport.Controls.Add(Me.TPGeneral)
         Me.tabReport.Dock = System.Windows.Forms.DockStyle.Top
         Me.tabReport.Location = New System.Drawing.Point(0, 0)
@@ -2908,10 +2902,10 @@ Partial Class PASPFeeStatistics
         '
         'TPFacilitySpecific
         '
+        Me.TPFacilitySpecific.Controls.Add(Me.btnViewFacilitySpecificData)
         Me.TPFacilitySpecific.Controls.Add(Me.cboFacilityName)
         Me.TPFacilitySpecific.Controls.Add(Me.cboAirsNo)
         Me.TPFacilitySpecific.Controls.Add(Me.Label10)
-        Me.TPFacilitySpecific.Controls.Add(Me.llbViewAll)
         Me.TPFacilitySpecific.Controls.Add(Me.Label)
         Me.TPFacilitySpecific.Location = New System.Drawing.Point(4, 22)
         Me.TPFacilitySpecific.Margin = New System.Windows.Forms.Padding(2)
@@ -2919,14 +2913,23 @@ Partial Class PASPFeeStatistics
         Me.TPFacilitySpecific.Padding = New System.Windows.Forms.Padding(2)
         Me.TPFacilitySpecific.Size = New System.Drawing.Size(928, 88)
         Me.TPFacilitySpecific.TabIndex = 0
-        Me.TPFacilitySpecific.Text = "Facility Specific"
+        Me.TPFacilitySpecific.Text = "Facility Summary"
         Me.TPFacilitySpecific.UseVisualStyleBackColor = True
+        '
+        'btnViewFacilitySpecificData
+        '
+        Me.btnViewFacilitySpecificData.Location = New System.Drawing.Point(463, 6)
+        Me.btnViewFacilitySpecificData.Name = "btnViewFacilitySpecificData"
+        Me.btnViewFacilitySpecificData.Size = New System.Drawing.Size(75, 23)
+        Me.btnViewFacilitySpecificData.TabIndex = 150
+        Me.btnViewFacilitySpecificData.Text = "View Data"
+        Me.btnViewFacilitySpecificData.UseVisualStyleBackColor = True
         '
         'cboFacilityName
         '
         Me.cboFacilityName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboFacilityName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboFacilityName.Location = New System.Drawing.Point(82, 8)
+        Me.cboFacilityName.Location = New System.Drawing.Point(83, 8)
         Me.cboFacilityName.Margin = New System.Windows.Forms.Padding(2)
         Me.cboFacilityName.Name = "cboFacilityName"
         Me.cboFacilityName.Size = New System.Drawing.Size(194, 21)
@@ -2936,7 +2939,7 @@ Partial Class PASPFeeStatistics
         '
         Me.cboAirsNo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboAirsNo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboAirsNo.Location = New System.Drawing.Point(369, 8)
+        Me.cboAirsNo.Location = New System.Drawing.Point(360, 8)
         Me.cboAirsNo.Margin = New System.Windows.Forms.Padding(2)
         Me.cboAirsNo.Name = "cboAirsNo"
         Me.cboAirsNo.Size = New System.Drawing.Size(98, 21)
@@ -2946,24 +2949,12 @@ Partial Class PASPFeeStatistics
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(276, 11)
+        Me.Label10.Location = New System.Drawing.Point(281, 11)
         Me.Label10.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(94, 13)
+        Me.Label10.Size = New System.Drawing.Size(75, 13)
         Me.Label10.TabIndex = 148
-        Me.Label10.Text = "OR AIRS Number:"
-        '
-        'llbViewAll
-        '
-        Me.llbViewAll.AutoSize = True
-        Me.llbViewAll.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.llbViewAll.Location = New System.Drawing.Point(471, 11)
-        Me.llbViewAll.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.llbViewAll.Name = "llbViewAll"
-        Me.llbViewAll.Size = New System.Drawing.Size(56, 13)
-        Me.llbViewAll.TabIndex = 149
-        Me.llbViewAll.TabStop = True
-        Me.llbViewAll.Text = "View Data"
+        Me.Label10.Text = "AIRS Number:"
         '
         'Label
         '
@@ -2979,8 +2970,8 @@ Partial Class PASPFeeStatistics
         '
         'TPFinancial
         '
-        Me.TPFinancial.Controls.Add(Me.pnlDateRange)
-        Me.TPFinancial.Controls.Add(Me.Panel6)
+        Me.TPFinancial.Controls.Add(Me.btnFeeByYear)
+        Me.TPFinancial.Controls.Add(Me.btnPayment)
         Me.TPFinancial.Location = New System.Drawing.Point(4, 22)
         Me.TPFinancial.Margin = New System.Windows.Forms.Padding(2)
         Me.TPFinancial.Name = "TPFinancial"
@@ -2990,197 +2981,118 @@ Partial Class PASPFeeStatistics
         Me.TPFinancial.Text = "Financial"
         Me.TPFinancial.UseVisualStyleBackColor = True
         '
-        'pnlDateRange
-        '
-        Me.pnlDateRange.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlDateRange.Location = New System.Drawing.Point(2, 26)
-        Me.pnlDateRange.Margin = New System.Windows.Forms.Padding(2)
-        Me.pnlDateRange.Name = "pnlDateRange"
-        Me.pnlDateRange.Size = New System.Drawing.Size(924, 60)
-        Me.pnlDateRange.TabIndex = 149
-        Me.pnlDateRange.Visible = False
-        '
-        'Panel6
-        '
-        Me.Panel6.Controls.Add(Me.btnFeeByYear)
-        Me.Panel6.Controls.Add(Me.btnPayment)
-        Me.Panel6.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel6.Location = New System.Drawing.Point(2, 2)
-        Me.Panel6.Margin = New System.Windows.Forms.Padding(2)
-        Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(924, 24)
-        Me.Panel6.TabIndex = 147
-        '
         'btnFeeByYear
         '
-        Me.btnFeeByYear.AutoSize = True
-        Me.btnFeeByYear.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.btnFeeByYear.CausesValidation = False
-        Me.btnFeeByYear.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnFeeByYear.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.btnFeeByYear.Location = New System.Drawing.Point(112, 0)
+        Me.btnFeeByYear.Location = New System.Drawing.Point(121, 4)
         Me.btnFeeByYear.Margin = New System.Windows.Forms.Padding(2)
         Me.btnFeeByYear.Name = "btnFeeByYear"
         Me.btnFeeByYear.Size = New System.Drawing.Size(109, 23)
         Me.btnFeeByYear.TabIndex = 3
         Me.btnFeeByYear.Text = "Facility Fee by Year"
-        Me.btnFeeByYear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnFeeByYear.UseVisualStyleBackColor = False
         '
         'btnPayment
         '
-        Me.btnPayment.AutoSize = True
-        Me.btnPayment.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.btnPayment.CausesValidation = False
-        Me.btnPayment.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnPayment.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.btnPayment.Location = New System.Drawing.Point(0, 0)
+        Me.btnPayment.Location = New System.Drawing.Point(4, 4)
         Me.btnPayment.Margin = New System.Windows.Forms.Padding(2)
         Me.btnPayment.Name = "btnPayment"
         Me.btnPayment.Size = New System.Drawing.Size(113, 23)
         Me.btnPayment.TabIndex = 0
         Me.btnPayment.Text = "Overall Fee Balance"
-        Me.btnPayment.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnPayment.UseVisualStyleBackColor = False
         '
         'TPYearSpecific
         '
-        Me.TPYearSpecific.Controls.Add(Me.Panel7)
+        Me.TPYearSpecific.Controls.Add(Me.btnClassification)
+        Me.TPYearSpecific.Controls.Add(Me.btnFeesandEmissions)
         Me.TPYearSpecific.Location = New System.Drawing.Point(4, 22)
         Me.TPYearSpecific.Margin = New System.Windows.Forms.Padding(2)
         Me.TPYearSpecific.Name = "TPYearSpecific"
         Me.TPYearSpecific.Size = New System.Drawing.Size(928, 88)
         Me.TPYearSpecific.TabIndex = 2
-        Me.TPYearSpecific.Text = "Year Specific"
+        Me.TPYearSpecific.Text = "Annual Totals"
         Me.TPYearSpecific.UseVisualStyleBackColor = True
-        '
-        'Panel7
-        '
-        Me.Panel7.Controls.Add(Me.mtbFacilityBalanceYear)
-        Me.Panel7.Controls.Add(Me.chbFacilityBalance)
-        Me.Panel7.Controls.Add(Me.lblFacilityBalanceReportTag)
-        Me.Panel7.Controls.Add(Me.btnRunBalanceReport)
-        Me.Panel7.Controls.Add(Me.btnFeeBalanceZero)
-        Me.Panel7.Controls.Add(Me.btnFeeBalance)
-        Me.Panel7.Controls.Add(Me.btnClassification)
-        Me.Panel7.Controls.Add(Me.btnFeesandEmissions)
-        Me.Panel7.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel7.Location = New System.Drawing.Point(0, 0)
-        Me.Panel7.Margin = New System.Windows.Forms.Padding(2)
-        Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(928, 88)
-        Me.Panel7.TabIndex = 146
-        '
-        'mtbFacilityBalanceYear
-        '
-        Me.mtbFacilityBalanceYear.Location = New System.Drawing.Point(11, 47)
-        Me.mtbFacilityBalanceYear.Mask = "0000"
-        Me.mtbFacilityBalanceYear.Name = "mtbFacilityBalanceYear"
-        Me.mtbFacilityBalanceYear.Size = New System.Drawing.Size(37, 20)
-        Me.mtbFacilityBalanceYear.TabIndex = 8
-        '
-        'chbFacilityBalance
-        '
-        Me.chbFacilityBalance.AutoSize = True
-        Me.chbFacilityBalance.Enabled = False
-        Me.chbFacilityBalance.Location = New System.Drawing.Point(54, 68)
-        Me.chbFacilityBalance.Name = "chbFacilityBalance"
-        Me.chbFacilityBalance.Size = New System.Drawing.Size(90, 17)
-        Me.chbFacilityBalance.TabIndex = 7
-        Me.chbFacilityBalance.Text = "Zero Balance"
-        Me.chbFacilityBalance.UseVisualStyleBackColor = True
-        '
-        'lblFacilityBalanceReportTag
-        '
-        Me.lblFacilityBalanceReportTag.AutoSize = True
-        Me.lblFacilityBalanceReportTag.Location = New System.Drawing.Point(8, 29)
-        Me.lblFacilityBalanceReportTag.Name = "lblFacilityBalanceReportTag"
-        Me.lblFacilityBalanceReportTag.Size = New System.Drawing.Size(533, 13)
-        Me.lblFacilityBalanceReportTag.TabIndex = 6
-        Me.lblFacilityBalanceReportTag.Text = "Please enter in a valid year (2000 or 2001, etc...) If you do not enter a valid y" & _
-    "ear the current year will be entered."
-        '
-        'btnRunBalanceReport
-        '
-        Me.btnRunBalanceReport.AutoSize = True
-        Me.btnRunBalanceReport.Location = New System.Drawing.Point(54, 44)
-        Me.btnRunBalanceReport.Name = "btnRunBalanceReport"
-        Me.btnRunBalanceReport.Size = New System.Drawing.Size(114, 23)
-        Me.btnRunBalanceReport.TabIndex = 4
-        Me.btnRunBalanceReport.Text = "Run Balance Report"
-        Me.btnRunBalanceReport.UseVisualStyleBackColor = True
-        '
-        'btnFeeBalanceZero
-        '
-        Me.btnFeeBalanceZero.AutoSize = True
-        Me.btnFeeBalanceZero.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.btnFeeBalanceZero.CausesValidation = False
-        Me.btnFeeBalanceZero.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnFeeBalanceZero.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.btnFeeBalanceZero.Location = New System.Drawing.Point(369, 0)
-        Me.btnFeeBalanceZero.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnFeeBalanceZero.Name = "btnFeeBalanceZero"
-        Me.btnFeeBalanceZero.Size = New System.Drawing.Size(235, 23)
-        Me.btnFeeBalanceZero.TabIndex = 3
-        Me.btnFeeBalanceZero.Text = "Facility Fee Balance with Zero Balance shown"
-        Me.btnFeeBalanceZero.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnFeeBalanceZero.UseVisualStyleBackColor = False
-        '
-        'btnFeeBalance
-        '
-        Me.btnFeeBalance.AutoSize = True
-        Me.btnFeeBalance.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.btnFeeBalance.CausesValidation = False
-        Me.btnFeeBalance.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnFeeBalance.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.btnFeeBalance.Location = New System.Drawing.Point(258, 0)
-        Me.btnFeeBalance.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnFeeBalance.Name = "btnFeeBalance"
-        Me.btnFeeBalance.Size = New System.Drawing.Size(112, 23)
-        Me.btnFeeBalance.TabIndex = 2
-        Me.btnFeeBalance.Text = "Facility Fee Balance"
-        Me.btnFeeBalance.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnFeeBalance.UseVisualStyleBackColor = False
         '
         'btnClassification
         '
-        Me.btnClassification.AutoSize = True
-        Me.btnClassification.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.btnClassification.CausesValidation = False
-        Me.btnClassification.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnClassification.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.btnClassification.Location = New System.Drawing.Point(120, 0)
+        Me.btnClassification.Location = New System.Drawing.Point(133, 4)
         Me.btnClassification.Margin = New System.Windows.Forms.Padding(2)
         Me.btnClassification.Name = "btnClassification"
         Me.btnClassification.Size = New System.Drawing.Size(145, 23)
         Me.btnClassification.TabIndex = 1
         Me.btnClassification.Text = "Facility Classification Totals"
-        Me.btnClassification.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnClassification.UseVisualStyleBackColor = False
         '
         'btnFeesandEmissions
         '
-        Me.btnFeesandEmissions.AutoSize = True
-        Me.btnFeesandEmissions.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.btnFeesandEmissions.CausesValidation = False
-        Me.btnFeesandEmissions.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnFeesandEmissions.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.btnFeesandEmissions.Location = New System.Drawing.Point(0, 0)
+        Me.btnFeesandEmissions.Location = New System.Drawing.Point(4, 4)
         Me.btnFeesandEmissions.Margin = New System.Windows.Forms.Padding(2)
         Me.btnFeesandEmissions.Name = "btnFeesandEmissions"
         Me.btnFeesandEmissions.Size = New System.Drawing.Size(125, 23)
         Me.btnFeesandEmissions.TabIndex = 0
         Me.btnFeesandEmissions.Text = "Total Fees && Emissions"
-        Me.btnFeesandEmissions.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnFeesandEmissions.UseVisualStyleBackColor = False
+        '
+        'TPAnnualBalance
+        '
+        Me.TPAnnualBalance.Controls.Add(Me.mtbFacilityBalanceYear)
+        Me.TPAnnualBalance.Controls.Add(Me.chbFacilityBalance)
+        Me.TPAnnualBalance.Controls.Add(Me.lblFacilityBalanceReportTag)
+        Me.TPAnnualBalance.Controls.Add(Me.btnRunBalanceReport)
+        Me.TPAnnualBalance.Location = New System.Drawing.Point(4, 22)
+        Me.TPAnnualBalance.Name = "TPAnnualBalance"
+        Me.TPAnnualBalance.Size = New System.Drawing.Size(928, 88)
+        Me.TPAnnualBalance.TabIndex = 6
+        Me.TPAnnualBalance.Text = "Annual Balances"
+        Me.TPAnnualBalance.UseVisualStyleBackColor = True
+        '
+        'mtbFacilityBalanceYear
+        '
+        Me.mtbFacilityBalanceYear.Location = New System.Drawing.Point(42, 10)
+        Me.mtbFacilityBalanceYear.Mask = "0000"
+        Me.mtbFacilityBalanceYear.Name = "mtbFacilityBalanceYear"
+        Me.mtbFacilityBalanceYear.Size = New System.Drawing.Size(37, 20)
+        Me.mtbFacilityBalanceYear.TabIndex = 12
+        '
+        'chbFacilityBalance
+        '
+        Me.chbFacilityBalance.AutoSize = True
+        Me.chbFacilityBalance.Location = New System.Drawing.Point(205, 12)
+        Me.chbFacilityBalance.Name = "chbFacilityBalance"
+        Me.chbFacilityBalance.Size = New System.Drawing.Size(133, 17)
+        Me.chbFacilityBalance.TabIndex = 11
+        Me.chbFacilityBalance.Text = "Include Zero Balances"
+        Me.chbFacilityBalance.UseVisualStyleBackColor = True
+        '
+        'lblFacilityBalanceReportTag
+        '
+        Me.lblFacilityBalanceReportTag.AutoSize = True
+        Me.lblFacilityBalanceReportTag.Location = New System.Drawing.Point(4, 13)
+        Me.lblFacilityBalanceReportTag.Name = "lblFacilityBalanceReportTag"
+        Me.lblFacilityBalanceReportTag.Size = New System.Drawing.Size(32, 13)
+        Me.lblFacilityBalanceReportTag.TabIndex = 10
+        Me.lblFacilityBalanceReportTag.Text = "Year:"
+        '
+        'btnRunBalanceReport
+        '
+        Me.btnRunBalanceReport.AutoSize = True
+        Me.btnRunBalanceReport.Location = New System.Drawing.Point(85, 8)
+        Me.btnRunBalanceReport.Name = "btnRunBalanceReport"
+        Me.btnRunBalanceReport.Size = New System.Drawing.Size(114, 23)
+        Me.btnRunBalanceReport.TabIndex = 9
+        Me.btnRunBalanceReport.Text = "Run Balance Report"
+        Me.btnRunBalanceReport.UseVisualStyleBackColor = True
         '
         'TPDeposits
         '
-        Me.TPDeposits.Controls.Add(Me.cboDepositNo)
+        Me.TPDeposits.Controls.Add(Me.btnViewDepositsReportByDate)
+        Me.TPDeposits.Controls.Add(Me.Label2)
+        Me.TPDeposits.Controls.Add(Me.Label3)
+        Me.TPDeposits.Controls.Add(Me.dtpDepositReportEndDate)
+        Me.TPDeposits.Controls.Add(Me.dtpDepositReportStartDate)
+        Me.TPDeposits.Controls.Add(Me.btnViewFacilityDepositsReport)
         Me.TPDeposits.Controls.Add(Me.cboAirs)
         Me.TPDeposits.Controls.Add(Me.Label1)
-        Me.TPDeposits.Controls.Add(Me.lblDepositData)
-        Me.TPDeposits.Controls.Add(Me.Label2)
         Me.TPDeposits.Location = New System.Drawing.Point(4, 22)
         Me.TPDeposits.Margin = New System.Windows.Forms.Padding(2)
         Me.TPDeposits.Name = "TPDeposits"
@@ -3189,22 +3101,67 @@ Partial Class PASPFeeStatistics
         Me.TPDeposits.Text = "Deposits"
         Me.TPDeposits.UseVisualStyleBackColor = True
         '
-        'cboDepositNo
+        'btnViewDepositsReportByDate
         '
-        Me.cboDepositNo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cboDepositNo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboDepositNo.Location = New System.Drawing.Point(94, 7)
-        Me.cboDepositNo.Margin = New System.Windows.Forms.Padding(2)
-        Me.cboDepositNo.Name = "cboDepositNo"
-        Me.cboDepositNo.Size = New System.Drawing.Size(109, 21)
-        Me.cboDepositNo.Sorted = True
-        Me.cboDepositNo.TabIndex = 144
+        Me.btnViewDepositsReportByDate.AutoSize = True
+        Me.btnViewDepositsReportByDate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnViewDepositsReportByDate.Location = New System.Drawing.Point(537, 18)
+        Me.btnViewDepositsReportByDate.Name = "btnViewDepositsReportByDate"
+        Me.btnViewDepositsReportByDate.Size = New System.Drawing.Size(66, 23)
+        Me.btnViewDepositsReportByDate.TabIndex = 409
+        Me.btnViewDepositsReportByDate.Text = "View Data"
+        Me.btnViewDepositsReportByDate.UseVisualStyleBackColor = True
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(428, 4)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(52, 13)
+        Me.Label2.TabIndex = 408
+        Me.Label2.Text = "End Date"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(322, 4)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(55, 13)
+        Me.Label3.TabIndex = 407
+        Me.Label3.Text = "Start Date"
+        '
+        'dtpDepositReportEndDate
+        '
+        Me.dtpDepositReportEndDate.CustomFormat = "dd-MMM-yyyy"
+        Me.dtpDepositReportEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpDepositReportEndDate.Location = New System.Drawing.Point(431, 20)
+        Me.dtpDepositReportEndDate.Name = "dtpDepositReportEndDate"
+        Me.dtpDepositReportEndDate.Size = New System.Drawing.Size(100, 20)
+        Me.dtpDepositReportEndDate.TabIndex = 406
+        '
+        'dtpDepositReportStartDate
+        '
+        Me.dtpDepositReportStartDate.CustomFormat = "dd-MMM-yyyy"
+        Me.dtpDepositReportStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpDepositReportStartDate.Location = New System.Drawing.Point(325, 20)
+        Me.dtpDepositReportStartDate.Name = "dtpDepositReportStartDate"
+        Me.dtpDepositReportStartDate.Size = New System.Drawing.Size(100, 20)
+        Me.dtpDepositReportStartDate.TabIndex = 405
+        '
+        'btnViewFacilityDepositsReport
+        '
+        Me.btnViewFacilityDepositsReport.Location = New System.Drawing.Point(194, 19)
+        Me.btnViewFacilityDepositsReport.Name = "btnViewFacilityDepositsReport"
+        Me.btnViewFacilityDepositsReport.Size = New System.Drawing.Size(75, 23)
+        Me.btnViewFacilityDepositsReport.TabIndex = 149
+        Me.btnViewFacilityDepositsReport.Text = "View Data"
+        Me.btnViewFacilityDepositsReport.UseVisualStyleBackColor = True
         '
         'cboAirs
         '
         Me.cboAirs.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboAirs.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboAirs.Location = New System.Drawing.Point(310, 11)
+        Me.cboAirs.Location = New System.Drawing.Point(81, 20)
         Me.cboAirs.Margin = New System.Windows.Forms.Padding(2)
         Me.cboAirs.Name = "cboAirs"
         Me.cboAirs.Size = New System.Drawing.Size(108, 21)
@@ -3215,41 +3172,17 @@ Partial Class PASPFeeStatistics
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(214, 13)
+        Me.Label1.Location = New System.Drawing.Point(2, 23)
         Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(94, 13)
+        Me.Label1.Size = New System.Drawing.Size(75, 13)
         Me.Label1.TabIndex = 147
-        Me.Label1.Text = "OR AIRS Number:"
-        '
-        'lblDepositData
-        '
-        Me.lblDepositData.AutoSize = True
-        Me.lblDepositData.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDepositData.Location = New System.Drawing.Point(422, 13)
-        Me.lblDepositData.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.lblDepositData.Name = "lblDepositData"
-        Me.lblDepositData.Size = New System.Drawing.Size(56, 13)
-        Me.lblDepositData.TabIndex = 148
-        Me.lblDepositData.TabStop = True
-        Me.lblDepositData.Text = "View Data"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(4, 13)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(86, 13)
-        Me.Label2.TabIndex = 146
-        Me.Label2.Text = "Deposit Number:"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.BottomLeft
+        Me.Label1.Text = "AIRS Number:"
         '
         'TPCompliance
         '
-        Me.TPCompliance.Controls.Add(Me.pnlNSPS)
-        Me.TPCompliance.Controls.Add(Me.Panel8)
+        Me.TPCompliance.Controls.Add(Me.btnClassChange)
+        Me.TPCompliance.Controls.Add(Me.btnNoOperate)
         Me.TPCompliance.Location = New System.Drawing.Point(4, 22)
         Me.TPCompliance.Margin = New System.Windows.Forms.Padding(2)
         Me.TPCompliance.Name = "TPCompliance"
@@ -3258,115 +3191,76 @@ Partial Class PASPFeeStatistics
         Me.TPCompliance.Text = "Compliance"
         Me.TPCompliance.UseVisualStyleBackColor = True
         '
-        'pnlNSPS
+        'btnClassChange
         '
-        Me.pnlNSPS.Controls.Add(Me.lblNSPS3)
-        Me.pnlNSPS.Controls.Add(Me.lblNSPS2)
-        Me.pnlNSPS.Controls.Add(Me.lblNSPS1)
-        Me.pnlNSPS.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlNSPS.Location = New System.Drawing.Point(0, 29)
-        Me.pnlNSPS.Margin = New System.Windows.Forms.Padding(2)
-        Me.pnlNSPS.Name = "pnlNSPS"
-        Me.pnlNSPS.Size = New System.Drawing.Size(928, 59)
-        Me.pnlNSPS.TabIndex = 149
-        Me.pnlNSPS.Visible = False
+        Me.btnClassChange.CausesValidation = False
+        Me.btnClassChange.Location = New System.Drawing.Point(4, 4)
+        Me.btnClassChange.Margin = New System.Windows.Forms.Padding(2)
+        Me.btnClassChange.Name = "btnClassChange"
+        Me.btnClassChange.Size = New System.Drawing.Size(129, 23)
+        Me.btnClassChange.TabIndex = 0
+        Me.btnClassChange.Text = "Change in Classification"
+        Me.btnClassChange.UseVisualStyleBackColor = False
+        '
+        'btnNoOperate
+        '
+        Me.btnNoOperate.CausesValidation = False
+        Me.btnNoOperate.Location = New System.Drawing.Point(137, 4)
+        Me.btnNoOperate.Margin = New System.Windows.Forms.Padding(2)
+        Me.btnNoOperate.Name = "btnNoOperate"
+        Me.btnNoOperate.Size = New System.Drawing.Size(94, 23)
+        Me.btnNoOperate.TabIndex = 3
+        Me.btnNoOperate.Text = "Did Not Operate"
+        Me.btnNoOperate.UseVisualStyleBackColor = False
+        '
+        'TPNsps
+        '
+        Me.TPNsps.Controls.Add(Me.lblNSPS3)
+        Me.TPNsps.Controls.Add(Me.lblNSPS2)
+        Me.TPNsps.Controls.Add(Me.lblNSPS1)
+        Me.TPNsps.Location = New System.Drawing.Point(4, 22)
+        Me.TPNsps.Name = "TPNsps"
+        Me.TPNsps.Size = New System.Drawing.Size(928, 88)
+        Me.TPNsps.TabIndex = 7
+        Me.TPNsps.Text = "NSPS"
+        Me.TPNsps.UseVisualStyleBackColor = True
         '
         'lblNSPS3
         '
         Me.lblNSPS3.AutoSize = True
-        Me.lblNSPS3.Location = New System.Drawing.Point(0, 39)
+        Me.lblNSPS3.Location = New System.Drawing.Point(3, 33)
         Me.lblNSPS3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblNSPS3.Name = "lblNSPS3"
         Me.lblNSPS3.Size = New System.Drawing.Size(363, 13)
-        Me.lblNSPS3.TabIndex = 2
+        Me.lblNSPS3.TabIndex = 5
         Me.lblNSPS3.TabStop = True
         Me.lblNSPS3.Text = "All facilities that are subject to NSPS, but indicated that they did not operate"
         '
         'lblNSPS2
         '
         Me.lblNSPS2.AutoSize = True
-        Me.lblNSPS2.Location = New System.Drawing.Point(0, 20)
+        Me.lblNSPS2.Location = New System.Drawing.Point(2, 56)
         Me.lblNSPS2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblNSPS2.Name = "lblNSPS2"
         Me.lblNSPS2.Size = New System.Drawing.Size(357, 13)
-        Me.lblNSPS2.TabIndex = 1
+        Me.lblNSPS2.TabIndex = 4
         Me.lblNSPS2.TabStop = True
         Me.lblNSPS2.Text = "All facilities that are not subject to NSPS, but indicated that they are NSPS"
         '
         'lblNSPS1
         '
         Me.lblNSPS1.AutoSize = True
-        Me.lblNSPS1.Location = New System.Drawing.Point(0, 0)
+        Me.lblNSPS1.Location = New System.Drawing.Point(3, 10)
         Me.lblNSPS1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblNSPS1.Name = "lblNSPS1"
         Me.lblNSPS1.Size = New System.Drawing.Size(335, 13)
-        Me.lblNSPS1.TabIndex = 0
+        Me.lblNSPS1.TabIndex = 3
         Me.lblNSPS1.TabStop = True
         Me.lblNSPS1.Text = "All facilities that are subject to NSPS, but chose to exempt from NSPS"
         '
-        'Panel8
-        '
-        Me.Panel8.Controls.Add(Me.btnNSPSChange)
-        Me.Panel8.Controls.Add(Me.btnNoOperate)
-        Me.Panel8.Controls.Add(Me.btnClassChange)
-        Me.Panel8.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel8.Location = New System.Drawing.Point(0, 0)
-        Me.Panel8.Margin = New System.Windows.Forms.Padding(2)
-        Me.Panel8.Name = "Panel8"
-        Me.Panel8.Size = New System.Drawing.Size(928, 29)
-        Me.Panel8.TabIndex = 147
-        '
-        'btnNSPSChange
-        '
-        Me.btnNSPSChange.AutoSize = True
-        Me.btnNSPSChange.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.btnNSPSChange.CausesValidation = False
-        Me.btnNSPSChange.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnNSPSChange.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.btnNSPSChange.Location = New System.Drawing.Point(128, 0)
-        Me.btnNSPSChange.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNSPSChange.Name = "btnNSPSChange"
-        Me.btnNSPSChange.Size = New System.Drawing.Size(130, 23)
-        Me.btnNSPSChange.TabIndex = 4
-        Me.btnNSPSChange.Text = "Change in NSPS Status"
-        Me.btnNSPSChange.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnNSPSChange.UseVisualStyleBackColor = False
-        '
-        'btnNoOperate
-        '
-        Me.btnNoOperate.AutoSize = True
-        Me.btnNoOperate.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.btnNoOperate.CausesValidation = False
-        Me.btnNoOperate.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnNoOperate.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.btnNoOperate.Location = New System.Drawing.Point(257, 0)
-        Me.btnNoOperate.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnNoOperate.Name = "btnNoOperate"
-        Me.btnNoOperate.Size = New System.Drawing.Size(94, 23)
-        Me.btnNoOperate.TabIndex = 3
-        Me.btnNoOperate.Text = "Did Not Operate"
-        Me.btnNoOperate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnNoOperate.UseVisualStyleBackColor = False
-        '
-        'btnClassChange
-        '
-        Me.btnClassChange.AutoSize = True
-        Me.btnClassChange.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.btnClassChange.CausesValidation = False
-        Me.btnClassChange.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnClassChange.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.btnClassChange.Location = New System.Drawing.Point(0, 0)
-        Me.btnClassChange.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnClassChange.Name = "btnClassChange"
-        Me.btnClassChange.Size = New System.Drawing.Size(129, 23)
-        Me.btnClassChange.TabIndex = 0
-        Me.btnClassChange.Text = "Change in Classification"
-        Me.btnClassChange.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnClassChange.UseVisualStyleBackColor = False
-        '
         'TPGeneral
         '
-        Me.TPGeneral.Controls.Add(Me.Panel9)
+        Me.TPGeneral.Controls.Add(Me.btnFacInfoChange)
         Me.TPGeneral.Location = New System.Drawing.Point(4, 22)
         Me.TPGeneral.Margin = New System.Windows.Forms.Padding(2)
         Me.TPGeneral.Name = "TPGeneral"
@@ -3375,48 +3269,17 @@ Partial Class PASPFeeStatistics
         Me.TPGeneral.Text = "General"
         Me.TPGeneral.UseVisualStyleBackColor = True
         '
-        'Panel9
-        '
-        Me.Panel9.Controls.Add(Me.btnFacInfoChange)
-        Me.Panel9.Controls.Add(Me.btnComments)
-        Me.Panel9.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel9.Location = New System.Drawing.Point(0, 0)
-        Me.Panel9.Margin = New System.Windows.Forms.Padding(2)
-        Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(928, 88)
-        Me.Panel9.TabIndex = 148
-        '
         'btnFacInfoChange
         '
         Me.btnFacInfoChange.AutoSize = True
-        Me.btnFacInfoChange.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.btnFacInfoChange.CausesValidation = False
-        Me.btnFacInfoChange.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnFacInfoChange.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.btnFacInfoChange.Location = New System.Drawing.Point(96, 0)
+        Me.btnFacInfoChange.Location = New System.Drawing.Point(4, 4)
         Me.btnFacInfoChange.Margin = New System.Windows.Forms.Padding(2)
         Me.btnFacInfoChange.Name = "btnFacInfoChange"
         Me.btnFacInfoChange.Size = New System.Drawing.Size(121, 23)
         Me.btnFacInfoChange.TabIndex = 3
         Me.btnFacInfoChange.Text = "Change in Facility Info"
-        Me.btnFacInfoChange.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.btnFacInfoChange.UseVisualStyleBackColor = False
-        '
-        'btnComments
-        '
-        Me.btnComments.AutoSize = True
-        Me.btnComments.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.btnComments.CausesValidation = False
-        Me.btnComments.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnComments.ForeColor = System.Drawing.SystemColors.ActiveCaption
-        Me.btnComments.Location = New System.Drawing.Point(0, 0)
-        Me.btnComments.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnComments.Name = "btnComments"
-        Me.btnComments.Size = New System.Drawing.Size(101, 23)
-        Me.btnComments.TabIndex = 2
-        Me.btnComments.Text = "Facility Comments"
-        Me.btnComments.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnComments.UseVisualStyleBackColor = False
         '
         'PASPFeeStatistics
         '
@@ -3460,21 +3323,16 @@ Partial Class PASPFeeStatistics
         Me.TPFacilitySpecific.ResumeLayout(False)
         Me.TPFacilitySpecific.PerformLayout()
         Me.TPFinancial.ResumeLayout(False)
-        Me.Panel6.ResumeLayout(False)
-        Me.Panel6.PerformLayout()
         Me.TPYearSpecific.ResumeLayout(False)
-        Me.Panel7.ResumeLayout(False)
-        Me.Panel7.PerformLayout()
+        Me.TPAnnualBalance.ResumeLayout(False)
+        Me.TPAnnualBalance.PerformLayout()
         Me.TPDeposits.ResumeLayout(False)
         Me.TPDeposits.PerformLayout()
         Me.TPCompliance.ResumeLayout(False)
-        Me.pnlNSPS.ResumeLayout(False)
-        Me.pnlNSPS.PerformLayout()
-        Me.Panel8.ResumeLayout(False)
-        Me.Panel8.PerformLayout()
+        Me.TPNsps.ResumeLayout(False)
+        Me.TPNsps.PerformLayout()
         Me.TPGeneral.ResumeLayout(False)
-        Me.Panel9.ResumeLayout(False)
-        Me.Panel9.PerformLayout()
+        Me.TPGeneral.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -3614,42 +3472,21 @@ Partial Class PASPFeeStatistics
     Friend WithEvents cboFacilityName As System.Windows.Forms.ComboBox
     Friend WithEvents cboAirsNo As System.Windows.Forms.ComboBox
     Friend WithEvents Label10 As System.Windows.Forms.Label
-    Friend WithEvents llbViewAll As System.Windows.Forms.LinkLabel
     Friend WithEvents Label As System.Windows.Forms.Label
     Friend WithEvents TPFinancial As System.Windows.Forms.TabPage
-    Friend WithEvents pnlDateRange As System.Windows.Forms.Panel
-    Friend WithEvents Panel6 As System.Windows.Forms.Panel
     Friend WithEvents btnFeeByYear As System.Windows.Forms.Button
     Friend WithEvents btnPayment As System.Windows.Forms.Button
     Friend WithEvents TPYearSpecific As System.Windows.Forms.TabPage
-    Friend WithEvents Panel7 As System.Windows.Forms.Panel
-    Friend WithEvents mtbFacilityBalanceYear As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents chbFacilityBalance As System.Windows.Forms.CheckBox
-    Friend WithEvents lblFacilityBalanceReportTag As System.Windows.Forms.Label
-    Friend WithEvents btnRunBalanceReport As System.Windows.Forms.Button
-    Friend WithEvents btnFeeBalanceZero As System.Windows.Forms.Button
-    Friend WithEvents btnFeeBalance As System.Windows.Forms.Button
     Friend WithEvents btnClassification As System.Windows.Forms.Button
     Friend WithEvents btnFeesandEmissions As System.Windows.Forms.Button
     Friend WithEvents TPDeposits As System.Windows.Forms.TabPage
-    Friend WithEvents cboDepositNo As System.Windows.Forms.ComboBox
     Friend WithEvents cboAirs As System.Windows.Forms.ComboBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents lblDepositData As System.Windows.Forms.LinkLabel
-    Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents TPCompliance As System.Windows.Forms.TabPage
-    Friend WithEvents pnlNSPS As System.Windows.Forms.Panel
-    Friend WithEvents lblNSPS3 As System.Windows.Forms.LinkLabel
-    Friend WithEvents lblNSPS2 As System.Windows.Forms.LinkLabel
-    Friend WithEvents lblNSPS1 As System.Windows.Forms.LinkLabel
-    Friend WithEvents Panel8 As System.Windows.Forms.Panel
-    Friend WithEvents btnNSPSChange As System.Windows.Forms.Button
     Friend WithEvents btnNoOperate As System.Windows.Forms.Button
     Friend WithEvents btnClassChange As System.Windows.Forms.Button
     Friend WithEvents TPGeneral As System.Windows.Forms.TabPage
-    Friend WithEvents Panel9 As System.Windows.Forms.Panel
     Friend WithEvents btnFacInfoChange As System.Windows.Forms.Button
-    Friend WithEvents btnComments As System.Windows.Forms.Button
     Friend WithEvents CRFeesReports As CrystalDecisions.Windows.Forms.CrystalReportViewer
     Friend WithEvents TPFeeStatistics2 As System.Windows.Forms.TabPage
     Friend WithEvents dgvFeeStats As System.Windows.Forms.DataGridView
@@ -3767,4 +3604,20 @@ Partial Class PASPFeeStatistics
     Friend WithEvents btnViewInvoicedBalance As System.Windows.Forms.Button
     Friend WithEvents txtIAIPStatus As System.Windows.Forms.TextBox
     Friend WithEvents Label20 As System.Windows.Forms.Label
+    Friend WithEvents btnViewFacilitySpecificData As Button
+    Friend WithEvents TPAnnualBalance As TabPage
+    Friend WithEvents btnRunBalanceReport As Button
+    Friend WithEvents lblFacilityBalanceReportTag As Label
+    Friend WithEvents chbFacilityBalance As CheckBox
+    Friend WithEvents mtbFacilityBalanceYear As MaskedTextBox
+    Friend WithEvents btnViewFacilityDepositsReport As Button
+    Friend WithEvents TPNsps As TabPage
+    Friend WithEvents lblNSPS1 As LinkLabel
+    Friend WithEvents lblNSPS2 As LinkLabel
+    Friend WithEvents lblNSPS3 As LinkLabel
+    Friend WithEvents btnViewDepositsReportByDate As Button
+    Friend WithEvents Label3 As Label
+    Friend WithEvents dtpDepositReportEndDate As DateTimePicker
+    Friend WithEvents dtpDepositReportStartDate As DateTimePicker
+    Friend WithEvents Label2 As Label
 End Class

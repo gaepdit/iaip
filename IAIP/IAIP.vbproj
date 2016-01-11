@@ -1573,12 +1573,6 @@
     <Compile Include="_Modules\Messages.vb" />
     <Compile Include="_Modules\Email.Outlook.vb" />
     <Compile Include="_Modules\Encryption.vb" />
-    <Compile Include="_Modules\ProgressStatus.Designer.vb">
-      <DependentUpon>ProgressStatus.vb</DependentUpon>
-    </Compile>
-    <Compile Include="_Modules\ProgressStatus.vb">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="_Modules\StartupShutdown.vb">
       <SubType>Code</SubType>
     </Compile>
