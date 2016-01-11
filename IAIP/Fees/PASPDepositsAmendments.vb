@@ -68,11 +68,6 @@ Public Class PASPDepositsAmendments
             Return False
         End If
 
-        If txtDepositNumberField.Text = "" Then
-            MsgBox("Please enter a Deposit Number", MsgBoxStyle.OkOnly, "Incorrect Deposit No.")
-            Return False
-        End If
-
         If txtBatchNoField.Text = "" Then
             MsgBox("Please enter a Batch Number", MsgBoxStyle.OkOnly, "Incorrect Batch No.")
             Return False
