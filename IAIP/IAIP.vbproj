@@ -58,7 +58,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>installer.html</WebPage>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>4.2.9.0</ApplicationVersion>
+    <ApplicationVersion>4.2.10.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -276,9 +276,6 @@
       <DependentUpon>crSSPPConfirmationLetter.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Fees\PASPFeeDeposits.Designer.vb">
-      <DependentUpon>PASPFeeDeposits.vb</DependentUpon>
-    </Compile>
     <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="ISMP\ISMPManagersTools.Designer.vb">
       <DependentUpon>ISMPManagersTools.vb</DependentUpon>
@@ -484,19 +481,10 @@
     <Compile Include="Fees\PASPDepositsAmendments.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Fees\PASPFeeDeposits.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Fees\PASPFeeManagement.Designer.vb">
       <DependentUpon>PASPFeeManagement.vb</DependentUpon>
     </Compile>
     <Compile Include="Fees\PASPFeeManagement.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Fees\PASPFeeReports.Designer.vb">
-      <DependentUpon>PASPFeeReports.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Fees\PASPFeeReports.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Fees\PASPFeesLog.Designer.vb">
@@ -792,6 +780,7 @@
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.RmpInspection.vb" />
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.StackTest.vb" />
     <Compile Include="_Data Services\SharedData.vb" />
+    <Compile Include="_Data Services\FeesService.vb" />
     <Compile Include="_DB\DB.Functions.vb" />
     <Compile Include="_Modules\ApplicationInsights.vb" />
     <Compile Include="_Modules\ErrorReporting.vb" />
@@ -820,12 +809,6 @@
       <DependentUpon>IAIPNavigation.vb</DependentUpon>
     </Compile>
     <Compile Include="Universal Forms\IAIPNavigation.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SSPP\SSPPPermitUploader.Designer.vb">
-      <DependentUpon>SSPPPermitUploader.vb</DependentUpon>
-    </Compile>
-    <Compile Include="SSPP\SSPPPermitUploader.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Universal Forms\IAIPPrintOut.Designer.vb">
@@ -1132,14 +1115,8 @@
     <EmbeddedResource Include="Fees\PASPDepositsAmendments.resx">
       <DependentUpon>PASPDepositsAmendments.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Fees\PASPFeeDeposits.resx">
-      <DependentUpon>PASPFeeDeposits.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Fees\PASPFeeManagement.resx">
       <DependentUpon>PASPFeeManagement.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Fees\PASPFeeReports.resx">
-      <DependentUpon>PASPFeeReports.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Fees\PASPFeesLog.resx">
       <DependentUpon>PASPFeesLog.vb</DependentUpon>
@@ -1356,10 +1333,6 @@
     <EmbeddedResource Include="Universal Forms\IAIPNavigation.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPNavigation.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SSPP\SSPPPermitUploader.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>SSPPPermitUploader.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Universal Forms\IAIPPrintOut.resx">
       <SubType>Designer</SubType>
@@ -1612,12 +1585,6 @@
     <Compile Include="_Modules\Messages.vb" />
     <Compile Include="_Modules\Email.Outlook.vb" />
     <Compile Include="_Modules\Encryption.vb" />
-    <Compile Include="_Modules\ProgressStatus.Designer.vb">
-      <DependentUpon>ProgressStatus.vb</DependentUpon>
-    </Compile>
-    <Compile Include="_Modules\ProgressStatus.vb">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="_Modules\StartupShutdown.vb">
       <SubType>Code</SubType>
     </Compile>

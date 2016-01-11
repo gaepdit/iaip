@@ -20,6 +20,7 @@ Public Class IAIPNavigation
 
     Private Sub IAIPNavigation_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         monitor.TrackFeature("Main." & Me.Name)
+        monitor.TrackFeature("Forms." & Me.Name)
 
         ' UI adjustments
         AssociateQuickNavButtons()
@@ -1237,7 +1238,6 @@ Public Class IAIPNavigation
 
         ' SSPP
         AddNavButtonIfAccountHasFormAccess(3, "Application Log", "SSPPApplicationLog", NavButtonCategories.SSPP)
-        AddNavButtonIfAccountHasFormAccess(9, "Permit File Uploader", "SSPPPermitUploader", NavButtonCategories.SSPP)
         AddNavButtonIfAccountHasFormAccess(19, "Attainment Status Tool", "SSPPAttainmentStatus", NavButtonCategories.SSPP)
         AddNavButtonIfAccountHasFormAccess(23, "PA/PN Report", "SSPPPublicNoticiesAndAdvisories", NavButtonCategories.SSPP)
         AddNavButtonIfAccountHasFormAccess(24, "SSPP Statistical Tools", "SSPPStatisticalTools", NavButtonCategories.SSPP)
@@ -1260,7 +1260,6 @@ Public Class IAIPNavigation
         AddNavButtonIfAccountHasFormAccess(135, "Fees Log", "PASPFeesLog", NavButtonCategories.Fees)
         AddNavButtonIfAccountHasFormAccess(139, "Fee Management", "PASPFeeManagement", NavButtonCategories.Fees)
         AddNavButtonIfAccountHasFormAccess(12, "Fee Statistics && Reports", "PASPFeeStatistics", NavButtonCategories.Fees)
-        AddNavButtonIfAccountHasFormAccess(6, "Fees Reports", "PASPFeeReports", NavButtonCategories.Fees)
         AddNavButtonIfAccountHasFormAccess(18, "Deposits", "PASPDepositsAmendments", NavButtonCategories.Fees)
 
         ' MASP

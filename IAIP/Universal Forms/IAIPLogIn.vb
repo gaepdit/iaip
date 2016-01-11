@@ -16,6 +16,7 @@ Public Class IAIPLogIn
 
     Private Sub IAIPLogIn_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Main." & Me.Name)
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
             CheckLanguageRegistrySetting()
 
@@ -84,6 +85,9 @@ Public Class IAIPLogIn
 
     Private Sub DisplayVersion()
         Dim currentVersion As Version = GetCurrentVersionAsMajorMinorBuild()
+#If BETA Then
+        currentVersion = GetCurrentVersion()
+#End If
 
         With lblCurrentVersionMessage
             If AppUpdated Then

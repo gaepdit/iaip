@@ -9,7 +9,9 @@ Public Class PASPDepositsAmendments
 
     Private Sub PASPDepositsAmendments_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         
-        dtpBatchDepositDate.Text = Now
+        dtpBatchDepositDate.Text = Date.Today
+        dtpDepositReportStartDate.Text = Format(CDate(Date.Today).AddMonths(-1), "dd-MMM-yyyy")
+        dtpDepositReportEndDate.Text = Date.Today
     End Sub
 
 #End Region
@@ -66,11 +68,6 @@ Public Class PASPDepositsAmendments
             Return False
         End If
 
-        If txtDepositNumberField.Text = "" Then
-            MsgBox("Please enter a Deposit Number", MsgBoxStyle.OkOnly, "Incorrect Deposit No.")
-            Return False
-        End If
-
         If txtBatchNoField.Text = "" Then
             MsgBox("Please enter a Batch Number", MsgBoxStyle.OkOnly, "Incorrect Batch No.")
             Return False
@@ -101,25 +98,25 @@ Public Class PASPDepositsAmendments
     End Function
 
     Private Sub DepositSearch()
-        Dim query As String = "select " & _
-        "substr(AIRBRANCH.FS_Transactions.strAIRSNumber, 5) as strAIRSNumber, " & _
-        "strDepositNO, strBatchNo, " & _
-        "transactionID, datTransactionDate, " & _
-        "numPayment, AIRBRANCH.FS_Transactions.numFeeYear, " & _
-        "strCheckNo, strCreditCardNo, " & _
-        "AIRBRANCH.FS_Transactions.InvoiceID, strPaytypeDesc as strPayType, " & _
-        "AIRBRANCH.FS_Transactions.strComment " & _
-        "from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice, " & _
-        "AIRBRANCH.FSLK_PayType " & _
-        "where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.INvoiceID " & _
-        "and AIRBRANCH.FS_FeeInvoice.strPayType = AIRBRANCH.FSLK_PayType.numPaytypeID  " & _
-        "and strDepositNo = :depNo " & _
-        "and AIRBRANCH.FS_Transactions.Active = '1' " & _
-        "and AIRBRANCH.FS_FeeInvoice.Active = '1' " & _
-        "order by strBatchNo "
-        Dim param As New OracleParameter("depNo", txtDepositNumber.Text)
+        Dim query As String = "SELECT SUBSTR(tr.STRAIRSNUMBER, 5) AS strAIRSNumber, " &
+            "  tr.STRDEPOSITNO, tr.STRBATCHNO, tr.TRANSACTIONID, " &
+            "  tr.DATTRANSACTIONDATE, tr.NUMPAYMENT, tr.NUMFEEYEAR, " &
+            "  tr.STRCHECKNO, tr.STRCREDITCARDNO, tr.INVOICEID, " &
+            "  lpt.STRPAYTYPEDESC AS strPayType, tr.STRCOMMENT " &
+            "FROM AIRBRANCH.FS_Transactions tr " &
+            "INNER JOIN AIRBRANCH.FS_FeeInvoice fi ON tr.INVOICEID = " &
+            "  fi.INVOICEID " &
+            "INNER JOIN AIRBRANCH.FSLK_PayType lpt ON lpt.NUMPAYTYPEID = " &
+            "  fi.STRPAYTYPE " &
+            "WHERE tr.DATTRANSACTIONDATE BETWEEN :StartDate AND :EndDate AND " &
+            "  tr.ACTIVE = '1' AND fi.ACTIVE = '1' " &
+            "ORDER BY tr.STRBATCHNO"
+        Dim parameters As OracleParameter() = {
+            New OracleParameter("StartDate", dtpDepositReportStartDate.Value),
+            New OracleParameter("EndDate", dtpDepositReportEndDate.Value)
+        }
 
-        dtDeposit = DB.GetDataTable(query, param)
+        dtDeposit = DB.GetDataTable(query, parameters)
     End Sub
 
     Sub DeleteInvoice()
@@ -155,7 +152,7 @@ Public Class PASPDepositsAmendments
             txtDepositNumberField.Clear()
             txtBatchNoField.Clear()
             txtCheckNumberField.Clear()
-            DTPBatchDepositDateField.Text = OracleDate
+            DTPBatchDepositDateField.Text = Date.Today
             
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -250,7 +247,7 @@ Public Class PASPDepositsAmendments
         txtDepositNumberField.Clear()
         txtBatchNoField.Clear()
         txtCheckNumberField.Clear()
-        DTPBatchDepositDateField.Text = OracleDate
+        DTPBatchDepositDateField.Text = Date.Today
         txtCheckNumber.Clear()
 
         If mtbAIRSNumber.Text <> "" Then
@@ -298,8 +295,8 @@ Public Class PASPDepositsAmendments
                         End If
 
                         If IsDBNull(dgvDeposits(4, hti.RowIndex).Value) Then
-                            dtpBatchDepositDate.Text = OracleDate
-                            DTPBatchDepositDateField.Text = OracleDate
+                            dtpBatchDepositDate.Text = Date.Today
+                            DTPBatchDepositDateField.Text = Date.Today
                         Else
                             dtpBatchDepositDate.Text = dgvDeposits(4, hti.RowIndex).FormattedValue
                             DTPBatchDepositDateField.Text = dgvDeposits(4, hti.RowIndex).FormattedValue
@@ -345,9 +342,6 @@ Public Class PASPDepositsAmendments
                         End If
                         If IsDBNull(dgvDeposits(1, hti.RowIndex).Value) Then
                             txtDepositNumberField.Clear()
-                            If txtDepositNumber.Text <> "" Then
-                                txtDepositNumberField.Text = txtDepositNumber.Text
-                            End If
                         Else
                             txtDepositNumberField.Text = dgvDeposits(1, hti.RowIndex).Value
                         End If
@@ -379,9 +373,6 @@ Public Class PASPDepositsAmendments
                         End If
                         If IsDBNull(dgvInvoices(1, hti.RowIndex).Value) Then
                             txtDepositNumberField.Clear()
-                            If txtDepositNumber.Text <> "" Then
-                                txtDepositNumberField.Text = txtDepositNumber.Text
-                            End If
                         Else
                             txtDepositNumberField.Text = dgvInvoices(1, hti.RowIndex).Value
                         End If
@@ -662,7 +653,7 @@ Public Class PASPDepositsAmendments
                 txtDepositNumberField.Clear()
                 txtBatchNoField.Clear()
                 txtCheckNumberField.Clear()
-                DTPBatchDepositDateField.Text = OracleDate
+                DTPBatchDepositDateField.Text = Date.Today
 
                 MsgBox("The record has been deleted successfully", MsgBoxStyle.Information, Me.Text)
             End If
@@ -818,7 +809,7 @@ Public Class PASPDepositsAmendments
         txtDepositNumberField.Clear()
         txtBatchNoField.Clear()
         txtCheckNumberField.Clear()
-        DTPBatchDepositDateField.Text = OracleDate
+        DTPBatchDepositDateField.Text = Date.Today
         txtCreditCardNo.Clear()
     End Sub
 
@@ -837,9 +828,8 @@ Public Class PASPDepositsAmendments
     Private Sub btnClearForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearForm.Click
         Try
             ClearForm()
-            txtDepositNumber.Clear()
             txtBatchNumber.Clear()
-            dtpBatchDepositDate.Text = OracleDate
+            dtpBatchDepositDate.Text = Date.Today
 
             btnSearchDeposits.Enabled = False
 
@@ -869,7 +859,7 @@ Public Class PASPDepositsAmendments
             txtDepositNumberField.Clear()
             txtBatchNoField.Clear()
             txtCheckNumberField.Clear()
-            DTPBatchDepositDateField.Text = OracleDate
+            DTPBatchDepositDateField.Text = Date.Today
 
             If txtCheckNumber.Text <> "" Then
                 lblViewInvoices.Enabled = False
@@ -901,7 +891,7 @@ Public Class PASPDepositsAmendments
             txtDepositNumberField.Clear()
             txtBatchNoField.Clear()
             txtCheckNumberField.Clear()
-            DTPBatchDepositDateField.Text = OracleDate
+            DTPBatchDepositDateField.Text = Date.Today
 
             If txtSearchInvoice.Text <> "" Then
                 lblViewInvoices.Enabled = False
