@@ -1,4 +1,6 @@
-﻿Namespace My
+﻿Imports Microsoft.VisualBasic.ApplicationServices
+
+Namespace My
 
     ' The following events are available for MyApplication:
     ' 
@@ -9,16 +11,24 @@
     ' NetworkAvailabilityChanged: Raised when the network connection is connected or disconnected.
     Partial Friend Class MyApplication
 
-        Private Sub MyApplication_Startup(ByVal sender As Object, ByVal e As Microsoft.VisualBasic.ApplicationServices.StartupEventArgs) _
+        Private Sub MyApplication_Startup(sender As Object, e As StartupEventArgs) _
             Handles Me.Startup
             StartupShutdown.Init()
         End Sub
 
-        Private Sub MyApplication_Shutdown(ByVal sender As Object, ByVal e As System.EventArgs) _
+        Private Sub MyApplication_Shutdown(sender As Object, e As EventArgs) _
             Handles Me.Shutdown
             StartupShutdown.Finish()
         End Sub
 
+        Private Sub MyApplication_UnhandledException(sender As Object, e As UnhandledExceptionEventArgs) _
+            Handles Me.UnhandledException
+            My.Application.Log.WriteException(e.Exception, TraceEventType.Error, "MyApplication_UnhandledException")
+            My.Application.Log.WriteEntry("MyApplication_UnhandledException " & e.Exception.Message, TraceEventType.Error)
+            MessageBox.Show("MyApplication_UnhandledException")
+            monitor.TrackException(e.Exception, sender.ToString)
+            StopMonitor()
+        End Sub
     End Class
 
 End Namespace

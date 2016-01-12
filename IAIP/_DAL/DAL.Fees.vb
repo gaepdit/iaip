@@ -85,9 +85,9 @@ Namespace DAL
 
             Dim sp As String = "AIRBRANCH.PD_FEE_STATUS"
 
-            Dim parameters As OracleParameter() = New OracleParameter() { _
-                New OracleParameter("FEEYEAR", OracleDbType.Decimal, feeYearDecimal, ParameterDirection.Input), _
-                New OracleParameter("AIRSNUMBER", aN.DbFormattedString) _
+            Dim parameters As OracleParameter() = New OracleParameter() {
+                New OracleParameter("FEEYEAR", OracleDbType.Decimal, feeYearDecimal, ParameterDirection.Input),
+                New OracleParameter("AIRSNUMBER", aN.DbFormattedString)
             }
 
             Try
@@ -107,8 +107,8 @@ Namespace DAL
         End Function
 
         Private Function GetAllFeeYearsAsDataTable() As DataTable
-            Dim query As String = "SELECT DISTINCT(NUMFEEYEAR) AS FEEYEAR " & _
-                "FROM AIRBRANCH.FSLK_NSPSREASONYEAR " & _
+            Dim query As String = "SELECT DISTINCT(NUMFEEYEAR) AS FEEYEAR " &
+                "FROM AIRBRANCH.FSLK_NSPSREASONYEAR " &
                 "ORDER BY FEEYEAR DESC"
             Return DB.GetDataTable(query)
         End Function
@@ -117,15 +117,15 @@ Namespace DAL
             Dim feeYearDecimal As Decimal
             If Not Decimal.TryParse(feeYear, feeYearDecimal) Then Return False
 
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM AIRBRANCH.FS_Mailout " & _
-                " WHERE RowNum = 1 " & _
-                " AND strAIRSnumber = :airsnumber " & _
+            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
+                " FROM AIRBRANCH.FS_Mailout " &
+                " WHERE RowNum = 1 " &
+                " AND strAIRSnumber = :airsnumber " &
                 " AND numFeeYear = :feeyear "
 
-            Dim parameters As OracleParameter() = New OracleParameter() { _
-                New OracleParameter("airsnumber", airsNumber.DbFormattedString), _
-                New OracleParameter("feeyear", feeYearDecimal) _
+            Dim parameters As OracleParameter() = New OracleParameter() {
+                New OracleParameter("airsnumber", airsNumber.DbFormattedString),
+                New OracleParameter("feeyear", feeYearDecimal)
             }
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameters)
@@ -136,41 +136,41 @@ Namespace DAL
             Dim feeYearDecimal As Decimal
             If Not Decimal.TryParse(feeYear, feeYearDecimal) Then Return False
 
-            Dim query As String = "UPDATE AIRBRANCH.FS_MAILOUT " & _
-                " SET STRFIRSTNAME       = :v2, " & _
-                "  STRLASTNAME          = :v3, " & _
-                "  STRPREFIX            = :v4, " & _
-                "  STRCONTACTSUFFIX     = :v28, " & _
-                "  STRTITLE             = :v5, " & _
-                "  STRCONTACTCONAME     = :v6, " & _
-                "  STRCONTACTADDRESS1   = :v7, " & _
-                "  STRCONTACTADDRESS2   = :v8, " & _
-                "  STRCONTACTCITY       = :v9, " & _
-                "  STRCONTACTSTATE      = :v10, " & _
-                "  STRCONTACTZIPCODE    = :v11, " & _
-                "  STRGECOUSEREMAIL     = :v12, " & _
-                "  UPDATEUSER           = :v25, " & _
-                "  UPDATEDATETIME       = :v26 " & _
-                " WHERE STRAIRSNUMBER   = :airsnumber " & _
+            Dim query As String = "UPDATE AIRBRANCH.FS_MAILOUT " &
+                " SET STRFIRSTNAME       = :v2, " &
+                "  STRLASTNAME          = :v3, " &
+                "  STRPREFIX            = :v4, " &
+                "  STRCONTACTSUFFIX     = :v28, " &
+                "  STRTITLE             = :v5, " &
+                "  STRCONTACTCONAME     = :v6, " &
+                "  STRCONTACTADDRESS1   = :v7, " &
+                "  STRCONTACTADDRESS2   = :v8, " &
+                "  STRCONTACTCITY       = :v9, " &
+                "  STRCONTACTSTATE      = :v10, " &
+                "  STRCONTACTZIPCODE    = :v11, " &
+                "  STRGECOUSEREMAIL     = :v12, " &
+                "  UPDATEUSER           = :v25, " &
+                "  UPDATEDATETIME       = :v26 " &
+                " WHERE STRAIRSNUMBER   = :airsnumber " &
                 " AND NUMFEEYEAR        = :feeyear "
 
-            Dim parameters As OracleParameter() = { _
-                New OracleParameter("v2", contact.FirstName), _
-                New OracleParameter("v3", contact.LastName), _
-                New OracleParameter("v4", contact.Prefix), _
-                New OracleParameter("v28", contact.Suffix), _
-                New OracleParameter("v5", contact.Title), _
-                New OracleParameter("v6", contact.CompanyName), _
-                New OracleParameter("v7", contact.MailingAddress.Street), _
-                New OracleParameter("v8", contact.MailingAddress.Street2), _
-                New OracleParameter("v9", contact.MailingAddress.City), _
-                New OracleParameter("v10", contact.MailingAddress.State), _
-                New OracleParameter("v11", contact.MailingAddress.PostalCode), _
-                New OracleParameter("v12", contact.EmailAddress), _
-                New OracleParameter("v25", CurrentUser.UserID), _
-                New OracleParameter("v26", OracleDate), _
-                New OracleParameter("airsnumber", airsNumber), _
-                New OracleParameter("feeyear", feeYearDecimal) _
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("v2", contact.FirstName),
+                New OracleParameter("v3", contact.LastName),
+                New OracleParameter("v4", contact.Prefix),
+                New OracleParameter("v28", contact.Suffix),
+                New OracleParameter("v5", contact.Title),
+                New OracleParameter("v6", contact.CompanyName),
+                New OracleParameter("v7", contact.MailingAddress.Street),
+                New OracleParameter("v8", contact.MailingAddress.Street2),
+                New OracleParameter("v9", contact.MailingAddress.City),
+                New OracleParameter("v10", contact.MailingAddress.State),
+                New OracleParameter("v11", contact.MailingAddress.PostalCode),
+                New OracleParameter("v12", contact.EmailAddress),
+                New OracleParameter("v25", CurrentUser.UserID), 
+                New OracleParameter("v26", OracleDate),
+                New OracleParameter("airsnumber", airsNumber),
+                New OracleParameter("feeyear", feeYearDecimal)
             }
 
             Return DB.RunCommand(query, parameters)
@@ -181,43 +181,55 @@ Namespace DAL
             Dim feeYearDecimal As Decimal
             If Not Decimal.TryParse(feeYear, feeYearDecimal) Then Return False
 
-            Dim query As String = "UPDATE AIRBRANCH.FS_MAILOUT " & _
-                " SET STROPERATIONALSTATUS = :v13, " & _
-                "  STRCLASS             = :v14, " & _
-                "  STRNSPS              = :v15, " & _
-                "  STRPART70            = :v16, " & _
-                "  DATSHUTDOWNDATE      = :v17, " & _
-                "  STRFACILITYNAME      = :v18, " & _
-                "  STRFACILITYADDRESS1  = :v19, " & _
-                "  STRFACILITYADDRESS2  = :v20, " & _
-                "  STRFACILITYCITY      = :v21, " & _
-                "  STRFACILITYZIPCODE   = :v22, " & _
-                "  STRCOMMENT           = :v23, " & _
-                "  UPDATEUSER           = :v25, " & _
-                "  UPDATEDATETIME       = :v26 " & _
-                " WHERE STRAIRSNUMBER   = :airsnumber " & _
+            Dim query As String = "UPDATE AIRBRANCH.FS_MAILOUT " &
+                " SET STROPERATIONALSTATUS = :v13, " &
+                "  STRCLASS             = :v14, " &
+                "  STRNSPS              = :v15, " &
+                "  STRPART70            = :v16, " &
+                "  DATSHUTDOWNDATE      = :v17, " &
+                "  STRFACILITYNAME      = :v18, " &
+                "  STRFACILITYADDRESS1  = :v19, " &
+                "  STRFACILITYADDRESS2  = :v20, " &
+                "  STRFACILITYCITY      = :v21, " &
+                "  STRFACILITYZIPCODE   = :v22, " &
+                "  STRCOMMENT           = :v23, " &
+                "  UPDATEUSER           = :v25, " &
+                "  UPDATEDATETIME       = :v26 " &
+                " WHERE STRAIRSNUMBER   = :airsnumber " &
                 " AND NUMFEEYEAR        = :feeyear "
 
-            Dim parameters As OracleParameter() = { _
-                New OracleParameter("v13", facility.HeaderData.OperationalStatusCode), _
-                New OracleParameter("v14", facility.HeaderData.ClassificationCode), _
-                New OracleParameter("v15", If(facility.SubjectToNsps, "1", "0")), _
-                New OracleParameter("v16", If(facility.SubjectToPart70, "1", "0")), _
-                New OracleParameter("v17", facility.HeaderData.ShutdownDate), _
-                New OracleParameter("v18", facility.FacilityName), _
-                New OracleParameter("v19", facility.FacilityLocation.Address.Street), _
-                New OracleParameter("v20", facility.FacilityLocation.Address.Street2), _
-                New OracleParameter("v21", facility.FacilityLocation.Address.City), _
-                New OracleParameter("v22", facility.FacilityLocation.Address.PostalCode), _
-                New OracleParameter("v23", facility.Comment), _
-                New OracleParameter("v25", CurrentUser.UserID), _
-                New OracleParameter("v26", OracleDate), _
-                New OracleParameter("airsnumber", airsNumber), _
-                New OracleParameter("feeyear", feeYearDecimal) _
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("v13", facility.HeaderData.OperationalStatusCode),
+                New OracleParameter("v14", facility.HeaderData.ClassificationCode),
+                New OracleParameter("v15", If(facility.SubjectToNsps, "1", "0")),
+                New OracleParameter("v16", If(facility.SubjectToPart70, "1", "0")),
+                New OracleParameter("v17", facility.HeaderData.ShutdownDate),
+                New OracleParameter("v18", facility.FacilityName),
+                New OracleParameter("v19", facility.FacilityLocation.Address.Street),
+                New OracleParameter("v20", facility.FacilityLocation.Address.Street2),
+                New OracleParameter("v21", facility.FacilityLocation.Address.City),
+                New OracleParameter("v22", facility.FacilityLocation.Address.PostalCode),
+                New OracleParameter("v23", facility.Comment),
+                New OracleParameter("v25", CurrentUser.UserID),
+                New OracleParameter("v26", OracleDate),
+                New OracleParameter("airsnumber", airsNumber),
+                New OracleParameter("feeyear", feeYearDecimal)
             }
 
             Return DB.RunCommand(query, parameters)
 
+        End Function
+
+        Public Function GetAllFeeFacilities() As DataTable
+            Dim query As String = "SELECT DISTINCT SUBSTR(fa.STRAIRSNUMBER, 5) AS STRAIRSNUMBER, " &
+                "  SUBSTR(fa.STRAIRSNUMBER, 5, 3) || '-' || SUBSTR( " &
+                "  fa.STRAIRSNUMBER, 8) AS ""AIRS Number"", fi.STRFACILITYNAME " &
+                "  AS ""Facility Name"" " &
+                "FROM AIRBRANCH.FS_ADMIN fa " &
+                "INNER JOIN AIRBRANCH.APBFACILITYINFORMATION fi ON " &
+                "  fa.STRAIRSNUMBER = fi.STRAIRSNUMBER " &
+                "ORDER BY fi.STRFACILITYNAME"
+            Return DB.GetDataTable(query)
         End Function
 
     End Module

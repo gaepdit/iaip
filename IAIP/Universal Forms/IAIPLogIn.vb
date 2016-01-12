@@ -29,6 +29,7 @@ Public Class IAIPLogIn
 
     Private Sub IAIPLogIn_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Main." & Me.Name)
+        monitor.TrackFeature("Forms." & Me.Name)
         Try
             CheckLanguageRegistrySetting()
 
@@ -79,6 +80,10 @@ Public Class IAIPLogIn
         Dim currentVersion As Version = GetCurrentVersionAsMajorMinorBuild()
         Dim msgText As String
         Dim msg As IaipMessage
+        
+#If BETA Then
+        currentVersion = GetCurrentVersion()
+#End If
 
         If AppUpdated Then
             msgText = String.Format("The IAIP has been updated. Current version: {0}", currentVersion.ToString)

@@ -1,5 +1,4 @@
-﻿Imports System.Windows.Forms
-Imports System.Collections.Generic
+﻿Imports System.Collections.Generic
 Imports Iaip.Apb.Sspp
 Imports System.Linq
 
@@ -8,32 +7,17 @@ Public Class SsppPermitRevocationDialog
 #Region " Properties "
 
     ' List of active permits (sent by Application Tracking Log)
-    Private _ActivePermits As List(Of Permit)
     Public Property ActivePermits() As List(Of Permit)
-        Private Get
-            Return _ActivePermits
-        End Get
-        Set(ByVal value As List(Of Permit))
-            _ActivePermits = value
-        End Set
-    End Property
 
     ' List of checked permits (available to Application Tracking Log after closed)
-    Private _SelectedPermits As List(Of Permit)
     Public Property PermitsToRevoke() As List(Of Permit)
-        Get
-            Return _SelectedPermits
-        End Get
-        Private Set(ByVal value As List(Of Permit))
-            _SelectedPermits = value
-        End Set
-    End Property
 
 #End Region
 
 #Region " Form Events "
 
     Private Sub SsppPermitRevocationDialog_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        monitor.TrackFeature("Forms." & Me.Name)
         For Each p As Permit In ActivePermits
             ActivePermitsCheckedListBox.Items.Add(p)
         Next

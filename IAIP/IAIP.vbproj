@@ -58,11 +58,25 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>installer.html</WebPage>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>4.2.9.0</ApplicationVersion>
+    <ApplicationVersion>4.2.10.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>false</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Beta|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Beta\</OutputPath>
+    <DefineConstants>BETA = -1</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <Optimize>true</Optimize>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <CodeAnalysisRuleSet>..\Code Analysis\IAIP.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -91,7 +105,7 @@
     <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\Code Analysis\IAIP.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
     <DefineConstants>BETA = 0</DefineConstants>
     <DebugSymbols>true</DebugSymbols>
@@ -289,9 +303,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>crSSPPConfirmationLetter.rpt</DependentUpon>
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Fees\PASPFeeDeposits.Designer.vb">
-      <DependentUpon>PASPFeeDeposits.vb</DependentUpon>
     </Compile>
     <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="ISMP\ISMPManagersTools.Designer.vb">
@@ -510,19 +521,10 @@
     <Compile Include="Fees\PASPDepositsAmendments.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Fees\PASPFeeDeposits.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Fees\PASPFeeManagement.Designer.vb">
       <DependentUpon>PASPFeeManagement.vb</DependentUpon>
     </Compile>
     <Compile Include="Fees\PASPFeeManagement.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Fees\PASPFeeReports.Designer.vb">
-      <DependentUpon>PASPFeeReports.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Fees\PASPFeeReports.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Fees\PASPFeesLog.Designer.vb">
@@ -818,6 +820,7 @@
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.RmpInspection.vb" />
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.StackTest.vb" />
     <Compile Include="_Data Services\SharedData.vb" />
+    <Compile Include="_Data Services\FeesService.vb" />
     <Compile Include="_DB\DB.Functions.vb" />
     <Compile Include="_Modules\ErrorReporting.vb" />
     <Compile Include="_Modules\ExcelExport.vb" />
@@ -845,12 +848,6 @@
       <DependentUpon>IAIPNavigation.vb</DependentUpon>
     </Compile>
     <Compile Include="Universal Forms\IAIPNavigation.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SSPP\SSPPPermitUploader.Designer.vb">
-      <DependentUpon>SSPPPermitUploader.vb</DependentUpon>
-    </Compile>
-    <Compile Include="SSPP\SSPPPermitUploader.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Universal Forms\IAIPPrintOut.Designer.vb">
@@ -1151,14 +1148,8 @@
     <EmbeddedResource Include="Fees\PASPDepositsAmendments.resx">
       <DependentUpon>PASPDepositsAmendments.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Fees\PASPFeeDeposits.resx">
-      <DependentUpon>PASPFeeDeposits.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Fees\PASPFeeManagement.resx">
       <DependentUpon>PASPFeeManagement.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Fees\PASPFeeReports.resx">
-      <DependentUpon>PASPFeeReports.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Fees\PASPFeesLog.resx">
       <DependentUpon>PASPFeesLog.vb</DependentUpon>
@@ -1375,10 +1366,6 @@
     <EmbeddedResource Include="Universal Forms\IAIPNavigation.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPNavigation.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SSPP\SSPPPermitUploader.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>SSPPPermitUploader.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Universal Forms\IAIPPrintOut.resx">
       <SubType>Designer</SubType>
@@ -1631,12 +1618,6 @@
     <Compile Include="_Modules\DocumentMessages.vb" />
     <Compile Include="_Modules\Email.Outlook.vb" />
     <Compile Include="_Modules\Encryption.vb" />
-    <Compile Include="_Modules\ProgressStatus.Designer.vb">
-      <DependentUpon>ProgressStatus.vb</DependentUpon>
-    </Compile>
-    <Compile Include="_Modules\ProgressStatus.vb">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="_Modules\StartupShutdown.vb">
       <SubType>Code</SubType>
     </Compile>
