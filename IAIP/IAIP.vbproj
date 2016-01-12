@@ -286,9 +286,6 @@
       <DependentUpon>crSSPPConfirmationLetter.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Fees\PASPFeeDeposits.Designer.vb">
-      <DependentUpon>PASPFeeDeposits.vb</DependentUpon>
-    </Compile>
     <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="ISMP\ISMPManagersTools.Designer.vb">
       <DependentUpon>ISMPManagersTools.vb</DependentUpon>
@@ -492,9 +489,6 @@
       <DependentUpon>PASPDepositsAmendments.vb</DependentUpon>
     </Compile>
     <Compile Include="Fees\PASPDepositsAmendments.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Fees\PASPFeeDeposits.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Fees\PASPFeeManagement.Designer.vb">
@@ -1128,9 +1122,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Fees\PASPDepositsAmendments.resx">
       <DependentUpon>PASPDepositsAmendments.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Fees\PASPFeeDeposits.resx">
-      <DependentUpon>PASPFeeDeposits.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Fees\PASPFeeManagement.resx">
       <DependentUpon>PASPFeeManagement.vb</DependentUpon>
