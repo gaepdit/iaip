@@ -19,196 +19,180 @@ Partial Class SSPPPermitUploader
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSPPPermitUploader))
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
-        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiBack = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiHelp = New System.Windows.Forms.ToolStripMenuItem
-        Me.TBBPermitUploader = New System.Windows.Forms.ToolStrip
-        Me.tbbBack = New System.Windows.Forms.ToolStripButton
-        Me.tbbClear = New System.Windows.Forms.ToolStripButton
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.txtApplicationNumber = New System.Windows.Forms.TextBox
-        Me.btnUploadFile = New System.Windows.Forms.Button
-        Me.txtApplicationInformation = New System.Windows.Forms.TextBox
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.txtApplicationLinks = New System.Windows.Forms.TextBox
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.Panel4 = New System.Windows.Forms.Panel
-        Me.rdbOtherPermit = New System.Windows.Forms.RadioButton
-        Me.rdbPSDPermit = New System.Windows.Forms.RadioButton
-        Me.rdbTitleVPermit = New System.Windows.Forms.RadioButton
-        Me.btnFindApplication = New System.Windows.Forms.Button
-        Me.btnDeleteTVFinal = New System.Windows.Forms.Button
-        Me.btnDeleteTVPublicNot = New System.Windows.Forms.Button
-        Me.btnDeleteTVDraft = New System.Windows.Forms.Button
-        Me.btnDeleteTVNarrative = New System.Windows.Forms.Button
-        Me.btnTVFinalDownload = New System.Windows.Forms.Button
-        Me.btnTVPublicNoticeDownload = New System.Windows.Forms.Button
-        Me.btnTVDraftDownload = New System.Windows.Forms.Button
-        Me.btnTVNarrativeDownload = New System.Windows.Forms.Button
-        Me.lblTVFinalDUPDF = New System.Windows.Forms.Label
-        Me.lblTVFinalDUDoc = New System.Windows.Forms.Label
-        Me.lblTVPublicNoticeDUPDF = New System.Windows.Forms.Label
-        Me.lblTVPublicNoticeDUDoc = New System.Windows.Forms.Label
-        Me.lblTVDraftDUPDF = New System.Windows.Forms.Label
-        Me.lblTVDraftDUDoc = New System.Windows.Forms.Label
-        Me.lblTVNarrativeDUPDF = New System.Windows.Forms.Label
-        Me.lblTVNarrativeDUDoc = New System.Windows.Forms.Label
-        Me.txtTVFinalPDF = New System.Windows.Forms.TextBox
-        Me.txtTVPublicNoticePDF = New System.Windows.Forms.TextBox
-        Me.txtTVDraftPDF = New System.Windows.Forms.TextBox
-        Me.txtTVNarrativePDF = New System.Windows.Forms.TextBox
-        Me.btnTVFinal = New System.Windows.Forms.Button
-        Me.txtTVFinalDoc = New System.Windows.Forms.TextBox
-        Me.btnTVPublicNotice = New System.Windows.Forms.Button
-        Me.txtTVPublicNoticeDoc = New System.Windows.Forms.TextBox
-        Me.btnTVDraft = New System.Windows.Forms.Button
-        Me.txtTVDraftDoc = New System.Windows.Forms.TextBox
-        Me.btnTVNarrative = New System.Windows.Forms.Button
-        Me.txtTVNarrativeDoc = New System.Windows.Forms.TextBox
-        Me.chbTVFinal = New System.Windows.Forms.CheckBox
-        Me.chbTVPublicNotice = New System.Windows.Forms.CheckBox
-        Me.chbTVDraft = New System.Windows.Forms.CheckBox
-        Me.chbTVNarrative = New System.Windows.Forms.CheckBox
-        Me.lblTVFinalSRPDF = New System.Windows.Forms.Label
-        Me.lblTVFinalSRDoc = New System.Windows.Forms.Label
-        Me.lblTVPublicNoticeSRPDF = New System.Windows.Forms.Label
-        Me.lblTVPublicNoticeSRDoc = New System.Windows.Forms.Label
-        Me.lblTVDraftSRPDF = New System.Windows.Forms.Label
-        Me.lblTVDraftSRDoc = New System.Windows.Forms.Label
-        Me.lblTVNarrativeSRPDF = New System.Windows.Forms.Label
-        Me.lblTVNarrativeSRDoc = New System.Windows.Forms.Label
-        Me.btnDeletePSDFinalPermit = New System.Windows.Forms.Button
-        Me.btnDeletePSDFinalDet = New System.Windows.Forms.Button
-        Me.btnDeletePSDHearingNotice = New System.Windows.Forms.Button
-        Me.btnDeletePSDPublicNotice = New System.Windows.Forms.Button
-        Me.btnDeletePSDDraftPermit = New System.Windows.Forms.Button
-        Me.btnDeletePSDNarrative = New System.Windows.Forms.Button
-        Me.btnDeletePSDPrelimDet = New System.Windows.Forms.Button
-        Me.btnDeletePSDAppSummary = New System.Windows.Forms.Button
-        Me.btnPSDNarrativeDownload = New System.Windows.Forms.Button
-        Me.lblPSDNarrativeDUPDF = New System.Windows.Forms.Label
-        Me.lblPSDNarrativeDUDoc = New System.Windows.Forms.Label
-        Me.txtPSDNarrativePDF = New System.Windows.Forms.TextBox
-        Me.btnPSDNarrative = New System.Windows.Forms.Button
-        Me.txtPSDNarrativeDoc = New System.Windows.Forms.TextBox
-        Me.chbPSDNarrative = New System.Windows.Forms.CheckBox
-        Me.lblPSDNarrativeSRPDF = New System.Windows.Forms.Label
-        Me.lblPSDNarrativeSRDoc = New System.Windows.Forms.Label
-        Me.btnPSDPublicNoticeDownload = New System.Windows.Forms.Button
-        Me.btnPSDDraftPermitDownload = New System.Windows.Forms.Button
-        Me.btnPSDPrelimDetDownload = New System.Windows.Forms.Button
-        Me.btnPSDHearingNoticeDownload = New System.Windows.Forms.Button
-        Me.btnPSDFinalDetDownload = New System.Windows.Forms.Button
-        Me.btnPSDFinalPermitDownload = New System.Windows.Forms.Button
-        Me.btnPSDAppSummaryDownload = New System.Windows.Forms.Button
-        Me.lblPSDFinalPermitDUPDF = New System.Windows.Forms.Label
-        Me.lblPSDFinalPermitDUDoc = New System.Windows.Forms.Label
-        Me.lblPSDFinalDetDUPDF = New System.Windows.Forms.Label
-        Me.lblPSDFinalDetDUDoc = New System.Windows.Forms.Label
-        Me.lblPSDHearingNoticeDUPDF = New System.Windows.Forms.Label
-        Me.lblPSDHearingNoticeDUDoc = New System.Windows.Forms.Label
-        Me.lblPSDPublicNoticeDUPDF = New System.Windows.Forms.Label
-        Me.lblPSDPublicNoticeDUDoc = New System.Windows.Forms.Label
-        Me.lblPSDDraftPermitDUPDF = New System.Windows.Forms.Label
-        Me.lblPSDDraftPermitDUDoc = New System.Windows.Forms.Label
-        Me.lblPSDPrelimDetDUPDF = New System.Windows.Forms.Label
-        Me.lblPSDPrelimDetDUDoc = New System.Windows.Forms.Label
-        Me.lblPSDAppSummaryDUPDF = New System.Windows.Forms.Label
-        Me.lblPSDAppSummaryDUDoc = New System.Windows.Forms.Label
-        Me.txtPSDPrelimDetPDF = New System.Windows.Forms.TextBox
-        Me.txtPSDDraftPermitPDF = New System.Windows.Forms.TextBox
-        Me.txtPSDPublicNoticePDF = New System.Windows.Forms.TextBox
-        Me.txtPSDHearingNoticePDF = New System.Windows.Forms.TextBox
-        Me.txtPSDFinalDetPDF = New System.Windows.Forms.TextBox
-        Me.txtPSDAppSummaryPDF = New System.Windows.Forms.TextBox
-        Me.txtPSDFinalPermitPDF = New System.Windows.Forms.TextBox
-        Me.btnPSDFinalPermit = New System.Windows.Forms.Button
-        Me.txtPSDFinalPermitDoc = New System.Windows.Forms.TextBox
-        Me.chbPSDFinalPermit = New System.Windows.Forms.CheckBox
-        Me.btnPSDFinalDet = New System.Windows.Forms.Button
-        Me.txtPSDFinalDetDoc = New System.Windows.Forms.TextBox
-        Me.chbPSDFinalDet = New System.Windows.Forms.CheckBox
-        Me.btnPSDHearingNotice = New System.Windows.Forms.Button
-        Me.txtPSDHearingNoticeDoc = New System.Windows.Forms.TextBox
-        Me.chbPSDHearingNotice = New System.Windows.Forms.CheckBox
-        Me.btnPSDPublicNotice = New System.Windows.Forms.Button
-        Me.txtPSDPublicNoticeDoc = New System.Windows.Forms.TextBox
-        Me.btnPSDDraftPermit = New System.Windows.Forms.Button
-        Me.txtPSDDraftPermitDoc = New System.Windows.Forms.TextBox
-        Me.btnPSDPrelimDet = New System.Windows.Forms.Button
-        Me.txtPSDPrelimDetDoc = New System.Windows.Forms.TextBox
-        Me.btnPSDAppSummary = New System.Windows.Forms.Button
-        Me.txtPSDAppSummaryDoc = New System.Windows.Forms.TextBox
-        Me.chbPSDPublicNotice = New System.Windows.Forms.CheckBox
-        Me.chbPSDDraftPermit = New System.Windows.Forms.CheckBox
-        Me.chbPSDPrelimDet = New System.Windows.Forms.CheckBox
-        Me.chbPSDApplicationSummary = New System.Windows.Forms.CheckBox
-        Me.lblPSDPublicNoticeSRPDF = New System.Windows.Forms.Label
-        Me.lblPSDPublicNoticeSRDoc = New System.Windows.Forms.Label
-        Me.lblPSDDraftPermitSRPDF = New System.Windows.Forms.Label
-        Me.lblPSDDraftPermitSRDoc = New System.Windows.Forms.Label
-        Me.lblPSDFinalPermitSRPDF = New System.Windows.Forms.Label
-        Me.lblPSDFinalPermitSRDoc = New System.Windows.Forms.Label
-        Me.lblPSDFinalDetSRPDF = New System.Windows.Forms.Label
-        Me.lblPSDFinalDetSRDoc = New System.Windows.Forms.Label
-        Me.lblPSDHearingNoticeSRPDF = New System.Windows.Forms.Label
-        Me.lblPSDHearingNoticeSRDoc = New System.Windows.Forms.Label
-        Me.lblPSDAppSummarySRPDF = New System.Windows.Forms.Label
-        Me.lblPSDAppSummarySRDoc = New System.Windows.Forms.Label
-        Me.lblPSDPrelimDetSRPDF = New System.Windows.Forms.Label
-        Me.lblPSDPrelimDetSRDoc = New System.Windows.Forms.Label
-        Me.btnDeleteOtherPermit = New System.Windows.Forms.Button
-        Me.btnDeleteOtherNarrative = New System.Windows.Forms.Button
-        Me.btnOtherPermitDownload = New System.Windows.Forms.Button
-        Me.btnOtherNarrativeDownload = New System.Windows.Forms.Button
-        Me.lblOtherPermitDUPDF = New System.Windows.Forms.Label
-        Me.lblOtherPermitDUDoc = New System.Windows.Forms.Label
-        Me.lblOtherNarrativeDUPDF = New System.Windows.Forms.Label
-        Me.lblOtherNarrativeDUDoc = New System.Windows.Forms.Label
-        Me.txtOtherNarrativePDF = New System.Windows.Forms.TextBox
-        Me.txtOtherPermitPDF = New System.Windows.Forms.TextBox
-        Me.btnOtherNarrative = New System.Windows.Forms.Button
-        Me.txtOtherNarrativeDoc = New System.Windows.Forms.TextBox
-        Me.chbOtherNarrative = New System.Windows.Forms.CheckBox
-        Me.btnOtherPermit = New System.Windows.Forms.Button
-        Me.txtOtherPermitDoc = New System.Windows.Forms.TextBox
-        Me.chbOtherPermit = New System.Windows.Forms.CheckBox
-        Me.lblOtherNarrativeSRDoc = New System.Windows.Forms.Label
-        Me.lblOtherNarrativeSRPDF = New System.Windows.Forms.Label
-        Me.lblOtherPermitSRPDF = New System.Windows.Forms.Label
-        Me.lblOtherPermitSRDoc = New System.Windows.Forms.Label
-        Me.lblWord = New System.Windows.Forms.Label
-        Me.lblPDF = New System.Windows.Forms.Label
-        Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog
-        Me.lblFinalOnWeb = New System.Windows.Forms.Label
-        Me.DTPFinalOnWeb = New System.Windows.Forms.DateTimePicker
-        Me.Panel5 = New System.Windows.Forms.Panel
-        Me.TCPermitUploader = New System.Windows.Forms.TabControl
-        Me.TPTV = New System.Windows.Forms.TabPage
-        Me.Button2 = New System.Windows.Forms.Button
-        Me.Button1 = New System.Windows.Forms.Button
-        Me.TPPSD = New System.Windows.Forms.TabPage
-        Me.Panel7 = New System.Windows.Forms.Panel
-        Me.Panel6 = New System.Windows.Forms.Panel
-        Me.Panel8 = New System.Windows.Forms.Panel
-        Me.Panel9 = New System.Windows.Forms.Panel
-        Me.Panel10 = New System.Windows.Forms.Panel
-        Me.Panel11 = New System.Windows.Forms.Panel
-        Me.Panel12 = New System.Windows.Forms.Panel
-        Me.Panel13 = New System.Windows.Forms.Panel
-        Me.TPOther = New System.Windows.Forms.TabPage
-        Me.StatusStrip1.SuspendLayout()
-        Me.MenuStrip1.SuspendLayout()
-        Me.TBBPermitUploader.SuspendLayout()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.txtApplicationNumber = New System.Windows.Forms.TextBox()
+        Me.btnUploadFile = New System.Windows.Forms.Button()
+        Me.txtApplicationInformation = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.txtApplicationLinks = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.rdbOtherPermit = New System.Windows.Forms.RadioButton()
+        Me.rdbPSDPermit = New System.Windows.Forms.RadioButton()
+        Me.rdbTitleVPermit = New System.Windows.Forms.RadioButton()
+        Me.btnFindApplication = New System.Windows.Forms.Button()
+        Me.btnDeleteTVFinal = New System.Windows.Forms.Button()
+        Me.btnDeleteTVPublicNot = New System.Windows.Forms.Button()
+        Me.btnDeleteTVDraft = New System.Windows.Forms.Button()
+        Me.btnDeleteTVNarrative = New System.Windows.Forms.Button()
+        Me.btnTVFinalDownload = New System.Windows.Forms.Button()
+        Me.btnTVPublicNoticeDownload = New System.Windows.Forms.Button()
+        Me.btnTVDraftDownload = New System.Windows.Forms.Button()
+        Me.btnTVNarrativeDownload = New System.Windows.Forms.Button()
+        Me.lblTVFinalDUPDF = New System.Windows.Forms.Label()
+        Me.lblTVFinalDUDoc = New System.Windows.Forms.Label()
+        Me.lblTVPublicNoticeDUPDF = New System.Windows.Forms.Label()
+        Me.lblTVPublicNoticeDUDoc = New System.Windows.Forms.Label()
+        Me.lblTVDraftDUPDF = New System.Windows.Forms.Label()
+        Me.lblTVDraftDUDoc = New System.Windows.Forms.Label()
+        Me.lblTVNarrativeDUPDF = New System.Windows.Forms.Label()
+        Me.lblTVNarrativeDUDoc = New System.Windows.Forms.Label()
+        Me.txtTVFinalPDF = New System.Windows.Forms.TextBox()
+        Me.txtTVPublicNoticePDF = New System.Windows.Forms.TextBox()
+        Me.txtTVDraftPDF = New System.Windows.Forms.TextBox()
+        Me.txtTVNarrativePDF = New System.Windows.Forms.TextBox()
+        Me.btnTVFinal = New System.Windows.Forms.Button()
+        Me.txtTVFinalDoc = New System.Windows.Forms.TextBox()
+        Me.btnTVPublicNotice = New System.Windows.Forms.Button()
+        Me.txtTVPublicNoticeDoc = New System.Windows.Forms.TextBox()
+        Me.btnTVDraft = New System.Windows.Forms.Button()
+        Me.txtTVDraftDoc = New System.Windows.Forms.TextBox()
+        Me.btnTVNarrative = New System.Windows.Forms.Button()
+        Me.txtTVNarrativeDoc = New System.Windows.Forms.TextBox()
+        Me.chbTVFinal = New System.Windows.Forms.CheckBox()
+        Me.chbTVPublicNotice = New System.Windows.Forms.CheckBox()
+        Me.chbTVDraft = New System.Windows.Forms.CheckBox()
+        Me.chbTVNarrative = New System.Windows.Forms.CheckBox()
+        Me.lblTVFinalSRPDF = New System.Windows.Forms.Label()
+        Me.lblTVFinalSRDoc = New System.Windows.Forms.Label()
+        Me.lblTVPublicNoticeSRPDF = New System.Windows.Forms.Label()
+        Me.lblTVPublicNoticeSRDoc = New System.Windows.Forms.Label()
+        Me.lblTVDraftSRPDF = New System.Windows.Forms.Label()
+        Me.lblTVDraftSRDoc = New System.Windows.Forms.Label()
+        Me.lblTVNarrativeSRPDF = New System.Windows.Forms.Label()
+        Me.lblTVNarrativeSRDoc = New System.Windows.Forms.Label()
+        Me.btnDeletePSDFinalPermit = New System.Windows.Forms.Button()
+        Me.btnDeletePSDFinalDet = New System.Windows.Forms.Button()
+        Me.btnDeletePSDHearingNotice = New System.Windows.Forms.Button()
+        Me.btnDeletePSDPublicNotice = New System.Windows.Forms.Button()
+        Me.btnDeletePSDDraftPermit = New System.Windows.Forms.Button()
+        Me.btnDeletePSDNarrative = New System.Windows.Forms.Button()
+        Me.btnDeletePSDPrelimDet = New System.Windows.Forms.Button()
+        Me.btnDeletePSDAppSummary = New System.Windows.Forms.Button()
+        Me.btnPSDNarrativeDownload = New System.Windows.Forms.Button()
+        Me.lblPSDNarrativeDUPDF = New System.Windows.Forms.Label()
+        Me.lblPSDNarrativeDUDoc = New System.Windows.Forms.Label()
+        Me.txtPSDNarrativePDF = New System.Windows.Forms.TextBox()
+        Me.btnPSDNarrative = New System.Windows.Forms.Button()
+        Me.txtPSDNarrativeDoc = New System.Windows.Forms.TextBox()
+        Me.chbPSDNarrative = New System.Windows.Forms.CheckBox()
+        Me.lblPSDNarrativeSRPDF = New System.Windows.Forms.Label()
+        Me.lblPSDNarrativeSRDoc = New System.Windows.Forms.Label()
+        Me.btnPSDPublicNoticeDownload = New System.Windows.Forms.Button()
+        Me.btnPSDDraftPermitDownload = New System.Windows.Forms.Button()
+        Me.btnPSDPrelimDetDownload = New System.Windows.Forms.Button()
+        Me.btnPSDHearingNoticeDownload = New System.Windows.Forms.Button()
+        Me.btnPSDFinalDetDownload = New System.Windows.Forms.Button()
+        Me.btnPSDFinalPermitDownload = New System.Windows.Forms.Button()
+        Me.btnPSDAppSummaryDownload = New System.Windows.Forms.Button()
+        Me.lblPSDFinalPermitDUPDF = New System.Windows.Forms.Label()
+        Me.lblPSDFinalPermitDUDoc = New System.Windows.Forms.Label()
+        Me.lblPSDFinalDetDUPDF = New System.Windows.Forms.Label()
+        Me.lblPSDFinalDetDUDoc = New System.Windows.Forms.Label()
+        Me.lblPSDHearingNoticeDUPDF = New System.Windows.Forms.Label()
+        Me.lblPSDHearingNoticeDUDoc = New System.Windows.Forms.Label()
+        Me.lblPSDPublicNoticeDUPDF = New System.Windows.Forms.Label()
+        Me.lblPSDPublicNoticeDUDoc = New System.Windows.Forms.Label()
+        Me.lblPSDDraftPermitDUPDF = New System.Windows.Forms.Label()
+        Me.lblPSDDraftPermitDUDoc = New System.Windows.Forms.Label()
+        Me.lblPSDPrelimDetDUPDF = New System.Windows.Forms.Label()
+        Me.lblPSDPrelimDetDUDoc = New System.Windows.Forms.Label()
+        Me.lblPSDAppSummaryDUPDF = New System.Windows.Forms.Label()
+        Me.lblPSDAppSummaryDUDoc = New System.Windows.Forms.Label()
+        Me.txtPSDPrelimDetPDF = New System.Windows.Forms.TextBox()
+        Me.txtPSDDraftPermitPDF = New System.Windows.Forms.TextBox()
+        Me.txtPSDPublicNoticePDF = New System.Windows.Forms.TextBox()
+        Me.txtPSDHearingNoticePDF = New System.Windows.Forms.TextBox()
+        Me.txtPSDFinalDetPDF = New System.Windows.Forms.TextBox()
+        Me.txtPSDAppSummaryPDF = New System.Windows.Forms.TextBox()
+        Me.txtPSDFinalPermitPDF = New System.Windows.Forms.TextBox()
+        Me.btnPSDFinalPermit = New System.Windows.Forms.Button()
+        Me.txtPSDFinalPermitDoc = New System.Windows.Forms.TextBox()
+        Me.chbPSDFinalPermit = New System.Windows.Forms.CheckBox()
+        Me.btnPSDFinalDet = New System.Windows.Forms.Button()
+        Me.txtPSDFinalDetDoc = New System.Windows.Forms.TextBox()
+        Me.chbPSDFinalDet = New System.Windows.Forms.CheckBox()
+        Me.btnPSDHearingNotice = New System.Windows.Forms.Button()
+        Me.txtPSDHearingNoticeDoc = New System.Windows.Forms.TextBox()
+        Me.chbPSDHearingNotice = New System.Windows.Forms.CheckBox()
+        Me.btnPSDPublicNotice = New System.Windows.Forms.Button()
+        Me.txtPSDPublicNoticeDoc = New System.Windows.Forms.TextBox()
+        Me.btnPSDDraftPermit = New System.Windows.Forms.Button()
+        Me.txtPSDDraftPermitDoc = New System.Windows.Forms.TextBox()
+        Me.btnPSDPrelimDet = New System.Windows.Forms.Button()
+        Me.txtPSDPrelimDetDoc = New System.Windows.Forms.TextBox()
+        Me.btnPSDAppSummary = New System.Windows.Forms.Button()
+        Me.txtPSDAppSummaryDoc = New System.Windows.Forms.TextBox()
+        Me.chbPSDPublicNotice = New System.Windows.Forms.CheckBox()
+        Me.chbPSDDraftPermit = New System.Windows.Forms.CheckBox()
+        Me.chbPSDPrelimDet = New System.Windows.Forms.CheckBox()
+        Me.chbPSDApplicationSummary = New System.Windows.Forms.CheckBox()
+        Me.lblPSDPublicNoticeSRPDF = New System.Windows.Forms.Label()
+        Me.lblPSDPublicNoticeSRDoc = New System.Windows.Forms.Label()
+        Me.lblPSDDraftPermitSRPDF = New System.Windows.Forms.Label()
+        Me.lblPSDDraftPermitSRDoc = New System.Windows.Forms.Label()
+        Me.lblPSDFinalPermitSRPDF = New System.Windows.Forms.Label()
+        Me.lblPSDFinalPermitSRDoc = New System.Windows.Forms.Label()
+        Me.lblPSDFinalDetSRPDF = New System.Windows.Forms.Label()
+        Me.lblPSDFinalDetSRDoc = New System.Windows.Forms.Label()
+        Me.lblPSDHearingNoticeSRPDF = New System.Windows.Forms.Label()
+        Me.lblPSDHearingNoticeSRDoc = New System.Windows.Forms.Label()
+        Me.lblPSDAppSummarySRPDF = New System.Windows.Forms.Label()
+        Me.lblPSDAppSummarySRDoc = New System.Windows.Forms.Label()
+        Me.lblPSDPrelimDetSRPDF = New System.Windows.Forms.Label()
+        Me.lblPSDPrelimDetSRDoc = New System.Windows.Forms.Label()
+        Me.btnDeleteOtherPermit = New System.Windows.Forms.Button()
+        Me.btnDeleteOtherNarrative = New System.Windows.Forms.Button()
+        Me.btnOtherPermitDownload = New System.Windows.Forms.Button()
+        Me.btnOtherNarrativeDownload = New System.Windows.Forms.Button()
+        Me.lblOtherPermitDUPDF = New System.Windows.Forms.Label()
+        Me.lblOtherPermitDUDoc = New System.Windows.Forms.Label()
+        Me.lblOtherNarrativeDUPDF = New System.Windows.Forms.Label()
+        Me.lblOtherNarrativeDUDoc = New System.Windows.Forms.Label()
+        Me.txtOtherNarrativePDF = New System.Windows.Forms.TextBox()
+        Me.txtOtherPermitPDF = New System.Windows.Forms.TextBox()
+        Me.btnOtherNarrative = New System.Windows.Forms.Button()
+        Me.txtOtherNarrativeDoc = New System.Windows.Forms.TextBox()
+        Me.chbOtherNarrative = New System.Windows.Forms.CheckBox()
+        Me.btnOtherPermit = New System.Windows.Forms.Button()
+        Me.txtOtherPermitDoc = New System.Windows.Forms.TextBox()
+        Me.chbOtherPermit = New System.Windows.Forms.CheckBox()
+        Me.lblOtherNarrativeSRDoc = New System.Windows.Forms.Label()
+        Me.lblOtherNarrativeSRPDF = New System.Windows.Forms.Label()
+        Me.lblOtherPermitSRPDF = New System.Windows.Forms.Label()
+        Me.lblOtherPermitSRDoc = New System.Windows.Forms.Label()
+        Me.lblWord = New System.Windows.Forms.Label()
+        Me.lblPDF = New System.Windows.Forms.Label()
+        Me.lblFinalOnWeb = New System.Windows.Forms.Label()
+        Me.DTPFinalOnWeb = New System.Windows.Forms.DateTimePicker()
+        Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.btnClear = New System.Windows.Forms.Button()
+        Me.TCPermitUploader = New System.Windows.Forms.TabControl()
+        Me.TPTV = New System.Windows.Forms.TabPage()
+        Me.TPPSD = New System.Windows.Forms.TabPage()
+        Me.Panel7 = New System.Windows.Forms.Panel()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.Panel8 = New System.Windows.Forms.Panel()
+        Me.Panel9 = New System.Windows.Forms.Panel()
+        Me.Panel10 = New System.Windows.Forms.Panel()
+        Me.Panel11 = New System.Windows.Forms.Panel()
+        Me.Panel12 = New System.Windows.Forms.Panel()
+        Me.Panel13 = New System.Windows.Forms.Panel()
+        Me.TPOther = New System.Windows.Forms.TabPage()
         Me.Panel4.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.TCPermitUploader.SuspendLayout()
@@ -224,101 +208,6 @@ Partial Class SSPPPermitUploader
         Me.Panel13.SuspendLayout()
         Me.TPOther.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Panel1, Me.Panel2, Me.Panel3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 544)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(792, 22)
-        Me.StatusStrip1.TabIndex = 0
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'Panel1
-        '
-        Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(769, 17)
-        Me.Panel1.Spring = True
-        Me.Panel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Panel2
-        '
-        Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(4, 17)
-        '
-        'Panel3
-        '
-        Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(4, 17)
-        '
-        'MenuStrip1
-        '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.mmiHelp})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(792, 24)
-        Me.MenuStrip1.TabIndex = 1
-        Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'FileToolStripMenuItem
-        '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiBack})
-        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
-        Me.FileToolStripMenuItem.Text = "File"
-        '
-        'mmiBack
-        '
-        Me.mmiBack.Name = "mmiBack"
-        Me.mmiBack.Size = New System.Drawing.Size(99, 22)
-        Me.mmiBack.Text = "Back"
-        '
-        'mmiHelp
-        '
-        Me.mmiHelp.Name = "mmiHelp"
-        Me.mmiHelp.Size = New System.Drawing.Size(44, 20)
-        Me.mmiHelp.Text = "Help"
-        '
-        'TBBPermitUploader
-        '
-        Me.TBBPermitUploader.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tbbBack, Me.tbbClear})
-        Me.TBBPermitUploader.Location = New System.Drawing.Point(0, 24)
-        Me.TBBPermitUploader.Name = "TBBPermitUploader"
-        Me.TBBPermitUploader.Size = New System.Drawing.Size(792, 25)
-        Me.TBBPermitUploader.TabIndex = 2
-        Me.TBBPermitUploader.Text = "ToolStrip1"
-        '
-        'tbbBack
-        '
-        Me.tbbBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tbbBack.Image = CType(resources.GetObject("tbbBack.Image"), System.Drawing.Image)
-        Me.tbbBack.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tbbBack.Name = "tbbBack"
-        Me.tbbBack.Size = New System.Drawing.Size(23, 22)
-        Me.tbbBack.Text = "Back"
-        Me.tbbBack.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        '
-        'tbbClear
-        '
-        Me.tbbClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tbbClear.Image = CType(resources.GetObject("tbbClear.Image"), System.Drawing.Image)
-        Me.tbbClear.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tbbClear.Name = "tbbClear"
-        Me.tbbClear.Size = New System.Drawing.Size(23, 22)
-        Me.tbbClear.Text = "Clear"
-        Me.tbbClear.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         '
         'Image_List_All
         '
@@ -413,7 +302,7 @@ Partial Class SSPPPermitUploader
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(11, 9)
+        Me.Label1.Location = New System.Drawing.Point(12, 17)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(99, 13)
         Me.Label1.TabIndex = 3
@@ -421,7 +310,7 @@ Partial Class SSPPPermitUploader
         '
         'txtApplicationNumber
         '
-        Me.txtApplicationNumber.Location = New System.Drawing.Point(127, 6)
+        Me.txtApplicationNumber.Location = New System.Drawing.Point(132, 14)
         Me.txtApplicationNumber.Name = "txtApplicationNumber"
         Me.txtApplicationNumber.Size = New System.Drawing.Size(100, 20)
         Me.txtApplicationNumber.TabIndex = 4
@@ -429,27 +318,27 @@ Partial Class SSPPPermitUploader
         'btnUploadFile
         '
         Me.btnUploadFile.AutoSize = True
-        Me.btnUploadFile.Location = New System.Drawing.Point(573, 86)
+        Me.btnUploadFile.Location = New System.Drawing.Point(610, 79)
         Me.btnUploadFile.Name = "btnUploadFile"
-        Me.btnUploadFile.Size = New System.Drawing.Size(81, 23)
+        Me.btnUploadFile.Size = New System.Drawing.Size(120, 23)
         Me.btnUploadFile.TabIndex = 5
         Me.btnUploadFile.Text = "Upload File(s)"
         Me.btnUploadFile.UseVisualStyleBackColor = True
         '
         'txtApplicationInformation
         '
-        Me.txtApplicationInformation.Location = New System.Drawing.Point(129, 30)
+        Me.txtApplicationInformation.Location = New System.Drawing.Point(132, 41)
         Me.txtApplicationInformation.Multiline = True
         Me.txtApplicationInformation.Name = "txtApplicationInformation"
         Me.txtApplicationInformation.ReadOnly = True
         Me.txtApplicationInformation.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtApplicationInformation.Size = New System.Drawing.Size(295, 79)
+        Me.txtApplicationInformation.Size = New System.Drawing.Size(296, 79)
         Me.txtApplicationInformation.TabIndex = 6
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(7, 27)
+        Me.Label2.Location = New System.Drawing.Point(12, 44)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(114, 13)
         Me.Label2.TabIndex = 7
@@ -458,7 +347,7 @@ Partial Class SSPPPermitUploader
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(430, 30)
+        Me.Label3.Location = New System.Drawing.Point(459, 17)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(99, 13)
         Me.Label3.TabIndex = 9
@@ -466,7 +355,7 @@ Partial Class SSPPPermitUploader
         '
         'txtApplicationLinks
         '
-        Me.txtApplicationLinks.Location = New System.Drawing.Point(430, 48)
+        Me.txtApplicationLinks.Location = New System.Drawing.Point(462, 41)
         Me.txtApplicationLinks.Multiline = True
         Me.txtApplicationLinks.Name = "txtApplicationLinks"
         Me.txtApplicationLinks.ReadOnly = True
@@ -476,7 +365,7 @@ Partial Class SSPPPermitUploader
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(13, 57)
+        Me.Label4.Location = New System.Drawing.Point(12, 70)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(63, 13)
         Me.Label4.TabIndex = 10
@@ -488,7 +377,7 @@ Partial Class SSPPPermitUploader
         Me.Panel4.Controls.Add(Me.rdbOtherPermit)
         Me.Panel4.Controls.Add(Me.rdbPSDPermit)
         Me.Panel4.Controls.Add(Me.rdbTitleVPermit)
-        Me.Panel4.Location = New System.Drawing.Point(22, 76)
+        Me.Panel4.Location = New System.Drawing.Point(15, 86)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(83, 69)
         Me.Panel4.TabIndex = 11
@@ -529,7 +418,7 @@ Partial Class SSPPPermitUploader
         'btnFindApplication
         '
         Me.btnFindApplication.AutoSize = True
-        Me.btnFindApplication.Location = New System.Drawing.Point(233, 3)
+        Me.btnFindApplication.Location = New System.Drawing.Point(238, 12)
         Me.btnFindApplication.Name = "btnFindApplication"
         Me.btnFindApplication.Size = New System.Drawing.Size(92, 23)
         Me.btnFindApplication.TabIndex = 12
@@ -811,7 +700,7 @@ Partial Class SSPPPermitUploader
         'chbTVFinal
         '
         Me.chbTVFinal.AutoSize = True
-        Me.chbTVFinal.Location = New System.Drawing.Point(12, 187)
+        Me.chbTVFinal.Location = New System.Drawing.Point(11, 188)
         Me.chbTVFinal.Name = "chbTVFinal"
         Me.chbTVFinal.Size = New System.Drawing.Size(80, 17)
         Me.chbTVFinal.TabIndex = 6
@@ -821,7 +710,7 @@ Partial Class SSPPPermitUploader
         'chbTVPublicNotice
         '
         Me.chbTVPublicNotice.AutoSize = True
-        Me.chbTVPublicNotice.Location = New System.Drawing.Point(12, 129)
+        Me.chbTVPublicNotice.Location = New System.Drawing.Point(11, 130)
         Me.chbTVPublicNotice.Name = "chbTVPublicNotice"
         Me.chbTVPublicNotice.Size = New System.Drawing.Size(89, 17)
         Me.chbTVPublicNotice.TabIndex = 5
@@ -831,7 +720,7 @@ Partial Class SSPPPermitUploader
         'chbTVDraft
         '
         Me.chbTVDraft.AutoSize = True
-        Me.chbTVDraft.Location = New System.Drawing.Point(12, 71)
+        Me.chbTVDraft.Location = New System.Drawing.Point(11, 72)
         Me.chbTVDraft.Name = "chbTVDraft"
         Me.chbTVDraft.Size = New System.Drawing.Size(81, 17)
         Me.chbTVDraft.TabIndex = 4
@@ -841,7 +730,7 @@ Partial Class SSPPPermitUploader
         'chbTVNarrative
         '
         Me.chbTVNarrative.AutoSize = True
-        Me.chbTVNarrative.Location = New System.Drawing.Point(12, 15)
+        Me.chbTVNarrative.Location = New System.Drawing.Point(11, 16)
         Me.chbTVNarrative.Name = "chbTVNarrative"
         Me.chbTVNarrative.Size = New System.Drawing.Size(69, 17)
         Me.chbTVNarrative.TabIndex = 3
@@ -1911,7 +1800,7 @@ Partial Class SSPPPermitUploader
         'lblWord
         '
         Me.lblWord.AutoSize = True
-        Me.lblWord.Location = New System.Drawing.Point(251, 114)
+        Me.lblWord.Location = New System.Drawing.Point(147, 142)
         Me.lblWord.Name = "lblWord"
         Me.lblWord.Size = New System.Drawing.Size(52, 13)
         Me.lblWord.TabIndex = 17
@@ -1921,21 +1810,17 @@ Partial Class SSPPPermitUploader
         'lblPDF
         '
         Me.lblPDF.AutoSize = True
-        Me.lblPDF.Location = New System.Drawing.Point(498, 114)
+        Me.lblPDF.Location = New System.Drawing.Point(397, 142)
         Me.lblPDF.Name = "lblPDF"
         Me.lblPDF.Size = New System.Drawing.Size(47, 13)
         Me.lblPDF.TabIndex = 18
         Me.lblPDF.Text = "PDF File"
         Me.lblPDF.Visible = False
         '
-        'OpenFileDialog1
-        '
-        Me.OpenFileDialog1.FileName = "OpenFileDialog1"
-        '
         'lblFinalOnWeb
         '
         Me.lblFinalOnWeb.AutoSize = True
-        Me.lblFinalOnWeb.Location = New System.Drawing.Point(570, 26)
+        Me.lblFinalOnWeb.Location = New System.Drawing.Point(607, 17)
         Me.lblFinalOnWeb.Name = "lblFinalOnWeb"
         Me.lblFinalOnWeb.Size = New System.Drawing.Size(70, 13)
         Me.lblFinalOnWeb.TabIndex = 19
@@ -1947,7 +1832,7 @@ Partial Class SSPPPermitUploader
         Me.DTPFinalOnWeb.Enabled = False
         Me.DTPFinalOnWeb.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPFinalOnWeb.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPFinalOnWeb.Location = New System.Drawing.Point(573, 48)
+        Me.DTPFinalOnWeb.Location = New System.Drawing.Point(610, 41)
         Me.DTPFinalOnWeb.Name = "DTPFinalOnWeb"
         Me.DTPFinalOnWeb.Size = New System.Drawing.Size(120, 22)
         Me.DTPFinalOnWeb.TabIndex = 22
@@ -1967,13 +1852,24 @@ Partial Class SSPPPermitUploader
         Me.Panel5.Controls.Add(Me.Label2)
         Me.Panel5.Controls.Add(Me.lblWord)
         Me.Panel5.Controls.Add(Me.txtApplicationLinks)
+        Me.Panel5.Controls.Add(Me.btnClear)
         Me.Panel5.Controls.Add(Me.btnFindApplication)
         Me.Panel5.Controls.Add(Me.Label3)
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel5.Location = New System.Drawing.Point(0, 49)
+        Me.Panel5.Location = New System.Drawing.Point(0, 0)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(792, 153)
+        Me.Panel5.Size = New System.Drawing.Size(792, 169)
         Me.Panel5.TabIndex = 23
+        '
+        'btnClear
+        '
+        Me.btnClear.AutoSize = True
+        Me.btnClear.Location = New System.Drawing.Point(336, 12)
+        Me.btnClear.Name = "btnClear"
+        Me.btnClear.Size = New System.Drawing.Size(92, 23)
+        Me.btnClear.TabIndex = 12
+        Me.btnClear.Text = "Clear Form"
+        Me.btnClear.UseVisualStyleBackColor = True
         '
         'TCPermitUploader
         '
@@ -1981,17 +1877,15 @@ Partial Class SSPPPermitUploader
         Me.TCPermitUploader.Controls.Add(Me.TPPSD)
         Me.TCPermitUploader.Controls.Add(Me.TPOther)
         Me.TCPermitUploader.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TCPermitUploader.Location = New System.Drawing.Point(0, 202)
+        Me.TCPermitUploader.Location = New System.Drawing.Point(0, 169)
         Me.TCPermitUploader.Name = "TCPermitUploader"
         Me.TCPermitUploader.SelectedIndex = 0
-        Me.TCPermitUploader.Size = New System.Drawing.Size(792, 342)
+        Me.TCPermitUploader.Size = New System.Drawing.Size(792, 397)
         Me.TCPermitUploader.TabIndex = 24
         '
         'TPTV
         '
         Me.TPTV.AutoScroll = True
-        Me.TPTV.Controls.Add(Me.Button2)
-        Me.TPTV.Controls.Add(Me.Button1)
         Me.TPTV.Controls.Add(Me.btnDeleteTVFinal)
         Me.TPTV.Controls.Add(Me.btnDeleteTVPublicNot)
         Me.TPTV.Controls.Add(Me.txtTVNarrativeDoc)
@@ -2035,30 +1929,10 @@ Partial Class SSPPPermitUploader
         Me.TPTV.Location = New System.Drawing.Point(4, 22)
         Me.TPTV.Name = "TPTV"
         Me.TPTV.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPTV.Size = New System.Drawing.Size(784, 316)
+        Me.TPTV.Size = New System.Drawing.Size(784, 371)
         Me.TPTV.TabIndex = 0
         Me.TPTV.Text = "Title V"
         Me.TPTV.UseVisualStyleBackColor = True
-        '
-        'Button2
-        '
-        Me.Button2.Location = New System.Drawing.Point(388, 263)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 83
-        Me.Button2.Text = "Button2"
-        Me.Button2.UseVisualStyleBackColor = True
-        Me.Button2.Visible = False
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(137, 263)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 82
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
-        Me.Button1.Visible = False
         '
         'TPPSD
         '
@@ -2074,7 +1948,7 @@ Partial Class SSPPPermitUploader
         Me.TPPSD.Location = New System.Drawing.Point(4, 22)
         Me.TPPSD.Name = "TPPSD"
         Me.TPPSD.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPPSD.Size = New System.Drawing.Size(784, 316)
+        Me.TPPSD.Size = New System.Drawing.Size(784, 371)
         Me.TPPSD.TabIndex = 1
         Me.TPPSD.Text = "PSD/NSR"
         Me.TPPSD.UseVisualStyleBackColor = True
@@ -2264,30 +2138,20 @@ Partial Class SSPPPermitUploader
         Me.TPOther.Controls.Add(Me.btnOtherNarrative)
         Me.TPOther.Location = New System.Drawing.Point(4, 22)
         Me.TPOther.Name = "TPOther"
-        Me.TPOther.Size = New System.Drawing.Size(784, 316)
+        Me.TPOther.Size = New System.Drawing.Size(784, 371)
         Me.TPOther.TabIndex = 2
         Me.TPOther.Text = "Other"
         Me.TPOther.UseVisualStyleBackColor = True
         '
-        'IAIPPermitUploader
+        'SSPPPermitUploader
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(792, 566)
         Me.Controls.Add(Me.TCPermitUploader)
         Me.Controls.Add(Me.Panel5)
-        Me.Controls.Add(Me.TBBPermitUploader)
-        Me.Controls.Add(Me.StatusStrip1)
-        Me.Controls.Add(Me.MenuStrip1)
-        Me.MainMenuStrip = Me.MenuStrip1
-        Me.Name = "IAIPPermitUploader"
+        Me.Name = "SSPPPermitUploader"
         Me.Text = "IAIP Permit Uploader"
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
-        Me.TBBPermitUploader.ResumeLayout(False)
-        Me.TBBPermitUploader.PerformLayout()
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
         Me.Panel5.ResumeLayout(False)
@@ -2316,19 +2180,8 @@ Partial Class SSPPPermitUploader
         Me.TPOther.ResumeLayout(False)
         Me.TPOther.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
-    Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiBack As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiHelp As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents TBBPermitUploader As System.Windows.Forms.ToolStrip
-    Friend WithEvents tbbBack As System.Windows.Forms.ToolStripButton
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents txtApplicationNumber As System.Windows.Forms.TextBox
@@ -2343,7 +2196,6 @@ Partial Class SSPPPermitUploader
     Friend WithEvents rdbPSDPermit As System.Windows.Forms.RadioButton
     Friend WithEvents rdbTitleVPermit As System.Windows.Forms.RadioButton
     Friend WithEvents btnFindApplication As System.Windows.Forms.Button
-    Friend WithEvents tbbClear As System.Windows.Forms.ToolStripButton
     Friend WithEvents btnTVFinal As System.Windows.Forms.Button
     Friend WithEvents txtTVFinalDoc As System.Windows.Forms.TextBox
     Friend WithEvents btnTVPublicNotice As System.Windows.Forms.Button
@@ -2463,7 +2315,6 @@ Partial Class SSPPPermitUploader
     Friend WithEvents btnPSDFinalPermitDownload As System.Windows.Forms.Button
     Friend WithEvents lblWord As System.Windows.Forms.Label
     Friend WithEvents lblPDF As System.Windows.Forms.Label
-    Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog
     Friend WithEvents btnPSDNarrativeDownload As System.Windows.Forms.Button
     Friend WithEvents lblPSDNarrativeDUPDF As System.Windows.Forms.Label
     Friend WithEvents lblPSDNarrativeDUDoc As System.Windows.Forms.Label
@@ -2502,6 +2353,5 @@ Partial Class SSPPPermitUploader
     Friend WithEvents Panel12 As System.Windows.Forms.Panel
     Friend WithEvents Panel11 As System.Windows.Forms.Panel
     Friend WithEvents Panel10 As System.Windows.Forms.Panel
-    Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents btnClear As Button
 End Class

@@ -1,7 +1,5 @@
 Imports Oracle.ManagedDataAccess.Client
 Imports System.IO
-Imports System
-Imports System.Data
 
 Public Class SSPPPermitUploader
     Dim SQL As String
@@ -16,10 +14,6 @@ Public Class SSPPPermitUploader
         monitor.TrackFeature("Forms." & Me.Name)
         Try
 
-
-            Panel1.Text = "Enter an application number."
-            Panel2.Text = UserName
-            Panel3.Text = OracleDate
             TCPermitUploader.TabPages.Remove(TPTV)
             TCPermitUploader.TabPages.Remove(TPPSD)
             TCPermitUploader.TabPages.Remove(TPOther)
@@ -36,22 +30,11 @@ Public Class SSPPPermitUploader
 
     End Sub
 
-    Private Sub IAIPPermitUploader_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-            Me.Dispose()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-
 #End Region
 
 #Region "General tools"
 
-    Private Sub btnFindApplication_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFindApplication.Click
+    Private Sub btnFindApplication_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFindApplication.Click, btnClear.Click
         Try
 
             If txtApplicationNumber.Text <> "" Then
@@ -94,9 +77,9 @@ Public Class SSPPPermitUploader
             txtApplicationLinks.Clear()
             btnUploadFile.Enabled = True
 
-            SQL = "Select " & _
-            "strAIRSNumber " & _
-            "from AIRBRANCH.SSPPApplicationMaster " & _
+            SQL = "Select " &
+            "strAIRSNumber " &
+            "from AIRBRANCH.SSPPApplicationMaster " &
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -107,23 +90,23 @@ Public Class SSPPPermitUploader
             recExist = dr.Read
             dr.Close()
             If recExist = True Then
-                SQL = "Select " & _
-                "substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5) as strAIRSnumber, " & _
-                "AIRBRANCH.APBFacilityInformation.strFacilityName, AIRBRANCH.APBFacilityInformation.strFacilityStreet1, " & _
-                "AIRBRANCH.APBFacilityInformation.strFacilityCity, AIRBRANCH.APBFacilityInformation.strFacilityZipCode, " & _
-                "datFinalizedDate, strCountyName, strApplicationTypeDesc, strPermitTypeDescription, " & _
-                "datPermitIssued, (strLastName||', '||strFirstName) as StaffResponsible, " & _
-                "datFinalOnWeb " & _
-                "from AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.SSPPApplicationMaster, " & _
-                "AIRBRANCH.APBFacilityInformation, AIRBRANCH.LookUpCountyInformation, " & _
-                "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.LookUpPermitTypes, " & _
-                "AIRBRANCH.EPDUserProfiles " & _
-                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber  = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber (+) " & _
-                "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " & _
-                "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSnumber, 5, 3)  = AIRBRANCH.LookUpCountyInformation.strCountyCode (+) " & _
-                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " & _
-                "and AIRBRANCH.SSPPApplicationMaster.strPermitType = AIRBRANCH.LookUpPermitTypes.strPermitTypeCode (+) " & _
-                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                SQL = "Select " &
+                "substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5) as strAIRSnumber, " &
+                "AIRBRANCH.APBFacilityInformation.strFacilityName, AIRBRANCH.APBFacilityInformation.strFacilityStreet1, " &
+                "AIRBRANCH.APBFacilityInformation.strFacilityCity, AIRBRANCH.APBFacilityInformation.strFacilityZipCode, " &
+                "datFinalizedDate, strCountyName, strApplicationTypeDesc, strPermitTypeDescription, " &
+                "datPermitIssued, (strLastName||', '||strFirstName) as StaffResponsible, " &
+                "datFinalOnWeb " &
+                "from AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.SSPPApplicationMaster, " &
+                "AIRBRANCH.APBFacilityInformation, AIRBRANCH.LookUpCountyInformation, " &
+                "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.LookUpPermitTypes, " &
+                "AIRBRANCH.EPDUserProfiles " &
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber  = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber (+) " &
+                "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " &
+                "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSnumber, 5, 3)  = AIRBRANCH.LookUpCountyInformation.strCountyCode (+) " &
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " &
+                "and AIRBRANCH.SSPPApplicationMaster.strPermitType = AIRBRANCH.LookUpPermitTypes.strPermitTypeCode (+) " &
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " &
                 "and AIRBRANCH.ssppapplicationtracking.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -209,8 +192,8 @@ Public Class SSPPPermitUploader
                 txtApplicationInformation.Text = "No Application Data available."
             End If
 
-            SQL = "select strMasterApplication " & _
-            "from AIRBRANCH.SSPPApplicationLinking " & _
+            SQL = "select strMasterApplication " &
+            "from AIRBRANCH.SSPPApplicationLinking " &
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -226,8 +209,8 @@ Public Class SSPPPermitUploader
             End If
             dr.Close()
             If MasterApp <> "" Then
-                SQL = "Select strApplicationNumber " & _
-                "from AIRBRANCH.SSPPApplicationLinking " & _
+                SQL = "Select strApplicationNumber " &
+                "from AIRBRANCH.SSPPApplicationLinking " &
                 "where strMasterApplication = '" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -247,11 +230,11 @@ Public Class SSPPPermitUploader
             rdbPSDPermit.Checked = False
             rdbOtherPermit.Checked = False
 
-            SQL = "select " & _
-            "distinct(AIRBRANCH.APBPermits.strFileName)  " & _
-            "from AIRBRANCH.APBpermits, AIRBRANCH.SSPPApplicationLinking " & _
-            "where substr(AIRBRANCH.APBpermits.strFileName, 4) = AIRBRANCH.SSPPAPPlicationLinking.strmasterapplication (+) " & _
-            "and (AIRBRANCH.SSPPApplicationLinking.strApplicationNumber = '" & MasterApp & "' " & _
+            SQL = "select " &
+            "distinct(AIRBRANCH.APBPermits.strFileName)  " &
+            "from AIRBRANCH.APBpermits, AIRBRANCH.SSPPApplicationLinking " &
+            "where substr(AIRBRANCH.APBpermits.strFileName, 4) = AIRBRANCH.SSPPAPPlicationLinking.strmasterapplication (+) " &
+            "and (AIRBRANCH.SSPPApplicationLinking.strApplicationNumber = '" & MasterApp & "' " &
             "or AIRBRANCH.APBPermits.strFileName like '%-" & MasterApp & "') "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -324,33 +307,6 @@ Public Class SSPPPermitUploader
 
     End Sub
 
-    Private Sub tbbClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tbbClear.Click
-        Try
-            ClearForm()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-
-    Private Sub tbbBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tbbBack.Click
-        Try
-            Me.Close()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
-    End Sub
-
-    Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
-        OpenDocumentationUrl(Me)
-    End Sub
-
 #End Region
 
 #Region "Save files"
@@ -369,7 +325,7 @@ Public Class SSPPPermitUploader
 
     End Sub
 
-    Sub UploadFile(ByVal FileName As String, ByVal DocLocation As String, ByVal DocxLocation As String, _
+    Sub UploadFile(ByVal FileName As String, ByVal DocLocation As String, ByVal DocxLocation As String,
                     ByVal PDFLocation As String, ByVal DocOnFile As String)
         Try
             Dim Flag As String = "00"
@@ -378,9 +334,9 @@ Public Class SSPPPermitUploader
             Dim PDFFile As String = ""
             Dim ResultPDF As DialogResult
 
-            SQL = "Select " & _
-            "strDOCFileSize, strPDFFileSize " & _
-            "From AIRBRANCH.ApbPermits " & _
+            SQL = "Select " &
+            "strDOCFileSize, strPDFFileSize " &
+            "From AIRBRANCH.ApbPermits " &
             "where strFileName = '" & FileName & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -408,64 +364,64 @@ Public Class SSPPPermitUploader
             If DocFile <> "" And (DocLocation <> "" Or DocxLocation <> "") Then
                 Select Case Mid(FileName, 1, 2)
                     Case "VN"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this Title V Narrative." & vbCrLf & _
-                        "Do you want to overwrite this file?", "Permit Uploader", _
+                        ResultDoc = MessageBox.Show("A Word file currently exists for this Title V Narrative." & vbCrLf &
+                        "Do you want to overwrite this file?", "Permit Uploader",
                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                     Case "VD"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this Title V Draft Permit." & vbCrLf & _
-                        "Do you want to overwrite this file?", "Permit Uploader", _
+                        ResultDoc = MessageBox.Show("A Word file currently exists for this Title V Draft Permit." & vbCrLf &
+                        "Do you want to overwrite this file?", "Permit Uploader",
                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                     Case "VP"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this Title V Public Notice." & vbCrLf & _
-                        "Do you want to overwrite this file?", "Permit Uploader", _
+                        ResultDoc = MessageBox.Show("A Word file currently exists for this Title V Public Notice." & vbCrLf &
+                        "Do you want to overwrite this file?", "Permit Uploader",
                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                     Case "VF"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this Title V Final Permit." & vbCrLf & _
-                        "Do you want to overwrite this file?", "Permit Uploader", _
+                        ResultDoc = MessageBox.Show("A Word file currently exists for this Title V Final Permit." & vbCrLf &
+                        "Do you want to overwrite this file?", "Permit Uploader",
                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                     Case "PA"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this PSD Application Summary." & vbCrLf & _
-                        "Do you want to overwrite this file?", "Permit Uploader", _
+                        ResultDoc = MessageBox.Show("A Word file currently exists for this PSD Application Summary." & vbCrLf &
+                        "Do you want to overwrite this file?", "Permit Uploader",
                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                     Case "PP"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this PSD Preliminary Determination." & vbCrLf & _
-                        "Do you want to overwrite this file?", "Permit Uploader", _
+                        ResultDoc = MessageBox.Show("A Word file currently exists for this PSD Preliminary Determination." & vbCrLf &
+                        "Do you want to overwrite this file?", "Permit Uploader",
                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                     Case "PT"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this PSD Narrative." & vbCrLf & _
-                        "Do you want to overwrite this file?", "Permit Uploader", _
+                        ResultDoc = MessageBox.Show("A Word file currently exists for this PSD Narrative." & vbCrLf &
+                        "Do you want to overwrite this file?", "Permit Uploader",
                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                     Case "PD"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this PSD Draft Permit." & vbCrLf & _
-                        "Do you want to overwrite this file?", "Permit Uploader", _
+                        ResultDoc = MessageBox.Show("A Word file currently exists for this PSD Draft Permit." & vbCrLf &
+                        "Do you want to overwrite this file?", "Permit Uploader",
                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                     Case "PN"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this PSD Public Notice." & vbCrLf & _
-                        "Do you want to overwrite this file?", "Permit Uploader", _
+                        ResultDoc = MessageBox.Show("A Word file currently exists for this PSD Public Notice." & vbCrLf &
+                        "Do you want to overwrite this file?", "Permit Uploader",
                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                     Case "PH"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this PSD Hearing Notice." & vbCrLf & _
-                        "Do you want to overwrite this file?", "Permit Uploader", _
+                        ResultDoc = MessageBox.Show("A Word file currently exists for this PSD Hearing Notice." & vbCrLf &
+                        "Do you want to overwrite this file?", "Permit Uploader",
                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                     Case "PF"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this PSD Final Determination." & vbCrLf & _
-                        "Do you want to overwrite this file?", "Permit Uploader", _
+                        ResultDoc = MessageBox.Show("A Word file currently exists for this PSD Final Determination." & vbCrLf &
+                        "Do you want to overwrite this file?", "Permit Uploader",
                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                     Case "PI"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this PSD Final Permit." & vbCrLf & _
-                        "Do you want to overwrite this file?", "Permit Uploader", _
+                        ResultDoc = MessageBox.Show("A Word file currently exists for this PSD Final Permit." & vbCrLf &
+                        "Do you want to overwrite this file?", "Permit Uploader",
                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                     Case "ON"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this Other Narrative." & vbCrLf & _
-                        "Do you want to overwrite this file?", "Permit Uploader", _
+                        ResultDoc = MessageBox.Show("A Word file currently exists for this Other Narrative." & vbCrLf &
+                        "Do you want to overwrite this file?", "Permit Uploader",
                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                     Case "OP"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this Other Permit." & vbCrLf & _
-                        "Do you want to overwrite this file?", "Permit Uploader", _
+                        ResultDoc = MessageBox.Show("A Word file currently exists for this Other Permit." & vbCrLf &
+                        "Do you want to overwrite this file?", "Permit Uploader",
                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                     Case Else
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this 'Unknown' application." & vbCrLf & _
-                        "Do you want to overwrite this file?", "Permit Uploader", _
+                        ResultDoc = MessageBox.Show("A Word file currently exists for this 'Unknown' application." & vbCrLf &
+                        "Do you want to overwrite this file?", "Permit Uploader",
                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                 End Select
                 Select Case ResultDoc
@@ -486,11 +442,11 @@ Public Class SSPPPermitUploader
                 End If
             End If
             If (PDFFile <> "" And Mid(Flag, 1, 1) = "1") Or DocOnFile = "On File" Then
-                SQL = "update AIRBRANCH.APBPermits set " & _
-                "PDFPermitData = '', " & _
-                "strPDFFileSize = '', " & _
-                "strPDFModifingPerson = '', " & _
-                "datPDFModifingDate = '' " & _
+                SQL = "update AIRBRANCH.APBPermits set " &
+                "PDFPermitData = '', " &
+                "strPDFFileSize = '', " &
+                "strPDFModifingPerson = '', " &
+                "datPDFModifingDate = '' " &
                 "where strFileName = '" & FileName & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -504,64 +460,64 @@ Public Class SSPPPermitUploader
                 If PDFFile <> "" And PDFLocation <> "" Then
                     Select Case Mid(FileName, 1, 2)
                         Case "VN"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this Title V Narrative." & vbCrLf & _
-                            "Do you want to overwrite this file?", "Permit Uploader", _
+                            ResultPDF = MessageBox.Show("A PDF file currently exists for this Title V Narrative." & vbCrLf &
+                            "Do you want to overwrite this file?", "Permit Uploader",
                             MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                         Case "VD"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this Title V Draft Permit." & vbCrLf & _
-                            "Do you want to overwrite this file?", "Permit Uploader", _
+                            ResultPDF = MessageBox.Show("A PDF file currently exists for this Title V Draft Permit." & vbCrLf &
+                            "Do you want to overwrite this file?", "Permit Uploader",
                             MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                         Case "VP"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this Title V Public Notice." & vbCrLf & _
-                            "Do you want to overwrite this file?", "Permit Uploader", _
+                            ResultPDF = MessageBox.Show("A PDF file currently exists for this Title V Public Notice." & vbCrLf &
+                            "Do you want to overwrite this file?", "Permit Uploader",
                             MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                         Case "VF"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this Title V Final Permit." & vbCrLf & _
-                            "Do you want to overwrite this file?", "Permit Uploader", _
+                            ResultPDF = MessageBox.Show("A PDF file currently exists for this Title V Final Permit." & vbCrLf &
+                            "Do you want to overwrite this file?", "Permit Uploader",
                             MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                         Case "PA"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Application Summary." & vbCrLf & _
-                            "Do you want to overwrite this file?", "Permit Uploader", _
+                            ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Application Summary." & vbCrLf &
+                            "Do you want to overwrite this file?", "Permit Uploader",
                             MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                         Case "PP"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Preliminary Determination." & vbCrLf & _
-                            "Do you want to overwrite this file?", "Permit Uploader", _
+                            ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Preliminary Determination." & vbCrLf &
+                            "Do you want to overwrite this file?", "Permit Uploader",
                             MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                         Case "PT"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Narrative." & vbCrLf & _
-                            "Do you want to overwrite this file?", "Permit Uploader", _
+                            ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Narrative." & vbCrLf &
+                            "Do you want to overwrite this file?", "Permit Uploader",
                             MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                         Case "PD"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Draft Permit." & vbCrLf & _
-                            "Do you want to overwrite this file?", "Permit Uploader", _
+                            ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Draft Permit." & vbCrLf &
+                            "Do you want to overwrite this file?", "Permit Uploader",
                             MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                         Case "PN"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Public Notice." & vbCrLf & _
-                            "Do you want to overwrite this file?", "Permit Uploader", _
+                            ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Public Notice." & vbCrLf &
+                            "Do you want to overwrite this file?", "Permit Uploader",
                             MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                         Case "PH"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Hearing Notice." & vbCrLf & _
-                            "Do you want to overwrite this file?", "Permit Uploader", _
+                            ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Hearing Notice." & vbCrLf &
+                            "Do you want to overwrite this file?", "Permit Uploader",
                             MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                         Case "PF"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Final Determination." & vbCrLf & _
-                            "Do you want to overwrite this file?", "Permit Uploader", _
+                            ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Final Determination." & vbCrLf &
+                            "Do you want to overwrite this file?", "Permit Uploader",
                             MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                         Case "PI"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Final Permit." & vbCrLf & _
-                            "Do you want to overwrite this file?", "Permit Uploader", _
+                            ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Final Permit." & vbCrLf &
+                            "Do you want to overwrite this file?", "Permit Uploader",
                             MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                         Case "ON"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this Other Narrative." & vbCrLf & _
-                            "Do you want to overwrite this file?", "Permit Uploader", _
+                            ResultPDF = MessageBox.Show("A PDF file currently exists for this Other Narrative." & vbCrLf &
+                            "Do you want to overwrite this file?", "Permit Uploader",
                             MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                         Case "OP"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this Other Permit." & vbCrLf & _
-                            "Do you want to overwrite this file?", "Permit Uploader", _
+                            ResultPDF = MessageBox.Show("A PDF file currently exists for this Other Permit." & vbCrLf &
+                            "Do you want to overwrite this file?", "Permit Uploader",
                             MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                         Case Else
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this 'Unknown' application." & vbCrLf & _
-                            "Do you want to overwrite this file?", "Permit Uploader", _
+                            ResultPDF = MessageBox.Show("A PDF file currently exists for this 'Unknown' application." & vbCrLf &
+                            "Do you want to overwrite this file?", "Permit Uploader",
                             MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                     End Select
                     Select Case ResultPDF
@@ -588,7 +544,7 @@ Public Class SSPPPermitUploader
                 Dim ds As DataSet
 
                 If Flag <> "00" Then
-                    SQL = "Delete AIRBRANCH.APBPermits " & _
+                    SQL = "Delete AIRBRANCH.APBPermits " &
                     "where strFileName = '" & FileName & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -597,9 +553,9 @@ Public Class SSPPPermitUploader
                     dr = cmd.ExecuteReader
                     dr.Close()
 
-                    SQL = "select " & _
-                    "rowCount " & _
-                    "from AIRBRANCH.APBPermits " & _
+                    SQL = "select " &
+                    "rowCount " &
+                    "from AIRBRANCH.APBPermits " &
                     "where strFileName = '" & FileName & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -616,8 +572,8 @@ Public Class SSPPPermitUploader
                     dr.Close()
 
                     If rowCount = "" Then
-                        SQL = "select " & _
-                        "(max(rowCount) + 1) as RowCount " & _
+                        SQL = "select " &
+                        "(max(rowCount) + 1) as RowCount " &
                         "from AIRBRANCH.APBPermits "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -659,7 +615,7 @@ Public Class SSPPPermitUploader
                     fs.Read(rawData, 0, System.Convert.ToInt32(fs.Length))
                     fs.Close()
 
-                    SQL = "Select * from AIRBRANCH.APBPermits " & _
+                    SQL = "Select * from AIRBRANCH.APBPermits " &
                     "where strFileName = '" & FileName & "' "
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
@@ -688,8 +644,8 @@ Public Class SSPPPermitUploader
                     da.Update(ds, "PDF")
 
                     If Mid(FileName, 1, 2) = "OP" Then
-                        SQL = "Update AIRBRANCH.SSPPApplicationTracking set " & _
-                        "datFinalOnWeb = '" & OracleDate & "' " & _
+                        SQL = "Update AIRBRANCH.SSPPApplicationTracking set " &
+                        "datFinalOnWeb = '" & OracleDate & "' " &
                         "where strApplicationNumber = '" & MasterApp & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -701,8 +657,8 @@ Public Class SSPPPermitUploader
                 End If
 
                 If Mid(FileName, 1, 2) = "OP" Then
-                    SQL = "Update AIRBRANCH.SSPPApplicationTracking set " & _
-                    "datFinalOnWeb = '" & OracleDate & "' " & _
+                    SQL = "Update AIRBRANCH.SSPPApplicationTracking set " &
+                    "datFinalOnWeb = '" & OracleDate & "' " &
                     "where strApplicationNumber = '" & MasterApp & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -853,8 +809,8 @@ Public Class SSPPPermitUploader
                         UploadFile("VF-" & MasterApp, doc, docx, pdf, docOnFile)
                     End If
 
-                    SQL = "Select datFinalOnWeb " & _
-                    "from AIRBRANCH.SSPPApplicationTracking " & _
+                    SQL = "Select datFinalOnWeb " &
+                    "from AIRBRANCH.SSPPApplicationTracking " &
                     "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -864,7 +820,7 @@ Public Class SSPPPermitUploader
                     recExist = dr.Read
                     dr.Close()
                     If recExist = False Then
-                        SQL = "Update AIRBRANCH.SSPPApplicationTracking set " & _
+                        SQL = "Update AIRBRANCH.SSPPApplicationTracking set " &
                         "datFinalOnWeb = '" & OracleDate & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -1125,8 +1081,8 @@ Public Class SSPPPermitUploader
                         UploadFile("PI-" & MasterApp, doc, docx, pdf, docOnFile)
                     End If
 
-                    SQL = "Select datFinalOnWeb " & _
-                    "from AIRBRANCH.SSPPApplicationTracking " & _
+                    SQL = "Select datFinalOnWeb " &
+                    "from AIRBRANCH.SSPPApplicationTracking " &
                     "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -1136,7 +1092,7 @@ Public Class SSPPPermitUploader
                     recExist = dr.Read
                     dr.Close()
                     If recExist = False Then
-                        SQL = "Update AIRBRANCH.SSPPApplicationTracking set " & _
+                        SQL = "Update AIRBRANCH.SSPPApplicationTracking set " &
                         "datFinalOnWeb = '" & OracleDate & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -1210,8 +1166,8 @@ Public Class SSPPPermitUploader
                     If doc <> "" Or docx <> "" Or pdf <> "" Then
                         UploadFile("OP-" & MasterApp, doc, docx, pdf, docOnFile)
 
-                        SQL = "Select datFinalOnWeb " & _
-                        "from AIRBRANCH.SSPPApplicationTracking " & _
+                        SQL = "Select datFinalOnWeb " &
+                        "from AIRBRANCH.SSPPApplicationTracking " &
                         "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -1221,7 +1177,7 @@ Public Class SSPPPermitUploader
                         recExist = dr.Read
                         dr.Close()
                         If recExist = False Then
-                            SQL = "Update AIRBRANCH.SSPPApplicationTracking set " & _
+                            SQL = "Update AIRBRANCH.SSPPApplicationTracking set " &
                             "datFinalOnWeb = '" & OracleDate & "' "
                             cmd = New OracleCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1250,9 +1206,9 @@ Public Class SSPPPermitUploader
         Try
             Dim ResultDoc As DialogResult
 
-            SQL = "Select " & _
-            "strFileName " & _
-            "from AIRBRANCH.APBPermits " & _
+            SQL = "Select " &
+            "strFileName " &
+            "from AIRBRANCH.APBPermits " &
             "where strFileName = '" & FileType & "-" & txtApplicationNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1262,12 +1218,12 @@ Public Class SSPPPermitUploader
             recExist = dr.Read
             dr.Close()
             If recExist = True Then
-                ResultDoc = MessageBox.Show("Are you positive you want to delete this file?" & vbCrLf & _
-                        "It will not be recoverable if you delete it.", "Permit Delete", _
+                ResultDoc = MessageBox.Show("Are you positive you want to delete this file?" & vbCrLf &
+                        "It will not be recoverable if you delete it.", "Permit Delete",
                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                 Select Case ResultDoc
                     Case DialogResult.Yes
-                        SQL = "Delete AIRBRANCH.APBPermits " & _
+                        SQL = "Delete AIRBRANCH.APBPermits " &
                         "where strFileName = '" & FileType & "-" & txtApplicationNumber.Text & "' "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1345,9 +1301,9 @@ Public Class SSPPPermitUploader
             DisplayPermitPanel()
 
             If rdbTitleVPermit.Checked = True And MasterApp <> "" Then
-                SQL = "select " & _
-                "strFileName " & _
-                "from AIRBRANCH.APBPermits " & _
+                SQL = "select " &
+                "strFileName " &
+                "from AIRBRANCH.APBPermits " &
                 "where strFileName like 'V_-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1416,9 +1372,9 @@ Public Class SSPPPermitUploader
             DisplayPermitPanel()
 
             If rdbPSDPermit.Checked = True And MasterApp <> "" Then
-                SQL = "select " & _
-                "strFileName " & _
-                "from AIRBRANCH.APBPermits " & _
+                SQL = "select " &
+                "strFileName " &
+                "from AIRBRANCH.APBPermits " &
                 "where strFileName like 'P_-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1495,9 +1451,9 @@ Public Class SSPPPermitUploader
             DisplayPermitPanel()
 
             If rdbOtherPermit.Checked = True And MasterApp <> "" Then
-                SQL = "select " & _
-                "strFileName " & _
-                "from AIRBRANCH.APBPermits " & _
+                SQL = "select " &
+                "strFileName " &
+                "from AIRBRANCH.APBPermits " &
                 "where strFileName like 'O_-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1548,40 +1504,40 @@ Public Class SSPPPermitUploader
                 lblWord.Visible = True
                 lblPDF.Visible = True
 
-                SQL = "select " & _
-                "case " & _
-                "when docPermitData is Null then '' " & _
-                "Else 'True' " & _
-                "End DocData, " & _
-                "case " & _
-                "when strDocModifingPerson is Null then '' " & _
-                "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
-                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
-                "and numUserID = strDocModifingPerson " & _
-                "and strFileName = 'VN-" & MasterApp & "') " & _
-                "end DocStaffResponsible, " & _
-                "case " & _
-                "when datDocModifingDate is Null then '' " & _
-                "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " & _
-                "End datDocModifingDate, " & _
-                "case " & _
-                "when pdfPermitData is Null then '' " & _
-                "Else 'True' " & _
-                "End PDFData, " & _
-                "case " & _
-                "when strPDFModifingPerson is Null then '' " & _
-                "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUSerProfiles " & _
-                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUSerProfiles.numUserID  " & _
-                "and numUserID = strPDFModifingPerson " & _
-                "and strFileName = 'VN-" & MasterApp & "') " & _
-                "end PDFStaffResponsible, " & _
-                "case " & _
-                "when datPDFModifingDate is Null then '' " & _
-                "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
-                "End datPDFModifingDate " & _
-                "from AIRBRANCH.APBPermits " & _
+                SQL = "select " &
+                "case " &
+                "when docPermitData is Null then '' " &
+                "Else 'True' " &
+                "End DocData, " &
+                "case " &
+                "when strDocModifingPerson is Null then '' " &
+                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
+                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                "and numUserID = strDocModifingPerson " &
+                "and strFileName = 'VN-" & MasterApp & "') " &
+                "end DocStaffResponsible, " &
+                "case " &
+                "when datDocModifingDate is Null then '' " &
+                "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                "End datDocModifingDate, " &
+                "case " &
+                "when pdfPermitData is Null then '' " &
+                "Else 'True' " &
+                "End PDFData, " &
+                "case " &
+                "when strPDFModifingPerson is Null then '' " &
+                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUSerProfiles " &
+                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUSerProfiles.numUserID  " &
+                "and numUserID = strPDFModifingPerson " &
+                "and strFileName = 'VN-" & MasterApp & "') " &
+                "end PDFStaffResponsible, " &
+                "case " &
+                "when datPDFModifingDate is Null then '' " &
+                "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                "End datPDFModifingDate " &
+                "from AIRBRANCH.APBPermits " &
                 "where strFileName = 'VN-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1671,40 +1627,40 @@ Public Class SSPPPermitUploader
                 lblWord.Visible = True
                 lblPDF.Visible = True
 
-                SQL = "select " & _
-                "case " & _
-                "when docPermitData is Null then '' " & _
-                "Else 'True' " & _
-                "End DocData, " & _
-                "case " & _
-                "when strDocModifingPerson is Null then '' " & _
-                "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUSerProfiles " & _
-                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUSerProfiles.numUserID " & _
-                "and numUserID = strDocModifingPerson " & _
-                "and strFileName = 'VD-" & MasterApp & "') " & _
-                "end DocStaffResponsible, " & _
-                "case " & _
-                "when datDocModifingDate is Null then '' " & _
-                "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " & _
-                "End datDocModifingDate, " & _
-                "case " & _
-                "when pdfPermitData is Null then '' " & _
-                "Else 'True' " & _
-                "End PDFData, " & _
-                "case " & _
-                "when strPDFModifingPerson is Null then '' " & _
-                "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
-                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
-                "and numUserID = strPDFModifingPerson " & _
-                "and strFileName = 'VD-" & MasterApp & "') " & _
-                "end PDFStaffResponsible, " & _
-                "case " & _
-                "when datPDFModifingDate is Null then '' " & _
-                "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
-                "End datPDFModifingDate " & _
-                "from AIRBRANCH.APBPermits " & _
+                SQL = "select " &
+                "case " &
+                "when docPermitData is Null then '' " &
+                "Else 'True' " &
+                "End DocData, " &
+                "case " &
+                "when strDocModifingPerson is Null then '' " &
+                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUSerProfiles " &
+                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUSerProfiles.numUserID " &
+                "and numUserID = strDocModifingPerson " &
+                "and strFileName = 'VD-" & MasterApp & "') " &
+                "end DocStaffResponsible, " &
+                "case " &
+                "when datDocModifingDate is Null then '' " &
+                "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                "End datDocModifingDate, " &
+                "case " &
+                "when pdfPermitData is Null then '' " &
+                "Else 'True' " &
+                "End PDFData, " &
+                "case " &
+                "when strPDFModifingPerson is Null then '' " &
+                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
+                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                "and numUserID = strPDFModifingPerson " &
+                "and strFileName = 'VD-" & MasterApp & "') " &
+                "end PDFStaffResponsible, " &
+                "case " &
+                "when datPDFModifingDate is Null then '' " &
+                "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                "End datPDFModifingDate " &
+                "from AIRBRANCH.APBPermits " &
                 "where strFileName = 'VD-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1793,40 +1749,40 @@ Public Class SSPPPermitUploader
                 lblWord.Visible = True
                 lblPDF.Visible = True
 
-                SQL = "select " & _
-                "case " & _
-                "when docPermitData is Null then '' " & _
-                "Else 'True' " & _
-                "End DocData, " & _
-                "case " & _
-                "when strDocModifingPerson is Null then '' " & _
-                "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
-                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
-                "and numUserID = strDocModifingPerson " & _
-                "and strFileName = 'VP-" & MasterApp & "') " & _
-                "end DocStaffResponsible, " & _
-                "case " & _
-                "when datDocModifingDate is Null then '' " & _
-                "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " & _
-                "End datDocModifingDate, " & _
-                "case " & _
-                "when pdfPermitData is Null then '' " & _
-                "Else 'True' " & _
-                "End PDFData, " & _
-                "case " & _
-                "when strPDFModifingPerson is Null then '' " & _
-                "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
-                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
-                "and numUserID = strPDFModifingPerson " & _
-                "and strFileName = 'VP-" & MasterApp & "') " & _
-                "end PDFStaffResponsible, " & _
-                "case " & _
-                "when datPDFModifingDate is Null then '' " & _
-                "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
-                "End datPDFModifingDate " & _
-                "from AIRBRANCH.APBPermits " & _
+                SQL = "select " &
+                "case " &
+                "when docPermitData is Null then '' " &
+                "Else 'True' " &
+                "End DocData, " &
+                "case " &
+                "when strDocModifingPerson is Null then '' " &
+                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
+                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                "and numUserID = strDocModifingPerson " &
+                "and strFileName = 'VP-" & MasterApp & "') " &
+                "end DocStaffResponsible, " &
+                "case " &
+                "when datDocModifingDate is Null then '' " &
+                "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                "End datDocModifingDate, " &
+                "case " &
+                "when pdfPermitData is Null then '' " &
+                "Else 'True' " &
+                "End PDFData, " &
+                "case " &
+                "when strPDFModifingPerson is Null then '' " &
+                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
+                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                "and numUserID = strPDFModifingPerson " &
+                "and strFileName = 'VP-" & MasterApp & "') " &
+                "end PDFStaffResponsible, " &
+                "case " &
+                "when datPDFModifingDate is Null then '' " &
+                "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                "End datPDFModifingDate " &
+                "from AIRBRANCH.APBPermits " &
                 "where strFileName = 'VP-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1915,40 +1871,40 @@ Public Class SSPPPermitUploader
                 lblWord.Visible = True
                 lblPDF.Visible = True
 
-                SQL = "select " & _
-                 "case " & _
-                 "when docPermitData is Null then '' " & _
-                 "Else 'True' " & _
-                 "End DocData, " & _
-                 "case " & _
-                 "when strDocModifingPerson is Null then '' " & _
-                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
-                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
-                 "and numUserID = strDocModifingPerson " & _
-                 "and strFileName = 'VF-" & MasterApp & "') " & _
-                 "end DocStaffResponsible, " & _
-                 "case " & _
-                 "when datDocModifingDate is Null then '' " & _
-                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " & _
-                 "End datDocModifingDate, " & _
-                 "case " & _
-                 "when pdfPermitData is Null then '' " & _
-                 "Else 'True' " & _
-                 "End PDFData, " & _
-                 "case " & _
-                 "when strPDFModifingPerson is Null then '' " & _
-                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
-                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
-                 "and numUserID = strPDFModifingPerson " & _
-                 "and strFileName = 'VF-" & MasterApp & "') " & _
-                 "end PDFStaffResponsible, " & _
-                 "case " & _
-                 "when datPDFModifingDate is Null then '' " & _
-                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
-                 "End datPDFModifingDate " & _
-                 "from AIRBRANCH.APBPermits " & _
+                SQL = "select " &
+                 "case " &
+                 "when docPermitData is Null then '' " &
+                 "Else 'True' " &
+                 "End DocData, " &
+                 "case " &
+                 "when strDocModifingPerson is Null then '' " &
+                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
+                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                 "and numUserID = strDocModifingPerson " &
+                 "and strFileName = 'VF-" & MasterApp & "') " &
+                 "end DocStaffResponsible, " &
+                 "case " &
+                 "when datDocModifingDate is Null then '' " &
+                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                 "End datDocModifingDate, " &
+                 "case " &
+                 "when pdfPermitData is Null then '' " &
+                 "Else 'True' " &
+                 "End PDFData, " &
+                 "case " &
+                 "when strPDFModifingPerson is Null then '' " &
+                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
+                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                 "and numUserID = strPDFModifingPerson " &
+                 "and strFileName = 'VF-" & MasterApp & "') " &
+                 "end PDFStaffResponsible, " &
+                 "case " &
+                 "when datPDFModifingDate is Null then '' " &
+                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                 "End datPDFModifingDate " &
+                 "from AIRBRANCH.APBPermits " &
                  "where strFileName = 'VF-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2048,40 +2004,40 @@ Public Class SSPPPermitUploader
                 'btnPSDAppSummaryDownload.Location = New System.Drawing.Point(643, 357)
                 'btnDeletePSDAppSummary.Location = New System.Drawing.Point(643, 380)
 
-                SQL = "select " & _
-                 "case " & _
-                 "when docPermitData is Null then '' " & _
-                 "Else 'True' " & _
-                 "End DocData, " & _
-                 "case " & _
-                 "when strDocModifingPerson is Null then '' " & _
-                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
-                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
-                 "and numUserID = strDocModifingPerson " & _
-                 "and strFileName = 'PA-" & MasterApp & "') " & _
-                 "end DocStaffResponsible, " & _
-                 "case " & _
-                 "when datDocModifingDate is Null then '' " & _
-                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " & _
-                 "End datDocModifingDate, " & _
-                 "case " & _
-                 "when pdfPermitData is Null then '' " & _
-                 "Else 'True' " & _
-                 "End PDFData, " & _
-                 "case " & _
-                 "when strPDFModifingPerson is Null then '' " & _
-                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
-                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
-                 "and numUserID = strPDFModifingPerson " & _
-                 "and strFileName = 'PA-" & MasterApp & "') " & _
-                 "end PDFStaffResponsible, " & _
-                 "case " & _
-                 "when datPDFModifingDate is Null then '' " & _
-                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
-                 "End datPDFModifingDate " & _
-                 "from AIRBRANCH.APBPermits " & _
+                SQL = "select " &
+                 "case " &
+                 "when docPermitData is Null then '' " &
+                 "Else 'True' " &
+                 "End DocData, " &
+                 "case " &
+                 "when strDocModifingPerson is Null then '' " &
+                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
+                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                 "and numUserID = strDocModifingPerson " &
+                 "and strFileName = 'PA-" & MasterApp & "') " &
+                 "end DocStaffResponsible, " &
+                 "case " &
+                 "when datDocModifingDate is Null then '' " &
+                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                 "End datDocModifingDate, " &
+                 "case " &
+                 "when pdfPermitData is Null then '' " &
+                 "Else 'True' " &
+                 "End PDFData, " &
+                 "case " &
+                 "when strPDFModifingPerson is Null then '' " &
+                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
+                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                 "and numUserID = strPDFModifingPerson " &
+                 "and strFileName = 'PA-" & MasterApp & "') " &
+                 "end PDFStaffResponsible, " &
+                 "case " &
+                 "when datPDFModifingDate is Null then '' " &
+                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                 "End datPDFModifingDate " &
+                 "from AIRBRANCH.APBPermits " &
                  "where strFileName = 'PA-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2181,40 +2137,40 @@ Public Class SSPPPermitUploader
                 btnDeletePSDPrelimDet.Location = New System.Drawing.Point(643, 38)
 
 
-                SQL = "select " & _
-                 "case " & _
-                 "when docPermitData is Null then '' " & _
-                 "Else 'True' " & _
-                 "End DocData, " & _
-                 "case " & _
-                 "when strDocModifingPerson is Null then '' " & _
-                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
-                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
-                 "and numUserID = strDocModifingPerson " & _
-                 "and strFileName = 'PP-" & MasterApp & "') " & _
-                 "end DocStaffResponsible, " & _
-                 "case " & _
-                 "when datDocModifingDate is Null then '' " & _
-                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " & _
-                 "End datDocModifingDate, " & _
-                 "case " & _
-                 "when pdfPermitData is Null then '' " & _
-                 "Else 'True' " & _
-                 "End PDFData, " & _
-                 "case " & _
-                 "when strPDFModifingPerson is Null then '' " & _
-                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
-                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
-                 "and numUserID = strPDFModifingPerson " & _
-                 "and strFileName = 'PP-" & MasterApp & "') " & _
-                 "end PDFStaffResponsible, " & _
-                 "case " & _
-                 "when datPDFModifingDate is Null then '' " & _
-                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
-                 "End datPDFModifingDate " & _
-                 "from AIRBRANCH.APBPermits " & _
+                SQL = "select " &
+                 "case " &
+                 "when docPermitData is Null then '' " &
+                 "Else 'True' " &
+                 "End DocData, " &
+                 "case " &
+                 "when strDocModifingPerson is Null then '' " &
+                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
+                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                 "and numUserID = strDocModifingPerson " &
+                 "and strFileName = 'PP-" & MasterApp & "') " &
+                 "end DocStaffResponsible, " &
+                 "case " &
+                 "when datDocModifingDate is Null then '' " &
+                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                 "End datDocModifingDate, " &
+                 "case " &
+                 "when pdfPermitData is Null then '' " &
+                 "Else 'True' " &
+                 "End PDFData, " &
+                 "case " &
+                 "when strPDFModifingPerson is Null then '' " &
+                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
+                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                 "and numUserID = strPDFModifingPerson " &
+                 "and strFileName = 'PP-" & MasterApp & "') " &
+                 "end PDFStaffResponsible, " &
+                 "case " &
+                 "when datPDFModifingDate is Null then '' " &
+                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                 "End datPDFModifingDate " &
+                 "from AIRBRANCH.APBPermits " &
                  "where strFileName = 'PP-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2312,40 +2268,40 @@ Public Class SSPPPermitUploader
                 'btnPSDNarrativeDownload.Location = New System.Drawing.Point(643, 414)
                 'btnDeletePSDNarrative.Location = New System.Drawing.Point(643, 438)
 
-                SQL = "select " & _
-                 "case " & _
-                 "when docPermitData is Null then '' " & _
-                 "Else 'True' " & _
-                 "End DocData, " & _
-                 "case " & _
-                 "when strDocModifingPerson is Null then '' " & _
-                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
-                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
-                 "and numUserID = strDocModifingPerson " & _
-                 "and strFileName = 'PT-" & MasterApp & "') " & _
-                 "end DocStaffResponsible, " & _
-                 "case " & _
-                 "when datDocModifingDate is Null then '' " & _
-                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " & _
-                 "End datDocModifingDate, " & _
-                 "case " & _
-                 "when pdfPermitData is Null then '' " & _
-                 "Else 'True' " & _
-                 "End PDFData, " & _
-                 "case " & _
-                 "when strPDFModifingPerson is Null then '' " & _
-                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
-                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
-                 "and numUserID = strPDFModifingPerson " & _
-                 "and strFileName = 'PT-" & MasterApp & "') " & _
-                 "end PDFStaffResponsible, " & _
-                 "case " & _
-                 "when datPDFModifingDate is Null then '' " & _
-                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
-                 "End datPDFModifingDate " & _
-                 "from AIRBRANCH.APBPermits " & _
+                SQL = "select " &
+                 "case " &
+                 "when docPermitData is Null then '' " &
+                 "Else 'True' " &
+                 "End DocData, " &
+                 "case " &
+                 "when strDocModifingPerson is Null then '' " &
+                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
+                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                 "and numUserID = strDocModifingPerson " &
+                 "and strFileName = 'PT-" & MasterApp & "') " &
+                 "end DocStaffResponsible, " &
+                 "case " &
+                 "when datDocModifingDate is Null then '' " &
+                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                 "End datDocModifingDate, " &
+                 "case " &
+                 "when pdfPermitData is Null then '' " &
+                 "Else 'True' " &
+                 "End PDFData, " &
+                 "case " &
+                 "when strPDFModifingPerson is Null then '' " &
+                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
+                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                 "and numUserID = strPDFModifingPerson " &
+                 "and strFileName = 'PT-" & MasterApp & "') " &
+                 "end PDFStaffResponsible, " &
+                 "case " &
+                 "when datPDFModifingDate is Null then '' " &
+                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                 "End datPDFModifingDate " &
+                 "from AIRBRANCH.APBPermits " &
                  "where strFileName = 'PT-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2443,40 +2399,40 @@ Public Class SSPPPermitUploader
                 'btnPSDDraftPermitDownload.Location = New System.Drawing.Point(643, 73)
                 'btnDeletePSDDraftPermit.Location = New System.Drawing.Point(643, 96)
 
-                SQL = "select " & _
-                 "case " & _
-                 "when docPermitData is Null then '' " & _
-                 "Else 'True' " & _
-                 "End DocData, " & _
-                 "case " & _
-                 "when strDocModifingPerson is Null then '' " & _
-                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
-                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
-                 "and numUserID = strDocModifingPerson " & _
-                 "and strFileName = 'PD-" & MasterApp & "') " & _
-                 "end DocStaffResponsible, " & _
-                 "case " & _
-                 "when datDocModifingDate is Null then '' " & _
-                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " & _
-                 "End datDocModifingDate, " & _
-                 "case " & _
-                 "when pdfPermitData is Null then '' " & _
-                 "Else 'True' " & _
-                 "End PDFData, " & _
-                 "case " & _
-                 "when strPDFModifingPerson is Null then '' " & _
-                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
-                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
-                 "and numUserID = strPDFModifingPerson " & _
-                 "and strFileName = 'PD-" & MasterApp & "') " & _
-                 "end PDFStaffResponsible, " & _
-                 "case " & _
-                 "when datPDFModifingDate is Null then '' " & _
-                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
-                 "End datPDFModifingDate " & _
-                 "from AIRBRANCH.APBPermits " & _
+                SQL = "select " &
+                 "case " &
+                 "when docPermitData is Null then '' " &
+                 "Else 'True' " &
+                 "End DocData, " &
+                 "case " &
+                 "when strDocModifingPerson is Null then '' " &
+                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
+                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                 "and numUserID = strDocModifingPerson " &
+                 "and strFileName = 'PD-" & MasterApp & "') " &
+                 "end DocStaffResponsible, " &
+                 "case " &
+                 "when datDocModifingDate is Null then '' " &
+                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                 "End datDocModifingDate, " &
+                 "case " &
+                 "when pdfPermitData is Null then '' " &
+                 "Else 'True' " &
+                 "End PDFData, " &
+                 "case " &
+                 "when strPDFModifingPerson is Null then '' " &
+                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
+                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                 "and numUserID = strPDFModifingPerson " &
+                 "and strFileName = 'PD-" & MasterApp & "') " &
+                 "end PDFStaffResponsible, " &
+                 "case " &
+                 "when datPDFModifingDate is Null then '' " &
+                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                 "End datPDFModifingDate " &
+                 "from AIRBRANCH.APBPermits " &
                  "where strFileName = 'PD-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2574,40 +2530,40 @@ Public Class SSPPPermitUploader
                 'btnPSDPublicNoticeDownload.Location = New System.Drawing.Point(643, 130)
                 'btnDeletePSDPublicNotice.Location = New System.Drawing.Point(643, 154)
 
-                SQL = "select " & _
-                "case " & _
-                "when docPermitData is Null then '' " & _
-                "Else 'True' " & _
-                "End DocData, " & _
-                "case " & _
-                "when strDocModifingPerson is Null then '' " & _
-                "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
-                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
-                "and numUserID = strDocModifingPerson " & _
-                "and strFileName = 'PN-" & MasterApp & "') " & _
-                "end DocStaffResponsible, " & _
-                "case " & _
-                "when datDocModifingDate is Null then '' " & _
-                "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " & _
-                "End datDocModifingDate, " & _
-                "case " & _
-                "when pdfPermitData is Null then '' " & _
-                "Else 'True' " & _
-                "End PDFData, " & _
-                "case " & _
-                "when strPDFModifingPerson is Null then '' " & _
-                "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
-                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
-                "and numUserID = strPDFModifingPerson " & _
-                "and strFileName = 'PN-" & MasterApp & "') " & _
-                "end PDFStaffResponsible, " & _
-                "case " & _
-                "when datPDFModifingDate is Null then '' " & _
-                "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
-                "End datPDFModifingDate " & _
-                "from AIRBRANCH.APBPermits " & _
+                SQL = "select " &
+                "case " &
+                "when docPermitData is Null then '' " &
+                "Else 'True' " &
+                "End DocData, " &
+                "case " &
+                "when strDocModifingPerson is Null then '' " &
+                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
+                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                "and numUserID = strDocModifingPerson " &
+                "and strFileName = 'PN-" & MasterApp & "') " &
+                "end DocStaffResponsible, " &
+                "case " &
+                "when datDocModifingDate is Null then '' " &
+                "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                "End datDocModifingDate, " &
+                "case " &
+                "when pdfPermitData is Null then '' " &
+                "Else 'True' " &
+                "End PDFData, " &
+                "case " &
+                "when strPDFModifingPerson is Null then '' " &
+                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
+                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                "and numUserID = strPDFModifingPerson " &
+                "and strFileName = 'PN-" & MasterApp & "') " &
+                "end PDFStaffResponsible, " &
+                "case " &
+                "when datPDFModifingDate is Null then '' " &
+                "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                "End datPDFModifingDate " &
+                "from AIRBRANCH.APBPermits " &
                 "where strFileName = 'PN-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2705,40 +2661,40 @@ Public Class SSPPPermitUploader
                 'btnPSDHearingNoticeDownload.Location = New System.Drawing.Point(643, 189)
                 'btnDeletePSDHearingNotice.Location = New System.Drawing.Point(643, 213)
 
-                SQL = "select " & _
-                 "case " & _
-                 "when docPermitData is Null then '' " & _
-                 "Else 'True' " & _
-                 "End DocData, " & _
-                 "case " & _
-                 "when strDocModifingPerson is Null then '' " & _
-                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
-                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
-                 "and numUserID = strDocModifingPerson " & _
-                 "and strFileName = 'PH-" & MasterApp & "') " & _
-                 "end DocStaffResponsible, " & _
-                 "case " & _
-                 "when datDocModifingDate is Null then '' " & _
-                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " & _
-                 "End datDocModifingDate, " & _
-                 "case " & _
-                 "when pdfPermitData is Null then '' " & _
-                 "Else 'True' " & _
-                 "End PDFData, " & _
-                 "case " & _
-                 "when strPDFModifingPerson is Null then '' " & _
-                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
-                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
-                 "and numUserID = strPDFModifingPerson " & _
-                 "and strFileName = 'PH-" & MasterApp & "') " & _
-                 "end PDFStaffResponsible, " & _
-                 "case " & _
-                 "when datPDFModifingDate is Null then '' " & _
-                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
-                 "End datPDFModifingDate " & _
-                 "from AIRBRANCH.APBPermits " & _
+                SQL = "select " &
+                 "case " &
+                 "when docPermitData is Null then '' " &
+                 "Else 'True' " &
+                 "End DocData, " &
+                 "case " &
+                 "when strDocModifingPerson is Null then '' " &
+                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
+                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                 "and numUserID = strDocModifingPerson " &
+                 "and strFileName = 'PH-" & MasterApp & "') " &
+                 "end DocStaffResponsible, " &
+                 "case " &
+                 "when datDocModifingDate is Null then '' " &
+                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                 "End datDocModifingDate, " &
+                 "case " &
+                 "when pdfPermitData is Null then '' " &
+                 "Else 'True' " &
+                 "End PDFData, " &
+                 "case " &
+                 "when strPDFModifingPerson is Null then '' " &
+                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
+                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                 "and numUserID = strPDFModifingPerson " &
+                 "and strFileName = 'PH-" & MasterApp & "') " &
+                 "end PDFStaffResponsible, " &
+                 "case " &
+                 "when datPDFModifingDate is Null then '' " &
+                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                 "End datPDFModifingDate " &
+                 "from AIRBRANCH.APBPermits " &
                  "where strFileName = 'PH-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2836,40 +2792,40 @@ Public Class SSPPPermitUploader
                 'btnPSDFinalDetDownload.Location = New System.Drawing.Point(643, 245)
                 'btnDeletePSDFinalDet.Location = New System.Drawing.Point(643, 268)
 
-                SQL = "select " & _
-                 "case " & _
-                 "when docPermitData is Null then '' " & _
-                 "Else 'True' " & _
-                 "End DocData, " & _
-                 "case " & _
-                 "when strDocModifingPerson is Null then '' " & _
-                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
-                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
-                 "and numUserID = strDocModifingPerson " & _
-                 "and strFileName = 'PF-" & MasterApp & "') " & _
-                 "end DocStaffResponsible, " & _
-                 "case " & _
-                 "when datDocModifingDate is Null then '' " & _
-                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " & _
-                 "End datDocModifingDate, " & _
-                 "case " & _
-                 "when pdfPermitData is Null then '' " & _
-                 "Else 'True' " & _
-                 "End PDFData, " & _
-                 "case " & _
-                 "when strPDFModifingPerson is Null then '' " & _
-                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
-                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
-                 "and numUserID = strPDFModifingPerson " & _
-                 "and strFileName = 'PF-" & MasterApp & "') " & _
-                 "end PDFStaffResponsible, " & _
-                 "case " & _
-                 "when datPDFModifingDate is Null then '' " & _
-                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
-                 "End datPDFModifingDate " & _
-                 "from AIRBRANCH.APBPermits " & _
+                SQL = "select " &
+                 "case " &
+                 "when docPermitData is Null then '' " &
+                 "Else 'True' " &
+                 "End DocData, " &
+                 "case " &
+                 "when strDocModifingPerson is Null then '' " &
+                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
+                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                 "and numUserID = strDocModifingPerson " &
+                 "and strFileName = 'PF-" & MasterApp & "') " &
+                 "end DocStaffResponsible, " &
+                 "case " &
+                 "when datDocModifingDate is Null then '' " &
+                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                 "End datDocModifingDate, " &
+                 "case " &
+                 "when pdfPermitData is Null then '' " &
+                 "Else 'True' " &
+                 "End PDFData, " &
+                 "case " &
+                 "when strPDFModifingPerson is Null then '' " &
+                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
+                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                 "and numUserID = strPDFModifingPerson " &
+                 "and strFileName = 'PF-" & MasterApp & "') " &
+                 "end PDFStaffResponsible, " &
+                 "case " &
+                 "when datPDFModifingDate is Null then '' " &
+                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                 "End datPDFModifingDate " &
+                 "from AIRBRANCH.APBPermits " &
                  "where strFileName = 'PF-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2967,40 +2923,40 @@ Public Class SSPPPermitUploader
                 'btnPSDFinalPermitDownload.Location = New System.Drawing.Point(643, 302)
                 'btnDeletePSDFinalPermit.Location = New System.Drawing.Point(643, 326)
 
-                SQL = "select " & _
-                "case " & _
-                "when docPermitData is Null then '' " & _
-                "Else 'True' " & _
-                "End DocData, " & _
-                "case " & _
-                "when strDocModifingPerson is Null then '' " & _
-                "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
-                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
-                "and numUserID = strDocModifingPerson " & _
-                "and strFileName = 'PI-" & MasterApp & "') " & _
-                "end DocStaffResponsible, " & _
-                "case " & _
-                "when datDocModifingDate is Null then '' " & _
-                "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " & _
-                "End datDocModifingDate, " & _
-                "case " & _
-                "when pdfPermitData is Null then '' " & _
-                "Else 'True' " & _
-                "End PDFData, " & _
-                "case " & _
-                "when strPDFModifingPerson is Null then '' " & _
-                "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
-                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
-                "and numUserID = strPDFModifingPerson " & _
-                "and strFileName = 'PI-" & MasterApp & "') " & _
-                "end PDFStaffResponsible, " & _
-                "case " & _
-                "when datPDFModifingDate is Null then '' " & _
-                "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
-                "End datPDFModifingDate " & _
-                "from AIRBRANCH.APBPermits " & _
+                SQL = "select " &
+                "case " &
+                "when docPermitData is Null then '' " &
+                "Else 'True' " &
+                "End DocData, " &
+                "case " &
+                "when strDocModifingPerson is Null then '' " &
+                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
+                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                "and numUserID = strDocModifingPerson " &
+                "and strFileName = 'PI-" & MasterApp & "') " &
+                "end DocStaffResponsible, " &
+                "case " &
+                "when datDocModifingDate is Null then '' " &
+                "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                "End datDocModifingDate, " &
+                "case " &
+                "when pdfPermitData is Null then '' " &
+                "Else 'True' " &
+                "End PDFData, " &
+                "case " &
+                "when strPDFModifingPerson is Null then '' " &
+                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
+                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                "and numUserID = strPDFModifingPerson " &
+                "and strFileName = 'PI-" & MasterApp & "') " &
+                "end PDFStaffResponsible, " &
+                "case " &
+                "when datPDFModifingDate is Null then '' " &
+                "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                "End datPDFModifingDate " &
+                "from AIRBRANCH.APBPermits " &
                 "where strFileName = 'PI-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3087,40 +3043,40 @@ Public Class SSPPPermitUploader
                 lblWord.Visible = True
                 lblPDF.Visible = True
 
-                SQL = "select " & _
-                 "case " & _
-                 "when docPermitData is Null then '' " & _
-                 "Else 'True' " & _
-                 "End DocData, " & _
-                 "case " & _
-                 "when strDocModifingPerson is Null then '' " & _
-                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
-                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
-                 "and numUserID = strDocModifingPerson " & _
-                 "and strFileName = 'ON-" & MasterApp & "') " & _
-                 "end DocStaffResponsible, " & _
-                 "case " & _
-                 "when datDocModifingDate is Null then '' " & _
-                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " & _
-                 "End datDocModifingDate, " & _
-                 "case " & _
-                 "when pdfPermitData is Null then '' " & _
-                 "Else 'True' " & _
-                 "End PDFData, " & _
-                 "case " & _
-                 "when strPDFModifingPerson is Null then '' " & _
-                 "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
-                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
-                 "and numUserID = strPDFModifingPerson " & _
-                 "and strFileName = 'ON-" & MasterApp & "') " & _
-                 "end PDFStaffResponsible, " & _
-                 "case " & _
-                 "when datPDFModifingDate is Null then '' " & _
-                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
-                 "End datPDFModifingDate " & _
-                 "from AIRBRANCH.APBPermits " & _
+                SQL = "select " &
+                 "case " &
+                 "when docPermitData is Null then '' " &
+                 "Else 'True' " &
+                 "End DocData, " &
+                 "case " &
+                 "when strDocModifingPerson is Null then '' " &
+                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
+                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                 "and numUserID = strDocModifingPerson " &
+                 "and strFileName = 'ON-" & MasterApp & "') " &
+                 "end DocStaffResponsible, " &
+                 "case " &
+                 "when datDocModifingDate is Null then '' " &
+                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                 "End datDocModifingDate, " &
+                 "case " &
+                 "when pdfPermitData is Null then '' " &
+                 "Else 'True' " &
+                 "End PDFData, " &
+                 "case " &
+                 "when strPDFModifingPerson is Null then '' " &
+                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
+                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                 "and numUserID = strPDFModifingPerson " &
+                 "and strFileName = 'ON-" & MasterApp & "') " &
+                 "end PDFStaffResponsible, " &
+                 "case " &
+                 "when datPDFModifingDate is Null then '' " &
+                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                 "End datPDFModifingDate " &
+                 "from AIRBRANCH.APBPermits " &
                  "where strFileName = 'ON-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3209,40 +3165,40 @@ Public Class SSPPPermitUploader
                 lblWord.Visible = True
                 lblPDF.Visible = True
 
-                SQL = "select " & _
-                  "case " & _
-                  "when docPermitData is Null then '' " & _
-                  "Else 'True' " & _
-                  "End DocData, " & _
-                  "case " & _
-                  "when strDocModifingPerson is Null then '' " & _
-                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                  "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
-                  "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " & _
-                  "and numUserID = strDocModifingPerson " & _
-                  "and strFileName = 'OP-" & MasterApp & "') " & _
-                  "end DocStaffResponsible, " & _
-                  "case " & _
-                  "when datDocModifingDate is Null then '' " & _
-                  "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " & _
-                  "End datDocModifingDate, " & _
-                  "case " & _
-                  "when pdfPermitData is Null then '' " & _
-                  "Else 'True' " & _
-                  "End PDFData, " & _
-                  "case " & _
-                  "when strPDFModifingPerson is Null then '' " & _
-                  "else (select (strLastName||', '||strFirstName) as StaffName " & _
-                  "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " & _
-                  "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
-                  "and numUserID = strPDFModifingPerson " & _
-                  "and strFileName = 'OP-" & MasterApp & "') " & _
-                  "end PDFStaffResponsible, " & _
-                  "case " & _
-                  "when datPDFModifingDate is Null then '' " & _
-                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " & _
-                  "End datPDFModifingDate " & _
-                  "from AIRBRANCH.APBPermits " & _
+                SQL = "select " &
+                  "case " &
+                  "when docPermitData is Null then '' " &
+                  "Else 'True' " &
+                  "End DocData, " &
+                  "case " &
+                  "when strDocModifingPerson is Null then '' " &
+                  "else (select (strLastName||', '||strFirstName) as StaffName " &
+                  "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
+                  "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                  "and numUserID = strDocModifingPerson " &
+                  "and strFileName = 'OP-" & MasterApp & "') " &
+                  "end DocStaffResponsible, " &
+                  "case " &
+                  "when datDocModifingDate is Null then '' " &
+                  "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                  "End datDocModifingDate, " &
+                  "case " &
+                  "when pdfPermitData is Null then '' " &
+                  "Else 'True' " &
+                  "End PDFData, " &
+                  "case " &
+                  "when strPDFModifingPerson is Null then '' " &
+                  "else (select (strLastName||', '||strFirstName) as StaffName " &
+                  "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
+                  "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                  "and numUserID = strPDFModifingPerson " &
+                  "and strFileName = 'OP-" & MasterApp & "') " &
+                  "end PDFStaffResponsible, " &
+                  "case " &
+                  "when datPDFModifingDate is Null then '' " &
+                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                  "End datPDFModifingDate " &
+                  "from AIRBRANCH.APBPermits " &
                   "where strFileName = 'OP-" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3327,10 +3283,10 @@ Public Class SSPPPermitUploader
 #Region "Document upload buttons"
 
     Private Sub UploadButtons_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) _
-    Handles btnOtherNarrative.Click, btnOtherPermit.Click, _
-        btnPSDAppSummary.Click, btnPSDDraftPermit.Click, btnPSDFinalDet.Click, _
-        btnPSDFinalPermit.Click, btnPSDHearingNotice.Click, btnPSDNarrative.Click, _
-        btnPSDPrelimDet.Click, btnPSDPublicNotice.Click, _
+    Handles btnOtherNarrative.Click, btnOtherPermit.Click,
+        btnPSDAppSummary.Click, btnPSDDraftPermit.Click, btnPSDFinalDet.Click,
+        btnPSDFinalPermit.Click, btnPSDHearingNotice.Click, btnPSDNarrative.Click,
+        btnPSDPrelimDet.Click, btnPSDPublicNotice.Click,
         btnTVDraft.Click, btnTVFinal.Click, btnTVNarrative.Click, btnTVPublicNotice.Click
 
         Dim dialog As New OpenFileDialog
@@ -3388,12 +3344,12 @@ Public Class SSPPPermitUploader
             Dim DestFilePath As String = "N/A"
 
             If FileType <> "00" Then
-                SQL = "select strApplicationNumber, " & _
-                "strPermitNumber,  " & _
-                "(substr(strPermitNumber,1, 4) ||'-'||substr(strPermitNumber, 5,3) " & _
-                "   ||'-'||substr(strPermitNumber, 8,4)||'-'||substr(strPermitNumber, 12, 1)  " & _
-                "   ||'-'||substr(strPermitNumber, 13, 2) ||'-'||substr(strPermitNumber, 15,1)) as PermitNumber " & _
-                "from AIRBRANCH.SSPPApplicationData  " & _
+                SQL = "select strApplicationNumber, " &
+                "strPermitNumber,  " &
+                "(substr(strPermitNumber,1, 4) ||'-'||substr(strPermitNumber, 5,3) " &
+                "   ||'-'||substr(strPermitNumber, 8,4)||'-'||substr(strPermitNumber, 12, 1)  " &
+                "   ||'-'||substr(strPermitNumber, 13, 2) ||'-'||substr(strPermitNumber, 15,1)) as PermitNumber " &
+                "from AIRBRANCH.SSPPApplicationData  " &
                 "where strApplicationNumber like '" & MasterApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3429,9 +3385,9 @@ Public Class SSPPPermitUploader
                                 CurrentConnection.Open()
                             End If
 
-                            SQL = "select " & _
-                            "DocPermitData " & _
-                            "from AIRBRANCH.APBPermits " & _
+                            SQL = "select " &
+                            "DocPermitData " &
+                            "from AIRBRANCH.APBPermits " &
                             "where strFileName = '" & FileName & "' "
 
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3464,9 +3420,9 @@ Public Class SSPPPermitUploader
                                 CurrentConnection.Open()
                             End If
 
-                            SQL = "select " & _
-                            "pdfPermitData " & _
-                            "from AIRBRANCH.APBPermits " & _
+                            SQL = "select " &
+                            "pdfPermitData " &
+                            "from AIRBRANCH.APBPermits " &
                             "where strFileName = '" & FileName & "' "
 
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3498,9 +3454,9 @@ Public Class SSPPPermitUploader
                                 CurrentConnection.Open()
                             End If
 
-                            SQL = "select " & _
-                            "DocPermitData " & _
-                            "from AIRBRANCH.APBPermits " & _
+                            SQL = "select " &
+                            "DocPermitData " &
+                            "from AIRBRANCH.APBPermits " &
                             "where strFileName = '" & FileName & "' "
 
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3532,9 +3488,9 @@ Public Class SSPPPermitUploader
                                 CurrentConnection.Open()
                             End If
 
-                            SQL = "select " & _
-                            "pdfPermitData " & _
-                            "from AIRBRANCH.APBPermits " & _
+                            SQL = "select " &
+                            "pdfPermitData " &
+                            "from AIRBRANCH.APBPermits " &
                             "where strFileName = '" & FileName & "' "
 
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3570,8 +3526,8 @@ Public Class SSPPPermitUploader
 
             If (txtOtherNarrativeDoc.Text = "On File" Or txtOtherNarrativePDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtOtherNarrativeDoc.Text = "On File" And txtOtherNarrativePDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf & _
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf & _
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
+                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -3605,8 +3561,8 @@ Public Class SSPPPermitUploader
 
             If (txtOtherPermitDoc.Text = "On File" Or txtOtherPermitPDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtOtherPermitDoc.Text = "On File" And txtOtherPermitPDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf & _
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf & _
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
+                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -3639,8 +3595,8 @@ Public Class SSPPPermitUploader
 
             If (txtTVNarrativeDoc.Text = "On File" Or txtTVNarrativePDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtTVNarrativeDoc.Text = "On File" And txtTVNarrativePDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf & _
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf & _
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
+                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -3673,8 +3629,8 @@ Public Class SSPPPermitUploader
 
             If (txtTVDraftDoc.Text = "On File" Or txtTVDraftPDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtTVDraftDoc.Text = "On File" And txtTVDraftPDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf & _
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf & _
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
+                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -3707,8 +3663,8 @@ Public Class SSPPPermitUploader
 
             If (txtTVPublicNoticeDoc.Text = "On File" Or txtTVPublicNoticePDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtTVPublicNoticeDoc.Text = "On File" And txtTVPublicNoticePDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf & _
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf & _
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
+                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -3741,8 +3697,8 @@ Public Class SSPPPermitUploader
 
             If (txtTVFinalDoc.Text = "On File" Or txtTVFinalPDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtTVFinalDoc.Text = "On File" And txtTVFinalPDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf & _
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf & _
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
+                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -3775,8 +3731,8 @@ Public Class SSPPPermitUploader
 
             If (txtPSDAppSummaryDoc.Text = "On File" Or txtPSDAppSummaryPDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtPSDAppSummaryDoc.Text = "On File" And txtPSDAppSummaryPDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf & _
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf & _
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
+                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -3809,8 +3765,8 @@ Public Class SSPPPermitUploader
 
             If (txtPSDPrelimDetDoc.Text = "On File" Or txtPSDPrelimDetPDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtPSDPrelimDetDoc.Text = "On File" And txtPSDPrelimDetPDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf & _
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf & _
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
+                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -3843,8 +3799,8 @@ Public Class SSPPPermitUploader
 
             If (txtPSDNarrativeDoc.Text = "On File" Or txtPSDNarrativePDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtPSDNarrativeDoc.Text = "On File" And txtPSDNarrativePDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf & _
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf & _
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
+                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -3877,8 +3833,8 @@ Public Class SSPPPermitUploader
 
             If (txtPSDDraftPermitDoc.Text = "On File" Or txtPSDDraftPermitPDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtPSDDraftPermitDoc.Text = "On File" And txtPSDDraftPermitPDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf & _
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf & _
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
+                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -3911,8 +3867,8 @@ Public Class SSPPPermitUploader
 
             If (txtPSDPublicNoticeDoc.Text = "On File" Or txtPSDPublicNoticePDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtPSDPublicNoticeDoc.Text = "On File" And txtPSDPublicNoticePDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf & _
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf & _
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
+                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -3945,8 +3901,8 @@ Public Class SSPPPermitUploader
 
             If (txtPSDHearingNoticeDoc.Text = "On File" Or txtPSDHearingNoticePDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtPSDHearingNoticeDoc.Text = "On File" And txtPSDHearingNoticePDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf & _
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf & _
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
+                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -3979,8 +3935,8 @@ Public Class SSPPPermitUploader
 
             If (txtPSDFinalDetDoc.Text = "On File" Or txtPSDFinalDetPDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtPSDFinalDetDoc.Text = "On File" And txtPSDFinalDetPDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf & _
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf & _
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
+                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -4013,8 +3969,8 @@ Public Class SSPPPermitUploader
 
             If (txtPSDFinalPermitDoc.Text = "On File" Or txtPSDFinalPermitPDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtPSDFinalPermitDoc.Text = "On File" And txtPSDFinalPermitPDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf & _
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf & _
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
+                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -4158,6 +4114,7 @@ Public Class SSPPPermitUploader
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
 #End Region
 
 End Class
