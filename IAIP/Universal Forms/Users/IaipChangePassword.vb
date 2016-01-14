@@ -28,7 +28,7 @@ Public Class IaipChangePassword
     End Sub
 
     Private Function SavePassword() As Boolean
-        Dim result As DAL.PasswordUpdateResponse = DAL.UpdateUserPassword(CurrentUser.UserID, NewPassword.Text, CurrentPassword.Text)
+        Dim result As DAL.PasswordUpdateResponse = DAL.UpdateUserPassword(CurrentUser.Username, NewPassword.Text, CurrentPassword.Text)
         Select Case result
             Case DAL.PasswordUpdateResponse.Success
                 Return True

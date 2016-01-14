@@ -111,7 +111,7 @@ Public Class IAIPLogIn
     End Sub
 
     Private Function CheckDBAvailability() As Boolean
-        If DAL.AppIsEnabled Then
+        If DAL.AppIsEnabled() Then
             EnableLogin()
             Return True
         Else
@@ -132,49 +132,49 @@ Public Class IAIPLogIn
 #Region " Login "
 
     Private Sub LogInCheck()
-        If Message IsNot Nothing Then Message.Clear()
-
-        If txtUserID.Text = "" OrElse txtUserPassword.Text = "" Then
-            Exit Sub
-        End If
-
         Me.Cursor = Cursors.WaitCursor
         monitor.TrackFeatureStart("Startup.LoggingIn")
+        If Message IsNot Nothing Then Message.Clear()
 
-        If Not CheckDBAvailability() Then
+        If txtUserID.Text = "" OrElse txtUserPassword.Text = "" OrElse Not CheckDBAvailability() Then
             CancelLogin(True)
-            Exit Sub
+        Else
+            Dim authenticationResult As DAL.IaipAuthenticationResult = DAL.AuthenticateIaipUser(txtUserID.Text, txtUserPassword.Text)
+
+            Select Case authenticationResult
+                Case DAL.IaipAuthenticationResult.InvalidUserName
+                    Me.Message = New IaipMessage("That Username does not exist.", IaipMessage.WarningLevels.ErrorReport)
+                    CancelLogin(True)
+
+                Case DAL.IaipAuthenticationResult.InactiveUser
+                    Me.Message = New IaipMessage("Your user status has been flagged as inactive.", IaipMessage.WarningLevels.ErrorReport)
+                    CancelLogin(True)
+
+                Case DAL.IaipAuthenticationResult.InvalidLogin
+                    Me.Message = New IaipMessage("Login information is incorrect.", IaipMessage.WarningLevels.ErrorReport)
+                    CancelLogin(False)
+
+                Case DAL.IaipUserData.IaipAuthenticationResult.Success
+                    CurrentUser = DAL.GetIaipUser(txtUserID.Text)
+
+                    If CurrentUser.RequirePasswordChange Then
+                        RequirePasswordUpdate()
+                        CancelLogin(True)
+                    ElseIf Not ValidateUserData() Then
+                        Me.Message = New IaipMessage("Your profile must be completed before you can use the IAIP.", IaipMessage.WarningLevels.Warning)
+                        CancelLogin(False)
+                    Else
+                        LogInAlready()
+                    End If
+
+            End Select
         End If
+    End Sub
 
-        CurrentUser = DAL.LoginIaipUser(txtUserID.Text, EncryptDecrypt.EncryptText(txtUserPassword.Text))
-
-        If CurrentUser Is Nothing OrElse CurrentUser.StaffId = 0 Then
-            Me.Message = New IaipMessage("Login information is incorrect. Please try again.", IaipMessage.WarningLevels.ErrorReport)
-            CancelLogin(False)
-            Exit Sub
-        End If
-
-        If Not CurrentUser.ActiveEmployee Then
-            Me.Message = New IaipMessage("Your user status has been flagged as inactive. Please contact your manager for more information.", IaipMessage.WarningLevels.ErrorReport)
-            CancelLogin(True)
-            Exit Sub
-        End If
-
-        If CheckForRequiredPasswordUpdate(txtUserPassword.Text) Then
-            CancelLogin(True)
-            Exit Sub
-        End If
-
-        If Not ValidateUserData() Then
-            Me.Message = New IaipMessage("Your profile must be updated before you can log in.", IaipMessage.WarningLevels.Warning)
-            CancelLogin(False)
-            Exit Sub
-        End If
-
+    Private Sub LogInAlready()
         AddMonitorLoginData()
         SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
         OpenSingleForm(IAIPNavigation)
-
         Me.Close()
     End Sub
 
@@ -186,34 +186,25 @@ Public Class IAIPLogIn
         Me.Cursor = Cursors.Default
     End Sub
 
-    Private Function CheckForRequiredPasswordUpdate(currentPassword As String) As Boolean
-        If CurrentUser.RequirePasswordChange _
-            OrElse (CurrentUser.LastName.ToUpper = currentPassword.ToUpper) Then
-
-            Using changePassword As New IaipChangePassword
-                changePassword.Message = New IaipMessage("You must change your password before you can log in.", IaipMessage.WarningLevels.Info)
-                changePassword.Message.Display(changePassword.MessageDisplay)
-                Dim dr As DialogResult = changePassword.ShowDialog()
-                If dr = DialogResult.OK Then
-                    Me.Message = New IaipMessage("Password successfully changed. Please log in with new password.", IaipMessage.WarningLevels.Success)
-                Else
-                    Me.Message = New IaipMessage("You must change your password before you can log in.", IaipMessage.WarningLevels.ErrorReport)
-                End If
-            End Using
-
-            Return True
-        End If
-
-        Return False
-    End Function
+    Private Sub RequirePasswordUpdate()
+        Using changePassword As New IaipChangePassword
+            changePassword.Message = New IaipMessage("You must change your password before you can log in.", IaipMessage.WarningLevels.Info)
+            changePassword.Message.Display(changePassword.MessageDisplay)
+            Dim dr As DialogResult = changePassword.ShowDialog()
+            If dr = DialogResult.OK Then
+                Me.Message = New IaipMessage("Password successfully changed. Please log in with new password.", IaipMessage.WarningLevels.Success)
+            Else
+                Me.Message = New IaipMessage("You must change your password before you can log in.", IaipMessage.WarningLevels.Warning)
+            End If
+        End Using
+    End Sub
 
     Private Function ValidateUserData() As Boolean
         ' Returns false only if profile info is incomplete and user doesn't update it
-        If CurrentUser.PhoneNumber = "" OrElse CurrentUser.FirstName = "" OrElse CurrentUser.LastName = "" _
-            OrElse CurrentUser.EmailAddress = "" Then
+        If CurrentUser.PhoneNumber = "" OrElse CurrentUser.FirstName = "" OrElse CurrentUser.LastName = "" OrElse CurrentUser.EmailAddress = "" Then
 
             Using editProfile As New IaipUserProfile
-                editProfile.Message = New IaipMessage("Your profile must be completed before you can log in.", IaipMessage.WarningLevels.Info)
+                editProfile.Message = New IaipMessage("Your profile must be completed before you can use the IAIP.", IaipMessage.WarningLevels.Info)
                 editProfile.Message.Display(editProfile.MessageDisplay)
                 Dim dr As DialogResult = editProfile.ShowDialog()
                 If dr = DialogResult.Cancel Then

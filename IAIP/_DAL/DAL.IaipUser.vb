@@ -2,65 +2,44 @@
 Imports System.Collections.Generic
 
 Namespace DAL
-    Module IaipUserData
+    Public Module IaipUserData
 
-        Public Function LoginIaipUser(ByVal username As String, ByVal password As String) As IaipUser
-            If username = "" Or password = "" Then Return Nothing
+        Public Function AuthenticateIaipUser(ByVal username As String, ByVal password As String) As IaipAuthenticationResult
+            If password = "" Or username = "" Then Return IaipAuthenticationResult.InvalidLogin
 
-            Dim query As String = "SELECT usr.NUMUSERID , usr.STRUSERNAME , " &
-                "  usr.REQUIREPASSWORDCHANGE , usr.REQUESTPROFILEUPDATE , " &
-                "  prm.STRIAIPPERMISSIONS , " &
-                "  prf.NUMBRANCH , prf.NUMPROGRAM , prf.NUMUNIT , " &
-                "  prf.NUMEMPLOYEESTATUS , prf.STRPHONE , prf.STREMAILADDRESS , " &
-                "  prf.STRFIRSTNAME , prf.STRLASTNAME , br.STRBRANCHDESC , " &
-                "  pr.STRPROGRAMDESC , un.STRUNITDESC , prf.STROFFICE " &
-                "FROM AIRBRANCH.EPDUSERS usr " &
-                "INNER JOIN AIRBRANCH.IAIPPERMISSIONS prm " &
-                "ON usr.NUMUSERID = prm.NUMUSERID " &
-                "INNER JOIN AIRBRANCH.EPDUSERPROFILES prf " &
-                "ON usr.NUMUSERID = prf.NUMUSERID " &
-                "LEFT JOIN AIRBRANCH.LOOKUPEPDBRANCHES br " &
-                "ON prf.NUMBRANCH = br.NUMBRANCHCODE " &
-                "LEFT JOIN AIRBRANCH.LOOKUPEPDPROGRAMS pr " &
-                "ON prf.NUMPROGRAM = pr.NUMPROGRAMCODE " &
-                "LEFT JOIN AIRBRANCH.LOOKUPEPDUNITS un " &
-                "ON prf.NUMUNIT = un.NUMUNITCODE " &
-                "WHERE LOWER( usr.STRUSERNAME ) = LOWER( :username ) AND " &
-                "  usr.STRPASSWORD = :password"
-
-            Dim parameters As OracleParameter()
-
-            parameters = New OracleParameter() { _
-                New OracleParameter("username", username), _
-                New OracleParameter("password", password) _
+            Dim spName As String = "AIRBRANCH.IAIP_USER.AuthenticateIaipUser"
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("username", username),
+                New OracleParameter("userpassword", EncryptDecrypt.EncryptText(password)),
+                New OracleParameter("authenticationresult", OracleDbType.Varchar2, 15, Nothing, ParameterDirection.Output)
             }
+            Dim result As Boolean = DB.SPRunCommand(spName, parameters)
 
-            Dim dataTable As DataTable = DB.GetDataTable(query, parameters)
+            If result AndAlso Not parameters(2).Value.IsNull Then
+                Return [Enum].Parse(GetType(IaipAuthenticationResult), parameters(2).Value.Value)
+            Else
+                Return IaipAuthenticationResult.InvalidLogin
+            End If
+        End Function
+
+        Public Enum IaipAuthenticationResult
+            Success
+            InvalidUserName
+            InvalidLogin
+            InactiveUser
+        End Enum
+
+        Public Function GetIaipUser(ByVal username As String) As IaipUser
+            If username = "" Then Return Nothing
+
+            Dim spName As String = "AIRBRANCH.IAIP_USER.GetIaipUser"
+            Dim parameter As New OracleParameter("username", username)
+
+            Dim dataTable As DataTable = DB.SPGetDataTable(spName, parameter)
             If dataTable Is Nothing OrElse dataTable.Rows.Count = 0 Then Return Nothing
 
             Return FillIaipUserFromDataRow(dataTable.Rows(0))
         End Function
-
-        '' Not currently used, but may be useful in the future
-        'Public Function GetIaipUser(ByVal username As String) As IaipUser
-
-        '    Dim query As String = " -- ... " & _
-        '        " WHERE UPPER(EPDUSERS.STRUSERNAME) = :username  "
-
-        '    Dim parameters As OracleParameter()
-
-        '    parameters = New OracleParameter() { _
-        '        New OracleParameter("username", username) _
-        '    }
-
-        '    Dim dataTable As DataTable = DB.GetDataTable(query, parameters)
-        '    If dataTable Is Nothing OrElse dataTable.Rows.Count = 0 Then Return Nothing
-
-        '    Dim dataRow As DataRow = dataTable.Rows(0)
-        '    Dim user As IaipUser = FillIaipUserFromDataRow(dataRow)
-
-        '    Return user
-        'End Function
 
         Private Function FillIaipUserFromDataRow(ByVal row As DataRow) As IaipUser
             If row Is Nothing Then Return Nothing
@@ -101,53 +80,62 @@ Namespace DAL
 
         Public Function UsernameExists(username As String) As Boolean
             If username = "" Then Return False
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM AIRBRANCH.EPDUSERS " & _
-                " WHERE RowNum = 1 " & _
-                " AND lower(STRUSERNAME) = :username "
-
-            Dim parameter As New OracleParameter("username", username.ToLower)
-            Return DB.GetBoolean(query, parameter)
+            Dim spName As String = "AIRBRANCH.IAIP_USER.UsernameExists"
+            Dim parameter As New OracleParameter("username", username)
+            Return DB.SPGetBoolean(spName, parameter)
         End Function
 
         Public Function EmailIsInUse(email As String, Optional ignoreUser As Integer = 0) As Boolean
             If email.Trim = "" Then Return False
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM AIRBRANCH.EPDUSERPROFILES " & _
-                " WHERE RowNum = 1 " & _
-                " AND trim(lower(STREMAILADDRESS)) = :email "
-            If ignoreUser > 0 Then query &= " AND NUMUSERID <> " & ignoreUser
 
-            Dim parameter As New OracleParameter("email", email.Trim.ToLower)
-            Return DB.GetBoolean(query, parameter)
+            Dim spName As String = "AIRBRANCH.IAIP_USER.EmailInUse"
+            Dim parameter As OracleParameter()
+            If ignoreUser > 0 Then
+                parameter = New OracleParameter() {
+                    New OracleParameter("email", email.Trim.ToLower),
+                    New OracleParameter("ignoreUser", ignoreUser)
+                }
+            Else
+                parameter = New OracleParameter() {
+                    New OracleParameter("email", email.Trim.ToLower)
+                }
+            End If
+
+            Return DB.SPGetBoolean(spName, parameter)
         End Function
 
+        ' To remove
         Private Function GetNextUserId() As Integer
             Dim query As String = "SELECT( MAX( NUMUSERID ) + 1 ) FROM AIRBRANCH.EPDUSERS"
             Return DB.GetSingleValue(Of Integer)(query)
         End Function
 
-        Public Function UpdateUserPassword(userId As Integer, newPassword As String, oldPassword As String) As PasswordUpdateResponse
-            If userId = 0 Then Return PasswordUpdateResponse.InvalidInput
+        Public Function UpdateUserPassword(username As String, newPassword As String, oldPassword As String) As PasswordUpdateResponse
+            If username = "" Then Return PasswordUpdateResponse.InvalidInput
             If newPassword = "" Then Return PasswordUpdateResponse.InvalidNewPassword
-            If oldPassword = "" OrElse Not CheckUserPassword(userId, oldPassword) Then Return PasswordUpdateResponse.InvalidOldPassword
+            If oldPassword = "" Then Return PasswordUpdateResponse.InvalidOldPassword
 
-            Dim query As String = "UPDATE AIRBRANCH.EPDUSERS " &
-                "SET STRPASSWORD = :newPassword , " &
-                "REQUIREPASSWORDCHANGE = 'False' " &
-                "WHERE NUMUSERID = :userId AND STRPASSWORD = :oldPassword"
+            Select Case AuthenticateIaipUser(username, oldPassword)
+                Case IaipAuthenticationResult.InactiveUser Or IaipAuthenticationResult.InvalidUserName
+                    Return PasswordUpdateResponse.InvalidInput
 
-            Dim parameters As OracleParameter() = { _
-                New OracleParameter("userId", userId), _
-                New OracleParameter("newPassword", EncryptDecrypt.EncryptText(newPassword)), _
-                New OracleParameter("oldPassword", EncryptDecrypt.EncryptText(oldPassword)) _
-            }
+                Case IaipAuthenticationResult.InvalidLogin
+                    Return PasswordUpdateResponse.InvalidOldPassword
 
-            If DB.RunCommand(query, parameters) Then
-                Return PasswordUpdateResponse.Success
-            Else
-                Return PasswordUpdateResponse.UnknownError
-            End If
+                Case IaipAuthenticationResult.Success
+                    Dim spName As String = "AIRBRANCH.IAIP_USER.UpdateUserPassword"
+                    Dim parameters As OracleParameter() = {
+                        New OracleParameter("username", username),
+                        New OracleParameter("newpassword", EncryptDecrypt.EncryptText(newPassword)),
+                        New OracleParameter("oldpassword", EncryptDecrypt.EncryptText(oldPassword))
+                    }
+                    If DB.SPRunCommand(spName, parameters) Then
+                        Return PasswordUpdateResponse.Success
+                    Else
+                        Return PasswordUpdateResponse.UnknownError
+                    End If
+
+            End Select
         End Function
 
         Public Enum PasswordUpdateResponse
@@ -157,20 +145,6 @@ Namespace DAL
             InvalidNewPassword
             UnknownError
         End Enum
-
-        Private Function CheckUserPassword(userId As Integer, password As String) As Boolean
-            If password = "" Then Return False
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM AIRBRANCH.EPDUSERS " & _
-                " WHERE RowNum = 1 " & _
-                " AND NUMUSERID = :userId AND STRPASSWORD = :password"
-
-            Dim parameters As OracleParameter() = { _
-                New OracleParameter("userId", userId), _
-                New OracleParameter("password", EncryptDecrypt.EncryptText(password)) _
-            }
-            Return DB.GetBoolean(query, parameters)
-        End Function
 
         Public Function CreateNewUser(username As String, password As String, lastname As String,
                                       firstname As String, emailaddress As String, phone As String,
@@ -186,11 +160,11 @@ Namespace DAL
                 "( NUMUSERID , STRUSERNAME , STRPASSWORD , CREATED_BY ) " &
                 "VALUES " &
                 "(:userid, :username, :password, :created_by ) "
-            Dim params1 As OracleParameter() = New OracleParameter() { _
-                New OracleParameter("userid", newUserId), _
-                New OracleParameter("username", username), _
-                New OracleParameter("password", EncryptDecrypt.EncryptText(password)), _
-                New OracleParameter("created_by", CurrentUser.UserID) _
+            Dim params1 As OracleParameter() = New OracleParameter() {
+                New OracleParameter("userid", newUserId),
+                New OracleParameter("username", username),
+                New OracleParameter("password", EncryptDecrypt.EncryptText(password)),
+                New OracleParameter("created_by", CurrentUser.UserID)
             }
             Dim query2 As String = "INSERT INTO AIRBRANCH.EPDUSERPROFILES " &
                 "( NUMUSERID , STREMPLOYEEID , STRLASTNAME , STRFIRSTNAME , " &
