@@ -10476,7 +10476,7 @@ Public Class SSPPApplicationTrackingLog
                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
                 "and numUserID = strPDFModifingPerson " &
-                "and strFileName = :filename " &
+                "and strFileName = :filename ) " &
                 "end PDFStaffResponsible, " &
                 "case " &
                 "when datPDFModifingDate is Null then '' " &
@@ -11447,7 +11447,7 @@ Public Class SSPPApplicationTrackingLog
                  "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
                  "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
-                 "and strFileName = :filename " &
+                 "and strFileName = :filename ) " &
                  "end PDFStaffResponsible, " &
                  "case " &
                  "when datPDFModifingDate is Null then '' " &
