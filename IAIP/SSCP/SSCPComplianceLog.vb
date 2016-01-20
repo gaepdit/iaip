@@ -979,7 +979,7 @@ Public Class SSCPComplianceLog
                     End While
                     dr.Close()
                     If temp = "C" Or temp = "N" Then
-                        MsgBox("This Enforcement Action has already been submitted to EPD, contact DMU to delete this Enforcement Action.", _
+                        MsgBox("This Enforcement Action has already been submitted to EPA, contact EPD IT to delete this Enforcement Action.",
                                MsgBoxStyle.Information, "Compliance Log")
                     Else
                         DeleteStatus = MessageBox.Show("Should this Enforcement Item be deleted? (This cannot be undone!)", _
@@ -1174,7 +1174,7 @@ Public Class SSCPComplianceLog
                     End While
                     dr.Close()
                     If temp = "C" Or temp = "N" Then
-                        MsgBox("This FCE has already been submitted to EPA, contact DMU to delete this FCE.", MsgBoxStyle.Information, "Compliance Log")
+                        MsgBox("This FCE has already been submitted to EPA, contact EPD IT to delete this FCE.", MsgBoxStyle.Information, "Compliance Log")
                     Else
 
                         DeleteStatus = MessageBox.Show("Should this FCE be deleted? (This cannot be undone!)", _
@@ -1673,9 +1673,13 @@ Public Class SSCPComplianceLog
     Private Sub txtNewAIRSNumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtNewAIRSNumber.TextChanged
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtNewAIRSNumber.Text) Then
             Dim fac As Apb.Facilities.Facility = DAL.FacilityData.GetFacility(txtNewAIRSNumber.Text)
-            txtFacilityInformation.Text = fac.LongDisplay
+            If fac IsNot Nothing Then
+                txtFacilityInformation.Text = fac.LongDisplay
+            Else
+                txtFacilityInformation.Text = ""
+            End If
         Else
-            txtFacilityInformation.Text = ""
+                txtFacilityInformation.Text = ""
         End If
     End Sub
     Private Sub rdbPerformanceTest_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdbPerformanceTest.CheckedChanged
