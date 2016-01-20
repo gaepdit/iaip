@@ -3318,7 +3318,7 @@ Public Class SSPPPermitUploader
                         If thisControl IsNot Nothing Then thisControl.Text = dialog.FileName
 
                     Catch ex As Exception
-                        MessageBox.Show("There was an error selecting the file. Please contact the DMU.")
+                        MessageBox.Show("There was an error selecting the file. Please contact EPD IT.")
                     End Try
 
                 Else

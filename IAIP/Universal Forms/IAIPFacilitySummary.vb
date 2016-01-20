@@ -1322,7 +1322,7 @@ Public Class IAIPFacilitySummary
             If DAL.FacilityData.TriggerDataUpdateAtEPA(Me.AirsNumber) Then
                 MessageBox.Show("Data for this facility will be sent to EPA the next time the database update procedures run.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Else
-                MessageBox.Show("There was an error attempting to flag this facility to update. Contact the DMU.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("There was an error attempting to flag this facility to update. Contact EPD IT.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
         Else
             MessageBox.Show("The AIRS number is not valid.", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Warning)

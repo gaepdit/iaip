@@ -54,7 +54,7 @@ Module ErrorReporting
             End If
 
             WhatUserCanDo = WhatUserCanDo & "• Close and restart the IAIP and try repeating your last action." & Environment.NewLine & Environment.NewLine &
-            "• If you continue to see this error, please email the DMU. Describe what you were doing and paste the error details below into your email."
+            "• If you continue to see this error, please email EPD IT. Describe what you were doing and paste the error details below into your email."
 
             IaipExceptionManager.ShowErrorDialog(exc, WhatHappened, WhatUserCanDo)
         End If
