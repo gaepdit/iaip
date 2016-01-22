@@ -9,14 +9,14 @@ Namespace DAL
 
             Dim spName As String = "AIRBRANCH.IAIP_USER.AuthenticateIaipUser"
             Dim parameters As OracleParameter() = {
+                New OracleParameter("ReturnValue", OracleDbType.Varchar2, 20, Nothing, ParameterDirection.ReturnValue),
                 New OracleParameter("username", username),
-                New OracleParameter("userpassword", EncryptDecrypt.EncryptText(password)),
-                New OracleParameter("authenticationresult", OracleDbType.Varchar2, 15, Nothing, ParameterDirection.Output)
+                New OracleParameter("userpassword", EncryptDecrypt.EncryptText(password))
             }
             Dim result As Boolean = DB.SPRunCommand(spName, parameters)
 
-            If result AndAlso Not parameters(2).Value.IsNull Then
-                Return [Enum].Parse(GetType(IaipAuthenticationResult), parameters(2).Value.Value)
+            If result AndAlso Not parameters(0).Value.IsNull Then
+                Return [Enum].Parse(GetType(IaipAuthenticationResult), parameters(0).Value.ToString)
             Else
                 Return IaipAuthenticationResult.InvalidLogin
             End If
