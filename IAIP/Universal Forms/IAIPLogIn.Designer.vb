@@ -24,10 +24,13 @@ Partial Class IAIPLogIn
         Me.mmiFile = New System.Windows.Forms.MenuItem()
         Me.mmiExit = New System.Windows.Forms.MenuItem()
         Me.MenuItem1 = New System.Windows.Forms.MenuItem()
+        Me.mmiForgotUsername = New System.Windows.Forms.MenuItem()
+        Me.mmiForgotPassword = New System.Windows.Forms.MenuItem()
+        Me.MenuItem9 = New System.Windows.Forms.MenuItem()
+        Me.mmiTestingEnvironment = New System.Windows.Forms.MenuItem()
+        Me.MenuItem2 = New System.Windows.Forms.MenuItem()
         Me.mmiRefreshUserID = New System.Windows.Forms.MenuItem()
         Me.mmiResetAllForms = New System.Windows.Forms.MenuItem()
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem()
-        Me.mmiTestingEnvironment = New System.Windows.Forms.MenuItem()
         Me.mmiHelp = New System.Windows.Forms.MenuItem()
         Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem()
         Me.MenuItem4 = New System.Windows.Forms.MenuItem()
@@ -35,7 +38,6 @@ Partial Class IAIPLogIn
         Me.MenuItem5 = New System.Windows.Forms.MenuItem()
         Me.mmiAbout = New System.Windows.Forms.MenuItem()
         Me.TestingMenuItem = New System.Windows.Forms.MenuItem()
-        Me.MenuItem6 = New System.Windows.Forms.MenuItem()
         Me.btnLoginButton = New System.Windows.Forms.Button()
         Me.LogoBox = New System.Windows.Forms.PictureBox()
         Me.lblCurrentVersionMessage = New System.Windows.Forms.Label()
@@ -48,6 +50,8 @@ Partial Class IAIPLogIn
         Me.lblSubTitle = New System.Windows.Forms.Label()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.lblGeneralMessage = New System.Windows.Forms.Label()
+        Me.ForgotUsernameLink = New System.Windows.Forms.LinkLabel()
+        Me.ForgotPasswordLink = New System.Windows.Forms.LinkLabel()
         CType(Me.LogoBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -70,29 +74,44 @@ Partial Class IAIPLogIn
         'MenuItem1
         '
         Me.MenuItem1.Index = 1
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiRefreshUserID, Me.mmiResetAllForms, Me.MenuItem2, Me.mmiTestingEnvironment})
+        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiForgotUsername, Me.mmiForgotPassword, Me.MenuItem9, Me.mmiTestingEnvironment, Me.MenuItem2, Me.mmiRefreshUserID, Me.mmiResetAllForms})
         Me.MenuItem1.Text = "&Tools"
         '
-        'mmiRefreshUserID
+        'mmiForgotUsername
         '
-        Me.mmiRefreshUserID.Index = 0
-        Me.mmiRefreshUserID.Text = "Refresh Default User"
+        Me.mmiForgotUsername.Index = 0
+        Me.mmiForgotUsername.Text = "Forgot Username"
         '
-        'mmiResetAllForms
+        'mmiForgotPassword
         '
-        Me.mmiResetAllForms.Index = 1
-        Me.mmiResetAllForms.Text = "&Reset All Forms"
+        Me.mmiForgotPassword.Index = 1
+        Me.mmiForgotPassword.Text = "Forgot Password"
         '
-        'MenuItem2
+        'MenuItem9
         '
-        Me.MenuItem2.Index = 2
-        Me.MenuItem2.Text = "-"
+        Me.MenuItem9.Index = 2
+        Me.MenuItem9.Text = "-"
         '
         'mmiTestingEnvironment
         '
         Me.mmiTestingEnvironment.Index = 3
         Me.mmiTestingEnvironment.Shortcut = System.Windows.Forms.Shortcut.CtrlT
-        Me.mmiTestingEnvironment.Text = "&Testing Environment"
+        Me.mmiTestingEnvironment.Text = "Open IAIP in &Testing Environment"
+        '
+        'MenuItem2
+        '
+        Me.MenuItem2.Index = 4
+        Me.MenuItem2.Text = "-"
+        '
+        'mmiRefreshUserID
+        '
+        Me.mmiRefreshUserID.Index = 5
+        Me.mmiRefreshUserID.Text = "Refresh Default User"
+        '
+        'mmiResetAllForms
+        '
+        Me.mmiResetAllForms.Index = 6
+        Me.mmiResetAllForms.Text = "&Reset All Form Sizes"
         '
         'mmiHelp
         '
@@ -129,14 +148,8 @@ Partial Class IAIPLogIn
         'TestingMenuItem
         '
         Me.TestingMenuItem.Index = 3
-        Me.TestingMenuItem.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem6})
         Me.TestingMenuItem.Text = "T&est"
         Me.TestingMenuItem.Visible = False
-        '
-        'MenuItem6
-        '
-        Me.MenuItem6.Index = 0
-        Me.MenuItem6.Text = "&profile"
         '
         'btnLoginButton
         '
@@ -272,12 +285,40 @@ Partial Class IAIPLogIn
         Me.lblGeneralMessage.Text = "Message Placeholder 1" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "4"
         Me.lblGeneralMessage.Visible = False
         '
+        'ForgotUsernameLink
+        '
+        Me.ForgotUsernameLink.AutoSize = True
+        Me.ForgotUsernameLink.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ForgotUsernameLink.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
+        Me.ForgotUsernameLink.Location = New System.Drawing.Point(603, 184)
+        Me.ForgotUsernameLink.Name = "ForgotUsernameLink"
+        Me.ForgotUsernameLink.Size = New System.Drawing.Size(65, 20)
+        Me.ForgotUsernameLink.TabIndex = 39
+        Me.ForgotUsernameLink.TabStop = True
+        Me.ForgotUsernameLink.Text = "Forgot?"
+        Me.ForgotUsernameLink.Visible = False
+        '
+        'ForgotPasswordLink
+        '
+        Me.ForgotPasswordLink.AutoSize = True
+        Me.ForgotPasswordLink.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ForgotPasswordLink.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
+        Me.ForgotPasswordLink.Location = New System.Drawing.Point(603, 223)
+        Me.ForgotPasswordLink.Name = "ForgotPasswordLink"
+        Me.ForgotPasswordLink.Size = New System.Drawing.Size(65, 20)
+        Me.ForgotPasswordLink.TabIndex = 39
+        Me.ForgotPasswordLink.TabStop = True
+        Me.ForgotPasswordLink.Text = "Forgot?"
+        Me.ForgotPasswordLink.Visible = False
+        '
         'IAIPLogIn
         '
         Me.AcceptButton = Me.btnLoginButton
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(742, 414)
+        Me.Controls.Add(Me.ForgotPasswordLink)
+        Me.Controls.Add(Me.ForgotUsernameLink)
         Me.Controls.Add(Me.LogoBox)
         Me.Controls.Add(Me.lblCurrentVersionMessage)
         Me.Controls.Add(Me.lblLicenseLabel)
@@ -332,5 +373,9 @@ Partial Class IAIPLogIn
     Friend WithEvents mmiCheckForUpdate As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem5 As System.Windows.Forms.MenuItem
     Friend WithEvents TestingMenuItem As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem6 As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiForgotUsername As MenuItem
+    Friend WithEvents mmiForgotPassword As MenuItem
+    Friend WithEvents MenuItem9 As MenuItem
+    Friend WithEvents ForgotUsernameLink As LinkLabel
+    Friend WithEvents ForgotPasswordLink As LinkLabel
 End Class

@@ -20,9 +20,9 @@ Public Class IaipChangePassword
         Message.Clear()
 
         If Me.ValidateChildren Then
-            If Not SavePassword() Then DialogResult = System.Windows.Forms.DialogResult.None
+            If Not SavePassword() Then DialogResult = DialogResult.None
         Else
-            DialogResult = System.Windows.Forms.DialogResult.None
+            DialogResult = DialogResult.None
             DisplayInvalidMessage()
         End If
     End Sub

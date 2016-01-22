@@ -637,7 +637,7 @@ Namespace DB
 
 #End Region
 
-#Region " SP (In/Out Parameters) "
+#Region " SP (In/Out/ReturnValue Parameters) "
         ' These functions call Oracle Stored Procedures using IN and/or OUT parameters.
         ' If successful, the OUT parameters are available to the calling procedure as 
         ' returned by the Oracle database.

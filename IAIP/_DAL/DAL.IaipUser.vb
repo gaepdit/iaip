@@ -2,7 +2,7 @@
 Imports System.Collections.Generic
 
 Namespace DAL
-    Public Module IaipUserData
+    Module IaipUserData
 
         Public Function AuthenticateIaipUser(ByVal username As String, ByVal password As String) As IaipAuthenticationResult
             If password = "" Or username = "" Then Return IaipAuthenticationResult.InvalidLogin
@@ -89,19 +89,16 @@ Namespace DAL
             If email.Trim = "" Then Return False
 
             Dim spName As String = "AIRBRANCH.IAIP_USER.EmailInUse"
-            Dim parameter As OracleParameter()
-            If ignoreUser > 0 Then
-                parameter = New OracleParameter() {
-                    New OracleParameter("email", email.Trim.ToLower),
-                    New OracleParameter("ignoreUser", ignoreUser)
-                }
-            Else
-                parameter = New OracleParameter() {
-                    New OracleParameter("email", email.Trim.ToLower)
-                }
-            End If
 
-            Return DB.SPGetBoolean(spName, parameter)
+            Dim parameters As OracleParameter() = New OracleParameter() {
+                New OracleParameter("ReturnValue", OracleDbType.Varchar2, 5, Nothing, ParameterDirection.ReturnValue),
+                New OracleParameter("email", email.Trim.ToLower),
+                New OracleParameter("ignoreUser", ignoreUser)
+            }
+
+            DB.SPRunCommand(spName, parameters)
+
+            Return DB.GetNullable(Of Boolean)(parameters(0).Value.ToString)
         End Function
 
         ' To remove
@@ -145,6 +142,35 @@ Namespace DAL
             InvalidNewPassword
             UnknownError
         End Enum
+
+        Public Function SendUsernameReminder(email As String) As UsernameReminderResponse
+            If email = "" OrElse Not IsValidEmailAddress(email) Then
+                Return UsernameReminderResponse.InvalidInput
+            End If
+
+            If Not EmailIsInUse(email) Then
+                Return UsernameReminderResponse.EmailNotExist
+            End If
+
+            Dim spName As String = "AIRBRANCH.IAIP_USER.RequestUsername"
+            Dim parameter As New OracleParameter("emailaddress", email)
+            If DB.SPRunCommand(spName, parameter) Then
+                Return UsernameReminderResponse.Success
+            Else
+                Return UsernameReminderResponse.UnknownError
+            End If
+        End Function
+
+        Public Enum UsernameReminderResponse
+            Success
+            InvalidInput
+            EmailNotExist
+            UnknownError
+        End Enum
+
+        Public Function ResetPassword(username As String) As Boolean
+
+        End Function
 
         Public Function CreateNewUser(username As String, password As String, lastname As String,
                                       firstname As String, emailaddress As String, phone As String,

@@ -1,6 +1,4 @@
 Imports Oracle.ManagedDataAccess.Client
-Imports System.IO
-Imports System.Collections.Generic
 
 Module subMain
 
