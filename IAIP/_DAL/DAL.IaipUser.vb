@@ -24,7 +24,7 @@ Namespace DAL
 
         Public Enum IaipAuthenticationResult
             Success
-            InvalidUserName
+            InvalidUsername
             InvalidLogin
             InactiveUser
         End Enum
@@ -113,7 +113,7 @@ Namespace DAL
             If oldPassword = "" Then Return PasswordUpdateResponse.InvalidOldPassword
 
             Select Case AuthenticateIaipUser(username, oldPassword)
-                Case IaipAuthenticationResult.InactiveUser Or IaipAuthenticationResult.InvalidUserName
+                Case IaipAuthenticationResult.InactiveUser Or IaipAuthenticationResult.InvalidUsername
                     Return PasswordUpdateResponse.InvalidInput
 
                 Case IaipAuthenticationResult.InvalidLogin
@@ -168,9 +168,57 @@ Namespace DAL
             UnknownError
         End Enum
 
-        Public Function ResetPassword(username As String) As Boolean
+        Public Function RequestPasswordReset(username As String) As RequestPasswordResetResponse
+            If username = "" OrElse Not UsernameExists(username) Then
+                Return RequestPasswordResetResponse.InvalidUsername
+            End If
 
+            Dim spName As String = "AIRBRANCH.IAIP_USER.RequestUserPasswordReset"
+            Dim parameter As New OracleParameter("username", username)
+            If DB.SPRunCommand(spName, parameter) Then
+                Return ResetPasswordResponse.Success
+            Else
+                Return ResetPasswordResponse.UnknownError
+            End If
         End Function
+
+        Public Enum RequestPasswordResetResponse
+            Success
+            InvalidUsername
+            UnknownError
+        End Enum
+
+        Public Function ResetUserPassword(username As String, newPassword As String, resettoken As String) As ResetPasswordResponse
+            If username = "" OrElse Not UsernameExists(username) Then
+                Return ResetPasswordResponse.InvalidUsername
+            End If
+            If newPassword = "" Then Return ResetPasswordResponse.InvalidNewPassword
+            If resettoken = "" Then Return ResetPasswordResponse.InvalidToken
+
+            Dim spName As String = "AIRBRANCH.IAIP_USER.ResetUserPassword"
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("ReturnValue", OracleDbType.Varchar2, 20, Nothing, ParameterDirection.ReturnValue),
+                New OracleParameter("username", username),
+                New OracleParameter("newpassword", EncryptDecrypt.EncryptText(newPassword)),
+                New OracleParameter("resettoken", resettoken)
+            }
+            Dim result As Boolean = DB.SPRunCommand(spName, parameters)
+
+            If result AndAlso Not parameters(0).Value.IsNull Then
+                Return [Enum].Parse(GetType(ResetPasswordResponse), parameters(0).Value.ToString)
+            Else
+                Return ResetPasswordResponse.UnknownError
+            End If
+        End Function
+
+        Public Enum ResetPasswordResponse
+            Success
+            InvalidUsername
+            InvalidToken
+            InvalidNewPassword
+            MaxAttemptsExceeded
+            UnknownError
+        End Enum
 
         Public Function CreateNewUser(username As String, password As String, lastname As String,
                                       firstname As String, emailaddress As String, phone As String,

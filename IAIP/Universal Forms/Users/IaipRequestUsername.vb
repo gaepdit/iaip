@@ -6,11 +6,11 @@ Public Class IaipRequestUsername
     Friend Property Message As New IaipMessage
     Private Property InvalidEntries As New List(Of Control)
 
-    Private Sub IaipChangePassword_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub IaipRequestUsername_Load(sender As Object, e As EventArgs) Handles Me.Load
         monitor.TrackFeature("Forms." & Me.Name)
     End Sub
 
-    Private Sub Request_Click(sender As Object, e As EventArgs) Handles RequestUsername.Click
+    Private Sub Request_Click(sender As Object, e As EventArgs) Handles DoRequestUsername.Click
         EP.Clear()
         InvalidEntries.Clear()
         Message.Clear()
@@ -19,28 +19,28 @@ Public Class IaipRequestUsername
             DialogResult = DialogResult.None
             DisplayInvalidMessage()
         Else
-            If Not SendUsername() Then
+            If Not RequestUsername() Then
                 DialogResult = DialogResult.None
             End If
         End If
     End Sub
 
-    Private Function SendUsername() As Boolean
+    Private Function RequestUsername() As Boolean
         Dim result As DAL.UsernameReminderResponse = DAL.SendUsernameReminder(EmailAddress.Text)
         Select Case result
-            Case DAL.IaipUserData.UsernameReminderResponse.Success
+            Case DAL.UsernameReminderResponse.Success
                 Return True
-            Case DAL.IaipUserData.UsernameReminderResponse.EmailNotExist
+            Case DAL.UsernameReminderResponse.EmailNotExist
                 Dim errorMsg As String = "No account exists with that email address."
                 EP.SetError(EmailAddress, errorMsg)
                 Message = New IaipMessage(errorMsg, IaipMessage.WarningLevels.Warning)
                 Message.Display(MessageDisplay)
-            Case DAL.IaipUserData.UsernameReminderResponse.InvalidInput
+            Case DAL.UsernameReminderResponse.InvalidInput
                 Dim errorMsg As String = "That email address is not valid."
                 EP.SetError(EmailAddress, errorMsg)
                 Message = New IaipMessage(errorMsg, IaipMessage.WarningLevels.Warning)
                 Message.Display(MessageDisplay)
-            Case DAL.IaipUserData.UsernameReminderResponse.UnknownError
+            Case DAL.UsernameReminderResponse.UnknownError
                 Message = New IaipMessage("An unknown error occurred. Please contact support for help.", IaipMessage.WarningLevels.ErrorReport)
                 Message.Display(MessageDisplay)
         End Select

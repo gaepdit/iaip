@@ -7,16 +7,18 @@
         EnforcementUploadLocation
         FileDownloadLocation
         PrefillLoginId
+        PasswordResetRequestedDate
     End Enum
 
     ' Define default value for above user settings here
     Private Function DefaultSetting(ByVal whichSetting As UserSetting) As String
         Select Case whichSetting
 
-            Case UserSetting.ExcelExportLocation, _
-                UserSetting.PermitUploadLocation, _
-                UserSetting.EnforcementUploadLocation, _
-                UserSetting.FileDownloadLocation
+            Case UserSetting.ExcelExportLocation,
+                 UserSetting.PermitUploadLocation,
+                 UserSetting.EnforcementUploadLocation,
+                 UserSetting.FileDownloadLocation
+
                 Return Environment.GetFolderPath(Environment.SpecialFolder.Personal)
 
             Case Else

@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class IaipChangePassword
+Partial Class IaipResetPassword
     Inherits BaseForm
 
     'Form overrides dispose to clean up the component list.
@@ -18,7 +18,7 @@ Partial Class IaipChangePassword
     Private components As System.ComponentModel.IContainer
 
     'NOTE: The following procedure is required by the Windows Form Designer
-    'It can be modified using the Windows Form Designer.  
+    'It can be modified using the Windows Form Designer.
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
@@ -28,27 +28,29 @@ Partial Class IaipChangePassword
         Me.ConfirmPasswordLabel = New System.Windows.Forms.Label()
         Me.ConfirmPassword = New System.Windows.Forms.TextBox()
         Me.NewPasswordLabel = New System.Windows.Forms.Label()
-        Me.CurrentPasswordLabel = New System.Windows.Forms.Label()
-        Me.CurrentPassword = New System.Windows.Forms.TextBox()
+        Me.TokenLabel = New System.Windows.Forms.Label()
+        Me.Token = New System.Windows.Forms.TextBox()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.MessageDisplay = New System.Windows.Forms.Label()
-        Me.PasswordEP = New System.Windows.Forms.ErrorProvider(Me.components)
-        CType(Me.PasswordEP, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.EP = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.UsernameLabel = New System.Windows.Forms.Label()
+        Me.Username = New System.Windows.Forms.TextBox()
+        CType(Me.EP, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Save
         '
         Me.Save.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.Save.Location = New System.Drawing.Point(25, 120)
+        Me.Save.Location = New System.Drawing.Point(25, 146)
         Me.Save.Name = "Save"
-        Me.Save.Size = New System.Drawing.Size(128, 23)
+        Me.Save.Size = New System.Drawing.Size(133, 23)
         Me.Save.TabIndex = 3
         Me.Save.Text = "Change Password"
         Me.Save.UseVisualStyleBackColor = True
         '
         'NewPassword
         '
-        Me.NewPassword.Location = New System.Drawing.Point(144, 56)
+        Me.NewPassword.Location = New System.Drawing.Point(149, 82)
         Me.NewPassword.Name = "NewPassword"
         Me.NewPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.NewPassword.Size = New System.Drawing.Size(116, 20)
@@ -57,7 +59,7 @@ Partial Class IaipChangePassword
         'ConfirmPasswordLabel
         '
         Me.ConfirmPasswordLabel.AutoSize = True
-        Me.ConfirmPasswordLabel.Location = New System.Drawing.Point(22, 85)
+        Me.ConfirmPasswordLabel.Location = New System.Drawing.Point(22, 111)
         Me.ConfirmPasswordLabel.Name = "ConfirmPasswordLabel"
         Me.ConfirmPasswordLabel.Size = New System.Drawing.Size(116, 13)
         Me.ConfirmPasswordLabel.TabIndex = 17
@@ -65,7 +67,7 @@ Partial Class IaipChangePassword
         '
         'ConfirmPassword
         '
-        Me.ConfirmPassword.Location = New System.Drawing.Point(144, 82)
+        Me.ConfirmPassword.Location = New System.Drawing.Point(149, 108)
         Me.ConfirmPassword.Name = "ConfirmPassword"
         Me.ConfirmPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.ConfirmPassword.Size = New System.Drawing.Size(116, 20)
@@ -74,33 +76,32 @@ Partial Class IaipChangePassword
         'NewPasswordLabel
         '
         Me.NewPasswordLabel.AutoSize = True
-        Me.NewPasswordLabel.Location = New System.Drawing.Point(22, 59)
+        Me.NewPasswordLabel.Location = New System.Drawing.Point(22, 85)
         Me.NewPasswordLabel.Name = "NewPasswordLabel"
         Me.NewPasswordLabel.Size = New System.Drawing.Size(78, 13)
         Me.NewPasswordLabel.TabIndex = 15
         Me.NewPasswordLabel.Text = "New Password"
         '
-        'CurrentPasswordLabel
+        'TokenLabel
         '
-        Me.CurrentPasswordLabel.AutoSize = True
-        Me.CurrentPasswordLabel.Location = New System.Drawing.Point(22, 33)
-        Me.CurrentPasswordLabel.Name = "CurrentPasswordLabel"
-        Me.CurrentPasswordLabel.Size = New System.Drawing.Size(90, 13)
-        Me.CurrentPasswordLabel.TabIndex = 15
-        Me.CurrentPasswordLabel.Text = "Current Password"
+        Me.TokenLabel.AutoSize = True
+        Me.TokenLabel.Location = New System.Drawing.Point(22, 59)
+        Me.TokenLabel.Name = "TokenLabel"
+        Me.TokenLabel.Size = New System.Drawing.Size(118, 13)
+        Me.TokenLabel.TabIndex = 15
+        Me.TokenLabel.Text = "Reset code (from email)"
         '
-        'CurrentPassword
+        'Token
         '
-        Me.CurrentPassword.Location = New System.Drawing.Point(144, 30)
-        Me.CurrentPassword.Name = "CurrentPassword"
-        Me.CurrentPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.CurrentPassword.Size = New System.Drawing.Size(116, 20)
-        Me.CurrentPassword.TabIndex = 0
+        Me.Token.Location = New System.Drawing.Point(149, 56)
+        Me.Token.Name = "Token"
+        Me.Token.Size = New System.Drawing.Size(116, 20)
+        Me.Token.TabIndex = 0
         '
         'Cancel
         '
         Me.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Cancel.Location = New System.Drawing.Point(159, 120)
+        Me.Cancel.Location = New System.Drawing.Point(164, 146)
         Me.Cancel.Name = "Cancel"
         Me.Cancel.Size = New System.Drawing.Size(101, 23)
         Me.Cancel.TabIndex = 4
@@ -110,7 +111,7 @@ Partial Class IaipChangePassword
         'MessageDisplay
         '
         Me.MessageDisplay.AutoSize = True
-        Me.MessageDisplay.Location = New System.Drawing.Point(22, 160)
+        Me.MessageDisplay.Location = New System.Drawing.Point(22, 186)
         Me.MessageDisplay.MaximumSize = New System.Drawing.Size(238, 0)
         Me.MessageDisplay.Name = "MessageDisplay"
         Me.MessageDisplay.Size = New System.Drawing.Size(50, 39)
@@ -118,34 +119,52 @@ Partial Class IaipChangePassword
         Me.MessageDisplay.Text = "Message" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3"
         Me.MessageDisplay.Visible = False
         '
-        'PasswordEP
+        'EP
         '
-        Me.PasswordEP.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink
-        Me.PasswordEP.ContainerControl = Me
+        Me.EP.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink
+        Me.EP.ContainerControl = Me
         '
-        'IaipChangePassword
+        'UsernameLabel
+        '
+        Me.UsernameLabel.AutoSize = True
+        Me.UsernameLabel.Location = New System.Drawing.Point(22, 33)
+        Me.UsernameLabel.Name = "UsernameLabel"
+        Me.UsernameLabel.Size = New System.Drawing.Size(55, 13)
+        Me.UsernameLabel.TabIndex = 15
+        Me.UsernameLabel.Text = "Username"
+        '
+        'Username
+        '
+        Me.Username.Location = New System.Drawing.Point(149, 30)
+        Me.Username.Name = "Username"
+        Me.Username.Size = New System.Drawing.Size(116, 20)
+        Me.Username.TabIndex = 0
+        '
+        'IaipResetPassword
         '
         Me.AcceptButton = Me.Save
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
         Me.CancelButton = Me.Cancel
-        Me.ClientSize = New System.Drawing.Size(286, 214)
-        Me.Controls.Add(Me.CurrentPassword)
+        Me.ClientSize = New System.Drawing.Size(286, 265)
+        Me.Controls.Add(Me.Username)
+        Me.Controls.Add(Me.Token)
         Me.Controls.Add(Me.NewPassword)
         Me.Controls.Add(Me.ConfirmPassword)
         Me.Controls.Add(Me.Cancel)
         Me.Controls.Add(Me.Save)
         Me.Controls.Add(Me.ConfirmPasswordLabel)
+        Me.Controls.Add(Me.UsernameLabel)
         Me.Controls.Add(Me.MessageDisplay)
-        Me.Controls.Add(Me.CurrentPasswordLabel)
+        Me.Controls.Add(Me.TokenLabel)
         Me.Controls.Add(Me.NewPasswordLabel)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "IaipChangePassword"
-        Me.Text = "Change Password"
-        CType(Me.PasswordEP, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Name = "IaipResetPassword"
+        Me.Text = "Reset Password"
+        CType(Me.EP, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -155,9 +174,11 @@ Partial Class IaipChangePassword
     Friend WithEvents ConfirmPasswordLabel As System.Windows.Forms.Label
     Friend WithEvents ConfirmPassword As System.Windows.Forms.TextBox
     Friend WithEvents NewPasswordLabel As System.Windows.Forms.Label
-    Friend WithEvents CurrentPasswordLabel As System.Windows.Forms.Label
-    Friend WithEvents CurrentPassword As System.Windows.Forms.TextBox
+    Friend WithEvents TokenLabel As System.Windows.Forms.Label
+    Friend WithEvents Token As System.Windows.Forms.TextBox
     Friend WithEvents Cancel As System.Windows.Forms.Button
     Friend WithEvents MessageDisplay As System.Windows.Forms.Label
-    Friend WithEvents PasswordEP As System.Windows.Forms.ErrorProvider
+    Friend WithEvents EP As System.Windows.Forms.ErrorProvider
+    Friend WithEvents Username As TextBox
+    Friend WithEvents UsernameLabel As Label
 End Class

@@ -1271,7 +1271,7 @@ Public Class IAIPNavigation
     Private Sub UpdateProfile_Click(sender As Object, e As EventArgs) Handles UpdateProfile.Click
         Dim pf As New IaipUserProfile
         pf.ShowDialog()
-        If pf.DialogResult = System.Windows.Forms.DialogResult.OK Then
+        If pf.DialogResult = DialogResult.OK Then
             MessageBox.Show("Profile successfully updated.", "Success", MessageBoxButtons.OK)
         End If
     End Sub
@@ -1279,7 +1279,7 @@ Public Class IAIPNavigation
     Private Sub ChangePassword_Click(sender As Object, e As EventArgs) Handles ChangePassword.Click
         Dim cp As New IaipChangePassword
         cp.ShowDialog()
-        If cp.DialogResult = System.Windows.Forms.DialogResult.OK Then
+        If cp.DialogResult = DialogResult.OK Then
             MessageBox.Show("Password successfully updated.", "Success", MessageBoxButtons.OK)
         End If
     End Sub

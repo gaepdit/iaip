@@ -24,6 +24,7 @@ Public Class IAIPLogIn
         If txtUserID.Enabled Then txtUserID.Text = GetUserSetting(UserSetting.PrefillLoginId)
         FocusLogin()
         DisplayVersion()
+        CheckForPasswordResetRequest()
         monitor.TrackFeatureStop("Startup.Loading")
         If AppFirstRun Or AppUpdated Then
             App.TestCrystalReportsInstallation()
@@ -103,6 +104,18 @@ Public Class IAIPLogIn
         msg.Display(lblCurrentVersionMessage)
     End Sub
 
+    Private Sub CheckForPasswordResetRequest()
+        Dim prr As String = GetUserSetting(UserSetting.PasswordResetRequestedDate)
+        If prr <> "" Then
+            Dim prrd As DateTime = DateTime.ParseExact(prr, DateParseExactFormat, Nothing)
+            If DateTime.Compare(prrd, Date.Now.AddHours(-8)) > 0 Then
+                PasswordResetMenuItem.Visible = True
+            Else
+                ResetUserSetting(UserSetting.PasswordResetRequestedDate)
+            End If
+        End If
+    End Sub
+
     Private Sub CheckLanguageRegistrySetting()
         Dim currentSetting As String
         currentSetting = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Environment", "NLS_LANG", Nothing)
@@ -147,7 +160,7 @@ Public Class IAIPLogIn
             Dim authenticationResult As DAL.IaipAuthenticationResult = DAL.AuthenticateIaipUser(txtUserID.Text, txtUserPassword.Text)
 
             Select Case authenticationResult
-                Case DAL.IaipAuthenticationResult.InvalidUserName
+                Case DAL.IaipAuthenticationResult.InvalidUsername
                     Me.Message = New IaipMessage("That Username does not exist.", IaipMessage.WarningLevels.ErrorReport)
                     ForgotUsernameLink.Visible = True
                     CancelLogin(ClearPasswordField.Yes)
@@ -181,6 +194,8 @@ Public Class IAIPLogIn
     Private Sub LogInAlready()
         AddMonitorLoginData()
         SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
+        ResetUserSetting(UserSetting.PasswordResetRequestedDate)
+        PasswordResetMenuItem.Visible = False
         OpenSingleForm(IAIPNavigation)
         Me.Close()
     End Sub
@@ -269,17 +284,47 @@ Public Class IAIPLogIn
         Me.Cursor = Cursors.Default
     End Sub
 
-    Private Sub SendPasswordReset()
+    Private Sub RequestPasswordReset()
         Me.Cursor = Cursors.WaitCursor
 
-        'Using resetPassword As New IaipResetPassword
-        '    If resetPassword.ShowDialog() = DialogResult.OK Then
-        '        Me.Message = New IaipMessage("Check your email for password information. Please allow up to 15 minutes for delivery.", IaipMessage.WarningLevels.Info)
-        '    End If
-        'End Using
+        Dim passwordResetRequested As Boolean = False
+        Dim usernameSubmitted As String = ""
+
+        Using requestPasswordReset As New IaipRequestPasswordReset
+            If requestPasswordReset.ShowDialog() = DialogResult.OK Then
+                ' Set things up for resetting the password with a valid token
+                passwordResetRequested = True
+                usernameSubmitted = requestPasswordReset.Username.Text
+            End If
+        End Using
+
+        If passwordResetRequested Then
+            SaveUserSetting(UserSetting.PasswordResetRequestedDate, Date.Now.ToString(DateParseExactFormat))
+            PasswordResetMenuItem.Visible = True
+            ShowPasswordResetForm(usernameSubmitted)
+        End If
 
         ForgotPasswordLink.Visible = False
         Me.Cursor = Cursors.Default
+    End Sub
+
+    Private Sub ShowPasswordResetForm(Optional username As String = "")
+        If username = "" Then
+            username = GetUserSetting(UserSetting.PrefillLoginId)
+        End If
+
+        Using resetPassword As New IaipResetPassword
+            resetPassword.Username.Text = username
+
+            If resetPassword.ShowDialog() = DialogResult.OK Then
+                ResetUserSetting(UserSetting.PasswordResetRequestedDate)
+                PasswordResetMenuItem.Visible = False
+                Me.Message = New IaipMessage("Password successfully changed. Please log in with your new password.", IaipMessage.WarningLevels.Info)
+            Else
+                Me.Message = New IaipMessage("Check your email for password reset information. Please allow up to 15 minutes for delivery. " &
+                                                 "Or if you remember your old password, you can log in using that.", IaipMessage.WarningLevels.Info)
+            End If
+        End Using
     End Sub
 
 #End Region
@@ -384,7 +429,7 @@ Public Class IAIPLogIn
     End Sub
 
     Private Sub mmiForgotPassword_Click(sender As Object, e As EventArgs) Handles mmiForgotPassword.Click
-        SendPasswordReset()
+        RequestPasswordReset()
     End Sub
 
     Private Sub ForgotUsernameLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles ForgotUsernameLink.LinkClicked
@@ -392,7 +437,11 @@ Public Class IAIPLogIn
     End Sub
 
     Private Sub ForgotPasswordLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles ForgotPasswordLink.LinkClicked
-        SendPasswordReset()
+        RequestPasswordReset()
+    End Sub
+
+    Private Sub PasswordResetMenuItem_Click(sender As Object, e As EventArgs) Handles PasswordResetMenuItem.Click
+        ShowPasswordResetForm()
     End Sub
 
 #End Region

@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class IaipRequestUsername
+Partial Class IaipRequestPasswordReset
     Inherits BaseForm
 
     'Form overrides dispose to clean up the component list.
@@ -18,46 +18,46 @@ Partial Class IaipRequestUsername
     Private components As System.ComponentModel.IContainer
 
     'NOTE: The following procedure is required by the Windows Form Designer
-    'It can be modified using the Windows Form Designer.  
+    'It can be modified using the Windows Form Designer.
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Me.DoRequestUsername = New System.Windows.Forms.Button()
-        Me.EmailAddressLabel = New System.Windows.Forms.Label()
-        Me.EmailAddress = New System.Windows.Forms.TextBox()
+        Me.DoResetPassword = New System.Windows.Forms.Button()
+        Me.UsernameLabel = New System.Windows.Forms.Label()
+        Me.Username = New System.Windows.Forms.TextBox()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.MessageDisplay = New System.Windows.Forms.Label()
         Me.EP = New System.Windows.Forms.ErrorProvider(Me.components)
         CType(Me.EP, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'DoRequestUsername
+        'DoResetPassword
         '
-        Me.DoRequestUsername.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.DoRequestUsername.Location = New System.Drawing.Point(25, 80)
-        Me.DoRequestUsername.Name = "DoRequestUsername"
-        Me.DoRequestUsername.Size = New System.Drawing.Size(157, 23)
-        Me.DoRequestUsername.TabIndex = 3
-        Me.DoRequestUsername.Text = "Send username reminder"
-        Me.DoRequestUsername.UseVisualStyleBackColor = True
+        Me.DoResetPassword.DialogResult = System.Windows.Forms.DialogResult.OK
+        Me.DoResetPassword.Location = New System.Drawing.Point(25, 80)
+        Me.DoResetPassword.Name = "DoResetPassword"
+        Me.DoResetPassword.Size = New System.Drawing.Size(157, 23)
+        Me.DoResetPassword.TabIndex = 3
+        Me.DoResetPassword.Text = "Reset password"
+        Me.DoResetPassword.UseVisualStyleBackColor = True
         '
-        'EmailAddressLabel
+        'UsernameLabel
         '
-        Me.EmailAddressLabel.AutoSize = True
-        Me.EmailAddressLabel.Location = New System.Drawing.Point(22, 22)
-        Me.EmailAddressLabel.Name = "EmailAddressLabel"
-        Me.EmailAddressLabel.Size = New System.Drawing.Size(122, 13)
-        Me.EmailAddressLabel.TabIndex = 15
-        Me.EmailAddressLabel.Text = "Enter your email address"
+        Me.UsernameLabel.AutoSize = True
+        Me.UsernameLabel.Location = New System.Drawing.Point(22, 22)
+        Me.UsernameLabel.Name = "UsernameLabel"
+        Me.UsernameLabel.Size = New System.Drawing.Size(127, 13)
+        Me.UsernameLabel.TabIndex = 15
+        Me.UsernameLabel.Text = "Enter your IAIP username"
         '
-        'EmailAddress
+        'Username
         '
-        Me.EmailAddress.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.EmailAddress.Location = New System.Drawing.Point(25, 38)
-        Me.EmailAddress.Name = "EmailAddress"
-        Me.EmailAddress.Size = New System.Drawing.Size(235, 23)
-        Me.EmailAddress.TabIndex = 0
+        Me.Username.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Username.Location = New System.Drawing.Point(25, 38)
+        Me.Username.Name = "Username"
+        Me.Username.Size = New System.Drawing.Size(235, 23)
+        Me.Username.TabIndex = 0
         '
         'Cancel
         '
@@ -85,32 +85,32 @@ Partial Class IaipRequestUsername
         Me.EP.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink
         Me.EP.ContainerControl = Me
         '
-        'IaipRequestUsername
+        'IaipRequestPasswordReset
         '
-        Me.AcceptButton = Me.DoRequestUsername
+        Me.AcceptButton = Me.DoResetPassword
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
         Me.CancelButton = Me.Cancel
         Me.ClientSize = New System.Drawing.Size(283, 177)
-        Me.Controls.Add(Me.EmailAddress)
+        Me.Controls.Add(Me.Username)
         Me.Controls.Add(Me.Cancel)
-        Me.Controls.Add(Me.DoRequestUsername)
+        Me.Controls.Add(Me.DoResetPassword)
         Me.Controls.Add(Me.MessageDisplay)
-        Me.Controls.Add(Me.EmailAddressLabel)
+        Me.Controls.Add(Me.UsernameLabel)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "IaipRequestUsername"
-        Me.Text = "Forgot Username"
+        Me.Name = "IaipRequestPasswordReset"
+        Me.Text = "Forgot Password"
         CType(Me.EP, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents DoRequestUsername As System.Windows.Forms.Button
-    Friend WithEvents EmailAddressLabel As System.Windows.Forms.Label
-    Friend WithEvents EmailAddress As System.Windows.Forms.TextBox
+    Friend WithEvents DoResetPassword As System.Windows.Forms.Button
+    Friend WithEvents UsernameLabel As System.Windows.Forms.Label
+    Friend WithEvents Username As System.Windows.Forms.TextBox
     Friend WithEvents Cancel As System.Windows.Forms.Button
     Friend WithEvents MessageDisplay As System.Windows.Forms.Label
     Friend WithEvents EP As System.Windows.Forms.ErrorProvider

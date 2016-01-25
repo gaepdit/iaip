@@ -171,10 +171,22 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Universal Forms\Users\IaipResetPassword.Designer.vb">
+      <DependentUpon>IaipResetPassword.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universal Forms\Users\IaipResetPassword.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Universal Forms\Users\IaipCreateUser.Designer.vb">
       <DependentUpon>IaipCreateUser.vb</DependentUpon>
     </Compile>
     <Compile Include="Universal Forms\Users\IaipCreateUser.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universal Forms\Users\IaipRequestPasswordReset.Designer.vb">
+      <DependentUpon>IaipRequestPasswordReset.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universal Forms\Users\IaipRequestPasswordReset.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Universal Forms\Users\IaipRequestUsername.Designer.vb">
@@ -189,8 +201,14 @@
     <Compile Include="_Data Services\OrganizationService.vb" />
     <Compile Include="_Modules\RegexPatterns.vb" />
     <Compile Include="_Modules\Validation.vb" />
+    <EmbeddedResource Include="Universal Forms\Users\IaipResetPassword.resx">
+      <DependentUpon>IaipResetPassword.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Universal Forms\Users\IaipCreateUser.resx">
       <DependentUpon>IaipCreateUser.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universal Forms\Users\IaipRequestPasswordReset.resx">
+      <DependentUpon>IaipRequestPasswordReset.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Universal Forms\Users\IaipRequestUsername.resx">
       <DependentUpon>IaipRequestUsername.vb</DependentUpon>
