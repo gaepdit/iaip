@@ -23,9 +23,6 @@ Namespace My
 
         Private Sub MyApplication_UnhandledException(sender As Object, e As UnhandledExceptionEventArgs) _
             Handles Me.UnhandledException
-            My.Application.Log.WriteException(e.Exception, TraceEventType.Error, "MyApplication_UnhandledException")
-            My.Application.Log.WriteEntry("MyApplication_UnhandledException " & e.Exception.Message, TraceEventType.Error)
-            MessageBox.Show("MyApplication_UnhandledException")
             monitor.TrackException(e.Exception, sender.ToString)
             StopMonitor()
         End Sub
