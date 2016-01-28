@@ -58,7 +58,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>installer.html</WebPage>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>4.2.10.0</ApplicationVersion>
+    <ApplicationVersion>4.2.13.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -878,6 +878,12 @@
     <Compile Include="Universal Forms\IAIPNavigation.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="SSPP\SSPPPermitUploader.Designer.vb">
+      <DependentUpon>SSPPPermitUploader.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SSPP\SSPPPermitUploader.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Universal Forms\IAIPPrintOut.Designer.vb">
       <DependentUpon>IAIPPrintOut.vb</DependentUpon>
     </Compile>
@@ -1394,6 +1400,10 @@
     <EmbeddedResource Include="Universal Forms\IAIPNavigation.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPNavigation.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SSPP\SSPPPermitUploader.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SSPPPermitUploader.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Universal Forms\IAIPPrintOut.resx">
       <SubType>Designer</SubType>

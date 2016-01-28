@@ -1,17 +1,12 @@
-IAIP Notes for Developers
-=========================
+# IAIP Notes for Developers
 
 
-Source Code
------------
+## Source Code
 
 The IAIP currently targets the .NET Framework version 4.5.2. It is built in Visual Studio 2013 (but other versions may work).
 
-The repository is on [Bitbucket](https://bitbucket.org/gaairbranch/iaip).
 
-
-Prerequisites
--------------
+## Prerequisites
 
 + Visual Studio 2013
 
@@ -25,16 +20,16 @@ Prerequisites
   - Telerik Analytics Monitor
 
 
-Setup
------
+## Setup
 
 * Make sure you have a good hgignore file set up or you will have lots of unnecessary and temporary files invading your repository. Use the example in the [Common Libraries repo](https://bitbucket.org/dougwaldron/common-libraries/src/default/Mercurial%20settings/hgignore.ini?fileviewer=file-view-default)
 
 * Before publishing, you will need to [create a Test Certificate](https://msdn.microsoft.com/en-us/library/che5h906%28v=vs.120%29.aspx) for signing the ClickOnce manifest. Recommended: Use a single space character as the password.
 
+* Before you can open any Forms in design view, you have to build the project. (Each form inherits from `BaseForm` instead of from `System.Windows.Forms.Form`. The project has to be built before `BaseForm` is available to the visual designer.)
 
-Branches
---------
+
+## Branches
 
 There are two main branches in the repository: `default` and `stable`.
 
@@ -50,12 +45,9 @@ Other branches may be created for work on bugs or new features that are experime
 Feature branch names should be prefixed with `feat/` followed by a short descriptive name, e.g., `feat/new-permit-search`. Bug fix branches should be prefixed `bug/` followed by the issue number and an optional brief description, e.g., `bug/299-permit-search-error`.
 
 
-Tips
-----
+## Repo
 
-+ Before you can open any Forms in design view, you have to build the project. (Each form inherits from `BaseForm` instead of from `System.Windows.Forms.Form`. The project has to be built before `BaseForm` is available to the visual designer.)
-
-+ You can set up automatic Bitbucket links within TortoiseHg Workbench by adding these lines to your .hg\hgrc file:
+The repository is on [Bitbucket](https://bitbucket.org/gaairbranch/iaip). You can set up automatic Bitbucket links within TortoiseHg Workbench by adding these lines to your .hg\hgrc file:
 
 ```ini
 [tortoisehg]

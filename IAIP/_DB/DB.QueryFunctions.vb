@@ -92,9 +92,7 @@ Namespace DB
                         result = command.ExecuteScalar()
                         command.Connection.Close()
                     Catch ee As OracleException
-                        If Not failSilently Then
-                            MessageBox.Show("Database error: " & ee.ToString)
-                        End If
+                        ErrorReport(ee, query, Reflection.MethodBase.GetCurrentMethod.Name, Not failSilently)
                     End Try
 
                     Return GetNullable(Of T)(result)
@@ -135,7 +133,7 @@ Namespace DB
                         result = command.ExecuteScalar()
                         command.Connection.Close()
                     Catch ee As OracleException
-                        MessageBox.Show("Database error: " & ee.ToString)
+                        ErrorReport(ee, query, Reflection.MethodBase.GetCurrentMethod.Name)
                     End Try
 
                     Return Not (result Is Nothing OrElse IsDBNull(result) OrElse result.ToString = "null")
@@ -231,7 +229,7 @@ Namespace DB
                             command.Connection.Close()
                             Return table
                         Catch ee As OracleException
-                            ErrorReport(ee, System.Reflection.MethodBase.GetCurrentMethod.Name)
+                            ErrorReport(ee, query, Reflection.MethodBase.GetCurrentMethod.Name)
                             Return Nothing
                         End Try
                     End Using
@@ -262,6 +260,7 @@ Namespace DB
 
                 Return True
             Catch ex As Exception
+                ErrorReport(ex, filePath, Reflection.MethodBase.GetCurrentMethod.Name)
                 Return False
             End Try
         End Function
@@ -293,10 +292,10 @@ Namespace DB
 
                         Return byteArray
                     Catch ee As OracleException
-                        MessageBox.Show("Database error: " & ee.ToString)
+                        ErrorReport(ee, query, Reflection.MethodBase.GetCurrentMethod.Name)
                         Return Nothing
                     Catch ex As Exception
-                        MessageBox.Show("Error: " & ex.ToString)
+                        ErrorReport(ex, query, Reflection.MethodBase.GetCurrentMethod.Name)
                         Return Nothing
                     End Try
 
@@ -416,18 +415,17 @@ Namespace DB
                             Return True
                         Catch ee As OracleException
                             countList.Clear()
-                            transaction.Rollback()
-                            If Not failSilently Then
-                                MessageBox.Show("There was an error updating the database.")
-                            End If
+                            Try
+                                transaction.Rollback()
+                            Catch
+                            End Try
+                            ErrorReport(ee, command.CommandText, Reflection.MethodBase.GetCurrentMethod.Name, Not failSilently)
                             Return False
-                        End Try
+                            End Try
 
-                        command.Connection.Close()
+                            command.Connection.Close()
                     Catch ee As OracleException
-                        If Not failSilently Then
-                            MessageBox.Show("There was an error connecting to the database.")
-                        End If
+                        ErrorReport(ee, "There was an error connecting to the database.", Reflection.MethodBase.GetCurrentMethod.Name, Not failSilently)
                         Return False
                     Finally
                         If transaction IsNot Nothing Then transaction.Dispose()
@@ -435,6 +433,24 @@ Namespace DB
 
                 End Using
             End Using
+        End Function
+
+        Public Function RunCommandIgnoreErrors(query As String, parameters As OracleParameter()) As Boolean
+            Try
+                Using connection As New OracleConnection(CurrentConnectionString)
+                    Using command As New OracleCommand(query, connection)
+                        command.CommandType = CommandType.Text
+                        command.BindByName = True
+                        command.Parameters.AddRange(parameters)
+                        command.Connection.Open()
+                        command.ExecuteScalar()
+                        command.Connection.Close()
+                    End Using
+                End Using
+                Return True
+            Catch
+                Return False
+            End Try
         End Function
 
 #End Region
