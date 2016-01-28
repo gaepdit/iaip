@@ -1,6 +1,7 @@
 ﻿Imports Oracle.ManagedDataAccess.Client
 Imports System.Collections.Generic
 Imports System.IO
+Imports System.Reflection
 
 Namespace DB
     Module SPFunctions
@@ -124,6 +125,9 @@ Namespace DB
             AddRefCursorParameter(parameterArray)
 
             Dim table As New DataTable
+            Dim success As Boolean = True
+            Dim startTime As Date = Date.UtcNow
+            Dim timer As Stopwatch = Stopwatch.StartNew
 
             Using connection As New OracleConnection(CurrentConnectionString)
                 Using command As New OracleCommand(spName, connection)
@@ -135,14 +139,19 @@ Namespace DB
                             command.Connection.Open()
                             adapter.Fill(table)
                             command.Connection.Close()
-                            Return table
                         Catch ee As OracleException
+                            success = False
                             ErrorReport(ee, spName, Reflection.MethodBase.GetCurrentMethod.Name)
-                            Return Nothing
+                            table = Nothing
+                        Finally
+                            timer.Stop()
+                            ApplicationInsights.TrackDependency(TelemetryDependencyType.Oracle, MethodBase.GetCurrentMethod.Name, spName, startTime, timer.Elapsed, success)
                         End Try
                     End Using
                 End Using
             End Using
+
+            Return table
         End Function
 
 #End Region
@@ -257,6 +266,10 @@ Namespace DB
         ''' <param name="parameterArray">An OracleParameter array to send.</param>
         ''' <returns>True if the Stored Procedure ran successfully. Otherwise, false.</returns>
         Public Function SPRunCommand(ByVal spName As String, ByRef parameterArray As OracleParameter()) As Boolean
+            Dim success As Boolean = True
+            Dim startTime As Date = Date.UtcNow
+            Dim timer As Stopwatch = Stopwatch.StartNew
+
             Using connection As New OracleConnection(CurrentConnectionString)
                 Using command As New OracleCommand(spName, connection)
                     command.CommandType = CommandType.StoredProcedure
@@ -266,13 +279,17 @@ Namespace DB
                         command.ExecuteNonQuery()
                         command.Connection.Close()
                         command.Parameters.CopyTo(parameterArray, 0)
-                        Return True
                     Catch ee As OracleException
+                        success = False
                         ErrorReport(ee, spName, Reflection.MethodBase.GetCurrentMethod.Name)
-                        Return False
+                    Finally
+                        timer.Stop()
+                        ApplicationInsights.TrackDependency(TelemetryDependencyType.Oracle, MethodBase.GetCurrentMethod.Name, spName, startTime, timer.Elapsed, success)
                     End Try
                 End Using
             End Using
+
+            Return success
         End Function
 
 #End Region
