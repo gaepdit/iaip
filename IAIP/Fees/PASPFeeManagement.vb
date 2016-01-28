@@ -1776,7 +1776,7 @@ Public Class PASPFeeManagement
             Dim dgvRow As New DataGridViewRow
 
             If mtbAIRSNumber.Text.Length <> 8 Then
-                MsgBox("Please enter a complete 8 digit AIRS #.", MsgBoxStyle.Information, "DMU Tools")
+                MsgBox("Please enter a complete 8 digit AIRS #.", MsgBoxStyle.Information, "Error")
             Else
                 txtEmail.Clear()
 
@@ -2421,7 +2421,7 @@ Public Class PASPFeeManagement
                     End If
 
                 Else
-                    MsgBox("Invalid Email Address", MsgBoxStyle.Exclamation, "DMU Tools")
+                    MsgBox("Invalid Email Address", MsgBoxStyle.Exclamation, "Error")
                 End If
             End If
         Catch ex As Exception

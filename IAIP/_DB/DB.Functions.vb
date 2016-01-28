@@ -107,9 +107,7 @@ Namespace DB
                         command.Connection.Close()
                     Catch ee As OracleException
                         success = False
-                        If Not failSilently Then
-                            MessageBox.Show("Database error: " & ee.ToString)
-                        End If
+                        ErrorReport(ee, query, Reflection.MethodBase.GetCurrentMethod.Name, Not failSilently)
                     Finally
                         timer.Stop()
                         ApplicationInsights.TrackDependency(TelemetryDependencyType.Oracle, MethodBase.GetCurrentMethod.Name, query, startTime, timer.Elapsed, success)
@@ -159,7 +157,7 @@ Namespace DB
                         command.Connection.Close()
                     Catch ee As OracleException
                         success = False
-                        MessageBox.Show("Database error: " & ee.ToString)
+                        ErrorReport(ee, query, Reflection.MethodBase.GetCurrentMethod.Name)
                     Finally
                         timer.Stop()
                         ApplicationInsights.TrackDependency(TelemetryDependencyType.Oracle, MethodBase.GetCurrentMethod.Name, query, startTime, timer.Elapsed, success)
@@ -264,8 +262,8 @@ Namespace DB
                             command.Connection.Close()
                         Catch ee As OracleException
                             success = False
+                            ErrorReport(ee, query, Reflection.MethodBase.GetCurrentMethod.Name)
                             table = Nothing
-                            ErrorReport(ee, MethodBase.GetCurrentMethod.Name)
                         Finally
                             timer.Stop()
                             ApplicationInsights.TrackDependency(TelemetryDependencyType.Oracle, MethodBase.GetCurrentMethod.Name, query, startTime, timer.Elapsed, success)
@@ -301,6 +299,7 @@ Namespace DB
 
                 Return True
             Catch ex As Exception
+                ErrorReport(ex, filePath, Reflection.MethodBase.GetCurrentMethod.Name)
                 Return False
             End Try
         End Function
@@ -337,11 +336,11 @@ Namespace DB
                         Return byteArray
                     Catch ee As OracleException
                         success = False
-                        MessageBox.Show("Database error: " & ee.ToString)
+                        ErrorReport(ee, query, Reflection.MethodBase.GetCurrentMethod.Name)
                         Return Nothing
                     Catch ex As Exception
                         success = False
-                        MessageBox.Show("Error: " & ex.ToString)
+                        ErrorReport(ex, query, Reflection.MethodBase.GetCurrentMethod.Name)
                         Return Nothing
                     Finally
                         timer.Stop()
@@ -445,18 +444,17 @@ Namespace DB
                         Catch ee As OracleException
                             success = False
                             countList.Clear()
-                            transaction.Rollback()
-                            If Not failSilently Then
-                                MessageBox.Show("There was an error updating the database.")
-                            End If
-                        End Try
+                            Try
+                                transaction.Rollback()
+                            Catch
+                            End Try
+                            ErrorReport(ee, command.CommandText, Reflection.MethodBase.GetCurrentMethod.Name, Not failSilently)
+                            End Try
 
-                        command.Connection.Close()
+                            command.Connection.Close()
                     Catch ee As OracleException
                         success = False
-                        If Not failSilently Then
-                            MessageBox.Show("There was an error connecting to the database.")
-                        End If
+                        ErrorReport(ee, "There was an error connecting to the database.", Reflection.MethodBase.GetCurrentMethod.Name, Not failSilently)
                     Finally
                         If transaction IsNot Nothing Then transaction.Dispose()
                         timer.Stop()
@@ -467,6 +465,24 @@ Namespace DB
             End Using
 
             Return success
+        End Function
+
+        Public Function RunCommandIgnoreErrors(query As String, parameters As OracleParameter()) As Boolean
+            Try
+                Using connection As New OracleConnection(CurrentConnectionString)
+                    Using command As New OracleCommand(query, connection)
+                        command.CommandType = CommandType.Text
+                        command.BindByName = True
+                        command.Parameters.AddRange(parameters)
+                        command.Connection.Open()
+                        command.ExecuteScalar()
+                        command.Connection.Close()
+                    End Using
+                End Using
+                Return True
+            Catch
+                Return False
+            End Try
         End Function
 
 #End Region
@@ -506,7 +522,7 @@ Namespace DB
         '                command.ExecuteNonQuery()
         '                command.Connection.Close()
         '            Catch ee As OracleException
-        '                MessageBox.Show("Database error: " & ee.ToString)
+        '                ErrorReport(ee, query, Reflection.MethodBase.GetCurrentMethod.Name)
         '            End Try
 
         '            Return GetNullable(Of T)(command.Parameters("ReturnValue").Value.ToString)
@@ -609,7 +625,7 @@ Namespace DB
                             command.Connection.Close()
                         Catch ee As OracleException
                             success = False
-                            ErrorReport(ee, System.Reflection.MethodBase.GetCurrentMethod.Name)
+                            ErrorReport(ee, spName, Reflection.MethodBase.GetCurrentMethod.Name)
                             table = Nothing
                         Finally
                             timer.Stop()
@@ -730,7 +746,7 @@ Namespace DB
                         command.Parameters.CopyTo(parameterArray, 0)
                     Catch ee As OracleException
                         success = False
-                        MessageBox.Show("Database error: " & ee.ToString)
+                        ErrorReport(ee, spName, Reflection.MethodBase.GetCurrentMethod.Name)
                     Finally
                         timer.Stop()
                         ApplicationInsights.TrackDependency(TelemetryDependencyType.Oracle, MethodBase.GetCurrentMethod.Name, spName, startTime, timer.Elapsed, success)

@@ -17,7 +17,7 @@ Public Class IaipExceptionManager
             "The action you requested was not performed. When you click Exit, the IAIP will close."
 
         Dim WhatUserCanDo As String = "• Restart the IAIP and try repeating your last action." & Environment.NewLine & Environment.NewLine &
-            "• If you continue to see this error, please email the DMU. Describe what you were doing and paste the error details below into your email."
+            "• If you continue to see this error, please email EPD IT. Describe what you were doing and paste the error details below into your email."
 
         ShowErrorDialog(e.Exception, WhatHappened, WhatUserCanDo, True)
 
@@ -40,7 +40,7 @@ Public Class IaipExceptionManager
 
         If WhatUserCanDo = "" Then
             WhatUserCanDo = "Restart the IAIP and try repeating your last action." & Environment.NewLine & Environment.NewLine &
-            "If you continue to see this error, please email the DMU. Describe what you were doing and paste the error details below into your email."
+            "If you continue to see this error, please email EPD IT. Describe what you were doing and paste the error details below into your email."
         End If
 
         Dim ed As New ExceptionDialog

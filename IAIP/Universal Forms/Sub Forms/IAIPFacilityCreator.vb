@@ -399,7 +399,7 @@ Public Class IAIPFacilityCreator
             FindRegion(txtCDSRegionCode.Text, txtCDSAIRSNumber.Text)
 
             If txtCDSAIRSNumber.Text = "" Then
-                MsgBox("There was an error in creating Facility." & "Contact DMU before proceding", MsgBoxStyle.Information, Me.Text)
+                MsgBox("There was an error in creating Facility." & "Contact EPD IT before proceding", MsgBoxStyle.Information, Me.Text)
                 Exit Sub
             Else
                 AIRSNumber = "0413" & txtCDSAIRSNumber.Text

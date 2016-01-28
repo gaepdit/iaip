@@ -277,7 +277,7 @@ Public Class IAIPPrintOut
                     PrintOutTitleVRenewals()
 
                 Case Else
-                    MsgBox("Unable to print; please contact the DMU.")
+                    MsgBox("Unable to print; please contact EPD IT.")
                     Me.Close()
 
             End Select
