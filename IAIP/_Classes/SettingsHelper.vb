@@ -2,7 +2,7 @@
 Imports System.Runtime.Serialization
 
 ' Adapted from http://stackoverflow.com/a/11801369/212978
-Public Class SettingsHelper
+Friend Class SettingsHelper
     Private Shared _keySettingsDictionary As Dictionary(Of String, String)
     Private Shared _initLock As Object = New Object()
 
@@ -27,9 +27,9 @@ Public Class SettingsHelper
                 If (String.IsNullOrEmpty(My.Settings.SerializedUserSettingsDictionary)) Then
                     _keySettingsDictionary = New Dictionary(Of String, String)()
                 Else
-                    Dim ser As New System.Runtime.Serialization.Json.DataContractJsonSerializer(GetType(Dictionary(Of String, String)))
-                    Using memStream As New System.IO.MemoryStream()
-                        Using writer As New System.IO.StreamWriter(memStream)
+                    Dim ser As New Json.DataContractJsonSerializer(GetType(Dictionary(Of String, String)))
+                    Using memStream As New IO.MemoryStream()
+                        Using writer As New IO.StreamWriter(memStream)
                             writer.Write(My.Settings.SerializedUserSettingsDictionary)
                             writer.Flush()
                             memStream.Position = 0
@@ -49,11 +49,11 @@ Public Class SettingsHelper
 
     Private Shared Sub HandleSettingsSaving(ByVal sender As Object, ByVal e As EventArgs)
         ' Ensure User Setting value is updated before save.
-        Dim ser As New System.Runtime.Serialization.Json.DataContractJsonSerializer(GetType(Dictionary(Of String, String)))
-        Using memStream As New System.IO.MemoryStream()
+        Dim ser As New Json.DataContractJsonSerializer(GetType(Dictionary(Of String, String)))
+        Using memStream As New IO.MemoryStream()
             ser.WriteObject(memStream, _keySettingsDictionary)
             memStream.Position = 0
-            Using reader As New System.IO.StreamReader(memStream)
+            Using reader As New IO.StreamReader(memStream)
                 My.Settings.SerializedUserSettingsDictionary = reader.ReadToEnd()
             End Using
         End Using

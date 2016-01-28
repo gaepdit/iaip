@@ -14,7 +14,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
         
         Try
             Panel1.Text = "Public Advisories Letter Generator"
-            Panel2.Text = UserName
+            Panel2.Text = CurrentUser.AlphaName
             Panel3.Text = OracleDate
 
             'Me.WindowState = FormWindowState.Maximized
@@ -1538,9 +1538,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     End If
                 Else
                     FileName = FileName
-                    ReviewingManager = UserGCode
+                    ReviewingManager = CurrentUser.UserID
                     ReviewedDate = OracleDate
-                    PublishingStaff = UserGCode
+                    PublishingStaff = CurrentUser.UserID
                     PublishedDate = OracleDate
                     CommentsDate = Format(CDate(DTPPADeadline.Text), "dd-MMM-yyyy").ToString
                 End If
@@ -2039,7 +2039,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 If recExist = True Then
                     FileName = FileName
                     If IsDBNull(dr.Item("strReviewingManager")) Then
-                        ReviewingManager = UserGCode
+                        ReviewingManager = CurrentUser.UserID
                     Else
                         ReviewingManager = dr.Item("strReviewingManager")
                     End If
@@ -2049,7 +2049,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                         ReviewedDate = Format(dr.Item("datReviewed"), "dd-MMM-yyyy")
                     End If
                     If IsDBNull(dr.Item("strPublishingStaff")) Then
-                        PublishingStaff = UserGCode
+                        PublishingStaff = CurrentUser.UserID
                     Else
                         PublishingStaff = dr.Item("strPublishingStaff")
                     End If
@@ -2065,9 +2065,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     End If
                 Else
                     FileName = FileName
-                    ReviewingManager = UserGCode
+                    ReviewingManager = CurrentUser.UserID
                     ReviewedDate = OracleDate
-                    PublishingStaff = UserGCode
+                    PublishingStaff = CurrentUser.UserID
                     PublishedDate = OracleDate
                     CommentsDate = OracleDate
                 End If

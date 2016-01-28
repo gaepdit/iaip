@@ -2,6 +2,7 @@
 Imports Iaip.Apb
 Imports Iaip.Apb.Facilities
 Imports System.Collections.Generic
+Imports System.Text.RegularExpressions
 
 Namespace DAL
     Module FacilityHeaderDataData
@@ -16,10 +17,7 @@ Namespace DAL
         ''' <remarks>Does not make any judgments about appropriateness of SIC Code otherwise.</remarks>
         Public Function SicCodeIsValid(ByVal sicCode As String) As Boolean
             If sicCode Is Nothing OrElse String.IsNullOrEmpty(sicCode) Then Return False
-
-            ' Valid SIC Codes are one to four digits
-            Dim rgx As New System.Text.RegularExpressions.Regex("^\d{1,4}$")
-            If Not rgx.IsMatch(sicCode) Then Return False
+            If Not Regex.IsMatch(sicCode, SicCodePattern) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
                 " FROM AIRBRANCH.LK_SIC " & _
@@ -40,10 +38,7 @@ Namespace DAL
         ''' <remarks>Does not make any judgments about appropriateness of NAICS Code otherwise.</remarks>
         Public Function NaicsCodeIsValid(ByVal naicsCode As String) As Boolean
             If naicsCode Is Nothing OrElse String.IsNullOrEmpty(naicsCode) Then Return False
-
-            ' Valid NAICS Codes are two to six digits
-            Dim rgx As New System.Text.RegularExpressions.Regex("^\d{2,6}$")
-            If Not rgx.IsMatch(naicsCode) Then Return False
+            If Not Regex.IsMatch(naicsCode, NaicsCodePattern) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
                 " FROM AIRBRANCH.LK_NAICS " & _
@@ -197,7 +192,7 @@ Namespace DAL
                 New OracleParameter("AirProgramClassifications", headerData.AirProgramClassificationsCode), _
                 New OracleParameter("fromLocation", Convert.ToInt32(fromLocation)), _
                 New OracleParameter("Naics", headerData.Naics), _
-                New OracleParameter("modifiedby", UserGCode), _
+                New OracleParameter("modifiedby", CurrentUser.UserID), _
                 New OracleParameter("airsnumber", headerData.AirsNumber.DbFormattedString) _
             })
 
@@ -210,7 +205,7 @@ Namespace DAL
                 "  WHERE STRAIRSNUMBER   = :airsnumber " _
             )
             parametersList.Add(New OracleParameter() { _
-                New OracleParameter("modifiedby", UserGCode), _
+                New OracleParameter("modifiedby", CurrentUser.UserID), _
                 New OracleParameter("rmp", headerData.RmpId), _
                 New OracleParameter("airsnumber", headerData.AirsNumber.DbFormattedString) _
             })
@@ -270,7 +265,7 @@ Namespace DAL
                         New OracleParameter("airpollkey", headerData.AirsNumber.DbFormattedString & FacilityHeaderData.GetAirProgramDbKey(apc)), _
                         New OracleParameter("pollkey", "OT"), _
                         New OracleParameter("compliancestatus", "C"), _
-                        New OracleParameter("modifiedby", UserGCode), _
+                        New OracleParameter("modifiedby", CurrentUser.UserID), _
                         New OracleParameter("operatingstatus", headerData.OperationalStatus.ToString) _
                     })
 
@@ -286,7 +281,7 @@ Namespace DAL
                     )
                     parametersList.Add(New OracleParameter() { _
                         New OracleParameter("active", "0"), _
-                        New OracleParameter("modifiedby", UserGCode), _
+                        New OracleParameter("modifiedby", CurrentUser.UserID), _
                         New OracleParameter("airpollkey", headerData.AirsNumber.DbFormattedString & FacilityHeaderData.GetAirProgramDbKey(apc)) _
                     })
 
@@ -303,7 +298,7 @@ Namespace DAL
                 "    AND STRUPDATESTATUS = 'N' " _
             )
             parametersList.Add(New OracleParameter() { _
-                New OracleParameter("modifiedby", UserGCode), _
+                New OracleParameter("modifiedby", CurrentUser.UserID), _
                 New OracleParameter("airsnumber", headerData.AirsNumber.DbFormattedString) _
             })
 

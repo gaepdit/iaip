@@ -35,8 +35,7 @@ Partial Class IAIPUserAdminTool
         Me.rdbInactiveStatus = New System.Windows.Forms.RadioButton()
         Me.rdbActiveStatus = New System.Windows.Forms.RadioButton()
         Me.txtOfficeNumber = New System.Windows.Forms.TextBox()
-        Me.mtbPhoneNumber = New System.Windows.Forms.MaskedTextBox()
-        Me.mtbFaxNumber = New System.Windows.Forms.MaskedTextBox()
+        Me.txtPhoneNumber = New System.Windows.Forms.MaskedTextBox()
         Me.cboUnit = New System.Windows.Forms.ComboBox()
         Me.cboProgram = New System.Windows.Forms.ComboBox()
         Me.cboBranch = New System.Windows.Forms.ComboBox()
@@ -50,7 +49,6 @@ Partial Class IAIPUserAdminTool
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
-        Me.Label8 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.TPPermission = New System.Windows.Forms.TabPage()
@@ -134,7 +132,7 @@ Partial Class IAIPUserAdminTool
         '
         Me.btnCreateNewUser.AutoSize = True
         Me.btnCreateNewUser.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnCreateNewUser.Location = New System.Drawing.Point(116, 65)
+        Me.btnCreateNewUser.Location = New System.Drawing.Point(627, 12)
         Me.btnCreateNewUser.Name = "btnCreateNewUser"
         Me.btnCreateNewUser.Size = New System.Drawing.Size(98, 23)
         Me.btnCreateNewUser.TabIndex = 2
@@ -148,7 +146,7 @@ Partial Class IAIPUserAdminTool
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(98, 23)
         Me.btnSave.TabIndex = 1
-        Me.btnSave.Text = "Save"
+        Me.btnSave.Text = "Save Changes"
         Me.btnSave.UseVisualStyleBackColor = True
         '
         'TCUserData
@@ -167,8 +165,7 @@ Partial Class IAIPUserAdminTool
         '
         Me.TPUserInformation.Controls.Add(Me.Panel3)
         Me.TPUserInformation.Controls.Add(Me.txtOfficeNumber)
-        Me.TPUserInformation.Controls.Add(Me.mtbPhoneNumber)
-        Me.TPUserInformation.Controls.Add(Me.mtbFaxNumber)
+        Me.TPUserInformation.Controls.Add(Me.txtPhoneNumber)
         Me.TPUserInformation.Controls.Add(Me.cboUnit)
         Me.TPUserInformation.Controls.Add(Me.cboProgram)
         Me.TPUserInformation.Controls.Add(Me.cboBranch)
@@ -182,7 +179,6 @@ Partial Class IAIPUserAdminTool
         Me.TPUserInformation.Controls.Add(Me.Label12)
         Me.TPUserInformation.Controls.Add(Me.Label10)
         Me.TPUserInformation.Controls.Add(Me.Label9)
-        Me.TPUserInformation.Controls.Add(Me.Label8)
         Me.TPUserInformation.Controls.Add(Me.Label7)
         Me.TPUserInformation.Controls.Add(Me.Label3)
         Me.TPUserInformation.Location = New System.Drawing.Point(4, 22)
@@ -225,26 +221,18 @@ Partial Class IAIPUserAdminTool
         '
         'txtOfficeNumber
         '
-        Me.txtOfficeNumber.Location = New System.Drawing.Point(90, 136)
+        Me.txtOfficeNumber.Location = New System.Drawing.Point(90, 110)
         Me.txtOfficeNumber.Name = "txtOfficeNumber"
         Me.txtOfficeNumber.Size = New System.Drawing.Size(139, 20)
         Me.txtOfficeNumber.TabIndex = 5
         '
-        'mtbPhoneNumber
+        'txtPhoneNumber
         '
-        Me.mtbPhoneNumber.Location = New System.Drawing.Point(90, 84)
-        Me.mtbPhoneNumber.Mask = "(999) 000-0000 ext.00000"
-        Me.mtbPhoneNumber.Name = "mtbPhoneNumber"
-        Me.mtbPhoneNumber.Size = New System.Drawing.Size(139, 20)
-        Me.mtbPhoneNumber.TabIndex = 3
-        '
-        'mtbFaxNumber
-        '
-        Me.mtbFaxNumber.Location = New System.Drawing.Point(90, 110)
-        Me.mtbFaxNumber.Mask = "(999) 000-0000 ext.00000"
-        Me.mtbFaxNumber.Name = "mtbFaxNumber"
-        Me.mtbFaxNumber.Size = New System.Drawing.Size(139, 20)
-        Me.mtbFaxNumber.TabIndex = 4
+        Me.txtPhoneNumber.Location = New System.Drawing.Point(90, 84)
+        Me.txtPhoneNumber.Mask = "(999) 000-0000 ext.00000"
+        Me.txtPhoneNumber.Name = "txtPhoneNumber"
+        Me.txtPhoneNumber.Size = New System.Drawing.Size(139, 20)
+        Me.txtPhoneNumber.TabIndex = 3
         '
         'cboUnit
         '
@@ -303,7 +291,7 @@ Partial Class IAIPUserAdminTool
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(8, 139)
+        Me.Label16.Location = New System.Drawing.Point(8, 113)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(58, 13)
         Me.Label16.TabIndex = 14
@@ -362,15 +350,6 @@ Partial Class IAIPUserAdminTool
         Me.Label9.Size = New System.Drawing.Size(41, 13)
         Me.Label9.TabIndex = 7
         Me.Label9.Text = "Phone:"
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(8, 113)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(27, 13)
-        Me.Label8.TabIndex = 6
-        Me.Label8.Text = "Fax:"
         '
         'Label7
         '
@@ -949,7 +928,7 @@ Partial Class IAIPUserAdminTool
         Me.Controls.Add(Me.lblUserName)
         Me.MinimumSize = New System.Drawing.Size(711, 526)
         Me.Name = "IAIPUserAdminTool"
-        Me.Text = "IAIP Profile Management"
+        Me.Text = "IAIP User Management"
         Me.TCUserData.ResumeLayout(False)
         Me.TPUserInformation.ResumeLayout(False)
         Me.TPUserInformation.PerformLayout()
@@ -981,15 +960,13 @@ Partial Class IAIPUserAdminTool
     Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents Label9 As System.Windows.Forms.Label
-    Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Panel3 As System.Windows.Forms.Panel
     Friend WithEvents rdbInactiveStatus As System.Windows.Forms.RadioButton
     Friend WithEvents rdbActiveStatus As System.Windows.Forms.RadioButton
     Friend WithEvents txtOfficeNumber As System.Windows.Forms.TextBox
-    Friend WithEvents mtbPhoneNumber As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents mtbFaxNumber As System.Windows.Forms.MaskedTextBox
+    Friend WithEvents txtPhoneNumber As System.Windows.Forms.MaskedTextBox
     Friend WithEvents cboUnit As System.Windows.Forms.ComboBox
     Friend WithEvents cboProgram As System.Windows.Forms.ComboBox
     Friend WithEvents cboBranch As System.Windows.Forms.ComboBox

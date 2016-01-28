@@ -163,7 +163,7 @@ Public Class SSPP_FeeContact
         Try
             txtDescription.Clear()
             txtDescription.Text = "Fee Contact. " & vbCrLf & _
-            "Modified by: " & UserName & vbCrLf & _
+            "Modified by: " & CurrentUser.AlphaName & vbCrLf & _
             "Modified on: " & OracleDate & vbCrLf & _
             "Via Application # " & txtApplicationNumber.Text
 
@@ -195,17 +195,10 @@ Public Class SSPP_FeeContact
                     Exit Sub
                 End If
 
-                If txtEmailAddress.Text <> "" Then
-                    Dim myInput As String = txtEmailAddress.Text.Trim()
-                    Dim pattern As String = "^[\w-]+(?:\.[\w-]+)*@(?:[\w-]+\.)+[a-zA-Z]{2,7}$"
-                    Dim myRegEx As New System.Text.RegularExpressions.Regex(pattern)
-
-                    If myRegEx.IsMatch(myInput) Then
-                    Else
-                        MsgBox("Invalid Email Address" & vbCrLf & _
-                               "Please enter a valid Email Address", MsgBoxStyle.Exclamation, "Fee Contact Update")
-                        Exit Sub
-                    End If
+                If Not IsValidEmailAddress(txtEmailAddress.Text.Trim) Then
+                    MsgBox("Invalid Email Address" & vbCrLf & _
+                           "Please enter a valid Email Address", MsgBoxStyle.Exclamation, "Fee Contact Update")
+                    Exit Sub
                 End If
 
                 SQL = "Update AIRBRANCH.APBContactInformation set " & _
@@ -218,13 +211,13 @@ Public Class SSPP_FeeContact
                 "strContactPhoneNumber1 = '" & Replace(mtbPhoneNumber1.Text, "'", "''") & "', " & _
                 "strContactPhoneNumber2 = '" & Replace(mtbPhoneNumber2.Text, "'", "''") & "', " & _
                 "strContactFaxNumber = '" & Replace(mtbFaxNumber.Text, "'", "''") & "', " & _
-                "strContactEmail = '" & Replace(txtEmailAddress.Text, "'", "''") & "', " & _
+                "strContactEmail = '" & Replace(txtEmailAddress.Text.Trim, "'", "''") & "', " & _
                 "strContactAddress1 = '" & Replace(txtAddress.Text, "'", "''") & "', " & _
                 "strContactAddress2 = '', " & _
                 "strContactCity = '" & Replace(txtCity.Text, "'", "''") & "', " & _
                 "strContactState = '" & Replace(txtState.Text, "'", "''") & "', " & _
                 "strContactZipCode = '" & Replace(mtbZipCode.Text, "'", "''") & "', " & _
-                "strModifingPerson = '" & UserGCode & "', " & _
+                "strModifingPerson = '" & CurrentUser.UserID & "', " & _
                 "datModifingDate = '" & OracleDate & "', " & _
                 "strContactDescription = '" & Replace(txtDescription.Text, "'", "''") & "' " & _
                 "where strContactKey = '0413" & txtAIRSNumber.Text & "40' "

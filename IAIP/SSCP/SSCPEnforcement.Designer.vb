@@ -1080,7 +1080,7 @@ Partial Class SscpEnforcement
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(10, 141)
+        Me.Label1.Location = New System.Drawing.Point(16, 141)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(82, 13)
         Me.Label1.TabIndex = 380

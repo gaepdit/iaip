@@ -44,7 +44,7 @@ Public Class DmuEdtErrorMessageDetail
     End Sub
 
     Private Sub PrepUserComboBoxes()
-        activeUsersList = DAL.GetActiveUsers
+        activeUsersList = UsersService.ActiveUsers
         activeUsersList.Insert(0, New KeyValuePair(Of Integer, String)(0, "Unassigned"))
         UserAsDefault.BindToKeyValuePairs(activeUsersList)
         UserToAssign.BindToKeyValuePairs(activeUsersList)
@@ -415,7 +415,7 @@ Public Class DmuEdtErrorMessageDetail
                     .Item("Resolved") = True
                     .Item("ResolvedDate") = Now
                     .Item("ResolvedByUserID") = CurrentUser.UserID
-                    .Item("ResolvedByUserName") = CurrentUser.Staff.AlphaName
+                    .Item("ResolvedByUserName") = CurrentUser.AlphaName
                 End With
             Next
 

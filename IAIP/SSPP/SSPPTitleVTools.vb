@@ -4697,7 +4697,7 @@ Public Class SSPPTitleVTools
              "'" & Replace(ContactEmail, "'", "''") & "', '" & Replace(ContactAddress1, "'", "''") & "', " & _
              "'', '" & Replace(ContactCity, "'", "''") & "', " & _
              "'" & Replace(ContactState, "'", "''") & "', '" & Replace(ContactZipCode, "'", "''") & "', " & _
-             "'" & UserGCode & "', '" & OracleDate & "', " & _
+             "'" & CurrentUser.UserID & "', '" & OracleDate & "', " & _
              "'" & Replace(ContactDescription, "'", "''") & "') "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4804,7 +4804,7 @@ Public Class SSPPTitleVTools
             "'" & Replace(ContactCity, "'", "''") & "', " & _
             "'" & Replace(ContactState, "'", "''") & "', " & _
             "'" & Replace(ContactZipCode, "'", "''") & "', " & _
-            "'" & UserGCode & "', " & _
+            "'" & CurrentUser.UserID & "', " & _
             "'" & OracleDate & "', " & _
             "'" & Replace(ContactDescription, "'", "''") & "') "
 

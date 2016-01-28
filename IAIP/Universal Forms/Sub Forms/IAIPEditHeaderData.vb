@@ -161,7 +161,7 @@ Public Class IAIPEditHeaderData
             SaveChangesButton, _
             CancelEditButton _
         }
-        EnableControls(EditableControls)
+        AllowControls(EditableControls)
 
         If CurrentFacilityHeaderData.OperationalStatus = FacilityOperationalStatus.X Then
             OperationalDropDown.Enabled = False
@@ -189,7 +189,7 @@ Public Class IAIPEditHeaderData
             SaveChangesButton, _
             CancelEditButton _
         }
-        DisableControls(EditableControls)
+        PreventControls(EditableControls)
 
         FacilityHistoryDataGridView.Enabled = True
     End Sub
@@ -237,7 +237,7 @@ Public Class IAIPEditHeaderData
                 RmpId _
             }
             If UserIsTryingToCloseFacility() Then
-                DisableControls(NonShutdownControls)
+                PreventControls(NonShutdownControls)
                 ShutdownDate.Checked = True
                 ShutdownDate.Enabled = True
                 ModifiedDescDisplay.Text = "When changing operating status to Closed/Dismantled, " & _
@@ -247,7 +247,7 @@ Public Class IAIPEditHeaderData
                 ModifiedDescDisplay.BackColor = Color.Yellow
             Else
                 ResetControlHighlights()
-                EnableControls(NonShutdownControls)
+                AllowControls(NonShutdownControls)
                 ShutdownDate.Checked = False
                 ShutdownDate.Enabled = False
                 ModifiedDescDisplay.Text = "Editing current facility data."

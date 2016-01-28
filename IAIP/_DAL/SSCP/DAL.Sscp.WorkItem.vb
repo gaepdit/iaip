@@ -24,8 +24,7 @@ Namespace DAL.Sscp
                 " AND STRTRACKINGNUMBER = :id "
             Dim parameter As New OracleParameter("id", trackingNumber)
 
-            Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
-            Return Convert.ToBoolean(result)
+            Return DB.GetBoolean(query, parameter)
         End Function
 
         ''' <summary>

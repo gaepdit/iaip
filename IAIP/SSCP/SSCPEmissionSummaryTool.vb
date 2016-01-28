@@ -14,7 +14,7 @@ Public Class SSCPEmissionSummaryTool
         
         Try
             pnl1.Text = ""
-            pnl2.Text = UserName
+            pnl2.Text = CurrentUser.AlphaName
             pnl3.Text = OracleDate
 
             loadYear()

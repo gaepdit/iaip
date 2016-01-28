@@ -4938,7 +4938,7 @@ Public Class SSCPManagersTools
                 If recExist = True Then
                     SQL = "Update AIRBRANCH.SSCPInspectionsRequired set " & _
                     "numSSCPEngineer = '" & Eng & "', " & _
-                    "strAssigningManager = '" & UserGCode & "', " & _
+                    "strAssigningManager = '" & CurrentUser.UserID & "', " & _
                     "DATASSIGNINGDATE = '" & OracleDate & "' " & _
                     "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                     "and AIRBRANCH.sscpinspectionsrequired.intYear = '" & cboFiscalYear.Text & "' "
@@ -4949,7 +4949,7 @@ Public Class SSCPManagersTools
                     "values " & _
                     "((select max(numKey) + 1 from AIRBRANCH.SSCPInspectionsRequired), " & _
                     "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " & _
-                    "'" & Eng & "', '" & UserGCode & "', " & _
+                    "'" & Eng & "', '" & CurrentUser.UserID & "', " & _
                     "'" & OracleDate & "') "
                 End If
 
@@ -4999,7 +4999,7 @@ Public Class SSCPManagersTools
                 If recExist = True Then
                     SQL = "Update AIRBRANCH.SSCPInspectionsRequired set " & _
                     "numSSCPUnit = '" & cboSSCPUnit2.SelectedValue & "' , " & _
-                    "strAssigningManager = '" & UserGCode & "', " & _
+                    "strAssigningManager = '" & CurrentUser.UserID & "', " & _
                     "DATASSIGNINGDATE = '" & OracleDate & "' " & _
                     "where strAIRSNumber = '0413" & AIRSNum & "'" & _
                     "and intYear = '" & cboFiscalYear.Text & "' "
@@ -5011,7 +5011,7 @@ Public Class SSCPManagersTools
                     "((select max(numKey) + 1 from AIRBRANCH.SSCPInspectionsRequired), " & _
                     "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " & _
                     "'" & cboSSCPUnit2.SelectedValue & "', " & _
-                    "'" & UserGCode & "', " & _
+                    "'" & CurrentUser.UserID & "', " & _
                     "'" & OracleDate & "') "
                 End If
 
@@ -5066,14 +5066,14 @@ Public Class SSCPManagersTools
                 If recExist = True Then
                     SQL = "Update AIRBRANCH.SSCPDistrictResponsible set " & _
                     "strDistrictResponsible = '" & DistResp & "', " & _
-                    "strAssigningManager = '" & UserGCode & "', " & _
+                    "strAssigningManager = '" & CurrentUser.UserID & "', " & _
                     "datAssigningDate = '" & OracleDate & "' " & _
                     "where strAIRSNumber = '0413" & AIRSNum & "' "
                 Else
                     SQL = "Insert into AIRBRANCH.SSCPDistrictResponsible " & _
                     "values " & _
                     "('0413" & AIRSNum & ", '" & DistResp & "', " & _
-                    "'" & UserGCode & "', '" & OracleDate & "') "
+                    "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
                 End If
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -5129,7 +5129,7 @@ Public Class SSCPManagersTools
                 If recExist = True Then
                     SQL = "Update AIRBRANCH.SSCPInspectionsRequired set " & _
                     "strInspectionRequired = '" & InspectionRequired & "', " & _
-                    "strAssigningManager = '" & UserGCode & "', " & _
+                    "strAssigningManager = '" & CurrentUser.UserID & "', " & _
                     "datAssigningDate = '" & OracleDate & "' " & _
                     "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                     "and intYear = '" & cboFiscalYear.Text & "' "
@@ -5141,7 +5141,7 @@ Public Class SSCPManagersTools
                     "((select max(numKey) + 1 from AIRBRANCH.SSCPInspectionsRequired), " & _
                     "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " & _
                     "'" & InspectionRequired & "', " & _
-                    "'" & UserGCode & "', '" & OracleDate & "') "
+                    "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
                 End If
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -5199,7 +5199,7 @@ Public Class SSCPManagersTools
                 If recExist = True Then
                     SQL = "Update AIRBRANCH.SSCPInspectionsRequired set " & _
                     "strFCERequired = '" & FCERequired & "', " & _
-                    "strAssigningManager = '" & UserGCode & "', " & _
+                    "strAssigningManager = '" & CurrentUser.UserID & "', " & _
                     "datAssigningDate = '" & OracleDate & "' " & _
                     "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                     "and intYear = '" & cboFiscalYear.Text & "' "
@@ -5210,7 +5210,7 @@ Public Class SSCPManagersTools
                    "values " & _
                    "((select max(numKey) + 1 from AIRBRANCH.SSCPInspectionsRequired), " & _
                    "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " & _
-                   "'" & FCERequired & "', '" & UserGCode & "', '" & OracleDate & "') "
+                   "'" & FCERequired & "', '" & CurrentUser.UserID & "', '" & OracleDate & "') "
                 End If
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -5284,7 +5284,7 @@ Public Class SSCPManagersTools
                     "numSSCPUnit = '" & cboSSCPUnit2.SelectedValue & "' , " & _
                     "strInspectionRequired = '" & InspectionRequired & "', " & _
                     "strFCERequired = '" & FCERequired & "', " & _
-                    "STRASSIGNINGMANAGER = '" & UserGCode & "', " & _
+                    "STRASSIGNINGMANAGER = '" & CurrentUser.UserID & "', " & _
                     "DATASSIGNINGDATE = '" & OracleDate & "' " & _
                     "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                     "and intyear = '" & cboFiscalYear.Text & "' "
@@ -5299,7 +5299,7 @@ Public Class SSCPManagersTools
                     "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " & _
                     "'" & Eng & "', '" & cboSSCPUnit2.SelectedValue & "', " & _
                     "'" & InspectionRequired & "', '" & FCERequired & "', " & _
-                    "'" & UserGCode & "', '" & OracleDate & "') "
+                    "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
                 End If
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -5322,14 +5322,14 @@ Public Class SSCPManagersTools
                 If recExist = True Then
                     SQL = "Update AIRBRANCH.SSCPDistrictResponsible set " & _
                     "strDistrictResponsible = '" & DistResp & "', " & _
-                    "strAssigningManager = '" & UserGCode & "', " & _
+                    "strAssigningManager = '" & CurrentUser.UserID & "', " & _
                     "datAssigningDate = '" & OracleDate & "' " & _
                     "where strAIRSNumber = '0413" & AIRSNum & "' "
                 Else
                     SQL = "Insert into AIRBRANCH.SSCPDistrictResponsible " & _
                     "values " & _
                     "('0413" & AIRSNum & ", '" & DistResp & "', " & _
-                    "'" & UserGCode & "', '" & OracleDate & "') "
+                    "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
                 End If
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -5465,7 +5465,7 @@ Public Class SSCPManagersTools
                 If recExist = True Then
                     SQL = "Update AIRBRANCH.SSCPInspectionsRequired set " & _
                     "numSSCPEngineer = '', " & _
-                    "strAssigningManager = '" & UserGCode & "', " & _
+                    "strAssigningManager = '" & CurrentUser.UserID & "', " & _
                     "DATASSIGNINGDATE = '" & OracleDate & "' " & _
                     "where strAIRSNumber = '0413" & AIRSNum & "' " & _
                     "and intYear = '" & cboFiscalYear.Text & "' "
@@ -5476,7 +5476,7 @@ Public Class SSCPManagersTools
                     "values " & _
                     "((select max(numKey) + 1 from AIRBRANCH.SSCPInspectionsRequired), " & _
                     "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " & _
-                    "'', '" & UserGCode & "', " & _
+                    "'', '" & CurrentUser.UserID & "', " & _
                     "'" & OracleDate & "') "
                 End If
 
@@ -5523,7 +5523,7 @@ Public Class SSCPManagersTools
                 If recExist = True Then
                     SQL = "Update AIRBRANCH.SSCPInspectionsRequired set " & _
                     "numSSCPUnit = '', " & _
-                    "strAssigningManager = '" & UserGCode & "', " & _
+                    "strAssigningManager = '" & CurrentUser.UserID & "', " & _
                   "DATASSIGNINGDATE = '" & OracleDate & "' " & _
                   "where strAIRSNumber = '0413" & AIRSNum & "'" & _
                   "and intYear = '" & cboFiscalYear.Text & "' "
@@ -5535,7 +5535,7 @@ Public Class SSCPManagersTools
                  "((select max(numKey) + 1 from AIRBRANCH.SSCPInspectionsRequired), " & _
                  "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " & _
                     "'', " & _
-                    "'" & UserGCode & "', " & _
+                    "'" & CurrentUser.UserID & "', " & _
                     "'" & OracleDate & "') "
                 End If
 

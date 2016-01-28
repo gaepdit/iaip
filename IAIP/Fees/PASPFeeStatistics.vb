@@ -3267,7 +3267,7 @@ Public Class PASPFeeStatistics
             rpt.SetDataSource(ds)
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, "Facility Classification Totals")
-            
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -8322,7 +8322,7 @@ Public Class PASPFeeStatistics
                 "and active = '1' "
 
                 Dim parameters As OracleParameter() = New OracleParameter() {
-                    New OracleParameter("Username", UserName),
+                    New OracleParameter("Username", CurrentUser.AlphaName),
                     New OracleParameter("FeeYear", cboFeeStatYear.Text)
                 }
 

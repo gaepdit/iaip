@@ -471,10 +471,10 @@ Public Class PASPDepositsAmendments
                         New OracleParameter("STRCHECKNO", txtCheckNumberField.Text),
                         New OracleParameter("STRDEPOSITNO", txtDepositNumberField.Text),
                         New OracleParameter("STRBATCHNO", txtBatchNoField.Text),
-                        New OracleParameter("STRENTRYPERSON", UserGCode),
+                        New OracleParameter("STRENTRYPERSON", CurrentUser.UserID),
                         New OracleParameter("STRCOMMENT", txtDepositComments.Text),
                         New OracleParameter("ACTIVE", "1"),
-                        New OracleParameter("UPDATEUSER", UserGCode),
+                        New OracleParameter("UPDATEUSER", CurrentUser.UserID),
                         New OracleParameter("STRAIRSNUMBER", "0413" & mtbAIRSNumber.Text),
                         New OracleParameter("NUMFEEYEAR", mtbFeeYear2.Text),
                         New OracleParameter("STRCREDITCARDNO", txtCreditCardNo.Text)
@@ -572,7 +572,7 @@ Public Class PASPDepositsAmendments
                             New OracleParameter("STRBATCHNO", txtBatchNoField.Text),
                             New OracleParameter("STRCOMMENT", txtDepositComments.Text),
                             New OracleParameter("ACTIVE", "1"),
-                            New OracleParameter("UPDATEUSER", UserGCode),
+                            New OracleParameter("UPDATEUSER", CurrentUser.UserID),
                             New OracleParameter("STRCREDITCARDNO", txtCreditCardNo.Text),
                             New OracleParameter("TRANSACTIONID", txtTransactionID.Text)
                         }

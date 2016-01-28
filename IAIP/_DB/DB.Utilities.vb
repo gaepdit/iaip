@@ -69,6 +69,10 @@ Namespace DB
                     Else
                         Return Boolean.Parse(value) ' Will throw an exception if value is not equal to Boolean.TrueString
                     End If
+
+                Case BooleanDBConversionType.OneOrZero
+                    Return Convert.ToBoolean(Integer.Parse(value))
+
             End Select
 
             ' Fallback
@@ -89,6 +93,14 @@ Namespace DB
                     Else
                         Return Nothing
                     End If
+
+                Case BooleanDBConversionType.OneOrZero
+                    If value Then
+                        Return "1"
+                    Else
+                        Return "0"
+                    End If
+
             End Select
 
             ' Fallback
@@ -126,6 +138,7 @@ Namespace DB
         ''' </summary>
         Public Enum BooleanDBConversionType
             TrueOrDBNull
+            OneOrZero
         End Enum
 
     End Module

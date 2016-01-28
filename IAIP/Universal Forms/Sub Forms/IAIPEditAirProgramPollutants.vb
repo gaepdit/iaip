@@ -20,7 +20,7 @@ Public Class IAIPEditAirProgramPollutants
 #Region " Form load "
 
     Private Sub IAIPEditAirProgramPollutants_Load(sender As Object, e As EventArgs) Handles Me.Load
-
+        monitor.TrackFeature("Forms." & Me.Name)
 
         If AirsNumber Is Nothing OrElse Not DAL.AirsNumberExists(AirsNumber) Then
             MessageBox.Show("Invalid AIRS number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -225,12 +225,14 @@ Public Class IAIPEditAirProgramPollutants
                UserPermissions.CheckAuth(UserCan.EditHeaderData) Then
                 SaveButton.Text = "Update pollutant status"
                 SaveButton.Visible = True
+                SaveButton.Location = New Point(270, SaveButton.Location.Y)
             Else
                 SaveButton.Visible = False
             End If
         Else
             SaveButton.Text = "Add new air program/pollutant"
             SaveButton.Visible = True
+            SaveButton.Location = New Point(15, SaveButton.Location.Y)
         End If
     End Sub
 

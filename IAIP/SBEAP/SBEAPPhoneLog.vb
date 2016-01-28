@@ -23,7 +23,7 @@ Public Class SBEAPPhoneLog
             ClearForm()
             LoadComboBoxes()
 
-            cboStaffResponsible.SelectedValue = UserGCode
+            cboStaffResponsible.SelectedValue = CurrentUser.UserID
         Catch ex As Exception
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -289,7 +289,7 @@ Public Class SBEAPPhoneLog
                     "'" & Staff & "', '" & DTPCaseOpened.Text & "', " & _
                     "'" & Replace(txtCaseSummary.Text, "'", "''") & "', " & _
                     "'" & Replace(ClientID, "'", "''") & "', '" & CloseDate & "', " & _
-                    "'" & UserGCode & "', '" & OracleDate & "', '', " & _
+                    "'" & CurrentUser.UserID & "', '" & OracleDate & "', '', " & _
                     "'" & Replace(ReferralInformation, "'", "''") & "', '', '', '') "
 
                     SQL2 = "Select max(numCaseID) as CaseID from AIRBRANCH.SBEAPCaseLog "
@@ -300,7 +300,7 @@ Public Class SBEAPPhoneLog
                     "strCaseSummary = '" & Replace(txtCaseSummary.Text, "'", "''") & "', " & _
                     "ClientID = '" & Replace(ClientID, "'", "''") & "', " & _
                     "datCaseClosed = '" & CloseDate & "', " & _
-                    "numModifingStaff = '" & UserGCode & "', " & _
+                    "numModifingStaff = '" & CurrentUser.UserID & "', " & _
                     "datModifingDate = '" & OracleDate & "', " & _
                     "strReferralComments = '" & Replace(ReferralInformation, "'", "''") & "' " & _
                     "where numCaseID = '" & txtCaseID.Text & "' "
@@ -356,8 +356,8 @@ Public Class SBEAPPhoneLog
                     SQL = "Insert into AIRBRANCH.SBEAPActionLog " & _
                     "values " & _
                     "('" & txtActionID.Text & "', '" & txtCaseID.Text & "', " & _
-                    "'6', '" & UserGCode & "', " & _
-                    "'" & OracleDate & "', '" & UserGCode & "', " & _
+                    "'6', '" & CurrentUser.UserID & "', " & _
+                    "'" & OracleDate & "', '" & CurrentUser.UserID & "', " & _
                     "'" & OracleDate & "', '" & OracleDate & "') "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -372,7 +372,7 @@ Public Class SBEAPPhoneLog
                     "'" & Replace(CallerPhone, "'", "''") & "', " & _
                     "'" & Replace(PhoneCallNotes, "'", "''") & "', " & _
                     "'" & OneTimeAssist & "', '" & FrontDeskCall & "', " & _
-                    "'" & UserGCode & "', '" & OracleDate & "') "
+                    "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -387,7 +387,7 @@ Public Class SBEAPPhoneLog
                     "strPhoneLogNotes = '" & Replace(PhoneCallNotes, "'", "''") & "', " & _
                     "strOneTimeAssist = '" & OneTimeAssist & "', " & _
                     "strFrontDeskCall = '" & FrontDeskCall & "', " & _
-                    "strModifingStaff = '" & UserGCode & "', " & _
+                    "strModifingStaff = '" & CurrentUser.UserID & "', " & _
                     "datModifingDate = '" & OracleDate & "' " & _
                     "where numActionID = '" & txtActionID.Text & "' "
 

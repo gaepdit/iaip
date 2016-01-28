@@ -15,6 +15,7 @@ The IAIP currently targets the .NET Framework version 4.5.2. It is built in Visu
 + [SAP Crystal Reports, developer version for Microsoft Visual Studio](http://scn.sap.com/docs/DOC-7824). Be sure to download the Install Executable, not the MSI. I'm currently using v.13.0.15.
 
 + Some NuGet packages are required. They should be restored automatically. If not, open the NuGet Package Manager and click Restore to install them:
+
   - Oracle ODP.NET, Managed Driver
   - Telerik Analytics Monitor
 
@@ -35,11 +36,13 @@ There are two main branches in the repository: `default` and `stable`.
 + The `stable` branch is for releases
 + The `default` branch is for development of future releases
 
-To get the latest release version, run `hg update stable`. To get the latest development version, run `hg update default`. 
+To get the latest release version, run `hg update stable`. To get the development branch, run `hg update default`.
 
 Releases are tagged with their unique version number. Use `hg tags` to see a list of existing tags.
 
-Other branches may be created for work on bugs or new features that are experimental or will take a long time to complete so that these don't intefere with routine or bugfix releases. Feature branch names should be prefixed with `feat/` followed by a short descriptive name, e.g., `feat/new-permit-search`. Bug fix branches should be prefixed `bug/` followed by the issue number and an optional brief description, e.g., `bug/299-permit-search-error`.
+Other branches may be created for work on bugs or new features that are experimental or will take a long time to complete so that these don't interfere with routine or bugfix releases. The rule of thumb should be that the default branch should always build and should generally be in a state that can be released. If your changes can be encompassed in a single commit, then feel free to use the default branch. Otherwise, create a development branch.
+
+Feature branch names should be prefixed with `feat/` followed by a short descriptive name, e.g., `feat/new-permit-search`. Bug fix branches should be prefixed `bug/` followed by the issue number and an optional brief description, e.g., `bug/299-permit-search-error`.
 
 
 ## Repo
@@ -49,6 +52,6 @@ The repository is on [Bitbucket](https://bitbucket.org/gaairbranch/iaip). You ca
 ```ini
 [tortoisehg]
 issue.regex = #(\d+)\b
-issue.link = https://bitbucket.org/bgregory/iaip/issue/{1}
-changeset.link = https://bitbucket.org/bgregory/iaip/commits/{node|short}
+issue.link = https://bitbucket.org/gaairbranch/iaip/issue/{1}
+changeset.link = https://bitbucket.org/gaairbranch/iaip/commits/{node|short}
 ```

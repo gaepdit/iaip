@@ -1,6 +1,6 @@
 Imports Oracle.ManagedDataAccess.Client
 Imports System.Collections.Generic
-
+Imports System.Linq
 
 Public Class SSCPComplianceLog
     Dim SQL, SQL2, SQL3 As String
@@ -23,11 +23,11 @@ Public Class SSCPComplianceLog
         
         Try
             Panel1.Text = "Select a Function..."
-            Panel2.Text = UserName
+            Panel2.Text = CurrentUser.AlphaName
             Panel3.Text = OracleDate
             DTPDateReceived.Text = OracleDate
 
-            chbEngineer.Text = UserName
+            chbEngineer.Text = CurrentUser.AlphaName
 
             DTPFilterStart.Enabled = False
             DTPFilterEnd.Enabled = False
@@ -45,12 +45,8 @@ Public Class SSCPComplianceLog
 
             'If AccountArray(4, 1) = "1" Then 'District Only 
             If AccountFormAccess(4, 1) = "1" _
-            And Not UserAccounts.Contains("(19)") _
-            And Not UserAccounts.Contains("(113)") _
-            And Not UserAccounts.Contains("(114)") _
-            And Not UserAccounts.Contains("(141)") _
-            And Not UserAccounts.Contains("(118)") _
-            Then
+                AndAlso Not CurrentUser.IaipAccountCodes.ContainsAny({19, 113, 114, 141, 118}.ToList) Then
+
                 btnAddNewEntry.Visible = False
                 btnDeleteWork.Visible = False
                 btnUndeleteWork.Visible = False
@@ -529,7 +525,7 @@ Public Class SSCPComplianceLog
 
             If rdbUseEngineer.Checked = True Then
                 If Me.chbEngineer.Checked = True Then
-                    SQLLine = " numUserID = '" & UserGCode & "' Or "
+                    SQLLine = " numUserID = '" & CurrentUser.UserID & "' Or "
                 Else
                     '                    Dim GCode As String = ""
                     For x As Integer = 0 To clbEngineer.Items.Count - 1
@@ -755,8 +751,8 @@ Public Class SSCPComplianceLog
                     "(AIRBRANCH.SSCPTrackingNumber.nextval, '0413" & txtNewAIRSNumber.Text & "', " & _
                     "'" & DTPDateReceived.Text & "', " & _
                     "'" & cboEvent.SelectedValue & "', " & _
-                    "'" & UserGCode & "', '', " & _
-                    "'" & UserGCode & "', '" & OracleDate & "')"
+                    "'" & CurrentUser.UserID & "', '', " & _
+                    "'" & CurrentUser.UserID & "', '" & OracleDate & "')"
 
                     If cboEvent.SelectedValue = "04" Then
                         SQL2 = "Insert into AIRBRANCH.SSCPItemMaster " & _
@@ -768,8 +764,8 @@ Public Class SSCPComplianceLog
                         "(AIRBRANCH.SSCPTrackingNumber.nextval, '0413" & txtNewAIRSNumber.Text & "', " & _
                         "'" & DTPDateReceived.Text & "', " & _
                         "'06', " & _
-                        "'" & UserGCode & "', '" & DTPDateReceived.Text & "', " & _
-                        "'" & UserGCode & "', '" & OracleDate & "')"
+                        "'" & CurrentUser.UserID & "', '" & DTPDateReceived.Text & "', " & _
+                        "'" & CurrentUser.UserID & "', '" & OracleDate & "')"
                     Else
                         SQL2 = ""
                     End If

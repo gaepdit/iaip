@@ -15,17 +15,17 @@ Namespace DAL.Dmu
         ''' <returns>An EdtErrorMessage object</returns>
         Public Function GetErrorMessageDetail(ByVal errorCode As String) As EdtErrorMessage
             Dim em As New EdtErrorMessage
-
-            Dim p0 As New OracleParameter("ERRORCODE", OracleDbType.Varchar2, errorCode, ParameterDirection.Input)
-            Dim p1 As New OracleParameter("ERRORMESSAGE", OracleDbType.Varchar2, 4000, Nothing, ParameterDirection.Output)
-            Dim p2 As New OracleParameter("CATEGORY", OracleDbType.Varchar2, 100, Nothing, ParameterDirection.Output)
-            Dim p3 As New OracleParameter("BUSINESSRULECODE", OracleDbType.Varchar2, 10, Nothing, ParameterDirection.Output)
-            Dim p4 As New OracleParameter("BUSINESSRULE", OracleDbType.Varchar2, 4000, Nothing, ParameterDirection.Output)
-            Dim p5 As New OracleParameter("DefaultUserID", OracleDbType.Int32, 22, Nothing, ParameterDirection.Output)
-            Dim p6 As New OracleParameter("DefaultUserName", OracleDbType.Varchar2, 202, Nothing, ParameterDirection.Output)
-
             Dim spName As String = "AIRBRANCH.ICIS_EDT.GetErrorMessageDetail"
-            Dim parameters As OracleParameter() = {p0, p1, p2, p3, p4, p5, p6}
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("ERRORCODE", OracleDbType.Varchar2, errorCode, ParameterDirection.Input),
+                New OracleParameter("ERRORMESSAGE", OracleDbType.Varchar2, 4000, Nothing, ParameterDirection.Output),
+                New OracleParameter("CATEGORY", OracleDbType.Varchar2, 100, Nothing, ParameterDirection.Output),
+                New OracleParameter("BUSINESSRULECODE", OracleDbType.Varchar2, 10, Nothing, ParameterDirection.Output),
+                New OracleParameter("BUSINESSRULE", OracleDbType.Varchar2, 4000, Nothing, ParameterDirection.Output),
+                New OracleParameter("DefaultUserID", OracleDbType.Int32, 22, Nothing, ParameterDirection.Output),
+                New OracleParameter("DefaultUserName", OracleDbType.Varchar2, 202, Nothing, ParameterDirection.Output)
+            }
+
             Dim result As Boolean = DB.SPRunCommand(spName, parameters)
 
             If result Then

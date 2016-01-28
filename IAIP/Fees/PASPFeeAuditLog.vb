@@ -38,7 +38,7 @@ Public Class PASPFeeAuditLog
             DTPAuditStart.Text = OracleDate
             DTPAuditEnd.Text = OracleDate
             DTPDateCollectionsCeased.Text = OracleDate
-            cboStaffResponsible.SelectedValue = UserGCode
+            cboStaffResponsible.SelectedValue = CurrentUser.UserID
 
             pnlInvoiceData.Enabled = False
             pnlFacilityData.Enabled = False
@@ -3085,8 +3085,8 @@ Public Class PASPFeeAuditLog
                 "'" & Replace(Replace(Replace(txtTransactionAmount.Text, "'", "''"), ",", ""), "$", "") & "', " & _
                 "'" & Replace(txtTransactionCheckNo.Text, "'", "''") & "', " & _
                 "'" & Replace(txtDepositNo.Text, "'", "''") & "', '" & Replace(txtBatchNo.Text, "'", "''") & "', " & _
-                "'" & UserGCode & "', '" & Replace(txtAPBComments.Text, "'", "''") & "', " & _
-                "'1', '" & UserGCode & "', " & _
+                "'" & CurrentUser.UserID & "', '" & Replace(txtAPBComments.Text, "'", "''") & "', " & _
+                "'1', '" & CurrentUser.UserID & "', " & _
                 "'" & OracleDate & "', '" & OracleDate & "', " & _
                 "'" & Me.ExpandedAirsNumber & "', " & _
                 "'" & Me.FeeYear & "', '" & Replace(txtTransactionCreditCardNo.Text, "'", "''") & "') "
@@ -3099,8 +3099,8 @@ Public Class PASPFeeAuditLog
                "'" & Replace(Replace(Replace(txtTransactionAmount.Text, "'", "''"), ",", ""), "$", "") & "', " & _
                "'" & Replace(txtTransactionCheckNo.Text, "'", "''") & "', " & _
                "'" & Replace(txtDepositNo.Text, "'", "''") & "', '" & Replace(txtBatchNo.Text, "'", "''") & "', " & _
-               "'" & UserGCode & "', '" & Replace(txtAPBComments.Text, "'", "''") & "', " & _
-               "'1', '" & UserGCode & "', " & _
+               "'" & CurrentUser.UserID & "', '" & Replace(txtAPBComments.Text, "'", "''") & "', " & _
+               "'1', '" & CurrentUser.UserID & "', " & _
                "'" & OracleDate & "', '" & OracleDate & "', " & _
                "'" & Me.ExpandedAirsNumber & "', " & _
                "'" & Me.FeeYear & "', '" & Replace(txtTransactionCreditCardNo.Text, "'", "''") & "') "
@@ -3306,7 +3306,7 @@ Public Class PASPFeeAuditLog
             "strBatchNo = '" & txtBatchNo.Text & "', " & _
             "strComment = '" & txtAPBComments.Text & "', " & _
             "active = '1', " & _
-            "updateUser = '" & UserGCode & "', " & _
+            "updateUser = '" & CurrentUser.UserID & "', " & _
             "updateDateTime = sysdate, " & _
             "strCreditCardNo = '" & txtTransactionCreditCardNo.Text & "' " & _
             "where TransactionID = '" & txtTransactionID.Text & "' "
@@ -3353,7 +3353,7 @@ Public Class PASPFeeAuditLog
 
             SQL = "Update AIRBRANCH.FS_Transactions set " & _
             "active = '0', " & _
-            "updateUser = '" & UserGCode & "', " & _
+            "updateUser = '" & CurrentUser.UserID & "', " & _
             "updateDateTime = sysdate " & _
             "where TransactionID = '" & txtTransactionID.Text & "' "
 
@@ -3644,7 +3644,7 @@ Public Class PASPFeeAuditLog
                 "values " & _
                 "('" & Me.FeeYear & "', '" & Me.ExpandedAirsNumber & "', " & _
                 "'Add Via IAIP Audit Process', '1', " & _
-                "'IAIP||" & UserName & "', sysdate, " & _
+                "'IAIP||" & CurrentUser.AlphaName & "', sysdate, " & _
                 "sysdate) "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -3657,10 +3657,10 @@ Public Class PASPFeeAuditLog
             If cboStaffResponsible.SelectedValue <> "" Then
                 StaffResponsible = cboStaffResponsible.SelectedValue
             Else
-                StaffResponsible = UserGCode
+                StaffResponsible = CurrentUser.UserID
             End If
             If StaffResponsible = "" Then
-                StaffResponsible = UserGCode
+                StaffResponsible = CurrentUser.UserID
             End If
             Select Case cboAuditType.Text
                 Case "Facility Self Amendment"
@@ -3710,7 +3710,7 @@ Public Class PASPFeeAuditLog
             "'" & Replace(AuditComments, "'", "''") & "', " & _
             "'" & AuditStart & "', '" & AuditEnd & "', " & _
             "'" & EndCollections & "', '" & CollectionsDate & "', " & _
-            "'1', '" & UserGCode & "', " & _
+            "'1', '" & CurrentUser.UserID & "', " & _
             "'" & OracleDate & "', '" & OracleDate & "', " & _
             "'" & Me.ExpandedAirsNumber & "', '" & Me.FeeYear & "' )  "
 
@@ -3757,7 +3757,7 @@ Public Class PASPFeeAuditLog
                 "'" & Replace(Classification, "'", "''") & "', '" & Replace(OpStatus, "'", "''") & "', " & _
                 "'" & Replace(ShutDown, "'", "''") & "', '" & Replace(OfficialName, "'", "''") & "', " & _
                 "'" & Replace(OfficialTitle, "'", "''") & "', '" & Replace(PaymentType, "'", "''") & "', " & _
-                "'1', '" & UserGCode & "', " & _
+                "'1', '" & CurrentUser.UserID & "', " & _
                 "sysdate, sysdate) "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4426,7 +4426,7 @@ Public Class PASPFeeAuditLog
             "'" & Me.ExpandedAirsNumber & "', '" & Me.FeeYear & "', " & _
             "'" & Replace(Replace(txtAmount.Text, "$", ""), ",", "") & "', '" & Format(DTPInvoiceDate.Value, "dd-MMM-yyyy") & "', " & _
             "'" & Replace(txtInvoiceComments.Text, "'", "''") & "', " & _
-            "'1', 'IAIP||" & UserName & "', '" & OracleDate & "', " & _
+            "'1', 'IAIP||" & CurrentUser.AlphaName & "', '" & OracleDate & "', " & _
             "'" & OracleDate & "', '" & cboInvoiceType.SelectedValue & "', " & _
             "'" & InvoiceStatus & "') "
 
@@ -4830,7 +4830,7 @@ Public Class PASPFeeAuditLog
                     "strOfficialName = '" & OfficialName & "', " & _
                     "strOfficialTitle = '" & OfficialTitle & "', " & _
                     "strPaymentPlan = '" & PaymentType & "', " & _
-                    "UpdateUser = '" & UserGCode & "', " & _
+                    "UpdateUser = '" & CurrentUser.UserID & "', " & _
                     "updateDateTime = sysdate " & _
                     "where AuditID = '" & txtAuditID.Text & "' "
                 Else
@@ -4849,7 +4849,7 @@ Public Class PASPFeeAuditLog
                     "'" & Replace(Classification, "'", "''") & "', '" & Replace(OpStatus, "'", "''") & "', " & _
                     "'" & Replace(ShutDown, "'", "''") & "', '" & Replace(OfficialName, "'", "''") & "', " & _
                     "'" & Replace(OfficialTitle, "'", "''") & "', '" & Replace(PaymentType, "'", "''") & "', " & _
-                    "'1', '" & UserGCode & "', " & _
+                    "'1', '" & CurrentUser.UserID & "', " & _
                     "sysdate, sysdate) "
                 End If
 
@@ -4878,10 +4878,10 @@ Public Class PASPFeeAuditLog
             If cboStaffResponsible.SelectedValue <> "" Then
                 StaffResponsible = cboStaffResponsible.SelectedValue
             Else
-                StaffResponsible = UserGCode
+                StaffResponsible = CurrentUser.UserID
             End If
             If StaffResponsible = "" Then
-                StaffResponsible = UserGCode
+                StaffResponsible = CurrentUser.UserID
             End If
             Select Case cboAuditType.Text
                 Case "Facility Self Amendment"
@@ -4925,7 +4925,7 @@ Public Class PASPFeeAuditLog
             "datAuditEnd = '" & AuditEnd & "', " & _
             "strEndCollections = '" & EndCollections & "', " & _
             "datCollectionsEnded = '" & CollectionsDate & "', " & _
-            "updateuser = '" & UserGCode & "', " & _
+            "updateuser = '" & CurrentUser.UserID & "', " & _
             "updateDateTime = sysdate " & _
             "where AuditID = '" & txtAuditID.Text & "' "
 
@@ -4937,7 +4937,7 @@ Public Class PASPFeeAuditLog
             '"'" & AuditCO & "', '" & Replace(AuditComments, "'", "''") & "', " & _
             '"'" & AuditStart & "', '" & AuditEnd & "', " & _
             '"'" & EndCollections & "', '" & CollectionsDate & "', " & _
-            '"'1', '" & UserGCode & "', " & _
+            '"'1', '" & CurrentUser.UserID & "', " & _
             '"'" & OracleDate & "', '" & OracleDate & "') "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5616,7 +5616,7 @@ Public Class PASPFeeAuditLog
             "'" & Submittal & "', '" & DateSubmittal & "', " & _
             "'1', '" & OracleDate & "', " & _
             "'" & Replace(Comment, "'", "''") & "', '1', " & _
-            "'IAIP||" & UserName & "', '" & OracleDate & "', " & _
+            "'IAIP||" & CurrentUser.AlphaName & "', '" & OracleDate & "', " & _
             "'" & OracleDate & "') "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5749,7 +5749,7 @@ Public Class PASPFeeAuditLog
                 Return False
             Else
                 SQL = SQL & _
-                "updateUser = 'IAIP||" & UserName & "', " & _
+                "updateUser = 'IAIP||" & CurrentUser.AlphaName & "', " & _
                 "updateDateTime = '" & OracleDate & "' "
             End If
 
@@ -5837,10 +5837,10 @@ Public Class PASPFeeAuditLog
             "and strInvoiceStatus = '0' " & _
             "and active = '1' "
 
-            Dim parameters As OracleParameter() = New OracleParameter() { _
-                New OracleParameter("Username", UserName), _
-                New OracleParameter("FeeYear", FeeYear), _
-                New OracleParameter("AirsNumber", AirsNumber) _
+            Dim parameters As OracleParameter() = New OracleParameter() {
+                New OracleParameter("Username", CurrentUser.AlphaName),
+                New OracleParameter("FeeYear", FeeYear),
+                New OracleParameter("AirsNumber", AirsNumber)
             }
 
             If Not DB.RunCommand(SQL, parameters) Then

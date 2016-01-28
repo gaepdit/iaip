@@ -119,7 +119,7 @@ Namespace DAL
                 New OracleParameter("STRPOLLUTANTKEY", pollutantCode),
                 New OracleParameter("STRCOMPLIANCESTATUS", EnforcementCase.ConvertComplianceStatus(complianceStatus).ToString.Substring(7)),
                 New OracleParameter("STROPERATIONALSTATUS", operatingStatus.ToString),
-                New OracleParameter("STRMODIFINGPERSON", UserGCode)
+                New OracleParameter("STRMODIFINGPERSON", CurrentUser.UserID)
             }
 
             Return DB.RunCommand(query, parameters)
@@ -143,7 +143,7 @@ Namespace DAL
             Dim parameters As OracleParameter() = {
                 New OracleParameter("STRCOMPLIANCESTATUS", EnforcementCase.ConvertComplianceStatus(complianceStatus).ToString.Substring(7)),
                 New OracleParameter("STROPERATIONALSTATUS", operatingStatus.ToString),
-                New OracleParameter("STRMODIFINGPERSON", UserGCode),
+                New OracleParameter("STRMODIFINGPERSON", CurrentUser.UserID),
                 New OracleParameter("STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram.ToString)),
                 New OracleParameter("STRPOLLUTANTKEY", pollutantCode)
             }

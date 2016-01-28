@@ -412,7 +412,7 @@ Public Class IAIPEditContacts
                     "STRCONTACTCITY = '" & Replace(txtNewCity.Text, "'", "''") & "', " & _
                     "STRCONTACTSTATE = '" & Replace(txtNewState.Text, "'", "''") & "', " & _
                     "STRCONTACTZIPCODE = '" & mtbNewZipCode.Text & "', " & _
-                    "STRMODIFINGPERSON = '" & UserGCode & "', " & _
+                    "STRMODIFINGPERSON = '" & CurrentUser.UserID & "', " & _
                     "DATMODIFINGDATE = sysdate,  " & _
                     "STRCONTACTDESCRIPTION = '" & Replace(txtNewDescrption.Text, "'", "''") & "' " & _
                     "where strAIRSnumber = '" & AirsNumber.DbFormattedString & "' " & _
@@ -460,7 +460,7 @@ Public Class IAIPEditContacts
                        "STRCONTACTCITY = '" & Replace(txtNewCity.Text, "'", "''") & "', " & _
                        "STRCONTACTSTATE = '" & Replace(txtNewState.Text, "'", "''") & "', " & _
                        "STRCONTACTZIPCODE = '" & mtbNewZipCode.Text & "', " & _
-                       "STRMODIFINGPERSON = '" & UserGCode & "', " & _
+                       "STRMODIFINGPERSON = '" & CurrentUser.UserID & "', " & _
                        "DATMODIFINGDATE = sysdate,  " & _
                        "STRCONTACTDESCRIPTION = '" & Replace(txtNewDescrption.Text, "'", "''") & "' " & _
                        "where strAIRSnumber = '" & AirsNumber.DbFormattedString & "' " & _
@@ -556,7 +556,7 @@ Public Class IAIPEditContacts
                             " '" & Replace(txtNewEmail.Text, "'", "''") & "', '" & Replace(txtNewAddress.Text, "'", "''") & "', " & _
                             " '', '" & Replace(txtNewCity.Text, "'", "''") & "', " & _
                             " '" & Replace(txtNewState.Text, "'", "''") & "',  '" & mtbNewZipCode.Text & "', " & _
-                            " '" & UserGCode & "',  sysdate, " & _
+                            " '" & CurrentUser.UserID & "',  sysdate, " & _
                             " '" & Replace(txtNewDescrption.Text, "'", "''") & "' " & _
                             "from dual  " & _
                             "where not exists (select * from AIRBranch.APBContactInformation  " & _
@@ -592,7 +592,7 @@ Public Class IAIPEditContacts
                             " '" & Replace(txtNewEmail.Text, "'", "''") & "', '" & Replace(txtNewAddress.Text, "'", "''") & "', " & _
                             " '', '" & Replace(txtNewCity.Text, "'", "''") & "', " & _
                             " '" & Replace(txtNewState.Text, "'", "''") & "',  '" & mtbNewZipCode.Text & "', " & _
-                            " '" & UserGCode & "',  sysdate, " & _
+                            " '" & CurrentUser.UserID & "',  sysdate, " & _
                             " '" & Replace(txtNewDescrption.Text, "'", "''") & "' " & _
                             "from dual  " & _
                             "where not exists (select * from AIRBranch.APBContactInformation  " & _

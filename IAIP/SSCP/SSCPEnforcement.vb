@@ -67,7 +67,7 @@ Public Class SscpEnforcement
 #Region " Form load event "
 
     Private Sub SscpEnforcement_Load(sender As Object, e As EventArgs) Handles Me.Load
-
+        monitor.TrackFeature("Forms." & Me.Name)
 
         ' Set up form/defaults/permissions
         GetLookupTables()
@@ -121,7 +121,7 @@ Public Class SscpEnforcement
         EnforcementTabs.TabPages.Remove(EpaValuesTabPage)
 
         ' Header
-        StaffResponsible.SelectedValue = UserGCode
+        StaffResponsible.SelectedValue = CurrentUser.UserID
 
         ' Dates
         SetDtpMaxDates(Today, New List(Of DateTimePicker) From {

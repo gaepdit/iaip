@@ -6,13 +6,10 @@ Public Class IAIPNavigation
 
 #Region " Local variables and properties "
 
-#Region " WorkViewer properties "
-
-    Private dtWorkViewerTable As DataTable
-    Private Property CurrentWorkViewerContext() As WorkViewerType
-    Private Property CurrentWorkViewerContextParameter() As String
-
-#End Region
+    Private Property WorkViewerTable As DataTable
+    Private Property CurrentWorkViewerContext As WorkViewerType = WorkViewerType.None
+    Private Property CurrentWorkViewerContextParameter As String = ""
+    Private Property ExitWhenClosed As Boolean = True
 
 #End Region
 
@@ -29,6 +26,7 @@ Public Class IAIPNavigation
         EnableSbeapTools()
         LoadStatusBar()
         EnableConnectionEnvironmentOptions()
+        DisplayUsername()
 
         ' Start various Timers
         AppTimers.StartAppTimers()
@@ -39,6 +37,10 @@ Public Class IAIPNavigation
 #End If
     End Sub
 
+    Private Sub DisplayUsername()
+        UsernameDisplay.Text = "Logged in as " & CurrentUser.Username
+    End Sub
+
     Private Sub IAIPNavigation_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
         monitor.TrackFeatureStop("Startup.LoggingIn")
 
@@ -47,7 +49,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub IAIPNavigation_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-        StartupShutdown.CloseIaip()
+        If ExitWhenClosed Then StartupShutdown.CloseIaip()
     End Sub
 
 #End Region
@@ -55,20 +57,16 @@ Public Class IAIPNavigation
 #Region " Page Load procedures "
 
     Private Sub EnableSbeapTools()
-        If UserHasPermission(New String() {"(142)", "(143)", "(118)"}) Then
+        If CurrentUser.HasPermissionCode({142, 143, 118}) Then
             cboWorkViewerContext.Items.Add("SBEAP Cases")
             EnableAndShow(SbeapQuickAccessPanel)
         End If
     End Sub
 
     Private Sub LoadStatusBar()
-        pnlName.Text = UserName
+        pnlName.Text = CurrentUser.AlphaName
         pnlDate.Text = OracleDate
-
-        Dim id As Integer
-        If Integer.TryParse(UserProgram, id) Then
-            pnlProgram.Text = DAL.GetProgramDescription(id)
-        End If
+        pnlProgram.Text = DAL.GetProgramDescription(CurrentUser.ProgramID)
     End Sub
 
     Private Sub BuildListChangerCombo()
@@ -221,7 +219,7 @@ Public Class IAIPNavigation
             If id = "" Then Exit Sub
 
             If DAL.Ismp.StackTestExists(id) Then
-                If UserProgram = "3" Then
+                If CurrentUser.ProgramID = 3 Then
                     OpenMultiForm(ISMPTestReports, id)
                 Else
                     If DAL.Ismp.StackTestIsClosedOut(id) Then
@@ -345,16 +343,16 @@ Public Class IAIPNavigation
 
             Select Case cboWorkViewerContext.Text
                 Case "Default List"
-                    Select Case UserBranch
-                        Case "1" 'Air Protection Branch
-                            Select Case UserProgram
+                    Select Case CurrentUser.BranchID
+                        Case 1 'Air Protection Branch
+                            Select Case CurrentUser.ProgramID
 
-                                Case "3" 'ISMP
-                                    If UserUnit = "---" Then 'Program Manager
+                                Case 3 'ISMP
+                                    If CurrentUser.UnitId = 0 Then 'Program Manager
                                         CurrentWorkViewerContext = WorkViewerType.ISMP_PM
                                     ElseIf AccountFormAccess(17, 2) = "1" Then  'Unit Manager
                                         CurrentWorkViewerContext = WorkViewerType.ISMP_UC
-                                        CurrentWorkViewerContextParameter = UserUnit
+                                        CurrentWorkViewerContextParameter = CurrentUser.UnitId
                                     Else
                                         CurrentWorkViewerContext = WorkViewerType.ISMP_Staff
                                         ' TODO DWW: When a better User object is set up, change this (pnlName.Text)
@@ -362,36 +360,36 @@ Public Class IAIPNavigation
                                         CurrentWorkViewerContextParameter = pnlName.Text
                                     End If
 
-                                Case "4" 'SSCP
-                                    If UserUnit = "---" Then 'Program Manager
+                                Case 4 'SSCP
+                                    If CurrentUser.UnitId = 0 Then 'Program Manager
                                         CurrentWorkViewerContext = WorkViewerType.SSCP_PM
-                                    ElseIf UserHasPermission("(143)") Then ' SBEAP Manager
+                                    ElseIf CurrentUser.HasPermissionCode(143) Then ' SBEAP Manager
                                         CurrentWorkViewerContext = WorkViewerType.SBEAP_Program
-                                    ElseIf UserHasPermission("(142)") Then ' SBEAP staff
+                                    ElseIf CurrentUser.HasPermissionCode(142) Then ' SBEAP staff
                                         CurrentWorkViewerContext = WorkViewerType.SBEAP_Staff
-                                        CurrentWorkViewerContextParameter = UserGCode
+                                        CurrentWorkViewerContextParameter = CurrentUser.UserID
                                     ElseIf AccountFormAccess(22, 3) = "1" Then 'Unit Manager
                                         CurrentWorkViewerContext = WorkViewerType.SSCP_UC
-                                        CurrentWorkViewerContextParameter = UserUnit
+                                        CurrentWorkViewerContextParameter = CurrentUser.UnitId
                                     ElseIf AccountFormAccess(10, 3) = "1" Then 'District Liaison
                                         CurrentWorkViewerContext = WorkViewerType.SSCP_DistrictLiaison
                                     Else
                                         CurrentWorkViewerContext = WorkViewerType.SSCP_Staff
-                                        CurrentWorkViewerContextParameter = UserGCode
+                                        CurrentWorkViewerContextParameter = CurrentUser.UserID
                                     End If
 
-                                Case "5" 'SSPP
-                                    If AccountFormAccess(3, 3) = "1" And UserUnit = "---" Then  'Program Manager
+                                Case 5 'SSPP
+                                    If AccountFormAccess(3, 3) = "1" And CurrentUser.UnitId = 0 Then  'Program Manager
                                         CurrentWorkViewerContext = WorkViewerType.SSPP_PM
                                     ElseIf AccountFormAccess(24, 3) = "1" Then 'Unit Manager
                                         CurrentWorkViewerContext = WorkViewerType.SSPP_UC
-                                        CurrentWorkViewerContextParameter = UserUnit
+                                        CurrentWorkViewerContextParameter = CurrentUser.UnitId
                                     ElseIf AccountFormAccess(9, 3) = "1" Then 'Administrative 2
                                         CurrentWorkViewerContext = WorkViewerType.SSPP_Administrative
-                                        CurrentWorkViewerContextParameter = UserGCode
+                                        CurrentWorkViewerContextParameter = CurrentUser.UserID
                                     Else
                                         CurrentWorkViewerContext = WorkViewerType.SSPP_Staff
-                                        CurrentWorkViewerContextParameter = UserGCode
+                                        CurrentWorkViewerContextParameter = CurrentUser.UserID
                                     End If
 
                                 Case Else
@@ -399,17 +397,17 @@ Public Class IAIPNavigation
 
                             End Select
 
-                        Case "5" 'Program Coordination 
-                            If UserUnit = "---" Then 'Program Manager
+                        Case 5 'Program Coordination 
+                            If CurrentUser.UnitId = 0 Then 'Program Manager
                                 CurrentWorkViewerContext = WorkViewerType.ProgCoord_PM
                             ElseIf AccountFormAccess(22, 3) = "1" Then 'Unit Manager
                                 CurrentWorkViewerContext = WorkViewerType.ProgCoord_UC
-                                CurrentWorkViewerContextParameter = UserUnit
+                                CurrentWorkViewerContextParameter = CurrentUser.UnitId
                             ElseIf AccountFormAccess(10, 3) = "1" Then 'District Liaison
                                 CurrentWorkViewerContext = WorkViewerType.ProgCoord_DistrictLiaison
                             Else
                                 CurrentWorkViewerContext = WorkViewerType.ProgCoord_Staff
-                                CurrentWorkViewerContextParameter = UserGCode
+                                CurrentWorkViewerContextParameter = CurrentUser.UserID
                             End If
 
                         Case Else
@@ -420,25 +418,25 @@ Public Class IAIPNavigation
                 Case "Compliance Facilities Assigned"
                     If rdbUCView.Checked Or rdbPMView.Checked Then
                         CurrentWorkViewerContext = WorkViewerType.ComplianceFacilitiesAssigned_Program
-                        CurrentWorkViewerContextParameter = UserProgram
+                        CurrentWorkViewerContextParameter = CurrentUser.ProgramID
                     Else
                         CurrentWorkViewerContext = WorkViewerType.ComplianceFacilitiesAssigned_Staff
-                        CurrentWorkViewerContextParameter = UserGCode
+                        CurrentWorkViewerContextParameter = CurrentUser.UserID
                     End If
 
                 Case "Compliance Work"
                     If rdbUCView.Checked Then
                         CurrentWorkViewerContext = WorkViewerType.ComplianceWork_UC
-                        CurrentWorkViewerContextParameter = UserUnit
-                        If UserProgram = "5" Then
+                        CurrentWorkViewerContextParameter = CurrentUser.UnitId
+                        If CurrentUser.ProgramID = 5 Then
                             CurrentWorkViewerContext = WorkViewerType.ComplianceWork_UC_ProgCoord
-                            CurrentWorkViewerContextParameter = UserProgram
+                            CurrentWorkViewerContextParameter = CurrentUser.ProgramID
                         End If
                     ElseIf rdbPMView.Checked = True Then
                         CurrentWorkViewerContext = WorkViewerType.ComplianceWork_PM
                     Else
                         CurrentWorkViewerContext = WorkViewerType.ComplianceWork_Staff
-                        CurrentWorkViewerContextParameter = UserGCode
+                        CurrentWorkViewerContextParameter = CurrentUser.UserID
                     End If
 
                 Case "Delinquent Full Compliance Evaluations"
@@ -447,16 +445,16 @@ Public Class IAIPNavigation
                 Case "Enforcement"
                     If rdbUCView.Checked Then
                         CurrentWorkViewerContext = WorkViewerType.Enforcement_UC
-                        CurrentWorkViewerContextParameter = UserUnit
-                        If UserProgram = "5" Then
+                        CurrentWorkViewerContextParameter = CurrentUser.UnitId
+                        If CurrentUser.ProgramID = 5 Then
                             CurrentWorkViewerContext = WorkViewerType.Enforcement_UC_ProgCoord
-                            CurrentWorkViewerContextParameter = UserProgram
+                            CurrentWorkViewerContextParameter = CurrentUser.ProgramID
                         End If
                     ElseIf rdbPMView.Checked Then
                         CurrentWorkViewerContext = WorkViewerType.Enforcement_PM
                     Else
                         CurrentWorkViewerContext = WorkViewerType.Enforcement_Staff
-                        CurrentWorkViewerContextParameter = UserGCode
+                        CurrentWorkViewerContextParameter = CurrentUser.UserID
                     End If
 
                 Case "Facilities with Subparts"
@@ -473,8 +471,8 @@ Public Class IAIPNavigation
                         CurrentWorkViewerContextParameter = pnlName.Text
                     ElseIf rdbUCView.Checked Then
                         CurrentWorkViewerContext = WorkViewerType.MonitoringTestReports_UC
-                        CurrentWorkViewerContextParameter = UserUnit
-                    ElseIf rdbPMView.Checked Or UserUnit = "---" Then
+                        CurrentWorkViewerContextParameter = CurrentUser.UnitId
+                    ElseIf rdbPMView.Checked Or CurrentUser.UnitId = 0 Then
                         CurrentWorkViewerContext = WorkViewerType.MonitoringTestReports_PM
                     End If
 
@@ -484,12 +482,12 @@ Public Class IAIPNavigation
                 Case "Permit Applications"
                     If rdbUCView.Checked Then
                         CurrentWorkViewerContext = WorkViewerType.PermitApplications_UC
-                        CurrentWorkViewerContextParameter = UserUnit
-                    ElseIf rdbPMView.Checked Or UserUnit = "---" Then
+                        CurrentWorkViewerContextParameter = CurrentUser.UnitId
+                    ElseIf rdbPMView.Checked Or CurrentUser.UnitId = 0 Then
                         CurrentWorkViewerContext = WorkViewerType.PermitApplications_PM
                     Else
                         CurrentWorkViewerContext = WorkViewerType.PermitApplications_Staff
-                        CurrentWorkViewerContextParameter = UserGCode
+                        CurrentWorkViewerContextParameter = CurrentUser.UserID
                     End If
 
                 Case "SBEAP Cases"
@@ -497,7 +495,7 @@ Public Class IAIPNavigation
                         CurrentWorkViewerContext = WorkViewerType.SBEAP_Program
                     Else
                         CurrentWorkViewerContext = WorkViewerType.SBEAP_Staff
-                        CurrentWorkViewerContextParameter = UserGCode
+                        CurrentWorkViewerContextParameter = CurrentUser.UserID
                     End If
 
 
@@ -559,11 +557,11 @@ Public Class IAIPNavigation
     Private Sub SetContextSelectorSubView()
         rdbStaffView.Checked = True
 
-        If UserHasPermission(New String() {"(114)", "(115)", "(121)", "(128)", "(141)", "(63)"}) Then
+        If CurrentUser.HasPermissionCode({114, 115, 121, 128, 141, 63}) Then
             rdbUCView.Checked = True
         End If
 
-        If UserHasPermission(New String() {"(2)", "(19)", "(28)", "(45)", "(57)", "(143)"}) Then
+        If CurrentUser.HasPermissionCode({2, 19, 28, 45, 57, 143}) Then
             rdbPMView.Checked = True
         End If
     End Sub
@@ -863,8 +861,8 @@ Public Class IAIPNavigation
 
     Private Sub bgrLoadWorkViewer_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bgrLoadWorkViewer.DoWork
         Try
-            dtWorkViewerTable = New DataTable
-            dtWorkViewerTable = DAL.GetWorkViewerListAsDataTable(CurrentWorkViewerContext, CurrentWorkViewerContextParameter)
+            WorkViewerTable = New DataTable
+            WorkViewerTable = DAL.GetWorkViewerListAsDataTable(CurrentWorkViewerContext, CurrentWorkViewerContextParameter)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -874,14 +872,14 @@ Public Class IAIPNavigation
         pnlCurrentList.Enabled = True
         btnChangeWorkViewerContext.Text = "Load"
 
-        If dtWorkViewerTable IsNot Nothing AndAlso dtWorkViewerTable.Rows.Count > 0 Then
-            dgvWorkViewer.DataSource = dtWorkViewerTable
+        If WorkViewerTable IsNot Nothing AndAlso WorkViewerTable.Rows.Count > 0 Then
+            dgvWorkViewer.DataSource = WorkViewerTable
 
             dgvWorkViewer.Visible = True
             lblMessageLabel.Visible = False
             lblMessageLabel.Text = ""
             lblResultsCount.Visible = True
-            lblResultsCount.Text = dtWorkViewerTable.Rows.Count & " results"
+            lblResultsCount.Text = WorkViewerTable.Rows.Count & " results"
 
             FormatWorkViewer()
         Else
@@ -1013,36 +1011,26 @@ Public Class IAIPNavigation
 
     Private Sub bgrUserPermissions_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bgrUserPermissions.DoWork
         Try
-            Dim AccountFormAccessLookup As DataTable = GetAccountFormAccessLookup()
+            Dim AccountFormAccessLookup As DataTable = DAL.GetAccountFormAccessLookup()
             AccountFormAccessLookup.PrimaryKey = New DataColumn() {AccountFormAccessLookup.Columns(0)}
 
-            If UserAccounts.Length > 0 Then
-                Dim userAccountArray() As String = UserAccounts.Split(New Char() {"(", ")"}, StringSplitOptions.RemoveEmptyEntries)
+            For Each account As Integer In CurrentUser.IaipAccountCodes
+                Dim accountFormAccessString As String = AccountFormAccessLookup.Rows.Find(account)(1).ToString
 
-                For Each account As String In userAccountArray
-                    Dim accountFormAccessString As String = AccountFormAccessLookup.Rows.Find(account)(1).ToString
+                If accountFormAccessString.Length > 0 Then
+                    Dim formAccessArray() As String = accountFormAccessString.Split(New Char() {"(", ")"}, StringSplitOptions.RemoveEmptyEntries)
 
-                    If accountFormAccessString.Length > 0 Then
-                        Dim formAccessArray() As String = accountFormAccessString.Split(New Char() {"(", ")"}, StringSplitOptions.RemoveEmptyEntries)
-
-                        For Each formAccessString As String In formAccessArray
-                            Dim formAccessSplit() As String = formAccessString.Split(New Char() {"-", ","})
-                            Dim formNumber As String = formAccessSplit(0)
-                            AccountFormAccess(formNumber, 0) = formNumber
-                            For i As Integer = 1 To 4
-                                AccountFormAccess(formNumber, i) = Convert.ToInt32(AccountFormAccess(formNumber, i)) Or Convert.ToInt32(formAccessSplit(i))
-                            Next
+                    For Each formAccessString As String In formAccessArray
+                        Dim formAccessSplit() As String = formAccessString.Split(New Char() {"-", ","})
+                        Dim formNumber As String = formAccessSplit(0)
+                        AccountFormAccess(formNumber, 0) = formNumber
+                        For i As Integer = 1 To 4
+                            AccountFormAccess(formNumber, i) = Convert.ToInt32(AccountFormAccess(formNumber, i)) Or Convert.ToInt32(formAccessSplit(i))
                         Next
-                    End If
-                Next
-            End If
-
-            'Dim sb As New System.Text.StringBuilder
-            'For Each a As String In AccountFormAccess
-            '    sb.Append(a)
-            'Next
-            'Console.WriteLine(sb.ToString)
-
+                    Next
+                End If
+            Next
+            
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1095,18 +1083,6 @@ Public Class IAIPNavigation
 
 #Region " Implementation "
 
-    Private Function UserHasPermission(ByVal permissionCode As String) As Boolean
-        If UserAccounts.Contains(permissionCode) Then Return True
-        Return False
-    End Function
-
-    Private Function UserHasPermission(ByVal permissionsAllowed As String()) As Boolean
-        For Each permissionCode As String In permissionsAllowed
-            If UserHasPermission(permissionCode) Then Return True
-        Next
-        Return False
-    End Function
-
     Private Function AccountHasAccessToForm(ByVal index As Int32) As Boolean
         Return (AccountFormAccess(index, 0) IsNot Nothing _
                 AndAlso AccountFormAccess(index, 0) = index.ToString _
@@ -1138,23 +1114,23 @@ Public Class IAIPNavigation
         End If
     End Sub
 
-    Private Sub AddNavButtonIfUserHasPermission(ByVal permissionsAllowed As String(), _
+    Private Sub AddNavButtonIfUserHasPermission(ByVal permissionsAllowed As Integer(), _
                                                 ByVal buttonText As String, ByVal formName As String, _
                                                 ByVal category As NavButtonCategories)
-        If UserHasPermission(permissionsAllowed) Then
+        If CurrentUser.HasPermissionCode(permissionsAllowed) Then
             AddNavButton(buttonText, formName, category)
         End If
     End Sub
 
-    Private Sub AddNavButtonIfUserHasPermission(ByVal permissionAllowed As String, _
+    Private Sub AddNavButtonIfUserHasPermission(ByVal permissionAllowed As Integer, _
                                                 ByVal buttonText As String, ByVal formName As String, _
                                                 ByVal category As NavButtonCategories)
-        AddNavButtonIfUserHasPermission(New String() {permissionAllowed}, _
+        AddNavButtonIfUserHasPermission({permissionAllowed}, _
                                         buttonText, formName, category)
     End Sub
 
     Private Sub AddNavButtonCategory(ByVal category As NavButtonCategories, ByVal name As String, Optional ByVal shortname As String = Nothing)
-        If CurrentUser.Staff.ProgramName = name OrElse CurrentUser.Staff.UnitName = name Then
+        If CurrentUser.ProgramName = name OrElse CurrentUser.UnitName = name Then
             AllTheNavButtonCategories.Insert(0, New NavButtonCategory(category, name, shortname))
         Else
             AllTheNavButtonCategories.Add(New NavButtonCategory(category, name, shortname))
@@ -1234,7 +1210,7 @@ Public Class IAIPNavigation
         ' General
         AddNavButtonIfAccountHasFormAccess(1, "Facility Summary", "IAIPFacilitySummary", NavButtonCategories.General)
         AddNavButtonIfAccountHasFormAccess(7, "Query Generator", "IAIPQueryGenerator", NavButtonCategories.General)
-        AddNavButtonIfAccountHasFormAccess(8, "Profile Management", "IAIPUserAdminTool", NavButtonCategories.General)
+        AddNavButtonIfAccountHasFormAccess(8, "User Admin", "IAIPUserAdminTool", NavButtonCategories.General)
 
         ' SSPP
         AddNavButtonIfAccountHasFormAccess(3, "Application Log", "SSPPApplicationLog", NavButtonCategories.SSPP)
@@ -1246,15 +1222,14 @@ Public Class IAIPNavigation
 
         ' SSCP
         AddNavButtonIfAccountHasFormAccess(4, "Compliance Log", "SSCPComplianceLog", NavButtonCategories.SSCP)
-        AddNavButtonIfAccountHasFormAccess(22, "Compliance Managers", "SSCPManagersTools", NavButtonCategories.SSCP)
-        AddNavButtonIfUserHasPermission(New String() {"(19)", "(20)", "(21)", "(23)", "(25)", "(118)", "(114)"}, _
-                                        "Enforcement Documents", "SscpDocuments", NavButtonCategories.SSCP)
+        AddNavButtonIfAccountHasFormAccess(22, "Compliance Management", "SSCPManagersTools", NavButtonCategories.SSCP)
+        AddNavButtonIfUserHasPermission({19, 20, 21, 23, 25, 118, 114}, "Enforcement Documents", "SscpDocuments", NavButtonCategories.SSCP)
 
         ' ISMP
         AddNavButtonIfAccountHasFormAccess(5, "Monitoring Log", "ISMPMonitoringLog", NavButtonCategories.ISMP)
         AddNavButtonIfAccountHasFormAccess(14, "Test Report Information", "ISMPTestReportAdministrative", NavButtonCategories.ISMP)
         AddNavButtonIfAccountHasFormAccess(15, "Memo Viewer", "ISMPTestMemoViewer", NavButtonCategories.ISMP)
-        AddNavButtonIfAccountHasFormAccess(17, "ISMP Managers", "ISMPManagersTools", NavButtonCategories.ISMP)
+        AddNavButtonIfAccountHasFormAccess(17, "ISMP Management", "ISMPManagersTools", NavButtonCategories.ISMP)
         AddNavButtonIfAccountHasFormAccess(128, "Smoke School", "SmokeSchool", NavButtonCategories.ISMP)
 
         ' Fees
@@ -1268,11 +1243,10 @@ Public Class IAIPNavigation
 
         ' DMU
         AddNavButtonIfAccountHasFormAccess(129, "Error Logs", "DMUDeveloperTool", NavButtonCategories.DMU)
-        AddNavButtonIfUserHasPermission(New String() {"(118)", "(19)", "(28)"}, _
-                                        "EDT Errors", "DmuEdtErrorMessages", NavButtonCategories.DMU)
+        AddNavButtonIfUserHasPermission({118, 19, 28}, "EDT Errors", "DmuEdtErrorMessages", NavButtonCategories.DMU)
         AddNavButtonIfAccountHasFormAccess(10, "District Tools", "IAIPDistrictSourceTool", NavButtonCategories.DMU)
-        AddNavButtonIfAccountHasFormAccess(133, "Look Up Tables", "IAIPLookUpTables", NavButtonCategories.DMU)
-        AddNavButtonIfUserHasPermission("(118)", "Organization Editor", "IAIPListTool", NavButtonCategories.DMU)
+        AddNavButtonIfAccountHasFormAccess(133, "Lookup Tables", "IAIPLookUpTables", NavButtonCategories.DMU)
+        AddNavButtonIfUserHasPermission(118, "Organization Editor", "IAIPListTool", NavButtonCategories.DMU)
         If (CurrentUser.UserID = "345") Then
             AddNavButtonIfAccountHasFormAccess(63, "Special Tools", "DMUDangerousTool", NavButtonCategories.DMU)
         End If
@@ -1282,16 +1256,11 @@ Public Class IAIPNavigation
         AddNavButtonIfAccountHasFormAccess(130, "EIS && GECO Tools", "DMUEisGecoTool", NavButtonCategories.EIS)
 
         'SBEAP
-        AddNavButtonIfUserHasPermission(New String() {"(142)", "(143)", "(118)"}, _
-                                "Customer Summary", "SBEAPClientSummary", NavButtonCategories.SBEAP)
-        AddNavButtonIfUserHasPermission(New String() {"(142)", "(143)", "(118)"}, _
-                                "Case Log", "SBEAPCaseLog", NavButtonCategories.SBEAP)
-        AddNavButtonIfUserHasPermission(New String() {"(142)", "(143)", "(118)"}, _
-                                "Report Tool", "SBEAPReports", NavButtonCategories.SBEAP)
-        AddNavButtonIfUserHasPermission(New String() {"(142)", "(143)", "(118)"}, _
-                                "Phone Log", "SBEAPPhoneLog", NavButtonCategories.SBEAP)
-        AddNavButtonIfUserHasPermission(New String() {"(142)", "(143)", "(118)"}, _
-                                "Misc. Tools", "SBEAPMiscTools", NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission({142, 143, 118}, "Customer Summary", "SBEAPClientSummary", NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission({142, 143, 118}, "Case Log", "SBEAPCaseLog", NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission({142, 143, 118}, "Report Tool", "SBEAPReports", NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission({142, 143, 118}, "Phone Log", "SBEAPPhoneLog", NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission({142, 143, 118}, "Misc. Tools", "SBEAPMiscTools", NavButtonCategories.SBEAP)
 
     End Sub
 
@@ -1307,6 +1276,44 @@ Public Class IAIPNavigation
 
     Private Sub mmiExport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExport.Click
         dgvWorkViewer.ExportToExcel(Me)
+    End Sub
+
+    Private Sub UpdateProfile_Click(sender As Object, e As EventArgs) Handles UpdateProfile.Click
+        Dim pf As New IaipUserProfile
+        pf.ShowDialog()
+        If pf.DialogResult = DialogResult.OK Then
+            MessageBox.Show("Profile successfully updated.", "Success", MessageBoxButtons.OK)
+        End If
+    End Sub
+
+    Private Sub ChangePassword_Click(sender As Object, e As EventArgs) Handles ChangePassword.Click
+        Dim cp As New IaipChangePassword
+        cp.ShowDialog()
+        If cp.DialogResult = DialogResult.OK Then
+            MessageBox.Show("Password successfully updated.", "Success", MessageBoxButtons.OK)
+        End If
+    End Sub
+
+    Private Sub LogOut_Click(sender As Object, e As EventArgs) Handles LogOut.Click
+        Dim currentlyOpenForms As FormCollection = Application.OpenForms
+
+        If currentlyOpenForms Is Nothing Then
+            CloseIaip()
+        ElseIf currentlyOpenForms.Count > 1 Then
+            MessageBox.Show("Close all open IAIP windows before logging off.", "Save your work", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            For Each f As Form In currentlyOpenForms
+                If f.WindowState = FormWindowState.Minimized Then
+                    f.WindowState = FormWindowState.Normal
+                End If
+                f.Show()
+                f.Activate()
+            Next
+        Else
+            ExitWhenClosed = False
+            LogOutUser()
+            OpenSingleForm(IAIPLogIn)
+            Me.Close()
+        End If
     End Sub
 
     Private Sub mmiResetForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiResetForm.Click
@@ -1333,12 +1340,6 @@ Public Class IAIPNavigation
 
     Private Sub mmiThrowError_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestThrowError.Click
         Throw New Exception("Unhandled exception testing")
-    End Sub
-
-    Private Sub MenuItem1_Click(sender As Object, e As EventArgs) Handles MenuItem1.Click
-        'Dim f As New SscpFceEvent
-        'f.AirsNumber = New Apb.ApbFacilityId("00100001")
-        'f.Show()
     End Sub
 
 #End Region

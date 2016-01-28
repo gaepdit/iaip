@@ -162,7 +162,7 @@ Public Class SSCPFCEWork
                 .SelectedIndex = 0
             End With
 
-            cboReviewer.SelectedValue = UserGCode
+            cboReviewer.SelectedValue = CurrentUser.UserID
 
             If dsFCE.Tables(0).Rows.Count = 0 Then
                 cboFCEYear.Text = Date.Today.Year
@@ -1348,7 +1348,7 @@ Public Class SSCPFCEWork
     Private Sub txtFCENumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtFCENumber.TextChanged
         Try
             If txtFCENumber.Text = "" Then
-                cboReviewer.SelectedValue = UserGCode
+                cboReviewer.SelectedValue = CurrentUser.UserID
                 'rdbFCEIncomplete.Checked = False
                 rdbFCEOnSite.Checked = False
                 rdbFCENoOnsite.Checked = False
@@ -1386,7 +1386,7 @@ Public Class SSCPFCEWork
                         txtFCEComments.Text = dr.Item("strFCEComments")
                     End If
                     If IsDBNull(dr.Item("strReviewer")) Then
-                        cboReviewer.SelectedValue = UserGCode
+                        cboReviewer.SelectedValue = CurrentUser.UserID
                     Else
                         cboReviewer.SelectedValue = dr.Item("strReviewer")
                     End If
@@ -1785,7 +1785,7 @@ Public Class SSCPFCEWork
                     FCEComments = Replace(txtFCEComments.Text, "'", "''")
                 End If
                 If cboReviewer.SelectedValue = "" Then
-                    StaffResponsible = UserGCode
+                    StaffResponsible = CurrentUser.UserID
                 Else
                     StaffResponsible = cboReviewer.SelectedValue
                 End If
@@ -1821,7 +1821,7 @@ Public Class SSCPFCEWork
                     "strModifingPerson, datModifingDate) " & _
                     "values " & _
                     "('" & FCENumber & "', '0413" & txtAirsNumber.Text & "', " & _
-                    "'" & UserGCode & "', '" & OracleDate & "') "
+                    "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     dr = cmd.ExecuteReader
@@ -1832,7 +1832,7 @@ Public Class SSCPFCEWork
                     "datModifingDate, strSiteInspection, strFCEYear) " & _
                     "values " & _
                     "('" & FCENumber & "', '" & FCEStatus & "',  '" & StaffResponsible & "', " & _
-                    "'" & FCECompleteDate & "', '" & FCEComments & "', '" & UserGCode & "', " & _
+                    "'" & FCECompleteDate & "', '" & FCEComments & "', '" & CurrentUser.UserID & "', " & _
                     "'" & OracleDate & "', '" & FCEOnSite & "', '" & FCEYear & "') "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1859,7 +1859,7 @@ Public Class SSCPFCEWork
                         "datModifingDate) " & _
                         "values " & _
                         "('" & FCENumber & "', '" & ActionNumber & "', " & _
-                        "'A', '" & UserGCode & "', " & _
+                        "'A', '" & CurrentUser.UserID & "', " & _
                         "'" & OracleDate & "') "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -1896,7 +1896,7 @@ Public Class SSCPFCEWork
                     dr.Close()
                     If recExist = True Then
                         SQL = "Update AIRBRANCH.SSCPFCEMaster set " & _
-                        "strModifingPerson = '" & UserGCode & "', " & _
+                        "strModifingPerson = '" & CurrentUser.UserID & "', " & _
                         "datModifingDate = '" & OracleDate & "' " & _
                         "where strFCENumber = '" & FCENumber & "' "
 
@@ -1908,7 +1908,7 @@ Public Class SSCPFCEWork
                         "strReviewer = '" & StaffResponsible & "', " & _
                         "DatFCECompleted = '" & FCECompleteDate & "', " & _
                         "strFCEComments = '" & FCEComments & "', " & _
-                        "strModifingPerson = '" & UserGCode & "', " & _
+                        "strModifingPerson = '" & CurrentUser.UserID & "', " & _
                         "datModifingDate = '" & OracleDate & "', " & _
                         "strSiteInspection = '" & FCEOnSite & "', " & _
                         "strFCEYear = '" & FCEYear & "' " & _

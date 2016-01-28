@@ -122,7 +122,7 @@ Module FormHelpers
 
     Public Sub OpenFormTestPrintout(ByVal referenceNumber As String)
         If DAL.Ismp.StackTestExists(referenceNumber) Then
-            If UserProgram = "3" Then
+            If CurrentUser.ProgramID = 3 Then
                 OpenMultiForm(ISMPTestReports, referenceNumber)
             Else
                 If DAL.Ismp.StackTestIsClosedOut(referenceNumber) Then

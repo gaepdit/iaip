@@ -1,6 +1,7 @@
 ﻿Imports System.Collections.Generic
 Imports System.ComponentModel
 Imports Iaip.Apb.Facilities.Facility
+Imports System.Text.RegularExpressions
 
 Namespace Apb.Facilities
 
@@ -317,10 +318,7 @@ Namespace Apb.Facilities
         ''' <returns>True if test string is in the format of a valid RMP ID. Otherwise, false.</returns>
         Public Shared Function IsValidRmpId(ByVal rmpID As String) As Boolean
             If rmpID Is Nothing Then Return False
-
-            ' Valid RMP IDs are in the form 0000-0000-0000 (with the dashes)
-            Dim rgx As New System.Text.RegularExpressions.Regex("^\d{4}-\d{4}-\d{4}$")
-            Return rgx.IsMatch(rmpID)
+            Return Regex.IsMatch(rmpID, RmpIdPattern)
         End Function
 
         Public Shared Function GetAirProgramDbKey(ByVal selectedAirProgram As AirProgram) As String

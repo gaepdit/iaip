@@ -34,7 +34,7 @@ Public Class ISMPTestMemoViewer
         Try
 
             panel1.Text = "Select a Function..."
-            panel2.Text = UserName
+            panel2.Text = CurrentUser.AlphaName
             panel3.Text = OracleDate
 
             panel1.AutoSize = StatusBarPanelAutoSize.Spring
@@ -89,7 +89,7 @@ Public Class ISMPTestMemoViewer
         Try
 
             If Loading = True Then
-                SQLLine = "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = '" & UserGCode & "' " & _
+                SQLLine = "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = '" & CurrentUser.UserID & "' " & _
                 "and strClosed = 'False' "
             End If
 

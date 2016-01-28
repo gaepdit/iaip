@@ -175,6 +175,52 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Universal Forms\Users\IaipResetPassword.Designer.vb">
+      <DependentUpon>IaipResetPassword.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universal Forms\Users\IaipResetPassword.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universal Forms\Users\IaipCreateUser.Designer.vb">
+      <DependentUpon>IaipCreateUser.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universal Forms\Users\IaipCreateUser.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universal Forms\Users\IaipRequestPasswordReset.Designer.vb">
+      <DependentUpon>IaipRequestPasswordReset.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universal Forms\Users\IaipRequestPasswordReset.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universal Forms\Users\IaipRequestUsername.Designer.vb">
+      <DependentUpon>IaipRequestUsername.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universal Forms\Users\IaipRequestUsername.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="_Classes\RandomHelper.vb" />
+    <Compile Include="_DAL\DAL.Organization.vb" />
+    <Compile Include="_Data Services\UsersService.vb" />
+    <Compile Include="_Data Services\OrganizationService.vb" />
+    <Compile Include="_DB\DB.SPFunctions.vb" />
+    <Compile Include="_Modules\RegexPatterns.vb" />
+    <Compile Include="_Modules\Validation.vb" />
+    <EmbeddedResource Include="Universal Forms\Users\IaipResetPassword.resx">
+      <DependentUpon>IaipResetPassword.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universal Forms\Users\IaipCreateUser.resx">
+      <DependentUpon>IaipCreateUser.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universal Forms\Users\IaipRequestPasswordReset.resx">
+      <DependentUpon>IaipRequestPasswordReset.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universal Forms\Users\IaipRequestUsername.resx">
+      <DependentUpon>IaipRequestUsername.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universal Forms\Users\IaipUserProfile.resx">
+      <DependentUpon>IaipUserProfile.vb</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Crystal Reports\CrDataSet.xsc">
       <DependentUpon>CrDataSet.xsd</DependentUpon>
@@ -323,6 +369,18 @@
     </Compile>
     <Compile Include="Universal Forms\ExceptionDialog.Designer.vb">
       <DependentUpon>ExceptionDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universal Forms\Users\IaipChangePassword.Designer.vb">
+      <DependentUpon>IaipChangePassword.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universal Forms\Users\IaipChangePassword.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universal Forms\Users\IaipUserProfile.Designer.vb">
+      <DependentUpon>IaipUserProfile.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universal Forms\Users\IaipUserProfile.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="_Classes\ListViewItemComparer.vb">
       <SubType>Code</SubType>
@@ -795,7 +853,7 @@
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.StackTest.vb" />
     <Compile Include="_Data Services\SharedData.vb" />
     <Compile Include="_Data Services\FeesService.vb" />
-    <Compile Include="_DB\DB.Functions.vb" />
+    <Compile Include="_DB\DB.QueryFunctions.vb" />
     <Compile Include="_Modules\ApplicationInsights.vb" />
     <Compile Include="_Modules\ErrorReporting.vb" />
     <Compile Include="_Modules\ExcelExport.vb" />
@@ -843,10 +901,10 @@
     <Compile Include="Universal Forms\IAIPLogIn.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\IAIPUserAdminTool.Designer.vb">
+    <Compile Include="Universal Forms\Users\IAIPUserAdminTool.Designer.vb">
       <DependentUpon>IAIPUserAdminTool.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universal Forms\IAIPUserAdminTool.vb">
+    <Compile Include="Universal Forms\Users\IAIPUserAdminTool.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Universal Forms\Sub Forms\IAIPFacilityCreator.Designer.vb">
@@ -901,12 +959,6 @@
       <DependentUpon>IAIPListTool.vb</DependentUpon>
     </Compile>
     <Compile Include="Universal Forms\Sub Forms\IAIPListTool.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Universal Forms\Sub Forms\IAIPProfileUpdate.Designer.vb">
-      <DependentUpon>IAIPProfileUpdate.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Universal Forms\Sub Forms\IAIPProfileUpdate.vb">
       <SubType>Form</SubType>
     </Compile>
     <EmbeddedResource Include="Crystal Reports\CRViewerForm.resx">
@@ -1366,9 +1418,12 @@
       <SubType>Designer</SubType>
       <DependentUpon>IAIPLogIn.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\IAIPUserAdminTool.resx">
+    <EmbeddedResource Include="Universal Forms\Users\IAIPUserAdminTool.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPUserAdminTool.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universal Forms\Users\IaipChangePassword.resx">
+      <DependentUpon>IaipChangePassword.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Universal Forms\Sub Forms\IAIPFacilityCreator.resx">
       <DependentUpon>IAIPFacilityCreator.vb</DependentUpon>
@@ -1406,16 +1461,13 @@
       <SubType>Designer</SubType>
       <DependentUpon>IAIPListTool.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\Sub Forms\IAIPProfileUpdate.resx">
-      <DependentUpon>IAIPProfileUpdate.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\EmailNewUserWelcome.txt" />
     <None Include="Resources\GeorgiaStaticMap.png" />
     <None Include="Resources\Seal_of_Georgia_unfinished_256x256x32.png" />
     <None Include="Resources\Seal_of_Georgia_unfinished_Win7.ico" />
@@ -1606,7 +1658,7 @@
     <Compile Include="_Modules\FormSettings.vb" />
     <Compile Include="_Modules\General.vb" />
     <Compile Include="_Modules\MD5.vb" />
-    <Compile Include="_Modules\Messages.vb" />
+    <Compile Include="_Modules\DocumentMessages.vb" />
     <Compile Include="_Modules\Email.Outlook.vb" />
     <Compile Include="_Modules\Encryption.vb" />
     <Compile Include="_Modules\StartupShutdown.vb">
