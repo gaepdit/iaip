@@ -821,7 +821,7 @@ Public Class IAIPUserAdminTool
     Sub CreateNewUser()
         Using newUserForm As New IaipCreateUser
             Dim dr As DialogResult = newUserForm.ShowDialog()
-            If dr = System.Windows.Forms.DialogResult.OK Then
+            If dr = DialogResult.OK Then
                 ' Load new user
                 LoadDataGrid("User", newUserForm.NewUserId)
                 lblUserID.Text = newUserForm.NewUserId

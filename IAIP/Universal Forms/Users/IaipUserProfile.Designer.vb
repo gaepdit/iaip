@@ -36,7 +36,6 @@ Partial Class IaipUserProfile
         Me.LNameLabel = New System.Windows.Forms.Label()
         Me.FNameLabel = New System.Windows.Forms.Label()
         Me.EP = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.RequiredLabel = New System.Windows.Forms.Label()
         Me.PhoneNumber = New System.Windows.Forms.TextBox()
         CType(Me.EP, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -119,9 +118,9 @@ Partial Class IaipUserProfile
         Me.Label10.AutoSize = True
         Me.Label10.Location = New System.Drawing.Point(25, 80)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(80, 13)
+        Me.Label10.Size = New System.Drawing.Size(73, 13)
         Me.Label10.TabIndex = 24
-        Me.Label10.Text = "Email Address *"
+        Me.Label10.Text = "Email Address"
         '
         'Label9
         '
@@ -137,32 +136,23 @@ Partial Class IaipUserProfile
         Me.LNameLabel.AutoSize = True
         Me.LNameLabel.Location = New System.Drawing.Point(25, 54)
         Me.LNameLabel.Name = "LNameLabel"
-        Me.LNameLabel.Size = New System.Drawing.Size(65, 13)
+        Me.LNameLabel.Size = New System.Drawing.Size(58, 13)
         Me.LNameLabel.TabIndex = 22
-        Me.LNameLabel.Text = "Last Name *"
+        Me.LNameLabel.Text = "Last Name"
         '
         'FNameLabel
         '
         Me.FNameLabel.AutoSize = True
         Me.FNameLabel.Location = New System.Drawing.Point(25, 28)
         Me.FNameLabel.Name = "FNameLabel"
-        Me.FNameLabel.Size = New System.Drawing.Size(64, 13)
+        Me.FNameLabel.Size = New System.Drawing.Size(57, 13)
         Me.FNameLabel.TabIndex = 20
-        Me.FNameLabel.Text = "First Name *"
+        Me.FNameLabel.Text = "First Name"
         '
         'EP
         '
         Me.EP.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink
         Me.EP.ContainerControl = Me
-        '
-        'RequiredLabel
-        '
-        Me.RequiredLabel.AutoSize = True
-        Me.RequiredLabel.Location = New System.Drawing.Point(25, 171)
-        Me.RequiredLabel.Name = "RequiredLabel"
-        Me.RequiredLabel.Size = New System.Drawing.Size(58, 13)
-        Me.RequiredLabel.TabIndex = 23
-        Me.RequiredLabel.Text = "(* required)"
         '
         'PhoneNumber
         '
@@ -190,7 +180,6 @@ Partial Class IaipUserProfile
         Me.Controls.Add(Me.Save)
         Me.Controls.Add(Me.Label16)
         Me.Controls.Add(Me.Label10)
-        Me.Controls.Add(Me.RequiredLabel)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.LNameLabel)
         Me.Controls.Add(Me.FNameLabel)
@@ -217,6 +206,5 @@ Partial Class IaipUserProfile
     Friend WithEvents Cancel As System.Windows.Forms.Button
     Friend WithEvents EP As System.Windows.Forms.ErrorProvider
     Friend WithEvents MessageDisplay As System.Windows.Forms.Label
-    Friend WithEvents RequiredLabel As System.Windows.Forms.Label
     Friend WithEvents PhoneNumber As System.Windows.Forms.TextBox
 End Class

@@ -174,10 +174,12 @@ Public Class IAIPLogIn
                     ForgotPasswordLink.Visible = True
                     CancelLogin(ClearPasswordField.No)
 
-                Case DAL.IaipUserData.IaipAuthenticationResult.Success
+                Case DAL.IaipAuthenticationResult.Success
                     CurrentUser = DAL.GetIaipUser(txtUserID.Text)
-
-                    If CurrentUser.RequirePasswordChange Then
+                    If CurrentUser Is Nothing Then
+                        Me.Message = New IaipMessage("There was a system error. Please contact support.", IaipMessage.WarningLevels.ErrorReport)
+                        CancelLogin(ClearPasswordField.No)
+                    ElseIf CurrentUser.RequirePasswordChange Then
                         RequirePasswordUpdate()
                         CancelLogin(ClearPasswordField.Yes)
                     ElseIf Not ValidateUserData() Then

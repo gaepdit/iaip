@@ -26,6 +26,7 @@ Partial Class IAIPLogIn
         Me.MenuItem1 = New System.Windows.Forms.MenuItem()
         Me.mmiForgotUsername = New System.Windows.Forms.MenuItem()
         Me.mmiForgotPassword = New System.Windows.Forms.MenuItem()
+        Me.PasswordResetMenuItem = New System.Windows.Forms.MenuItem()
         Me.MenuItem9 = New System.Windows.Forms.MenuItem()
         Me.mmiTestingEnvironment = New System.Windows.Forms.MenuItem()
         Me.MenuItem2 = New System.Windows.Forms.MenuItem()
@@ -52,7 +53,6 @@ Partial Class IAIPLogIn
         Me.lblGeneralMessage = New System.Windows.Forms.Label()
         Me.ForgotUsernameLink = New System.Windows.Forms.LinkLabel()
         Me.ForgotPasswordLink = New System.Windows.Forms.LinkLabel()
-        Me.PasswordResetMenuItem = New System.Windows.Forms.MenuItem()
         CType(Me.LogoBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -88,6 +88,12 @@ Partial Class IAIPLogIn
         Me.mmiForgotPassword.Index = 1
         Me.mmiForgotPassword.Text = "Forgot Password"
         '
+        'PasswordResetMenuItem
+        '
+        Me.PasswordResetMenuItem.Index = 2
+        Me.PasswordResetMenuItem.Text = "Enter Password Reset Code"
+        Me.PasswordResetMenuItem.Visible = False
+        '
         'MenuItem9
         '
         Me.MenuItem9.Index = 3
@@ -107,7 +113,7 @@ Partial Class IAIPLogIn
         'mmiRefreshUserID
         '
         Me.mmiRefreshUserID.Index = 6
-        Me.mmiRefreshUserID.Text = "Refresh Default User"
+        Me.mmiRefreshUserID.Text = "Reset Default Username"
         '
         'mmiResetAllForms
         '
@@ -311,12 +317,6 @@ Partial Class IAIPLogIn
         Me.ForgotPasswordLink.TabStop = True
         Me.ForgotPasswordLink.Text = "Forgot Password?"
         Me.ForgotPasswordLink.Visible = False
-        '
-        'PasswordResetMenuItem
-        '
-        Me.PasswordResetMenuItem.Index = 2
-        Me.PasswordResetMenuItem.Text = "Enter Password Reset Code"
-        Me.PasswordResetMenuItem.Visible = False
         '
         'IAIPLogIn
         '

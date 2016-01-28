@@ -4,10 +4,14 @@ Imports System.Text.RegularExpressions
 
 Public Class IaipCreateUser
 
+#Region " Properties "
+
     Friend Property NewUserId As Integer = 0
     Friend Property Message As New IaipMessage
     Private Property InvalidEntries As New List(Of Control)
     Private Property OrganizationDataSet As DataSet = OrganizationService.OrganizationDataSet
+
+#End Region
 
     Private Sub IaipUserProfile_Load(sender As Object, e As EventArgs) Handles Me.Load
         monitor.TrackFeature("Forms." & Me.Name)
@@ -15,17 +19,18 @@ Public Class IaipCreateUser
     End Sub
 
 #Region " ComboBoxes "
+
     Private Sub LoadComboBoxData()
         Branch.DataSource = Nothing
         Program.DataSource = Nothing
         Unit.DataSource = Nothing
 
         Dim view As DataView = New DataView(OrganizationDataSet.Tables("Branches"))
-        view.Sort = "STRBRANCHDESC"
+        view.Sort = "Description"
 
         With Branch
-            .DisplayMember = "STRBRANCHDESC"
-            .ValueMember = "NUMBRANCHCODE"
+            .DisplayMember = "Description"
+            .ValueMember = "BranchCode"
             .DataSource = view
             .SelectedValue = 0
         End With
@@ -37,12 +42,12 @@ Public Class IaipCreateUser
 
         If Branch.SelectedValue > 0 Then
             Dim view As DataView = New DataView(OrganizationDataSet.Tables("Programs"))
-            view.RowFilter = "NUMBRANCHCODE = " & Branch.SelectedValue & " OR NUMPROGRAMCODE = 0 "
-            view.Sort = "STRPROGRAMDESC"
+            view.RowFilter = "BranchCode = " & Branch.SelectedValue & " OR ProgramCode = 0 "
+            view.Sort = "Description"
 
             With Program
-                .DisplayMember = "STRPROGRAMDESC"
-                .ValueMember = "NUMPROGRAMCODE"
+                .DisplayMember = "Description"
+                .ValueMember = "ProgramCode"
                 .DataSource = view
                 .SelectedValue = 0
             End With
@@ -54,12 +59,12 @@ Public Class IaipCreateUser
 
         If Program.SelectedValue > 0 Then
             Dim view As DataView = New DataView(OrganizationDataSet.Tables("Units"))
-            view.RowFilter = "NUMPROGRAMCODE = " & Program.SelectedValue & " OR NUMUNITCODE = 0 "
-            view.Sort = "STRUNITDESC"
+            view.RowFilter = "ProgramCode = " & Program.SelectedValue & " OR UnitCode = 0 "
+            view.Sort = "Description"
 
             With Unit
-                .DisplayMember = "STRUNITDESC"
-                .ValueMember = "NUMUNITCODE"
+                .DisplayMember = "Description"
+                .ValueMember = "UnitCode"
                 .DataSource = view
                 .SelectedValue = 0
             End With
@@ -74,31 +79,28 @@ Public Class IaipCreateUser
         Message.Clear()
 
         If Me.ValidateChildren() Then
-            If Not SaveNewUser() Then DialogResult = System.Windows.Forms.DialogResult.None
+            If Not SaveNewUser() Then DialogResult = DialogResult.None
         Else
-            DialogResult = System.Windows.Forms.DialogResult.None
+            DialogResult = DialogResult.None
             DisplayInvalidMessage()
         End If
     End Sub
 
     Private Function SaveNewUser() As Boolean
-        Dim tempPassword As String = CreateTempPassword()
-        Dim result As Boolean = False
-
-        result = DAL.CreateNewUser(Username.Text, tempPassword, LastName.Text.Trim, _
-                                   FirstName.Text.Trim, EmailAddress.Text.Trim, PhoneNumber.Text, _
-                                   Branch.SelectedValue, Program.SelectedValue, Unit.SelectedValue, _
+        Dim result As Boolean = DAL.CreateNewUser(Username.Text, LastName.Text.Trim,
+                                   FirstName.Text.Trim, EmailAddress.Text.Trim, PhoneNumber.Text,
+                                   Branch.SelectedValue, Program.SelectedValue, Unit.SelectedValue,
                                    OfficeNumber.Text.Trim, True, NewUserId)
 
         If result Then
-            Message = New IaipMessage("User successfully created.", _
-                          IaipMessage.WarningLevels.Success)
-            Message.Display(MessageDisplay)
-
-            ConfirmNewAccount(tempPassword)
+            Dim msg As String = String.Format("User account {0} successfully created. " &
+                                              "An email with login details has been sent to {1}. " &
+                                              "Please set permissions on the next screen.",
+                                              Username.Text, EmailAddress.Text)
+            MessageBox.Show(msg, "Success")
             Return True
         Else
-            Message = New IaipMessage("An unknown error occurred. User not created.", _
+            Message = New IaipMessage("An unknown error occurred. User not created.",
                                       IaipMessage.WarningLevels.ErrorReport)
             Message.Display(MessageDisplay)
             Return False
@@ -113,59 +115,6 @@ Public Class IaipCreateUser
         Else
             Return CreateTempPassword()
         End If
-    End Function
-
-    Private Function ConfirmNewAccount(tempPassword As String) As Boolean
-        If Not SendConfirmationEmail(Username.Text, tempPassword) Then
-            If CurrentServerEnvironment = DB.ServerEnvironment.PRD Then
-                MessageBox.Show(String.Format("A new user account was created with the following login details. Please write them down now." & vbNewLine & vbNewLine &
-                                              "Username: {0}" & vbNewLine & "Temporary password: {1}", Username.Text, tempPassword) &
-                                         vbNewLine & vbNewLine &
-                                          "Please note, the password is case sensitive. The first time you log in, you will be asked to change your password and verify your profile." &
-                                          vbNewLine & vbNewLine &
-                                          "Please set permissions on the next screen, then restart the IAIP and create an identical user in the testing environment.", _
-                                          "Success")
-            Else
-                MessageBox.Show(String.Format("A new user account was created with the following login details. Please write them down now." & vbNewLine & vbNewLine &
-                                             "Username: {0}" & vbNewLine & "Temporary password: {1}", Username.Text, tempPassword) &
-                                         vbNewLine & vbNewLine &
-                                         "Please note, the password is case sensitive. The first time you log in, you will be asked to change your password and verify your profile." &
-                                         vbNewLine & vbNewLine &
-                                         "Please set permissions on the next screen.", _
-                                         "Success")
-            End If
-        Else
-            If CurrentServerEnvironment = DB.ServerEnvironment.PRD Then
-                MessageBox.Show(String.Format("User account {0} created. An email with login details has been sent to {1}.", _
-                                              Username.Text, EmailAddress.Text) &
-                                          vbNewLine & vbNewLine &
-                                          "Please set permissions on the next screen, then restart the IAIP and create an identical user in the testing environment.", _
-                                          "Success")
-            Else
-                MessageBox.Show(String.Format("User account {0} created. An email with login details has been sent to {1}.", _
-                                              Username.Text, EmailAddress.Text) &
-                                          vbNewLine & vbNewLine &
-                                          "Please set permissions on the next screen.", _
-                                          "Success")
-            End If
-        End If
-    End Function
-
-    Private Function SendConfirmationEmail(username As String, tempPassword As String) As Boolean
-        ' TODO: Sending email from the IAIP is goofy; it just opens a new email in Outlook 
-        ' and hopes you'll send it. This should all be handled on the server side,
-        ' which hopefully will be possible one day. Maybe the account creation process 
-        ' will be an Oracle procedure that sends or schedules a confirmation email. Or 
-        ' maybe account creation will be implemented as a web app, which will handle all this.
-
-        Return False
-
-        'Dim subject As String = "Welcome new IAIP user!"
-        'Dim body As String = String.Format(My.Resources.EmailNewUserWelcome, _
-        '                                   username, tempPassword)
-
-        'If Not CreateEmail(subject, body, {EmailAddress.Text}) Then Return False
-        'Return True
     End Function
 
     Private Sub DisplayInvalidMessage()

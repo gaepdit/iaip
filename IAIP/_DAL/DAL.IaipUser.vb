@@ -81,30 +81,24 @@ Namespace DAL
         Public Function UsernameExists(username As String) As Boolean
             If username = "" Then Return False
             Dim spName As String = "AIRBRANCH.IAIP_USER.UsernameExists"
-            Dim parameter As New OracleParameter("username", username)
-            Return DB.SPGetBoolean(spName, parameter)
+            Dim parameters As OracleParameter() = New OracleParameter() {
+                New OracleParameter("ReturnValue", OracleDbType.Varchar2, 5, Nothing, ParameterDirection.ReturnValue),
+                New OracleParameter("username", username)
+            }
+            DB.SPRunCommand(spName, parameters)
+            Return DB.GetNullable(Of Boolean)(parameters(0).Value.ToString)
         End Function
 
         Public Function EmailIsInUse(email As String, Optional ignoreUser As Integer = 0) As Boolean
             If email.Trim = "" Then Return False
-
             Dim spName As String = "AIRBRANCH.IAIP_USER.EmailInUse"
-
             Dim parameters As OracleParameter() = New OracleParameter() {
                 New OracleParameter("ReturnValue", OracleDbType.Varchar2, 5, Nothing, ParameterDirection.ReturnValue),
                 New OracleParameter("email", email.Trim.ToLower),
                 New OracleParameter("ignoreUser", ignoreUser)
             }
-
             DB.SPRunCommand(spName, parameters)
-
             Return DB.GetNullable(Of Boolean)(parameters(0).Value.ToString)
-        End Function
-
-        ' To remove
-        Private Function GetNextUserId() As Integer
-            Dim query As String = "SELECT( MAX( NUMUSERID ) + 1 ) FROM AIRBRANCH.EPDUSERS"
-            Return DB.GetSingleValue(Of Integer)(query)
         End Function
 
         Public Function UpdateUserPassword(username As String, newPassword As String, oldPassword As String) As PasswordUpdateResponse
@@ -220,55 +214,35 @@ Namespace DAL
             UnknownError
         End Enum
 
-        Public Function CreateNewUser(username As String, password As String, lastname As String,
+        Public Function CreateNewUser(username As String, lastname As String,
                                       firstname As String, emailaddress As String, phone As String,
                                       branchid As Integer, programid As Integer, unitid As Integer,
                                       office As String, status As Boolean, ByRef newUserId As Integer) As Boolean
-            newUserId = DAL.GetNextUserId()
-            If newUserId = 0 Then Return False
 
-            Dim queryList As New List(Of String)
-            Dim parametersList As New List(Of OracleParameter())
-
-            Dim query1 As String = "INSERT INTO AIRBRANCH.EPDUSERS " &
-                "( NUMUSERID , STRUSERNAME , STRPASSWORD , CREATED_BY ) " &
-                "VALUES " &
-                "(:userid, :username, :password, :created_by ) "
-            Dim params1 As OracleParameter() = New OracleParameter() {
-                New OracleParameter("userid", newUserId),
+            Dim spName As String = "AIRBRANCH.IAIP_USER.CreateNewUser"
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("ReturnValue", OracleDbType.Int32, ParameterDirection.ReturnValue),
                 New OracleParameter("username", username),
-                New OracleParameter("password", EncryptDecrypt.EncryptText(password)),
-                New OracleParameter("created_by", CurrentUser.UserID)
-            }
-            Dim query2 As String = "INSERT INTO AIRBRANCH.EPDUSERPROFILES " &
-                "( NUMUSERID , STREMPLOYEEID , STRLASTNAME , STRFIRSTNAME , " &
-                "  STREMAILADDRESS , STRPHONE , " &
-                "  NUMBRANCH , NUMPROGRAM , NUMUNIT , STROFFICE , " &
-                  "NUMEMPLOYEESTATUS ) VALUES " &
-                "( :userid, :employeeid, :lastname, :firstname, " &
-                "  :emailaddress, :phone, " &
-                "  :branchid, :programid, :unitid, :office, " &
-                "  :status )"
-            Dim params2 As OracleParameter() = New OracleParameter() {
-                New OracleParameter("userid", newUserId),
-                New OracleParameter("employeeid", "000"),
                 New OracleParameter("lastname", lastname),
                 New OracleParameter("firstname", firstname),
                 New OracleParameter("emailaddress", emailaddress),
                 New OracleParameter("phone", phone),
-                New OracleParameter("branchid", If(branchid < 1, DBNull.Value, branchid)),
-                New OracleParameter("programid", If(programid < 1, DBNull.Value, programid)),
-                New OracleParameter("unitid", If(unitid < 1, DBNull.Value, unitid)),
+                New OracleParameter("branchid", branchid),
+                New OracleParameter("programid", programid),
+                New OracleParameter("unitid", unitid),
                 New OracleParameter("office", office),
-                New OracleParameter("status", DB.ConvertBooleanToDBValue(status, DB.Utilities.BooleanDBConversionType.OneOrZero))
+                New OracleParameter("status", DB.ConvertBooleanToDBValue(status, DB.BooleanDBConversionType.OneOrZero)),
+                New OracleParameter("createdby", CurrentUser.UserID)
             }
+            Dim result As Boolean = DB.SPRunCommand(spName, parameters)
 
-            queryList.Add(query1)
-            parametersList.Add(params1)
-            queryList.Add(query2)
-            parametersList.Add(params2)
+            If result AndAlso Not parameters(0).Value.IsNull Then
+                newUserId = Integer.Parse(parameters(0).Value.ToString())
+            Else
+                newUserId = 0
+            End If
 
-            Return DB.RunCommand(queryList, parametersList)
+            Return (newUserId > 0)
         End Function
 
     End Module
