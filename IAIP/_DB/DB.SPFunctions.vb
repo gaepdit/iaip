@@ -41,7 +41,7 @@ Namespace DB
         '                command.ExecuteNonQuery()
         '                command.Connection.Close()
         '            Catch ee As OracleException
-        '                MessageBox.Show("Database error: " & ee.ToString)
+        '                ErrorReport(ee, query, Reflection.MethodBase.GetCurrentMethod.Name)
         '            End Try
 
         '            Return GetNullable(Of T)(command.Parameters("ReturnValue").Value.ToString)
@@ -137,7 +137,7 @@ Namespace DB
                             command.Connection.Close()
                             Return table
                         Catch ee As OracleException
-                            ErrorReport(ee, System.Reflection.MethodBase.GetCurrentMethod.Name)
+                            ErrorReport(ee, spName, Reflection.MethodBase.GetCurrentMethod.Name)
                             Return Nothing
                         End Try
                     End Using
@@ -268,7 +268,7 @@ Namespace DB
                         command.Parameters.CopyTo(parameterArray, 0)
                         Return True
                     Catch ee As OracleException
-                        MessageBox.Show("Database error: " & ee.ToString)
+                        ErrorReport(ee, spName, Reflection.MethodBase.GetCurrentMethod.Name)
                         Return False
                     End Try
                 End Using
