@@ -215,7 +215,7 @@ Namespace DB
         ''' Retrieves a DataTable of values from the database.
         ''' </summary>
         ''' <param name="query">The SQL query to send.</param>
-        ''' <param name="parameterArray">An optional OracleParameter array to send.</param>
+        ''' <param name="parameterArray">An OracleParameter array to send.</param>
         ''' <returns>A DataTable of values.</returns>
         Public Function GetDataTable(ByVal query As String, ByVal parameterArray As OracleParameter()) As DataTable
             Dim table As New DataTable
@@ -328,8 +328,16 @@ Namespace DB
 
 #End Region
 
-#Region " Write (ExecuteNonQuery) "
+#Region " Run commands (ExecuteNonQuery) "
 
+        ''' <summary>
+        ''' Executes a SQL statement on the database.
+        ''' </summary>
+        ''' <param name="query">The SQL statement to execute.</param>
+        ''' <param name="parameter">An optional OracleParameter to send.</param>
+        ''' <param name="rowsAffected">For UPDATE, INSERT, and DELETE statements, stores the number of rows affected by the command.</param>
+        ''' <param name="failSilently">If true, suppresses error messages displayed to the user.</param>
+        ''' <returns>True if command ran successfully. Otherwise, false.</returns>
         Public Function RunCommand(ByVal query As String,
                                    Optional ByVal parameter As OracleParameter = Nothing,
                                    Optional ByRef rowsAffected As Integer = 0,
@@ -340,6 +348,14 @@ Namespace DB
             Return RunCommand(query, parameterArray, rowsAffected, failSilently)
         End Function
 
+        ''' <summary>
+        ''' Executes a SQL statement on the database.
+        ''' </summary>
+        ''' <param name="query">The SQL statement to execute.</param>
+        ''' <param name="parameters">An OracleParameter array to send.</param>
+        ''' <param name="rowsAffected">For UPDATE, INSERT, and DELETE statements, stores the number of rows affected by the command.</param>
+        ''' <param name="failSilently">If true, suppresses error messages displayed to the user.</param>
+        ''' <returns>True if command ran successfully. Otherwise, false.</returns>
         Public Function RunCommand(ByVal query As String,
                                    ByVal parameters As OracleParameter(),
                                    Optional ByRef rowsAffected As Integer = 0,
@@ -361,6 +377,14 @@ Namespace DB
             Return result
         End Function
 
+        ''' <summary>
+        ''' Executes a set of SQL statements on the database.
+        ''' </summary>
+        ''' <param name="queryList">The SQL statements to execute.</param>
+        ''' <param name="parametersList">A List of OracleParameter arrays to send.</param>
+        ''' <param name="countList">A List of rows affected by each SQL statement.</param>
+        ''' <param name="failSilently"></param>
+        ''' <returns>True if command ran successfully. Otherwise, false.</returns>
         Public Function RunCommand(ByVal queryList As List(Of String),
                                    ByVal parametersList As List(Of OracleParameter()),
                                    Optional ByRef countList As List(Of Integer) = Nothing,

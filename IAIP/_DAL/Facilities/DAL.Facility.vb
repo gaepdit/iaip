@@ -15,9 +15,13 @@ Namespace DAL
         ''' <returns>True if the AIRS number exists; otherwise false.</returns>
         ''' <remarks>Looks for value in APBMASTERAIRS table. Does not make any judgments about state of facility otherwise.</remarks>
         Public Function AirsNumberExists(ByVal airsNumber As ApbFacilityId) As Boolean
-            Dim spName As String = "AIRBRANCH.IAIP_FACILITY.DoesAirsNumberExist"
-            Dim parameter As New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
-            Return DB.SPGetBoolean(spName, parameter)
+            Dim spName As String = "AIRBRANCH.IAIP_FACILITY.AirsNumberExists"
+            Dim parameters As OracleParameter() = New OracleParameter() {
+                New OracleParameter("ReturnValue", OracleDbType.Varchar2, 5, Nothing, ParameterDirection.ReturnValue),
+                New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
+            }
+            DB.SPRunCommand(spName, parameters)
+            Return DB.GetNullable(Of Boolean)(parameters(0).Value.ToString)
         End Function
 
         '' Not currently used, but may be useful in the future
@@ -114,8 +118,12 @@ Namespace DAL
         ''' <remarks>Looks at STRUPDATESTATUS in AFSFACILITYDATA table.</remarks>
         Public Function FacilityHasBeenApproved(ByVal airsNumber As Apb.ApbFacilityId) As Boolean
             Dim spName As String = "AIRBRANCH.IAIP_FACILITY.HasFacilityBeenApproved"
-            Dim parameter As New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
-            Return DB.SPGetBoolean(spName, parameter)
+            Dim parameters As OracleParameter() = New OracleParameter() {
+                New OracleParameter("ReturnValue", OracleDbType.Varchar2, 5, Nothing, ParameterDirection.ReturnValue),
+                New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
+            }
+            DB.SPRunCommand(spName, parameters)
+            Return DB.GetNullable(Of Boolean)(parameters(0).Value.ToString)
         End Function
 
         ''' <summary>

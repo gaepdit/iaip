@@ -15,23 +15,20 @@ Namespace DAL
             Return DB.GetSingleValue(Of String)(query, parameter)
         End Function
 
-        Public Function GetStaff(ByVal id As String) As Staff
-            Dim query As String = "SELECT prf.NUMUSERID , prf.STRFIRSTNAME , prf.STRLASTNAME , " &
-                "  prf.STREMAILADDRESS , prf.STRPHONE , prf.NUMEMPLOYEESTATUS , " &
-                "  prf.NUMBRANCH , prf.NUMPROGRAM , prf.NUMUNIT , " &
-                "  br.STRBRANCHDESC , pr.STRPROGRAMDESC , un.STRUNITDESC , " &
-                "  prf.STROFFICE " &
-                "FROM AIRBRANCH.EPDUSERPROFILES prf " &
-                "LEFT JOIN AIRBRANCH.LOOKUPEPDBRANCHES br " &
-                "ON prf.NUMBRANCH = br.NUMBRANCHCODE " &
-                "LEFT JOIN AIRBRANCH.LOOKUPEPDPROGRAMS pr " &
-                "ON prf.NUMPROGRAM = pr.NUMPROGRAMCODE " &
-                "LEFT JOIN AIRBRANCH.LOOKUPEPDUNITS un " &
-                "ON prf.NUMUNIT = un.NUMUNITCODE " &
-                "WHERE prf.NUMUSERID = :id"
-            Dim parameter As New OracleParameter("id", id)
+        Public Function GetStaff(ByVal userid As String) As Staff
+            Dim id As Integer
 
-            Return GetStaffFromDataRow(DB.GetDataRow(query, parameter))
+            If userid = "" OrElse Not Integer.TryParse(userid, id) Then
+                Return Nothing
+            End If
+
+            Dim spName As String = "AIRBRANCH.IAIP_USER.GetStaff"
+            Dim parameter As New OracleParameter("userid", id)
+
+            Dim dataTable As DataTable = DB.SPGetDataTable(spName, parameter)
+            If dataTable Is Nothing OrElse dataTable.Rows.Count = 0 Then Return Nothing
+
+            Return GetStaffFromDataRow(dataTable.Rows(0))
         End Function
 
         Private Function GetStaffFromDataRow(ByVal row As DataRow) As Staff
@@ -79,39 +76,21 @@ Namespace DAL
         Public Function UpdateStaffInfo(staff As Staff) As Boolean
             If staff.StaffId = 0 Then Return False
 
-            Dim queryList As New List(Of String)
-            Dim parametersList As New List(Of OracleParameter())
-
-            Dim query As String = "UPDATE AIRBRANCH.EPDUSERPROFILES " &
-                "SET STRLASTNAME = :LastName , STRFIRSTNAME = :FirstName , " &
-                "  STREMAILADDRESS = :EmailAddress , STRPHONE = :PhoneNumber , " &
-                "  NUMBRANCH = :BranchID , NUMPROGRAM = :ProgramID , " &
-                "  NUMUNIT = :UnitId , STROFFICE = :OfficeNumber , " &
-                "  NUMEMPLOYEESTATUS = :ActiveEmployee " &
-                "WHERE NUMUSERID = :StaffId"
+            Dim spName As String = "AIRBRANCH.IAIP_USER.UpdateUserProfile"
             Dim parameters As OracleParameter() = {
-                New OracleParameter("StaffId", staff.StaffId),
-                New OracleParameter("LastName", staff.LastName),
-                New OracleParameter("FirstName", staff.FirstName),
-                New OracleParameter("EmailAddress", staff.EmailAddress),
-                New OracleParameter("PhoneNumber", staff.PhoneNumber),
-                New OracleParameter("BranchID", staff.BranchID),
-                New OracleParameter("ProgramID", staff.ProgramID),
-                New OracleParameter("UnitId", staff.UnitId),
-                New OracleParameter("OfficeNumber", staff.OfficeNumber),
-                New OracleParameter("ActiveEmployee", DB.ConvertBooleanToDBValue(staff.ActiveEmployee, DB.BooleanDBConversionType.OneOrZero))
+                New OracleParameter("userid", staff.StaffId),
+                New OracleParameter("lastname", staff.LastName),
+                New OracleParameter("firstname", staff.FirstName),
+                New OracleParameter("emailaddress", staff.EmailAddress),
+                New OracleParameter("phone", staff.PhoneNumber),
+                New OracleParameter("branchid", staff.BranchID),
+                New OracleParameter("programid", staff.ProgramID),
+                New OracleParameter("unitid", staff.UnitId),
+                New OracleParameter("office", staff.OfficeNumber),
+                New OracleParameter("status", DB.ConvertBooleanToDBValue(staff.ActiveEmployee, DB.BooleanDBConversionType.OneOrZero)),
+                New OracleParameter("updatedby", CurrentUser.UserID)
             }
-            queryList.Add(query)
-            parametersList.Add(parameters)
-
-            query = "UPDATE AIRBRANCH.EPDUSERS " &
-                "SET REQUESTPROFILEUPDATE = 'False' " &
-                "WHERE NUMUSERID = :StaffId"
-            parameters = {New OracleParameter("StaffId", staff.StaffId)}
-            queryList.Add(query)
-            parametersList.Add(parameters)
-
-            Return DB.RunCommand(queryList, parametersList)
+            Return DB.SPRunCommand(spName, parameters)
         End Function
 
     End Module

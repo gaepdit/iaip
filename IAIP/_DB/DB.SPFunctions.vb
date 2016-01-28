@@ -5,9 +5,10 @@ Imports System.IO
 Namespace DB
     Module SPFunctions
 
-#Region " SP (Specific ReturnValue) "
-        ' Oracle Stored Procedures that return a single value (must specify value type and size)
-        ' Currently not used --- SYS_REFCURSOR return value was easier to work with (see below)
+#Region " Stored Procedure Functions that return a single ReturnValue "
+        ' Oracle FUNCTIONS that return a single value (must specify value type and size)
+        ' Currently not used ---
+        ' It was easier to just use RunCommand and add the ReturnValue parameter manually
 
         'Public Function SPGetBooleanReturnValue(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing) As Boolean
         '    Dim parameterArray As OracleParameter() = {parameter}
@@ -63,44 +64,28 @@ Namespace DB
 
 #End Region
 
-#Region " SP (SYS_REFCURSOR ReturnValue) "
-        ' These functions call Oracle Functions that return an Oracle SYS_REFCURSOR.
-
-#Region " Single Value "
-
-        Public Function SPGetBoolean(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing) As Boolean
-            Dim parameterArray As OracleParameter() = {parameter}
-            Return SPGetBoolean(spName, parameterArray)
-        End Function
-
-        Public Function SPGetBoolean(ByVal spName As String, ByVal parameterArray As OracleParameter()) As Boolean
-            Return SPGetSingleValue(Of Boolean)(spName, parameterArray)
-        End Function
-
-        '' Not currently used, but may be useful in the future
-        'Public Function SPGetSingleValue(Of T)(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing) As T
-        '    Dim parameterArray As OracleParameter() = {parameter}
-        '    Return SPGetSingleValue(Of T)(spName, parameterArray)
-        'End Function
-
-        Public Function SPGetSingleValue(Of T)(ByVal spName As String, ByVal parameterArray As OracleParameter()) As T
-            Dim table As DataTable = SPGetDataTable(spName, parameterArray)
-            If table IsNot Nothing AndAlso table.Rows.Count = 1 Then
-                Return GetNullable(Of T)(table.Rows(0)(0))
-            Else
-                Return Nothing
-            End If
-        End Function
-
-#End Region
+#Region " Stored Procedures that return a SYS_REFCURSOR "
+        ' These functions call Oracle FUNCTIONs that return an Oracle SYS_REFCURSOR.
 
 #Region " DataRow "
 
+        ''' <summary>
+        ''' Retrieves a single row of values from the database.
+        ''' </summary>
+        ''' <param name="spName">The Oracle Stored Procedure to call (SP must be a function that returns a REFCURSOR)</param>
+        ''' <param name="parameter">An optional Oracle Parameter to send.</param>
+        ''' <returns>A DataRow.</returns>
         Public Function SPGetDataRow(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing) As DataRow
             Dim parameterArray As OracleParameter() = {parameter}
             Return SPGetDataRow(spName, parameterArray)
         End Function
 
+        ''' <summary>
+        ''' Retrieves a single row of values from the database.
+        ''' </summary>
+        ''' <param name="spName">The Oracle Stored Procedure to call (SP must be a function that returns a REFCURSOR)</param>
+        ''' <param name="parameter">An optional Oracle Parameter to send.</param>
+        ''' <returns>A DataRow</returns>
         Public Function SPGetDataRow(ByVal spName As String, ByVal parameterArray As OracleParameter()) As DataRow
             Dim resultTable As DataTable = SPGetDataTable(spName, parameterArray)
             If resultTable IsNot Nothing And resultTable.Rows.Count = 1 Then
@@ -114,11 +99,23 @@ Namespace DB
 
 #Region " DataTable "
 
+        ''' <summary>
+        ''' Retrieves a DataTable of values from the database.
+        ''' </summary>
+        ''' <param name="spName">The Oracle Stored Procedure to call (SP must be a function that returns a REFCURSOR)</param>
+        ''' <param name="parameter">An optional Oracle Parameter to send.</param>
+        ''' <returns>A DataTable</returns>
         Public Function SPGetDataTable(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing) As DataTable
             Dim parameterArray As OracleParameter() = {parameter}
             Return SPGetDataTable(spName, parameterArray)
         End Function
 
+        ''' <summary>
+        ''' Retrieves a DataTable of values from the database.
+        ''' </summary>
+        ''' <param name="spName">The Oracle Stored Procedure to call (SP must be a function that returns a REFCURSOR)</param>
+        ''' <param name="parameterArray">An Oracle Parameter array to send.</param>
+        ''' <returns>A DataTable</returns>
         Public Function SPGetDataTable(ByVal spName As String, ByVal parameterArray As OracleParameter()) As DataTable
             If String.IsNullOrEmpty(spName) Then
                 Return Nothing
@@ -156,7 +153,7 @@ Namespace DB
         ''' Calls an Oracle Stored Procedure and returns a List of KeyValuePairs with Integer keys and 
         ''' String values. Useful for creating DropDownList ComboBoxes.
         ''' </summary>
-        ''' <param name="spName">The Oracle Stored Procedure to call</param>
+        ''' <param name="spName">The Oracle Stored Procedure to call (SP must be a function that returns a REFCURSOR)</param>
         ''' <param name="parameter">A single Oracle Parameter to pass in</param>
         ''' <returns>List of Integer keys and String value pairs</returns>
         ''' <remarks>Use List returned with ComboBox.BindToKeyValuePairs</remarks>
@@ -172,6 +169,13 @@ Namespace DB
             Return l
         End Function
 
+        ''' <summary>
+        ''' Calls an Oracle Stored Procedure and returns a List of the specified type.
+        ''' </summary>
+        ''' <typeparam name="T">The List type to return</typeparam>
+        ''' <param name="spName">The Oracle Stored Procedure to call (SP must be a function that returns a REFCURSOR)</param>
+        ''' <param name="parameter">A single Oracle Parameter to pass in</param>
+        ''' <returns>List of the specified type.</returns>
         Public Function SPGetList(Of T)(ByVal spname As String, Optional ByVal parameter As OracleParameter = Nothing) As List(Of T)
             Dim l As New List(Of T)
             Dim dt As DataTable = SPGetDataTable(spname, parameter)
@@ -226,11 +230,17 @@ Namespace DB
 
 #End Region
 
-#Region " SP (In/Out/ReturnValue Parameters) "
+#Region " Stored Procedures that run commands (ExecuteNonQuery) "
         ' These functions call Oracle Stored Procedures using IN and/or OUT parameters.
-        ' If successful, the OUT parameters are available to the calling procedure as 
+        ' If successful, any OUT parameters are available to the calling procedure as 
         ' returned by the Oracle database.
 
+        ''' <summary>
+        ''' Executes a Stored Procedure on the database.
+        ''' </summary>
+        ''' <param name="spName">The name of the Stored Procedure to execute.</param>
+        ''' <param name="parameter">An optional OracleParameter to send.</param>
+        ''' <returns>True if the Stored Procedure ran successfully. Otherwise, false.</returns>
         Public Function SPRunCommand(ByVal spName As String, Optional ByRef parameter As OracleParameter = Nothing) As Boolean
             Dim parameterArray As OracleParameter() = {parameter}
             Dim result As Boolean = SPRunCommand(spName, parameterArray)
@@ -240,6 +250,12 @@ Namespace DB
             Return result
         End Function
 
+        ''' <summary>
+        ''' Executes a Stored Procedure on the database.
+        ''' </summary>
+        ''' <param name="spName">The name of the Stored Procedure to execute.</param>
+        ''' <param name="parameterArray">An OracleParameter array to send.</param>
+        ''' <returns>True if the Stored Procedure ran successfully. Otherwise, false.</returns>
         Public Function SPRunCommand(ByVal spName As String, ByRef parameterArray As OracleParameter()) As Boolean
             Using connection As New OracleConnection(CurrentConnectionString)
                 Using command As New OracleCommand(spName, connection)
