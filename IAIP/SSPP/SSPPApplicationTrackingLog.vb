@@ -11173,7 +11173,7 @@ Public Class SSPPApplicationTrackingLog
                     cmd.Connection.Open()
                     Using dr As OracleDataReader = cmd.ExecuteReader
                         While dr.Read
-                            StaffPhone = FormatStringAsPhoneNumber(DB.GetNullable(Of String)(dr.Item("strPhone")), True)
+                            StaffPhone = FormatDigitsAsPhoneNumber(DB.GetNullable(Of String)(dr.Item("strPhone")), True)
                             StaffEmail = DB.GetNullable(Of String)(dr.Item("strEmailAddress"))
                         End While
                         dr.Close()

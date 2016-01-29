@@ -1,4 +1,5 @@
 ﻿Imports System.Collections.Generic
+Imports System.Text.RegularExpressions
 
 Module General
 
@@ -16,15 +17,15 @@ Module General
     End Function
 
     ''' <summary>
-    ''' Takes a string of either 7 or 10 digits and formats it as a telephone number.
+    ''' Takes a string of either 7 or 10 digits and formats it as a telephone number. Any other style string is returned as-is.
     ''' </summary>
     ''' <param name="p">The phone number string to format.</param>
     ''' <param name="formal">Whether to format the telephone number as "(999) 999-9999" (if True) or "999-999-9999" (if False).</param>
     ''' <returns>A formatted telephone number.</returns>
     ''' <remarks></remarks>
-    Public Function FormatStringAsPhoneNumber(ByVal p As String, Optional ByVal formal As Boolean = True) As String
+    Public Function FormatDigitsAsPhoneNumber(ByVal p As String, Optional ByVal formal As Boolean = True) As String
         If p Is Nothing Then Return p
-        If Not System.Text.RegularExpressions.Regex.IsMatch(p, NumericPattern) Then Return p
+        If Not Regex.IsMatch(p, NumericPattern) Then Return p
         If Not (p.Length = 7 Or p.Length >= 10) Then Return p
 
         If p.Length = 7 Then
