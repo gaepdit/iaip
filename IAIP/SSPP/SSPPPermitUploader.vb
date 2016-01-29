@@ -274,8 +274,7 @@ Public Class SSPPPermitUploader
             dr.Close()
 
             If Status <> "" Then
-                If UserUnit = "14" Or (UserUnit = "---" And UserProgram = "4") Or (UserUnit = "---" And UserProgram = "5") Then
-                    'If Mid(Permissions, 30, 1) = "1" Or Mid(Permissions, 26, 1) = "1" Or Mid(Permissions, 42, 1) = "1" Or Mid(Permissions, 6, 1) = "1" Then
+                If CurrentUser.UnitId = 14 Or (CurrentUser.UnitId = 0 And CurrentUser.ProgramID = 4) Or (CurrentUser.UnitId = 0 And CurrentUser.ProgramID = 5) Then
                     btnUploadFile.Enabled = True
                 Else
                     btnUploadFile.Enabled = False
@@ -632,12 +631,12 @@ Public Class SSPPPermitUploader
                     If (DocLocation <> "" Or DocxLocation <> "") And Mid(Flag, 1, 1) = "1" Then
                         row("docPermitData") = rawData
                         row("strDocFileSize") = rawData.Length
-                        row("strDocModifingPerson") = UserGCode
+                        row("strDocModifingPerson") = CurrentUser.UserID
                         row("datDocModifingDate") = OracleDate
                     Else
                         row("pdfPermitData") = rawData
                         row("strPDFFileSize") = rawData.Length
-                        row("strPDFModifingPerson") = UserGCode
+                        row("strPDFModifingPerson") = CurrentUser.UserID
                         row("datPDFModifingDate") = OracleDate
                     End If
                     ds.Tables("PDF").Rows.Add(row)
