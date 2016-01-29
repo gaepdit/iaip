@@ -42,7 +42,7 @@ Public Class IaipUserProfile
         updatedStaff.FirstName = FirstName.Text.Trim
         updatedStaff.LastName = LastName.Text.Trim
         updatedStaff.EmailAddress = EmailAddress.Text.Trim
-        updatedStaff.PhoneNumber = PhoneNumber.Text.Trim
+        updatedStaff.PhoneNumber = PhoneNumber.Text
         updatedStaff.OfficeNumber = OfficeNumber.Text.Trim
 
         Dim result As Boolean = DAL.UpdateStaffInfo(updatedStaff)
@@ -51,7 +51,7 @@ Public Class IaipUserProfile
             CurrentUser.FirstName = FirstName.Text.Trim
             CurrentUser.LastName = LastName.Text.Trim
             CurrentUser.EmailAddress = EmailAddress.Text.Trim
-            CurrentUser.PhoneNumber = PhoneNumber.Text.Trim
+            CurrentUser.PhoneNumber = PhoneNumber.Text
             CurrentUser.OfficeNumber = OfficeNumber.Text.Trim
             Return True
         Else
@@ -93,6 +93,16 @@ Public Class IaipUserProfile
             e.Cancel = True
             EP.SetError(LastName, "Last name is required")
             If Not InvalidEntries.Contains(LastName) Then InvalidEntries.Add(LastName)
+        End If
+    End Sub
+
+    Private Sub PhoneNumber_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
+        If PhoneNumber.MaskCompleted Then
+            EP.SetError(PhoneNumber, String.Empty)
+        Else
+            e.Cancel = True
+            EP.SetError(PhoneNumber, "Phone number is required")
+            If Not InvalidEntries.Contains(PhoneNumber) Then InvalidEntries.Add(PhoneNumber)
         End If
     End Sub
 
