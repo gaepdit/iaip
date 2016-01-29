@@ -1,7 +1,4 @@
-﻿Imports Oracle.ManagedDataAccess.Client
-
-Namespace DAL
-
+﻿Namespace DAL
     Module CommonData
 
         Public Function GetPollutantsTable() As DataTable
@@ -13,6 +10,14 @@ Namespace DAL
             Return DB.GetDataTable(query)
         End Function
 
-    End Module
+        Public Function GetIaipAccountRoles() As DataTable
+            Dim query As String = "SELECT NUMACCOUNTCODE AS ""AccountCode"", STRACCOUNTDESC AS " &
+                "  ""AccountDescription"", NUMBRANCHCODE AS ""BranchCode"", " &
+            "  NUMPROGRAMCODE AS ""ProgramCode"", NUMUNITCODE AS ""UnitCode"" " &
+            "FROM AIRBRANCH.LOOKUPIAIPACCOUNTS " &
+            "ORDER BY STRACCOUNTDESC"
+            Return DB.GetDataTable(query)
+        End Function
 
+    End Module
 End Namespace

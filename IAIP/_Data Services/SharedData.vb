@@ -4,17 +4,12 @@ Public Class SharedData
     Private Shared _initLock As Object = New Object()
     Private Shared _tableDictionary As Dictionary(Of Tables, DataTable)
 
-    Public Shared Function GetTable(table As Tables) As DataTable
-        If _tableDictionary Is Nothing Then
-            _tableDictionary = New Dictionary(Of Tables, DataTable)
-        End If
-
-        If Not _tableDictionary.ContainsKey(table) OrElse _tableDictionary(table) Is Nothing Then
-            InitializeData(table)
-        End If
-
-        Return _tableDictionary(table)
-    End Function
+    Public Enum Tables
+        Pollutants
+        ViolationTypes
+        AllComplianceStaff
+        IaipAccountRoles
+    End Enum
 
     Private Shared Sub InitializeData(table As Tables)
         SyncLock _initLock
@@ -34,6 +29,10 @@ Public Class SharedData
                     dt = DAL.CommonData.GetPollutantsTable()
                     dt.PrimaryKey = New DataColumn() {dt.Columns("Pollutant Code")}
 
+                Case Tables.IaipAccountRoles
+                    dt = DAL.GetIaipAccountRoles
+                    dt.PrimaryKey = New DataColumn() {dt.Columns("AccountCode")}
+
             End Select
 
             dt.TableName = table.ToString
@@ -46,10 +45,16 @@ Public Class SharedData
         End SyncLock
     End Sub
 
-    Public Enum Tables
-        Pollutants
-        ViolationTypes
-        AllComplianceStaff
-    End Enum
+    Public Shared Function GetTable(table As Tables) As DataTable
+        If _tableDictionary Is Nothing Then
+            _tableDictionary = New Dictionary(Of Tables, DataTable)
+        End If
+
+        If Not _tableDictionary.ContainsKey(table) OrElse _tableDictionary(table) Is Nothing Then
+            InitializeData(table)
+        End If
+
+        Return _tableDictionary(table)
+    End Function
 
 End Class
