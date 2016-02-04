@@ -91,15 +91,11 @@ Public Class IAIPEditAirProgramPollutants
 #Region " Permissions "
 
     Private Sub SetPermissions()
-        If Not UserPermissions.CheckAuth(UserCan.AddPollutantsToFacility) Then
-            ControlPanel.Enabled = False
+        If CurrentUser.CheckIf(UserCan.AddPollutantsToFacility) Then
+            ComplianceStatusSelect.Enabled = CurrentUser.CheckIf(UserCan.ChangeComplianceStatus)
+            OperatingStatusSelect.Enabled = CurrentUser.CheckIf(UserCan.EditHeaderData)
         Else
-            If Not UserPermissions.CheckAuth(UserCan.ChangeComplianceStatus) Then
-                ComplianceStatusSelect.Enabled = False
-            End If
-            If Not UserPermissions.CheckAuth(UserCan.EditHeaderData) Then
-                OperatingStatusSelect.Enabled = False
-            End If
+            ControlPanel.Enabled = False
         End If
     End Sub
 
@@ -221,8 +217,8 @@ Public Class IAIPEditAirProgramPollutants
     Private Sub SelectedIndexChanged(sender As Object, e As EventArgs) _
         Handles AirProgramSelect.SelectedIndexChanged, PollutantSelect.SelectedIndexChanged, ComplianceStatusSelect.SelectedIndexChanged, OperatingStatusSelect.SelectedIndexChanged
         If SelectionExists() Then
-            If UserPermissions.CheckAuth(UserCan.ChangeComplianceStatus) OrElse
-               UserPermissions.CheckAuth(UserCan.EditHeaderData) Then
+            If CurrentUser.CheckIf(UserCan.ChangeComplianceStatus) OrElse
+               CurrentUser.CheckIf(UserCan.EditHeaderData) Then
                 SaveButton.Text = "Update pollutant status"
                 SaveButton.Visible = True
                 SaveButton.Location = New Point(270, SaveButton.Location.Y)

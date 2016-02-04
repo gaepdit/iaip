@@ -10,14 +10,5 @@
             Return DB.GetDataTable(query)
         End Function
 
-        Public Function GetIaipAccountRoles() As DataTable
-            Dim query As String = "SELECT NUMACCOUNTCODE AS ""AccountCode"", STRACCOUNTDESC AS " &
-                "  ""AccountDescription"", NUMBRANCHCODE AS ""BranchCode"", " &
-            "  NUMPROGRAMCODE AS ""ProgramCode"", NUMUNITCODE AS ""UnitCode"" " &
-            "FROM AIRBRANCH.LOOKUPIAIPACCOUNTS " &
-            "ORDER BY STRACCOUNTDESC"
-            Return DB.GetDataTable(query)
-        End Function
-
     End Module
 End Namespace

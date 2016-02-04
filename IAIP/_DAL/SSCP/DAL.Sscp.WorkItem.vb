@@ -114,7 +114,7 @@ Namespace DAL.Sscp
                 .SscpTrackingNumber = row("STRTRACKINGNUMBER")
                 .Facility = GetFacility(row("STRAIRSNUMBER"))
                 .DateReceived = row("DATRECEIVEDDATE")
-                .StaffResponsible = GetStaff(row("STRRESPONSIBLESTAFF"))
+                .StaffResponsible = GetIaipUserByUserId(row("STRRESPONSIBLESTAFF"))
                 .DateComplete = DB.GetNullable(Of Date)(row("DATCOMPLETEDATE"))
                 .DeletedDbCode = row("STRDELETE")
                 .DateAcknowledgmentLetterSent = DB.GetNullable(Of Date)(row("DATACKNOLEDGMENTLETTERSENT"))

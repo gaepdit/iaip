@@ -597,11 +597,11 @@ Public Class IAIPEditHeaderData
 #Region " Permissions "
 
     Private Function EditingIsAllowed() As Boolean
-        Return UserPermissions.CheckAuth(UserCan.EditHeaderData)
+        Return CurrentUser.CheckIf(UserCan.EditHeaderData)
     End Function
 
     Private Function UserCanShutDownFacility() As Boolean
-        Return UserPermissions.CheckAuth(UserCan.ShutDownFacility)
+        Return CurrentUser.CheckIf(UserCan.ShutDownFacility)
     End Function
 
 #End Region

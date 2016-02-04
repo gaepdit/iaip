@@ -23,7 +23,7 @@ Public Class SharedData
                     dt.PrimaryKey = New DataColumn() {dt.Columns("AIRVIOLATIONTYPECODE")}
 
                 Case Tables.AllComplianceStaff
-                    dt = DAL.StaffData.GetAllComplianceStaff()
+                    dt = DAL.StaffData.GetComplianceStaff()
 
                 Case Tables.Pollutants
                     dt = DAL.CommonData.GetPollutantsTable()
@@ -31,7 +31,7 @@ Public Class SharedData
 
                 Case Tables.IaipAccountRoles
                     dt = DAL.GetIaipAccountRoles
-                    dt.PrimaryKey = New DataColumn() {dt.Columns("AccountCode")}
+                    dt.PrimaryKey = New DataColumn() {dt.Columns("RoleCode")}
 
             End Select
 

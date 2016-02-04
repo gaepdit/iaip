@@ -7,7 +7,7 @@ Namespace Apb.Sscp
         Public Property EnforcementNumber() As String
         Public Property EnforcementTypeCode() As String
         Public Property DiscoveryDate() As Date?
-        Public Property StaffResponsible() As Staff
+        Public Property StaffResponsible() As IaipUser
         Public Property Open() As Boolean
         Public Property DateFinalized() As Date?
 

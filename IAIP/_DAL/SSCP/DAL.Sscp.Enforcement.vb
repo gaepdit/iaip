@@ -117,7 +117,7 @@ Namespace DAL.Sscp
                 .FacilityLocation = location
             End With
 
-            Dim staff As New Staff
+            Dim staff As New IaipUser
             With staff
                 .FirstName = DB.GetNullable(Of String)(row("STRFIRSTNAME"))
                 .LastName = DB.GetNullable(Of String)(row("STRLASTNAME"))

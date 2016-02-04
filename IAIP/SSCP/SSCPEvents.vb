@@ -4154,7 +4154,7 @@ Public Class SSCPEvents
             .PostmarkedByDeadline = rdbACCPostmarkYes.Checked
             .ResubmittalRequested = rdbACCResubmittalRequestedYes.Checked
             .SignedByResponsibleOfficial = rdbACCROYes.Checked
-            .StaffResponsible = DAL.GetStaff(cboStaffResponsible.SelectedValue)
+            .StaffResponsible = DAL.GetIaipUserByUserId(cboStaffResponsible.SelectedValue)
             .UnreportedDeviationsReported = rdbACCPreviouslyUnreportedDeviationsYes.Checked
         End With
 

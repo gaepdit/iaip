@@ -175,7 +175,7 @@ Public Class IAIPLogIn
                     CancelLogin(ClearPasswordField.No)
 
                 Case DAL.IaipAuthenticationResult.Success
-                    CurrentUser = DAL.GetIaipUser(txtUserID.Text)
+                    CurrentUser = DAL.GetIaipUserByUsername(txtUserID.Text)
                     If CurrentUser Is Nothing Then
                         Me.Message = New IaipMessage("There was a system error. Please contact support.", IaipMessage.WarningLevels.ErrorReport)
                         CancelLogin(ClearPasswordField.No)

@@ -140,22 +140,22 @@ Namespace DAL
                 .PostalCode = If(p, Convert.ToString(p), Nothing)
             End With
 
-            Dim contact As New Staff
+            Dim contact As New IaipUser
             With contact
                 .FirstName = DB.GetNullable(Of String)(row("STRFIRSTNAME"))
                 .LastName = DB.GetNullable(Of String)(row("STRLASTNAME"))
                 .PhoneNumber = DB.GetNullable(Of String)(row("STRPHONE"))
                 .EmailAddress = DB.GetNullable(Of String)(row("STREMAILADDRESS"))
-                .StaffId = Convert.ToInt32(DB.GetNullable(Of Decimal)(row("NUMAPBCONTACT")))
+                .UserID = Convert.ToInt32(DB.GetNullable(Of Decimal)(row("NUMAPBCONTACT")))
             End With
 
-            Dim webContact As New Staff
+            Dim webContact As New IaipUser
             With webContact
                 .FirstName = DB.GetNullable(Of String)(row("STRFIRSTNAME2"))
                 .LastName = DB.GetNullable(Of String)(row("STRLASTNAME2"))
                 .PhoneNumber = DB.GetNullable(Of String)(row("STRPHONE2"))
                 .EmailAddress = DB.GetNullable(Of String)(row("STREMAILADDRESS2"))
-                .StaffId = Convert.ToInt32(DB.GetNullable(Of Decimal)(row("STRUSERGCODE")))
+                .UserID = Convert.ToInt32(DB.GetNullable(Of Decimal)(row("STRUSERGCODE")))
             End With
 
             With re
