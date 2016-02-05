@@ -27,41 +27,7 @@ Public Class IaipUserManagement
     End Sub
 
     Private Sub SetFormPermissions()
-        If CurrentUser.CheckIf(UserCan.EditUsers) Then
-            SaveProfileChanges.Enabled = True
-            RemoveRoles.Enabled = True
-            AddNewRoles.Enabled = True
-        End If
-
-        If CurrentUser.CheckIf(UserCan.CreateUsers) Then
-            CreateNewUserButton.Enabled = True
-        End If
-
-
-
-        If Not AccountFormAccess(8, 4) = "1" Then
-            RolesBranch.Enabled = False
-            ProfileBranch.Enabled = False
-
-            If Not AccountFormAccess(8, 3) = "1" Then
-                RolesProgram.Enabled = False
-                ProfileProgram.Enabled = False
-                If Not AccountFormAccess(8, 2) = "1" Then
-                    RolesProgram.Enabled = False
-                    ProfileProgram.Enabled = False
-                    ProfileUnit.Enabled = False
-                    ProfileStatusActive.Enabled = False
-                    ProfileStatusInactive.Enabled = False
-                    CreateNewUserButton.Visible = False
-                    ProfileFirstName.ReadOnly = True
-                    ProfileLastName.ReadOnly = True
-                    ProfileEmailAddress.ReadOnly = True
-                    ProfilePhoneNumber.ReadOnly = True
-                    SaveProfileChanges.Enabled = False
-                    ProfileUsername.ReadOnly = True
-                End If
-            End If
-        End If
+        CreateNewUserButton.Enabled = CurrentUser.HasPermission(UserCan.EditAllUsers)
     End Sub
 
 #End Region
@@ -97,7 +63,7 @@ Public Class IaipUserManagement
 
         AddHandler SearchProgram.SelectedIndexChanged, AddressOf SearchProgram_SelectedIndexChanged
         AddHandler ProfileProgram.SelectedIndexChanged, AddressOf ProfileProgram_SelectedIndexChanged
-        AddHandler RolesProgram.SelectedIndexChanged, AddressOf RoleProgram_SelectedIndexChanged
+        AddHandler RolesProgram.SelectedIndexChanged, AddressOf RolesProgram_SelectedIndexChanged
 
         For Each cb As ComboBox In {ProfileBranch, SearchBranch, RolesBranch}
             With cb
@@ -111,7 +77,7 @@ Public Class IaipUserManagement
 
         AddHandler SearchBranch.SelectedIndexChanged, AddressOf SearchBranch_SelectedIndexChanged
         AddHandler ProfileBranch.SelectedIndexChanged, AddressOf ProfileBranch_SelectedIndexChanged
-        AddHandler RolesBranch.SelectedIndexChanged, AddressOf RoleBranch_SelectedIndexChanged
+        AddHandler RolesBranch.SelectedIndexChanged, AddressOf RolesBranch_SelectedIndexChanged
 
         SearchBranch.SelectedValue = CurrentUser.BranchID
     End Sub
@@ -143,7 +109,7 @@ Public Class IaipUserManagement
     Private Sub ProfileBranch_SelectedIndexChanged(sender As Object, e As EventArgs) 'Handles ProfileBranch.SelectedIndexChanged
         BranchCboSelectionChanged(ProfileBranch, ProfileProgram)
     End Sub
-    Private Sub RoleBranch_SelectedIndexChanged(sender As Object, e As EventArgs) 'Handles RoleBranch.SelectedIndexChanged
+    Private Sub RolesBranch_SelectedIndexChanged(sender As Object, e As EventArgs) 'Handles RoleBranch.SelectedIndexChanged
         BranchCboSelectionChanged(RolesBranch, RolesProgram)
     End Sub
     Private Sub SearchProgram_SelectedIndexChanged(sender As Object, e As EventArgs) 'Handles SearchProgram.SelectedIndexChanged
@@ -152,7 +118,7 @@ Public Class IaipUserManagement
     Private Sub ProfileProgram_SelectedIndexChanged(sender As Object, e As EventArgs) 'Handles ProfileProgram.SelectedIndexChanged
         ProgramCboSelectionChanged(ProfileProgram, ProfileUnit)
     End Sub
-    Private Sub RoleProgram_SelectedIndexChanged(sender As Object, e As EventArgs) 'Handles RoleProgram.SelectedIndexChanged
+    Private Sub RolesProgram_SelectedIndexChanged(sender As Object, e As EventArgs) 'Handles RoleProgram.SelectedIndexChanged
         DisplayAvailableRoles()
     End Sub
 
@@ -255,6 +221,58 @@ Public Class IaipUserManagement
 
         ProfilePanel.Enabled = True
         RolesPanel.Enabled = True
+
+        SetEditPermissions()
+    End Sub
+
+    Private Sub SetEditPermissions()
+        If CurrentUser.HasPermission(UserCan.EditAllUsers) Then
+            SaveProfileChanges.Enabled = True
+            RemoveRoles.Enabled = True
+            AddNewRoles.Enabled = True
+
+            ProfileBranch.Enabled = True
+            ProfileProgram.Enabled = True
+            ProfileUnit.Enabled = True
+            ProfileStatusSelection.Enabled = True
+            RolesBranch.Enabled = True
+            RolesProgram.Enabled = True
+        ElseIf CurrentUser.HasPermission(UserCan.EditDirectReports) Then
+            If CurrentUser.HasRoleType(RoleType.UnitManager) AndAlso CurrentUser.UnitId = ProfileUnit.SelectedValue Then
+                SaveProfileChanges.Enabled = True
+                RemoveRoles.Enabled = True
+                AddNewRoles.Enabled = True
+
+                ProfileBranch.Enabled = False
+                ProfileProgram.Enabled = False
+                ProfileUnit.Enabled = True
+                ProfileStatusSelection.Enabled = True
+                RolesBranch.Enabled = False
+                RolesProgram.Enabled = False
+            ElseIf CurrentUser.HasRoleType(RoleType.ProgramManager) AndAlso CurrentUser.ProgramID = ProfileProgram.SelectedValue Then
+                SaveProfileChanges.Enabled = True
+                RemoveRoles.Enabled = True
+                AddNewRoles.Enabled = True
+
+                ProfileBranch.Enabled = False
+                ProfileProgram.Enabled = True
+                ProfileUnit.Enabled = True
+                ProfileStatusSelection.Enabled = True
+                RolesBranch.Enabled = False
+                RolesProgram.Enabled = True
+            End If
+        Else
+            SaveProfileChanges.Enabled = False
+            RemoveRoles.Enabled = False
+            AddNewRoles.Enabled = False
+
+            ProfileBranch.Enabled = False
+            ProfileProgram.Enabled = False
+            ProfileUnit.Enabled = False
+            ProfileStatusSelection.Enabled = False
+            RolesBranch.Enabled = False
+            RolesProgram.Enabled = False
+        End If
     End Sub
 
 #End Region
@@ -281,55 +299,25 @@ Public Class IaipUserManagement
 #Region " Profile editor "
 
     Private Sub SaveProfileChanges_Click(sender As Object, e As EventArgs) Handles SaveProfileChanges.Click
-        Message.Clear()
-
-        If SelectedUserID = 0 Then
-            MessageBox.Show("Select a user from the search tool to edit.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-        Else
-            If AccountFormAccess(8, 2) = "0" And AccountFormAccess(8, 3) = "0" And AccountFormAccess(8, 4) = "0" Then
-                If SelectedUserID = CurrentUser.UserID Then
-                    UpdateUserProfile()
-                Else
-                    MessageBox.Show("You may only edit your own data.", "Unauthorized", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                End If
-            Else
-                If AccountFormAccess(8, 4) = "0" Then
-                    If AccountFormAccess(8, 3) = "0" Then
-                        If CurrentUser.BranchID = ProfileBranch.SelectedValue And CurrentUser.ProgramID = ProfileProgram.SelectedValue Then
-                            UpdateUserProfile()
-                        Else
-                            MessageBox.Show("You may only edit users in your Program.", "Unauthorized", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                        End If
-                    Else
-                        If CurrentUser.BranchID = ProfileBranch.SelectedValue Then
-                            UpdateUserProfile()
-                        Else
-                            MessageBox.Show("You may only edit users in your Branch.", "Unauthorized", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                        End If
-                    End If
-                Else
-                    UpdateUserProfile()
-                End If
-            End If
-        End If
-    End Sub
-
-    Private Sub UpdateUserProfile()
         EP.Clear()
         InvalidEntries.Clear()
         Message.Clear()
 
-        ProfilePanel.CausesValidation = True
-
-        If ValidateChildren() Then
-            SaveUserProfileData()
+        If SelectedUserID = 0 Then
+            Message = New IaipMessage("Select a user from the search tool to edit.", IaipMessage.WarningLevels.Warning)
+            Message.Display(MessageDisplay)
         Else
-            DisplayInvalidMessage()
+            ProfilePanel.CausesValidation = True
+
+            If ValidateChildren() Then
+                SaveUserProfileData()
+            Else
+                DisplayInvalidMessage()
+            End If
+
+            ProfilePanel.CausesValidation = False
         End If
-
-        ProfilePanel.CausesValidation = False
     End Sub
-
 
     Private Sub SaveUserProfileData()
         Dim user As New IaipUser()
@@ -355,7 +343,6 @@ Public Class IaipUserManagement
             Message.Display(MessageDisplay)
         End If
     End Sub
-
 
 #End Region
 
@@ -388,6 +375,17 @@ Public Class IaipUserManagement
     End Sub
 
     Private Sub RemoveRoles_Click(sender As Object, e As EventArgs) Handles RemoveRoles.Click
+        If SelectedUserID = CurrentUser.UserID Then
+            Dim dr As DialogResult = MessageBox.Show("You are about to remove roles from your own account. " &
+                                                     "You may not be able to undo this operation. " &
+                                                     vbNewLine & vbNewLine &
+                                                     "Are you sure you want to continue?",
+                                                     "Warning",
+                                                     MessageBoxButtons.OKCancel)
+            If dr = DialogResult.Cancel Then
+                Exit Sub
+            End If
+        End If
         For Each item As Object In CurrentRoles.SelectedItems
             SelectedUserRoles.RoleCodes.Remove(CType(item, DataRowView).Item("RoleCode"))
         Next
@@ -395,10 +393,14 @@ Public Class IaipUserManagement
     End Sub
 
     Private Sub UpdateRoles()
-        ' TODO: check permissions first!!!
         Message.Clear()
+        SelectedUserRoles.RoleCodes.Remove(0)
+        If SelectedUserRoles.RoleCodes.Count = 0 Then SelectedUserRoles.RoleCodes.Add(0)
         If DAL.UpdateUserRoles(SelectedUserID, SelectedUserRoles) Then
             DisplayCurrentRoles(SelectedUserRoles)
+            If SelectedUserID = CurrentUser.UserID Then
+                CurrentUser.IaipRoles = SelectedUserRoles
+            End If
             Message = New IaipMessage("User roles were successfully updated.", IaipMessage.WarningLevels.Success)
             Message.Display(MessageDisplay)
         Else

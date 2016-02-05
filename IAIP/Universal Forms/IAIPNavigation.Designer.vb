@@ -27,6 +27,7 @@ Partial Class IAIPNavigation
         Me.mmiTools = New System.Windows.Forms.MenuItem()
         Me.mmiExport = New System.Windows.Forms.MenuItem()
         Me.ProfileMenuItem = New System.Windows.Forms.MenuItem()
+        Me.UsernameDisplay = New System.Windows.Forms.MenuItem()
         Me.UpdateProfile = New System.Windows.Forms.MenuItem()
         Me.ChangePassword = New System.Windows.Forms.MenuItem()
         Me.LogOut = New System.Windows.Forms.MenuItem()
@@ -85,7 +86,6 @@ Partial Class IAIPNavigation
         Me.ListChangerPanel = New System.Windows.Forms.Panel()
         Me.pnlContextSubView = New System.Windows.Forms.Panel()
         Me.dgvWorkViewer = New System.Windows.Forms.DataGridView()
-        Me.UsernameDisplay = New System.Windows.Forms.MenuItem()
         Me.grpQuickAccess.SuspendLayout()
         Me.SbeapQuickAccessPanel.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -127,6 +127,12 @@ Partial Class IAIPNavigation
         Me.ProfileMenuItem.Index = 2
         Me.ProfileMenuItem.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.UsernameDisplay, Me.UpdateProfile, Me.ChangePassword, Me.LogOut})
         Me.ProfileMenuItem.Text = "&Account"
+        '
+        'UsernameDisplay
+        '
+        Me.UsernameDisplay.Enabled = False
+        Me.UsernameDisplay.Index = 0
+        Me.UsernameDisplay.Text = "Logged in as username"
         '
         'UpdateProfile
         '
@@ -750,12 +756,6 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvWorkViewer.Size = New System.Drawing.Size(686, 187)
         Me.dgvWorkViewer.TabIndex = 4
-        '
-        'UsernameDisplay
-        '
-        Me.UsernameDisplay.Enabled = False
-        Me.UsernameDisplay.Index = 0
-        Me.UsernameDisplay.Text = "Logged in as username"
         '
         'IAIPNavigation
         '

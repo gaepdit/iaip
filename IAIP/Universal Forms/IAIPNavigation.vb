@@ -57,7 +57,7 @@ Public Class IAIPNavigation
 #Region " Page Load procedures "
 
     Private Sub EnableSbeapTools()
-        If CurrentUser.HasRoles({142, 143, 118}) Then
+        If CurrentUser.HasRole({142, 143, 118}) Then
             cboWorkViewerContext.Items.Add("SBEAP Cases")
             EnableAndShow(SbeapQuickAccessPanel)
         End If
@@ -362,9 +362,9 @@ Public Class IAIPNavigation
                                 Case 4 'SSCP
                                     If CurrentUser.UnitId = 0 Then 'Program Manager
                                         CurrentWorkViewerContext = WorkViewerType.SSCP_PM
-                                    ElseIf CurrentUser.HasRoles(143) Then ' SBEAP Manager
+                                    ElseIf CurrentUser.HasRole(143) Then ' SBEAP Manager
                                         CurrentWorkViewerContext = WorkViewerType.SBEAP_Program
-                                    ElseIf CurrentUser.HasRoles(142) Then ' SBEAP staff
+                                    ElseIf CurrentUser.HasRole(142) Then ' SBEAP staff
                                         CurrentWorkViewerContext = WorkViewerType.SBEAP_Staff
                                         CurrentWorkViewerContextParameter = CurrentUser.UserID
                                     ElseIf AccountFormAccess(22, 3) = "1" Then 'Unit Manager
@@ -555,11 +555,11 @@ Public Class IAIPNavigation
     Private Sub SetContextSelectorSubView()
         rdbStaffView.Checked = True
 
-        If CurrentUser.HasRoles({114, 115, 121, 128, 141, 63}) Then
+        If CurrentUser.HasRole({114, 115, 121, 128, 141, 63}) Then
             rdbUCView.Checked = True
         End If
 
-        If CurrentUser.HasRoles({2, 19, 28, 45, 57, 143}) Then
+        If CurrentUser.HasRole({2, 19, 28, 45, 57, 143}) Then
             rdbPMView.Checked = True
         End If
     End Sub
@@ -1114,7 +1114,7 @@ Public Class IAIPNavigation
     Private Sub AddNavButtonIfUserHasPermission(ByVal permissionsAllowed As Integer(), _
                                                 ByVal buttonText As String, ByVal formName As String, _
                                                 ByVal category As NavButtonCategories)
-        If CurrentUser.HasRoles(permissionsAllowed) Then
+        If CurrentUser.HasRole(permissionsAllowed) Then
             AddNavButton(buttonText, formName, category)
         End If
     End Sub

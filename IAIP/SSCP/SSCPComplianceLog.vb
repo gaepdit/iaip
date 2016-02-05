@@ -45,7 +45,7 @@ Public Class SSCPComplianceLog
 
             'If AccountArray(4, 1) = "1" Then 'District Only 
             If AccountFormAccess(4, 1) = "1" _
-                AndAlso Not CurrentUser.HasRoles({19, 113, 114, 141, 118}) Then
+                AndAlso Not CurrentUser.HasRole({19, 113, 114, 141, 118}) Then
 
                 btnAddNewEntry.Visible = False
                 btnDeleteWork.Visible = False

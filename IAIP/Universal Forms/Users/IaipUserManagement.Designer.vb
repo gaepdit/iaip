@@ -66,6 +66,7 @@ Partial Class IaipUserManagement
         Me.SearchResults = New System.Windows.Forms.DataGridView()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.ProfilePanel = New System.Windows.Forms.Panel()
+        Me.ProfileStatusSelection = New System.Windows.Forms.Panel()
         Me.RequiredLabel = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.RolesPanel = New System.Windows.Forms.Panel()
@@ -82,6 +83,7 @@ Partial Class IaipUserManagement
         Me.MessageDisplay = New System.Windows.Forms.Label()
         CType(Me.SearchResults, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ProfilePanel.SuspendLayout()
+        Me.ProfileStatusSelection.SuspendLayout()
         Me.RolesPanel.SuspendLayout()
         Me.AddRolesGroupbox.SuspendLayout()
         Me.CurrentRolesGroupBox.SuspendLayout()
@@ -103,7 +105,7 @@ Partial Class IaipUserManagement
         Me.CreateNewUserButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.CreateNewUserButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.CreateNewUserButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CreateNewUserButton.Location = New System.Drawing.Point(609, 12)
+        Me.CreateNewUserButton.Location = New System.Drawing.Point(615, 11)
         Me.CreateNewUserButton.Name = "CreateNewUserButton"
         Me.CreateNewUserButton.Size = New System.Drawing.Size(153, 27)
         Me.CreateNewUserButton.TabIndex = 0
@@ -117,27 +119,27 @@ Partial Class IaipUserManagement
         Me.SaveProfileChanges.Location = New System.Drawing.Point(133, 285)
         Me.SaveProfileChanges.Name = "SaveProfileChanges"
         Me.SaveProfileChanges.Size = New System.Drawing.Size(117, 23)
-        Me.SaveProfileChanges.TabIndex = 11
+        Me.SaveProfileChanges.TabIndex = 10
         Me.SaveProfileChanges.Text = "Save profile changes"
         Me.SaveProfileChanges.UseVisualStyleBackColor = True
         '
         'ProfileStatusInactive
         '
         Me.ProfileStatusInactive.AutoSize = True
-        Me.ProfileStatusInactive.Location = New System.Drawing.Point(171, 171)
+        Me.ProfileStatusInactive.Location = New System.Drawing.Point(61, 9)
         Me.ProfileStatusInactive.Name = "ProfileStatusInactive"
         Me.ProfileStatusInactive.Size = New System.Drawing.Size(63, 17)
-        Me.ProfileStatusInactive.TabIndex = 7
+        Me.ProfileStatusInactive.TabIndex = 1
         Me.ProfileStatusInactive.Text = "Inactive"
         Me.ProfileStatusInactive.UseVisualStyleBackColor = True
         '
         'ProfileStatusActive
         '
         Me.ProfileStatusActive.AutoSize = True
-        Me.ProfileStatusActive.Location = New System.Drawing.Point(110, 171)
+        Me.ProfileStatusActive.Location = New System.Drawing.Point(0, 9)
         Me.ProfileStatusActive.Name = "ProfileStatusActive"
         Me.ProfileStatusActive.Size = New System.Drawing.Size(55, 17)
-        Me.ProfileStatusActive.TabIndex = 6
+        Me.ProfileStatusActive.TabIndex = 0
         Me.ProfileStatusActive.Text = "Active"
         Me.ProfileStatusActive.UseVisualStyleBackColor = True
         '
@@ -166,7 +168,7 @@ Partial Class IaipUserManagement
         Me.ProfileUnit.Location = New System.Drawing.Point(110, 248)
         Me.ProfileUnit.Name = "ProfileUnit"
         Me.ProfileUnit.Size = New System.Drawing.Size(140, 21)
-        Me.ProfileUnit.TabIndex = 10
+        Me.ProfileUnit.TabIndex = 9
         '
         'ProfileProgram
         '
@@ -177,7 +179,7 @@ Partial Class IaipUserManagement
         Me.ProfileProgram.Location = New System.Drawing.Point(110, 222)
         Me.ProfileProgram.Name = "ProfileProgram"
         Me.ProfileProgram.Size = New System.Drawing.Size(140, 21)
-        Me.ProfileProgram.TabIndex = 9
+        Me.ProfileProgram.TabIndex = 8
         '
         'ProfileBranch
         '
@@ -188,7 +190,7 @@ Partial Class IaipUserManagement
         Me.ProfileBranch.Location = New System.Drawing.Point(110, 196)
         Me.ProfileBranch.Name = "ProfileBranch"
         Me.ProfileBranch.Size = New System.Drawing.Size(140, 21)
-        Me.ProfileBranch.TabIndex = 8
+        Me.ProfileBranch.TabIndex = 7
         '
         'ProfileEmailAddress
         '
@@ -461,12 +463,12 @@ Partial Class IaipUserManagement
         Me.SearchResults.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.SearchResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.SearchResults.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.SearchResults.Location = New System.Drawing.Point(315, 45)
+        Me.SearchResults.Location = New System.Drawing.Point(317, 47)
         Me.SearchResults.Name = "SearchResults"
         Me.SearchResults.ReadOnly = True
         Me.SearchResults.RowHeadersVisible = False
         Me.SearchResults.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.SearchResults.Size = New System.Drawing.Size(447, 183)
+        Me.SearchResults.Size = New System.Drawing.Size(451, 183)
         Me.SearchResults.TabIndex = 2
         '
         'Label2
@@ -484,8 +486,7 @@ Partial Class IaipUserManagement
         Me.ProfilePanel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ProfilePanel.BackColor = System.Drawing.SystemColors.ControlLight
         Me.ProfilePanel.CausesValidation = False
-        Me.ProfilePanel.Controls.Add(Me.ProfileStatusInactive)
-        Me.ProfilePanel.Controls.Add(Me.ProfileStatusActive)
+        Me.ProfilePanel.Controls.Add(Me.ProfileStatusSelection)
         Me.ProfilePanel.Controls.Add(Me.RequiredLabel)
         Me.ProfilePanel.Controls.Add(Me.ProfileLastName)
         Me.ProfilePanel.Controls.Add(Me.Label7)
@@ -508,10 +509,19 @@ Partial Class IaipUserManagement
         Me.ProfilePanel.Controls.Add(Me.Label10)
         Me.ProfilePanel.Controls.Add(Me.Label16)
         Me.ProfilePanel.Enabled = False
-        Me.ProfilePanel.Location = New System.Drawing.Point(17, 265)
+        Me.ProfilePanel.Location = New System.Drawing.Point(19, 267)
         Me.ProfilePanel.Name = "ProfilePanel"
         Me.ProfilePanel.Size = New System.Drawing.Size(273, 331)
         Me.ProfilePanel.TabIndex = 3
+        '
+        'ProfileStatusSelection
+        '
+        Me.ProfileStatusSelection.Controls.Add(Me.ProfileStatusInactive)
+        Me.ProfileStatusSelection.Controls.Add(Me.ProfileStatusActive)
+        Me.ProfileStatusSelection.Location = New System.Drawing.Point(110, 162)
+        Me.ProfileStatusSelection.Name = "ProfileStatusSelection"
+        Me.ProfileStatusSelection.Size = New System.Drawing.Size(138, 32)
+        Me.ProfileStatusSelection.TabIndex = 6
         '
         'RequiredLabel
         '
@@ -527,7 +537,7 @@ Partial Class IaipUserManagement
         Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(30, 245)
+        Me.Label4.Location = New System.Drawing.Point(32, 247)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(76, 17)
         Me.Label4.TabIndex = 7
@@ -541,7 +551,7 @@ Partial Class IaipUserManagement
         Me.RolesPanel.Controls.Add(Me.AddRolesGroupbox)
         Me.RolesPanel.Controls.Add(Me.CurrentRolesGroupBox)
         Me.RolesPanel.Enabled = False
-        Me.RolesPanel.Location = New System.Drawing.Point(315, 265)
+        Me.RolesPanel.Location = New System.Drawing.Point(317, 267)
         Me.RolesPanel.Name = "RolesPanel"
         Me.RolesPanel.Size = New System.Drawing.Size(447, 331)
         Me.RolesPanel.TabIndex = 4
@@ -617,7 +627,7 @@ Partial Class IaipUserManagement
         Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(327, 245)
+        Me.Label5.Location = New System.Drawing.Point(329, 247)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(72, 17)
         Me.Label5.TabIndex = 7
@@ -640,7 +650,7 @@ Partial Class IaipUserManagement
         Me.SearchPanel.Controls.Add(Me.SearchFirstName)
         Me.SearchPanel.Controls.Add(Me.Label24)
         Me.SearchPanel.Controls.Add(Me.Label23)
-        Me.SearchPanel.Location = New System.Drawing.Point(17, 6)
+        Me.SearchPanel.Location = New System.Drawing.Point(19, 8)
         Me.SearchPanel.Name = "SearchPanel"
         Me.SearchPanel.Size = New System.Drawing.Size(273, 236)
         Me.SearchPanel.TabIndex = 1
@@ -664,20 +674,21 @@ Partial Class IaipUserManagement
         '
         Me.MessageDisplay.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.MessageDisplay.AutoSize = True
-        Me.MessageDisplay.Location = New System.Drawing.Point(30, 608)
+        Me.MessageDisplay.Location = New System.Drawing.Point(32, 610)
         Me.MessageDisplay.MaximumSize = New System.Drawing.Size(270, 0)
         Me.MessageDisplay.MinimumSize = New System.Drawing.Size(270, 0)
         Me.MessageDisplay.Name = "MessageDisplay"
-        Me.MessageDisplay.Size = New System.Drawing.Size(270, 65)
+        Me.MessageDisplay.Padding = New System.Windows.Forms.Padding(5)
+        Me.MessageDisplay.Size = New System.Drawing.Size(270, 75)
         Me.MessageDisplay.TabIndex = 5
         Me.MessageDisplay.Text = "Message Label" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "4" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "5" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         Me.MessageDisplay.Visible = False
         '
-        'IAIPUserAdminTool
+        'IaipUserManagement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(781, 688)
+        Me.ClientSize = New System.Drawing.Size(785, 693)
         Me.Controls.Add(Me.MessageDisplay)
         Me.Controls.Add(Me.SearchPanel)
         Me.Controls.Add(Me.RolesPanel)
@@ -686,12 +697,14 @@ Partial Class IaipUserManagement
         Me.Controls.Add(Me.SearchResults)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label4)
-        Me.MinimumSize = New System.Drawing.Size(797, 726)
-        Me.Name = "IAIPUserAdminTool"
+        Me.MinimumSize = New System.Drawing.Size(801, 731)
+        Me.Name = "IaipUserManagement"
         Me.Text = "IAIP User Management"
         CType(Me.SearchResults, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ProfilePanel.ResumeLayout(False)
         Me.ProfilePanel.PerformLayout()
+        Me.ProfileStatusSelection.ResumeLayout(False)
+        Me.ProfileStatusSelection.PerformLayout()
         Me.RolesPanel.ResumeLayout(False)
         Me.AddRolesGroupbox.ResumeLayout(False)
         Me.AddRolesGroupbox.PerformLayout()
@@ -759,4 +772,5 @@ Partial Class IaipUserManagement
     Friend WithEvents CurrentRoles As ListBox
     Friend WithEvents CurrentRolesGroupBox As GroupBox
     Friend WithEvents RemoveRoles As Button
+    Friend WithEvents ProfileStatusSelection As Panel
 End Class

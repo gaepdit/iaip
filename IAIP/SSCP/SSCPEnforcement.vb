@@ -148,14 +148,14 @@ Public Class SscpEnforcement
 #Region " Permissions "
 
     Private Sub SetUserPermissions()
-        If CurrentUser.CheckIf(UserCan.ResolveEnforcement) Then
+        If CurrentUser.HasPermission(UserCan.ResolveEnforcement) Then
             ' Enable full access to resolve/delete/submit to EPA
             ResolvedCheckBox.Enabled = True
             DeleteEnforcementMenuItem.Enabled = True
             SubmitToEpa.Enabled = True
             SubmitToEpa2.Enabled = True
 
-        ElseIf Not CurrentUser.CheckIf(UserCan.SaveEnforcement) Then
+        ElseIf Not CurrentUser.HasPermission(UserCan.SaveEnforcement) Then
             ' Disable any save/write access
             SaveButton.Enabled = False
             SaveMenuItem.Enabled = False
@@ -584,7 +584,7 @@ Public Class SscpEnforcement
             If Not EnforcementCase.SubmittedToUc And EnforcementId IsNot Nothing Then
                 SubmitToUC.Visible = True
             End If
-            If Not EnforcementCase.SubmittedToEpa And EnforcementId IsNot Nothing AndAlso CurrentUser.CheckIf(UserCan.ResolveEnforcement) Then
+            If Not EnforcementCase.SubmittedToEpa And EnforcementId IsNot Nothing AndAlso CurrentUser.HasPermission(UserCan.ResolveEnforcement) Then
                 SubmitToEpa.Visible = True
                 SubmitToEpa2.Visible = True
                 NotSubmittedToEpaLabel.Visible = True
@@ -621,7 +621,7 @@ Public Class SscpEnforcement
 
         If EnforcementCase.SubmittedToEpa = True Then Exit Sub
 
-        If Not CurrentUser.CheckIf(UserCan.ResolveEnforcement) Then
+        If Not CurrentUser.HasPermission(UserCan.ResolveEnforcement) Then
             GeneralMessage = New IaipMessage("You do not have sufficent permission to submit enforcement case to EPA.", IaipMessage.WarningLevels.ErrorReport)
             Exit Sub
         End If
@@ -1178,7 +1178,7 @@ Public Class SscpEnforcement
 #Region " Save enforcement data "
 
     Private Function ValidateAndSave() As Boolean
-        If Not CurrentUser.CheckIf(UserCan.SaveEnforcement) Then
+        If Not CurrentUser.HasPermission(UserCan.SaveEnforcement) Then
             GeneralMessage = New IaipMessage("You do not have sufficent permission to save changes to enforcement cases.", IaipMessage.WarningLevels.ErrorReport)
             Return False
         End If
@@ -1656,7 +1656,7 @@ Public Class SscpEnforcement
             Exit Sub
         End If
 
-        If Not CurrentUser.CheckIf(UserCan.ResolveEnforcement) Then
+        If Not CurrentUser.HasPermission(UserCan.ResolveEnforcement) Then
             GeneralMessage = New IaipMessage("You do not have sufficent permission to delete enforcement cases.", IaipMessage.WarningLevels.ErrorReport)
             Exit Sub
         End If

@@ -56,46 +56,96 @@
 
 #Region " Methods "
 
-    Public Function CheckIf(capability As UserCan) As Boolean
-        If HasRoles(118) Then Return True ' DMU Management
+    Public Function HasRole(permissionCode As Integer) As Boolean
+        Return IaipRoles.HasRole(permissionCode)
+    End Function
 
-        Select Case capability
+    Public Function HasRole(permissionCodes As Integer()) As Boolean
+        Return IaipRoles.HasRole(permissionCodes)
+    End Function
 
-            Case UserCan.SaveEnforcement Or UserCan.ChangeComplianceStatus
-                Return (BranchID = 5) OrElse              ' District offices or
-                    (ProgramID = 3 Or ProgramID = 4)  ' DMU or SSCP
+    Public Function HasRoleType(roleType As RoleType) As Boolean
+        Select Case roleType
+            Case RoleType.BranchAdmin
+                Return HasRole(42)
 
-            Case UserCan.ResolveEnforcement
-                Return HasRoles(19) OrElse ' SSCP Program Manager
-                    HasRoles(114)          ' SSCP Unit Manager
+            Case RoleType.BranchChief
+                Return HasRole(102)
 
-            Case UserCan.AddPollutantsToFacility
-                Return (BranchID = 1) ' Air Branch
+            Case RoleType.ProgramManager
+                Return HasRole({2, 11, 19, 28, 45, 57, 104, 143})
 
-            Case UserCan.EditHeaderData
-                Return (AccountFormAccess(29, 2) = "1" Or AccountFormAccess(29, 3) = "1" Or AccountFormAccess(29, 4) = "1")
+            Case RoleType.UnitManager
+                Return HasRole({47, 63, 106, 114, 115, 121, 128})
 
-            Case UserCan.ShutDownFacility
-                ' SSCP Unit Manager, SSCP Program Manager, Branch Chief, District Liasion, SSPP Program Manager
-                Return HasRoles(New Integer() {114, 19, 102, 27, 28})
-
-            Case UserCan.CreateUsers
-                Return False
-
-            Case UserCan.EditUsers
-                Return False
+            Case RoleType.DistrictManager
+                Return HasRole({134, 136, 133, 135, 137, 138, 140})
 
         End Select
     End Function
 
-    Public Function HasRoles(permissionCode As Integer) As Boolean
-        Return IaipRoles.HasRoles(permissionCode)
-    End Function
+    Public Function HasPermission(capability As UserCan) As Boolean
+        If HasRole(118) Then Return True ' DMU Management
 
-    Public Function HasRoles(permissionCodes As Integer()) As Boolean
-        Return IaipRoles.HasRoles(permissionCodes)
+        Select Case capability
+
+            ' === Compliance caps
+            Case UserCan.SaveEnforcement Or UserCan.ChangeComplianceStatus
+                ' District offices, SSCP, or Branch Chief
+                Return (BranchID = 5) Or (ProgramID = 4) Or HasRole(102)
+
+            Case UserCan.ResolveEnforcement
+                ' SSCP Program Manager, SSCP Unit Manager, or Branch Chief
+                Return HasRole({19, 114, 102})
+
+                ' === Facility caps
+            Case UserCan.AddPollutantsToFacility
+                ' Air Branch
+                Return (BranchID = 1)
+
+            Case UserCan.EditFacilityHeaderData
+                ' Branch Chief; SSCP Unit Manager; or SSCP, ISMP, or SSPP Program Manager
+                Return HasRole({102, 114, 2, 19, 28})
+
+            Case UserCan.ShutDownFacility
+                ' SSCP Unit Manager, SSCP Program Manager, Branch Chief, District Liasion, SSPP Program Manager
+                Return HasRole({114, 19, 102, 27, 28})
+
+                ' === User management caps
+            Case UserCan.EditAllUsers
+                ' Branch Chief, APB Admin, all APB program managers
+                Return HasRoleType(RoleType.BranchChief) Or
+                    HasRoleType(RoleType.BranchAdmin) Or
+                    HasRoleType(RoleType.ProgramManager)
+
+            Case UserCan.EditDirectReports
+                ' APB unit managers, District managers
+                Return HasPermission(UserCan.EditAllUsers) Or
+                    HasRoleType(RoleType.UnitManager) Or
+                    HasRoleType(RoleType.DistrictManager)
+
+        End Select
     End Function
 
 #End Region
 
 End Class
+
+Public Enum UserCan
+    SaveEnforcement
+    ResolveEnforcement
+    ChangeComplianceStatus
+    AddPollutantsToFacility
+    EditFacilityHeaderData
+    ShutDownFacility
+    EditAllUsers
+    EditDirectReports
+End Enum
+
+Public Enum RoleType
+    BranchChief
+    ProgramManager
+    UnitManager
+    BranchAdmin
+    DistrictManager
+End Enum
