@@ -1,0 +1,9 @@
+APBHEADERDATA.STRSTATEPROGRAMCODES
+
+5-character (reversed) bitwise string
+
+1 - NSR/PSD Major
+2 - HAPs Major
+3 - Unused
+4 - Unused
+5 - Unused
