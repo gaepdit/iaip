@@ -14287,10 +14287,10 @@ Public Class DMUEisGecoTool
                 Exit Sub
             End If
 
-            SQL = "Update AIRBranch.EIS_Admin set " & _
-            "strEnrollment = '0' " & _
-            "where active = '1' & " & _
-            "and InventoryYear = '" & txtEISStatsEnrollmentYear.Text & "' " & _
+            SQL = "Update AIRBranch.EIS_Admin set " &
+            "strEnrollment = '0' " &
+            "where active = '1' " &
+            "and InventoryYear = '" & txtEISStatsEnrollmentYear.Text & "' " &
             "and strEnrollment = '1' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
