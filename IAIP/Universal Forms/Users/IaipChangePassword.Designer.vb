@@ -99,6 +99,7 @@ Partial Class IaipChangePassword
         '
         'Cancel
         '
+        Me.Cancel.CausesValidation = False
         Me.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.Cancel.Location = New System.Drawing.Point(159, 120)
         Me.Cancel.Name = "Cancel"
@@ -128,7 +129,7 @@ Partial Class IaipChangePassword
         Me.AcceptButton = Me.Save
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
+        Me.AutoValidate = System.Windows.Forms.AutoValidate.Disable
         Me.CancelButton = Me.Cancel
         Me.ClientSize = New System.Drawing.Size(286, 214)
         Me.Controls.Add(Me.CurrentPassword)

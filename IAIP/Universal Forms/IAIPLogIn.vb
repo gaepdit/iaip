@@ -357,6 +357,10 @@ Public Class IAIPLogIn
         Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerEnvironment.ToString
 #End If
 
+#If BETA Then
+        Me.Text = Me.Text & " — Beta"
+#End If
+
         ' Reset current connection based on current connection environment
         ' and check connection/app availability
         CurrentConnection = New OracleConnection(DB.CurrentConnectionString)
