@@ -96,7 +96,7 @@ Public Class IaipUserProfile
         End If
     End Sub
 
-    Private Sub PhoneNumber_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
+    Private Sub PhoneNumber_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles PhoneNumber.Validating
         If PhoneNumber.MaskCompleted Then
             EP.SetError(PhoneNumber, String.Empty)
         Else

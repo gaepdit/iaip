@@ -62,6 +62,7 @@ Public Class IaipChangePassword
     End Sub
 
 #Region " Field validation "
+
     Private Sub CurrentPassword_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles CurrentPassword.Validating
         If String.IsNullOrEmpty(CurrentPassword.Text) Then
             PasswordEP.SetError(CurrentPassword, "Enter current password")
@@ -104,6 +105,7 @@ Public Class IaipChangePassword
             PasswordEP.SetError(ConfirmPassword, String.Empty)
         End If
     End Sub
+
 #End Region
 
 End Class

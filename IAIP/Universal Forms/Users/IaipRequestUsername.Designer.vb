@@ -61,6 +61,7 @@ Partial Class IaipRequestUsername
         '
         'Cancel
         '
+        Me.Cancel.CausesValidation = False
         Me.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.Cancel.Location = New System.Drawing.Point(188, 80)
         Me.Cancel.Name = "Cancel"
@@ -90,7 +91,7 @@ Partial Class IaipRequestUsername
         Me.AcceptButton = Me.DoRequestUsername
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
+        Me.AutoValidate = System.Windows.Forms.AutoValidate.Disable
         Me.CancelButton = Me.Cancel
         Me.ClientSize = New System.Drawing.Size(283, 177)
         Me.Controls.Add(Me.EmailAddress)
