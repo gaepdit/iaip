@@ -4562,14 +4562,12 @@ Partial Class DMUEisGecoTool
         '
         Me.btnEISEnrollMailoutList.AutoSize = True
         Me.btnEISEnrollMailoutList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnEISEnrollMailoutList.Enabled = False
         Me.btnEISEnrollMailoutList.Location = New System.Drawing.Point(14, 170)
         Me.btnEISEnrollMailoutList.Name = "btnEISEnrollMailoutList"
-        Me.btnEISEnrollMailoutList.Size = New System.Drawing.Size(99, 23)
+        Me.btnEISEnrollMailoutList.Size = New System.Drawing.Size(129, 23)
         Me.btnEISEnrollMailoutList.TabIndex = 74
-        Me.btnEISEnrollMailoutList.Text = "Enroll Mailout List"
+        Me.btnEISEnrollMailoutList.Text = "Enroll Entire Mailout List"
         Me.btnEISEnrollMailoutList.UseVisualStyleBackColor = True
-        Me.btnEISEnrollMailoutList.Visible = False
         '
         'btnViewEISEnrolled
         '
@@ -4627,7 +4625,7 @@ Partial Class DMUEisGecoTool
         Me.btnEISStatsEnrollment.Name = "btnEISStatsEnrollment"
         Me.btnEISStatsEnrollment.Size = New System.Drawing.Size(165, 23)
         Me.btnEISStatsEnrollment.TabIndex = 20
-        Me.btnEISStatsEnrollment.Text = "Enroll Mailout List"
+        Me.btnEISStatsEnrollment.Text = "Enroll Selected Facilities"
         Me.btnEISStatsEnrollment.UseVisualStyleBackColor = True
         '
         'TPEISThresholds
