@@ -1,11 +1,11 @@
 ﻿Imports Oracle.ManagedDataAccess.Client
 
 Namespace DAL
-    Module AppData
+    Module IaipAppData
 
         Public Function AppIsEnabled() As Boolean
-            Dim query As String = " SELECT FENABLED " & _
-                " FROM AIRBRANCH.APBMASTERAPP " & _
+            Dim query As String = " SELECT FENABLED " &
+                " FROM AIRBRANCH.APBMASTERAPP " &
                 " WHERE STRAPPLICATIONNAME = :pAppName "
             Dim parameter As OracleParameter = New OracleParameter("pAppName", APP_NAME)
 
@@ -16,6 +16,11 @@ Namespace DAL
             Catch ex As FormatException
                 Return False
             End Try
+        End Function
+
+        Public Function GetIaipAccountRoles() As DataTable
+            Dim spName As String = "AIRBRANCH.IAIP_USER.GetIaipAccountRoles"
+            Return DB.SPGetDataTable(spName)
         End Function
 
     End Module

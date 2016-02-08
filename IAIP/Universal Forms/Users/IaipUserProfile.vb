@@ -29,29 +29,29 @@ Public Class IaipUserProfile
         Message.Clear()
 
         If Me.ValidateChildren() Then
-            If Not SaveProfileData() Then DialogResult = System.Windows.Forms.DialogResult.None
+            If Not SaveProfileData() Then DialogResult = DialogResult.None
         Else
-            DialogResult = System.Windows.Forms.DialogResult.None
+            DialogResult = DialogResult.None
             DisplayInvalidMessage()
         End If
     End Sub
 
     Private Function SaveProfileData() As Boolean
-        Dim updatedStaff As Staff = CurrentUser.Clone
+        Dim updatedStaff As IaipUser = CurrentUser.Clone
 
         updatedStaff.FirstName = FirstName.Text.Trim
         updatedStaff.LastName = LastName.Text.Trim
         updatedStaff.EmailAddress = EmailAddress.Text.Trim
-        updatedStaff.PhoneNumber = PhoneNumber.Text.Trim
+        updatedStaff.PhoneNumber = PhoneNumber.Text
         updatedStaff.OfficeNumber = OfficeNumber.Text.Trim
 
-        Dim result As Boolean = DAL.UpdateStaffInfo(updatedStaff)
+        Dim result As Boolean = DAL.UpdateUserProfile(updatedStaff)
 
         If result Then
             CurrentUser.FirstName = FirstName.Text.Trim
             CurrentUser.LastName = LastName.Text.Trim
             CurrentUser.EmailAddress = EmailAddress.Text.Trim
-            CurrentUser.PhoneNumber = PhoneNumber.Text.Trim
+            CurrentUser.PhoneNumber = PhoneNumber.Text
             CurrentUser.OfficeNumber = OfficeNumber.Text.Trim
             Return True
         Else
@@ -81,7 +81,7 @@ Public Class IaipUserProfile
             EP.SetError(FirstName, String.Empty)
         Else
             e.Cancel = True
-            EP.SetError(FirstName, "First name is required")
+            EP.SetError(FirstName, "First name is required.")
             If Not InvalidEntries.Contains(FirstName) Then InvalidEntries.Add(FirstName)
         End If
     End Sub
@@ -91,21 +91,31 @@ Public Class IaipUserProfile
             EP.SetError(LastName, String.Empty)
         Else
             e.Cancel = True
-            EP.SetError(LastName, "Last name is required")
+            EP.SetError(LastName, "Last name is required.")
             If Not InvalidEntries.Contains(LastName) Then InvalidEntries.Add(LastName)
+        End If
+    End Sub
+
+    Private Sub PhoneNumber_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
+        If PhoneNumber.MaskCompleted Then
+            EP.SetError(PhoneNumber, String.Empty)
+        Else
+            e.Cancel = True
+            EP.SetError(PhoneNumber, "Phone number is required.")
+            If Not InvalidEntries.Contains(PhoneNumber) Then InvalidEntries.Add(PhoneNumber)
         End If
     End Sub
 
     Private Sub EmailAddress_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles EmailAddress.Validating
         If DAL.EmailIsInUse(EmailAddress.Text.Trim, CurrentUser.UserID) Then
-            EP.SetError(EmailAddress, "Email address is already in use by another user")
+            EP.SetError(EmailAddress, "Email address is already in use by another user.")
             e.Cancel = True
             If Not InvalidEntries.Contains(EmailAddress) Then InvalidEntries.Add(EmailAddress)
         ElseIf IsValidEmailAddress(EmailAddress.Text.Trim, True) Then
             EP.SetError(EmailAddress, String.Empty)
         Else
             e.Cancel = True
-            EP.SetError(EmailAddress, "A valid DNR email address is required")
+            EP.SetError(EmailAddress, "A valid DNR email address is required.")
             If Not InvalidEntries.Contains(EmailAddress) Then InvalidEntries.Add(EmailAddress)
         End If
     End Sub

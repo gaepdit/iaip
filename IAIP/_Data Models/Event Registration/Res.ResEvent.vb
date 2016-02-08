@@ -12,7 +12,7 @@ Namespace Apb.Res
         Public Property EventId() As Integer
         Public Property Active() As Boolean
         Public Property EventStatus() As String
-        Public Property WebContact() As Staff
+        Public Property WebContact() As IaipUser
         Public Property Title() As String
         Public Property Description() As String
         Public Property StartDate() As Date?
@@ -23,7 +23,7 @@ Namespace Apb.Res
         Public Property LoginRequired() As Boolean
         Public Property PassCode() As String
         Public Property Address() As Address
-        Public Property Contact() As Staff
+        Public Property Contact() As IaipUser
         Public Property StartTime() As String
         Public Property EndTime() As String
 

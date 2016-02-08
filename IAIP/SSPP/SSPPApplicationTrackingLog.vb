@@ -1556,7 +1556,7 @@ Public Class SSPPApplicationTrackingLog
             If AccountFormAccess(129, 3) = "1" Or
                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(3, 4) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0") Or
                 (AccountFormAccess(24, 3) = "1" And AccountFormAccess(12, 1) = "1" And AccountFormAccess(12, 2) = "0" And AccountFormAccess(3, 4) = "0") Or
-                CurrentUser.IaipAccountCodes.Contains(29) Then
+                CurrentUser.HasRole(29) Then
                 chbConfidential.Enabled = True
             End If
             'chbPAReady
@@ -11173,7 +11173,7 @@ Public Class SSPPApplicationTrackingLog
                     cmd.Connection.Open()
                     Using dr As OracleDataReader = cmd.ExecuteReader
                         While dr.Read
-                            StaffPhone = FormatStringAsPhoneNumber(DB.GetNullable(Of String)(dr.Item("strPhone")), True)
+                            StaffPhone = FormatDigitsAsPhoneNumber(DB.GetNullable(Of String)(dr.Item("strPhone")), True)
                             StaffEmail = DB.GetNullable(Of String)(dr.Item("strEmailAddress"))
                         End While
                         dr.Close()

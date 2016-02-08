@@ -29,10 +29,32 @@ Namespace DAL
             InactiveUser
         End Enum
 
-        Public Function GetIaipUser(ByVal username As String) As IaipUser
+        Public Function GetIaipUserByUserId(ByVal userid As String) As IaipUser
+            Dim id As Integer
+
+            If userid = "" OrElse Not Integer.TryParse(userid, id) Then
+                Return Nothing
+            End If
+
+            Dim dataTable As DataTable = GetIaipUserByUserIdAsDataTable(id)
+            If dataTable Is Nothing OrElse dataTable.Rows.Count = 0 Then Return Nothing
+
+            Return FillIaipUserFromDataRow(dataTable.Rows(0))
+        End Function
+
+        Public Function GetIaipUserByUserIdAsDataTable(ByVal userid As Integer) As DataTable
+            If userid = 0 Then Return Nothing
+
+            Dim spName As String = "AIRBRANCH.IAIP_USER.GetIaipUserByUserId"
+            Dim parameter As New OracleParameter("userid", userid)
+
+            Return DB.SPGetDataTable(spName, parameter)
+        End Function
+
+        Public Function GetIaipUserByUsername(ByVal username As String) As IaipUser
             If username = "" Then Return Nothing
 
-            Dim spName As String = "AIRBRANCH.IAIP_USER.GetIaipUser"
+            Dim spName As String = "AIRBRANCH.IAIP_USER.GetIaipUserByUsername"
             Dim parameter As New OracleParameter("username", username)
 
             Dim dataTable As DataTable = DB.SPGetDataTable(spName, parameter)
@@ -46,23 +68,23 @@ Namespace DAL
 
             Dim user As New IaipUser
             With user
-                .StaffId = DB.GetNullable(Of Integer)(row("NUMUSERID"))
-                .FirstName = DB.GetNullable(Of String)(row("STRFIRSTNAME"))
-                .LastName = DB.GetNullable(Of String)(row("STRLASTNAME"))
-                .PhoneNumber = DB.GetNullable(Of String)(row("STRPHONE"))
-                .OfficeNumber = DB.GetNullable(Of String)(row("STROFFICE"))
-                .EmailAddress = DB.GetNullable(Of String)(row("STREMAILADDRESS"))
-                .ActiveEmployee = Convert.ToBoolean(DB.GetNullable(Of Integer)(row("NUMEMPLOYEESTATUS")))
-                .BranchID = DB.GetNullable(Of Integer)(row("NUMBRANCH"))
-                .BranchName = DB.GetNullable(Of String)(row("STRBRANCHDESC"))
-                .ProgramID = DB.GetNullable(Of Integer)(row("NUMPROGRAM"))
-                .ProgramName = DB.GetNullable(Of String)(row("STRPROGRAMDESC"))
-                .UnitId = DB.GetNullable(Of Integer)(row("NUMUNIT"))
-                .UnitName = DB.GetNullable(Of String)(row("STRUNITDESC"))
-                .Username = DB.GetNullable(Of String)(row("STRUSERNAME"))
-                .PermissionsString = DB.GetNullable(Of String)(row("STRIAIPPERMISSIONS"))
-                .RequirePasswordChange = Convert.ToBoolean(row("REQUIREPASSWORDCHANGE"))
-                .RequestProfileUpdate = Convert.ToBoolean(row("REQUESTPROFILEUPDATE"))
+                .UserID = DB.GetNullable(Of Integer)(row("UserID"))
+                .FirstName = DB.GetNullable(Of String)(row("First name"))
+                .LastName = DB.GetNullable(Of String)(row("Last name"))
+                .PhoneNumber = DB.GetNullable(Of String)(row("Phone number"))
+                .OfficeNumber = DB.GetNullable(Of String)(row("Office"))
+                .EmailAddress = DB.GetNullable(Of String)(row("Email address"))
+                .ActiveEmployee = Convert.ToBoolean(DB.GetNullable(Of Integer)(row("ActiveEmployee")))
+                .BranchID = DB.GetNullable(Of Integer)(row("BranchID"))
+                .BranchName = DB.GetNullable(Of String)(row("Branch"))
+                .ProgramID = DB.GetNullable(Of Integer)(row("ProgramID"))
+                .ProgramName = DB.GetNullable(Of String)(row("Program"))
+                .UnitId = DB.GetNullable(Of Integer)(row("UnitID"))
+                .UnitName = DB.GetNullable(Of String)(row("Unit"))
+                .Username = DB.GetNullable(Of String)(row("Username"))
+                .IaipRoles = DB.GetNullable(Of String)(row("RolesString"))
+                .RequirePasswordChange = Convert.ToBoolean(row("RequirePasswordChange"))
+                .RequestProfileUpdate = Convert.ToBoolean(row("RequestProfileUpdate"))
             End With
 
             Return user
@@ -73,17 +95,13 @@ Namespace DAL
             Return DB.SPGetListOfKeyValuePair(spName)
         End Function
 
-        Public Function GetAccountFormAccessLookup() As DataTable
-            Dim query As String = " SELECT NUMACCOUNTCODE, STRFORMACCESS FROM AIRBRANCH.LOOKUPIAIPACCOUNTS "
-            Return DB.GetDataTable(query)
-        End Function
-
-        Public Function UsernameExists(username As String) As Boolean
+        Public Function UsernameExists(username As String, Optional ignoreUser As Integer = 0) As Boolean
             If username = "" Then Return False
             Dim spName As String = "AIRBRANCH.IAIP_USER.UsernameExists"
             Dim parameters As OracleParameter() = New OracleParameter() {
                 New OracleParameter("ReturnValue", OracleDbType.Varchar2, 5, Nothing, ParameterDirection.ReturnValue),
-                New OracleParameter("username", username)
+                New OracleParameter("username", username),
+                New OracleParameter("ignoreUser", ignoreUser)
             }
             DB.SPRunCommand(spName, parameters)
             Return DB.GetNullable(Of Boolean)(parameters(0).Value.ToString)
@@ -243,6 +261,58 @@ Namespace DAL
             End If
 
             Return (newUserId > 0)
+        End Function
+
+        Public Function SearchUsers(lastName As String,
+                                    firstName As String,
+                                    branch As Integer,
+                                    program As Integer,
+                                    unit As Integer,
+                                    Optional includeInactive As Boolean = False
+                                    ) As DataTable
+            Dim spName As String = "AIRBRANCH.IAIP_USER.SearchUsers"
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("firstname", firstName),
+                New OracleParameter("lastname", lastName),
+                New OracleParameter("branchid", branch),
+                New OracleParameter("programid", program),
+                New OracleParameter("unitid", unit),
+                New OracleParameter("includeinactive", includeInactive.ToString)
+            }
+            Return DB.SPGetDataTable(spName, parameters)
+        End Function
+
+        Public Function UpdateUserProfile(user As IaipUser) As Boolean
+            If user.UserID = 0 Then Return False
+
+            Dim spName As String = "AIRBRANCH.IAIP_USER.UpdateUserProfile"
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("userid", user.UserID),
+                New OracleParameter("username", user.Username),
+                New OracleParameter("lastname", user.LastName),
+                New OracleParameter("firstname", user.FirstName),
+                New OracleParameter("emailaddress", user.EmailAddress),
+                New OracleParameter("phone", user.PhoneNumber),
+                New OracleParameter("branchid", user.BranchID),
+                New OracleParameter("programid", user.ProgramID),
+                New OracleParameter("unitid", user.UnitId),
+                New OracleParameter("office", user.OfficeNumber),
+                New OracleParameter("status", DB.ConvertBooleanToDBValue(user.ActiveEmployee, DB.BooleanDBConversionType.OneOrZero)),
+                New OracleParameter("updatedby", CurrentUser.UserID)
+            }
+            Return DB.SPRunCommand(spName, parameters)
+        End Function
+
+        Public Function UpdateUserRoles(userId As Integer, roles As IaipRoles) As Boolean
+            If userId = 0 Then Return False
+
+            Dim spName As String = "AIRBRANCH.IAIP_USER.UpdateUserRoles"
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("userid", userId),
+                New OracleParameter("rolesstring", roles.DbString),
+                New OracleParameter("updatedby", CurrentUser.UserID)
+            }
+            Return DB.SPRunCommand(spName, parameters)
         End Function
 
     End Module

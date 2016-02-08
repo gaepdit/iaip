@@ -201,11 +201,12 @@
     </Compile>
     <Compile Include="_Classes\RandomHelper.vb" />
     <Compile Include="_DAL\DAL.Organization.vb" />
+    <Compile Include="_Data Models\IaipRoles.vb" />
     <Compile Include="_Data Services\UsersService.vb" />
     <Compile Include="_Data Services\OrganizationService.vb" />
     <Compile Include="_DB\DB.SPFunctions.vb" />
     <Compile Include="_Modules\RegexPatterns.vb" />
-    <Compile Include="_Modules\Validation.vb" />
+    <Compile Include="_Modules\IaipValidation.vb" />
     <EmbeddedResource Include="Universal Forms\Users\IaipResetPassword.resx">
       <DependentUpon>IaipResetPassword.vb</DependentUpon>
     </EmbeddedResource>
@@ -860,7 +861,6 @@
     <Compile Include="_Modules\Extensions.vb" />
     <Compile Include="_Modules\App.vb" />
     <Compile Include="_Modules\IaipMessage.vb" />
-    <Compile Include="_Modules\UserPermissions.vb" />
     <Compile Include="_Modules\UserSettings.vb" />
     <Compile Include="_Modules\subMain.vb">
       <SubType>Code</SubType>
@@ -901,10 +901,10 @@
     <Compile Include="Universal Forms\IAIPLogIn.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\Users\IAIPUserAdminTool.Designer.vb">
-      <DependentUpon>IAIPUserAdminTool.vb</DependentUpon>
+    <Compile Include="Universal Forms\Users\IaipUserManagement.Designer.vb">
+      <DependentUpon>IaipUserManagement.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universal Forms\Users\IAIPUserAdminTool.vb">
+    <Compile Include="Universal Forms\Users\IaipUserManagement.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Universal Forms\Sub Forms\IAIPFacilityCreator.Designer.vb">
@@ -1418,9 +1418,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>IAIPLogIn.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\Users\IAIPUserAdminTool.resx">
+    <EmbeddedResource Include="Universal Forms\Users\IaipUserManagement.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>IAIPUserAdminTool.vb</DependentUpon>
+      <DependentUpon>IaipUserManagement.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Universal Forms\Users\IaipChangePassword.resx">
       <DependentUpon>IaipChangePassword.vb</DependentUpon>
@@ -1523,7 +1523,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_DAL\SSCP\DAL.Sscp.FacilityAssignments.vb" />
-    <Compile Include="_DAL\DAL.AppData.vb" />
+    <Compile Include="_DAL\DAL.IaipAppData.vb" />
     <Compile Include="_DAL\Facilities\DAL.FacilityHeaderData.vb" />
     <Compile Include="_DAL\DAL.Contacts.vb" />
     <Compile Include="_DAL\DAL.Fees.vb" />
@@ -1640,7 +1640,6 @@
     <Compile Include="_Data Models\SSPP\Apb.Sspp.ApplicationInfo.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Data Models\People\Staff.vb" />
     <Compile Include="_DAL\SSCP\DAL.Sscp.Enforcement.vb" />
     <Compile Include="_DAL\DAL.Documents.vb" />
     <Compile Include="_DAL\DAL.EventRegistration.vb" />

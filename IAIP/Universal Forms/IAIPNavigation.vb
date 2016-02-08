@@ -57,7 +57,7 @@ Public Class IAIPNavigation
 #Region " Page Load procedures "
 
     Private Sub EnableSbeapTools()
-        If CurrentUser.HasPermissionCode({142, 143, 118}) Then
+        If CurrentUser.HasRole({142, 143, 118}) Then
             cboWorkViewerContext.Items.Add("SBEAP Cases")
             EnableAndShow(SbeapQuickAccessPanel)
         End If
@@ -66,7 +66,7 @@ Public Class IAIPNavigation
     Private Sub LoadStatusBar()
         pnlName.Text = CurrentUser.AlphaName
         pnlDate.Text = OracleDate
-        pnlProgram.Text = DAL.GetProgramDescription(CurrentUser.ProgramID)
+        pnlProgram.Text = CurrentUser.ProgramName
     End Sub
 
     Private Sub BuildListChangerCombo()
@@ -363,9 +363,9 @@ Public Class IAIPNavigation
                                 Case 4 'SSCP
                                     If CurrentUser.UnitId = 0 Then 'Program Manager
                                         CurrentWorkViewerContext = WorkViewerType.SSCP_PM
-                                    ElseIf CurrentUser.HasPermissionCode(143) Then ' SBEAP Manager
+                                    ElseIf CurrentUser.HasRole(143) Then ' SBEAP Manager
                                         CurrentWorkViewerContext = WorkViewerType.SBEAP_Program
-                                    ElseIf CurrentUser.HasPermissionCode(142) Then ' SBEAP staff
+                                    ElseIf CurrentUser.HasRole(142) Then ' SBEAP staff
                                         CurrentWorkViewerContext = WorkViewerType.SBEAP_Staff
                                         CurrentWorkViewerContextParameter = CurrentUser.UserID
                                     ElseIf AccountFormAccess(22, 3) = "1" Then 'Unit Manager
@@ -557,11 +557,11 @@ Public Class IAIPNavigation
     Private Sub SetContextSelectorSubView()
         rdbStaffView.Checked = True
 
-        If CurrentUser.HasPermissionCode({114, 115, 121, 128, 141, 63}) Then
+        If CurrentUser.HasRole({114, 115, 121, 128, 141, 63}) Then
             rdbUCView.Checked = True
         End If
 
-        If CurrentUser.HasPermissionCode({2, 19, 28, 45, 57, 143}) Then
+        If CurrentUser.HasRole({2, 19, 28, 45, 57, 143}) Then
             rdbPMView.Checked = True
         End If
     End Sub
@@ -1011,11 +1011,11 @@ Public Class IAIPNavigation
 
     Private Sub bgrUserPermissions_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bgrUserPermissions.DoWork
         Try
-            Dim AccountFormAccessLookup As DataTable = DAL.GetAccountFormAccessLookup()
-            AccountFormAccessLookup.PrimaryKey = New DataColumn() {AccountFormAccessLookup.Columns(0)}
+            Dim AccountFormAccessLookup As DataTable = SharedData.GetTable(SharedData.Tables.IaipAccountRoles)
+            Dim accountFormAccessString As String
 
-            For Each account As Integer In CurrentUser.IaipAccountCodes
-                Dim accountFormAccessString As String = AccountFormAccessLookup.Rows.Find(account)(1).ToString
+            For Each account As Integer In CurrentUser.IaipRoles.RoleCodes
+                accountFormAccessString = AccountFormAccessLookup.Rows.Find(account)("FormAccess").ToString
 
                 If accountFormAccessString.Length > 0 Then
                     Dim formAccessArray() As String = accountFormAccessString.Split(New Char() {"(", ")"}, StringSplitOptions.RemoveEmptyEntries)
@@ -1030,7 +1030,7 @@ Public Class IAIPNavigation
                     Next
                 End If
             Next
-            
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1117,7 +1117,7 @@ Public Class IAIPNavigation
     Private Sub AddNavButtonIfUserHasPermission(ByVal permissionsAllowed As Integer(), _
                                                 ByVal buttonText As String, ByVal formName As String, _
                                                 ByVal category As NavButtonCategories)
-        If CurrentUser.HasPermissionCode(permissionsAllowed) Then
+        If CurrentUser.HasRole(permissionsAllowed) Then
             AddNavButton(buttonText, formName, category)
         End If
     End Sub
@@ -1208,59 +1208,59 @@ Public Class IAIPNavigation
     Private Sub CreateNavButtonsList()
 
         ' General
-        AddNavButtonIfAccountHasFormAccess(1, "Facility Summary", "IAIPFacilitySummary", NavButtonCategories.General)
-        AddNavButtonIfAccountHasFormAccess(7, "Query Generator", "IAIPQueryGenerator", NavButtonCategories.General)
-        AddNavButtonIfAccountHasFormAccess(8, "User Admin", "IAIPUserAdminTool", NavButtonCategories.General)
+        AddNavButtonIfAccountHasFormAccess(1, "Facility Summary", NameOf(IAIPFacilitySummary), NavButtonCategories.General)
+        AddNavButtonIfAccountHasFormAccess(7, "Query Generator", NameOf(IAIPQueryGenerator), NavButtonCategories.General)
+        AddNavButtonIfAccountHasFormAccess(8, "User Management", NameOf(IaipUserManagement), NavButtonCategories.General)
 
         ' SSPP
-        AddNavButtonIfAccountHasFormAccess(3, "Application Log", "SSPPApplicationLog", NavButtonCategories.SSPP)
-        AddNavButtonIfAccountHasFormAccess(9, "Permit File Uploader", "SSPPPermitUploader", NavButtonCategories.SSPP)
-        AddNavButtonIfAccountHasFormAccess(19, "Attainment Status Tool", "SSPPAttainmentStatus", NavButtonCategories.SSPP)
-        AddNavButtonIfAccountHasFormAccess(23, "PA/PN Report", "SSPPPublicNoticiesAndAdvisories", NavButtonCategories.SSPP)
-        AddNavButtonIfAccountHasFormAccess(24, "SSPP Statistical Tools", "SSPPStatisticalTools", NavButtonCategories.SSPP)
-        AddNavButtonIfAccountHasFormAccess(131, "Title V Tools", "SSPPTitleVTools", NavButtonCategories.SSPP)
+        AddNavButtonIfAccountHasFormAccess(3, "Application Log", NameOf(SSPPApplicationLog), NavButtonCategories.SSPP)
+        AddNavButtonIfAccountHasFormAccess(9, "Permit File Uploader", NameOf(SSPPPermitUploader), NavButtonCategories.SSPP)
+        AddNavButtonIfAccountHasFormAccess(19, "Attainment Status Tool", NameOf(SSPPAttainmentStatus), NavButtonCategories.SSPP)
+        AddNavButtonIfAccountHasFormAccess(23, "PA/PN Report", NameOf(SSPPPublicNoticiesAndAdvisories), NavButtonCategories.SSPP)
+        AddNavButtonIfAccountHasFormAccess(24, "SSPP Statistical Tools", NameOf(SSPPStatisticalTools), NavButtonCategories.SSPP)
+        AddNavButtonIfAccountHasFormAccess(131, "Title V Tools", NameOf(SSPPTitleVTools), NavButtonCategories.SSPP)
 
         ' SSCP
-        AddNavButtonIfAccountHasFormAccess(4, "Compliance Log", "SSCPComplianceLog", NavButtonCategories.SSCP)
-        AddNavButtonIfAccountHasFormAccess(22, "Compliance Management", "SSCPManagersTools", NavButtonCategories.SSCP)
-        AddNavButtonIfUserHasPermission({19, 20, 21, 23, 25, 118, 114}, "Enforcement Documents", "SscpDocuments", NavButtonCategories.SSCP)
+        AddNavButtonIfAccountHasFormAccess(4, "Compliance Log", NameOf(SSCPComplianceLog), NavButtonCategories.SSCP)
+        AddNavButtonIfAccountHasFormAccess(22, "Compliance Management", NameOf(SSCPManagersTools), NavButtonCategories.SSCP)
+        AddNavButtonIfUserHasPermission({19, 20, 21, 23, 25, 118, 114}, "Enforcement Documents", NameOf(SscpDocuments), NavButtonCategories.SSCP)
 
         ' ISMP
-        AddNavButtonIfAccountHasFormAccess(5, "Monitoring Log", "ISMPMonitoringLog", NavButtonCategories.ISMP)
-        AddNavButtonIfAccountHasFormAccess(14, "Test Report Information", "ISMPTestReportAdministrative", NavButtonCategories.ISMP)
-        AddNavButtonIfAccountHasFormAccess(15, "Memo Viewer", "ISMPTestMemoViewer", NavButtonCategories.ISMP)
-        AddNavButtonIfAccountHasFormAccess(17, "ISMP Management", "ISMPManagersTools", NavButtonCategories.ISMP)
-        AddNavButtonIfAccountHasFormAccess(128, "Smoke School", "SmokeSchool", NavButtonCategories.ISMP)
+        AddNavButtonIfAccountHasFormAccess(5, "Monitoring Log", NameOf(ISMPMonitoringLog), NavButtonCategories.ISMP)
+        AddNavButtonIfAccountHasFormAccess(14, "Test Report Information", NameOf(ISMPTestReportAdministrative), NavButtonCategories.ISMP)
+        AddNavButtonIfAccountHasFormAccess(15, "Memo Viewer", NameOf(ISMPTestMemoViewer), NavButtonCategories.ISMP)
+        AddNavButtonIfAccountHasFormAccess(17, "ISMP Management", NameOf(ISMPManagersTools), NavButtonCategories.ISMP)
+        AddNavButtonIfAccountHasFormAccess(128, "Smoke School", NameOf(SmokeSchool), NavButtonCategories.ISMP)
 
         ' Fees
-        AddNavButtonIfAccountHasFormAccess(135, "Fees Log", "PASPFeesLog", NavButtonCategories.Fees)
-        AddNavButtonIfAccountHasFormAccess(139, "Fee Management", "PASPFeeManagement", NavButtonCategories.Fees)
-        AddNavButtonIfAccountHasFormAccess(12, "Fee Statistics && Reports", "PASPFeeStatistics", NavButtonCategories.Fees)
-        AddNavButtonIfAccountHasFormAccess(18, "Deposits", "PASPDepositsAmendments", NavButtonCategories.Fees)
+        AddNavButtonIfAccountHasFormAccess(135, "Fees Log", NameOf(PASPFeesLog), NavButtonCategories.Fees)
+        AddNavButtonIfAccountHasFormAccess(139, "Fee Management", NameOf(PASPFeeManagement), NavButtonCategories.Fees)
+        AddNavButtonIfAccountHasFormAccess(12, "Fee Statistics && Reports", NameOf(PASPFeeStatistics), NavButtonCategories.Fees)
+        AddNavButtonIfAccountHasFormAccess(18, "Deposits", NameOf(PASPDepositsAmendments), NavButtonCategories.Fees)
 
         ' MASP
-        AddNavButtonIfAccountHasFormAccess(137, "Registration Tool", "MASPRegistrationTool", NavButtonCategories.MASP)
+        AddNavButtonIfAccountHasFormAccess(137, "Registration Tool", NameOf(MASPRegistrationTool), NavButtonCategories.MASP)
 
         ' DMU
-        AddNavButtonIfAccountHasFormAccess(129, "Error Logs", "DMUDeveloperTool", NavButtonCategories.DMU)
-        AddNavButtonIfUserHasPermission({118, 19, 28}, "EDT Errors", "DmuEdtErrorMessages", NavButtonCategories.DMU)
-        AddNavButtonIfAccountHasFormAccess(10, "District Tools", "IAIPDistrictSourceTool", NavButtonCategories.DMU)
-        AddNavButtonIfAccountHasFormAccess(133, "Lookup Tables", "IAIPLookUpTables", NavButtonCategories.DMU)
-        AddNavButtonIfUserHasPermission(118, "Organization Editor", "IAIPListTool", NavButtonCategories.DMU)
+        AddNavButtonIfAccountHasFormAccess(129, "Error Logs", NameOf(DMUDeveloperTool), NavButtonCategories.DMU)
+        AddNavButtonIfUserHasPermission({118, 19, 28}, "EDT Errors", NameOf(DmuEdtErrorMessages), NavButtonCategories.DMU)
+        AddNavButtonIfAccountHasFormAccess(10, "District Tools", NameOf(IAIPDistrictSourceTool), NavButtonCategories.DMU)
+        AddNavButtonIfAccountHasFormAccess(133, "Lookup Tables", NameOf(IAIPLookUpTables), NavButtonCategories.DMU)
+        AddNavButtonIfUserHasPermission(118, "Organization Editor", NameOf(IAIPListTool), NavButtonCategories.DMU)
         If (CurrentUser.UserID = "345") Then
-            AddNavButtonIfAccountHasFormAccess(63, "Special Tools", "DMUDangerousTool", NavButtonCategories.DMU)
+            AddNavButtonIfAccountHasFormAccess(63, "Special Tools", NameOf(DMUDangerousTool), NavButtonCategories.DMU)
         End If
 
         ' EIS
-        AddNavButtonIfAccountHasFormAccess(20, "Emissions Summary Tool", "SSCPEmissionSummaryTool", NavButtonCategories.EIS)
-        AddNavButtonIfAccountHasFormAccess(130, "EIS && GECO Tools", "DMUEisGecoTool", NavButtonCategories.EIS)
+        AddNavButtonIfAccountHasFormAccess(20, "Emissions Summary Tool", NameOf(SSCPEmissionSummaryTool), NavButtonCategories.EIS)
+        AddNavButtonIfAccountHasFormAccess(130, "EIS && GECO Tools", NameOf(DMUEisGecoTool), NavButtonCategories.EIS)
 
         'SBEAP
-        AddNavButtonIfUserHasPermission({142, 143, 118}, "Customer Summary", "SBEAPClientSummary", NavButtonCategories.SBEAP)
-        AddNavButtonIfUserHasPermission({142, 143, 118}, "Case Log", "SBEAPCaseLog", NavButtonCategories.SBEAP)
-        AddNavButtonIfUserHasPermission({142, 143, 118}, "Report Tool", "SBEAPReports", NavButtonCategories.SBEAP)
-        AddNavButtonIfUserHasPermission({142, 143, 118}, "Phone Log", "SBEAPPhoneLog", NavButtonCategories.SBEAP)
-        AddNavButtonIfUserHasPermission({142, 143, 118}, "Misc. Tools", "SBEAPMiscTools", NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission({142, 143, 118}, "Customer Summary", NameOf(SBEAPClientSummary), NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission({142, 143, 118}, "Case Log", NameOf(SBEAPCaseLog), NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission({142, 143, 118}, "Report Tool", NameOf(SBEAPReports), NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission({142, 143, 118}, "Phone Log", NameOf(SBEAPPhoneLog), NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission({142, 143, 118}, "Misc. Tools", NameOf(SBEAPMiscTools), NavButtonCategories.SBEAP)
 
     End Sub
 

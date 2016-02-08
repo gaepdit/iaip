@@ -1,7 +1,4 @@
-﻿Imports Oracle.ManagedDataAccess.Client
-
-Namespace DAL
-
+﻿Namespace DAL
     Module CommonData
 
         Public Function GetPollutantsTable() As DataTable
@@ -14,5 +11,4 @@ Namespace DAL
         End Function
 
     End Module
-
 End Namespace

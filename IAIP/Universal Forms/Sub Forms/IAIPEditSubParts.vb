@@ -230,7 +230,7 @@ Public Class IAIPEditSubParts
             If _
                 AccountFormAccess(26, 1) = "1" Or AccountFormAccess(26, 2) = "1" Or _
                 AccountFormAccess(26, 3) = "1" Or AccountFormAccess(26, 4) = "1" Or _
-                CurrentUser.HasPermissionCode({19, 113, 114, 141}) _
+                CurrentUser.HasRole({19, 113, 114, 141}) _
             Then
             Else
                 btnSaveSIPSubpart.Enabled = False

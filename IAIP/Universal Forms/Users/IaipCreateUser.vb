@@ -135,18 +135,18 @@ Public Class IaipCreateUser
         Dim usernameIsValid As Boolean = False
 
         If DAL.UsernameExists(Username.Text) Then
-            EP.SetError(Username, "Username is already in use; choose another")
+            EP.SetError(Username, "Username is already in use; choose another.")
         Else
             Select Case IsValidUserName(Username.Text)
                 Case UserNameValidationResult.Valid
                     EP.SetError(Username, String.Empty)
                     usernameIsValid = True
                 Case UserNameValidationResult.Empty
-                    EP.SetError(Username, "Username is required")
+                    EP.SetError(Username, "Username is required.")
                 Case UserNameValidationResult.TooShort
-                    EP.SetError(Username, "Username must be at least " & MinUsernameLength.ToString & " characters long")
+                    EP.SetError(Username, "Username must be at least " & MinUsernameLength.ToString & " characters long.")
                 Case UserNameValidationResult.InvalidCharacters
-                    EP.SetError(Username, "Username must only contain alphanumeric characters")
+                    EP.SetError(Username, "Username may only contain alphanumeric characters.")
             End Select
         End If
 
@@ -161,7 +161,7 @@ Public Class IaipCreateUser
             EP.SetError(FirstName, String.Empty)
         Else
             e.Cancel = True
-            EP.SetError(FirstName, "First name is required")
+            EP.SetError(FirstName, "First name is required.")
             If Not InvalidEntries.Contains(FirstName) Then InvalidEntries.Add(FirstName)
         End If
     End Sub
@@ -171,19 +171,19 @@ Public Class IaipCreateUser
             EP.SetError(LastName, String.Empty)
         Else
             e.Cancel = True
-            EP.SetError(LastName, "Last name is required")
+            EP.SetError(LastName, "Last name is required.")
             If Not InvalidEntries.Contains(LastName) Then InvalidEntries.Add(LastName)
         End If
     End Sub
 
     Private Sub EmailAddress_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles EmailAddress.Validating
         If DAL.EmailIsInUse(EmailAddress.Text.Trim) Then
-            EP.SetError(EmailAddress, "Email address is already in use")
+            EP.SetError(EmailAddress, "Email address is already in use.")
             e.Cancel = True
             If Not InvalidEntries.Contains(EmailAddress) Then InvalidEntries.Add(EmailAddress)
         ElseIf Not IsValidEmailAddress(EmailAddress.Text.Trim, True) Then
             e.Cancel = True
-            EP.SetError(EmailAddress, "A valid DNR email address is required")
+            EP.SetError(EmailAddress, "A valid DNR email address is required.")
             If Not InvalidEntries.Contains(EmailAddress) Then InvalidEntries.Add(EmailAddress)
         Else
             EP.SetError(EmailAddress, String.Empty)
