@@ -2103,7 +2103,7 @@ Public Class SSCPFCEWork
         rpt.SetDataSource(dt9)
 
         Dim dt10 As New DataTable("VW_FEES_FACILITY_SUMMARY")
-        dt10 = DAL.FeesData.GetFeesFacilitySummaryAsDataTable(startDate.Year, endDate.Year, airs)
+        dt10 = DAL.FeesData.GetFeesFacilitySummaryAsDataTable(enforcementStartDate.Year, endDate.Year, airs)
         rpt.Subreports("FeesFacilitySum.rpt").SetDataSource(dt10)
 
         Dim dt11 As New DataTable("VW_SSCP_ENFORCEMENT_SUMMARY")
