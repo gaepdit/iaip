@@ -29,17 +29,16 @@ Public Class SSCPEvents
     Private Sub SSCP_Reports_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Forms." & Me.Name)
         Try
-            tbbPrint.Enabled = False
-            tbbPrint.Visible = False
+            btnPrint.Visible = False
 
             DefaultDateTimePickers()
             Loadcombos()
 
             If AccountFormAccess(49, 2) = "1" Or AccountFormAccess(49, 3) = "1" Or AccountFormAccess(49, 4) = "1" Then
-                tbToolbar.Visible = True
+                ToolStrip1.Visible = True
                 mmiSave.Visible = True
             Else
-                tbToolbar.Visible = False
+                ToolStrip1.Visible = False
                 mmiSave.Visible = False
                 If txtEnforcementNumber.Text = "" Or txtEnforcementNumber.Text = "N/A" Then
                     btnEnforcementProcess.Visible = False
@@ -200,8 +199,7 @@ Public Class SSCPEvents
                 LoadACC()
                 LoadACCSubmittalDGR()
                 FormatACCDGR()
-                tbbPrint.Enabled = True
-                tbbPrint.Visible = True
+                btnPrint.Visible = True
 
             Case "05" ' Notification
                 Me.eventType = Apb.Sscp.WorkItem.WorkItemEventType.Notification
@@ -4199,33 +4197,28 @@ Public Class SSCPEvents
 
 #Region "Main menu/toolbar"
 
-    Private Sub mmiClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClose.Click
+    Private Sub mmiClose_Click(sender As Object, e As EventArgs) Handles mmiClose.Click
         Me.Close()
     End Sub
 
-    Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
-        OpenDocumentationUrl(Me)
-    End Sub
-
-    Private Sub mmiDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiDelete.Click
+    Private Sub mmiDelete_Click(sender As Object, e As EventArgs) Handles mmiDelete.Click
         DeleteSSCPData()
     End Sub
 
-    Private Sub mmiSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSave.Click
+    Private Sub mmiSave_Click(sender As Object, e As EventArgs) Handles mmiSave.Click
         SaveMaster()
     End Sub
 
-    Private Sub mmiPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPrint.Click
+    Private Sub mmiPrint_Click(sender As Object, e As EventArgs) Handles mmiPrint.Click
         PrintACC()
     End Sub
 
-    Private Sub tbToolbar_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles tbToolbar.ButtonClick
-        Select Case tbToolbar.Buttons.IndexOf(e.Button)
-            Case 0
-                SaveMaster()
-            Case 1
-                PrintACC()
-        End Select
+    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+        SaveMaster()
+    End Sub
+
+    Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
+        PrintACC()
     End Sub
 
 #End Region

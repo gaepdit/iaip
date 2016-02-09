@@ -49,7 +49,7 @@ Public Class SSCPFCEWork
             If AccountFormAccess(50, 1) = "1" Or AccountFormAccess(50, 2) = "1" Or AccountFormAccess(50, 3) = "1" Or AccountFormAccess(50, 4) = "1" Then
             Else
                 MenuSave.Visible = False
-                TBFCE.Buttons.Remove(TbbSave)
+                btnSave.Visible = False
             End If
 
         Catch ex As Exception
@@ -2127,24 +2127,27 @@ Public Class SSCPFCEWork
     Private Sub MenuSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuSave.Click
         SaveFCE()
     End Sub
+
     Private Sub MenuPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuPrint.Click
         LoadSSCPFCEReport()
     End Sub
+
     Private Sub MenuClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuClose.Click
         Me.Close()
     End Sub
+
     Private Sub MenuOpenHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         OpenDocumentationUrl(Me)
     End Sub
-    Private Sub TBFCE_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBFCE.ButtonClick
-        Select Case TBFCE.Buttons.IndexOf(e.Button)
-            Case 0
-                SaveFCE()
-            Case 1
-                LoadSSCPFCEReport()
-            Case Else
-        End Select
+
+    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+        SaveFCE()
     End Sub
+
+    Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
+        LoadSSCPFCEReport()
+    End Sub
+
 #End Region
 
 End Class

@@ -537,7 +537,7 @@ Partial Class IAIPFacilityLookUpTool
         '
         'ClearButton
         '
-        Me.ClearButton.Image = Global.Iaip.My.Resources.Resources.EraseButtonImage
+        Me.ClearButton.Image = Global.Iaip.My.Resources.Resources.EraseIcon
         Me.ClearButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ClearButton.Name = "ClearButton"
         Me.ClearButton.Size = New System.Drawing.Size(54, 22)

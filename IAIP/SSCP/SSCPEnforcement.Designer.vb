@@ -284,7 +284,7 @@ Partial Class SscpEnforcement
         '
         'tsbSave
         '
-        Me.tsbSave.Image = Global.Iaip.My.Resources.Resources.SaveButtonImage
+        Me.tsbSave.Image = Global.Iaip.My.Resources.Resources.SaveIcon
         Me.tsbSave.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbSave.Name = "tsbSave"
         Me.tsbSave.Size = New System.Drawing.Size(51, 22)
