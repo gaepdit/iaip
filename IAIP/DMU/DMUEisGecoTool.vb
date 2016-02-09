@@ -9138,11 +9138,11 @@ Public Class DMUEisGecoTool
 
         Try
             If EISYear = "" Then
-                MsgBox("Please enter EIS Year!", MsgBoxStyle.Information, "Facility Details")
+                MsgBox("Please enter EIS Year.", MsgBoxStyle.Information, "Facility Details")
             Else
 
                 If FacilitySiteID = "" Then
-                    MsgBox("Please enter AIRS Number!", MsgBoxStyle.Information, "Facility Details")
+                    MsgBox("Please enter AIRS Number.", MsgBoxStyle.Information, "Facility Details")
                 Else
                     viewEISCodes()
 
@@ -14547,18 +14547,17 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-
-    Private Sub btnEISSummaryToExcel_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEISSummaryToExcel.Click
+    Private Sub btnEISSummaryToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEISSummaryToExcel.Click
         dgvEISStats.ExportToExcel(Me)
     End Sub
 
 #Region " Accept Button "
 
     Private Sub AcceptButton_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) _
-    Handles mtbEILogAIRSNumber.Leave, _
-    txtEIModifyFacilityName.Leave, _
-    txtEIModifyLocation.Leave, txtEIModifyCity.Leave, mtbEIModifyZipCode.Leave, _
-    txtEIModifyMLocation.Leave, txtEIModifyMCity.Leave, mtbEIModifyMZipCode.Leave, _
+    Handles mtbEILogAIRSNumber.Leave,
+    txtEIModifyFacilityName.Leave,
+    txtEIModifyLocation.Leave, txtEIModifyCity.Leave, mtbEIModifyZipCode.Leave,
+    txtEIModifyMLocation.Leave, txtEIModifyMCity.Leave, mtbEIModifyMZipCode.Leave,
     mtbEIModifyLatitude.Leave, mtbEIModifyLongitude.Leave
         Me.AcceptButton = Nothing
     End Sub
@@ -14586,6 +14585,42 @@ Public Class DMUEisGecoTool
     Private Sub EIModifyLatitudeLongitude_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
     Handles mtbEIModifyLatitude.Enter, mtbEIModifyLongitude.Enter
         Me.AcceptButton = btnUpdateLatLong
+    End Sub
+
+#End Region
+
+#Region " Operating status mismatch "
+
+    Private Sub llbOperatingStatusMismatch_LinkClicked_1(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbOperatingStatusMismatch.LinkClicked
+        ShowMismatchedOperatingStatus()
+    End Sub
+
+    Private Sub ShowMismatchedOperatingStatus()
+        Dim query As String = "SELECT ef.FACILITYSITEID AS ""AIRS Number"", " &
+            "  ef.STRFACILITYSITENAME AS ""Facility Name"", " &
+            "  ef.STRFACILITYSITESTATUSCODE AS ""EIS Site Status"", " &
+            "  hd.STROPERATIONALSTATUS AS ""IAIP Site Status"" " &
+            "FROM EIS_FACILITYSITE ef " &
+            "INNER JOIN APBHEADERDATA hd ON ef.FACILITYSITEID = SUBSTR( " &
+            "  hd.STRAIRSNUMBER, 5) " &
+            "WHERE(ef.STRFACILITYSITESTATUSCODE = 'OP' AND " &
+            "  hd.STROPERATIONALSTATUS <> 'O') OR( " &
+            "  ef.STRFACILITYSITESTATUSCODE = 'PS' AND " &
+            "  hd.STROPERATIONALSTATUS <> 'X') OR( " &
+            "  ef.STRFACILITYSITESTATUSCODE = 'TS' AND " &
+            "  hd.STROPERATIONALSTATUS <> 'T') OR( " &
+            "  ef.STRFACILITYSITESTATUSCODE <> 'OP' AND " &
+            "  hd.STROPERATIONALSTATUS = 'O') OR( " &
+            "  ef.STRFACILITYSITESTATUSCODE <> 'PS' AND " &
+            "  hd.STROPERATIONALSTATUS = 'X') OR( " &
+            "  ef.STRFACILITYSITESTATUSCODE <> 'TS' AND " &
+            "  hd.STROPERATIONALSTATUS = 'T') OR " &
+            "  ef.STRFACILITYSITESTATUSCODE IS NULL OR " &
+            "  hd.STROPERATIONALSTATUS IS NULL " &
+            "ORDER BY ef.FACILITYSITEID"
+        dgvOperStatusMismatch.DataSource = DB.GetDataTable(query)
+        dgvOperStatusMismatch.SanelyResizeColumns
+        lblOperStatusCount.Text = dgvOperStatusMismatch.RowCount.ToString
     End Sub
 
 #End Region
