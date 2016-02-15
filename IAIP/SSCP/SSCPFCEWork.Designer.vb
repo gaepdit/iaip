@@ -20,16 +20,11 @@ Partial Class SSCPFCEWork
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPFCEWork))
-        Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.MenuFile = New System.Windows.Forms.MenuItem()
         Me.MenuSave = New System.Windows.Forms.MenuItem()
         Me.MenuPrint = New System.Windows.Forms.MenuItem()
         Me.MenuClose = New System.Windows.Forms.MenuItem()
-        Me.TBFCE = New System.Windows.Forms.ToolBar()
-        Me.TbbSave = New System.Windows.Forms.ToolBarButton()
-        Me.TbbPring = New System.Windows.Forms.ToolBarButton()
         Me.txtAirsNumber = New System.Windows.Forms.TextBox()
         Me.ReviewDataTabs = New System.Windows.Forms.TabControl()
         Me.TPInspections = New System.Windows.Forms.TabPage()
@@ -100,6 +95,9 @@ Partial Class SSCPFCEWork
         Me.labReferenceNumber = New System.Windows.Forms.Label()
         Me.ReviewDataGroup = New System.Windows.Forms.GroupBox()
         Me.ReviewDataSelectorPanel = New System.Windows.Forms.Panel()
+        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.btnSave = New System.Windows.Forms.ToolStripButton()
+        Me.btnPrint = New System.Windows.Forms.ToolStripButton()
         Me.ReviewDataTabs.SuspendLayout()
         Me.TPInspections.SuspendLayout()
         CType(Me.dgrFCEInspections, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -130,97 +128,8 @@ Partial Class SSCPFCEWork
         Me.FacilityInfoPanel.SuspendLayout()
         Me.ReviewDataGroup.SuspendLayout()
         Me.ReviewDataSelectorPanel.SuspendLayout()
+        Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'Image_List_All
-        '
-        Me.Image_List_All.ImageStream = CType(resources.GetObject("Image_List_All.ImageStream"), System.Windows.Forms.ImageListStreamer)
-        Me.Image_List_All.TransparentColor = System.Drawing.Color.Transparent
-        Me.Image_List_All.Images.SetKeyName(0, "")
-        Me.Image_List_All.Images.SetKeyName(1, "")
-        Me.Image_List_All.Images.SetKeyName(2, "")
-        Me.Image_List_All.Images.SetKeyName(3, "")
-        Me.Image_List_All.Images.SetKeyName(4, "")
-        Me.Image_List_All.Images.SetKeyName(5, "")
-        Me.Image_List_All.Images.SetKeyName(6, "")
-        Me.Image_List_All.Images.SetKeyName(7, "")
-        Me.Image_List_All.Images.SetKeyName(8, "")
-        Me.Image_List_All.Images.SetKeyName(9, "")
-        Me.Image_List_All.Images.SetKeyName(10, "")
-        Me.Image_List_All.Images.SetKeyName(11, "")
-        Me.Image_List_All.Images.SetKeyName(12, "")
-        Me.Image_List_All.Images.SetKeyName(13, "")
-        Me.Image_List_All.Images.SetKeyName(14, "")
-        Me.Image_List_All.Images.SetKeyName(15, "")
-        Me.Image_List_All.Images.SetKeyName(16, "")
-        Me.Image_List_All.Images.SetKeyName(17, "")
-        Me.Image_List_All.Images.SetKeyName(18, "")
-        Me.Image_List_All.Images.SetKeyName(19, "")
-        Me.Image_List_All.Images.SetKeyName(20, "")
-        Me.Image_List_All.Images.SetKeyName(21, "")
-        Me.Image_List_All.Images.SetKeyName(22, "")
-        Me.Image_List_All.Images.SetKeyName(23, "")
-        Me.Image_List_All.Images.SetKeyName(24, "")
-        Me.Image_List_All.Images.SetKeyName(25, "")
-        Me.Image_List_All.Images.SetKeyName(26, "")
-        Me.Image_List_All.Images.SetKeyName(27, "")
-        Me.Image_List_All.Images.SetKeyName(28, "")
-        Me.Image_List_All.Images.SetKeyName(29, "")
-        Me.Image_List_All.Images.SetKeyName(30, "")
-        Me.Image_List_All.Images.SetKeyName(31, "")
-        Me.Image_List_All.Images.SetKeyName(32, "")
-        Me.Image_List_All.Images.SetKeyName(33, "")
-        Me.Image_List_All.Images.SetKeyName(34, "")
-        Me.Image_List_All.Images.SetKeyName(35, "")
-        Me.Image_List_All.Images.SetKeyName(36, "")
-        Me.Image_List_All.Images.SetKeyName(37, "")
-        Me.Image_List_All.Images.SetKeyName(38, "")
-        Me.Image_List_All.Images.SetKeyName(39, "")
-        Me.Image_List_All.Images.SetKeyName(40, "")
-        Me.Image_List_All.Images.SetKeyName(41, "")
-        Me.Image_List_All.Images.SetKeyName(42, "")
-        Me.Image_List_All.Images.SetKeyName(43, "")
-        Me.Image_List_All.Images.SetKeyName(44, "")
-        Me.Image_List_All.Images.SetKeyName(45, "")
-        Me.Image_List_All.Images.SetKeyName(46, "")
-        Me.Image_List_All.Images.SetKeyName(47, "")
-        Me.Image_List_All.Images.SetKeyName(48, "")
-        Me.Image_List_All.Images.SetKeyName(49, "")
-        Me.Image_List_All.Images.SetKeyName(50, "")
-        Me.Image_List_All.Images.SetKeyName(51, "")
-        Me.Image_List_All.Images.SetKeyName(52, "")
-        Me.Image_List_All.Images.SetKeyName(53, "")
-        Me.Image_List_All.Images.SetKeyName(54, "")
-        Me.Image_List_All.Images.SetKeyName(55, "")
-        Me.Image_List_All.Images.SetKeyName(56, "")
-        Me.Image_List_All.Images.SetKeyName(57, "")
-        Me.Image_List_All.Images.SetKeyName(58, "")
-        Me.Image_List_All.Images.SetKeyName(59, "")
-        Me.Image_List_All.Images.SetKeyName(60, "")
-        Me.Image_List_All.Images.SetKeyName(61, "")
-        Me.Image_List_All.Images.SetKeyName(62, "")
-        Me.Image_List_All.Images.SetKeyName(63, "")
-        Me.Image_List_All.Images.SetKeyName(64, "")
-        Me.Image_List_All.Images.SetKeyName(65, "")
-        Me.Image_List_All.Images.SetKeyName(66, "")
-        Me.Image_List_All.Images.SetKeyName(67, "")
-        Me.Image_List_All.Images.SetKeyName(68, "")
-        Me.Image_List_All.Images.SetKeyName(69, "")
-        Me.Image_List_All.Images.SetKeyName(70, "")
-        Me.Image_List_All.Images.SetKeyName(71, "")
-        Me.Image_List_All.Images.SetKeyName(72, "")
-        Me.Image_List_All.Images.SetKeyName(73, "")
-        Me.Image_List_All.Images.SetKeyName(74, "")
-        Me.Image_List_All.Images.SetKeyName(75, "")
-        Me.Image_List_All.Images.SetKeyName(76, "")
-        Me.Image_List_All.Images.SetKeyName(77, "")
-        Me.Image_List_All.Images.SetKeyName(78, "")
-        Me.Image_List_All.Images.SetKeyName(79, "")
-        Me.Image_List_All.Images.SetKeyName(80, "")
-        Me.Image_List_All.Images.SetKeyName(81, "")
-        Me.Image_List_All.Images.SetKeyName(82, "")
-        Me.Image_List_All.Images.SetKeyName(83, "")
-        Me.Image_List_All.Images.SetKeyName(84, "")
         '
         'MainMenu1
         '
@@ -249,31 +158,6 @@ Partial Class SSCPFCEWork
         Me.MenuClose.Index = 2
         Me.MenuClose.Shortcut = System.Windows.Forms.Shortcut.CtrlW
         Me.MenuClose.Text = "&Close"
-        '
-        'TBFCE
-        '
-        Me.TBFCE.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TbbSave, Me.TbbPring})
-        Me.TBFCE.ButtonSize = New System.Drawing.Size(23, 22)
-        Me.TBFCE.DropDownArrows = True
-        Me.TBFCE.ImageList = Me.Image_List_All
-        Me.TBFCE.Location = New System.Drawing.Point(0, 0)
-        Me.TBFCE.Name = "TBFCE"
-        Me.TBFCE.ShowToolTips = True
-        Me.TBFCE.Size = New System.Drawing.Size(877, 28)
-        Me.TBFCE.TabIndex = 202
-        Me.TBFCE.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
-        '
-        'TbbSave
-        '
-        Me.TbbSave.ImageIndex = 65
-        Me.TbbSave.Name = "TbbSave"
-        Me.TbbSave.Text = "Save"
-        '
-        'TbbPring
-        '
-        Me.TbbPring.ImageIndex = 19
-        Me.TbbPring.Name = "TbbPring"
-        Me.TbbPring.Text = "Print"
         '
         'txtAirsNumber
         '
@@ -941,10 +825,10 @@ Partial Class SSCPFCEWork
         '
         Me.TabControlFCE.Controls.Add(Me.TabPageFCEData)
         Me.TabControlFCE.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TabControlFCE.Location = New System.Drawing.Point(0, 28)
+        Me.TabControlFCE.Location = New System.Drawing.Point(0, 0)
         Me.TabControlFCE.Name = "TabControlFCE"
         Me.TabControlFCE.SelectedIndex = 0
-        Me.TabControlFCE.Size = New System.Drawing.Size(877, 614)
+        Me.TabControlFCE.Size = New System.Drawing.Size(877, 642)
         Me.TabControlFCE.TabIndex = 243
         '
         'TabPageFCEData
@@ -955,7 +839,7 @@ Partial Class SSCPFCEWork
         Me.TabPageFCEData.Location = New System.Drawing.Point(4, 22)
         Me.TabPageFCEData.Name = "TabPageFCEData"
         Me.TabPageFCEData.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPageFCEData.Size = New System.Drawing.Size(869, 588)
+        Me.TabPageFCEData.Size = New System.Drawing.Size(869, 616)
         Me.TabPageFCEData.TabIndex = 0
         Me.TabPageFCEData.Text = "FCE Data"
         Me.TabPageFCEData.UseVisualStyleBackColor = True
@@ -997,7 +881,7 @@ Partial Class SSCPFCEWork
         Me.ReviewDataGroup.Controls.Add(Me.ReviewDataSelectorPanel)
         Me.ReviewDataGroup.Controls.Add(Me.ReviewDataTabs)
         Me.ReviewDataGroup.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.ReviewDataGroup.Location = New System.Drawing.Point(3, 330)
+        Me.ReviewDataGroup.Location = New System.Drawing.Point(3, 358)
         Me.ReviewDataGroup.Name = "ReviewDataGroup"
         Me.ReviewDataGroup.Size = New System.Drawing.Size(863, 255)
         Me.ReviewDataGroup.TabIndex = 1
@@ -1017,14 +901,39 @@ Partial Class SSCPFCEWork
         Me.ReviewDataSelectorPanel.Size = New System.Drawing.Size(857, 29)
         Me.ReviewDataSelectorPanel.TabIndex = 3
         '
+        'ToolStrip1
+        '
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnSave, Me.btnPrint})
+        Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.ToolStrip1.Name = "ToolStrip1"
+        Me.ToolStrip1.Size = New System.Drawing.Size(877, 25)
+        Me.ToolStrip1.TabIndex = 244
+        Me.ToolStrip1.Text = "ToolStrip1"
+        '
+        'btnSave
+        '
+        Me.btnSave.Image = Global.Iaip.My.Resources.Resources.SaveIcon
+        Me.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnSave.Name = "btnSave"
+        Me.btnSave.Size = New System.Drawing.Size(51, 22)
+        Me.btnSave.Text = "Save"
+        '
+        'btnPrint
+        '
+        Me.btnPrint.Image = Global.Iaip.My.Resources.Resources.PrintPreviewIcon
+        Me.btnPrint.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnPrint.Name = "btnPrint"
+        Me.btnPrint.Size = New System.Drawing.Size(52, 22)
+        Me.btnPrint.Text = "Print"
+        '
         'SSCPFCEWork
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(877, 642)
+        Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.TabControlFCE)
         Me.Controls.Add(Me.txtAirsNumber)
-        Me.Controls.Add(Me.TBFCE)
         Me.Menu = Me.MainMenu1
         Me.Name = "SSCPFCEWork"
         Me.Text = "Full Compliance Evaluation"
@@ -1069,16 +978,15 @@ Partial Class SSCPFCEWork
         Me.ReviewDataGroup.ResumeLayout(False)
         Me.ReviewDataSelectorPanel.ResumeLayout(False)
         Me.ReviewDataSelectorPanel.PerformLayout()
+        Me.ToolStrip1.ResumeLayout(False)
+        Me.ToolStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
     Friend WithEvents MenuFile As System.Windows.Forms.MenuItem
     Friend WithEvents MenuSave As System.Windows.Forms.MenuItem
-    Friend WithEvents TBFCE As System.Windows.Forms.ToolBar
-    Friend WithEvents TbbSave As System.Windows.Forms.ToolBarButton
     Friend WithEvents TbbPrint As System.Windows.Forms.ToolBarButton
     Friend WithEvents txtAirsNumber As System.Windows.Forms.TextBox
     Friend WithEvents ReviewDataTabs As System.Windows.Forms.TabControl
@@ -1145,7 +1053,6 @@ Partial Class SSCPFCEWork
     Friend WithEvents TabControlFCE As System.Windows.Forms.TabControl
     Friend WithEvents TabPageFCEData As System.Windows.Forms.TabPage
     Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
-    Friend WithEvents TbbPring As System.Windows.Forms.ToolBarButton
     Friend WithEvents MenuPrint As System.Windows.Forms.MenuItem
     Friend WithEvents MenuClose As System.Windows.Forms.MenuItem
     Friend WithEvents DTPFCECompleteDate As System.Windows.Forms.DateTimePicker
@@ -1154,4 +1061,7 @@ Partial Class SSCPFCEWork
     Friend WithEvents txtFacilityInformation As System.Windows.Forms.TextBox
     Friend WithEvents labReferenceNumber As System.Windows.Forms.Label
     Friend WithEvents ReviewDataSelectorPanel As System.Windows.Forms.Panel
+    Friend WithEvents ToolStrip1 As ToolStrip
+    Friend WithEvents btnSave As ToolStripButton
+    Friend WithEvents btnPrint As ToolStripButton
 End Class

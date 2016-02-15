@@ -41,9 +41,7 @@ Partial Class SSCPEvents
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents txtRMPID As System.Windows.Forms.TextBox
     Friend WithEvents lblRMPID As System.Windows.Forms.Label
-    Friend WithEvents mmiOnlineHelp As System.Windows.Forms.MenuItem
     Friend WithEvents mmiDelete As System.Windows.Forms.MenuItem
-    Friend WithEvents tbbPrint As System.Windows.Forms.ToolBarButton
     Friend WithEvents Label25 As System.Windows.Forms.Label
     Friend WithEvents mmiPrint As System.Windows.Forms.MenuItem
     Friend WithEvents dtpAccReportingYear As System.Windows.Forms.DateTimePicker
@@ -96,7 +94,6 @@ Partial Class SSCPEvents
     Friend WithEvents rdbInspectionFollowUpYes As System.Windows.Forms.RadioButton
     Friend WithEvents Panel21 As System.Windows.Forms.Panel
     Friend WithEvents Label34 As System.Windows.Forms.Label
-    Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents Panel20 As System.Windows.Forms.Panel
     Friend WithEvents Panel16 As System.Windows.Forms.Panel
     Friend WithEvents Panel11 As System.Windows.Forms.Panel
@@ -221,7 +218,6 @@ Partial Class SSCPEvents
     Friend WithEvents cboInspectionReason As System.Windows.Forms.ComboBox
     Friend WithEvents rdbInspectionFacilityOperatingNo As System.Windows.Forms.RadioButton
     Friend WithEvents rdbInspectionFacilityOperatingYes As System.Windows.Forms.RadioButton
-    Friend WithEvents tbToolbar As System.Windows.Forms.ToolBar
     Friend WithEvents TCItems As System.Windows.Forms.TabControl
     Friend WithEvents Label64 As System.Windows.Forms.Label
     Friend WithEvents Panel19 As System.Windows.Forms.Panel
@@ -245,21 +241,17 @@ Partial Class SSCPEvents
     Friend WithEvents TPInspection As System.Windows.Forms.TabPage
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
-    Friend WithEvents TbbSave As System.Windows.Forms.ToolBarButton
     Friend WithEvents mmiTools As System.Windows.Forms.MenuItem
     Friend WithEvents mmiClose As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem10 As System.Windows.Forms.MenuItem
     Friend WithEvents mmiSave As System.Windows.Forms.MenuItem
     Friend WithEvents mmiFile As System.Windows.Forms.MenuItem
     Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Private components As System.ComponentModel.IContainer
 
 
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPEvents))
-        Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.mmiFile = New System.Windows.Forms.MenuItem()
         Me.mmiSave = New System.Windows.Forms.MenuItem()
@@ -268,11 +260,6 @@ Partial Class SSCPEvents
         Me.mmiClose = New System.Windows.Forms.MenuItem()
         Me.mmiTools = New System.Windows.Forms.MenuItem()
         Me.mmiDelete = New System.Windows.Forms.MenuItem()
-        Me.mmiHelp = New System.Windows.Forms.MenuItem()
-        Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem()
-        Me.tbToolbar = New System.Windows.Forms.ToolBar()
-        Me.TbbSave = New System.Windows.Forms.ToolBarButton()
-        Me.tbbPrint = New System.Windows.Forms.ToolBarButton()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.lblRMPID = New System.Windows.Forms.Label()
         Me.txtRMPID = New System.Windows.Forms.TextBox()
@@ -487,6 +474,9 @@ Partial Class SSCPEvents
         Me.ListView1 = New System.Windows.Forms.ListView()
         Me.Splitter3 = New System.Windows.Forms.Splitter()
         Me.PanelSSCPCompliance = New System.Windows.Forms.Panel()
+        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.btnSave = New System.Windows.Forms.ToolStripButton()
+        Me.btnPrint = New System.Windows.Forms.ToolStripButton()
         Me.GroupBox1.SuspendLayout()
         Me.TCItems.SuspendLayout()
         Me.TPReport.SuspendLayout()
@@ -523,101 +513,12 @@ Partial Class SSCPEvents
         Me.Panel9.SuspendLayout()
         CType(Me.DGRACCResubmittal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelSSCPCompliance.SuspendLayout()
+        Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'Image_List_All
-        '
-        Me.Image_List_All.ImageStream = CType(resources.GetObject("Image_List_All.ImageStream"), System.Windows.Forms.ImageListStreamer)
-        Me.Image_List_All.TransparentColor = System.Drawing.Color.Transparent
-        Me.Image_List_All.Images.SetKeyName(0, "")
-        Me.Image_List_All.Images.SetKeyName(1, "")
-        Me.Image_List_All.Images.SetKeyName(2, "")
-        Me.Image_List_All.Images.SetKeyName(3, "")
-        Me.Image_List_All.Images.SetKeyName(4, "")
-        Me.Image_List_All.Images.SetKeyName(5, "")
-        Me.Image_List_All.Images.SetKeyName(6, "")
-        Me.Image_List_All.Images.SetKeyName(7, "")
-        Me.Image_List_All.Images.SetKeyName(8, "")
-        Me.Image_List_All.Images.SetKeyName(9, "")
-        Me.Image_List_All.Images.SetKeyName(10, "")
-        Me.Image_List_All.Images.SetKeyName(11, "")
-        Me.Image_List_All.Images.SetKeyName(12, "")
-        Me.Image_List_All.Images.SetKeyName(13, "")
-        Me.Image_List_All.Images.SetKeyName(14, "")
-        Me.Image_List_All.Images.SetKeyName(15, "")
-        Me.Image_List_All.Images.SetKeyName(16, "")
-        Me.Image_List_All.Images.SetKeyName(17, "")
-        Me.Image_List_All.Images.SetKeyName(18, "")
-        Me.Image_List_All.Images.SetKeyName(19, "")
-        Me.Image_List_All.Images.SetKeyName(20, "")
-        Me.Image_List_All.Images.SetKeyName(21, "")
-        Me.Image_List_All.Images.SetKeyName(22, "")
-        Me.Image_List_All.Images.SetKeyName(23, "")
-        Me.Image_List_All.Images.SetKeyName(24, "")
-        Me.Image_List_All.Images.SetKeyName(25, "")
-        Me.Image_List_All.Images.SetKeyName(26, "")
-        Me.Image_List_All.Images.SetKeyName(27, "")
-        Me.Image_List_All.Images.SetKeyName(28, "")
-        Me.Image_List_All.Images.SetKeyName(29, "")
-        Me.Image_List_All.Images.SetKeyName(30, "")
-        Me.Image_List_All.Images.SetKeyName(31, "")
-        Me.Image_List_All.Images.SetKeyName(32, "")
-        Me.Image_List_All.Images.SetKeyName(33, "")
-        Me.Image_List_All.Images.SetKeyName(34, "")
-        Me.Image_List_All.Images.SetKeyName(35, "")
-        Me.Image_List_All.Images.SetKeyName(36, "")
-        Me.Image_List_All.Images.SetKeyName(37, "")
-        Me.Image_List_All.Images.SetKeyName(38, "")
-        Me.Image_List_All.Images.SetKeyName(39, "")
-        Me.Image_List_All.Images.SetKeyName(40, "")
-        Me.Image_List_All.Images.SetKeyName(41, "")
-        Me.Image_List_All.Images.SetKeyName(42, "")
-        Me.Image_List_All.Images.SetKeyName(43, "")
-        Me.Image_List_All.Images.SetKeyName(44, "")
-        Me.Image_List_All.Images.SetKeyName(45, "")
-        Me.Image_List_All.Images.SetKeyName(46, "")
-        Me.Image_List_All.Images.SetKeyName(47, "")
-        Me.Image_List_All.Images.SetKeyName(48, "")
-        Me.Image_List_All.Images.SetKeyName(49, "")
-        Me.Image_List_All.Images.SetKeyName(50, "")
-        Me.Image_List_All.Images.SetKeyName(51, "")
-        Me.Image_List_All.Images.SetKeyName(52, "")
-        Me.Image_List_All.Images.SetKeyName(53, "")
-        Me.Image_List_All.Images.SetKeyName(54, "")
-        Me.Image_List_All.Images.SetKeyName(55, "")
-        Me.Image_List_All.Images.SetKeyName(56, "")
-        Me.Image_List_All.Images.SetKeyName(57, "")
-        Me.Image_List_All.Images.SetKeyName(58, "")
-        Me.Image_List_All.Images.SetKeyName(59, "")
-        Me.Image_List_All.Images.SetKeyName(60, "")
-        Me.Image_List_All.Images.SetKeyName(61, "")
-        Me.Image_List_All.Images.SetKeyName(62, "")
-        Me.Image_List_All.Images.SetKeyName(63, "")
-        Me.Image_List_All.Images.SetKeyName(64, "")
-        Me.Image_List_All.Images.SetKeyName(65, "")
-        Me.Image_List_All.Images.SetKeyName(66, "")
-        Me.Image_List_All.Images.SetKeyName(67, "")
-        Me.Image_List_All.Images.SetKeyName(68, "")
-        Me.Image_List_All.Images.SetKeyName(69, "")
-        Me.Image_List_All.Images.SetKeyName(70, "")
-        Me.Image_List_All.Images.SetKeyName(71, "")
-        Me.Image_List_All.Images.SetKeyName(72, "")
-        Me.Image_List_All.Images.SetKeyName(73, "")
-        Me.Image_List_All.Images.SetKeyName(74, "")
-        Me.Image_List_All.Images.SetKeyName(75, "")
-        Me.Image_List_All.Images.SetKeyName(76, "")
-        Me.Image_List_All.Images.SetKeyName(77, "")
-        Me.Image_List_All.Images.SetKeyName(78, "")
-        Me.Image_List_All.Images.SetKeyName(79, "")
-        Me.Image_List_All.Images.SetKeyName(80, "")
-        Me.Image_List_All.Images.SetKeyName(81, "")
-        Me.Image_List_All.Images.SetKeyName(82, "")
-        Me.Image_List_All.Images.SetKeyName(83, "")
-        Me.Image_List_All.Images.SetKeyName(84, "")
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiTools, Me.mmiHelp})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiTools})
         '
         'mmiFile
         '
@@ -659,45 +560,6 @@ Partial Class SSCPEvents
         Me.mmiDelete.Index = 0
         Me.mmiDelete.Text = "Delete This Item"
         '
-        'mmiHelp
-        '
-        Me.mmiHelp.Index = 2
-        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp})
-        Me.mmiHelp.Text = "&Help"
-        '
-        'mmiOnlineHelp
-        '
-        Me.mmiOnlineHelp.Index = 0
-        Me.mmiOnlineHelp.Shortcut = System.Windows.Forms.Shortcut.F1
-        Me.mmiOnlineHelp.Text = "Online &Help"
-        '
-        'tbToolbar
-        '
-        Me.tbToolbar.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TbbSave, Me.tbbPrint})
-        Me.tbToolbar.ButtonSize = New System.Drawing.Size(23, 22)
-        Me.tbToolbar.DropDownArrows = True
-        Me.tbToolbar.ImageList = Me.Image_List_All
-        Me.tbToolbar.Location = New System.Drawing.Point(0, 0)
-        Me.tbToolbar.Name = "tbToolbar"
-        Me.tbToolbar.ShowToolTips = True
-        Me.tbToolbar.Size = New System.Drawing.Size(792, 28)
-        Me.tbToolbar.TabIndex = 47
-        Me.tbToolbar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right
-        '
-        'TbbSave
-        '
-        Me.TbbSave.ImageIndex = 65
-        Me.TbbSave.Name = "TbbSave"
-        Me.TbbSave.Text = "Save"
-        Me.TbbSave.ToolTipText = "Save (Ctrl-S)"
-        '
-        'tbbPrint
-        '
-        Me.tbbPrint.ImageIndex = 19
-        Me.tbbPrint.Name = "tbbPrint"
-        Me.tbbPrint.Text = "Print"
-        Me.tbbPrint.ToolTipText = "Print Preview (Ctrl-P)"
-        '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.lblRMPID)
@@ -717,7 +579,7 @@ Partial Class SSCPEvents
         Me.GroupBox1.Controls.Add(Me.txtEventInformation)
         Me.GroupBox1.Controls.Add(Me.btnEnforcementProcess)
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GroupBox1.Location = New System.Drawing.Point(0, 28)
+        Me.GroupBox1.Location = New System.Drawing.Point(0, 25)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(792, 169)
         Me.GroupBox1.TabIndex = 48
@@ -886,7 +748,7 @@ Partial Class SSCPEvents
         Me.TCItems.Location = New System.Drawing.Point(0, 0)
         Me.TCItems.Name = "TCItems"
         Me.TCItems.SelectedIndex = 0
-        Me.TCItems.Size = New System.Drawing.Size(792, 393)
+        Me.TCItems.Size = New System.Drawing.Size(792, 396)
         Me.TCItems.TabIndex = 49
         '
         'TPReport
@@ -896,7 +758,7 @@ Partial Class SSCPEvents
         Me.TPReport.Controls.Add(Me.dgrReportResubmittal)
         Me.TPReport.Location = New System.Drawing.Point(4, 22)
         Me.TPReport.Name = "TPReport"
-        Me.TPReport.Size = New System.Drawing.Size(784, 367)
+        Me.TPReport.Size = New System.Drawing.Size(784, 370)
         Me.TPReport.TabIndex = 0
         Me.TPReport.Text = "Report"
         '
@@ -906,7 +768,7 @@ Partial Class SSCPEvents
         Me.PanelReports.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelReports.Location = New System.Drawing.Point(15, 0)
         Me.PanelReports.Name = "PanelReports"
-        Me.PanelReports.Size = New System.Drawing.Size(769, 367)
+        Me.PanelReports.Size = New System.Drawing.Size(769, 370)
         Me.PanelReports.TabIndex = 69
         '
         'Panel4
@@ -943,7 +805,7 @@ Partial Class SSCPEvents
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel4.Location = New System.Drawing.Point(0, 0)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(769, 367)
+        Me.Panel4.Size = New System.Drawing.Size(769, 370)
         Me.Panel4.TabIndex = 78
         '
         'DTPReportReceivedDate
@@ -1282,7 +1144,7 @@ Partial Class SSCPEvents
         Me.SplitterReport.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.SplitterReport.Location = New System.Drawing.Point(10, 0)
         Me.SplitterReport.Name = "SplitterReport"
-        Me.SplitterReport.Size = New System.Drawing.Size(5, 367)
+        Me.SplitterReport.Size = New System.Drawing.Size(5, 370)
         Me.SplitterReport.TabIndex = 68
         Me.SplitterReport.TabStop = False
         '
@@ -1295,7 +1157,7 @@ Partial Class SSCPEvents
         Me.dgrReportResubmittal.Location = New System.Drawing.Point(0, 0)
         Me.dgrReportResubmittal.Name = "dgrReportResubmittal"
         Me.dgrReportResubmittal.ReadOnly = True
-        Me.dgrReportResubmittal.Size = New System.Drawing.Size(10, 367)
+        Me.dgrReportResubmittal.Size = New System.Drawing.Size(10, 370)
         Me.dgrReportResubmittal.TabIndex = 30
         '
         'TPTestReports
@@ -1303,7 +1165,7 @@ Partial Class SSCPEvents
         Me.TPTestReports.Controls.Add(Me.PanelSSCPCompliance2)
         Me.TPTestReports.Location = New System.Drawing.Point(4, 22)
         Me.TPTestReports.Name = "TPTestReports"
-        Me.TPTestReports.Size = New System.Drawing.Size(784, 367)
+        Me.TPTestReports.Size = New System.Drawing.Size(784, 342)
         Me.TPTestReports.TabIndex = 2
         Me.TPTestReports.Text = "ISMP Test Report"
         '
@@ -1337,7 +1199,7 @@ Partial Class SSCPEvents
         Me.PanelSSCPCompliance2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelSSCPCompliance2.Location = New System.Drawing.Point(0, 0)
         Me.PanelSSCPCompliance2.Name = "PanelSSCPCompliance2"
-        Me.PanelSSCPCompliance2.Size = New System.Drawing.Size(784, 367)
+        Me.PanelSSCPCompliance2.Size = New System.Drawing.Size(784, 342)
         Me.PanelSSCPCompliance2.TabIndex = 161
         '
         'DTPTestReportReceivedDate
@@ -1410,7 +1272,6 @@ Partial Class SSCPEvents
         '
         Me.btnViewTestReport.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnViewTestReport.ImageIndex = 53
-        Me.btnViewTestReport.ImageList = Me.Image_List_All
         Me.btnViewTestReport.Location = New System.Drawing.Point(330, 7)
         Me.btnViewTestReport.Name = "btnViewTestReport"
         Me.btnViewTestReport.Size = New System.Drawing.Size(24, 23)
@@ -1582,7 +1443,7 @@ Partial Class SSCPEvents
         Me.TPInspection.Controls.Add(Me.Panel11)
         Me.TPInspection.Location = New System.Drawing.Point(4, 22)
         Me.TPInspection.Name = "TPInspection"
-        Me.TPInspection.Size = New System.Drawing.Size(784, 367)
+        Me.TPInspection.Size = New System.Drawing.Size(784, 342)
         Me.TPInspection.TabIndex = 1
         Me.TPInspection.Text = "Inspection"
         '
@@ -1617,7 +1478,7 @@ Partial Class SSCPEvents
         Me.Panel11.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel11.Location = New System.Drawing.Point(0, 0)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(784, 367)
+        Me.Panel11.Size = New System.Drawing.Size(784, 342)
         Me.Panel11.TabIndex = 81
         '
         'Panel21
@@ -1894,7 +1755,7 @@ Partial Class SSCPEvents
         Me.TPNotifications.Controls.Add(Me.Panel16)
         Me.TPNotifications.Location = New System.Drawing.Point(4, 22)
         Me.TPNotifications.Name = "TPNotifications"
-        Me.TPNotifications.Size = New System.Drawing.Size(784, 367)
+        Me.TPNotifications.Size = New System.Drawing.Size(784, 342)
         Me.TPNotifications.TabIndex = 3
         Me.TPNotifications.Text = "Notifications"
         '
@@ -1922,7 +1783,7 @@ Partial Class SSCPEvents
         Me.Panel16.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel16.Location = New System.Drawing.Point(0, 0)
         Me.Panel16.Name = "Panel16"
-        Me.Panel16.Size = New System.Drawing.Size(784, 367)
+        Me.Panel16.Size = New System.Drawing.Size(784, 342)
         Me.Panel16.TabIndex = 144
         '
         'Label10
@@ -1932,7 +1793,7 @@ Partial Class SSCPEvents
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(426, 13)
         Me.Label10.TabIndex = 172
-        Me.Label10.Text = "Please note that a notification cannot be the Discovery Event for an Enforcement " & _
+        Me.Label10.Text = "Please note that a notification cannot be the Discovery Event for an Enforcement " &
     "Action."
         '
         'lblDateSent
@@ -1960,7 +1821,7 @@ Partial Class SSCPEvents
         Me.lblNotificationOther.Name = "lblNotificationOther"
         Me.lblNotificationOther.Size = New System.Drawing.Size(575, 13)
         Me.lblNotificationOther.TabIndex = 169
-        Me.lblNotificationOther.Text = "NOTE: This will NOT change the facility operating status or CMS status. Your mana" & _
+        Me.lblNotificationOther.Text = "NOTE: This will NOT change the facility operating status or CMS status. Your mana" &
     "ger will need to make those changes."
         '
         'DTPNotificationReceived
@@ -2122,7 +1983,7 @@ Partial Class SSCPEvents
         Me.TPACC.Controls.Add(Me.DGRACCResubmittal)
         Me.TPACC.Location = New System.Drawing.Point(4, 22)
         Me.TPACC.Name = "TPACC"
-        Me.TPACC.Size = New System.Drawing.Size(784, 367)
+        Me.TPACC.Size = New System.Drawing.Size(784, 342)
         Me.TPACC.TabIndex = 4
         Me.TPACC.Text = "Annual Compliance Certifications"
         '
@@ -2132,7 +1993,7 @@ Partial Class SSCPEvents
         Me.PanelACC.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelACC.Location = New System.Drawing.Point(15, 0)
         Me.PanelACC.Name = "PanelACC"
-        Me.PanelACC.Size = New System.Drawing.Size(769, 367)
+        Me.PanelACC.Size = New System.Drawing.Size(769, 342)
         Me.PanelACC.TabIndex = 79
         '
         'Panel20
@@ -2185,7 +2046,7 @@ Partial Class SSCPEvents
         Me.Panel20.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel20.Location = New System.Drawing.Point(0, 0)
         Me.Panel20.Name = "Panel20"
-        Me.Panel20.Size = New System.Drawing.Size(769, 367)
+        Me.Panel20.Size = New System.Drawing.Size(769, 342)
         Me.Panel20.TabIndex = 0
         '
         'dtpAccReportingYear
@@ -2823,7 +2684,7 @@ Partial Class SSCPEvents
         Me.SplitterACC.BackColor = System.Drawing.SystemColors.Highlight
         Me.SplitterACC.Location = New System.Drawing.Point(10, 0)
         Me.SplitterACC.Name = "SplitterACC"
-        Me.SplitterACC.Size = New System.Drawing.Size(5, 367)
+        Me.SplitterACC.Size = New System.Drawing.Size(5, 342)
         Me.SplitterACC.TabIndex = 78
         Me.SplitterACC.TabStop = False
         '
@@ -2837,7 +2698,7 @@ Partial Class SSCPEvents
         Me.DGRACCResubmittal.Name = "DGRACCResubmittal"
         Me.DGRACCResubmittal.ReadOnly = True
         Me.DGRACCResubmittal.RowHeadersVisible = False
-        Me.DGRACCResubmittal.Size = New System.Drawing.Size(10, 367)
+        Me.DGRACCResubmittal.Size = New System.Drawing.Size(10, 342)
         Me.DGRACCResubmittal.TabIndex = 18
         Me.DGRACCResubmittal.TabStop = False
         '
@@ -2871,7 +2732,7 @@ Partial Class SSCPEvents
         Me.Splitter3.BackColor = System.Drawing.SystemColors.Control
         Me.Splitter3.Dock = System.Windows.Forms.DockStyle.Top
         Me.Splitter3.Enabled = False
-        Me.Splitter3.Location = New System.Drawing.Point(0, 197)
+        Me.Splitter3.Location = New System.Drawing.Point(0, 194)
         Me.Splitter3.Name = "Splitter3"
         Me.Splitter3.Size = New System.Drawing.Size(792, 5)
         Me.Splitter3.TabIndex = 230
@@ -2881,10 +2742,35 @@ Partial Class SSCPEvents
         '
         Me.PanelSSCPCompliance.Controls.Add(Me.TCItems)
         Me.PanelSSCPCompliance.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelSSCPCompliance.Location = New System.Drawing.Point(0, 202)
+        Me.PanelSSCPCompliance.Location = New System.Drawing.Point(0, 199)
         Me.PanelSSCPCompliance.Name = "PanelSSCPCompliance"
-        Me.PanelSSCPCompliance.Size = New System.Drawing.Size(792, 393)
+        Me.PanelSSCPCompliance.Size = New System.Drawing.Size(792, 396)
         Me.PanelSSCPCompliance.TabIndex = 231
+        '
+        'ToolStrip1
+        '
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnSave, Me.btnPrint})
+        Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.ToolStrip1.Name = "ToolStrip1"
+        Me.ToolStrip1.Size = New System.Drawing.Size(792, 25)
+        Me.ToolStrip1.TabIndex = 232
+        Me.ToolStrip1.Text = "ToolStrip1"
+        '
+        'btnSave
+        '
+        Me.btnSave.Image = Global.Iaip.My.Resources.Resources.SaveIcon
+        Me.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnSave.Name = "btnSave"
+        Me.btnSave.Size = New System.Drawing.Size(51, 22)
+        Me.btnSave.Text = "Save"
+        '
+        'btnPrint
+        '
+        Me.btnPrint.Image = Global.Iaip.My.Resources.Resources.PrintPreviewIcon
+        Me.btnPrint.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnPrint.Name = "btnPrint"
+        Me.btnPrint.Size = New System.Drawing.Size(52, 22)
+        Me.btnPrint.Text = "Print"
         '
         'SSCPEvents
         '
@@ -2894,7 +2780,7 @@ Partial Class SSCPEvents
         Me.Controls.Add(Me.PanelSSCPCompliance)
         Me.Controls.Add(Me.Splitter3)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.tbToolbar)
+        Me.Controls.Add(Me.ToolStrip1)
         Me.Menu = Me.MainMenu1
         Me.Name = "SSCPEvents"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
@@ -2943,9 +2829,14 @@ Partial Class SSCPEvents
         Me.Panel9.ResumeLayout(False)
         CType(Me.DGRACCResubmittal, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelSSCPCompliance.ResumeLayout(False)
+        Me.ToolStrip1.ResumeLayout(False)
+        Me.ToolStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
+    Friend WithEvents ToolStrip1 As ToolStrip
+    Friend WithEvents btnSave As ToolStripButton
+    Friend WithEvents btnPrint As ToolStripButton
 End Class

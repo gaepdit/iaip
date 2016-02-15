@@ -336,7 +336,7 @@ Partial Class IAIPFacilitySummary
         '
         Me.FacilitySearchButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control
         Me.FacilitySearchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.FacilitySearchButton.Image = Global.Iaip.My.Resources.Resources.FindButtonImage
+        Me.FacilitySearchButton.Image = Global.Iaip.My.Resources.Resources.FindIcon
         Me.FacilitySearchButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.FacilitySearchButton.Location = New System.Drawing.Point(9, 10)
         Me.FacilitySearchButton.Name = "FacilitySearchButton"
