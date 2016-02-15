@@ -564,7 +564,7 @@ Partial Class IaipUserManagement
         Me.AddRolesGroupbox.Controls.Add(Me.Label1)
         Me.AddRolesGroupbox.Controls.Add(Me.RolesProgram)
         Me.AddRolesGroupbox.Controls.Add(Me.Label21)
-        Me.AddRolesGroupbox.Location = New System.Drawing.Point(227, 16)
+        Me.AddRolesGroupbox.Location = New System.Drawing.Point(15, 16)
         Me.AddRolesGroupbox.Name = "AddRolesGroupbox"
         Me.AddRolesGroupbox.Size = New System.Drawing.Size(202, 302)
         Me.AddRolesGroupbox.TabIndex = 0
@@ -595,7 +595,7 @@ Partial Class IaipUserManagement
         '
         Me.CurrentRolesGroupBox.Controls.Add(Me.CurrentRoles)
         Me.CurrentRolesGroupBox.Controls.Add(Me.RemoveRoles)
-        Me.CurrentRolesGroupBox.Location = New System.Drawing.Point(15, 16)
+        Me.CurrentRolesGroupBox.Location = New System.Drawing.Point(227, 16)
         Me.CurrentRolesGroupBox.Name = "CurrentRolesGroupBox"
         Me.CurrentRolesGroupBox.Size = New System.Drawing.Size(202, 302)
         Me.CurrentRolesGroupBox.TabIndex = 1

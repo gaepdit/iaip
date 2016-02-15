@@ -368,28 +368,38 @@ Public Class IaipUserManagement
     End Sub
 
     Private Sub AddNewRoles_Click(sender As Object, e As EventArgs) Handles AddNewRoles.Click
-        For Each item As Object In AvailableRoles.SelectedItems
-            SelectedUserRoles.RoleCodes.Add(CType(item, DataRowView).Item("RoleCode"))
-        Next
-        UpdateRoles()
+        If AvailableRoles.SelectedItems.Count = 0 Then
+            Message = New IaipMessage("No roles are selected to add.", IaipMessage.WarningLevels.Warning)
+            Message.Display(MessageDisplay)
+        Else
+            For Each item As Object In AvailableRoles.SelectedItems
+                SelectedUserRoles.RoleCodes.Add(CType(item, DataRowView).Item("RoleCode"))
+            Next
+            UpdateRoles()
+        End If
     End Sub
 
     Private Sub RemoveRoles_Click(sender As Object, e As EventArgs) Handles RemoveRoles.Click
-        If SelectedUserID = CurrentUser.UserID Then
-            Dim dr As DialogResult = MessageBox.Show("You are about to remove roles from your own account. " &
-                                                     "You may not be able to undo this operation. " &
-                                                     vbNewLine & vbNewLine &
-                                                     "Are you sure you want to continue?",
-                                                     "Warning",
-                                                     MessageBoxButtons.OKCancel)
-            If dr = DialogResult.Cancel Then
-                Exit Sub
+        If CurrentRoles.SelectedItems.Count = 0 Then
+            Message = New IaipMessage("No roles are selected to remove.", IaipMessage.WarningLevels.Warning)
+            Message.Display(MessageDisplay)
+        Else
+            If SelectedUserID = CurrentUser.UserID Then
+                Dim dr As DialogResult = MessageBox.Show("You are about to remove roles from your own account. " &
+                                                         "You may not be able to undo this operation. " &
+                                                         vbNewLine & vbNewLine &
+                                                         "Are you sure you want to continue?",
+                                                         "Warning",
+                                                         MessageBoxButtons.OKCancel)
+                If dr = DialogResult.Cancel Then
+                    Exit Sub
+                End If
             End If
+            For Each item As Object In CurrentRoles.SelectedItems
+                SelectedUserRoles.RoleCodes.Remove(CType(item, DataRowView).Item("RoleCode"))
+            Next
+            UpdateRoles()
         End If
-        For Each item As Object In CurrentRoles.SelectedItems
-            SelectedUserRoles.RoleCodes.Remove(CType(item, DataRowView).Item("RoleCode"))
-        Next
-        UpdateRoles()
     End Sub
 
     Private Sub UpdateRoles()
