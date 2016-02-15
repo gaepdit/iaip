@@ -104,7 +104,7 @@ Public Class IAIPLogIn
         End With
 
 #If BETA Then
-        lblCurrentVersionMessage.Text = lblCurrentVersionMessage.Text & " β"
+        msg.MessageText = msg.MessageText & " β"
 #End If
 
     End Sub
