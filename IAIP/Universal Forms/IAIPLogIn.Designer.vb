@@ -153,7 +153,7 @@ Partial Class IAIPLogIn
         Me.lblCurrentVersionMessage.Location = New System.Drawing.Point(26, 377)
         Me.lblCurrentVersionMessage.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblCurrentVersionMessage.Name = "lblCurrentVersionMessage"
-        Me.lblCurrentVersionMessage.Size = New System.Drawing.Size(259, 36)
+        Me.lblCurrentVersionMessage.Size = New System.Drawing.Size(259, 18)
         Me.lblCurrentVersionMessage.TabIndex = 38
         Me.lblCurrentVersionMessage.Text = "Current Version Placeholder"
         Me.lblCurrentVersionMessage.TextAlign = System.Drawing.ContentAlignment.TopCenter
