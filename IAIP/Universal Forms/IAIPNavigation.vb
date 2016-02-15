@@ -93,7 +93,6 @@ Public Class IAIPNavigation
             pnlDbEnv.Text = "TESTING ENVIRONMENT"
             pnlDbEnv.BackColor = Color.Tomato
             pnlDbEnv.Visible = True
-            EnableAndShow(TestingMenu)
         Else
             pnlDbEnv.Text = "PRD"
             pnlDbEnv.Visible = False
@@ -102,6 +101,7 @@ Public Class IAIPNavigation
 
 #If DEBUG Then
         lblTitle.Text = "IAIP Navigation Screen — " & CurrentServerEnvironment.ToString
+        TestingMenu.Visible = True
 #End If
 
     End Sub
