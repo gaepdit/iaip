@@ -55,27 +55,10 @@ Public Class PASPFeeAuditLog
     Private Sub PopulateComboBoxes()
 
         ' Operational Status
-        Dim operationalStatusDictionary As New Generic.Dictionary(Of FacilityOperationalStatus, String)
-        operationalStatusDictionary.Add(FacilityOperationalStatus.Unspecified, "Select…")
-        operationalStatusDictionary.Add(FacilityOperationalStatus.O, "Operational")
-        operationalStatusDictionary.Add(FacilityOperationalStatus.P, "Planned")
-        operationalStatusDictionary.Add(FacilityOperationalStatus.C, "Under Construction")
-        operationalStatusDictionary.Add(FacilityOperationalStatus.T, "Temporarily Closed")
-        operationalStatusDictionary.Add(FacilityOperationalStatus.X, "Closed/Dismantled")
-        operationalStatusDictionary.Add(FacilityOperationalStatus.I, "Seasonal Operation")
-
-        cboInitialOpStatus.BindToDictionary(Of FacilityOperationalStatus)(operationalStatusDictionary)
+        cboInitialOpStatus.BindToDictionary(Apb.Facilities.FacilityOperationalStatusDescriptions)
 
         ' Classification
-        Dim classificationDictionary As New Generic.Dictionary(Of FacilityClassification, String)
-        classificationDictionary.Add(FacilityClassification.Unspecified, "Select…")
-        classificationDictionary.Add(FacilityClassification.A, "A")
-        classificationDictionary.Add(FacilityClassification.B, "B")
-        classificationDictionary.Add(FacilityClassification.SM, "SM")
-        classificationDictionary.Add(FacilityClassification.PR, "PR")
-        classificationDictionary.Add(FacilityClassification.C, "C")
-
-        cboInitialClassification.BindToDictionary(Of FacilityClassification)(classificationDictionary)
+        cboInitialClassification.BindToDictionary(Of FacilityClassification)(Apb.Facilities.FacilityClassificationDescriptions)
 
         cboEditClassification.Items.Add("")
         cboEditClassification.Items.Add("A")

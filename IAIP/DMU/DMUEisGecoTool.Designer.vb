@@ -22,25 +22,29 @@ Partial Class DMUEisGecoTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TCDMUTools = New System.Windows.Forms.TabControl()
         Me.TPEISLog = New System.Windows.Forms.TabPage()
         Me.TabControl6 = New System.Windows.Forms.TabControl()
         Me.TPFacilitySite = New System.Windows.Forms.TabPage()
+        Me.cbEisModifyOperStatus = New System.Windows.Forms.ComboBox()
+        Me.Label231 = New System.Windows.Forms.Label()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.cbIaipOperStatus = New System.Windows.Forms.ComboBox()
+        Me.Label179 = New System.Windows.Forms.Label()
         Me.txtEIModifyIAIPFacilityName = New System.Windows.Forms.TextBox()
         Me.txtEIModifyIAIPLocation = New System.Windows.Forms.TextBox()
         Me.txtEIModifyIAIPCity = New System.Windows.Forms.TextBox()
@@ -55,6 +59,7 @@ Partial Class DMUEisGecoTool
         Me.btnEIModifyUpdateMailing = New System.Windows.Forms.Button()
         Me.btnEIModifyUpdateName = New System.Windows.Forms.Button()
         Me.Label62 = New System.Windows.Forms.Label()
+        Me.btnUpdateEisOperStatus = New System.Windows.Forms.Button()
         Me.btnEIModifyUpdateLocation = New System.Windows.Forms.Button()
         Me.mtbEIModifyLongitude = New System.Windows.Forms.MaskedTextBox()
         Me.Label236 = New System.Windows.Forms.Label()
@@ -424,10 +429,10 @@ Partial Class DMUEisGecoTool
         Me.dgvEISYear = New System.Windows.Forms.DataGridView()
         Me.Label292 = New System.Windows.Forms.Label()
         Me.TPOperStatus = New System.Windows.Forms.TabPage()
+        Me.dgvOperStatusMismatch = New System.Windows.Forms.DataGridView()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.lblOperStatusCount = New System.Windows.Forms.Label()
         Me.llbOperatingStatusMismatch = New System.Windows.Forms.LinkLabel()
-        Me.dgvOperStatusMismatch = New System.Windows.Forms.DataGridView()
         Me.Panel21 = New System.Windows.Forms.Panel()
         Me.btnViewEISStats = New System.Windows.Forms.Button()
         Me.Label74 = New System.Windows.Forms.Label()
@@ -998,8 +1003,8 @@ Partial Class DMUEisGecoTool
         Me.Panel26.SuspendLayout()
         CType(Me.dgvEISYear, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPOperStatus.SuspendLayout()
-        Me.Panel1.SuspendLayout()
         CType(Me.dgvOperStatusMismatch, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
         Me.Panel21.SuspendLayout()
         Me.TPESTools.SuspendLayout()
         Me.TabControl2.SuspendLayout()
@@ -1109,11 +1114,14 @@ Partial Class DMUEisGecoTool
         'TPFacilitySite
         '
         Me.TPFacilitySite.AutoScroll = True
+        Me.TPFacilitySite.Controls.Add(Me.cbEisModifyOperStatus)
+        Me.TPFacilitySite.Controls.Add(Me.Label231)
         Me.TPFacilitySite.Controls.Add(Me.GroupBox4)
         Me.TPFacilitySite.Controls.Add(Me.btnUpdateLatLong)
         Me.TPFacilitySite.Controls.Add(Me.btnEIModifyUpdateMailing)
         Me.TPFacilitySite.Controls.Add(Me.btnEIModifyUpdateName)
         Me.TPFacilitySite.Controls.Add(Me.Label62)
+        Me.TPFacilitySite.Controls.Add(Me.btnUpdateEisOperStatus)
         Me.TPFacilitySite.Controls.Add(Me.btnEIModifyUpdateLocation)
         Me.TPFacilitySite.Controls.Add(Me.mtbEIModifyLongitude)
         Me.TPFacilitySite.Controls.Add(Me.Label236)
@@ -1140,8 +1148,28 @@ Partial Class DMUEisGecoTool
         Me.TPFacilitySite.Text = "Modify Facility Site"
         Me.TPFacilitySite.UseVisualStyleBackColor = True
         '
+        'cbEisModifyOperStatus
+        '
+        Me.cbEisModifyOperStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbEisModifyOperStatus.FormattingEnabled = True
+        Me.cbEisModifyOperStatus.Location = New System.Drawing.Point(124, 412)
+        Me.cbEisModifyOperStatus.Name = "cbEisModifyOperStatus"
+        Me.cbEisModifyOperStatus.Size = New System.Drawing.Size(136, 21)
+        Me.cbEisModifyOperStatus.TabIndex = 490
+        '
+        'Label231
+        '
+        Me.Label231.AutoSize = True
+        Me.Label231.Location = New System.Drawing.Point(32, 415)
+        Me.Label231.Name = "Label231"
+        Me.Label231.Size = New System.Drawing.Size(86, 13)
+        Me.Label231.TabIndex = 489
+        Me.Label231.Text = "Operating Status"
+        '
         'GroupBox4
         '
+        Me.GroupBox4.Controls.Add(Me.cbIaipOperStatus)
+        Me.GroupBox4.Controls.Add(Me.Label179)
         Me.GroupBox4.Controls.Add(Me.txtEIModifyIAIPFacilityName)
         Me.GroupBox4.Controls.Add(Me.txtEIModifyIAIPLocation)
         Me.GroupBox4.Controls.Add(Me.txtEIModifyIAIPCity)
@@ -1155,33 +1183,52 @@ Partial Class DMUEisGecoTool
         Me.GroupBox4.Location = New System.Drawing.Point(534, 27)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Padding = New System.Windows.Forms.Padding(7, 3, 7, 3)
-        Me.GroupBox4.Size = New System.Drawing.Size(345, 190)
+        Me.GroupBox4.Size = New System.Drawing.Size(345, 221)
         Me.GroupBox4.TabIndex = 489
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "IAIP Facility Information"
         '
+        'cbIaipOperStatus
+        '
+        Me.cbIaipOperStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbIaipOperStatus.Enabled = False
+        Me.cbIaipOperStatus.FormattingEnabled = True
+        Me.cbIaipOperStatus.Location = New System.Drawing.Point(102, 123)
+        Me.cbIaipOperStatus.Name = "cbIaipOperStatus"
+        Me.cbIaipOperStatus.Size = New System.Drawing.Size(151, 21)
+        Me.cbIaipOperStatus.TabIndex = 490
+        '
+        'Label179
+        '
+        Me.Label179.AutoSize = True
+        Me.Label179.Location = New System.Drawing.Point(10, 126)
+        Me.Label179.Name = "Label179"
+        Me.Label179.Size = New System.Drawing.Size(86, 13)
+        Me.Label179.TabIndex = 489
+        Me.Label179.Text = "Operating Status"
+        '
         'txtEIModifyIAIPFacilityName
         '
-        Me.txtEIModifyIAIPFacilityName.Location = New System.Drawing.Point(10, 19)
+        Me.txtEIModifyIAIPFacilityName.Location = New System.Drawing.Point(13, 19)
         Me.txtEIModifyIAIPFacilityName.Name = "txtEIModifyIAIPFacilityName"
         Me.txtEIModifyIAIPFacilityName.ReadOnly = True
-        Me.txtEIModifyIAIPFacilityName.Size = New System.Drawing.Size(322, 20)
+        Me.txtEIModifyIAIPFacilityName.Size = New System.Drawing.Size(319, 20)
         Me.txtEIModifyIAIPFacilityName.TabIndex = 1
         '
         'txtEIModifyIAIPLocation
         '
-        Me.txtEIModifyIAIPLocation.Location = New System.Drawing.Point(10, 45)
+        Me.txtEIModifyIAIPLocation.Location = New System.Drawing.Point(13, 45)
         Me.txtEIModifyIAIPLocation.Name = "txtEIModifyIAIPLocation"
         Me.txtEIModifyIAIPLocation.ReadOnly = True
-        Me.txtEIModifyIAIPLocation.Size = New System.Drawing.Size(322, 20)
+        Me.txtEIModifyIAIPLocation.Size = New System.Drawing.Size(319, 20)
         Me.txtEIModifyIAIPLocation.TabIndex = 2
         '
         'txtEIModifyIAIPCity
         '
-        Me.txtEIModifyIAIPCity.Location = New System.Drawing.Point(10, 71)
+        Me.txtEIModifyIAIPCity.Location = New System.Drawing.Point(13, 71)
         Me.txtEIModifyIAIPCity.Name = "txtEIModifyIAIPCity"
         Me.txtEIModifyIAIPCity.ReadOnly = True
-        Me.txtEIModifyIAIPCity.Size = New System.Drawing.Size(243, 20)
+        Me.txtEIModifyIAIPCity.Size = New System.Drawing.Size(240, 20)
         Me.txtEIModifyIAIPCity.TabIndex = 3
         '
         'mtbEIModifyIAIPZipCode
@@ -1195,7 +1242,7 @@ Partial Class DMUEisGecoTool
         '
         'Label240
         '
-        Me.Label240.Location = New System.Drawing.Point(137, 149)
+        Me.Label240.Location = New System.Drawing.Point(140, 170)
         Me.Label240.Name = "Label240"
         Me.Label240.Size = New System.Drawing.Size(195, 29)
         Me.Label240.TabIndex = 488
@@ -1204,7 +1251,7 @@ Partial Class DMUEisGecoTool
         'Label238
         '
         Me.Label238.AutoSize = True
-        Me.Label238.Location = New System.Drawing.Point(7, 100)
+        Me.Label238.Location = New System.Drawing.Point(10, 100)
         Me.Label238.Name = "Label238"
         Me.Label238.Size = New System.Drawing.Size(45, 13)
         Me.Label238.TabIndex = 24
@@ -1213,7 +1260,7 @@ Partial Class DMUEisGecoTool
         'btnEIModifyCopy
         '
         Me.btnEIModifyCopy.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnEIModifyCopy.Location = New System.Drawing.Point(10, 149)
+        Me.btnEIModifyCopy.Location = New System.Drawing.Point(13, 170)
         Me.btnEIModifyCopy.Name = "btnEIModifyCopy"
         Me.btnEIModifyCopy.Size = New System.Drawing.Size(121, 23)
         Me.btnEIModifyCopy.TabIndex = 0
@@ -1222,7 +1269,7 @@ Partial Class DMUEisGecoTool
         '
         'mtbEIModifyIAIPLatitude
         '
-        Me.mtbEIModifyIAIPLatitude.Location = New System.Drawing.Point(54, 97)
+        Me.mtbEIModifyIAIPLatitude.Location = New System.Drawing.Point(57, 97)
         Me.mtbEIModifyIAIPLatitude.Mask = "00.000000"
         Me.mtbEIModifyIAIPLatitude.Name = "mtbEIModifyIAIPLatitude"
         Me.mtbEIModifyIAIPLatitude.ReadOnly = True
@@ -1250,7 +1297,7 @@ Partial Class DMUEisGecoTool
         'btnUpdateLatLong
         '
         Me.btnUpdateLatLong.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnUpdateLatLong.Location = New System.Drawing.Point(124, 384)
+        Me.btnUpdateLatLong.Location = New System.Drawing.Point(124, 358)
         Me.btnUpdateLatLong.Name = "btnUpdateLatLong"
         Me.btnUpdateLatLong.Size = New System.Drawing.Size(136, 23)
         Me.btnUpdateLatLong.TabIndex = 12
@@ -1280,11 +1327,21 @@ Partial Class DMUEisGecoTool
         'Label62
         '
         Me.Label62.AutoSize = True
-        Me.Label62.Location = New System.Drawing.Point(266, 389)
+        Me.Label62.Location = New System.Drawing.Point(266, 363)
         Me.Label62.Name = "Label62"
         Me.Label62.Size = New System.Drawing.Size(177, 13)
         Me.Label62.TabIndex = 488
         Me.Label62.Text = "(Updates both EIS and IAIP lat/lon.)"
+        '
+        'btnUpdateEisOperStatus
+        '
+        Me.btnUpdateEisOperStatus.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnUpdateEisOperStatus.Location = New System.Drawing.Point(124, 439)
+        Me.btnUpdateEisOperStatus.Name = "btnUpdateEisOperStatus"
+        Me.btnUpdateEisOperStatus.Size = New System.Drawing.Size(136, 23)
+        Me.btnUpdateEisOperStatus.TabIndex = 5
+        Me.btnUpdateEisOperStatus.Text = "Update Operating Status"
+        Me.btnUpdateEisOperStatus.UseVisualStyleBackColor = True
         '
         'btnEIModifyUpdateLocation
         '
@@ -1298,7 +1355,7 @@ Partial Class DMUEisGecoTool
         '
         'mtbEIModifyLongitude
         '
-        Me.mtbEIModifyLongitude.Location = New System.Drawing.Point(124, 358)
+        Me.mtbEIModifyLongitude.Location = New System.Drawing.Point(258, 332)
         Me.mtbEIModifyLongitude.Mask = "00.000000"
         Me.mtbEIModifyLongitude.Name = "mtbEIModifyLongitude"
         Me.mtbEIModifyLongitude.Size = New System.Drawing.Size(68, 20)
@@ -1307,7 +1364,7 @@ Partial Class DMUEisGecoTool
         'Label236
         '
         Me.Label236.AutoSize = True
-        Me.Label236.Location = New System.Drawing.Point(64, 361)
+        Me.Label236.Location = New System.Drawing.Point(198, 335)
         Me.Label236.Name = "Label236"
         Me.Label236.Size = New System.Drawing.Size(54, 13)
         Me.Label236.TabIndex = 22
@@ -4937,6 +4994,19 @@ Partial Class DMUEisGecoTool
         Me.TPOperStatus.Text = "Operating Status"
         Me.TPOperStatus.UseVisualStyleBackColor = True
         '
+        'dgvOperStatusMismatch
+        '
+        Me.dgvOperStatusMismatch.AllowUserToAddRows = False
+        Me.dgvOperStatusMismatch.AllowUserToDeleteRows = False
+        Me.dgvOperStatusMismatch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvOperStatusMismatch.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvOperStatusMismatch.Location = New System.Drawing.Point(3, 44)
+        Me.dgvOperStatusMismatch.Name = "dgvOperStatusMismatch"
+        Me.dgvOperStatusMismatch.ReadOnly = True
+        Me.dgvOperStatusMismatch.RowHeadersVisible = False
+        Me.dgvOperStatusMismatch.Size = New System.Drawing.Size(432, 570)
+        Me.dgvOperStatusMismatch.TabIndex = 113
+        '
         'Panel1
         '
         Me.Panel1.Controls.Add(Me.lblOperStatusCount)
@@ -4965,19 +5035,6 @@ Partial Class DMUEisGecoTool
         Me.llbOperatingStatusMismatch.TabIndex = 112
         Me.llbOperatingStatusMismatch.TabStop = True
         Me.llbOperatingStatusMismatch.Text = "View sources with mismatched operating status"
-        '
-        'dgvOperStatusMismatch
-        '
-        Me.dgvOperStatusMismatch.AllowUserToAddRows = False
-        Me.dgvOperStatusMismatch.AllowUserToDeleteRows = False
-        Me.dgvOperStatusMismatch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvOperStatusMismatch.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvOperStatusMismatch.Location = New System.Drawing.Point(3, 44)
-        Me.dgvOperStatusMismatch.Name = "dgvOperStatusMismatch"
-        Me.dgvOperStatusMismatch.ReadOnly = True
-        Me.dgvOperStatusMismatch.RowHeadersVisible = False
-        Me.dgvOperStatusMismatch.Size = New System.Drawing.Size(432, 570)
-        Me.dgvOperStatusMismatch.TabIndex = 113
         '
         'Panel21
         '
@@ -5075,23 +5132,23 @@ Partial Class DMUEisGecoTool
         '
         'dgvESDataCount
         '
-        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle15.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvESDataCount.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle15
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvESDataCount.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvESDataCount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle16.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvESDataCount.DefaultCellStyle = DataGridViewCellStyle16
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvESDataCount.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvESDataCount.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvESDataCount.Location = New System.Drawing.Point(3, 55)
         Me.dgvESDataCount.Name = "dgvESDataCount"
@@ -8771,23 +8828,23 @@ Partial Class DMUEisGecoTool
         '
         'dgvEIDataCount
         '
-        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle17.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvEIDataCount.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle17
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvEIDataCount.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvEIDataCount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle18.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvEIDataCount.DefaultCellStyle = DataGridViewCellStyle18
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvEIDataCount.DefaultCellStyle = DataGridViewCellStyle4
         Me.dgvEIDataCount.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvEIDataCount.Location = New System.Drawing.Point(3, 53)
         Me.dgvEIDataCount.Name = "dgvEIDataCount"
@@ -9702,23 +9759,23 @@ Partial Class DMUEisGecoTool
         '
         'dgvEIThreshold
         '
-        DataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle19.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvEIThreshold.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle19
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvEIThreshold.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
         Me.dgvEIThreshold.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle20.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvEIThreshold.DefaultCellStyle = DataGridViewCellStyle20
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvEIThreshold.DefaultCellStyle = DataGridViewCellStyle6
         Me.dgvEIThreshold.Location = New System.Drawing.Point(11, 252)
         Me.dgvEIThreshold.Name = "dgvEIThreshold"
         Me.dgvEIThreshold.ReadOnly = True
@@ -10132,23 +10189,23 @@ Partial Class DMUEisGecoTool
         '
         'dgvEP
         '
-        DataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle21.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvEP.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle21
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvEP.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
         Me.dgvEP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle22.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvEP.DefaultCellStyle = DataGridViewCellStyle22
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvEP.DefaultCellStyle = DataGridViewCellStyle8
         Me.dgvEP.Location = New System.Drawing.Point(525, 92)
         Me.dgvEP.Name = "dgvEP"
         Me.dgvEP.ReadOnly = True
@@ -10169,23 +10226,23 @@ Partial Class DMUEisGecoTool
         '
         'dgvER
         '
-        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle23.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvER.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle23
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvER.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle9
         Me.dgvER.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle24.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvER.DefaultCellStyle = DataGridViewCellStyle24
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvER.DefaultCellStyle = DataGridViewCellStyle10
         Me.dgvER.Location = New System.Drawing.Point(507, 92)
         Me.dgvER.Name = "dgvER"
         Me.dgvER.ReadOnly = True
@@ -10226,23 +10283,23 @@ Partial Class DMUEisGecoTool
         '
         'dgvEU
         '
-        DataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle25.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle25.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle25.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle25.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle25.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvEU.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle25
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvEU.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle11
         Me.dgvEU.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle26.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle26.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle26.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvEU.DefaultCellStyle = DataGridViewCellStyle26
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvEU.DefaultCellStyle = DataGridViewCellStyle12
         Me.dgvEU.Location = New System.Drawing.Point(491, 92)
         Me.dgvEU.Name = "dgvEU"
         Me.dgvEU.ReadOnly = True
@@ -10262,23 +10319,23 @@ Partial Class DMUEisGecoTool
         '
         'dgvEM
         '
-        DataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle27.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle27.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle27.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle27.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvEM.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle27
+        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle13.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvEM.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle13
         Me.dgvEM.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle28.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle28.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle28.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle28.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle28.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvEM.DefaultCellStyle = DataGridViewCellStyle28
+        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle14.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvEM.DefaultCellStyle = DataGridViewCellStyle14
         Me.dgvEM.Location = New System.Drawing.Point(541, 92)
         Me.dgvEM.Name = "dgvEM"
         Me.dgvEM.ReadOnly = True
@@ -10426,9 +10483,9 @@ Partial Class DMUEisGecoTool
         Me.Panel26.PerformLayout()
         CType(Me.dgvEISYear, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPOperStatus.ResumeLayout(False)
+        CType(Me.dgvOperStatusMismatch, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
-        CType(Me.dgvOperStatusMismatch, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel21.ResumeLayout(False)
         Me.Panel21.PerformLayout()
         Me.TPESTools.ResumeLayout(False)
@@ -11453,4 +11510,9 @@ End Sub
     Friend WithEvents llbOperatingStatusMismatch As LinkLabel
     Friend WithEvents lblOperStatusCount As Label
     Friend WithEvents Panel1 As Panel
+    Friend WithEvents cbEisModifyOperStatus As ComboBox
+    Friend WithEvents Label231 As Label
+    Friend WithEvents Label179 As Label
+    Friend WithEvents btnUpdateEisOperStatus As Button
+    Friend WithEvents cbIaipOperStatus As ComboBox
 End Class
