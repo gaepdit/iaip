@@ -58,7 +58,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>installer.html</WebPage>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>4.2.14.0</ApplicationVersion>
+    <ApplicationVersion>4.2.15.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -301,6 +301,11 @@
     </Compile>
     <Compile Include="ISMP\SubPages\ISMPAddTestingFirms.Designer.vb">
       <DependentUpon>ISMPAddTestingFirms.vb</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="SSCP\SSCPEvents.Designer.vb">
       <DependentUpon>SSCPEvents.vb</DependentUpon>
@@ -700,11 +705,6 @@
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
-    </Compile>
-    <Compile Include="My Project\Resources.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="SSCP\SSCPEmissionSummaryTool.Designer.vb">
       <DependentUpon>SSCPEmissionSummaryTool.vb</DependentUpon>
@@ -1404,6 +1404,7 @@
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\PrintPreviewIcon.png" />
     <None Include="Resources\GeorgiaStaticMap.png" />
     <None Include="Resources\Seal_of_Georgia_unfinished_256x256x32.png" />
     <None Include="Resources\Seal_of_Georgia_unfinished_Win7.ico" />
@@ -1412,9 +1413,9 @@
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </Content>
     <None Include="packages.config" />
-    <None Include="Resources\Erase.png" />
-    <None Include="Resources\Find_VS.png" />
-    <None Include="Resources\saveHS.png" />
+    <None Include="Resources\EraseIcon.png" />
+    <None Include="Resources\FindIcon.png" />
+    <None Include="Resources\SaveIcon.png" />
     <None Include="Resources\Seal_of_Georgia_gold.ico" />
     <None Include="Resources\Seal_of_Georgia_red_small.ico" />
     <None Include="Resources\Seal_of_Georgia_gold_256x256x32.png" />

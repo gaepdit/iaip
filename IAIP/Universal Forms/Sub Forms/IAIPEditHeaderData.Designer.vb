@@ -571,7 +571,7 @@ Partial Class IAIPEditHeaderData
         '
         Me.SaveChangesButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.SaveChangesButton.Enabled = False
-        Me.SaveChangesButton.Image = Global.Iaip.My.Resources.Resources.SaveButtonImage
+        Me.SaveChangesButton.Image = Global.Iaip.My.Resources.Resources.SaveIcon
         Me.SaveChangesButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.SaveChangesButton.Location = New System.Drawing.Point(486, 353)
         Me.SaveChangesButton.Name = "SaveChangesButton"
