@@ -14216,8 +14216,8 @@ Public Class DMUEisGecoTool
             "  ef.STRFACILITYSITENAME AS ""Facility Name"", " &
             "  ef.STRFACILITYSITESTATUSCODE AS ""EIS Site Status"", " &
             "  hd.STROPERATIONALSTATUS AS ""IAIP Site Status"" " &
-            "FROM EIS_FACILITYSITE ef " &
-            "INNER JOIN APBHEADERDATA hd ON ef.FACILITYSITEID = SUBSTR( " &
+            "FROM airbranch.EIS_FACILITYSITE ef " &
+            "INNER JOIN airbranch.APBHEADERDATA hd ON ef.FACILITYSITEID = SUBSTR( " &
             "  hd.STRAIRSNUMBER, 5) " &
             "WHERE(ef.STRFACILITYSITESTATUSCODE = 'OP' AND " &
             "  hd.STROPERATIONALSTATUS <> 'O') OR( " &
