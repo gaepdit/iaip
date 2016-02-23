@@ -16,8 +16,8 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("GA Air Protection Branch integrated database system")>
 <Assembly: AssemblyProduct("Integrated Air Information Platform")>
 <Assembly: Guid("9F83B6AF-EE06-4324-83E9-7AB1D5E8BE5F")>
-<Assembly: AssemblyVersion("4.2.14.0")>
-<Assembly: AssemblyFileVersion("4.2.14.0")>
+<Assembly: AssemblyVersion("4.2.16.0")>
+<Assembly: AssemblyFileVersion("4.2.16.0")>
 
 #End If
 
