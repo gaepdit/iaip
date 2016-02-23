@@ -32,14 +32,18 @@ Public Class IaipChangePassword
         Select Case result
             Case DAL.PasswordUpdateResponse.Success
                 Return True
+            Case DAL.PasswordUpdateResponse.InvalidUsername
+                Dim errorMsg As String = "User does not exist. Password not changed."
+                Message = New IaipMessage(errorMsg, IaipMessage.WarningLevels.ErrorReport)
+                Message.Display(MessageDisplay)
+            Case DAL.PasswordUpdateResponse.InvalidLogin
+                Dim errorMsg As String = "The current password is incorrect. Password not changed."
+                PasswordEP.SetError(CurrentPassword, errorMsg)
+                Message = New IaipMessage(errorMsg, IaipMessage.WarningLevels.ErrorReport)
+                Message.Display(MessageDisplay)
             Case DAL.PasswordUpdateResponse.InvalidNewPassword
                 Dim errorMsg As String = "The new password is not valid. Password not changed."
                 PasswordEP.SetError(NewPassword, errorMsg)
-                Message = New IaipMessage(errorMsg, IaipMessage.WarningLevels.ErrorReport)
-                Message.Display(MessageDisplay)
-            Case DAL.PasswordUpdateResponse.InvalidOldPassword
-                Dim errorMsg As String = "The current password is incorrect. Password not changed."
-                PasswordEP.SetError(CurrentPassword, errorMsg)
                 Message = New IaipMessage(errorMsg, IaipMessage.WarningLevels.ErrorReport)
                 Message.Display(MessageDisplay)
             Case Else

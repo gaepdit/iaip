@@ -1654,7 +1654,7 @@
     <Compile Include="_Modules\MD5.vb" />
     <Compile Include="_Modules\DocumentMessages.vb" />
     <Compile Include="_Modules\Email.Outlook.vb" />
-    <Compile Include="_Modules\Encryption.vb" />
+    <Compile Include="_Modules\SimpleCrypt.vb" />
     <Compile Include="_Modules\StartupShutdown.vb">
       <SubType>Code</SubType>
     </Compile>

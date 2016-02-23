@@ -31,9 +31,9 @@
         Private Function GetDatabaseConnectionParameters(ByVal env As ServerEnvironment) As OracleConnectionParameters
             Select Case env
                 Case ServerEnvironment.PRD
-                    Return New OracleConnectionParameters("167.195.93.68", "1521", "PRD", "AIRBRANCH_APP_USER", SimpleCrypt("çòáðò±ì"))
+                    Return New OracleConnectionParameters("167.195.93.68", "1521", "PRD", "AIRBRANCH_APP_USER", SimpleCrypt.SimpleCrypt("çòáðò±ì"))
                 Case ServerEnvironment.DEV
-                    Return New OracleConnectionParameters("167.195.93.100", "1521", "DEV", "AIRBRANCH", SimpleCrypt("óíïçáìåòô"))
+                    Return New OracleConnectionParameters("167.195.93.100", "1521", "DEV", "AIRBRANCH", SimpleCrypt.SimpleCrypt("óíïçáìåòô"))
                 Case Else
                     Return Nothing
             End Select

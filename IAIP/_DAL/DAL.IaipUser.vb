@@ -5,13 +5,14 @@ Namespace DAL
     Module IaipUserData
 
         Public Function AuthenticateIaipUser(ByVal username As String, ByVal password As String) As IaipAuthenticationResult
-            If password = "" Or username = "" Then Return IaipAuthenticationResult.InvalidLogin
+            If username = "" Then Return IaipAuthenticationResult.InvalidUsername
+            If password = "" Then Return IaipAuthenticationResult.InvalidLogin
 
             Dim spName As String = "AIRBRANCH.IAIP_USER.AuthenticateIaipUser"
             Dim parameters As OracleParameter() = {
                 New OracleParameter("ReturnValue", OracleDbType.Varchar2, 20, Nothing, ParameterDirection.ReturnValue),
                 New OracleParameter("username", username),
-                New OracleParameter("userpassword", EncryptDecrypt.EncryptText(password))
+                New OracleParameter("userpassword", password)
             }
             Dim result As Boolean = DB.SPRunCommand(spName, parameters)
 
@@ -120,37 +121,31 @@ Namespace DAL
         End Function
 
         Public Function UpdateUserPassword(username As String, newPassword As String, oldPassword As String) As PasswordUpdateResponse
-            If username = "" Then Return PasswordUpdateResponse.InvalidInput
+            If username = "" Then Return PasswordUpdateResponse.InvalidUsername
             If newPassword = "" Then Return PasswordUpdateResponse.InvalidNewPassword
-            If oldPassword = "" Then Return PasswordUpdateResponse.InvalidOldPassword
+            If oldPassword = "" Then Return PasswordUpdateResponse.InvalidLogin
 
-            Select Case AuthenticateIaipUser(username, oldPassword)
-                Case IaipAuthenticationResult.InactiveUser Or IaipAuthenticationResult.InvalidUsername
-                    Return PasswordUpdateResponse.InvalidInput
+            Dim spName As String = "AIRBRANCH.IAIP_USER.UpdateUserPassword"
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("ReturnValue", OracleDbType.Varchar2, 20, Nothing, ParameterDirection.ReturnValue),
+                New OracleParameter("username", username),
+                New OracleParameter("newpassword", newPassword),
+                New OracleParameter("oldpassword", oldPassword)
+            }
+            Dim result As Boolean = DB.SPRunCommand(spName, parameters)
 
-                Case IaipAuthenticationResult.InvalidLogin
-                    Return PasswordUpdateResponse.InvalidOldPassword
+            If result AndAlso Not parameters(0).Value.IsNull Then
+                Return [Enum].Parse(GetType(PasswordUpdateResponse), parameters(0).Value.ToString)
+            Else
+                Return PasswordUpdateResponse.UnknownError
+            End If
 
-                Case IaipAuthenticationResult.Success
-                    Dim spName As String = "AIRBRANCH.IAIP_USER.UpdateUserPassword"
-                    Dim parameters As OracleParameter() = {
-                        New OracleParameter("username", username),
-                        New OracleParameter("newpassword", EncryptDecrypt.EncryptText(newPassword)),
-                        New OracleParameter("oldpassword", EncryptDecrypt.EncryptText(oldPassword))
-                    }
-                    If DB.SPRunCommand(spName, parameters) Then
-                        Return PasswordUpdateResponse.Success
-                    Else
-                        Return PasswordUpdateResponse.UnknownError
-                    End If
-
-            End Select
         End Function
 
         Public Enum PasswordUpdateResponse
             Success
-            InvalidInput
-            InvalidOldPassword
+            InvalidUsername
+            InvalidLogin
             InvalidNewPassword
             UnknownError
         End Enum
@@ -211,7 +206,7 @@ Namespace DAL
             Dim parameters As OracleParameter() = {
                 New OracleParameter("ReturnValue", OracleDbType.Varchar2, 20, Nothing, ParameterDirection.ReturnValue),
                 New OracleParameter("username", username),
-                New OracleParameter("newpassword", EncryptDecrypt.EncryptText(newPassword)),
+                New OracleParameter("newpassword", newPassword),
                 New OracleParameter("resettoken", resettoken)
             }
             Dim result As Boolean = DB.SPRunCommand(spName, parameters)

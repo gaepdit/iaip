@@ -84,7 +84,7 @@ Namespace DB
         ''' Retrieves a single row of values from the database.
         ''' </summary>
         ''' <param name="spName">The Oracle Stored Procedure to call (SP must be a function that returns a REFCURSOR)</param>
-        ''' <param name="parameter">An optional Oracle Parameter to send.</param>
+        ''' <param name="parameterArray">An optional Oracle Parameter to send.</param>
         ''' <returns>A DataRow</returns>
         Public Function SPGetDataRow(ByVal spName As String, ByVal parameterArray As OracleParameter()) As DataRow
             Dim resultTable As DataTable = SPGetDataTable(spName, parameterArray)
