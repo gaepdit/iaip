@@ -447,15 +447,15 @@ Public Class IaipUserManagement
         If DAL.UsernameExists(ProfileUsername.Text, SelectedUserID) Then
             EP.SetError(ProfileUsername, "Username is already in use by another user; choose another.")
         Else
-            Select Case IsValidUserName(ProfileUsername.Text)
-                Case UserNameValidationResult.Valid
+            Select Case IsValidUsername(ProfileUsername.Text)
+                Case StringValidationResult.Valid
                     EP.SetError(ProfileUsername, String.Empty)
                     usernameIsValid = True
-                Case UserNameValidationResult.Empty
+                Case StringValidationResult.Empty
                     EP.SetError(ProfileUsername, "Username is required")
-                Case UserNameValidationResult.TooShort
+                Case StringValidationResult.TooShort
                     EP.SetError(ProfileUsername, "Username must be at least " & MinUsernameLength.ToString & " characters long")
-                Case UserNameValidationResult.InvalidCharacters
+                Case StringValidationResult.InvalidCharacters
                     EP.SetError(ProfileUsername, "Username may only contain alphanumeric characters.")
             End Select
         End If

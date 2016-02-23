@@ -20,18 +20,24 @@ Module IaipValidation
         Return True
     End Function
 
-    Public Enum UserNameValidationResult
+    Public Enum StringValidationResult
         Valid
         Empty
         TooShort
         InvalidCharacters
     End Enum
 
-    Public Function IsValidUserName(username As String, Optional minLength As Integer = MinUsernameLength) As UserNameValidationResult
-        If String.IsNullOrEmpty(username) Then Return UserNameValidationResult.Empty
-        If Not Regex.IsMatch(username, AlphaNumericPattern) Then Return UserNameValidationResult.InvalidCharacters
-        If username.Length < minLength Then Return UserNameValidationResult.TooShort
-        Return UserNameValidationResult.Valid
+    Public Function IsValidUsername(username As String, Optional minLength As Integer = MinUsernameLength) As StringValidationResult
+        If String.IsNullOrEmpty(username) Then Return StringValidationResult.Empty
+        If Not Regex.IsMatch(username, AlphaNumericPattern) Then Return StringValidationResult.InvalidCharacters
+        If username.Length < minLength Then Return StringValidationResult.TooShort
+        Return StringValidationResult.Valid
+    End Function
+
+    Public Function IsValidPassword(password As String, Optional minLength As Integer = MinPasswordLength) As StringValidationResult
+        If String.IsNullOrEmpty(password) Then Return StringValidationResult.Empty
+        If password.Length < minLength Then Return StringValidationResult.TooShort
+        Return StringValidationResult.Valid
     End Function
 
     'Public Function IsValidPhoneNumber(phoneNumber As String) As Boolean
