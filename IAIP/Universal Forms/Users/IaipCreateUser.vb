@@ -137,15 +137,15 @@ Public Class IaipCreateUser
         If DAL.UsernameExists(Username.Text) Then
             EP.SetError(Username, "Username is already in use; choose another.")
         Else
-            Select Case IsValidUserName(Username.Text)
-                Case UserNameValidationResult.Valid
+            Select Case IsValidUsername(Username.Text)
+                Case StringValidationResult.Valid
                     EP.SetError(Username, String.Empty)
                     usernameIsValid = True
-                Case UserNameValidationResult.Empty
+                Case StringValidationResult.Empty
                     EP.SetError(Username, "Username is required.")
-                Case UserNameValidationResult.TooShort
+                Case StringValidationResult.TooShort
                     EP.SetError(Username, "Username must be at least " & MinUsernameLength.ToString & " characters long.")
-                Case UserNameValidationResult.InvalidCharacters
+                Case StringValidationResult.InvalidCharacters
                     EP.SetError(Username, "Username may only contain alphanumeric characters.")
             End Select
         End If

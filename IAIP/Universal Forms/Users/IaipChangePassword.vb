@@ -78,22 +78,29 @@ Public Class IaipChangePassword
     End Sub
 
     Private Sub NewPasswordTextBox_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles NewPassword.Validating
-        If String.IsNullOrEmpty(NewPassword.Text) Then
-            PasswordEP.SetError(NewPassword, "Enter new password")
-            If Not InvalidEntries.Contains(NewPassword) Then InvalidEntries.Add(NewPassword)
-            e.Cancel = True
-        ElseIf NewPassword.Text.ToLower.Contains(CurrentUser.LastName.ToLower) _
-            OrElse NewPassword.Text.ToLower.Contains(CurrentUser.FirstName.ToLower) Then
-            PasswordEP.SetError(NewPassword, "New password cannot contain your name")
-            If Not InvalidEntries.Contains(NewPassword) Then InvalidEntries.Add(NewPassword)
-            e.Cancel = True
-        ElseIf NewPassword.Text = CurrentPassword.Text Then
-            PasswordEP.SetError(NewPassword, "New password must differ from previous password")
-            If Not InvalidEntries.Contains(NewPassword) Then InvalidEntries.Add(NewPassword)
-            e.Cancel = True
-        Else
-            PasswordEP.SetError(NewPassword, String.Empty)
-        End If
+        Select Case IsValidPassword(NewPassword.Text)
+            Case StringValidationResult.Empty
+                PasswordEP.SetError(NewPassword, "Enter new password")
+                If Not InvalidEntries.Contains(NewPassword) Then InvalidEntries.Add(NewPassword)
+                e.Cancel = True
+            Case StringValidationResult.TooShort
+                PasswordEP.SetError(NewPassword, "New password is too short (minimum three characters)")
+                If Not InvalidEntries.Contains(NewPassword) Then InvalidEntries.Add(NewPassword)
+                e.Cancel = True
+            Case Else
+                If NewPassword.Text.ToLower.Contains(CurrentUser.LastName.ToLower) _
+                    OrElse NewPassword.Text.ToLower.Contains(CurrentUser.FirstName.ToLower) Then
+                    PasswordEP.SetError(NewPassword, "New password cannot contain your name")
+                    If Not InvalidEntries.Contains(NewPassword) Then InvalidEntries.Add(NewPassword)
+                    e.Cancel = True
+                ElseIf NewPassword.Text = CurrentPassword.Text Then
+                    PasswordEP.SetError(NewPassword, "New password must differ from previous password")
+                    If Not InvalidEntries.Contains(NewPassword) Then InvalidEntries.Add(NewPassword)
+                    e.Cancel = True
+                Else
+                    PasswordEP.SetError(NewPassword, String.Empty)
+                End If
+        End Select
     End Sub
 
     Private Sub ConfirmPasswordTextBox_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles ConfirmPassword.Validating

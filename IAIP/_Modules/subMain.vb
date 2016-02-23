@@ -31,6 +31,7 @@ Module subMain
     Friend Const APP_FRIENDLY_NAME As String = "Integrated Air Information Platform"
     Friend Const APP_ROOT_NAMESPACE As String = "Iaip"
     Friend Const MinUsernameLength As Integer = 3
+    Friend Const MinPasswordLength As Integer = 3
 
 #End Region
 
