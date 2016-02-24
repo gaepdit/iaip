@@ -90,7 +90,7 @@
         Select Case capability
 
             ' === Compliance caps
-            Case UserCan.SaveEnforcement Or UserCan.ChangeComplianceStatus
+            Case UserCan.SaveEnforcement, UserCan.ChangeComplianceStatus
                 ' District offices, SSCP, or Branch Chief
                 Return (BranchID = 5) Or (ProgramID = 4) Or HasRole(102)
 
