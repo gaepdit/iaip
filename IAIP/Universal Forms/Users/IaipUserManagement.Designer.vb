@@ -23,8 +23,8 @@ Partial Class IaipUserManagement
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.lblUserName = New System.Windows.Forms.Label()
         Me.CreateNewUserButton = New System.Windows.Forms.Button()
         Me.SaveProfileChanges = New System.Windows.Forms.Button()
@@ -114,7 +114,6 @@ Partial Class IaipUserManagement
         '
         'SaveProfileChanges
         '
-        Me.SaveProfileChanges.AutoSize = True
         Me.SaveProfileChanges.Enabled = False
         Me.SaveProfileChanges.Location = New System.Drawing.Point(133, 285)
         Me.SaveProfileChanges.Name = "SaveProfileChanges"
@@ -272,9 +271,9 @@ Partial Class IaipUserManagement
         Me.Label9.AutoSize = True
         Me.Label9.Location = New System.Drawing.Point(13, 120)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(45, 13)
+        Me.Label9.Size = New System.Drawing.Size(38, 13)
         Me.Label9.TabIndex = 7
-        Me.Label9.Text = "Phone *"
+        Me.Label9.Text = "Phone"
         '
         'Label7
         '
@@ -448,19 +447,19 @@ Partial Class IaipUserManagement
         Me.SearchResults.AllowUserToAddRows = False
         Me.SearchResults.AllowUserToDeleteRows = False
         Me.SearchResults.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.SearchResults.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.SearchResults.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.SearchResults.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.SearchResults.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.SearchResults.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.SearchResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.SearchResults.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.SearchResults.Location = New System.Drawing.Point(317, 47)
@@ -582,7 +581,6 @@ Partial Class IaipUserManagement
         '
         'AddNewRoles
         '
-        Me.AddNewRoles.AutoSize = True
         Me.AddNewRoles.Enabled = False
         Me.AddNewRoles.Location = New System.Drawing.Point(71, 269)
         Me.AddNewRoles.Name = "AddNewRoles"
@@ -613,7 +611,6 @@ Partial Class IaipUserManagement
         '
         'RemoveRoles
         '
-        Me.RemoveRoles.AutoSize = True
         Me.RemoveRoles.Enabled = False
         Me.RemoveRoles.Location = New System.Drawing.Point(63, 269)
         Me.RemoveRoles.Name = "RemoveRoles"
@@ -688,6 +685,7 @@ Partial Class IaipUserManagement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
         Me.ClientSize = New System.Drawing.Size(785, 693)
         Me.Controls.Add(Me.MessageDisplay)
         Me.Controls.Add(Me.SearchPanel)
@@ -709,7 +707,6 @@ Partial Class IaipUserManagement
         Me.AddRolesGroupbox.ResumeLayout(False)
         Me.AddRolesGroupbox.PerformLayout()
         Me.CurrentRolesGroupBox.ResumeLayout(False)
-        Me.CurrentRolesGroupBox.PerformLayout()
         Me.SearchPanel.ResumeLayout(False)
         Me.SearchPanel.PerformLayout()
         CType(Me.EP, System.ComponentModel.ISupportInitialize).EndInit()
