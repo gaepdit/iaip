@@ -323,7 +323,7 @@ Public Class IAIPFacilitySummary
                 Case Sscp.ComplianceStatus.InViolation
                     .BackColor = Color.Pink
                     .BorderStyle = BorderStyle.FixedSingle
-                Case Sscp.ComplianceStatus.MeetingComplianceSchedule Or Sscp.ComplianceStatus.Unknown
+                Case Sscp.ComplianceStatus.MeetingComplianceSchedule, Sscp.ComplianceStatus.Unknown
                     .BackColor = Color.LemonChiffon
                     .BorderStyle = BorderStyle.FixedSingle
                 Case Else
