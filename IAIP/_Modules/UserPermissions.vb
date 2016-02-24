@@ -5,7 +5,7 @@
 
         Select Case capability
 
-            Case UserCan.SaveEnforcement Or UserCan.ChangeComplianceStatus
+            Case UserCan.SaveEnforcement, UserCan.ChangeComplianceStatus
                 Return (UserBranch = "5") OrElse              ' District offices or
                     (UserProgram = "3" Or UserProgram = "4")  ' DMU or SSCP
 

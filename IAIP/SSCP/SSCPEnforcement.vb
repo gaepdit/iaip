@@ -339,7 +339,7 @@ Public Class SscpEnforcement
             Select Case EnforcementCase.ComplianceStatus
                 Case ComplianceStatus.InViolation
                     .BackColor = Color.Pink
-                Case ComplianceStatus.MeetingComplianceSchedule Or ComplianceStatus.Unknown
+                Case ComplianceStatus.MeetingComplianceSchedule, ComplianceStatus.Unknown
                     .BackColor = Color.LemonChiffon
                 Case Else
                     .BackColor = SystemColors.ControlLightLight
