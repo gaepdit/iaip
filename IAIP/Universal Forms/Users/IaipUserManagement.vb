@@ -501,11 +501,11 @@ Public Class IaipUserManagement
     End Sub
 
     Private Sub ProfilePhoneNumber_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles ProfilePhoneNumber.Validating
-        If ProfilePhoneNumber.MaskCompleted Then
+        If ProfilePhoneNumber.MaskCompleted Or ProfilePhoneNumber.Text = "" Then
             EP.SetError(ProfilePhoneNumber, String.Empty)
         Else
             e.Cancel = True
-            EP.SetError(ProfilePhoneNumber, "Phone number is required.")
+            EP.SetError(ProfilePhoneNumber, "Phone number is incomplete.")
             If Not InvalidEntries.Contains(ProfilePhoneNumber) Then InvalidEntries.Add(ProfilePhoneNumber)
         End If
     End Sub
