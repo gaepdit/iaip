@@ -600,11 +600,11 @@ Partial Class SscpEnforcement
         '
         Me.LinkedEventDisplay.AutoSize = True
         Me.LinkedEventDisplay.LinkArea = New System.Windows.Forms.LinkArea(17, 17)
-        Me.LinkedEventDisplay.Location = New System.Drawing.Point(329, 24)
+        Me.LinkedEventDisplay.Location = New System.Drawing.Point(236, 24)
         Me.LinkedEventDisplay.Name = "LinkedEventDisplay"
-        Me.LinkedEventDisplay.Size = New System.Drawing.Size(89, 17)
-        Me.LinkedEventDisplay.TabIndex = 2
-        Me.LinkedEventDisplay.Text = "Discovery Event:"
+        Me.LinkedEventDisplay.Size = New System.Drawing.Size(92, 17)
+        Me.LinkedEventDisplay.TabIndex = 1
+        Me.LinkedEventDisplay.Text = "Discovery Event: "
         Me.LinkedEventDisplay.UseCompatibleTextRendering = True
         '
         'EAGroupBox
@@ -748,9 +748,9 @@ Partial Class SscpEnforcement
         'LinkToEvent
         '
         Me.LinkToEvent.AutoSize = True
-        Me.LinkToEvent.Location = New System.Drawing.Point(236, 18)
+        Me.LinkToEvent.Location = New System.Drawing.Point(236, 19)
         Me.LinkToEvent.Name = "LinkToEvent"
-        Me.LinkToEvent.Size = New System.Drawing.Size(87, 23)
+        Me.LinkToEvent.Size = New System.Drawing.Size(105, 23)
         Me.LinkToEvent.TabIndex = 1
         Me.LinkToEvent.Text = "Link to Event"
         '
@@ -766,12 +766,11 @@ Partial Class SscpEnforcement
         '
         'ClearLinkedEvent
         '
-        Me.ClearLinkedEvent.AutoSize = True
-        Me.ClearLinkedEvent.Location = New System.Drawing.Point(236, 19)
+        Me.ClearLinkedEvent.Location = New System.Drawing.Point(372, 19)
         Me.ClearLinkedEvent.Name = "ClearLinkedEvent"
-        Me.ClearLinkedEvent.Size = New System.Drawing.Size(87, 23)
-        Me.ClearLinkedEvent.TabIndex = 1
-        Me.ClearLinkedEvent.Text = "Clear"
+        Me.ClearLinkedEvent.Size = New System.Drawing.Size(105, 23)
+        Me.ClearLinkedEvent.TabIndex = 2
+        Me.ClearLinkedEvent.Text = "Clear linked event"
         Me.ClearLinkedEvent.Visible = False
         '
         'DiscoveryDate
