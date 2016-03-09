@@ -1203,12 +1203,13 @@ Public Class SscpEnforcement
             Return False
         Else
             EnforcementCase.DateModified = Today
-            DisplayEnforcementCase()
+            EnforcementId = result
 
             Dim message As String = "Current data saved."
             If enforcementIsNew Then message &= vbNewLine & "New enforcement ID: " & EnforcementCase.EnforcementId
             GeneralMessage = New IaipMessage(message, IaipMessage.WarningLevels.Success)
 
+            DisplayEnforcementCase()
             Return True
         End If
     End Function
@@ -1727,6 +1728,7 @@ Public Class SscpEnforcement
                 .LonResolved = GetNullableDateFromDateTimePicker(LonResolved)
                 .LonSent = GetNullableDateFromDateTimePicker(LonSent)
                 .LonToUc = GetNullableDateFromDateTimePicker(LonToUC)
+                .LonComment = LonComments.Text
             Else
                 .LonResolved = Nothing
                 .LonSent = Nothing
