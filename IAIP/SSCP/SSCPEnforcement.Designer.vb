@@ -211,7 +211,6 @@ Partial Class SscpEnforcement
         Me.NotSubmittedToEpaLabel = New System.Windows.Forms.Label()
         Me.HeaderPanel = New System.Windows.Forms.Panel()
         Me.AirsNumberDisplay = New System.Windows.Forms.LinkLabel()
-        Me.MessageDisplay = New System.Windows.Forms.Label()
         Me.FacilityNotApprovedDisplay = New System.Windows.Forms.Label()
         Me.FacilityNameDisplay = New System.Windows.Forms.Label()
         Me.ComplianceStatusDisplay = New System.Windows.Forms.Label()
@@ -220,6 +219,7 @@ Partial Class SscpEnforcement
         Me.EnforcementIdDisplay = New System.Windows.Forms.Label()
         Me.ResolvedDate = New System.Windows.Forms.DateTimePicker()
         Me.ResolvedCheckBox = New System.Windows.Forms.CheckBox()
+        Me.GeneralMessageDisplay = New System.Windows.Forms.Label()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.SaveButton = New System.Windows.Forms.ToolStripButton()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
@@ -237,6 +237,7 @@ Partial Class SscpEnforcement
         Me.DeleteEnforcementMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DocumentsErrorProvider = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.GeneralErrorProvider = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.GeneralMessagePanel = New System.Windows.Forms.Panel()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -270,6 +271,7 @@ Partial Class SscpEnforcement
         Me.MenuStrip1.SuspendLayout()
         CType(Me.DocumentsErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GeneralErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GeneralMessagePanel.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label4
@@ -546,7 +548,7 @@ Partial Class SscpEnforcement
         'DismissMessageButton
         '
         Me.DismissMessageButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.DismissMessageButton.Location = New System.Drawing.Point(523, 3)
+        Me.DismissMessageButton.Location = New System.Drawing.Point(23, 7)
         Me.DismissMessageButton.Name = "DismissMessageButton"
         Me.DismissMessageButton.Size = New System.Drawing.Size(24, 23)
         Me.DismissMessageButton.TabIndex = 1
@@ -567,7 +569,7 @@ Partial Class SscpEnforcement
         Me.EnforcementTabs.Controls.Add(Me.AuditHistoryTabPage)
         Me.EnforcementTabs.Controls.Add(Me.EpaValuesTabPage)
         Me.EnforcementTabs.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.EnforcementTabs.Location = New System.Drawing.Point(0, 152)
+        Me.EnforcementTabs.Location = New System.Drawing.Point(0, 195)
         Me.EnforcementTabs.Name = "EnforcementTabs"
         Me.EnforcementTabs.SelectedIndex = 0
         Me.EnforcementTabs.Size = New System.Drawing.Size(731, 390)
@@ -1766,7 +1768,7 @@ Partial Class SscpEnforcement
         Me.DocumentMessageDisplay.AutoSize = True
         Me.DocumentMessageDisplay.BackColor = System.Drawing.Color.OldLace
         Me.DocumentMessageDisplay.ForeColor = System.Drawing.Color.DarkRed
-        Me.DocumentMessageDisplay.Location = New System.Drawing.Point(20, 274)
+        Me.DocumentMessageDisplay.Location = New System.Drawing.Point(20, 296)
         Me.DocumentMessageDisplay.MaximumSize = New System.Drawing.Size(550, 0)
         Me.DocumentMessageDisplay.Name = "DocumentMessageDisplay"
         Me.DocumentMessageDisplay.Padding = New System.Windows.Forms.Padding(5)
@@ -1785,7 +1787,7 @@ Partial Class SscpEnforcement
         Me.pnlDocument.Controls.Add(Me.DocumentUpdateButton)
         Me.pnlDocument.Controls.Add(Me.lblDocumentName)
         Me.pnlDocument.Enabled = False
-        Me.pnlDocument.Location = New System.Drawing.Point(19, 185)
+        Me.pnlDocument.Location = New System.Drawing.Point(19, 207)
         Me.pnlDocument.Name = "pnlDocument"
         Me.pnlDocument.Size = New System.Drawing.Size(487, 73)
         Me.pnlDocument.TabIndex = 16
@@ -1894,7 +1896,7 @@ Partial Class SscpEnforcement
         Me.DocumentList.RowHeadersDefaultCellStyle = DataGridViewCellStyle10
         Me.DocumentList.RowHeadersVisible = False
         Me.DocumentList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DocumentList.Size = New System.Drawing.Size(487, 147)
+        Me.DocumentList.Size = New System.Drawing.Size(487, 169)
         Me.DocumentList.StandardTab = True
         Me.DocumentList.TabIndex = 0
         '
@@ -2393,8 +2395,6 @@ Partial Class SscpEnforcement
         'HeaderPanel
         '
         Me.HeaderPanel.Controls.Add(Me.AirsNumberDisplay)
-        Me.HeaderPanel.Controls.Add(Me.DismissMessageButton)
-        Me.HeaderPanel.Controls.Add(Me.MessageDisplay)
         Me.HeaderPanel.Controls.Add(Me.FacilityNotApprovedDisplay)
         Me.HeaderPanel.Controls.Add(Me.FacilityNameDisplay)
         Me.HeaderPanel.Controls.Add(Me.ComplianceStatusDisplay)
@@ -2419,20 +2419,6 @@ Partial Class SscpEnforcement
         Me.AirsNumberDisplay.TabIndex = 3
         Me.AirsNumberDisplay.TabStop = True
         Me.AirsNumberDisplay.Text = "000-00000"
-        '
-        'MessageDisplay
-        '
-        Me.MessageDisplay.AutoSize = True
-        Me.MessageDisplay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.MessageDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MessageDisplay.Location = New System.Drawing.Point(150, 0)
-        Me.MessageDisplay.MinimumSize = New System.Drawing.Size(400, 29)
-        Me.MessageDisplay.Name = "MessageDisplay"
-        Me.MessageDisplay.Padding = New System.Windows.Forms.Padding(6, 6, 30, 6)
-        Me.MessageDisplay.Size = New System.Drawing.Size(400, 29)
-        Me.MessageDisplay.TabIndex = 0
-        Me.MessageDisplay.Text = "Message display"
-        Me.MessageDisplay.Visible = False
         '
         'FacilityNotApprovedDisplay
         '
@@ -2528,6 +2514,20 @@ Partial Class SscpEnforcement
         Me.ResolvedCheckBox.Text = "Finalized"
         Me.ResolvedCheckBox.UseVisualStyleBackColor = True
         Me.ResolvedCheckBox.Visible = False
+        '
+        'GeneralMessageDisplay
+        '
+        Me.GeneralMessageDisplay.AutoSize = True
+        Me.GeneralMessageDisplay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.GeneralMessageDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GeneralMessageDisplay.Location = New System.Drawing.Point(53, 4)
+        Me.GeneralMessageDisplay.MinimumSize = New System.Drawing.Size(400, 29)
+        Me.GeneralMessageDisplay.Name = "GeneralMessageDisplay"
+        Me.GeneralMessageDisplay.Padding = New System.Windows.Forms.Padding(6, 6, 30, 6)
+        Me.GeneralMessageDisplay.Size = New System.Drawing.Size(400, 29)
+        Me.GeneralMessageDisplay.TabIndex = 0
+        Me.GeneralMessageDisplay.Text = "Message display"
+        Me.GeneralMessageDisplay.Visible = False
         '
         'ToolStrip1
         '
@@ -2648,12 +2648,24 @@ Partial Class SscpEnforcement
         Me.GeneralErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink
         Me.GeneralErrorProvider.ContainerControl = Me
         '
+        'GeneralMessagePanel
+        '
+        Me.GeneralMessagePanel.Controls.Add(Me.GeneralMessageDisplay)
+        Me.GeneralMessagePanel.Controls.Add(Me.DismissMessageButton)
+        Me.GeneralMessagePanel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.GeneralMessagePanel.Location = New System.Drawing.Point(0, 152)
+        Me.GeneralMessagePanel.Name = "GeneralMessagePanel"
+        Me.GeneralMessagePanel.Size = New System.Drawing.Size(731, 43)
+        Me.GeneralMessagePanel.TabIndex = 343
+        Me.GeneralMessagePanel.Visible = False
+        '
         'SscpEnforcement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(731, 542)
+        Me.ClientSize = New System.Drawing.Size(731, 585)
         Me.Controls.Add(Me.EnforcementTabs)
+        Me.Controls.Add(Me.GeneralMessagePanel)
         Me.Controls.Add(Me.HeaderPanel)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.MenuStrip1)
@@ -2713,6 +2725,8 @@ Partial Class SscpEnforcement
         Me.MenuStrip1.PerformLayout()
         CType(Me.DocumentsErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GeneralErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GeneralMessagePanel.ResumeLayout(False)
+        Me.GeneralMessagePanel.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2873,7 +2887,7 @@ Partial Class SscpEnforcement
     Friend WithEvents COComments As TextBox
     Friend WithEvents NovComments As TextBox
     Friend WithEvents LonComments As TextBox
-    Friend WithEvents MessageDisplay As Label
+    Friend WithEvents GeneralMessageDisplay As Label
     Friend WithEvents GeneralErrorProvider As ErrorProvider
     Friend WithEvents DismissMessageButton As Button
     Friend WithEvents ClearErrorsMenuItem As ToolStripMenuItem
@@ -2916,4 +2930,5 @@ Partial Class SscpEnforcement
     Friend WithEvents Label2 As Label
     Friend WithEvents ClearMessageMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents GeneralMessagePanel As Panel
 End Class

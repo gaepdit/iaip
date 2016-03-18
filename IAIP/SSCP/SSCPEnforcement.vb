@@ -28,16 +28,11 @@ Public Class SscpEnforcement
         End Get
         Set(value As IaipMessage)
             If value Is Nothing And Message IsNot Nothing Then
-                GeneralMessage.Clear()
-                DismissMessageButton.Visible = False
-                ClearMessageMenuItem.Enabled = False
+                ClearGeneralMessage()
             End If
             _generalMessage = value
             If value IsNot Nothing Then
-                GeneralMessage.Display(MessageDisplay)
-                DismissMessageButton.Visible = True
-                DismissMessageButton.BringToFront()
-                ClearMessageMenuItem.Enabled = True
+                DisplayGeneralMessage()
             End If
         End Set
     End Property
@@ -64,7 +59,7 @@ Public Class SscpEnforcement
 
 #End Region
 
-#Region " Form load event "
+#Region " Form load/closing events "
 
     Private Sub SscpEnforcement_Load(sender As Object, e As EventArgs) Handles Me.Load
         monitor.TrackFeature("Forms." & Me.Name)
@@ -85,6 +80,10 @@ Public Class SscpEnforcement
         DisplayEnforcementCase()
         DisplayLinkedEvent()
 
+    End Sub
+
+    Private Sub SscpEnforcement_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        ClearGeneralMessage()
     End Sub
 
 #End Region
@@ -349,7 +348,7 @@ Public Class SscpEnforcement
 
 #End Region
 
-#Region " Header tab "
+#Region " Header panel "
 
     Private Sub ResolvedCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles ResolvedCheckBox.CheckedChanged
         If ResolvedCheckBox.Checked Then
@@ -381,6 +380,47 @@ Public Class SscpEnforcement
 
     Private Sub AirsNumberDisplay_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles AirsNumberDisplay.LinkClicked
         OpenFormFacilitySummary(AirsNumber)
+    End Sub
+
+#End Region
+
+#Region " Message panel "
+
+    Private Sub DisplayGeneralMessage()
+        GeneralMessage.Display(GeneralMessageDisplay)
+        DismissMessageButton.Visible = True
+        DismissMessageButton.BringToFront()
+        ClearMessageMenuItem.Enabled = True
+
+        Dim oldFormHeight As Integer = Me.Height
+
+        Dim oldMessageHeight As Integer = 0
+        If GeneralMessagePanel.Visible Then
+            oldMessageHeight = GeneralMessagePanel.Height
+        End If
+
+        Dim numLines As Integer = GeneralMessage.MessageText.Split(vbNewLine).Length
+        GeneralMessagePanel.Height = (numLines * 15) + 28
+
+        Me.MinimumSize = New Size(747, 580 + GeneralMessagePanel.Height)
+        If Me.WindowState = FormWindowState.Normal Then
+            Me.Height = oldFormHeight + GeneralMessagePanel.Height - oldMessageHeight
+        End If
+
+        GeneralMessagePanel.Visible = True
+    End Sub
+
+    Private Sub ClearGeneralMessage()
+        If GeneralMessage IsNot Nothing Then GeneralMessage.Clear()
+        'DismissMessageButton.Visible = False
+        ClearMessageMenuItem.Enabled = False
+
+        Me.MinimumSize = New Size(747, 580)
+        If GeneralMessagePanel.Visible And Me.WindowState = FormWindowState.Normal Then
+            Me.Height = Me.Height - GeneralMessagePanel.Height
+        End If
+
+        GeneralMessagePanel.Visible = False
     End Sub
 
 #End Region
@@ -1162,7 +1202,7 @@ Public Class SscpEnforcement
     End Sub
 
     Private Sub ClearMessageMenuItem_Click(sender As Object, e As EventArgs) Handles ClearMessageMenuItem.Click
-        ClearMessage()
+        ClearGeneralMessage()
     End Sub
 
     Private Sub ClearErrorsMenuItem_Click(sender As Object, e As EventArgs) Handles ClearErrorsMenuItem.Click
@@ -1170,7 +1210,7 @@ Public Class SscpEnforcement
     End Sub
 
     Private Sub DismissMessageButton_Click(sender As Object, e As EventArgs) Handles DismissMessageButton.Click
-        ClearMessage()
+        ClearGeneralMessage()
     End Sub
 
 #End Region
@@ -1294,13 +1334,7 @@ Public Class SscpEnforcement
             Next
         End If
         validationErrors = New Dictionary(Of Control, String)
-        ClearMessage()
-    End Sub
-
-    Private Sub ClearMessage()
-        If GeneralMessage IsNot Nothing Then GeneralMessage.Clear()
-        DismissMessageButton.Visible = False
-        ClearMessageMenuItem.Enabled = False
+        ClearGeneralMessage()
     End Sub
 
     Private Function ValidateFormData() As Boolean
