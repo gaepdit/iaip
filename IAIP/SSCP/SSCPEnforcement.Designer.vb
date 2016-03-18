@@ -230,7 +230,7 @@ Partial Class SscpEnforcement
         Me.ToolsMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.ClearMessageMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ClearErrorsMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.EnforcementToolStripSeparator = New System.Windows.Forms.ToolStripSeparator()
         Me.ShowAuditHistoryMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ShowEpaActionNumbersMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DeleteEnforcementToolStripSeparator = New System.Windows.Forms.ToolStripSeparator()
@@ -2584,7 +2584,7 @@ Partial Class SscpEnforcement
         '
         'ToolsMenu
         '
-        Me.ToolsMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ClearMessageMenuItem, Me.ClearErrorsMenuItem, Me.ToolStripSeparator1, Me.ShowAuditHistoryMenuItem, Me.ShowEpaActionNumbersMenuItem, Me.DeleteEnforcementToolStripSeparator, Me.DeleteEnforcementMenuItem})
+        Me.ToolsMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ClearMessageMenuItem, Me.ClearErrorsMenuItem, Me.EnforcementToolStripSeparator, Me.ShowAuditHistoryMenuItem, Me.ShowEpaActionNumbersMenuItem, Me.DeleteEnforcementToolStripSeparator, Me.DeleteEnforcementMenuItem})
         Me.ToolsMenu.Name = "ToolsMenu"
         Me.ToolsMenu.Size = New System.Drawing.Size(48, 20)
         Me.ToolsMenu.Text = "&Tools"
@@ -2603,10 +2603,11 @@ Partial Class SscpEnforcement
         Me.ClearErrorsMenuItem.Size = New System.Drawing.Size(219, 22)
         Me.ClearErrorsMenuItem.Text = "&Clear Errors"
         '
-        'ToolStripSeparator1
+        'EnforcementToolStripSeparator
         '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(216, 6)
+        Me.EnforcementToolStripSeparator.Name = "EnforcementToolStripSeparator"
+        Me.EnforcementToolStripSeparator.Size = New System.Drawing.Size(216, 6)
+        Me.EnforcementToolStripSeparator.Visible = False
         '
         'ShowAuditHistoryMenuItem
         '
@@ -2929,6 +2930,6 @@ Partial Class SscpEnforcement
     Friend WithEvents AirsNumberDisplay As LinkLabel
     Friend WithEvents Label2 As Label
     Friend WithEvents ClearMessageMenuItem As ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents EnforcementToolStripSeparator As ToolStripSeparator
     Friend WithEvents GeneralMessagePanel As Panel
 End Class

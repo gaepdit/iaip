@@ -80,6 +80,11 @@ Public Class SscpEnforcement
         DisplayEnforcementCase()
         DisplayLinkedEvent()
 
+        ' Programs/Pollutants
+        LoadFacilityPollutants()
+        LoadFacilityAirPrograms()
+        DisplayEnforcementPollutants()
+        DisplayEnforcementAirPrograms()
     End Sub
 
     Private Sub SscpEnforcement_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
@@ -190,8 +195,6 @@ Public Class SscpEnforcement
         AirsNumber = EnforcementCase.AirsNumber
         LinkedEventId = EnforcementCase.LinkedWorkItemId
         ShowCorrectTabs()
-        LoadPollutants()
-        LoadAirPrograms()
         LoadDocuments()
     End Sub
 
@@ -235,8 +238,9 @@ Public Class SscpEnforcement
                 Text = "Enforcement #" & .EnforcementId & " — " & AirsNumber.FormattedString & ", " & Facility.FacilityName
                 ShowAuditHistoryMenuItem.Visible = True
                 ShowEpaActionNumbersMenuItem.Visible = True
+                EnforcementToolStripSeparator.Visible = True
                 DeleteEnforcementMenuItem.Visible = True
-                DeleteEnforcementToolStripSeparator.Visible = False
+                DeleteEnforcementToolStripSeparator.Visible = True
 
                 ' Header
                 EnforcementIdDisplay.Text = "Enforcement #" & .EnforcementId
@@ -681,15 +685,18 @@ Public Class SscpEnforcement
 
 #Region " Pollutants/Programs tab "
 
-    Public Sub LoadPollutants()
-        ' All available pollutants
+    Public Sub LoadFacilityPollutants()
+        ' All available pollutants for facility
         Dim dt As DataTable = DAL.GetFacilityPollutants(AirsNumber)
         PollutantsListView.Items.Clear()
         For Each row As DataRow In dt.Rows
             PollutantsListView.Items.Add(New ListViewItem({row(1), row(0)}))
         Next
+    End Sub
 
+    Public Sub DisplayEnforcementPollutants()
         ' Pollutants associated with this case
+        If EnforcementId Is Nothing OrElse EnforcementCase Is Nothing Then Exit Sub
         If EnforcementCase.Pollutants IsNot Nothing Then
             For i As Integer = 0 To PollutantsListView.Items.Count - 1
                 If EnforcementCase.Pollutants.Contains(PollutantsListView.Items(i).SubItems(1).Text) Then
@@ -699,15 +706,18 @@ Public Class SscpEnforcement
         End If
     End Sub
 
-    Private Sub LoadAirPrograms()
+    Private Sub LoadFacilityAirPrograms()
         ' All available air programs
         Dim dt As DataTable = DAL.GetFacilityAirProgramsAsDataTable(AirsNumber, True)
         ProgramsListView.Items.Clear()
         For Each row As DataRow In dt.Rows
             ProgramsListView.Items.Add(New ListViewItem({row(1), row(0)}))
         Next
+    End Sub
 
+    Private Sub DisplayEnforcementAirPrograms()
         ' Programs associated with this case
+        If EnforcementId Is Nothing OrElse EnforcementCase Is Nothing Then Exit Sub
         If EnforcementCase.AirPrograms IsNot Nothing Then
             For i As Integer = 0 To ProgramsListView.Items.Count - 1
                 If EnforcementCase.AirPrograms.Contains(ProgramsListView.Items(i).SubItems(1).Text) Then
@@ -737,15 +747,15 @@ Public Class SscpEnforcement
                         checkedPollutantsSet.Add(pi.SubItems(1).Text)
                     Next
 
-                    ' Reload pollutants list
-                    LoadPollutants()
+                    ' Reload facility pollutants list
+                    LoadFacilityPollutants()
 
                     ' Uncheck all 
                     For Each lvi As ListViewItem In PollutantsListView.Items
                         lvi.Checked = False
                     Next
 
-                    ' Remove previously existing pollutants (existingPollutantsSet) from new set of pollutants (.UniqueFacilityPollutants)
+                    ' Remove previously existing pollutants (existingPollutantsSet) from new set of pollutants (.FacilityPollutantsSet)
                     .FacilityPollutantsSet.ExceptWith(existingPollutantsSet)
 
                     ' Add new pollutants to set of checked pollutants
@@ -1918,7 +1928,7 @@ Public Class SscpEnforcement
             If COCheckBox.Checked AndAlso COExecuted.Checked Then dl.Add(COExecuted.Value)
             If AOCheckBox.Checked AndAlso AOExecuted.Checked Then dl.Add(AOExecuted.Value)
 
-            Return dl.Min
+            If dl.Count > 0 Then Return dl.Min
         End If
         Return Nothing
     End Function
