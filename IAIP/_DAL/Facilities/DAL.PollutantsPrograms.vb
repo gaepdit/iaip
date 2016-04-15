@@ -60,16 +60,13 @@ Namespace DAL
             Dim query As String = "SELECT SUBSTR(app.STRAIRPOLLUTANTKEY, 13, 1) AS " &
                 "  ""Air Program Code"", lkpl.STRPOLLUTANTCODE AS " &
                 "  ""Pollutant Code"", lkpl.STRPOLLUTANTDESCRIPTION AS " &
-                "  ""Pollutant"", 'Status_' || lkcs.STRCOMPLIANCECODE AS " &
-                "  ""Legacy Compliance Code"", app.STROPERATIONALSTATUS AS " &
+                "  ""Pollutant"", app.STROPERATIONALSTATUS AS " &
                 "  ""Operating Status Code"", app.DATMODIFINGDATE AS " &
                 "  ""Date Modified"",(up.STRLASTNAME || ', ' || up.STRFIRSTNAME) " &
                 "  AS ""Modified By"" " &
                 "FROM AIRBRANCH.APBAirProgramPollutants app " &
                 "INNER JOIN AIRBRANCH.LookUPPollutants lkpl ON " &
                 "  app.STRPOLLUTANTKEY = lkpl.STRPOLLUTANTCODE " &
-                "INNER JOIN AIRBRANCH.LookUpComplianceStatus lkcs ON " &
-                "  lkcs.STRCOMPLIANCECODE = app.STRCOMPLIANCESTATUS " &
                 "INNER JOIN AIRBRANCH.EPDUserProfiles up ON " &
                 "  app.STRMODIFINGPERSON = up.NUMUSERID " &
                 "WHERE app.STRAIRSNUMBER = :airsNumber " &
@@ -81,21 +78,19 @@ Namespace DAL
         Public Function SaveFacilityAirProgramPollutant(airsNumber As ApbFacilityId,
                                                         airProgram As AirProgram,
                                                         pollutantCode As String,
-                                                        Optional complianceStatus As ComplianceStatus = ComplianceStatus.InCompliance,
                                                         Optional operatingStatus As FacilityOperationalStatus = FacilityOperationalStatus.O
                                                         ) As Boolean
 
             If FacilityAirProgramPollutantExists(airsNumber, airProgram, pollutantCode) Then
-                Return UpdateFacilityAirProgramPollutant(airsNumber, airProgram, pollutantCode, complianceStatus, operatingStatus)
+                Return UpdateFacilityAirProgramPollutant(airsNumber, airProgram, pollutantCode, operatingStatus)
             Else
-                Return InsertFacilityAirProgramPollutant(airsNumber, airProgram, pollutantCode, complianceStatus, operatingStatus)
+                Return InsertFacilityAirProgramPollutant(airsNumber, airProgram, pollutantCode, operatingStatus)
             End If
         End Function
 
         Private Function InsertFacilityAirProgramPollutant(airsNumber As ApbFacilityId,
                                                            airProgram As AirProgram,
                                                            pollutantCode As String,
-                                                           complianceStatus As ComplianceStatus,
                                                            operatingStatus As FacilityOperationalStatus
                                                            ) As Boolean
 
@@ -103,13 +98,13 @@ Namespace DAL
                 "INTO AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " &
                 "  ( " &
                 "    STRAIRSNUMBER, STRAIRPOLLUTANTKEY, STRPOLLUTANTKEY, " &
-                "    STRCOMPLIANCESTATUS, STROPERATIONALSTATUS, " &
+                "    STROPERATIONALSTATUS, " &
                 "    STRMODIFINGPERSON, DATMODIFINGDATE " &
                 "  ) " &
                 "  VALUES " &
                 "  ( " &
                 "    :STRAIRSNUMBER, :STRAIRPOLLUTANTKEY, :STRPOLLUTANTKEY, " &
-                "    :STRCOMPLIANCESTATUS, :STROPERATIONALSTATUS, " &
+                "    :STROPERATIONALSTATUS, " &
                 "    :STRMODIFINGPERSON, sysdate " &
                 "  )"
 
@@ -117,7 +112,6 @@ Namespace DAL
                 New OracleParameter("STRAIRSNUMBER", airsNumber.DbFormattedString),
                 New OracleParameter("STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram.ToString)),
                 New OracleParameter("STRPOLLUTANTKEY", pollutantCode),
-                New OracleParameter("STRCOMPLIANCESTATUS", EnforcementCase.ConvertComplianceStatus(complianceStatus).ToString.Substring(7)),
                 New OracleParameter("STROPERATIONALSTATUS", operatingStatus.ToString),
                 New OracleParameter("STRMODIFINGPERSON", CurrentUser.UserID)
             }
@@ -128,20 +122,17 @@ Namespace DAL
         Private Function UpdateFacilityAirProgramPollutant(airsNumber As ApbFacilityId,
                                                            airProgram As AirProgram,
                                                            pollutantCode As String,
-                                                           complianceStatus As ComplianceStatus,
                                                            operatingStatus As FacilityOperationalStatus
                                                            ) As Boolean
 
             Dim query As String = "UPDATE AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " &
-                "SET STRCOMPLIANCESTATUS = :STRCOMPLIANCESTATUS, " &
-                "  STROPERATIONALSTATUS = :STROPERATIONALSTATUS, " &
+                "SET STROPERATIONALSTATUS = :STROPERATIONALSTATUS, " &
                 "  STRMODIFINGPERSON = :STRMODIFINGPERSON, " &
                 "  DATMODIFINGDATE = sysdate " &
                 "WHERE STRAIRPOLLUTANTKEY = :STRAIRPOLLUTANTKEY AND " &
                 "  STRPOLLUTANTKEY = :STRPOLLUTANTKEY "
 
             Dim parameters As OracleParameter() = {
-                New OracleParameter("STRCOMPLIANCESTATUS", EnforcementCase.ConvertComplianceStatus(complianceStatus).ToString.Substring(7)),
                 New OracleParameter("STROPERATIONALSTATUS", operatingStatus.ToString),
                 New OracleParameter("STRMODIFINGPERSON", CurrentUser.UserID),
                 New OracleParameter("STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram.ToString)),

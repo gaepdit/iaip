@@ -8,8 +8,17 @@ Namespace DAL.Sscp
 
 #Region " Summary tables "
 
+        Public Function GetEnforcementCountForFacility(airs As Apb.ApbFacilityId) As Integer
+            Dim query As String = "SELECT COUNT(*) " &
+                " FROM AIRBRANCH.SSCP_AUDITEDENFORCEMENT " &
+                " WHERE STRENFORCEMENTFINALIZED = 'False' " &
+                " AND STRAIRSNUMBER = :airs"
+            Dim parameter As OracleParameter = New OracleParameter("airs", airs.DbFormattedString)
+            Return DB.GetSingleValue(Of Integer)(query, parameter)
+        End Function
+
         ''' <summary>
-        ''' Returns a DataTable of enforcement summary data for a given facility
+        ''' Returns a DataTable of enforcement summary data for a given facility.
         ''' </summary>
         ''' <param name="airs">An optional Facility ID to filter for.</param>
         ''' <param name="staffId">An optional Staff ID to filter for.</param>
@@ -32,7 +41,7 @@ Namespace DAL.Sscp
         End Function
 
         ''' <summary>
-        ''' Returns a DataTable of enforcement summary data  for a given facility
+        ''' Returns a DataTable of enforcement summary data for a given facility for a given date range.
         ''' </summary>
         ''' <param name="dateRangeEnd">Ending date of a date range to filter for.</param>
         ''' <param name="dateRangeStart">Starting date of a date range to filter for.</param>
@@ -96,7 +105,7 @@ Namespace DAL.Sscp
 
 #End Region
 
-#Region " Get info "
+#Region " Get enforcement info "
 
         Private Sub FillEnforcementInfoFromDataRow(ByVal row As DataRow, ByRef enfInfo As EnforcementInfo)
             Dim address As New Address
@@ -215,31 +224,27 @@ Namespace DAL.Sscp
                 .NovToUc = DB.GetNullableDateTimeFromString(row("DATNOVTOUC"))
                 .Open = Not DB.GetNullable(Of Boolean)(row("STRENFORCEMENTFINALIZED"))
                 .ProgramPollutants = DB.GetNullable(Of String)(row("STRPOLLUTANTS"))
-                .LegacyComplianceStatusDbCode = DB.GetNullable(Of String)(row("STRPOLLUTANTSTATUS"))
                 .SubmittedToUcCode = DB.GetNullable(Of String)(row("STRSTATUS"))
-                .LegacyEnforcementTypeCode = DB.GetNullable(Of String)(row("STRACTIONTYPE"))
                 .DateModified = DB.GetNullableDateTimeFromString(row("DATMODIFINGDATE"))
 
                 .EnforcementActions = New List(Of EnforcementActionType)
-                If .LegacyEnforcementType = LegacyEnforcementType.LON Or .LonSent IsNot Nothing Then
+                If .LonSent IsNot Nothing Then
                     .EnforcementActions.Add(EnforcementActionType.LON)
                 Else
-                    If .NovComment <> "" Or AnyOfTheseDatesHasValue(New List(Of Date?) From { .NovSent, .NovToPm, .NovToUc}) Then
+                    If .NovComment <> "" Or AnyOfTheseDatesHasValue({ .NovSent, .NovToPm, .NovToUc}) Then
                         .EnforcementActions.Add(EnforcementActionType.NOV)
                     End If
 
-                    If .CoComment <> "" Or .CoNumber <> "" Or AnyOfTheseDatesHasValue(New List(Of Date?) From { .CoExecuted, .CoProposed, .CoReceivedFromCompany, .CoReceivedFromDirector, .CoResolved, .CoToPm, .CoToUc}) Then
+                    If .CoComment <> "" Or .CoNumber <> "" Or AnyOfTheseDatesHasValue({ .CoExecuted, .CoProposed, .CoReceivedFromCompany, .CoReceivedFromDirector, .CoResolved, .CoToPm, .CoToUc}) Then
                         .EnforcementActions.Add(EnforcementActionType.CO)
                     End If
 
-                    If .AoComment <> "" Or AnyOfTheseDatesHasValue(New List(Of Date?) From { .AoAppealed, .AoExecuted, .AoResolved}) Then
+                    If .AoComment <> "" Or AnyOfTheseDatesHasValue({ .AoAppealed, .AoExecuted, .AoResolved}) Then
                         .EnforcementActions.Add(EnforcementActionType.AO)
                     End If
                 End If
 
                 .SubmittedToEpa = .AfsKeyActionNumber > 0
-
-                .ComplianceStatus = EnforcementCase.ConvertLegacyComplianceStatus(.LegacyComplianceStatus)
             End With
 
             Return enfCase
@@ -334,8 +339,7 @@ Namespace DAL.Sscp
                         "    :STRAFSNOVRESOLVEDNUMBER, :STRAFSCOPROPOSEDNUMBER, " &
                         "    :STRAFSCOEXECUTEDNUMBER, :STRAFSCORESOLVEDNUMBER, " &
                         "    :STRAFSAOTOAGNUMBER, :STRAFSCIVILCOURTNUMBER, " &
-                        "    :STRAFSAORESOLVEDNUMBER, :STRMODIFINGPERSON, " &
-                        "    sysdate " &
+                        "    :STRAFSAORESOLVEDNUMBER, :STRMODIFINGPERSON, sysdate " &
                         "  ) ")
 
                 parametersList.Add(New OracleParameter() {
@@ -346,7 +350,7 @@ Namespace DAL.Sscp
                     New OracleParameter(":DATENFORCEMENTFINALIZED", .DateFinalized),
                     New OracleParameter(":NUMSTAFFRESPONSIBLE", .StaffResponsibleId),
                     New OracleParameter(":STRSTATUS", .SubmittedToUcCode),
-                    New OracleParameter(":STRACTIONTYPE", .LegacyEnforcementTypeCode),
+                    New OracleParameter(":STRACTIONTYPE", .EnforcementType.ToString),
                     New OracleParameter(":STRGENERALCOMMENTS", .Comment),
                     New OracleParameter(":STRDISCOVERYDATE", .DiscoveryDate.HasValue.ToString),
                     New OracleParameter(":DATDISCOVERYDATE", .DiscoveryDate),
@@ -354,7 +358,7 @@ Namespace DAL.Sscp
                     New OracleParameter(":DATDAYZERO", .DayZeroDate),
                     New OracleParameter(":STRHPV", If(.ViolationType = "BLANK", "", .ViolationType)),
                     New OracleParameter(":STRPOLLUTANTS", .ProgramPollutants),
-                    New OracleParameter(":STRPOLLUTANTSTATUS", .LegacyComplianceStatusDbCode),
+                    New OracleParameter(":STRPOLLUTANTSTATUS", "0"),
                     New OracleParameter(":STRLONTOUC", .LonToUc.HasValue.ToString),
                     New OracleParameter(":DATLONTOUC", .LonToUc),
                     New OracleParameter(":STRLONSENT", .LonSent.HasValue.ToString),
@@ -417,13 +421,11 @@ Namespace DAL.Sscp
                 For Each prog As String In .LegacyAirPrograms
                     For Each poll As String In .Pollutants
                         queriesList.Add("UPDATE AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " &
-                                    "SET STRCOMPLIANCESTATUS = :STRCOMPLIANCESTATUS, " &
-                                    "  STRMODIFINGPERSON = :STRMODIFINGPERSON, " &
+                                    "SET STRMODIFINGPERSON = :STRMODIFINGPERSON, " &
                                     "  DATMODIFINGDATE = sysdate " &
                                     "WHERE STRAIRPOLLUTANTKEY = :STRAIRPOLLUTANTKEY AND " &
                                     "  STRPOLLUTANTKEY = :STRPOLLUTANTKEY")
                         parametersList.Add(New OracleParameter() {
-                            New OracleParameter(":STRCOMPLIANCESTATUS", .LegacyComplianceStatusDbCode),
                             New OracleParameter(":STRMODIFINGPERSON", CurrentUser.UserID),
                             New OracleParameter(":STRAIRPOLLUTANTKEY", .AirsNumber.DbFormattedString & prog),
                             New OracleParameter(":STRPOLLUTANTKEY", poll)
@@ -576,7 +578,7 @@ Namespace DAL.Sscp
                 "  enf.DATENFORCEMENTFINALIZED, enf.STRSTATUS, enf.STRACTIONTYPE " &
                 "  , enf.STRGENERALCOMMENTS, enf.DATDISCOVERYDATE, " &
                 "  enf.DATDAYZERO, enf.STRHPV, enf.STRPOLLUTANTS, " &
-                "  enf.STRPOLLUTANTSTATUS, enf.DATLONTOUC, enf.DATLONSENT, " &
+                "  enf.DATLONTOUC, enf.DATLONSENT, " &
                 "  enf.DATLONRESOLVED, enf.STRLONCOMMENTS, enf.DATNOVTOUC, " &
                 "  enf.DATNOVTOPM, enf.DATNOVSENT, enf.DATNOVRESPONSERECEIVED, " &
                 "  enf.DATNFATOUC, enf.DATNFATOPM, enf.DATNFALETTERSENT, " &
@@ -601,6 +603,8 @@ Namespace DAL.Sscp
 #End Region
 
 #Region " Lookup table "
+
+        ' TODO: Move this to a data service
 
         Public Function GetViolationTypes() As DataTable
             Dim query As String =

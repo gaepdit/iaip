@@ -234,21 +234,19 @@ Namespace DAL
 
                     ' 3b. Any active APC must have at least one key in ApbAirProgramPollutants;
                     '     if none exist, add one with the new operating status, pollutant = OT 
-                    '     & compliance status = C
+                    '     & compliance status = 0 (compliance status column is deprecated)
                     queryList.Add(
                         " INSERT " &
                         " INTO AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " &
                         "  ( STRAIRSNUMBER, " &
                         "    STRAIRPOLLUTANTKEY, " &
                         "    STRPOLLUTANTKEY, " &
-                        "    STRCOMPLIANCESTATUS, " &
                         "    STRMODIFINGPERSON, " &
                         "    DATMODIFINGDATE, " &
                         "    STROPERATIONALSTATUS ) " &
                         " SELECT :airsnumber, " &
                         "    :airpollkey, " &
                         "    :pollkey, " &
-                        "    :compliancestatus, " &
                         "    :modifiedby, " &
                         "    SYSDATE, " &
                         "    :operatingstatus " &
@@ -263,7 +261,6 @@ Namespace DAL
                         New OracleParameter("airsnumber", headerData.AirsNumber.DbFormattedString),
                         New OracleParameter("airpollkey", headerData.AirsNumber.DbFormattedString & FacilityHeaderData.GetAirProgramDbKey(apc)),
                         New OracleParameter("pollkey", "OT"),
-                        New OracleParameter("compliancestatus", "C"),
                         New OracleParameter("modifiedby", CurrentUser.UserID),
                         New OracleParameter("operatingstatus", headerData.OperationalStatus.ToString)
                     })

@@ -28,16 +28,11 @@ Public Class SscpEnforcement
         End Get
         Set(value As IaipMessage)
             If value Is Nothing And Message IsNot Nothing Then
-                GeneralMessage.Clear()
-                DismissMessageButton.Visible = False
-                ClearMessageMenuItem.Enabled = False
+                ClearGeneralMessage()
             End If
             _generalMessage = value
             If value IsNot Nothing Then
-                GeneralMessage.Display(MessageDisplay)
-                DismissMessageButton.Visible = True
-                DismissMessageButton.BringToFront()
-                ClearMessageMenuItem.Enabled = True
+                DisplayGeneralMessage()
             End If
         End Set
     End Property
@@ -64,7 +59,7 @@ Public Class SscpEnforcement
 
 #End Region
 
-#Region " Form load event "
+#Region " Form load/closing events "
 
     Private Sub SscpEnforcement_Load(sender As Object, e As EventArgs) Handles Me.Load
         monitor.TrackFeature("Forms." & Me.Name)
@@ -85,6 +80,15 @@ Public Class SscpEnforcement
         DisplayEnforcementCase()
         DisplayLinkedEvent()
 
+        ' Programs/Pollutants
+        LoadFacilityPollutants()
+        LoadFacilityAirPrograms()
+        DisplayEnforcementPollutants()
+        DisplayEnforcementAirPrograms()
+    End Sub
+
+    Private Sub SscpEnforcement_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        ClearGeneralMessage()
     End Sub
 
 #End Region
@@ -191,8 +195,6 @@ Public Class SscpEnforcement
         AirsNumber = EnforcementCase.AirsNumber
         LinkedEventId = EnforcementCase.LinkedWorkItemId
         ShowCorrectTabs()
-        LoadPollutants()
-        LoadAirPrograms()
         LoadDocuments()
     End Sub
 
@@ -236,14 +238,15 @@ Public Class SscpEnforcement
                 Text = "Enforcement #" & .EnforcementId & " — " & AirsNumber.FormattedString & ", " & Facility.FacilityName
                 ShowAuditHistoryMenuItem.Visible = True
                 ShowEpaActionNumbersMenuItem.Visible = True
+                EnforcementToolStripSeparator.Visible = True
                 DeleteEnforcementMenuItem.Visible = True
-                DeleteEnforcementToolStripSeparator.Visible = False
+                DeleteEnforcementToolStripSeparator.Visible = True
 
                 ' Header
                 EnforcementIdDisplay.Text = "Enforcement #" & .EnforcementId
-                ComplianceStatusDisplay.Visible = True
-                ComplianceStatusDisplay.Text = .ComplianceStatus.GetDescription
-                ColorCodeComplianceStatusDisplay()
+                EnforcementStatusDisplay.Visible = True
+                EnforcementStatusDisplay.Text = .EnforcementStatus.GetDescription
+                ColorCodeEnforcementStatusDisplay()
                 ResolvedCheckBox.Visible = True
                 ResolvedDate.Visible = True
                 ResolvedCheckBox.Checked = Not .Open
@@ -334,22 +337,22 @@ Public Class SscpEnforcement
         Next
     End Sub
 
-    Private Sub ColorCodeComplianceStatusDisplay()
-        With ComplianceStatusDisplay
-            Select Case EnforcementCase.ComplianceStatus
-                Case ComplianceStatus.InViolation
-                    .BackColor = Color.Pink
-                Case ComplianceStatus.MeetingComplianceSchedule, ComplianceStatus.Unknown
-                    .BackColor = Color.LemonChiffon
-                Case Else
-                    .BackColor = SystemColors.ControlLightLight
+    Private Sub ColorCodeEnforcementStatusDisplay()
+        With EnforcementStatusDisplay
+            Select Case EnforcementCase.EnforcementStatus
+                Case EnforcementStatus.CaseClosed
+                    .BackColor = Color.Empty
+                    .ForeColor = Color.Empty
+                Case EnforcementStatus.CaseOpen, EnforcementStatus.CaseResolved, EnforcementStatus.SubjectToComplianceSchedule
+                    .BackColor = IaipColors.InfoBackColor
+                    .ForeColor = IaipColors.InfoForeColor
             End Select
         End With
     End Sub
 
 #End Region
 
-#Region " Header tab "
+#Region " Header panel "
 
     Private Sub ResolvedCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles ResolvedCheckBox.CheckedChanged
         If ResolvedCheckBox.Checked Then
@@ -381,6 +384,47 @@ Public Class SscpEnforcement
 
     Private Sub AirsNumberDisplay_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles AirsNumberDisplay.LinkClicked
         OpenFormFacilitySummary(AirsNumber)
+    End Sub
+
+#End Region
+
+#Region " Message panel "
+
+    Private Sub DisplayGeneralMessage()
+        GeneralMessage.Display(GeneralMessageDisplay)
+        DismissMessageButton.Visible = True
+        DismissMessageButton.BringToFront()
+        ClearMessageMenuItem.Enabled = True
+
+        Dim oldFormHeight As Integer = Me.Height
+
+        Dim oldMessageHeight As Integer = 0
+        If GeneralMessagePanel.Visible Then
+            oldMessageHeight = GeneralMessagePanel.Height
+        End If
+
+        Dim numLines As Integer = GeneralMessage.MessageText.Split(vbNewLine).Length
+        GeneralMessagePanel.Height = (numLines * 15) + 28
+
+        Me.MinimumSize = New Size(747, 580 + GeneralMessagePanel.Height)
+        If Me.WindowState = FormWindowState.Normal Then
+            Me.Height = oldFormHeight + GeneralMessagePanel.Height - oldMessageHeight
+        End If
+
+        GeneralMessagePanel.Visible = True
+    End Sub
+
+    Private Sub ClearGeneralMessage()
+        If GeneralMessage IsNot Nothing Then GeneralMessage.Clear()
+        'DismissMessageButton.Visible = False
+        ClearMessageMenuItem.Enabled = False
+
+        Me.MinimumSize = New Size(747, 580)
+        If GeneralMessagePanel.Visible And Me.WindowState = FormWindowState.Normal Then
+            Me.Height = Me.Height - GeneralMessagePanel.Height
+        End If
+
+        GeneralMessagePanel.Visible = False
     End Sub
 
 #End Region
@@ -641,15 +685,18 @@ Public Class SscpEnforcement
 
 #Region " Pollutants/Programs tab "
 
-    Public Sub LoadPollutants()
-        ' All available pollutants
+    Public Sub LoadFacilityPollutants()
+        ' All available pollutants for facility
         Dim dt As DataTable = DAL.GetFacilityPollutants(AirsNumber)
         PollutantsListView.Items.Clear()
         For Each row As DataRow In dt.Rows
             PollutantsListView.Items.Add(New ListViewItem({row(1), row(0)}))
         Next
+    End Sub
 
+    Public Sub DisplayEnforcementPollutants()
         ' Pollutants associated with this case
+        If EnforcementId Is Nothing OrElse EnforcementCase Is Nothing Then Exit Sub
         If EnforcementCase.Pollutants IsNot Nothing Then
             For i As Integer = 0 To PollutantsListView.Items.Count - 1
                 If EnforcementCase.Pollutants.Contains(PollutantsListView.Items(i).SubItems(1).Text) Then
@@ -659,15 +706,18 @@ Public Class SscpEnforcement
         End If
     End Sub
 
-    Private Sub LoadAirPrograms()
+    Private Sub LoadFacilityAirPrograms()
         ' All available air programs
         Dim dt As DataTable = DAL.GetFacilityAirProgramsAsDataTable(AirsNumber, True)
         ProgramsListView.Items.Clear()
         For Each row As DataRow In dt.Rows
             ProgramsListView.Items.Add(New ListViewItem({row(1), row(0)}))
         Next
+    End Sub
 
+    Private Sub DisplayEnforcementAirPrograms()
         ' Programs associated with this case
+        If EnforcementId Is Nothing OrElse EnforcementCase Is Nothing Then Exit Sub
         If EnforcementCase.AirPrograms IsNot Nothing Then
             For i As Integer = 0 To ProgramsListView.Items.Count - 1
                 If EnforcementCase.AirPrograms.Contains(ProgramsListView.Items(i).SubItems(1).Text) Then
@@ -697,15 +747,15 @@ Public Class SscpEnforcement
                         checkedPollutantsSet.Add(pi.SubItems(1).Text)
                     Next
 
-                    ' Reload pollutants list
-                    LoadPollutants()
+                    ' Reload facility pollutants list
+                    LoadFacilityPollutants()
 
                     ' Uncheck all 
                     For Each lvi As ListViewItem In PollutantsListView.Items
                         lvi.Checked = False
                     Next
 
-                    ' Remove previously existing pollutants (existingPollutantsSet) from new set of pollutants (.UniqueFacilityPollutants)
+                    ' Remove previously existing pollutants (existingPollutantsSet) from new set of pollutants (.FacilityPollutantsSet)
                     .FacilityPollutantsSet.ExceptWith(existingPollutantsSet)
 
                     ' Add new pollutants to set of checked pollutants
@@ -1162,7 +1212,7 @@ Public Class SscpEnforcement
     End Sub
 
     Private Sub ClearMessageMenuItem_Click(sender As Object, e As EventArgs) Handles ClearMessageMenuItem.Click
-        ClearMessage()
+        ClearGeneralMessage()
     End Sub
 
     Private Sub ClearErrorsMenuItem_Click(sender As Object, e As EventArgs) Handles ClearErrorsMenuItem.Click
@@ -1170,7 +1220,7 @@ Public Class SscpEnforcement
     End Sub
 
     Private Sub DismissMessageButton_Click(sender As Object, e As EventArgs) Handles DismissMessageButton.Click
-        ClearMessage()
+        ClearGeneralMessage()
     End Sub
 
 #End Region
@@ -1203,12 +1253,13 @@ Public Class SscpEnforcement
             Return False
         Else
             EnforcementCase.DateModified = Today
-            DisplayEnforcementCase()
+            EnforcementId = result
 
             Dim message As String = "Current data saved."
             If enforcementIsNew Then message &= vbNewLine & "New enforcement ID: " & EnforcementCase.EnforcementId
             GeneralMessage = New IaipMessage(message, IaipMessage.WarningLevels.Success)
 
+            DisplayEnforcementCase()
             Return True
         End If
     End Function
@@ -1293,13 +1344,7 @@ Public Class SscpEnforcement
             Next
         End If
         validationErrors = New Dictionary(Of Control, String)
-        ClearMessage()
-    End Sub
-
-    Private Sub ClearMessage()
-        If GeneralMessage IsNot Nothing Then GeneralMessage.Clear()
-        DismissMessageButton.Visible = False
-        ClearMessageMenuItem.Enabled = False
+        ClearGeneralMessage()
     End Sub
 
     Private Function ValidateFormData() As Boolean
@@ -1690,11 +1735,8 @@ Public Class SscpEnforcement
         With EnforcementCase
             .AirsNumber = AirsNumber
             .Comment = GeneralComments.Text
-            .ComplianceStatus = DetermineComplianceStatusFromForm()
             .DayZeroDate = DetermineDayZeroFromForm()
             .EnforcementId = EnforcementId
-            .LegacyComplianceStatus = EnforcementCase.ConvertComplianceStatus(.ComplianceStatus)
-            .LegacyEnforcementType = DetermineEnforcementTypeCodeFromForm()
             .LinkedWorkItemId = LinkedEventId
             .Open = Not ResolvedCheckBox.Checked
             .Pollutants = ReadPollutantsFromForm()
@@ -1727,6 +1769,7 @@ Public Class SscpEnforcement
                 .LonResolved = GetNullableDateFromDateTimePicker(LonResolved)
                 .LonSent = GetNullableDateFromDateTimePicker(LonSent)
                 .LonToUc = GetNullableDateFromDateTimePicker(LonToUC)
+                .LonComment = LonComments.Text
             Else
                 .LonResolved = Nothing
                 .LonSent = Nothing
@@ -1847,31 +1890,6 @@ Public Class SscpEnforcement
         Return pList
     End Function
 
-    Private Function DetermineEnforcementTypeCodeFromForm() As LegacyEnforcementType
-        With EnforcementCase.EnforcementActions
-            If .Contains(EnforcementActionType.LON) Then
-                Return LegacyEnforcementType.LON
-
-            ElseIf .Contains(EnforcementActionType.AO) Then
-                Return If(ViolationTypeHpv.Checked, LegacyEnforcementType.HPVAO, LegacyEnforcementType.NOVAO)
-
-            ElseIf .Contains(EnforcementActionType.CO) Then
-                If NovSent.Checked Then
-                    Return If(ViolationTypeHpv.Checked, LegacyEnforcementType.HPVCO, LegacyEnforcementType.NOVCO)
-                Else
-                    Return If(ViolationTypeHpv.Checked, LegacyEnforcementType.HPVCOP, LegacyEnforcementType.NOVCOP)
-                End If
-
-            ElseIf .Contains(EnforcementActionType.NOV) Then
-                Return If(ViolationTypeHpv.Checked, LegacyEnforcementType.HPV, LegacyEnforcementType.NOV)
-
-            Else
-                Return LegacyEnforcementType.None
-
-            End If
-        End With
-    End Function
-
     Private Function DetermineDayZeroFromForm() As Date?
         If FormIsCaseFile() Then
             Dim dl As New List(Of Date)
@@ -1882,27 +1900,9 @@ Public Class SscpEnforcement
             If COCheckBox.Checked AndAlso COExecuted.Checked Then dl.Add(COExecuted.Value)
             If AOCheckBox.Checked AndAlso AOExecuted.Checked Then dl.Add(AOExecuted.Value)
 
-            Return dl.Min
+            If dl.Count > 0 Then Return dl.Min
         End If
         Return Nothing
-    End Function
-
-    Private Function DetermineComplianceStatusFromForm() As ComplianceStatus
-        With EnforcementCase
-            If .LonResolved.HasValue Then
-                Return ComplianceStatus.InCompliance
-            ElseIf .LonSent.HasValue Then
-                Return ComplianceStatus.MeetingComplianceSchedule
-            ElseIf .NfaSent.HasValue Or .CoResolved.HasValue Or .AoResolved.HasValue Then
-                Return ComplianceStatus.InCompliance
-            ElseIf .CoExecuted.HasValue Or .AoExecuted.HasValue Then
-                Return ComplianceStatus.MeetingComplianceSchedule
-            ElseIf .NovSent.HasValue Then
-                Return ComplianceStatus.InViolation
-            Else
-                Return ComplianceStatus.Unknown
-            End If
-        End With
     End Function
 
 #End Region

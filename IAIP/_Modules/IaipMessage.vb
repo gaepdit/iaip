@@ -56,21 +56,17 @@
 
         Select Case Me.WarningLevel
 
-            Case WarningLevels.ErrorReport
-                Me.DisplayLabel.ForeColor = Color.DarkRed
-                Me.DisplayLabel.BackColor = SystemColors.Info
-
-            Case WarningLevels.Warning
-                Me.DisplayLabel.ForeColor = Color.DarkRed
-                Me.DisplayLabel.BackColor = SystemColors.Info
+            Case WarningLevels.ErrorReport, WarningLevels.Warning
+                Me.DisplayLabel.ForeColor = IaipColors.ErrorForeColor
+                Me.DisplayLabel.BackColor = IaipColors.ErrorBackColor
 
             Case WarningLevels.Info
-                Me.DisplayLabel.ForeColor = SystemColors.InfoText
-                Me.DisplayLabel.BackColor = SystemColors.Info
+                Me.DisplayLabel.ForeColor = IaipColors.InfoForeColor
+                Me.DisplayLabel.BackColor = IaipColors.InfoBackColor
 
             Case WarningLevels.Success
-                Me.DisplayLabel.ForeColor = Color.DarkGreen
-                Me.DisplayLabel.BackColor = SystemColors.Info
+                Me.DisplayLabel.ForeColor = IaipColors.SuccessForeColor
+                Me.DisplayLabel.BackColor = IaipColors.SuccessBackColor
 
         End Select
 

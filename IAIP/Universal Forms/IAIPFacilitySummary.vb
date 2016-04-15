@@ -193,7 +193,7 @@ Public Class IAIPFacilitySummary
     Private Sub ClearBasicFacilityData()
 
         'Navigation Panel
-        AirsNumberEntry.BackColor = SystemColors.ControlLightLight
+        AirsNumberEntry.BackColor = Color.Empty
         FacilityNameDisplay.Text = ""
 
         'Location
@@ -244,7 +244,6 @@ Public Class IAIPFacilitySummary
         Else
             EnableFacilityTools()
             ThisFacility.RetrieveHeaderData()
-            ThisFacility.RetrieveComplianceStatusList()
             DisplayBasicFacilityData()
             DisplayHeaderData()
         End If
@@ -296,8 +295,15 @@ Public Class IAIPFacilitySummary
             End With
 
             'Compliance Status
-            ComplianceStatusDisplay.Text = .ControllingComplianceStatus.GetDescription
-            ColorCodeComplianceStatusDisplay()
+            Dim enforcementCount As Integer = DAL.Sscp.GetEnforcementCountForFacility(AirsNumber)
+            If enforcementCount = 0 Then
+                ComplianceStatusDisplay.Text = "No open enforcement cases"
+            ElseIf enforcementCount = 1 Then
+                ComplianceStatusDisplay.Text = "One open enforcement case"
+            ElseIf enforcementCount > 1 Then
+                ComplianceStatusDisplay.Text = enforcementCount & " open enforcement cases"
+            End If
+            ColorCodeComplianceStatusDisplay(enforcementCount)
 
             'Offices
             DistrictOfficeDisplay.Text = .DistrictOfficeLocation
@@ -317,17 +323,16 @@ Public Class IAIPFacilitySummary
 
     End Sub
 
-    Private Sub ColorCodeComplianceStatusDisplay()
+    Private Sub ColorCodeComplianceStatusDisplay(num As Integer)
         With ComplianceStatusDisplay
-            Select Case ThisFacility.ControllingComplianceStatus
-                Case Sscp.ComplianceStatus.InViolation
-                    .BackColor = Color.Pink
-                    .BorderStyle = BorderStyle.FixedSingle
-                Case Sscp.ComplianceStatus.MeetingComplianceSchedule, Sscp.ComplianceStatus.Unknown
-                    .BackColor = Color.LemonChiffon
+            Select Case num
+                Case > 0
+                    .BackColor = IaipColors.WarningBackColor
+                    .ForeColor = IaipColors.WarningForeColor
                     .BorderStyle = BorderStyle.FixedSingle
                 Case Else
-                    .BackColor = SystemColors.ControlLightLight
+                    .BackColor = Color.Empty
+                    .ForeColor = Color.Empty
                     .BorderStyle = BorderStyle.None
             End Select
         End With

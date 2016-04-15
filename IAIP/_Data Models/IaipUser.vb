@@ -90,7 +90,7 @@
         Select Case capability
 
             ' === Compliance caps
-            Case UserCan.SaveEnforcement, UserCan.ChangeComplianceStatus
+            Case UserCan.SaveEnforcement
                 ' District offices, SSCP, or Branch Chief
                 Return (BranchID = 5) Or (ProgramID = 4) Or HasRole(102)
 
@@ -134,7 +134,6 @@ End Class
 Public Enum UserCan
     SaveEnforcement
     ResolveEnforcement
-    ChangeComplianceStatus
     AddPollutantsToFacility
     EditFacilityHeaderData
     ShutDownFacility

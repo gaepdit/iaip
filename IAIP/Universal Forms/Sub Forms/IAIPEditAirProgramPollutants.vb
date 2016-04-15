@@ -1,8 +1,6 @@
 Imports System.Collections.Generic
-Imports System.Linq
 Imports Iaip.Apb.Facilities
 Imports Iaip.Apb.Sscp
-Imports Oracle.ManagedDataAccess.Client
 
 Public Class IAIPEditAirProgramPollutants
 
@@ -31,9 +29,7 @@ Public Class IAIPEditAirProgramPollutants
 
         LoadFacilityAirPrograms()
         LoadPollutants()
-        LoadComplianceStatuses()
         LoadOperatingStatuses()
-
         LoadFacilityProgramPollutants()
 
         SetPermissions()
@@ -68,15 +64,6 @@ Public Class IAIPEditAirProgramPollutants
         End With
     End Sub
 
-    Private Sub LoadComplianceStatuses()
-        With ComplianceStatusSelect
-            .DataSource = EnumToDataTable(GetType(ComplianceStatus))
-            .ValueMember = "Key"
-            .DisplayMember = "Description"
-            .SelectedValue = ComplianceStatus.InCompliance
-        End With
-    End Sub
-
     Private Sub LoadOperatingStatuses()
         With OperatingStatusSelect
             .DataSource = EnumToDataTable(GetType(FacilityOperationalStatus))
@@ -91,11 +78,10 @@ Public Class IAIPEditAirProgramPollutants
 #Region " Permissions "
 
     Private Sub SetPermissions()
-        If CurrentUser.HasPermission(UserCan.AddPollutantsToFacility) Then
-            ComplianceStatusSelect.Enabled = CurrentUser.HasPermission(UserCan.ChangeComplianceStatus)
-            OperatingStatusSelect.Enabled = CurrentUser.HasPermission(UserCan.EditFacilityHeaderData)
-        Else
+        If Not CurrentUser.HasPermission(UserCan.AddPollutantsToFacility) Then
             ControlPanel.Enabled = False
+        ElseIf Not CurrentUser.HasPermission(UserCan.EditFacilityHeaderData) Then
+            OperatingStatusSelect.Enabled = False
         End If
     End Sub
 
@@ -115,13 +101,10 @@ Public Class IAIPEditAirProgramPollutants
         Dim dt As DataTable = DAL.PollutantsPrograms.GetFacilityProgramPollutantStatuses(AirsNumber)
         dt.Columns.Add("Air Program", GetType(String))
         dt.Columns.Add("Air Program Enum", GetType(AirProgram))
-        dt.Columns.Add("Compliance Status", GetType(String))
-        dt.Columns.Add("Compliance Status Enum", GetType(ComplianceStatus))
         dt.Columns.Add("Operating Status", GetType(String))
         dt.Columns.Add("Operating Status Enum", GetType(FacilityOperationalStatus))
 
         Dim ap As AirProgram
-        Dim lcs As LegacyComplianceStatus
         Dim os As FacilityOperationalStatus
 
         FacilityPollutantsSet = New HashSet(Of String)
@@ -130,10 +113,6 @@ Public Class IAIPEditAirProgramPollutants
             ap = FacilityHeaderData.ConvertAirProgramLegacyCodes(row("Air Program Code").ToString)
             row("Air Program Enum") = ap
             row("Air Program") = ap.GetDescription
-
-            lcs = [Enum].Parse(GetType(LegacyComplianceStatus), row("Legacy Compliance Code").ToString)
-            row("Compliance Status Enum") = EnforcementCase.ConvertLegacyComplianceStatus(lcs)
-            row("Compliance Status") = EnforcementCase.ConvertLegacyComplianceStatus(lcs).GetDescription
 
             os = [Enum].Parse(GetType(FacilityOperationalStatus), row("Operating Status Code").ToString)
             row("Operating Status Enum") = os
@@ -147,14 +126,11 @@ Public Class IAIPEditAirProgramPollutants
             .Columns("Air Program Code").Visible = False
             .Columns("Air Program Enum").Visible = False
             .Columns("Pollutant Code").Visible = False
-            .Columns("Legacy Compliance Code").Visible = False
-            .Columns("Compliance Status Enum").Visible = False
             .Columns("Operating Status Code").Visible = False
             .Columns("Operating Status Enum").Visible = False
 
             .Columns("Air Program").DisplayIndex = 0
             .Columns("Pollutant").DisplayIndex = 1
-            .Columns("Compliance Status").DisplayIndex = 2
             .Columns("Operating Status").DisplayIndex = 3
             .Columns("Date Modified").DisplayIndex = 4
             .Columns("Modified By").DisplayIndex = 5
@@ -173,7 +149,6 @@ Public Class IAIPEditAirProgramPollutants
             DAL.PollutantsPrograms.SaveFacilityAirProgramPollutant(AirsNumber,
                                                                    AirProgramSelect.SelectedValue,
                                                                    PollutantSelect.SelectedValue,
-                                                                   ComplianceStatusSelect.SelectedValue,
                                                                    OperatingStatusSelect.SelectedValue)
             If result Then
                 SomethingChanged = True
@@ -209,16 +184,14 @@ Public Class IAIPEditAirProgramPollutants
 
             AirProgramSelect.SelectedValue = row.Cells("Air Program Enum").Value
             PollutantSelect.SelectedValue = row.Cells("Pollutant Code").Value
-            ComplianceStatusSelect.SelectedValue = row.Cells("Compliance Status Enum").Value
             OperatingStatusSelect.SelectedValue = row.Cells("Operating Status Enum").Value
         End If
     End Sub
 
     Private Sub SelectedIndexChanged(sender As Object, e As EventArgs) _
-        Handles AirProgramSelect.SelectedIndexChanged, PollutantSelect.SelectedIndexChanged, ComplianceStatusSelect.SelectedIndexChanged, OperatingStatusSelect.SelectedIndexChanged
+        Handles AirProgramSelect.SelectedIndexChanged, PollutantSelect.SelectedIndexChanged, OperatingStatusSelect.SelectedIndexChanged
         If SelectionExists() Then
-            If CurrentUser.HasPermission(UserCan.ChangeComplianceStatus) OrElse
-               CurrentUser.HasPermission(UserCan.EditFacilityHeaderData) Then
+            If CurrentUser.HasPermission(UserCan.EditFacilityHeaderData) Then
                 SaveButton.Text = "Update pollutant status"
                 SaveButton.Visible = True
                 SaveButton.Location = New Point(270, SaveButton.Location.Y)
