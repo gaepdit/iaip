@@ -1,6 +1,4 @@
-﻿Imports System.Collections.Generic
-
-Module General
+﻿Module General
 
 #Region " String functions "
 
@@ -74,9 +72,9 @@ Module General
     ''' <summary>
     ''' Determines whether any of a list of nullable dates contains a value
     ''' </summary>
-    ''' <param name="dates">A list of nullable dates</param>
+    ''' <param name="dates">An array of nullable dates</param>
     ''' <returns>Returns True if any of the nullable dates has a value; otherwise returns False.</returns>
-    Public Function AnyOfTheseDatesHasValue(dates As List(Of Date?)) As Boolean
+    Public Function AnyOfTheseDatesHasValue(dates() As Date?) As Boolean
         For Each d As Date? In dates
             If d.HasValue Then
                 Return True

@@ -244,9 +244,9 @@ Public Class SscpEnforcement
 
                 ' Header
                 EnforcementIdDisplay.Text = "Enforcement #" & .EnforcementId
-                ComplianceStatusDisplay.Visible = True
-                ComplianceStatusDisplay.Text = .ComplianceStatus.GetDescription
-                ColorCodeComplianceStatusDisplay()
+                EnforcementStatusDisplay.Visible = True
+                EnforcementStatusDisplay.Text = .EnforcementStatus.GetDescription
+                ColorCodeEnforcementStatusDisplay()
                 ResolvedCheckBox.Visible = True
                 ResolvedDate.Visible = True
                 ResolvedCheckBox.Checked = Not .Open
@@ -337,15 +337,15 @@ Public Class SscpEnforcement
         Next
     End Sub
 
-    Private Sub ColorCodeComplianceStatusDisplay()
-        With ComplianceStatusDisplay
-            Select Case EnforcementCase.ComplianceStatus
-                Case ComplianceStatus.InViolation
-                    .BackColor = Color.Pink
-                Case ComplianceStatus.MeetingComplianceSchedule, ComplianceStatus.Unknown
-                    .BackColor = Color.LemonChiffon
-                Case Else
-                    .BackColor = SystemColors.ControlLightLight
+    Private Sub ColorCodeEnforcementStatusDisplay()
+        With EnforcementStatusDisplay
+            Select Case EnforcementCase.EnforcementStatus
+                Case EnforcementStatus.CaseClosed
+                    .BackColor = Color.Empty
+                    .ForeColor = Color.Empty
+                Case EnforcementStatus.CaseOpen, EnforcementStatus.CaseResolved, EnforcementStatus.SubjectToComplianceSchedule
+                    .BackColor = IaipColors.InfoBackColor
+                    .ForeColor = IaipColors.InfoForeColor
             End Select
         End With
     End Sub
@@ -1735,11 +1735,8 @@ Public Class SscpEnforcement
         With EnforcementCase
             .AirsNumber = AirsNumber
             .Comment = GeneralComments.Text
-            .ComplianceStatus = DetermineComplianceStatusFromForm()
             .DayZeroDate = DetermineDayZeroFromForm()
             .EnforcementId = EnforcementId
-            .LegacyComplianceStatus = EnforcementCase.ConvertComplianceStatus(.ComplianceStatus)
-            .LegacyEnforcementType = DetermineEnforcementTypeCodeFromForm()
             .LinkedWorkItemId = LinkedEventId
             .Open = Not ResolvedCheckBox.Checked
             .Pollutants = ReadPollutantsFromForm()
@@ -1893,31 +1890,6 @@ Public Class SscpEnforcement
         Return pList
     End Function
 
-    Private Function DetermineEnforcementTypeCodeFromForm() As LegacyEnforcementType
-        With EnforcementCase.EnforcementActions
-            If .Contains(EnforcementActionType.LON) Then
-                Return LegacyEnforcementType.LON
-
-            ElseIf .Contains(EnforcementActionType.AO) Then
-                Return If(ViolationTypeHpv.Checked, LegacyEnforcementType.HPVAO, LegacyEnforcementType.NOVAO)
-
-            ElseIf .Contains(EnforcementActionType.CO) Then
-                If NovSent.Checked Then
-                    Return If(ViolationTypeHpv.Checked, LegacyEnforcementType.HPVCO, LegacyEnforcementType.NOVCO)
-                Else
-                    Return If(ViolationTypeHpv.Checked, LegacyEnforcementType.HPVCOP, LegacyEnforcementType.NOVCOP)
-                End If
-
-            ElseIf .Contains(EnforcementActionType.NOV) Then
-                Return If(ViolationTypeHpv.Checked, LegacyEnforcementType.HPV, LegacyEnforcementType.NOV)
-
-            Else
-                Return LegacyEnforcementType.None
-
-            End If
-        End With
-    End Function
-
     Private Function DetermineDayZeroFromForm() As Date?
         If FormIsCaseFile() Then
             Dim dl As New List(Of Date)
@@ -1931,24 +1903,6 @@ Public Class SscpEnforcement
             If dl.Count > 0 Then Return dl.Min
         End If
         Return Nothing
-    End Function
-
-    Private Function DetermineComplianceStatusFromForm() As ComplianceStatus
-        With EnforcementCase
-            If .LonResolved.HasValue Then
-                Return ComplianceStatus.InCompliance
-            ElseIf .LonSent.HasValue Then
-                Return ComplianceStatus.MeetingComplianceSchedule
-            ElseIf .NfaSent.HasValue Or .CoResolved.HasValue Or .AoResolved.HasValue Then
-                Return ComplianceStatus.InCompliance
-            ElseIf .CoExecuted.HasValue Or .AoExecuted.HasValue Then
-                Return ComplianceStatus.MeetingComplianceSchedule
-            ElseIf .NovSent.HasValue Then
-                Return ComplianceStatus.InViolation
-            Else
-                Return ComplianceStatus.Unknown
-            End If
-        End With
     End Function
 
 #End Region

@@ -240,38 +240,35 @@ Namespace DAL
 
                     ' 3b. Any active APC must have at least one key in ApbAirProgramPollutants;
                     '     if none exist, add one with the new operating status, pollutant = OT 
-                    '     & compliance status = C
-                    queryList.Add( _
-                        " INSERT " & _
-                        " INTO AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " & _
-                        "  ( STRAIRSNUMBER, " & _
-                        "    STRAIRPOLLUTANTKEY, " & _
-                        "    STRPOLLUTANTKEY, " & _
-                        "    STRCOMPLIANCESTATUS, " & _
-                        "    STRMODIFINGPERSON, " & _
-                        "    DATMODIFINGDATE, " & _
-                        "    STROPERATIONALSTATUS ) " & _
-                        " SELECT :airsnumber, " & _
-                        "    :airpollkey, " & _
-                        "    :pollkey, " & _
-                        "    :compliancestatus, " & _
-                        "    :modifiedby, " & _
-                        "    SYSDATE, " & _
-                        "    :operatingstatus " & _
-                        " FROM DUAL " & _
-                        " WHERE NOT EXISTS " & _
-                        "  (SELECT NULL " & _
-                        "  FROM AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " & _
-                        "  WHERE STRAIRPOLLUTANTKEY = :airpollkey " & _
-                        "  ) " _
+                    '     & compliance status = 0 (compliance status column is deprecated)
+                    queryList.Add(
+                        " INSERT " &
+                        " INTO AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " &
+                        "  ( STRAIRSNUMBER, " &
+                        "    STRAIRPOLLUTANTKEY, " &
+                        "    STRPOLLUTANTKEY, " &
+                        "    STRMODIFINGPERSON, " &
+                        "    DATMODIFINGDATE, " &
+                        "    STROPERATIONALSTATUS ) " &
+                        " SELECT :airsnumber, " &
+                        "    :airpollkey, " &
+                        "    :pollkey, " &
+                        "    :modifiedby, " &
+                        "    SYSDATE, " &
+                        "    :operatingstatus " &
+                        " FROM DUAL " &
+                        " WHERE NOT EXISTS " &
+                        "  (SELECT NULL " &
+                        "  FROM AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " &
+                        "  WHERE STRAIRPOLLUTANTKEY = :airpollkey " &
+                        "  ) "
                     )
-                    parametersList.Add(New OracleParameter() { _
-                        New OracleParameter("airsnumber", headerData.AirsNumber.DbFormattedString), _
-                        New OracleParameter("airpollkey", headerData.AirsNumber.DbFormattedString & FacilityHeaderData.GetAirProgramDbKey(apc)), _
-                        New OracleParameter("pollkey", "OT"), _
-                        New OracleParameter("compliancestatus", "C"), _
-                        New OracleParameter("modifiedby", UserGCode), _
-                        New OracleParameter("operatingstatus", headerData.OperationalStatus.ToString) _
+                    parametersList.Add(New OracleParameter() {
+                        New OracleParameter("airsnumber", headerData.AirsNumber.DbFormattedString),
+                        New OracleParameter("airpollkey", headerData.AirsNumber.DbFormattedString & FacilityHeaderData.GetAirProgramDbKey(apc)),
+                        New OracleParameter("pollkey", "OT"),
+                        New OracleParameter("modifiedby", UserGCode),
+                        New OracleParameter("operatingstatus", headerData.OperationalStatus.ToString)
                     })
 
                 Else

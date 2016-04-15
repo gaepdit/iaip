@@ -41,7 +41,6 @@ Namespace Apb.Facilities
         Public Property ApprovedByApb() As Boolean?
         Public Property DistrictOfficeLocation() As String
         Public Property DistrictResponsible() As Boolean?
-        Public Property ComplianceStatusList() As List(Of Apb.Sscp.LegacyComplianceStatus)
 
 #End Region
 
@@ -50,13 +49,6 @@ Namespace Apb.Facilities
         Public Function RetrieveHeaderData() As Facility
             If Me IsNot Nothing Then
                 HeaderData = DAL.GetFacilityHeaderData(Me.AirsNumber)
-            End If
-            Return Me
-        End Function
-
-        Public Function RetrieveComplianceStatusList() As Facility
-            If Me IsNot Nothing Then
-                ComplianceStatusList = DAL.FacilityData.GetComplianceStatusList(Me.AirsNumber)
             End If
             Return Me
         End Function
@@ -124,22 +116,6 @@ Namespace Apb.Facilities
                 End If
 
                 Return ld
-            End Get
-        End Property
-
-        Public ReadOnly Property ControllingComplianceStatus() As Sscp.ComplianceStatus
-            Get
-                Return Sscp.EnforcementCase.ConvertLegacyComplianceStatus(ControllingLegacyComplianceStatus)
-            End Get
-        End Property
-
-        Public ReadOnly Property ControllingLegacyComplianceStatus() As Sscp.LegacyComplianceStatus
-            Get
-                If ComplianceStatusList Is Nothing OrElse ComplianceStatusList.Count = 0 Then
-                    Return Sscp.LegacyComplianceStatus.NoValue
-                Else
-                    Return ComplianceStatusList.Max
-                End If
             End Get
         End Property
 

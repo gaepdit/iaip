@@ -75,7 +75,9 @@ Partial Class SscpEnforcement
         Me.ViolationTypeHpv = New System.Windows.Forms.RadioButton()
         Me.ViolationTypeFrv = New System.Windows.Forms.RadioButton()
         Me.DiscoveryDateLabel = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.LinkToEvent = New System.Windows.Forms.Button()
+        Me.StaffResponsible = New System.Windows.Forms.ComboBox()
         Me.LastEditedDateDisplay = New System.Windows.Forms.Label()
         Me.ClearLinkedEvent = New System.Windows.Forms.Button()
         Me.DiscoveryDate = New System.Windows.Forms.DateTimePicker()
@@ -210,15 +212,14 @@ Partial Class SscpEnforcement
         Me.AfsKeyActionNumber = New System.Windows.Forms.TextBox()
         Me.NotSubmittedToEpaLabel = New System.Windows.Forms.Label()
         Me.HeaderPanel = New System.Windows.Forms.Panel()
-        Me.AirsNumberDisplay = New System.Windows.Forms.LinkLabel()
         Me.FacilityNotApprovedDisplay = New System.Windows.Forms.Label()
+        Me.AirsNumberDisplay = New System.Windows.Forms.LinkLabel()
         Me.FacilityNameDisplay = New System.Windows.Forms.Label()
-        Me.ComplianceStatusDisplay = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.StaffResponsible = New System.Windows.Forms.ComboBox()
+        Me.EnforcementStatusDisplay = New System.Windows.Forms.Label()
         Me.EnforcementIdDisplay = New System.Windows.Forms.Label()
         Me.ResolvedDate = New System.Windows.Forms.DateTimePicker()
         Me.ResolvedCheckBox = New System.Windows.Forms.CheckBox()
+        Me.EnforcementStatusLabel = New System.Windows.Forms.Label()
         Me.GeneralMessageDisplay = New System.Windows.Forms.Label()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.SaveButton = New System.Windows.Forms.ToolStripButton()
@@ -582,7 +583,9 @@ Partial Class SscpEnforcement
         Me.InfoTabPage.Controls.Add(Me.EAGroupBox)
         Me.InfoTabPage.Controls.Add(Me.ViolationTypeGroupbox)
         Me.InfoTabPage.Controls.Add(Me.DiscoveryDateLabel)
+        Me.InfoTabPage.Controls.Add(Me.Label5)
         Me.InfoTabPage.Controls.Add(Me.LinkToEvent)
+        Me.InfoTabPage.Controls.Add(Me.StaffResponsible)
         Me.InfoTabPage.Controls.Add(Me.LastEditedDateDisplay)
         Me.InfoTabPage.Controls.Add(Me.ClearLinkedEvent)
         Me.InfoTabPage.Controls.Add(Me.DiscoveryDate)
@@ -602,7 +605,7 @@ Partial Class SscpEnforcement
         '
         Me.LinkedEventDisplay.AutoSize = True
         Me.LinkedEventDisplay.LinkArea = New System.Windows.Forms.LinkArea(17, 17)
-        Me.LinkedEventDisplay.Location = New System.Drawing.Point(236, 24)
+        Me.LinkedEventDisplay.Location = New System.Drawing.Point(19, 52)
         Me.LinkedEventDisplay.Name = "LinkedEventDisplay"
         Me.LinkedEventDisplay.Size = New System.Drawing.Size(92, 17)
         Me.LinkedEventDisplay.TabIndex = 1
@@ -615,7 +618,7 @@ Partial Class SscpEnforcement
         Me.EAGroupBox.Controls.Add(Me.NovCheckBox)
         Me.EAGroupBox.Controls.Add(Me.LonCheckBox)
         Me.EAGroupBox.Controls.Add(Me.AOCheckBox)
-        Me.EAGroupBox.Location = New System.Drawing.Point(19, 60)
+        Me.EAGroupBox.Location = New System.Drawing.Point(19, 89)
         Me.EAGroupBox.Name = "EAGroupBox"
         Me.EAGroupBox.Size = New System.Drawing.Size(202, 77)
         Me.EAGroupBox.TabIndex = 3
@@ -673,7 +676,7 @@ Partial Class SscpEnforcement
         Me.ViolationTypeGroupbox.Controls.Add(Me.ViolationTypeNonFrv)
         Me.ViolationTypeGroupbox.Controls.Add(Me.ViolationTypeHpv)
         Me.ViolationTypeGroupbox.Controls.Add(Me.ViolationTypeFrv)
-        Me.ViolationTypeGroupbox.Location = New System.Drawing.Point(236, 60)
+        Me.ViolationTypeGroupbox.Location = New System.Drawing.Point(236, 89)
         Me.ViolationTypeGroupbox.Name = "ViolationTypeGroupbox"
         Me.ViolationTypeGroupbox.Size = New System.Drawing.Size(466, 77)
         Me.ViolationTypeGroupbox.TabIndex = 4
@@ -747,18 +750,40 @@ Partial Class SscpEnforcement
         Me.DiscoveryDateLabel.TabIndex = 3
         Me.DiscoveryDateLabel.Text = "Discovery Date"
         '
+        'Label5
+        '
+        Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(414, 24)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(90, 13)
+        Me.Label5.TabIndex = 342
+        Me.Label5.Text = "Staff Responsible"
+        '
         'LinkToEvent
         '
         Me.LinkToEvent.AutoSize = True
-        Me.LinkToEvent.Location = New System.Drawing.Point(236, 19)
+        Me.LinkToEvent.Location = New System.Drawing.Point(19, 47)
         Me.LinkToEvent.Name = "LinkToEvent"
         Me.LinkToEvent.Size = New System.Drawing.Size(105, 23)
         Me.LinkToEvent.TabIndex = 1
         Me.LinkToEvent.Text = "Link to Event"
         '
+        'StaffResponsible
+        '
+        Me.StaffResponsible.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.StaffResponsible.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.StaffResponsible.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.StaffResponsible.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.StaffResponsible.Enabled = False
+        Me.StaffResponsible.Location = New System.Drawing.Point(510, 21)
+        Me.StaffResponsible.Name = "StaffResponsible"
+        Me.StaffResponsible.Size = New System.Drawing.Size(192, 21)
+        Me.StaffResponsible.TabIndex = 7
+        '
         'LastEditedDateDisplay
         '
-        Me.LastEditedDateDisplay.Location = New System.Drawing.Point(501, 24)
+        Me.LastEditedDateDisplay.Location = New System.Drawing.Point(501, 52)
         Me.LastEditedDateDisplay.Name = "LastEditedDateDisplay"
         Me.LastEditedDateDisplay.Size = New System.Drawing.Size(201, 17)
         Me.LastEditedDateDisplay.TabIndex = 7
@@ -768,7 +793,7 @@ Partial Class SscpEnforcement
         '
         'ClearLinkedEvent
         '
-        Me.ClearLinkedEvent.Location = New System.Drawing.Point(372, 19)
+        Me.ClearLinkedEvent.Location = New System.Drawing.Point(155, 47)
         Me.ClearLinkedEvent.Name = "ClearLinkedEvent"
         Me.ClearLinkedEvent.Size = New System.Drawing.Size(105, 23)
         Me.ClearLinkedEvent.TabIndex = 2
@@ -790,7 +815,7 @@ Partial Class SscpEnforcement
         'GeneralComments
         '
         Me.GeneralComments.AcceptsReturn = True
-        Me.GeneralComments.Location = New System.Drawing.Point(19, 169)
+        Me.GeneralComments.Location = New System.Drawing.Point(19, 198)
         Me.GeneralComments.MaxLength = 4000
         Me.GeneralComments.Multiline = True
         Me.GeneralComments.Name = "GeneralComments"
@@ -801,7 +826,7 @@ Partial Class SscpEnforcement
         'SubmitToEpa
         '
         Me.SubmitToEpa.Enabled = False
-        Me.SubmitToEpa.Location = New System.Drawing.Point(19, 297)
+        Me.SubmitToEpa.Location = New System.Drawing.Point(19, 326)
         Me.SubmitToEpa.Name = "SubmitToEpa"
         Me.SubmitToEpa.Size = New System.Drawing.Size(149, 23)
         Me.SubmitToEpa.TabIndex = 7
@@ -811,7 +836,7 @@ Partial Class SscpEnforcement
         'Label34
         '
         Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(16, 153)
+        Me.Label34.Location = New System.Drawing.Point(16, 182)
         Me.Label34.Name = "Label34"
         Me.Label34.Size = New System.Drawing.Size(96, 13)
         Me.Label34.TabIndex = 341
@@ -819,7 +844,7 @@ Partial Class SscpEnforcement
         '
         'SubmitToUC
         '
-        Me.SubmitToUC.Location = New System.Drawing.Point(19, 268)
+        Me.SubmitToUC.Location = New System.Drawing.Point(19, 297)
         Me.SubmitToUC.Name = "SubmitToUC"
         Me.SubmitToUC.Size = New System.Drawing.Size(149, 23)
         Me.SubmitToUC.TabIndex = 6
@@ -1766,8 +1791,6 @@ Partial Class SscpEnforcement
         '
         Me.DocumentMessageDisplay.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.DocumentMessageDisplay.AutoSize = True
-        Me.DocumentMessageDisplay.BackColor = System.Drawing.Color.OldLace
-        Me.DocumentMessageDisplay.ForeColor = System.Drawing.Color.DarkRed
         Me.DocumentMessageDisplay.Location = New System.Drawing.Point(20, 296)
         Me.DocumentMessageDisplay.MaximumSize = New System.Drawing.Size(550, 0)
         Me.DocumentMessageDisplay.Name = "DocumentMessageDisplay"
@@ -2394,20 +2417,30 @@ Partial Class SscpEnforcement
         '
         'HeaderPanel
         '
-        Me.HeaderPanel.Controls.Add(Me.AirsNumberDisplay)
         Me.HeaderPanel.Controls.Add(Me.FacilityNotApprovedDisplay)
+        Me.HeaderPanel.Controls.Add(Me.AirsNumberDisplay)
         Me.HeaderPanel.Controls.Add(Me.FacilityNameDisplay)
-        Me.HeaderPanel.Controls.Add(Me.ComplianceStatusDisplay)
-        Me.HeaderPanel.Controls.Add(Me.Label5)
-        Me.HeaderPanel.Controls.Add(Me.StaffResponsible)
+        Me.HeaderPanel.Controls.Add(Me.EnforcementStatusDisplay)
         Me.HeaderPanel.Controls.Add(Me.EnforcementIdDisplay)
         Me.HeaderPanel.Controls.Add(Me.ResolvedDate)
         Me.HeaderPanel.Controls.Add(Me.ResolvedCheckBox)
+        Me.HeaderPanel.Controls.Add(Me.EnforcementStatusLabel)
         Me.HeaderPanel.Dock = System.Windows.Forms.DockStyle.Top
         Me.HeaderPanel.Location = New System.Drawing.Point(0, 49)
         Me.HeaderPanel.Name = "HeaderPanel"
         Me.HeaderPanel.Size = New System.Drawing.Size(731, 103)
         Me.HeaderPanel.TabIndex = 2
+        '
+        'FacilityNotApprovedDisplay
+        '
+        Me.FacilityNotApprovedDisplay.AutoSize = True
+        Me.FacilityNotApprovedDisplay.Location = New System.Drawing.Point(20, 71)
+        Me.FacilityNotApprovedDisplay.Name = "FacilityNotApprovedDisplay"
+        Me.FacilityNotApprovedDisplay.Size = New System.Drawing.Size(371, 13)
+        Me.FacilityNotApprovedDisplay.TabIndex = 5
+        Me.FacilityNotApprovedDisplay.Text = "Facility not approved in the Facility Creator Tool. Data will not be sent to EPA." &
+    ""
+        Me.FacilityNotApprovedDisplay.Visible = False
         '
         'AirsNumberDisplay
         '
@@ -2420,17 +2453,6 @@ Partial Class SscpEnforcement
         Me.AirsNumberDisplay.TabStop = True
         Me.AirsNumberDisplay.Text = "000-00000"
         '
-        'FacilityNotApprovedDisplay
-        '
-        Me.FacilityNotApprovedDisplay.AutoSize = True
-        Me.FacilityNotApprovedDisplay.Location = New System.Drawing.Point(20, 87)
-        Me.FacilityNotApprovedDisplay.Name = "FacilityNotApprovedDisplay"
-        Me.FacilityNotApprovedDisplay.Size = New System.Drawing.Size(371, 13)
-        Me.FacilityNotApprovedDisplay.TabIndex = 5
-        Me.FacilityNotApprovedDisplay.Text = "Facility not approved in the Facility Creator Tool. Data will not be sent to EPA." &
-    ""
-        Me.FacilityNotApprovedDisplay.Visible = False
-        '
         'FacilityNameDisplay
         '
         Me.FacilityNameDisplay.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -2438,45 +2460,22 @@ Partial Class SscpEnforcement
         Me.FacilityNameDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FacilityNameDisplay.Location = New System.Drawing.Point(103, 41)
         Me.FacilityNameDisplay.Name = "FacilityNameDisplay"
-        Me.FacilityNameDisplay.Size = New System.Drawing.Size(395, 48)
+        Me.FacilityNameDisplay.Size = New System.Drawing.Size(374, 48)
         Me.FacilityNameDisplay.TabIndex = 4
         Me.FacilityNameDisplay.Text = "Facility Name, City"
         '
-        'ComplianceStatusDisplay
+        'EnforcementStatusDisplay
         '
-        Me.ComplianceStatusDisplay.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ComplianceStatusDisplay.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ComplianceStatusDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComplianceStatusDisplay.Location = New System.Drawing.Point(507, 8)
-        Me.ComplianceStatusDisplay.MinimumSize = New System.Drawing.Size(0, 17)
-        Me.ComplianceStatusDisplay.Name = "ComplianceStatusDisplay"
-        Me.ComplianceStatusDisplay.Size = New System.Drawing.Size(212, 25)
-        Me.ComplianceStatusDisplay.TabIndex = 6
-        Me.ComplianceStatusDisplay.Text = "Subject to compliance schedule"
-        Me.ComplianceStatusDisplay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.ComplianceStatusDisplay.Visible = False
-        '
-        'Label5
-        '
-        Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(504, 43)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(90, 13)
-        Me.Label5.TabIndex = 342
-        Me.Label5.Text = "Staff Responsible"
-        '
-        'StaffResponsible
-        '
-        Me.StaffResponsible.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.StaffResponsible.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.StaffResponsible.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.StaffResponsible.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.StaffResponsible.Enabled = False
-        Me.StaffResponsible.Location = New System.Drawing.Point(600, 40)
-        Me.StaffResponsible.Name = "StaffResponsible"
-        Me.StaffResponsible.Size = New System.Drawing.Size(119, 21)
-        Me.StaffResponsible.TabIndex = 7
+        Me.EnforcementStatusDisplay.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.EnforcementStatusDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EnforcementStatusDisplay.Location = New System.Drawing.Point(494, 33)
+        Me.EnforcementStatusDisplay.MinimumSize = New System.Drawing.Size(0, 17)
+        Me.EnforcementStatusDisplay.Name = "EnforcementStatusDisplay"
+        Me.EnforcementStatusDisplay.Size = New System.Drawing.Size(212, 25)
+        Me.EnforcementStatusDisplay.TabIndex = 6
+        Me.EnforcementStatusDisplay.Text = "Subject to compliance schedule"
+        Me.EnforcementStatusDisplay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.EnforcementStatusDisplay.Visible = False
         '
         'EnforcementIdDisplay
         '
@@ -2496,7 +2495,7 @@ Partial Class SscpEnforcement
         Me.ResolvedDate.Enabled = False
         Me.ResolvedDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ResolvedDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.ResolvedDate.Location = New System.Drawing.Point(600, 67)
+        Me.ResolvedDate.Location = New System.Drawing.Point(587, 67)
         Me.ResolvedDate.Name = "ResolvedDate"
         Me.ResolvedDate.Size = New System.Drawing.Size(119, 23)
         Me.ResolvedDate.TabIndex = 9
@@ -2507,13 +2506,23 @@ Partial Class SscpEnforcement
         Me.ResolvedCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ResolvedCheckBox.AutoSize = True
         Me.ResolvedCheckBox.Enabled = False
-        Me.ResolvedCheckBox.Location = New System.Drawing.Point(527, 70)
+        Me.ResolvedCheckBox.Location = New System.Drawing.Point(514, 70)
         Me.ResolvedCheckBox.Name = "ResolvedCheckBox"
         Me.ResolvedCheckBox.Size = New System.Drawing.Size(67, 17)
         Me.ResolvedCheckBox.TabIndex = 8
         Me.ResolvedCheckBox.Text = "Finalized"
         Me.ResolvedCheckBox.UseVisualStyleBackColor = True
         Me.ResolvedCheckBox.Visible = False
+        '
+        'EnforcementStatusLabel
+        '
+        Me.EnforcementStatusLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.EnforcementStatusLabel.Location = New System.Drawing.Point(494, 14)
+        Me.EnforcementStatusLabel.Name = "EnforcementStatusLabel"
+        Me.EnforcementStatusLabel.Size = New System.Drawing.Size(201, 17)
+        Me.EnforcementStatusLabel.TabIndex = 7
+        Me.EnforcementStatusLabel.Text = "Enforcement Status"
+        Me.EnforcementStatusLabel.Visible = False
         '
         'GeneralMessageDisplay
         '
@@ -2874,7 +2883,7 @@ Partial Class SscpEnforcement
     Friend WithEvents EpaValuesTabPage As TabPage
     Friend WithEvents ShowEpaActionNumbersMenuItem As ToolStripMenuItem
     Friend WithEvents EAGroupBox As GroupBox
-    Friend WithEvents ComplianceStatusDisplay As Label
+    Friend WithEvents EnforcementStatusDisplay As Label
     Friend WithEvents FacilityNotApprovedDisplay As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents StipulatedPenaltyControls As Panel
@@ -2932,4 +2941,5 @@ Partial Class SscpEnforcement
     Friend WithEvents ClearMessageMenuItem As ToolStripMenuItem
     Friend WithEvents EnforcementToolStripSeparator As ToolStripSeparator
     Friend WithEvents GeneralMessagePanel As Panel
+    Friend WithEvents EnforcementStatusLabel As Label
 End Class

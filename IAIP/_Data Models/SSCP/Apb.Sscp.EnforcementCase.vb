@@ -18,25 +18,53 @@ Namespace Apb.Sscp
         Public Property Comment As String ' STRGENERALCOMMENTS	VARCHAR2(4000 BYTE)
 
         ' Enforcement Info
-        Public Property EnforcementActions As List(Of EnforcementActionType)
-        Public Property LegacyEnforcementType As LegacyEnforcementType ' STRACTIONTYPE	VARCHAR2(15 BYTE)
-        Public Property LegacyEnforcementTypeCode As String
+
+        ''' <summary>
+        ''' This property saves a value in the database that is solely used for determining whether 
+        ''' enforcement/case file information is sent to EPA (ICIS-Air): 
+        ''' If the value equals LON, then data is NOT sent.
+        ''' Otherwise, data IS sent. 
+        ''' 
+        ''' The keyword "LON" does not necessarily indicate the presence of a LON enforcement action.
+        ''' It is merely a legacy keyword used by the ICIS-Air db procedures and views. All other 
+        ''' possible values ("CASEFILE", "HPV", "NOVCO", etc.) are considered equivalent to each other 
+        ''' and have no meaning other than that contained herein.
+        ''' </summary>
+        ''' <returns>EnforcementType Enum (LON or CASEFILE)</returns>
+        Public ReadOnly Property EnforcementType As EnforcementType ' STRACTIONTYPE	VARCHAR2(15 BYTE)
             Get
-                Return LegacyEnforcementType.ToString()
+                With Me.EnforcementActions
+                    If .Contains(EnforcementActionType.NOV) Or .Contains(EnforcementActionType.CO) Or .Contains(EnforcementActionType.AO) Then
+                        Return EnforcementType.CASEFILE
+                    Else
+                        Return EnforcementType.LON
+                    End If
+                End With
             End Get
-            Set(ByVal value As String)
-                LegacyEnforcementType = [Enum].Parse(GetType(LegacyEnforcementType), value)
-            End Set
         End Property
+        Public Property EnforcementActions As List(Of EnforcementActionType)
         Public Property ViolationType As String ' STRHPV	VARCHAR2(15 BYTE)
 
         ' Status
-        Public Property Open As Boolean ' STRENFORCEMENTFINALIZED	VARCHAR2(5 BYTE)
+        Public Property Open As OpenOrClosed ' STRENFORCEMENTFINALIZED	VARCHAR2(5 BYTE)
+        Public ReadOnly Property EnforcementStatus As EnforcementStatus
+            Get
+                If Not Open Then
+                    Return EnforcementStatus.CaseClosed
+                ElseIf LonResolved.HasValue Or NfaSent.HasValue Or CoResolved.HasValue Or AoResolved.HasValue Then
+                    Return EnforcementStatus.CaseResolved
+                ElseIf CoExecuted.HasValue Or AoExecuted.HasValue Then
+                    Return EnforcementStatus.SubjectToComplianceSchedule
+                Else
+                    Return EnforcementStatus.CaseOpen
+                End If
+            End Get
+        End Property
         Public Property DateFinalized As Date? ' DATENFORCEMENTFINALIZED	DATE
-        Public Property DateModified As Date? ' 
+        Public Property DateModified As Date? ' DATMODIFINGDATE	DATE
         Public Property SubmittedToUc As Boolean ' STRSTATUS	VARCHAR2(5 BYTE)
-        Public Property SubmittedToEpa As Boolean
-        Public Property SubmittedToUcCode As String
+        Public Property SubmittedToEpa As Boolean ' STRAFSKEYACTIONNUMBER	VARCHAR2(5 BYTE)
+        Public Property SubmittedToUcCode As String ' STRSTATUS	VARCHAR2(5 BYTE)
             Get
                 If SubmittedToUc Then
                     Return "UC"
@@ -84,29 +112,6 @@ Namespace Apb.Sscp
             End Get
         End Property
         Public Property LegacyAirPrograms As List(Of String)
-
-        ' Compliance status
-        Public Property ComplianceStatus As ComplianceStatus
-        Public Property LegacyComplianceStatus As LegacyComplianceStatus ' STRPOLLUTANTSTATUS	VARCHAR2(2 BYTE)
-        Public Property LegacyComplianceStatusCode As String
-            Get
-                Return LegacyComplianceStatus.ToString()
-            End Get
-            Set(ByVal value As String)
-                LegacyComplianceStatus = [Enum].Parse(GetType(LegacyComplianceStatus), value)
-            End Set
-        End Property
-        Public Property LegacyComplianceStatusDbCode As String
-            Get
-                If LegacyComplianceStatus = LegacyComplianceStatus.NoValue Then
-                    Return "0"
-                End If
-                Return LegacyComplianceStatusCode.Substring(7)
-            End Get
-            Set(ByVal value As String)
-                LegacyComplianceStatus = [Enum].Parse(GetType(LegacyComplianceStatus), "Status_" & value)
-            End Set
-        End Property
 
         ' LON
         Public Property LonToUc As Date? ' STRLONTOUC	VARCHAR2(5 BYTE); DATLONTOUC	DATE
@@ -190,7 +195,7 @@ Namespace Apb.Sscp
 
 #End Region
 
-#Region " Pollutants/Programs "
+#Region " Pollutants/Programs functions "
 
         Private Function ParseEnforcementPollutants(progPoll As String) As List(Of String)
             If progPoll = "" OrElse Not progPoll.Contains(","c) Then Return Nothing
@@ -231,79 +236,24 @@ Namespace Apb.Sscp
 
 #End Region
 
-#Region " Compliance status "
-
-        Public Shared Function ConvertLegacyComplianceStatus(legacyComplianceStatus As LegacyComplianceStatus) As ComplianceStatus
-            Select Case legacyComplianceStatus
-                Case LegacyComplianceStatus.NoValue,
-                     LegacyComplianceStatus.Status_P,
-                     LegacyComplianceStatus.Status_A,
-                     LegacyComplianceStatus.Status_0
-                    Return ComplianceStatus.Unknown
-                Case LegacyComplianceStatus.Status_B,
-                     LegacyComplianceStatus.Status_1,
-                     LegacyComplianceStatus.Status_6,
-                     LegacyComplianceStatus.Status_W,
-                     LegacyComplianceStatus.Status_8
-                    Return ComplianceStatus.InViolation
-                Case LegacyComplianceStatus.Status_5
-                    Return ComplianceStatus.MeetingComplianceSchedule
-                Case LegacyComplianceStatus.Status_2,
-                     LegacyComplianceStatus.Status_3,
-                     LegacyComplianceStatus.Status_4,
-                     LegacyComplianceStatus.Status_9,
-                     LegacyComplianceStatus.Status_C,
-                     LegacyComplianceStatus.Status_M
-                    Return ComplianceStatus.InCompliance
-            End Select
-        End Function
-
-        Public Shared Function ConvertComplianceStatus(complianceStatus As ComplianceStatus) As LegacyComplianceStatus
-            Select Case complianceStatus
-                Case ComplianceStatus.InCompliance
-                    Return LegacyComplianceStatus.Status_C
-                Case ComplianceStatus.InViolation
-                    Return LegacyComplianceStatus.Status_W
-                Case ComplianceStatus.MeetingComplianceSchedule
-                    Return LegacyComplianceStatus.Status_5
-                Case ComplianceStatus.Unknown
-                    Return LegacyComplianceStatus.Status_0
-            End Select
-        End Function
-
-#End Region
-
     End Class
 
+#Region " Enums "
+
     ''' <summary>
-    ''' Compliance Status codes. These are applied on a per-pollutant, per-rule basis. 
+    ''' Enforcement Status. These are applied on a per-enforcement case basis.
     ''' </summary>
-    ''' <remarks>Stored in database as a one-character string. The enum values are 
-    ''' significant as they are used to determine controlling compliance status.</remarks>
-    Public Enum LegacyComplianceStatus
-        <Description("In violation, procedural & emissions")> Status_B = 35
-        <Description("In violation, no schedule")> Status_1 = 34
-        <Description("In violation, not meeting schedule")> Status_6 = 33
-        <Description("In violation, procedural")> Status_W = 32
-        <Description("In violation, no applicable state reg")> Status_8 = 31
-        <Description("Unknown compliance status")> Status_P = 23
-        <Description("Unknown compliance status")> Status_A = 22
-        <Description("Unknown compliance status")> Status_0 = 21
-        <Description("Meeting compliance schedule")> Status_5 = 11
-        <Description("In compliance, source test")> Status_2 = 6
-        <Description("In compliance, inspection ")> Status_3 = 5
-        <Description("In compliance, certification ")> Status_4 = 4
-        <Description("In compliance, shut down")> Status_9 = 3
-        <Description("In compliance, procedural")> Status_C = 2
-        <Description("In compliance, CEMS data")> Status_M = 1
-        <Description("No value")> NoValue = 0
+    ''' <remarks>Stored in database as a string.</remarks>
+    Public Enum EnforcementStatus
+        <Description("Open enforcement case")> CaseOpen
+        <Description("Subject to compliance schedule")> SubjectToComplianceSchedule
+        <Description("Enforcement case resolved")> CaseResolved
+        <Description("Enforcement case closed")> CaseClosed
     End Enum
 
-    Public Enum ComplianceStatus
-        <Description("Unknown compliance status")> Unknown
-        <Description("In compliance")> InCompliance
-        <Description("Subject to compliance schedule")> MeetingComplianceSchedule
-        <Description("In violation")> InViolation
+    Public Enum EnforcementType
+        LON
+        CASEFILE
     End Enum
 
     Public Enum EnforcementActionType
@@ -313,17 +263,6 @@ Namespace Apb.Sscp
         AO
     End Enum
 
-    Public Enum LegacyEnforcementType
-        None
-        LON
-        NOV
-        NOVCO
-        NOVCOP
-        NOVAO
-        HPV
-        HPVCO
-        HPVCOP
-        HPVAO
-    End Enum
+#End Region
 
 End Namespace
