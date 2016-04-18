@@ -228,7 +228,7 @@ Namespace DAL.Sscp
                 .DateModified = DB.GetNullableDateTimeFromString(row("DATMODIFINGDATE"))
 
                 .EnforcementActions = New List(Of EnforcementActionType)
-                If .LonSent IsNot Nothing Then
+                If .LonComment <> "" Or AnyOfTheseDatesHasValue({ .LonResolved, .LonSent, .LonToUc}) Then
                     .EnforcementActions.Add(EnforcementActionType.LON)
                 Else
                     If .NovComment <> "" Or AnyOfTheseDatesHasValue({ .NovSent, .NovToPm, .NovToUc}) Then
