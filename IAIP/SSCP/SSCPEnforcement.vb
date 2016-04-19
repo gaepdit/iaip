@@ -663,7 +663,12 @@ Public Class SscpEnforcement
     Private Sub SubmitToEpa_Click(sender As Object, e As EventArgs) _
         Handles SubmitToEpa.Click, SubmitToEpa2.Click
 
-        If EnforcementCase.SubmittedToEpa = True Then Exit Sub
+        If EnforcementCase.SubmittedToEpa = True Then
+            SubmitToEpa.Visible = False
+            SubmitToEpa2.Visible = False
+            ShowEpaValues()
+            Exit Sub
+        End If
 
         If Not CurrentUser.HasPermission(UserCan.ResolveEnforcement) Then
             GeneralMessage = New IaipMessage("You do not have sufficent permission to submit enforcement case to EPA.", IaipMessage.WarningLevels.ErrorReport)
@@ -671,10 +676,10 @@ Public Class SscpEnforcement
         End If
 
         EnforcementCase.SubmittedToEpa = True
+
         If ValidateAndSave() Then
             SubmitToEpa.Visible = False
             SubmitToEpa2.Visible = False
-            NotSubmittedToEpaLabel.Visible = False
             ShowEpaValues()
         Else
             EnforcementCase.SubmittedToEpa = False
@@ -1149,6 +1154,7 @@ Public Class SscpEnforcement
     Private Sub DisplayEpaValues()
         With EnforcementCase
             If .SubmittedToEpa Then
+                NotSubmittedToEpaLabel.Visible = False
 
                 ' AFS action numbers
                 AfsKeyActionNumber.Text = .AfsKeyActionNumber.ToString(DisplayZeroAsNA)
@@ -1166,8 +1172,8 @@ Public Class SscpEnforcement
                     AfsStipulatedPenalitiesActionNumbers.Text = "N/A"
                 Else
                     Dim sp As New List(Of String)
-                    For Each row As DataRow In StipulatedPenalties.Rows
-                        sp.Add(row("STRAFSSTIPULATEDPENALTYNUMBER").ToString)
+                    For Each row As DataGridViewRow In StipulatedPenalties.Rows
+                        sp.Add(row.Cells("STRAFSSTIPULATEDPENALTYNUMBER").Value.ToString)
                     Next
                     AfsStipulatedPenalitiesActionNumbers.Text = String.Join(", ", sp)
                 End If
@@ -1178,7 +1184,11 @@ Public Class SscpEnforcement
                 EpaCoId.Text = .CoEnforcementActionId
                 EpaAoId.Text = .AoEnforcementActionId
 
-                EpaDayZero.Text = .DayZeroDate.ToString(DateFormat)
+                If .DayZeroDate.HasValue Then
+                    EpaDayZero.Text = .DayZeroDate.Value.ToString(DateFormat)
+                Else
+                    EpaDayZero.Text = "N/A"
+                End If
             End If
         End With
     End Sub
