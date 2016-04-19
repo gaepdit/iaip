@@ -188,7 +188,7 @@ Namespace Apb.Sscp
 
         Private Function EpaIdFromActionNumber(afs As Integer) As String
             If afs = 0 Then
-                Return ""
+                Return "N/A"
             End If
             Return GaStateCode & "000A0000" & GaStateNumericCode & AirsNumber.ShortString & afs.ToString("00000")
         End Function
