@@ -2,10 +2,10 @@ Imports System
 Imports System.Reflection
 Imports System.Runtime.InteropServices
 
-#If BETA Then
+#If UAT Then
 
-<Assembly: AssemblyTitle("IAIP Horizon")> 
-<Assembly: AssemblyDescription("GA Air Protection Branch integrated database system; beta testing")> 
+<Assembly: AssemblyTitle("IAIP Horizon")>
+<Assembly: AssemblyDescription("GA Air Protection Branch integrated database system; user acceptance testing version")>
 <Assembly: AssemblyProduct("IAIP Horizon")> 
 <Assembly: Guid("4d6ff346-89e3-4388-9b75-0077e47a7e46")> 
 <Assembly: AssemblyVersion("4.3.0.0")> 
@@ -22,8 +22,8 @@ Imports System.Runtime.InteropServices
 
 #End If
 
-<Assembly: AssemblyCompany("State of Georgia")> 
-<Assembly: AssemblyCopyright("")> 
+<Assembly: AssemblyCompany("State of Georgia")>
+<Assembly: AssemblyCopyright("")>
 <Assembly: AssemblyTrademark("")> 
 <Assembly: CLSCompliant(True)>
 <Assembly: ComVisible(False)>

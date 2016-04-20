@@ -2,25 +2,14 @@
     Module Connections
 
         ''' <summary>
-        ''' ServerEnvironment can be either PRD (production) or DEV (development)
+        ''' ServerEnvironment can be PRD (production), UAT (testing), or DEV (development)
         ''' </summary>
-        ''' <remarks></remarks>
+        ''' <remarks>Until UAT database instance is created, DEV and UAT will connect to DEV database</remarks>
         Public Enum ServerEnvironment
             PRD
+            UAT
             DEV
         End Enum
-
-        ''' <summary>
-        ''' Return the default connection environment based on setting of DEBUG compiler flag
-        ''' </summary>
-        ''' <value>The default connection environment</value>
-        ''' <remarks>Does not depend on selected server location or connection environment at any given time; 
-        ''' only returns default connection environment.</remarks>
-        Public ReadOnly Property DefaultServerEnvironment() As ServerEnvironment
-            Get
-                Return ServerEnvironment.PRD
-            End Get
-        End Property
 
         ''' <summary>
         ''' Returns database connection parameters as DatabaseConnectionParameters for a given ConnectionEnvironment enum
@@ -33,6 +22,8 @@
                 Case ServerEnvironment.PRD
                     Return New OracleConnectionParameters("167.195.93.68", "1521", "PRD", "AIRBRANCH_APP_USER", SimpleCrypt("çòáðò±ì"))
                 Case ServerEnvironment.DEV
+                    Return New OracleConnectionParameters("167.195.93.100", "1521", "DEV", "AIRBRANCH", SimpleCrypt("óíïçáìåòô"))
+                Case ServerEnvironment.UAT
                     Return New OracleConnectionParameters("167.195.93.100", "1521", "DEV", "AIRBRANCH", SimpleCrypt("óíïçáìåòô"))
                 Case Else
                     Return Nothing
