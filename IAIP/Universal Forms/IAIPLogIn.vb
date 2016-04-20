@@ -20,16 +20,12 @@ Public Class IAIPLogIn
         Try
             CheckLanguageRegistrySetting()
 
-#If DEBUG Then
-            ToggleServerEnvironment()
-#Else
+            ChooseDbServerEnvironment()
             CheckDBAvailability()
-#End If
 
-#If BETA Then
-            Me.LogoBox.Image = My.Resources.Resources.BetaLogo
-            lblIAIP.Text = "IAIP Beta Test"
-            ToggleServerEnvironment()
+#If UAT Then
+            Me.LogoBox.Image = My.Resources.Resources.UatLogo
+            lblIAIP.Text = "IAIP User Acceptance Testing (UAT)"
 #End If
 
         Catch ex As Exception
@@ -84,9 +80,12 @@ Public Class IAIPLogIn
     End Sub
 
     Private Sub DisplayVersion()
-        Dim currentVersion As Version = GetCurrentVersionAsMajorMinorBuild()
-#If BETA Then
+        Dim currentVersion As Version
+
+#If UAT Then
         currentVersion = GetCurrentVersion()
+#Else
+        currentVersion = GetCurrentVersionAsMajorMinorBuild()
 #End If
 
         With lblCurrentVersionMessage
@@ -103,8 +102,8 @@ Public Class IAIPLogIn
             .Visible = True
         End With
 
-#If BETA Then
-        lblCurrentVersionMessage.Text = lblCurrentVersionMessage.Text & " β"
+#If UAT Then
+        lblCurrentVersionMessage.Text = lblCurrentVersionMessage.Text & " UAT"
 #End If
 
     End Sub
@@ -115,24 +114,21 @@ Public Class IAIPLogIn
         If currentSetting Is Nothing Or currentSetting <> "AMERICAN" Then
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Environment", "NLS_LANG", "AMERICAN")
             DisableLogin("Language settings have been updated. Please close and restart the Platform.")
-            DisableAndHide(mmiTestingEnvironment)
         End If
     End Sub
 
     Private Function CheckDBAvailability() As Boolean
-#If DEBUG Then
         Console.WriteLine("CurrentServerEnvironment: " & CurrentServerEnvironment.ToString)
-#End If
 
         If DAL.AppIsEnabled Then
             EnableLogin()
             Return True
         Else
-            DisableLogin("The IAIP is currently unavailable. Please check " & vbNewLine & _
-                         "back later. If you are working remotely, you must " & vbNewLine & _
-                         "connect to the VPN before using the IAIP. " & vbNewLine & vbNewLine & _
-                         "Otherwise, if you continue to see this message after " & vbNewLine & _
-                         "two hours, please inform the Data Management Unit. " & vbNewLine & vbNewLine & _
+            DisableLogin("The IAIP is currently unavailable. Please check " & vbNewLine &
+                         "back later. If you are working remotely, you must " & vbNewLine &
+                         "connect to the VPN before using the IAIP. " & vbNewLine & vbNewLine &
+                         "Otherwise, if you continue to see this message after " & vbNewLine &
+                         "two hours, please inform the Data Management Unit. " & vbNewLine & vbNewLine &
                          "Thank you.")
             Return False
         End If
@@ -154,9 +150,9 @@ Public Class IAIPLogIn
 #End If
 
         If Not DAL.AppIsEnabled Then
-            DisableLogin("The IAIP is currently unavailable. Please check " & vbNewLine & _
-                             "back later. If you continue to see this message after " & vbNewLine & _
-                             "two hours, please inform the Data Management Unit. " & vbNewLine & _
+            DisableLogin("The IAIP is currently unavailable. Please check " & vbNewLine &
+                             "back later. If you continue to see this message after " & vbNewLine &
+                             "two hours, please inform the Data Management Unit. " & vbNewLine &
                              "Thank you.")
             txtUserPassword.Clear()
             monitor.TrackFeatureCancel("Startup.LoggingIn")
@@ -269,9 +265,14 @@ Public Class IAIPLogIn
             ' Add additional installation meta data for analytics
             monitorInstallationInfo.Add("IaipUserName", CurrentUser.UserName)
             monitor.SetInstallationInfo(CurrentUser.UserName, monitorInstallationInfo)
-            If (CurrentServerEnvironment <> DB.DefaultServerEnvironment) Then
-                monitor.TrackFeature("Main.TestingEnvironment")
-            End If
+            Select Case CurrentServerEnvironment
+                Case DB.Connections.ServerEnvironment.DEV
+                    monitor.TrackFeature("Main.DevEnvironment")
+                Case DB.Connections.ServerEnvironment.PRD
+                    monitor.TrackFeature("Main.PrdEnvironment")
+                Case DB.Connections.ServerEnvironment.UAT
+                    monitor.TrackFeature("Main.UatEnvironment")
+            End Select
             monitor.ForceSync()
 
             SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
@@ -295,45 +296,39 @@ Public Class IAIPLogIn
 
 #Region " Database Environment "
 
-    Private Sub ToggleServerEnvironment()
-        ' Toggle mmiTestingEnvironment menu item
-#If BETA Then
-        mmiTestingEnvironment.Checked = True
-#Else
-        mmiTestingEnvironment.Checked = Not mmiTestingEnvironment.Checked
-#End If
-        DisableLoginButton("Switching servers…")
-        Dim buttonText As String
-
-        If mmiTestingEnvironment.Checked Then
-            ' Switch to DEV environment
-            CurrentServerEnvironment = DB.ServerEnvironment.DEV
-            Me.BackColor = Color.PapayaWhip
-            buttonText = "Testing Environment"
-        Else
-            ' Switch to PRD environment
-            CurrentServerEnvironment = DB.ServerEnvironment.PRD
-            Me.BackColor = SystemColors.Control
-            buttonText = "Log In"
-        End If
+    Private Sub ChooseDbServerEnvironment()
+        Dim buttonText As String = "Log In"
 
 #If DEBUG Then
-        Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerEnvironment.ToString
+        CurrentServerEnvironment = DB.ServerEnvironment.DEV
+#ElseIf UAT Then
+        CurrentServerEnvironment = DB.ServerEnvironment.UAT
+#Else
+        CurrentServerEnvironment = DB.ServerEnvironment.PRD
 #End If
+
+        Select Case CurrentServerEnvironment
+            Case DB.Connections.ServerEnvironment.DEV
+                ' Switch to DEV environment
+                Me.BackColor = Color.PapayaWhip
+                Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerEnvironment.ToString
+                buttonText = "Log in to DEV"
+            Case DB.Connections.ServerEnvironment.UAT
+                ' Switch to DEV environment
+                Me.BackColor = Color.Snow
+                Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerEnvironment.ToString
+                buttonText = "Log in to UAT"
+        End Select
 
         ' Reset current connection based on current connection environment
         ' and check connection/app availability
         CurrentConnection = New OracleConnection(DB.CurrentConnectionString)
+
         If CheckDBAvailability() Then
             EnableLoginButton(buttonText)
         Else
             DisableLoginButton(buttonText)
         End If
-
-#If BETA Then
-        Me.BackColor = Color.Snow
-#End If
-
     End Sub
 
 #End Region
@@ -384,10 +379,6 @@ Public Class IAIPLogIn
 
     Private Sub IAIPLogIn_HelpButtonClicked(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.HelpButtonClicked
         OpenSupportUrl(Me)
-    End Sub
-
-    Private Sub mmiTestingEnvironment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiTestingEnvironment.Click
-        ToggleServerEnvironment()
     End Sub
 
     Private Sub mmiCheckForUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCheckForUpdate.Click

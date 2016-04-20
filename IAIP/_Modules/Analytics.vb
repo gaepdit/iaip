@@ -11,7 +11,7 @@ Module Analytics
         Dim AnalyticsApiKey As String = "F635C42ABA7B4DE886EEFCEE31C98000"
         Dim monitorSettings As IAnalyticsMonitorSettings = AnalyticsMonitorFactory.CreateSettings(AnalyticsApiKey)
 
-#If DEBUG Or BETA Then
+#If DEBUG Or UAT Then
         monitorSettings.TestMode = True
 #End If
 

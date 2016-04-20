@@ -1,4 +1,4 @@
-Imports System.IO
+ï»¿Imports System.IO
 Imports System.Collections.Generic
 Imports Iaip.DAL.NavigationScreenData
 
@@ -51,9 +51,8 @@ Public Class IAIPNavigation
         ' Start various Timers
         AppTimers.StartAppTimers()
 
-#If BETA Then
-        lblTitle.Text = "IAIP Navigation Screen"
-        Me.Text = "IAIP Beta"
+#If UAT Then
+        Me.Text = "IAIP UAT"
 #End If
     End Sub
 
@@ -108,22 +107,25 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub EnableConnectionEnvironmentOptions()
-
-        If CurrentServerEnvironment = DB.ServerEnvironment.DEV Then
-            pnlDbEnv.Text = "TESTING ENVIRONMENT"
-            pnlDbEnv.BackColor = Color.Tomato
-            pnlDbEnv.Visible = True
-        Else
-            pnlDbEnv.Text = "PRD"
-            pnlDbEnv.Visible = False
-            DisableAndHide(TestingMenu)
-        End If
-
-#If DEBUG Then
-        lblTitle.Text = "IAIP Navigation Screen — " & CurrentServerEnvironment.ToString
-        TestingMenu.Visible = True
-#End If
-
+        Select Case CurrentServerEnvironment
+            Case DB.Connections.ServerEnvironment.DEV
+                pnlDbEnv.Text = "DEV ENVIRONMENT"
+                pnlDbEnv.BackColor = Color.Tomato
+                pnlDbEnv.Visible = True
+                lblTitle.Text = "IAIP Navigation Screen â€” DEV"
+                TestingMenu.Visible = True
+            Case DB.Connections.ServerEnvironment.PRD
+                pnlDbEnv.Text = "PRD"
+                pnlDbEnv.Visible = False
+                DisableAndHide(TestingMenu)
+                TestingMenu.Visible = False
+            Case DB.Connections.ServerEnvironment.UAT
+                pnlDbEnv.Text = "UAT ENVIRONMENT"
+                pnlDbEnv.BackColor = Color.SpringGreen
+                pnlDbEnv.Visible = True
+                lblTitle.Text = "IAIP Navigation Screen â€” UAT"
+                TestingMenu.Visible = False
+        End Select
     End Sub
 
 #End Region
@@ -857,9 +859,9 @@ Public Class IAIPNavigation
     Private Sub LoadWorkViewerData()
         dgvWorkViewer.Visible = False
         lblMessageLabel.Visible = True
-        lblMessageLabel.Text = "Loading data…"
+        lblMessageLabel.Text = "Loading dataâ€¦"
         pnlCurrentList.Enabled = False
-        btnChangeWorkViewerContext.Text = "Loading…"
+        btnChangeWorkViewerContext.Text = "Loadingâ€¦"
         lblResultsCount.Visible = False
         lblResultsCount.Text = ""
 

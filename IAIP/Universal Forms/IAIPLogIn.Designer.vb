@@ -26,8 +26,6 @@ Partial Class IAIPLogIn
         Me.MenuItem1 = New System.Windows.Forms.MenuItem()
         Me.mmiRefreshUserID = New System.Windows.Forms.MenuItem()
         Me.mmiResetAllForms = New System.Windows.Forms.MenuItem()
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem()
-        Me.mmiTestingEnvironment = New System.Windows.Forms.MenuItem()
         Me.mmiHelp = New System.Windows.Forms.MenuItem()
         Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem()
         Me.MenuItem4 = New System.Windows.Forms.MenuItem()
@@ -69,7 +67,7 @@ Partial Class IAIPLogIn
         'MenuItem1
         '
         Me.MenuItem1.Index = 1
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiRefreshUserID, Me.mmiResetAllForms, Me.MenuItem2, Me.mmiTestingEnvironment})
+        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiRefreshUserID, Me.mmiResetAllForms})
         Me.MenuItem1.Text = "&Tools"
         '
         'mmiRefreshUserID
@@ -81,17 +79,6 @@ Partial Class IAIPLogIn
         '
         Me.mmiResetAllForms.Index = 1
         Me.mmiResetAllForms.Text = "&Reset All Forms"
-        '
-        'MenuItem2
-        '
-        Me.MenuItem2.Index = 2
-        Me.MenuItem2.Text = "-"
-        '
-        'mmiTestingEnvironment
-        '
-        Me.mmiTestingEnvironment.Index = 3
-        Me.mmiTestingEnvironment.Shortcut = System.Windows.Forms.Shortcut.CtrlT
-        Me.mmiTestingEnvironment.Text = "&Testing Environment"
         '
         'mmiHelp
         '
@@ -316,12 +303,10 @@ Partial Class IAIPLogIn
     Friend WithEvents lblTitle As System.Windows.Forms.Label
     Friend WithEvents btnLoginButton As System.Windows.Forms.Button
     Friend WithEvents lblLicenseLabel As System.Windows.Forms.Label
-    Friend WithEvents mmiTestingEnvironment As System.Windows.Forms.MenuItem
     Friend WithEvents mmiRefreshUserID As System.Windows.Forms.MenuItem
     Friend WithEvents mmiOnlineHelp As System.Windows.Forms.MenuItem
     Friend WithEvents lblCurrentVersionMessage As System.Windows.Forms.Label
     Friend WithEvents lblGeneralMessage As System.Windows.Forms.Label
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
     Friend WithEvents lblIAIP As System.Windows.Forms.Label
     Friend WithEvents LogoBox As System.Windows.Forms.PictureBox
     Friend WithEvents LoginProgressBar As System.Windows.Forms.ProgressBar

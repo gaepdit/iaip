@@ -4,10 +4,9 @@
         monitor.TrackFeature("Forms." & Me.Name)
         lblVersion.Text = "Version " & GetCurrentVersion().ToString
 
-#If BETA Then
-        lblVersion.Text = lblVersion.Text & " β"
-        Me.Text = "About IAIP Beta"
-        Me.LogoBox.Image = My.Resources.Resources.BetaLogo
+#If UAT Then
+        lblVersion.Text = lblVersion.Text & " UAT"
+        Me.LogoBox.Image = My.Resources.Resources.UatLogo
 #End If
 
     End Sub
