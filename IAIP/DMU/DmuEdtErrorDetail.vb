@@ -130,7 +130,7 @@ Public Class DmuEdtErrorDetail
 #Region " Form resize "
 
     Private Sub DmuEdtErrorDetail_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
     End Sub
 
     Private Sub DmuEdtErrorDetail_Resize(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Resize
@@ -163,7 +163,7 @@ Public Class DmuEdtErrorDetail
             If resolving Then
                 With edtErrorDetails
                     .ResolvedByUserID = CurrentUser.UserID
-                    .ResolvedByUserName = CurrentUser.Staff.AlphaName
+                    .ResolvedByUserName = CurrentUser.AlphaName
                     .ResolvedDate = Now
                 End With
             End If

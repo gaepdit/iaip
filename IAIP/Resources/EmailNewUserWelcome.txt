@@ -1,0 +1,12 @@
+Welcome! An account has been created for you in the Integrated Air Information Platform (IAIP). Your login details are as follows…
+
+    Username: {0}
+    Temporary password: {1}
+
+The first time you log in, you will be asked to change your password and verify your profile. Please note, the password is case sensitive.
+
+Information about the IAIP, including installation instructions, is available at http://dmu.georgiaair.org/iaip/
+
+Important! Per DNR policy, the IAIP may be installed on a privately-owned computer, but only if your computer has sufficient anti-virus protection.
+
+If you need support, please email epd_it@dnr.ga.gov and see our support page at http://dmu.georgiaair.org/support/

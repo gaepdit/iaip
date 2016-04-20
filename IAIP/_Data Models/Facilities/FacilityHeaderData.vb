@@ -1,5 +1,7 @@
-﻿Imports System.ComponentModel
+﻿Imports System.Collections.Generic
+Imports System.ComponentModel
 Imports Iaip.Apb.Facilities.Facility
+Imports System.Text.RegularExpressions
 
 Namespace Apb.Facilities
 
@@ -201,10 +203,10 @@ Namespace Apb.Facilities
         ''' Remarkably, only the middle three characters are used.</remarks>
         Public Property NonattainmentStatusesCode() As String
             Get
-                Return "0" & _
-                OneHourOzoneNonAttainment.ToString("D") & _
-                EightHourOzoneNonAttainment.ToString("D") & _
-                PMFineNonAttainmentState.ToString("D") & _
+                Return "0" &
+                OneHourOzoneNonAttainment.ToString("D") &
+                EightHourOzoneNonAttainment.ToString("D") &
+                PMFineNonAttainmentState.ToString("D") &
                 "0"
             End Get
             Set(ByVal value As String)
@@ -245,6 +247,42 @@ Namespace Apb.Facilities
 
         Private Shared AirProgramsCodeLength As Integer = 15
 
+        Public Shared Property ConvertAirProgramLegacyCodes As Dictionary(Of String, AirProgram) =
+            New Dictionary(Of String, AirProgram) From {
+            {"0", AirProgram.SIP},
+            {"1", AirProgram.FederalSIP},
+            {"3", AirProgram.NonFederalSIP},
+            {"4", AirProgram.CfcTracking},
+            {"6", AirProgram.PSD},
+            {"7", AirProgram.NSR},
+            {"8", AirProgram.NESHAP},
+            {"9", AirProgram.NSPS},
+            {"F", AirProgram.FESOP},
+            {"A", AirProgram.AcidPrecipitation},
+            {"I", AirProgram.NativeAmerican},
+            {"M", AirProgram.MACT},
+            {"V", AirProgram.TitleV},
+            {"R", AirProgram.RMP}
+        }
+
+        Public Shared Property ConvertAirProgramToLegacyCode As Dictionary(Of String, String) =
+            New Dictionary(Of String, String) From {
+            {AirProgram.SIP.ToString, "0"},
+            {AirProgram.FederalSIP.ToString, "1"},
+            {AirProgram.NonFederalSIP.ToString, "3"},
+            {AirProgram.CfcTracking.ToString, "4"},
+            {AirProgram.PSD.ToString, "6"},
+            {AirProgram.NSR.ToString, "7"},
+            {AirProgram.NESHAP.ToString, "8"},
+            {AirProgram.NSPS.ToString, "9"},
+            {AirProgram.FESOP.ToString, "F"},
+            {AirProgram.AcidPrecipitation.ToString, "A"},
+            {AirProgram.NativeAmerican.ToString, "I"},
+            {AirProgram.MACT.ToString, "M"},
+            {AirProgram.TitleV.ToString, "V"},
+            {AirProgram.RMP.ToString, "R"}
+        }
+
         Public Property AirProgramClassifications() As AirProgramClassification
 
         ''' <summary>
@@ -280,10 +318,7 @@ Namespace Apb.Facilities
         ''' <returns>True if test string is in the format of a valid RMP ID. Otherwise, false.</returns>
         Public Shared Function IsValidRmpId(ByVal rmpID As String) As Boolean
             If rmpID Is Nothing Then Return False
-
-            ' Valid RMP IDs are in the form 0000-0000-0000 (with the dashes)
-            Dim rgx As New System.Text.RegularExpressions.Regex("^\d{4}-\d{4}-\d{4}$")
-            Return rgx.IsMatch(rmpID)
+            Return Regex.IsMatch(rmpID, RmpIdPattern)
         End Function
 
         Public Shared Function GetAirProgramDbKey(ByVal selectedAirProgram As AirProgram) As String

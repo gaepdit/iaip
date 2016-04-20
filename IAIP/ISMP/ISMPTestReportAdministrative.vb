@@ -18,7 +18,7 @@ Public Class ISMPTestReportAdministrative
     Dim daFacility As OracleDataAdapter
 
     Private Sub DevTestReportAdministrative_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
 
             DTPDateReceived.Text = Date.Today
@@ -32,7 +32,7 @@ Public Class ISMPTestReportAdministrative
             rdbCloseReport.Checked = False
 
             Panel1.Text = "Select a Function..."
-            Panel2.Text = UserName
+            Panel2.Text = CurrentUser.AlphaName
             Panel3.Text = OracleDate
 
             'These two were commented out to speed up the loading of this form
@@ -559,7 +559,7 @@ Public Class ISMPTestReportAdministrative
                     "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
                 Else
                     SQL = "Insert into AIRBRANCH.ISMPMaster values ('" & txtReferenceNumber.Text & "', " & _
-                    "'0413" & AIRSNumber & "', '" & UserGCode & "', " & _
+                    "'0413" & AIRSNumber & "', '" & CurrentUser.UserID & "', " & _
                     "'" & OracleDate & "')"
 
                     'This SQl statement was changed on 15-Oct-09 when LookUpAPBManagementType was created. MFloyd
@@ -633,7 +633,7 @@ Public Class ISMPTestReportAdministrative
            "AND AIRBRANCH.SSCPDistrictResponsible.strAIRSNumber = Table1.strAIRSnumber (+) " & _
            "AND SUBSTR(AIRBRANCH.SSCPDistrictResponsible.strAIRSNumber, 5, 3) = strDistrictCounty (+) " & _
            "AND AIRBRANCH.SSCPDistrictResponsible.strAIRSNumber = '0413" & cboAIRSNumber.Text & "'), " & _
-           "'" & UserGCode & "', '" & OracleDate & "', " & _
+           "'" & CurrentUser.UserID & "', '" & OracleDate & "', " & _
            "'N/A', '', '')"
 
                 End If
@@ -780,7 +780,7 @@ Public Class ISMPTestReportAdministrative
                                     "datModifingDate) " & _
                                     "values " & _
                                     "('" & RefNum & "', '" & AFSActionNumber & "', " & _
-                                    "'A', '" & UserGCode & "', " & _
+                                    "'A', '" & CurrentUser.UserID & "', " & _
                                     "'" & OracleDate & "') "
 
                                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1014,7 +1014,7 @@ Public Class ISMPTestReportAdministrative
     Sub MoveOn()
         Try
             Dim id As String = txtReferenceNumber.Text
-            If DAL.Ismp.StackTestExists(id) Then OpenMultiForm("ISMPTestReports", id)
+            If DAL.Ismp.StackTestExists(id) Then OpenMultiForm(ISMPTestReports, id)
             Me.Hide()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1144,7 +1144,7 @@ Public Class ISMPTestReportAdministrative
                 "(AIRBRANCH.SSCPTrackingNumber.nextval, '0413" & cboAIRSNumber.Text & "', " & _
                 "'" & DTPDateClosed.Text & "', '03', " & _
                 "'" & StaffResponsible & "', '', " & _
-                "'" & UserGCode & "', '" & OracleDate & "')"
+                "'" & CurrentUser.UserID & "', '" & OracleDate & "')"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1174,7 +1174,7 @@ Public Class ISMPTestReportAdministrative
                 "('" & TrackingNumber & "', '" & RefNum & "', " & _
                 "'" & TestReportDue & "', " & _
                 "' ', 'False', " & _
-                "'" & UserGCode & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2495,7 +2495,7 @@ Public Class ISMPTestReportAdministrative
                 SQL = "Insert into AIRBRANCH.ISMPMaster " & _
                 "values " & _
                 "('" & RefNum & "', '0413" & AIRSNumber & "', " & _
-                "'" & UserGCode & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -2518,7 +2518,7 @@ Public Class ISMPTestReportAdministrative
                 "'False', '" & Replace(Commissioner, "'", "''") & "', " & _
                 "'" & Replace(Director, "'", "''") & "', '" & Replace(ProgramManager, "'", "''") & "', " & _
                 "'01', '0', " & _
-                "'" & UserGCode & "', '" & OracleDate & "', " & _
+                "'" & CurrentUser.UserID & "', '" & OracleDate & "', " & _
                 "'N/A', '', " & _
                 "'', '', " & _
                 "'', '', '') "
@@ -2688,7 +2688,7 @@ Public Class ISMPTestReportAdministrative
     Private Sub btnOpenTestReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenTestReport.Click
         Try
             Dim id As String = txtAddTestReportRefNum.Text
-            If DAL.Ismp.StackTestExists(id) Then OpenMultiForm("ISMPTestReports", id)
+            If DAL.Ismp.StackTestExists(id) Then OpenMultiForm(ISMPTestReports, id)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

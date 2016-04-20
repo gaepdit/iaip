@@ -18,18 +18,18 @@ Public Class ISMPMonitoringLog
     Dim daPollutants As OracleDataAdapter
 
     Private Sub ISMPMonitoringLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
 
             DTPStartDate.Text = Format(Date.Today.AddDays(-30), "dd-MMM-yyyy")
             DTPEndDate.Text = OracleDate
 
             Panel1.Text = "Select a Function..."
-            Panel2.Text = UserName
+            Panel2.Text = CurrentUser.AlphaName
             Panel3.Text = OracleDate
 
-            chbReviewingEngineer.Text = UserName
-            chbWitnessingEngineer.Text = UserName
+            chbReviewingEngineer.Text = CurrentUser.AlphaName
+            chbWitnessingEngineer.Text = CurrentUser.AlphaName
 
             LoadEngineerDataSet()
             LoadComboBoxes()
@@ -246,7 +246,7 @@ Public Class ISMPMonitoringLog
                             End If
                         Next
                     End If
-                    SQLWhere = SQLWhere & " strReviewingEngineer = '" & UserGCode & "' ) "
+                    SQLWhere = SQLWhere & " strReviewingEngineer = '" & CurrentUser.UserID & "' ) "
                 Else
                     If clbEngineer.CheckedItems.Count > 0 Then
                         SQLWhere = SQLWhere & " and ( "
@@ -272,7 +272,7 @@ Public Class ISMPMonitoringLog
                             End If
                         Next
                     End If
-                    SQLWhere = SQLWhere & " AIRBRANCH.ISMPReportInformation.strWitnessingengineer = '" & UserGCode & "' or strWitnessingengineer2 = '" & UserGCode & "' ) "
+                    SQLWhere = SQLWhere & " AIRBRANCH.ISMPReportInformation.strWitnessingengineer = '" & CurrentUser.UserID & "' or strWitnessingengineer2 = '" & CurrentUser.UserID & "' ) "
                 Else
                     If clbWitnessingStaff.CheckedItems.Count > 0 Then
                         SQLWhere = SQLWhere & " and ( "
@@ -572,7 +572,7 @@ Public Class ISMPMonitoringLog
                             End If
                         Next
                     End If
-                    SQLWhere = SQLWhere & " strStaffResponsible = '" & UserGCode & "' ) "
+                    SQLWhere = SQLWhere & " strStaffResponsible = '" & CurrentUser.UserID & "' ) "
                 Else
                     If clbEngineer.CheckedItems.Count > 0 Then
                         SQLWhere = SQLWhere & " and ( "
@@ -725,7 +725,7 @@ Public Class ISMPMonitoringLog
                             End If
                         Next
                     End If
-                    SQLWhere = SQLWhere & " AIRBRANCH.ISMPTestFirmComments.strStaffResponsible = '" & UserGCode & "' ) "
+                    SQLWhere = SQLWhere & " AIRBRANCH.ISMPTestFirmComments.strStaffResponsible = '" & CurrentUser.UserID & "' ) "
                 Else
                     If clbEngineer.CheckedItems.Count > 0 Then
                         SQLWhere = SQLWhere & " and ( "
@@ -904,8 +904,8 @@ Public Class ISMPMonitoringLog
             If id = "" Then Exit Sub
 
             If DAL.Ismp.StackTestExists(id) Then
-                If UserProgram = "3" Then
-                    OpenMultiForm("ISMPTestReports", id)
+                If CurrentUser.ProgramID = 3 Then
+                    OpenMultiForm(ISMPTestReports, id)
                 Else
                     If DAL.Ismp.StackTestIsClosedOut(id) Then
                         If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then

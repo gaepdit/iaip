@@ -22,7 +22,7 @@
                 End If
             End Set
         End Property
-        Public Property StaffResponsible() As Staff
+        Public Property StaffResponsible() As IaipUser
         Public Property Comments() As String
 
         Public Enum FceSiteVisitType

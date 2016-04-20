@@ -53,7 +53,7 @@
         ''' </summary>
         Public ReadOnly Property DbFormattedString() As String
             Get
-                Return "0413" & Me.ShortString
+                Return GaEpaRegionCode & GaStateNumericCode & Me.ShortString
             End Get
         End Property
 
@@ -63,6 +63,15 @@
         Public ReadOnly Property CountySubstring() As String
             Get
                 Return Mid(_value, 1, 3)
+            End Get
+        End Property
+
+        ''' <summary>
+        ''' Displays the facility identifier used by EPA's ICIS-Air system
+        ''' </summary>
+        Public ReadOnly Property EpaFacilityIdentifier() As String
+            Get
+                Return GaStateCode & "000000" & GaStateNumericCode & ShortString
             End Get
         End Property
 
@@ -111,10 +120,7 @@
         <DebuggerStepThrough()> _
         Public Shared Function IsValidAirsNumberFormat(ByVal airsNumber As String) As Boolean
             If airsNumber Is Nothing Then Return False
-            ' Valid AIRS numbers are in the form 000-00000 or 04-13-000-0000
-            ' (with or without the dashes)
-            Dim rgx As New System.Text.RegularExpressions.Regex("^(04-?13-?)?\d{3}-?\d{5}$")
-            Return rgx.IsMatch(airsNumber)
+            Return System.Text.RegularExpressions.Regex.IsMatch(airsNumber, AirsNumberPattern)
         End Function
 
         ''' <summary>

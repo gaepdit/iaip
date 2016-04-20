@@ -1,4 +1,5 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Collections.Generic
+Imports Oracle.ManagedDataAccess.Client
 
 Module ErrorReporting
 
@@ -21,6 +22,7 @@ Module ErrorReporting
 
         ' First, track the exception using our analytics program. This is more reliable.
         monitor.TrackException(exc, contextMessage)
+        ApplicationInsights.TrackException(exc, contextMessage)
 
         ' Second, try logging the error message to the IAIP database. This requires a connection so will sometimes fail.
         Dim errorMessage As String = exc.Message
@@ -61,13 +63,11 @@ Module ErrorReporting
     End Sub
 
     Private Function LogError(errorMessage As String, errorLocation As String) As Boolean
-        If UserGCode = "" Then UserGCode = "0"
-
         Dim query As String = "INSERT INTO AIRBRANCH.IAIPERRORLOG " &
             " (STRERRORNUMBER, STRUSER, STRERRORLOCATION, STRERRORMESSAGE, DATERRORDATE) " &
             " values (AIRBRANCH.IAIPERRORNUMBER.NEXTVAL, :UserID, :ErrorLocation, :ErrorMessage, SYSDATE) "
         Dim parameters As OracleParameter() = New OracleParameter() {
-            New OracleParameter("UserID", UserGCode),
+            New OracleParameter("UserID", If(CurrentUser IsNot Nothing, CurrentUser.UserID, 0)),
             New OracleParameter("ErrorLocation", errorLocation),
             New OracleParameter("ErrorMessage", errorMessage)
         }

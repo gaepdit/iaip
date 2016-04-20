@@ -27,7 +27,7 @@ Public Class SSCPEvents
 #Region " Form load "
 
     Private Sub SSCP_Reports_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
             btnPrint.Visible = False
 
@@ -63,56 +63,20 @@ Public Class SSCPEvents
 #Region "Page Load Functions"
 
     Private Sub Loadcombos()
-        Dim dtStaff As New DataTable
-
-        Dim drNewRow As DataRow
-        Dim drDSRow As DataRow
-
         Try
 
-            SQL = "select numuserID, Staff as StaffName, strLastName " & _
-            "from AIRBranch.VW_ComplianceStaff "
-
-
-            dsStaff = New DataSet
-
-            daStaff = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daStaff.Fill(dsStaff, "Staff")
-
-            dtStaff.Columns.Add("numUserID", GetType(System.String))
-            dtStaff.Columns.Add("StaffName", GetType(System.String))
-
-            drNewRow = dtStaff.NewRow()
-            drNewRow("numUserID") = "0"
-            drNewRow("StaffName") = "N/A"
-            dtStaff.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsStaff.Tables("Staff").Rows()
-                drNewRow = dtStaff.NewRow
-                drNewRow("numUserID") = drDSRow("numUserID")
-                drNewRow("StaffName") = drDSRow("StaffName")
-                dtStaff.Rows.Add(drNewRow)
-            Next
+            Dim dtStaff As DataTable = SharedData.GetTable(SharedData.Tables.AllComplianceStaff)
 
             With cboStaffResponsible
                 .DataSource = dtStaff
-                .DisplayMember = "StaffName"
+                .DisplayMember = "Staff"
                 .ValueMember = "numUserID"
                 .SelectedIndex = 0
             End With
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
-
     End Sub
     Sub ShowCorrectTab()
         Dim EventTypeDbString As String = ""
@@ -798,9 +762,9 @@ Public Class SSCPEvents
             If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" And txtFacilityInformation.Text <> "" Then
                 OpenFormEnforcement(txtEnforcementNumber.Text)
             Else
-                Dim parameters As New Dictionary(Of String, String)
-                parameters("airsnumber") = txtAIRSNumber.Text
-                If txtTrackingNumber.Text <> "" Then parameters("trackingnumber") = txtTrackingNumber.Text
+                Dim parameters As New Dictionary(Of FormParameter, String)
+                parameters(FormParameter.AirsNumber) = txtAIRSNumber.Text
+                If txtTrackingNumber.Text <> "" Then parameters(FormParameter.TrackingNumber) = txtTrackingNumber.Text
                 OpenSingleForm(SSCPEnforcementSelector, parameters:=parameters, closeFirst:=True)
             End If
         Catch ex As Exception
@@ -929,7 +893,7 @@ Public Class SSCPEvents
                     "'" & Replace(PeriodComments, "'", "''") & "', '" & dtpDueDate.Text & "', " & _
                     "'" & DTPSentDate.Text & "', '" & Completeness & "', " & _
                     "'" & NeedsEnforcement & "', '" & Deviation & "', " & _
-                    "'" & Replace(GeneralComments, "'", "''") & "', '" & UserGCode & "', " & _
+                    "'" & Replace(GeneralComments, "'", "''") & "', '" & CurrentUser.UserID & "', " & _
                     "'" & OracleDate & "', '1')"
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -954,7 +918,7 @@ Public Class SSCPEvents
                     "'" & dtpDueDate.Text & "', '" & DTPSentDate.Text & "', " & _
                     "'" & Completeness & "', '" & NeedsEnforcement & "', " & _
                     "'" & Deviation & "', '" & Replace(GeneralComments, "'", "''") & "', " & _
-                    "'" & UserGCode & "', '" & OracleDate & "')"
+                    "'" & CurrentUser.UserID & "', '" & OracleDate & "')"
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -976,7 +940,7 @@ Public Class SSCPEvents
                     "strenforcementneeded = '" & NeedsEnforcement & "', " & _
                     "strshowdeviation = '" & Deviation & "', " & _
                     "strgeneralcomments = '" & Replace(GeneralComments, "'", "''") & "', " & _
-                    "strmodifingperson = '" & UserGCode & "', " & _
+                    "strmodifingperson = '" & CurrentUser.UserID & "', " & _
                     "datmodifingdate = '" & OracleDate & "' " & _
                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "'"
 
@@ -1012,7 +976,7 @@ Public Class SSCPEvents
                          "strenforcementneeded = '" & NeedsEnforcement & "', " & _
                          "strshowdeviation = '" & Deviation & "', " & _
                          "strgeneralcomments = '" & Replace(GeneralComments, "'", "''") & "', " & _
-                         "strmodifingperson = '" & UserGCode & "', " & _
+                         "strmodifingperson = '" & CurrentUser.UserID & "', " & _
                          "datmodifingdate = '" & OracleDate & "' " & _
                          "where strTrackingNumber = '" & txtTrackingNumber.Text & "' " & _
                          "and strSubmittalNumber = '" & NUPReportSubmittal.Value & "'"
@@ -1032,7 +996,7 @@ Public Class SSCPEvents
                         "'" & dtpDueDate.Text & "', '" & DTPSentDate.Text & "', " & _
                         "'" & Completeness & "', '" & NeedsEnforcement & "', " & _
                         "'" & Deviation & "', '" & Replace(GeneralComments, "'", "''") & "', " & _
-                        "'" & UserGCode & "', '" & OracleDate & "')"
+                        "'" & CurrentUser.UserID & "', '" & OracleDate & "')"
                     End If
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1146,7 +1110,7 @@ Public Class SSCPEvents
                     "'" & Replace(WeatherCondition, "'", "''") & "', '" & Replace(InspectionGuide, "'", "''") & "', " & _
                     "'" & Replace(OperatingStatus, "'", "''") & "', '" & cboInspectionComplianceStatus.Text & "', " & _
                     "'" & Replace(InspectionComments, "'", "''") & "', " & _
-                    "'" & EnforcementFollowUp & "', '" & UserGCode & "', " & _
+                    "'" & EnforcementFollowUp & "', '" & CurrentUser.UserID & "', " & _
                     "'" & OracleDate & "')"
                 Else
                     SQL = "Update AIRBRANCH.SSCPInspections set " & _
@@ -1159,7 +1123,7 @@ Public Class SSCPEvents
                     "strInspectionComplianceStatus = '" & cboInspectionComplianceStatus.Text & "', " & _
                     "strInspectionComments = '" & Replace(InspectionComments, "'", "''") & "', " & _
                     "strInspectionFollowUp = '" & EnforcementFollowUp & "', " & _
-                    "strModifingPerson = '" & UserGCode & "', " & _
+                    "strModifingPerson = '" & CurrentUser.UserID & "', " & _
                     "datModifingDate = '" & OracleDate & "' " & _
                     "where strtrackingNumber = '" & txtTrackingNumber.Text & "'"
                 End If
@@ -1303,7 +1267,7 @@ Public Class SSCPEvents
                     "'" & ReportedDeviations & "', '" & ReportedUnReportedDeviations & "', " & _
                     "'" & Replace(ACCComments, "'", "''") & "', " & _
                     "'" & EnforcementNeeded & "', " & _
-                    "'" & UserGCode & "', '" & OracleDate & "', '" & AccReportingYear & "', " & _
+                    "'" & CurrentUser.UserID & "', '" & OracleDate & "', '" & AccReportingYear & "', " & _
                     "'" & AllDeviationsReported & "', '" & ResubmittalRequested & "')"
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1328,7 +1292,7 @@ Public Class SSCPEvents
                     "'" & TitleVConditions & "', '" & ACCCorrectlyFilledOut & "', " & _
                     "'" & ReportedDeviations & "', '" & ReportedUnReportedDeviations & "', " & _
                     "'" & Replace(ACCComments, "'", "''") & "', " & _
-                    "'" & EnforcementNeeded & "', '" & UserGCode & "', " & _
+                    "'" & EnforcementNeeded & "', '" & CurrentUser.UserID & "', " & _
                     "'" & OracleDate & "', '" & AccReportingYear & "', " & _
                     "'" & AllDeviationsReported & "', '" & ResubmittalRequested & "')"
 
@@ -1351,7 +1315,7 @@ Public Class SSCPEvents
                     "strDeviationsUnreported = '" & ReportedUnReportedDeviations & "', " & _
                     "strcomments = '" & Replace(ACCComments, "'", "''") & "', " & _
                     "strEnforcementneeded = '" & EnforcementNeeded & "', " & _
-                    "strModifingPerson = '" & UserGCode & "', " & _
+                    "strModifingPerson = '" & CurrentUser.UserID & "', " & _
                     "DatModifingDate = '" & OracleDate & "', " & _
                     "datAccReportingYear = '" & AccReportingYear & "', " & _
                     "STRKNOWNDEVIATIONSREPORTED = '" & AllDeviationsReported & "', " & _
@@ -1389,7 +1353,7 @@ Public Class SSCPEvents
                         "strDeviationsUnreported = '" & ReportedUnReportedDeviations & "', " & _
                         "strcomments = '" & Replace(ACCComments, "'", "''") & "', " & _
                         "strEnforcementneeded = '" & EnforcementNeeded & "', " & _
-                        "strModifingPerson = '" & UserGCode & "', " & _
+                        "strModifingPerson = '" & CurrentUser.UserID & "', " & _
                         "DatModifingDate = '" & OracleDate & "', " & _
                         "datAccReportingYear = '" & AccReportingYear & "', " & _
                         "STRKNOWNDEVIATIONSREPORTED = '" & AllDeviationsReported & "', " & _
@@ -1413,7 +1377,7 @@ Public Class SSCPEvents
                         "'" & TitleVConditions & "', '" & ACCCorrectlyFilledOut & "', " & _
                         "'" & ReportedDeviations & "', '" & ReportedUnReportedDeviations & "', " & _
                         "'" & Replace(ACCComments, "'", "''") & "', " & _
-                        "'" & EnforcementNeeded & "', '" & UserGCode & "', " & _
+                        "'" & EnforcementNeeded & "', '" & CurrentUser.UserID & "', " & _
                         "'" & OracleDate & "', '" & AccReportingYear & "', " & _
                         "'" & AllDeviationsReported & "', '" & ResubmittalRequested & "')"
                     End If
@@ -1495,7 +1459,7 @@ Public Class SSCPEvents
                 "datTestReportDue = '" & TestReportDue & "', " & _
                 "strTestReportComments = '" & Replace(TestReportComments, "'", "''") & "', " & _
                 "strTestReportFollowUp = '" & TestReportFollowUp & "', " & _
-                "strModifingPerson = '" & UserGCode & "', " & _
+                "strModifingPerson = '" & CurrentUser.UserID & "', " & _
                 "datModifingDate = '" & OracleDate & "' " & _
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
             Else
@@ -1508,7 +1472,7 @@ Public Class SSCPEvents
                 "('" & txtTrackingNumber.Text & "', '" & ReferenceNumber & "', " & _
                 "'" & TestReportDue & "', " & _
                 "'" & Replace(TestReportComments, "'", "''") & "', '" & TestReportFollowUp & "', " & _
-                "'" & UserGCode & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
             End If
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1621,7 +1585,7 @@ Public Class SSCPEvents
                 "strNotificationTypeOther = '" & Replace(NotificationTypeOther, "'", "''") & "', " & _
                 "strNotificationComment = '" & Replace(NotificationComment, "'", "''") & "', " & _
                 "strNotificationFollowUp = '" & NotificationFollowUp & "', " & _
-                "strModifingPerson = '" & UserGCode & "', " & _
+                "strModifingPerson = '" & CurrentUser.UserID & "', " & _
                 "datModifingDate = '" & OracleDate & "' " & _
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
             Else
@@ -1637,7 +1601,7 @@ Public Class SSCPEvents
                 "'" & NotificationDue & "', '" & NotificationSentDate & "', " & _
                 "'" & NotificationSent & "', '" & cboNotificationType.SelectedValue & "', " & _
                 "'" & Replace(NotificationTypeOther, "'", "''") & "', '" & Replace(NotificationComment, "'", "''") & "', " & _
-                "'" & NotificationFollowUp & "', '" & UserGCode & "', " & _
+                "'" & NotificationFollowUp & "', '" & CurrentUser.UserID & "', " & _
                 "'" & OracleDate & "') "
             End If
 
@@ -1776,7 +1740,7 @@ Public Class SSCPEvents
                             "datModifingdate) " & _
                             "values " & _
                             "('" & txtTrackingNumber.Text & "', '" & ActionNumber & "', " & _
-                            "'A', '" & UserGCode & "', " & _
+                            "'A', '" & CurrentUser.UserID & "', " & _
                             "'" & OracleDate & "') "
 
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1872,7 +1836,7 @@ Public Class SSCPEvents
                             "datModifingdate) " & _
                             "values " & _
                             "('" & CStr(CInt(txtTrackingNumber.Text + 1)) & "', '" & ActionNumber & "', " & _
-                            "'A', '" & UserGCode & "', " & _
+                            "'A', '" & CurrentUser.UserID & "', " & _
                             "'" & OracleDate & "') "
 
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1954,7 +1918,7 @@ Public Class SSCPEvents
                         "datModifingdate) " & _
                         "values " & _
                         "('" & txtTrackingNumber.Text & "', '" & ActionNumber & "', " & _
-                        "'A', '" & UserGCode & "', " & _
+                        "'A', '" & CurrentUser.UserID & "', " & _
                         "'" & OracleDate & "') "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4188,7 +4152,7 @@ Public Class SSCPEvents
             .PostmarkedByDeadline = rdbACCPostmarkYes.Checked
             .ResubmittalRequested = rdbACCResubmittalRequestedYes.Checked
             .SignedByResponsibleOfficial = rdbACCROYes.Checked
-            .StaffResponsible = DAL.GetStaff(cboStaffResponsible.SelectedValue)
+            .StaffResponsible = DAL.GetIaipUserByUserId(cboStaffResponsible.SelectedValue)
             .UnreportedDeviationsReported = rdbACCPreviouslyUnreportedDeviationsYes.Checked
         End With
 

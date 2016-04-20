@@ -35,7 +35,7 @@ Public Class IAIPFacilityLookUpTool
 #Region " Form events "
 
     Private Sub IAIPFacilityLookUpTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
 
         If Not Me.Modal Then Me.Close()
 
@@ -51,6 +51,7 @@ Public Class IAIPFacilityLookUpTool
 
     Private Sub SearchBy(ByVal SearchType As SearchByType)
         monitor.TrackFeature("FacilitySearch." & SearchType.ToString)
+        ApplicationInsights.TrackEvent("FacilitySearch." & SearchType.ToString)
 
         Dim query As String = ""
         Dim parameter As OracleParameter = Nothing

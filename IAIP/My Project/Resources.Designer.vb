@@ -73,6 +73,24 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        '''  Looks up a localized string similar to Welcome! An account has been created for you in the Integrated Air Information Platform (IAIP). Your login details are as follows…
+        '''
+        '''    Username: {0}
+        '''    Temporary password: {1}
+        '''
+        '''The first time you log in, you will be asked to change your password and verify your profile.
+        '''
+        '''Information about the IAIP, including installation instructions, is available at http://dmu.georgiaair.org/iaip/
+        '''
+        '''Important! Per DNR policy, the IAIP may be installed on a privately-owned computer, but only if your computer has s [rest of string was truncated]&quot;;.
+        '''</summary>
+        Friend ReadOnly Property EmailNewUserWelcome() As String
+            Get
+                Return ResourceManager.GetString("EmailNewUserWelcome", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         Friend ReadOnly Property EraseIcon() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("EraseIcon", resourceCulture)

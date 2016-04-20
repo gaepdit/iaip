@@ -8,7 +8,7 @@ Namespace Apb.Sspp
         Public Property ApplicationType() As String
         Public Property PermitType() As String
         Public Property DateIssued() As Date?
-        Public Property StaffResponsible() As Staff
+        Public Property StaffResponsible() As IaipUser
 
     End Class
 

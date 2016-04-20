@@ -22,34 +22,34 @@ Partial Class SscpDocuments
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
-        Me.btnNewDocumentCancel = New System.Windows.Forms.Button
-        Me.btnNewDocumentUpload = New System.Windows.Forms.Button
-        Me.btnNewDocumentSelect = New System.Windows.Forms.Button
-        Me.lblNewDocumentType = New System.Windows.Forms.Label
-        Me.ddlNewDocumentType = New System.Windows.Forms.ComboBox
-        Me.lblNewDocumentDescription = New System.Windows.Forms.Label
-        Me.pnlNewDocument = New System.Windows.Forms.Panel
-        Me.pnlNewDocumentDetails = New System.Windows.Forms.Panel
-        Me.txtNewDocumentDescription = New System.Windows.Forms.TextBox
-        Me.lblNewDocumentName = New System.Windows.Forms.Label
-        Me.lblMessage = New System.Windows.Forms.Label
-        Me.pnlDocument = New System.Windows.Forms.Panel
-        Me.lblDocumentDescription = New System.Windows.Forms.Label
-        Me.ddlDocumentType = New System.Windows.Forms.ComboBox
-        Me.btnDocumentDelete = New System.Windows.Forms.Button
-        Me.btnDocumentDownload = New System.Windows.Forms.Button
-        Me.txtDocumentDescription = New System.Windows.Forms.TextBox
-        Me.btnDocumentUpdate = New System.Windows.Forms.Button
-        Me.lblDocumentName = New System.Windows.Forms.Label
-        Me.lblCurrentFiles = New System.Windows.Forms.Label
-        Me.dgvDocumentList = New System.Windows.Forms.DataGridView
-        Me.btnFindEnforcement = New System.Windows.Forms.Button
-        Me.txtFindEnforcement = New System.Windows.Forms.TextBox
-        Me.lblFindEnforcement = New System.Windows.Forms.Label
-        Me.lblEnforcementInfo = New System.Windows.Forms.Label
+        Me.components = New System.ComponentModel.Container()
+        Me.btnNewDocumentCancel = New System.Windows.Forms.Button()
+        Me.btnNewDocumentUpload = New System.Windows.Forms.Button()
+        Me.btnNewDocumentSelect = New System.Windows.Forms.Button()
+        Me.lblNewDocumentType = New System.Windows.Forms.Label()
+        Me.ddlNewDocumentType = New System.Windows.Forms.ComboBox()
+        Me.lblNewDocumentDescription = New System.Windows.Forms.Label()
+        Me.pnlNewDocument = New System.Windows.Forms.Panel()
+        Me.pnlNewDocumentDetails = New System.Windows.Forms.Panel()
+        Me.txtNewDocumentDescription = New System.Windows.Forms.TextBox()
+        Me.lblNewDocumentName = New System.Windows.Forms.Label()
+        Me.lblMessage = New System.Windows.Forms.Label()
+        Me.pnlDocument = New System.Windows.Forms.Panel()
+        Me.lblDocumentDescription = New System.Windows.Forms.Label()
+        Me.ddlDocumentType = New System.Windows.Forms.ComboBox()
+        Me.btnDocumentDelete = New System.Windows.Forms.Button()
+        Me.btnDocumentDownload = New System.Windows.Forms.Button()
+        Me.txtDocumentDescription = New System.Windows.Forms.TextBox()
+        Me.btnDocumentUpdate = New System.Windows.Forms.Button()
+        Me.lblDocumentName = New System.Windows.Forms.Label()
+        Me.lblCurrentFiles = New System.Windows.Forms.Label()
+        Me.dgvDocumentList = New System.Windows.Forms.DataGridView()
+        Me.btnFindEnforcement = New System.Windows.Forms.Button()
+        Me.txtFindEnforcement = New System.Windows.Forms.TextBox()
+        Me.lblFindEnforcement = New System.Windows.Forms.Label()
+        Me.lblEnforcementInfo = New System.Windows.Forms.Label()
         Me.EP = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.lblEnforcementInfo2 = New System.Windows.Forms.Label
+        Me.lblEnforcementInfo2 = New System.Windows.Forms.Label()
         Me.pnlNewDocument.SuspendLayout()
         Me.pnlNewDocumentDetails.SuspendLayout()
         Me.pnlDocument.SuspendLayout()
@@ -166,10 +166,10 @@ Partial Class SscpDocuments
         'lblMessage
         '
         Me.lblMessage.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblMessage.AutoSize = True
-        Me.lblMessage.BackColor = System.Drawing.Color.OldLace
-        Me.lblMessage.ForeColor = System.Drawing.Color.DarkRed
+        Me.lblMessage.BackColor = System.Drawing.Color.LightYellow
+        Me.lblMessage.ForeColor = System.Drawing.Color.Black
         Me.lblMessage.Location = New System.Drawing.Point(9, 43)
         Me.lblMessage.MaximumSize = New System.Drawing.Size(360, 0)
         Me.lblMessage.Name = "lblMessage"
@@ -182,7 +182,7 @@ Partial Class SscpDocuments
         'pnlDocument
         '
         Me.pnlDocument.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlDocument.Controls.Add(Me.lblDocumentDescription)
         Me.pnlDocument.Controls.Add(Me.ddlDocumentType)
         Me.pnlDocument.Controls.Add(Me.btnDocumentDelete)
@@ -240,7 +240,7 @@ Partial Class SscpDocuments
         'txtDocumentDescription
         '
         Me.txtDocumentDescription.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtDocumentDescription.Location = New System.Drawing.Point(0, 52)
         Me.txtDocumentDescription.Name = "txtDocumentDescription"
         Me.txtDocumentDescription.Size = New System.Drawing.Size(293, 20)
@@ -285,8 +285,8 @@ Partial Class SscpDocuments
         Me.dgvDocumentList.AllowUserToOrderColumns = True
         Me.dgvDocumentList.AllowUserToResizeRows = False
         Me.dgvDocumentList.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvDocumentList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvDocumentList.Enabled = False
         Me.dgvDocumentList.Location = New System.Drawing.Point(277, 121)

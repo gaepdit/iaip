@@ -39,8 +39,8 @@ Namespace DAL
             Dim table As DataTable = DB.GetDataTable(query, parameter)
 
             For Each row As DataRow In table.Rows
-                row("Phone") = FormatStringAsPhoneNumber(DB.GetNullable(Of String)(row("Phone")))
-                row("Fax") = FormatStringAsPhoneNumber(DB.GetNullable(Of String)(row("Fax")))
+                row("Phone") = FormatDigitsAsPhoneNumber(DB.GetNullable(Of String)(row("Phone")))
+                row("Fax") = FormatDigitsAsPhoneNumber(DB.GetNullable(Of String)(row("Fax")))
             Next
 
             Return table

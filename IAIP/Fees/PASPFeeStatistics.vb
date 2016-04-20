@@ -18,7 +18,7 @@ Public Class PASPFeeStatistics
 
     Private Sub DEVFeeStatistics_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
-            monitor.TrackFeature("Forms." & Me.Name)
+            
             Me.Cursor = Cursors.WaitCursor
             pnlDetails.Dock = DockStyle.None
 
@@ -3174,6 +3174,7 @@ Public Class PASPFeeStatistics
             ds = New DataSet
             rpt = New FacilityFee10
             monitor.TrackFeature("Report." & rpt.ResourceName)
+            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             SQL = "Select * from AIRBRANCH.VW_Facility_Fee " &
             "where strAIRSNumber = '0413" & cboAirsNo.SelectedValue & "' "
 
@@ -3210,6 +3211,7 @@ Public Class PASPFeeStatistics
             Me.Cursor = Cursors.WaitCursor
             ds = New DataSet
             rpt = New TotalFee10
+            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
             SQL = "Select * from AIRBRANCH.VW_Total_fee "
@@ -3249,6 +3251,7 @@ Public Class PASPFeeStatistics
             Me.Cursor = Cursors.WaitCursor
             ds = New DataSet
             rpt = New FacilityClassification10
+            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
             SQL = "Select * from AIRBRANCH.FSCalculations "
@@ -3264,7 +3267,7 @@ Public Class PASPFeeStatistics
             rpt.SetDataSource(ds)
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, "Facility Classification Totals")
-            
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -3296,6 +3299,7 @@ Public Class PASPFeeStatistics
             Else
                 rpt = New FacilityBalancewithZero10
             End If
+            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
             SQL = "SELECT " &
@@ -3365,6 +3369,7 @@ Public Class PASPFeeStatistics
             Me.Cursor = Cursors.Default
             ds = New DataSet
             rpt = New TotalPayment10
+            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             monitor.TrackFeature("Report." & rpt.ResourceName)
             SQL = "Select * from AIRBRANCH.VW_Total_PAYMENT "
             da = New OracleDataAdapter(SQL, CurrentConnection)
@@ -3392,6 +3397,7 @@ Public Class PASPFeeStatistics
             Me.Cursor = Cursors.WaitCursor
             ds = New DataSet
             rpt = New feeByYear10
+            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             monitor.TrackFeature("Report." & rpt.ResourceName)
             SQL = "Select * from AIRBRANCH.FeesDue "
 
@@ -3439,6 +3445,7 @@ Public Class PASPFeeStatistics
         ds.Tables.Add(dt)
 
         rpt = New DepositQA11
+        ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
         monitor.TrackFeature("Report." & rpt.ResourceName & ".byDate")
         rpt.SetDataSource(ds)
 
@@ -3480,6 +3487,7 @@ Public Class PASPFeeStatistics
             Me.Cursor = Cursors.WaitCursor
             ds = New DataSet
             rpt = New ClassChanged10
+            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
             SQL = "select * from AIRBRANCH.VW_Class_Changed"
@@ -3523,6 +3531,7 @@ Public Class PASPFeeStatistics
             da.Fill(ds, "VW_NSPS_Status")
 
             rpt = New NSPSStatus10
+            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             monitor.TrackFeature("Report." & rpt.ResourceName)
             rpt.SetDataSource(ds)
 
@@ -3540,6 +3549,7 @@ Public Class PASPFeeStatistics
             Me.Cursor = Cursors.WaitCursor
             ds = New DataSet
             rpt = New NSPSStatus1_10
+            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             monitor.TrackFeature("Report." & rpt.ResourceName)
             SQL = "Select * " &
             "from AIRBRANCH.VW_NSPS_Status " &
@@ -3568,6 +3578,7 @@ Public Class PASPFeeStatistics
             Me.Cursor = Cursors.WaitCursor
             ds = New DataSet
             rpt = New NSPSStatus2_10
+            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             monitor.TrackFeature("Report." & rpt.ResourceName)
             SQL = "Select * " &
             "from AIRBRANCH.VW_NSPS_Status " &
@@ -3597,6 +3608,7 @@ Public Class PASPFeeStatistics
             Me.Cursor = Cursors.WaitCursor
             ds = New DataSet
             rpt = New NoOperate10
+            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             monitor.TrackFeature("Report." & rpt.ResourceName)
             SQL = "Select * from AIRBRANCH.VW_No_Operate "
 
@@ -3627,6 +3639,7 @@ Public Class PASPFeeStatistics
             Me.Cursor = Cursors.WaitCursor
             ds = New DataSet
             rpt = New FacilityInfo10
+            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
             SQL = "Select * from AIRBRANCH.VW_Facility_Info "
@@ -8309,7 +8322,7 @@ Public Class PASPFeeStatistics
                 "and active = '1' "
 
                 Dim parameters As OracleParameter() = New OracleParameter() {
-                    New OracleParameter("Username", UserName),
+                    New OracleParameter("Username", CurrentUser.AlphaName),
                     New OracleParameter("FeeYear", cboFeeStatYear.Text)
                 }
 
@@ -8636,13 +8649,13 @@ Public Class PASPFeeStatistics
     End Sub
 
     Private Sub btnOpenFeesLog_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenFeesLog.Click
-        Dim parameters As New Generic.Dictionary(Of String, String)
+        Dim parameters As New Generic.Dictionary(Of BaseForm.FormParameter, String)
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtFeeStatAirsNumber.Text) Then
-            parameters("airsnumber") = txtFeeStatAirsNumber.Text
+            parameters(FormParameter.AirsNumber) = txtFeeStatAirsNumber.Text
         End If
-        parameters("feeyear") = cboFeeStatYear.Text
+        parameters(FormParameter.FeeYear) = cboFeeStatYear.Text
 
-        OpenSingleForm("PASPFeeAuditLog", parameters:=parameters, closeFirst:=True)
+        OpenSingleForm(PASPFeeAuditLog, parameters:=parameters, closeFirst:=True)
     End Sub
 
     Private Sub btnInvoiceReportVariance_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnInvoiceReportVariance.Click

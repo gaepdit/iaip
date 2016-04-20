@@ -46,7 +46,7 @@ Public Class IAIPEditContacts
 #Region "Page Load"
 
     Private Sub APBAddContacts_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         ParseParameters()
         LoadContactsDataset()
         If Key <> ContactKey.None AndAlso [Enum].IsDefined(GetType(ContactKey), Key) Then
@@ -56,20 +56,20 @@ Public Class IAIPEditContacts
 
     Private Sub ParseParameters()
         If Parameters IsNot Nothing Then
-            If Parameters.ContainsKey("airsnumber") Then
+            If Parameters.ContainsKey(FormParameter.AirsNumber) Then
                 Try
-                    Me.AirsNumber = Parameters("airsnumber")
+                    Me.AirsNumber = Parameters(FormParameter.AirsNumber)
                     lblAirsNumber.Text = Me.AirsNumber.FormattedString
                 Catch ex As Exception
                     Me.AirsNumber = Nothing
                 End Try
             End If
-            If Parameters.ContainsKey("facilityname") Then
-                Me.FacilityName = Parameters("facilityname")
+            If Parameters.ContainsKey(FormParameter.FacilityName) Then
+                Me.FacilityName = Parameters(FormParameter.FacilityName)
                 lblFacilityName.Text = FacilityName
             End If
-            If Parameters.ContainsKey("key") Then
-                Me.Key = [Enum].Parse(GetType(ContactKey), Parameters("key"))
+            If Parameters.ContainsKey(FormParameter.Key) Then
+                Me.Key = [Enum].Parse(GetType(ContactKey), Parameters(FormParameter.Key))
             End If
         End If
     End Sub
@@ -412,7 +412,7 @@ Public Class IAIPEditContacts
                     "STRCONTACTCITY = '" & Replace(txtNewCity.Text, "'", "''") & "', " & _
                     "STRCONTACTSTATE = '" & Replace(txtNewState.Text, "'", "''") & "', " & _
                     "STRCONTACTZIPCODE = '" & mtbNewZipCode.Text & "', " & _
-                    "STRMODIFINGPERSON = '" & UserGCode & "', " & _
+                    "STRMODIFINGPERSON = '" & CurrentUser.UserID & "', " & _
                     "DATMODIFINGDATE = sysdate,  " & _
                     "STRCONTACTDESCRIPTION = '" & Replace(txtNewDescrption.Text, "'", "''") & "' " & _
                     "where strAIRSnumber = '" & AirsNumber.DbFormattedString & "' " & _
@@ -460,7 +460,7 @@ Public Class IAIPEditContacts
                        "STRCONTACTCITY = '" & Replace(txtNewCity.Text, "'", "''") & "', " & _
                        "STRCONTACTSTATE = '" & Replace(txtNewState.Text, "'", "''") & "', " & _
                        "STRCONTACTZIPCODE = '" & mtbNewZipCode.Text & "', " & _
-                       "STRMODIFINGPERSON = '" & UserGCode & "', " & _
+                       "STRMODIFINGPERSON = '" & CurrentUser.UserID & "', " & _
                        "DATMODIFINGDATE = sysdate,  " & _
                        "STRCONTACTDESCRIPTION = '" & Replace(txtNewDescrption.Text, "'", "''") & "' " & _
                        "where strAIRSnumber = '" & AirsNumber.DbFormattedString & "' " & _
@@ -556,7 +556,7 @@ Public Class IAIPEditContacts
                             " '" & Replace(txtNewEmail.Text, "'", "''") & "', '" & Replace(txtNewAddress.Text, "'", "''") & "', " & _
                             " '', '" & Replace(txtNewCity.Text, "'", "''") & "', " & _
                             " '" & Replace(txtNewState.Text, "'", "''") & "',  '" & mtbNewZipCode.Text & "', " & _
-                            " '" & UserGCode & "',  sysdate, " & _
+                            " '" & CurrentUser.UserID & "',  sysdate, " & _
                             " '" & Replace(txtNewDescrption.Text, "'", "''") & "' " & _
                             "from dual  " & _
                             "where not exists (select * from AIRBranch.APBContactInformation  " & _
@@ -592,7 +592,7 @@ Public Class IAIPEditContacts
                             " '" & Replace(txtNewEmail.Text, "'", "''") & "', '" & Replace(txtNewAddress.Text, "'", "''") & "', " & _
                             " '', '" & Replace(txtNewCity.Text, "'", "''") & "', " & _
                             " '" & Replace(txtNewState.Text, "'", "''") & "',  '" & mtbNewZipCode.Text & "', " & _
-                            " '" & UserGCode & "',  sysdate, " & _
+                            " '" & CurrentUser.UserID & "',  sysdate, " & _
                             " '" & Replace(txtNewDescrption.Text, "'", "''") & "' " & _
                             "from dual  " & _
                             "where not exists (select * from AIRBranch.APBContactInformation  " & _

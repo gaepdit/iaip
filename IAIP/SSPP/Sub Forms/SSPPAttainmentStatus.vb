@@ -13,7 +13,7 @@ Public Class SSPPAttainmentStatus
 
 
     Private Sub SSPPAttainmentStatus_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
 
 
@@ -21,7 +21,7 @@ Public Class SSPPAttainmentStatus
             LoadCountyComboBox()
 
             Panel1.Text = "Select a county...."
-            Panel2.Text = UserName
+            Panel2.Text = CurrentUser.AlphaName
             Panel3.Text = OracleDate
 
         Catch ex As Exception

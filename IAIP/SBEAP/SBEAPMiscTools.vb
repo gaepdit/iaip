@@ -1,6 +1,6 @@
 ﻿Public Class SBEAPMiscTools
     Private Sub SBEAPMiscTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
     End Sub
 
     Private Sub btnGetContactData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGetContactData.Click

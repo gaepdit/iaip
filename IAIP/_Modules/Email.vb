@@ -1,27 +1,12 @@
 ﻿Module Email
 
-    Public Function EmailAddressIsValid(ByVal email As String) As Boolean
-        If String.IsNullOrEmpty(email) Then Return False
-        Try
-            Dim testEmail As Net.Mail.MailAddress = New Net.Mail.MailAddress(email)
-        Catch ex As Exception
-            Return False
-        End Try
-        Return True
-    End Function
-
-    Public Sub CreateEmail(Optional ByVal subject As String = Nothing, _
+    Public Function CreateEmail(Optional ByVal subject As String = Nothing, _
                          Optional ByVal body As String = Nothing, _
                          Optional ByVal recipientsTo As String() = Nothing, _
                          Optional ByVal recipientsCC As String() = Nothing, _
-                         Optional ByVal recipientsBCC As String() = Nothing, _
-                         Optional ByVal objectSender As Object = Nothing)
+                         Optional ByVal recipientsBCC As String() = Nothing) As Boolean
 
         monitor.TrackFeature("Email.SendUrlEmail")
-
-        If objectSender IsNot Nothing Then
-            objectSender.Cursor = Cursors.AppStarting
-        End If
 
         Try
             Dim subjectParam As String = Nothing
@@ -36,10 +21,10 @@
             If recipientsCC IsNot Nothing Then ccParam = "cc=" & Uri.EscapeDataString(String.Join(";", recipientsCC))
             If recipientsBCC IsNot Nothing Then bccParam = "bcc=" & Uri.EscapeDataString(String.Join(";", recipientsBCC))
 
-            Dim queryParams As String() = {subjectParam, bodyParam, ccParam, bccParam}
-            Dim queryString As String = ConcatNonEmptyStrings("&", queryParams)
+            Dim uriQueryParams As String() = {subjectParam, bodyParam, ccParam, bccParam}
+            Dim uriQueryString As String = ConcatNonEmptyStrings("&", uriQueryParams)
 
-            Dim emailUriString As String = String.Format("mailto:{0}?{1}", toParam, queryString)
+            Dim emailUriString As String = String.Format("mailto:{0}?{1}", toParam, uriQueryString)
 
             Dim result As Boolean = False
 
@@ -52,17 +37,11 @@
                 result = CreateOutlookEmail(subject, body, recipientsTo, recipientsCC, recipientsBCC)
             End If
 
-            If Not result Then
-                MsgBox("There was an error sending the message. Please try again.", MsgBoxStyle.OkOnly, "Error")
-            End If
+            Return result
         Catch ex As Exception
             ErrorReport(ex, System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            If objectSender IsNot Nothing Then
-                objectSender.Cursor = Nothing
-            End If
         End Try
 
-    End Sub
+    End Function
 
 End Module

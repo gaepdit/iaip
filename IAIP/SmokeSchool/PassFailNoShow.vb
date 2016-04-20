@@ -6,7 +6,7 @@ Imports Oracle.ManagedDataAccess.Client
 Public Class PassFailNoShow
 
     Private Sub PassFailNoShow_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Dim rpt As New crPassFailNoShow
         'Dim key As String = txtPassFailNoShow.Text
 
@@ -26,6 +26,7 @@ Public Class PassFailNoShow
             da.Fill(ds, "SmokeSchoolPrintInfo")
 
             rpt = New crPassFailNoShow
+            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
             rpt.SetDataSource(ds)

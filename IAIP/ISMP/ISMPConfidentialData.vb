@@ -11,10 +11,10 @@ Public Class ISMPConfidentialData
 
 
     Private Sub DEVConfidentialData_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
             Panel1.Text = "Mark field to be redacted..."
-            Panel2.Text = UserName
+            Panel2.Text = CurrentUser.AlphaName
             Panel3.Text = OracleDate
 
             LoadData()

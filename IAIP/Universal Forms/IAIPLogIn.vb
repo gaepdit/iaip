@@ -2,25 +2,43 @@
 
 Public Class IAIPLogIn
 
+#Region " Properties "
+
+    Private _message As IaipMessage
+    Private Property Message As IaipMessage
+        Get
+            Return _message
+        End Get
+        Set(value As IaipMessage)
+            If value Is Nothing And Message IsNot Nothing Then Message.Clear()
+            _message = value
+            If value IsNot Nothing Then Message.Display(lblGeneralMessage)
+        End Set
+    End Property
+
+#End Region
+
 #Region " Page Load "
 
-    Private Sub IAIPLogIn_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
+    Private Sub IAIPLogIn_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         If txtUserID.Enabled Then txtUserID.Text = GetUserSetting(UserSetting.PrefillLoginId)
         FocusLogin()
         DisplayVersion()
+        CheckForPasswordResetRequest()
         monitor.TrackFeatureStop("Startup.Loading")
         If AppFirstRun Or AppUpdated Then
             App.TestCrystalReportsInstallation()
         End If
     End Sub
 
-    Private Sub IAIPLogIn_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub IAIPLogIn_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Main." & Me.Name)
         monitor.TrackFeature("Forms." & Me.Name)
         Try
             CheckLanguageRegistrySetting()
 
             ChooseDbServerEnvironment()
+            TestingMenuItem.Visible = True
             CheckDBAvailability()
 
 #If UAT Then
@@ -29,44 +47,23 @@ Public Class IAIPLogIn
 #End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub DisableLoginButton(Optional ByVal message As String = "")
-        btnLoginButton.Enabled = False
-        If message IsNot Nothing AndAlso message <> "" Then
-            btnLoginButton.Text = message
-        End If
-    End Sub
-
-    Private Sub EnableLoginButton(Optional ByVal message As String = "")
-        btnLoginButton.Enabled = True
-        If message IsNot Nothing AndAlso message <> "" Then
-            btnLoginButton.Text = message
-        End If
-    End Sub
-
-    Private Sub DisableLogin(Optional ByVal message As String = "")
+    Private Sub DisableLogin(Optional messageText As String = Nothing)
         Dim loginControls As Control() = {txtUserID, lblUserID, txtUserPassword, lblPassword, btnLoginButton}
-        DisableAndHide(loginControls)
-
+        DisableControls(loginControls)
         Me.AcceptButton = Nothing
-        With lblGeneralMessage
-            .Text = message
-            .Visible = True
-        End With
+        Me.Message = New IaipMessage(messageText, IaipMessage.WarningLevels.Warning)
     End Sub
 
     Private Sub EnableLogin()
         Dim loginControls As Control() = {txtUserID, lblUserID, txtUserPassword, lblPassword, btnLoginButton}
-        EnableAndShow(loginControls)
+        EnableControls(loginControls)
 
         Me.AcceptButton = btnLoginButton
-        With lblGeneralMessage
-            .Text = ""
-            .Visible = False
-        End With
+        If Message IsNot Nothing Then Message.Clear()
 
         FocusLogin()
     End Sub
@@ -81,6 +78,8 @@ Public Class IAIPLogIn
 
     Private Sub DisplayVersion()
         Dim currentVersion As Version
+        Dim msgText As String
+        Dim msg As IaipMessage
 
 #If UAT Then
         currentVersion = GetCurrentVersion()
@@ -88,24 +87,31 @@ Public Class IAIPLogIn
         currentVersion = GetCurrentVersionAsMajorMinorBuild()
 #End If
 
-        With lblCurrentVersionMessage
-            If AppUpdated Then
-                .Text = String.Format("The IAIP has been updated. Current version: {0}", currentVersion.ToString)
-                .BackColor = System.Drawing.SystemColors.Info
-                .ForeColor = System.Drawing.SystemColors.InfoText
-                .AutoSize = True
-                .TextAlign = ContentAlignment.TopLeft
-            Else
-                .Text = String.Format("Version: {0}", currentVersion.ToString)
-            End If
-
-            .Visible = True
-        End With
+        If AppUpdated Then
+            msgText = String.Format("The IAIP has been updated. Current version: {0}", currentVersion.ToString)
+            msg = New IaipMessage(msgText, IaipMessage.WarningLevels.Info)
+        Else
+            msgText = String.Format("Version: {0}", currentVersion.ToString)
+            msg = New IaipMessage(msgText, IaipMessage.WarningLevels.None)
+        End If
 
 #If UAT Then
-        lblCurrentVersionMessage.Text = lblCurrentVersionMessage.Text & " UAT"
+        msg.MessageText = msg.MessageText & " UAT"
 #End If
 
+        msg.Display(lblCurrentVersionMessage)
+    End Sub
+
+    Private Sub CheckForPasswordResetRequest()
+        Dim prr As String = GetUserSetting(UserSetting.PasswordResetRequestedDate)
+        If prr <> "" Then
+            Dim prrd As DateTime = DateTime.ParseExact(prr, DateParseExactFormat, Nothing)
+            If DateTime.Compare(prrd, Date.Now.AddHours(-8)) > 0 Then
+                PasswordResetMenuItem.Visible = True
+            Else
+                ResetUserSetting(UserSetting.PasswordResetRequestedDate)
+            End If
+        End If
     End Sub
 
     Private Sub CheckLanguageRegistrySetting()
@@ -124,11 +130,11 @@ Public Class IAIPLogIn
             EnableLogin()
             Return True
         Else
-            DisableLogin("The IAIP is currently unavailable. Please check " & vbNewLine &
-                         "back later. If you are working remotely, you must " & vbNewLine &
-                         "connect to the VPN before using the IAIP. " & vbNewLine & vbNewLine &
-                         "Otherwise, if you continue to see this message after " & vbNewLine &
-                         "two hours, please inform the Data Management Unit. " & vbNewLine & vbNewLine &
+            DisableLogin("The IAIP is currently unavailable. Please check " &
+                         "back later. If you are working remotely, you must " &
+                         "connect to the VPN before using the IAIP. " &
+                         "If you continue to see this message after " &
+                         "two hours, please inform the Data Management Unit. " &
                          "Thank you.")
             Return False
         End If
@@ -141,155 +147,185 @@ Public Class IAIPLogIn
 #Region " Login "
 
     Private Sub LogInCheck()
-        If txtUserID.Text = "" OrElse txtUserPassword.Text = "" Then Exit Sub
-
+        Me.Cursor = Cursors.WaitCursor
         monitor.TrackFeatureStart("Startup.LoggingIn")
+        If Message IsNot Nothing Then Message.Clear()
+        ForgotPasswordLink.Visible = False
+        ForgotUsernameLink.Visible = False
 
-#If DEBUG Then
-        Console.WriteLine("CurrentServerEnvironment: " & CurrentServerEnvironment.ToString)
-#End If
+        If txtUserID.Text = "" OrElse txtUserPassword.Text = "" OrElse Not CheckDBAvailability() Then
+            CancelLogin(ClearPasswordField.Yes)
+        Else
+            Dim authenticationResult As DAL.IaipAuthenticationResult = DAL.AuthenticateIaipUser(txtUserID.Text, txtUserPassword.Text)
 
-        If Not DAL.AppIsEnabled Then
-            DisableLogin("The IAIP is currently unavailable. Please check " & vbNewLine &
-                             "back later. If you continue to see this message after " & vbNewLine &
-                             "two hours, please inform the Data Management Unit. " & vbNewLine &
-                             "Thank you.")
-            txtUserPassword.Clear()
-            monitor.TrackFeatureCancel("Startup.LoggingIn")
-            Exit Sub
-        End If
+            Select Case authenticationResult
+                Case DAL.IaipAuthenticationResult.InvalidUsername
+                    Me.Message = New IaipMessage("That Username does not exist.", IaipMessage.WarningLevels.ErrorReport)
+                    ForgotUsernameLink.Visible = True
+                    CancelLogin(ClearPasswordField.Yes)
 
-        LoginProgressBar.Visible = True
-        LoginProgressBar.Refresh()
+                Case DAL.IaipAuthenticationResult.InactiveUser
+                    Me.Message = New IaipMessage("Your user status has been flagged as inactive.", IaipMessage.WarningLevels.ErrorReport)
+                    CancelLogin(ClearPasswordField.Yes)
 
-        Try
+                Case DAL.IaipAuthenticationResult.InvalidLogin
+                    Me.Message = New IaipMessage("Login information is incorrect.", IaipMessage.WarningLevels.ErrorReport)
+                    ForgotPasswordLink.Visible = True
+                    CancelLogin(ClearPasswordField.No)
 
-            Dim EmployeeStatus As String = ""
-            Dim PhoneNumber As String = ""
-            Dim EmailAddress As String = ""
-            Dim InvalidUserData As Boolean = False
-            Dim LastName As String = ""
+                Case DAL.IaipAuthenticationResult.Success
+                    CurrentUser = DAL.GetIaipUserByUsername(txtUserID.Text)
+                    If CurrentUser Is Nothing Then
+                        Me.Message = New IaipMessage("There was a system error. Please contact support.", IaipMessage.WarningLevels.ErrorReport)
+                        CancelLogin(ClearPasswordField.No)
+                    ElseIf CurrentUser.RequirePasswordChange Then
+                        RequirePasswordUpdate()
+                        CancelLogin(ClearPasswordField.Yes)
+                    ElseIf Not ValidateUserData() Then
+                        Me.Message = New IaipMessage("Your profile must be completed before you can use the IAIP.", IaipMessage.WarningLevels.Warning)
+                        CancelLogin(ClearPasswordField.No)
+                    Else
+                        LogInAlready()
+                    End If
 
-            UserGCode = ""
-
-            CurrentUser = DAL.LoginIaipUser(txtUserID.Text.ToUpper, EncryptDecrypt.EncryptText(txtUserPassword.Text))
-
-            If CurrentUser Is Nothing Then
-                MsgBox("Login information is incorrect." & vbCrLf & "Please try again.", MsgBoxStyle.Exclamation, "Login Error")
-                txtUserPassword.Clear()
-                FocusLogin()
-                LoginProgressBar.Visible = False
-                monitor.TrackFeatureCancel("Startup.LoggingIn")
-                Exit Sub
-            End If
-
-            UserGCode = CurrentUser.Staff.StaffId
-            UserAccounts = CurrentUser.PermissionsString
-            If UserAccounts = "" Then UserAccounts = "(0)"
-            UserName = CurrentUser.Staff.AlphaName
-            If UserName = "" Then UserName = " "
-            UserBranch = CurrentUser.Staff.BranchID.ToString
-            If UserBranch = "0" OrElse UserBranch = "" Then UserBranch = "---"
-            UserProgram = CurrentUser.Staff.ProgramID.ToString
-            If UserProgram = "0" OrElse UserProgram = "" Then UserProgram = "---"
-            UserUnit = CurrentUser.Staff.UnitId.ToString
-            If UserUnit = "0" OrElse UserUnit = "" Then UserUnit = "---"
-            EmployeeStatus = If(CurrentUser.Staff.ActiveStatus, "1", "0")
-            PhoneNumber = CurrentUser.Staff.PhoneNumber
-            EmailAddress = CurrentUser.Staff.EmailAddress
-            LastName = CurrentUser.Staff.LastName
-
-            If EmployeeStatus = "0" Then
-                MsgBox("Your status has been flagged as inactive." & vbCrLf & "Please contact your manager for more information.", MsgBoxStyle.Exclamation, "Login Error")
-                txtUserPassword.Clear()
-                LoginProgressBar.Visible = False
-                monitor.TrackFeatureCancel("Startup.LoggingIn")
-                Exit Sub
-            End If
-
-            If UserGCode = "" Then
-                MsgBox("Login information is incorrect." & vbCrLf & "Please try again.", MsgBoxStyle.Exclamation, "Login Error")
-                txtUserPassword.Clear()
-                FocusLogin()
-                LoginProgressBar.Visible = False
-                monitor.TrackFeatureCancel("Startup.LoggingIn")
-                Exit Sub
-            End If
-
-            'Check for valid user data
-            If EmailAddress = "" Then
-                InvalidUserData = True
-                EmailAddress = "Require"
-            End If
-            If PhoneNumber = "" Or PhoneNumber = "4043637000" Then
-                InvalidUserData = True
-                PhoneNumber = "Require"
-            End If
-            If LastName.ToUpper = txtUserPassword.Text.ToUpper Then
-                InvalidUserData = True
-                LastName = "Require"
-            End If
-            If InvalidUserData Then
-                ProfileUpdate = Nothing
-                If ProfileUpdate Is Nothing Then ProfileUpdate = New IAIPProfileUpdate
-                ProfileUpdate.Show()
-                txtUserPassword.Clear()
-                If EmailAddress = "Require" Then
-                    ProfileUpdate.pnlEmailAddress.Visible = True
-                    ProfileUpdate.txtEmailAddress.BackColor = Color.Tomato
-                Else
-                    ProfileUpdate.txtEmailAddress.Text = EmailAddress
-                End If
-                If PhoneNumber = "Require" Then
-                    ProfileUpdate.pnlPhoneNumber.Visible = True
-                    ProfileUpdate.mtbPhoneNumber.BackColor = Color.Tomato
-                Else
-                    ProfileUpdate.mtbPhoneNumber.Text = PhoneNumber
-                End If
-                If LastName = "Require" Then
-                    ProfileUpdate.pnlUserIDPassword.Visible = True
-                    ProfileUpdate.txtUserPassword.BackColor = Color.Tomato
-                    ProfileUpdate.txtConfirmPassword.BackColor = Color.Tomato
-                End If
-
-                LoginProgressBar.Visible = False
-                monitor.TrackFeatureCancel("Startup.LoggingIn")
-                Exit Sub
-            End If
-
-            If ProfileUpdate IsNot Nothing Then
-                ProfileUpdate.Close()
-                ProfileUpdate = Nothing
-            End If
-
-            ' Add additional installation meta data for analytics
-            monitorInstallationInfo.Add("IaipUserName", CurrentUser.UserName)
-            monitor.SetInstallationInfo(CurrentUser.UserName, monitorInstallationInfo)
-            Select Case CurrentServerEnvironment
-                Case DB.Connections.ServerEnvironment.DEV
-                    monitor.TrackFeature("Main.DevEnvironment")
-                Case DB.Connections.ServerEnvironment.PRD
-                    monitor.TrackFeature("Main.PrdEnvironment")
-                Case DB.Connections.ServerEnvironment.UAT
-                    monitor.TrackFeature("Main.UatEnvironment")
             End Select
-            monitor.ForceSync()
-
-            SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
-            OpenSingleForm(IAIPNavigation)
-
-            Me.Close()
-
-        Catch ex As Exception
-            LoginProgressBar.Visible = False
-            monitor.TrackFeatureCancel("Startup.LoggingIn")
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        End If
     End Sub
 
-    Private Sub btnLoginButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoginButton.Click
+    Private Sub LogInAlready()
+        AddMonitorLoginData()
+        SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
+        ResetUserSetting(UserSetting.PasswordResetRequestedDate)
+        PasswordResetMenuItem.Visible = False
+        OpenSingleForm(IAIPNavigation)
+        Me.Close()
+    End Sub
+
+    Private Sub CancelLogin(Optional clearPasswordField As ClearPasswordField = ClearPasswordField.No)
+        monitor.TrackFeatureCancel("Startup.LoggingIn")
+        CurrentUser = Nothing
+        If clearPasswordField = ClearPasswordField.Yes Then txtUserPassword.Clear()
+        FocusLogin()
+        Me.Cursor = Cursors.Default
+    End Sub
+
+    Private Enum ClearPasswordField
+        No
+        Yes
+    End Enum
+
+    Private Sub RequirePasswordUpdate()
+        Using changePassword As New IaipChangePassword
+            changePassword.Message = New IaipMessage("You must change your password before you can log in.", IaipMessage.WarningLevels.Info)
+            changePassword.Message.Display(changePassword.MessageDisplay)
+            Dim dr As DialogResult = changePassword.ShowDialog()
+            If dr = DialogResult.OK Then
+                Me.Message = New IaipMessage("Password successfully changed. Please log in with new password.", IaipMessage.WarningLevels.Success)
+            Else
+                Me.Message = New IaipMessage("You must change your password before you can log in.", IaipMessage.WarningLevels.Warning)
+            End If
+        End Using
+    End Sub
+
+    Private Function ValidateUserData() As Boolean
+        ' Returns false only if profile info is incomplete and user doesn't update it
+        If CurrentUser.PhoneNumber = "" OrElse CurrentUser.FirstName = "" OrElse CurrentUser.LastName = "" OrElse CurrentUser.EmailAddress = "" Then
+
+            Using editProfile As New IaipUserProfile
+                editProfile.Message = New IaipMessage("Your profile must be completed before you can use the IAIP.", IaipMessage.WarningLevels.Info)
+                editProfile.Message.Display(editProfile.MessageDisplay)
+                Dim dr As DialogResult = editProfile.ShowDialog()
+                If dr = DialogResult.Cancel Then
+                    Return False
+                End If
+            End Using
+
+        ElseIf Not IsValidEmailAddress(CurrentUser.EmailAddress, True) Then
+
+            Using editProfile As New IaipUserProfile
+                editProfile.Message = New IaipMessage("Your profile must be updated with a valid DNR email address.", IaipMessage.WarningLevels.Info)
+                editProfile.Message.Display(editProfile.MessageDisplay)
+                Dim dr As DialogResult = editProfile.ShowDialog()
+                If dr = DialogResult.Cancel Then
+                    Return False
+                End If
+            End Using
+
+        ElseIf CurrentUser.RequestProfileUpdate Then
+
+            Using editProfile As New IaipUserProfile
+                editProfile.Message = New IaipMessage("Please verify and confirm that your profile information is correct.", IaipMessage.WarningLevels.Info)
+                editProfile.Message.Display(editProfile.MessageDisplay)
+                editProfile.ShowDialog()
+            End Using
+
+        End If
+
+        Return True
+    End Function
+
+    Private Sub btnLoginButton_Click(sender As Object, e As EventArgs) Handles btnLoginButton.Click
         LogInCheck()
+    End Sub
+
+#End Region
+
+#Region " User account tools "
+
+    Private Sub RequestUsernameReminder()
+        Me.Cursor = Cursors.WaitCursor
+
+        Using requestUsername As New IaipRequestUsername
+            If requestUsername.ShowDialog() = DialogResult.OK Then
+                Me.Message = New IaipMessage("Check your email for username information. Please allow up to 15 minutes for delivery.", IaipMessage.WarningLevels.Info)
+            End If
+        End Using
+
+        ForgotUsernameLink.Visible = False
+        Me.Cursor = Cursors.Default
+    End Sub
+
+    Private Sub RequestPasswordReset()
+        Me.Cursor = Cursors.WaitCursor
+
+        Dim passwordResetRequested As Boolean = False
+        Dim usernameSubmitted As String = ""
+
+        Using requestPasswordReset As New IaipRequestPasswordReset
+            If requestPasswordReset.ShowDialog() = DialogResult.OK Then
+                ' Set things up for resetting the password with a valid token
+                passwordResetRequested = True
+                usernameSubmitted = requestPasswordReset.Username.Text
+            End If
+        End Using
+
+        If passwordResetRequested Then
+            SaveUserSetting(UserSetting.PasswordResetRequestedDate, Date.Now.ToString(DateParseExactFormat))
+            PasswordResetMenuItem.Visible = True
+            ShowPasswordResetForm(usernameSubmitted)
+        End If
+
+        ForgotPasswordLink.Visible = False
+        Me.Cursor = Cursors.Default
+    End Sub
+
+    Private Sub ShowPasswordResetForm(Optional username As String = "")
+        If username = "" Then
+            username = GetUserSetting(UserSetting.PrefillLoginId)
+        End If
+
+        Using resetPassword As New IaipResetPassword
+            resetPassword.Username.Text = username
+
+            If resetPassword.ShowDialog() = DialogResult.OK Then
+                ResetUserSetting(UserSetting.PasswordResetRequestedDate)
+                PasswordResetMenuItem.Visible = False
+                Me.Message = New IaipMessage("Password successfully changed. Please log in with your new password.", IaipMessage.WarningLevels.Info)
+            Else
+                Me.Message = New IaipMessage("Check your email for password reset information. Please allow up to 15 minutes for delivery. " &
+                                                 "Or if you remember your old password, you can log in using that.", IaipMessage.WarningLevels.Info)
+            End If
+        End Using
     End Sub
 
 #End Region
@@ -297,7 +333,7 @@ Public Class IAIPLogIn
 #Region " Database Environment "
 
     Private Sub ChooseDbServerEnvironment()
-        Dim buttonText As String = "Log In"
+        btnLoginButton.Text = "Log In"
 
 #If DEBUG Then
         CurrentServerEnvironment = DB.ServerEnvironment.DEV
@@ -312,35 +348,30 @@ Public Class IAIPLogIn
                 ' Switch to DEV environment
                 Me.BackColor = Color.PapayaWhip
                 Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerEnvironment.ToString
-                buttonText = "Log in to DEV"
+                btnLoginButton.Text = "Log in to DEV"
             Case DB.Connections.ServerEnvironment.UAT
                 ' Switch to DEV environment
                 Me.BackColor = Color.Snow
                 Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerEnvironment.ToString
-                buttonText = "Log in to UAT"
+                btnLoginButton.Text = "Log in to UAT"
         End Select
 
         ' Reset current connection based on current connection environment
         ' and check connection/app availability
         CurrentConnection = New OracleConnection(DB.CurrentConnectionString)
-
-        If CheckDBAvailability() Then
-            EnableLoginButton(buttonText)
-        Else
-            DisableLoginButton(buttonText)
-        End If
+        CheckDBAvailability()
     End Sub
 
 #End Region
 
 #Region " Close application "
 
-    Private Sub Form_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
+    Private Sub Form_Closed(sender As Object, e As EventArgs) Handles MyBase.Closed
         If Not SingleFormIsOpen(IAIPNavigation) Then
             StartupShutdown.CloseIaip()
         End If
     End Sub
-    Private Sub mmiExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExit.Click
+    Private Sub mmiExit_Click(sender As Object, e As EventArgs) Handles mmiExit.Click
         StartupShutdown.CloseIaip()
     End Sub
 
@@ -348,11 +379,11 @@ Public Class IAIPLogIn
 
 #Region " Form usability "
 
-    Private Sub lblUserID_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lblUserID.Click
+    Private Sub lblUserID_Click(sender As Object, e As EventArgs) Handles lblUserID.Click
         txtUserID.Focus()
     End Sub
 
-    Private Sub lblPassword_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lblPassword.Click
+    Private Sub lblPassword_Click(sender As Object, e As EventArgs) Handles lblPassword.Click
         txtUserPassword.Focus()
     End Sub
 
@@ -360,29 +391,49 @@ Public Class IAIPLogIn
 
 #Region " Menu items "
 
-    Private Sub mmiRefreshUserID_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiRefreshUserID.Click
+    Private Sub mmiRefreshUserID_Click(sender As Object, e As EventArgs) Handles mmiRefreshUserID.Click
         ResetUserSetting(UserSetting.PrefillLoginId)
         txtUserID.Text = ""
     End Sub
 
-    Private Sub mmiResetAllForms_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiResetAllForms.Click
+    Private Sub mmiResetAllForms_Click(sender As Object, e As EventArgs) Handles mmiResetAllForms.Click
         ResetAllFormSettings()
     End Sub
 
-    Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
+    Private Sub mmiOnlineHelp_Click(sender As Object, e As EventArgs) Handles mmiOnlineHelp.Click
         OpenDocumentationUrl(Me)
     End Sub
 
-    Private Sub mmiAbout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiAbout.Click
+    Private Sub mmiAbout_Click(sender As Object, e As EventArgs) Handles mmiAbout.Click
         IaipAbout.ShowDialog()
     End Sub
 
-    Private Sub IAIPLogIn_HelpButtonClicked(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.HelpButtonClicked
+    Private Sub IAIPLogIn_HelpButtonClicked(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.HelpButtonClicked
         OpenSupportUrl(Me)
     End Sub
 
-    Private Sub mmiCheckForUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCheckForUpdate.Click
+    Private Sub mmiCheckForUpdate_Click(sender As Object, e As EventArgs) Handles mmiCheckForUpdate.Click
         App.CheckForUpdate()
+    End Sub
+
+    Private Sub mmiForgotUsername_Click(sender As Object, e As EventArgs) Handles mmiForgotUsername.Click
+        RequestUsernameReminder()
+    End Sub
+
+    Private Sub mmiForgotPassword_Click(sender As Object, e As EventArgs) Handles mmiForgotPassword.Click
+        RequestPasswordReset()
+    End Sub
+
+    Private Sub ForgotUsernameLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles ForgotUsernameLink.LinkClicked
+        RequestUsernameReminder()
+    End Sub
+
+    Private Sub ForgotPasswordLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles ForgotPasswordLink.LinkClicked
+        RequestPasswordReset()
+    End Sub
+
+    Private Sub PasswordResetMenuItem_Click(sender As Object, e As EventArgs) Handles PasswordResetMenuItem.Click
+        ShowPasswordResetForm()
     End Sub
 
 #End Region

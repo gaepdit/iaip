@@ -30,6 +30,9 @@
         ' EQATEC analytics monitor
         InitializeMonitor()
 
+        ' Microsoft Application Insights
+        ApplicationInsights.InitializeTelemetryClient()
+
         ' Initialize form settings
         AllFormSettings = GetAllFormSettings()
 
@@ -49,6 +52,9 @@
 
         ' EQATEC analytics monitor
         StopMonitor()
+
+        ' Microsoft Application Insights
+        ApplicationInsights.StopTelemetryClient()
 
     End Sub
 
@@ -72,6 +78,13 @@
     Friend Sub CloseIaip()
         If CurrentConnection IsNot Nothing Then CurrentConnection.Dispose()
         Application.Exit()
+    End Sub
+
+    Friend Sub LogOutUser()
+        CurrentUser = Nothing
+        monitor.TrackFeature("Main.LogOut")
+        StopMonitor()
+        InitializeMonitor()
     End Sub
 
 End Module

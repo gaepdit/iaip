@@ -13,7 +13,7 @@ Public Class ISMPTestMemoViewer
 
 
     Private Sub ISMPTestMemoViewer_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
 
             CreateStatusBar()
@@ -34,7 +34,7 @@ Public Class ISMPTestMemoViewer
         Try
 
             panel1.Text = "Select a Function..."
-            panel2.Text = UserName
+            panel2.Text = CurrentUser.AlphaName
             panel3.Text = OracleDate
 
             panel1.AutoSize = StatusBarPanelAutoSize.Spring
@@ -89,7 +89,7 @@ Public Class ISMPTestMemoViewer
         Try
 
             If Loading = True Then
-                SQLLine = "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = '" & UserGCode & "' " & _
+                SQLLine = "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = '" & CurrentUser.UserID & "' " & _
                 "and strClosed = 'False' "
             End If
 
@@ -232,7 +232,7 @@ Public Class ISMPTestMemoViewer
     Sub SelectTestReport()
         Try
             Dim id As String = txtReferenceNumber.Text
-            If DAL.Ismp.StackTestExists(id) Then OpenMultiForm("ISMPTestReports", id)
+            If DAL.Ismp.StackTestExists(id) Then OpenMultiForm(ISMPTestReports, id)
             Me.Hide()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

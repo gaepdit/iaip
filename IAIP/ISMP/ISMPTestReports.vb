@@ -53,7 +53,7 @@ Public Class ISMPTestReports
     End Property
 
     Private Sub ISMPTestReports_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
             txtReferenceNumber.Text = Me.ReferenceNumber
 
@@ -295,18 +295,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             "Union " & _
             "select staff as username, numuserID " & _
             "from AIRBranch.VW_ComplianceStaff) "
-
-
-
-            '" & _
-            '           "select  " & _
-            '           "distinct(strLastName|| ', ' ||strFirstName) as UserName,  " & _
-            '           "numUserID  " & _
-            '           "from airbranch.EPDUserProfiles, airbranch.SSCP_AuditedEnforcement   " & _
-            '           "where airbranch.EPDUserProfiles.numUserID = AIRBranch.SSCP_AuditedEnforcement.numStaffResponsible ) "
-
-
-
 
             daComplianceStaff = New OracleDataAdapter(SQL, CurrentConnection)
 
@@ -10863,8 +10851,8 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             If txtUnitManager.Text = "N/A" Then
                 Dim UserUnitTemp As String = ""
 
-                UserUnitTemp = UserUnit
-                If UserUnitTemp = "---" Then
+                UserUnitTemp = CurrentUser.UnitId
+                If UserUnitTemp = 0 Then
                     UserUnitTemp = ""
                 End If
                 SQL = "select (strLastName||', '||strFirstName) as UnitManager, " & _
@@ -11417,7 +11405,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             "strCC = '" & CC & "', " & _
             "strControlEquipmentData = '" & Replace(ControlEquip, "'", "''") & "', " & _
             "strDeterminationMethod = '" & DetMethod & "', " & _
-            "strModifingPerson = '" & UserGCode & "', " & _
+            "strModifingPerson = '" & CurrentUser.UserID & "', " & _
             "datModifingDate = '" & OracleDate & "', "
             If UnitManager <> "" Then
                 SQL = SQL & "numReviewingManager = '" & UnitManager & "', "
@@ -11744,7 +11732,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
     End Sub
     Sub SaveSSCPWork()
         Try
-            Dim StaffResponsible As String = UserGCode
+            Dim StaffResponsible As String = CurrentUser.UserID
             Dim CompleteDate As String = OracleDate
             Dim AckLetter As String = OracleDate
             Dim TestDue As String = OracleDate
@@ -11755,10 +11743,10 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             If cboStaffResponsible.Text <> " " And cboStaffResponsible.Text <> "" Then
                 StaffResponsible = cboStaffResponsible.SelectedValue
                 If StaffResponsible = "" Then
-                    StaffResponsible = UserGCode
+                    StaffResponsible = CurrentUser.UserID
                 End If
             Else
-                StaffResponsible = UserGCode
+                StaffResponsible = CurrentUser.UserID
             End If
             If chbEventComplete.Checked = True Then
                 CompleteDate = DTPEventCompleteDate.Text
@@ -11809,7 +11797,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 "(AIRBRANCH.SSCPTrackingNumber.nextval, '0413" & txtAirsNumber.Text & "', " & _
                 "'" & OracleDate & "', '03', " & _
                 "'" & StaffResponsible & "', '', " & _
-                "'" & UserGCode & "', '" & OracleDate & "')"
+                "'" & CurrentUser.UserID & "', '" & OracleDate & "')"
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -11838,7 +11826,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 "('" & txtTrackingNumber.Text & "', '" & txtReferenceNumber.Text & "', " & _
                 "'" & OracleDate & "', " & _
                 "' ', 'False', " & _
-                "'" & UserGCode & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -11865,7 +11853,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "strResponsibleStaff = '" & StaffResponsible & "', " & _
                     "datCompleteDate = '" & CompleteDate & "', " & _
                     "datAcknoledgmentLetterSent = '" & AckLetter & "', " & _
-                    "strModifingPerson = '" & UserGCode & "', " & _
+                    "strModifingPerson = '" & CurrentUser.UserID & "', " & _
                     "datModifingDate = '" & OracleDate & "' " & _
                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -11889,7 +11877,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         "datTestReportDue = '" & TestDue & "', " & _
                         "strTestReportComments = '" & Replace(ReportComments, "'", "''") & "', " & _
                         "strTestReportFollowUp = '" & FollowUp & "', " & _
-                        "strModifingPerson = '" & UserGCode & "', " & _
+                        "strModifingPerson = '" & CurrentUser.UserID & "', " & _
                         "datModifingDate = '" & OracleDate & "' " & _
                         "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -11913,7 +11901,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         If RecExist = True Then
                             SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
                             "DatSSCPTestReportDue = '" & NextTest & "', " & _
-                            "strModifingPerson = '" & UserGCode & "', " & _
+                            "strModifingPerson = '" & CurrentUser.UserID & "', " & _
                             "datModifingdate = '" & OracleDate & "' " & _
                             "where strAIRSnumber = '0413" & txtAirsNumber.Text & "' "
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -15212,9 +15200,9 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
     End Sub
     Private Sub OpenEnforcement()
         Try
-            Dim parameters As New Generic.Dictionary(Of String, String)
-            parameters("airsnumber") = txtAirsNumber.Text
-            If txtTrackingNumber.Text <> "" Then parameters("trackingnumber") = txtTrackingNumber.Text
+            Dim parameters As New Generic.Dictionary(Of BaseForm.FormParameter, String)
+            parameters(FormParameter.AirsNumber) = txtAirsNumber.Text
+            If txtTrackingNumber.Text <> "" Then parameters(FormParameter.TrackingNumber) = txtTrackingNumber.Text
             OpenSingleForm(SSCPEnforcementSelector, parameters:=parameters, closeFirst:=True)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

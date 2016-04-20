@@ -10,7 +10,7 @@ Public Class SSCPWorkEnTry
     Dim daCompliance As OracleDataAdapter
 
     Private Sub SSCPWorkEnTry_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
 
             DTPDateReceived.Value = Date.Today
@@ -106,7 +106,7 @@ Public Class SSCPWorkEnTry
                 "strModifingPerson, datModifingDate) values " & _
                 "(AIRBRANCH.SSCPTrackingNumber.nextval, '0413" & txtAIRSNumber.Text & "', '" & DateReceived & "', " & _
                 "(Select strActivityType from AIRBRANCH.LookUPComplianceActivities where strActivityName = '" & cboEvent.Text & "'), " & _
-                "'" & UserGCode & "', '" & OracleDate & "')"
+                "'" & CurrentUser.UserID & "', '" & OracleDate & "')"
 
                 SQL2 = "Select AIRBRANCH.SSCPTrackingNumber.Currval from Dual"
 
