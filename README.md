@@ -1,18 +1,17 @@
-# IAIP Notes for Developers
+# Integrated Air Information Platform (IAIP)
+
+## Application
+
+The IAIP is a Windows Forms Application and currently targets the .NET Framework version 4.5.2. 
 
 
-## Source Code
+## Prerequisites for building
 
-The IAIP currently targets the .NET Framework version 4.5.2. It is built in Visual Studio 2013 (but other versions may work).
-
-
-## Prerequisites
-
-+ Visual Studio 2013
++ [Visual Studio](https://www.visualstudio.com/) 2010 or later
 
 + [Microsoft .NET Framework 4.5.2 Developer Pack](http://www.microsoft.com/en-us/download/details.aspx?id=42637)
 
-+ [SAP Crystal Reports, developer version for Microsoft Visual Studio](http://scn.sap.com/docs/DOC-7824). Be sure to download the Install Executable, not the MSI. I'm currently using v.13.0.15.
++ [SAP Crystal Reports, developer version for Microsoft Visual Studio](http://scn.sap.com/docs/DOC-7824), Support Pack 15 or later. Be sure to download the Install Executable, not an MSI.
 
 + Some NuGet packages are required. They should be restored automatically. If not, open the NuGet Package Manager and click Restore to install them:
   - Oracle ODP.NET, Managed Driver
@@ -21,34 +20,24 @@ The IAIP currently targets the .NET Framework version 4.5.2. It is built in Visu
 
 ## Setup
 
-* Make sure you have a good hgignore file set up or you will have lots of unnecessary and temporary files invading your repository. Use the example in the [Common Libraries repo](https://bitbucket.org/dougwaldron/common-libraries/src/default/Mercurial%20settings/hgignore.ini?fileviewer=file-view-default)
+* Make sure you have a good `.gitignore` file set up or you will have lots of unnecessary files invading your repository. Use the example in the [Common Libraries repo](https://bitbucket.org/gaepdit/common-libraries/src/master/Git%20settings/.gitignore?fileviewer=file-view-default)
 
-* Before publishing, you will need to [create a Test Certificate](https://msdn.microsoft.com/en-us/library/che5h906%28v=vs.120%29.aspx) for signing the ClickOnce manifest. Recommended: Use a single space character as the password.
+* Before publishing, you will need to [create a Test Certificate](https://msdn.microsoft.com/en-us/library/che5h906%28v=vs.120%29.aspx) for signing the ClickOnce manifest.
 
-* Before you can open any Forms in design view, you have to build the project. (Each form inherits from `BaseForm` instead of from `System.Windows.Forms.Form`. The project has to be built before `BaseForm` is available to the visual designer.)
+* Before you can open any Forms in design view in Visual Studio, you must build the project. (Each form inherits from `BaseForm` instead of from `System.Windows.Forms.Form`. The project has to be built before `BaseForm` is available to the visual designer.)
 
 
 ## Branches
 
-There are two main branches in the repository: `default` and `stable`.
+The IAIP repository uses the [git-flow branching model](http://nvie.com/posts/a-successful-git-branching-model/). There are two permanent branches in the repository:
 
-+ The `stable` branch is for releases
-+ The `default` branch is for development of future releases
+* `master` contains production-ready code. Releases are built from `master` and tagged with the version number.
+* `develop` is an integration branch for new feature development. 
 
-To get the latest release version, run `hg update stable`. To get the latest development version, run `hg update default`. 
+There are several transient branch families as well:
 
-Releases are tagged with their unique version number. Use `hg tags` to see a list of existing tags.
+* `feature/...` branches are for work on new features. They branch off from `develop` and merge back into `develop` when ready.
+* `hotfix/...` branches are for bug fixes on production releases. They branch off from `master` and merge into *both* `master` and `develop` when finished.
+* `release/...` branches are for preparing new production releases. They branch off from `develop` and merge into *both* `master` and `develop` when a production release is ready
 
-Other branches may be created for work on bugs or new features that are experimental or will take a long time to complete so that these don't intefere with routine or bugfix releases. Feature branch names should be prefixed with `feat/` followed by a short descriptive name, e.g., `feat/new-permit-search`. Bug fix branches should be prefixed `bug/` followed by the issue number and an optional brief description, e.g., `bug/299-permit-search-error`.
-
-
-## Repo
-
-The repository is on [Bitbucket](https://bitbucket.org/gaairbranch/iaip). You can set up automatic Bitbucket links within TortoiseHg Workbench by adding these lines to your .hg\hgrc file:
-
-```ini
-[tortoisehg]
-issue.regex = #(\d+)\b
-issue.link = https://bitbucket.org/bgregory/iaip/issue/{1}
-changeset.link = https://bitbucket.org/bgregory/iaip/commits/{node|short}
-```
+Production releases (in the `master` branch) are tagged with the version number as `version/vX.X.X`.
