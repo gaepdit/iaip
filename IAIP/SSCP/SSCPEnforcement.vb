@@ -259,6 +259,10 @@ Public Class SscpEnforcement
                     LastEditedDateDisplay.Text = "Last edited on " & .DateModified.Value.ToString(DateFormat)
                 End If
 
+                If Not EnforcementCase.SubmittedToUc Then
+                    SubmitToUC.Visible = True
+                End If
+
                 LoadViolationType()
                 GeneralComments.Text = .Comment
 
@@ -628,7 +632,7 @@ Public Class SscpEnforcement
             If Not EnforcementCase.SubmittedToUc And EnforcementId IsNot Nothing Then
                 SubmitToUC.Visible = True
             End If
-            If Not EnforcementCase.SubmittedToEpa And EnforcementId IsNot Nothing AndAlso CurrentUser.HasPermission(UserCan.ResolveEnforcement) Then
+            If Not EnforcementCase.SubmittedToEpa And EnforcementId IsNot Nothing Then
                 SubmitToEpa.Visible = True
                 SubmitToEpa2.Visible = True
                 NotSubmittedToEpaLabel.Visible = True
