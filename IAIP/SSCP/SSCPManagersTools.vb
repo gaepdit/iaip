@@ -67,9 +67,9 @@ Public Class SSCPManagersTools
             'TCManagerTools.TabPages.Remove(TPCMSWarning)
             'TCManagerTools.TabPages.Remove(TPUniverse)
             'TCManagerTools.TabPages.Remove(TPStaffReports)
-            'TCManagerTools.TabPages.Remove(TPPollutantBubbleUp)
+            TCManagerTools.TabPages.Remove(TPPollutantBubbleUp)
             'TCManagerTools.TabPages.Remove(TPStatisticalPage)
-            'TCManagerTools.TabPages.Remove(TPWatchList)
+            TCManagerTools.TabPages.Remove(TPWatchList)
             'TCManagerTools.TabPages.Remove(TPFacilityAssignments)
             'TCManagerTools.TabPages.Remove(TPMiscReports)
 

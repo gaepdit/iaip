@@ -418,21 +418,6 @@ Namespace DAL.Sscp
                     New OracleParameter(":STRMODIFINGPERSON", CurrentUser.UserID)
                 })
 
-                For Each prog As String In .LegacyAirPrograms
-                    For Each poll As String In .Pollutants
-                        queriesList.Add("UPDATE AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " &
-                                    "SET STRMODIFINGPERSON = :STRMODIFINGPERSON, " &
-                                    "  DATMODIFINGDATE = sysdate " &
-                                    "WHERE STRAIRPOLLUTANTKEY = :STRAIRPOLLUTANTKEY AND " &
-                                    "  STRPOLLUTANTKEY = :STRPOLLUTANTKEY")
-                        parametersList.Add(New OracleParameter() {
-                            New OracleParameter(":STRMODIFINGPERSON", CurrentUser.UserID),
-                            New OracleParameter(":STRAIRPOLLUTANTKEY", .AirsNumber.DbFormattedString & prog),
-                            New OracleParameter(":STRPOLLUTANTKEY", poll)
-                        })
-                    Next
-                Next
-
                 If DB.RunCommand(queriesList, parametersList) Then
                     Dim param As OracleParameter = New OracleParameter("ENFORCEMENT", .EnforcementId)
                     DB.SPRunCommand("AIRBRANCH.PD_SSCPENFORCEMENT", param)
