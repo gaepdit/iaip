@@ -37,17 +37,13 @@ Public Class IAIPLogIn
         Try
             CheckLanguageRegistrySetting()
 
-#If DEBUG Then
-            ToggleServerEnvironment()
+            ChooseDbServerEnvironment()
             TestingMenuItem.Visible = True
-#Else
             CheckDBAvailability()
-#End If
 
-#If BETA Then
-            Me.LogoBox.Image = My.Resources.Resources.BetaLogo
-            lblIAIP.Text = "IAIP Beta Test"
-            ToggleServerEnvironment()
+#If UAT Then
+            Me.LogoBox.Image = My.Resources.Resources.UatLogo
+            lblIAIP.Text = "IAIP User Acceptance Testing (UAT)"
 #End If
 
         Catch ex As Exception
@@ -81,12 +77,14 @@ Public Class IAIPLogIn
     End Sub
 
     Private Sub DisplayVersion()
-        Dim currentVersion As Version = GetCurrentVersionAsMajorMinorBuild()
+        Dim currentVersion As Version
         Dim msgText As String
         Dim msg As IaipMessage
 
-#If BETA Then
+#If UAT Then
         currentVersion = GetCurrentVersion()
+#Else
+        currentVersion = GetCurrentVersionAsMajorMinorBuild()
 #End If
 
         If AppUpdated Then
@@ -97,8 +95,8 @@ Public Class IAIPLogIn
             msg = New IaipMessage(msgText, IaipMessage.WarningLevels.None)
         End If
 
-#If BETA Then
-        msg.MessageText = msg.MessageText & " β"
+#If UAT Then
+        msg.MessageText = msg.MessageText & " UAT"
 #End If
 
         msg.Display(lblCurrentVersionMessage)
@@ -122,12 +120,13 @@ Public Class IAIPLogIn
         If currentSetting Is Nothing Or currentSetting <> "AMERICAN" Then
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Environment", "NLS_LANG", "AMERICAN")
             DisableLogin("Language settings have been updated. Please close and restart the Platform.")
-            DisableAndHide(mmiTestingEnvironment)
         End If
     End Sub
 
     Private Function CheckDBAvailability() As Boolean
-        If DAL.AppIsEnabled() Then
+        Console.WriteLine("CurrentServerEnvironment: " & CurrentServerEnvironment.ToString)
+
+        If DAL.AppIsEnabled Then
             EnableLogin()
             Return True
         Else
@@ -333,43 +332,34 @@ Public Class IAIPLogIn
 
 #Region " Database Environment "
 
-    Private Sub ToggleServerEnvironment()
-        ' Toggle mmiTestingEnvironment menu item
-#If BETA Then
-        mmiTestingEnvironment.Checked = True
-#Else
-        mmiTestingEnvironment.Checked = Not mmiTestingEnvironment.Checked
-#End If
-
-        If mmiTestingEnvironment.Checked Then
-            ' Switch to DEV environment
-            CurrentServerEnvironment = DB.ServerEnvironment.DEV
-            Me.BackColor = Color.PapayaWhip
-            btnLoginButton.Text = "Testing Environment"
-        Else
-            ' Switch to PRD environment
-            CurrentServerEnvironment = DB.ServerEnvironment.PRD
-            Me.BackColor = SystemColors.Control
-            btnLoginButton.Text = "Log In"
-        End If
+    Private Sub ChooseDbServerEnvironment()
+        btnLoginButton.Text = "Log In"
 
 #If DEBUG Then
-        Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerEnvironment.ToString
+        CurrentServerEnvironment = DB.ServerEnvironment.DEV
+#ElseIf UAT Then
+        CurrentServerEnvironment = DB.ServerEnvironment.UAT
+#Else
+        CurrentServerEnvironment = DB.ServerEnvironment.PRD
 #End If
 
-#If BETA Then
-        Me.Text = Me.Text & " — Beta"
-#End If
+        Select Case CurrentServerEnvironment
+            Case DB.Connections.ServerEnvironment.DEV
+                ' Switch to DEV environment
+                Me.BackColor = Color.PapayaWhip
+                Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerEnvironment.ToString
+                btnLoginButton.Text = "Log in to DEV"
+            Case DB.Connections.ServerEnvironment.UAT
+                ' Switch to DEV environment
+                Me.BackColor = Color.Snow
+                Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerEnvironment.ToString
+                btnLoginButton.Text = "Log in to UAT"
+        End Select
 
         ' Reset current connection based on current connection environment
         ' and check connection/app availability
         CurrentConnection = New OracleConnection(DB.CurrentConnectionString)
         CheckDBAvailability()
-
-#If BETA Then
-        Me.BackColor = Color.Snow
-#End If
-
     End Sub
 
 #End Region
@@ -420,10 +410,6 @@ Public Class IAIPLogIn
 
     Private Sub IAIPLogIn_HelpButtonClicked(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.HelpButtonClicked
         OpenSupportUrl(Me)
-    End Sub
-
-    Private Sub mmiTestingEnvironment_Click(sender As Object, e As EventArgs) Handles mmiTestingEnvironment.Click
-        ToggleServerEnvironment()
     End Sub
 
     Private Sub mmiCheckForUpdate_Click(sender As Object, e As EventArgs) Handles mmiCheckForUpdate.Click

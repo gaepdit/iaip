@@ -25,16 +25,10 @@ Public Class BaseForm
 
     Private Sub BaseForm_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
-#If Not DEBUG Then
-        ' CurrentConnectionEnvironment variable is not available in design mode
-        If Not Me.DesignMode _
-        AndAlso (CurrentServerEnvironment <> DB.DefaultServerEnvironment) Then
-            Me.Icon = My.Resources.TestingIcon
-        End If
-#End If
-
-#If BETA Then
-        Me.Icon = My.Resources.BetaIcon
+#If DEBUG Then
+        Me.Icon = My.Resources.DevIcon
+#ElseIf UAT Then
+        Me.Icon = My.Resources.UatIcon
 #End If
 
         LoadThisFormSettings()

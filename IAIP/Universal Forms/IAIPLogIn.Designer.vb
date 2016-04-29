@@ -28,8 +28,6 @@ Partial Class IAIPLogIn
         Me.mmiForgotPassword = New System.Windows.Forms.MenuItem()
         Me.PasswordResetMenuItem = New System.Windows.Forms.MenuItem()
         Me.MenuItem9 = New System.Windows.Forms.MenuItem()
-        Me.mmiTestingEnvironment = New System.Windows.Forms.MenuItem()
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem()
         Me.mmiRefreshUserID = New System.Windows.Forms.MenuItem()
         Me.mmiResetAllForms = New System.Windows.Forms.MenuItem()
         Me.mmiHelp = New System.Windows.Forms.MenuItem()
@@ -75,7 +73,7 @@ Partial Class IAIPLogIn
         'MenuItem1
         '
         Me.MenuItem1.Index = 1
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiForgotUsername, Me.mmiForgotPassword, Me.PasswordResetMenuItem, Me.MenuItem9, Me.mmiTestingEnvironment, Me.MenuItem2, Me.mmiRefreshUserID, Me.mmiResetAllForms})
+        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiForgotUsername, Me.mmiForgotPassword, Me.PasswordResetMenuItem, Me.MenuItem9, Me.mmiRefreshUserID, Me.mmiResetAllForms})
         Me.MenuItem1.Text = "&Tools"
         '
         'mmiForgotUsername
@@ -98,17 +96,6 @@ Partial Class IAIPLogIn
         '
         Me.MenuItem9.Index = 3
         Me.MenuItem9.Text = "-"
-        '
-        'mmiTestingEnvironment
-        '
-        Me.mmiTestingEnvironment.Index = 4
-        Me.mmiTestingEnvironment.Shortcut = System.Windows.Forms.Shortcut.CtrlT
-        Me.mmiTestingEnvironment.Text = "Open IAIP in &Testing Environment"
-        '
-        'MenuItem2
-        '
-        Me.MenuItem2.Index = 5
-        Me.MenuItem2.Text = "-"
         '
         'mmiRefreshUserID
         '
@@ -365,12 +352,10 @@ Partial Class IAIPLogIn
     Friend WithEvents lblTitle As System.Windows.Forms.Label
     Friend WithEvents btnLoginButton As System.Windows.Forms.Button
     Friend WithEvents lblLicenseLabel As System.Windows.Forms.Label
-    Friend WithEvents mmiTestingEnvironment As System.Windows.Forms.MenuItem
     Friend WithEvents mmiRefreshUserID As System.Windows.Forms.MenuItem
     Friend WithEvents mmiOnlineHelp As System.Windows.Forms.MenuItem
     Friend WithEvents lblCurrentVersionMessage As System.Windows.Forms.Label
     Friend WithEvents lblGeneralMessage As System.Windows.Forms.Label
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
     Friend WithEvents lblIAIP As System.Windows.Forms.Label
     Friend WithEvents LogoBox As System.Windows.Forms.PictureBox
     Friend WithEvents MenuItem4 As System.Windows.Forms.MenuItem
