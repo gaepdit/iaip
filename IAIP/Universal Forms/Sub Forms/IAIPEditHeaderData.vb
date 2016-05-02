@@ -494,7 +494,7 @@ Public Class IAIPEditHeaderData
             invalidControls.Add(ClassificationLabel)
         End If
 
-        If OperationalDropDown.SelectedValue = FacilityOperationalStatus.Unspecified Then
+        If OperationalDropDown.SelectedValue = FacilityOperationalStatus.U Then
             valid = False
             invalidControls.Add(OperationalStatusLabel)
         End If

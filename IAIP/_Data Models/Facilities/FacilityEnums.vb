@@ -10,7 +10,7 @@ Namespace Apb.Facilities
         ''' </summary>
         ''' <remarks>Stored in database as a single-character string.</remarks>
         Public Enum FacilityOperationalStatus
-            <Description("Unspecified")> Unspecified
+            <Description("Unspecified")> U
             <Description("Operational")> O
             <Description("Planned")> P
             <Description("Under Construction")> C
@@ -20,7 +20,7 @@ Namespace Apb.Facilities
         End Enum
 
         Public FacilityOperationalStatusDescriptions As New Generic.Dictionary(Of FacilityOperationalStatus, String) From {
-            {FacilityOperationalStatus.Unspecified, "Unspecified"},
+            {FacilityOperationalStatus.U, "Unspecified"},
             {FacilityOperationalStatus.O, "Operational"},
             {FacilityOperationalStatus.P, "Planned"},
             {FacilityOperationalStatus.C, "Under Construction"},

@@ -88,7 +88,7 @@ Namespace DAL
             End If
         End Function
 
-        Private Function InsertFacilityAirProgramPollutant(airsNumber As ApbFacilityId,
+        Public Function InsertFacilityAirProgramPollutant(airsNumber As ApbFacilityId,
                                                            airProgram As AirProgram,
                                                            pollutantCode As String,
                                                            operatingStatus As FacilityOperationalStatus

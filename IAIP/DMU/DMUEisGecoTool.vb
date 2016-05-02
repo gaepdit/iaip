@@ -10077,7 +10077,7 @@ Public Class DMUEisGecoTool
                     mtbEIModifyIAIPLatitude.Text = dr.Item("numFacilityLatitude")
                 End If
                 If IsDBNull(dr.Item("STROPERATIONALSTATUS")) Then
-                    cbIaipOperStatus.SelectedValue = FacilityOperationalStatus.Unspecified
+                    cbIaipOperStatus.SelectedValue = FacilityOperationalStatus.U
                 Else
                     cbIaipOperStatus.SelectedValue = [Enum].Parse(GetType(FacilityOperationalStatus), dr.Item("STROPERATIONALSTATUS"))
                 End If
@@ -12247,7 +12247,7 @@ Public Class DMUEisGecoTool
         mtbEIModifyLatitude.Text = mtbEIModifyIAIPLatitude.Text
         mtbEIModifyLongitude.Text = mtbEIModifyIAIPLongitude.Text
         Select Case CType(cbIaipOperStatus.SelectedValue, FacilityOperationalStatus)
-            Case FacilityOperationalStatus.C, FacilityOperationalStatus.I, FacilityOperationalStatus.P, FacilityOperationalStatus.Unspecified
+            Case FacilityOperationalStatus.C, FacilityOperationalStatus.I, FacilityOperationalStatus.P, FacilityOperationalStatus.U
                 cbEisModifyOperStatus.SelectedValue = EisSiteStatus.UNK
             Case FacilityOperationalStatus.O
                 cbEisModifyOperStatus.SelectedValue = EisSiteStatus.OP
