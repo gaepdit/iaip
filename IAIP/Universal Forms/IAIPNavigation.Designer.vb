@@ -39,7 +39,6 @@ Partial Class IAIPNavigation
         Me.TestingMenu = New System.Windows.Forms.MenuItem()
         Me.TestPingDb = New System.Windows.Forms.MenuItem()
         Me.TestThrowError = New System.Windows.Forms.MenuItem()
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.flpNavButtons = New System.Windows.Forms.FlowLayoutPanel()
         Me.grpQuickAccess = New System.Windows.Forms.GroupBox()
@@ -193,11 +192,6 @@ Partial Class IAIPNavigation
         '
         Me.TestThrowError.Index = 1
         Me.TestThrowError.Text = "Throw error"
-        '
-        'MenuItem1
-        '
-        Me.MenuItem1.Index = 2
-        Me.MenuItem1.Text = "Open New FCE form"
         '
         'lblTitle
         '

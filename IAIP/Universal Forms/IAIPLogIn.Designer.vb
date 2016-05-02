@@ -23,20 +23,20 @@ Partial Class IAIPLogIn
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.mmiFile = New System.Windows.Forms.MenuItem()
         Me.mmiExit = New System.Windows.Forms.MenuItem()
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem()
+        Me.mmiTools = New System.Windows.Forms.MenuItem()
         Me.mmiForgotUsername = New System.Windows.Forms.MenuItem()
         Me.mmiForgotPassword = New System.Windows.Forms.MenuItem()
-        Me.PasswordResetMenuItem = New System.Windows.Forms.MenuItem()
-        Me.MenuItem9 = New System.Windows.Forms.MenuItem()
+        Me.mmiPasswordReset = New System.Windows.Forms.MenuItem()
+        Me.mmiSeparator1 = New System.Windows.Forms.MenuItem()
         Me.mmiRefreshUserID = New System.Windows.Forms.MenuItem()
         Me.mmiResetAllForms = New System.Windows.Forms.MenuItem()
         Me.mmiHelp = New System.Windows.Forms.MenuItem()
         Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem()
-        Me.MenuItem4 = New System.Windows.Forms.MenuItem()
+        Me.mmiSeparator2 = New System.Windows.Forms.MenuItem()
         Me.mmiCheckForUpdate = New System.Windows.Forms.MenuItem()
-        Me.MenuItem5 = New System.Windows.Forms.MenuItem()
+        Me.mmiSeparator3 = New System.Windows.Forms.MenuItem()
         Me.mmiAbout = New System.Windows.Forms.MenuItem()
-        Me.TestingMenuItem = New System.Windows.Forms.MenuItem()
+        Me.mmiTestingMenu = New System.Windows.Forms.MenuItem()
         Me.btnLoginButton = New System.Windows.Forms.Button()
         Me.LogoBox = New System.Windows.Forms.PictureBox()
         Me.lblCurrentVersionMessage = New System.Windows.Forms.Label()
@@ -56,7 +56,7 @@ Partial Class IAIPLogIn
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.MenuItem1, Me.mmiHelp, Me.TestingMenuItem})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiTools, Me.mmiHelp, Me.mmiTestingMenu})
         '
         'mmiFile
         '
@@ -70,11 +70,11 @@ Partial Class IAIPLogIn
         Me.mmiExit.Shortcut = System.Windows.Forms.Shortcut.CtrlQ
         Me.mmiExit.Text = "E&xit IAIP"
         '
-        'MenuItem1
+        'mmiTools
         '
-        Me.MenuItem1.Index = 1
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiForgotUsername, Me.mmiForgotPassword, Me.PasswordResetMenuItem, Me.MenuItem9, Me.mmiRefreshUserID, Me.mmiResetAllForms})
-        Me.MenuItem1.Text = "&Tools"
+        Me.mmiTools.Index = 1
+        Me.mmiTools.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiForgotUsername, Me.mmiForgotPassword, Me.mmiPasswordReset, Me.mmiSeparator1, Me.mmiRefreshUserID, Me.mmiResetAllForms})
+        Me.mmiTools.Text = "&Tools"
         '
         'mmiForgotUsername
         '
@@ -86,31 +86,31 @@ Partial Class IAIPLogIn
         Me.mmiForgotPassword.Index = 1
         Me.mmiForgotPassword.Text = "Forgot Password"
         '
-        'PasswordResetMenuItem
+        'mmiPasswordReset
         '
-        Me.PasswordResetMenuItem.Index = 2
-        Me.PasswordResetMenuItem.Text = "Enter Password Reset Code"
-        Me.PasswordResetMenuItem.Visible = False
+        Me.mmiPasswordReset.Index = 2
+        Me.mmiPasswordReset.Text = "Enter Password Reset Code"
+        Me.mmiPasswordReset.Visible = False
         '
-        'MenuItem9
+        'mmiSeparator1
         '
-        Me.MenuItem9.Index = 3
-        Me.MenuItem9.Text = "-"
+        Me.mmiSeparator1.Index = 3
+        Me.mmiSeparator1.Text = "-"
         '
         'mmiRefreshUserID
         '
-        Me.mmiRefreshUserID.Index = 6
+        Me.mmiRefreshUserID.Index = 4
         Me.mmiRefreshUserID.Text = "Reset Default Username"
         '
         'mmiResetAllForms
         '
-        Me.mmiResetAllForms.Index = 7
+        Me.mmiResetAllForms.Index = 5
         Me.mmiResetAllForms.Text = "&Reset All Form Sizes"
         '
         'mmiHelp
         '
         Me.mmiHelp.Index = 2
-        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp, Me.MenuItem4, Me.mmiCheckForUpdate, Me.MenuItem5, Me.mmiAbout})
+        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp, Me.mmiSeparator2, Me.mmiCheckForUpdate, Me.mmiSeparator3, Me.mmiAbout})
         Me.mmiHelp.Text = "&Help"
         '
         'mmiOnlineHelp
@@ -119,31 +119,31 @@ Partial Class IAIPLogIn
         Me.mmiOnlineHelp.Shortcut = System.Windows.Forms.Shortcut.F1
         Me.mmiOnlineHelp.Text = "Online &Help "
         '
-        'MenuItem4
+        'mmiSeparator2
         '
-        Me.MenuItem4.Index = 1
-        Me.MenuItem4.Text = "-"
+        Me.mmiSeparator2.Index = 1
+        Me.mmiSeparator2.Text = "-"
         '
         'mmiCheckForUpdate
         '
         Me.mmiCheckForUpdate.Index = 2
         Me.mmiCheckForUpdate.Text = "Check for &Updates"
         '
-        'MenuItem5
+        'mmiSeparator3
         '
-        Me.MenuItem5.Index = 3
-        Me.MenuItem5.Text = "-"
+        Me.mmiSeparator3.Index = 3
+        Me.mmiSeparator3.Text = "-"
         '
         'mmiAbout
         '
         Me.mmiAbout.Index = 4
         Me.mmiAbout.Text = "&About IAIP"
         '
-        'TestingMenuItem
+        'mmiTestingMenu
         '
-        Me.TestingMenuItem.Index = 3
-        Me.TestingMenuItem.Text = "T&est"
-        Me.TestingMenuItem.Visible = False
+        Me.mmiTestingMenu.Index = 3
+        Me.mmiTestingMenu.Text = "T&est"
+        Me.mmiTestingMenu.Visible = False
         '
         'btnLoginButton
         '
@@ -358,17 +358,17 @@ Partial Class IAIPLogIn
     Friend WithEvents lblGeneralMessage As System.Windows.Forms.Label
     Friend WithEvents lblIAIP As System.Windows.Forms.Label
     Friend WithEvents LogoBox As System.Windows.Forms.PictureBox
-    Friend WithEvents MenuItem4 As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiSeparator2 As System.Windows.Forms.MenuItem
     Friend WithEvents mmiAbout As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiTools As System.Windows.Forms.MenuItem
     Friend WithEvents mmiResetAllForms As System.Windows.Forms.MenuItem
     Friend WithEvents mmiCheckForUpdate As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem5 As System.Windows.Forms.MenuItem
-    Friend WithEvents TestingMenuItem As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiSeparator3 As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiTestingMenu As System.Windows.Forms.MenuItem
     Friend WithEvents mmiForgotUsername As MenuItem
     Friend WithEvents mmiForgotPassword As MenuItem
-    Friend WithEvents MenuItem9 As MenuItem
+    Friend WithEvents mmiSeparator1 As MenuItem
     Friend WithEvents ForgotPasswordLink As LinkLabel
     Friend WithEvents ForgotUsernameLink As LinkLabel
-    Friend WithEvents PasswordResetMenuItem As MenuItem
+    Friend WithEvents mmiPasswordReset As MenuItem
 End Class
