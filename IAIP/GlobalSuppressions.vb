@@ -10,11 +10,3 @@
 ' "In Suppression File".
 ' You do not need to add suppressions to this file manually.
 
-
-<Assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2240:ImplementISerializableCorrectly", Scope:="type", Target:="Iaip.CrDataSet+VW_SSPP_ACKNOWLEDGEDataTable")> 
-<Assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2240:ImplementISerializableCorrectly", Scope:="type", Target:="Iaip.CrDataSet")> 
-<Assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2240:ImplementISerializableCorrectly", Scope:="type", Target:="Iaip.CrDataSet+VW_APBFACILITYHEADERDataTable")> 
-<Assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2240:ImplementISerializableCorrectly", Scope:="type", Target:="Iaip.CrDataSet+VW_APBFACILITYLOCATIONDataTable")> 
-<Assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2240:ImplementISerializableCorrectly", Scope:="type", Target:="Iaip.CrDataSet+EmptyDataTableDataTable")> 
-<Assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Scope:="member", Target:="Iaip.CrDataSet+EmptyDataTableRow.#tableEmptyDataTable")> 
-<Assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId:="testEmail", Scope:="member", Target:="Iaip.Email.#EmailAddressIsValid(System.String)")> 
