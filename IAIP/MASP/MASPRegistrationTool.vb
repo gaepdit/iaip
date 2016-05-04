@@ -1039,7 +1039,7 @@ Public Class MASPRegistrationTool
             Return EventID
 
         Catch ex As Exception
-            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
         Return ""
     End Function
@@ -1204,7 +1204,7 @@ Public Class MASPRegistrationTool
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
 
@@ -1226,7 +1226,7 @@ Public Class MASPRegistrationTool
             dr.Close()
             Return True
         Catch ex As Exception
-            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
 

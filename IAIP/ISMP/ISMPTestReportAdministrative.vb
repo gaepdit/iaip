@@ -647,7 +647,7 @@ Public Class ISMPTestReportAdministrative
                     dr = cmd.ExecuteReader
                     dr.Close()
                 Catch ex As Exception
-                    ErrorReport(ex, "ISMPFacilityAndTestReportInfo.Save1")
+                    ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name & ".Save1")
                 End Try
 
                 Try
@@ -659,7 +659,7 @@ Public Class ISMPTestReportAdministrative
                     dr = cmd.ExecuteReader
                     dr.Close()
                 Catch ex As Exception
-                    ErrorReport(ex, "ISMPFacilityAndTestReportInfo.Save2")
+                    ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name & ".Save2")
                 End Try
 
                 bgw1.WorkerReportsProgress = True

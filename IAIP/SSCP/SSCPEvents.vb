@@ -46,7 +46,7 @@ Public Class SSCPEvents
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, "SSCPEvents.SSCP_Reports_Load")
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 

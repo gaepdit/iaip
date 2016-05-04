@@ -2685,7 +2685,7 @@ Public Class PASPFeeManagement
             Return True
 
         Catch ex As Exception
-            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
 
@@ -2797,7 +2797,7 @@ Public Class PASPFeeManagement
 
             Return True
         Catch ex As Exception
-            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
 
@@ -2820,7 +2820,7 @@ Public Class PASPFeeManagement
             Return True
 
         Catch ex As Exception
-            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
 
@@ -2852,7 +2852,7 @@ Public Class PASPFeeManagement
             Return True
 
         Catch ex As Exception
-            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
 
@@ -2872,7 +2872,7 @@ Public Class PASPFeeManagement
             dr = cmd.ExecuteReader
             dr.Close()
         Catch ex As Exception
-            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
 
@@ -2896,7 +2896,7 @@ Public Class PASPFeeManagement
             dr.Close()
             Return True
         Catch ex As Exception
-            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
 

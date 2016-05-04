@@ -5650,7 +5650,7 @@ Public Class PASPFeeAuditLog
             Return True
 
         Catch ex As Exception
-            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
 
@@ -5804,7 +5804,7 @@ Public Class PASPFeeAuditLog
             Return True
 
         Catch ex As Exception
-            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
 
@@ -5835,7 +5835,7 @@ Public Class PASPFeeAuditLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
