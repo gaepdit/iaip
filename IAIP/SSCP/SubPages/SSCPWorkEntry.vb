@@ -10,7 +10,7 @@ Public Class SSCPWorkEnTry
     Dim daCompliance As OracleDataAdapter
 
     Private Sub SSCPWorkEnTry_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        
+
         Try
 
             DTPDateReceived.Value = Date.Today
@@ -33,8 +33,8 @@ Public Class SSCPWorkEnTry
 
             dsCompliance = New DataSet
 
-            SQL = "select strActivityType, strActivityName, strActivityDescription " & _
-            "from AIRBRANCH.LookUPComplianceActivities " & _
+            SQL = "select strActivityType, strActivityName, strActivityDescription " &
+            "from AIRBRANCH.LookUPComplianceActivities " &
             "order by strActivityName"
 
             daCompliance = New OracleDataAdapter
@@ -101,11 +101,11 @@ Public Class SSCPWorkEnTry
 
             If cboEvent.Text <> " " Then
 
-                SQL = "Insert into AIRBRANCH.SSCPItemMaster " & _
-                "(strTrackingNumber, strAIRSnumber, DatReceivedDate, strEventType, " & _
-                "strModifingPerson, datModifingDate) values " & _
-                "(AIRBRANCH.SSCPTrackingNumber.nextval, '0413" & txtAIRSNumber.Text & "', '" & DateReceived & "', " & _
-                "(Select strActivityType from AIRBRANCH.LookUPComplianceActivities where strActivityName = '" & cboEvent.Text & "'), " & _
+                SQL = "Insert into AIRBRANCH.SSCPItemMaster " &
+                "(strTrackingNumber, strAIRSnumber, DatReceivedDate, strEventType, " &
+                "strModifingPerson, datModifingDate) values " &
+                "(AIRBRANCH.SSCPTrackingNumber.nextval, '0413" & txtAIRSNumber.Text & "', '" & DateReceived & "', " &
+                "(Select strActivityType from AIRBRANCH.LookUPComplianceActivities where strActivityName = '" & cboEvent.Text & "'), " &
                 "'" & CurrentUser.UserID & "', '" & OracleDate & "')"
 
                 SQL2 = "Select AIRBRANCH.SSCPTrackingNumber.Currval from Dual"

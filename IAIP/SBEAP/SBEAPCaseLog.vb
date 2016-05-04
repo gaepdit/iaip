@@ -19,7 +19,7 @@ Public Class SBEAPCaseLog
 
 
     Private Sub SBEAPCaseLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        
+
         Try
             label1.Text = "Select Case Work"
             Label2.Text = CurrentUser.AlphaName
@@ -62,27 +62,27 @@ Public Class SBEAPCaseLog
         Try
             dsCaseLog = New DataSet
 
-            SQL = "select " & _
-            "distinct(strLastName||', '||strFirstName) as Staff, " & _
-            "numUserID " & _
-            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.SBEAPCaseLog " & _
-            "where AIRBRANCH.epduserprofiles.numUserID = AIRBRANCH.SBEAPCaseLog.numStaffResponsible " & _
+            SQL = "select " &
+            "distinct(strLastName||', '||strFirstName) as Staff, " &
+            "numUserID " &
+            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.SBEAPCaseLog " &
+            "where AIRBRANCH.epduserprofiles.numUserID = AIRBRANCH.SBEAPCaseLog.numStaffResponsible " &
             "or (numBranch = '5' and numProgram = '35') "
 
             daStaff = New OracleDataAdapter(SQL, CurrentConnection)
 
-            SQL = "Select " & _
-            "strWorkDescription, numActionType " & _
-            "from AIRBRANCH.LookUpSBEAPCaseWork " & _
+            SQL = "Select " &
+            "strWorkDescription, numActionType " &
+            "from AIRBRANCH.LookUpSBEAPCaseWork " &
             "order by strWorkDescription "
 
             daCaseWork = New OracleDataAdapter(SQL, CurrentConnection)
 
             dsActions = New DataSet
 
-            SQL = "Select " & _
-            "numActionType, strWorkDescription " & _
-            "from AIRbranch.LookUpSBEAPcaseWork " & _
+            SQL = "Select " &
+            "numActionType, strWorkDescription " &
+            "from AIRbranch.LookUpSBEAPcaseWork " &
             "order by strWorkDescription  "
 
             daActions = New OracleDataAdapter(SQL, CurrentConnection)
@@ -336,191 +336,34 @@ Public Class SBEAPCaseLog
                 SQLSearch3 = " (CaseClosed is null or CaseClosed is not Null) "
                 rdbAllCases.Checked = True
             End If
-            'Else
-            '    Select Case cboFieldType1.Text
-            '        Case "Action Type"
 
-            '        Case "Case ID"
-            '            SQLSearch1 = " and " & connNameSpace & ".SBEAPCaseLog.numCaseID like '%" & Replace(txtSearchText1.Text, "'", "''") & "%' "
-            '        Case "Customer ID"
-            '            SQLSearch1 = " and " & connNameSpace & ".SBEAPClients.ClientID like '%" & Replace(txtSearchText1.Text, "'", "''") & "%' "
-            '        Case "Date Case Opened"
-            '            SQLSearch1 = " and datCaseOpened between '" & DTPSearchDate1.Text & "' and '" & DTPSearchDate2.Text & "' "
-            '        Case "Date Case Closed"
-            '            SQLSearch1 = " and datCaseClosed between '" & DTPSearchDate1.Text & "' and '" & DTPSearchDate2.Text & "' "
-            '        Case "Staff First Name"
-            '            SQLSearch1 = " and upper(strFirstName) like '%" & Replace(txtSearchText1.Text.ToUpper, "'", "''") & "%' "
-            '        Case "Staff Last Name"
-            '            SQLSearch1 = " and upper(strLastName) like '%" & Replace(txtSearchText1.Text.ToUpper, "'", "''") & "%' "
-            '        Case "Staff Responsible"
-            '            If cboSearchText1.SelectedIndex > 0 Then
-            '                SQLSearch1 = " and numUserID = '" & Replace(cboSearchText1.SelectedValue, "'", "''") & "' "
-            '            End If
-            '        Case "Case Description"
-            '            SQLSearch1 = " and Upper(strCaseSummary) like '%" & Replace(txtSearchText1.Text.ToUpper, "'", "''") & "%' "
-            '        Case Else
-
-            '    End Select
-
-            '    Select Case cboFieldType2.Text
-            '        Case "Action Type"
-
-            '        Case "Case ID"
-            '            SQLSearch2 = " and " & connNameSpace & ".SBEAPCaseLog.numCaseID like '%" & Replace(txtSearchText2.Text, "'", "''") & "%' "
-            '        Case "Customer ID"
-            '            SQLSearch2 = " and " & connNameSpace & ".SBEAPClients.ClientID like '%" & Replace(txtSearchText2.Text, "'", "''") & "%' "
-            '        Case "Date Case Opened"
-            '            SQLSearch2 = " and datCaseOpened between '" & DTPSearchDate3.Text & "' and '" & DTPSearchDate4.Text & "' "
-            '        Case "Date Case Closed"
-            '            SQLSearch2 = " and datCaseClosed between '" & DTPSearchDate3.Text & "' and '" & DTPSearchDate4.Text & "' "
-            '        Case "Staff First Name"
-            '            SQLSearch2 = " and upper(strFirstName) like '%" & Replace(txtSearchText2.Text.ToUpper, "'", "''") & "%' "
-            '        Case "Staff Last Name"
-            '            SQLSearch2 = " and upper(strLastName) like '%" & Replace(txtSearchText2.Text.ToUpper, "'", "''") & "%' "
-            '        Case "Staff Responsible"
-            '            If cboSearchText2.SelectedIndex > 0 Then
-            '                SQLSearch2 = " and numUserID = '" & Replace(cboSearchText2.SelectedValue, "'", "''") & "' "
-            '            End If
-            '        Case "Case Description"
-            '            SQLSearch2 = " and Upper(strCaseSummary) like '%" & Replace(txtSearchText2.Text.ToUpper, "'", "''") & "%' "
-            '        Case Else
-            '            SQLSearch2 = " and datCaseClosed is null "
-            '    End Select
-
-            '    Select Case cboSortType1.Text
-            '        Case "Case ID"
-            '            SQLOrder1 = " " & connNameSpace & ".SBEAPCaseLog.numCaseID "
-            '        Case "Customer ID"
-            '            SQLOrder1 = " ClientID "
-            '        Case "Date Case Opened"
-            '            SQLOrder1 = " datCaseOpened "
-            '        Case "Date Case Closed"
-            '            SQLOrder1 = " datCaseClosed "
-            '        Case "Staff First Name"
-            '            SQLOrder1 = " strFirstName "
-            '        Case "Staff Last Name"
-            '            SQLOrder1 = " strLastName "
-            '        Case "Staff Responsible"
-            '            SQLOrder1 = " numUserID "
-            '        Case "Case Description"
-            '            SQLOrder1 = " strCaseSummary "
-            '        Case Else
-            '            SQLOrder1 = " "
-            '    End Select
-            '    If SQLOrder1 <> " " Then
-            '        If cboSortOrder1.Text = cboSortOrder1.Items.Item(0) Then
-            '            SQLOrder1 = SQLOrder1 & " ASC "
-            '        Else
-            '            SQLOrder1 = SQLOrder1 & " DESC "
-            '        End If
-            '    End If
-
-            '    Select Case cboSortType2.Text
-            '        Case "Case ID"
-            '            SQLOrder2 = " " & connNameSpace & ".SBEAPCaseLog.numCaseID "
-            '        Case "Customer ID"
-            '            SQLOrder2 = " ClientID "
-            '        Case "Date Case Opened"
-            '            SQLOrder2 = " datCaseOpened "
-            '        Case "Date Case Closed"
-            '            SQLOrder2 = " datCaseClosed "
-            '        Case "Staff First Name"
-            '            SQLOrder2 = " strFirstName "
-            '        Case "Staff Last Name"
-            '            SQLOrder2 = " strLastName "
-            '        Case "Staff Responsible"
-            '            SQLOrder2 = " numUserID "
-            '        Case "Case Description"
-            '            SQLOrder2 = " strCaseSummary "
-            '        Case Else
-            '            SQLOrder2 = " "
-            '    End Select
-            '    If SQLOrder2 <> " " Then
-            '        If cboSortOrder2.Text = cboSortOrder2.Items.Item(0) Then
-            '            SQLOrder2 = SQLOrder2 & " ASC "
-            '        Else
-            '            SQLOrder2 = SQLOrder2 & " DESC "
-            '        End If
-            '    End If
-
-            '    If SQLOrder1 <> " " Or SQLOrder2 <> " " Then
-            '        If SQLOrder1 <> " " And SQLOrder2 <> " " Then
-            '            SQLOrder1 = " Order by " & SQLOrder1 & ", " & SQLOrder2
-            '        Else
-            '            If SQLOrder1 <> " " And SQLOrder2 = " " Then
-            '                SQLOrder1 = " order by " & SQLOrder1
-            '            Else
-            '                If SQLOrder1 = " " And SQLOrder2 <> " " Then
-            '                    SQLOrder1 = " Order by " & SQLOrder2
-            '                Else
-            '                    SQLOrder1 = " "
-            '                End If
-            '            End If
-            '        End If
-            '    Else
-            '        SQLOrder1 = " "
-            '    End If
-
-            '    If rdbOpenCases.Checked = True Then
-            '        SQLSearch3 = " and datCaseClosed is null "
-            '        rdbOpenCases.Checked = True
-            '    End If
-            '    If rdbClosedCase.Checked = True Then
-            '        SQLSearch3 = " and datCaseClosed is not Null "
-            '        rdbClosedCase.Checked = True
-            '    End If
-            '    If rdbAllCases.Checked = True Then
-            '        SQLSearch3 = " "
-            '        rdbAllCases.Checked = True
-            '    End If
-            'End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub SearchCaseWork()
         Try
-            'SQL = "Select " & _
-            '"" & connNameSpace & ".SBEAPCaseLog.numCaseID, " & _
-            '"numStaffResponsible, " & _
-            '"case " & _
-            '"when numStaffResponsible is Null then '' " & _
-            '"Else (strLastName||', '||strFirstName) " & _
-            '"END StaffResponsible, " & _
-            '"to_date(datCaseOpened, 'dd-Mon-RRRR') as CaseOpened, " & _
-            '"to_date(datCaseClosed, 'dd-Mon-RRRR') as CaseClosed, " & _
-            '"strCompanyName, strCaseSummary, " & _
-            '"" & connNameSpace & ".SBEAPCaseLogLink.ClientID " & _
-            '"from " & connNameSpace & ".SBEAPCaseLog, " & connNameSpace & ".EPDUserProfiles, " & _
-            '"" & connNameSpace & ".SBEAPClients, " & connNameSpace & ".SBEAPCaseLogLink " & _
-            '"where " & connNameSpace & ".SBEAPCaseLog.numStaffResponsible = " & connNameSpace & ".EPDUserProfiles.numUserID (+) " & _
-            '"and " & connNameSpace & ".SBEAPCaseLog.numCaseID = " & connNameSpace & ".SBEAPCaseLogLink.numCaseID (+) " & _
-            '"and " & connNameSpace & ".SBEAPCaseLogLink.ClientID = " & connNameSpace & ".SBEAPClients.ClientID (+) " & _
-            'SQLSearch1 & SQLSearch2 & SQLSearch3 & SQLOrder1
-
-            'If NavScreen.label1.Text = "TESTING ENVIRONMENT" Then
-            SQL = "select * from " & _
-            "((select " & _
-            "AIRBRANCH.VW_SBEAP_Caselog.*, 'Action' as ActionType " & _
-            "from AIRBRANCH.VW_SBEAP_Caselog " & _
-            "where " & SQLSearch3 & " " & _
-            "and Exists " & _
-            "(select * " & _
-            "from AIRBRANCH.SBEAPActionLog " & _
-            "where AIRBRANCH.VW_SBEAP_Caselog.numCaseID = AIRBRANCH.SBEAPActionLog.numCaseID " & _
-            " " & SQLAction & ")) " & _
-            "union " & _
-            "select * from " & _
-            "(select " & _
-            "AIRBRANCH.VW_SBEAP_Caselog.*, 'No Action' as ActionType " & _
-            "from AIRBRANCH.VW_SBEAP_Caselog " & _
-            "where " & SQLSearch3 & " " & _
-            "and Not Exists " & _
-            "(select * " & _
-            "from AIRBRANCH.SBEAPActionLog " & _
-            "where AIRBRANCH.VW_SBEAP_Caselog.numCaseID = AIRBRANCH.SBEAPActionLog.numCaseID))) " & _
+            SQL = "select * from " &
+            "((select " &
+            "AIRBRANCH.VW_SBEAP_Caselog.*, 'Action' as ActionType " &
+            "from AIRBRANCH.VW_SBEAP_Caselog " &
+            "where " & SQLSearch3 & " " &
+            "and Exists " &
+            "(select * " &
+            "from AIRBRANCH.SBEAPActionLog " &
+            "where AIRBRANCH.VW_SBEAP_Caselog.numCaseID = AIRBRANCH.SBEAPActionLog.numCaseID " &
+            " " & SQLAction & ")) " &
+            "union " &
+            "select * from " &
+            "(select " &
+            "AIRBRANCH.VW_SBEAP_Caselog.*, 'No Action' as ActionType " &
+            "from AIRBRANCH.VW_SBEAP_Caselog " &
+            "where " & SQLSearch3 & " " &
+            "and Not Exists " &
+            "(select * " &
+            "from AIRBRANCH.SBEAPActionLog " &
+            "where AIRBRANCH.VW_SBEAP_Caselog.numCaseID = AIRBRANCH.SBEAPActionLog.numCaseID))) " &
             SQLSearch1 & SQLSearch2
-            'End If
 
             dsCaseLogGrid = New DataSet
             daCaseLogGrid = New OracleDataAdapter(SQL, CurrentConnection)

@@ -10,7 +10,7 @@ Public Class IAIPEditFacilityLocation
     Dim daFacilityInformation2 As OracleDataAdapter
 
     Private Sub IAIPEditFacilityLocation_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        
+
         Try
             If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtAirsNumber.Text) Then
                 LoadFacilityInformation()
@@ -28,13 +28,13 @@ Public Class IAIPEditFacilityLocation
 
         Try
 
-            SQL = "Select * " & _
-            "from AIRBRANCH.VW_APBFacilityLocation " & _
+            SQL = "Select * " &
+            "from AIRBRANCH.VW_APBFacilityLocation " &
             "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
-            SQL2 = "Select * " & _
-            "from AIRBRANCH.VW_HB_APBFacilityLocation " & _
-            "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' " & _
+            SQL2 = "Select * " &
+            "from AIRBRANCH.VW_HB_APBFacilityLocation " &
+            "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' " &
             "Order by strKey DESC "
 
             dsFacilityInformation = New DataSet
@@ -268,28 +268,28 @@ Public Class IAIPEditFacilityLocation
                     If txtComments.Text <> dsFacilityInformation.Tables("Current").Rows(0).Item(14).ToString() Then
                         Comments = Replace(txtComments.Text, "'", "''")
                     Else
-                        MsgBox("Since this is a direct change to the data, " & vbCrLf & _
-                        "please make a unique comment. " & vbCrLf & _
-                        "So future users know why the data was changed." & vbCrLf & _
-                        "No data will be saved at this time.", _
+                        MsgBox("Since this is a direct change to the data, " & vbCrLf &
+                        "please make a unique comment. " & vbCrLf &
+                        "So future users know why the data was changed." & vbCrLf &
+                        "No data will be saved at this time.",
                          MsgBoxStyle.Information, "Edit Facility Location Data")
                         Comments = "Error"
                     End If
                 Else
-                    MsgBox("Since this is a direct change to the data, " & vbCrLf & _
-                    "please make a unique comment. " & vbCrLf & _
-                    "So future users know why the data was changed." & vbCrLf & _
-                    "No data will be saved at this time.", _
+                    MsgBox("Since this is a direct change to the data, " & vbCrLf &
+                    "please make a unique comment. " & vbCrLf &
+                    "So future users know why the data was changed." & vbCrLf &
+                    "No data will be saved at this time.",
                      MsgBoxStyle.Information, "Edit Facility Location Data")
                     Comments = "Error"
                 End If
 
                 If ErrorCheck <> True Then
                     If Comments <> "Error" Then
-                        If FacilityName <> "" Or Street1 <> "" Or _
-                          Street2 <> "" Or City <> "" Or _
-                          State <> "" Or ZipCode <> "" Or _
-                          Longitude <> "" Or Latitude <> "" Or _
+                        If FacilityName <> "" Or Street1 <> "" Or
+                          Street2 <> "" Or City <> "" Or
+                          State <> "" Or ZipCode <> "" Or
+                          Longitude <> "" Or Latitude <> "" Or
                           Comments <> "" Then
 
                             SQL = "Update AIRBRANCH.APBFacilityInformation set "
@@ -320,9 +320,9 @@ Public Class IAIPEditFacilityLocation
                             If Comments <> "" Then
                                 SQL = SQL & "strComments = '" & Comments & "', "
                             End If
-                            SQL = SQL & "strModifingPerson = '" & CurrentUser.UserID & "', " & _
-                            "datModifingDate = '" & OracleDate & "', " & _
-                            "strModifingLocation = '2' " & _
+                            SQL = SQL & "strModifingPerson = '" & CurrentUser.UserID & "', " &
+                            "datModifingDate = '" & OracleDate & "', " &
+                            "strModifingLocation = '2' " &
                             "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -340,8 +340,8 @@ Public Class IAIPEditFacilityLocation
                             dr.Close()
 
                             If FacilityName <> "" Then
-                                SQL = "Update AIRBRANCH.OLAPUserAccess set " & _
-                                "strFacilityName = '" & FacilityName & "' " & _
+                                SQL = "Update AIRBRANCH.OLAPUserAccess set " &
+                                "strFacilityName = '" & FacilityName & "' " &
                                 "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
                                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -351,11 +351,11 @@ Public Class IAIPEditFacilityLocation
                                 dr = cmd.ExecuteReader
                                 dr.Close()
 
-                                SQL = "Update airbranch.EIS_FacilitySite set " & _
-                                "strFacilitySiteName = '" & FacilityName & "', " & _
-                                "strFacilitySiteComment = 'Facility Name updated.', " & _
-                                "UpdateUSer = '" & CurrentUser.AlphaName & "', " & _
-                                "updateDateTime = sysdate " & _
+                                SQL = "Update airbranch.EIS_FacilitySite set " &
+                                "strFacilitySiteName = '" & FacilityName & "', " &
+                                "strFacilitySiteComment = 'Facility Name updated.', " &
+                                "UpdateUSer = '" & CurrentUser.AlphaName & "', " &
+                                "updateDateTime = sysdate " &
                                 "where facilitySiteID = '" & txtAirsNumber.Text & "' "
 
                                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -372,7 +372,7 @@ Public Class IAIPEditFacilityLocation
                         End If
                     End If
                 Else
-                    MsgBox("The data was not save due to bad data.", _
+                    MsgBox("The data was not save due to bad data.",
                             MsgBoxStyle.Information, "Edit Facility Location Data")
                 End If
             End If
@@ -412,9 +412,9 @@ Public Class IAIPEditFacilityLocation
             Dim ModifingLocation As String
 
             If txtKey.Text <> "" Then
-                SQL = "Select * " & _
-                "from AIRBRANCH.VW_HB_APBFacilityLocation " & _
-                "where strKey = '" & txtKey.Text & "' " & _
+                SQL = "Select * " &
+                "from AIRBRANCH.VW_HB_APBFacilityLocation " &
+                "where strKey = '" & txtKey.Text & "' " &
                 "Order by strKey DESC "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)

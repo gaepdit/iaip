@@ -18,9 +18,9 @@ Namespace DAL.Sscp
         Public Function WorkItemExists(ByVal trackingNumber As String) As Boolean
             If trackingNumber = "" OrElse Not Integer.TryParse(trackingNumber, Nothing) Then Return False
 
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM AIRBRANCH.SSCPITEMMASTER " & _
-                " WHERE RowNum = 1 " & _
+            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
+                " FROM AIRBRANCH.SSCPITEMMASTER " &
+                " WHERE RowNum = 1 " &
                 " AND STRTRACKINGNUMBER = :id "
             Dim parameter As New OracleParameter("id", trackingNumber)
 
@@ -169,9 +169,9 @@ Namespace DAL.Sscp
         Public Function TryGetRefNumForWorkItem(ByVal trackingNumber As String, <OutAttribute> Optional ByRef refNum As String = "") As Boolean
             If trackingNumber = "" OrElse Not Integer.TryParse(trackingNumber, Nothing) Then Return False
 
-            Dim query As String = "SELECT STRREFERENCENUMBER " & _
-                " FROM AIRBRANCH.SSCPTESTREPORTS " & _
-                " WHERE RowNum = 1 " & _
+            Dim query As String = "SELECT STRREFERENCENUMBER " &
+                " FROM AIRBRANCH.SSCPTESTREPORTS " &
+                " WHERE RowNum = 1 " &
                 " AND STRTRACKINGNUMBER = :id "
             Dim parameter As New OracleParameter("id", trackingNumber)
 
@@ -253,8 +253,8 @@ Namespace DAL.Sscp
         Public Function GetGeosInspectionId(ByVal id As String) As String
             If id = "" OrElse Not Integer.TryParse(id, Nothing) Then Return ""
 
-            Dim query As String = "SELECT INSPECTION_ID " & _
-            "  FROM AIRBRANCH.GEOS_INSPECTIONS_XREF " & _
+            Dim query As String = "SELECT INSPECTION_ID " &
+            "  FROM AIRBRANCH.GEOS_INSPECTIONS_XREF " &
             "  WHERE STRTRACKINGNUMBER = :id "
             Dim parameter As New OracleParameter("id", id)
 

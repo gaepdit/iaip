@@ -59,7 +59,7 @@ Public Class SSPPApplicationLog
 
 #Region "Page load/unload procedures"
     Private Sub SSPPApplicationLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        
+
         Try
 
             dgvApplicationLog.Visible = False
@@ -348,10 +348,10 @@ Public Class SSPPApplicationLog
             cboApplicationStatus.Items.Add("Active")
             cboApplicationStatus.Items.Add("Closed")
 
-            SQL = "select " & _
-            "strUnitDesc, numUnitCode " & _
-            "from AIRBRANCH.LookUpEPDUnits " & _
-            "where numProgramCode = '5' " & _
+            SQL = "select " &
+            "strUnitDesc, numUnitCode " &
+            "from AIRBRANCH.LookUpEPDUnits " &
+            "where numProgramCode = '5' " &
             "order by strUnitDesc "
 
             dsUnitList = New DataSet
@@ -385,11 +385,11 @@ Public Class SSPPApplicationLog
                 .SelectedIndex = 0
             End With
 
-            SQL = "Select " & _
-            "Distinct((strLastName|| ', ' ||strFirstName)) as EngineerName,  " & _
-            "numUserID, strLastName   " & _
-            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.SSPPApplicationMaster  " & _
-            "where AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
+            SQL = "Select " &
+            "Distinct((strLastName|| ', ' ||strFirstName)) as EngineerName,  " &
+            "numUserID, strLastName   " &
+            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.SSPPApplicationMaster  " &
+            "where AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " &
             "order by strLastName "
 
             dsEngineerList = New DataSet
@@ -425,10 +425,10 @@ Public Class SSPPApplicationLog
 
             dsSubpart = New DataSet
 
-            SQL = "Select " & _
-            "strSubpart, " & _
-            "(strSubpart||' - '||strDescription) as Subpart " & _
-            "from AIRBRANCH.LookUpSubpartSIP " & _
+            SQL = "Select " &
+            "strSubpart, " &
+            "(strSubpart||' - '||strDescription) as Subpart " &
+            "from AIRBRANCH.LookUpSubpartSIP " &
             "order by strSubpart "
 
             daSubpart = New OracleDataAdapter(SQL, CurrentConnection)
@@ -480,10 +480,10 @@ Public Class SSPPApplicationLog
                 .SelectedIndex = 0
             End With
 
-            SQL = "Select " & _
-            "strSubpart, " & _
-            "(strSubpart||' - '||strDescription) as Subpart " & _
-            "from AIRBRANCH.LookUpSubpart61 " & _
+            SQL = "Select " &
+            "strSubpart, " &
+            "(strSubpart||' - '||strDescription) as Subpart " &
+            "from AIRBRANCH.LookUpSubpart61 " &
             "order by strSubpart "
 
             daSubpart = New OracleDataAdapter(SQL, CurrentConnection)
@@ -535,10 +535,10 @@ Public Class SSPPApplicationLog
                 .SelectedIndex = 0
             End With
 
-            SQL = "Select " & _
-            "strSubpart, " & _
-            "(strSubpart||' - '||strDescription) as Subpart " & _
-            "from AIRBRANCH.LookUpSubpart60 " & _
+            SQL = "Select " &
+            "strSubpart, " &
+            "(strSubpart||' - '||strDescription) as Subpart " &
+            "from AIRBRANCH.LookUpSubpart60 " &
             "order by strSubpart "
 
             daSubpart = New OracleDataAdapter(SQL, CurrentConnection)
@@ -591,10 +591,10 @@ Public Class SSPPApplicationLog
             End With
 
 
-            SQL = "Select " & _
-            "strSubpart, " & _
-            "(strSubpart||' - '||strDescription) as Subpart " & _
-            "from AIRBRANCH.LookUpSubpart63 " & _
+            SQL = "Select " &
+            "strSubpart, " &
+            "(strSubpart||' - '||strDescription) as Subpart " &
+            "from AIRBRANCH.LookUpSubpart63 " &
             "order by strSubpart "
 
             daSubpart = New OracleDataAdapter(SQL, CurrentConnection)
@@ -685,9 +685,9 @@ Public Class SSPPApplicationLog
             Else
                 If AccountFormAccess(3, 3) = "1" And CurrentUser.UnitId <> 0 Then
                     'All Active Applications from UC's Unit
-                    SQL = "Select numUnit " & _
-                    "from AIRBRANCH.EPDUserProfiles " & _
-                    "where numUserID = '" & CurrentUser.UserID & "' " & _
+                    SQL = "Select numUnit " &
+                    "from AIRBRANCH.EPDUserProfiles " &
+                    "where numUserID = '" & CurrentUser.UserID & "' " &
                     "and numProgram = '5' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -796,384 +796,384 @@ Public Class SSPPApplicationLog
     Private Sub FetchData(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bgwApplicationLog.DoWork
         Try
             If chbShowAll.Checked = True Then
-                SQL = "Select  " & _
-                "  distinct(to_Number(AIRBRANCH.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,  " & _
-                "   case  " & _
-                "   	when strApplicationTypeDesc IS Null then ''  " & _
-                "   Else strApplicationTypeDesc  " & _
-                "   End as strApplicationType,  " & _
-                "   case  " & _
-                "   	when datReceivedDate is Null then ''  " & _
-                "   Else to_char(datReceivedDate, 'RRRR-MM-dd')  " & _
-                "   End as datReceivedDate,  " & _
-                "   case   " & _
-                "when strPermitNumber is NULL then ''   " & _
-                " else substr(strPermitNumber, 1, 4)|| '-' ||substr(strPermitNumber, 5, 3)|| '-'   " & _
-                "||substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)|| '-' " & _
-                "||substr(strPermitNumber, 13, 2)|| '-' ||substr(strPermitNumber, 15, 1)  " & _
-                "   end As strPermitNumber,  " & _
-                "   case  " & _
-                "   	when datPermitIssued is Null then ''  " & _
-                "   else to_char(datPermitIssued, 'RRRR-MM-dd')  " & _
-                "   end as datPermitIssued,  " & _
-                "   case  " & _
-                "   	when numUserID = '0' then ''  " & _
-                "   	when numUserID is Null then ''  " & _
-                "   else (strLastName|| ', ' ||strFirstName)  " & _
-                "   end as StaffResponsible,  " & _
-                "   case  " & _
-                "   	when AIRBRANCH.SSPPApplicationData.strFacilityName is Null then ''  " & _
-                "   else AIRBRANCH.SSPPApplicationData.strFacilityName  " & _
-                "   end as strFacilityName,  " & _
-                "   case  " & _
-                "   	when AIRBRANCH.SSPPApplicationMaster.strAIRSNumber is Null then ''  " & _
-                "   	when AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = '0413' then ''  " & _
-                "   else substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5)  " & _
-                "   end as strAIRSNumber,  " & _
-                "     case  " & _
-                "   when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out'  " & _
-                "   when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '09 - Administrative Review'  " & _
-                "   when datToBranchCheif is Not Null and datFinalizedDate is Null  " & _
-                "   and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - Administrative Review'  " & _
-                "   when datEPAEnds is not Null then '08 - EPA 45-day Review'  " & _
-                "   when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'  " & _
-                "   when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'   " & _
-                "   when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'   " & _
-                "   when dattoPMII is Not Null then '04 - AT PM'   " & _
-                "   when dattoPMI is Not Null then '03 - At UC'   " & _
-                "   when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then '02 - Internal Review'  " & _
-                "   when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'    " & _
-                "   else '01 - At Engineer'   " & _
-                "   end as AppStatus,  " & _
-                "   AIRBRANCH.SSPPApplicationData.strSICCode,  " & _
-                "   AIRBRANCH.SSPPApplicationData.strPlantDescription,  " & _
-                "   Case  " & _
-                "   	when APBUnit is Null then ''  " & _
-                "   Else strUnitDesc    " & _
-                "   End as APBUnit,  " & _
-                "   case  " & _
-                "   	when datApplicationStarted is Null then ''  " & _
-                "   Else to_char(datApplicationStarted, 'RRRR-MM-dd')  " & _
-                "   End as datApplicationStarted,  " & _
-                "   case  " & _
-                "   	when datSentByFacility is Null then ''  " & _
-                "   else to_char(datSentByFacility, 'RRRR-MM-dd')  " & _
-                "   End as datSentByFacility,  " & _
-                "   case  " & _
-                "   	when datAssignedToEngineer is Null then ''  " & _
-                "   else to_char(datAssignedtoEngineer, 'RRRR-MM-dd')  " & _
-                "   ENd as datAssignedtoEngineer,  " & _
-                "   case  " & _
-                "   	when datReassignedToEngineer is Null then ''  " & _
-                "   else to_char(datReassignedToEngineer, 'RRRR-MM-dd')  " & _
-                "   End as datReassignedToEngineer,  " & _
-                "   case  " & _
-                "   	when datApplicationPackageComplete is Null then ''  " & _
-                "   else to_char(datApplicationPackageComplete, 'RRRR-MM-dd')  " & _
-                "   End as datApplicationPackageComplete,  " & _
-                "  Case  " & _
-                "   	when datAcknowledgementLetterSent is NUll then ''  " & _
-                "   else to_char(datAcknowledgementLetterSent, 'RRRR-MM-dd')  " & _
-                "   End as datAcknowledgementLetterSent,  " & _
-                "   case  " & _
-                "        when strPublicInvolvement = '0' Then 'Not Decided'  " & _
-                "        when strPublicInvolvement = '1' Then 'PA Needed'  " & _
-                "        when strPublicInvolvement = '2' Then 'PA Not Needed'  " & _
-                "   Else 'Not Decided'  " & _
-                "   end strPublicInvolvement,  " & _
-                "   case  " & _
-                "   	when datPNExpires is Null then ''  " & _
-                "   else to_char(datPNExpires, 'RRRR-MM-dd')   " & _
-                "   End as datPNExpires,  " & _
-                "   case  " & _
-                "   	when datPAExpires is Null then ''  " & _
-                "   else to_char(datPAExpires, 'RRRR-MM-dd')  " & _
-                "   End as datPAExpires,  " & _
-                "   case  " & _
-                "   	when datToPMI is Null then ''  " & _
-                "   else to_char(datToPMI, 'RRRR-MM-dd')  " & _
-                "   End as datToPMI,  " & _
-                "   case  " & _
-                "   	when datToPMII is Null then ''  " & _
-                "   else to_char(datToPMII, 'RRRR-MM-dd')  " & _
-                "   end as datToPMII,  " & _
-                "   case  " & _
-                "   	when datDraftIssued is NUll then ''  " & _
-                "   else to_char(datDraftIssued, 'RRRR-MM-dd')  " & _
-                "   end as datDraftIssued,  " & _
-                "   case  " & _
-                "   	when AIRBRANCH.SSPPApplicationData.strComments is Null then ''  " & _
-                "   else AIRBRANCH.SSPPApplicationData.strComments  " & _
-                "   End as strComments,   " & _
-                "   case  " & _
-                "   	when datWithdrawn is Null  then ''  " & _
-                "   else to_char(datWithdrawn, 'RRRR-MM-dd')  " & _
-                "   end as datWithdrawn,  " & _
-                "   Case  " & _
-                "   	when datApplicationDeadLine is Null then ''  " & _
-                "   else to_char(datApplicationDeadLine, 'RRRR-MM-dd')  " & _
-                "   End as datApplicationDeadLine,  " & _
-                "   case  " & _
-                "   	when datFinalizedDate is Null then ''  " & _
-                "   else to_char(datFinalizedDate, 'RRRR-MM-dd')  " & _
-                "   end as datFinalizedDate,  " & _
-                "   case  " & _
-                "   	when strPermitTypeDescription is Null then ''  " & _
-                "   else strPermitTypeDescription  " & _
-                "   End as strPermitType,  " & _
-                "   case  " & _
-                "   	when strApplicationNotes is Null then ''  " & _
-                "   else strApplicationNotes  " & _
-                "   end as strApplicationNotes,  " & _
-                "   case  " & _
-                "   	when strLastName is Null then ''  " & _
-                "   	when strLastName = 'System' then ' '  " & _
-                "   else strLastName  " & _
-                "   end as strLastname, " & _
-                "   case  " & _
-                "   	when strFirstName is Null then ''  " & _
-                "   else strFirstName  " & _
-                "   end as strFirstName, " & _
-                "   '' as strAFSGCode,  " & _
-                "   case  " & _
-                "   	when numUserID is null then 0  " & _
-                "   	when numUserID = '0' then 0  " & _
-                "   else numUserID  " & _
-                "   end as numUserID, " & _
-                "   Case  " & _
-                "   	when strUnitDesc is Null then ''  " & _
-                "   else strUnitDesc  " & _
-                "   end as strUserUnit,  " & _
-                "   case  " & _
-                "   	when AIRBRANCH.SSPPApplicationData.strFacilityStreet1 is NUll then ''  " & _
-                "   else AIRBRANCH.SSPPApplicationData.strFacilityStreet1  " & _
-                "   end as strFacilityStreet1,  " & _
-                "   case  " & _
-                "   	when AIRBRANCH.SSPPApplicationData.strFacilityCity is Null then ''  " & _
-                "   else AIRBRANCH.SSPPApplicationData.strFacilityCity  " & _
-                "   end as strFacilityCity,  " & _
-                "   case  " & _
-                "   	when strCountyName is Null then ''  " & _
-                "   else strCountyName  " & _
-                "   end as strCountyName,  " & _
-                "   case  " & _
-                "   	when strDistrictName is Null then ''  " & _
-                "   else strDistrictName  " & _
-                "   end as strDistrictName,  " & _
-                "   case  " & _
-                "     when strOfficeName is Null then ''  " & _
-                "   else strOfficeName  " & _
-                "   End as strOfficeName,  " & _
-                "   case  " & _
-                "   	     when AIRBRANCH.APBHeaderData.strAttainmentStatus is Null then ''  " & _
-                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 2, 1) = '0' then 'No'  " & _
-                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 2, 1) = '1' then '1-hr Ozone'  " & _
-                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 2, 1) = '2' then '1-hr Ozone Contribute'  " & _
-                "   end as OneHrOzone,  " & _
-                "   case  " & _
-                "   	     when AIRBRANCH.APBHeaderData.strAttainmentStatus is Null then ''  " & _
-                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 3, 1) = '0' then 'No'  " & _
-                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 3, 1) = '1' then '8-hr Ozone Atlanta'  " & _
-                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 3, 1) = '2' then '8-hr Ozone Macon'  " & _
-                "   end as EightHrOzone,  " & _
-                "   case  " & _
-                "   	     when AIRBRANCH.APBHeaderData.strAttainmentStatus is Null then ''  " & _
-                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 4, 1) = '0' then 'No'  " & _
-                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 4, 1) = '1' then 'PM - Atlanta'  " & _
-                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 4, 1) = '2' then 'PM - Chattanooga'  " & _
-                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 4, 1) = '3' then 'PM - Floyd'  " & _
-                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 4, 1) = '4' then 'PM - Macon'  " & _
-                "   end as PMFine,  " & _
-                "   case  " & _
-                "      when strPAReady is Null then ''   " & _
-                "      when strPAReady = 'True' then 'PA Ready'   " & _
-                "      when strPAReady = 'False' then ''  " & _
-                "   end as strPAReady,   " & _
-                "   case   " & _
-                "      when strPNready is Null then ''   " & _
-                "      when strPNready = 'True' then 'PN Ready'  " & _
-                "      when strPNReady = 'False' then ''   " & _
-                "   end as strPNReady,   " & _
-                "   case  " & _
-                "   when datEPAWaived is Null then ''  " & _
-                "   else to_char(datEPAWaived, 'RRRR-MM-dd')  " & _
-                "   end as datEPAWaived,  " & _
-                "   Case  " & _
-                "   when datEPAEnds is Null then ''  " & _
-                "   else to_char(datEPAEnds, 'RRRR-MM-dd')  " & _
-                "   end as datEPAEnds,  " & _
-                "   case  " & _
-                "   when datToBranchCheif is Null then ''  " & _
-                "   else to_char(datToBranchCheif, 'RRRR-MM-dd')  " & _
-                "   end as datToBranchCheif,  " & _
-                "   case  " & _
-                "   when datToDirector is Null then ''  " & _
-                "   else to_char(datToDirector, 'RRRR-MM-dd')  " & _
-                "   end as datToDirector,  " & _
-                "   case  " & _
-                "        when AIRBRANCH.APBHeaderData.strStateProgramCodes is Null then ''  " & _
-                "        when substr(AIRBRANCH.APBHeaderData.strStateProgramCodes, 1, 1) = '1' then 'NSR/PSD Major'  " & _
-                "   End as NSRMajor,  " & _
-                "   Case  " & _
-                "        when AIRBRANCH.APBHeaderData.strStateProgramCodes is Null then ''  " & _
-                "        when substr(AIRBRANCH.APBHeaderData.strStateProgramCodes, 2, 1) = '1' then 'HAPs Major'  " & _
-                "   End as HAPsMajor,  " & _
-                "   case   " & _
-                "   when datPermitIssued is Not Null then to_char(datPermitIssued, 'RRRR-MM-dd')     " & _
-                "   when datFinalizedDate is Not Null then to_char(datFinalizedDate, 'RRRR-MM-dd')  " & _
-                "   when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then to_char(datToDirector, 'RRRR-MM-dd')  " & _
-                "   when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then to_char(DatTOBranchCheif, 'RRRR-MM-dd')   " & _
-                "   when datEPAEnds is not Null then to_char(datEPAEnds, 'RRRR-MM-dd')    " & _
-                "   when datPNExpires is Not Null and datPNExpires < sysdate then to_char(datPNExpires, 'RRRR-MM-dd')    " & _
-                "   when datPNExpires is Not Null and datPNExpires >= sysdate then to_char(datPNExpires, 'RRRR-MM-dd')     " & _
-                "   when datDraftIssued is Not Null and datPNExpires is Null then to_char(datDraftIssued, 'RRRR-MM-dd')     " & _
-                "   when dattoPMII is Not Null then to_char(datToPMII, 'RRRR-MM-dd')     " & _
-                "   when dattoPMI is Not Null then to_char(datToPMI, 'RRRR-MM-dd')     " & _
-                "   when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then to_char(datReviewSubmitted, 'RRRR-MM-dd')    " & _
-                "   when strStaffResponsible is Null or strStaffResponsible ='0' then 'Unknown'     " & _
-                "   else to_char(datAssignedToEngineer, 'RRRR-MM-dd')     " & _
-                "   end as StatusDate,   " & _
-                "   case  " & _
-                "   when substr(strTrackedRules, 1, 1) = '1' then 'PSD - Rule'  " & _
-                "   else ' '  " & _
-                "   end PSDRule,  " & _
-                "   case   " & _
-                "   when substr(strTrackedRules, 2, 1) = '1' then 'NAA - Rule'   " & _
-                "   else ' '   " & _
-                "   end NAARule,   " & _
-                "   case   " & _
-                "   when substr(strTrackedRules, 3, 1) = '1' then '112(g) - Rule'   " & _
-                "   else ' '   " & _
-                "   end gRule,   " & _
-                "   case   " & _
-                "   when substr(strTrackedRules, 4, 1) = '1' then 'Rule (tt) RACT'   " & _
-                "   else ' '  " & _
-                "   end ttRACT,  " & _
-                "   case   " & _
-                "   when substr(strTrackedRules, 5, 1) = '1' then 'Rule (yy) RACT'   " & _
-                "   else ' '   " & _
-                "   end yyRACT,   " & _
-                "   case   " & _
-                "   when substr(strTrackedRules, 6, 1) = '1' then 'Actual PAL Rule'   " & _
-                "   else ' '   " & _
-                "   end PALRule, " & _
-                "   case   " & _
-                "   when substr(strTrackedRules, 7, 1) = '1' then 'Expedited Permit'   " & _
-                "   else ' '   " & _
-                "   end ExpeditedPermitRule,   " & _
-                "   case   " & _
-                "   when substr(strTrackedRules, 8, 1) = '1' then 'Confidential information submitted'   " & _
-                "   else ' '   " & _
-                "   end ConfInfoRule,   " & _
-                " (substr(AIRBRANCH.SSPPSubpartData.strSubpartKey, -1, 1) ||' - '||AIRBRANCH.SSPPSubpartData.strSubpart) as strSubpart " & _
-                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " & _
-                "  AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.LookUpPermitTypes, " & _
-                "  AIRBRANCH.LookUpCountyInformation, AIRBRANCH.LookUPDistrictInformation, " & _
-                "  AIRBRANCH.LookUpDistricts, AIRBRANCH.LookUpDistrictOffice, AIRBRANCH.APBHeaderData, " & _
-                "  AIRBRANCH.EPDUSerProfiles, AIRBRANCH.LookUpEPDUnits, " & _
-                "AIRBRANCH.SSPPSubpartData " & _
-                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber (+) " & _
-                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber (+) " & _
-                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpAPplicationTypes.strApplicationTypeCode (+) " & _
-                "and AIRBRANCH.SSPPApplicationMaster.strPermitType = AIRBRANCH.LookUpPermitTypes.strPermitTypeCode (+)     " & _
-                "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber (+)     " & _
-                "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode (+) " & _
-                "and AIRBRANCH.LookUpCountyInformation.strCountyCode = AIRBRANCH.LookUpDistrictInformation.strDistrictCounty (+)  " & _
-                "and AIRBRANCH.LookUpDistrictInformation.strDistrictCode = AIRBRANCH.LookUPDistricts.strDistrictCode (+)  " & _
-                "and AIRBRANCH.LookUPDistricts.strDistrictCode = AIRBRANCH.LooKUPDistrictOffice.strDistrictCode (+)  " & _
-                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " & _
-                "and AIRBRANCH.SSPPApplicationMaster.APBUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " & _
+                SQL = "Select  " &
+                "  distinct(to_Number(AIRBRANCH.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,  " &
+                "   case  " &
+                "   	when strApplicationTypeDesc IS Null then ''  " &
+                "   Else strApplicationTypeDesc  " &
+                "   End as strApplicationType,  " &
+                "   case  " &
+                "   	when datReceivedDate is Null then ''  " &
+                "   Else to_char(datReceivedDate, 'RRRR-MM-dd')  " &
+                "   End as datReceivedDate,  " &
+                "   case   " &
+                "when strPermitNumber is NULL then ''   " &
+                " else substr(strPermitNumber, 1, 4)|| '-' ||substr(strPermitNumber, 5, 3)|| '-'   " &
+                "||substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)|| '-' " &
+                "||substr(strPermitNumber, 13, 2)|| '-' ||substr(strPermitNumber, 15, 1)  " &
+                "   end As strPermitNumber,  " &
+                "   case  " &
+                "   	when datPermitIssued is Null then ''  " &
+                "   else to_char(datPermitIssued, 'RRRR-MM-dd')  " &
+                "   end as datPermitIssued,  " &
+                "   case  " &
+                "   	when numUserID = '0' then ''  " &
+                "   	when numUserID is Null then ''  " &
+                "   else (strLastName|| ', ' ||strFirstName)  " &
+                "   end as StaffResponsible,  " &
+                "   case  " &
+                "   	when AIRBRANCH.SSPPApplicationData.strFacilityName is Null then ''  " &
+                "   else AIRBRANCH.SSPPApplicationData.strFacilityName  " &
+                "   end as strFacilityName,  " &
+                "   case  " &
+                "   	when AIRBRANCH.SSPPApplicationMaster.strAIRSNumber is Null then ''  " &
+                "   	when AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = '0413' then ''  " &
+                "   else substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5)  " &
+                "   end as strAIRSNumber,  " &
+                "     case  " &
+                "   when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out'  " &
+                "   when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '09 - Administrative Review'  " &
+                "   when datToBranchCheif is Not Null and datFinalizedDate is Null  " &
+                "   and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - Administrative Review'  " &
+                "   when datEPAEnds is not Null then '08 - EPA 45-day Review'  " &
+                "   when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'  " &
+                "   when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'   " &
+                "   when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'   " &
+                "   when dattoPMII is Not Null then '04 - AT PM'   " &
+                "   when dattoPMI is Not Null then '03 - At UC'   " &
+                "   when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then '02 - Internal Review'  " &
+                "   when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'    " &
+                "   else '01 - At Engineer'   " &
+                "   end as AppStatus,  " &
+                "   AIRBRANCH.SSPPApplicationData.strSICCode,  " &
+                "   AIRBRANCH.SSPPApplicationData.strPlantDescription,  " &
+                "   Case  " &
+                "   	when APBUnit is Null then ''  " &
+                "   Else strUnitDesc    " &
+                "   End as APBUnit,  " &
+                "   case  " &
+                "   	when datApplicationStarted is Null then ''  " &
+                "   Else to_char(datApplicationStarted, 'RRRR-MM-dd')  " &
+                "   End as datApplicationStarted,  " &
+                "   case  " &
+                "   	when datSentByFacility is Null then ''  " &
+                "   else to_char(datSentByFacility, 'RRRR-MM-dd')  " &
+                "   End as datSentByFacility,  " &
+                "   case  " &
+                "   	when datAssignedToEngineer is Null then ''  " &
+                "   else to_char(datAssignedtoEngineer, 'RRRR-MM-dd')  " &
+                "   ENd as datAssignedtoEngineer,  " &
+                "   case  " &
+                "   	when datReassignedToEngineer is Null then ''  " &
+                "   else to_char(datReassignedToEngineer, 'RRRR-MM-dd')  " &
+                "   End as datReassignedToEngineer,  " &
+                "   case  " &
+                "   	when datApplicationPackageComplete is Null then ''  " &
+                "   else to_char(datApplicationPackageComplete, 'RRRR-MM-dd')  " &
+                "   End as datApplicationPackageComplete,  " &
+                "  Case  " &
+                "   	when datAcknowledgementLetterSent is NUll then ''  " &
+                "   else to_char(datAcknowledgementLetterSent, 'RRRR-MM-dd')  " &
+                "   End as datAcknowledgementLetterSent,  " &
+                "   case  " &
+                "        when strPublicInvolvement = '0' Then 'Not Decided'  " &
+                "        when strPublicInvolvement = '1' Then 'PA Needed'  " &
+                "        when strPublicInvolvement = '2' Then 'PA Not Needed'  " &
+                "   Else 'Not Decided'  " &
+                "   end strPublicInvolvement,  " &
+                "   case  " &
+                "   	when datPNExpires is Null then ''  " &
+                "   else to_char(datPNExpires, 'RRRR-MM-dd')   " &
+                "   End as datPNExpires,  " &
+                "   case  " &
+                "   	when datPAExpires is Null then ''  " &
+                "   else to_char(datPAExpires, 'RRRR-MM-dd')  " &
+                "   End as datPAExpires,  " &
+                "   case  " &
+                "   	when datToPMI is Null then ''  " &
+                "   else to_char(datToPMI, 'RRRR-MM-dd')  " &
+                "   End as datToPMI,  " &
+                "   case  " &
+                "   	when datToPMII is Null then ''  " &
+                "   else to_char(datToPMII, 'RRRR-MM-dd')  " &
+                "   end as datToPMII,  " &
+                "   case  " &
+                "   	when datDraftIssued is NUll then ''  " &
+                "   else to_char(datDraftIssued, 'RRRR-MM-dd')  " &
+                "   end as datDraftIssued,  " &
+                "   case  " &
+                "   	when AIRBRANCH.SSPPApplicationData.strComments is Null then ''  " &
+                "   else AIRBRANCH.SSPPApplicationData.strComments  " &
+                "   End as strComments,   " &
+                "   case  " &
+                "   	when datWithdrawn is Null  then ''  " &
+                "   else to_char(datWithdrawn, 'RRRR-MM-dd')  " &
+                "   end as datWithdrawn,  " &
+                "   Case  " &
+                "   	when datApplicationDeadLine is Null then ''  " &
+                "   else to_char(datApplicationDeadLine, 'RRRR-MM-dd')  " &
+                "   End as datApplicationDeadLine,  " &
+                "   case  " &
+                "   	when datFinalizedDate is Null then ''  " &
+                "   else to_char(datFinalizedDate, 'RRRR-MM-dd')  " &
+                "   end as datFinalizedDate,  " &
+                "   case  " &
+                "   	when strPermitTypeDescription is Null then ''  " &
+                "   else strPermitTypeDescription  " &
+                "   End as strPermitType,  " &
+                "   case  " &
+                "   	when strApplicationNotes is Null then ''  " &
+                "   else strApplicationNotes  " &
+                "   end as strApplicationNotes,  " &
+                "   case  " &
+                "   	when strLastName is Null then ''  " &
+                "   	when strLastName = 'System' then ' '  " &
+                "   else strLastName  " &
+                "   end as strLastname, " &
+                "   case  " &
+                "   	when strFirstName is Null then ''  " &
+                "   else strFirstName  " &
+                "   end as strFirstName, " &
+                "   '' as strAFSGCode,  " &
+                "   case  " &
+                "   	when numUserID is null then 0  " &
+                "   	when numUserID = '0' then 0  " &
+                "   else numUserID  " &
+                "   end as numUserID, " &
+                "   Case  " &
+                "   	when strUnitDesc is Null then ''  " &
+                "   else strUnitDesc  " &
+                "   end as strUserUnit,  " &
+                "   case  " &
+                "   	when AIRBRANCH.SSPPApplicationData.strFacilityStreet1 is NUll then ''  " &
+                "   else AIRBRANCH.SSPPApplicationData.strFacilityStreet1  " &
+                "   end as strFacilityStreet1,  " &
+                "   case  " &
+                "   	when AIRBRANCH.SSPPApplicationData.strFacilityCity is Null then ''  " &
+                "   else AIRBRANCH.SSPPApplicationData.strFacilityCity  " &
+                "   end as strFacilityCity,  " &
+                "   case  " &
+                "   	when strCountyName is Null then ''  " &
+                "   else strCountyName  " &
+                "   end as strCountyName,  " &
+                "   case  " &
+                "   	when strDistrictName is Null then ''  " &
+                "   else strDistrictName  " &
+                "   end as strDistrictName,  " &
+                "   case  " &
+                "     when strOfficeName is Null then ''  " &
+                "   else strOfficeName  " &
+                "   End as strOfficeName,  " &
+                "   case  " &
+                "   	     when AIRBRANCH.APBHeaderData.strAttainmentStatus is Null then ''  " &
+                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 2, 1) = '0' then 'No'  " &
+                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 2, 1) = '1' then '1-hr Ozone'  " &
+                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 2, 1) = '2' then '1-hr Ozone Contribute'  " &
+                "   end as OneHrOzone,  " &
+                "   case  " &
+                "   	     when AIRBRANCH.APBHeaderData.strAttainmentStatus is Null then ''  " &
+                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 3, 1) = '0' then 'No'  " &
+                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 3, 1) = '1' then '8-hr Ozone Atlanta'  " &
+                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 3, 1) = '2' then '8-hr Ozone Macon'  " &
+                "   end as EightHrOzone,  " &
+                "   case  " &
+                "   	     when AIRBRANCH.APBHeaderData.strAttainmentStatus is Null then ''  " &
+                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 4, 1) = '0' then 'No'  " &
+                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 4, 1) = '1' then 'PM - Atlanta'  " &
+                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 4, 1) = '2' then 'PM - Chattanooga'  " &
+                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 4, 1) = '3' then 'PM - Floyd'  " &
+                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 4, 1) = '4' then 'PM - Macon'  " &
+                "   end as PMFine,  " &
+                "   case  " &
+                "      when strPAReady is Null then ''   " &
+                "      when strPAReady = 'True' then 'PA Ready'   " &
+                "      when strPAReady = 'False' then ''  " &
+                "   end as strPAReady,   " &
+                "   case   " &
+                "      when strPNready is Null then ''   " &
+                "      when strPNready = 'True' then 'PN Ready'  " &
+                "      when strPNReady = 'False' then ''   " &
+                "   end as strPNReady,   " &
+                "   case  " &
+                "   when datEPAWaived is Null then ''  " &
+                "   else to_char(datEPAWaived, 'RRRR-MM-dd')  " &
+                "   end as datEPAWaived,  " &
+                "   Case  " &
+                "   when datEPAEnds is Null then ''  " &
+                "   else to_char(datEPAEnds, 'RRRR-MM-dd')  " &
+                "   end as datEPAEnds,  " &
+                "   case  " &
+                "   when datToBranchCheif is Null then ''  " &
+                "   else to_char(datToBranchCheif, 'RRRR-MM-dd')  " &
+                "   end as datToBranchCheif,  " &
+                "   case  " &
+                "   when datToDirector is Null then ''  " &
+                "   else to_char(datToDirector, 'RRRR-MM-dd')  " &
+                "   end as datToDirector,  " &
+                "   case  " &
+                "        when AIRBRANCH.APBHeaderData.strStateProgramCodes is Null then ''  " &
+                "        when substr(AIRBRANCH.APBHeaderData.strStateProgramCodes, 1, 1) = '1' then 'NSR/PSD Major'  " &
+                "   End as NSRMajor,  " &
+                "   Case  " &
+                "        when AIRBRANCH.APBHeaderData.strStateProgramCodes is Null then ''  " &
+                "        when substr(AIRBRANCH.APBHeaderData.strStateProgramCodes, 2, 1) = '1' then 'HAPs Major'  " &
+                "   End as HAPsMajor,  " &
+                "   case   " &
+                "   when datPermitIssued is Not Null then to_char(datPermitIssued, 'RRRR-MM-dd')     " &
+                "   when datFinalizedDate is Not Null then to_char(datFinalizedDate, 'RRRR-MM-dd')  " &
+                "   when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then to_char(datToDirector, 'RRRR-MM-dd')  " &
+                "   when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then to_char(DatTOBranchCheif, 'RRRR-MM-dd')   " &
+                "   when datEPAEnds is not Null then to_char(datEPAEnds, 'RRRR-MM-dd')    " &
+                "   when datPNExpires is Not Null and datPNExpires < sysdate then to_char(datPNExpires, 'RRRR-MM-dd')    " &
+                "   when datPNExpires is Not Null and datPNExpires >= sysdate then to_char(datPNExpires, 'RRRR-MM-dd')     " &
+                "   when datDraftIssued is Not Null and datPNExpires is Null then to_char(datDraftIssued, 'RRRR-MM-dd')     " &
+                "   when dattoPMII is Not Null then to_char(datToPMII, 'RRRR-MM-dd')     " &
+                "   when dattoPMI is Not Null then to_char(datToPMI, 'RRRR-MM-dd')     " &
+                "   when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then to_char(datReviewSubmitted, 'RRRR-MM-dd')    " &
+                "   when strStaffResponsible is Null or strStaffResponsible ='0' then 'Unknown'     " &
+                "   else to_char(datAssignedToEngineer, 'RRRR-MM-dd')     " &
+                "   end as StatusDate,   " &
+                "   case  " &
+                "   when substr(strTrackedRules, 1, 1) = '1' then 'PSD - Rule'  " &
+                "   else ' '  " &
+                "   end PSDRule,  " &
+                "   case   " &
+                "   when substr(strTrackedRules, 2, 1) = '1' then 'NAA - Rule'   " &
+                "   else ' '   " &
+                "   end NAARule,   " &
+                "   case   " &
+                "   when substr(strTrackedRules, 3, 1) = '1' then '112(g) - Rule'   " &
+                "   else ' '   " &
+                "   end gRule,   " &
+                "   case   " &
+                "   when substr(strTrackedRules, 4, 1) = '1' then 'Rule (tt) RACT'   " &
+                "   else ' '  " &
+                "   end ttRACT,  " &
+                "   case   " &
+                "   when substr(strTrackedRules, 5, 1) = '1' then 'Rule (yy) RACT'   " &
+                "   else ' '   " &
+                "   end yyRACT,   " &
+                "   case   " &
+                "   when substr(strTrackedRules, 6, 1) = '1' then 'Actual PAL Rule'   " &
+                "   else ' '   " &
+                "   end PALRule, " &
+                "   case   " &
+                "   when substr(strTrackedRules, 7, 1) = '1' then 'Expedited Permit'   " &
+                "   else ' '   " &
+                "   end ExpeditedPermitRule,   " &
+                "   case   " &
+                "   when substr(strTrackedRules, 8, 1) = '1' then 'Confidential information submitted'   " &
+                "   else ' '   " &
+                "   end ConfInfoRule,   " &
+                " (substr(AIRBRANCH.SSPPSubpartData.strSubpartKey, -1, 1) ||' - '||AIRBRANCH.SSPPSubpartData.strSubpart) as strSubpart " &
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " &
+                "  AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.LookUpPermitTypes, " &
+                "  AIRBRANCH.LookUpCountyInformation, AIRBRANCH.LookUPDistrictInformation, " &
+                "  AIRBRANCH.LookUpDistricts, AIRBRANCH.LookUpDistrictOffice, AIRBRANCH.APBHeaderData, " &
+                "  AIRBRANCH.EPDUSerProfiles, AIRBRANCH.LookUpEPDUnits, " &
+                "AIRBRANCH.SSPPSubpartData " &
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber (+) " &
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber (+) " &
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpAPplicationTypes.strApplicationTypeCode (+) " &
+                "and AIRBRANCH.SSPPApplicationMaster.strPermitType = AIRBRANCH.LookUpPermitTypes.strPermitTypeCode (+)     " &
+                "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber (+)     " &
+                "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode (+) " &
+                "and AIRBRANCH.LookUpCountyInformation.strCountyCode = AIRBRANCH.LookUpDistrictInformation.strDistrictCounty (+)  " &
+                "and AIRBRANCH.LookUpDistrictInformation.strDistrictCode = AIRBRANCH.LookUPDistricts.strDistrictCode (+)  " &
+                "and AIRBRANCH.LookUPDistricts.strDistrictCode = AIRBRANCH.LooKUPDistrictOffice.strDistrictCode (+)  " &
+                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " &
+                "and AIRBRANCH.SSPPApplicationMaster.APBUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " &
                 "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPSubpartData.strApplicationNumber (+) "
             Else
-                SQL = "Select  " & _
-                    "  distinct(to_Number(AIRBRANCH.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,  " & _
-                    "  case   " & _
-                    " 	when strApplicationTypeDesc IS Null then ''   " & _
-                    " Else strApplicationTypeDesc   " & _
-                    " End as strApplicationType,   " & _
-                    " case   " & _
-                    " 	when datReceivedDate is Null then ''   " & _
-                    " Else to_char(datReceivedDate, 'RRRR-MM-dd')   " & _
-                    " End as datReceivedDate,   " & _
-                    " case    " & _
-                    "         when strPermitNumber is NULL then ''    " & _
-                    "          else substr(strPermitNumber, 1, 4)|| '-' ||substr(strPermitNumber, 5, 3)|| '-'    " & _
-                    "         ||substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)|| '-'   " & _
-                    "         ||substr(strPermitNumber, 13, 2)|| '-' ||substr(strPermitNumber, 15, 1)   " & _
-                    " end As strPermitNumber,   " & _
-                    " case   " & _
-                    " 	when datPermitIssued is Null then ''   " & _
-                    " else to_char(datPermitIssued, 'RRRR-MM-dd')   " & _
-                    " end as datPermitIssued,   " & _
-                    " case   " & _
-                    " 	when numUserID = '0' then ''   " & _
-                    " 	when numUserID is Null then ''   " & _
-                    " else (strLastName|| ', ' ||strFirstName)   " & _
-                    " end as StaffResponsible,   " & _
-                    " case   " & _
-                    " 	when AIRBRANCH.SSPPApplicationData.strFacilityName is Null then ''   " & _
-                    " else AIRBRANCH.SSPPApplicationData.strFacilityName   " & _
-                    " end as strFacilityName,  " & _
-                    " case   " & _
-                    " 	when AIRBRANCH.SSPPApplicationMaster.strAIRSNumber is Null then ''   " & _
-                    " 	when AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = '0413' then ''   " & _
-                    " else substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5)   " & _
-                    " end as strAIRSNumber,   " & _
-                    "case   " & _
-                    "when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out'   " & _
-                    "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '09 - Administrative Review'   " & _
-                    "when datToBranchCheif is Not Null and datFinalizedDate is Null   " & _
-                    "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - Administrative Review'   " & _
-                    "when datEPAEnds is not Null then '08 - EPA 45-day Review'   " & _
-                    "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'   " & _
-                    "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'    " & _
-                    "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'    " & _
-                    "when dattoPMII is Not Null then '04 - AT PM'    " & _
-                    "when dattoPMI is Not Null then '03 - At UC'    " & _
-                    "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then '02 - Internal Review'   " & _
-                    "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'     " & _
-                    "else '01 - At Engineer'    " & _
-                    "end as AppStatus,   " & _
-                    " case   " & _
-                    "	when strPermitTypeDescription is Null then ''   " & _
-                    "else strPermitTypeDescription   " & _
-                    "End as strPermitType,  " & _
-                    "case    " & _
-                    "when datPermitIssued is Not Null then to_char(datPermitIssued, 'RRRR-MM-dd')      " & _
-                    "when datFinalizedDate is Not Null then to_char(datFinalizedDate, 'RRRR-MM-dd')   " & _
-                    "when datToDirector is Not Null and datFinalizedDate is Null   " & _
-                    "and (datDraftIssued is Null or datDraftIssued < datToDirector) then to_char(datToDirector, 'RRRR-MM-dd')   " & _
-                    "when datToBranchCheif is Not Null and datFinalizedDate is Null   " & _
-                    "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then to_char(DatTOBranchCheif, 'RRRR-MM-dd')    " & _
-                    "when datEPAEnds is not Null then to_char(datEPAEnds, 'RRRR-MM-dd')     " & _
-                    "when datPNExpires is Not Null and datPNExpires < sysdate then to_char(datPNExpires, 'RRRR-MM-dd')     " & _
-                    "when datPNExpires is Not Null and datPNExpires >= sysdate then to_char(datPNExpires, 'RRRR-MM-dd')      " & _
-                    "when datDraftIssued is Not Null and datPNExpires is Null then to_char(datDraftIssued, 'RRRR-MM-dd')      " & _
-                    "when dattoPMII is Not Null then to_char(datToPMII, 'RRRR-MM-dd')      " & _
-                    "when dattoPMI is Not Null then to_char(datToPMI, 'RRRR-MM-dd')      " & _
-                    "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then to_char(datReviewSubmitted, 'RRRR-MM-dd')     " & _
-                    "when strStaffResponsible is Null or strStaffResponsible ='0' then 'Unknown'      " & _
-                    "else to_char(datAssignedToEngineer, 'RRRR-MM-dd')      " & _
-                    "end as StatusDate,   " & _
-                    "AIRBRANCH.SSPPApplicationData.strSICCode,   " & _
-                    "AIRBRANCH.SSPPApplicationData.strPlantDescription   " & _
-                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,   " & _
-                    "  AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.LookUpPermitTypes,  " & _
-                    "  AIRBRANCH.LookUpCountyInformation, AIRBRANCH.LookUPDistrictInformation,  " & _
-                    "  AIRBRANCH.LookUpDistricts, AIRBRANCH.LookUpDistrictOffice, AIRBRANCH.APBHeaderData,  " & _
-                    "  AIRBRANCH.EPDUSerProfiles, AIRBRANCH.LookUpEPDUnits,  " & _
-                    " AIRBRANCH.SSPPSubpartData " & _
-                    "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber (+) " & _
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber (+) " & _
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpAPplicationTypes.strApplicationTypeCode (+) " & _
-                    "and AIRBRANCH.SSPPApplicationMaster.strPermitType = AIRBRANCH.LookUpPermitTypes.strPermitTypeCode (+)      " & _
-                    "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber (+)      " & _
-                    "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode (+)  " & _
-                    "and AIRBRANCH.LookUpCountyInformation.strCountyCode = AIRBRANCH.LookUpDistrictInformation.strDistrictCounty (+)   " & _
-                    "and AIRBRANCH.LookUpDistrictInformation.strDistrictCode = AIRBRANCH.LookUPDistricts.strDistrictCode (+)   " & _
-                    "and AIRBRANCH.LookUPDistricts.strDistrictCode = AIRBRANCH.LooKUPDistrictOffice.strDistrictCode (+)   " & _
-                    "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID  " & _
-                    "and AIRBRANCH.SSPPApplicationMaster.APBUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " & _
+                SQL = "Select  " &
+                    "  distinct(to_Number(AIRBRANCH.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,  " &
+                    "  case   " &
+                    " 	when strApplicationTypeDesc IS Null then ''   " &
+                    " Else strApplicationTypeDesc   " &
+                    " End as strApplicationType,   " &
+                    " case   " &
+                    " 	when datReceivedDate is Null then ''   " &
+                    " Else to_char(datReceivedDate, 'RRRR-MM-dd')   " &
+                    " End as datReceivedDate,   " &
+                    " case    " &
+                    "         when strPermitNumber is NULL then ''    " &
+                    "          else substr(strPermitNumber, 1, 4)|| '-' ||substr(strPermitNumber, 5, 3)|| '-'    " &
+                    "         ||substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)|| '-'   " &
+                    "         ||substr(strPermitNumber, 13, 2)|| '-' ||substr(strPermitNumber, 15, 1)   " &
+                    " end As strPermitNumber,   " &
+                    " case   " &
+                    " 	when datPermitIssued is Null then ''   " &
+                    " else to_char(datPermitIssued, 'RRRR-MM-dd')   " &
+                    " end as datPermitIssued,   " &
+                    " case   " &
+                    " 	when numUserID = '0' then ''   " &
+                    " 	when numUserID is Null then ''   " &
+                    " else (strLastName|| ', ' ||strFirstName)   " &
+                    " end as StaffResponsible,   " &
+                    " case   " &
+                    " 	when AIRBRANCH.SSPPApplicationData.strFacilityName is Null then ''   " &
+                    " else AIRBRANCH.SSPPApplicationData.strFacilityName   " &
+                    " end as strFacilityName,  " &
+                    " case   " &
+                    " 	when AIRBRANCH.SSPPApplicationMaster.strAIRSNumber is Null then ''   " &
+                    " 	when AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = '0413' then ''   " &
+                    " else substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5)   " &
+                    " end as strAIRSNumber,   " &
+                    "case   " &
+                    "when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out'   " &
+                    "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '09 - Administrative Review'   " &
+                    "when datToBranchCheif is Not Null and datFinalizedDate is Null   " &
+                    "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - Administrative Review'   " &
+                    "when datEPAEnds is not Null then '08 - EPA 45-day Review'   " &
+                    "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'   " &
+                    "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'    " &
+                    "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'    " &
+                    "when dattoPMII is Not Null then '04 - AT PM'    " &
+                    "when dattoPMI is Not Null then '03 - At UC'    " &
+                    "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then '02 - Internal Review'   " &
+                    "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'     " &
+                    "else '01 - At Engineer'    " &
+                    "end as AppStatus,   " &
+                    " case   " &
+                    "	when strPermitTypeDescription is Null then ''   " &
+                    "else strPermitTypeDescription   " &
+                    "End as strPermitType,  " &
+                    "case    " &
+                    "when datPermitIssued is Not Null then to_char(datPermitIssued, 'RRRR-MM-dd')      " &
+                    "when datFinalizedDate is Not Null then to_char(datFinalizedDate, 'RRRR-MM-dd')   " &
+                    "when datToDirector is Not Null and datFinalizedDate is Null   " &
+                    "and (datDraftIssued is Null or datDraftIssued < datToDirector) then to_char(datToDirector, 'RRRR-MM-dd')   " &
+                    "when datToBranchCheif is Not Null and datFinalizedDate is Null   " &
+                    "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then to_char(DatTOBranchCheif, 'RRRR-MM-dd')    " &
+                    "when datEPAEnds is not Null then to_char(datEPAEnds, 'RRRR-MM-dd')     " &
+                    "when datPNExpires is Not Null and datPNExpires < sysdate then to_char(datPNExpires, 'RRRR-MM-dd')     " &
+                    "when datPNExpires is Not Null and datPNExpires >= sysdate then to_char(datPNExpires, 'RRRR-MM-dd')      " &
+                    "when datDraftIssued is Not Null and datPNExpires is Null then to_char(datDraftIssued, 'RRRR-MM-dd')      " &
+                    "when dattoPMII is Not Null then to_char(datToPMII, 'RRRR-MM-dd')      " &
+                    "when dattoPMI is Not Null then to_char(datToPMI, 'RRRR-MM-dd')      " &
+                    "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then to_char(datReviewSubmitted, 'RRRR-MM-dd')     " &
+                    "when strStaffResponsible is Null or strStaffResponsible ='0' then 'Unknown'      " &
+                    "else to_char(datAssignedToEngineer, 'RRRR-MM-dd')      " &
+                    "end as StatusDate,   " &
+                    "AIRBRANCH.SSPPApplicationData.strSICCode,   " &
+                    "AIRBRANCH.SSPPApplicationData.strPlantDescription   " &
+                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,   " &
+                    "  AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.LookUpPermitTypes,  " &
+                    "  AIRBRANCH.LookUpCountyInformation, AIRBRANCH.LookUPDistrictInformation,  " &
+                    "  AIRBRANCH.LookUpDistricts, AIRBRANCH.LookUpDistrictOffice, AIRBRANCH.APBHeaderData,  " &
+                    "  AIRBRANCH.EPDUSerProfiles, AIRBRANCH.LookUpEPDUnits,  " &
+                    " AIRBRANCH.SSPPSubpartData " &
+                    "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber (+) " &
+                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber (+) " &
+                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpAPplicationTypes.strApplicationTypeCode (+) " &
+                    "and AIRBRANCH.SSPPApplicationMaster.strPermitType = AIRBRANCH.LookUpPermitTypes.strPermitTypeCode (+)      " &
+                    "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber (+)      " &
+                    "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode (+)  " &
+                    "and AIRBRANCH.LookUpCountyInformation.strCountyCode = AIRBRANCH.LookUpDistrictInformation.strDistrictCounty (+)   " &
+                    "and AIRBRANCH.LookUpDistrictInformation.strDistrictCode = AIRBRANCH.LookUPDistricts.strDistrictCode (+)   " &
+                    "and AIRBRANCH.LookUPDistricts.strDistrictCode = AIRBRANCH.LooKUPDistrictOffice.strDistrictCode (+)   " &
+                    "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                    "and AIRBRANCH.SSPPApplicationMaster.APBUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " &
                     "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPSubpartData.strApplicationNumber (+) "
             End If
 
@@ -1242,13 +1242,13 @@ Public Class SSPPApplicationLog
                     End Select
                 Case "Application Type"
                     If SearchText1b = "Other" Then
-                        SQLSearch1 = " (Upper(strApplicationTypeDesc) <>  Upper('Acid Rain') and Upper(strApplicationTypeDesc) <>  Upper('AA') " & _
-                        " and Upper(strApplicationTypeDesc) <>  Upper('NC') and  Upper(strApplicationTypeDesc) <>  Upper('SAW') " & _
-                        "and Upper(strApplicationTypeDesc) <>  Upper('SAWO') and Upper(strApplicationTypeDesc) <>  Upper('MAW') " & _
-                        "and Upper(strApplicationTypeDesc) <>  Upper('MAWO') and Upper(strApplicationTypeDesc) <>  Upper('TV-Renewal') " & _
-                        "and Upper(strApplicationTypeDesc) <>  Upper('502(b)10') and Upper(strApplicationTypeDesc) <>  Upper('TV-Initial') " & _
-                        "and Upper(strApplicationTypeDesc) <>  Upper('SM') and Upper(strApplicationTypeDesc) <>  Upper('Closed') " & _
-                        "and Upper(strApplicationTypeDesc) <>  Upper('ERC') and Upper(strApplicationTypeDesc) <>  Upper('OFF PERMIT') " & _
+                        SQLSearch1 = " (Upper(strApplicationTypeDesc) <>  Upper('Acid Rain') and Upper(strApplicationTypeDesc) <>  Upper('AA') " &
+                        " and Upper(strApplicationTypeDesc) <>  Upper('NC') and  Upper(strApplicationTypeDesc) <>  Upper('SAW') " &
+                        "and Upper(strApplicationTypeDesc) <>  Upper('SAWO') and Upper(strApplicationTypeDesc) <>  Upper('MAW') " &
+                        "and Upper(strApplicationTypeDesc) <>  Upper('MAWO') and Upper(strApplicationTypeDesc) <>  Upper('TV-Renewal') " &
+                        "and Upper(strApplicationTypeDesc) <>  Upper('502(b)10') and Upper(strApplicationTypeDesc) <>  Upper('TV-Initial') " &
+                        "and Upper(strApplicationTypeDesc) <>  Upper('SM') and Upper(strApplicationTypeDesc) <>  Upper('Closed') " &
+                        "and Upper(strApplicationTypeDesc) <>  Upper('ERC') and Upper(strApplicationTypeDesc) <>  Upper('OFF PERMIT') " &
                         "and Upper(strApplicationTypeDesc) <>  Upper('PBR') and Upper(strApplicationTypeDesc) <>  Upper('SIP')) "
                     Else
                         SQLSearch1 = " Upper(strApplicationTypeDesc) like Upper('%" & SearchText1b & "%') "
@@ -1403,16 +1403,16 @@ Public Class SSPPApplicationLog
                 Case "SIC Code"
                     SQLSearch1 = " AIRBRANCH.SSPPApplicationData.strSICCode like '%" & Replace(SearchText1, "'", "''") & "%' "
                 Case "Subpart - 0-SIP"
-                    SQLSearch1 = " ( AIRBRANCH.SSPPSubpartData.strSubpart = '" & SubpartSIP1 & "' " & _
+                    SQLSearch1 = " ( AIRBRANCH.SSPPSubpartData.strSubpart = '" & SubpartSIP1 & "' " &
                     "and substr(AIRBRANCH.SSPPSubpartData.strSubpartKey, -1, 1) = '0' ) "
                 Case "Subpart - 8-NESHAP (Part 61)"
-                    SQLSearch1 = " ( AIRBRANCH.SSPPSubpartData.strSubpart = '" & SubpartNESHAP1 & "' " & _
+                    SQLSearch1 = " ( AIRBRANCH.SSPPSubpartData.strSubpart = '" & SubpartNESHAP1 & "' " &
                     "and substr(AIRBRANCH.SSPPSubpartData.strSubpartKey, -1, 1) = '8' ) "
                 Case "Subpart - 9-NSPS (Part 60)"
-                    SQLSearch1 = " ( AIRBRANCH.SSPPSubpartData.strSubpart = '" & SubpartNSPS1 & "' " & _
+                    SQLSearch1 = " ( AIRBRANCH.SSPPSubpartData.strSubpart = '" & SubpartNSPS1 & "' " &
                     "and substr(AIRBRANCH.SSPPSubpartData.strSubpartKey, -1, 1) = '9' ) "
                 Case "Subpart - M-MACT (Part 63)"
-                    SQLSearch1 = " ( AIRBRANCH.SSPPSubpartData.strSubpart = '" & SubpartMACT1 & "' " & _
+                    SQLSearch1 = " ( AIRBRANCH.SSPPSubpartData.strSubpart = '" & SubpartMACT1 & "' " &
                     "and substr(AIRBRANCH.SSPPSubpartData.strSubpartKey, -1, 1) = 'M' ) "
             End Select
 
@@ -1475,13 +1475,13 @@ Public Class SSPPApplicationLog
                     End Select
                 Case "Application Type"
                     If SearchText2b = "Other" Then
-                        SQLSearch2 = " (Upper(strApplicationTypeDesc) <>  Upper('Acid Rain') and Upper(strApplicationTypeDesc) <>  Upper('AA') " & _
-                        " and Upper(strApplicationTypeDesc) <>  Upper('NC') and  Upper(strApplicationTypeDesc) <>  Upper('SAW') " & _
-                        "and Upper(strApplicationTypeDesc) <>  Upper('SAWO') and Upper(strApplicationTypeDesc) <>  Upper('MAW') " & _
-                        "and Upper(strApplicationTypeDesc) <>  Upper('MAWO') and Upper(strApplicationTypeDesc) <>  Upper('TV-Renewal') " & _
-                        "and Upper(strApplicationTypeDesc) <>  Upper('502(b)10') and Upper(strApplicationTypeDesc) <>  Upper('TV-Initial') " & _
-                        "and Upper(strApplicationTypeDesc) <>  Upper('SM') and Upper(strApplicationTypeDesc) <>  Upper('Closed') " & _
-                        "and Upper(strApplicationTypeDesc) <>  Upper('ERC') and Upper(strApplicationTypeDesc) <>  Upper('OFF PERMIT') " & _
+                        SQLSearch2 = " (Upper(strApplicationTypeDesc) <>  Upper('Acid Rain') and Upper(strApplicationTypeDesc) <>  Upper('AA') " &
+                        " and Upper(strApplicationTypeDesc) <>  Upper('NC') and  Upper(strApplicationTypeDesc) <>  Upper('SAW') " &
+                        "and Upper(strApplicationTypeDesc) <>  Upper('SAWO') and Upper(strApplicationTypeDesc) <>  Upper('MAW') " &
+                        "and Upper(strApplicationTypeDesc) <>  Upper('MAWO') and Upper(strApplicationTypeDesc) <>  Upper('TV-Renewal') " &
+                        "and Upper(strApplicationTypeDesc) <>  Upper('502(b)10') and Upper(strApplicationTypeDesc) <>  Upper('TV-Initial') " &
+                        "and Upper(strApplicationTypeDesc) <>  Upper('SM') and Upper(strApplicationTypeDesc) <>  Upper('Closed') " &
+                        "and Upper(strApplicationTypeDesc) <>  Upper('ERC') and Upper(strApplicationTypeDesc) <>  Upper('OFF PERMIT') " &
                         "and Upper(strApplicationTypeDesc) <>  Upper('PBR') and Upper(strApplicationTypeDesc) <>  Upper('SIP')) "
                     Else
                         SQLSearch2 = " Upper(strApplicationTypeDesc) like Upper('%" & SearchText2b & "%') "
@@ -1636,16 +1636,16 @@ Public Class SSPPApplicationLog
                 Case "Status Date"
                     SQLSearch2 = " StatusDate between '" & SearchDate2 & "' and '" & SearchDate2b & "' "
                 Case "Subpart - 0-SIP"
-                    SQLSearch2 = " ( AIRBRANCH.SSPPSubpartData.strSubpart = '" & SubpartSIP2 & "' " & _
+                    SQLSearch2 = " ( AIRBRANCH.SSPPSubpartData.strSubpart = '" & SubpartSIP2 & "' " &
                     "and substr(AIRBRANCH.SSPPSubpartData.strSubpartKey, -1, 1) = '0' ) "
                 Case "Subpart - 8-NESHAP (Part 61)"
-                    SQLSearch2 = " ( AIRBRANCH.SSPPSubpartData.strSubpart = '" & SubpartNESHAP2 & "' " & _
+                    SQLSearch2 = " ( AIRBRANCH.SSPPSubpartData.strSubpart = '" & SubpartNESHAP2 & "' " &
                     "and substr(AIRBRANCH.SSPPSubpartData.strSubpartKey, -1, 1) = '8' ) "
                 Case "Subpart - 9-NSPS (Part 60)"
-                    SQLSearch2 = " ( AIRBRANCH.SSPPSubpartData.strSubpart = '" & SubpartNSPS2 & "' " & _
+                    SQLSearch2 = " ( AIRBRANCH.SSPPSubpartData.strSubpart = '" & SubpartNSPS2 & "' " &
                     "and substr(AIRBRANCH.SSPPSubpartData.strSubpartKey, -1, 1) = '9' ) "
                 Case "Subpart - M-MACT (Part 63)"
-                    SQLSearch2 = " ( AIRBRANCH.SSPPSubpartData.strSubpart = '" & SubpartMACT2 & "' " & _
+                    SQLSearch2 = " ( AIRBRANCH.SSPPSubpartData.strSubpart = '" & SubpartMACT2 & "' " &
                     "and substr(AIRBRANCH.SSPPSubpartData.strSubpartKey, -1, 1) = 'M' ) "
             End Select
 
@@ -1669,7 +1669,7 @@ Public Class SSPPApplicationLog
                 End Select
             End If
             If AppUnitText <> "All" Then
-                SQLLine = SQLLine & "and (Upper(AIRBRANCH.LookUpEPDUnits.strUnitDesc) = Upper('" & Replace(AppUnitText, "'", "''") & "') " & _
+                SQLLine = SQLLine & "and (Upper(AIRBRANCH.LookUpEPDUnits.strUnitDesc) = Upper('" & Replace(AppUnitText, "'", "''") & "') " &
                 "or (Upper(APBUnit) = Upper('" & Replace(AppUnit, "'", "''") & "'))) "
             End If
             If AppStatus <> "All" Then
@@ -1971,7 +1971,7 @@ Public Class SSPPApplicationLog
         End Try
 
     End Sub
-    Private Sub bgwApplicationLog_RunWorkerCompleted(ByVal sender As Object, _
+    Private Sub bgwApplicationLog_RunWorkerCompleted(ByVal sender As Object,
         ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) _
         Handles bgwApplicationLog.RunWorkerCompleted
 
@@ -3536,8 +3536,6 @@ Public Class SSPPApplicationLog
         ' Anywhere in any cell in any non-header row in grid
         If e.RowIndex <> -1 And e.RowIndex < dgvApplicationLog.RowCount Then
             selectedApp = dgvApplicationLog.Rows(e.RowIndex).Cells("strApplicationNumber").Value
-            'Panel1.Text = selectedApp & " – " & _
-            '    dgvApplicationLog.Rows(e.RowIndex).Cells("strFacilityName").Value
             btnOpen.Enabled = True
             mmiOpen.Enabled = True
         End If
@@ -3562,8 +3560,6 @@ Public Class SSPPApplicationLog
     Handles dgvApplicationLog.CellEnter
         If e.RowIndex <> -1 And e.RowIndex < dgvApplicationLog.RowCount Then
             selectedApp = dgvApplicationLog.Rows(e.RowIndex).Cells("strApplicationNumber").Value
-            'Panel1.Text = selectedApp & " – " & _
-            '    dgvApplicationLog.Rows(e.RowIndex).Cells("strFacilityName").Value
             btnOpen.Enabled = True
             mmiOpen.Enabled = True
         End If

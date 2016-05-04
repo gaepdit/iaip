@@ -25,7 +25,7 @@ Public Class SBEAPClientSummary
     End Sub
 
     Private Sub SBEAPClientMaintenance_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        
+
         Try
             pnl1.Text = "Client Summary"
             pnl2.Text = CurrentUser.AlphaName
@@ -42,16 +42,16 @@ Public Class SBEAPClientSummary
 #Region "Page Load"
     Sub LoadDataSets()
         Try
-            SQL = "Select " & _
-            "Distinct(AIRBRANCH.LookUpCountyInformation.strCountyName) as CountyName, " & _
-            "AIRBRANCH.LookUpCountyInformation.strCountyCode, " & _
-            "AIRBRANCH.LookUpDistrictinformation.strDistrictCode, " & _
-            "strDistrictName, strOfficeName  " & _
-            "from AIRBRANCH.LookUpCountyInformation, AIRBRANCH.LookUpDistrictInformation, " & _
-            "AIRBRANCH.LookUpDistricts, AIRBRANCH.LookUpDistrictOffice  " & _
-            "where AIRBRANCH.LookUpCountyInformation.strCountyCode = AIRBRANCH.LookUpDistrictinformation.strDistrictCounty " & _
-            "and AIRBRANCH.LookUpDistrictInformation.strDistrictCode = AIRBRANCH.LookUpDistricts.strDistrictCode " & _
-            "and AIRBRANCH.LookUpDistrictInformation.strDistrictCode = AIRBRANCH.LookUpDistrictOffice.strDistrictCode " & _
+            SQL = "Select " &
+            "Distinct(AIRBRANCH.LookUpCountyInformation.strCountyName) as CountyName, " &
+            "AIRBRANCH.LookUpCountyInformation.strCountyCode, " &
+            "AIRBRANCH.LookUpDistrictinformation.strDistrictCode, " &
+            "strDistrictName, strOfficeName  " &
+            "from AIRBRANCH.LookUpCountyInformation, AIRBRANCH.LookUpDistrictInformation, " &
+            "AIRBRANCH.LookUpDistricts, AIRBRANCH.LookUpDistrictOffice  " &
+            "where AIRBRANCH.LookUpCountyInformation.strCountyCode = AIRBRANCH.LookUpDistrictinformation.strDistrictCounty " &
+            "and AIRBRANCH.LookUpDistrictInformation.strDistrictCode = AIRBRANCH.LookUpDistricts.strDistrictCode " &
+            "and AIRBRANCH.LookUpDistrictInformation.strDistrictCode = AIRBRANCH.LookUpDistrictOffice.strDistrictCode " &
             "order by CountyName "
 
             dsCounty = New DataSet
@@ -140,8 +140,8 @@ Public Class SBEAPClientSummary
             Dim ISMPUnit As String = ""
             Dim AirDescription As String = ""
 
-            SQL = "Select ClientId " & _
-            "from AIRBRANCH.SBEAPClients " & _
+            SQL = "Select ClientId " &
+            "from AIRBRANCH.SBEAPClients " &
             "where ClientID = '" & txtClientID.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -151,26 +151,26 @@ Public Class SBEAPClientSummary
             recExist = dr.Read
             dr.Close()
             If recExist = True Then
-                SQL = "select  " & _
-                "strCompanyName, datStartDate,  " & _
-                "strCompanyAddress, strCompanyAddress2,  " & _
-                "strCompanyCity, strCompanyState,  " & _
-                "strCompanyZipCode, strcompanyCounty,  " & _
-                "strCompanyLatitude, strCompanyLongitude,  " & _
-                "strMailingAddress, strMailingAddress2,  " & _
-                "strMailingCity, strMailingState,  " & _
-                "strMailingZipCode,  " & _
-                "(select (strLastName||', '||strFirstName) as Creator  " & _
-                "from AIRBRANCH.SBEAPClients, AIRBRANCH.EPDUserProfiles  " & _
-                "where AIRBRANCH.SBEAPClients.strCompanyCreator = AIRBRANCH.EPDUserProfiles.numUserID  " & _
-                "and clientid = '" & txtClientID.Text & "') as Creator, " & _
-                "to_char(datCompanyCreated, 'dd-Mon-yyyy') as datCompanyCreated,  " & _
-                "(select (strLastName||', '||strFirstName) as Modifier " & _
-                "from AIRBRANCH.SBEAPClients, AIRBRANCH.EPDUserProfiles  " & _
-                "where AIRBRANCH.SBEAPClients.strModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " & _
-                "and clientid = '" & txtClientID.Text & "') as Modifier,  " & _
-                "to_char(datModifingDate, 'dd-Mon-yyyy') as datModifingDate " & _
-                "from AIRBRANCH.SBEAPClients  " & _
+                SQL = "select  " &
+                "strCompanyName, datStartDate,  " &
+                "strCompanyAddress, strCompanyAddress2,  " &
+                "strCompanyCity, strCompanyState,  " &
+                "strCompanyZipCode, strcompanyCounty,  " &
+                "strCompanyLatitude, strCompanyLongitude,  " &
+                "strMailingAddress, strMailingAddress2,  " &
+                "strMailingCity, strMailingState,  " &
+                "strMailingZipCode,  " &
+                "(select (strLastName||', '||strFirstName) as Creator  " &
+                "from AIRBRANCH.SBEAPClients, AIRBRANCH.EPDUserProfiles  " &
+                "where AIRBRANCH.SBEAPClients.strCompanyCreator = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                "and clientid = '" & txtClientID.Text & "') as Creator, " &
+                "to_char(datCompanyCreated, 'dd-Mon-yyyy') as datCompanyCreated,  " &
+                "(select (strLastName||', '||strFirstName) as Modifier " &
+                "from AIRBRANCH.SBEAPClients, AIRBRANCH.EPDUserProfiles  " &
+                "where AIRBRANCH.SBEAPClients.strModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                "and clientid = '" & txtClientID.Text & "') as Modifier,  " &
+                "to_char(datModifingDate, 'dd-Mon-yyyy') as datModifingDate " &
+                "from AIRBRANCH.SBEAPClients  " &
                 "where ClientID = '" & txtClientID.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -277,18 +277,18 @@ Public Class SBEAPClientSummary
                 End While
                 dr.Close()
 
-                SQL = "Select " & _
-                "strClientDescription, strClientWEbSite, " & _
-                "strClientSIC, SIC_DESC as strSICDesc, " & _
-                "strClientNAICS, " & _
-                "strClientEmployees, strAIRSNumber, " & _
-                "strAIRProgramCodes, strStateProgramCodes, " & _
-                "strAirPermitNumber, strSSCPEngineer, " & _
-                "strSSCPUnit, strSSPPEngineer, " & _
-                "strSSPPUnit, strISMPEngineer, " & _
-                "strISMPUnit, strAirDescription " & _
-                "from AIRBRANCH.SBEAPClientData, AIRBRANCH.LK_SIC " & _
-                "where AIRBRANCH.SBEAPClientData.strClientSIC = AIRBRANCH.LK_SIC.SIC_CODE (+) " & _
+                SQL = "Select " &
+                "strClientDescription, strClientWEbSite, " &
+                "strClientSIC, SIC_DESC as strSICDesc, " &
+                "strClientNAICS, " &
+                "strClientEmployees, strAIRSNumber, " &
+                "strAIRProgramCodes, strStateProgramCodes, " &
+                "strAirPermitNumber, strSSCPEngineer, " &
+                "strSSCPUnit, strSSPPEngineer, " &
+                "strSSPPUnit, strISMPEngineer, " &
+                "strISMPUnit, strAirDescription " &
+                "from AIRBRANCH.SBEAPClientData, AIRBRANCH.LK_SIC " &
+                "where AIRBRANCH.SBEAPClientData.strClientSIC = AIRBRANCH.LK_SIC.SIC_CODE (+) " &
                 "and ClientID = '" & txtClientID.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -531,19 +531,19 @@ Public Class SBEAPClientSummary
         Try
             dsContact = New DataSet
 
-            SQL = "select " & _
-            "AIRBRANCH.SBEAPClientContacts.ClientContactID, " & _
-            "strClientFirstName, strClientLastName, " & _
-            "strclientSalutation, strClientCredentials, " & _
-            "strClientTitle, strClientPhoneNumber, " & _
-            "strClientCellPhone, strClientFax, " & _
-            "strClientEmail, " & _
-            "strClientAddress, strClientCity, " & _
-            "strClientState, strClientZipCode, " & _
-            "strContactNotes " & _
-            "from AIRBRANCH.SBEAPClientContacts, " & _
-            "AIRBRANCH.SBEAPClientLink " & _
-            "where AIRBRANCH.SBEAPClientContacts.ClientContactID = AIRBRANCH.SBEAPClientLink.ClientContactID " & _
+            SQL = "select " &
+            "AIRBRANCH.SBEAPClientContacts.ClientContactID, " &
+            "strClientFirstName, strClientLastName, " &
+            "strclientSalutation, strClientCredentials, " &
+            "strClientTitle, strClientPhoneNumber, " &
+            "strClientCellPhone, strClientFax, " &
+            "strClientEmail, " &
+            "strClientAddress, strClientCity, " &
+            "strClientState, strClientZipCode, " &
+            "strContactNotes " &
+            "from AIRBRANCH.SBEAPClientContacts, " &
+            "AIRBRANCH.SBEAPClientLink " &
+            "where AIRBRANCH.SBEAPClientContacts.ClientContactID = AIRBRANCH.SBEAPClientLink.ClientContactID " &
             "and ClientID = '" & txtClientID.Text & "' "
 
             daContact = New OracleDataAdapter(SQL, CurrentConnection)
@@ -689,24 +689,24 @@ Public Class SBEAPClientSummary
             End If
 
             If txtContactID.Text = "" Then
-                SQL = "Insert into AIRBRANCH.SBEAPClientContacts " & _
-                "values " & _
-                "((select (max(ClientContactID)+1) from AIRBRANCH.SBEAPClientContacts), " & _
-                "'" & Replace(Firstname, "'", "''") & "', " & _
-                "'" & Replace(LastName, "'", "''") & "', " & _
-                "'" & Replace(Salutation, "'", "''") & "', " & _
-                "'" & Replace(Credentials, "'", "''") & "', " & _
-                "'" & Replace(Title, "'", "''") & "', " & _
-                "'" & Replace(PhoneNumber, "'", "''") & "', " & _
-                "'" & Replace(CellPhone, "'", "''") & "', " & _
-                "'" & Replace(Fax, "'", "''") & "', " & _
-                "'" & Replace(email, "'", "''") & "', " & _
-                "'" & Replace(Address, "'", "''") & "', " & _
-                "'" & Replace(City, "'", "''") & "', " & _
-                "'" & Replace(State, "'", "''") & "', " & _
-                "'" & Replace(ZipCode, "'", "''") & "', " & _
-                "'" & CurrentUser.UserID & "', " & _
-                "sysdate, '" & CurrentUser.UserID & "', " & _
+                SQL = "Insert into AIRBRANCH.SBEAPClientContacts " &
+                "values " &
+                "((select (max(ClientContactID)+1) from AIRBRANCH.SBEAPClientContacts), " &
+                "'" & Replace(Firstname, "'", "''") & "', " &
+                "'" & Replace(LastName, "'", "''") & "', " &
+                "'" & Replace(Salutation, "'", "''") & "', " &
+                "'" & Replace(Credentials, "'", "''") & "', " &
+                "'" & Replace(Title, "'", "''") & "', " &
+                "'" & Replace(PhoneNumber, "'", "''") & "', " &
+                "'" & Replace(CellPhone, "'", "''") & "', " &
+                "'" & Replace(Fax, "'", "''") & "', " &
+                "'" & Replace(email, "'", "''") & "', " &
+                "'" & Replace(Address, "'", "''") & "', " &
+                "'" & Replace(City, "'", "''") & "', " &
+                "'" & Replace(State, "'", "''") & "', " &
+                "'" & Replace(ZipCode, "'", "''") & "', " &
+                "'" & CurrentUser.UserID & "', " &
+                "sysdate, '" & CurrentUser.UserID & "', " &
                 "sysdate) "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -716,7 +716,7 @@ Public Class SBEAPClientSummary
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Select max(ClientContactID) as ClientID " & _
+                SQL = "Select max(ClientContactID) as ClientID " &
                 "from AIRBRANCH.SBEAPClientContacts "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -730,22 +730,22 @@ Public Class SBEAPClientSummary
 
                 txtContactCreationInfo.Text = CurrentUser.AlphaName & " - " & OracleDate
             Else
-                SQL = "Update AIRBRANCH.SBEAPClientContacts set " & _
-                "strClientFirstName = '" & Replace(Firstname, "'", "''") & "', " & _
-                "strClientLastName = '" & Replace(LastName, "'", "''") & "', " & _
-                "strClientSalutation = '" & Replace(Salutation, "'", "''") & "', " & _
-                "strClientCredentials = '" & Replace(Credentials, "'", "''") & "', " & _
-                "strClientTitle = '" & Replace(Title, "'", "''") & "', " & _
-                "strClientPhoneNumber = '" & Replace(PhoneNumber, "'", "''") & "', " & _
-                "strClientCellPhone = '" & Replace(CellPhone, "'", "''") & "', " & _
-                "strClientFax = '" & Replace(Fax, "'", "''") & "', " & _
-                "strClientEmail = '" & Replace(email, "'", "''") & "', " & _
-                "strClientAddress = '" & Replace(Address, "'", "''") & "', " & _
-                "strClientCity = '" & Replace(City, "'", "''") & "', " & _
-                "strClientState = '" & Replace(State, "'", "''") & "', " & _
-                "strClientZipCode = '" & Replace(ZipCode, "'", "''") & "', " & _
-                "strModifingPerson = '" & CurrentUser.UserID & "', " & _
-                "datModifingDate = sysdate " & _
+                SQL = "Update AIRBRANCH.SBEAPClientContacts set " &
+                "strClientFirstName = '" & Replace(Firstname, "'", "''") & "', " &
+                "strClientLastName = '" & Replace(LastName, "'", "''") & "', " &
+                "strClientSalutation = '" & Replace(Salutation, "'", "''") & "', " &
+                "strClientCredentials = '" & Replace(Credentials, "'", "''") & "', " &
+                "strClientTitle = '" & Replace(Title, "'", "''") & "', " &
+                "strClientPhoneNumber = '" & Replace(PhoneNumber, "'", "''") & "', " &
+                "strClientCellPhone = '" & Replace(CellPhone, "'", "''") & "', " &
+                "strClientFax = '" & Replace(Fax, "'", "''") & "', " &
+                "strClientEmail = '" & Replace(email, "'", "''") & "', " &
+                "strClientAddress = '" & Replace(Address, "'", "''") & "', " &
+                "strClientCity = '" & Replace(City, "'", "''") & "', " &
+                "strClientState = '" & Replace(State, "'", "''") & "', " &
+                "strClientZipCode = '" & Replace(ZipCode, "'", "''") & "', " &
+                "strModifingPerson = '" & CurrentUser.UserID & "', " &
+                "datModifingDate = sysdate " &
                 "where ClientContactID = '" & txtContactID.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -758,10 +758,10 @@ Public Class SBEAPClientSummary
 
             txtContactLastModified.Text = CurrentUser.AlphaName & " - " & OracleDate
 
-            SQL = "Select " & _
-            "ClientID " & _
-            "from AIRBRANCH.SBEAPClientLink " & _
-            "where clientID = '" & txtClientID.Text & "' " & _
+            SQL = "Select " &
+            "ClientID " &
+            "from AIRBRANCH.SBEAPClientLink " &
+            "where clientID = '" & txtClientID.Text & "' " &
             "and ClientContactID = '" & txtContactID.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -772,14 +772,14 @@ Public Class SBEAPClientSummary
             recExist = dr.Read
             dr.Close()
             If recExist = False Then
-                SQL = "Insert into AIRBRANCH.SBEAPClientLink " & _
-                "values " & _
-                "('" & txtClientID.Text & "', '" & txtContactID.Text & "', " & _
+                SQL = "Insert into AIRBRANCH.SBEAPClientLink " &
+                "values " &
+                "('" & txtClientID.Text & "', '" & txtContactID.Text & "', " &
                 "'" & MainContact & "') "
             Else
-                SQL = "Update AIRBRANCH.SBEAPClientLink set " & _
-                "strMainContact = 'False' " & _
-                "where ClientID = '" & txtClientID.Text & "' " & _
+                SQL = "Update AIRBRANCH.SBEAPClientLink set " &
+                "strMainContact = 'False' " &
+                "where ClientID = '" & txtClientID.Text & "' " &
                 "and ClientContactID = '" & txtContactID.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -789,11 +789,11 @@ Public Class SBEAPClientSummary
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Update AIRBRANCH.SBEAPClientLink set " & _
-                "ClientID = '" & txtClientID.Text & "', " & _
-                "ClientContactID = '" & txtContactID.Text & "', " & _
-                "strMainContact  = '" & MainContact & "' " & _
-                "where ClientID = '" & txtClientID.Text & "' " & _
+                SQL = "Update AIRBRANCH.SBEAPClientLink set " &
+                "ClientID = '" & txtClientID.Text & "', " &
+                "ClientContactID = '" & txtContactID.Text & "', " &
+                "strMainContact  = '" & MainContact & "' " &
+                "where ClientID = '" & txtClientID.Text & "' " &
                 "and ClientContactID = '" & txtContactID.Text & "' "
             End If
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -903,24 +903,24 @@ Public Class SBEAPClientSummary
                 ContactNotes = ""
             End If
 
-            SQL = "Insert into AIRBRANCH.SBEAPClientContacts " & _
-                "values " & _
-                "((select (max(ClientContactID)+1) from AIRBRANCH.SBEAPClientContacts), " & _
-                "'" & Replace(Firstname, "'", "''") & "', " & _
-                "'" & Replace(LastName, "'", "''") & "', " & _
-                "'" & Replace(Salutation, "'", "''") & "', " & _
-                "'" & Replace(Credentials, "'", "''") & "', " & _
-                "'" & Replace(Title, "'", "''") & "', " & _
-                "'" & Replace(PhoneNumber, "'", "''") & "', " & _
-                "'" & Replace(CellPhone, "'", "''") & "', " & _
-                "'" & Replace(Fax, "'", "''") & "', " & _
-                "'" & Replace(email, "'", "''") & "', " & _
-                "'" & Replace(Address, "'", "''") & "', " & _
-                "'" & Replace(City, "'", "''") & "', " & _
-                "'" & Replace(State, "'", "''") & "', " & _
-                "'" & Replace(ZipCode, "'", "''") & "', " & _
-                "'" & CurrentUser.UserID & "', " & _
-                "sysdate, '" & CurrentUser.UserID & "', " & _
+            SQL = "Insert into AIRBRANCH.SBEAPClientContacts " &
+                "values " &
+                "((select (max(ClientContactID)+1) from AIRBRANCH.SBEAPClientContacts), " &
+                "'" & Replace(Firstname, "'", "''") & "', " &
+                "'" & Replace(LastName, "'", "''") & "', " &
+                "'" & Replace(Salutation, "'", "''") & "', " &
+                "'" & Replace(Credentials, "'", "''") & "', " &
+                "'" & Replace(Title, "'", "''") & "', " &
+                "'" & Replace(PhoneNumber, "'", "''") & "', " &
+                "'" & Replace(CellPhone, "'", "''") & "', " &
+                "'" & Replace(Fax, "'", "''") & "', " &
+                "'" & Replace(email, "'", "''") & "', " &
+                "'" & Replace(Address, "'", "''") & "', " &
+                "'" & Replace(City, "'", "''") & "', " &
+                "'" & Replace(State, "'", "''") & "', " &
+                "'" & Replace(ZipCode, "'", "''") & "', " &
+                "'" & CurrentUser.UserID & "', " &
+                "sysdate, '" & CurrentUser.UserID & "', " &
                 "sysdate, '" & Replace(ContactNotes, "'", "''") & "') "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -930,7 +930,7 @@ Public Class SBEAPClientSummary
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Select max(ClientContactID) as ClientID " & _
+            SQL = "Select max(ClientContactID) as ClientID " &
             "from AIRBRANCH.SBEAPClientContacts "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -945,10 +945,10 @@ Public Class SBEAPClientSummary
             txtContactCreationInfo.Text = CurrentUser.AlphaName & " - " & OracleDate
             txtContactLastModified.Text = CurrentUser.AlphaName & " - " & OracleDate
 
-            SQL = "Select " & _
-            "ClientID " & _
-            "from AIRBRANCH.SBEAPClientLink " & _
-            "where clientID = '" & txtClientID.Text & "' " & _
+            SQL = "Select " &
+            "ClientID " &
+            "from AIRBRANCH.SBEAPClientLink " &
+            "where clientID = '" & txtClientID.Text & "' " &
             "and ClientContactID = '" & txtContactID.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -959,14 +959,14 @@ Public Class SBEAPClientSummary
             recExist = dr.Read
             dr.Close()
             If recExist = False Then
-                SQL = "Insert into AIRBRANCH.SBEAPClientLink " & _
-                "values " & _
-                "('" & txtClientID.Text & "', '" & txtContactID.Text & "', " & _
+                SQL = "Insert into AIRBRANCH.SBEAPClientLink " &
+                "values " &
+                "('" & txtClientID.Text & "', '" & txtContactID.Text & "', " &
                 "'" & MainContact & "') "
             Else
-                SQL = "Update AIRBRANCH.SBEAPClientLink set " & _
-                "strMainContact = 'False' " & _
-                "where ClientID = '" & txtClientID.Text & "' " & _
+                SQL = "Update AIRBRANCH.SBEAPClientLink set " &
+                "strMainContact = 'False' " &
+                "where ClientID = '" & txtClientID.Text & "' " &
                 "and ClientContactID = '" & txtContactID.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -976,11 +976,11 @@ Public Class SBEAPClientSummary
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Update AIRBRANCH.SBEAPClientLink set " & _
-                "ClientID = '" & txtClientID.Text & "', " & _
-                "ClientContactID = '" & txtContactID.Text & "', " & _
-                "strMainContact  = '" & MainContact & "' " & _
-                "where ClientID = '" & txtClientID.Text & "' " & _
+                SQL = "Update AIRBRANCH.SBEAPClientLink set " &
+                "ClientID = '" & txtClientID.Text & "', " &
+                "ClientContactID = '" & txtContactID.Text & "', " &
+                "strMainContact  = '" & MainContact & "' " &
+                "where ClientID = '" & txtClientID.Text & "' " &
                 "and ClientContactID = '" & txtContactID.Text & "' "
             End If
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1091,35 +1091,35 @@ Public Class SBEAPClientSummary
                 ContactNotes = ""
             End If
 
-            SQL = "select " & _
-            "AIRBRANCH.SBEAPClientContacts.clientContactID " & _
-            "from AIRBRANCH.SBEAPClientContacts, AIRBRANCH.SBEAPClientLink " & _
-            "where AIRBRANCH.SBEAPClientContacts.clientContactID = AIRBRANCH.SBEAPClientLink.ClientContactID  " & _
-            "and Upper(strClientFirstName) = upper('" & txtFirstName.Text & "') " & _
-            "and upper(strClientLastName) = Upper('" & txtLastName.Text & "') " & _
+            SQL = "select " &
+            "AIRBRANCH.SBEAPClientContacts.clientContactID " &
+            "from AIRBRANCH.SBEAPClientContacts, AIRBRANCH.SBEAPClientLink " &
+            "where AIRBRANCH.SBEAPClientContacts.clientContactID = AIRBRANCH.SBEAPClientLink.ClientContactID  " &
+            "and Upper(strClientFirstName) = upper('" & txtFirstName.Text & "') " &
+            "and upper(strClientLastName) = Upper('" & txtLastName.Text & "') " &
             "and ClientID = '" & txtClientID.Text & "' "
 
             If txtContactID.Text = "" Then
-                MsgBox("Either click 'Add New Contact' or select the contact from the table below before editing the Contact Information.", MsgBoxStyle.Information, _
+                MsgBox("Either click 'Add New Contact' or select the contact from the table below before editing the Contact Information.", MsgBoxStyle.Information,
                        "Edit Contact Data")
             Else
-                SQL = "Update AIRBRANCH.SBEAPClientContacts set " & _
-                "strClientFirstName = '" & Replace(Firstname, "'", "''") & "', " & _
-                "strClientLastName = '" & Replace(LastName, "'", "''") & "', " & _
-                "strClientSalutation = '" & Replace(Salutation, "'", "''") & "', " & _
-                "strClientCredentials = '" & Replace(Credentials, "'", "''") & "', " & _
-                "strClientTitle = '" & Replace(Title, "'", "''") & "', " & _
-                "strClientPhoneNumber = '" & Replace(PhoneNumber, "'", "''") & "', " & _
-                "strClientCellPhone = '" & Replace(CellPhone, "'", "''") & "', " & _
-                "strClientFax = '" & Replace(Fax, "'", "''") & "', " & _
-                "strClientEmail = '" & Replace(email, "'", "''") & "', " & _
-                "strClientAddress = '" & Replace(Address, "'", "''") & "', " & _
-                "strClientCity = '" & Replace(City, "'", "''") & "', " & _
-                "strClientState = '" & Replace(State, "'", "''") & "', " & _
-                "strClientZipCode = '" & Replace(ZipCode, "'", "''") & "', " & _
-                "strModifingPerson = '" & CurrentUser.UserID & "', " & _
-                "datModifingDate = sysdate, " & _
-                "strContactNotes = '" & Replace(ContactNotes, "'", "''") & "' " & _
+                SQL = "Update AIRBRANCH.SBEAPClientContacts set " &
+                "strClientFirstName = '" & Replace(Firstname, "'", "''") & "', " &
+                "strClientLastName = '" & Replace(LastName, "'", "''") & "', " &
+                "strClientSalutation = '" & Replace(Salutation, "'", "''") & "', " &
+                "strClientCredentials = '" & Replace(Credentials, "'", "''") & "', " &
+                "strClientTitle = '" & Replace(Title, "'", "''") & "', " &
+                "strClientPhoneNumber = '" & Replace(PhoneNumber, "'", "''") & "', " &
+                "strClientCellPhone = '" & Replace(CellPhone, "'", "''") & "', " &
+                "strClientFax = '" & Replace(Fax, "'", "''") & "', " &
+                "strClientEmail = '" & Replace(email, "'", "''") & "', " &
+                "strClientAddress = '" & Replace(Address, "'", "''") & "', " &
+                "strClientCity = '" & Replace(City, "'", "''") & "', " &
+                "strClientState = '" & Replace(State, "'", "''") & "', " &
+                "strClientZipCode = '" & Replace(ZipCode, "'", "''") & "', " &
+                "strModifingPerson = '" & CurrentUser.UserID & "', " &
+                "datModifingDate = sysdate, " &
+                "strContactNotes = '" & Replace(ContactNotes, "'", "''") & "' " &
                 "where ClientContactID = '" & txtContactID.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1131,10 +1131,10 @@ Public Class SBEAPClientSummary
 
                 txtContactLastModified.Text = CurrentUser.AlphaName & " - " & OracleDate
 
-                SQL = "Select " & _
-                "ClientID " & _
-                "from AIRBRANCH.SBEAPClientLink " & _
-                "where clientID = '" & txtClientID.Text & "' " & _
+                SQL = "Select " &
+                "ClientID " &
+                "from AIRBRANCH.SBEAPClientLink " &
+                "where clientID = '" & txtClientID.Text & "' " &
                 "and ClientContactID = '" & txtContactID.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1145,14 +1145,14 @@ Public Class SBEAPClientSummary
                 recExist = dr.Read
                 dr.Close()
                 If recExist = False Then
-                    SQL = "Insert into AIRBRANCH.SBEAPClientLink " & _
-                    "values " & _
-                    "('" & txtClientID.Text & "', '" & txtContactID.Text & "', " & _
+                    SQL = "Insert into AIRBRANCH.SBEAPClientLink " &
+                    "values " &
+                    "('" & txtClientID.Text & "', '" & txtContactID.Text & "', " &
                     "'" & MainContact & "') "
                 Else
-                    SQL = "Update AIRBRANCH.SBEAPClientLink set " & _
-                    "strMainContact = 'False' " & _
-                    "where ClientID = '" & txtClientID.Text & "' " & _
+                    SQL = "Update AIRBRANCH.SBEAPClientLink set " &
+                    "strMainContact = 'False' " &
+                    "where ClientID = '" & txtClientID.Text & "' " &
                     "and ClientContactID = '" & txtContactID.Text & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1162,11 +1162,11 @@ Public Class SBEAPClientSummary
                     dr = cmd.ExecuteReader
                     dr.Close()
 
-                    SQL = "Update AIRBRANCH.SBEAPClientLink set " & _
-                    "ClientID = '" & txtClientID.Text & "', " & _
-                    "ClientContactID = '" & txtContactID.Text & "', " & _
-                    "strMainContact  = '" & MainContact & "' " & _
-                    "where ClientID = '" & txtClientID.Text & "' " & _
+                    SQL = "Update AIRBRANCH.SBEAPClientLink set " &
+                    "ClientID = '" & txtClientID.Text & "', " &
+                    "ClientContactID = '" & txtContactID.Text & "', " &
+                    "strMainContact  = '" & MainContact & "' " &
+                    "where ClientID = '" & txtClientID.Text & "' " &
                     "and ClientContactID = '" & txtContactID.Text & "' "
                 End If
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1209,27 +1209,27 @@ Public Class SBEAPClientSummary
     Sub LoadContact()
         Try
 
-            SQL = "select " & _
-            "strClientFirstName, strClientLastName, " & _
-            "strClientSalutation, strClientCredentials, " & _
-            "strClientTitle, strClientPhoneNumber, " & _
-            "strClientCellPhone, strClientFax, " & _
-            "strClientEmail, strClientAddress, " & _
-            "strClientCity, strClientState, " & _
-            "strClientZipCode, " & _
-            "(select (strLastName||', '||strFirstName) as Creator " & _
-            "from AIRBRANCH.SBEAPClientContacts, AIRBRANCH.EPDUserProfiles " & _
-            "where AIRBRANCH.SBEAPClientContacts.strClientCreator = AIRBRANCH.EPDUserProfiles.numUserID " & _
-            "and ClientContactID = '" & txtContactID.Text & "') as Creator, " & _
-            "to_char(datClientCreated, 'dd-Mon-yyyy') as datClientCreated, " & _
-            "(select (strLastName||', '||strFirstName) as Modifier " & _
-            "from AIRBRANCH.SBEAPClientContacts, AIRBRANCH.EPDUserProfiles " & _
-            "where AIRBRANCH.SBEAPClientContacts.strClientCreator = AIRBRANCH.EPDUserProfiles.numUserID " & _
-            "and ClientContactID = '" & txtContactID.Text & "') as Modifier, " & _
-            "to_char(datModifingDate, 'dd-Mon-yyyy') as datModifingDate,  " & _
-            "strMainContact, strContactNotes " & _
-            "from AIRBRANCH.SBEAPClientContacts, AIRBRANCH.SBEAPClientLink " & _
-            "where AIRBRANCH.SBEAPClientContacts.ClientContactID = AIRBRANCH.SBEAPClientLink.ClientContactID " & _
+            SQL = "select " &
+            "strClientFirstName, strClientLastName, " &
+            "strClientSalutation, strClientCredentials, " &
+            "strClientTitle, strClientPhoneNumber, " &
+            "strClientCellPhone, strClientFax, " &
+            "strClientEmail, strClientAddress, " &
+            "strClientCity, strClientState, " &
+            "strClientZipCode, " &
+            "(select (strLastName||', '||strFirstName) as Creator " &
+            "from AIRBRANCH.SBEAPClientContacts, AIRBRANCH.EPDUserProfiles " &
+            "where AIRBRANCH.SBEAPClientContacts.strClientCreator = AIRBRANCH.EPDUserProfiles.numUserID " &
+            "and ClientContactID = '" & txtContactID.Text & "') as Creator, " &
+            "to_char(datClientCreated, 'dd-Mon-yyyy') as datClientCreated, " &
+            "(select (strLastName||', '||strFirstName) as Modifier " &
+            "from AIRBRANCH.SBEAPClientContacts, AIRBRANCH.EPDUserProfiles " &
+            "where AIRBRANCH.SBEAPClientContacts.strClientCreator = AIRBRANCH.EPDUserProfiles.numUserID " &
+            "and ClientContactID = '" & txtContactID.Text & "') as Modifier, " &
+            "to_char(datModifingDate, 'dd-Mon-yyyy') as datModifingDate,  " &
+            "strMainContact, strContactNotes " &
+            "from AIRBRANCH.SBEAPClientContacts, AIRBRANCH.SBEAPClientLink " &
+            "where AIRBRANCH.SBEAPClientContacts.ClientContactID = AIRBRANCH.SBEAPClientLink.ClientContactID " &
             "and AIRBRANCH.SBEAPClientContacts.ClientContactID = '" & txtContactID.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1350,8 +1350,8 @@ Public Class SBEAPClientSummary
             Dim CurrYear As String = ""
             CurrYear = Now.Year.ToString
 
-            SQL = "Select max(ClientID) as MaxClientID " & _
-            "from AIRBRANCH.SBEAPClients " & _
+            SQL = "Select max(ClientID) as MaxClientID " &
+            "from AIRBRANCH.SBEAPClients " &
             "where ClientID like '" & CurrYear & "%'"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1634,9 +1634,9 @@ Public Class SBEAPClientSummary
             If txtClientID.Text = "" Then
                 Status = "Insert"
 
-                SQL = "Select " & _
-                "strCompanyName " & _
-                "from AIRBRANCH.SBEAPClients " & _
+                SQL = "Select " &
+                "strCompanyName " &
+                "from AIRBRANCH.SBEAPClients " &
                 "where upper(strCompanyName) = '" & Replace(txtCompanyName.Text.ToUpper, "'", "''") & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1649,8 +1649,8 @@ Public Class SBEAPClientSummary
                 Dim Result As DialogResult
 
                 If recExist = True Then
-                    Result = MessageBox.Show("There is a client with this name in the system." & vbCrLf & "Do you still want to create a new client?", _
-                      "Client Summary New Client", MessageBoxButtons.YesNoCancel, _
+                    Result = MessageBox.Show("There is a client with this name in the system." & vbCrLf & "Do you still want to create a new client?",
+                      "Client Summary New Client", MessageBoxButtons.YesNoCancel,
                         MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
 
                     Select Case Result
@@ -1660,8 +1660,8 @@ Public Class SBEAPClientSummary
                     End Select
                 End If
             Else
-                SQL = "Select ClientID " & _
-                "from AIRBRANCH.SBEAPClientData " & _
+                SQL = "Select ClientID " &
+                "from AIRBRANCH.SBEAPClientData " &
                 "where ClientID = '" & txtClientID.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1682,25 +1682,25 @@ Public Class SBEAPClientSummary
                     ClientCreator = CurrentUser.UserID
                     GetNextClientID()
 
-                    SQL = "Insert into AIRBRANCH.SBEAPClients " & _
-                    "values " & _
-                    "('" & txtClientID.Text & "', " & _
-                    "'" & Replace(ClientName, "'", "''") & "', " & _
-                    "'" & StartDate & "', " & _
-                    "'" & Replace(ClientAddress, "'", "''") & "', " & _
-                    "'" & Replace(ClientAddress2, "'", "''") & "', " & _
-                    "'" & Replace(ClientCity, "'", "''") & "', " & _
-                    "'" & Replace(ClientState, "'", "''") & "', " & _
-                    "'" & Replace(ClientZipCode, "'", "''") & "', " & _
-                    "'" & Replace(ClientCounty, "'", "''") & "', " & _
-                    "'" & Replace(ClientLatitude, "'", "''") & "', " & _
-                    "'" & Replace(ClientLongitude, "'", "''") & "', " & _
-                    "'" & Replace(MailingAddress, "'", "''") & "', " & _
-                    "'" & Replace(MailingAddress2, "'", "''") & "', " & _
-                    "'" & Replace(MailingCity, "'", "''") & "', " & _
-                    "'" & Replace(MailingState, "'", "''") & "', " & _
-                    "'" & Replace(MailingZipCode, "'", "''") & "', " & _
-                    "'" & Replace(ClientCreator, "'", "''") & "', " & _
+                    SQL = "Insert into AIRBRANCH.SBEAPClients " &
+                    "values " &
+                    "('" & txtClientID.Text & "', " &
+                    "'" & Replace(ClientName, "'", "''") & "', " &
+                    "'" & StartDate & "', " &
+                    "'" & Replace(ClientAddress, "'", "''") & "', " &
+                    "'" & Replace(ClientAddress2, "'", "''") & "', " &
+                    "'" & Replace(ClientCity, "'", "''") & "', " &
+                    "'" & Replace(ClientState, "'", "''") & "', " &
+                    "'" & Replace(ClientZipCode, "'", "''") & "', " &
+                    "'" & Replace(ClientCounty, "'", "''") & "', " &
+                    "'" & Replace(ClientLatitude, "'", "''") & "', " &
+                    "'" & Replace(ClientLongitude, "'", "''") & "', " &
+                    "'" & Replace(MailingAddress, "'", "''") & "', " &
+                    "'" & Replace(MailingAddress2, "'", "''") & "', " &
+                    "'" & Replace(MailingCity, "'", "''") & "', " &
+                    "'" & Replace(MailingState, "'", "''") & "', " &
+                    "'" & Replace(MailingZipCode, "'", "''") & "', " &
+                    "'" & Replace(ClientCreator, "'", "''") & "', " &
                     "sysdate, '" & CurrentUser.UserID & "', sysdate, '') "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1710,7 +1710,7 @@ Public Class SBEAPClientSummary
                     dr = cmd.ExecuteReader
                     dr.Close()
 
-                    SQL = "Select max(clientID) as MaxID " & _
+                    SQL = "Select max(clientID) as MaxID " &
                     "from AIRBRANCH.SBEAPClients "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1723,17 +1723,17 @@ Public Class SBEAPClientSummary
                     End While
                     dr.Close()
 
-                    SQL = "Insert into AIRBRANCH.SBEAPClientData " & _
-                    "values " & _
-                    "('" & txtClientID.Text & "', '" & Replace(ClientDescription, "'", "''") & "', " & _
-                    "'" & Replace(WebSite, "'", "''") & "', '" & SIC & "', " & _
-                    "'" & NAICS & "', '" & Employees & "', " & _
-                    "'" & AIRSNumber & "', '" & AirCodes & "', " & _
-                    "'" & StateCodes & "', " & _
-                    "'" & CurrentUser.UserID & "', sysdate, '', " & _
-                    "'" & Replace(AIRPermit, "'", "''") & "', '" & Replace(SSCPEngineer, "'", "''") & "', " & _
-                    "'" & Replace(SSCPUnit, "'", "''") & "', '" & Replace(SSPPEngineer, "'", "''") & "', " & _
-                    "'" & Replace(SSPPUnit, "'", "''") & "', '" & Replace(ISMPEngineer, "'", "''") & "', " & _
+                    SQL = "Insert into AIRBRANCH.SBEAPClientData " &
+                    "values " &
+                    "('" & txtClientID.Text & "', '" & Replace(ClientDescription, "'", "''") & "', " &
+                    "'" & Replace(WebSite, "'", "''") & "', '" & SIC & "', " &
+                    "'" & NAICS & "', '" & Employees & "', " &
+                    "'" & AIRSNumber & "', '" & AirCodes & "', " &
+                    "'" & StateCodes & "', " &
+                    "'" & CurrentUser.UserID & "', sysdate, '', " &
+                    "'" & Replace(AIRPermit, "'", "''") & "', '" & Replace(SSCPEngineer, "'", "''") & "', " &
+                    "'" & Replace(SSCPUnit, "'", "''") & "', '" & Replace(SSPPEngineer, "'", "''") & "', " &
+                    "'" & Replace(SSPPUnit, "'", "''") & "', '" & Replace(ISMPEngineer, "'", "''") & "', " &
                     "'" & Replace(ISMPUnit, "'", "''") & "', '" & Replace(AirDescription, "'", "''") & "') "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1746,24 +1746,24 @@ Public Class SBEAPClientSummary
                     MsgBox("The Client ID box currnetly has a value.", MsgBoxStyle.Information, "Client Maintenance")
                 End If
             Else
-                SQL = "Update AIRBRANCH.SBEAPClients set " & _
-                "strCompanyName = '" & Replace(ClientName, "'", "''") & "', " & _
-                "datStartDate = '" & Replace(StartDate, "'", "''") & "', " & _
-                "strCompanyaddress = '" & Replace(ClientAddress, "'", "''") & "', " & _
-                "strCompanyAddress2 = '" & Replace(ClientAddress2, "'", "''") & "', " & _
-                "strCompanyCity = '" & Replace(ClientCity, "'", "''") & "', " & _
-                "strCompanyState = '" & Replace(ClientState, "'", "''") & "', " & _
-                "strCompanyZipCode = '" & Replace(ClientZipCode, "'", "''") & "', " & _
-                "strCompanyCounty = '" & ClientCounty & "', " & _
-                "strCompanyLatitude = '" & Replace(ClientLatitude, "'", "''") & "', " & _
-                "strCompanyLongitude = '" & Replace(ClientLongitude, "'", "''") & "', " & _
-                "strMailingAddress = '" & Replace(MailingAddress, "'", "''") & "', " & _
-                "strMailingAddress2 = '" & Replace(MailingAddress2, "'", "''") & "', " & _
-                "strMailingCity = '" & Replace(MailingCity, "'", "''") & "', " & _
-                "strMailingState = '" & Replace(MailingState, "'", "''") & "', " & _
-                "strMailingZipCode = '" & Replace(MailingZipCode, "'", "''") & "', " & _
-                "strModifingPerson = '" & CurrentUser.UserID & "', " & _
-                "datModifingDate = sysdate " & _
+                SQL = "Update AIRBRANCH.SBEAPClients set " &
+                "strCompanyName = '" & Replace(ClientName, "'", "''") & "', " &
+                "datStartDate = '" & Replace(StartDate, "'", "''") & "', " &
+                "strCompanyaddress = '" & Replace(ClientAddress, "'", "''") & "', " &
+                "strCompanyAddress2 = '" & Replace(ClientAddress2, "'", "''") & "', " &
+                "strCompanyCity = '" & Replace(ClientCity, "'", "''") & "', " &
+                "strCompanyState = '" & Replace(ClientState, "'", "''") & "', " &
+                "strCompanyZipCode = '" & Replace(ClientZipCode, "'", "''") & "', " &
+                "strCompanyCounty = '" & ClientCounty & "', " &
+                "strCompanyLatitude = '" & Replace(ClientLatitude, "'", "''") & "', " &
+                "strCompanyLongitude = '" & Replace(ClientLongitude, "'", "''") & "', " &
+                "strMailingAddress = '" & Replace(MailingAddress, "'", "''") & "', " &
+                "strMailingAddress2 = '" & Replace(MailingAddress2, "'", "''") & "', " &
+                "strMailingCity = '" & Replace(MailingCity, "'", "''") & "', " &
+                "strMailingState = '" & Replace(MailingState, "'", "''") & "', " &
+                "strMailingZipCode = '" & Replace(MailingZipCode, "'", "''") & "', " &
+                "strModifingPerson = '" & CurrentUser.UserID & "', " &
+                "datModifingDate = sysdate " &
                 "where ClientID = '" & txtClientID.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1773,25 +1773,25 @@ Public Class SBEAPClientSummary
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Update AIRBRANCH.SBEAPClientData set " & _
-                "strClientDescription = '" & ClientDescription & "', " & _
-                "strClientWebSite = '" & WebSite & "', " & _
-                "strClientSIC = '" & SIC & "', " & _
-                "strClientNAICS = '" & NAICS & "', " & _
-                "strClientEmployees = '" & Employees & "', " & _
-                "strAIRSNumber = '" & AIRSNumber & "', " & _
-                "strAirProgramCodes = '" & AirCodes & "', " & _
-                "strStateProgramCodes = '" & StateCodes & "', " & _
-                "strModifingperson = '" & CurrentUser.UserID & "', " & _
-                "datModifingDate = sysdate, " & _
-                "strAIRPermitNumber = '" & Replace(AIRPermit, "'", "''") & "', " & _
-                "strSSCPEngineer = '" & Replace(SSCPEngineer, "'", "''") & "', " & _
-                "strSSCPUnit = '" & Replace(SSCPUnit, "'", "''") & "', " & _
-                "strSSPPEngineer = '" & Replace(SSPPEngineer, "'", "''") & "', " & _
-                "strSSPPUnit = '" & Replace(SSPPUnit, "'", "''") & "', " & _
-                "strISMPEngineer = '" & Replace(ISMPEngineer, "'", "''") & "', " & _
-                "strISMPUnit = '" & Replace(ISMPUnit, "'", "''") & "', " & _
-                "strAirDescription = '" & Replace(AirDescription, "'", "''") & "' " & _
+                SQL = "Update AIRBRANCH.SBEAPClientData set " &
+                "strClientDescription = '" & ClientDescription & "', " &
+                "strClientWebSite = '" & WebSite & "', " &
+                "strClientSIC = '" & SIC & "', " &
+                "strClientNAICS = '" & NAICS & "', " &
+                "strClientEmployees = '" & Employees & "', " &
+                "strAIRSNumber = '" & AIRSNumber & "', " &
+                "strAirProgramCodes = '" & AirCodes & "', " &
+                "strStateProgramCodes = '" & StateCodes & "', " &
+                "strModifingperson = '" & CurrentUser.UserID & "', " &
+                "datModifingDate = sysdate, " &
+                "strAIRPermitNumber = '" & Replace(AIRPermit, "'", "''") & "', " &
+                "strSSCPEngineer = '" & Replace(SSCPEngineer, "'", "''") & "', " &
+                "strSSCPUnit = '" & Replace(SSCPUnit, "'", "''") & "', " &
+                "strSSPPEngineer = '" & Replace(SSPPEngineer, "'", "''") & "', " &
+                "strSSPPUnit = '" & Replace(SSPPUnit, "'", "''") & "', " &
+                "strISMPEngineer = '" & Replace(ISMPEngineer, "'", "''") & "', " &
+                "strISMPUnit = '" & Replace(ISMPUnit, "'", "''") & "', " &
+                "strAirDescription = '" & Replace(AirDescription, "'", "''") & "' " &
                 "where ClientID = '" & txtClientID.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1814,12 +1814,12 @@ Public Class SBEAPClientSummary
             Dim AirProgramCode As String = "000000000000000"
             Dim StateProgram As String = "00"
 
-            SQL = "select " & _
-            "strSICcode, strNAICSCode, " & _
-            "strPlantDescription, " & _
-            "strAIRProgramCodes, " & _
-            "strStateProgramCodes " & _
-            "from AIRBRANCH.APBHeaderData " & _
+            SQL = "select " &
+            "strSICcode, strNAICSCode, " &
+            "strPlantDescription, " &
+            "strAIRProgramCodes, " &
+            "strStateProgramCodes " &
+            "from AIRBRANCH.APBHeaderData " &
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1936,12 +1936,12 @@ Public Class SBEAPClientSummary
             End If
 
             If txtStreetAddress.Text = "" Then
-                SQL = "select " & _
-                "strFacilityStreet1, strFacilityStreet2, " & _
-                "strFacilityCity, strFacilityState, " & _
-                "strFacilityZipCode, numFacilityLongitude, " & _
-                "numFacilityLatitude " & _
-                "from AIRBRANCH.APBFacilityInformation " & _
+                SQL = "select " &
+                "strFacilityStreet1, strFacilityStreet2, " &
+                "strFacilityCity, strFacilityState, " &
+                "strFacilityZipCode, numFacilityLongitude, " &
+                "numFacilityLatitude " &
+                "from AIRBRANCH.APBFacilityInformation " &
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1989,19 +1989,19 @@ Public Class SBEAPClientSummary
                 dr.Close()
             End If
 
-            SQL = "Select " & _
-            "Distinct((strLastName||', '||strFirstName)) as ISMPEngineer, strUnitDesc   " & _
-            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation,   " & _
-            "AIRBRANCH.ISMPMaster, AIRBRANCH.LookUpEPDUnits    " & _
-            "where AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDunits.numunitCode (+) " & _
-            "and numUserID = strReviewingEngineer   " & _
-            "AND AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber   " & _
-            "and strClosed = 'True'  " & _
-            "and datCompleteDate = (Select Distinct(Max(datCompleteDate)) as CompleteDate  " & _
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster  " & _
-            "where AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber   " & _
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  " & _
-            "and strClosed = 'True')  " & _
+            SQL = "Select " &
+            "Distinct((strLastName||', '||strFirstName)) as ISMPEngineer, strUnitDesc   " &
+            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation,   " &
+            "AIRBRANCH.ISMPMaster, AIRBRANCH.LookUpEPDUnits    " &
+            "where AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDunits.numunitCode (+) " &
+            "and numUserID = strReviewingEngineer   " &
+            "AND AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber   " &
+            "and strClosed = 'True'  " &
+            "and datCompleteDate = (Select Distinct(Max(datCompleteDate)) as CompleteDate  " &
+            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster  " &
+            "where AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber   " &
+            "and AIRBRANCH.ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  " &
+            "and strClosed = 'True')  " &
             "and AIRBRANCH.ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -2026,16 +2026,16 @@ Public Class SBEAPClientSummary
             End If
             dr.Close()
 
-            SQL = "select  " & _
-            "Distinct((strLastName||', '||strFirstName)) as SSPPStaffResponsible, strUnitDesc   " & _
-            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.SSPPApplicationMaster, " & _
-            "AIRBRANCH.LookUpEPDUnits " & _
-            "where AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " & _
-            "and numUserID = strStaffResponsible  " & _
-            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber =  " & _
-            "(select distinct(max(to_number(strApplicationNumber))) as GreatestApplication  " & _
-            "from AIRBRANCH.SSPPApplicationMaster   " & _
-            "where AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "')  " & _
+            SQL = "select  " &
+            "Distinct((strLastName||', '||strFirstName)) as SSPPStaffResponsible, strUnitDesc   " &
+            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.SSPPApplicationMaster, " &
+            "AIRBRANCH.LookUpEPDUnits " &
+            "where AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " &
+            "and numUserID = strStaffResponsible  " &
+            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber =  " &
+            "(select distinct(max(to_number(strApplicationNumber))) as GreatestApplication  " &
+            "from AIRBRANCH.SSPPApplicationMaster   " &
+            "where AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "')  " &
             "and AIRBRANCH.SSPPApplicationMaster.strAIRSnumber = '0413" & mtbAIRSNumber.Text & "'  "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2063,8 +2063,8 @@ Public Class SBEAPClientSummary
 
             If txtClientID.Text <> "" Then
                 Dim Result As DialogResult
-                Result = MessageBox.Show("Do you want to import contacts from this AIRS #?", _
-                  "Client Summary Contact Import", MessageBoxButtons.YesNoCancel, _
+                Result = MessageBox.Show("Do you want to import contacts from this AIRS #?",
+                  "Client Summary Contact Import", MessageBoxButtons.YesNoCancel,
                     MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
 
                 Select Case Result
@@ -2268,13 +2268,13 @@ Public Class SBEAPClientSummary
         Try
             Dim Result As DialogResult
             If txtContactID.Text <> "" Then
-                Result = MessageBox.Show("Are you certain that you want to delete this Contact?", _
-                  "Contact Delete", MessageBoxButtons.YesNoCancel, _
+                Result = MessageBox.Show("Are you certain that you want to delete this Contact?",
+                  "Contact Delete", MessageBoxButtons.YesNoCancel,
                     MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
 
                 Select Case Result
                     Case DialogResult.Yes
-                        SQL = "Delete AIRBRANCH.SBEAPClientLink " & _
+                        SQL = "Delete AIRBRANCH.SBEAPClientLink " &
                         "where ClientContactID = '" & txtContactID.Text & "' "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2284,7 +2284,7 @@ Public Class SBEAPClientSummary
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "Delete AIRBRANCH.SBEAPClientContacts " & _
+                        SQL = "Delete AIRBRANCH.SBEAPClientContacts " &
                         "where ClientContactID = '" & txtContactID.Text & "' "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2327,8 +2327,8 @@ Public Class SBEAPClientSummary
             Dim ActionType As String = ""
 
             If txtClientID.Text <> "" Then
-                Result = MessageBox.Show("Are you sure you want to delete this client?", _
-                  "Client Summary Delete Client", MessageBoxButtons.YesNoCancel, _
+                Result = MessageBox.Show("Are you sure you want to delete this client?",
+                  "Client Summary Delete Client", MessageBoxButtons.YesNoCancel,
                     MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
 
                 Select Case Result
@@ -2336,9 +2336,9 @@ Public Class SBEAPClientSummary
                         Do While CaseID <> "Done"
                             CaseID = "Done"
 
-                            SQL = "Select " & _
-                            "numCaseID " & _
-                            "From AIRBRANCH.SBEAPCaseLogLink " & _
+                            SQL = "Select " &
+                            "numCaseID " &
+                            "From AIRBRANCH.SBEAPCaseLogLink " &
                             "where ClientID = '" & txtClientID.Text & "' "
                             cmd = New OracleCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
@@ -2357,9 +2357,9 @@ Public Class SBEAPClientSummary
                                 Do While ActionID <> "Done"
                                     ActionID = "Done"
 
-                                    SQL = "Select " & _
-                                    "numActionID, numActionType " & _
-                                    "from AIRBRANCH.SBEAPActionLog " & _
+                                    SQL = "Select " &
+                                    "numActionID, numActionType " &
+                                    "from AIRBRANCH.SBEAPActionLog " &
                                     "where numCaseID = '" & CaseID & "' "
                                     cmd = New OracleCommand(SQL, CurrentConnection)
                                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -2383,7 +2383,7 @@ Public Class SBEAPClientSummary
                                     If ActionID <> "" And ActionID <> "Done" Then
                                         Select Case ActionType
                                             Case "4"
-                                                SQL = "Delete AIRBRANCH.SBEAPConferenceLog " & _
+                                                SQL = "Delete AIRBRANCH.SBEAPConferenceLog " &
                                                 "where numActionID = '" & ActionID & "'  "
                                                 cmd = New OracleCommand(SQL, CurrentConnection)
                                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2392,7 +2392,7 @@ Public Class SBEAPClientSummary
                                                 dr = cmd.ExecuteReader
                                                 dr.Close()
 
-                                                SQL = "Delete AIRBRANCH.SBEAPActionLog " & _
+                                                SQL = "Delete AIRBRANCH.SBEAPActionLog " &
                                                 "where numActionID = '" & ActionID & "'  "
                                                 cmd = New OracleCommand(SQL, CurrentConnection)
                                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2401,7 +2401,7 @@ Public Class SBEAPClientSummary
                                                 dr = cmd.ExecuteReader
                                                 dr.Close()
                                             Case "6"
-                                                SQL = "Delete AIRBRANCH.SBEAPPhoneLog " & _
+                                                SQL = "Delete AIRBRANCH.SBEAPPhoneLog " &
                                                 "where numActionID = '" & ActionID & "'  "
                                                 cmd = New OracleCommand(SQL, CurrentConnection)
                                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2410,7 +2410,7 @@ Public Class SBEAPClientSummary
                                                 dr = cmd.ExecuteReader
                                                 dr.Close()
 
-                                                SQL = "Delete AIRBRANCH.SBEAPActionLog " & _
+                                                SQL = "Delete AIRBRANCH.SBEAPActionLog " &
                                                 "where numActionID = '" & ActionID & "'  "
                                                 cmd = New OracleCommand(SQL, CurrentConnection)
                                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2419,7 +2419,7 @@ Public Class SBEAPClientSummary
                                                 dr = cmd.ExecuteReader
                                                 dr.Close()
                                             Case "10"
-                                                SQL = "Delete AIRBRANCH.SBEAPTechnicalAssist " & _
+                                                SQL = "Delete AIRBRANCH.SBEAPTechnicalAssist " &
                                                 "where numActionID = '" & ActionID & "'  "
                                                 cmd = New OracleCommand(SQL, CurrentConnection)
                                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2428,7 +2428,7 @@ Public Class SBEAPClientSummary
                                                 dr = cmd.ExecuteReader
                                                 dr.Close()
 
-                                                SQL = "Delete AIRBRANCH.SBEAPActionLog " & _
+                                                SQL = "Delete AIRBRANCH.SBEAPActionLog " &
                                                 "where numActionID = '" & ActionID & "'  "
                                                 cmd = New OracleCommand(SQL, CurrentConnection)
                                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2437,7 +2437,7 @@ Public Class SBEAPClientSummary
                                                 dr = cmd.ExecuteReader
                                                 dr.Close()
                                             Case "1" Or "2" Or "3" Or "5" Or "7" Or "8" Or "9" Or "11" Or "12"
-                                                SQL = "Delete AIRBRANCH.SBEAPOtherLog " & _
+                                                SQL = "Delete AIRBRANCH.SBEAPOtherLog " &
                                                 "where numActionID = '" & ActionID & "'  "
                                                 cmd = New OracleCommand(SQL, CurrentConnection)
                                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2446,7 +2446,7 @@ Public Class SBEAPClientSummary
                                                 dr = cmd.ExecuteReader
                                                 dr.Close()
 
-                                                SQL = "Delete AIRBRANCH.SBEAPActionLog " & _
+                                                SQL = "Delete AIRBRANCH.SBEAPActionLog " &
                                                 "where numActionID = '" & ActionID & "'  "
                                                 cmd = New OracleCommand(SQL, CurrentConnection)
                                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2455,7 +2455,7 @@ Public Class SBEAPClientSummary
                                                 dr = cmd.ExecuteReader
                                                 dr.Close()
                                             Case Else
-                                                SQL = "Delete AIRBRANCH.SBEAPConferenceLog " & _
+                                                SQL = "Delete AIRBRANCH.SBEAPConferenceLog " &
                                                 "where numActionID = '" & ActionID & "'  "
                                                 cmd = New OracleCommand(SQL, CurrentConnection)
                                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2464,7 +2464,7 @@ Public Class SBEAPClientSummary
                                                 dr = cmd.ExecuteReader
                                                 dr.Close()
 
-                                                SQL = "Delete AIRBRANCH.SBEAPPhoneLog " & _
+                                                SQL = "Delete AIRBRANCH.SBEAPPhoneLog " &
                                                 "where numActionID = '" & ActionID & "'  "
                                                 cmd = New OracleCommand(SQL, CurrentConnection)
                                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2473,7 +2473,7 @@ Public Class SBEAPClientSummary
                                                 dr = cmd.ExecuteReader
                                                 dr.Close()
 
-                                                SQL = "Delete AIRBRANCH.SBEAPTechnicalAssist " & _
+                                                SQL = "Delete AIRBRANCH.SBEAPTechnicalAssist " &
                                                 "where numActionID = '" & ActionID & "'  "
                                                 cmd = New OracleCommand(SQL, CurrentConnection)
                                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2482,7 +2482,7 @@ Public Class SBEAPClientSummary
                                                 dr = cmd.ExecuteReader
                                                 dr.Close()
 
-                                                SQL = "Delete AIRBRANCH.SBEAPOtherLog " & _
+                                                SQL = "Delete AIRBRANCH.SBEAPOtherLog " &
                                                 "where numActionID = '" & ActionID & "'  "
                                                 cmd = New OracleCommand(SQL, CurrentConnection)
                                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2491,7 +2491,7 @@ Public Class SBEAPClientSummary
                                                 dr = cmd.ExecuteReader
                                                 dr.Close()
 
-                                                SQL = "Delete AIRBRANCH.SBEAPActionLog " & _
+                                                SQL = "Delete AIRBRANCH.SBEAPActionLog " &
                                                 "where numActionID = '" & ActionID & "'  "
                                                 cmd = New OracleCommand(SQL, CurrentConnection)
                                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2502,7 +2502,7 @@ Public Class SBEAPClientSummary
                                         End Select
                                     End If
                                 Loop
-                                SQL = "Delete AIRBRANCH.SBEAPCaseLog " & _
+                                SQL = "Delete AIRBRANCH.SBEAPCaseLog " &
                                 "where numCaseID = '" & CaseID & "' "
                                 cmd = New OracleCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2511,7 +2511,7 @@ Public Class SBEAPClientSummary
                                 dr = cmd.ExecuteReader
                                 dr.Close()
 
-                                SQL = "Delete AIRBRANCH.SBEAPCaseLogLink " & _
+                                SQL = "Delete AIRBRANCH.SBEAPCaseLogLink " &
                                 "where numCaseID = '" & CaseID & "' "
                                 cmd = New OracleCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2526,9 +2526,9 @@ Public Class SBEAPClientSummary
                         Do While ContactID <> "Done"
                             ContactID = "Done"
 
-                            SQL = "Select " & _
-                            "ClientID, ClientContactID " & _
-                            "from AIRBRANCH.SBEAPClientLink " & _
+                            SQL = "Select " &
+                            "ClientID, ClientContactID " &
+                            "from AIRBRANCH.SBEAPClientLink " &
                             "where ClientID = '" & txtClientID.Text & "' "
 
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2546,7 +2546,7 @@ Public Class SBEAPClientSummary
                             dr.Close()
 
                             If ContactID <> "" And ContactID <> "Done" Then
-                                SQL = "Delete AIRBRANCH.SBEAPClientContacts " & _
+                                SQL = "Delete AIRBRANCH.SBEAPClientContacts " &
                                 "where ClientContactID = '" & ContactID & "' "
                                 cmd = New OracleCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2555,7 +2555,7 @@ Public Class SBEAPClientSummary
                                 dr = cmd.ExecuteReader
                                 dr.Close()
 
-                                SQL = "Delete AIRBRANCH.SBEAPClientLink " & _
+                                SQL = "Delete AIRBRANCH.SBEAPClientLink " &
                                 "where ClientContactID = '" & ContactID & "' "
                                 cmd = New OracleCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2566,7 +2566,7 @@ Public Class SBEAPClientSummary
                             End If
                         Loop
 
-                        SQL = "Delete AIRBRANCH.SBEAPClientData " & _
+                        SQL = "Delete AIRBRANCH.SBEAPClientData " &
                         "where ClientID = '" & txtClientID.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -2575,7 +2575,7 @@ Public Class SBEAPClientSummary
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "Delete AIRBRANCH.SBEAPClients " & _
+                        SQL = "Delete AIRBRANCH.SBEAPClients " &
                         "where ClientID = '" & txtClientID.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -2688,22 +2688,22 @@ Public Class SBEAPClientSummary
 
     Sub LoadClientWork()
         Try
-            SQL = "Select " & _
-            "AIRBRANCH.SBEAPCaseLog.numCaseID, " & _
-            "numStaffResponsible, " & _
-            "case " & _
-            "when numStaffResponsible is Null then '' " & _
-            "Else (strLastName||', '||strFirstName) " & _
-            "END StaffResponsible, " & _
-            "to_date(datCaseOpened, 'dd-Mon-RRRR') as CaseOpened, " & _
-            "to_date(datCaseClosed, 'dd-Mon-RRRR') as CaseClosed, " & _
-            "strCompanyName, strCaseSummary, " & _
-            "AIRBRANCH.SBEAPCaseLogLink.ClientID " & _
-            "from AIRBRANCH.SBEAPCaseLog, AIRBRANCH.EPDUserProfiles, " & _
-            "AIRBRANCH.SBEAPClients, AIRBRANCH.SBEAPCaseLogLink " & _
-            "where AIRBRANCH.SBEAPCaseLog.numStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID (+) " & _
-            "and AIRBRANCH.SBEAPCaseLog.numCaseID = AIRBRANCH.SBEAPCaseLogLink.numCaseID " & _
-            "and AIRBRANCH.SBEAPCaseLogLink.ClientID = AIRBRANCH.SBEAPClients.ClientID (+)  " & _
+            SQL = "Select " &
+            "AIRBRANCH.SBEAPCaseLog.numCaseID, " &
+            "numStaffResponsible, " &
+            "case " &
+            "when numStaffResponsible is Null then '' " &
+            "Else (strLastName||', '||strFirstName) " &
+            "END StaffResponsible, " &
+            "to_date(datCaseOpened, 'dd-Mon-RRRR') as CaseOpened, " &
+            "to_date(datCaseClosed, 'dd-Mon-RRRR') as CaseClosed, " &
+            "strCompanyName, strCaseSummary, " &
+            "AIRBRANCH.SBEAPCaseLogLink.ClientID " &
+            "from AIRBRANCH.SBEAPCaseLog, AIRBRANCH.EPDUserProfiles, " &
+            "AIRBRANCH.SBEAPClients, AIRBRANCH.SBEAPCaseLogLink " &
+            "where AIRBRANCH.SBEAPCaseLog.numStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID (+) " &
+            "and AIRBRANCH.SBEAPCaseLog.numCaseID = AIRBRANCH.SBEAPCaseLogLink.numCaseID " &
+            "and AIRBRANCH.SBEAPCaseLogLink.ClientID = AIRBRANCH.SBEAPClients.ClientID (+)  " &
             "and AIRBRANCH.SBEAPClients.ClientID = '" & txtClientID.Text & "'  "
 
             dsCaseLogGrid = New DataSet

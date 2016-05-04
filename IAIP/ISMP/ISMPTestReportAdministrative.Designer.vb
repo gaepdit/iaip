@@ -1233,13 +1233,13 @@ Partial Class ISMPTestReportAdministrative
         Me.Label77.Name = "Label77"
         Me.Label77.Size = New System.Drawing.Size(233, 52)
         Me.Label77.TabIndex = 10
-        Me.Label77.Text = "Please enter the "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"Commissioner, Director, and Program Managers "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"from the origin"& _ 
-    "al Test Report "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"not the Current individuals if different. "
+        Me.Label77.Text = "Please enter the " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Commissioner, Director, and Program Managers " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "from the origin" &
+    "al Test Report " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "not the Current individuals if different. "
         '
         'Label76
         '
-        Me.Label76.AutoSize = true
-        Me.Label76.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline),System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.Label76.AutoSize = True
+        Me.Label76.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label76.Location = New System.Drawing.Point(18, 11)
         Me.Label76.Name = "Label76"
         Me.Label76.Size = New System.Drawing.Size(458, 25)
@@ -1249,7 +1249,7 @@ Partial Class ISMPTestReportAdministrative
         'DTPAddTestReportDateCompleted
         '
         Me.DTPAddTestReportDateCompleted.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPAddTestReportDateCompleted.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.DTPAddTestReportDateCompleted.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPAddTestReportDateCompleted.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPAddTestReportDateCompleted.Location = New System.Drawing.Point(345, 176)
         Me.DTPAddTestReportDateCompleted.Name = "DTPAddTestReportDateCompleted"
@@ -1259,7 +1259,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'Label67
         '
-        Me.Label67.AutoSize = true
+        Me.Label67.AutoSize = True
         Me.Label67.Location = New System.Drawing.Point(256, 181)
         Me.Label67.Name = "Label67"
         Me.Label67.Size = New System.Drawing.Size(83, 13)
@@ -1268,14 +1268,14 @@ Partial Class ISMPTestReportAdministrative
         '
         'btnClearAddTestReport
         '
-        Me.btnClearAddTestReport.AutoSize = true
+        Me.btnClearAddTestReport.AutoSize = True
         Me.btnClearAddTestReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnClearAddTestReport.Location = New System.Drawing.Point(386, 218)
         Me.btnClearAddTestReport.Name = "btnClearAddTestReport"
         Me.btnClearAddTestReport.Size = New System.Drawing.Size(67, 23)
         Me.btnClearAddTestReport.TabIndex = 8
         Me.btnClearAddTestReport.Text = "Clear Data"
-        Me.btnClearAddTestReport.UseVisualStyleBackColor = true
+        Me.btnClearAddTestReport.UseVisualStyleBackColor = True
         '
         'mtbAddTestReportAIRSNumber
         '
@@ -1289,7 +1289,7 @@ Partial Class ISMPTestReportAdministrative
         'dtpAddTestReportDateReceived
         '
         Me.dtpAddTestReportDateReceived.CustomFormat = "dd-MMM-yyyy"
-        Me.dtpAddTestReportDateReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.dtpAddTestReportDateReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpAddTestReportDateReceived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpAddTestReportDateReceived.Location = New System.Drawing.Point(124, 176)
         Me.dtpAddTestReportDateReceived.Name = "dtpAddTestReportDateReceived"
@@ -1320,7 +1320,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'Label74
         '
-        Me.Label74.AutoSize = true
+        Me.Label74.AutoSize = True
         Me.Label74.Location = New System.Drawing.Point(20, 181)
         Me.Label74.Name = "Label74"
         Me.Label74.Size = New System.Drawing.Size(79, 13)
@@ -1329,7 +1329,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'Label75
         '
-        Me.Label75.AutoSize = true
+        Me.Label75.AutoSize = True
         Me.Label75.Location = New System.Drawing.Point(20, 155)
         Me.Label75.Name = "Label75"
         Me.Label75.Size = New System.Drawing.Size(91, 13)
@@ -1338,7 +1338,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'Label66
         '
-        Me.Label66.AutoSize = true
+        Me.Label66.AutoSize = True
         Me.Label66.Location = New System.Drawing.Point(20, 131)
         Me.Label66.Name = "Label66"
         Me.Label66.Size = New System.Drawing.Size(44, 13)
@@ -1347,7 +1347,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'Label63
         '
-        Me.Label63.AutoSize = true
+        Me.Label63.AutoSize = True
         Me.Label63.Location = New System.Drawing.Point(20, 106)
         Me.Label63.Name = "Label63"
         Me.Label63.Size = New System.Drawing.Size(74, 13)
@@ -1356,7 +1356,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'Label62
         '
-        Me.Label62.AutoSize = true
+        Me.Label62.AutoSize = True
         Me.Label62.Location = New System.Drawing.Point(20, 80)
         Me.Label62.Name = "Label62"
         Me.Label62.Size = New System.Drawing.Size(72, 13)
@@ -1372,18 +1372,18 @@ Partial Class ISMPTestReportAdministrative
         '
         'btnAddTestReport
         '
-        Me.btnAddTestReport.AutoSize = true
+        Me.btnAddTestReport.AutoSize = True
         Me.btnAddTestReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnAddTestReport.Location = New System.Drawing.Point(124, 218)
         Me.btnAddTestReport.Name = "btnAddTestReport"
         Me.btnAddTestReport.Size = New System.Drawing.Size(95, 23)
         Me.btnAddTestReport.TabIndex = 7
         Me.btnAddTestReport.Text = "Add Test Report"
-        Me.btnAddTestReport.UseVisualStyleBackColor = true
+        Me.btnAddTestReport.UseVisualStyleBackColor = True
         '
         'Label61
         '
-        Me.Label61.AutoSize = true
+        Me.Label61.AutoSize = True
         Me.Label61.Location = New System.Drawing.Point(20, 55)
         Me.Label61.Name = "Label61"
         Me.Label61.Size = New System.Drawing.Size(97, 13)
@@ -1395,7 +1395,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'ISMPTestReportAdministrative
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(816, 545)
         Me.Controls.Add(Me.GroupBox2)

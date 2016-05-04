@@ -14,9 +14,9 @@ Namespace DAL.Sscp
         Public Function FceExists(ByVal fceNumber As String) As Boolean
             If fceNumber = "" OrElse Not Integer.TryParse(fceNumber, Nothing) Then Return False
 
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM AIRBRANCH.SSCPFCEMASTER " & _
-                " WHERE RowNum = 1 " & _
+            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
+                " FROM AIRBRANCH.SSCPFCEMASTER " &
+                " WHERE RowNum = 1 " &
                 " AND STRFCENUMBER = :fceNumber "
             Dim parameter As New OracleParameter("fceNumber", fceNumber)
 

@@ -7,9 +7,9 @@ Namespace DAL.Sbeap
         Public Function ClientExists(ByVal clientID As String) As Boolean
             If clientID = "" OrElse Not Integer.TryParse(clientID, Nothing) Then Return False
 
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM AIRBRANCH.SBEAPCLIENTS " & _
-                " WHERE RowNum = 1 " & _
+            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
+                " FROM AIRBRANCH.SBEAPCLIENTS " &
+                " WHERE RowNum = 1 " &
                 " AND CLIENTID = :pId "
 
             Dim parameter As New OracleParameter("pId", clientID)
@@ -21,9 +21,9 @@ Namespace DAL.Sbeap
         Public Function CaseExists(ByVal caseNumber As String) As Boolean
             If caseNumber = "" OrElse Not Integer.TryParse(caseNumber, Nothing) Then Return False
 
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM AIRBRANCH.SBEAPCASELOG " & _
-                " WHERE RowNum = 1 " & _
+            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
+                " FROM AIRBRANCH.SBEAPCASELOG " &
+                " WHERE RowNum = 1 " &
                 " AND NUMCASEID = :pId "
 
             Dim parameter As New OracleParameter("pId", caseNumber)

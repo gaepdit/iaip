@@ -21,7 +21,7 @@ Public Class IAIPListTool
     Dim daForms As OracleDataAdapter
 
     Private Sub IAIPListTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        
+
         Try
             btnAddBranch.Enabled = False
             btnEditBranch.Enabled = False
@@ -52,23 +52,23 @@ Public Class IAIPListTool
             dsOrginizations = New DataSet
             dsAccounts = New DataSet
 
-            SQL = "select " & _
-            "AIRBRANCH.lookupepdbranches.numBranchCode, strBranchDesc,  " & _
-            "AIRBRANCH.lookupepdprograms.numProgramCode, strProgramDesc,  " & _
-            "AIRBRANCH.lookupepdunits.numUnitCode, strUnitdesc " & _
-            "from AIRBRANCH.Lookupepdbranches, AIRBRANCH.lookupepdprograms,  " & _
-            "AIRBRANCH.lookupepdunits " & _
-            "where AIRBRANCH.lookupepdbranches.numbranchcode = AIRBRANCH.lookupepdprograms.numbranchcode (+) " & _
-            "and AIRBRANCH.lookupepdprograms.numprogramcode = AIRBRANCH.lookupepdunits.numprogramcode (+) " & _
+            SQL = "select " &
+            "AIRBRANCH.lookupepdbranches.numBranchCode, strBranchDesc,  " &
+            "AIRBRANCH.lookupepdprograms.numProgramCode, strProgramDesc,  " &
+            "AIRBRANCH.lookupepdunits.numUnitCode, strUnitdesc " &
+            "from AIRBRANCH.Lookupepdbranches, AIRBRANCH.lookupepdprograms,  " &
+            "AIRBRANCH.lookupepdunits " &
+            "where AIRBRANCH.lookupepdbranches.numbranchcode = AIRBRANCH.lookupepdprograms.numbranchcode (+) " &
+            "and AIRBRANCH.lookupepdprograms.numprogramcode = AIRBRANCH.lookupepdunits.numprogramcode (+) " &
             "order by strbranchdesc, strProgramDesc, strUnitDesc "
 
             daOrginizations = New OracleDataAdapter(SQL, CurrentConnection)
 
-            SQL = "Select " & _
-            "numAccountCode, strAccountDesc, " & _
-            "numBranchCode, numProgramCode, " & _
-            "numUnitCode " & _
-            "from AIRBRANCH.LookUpIAIPAccounts " & _
+            SQL = "Select " &
+            "numAccountCode, strAccountDesc, " &
+            "numBranchCode, numProgramCode, " &
+            "numUnitCode " &
+            "from AIRBRANCH.LookUpIAIPAccounts " &
             "order by strAccountDesc "
 
             daAccounts = New OracleDataAdapter(SQL, CurrentConnection)
@@ -87,9 +87,9 @@ Public Class IAIPListTool
     End Sub
     Sub LoadBranchGrid()
         Try
-            SQL = "Select " & _
-            "numBranchCode, strBranchDesc " & _
-            "from AIRBRANCH.LookUpEPDBranches " & _
+            SQL = "Select " &
+            "numBranchCode, strBranchDesc " &
+            "from AIRBRANCH.LookUpEPDBranches " &
             "order by strBranchDesc "
 
             dsBranch = New DataSet
@@ -165,9 +165,9 @@ Public Class IAIPListTool
     End Sub
     Sub LoadForms()
         Try
-            SQL = "Select " & _
-            "numFormCode, strForm, " & _
-            "strFormDesc " & _
+            SQL = "Select " &
+            "numFormCode, strForm, " &
+            "strFormDesc " &
             "from AIRBRANCH.LookUpIAIPForms "
 
             dsForms = New DataSet
@@ -304,11 +304,11 @@ Public Class IAIPListTool
             dgvUnit.DataSource = dsUnit
             dgvAccounts.DataSource = dsAccount
 
-            SQL = "Select " & _
-            "numProgramCode, strProgramDesc, " & _
-            "numBranchCode " & _
-            "from AIRBRANCH.LookUpEPDprograms " & _
-            "where numBranchCode = '" & txtBranchCode.Text & "' " & _
+            SQL = "Select " &
+            "numProgramCode, strProgramDesc, " &
+            "numBranchCode " &
+            "from AIRBRANCH.LookUpEPDprograms " &
+            "where numBranchCode = '" & txtBranchCode.Text & "' " &
             "order by strProgramDesc "
 
             dsProgram = New DataSet
@@ -340,19 +340,19 @@ Public Class IAIPListTool
             dgvProgram.Columns("numBranchCode").Width = 50
             dgvProgram.Columns("numBranchCode").Visible = False
 
-            SQL = "Select " & _
-            "numAccountCode, strAccountDesc,  " & _
-            "AIRBRANCH.LookUpEPDBranches.numBranchCode, strBranchDesc, " & _
-            "AIRBRANCH.LookUpEPDPrograms.numProgramCode, strProgramDesc,  " & _
-            "AIRBRANCH.LookUpEPDUnits.numUnitCode, strUnitDesc " & _
-            "from AIRBRANCH.LookUpIAIPAccounts, AIRBRANCH.LookupEPDBranches,  " & _
-            "AIRBRANCH.LookUpEPDPrograms, AIRBRANCH.LookUpEPDUnits   " & _
-            "where AIRBRANCH.LookUpIAIPAccounts.numBranchCode = AIRBRANCH.LookUpEPDBranches.numBranchCode (+)  " & _
-            "and AIRBRANCH.LookUpIAIPAccounts.numProgramCode = AIRBRANCH.LookUpEPDPrograms.numProgramCode (+)  " & _
-            "and AIRBRANCH.LookUpIAIPAccounts.numUnitCode = AIRBRANCH.LookUpEPDUnits.numUnitCode (+)  " & _
-            "and AIRBRANCH.lookupiaipaccounts.numBranchCode = '" & txtBranchCode.Text & "'  " & _
-            "and AIRBRANCH.LookUpIAIPAccounts.numProgramCode is Null " & _
-            "and AIRBRANCH.LookUpIAIPAccounts.numUnitCode is Null " & _
+            SQL = "Select " &
+            "numAccountCode, strAccountDesc,  " &
+            "AIRBRANCH.LookUpEPDBranches.numBranchCode, strBranchDesc, " &
+            "AIRBRANCH.LookUpEPDPrograms.numProgramCode, strProgramDesc,  " &
+            "AIRBRANCH.LookUpEPDUnits.numUnitCode, strUnitDesc " &
+            "from AIRBRANCH.LookUpIAIPAccounts, AIRBRANCH.LookupEPDBranches,  " &
+            "AIRBRANCH.LookUpEPDPrograms, AIRBRANCH.LookUpEPDUnits   " &
+            "where AIRBRANCH.LookUpIAIPAccounts.numBranchCode = AIRBRANCH.LookUpEPDBranches.numBranchCode (+)  " &
+            "and AIRBRANCH.LookUpIAIPAccounts.numProgramCode = AIRBRANCH.LookUpEPDPrograms.numProgramCode (+)  " &
+            "and AIRBRANCH.LookUpIAIPAccounts.numUnitCode = AIRBRANCH.LookUpEPDUnits.numUnitCode (+)  " &
+            "and AIRBRANCH.lookupiaipaccounts.numBranchCode = '" & txtBranchCode.Text & "'  " &
+            "and AIRBRANCH.LookUpIAIPAccounts.numProgramCode is Null " &
+            "and AIRBRANCH.LookUpIAIPAccounts.numUnitCode is Null " &
             "order by strAccountDesc "
 
             dsAccount = New DataSet
@@ -408,11 +408,11 @@ Public Class IAIPListTool
             dsAccount = New DataSet
             dgvAccounts.DataSource = dsAccount
 
-            SQL = "Select " & _
-            "numUnitCode, strUnitDesc, " & _
-            "numProgramCode " & _
-            "from AIRBRANCH.LookUpEPDUnits " & _
-            "where numProgramCode = '" & txtProgramCode.Text & "' " & _
+            SQL = "Select " &
+            "numUnitCode, strUnitDesc, " &
+            "numProgramCode " &
+            "from AIRBRANCH.LookUpEPDUnits " &
+            "where numProgramCode = '" & txtProgramCode.Text & "' " &
             "order by strUnitDesc "
 
             dsUnit = New DataSet
@@ -444,18 +444,18 @@ Public Class IAIPListTool
             dgvUnit.Columns("numProgramCode").Width = 50
             dgvUnit.Columns("numProgramCode").Visible = False
 
-            SQL = "Select " & _
-            "numAccountCode, strAccountDesc,  " & _
-            "AIRBRANCH.LookUpEPDBranches.numBranchCode, strBranchDesc, " & _
-            "AIRBRANCH.LookUpEPDPrograms.numProgramCode, strProgramDesc,  " & _
-            "AIRBRANCH.LookUpEPDUnits.numUnitCode, strUnitDesc " & _
-            "from AIRBRANCH.LookUpIAIPAccounts, AIRBRANCH.LookupEPDBranches,  " & _
-            "AIRBRANCH.LookUpEPDPrograms, AIRBRANCH.LookUpEPDUnits   " & _
-            "where AIRBRANCH.LookUpIAIPAccounts.numBranchCode = AIRBRANCH.LookUpEPDBranches.numBranchCode (+)  " & _
-            "and AIRBRANCH.LookUpIAIPAccounts.numProgramCode = AIRBRANCH.LookUpEPDPrograms.numProgramCode (+)  " & _
-            "and AIRBRANCH.LookUpIAIPAccounts.numUnitCode = AIRBRANCH.LookUpEPDUnits.numUnitCode (+)  " & _
-            "and AIRBRANCH.lookupiaipaccounts.numProgramCode = '" & txtProgramCode.Text & "'  " & _
-            "and AIRBRANCH.LookUpIAIPAccounts.numUnitCode is Null " & _
+            SQL = "Select " &
+            "numAccountCode, strAccountDesc,  " &
+            "AIRBRANCH.LookUpEPDBranches.numBranchCode, strBranchDesc, " &
+            "AIRBRANCH.LookUpEPDPrograms.numProgramCode, strProgramDesc,  " &
+            "AIRBRANCH.LookUpEPDUnits.numUnitCode, strUnitDesc " &
+            "from AIRBRANCH.LookUpIAIPAccounts, AIRBRANCH.LookupEPDBranches,  " &
+            "AIRBRANCH.LookUpEPDPrograms, AIRBRANCH.LookUpEPDUnits   " &
+            "where AIRBRANCH.LookUpIAIPAccounts.numBranchCode = AIRBRANCH.LookUpEPDBranches.numBranchCode (+)  " &
+            "and AIRBRANCH.LookUpIAIPAccounts.numProgramCode = AIRBRANCH.LookUpEPDPrograms.numProgramCode (+)  " &
+            "and AIRBRANCH.LookUpIAIPAccounts.numUnitCode = AIRBRANCH.LookUpEPDUnits.numUnitCode (+)  " &
+            "and AIRBRANCH.lookupiaipaccounts.numProgramCode = '" & txtProgramCode.Text & "'  " &
+            "and AIRBRANCH.LookUpIAIPAccounts.numUnitCode is Null " &
             "order by strAccountDesc "
 
             dsAccount = New DataSet
@@ -507,17 +507,17 @@ Public Class IAIPListTool
     End Sub
     Sub LoadAccountGrid()
         Try
-            SQL = "Select " & _
-            "numAccountCode, strAccountDesc,  " & _
-            "AIRBRANCH.LookUpEPDBranches.numBranchCode, strBranchDesc, " & _
-            "AIRBRANCH.LookUpEPDPrograms.numProgramCode, strProgramDesc,  " & _
-            "AIRBRANCH.LookUpEPDUnits.numUnitCode, strUnitDesc " & _
-            "from AIRBRANCH.LookUpIAIPAccounts, AIRBRANCH.LookupEPDBranches,  " & _
-            "AIRBRANCH.LookUpEPDPrograms, AIRBRANCH.LookUpEPDUnits   " & _
-            "where AIRBRANCH.LookUpIAIPAccounts.numBranchCode = AIRBRANCH.LookUpEPDBranches.numBranchCode (+)  " & _
-            "and AIRBRANCH.LookUpIAIPAccounts.numProgramCode = AIRBRANCH.LookUpEPDPrograms.numProgramCode (+)  " & _
-            "and AIRBRANCH.LookUpIAIPAccounts.numUnitCode = AIRBRANCH.LookUpEPDUnits.numUnitCode (+)  " & _
-            "and AIRBRANCH.lookupiaipaccounts.numUnitCode = '" & txtUnitCode.Text & "'  " & _
+            SQL = "Select " &
+            "numAccountCode, strAccountDesc,  " &
+            "AIRBRANCH.LookUpEPDBranches.numBranchCode, strBranchDesc, " &
+            "AIRBRANCH.LookUpEPDPrograms.numProgramCode, strProgramDesc,  " &
+            "AIRBRANCH.LookUpEPDUnits.numUnitCode, strUnitDesc " &
+            "from AIRBRANCH.LookUpIAIPAccounts, AIRBRANCH.LookupEPDBranches,  " &
+            "AIRBRANCH.LookUpEPDPrograms, AIRBRANCH.LookUpEPDUnits   " &
+            "where AIRBRANCH.LookUpIAIPAccounts.numBranchCode = AIRBRANCH.LookUpEPDBranches.numBranchCode (+)  " &
+            "and AIRBRANCH.LookUpIAIPAccounts.numProgramCode = AIRBRANCH.LookUpEPDPrograms.numProgramCode (+)  " &
+            "and AIRBRANCH.LookUpIAIPAccounts.numUnitCode = AIRBRANCH.LookUpEPDUnits.numUnitCode (+)  " &
+            "and AIRBRANCH.lookupiaipaccounts.numUnitCode = '" & txtUnitCode.Text & "'  " &
             "order by strAccountDesc "
 
             dsAccount = New DataSet
@@ -756,8 +756,8 @@ Public Class IAIPListTool
                 lblFormAccess.Text = lblFormAccess.Text & temp
             Next
 
-            SQL = "Update AIRBRANCH.LookUpIAIPAccounts set " & _
-            "strFormAccess = '" & lblFormAccess.Text & "' " & _
+            SQL = "Update AIRBRANCH.LookUpIAIPAccounts set " &
+            "strFormAccess = '" & lblFormAccess.Text & "' " &
             "where "
 
             If chbCascadeBranch.Checked = True Then
@@ -816,9 +816,9 @@ Public Class IAIPListTool
                 i += 1
             Loop
 
-            SQL = "Select " & _
-            "strFormAccess " & _
-            "from AIRBRANCH.LookUpIAIPAccounts " & _
+            SQL = "Select " &
+            "strFormAccess " &
+            "from AIRBRANCH.LookUpIAIPAccounts " &
             "where numAccountCode = '" & temp & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1058,9 +1058,9 @@ Public Class IAIPListTool
     End Sub
     Private Sub btnAddBranch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddBranch.Click
         Try
-            SQL = "Insert into AIRBRANCH.LookUpEPDBranches " & _
-            "values " & _
-            "((select max(numBranchCode) + 1 from AIRBRANCH.LookUpEPDBranches), " & _
+            SQL = "Insert into AIRBRANCH.LookUpEPDBranches " &
+            "values " &
+            "((select max(numBranchCode) + 1 from AIRBRANCH.LookUpEPDBranches), " &
             "'" & Replace(txtBranch.Text, "'", "''") & "') "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1090,8 +1090,8 @@ Public Class IAIPListTool
     Private Sub btnEditBranch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditBranch.Click
         Try
             If txtBranchCode.Text <> "" Then
-                SQL = "Update AIRBRANCH.LookUpEPDBranches set " & _
-                "strBranchDesc = '" & Replace(txtBranch.Text, "'", "''") & "' " & _
+                SQL = "Update AIRBRANCH.LookUpEPDBranches set " &
+                "strBranchDesc = '" & Replace(txtBranch.Text, "'", "''") & "' " &
                 "where numBranchCode = '" & txtBranchCode.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1111,7 +1111,7 @@ Public Class IAIPListTool
     Private Sub btnDeleteBranch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteBranch.Click
         Try
             If txtBranchCode.Text <> "" Then
-                SQL = "Delete AIRBRANCH.LookUpEPDBranches " & _
+                SQL = "Delete AIRBRANCH.LookUpEPDBranches " &
                 "where numBranchCode = '" & txtBranchCode.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1134,10 +1134,10 @@ Public Class IAIPListTool
     Private Sub btnAddProgram_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddProgram.Click
         Try
             If txtBranchCode.Text <> "" Then
-                SQL = "Insert into AIRBRANCH.LookUpEPDPrograms " & _
-                "values " & _
-                "((select max(numProgramCode) + 1 from AIRBRANCH.LookUpEPDPrograms where numProgramCode < 99), " & _
-                "'" & Replace(txtProgram.Text, "'", "''") & "', " & _
+                SQL = "Insert into AIRBRANCH.LookUpEPDPrograms " &
+                "values " &
+                "((select max(numProgramCode) + 1 from AIRBRANCH.LookUpEPDPrograms where numProgramCode < 99), " &
+                "'" & Replace(txtProgram.Text, "'", "''") & "', " &
                 "'" & txtBranchCode.Text & "') "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1170,9 +1170,9 @@ Public Class IAIPListTool
         Try
             If txtProgramCode.Text <> "" And txtBranchCode.Text <> "" Then
 
-                SQL = "Update AIRBRANCH.LookUpEPDPrograms set " & _
-                "strProgramDesc = '" & Replace(txtProgram.Text, "'", "''") & "', " & _
-                "numBranchCode = '" & txtBranchCode.Text & "' " & _
+                SQL = "Update AIRBRANCH.LookUpEPDPrograms set " &
+                "strProgramDesc = '" & Replace(txtProgram.Text, "'", "''") & "', " &
+                "numBranchCode = '" & txtBranchCode.Text & "' " &
                 "where numProgramCode = '" & txtProgramCode.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1192,7 +1192,7 @@ Public Class IAIPListTool
     End Sub
     Private Sub btnDeleteProgram_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteProgram.Click
         Try
-            SQL = "Delete AIRBRANCH.LookUpEPDPrograms " & _
+            SQL = "Delete AIRBRANCH.LookUpEPDPrograms " &
             "where numProgramCode = '" & txtProgramCode.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1214,10 +1214,10 @@ Public Class IAIPListTool
     Private Sub btnAddUnit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddUnit.Click
         Try
             If txtProgramCode.Text <> "" Then
-                SQL = "Insert into AIRBranch.LookUpEPDUnits " & _
-                "(numUnitCode, strUnitDesc, numProgramCode)  " & _
-                "values  " & _
-                "((select max(numUnitCode) + 1 From AIRBranch.LookUpEPDUnits), '" & Replace(txtUnit.Text, "'", "''") & "',  " & _
+                SQL = "Insert into AIRBranch.LookUpEPDUnits " &
+                "(numUnitCode, strUnitDesc, numProgramCode)  " &
+                "values  " &
+                "((select max(numUnitCode) + 1 From AIRBranch.LookUpEPDUnits), '" & Replace(txtUnit.Text, "'", "''") & "',  " &
                 "'" & Replace(txtProgramCode.Text, "'", "''") & "') "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1249,8 +1249,8 @@ Public Class IAIPListTool
     Private Sub btnEditUnit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditUnit.Click
         Try
             If txtUnitCode.Text <> "" And txtProgramCode.Text <> "" Then
-                SQL = "Update AIRBRANCH.LookUpEPDUnits set " & _
-                "strUnitDesc = '" & txtUnit.Text & "' " & _
+                SQL = "Update AIRBRANCH.LookUpEPDUnits set " &
+                "strUnitDesc = '" & txtUnit.Text & "' " &
                 "where numUnitCode = '" & txtUnitCode.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1270,7 +1270,7 @@ Public Class IAIPListTool
     End Sub
     Private Sub btnDeleteUnit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteUnit.Click
         Try
-            SQL = "Delete AIRBRANCH.LookUpEPDUnits " & _
+            SQL = "Delete AIRBRANCH.LookUpEPDUnits " &
             "where numUnitCode = '" & txtUnitCode.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1292,11 +1292,11 @@ Public Class IAIPListTool
     End Sub
     Private Sub btnAddAccount_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddAccount.Click
         Try
-            SQL = "Insert into AIRBRANCH.LookUpIAIPAccounts " & _
-            "values " & _
-            "((Select (max(numAccountCode) + 1) from AIRBRANCH.LookUpIAIPAccounts), " & _
-            "'" & txtAccount.Text & "', " & _
-            "'" & txtBranchCode.Text & "', '" & txtProgramCode.Text & "', " & _
+            SQL = "Insert into AIRBRANCH.LookUpIAIPAccounts " &
+            "values " &
+            "((Select (max(numAccountCode) + 1) from AIRBRANCH.LookUpIAIPAccounts), " &
+            "'" & txtAccount.Text & "', " &
+            "'" & txtBranchCode.Text & "', '" & txtProgramCode.Text & "', " &
             "'" & txtUnitCode.Text & "', '') "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1305,7 +1305,7 @@ Public Class IAIPListTool
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Select max(numAccountCode) as MaxAccount " & _
+            SQL = "Select max(numAccountCode) as MaxAccount " &
             "from AIRBRANCH.LookUpIAIPAccounts "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1327,11 +1327,11 @@ Public Class IAIPListTool
     Private Sub btnEditAccount_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditAccount.Click
         Try
             If txtAccountCode.Text <> "" Then
-                SQL = "Update AIRBRANCH.LookUpIAIPAccounts set " & _
-                "strAccountDesc = '" & Replace(txtAccount.Text, "'", "''") & "', " & _
-                "numBranchCode = '" & txtBranchCode.Text & "', " & _
-                "numProgramCode = '" & txtProgramCode.Text & "', " & _
-                "numUnitCode = '" & txtUnitCode.Text & "' " & _
+                SQL = "Update AIRBRANCH.LookUpIAIPAccounts set " &
+                "strAccountDesc = '" & Replace(txtAccount.Text, "'", "''") & "', " &
+                "numBranchCode = '" & txtBranchCode.Text & "', " &
+                "numProgramCode = '" & txtProgramCode.Text & "', " &
+                "numUnitCode = '" & txtUnitCode.Text & "' " &
                 "where numAccountCode = '" & txtAccountCode.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1351,7 +1351,7 @@ Public Class IAIPListTool
     End Sub
     Private Sub btnDeleteAccount_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteAccount.Click
         Try
-            SQL = "Delete AIRBRANCH.LookUpIAIPAccounts " & _
+            SQL = "Delete AIRBRANCH.LookUpIAIPAccounts " &
             "where numAccountCode = '" & txtAccountCode.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then

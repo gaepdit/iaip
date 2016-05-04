@@ -22,8 +22,8 @@
     ''' <param name="timerElapsedEventHandler">The procedure to handle the Timer Elapsed event.</param>
     ''' <param name="autoReset">A value indicating whether the Timer Elapsed event should recur or not.</param>
     ''' <remarks></remarks>
-    Private Sub StartTimer(ByRef timer As Timers.Timer, ByVal interval As TimeSpan, _
-                           ByVal timerElapsedEventHandler As Timers.ElapsedEventHandler, _
+    Private Sub StartTimer(ByRef timer As Timers.Timer, ByVal interval As TimeSpan,
+                           ByVal timerElapsedEventHandler As Timers.ElapsedEventHandler,
                            Optional ByVal autoReset As Boolean = True)
         timer = New Timers.Timer(interval.TotalMilliseconds)
         AddHandler timer.Elapsed, timerElapsedEventHandler
@@ -79,12 +79,12 @@
                    AddressOf ShutdownWarningTimerElapsed, False)
 
         Dim result As DialogResult
-        result = MessageBox.Show("The IAIP has been open for three hours. " & vbNewLine & _
-                                 "Do you want to continue to use it?" & vbNewLine & _
-                                    vbNewLine & _
-                                 "(The IAIP will be automatically terminated " & vbNewLine & _
-                                 "in five minutes.)", _
-                                 "Are you still there?", MessageBoxButtons.YesNo, _
+        result = MessageBox.Show("The IAIP has been open for three hours. " & vbNewLine &
+                                 "Do you want to continue to use it?" & vbNewLine &
+                                    vbNewLine &
+                                 "(The IAIP will be automatically terminated " & vbNewLine &
+                                 "in five minutes.)",
+                                 "Are you still there?", MessageBoxButtons.YesNo,
                                  MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1)
 
         Select Case result

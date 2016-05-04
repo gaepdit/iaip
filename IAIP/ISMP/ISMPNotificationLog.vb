@@ -12,7 +12,7 @@ Public Class ISMPNotificationLog
     Dim daStaffResponsible As OracleDataAdapter
 
     Private Sub DevNotificationLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        
+
         Try
             Panel1.Text = "Select a Function..."
             Panel2.Text = CurrentUser.AlphaName
@@ -48,18 +48,18 @@ Public Class ISMPNotificationLog
             Dim drDSRow As DataRow
             Dim drNewRow As DataRow
 
-            SQL = "select " & _
-            "substr(strAIRSNumber, 5) as AIRSNumber, " & _
-            "strFacilityname " & _
-            "from AIRBRANCH.APBFacilityInformation " & _
+            SQL = "select " &
+            "substr(strAIRSNumber, 5) as AIRSNumber, " &
+            "strFacilityname " &
+            "from AIRBRANCH.APBFacilityInformation " &
             "order by strFacilityname "
 
-            SQL2 = "select " & _
-            "distinct(strLastName|| ', ' ||strFirstName) as UserName,  " & _
-            "AIRBRANCH.epduserprofiles.numUserID  " & _
-            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPTestNotification  " & _
-            "where (numProgram = '3' and numunit <> '14')  " & _
-            "or AIRBRANCH.ISMPTestNotification.strStaffResponsible = to_char(AIRBRANCH.EPDUSerProfiles.numUserID) " & _
+            SQL2 = "select " &
+            "distinct(strLastName|| ', ' ||strFirstName) as UserName,  " &
+            "AIRBRANCH.epduserprofiles.numUserID  " &
+            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPTestNotification  " &
+            "where (numProgram = '3' and numunit <> '14')  " &
+            "or AIRBRANCH.ISMPTestNotification.strStaffResponsible = to_char(AIRBRANCH.EPDUSerProfiles.numUserID) " &
             "order by UserName "
 
             dsFacilityData = New DataSet
@@ -140,24 +140,24 @@ Public Class ISMPNotificationLog
             Dim ZipCode As String = ""
 
             If txtTestNotificationNumber.Text <> "" Then
-                SQL = "select " & _
-                "substr(ISMPTestNotification.strAIRSNumber, 5) as AIRSNumber,  " & _
-                "strFacilityStreet1, " & _
-                "strFacilityCity, strFacilityZipCode,  " & _
-                "strEmissionUnit,  " & _
-                "datProposedStartDate, datProposedEndDate,  " & _
-                "ISMPTestNotification.strComments,  " & _
-                "strTestPlanAvailable, strTimelyNotification,  " & _
-                "strInternalComments,  " & _
-                "strStaffresponsible,  " & _
-                "strOnlineFirstName, strOnlineLastName,  " & _
-                "strContactEmail, numUserID,  " & _
-                "strConfirmationNumber,  " & _
-                "strTelePhone, strFax, " & _
-                "datTestPlanReceived, datTestNotification, " & _
-                "strPollutants " & _
-                "from AIRBRANCH.ISMPTestNotification, AIRBRANCH.APBFacilityInformation  " & _
-                "where AIRBRANCH.ISMPTestNotification.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber (+)  " & _
+                SQL = "select " &
+                "substr(ISMPTestNotification.strAIRSNumber, 5) as AIRSNumber,  " &
+                "strFacilityStreet1, " &
+                "strFacilityCity, strFacilityZipCode,  " &
+                "strEmissionUnit,  " &
+                "datProposedStartDate, datProposedEndDate,  " &
+                "ISMPTestNotification.strComments,  " &
+                "strTestPlanAvailable, strTimelyNotification,  " &
+                "strInternalComments,  " &
+                "strStaffresponsible,  " &
+                "strOnlineFirstName, strOnlineLastName,  " &
+                "strContactEmail, numUserID,  " &
+                "strConfirmationNumber,  " &
+                "strTelePhone, strFax, " &
+                "datTestPlanReceived, datTestNotification, " &
+                "strPollutants " &
+                "from AIRBRANCH.ISMPTestNotification, AIRBRANCH.APBFacilityInformation  " &
+                "where AIRBRANCH.ISMPTestNotification.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber (+)  " &
                 "and AIRBRANCH.ISMPTestNotification.strTestLogNumber = '" & txtTestNotificationNumber.Text & "'  "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -329,9 +329,9 @@ Public Class ISMPNotificationLog
         Try
 
             txtReferenceNumber.Clear()
-            SQL = "Select " & _
-            "strReferenceNumber " & _
-            "from AIRBRANCH.ISMPTestLogLink " & _
+            SQL = "Select " &
+            "strReferenceNumber " &
+            "from AIRBRANCH.ISMPTestLogLink " &
             "where strTestLogNumber = '" & txtTestNotificationNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -361,8 +361,8 @@ Public Class ISMPNotificationLog
                 Dim TestPlanRec As String = ""
                 Dim TestNotificationDate As String = ""
 
-                SQL = "select strTestLogNumber " & _
-                "from AIRBRANCH.ISMPTestNotification " & _
+                SQL = "select strTestLogNumber " &
+                "from AIRBRANCH.ISMPTestNotification " &
                 "where strTestLogNumber = '" & txtTestNotificationNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -404,39 +404,39 @@ Public Class ISMPNotificationLog
 
                 If recExist = True Then
                     'Update 
-                    SQL = "Update AIRBRANCH.ISMPTestNotification set " & _
-                    "strEmissionUnit = '" & Replace(txtEmissionUnit.Text, "'", "''") & "', " & _
-                    "datProposedStartDate = '" & Me.DTPTestDateStart.Text & "', " & _
-                    "datProposedEndDate = '" & DTPTestDateEnd.Text & "', " & _
-                    "strComments = '" & Replace(Me.txtNotificationComments.Text, "'", "''") & "', " & _
-                    UserIDNum & _
-                    "strContactEmail = '" & Replace(txtContactEmailAddress.Text, "'", "''") & "', " & _
-                    "strAIRSNumber = '0413" & cboAIRSNumber.SelectedValue & "', " & _
-                    "strStaffresponsible  = '" & cboStaffResponsible.SelectedValue & "', " & _
-                    "strTestPlanAvailable = '" & TestPlan & "', " & _
-                    "strTimelyNotification = '" & TimelyNotification & "', " & _
-                    "strOnlineFirstName = '" & Me.txtContactFirstName.Text & "', " & _
-                    "strOnlineLastName = '" & txtContactLastName.Text & "', " & _
-                    "strInternalComments = '" & Replace(txtISMPComments.Text, "'", "''") & "', " & _
-                    "strmodifingstaff = '" & CurrentUser.UserID & "', " & _
-                    "datModifingDate = '" & OracleDate & "', " & _
-                    "datTestPlanReceived = '" & TestPlanRec & "', " & _
-                    "datTestNotification = '" & TestNotificationDate & "', " & _
-                    "strTelephone = '" & mtbPhoneNumber.Text & "', " & _
-                    "strFax = '" & mtbFaxNumber.Text & "', " & _
-                    "strPollutants = '" & Replace(txtPollutants.Text, "'", "''") & "' " & _
+                    SQL = "Update AIRBRANCH.ISMPTestNotification set " &
+                    "strEmissionUnit = '" & Replace(txtEmissionUnit.Text, "'", "''") & "', " &
+                    "datProposedStartDate = '" & Me.DTPTestDateStart.Text & "', " &
+                    "datProposedEndDate = '" & DTPTestDateEnd.Text & "', " &
+                    "strComments = '" & Replace(Me.txtNotificationComments.Text, "'", "''") & "', " &
+                    UserIDNum &
+                    "strContactEmail = '" & Replace(txtContactEmailAddress.Text, "'", "''") & "', " &
+                    "strAIRSNumber = '0413" & cboAIRSNumber.SelectedValue & "', " &
+                    "strStaffresponsible  = '" & cboStaffResponsible.SelectedValue & "', " &
+                    "strTestPlanAvailable = '" & TestPlan & "', " &
+                    "strTimelyNotification = '" & TimelyNotification & "', " &
+                    "strOnlineFirstName = '" & Me.txtContactFirstName.Text & "', " &
+                    "strOnlineLastName = '" & txtContactLastName.Text & "', " &
+                    "strInternalComments = '" & Replace(txtISMPComments.Text, "'", "''") & "', " &
+                    "strmodifingstaff = '" & CurrentUser.UserID & "', " &
+                    "datModifingDate = '" & OracleDate & "', " &
+                    "datTestPlanReceived = '" & TestPlanRec & "', " &
+                    "datTestNotification = '" & TestNotificationDate & "', " &
+                    "strTelephone = '" & mtbPhoneNumber.Text & "', " &
+                    "strFax = '" & mtbFaxNumber.Text & "', " &
+                    "strPollutants = '" & Replace(txtPollutants.Text, "'", "''") & "' " &
                     "where strtestlognumber = '" & txtTestNotificationNumber.Text & "' "
                 Else
                     temp = ""
                     Dim testNum As String = ""
                     Dim StartDate As String = ""
 
-                    SQL = "Select " & _
-                    "strTestLogNumber, datProposedStartDate " & _
-                    "from AIRBRANCH.ISMPTestNotification " & _
-                    "where datProposedStartDate between " & _
-                    "'" & Format(DTPTestDateStart.Value.AddDays(-15), "dd-MMM-yyyy") & "' " & _
-                    "and '" & Format(DTPTestDateStart.Value.AddDays(15), "dd-MMM-yyyy") & "' " & _
+                    SQL = "Select " &
+                    "strTestLogNumber, datProposedStartDate " &
+                    "from AIRBRANCH.ISMPTestNotification " &
+                    "where datProposedStartDate between " &
+                    "'" & Format(DTPTestDateStart.Value.AddDays(-15), "dd-MMM-yyyy") & "' " &
+                    "and '" & Format(DTPTestDateStart.Value.AddDays(15), "dd-MMM-yyyy") & "' " &
                     "and strAIRSNumber = '0413" & cboAIRSNumber.Text & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -458,10 +458,10 @@ Public Class ISMPNotificationLog
 
                     Dim result As String = "False"
                     If temp <> "" Then
-                        result = MessageBox.Show("There is currently a Test Notification (" & temp & ") " & _
-                             "that is close to the date of this test notification." & vbCrLf & _
-                             "Notification # - " & testNum & "       Start Date - " & StartDate & vbCrLf & _
-                             "Do you still want to create this Test Notification?", "Test Notification Warning", _
+                        result = MessageBox.Show("There is currently a Test Notification (" & temp & ") " &
+                             "that is close to the date of this test notification." & vbCrLf &
+                             "Notification # - " & testNum & "       Start Date - " & StartDate & vbCrLf &
+                             "Do you still want to create this Test Notification?", "Test Notification Warning",
                          MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1)
                         Select Case result
                             Case DialogResult.No
@@ -474,34 +474,34 @@ Public Class ISMPNotificationLog
                     End If
 
                     'Insert 
-                    SQL = "Insert into AIRBRANCH.ISMPTestNotification " & _
-                    "(strTestLogNumber, " & _
-                    "strEmissionUnit, " & _
-                    "datProposedStartDate, datProposedEndDate, " & _
-                    "strComments, numUserID, " & _
-                    "strContactEmail, strConfirmationNumber, " & _
-                    "strOnlineFirstname, strOnlineLastName, " & _
-                    "strAIRSNumber, strStaffResponsible, " & _
-                    "strTestPlanAvailable, strTimelyNotification, " & _
-                    "strInternalComments, strModifingStaff, " & _
-                    "datModifingDate, strTelePhone, " & _
-                    "strFax, datTestPlanReceived, " & _
-                    "datTestNotification, strPollutants) " & _
-                    "values " & _
-                    "('" & txtTestNotificationNumber.Text & "', " & _
-                    "'" & Replace(txtEmissionUnit.Text, "'", "''") & "', " & _
-                    "'" & DTPTestDateStart.Text & "', '" & DTPTestDateEnd.Text & "', " & _
-                    "'" & Replace(txtNotificationComments.Text, "'", "''") & "', '', " & _
-                    "'" & Replace(txtContactEmailAddress.Text, "'", "''") & "', '', " & _
-                    "'" & Replace(txtContactFirstName.Text, "'", "''") & "', " & _
-                    "'" & Replace(txtContactLastName.Text, "'", "''") & "', " & _
-                    "'0413" & cboAIRSNumber.SelectedValue & "', " & _
-                    "'" & cboStaffResponsible.SelectedValue & "', " & _
-                    "'" & TestPlan & "', '" & TimelyNotification & "', " & _
-                    "'" & Replace(txtISMPComments.Text, "'", "''") & "', " & _
-                    "'" & CurrentUser.UserID & "', '" & OracleDate & "', " & _
-                    "'" & mtbPhoneNumber.Text & "', '" & mtbFaxNumber.Text & "', " & _
-                    "'" & TestNotificationDate & "', '" & TestNotificationDate & "', " & _
+                    SQL = "Insert into AIRBRANCH.ISMPTestNotification " &
+                    "(strTestLogNumber, " &
+                    "strEmissionUnit, " &
+                    "datProposedStartDate, datProposedEndDate, " &
+                    "strComments, numUserID, " &
+                    "strContactEmail, strConfirmationNumber, " &
+                    "strOnlineFirstname, strOnlineLastName, " &
+                    "strAIRSNumber, strStaffResponsible, " &
+                    "strTestPlanAvailable, strTimelyNotification, " &
+                    "strInternalComments, strModifingStaff, " &
+                    "datModifingDate, strTelePhone, " &
+                    "strFax, datTestPlanReceived, " &
+                    "datTestNotification, strPollutants) " &
+                    "values " &
+                    "('" & txtTestNotificationNumber.Text & "', " &
+                    "'" & Replace(txtEmissionUnit.Text, "'", "''") & "', " &
+                    "'" & DTPTestDateStart.Text & "', '" & DTPTestDateEnd.Text & "', " &
+                    "'" & Replace(txtNotificationComments.Text, "'", "''") & "', '', " &
+                    "'" & Replace(txtContactEmailAddress.Text, "'", "''") & "', '', " &
+                    "'" & Replace(txtContactFirstName.Text, "'", "''") & "', " &
+                    "'" & Replace(txtContactLastName.Text, "'", "''") & "', " &
+                    "'0413" & cboAIRSNumber.SelectedValue & "', " &
+                    "'" & cboStaffResponsible.SelectedValue & "', " &
+                    "'" & TestPlan & "', '" & TimelyNotification & "', " &
+                    "'" & Replace(txtISMPComments.Text, "'", "''") & "', " &
+                    "'" & CurrentUser.UserID & "', '" & OracleDate & "', " &
+                    "'" & mtbPhoneNumber.Text & "', '" & mtbFaxNumber.Text & "', " &
+                    "'" & TestNotificationDate & "', '" & TestNotificationDate & "', " &
                     "'" & Replace(txtPollutants.Text, "'", "''") & "') "
                 End If
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -522,7 +522,7 @@ Public Class ISMPNotificationLog
     End Sub
     Sub SelectNewTestNotifcationNumber()
         Try
-            SQL = "Select max(to_number(strTestLogNumber)) + 1 as TestNum " & _
+            SQL = "Select max(to_number(strTestLogNumber)) + 1 as TestNum " &
             "From AIRBRANCH.ISMPTestnotification "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then

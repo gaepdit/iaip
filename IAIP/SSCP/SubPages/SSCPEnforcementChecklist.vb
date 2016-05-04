@@ -21,7 +21,7 @@ Public Class SSCPEnforcementChecklist
 #Region " Page Load "
 
     Private Sub SSCPEnforcementChecklist_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        
+
         If Not Me.Modal Then Me.Close()
 
         CollapseFilterOptions()
@@ -103,17 +103,17 @@ Public Class SSCPEnforcementChecklist
         Dim SQLLine As String = ""
         Dim SQLCount As Integer = 0
 
-        Dim SQL As String = "Select substr(AIRBRANCH.SSCPItemMaster.strAIrsnumber, 5) as AIRSNumber, strfacilityName, " & _
-        "strActivityName, " & _
-        "to_char(datReceivedDate, 'yyyy-MM-dd') as ReceivedDate, " & _
-        "strTrackingNumber, (strLastName|| ', ' ||strFirstName) as Staff " & _
-        "from AIRBRANCH.SSCPItemMaster, " & _
-        "AIRBRANCH.LookUPComplianceActivities, AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles " & _
-        "where " & _
-        "AIRBRANCH.SSCPItemMaster.strEventType = AIRBRANCH.LookUPComplianceActivities.strActivityType " & _
-        "and AIRBRANCH.SSCPItemMaster.strairsnumber = AIRBRANCH.APBFacilityInformation.strairsnumber " & _
-        "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCPItemMaster.strResponsibleStaff " & _
-        "and AIRBRANCH.SSCPItemMaster.strAIRSNumber = :airsnumber " & _
+        Dim SQL As String = "Select substr(AIRBRANCH.SSCPItemMaster.strAIrsnumber, 5) as AIRSNumber, strfacilityName, " &
+        "strActivityName, " &
+        "to_char(datReceivedDate, 'yyyy-MM-dd') as ReceivedDate, " &
+        "strTrackingNumber, (strLastName|| ', ' ||strFirstName) as Staff " &
+        "from AIRBRANCH.SSCPItemMaster, " &
+        "AIRBRANCH.LookUPComplianceActivities, AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles " &
+        "where " &
+        "AIRBRANCH.SSCPItemMaster.strEventType = AIRBRANCH.LookUPComplianceActivities.strActivityType " &
+        "and AIRBRANCH.SSCPItemMaster.strairsnumber = AIRBRANCH.APBFacilityInformation.strairsnumber " &
+        "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCPItemMaster.strResponsibleStaff " &
+        "and AIRBRANCH.SSCPItemMaster.strAIRSNumber = :airsnumber " &
         "and AIRBRANCH.SSCPItemMaster.strEventType <> '05' "
 
         If chbWorkType.Checked = True Then

@@ -8,7 +8,7 @@ Public Class PASPDepositsAmendments
 #Region "Page Load Functions"
 
     Private Sub PASPDepositsAmendments_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        
+
         dtpBatchDepositDate.Text = Date.Today
         dtpDepositReportStartDate.Text = Format(CDate(Date.Today).AddMonths(-1), "dd-MMM-yyyy")
         dtpDepositReportEndDate.Text = Date.Today
@@ -51,7 +51,7 @@ Public Class PASPDepositsAmendments
                 Return False
             End If
         Else
-            MsgBox("This AIRS # is not a valid AIRS # please verify that the value entered it correct." & vbCrLf & _
+            MsgBox("This AIRS # is not a valid AIRS # please verify that the value entered it correct." & vbCrLf &
              "If you get this message in error contact Data Management Unit for help.", MsgBoxStyle.OkOnly, "Incorrect AIRS Number")
             Return False
         End If
@@ -122,14 +122,14 @@ Public Class PASPDepositsAmendments
     Sub DeleteInvoice()
         Try
 
-            Dim Result As DialogResult = MessageBox.Show("Are you sure you want to remove Invoice # " & txtInvoiceForDeposit.Text & " for AIRS # - " & mtbAIRSNumber.Text & "?", _
+            Dim Result As DialogResult = MessageBox.Show("Are you sure you want to remove Invoice # " & txtInvoiceForDeposit.Text & " for AIRS # - " & mtbAIRSNumber.Text & "?",
                                                          "PASP Fee Tool", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
 
             If Result <> DialogResult.Yes Then
                 Exit Sub
             End If
 
-            Dim query As String = "Delete AIRBRANCH.FSAddPaid " & _
+            Dim query As String = "Delete AIRBRANCH.FSAddPaid " &
             "where intPayID = :trID"
             Dim param As New OracleParameter("trID", txtTransactionID.Text)
             DB.RunCommand(query, param)
@@ -153,7 +153,7 @@ Public Class PASPDepositsAmendments
             txtBatchNoField.Clear()
             txtCheckNumberField.Clear()
             DTPBatchDepositDateField.Text = Date.Today
-            
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -163,61 +163,61 @@ Public Class PASPDepositsAmendments
         Dim param() As OracleParameter
 
         If txtCheckNumber.Text <> "" Then
-            query = "select " & _
-                "substr(AIRBRANCH.FS_FeeInvoice.strAIRSnumber, 5) as strAIRSNumber, " & _
-                "strDepositNo, datTransactionDate, " & _
-                "numPayment, AIRBRANCH.FS_FeeInvoice.numFeeYear, " & _
-                "strCheckNo, strBatchNo, " & _
-                "Description, TransactionID, " & _
-                "AIRBRANCH.FS_Transactions.strComment, AIRBRANCH.FS_FeeInvoice.InvoiceID, " & _
-                "case " & _
-                "when AIRBRANCH.FS_Transactions.transactionTypeCode = '1' then numAmount " & _
-                "when AIRBRANCH.FS_Transactions.TransactionTypeCode = '2' then numAmount/4 " & _
-                "else numAmount " & _
-                "end FeeDue " & _
-                "from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice, " & _
-                "AIRBRANCH.FSLK_TransactionType  " & _
-                "where AIRBRANCH.FS_FeeInvoice.InvoiceID = AIRBRANCH.FS_Transactions.INvoiceID (+) " & _
-                "and AIRBRANCH.FS_Transactions.transactionTypeCode = AIRBRANCH.FSLK_TransactionType.TransactionTypeCode (+) " & _
-                "and strCheckNo like :chknum  " & _
-                "and AIRBRANCH.FS_Transactions.Active = '1' " & _
-                "and AIRBRANCH.FS_FeeInvoice.Active = '1' " & _
+            query = "select " &
+                "substr(AIRBRANCH.FS_FeeInvoice.strAIRSnumber, 5) as strAIRSNumber, " &
+                "strDepositNo, datTransactionDate, " &
+                "numPayment, AIRBRANCH.FS_FeeInvoice.numFeeYear, " &
+                "strCheckNo, strBatchNo, " &
+                "Description, TransactionID, " &
+                "AIRBRANCH.FS_Transactions.strComment, AIRBRANCH.FS_FeeInvoice.InvoiceID, " &
+                "case " &
+                "when AIRBRANCH.FS_Transactions.transactionTypeCode = '1' then numAmount " &
+                "when AIRBRANCH.FS_Transactions.TransactionTypeCode = '2' then numAmount/4 " &
+                "else numAmount " &
+                "end FeeDue " &
+                "from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice, " &
+                "AIRBRANCH.FSLK_TransactionType  " &
+                "where AIRBRANCH.FS_FeeInvoice.InvoiceID = AIRBRANCH.FS_Transactions.INvoiceID (+) " &
+                "and AIRBRANCH.FS_Transactions.transactionTypeCode = AIRBRANCH.FSLK_TransactionType.TransactionTypeCode (+) " &
+                "and strCheckNo like :chknum  " &
+                "and AIRBRANCH.FS_Transactions.Active = '1' " &
+                "and AIRBRANCH.FS_FeeInvoice.Active = '1' " &
                 "order by strBatchNo  "
             param = {New OracleParameter("chknum", "%" & txtCheckNumber.Text & "%")}
         Else
-            query = "select " & _
-                "distinct  ALLInvoices.strAIRSNumber, strDepositNo, datTransactionDate,  " & _
-                "numPayment,  ALLInvoices.numFeeYear, strCheckNo, strBatchNo, Description, TransactionID,  " & _
-                " strComment,  ALLInvoices.InvoiceID,  " & _
-                "FeeDue  " & _
-                "from  " & _
-                "(select substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " & _
-                "AIRBranch.FS_FeeINvoice.numFeeYear, AIRBranch.FS_FeeINvoice.InvoiceID " & _
-                "from  AIRBranch.FS_FeeInvoice " & _
-                "where AIRBranch.FS_FeeInvoice.strAIRSnumber like :airsnum " & _
-                "and AIRBranch.FS_FeeInvoice.numFeeYear = :feeyear " & _
-                "and AIRBranch.FS_FeeInvoice.Active = '1' " & _
-                "union " & _
-                "select distinct substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " & _
-                "AIRBranch.FS_FeeINvoice.numFeeYear, AIRBranch.FS_FeeINvoice.InvoiceID " & _
-                "from AIRBranch.FS_Transactions, AIRBranch.FS_FeeInvoice, AIRBranch.FSLK_TransactionType  " & _
-                "where AIRBranch.FS_FeeINvoice.InvoiceID = AIRBranch.FS_Transactions.INvoiceID (+) " & _
-                "and AIRBranch.FS_Transactions.transactionTypeCode = AIRBranch.FSLK_TransactionType.TransactionTypeCode (+) " & _
-                "and AIRBranch.FS_FeeInvoice.strAIRSnumber like :airsnum " & _
-                "and AIRBranch.FS_FeeInvoice.numFeeYear = :feeyear and AIRBranch.FS_FeeInvoice.Active = '1' " & _
-                "and AIRBranch.FS_Transactions.Active = '1'  ) ALLInvoices,  " & _
-                "(select distinct substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, strDepositNo, datTransactionDate, " & _
-                "numPayment, AIRBranch.FS_FeeINvoice.numFeeYear, strCheckNo, strBatchNo, Description, TransactionID, " & _
-                "AIRBranch.FS_Transactions.strComment, AIRBranch.FS_FeeINvoice.InvoiceID, " & _
-                "case when AIRBranch.FS_Transactions.transactionTypeCode = '1' then numAmount " & _
-                "when AIRBranch.FS_Transactions.TransactionTypeCode = '2' then numAmount/4 else numAmount end FeeDue " & _
-                "from AIRBranch.FS_Transactions, AIRBranch.FS_FeeInvoice, AIRBranch.FSLK_TransactionType  " & _
-                "where AIRBranch.FS_FeeINvoice.InvoiceID = AIRBranch.FS_Transactions.INvoiceID (+) " & _
-                "and AIRBranch.FS_Transactions.transactionTypeCode = AIRBranch.FSLK_TransactionType.TransactionTypeCode (+) " & _
-                "and AIRBranch.FS_FeeInvoice.strAIRSnumber like :airsnum " & _
-                "and AIRBranch.FS_FeeInvoice.numFeeYear = :feeyear " & _
-                "and AIRBranch.FS_FeeInvoice.Active = '1' " & _
-                "and AIRBranch.FS_Transactions.Active = '1' order by strBatchNo) Transactions " & _
+            query = "select " &
+                "distinct  ALLInvoices.strAIRSNumber, strDepositNo, datTransactionDate,  " &
+                "numPayment,  ALLInvoices.numFeeYear, strCheckNo, strBatchNo, Description, TransactionID,  " &
+                " strComment,  ALLInvoices.InvoiceID,  " &
+                "FeeDue  " &
+                "from  " &
+                "(select substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " &
+                "AIRBranch.FS_FeeINvoice.numFeeYear, AIRBranch.FS_FeeINvoice.InvoiceID " &
+                "from  AIRBranch.FS_FeeInvoice " &
+                "where AIRBranch.FS_FeeInvoice.strAIRSnumber like :airsnum " &
+                "and AIRBranch.FS_FeeInvoice.numFeeYear = :feeyear " &
+                "and AIRBranch.FS_FeeInvoice.Active = '1' " &
+                "union " &
+                "select distinct substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " &
+                "AIRBranch.FS_FeeINvoice.numFeeYear, AIRBranch.FS_FeeINvoice.InvoiceID " &
+                "from AIRBranch.FS_Transactions, AIRBranch.FS_FeeInvoice, AIRBranch.FSLK_TransactionType  " &
+                "where AIRBranch.FS_FeeINvoice.InvoiceID = AIRBranch.FS_Transactions.INvoiceID (+) " &
+                "and AIRBranch.FS_Transactions.transactionTypeCode = AIRBranch.FSLK_TransactionType.TransactionTypeCode (+) " &
+                "and AIRBranch.FS_FeeInvoice.strAIRSnumber like :airsnum " &
+                "and AIRBranch.FS_FeeInvoice.numFeeYear = :feeyear and AIRBranch.FS_FeeInvoice.Active = '1' " &
+                "and AIRBranch.FS_Transactions.Active = '1'  ) ALLInvoices,  " &
+                "(select distinct substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, strDepositNo, datTransactionDate, " &
+                "numPayment, AIRBranch.FS_FeeINvoice.numFeeYear, strCheckNo, strBatchNo, Description, TransactionID, " &
+                "AIRBranch.FS_Transactions.strComment, AIRBranch.FS_FeeINvoice.InvoiceID, " &
+                "case when AIRBranch.FS_Transactions.transactionTypeCode = '1' then numAmount " &
+                "when AIRBranch.FS_Transactions.TransactionTypeCode = '2' then numAmount/4 else numAmount end FeeDue " &
+                "from AIRBranch.FS_Transactions, AIRBranch.FS_FeeInvoice, AIRBranch.FSLK_TransactionType  " &
+                "where AIRBranch.FS_FeeINvoice.InvoiceID = AIRBranch.FS_Transactions.INvoiceID (+) " &
+                "and AIRBranch.FS_Transactions.transactionTypeCode = AIRBranch.FSLK_TransactionType.TransactionTypeCode (+) " &
+                "and AIRBranch.FS_FeeInvoice.strAIRSnumber like :airsnum " &
+                "and AIRBranch.FS_FeeInvoice.numFeeYear = :feeyear " &
+                "and AIRBranch.FS_FeeInvoice.Active = '1' " &
+                "and AIRBranch.FS_Transactions.Active = '1' order by strBatchNo) Transactions " &
                 "where Allinvoices.InvoiceID = Transactions.InvoiceID  (+) "
             param = {
                 New OracleParameter("airsnum", "%" & mtbAIRSNumber.Text & "%"),
@@ -445,22 +445,22 @@ Public Class PASPDepositsAmendments
         Try
             If ValidateData() Then
                 If txtTransactionID.Text = "" Then
-                    Dim query As String = "INSERT " & _
-                        "INTO AIRBRANCH.FS_TRANSACTIONS " & _
-                        "  ( " & _
-                        "    TRANSACTIONID, INVOICEID, TRANSACTIONTYPECODE, " & _
-                        "    DATTRANSACTIONDATE, NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, " & _
-                        "    STRBATCHNO, STRENTRYPERSON, STRCOMMENT, ACTIVE, UPDATEUSER, " & _
-                        "    UPDATEDATETIME, CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR, " & _
-                        "    STRCREDITCARDNO " & _
-                        "  ) " & _
-                        "  VALUES " & _
-                        "  ( " & _
-                        "    AIRBRANCH.SEQ_FS_TRANSACTIONS.nextval, :INVOICEID, " & _
-                        "    :TRANSACTIONTYPECODE, :DATTRANSACTIONDATE, :NUMPAYMENT, " & _
-                        "    :STRCHECKNO, :STRDEPOSITNO, :STRBATCHNO, :STRENTRYPERSON, " & _
-                        "    :STRCOMMENT, :ACTIVE, :UPDATEUSER, sysdate, sysdate, " & _
-                        "    :STRAIRSNUMBER, :NUMFEEYEAR, :STRCREDITCARDNO " & _
+                    Dim query As String = "INSERT " &
+                        "INTO AIRBRANCH.FS_TRANSACTIONS " &
+                        "  ( " &
+                        "    TRANSACTIONID, INVOICEID, TRANSACTIONTYPECODE, " &
+                        "    DATTRANSACTIONDATE, NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, " &
+                        "    STRBATCHNO, STRENTRYPERSON, STRCOMMENT, ACTIVE, UPDATEUSER, " &
+                        "    UPDATEDATETIME, CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR, " &
+                        "    STRCREDITCARDNO " &
+                        "  ) " &
+                        "  VALUES " &
+                        "  ( " &
+                        "    AIRBRANCH.SEQ_FS_TRANSACTIONS.nextval, :INVOICEID, " &
+                        "    :TRANSACTIONTYPECODE, :DATTRANSACTIONDATE, :NUMPAYMENT, " &
+                        "    :STRCHECKNO, :STRDEPOSITNO, :STRBATCHNO, :STRENTRYPERSON, " &
+                        "    :STRCOMMENT, :ACTIVE, :UPDATEUSER, sysdate, sysdate, " &
+                        "    :STRAIRSNUMBER, :NUMFEEYEAR, :STRCREDITCARDNO " &
                         "  ) "
                     Dim param() As OracleParameter
                     param = {
@@ -514,17 +514,17 @@ Public Class PASPDepositsAmendments
 
     Private Sub InvoiceStatusCheck(ByVal invoiceID As String)
         Try
-            Dim query As String = "select " & _
-            "(invoiceTotal - PaymentTotal) as Balance " & _
-            "from (select " & _
-            "sum(numAmount) as InvoiceTotal " & _
-            "from airbranch.FS_Feeinvoice " & _
-            "where invoiceid = :invID " & _
-            "and Active = '1' ) INVOICED, " & _
-            "(select " & _
-            "sum(numPayment) as PaymentTotal " & _
-            "from airbranch.FS_TRANSACTIONS " & _
-            "where invoiceid = :invID " & _
+            Dim query As String = "select " &
+            "(invoiceTotal - PaymentTotal) as Balance " &
+            "from (select " &
+            "sum(numAmount) as InvoiceTotal " &
+            "from airbranch.FS_Feeinvoice " &
+            "where invoiceid = :invID " &
+            "and Active = '1' ) INVOICED, " &
+            "(select " &
+            "sum(numPayment) as PaymentTotal " &
+            "from airbranch.FS_TRANSACTIONS " &
+            "where invoiceid = :invID " &
             "and Active = '1' ) Payments "
             Dim param As New OracleParameter("invID", invoiceID)
 
@@ -534,12 +534,12 @@ Public Class PASPDepositsAmendments
             End If
 
             If result <> "0" Then
-                query = "Update AIRBRANCH.FS_FeeInvoice set " & _
-                "strInvoicestatus = '0' " & _
+                query = "Update AIRBRANCH.FS_FeeInvoice set " &
+                "strInvoicestatus = '0' " &
                 "where invoiceId = :invID "
             Else
-                query = "Update AIRBRANCH.FS_FeeInvoice set " & _
-                "strInvoicestatus = '1' " & _
+                query = "Update AIRBRANCH.FS_FeeInvoice set " &
+                "strInvoicestatus = '1' " &
                 "where invoiceId = : invID "
             End If
             DB.RunCommand(query, param)
@@ -553,14 +553,14 @@ Public Class PASPDepositsAmendments
             If txtTransactionID.Text <> "" Then
                 If ValidateData() Then
                     If txtTransactionID.Text <> "" Then
-                        Dim query As String = "UPDATE AIRBRANCH.FS_TRANSACTIONS " & _
-                            "SET INVOICEID = :INVOICEID, TRANSACTIONTYPECODE = " & _
-                            "  :TRANSACTIONTYPECODE, DATTRANSACTIONDATE = " & _
-                            "  :DATTRANSACTIONDATE, NUMPAYMENT = :NUMPAYMENT, STRCHECKNO = " & _
-                            "  :STRCHECKNO, STRDEPOSITNO = :STRDEPOSITNO, STRBATCHNO = " & _
-                            "  :STRBATCHNO, STRCOMMENT = :STRCOMMENT, ACTIVE = :ACTIVE, " & _
-                            "  UPDATEUSER = :UPDATEUSER, UPDATEDATETIME = sysdate, " & _
-                            "  STRCREDITCARDNO = :STRCREDITCARDNO " & _
+                        Dim query As String = "UPDATE AIRBRANCH.FS_TRANSACTIONS " &
+                            "SET INVOICEID = :INVOICEID, TRANSACTIONTYPECODE = " &
+                            "  :TRANSACTIONTYPECODE, DATTRANSACTIONDATE = " &
+                            "  :DATTRANSACTIONDATE, NUMPAYMENT = :NUMPAYMENT, STRCHECKNO = " &
+                            "  :STRCHECKNO, STRDEPOSITNO = :STRDEPOSITNO, STRBATCHNO = " &
+                            "  :STRBATCHNO, STRCOMMENT = :STRCOMMENT, ACTIVE = :ACTIVE, " &
+                            "  UPDATEUSER = :UPDATEUSER, UPDATEDATETIME = sysdate, " &
+                            "  STRCREDITCARDNO = :STRCREDITCARDNO " &
                             "WHERE TRANSACTIONID = :TRANSACTIONID "
                         Dim param As OracleParameter() = {
                             New OracleParameter("INVOICEID", txtInvoiceForDeposit.Text),
@@ -620,13 +620,13 @@ Public Class PASPDepositsAmendments
                 Exit Sub
             End If
 
-            Dim result As DialogResult = MessageBox.Show("Are you sure you want to remove " & txtCheckNumberField.Text & _
-                                                         " for AIRS # - " & mtbAIRSNumber.Text & "?", _
-                                                         "PASP Fee Tool", MessageBoxButtons.YesNoCancel, _
+            Dim result As DialogResult = MessageBox.Show("Are you sure you want to remove " & txtCheckNumberField.Text &
+                                                         " for AIRS # - " & mtbAIRSNumber.Text & "?",
+                                                         "PASP Fee Tool", MessageBoxButtons.YesNoCancel,
                                                          MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
             If result = System.Windows.Forms.DialogResult.Yes Then
-                Dim query As String = "Update AIRBRANCH.FS_Transactions set " & _
-                        "active = '0' " & _
+                Dim query As String = "Update AIRBRANCH.FS_Transactions set " &
+                        "active = '0' " &
                         "where TransactionId = :trID "
                 Dim param As New OracleParameter("trID", txtTransactionID.Text)
                 DB.RunCommand(query, param)
@@ -774,9 +774,9 @@ Public Class PASPDepositsAmendments
             lblViewInvoices.Enabled = True
 
             If mtbAIRSNumber.Text <> "" And dgvInvoices.RowCount = 0 Then
-                Dim query As String = "Select " & _
-                "strFacilityName " & _
-                "from AIRBRANCH.APBFacilityInformation " & _
+                Dim query As String = "Select " &
+                "strFacilityName " &
+                "from AIRBRANCH.APBFacilityInformation " &
                 "where strAIRSNumber = :AIRSNumber "
                 Dim param As New OracleParameter("AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)
 
@@ -897,74 +897,74 @@ Public Class PASPDepositsAmendments
                 lblViewInvoices.Enabled = False
 
                 If txtSearchInvoice.Text <> "" Then
-                    query = "select " & _
-                    "distinct  ALLInvoices.strAIRSNumber, strDepositNo, datTransactionDate,  " & _
-                    "numPayment,  ALLInvoices.numFeeYear, strCheckNo, strBatchNo, Description, TransactionID,  " & _
-                    " strComment,  ALLInvoices.InvoiceID,  " & _
-                    "FeeDue  " & _
-                    "from  " & _
-                    "(select substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " & _
-                    "AIRBranch.FS_FeeINvoice.numFeeYear, AIRBranch.FS_FeeINvoice.InvoiceID " & _
-                    "from  AIRBranch.FS_FeeInvoice " & _
-                    "where AIRBRANCH.FS_FeeInvoice.InvoiceID like :invID " & _
-                    "and AIRBranch.FS_FeeInvoice.Active = '1' " & _
-                    "union " & _
-                    "select distinct substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " & _
-                    "AIRBranch.FS_FeeINvoice.numFeeYear, AIRBranch.FS_FeeINvoice.InvoiceID " & _
-                    "from AIRBranch.FS_Transactions, AIRBranch.FS_FeeInvoice, AIRBranch.FSLK_TransactionType  " & _
-                    "where AIRBranch.FS_FeeINvoice.InvoiceID = AIRBranch.FS_Transactions.INvoiceID (+) " & _
-                    "and AIRBranch.FS_Transactions.transactionTypeCode = AIRBranch.FSLK_TransactionType.TransactionTypeCode (+) " & _
-                    "and AIRBRANCH.FS_FeeInvoice.InvoiceID like :invID " & _
-                    "and AIRBranch.FS_FeeInvoice.Active = '1' " & _
-                    "and AIRBranch.FS_Transactions.Active = '1'  ) ALLInvoices,  " & _
-                    "(select distinct substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " & _
-                    "strDepositNo, datTransactionDate, " & _
-                    "numPayment, AIRBranch.FS_FeeINvoice.numFeeYear, strCheckNo, strBatchNo, Description, TransactionID, " & _
-                    "AIRBranch.FS_Transactions.strComment, AIRBranch.FS_FeeINvoice.InvoiceID, " & _
-                    "case when AIRBranch.FS_Transactions.transactionTypeCode = '1' then numAmount " & _
-                    "when AIRBranch.FS_Transactions.TransactionTypeCode = '2' then numAmount/4 else numAmount end FeeDue " & _
-                    "from AIRBranch.FS_Transactions, AIRBranch.FS_FeeInvoice, AIRBranch.FSLK_TransactionType  " & _
-                    "where AIRBranch.FS_FeeINvoice.InvoiceID = AIRBranch.FS_Transactions.INvoiceID (+) " & _
-                    "and AIRBranch.FS_Transactions.transactionTypeCode = AIRBranch.FSLK_TransactionType.TransactionTypeCode (+) " & _
-                    "and AIRBranch.FS_FeeInvoice.Active = '1' " & _
-                    "and AIRBranch.FS_Transactions.Active = '1' order by strBatchNo) Transactions " & _
+                    query = "select " &
+                    "distinct  ALLInvoices.strAIRSNumber, strDepositNo, datTransactionDate,  " &
+                    "numPayment,  ALLInvoices.numFeeYear, strCheckNo, strBatchNo, Description, TransactionID,  " &
+                    " strComment,  ALLInvoices.InvoiceID,  " &
+                    "FeeDue  " &
+                    "from  " &
+                    "(select substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " &
+                    "AIRBranch.FS_FeeINvoice.numFeeYear, AIRBranch.FS_FeeINvoice.InvoiceID " &
+                    "from  AIRBranch.FS_FeeInvoice " &
+                    "where AIRBRANCH.FS_FeeInvoice.InvoiceID like :invID " &
+                    "and AIRBranch.FS_FeeInvoice.Active = '1' " &
+                    "union " &
+                    "select distinct substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " &
+                    "AIRBranch.FS_FeeINvoice.numFeeYear, AIRBranch.FS_FeeINvoice.InvoiceID " &
+                    "from AIRBranch.FS_Transactions, AIRBranch.FS_FeeInvoice, AIRBranch.FSLK_TransactionType  " &
+                    "where AIRBranch.FS_FeeINvoice.InvoiceID = AIRBranch.FS_Transactions.INvoiceID (+) " &
+                    "and AIRBranch.FS_Transactions.transactionTypeCode = AIRBranch.FSLK_TransactionType.TransactionTypeCode (+) " &
+                    "and AIRBRANCH.FS_FeeInvoice.InvoiceID like :invID " &
+                    "and AIRBranch.FS_FeeInvoice.Active = '1' " &
+                    "and AIRBranch.FS_Transactions.Active = '1'  ) ALLInvoices,  " &
+                    "(select distinct substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " &
+                    "strDepositNo, datTransactionDate, " &
+                    "numPayment, AIRBranch.FS_FeeINvoice.numFeeYear, strCheckNo, strBatchNo, Description, TransactionID, " &
+                    "AIRBranch.FS_Transactions.strComment, AIRBranch.FS_FeeINvoice.InvoiceID, " &
+                    "case when AIRBranch.FS_Transactions.transactionTypeCode = '1' then numAmount " &
+                    "when AIRBranch.FS_Transactions.TransactionTypeCode = '2' then numAmount/4 else numAmount end FeeDue " &
+                    "from AIRBranch.FS_Transactions, AIRBranch.FS_FeeInvoice, AIRBranch.FSLK_TransactionType  " &
+                    "where AIRBranch.FS_FeeINvoice.InvoiceID = AIRBranch.FS_Transactions.INvoiceID (+) " &
+                    "and AIRBranch.FS_Transactions.transactionTypeCode = AIRBranch.FSLK_TransactionType.TransactionTypeCode (+) " &
+                    "and AIRBranch.FS_FeeInvoice.Active = '1' " &
+                    "and AIRBranch.FS_Transactions.Active = '1' order by strBatchNo) Transactions " &
                     "where Allinvoices.InvoiceID = Transactions.InvoiceID  (+) "
 
                     param = {New OracleParameter("invID", "%" & txtSearchInvoice.Text & "%")}
                 Else
-                    query = "select " & _
-                        "distinct  ALLInvoices.strAIRSNumber, strDepositNo, datTransactionDate,  " & _
-                        "numPayment,  ALLInvoices.numFeeYear, strCheckNo, strBatchNo, Description, TransactionID,  " & _
-                        " strComment,  ALLInvoices.InvoiceID,  " & _
-                        "FeeDue  " & _
-                        "from  " & _
-                        "(select substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " & _
-                        "AIRBranch.FS_FeeINvoice.numFeeYear, AIRBranch.FS_FeeINvoice.InvoiceID " & _
-                        "from  AIRBranch.FS_FeeInvoice " & _
-                        "where AIRBranch.FS_FeeInvoice.strAIRSnumber like :airs " & _
-                        "and AIRBranch.FS_FeeInvoice.numFeeYear = :feeyear " & _
-                        "and AIRBranch.FS_FeeInvoice.Active = '1' " & _
-                        "union " & _
-                        "select distinct substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " & _
-                        "AIRBranch.FS_FeeINvoice.numFeeYear, AIRBranch.FS_FeeINvoice.InvoiceID " & _
-                        "from AIRBranch.FS_Transactions, AIRBranch.FS_FeeInvoice, AIRBranch.FSLK_TransactionType  " & _
-                        "where AIRBranch.FS_FeeINvoice.InvoiceID = AIRBranch.FS_Transactions.INvoiceID (+) " & _
-                        "and AIRBranch.FS_Transactions.transactionTypeCode = AIRBranch.FSLK_TransactionType.TransactionTypeCode (+) " & _
-                        "and AIRBranch.FS_FeeInvoice.strAIRSnumber like :airs " & _
-                        "and AIRBranch.FS_FeeInvoice.numFeeYear = :feeyear and AIRBranch.FS_FeeInvoice.Active = '1' " & _
-                        "and AIRBranch.FS_Transactions.Active = '1'  ) ALLInvoices,  " & _
-                        "(select distinct substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, strDepositNo, datTransactionDate, " & _
-                        "numPayment, AIRBranch.FS_FeeINvoice.numFeeYear, strCheckNo, strBatchNo, Description, TransactionID, " & _
-                        "AIRBranch.FS_Transactions.strComment, AIRBranch.FS_FeeINvoice.InvoiceID, " & _
-                        "case when AIRBranch.FS_Transactions.transactionTypeCode = '1' then numAmount " & _
-                        "when AIRBranch.FS_Transactions.TransactionTypeCode = '2' then numAmount/4 else numAmount end FeeDue " & _
-                        "from AIRBranch.FS_Transactions, AIRBranch.FS_FeeInvoice, AIRBranch.FSLK_TransactionType  " & _
-                        "where AIRBranch.FS_FeeINvoice.InvoiceID = AIRBranch.FS_Transactions.INvoiceID (+) " & _
-                        "and AIRBranch.FS_Transactions.transactionTypeCode = AIRBranch.FSLK_TransactionType.TransactionTypeCode (+) " & _
-                        "and AIRBranch.FS_FeeInvoice.strAIRSnumber like :airsnum " & _
-                        "and AIRBranch.FS_FeeInvoice.numFeeYear = :feeyear " & _
-                        "and AIRBranch.FS_FeeInvoice.Active = '1' " & _
-                        "and AIRBranch.FS_Transactions.Active = '1' order by InvoiceID desc) Transactions " & _
+                    query = "select " &
+                        "distinct  ALLInvoices.strAIRSNumber, strDepositNo, datTransactionDate,  " &
+                        "numPayment,  ALLInvoices.numFeeYear, strCheckNo, strBatchNo, Description, TransactionID,  " &
+                        " strComment,  ALLInvoices.InvoiceID,  " &
+                        "FeeDue  " &
+                        "from  " &
+                        "(select substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " &
+                        "AIRBranch.FS_FeeINvoice.numFeeYear, AIRBranch.FS_FeeINvoice.InvoiceID " &
+                        "from  AIRBranch.FS_FeeInvoice " &
+                        "where AIRBranch.FS_FeeInvoice.strAIRSnumber like :airs " &
+                        "and AIRBranch.FS_FeeInvoice.numFeeYear = :feeyear " &
+                        "and AIRBranch.FS_FeeInvoice.Active = '1' " &
+                        "union " &
+                        "select distinct substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " &
+                        "AIRBranch.FS_FeeINvoice.numFeeYear, AIRBranch.FS_FeeINvoice.InvoiceID " &
+                        "from AIRBranch.FS_Transactions, AIRBranch.FS_FeeInvoice, AIRBranch.FSLK_TransactionType  " &
+                        "where AIRBranch.FS_FeeINvoice.InvoiceID = AIRBranch.FS_Transactions.INvoiceID (+) " &
+                        "and AIRBranch.FS_Transactions.transactionTypeCode = AIRBranch.FSLK_TransactionType.TransactionTypeCode (+) " &
+                        "and AIRBranch.FS_FeeInvoice.strAIRSnumber like :airs " &
+                        "and AIRBranch.FS_FeeInvoice.numFeeYear = :feeyear and AIRBranch.FS_FeeInvoice.Active = '1' " &
+                        "and AIRBranch.FS_Transactions.Active = '1'  ) ALLInvoices,  " &
+                        "(select distinct substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, strDepositNo, datTransactionDate, " &
+                        "numPayment, AIRBranch.FS_FeeINvoice.numFeeYear, strCheckNo, strBatchNo, Description, TransactionID, " &
+                        "AIRBranch.FS_Transactions.strComment, AIRBranch.FS_FeeINvoice.InvoiceID, " &
+                        "case when AIRBranch.FS_Transactions.transactionTypeCode = '1' then numAmount " &
+                        "when AIRBranch.FS_Transactions.TransactionTypeCode = '2' then numAmount/4 else numAmount end FeeDue " &
+                        "from AIRBranch.FS_Transactions, AIRBranch.FS_FeeInvoice, AIRBranch.FSLK_TransactionType  " &
+                        "where AIRBranch.FS_FeeINvoice.InvoiceID = AIRBranch.FS_Transactions.INvoiceID (+) " &
+                        "and AIRBranch.FS_Transactions.transactionTypeCode = AIRBranch.FSLK_TransactionType.TransactionTypeCode (+) " &
+                        "and AIRBranch.FS_FeeInvoice.strAIRSnumber like :airsnum " &
+                        "and AIRBranch.FS_FeeInvoice.numFeeYear = :feeyear " &
+                        "and AIRBranch.FS_FeeInvoice.Active = '1' " &
+                        "and AIRBranch.FS_Transactions.Active = '1' order by InvoiceID desc) Transactions " &
                         "where Allinvoices.InvoiceID = Transactions.InvoiceID  (+) "
                     param = {
                         New OracleParameter("airs", "0413%" & mtbAIRSNumber.Text & "%"),

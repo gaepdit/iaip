@@ -46,7 +46,7 @@ Public Class IAIPEditContacts
 #Region "Page Load"
 
     Private Sub APBAddContacts_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        
+
         ParseParameters()
         LoadContactsDataset()
         If Key <> ContactKey.None AndAlso [Enum].IsDefined(GetType(ContactKey), Key) Then
@@ -78,43 +78,43 @@ Public Class IAIPEditContacts
         Try
             If AirsNumber.ToString IsNot Nothing Then
 
-                SQL = "Select " & _
-                "case " & _
-                "when strKey = '10' then 'Current Monitoring Contact'" & _
-                "when strKey = '20' then 'Current Compliance Contact' " & _
-                "when strKey = '30' then 'Current Permitting Contact' " & _
-                "when strKey = '40' then 'Current Fee Contact' " & _
-                "when strkey = '41' then 'Current EIS Contact' " & _
-                "when strKey = '42' then 'Current ES Contact' " & _
-                "when strKey = '50' then 'Current Ambient Contact' " & _
-                "when strKey = '60' then 'Current Planning Contact' " & _
-                "when strKey = '70' then 'Current District Contact' " & _
-                "Else 'Past Contact' " & _
-                "end ContactType, " & _
-                 "strContactKey, " & _
-                 "strContactFirstName, strContactLastname, " & _
-                 "strContactPrefix, strContactSuffix, strContactTitle, " & _
-                 "strContactCompanyName, strContactPhoneNumber1, " & _
-                 "Case  " & _
-                 "    when strContactPhoneNumber2 is NULL then '' " & _
-                 "    Else strContactPhoneNumber2 " & _
-                 "END as ContactPhoneNumber2,  " & _
-                 "case " & _
-                 "    when strContactFaxNumber is Null then '' " & _
-                 "    else strContactFaxNumber " & _
-                 "END as strContactFaxNumber, " & _
-                 "Case " & _
-                 "    when strContactEmail is Null then '' " & _
-                 "    ELSE strContactEmail " & _
-                 "END as ContactEmail, " & _
-                 "strContactAddress1, strContactAddress2, " & _
-                 "strContactCity, strContactState, strContactZipCode, " & _
-                 "Case " & _
-                 "    when strContactDescription is Null then '' " & _
-                 "    ELSE strContactDescription " & _
-                 "END as ContactDescription " & _
-                 "from AIRBRANCH.APBContactInformation " & _
-                 "where strAIRSnumber = '" & AirsNumber.DbFormattedString & "' " & _
+                SQL = "Select " &
+                "case " &
+                "when strKey = '10' then 'Current Monitoring Contact'" &
+                "when strKey = '20' then 'Current Compliance Contact' " &
+                "when strKey = '30' then 'Current Permitting Contact' " &
+                "when strKey = '40' then 'Current Fee Contact' " &
+                "when strkey = '41' then 'Current EIS Contact' " &
+                "when strKey = '42' then 'Current ES Contact' " &
+                "when strKey = '50' then 'Current Ambient Contact' " &
+                "when strKey = '60' then 'Current Planning Contact' " &
+                "when strKey = '70' then 'Current District Contact' " &
+                "Else 'Past Contact' " &
+                "end ContactType, " &
+                 "strContactKey, " &
+                 "strContactFirstName, strContactLastname, " &
+                 "strContactPrefix, strContactSuffix, strContactTitle, " &
+                 "strContactCompanyName, strContactPhoneNumber1, " &
+                 "Case  " &
+                 "    when strContactPhoneNumber2 is NULL then '' " &
+                 "    Else strContactPhoneNumber2 " &
+                 "END as ContactPhoneNumber2,  " &
+                 "case " &
+                 "    when strContactFaxNumber is Null then '' " &
+                 "    else strContactFaxNumber " &
+                 "END as strContactFaxNumber, " &
+                 "Case " &
+                 "    when strContactEmail is Null then '' " &
+                 "    ELSE strContactEmail " &
+                 "END as ContactEmail, " &
+                 "strContactAddress1, strContactAddress2, " &
+                 "strContactCity, strContactState, strContactZipCode, " &
+                 "Case " &
+                 "    when strContactDescription is Null then '' " &
+                 "    ELSE strContactDescription " &
+                 "END as ContactDescription " &
+                 "from AIRBRANCH.APBContactInformation " &
+                 "where strAIRSnumber = '" & AirsNumber.DbFormattedString & "' " &
                  "order by substr(strKey, 2), strKey "
 
                 dsContacts = New DataSet
@@ -200,13 +200,13 @@ Public Class IAIPEditContacts
     Sub NewContactDataLoad()
         Try
             If Me.AirsNumber.ToString IsNot Nothing And Key <> ContactKey.None Then
-                Dim query As String = "Select * from AIRBRANCH.APBContactInformation " & _
-                "where strAIRSNumber = :airsnumber " & _
+                Dim query As String = "Select * from AIRBRANCH.APBContactInformation " &
+                "where strAIRSNumber = :airsnumber " &
                 "and strKey = :key "
 
-                Dim parameters As OracleParameter() = New OracleParameter() { _
-                    New OracleParameter("airsnumber", Me.AirsNumber.DbFormattedString), _
-                    New OracleParameter("key", Key.ToString("D")) _
+                Dim parameters As OracleParameter() = New OracleParameter() {
+                    New OracleParameter("airsnumber", Me.AirsNumber.DbFormattedString),
+                    New OracleParameter("key", Key.ToString("D"))
                 }
 
                 Using connection As New OracleConnection(DB.CurrentConnectionString)
@@ -397,25 +397,25 @@ Public Class IAIPEditContacts
                 End If
 
                 If Key <> ContactKey.None Then
-                    SQL = "Update airbranch.APBContactInformation set " & _
-                    "STRCONTACTFIRSTNAME = '" & Replace(txtNewFirstName.Text, "'", "''") & "', " & _
-                    "STRCONTACTLASTNAME = '" & Replace(txtNewLastName.Text, "'", "''") & "', " & _
-                    "STRCONTACTPREFIX = '" & Replace(txtNewPrefix.Text, "'", "''") & "', " & _
-                    "STRCONTACTSUFFIX = '" & Replace(txtNewSuffix.Text, "'", "''") & "', " & _
-                    "STRCONTACTTITLE = '" & Replace(txtNewTitle.Text, "'", "''") & "', " & _
-                    "STRCONTACTCOMPANYNAME = '" & Replace(txtNewCompany.Text, "'", "''") & "', " & _
-                    "STRCONTACTPHONENUMBER1 = '" & mtbNewPhoneNumber.Text & "', " & _
-                    "STRCONTACTPHONENUMBER2 = '" & mtbNewPhoneNumber2.Text & "', " & _
-                    "STRCONTACTFAXNUMBER = '" & mtbNewFaxNumber.Text & "'," & _
-                    "STRCONTACTEMAIL = '" & Replace(txtNewEmail.Text, "'", "''") & "', " & _
-                    "STRCONTACTADDRESS1 = '" & Replace(txtNewAddress.Text, "'", "''") & "', " & _
-                    "STRCONTACTCITY = '" & Replace(txtNewCity.Text, "'", "''") & "', " & _
-                    "STRCONTACTSTATE = '" & Replace(txtNewState.Text, "'", "''") & "', " & _
-                    "STRCONTACTZIPCODE = '" & mtbNewZipCode.Text & "', " & _
-                    "STRMODIFINGPERSON = '" & CurrentUser.UserID & "', " & _
-                    "DATMODIFINGDATE = sysdate,  " & _
-                    "STRCONTACTDESCRIPTION = '" & Replace(txtNewDescrption.Text, "'", "''") & "' " & _
-                    "where strAIRSnumber = '" & AirsNumber.DbFormattedString & "' " & _
+                    SQL = "Update airbranch.APBContactInformation set " &
+                    "STRCONTACTFIRSTNAME = '" & Replace(txtNewFirstName.Text, "'", "''") & "', " &
+                    "STRCONTACTLASTNAME = '" & Replace(txtNewLastName.Text, "'", "''") & "', " &
+                    "STRCONTACTPREFIX = '" & Replace(txtNewPrefix.Text, "'", "''") & "', " &
+                    "STRCONTACTSUFFIX = '" & Replace(txtNewSuffix.Text, "'", "''") & "', " &
+                    "STRCONTACTTITLE = '" & Replace(txtNewTitle.Text, "'", "''") & "', " &
+                    "STRCONTACTCOMPANYNAME = '" & Replace(txtNewCompany.Text, "'", "''") & "', " &
+                    "STRCONTACTPHONENUMBER1 = '" & mtbNewPhoneNumber.Text & "', " &
+                    "STRCONTACTPHONENUMBER2 = '" & mtbNewPhoneNumber2.Text & "', " &
+                    "STRCONTACTFAXNUMBER = '" & mtbNewFaxNumber.Text & "'," &
+                    "STRCONTACTEMAIL = '" & Replace(txtNewEmail.Text, "'", "''") & "', " &
+                    "STRCONTACTADDRESS1 = '" & Replace(txtNewAddress.Text, "'", "''") & "', " &
+                    "STRCONTACTCITY = '" & Replace(txtNewCity.Text, "'", "''") & "', " &
+                    "STRCONTACTSTATE = '" & Replace(txtNewState.Text, "'", "''") & "', " &
+                    "STRCONTACTZIPCODE = '" & mtbNewZipCode.Text & "', " &
+                    "STRMODIFINGPERSON = '" & CurrentUser.UserID & "', " &
+                    "DATMODIFINGDATE = sysdate,  " &
+                    "STRCONTACTDESCRIPTION = '" & Replace(txtNewDescrption.Text, "'", "''") & "' " &
+                    "where strAIRSnumber = '" & AirsNumber.DbFormattedString & "' " &
                     "and strKey = '" & Key.ToString("D") & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -445,25 +445,25 @@ Public Class IAIPEditContacts
                     End If
 
                     If newKey <> "" Then
-                        SQL = "Update airbranch.APBContactInformation set " & _
-                       "STRCONTACTFIRSTNAME = '" & Replace(txtNewFirstName.Text, "'", "''") & "', " & _
-                       "STRCONTACTLASTNAME = '" & Replace(txtNewLastName.Text, "'", "''") & "', " & _
-                       "STRCONTACTPREFIX = '" & Replace(txtNewPrefix.Text, "'", "''") & "', " & _
-                       "STRCONTACTSUFFIX = '" & Replace(txtNewSuffix.Text, "'", "''") & "', " & _
-                       "STRCONTACTTITLE = '" & Replace(txtNewTitle.Text, "'", "''") & "', " & _
-                       "STRCONTACTCOMPANYNAME = '" & Replace(txtNewCompany.Text, "'", "''") & "', " & _
-                       "STRCONTACTPHONENUMBER1 = '" & mtbNewPhoneNumber.Text & "', " & _
-                       "STRCONTACTPHONENUMBER2 = '" & mtbNewPhoneNumber2.Text & "', " & _
-                       "STRCONTACTFAXNUMBER = '" & mtbNewFaxNumber.Text & "'," & _
-                       "STRCONTACTEMAIL = '" & Replace(txtNewEmail.Text, "'", "''") & "', " & _
-                       "STRCONTACTADDRESS1 = '" & Replace(txtNewAddress.Text, "'", "''") & "', " & _
-                       "STRCONTACTCITY = '" & Replace(txtNewCity.Text, "'", "''") & "', " & _
-                       "STRCONTACTSTATE = '" & Replace(txtNewState.Text, "'", "''") & "', " & _
-                       "STRCONTACTZIPCODE = '" & mtbNewZipCode.Text & "', " & _
-                       "STRMODIFINGPERSON = '" & CurrentUser.UserID & "', " & _
-                       "DATMODIFINGDATE = sysdate,  " & _
-                       "STRCONTACTDESCRIPTION = '" & Replace(txtNewDescrption.Text, "'", "''") & "' " & _
-                       "where strAIRSnumber = '" & AirsNumber.DbFormattedString & "' " & _
+                        SQL = "Update airbranch.APBContactInformation set " &
+                       "STRCONTACTFIRSTNAME = '" & Replace(txtNewFirstName.Text, "'", "''") & "', " &
+                       "STRCONTACTLASTNAME = '" & Replace(txtNewLastName.Text, "'", "''") & "', " &
+                       "STRCONTACTPREFIX = '" & Replace(txtNewPrefix.Text, "'", "''") & "', " &
+                       "STRCONTACTSUFFIX = '" & Replace(txtNewSuffix.Text, "'", "''") & "', " &
+                       "STRCONTACTTITLE = '" & Replace(txtNewTitle.Text, "'", "''") & "', " &
+                       "STRCONTACTCOMPANYNAME = '" & Replace(txtNewCompany.Text, "'", "''") & "', " &
+                       "STRCONTACTPHONENUMBER1 = '" & mtbNewPhoneNumber.Text & "', " &
+                       "STRCONTACTPHONENUMBER2 = '" & mtbNewPhoneNumber2.Text & "', " &
+                       "STRCONTACTFAXNUMBER = '" & mtbNewFaxNumber.Text & "'," &
+                       "STRCONTACTEMAIL = '" & Replace(txtNewEmail.Text, "'", "''") & "', " &
+                       "STRCONTACTADDRESS1 = '" & Replace(txtNewAddress.Text, "'", "''") & "', " &
+                       "STRCONTACTCITY = '" & Replace(txtNewCity.Text, "'", "''") & "', " &
+                       "STRCONTACTSTATE = '" & Replace(txtNewState.Text, "'", "''") & "', " &
+                       "STRCONTACTZIPCODE = '" & mtbNewZipCode.Text & "', " &
+                       "STRMODIFINGPERSON = '" & CurrentUser.UserID & "', " &
+                       "DATMODIFINGDATE = sysdate,  " &
+                       "STRCONTACTDESCRIPTION = '" & Replace(txtNewDescrption.Text, "'", "''") & "' " &
+                       "where strAIRSnumber = '" & AirsNumber.DbFormattedString & "' " &
                        "and strKey = '" & newKey & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -513,8 +513,8 @@ Public Class IAIPEditContacts
                 Else
                     Select Case newKey
                         Case "10", "20", "30", "50", "60", "70"
-                            SQL = "delete airbranch.APBContactInformation " & _
-                            "where strAIRSnumber = '" & AirsNumber.DbFormattedString & "' " & _
+                            SQL = "delete airbranch.APBContactInformation " &
+                            "where strAIRSnumber = '" & AirsNumber.DbFormattedString & "' " &
                             "and strKey = '" & Mid(newKey, 1, 1) & "9' "
 
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -523,10 +523,10 @@ Public Class IAIPEditContacts
                             End If
                             cmd.ExecuteReader()
 
-                            SQL = "Update AIRBranch.APBContactInformation set " & _
-                            "strKey = substr(strKey, 1,1) || (substr(strKey, 2,1) + 1), " & _
-                            "strContactKey = substr(strContactKey, 1, 13) || (substr(strContactKey, 14, 1) + 1) " & _
-                            "where strAIRSNumber = '" & AirsNumber.DbFormattedString & "' " & _
+                            SQL = "Update AIRBranch.APBContactInformation set " &
+                            "strKey = substr(strKey, 1,1) || (substr(strKey, 2,1) + 1), " &
+                            "strContactKey = substr(strContactKey, 1, 13) || (substr(strContactKey, 14, 1) + 1) " &
+                            "where strAIRSNumber = '" & AirsNumber.DbFormattedString & "' " &
                             "and strKey like '" & Mid(newKey, 1, 1) & "%' "
                             cmd = New OracleCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
@@ -534,33 +534,33 @@ Public Class IAIPEditContacts
                             End If
                             cmd.ExecuteReader()
 
-                            SQL = "Insert into airbranch.APBContactInformation " & _
-                            "(STRCONTACTKEY, STRAIRSNUMBER,  " & _
-                            "STRKEY, STRCONTACTFIRSTNAME,  " & _
-                            "STRCONTACTLASTNAME, STRCONTACTPREFIX,  " & _
-                            "STRCONTACTSUFFIX, STRCONTACTTITLE,  " & _
-                            "STRCONTACTCOMPANYNAME, STRCONTACTPHONENUMBER1,  " & _
-                            "STRCONTACTPHONENUMBER2, STRCONTACTFAXNUMBER,  " & _
-                            "STRCONTACTEMAIL, STRCONTACTADDRESS1,  " & _
-                            "STRCONTACTADDRESS2, STRCONTACTCITY,  " & _
-                            "STRCONTACTSTATE, STRCONTACTZIPCODE,  " & _
-                            "STRMODIFINGPERSON, DATMODIFINGDATE,  " & _
-                            "STRCONTACTDESCRIPTION)  " & _
-                            "(Select  " & _
-                            "'" & AirsNumber.DbFormattedString & newKey & "', '" & AirsNumber.DbFormattedString & "', " & _
-                            "'" & newKey & "', '" & Replace(txtNewFirstName.Text, "'", "''") & "', " & _
-                            "'" & Replace(txtNewLastName.Text, "'", "''") & "',  '" & Replace(txtNewPrefix.Text, "'", "''") & "', " & _
-                            " '" & Replace(txtNewSuffix.Text, "'", "''") & "', '" & Replace(txtNewTitle.Text, "'", "''") & "', " & _
-                            " '" & Replace(txtNewCompany.Text, "'", "''") & "', '" & mtbNewPhoneNumber.Text & "', " & _
-                            " '" & mtbNewPhoneNumber2.Text & "',  '" & mtbNewFaxNumber.Text & "', " & _
-                            " '" & Replace(txtNewEmail.Text, "'", "''") & "', '" & Replace(txtNewAddress.Text, "'", "''") & "', " & _
-                            " '', '" & Replace(txtNewCity.Text, "'", "''") & "', " & _
-                            " '" & Replace(txtNewState.Text, "'", "''") & "',  '" & mtbNewZipCode.Text & "', " & _
-                            " '" & CurrentUser.UserID & "',  sysdate, " & _
-                            " '" & Replace(txtNewDescrption.Text, "'", "''") & "' " & _
-                            "from dual  " & _
-                            "where not exists (select * from AIRBranch.APBContactInformation  " & _
-                            "where strKey = '" & newKey & "' " & _
+                            SQL = "Insert into airbranch.APBContactInformation " &
+                            "(STRCONTACTKEY, STRAIRSNUMBER,  " &
+                            "STRKEY, STRCONTACTFIRSTNAME,  " &
+                            "STRCONTACTLASTNAME, STRCONTACTPREFIX,  " &
+                            "STRCONTACTSUFFIX, STRCONTACTTITLE,  " &
+                            "STRCONTACTCOMPANYNAME, STRCONTACTPHONENUMBER1,  " &
+                            "STRCONTACTPHONENUMBER2, STRCONTACTFAXNUMBER,  " &
+                            "STRCONTACTEMAIL, STRCONTACTADDRESS1,  " &
+                            "STRCONTACTADDRESS2, STRCONTACTCITY,  " &
+                            "STRCONTACTSTATE, STRCONTACTZIPCODE,  " &
+                            "STRMODIFINGPERSON, DATMODIFINGDATE,  " &
+                            "STRCONTACTDESCRIPTION)  " &
+                            "(Select  " &
+                            "'" & AirsNumber.DbFormattedString & newKey & "', '" & AirsNumber.DbFormattedString & "', " &
+                            "'" & newKey & "', '" & Replace(txtNewFirstName.Text, "'", "''") & "', " &
+                            "'" & Replace(txtNewLastName.Text, "'", "''") & "',  '" & Replace(txtNewPrefix.Text, "'", "''") & "', " &
+                            " '" & Replace(txtNewSuffix.Text, "'", "''") & "', '" & Replace(txtNewTitle.Text, "'", "''") & "', " &
+                            " '" & Replace(txtNewCompany.Text, "'", "''") & "', '" & mtbNewPhoneNumber.Text & "', " &
+                            " '" & mtbNewPhoneNumber2.Text & "',  '" & mtbNewFaxNumber.Text & "', " &
+                            " '" & Replace(txtNewEmail.Text, "'", "''") & "', '" & Replace(txtNewAddress.Text, "'", "''") & "', " &
+                            " '', '" & Replace(txtNewCity.Text, "'", "''") & "', " &
+                            " '" & Replace(txtNewState.Text, "'", "''") & "',  '" & mtbNewZipCode.Text & "', " &
+                            " '" & CurrentUser.UserID & "',  sysdate, " &
+                            " '" & Replace(txtNewDescrption.Text, "'", "''") & "' " &
+                            "from dual  " &
+                            "where not exists (select * from AIRBranch.APBContactInformation  " &
+                            "where strKey = '" & newKey & "' " &
                             "and strAIRSNumber = '" & AirsNumber.DbFormattedString & "')) "
 
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -570,33 +570,33 @@ Public Class IAIPEditContacts
                             cmd.ExecuteReader()
 
                         Case Else
-                            SQL = "Insert into airbranch.APBContactInformation " & _
-                            "(STRCONTACTKEY, STRAIRSNUMBER,  " & _
-                            "STRKEY, STRCONTACTFIRSTNAME,  " & _
-                            "STRCONTACTLASTNAME, STRCONTACTPREFIX,  " & _
-                            "STRCONTACTSUFFIX, STRCONTACTTITLE,  " & _
-                            "STRCONTACTCOMPANYNAME, STRCONTACTPHONENUMBER1,  " & _
-                            "STRCONTACTPHONENUMBER2, STRCONTACTFAXNUMBER,  " & _
-                            "STRCONTACTEMAIL, STRCONTACTADDRESS1,  " & _
-                            "STRCONTACTADDRESS2, STRCONTACTCITY,  " & _
-                            "STRCONTACTSTATE, STRCONTACTZIPCODE,  " & _
-                            "STRMODIFINGPERSON, DATMODIFINGDATE,  " & _
-                            "STRCONTACTDESCRIPTION)  " & _
-                            "(Select  " & _
-                            "'" & AirsNumber.DbFormattedString & newKey & "', '" & AirsNumber.DbFormattedString & "', " & _
-                            "'" & newKey & "', '" & Replace(txtNewFirstName.Text, "'", "''") & "', " & _
-                            "'" & Replace(txtNewLastName.Text, "'", "''") & "',  '" & Replace(txtNewPrefix.Text, "'", "''") & "', " & _
-                            " '" & Replace(txtNewSuffix.Text, "'", "''") & "', '" & Replace(txtNewTitle.Text, "'", "''") & "', " & _
-                            " '" & Replace(txtNewCompany.Text, "'", "''") & "', '" & mtbNewPhoneNumber.Text & "', " & _
-                            " '" & mtbNewPhoneNumber2.Text & "',  '" & mtbNewFaxNumber.Text & "', " & _
-                            " '" & Replace(txtNewEmail.Text, "'", "''") & "', '" & Replace(txtNewAddress.Text, "'", "''") & "', " & _
-                            " '', '" & Replace(txtNewCity.Text, "'", "''") & "', " & _
-                            " '" & Replace(txtNewState.Text, "'", "''") & "',  '" & mtbNewZipCode.Text & "', " & _
-                            " '" & CurrentUser.UserID & "',  sysdate, " & _
-                            " '" & Replace(txtNewDescrption.Text, "'", "''") & "' " & _
-                            "from dual  " & _
-                            "where not exists (select * from AIRBranch.APBContactInformation  " & _
-                            "where strKey = '" & newKey & "' " & _
+                            SQL = "Insert into airbranch.APBContactInformation " &
+                            "(STRCONTACTKEY, STRAIRSNUMBER,  " &
+                            "STRKEY, STRCONTACTFIRSTNAME,  " &
+                            "STRCONTACTLASTNAME, STRCONTACTPREFIX,  " &
+                            "STRCONTACTSUFFIX, STRCONTACTTITLE,  " &
+                            "STRCONTACTCOMPANYNAME, STRCONTACTPHONENUMBER1,  " &
+                            "STRCONTACTPHONENUMBER2, STRCONTACTFAXNUMBER,  " &
+                            "STRCONTACTEMAIL, STRCONTACTADDRESS1,  " &
+                            "STRCONTACTADDRESS2, STRCONTACTCITY,  " &
+                            "STRCONTACTSTATE, STRCONTACTZIPCODE,  " &
+                            "STRMODIFINGPERSON, DATMODIFINGDATE,  " &
+                            "STRCONTACTDESCRIPTION)  " &
+                            "(Select  " &
+                            "'" & AirsNumber.DbFormattedString & newKey & "', '" & AirsNumber.DbFormattedString & "', " &
+                            "'" & newKey & "', '" & Replace(txtNewFirstName.Text, "'", "''") & "', " &
+                            "'" & Replace(txtNewLastName.Text, "'", "''") & "',  '" & Replace(txtNewPrefix.Text, "'", "''") & "', " &
+                            " '" & Replace(txtNewSuffix.Text, "'", "''") & "', '" & Replace(txtNewTitle.Text, "'", "''") & "', " &
+                            " '" & Replace(txtNewCompany.Text, "'", "''") & "', '" & mtbNewPhoneNumber.Text & "', " &
+                            " '" & mtbNewPhoneNumber2.Text & "',  '" & mtbNewFaxNumber.Text & "', " &
+                            " '" & Replace(txtNewEmail.Text, "'", "''") & "', '" & Replace(txtNewAddress.Text, "'", "''") & "', " &
+                            " '', '" & Replace(txtNewCity.Text, "'", "''") & "', " &
+                            " '" & Replace(txtNewState.Text, "'", "''") & "',  '" & mtbNewZipCode.Text & "', " &
+                            " '" & CurrentUser.UserID & "',  sysdate, " &
+                            " '" & Replace(txtNewDescrption.Text, "'", "''") & "' " &
+                            "from dual  " &
+                            "where not exists (select * from AIRBranch.APBContactInformation  " &
+                            "where strKey = '" & newKey & "' " &
                             "and strAIRSNumber = '" & AirsNumber.DbFormattedString & "')) "
 
                             cmd = New OracleCommand(SQL, CurrentConnection)

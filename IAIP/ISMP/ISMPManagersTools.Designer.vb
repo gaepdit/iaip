@@ -5003,7 +5003,7 @@ Partial Class ISMPManagersTools
         Me.Label77.Name = "Label77"
         Me.Label77.Size = New System.Drawing.Size(233, 52)
         Me.Label77.TabIndex = 10
-        Me.Label77.Text = "Please enter the " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Commissioner, Director, and Program Managers " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "from the origin" & _
+        Me.Label77.Text = "Please enter the " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Commissioner, Director, and Program Managers " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "from the origin" &
     "al Test Report " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "not the Current individuals if different. "
         '
         'Label76

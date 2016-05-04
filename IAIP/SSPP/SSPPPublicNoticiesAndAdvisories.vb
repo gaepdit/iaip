@@ -11,7 +11,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
 
     Private Sub DevPublicNoticiesAndAdvisories_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        
+
         Try
             Panel1.Text = "Public Advisories Letter Generator"
             Panel2.Text = CurrentUser.AlphaName
@@ -34,53 +34,53 @@ Public Class SSPPPublicNoticiesAndAdvisories
     Sub LoadPublicNoticesList()
         Try
 
-            SQL = "Select " & _
-            "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " & _
-            "AIRBRANCH.SSPPApplicationData.strFacilityName, " & _
-            "strCountyName, " & _
-            "case " & _
-            "  when strApplicationType is Null then '' " & _
-            "  else AIRBRANCH.LookUpApplicationTypes.strApplicationTypeDesc " & _
-            "End AppType, " & _
-            "case " & _
-            "  when strPAReady is Null then '' " & _
-            "  when strPAReady = 'True' then 'PA Ready' " & _
-            "  when strPAReady = 'False' then '' " & _
-            "  Else '' " & _
-            "End PAReady, " & _
-            "to_char(datPAExpires, 'YYYY-MM-dd') as PAExpires, " & _
-            "case " & _
-            "when strPAPosted is null then '' " & _
-            "else strPAPosted " & _
-            "end strPAPosted, " & _
-            "case " & _
-            "  when strPNReady is Null then '' " & _
-            "  when strPNReady = 'True' then 'PN Ready' " & _
-            "  when strPNReady = 'False' then '' " & _
-            "  Else '' " & _
-            "End PNReady, " & _
-            "to_char(datPNExpires, 'YYYY-MM-dd') as PNExpires, " & _
-            "case " & _
-            "when strPNPosted is null then '' " & _
-            "else strPNPosted " & _
-            "end strPNPosted " & _
-            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData, " & _
-            "AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.LookUpApplicationTypes, " & _
-            "AIRBRANCH.LookUpCountyInformation " & _
-            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber " & _
-            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " & _
-            "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode " & _
-            "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " & _
-            "and datFinalizedDate is Null " & _
-            "And strPAPosted Is null And strPNPosted Is null " & _
-            "and (strPAReady = 'True' or strPNReady = 'True') " & _
-            "and ((strApplicationTypeCode = '2' or strApplicationTypeCode = '21' " & _
-            "or strApplicationTypeCode = '14' or strApplicationTypeCode = '16' " & _
-            "or strApplicationTypeCode = '22' ) " & _
-            "or ((strApplicationTypeCode = '15' " & _
-            " or strApplicationTypeCode = '9' or strApplicationTypeCode = '20' " & _
-            "or strApplicationTypeCode = '11' " & _
-            "or strApplicationTypeCode = '12')and strPublicInvolvement <> '2')) " & _
+            SQL = "Select " &
+            "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " &
+            "AIRBRANCH.SSPPApplicationData.strFacilityName, " &
+            "strCountyName, " &
+            "case " &
+            "  when strApplicationType is Null then '' " &
+            "  else AIRBRANCH.LookUpApplicationTypes.strApplicationTypeDesc " &
+            "End AppType, " &
+            "case " &
+            "  when strPAReady is Null then '' " &
+            "  when strPAReady = 'True' then 'PA Ready' " &
+            "  when strPAReady = 'False' then '' " &
+            "  Else '' " &
+            "End PAReady, " &
+            "to_char(datPAExpires, 'YYYY-MM-dd') as PAExpires, " &
+            "case " &
+            "when strPAPosted is null then '' " &
+            "else strPAPosted " &
+            "end strPAPosted, " &
+            "case " &
+            "  when strPNReady is Null then '' " &
+            "  when strPNReady = 'True' then 'PN Ready' " &
+            "  when strPNReady = 'False' then '' " &
+            "  Else '' " &
+            "End PNReady, " &
+            "to_char(datPNExpires, 'YYYY-MM-dd') as PNExpires, " &
+            "case " &
+            "when strPNPosted is null then '' " &
+            "else strPNPosted " &
+            "end strPNPosted " &
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData, " &
+            "AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.LookUpApplicationTypes, " &
+            "AIRBRANCH.LookUpCountyInformation " &
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber " &
+            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " &
+            "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode " &
+            "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " &
+            "and datFinalizedDate is Null " &
+            "And strPAPosted Is null And strPNPosted Is null " &
+            "and (strPAReady = 'True' or strPNReady = 'True') " &
+            "and ((strApplicationTypeCode = '2' or strApplicationTypeCode = '21' " &
+            "or strApplicationTypeCode = '14' or strApplicationTypeCode = '16' " &
+            "or strApplicationTypeCode = '22' ) " &
+            "or ((strApplicationTypeCode = '15' " &
+            " or strApplicationTypeCode = '9' or strApplicationTypeCode = '20' " &
+            "or strApplicationTypeCode = '11' " &
+            "or strApplicationTypeCode = '12')and strPublicInvolvement <> '2')) " &
             "order by strApplicationNumber desc "
 
             dsPublicLetters = New DataSet
@@ -140,8 +140,8 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
             cboPAPNReports.Items.Clear()
 
-            SQL = "select strFileName " & _
-            "from AIRBRANCH.SSPPPublicLetters " & _
+            SQL = "select strFileName " &
+            "from AIRBRANCH.SSPPPublicLetters " &
             "order by datPublishedDate "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -184,25 +184,25 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
             AppNumbers = "And ( " & Mid(AppNumbers, 1, (AppNumbers.Length - 3)) & " ) "
 
-            SQL = "Select " & _
-            "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " & _
-            "AIRBRANCH.SSPPApplicationData.strFacilityName, " & _
-            "strCountyName, " & _
-            "case " & _
-            "   when strApplicationType is Null then '' " & _
-            "   else AIRBRANCH.LookUpApplicationTypes.strApplicationTypeDesc " & _
-            "End AppType " & _
-            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData,  " & _
-            "AIRBRANCH.SSPPApplicationTracking, " & _
-            "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.LookUpCountyInformation  " & _
-             "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
-            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
-            "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode  " & _
-            "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+)  " & _
-            "and strPAReady = 'True' " & _
-            "and strPAPosted is Null " & _
-            "and datPAExpires is Null " & _
-            "and strPublicInvolvement = '1' " & _
+            SQL = "Select " &
+            "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " &
+            "AIRBRANCH.SSPPApplicationData.strFacilityName, " &
+            "strCountyName, " &
+            "case " &
+            "   when strApplicationType is Null then '' " &
+            "   else AIRBRANCH.LookUpApplicationTypes.strApplicationTypeDesc " &
+            "End AppType " &
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData,  " &
+            "AIRBRANCH.SSPPApplicationTracking, " &
+            "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.LookUpCountyInformation  " &
+             "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " &
+            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " &
+            "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode  " &
+            "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+)  " &
+            "and strPAReady = 'True' " &
+            "and strPAPosted is Null " &
+            "and datPAExpires is Null " &
+            "and strPublicInvolvement = '1' " &
             AppNumbers
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -215,25 +215,25 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End While
             dr.Close()
 
-            SQL = "Select " & _
-            "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " & _
-            "AIRBRANCH.SSPPApplicationData.strFacilityName, " & _
-            "strCountyName, " & _
-            "case " & _
-            "   when strApplicationType is Null then '' " & _
-            "   else AIRBRANCH.LookUpApplicationTypes.strApplicationTypeDesc " & _
-            "End AppType " & _
-            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData,  " & _
-            "AIRBRANCH.SSPPApplicationTracking, " & _
-            "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.LookUpCountyInformation  " & _
-            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
-            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
-            "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode  " & _
-            "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+)  " & _
-            "and strPNPosted is Null " & _
-            "and (strApplicationType = '14' or strApplicationType = '16' " & _
-            "or strApplicationType = '21' or strApplicationType = '22') " & _
-            "and (datPNExpires > (sysdate + 24) and datPNExpires < (sysdate + 37)) " & _
+            SQL = "Select " &
+            "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " &
+            "AIRBRANCH.SSPPApplicationData.strFacilityName, " &
+            "strCountyName, " &
+            "case " &
+            "   when strApplicationType is Null then '' " &
+            "   else AIRBRANCH.LookUpApplicationTypes.strApplicationTypeDesc " &
+            "End AppType " &
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData,  " &
+            "AIRBRANCH.SSPPApplicationTracking, " &
+            "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.LookUpCountyInformation  " &
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " &
+            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " &
+            "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode  " &
+            "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+)  " &
+            "and strPNPosted is Null " &
+            "and (strApplicationType = '14' or strApplicationType = '16' " &
+            "or strApplicationType = '21' or strApplicationType = '22') " &
+            "and (datPNExpires > (sysdate + 24) and datPNExpires < (sysdate + 37)) " &
              AppNumbers
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -256,22 +256,22 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
                 SIPAppNumbers = " AND (" & Mid(SIPAppNumbers, 1, (SIPAppNumbers.Length) - 3) & " ) "
 
-                SQL = "Select " & _
-                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " & _
-                "AIRBRANCH.SSPPApplicationData.strFacilityName, " & _
-                "strCountyName, " & _
-                "case " & _
-                "   when strApplicationType is Null then '' " & _
-                "   else AIRBRANCH.LookUpApplicationTypes.strApplicationTypeDesc " & _
-                "End AppType " & _
-                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData,  " & _
-                "AIRBRANCH.SSPPApplicationTracking, " & _
-                "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.LookUpCountyInformation  " & _
-                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
-                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
-                "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode  " & _
-                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+)  " & _
-                SIPAppNumbers & _
+                SQL = "Select " &
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " &
+                "AIRBRANCH.SSPPApplicationData.strFacilityName, " &
+                "strCountyName, " &
+                "case " &
+                "   when strApplicationType is Null then '' " &
+                "   else AIRBRANCH.LookUpApplicationTypes.strApplicationTypeDesc " &
+                "End AppType " &
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData,  " &
+                "AIRBRANCH.SSPPApplicationTracking, " &
+                "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.LookUpCountyInformation  " &
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " &
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " &
+                "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode  " &
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+)  " &
+                SIPAppNumbers &
                 "order by strCountyName "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -361,22 +361,22 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
                 TVAppNumbers = " AND (" & Mid(TVAppNumbers, 1, (TVAppNumbers.Length) - 3) & " ) "
 
-                SQL = "Select " & _
-                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " & _
-                "AIRBRANCH.SSPPApplicationData.strFacilityName, " & _
-                "strCountyName, " & _
-                "case " & _
-                "   when strApplicationType is Null then '' " & _
-                "   else AIRBRANCH.LookUpApplicationTypes.strApplicationTypeDesc " & _
-                "End AppType " & _
-                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData,  " & _
-                "AIRBRANCH.SSPPApplicationTracking, " & _
-                "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.LookUpCountyInformation  " & _
-                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
-                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
-                "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode  " & _
-                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+)  " & _
-                TVAppNumbers & _
+                SQL = "Select " &
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " &
+                "AIRBRANCH.SSPPApplicationData.strFacilityName, " &
+                "strCountyName, " &
+                "case " &
+                "   when strApplicationType is Null then '' " &
+                "   else AIRBRANCH.LookUpApplicationTypes.strApplicationTypeDesc " &
+                "End AppType " &
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData,  " &
+                "AIRBRANCH.SSPPApplicationTracking, " &
+                "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.LookUpCountyInformation  " &
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " &
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " &
+                "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode  " &
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+)  " &
+                TVAppNumbers &
                 "order by strCountyName "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -467,34 +467,34 @@ Public Class SSPPPublicNoticiesAndAdvisories
             Dim AppType As String = ""
             Dim temp As String = ""
 
-            SQL = "Select " & _
-            "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " & _
-            "AIRBRANCH.SSPPApplicationData.strFacilityName, " & _
-            "strCountyName, " & _
-            "case " & _
-            "   when strApplicationType is Null then '' " & _
-            "   else AIRBRANCH.LookUpApplicationTypes.strApplicationTypeDesc " & _
-            "End AppType, " & _
-            "case " & _
-            "   when strPAReady is Null then '' " & _
-             "   when strPAReady = 'True' then 'PA Ready' " & _
-            "   when strPAReady = 'False' then '' " & _
-            "   Else ''  " & _
-            "End PAReady,  " & _
-            "case " & _
-            "   when strPNReady is Null then '' " & _
-            "   when strPNReady = 'True' then 'PN Ready' " & _
-            "   when strPNReady = 'False' then 'PN Ready' " & _
-            "   Else ''  " & _
-            "End PNReady,  " & _
-            "datPNExpires  " & _
-            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData,  " & _
-            "AIRBRANCH.SSPPApplicationTracking, " & _
-            "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.LookUpCountyInformation  " & _
-            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
-            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
-            "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode  " & _
-            "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+)  " & _
+            SQL = "Select " &
+            "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " &
+            "AIRBRANCH.SSPPApplicationData.strFacilityName, " &
+            "strCountyName, " &
+            "case " &
+            "   when strApplicationType is Null then '' " &
+            "   else AIRBRANCH.LookUpApplicationTypes.strApplicationTypeDesc " &
+            "End AppType, " &
+            "case " &
+            "   when strPAReady is Null then '' " &
+             "   when strPAReady = 'True' then 'PA Ready' " &
+            "   when strPAReady = 'False' then '' " &
+            "   Else ''  " &
+            "End PAReady,  " &
+            "case " &
+            "   when strPNReady is Null then '' " &
+            "   when strPNReady = 'True' then 'PN Ready' " &
+            "   when strPNReady = 'False' then 'PN Ready' " &
+            "   Else ''  " &
+            "End PNReady,  " &
+            "datPNExpires  " &
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData,  " &
+            "AIRBRANCH.SSPPApplicationTracking, " &
+            "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.LookUpCountyInformation  " &
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " &
+            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " &
+            "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode  " &
+            "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+)  " &
             "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberEditor.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -592,34 +592,34 @@ Public Class SSPPPublicNoticiesAndAdvisories
             Dim AppType As String = ""
             Dim temp As String = ""
 
-            SQL = "Select " & _
-            "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " & _
-            "AIRBRANCH.SSPPApplicationData.strFacilityName, " & _
-            "strCountyName, " & _
-            "case " & _
-            "   when strApplicationType is Null then '' " & _
-            "   else AIRBRANCH.LookUpApplicationTypes.strApplicationTypeDesc " & _
-            "End AppType, " & _
-            "case " & _
-            "   when strPAReady is Null then '' " & _
-             "   when strPAReady = 'True' then 'PA Ready' " & _
-            "   when strPAReady = 'False' then '' " & _
-            "   Else ''  " & _
-            "End PAReady,  " & _
-            "case " & _
-            "   when strPNReady is Null then '' " & _
-            "   when strPNReady = 'True' then 'PN Ready' " & _
-            "   when strPNReady = 'False' then 'PN Ready' " & _
-            "   Else ''  " & _
-            "End PNReady,  " & _
-            "datPNExpires  " & _
-            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData,  " & _
-            "AIRBRANCH.SSPPApplicationTracking, " & _
-            "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.LookUpCountyInformation  " & _
-            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " & _
-            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " & _
-            "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode  " & _
-            "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+)  " & _
+            SQL = "Select " &
+            "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " &
+            "AIRBRANCH.SSPPApplicationData.strFacilityName, " &
+            "strCountyName, " &
+            "case " &
+            "   when strApplicationType is Null then '' " &
+            "   else AIRBRANCH.LookUpApplicationTypes.strApplicationTypeDesc " &
+            "End AppType, " &
+            "case " &
+            "   when strPAReady is Null then '' " &
+             "   when strPAReady = 'True' then 'PA Ready' " &
+            "   when strPAReady = 'False' then '' " &
+            "   Else ''  " &
+            "End PAReady,  " &
+            "case " &
+            "   when strPNReady is Null then '' " &
+            "   when strPNReady = 'True' then 'PN Ready' " &
+            "   when strPNReady = 'False' then 'PN Ready' " &
+            "   Else ''  " &
+            "End PNReady,  " &
+            "datPNExpires  " &
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData,  " &
+            "AIRBRANCH.SSPPApplicationTracking, " &
+            "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.LookUpCountyInformation  " &
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " &
+            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " &
+            "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode  " &
+            "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+)  " &
             "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberEditor.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -763,19 +763,19 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 Next
                 SQLLine = "and ( " & Mid(SQLLine, 1, (SQLLine.Length) - 3) & " ) "
 
-                SQL = "select " & _
-                "AIRBRANCH.SSPPApplicationData.strApplicationNumber, " & _
-                "strPAReady, strFacilityName, " & _
-                "strFacilityStreet1, strFacilityCity, " & _
-                "strFacilityState, strFacilityZipCode, " & _
-                "strPlantDescription,  " & _
-                "strApplicationNotes, strCountyName    " & _
-                "from AIRBRANCH.SSPPApplicationData, AIRBRANCH.SSPPApplicationTracking, " & _
-                "AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.LookUpCountyInformation " & _
-                "where AIRBRANCH.SSPPApplicationData.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " & _
-                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicatioNNumber " & _
-                "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode " & _
-                SQLLine & _
+                SQL = "select " &
+                "AIRBRANCH.SSPPApplicationData.strApplicationNumber, " &
+                "strPAReady, strFacilityName, " &
+                "strFacilityStreet1, strFacilityCity, " &
+                "strFacilityState, strFacilityZipCode, " &
+                "strPlantDescription,  " &
+                "strApplicationNotes, strCountyName    " &
+                "from AIRBRANCH.SSPPApplicationData, AIRBRANCH.SSPPApplicationTracking, " &
+                "AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.LookUpCountyInformation " &
+                "where AIRBRANCH.SSPPApplicationData.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " &
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicatioNNumber " &
+                "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode " &
+                SQLLine &
                 "order by strCountyName "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -842,20 +842,20 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 Next
                 SQLLine = "and ( " & Mid(SQLLine, 1, (SQLLine.Length) - 3) & " ) "
 
-                SQL = "Select  " & _
-                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
-                "strCountyName, strFacilityName,  " & _
-                "strFacilityStreet1, strFacilityCity,  " & _
-                "strFacilityState, strFacilityZipCode,  " & _
-                "strPlantDescription, strApplicationNotes,  " & _
-                "to_char(datPNExpires, 'Monthdd, YYYY') as datPNExpires " & _
-                "from AIRBRANCH.SSPPApplicationData, AIRBRANCH.SSPPApplicationMaster, " & _
-                "AIRBRANCH.LookUpCountyInformation, AIRBRANCH.SSPPApplicationTracking " & _
-                "where AIRBRANCH.SSPPApplicationMaster.strApplicationnumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber   " & _
-                "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode  " & _
-                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " & _
-                "and strApplicationType = '14'  " & _
-                SQLLine & _
+                SQL = "Select  " &
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " &
+                "strCountyName, strFacilityName,  " &
+                "strFacilityStreet1, strFacilityCity,  " &
+                "strFacilityState, strFacilityZipCode,  " &
+                "strPlantDescription, strApplicationNotes,  " &
+                "to_char(datPNExpires, 'Monthdd, YYYY') as datPNExpires " &
+                "from AIRBRANCH.SSPPApplicationData, AIRBRANCH.SSPPApplicationMaster, " &
+                "AIRBRANCH.LookUpCountyInformation, AIRBRANCH.SSPPApplicationTracking " &
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationnumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber   " &
+                "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode  " &
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " &
+                "and strApplicationType = '14'  " &
+                SQLLine &
                 "order by strCountyName "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -922,20 +922,20 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 Next
                 SQLLine = "and ( " & Mid(SQLLine, 1, (SQLLine.Length) - 3) & " ) "
 
-                SQL = "Select  " & _
-                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
-                "strCountyName, strFacilityName,  " & _
-                "strFacilityStreet1, strFacilityCity,  " & _
-                "strFacilityState, strFacilityZipCode,  " & _
-                "strPlantDescription, strApplicationNotes,  " & _
-                "to_char(datPNExpires, 'Monthdd, YYYY') as datPNExpires " & _
-                "from AIRBRANCH.SSPPApplicationData, AIRBRANCH.SSPPApplicationMaster,   " & _
-                "AIRBRANCH.LookUpCountyInformation, AIRBRANCH.SSPPApplicationTracking " & _
-                "where AIRBRANCH.SSPPApplicationMaster.strApplicationnumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber   " & _
-                "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode  " & _
-                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " & _
-                SQLLine & _
-                "and strApplicationType = '16'  " & _
+                SQL = "Select  " &
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " &
+                "strCountyName, strFacilityName,  " &
+                "strFacilityStreet1, strFacilityCity,  " &
+                "strFacilityState, strFacilityZipCode,  " &
+                "strPlantDescription, strApplicationNotes,  " &
+                "to_char(datPNExpires, 'Monthdd, YYYY') as datPNExpires " &
+                "from AIRBRANCH.SSPPApplicationData, AIRBRANCH.SSPPApplicationMaster,   " &
+                "AIRBRANCH.LookUpCountyInformation, AIRBRANCH.SSPPApplicationTracking " &
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationnumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber   " &
+                "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode  " &
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " &
+                SQLLine &
+                "and strApplicationType = '16'  " &
                 "order by strCountyName "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1002,21 +1002,21 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 Next
                 SQLLine = "and ( " & Mid(SQLLine, 1, (SQLLine.Length) - 3) & " ) "
 
-                SQL = "Select  " & _
-                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " & _
-                "strCountyName, strFacilityName,  " & _
-                "strFacilityStreet1, strFacilityCity,  " & _
-                "strFacilityState, strFacilityZipCode,  " & _
-                "strPlantDescription, strApplicationNotes,  " & _
-                "to_char(datPNExpires, 'Monthdd, YYYY') as datPNExpires, " & _
-                "strSignificantComments " & _
-                "from AIRBRANCH.SSPPApplicationData, AIRBRANCH.SSPPApplicationMaster,   " & _
-                "AIRBRANCH.LookUpCountyInformation, AIRBRANCH.SSPPApplicationTracking " & _
-                "where AIRBRANCH.SSPPApplicationMaster.strApplicationnumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber   " & _
-                "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode  " & _
-                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " & _
-                SQLLine & _
-                "and (strApplicationType = '21' or strApplicationType = '22')  " & _
+                SQL = "Select  " &
+                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " &
+                "strCountyName, strFacilityName,  " &
+                "strFacilityStreet1, strFacilityCity,  " &
+                "strFacilityState, strFacilityZipCode,  " &
+                "strPlantDescription, strApplicationNotes,  " &
+                "to_char(datPNExpires, 'Monthdd, YYYY') as datPNExpires, " &
+                "strSignificantComments " &
+                "from AIRBRANCH.SSPPApplicationData, AIRBRANCH.SSPPApplicationMaster,   " &
+                "AIRBRANCH.LookUpCountyInformation, AIRBRANCH.SSPPApplicationTracking " &
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationnumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber   " &
+                "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode  " &
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " &
+                SQLLine &
+                "and (strApplicationType = '21' or strApplicationType = '22')  " &
                 "order by strCountyName "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1091,10 +1091,10 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 Deadline = Format(CDate(DTPPADeadline.Text), "dd-MMMM-yyyy")
             End If
 
-            PublicAdvisories = "EPD PUBLIC ADVISORY" & _
-            vbCrLf & "GEORGIA AIR PROTECTION BRANCH" & _
-            vbCrLf & vbCrLf & vbCrLf & "SIP PUBLIC ADVISORIES" & _
-            vbCrLf & vbCrLf & "The following applications have been received for Air Quality Permits. " & vbCrLf & _
+            PublicAdvisories = "EPD PUBLIC ADVISORY" &
+            vbCrLf & "GEORGIA AIR PROTECTION BRANCH" &
+            vbCrLf & vbCrLf & vbCrLf & "SIP PUBLIC ADVISORIES" &
+            vbCrLf & vbCrLf & "The following applications have been received for Air Quality Permits. " & vbCrLf &
             "These applications are presently under review. Any comments should be received by " & Deadline & vbCrLf & vbCrLf & vbCrLf
 
             If PANeeded <> "" Then
@@ -1103,76 +1103,76 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 PublicAdvisories = PublicAdvisories & "NO PUBLIC ADVISORIESX" & vbCrLf & vbCrLf
             End If
 
-            PublicAdvisories = PublicAdvisories & "For additional information, contact Eric Cornwell, Program Manager, " & vbCrLf & _
-            "Stationary Source Permitting Program, Air Protection Branch, " & vbCrLf & _
+            PublicAdvisories = PublicAdvisories & "For additional information, contact Eric Cornwell, Program Manager, " & vbCrLf &
+            "Stationary Source Permitting Program, Air Protection Branch, " & vbCrLf &
             "4244 International Parkway, Suite 120, Atlanta, Georgia 30354, " & vbCrLf & "(404) 363-7000" & vbCrLf & vbCrLf & vbCrLf
 
-            TVAdvisories = "NOTICE OF DRAFT TITLE V OPERATING PERMITS AND PERMIT MODIFICATIONS " & vbCrLf & _
-            "GEORGIA ENVIRONMENTAL PROTECTION DIVISION " & vbCrLf & _
-            "AIR PROTECTION BRANCHX" & vbCrLf & _
-            "4244 INTERNATIONAL PARKWAY, SUITE 120, ATLANTA, GA 30354 " & vbCrLf & vbCrLf & _
-            "The Georgia Environmental Protection Division announces its intent to " & vbCrLf & _
-            "issue initial Title V Operating Permits, Title V Significant " & vbCrLf & _
-            "modifications, Title V Operating Permit Renewals, and/or other Title V " & vbCrLf & _
-            "Permit proceedings for the following facilities. The deadlines for " & vbCrLf & _
+            TVAdvisories = "NOTICE OF DRAFT TITLE V OPERATING PERMITS AND PERMIT MODIFICATIONS " & vbCrLf &
+            "GEORGIA ENVIRONMENTAL PROTECTION DIVISION " & vbCrLf &
+            "AIR PROTECTION BRANCHX" & vbCrLf &
+            "4244 INTERNATIONAL PARKWAY, SUITE 120, ATLANTA, GA 30354 " & vbCrLf & vbCrLf &
+            "The Georgia Environmental Protection Division announces its intent to " & vbCrLf &
+            "issue initial Title V Operating Permits, Title V Significant " & vbCrLf &
+            "modifications, Title V Operating Permit Renewals, and/or other Title V " & vbCrLf &
+            "Permit proceedings for the following facilities. The deadlines for " & vbCrLf &
             "submitting comments and requesting a public hearing are specified for " & vbCrLf & "each facility. " & vbCrLf & vbCrLf
 
             If TVInitial <> "" Or TVRenewal <> "" Or TVSigMod <> "" Then
                 If TVInitial <> "" Then
-                    TVAdvisories = TVAdvisories & "INITIAL TITLE V OPERATING PERMITSX" & vbCrLf & vbCrLf & _
+                    TVAdvisories = TVAdvisories & "INITIAL TITLE V OPERATING PERMITSX" & vbCrLf & vbCrLf &
                     TVInitial & vbCrLf
                 End If
                 If TVRenewal <> "" Then
-                    TVAdvisories = TVAdvisories & "RENEWAL TITLE V OPERATING PERMITSX" & vbCrLf & vbCrLf & _
+                    TVAdvisories = TVAdvisories & "RENEWAL TITLE V OPERATING PERMITSX" & vbCrLf & vbCrLf &
                     TVRenewal & vbCrLf
                 End If
                 If TVSigMod <> "" Then
-                    TVAdvisories = TVAdvisories & "TITLE V SIGNIFICANT MODIFICATIONSX" & vbCrLf & vbCrLf & _
+                    TVAdvisories = TVAdvisories & "TITLE V SIGNIFICANT MODIFICATIONSX" & vbCrLf & vbCrLf &
                     TVSigMod & vbCrLf
                 End If
             Else
                 TVAdvisories = TVAdvisories & "NO TITLE V ADVISORIESX" & vbCrLf & vbCrLf
             End If
 
-            TVAdvisories = TVAdvisories & "ADDITIONAL INFORMATIONX: The draft permits and permit amendments and " & vbCrLf & _
-            "all information used to develop the draft permits and permit amendments " & vbCrLf & _
-            "are available for review. This includes the application, all relevant " & vbCrLf & _
-            "supporting materials and all other materials available to the permitting " & vbCrLf & _
-            "authority used in the permit review process. This information is " & vbCrLf & _
-            "available for review at the office of the Air Protection Branch, " & vbCrLf & _
-            "4244 International Parkway, Atlanta Tradeport - Suite 120, Atlanta, Georgia 30354. " & vbCrLf & _
-            "Copies of the draft permits or permit amendments, narratives, " & vbCrLf & _
-            "application summaries, and (in most cases) permit applications are also " & vbCrLf & _
-            "available at our Internet site, epd.georgia.gov/air . Also " & vbCrLf & _
-            "available at this Internet site is a copy of the public notice, as it " & vbCrLf & _
-            "will appear in the legal organ of the county where the facility is " & vbCrLf & _
-            "located. " & vbCrLf & vbCrLf & _
-            "If a permit application is not available at our Internet site, the " & vbCrLf & _
-            "public notice will indicate where a copy of these documents will be " & vbCrLf & _
-            "available at a location near the facility. " & vbCrLf & vbCrLf & _
-            "Persons wishing to comment on a draft Initial Title V Operating Permit, " & vbCrLf & _
-            "Title V Significant modification, Title V Operating Permit Renewal, or " & vbCrLf & _
-            "other Title V Permit proceedings are required to submit their comments, " & vbCrLf & _
-            "in writing, to EPD at the above Atlanta Air Protection Branch address. " & vbCrLf & _
-            "Comments must be received by no later than the deadline indicated for " & vbCrLf & _
-            "the particular facility. (Should the comment period end on a weekend or " & vbCrLf & _
-            "holiday, comments will be accepted up until the next working day.) All " & vbCrLf & _
-            "comments received on or prior to the deadline will be considered by the " & vbCrLf & _
-            "Division in making its final decision to issue the Title V permit or " & vbCrLf & _
-            "permit amendment." & vbCrLf & vbCrLf & _
-            "Any requests for a public hearing must be made prior to the deadline " & vbCrLf & _
-            "indicated for the particular facility. A request for a hearing should " & vbCrLf & _
-            "be in writing and should specify, in as much detail as possible, the " & vbCrLf & _
-            "portion of the Georgia Rules for Air Quality Control or the Federal " & vbCrLf & _
-            "Rules which the individual making the request is concerned may not have " & vbCrLf & _
-            "been adequately incorporated. A public hearing may be held if the " & vbCrLf & _
-            "Director of the EPD finds that such a hearing would assist the EPD in a " & vbCrLf & _
-            "proper review of the facility's ability to comply with the Federal and " & vbCrLf & _
-            "State air quality regulations. " & vbCrLf & vbCrLf & _
-            "For additional information, contact Eric Cornwell, Program Manager, " & vbCrLf & _
-            "Stationary Source Permitting Program, Air Protection Branch, " & vbCrLf & _
-            "4244 International Parkway, Suite 120, " & vbCrLf & _
-            "Atlanta, Georgia 30354, (404) 363-7000" & vbCrLf & vbCrLf & vbCrLf & _
+            TVAdvisories = TVAdvisories & "ADDITIONAL INFORMATIONX: The draft permits and permit amendments and " & vbCrLf &
+            "all information used to develop the draft permits and permit amendments " & vbCrLf &
+            "are available for review. This includes the application, all relevant " & vbCrLf &
+            "supporting materials and all other materials available to the permitting " & vbCrLf &
+            "authority used in the permit review process. This information is " & vbCrLf &
+            "available for review at the office of the Air Protection Branch, " & vbCrLf &
+            "4244 International Parkway, Atlanta Tradeport - Suite 120, Atlanta, Georgia 30354. " & vbCrLf &
+            "Copies of the draft permits or permit amendments, narratives, " & vbCrLf &
+            "application summaries, and (in most cases) permit applications are also " & vbCrLf &
+            "available at our Internet site, epd.georgia.gov/air . Also " & vbCrLf &
+            "available at this Internet site is a copy of the public notice, as it " & vbCrLf &
+            "will appear in the legal organ of the county where the facility is " & vbCrLf &
+            "located. " & vbCrLf & vbCrLf &
+            "If a permit application is not available at our Internet site, the " & vbCrLf &
+            "public notice will indicate where a copy of these documents will be " & vbCrLf &
+            "available at a location near the facility. " & vbCrLf & vbCrLf &
+            "Persons wishing to comment on a draft Initial Title V Operating Permit, " & vbCrLf &
+            "Title V Significant modification, Title V Operating Permit Renewal, or " & vbCrLf &
+            "other Title V Permit proceedings are required to submit their comments, " & vbCrLf &
+            "in writing, to EPD at the above Atlanta Air Protection Branch address. " & vbCrLf &
+            "Comments must be received by no later than the deadline indicated for " & vbCrLf &
+            "the particular facility. (Should the comment period end on a weekend or " & vbCrLf &
+            "holiday, comments will be accepted up until the next working day.) All " & vbCrLf &
+            "comments received on or prior to the deadline will be considered by the " & vbCrLf &
+            "Division in making its final decision to issue the Title V permit or " & vbCrLf &
+            "permit amendment." & vbCrLf & vbCrLf &
+            "Any requests for a public hearing must be made prior to the deadline " & vbCrLf &
+            "indicated for the particular facility. A request for a hearing should " & vbCrLf &
+            "be in writing and should specify, in as much detail as possible, the " & vbCrLf &
+            "portion of the Georgia Rules for Air Quality Control or the Federal " & vbCrLf &
+            "Rules which the individual making the request is concerned may not have " & vbCrLf &
+            "been adequately incorporated. A public hearing may be held if the " & vbCrLf &
+            "Director of the EPD finds that such a hearing would assist the EPD in a " & vbCrLf &
+            "proper review of the facility's ability to comply with the Federal and " & vbCrLf &
+            "State air quality regulations. " & vbCrLf & vbCrLf &
+            "For additional information, contact Eric Cornwell, Program Manager, " & vbCrLf &
+            "Stationary Source Permitting Program, Air Protection Branch, " & vbCrLf &
+            "4244 International Parkway, Suite 120, " & vbCrLf &
+            "Atlanta, Georgia 30354, (404) 363-7000" & vbCrLf & vbCrLf & vbCrLf &
             "--------------------------------------------------" & vbCrLf
 
             txtPublicNoticeDocument.Text = PublicAdvisories & TVAdvisories
@@ -1401,8 +1401,8 @@ Public Class SSPPPublicNoticiesAndAdvisories
             FileName = "PA" & FileMonth & FileYear & "-" & FileWeek
 
             Do While Flag = False
-                SQL = "select strFileName " & _
-                "From AIRBRANCH.SSPPPublicLetters " & _
+                SQL = "select strFileName " &
+                "From AIRBRANCH.SSPPPublicLetters " &
                 "where strFileName = '" & FileName & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1500,11 +1500,11 @@ Public Class SSPPPublicNoticiesAndAdvisories
             If lblFileName.Text <> "pdf File Name" And lblFileName.Text <> "ERROR" Then
                 FileName = lblFileName.Text
 
-                SQL = "Select " & _
-                "strFileName, strReviewingManager, " & _
-                "datReviewed, strPublishingStaff, " & _
-                "datPublishedDate, datCommentsDate " & _
-                "from AIRBRANCH.SSPPPublicLetters " & _
+                SQL = "Select " &
+                "strFileName, strReviewingManager, " &
+                "datReviewed, strPublishingStaff, " &
+                "datPublishedDate, datCommentsDate " &
+                "from AIRBRANCH.SSPPPublicLetters " &
                 "where strFileName = '" & FileName & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1553,7 +1553,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 End If
 
                 If FileName <> "" Then
-                    SQL = "Delete AIRBRANCH.SSPPPublicLetters " & _
+                    SQL = "Delete AIRBRANCH.SSPPPublicLetters " &
                     "where strFileName = '" & FileName & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -1572,8 +1572,8 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     Dim da As OracleDataAdapter
                     Dim ds As DataSet
 
-                    SQL = "Select * " & _
-                    "from AIRBRANCH.SSPPPublicLetters " & _
+                    SQL = "Select * " &
+                    "from AIRBRANCH.SSPPPublicLetters " &
                     "where strFileName = '" & FileName & "' "
 
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -1611,9 +1611,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
             Dim SQLLine As String = ""
 
             If lsbPublicAdvisories.Items.Count > 0 Then
-                SQL = "Update AIRBRANCH.SSPPApplicationData set " & _
-                "strPublicInvolvement = '1', " & _
-                "strPAPosted = '" & lblFileName.Text & "' " & _
+                SQL = "Update AIRBRANCH.SSPPApplicationData set " &
+                "strPublicInvolvement = '1', " &
+                "strPAPosted = '" & lblFileName.Text & "' " &
                 "where "
 
                 For i = 0 To lsbPublicAdvisories.Items.Count - 1
@@ -1630,8 +1630,8 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Update AIRBRANCH.SSPPApplicationTracking set " & _
-                "datPAExpires = '" & Me.DTPPADeadline.Text & "' " & _
+                SQL = "Update AIRBRANCH.SSPPApplicationTracking set " &
+                "datPAExpires = '" & Me.DTPPADeadline.Text & "' " &
                 "where " & SQLLine
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1645,9 +1645,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
             SQLLine = ""
 
             If lsbPublicNoticies.Items.Count > 0 Then
-                SQL = "Update AIRBRANCH.SSPPApplicationData set " & _
-                "strPublicInvolvement = '1', " & _
-                "strPNPosted = '" & lblFileName.Text & "' " & _
+                SQL = "Update AIRBRANCH.SSPPApplicationData set " &
+                "strPublicInvolvement = '1', " &
+                "strPNPosted = '" & lblFileName.Text & "' " &
                 "where "
 
                 For i = 0 To lsbPublicNoticies.Items.Count - 1
@@ -1711,12 +1711,12 @@ Public Class SSPPPublicNoticiesAndAdvisories
         Try
             Dim DestFilePath As String = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "temp.rtf")
 
-            SQL = "Select " & _
-            "strFileName, BatchFile, " & _
-            "strReviewingManager, " & _
-            "datReviewed, strPublishingStaff, " & _
-            "datPublishedDate, datCommentsDate " & _
-            "from AIRBRANCH.SSPPPublicLetters " & _
+            SQL = "Select " &
+            "strFileName, BatchFile, " &
+            "strReviewingManager, " &
+            "datReviewed, strPublishingStaff, " &
+            "datPublishedDate, datCommentsDate " &
+            "from AIRBRANCH.SSPPPublicLetters " &
             "where strFileName = '" & cboPAPNReports.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2022,11 +2022,11 @@ Public Class SSPPPublicNoticiesAndAdvisories
             If lblPAPNDocumentName.Text <> "PA/PN Doc Name" And lblPAPNDocumentName.Text <> "ERROR" Then
                 FileName = lblPAPNDocumentName.Text
 
-                SQL = "Select " & _
-                "strFileName, strReviewingManager, " & _
-                "datReviewed, strPublishingStaff, " & _
-                "datPublishedDate, datCommentsDate " & _
-                "from AIRBRANCH.SSPPPublicLetters " & _
+                SQL = "Select " &
+                "strFileName, strReviewingManager, " &
+                "datReviewed, strPublishingStaff, " &
+                "datPublishedDate, datCommentsDate " &
+                "from AIRBRANCH.SSPPPublicLetters " &
                 "where strFileName = '" & FileName & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2074,7 +2074,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 dr.Close()
 
                 If FileName <> "" Then
-                    SQL = "Delete AIRBRANCH.SSPPPublicLetters " & _
+                    SQL = "Delete AIRBRANCH.SSPPPublicLetters " &
                     "where strFileName = '" & FileName & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -2093,8 +2093,8 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     Dim da As OracleDataAdapter
                     Dim ds As DataSet
 
-                    SQL = "Select * " & _
-                    "from AIRBRANCH.SSPPPublicLetters " & _
+                    SQL = "Select * " &
+                    "from AIRBRANCH.SSPPPublicLetters " &
                     "where strFileName = '" & FileName & "' "
 
                     If CurrentConnection.State = ConnectionState.Closed Then

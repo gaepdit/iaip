@@ -13,7 +13,7 @@ Public Class ISMPTestMemoViewer
 
 
     Private Sub ISMPTestMemoViewer_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        
+
         Try
 
             CreateStatusBar()
@@ -89,7 +89,7 @@ Public Class ISMPTestMemoViewer
         Try
 
             If Loading = True Then
-                SQLLine = "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = '" & CurrentUser.UserID & "' " & _
+                SQLLine = "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = '" & CurrentUser.UserID & "' " &
                 "and strClosed = 'False' "
             End If
 
@@ -137,9 +137,9 @@ Public Class ISMPTestMemoViewer
                 SQLLine4 = "And AIRBRANCH.ISMPReportInformation.strDelete is NULL "
             End If
 
-            SQL = "select AIRBRANCH.ISMPTestREportMemo.strReferenceNumber, strMemorandumField " & _
-            "from AIRBRANCH.ISMPTestREportMemo, AIRBRANCH.ISMPReportInformation " & _
-            "where AIRBRANCH.ISMPTestREportMemo.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " & _
+            SQL = "select AIRBRANCH.ISMPTestREportMemo.strReferenceNumber, strMemorandumField " &
+            "from AIRBRANCH.ISMPTestREportMemo, AIRBRANCH.ISMPReportInformation " &
+            "where AIRBRANCH.ISMPTestREportMemo.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
             SQLLine & SQLLine2 & SQLLine3 & SQLLine4
 
             dsMemo = New DataSet

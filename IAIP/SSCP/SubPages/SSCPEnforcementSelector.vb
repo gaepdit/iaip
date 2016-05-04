@@ -10,7 +10,7 @@ Public Class SSCPEnforcementSelector
     Dim daComplianceUnits As OracleDataAdapter
 
     Private Sub SSCPEnforcementSelector_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        
+
         Try
 
             ParseParameters()
@@ -40,9 +40,9 @@ Public Class SSCPEnforcementSelector
         Try
 
 
-            SQL = "Select numUnitCode, strUnitDesc " & _
-            "from AIRBranch.LookUpEPDUnits  " & _
-            "where numProgramCode = '4'  " & _
+            SQL = "Select numUnitCode, strUnitDesc " &
+            "from AIRBranch.LookUpEPDUnits  " &
+            "where numProgramCode = '4'  " &
             "order by strUnitDesc  "
 
             dsComplianceUnits = New DataSet
@@ -217,172 +217,172 @@ Public Class SSCPEnforcementSelector
 
             Select Case Source
                 Case "All"
-                    SQL = "Select distinct(to_number(SSCP_AuditedEnforcement.strEnforcementNumber)) as strEnforcementNumber, " & _
-                       "Case  " & _
-                       "	when datDiscoveryDate is Null then '' " & _
-                       "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " & _
-                       "END as Violationdate,  " & _
-                        "case " & _
-                       "    when datEnforcementFinalized is Not Null then '4 - Closed Out' " & _
-                       "    when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA' " & _
-                       "    when strStatus = 'UC' then '2 - Submitted to UC' " & _
-                       "    When strStatus Is Null then '1 - At Staff' " & _
-                       "   else 'Unknown' " & _
-                       "end as EnforcementStatus, " & _
-                       "case  " & _
-                       " 	when strHPV IS NULL then strActionType " & _
-                       " 	When strHPV IS Not Null then 'HPV'  " & _
-                       "   Else 'HPV' " & _
-                       "END as HPVStatus, " & _
-                       "Case " & _
-                       "	when datEnforcementFinalized Is Not NULL then 'Closed' " & _
-                       "	when datEnforcementFinalized is NUll then 'Open' " & _
-                       "Else 'Open' " & _
-                       "End as Status, " & _
-                       "substr(AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " & _
-                        "(strLastName|| ', ' ||strFirstName) as Staff,  " & _
-                       "strFacilityName  " & _
-                       "from AIRBRANCH.SSCP_AuditedEnforcement,  " & _
-                       "AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles " & _
-                       "Where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber " & _
-                       "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCP_AuditedEnforcement.numStaffResponsible  " & _
+                    SQL = "Select distinct(to_number(SSCP_AuditedEnforcement.strEnforcementNumber)) as strEnforcementNumber, " &
+                       "Case  " &
+                       "	when datDiscoveryDate is Null then '' " &
+                       "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " &
+                       "END as Violationdate,  " &
+                        "case " &
+                       "    when datEnforcementFinalized is Not Null then '4 - Closed Out' " &
+                       "    when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA' " &
+                       "    when strStatus = 'UC' then '2 - Submitted to UC' " &
+                       "    When strStatus Is Null then '1 - At Staff' " &
+                       "   else 'Unknown' " &
+                       "end as EnforcementStatus, " &
+                       "case  " &
+                       " 	when strHPV IS NULL then strActionType " &
+                       " 	When strHPV IS Not Null then 'HPV'  " &
+                       "   Else 'HPV' " &
+                       "END as HPVStatus, " &
+                       "Case " &
+                       "	when datEnforcementFinalized Is Not NULL then 'Closed' " &
+                       "	when datEnforcementFinalized is NUll then 'Open' " &
+                       "Else 'Open' " &
+                       "End as Status, " &
+                       "substr(AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " &
+                        "(strLastName|| ', ' ||strFirstName) as Staff,  " &
+                       "strFacilityName  " &
+                       "from AIRBRANCH.SSCP_AuditedEnforcement,  " &
+                       "AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles " &
+                       "Where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber " &
+                       "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCP_AuditedEnforcement.numStaffResponsible  " &
                        "order by strENforcementNumber DESC "
                 Case "AllOpen"
                     'txtAIRSNumber.Clear()
                     'txtEnforcementNumber.Clear()
-                    SQL = "Select distinct(to_number(SSCP_AuditedEnforcement.strEnforcementNumber)) as strEnforcementNumber, " & _
-                    "Case  " & _
-                    "	when datDiscoveryDate is Null then '' " & _
-                    "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " & _
-                    "END as Violationdate,  " & _
-                     "case " & _
-                    "    when datEnforcementFinalized is Not Null then '4 - Closed Out' " & _
-                    "    when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA' " & _
-                    "    when strStatus = 'UC' then '2 - Submitted to UC' " & _
-                    "    When strStatus Is Null then '1 - At Staff' " & _
-                    "   else 'Unknown' " & _
-                    "end as EnforcementStatus, " & _
-                    "case  " & _
-                    " 	when strHPV IS NULL then strActionType " & _
-                    " 	When strHPV IS Not Null then 'HPV'  " & _
-                    "   Else 'HPV' " & _
-                    "END as HPVStatus, " & _
-                    "Case " & _
-                    "	when datEnforcementFinalized Is Not NULL then 'Closed' " & _
-                    "	when datEnforcementFinalized is NUll then 'Open' " & _
-                    "Else 'Open' " & _
-                    "End as Status, " & _
-                    "substr(AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " & _
-                     "(strLastName|| ', ' ||strFirstName) as Staff,  " & _
-                    "strFacilityName  " & _
-                    "from AIRBRANCH.SSCP_AuditedEnforcement,   " & _
-                    "AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles " & _
-                    "Where  AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber " & _
-                    "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCP_AuditedEnforcement.numStaffResponsible  " & _
-                    "and datEnforcementFinalized IS Null " & _
+                    SQL = "Select distinct(to_number(SSCP_AuditedEnforcement.strEnforcementNumber)) as strEnforcementNumber, " &
+                    "Case  " &
+                    "	when datDiscoveryDate is Null then '' " &
+                    "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " &
+                    "END as Violationdate,  " &
+                     "case " &
+                    "    when datEnforcementFinalized is Not Null then '4 - Closed Out' " &
+                    "    when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA' " &
+                    "    when strStatus = 'UC' then '2 - Submitted to UC' " &
+                    "    When strStatus Is Null then '1 - At Staff' " &
+                    "   else 'Unknown' " &
+                    "end as EnforcementStatus, " &
+                    "case  " &
+                    " 	when strHPV IS NULL then strActionType " &
+                    " 	When strHPV IS Not Null then 'HPV'  " &
+                    "   Else 'HPV' " &
+                    "END as HPVStatus, " &
+                    "Case " &
+                    "	when datEnforcementFinalized Is Not NULL then 'Closed' " &
+                    "	when datEnforcementFinalized is NUll then 'Open' " &
+                    "Else 'Open' " &
+                    "End as Status, " &
+                    "substr(AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " &
+                     "(strLastName|| ', ' ||strFirstName) as Staff,  " &
+                    "strFacilityName  " &
+                    "from AIRBRANCH.SSCP_AuditedEnforcement,   " &
+                    "AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles " &
+                    "Where  AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber " &
+                    "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCP_AuditedEnforcement.numStaffResponsible  " &
+                    "and datEnforcementFinalized IS Null " &
                     "order by strENforcementNumber DESC "
                 Case "Single"
-                    SQL = "Select distinct(to_number(SSCP_AuditedEnforcement.strEnforcementNumber)) as strEnforcementNumber, " & _
-                    "Case  " & _
-                    "	when datDiscoveryDate is Null then '' " & _
-                    "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " & _
-                    "END as Violationdate,  " & _
-                     "case " & _
-                    "    when datEnforcementFinalized is Not Null then '4 - Closed Out' " & _
-                    "    when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA' " & _
-                    "    when strStatus = 'UC' then '2 - Submitted to UC' " & _
-                    "    When strStatus Is Null then '1 - At Staff' " & _
-                    "   else 'Unknown' " & _
-                    "end as EnforcementStatus, " & _
-                    "case  " & _
-                    " 	when strHPV IS NULL then strActionType " & _
-                    " 	When strHPV IS Not Null then 'HPV'  " & _
-                    "   Else 'HPV' " & _
-                    "END as HPVStatus, " & _
-                    "Case " & _
-                    "	when datEnforcementFinalized Is Not NULL then 'Closed' " & _
-                    "	when datEnforcementFinalized is NUll then 'Open' " & _
-                    "Else 'Open' " & _
-                    "End as Status, " & _
-                    "substr(AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " & _
-                     "(strLastName|| ', ' ||strFirstName) as Staff,  " & _
-                    "strFacilityName " & _
-                    "from AIRBRANCH.SSCP_AuditedEnforcement, " & _
-                    "AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles " & _
-                    "Where  AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber " & _
-                    "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCP_AuditedEnforcement.numStaffResponsible  " & _
-                    "and AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
+                    SQL = "Select distinct(to_number(SSCP_AuditedEnforcement.strEnforcementNumber)) as strEnforcementNumber, " &
+                    "Case  " &
+                    "	when datDiscoveryDate is Null then '' " &
+                    "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " &
+                    "END as Violationdate,  " &
+                     "case " &
+                    "    when datEnforcementFinalized is Not Null then '4 - Closed Out' " &
+                    "    when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA' " &
+                    "    when strStatus = 'UC' then '2 - Submitted to UC' " &
+                    "    When strStatus Is Null then '1 - At Staff' " &
+                    "   else 'Unknown' " &
+                    "end as EnforcementStatus, " &
+                    "case  " &
+                    " 	when strHPV IS NULL then strActionType " &
+                    " 	When strHPV IS Not Null then 'HPV'  " &
+                    "   Else 'HPV' " &
+                    "END as HPVStatus, " &
+                    "Case " &
+                    "	when datEnforcementFinalized Is Not NULL then 'Closed' " &
+                    "	when datEnforcementFinalized is NUll then 'Open' " &
+                    "Else 'Open' " &
+                    "End as Status, " &
+                    "substr(AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " &
+                     "(strLastName|| ', ' ||strFirstName) as Staff,  " &
+                    "strFacilityName " &
+                    "from AIRBRANCH.SSCP_AuditedEnforcement, " &
+                    "AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles " &
+                    "Where  AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber " &
+                    "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCP_AuditedEnforcement.numStaffResponsible  " &
+                    "and AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " &
                     "order by strENforcementNumber DESC "
                 Case "ByUnit"
                     If cboComplianceUnits.Text = "Unassigned" Then
-                        SQL = "Select " & _
-                        "to_number(AIRBRANCH.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber, " & _
-                        "case  " & _
-                        "   when datEnforcementFinalized is Not Null then '4 - Closed Out' " & _
-                        "   when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " & _
-                        "   when strStatus = 'UC' then '2 - Submitted to UC'  " & _
-                        "   When strStatus Is Null then '1 - At Staff'  " & _
-                        "   else 'Unknown'  " & _
-                        "end as EnforcementStatus, " & _
-                        "Case   " & _
-                        " 	when datDiscoveryDate is Null then ''  " & _
-                        " 	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " & _
-                        "END as Violationdate,   " & _
-                        "case   " & _
-                        "  	when strHPV IS NULL then strActionType  " & _
-                        "  	When strHPV IS Not Null then 'HPV'   " & _
-                        "    Else 'HPV'  " & _
-                        " END as HPVStatus,  " & _
-                        " Case  " & _
-                        "  	when datEnforcementFinalized Is Not NULL then 'Closed'  " & _
-                        " 	when datEnforcementFinalized is NUll then 'Open'  " & _
-                        "Else 'Open'  " & _
-                        "End as Status,  " & _
-                         "substr(AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
-                        "strFacilityName,  " & _
-                        "(strLastName|| ', ' ||strFirstName) as Staff  " & _
-                        "from AIRBRANCH.SSCP_AuditedEnforcement,   " & _
-                        "AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles  " & _
-                        "Where  AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber  " & _
-                        "and (strStatus IS Null or strStatus = 'UC')  " & _
-                        "and datEnforcementFinalized is NULL  " & _
-                        "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCP_AuditedEnforcement.numStaffResponsible  " & _
-                        "and AIRBRANCH.EPDUserProfiles.numUserID = '0'  " & _
+                        SQL = "Select " &
+                        "to_number(AIRBRANCH.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber, " &
+                        "case  " &
+                        "   when datEnforcementFinalized is Not Null then '4 - Closed Out' " &
+                        "   when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " &
+                        "   when strStatus = 'UC' then '2 - Submitted to UC'  " &
+                        "   When strStatus Is Null then '1 - At Staff'  " &
+                        "   else 'Unknown'  " &
+                        "end as EnforcementStatus, " &
+                        "Case   " &
+                        " 	when datDiscoveryDate is Null then ''  " &
+                        " 	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " &
+                        "END as Violationdate,   " &
+                        "case   " &
+                        "  	when strHPV IS NULL then strActionType  " &
+                        "  	When strHPV IS Not Null then 'HPV'   " &
+                        "    Else 'HPV'  " &
+                        " END as HPVStatus,  " &
+                        " Case  " &
+                        "  	when datEnforcementFinalized Is Not NULL then 'Closed'  " &
+                        " 	when datEnforcementFinalized is NUll then 'Open'  " &
+                        "Else 'Open'  " &
+                        "End as Status,  " &
+                         "substr(AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " &
+                        "strFacilityName,  " &
+                        "(strLastName|| ', ' ||strFirstName) as Staff  " &
+                        "from AIRBRANCH.SSCP_AuditedEnforcement,   " &
+                        "AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles  " &
+                        "Where  AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber  " &
+                        "and (strStatus IS Null or strStatus = 'UC')  " &
+                        "and datEnforcementFinalized is NULL  " &
+                        "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCP_AuditedEnforcement.numStaffResponsible  " &
+                        "and AIRBRANCH.EPDUserProfiles.numUserID = '0'  " &
                         "order by strENforcementNumber DESC "
                     Else
-                        SQL = "Select to_number(AIRBRANCH.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber, " & _
-                        "case  " & _
-                        "   when datEnforcementFinalized is Not Null then '4 - Closed Out' " & _
-                        "   when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " & _
-                        "   when strStatus = 'UC' then '2 - Submitted to UC'  " & _
-                        "   When strStatus Is Null then '1 - At Staff'  " & _
-                        "   else 'Unknown'  " & _
-                        "end as EnforcementStatus, " & _
-                        "Case   " & _
-                        " 	when datDiscoveryDate is Null then ''  " & _
-                        " 	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " & _
-                        "END as Violationdate,   " & _
-                        "case   " & _
-                        "  	when strHPV IS NULL then strActionType  " & _
-                        "  	When strHPV IS Not Null then 'HPV'   " & _
-                        "    Else 'HPV'  " & _
-                        " END as HPVStatus,  " & _
-                        " Case  " & _
-                        "  	when datEnforcementFinalized Is Not NULL then 'Closed'  " & _
-                        " 	when datEnforcementFinalized is NUll then 'Open'  " & _
-                        "Else 'Open'  " & _
-                        "End as Status,  " & _
-                         "substr(AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " & _
-                        "strFacilityName,  " & _
-                        "(strLastName|| ', ' ||strFirstName) as Staff  " & _
-                        "from AIRBRANCH.SSCP_AuditedEnforcement, " & _
-                        "AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles  " & _
-                        "Where  AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber  " & _
-                        "and (strStatus IS Null or strStatus = 'UC')  " & _
-                        "and datEnforcementFinalized is NULL  " & _
-                        "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCP_AuditedEnforcement.numStaffResponsible  " & _
-                        "and (AIRBRANCH.EPDUserProfiles.numUnit = '" & cboComplianceUnits.SelectedValue & "'  " & _
-                        "or AIRBRANCH.EPDUserProfiles.numUserID = '0')  " & _
+                        SQL = "Select to_number(AIRBRANCH.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber, " &
+                        "case  " &
+                        "   when datEnforcementFinalized is Not Null then '4 - Closed Out' " &
+                        "   when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " &
+                        "   when strStatus = 'UC' then '2 - Submitted to UC'  " &
+                        "   When strStatus Is Null then '1 - At Staff'  " &
+                        "   else 'Unknown'  " &
+                        "end as EnforcementStatus, " &
+                        "Case   " &
+                        " 	when datDiscoveryDate is Null then ''  " &
+                        " 	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " &
+                        "END as Violationdate,   " &
+                        "case   " &
+                        "  	when strHPV IS NULL then strActionType  " &
+                        "  	When strHPV IS Not Null then 'HPV'   " &
+                        "    Else 'HPV'  " &
+                        " END as HPVStatus,  " &
+                        " Case  " &
+                        "  	when datEnforcementFinalized Is Not NULL then 'Closed'  " &
+                        " 	when datEnforcementFinalized is NUll then 'Open'  " &
+                        "Else 'Open'  " &
+                        "End as Status,  " &
+                         "substr(AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " &
+                        "strFacilityName,  " &
+                        "(strLastName|| ', ' ||strFirstName) as Staff  " &
+                        "from AIRBRANCH.SSCP_AuditedEnforcement, " &
+                        "AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles  " &
+                        "Where  AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber  " &
+                        "and (strStatus IS Null or strStatus = 'UC')  " &
+                        "and datEnforcementFinalized is NULL  " &
+                        "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCP_AuditedEnforcement.numStaffResponsible  " &
+                        "and (AIRBRANCH.EPDUserProfiles.numUnit = '" & cboComplianceUnits.SelectedValue & "'  " &
+                        "or AIRBRANCH.EPDUserProfiles.numUserID = '0')  " &
                         "order by strENforcementNumber DESC "
                     End If
             End Select

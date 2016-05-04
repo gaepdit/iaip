@@ -18,7 +18,7 @@ Public Class MASPRegistrationTool
 #Region "Form events"
 
     Private Sub MASPRegistrationTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        
+
 
         LoadComboBoxes()
         LoadEvent()
@@ -312,20 +312,20 @@ Public Class MASPRegistrationTool
 
     Sub LoadEventManagement()
         Try
-            Sql = "Select " & _
-            "numRes_EventID, " & _
-            "numEventStatusCode, strUserGCode, " & _
-            "strTitle, strDescription, " & _
-            "datStartDate, datEndDate, " & _
-            "strVenue, " & _
-            "numCapacity, strNotes, " & _
-            "strLoginRequired, strPassCode, " & _
-            "strAddress, strCity, " & _
-            "strState, numZipCode, " & _
-            "numAPBContact, numWebPhoneNumber, " & _
-            "strEventStartTime, strEventEndTime, " & _
-            "strWebURL " & _
-            "From AIRBRANCH.RES_Event " & _
+            SQL = "Select " &
+            "numRes_EventID, " &
+            "numEventStatusCode, strUserGCode, " &
+            "strTitle, strDescription, " &
+            "datStartDate, datEndDate, " &
+            "strVenue, " &
+            "numCapacity, strNotes, " &
+            "strLoginRequired, strPassCode, " &
+            "strAddress, strCity, " &
+            "strState, numZipCode, " &
+            "numAPBContact, numWebPhoneNumber, " &
+            "strEventStartTime, strEventEndTime, " &
+            "strWebURL " &
+            "From AIRBRANCH.RES_Event " &
             "where nuMRes_EventID = '" & selectedEventId & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -450,27 +450,27 @@ Public Class MASPRegistrationTool
     End Sub
     Sub LoadRegistrationManagement()
         Try
-            SQL = "select " & _
-            "AIRBRANCH.Res_Registration.numRes_registrationID, " & _
-            "AIRBRANCH.Res_Event.strTitle as eventTitle,  " & _
-            "datRegistrationDateTime, " & _
-            "strConfirmationNumber, strComments, " & _
-            "STRREGISTRATIONSTATUS, AIRBRANCH.Res_Registration.numGECouserID, " & _
-            "strSalutation, strFirstName, " & _
-            "strLastName, strUserEmail, " & _
-            "AIRBRANCH.OlapUserProfile.strAddress, AIRBRANCH.OlapUserProfile.strCity, " & _
-            "AIRBRANCH.OlapUserProfile.strState, strZip, " & _
-            "strCompanyName, strPhonenumber, " & _
-            "strUserType, " & _
-            "AIRBRANCH.OLAPUserProfile.strTitle as UserTitle " & _
-            "from AIRBRANCH.Res_Registration, AIRBRANCH.OLAPUSERProfile, " & _
-            "AIRBRANCH.res_event, AIRBRANCH.OLAPUserLogIn,  " & _
-            "AIRBRANCH.RESLK_RegistrationStatus " & _
-            "where AIRBRANCH.Res_Registration.numGECouserID = AIRBRANCH.OlapUserProfile.numUserID " & _
-            "and AIRBRANCH.Res_registration.numRes_eventid = AIRBRANCH.Res_Event.numRes_EventId  " & _
-            "and AIRBRANCH.Res_registration.numRegistrationStatusCode = " & _
-            "AIRBRANCH.RESLK_RegistrationStatus.NUMRESLK_REGISTRATIONSTATUSID " & _
-            "and AIRBRANCH.Res_Registration.numGECouserID = AIRBRANCH.OLAPUserLogIn.numuserid " & _
+            SQL = "select " &
+            "AIRBRANCH.Res_Registration.numRes_registrationID, " &
+            "AIRBRANCH.Res_Event.strTitle as eventTitle,  " &
+            "datRegistrationDateTime, " &
+            "strConfirmationNumber, strComments, " &
+            "STRREGISTRATIONSTATUS, AIRBRANCH.Res_Registration.numGECouserID, " &
+            "strSalutation, strFirstName, " &
+            "strLastName, strUserEmail, " &
+            "AIRBRANCH.OlapUserProfile.strAddress, AIRBRANCH.OlapUserProfile.strCity, " &
+            "AIRBRANCH.OlapUserProfile.strState, strZip, " &
+            "strCompanyName, strPhonenumber, " &
+            "strUserType, " &
+            "AIRBRANCH.OLAPUserProfile.strTitle as UserTitle " &
+            "from AIRBRANCH.Res_Registration, AIRBRANCH.OLAPUSERProfile, " &
+            "AIRBRANCH.res_event, AIRBRANCH.OLAPUserLogIn,  " &
+            "AIRBRANCH.RESLK_RegistrationStatus " &
+            "where AIRBRANCH.Res_Registration.numGECouserID = AIRBRANCH.OlapUserProfile.numUserID " &
+            "and AIRBRANCH.Res_registration.numRes_eventid = AIRBRANCH.Res_Event.numRes_EventId  " &
+            "and AIRBRANCH.Res_registration.numRegistrationStatusCode = " &
+            "AIRBRANCH.RESLK_RegistrationStatus.NUMRESLK_REGISTRATIONSTATUSID " &
+            "and AIRBRANCH.Res_Registration.numGECouserID = AIRBRANCH.OLAPUserLogIn.numuserid " &
             "and AIRBRANCH.Res_registration.numRes_EventID = '" & selectedEventId & "' "
 
             ds = New DataSet
@@ -572,16 +572,16 @@ Public Class MASPRegistrationTool
 
             resultcode = 1
 
-            resultcode = MessageBox.Show("This will create a new Event." & vbCrLf & _
-                  "Click Ok to create a new event.", Me.Text, _
+            resultcode = MessageBox.Show("This will create a new Event." & vbCrLf &
+                  "Click Ok to create a new event.", Me.Text,
                   MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
             If resultcode = DialogResult.OK Then
-                Insert_RES_Event(cboEventStatus.SelectedValue, txtEventTitle.Text, txtEventDescription.Text, _
-                                 DTPEventDate.Text, EndDate, txtEventVenue.Text, _
-                                 txtEventAddress.Text, txtEventCity.Text, mtbEventState.Text, _
-                                 mtbEventZipCode.Text, mtbEventCapacity.Text, txtEventNotes.Text, _
-                                 cboEventContact.SelectedValue, cboEventWebContact.SelectedValue, mtbEventWebPhoneNumber.Text, _
-                                 chbGECOlogInRequired.CheckState, chbEventPasscode.CheckState, chbEventPasscode.Text, "1", txtEventTime.Text, _
+                Insert_RES_Event(cboEventStatus.SelectedValue, txtEventTitle.Text, txtEventDescription.Text,
+                                 DTPEventDate.Text, EndDate, txtEventVenue.Text,
+                                 txtEventAddress.Text, txtEventCity.Text, mtbEventState.Text,
+                                 mtbEventZipCode.Text, mtbEventCapacity.Text, txtEventNotes.Text,
+                                 cboEventContact.SelectedValue, cboEventWebContact.SelectedValue, mtbEventWebPhoneNumber.Text,
+                                 chbGECOlogInRequired.CheckState, chbEventPasscode.CheckState, chbEventPasscode.Text, "1", txtEventTime.Text,
                                  txtEventEndTime.Text, txtWebsiteURL.Text)
                 LoadEvent()
 
@@ -603,13 +603,13 @@ Public Class MASPRegistrationTool
             If DTPEventEndDate.Checked = True Then
                 EndDate = DTPEventDate.Text
             End If
-            If Update_RES_Event(selectedEventId, _
-                             cboEventStatus.SelectedValue, txtEventTitle.Text, txtEventDescription.Text, _
-                             DTPEventDate.Text, EndDate, txtEventVenue.Text, _
-                             txtEventAddress.Text, txtEventCity.Text, mtbEventState.Text, _
-                             mtbEventZipCode.Text, mtbEventCapacity.Text, txtEventNotes.Text, _
-                             cboEventContact.SelectedValue, cboEventWebContact.SelectedValue, _
-                             chbGECOlogInRequired.CheckState, chbEventPasscode.CheckState, chbEventPasscode.Text, "1", txtEventTime.Text, _
+            If Update_RES_Event(selectedEventId,
+                             cboEventStatus.SelectedValue, txtEventTitle.Text, txtEventDescription.Text,
+                             DTPEventDate.Text, EndDate, txtEventVenue.Text,
+                             txtEventAddress.Text, txtEventCity.Text, mtbEventState.Text,
+                             mtbEventZipCode.Text, mtbEventCapacity.Text, txtEventNotes.Text,
+                             cboEventContact.SelectedValue, cboEventWebContact.SelectedValue,
+                             chbGECOlogInRequired.CheckState, chbEventPasscode.CheckState, chbEventPasscode.Text, "1", txtEventTime.Text,
                              txtEventEndTime.Text, txtWebsiteURL.Text) = True Then
                 LoadEvent()
 
@@ -624,12 +624,12 @@ Public Class MASPRegistrationTool
     End Sub
     Private Sub btnDeleteEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteEvent.Click
         Try
-            If Update_RES_Event(selectedEventId, _
-                                "", "", "", _
-                             "", "", "", _
-                             "", "", "", _
-                             "", "", "", _
-                             "", "", "", _
+            If Update_RES_Event(selectedEventId,
+                                "", "", "",
+                             "", "", "",
+                             "", "", "",
+                             "", "", "",
+                             "", "", "",
                              "", "", "0", "", "", "") = True Then
                 MsgBox("Data Saved/Updated", MsgBoxStyle.Information, Me.Text)
             Else
@@ -837,7 +837,7 @@ Public Class MASPRegistrationTool
     Private Sub btnModifyRegistration_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnModifyRegistration.Click
         Try
 
-            If Update_RES_Registration(txtRegID.Text, txtRegConfirmationNum.Text, _
+            If Update_RES_Registration(txtRegID.Text, txtRegConfirmationNum.Text,
                                        cboRegStatus.SelectedValue, DTPRegDateRegistered.Text) = True Then
 
                 MsgBox("Data Saved/Updated", MsgBoxStyle.Information, Me.Text)
@@ -895,13 +895,13 @@ Public Class MASPRegistrationTool
 
     Private Sub SendEmail(Optional ByVal whichSet As String = "")
         Dim subject As String = selectedEvent.Title & " – " & selectedEvent.StartDate
-        Dim body As String = selectedEvent.Title & vbNewLine & vbNewLine & _
-            selectedEvent.Description & vbNewLine & vbNewLine & _
+        Dim body As String = selectedEvent.Title & vbNewLine & vbNewLine &
+            selectedEvent.Description & vbNewLine & vbNewLine &
             "Starts on: " & selectedEvent.StartDate.Value.ToString(DateFormat)
         If selectedEvent.StartTime IsNot Nothing Then
             body &= ", " & selectedEvent.StartTime
         End If
-        body &= vbNewLine & "Venue: " & selectedEvent.Venue & vbNewLine & vbNewLine & _
+        body &= vbNewLine & "Venue: " & selectedEvent.Venue & vbNewLine & vbNewLine &
             selectedEvent.Address.ToString
 
         Dim recipientsBCC As List(Of String) = GetCorrectRecipients(whichSet)
@@ -941,17 +941,17 @@ Public Class MASPRegistrationTool
 
 #Region "Insert/Update event/registration"
 
-    Function Insert_RES_Event(ByVal EventStatusCode As String, ByVal Title As String, _
-                            ByVal Description As String, ByVal StartDateTime As String, _
-                            ByVal EndDateTime As String, ByVal Venue As String, _
-                            ByVal Address As String, ByVal City As String, _
-                            ByVal State As String, ByVal ZipCode As String, _
-                            ByVal Capacity As String, ByVal Notes As String, _
-                            ByVal APBContact As String, _
-                            ByVal WebContact As String, ByVal WebPhoneNumber As String, _
-                            ByVal LogInRequired As String, _
-                            ByVal PassCodeRequired As String, ByVal PassCode As String, _
-                            ByVal Active As String, ByVal EventTime As String, _
+    Function Insert_RES_Event(ByVal EventStatusCode As String, ByVal Title As String,
+                            ByVal Description As String, ByVal StartDateTime As String,
+                            ByVal EndDateTime As String, ByVal Venue As String,
+                            ByVal Address As String, ByVal City As String,
+                            ByVal State As String, ByVal ZipCode As String,
+                            ByVal Capacity As String, ByVal Notes As String,
+                            ByVal APBContact As String,
+                            ByVal WebContact As String, ByVal WebPhoneNumber As String,
+                            ByVal LogInRequired As String,
+                            ByVal PassCodeRequired As String, ByVal PassCode As String,
+                            ByVal Active As String, ByVal EventTime As String,
                             ByVal EventEndTime As String, ByVal WebURL As String) As String
         Try
             Dim EventID As String = "0"
@@ -976,38 +976,38 @@ Public Class MASPRegistrationTool
                 LogInRequired = "0"
             End If
 
-            SQL = "Insert into AIRBRANCH.RES_Event " & _
-                     "(numRes_EventID, numEventStatusCode, " & _
-                     "strUserGCode, strTitle, " & _
-                     "strDescription, datStartDate, " & _
-                     "datEndDate, strVenue, " & _
-                     "numCapacity, strNotes, " & _
-                     "strMultipleregistrations, Active, " & _
-                     "createDateTime, UpdateUser, " & _
-                     "UpdateDateTime, strLogInRequired, " & _
-                     "strPassCode, strAddress, " & _
-                     "strCity, strState, " & _
-                     "numZipCode, numAPBContact, " & _
-                     "numWebPhoneNumber, strEventStartTime, " & _
-                     "strEventEndTime, strWebURL) " & _
-                     "values " & _
-                     "((select " & _
-                     "case when max(numres_eventID) is null then 1 " & _
-                     "else max(numRes_EventID) + 1 End  " & _
-                     "from AIRBRANCH.Res_event), " & _
-                     "'" & Replace(EventStatusCode, "'", "''") & "',  '" & Replace(WebContact, "'", "''") & "', " & _
-                     "'" & Replace(Title, "'", "''") & "', " & _
-                     "'" & Replace(Description, "'", "''") & "', '" & Replace(StartDateTime, "'", "''") & "', " & _
-                     "'" & Replace(EndDateTime, "'", "''") & "', '" & Replace(Venue, "'", "''") & "', " & _
-                     "'" & Replace(Capacity, "'", "''") & "', '" & Replace(Notes, "'", "''") & "', " & _
-                     "'', " & _
-                     "'" & Active & "', " & _
-                     "sysdate, '" & CurrentUser.UserID & "', " & _
-                     "sysdate, '" & LogInRequired & "', " & _
-                     "'" & Replace(PassCode, "'", "''") & "', '" & Replace(Address, "'", "''") & "', " & _
-                     "'" & Replace(City, "'", "''") & "', '" & Replace(State, "'", "''") & "',  " & _
-                     "'" & ZipCode & "', '" & APBContact & "', " & _
-                     "'" & WebPhoneNumber & "', '" & Replace(EventTime, "'", "''") & "', " & _
+            SQL = "Insert into AIRBRANCH.RES_Event " &
+                     "(numRes_EventID, numEventStatusCode, " &
+                     "strUserGCode, strTitle, " &
+                     "strDescription, datStartDate, " &
+                     "datEndDate, strVenue, " &
+                     "numCapacity, strNotes, " &
+                     "strMultipleregistrations, Active, " &
+                     "createDateTime, UpdateUser, " &
+                     "UpdateDateTime, strLogInRequired, " &
+                     "strPassCode, strAddress, " &
+                     "strCity, strState, " &
+                     "numZipCode, numAPBContact, " &
+                     "numWebPhoneNumber, strEventStartTime, " &
+                     "strEventEndTime, strWebURL) " &
+                     "values " &
+                     "((select " &
+                     "case when max(numres_eventID) is null then 1 " &
+                     "else max(numRes_EventID) + 1 End  " &
+                     "from AIRBRANCH.Res_event), " &
+                     "'" & Replace(EventStatusCode, "'", "''") & "',  '" & Replace(WebContact, "'", "''") & "', " &
+                     "'" & Replace(Title, "'", "''") & "', " &
+                     "'" & Replace(Description, "'", "''") & "', '" & Replace(StartDateTime, "'", "''") & "', " &
+                     "'" & Replace(EndDateTime, "'", "''") & "', '" & Replace(Venue, "'", "''") & "', " &
+                     "'" & Replace(Capacity, "'", "''") & "', '" & Replace(Notes, "'", "''") & "', " &
+                     "'', " &
+                     "'" & Active & "', " &
+                     "sysdate, '" & CurrentUser.UserID & "', " &
+                     "sysdate, '" & LogInRequired & "', " &
+                     "'" & Replace(PassCode, "'", "''") & "', '" & Replace(Address, "'", "''") & "', " &
+                     "'" & Replace(City, "'", "''") & "', '" & Replace(State, "'", "''") & "',  " &
+                     "'" & ZipCode & "', '" & APBContact & "', " &
+                     "'" & WebPhoneNumber & "', '" & Replace(EventTime, "'", "''") & "', " &
                      "'" & Replace(EventEndTime, "'", "''") & "', '" & Replace(WebURL, "'", "''") & "') "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1017,8 +1017,8 @@ Public Class MASPRegistrationTool
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Select " & _
-            "max(numRes_eventID) as EventID " & _
+            SQL = "Select " &
+            "max(numRes_eventID) as EventID " &
             "from AIRBRANCH.RES_Event "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1044,18 +1044,18 @@ Public Class MASPRegistrationTool
         Return ""
     End Function
 
-    Function Update_RES_Event(ByVal Res_EventID As String, _
-                           ByVal EventStatusCode As String, ByVal Title As String, _
-                           ByVal Description As String, ByVal StartDateTime As String, _
-                           ByVal EndDateTime As String, ByVal Venue As String, _
-                           ByVal Address As String, ByVal City As String, _
-                           ByVal State As String, ByVal ZipCode As String, _
-                           ByVal Capacity As String, ByVal Notes As String, _
-                           ByVal APBContact As String, _
-                           ByVal WebContact As String, _
-                           ByVal LogInRequired As String, _
-                           ByVal PassCodeRequired As String, ByVal PassCode As String, _
-                           ByVal Active As String, ByVal EventTime As String, _
+    Function Update_RES_Event(ByVal Res_EventID As String,
+                           ByVal EventStatusCode As String, ByVal Title As String,
+                           ByVal Description As String, ByVal StartDateTime As String,
+                           ByVal EndDateTime As String, ByVal Venue As String,
+                           ByVal Address As String, ByVal City As String,
+                           ByVal State As String, ByVal ZipCode As String,
+                           ByVal Capacity As String, ByVal Notes As String,
+                           ByVal APBContact As String,
+                           ByVal WebContact As String,
+                           ByVal LogInRequired As String,
+                           ByVal PassCodeRequired As String, ByVal PassCode As String,
+                           ByVal Active As String, ByVal EventTime As String,
                            ByVal EventEndTime As String, ByVal WebURL As String) As Boolean
         Try
             Dim SQL As String = ""
@@ -1190,9 +1190,9 @@ Public Class MASPRegistrationTool
                 SQL = SQL & "active = '" & Active & "', "
             End If
             If SQL <> "" Then
-                SQL = "Update AIRBRANCH.Res_Event set " & _
-                SQL & "updateUser = '" & CurrentUser.UserID & "', " & _
-                "updateDateTime = '" & OracleDate & "' " & _
+                SQL = "Update AIRBRANCH.Res_Event set " &
+                SQL & "updateUser = '" & CurrentUser.UserID & "', " &
+                "updateDateTime = '" & OracleDate & "' " &
                 "where numRes_EventID = '" & Res_EventID & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1208,14 +1208,14 @@ Public Class MASPRegistrationTool
         End Try
     End Function
 
-    Function Update_RES_Registration(ByVal RegistrationID As String, ByVal Confirmation As String, _
+    Function Update_RES_Registration(ByVal RegistrationID As String, ByVal Confirmation As String,
                                      ByVal RegStatusCode As String, ByVal RegDate As String) As Boolean
         Try
 
-            SQL = "Update AIRBRANCH.Res_Registration set " & _
-            "numREgistrationStatusCode = '" & RegStatusCode & "', " & _
-            "datRegistrationDateTime = '" & RegDate & "' " & _
-            "where numRes_RegistrationID = '" & RegistrationID & "' " & _
+            SQL = "Update AIRBRANCH.Res_Registration set " &
+            "numREgistrationStatusCode = '" & RegStatusCode & "', " &
+            "datRegistrationDateTime = '" & RegDate & "' " &
+            "where numRes_RegistrationID = '" & RegistrationID & "' " &
             "and strConfirmationNumber = '" & Confirmation & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)

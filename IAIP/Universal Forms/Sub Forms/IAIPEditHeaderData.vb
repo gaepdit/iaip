@@ -45,7 +45,7 @@ Public Class IAIPEditHeaderData
 #Region " Form Load "
 
     Private Sub IAIPEditHeaderData_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        
+
 
         AirsNumberDisplay.Text = Me.AirsNumber.FormattedString
         FacilityNameDisplay.Text = Me.FacilityName
@@ -146,20 +146,20 @@ Public Class IAIPEditHeaderData
         DisplayFacilityData(CurrentFacilityHeaderData)
         Comments.Clear()
 
-        Dim EditableControls As Control() = { _
-            ClassificationDropDown, _
-            OperationalDropDown, _
-            SicCode, _
-            StartUpDate, _
-            NaicsCode, _
-            AirProgramCodes, _
-            AirProgramClassificationsGroupbox, _
-            NonattainmentStatuses, _
-            FacilityDescription, _
-            RmpId, _
-            Comments, _
-            SaveChangesButton, _
-            CancelEditButton _
+        Dim EditableControls As Control() = {
+            ClassificationDropDown,
+            OperationalDropDown,
+            SicCode,
+            StartUpDate,
+            NaicsCode,
+            AirProgramCodes,
+            AirProgramClassificationsGroupbox,
+            NonattainmentStatuses,
+            FacilityDescription,
+            RmpId,
+            Comments,
+            SaveChangesButton,
+            CancelEditButton
         }
         AllowControls(EditableControls)
 
@@ -173,21 +173,21 @@ Public Class IAIPEditHeaderData
     Private Sub DisableEditing()
         ResetControlHighlights()
 
-        Dim EditableControls As Control() = { _
-            ClassificationDropDown, _
-            OperationalDropDown, _
-            SicCode, _
-            StartUpDate, _
-            ShutdownDate, _
-            NaicsCode, _
-            AirProgramCodes, _
-            AirProgramClassificationsGroupbox, _
-            NonattainmentStatuses, _
-            FacilityDescription, _
-            RmpId, _
-            Comments, _
-            SaveChangesButton, _
-            CancelEditButton _
+        Dim EditableControls As Control() = {
+            ClassificationDropDown,
+            OperationalDropDown,
+            SicCode,
+            StartUpDate,
+            ShutdownDate,
+            NaicsCode,
+            AirProgramCodes,
+            AirProgramClassificationsGroupbox,
+            NonattainmentStatuses,
+            FacilityDescription,
+            RmpId,
+            Comments,
+            SaveChangesButton,
+            CancelEditButton
         }
         PreventControls(EditableControls)
 
@@ -225,23 +225,23 @@ Public Class IAIPEditHeaderData
 
     Private Sub OperationalDropDown_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OperationalDropDown.SelectedIndexChanged
         If EditData.Checked Then
-            Dim NonShutdownControls As Control() = { _
-                ClassificationDropDown, _
-                SicCode, _
-                StartUpDate, _
-                NaicsCode, _
-                AirProgramCodes, _
-                AirProgramClassificationsGroupbox, _
-                NonattainmentStatuses, _
-                FacilityDescription, _
-                RmpId _
+            Dim NonShutdownControls As Control() = {
+                ClassificationDropDown,
+                SicCode,
+                StartUpDate,
+                NaicsCode,
+                AirProgramCodes,
+                AirProgramClassificationsGroupbox,
+                NonattainmentStatuses,
+                FacilityDescription,
+                RmpId
             }
             If UserIsTryingToCloseFacility() Then
                 PreventControls(NonShutdownControls)
                 ShutdownDate.Checked = True
                 ShutdownDate.Enabled = True
-                ModifiedDescDisplay.Text = "When changing operating status to Closed/Dismantled, " & _
-                "no other data can be modified. Make any other required changes first. " & _
+                ModifiedDescDisplay.Text = "When changing operating status to Closed/Dismantled, " &
+                "no other data can be modified. Make any other required changes first. " &
                 "Please enter a final permit revocation date."
                 PermitRevocationDateLabel.BackColor = Color.Yellow
                 ModifiedDescDisplay.BackColor = Color.Yellow
@@ -407,7 +407,7 @@ Public Class IAIPEditHeaderData
         ' See if facility is being shut down & check permissions
         If UserIsTryingToCloseFacility() Then
             If Not UserCanShutDownFacility() Then
-                MessageBox.Show("You do not have permissions to shut down a facility. Please contact your manager.", _
+                MessageBox.Show("You do not have permissions to shut down a facility. Please contact your manager.",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Return False
             Else
@@ -419,7 +419,7 @@ Public Class IAIPEditHeaderData
 
         ' Compare edited data to current data
         If Not FacilityHeaderDataDiffers(editedFacility, CurrentFacilityHeaderData) Then
-            MessageBox.Show("No data has been changed. Nothing saved.", _
+            MessageBox.Show("No data has been changed. Nothing saved.",
                                 "Nothing Changed", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return False
         End If
@@ -428,7 +428,7 @@ Public Class IAIPEditHeaderData
         Dim invalidControls As New List(Of Control)
         If Not ValidateAllFields(editedFacility, invalidControls) Then
             HighlightControls(invalidControls)
-            MessageBox.Show("Some data is not valid. Double-check your entries." & vbNewLine & vbNewLine & "Nothing saved.", _
+            MessageBox.Show("Some data is not valid. Double-check your entries." & vbNewLine & vbNewLine & "Nothing saved.",
                             "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return False
         End If
@@ -453,9 +453,9 @@ Public Class IAIPEditHeaderData
     End Function
 
     Private Function ConfirmFacilityShutdown() As Boolean
-        Return MessageBox.Show("Are you sure you want to mark this facility as closed/dismantled? " & _
-                               "This will revoke all existing permits.", _
-                               "Warning", MessageBoxButtons.YesNo, _
+        Return MessageBox.Show("Are you sure you want to mark this facility as closed/dismantled? " &
+                               "This will revoke all existing permits.",
+                               "Warning", MessageBoxButtons.YesNo,
                                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
     End Function
 
@@ -464,8 +464,8 @@ Public Class IAIPEditHeaderData
         invalidControls = New List(Of Control)
 
         If String.IsNullOrEmpty(Comments.Text) Then
-            MessageBox.Show("Since this is a direct change to the data, please add a useful comment so future users " & _
-                            "will know the reason for the change.", _
+            MessageBox.Show("Since this is a direct change to the data, please add a useful comment so future users " &
+                            "will know the reason for the change.",
                             "Missing Comment", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             valid = False
             invalidControls.Add(CommentsLabel)
@@ -474,7 +474,7 @@ Public Class IAIPEditHeaderData
         If editedFacility.OperationalStatus = FacilityOperationalStatus.X _
         AndAlso CurrentFacilityHeaderData.OperationalStatus <> FacilityOperationalStatus.X _
         AndAlso editedFacility.ShutdownDate Is Nothing Then
-            MessageBox.Show("You have marked the facility as closed. Please enter the date the final permit was revoked.", _
+            MessageBox.Show("You have marked the facility as closed. Please enter the date the final permit was revoked.",
                             "Missing Date", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             valid = False
             invalidControls.Add(PermitRevocationDateLabel)
@@ -483,7 +483,7 @@ Public Class IAIPEditHeaderData
         If Not editedFacility.ShutdownDate Is Nothing _
             AndAlso editedFacility.OperationalStatus <> FacilityOperationalStatus.X _
             AndAlso editedFacility.ShutdownDate Is Nothing Then
-            MessageBox.Show("A permit revocation date is entered, but the facility is not marked as closed. Please reconcile this.", _
+            MessageBox.Show("A permit revocation date is entered, but the facility is not marked as closed. Please reconcile this.",
                             "Missing Date", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             valid = False
             invalidControls.Add(PermitRevocationDateLabel)
@@ -500,14 +500,14 @@ Public Class IAIPEditHeaderData
         End If
 
         If Not DAL.FacilityHeaderDataData.SicCodeIsValid(SicCode.Text) Then
-            MessageBox.Show("Please enter a valid SIC code.", _
+            MessageBox.Show("Please enter a valid SIC code.",
                             "Invalid SIC", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             valid = False
             invalidControls.Add(SicCodeLabel)
         End If
 
         If Not DAL.FacilityHeaderDataData.NaicsCodeIsValid(NaicsCode.Text) Then
-            MessageBox.Show("Please enter a valid NAICS code.", _
+            MessageBox.Show("Please enter a valid NAICS code.",
                             "Invalid NAICS", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             valid = False
             invalidControls.Add(NaicsCodeLabel)
@@ -533,16 +533,16 @@ Public Class IAIPEditHeaderData
     End Sub
 
     Private Sub ResetControlHighlights()
-        Dim resetableControls As New List(Of Control)(New Control() { _
-          ClassificationLabel, _
-          OperationalStatusLabel, _
-          SicCodeLabel, _
-          NaicsCodeLabel, _
-          CommentsLabel, _
-          FacilityDescriptionLabel, _
-          PermitRevocationDateLabel, _
-          ModifiedDescDisplay, _
-          RmpIdLabel _
+        Dim resetableControls As New List(Of Control)(New Control() {
+          ClassificationLabel,
+          OperationalStatusLabel,
+          SicCodeLabel,
+          NaicsCodeLabel,
+          CommentsLabel,
+          FacilityDescriptionLabel,
+          PermitRevocationDateLabel,
+          ModifiedDescDisplay,
+          RmpIdLabel
         })
 
         For Each c As Control In resetableControls
@@ -561,12 +561,12 @@ Public Class IAIPEditHeaderData
 
             ' Save edited data
             If UserIsTryingToCloseFacility() Then
-                result = DAL.ShutDownFacility(editedFacility.AirsNumber, _
-                                              editedFacility.ShutdownDate, _
-                                              editedFacility.HeaderUpdateComment, _
+                result = DAL.ShutDownFacility(editedFacility.AirsNumber,
+                                              editedFacility.ShutdownDate,
+                                              editedFacility.HeaderUpdateComment,
                                               HeaderDataModificationLocation.HeaderDataEditor)
             Else
-                result = DAL.SaveFacilityHeaderData(editedFacility, _
+                result = DAL.SaveFacilityHeaderData(editedFacility,
                                                     HeaderDataModificationLocation.HeaderDataEditor)
             End If
 
@@ -585,7 +585,7 @@ Public Class IAIPEditHeaderData
 
                 EditData.Checked = False
             Else
-                MessageBox.Show("There was an error saving the new data. Please try again.", _
+                MessageBox.Show("There was an error saving the new data. Please try again.",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
         End If

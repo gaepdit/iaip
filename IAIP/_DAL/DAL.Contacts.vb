@@ -21,26 +21,26 @@ Namespace DAL
 
             Dim contact As New Contact
 
-            Dim query As String = " SELECT strContactFirstName, " & _
-                "  strContactLastName, " & _
-                "  strContactPrefix, " & _
-                "  strContactSuffix, " & _
-                "  strContactCompanyName, " & _
-                "  strContactAddress1, " & _
-                "  strContactAddress2, " & _
-                "  strContactCity, " & _
-                "  strContactstate, " & _
-                "  strContactZipCode, " & _
-                "  STRCONTACTTITLE, " & _
-                "  STRCONTACTPHONENUMBER1, " & _
-                "  strContactEmail " & _
-                " FROM AIRBRANCH.APBContactInformation " & _
-                " WHERE strAIRSNumber = :airsnumber " & _
+            Dim query As String = " SELECT strContactFirstName, " &
+                "  strContactLastName, " &
+                "  strContactPrefix, " &
+                "  strContactSuffix, " &
+                "  strContactCompanyName, " &
+                "  strContactAddress1, " &
+                "  strContactAddress2, " &
+                "  strContactCity, " &
+                "  strContactstate, " &
+                "  strContactZipCode, " &
+                "  STRCONTACTTITLE, " &
+                "  STRCONTACTPHONENUMBER1, " &
+                "  strContactEmail " &
+                " FROM AIRBRANCH.APBContactInformation " &
+                " WHERE strAIRSNumber = :airsnumber " &
                 " AND strKey          = :key "
 
-            Dim parameters As OracleParameter() = New OracleParameter() { _
-                New OracleParameter("airsnumber", airsNumber.DbFormattedString), _
-                New OracleParameter("key", key.ToString("D")) _
+            Dim parameters As OracleParameter() = New OracleParameter() {
+                New OracleParameter("airsnumber", airsNumber.DbFormattedString),
+                New OracleParameter("key", key.ToString("D"))
             }
 
             Dim dataTable As DataTable = DB.GetDataTable(query, parameters)

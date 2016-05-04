@@ -16,7 +16,7 @@ Public Class ISMPAddTestingFirms
 
 
     Private Sub ISMPAddTestingFirms_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        
+
         Try
 
             CreateStatusBar()
@@ -71,12 +71,12 @@ Public Class ISMPAddTestingFirms
     Sub LoadDataSet()
         Try
 
-            SQL = "Select strTestingFirmKey, strTestingFirm, " & _
-                 "strFirmAddress1, strFirmAddress2, " & _
-                 "strFirmCity, strFirmState, " & _
-                 "strFirmZipCode, strFirmPhoneNumber1, " & _
-                 "strFirmPhoneNumber2, strFirmFax, strFirmEmail " & _
-                 "from AIRBRANCH.LookUPTestingFirms " & _
+            SQL = "Select strTestingFirmKey, strTestingFirm, " &
+                 "strFirmAddress1, strFirmAddress2, " &
+                 "strFirmCity, strFirmState, " &
+                 "strFirmZipCode, strFirmPhoneNumber1, " &
+                 "strFirmPhoneNumber2, strFirmFax, strFirmEmail " &
+                 "from AIRBRANCH.LookUPTestingFirms " &
                  "Order by strTestingFirm "
 
             dsTestingFirms = New DataSet
@@ -305,8 +305,8 @@ Public Class ISMPAddTestingFirms
                         ' TestingFirmKey = TestingFirmKey
                 End Select
 
-                SQL = "Select strTestingfirmKey " & _
-                "from AIRBRANCH.LookUPTestingFirms " & _
+                SQL = "Select strTestingfirmKey " &
+                "from AIRBRANCH.LookUPTestingFirms " &
                 "where strTestingFirmKey = '" & TestingFirmKey & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
@@ -446,42 +446,42 @@ Public Class ISMPAddTestingFirms
                     CurrentConnection.Open()
                 End If
                 If chbDeleteTestingFirm.Checked = True Then
-                    SQL = "Delete AIRBRANCH.LookUPTestingFirms " & _
+                    SQL = "Delete AIRBRANCH.LookUPTestingFirms " &
                     "where strTestingFirmKey = '" & txtTestingFirmKey.Text & "'"
                 Else
-                    SQL = "Select strTestingFirmKey " & _
-                    "from AIRBRANCH.LookUPTestingFirms " & _
+                    SQL = "Select strTestingFirmKey " &
+                    "from AIRBRANCH.LookUPTestingFirms " &
                     "where strTestingFirmKey = '" & txtTestingFirmKey.Text & "'"
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
                     If recExist = True Then
-                        SQL = "Update AIRBRANCH.LookUPTestingFirms set " & _
-                        "strTestingFirm = '" & TestingFirm & "', " & _
-                        "strFirmAddress1 = '" & TestingFirmAddress1 & "', " & _
-                        "strFirmAddress2 = '" & TestingFirmAddress2 & "', " & _
-                        "strFirmCity = '" & TestingFirmCity & "', " & _
-                        "strFirmState = '" & TestingFirmState & "', " & _
-                        "strFirmZipCode = '" & TestingFirmZipCode & "', " & _
-                        "strFirmphoneNumber1 = '" & TestingFirmPhoneNumber1 & "', " & _
-                        "strFirmPhoneNumber2 = '" & TestingFirmPhoneNumber2 & "', " & _
-                        "strFirmFax = '" & TestingFirmFaxNumber & "', " & _
-                        "strFirmEmail = '" & TestingFirmEmail & "' " & _
+                        SQL = "Update AIRBRANCH.LookUPTestingFirms set " &
+                        "strTestingFirm = '" & TestingFirm & "', " &
+                        "strFirmAddress1 = '" & TestingFirmAddress1 & "', " &
+                        "strFirmAddress2 = '" & TestingFirmAddress2 & "', " &
+                        "strFirmCity = '" & TestingFirmCity & "', " &
+                        "strFirmState = '" & TestingFirmState & "', " &
+                        "strFirmZipCode = '" & TestingFirmZipCode & "', " &
+                        "strFirmphoneNumber1 = '" & TestingFirmPhoneNumber1 & "', " &
+                        "strFirmPhoneNumber2 = '" & TestingFirmPhoneNumber2 & "', " &
+                        "strFirmFax = '" & TestingFirmFaxNumber & "', " &
+                        "strFirmEmail = '" & TestingFirmEmail & "' " &
                         "where strTestingFirmKey = '" & txtTestingFirmKey.Text & "' "
                     Else
-                        SQL = "Insert into AIRBRANCH.LookUPTestingFirms " & _
-                        "(strTestingFirmKey, strTestingFirm, " & _
-                        "strFirmAddress1, strFirmAddress2, " & _
-                        "strFirmCity, strFirmState, " & _
-                        "strFirmZipCode, strFirmPhoneNumber1, " & _
-                        "strFirmPhoneNumber2, strFirmFax, " & _
-                        "strFirmEmail) " & _
-                        "values " & _
-                        "('" & txtTestingFirmKey.Text & "', '" & TestingFirm & "', " & _
-                        "'" & TestingFirmAddress1 & "', '" & TestingFirmAddress2 & "', " & _
-                        "'" & TestingFirmCity & "', '" & TestingFirmState & "', " & _
-                        "'" & TestingFirmZipCode & "', '" & TestingFirmPhoneNumber1 & "', " & _
-                        "'" & TestingFirmPhoneNumber2 & "', '" & TestingFirmFaxNumber & "', " & _
+                        SQL = "Insert into AIRBRANCH.LookUPTestingFirms " &
+                        "(strTestingFirmKey, strTestingFirm, " &
+                        "strFirmAddress1, strFirmAddress2, " &
+                        "strFirmCity, strFirmState, " &
+                        "strFirmZipCode, strFirmPhoneNumber1, " &
+                        "strFirmPhoneNumber2, strFirmFax, " &
+                        "strFirmEmail) " &
+                        "values " &
+                        "('" & txtTestingFirmKey.Text & "', '" & TestingFirm & "', " &
+                        "'" & TestingFirmAddress1 & "', '" & TestingFirmAddress2 & "', " &
+                        "'" & TestingFirmCity & "', '" & TestingFirmState & "', " &
+                        "'" & TestingFirmZipCode & "', '" & TestingFirmPhoneNumber1 & "', " &
+                        "'" & TestingFirmPhoneNumber2 & "', '" & TestingFirmFaxNumber & "', " &
                         "'" & TestingFirmEmail & "') "
                     End If
                 End If
@@ -699,5 +699,5 @@ Public Class ISMPAddTestingFirms
 
     End Sub
 
-   
+
 End Class

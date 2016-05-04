@@ -14,9 +14,9 @@ Namespace DAL.Ismp
         Public Function StackTestExists(ByVal referenceNumber As String) As Boolean
             If referenceNumber = "" OrElse Not Integer.TryParse(referenceNumber, Nothing) Then Return False
 
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM AIRBRANCH.ISMPREPORTINFORMATION " & _
-                " WHERE RowNum = 1 " & _
+            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
+                " FROM AIRBRANCH.ISMPREPORTINFORMATION " &
+                " WHERE RowNum = 1 " &
                 " AND STRREFERENCENUMBER = :ReferenceNumber "
             Dim parameter As New OracleParameter("ReferenceNumber", referenceNumber)
 
@@ -31,9 +31,9 @@ Namespace DAL.Ismp
         Public Function TestNotificationExists(ByVal notificationNumber As String) As Boolean
             If notificationNumber = "" OrElse Not Integer.TryParse(notificationNumber, Nothing) Then Return False
 
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM AIRBRANCH.ISMPTESTNOTIFICATION " & _
-                " WHERE RowNum = 1 " & _
+            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
+                " FROM AIRBRANCH.ISMPTESTNOTIFICATION " &
+                " WHERE RowNum = 1 " &
                 " AND STRTESTLOGNUMBER = :NotificationNumber "
             Dim parameter As New OracleParameter("NotificationNumber", notificationNumber)
 
@@ -48,8 +48,8 @@ Namespace DAL.Ismp
         Public Function StackTestIsClosedOut(ByVal referenceNumber As String) As Boolean
             If referenceNumber = "" OrElse Not Integer.TryParse(referenceNumber, Nothing) Then Return False
 
-            Dim query As String = "SELECT STRCLOSED " & _
-                " FROM AIRBRANCH.ISMPREPORTINFORMATION " & _
+            Dim query As String = "SELECT STRCLOSED " &
+                " FROM AIRBRANCH.ISMPREPORTINFORMATION " &
                 " WHERE STRREFERENCENUMBER = :ReferenceNumber "
             Dim parameter As New OracleParameter("ReferenceNumber", referenceNumber)
 
@@ -59,11 +59,11 @@ Namespace DAL.Ismp
         Private Function GetStackTestDbTable(ByVal referenceNumber As String) As String
             If referenceNumber = "" OrElse Not Integer.TryParse(referenceNumber, Nothing) Then Return Nothing
 
-            Dim query As String = _
-            "SELECT dt.STRTABLENAME " & _
-            "FROM AIRBRANCH.ISMPDocumentType dt " & _
-            "INNER JOIN AIRBRANCH.ISMPReportInformation ri " & _
-            "ON ri.STRDOCUMENTTYPE = dt.STRKEY " & _
+            Dim query As String =
+            "SELECT dt.STRTABLENAME " &
+            "FROM AIRBRANCH.ISMPDocumentType dt " &
+            "INNER JOIN AIRBRANCH.ISMPReportInformation ri " &
+            "ON ri.STRDOCUMENTTYPE = dt.STRKEY " &
             "WHERE ri.STRREFERENCENUMBER = :ReferenceNumber"
 
             Dim parameter As New OracleParameter("ReferenceNumber", referenceNumber)
@@ -87,8 +87,8 @@ Namespace DAL.Ismp
 
             Dim queryList As New List(Of String)
             Dim parametersList As New List(Of OracleParameter())
-            Dim parameter As OracleParameter() = New OracleParameter() { _
-                New OracleParameter("ReferenceNumber", referenceNumber) _
+            Dim parameter As OracleParameter() = New OracleParameter() {
+                New OracleParameter("ReferenceNumber", referenceNumber)
             }
 
             If tableName <> "UNASSIGNED" Then
@@ -96,8 +96,8 @@ Namespace DAL.Ismp
                 parametersList.Add(parameter)
             End If
 
-            queryList.Add(" UPDATE AIRBRANCH.ISMPReportInformation " & _
-                          " SET strDocumentType      = '001' " & _
+            queryList.Add(" UPDATE AIRBRANCH.ISMPReportInformation " &
+                          " SET strDocumentType      = '001' " &
                           " WHERE strReferenceNumber = :ReferenceNumber ")
             parametersList.Add(parameter)
 

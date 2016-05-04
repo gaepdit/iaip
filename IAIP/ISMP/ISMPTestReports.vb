@@ -53,7 +53,7 @@ Public Class ISMPTestReports
     End Property
 
     Private Sub ISMPTestReports_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        
+
         Try
             txtReferenceNumber.Text = Me.ReferenceNumber
 
@@ -111,31 +111,31 @@ Public Class ISMPTestReports
             dsPollutants = New DataSet
             dsComplianceStaff = New DataSet
 
-            SQL = "Select strMethodCode, " & _
-            "strMethodDesc " & _
-            "from AIRBRANCH.LookUpISMPMethods " & _
+            SQL = "Select strMethodCode, " &
+            "strMethodDesc " &
+            "from AIRBRANCH.LookUpISMPMethods " &
             "order by strMethodCode "
 
             daMethods = New OracleDataAdapter(SQL, CurrentConnection)
 
-            SQL = "select " & _
-            "case when numUserId = '0' then 'Not Witnessed'  " & _
-            "else UserName " & _
-            "End Username,  " & _
-            "numUserID  " & _
-            "from  " & _
-            "(select  " & _
-            "(strLastName|| ', ' ||strFirstName) as UserName,  " & _
-            "NumUserID  " & _
-            "from AIRBRANCH.EPDUSerProfiles  " & _
-            "where numProgram  = '3'  " & _
-            "and numEmployeeStatus = '1'   " & _
-            "and (numunit is null or numunit <> '14') " & _
-            "union  " & _
-            "select  " & _
-            "distinct(strLastName|| ', ' ||strFirstName) as UserName,  " & _
-            "NumUserID  " & _
-            "from AIRBRANCH.EPDUSerProfiles, AIRBRANCH.ismpreportinformation " & _
+            SQL = "select " &
+            "case when numUserId = '0' then 'Not Witnessed'  " &
+            "else UserName " &
+            "End Username,  " &
+            "numUserID  " &
+            "from  " &
+            "(select  " &
+            "(strLastName|| ', ' ||strFirstName) as UserName,  " &
+            "NumUserID  " &
+            "from AIRBRANCH.EPDUSerProfiles  " &
+            "where numProgram  = '3'  " &
+            "and numEmployeeStatus = '1'   " &
+            "and (numunit is null or numunit <> '14') " &
+            "union  " &
+            "select  " &
+            "distinct(strLastName|| ', ' ||strFirstName) as UserName,  " &
+            "NumUserID  " &
+            "from AIRBRANCH.EPDUSerProfiles, AIRBRANCH.ismpreportinformation " &
             "where AIRBRANCH.epdUserProfiles.numUserId = AIRBRANCH.ismpreportinformation.strWitnessingEngineer) "
 
             daEngineer = New OracleDataAdapter(SQL, CurrentConnection)
@@ -143,35 +143,6 @@ Public Class ISMPTestReports
             SQL = "select strCompliancekey, strComplianceStatus from AIRBRANCH.LookUPISMPComplianceStatus"
 
             daComplianceStatus = New OracleDataAdapter(SQL, CurrentConnection)
-
-            'SQL = "select " & _
-            '"case when numUserID = '0' then 'No CC' " & _
-            '"else UserName " & _
-            '"End UserName,  " & _
-            '"numUserId  " & _
-            '"from  " & _
-            '"(select  " & _
-            '"(strLastName|| ', ' ||strFirstName) as UserName,  " & _
-            '"airbranch.epduserprofiles.numUserID  " & _
-            '"from AIRBranch.EPDUserProfiles, AIRBranch.IAIPPermissions  " & _
-            '"where AIRBranch.EPDUserProfiles.numUserId = AIRBranch.IAIPPermissions.numUserID  " & _
-            '"and (strIAIPPermissions like '%(28)%' " & _
-            '"or strIAIPPermissions like '%(31)%'  " & _
-            '"or strIAIPPermissions like '%(33)%'  " & _
-            '"or strIAIPPermissions like '%(35)%'  " & _
-            '"or strIAIPPermissions like '%(37)%'  " & _
-            '"or strIAIPPermissions like '%(39)%'  " & _
-            '"or strIAIPPermissions like '%(19)%'  " & _
-            '"or strIAIPPermissions like '%(27)%'  " & _
-            '"or strIAIPPermissions like '%(21)%'  " & _
-            '"or strIAIPPermissions like '%(23)%'  " & _
-            '"or strIAIPPermissions like '%(25)%' ) " & _
-            '"Union  " & _
-            '"select  " & _
-            '"distinct(strLastName|| ', ' ||strFirstName) as UserName,  " & _
-            '"numUserId  " & _
-            '"from AIRBranch.EPDUserProfiles, AIRBranch.ISMPREportInformation " & _
-            '"where AIRBranch.EPDUserProfiles.numUserID = AIRBranch.ISMPReportInformation.strCC) "
 
             SQL = <s><![CDATA[
 SELECT (AIRBranch.EPDUserProfiles.STRLASTNAME
@@ -197,47 +168,12 @@ SELECT 'None', 0 FROM DUAL ORDER BY USERNAME
 
             daUnits = New OracleDataAdapter(SQL, CurrentConnection)
 
-            ' SQL = "Select strUnitTitle, strMonitoringUnit from AIRBRANCH.LookUPMonitoringUnits"
-
-            SQL = "select " & _
-                "strUnitDesc, numUnitCode  " & _
-                "from AIRBRANCH.LookUpEPDUnits  " & _
+            SQL = "select " &
+                "strUnitDesc, numUnitCode  " &
+                "from AIRBRANCH.LookUpEPDUnits  " &
                 "where numProgramCode = '3' or numProgramCode = '0' "
-            
-            daISMPUnits = New OracleDataAdapter(SQL, CurrentConnection)
 
-            'SQL = "select " & _
-            '"case when numUserID = '0' then 'No Manager'  " & _
-            '"else UserName " & _
-            '"End ComplianceManager,  " & _
-            '"numUserId  " & _
-            '"from  " & _
-            '"(select  " & _
-            '"distinct(strLastName|| ', ' ||strFirstName) as UserName,  " & _
-            '"airbranch.epduserprofiles.numUserID    " & _
-            '"from AIRBranch.EPDUserProfiles, AIRBranch.IAIPPermissions  " & _
-            '"where AIRBranch.EPDUserProfiles.numUserId = AIRBranch.IAIPPermissions.numUserID  " & _
-            '"and numemployeestatus= '1' " & _
-            '"and (strIAIPPermissions like '%(19)%'  " & _
-            '"or strIAIPPermissions like '%(27)%'  " & _
-            '"or strIAIPPermissions like '%(21)%'  " & _
-            '"or strIAIPPermissions like '%(23)%'  " & _
-            '"or strIAIPPermissions like '%(25)%' " & _
-            '"or strIAIPPermissions like '%(79)%' " & _
-            '"or strIAIPPermissions like '%(80)%' " & _
-            '"or strIAIPPermissions like '%(81)%' " & _
-            '"or strIAIPPermissions like '%(82)%' " & _
-            '"or strIAIPPermissions like '%(83)%' " & _
-            '"or strIAIPPermissions like '%(84)%' " & _
-            '"or strIAIPPermissions like '%(85)%' " & _
-            '"or strIAIPPermissions like '%(86)%' " & _
-            '") " & _
-            '"union  " & _
-            '"select  " & _
-            '"distinct(strLastName|| ', ' ||strFirstName) as UserName,  " & _
-            '"numUserId  " & _
-            '"from AIRBranch.EPDUserProfiles, AIRBranch.ISMPREportInformation " & _
-            '"where AIRBranch.EPDUserProfiles.numUserID = AIRBranch.ISMPReportInformation.strComplianceManager) "
+            daISMPUnits = New OracleDataAdapter(SQL, CurrentConnection)
 
             SQL = <s><![CDATA[
 SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
@@ -278,22 +214,22 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             SQL = "Select strPollutantCode, strPollutantDescription from AIRBRANCH.LookUPPollutants order by strPollutantDescription"
             daPollutants = New OracleDataAdapter(SQL, CurrentConnection)
 
-            SQL = "Select " & _
-            "case  " & _
-            "when numUserID = '0' then 'No Compliance Staff'  " & _
-            "else UserName " & _
-            "end StaffName,  " & _
-            "numUserID  " & _
-            "from  " & _
-            "(select  " & _
-            "(strLastName|| ', ' ||strFirstName) as UserName,  " & _
-            "numUserID  " & _
-            "from airbranch.EPDUserProfiles  " & _
-            "where ((numProgram = '4'  or numbranch = '5' ) " & _
-            "and numEmployeeStatus = '1')  " & _
-            "or strLastName = 'District'  " & _
-            "Union " & _
-            "select staff as username, numuserID " & _
+            SQL = "Select " &
+            "case  " &
+            "when numUserID = '0' then 'No Compliance Staff'  " &
+            "else UserName " &
+            "end StaffName,  " &
+            "numUserID  " &
+            "from  " &
+            "(select  " &
+            "(strLastName|| ', ' ||strFirstName) as UserName,  " &
+            "numUserID  " &
+            "from airbranch.EPDUserProfiles  " &
+            "where ((numProgram = '4'  or numbranch = '5' ) " &
+            "and numEmployeeStatus = '1')  " &
+            "or strLastName = 'District'  " &
+            "Union " &
+            "select staff as username, numuserID " &
             "from AIRBranch.VW_ComplianceStaff) "
 
             daComplianceStaff = New OracleDataAdapter(SQL, CurrentConnection)
@@ -2133,55 +2069,55 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             Dim OtherWitnessingEng As String = "0"
             Dim ConfidentialData As String = "0"
 
-            SQL = _
-            "SELECT mas.STRREFERENCENUMBER , SUBSTR( mas.STRAIRSNUMBER, 5 ) " & _
-            "  AS AIRSNumber , fac.STRFACILITYNAME , fac.STRFACILITYCITY , " & _
-            "  fac.STRFACILITYSTATE , rep.STRPOLLUTANT , " & _
-            "  rep.STREMISSIONSOURCE , rep.STRREPORTTYPE , " & _
-            "  rep.STRDOCUMENTTYPE , rep.STRAPPLICABLEREQUIREMENT , " & _
-            "  rep.STRTESTINGFIRM , rep.STRREVIEWINGENGINEER , " & _
-            "  rep.STRWITNESSINGENGINEER , rep.STRREVIEWINGUNIT , TO_CHAR( " & _
-            "  rep.DATREVIEWEDBYUNITMANAGER, 'dd-Mon-yyyy' ) AS " & _
-            "  datReviewedByUnitManager , rep.STRCOMPLIANCEMANAGER , TO_CHAR " & _
-            "  ( rep.DATRECEIVEDDATE, 'dd-Mon-yyyy' ) AS datReceivedDate , " & _
-            "  TO_CHAR( rep.DATTESTDATESTART, 'dd-Mon-yyyy' ) AS " & _
-            "  datTestDateStart , TO_CHAR( rep.DATTESTDATEEND, 'dd-Mon-yyyy' " & _
-            "  ) AS datTestDateEnd , TO_CHAR( rep.DATCOMPLETEDATE, " & _
-            "  'dd-Mon-yyyy' ) AS datCompleteDate , rep.MMOCOMMENTAREA , " & _
-            "  rep.STRCLOSED , rep.STRPROGRAMMANAGER , " & _
-            "  rep.STRCOMPLIANCESTATUS , rep.STRCC , TO_CHAR( " & _
-            "  rep.DATRECEIVEDDATE - rep.DATTESTDATEEND ) AS DaysFromTest , " & _
-            "  CASE WHEN rep.DATCOMPLETEDATE = '04-Jul-1776' THEN TO_CHAR( " & _
-            "      SysDate - rep.DATRECEIVEDDATE ) ELSE TO_CHAR( " & _
-            "      rep.DATCOMPLETEDATE - rep.DATRECEIVEDDATE ) END APBDays , " & _
-            "  CASE WHEN rep.DATCOMPLETEDATE = '04-Jul-1776' THEN TO_CHAR( " & _
-            "      SysDate - rep.DATREVIEWEDBYUNITMANAGER ) ELSE TO_CHAR( " & _
-            "      rep.DATCOMPLETEDATE - rep.DATREVIEWEDBYUNITMANAGER ) END " & _
-            "  EngineerDays , rep.STRDETERMINATIONMETHOD , " & _
-            "  rep.STRCONTROLEQUIPMENTDATA , rep.STROTHERWITNESSINGENG , " & _
-            "  rep.STRCONFIDENTIALDATA , CASE WHEN rep.NUMREVIEWINGMANAGER " & _
-            "      IS NULL THEN 'None'        WHEN rep.NUMREVIEWINGMANAGER = " & _
-            "      '0'     THEN 'None' ELSE( p1.STRLASTNAME || ', ' || " & _
-            "      p1.STRFIRSTNAME ) END UnitManager , " & _
-            "  rep.STRPRECOMPLIANCESTATUS , CASE                WHEN " & _
-            "      rep.STRCOMPLIANCEMANAGER IS NULL THEN 'None' WHEN " & _
-            "      rep.STRCOMPLIANCEMANAGER = '0'   THEN 'None' ELSE( " & _
-            "      p2.STRLASTNAME || ', ' || p2.STRFIRSTNAME ) END " & _
-            "  ComplianceManager , CASE WHEN rep.STRCC IS NULL THEN 'None' " & _
-            "                           WHEN rep.STRCC = '0'   THEN 'None' " & _
-            "    ELSE( p3.STRLASTNAME || ', ' || p3.STRFIRSTNAME ) END " & _
-            "  CCName , rep.STRDELETE " & _
-            "FROM AIRBRANCH.ISMPMaster mas " & _
-            "INNER JOIN AIRBRANCH.ISMPReportInformation rep " & _
-            "ON mas.STRREFERENCENUMBER = rep.STRREFERENCENUMBER " & _
-            "LEFT JOIN AIRBRANCH.EPDUserProfiles p3 " & _
-            "ON rep.STRCC = p3.NUMUSERID " & _
-            "LEFT JOIN AIRBRANCH.EPDUSERPROFILES p2 " & _
-            "ON rep.STRCOMPLIANCEMANAGER = p2.NUMUSERID " & _
-            "LEFT JOIN AIRBRANCH.EPDUSERPROFILES p1 " & _
-            "ON rep.NUMREVIEWINGMANAGER = p1.NUMUSERID " & _
-            "INNER JOIN AIRBRANCH.APBFacilityInformation fac " & _
-            "ON fac.STRAIRSNUMBER = mas.STRAIRSNUMBER " & _
+            SQL =
+            "SELECT mas.STRREFERENCENUMBER , SUBSTR( mas.STRAIRSNUMBER, 5 ) " &
+            "  AS AIRSNumber , fac.STRFACILITYNAME , fac.STRFACILITYCITY , " &
+            "  fac.STRFACILITYSTATE , rep.STRPOLLUTANT , " &
+            "  rep.STREMISSIONSOURCE , rep.STRREPORTTYPE , " &
+            "  rep.STRDOCUMENTTYPE , rep.STRAPPLICABLEREQUIREMENT , " &
+            "  rep.STRTESTINGFIRM , rep.STRREVIEWINGENGINEER , " &
+            "  rep.STRWITNESSINGENGINEER , rep.STRREVIEWINGUNIT , TO_CHAR( " &
+            "  rep.DATREVIEWEDBYUNITMANAGER, 'dd-Mon-yyyy' ) AS " &
+            "  datReviewedByUnitManager , rep.STRCOMPLIANCEMANAGER , TO_CHAR " &
+            "  ( rep.DATRECEIVEDDATE, 'dd-Mon-yyyy' ) AS datReceivedDate , " &
+            "  TO_CHAR( rep.DATTESTDATESTART, 'dd-Mon-yyyy' ) AS " &
+            "  datTestDateStart , TO_CHAR( rep.DATTESTDATEEND, 'dd-Mon-yyyy' " &
+            "  ) AS datTestDateEnd , TO_CHAR( rep.DATCOMPLETEDATE, " &
+            "  'dd-Mon-yyyy' ) AS datCompleteDate , rep.MMOCOMMENTAREA , " &
+            "  rep.STRCLOSED , rep.STRPROGRAMMANAGER , " &
+            "  rep.STRCOMPLIANCESTATUS , rep.STRCC , TO_CHAR( " &
+            "  rep.DATRECEIVEDDATE - rep.DATTESTDATEEND ) AS DaysFromTest , " &
+            "  CASE WHEN rep.DATCOMPLETEDATE = '04-Jul-1776' THEN TO_CHAR( " &
+            "      SysDate - rep.DATRECEIVEDDATE ) ELSE TO_CHAR( " &
+            "      rep.DATCOMPLETEDATE - rep.DATRECEIVEDDATE ) END APBDays , " &
+            "  CASE WHEN rep.DATCOMPLETEDATE = '04-Jul-1776' THEN TO_CHAR( " &
+            "      SysDate - rep.DATREVIEWEDBYUNITMANAGER ) ELSE TO_CHAR( " &
+            "      rep.DATCOMPLETEDATE - rep.DATREVIEWEDBYUNITMANAGER ) END " &
+            "  EngineerDays , rep.STRDETERMINATIONMETHOD , " &
+            "  rep.STRCONTROLEQUIPMENTDATA , rep.STROTHERWITNESSINGENG , " &
+            "  rep.STRCONFIDENTIALDATA , CASE WHEN rep.NUMREVIEWINGMANAGER " &
+            "      IS NULL THEN 'None'        WHEN rep.NUMREVIEWINGMANAGER = " &
+            "      '0'     THEN 'None' ELSE( p1.STRLASTNAME || ', ' || " &
+            "      p1.STRFIRSTNAME ) END UnitManager , " &
+            "  rep.STRPRECOMPLIANCESTATUS , CASE                WHEN " &
+            "      rep.STRCOMPLIANCEMANAGER IS NULL THEN 'None' WHEN " &
+            "      rep.STRCOMPLIANCEMANAGER = '0'   THEN 'None' ELSE( " &
+            "      p2.STRLASTNAME || ', ' || p2.STRFIRSTNAME ) END " &
+            "  ComplianceManager , CASE WHEN rep.STRCC IS NULL THEN 'None' " &
+            "                           WHEN rep.STRCC = '0'   THEN 'None' " &
+            "    ELSE( p3.STRLASTNAME || ', ' || p3.STRFIRSTNAME ) END " &
+            "  CCName , rep.STRDELETE " &
+            "FROM AIRBRANCH.ISMPMaster mas " &
+            "INNER JOIN AIRBRANCH.ISMPReportInformation rep " &
+            "ON mas.STRREFERENCENUMBER = rep.STRREFERENCENUMBER " &
+            "LEFT JOIN AIRBRANCH.EPDUserProfiles p3 " &
+            "ON rep.STRCC = p3.NUMUSERID " &
+            "LEFT JOIN AIRBRANCH.EPDUSERPROFILES p2 " &
+            "ON rep.STRCOMPLIANCEMANAGER = p2.NUMUSERID " &
+            "LEFT JOIN AIRBRANCH.EPDUSERPROFILES p1 " &
+            "ON rep.NUMREVIEWINGMANAGER = p1.NUMUSERID " &
+            "INNER JOIN AIRBRANCH.APBFacilityInformation fac " &
+            "ON fac.STRAIRSNUMBER = mas.STRAIRSNUMBER " &
             "WHERE mas.STRREFERENCENUMBER = :refnum"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2527,8 +2463,8 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
             lblMemoEntered.Visible = False
 
-            SQL = "Select " & _
-            "* from AIRBranch.ISMPTestReportMemo " & _
+            SQL = "Select " &
+            "* from AIRBranch.ISMPTestReportMemo " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2567,37 +2503,37 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 Case "002"
                     TCOneStack.TabPages.Remove(TPOneStackThreeRun)
                     TCOneStack.TabPages.Remove(TPOneStackFourRun)
-                    SQL = "select " & _
-                    "strMaxoperatingCapacity,  " & _
-                    "strMaxOperatingCapacityUnit,  " & _
-                    "strOperatingCapacity,  " & _
-                    "strOperatingCapacityUnit,  " & _
-                    "strAllowableEmissionRate1,  " & _
-                    "strAllowableEmissionRate2,  " & _
-                    "strAllowableEmissionRate3,  " & _
-                    "strAllowableEmissionRateUnit1,  " & _
-                    "strAllowableEmissionRateUnit2,  " & _
-                    "strAllowableEmissionRateUnit3,  " & _
-                    "strRunNumber1A,  " & _
-                    "strRunNumber1B,  " & _
-                    "strGasTemperature1A,  " & _
-                    "strGasTemperature1B,  " & _
-                    "strGasMoisture1A,  " & _
-                    "strGasMoisture1B,  " & _
-                    "strGasFlowRateACFM1A,  " & _
-                    "strGasFlowRateACFM1B,  " & _
-                    "strgasFlowRateDSCFM1A,  " & _
-                    "strgasFlowRateDSCFM1B,  " & _
-                    "strPollutantConcentration1A,  " & _
-                    "strPollutantConcentration1B,  " & _
-                    "strPollutantConcentrationunit,  " & _
-                    "strPollutantConcentrationAvg,  " & _
-                    "strEmissionRate1a,  " & _
-                    "strEmissionRate1b,  " & _
-                    "strEmissionRateUnit,  " & _
-                    "strEmissionRateAvg, " & _
-                    "strPercentAllowable  " & _
-                    "from AIRBRANCH.ISMPReportOneStack " & _
+                    SQL = "select " &
+                    "strMaxoperatingCapacity,  " &
+                    "strMaxOperatingCapacityUnit,  " &
+                    "strOperatingCapacity,  " &
+                    "strOperatingCapacityUnit,  " &
+                    "strAllowableEmissionRate1,  " &
+                    "strAllowableEmissionRate2,  " &
+                    "strAllowableEmissionRate3,  " &
+                    "strAllowableEmissionRateUnit1,  " &
+                    "strAllowableEmissionRateUnit2,  " &
+                    "strAllowableEmissionRateUnit3,  " &
+                    "strRunNumber1A,  " &
+                    "strRunNumber1B,  " &
+                    "strGasTemperature1A,  " &
+                    "strGasTemperature1B,  " &
+                    "strGasMoisture1A,  " &
+                    "strGasMoisture1B,  " &
+                    "strGasFlowRateACFM1A,  " &
+                    "strGasFlowRateACFM1B,  " &
+                    "strgasFlowRateDSCFM1A,  " &
+                    "strgasFlowRateDSCFM1B,  " &
+                    "strPollutantConcentration1A,  " &
+                    "strPollutantConcentration1B,  " &
+                    "strPollutantConcentrationunit,  " &
+                    "strPollutantConcentrationAvg,  " &
+                    "strEmissionRate1a,  " &
+                    "strEmissionRate1b,  " &
+                    "strEmissionRateUnit,  " &
+                    "strEmissionRateAvg, " &
+                    "strPercentAllowable  " &
+                    "from AIRBRANCH.ISMPReportOneStack " &
                     "where strReferenceNumber = '" & RefNum & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2782,44 +2718,44 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 Case "003"
                     TCOneStack.TabPages.Remove(TPOneStackTwoRun)
                     TCOneStack.TabPages.Remove(TPOneStackFourRun)
-                    SQL = "select " & _
-                    "strMaxoperatingCapacity,  " & _
-                    "strMaxOperatingCapacityUnit,  " & _
-                    "strOperatingCapacity,  " & _
-                    "strOperatingCapacityUnit,  " & _
-                    "strAllowableEmissionRate1,  " & _
-                    "strAllowableEmissionRate2,  " & _
-                    "strAllowableEmissionRate3,  " & _
-                    "strAllowableEmissionRateUnit1,  " & _
-                    "strAllowableEmissionRateUnit2,  " & _
-                    "strAllowableEmissionRateUnit3,  " & _
-                    "strRunNumber1A,  " & _
-                    "strRunNumber1B,  " & _
-                    "strRunNumber1C,  " & _
-                    "strGasTemperature1A,  " & _
-                    "strGasTemperature1B,  " & _
-                    "strGasTemperature1C,  " & _
-                    "strGasMoisture1A,  " & _
-                    "strGasMoisture1B,  " & _
-                    "strGasMoisture1C,  " & _
-                    "strGasFlowRateACFM1A,  " & _
-                    "strGasFlowRateACFM1B,  " & _
-                    "strGasFlowRateACFM1C,  " & _
-                    "strgasFlowRateDSCFM1A,  " & _
-                    "strgasFlowRateDSCFM1B,  " & _
-                    "strgasFlowRateDSCFM1C,  " & _
-                    "strPollutantConcentration1A,  " & _
-                    "strPollutantConcentration1B,  " & _
-                    "strPollutantConcentration1C,  " & _
-                    "strPollutantConcentrationunit,  " & _
-                    "strPollutantConcentrationAvg,  " & _
-                    "strEmissionRate1a,  " & _
-                    "strEmissionRate1b,  " & _
-                    "strEmissionRate1C,  " & _
-                    "strEmissionRateUnit,  " & _
-                    "strEmissionRateAvg, " & _
-                    "strPercentAllowable  " & _
-                    "from AIRBRANCH.ISMPReportOneStack " & _
+                    SQL = "select " &
+                    "strMaxoperatingCapacity,  " &
+                    "strMaxOperatingCapacityUnit,  " &
+                    "strOperatingCapacity,  " &
+                    "strOperatingCapacityUnit,  " &
+                    "strAllowableEmissionRate1,  " &
+                    "strAllowableEmissionRate2,  " &
+                    "strAllowableEmissionRate3,  " &
+                    "strAllowableEmissionRateUnit1,  " &
+                    "strAllowableEmissionRateUnit2,  " &
+                    "strAllowableEmissionRateUnit3,  " &
+                    "strRunNumber1A,  " &
+                    "strRunNumber1B,  " &
+                    "strRunNumber1C,  " &
+                    "strGasTemperature1A,  " &
+                    "strGasTemperature1B,  " &
+                    "strGasTemperature1C,  " &
+                    "strGasMoisture1A,  " &
+                    "strGasMoisture1B,  " &
+                    "strGasMoisture1C,  " &
+                    "strGasFlowRateACFM1A,  " &
+                    "strGasFlowRateACFM1B,  " &
+                    "strGasFlowRateACFM1C,  " &
+                    "strgasFlowRateDSCFM1A,  " &
+                    "strgasFlowRateDSCFM1B,  " &
+                    "strgasFlowRateDSCFM1C,  " &
+                    "strPollutantConcentration1A,  " &
+                    "strPollutantConcentration1B,  " &
+                    "strPollutantConcentration1C,  " &
+                    "strPollutantConcentrationunit,  " &
+                    "strPollutantConcentrationAvg,  " &
+                    "strEmissionRate1a,  " &
+                    "strEmissionRate1b,  " &
+                    "strEmissionRate1C,  " &
+                    "strEmissionRateUnit,  " &
+                    "strEmissionRateAvg, " &
+                    "strPercentAllowable  " &
+                    "from AIRBRANCH.ISMPReportOneStack " &
                     "where strReferenceNumber = '" & RefNum & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3037,51 +2973,51 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 Case "004"
                     TCOneStack.TabPages.Remove(TPOneStackTwoRun)
                     TCOneStack.TabPages.Remove(TPOneStackThreeRun)
-                    SQL = "select " & _
-                    "strMaxoperatingCapacity,  " & _
-                    "strMaxOperatingCapacityUnit,  " & _
-                    "strOperatingCapacity,  " & _
-                    "strOperatingCapacityUnit,  " & _
-                    "strAllowableEmissionRate1,  " & _
-                    "strAllowableEmissionRate2,  " & _
-                    "strAllowableEmissionRate3,  " & _
-                    "strAllowableEmissionRateUnit1,  " & _
-                    "strAllowableEmissionRateUnit2,  " & _
-                    "strAllowableEmissionRateUnit3,  " & _
-                    "strRunNumber1A,  " & _
-                    "strRunNumber1B,  " & _
-                    "strRunNumber1C,  " & _
-                    "strRunNumber1D,  " & _
-                    "strGasTemperature1A,  " & _
-                    "strGasTemperature1B,  " & _
-                    "strGasTemperature1C,  " & _
-                    "strGasTemperature1D,  " & _
-                    "strGasMoisture1A,  " & _
-                    "strGasMoisture1B,  " & _
-                    "strGasMoisture1C,  " & _
-                    "strGasMoisture1D,  " & _
-                    "strGasFlowRateACFM1A,  " & _
-                    "strGasFlowRateACFM1B,  " & _
-                    "strGasFlowRateACFM1C,  " & _
-                    "strGasFlowRateACFM1D,  " & _
-                    "strgasFlowRateDSCFM1A,  " & _
-                    "strgasFlowRateDSCFM1B,  " & _
-                    "strgasFlowRateDSCFM1C,  " & _
-                    "strgasFlowRateDSCFM1D,  " & _
-                    "strPollutantConcentration1A,  " & _
-                    "strPollutantConcentration1B,  " & _
-                    "strPollutantConcentration1C,  " & _
-                    "strPollutantConcentration1D,  " & _
-                    "strPollutantConcentrationunit,  " & _
-                    "strPollutantConcentrationAvg,  " & _
-                    "strEmissionRate1a,  " & _
-                    "strEmissionRate1b,  " & _
-                    "strEmissionRate1C,  " & _
-                    "strEmissionRate1D,  " & _
-                    "strEmissionRateUnit,  " & _
-                    "strEmissionRateAvg, " & _
-                    "strPercentAllowable  " & _
-                    "from AIRBRANCH.ISMPReportOneStack " & _
+                    SQL = "select " &
+                    "strMaxoperatingCapacity,  " &
+                    "strMaxOperatingCapacityUnit,  " &
+                    "strOperatingCapacity,  " &
+                    "strOperatingCapacityUnit,  " &
+                    "strAllowableEmissionRate1,  " &
+                    "strAllowableEmissionRate2,  " &
+                    "strAllowableEmissionRate3,  " &
+                    "strAllowableEmissionRateUnit1,  " &
+                    "strAllowableEmissionRateUnit2,  " &
+                    "strAllowableEmissionRateUnit3,  " &
+                    "strRunNumber1A,  " &
+                    "strRunNumber1B,  " &
+                    "strRunNumber1C,  " &
+                    "strRunNumber1D,  " &
+                    "strGasTemperature1A,  " &
+                    "strGasTemperature1B,  " &
+                    "strGasTemperature1C,  " &
+                    "strGasTemperature1D,  " &
+                    "strGasMoisture1A,  " &
+                    "strGasMoisture1B,  " &
+                    "strGasMoisture1C,  " &
+                    "strGasMoisture1D,  " &
+                    "strGasFlowRateACFM1A,  " &
+                    "strGasFlowRateACFM1B,  " &
+                    "strGasFlowRateACFM1C,  " &
+                    "strGasFlowRateACFM1D,  " &
+                    "strgasFlowRateDSCFM1A,  " &
+                    "strgasFlowRateDSCFM1B,  " &
+                    "strgasFlowRateDSCFM1C,  " &
+                    "strgasFlowRateDSCFM1D,  " &
+                    "strPollutantConcentration1A,  " &
+                    "strPollutantConcentration1B,  " &
+                    "strPollutantConcentration1C,  " &
+                    "strPollutantConcentration1D,  " &
+                    "strPollutantConcentrationunit,  " &
+                    "strPollutantConcentrationAvg,  " &
+                    "strEmissionRate1a,  " &
+                    "strEmissionRate1b,  " &
+                    "strEmissionRate1C,  " &
+                    "strEmissionRate1D,  " &
+                    "strEmissionRateUnit,  " &
+                    "strEmissionRateAvg, " &
+                    "strPercentAllowable  " &
+                    "from AIRBRANCH.ISMPReportOneStack " &
                     "where strReferenceNumber = '" & RefNum & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3358,34 +3294,34 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             Select Case DocumentType
                 Case "005"
                     TCTwoStack.TabPages.Remove(Me.TPTwoStackDRE)
-                    SQL = "Select strMaxOperatingCapacity, strMaxOperatingCapacityUnit, " & _
-                    "strOperatingCapacity, strOperatingCapacityUnit, " & _
-                    "strAllowableEmissionRate1, strAllowableEmissionRate2, " & _
-                    "strAllowableEmissionRate3, strAllowableEmissionRateUnit1, " & _
-                    "strAllowableEmissionRateUnit2, strAllowableEmissionRateUnit3, " & _
-                    "strStackOneName, strStackTwoName, " & _
-                    "strRunNumber1A, strRunNumber1B, strRunNumber1C, " & _
-                    "strRunNumber2A, strRunNumber2B, strRunNumber2C, " & _
-                    "strGasTemperature1A, strGasTemperature1B, strGasTemperature1C, " & _
-                    "strGasTemperature2A, strGasTemperature2B, strGasTemperature2C, " & _
-                    "strGasMoisture1A, strGasMoisture1B, strGasMoisture1C, " & _
-                    "strGasMoisture2A, strGasMoisture2B, strGasMoisture2C, " & _
-                    "strGasFlowRateACFM1A, strGasFlowRateACFM1B, strGasFlowRateACFM1C, " & _
-                    "strGasFlowRateACFM2A, strGasFlowRateACFM2B, strGasFlowRateACFM2C, " & _
-                    "strGasFlowRateDSCFM1A, strGasFlowRateDSCFM1B, strGasFlowRateDSCFM1C, " & _
-                    "strGasFlowRateDSCFM2A, strGasFlowRateDSCFM2B, strGasFlowRateDSCFM2C, " & _
-                    "strPollutantConcentration1A, strPollutantConcentration1B, strPollutantConcentration1C, " & _
-                    "strPollutantConcentration2A, strPollutantConcentration2B, strPollutantConcentration2C, " & _
-                    "strPollutantConcentrationUnit, strPollutantConcentrationAVG1, " & _
-                    "strPollutantConcentrationAVG2, " & _
-                    "strEmissionRate1A, strEmissionRate1B, strEmissionRate1C, " & _
-                    "strEmissionRate2A, strEmissionRate2B, strEmissionRate2C, " & _
-                    "strEmissionRateUnit, strEmissionRateAvg1, " & _
-                     "strEmissionRateAvg2, " & _
-                    "strEmissionRateTotal1, strEmissionRateTotal2, strEmissionRateTotal3, " & _
-                    "strEmissionRateTotalAvg, " & _
-                    "strPercentAllowable " & _
-                    "from AIRBRANCH.ISMPReportTwoStack " & _
+                    SQL = "Select strMaxOperatingCapacity, strMaxOperatingCapacityUnit, " &
+                    "strOperatingCapacity, strOperatingCapacityUnit, " &
+                    "strAllowableEmissionRate1, strAllowableEmissionRate2, " &
+                    "strAllowableEmissionRate3, strAllowableEmissionRateUnit1, " &
+                    "strAllowableEmissionRateUnit2, strAllowableEmissionRateUnit3, " &
+                    "strStackOneName, strStackTwoName, " &
+                    "strRunNumber1A, strRunNumber1B, strRunNumber1C, " &
+                    "strRunNumber2A, strRunNumber2B, strRunNumber2C, " &
+                    "strGasTemperature1A, strGasTemperature1B, strGasTemperature1C, " &
+                    "strGasTemperature2A, strGasTemperature2B, strGasTemperature2C, " &
+                    "strGasMoisture1A, strGasMoisture1B, strGasMoisture1C, " &
+                    "strGasMoisture2A, strGasMoisture2B, strGasMoisture2C, " &
+                    "strGasFlowRateACFM1A, strGasFlowRateACFM1B, strGasFlowRateACFM1C, " &
+                    "strGasFlowRateACFM2A, strGasFlowRateACFM2B, strGasFlowRateACFM2C, " &
+                    "strGasFlowRateDSCFM1A, strGasFlowRateDSCFM1B, strGasFlowRateDSCFM1C, " &
+                    "strGasFlowRateDSCFM2A, strGasFlowRateDSCFM2B, strGasFlowRateDSCFM2C, " &
+                    "strPollutantConcentration1A, strPollutantConcentration1B, strPollutantConcentration1C, " &
+                    "strPollutantConcentration2A, strPollutantConcentration2B, strPollutantConcentration2C, " &
+                    "strPollutantConcentrationUnit, strPollutantConcentrationAVG1, " &
+                    "strPollutantConcentrationAVG2, " &
+                    "strEmissionRate1A, strEmissionRate1B, strEmissionRate1C, " &
+                    "strEmissionRate2A, strEmissionRate2B, strEmissionRate2C, " &
+                    "strEmissionRateUnit, strEmissionRateAvg1, " &
+                     "strEmissionRateAvg2, " &
+                    "strEmissionRateTotal1, strEmissionRateTotal2, strEmissionRateTotal3, " &
+                    "strEmissionRateTotalAvg, " &
+                    "strPercentAllowable " &
+                    "from AIRBRANCH.ISMPReportTwoStack " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3961,32 +3897,32 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     End If
                 Case "006"
                     TCTwoStack.TabPages.Remove(Me.TPTwoStackStandard)
-                    SQL = "Select strMaxOperatingCapacity, strMaxOperatingCapacityUnit, " & _
-                     "strOperatingCapacity, strOperatingCapacityUnit, " & _
-                     "strAllowableEmissionRate1, strAllowableEmissionRate2, " & _
-                     "strAllowableEmissionRate3, strAllowableEmissionRateUnit1, " & _
-                     "strAllowableEmissionRateUnit2, strAllowableEmissionRateUnit3, " & _
-                     "strStackOneName, strStackTwoName, " & _
-                     "strRunNumber1A, strRunNumber1B, strRunNumber1C, " & _
-                     "strRunNumber2A, strRunNumber2B, strRunNumber2C, " & _
-                     "strGasTemperature1A, strGasTemperature1B, strGasTemperature1C, " & _
-                     "strGasTemperature2A, strGasTemperature2B, strGasTemperature2C, " & _
-                     "strGasMoisture1A, strGasMoisture1B, strGasMoisture1C, " & _
-                     "strGasMoisture2A, strGasMoisture2B, strGasMoisture2C, " & _
-                     "strGasFlowRateACFM1A, strGasFlowRateACFM1B, strGasFlowRateACFM1C, " & _
-                     "strGasFlowRateACFM2A, strGasFlowRateACFM2B, strGasFlowRateACFM2C, " & _
-                     "strGasFlowRateDSCFM1A, strGasFlowRateDSCFM1B, strGasFlowRateDSCFM1C, " & _
-                     "strGasFlowRateDSCFM2A, strGasFlowRateDSCFM2B, strGasFlowRateDSCFM2C, " & _
-                     "strPollutantConcentration1A, strPollutantConcentration1B, strPollutantConcentration1C, " & _
-                     "strPollutantConcentration2A, strPollutantConcentration2B, strPollutantConcentration2C, " & _
-                     "strPollutantConcentrationUnit, strPollutantConcentrationAVG1, " & _
-                     "strPollutantConcentrationAVG2, " & _
-                     "strEmissionRate1A, strEmissionRate1B, strEmissionRate1C, " & _
-                     "strEmissionRate2A, strEmissionRate2B, strEmissionRate2C, " & _
-                     "strEmissionRateUnit, strEmissionRateAvg1, " & _
-                     "strEmissionRateAvg2, " & _
-                     "strDestructionPercent " & _
-                     "from AIRBRANCH.ISMPReportTwoStack " & _
+                    SQL = "Select strMaxOperatingCapacity, strMaxOperatingCapacityUnit, " &
+                     "strOperatingCapacity, strOperatingCapacityUnit, " &
+                     "strAllowableEmissionRate1, strAllowableEmissionRate2, " &
+                     "strAllowableEmissionRate3, strAllowableEmissionRateUnit1, " &
+                     "strAllowableEmissionRateUnit2, strAllowableEmissionRateUnit3, " &
+                     "strStackOneName, strStackTwoName, " &
+                     "strRunNumber1A, strRunNumber1B, strRunNumber1C, " &
+                     "strRunNumber2A, strRunNumber2B, strRunNumber2C, " &
+                     "strGasTemperature1A, strGasTemperature1B, strGasTemperature1C, " &
+                     "strGasTemperature2A, strGasTemperature2B, strGasTemperature2C, " &
+                     "strGasMoisture1A, strGasMoisture1B, strGasMoisture1C, " &
+                     "strGasMoisture2A, strGasMoisture2B, strGasMoisture2C, " &
+                     "strGasFlowRateACFM1A, strGasFlowRateACFM1B, strGasFlowRateACFM1C, " &
+                     "strGasFlowRateACFM2A, strGasFlowRateACFM2B, strGasFlowRateACFM2C, " &
+                     "strGasFlowRateDSCFM1A, strGasFlowRateDSCFM1B, strGasFlowRateDSCFM1C, " &
+                     "strGasFlowRateDSCFM2A, strGasFlowRateDSCFM2B, strGasFlowRateDSCFM2C, " &
+                     "strPollutantConcentration1A, strPollutantConcentration1B, strPollutantConcentration1C, " &
+                     "strPollutantConcentration2A, strPollutantConcentration2B, strPollutantConcentration2C, " &
+                     "strPollutantConcentrationUnit, strPollutantConcentrationAVG1, " &
+                     "strPollutantConcentrationAVG2, " &
+                     "strEmissionRate1A, strEmissionRate1B, strEmissionRate1C, " &
+                     "strEmissionRate2A, strEmissionRate2B, strEmissionRate2C, " &
+                     "strEmissionRateUnit, strEmissionRateAvg1, " &
+                     "strEmissionRateAvg2, " &
+                     "strDestructionPercent " &
+                     "from AIRBRANCH.ISMPReportTwoStack " &
                      "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4548,19 +4484,19 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
             Select Case DocumentType
                 Case "007"
-                    SQL = "Select " & _
-                    "strMaxOperatingCapacity, strMaxOperatingCapacityUnit, " & _
-                    "strOperatingCapacity, strOperatingCapacityUnit, " & _
-                    "strLimitationVelocity, strLimitationHeatCapacity, " & _
-                    "strAllowableEmissionRate1A, strAllowableEmissionRate2A, " & _
-                    "strAllowableEmissionRate3A, " & _
-                    "strAllowEmissionRateUnit1A, strAllowEmissionRateUnit2A, " & _
-                    "strAllowEmissionRateUnit3A, " & _
-                    "strTestDuration, strTestDurationUnit, strPollutantConcenIn, " & _
-                    "strPollutantConcenUnitIn, strPollutantConcenOut, strPollutantConcenUnitOut, " & _
-                    "strEmissionRate, strEmissionRateUnit, strDestructionEfficiency, " & _
-                    "strPercentAllowable " & _
-                    "from AIRBRANCH.ISMPReportFlare " & _
+                    SQL = "Select " &
+                    "strMaxOperatingCapacity, strMaxOperatingCapacityUnit, " &
+                    "strOperatingCapacity, strOperatingCapacityUnit, " &
+                    "strLimitationVelocity, strLimitationHeatCapacity, " &
+                    "strAllowableEmissionRate1A, strAllowableEmissionRate2A, " &
+                    "strAllowableEmissionRate3A, " &
+                    "strAllowEmissionRateUnit1A, strAllowEmissionRateUnit2A, " &
+                    "strAllowEmissionRateUnit3A, " &
+                    "strTestDuration, strTestDurationUnit, strPollutantConcenIn, " &
+                    "strPollutantConcenUnitIn, strPollutantConcenOut, strPollutantConcenUnitOut, " &
+                    "strEmissionRate, strEmissionRateUnit, strDestructionEfficiency, " &
+                    "strPercentAllowable " &
+                    "from AIRBRANCH.ISMPReportFlare " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4736,18 +4672,18 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
             Select Case DocumentType
                 Case "008"
-                    SQL = "Select strMaxOperatingCapacity, strMaxOperatingCapacityUnit, " & _
-                    "strOperatingCapacity, strOperatingCapacityUnit, " & _
-                    "strAllowableEmissionRate1, strAllowableEmissionRate2, " & _
-                    "strAllowableEmissionRate3, strAllowableEmissionRateUnit1, " & _
-                    "strAllowableEmissionRateUnit2, strAllowableEmissionRateUnit3, " & _
-                    "strRunNumber1A, strRunNumber1B, strRunNumber1C, " & _
-                    "strPollutantConcentration1A, strPollutantConcentration1B, strPollutantConcentration1C, " & _
-                    "strPollutantConcentrationUnit, strPollutantConcentrationAVG, " & _
-                    "strTreatmentRate1A, strTreatmentRate1B, strTreatmentRate1C, " & _
-                    "strTreatmentRateUnit, strTreatmentRateAvg, " & _
-                    "strPercentAllowable " & _
-                    "from AIRBRANCH.ISMPReportPondAndGas " & _
+                    SQL = "Select strMaxOperatingCapacity, strMaxOperatingCapacityUnit, " &
+                    "strOperatingCapacity, strOperatingCapacityUnit, " &
+                    "strAllowableEmissionRate1, strAllowableEmissionRate2, " &
+                    "strAllowableEmissionRate3, strAllowableEmissionRateUnit1, " &
+                    "strAllowableEmissionRateUnit2, strAllowableEmissionRateUnit3, " &
+                    "strRunNumber1A, strRunNumber1B, strRunNumber1C, " &
+                    "strPollutantConcentration1A, strPollutantConcentration1B, strPollutantConcentration1C, " &
+                    "strPollutantConcentrationUnit, strPollutantConcentrationAVG, " &
+                    "strTreatmentRate1A, strTreatmentRate1B, strTreatmentRate1C, " &
+                    "strTreatmentRateUnit, strTreatmentRateAvg, " &
+                    "strPercentAllowable " &
+                    "from AIRBRANCH.ISMPReportPondAndGas " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4976,19 +4912,19 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
             Select Case DocumentType
                 Case "009"
-                    SQL = "Select " & _
-                    "strMaxOperatingCapacity, strMaxOperatingCapacityUnit, " & _
-                    "strOperatingCapacity, strOperatingCapacityUnit, " & _
-                    "strAllowableEmissionRate1, strAllowableEmissionRate2, " & _
-                    "strAllowableEmissionRate3, strAllowableEmissionRateUnit1, " & _
-                    "strAllowableEmissionRateUnit2, strAllowableEmissionRateUnit3, " & _
-                    "strRunNumber1A, strRunNumber1B, strRunNumber1C, " & _
-                    "strPollutantConcentration1A, strPollutantConcentration1B, strPollutantConcentration1C, " & _
-                    "strPollutantConcentrationUnit, strPollutantConcentrationAVG, " & _
-                    "strEmissionRate1A, strEmissionRate1B, strEmissionRate1C, " & _
-                    "strEmissionRateUnit, strEmissionRateAvg, " & _
-                    "strPercentAllowable " & _
-                    "from AIRBRANCH.ISMPReportPondAndGas " & _
+                    SQL = "Select " &
+                    "strMaxOperatingCapacity, strMaxOperatingCapacityUnit, " &
+                    "strOperatingCapacity, strOperatingCapacityUnit, " &
+                    "strAllowableEmissionRate1, strAllowableEmissionRate2, " &
+                    "strAllowableEmissionRate3, strAllowableEmissionRateUnit1, " &
+                    "strAllowableEmissionRateUnit2, strAllowableEmissionRateUnit3, " &
+                    "strRunNumber1A, strRunNumber1B, strRunNumber1C, " &
+                    "strPollutantConcentration1A, strPollutantConcentration1B, strPollutantConcentration1C, " &
+                    "strPollutantConcentrationUnit, strPollutantConcentrationAVG, " &
+                    "strEmissionRate1A, strEmissionRate1B, strEmissionRate1C, " &
+                    "strEmissionRateUnit, strEmissionRateAvg, " &
+                    "strPercentAllowable " &
+                    "from AIRBRANCH.ISMPReportPondAndGas " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5216,16 +5152,16 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
             Select Case DocumentType
                 Case "010"
-                    SQL = "Select " & _
-                    "strMaxOperatingCapacity, strMaxOperatingCapacityUnit, " & _
-                    "strOperatingCapacity, strOperatingCapacityUnit, " & _
-                    "strLimitationVelocity, strLimitationHeatCapacity, " & _
-                    "strHeatingValue1A, strHeatingValue2A, strHeatingValue3A, " & _
-                    "strHeatingValueUnits, strHeatingValueAvg, " & _
-                    "strVelocity1A, strVelocity2A, strVelocity3A, " & _
-                    "strVelocityUnits, strVelocityAvg, " & _
-                    "strPercentAllowable " & _
-                    "from AIRBRANCH.ISMPReportFlare " & _
+                    SQL = "Select " &
+                    "strMaxOperatingCapacity, strMaxOperatingCapacityUnit, " &
+                    "strOperatingCapacity, strOperatingCapacityUnit, " &
+                    "strLimitationVelocity, strLimitationHeatCapacity, " &
+                    "strHeatingValue1A, strHeatingValue2A, strHeatingValue3A, " &
+                    "strHeatingValueUnits, strHeatingValueAvg, " &
+                    "strVelocity1A, strVelocity2A, strVelocity3A, " &
+                    "strVelocityUnits, strVelocityAvg, " &
+                    "strPercentAllowable " &
+                    "from AIRBRANCH.ISMPReportFlare " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5403,18 +5339,18 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
             Select Case DocumentType
                 Case "011"
-                    SQL = "Select " & _
-                    "strDiluent, strApplicableStandard, strRelativeAccuracyPercent, " & _
-                    "strReferenceMethod1, strReferenceMethod2, strReferenceMethod3, " & _
-                    "strReferenceMethod4, strReferenceMethod5, strReferenceMethod6, " & _
-                    "strReferenceMethod7, strReferenceMethod8, strReferenceMethod9, " & _
-                    "strReferenceMethod10, strReferenceMethod11, strReferenceMethod12, " & _
-                    "strRataUnits, StrCMS1, strCms2, StrCMS3, StrCMS4, " & _
-                    "StrCMS5, StrCMS6, StrCMS7, StrCMS8, StrCMS9, StrCMS10, " & _
-                    "StrCMS11, StrCMS12, " & _
-                    "strAccuracyChoice, strAccuracyRequiredPercent, " & _
-                    "strAccuracyREquiredStatement, strRunsINcludedKey " & _
-                    "from AIRBRANCH.ISMPReportRATA " & _
+                    SQL = "Select " &
+                    "strDiluent, strApplicableStandard, strRelativeAccuracyPercent, " &
+                    "strReferenceMethod1, strReferenceMethod2, strReferenceMethod3, " &
+                    "strReferenceMethod4, strReferenceMethod5, strReferenceMethod6, " &
+                    "strReferenceMethod7, strReferenceMethod8, strReferenceMethod9, " &
+                    "strReferenceMethod10, strReferenceMethod11, strReferenceMethod12, " &
+                    "strRataUnits, StrCMS1, strCms2, StrCMS3, StrCMS4, " &
+                    "StrCMS5, StrCMS6, StrCMS7, StrCMS8, StrCMS9, StrCMS10, " &
+                    "StrCMS11, StrCMS12, " &
+                    "strAccuracyChoice, strAccuracyRequiredPercent, " &
+                    "strAccuracyREquiredStatement, strRunsINcludedKey " &
+                    "from AIRBRANCH.ISMPReportRATA " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5792,9 +5728,9 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     TCMemorandum.TabPages.Remove(Me.TPMemoPTE)
                     TCMemorandum.TabPages.Remove(Me.TPMemoToFile)
 
-                    SQL = "Select " & _
-                    "strMemorandumField " & _
-                    "from AIRBRANCH.ISMPREportMemo " & _
+                    SQL = "Select " &
+                    "strMemorandumField " &
+                    "from AIRBRANCH.ISMPREportMemo " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5819,10 +5755,10 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     TCMemorandum.TabPages.Remove(Me.TPMemoPTE)
                     TCMemorandum.TabPages.Remove(Me.TPMemoStandard)
 
-                    SQL = "Select " & _
-                    "strMemorandumField, strMonitorManufactureAndModel, " & _
-                    "strMonitorSerialNumber " & _
-                    "from AIRBRANCH.ISMPREportMemo " & _
+                    SQL = "Select " &
+                    "strMemorandumField, strMonitorManufactureAndModel, " &
+                    "strMonitorSerialNumber " &
+                    "from AIRBRANCH.ISMPREportMemo " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5866,14 +5802,14 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     TCMemorandum.TabPages.Remove(Me.TPMemoStandard)
                     TCMemorandum.TabPages.Remove(Me.TPMemoToFile)
 
-                    SQL = "Select " & _
-                    "strMemorandumField, " & _
-                    "strMaxOperatingCapacity, strMaxOperatingCapacityUnit, " & _
-                    "strOperatingCapacity, strOperatingCapacityUnit, " & _
-                    "strAllowableEmissionRate1A, strAllowableEmissionRate1B, " & _
-                    "strAllowableEmissionRate1C, strAllowableEmissionRateUnit1A, " & _
-                    "strAllowableEmissionRateUnit1B, strAllowableEmissionRateUnit1C " & _
-                    "from AIRBRANCH.ISMPREportMemo " & _
+                    SQL = "Select " &
+                    "strMemorandumField, " &
+                    "strMaxOperatingCapacity, strMaxOperatingCapacityUnit, " &
+                    "strOperatingCapacity, strOperatingCapacityUnit, " &
+                    "strAllowableEmissionRate1A, strAllowableEmissionRate1B, " &
+                    "strAllowableEmissionRate1C, strAllowableEmissionRateUnit1A, " &
+                    "strAllowableEmissionRateUnit1B, strAllowableEmissionRateUnit1C " &
+                    "from AIRBRANCH.ISMPREportMemo " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5996,13 +5932,13 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     TCMethodNine.TabPages.Remove(Me.TPMethodNineMultiple)
                     TCMethodNine.TabPages.Remove(Me.TPMethodNineMultiple2)
 
-                    SQL = "Select " & _
-                    "strMaxOperatingCapacity1A, strMaxOperatingCapacityUnit, " & _
-                    "strOperatingCapacity1A, strOperatingCapacityUnit, " & _
-                    "strAllowableEmissionRate1A, strAllowableEmissionRateUnit, " & _
-                    "strOpacityTestDuration, " & _
-                    "strOpacityPointA, strOpacityStandard  " & _
-                    "from AIRBRANCH.ISMPREportOpacity " & _
+                    SQL = "Select " &
+                    "strMaxOperatingCapacity1A, strMaxOperatingCapacityUnit, " &
+                    "strOperatingCapacity1A, strOperatingCapacityUnit, " &
+                    "strAllowableEmissionRate1A, strAllowableEmissionRateUnit, " &
+                    "strOpacityTestDuration, " &
+                    "strOpacityPointA, strOpacityStandard  " &
+                    "from AIRBRANCH.ISMPREportOpacity " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -6090,23 +6026,23 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 Case "014"
                     TCMethodNine.TabPages.Remove(Me.TPMethodNineSingle)
 
-                    SQL = "Select " & _
-                    "strMaxOperatingCapacity1A, strMaxOperatingCapacity2A, " & _
-                    "strMaxOperatingCapacity3A, strMaxOperatingCapacity4A, " & _
-                    "strMaxOperatingCapacity5A, strMaxOperatingCapacityUnit, " & _
-                    "strOperatingCapacity1A, strOperatingCapacity2A, " & _
-                    "strOperatingCapacity3A, strOperatingCapacity4A, " & _
-                    "strOperatingCapacity5A, strOperatingCapacityUnit, " & _
-                    "strAllowableEmissionRate1A, strAllowableEmissionRate2A, " & _
-                    "strAllowableEmissionRate3A, strAllowableEmissionRate4A, " & _
-                    "strAllowableEmissionRate5A, strAllowableEmissionRateUnit, " & _
-                    "strOpacityPointA, strOpacityPointB, " & _
-                    "strOpacityPointC, strOpacityPointD, " & _
-                    "strOpacityPointE, strEquipmentItem1, " & _
-                    "strEquipmentItem2, strEquipmentItem3, " & _
-                    "strEquipmentItem4, strEquipmentItem5, " & _
-                    "strOpacityStandard " & _
-                    "from AIRBRANCH.ISMPREportOpacity " & _
+                    SQL = "Select " &
+                    "strMaxOperatingCapacity1A, strMaxOperatingCapacity2A, " &
+                    "strMaxOperatingCapacity3A, strMaxOperatingCapacity4A, " &
+                    "strMaxOperatingCapacity5A, strMaxOperatingCapacityUnit, " &
+                    "strOperatingCapacity1A, strOperatingCapacity2A, " &
+                    "strOperatingCapacity3A, strOperatingCapacity4A, " &
+                    "strOperatingCapacity5A, strOperatingCapacityUnit, " &
+                    "strAllowableEmissionRate1A, strAllowableEmissionRate2A, " &
+                    "strAllowableEmissionRate3A, strAllowableEmissionRate4A, " &
+                    "strAllowableEmissionRate5A, strAllowableEmissionRateUnit, " &
+                    "strOpacityPointA, strOpacityPointB, " &
+                    "strOpacityPointC, strOpacityPointD, " &
+                    "strOpacityPointE, strEquipmentItem1, " &
+                    "strEquipmentItem2, strEquipmentItem3, " &
+                    "strEquipmentItem4, strEquipmentItem5, " &
+                    "strOpacityStandard " &
+                    "from AIRBRANCH.ISMPREportOpacity " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -6396,12 +6332,12 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
             Select Case DocumentType
                 Case "015"
-                    SQL = "Select " & _
-                    "strMaxOperatingCapacity1A, strMaxOperatingCapacityUnit, " & _
-                    "strOperatingCapacity1A, strOperatingCapacityUnit, " & _
-                     "STRALLOWABLEEMISSIONRATE22, " & _
-                    "strOpacityTestDuration, strAccumulatedEmissionTime " & _
-                    "from AIRBRANCH.ISMPREportOpacity " & _
+                    SQL = "Select " &
+                    "strMaxOperatingCapacity1A, strMaxOperatingCapacityUnit, " &
+                    "strOperatingCapacity1A, strOperatingCapacityUnit, " &
+                     "STRALLOWABLEEMISSIONRATE22, " &
+                    "strOpacityTestDuration, strAccumulatedEmissionTime " &
+                    "from AIRBRANCH.ISMPREportOpacity " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9438,8 +9374,8 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
     End Sub
     Sub LoadOtherWitnessingEng()
         Try
-            SQL = "select strWitnessingEngineer " & _
-            "From AIRBRANCH.ISMPWitnessingEng " & _
+            SQL = "select strWitnessingEngineer " &
+            "From AIRBRANCH.ISMPWitnessingEng " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -9468,15 +9404,15 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
     Sub LoadSSCPData()
         Try
             If txtAirsNumber.Text <> "" Then
-                SQL = "Select " & _
-                "AIRBRANCH.SSCPTestReports.strTrackingNumber, " & _
-                "datTestReportDue, strTestReportComments, " & _
-                "strTestReportFollowUp, datREceivedDate, " & _
-                "strResponsibleStaff, datCompleteDate, " & _
-                "datAcknoledgmentLetterSent " & _
-                "from AIRBRANCH.SSCPTestReports, " & _
-                "AIRBRANCH.SSCPItemMaster  " & _
-                "where AIRBRANCH.SSCPTestReports.strTrackingNumber = AIRBRANCH.SSCPItemMaster.strTrackingNumber " & _
+                SQL = "Select " &
+                "AIRBRANCH.SSCPTestReports.strTrackingNumber, " &
+                "datTestReportDue, strTestReportComments, " &
+                "strTestReportFollowUp, datREceivedDate, " &
+                "strResponsibleStaff, datCompleteDate, " &
+                "datAcknoledgmentLetterSent " &
+                "from AIRBRANCH.SSCPTestReports, " &
+                "AIRBRANCH.SSCPItemMaster  " &
+                "where AIRBRANCH.SSCPTestReports.strTrackingNumber = AIRBRANCH.SSCPItemMaster.strTrackingNumber " &
                 "and strReferenceNumber = '" & txtReferenceNumber.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9557,8 +9493,8 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     End If
                 End If
 
-                SQL = "Select strEnforcementNumber " & _
-                "from AIRBRANCH.SSCP_AuditedEnforcement " & _
+                SQL = "Select strEnforcementNumber " &
+                "from AIRBRANCH.SSCP_AuditedEnforcement " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -9580,8 +9516,8 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 End If
                 dr.Close()
 
-                SQL = "Select datSSCPTestReportDue " & _
-                "from AIRBRANCH.APBSupplamentalData " & _
+                SQL = "Select datSSCPTestReportDue " &
+                "from AIRBRANCH.APBSupplamentalData " &
                 "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -9643,64 +9579,64 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
         Try
             Dim SQL As String
 
-            SQL = "select " & _
-            "(LogNumber|| ' --> ' ||StartDate) as LogNumber " & _
-            "from  " & _
-            "(Select (AIRBRANCH.ISMPTESTNotification.strTestLogNumber) as LogNumber, " & _
-            "to_char(datProposedStartDate) as StartDate " & _
-            "from  AIRBRANCH.ISMPTESTNotification  " & _
-            "where not exists(select AIRBRANCH.ISMPTestLogLink.strTestLogNumber  " & _
-            "from AIRBRANCH.ISMPTestLogLink " & _
-            "where AIRBRANCH.ISMPTestNotification.strTestLogNumber = AIRBRANCH.ISMPTestLogLink.strTestLogNumber)  " & _
-            "and strAIRSNumber = '0413" & txtAirsNumber.Text & "') NonLinked  " & _
-            "UNION  " & _
-            "select " & _
-            "(LogNumber|| ' --> ' ||StartDate) as LogNumber " & _
-            "from  " & _
-            "(select (AIRBRANCH.ISMPTestLogLink.strTestLogNumber) as LogNumber, " & _
-            "' ' as StartDate " & _
-            "from AIRBRANCH.ISMPTestLogLink  " & _
-            "where strReferenceNumber = '" & txtReferenceNumber.Text & "') CurrentLink " & _
-            "Union " & _
-            "select  " & _
-            "(LogNumber || ' --> ' ||StartDate) as LogNumber " & _
-            "from (select distinct(AIRBRANCH.ISMPTestLogLink.strTestLogNumber) as LogNumber,  " & _
-            "' ' as StartDate " & _
-            "from AIRBRANCH.ISMPTestLogLink, AIRBRANCH.ISMPReportInformation,  " & _
-            "AIRBRANCH.ISMPMaster " & _
-            "where AIRBRANCH.ISMPTEstLogLink.strReferenceNumber = AIRBRANCH.ISMPREportInformation.strReferenceNumber  " & _
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber  " & _
-            "and strAIRSNumber = '0413" & txtAirsNumber.Text & "'  " & _
+            SQL = "select " &
+            "(LogNumber|| ' --> ' ||StartDate) as LogNumber " &
+            "from  " &
+            "(Select (AIRBRANCH.ISMPTESTNotification.strTestLogNumber) as LogNumber, " &
+            "to_char(datProposedStartDate) as StartDate " &
+            "from  AIRBRANCH.ISMPTESTNotification  " &
+            "where not exists(select AIRBRANCH.ISMPTestLogLink.strTestLogNumber  " &
+            "from AIRBRANCH.ISMPTestLogLink " &
+            "where AIRBRANCH.ISMPTestNotification.strTestLogNumber = AIRBRANCH.ISMPTestLogLink.strTestLogNumber)  " &
+            "and strAIRSNumber = '0413" & txtAirsNumber.Text & "') NonLinked  " &
+            "UNION  " &
+            "select " &
+            "(LogNumber|| ' --> ' ||StartDate) as LogNumber " &
+            "from  " &
+            "(select (AIRBRANCH.ISMPTestLogLink.strTestLogNumber) as LogNumber, " &
+            "' ' as StartDate " &
+            "from AIRBRANCH.ISMPTestLogLink  " &
+            "where strReferenceNumber = '" & txtReferenceNumber.Text & "') CurrentLink " &
+            "Union " &
+            "select  " &
+            "(LogNumber || ' --> ' ||StartDate) as LogNumber " &
+            "from (select distinct(AIRBRANCH.ISMPTestLogLink.strTestLogNumber) as LogNumber,  " &
+            "' ' as StartDate " &
+            "from AIRBRANCH.ISMPTestLogLink, AIRBRANCH.ISMPReportInformation,  " &
+            "AIRBRANCH.ISMPMaster " &
+            "where AIRBRANCH.ISMPTEstLogLink.strReferenceNumber = AIRBRANCH.ISMPREportInformation.strReferenceNumber  " &
+            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber  " &
+            "and strAIRSNumber = '0413" & txtAirsNumber.Text & "'  " &
             "and strClosed <> 'True') UnclosedLinks "
 
-            SQL = "select " & _
-            "(LogNumber|| ' --> ' ||StartDate) as LogNumber " & _
-            "from  (Select (AIRBRANCH.ISMPTESTNotification.strTestLogNumber) as LogNumber, " & _
-            "to_char(datProposedStartDate) as StartDate " & _
-            "from  AIRBRANCH.ISMPTESTNotification  " & _
-            "where not exists(select AIRBRANCH.ISMPTestLogLink.strTestLogNumber  " & _
-            "from AIRBRANCH.ISMPTestLogLink " & _
-            "where AIRBRANCH.ISMPTestNotification.strTestLogNumber = AIRBRANCH.ISMPTestLogLink.strTestLogNumber)  " & _
-            "and strAIRSNumber = '0413" & txtAirsNumber.Text & "') NonLinked  " & _
-            "UNION  " & _
-            "select " & _
-            "LogNumber " & _
-            "from (select " & _
-            "(AIRBRANCH.ISMPTestLogLink.strTestLogNumber|| ' --> ' ||datProposedStartDate) as LogNumber " & _
-            "from AIRBRANCH.ISMPTestLogLink, AIRBranch.ISMPTestNotification " & _
-            "where AIRBRANCH.ISMPTestLogLink.strTestLogNumber = AIRBRANCH.ISMPTestNotification.strTestLogNumber " & _
-            "and strReferenceNumber = '" & txtReferenceNumber.Text & "') CurrentLink " & _
-            "Union " & _
-            "select  (LogNumber || ' --> ' ||StartDate) as LogNumber " & _
-            "from " & _
-            "(select distinct(AIRBRANCH.ISMPTestLogLink.strTestLogNumber) as LogNumber,  " & _
-            "datProposedstartdate as StartDate " & _
-            "from AIRBRANCH.ISMPTestLogLink, AIRBRANCH.ISMPReportInformation,  " & _
-            "AIRBRANCH.ISMPMaster, AIRBRANCH.ISMPTestNotification  " & _
-            "where AIRBRANCH.ISMPTEstLogLink.strReferenceNumber = AIRBRANCH.ISMPREportInformation.strReferenceNumber  " & _
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber  " & _
-            "and AIRBRANCH.ISMPTestLogLink.strTestLogNumber = AIRBRANCH.ISMPTestNotification.strTestLogNumber  " & _
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = '0413" & txtAirsNumber.Text & "'  " & _
+            SQL = "select " &
+            "(LogNumber|| ' --> ' ||StartDate) as LogNumber " &
+            "from  (Select (AIRBRANCH.ISMPTESTNotification.strTestLogNumber) as LogNumber, " &
+            "to_char(datProposedStartDate) as StartDate " &
+            "from  AIRBRANCH.ISMPTESTNotification  " &
+            "where not exists(select AIRBRANCH.ISMPTestLogLink.strTestLogNumber  " &
+            "from AIRBRANCH.ISMPTestLogLink " &
+            "where AIRBRANCH.ISMPTestNotification.strTestLogNumber = AIRBRANCH.ISMPTestLogLink.strTestLogNumber)  " &
+            "and strAIRSNumber = '0413" & txtAirsNumber.Text & "') NonLinked  " &
+            "UNION  " &
+            "select " &
+            "LogNumber " &
+            "from (select " &
+            "(AIRBRANCH.ISMPTestLogLink.strTestLogNumber|| ' --> ' ||datProposedStartDate) as LogNumber " &
+            "from AIRBRANCH.ISMPTestLogLink, AIRBranch.ISMPTestNotification " &
+            "where AIRBRANCH.ISMPTestLogLink.strTestLogNumber = AIRBRANCH.ISMPTestNotification.strTestLogNumber " &
+            "and strReferenceNumber = '" & txtReferenceNumber.Text & "') CurrentLink " &
+            "Union " &
+            "select  (LogNumber || ' --> ' ||StartDate) as LogNumber " &
+            "from " &
+            "(select distinct(AIRBRANCH.ISMPTestLogLink.strTestLogNumber) as LogNumber,  " &
+            "datProposedstartdate as StartDate " &
+            "from AIRBRANCH.ISMPTestLogLink, AIRBRANCH.ISMPReportInformation,  " &
+            "AIRBRANCH.ISMPMaster, AIRBRANCH.ISMPTestNotification  " &
+            "where AIRBRANCH.ISMPTEstLogLink.strReferenceNumber = AIRBRANCH.ISMPREportInformation.strReferenceNumber  " &
+            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber  " &
+            "and AIRBRANCH.ISMPTestLogLink.strTestLogNumber = AIRBRANCH.ISMPTestNotification.strTestLogNumber  " &
+            "and AIRBRANCH.ISMPMaster.strAIRSNumber = '0413" & txtAirsNumber.Text & "'  " &
             "and strClosed <> 'True') UnclosedLinks "
 
 
@@ -9715,10 +9651,10 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             End While
             dr.Close()
 
-            SQL = "select " & _
-            "(AIRBRANCH.ISMPTestLogLink.strTestLogNumber|| ' --> ' ||datProposedStartDate) as LogNumber " & _
-            "from AIRBRANCH.ISMPTestLogLink, AIRBRANCH.ISMPTestNotification " & _
-            "where AIRBRANCH.ISMPTestLogLink.strTestLogNumber = AIRBRANCH.ISMPTestNotification.strTestLogNumber " & _
+            SQL = "select " &
+            "(AIRBRANCH.ISMPTestLogLink.strTestLogNumber|| ' --> ' ||datProposedStartDate) as LogNumber " &
+            "from AIRBRANCH.ISMPTestLogLink, AIRBRANCH.ISMPTestNotification " &
+            "where AIRBRANCH.ISMPTestLogLink.strTestLogNumber = AIRBRANCH.ISMPTestNotification.strTestLogNumber " &
             "and strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -9747,14 +9683,14 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             Dim ComplianceManager As String = ""
             Dim DistrictManager As String = ""
 
-            SQL = "select max(INTYEAR), strAssigningManager " & _
-                  "from AIRBRANCH.SSCPINSPECTIONSREQUIRED, " & _
-                   "(select max(intyear) as MaxYear, AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER  " & _
-                      "from AIRBRANCH.SSCPINSPECTIONSREQUIRED " & _
-                      "where AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = '0413" & txtAirsNumber.Text & "' " & _
-                      "group by AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER ) MaxResults " & _
-                  "where AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = '0413" & txtAirsNumber.Text & "' " & _
-                  " and AIRBRANCH.SSCPINSPECTIONSREQUIRED.intyear = maxresults.maxyear " & _
+            SQL = "select max(INTYEAR), strAssigningManager " &
+                  "from AIRBRANCH.SSCPINSPECTIONSREQUIRED, " &
+                   "(select max(intyear) as MaxYear, AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER  " &
+                      "from AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
+                      "where AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = '0413" & txtAirsNumber.Text & "' " &
+                      "group by AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER ) MaxResults " &
+                  "where AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = '0413" & txtAirsNumber.Text & "' " &
+                  " and AIRBRANCH.SSCPINSPECTIONSREQUIRED.intyear = maxresults.maxyear " &
                   "group by strAssigningManager "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -9774,14 +9710,14 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             End If
             dr.Close()
 
-            SQL = "select " & _
-            "strDistrictManager  " & _
-            "from AIRBRANCH.SSCPDistrictResponsible,  " & _
-            "AIRBRANCH.LookUpDistricts,  " & _
-            "AIRBRANCH.LookUpDistrictInformation   " & _
-            "where strDistrictResponsible = 'True'  " & _
-            "and AIRBRANCH.LookUpDistricts.strDistrictCode = AIRBRANCH.LookUpDistrictInformation.strDistrictCode   " & _
-            "and AIRBRANCH.LookUpDistrictInformation.strDistrictCounty = substr(AIRBRANCH.SSCPDistrictResponsible.strAIRSNumber, 5, 3) " & _
+            SQL = "select " &
+            "strDistrictManager  " &
+            "from AIRBRANCH.SSCPDistrictResponsible,  " &
+            "AIRBRANCH.LookUpDistricts,  " &
+            "AIRBRANCH.LookUpDistrictInformation   " &
+            "where strDistrictResponsible = 'True'  " &
+            "and AIRBRANCH.LookUpDistricts.strDistrictCode = AIRBRANCH.LookUpDistrictInformation.strDistrictCode   " &
+            "and AIRBRANCH.LookUpDistrictInformation.strDistrictCounty = substr(AIRBRANCH.SSCPDistrictResponsible.strAIRSNumber, 5, 3) " &
             "and AIRBRANCH.SSCPDistrictResponsible.strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -10348,13 +10284,13 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             OldRefNum = InputBox("Enter Old Reference Number.", "PrePopulate Tool.")
 
             If OldRefNum <> "" Then
-                SQL = "select AIRBRANCH.ISMPDocumentType.strDocumentType " & _
-                "from AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPReportInformation " & _
-                "where AIRBRANCH.ISMPReportInformation.strDocumentType = AIRBRANCH.ISMPDocumentType.strKey " & _
+                SQL = "select AIRBRANCH.ISMPDocumentType.strDocumentType " &
+                "from AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPReportInformation " &
+                "where AIRBRANCH.ISMPReportInformation.strDocumentType = AIRBRANCH.ISMPDocumentType.strKey " &
                 "and strReferenceNumber = '" & OldRefNum & "'"
 
-                SQL = "Select strDocumentType  " & _
-                "from AIRBRANCH.ISMPReportInformation " & _
+                SQL = "Select strDocumentType  " &
+                "from AIRBRANCH.ISMPReportInformation " &
                 "where strReferenceNumber = '" & OldRefNum & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -10372,46 +10308,46 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 If DocType <> "Non-Exist" Then
                     ClearAll()
 
-                    SQL = "Select " & _
-                  "AIRBRANCH.ISMPMaster.strReferenceNumber,  " & _
-                  "substr(AIRBRANCH.ISMpMaster.strAIRSnumber, 5) as AIRSNumber,  " & _
-                  "AIRBRANCH.APBFacilityInformation.strFacilityName,  " & _
-                  "strFacilityCity, strFacilityState,  " & _
-                  "strPollutant, strEmissionSource,  " & _
-                  "strReportType, strDocumentType,  " & _
-                  "strApplicableRequirement,  " & _
-                  "strTestingFirm, strReviewingEngineer,  " & _
-                  "strWitnessingEngineer,  " & _
-                  "strReviewingUnit,  " & _
-                  "to_char(datReviewedByUnitManager, 'dd-Mon-yyyy') as datReviewedByUnitManager,  " & _
-                  "strComplianceManager,  " & _
-                  "to_char(datReceivedDate, 'dd-Mon-yyyy') as datReceivedDate,  " & _
-                  "to_char(datTestDateStart, 'dd-Mon-yyyy') as datTestDateStart,  " & _
-                  "to_char(datTestDateEnd, 'dd-Mon-yyyy') as datTestDateEnd,  " & _
-                  "to_char(datCompleteDate, 'dd-Mon-yyyy') as datCompleteDate,  " & _
-                  "mmoCommentArea,  " & _
-                  "strClosed, strProgramManager,  " & _
-                  "strComplianceStatus, strCC,  " & _
-                  "(AIRBRANCH.ISMPReportInformation.datReceivedDate - AIRBRANCH.ISMPReportInformation.datTestDateEnd) as DaysFromTest,  " & _
-                  "case  " & _
-                  "when datCompleteDate = '04-Jul-1776' then to_char(sysdate-datReceivedDate)  " & _
-                  "else to_char(datCompleteDate - datReceivedDate)  " & _
-                  "End APBDays,  " & _
-                  "Case " & _
-                  "when datCompleteDate = '04-Jul-1776' then to_char(sysdate-datReviewedByUnitManager)  " & _
-                  "else to_char(datCompleteDate - datReviewedByUnitManager)  " & _
-                  "End EngineerDays,  " & _
-                  "strDeterminationMethod, strControlEquipmentData,  " & _
-                  "strOtherWitnessingEng, strConfidentialData,  " & _
-                  "case " & _
-                  "when numReviewingManager is null then 'N/A' " & _
-                  "else (strLastName||', '||strFirstName) " & _
-                  "END UnitManager " & _
-                  "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation,  " & _
-                  "AIRBRANCH.ISMPReportInformation, AIRBRANCH.EPDUserProfiles     " & _
-                  "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " & _
-                  "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber  " & _
-                  "and AIRBRANCH.ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID (+) " & _
+                    SQL = "Select " &
+                  "AIRBRANCH.ISMPMaster.strReferenceNumber,  " &
+                  "substr(AIRBRANCH.ISMpMaster.strAIRSnumber, 5) as AIRSNumber,  " &
+                  "AIRBRANCH.APBFacilityInformation.strFacilityName,  " &
+                  "strFacilityCity, strFacilityState,  " &
+                  "strPollutant, strEmissionSource,  " &
+                  "strReportType, strDocumentType,  " &
+                  "strApplicableRequirement,  " &
+                  "strTestingFirm, strReviewingEngineer,  " &
+                  "strWitnessingEngineer,  " &
+                  "strReviewingUnit,  " &
+                  "to_char(datReviewedByUnitManager, 'dd-Mon-yyyy') as datReviewedByUnitManager,  " &
+                  "strComplianceManager,  " &
+                  "to_char(datReceivedDate, 'dd-Mon-yyyy') as datReceivedDate,  " &
+                  "to_char(datTestDateStart, 'dd-Mon-yyyy') as datTestDateStart,  " &
+                  "to_char(datTestDateEnd, 'dd-Mon-yyyy') as datTestDateEnd,  " &
+                  "to_char(datCompleteDate, 'dd-Mon-yyyy') as datCompleteDate,  " &
+                  "mmoCommentArea,  " &
+                  "strClosed, strProgramManager,  " &
+                  "strComplianceStatus, strCC,  " &
+                  "(AIRBRANCH.ISMPReportInformation.datReceivedDate - AIRBRANCH.ISMPReportInformation.datTestDateEnd) as DaysFromTest,  " &
+                  "case  " &
+                  "when datCompleteDate = '04-Jul-1776' then to_char(sysdate-datReceivedDate)  " &
+                  "else to_char(datCompleteDate - datReceivedDate)  " &
+                  "End APBDays,  " &
+                  "Case " &
+                  "when datCompleteDate = '04-Jul-1776' then to_char(sysdate-datReviewedByUnitManager)  " &
+                  "else to_char(datCompleteDate - datReviewedByUnitManager)  " &
+                  "End EngineerDays,  " &
+                  "strDeterminationMethod, strControlEquipmentData,  " &
+                  "strOtherWitnessingEng, strConfidentialData,  " &
+                  "case " &
+                  "when numReviewingManager is null then 'N/A' " &
+                  "else (strLastName||', '||strFirstName) " &
+                  "END UnitManager " &
+                  "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation,  " &
+                  "AIRBRANCH.ISMPReportInformation, AIRBRANCH.EPDUserProfiles     " &
+                  "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " &
+                  "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber  " &
+                  "and AIRBRANCH.ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID (+) " &
                   "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & RefNum & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -10604,11 +10540,11 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     End If
                     dr.Close()
 
-                    SQL = "select " & _
-                    "strPollutant, strEmissionSource, " & _
-                    "strReportType, strDeterminationMethod, " & _
-                    "strApplicableRequirement, strControlEquipmentData " & _
-                    "from AIRBRANCH.ISMPReportInformation " & _
+                    SQL = "select " &
+                    "strPollutant, strEmissionSource, " &
+                    "strReportType, strDeterminationMethod, " &
+                    "strApplicableRequirement, strControlEquipmentData " &
+                    "from AIRBRANCH.ISMPReportInformation " &
                     "where strReferenceNUmber = '" & OldRefNum & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -10717,7 +10653,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             Dim result As Boolean = DAL.Ismp.ClearStackTestData(txtReferenceNumber.Text)
 
             If result Then
-                MessageBox.Show("The test report data has been cleared. " & _
+                MessageBox.Show("The test report data has been cleared. " &
                                 "A new document type can now be selected.", "Success", MessageBoxButtons.OK)
 
                 Dim temp As String = txtReferenceNumber.Text
@@ -10855,12 +10791,12 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 If UserUnitTemp = 0 Then
                     UserUnitTemp = ""
                 End If
-                SQL = "select (strLastName||', '||strFirstName) as UnitManager, " & _
-                "AIRBRANCH.EPDUSerProfiles.numUserID " & _
-                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.IAIPPermissions " & _
-                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.IAIPPermissions.numUserID " & _
-                "and numEmployeeStatus = '1' " & _
-                "and (strIAIPPermissions like '%(4)%' or strIAIPPermissions like '%(115)%') " & _
+                SQL = "select (strLastName||', '||strFirstName) as UnitManager, " &
+                "AIRBRANCH.EPDUSerProfiles.numUserID " &
+                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.IAIPPermissions " &
+                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.IAIPPermissions.numUserID " &
+                "and numEmployeeStatus = '1' " &
+                "and (strIAIPPermissions like '%(4)%' or strIAIPPermissions like '%(115)%') " &
                 "and numUnit = '" & UserUnitTemp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -11385,32 +11321,32 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     DocumentType = "001"
             End Select
 
-            SQL = "Update AIRBRANCH.ISMPReportInformation set " & _
-            "strPollutant = '" & Pollutant & "', " & _
-            "strEmissionSource = '" & Replace(EmissionSource, "'", "''") & "', " & _
-            "strReportType = '" & ReportType & "', " & _
-            "strDocumentType = '" & DocumentType & "', " & _
-            "strApplicableRequirement = '" & Replace(ApplicableReg, "'", "''") & "', " & _
-            "strTestingFirm = '" & TestingFirm & "', " & _
-            "strReviewingEngineer = '" & ReviewingEngineer & "', " & _
-            "strWitnessingEngineer = '" & WitnessingEng & "', " & _
-            "strWitnessingEngineer2 = '" & WitnessingEng2 & "', " & _
-            "strReviewingUnit = '" & ReviewingUnit & "', " & _
-            "datTestDateStart = '" & TestStart & "', " & _
-            "datTestDateEnd = '" & TestEnd & "', " & _
-            "datReviewedByUnitManager = '" & AssignedDate & "', " & _
-            "mmoCommentArea = '" & Replace(Comments, "'", "''") & "', " & _
-            "strComplianceStatus = '" & ComplianceStatus & "', " & _
-            "strComplianceManager = '" & ComplianceManager & "', " & _
-            "strCC = '" & CC & "', " & _
-            "strControlEquipmentData = '" & Replace(ControlEquip, "'", "''") & "', " & _
-            "strDeterminationMethod = '" & DetMethod & "', " & _
-            "strModifingPerson = '" & CurrentUser.UserID & "', " & _
+            SQL = "Update AIRBRANCH.ISMPReportInformation set " &
+            "strPollutant = '" & Pollutant & "', " &
+            "strEmissionSource = '" & Replace(EmissionSource, "'", "''") & "', " &
+            "strReportType = '" & ReportType & "', " &
+            "strDocumentType = '" & DocumentType & "', " &
+            "strApplicableRequirement = '" & Replace(ApplicableReg, "'", "''") & "', " &
+            "strTestingFirm = '" & TestingFirm & "', " &
+            "strReviewingEngineer = '" & ReviewingEngineer & "', " &
+            "strWitnessingEngineer = '" & WitnessingEng & "', " &
+            "strWitnessingEngineer2 = '" & WitnessingEng2 & "', " &
+            "strReviewingUnit = '" & ReviewingUnit & "', " &
+            "datTestDateStart = '" & TestStart & "', " &
+            "datTestDateEnd = '" & TestEnd & "', " &
+            "datReviewedByUnitManager = '" & AssignedDate & "', " &
+            "mmoCommentArea = '" & Replace(Comments, "'", "''") & "', " &
+            "strComplianceStatus = '" & ComplianceStatus & "', " &
+            "strComplianceManager = '" & ComplianceManager & "', " &
+            "strCC = '" & CC & "', " &
+            "strControlEquipmentData = '" & Replace(ControlEquip, "'", "''") & "', " &
+            "strDeterminationMethod = '" & DetMethod & "', " &
+            "strModifingPerson = '" & CurrentUser.UserID & "', " &
             "datModifingDate = '" & OracleDate & "', "
             If UnitManager <> "" Then
                 SQL = SQL & "numReviewingManager = '" & UnitManager & "', "
             End If
-            SQL = SQL & "strOtherWitnessingEng = '" & OtherWitnessing & "' " & _
+            SQL = SQL & "strOtherWitnessingEng = '" & OtherWitnessing & "' " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
             'End If
 
@@ -11463,7 +11399,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             If OtherWitnessing > 0 Then
                 Dim temp As String = " "
                 If Me.clbWitnessingEngineers.CheckedItems.Count > 0 Then
-                    SQL = "Delete AIRBRANCH.ISMPWitnessingEng " & _
+                    SQL = "Delete AIRBRANCH.ISMPWitnessingEng " &
                     "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -11476,8 +11412,8 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         If clbWitnessingEngineers.GetItemChecked(x) = True Then
                             clbWitnessingEngineers.SelectedIndex = x
                             temp = clbWitnessingEngineers.SelectedValue
-                            SQL = "Insert into AIRBRANCH.ISMPWitnessingEng " & _
-                            "values " & _
+                            SQL = "Insert into AIRBRANCH.ISMPWitnessingEng " &
+                            "values " &
                             "('" & txtReferenceNumber.Text & "', '" & temp & "') "
                             cmd = New OracleCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
@@ -11490,7 +11426,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 End If
             End If
 
-            SQL = "delete AIRBRANCH.ISMPTestLogLink " & _
+            SQL = "delete AIRBRANCH.ISMPTestLogLink " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -11508,8 +11444,8 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     NotificationNumber = cboTestNotificationNumber.Text
                 End If
 
-                SQL = "Insert into AIRBRANCH.ISMPTestLogLink " & _
-                "values " & _
+                SQL = "Insert into AIRBRANCH.ISMPTestLogLink " &
+                "values " &
                 "('" & txtReferenceNumber.Text & "', '" & NotificationNumber & "') "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -11788,15 +11724,15 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 FollowUp = "False"
             End If
             If txtTrackingNumber.Text = "" Then
-                SQL = "Insert into AIRBRANCH.SSCPItemMaster " & _
-                "(strTrackingNumber, strAIRSNumber, " & _
-                "datReceivedDate, strEventType, " & _
-                "strResponsibleStaff, datCompleteDate, " & _
-                "strModifingPerson, datModifingDate) " & _
-                "values " & _
-                "(AIRBRANCH.SSCPTrackingNumber.nextval, '0413" & txtAirsNumber.Text & "', " & _
-                "'" & OracleDate & "', '03', " & _
-                "'" & StaffResponsible & "', '', " & _
+                SQL = "Insert into AIRBRANCH.SSCPItemMaster " &
+                "(strTrackingNumber, strAIRSNumber, " &
+                "datReceivedDate, strEventType, " &
+                "strResponsibleStaff, datCompleteDate, " &
+                "strModifingPerson, datModifingDate) " &
+                "values " &
+                "(AIRBRANCH.SSCPTrackingNumber.nextval, '0413" & txtAirsNumber.Text & "', " &
+                "'" & OracleDate & "', '03', " &
+                "'" & StaffResponsible & "', '', " &
                 "'" & CurrentUser.UserID & "', '" & OracleDate & "')"
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -11817,15 +11753,15 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 End While
                 dr.Close()
 
-                SQL = "Insert into AIRBRANCH.SSCPTestReports " & _
-                "(strTrackingNumber, strReferenceNumber, " & _
-                "datTestReportDue, " & _
-                "strTestReportComments, strTestReportFollowUp, " & _
-                "strModifingPerson, datModifingDate) " & _
-                "Values " & _
-                "('" & txtTrackingNumber.Text & "', '" & txtReferenceNumber.Text & "', " & _
-                "'" & OracleDate & "', " & _
-                "' ', 'False', " & _
+                SQL = "Insert into AIRBRANCH.SSCPTestReports " &
+                "(strTrackingNumber, strReferenceNumber, " &
+                "datTestReportDue, " &
+                "strTestReportComments, strTestReportFollowUp, " &
+                "strModifingPerson, datModifingDate) " &
+                "Values " &
+                "('" & txtTrackingNumber.Text & "', '" & txtReferenceNumber.Text & "', " &
+                "'" & OracleDate & "', " &
+                "' ', 'False', " &
                 "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -11837,8 +11773,8 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             End If
 
             If txtTrackingNumber.Text <> "" Then
-                SQL = "Select strTrackingNumber " & _
-                "from AIRBRANCH.SSCPItemMaster " & _
+                SQL = "Select strTrackingNumber " &
+                "from AIRBRANCH.SSCPItemMaster " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "'"
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -11849,12 +11785,12 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 dr.Close()
 
                 If RecExist = True Then
-                    SQL = "Update AIRBRANCH.SSCPItemMaster set " & _
-                    "strResponsibleStaff = '" & StaffResponsible & "', " & _
-                    "datCompleteDate = '" & CompleteDate & "', " & _
-                    "datAcknoledgmentLetterSent = '" & AckLetter & "', " & _
-                    "strModifingPerson = '" & CurrentUser.UserID & "', " & _
-                    "datModifingDate = '" & OracleDate & "' " & _
+                    SQL = "Update AIRBRANCH.SSCPItemMaster set " &
+                    "strResponsibleStaff = '" & StaffResponsible & "', " &
+                    "datCompleteDate = '" & CompleteDate & "', " &
+                    "datAcknoledgmentLetterSent = '" & AckLetter & "', " &
+                    "strModifingPerson = '" & CurrentUser.UserID & "', " &
+                    "datModifingDate = '" & OracleDate & "' " &
                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -11862,8 +11798,8 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     End If
                     dr = cmd.ExecuteReader
                     dr.Close()
-                    SQL = "Select strTrackingNumber " & _
-                    "from AIRBRANCH.SSCPTestReports " & _
+                    SQL = "Select strTrackingNumber " &
+                    "from AIRBRANCH.SSCPTestReports " &
                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -11873,12 +11809,12 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     RecExist = dr.Read
                     dr.Close()
                     If RecExist = True Then
-                        SQL = "Update AIRBRANCH.SSCPTestReports set " & _
-                        "datTestReportDue = '" & TestDue & "', " & _
-                        "strTestReportComments = '" & Replace(ReportComments, "'", "''") & "', " & _
-                        "strTestReportFollowUp = '" & FollowUp & "', " & _
-                        "strModifingPerson = '" & CurrentUser.UserID & "', " & _
-                        "datModifingDate = '" & OracleDate & "' " & _
+                        SQL = "Update AIRBRANCH.SSCPTestReports set " &
+                        "datTestReportDue = '" & TestDue & "', " &
+                        "strTestReportComments = '" & Replace(ReportComments, "'", "''") & "', " &
+                        "strTestReportFollowUp = '" & FollowUp & "', " &
+                        "strModifingPerson = '" & CurrentUser.UserID & "', " &
+                        "datModifingDate = '" & OracleDate & "' " &
                         "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -11888,8 +11824,8 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         dr.Close()
                     End If
                     If txtAirsNumber.Text.Length = 8 Then
-                        SQL = "Select strAIRSNumber " & _
-                        "from AIRBRANCH.APBSupplamentalData " & _
+                        SQL = "Select strAIRSNumber " &
+                        "from AIRBRANCH.APBSupplamentalData " &
                         "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -11899,10 +11835,10 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         RecExist = dr.Read
                         dr.Close()
                         If RecExist = True Then
-                            SQL = "Update AIRBRANCH.APBSupplamentalData set " & _
-                            "DatSSCPTestReportDue = '" & NextTest & "', " & _
-                            "strModifingPerson = '" & CurrentUser.UserID & "', " & _
-                            "datModifingdate = '" & OracleDate & "' " & _
+                            SQL = "Update AIRBRANCH.APBSupplamentalData set " &
+                            "DatSSCPTestReportDue = '" & NextTest & "', " &
+                            "strModifingPerson = '" & CurrentUser.UserID & "', " &
+                            "datModifingdate = '" & OracleDate & "' " &
                             "where strAIRSnumber = '0413" & txtAirsNumber.Text & "' "
                             cmd = New OracleCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
@@ -12463,8 +12399,8 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
             End Select
 
-            SQL = "Select strReferenceNumber " & _
-            "From AIRBRANCH.ISMPReportOneStack " & _
+            SQL = "Select strReferenceNumber " &
+            "From AIRBRANCH.ISMPReportOneStack " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -12475,76 +12411,76 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             dr.Close()
 
             If RecExist = True Then
-                SQL = "Update AIRBRANCH.ISMPReportOneStack Set " & _
-                "strMaxOperatingCapacity = '" & MaxOpCapacity & "', " & _
-                " strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " & _
-                "strOperatingCapacity = '" & OpCapacity & "', " & _
-                "strOperatingCapacityUnit = '" & OpCapacityUnit & "', " & _
-                "strAllowableEmissionRate1 = '" & AllowEmissRate1 & "', " & _
-                "strAllowableEmissionRate2 = '" & AllowEmissRate2 & "', " & _
-                "strAllowableEmissionRate3 = '" & AllowEmissRate3 & "', " & _
-                "strAllowableEmissionRateUnit1 = '" & EmissRateUnit1 & "', " & _
-                "strAllowableEmissionRateUnit2 = '" & EmissRateUnit2 & "', " & _
-                "strAllowableEmissionRateUnit3 = '" & EmissRateUnit3 & "', " & _
-                "strRunNumber1A = '" & TestRun1 & "', " & _
-                "strRunnumber1b = '" & TestRun2 & "', " & _
-                "strRunNumber1C = '" & TestRun3 & "', " & _
-                "strRunNumber1D = '" & TestRun4 & "', " & _
-                "strGasTemperature1A = '" & GasTemp1 & "', " & _
-                "strGasTemperature1B = '" & GasTemp2 & "', " & _
-                "strGasTemperature1C = '" & GasTemp3 & "', " & _
-                "strGasTemperature1D = '" & GasTemp4 & "', " & _
-                "strGasMoisture1A = '" & GasMoist1 & "', " & _
-                "strGasMoisture1B = '" & GasMoist2 & "', " & _
-                "strGasMoisture1C = '" & GasMoist3 & "', " & _
-                "strGasMoisture1D = '" & GasMoist4 & "', " & _
-                "strGasFlowRateACFM1A = '" & FlowRateACFM1 & "', " & _
-                "strGasFlowRateACFM1B = '" & FlowRateACFM2 & "', " & _
-                "strGasFlowRateACFM1C = '" & FlowRateACFM3 & "', " & _
-                "strGasFlowRateACFM1D = '" & FlowRateACFM4 & "', " & _
-                "strGasFlowRateDSCFM1A = '" & FlowRateDSCFM1 & "', " & _
-                "strGasFlowRateDSCFM1B = '" & FlowRateDSCFM2 & "', " & _
-                "strGasFlowRateDSCFM1C = '" & FlowRateDSCFM3 & "', " & _
-                "strGasFlowRateDSCFM1D = '" & FlowRateDSCFM4 & "', " & _
-                "strPollutantConcentration1A = '" & PollConc1 & "', " & _
-                "strPollutantConcentration1B = '" & PollConc2 & "', " & _
-                "strPollutantConcentration1C = '" & PollConc3 & "', " & _
-                "strPollutantConcentration1D = '" & PollConc4 & "', " & _
-                "strPollutantConcentrationUnit = '" & PollConcUnit & "', " & _
-                "strPollutantConcentrationAvg = '" & PollAverage & "', " & _
-                "strEmissionRate1A = '" & EmissRate1 & "', " & _
-                "strEmissionRate1B = '" & EmissRate2 & "', " & _
-                "strEmissionRate1C = '" & EmissRate3 & "', " & _
-                "strEmissionRate1D = '" & EmissRate4 & "', " & _
-                "strEmissionRateUnit = '" & EmissRateUnit & "', " & _
-                "strEmissionRateAvg = '" & EmissRateAvg & "', " & _
-                "strPercentAllowable = '" & PercentAllowable & "' " & _
+                SQL = "Update AIRBRANCH.ISMPReportOneStack Set " &
+                "strMaxOperatingCapacity = '" & MaxOpCapacity & "', " &
+                " strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " &
+                "strOperatingCapacity = '" & OpCapacity & "', " &
+                "strOperatingCapacityUnit = '" & OpCapacityUnit & "', " &
+                "strAllowableEmissionRate1 = '" & AllowEmissRate1 & "', " &
+                "strAllowableEmissionRate2 = '" & AllowEmissRate2 & "', " &
+                "strAllowableEmissionRate3 = '" & AllowEmissRate3 & "', " &
+                "strAllowableEmissionRateUnit1 = '" & EmissRateUnit1 & "', " &
+                "strAllowableEmissionRateUnit2 = '" & EmissRateUnit2 & "', " &
+                "strAllowableEmissionRateUnit3 = '" & EmissRateUnit3 & "', " &
+                "strRunNumber1A = '" & TestRun1 & "', " &
+                "strRunnumber1b = '" & TestRun2 & "', " &
+                "strRunNumber1C = '" & TestRun3 & "', " &
+                "strRunNumber1D = '" & TestRun4 & "', " &
+                "strGasTemperature1A = '" & GasTemp1 & "', " &
+                "strGasTemperature1B = '" & GasTemp2 & "', " &
+                "strGasTemperature1C = '" & GasTemp3 & "', " &
+                "strGasTemperature1D = '" & GasTemp4 & "', " &
+                "strGasMoisture1A = '" & GasMoist1 & "', " &
+                "strGasMoisture1B = '" & GasMoist2 & "', " &
+                "strGasMoisture1C = '" & GasMoist3 & "', " &
+                "strGasMoisture1D = '" & GasMoist4 & "', " &
+                "strGasFlowRateACFM1A = '" & FlowRateACFM1 & "', " &
+                "strGasFlowRateACFM1B = '" & FlowRateACFM2 & "', " &
+                "strGasFlowRateACFM1C = '" & FlowRateACFM3 & "', " &
+                "strGasFlowRateACFM1D = '" & FlowRateACFM4 & "', " &
+                "strGasFlowRateDSCFM1A = '" & FlowRateDSCFM1 & "', " &
+                "strGasFlowRateDSCFM1B = '" & FlowRateDSCFM2 & "', " &
+                "strGasFlowRateDSCFM1C = '" & FlowRateDSCFM3 & "', " &
+                "strGasFlowRateDSCFM1D = '" & FlowRateDSCFM4 & "', " &
+                "strPollutantConcentration1A = '" & PollConc1 & "', " &
+                "strPollutantConcentration1B = '" & PollConc2 & "', " &
+                "strPollutantConcentration1C = '" & PollConc3 & "', " &
+                "strPollutantConcentration1D = '" & PollConc4 & "', " &
+                "strPollutantConcentrationUnit = '" & PollConcUnit & "', " &
+                "strPollutantConcentrationAvg = '" & PollAverage & "', " &
+                "strEmissionRate1A = '" & EmissRate1 & "', " &
+                "strEmissionRate1B = '" & EmissRate2 & "', " &
+                "strEmissionRate1C = '" & EmissRate3 & "', " &
+                "strEmissionRate1D = '" & EmissRate4 & "', " &
+                "strEmissionRateUnit = '" & EmissRateUnit & "', " &
+                "strEmissionRateAvg = '" & EmissRateAvg & "', " &
+                "strPercentAllowable = '" & PercentAllowable & "' " &
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
             Else
-                SQL = "Insert into AIRBRANCH.ISMPREportOneStack " & _
-                "values " & _
-                "('" & txtReferenceNumber.Text & "', " & _
-                "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " & _
-                "'" & OpCapacity & "', '" & OpCapacityUnit & "', " & _
-                "'" & AllowEmissRate1 & "', '" & AllowEmissRate2 & "', " & _
-                "'" & AllowEmissRate3 & "', '" & EmissRateUnit1 & "', " & _
-                "'" & EmissRateUnit2 & "', '" & EmissRateUnit3 & "', " & _
-                "'" & TestRun1 & "', '" & TestRun2 & "', " & _
-                "'" & TestRun3 & "', '" & TestRun4 & "', " & _
-                "'" & GasTemp1 & "', '" & GasTemp2 & "', " & _
-                "'" & GasTemp3 & "', '" & GasTemp4 & "', " & _
-                "'" & GasMoist1 & "', '" & GasMoist2 & "', " & _
-                "'" & GasMoist3 & "', '" & GasMoist4 & "', " & _
-                "'" & FlowRateACFM1 & "', '" & FlowRateACFM2 & "', " & _
-                "'" & FlowRateACFM3 & "', '" & FlowRateACFM4 & "', " & _
-                "'" & FlowRateDSCFM1 & "', '" & FlowRateDSCFM2 & "', " & _
-                "'" & FlowRateDSCFM3 & "', '" & FlowRateDSCFM4 & "', " & _
-                "'" & PollConc1 & "', '" & PollConc2 & "', " & _
-                "'" & PollConc3 & "', '" & PollConc4 & "', " & _
-                "'" & PollConcUnit & "', '" & PollAverage & "', " & _
-                "'" & EmissRate1 & "', '" & EmissRate2 & "', " & _
-                "'" & EmissRate3 & "', '" & EmissRate4 & "', " & _
-                "'" & EmissRateUnit & "', '" & EmissRateAvg & "', " & _
+                SQL = "Insert into AIRBRANCH.ISMPREportOneStack " &
+                "values " &
+                "('" & txtReferenceNumber.Text & "', " &
+                "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " &
+                "'" & OpCapacity & "', '" & OpCapacityUnit & "', " &
+                "'" & AllowEmissRate1 & "', '" & AllowEmissRate2 & "', " &
+                "'" & AllowEmissRate3 & "', '" & EmissRateUnit1 & "', " &
+                "'" & EmissRateUnit2 & "', '" & EmissRateUnit3 & "', " &
+                "'" & TestRun1 & "', '" & TestRun2 & "', " &
+                "'" & TestRun3 & "', '" & TestRun4 & "', " &
+                "'" & GasTemp1 & "', '" & GasTemp2 & "', " &
+                "'" & GasTemp3 & "', '" & GasTemp4 & "', " &
+                "'" & GasMoist1 & "', '" & GasMoist2 & "', " &
+                "'" & GasMoist3 & "', '" & GasMoist4 & "', " &
+                "'" & FlowRateACFM1 & "', '" & FlowRateACFM2 & "', " &
+                "'" & FlowRateACFM3 & "', '" & FlowRateACFM4 & "', " &
+                "'" & FlowRateDSCFM1 & "', '" & FlowRateDSCFM2 & "', " &
+                "'" & FlowRateDSCFM3 & "', '" & FlowRateDSCFM4 & "', " &
+                "'" & PollConc1 & "', '" & PollConc2 & "', " &
+                "'" & PollConc3 & "', '" & PollConc4 & "', " &
+                "'" & PollConcUnit & "', '" & PollAverage & "', " &
+                "'" & EmissRate1 & "', '" & EmissRate2 & "', " &
+                "'" & EmissRate3 & "', '" & EmissRate4 & "', " &
+                "'" & EmissRateUnit & "', '" & EmissRateAvg & "', " &
                 "'" & PercentAllowable & "') "
             End If
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -13243,8 +13179,8 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
             End Select
 
-            SQL = "Select strReferenceNumber " & _
-            "From AIRBRANCH.ISMPReportTwoStack " & _
+            SQL = "Select strReferenceNumber " &
+            "From AIRBRANCH.ISMPReportTwoStack " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -13255,117 +13191,117 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             dr.Close()
 
             If RecExist = True Then
-                SQL = "Update AIRBRANCH.ISMPReportTwoStack set " & _
-                "strMaxOperatingCapacity = '" & MaxOpCapacity & "', " & _
-                "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " & _
-                "strOperatingCapacity = '" & OpCapacity & "', " & _
-                "strOperatingCapacityUnit = '" & OpCapacityUnit & "', " & _
-                "strAllowableEmissionRate1 = '" & AllowEmissRate1 & "', " & _
-                "strAllowableEmissionrate2 = '" & AllowEmissRate2 & "', " & _
-                "strAllowableEmissionRate3 = '" & AllowEmissRate3 & "', " & _
-                "strAllowableEmissionRateUnit1 = '" & AllowEmissRateUnit1 & "', " & _
-                "strAllowableEmissionRateUnit2 = '" & AllowEmissRateUnit2 & "', " & _
-                "strAllowableEmissionRateUnit3 = '" & AllowEmissRateUnit3 & "', " & _
-                "strStackOneName = '" & Replace(StackNameOne, "'", "''") & "', " & _
-                "strStackTwoName = '" & Replace(StackNameTwo, "'", "''") & "', " & _
-                "strRunNumber1a = '" & TestRun1A & "', " & _
-                "strRunNumber1b = '" & TestRun1B & "', " & _
-                "strRunNumber1c = '" & TestRun1C & "', " & _
-                "strRunNumber2a = '" & TestRun2A & "', " & _
-                "strRunNumber2b = '" & TestRun2B & "', " & _
-                "strRunNumber2c = '" & TestRun2C & "', " & _
-                "strGasTemperature1a = '" & GasTemp1A & "', " & _
-                "strGasTemperature1b = '" & GasTemp1B & "', " & _
-                "strGasTempErature1c = '" & GasTemp1C & "', " & _
-                "strGasTemperature2a = '" & GasTemp2A & "', " & _
-                "strGasTemperature2b = '" & GasTemp2B & "', " & _
-                "strGasTempErature2c = '" & GasTemp2C & "', " & _
-                "strGasMoisture1a  = '" & GasMoist1A & "', " & _
-                "strGasMoisture1b  = '" & GasMoist1B & "', " & _
-                "strGasMoisture1c  = '" & GasMoist1C & "', " & _
-                "strGasMoisture2a  = '" & GasMoist2A & "', " & _
-                "strGasMoisture2b  = '" & GasMoist2B & "', " & _
-                "strGasMoisture2c  = '" & GasMoist2C & "', " & _
-                "strGasFlowRateACFM1A = '" & FlowRateACFM1A & "', " & _
-                "strGasFlowRateACFM1b = '" & FlowRateACFM1B & "', " & _
-                "strGasFlowRateACFM1C = '" & FlowRateACFM1C & "', " & _
-                "strGasFlowRateACFM2A = '" & FlowRateACFM2A & "', " & _
-                "strGasFlowRateACFM2b = '" & FlowRateACFM2B & "', " & _
-                "strGasFlowRateACFM2C = '" & FlowRateACFM2C & "', " & _
-                "strGasFlowRateDSCFM1A = '" & FlowRateDSCFM1A & "', " & _
-                "strGasFlowRateDSCFM1b = '" & FlowRateDSCFM1B & "', " & _
-                "strGasFlowRateDSCFM1C = '" & FlowRateDSCFM1C & "', " & _
-                "strGasFlowRateDSCFM2A = '" & FlowRateDSCFM2A & "', " & _
-                "strGasFlowRateDSCFM2b = '" & FlowRateDSCFM2B & "', " & _
-                "strGasFlowRateDSCFM2C = '" & FlowRateDSCFM2C & "', " & _
-                "strPollutantConcentration1a = '" & PollConc1A & "', " & _
-                "strPollutantConcentration1b = '" & PollConc1B & "', " & _
-                "strPollutantConcentration1c = '" & PollConc1C & "', " & _
-                "strPollutantConcentration2a = '" & PollConc2A & "', " & _
-                "strPollutantConcentration2B = '" & PollConc2B & "', " & _
-                "strPollutantConcentration2C = '" & PollConc2C & "', " & _
-                "strPollutantConcentrationUnit = '" & PollConcUnit & "', " & _
-                "strPollutantConcentrationAvg1 = '" & PollConcAvg1 & "', " & _
-                "strPollutantConcentrationAvg2 = '" & PollConcAvg2 & "', " & _
-                "strEmissionRate1A = '" & EmissRate1A & "', " & _
-                "strEmissionRate1B = '" & EmissRate1B & "', " & _
-                "strEmissionRate1C = '" & EmissRate1C & "', " & _
-                "strEmissionRate2A = '" & EmissRate2A & "', " & _
-                "strEmissionRate2B = '" & EmissRate2B & "', " & _
-                "strEmissionRate2C = '" & EmissRate2C & "', " & _
-                "strEmissionRateUnit = '" & EmissRateUnit & "', " & _
-                "strEmissionRateAvg1 = '" & EmissRateAvg1 & "', " & _
-                "strEmissionRateAvg2 = '" & EmissRateAvg2 & "', " & _
-                "strEmissionRateTotal1 = '" & EmissTotal1 & "', " & _
-                "strEmissionRateTotal2 = '" & EmissTotal2 & "', " & _
-                "strEmissionRateTotal3 = '" & EmissTotal3 & "', " & _
-                "strEmissionRateTotalAvg = '" & EmissTotalAvg & "', " & _
-                "strDestructionPercent = '" & Destruct & "', " & _
-                "strPercentAllowable = '" & PercentAllowable & "' " & _
+                SQL = "Update AIRBRANCH.ISMPReportTwoStack set " &
+                "strMaxOperatingCapacity = '" & MaxOpCapacity & "', " &
+                "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " &
+                "strOperatingCapacity = '" & OpCapacity & "', " &
+                "strOperatingCapacityUnit = '" & OpCapacityUnit & "', " &
+                "strAllowableEmissionRate1 = '" & AllowEmissRate1 & "', " &
+                "strAllowableEmissionrate2 = '" & AllowEmissRate2 & "', " &
+                "strAllowableEmissionRate3 = '" & AllowEmissRate3 & "', " &
+                "strAllowableEmissionRateUnit1 = '" & AllowEmissRateUnit1 & "', " &
+                "strAllowableEmissionRateUnit2 = '" & AllowEmissRateUnit2 & "', " &
+                "strAllowableEmissionRateUnit3 = '" & AllowEmissRateUnit3 & "', " &
+                "strStackOneName = '" & Replace(StackNameOne, "'", "''") & "', " &
+                "strStackTwoName = '" & Replace(StackNameTwo, "'", "''") & "', " &
+                "strRunNumber1a = '" & TestRun1A & "', " &
+                "strRunNumber1b = '" & TestRun1B & "', " &
+                "strRunNumber1c = '" & TestRun1C & "', " &
+                "strRunNumber2a = '" & TestRun2A & "', " &
+                "strRunNumber2b = '" & TestRun2B & "', " &
+                "strRunNumber2c = '" & TestRun2C & "', " &
+                "strGasTemperature1a = '" & GasTemp1A & "', " &
+                "strGasTemperature1b = '" & GasTemp1B & "', " &
+                "strGasTempErature1c = '" & GasTemp1C & "', " &
+                "strGasTemperature2a = '" & GasTemp2A & "', " &
+                "strGasTemperature2b = '" & GasTemp2B & "', " &
+                "strGasTempErature2c = '" & GasTemp2C & "', " &
+                "strGasMoisture1a  = '" & GasMoist1A & "', " &
+                "strGasMoisture1b  = '" & GasMoist1B & "', " &
+                "strGasMoisture1c  = '" & GasMoist1C & "', " &
+                "strGasMoisture2a  = '" & GasMoist2A & "', " &
+                "strGasMoisture2b  = '" & GasMoist2B & "', " &
+                "strGasMoisture2c  = '" & GasMoist2C & "', " &
+                "strGasFlowRateACFM1A = '" & FlowRateACFM1A & "', " &
+                "strGasFlowRateACFM1b = '" & FlowRateACFM1B & "', " &
+                "strGasFlowRateACFM1C = '" & FlowRateACFM1C & "', " &
+                "strGasFlowRateACFM2A = '" & FlowRateACFM2A & "', " &
+                "strGasFlowRateACFM2b = '" & FlowRateACFM2B & "', " &
+                "strGasFlowRateACFM2C = '" & FlowRateACFM2C & "', " &
+                "strGasFlowRateDSCFM1A = '" & FlowRateDSCFM1A & "', " &
+                "strGasFlowRateDSCFM1b = '" & FlowRateDSCFM1B & "', " &
+                "strGasFlowRateDSCFM1C = '" & FlowRateDSCFM1C & "', " &
+                "strGasFlowRateDSCFM2A = '" & FlowRateDSCFM2A & "', " &
+                "strGasFlowRateDSCFM2b = '" & FlowRateDSCFM2B & "', " &
+                "strGasFlowRateDSCFM2C = '" & FlowRateDSCFM2C & "', " &
+                "strPollutantConcentration1a = '" & PollConc1A & "', " &
+                "strPollutantConcentration1b = '" & PollConc1B & "', " &
+                "strPollutantConcentration1c = '" & PollConc1C & "', " &
+                "strPollutantConcentration2a = '" & PollConc2A & "', " &
+                "strPollutantConcentration2B = '" & PollConc2B & "', " &
+                "strPollutantConcentration2C = '" & PollConc2C & "', " &
+                "strPollutantConcentrationUnit = '" & PollConcUnit & "', " &
+                "strPollutantConcentrationAvg1 = '" & PollConcAvg1 & "', " &
+                "strPollutantConcentrationAvg2 = '" & PollConcAvg2 & "', " &
+                "strEmissionRate1A = '" & EmissRate1A & "', " &
+                "strEmissionRate1B = '" & EmissRate1B & "', " &
+                "strEmissionRate1C = '" & EmissRate1C & "', " &
+                "strEmissionRate2A = '" & EmissRate2A & "', " &
+                "strEmissionRate2B = '" & EmissRate2B & "', " &
+                "strEmissionRate2C = '" & EmissRate2C & "', " &
+                "strEmissionRateUnit = '" & EmissRateUnit & "', " &
+                "strEmissionRateAvg1 = '" & EmissRateAvg1 & "', " &
+                "strEmissionRateAvg2 = '" & EmissRateAvg2 & "', " &
+                "strEmissionRateTotal1 = '" & EmissTotal1 & "', " &
+                "strEmissionRateTotal2 = '" & EmissTotal2 & "', " &
+                "strEmissionRateTotal3 = '" & EmissTotal3 & "', " &
+                "strEmissionRateTotalAvg = '" & EmissTotalAvg & "', " &
+                "strDestructionPercent = '" & Destruct & "', " &
+                "strPercentAllowable = '" & PercentAllowable & "' " &
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             Else
-                SQL = "Insert into AIRBRANCH.ISMPReportTwoStack " & _
-                "values " & _
-                "('" & txtReferenceNumber.Text & "', " & _
-                "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " & _
-                "'" & OpCapacity & "', '" & OpCapacityUnit & "', " & _
-                "'" & AllowEmissRate1 & "', '" & AllowEmissRate2 & "', " & _
-                "'" & AllowEmissRate3 & "', " & _
-                "'" & AllowEmissRateUnit1 & "', '" & AllowEmissRateUnit2 & "', " & _
-                "'" & AllowEmissRateUnit3 & "', " & _
-                "'" & Replace(StackNameOne, "'", "''") & "', '" & Replace(StackNameTwo, "'", "''") & "', " & _
-                "'" & TestRun1A & "', '" & TestRun1B & "', " & _
-                "'" & TestRun1C & "', '" & TestRun2A & "', " & _
-                "'" & TestRun2B & "', '" & TestRun2C & "', " & _
-                "'" & GasTemp1A & "', '" & GasTemp1B & "', " & _
-                "'" & GasTemp1C & "', '" & GasTemp2A & "', " & _
-                "'" & GasTemp2B & "', '" & GasTemp2C & "', " & _
-                "'" & GasMoist1A & "', '" & GasMoist1B & "', " & _
-                "'" & GasMoist1C & "', '" & GasMoist2A & "', " & _
-                "'" & GasMoist2B & "', '" & GasMoist2C & "', " & _
-                "'" & FlowRateACFM1A & "', '" & FlowRateACFM1B & "', " & _
-                "'" & FlowRateACFM1C & "', '" & FlowRateACFM2A & "', " & _
-                "'" & FlowRateACFM2B & "', '" & FlowRateACFM2C & "', " & _
-                "'" & FlowRateDSCFM1A & "', '" & FlowRateDSCFM1B & "', " & _
-                "'" & FlowRateDSCFM1C & "', '" & FlowRateDSCFM2A & "', " & _
-                "'" & FlowRateDSCFM2B & "', '" & FlowRateDSCFM2C & "', " & _
-                "'" & PollConc1A & "', '" & PollConc1B & "', " & _
-                "'" & PollConc1C & "', '" & PollConc2A & "', " & _
-                "'" & PollConc2B & "', '" & PollConc2C & "', " & _
-                "'" & PollConcUnit & "', " & _
-                "'" & PollConcAvg1 & "', " & _
-                "'" & PollConcAvg2 & "', " & _
-                "'" & EmissRate1A & "', '" & EmissRate1B & "', " & _
-                "'" & EmissRate1C & "', '" & EmissRate2A & "', " & _
-                "'" & EmissRate2B & "', '" & EmissRate2C & "', " & _
-                "'" & EmissRateUnit & "', " & _
-                "'" & EmissRateAvg1 & "', " & _
-                "'" & EmissRateAvg2 & "',  " & _
-                "'" & EmissTotal1 & "', " & _
-                "'" & EmissTotal2 & "', " & _
-                "'" & EmissTotal3 & "', " & _
-                "'" & EmissTotalAvg & "', " & _
-                "'" & Destruct & "', " & _
+                SQL = "Insert into AIRBRANCH.ISMPReportTwoStack " &
+                "values " &
+                "('" & txtReferenceNumber.Text & "', " &
+                "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " &
+                "'" & OpCapacity & "', '" & OpCapacityUnit & "', " &
+                "'" & AllowEmissRate1 & "', '" & AllowEmissRate2 & "', " &
+                "'" & AllowEmissRate3 & "', " &
+                "'" & AllowEmissRateUnit1 & "', '" & AllowEmissRateUnit2 & "', " &
+                "'" & AllowEmissRateUnit3 & "', " &
+                "'" & Replace(StackNameOne, "'", "''") & "', '" & Replace(StackNameTwo, "'", "''") & "', " &
+                "'" & TestRun1A & "', '" & TestRun1B & "', " &
+                "'" & TestRun1C & "', '" & TestRun2A & "', " &
+                "'" & TestRun2B & "', '" & TestRun2C & "', " &
+                "'" & GasTemp1A & "', '" & GasTemp1B & "', " &
+                "'" & GasTemp1C & "', '" & GasTemp2A & "', " &
+                "'" & GasTemp2B & "', '" & GasTemp2C & "', " &
+                "'" & GasMoist1A & "', '" & GasMoist1B & "', " &
+                "'" & GasMoist1C & "', '" & GasMoist2A & "', " &
+                "'" & GasMoist2B & "', '" & GasMoist2C & "', " &
+                "'" & FlowRateACFM1A & "', '" & FlowRateACFM1B & "', " &
+                "'" & FlowRateACFM1C & "', '" & FlowRateACFM2A & "', " &
+                "'" & FlowRateACFM2B & "', '" & FlowRateACFM2C & "', " &
+                "'" & FlowRateDSCFM1A & "', '" & FlowRateDSCFM1B & "', " &
+                "'" & FlowRateDSCFM1C & "', '" & FlowRateDSCFM2A & "', " &
+                "'" & FlowRateDSCFM2B & "', '" & FlowRateDSCFM2C & "', " &
+                "'" & PollConc1A & "', '" & PollConc1B & "', " &
+                "'" & PollConc1C & "', '" & PollConc2A & "', " &
+                "'" & PollConc2B & "', '" & PollConc2C & "', " &
+                "'" & PollConcUnit & "', " &
+                "'" & PollConcAvg1 & "', " &
+                "'" & PollConcAvg2 & "', " &
+                "'" & EmissRate1A & "', '" & EmissRate1B & "', " &
+                "'" & EmissRate1C & "', '" & EmissRate2A & "', " &
+                "'" & EmissRate2B & "', '" & EmissRate2C & "', " &
+                "'" & EmissRateUnit & "', " &
+                "'" & EmissRateAvg1 & "', " &
+                "'" & EmissRateAvg2 & "',  " &
+                "'" & EmissTotal1 & "', " &
+                "'" & EmissTotal2 & "', " &
+                "'" & EmissTotal3 & "', " &
+                "'" & EmissTotalAvg & "', " &
+                "'" & Destruct & "', " &
                 "'" & PercentAllowable & "') "
             End If
 
@@ -13526,8 +13462,8 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 Destruct = " "
             End If
 
-            SQL = "Select strReferenceNumber " & _
-            "from AIRBRANCH.ISMPReportFlare " & _
+            SQL = "Select strReferenceNumber " &
+            "from AIRBRANCH.ISMPReportFlare " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -13538,48 +13474,48 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             dr.Close()
 
             If RecExist = True Then
-                SQL = "Update AIRBRANCH.ISMPReportFlare set " & _
-                "strMaxOperatingCapacity  = '" & MaxOpCapacity & "', " & _
-                "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " & _
-                "strOperatingcapacity = '" & OpCapacity & "', " & _
-                "strOperatingCapacityUnit = '" & OpCapacityUnit & "', " & _
-                "strAllowableEmissionRate1A = '" & AllowEmissRate1 & "', " & _
-                "strAllowableEmissionRate2A = '" & AllowEmissRate2 & "', " & _
-                "strAllowableEmissionRate3A = '" & AllowEmissRate3 & "', " & _
-                "strAllowEmissionRateUnit1A = '" & AllowEmissRateUnit1 & "', " & _
-                "strAllowEmissionRateUnit2A = '" & AllowEmissRateUnit2 & "', " & _
-                "strAllowEmissionRateUnit3A = '" & AllowEmissRateUnit3 & "', " & _
-                "strTestDuration = '" & TestDuration & "', " & _
-                "strTestDurationUnit = '" & TestDurationUnit & "', " & _
-                "strPollutantConcenIn = '" & PollConcIn & "', " & _
-                "strPollutantConcenUnitIn = '" & PollConcInUnit & "', " & _
-                "strPollutantConcenOut = '" & PollConcOut & "', " & _
-                "strPollutantConcenUnitOut = '" & PollConcOutUnit & "', " & _
-                "strEmissionRate = '" & EmissRate & "', " & _
-                "strEmissionRateUnit = '" & EmissRateUnit & "', " & _
-                "strDestructionEfficiency = '" & Destruct & "' " & _
+                SQL = "Update AIRBRANCH.ISMPReportFlare set " &
+                "strMaxOperatingCapacity  = '" & MaxOpCapacity & "', " &
+                "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " &
+                "strOperatingcapacity = '" & OpCapacity & "', " &
+                "strOperatingCapacityUnit = '" & OpCapacityUnit & "', " &
+                "strAllowableEmissionRate1A = '" & AllowEmissRate1 & "', " &
+                "strAllowableEmissionRate2A = '" & AllowEmissRate2 & "', " &
+                "strAllowableEmissionRate3A = '" & AllowEmissRate3 & "', " &
+                "strAllowEmissionRateUnit1A = '" & AllowEmissRateUnit1 & "', " &
+                "strAllowEmissionRateUnit2A = '" & AllowEmissRateUnit2 & "', " &
+                "strAllowEmissionRateUnit3A = '" & AllowEmissRateUnit3 & "', " &
+                "strTestDuration = '" & TestDuration & "', " &
+                "strTestDurationUnit = '" & TestDurationUnit & "', " &
+                "strPollutantConcenIn = '" & PollConcIn & "', " &
+                "strPollutantConcenUnitIn = '" & PollConcInUnit & "', " &
+                "strPollutantConcenOut = '" & PollConcOut & "', " &
+                "strPollutantConcenUnitOut = '" & PollConcOutUnit & "', " &
+                "strEmissionRate = '" & EmissRate & "', " &
+                "strEmissionRateUnit = '" & EmissRateUnit & "', " &
+                "strDestructionEfficiency = '" & Destruct & "' " &
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             Else
-                SQL = "Insert into AIRBRANCH.ISMPReportFlare " & _
-                "values " & _
-                "('" & txtReferenceNumber.Text & "', " & _
-                "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " & _
-                "'" & OpCapacity & "', '" & OpCapacityUnit & "', " & _
-                "' ', ' ', " & _
-                "'" & AllowEmissRate1 & "', '" & AllowEmissRate2 & "', " & _
-                "'" & AllowEmissRate3 & "', " & _
-                "'" & AllowEmissRateUnit1 & "', '" & AllowEmissRateUnit2 & "', " & _
-                "'" & AllowEmissRateUnit3 & "', " & _
-                "' ', ' ', " & _
-                "' ', ' ', " & _
-                "' ', " & _
-                "' ', ' ', " & _
-                "' ', ' ', " & _
-                "' ', " & _
-                "'" & TestDuration & "', '" & TestDurationUnit & "', " & _
-                "'" & PollConcIn & "', '" & PollConcInUnit & "', " & _
-                "'" & PollConcOut & "', '" & PollConcOutUnit & "', " & _
-                "'" & EmissRate & "', '" & EmissRateUnit & "', " & _
+                SQL = "Insert into AIRBRANCH.ISMPReportFlare " &
+                "values " &
+                "('" & txtReferenceNumber.Text & "', " &
+                "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " &
+                "'" & OpCapacity & "', '" & OpCapacityUnit & "', " &
+                "' ', ' ', " &
+                "'" & AllowEmissRate1 & "', '" & AllowEmissRate2 & "', " &
+                "'" & AllowEmissRate3 & "', " &
+                "'" & AllowEmissRateUnit1 & "', '" & AllowEmissRateUnit2 & "', " &
+                "'" & AllowEmissRateUnit3 & "', " &
+                "' ', ' ', " &
+                "' ', ' ', " &
+                "' ', " &
+                "' ', ' ', " &
+                "' ', ' ', " &
+                "' ', " &
+                "'" & TestDuration & "', '" & TestDurationUnit & "', " &
+                "'" & PollConcIn & "', '" & PollConcInUnit & "', " &
+                "'" & PollConcOut & "', '" & PollConcOutUnit & "', " &
+                "'" & EmissRate & "', '" & EmissRateUnit & "', " &
                 "'" & Destruct & "', ' ')  "
             End If
 
@@ -13765,8 +13701,8 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 Destruct = " "
             End If
 
-            SQL = "Select strReferenceNumber " & _
-            "from AIRBRANCH.ISMPReportPondAndGas " & _
+            SQL = "Select strReferenceNumber " &
+            "from AIRBRANCH.ISMPReportPondAndGas " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -13777,53 +13713,53 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             dr.Close()
 
             If RecExist = True Then
-                SQL = "Update AIRBRANCH.ISMPReportPondAndGas set " & _
-                "strMaxOperatingCapacity = '" & MaxOpCapacity & "', " & _
-                "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " & _
-                "strOperatingCapacity  =  '" & OpCapacity & "', " & _
-                "strOperatingCapacityUnit = '" & OpCapacityUnit & "', " & _
-                "strAllowableEmissionRate1 = '" & AllowEmissRate1 & "', " & _
-                "strAllowableEmissionRate2 = '" & AllowEmissRate2 & "', " & _
-                "strAllowableEmissionRate3 = '" & AllowEmissRate3 & "', " & _
-                "strAllowableEmissionRateUnit1 = '" & AllowEmissRateUnit1 & "', " & _
-                "strAllowableEmissionRateUnit2 = '" & AllowEmissRateUnit2 & "', " & _
-                "strAllowableemissionrateunit3 = '" & AllowEmissRateUnit3 & "', " & _
-                "strRunNumber1A = '" & TestRun1 & "', " & _
-                "strRunNumber1B = '" & TestRun2 & "', " & _
-                "strRunNumber1C = '" & TestRun3 & "', " & _
-                "strPollutantConcentration1A = '" & PollConc1 & "', " & _
-                "strPollutantConcentration1B = '" & PollConc2 & "', " & _
-                "strPOllutantConcentration1C = '" & PollConc3 & "', " & _
-                "strPollutantConcentrationUnit = '" & PollConcUnit & "', " & _
-                "strPollutantConcentrationAvg = '" & PollConcAvg & "', " & _
-                "strTreatmentRate1A = '" & Treatment1 & "', " & _
-                "strTreatmentRate1B = '" & Treatment2 & "', " & _
-                "strTreatmentRate1C = '" & Treatment3 & "', " & _
-                "strTreatmentRateUnit = '" & TreatmentUnit & "', " & _
-                "strTreatmentRateAvg = '" & TreatmentAvg & "', " & _
-                "strPercentallowable = '" & Destruct & "' " & _
+                SQL = "Update AIRBRANCH.ISMPReportPondAndGas set " &
+                "strMaxOperatingCapacity = '" & MaxOpCapacity & "', " &
+                "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " &
+                "strOperatingCapacity  =  '" & OpCapacity & "', " &
+                "strOperatingCapacityUnit = '" & OpCapacityUnit & "', " &
+                "strAllowableEmissionRate1 = '" & AllowEmissRate1 & "', " &
+                "strAllowableEmissionRate2 = '" & AllowEmissRate2 & "', " &
+                "strAllowableEmissionRate3 = '" & AllowEmissRate3 & "', " &
+                "strAllowableEmissionRateUnit1 = '" & AllowEmissRateUnit1 & "', " &
+                "strAllowableEmissionRateUnit2 = '" & AllowEmissRateUnit2 & "', " &
+                "strAllowableemissionrateunit3 = '" & AllowEmissRateUnit3 & "', " &
+                "strRunNumber1A = '" & TestRun1 & "', " &
+                "strRunNumber1B = '" & TestRun2 & "', " &
+                "strRunNumber1C = '" & TestRun3 & "', " &
+                "strPollutantConcentration1A = '" & PollConc1 & "', " &
+                "strPollutantConcentration1B = '" & PollConc2 & "', " &
+                "strPOllutantConcentration1C = '" & PollConc3 & "', " &
+                "strPollutantConcentrationUnit = '" & PollConcUnit & "', " &
+                "strPollutantConcentrationAvg = '" & PollConcAvg & "', " &
+                "strTreatmentRate1A = '" & Treatment1 & "', " &
+                "strTreatmentRate1B = '" & Treatment2 & "', " &
+                "strTreatmentRate1C = '" & Treatment3 & "', " &
+                "strTreatmentRateUnit = '" & TreatmentUnit & "', " &
+                "strTreatmentRateAvg = '" & TreatmentAvg & "', " &
+                "strPercentallowable = '" & Destruct & "' " &
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             Else
-                SQL = "Insert into AIRBRANCH.ISMPReportPondAndGas " & _
-                "values " & _
-                "('" & txtReferenceNumber.Text & "', " & _
-                "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " & _
-                "'" & OpCapacity & "', '" & OpCapacityUnit & "', " & _
-                "'" & AllowEmissRate1 & "', '" & AllowEmissRate2 & "', " & _
-                "'" & AllowEmissRate3 & "', " & _
-                "'" & AllowEmissRateUnit1 & "', '" & AllowEmissRateUnit2 & "', " & _
-                "'" & AllowEmissRateUnit3 & "', " & _
-                "'" & TestRun1 & "', '" & TestRun2 & "', " & _
-                "'" & TestRun3 & "', " & _
-                "'" & PollConc1 & "', '" & PollConc2 & "', " & _
-                "'" & PollConc3 & "', " & _
-                "'" & PollConcUnit & "', '" & PollConcAvg & "', " & _
-                "' ', ' ', " & _
-                "' ', " & _
-                "' ', ' ', " & _
-                "'" & Treatment1 & "', '" & Treatment2 & "', " & _
-                "'" & Treatment3 & "', " & _
-                "'" & TreatmentUnit & "', '" & TreatmentAvg & "', " & _
+                SQL = "Insert into AIRBRANCH.ISMPReportPondAndGas " &
+                "values " &
+                "('" & txtReferenceNumber.Text & "', " &
+                "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " &
+                "'" & OpCapacity & "', '" & OpCapacityUnit & "', " &
+                "'" & AllowEmissRate1 & "', '" & AllowEmissRate2 & "', " &
+                "'" & AllowEmissRate3 & "', " &
+                "'" & AllowEmissRateUnit1 & "', '" & AllowEmissRateUnit2 & "', " &
+                "'" & AllowEmissRateUnit3 & "', " &
+                "'" & TestRun1 & "', '" & TestRun2 & "', " &
+                "'" & TestRun3 & "', " &
+                "'" & PollConc1 & "', '" & PollConc2 & "', " &
+                "'" & PollConc3 & "', " &
+                "'" & PollConcUnit & "', '" & PollConcAvg & "', " &
+                "' ', ' ', " &
+                "' ', " &
+                "' ', ' ', " &
+                "'" & Treatment1 & "', '" & Treatment2 & "', " &
+                "'" & Treatment3 & "', " &
+                "'" & TreatmentUnit & "', '" & TreatmentAvg & "', " &
                 "'" & Destruct & "') "
             End If
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -14008,8 +13944,8 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 PercentAllowable = " "
             End If
 
-            SQL = "Select strReferenceNumber " & _
-            "from AIRBRANCH.ISMPReportPondAndGas " & _
+            SQL = "Select strReferenceNumber " &
+            "from AIRBRANCH.ISMPReportPondAndGas " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -14020,53 +13956,53 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             dr.Close()
 
             If RecExist = True Then
-                SQL = "Update AIRBRANCH.ISMPReportPondAndGas set " & _
-                "strMaxOperatingCapacity = '" & MaxOpCapacity & "', " & _
-                "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " & _
-                "strOperatingCapacity  =  '" & OpCapacity & "', " & _
-                "strOperatingCapacityUnit = '" & OpCapacityUnit & "', " & _
-                "strAllowableEmissionRate1 = '" & AllowEmissRate1 & "', " & _
-                "strAllowableEmissionRate2 = '" & AllowEmissRate2 & "', " & _
-                "strAllowableEmissionRate3 = '" & AllowEmissRate3 & "', " & _
-                "strAllowableEmissionRateUnit1 = '" & AllowEmissRateUnit1 & "', " & _
-                "strAllowableEmissionRateUnit2 = '" & AllowEmissRateUnit2 & "', " & _
-                "strAllowableemissionrateunit3 = '" & AllowEmissRateUnit3 & "', " & _
-                "strRunNumber1A = '" & TestRun1 & "', " & _
-                "strRunNumber1B = '" & TestRun2 & "', " & _
-                "strRunNumber1C = '" & TestRun3 & "', " & _
-                "strPollutantConcentration1A = '" & PollConc1 & "', " & _
-                "strPollutantConcentration1B = '" & PollConc2 & "', " & _
-                "strPOllutantConcentration1C = '" & PollConc3 & "', " & _
-                "strPollutantConcentrationUnit = '" & PollConcUnit & "', " & _
-                "strPollutantConcentrationAvg = '" & PollConcAvg & "', " & _
-                "strEmissionRate1A = '" & Emission1 & "', " & _
-                "strEmissionRate1B = '" & Emission2 & "', " & _
-                "strEmissionRate1C = '" & Emission3 & "', " & _
-                "strEmissionRateUnit = '" & EmissionUnit & "', " & _
-                "strEmissionRateAvg = '" & EmissionAvg & "', " & _
-                "strPercentAllowable = '" & PercentAllowable & "' " & _
+                SQL = "Update AIRBRANCH.ISMPReportPondAndGas set " &
+                "strMaxOperatingCapacity = '" & MaxOpCapacity & "', " &
+                "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " &
+                "strOperatingCapacity  =  '" & OpCapacity & "', " &
+                "strOperatingCapacityUnit = '" & OpCapacityUnit & "', " &
+                "strAllowableEmissionRate1 = '" & AllowEmissRate1 & "', " &
+                "strAllowableEmissionRate2 = '" & AllowEmissRate2 & "', " &
+                "strAllowableEmissionRate3 = '" & AllowEmissRate3 & "', " &
+                "strAllowableEmissionRateUnit1 = '" & AllowEmissRateUnit1 & "', " &
+                "strAllowableEmissionRateUnit2 = '" & AllowEmissRateUnit2 & "', " &
+                "strAllowableemissionrateunit3 = '" & AllowEmissRateUnit3 & "', " &
+                "strRunNumber1A = '" & TestRun1 & "', " &
+                "strRunNumber1B = '" & TestRun2 & "', " &
+                "strRunNumber1C = '" & TestRun3 & "', " &
+                "strPollutantConcentration1A = '" & PollConc1 & "', " &
+                "strPollutantConcentration1B = '" & PollConc2 & "', " &
+                "strPOllutantConcentration1C = '" & PollConc3 & "', " &
+                "strPollutantConcentrationUnit = '" & PollConcUnit & "', " &
+                "strPollutantConcentrationAvg = '" & PollConcAvg & "', " &
+                "strEmissionRate1A = '" & Emission1 & "', " &
+                "strEmissionRate1B = '" & Emission2 & "', " &
+                "strEmissionRate1C = '" & Emission3 & "', " &
+                "strEmissionRateUnit = '" & EmissionUnit & "', " &
+                "strEmissionRateAvg = '" & EmissionAvg & "', " &
+                "strPercentAllowable = '" & PercentAllowable & "' " &
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             Else
-                SQL = "Insert into AIRBRANCH.ISMPReportPondAndGas " & _
-                "values " & _
-                "('" & txtReferenceNumber.Text & "', " & _
-                "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " & _
-                "'" & OpCapacity & "', '" & OpCapacityUnit & "', " & _
-                "'" & AllowEmissRate1 & "', '" & AllowEmissRate2 & "', " & _
-                "'" & AllowEmissRate3 & "', " & _
-                "'" & AllowEmissRateUnit1 & "', '" & AllowEmissRateUnit2 & "', " & _
-                "'" & AllowEmissRateUnit3 & "', " & _
-                "'" & TestRun1 & "', '" & TestRun2 & "', " & _
-                "'" & TestRun3 & "', " & _
-                "'" & PollConc1 & "', '" & PollConc2 & "', " & _
-                "'" & PollConc3 & "', " & _
-                "'" & PollConcUnit & "', '" & PollConcAvg & "', " & _
-                "'" & Emission1 & "', '" & Emission2 & "', " & _
-                "'" & Emission3 & "', " & _
-                "'" & EmissionUnit & "', '" & EmissionAvg & "', " & _
-                "' ', ' ', " & _
-                "' ', " & _
-                "' ', ' ', " & _
+                SQL = "Insert into AIRBRANCH.ISMPReportPondAndGas " &
+                "values " &
+                "('" & txtReferenceNumber.Text & "', " &
+                "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " &
+                "'" & OpCapacity & "', '" & OpCapacityUnit & "', " &
+                "'" & AllowEmissRate1 & "', '" & AllowEmissRate2 & "', " &
+                "'" & AllowEmissRate3 & "', " &
+                "'" & AllowEmissRateUnit1 & "', '" & AllowEmissRateUnit2 & "', " &
+                "'" & AllowEmissRateUnit3 & "', " &
+                "'" & TestRun1 & "', '" & TestRun2 & "', " &
+                "'" & TestRun3 & "', " &
+                "'" & PollConc1 & "', '" & PollConc2 & "', " &
+                "'" & PollConc3 & "', " &
+                "'" & PollConcUnit & "', '" & PollConcAvg & "', " &
+                "'" & Emission1 & "', '" & Emission2 & "', " &
+                "'" & Emission3 & "', " &
+                "'" & EmissionUnit & "', '" & EmissionAvg & "', " &
+                "' ', ' ', " &
+                "' ', " &
+                "' ', ' ', " &
                 "'" & PercentAllowable & "') "
             End If
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -14198,8 +14134,8 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 PercentAllowable = " "
             End If
 
-            SQL = "Select strReferenceNumber " & _
-            "from AIRBRANCH.ISMPReportFlare " & _
+            SQL = "Select strReferenceNumber " &
+            "from AIRBRANCH.ISMPReportFlare " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -14210,46 +14146,46 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             dr.Close()
 
             If RecExist = True Then
-                SQL = "Update AIRBRANCH.ISMPReportFlare set " & _
-                "strMaxOperatingCapacity  = '" & MaxOpCapacity & "', " & _
-                "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " & _
-                "strOperatingcapacity = '" & OpCapacity & "', " & _
-                "strOperatingCapacityUnit = '" & OpCapacityUnit & "', " & _
-                "strLimitationVelocity  = '" & LimitationVelocity & "', " & _
-                "strLimitationHeatCapacity = '" & LimitationHeatCap & "', " & _
-                "strHeatingValue1A = '" & HeatingValue1 & "', " & _
-                "strHeatingValue2A = '" & HeatingValue2 & "', " & _
-                "strHeatingValue3A = '" & HeatingValue3 & "', " & _
-                "strHeatingValueUnits = '" & HeatingValueUnit & "', " & _
-                "strHeatingValueAvg = '" & HeatingAvg & "', " & _
-                "strVelocity1A = '" & Velocity1 & "', " & _
-                "strVelocity2A = '" & Velocity2 & "', " & _
-                "strVelocity3A = '" & Velocity3 & "', " & _
-                "strVelocityUnits = '" & VelocityUnit & "', " & _
-                "strVelocityAvg = '" & VelocityAvg & "', " & _
-                "strPercentAllowable = '" & PercentAllowable & "' " & _
+                SQL = "Update AIRBRANCH.ISMPReportFlare set " &
+                "strMaxOperatingCapacity  = '" & MaxOpCapacity & "', " &
+                "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " &
+                "strOperatingcapacity = '" & OpCapacity & "', " &
+                "strOperatingCapacityUnit = '" & OpCapacityUnit & "', " &
+                "strLimitationVelocity  = '" & LimitationVelocity & "', " &
+                "strLimitationHeatCapacity = '" & LimitationHeatCap & "', " &
+                "strHeatingValue1A = '" & HeatingValue1 & "', " &
+                "strHeatingValue2A = '" & HeatingValue2 & "', " &
+                "strHeatingValue3A = '" & HeatingValue3 & "', " &
+                "strHeatingValueUnits = '" & HeatingValueUnit & "', " &
+                "strHeatingValueAvg = '" & HeatingAvg & "', " &
+                "strVelocity1A = '" & Velocity1 & "', " &
+                "strVelocity2A = '" & Velocity2 & "', " &
+                "strVelocity3A = '" & Velocity3 & "', " &
+                "strVelocityUnits = '" & VelocityUnit & "', " &
+                "strVelocityAvg = '" & VelocityAvg & "', " &
+                "strPercentAllowable = '" & PercentAllowable & "' " &
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             Else
-                SQL = "Insert into AIRBRANCH.ISMPReportFlare " & _
-                "values " & _
-                "('" & txtReferenceNumber.Text & "', " & _
-                "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " & _
-                "'" & OpCapacity & "', '" & OpCapacityUnit & "', " & _
-                "'" & LimitationVelocity & "', '" & LimitationHeatCap & "', " & _
-                "' ', ' ', " & _
-                "' ', " & _
-                "' ', ' ', " & _
-                "' ', " & _
-                "'" & HeatingValue1 & "', '" & HeatingValue2 & "', " & _
-                "'" & HeatingValue3 & "', '" & HeatingValueUnit & "', " & _
-                "'" & HeatingAvg & "', " & _
-                "'" & Velocity1 & "', '" & Velocity2 & "', " & _
-                "'" & Velocity3 & "', '" & VelocityUnit & "', " & _
-                "'" & VelocityAvg & "', " & _
-                "' ', ' ', " & _
-                "' ', ' ', " & _
-                "' ', ' ', " & _
-                "' ', ' ', " & _
+                SQL = "Insert into AIRBRANCH.ISMPReportFlare " &
+                "values " &
+                "('" & txtReferenceNumber.Text & "', " &
+                "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " &
+                "'" & OpCapacity & "', '" & OpCapacityUnit & "', " &
+                "'" & LimitationVelocity & "', '" & LimitationHeatCap & "', " &
+                "' ', ' ', " &
+                "' ', " &
+                "' ', ' ', " &
+                "' ', " &
+                "'" & HeatingValue1 & "', '" & HeatingValue2 & "', " &
+                "'" & HeatingValue3 & "', '" & HeatingValueUnit & "', " &
+                "'" & HeatingAvg & "', " &
+                "'" & Velocity1 & "', '" & Velocity2 & "', " &
+                "'" & Velocity3 & "', '" & VelocityUnit & "', " &
+                "'" & VelocityAvg & "', " &
+                "' ', ' ', " &
+                "' ', ' ', " &
+                "' ', ' ', " &
+                "' ', ' ', " &
                 "' ', '" & PercentAllowable & "')  "
             End If
 
@@ -14550,8 +14486,8 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 End If
             End If
 
-            SQL = "Select strReferenceNumber " & _
-            "from AIRBRANCH.ISMPReportRata " & _
+            SQL = "Select strReferenceNumber " &
+            "from AIRBRANCH.ISMPReportRata " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -14562,63 +14498,63 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             dr.Close()
 
             If RecExist = True Then
-                SQL = "Update AIRBRANCH.ISMPReportRATA set " & _
-                "strDiluent = '" & Diluent & "', " & _
-                "strApplicableStandard = '" & Replace(AppStandard, "'", "''") & "', " & _
-                "strRelativeAccuracyPercent = '" & RelativeAccPercent & "', " & _
-                "strReferenceMethod1 = '" & RefMethod1 & "', " & _
-                "strReferenceMethod2 = '" & RefMethod2 & "', " & _
-                "strReferenceMethod3 = '" & RefMethod3 & "', " & _
-                "strReferenceMethod4 = '" & RefMethod4 & "', " & _
-                "strReferenceMethod5 = '" & RefMethod5 & "', " & _
-                "strReferenceMethod6 = '" & RefMethod6 & "', " & _
-                "strreferenceMethod7 = '" & RefMethod7 & "', " & _
-                "strreferenceMethod8 = '" & RefMethod8 & "', " & _
-                "strReferenceMethod9 = '" & RefMethod9 & "', " & _
-                "strReferenceMethod10 = '" & RefMethod10 & "', " & _
-                "strReferenceMethod11 = '" & RefMethod11 & "', " & _
-                "strReferenceMethod12 = '" & RefMethod12 & "', " & _
-                "strRATAUnits = '" & RataUnits & "', " & _
-                "strCMS1 = '" & CMS1 & "', " & _
-                "strCMS2 = '" & CMS2 & "', " & _
-                "strCMS3 = '" & CMS3 & "', " & _
-                "strCMS4 = '" & CMS4 & "', " & _
-                "strCMS5 = '" & CMS5 & "', " & _
-                "strCMS6 = '" & CMS6 & "', " & _
-                "strCMS7 = '" & CMS7 & "', " & _
-                "strCMS8 = '" & CMS8 & "', " & _
-                "strCMS9 = '" & CMS9 & "', " & _
-                "strCMS10 = '" & CMS10 & "', " & _
-                "strCMS11 = '" & CMS11 & "', " & _
-                "strCMS12 = '" & CMS12 & "', " & _
-                "strAccuracyChoice = '" & AccChoice & "', " & _
-                "strAccuracyRequiredPercent = '" & AccRequiredPercent & "', " & _
-                "strAccuracyRequiredStatement = '" & Replace(AccRequiredStatement, "'", "''") & "', " & _
-                "strRunsIncludedKey = '" & IncludeKey & "' " & _
+                SQL = "Update AIRBRANCH.ISMPReportRATA set " &
+                "strDiluent = '" & Diluent & "', " &
+                "strApplicableStandard = '" & Replace(AppStandard, "'", "''") & "', " &
+                "strRelativeAccuracyPercent = '" & RelativeAccPercent & "', " &
+                "strReferenceMethod1 = '" & RefMethod1 & "', " &
+                "strReferenceMethod2 = '" & RefMethod2 & "', " &
+                "strReferenceMethod3 = '" & RefMethod3 & "', " &
+                "strReferenceMethod4 = '" & RefMethod4 & "', " &
+                "strReferenceMethod5 = '" & RefMethod5 & "', " &
+                "strReferenceMethod6 = '" & RefMethod6 & "', " &
+                "strreferenceMethod7 = '" & RefMethod7 & "', " &
+                "strreferenceMethod8 = '" & RefMethod8 & "', " &
+                "strReferenceMethod9 = '" & RefMethod9 & "', " &
+                "strReferenceMethod10 = '" & RefMethod10 & "', " &
+                "strReferenceMethod11 = '" & RefMethod11 & "', " &
+                "strReferenceMethod12 = '" & RefMethod12 & "', " &
+                "strRATAUnits = '" & RataUnits & "', " &
+                "strCMS1 = '" & CMS1 & "', " &
+                "strCMS2 = '" & CMS2 & "', " &
+                "strCMS3 = '" & CMS3 & "', " &
+                "strCMS4 = '" & CMS4 & "', " &
+                "strCMS5 = '" & CMS5 & "', " &
+                "strCMS6 = '" & CMS6 & "', " &
+                "strCMS7 = '" & CMS7 & "', " &
+                "strCMS8 = '" & CMS8 & "', " &
+                "strCMS9 = '" & CMS9 & "', " &
+                "strCMS10 = '" & CMS10 & "', " &
+                "strCMS11 = '" & CMS11 & "', " &
+                "strCMS12 = '" & CMS12 & "', " &
+                "strAccuracyChoice = '" & AccChoice & "', " &
+                "strAccuracyRequiredPercent = '" & AccRequiredPercent & "', " &
+                "strAccuracyRequiredStatement = '" & Replace(AccRequiredStatement, "'", "''") & "', " &
+                "strRunsIncludedKey = '" & IncludeKey & "' " &
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             Else
-                SQL = "Insert into AIRBRANCH.ISMPReportRATA " & _
-                "values " & _
-                "('" & txtReferenceNumber.Text & "', " & _
-                "'" & Diluent & "', " & _
-                "'" & Replace(AppStandard, "'", "''") & "', " & _
-                "'" & RelativeAccPercent & "', " & _
-                "'" & RefMethod1 & "', '" & RefMethod2 & "', " & _
-                "'" & RefMethod3 & "', '" & RefMethod4 & "', " & _
-                "'" & RefMethod5 & "', '" & RefMethod6 & "', " & _
-                "'" & RefMethod7 & "', '" & RefMethod8 & "', " & _
-                "'" & RefMethod9 & "', '" & RefMethod10 & "', " & _
-                "'" & RefMethod11 & "', '" & RefMethod12 & "', " & _
-                "'" & RataUnits & "', " & _
-                "'" & CMS1 & "', '" & CMS2 & "', " & _
-                "'" & CMS3 & "', '" & CMS4 & "', " & _
-                "'" & CMS5 & "', '" & CMS6 & "', " & _
-                "'" & CMS7 & "', '" & CMS8 & "', " & _
-                "'" & CMS9 & "', '" & CMS10 & "', " & _
-                "'" & CMS11 & "', '" & CMS12 & "', " & _
-                "'" & AccChoice & "', " & _
-                "'" & AccRequiredPercent & "', " & _
-                "'" & Replace(AccRequiredStatement, "'", "''") & "', " & _
+                SQL = "Insert into AIRBRANCH.ISMPReportRATA " &
+                "values " &
+                "('" & txtReferenceNumber.Text & "', " &
+                "'" & Diluent & "', " &
+                "'" & Replace(AppStandard, "'", "''") & "', " &
+                "'" & RelativeAccPercent & "', " &
+                "'" & RefMethod1 & "', '" & RefMethod2 & "', " &
+                "'" & RefMethod3 & "', '" & RefMethod4 & "', " &
+                "'" & RefMethod5 & "', '" & RefMethod6 & "', " &
+                "'" & RefMethod7 & "', '" & RefMethod8 & "', " &
+                "'" & RefMethod9 & "', '" & RefMethod10 & "', " &
+                "'" & RefMethod11 & "', '" & RefMethod12 & "', " &
+                "'" & RataUnits & "', " &
+                "'" & CMS1 & "', '" & CMS2 & "', " &
+                "'" & CMS3 & "', '" & CMS4 & "', " &
+                "'" & CMS5 & "', '" & CMS6 & "', " &
+                "'" & CMS7 & "', '" & CMS8 & "', " &
+                "'" & CMS9 & "', '" & CMS10 & "', " &
+                "'" & CMS11 & "', '" & CMS12 & "', " &
+                "'" & AccChoice & "', " &
+                "'" & AccRequiredPercent & "', " &
+                "'" & Replace(AccRequiredStatement, "'", "''") & "', " &
                 "'" & IncludeKey & "') "
             End If
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -14747,8 +14683,8 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
             End Select
 
-            SQL = "Select strReferenceNumber " & _
-            "from AIRBRANCH.ISMPReportMemo " & _
+            SQL = "Select strReferenceNumber " &
+            "from AIRBRANCH.ISMPReportMemo " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -14759,33 +14695,33 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             dr.Close()
 
             If RecExist = True Then
-                SQL = "Update AIRBRANCH.ISMPReportMemo set " & _
-                "strMemorandumField = '" & Replace(MemoField, "'", "''") & "', " & _
-                "strMaxOperatingCapacity = '" & MaxOpCapacity & "', " & _
-                "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " & _
-                "strOperatingCapacity = '" & OpCapacity & "', " & _
-                "strOperatingCapacityUnit = '" & OpCapacityUnit & "', " & _
-                "strallowableemissionRate1A = '" & AllowableEmiss1 & "', " & _
-                "strAllowableEmissionRate1B = '" & AllowableEmiss2 & "', " & _
-                "strAllowableEmissionRate1C = '" & AllowableEmiss3 & "', " & _
-                "strAllowableEmissionRateUnit1A = '" & AllowableEmissUnit1 & "', " & _
-                "strAllowableEmissionRateUnit1B = '" & AllowableEmissUnit2 & "', " & _
-                "strAllowableEmissionRateUnit1C = '" & AllowableEmissUnit3 & "', " & _
-                "strMonitorManufactureAndModel = '" & Replace(ManufactureAndModel, "'", "''") & "', " & _
-                "strMonitorSerialNumber = '" & Replace(SerialNumber, "'", "''") & "' " & _
+                SQL = "Update AIRBRANCH.ISMPReportMemo set " &
+                "strMemorandumField = '" & Replace(MemoField, "'", "''") & "', " &
+                "strMaxOperatingCapacity = '" & MaxOpCapacity & "', " &
+                "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " &
+                "strOperatingCapacity = '" & OpCapacity & "', " &
+                "strOperatingCapacityUnit = '" & OpCapacityUnit & "', " &
+                "strallowableemissionRate1A = '" & AllowableEmiss1 & "', " &
+                "strAllowableEmissionRate1B = '" & AllowableEmiss2 & "', " &
+                "strAllowableEmissionRate1C = '" & AllowableEmiss3 & "', " &
+                "strAllowableEmissionRateUnit1A = '" & AllowableEmissUnit1 & "', " &
+                "strAllowableEmissionRateUnit1B = '" & AllowableEmissUnit2 & "', " &
+                "strAllowableEmissionRateUnit1C = '" & AllowableEmissUnit3 & "', " &
+                "strMonitorManufactureAndModel = '" & Replace(ManufactureAndModel, "'", "''") & "', " &
+                "strMonitorSerialNumber = '" & Replace(SerialNumber, "'", "''") & "' " &
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             Else
-                SQL = "Insert into AIRBRANCH.ISMPReportMemo " & _
-                "values " & _
-                "('" & txtReferenceNumber.Text & "', " & _
-                "'" & Replace(MemoField, "'", "''") & "', " & _
-                "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " & _
-                "'" & OpCapacity & "', '" & OpCapacityUnit & "', " & _
-                "'" & AllowableEmiss1 & "', '" & AllowableEmiss2 & "', " & _
-                "'" & AllowableEmiss3 & "', " & _
-                "'" & AllowableEmissUnit1 & "', '" & AllowableEmissUnit2 & "', " & _
-                "'" & AllowableEmissUnit3 & "', " & _
-                "'" & Replace(ManufactureAndModel, "'", "''") & "', " & _
+                SQL = "Insert into AIRBRANCH.ISMPReportMemo " &
+                "values " &
+                "('" & txtReferenceNumber.Text & "', " &
+                "'" & Replace(MemoField, "'", "''") & "', " &
+                "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " &
+                "'" & OpCapacity & "', '" & OpCapacityUnit & "', " &
+                "'" & AllowableEmiss1 & "', '" & AllowableEmiss2 & "', " &
+                "'" & AllowableEmiss3 & "', " &
+                "'" & AllowableEmissUnit1 & "', '" & AllowableEmissUnit2 & "', " &
+                "'" & AllowableEmissUnit3 & "', " &
+                "'" & Replace(ManufactureAndModel, "'", "''") & "', " &
                 "'" & Replace(SerialNumber, "'", "''") & "') "
             End If
 
@@ -15094,8 +15030,8 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
             End Select
 
-            SQL = "Select strReferencenumber " & _
-            "from AIRBRANCH.ISMPReportOpacity " & _
+            SQL = "Select strReferencenumber " &
+            "from AIRBRANCH.ISMPReportOpacity " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -15106,83 +15042,83 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             dr.Close()
 
             If RecExist = True Then
-                SQL = "Update AIRBRANCH.ISMPReportOpacity set " & _
-                "strMaxoperatingCapacity1A = '" & MaxOpCapacity1 & "', " & _
-                "strMaxOperatingCapacity2A = '" & MaxOpCapacity2 & "', " & _
-                "strMaxOperatingCapacity3A = '" & MaxOpCapacity3 & "', " & _
-                "strMaxOperatingCapacity4A = '" & MaxOpCapacity4 & "', " & _
-                "strMaxOperatingCapacity5A = '" & MaxOpCapacity5 & "', " & _
-                "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " & _
-                "strOperatingCapacity1A = '" & OpCapacity1 & "', " & _
-                "strOperatingCapacity2A = '" & OpCapacity2 & "', " & _
-                "strOperatingCapacity3A = '" & OpCapacity3 & "', " & _
-                "strOperatingCapacity4A = '" & OpCapacity4 & "', " & _
-                "strOperatingCapacity5A = '" & OpCapacity5 & "', " & _
-                "strOperatingCapacityUnit = '" & OpCapacityUnit & "', " & _
-                "strAllowableEmissionRate1A = '" & AllowableEmiss1 & "', " & _
-                "strAllowableEmissionRate2A = '" & AllowableEmiss2 & "', " & _
-                "strAllowableEmissionRate3A = '" & AllowableEmiss3 & "', " & _
-                "strAllowableEmissionRate4A = '" & AllowableEmiss4 & "', " & _
-                "strAllowableEmissionRate5A = '" & AllowableEmiss5 & "', " & _
-                "strAllowableEmissionRateUnit = '" & AllowableEmissUnit & "', " & _
-                "strallowableEmissionrate22 = '" & AllowableEmiss22 & "', " & _
-                "strOpacityTestDuration = '" & TestDuration & "', " & _
-                "strAccumulatedEmissionTime = '" & EmissTime & "', " & _
-                "strOpacityPointA = '" & Opacity1 & "', " & _
-                "strOpacityPointB = '" & Opacity2 & "', " & _
-                "strOpacityPointC = '" & Opacity3 & "', " & _
-                "strOpacityPointD = '" & Opacity4 & "', " & _
-                "strOpacityPointE = '" & Opacity5 & "', " & _
-                "strEquipmentItem1 = '" & Equip1 & "', " & _
-                "strEquipmentitem2 = '" & Equip2 & "', " & _
-                "strEquipmentItem3 = '" & Equip3 & "', " & _
-                "strEquipmentItem4 = '" & Equip4 & "', " & _
-                "strEquipmentItem5 = '" & Equip5 & "', " & _
-                "STROPACITYStandard = '" & OpacityStandard & "' " & _
+                SQL = "Update AIRBRANCH.ISMPReportOpacity set " &
+                "strMaxoperatingCapacity1A = '" & MaxOpCapacity1 & "', " &
+                "strMaxOperatingCapacity2A = '" & MaxOpCapacity2 & "', " &
+                "strMaxOperatingCapacity3A = '" & MaxOpCapacity3 & "', " &
+                "strMaxOperatingCapacity4A = '" & MaxOpCapacity4 & "', " &
+                "strMaxOperatingCapacity5A = '" & MaxOpCapacity5 & "', " &
+                "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " &
+                "strOperatingCapacity1A = '" & OpCapacity1 & "', " &
+                "strOperatingCapacity2A = '" & OpCapacity2 & "', " &
+                "strOperatingCapacity3A = '" & OpCapacity3 & "', " &
+                "strOperatingCapacity4A = '" & OpCapacity4 & "', " &
+                "strOperatingCapacity5A = '" & OpCapacity5 & "', " &
+                "strOperatingCapacityUnit = '" & OpCapacityUnit & "', " &
+                "strAllowableEmissionRate1A = '" & AllowableEmiss1 & "', " &
+                "strAllowableEmissionRate2A = '" & AllowableEmiss2 & "', " &
+                "strAllowableEmissionRate3A = '" & AllowableEmiss3 & "', " &
+                "strAllowableEmissionRate4A = '" & AllowableEmiss4 & "', " &
+                "strAllowableEmissionRate5A = '" & AllowableEmiss5 & "', " &
+                "strAllowableEmissionRateUnit = '" & AllowableEmissUnit & "', " &
+                "strallowableEmissionrate22 = '" & AllowableEmiss22 & "', " &
+                "strOpacityTestDuration = '" & TestDuration & "', " &
+                "strAccumulatedEmissionTime = '" & EmissTime & "', " &
+                "strOpacityPointA = '" & Opacity1 & "', " &
+                "strOpacityPointB = '" & Opacity2 & "', " &
+                "strOpacityPointC = '" & Opacity3 & "', " &
+                "strOpacityPointD = '" & Opacity4 & "', " &
+                "strOpacityPointE = '" & Opacity5 & "', " &
+                "strEquipmentItem1 = '" & Equip1 & "', " &
+                "strEquipmentitem2 = '" & Equip2 & "', " &
+                "strEquipmentItem3 = '" & Equip3 & "', " &
+                "strEquipmentItem4 = '" & Equip4 & "', " &
+                "strEquipmentItem5 = '" & Equip5 & "', " &
+                "STROPACITYStandard = '" & OpacityStandard & "' " &
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             Else
-                SQL = "Insert into AIRBRANCH.ISMPReportOpacity " & _
-                 "(strReferenceNumber, " & _
-                 "strMaxoperatingCapacity1A,  strMaxOperatingCapacity2A, " & _
-                 "strMaxOperatingCapacity3A,  strMaxOperatingCapacity4A,  " & _
-                 "strMaxOperatingCapacity5A, " & _
-                 "strMaxOperatingCapacityUnit, " & _
-                 "strOperatingCapacity1A,  strOperatingCapacity2A, " & _
-                 "strOperatingCapacity3A,  strOperatingCapacity4A, " & _
-                 "strOperatingCapacity5A, " & _
-                 "strOperatingCapacityUnit, " & _
-                 "strAllowableEmissionRate1A, strAllowableEmissionRate2A, " & _
-                 "strAllowableEmissionRate3A,  strAllowableEmissionRate4A, " & _
-                 "strAllowableEmissionRate5A, " & _
-                 "strAllowableEmissionRateUnit, " & _
-                 "strallowableEmissionrate22, " & _
-                 "strOpacityTestDuration,  strAccumulatedEmissionTime, " & _
-                 "strOpacityPointA,  strOpacityPointB, " & _
-                 "strOpacityPointC,  strOpacityPointD, " & _
-                 "strOpacityPointE, " & _
-                 "strEquipmentItem1, strEquipmentitem2, " & _
-                 "strEquipmentItem3, strEquipmentItem4, " & _
-                 "strEquipmentItem5, STROPACITYStandard) " & _
-                "values " & _
-                "('" & txtReferenceNumber.Text & "', " & _
-                "'" & MaxOpCapacity1 & "', '" & MaxOpCapacity2 & "', " & _
-                "'" & MaxOpCapacity3 & "', '" & MaxOpCapacity4 & "', " & _
-                "'" & MaxOpCapacity5 & "', " & _
-                "'" & MaxOpCapacityUnit & "', " & _
-                "'" & OpCapacity1 & "', '" & OpCapacity2 & "', " & _
-                "'" & OpCapacity3 & "', '" & OpCapacity4 & "', " & _
-                "'" & OpCapacity5 & "', " & _
-                "'" & OpCapacityUnit & "', " & _
-                "'" & AllowableEmiss1 & "', '" & AllowableEmiss2 & "', " & _
-                "'" & AllowableEmiss3 & "', '" & AllowableEmiss4 & "', " & _
-                "'" & AllowableEmiss5 & "', " & _
-                "'" & AllowableEmissUnit & "', '" & AllowableEmiss22 & "', " & _
-                "'" & TestDuration & "', '" & EmissTime & "', " & _
-                "'" & Opacity1 & "', '" & Opacity2 & "', " & _
-                "'" & Opacity3 & "', '" & Opacity4 & "', " & _
-                "'" & Opacity5 & "', " & _
-                "'" & Equip1 & "', '" & Equip2 & "', " & _
-                "'" & Equip3 & "', '" & Equip4 & "', " & _
+                SQL = "Insert into AIRBRANCH.ISMPReportOpacity " &
+                 "(strReferenceNumber, " &
+                 "strMaxoperatingCapacity1A,  strMaxOperatingCapacity2A, " &
+                 "strMaxOperatingCapacity3A,  strMaxOperatingCapacity4A,  " &
+                 "strMaxOperatingCapacity5A, " &
+                 "strMaxOperatingCapacityUnit, " &
+                 "strOperatingCapacity1A,  strOperatingCapacity2A, " &
+                 "strOperatingCapacity3A,  strOperatingCapacity4A, " &
+                 "strOperatingCapacity5A, " &
+                 "strOperatingCapacityUnit, " &
+                 "strAllowableEmissionRate1A, strAllowableEmissionRate2A, " &
+                 "strAllowableEmissionRate3A,  strAllowableEmissionRate4A, " &
+                 "strAllowableEmissionRate5A, " &
+                 "strAllowableEmissionRateUnit, " &
+                 "strallowableEmissionrate22, " &
+                 "strOpacityTestDuration,  strAccumulatedEmissionTime, " &
+                 "strOpacityPointA,  strOpacityPointB, " &
+                 "strOpacityPointC,  strOpacityPointD, " &
+                 "strOpacityPointE, " &
+                 "strEquipmentItem1, strEquipmentitem2, " &
+                 "strEquipmentItem3, strEquipmentItem4, " &
+                 "strEquipmentItem5, STROPACITYStandard) " &
+                "values " &
+                "('" & txtReferenceNumber.Text & "', " &
+                "'" & MaxOpCapacity1 & "', '" & MaxOpCapacity2 & "', " &
+                "'" & MaxOpCapacity3 & "', '" & MaxOpCapacity4 & "', " &
+                "'" & MaxOpCapacity5 & "', " &
+                "'" & MaxOpCapacityUnit & "', " &
+                "'" & OpCapacity1 & "', '" & OpCapacity2 & "', " &
+                "'" & OpCapacity3 & "', '" & OpCapacity4 & "', " &
+                "'" & OpCapacity5 & "', " &
+                "'" & OpCapacityUnit & "', " &
+                "'" & AllowableEmiss1 & "', '" & AllowableEmiss2 & "', " &
+                "'" & AllowableEmiss3 & "', '" & AllowableEmiss4 & "', " &
+                "'" & AllowableEmiss5 & "', " &
+                "'" & AllowableEmissUnit & "', '" & AllowableEmiss22 & "', " &
+                "'" & TestDuration & "', '" & EmissTime & "', " &
+                "'" & Opacity1 & "', '" & Opacity2 & "', " &
+                "'" & Opacity3 & "', '" & Opacity4 & "', " &
+                "'" & Opacity5 & "', " &
+                "'" & Equip1 & "', '" & Equip2 & "', " &
+                "'" & Equip3 & "', '" & Equip4 & "', " &
                 "'" & Equip5 & "', '" & OpacityStandard & "') "
             End If
 
@@ -17526,7 +17462,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             If AccountFormAccess(69, 3) = "1" Then
                 SaveStackTest()
                 If cboTestNotificationNumber.Text = "" Or cboTestNotificationNumber.Text = " " Then
-                    MsgBox("WARNING" & vbCrLf & "Please associate a test notification number to this Test Report before you close out the report.", _
+                    MsgBox("WARNING" & vbCrLf & "Please associate a test notification number to this Test Report before you close out the report.",
                        MsgBoxStyle.Exclamation, "Test Report")
                 End If
                 MsgBox("Save Complete", MsgBoxStyle.Information, "Performance Test Report")
@@ -17661,7 +17597,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             If AccountFormAccess(69, 3) = "1" Then
                 SaveStackTest()
                 If cboTestNotificationNumber.Text = "" Or cboTestNotificationNumber.Text = " " Then
-                    MsgBox("WARNING" & vbCrLf & "Please associate a test notification number to this Test Report before you close out the report.", _
+                    MsgBox("WARNING" & vbCrLf & "Please associate a test notification number to this Test Report before you close out the report.",
                        MsgBoxStyle.Exclamation, "Test Report")
                 End If
                 MsgBox("Save Complete", MsgBoxStyle.Information, "Performance Test Report")
@@ -17825,7 +17761,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 temp = (CDec(txtPollConcOneStackThreeRun1A.Text) + CDec(txtPollConcOneStackThreeRun1B.Text) + CDec(txtPollConcOneStackThreeRun1C.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtPollConcOneStackThreeRun1A.Text) And IsNumeric(txtPollConcOneStackThreeRun1B.Text) And _
+                If IsNumeric(txtPollConcOneStackThreeRun1A.Text) And IsNumeric(txtPollConcOneStackThreeRun1B.Text) And
                     Not (IsNumeric(txtPollConcOneStackThreeRun1C.Text)) Then
                     temp = (CDec(txtPollConcOneStackThreeRun1A.Text) + CDec(txtPollConcOneStackThreeRun1B.Text)) / 2
                 Else
@@ -17877,7 +17813,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 temp = (CDec(txtPollConcOneStackThreeRun1A.Text) + CDec(txtPollConcOneStackThreeRun1B.Text) + CDec(txtPollConcOneStackThreeRun1C.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtPollConcOneStackThreeRun1A.Text) And IsNumeric(txtPollConcOneStackThreeRun1B.Text) And _
+                If IsNumeric(txtPollConcOneStackThreeRun1A.Text) And IsNumeric(txtPollConcOneStackThreeRun1B.Text) And
                     Not (IsNumeric(txtPollConcOneStackThreeRun1C.Text)) Then
                     temp = (CDec(txtPollConcOneStackThreeRun1A.Text) + CDec(txtPollConcOneStackThreeRun1B.Text)) / 2
                 Else
@@ -17930,7 +17866,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 temp = (CDec(txtPollConcOneStackThreeRun1A.Text) + CDec(txtPollConcOneStackThreeRun1B.Text) + CDec(txtPollConcOneStackThreeRun1C.Text))
                 temp = temp / 3
             Else
-                If IsNumeric(txtPollConcOneStackThreeRun1A.Text) And IsNumeric(txtPollConcOneStackThreeRun1B.Text) And _
+                If IsNumeric(txtPollConcOneStackThreeRun1A.Text) And IsNumeric(txtPollConcOneStackThreeRun1B.Text) And
                     Not (IsNumeric(txtPollConcOneStackThreeRun1C.Text)) Then
                     temp = (CDec(txtPollConcOneStackThreeRun1A.Text) + CDec(txtPollConcOneStackThreeRun1B.Text)) / 2
                 Else
@@ -18129,7 +18065,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
             If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
                   And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
-                temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1B.Text) + _
+                temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1B.Text) +
                         CDec(txtPollConcOneStackFourRun1C.Text) + CDec(txtPollConcOneStackFourRun1D.Text)) / 4
             Else
                 If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
@@ -18142,12 +18078,12 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     Else
                         If IsNumeric(txtPollConcOneStackFourRun1A.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
                               And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
-                            temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1C.Text) + _
+                            temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1C.Text) +
                                     CDec(txtPollConcOneStackFourRun1D.Text)) / 3
                         Else
                             If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
                                   And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
-                                temp = (CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1C.Text) + _
+                                temp = (CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1C.Text) +
                                         CDec(txtPollConcOneStackFourRun1D.Text)) / 3
                             Else
                                 If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
@@ -18231,7 +18167,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
             If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
                And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
-                temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1B.Text) + _
+                temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1B.Text) +
                         CDec(txtPollConcOneStackFourRun1C.Text) + CDec(txtPollConcOneStackFourRun1D.Text)) / 4
             Else
                 If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
@@ -18244,12 +18180,12 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     Else
                         If IsNumeric(txtPollConcOneStackFourRun1A.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
                               And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
-                            temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1C.Text) + _
+                            temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1C.Text) +
                                     CDec(txtPollConcOneStackFourRun1D.Text)) / 3
                         Else
                             If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
                                   And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
-                                temp = (CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1C.Text) + _
+                                temp = (CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1C.Text) +
                                         CDec(txtPollConcOneStackFourRun1D.Text)) / 3
                             Else
                                 If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
@@ -18333,7 +18269,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
             If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
              And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
-                temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1B.Text) + _
+                temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1B.Text) +
                         CDec(txtPollConcOneStackFourRun1C.Text) + CDec(txtPollConcOneStackFourRun1D.Text)) / 4
             Else
                 If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
@@ -18346,12 +18282,12 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     Else
                         If IsNumeric(txtPollConcOneStackFourRun1A.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
                               And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
-                            temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1C.Text) + _
+                            temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1C.Text) +
                                     CDec(txtPollConcOneStackFourRun1D.Text)) / 3
                         Else
                             If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
                                   And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
-                                temp = (CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1C.Text) + _
+                                temp = (CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1C.Text) +
                                         CDec(txtPollConcOneStackFourRun1D.Text)) / 3
                             Else
                                 If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
@@ -18435,7 +18371,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
             If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
                And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
-                temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1B.Text) + _
+                temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1B.Text) +
                         CDec(txtPollConcOneStackFourRun1C.Text) + CDec(txtPollConcOneStackFourRun1D.Text)) / 4
             Else
                 If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
@@ -18448,12 +18384,12 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     Else
                         If IsNumeric(txtPollConcOneStackFourRun1A.Text) And Not (IsNumeric(txtPollConcOneStackFourRun1B.Text)) _
                               And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
-                            temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1C.Text) + _
+                            temp = (CDec(txtPollConcOneStackFourRun1A.Text) + CDec(txtPollConcOneStackFourRun1C.Text) +
                                     CDec(txtPollConcOneStackFourRun1D.Text)) / 3
                         Else
                             If Not (IsNumeric(txtPollConcOneStackFourRun1A.Text)) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
                                   And IsNumeric(txtPollConcOneStackFourRun1C.Text) And IsNumeric(txtPollConcOneStackFourRun1D.Text) Then
-                                temp = (CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1C.Text) + _
+                                temp = (CDec(txtPollConcOneStackFourRun1B.Text) + CDec(txtPollConcOneStackFourRun1C.Text) +
                                         CDec(txtPollConcOneStackFourRun1D.Text)) / 3
                             Else
                                 If IsNumeric(txtPollConcOneStackFourRun1A.Text) And IsNumeric(txtPollConcOneStackFourRun1B.Text) _
@@ -18537,7 +18473,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
             If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
                 And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
-                temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) + _
+                temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) +
                         CDec(txtEmissRateOneStackFourRun1D.Text)) / 4
             Else
                 If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
@@ -18546,17 +18482,17 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 Else
                     If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
                          And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
-                        temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) + _
+                        temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) +
                                 CDec(txtEmissRateOneStackFourRun1D.Text)) / 3
                     Else
                         If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
                              And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
-                            temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) + _
+                            temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) +
                                     CDec(txtEmissRateOneStackFourRun1D.Text)) / 3
                         Else
                             If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
                                   And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
-                                temp = (CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) + _
+                                temp = (CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) +
                                         CDec(txtEmissRateOneStackFourRun1D.Text)) / 3
                             Else
                                 If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
@@ -18642,7 +18578,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
             If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
               And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
-                temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) + _
+                temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) +
                         CDec(txtEmissRateOneStackFourRun1D.Text)) / 4
             Else
                 If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
@@ -18651,17 +18587,17 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 Else
                     If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
                          And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
-                        temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) + _
+                        temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) +
                                 CDec(txtEmissRateOneStackFourRun1D.Text)) / 3
                     Else
                         If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
                              And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
-                            temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) + _
+                            temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) +
                                     CDec(txtEmissRateOneStackFourRun1D.Text)) / 3
                         Else
                             If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
                                   And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
-                                temp = (CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) + _
+                                temp = (CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) +
                                         CDec(txtEmissRateOneStackFourRun1D.Text)) / 3
                             Else
                                 If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
@@ -18747,7 +18683,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
             If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
               And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
-                temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) + _
+                temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) +
                         CDec(txtEmissRateOneStackFourRun1D.Text)) / 4
             Else
                 If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
@@ -18756,17 +18692,17 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 Else
                     If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
                          And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
-                        temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) + _
+                        temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) +
                                 CDec(txtEmissRateOneStackFourRun1D.Text)) / 3
                     Else
                         If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
                              And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
-                            temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) + _
+                            temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) +
                                     CDec(txtEmissRateOneStackFourRun1D.Text)) / 3
                         Else
                             If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
                                   And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
-                                temp = (CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) + _
+                                temp = (CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) +
                                         CDec(txtEmissRateOneStackFourRun1D.Text)) / 3
                             Else
                                 If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
@@ -18852,7 +18788,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
             If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
                 And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
-                temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) + _
+                temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) +
                         CDec(txtEmissRateOneStackFourRun1D.Text)) / 4
             Else
                 If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
@@ -18861,17 +18797,17 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 Else
                     If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
                          And Not (IsNumeric(txtEmissRateOneStackFourRun1C.Text)) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
-                        temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) + _
+                        temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1B.Text) +
                                 CDec(txtEmissRateOneStackFourRun1D.Text)) / 3
                     Else
                         If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And Not (IsNumeric(txtEmissRateOneStackFourRun1B.Text)) _
                              And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
-                            temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) + _
+                            temp = (CDec(txtEmissRateOneStackFourRun1A.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) +
                                     CDec(txtEmissRateOneStackFourRun1D.Text)) / 3
                         Else
                             If Not (IsNumeric(txtEmissRateOneStackFourRun1A.Text)) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
                                   And IsNumeric(txtEmissRateOneStackFourRun1C.Text) And IsNumeric(txtEmissRateOneStackFourRun1D.Text) Then
-                                temp = (CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) + _
+                                temp = (CDec(txtEmissRateOneStackFourRun1B.Text) + CDec(txtEmissRateOneStackFourRun1C.Text) +
                                         CDec(txtEmissRateOneStackFourRun1D.Text)) / 3
                             Else
                                 If IsNumeric(txtEmissRateOneStackFourRun1A.Text) And IsNumeric(txtEmissRateOneStackFourRun1B.Text) _
@@ -20848,9 +20784,9 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             txtEmissRateTotalTwoStackStandard1.Text = Mid(CStr(temp), 1, x)
 
 
-            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) And _
+            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) And
                  IsNumeric(txtEmissRateTotalTwoStackStandard3.Text) Then
-                temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text) + _
+                temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text) +
                         CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 3
             Else
                 If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
@@ -20964,9 +20900,9 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             x = Math.Max(x, temp)
             txtEmissRateTotalTwoStackStandard2.Text = Mid(CStr(temp), 1, x)
 
-            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) And _
+            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) And
                 IsNumeric(txtEmissRateTotalTwoStackStandard3.Text) Then
-                temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text) + _
+                temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text) +
                         CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 3
             Else
                 If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
@@ -21080,9 +21016,9 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             x = Math.Max(x, temp)
             txtEmissRateTotalTwoStackStandard3.Text = Mid(CStr(temp), 1, x)
 
-            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) And _
+            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) And
                 IsNumeric(txtEmissRateTotalTwoStackStandard3.Text) Then
-                temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text) + _
+                temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text) +
                         CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 3
             Else
                 If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
@@ -21196,9 +21132,9 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             x = Math.Max(x, temp)
             txtEmissRateTotalTwoStackStandard1.Text = Mid(CStr(temp), 1, x)
 
-            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) And _
+            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) And
                 IsNumeric(txtEmissRateTotalTwoStackStandard3.Text) Then
-                temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text) + _
+                temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text) +
                         CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 3
             Else
                 If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
@@ -21312,9 +21248,9 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             x = Math.Max(x, temp)
             txtEmissRateTotalTwoStackStandard2.Text = Mid(CStr(temp), 1, x)
 
-            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) And _
+            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) And
                 IsNumeric(txtEmissRateTotalTwoStackStandard3.Text) Then
-                temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text) + _
+                temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text) +
                         CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 3
             Else
                 If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
@@ -21428,9 +21364,9 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             x = Math.Max(x, temp)
             txtEmissRateTotalTwoStackStandard3.Text = Mid(CStr(temp), 1, x)
 
-            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) And _
+            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) And
                 IsNumeric(txtEmissRateTotalTwoStackStandard3.Text) Then
-                temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text) + _
+                temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text) +
                         CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 3
             Else
                 If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
@@ -21481,9 +21417,9 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) And _
+            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) And
                IsNumeric(txtEmissRateTotalTwoStackStandard3.Text) Then
-                temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text) + _
+                temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text) +
                         CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 3
             Else
                 If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
@@ -21532,9 +21468,9 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) And _
+            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) And
                IsNumeric(txtEmissRateTotalTwoStackStandard3.Text) Then
-                temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text) + _
+                temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text) +
                         CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 3
             Else
                 If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
@@ -21583,9 +21519,9 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) And _
+            If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And IsNumeric(txtEmissRateTotalTwoStackStandard2.Text) And
                IsNumeric(txtEmissRateTotalTwoStackStandard3.Text) Then
-                temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text) + _
+                temp = (CDec(txtEmissRateTotalTwoStackStandard1.Text) + CDec(txtEmissRateTotalTwoStackStandard2.Text) +
                         CDec(txtEmissRateTotalTwoStackStandard3.Text)) / 3
             Else
                 If IsNumeric(txtEmissRateTotalTwoStackStandard1.Text) And (IsNumeric(txtEmissRateTotalTwoStackStandard2.Text)) _
