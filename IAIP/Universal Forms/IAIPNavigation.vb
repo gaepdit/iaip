@@ -97,7 +97,6 @@ Public Class IAIPNavigation
             Case DB.Connections.ServerEnvironment.PRD
                 pnlDbEnv.Text = "PRD"
                 pnlDbEnv.Visible = False
-                DisableAndHide(TestingMenu)
                 TestingMenu.Visible = False
             Case DB.Connections.ServerEnvironment.UAT
                 pnlDbEnv.Text = "UAT ENVIRONMENT"

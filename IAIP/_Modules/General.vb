@@ -153,16 +153,6 @@ Module General
     End Sub
 
     ''' <summary>
-    ''' Enables and shows all Controls in an array by setting their .Enabled and .Visible properties to True
-    ''' </summary>
-    ''' <param name="controls">An array of Controls to enable and show</param>
-    Public Sub EnableAndShow(ByVal controls As Control())
-        For Each control As Control In controls
-            EnableAndShow(control)
-        Next
-    End Sub
-
-    ''' <summary>
     ''' Enables all Controls in an array by setting their .Enabled properties to True
     ''' </summary>
     ''' <param name="controls">An array of Controls to enable</param>
@@ -189,58 +179,6 @@ Module General
             End If
         Next
     End Sub
-
-#End Region
-
-#Region " MenuItem procedures "
-
-    ''' <summary>
-    ''' Disables and hides a MenuItem by setting its .Enabled and .Visible properties to False
-    ''' </summary>
-    ''' <param name="menuItem">The MenuItem to disable and hide</param>
-    Public Sub DisableAndHide(ByVal menuItem As MenuItem)
-        If menuItem IsNot Nothing Then
-            With menuItem
-                .Enabled = False
-                .Visible = False
-            End With
-        End If
-    End Sub
-
-    '' Not currently used, but may be useful in the future
-    ' ''' <summary>
-    ' ''' Disables and hides all MenuItems in an array by setting their .Enabled and .Visible properties to False
-    ' ''' </summary>
-    ' ''' <param name="menuItems">An array of controls to disable and hide</param>
-    'Public Sub DisableAndHide(ByVal menuItems As MenuItem())
-    '    For Each menuItem As MenuItem In menuItems
-    '        DisableAndHide(menuItem)
-    '    Next
-    'End Sub
-
-    ''' <summary>
-    ''' Enables and shows a MenuItem by setting its .Enabled and .Visible properties to True
-    ''' </summary>
-    ''' <param name="menuItem">The menuItem to enable and show</param>
-    Public Sub EnableAndShow(ByVal menuItem As MenuItem)
-        If menuItem IsNot Nothing Then
-            With menuItem
-                .Enabled = True
-                .Visible = True
-            End With
-        End If
-    End Sub
-
-    '' Not currently used, but may be useful in the future
-    ' ''' <summary>
-    ' ''' Enables and shows all MenuItems in an array by setting their .Enabled and .Visible properties to True
-    ' ''' </summary>
-    ' ''' <param name="menuItems">An array of controls to enable and show</param>
-    'Public Sub EnableAndShow(ByVal menuItems As MenuItem())
-    '    For Each menuItem As MenuItem In menuItems
-    '        EnableAndShow(menuItem)
-    '    Next
-    'End Sub
 
 #End Region
 

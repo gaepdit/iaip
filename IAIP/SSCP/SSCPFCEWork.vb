@@ -2098,10 +2098,6 @@ Public Class SSCPFCEWork
         Me.Close()
     End Sub
 
-    Private Sub MenuOpenHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        OpenDocumentationUrl(Me)
-    End Sub
-
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         SaveFCE()
     End Sub

@@ -7,53 +7,6 @@ Namespace DAL
         ''' <summary>
         ''' Returns a DataTable of fees summary data for a given facility
         ''' </summary>
-        ''' <param name="airs">An optional Facility ID to filter for.</param>
-        ''' <returns>A DataTable of fees summary data for a facility</returns>
-        Public Function GetFeesFacilitySummaryAsDataTable(
-                Optional airs As Apb.ApbFacilityId = Nothing) As DataTable
-
-            Dim query As String =
-                "SELECT * FROM AIRBRANCH.VW_FEES_FACILITY_SUMMARY " &
-                " WHERE 1=1 "
-
-            If airs IsNot Nothing Then query &= " AND STRAIRSNUMBER = :airs "
-
-            Dim parameter As OracleParameter = New OracleParameter("airs", airs.DbFormattedString)
-            Return DB.GetDataTable(query, parameter)
-        End Function
-
-        ''' <summary>
-        ''' Returns a DataTable of fees summary data for a given facility
-        ''' </summary>
-        ''' <param name="startFeeYear">Beginning year of a date range to filter for.</param>
-        ''' <param name="endFeeYear">Ending year of a date range to filter for.</param>
-        ''' <param name="airs">An optional Facility ID to filter for.</param>
-        ''' <returns>A DataTable of fees summary data</returns>
-        Public Function GetFeesFacilitySummaryAsDataTable(
-                startFeeYear As String, endFeeYear As String,
-                Optional airs As Apb.ApbFacilityId = Nothing) As DataTable
-
-            Dim startFeeYearDecimal, endFeeYearDecimal As Decimal
-            If Not Decimal.TryParse(startFeeYear, startFeeYearDecimal) Then Return Nothing
-            If Not Decimal.TryParse(endFeeYear, endFeeYearDecimal) Then Return Nothing
-
-            Dim query As String =
-                "SELECT * FROM AIRBRANCH.VW_FEES_FACILITY_SUMMARY " &
-                " WHERE NUMFEEYEAR BETWEEN :startFeeYear AND :endFeeYear "
-
-            If airs IsNot Nothing Then query &= " AND STRAIRSNUMBER = :airs "
-
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("startFeeYear", startFeeYearDecimal),
-                New OracleParameter("endFeeYear", endFeeYearDecimal),
-                New OracleParameter("airs", airs.DbFormattedString)
-            }
-            Return DB.GetDataTable(query, parameters)
-        End Function
-
-        ''' <summary>
-        ''' Returns a DataTable of fees summary data for a given facility
-        ''' </summary>
         ''' <param name="startFeeYear">Beginning year of a date range to filter for.</param>
         ''' <param name="endFeeYear">Ending year of a date range to filter for.</param>
         ''' <param name="airs">An optional Facility ID to filter for.</param>

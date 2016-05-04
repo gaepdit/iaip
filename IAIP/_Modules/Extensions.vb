@@ -156,22 +156,9 @@ Module Extensions
 #Region " Dictionary "
 
     <Extension()>
-    Public Function ChangeKey(Of TKey, TValue)(ByVal dict As Dictionary(Of TKey, TValue), ByVal oldKey As TKey, ByVal newKey As TKey) As Boolean
-        Dim value As TValue
-
-        If dict.ContainsKey(newKey) Then Return False
-        If Not dict.TryGetValue(oldKey, value) Then Return False
-
-        dict.Remove(oldKey)
-        dict.Add(newKey, value)
-        Return True
-    End Function
-
-    <Extension()>
     Public Sub AddBlankRow(ByRef d As Dictionary(Of Integer, String), Optional ByVal blankPrompt As String = "")
         d.Add(0, blankPrompt)
     End Sub
-
 
 #End Region
 

@@ -120,12 +120,6 @@ Namespace DAL
             Return DB.SPGetDataTable(spName, parameter)
         End Function
 
-        Public Function GetFacilityAirPrograms(airsNumber As ApbFacilityId) As AirProgram
-            Dim query As String = "SELECT STRAIRPROGRAMCODES FROM AIRBRANCH.APBHEADERDATA WHERE STRAIRSNUMBER = :airsNumber"
-            Dim parameter As New OracleParameter("airsNumber", airsNumber.DbFormattedString)
-            Return ConvertBitFieldToEnum(Of AirProgram)(DB.GetSingleValue(Of String)(query, parameter))
-        End Function
-
         Public Function GetFacilityOperationalStatus(airsNumber As ApbFacilityId) As FacilityOperationalStatus
             Dim query As String = "SELECT STROPERATIONALSTATUS FROM AIRBRANCH.APBHEADERDATA WHERE STRAIRSNUMBER = :airsNumber"
             Dim parameter As New OracleParameter("airsNumber", airsNumber.DbFormattedString)

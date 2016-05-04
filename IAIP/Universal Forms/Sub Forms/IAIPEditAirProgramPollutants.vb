@@ -35,13 +35,6 @@ Public Class IAIPEditAirProgramPollutants
         SetPermissions()
     End Sub
 
-    Private Sub SelectFirstRow()
-        If FacilityAirProgramPollutants.RowCount > 0 Then
-            FacilityAirProgramPollutants.CurrentCell = Nothing
-            FacilityAirProgramPollutants.Rows(0).Selected = True
-        End If
-    End Sub
-
 #End Region
 
 #Region " Selectors "

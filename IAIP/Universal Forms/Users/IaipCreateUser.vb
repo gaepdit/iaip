@@ -107,16 +107,6 @@ Public Class IaipCreateUser
         End If
     End Function
 
-    Private Function CreateTempPassword() As String
-        Dim tp As String = RandomHelper.RandomReadableString(4) & "-" & RandomHelper.RandomReadableString(4)
-        If Regex.IsMatch(tp, AtLeastOneDigitPattern) _
-            AndAlso Regex.IsMatch(tp, AtLeastOneLetterPattern) Then
-            Return tp
-        Else
-            Return CreateTempPassword()
-        End If
-    End Function
-
     Private Sub DisplayInvalidMessage()
         Dim sb As New StringBuilder()
         sb.AppendLine("Please correct the following errors:")

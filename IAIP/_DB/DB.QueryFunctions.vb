@@ -127,17 +127,6 @@ Namespace DB
         ''' Determines whether a value as indicated by the SQL query exists in the database.
         ''' </summary>
         ''' <param name="query">The SQL query to send.</param>
-        ''' <param name="parameter">An optional OracleParameter to send.</param>
-        ''' <returns>A boolean value signifying whether the indicated value exists.</returns>
-        Public Function ValueExists(query As String, Optional parameter As OracleParameter = Nothing) As Boolean
-            Dim parameterArray As OracleParameter() = {parameter}
-            Return ValueExists(query, parameterArray)
-        End Function
-
-        ''' <summary>
-        ''' Determines whether a value as indicated by the SQL query exists in the database.
-        ''' </summary>
-        ''' <param name="query">The SQL query to send.</param>
         ''' <param name="parameterArray">An optional OracleParameter array to send.</param>
         ''' <returns>A boolean value signifying whether the indicated value exists.</returns>
         Public Function ValueExists(query As String, parameterArray As OracleParameter()) As Boolean
@@ -304,11 +293,6 @@ Namespace DB
             End Try
         End Function
 
-        Private Function GetByteArrayFromBlob(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing) As Byte()
-            Dim parameterArray As OracleParameter() = {parameter}
-            Return GetByteArrayFromBlob(query, parameterArray)
-        End Function
-
         Private Function GetByteArrayFromBlob(ByVal query As String, ByVal parameterArray As OracleParameter()) As Byte()
             Dim success As Boolean = True
             Dim startTime As Date = Date.UtcNow
@@ -349,28 +333,6 @@ Namespace DB
 
                 End Using
             End Using
-        End Function
-
-#End Region
-
-#Region " Read (Lists) "
-
-        ''' <summary>
-        ''' Returns a list of values from the database
-        ''' </summary>
-        ''' <typeparam name="T">The list item type to return</typeparam>
-        ''' <param name="query">The SQL query to send.</param>
-        ''' <param name="parameter">A single Oracle Parameter to pass in</param>
-        ''' <returns>List of items of the specified type</returns>
-        Public Function GetList(Of T)(ByVal query As String, Optional ByVal parameter As OracleParameter = Nothing) As List(Of T)
-            Dim l As New List(Of T)
-            Dim dt As DataTable = GetDataTable(query, parameter)
-
-            For Each r As DataRow In dt.Rows
-                l.Add(GetNullable(Of T)(r.Item(0)))
-            Next
-
-            Return l
         End Function
 
 #End Region

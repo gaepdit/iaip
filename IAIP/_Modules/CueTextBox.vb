@@ -29,8 +29,8 @@ Friend Class CueTextBox
     End Property
 
     Private Sub UpdateCue()
-        If IsHandleCreated AndAlso _cue IsNot Nothing Then
-            NativeMethods.SendMessage(Handle, NativeMethods.EM_SETCUEBANNER, New IntPtr(1), _cue)
+        If IsHandleCreated AndAlso Cue IsNot Nothing Then
+            NativeMethods.SendMessage(Handle, NativeMethods.EM_SETCUEBANNER, New IntPtr(1), Cue)
         End If
     End Sub
 

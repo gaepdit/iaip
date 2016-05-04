@@ -43,6 +43,7 @@ Module EqatecAnalytics
         monitor.TrackFeature("Main.ProductionEnvironment")
 #End If
         monitor.ForceSync()
+        ApplicationInsights.UpdateTelemetryClientUser()
     End Sub
 
     Public Sub StopMonitor()
