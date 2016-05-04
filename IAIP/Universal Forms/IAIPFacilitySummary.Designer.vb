@@ -81,10 +81,12 @@ Partial Class IAIPFacilitySummary
         Me.FisDateLabel = New System.Windows.Forms.Label()
         Me.InfoStartupDateLabel = New System.Windows.Forms.Label()
         Me.DataUpdateDateLabel = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.EpaDateLabel = New System.Windows.Forms.Label()
         Me.InfoPermitRevocationDateLabel = New System.Windows.Forms.Label()
         Me.ResponsibleOfficeDisplay = New System.Windows.Forms.TextBox()
         Me.DataUpdateDateDisplay = New System.Windows.Forms.TextBox()
+        Me.EpaFacilityIdDisplay = New System.Windows.Forms.TextBox()
         Me.EpaDateDisplay = New System.Windows.Forms.TextBox()
         Me.InfoPermitRevocationDateDisplay = New System.Windows.Forms.TextBox()
         Me.CreatedDateDisplay = New System.Windows.Forms.TextBox()
@@ -380,9 +382,9 @@ Partial Class IAIPFacilitySummary
         Me.FacilityNameDisplay.Multiline = True
         Me.FacilityNameDisplay.Name = "FacilityNameDisplay"
         Me.FacilityNameDisplay.ReadOnly = True
-        Me.FacilityNameDisplay.Size = New System.Drawing.Size(428, 37)
+        Me.FacilityNameDisplay.Size = New System.Drawing.Size(425, 37)
         Me.FacilityNameDisplay.TabIndex = 3
-        Me.FacilityNameDisplay.Text = "name line 1" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "line 2"
+        Me.FacilityNameDisplay.Text = "Facility Name"
         '
         'ViewDataButton
         '
@@ -425,10 +427,12 @@ Partial Class IAIPFacilitySummary
         Me.FSInfo.Controls.Add(Me.FisDateLabel)
         Me.FSInfo.Controls.Add(Me.InfoStartupDateLabel)
         Me.FSInfo.Controls.Add(Me.DataUpdateDateLabel)
+        Me.FSInfo.Controls.Add(Me.Label1)
         Me.FSInfo.Controls.Add(Me.EpaDateLabel)
         Me.FSInfo.Controls.Add(Me.InfoPermitRevocationDateLabel)
         Me.FSInfo.Controls.Add(Me.ResponsibleOfficeDisplay)
         Me.FSInfo.Controls.Add(Me.DataUpdateDateDisplay)
+        Me.FSInfo.Controls.Add(Me.EpaFacilityIdDisplay)
         Me.FSInfo.Controls.Add(Me.EpaDateDisplay)
         Me.FSInfo.Controls.Add(Me.InfoPermitRevocationDateDisplay)
         Me.FSInfo.Controls.Add(Me.CreatedDateDisplay)
@@ -451,7 +455,7 @@ Partial Class IAIPFacilitySummary
         Me.FSInfo.Location = New System.Drawing.Point(4, 22)
         Me.FSInfo.Name = "FSInfo"
         Me.FSInfo.Padding = New System.Windows.Forms.Padding(3)
-        Me.FSInfo.Size = New System.Drawing.Size(642, 420)
+        Me.FSInfo.Size = New System.Drawing.Size(763, 450)
         Me.FSInfo.TabIndex = 0
         Me.FSInfo.Text = "Info"
         Me.FSInfo.UseVisualStyleBackColor = True
@@ -581,6 +585,18 @@ Partial Class IAIPFacilitySummary
         Me.DataUpdateDateLabel.TabIndex = 334
         Me.DataUpdateDateLabel.Text = "Latest IAIP Data Update"
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.Label1.Location = New System.Drawing.Point(332, 397)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(121, 13)
+        Me.Label1.TabIndex = 334
+        Me.Label1.Text = "EPA Air Facility Identifier"
+        '
         'EpaDateLabel
         '
         Me.EpaDateLabel.AutoSize = True
@@ -626,6 +642,17 @@ Partial Class IAIPFacilitySummary
         Me.DataUpdateDateDisplay.Size = New System.Drawing.Size(138, 13)
         Me.DataUpdateDateDisplay.TabIndex = 17
         Me.DataUpdateDateDisplay.Text = "N/A"
+        '
+        'EpaFacilityIdDisplay
+        '
+        Me.EpaFacilityIdDisplay.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.EpaFacilityIdDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.EpaFacilityIdDisplay.Location = New System.Drawing.Point(468, 397)
+        Me.EpaFacilityIdDisplay.Name = "EpaFacilityIdDisplay"
+        Me.EpaFacilityIdDisplay.ReadOnly = True
+        Me.EpaFacilityIdDisplay.Size = New System.Drawing.Size(138, 13)
+        Me.EpaFacilityIdDisplay.TabIndex = 19
+        Me.EpaFacilityIdDisplay.Text = "N/A"
         '
         'EpaDateDisplay
         '
@@ -906,7 +933,7 @@ Partial Class IAIPFacilitySummary
         Me.AirProgramsGroupBox.Location = New System.Drawing.Point(306, 56)
         Me.AirProgramsGroupBox.Name = "AirProgramsGroupBox"
         Me.AirProgramsGroupBox.Size = New System.Drawing.Size(253, 127)
-        Me.AirProgramsGroupBox.TabIndex = 9
+        Me.AirProgramsGroupBox.TabIndex = 11
         Me.AirProgramsGroupBox.TabStop = False
         Me.AirProgramsGroupBox.Text = "Air Programs"
         '
@@ -1206,8 +1233,8 @@ Partial Class IAIPFacilitySummary
         Me.EditSubpartsButton.Location = New System.Drawing.Point(441, 18)
         Me.EditSubpartsButton.Name = "EditSubpartsButton"
         Me.EditSubpartsButton.Size = New System.Drawing.Size(118, 23)
-        Me.EditSubpartsButton.TabIndex = 11
-        Me.EditSubpartsButton.Text = "Edit Subparts"
+        Me.EditSubpartsButton.TabIndex = 10
+        Me.EditSubpartsButton.Text = "View/Edit Subparts"
         Me.EditSubpartsButton.UseVisualStyleBackColor = True
         '
         'EditPollutantsButton
@@ -1215,8 +1242,8 @@ Partial Class IAIPFacilitySummary
         Me.EditPollutantsButton.Location = New System.Drawing.Point(306, 18)
         Me.EditPollutantsButton.Name = "EditPollutantsButton"
         Me.EditPollutantsButton.Size = New System.Drawing.Size(118, 23)
-        Me.EditPollutantsButton.TabIndex = 10
-        Me.EditPollutantsButton.Text = "Edit Pollutants"
+        Me.EditPollutantsButton.TabIndex = 9
+        Me.EditPollutantsButton.Text = "View/Edit Pollutants"
         '
         'FSContacts
         '
@@ -3039,4 +3066,6 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents FinancialFeeGrid As System.Windows.Forms.DataGridView
     Friend WithEvents MapPictureBox As System.Windows.Forms.PictureBox
     Friend WithEvents MapCountyLink As System.Windows.Forms.LinkLabel
+    Friend WithEvents Label1 As Label
+    Friend WithEvents EpaFacilityIdDisplay As TextBox
 End Class

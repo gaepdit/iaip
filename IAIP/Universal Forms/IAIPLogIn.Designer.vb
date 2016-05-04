@@ -23,17 +23,20 @@ Partial Class IAIPLogIn
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.mmiFile = New System.Windows.Forms.MenuItem()
         Me.mmiExit = New System.Windows.Forms.MenuItem()
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem()
+        Me.mmiTools = New System.Windows.Forms.MenuItem()
+        Me.mmiForgotUsername = New System.Windows.Forms.MenuItem()
+        Me.mmiForgotPassword = New System.Windows.Forms.MenuItem()
+        Me.mmiPasswordReset = New System.Windows.Forms.MenuItem()
+        Me.mmiSeparator1 = New System.Windows.Forms.MenuItem()
         Me.mmiRefreshUserID = New System.Windows.Forms.MenuItem()
         Me.mmiResetAllForms = New System.Windows.Forms.MenuItem()
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem()
-        Me.mmiTestingEnvironment = New System.Windows.Forms.MenuItem()
         Me.mmiHelp = New System.Windows.Forms.MenuItem()
         Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem()
-        Me.MenuItem4 = New System.Windows.Forms.MenuItem()
+        Me.mmiSeparator2 = New System.Windows.Forms.MenuItem()
         Me.mmiCheckForUpdate = New System.Windows.Forms.MenuItem()
-        Me.MenuItem5 = New System.Windows.Forms.MenuItem()
+        Me.mmiSeparator3 = New System.Windows.Forms.MenuItem()
         Me.mmiAbout = New System.Windows.Forms.MenuItem()
+        Me.mmiTestingMenu = New System.Windows.Forms.MenuItem()
         Me.btnLoginButton = New System.Windows.Forms.Button()
         Me.LogoBox = New System.Windows.Forms.PictureBox()
         Me.lblCurrentVersionMessage = New System.Windows.Forms.Label()
@@ -46,13 +49,14 @@ Partial Class IAIPLogIn
         Me.lblSubTitle = New System.Windows.Forms.Label()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.lblGeneralMessage = New System.Windows.Forms.Label()
-        Me.LoginProgressBar = New System.Windows.Forms.ProgressBar()
+        Me.ForgotUsernameLink = New System.Windows.Forms.LinkLabel()
+        Me.ForgotPasswordLink = New System.Windows.Forms.LinkLabel()
         CType(Me.LogoBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.MenuItem1, Me.mmiHelp})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiTools, Me.mmiHelp, Me.mmiTestingMenu})
         '
         'mmiFile
         '
@@ -66,37 +70,47 @@ Partial Class IAIPLogIn
         Me.mmiExit.Shortcut = System.Windows.Forms.Shortcut.CtrlQ
         Me.mmiExit.Text = "E&xit IAIP"
         '
-        'MenuItem1
+        'mmiTools
         '
-        Me.MenuItem1.Index = 1
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiRefreshUserID, Me.mmiResetAllForms, Me.MenuItem2, Me.mmiTestingEnvironment})
-        Me.MenuItem1.Text = "&Tools"
+        Me.mmiTools.Index = 1
+        Me.mmiTools.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiForgotUsername, Me.mmiForgotPassword, Me.mmiPasswordReset, Me.mmiSeparator1, Me.mmiRefreshUserID, Me.mmiResetAllForms})
+        Me.mmiTools.Text = "&Tools"
+        '
+        'mmiForgotUsername
+        '
+        Me.mmiForgotUsername.Index = 0
+        Me.mmiForgotUsername.Text = "Forgot Username"
+        '
+        'mmiForgotPassword
+        '
+        Me.mmiForgotPassword.Index = 1
+        Me.mmiForgotPassword.Text = "Forgot Password"
+        '
+        'mmiPasswordReset
+        '
+        Me.mmiPasswordReset.Index = 2
+        Me.mmiPasswordReset.Text = "Enter Password Reset Code"
+        Me.mmiPasswordReset.Visible = False
+        '
+        'mmiSeparator1
+        '
+        Me.mmiSeparator1.Index = 3
+        Me.mmiSeparator1.Text = "-"
         '
         'mmiRefreshUserID
         '
-        Me.mmiRefreshUserID.Index = 0
-        Me.mmiRefreshUserID.Text = "Refresh Default User"
+        Me.mmiRefreshUserID.Index = 4
+        Me.mmiRefreshUserID.Text = "Reset Default Username"
         '
         'mmiResetAllForms
         '
-        Me.mmiResetAllForms.Index = 1
-        Me.mmiResetAllForms.Text = "&Reset All Forms"
-        '
-        'MenuItem2
-        '
-        Me.MenuItem2.Index = 2
-        Me.MenuItem2.Text = "-"
-        '
-        'mmiTestingEnvironment
-        '
-        Me.mmiTestingEnvironment.Index = 3
-        Me.mmiTestingEnvironment.Shortcut = System.Windows.Forms.Shortcut.CtrlT
-        Me.mmiTestingEnvironment.Text = "&Testing Environment"
+        Me.mmiResetAllForms.Index = 5
+        Me.mmiResetAllForms.Text = "&Reset All Form Sizes"
         '
         'mmiHelp
         '
         Me.mmiHelp.Index = 2
-        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp, Me.MenuItem4, Me.mmiCheckForUpdate, Me.MenuItem5, Me.mmiAbout})
+        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp, Me.mmiSeparator2, Me.mmiCheckForUpdate, Me.mmiSeparator3, Me.mmiAbout})
         Me.mmiHelp.Text = "&Help"
         '
         'mmiOnlineHelp
@@ -105,30 +119,36 @@ Partial Class IAIPLogIn
         Me.mmiOnlineHelp.Shortcut = System.Windows.Forms.Shortcut.F1
         Me.mmiOnlineHelp.Text = "Online &Help "
         '
-        'MenuItem4
+        'mmiSeparator2
         '
-        Me.MenuItem4.Index = 1
-        Me.MenuItem4.Text = "-"
+        Me.mmiSeparator2.Index = 1
+        Me.mmiSeparator2.Text = "-"
         '
         'mmiCheckForUpdate
         '
         Me.mmiCheckForUpdate.Index = 2
         Me.mmiCheckForUpdate.Text = "Check for &Updates"
         '
-        'MenuItem5
+        'mmiSeparator3
         '
-        Me.MenuItem5.Index = 3
-        Me.MenuItem5.Text = "-"
+        Me.mmiSeparator3.Index = 3
+        Me.mmiSeparator3.Text = "-"
         '
         'mmiAbout
         '
         Me.mmiAbout.Index = 4
         Me.mmiAbout.Text = "&About IAIP"
         '
+        'mmiTestingMenu
+        '
+        Me.mmiTestingMenu.Index = 3
+        Me.mmiTestingMenu.Text = "T&est"
+        Me.mmiTestingMenu.Visible = False
+        '
         'btnLoginButton
         '
         Me.btnLoginButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnLoginButton.Location = New System.Drawing.Point(422, 259)
+        Me.btnLoginButton.Location = New System.Drawing.Point(418, 259)
         Me.btnLoginButton.Margin = New System.Windows.Forms.Padding(2)
         Me.btnLoginButton.Name = "btnLoginButton"
         Me.btnLoginButton.Size = New System.Drawing.Size(175, 38)
@@ -153,7 +173,7 @@ Partial Class IAIPLogIn
         Me.lblCurrentVersionMessage.Location = New System.Drawing.Point(26, 377)
         Me.lblCurrentVersionMessage.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblCurrentVersionMessage.Name = "lblCurrentVersionMessage"
-        Me.lblCurrentVersionMessage.Size = New System.Drawing.Size(259, 18)
+        Me.lblCurrentVersionMessage.Size = New System.Drawing.Size(259, 36)
         Me.lblCurrentVersionMessage.TabIndex = 38
         Me.lblCurrentVersionMessage.Text = "Current Version Placeholder"
         Me.lblCurrentVersionMessage.TextAlign = System.Drawing.ContentAlignment.TopCenter
@@ -174,28 +194,28 @@ Partial Class IAIPLogIn
         '
         Me.lblPassword.AutoSize = True
         Me.lblPassword.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPassword.Location = New System.Drawing.Point(336, 223)
+        Me.lblPassword.Location = New System.Drawing.Point(331, 223)
         Me.lblPassword.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblPassword.Name = "lblPassword"
-        Me.lblPassword.Size = New System.Drawing.Size(82, 20)
+        Me.lblPassword.Size = New System.Drawing.Size(78, 20)
         Me.lblPassword.TabIndex = 36
-        Me.lblPassword.Text = "Password:"
+        Me.lblPassword.Text = "Password"
         '
         'lblUserID
         '
         Me.lblUserID.AutoSize = True
         Me.lblUserID.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblUserID.Location = New System.Drawing.Point(336, 184)
+        Me.lblUserID.Location = New System.Drawing.Point(331, 184)
         Me.lblUserID.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblUserID.Name = "lblUserID"
-        Me.lblUserID.Size = New System.Drawing.Size(68, 20)
+        Me.lblUserID.Size = New System.Drawing.Size(83, 20)
         Me.lblUserID.TabIndex = 35
-        Me.lblUserID.Text = "User ID:"
+        Me.lblUserID.Text = "Username"
         '
         'txtUserPassword
         '
         Me.txtUserPassword.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtUserPassword.Location = New System.Drawing.Point(422, 220)
+        Me.txtUserPassword.Location = New System.Drawing.Point(418, 220)
         Me.txtUserPassword.Margin = New System.Windows.Forms.Padding(2)
         Me.txtUserPassword.Name = "txtUserPassword"
         Me.txtUserPassword.Size = New System.Drawing.Size(175, 26)
@@ -206,7 +226,7 @@ Partial Class IAIPLogIn
         'txtUserID
         '
         Me.txtUserID.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtUserID.Location = New System.Drawing.Point(422, 181)
+        Me.txtUserID.Location = New System.Drawing.Point(418, 181)
         Me.txtUserID.Margin = New System.Windows.Forms.Padding(2)
         Me.txtUserID.Name = "txtUserID"
         Me.txtUserID.Size = New System.Drawing.Size(175, 26)
@@ -217,7 +237,7 @@ Partial Class IAIPLogIn
         '
         Me.lblIAIP.AutoSize = True
         Me.lblIAIP.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblIAIP.Location = New System.Drawing.Point(335, 128)
+        Me.lblIAIP.Location = New System.Drawing.Point(330, 128)
         Me.lblIAIP.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblIAIP.Name = "lblIAIP"
         Me.lblIAIP.Size = New System.Drawing.Size(345, 26)
@@ -228,7 +248,7 @@ Partial Class IAIPLogIn
         '
         Me.lblSubTitle.AutoSize = True
         Me.lblSubTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSubTitle.Location = New System.Drawing.Point(335, 55)
+        Me.lblSubTitle.Location = New System.Drawing.Point(330, 55)
         Me.lblSubTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblSubTitle.Name = "lblSubTitle"
         Me.lblSubTitle.Size = New System.Drawing.Size(339, 52)
@@ -250,25 +270,40 @@ Partial Class IAIPLogIn
         '
         Me.lblGeneralMessage.AutoSize = True
         Me.lblGeneralMessage.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGeneralMessage.ForeColor = System.Drawing.Color.Maroon
-        Me.lblGeneralMessage.Location = New System.Drawing.Point(337, 185)
+        Me.lblGeneralMessage.Location = New System.Drawing.Point(332, 309)
         Me.lblGeneralMessage.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblGeneralMessage.MaximumSize = New System.Drawing.Size(382, 96)
         Me.lblGeneralMessage.Name = "lblGeneralMessage"
         Me.lblGeneralMessage.Size = New System.Drawing.Size(163, 72)
         Me.lblGeneralMessage.TabIndex = 38
         Me.lblGeneralMessage.Text = "Message Placeholder 1" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "4"
         Me.lblGeneralMessage.Visible = False
         '
-        'LoginProgressBar
+        'ForgotUsernameLink
         '
-        Me.LoginProgressBar.Location = New System.Drawing.Point(422, 302)
-        Me.LoginProgressBar.MarqueeAnimationSpeed = 10
-        Me.LoginProgressBar.Name = "LoginProgressBar"
-        Me.LoginProgressBar.Size = New System.Drawing.Size(175, 23)
-        Me.LoginProgressBar.Step = 20
-        Me.LoginProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee
-        Me.LoginProgressBar.TabIndex = 46
-        Me.LoginProgressBar.Visible = False
+        Me.ForgotUsernameLink.AutoSize = True
+        Me.ForgotUsernameLink.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ForgotUsernameLink.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
+        Me.ForgotUsernameLink.Location = New System.Drawing.Point(598, 184)
+        Me.ForgotUsernameLink.Name = "ForgotUsernameLink"
+        Me.ForgotUsernameLink.Size = New System.Drawing.Size(143, 20)
+        Me.ForgotUsernameLink.TabIndex = 39
+        Me.ForgotUsernameLink.TabStop = True
+        Me.ForgotUsernameLink.Text = "Forgot Username?"
+        Me.ForgotUsernameLink.Visible = False
+        '
+        'ForgotPasswordLink
+        '
+        Me.ForgotPasswordLink.AutoSize = True
+        Me.ForgotPasswordLink.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ForgotPasswordLink.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
+        Me.ForgotPasswordLink.Location = New System.Drawing.Point(598, 223)
+        Me.ForgotPasswordLink.Name = "ForgotPasswordLink"
+        Me.ForgotPasswordLink.Size = New System.Drawing.Size(138, 20)
+        Me.ForgotPasswordLink.TabIndex = 39
+        Me.ForgotPasswordLink.TabStop = True
+        Me.ForgotPasswordLink.Text = "Forgot Password?"
+        Me.ForgotPasswordLink.Visible = False
         '
         'IAIPLogIn
         '
@@ -276,6 +311,8 @@ Partial Class IAIPLogIn
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(742, 414)
+        Me.Controls.Add(Me.ForgotPasswordLink)
+        Me.Controls.Add(Me.ForgotUsernameLink)
         Me.Controls.Add(Me.LogoBox)
         Me.Controls.Add(Me.lblCurrentVersionMessage)
         Me.Controls.Add(Me.lblLicenseLabel)
@@ -287,7 +324,6 @@ Partial Class IAIPLogIn
         Me.Controls.Add(Me.lblSubTitle)
         Me.Controls.Add(Me.lblTitle)
         Me.Controls.Add(Me.lblGeneralMessage)
-        Me.Controls.Add(Me.LoginProgressBar)
         Me.Controls.Add(Me.btnLoginButton)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.HelpButton = True
@@ -316,19 +352,23 @@ Partial Class IAIPLogIn
     Friend WithEvents lblTitle As System.Windows.Forms.Label
     Friend WithEvents btnLoginButton As System.Windows.Forms.Button
     Friend WithEvents lblLicenseLabel As System.Windows.Forms.Label
-    Friend WithEvents mmiTestingEnvironment As System.Windows.Forms.MenuItem
     Friend WithEvents mmiRefreshUserID As System.Windows.Forms.MenuItem
     Friend WithEvents mmiOnlineHelp As System.Windows.Forms.MenuItem
     Friend WithEvents lblCurrentVersionMessage As System.Windows.Forms.Label
     Friend WithEvents lblGeneralMessage As System.Windows.Forms.Label
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
     Friend WithEvents lblIAIP As System.Windows.Forms.Label
     Friend WithEvents LogoBox As System.Windows.Forms.PictureBox
-    Friend WithEvents LoginProgressBar As System.Windows.Forms.ProgressBar
-    Friend WithEvents MenuItem4 As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiSeparator2 As System.Windows.Forms.MenuItem
     Friend WithEvents mmiAbout As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiTools As System.Windows.Forms.MenuItem
     Friend WithEvents mmiResetAllForms As System.Windows.Forms.MenuItem
     Friend WithEvents mmiCheckForUpdate As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem5 As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiSeparator3 As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiTestingMenu As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiForgotUsername As MenuItem
+    Friend WithEvents mmiForgotPassword As MenuItem
+    Friend WithEvents mmiSeparator1 As MenuItem
+    Friend WithEvents ForgotPasswordLink As LinkLabel
+    Friend WithEvents ForgotUsernameLink As LinkLabel
+    Friend WithEvents mmiPasswordReset As MenuItem
 End Class

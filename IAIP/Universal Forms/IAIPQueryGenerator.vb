@@ -26,11 +26,11 @@ Public Class IAIPQueryGenerator
     Private SubmittedQuery As Generic.KeyValuePair(Of String, Integer)
 
     Private Sub QueryGenerator_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         lblQueryCount.Text = ""
         Try
             Panel1.Text = "Select Filter options...."
-            Panel2.Text = UserName
+            Panel2.Text = CurrentUser.AlphaName
             Panel3.Text = OracleDate
 
             cboCountySearch1.Visible = False

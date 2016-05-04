@@ -129,8 +129,9 @@ Public Class CRViewerForm
     End Sub
 
     Private Sub CrystalReportViewerForm_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+
         monitor.TrackFeature("Report." & CRReportDocument.ResourceName)
+        ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, CRReportDocument.ResourceName)
 
         If Me.CRReportDocument IsNot Nothing Then
             If Me.CRParameters IsNot Nothing Then CRSetParameters(CRReportDocument, CRParameters)

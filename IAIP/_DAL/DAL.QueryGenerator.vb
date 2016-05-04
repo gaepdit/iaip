@@ -12,7 +12,7 @@ Namespace DAL
                 " VALUES (:UserSubmitting, :DateSubmitted, :RowsReturned, :QuerySubmitted) "
 
             Dim parameters As OracleParameter() = { _
-                New OracleParameter("UserSubmitting", UserGCode), _
+                New OracleParameter("UserSubmitting", CurrentUser.UserID), _
                 New OracleParameter("DateSubmitted", Date.Now), _
                 New OracleParameter("RowsReturned", kvp.Value), _
                 New OracleParameter("QuerySubmitted", kvp.Key) _

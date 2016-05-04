@@ -24,8 +24,7 @@ Namespace DAL.Sscp
                 " AND STRTRACKINGNUMBER = :id "
             Dim parameter As New OracleParameter("id", trackingNumber)
 
-            Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
-            Return Convert.ToBoolean(result)
+            Return DB.GetBoolean(query, parameter)
         End Function
 
         ''' <summary>
@@ -115,7 +114,7 @@ Namespace DAL.Sscp
                 .SscpTrackingNumber = row("STRTRACKINGNUMBER")
                 .Facility = GetFacility(row("STRAIRSNUMBER"))
                 .DateReceived = row("DATRECEIVEDDATE")
-                .StaffResponsible = GetStaff(row("STRRESPONSIBLESTAFF"))
+                .StaffResponsible = GetIaipUserByUserId(row("STRRESPONSIBLESTAFF"))
                 .DateComplete = DB.GetNullable(Of Date)(row("DATCOMPLETEDATE"))
                 .DeletedDbCode = row("STRDELETE")
                 .DateAcknowledgmentLetterSent = DB.GetNullable(Of Date)(row("DATACKNOLEDGMENTLETTERSENT"))

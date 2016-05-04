@@ -27,6 +27,7 @@ Namespace DB
         ''' </summary>
         ''' <param name="obj">The database value to convert.</param>
         ''' <returns>If database value is DBNull or value cannot be converted to a DateTime, returns Nothing; otherwise, returns the value converted to a DateTime.</returns>
+        <DebuggerStepThrough()>
         Public Function GetNullableDateTimeFromString(ByVal obj As Object) As DateTime?
             Try
 
@@ -68,6 +69,10 @@ Namespace DB
                     Else
                         Return Boolean.Parse(value) ' Will throw an exception if value is not equal to Boolean.TrueString
                     End If
+
+                Case BooleanDBConversionType.OneOrZero
+                    Return Convert.ToBoolean(Integer.Parse(value))
+
             End Select
 
             ' Fallback
@@ -88,6 +93,14 @@ Namespace DB
                     Else
                         Return Nothing
                     End If
+
+                Case BooleanDBConversionType.OneOrZero
+                    If value Then
+                        Return "1"
+                    Else
+                        Return "0"
+                    End If
+
             End Select
 
             ' Fallback
@@ -95,10 +108,37 @@ Namespace DB
         End Function
 
         ''' <summary>
+        ''' Utility for storing zeroed integers as null in the database
+        ''' </summary>
+        ''' <param name="i">The integer to store</param>
+        ''' <returns>Nothing if i is equal to 0; otherwise, returns i.</returns>
+        Public Function StoreNothingIfZero(i As Integer) As Integer?
+            If i = 0 Then
+                Return Nothing
+            Else
+                Return i
+            End If
+        End Function
+
+        ''' <summary>
+        ''' Utility for storing zeroed decimals as null in the database
+        ''' </summary>
+        ''' <param name="i">The decimal to store</param>
+        ''' <returns>Nothing if i is equal to 0; otherwise, returns i.</returns>
+        Public Function StoreNothingIfZero(i As Decimal) As Decimal?
+            If i = 0 Then
+                Return Nothing
+            Else
+                Return i
+            End If
+        End Function
+
+        ''' <summary>
         ''' An enumeration of the different ways pseud-boolean values are stored in the database.
         ''' </summary>
         Public Enum BooleanDBConversionType
             TrueOrDBNull
+            OneOrZero
         End Enum
 
     End Module

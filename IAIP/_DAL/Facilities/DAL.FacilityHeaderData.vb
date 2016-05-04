@@ -2,6 +2,7 @@
 Imports Iaip.Apb
 Imports Iaip.Apb.Facilities
 Imports System.Collections.Generic
+Imports System.Text.RegularExpressions
 
 Namespace DAL
     Module FacilityHeaderDataData
@@ -16,10 +17,7 @@ Namespace DAL
         ''' <remarks>Does not make any judgments about appropriateness of SIC Code otherwise.</remarks>
         Public Function SicCodeIsValid(ByVal sicCode As String) As Boolean
             If sicCode Is Nothing OrElse String.IsNullOrEmpty(sicCode) Then Return False
-
-            ' Valid SIC Codes are one to four digits
-            Dim rgx As New System.Text.RegularExpressions.Regex("^\d{1,4}$")
-            If Not rgx.IsMatch(sicCode) Then Return False
+            If Not Regex.IsMatch(sicCode, SicCodePattern) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
                 " FROM AIRBRANCH.LK_SIC " & _
@@ -40,10 +38,7 @@ Namespace DAL
         ''' <remarks>Does not make any judgments about appropriateness of NAICS Code otherwise.</remarks>
         Public Function NaicsCodeIsValid(ByVal naicsCode As String) As Boolean
             If naicsCode Is Nothing OrElse String.IsNullOrEmpty(naicsCode) Then Return False
-
-            ' Valid NAICS Codes are two to six digits
-            Dim rgx As New System.Text.RegularExpressions.Regex("^\d{2,6}$")
-            If Not rgx.IsMatch(naicsCode) Then Return False
+            If Not Regex.IsMatch(naicsCode, NaicsCodePattern) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
                 " FROM AIRBRANCH.LK_NAICS " & _
@@ -122,8 +117,19 @@ Namespace DAL
         Public Function GetFacilityHeaderDataHistoryAsDataTable(ByVal airsNumber As ApbFacilityId) As DataTable
             Dim spName As String = "AIRBRANCH.IAIP_FACILITY.GetFacilityHeaderDataHistory"
             Dim parameter As New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
-
             Return DB.SPGetDataTable(spName, parameter)
+        End Function
+
+        Public Function GetFacilityAirPrograms(airsNumber As ApbFacilityId) As AirProgram
+            Dim query As String = "SELECT STRAIRPROGRAMCODES FROM AIRBRANCH.APBHEADERDATA WHERE STRAIRSNUMBER = :airsNumber"
+            Dim parameter As New OracleParameter("airsNumber", airsNumber.DbFormattedString)
+            Return ConvertBitFieldToEnum(Of AirProgram)(DB.GetSingleValue(Of String)(query, parameter))
+        End Function
+
+        Public Function GetFacilityOperationalStatus(airsNumber As ApbFacilityId) As FacilityOperationalStatus
+            Dim query As String = "SELECT STROPERATIONALSTATUS FROM AIRBRANCH.APBHEADERDATA WHERE STRAIRSNUMBER = :airsNumber"
+            Dim parameter As New OracleParameter("airsNumber", airsNumber.DbFormattedString)
+            Return [Enum].Parse(GetType(FacilityOperationalStatus), DB.GetSingleValue(Of String)(query, parameter))
         End Function
 
 #End Region
@@ -186,7 +192,7 @@ Namespace DAL
                 New OracleParameter("AirProgramClassifications", headerData.AirProgramClassificationsCode), _
                 New OracleParameter("fromLocation", Convert.ToInt32(fromLocation)), _
                 New OracleParameter("Naics", headerData.Naics), _
-                New OracleParameter("modifiedby", UserGCode), _
+                New OracleParameter("modifiedby", CurrentUser.UserID), _
                 New OracleParameter("airsnumber", headerData.AirsNumber.DbFormattedString) _
             })
 
@@ -199,7 +205,7 @@ Namespace DAL
                 "  WHERE STRAIRSNUMBER   = :airsnumber " _
             )
             parametersList.Add(New OracleParameter() { _
-                New OracleParameter("modifiedby", UserGCode), _
+                New OracleParameter("modifiedby", CurrentUser.UserID), _
                 New OracleParameter("rmp", headerData.RmpId), _
                 New OracleParameter("airsnumber", headerData.AirsNumber.DbFormattedString) _
             })
@@ -228,21 +234,19 @@ Namespace DAL
 
                     ' 3b. Any active APC must have at least one key in ApbAirProgramPollutants;
                     '     if none exist, add one with the new operating status, pollutant = OT 
-                    '     & compliance status = C
+                    '     & compliance status = 0 (compliance status column is deprecated)
                     queryList.Add(
                         " INSERT " &
                         " INTO AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " &
                         "  ( STRAIRSNUMBER, " &
                         "    STRAIRPOLLUTANTKEY, " &
                         "    STRPOLLUTANTKEY, " &
-                        "    STRCOMPLIANCESTATUS, " &
                         "    STRMODIFINGPERSON, " &
                         "    DATMODIFINGDATE, " &
                         "    STROPERATIONALSTATUS ) " &
                         " SELECT :airsnumber, " &
                         "    :airpollkey, " &
                         "    :pollkey, " &
-                        "    :compliancestatus, " &
                         "    :modifiedby, " &
                         "    SYSDATE, " &
                         "    :operatingstatus " &
@@ -257,8 +261,7 @@ Namespace DAL
                         New OracleParameter("airsnumber", headerData.AirsNumber.DbFormattedString),
                         New OracleParameter("airpollkey", headerData.AirsNumber.DbFormattedString & FacilityHeaderData.GetAirProgramDbKey(apc)),
                         New OracleParameter("pollkey", "OT"),
-                        New OracleParameter("compliancestatus", "C"),
-                        New OracleParameter("modifiedby", UserGCode),
+                        New OracleParameter("modifiedby", CurrentUser.UserID),
                         New OracleParameter("operatingstatus", headerData.OperationalStatus.ToString)
                     })
 
@@ -274,7 +277,7 @@ Namespace DAL
                     )
                     parametersList.Add(New OracleParameter() { _
                         New OracleParameter("active", "0"), _
-                        New OracleParameter("modifiedby", UserGCode), _
+                        New OracleParameter("modifiedby", CurrentUser.UserID), _
                         New OracleParameter("airpollkey", headerData.AirsNumber.DbFormattedString & FacilityHeaderData.GetAirProgramDbKey(apc)) _
                     })
 
@@ -291,7 +294,7 @@ Namespace DAL
                 "    AND STRUPDATESTATUS = 'N' " _
             )
             parametersList.Add(New OracleParameter() { _
-                New OracleParameter("modifiedby", UserGCode), _
+                New OracleParameter("modifiedby", CurrentUser.UserID), _
                 New OracleParameter("airsnumber", headerData.AirsNumber.DbFormattedString) _
             })
 

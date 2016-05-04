@@ -15,7 +15,7 @@ Public Class DMUEisGecoTool
     Dim daViewCount As OracleDataAdapter
 
     Private Sub DMUEisGecoTool_Load(sender As Object, e As EventArgs) Handles Me.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
 
             LoadPermissions()
@@ -7497,7 +7497,7 @@ Public Class DMUEisGecoTool
         Dim HorizontalCollectionCode As String
         Dim HorizontalAccuracyMeasure As String
         Dim HorizontalReferenceCode As String
-        Dim UpdateUser As String = UserGCode
+        Dim UpdateUser As String = CurrentUser.UserID
         Dim FIPScode As String = Mid(airsno, 5, 3)
         Dim enrollment As String
 
@@ -7579,7 +7579,7 @@ Public Class DMUEisGecoTool
                                       "STRENROLLMENT = '1', " &
                                       "EISSTATUSCODE = '1', " &
                                       "STRMAILOUT = '1', " &
-                                      "UpdateUser = '" & UserGCode & "', " &
+                                      "UpdateUser = '" & CurrentUser.UserID & "', " &
                                       "DATEISSTATUS = '" & OracleDate & "', " &
                                       "UpdateDateTime = '" & OracleDate & "' " &
                                       "where FACILITYSITEID = '" & facilitySiteID & "' " &
@@ -7827,7 +7827,7 @@ Public Class DMUEisGecoTool
              "EISSTATUSCODE = '" & EISSTATUSCODE & "', " &
              "STRENROLLMENT = '" & enrollment & "', " &
              "Active = '" & active & "', " &
-             "UpdateUser = '" & UserGCode & "', " &
+             "UpdateUser = '" & CurrentUser.UserID & "', " &
              "DATEISSTATUS = '" & OracleDate & "', " &
              "UpdateDateTime = '" & OracleDate & "' " &
              "where FACILITYSITEID = '" & FacilitySiteID & "' " &
@@ -8194,7 +8194,7 @@ Public Class DMUEisGecoTool
             "EISSTATUSCODE = '" & EISSTATUSCODE & "', " &
             "STRENROLLMENT = '" & enrollment & "', " &
             "Active = '" & active & "', " &
-            "UpdateUser = '" & UserGCode & "', " &
+            "UpdateUser = '" & CurrentUser.UserID & "', " &
             "DATEISSTATUS = '" & OracleDate & "', " &
             "UpdateDateTime = '" & OracleDate & "' " &
             "where FACILITYSITEID = '" & facilitySiteID & "' " &
@@ -8257,7 +8257,7 @@ Public Class DMUEisGecoTool
                 "EISACCESSCODE = '" & EISAccessCode & "', " &
                 "EISSTATUSCODE = '" & EISSTATUSCODE & "', " &
                 "STRENROLLMENT = '" & enrollment & "', " &
-                "UpdateUser = '" & UserGCode & "', " &
+                "UpdateUser = '" & CurrentUser.UserID & "', " &
                 "DATEISSTATUS = '" & OracleDate & "', " &
                 "UpdateDateTime = '" & OracleDate & "' " &
                 "where FACILITYSITEID = '" & FacilitySiteID & "' " &
@@ -8317,7 +8317,7 @@ Public Class DMUEisGecoTool
 
         Dim OperationalStatus As String = " "
         Dim FacilityClass As String = " "
-        Dim UpdateUser As String = UserGCode
+        Dim UpdateUser As String = CurrentUser.UserID
 
         Try
             If EISYear = " " Then
@@ -9099,7 +9099,7 @@ Public Class DMUEisGecoTool
         Dim sql As String
         Dim fsid As String = txtEISAIRSNo.Text
         Dim inventoryyear As String = txtEISYear.Text
-        Dim updateuser As String = UserGCode
+        Dim updateuser As String = CurrentUser.UserID
 
         Try
 
@@ -9292,7 +9292,7 @@ Public Class DMUEisGecoTool
         Dim facilityZip As String = txtLocalZip.Text
         Dim sql, sql1 As String
         Dim fsid As String = txtFacilitySiteID.Text
-        Dim updateuser As String = UserGCode
+        Dim updateuser As String = CurrentUser.UserID
 
         Try
             sql = "UPDATE AIRBRANCH.EIS_FACILITYSITE " &
@@ -9722,7 +9722,7 @@ Public Class DMUEisGecoTool
     Private Sub btnChangeEmailAddress_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnChangeEmailAddress.Click
         Try
             If txtWebUserID.Text <> "" Then
-                If EmailAddressIsValid(txtEditEmail.Text) Then
+                If IsValidEmailAddress(txtEditEmail.Text) Then
                     SQL = "Select " &
                     "numUserID, strUserPassword " &
                     "from AIRBRANCH.OLAPUserLogIN " &
@@ -10077,7 +10077,7 @@ Public Class DMUEisGecoTool
                     mtbEIModifyIAIPLatitude.Text = dr.Item("numFacilityLatitude")
                 End If
                 If IsDBNull(dr.Item("STROPERATIONALSTATUS")) Then
-                    cbIaipOperStatus.SelectedValue = FacilityOperationalStatus.Unspecified
+                    cbIaipOperStatus.SelectedValue = FacilityOperationalStatus.U
                 Else
                     cbIaipOperStatus.SelectedValue = [Enum].Parse(GetType(FacilityOperationalStatus), dr.Item("STROPERATIONALSTATUS"))
                 End If
@@ -11522,7 +11522,7 @@ Public Class DMUEisGecoTool
                     "EISAccessCode = '2', " &
                     "EISStatusCode = '4', " &
                     "datEISstatus = sysdate, " &
-                    "UpdateUser = '" & Replace(UserName, "'", "''") & "', " &
+                    "UpdateUser = '" & Replace(CurrentUser.AlphaName, "'", "''") & "', " &
                     "updatedatetime = sysdate " &
                     "where strOptOut = '0' " &
                     "and inventoryYear = '" & EISConfirm & "' " &
@@ -11550,7 +11550,7 @@ Public Class DMUEisGecoTool
                     "EISAccessCode = '2', " &
                     "EISStatusCode = '5', " &
                     "datEISstatus = sysdate, " &
-                    "UpdateUser = '" & Replace(UserName, "'", "''") & "', " &
+                    "UpdateUser = '" & Replace(CurrentUser.AlphaName, "'", "''") & "', " &
                     "updatedatetime = sysdate " &
                     "where strOptOut = '1' " &
                     "and inventoryYear = '" & EISConfirm & "' " &
@@ -11570,9 +11570,9 @@ Public Class DMUEisGecoTool
                         "'" & EISConfirm & "', '" & dgvEISStats(1, i).Value & "', " &
                         "sysdate, '', " &
                         "'1', sysdate, " &
-                        "'" & UserName & "', " &
+                        "'" & CurrentUser.AlphaName & "', " &
                         "'', '', " &
-                        "'1', '" & UserName & "', " &
+                        "'1', '" & CurrentUser.AlphaName & "', " &
                         "sysdate, sysdate, " &
                         "'', '', '', '' " &
                         "from dual " &
@@ -11695,7 +11695,7 @@ Public Class DMUEisGecoTool
             "datEnrollment = '" & dtpEILogDateEnrolled.Text & "', " &
             "strComment = '" & Replace(txtEILogComments.Text, "'", "''") & "', " &
             "active = '" & ActiveStatus & "', " &
-            "updateUser = '" & Replace(UserName, "'", "''") & "', " &
+            "updateUser = '" & Replace(CurrentUser.AlphaName, "'", "''") & "', " &
             "updateDateTime = sysdate " &
             "where inventoryyear = '" & cboEILogYear.Text & "' " &
             "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
@@ -11708,10 +11708,10 @@ Public Class DMUEisGecoTool
 
             If dtpDeadlineEIS.Checked = True Then
                 Dim DeadLineComments As String = ""
-                If txtAllEISDeadlineComment.Text.Contains(dtpDeadlineEIS.Text & "(deadline)- " & UserName & " - " & OracleDate & vbCrLf &
+                If txtAllEISDeadlineComment.Text.Contains(dtpDeadlineEIS.Text & "(deadline)- " & CurrentUser.AlphaName & " - " & OracleDate & vbCrLf &
                 txtEISDeadlineComment.Text) Then
                 Else
-                    DeadLineComments = dtpDeadlineEIS.Text & "(deadline)- " & UserName & " - " & OracleDate & vbCrLf &
+                    DeadLineComments = dtpDeadlineEIS.Text & "(deadline)- " & CurrentUser.AlphaName & " - " & OracleDate & vbCrLf &
                     txtEISDeadlineComment.Text &
                     vbCrLf & vbCrLf & txtAllEISDeadlineComment.Text
 
@@ -11764,9 +11764,9 @@ Public Class DMUEisGecoTool
                     End If
                 Else
                     If txtAllQAComments.Text = "" Then
-                        QAComments = UserName & " - " & OracleDate & vbCrLf & txtQAComments.Text
+                        QAComments = CurrentUser.AlphaName & " - " & OracleDate & vbCrLf & txtQAComments.Text
                     Else
-                        QAComments = UserName & " - " & OracleDate & vbCrLf & txtQAComments.Text & vbCrLf & vbCrLf &
+                        QAComments = CurrentUser.AlphaName & " - " & OracleDate & vbCrLf & txtQAComments.Text & vbCrLf & vbCrLf &
                              txtAllQAComments.Text
                     End If
                 End If
@@ -11778,9 +11778,9 @@ Public Class DMUEisGecoTool
                     End If
                 Else
                     If txtAllFITrackingNumbers.Text = "" Then
-                        FITracking = UserName & " - " & OracleDate & vbCrLf & txtFITrackingNumber.Text
+                        FITracking = CurrentUser.AlphaName & " - " & OracleDate & vbCrLf & txtFITrackingNumber.Text
                     Else
-                        FITracking = UserName & " - " & OracleDate & vbCrLf & txtFITrackingNumber.Text & vbCrLf & vbCrLf &
+                        FITracking = CurrentUser.AlphaName & " - " & OracleDate & vbCrLf & txtFITrackingNumber.Text & vbCrLf & vbCrLf &
                                     txtAllFITrackingNumbers.Text
                     End If
                 End If
@@ -11797,9 +11797,9 @@ Public Class DMUEisGecoTool
                     End If
                 Else
                     If txtAllPointTrackingNumbers.Text = "" Then
-                        pointTracking = UserName & " - " & OracleDate & vbCrLf & txtPointTrackingNumber.Text
+                        pointTracking = CurrentUser.AlphaName & " - " & OracleDate & vbCrLf & txtPointTrackingNumber.Text
                     Else
-                        pointTracking = UserName & " - " & OracleDate & vbCrLf & txtPointTrackingNumber.Text & vbCrLf & vbCrLf &
+                        pointTracking = CurrentUser.AlphaName & " - " & OracleDate & vbCrLf & txtPointTrackingNumber.Text & vbCrLf & vbCrLf &
                                 txtAllPointTrackingNumbers.Text
                     End If
                 End If
@@ -11842,7 +11842,7 @@ Public Class DMUEisGecoTool
                "datQAComplete = '" & QAComplete & "', " &
                "strComment = '" & Replace(QAComments, "'", "''") & "', " &
                "active = '1', " &
-               "updateuser = '" & Replace(UserName, "'", "''") & "', " &
+               "updateuser = '" & Replace(CurrentUser.AlphaName, "'", "''") & "', " &
                "updateDateTime = sysdate, " &
                "strFITrackingnumber = '" & Replace(FITracking, "'", "''") & "', " &
                "strFIError = '" & Replace(FIError, "'", "''") & "', " &
@@ -11964,9 +11964,9 @@ Public Class DMUEisGecoTool
                 End If
             Else
                 If txtAllQAComments.Text = "" Then
-                    QAComments = UserName & " - " & OracleDate & vbCrLf & txtQAComments.Text
+                    QAComments = CurrentUser.AlphaName & " - " & OracleDate & vbCrLf & txtQAComments.Text
                 Else
-                    QAComments = UserName & " - " & OracleDate & vbCrLf & txtQAComments.Text & vbCrLf & vbCrLf &
+                    QAComments = CurrentUser.AlphaName & " - " & OracleDate & vbCrLf & txtQAComments.Text & vbCrLf & vbCrLf &
                          txtAllQAComments.Text
                 End If
             End If
@@ -11978,9 +11978,9 @@ Public Class DMUEisGecoTool
                 End If
             Else
                 If txtAllFITrackingNumbers.Text = "" Then
-                    FITracking = UserName & " - " & OracleDate & vbCrLf & txtFITrackingNumber.Text
+                    FITracking = CurrentUser.AlphaName & " - " & OracleDate & vbCrLf & txtFITrackingNumber.Text
                 Else
-                    FITracking = UserName & " - " & OracleDate & vbCrLf & txtFITrackingNumber.Text & vbCrLf & vbCrLf &
+                    FITracking = CurrentUser.AlphaName & " - " & OracleDate & vbCrLf & txtFITrackingNumber.Text & vbCrLf & vbCrLf &
                                 txtAllFITrackingNumbers.Text
                 End If
             End If
@@ -11998,9 +11998,9 @@ Public Class DMUEisGecoTool
                 End If
             Else
                 If txtAllPointTrackingNumbers.Text = "" Then
-                    PointTracking = UserName & " - " & OracleDate & vbCrLf & txtPointTrackingNumber.Text
+                    PointTracking = CurrentUser.AlphaName & " - " & OracleDate & vbCrLf & txtPointTrackingNumber.Text
                 Else
-                    PointTracking = UserName & " - " & OracleDate & vbCrLf & txtPointTrackingNumber.Text & vbCrLf & vbCrLf &
+                    PointTracking = CurrentUser.AlphaName & " - " & OracleDate & vbCrLf & txtPointTrackingNumber.Text & vbCrLf & vbCrLf &
                             txtAllPointTrackingNumbers.Text
                 End If
             End If
@@ -12019,7 +12019,7 @@ Public Class DMUEisGecoTool
             "datQAComplete = '" & QAComplete & "', " &
             "strComment = '" & Replace(QAComments, "'", "''") & "', " &
             "active = '1', " &
-            "updateuser = '" & Replace(UserName, "'", "''") & "', " &
+            "updateuser = '" & Replace(CurrentUser.AlphaName, "'", "''") & "', " &
             "updateDateTime = sysdate, " &
             "strFITrackingnumber = '" & Replace(FITracking, "'", "''") & "', " &
             "strFIError = '" & Replace(FIError, "'", "''") & "', " &
@@ -12184,8 +12184,8 @@ Public Class DMUEisGecoTool
                 SQL = "Update AIRBranch.APBFacilityInformation set " &
                 "numFacilityLongitude = '-" & mtbEIModifyLongitude.Text & "', " &
                 "numFacilityLatitude = '" & mtbEIModifyLatitude.Text & "', " &
-                "strComments = 'Updated by " & UserName & " through DMU Staff Tools - Emissions Inventory Log. ', " &
-                "strModifingPerson = '" & UserGCode & "', " &
+                "strComments = 'Updated by " & CurrentUser.AlphaName & " through DMU Staff Tools - Emissions Inventory Log. ', " &
+                "strModifingPerson = '" & CurrentUser.UserID & "', " &
                 "datModifingDate = sysdate " &
                 "where strAIRSNumber = '0413" & txtEILogSelectedAIRSNumber.Text & "' "
 
@@ -12224,7 +12224,7 @@ Public Class DMUEisGecoTool
             Dim parameters As OracleParameter() = New OracleParameter() {
                 New OracleParameter("statuscode", cbEisModifyOperStatus.SelectedValue.ToString),
                 New OracleParameter("sitecomment", "Site status updated from IAIP"),
-                New OracleParameter("updateuser", CurrentUser.UserID & "-" & CurrentUser.Staff.AlphaName),
+                New OracleParameter("updateuser", CurrentUser.UserID & "-" & CurrentUser.AlphaName),
                 New OracleParameter("siteid", txtEILogSelectedAIRSNumber.Text)
             }
 
@@ -12247,7 +12247,7 @@ Public Class DMUEisGecoTool
         mtbEIModifyLatitude.Text = mtbEIModifyIAIPLatitude.Text
         mtbEIModifyLongitude.Text = mtbEIModifyIAIPLongitude.Text
         Select Case CType(cbIaipOperStatus.SelectedValue, FacilityOperationalStatus)
-            Case FacilityOperationalStatus.C, FacilityOperationalStatus.I, FacilityOperationalStatus.P, FacilityOperationalStatus.Unspecified
+            Case FacilityOperationalStatus.C, FacilityOperationalStatus.I, FacilityOperationalStatus.P, FacilityOperationalStatus.U
                 cbEisModifyOperStatus.SelectedValue = EisSiteStatus.UNK
             Case FacilityOperationalStatus.O
                 cbEisModifyOperStatus.SelectedValue = EisSiteStatus.OP
@@ -12778,11 +12778,11 @@ Public Class DMUEisGecoTool
                 Next
                 temp = " and ( " & Mid(temp, 1, (temp.Length - 3)) & " ) "
 
-                SQL = "Update AIRBranch.EIS_Admin set " &
+                SQL = "Update AIRBranch.EIS_Admin set " &               
                 "EISAccessCode = '0', " &
                 "EISStatusCode = '5', " &
                 "datEISstatus = sysdate, " &
-                "UpdateUser = '" & Replace(UserName, "'", "''") & "', " &
+                "UpdateUser = '" & Replace(CurrentUser.AlphaName, "'", "''") & "', " &
                 "updatedatetime = sysdate " &
                 "where inventoryYear = '" & EISConfirm & "' " &
                 temp
@@ -13523,7 +13523,7 @@ Public Class DMUEisGecoTool
                   "EISAccessCode = '2', " & _
                   "EISStatusCode = '3', " & _
                   "datEISstatus = sysdate, " & _
-                  "UpdateUser = '" & Replace(UserName, "'", "''") & "', " & _
+                  "UpdateUser = '" & Replace(CurrentUser.AlphaName, "'", "''") & "', " & _
                   "updatedatetime = sysdate " & _
                   "where inventoryYear = '" & EISConfirm & "' " & _
                   "and facilitysiteid = '" & txtEILogSelectedAIRSNumber.Text & "' "

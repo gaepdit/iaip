@@ -68,7 +68,7 @@ Namespace DAL.Sscp
             With fce
                 .FceNumber = DB.GetNullable(Of String)(row("STRFCENUMBER"))
                 .Facility = GetFacility(New Apb.ApbFacilityId(row("STRAIRSNUMBER")))
-                .StaffResponsible = GetStaff(row("STRREVIEWER"))
+                .StaffResponsible = GetIaipUserByUserId(row("STRREVIEWER"))
                 .DateComplete = DB.GetNullable(Of Date)(row("DATFCECOMPLETED"))
                 .Comments = DB.GetNullable(Of String)(row("STRFCECOMMENTS"))
                 .SiteVisitTypeDbCode = Convert.ToBoolean(DB.GetNullable(Of String)(row("STRSITEINSPECTION")))

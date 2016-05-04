@@ -1,7 +1,7 @@
 ﻿Imports System.Collections.Generic
 Imports EQATEC.Analytics.Monitor
 
-Module Analytics
+Module EqatecAnalytics
     ' Initialize and set up EQATEC.Analytics.Monitor Library
 
     Public monitor As IAnalyticsMonitor
@@ -31,6 +31,20 @@ Module Analytics
         monitor.SetInstallationInfo(Environment.MachineName, monitorInstallationInfo)
     End Sub
 
+    Public Sub AddMonitorLoginData()
+        ' Add additional installation meta data for analytics
+        monitorInstallationInfo.Add("IaipUsername", CurrentUser.Username)
+        monitor.SetInstallationInfo(CurrentUser.Username, monitorInstallationInfo)
+#If DEBUG Then
+        monitor.TrackFeature("Main.TestingEnvironment")
+#ElseIf UAT Then
+        monitor.TrackFeature("Main.UatEnvironment")
+#Else
+        monitor.TrackFeature("Main.ProductionEnvironment")
+#End If
+        monitor.ForceSync()
+    End Sub
+
     Public Sub StopMonitor()
         If monitor IsNot Nothing Then
             With monitor
@@ -39,6 +53,7 @@ Module Analytics
                 .Dispose()
             End With
         End If
+        monitorInstallationInfo.Clear()
     End Sub
 
 End Module

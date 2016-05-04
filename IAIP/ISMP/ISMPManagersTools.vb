@@ -45,7 +45,7 @@ Public Class ISMPManagersTools
 
 
     Private Sub ISMPManagersTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
             CreateStatusBar()
             ShowCorrectTabs()
@@ -84,7 +84,7 @@ Public Class ISMPManagersTools
         Try
 
             panel1.Text = "Select a Function..."
-            panel2.Text = UserName
+            panel2.Text = CurrentUser.AlphaName
             panel3.Text = OracleDate
 
             panel1.AutoSize = StatusBarPanelAutoSize.Spring
@@ -119,45 +119,43 @@ Public Class ISMPManagersTools
     Sub ShowCorrectTabs()
         Try
 
-            If UserAccounts <> "" Then
-                TCManagersTools.TabPages.Remove(TPAIRSReportsPrinted)
-                TCManagersTools.TabPages.Remove(TPMonthlyReport)
-                TCManagersTools.TabPages.Remove(TPReportAssignment)
-                TCManagersTools.TabPages.Remove(TPTestReportStatistics)
-                TCManagersTools.TabPages.Remove(TPUnitStatistics)
-                TCManagersTools.TabPages.Remove(TPUnitAssignment)
-                TCManagersTools.TabPages.Remove(TPUnitStatistics2)
-                TCManagersTools.TabPages.Remove(TPExcelFiles)
-                TCManagersTools.TabPages.Remove(TPMiscTools)
-                TCManagersTools.TabPages.Remove(TPApplicationsReviewed)
+            TCManagersTools.TabPages.Remove(TPAIRSReportsPrinted)
+            TCManagersTools.TabPages.Remove(TPMonthlyReport)
+            TCManagersTools.TabPages.Remove(TPReportAssignment)
+            TCManagersTools.TabPages.Remove(TPTestReportStatistics)
+            TCManagersTools.TabPages.Remove(TPUnitStatistics)
+            TCManagersTools.TabPages.Remove(TPUnitAssignment)
+            TCManagersTools.TabPages.Remove(TPUnitStatistics2)
+            TCManagersTools.TabPages.Remove(TPExcelFiles)
+            TCManagersTools.TabPages.Remove(TPMiscTools)
+            TCManagersTools.TabPages.Remove(TPApplicationsReviewed)
 
-                TCMiscTools.TabPages.Remove(TPMethods)
+            TCMiscTools.TabPages.Remove(TPMethods)
 
-                'Program Manager 
-                If AccountFormAccess(17, 3) = "1" Then
+            'Program Manager 
+            If AccountFormAccess(17, 3) = "1" Then
+                TCManagersTools.TabPages.Add(TPReportAssignment)
+                TCManagersTools.TabPages.Add(TPMonthlyReport)
+                TCManagersTools.TabPages.Add(TPUnitStatistics2)
+                TCManagersTools.TabPages.Add(TPUnitStatistics)
+                TCManagersTools.TabPages.Add(TPAIRSReportsPrinted)
+                'TCManagersTools.TabPages.Add(Me.TPExcelFiles)
+                TCManagersTools.TabPages.Add(TPMiscTools)
+                TCMiscTools.TabPages.Add(TPMethods)
+
+                ShowCorrectPanels()
+                LoadAFSPrintList()
+            Else
+                'Unit Manager 
+                If AccountFormAccess(17, 2) = "1" Then
+                    TCManagersTools.TabPages.Add(TPUnitAssignment)
                     TCManagersTools.TabPages.Add(TPReportAssignment)
-                    TCManagersTools.TabPages.Add(TPMonthlyReport)
                     TCManagersTools.TabPages.Add(TPUnitStatistics2)
                     TCManagersTools.TabPages.Add(TPUnitStatistics)
-                    TCManagersTools.TabPages.Add(TPAIRSReportsPrinted)
                     'TCManagersTools.TabPages.Add(Me.TPExcelFiles)
                     TCManagersTools.TabPages.Add(TPMiscTools)
                     TCMiscTools.TabPages.Add(TPMethods)
-
                     ShowCorrectPanels()
-                    LoadAFSPrintList()
-                Else
-                    'Unit Manager 
-                    If AccountFormAccess(17, 2) = "1" Then
-                        TCManagersTools.TabPages.Add(TPUnitAssignment)
-                        TCManagersTools.TabPages.Add(TPReportAssignment)
-                        TCManagersTools.TabPages.Add(TPUnitStatistics2)
-                        TCManagersTools.TabPages.Add(TPUnitStatistics)
-                        'TCManagersTools.TabPages.Add(Me.TPExcelFiles)
-                        TCManagersTools.TabPages.Add(TPMiscTools)
-                        TCMiscTools.TabPages.Add(TPMethods)
-                        ShowCorrectPanels()
-                    End If
                 End If
             End If
         Catch ex As Exception
@@ -168,36 +166,32 @@ Public Class ISMPManagersTools
     Sub ShowCorrectPanels()
         Try
 
-            Select Case UserUnit
-                Case ""
+            Select Case CurrentUser.UnitId
+                Case 0
                     PanelCombustMineral.Visible = True
                     txtDaysOpen.ReadOnly = False
                     PanelChemVOC.Visible = True
                     txtDaysOpen2.ReadOnly = True
                     PanelAll.Visible = True
 
-                Case "12"
+                Case 12
                     PanelCombustMineral.Visible = False
                     txtDaysOpen.ReadOnly = False
                     txtDaysOpen2.ReadOnly = True
                     PanelChemVOC.Visible = True
                     PanelAll.Visible = True
-                Case "13"
+                Case 13
                     PanelCombustMineral.Visible = True
                     txtDaysOpen.ReadOnly = True
                     txtDaysOpen2.ReadOnly = False
                     PanelChemVOC.Visible = False
                     PanelAll.Visible = True
-                Case "14"
+                Case 14
                     PanelCombustMineral.Visible = True
                     txtDaysOpen.ReadOnly = False
                     txtDaysOpen2.ReadOnly = True
                     PanelChemVOC.Visible = True
                     PanelAll.Visible = True
-                    'Case Else
-                    '    PanelCombustMineral.Visible = False
-                    '    PanelChemVOC.Visible = False
-                    '    PanelAll.Visible = True
                 Case Else
                     PanelAll.Visible = True
             End Select
@@ -278,26 +272,26 @@ Public Class ISMPManagersTools
                 MmiByEngineer.MenuItems.Add(row("UserName"))
             Next
 
-            If UserUnit = "" Then
+            If CurrentUser.UnitId = 0 Then
                 drEngineers = dtEngineers2.Select()
             Else
                 drEngineers = dtEngineers2.Select("numUnit is Null")
             End If
 
-            Select Case UserUnit
-                Case "12"
+            Select Case CurrentUser.UnitId
+                Case 12
                     drEngineers = dtEngineers2.Select("numUnit = '12'")
                     For Each row In drEngineers
                         clbEngineers1.Items.Add(row("UserName"))
                         clbEngineersList2.Items.Add(row("UserName"))
                     Next
-                Case "13"
+                Case 13
                     drEngineers = dtEngineers2.Select("numUnit = '13'")
                     For Each row In drEngineers
                         clbEngineers2.Items.Add(row("UserName"))
                         clbEngineersList2.Items.Add(row("UserName"))
                     Next
-                Case "14"
+                Case 14
                     drEngineers = dtEngineers2.Select("numUnit = '12'")
                     For Each row In drEngineers
                         clbEngineers1.Items.Add(row("UserName"))
@@ -866,7 +860,7 @@ Public Class ISMPManagersTools
                     "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " & _
                     "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " & _
                     "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " & _
-                    "and strReviewingUnit = '" & UserGCode & "' " & _
+                    "and strReviewingUnit = '" & CurrentUser.UserID & "' " & _
                       "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
                 Else
                     SQL = ""
@@ -1058,7 +1052,7 @@ Public Class ISMPManagersTools
                     "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " & _
                     "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " & _
                     "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " & _
-                    "and strReviewingUnit = '" & UserGCode & "' " & _
+                    "and strReviewingUnit = '" & CurrentUser.UserID & "' " & _
                      "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer <> '0' " & _
                        "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
                 Else
@@ -1188,7 +1182,7 @@ Public Class ISMPManagersTools
                     "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " & _
                     "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " & _
                     "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " & _
-                    "and strReviewingUnit = '" & UserGCode & "' " & _
+                    "and strReviewingUnit = '" & CurrentUser.UserID & "' " & _
                     "and AIRBRANCH.ISMPReportInformation.strDelete is not NULL"
                 Else
                     SQL = ""
@@ -1253,7 +1247,7 @@ Public Class ISMPManagersTools
                     "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " & _
                     "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " & _
                     "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " & _
-                    "and strReviewingUnit = '" & UserGCode & "' " & _
+                    "and strReviewingUnit = '" & CurrentUser.UserID & "' " & _
                     "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = '0' " & _
                     "and AIRBRANCH.ISMPReportInformation.strDocumentType = '" & ReportType & "' " & _
                     "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
@@ -1320,7 +1314,7 @@ Public Class ISMPManagersTools
                     "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " & _
                     "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " & _
                     "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " & _
-                    "and strReviewingUnit = '" & UserGCode & "' " & _
+                    "and strReviewingUnit = '" & CurrentUser.UserID & "' " & _
                     "and AIRBRANCH.ISMPReportInformation.strDocumentType = '" & ReportType & "' " & _
                     "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer <> '0' " & _
                     "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
@@ -1388,7 +1382,7 @@ Public Class ISMPManagersTools
                     "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " & _
                     "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " & _
                     "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " & _
-                    "and strReviewingUnit = '" & UserGCode & "' " & _
+                    "and strReviewingUnit = '" & CurrentUser.UserID & "' " & _
                     "and AIRBRANCH.ISMPReportInformation.strDocumentType = '" & ReportType & "' " & _
                     "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
                 Else
@@ -1454,7 +1448,7 @@ Public Class ISMPManagersTools
                     "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " & _
                     "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " & _
                     "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " & _
-                    "and strReviewingUnit = '" & UserGCode & "' " & _
+                    "and strReviewingUnit = '" & CurrentUser.UserID & "' " & _
                       "and AIRBRANCH.ISMPMaster.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " & _
                     "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
                 Else
@@ -1549,18 +1543,13 @@ Public Class ISMPManagersTools
                         'AssignDate = AssignDate
                     End If
 
-                    Dim tempUnit As String
-                    If UserUnit = "---" Then
-                        tempUnit = "0"
-                    Else
-                        tempUnit = UserUnit
-                    End If
+                    Dim tempUnit As String = CurrentUser.UnitId.ToString
 
                     SQL = "Update AIRBRANCH.ISMPReportInformation set " & _
                     "strReviewingEngineer = '" & EngineerGCode & "', " & _
                     "datReviewedBYUnitManager = '" & AssignDate & "', " & _
                     "strReviewingUnit = '" & tempUnit & "', " & _
-                    "numReviewingManager = '" & UserGCode & "', " & _
+                    "numReviewingManager = '" & CurrentUser.UserID & "', " & _
                     "strPreComplianceStatus = '" & PreCompliance & "' " & _
                     "where AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & strObject.ToString() & "'"
 
@@ -5953,7 +5942,7 @@ Public Class ISMPManagersTools
     Private Sub llbViewReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewReport.LinkClicked
         Try
             Dim id As String = txtReferenceNumber.Text
-            If DAL.Ismp.StackTestExists(id) Then OpenMultiForm("ISMPTestReports", id)
+            If DAL.Ismp.StackTestExists(id) Then OpenMultiForm(ISMPTestReports, id)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -6309,7 +6298,7 @@ Public Class ISMPManagersTools
     Private Sub btnViewTestReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewTestReport.Click
         Try
             Dim id As String = txtUnitStatReferenceNumber.Text
-            If DAL.Ismp.StackTestExists(id) Then OpenMultiForm("ISMPTestReports", id)
+            If DAL.Ismp.StackTestExists(id) Then OpenMultiForm(ISMPTestReports, id)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -6593,7 +6582,7 @@ Public Class ISMPManagersTools
                 SQL = "Insert into AIRBRANCH.ISMPMaster " & _
                 "values " & _
                 "('" & RefNum & "', '0413" & AIRSNumber & "', " & _
-                "'" & UserGCode & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -6615,7 +6604,7 @@ Public Class ISMPManagersTools
                 "'False', '" & Replace(Commissioner, "'", "''") & "', " & _
                 "'" & Replace(Director, "'", "''") & "', '" & Replace(ProgramManager, "'", "''") & "', " & _
                 "'01', '0', " & _
-                "'" & UserGCode & "', '" & OracleDate & "', " & _
+                "'" & CurrentUser.UserID & "', '" & OracleDate & "', " & _
                 "'N/A', '', " & _
                 "'', '', " & _
                 "'', '') "

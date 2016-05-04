@@ -1,75 +1,57 @@
 ﻿Imports System.Collections.Generic
+Imports Microsoft.ApplicationInsights.DataContracts
 
 Public Class BaseForm
 
 #Region "Properties"
 
-    Private _id As Integer
     Public Property ID() As Integer
-        Get
-            Return _id
-        End Get
-        Set(ByVal value As Integer)
-            _id = value
-        End Set
-    End Property
+    Public Property Parameters() As Dictionary(Of FormParameter, String)
+    Private whenOpened As Date = Date.Now
+    
+    Public Enum FormParameter
+        AirsNumber
+        FeeYear
+        TrackingNumber
+        EnforcementId
+        FacilityName
+        Key
+    End Enum
 
-    Private _parameters As Dictionary(Of String, String)
-    Public Property Parameters() As Dictionary(Of String, String)
-        Get
-            Return _parameters
-        End Get
-        Set(ByVal value As Dictionary(Of String, String))
-            _parameters = value
-        End Set
-    End Property
 
 #End Region
 
 #Region "Form events"
 
-    Private Sub BaseForm_Disposed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Disposed
-        Try
+    Private Sub BaseForm_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
-            If MultiForm IsNot Nothing AndAlso _
-            MultiForm.ContainsKey(Me.Name) AndAlso _
-            MultiForm(Me.Name).ContainsKey(Me.ID) Then
-                MultiForm(Me.Name).Remove(Me.ID)
-            End If
-
-            If SingleForm IsNot Nothing AndAlso _
-            SingleForm.ContainsKey(Me.Name) Then
-                SingleForm.Remove(Me.Name)
-            End If
-
-            '    If CurrentConnection.State = ConnectionState.Open Then
-            '        CurrentConnection.Close()
-            '    End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub BaseForm_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
-#If Not Debug Then
-        ' CurrentConnectionEnvironment variable is not available in design mode
-        If Not Me.DesignMode _
-        AndAlso (CurrentServerEnvironment <> DB.DefaultServerEnvironment) Then
-            Me.Icon = My.Resources.TestingIcon
-        End If
-#End If
-
-#If BETA Then
-        Me.Icon = My.Resources.BetaIcon
+#If DEBUG Then
+        Me.Icon = My.Resources.DevIcon
+#ElseIf UAT Then
+        Me.Icon = My.Resources.UatIcon
 #End If
 
         LoadThisFormSettings()
     End Sub
 
-    Private Sub BaseForm_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub BaseForm_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+        LogPageView()
+
         SaveThisFormSettings()
+
+        If MultiForm IsNot Nothing AndAlso
+        MultiForm.ContainsKey(Me.Name) AndAlso
+        MultiForm(Me.Name).ContainsKey(Me.ID) Then
+            MultiForm(Me.Name).Remove(Me.ID)
+        ElseIf SingleForm IsNot Nothing AndAlso
+        SingleForm.ContainsKey(Me.Name) Then
+            SingleForm.Remove(Me.Name)
+        End If
+    End Sub
+
+    Private Sub LogPageView()
+        ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipForms, Me.Name, Date.Now - whenOpened)
+        monitor.TrackFeature("Forms." & Me.Name)
     End Sub
 
 #End Region

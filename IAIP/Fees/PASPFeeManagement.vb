@@ -7,7 +7,7 @@ Public Class PASPFeeManagement
     Dim da As OracleDataAdapter
 
     Private Sub PASPFeeManagement_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
             LoadFeeRates("1")
             LoadNSPSExemptions("1")
@@ -975,7 +975,7 @@ Public Class PASPFeeManagement
             SQL = "Update AIRBRANCH.FS_Admin set " & _
             "strEnrolled = '1', " & _
             "datEnrollment = sysdate, " & _
-            "updateUser = 'IAIP||" & UserName & "', " & _
+            "updateUser = 'IAIP||" & CurrentUser.AlphaName & "', " & _
             "UpdateDateTime = '" & OracleDate & "', " & _
              "numCurrentStatus = 3 " & _
             "where numFeeYear = '" & cboAvailableFeeYears.Text & "' " & _
@@ -1048,7 +1048,7 @@ Public Class PASPFeeManagement
             "strEnrolled = '0', " & _
             "datEnrollment = '', " & _
             "datInitialEnrollment = '', " & _
-            "updateUser = 'IAIP||" & UserName & "', " & _
+            "updateUser = 'IAIP||" & CurrentUser.AlphaName & "', " & _
             "UpdateDateTime = '" & OracleDate & "' " & _
             "where numFeeYear = '" & cboAvailableFeeYears.Text & "' " & _
             "and ACTIVE = '1' "
@@ -2367,7 +2367,7 @@ Public Class PASPFeeManagement
     Private Sub btnChangeEmailAddress_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnChangeEmailAddress.Click
         Try
             If txtWebUserID.Text <> "" Then
-                If EmailAddressIsValid(txtEditEmail.Text) Then
+                If IsValidEmailAddress(txtEditEmail.Text) Then
                     SQL = "Select " & _
                     "numUserID, strUserPassword " & _
                     "from AIRBRANCH.OLAPUserLogIN " & _
@@ -2567,13 +2567,13 @@ Public Class PASPFeeManagement
     End Sub
 
     Private Sub btnOpenFeesLog_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenFeesLog.Click
-        Dim parameters As New Generic.Dictionary(Of String, String)
+        Dim parameters As New Generic.Dictionary(Of BaseForm.FormParameter, String)
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbCheckAIRSNumber.Text) Then
-            parameters("airsnumber") = mtbCheckAIRSNumber.Text
+            parameters(FormParameter.AirsNumber) = mtbCheckAIRSNumber.Text
         End If
-        parameters("feeyear") = cboAvailableFeeYears.Text
+        parameters(FormParameter.FeeYear) = cboAvailableFeeYears.Text
 
-        OpenSingleForm("PASPFeeAuditLog", parameters:=parameters, closeFirst:=True)
+        OpenSingleForm(PASPFeeAuditLog, parameters:=parameters, closeFirst:=True)
     End Sub
 
     Private Sub dgvFeeManagementLists_SelectionChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles dgvFeeManagementLists.SelectionChanged
@@ -2668,7 +2668,7 @@ Public Class PASPFeeManagement
             "'" & NSPSFee & "', '" & FeeDueDate & "', " & _
             "'" & AdminFee & "', " & _
             "'" & AdminApplicable & "', '" & Replace(Comments, "'", "''") & "', " & _
-            "'1', '" & UserGCode & "', " & _
+            "'1', '" & CurrentUser.UserID & "', " & _
             "(to_char(sysdate, 'DD-mon-YY HH12:MI:SS')), " & _
             "(to_char(sysdate, 'DD-mon-YY HH12:MI:SS')), " & _
             "'" & FirstQrtDue & "', '" & SecondQrtDue & "', " & _
@@ -2778,7 +2778,7 @@ Public Class PASPFeeManagement
             "datAdminApplicable = '" & AdminApplicable & "', " & _
             "strComments = '" & Replace(Comments, "'", "''") & "', " & _
             "Active = '" & Active & "', " & _
-            "UpdateUser = '" & UserGCode & "', " & _
+            "UpdateUser = '" & CurrentUser.UserID & "', " & _
             "upDateDateTime = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " & _
             "datFirstQrtDue = '" & FirstQrtDue & "', " & _
             "datSecondQrtDue = '" & SecondQrtDue & "', " & _
@@ -2807,7 +2807,7 @@ Public Class PASPFeeManagement
             "Values " & _
             "((select max(NSPSReasonCode) + 1 from AIRBRANCH.FSLK_NSPSReason), " & _
             "'" & Replace(Description, "'", "''") & "', " & _
-            "'1', '" & UserGCode & "', " & _
+            "'1', '" & CurrentUser.UserID & "', " & _
             "'" & OracleDate & "', '" & OracleDate & "') "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2830,14 +2830,14 @@ Public Class PASPFeeManagement
             If Description = "" Then
                 Sql = "Update AIRBRANCH.FSLK_NSPSReason set " & _
                 "Active = '" & ActiveStatus & "', " & _
-                "updateUser = '" & UserGCode & "', " & _
+                "updateUser = '" & CurrentUser.UserID & "', " & _
                 "UpdateDateTime = '" & OracleDate & "' " & _
                 "where NSPSReasonCode = '" & NSPSReasonCode & "' "
             Else
                 Sql = "Update AIRBRANCH.FSLK_NSPSReason set " & _
                 "Description = '" & Replace(Description, "'", "''") & "', " & _
                 "Active = '" & ActiveStatus & "', " & _
-                "updateUser = '" & UserGCode & "', " & _
+                "updateUser = '" & CurrentUser.UserID & "', " & _
                 "UpdateDateTime = '" & OracleDate & "' " & _
                 "where NSPSReasonCode = '" & NSPSReasonCode & "' "
             End If
@@ -2862,7 +2862,7 @@ Public Class PASPFeeManagement
             "values " & _
             "('" & numFeeYear & "', '" & NSPSReasonCode & "', " & _
             "'" & DisplayOrder & "', '1', " & _
-            "'" & UserGCode & "', '" & OracleDate & "', " & _
+            "'" & CurrentUser.UserID & "', '" & OracleDate & "', " & _
             "'" & OracleDate & "') "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2883,7 +2883,7 @@ Public Class PASPFeeManagement
             "NSPSReasonCode = '" & NSPSReasonCode & "', " & _
             "DisplayOrder = '" & DisplayOrder & "', " & _
             "Active = '" & ActiveStatus & "', " & _
-            "updateUser = '" & UserGCode & "', " & _
+            "updateUser = '" & CurrentUser.UserID & "', " & _
             "updateDateTime = '" & OracleDate & "' " & _
             "where numFeeYear = '" & numFeeYear & "' " & _
             "and NSPSReasonCode = '" & NSPSReasonCode & "' "

@@ -63,9 +63,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         '''</summary>
-        Friend ReadOnly Property BetaIcon() As System.Drawing.Icon
+        Friend ReadOnly Property DevIcon() As System.Drawing.Icon
             Get
-                Dim obj As Object = ResourceManager.GetObject("BetaIcon", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("DevIcon", resourceCulture)
                 Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
@@ -73,10 +73,20 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property BetaLogo() As System.Drawing.Bitmap
+        '''  Looks up a localized string similar to Welcome! An account has been created for you in the Integrated Air Information Platform (IAIP). Your login details are as follows…
+        '''
+        '''    Username: {0}
+        '''    Temporary password: {1}
+        '''
+        '''The first time you log in, you will be asked to change your password and verify your profile.
+        '''
+        '''Information about the IAIP, including installation instructions, is available at http://dmu.georgiaair.org/iaip/
+        '''
+        '''Important! Per DNR policy, the IAIP may be installed on a privately-owned computer, but only if your computer has s [rest of string was truncated]&quot;;.
+        '''</summary>
+        Friend ReadOnly Property EmailNewUserWelcome() As String
             Get
-                Dim obj As Object = ResourceManager.GetObject("BetaLogo", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
+                Return ResourceManager.GetString("EmailNewUserWelcome", resourceCulture)
             End Get
         End Property
         
@@ -153,10 +163,20 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         '''</summary>
-        Friend ReadOnly Property TestingIcon() As System.Drawing.Icon
+        Friend ReadOnly Property UatIcon() As System.Drawing.Icon
             Get
-                Dim obj As Object = ResourceManager.GetObject("TestingIcon", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("UatIcon", resourceCulture)
                 Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property UatLogo() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("UatLogo", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
     End Module

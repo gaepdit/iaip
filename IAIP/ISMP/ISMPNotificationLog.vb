@@ -12,10 +12,10 @@ Public Class ISMPNotificationLog
     Dim daStaffResponsible As OracleDataAdapter
 
     Private Sub DevNotificationLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
             Panel1.Text = "Select a Function..."
-            Panel2.Text = UserName
+            Panel2.Text = CurrentUser.AlphaName
             Panel3.Text = OracleDate
 
             LoadComboBoxes()
@@ -126,7 +126,7 @@ Public Class ISMPNotificationLog
                 .SelectedIndex = 0
             End With
 
-            cboStaffResponsible.SelectedValue = UserGCode
+            cboStaffResponsible.SelectedValue = CurrentUser.UserID
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -301,7 +301,7 @@ Public Class ISMPNotificationLog
                     End If
 
                     If IsDBNull(dr.Item("strStaffResponsible")) Then
-                        cboStaffResponsible.SelectedValue = UserGCode
+                        cboStaffResponsible.SelectedValue = CurrentUser.UserID
                     Else
                         cboStaffResponsible.SelectedValue = dr.Item("strStaffResponsible")
                     End If
@@ -418,7 +418,7 @@ Public Class ISMPNotificationLog
                     "strOnlineFirstName = '" & Me.txtContactFirstName.Text & "', " & _
                     "strOnlineLastName = '" & txtContactLastName.Text & "', " & _
                     "strInternalComments = '" & Replace(txtISMPComments.Text, "'", "''") & "', " & _
-                    "strmodifingstaff = '" & UserGCode & "', " & _
+                    "strmodifingstaff = '" & CurrentUser.UserID & "', " & _
                     "datModifingDate = '" & OracleDate & "', " & _
                     "datTestPlanReceived = '" & TestPlanRec & "', " & _
                     "datTestNotification = '" & TestNotificationDate & "', " & _
@@ -499,7 +499,7 @@ Public Class ISMPNotificationLog
                     "'" & cboStaffResponsible.SelectedValue & "', " & _
                     "'" & TestPlan & "', '" & TimelyNotification & "', " & _
                     "'" & Replace(txtISMPComments.Text, "'", "''") & "', " & _
-                    "'" & UserGCode & "', '" & OracleDate & "', " & _
+                    "'" & CurrentUser.UserID & "', '" & OracleDate & "', " & _
                     "'" & mtbPhoneNumber.Text & "', '" & mtbFaxNumber.Text & "', " & _
                     "'" & TestNotificationDate & "', '" & TestNotificationDate & "', " & _
                     "'" & Replace(txtPollutants.Text, "'", "''") & "') "

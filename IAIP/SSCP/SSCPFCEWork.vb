@@ -21,12 +21,11 @@ Public Class SSCPFCEWork
     Dim daEnforcement As OracleDataAdapter
     Dim dsPerformanceTest As DataSet
     Dim daPerformanceTest As OracleDataAdapter
-    Dim dsStaff As DataSet
-    Dim daStaff As OracleDataAdapter
+    Dim dtStaff As DataTable
 
 
     Private Sub SSCPFCE_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
 
             DTPFCECompleteDate.Text = OracleDate
@@ -129,78 +128,41 @@ Public Class SSCPFCEWork
     Sub LoadFCEDataset()
         Try
 
-
-            SQL = "select " & _
-            "AIRBRANCH.SSCPFCE.strFCENumber, " & _
-            "strFCEYear as FCEYear " & _
-            "from AIRBRANCH.SSCPFCE, AIRBRANCH.SSCPFCEMaster " & _
-            "Where AIRBRANCH.SSCPFCE.strFCENumber = AIRBRANCH.SSCPFCEMaster.strFCENumber " & _
-            "and AIRBRANCH.SSCPFCEMaster.strairsnumber = '0413" & txtAirsNumber.Text & "' " & _
+            SQL = "select " &
+            "AIRBRANCH.SSCPFCE.strFCENumber, " &
+            "strFCEYear as FCEYear " &
+            "from AIRBRANCH.SSCPFCE, AIRBRANCH.SSCPFCEMaster " &
+            "Where AIRBRANCH.SSCPFCE.strFCENumber = AIRBRANCH.SSCPFCEMaster.strFCENumber " &
+            "and AIRBRANCH.SSCPFCEMaster.strairsnumber = '0413" & txtAirsNumber.Text & "' " &
             "order by datFCECompleted DESC "
 
-            'SQL2 = "Select distinct(numUserID), " & _
-            '"(strLastName||', '||strFirstName) as StaffName, " & _
-            '"strLastName " & _
-            '"from AIRBRANCH.EPDUserProfiles, AIRBRANCH.SSCP_AuditedEnforcement " & _
-            '"where numProgram = '4' " & _
-            '"or numUserID = numStaffResponsible " & _
-            '"or (numBranch = '5' " & _
-            '"and strLastName = 'District') " & _
-            '"order by strLastName "
-
-            SQL2 = "select numuserID, Staff as StaffName, strLastName " & _
-            "from AIRBranch.VW_ComplianceStaff "
-
             dsFCE = New DataSet
-            dsStaff = New DataSet
-
             daFCE = New OracleDataAdapter(SQL, CurrentConnection)
-            daStaff = New OracleDataAdapter(SQL2, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
             daFCE.Fill(dsFCE, "FCEdata")
-            daStaff.Fill(dsStaff, "Staff")
 
-
+            dtStaff = SharedData.GetTable(SharedData.Tables.AllComplianceStaff)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
     Sub FillFCEData()
         Dim dtFCE As New DataTable
-        Dim dtStaff As New DataTable
         Dim drDSRow As DataRow
-        Dim drDSRow2 As DataRow
         Dim drNewRow As DataRow
         Dim i As Integer
         Dim flag As String
 
         Try
 
-
-            dtStaff.Columns.Add("StaffName", GetType(System.String))
-            dtStaff.Columns.Add("numUserID", GetType(System.String))
-
-            For Each drDSRow2 In dsStaff.Tables("Staff").Rows()
-                drNewRow = dtStaff.NewRow()
-                drNewRow("StaffName") = drDSRow2("StaffName")
-                drNewRow("numUserID") = drDSRow2("numUserID")
-                dtStaff.Rows.Add(drNewRow)
-            Next
-
             With cboReviewer
                 .DataSource = dtStaff
-                .DisplayMember = "StaffName"
+                .DisplayMember = "Staff"
                 .ValueMember = "numUserID"
                 .SelectedIndex = 0
             End With
 
-            cboReviewer.SelectedValue = UserGCode
+            cboReviewer.SelectedValue = CurrentUser.UserID
 
             If dsFCE.Tables(0).Rows.Count = 0 Then
                 cboFCEYear.Text = Date.Today.Year
@@ -1386,7 +1348,7 @@ Public Class SSCPFCEWork
     Private Sub txtFCENumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtFCENumber.TextChanged
         Try
             If txtFCENumber.Text = "" Then
-                cboReviewer.SelectedValue = UserGCode
+                cboReviewer.SelectedValue = CurrentUser.UserID
                 'rdbFCEIncomplete.Checked = False
                 rdbFCEOnSite.Checked = False
                 rdbFCENoOnsite.Checked = False
@@ -1424,7 +1386,7 @@ Public Class SSCPFCEWork
                         txtFCEComments.Text = dr.Item("strFCEComments")
                     End If
                     If IsDBNull(dr.Item("strReviewer")) Then
-                        cboReviewer.SelectedValue = UserGCode
+                        cboReviewer.SelectedValue = CurrentUser.UserID
                     Else
                         cboReviewer.SelectedValue = dr.Item("strReviewer")
                     End If
@@ -1823,7 +1785,7 @@ Public Class SSCPFCEWork
                     FCEComments = Replace(txtFCEComments.Text, "'", "''")
                 End If
                 If cboReviewer.SelectedValue = "" Then
-                    StaffResponsible = UserGCode
+                    StaffResponsible = CurrentUser.UserID
                 Else
                     StaffResponsible = cboReviewer.SelectedValue
                 End If
@@ -1859,7 +1821,7 @@ Public Class SSCPFCEWork
                     "strModifingPerson, datModifingDate) " & _
                     "values " & _
                     "('" & FCENumber & "', '0413" & txtAirsNumber.Text & "', " & _
-                    "'" & UserGCode & "', '" & OracleDate & "') "
+                    "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     dr = cmd.ExecuteReader
@@ -1870,7 +1832,7 @@ Public Class SSCPFCEWork
                     "datModifingDate, strSiteInspection, strFCEYear) " & _
                     "values " & _
                     "('" & FCENumber & "', '" & FCEStatus & "',  '" & StaffResponsible & "', " & _
-                    "'" & FCECompleteDate & "', '" & FCEComments & "', '" & UserGCode & "', " & _
+                    "'" & FCECompleteDate & "', '" & FCEComments & "', '" & CurrentUser.UserID & "', " & _
                     "'" & OracleDate & "', '" & FCEOnSite & "', '" & FCEYear & "') "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1897,7 +1859,7 @@ Public Class SSCPFCEWork
                         "datModifingDate) " & _
                         "values " & _
                         "('" & FCENumber & "', '" & ActionNumber & "', " & _
-                        "'A', '" & UserGCode & "', " & _
+                        "'A', '" & CurrentUser.UserID & "', " & _
                         "'" & OracleDate & "') "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -1934,7 +1896,7 @@ Public Class SSCPFCEWork
                     dr.Close()
                     If recExist = True Then
                         SQL = "Update AIRBRANCH.SSCPFCEMaster set " & _
-                        "strModifingPerson = '" & UserGCode & "', " & _
+                        "strModifingPerson = '" & CurrentUser.UserID & "', " & _
                         "datModifingDate = '" & OracleDate & "' " & _
                         "where strFCENumber = '" & FCENumber & "' "
 
@@ -1946,7 +1908,7 @@ Public Class SSCPFCEWork
                         "strReviewer = '" & StaffResponsible & "', " & _
                         "DatFCECompleted = '" & FCECompleteDate & "', " & _
                         "strFCEComments = '" & FCEComments & "', " & _
-                        "strModifingPerson = '" & UserGCode & "', " & _
+                        "strModifingPerson = '" & CurrentUser.UserID & "', " & _
                         "datModifingDate = '" & OracleDate & "', " & _
                         "strSiteInspection = '" & FCEOnSite & "', " & _
                         "strFCEYear = '" & FCEYear & "' " & _

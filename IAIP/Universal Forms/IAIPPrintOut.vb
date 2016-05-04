@@ -21,7 +21,7 @@ Public Class IAIPPrintOut
 #Region " Form events "
 
     Private Sub IAIPPrintOut_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
 
         LoadCorrectReport()
 
@@ -50,6 +50,7 @@ Public Class IAIPPrintOut
                 Case "Letter"
 
                     rpt = New crAPBPrintOut2
+                    ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
                     monitor.TrackFeature("Report." & rpt.ResourceName)
 
                     Dim Commissioner As String = ""
@@ -291,6 +292,7 @@ Public Class IAIPPrintOut
 #Region "Test Reports"
     Private Sub LoadOneStackTwoRun()
         Dim rpt As New CROneStackTwoRuns
+        ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
@@ -1244,6 +1246,7 @@ Public Class IAIPPrintOut
     End Sub      'Complete
     Private Sub LoadOneStackThreeRun()
         Dim rpt As New CROneStackThreeRuns
+        ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
@@ -2292,6 +2295,7 @@ Public Class IAIPPrintOut
     End Sub    'Complete
     Private Sub LoadOneStackFourRun()
         Dim rpt As New CROneStackFourRuns
+        ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
@@ -3423,6 +3427,7 @@ Public Class IAIPPrintOut
     End Sub     'Complete
     Private Sub LoadTwoStackStandard()
         Dim rpt As New CRTwoStackStandard
+        ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
@@ -4819,6 +4824,7 @@ Public Class IAIPPrintOut
     End Sub    'Complete
     Private Sub LoadTwoStackDRE()
         Dim rpt As New CRTwoStackDRE
+        ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
@@ -6165,6 +6171,7 @@ Public Class IAIPPrintOut
     End Sub         'Complete
     Private Sub LoadLoadingRack()
         Dim rpt As New CRLoadingRack
+        ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
@@ -6951,6 +6958,7 @@ Public Class IAIPPrintOut
     End Sub         'Complete
     Private Sub LoadPondTreatment()
         Dim rpt As New CRPondTreatment
+        ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
@@ -7835,6 +7843,7 @@ Public Class IAIPPrintOut
     End Sub       'Complete
     Private Sub LoadGasConcentration()
         Dim rpt As New CRGasConcentration
+        ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
@@ -8754,6 +8763,7 @@ Public Class IAIPPrintOut
     End Sub    'Complete
     Private Sub LoadFlare()
         Dim rpt As New CRFlare
+        ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
@@ -9521,6 +9531,7 @@ Public Class IAIPPrintOut
     End Sub               'Complete
     Private Sub LoadMemorandumStandard()
         Dim rpt As New CRMemorandumStandard
+        ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
@@ -10022,6 +10033,7 @@ Public Class IAIPPrintOut
     End Sub  'Complete
     Private Sub LoadMemorandumToFile()
         Dim rpt As New CRMemorandumToFile
+        ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
@@ -10543,6 +10555,7 @@ Public Class IAIPPrintOut
     End Sub    'Complete
     Private Sub LoadPTE()
         Dim rpt As New CRMemorandumPTE
+        ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
@@ -11260,6 +11273,7 @@ Public Class IAIPPrintOut
     End Sub                 'Complete
     Private Sub LoadMethod22()
         Dim rpt As New CRMethod22
+        ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
@@ -11885,6 +11899,7 @@ Public Class IAIPPrintOut
     End Sub            'Complete
     Private Sub LoadMethod9Single()
         Dim rpt As New CRMethod9Single
+        ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
         monitor.TrackFeature("Report." & rpt.ResourceName)
         Dim temp As String
 
@@ -12566,6 +12581,7 @@ Public Class IAIPPrintOut
     End Sub       'Complete
     Private Sub LoadMethod9Multi()
         Dim rpt As New CRMethod9Multi
+        ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
         monitor.TrackFeature("Report." & rpt.ResourceName)
         Dim temp As String
 
@@ -13519,6 +13535,7 @@ Public Class IAIPPrintOut
     End Sub        'Complete
     Private Sub LoadRata()
         Dim rpt As New CRRata
+        ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
         monitor.TrackFeature("Report." & rpt.ResourceName)
         Dim temp As String
 
@@ -14681,6 +14698,7 @@ Public Class IAIPPrintOut
         Dim rpt As New ReportClass
 
         rpt = New CRTitleVRenewal10
+        ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
         Dim ParameterFields As CrystalDecisions.Shared.ParameterFields

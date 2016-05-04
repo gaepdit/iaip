@@ -54,7 +54,7 @@ Public Class IAIPFacilitySummary
 #Region " Form Load "
 
     Private Sub IAIPFacilitySummary_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         LoadPermissions()
         InitializeDataTables()
         InitializeGridEvents()
@@ -71,7 +71,7 @@ Public Class IAIPFacilitySummary
         ' TODO DWW: Better permissions definition
 
         ' Menu items
-        UpdateEpaMenuItem.Available = (UserGCode = "1" Or UserGCode = "345")
+        UpdateEpaMenuItem.Available = (CurrentUser.UserID = "1" Or CurrentUser.UserID = "345")
         CreateFacilityMenuItem.Available = (AccountFormAccess(138, 0) IsNot Nothing _
                                           AndAlso AccountFormAccess(138, 0) = "138" _
                                           AndAlso (AccountFormAccess(138, 1) = "1" _
@@ -81,7 +81,7 @@ Public Class IAIPFacilitySummary
         ToolsMenuSeparator.Visible = (CreateFacilityMenuItem.Available And UpdateEpaMenuItem.Available)
 
         ' Edit location/header data
-        If UserUnit = "---" Or AccountFormAccess(22, 3) = "1" Or AccountFormAccess(1, 3) = "1" Then
+        If CurrentUser.UnitId = 0 Or AccountFormAccess(22, 3) = "1" Or AccountFormAccess(1, 3) = "1" Then
             EditFacilityLocationButton.Visible = True
             EditHeaderDataButton.Visible = True
         Else
@@ -186,14 +186,14 @@ Public Class IAIPFacilitySummary
 #Region " Basic Info data "
 
     Private Sub EditFacilityLocationButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditFacilityLocationButton.Click
-        Dim editFacilityLocation As IAIPEditFacilityLocation = OpenMultiForm("IAIPEditFacilityLocation", Me.AirsNumber.GetHashCode)
+        Dim editFacilityLocation As IAIPEditFacilityLocation = OpenMultiForm(IAIPEditFacilityLocation, Me.AirsNumber.GetHashCode)
         editFacilityLocation.txtAirsNumber.Text = Me.AirsNumber.ToString
     End Sub
 
     Private Sub ClearBasicFacilityData()
 
         'Navigation Panel
-        AirsNumberEntry.BackColor = SystemColors.ControlLightLight
+        AirsNumberEntry.BackColor = Color.Empty
         FacilityNameDisplay.Text = ""
 
         'Location
@@ -207,6 +207,7 @@ Public Class IAIPFacilitySummary
 
         'Description
         InfoDescDisplay.Text = ""
+        EpaDateDisplay.Text = ""
 
         'Status
         InfoClassDisplay.Text = ""
@@ -228,7 +229,7 @@ Public Class IAIPFacilitySummary
 
         'Data Dates
         FisDateDisplay.Text = ""
-        EpaDateDisplay.Text = ""
+        EpaFacilityIdDisplay.Text = ""
         DataUpdateDateDisplay.Text = ""
 
     End Sub
@@ -243,7 +244,6 @@ Public Class IAIPFacilitySummary
         Else
             EnableFacilityTools()
             ThisFacility.RetrieveHeaderData()
-            ThisFacility.RetrieveComplianceStatusList()
             DisplayBasicFacilityData()
             DisplayHeaderData()
         End If
@@ -271,8 +271,8 @@ Public Class IAIPFacilitySummary
                 If .County IsNot Nothing Then
                     MapCountyLink.Enabled = True
                 End If
-                LatLonDisplay.Text = .Latitude.ToString & _
-                    ", " & _
+                LatLonDisplay.Text = .Latitude.ToString &
+                    ", " &
                     .Longitude.ToString
                 If .Latitude.HasValue AndAlso .Longitude.HasValue Then
                     MapLatLonLink.Enabled = True
@@ -295,13 +295,21 @@ Public Class IAIPFacilitySummary
             End With
 
             'Compliance Status
-            ComplianceStatusDisplay.Text = .ControllingComplianceStatus.GetDescription
-            ColorCodeComplianceStatusDisplay()
+            Dim enforcementCount As Integer = DAL.Sscp.GetEnforcementCountForFacility(AirsNumber)
+            If enforcementCount = 0 Then
+                ComplianceStatusDisplay.Text = "No open enforcement cases"
+            ElseIf enforcementCount = 1 Then
+                ComplianceStatusDisplay.Text = "One open enforcement case"
+            ElseIf enforcementCount > 1 Then
+                ComplianceStatusDisplay.Text = enforcementCount & " open enforcement cases"
+            End If
+            ColorCodeComplianceStatusDisplay(enforcementCount)
 
             'Offices
             DistrictOfficeDisplay.Text = .DistrictOfficeLocation
             ResponsibleOfficeDisplay.Text = If(.DistrictResponsible, "District Office", "Air Branch")
 
+            EpaFacilityIdDisplay.Text = .AirsNumber.EpaFacilityIdentifier
         End With
 
         'Data Dates
@@ -315,18 +323,18 @@ Public Class IAIPFacilitySummary
 
     End Sub
 
-    Private Sub ColorCodeComplianceStatusDisplay()
+    Private Sub ColorCodeComplianceStatusDisplay(num As Integer)
         With ComplianceStatusDisplay
-            If ThisFacility.ControllingComplianceStatus > 20 Then
-                .BackColor = Color.Pink
-                .BorderStyle = BorderStyle.FixedSingle
-            ElseIf ThisFacility.ControllingComplianceStatus > 10 Then
-                .BackColor = Color.LemonChiffon
-                .BorderStyle = BorderStyle.FixedSingle
-            Else
-                .BackColor = SystemColors.ControlLightLight
-                .BorderStyle = BorderStyle.None
-            End If
+            Select Case num
+                Case > 0
+                    .BackColor = IaipColors.WarningBackColor
+                    .ForeColor = IaipColors.WarningForeColor
+                    .BorderStyle = BorderStyle.FixedSingle
+                Case Else
+                    .BackColor = Color.Empty
+                    .ForeColor = Color.Empty
+                    .BorderStyle = BorderStyle.None
+            End Select
         End With
     End Sub
 
@@ -350,7 +358,7 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub MapLatLonLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles MapLatLonLink.LinkClicked
-        OpenMapUrl(ThisFacility.FacilityLocation.Latitude.ToString & "," & _
+        OpenMapUrl(ThisFacility.FacilityLocation.Latitude.ToString & "," &
                    ThisFacility.FacilityLocation.Longitude.ToString, Me)
     End Sub
 
@@ -388,13 +396,18 @@ Public Class IAIPFacilitySummary
 
 #Region " Header data "
 
-    Private Sub btnEditAirProgramPollutants_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditPollutantsButton.Click
-        Dim EditAirProgramPollutants As IAIPEditAirProgramPollutants = OpenSingleForm(IAIPEditAirProgramPollutants)
-        EditAirProgramPollutants.AirsNumberDisplay.Text = Me.AirsNumber.ToString
+    Private Sub EditPollutantsButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditPollutantsButton.Click
+        Using editProgPollDialog As New IAIPEditAirProgramPollutants
+            With editProgPollDialog
+                .AirsNumber = AirsNumber
+                .FacilityName = ThisFacility.FacilityName & ", " & ThisFacility.DisplayCity
+                .ShowDialog()
+            End With
+        End Using
     End Sub
 
     Private Sub EditSubpartsButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditSubpartsButton.Click
-        Dim editSubParts As IAIPEditSubParts = OpenMultiForm("IAIPEditSubParts", Me.AirsNumber.GetHashCode)
+        Dim editSubParts As IAIPEditSubParts = OpenMultiForm(IAIPEditSubParts, Me.AirsNumber.GetHashCode)
         editSubParts.txtAIRSNumber.Text = Me.AirsNumber.ToString
     End Sub
 
@@ -851,10 +864,10 @@ Public Class IAIPFacilitySummary
 #Region " Contacts data "
 
     Private Sub EditContactsButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditContactsButton.Click
-        Dim parameters As New Dictionary(Of String, String)
-        parameters("airsnumber") = Me.AirsNumber.ShortString
-        parameters("facilityname") = Me.ThisFacility.FacilityName
-        OpenMultiForm("IAIPEditContacts", Me.AirsNumber.ShortString, parameters)
+        Dim parameters As New Dictionary(Of FormParameter, String)
+        parameters(FormParameter.AirsNumber) = Me.AirsNumber.ShortString
+        parameters(FormParameter.FacilityName) = Me.ThisFacility.FacilityName
+        OpenMultiForm(IAIPEditContacts, Me.AirsNumber.ShortString, parameters)
     End Sub
 
     Private Sub LoadContactsData()
@@ -1334,7 +1347,7 @@ Public Class IAIPFacilitySummary
 #Region " Navigation Panel "
 
     Private Sub FacilityApprovalLinkLabel_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles FacilityApprovalLinkLabel.LinkClicked
-        OpenSingleForm("IAIPFacilityCreator")
+        OpenSingleForm(IAIPFacilityCreator)
     End Sub
 
     Private Sub ViewData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ViewDataButton.Click
@@ -1387,7 +1400,7 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub FacilityCreatorToolToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CreateFacilityMenuItem.Click
-        OpenSingleForm("IAIPFacilityCreator")
+        OpenSingleForm(IAIPFacilityCreator)
     End Sub
 
     Private Sub UpdateAllDataSentToEPAToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UpdateEpaMenuItem.Click
@@ -1404,6 +1417,7 @@ Public Class IAIPFacilitySummary
 
     Private Sub FSMainTabControl_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FSMainTabControl.SelectedIndexChanged
         monitor.TrackFeature("FacilitySummaryTab." & FSMainTabControl.SelectedTab.Name)
+        ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipFacilitySummaryTab, FSMainTabControl.SelectedTab.Name)
 
         Select Case FSMainTabControl.SelectedTab.Name
 
@@ -1432,11 +1446,12 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub TabControl_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) _
-    Handles ContactsTabControl.SelectedIndexChanged, TestingTabControl.SelectedIndexChanged, _
-    PermittingTabControl.SelectedIndexChanged, ComplianceTabControl.SelectedIndexChanged, _
+    Handles ContactsTabControl.SelectedIndexChanged, TestingTabControl.SelectedIndexChanged,
+    PermittingTabControl.SelectedIndexChanged, ComplianceTabControl.SelectedIndexChanged,
     FinancialTabControl.SelectedIndexChanged, EiTabControl.SelectedIndexChanged
 
         Dim tabcontrol As TabControl = CType(sender, TabControl)
+        ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipFacilitySummaryTab, tabcontrol.SelectedTab.Name)
         monitor.TrackFeature("FacilitySummaryTab." & tabcontrol.SelectedTab.Name)
 
     End Sub
@@ -1448,15 +1463,15 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub DisplayEmptyTextBoxAsNA(ByVal sender As System.Object, ByVal e As System.EventArgs) _
-    Handles InfoDescDisplay.TextChanged, LocationDisplay.TextChanged, LatLonDisplay.TextChanged, _
-        InfoDescDisplay.TextChanged, InfoClassDisplay.TextChanged, InfoOperStatusDisplay.TextChanged, _
-        CmsDisplay.TextChanged, ComplianceStatusDisplay.TextChanged, DistrictOfficeDisplay.TextChanged, _
-        ResponsibleOfficeDisplay.TextChanged, InfoStartupDateDisplay.TextChanged, _
-        InfoPermitRevocationDateDisplay.TextChanged, CreatedDateDisplay.TextChanged, FisDateDisplay.TextChanged, _
-        EpaDateDisplay.TextChanged, DataUpdateDateDisplay.TextChanged, _
-        HeaderClassDisplay.TextChanged, HeaderOperStatusDisplay.TextChanged, SicDisplay.TextChanged, _
-        NaicsDisplay.TextChanged, RmpIdDisplay.TextChanged, HeaderStartupDisplay.TextChanged, _
-        HeaderRevocationDateDisplay.TextChanged, HeaderDescDisplay.TextChanged
+    Handles InfoDescDisplay.TextChanged, LocationDisplay.TextChanged, LatLonDisplay.TextChanged,
+        InfoDescDisplay.TextChanged, InfoClassDisplay.TextChanged, InfoOperStatusDisplay.TextChanged,
+        CmsDisplay.TextChanged, ComplianceStatusDisplay.TextChanged, DistrictOfficeDisplay.TextChanged,
+        ResponsibleOfficeDisplay.TextChanged, InfoStartupDateDisplay.TextChanged,
+        InfoPermitRevocationDateDisplay.TextChanged, CreatedDateDisplay.TextChanged, FisDateDisplay.TextChanged,
+        EpaDateDisplay.TextChanged, DataUpdateDateDisplay.TextChanged,
+        HeaderClassDisplay.TextChanged, HeaderOperStatusDisplay.TextChanged, SicDisplay.TextChanged,
+        NaicsDisplay.TextChanged, RmpIdDisplay.TextChanged, HeaderStartupDisplay.TextChanged,
+        HeaderRevocationDateDisplay.TextChanged, HeaderDescDisplay.TextChanged, EpaFacilityIdDisplay.TextChanged
 
         Dim t As TextBox = CType(sender, TextBox)
         If t.Text = "" Then

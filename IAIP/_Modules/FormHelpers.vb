@@ -1,4 +1,6 @@
-﻿Imports Iaip.Apb
+﻿Imports System.Collections.Generic
+Imports Iaip.Apb
+Imports Iaip.BaseForm
 
 Module FormHelpers
 
@@ -38,17 +40,19 @@ Module FormHelpers
 
 #Region " SSCP "
 
+#Region " Work Item "
+
     Public Function OpenFormSscpWorkItem(ByVal id As String) As Form
-        If DAL.SSCP.WorkItemExists(id) Then
+        If DAL.Sscp.WorkItemExists(id) Then
             Dim refNum As String = ""
-            If DAL.SSCP.TryGetRefNumForWorkItem(id, refNum) Then
-                Return OpenMultiForm("ISMPTestReports", refNum)
-            ElseIf SingleFormIsOpen("SSCPEvents") _
-            AndAlso CType(SingleForm("SSCPEvents"), SSCPEvents).txtTrackingNumber.Text = id Then
-                SingleForm("SSCPEvents").Activate()
-                Return SingleForm("SSCPEvents")
+            If DAL.Sscp.TryGetRefNumForWorkItem(id, refNum) Then
+                Return OpenMultiForm(ISMPTestReports, refNum)
+            ElseIf SingleFormIsOpen(SSCPEvents) _
+                AndAlso CType(SingleForm(SSCPEvents.Name), SSCPEvents).txtTrackingNumber.Text = id Then
+                SingleForm(SSCPEvents.Name).Activate()
+                Return SingleForm(SSCPEvents.Name)
             Else
-                Dim sscpReport As SSCPEvents = OpenSingleForm("SSCPEvents", id, closeFirst:=True)
+                Dim sscpReport As SSCPEvents = OpenSingleForm(SSCPEvents, id, closeFirst:=True)
                 sscpReport.txtTrackingNumber.Text = id
                 Return sscpReport
             End If
@@ -57,6 +61,8 @@ Module FormHelpers
             Return Nothing
         End If
     End Function
+
+#End Region
 
 #Region " FCE "
 
@@ -81,14 +87,34 @@ Module FormHelpers
 
 #End Region
 
-    Public Function OpenFormEnforcement(ByVal id As String) As Form
-        If DAL.Sscp.EnforcementExists(id) Then
-            Return OpenMultiForm("SscpEnforcement", id)
+#Region " Enforcement "
+
+    Public Function OpenFormEnforcement(ByVal enforcementId As String) As Form
+        Dim parameters As New Dictionary(Of FormParameter, String)
+        If DAL.Sscp.EnforcementExists(enforcementId) Then
+            parameters(FormParameter.EnforcementId) = enforcementId
+            Return OpenMultiForm(SscpEnforcement, enforcementId, parameters)
         Else
             MessageBox.Show("Enforcement number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return Nothing
         End If
     End Function
+
+    Public Function OpenFormEnforcement(airsNumber As ApbFacilityId, Optional trackingNumber As String = Nothing) As Form
+        Dim parameters As New Dictionary(Of FormParameter, String)
+        If DAL.AirsNumberExists(airsNumber) Then
+            parameters(FormParameter.AirsNumber) = airsNumber.ToString
+            If trackingNumber IsNot Nothing AndAlso DAL.Sscp.WorkItemExists(trackingNumber) Then
+                parameters(FormParameter.TrackingNumber) = trackingNumber
+            End If
+            Return OpenMultiForm(SscpEnforcement, -Convert.ToInt32(airsNumber.ToString), parameters)
+        Else
+            MessageBox.Show("AIRS number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return Nothing
+        End If
+    End Function
+
+#End Region
 
 #End Region
 
@@ -96,8 +122,8 @@ Module FormHelpers
 
     Public Sub OpenFormTestPrintout(ByVal referenceNumber As String)
         If DAL.Ismp.StackTestExists(referenceNumber) Then
-            If UserProgram = "3" Then
-                OpenMultiForm("ISMPTestReports", referenceNumber)
+            If CurrentUser.ProgramID = 3 Then
+                OpenMultiForm(ISMPTestReports, referenceNumber)
             Else
                 If DAL.Ismp.StackTestIsClosedOut(referenceNumber) Then
                     PrintOut = New IAIPPrintOut
@@ -138,7 +164,7 @@ Module FormHelpers
 
     Public Function OpenFormPermitApplication(ByVal applicationNumber As String) As Form
         If DAL.Sspp.ApplicationExists(applicationNumber) Then
-            Dim app As SSPPApplicationTrackingLog = OpenSingleForm("SSPPApplicationTrackingLog", applicationNumber)
+            Dim app As SSPPApplicationTrackingLog = OpenSingleForm(SSPPApplicationTrackingLog, applicationNumber)
             app.txtApplicationNumber.Text = applicationNumber
             app.LoadApplication()
             app.TPTrackingLog.Focus()
@@ -150,7 +176,7 @@ Module FormHelpers
     End Function
 
     Public Function OpenFormNewPermitApplication() As Form
-        Dim app As SSPPApplicationTrackingLog = OpenSingleForm("SSPPApplicationTrackingLog", closeFirst:=True)
+        Dim app As SSPPApplicationTrackingLog = OpenSingleForm(SSPPApplicationTrackingLog, closeFirst:=True)
         Return app
     End Function
 

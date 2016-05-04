@@ -25,7 +25,7 @@ Public Class SmokeSchool
     Public ErrorFlag As String = "no"
 
     Private Sub ISMPSmokeSchool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
 
             setPassedDate()

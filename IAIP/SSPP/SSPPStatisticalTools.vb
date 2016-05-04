@@ -25,7 +25,7 @@ Public Class SSPPStatisticalTools
     Dim daSIP As OracleDataAdapter
 
     Private Sub SSPPStatisticalTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
             DTPPermitCountStart.Text = OracleDate
             DTPPermitCountEnd.Text = OracleDate

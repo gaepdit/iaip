@@ -15,9 +15,13 @@ Namespace DAL
         ''' <returns>True if the AIRS number exists; otherwise false.</returns>
         ''' <remarks>Looks for value in APBMASTERAIRS table. Does not make any judgments about state of facility otherwise.</remarks>
         Public Function AirsNumberExists(ByVal airsNumber As ApbFacilityId) As Boolean
-            Dim spName As String = "AIRBRANCH.IAIP_FACILITY.DoesAirsNumberExist"
-            Dim parameter As New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
-            Return DB.SPGetBoolean(spName, parameter)
+            Dim spName As String = "AIRBRANCH.IAIP_FACILITY.AirsNumberExists"
+            Dim parameters As OracleParameter() = New OracleParameter() {
+                New OracleParameter("ReturnValue", OracleDbType.Varchar2, 5, Nothing, ParameterDirection.ReturnValue),
+                New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
+            }
+            DB.SPRunCommand(spName, parameters)
+            Return DB.GetNullable(Of Boolean)(parameters(0).Value.ToString)
         End Function
 
         '' Not currently used, but may be useful in the future
@@ -114,8 +118,12 @@ Namespace DAL
         ''' <remarks>Looks at STRUPDATESTATUS in AFSFACILITYDATA table.</remarks>
         Public Function FacilityHasBeenApproved(ByVal airsNumber As Apb.ApbFacilityId) As Boolean
             Dim spName As String = "AIRBRANCH.IAIP_FACILITY.HasFacilityBeenApproved"
-            Dim parameter As New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
-            Return DB.SPGetBoolean(spName, parameter)
+            Dim parameters As OracleParameter() = New OracleParameter() {
+                New OracleParameter("ReturnValue", OracleDbType.Varchar2, 5, Nothing, ParameterDirection.ReturnValue),
+                New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
+            }
+            DB.SPRunCommand(spName, parameters)
+            Return DB.GetNullable(Of Boolean)(parameters(0).Value.ToString)
         End Function
 
         ''' <summary>
@@ -128,25 +136,6 @@ Namespace DAL
             Dim spName As String = "AIRBRANCH.IAIP_FACILITY.GetDataDates"
             Dim parameter As New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
             Return DB.SPGetDataRow(spName, parameter)
-        End Function
-
-        ''' <summary>
-        ''' Returns list of Pollutant Compliance Statuses that apply to a given facility.
-        ''' </summary>
-        ''' <param name="airsNumber">The AIRS number of the facility to query</param>
-        ''' <returns>A List of distinct PollutantComplianceStatus values applicable to the facility.</returns>
-        ''' <remarks>Data retrieved from APBAIRPROGRAMPOLLUTANTS table.</remarks>
-        Public Function GetComplianceStatusList(ByVal airsNumber As ApbFacilityId) As List(Of PollutantComplianceStatus)
-            Dim spName As String = "AIRBRANCH.IAIP_FACILITY.GetComplianceStatusList"
-            Dim parameter As New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
-            Dim s As List(Of String) = DB.SPGetList(Of String)(spName, parameter)
-
-            Dim l As New List(Of PollutantComplianceStatus)
-            For Each value As String In s
-                l.Add([Enum].Parse(GetType(PollutantComplianceStatus), value))
-            Next
-
-            Return l
         End Function
 
 #End Region
@@ -175,7 +164,7 @@ Namespace DAL
                 New OracleParameter("ShutDownDate", shutdownDate), _
                 New OracleParameter("Comments", comments), _
                 New OracleParameter("FromUiLocation", Convert.ToInt32(fromLocation)), _
-                New OracleParameter("UserId", UserGCode) _
+                New OracleParameter("UserId", CurrentUser.UserID) _
             }
 
             Return DB.SPRunCommand(spName, parameters)

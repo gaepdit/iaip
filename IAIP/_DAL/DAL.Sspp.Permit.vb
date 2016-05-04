@@ -149,7 +149,7 @@ Namespace DAL.Sspp
                     New OracleParameter("IssuedDate", permit.IssuedDate), _
                     New OracleParameter("RevokedDate", permit.RevokedDate), _
                     New OracleParameter("UpdateDate", Date.Now), _
-                    New OracleParameter("UpdatedBy", UserGCode), _
+                    New OracleParameter("UpdatedBy", CurrentUser.UserID), _
                     New OracleParameter("Active", Convert.ToInt32(permit.Active)), _
                     New OracleParameter("PermitTypeCode", permit.PermitTypeCode), _
                     New OracleParameter("ID", permit.ID) _
@@ -207,9 +207,9 @@ Namespace DAL.Sspp
                 New OracleParameter("IssuedDate", permit.IssuedDate), _
                 New OracleParameter("RevokedDate", permit.RevokedDate), _
                 New OracleParameter("CreateDate", Date.Now), _
-                New OracleParameter("CreatedBy", UserGCode), _
+                New OracleParameter("CreatedBy", CurrentUser.UserID), _
                 New OracleParameter("UpdateDate", Date.Now), _
-                New OracleParameter("UpdatedBy", UserGCode), _
+                New OracleParameter("UpdatedBy", CurrentUser.UserID), _
                 New OracleParameter("Active", Convert.ToInt32(permit.Active)), _
                 New OracleParameter("PermitTypeCode", permit.PermitTypeCode) _
             }

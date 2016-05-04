@@ -14,6 +14,7 @@ The IAIP is a Windows Forms Application and currently targets the .NET Framework
 + [SAP Crystal Reports, developer version for Microsoft Visual Studio](http://scn.sap.com/docs/DOC-7824), Support Pack 15 or later. Be sure to download the Install Executable, not an MSI.
 
 + Some NuGet packages are required. They should be restored automatically. If not, open the NuGet Package Manager and click Restore to install them:
+
   - Oracle ODP.NET, Managed Driver
   - Telerik Analytics Monitor
 

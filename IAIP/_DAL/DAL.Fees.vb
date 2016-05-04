@@ -167,7 +167,7 @@ Namespace DAL
                 New OracleParameter("v10", contact.MailingAddress.State),
                 New OracleParameter("v11", contact.MailingAddress.PostalCode),
                 New OracleParameter("v12", contact.EmailAddress),
-                New OracleParameter("v25", UserGCode),
+                New OracleParameter("v25", CurrentUser.UserID), 
                 New OracleParameter("v26", OracleDate),
                 New OracleParameter("airsnumber", airsNumber),
                 New OracleParameter("feeyear", feeYearDecimal)
@@ -210,7 +210,7 @@ Namespace DAL
                 New OracleParameter("v21", facility.FacilityLocation.Address.City),
                 New OracleParameter("v22", facility.FacilityLocation.Address.PostalCode),
                 New OracleParameter("v23", facility.Comment),
-                New OracleParameter("v25", UserGCode),
+                New OracleParameter("v25", CurrentUser.UserID),
                 New OracleParameter("v26", OracleDate),
                 New OracleParameter("airsnumber", airsNumber),
                 New OracleParameter("feeyear", feeYearDecimal)

@@ -1,9 +1,9 @@
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class IAIPEditAirProgramPollutants
     Inherits BaseForm
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         If disposing AndAlso components IsNot Nothing Then
             components.Dispose()
@@ -17,122 +17,161 @@ Partial Class IAIPEditAirProgramPollutants
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.cboComplianceStatus = New System.Windows.Forms.ComboBox
-        Me.lblComplianceStatus = New System.Windows.Forms.Label
-        Me.cboAirProgramCodes = New System.Windows.Forms.ComboBox
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.cboPollutants = New System.Windows.Forms.ComboBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.dgvAirProgramPollutants = New System.Windows.Forms.DataGridView
-        Me.btnSaveNewPollutant = New System.Windows.Forms.Button
-        Me.PanelPollutants = New System.Windows.Forms.Panel
-        Me.FacilityNameDisplay = New System.Windows.Forms.Label
-        Me.AirsNumberDisplay = New System.Windows.Forms.Label
-        CType(Me.dgvAirProgramPollutants, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.PanelPollutants.SuspendLayout()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Me.FacilityAirProgramPollutants = New System.Windows.Forms.DataGridView()
+        Me.HeaderPanel = New System.Windows.Forms.Panel()
+        Me.ControlPanel = New System.Windows.Forms.Panel()
+        Me.SaveButton = New System.Windows.Forms.Button()
+        Me.OperatingStatusSelect = New System.Windows.Forms.ComboBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.AirProgramSelect = New System.Windows.Forms.ComboBox()
+        Me.PollutantSelect = New System.Windows.Forms.ComboBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.FacilityOperatingStatusDisplay = New System.Windows.Forms.Label()
+        Me.FacilityDisplay = New System.Windows.Forms.Label()
+        Me.AirsNumberDisplay = New System.Windows.Forms.Label()
+        CType(Me.FacilityAirProgramPollutants, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.HeaderPanel.SuspendLayout()
+        Me.ControlPanel.SuspendLayout()
         Me.SuspendLayout()
         '
-        'cboComplianceStatus
+        'FacilityAirProgramPollutants
         '
-        Me.cboComplianceStatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cboComplianceStatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboComplianceStatus.Location = New System.Drawing.Point(416, 72)
-        Me.cboComplianceStatus.Name = "cboComplianceStatus"
-        Me.cboComplianceStatus.Size = New System.Drawing.Size(199, 21)
-        Me.cboComplianceStatus.TabIndex = 237
+        Me.FacilityAirProgramPollutants.AllowUserToAddRows = False
+        Me.FacilityAirProgramPollutants.AllowUserToDeleteRows = False
+        Me.FacilityAirProgramPollutants.AllowUserToResizeRows = False
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.FacilityAirProgramPollutants.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.FacilityAirProgramPollutants.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.FacilityAirProgramPollutants.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.FacilityAirProgramPollutants.Location = New System.Drawing.Point(0, 307)
+        Me.FacilityAirProgramPollutants.MultiSelect = False
+        Me.FacilityAirProgramPollutants.Name = "FacilityAirProgramPollutants"
+        Me.FacilityAirProgramPollutants.ReadOnly = True
+        Me.FacilityAirProgramPollutants.RowHeadersVisible = False
+        Me.FacilityAirProgramPollutants.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.FacilityAirProgramPollutants.Size = New System.Drawing.Size(484, 242)
+        Me.FacilityAirProgramPollutants.TabIndex = 0
         '
-        'lblComplianceStatus
+        'HeaderPanel
         '
-        Me.lblComplianceStatus.AutoSize = True
-        Me.lblComplianceStatus.Location = New System.Drawing.Point(413, 56)
-        Me.lblComplianceStatus.Name = "lblComplianceStatus"
-        Me.lblComplianceStatus.Size = New System.Drawing.Size(95, 13)
-        Me.lblComplianceStatus.TabIndex = 236
-        Me.lblComplianceStatus.Text = "Compliance Status"
+        Me.HeaderPanel.Controls.Add(Me.FacilityOperatingStatusDisplay)
+        Me.HeaderPanel.Controls.Add(Me.FacilityDisplay)
+        Me.HeaderPanel.Controls.Add(Me.AirsNumberDisplay)
+        Me.HeaderPanel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.HeaderPanel.Location = New System.Drawing.Point(0, 0)
+        Me.HeaderPanel.Name = "HeaderPanel"
+        Me.HeaderPanel.Size = New System.Drawing.Size(484, 84)
+        Me.HeaderPanel.TabIndex = 1
         '
-        'cboAirProgramCodes
+        'ControlPanel
         '
-        Me.cboAirProgramCodes.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cboAirProgramCodes.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboAirProgramCodes.Location = New System.Drawing.Point(12, 72)
-        Me.cboAirProgramCodes.Name = "cboAirProgramCodes"
-        Me.cboAirProgramCodes.Size = New System.Drawing.Size(135, 21)
-        Me.cboAirProgramCodes.TabIndex = 229
+        Me.ControlPanel.Controls.Add(Me.SaveButton)
+        Me.ControlPanel.Controls.Add(Me.OperatingStatusSelect)
+        Me.ControlPanel.Controls.Add(Me.Label2)
+        Me.ControlPanel.Controls.Add(Me.Label1)
+        Me.ControlPanel.Controls.Add(Me.AirProgramSelect)
+        Me.ControlPanel.Controls.Add(Me.PollutantSelect)
+        Me.ControlPanel.Controls.Add(Me.Label3)
+        Me.ControlPanel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.ControlPanel.Location = New System.Drawing.Point(0, 84)
+        Me.ControlPanel.Name = "ControlPanel"
+        Me.ControlPanel.Size = New System.Drawing.Size(484, 223)
+        Me.ControlPanel.TabIndex = 0
+        '
+        'SaveButton
+        '
+        Me.SaveButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.SaveButton.Location = New System.Drawing.Point(15, 173)
+        Me.SaveButton.Name = "SaveButton"
+        Me.SaveButton.Size = New System.Drawing.Size(196, 30)
+        Me.SaveButton.TabIndex = 3
+        Me.SaveButton.Text = "Add new air program/pollutant"
+        Me.SaveButton.UseVisualStyleBackColor = True
+        '
+        'OperatingStatusSelect
+        '
+        Me.OperatingStatusSelect.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.OperatingStatusSelect.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.OperatingStatusSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.OperatingStatusSelect.Location = New System.Drawing.Point(15, 120)
+        Me.OperatingStatusSelect.Name = "OperatingStatusSelect"
+        Me.OperatingStatusSelect.Size = New System.Drawing.Size(228, 21)
+        Me.OperatingStatusSelect.TabIndex = 2
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(12, 104)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(130, 13)
+        Me.Label2.TabIndex = 236
+        Me.Label2.Text = "Pollutant Operating Status"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(12, 3)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(61, 13)
+        Me.Label1.TabIndex = 230
+        Me.Label1.Text = "Air Program"
+        '
+        'AirProgramSelect
+        '
+        Me.AirProgramSelect.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.AirProgramSelect.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.AirProgramSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.AirProgramSelect.Location = New System.Drawing.Point(15, 19)
+        Me.AirProgramSelect.Name = "AirProgramSelect"
+        Me.AirProgramSelect.Size = New System.Drawing.Size(228, 21)
+        Me.AirProgramSelect.TabIndex = 0
+        '
+        'PollutantSelect
+        '
+        Me.PollutantSelect.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.PollutantSelect.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.PollutantSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.PollutantSelect.Location = New System.Drawing.Point(15, 67)
+        Me.PollutantSelect.Name = "PollutantSelect"
+        Me.PollutantSelect.Size = New System.Drawing.Size(228, 21)
+        Me.PollutantSelect.TabIndex = 1
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(152, 56)
+        Me.Label3.Location = New System.Drawing.Point(12, 51)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(48, 13)
         Me.Label3.TabIndex = 232
         Me.Label3.Text = "Pollutant"
         '
-        'cboPollutants
+        'FacilityOperatingStatusDisplay
         '
-        Me.cboPollutants.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cboPollutants.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboPollutants.Location = New System.Drawing.Point(153, 72)
-        Me.cboPollutants.Name = "cboPollutants"
-        Me.cboPollutants.Size = New System.Drawing.Size(257, 21)
-        Me.cboPollutants.TabIndex = 231
+        Me.FacilityOperatingStatusDisplay.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.FacilityOperatingStatusDisplay.AutoSize = True
+        Me.FacilityOperatingStatusDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FacilityOperatingStatusDisplay.Location = New System.Drawing.Point(12, 48)
+        Me.FacilityOperatingStatusDisplay.Name = "FacilityOperatingStatusDisplay"
+        Me.FacilityOperatingStatusDisplay.Size = New System.Drawing.Size(101, 17)
+        Me.FacilityOperatingStatusDisplay.TabIndex = 240
+        Me.FacilityOperatingStatusDisplay.Text = "Facility status: "
         '
-        'Label1
+        'FacilityDisplay
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 56)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(89, 13)
-        Me.Label1.TabIndex = 230
-        Me.Label1.Text = "Air Program Code"
-        '
-        'dgvAirProgramPollutants
-        '
-        Me.dgvAirProgramPollutants.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvAirProgramPollutants.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvAirProgramPollutants.Location = New System.Drawing.Point(0, 162)
-        Me.dgvAirProgramPollutants.Name = "dgvAirProgramPollutants"
-        Me.dgvAirProgramPollutants.ReadOnly = True
-        Me.dgvAirProgramPollutants.Size = New System.Drawing.Size(627, 190)
-        Me.dgvAirProgramPollutants.TabIndex = 5
-        '
-        'btnSaveNewPollutant
-        '
-        Me.btnSaveNewPollutant.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSaveNewPollutant.Location = New System.Drawing.Point(12, 117)
-        Me.btnSaveNewPollutant.Name = "btnSaveNewPollutant"
-        Me.btnSaveNewPollutant.Size = New System.Drawing.Size(135, 23)
-        Me.btnSaveNewPollutant.TabIndex = 238
-        Me.btnSaveNewPollutant.Text = "Add/Edit Pollutant Data"
-        Me.btnSaveNewPollutant.UseVisualStyleBackColor = True
-        '
-        'PanelPollutants
-        '
-        Me.PanelPollutants.Controls.Add(Me.FacilityNameDisplay)
-        Me.PanelPollutants.Controls.Add(Me.AirsNumberDisplay)
-        Me.PanelPollutants.Controls.Add(Me.btnSaveNewPollutant)
-        Me.PanelPollutants.Controls.Add(Me.cboComplianceStatus)
-        Me.PanelPollutants.Controls.Add(Me.lblComplianceStatus)
-        Me.PanelPollutants.Controls.Add(Me.Label1)
-        Me.PanelPollutants.Controls.Add(Me.cboAirProgramCodes)
-        Me.PanelPollutants.Controls.Add(Me.cboPollutants)
-        Me.PanelPollutants.Controls.Add(Me.Label3)
-        Me.PanelPollutants.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelPollutants.Location = New System.Drawing.Point(0, 0)
-        Me.PanelPollutants.Name = "PanelPollutants"
-        Me.PanelPollutants.Size = New System.Drawing.Size(627, 162)
-        Me.PanelPollutants.TabIndex = 8
-        '
-        'FacilityNameDisplay
-        '
-        Me.FacilityNameDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FacilityNameDisplay.Location = New System.Drawing.Point(92, 18)
-        Me.FacilityNameDisplay.Name = "FacilityNameDisplay"
-        Me.FacilityNameDisplay.Size = New System.Drawing.Size(388, 34)
-        Me.FacilityNameDisplay.TabIndex = 240
-        Me.FacilityNameDisplay.Text = "Facility Name"
+        Me.FacilityDisplay.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.FacilityDisplay.AutoSize = True
+        Me.FacilityDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FacilityDisplay.Location = New System.Drawing.Point(92, 18)
+        Me.FacilityDisplay.Name = "FacilityDisplay"
+        Me.FacilityDisplay.Size = New System.Drawing.Size(92, 17)
+        Me.FacilityDisplay.TabIndex = 240
+        Me.FacilityDisplay.Text = "Facility Name"
         '
         'AirsNumberDisplay
         '
@@ -148,27 +187,35 @@ Partial Class IAIPEditAirProgramPollutants
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(627, 352)
-        Me.Controls.Add(Me.dgvAirProgramPollutants)
-        Me.Controls.Add(Me.PanelPollutants)
-        Me.MinimumSize = New System.Drawing.Size(643, 390)
+        Me.ClientSize = New System.Drawing.Size(484, 549)
+        Me.Controls.Add(Me.FacilityAirProgramPollutants)
+        Me.Controls.Add(Me.ControlPanel)
+        Me.Controls.Add(Me.HeaderPanel)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
+        Me.MinimumSize = New System.Drawing.Size(500, 350)
         Me.Name = "IAIPEditAirProgramPollutants"
-        Me.Text = "Edit Air Program Pollutants"
-        CType(Me.dgvAirProgramPollutants, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.PanelPollutants.ResumeLayout(False)
-        Me.PanelPollutants.PerformLayout()
+        Me.ShowIcon = False
+        Me.Text = "Facility Air Programs/Pollutants"
+        CType(Me.FacilityAirProgramPollutants, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.HeaderPanel.ResumeLayout(False)
+        Me.HeaderPanel.PerformLayout()
+        Me.ControlPanel.ResumeLayout(False)
+        Me.ControlPanel.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents cboComplianceStatus As System.Windows.Forms.ComboBox
-    Friend WithEvents lblComplianceStatus As System.Windows.Forms.Label
-    Friend WithEvents cboAirProgramCodes As System.Windows.Forms.ComboBox
+    Friend WithEvents AirProgramSelect As System.Windows.Forms.ComboBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents cboPollutants As System.Windows.Forms.ComboBox
+    Friend WithEvents PollutantSelect As System.Windows.Forms.ComboBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents dgvAirProgramPollutants As System.Windows.Forms.DataGridView
-    Friend WithEvents btnSaveNewPollutant As System.Windows.Forms.Button
-    Friend WithEvents PanelPollutants As System.Windows.Forms.Panel
-    Friend WithEvents FacilityNameDisplay As System.Windows.Forms.Label
+    Friend WithEvents FacilityAirProgramPollutants As System.Windows.Forms.DataGridView
+    Friend WithEvents SaveButton As System.Windows.Forms.Button
+    Friend WithEvents HeaderPanel As System.Windows.Forms.Panel
+    Friend WithEvents FacilityDisplay As System.Windows.Forms.Label
     Friend WithEvents AirsNumberDisplay As System.Windows.Forms.Label
+    Friend WithEvents ControlPanel As Panel
+    Friend WithEvents OperatingStatusSelect As ComboBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents FacilityOperatingStatusDisplay As Label
 End Class

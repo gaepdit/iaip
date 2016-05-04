@@ -38,13 +38,13 @@ Public Class DmuEdtErrorMessageDetail
 #Region " Load "
 
     Private Sub DmuEdtErrorMessageDetail_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         AddDisplayOptionHandlers()
         PrepUserComboBoxes()
     End Sub
 
     Private Sub PrepUserComboBoxes()
-        activeUsersList = DAL.GetActiveUsers
+        activeUsersList = UsersService.ActiveUsers
         activeUsersList.Insert(0, New KeyValuePair(Of Integer, String)(0, "Unassigned"))
         UserAsDefault.BindToKeyValuePairs(activeUsersList)
         UserToAssign.BindToKeyValuePairs(activeUsersList)
@@ -415,7 +415,7 @@ Public Class DmuEdtErrorMessageDetail
                     .Item("Resolved") = True
                     .Item("ResolvedDate") = Now
                     .Item("ResolvedByUserID") = CurrentUser.UserID
-                    .Item("ResolvedByUserName") = CurrentUser.Staff.AlphaName
+                    .Item("ResolvedByUserName") = CurrentUser.AlphaName
                 End With
             Next
 

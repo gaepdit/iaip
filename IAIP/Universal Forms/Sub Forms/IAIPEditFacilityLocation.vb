@@ -10,7 +10,7 @@ Public Class IAIPEditFacilityLocation
     Dim daFacilityInformation2 As OracleDataAdapter
 
     Private Sub IAIPEditFacilityLocation_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+        
         Try
             If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtAirsNumber.Text) Then
                 LoadFacilityInformation()
@@ -320,7 +320,7 @@ Public Class IAIPEditFacilityLocation
                             If Comments <> "" Then
                                 SQL = SQL & "strComments = '" & Comments & "', "
                             End If
-                            SQL = SQL & "strModifingPerson = '" & UserGCode & "', " & _
+                            SQL = SQL & "strModifingPerson = '" & CurrentUser.UserID & "', " & _
                             "datModifingDate = '" & OracleDate & "', " & _
                             "strModifingLocation = '2' " & _
                             "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
@@ -354,7 +354,7 @@ Public Class IAIPEditFacilityLocation
                                 SQL = "Update airbranch.EIS_FacilitySite set " & _
                                 "strFacilitySiteName = '" & FacilityName & "', " & _
                                 "strFacilitySiteComment = 'Facility Name updated.', " & _
-                                "UpdateUSer = '" & UserName & "', " & _
+                                "UpdateUSer = '" & CurrentUser.AlphaName & "', " & _
                                 "updateDateTime = sysdate " & _
                                 "where facilitySiteID = '" & txtAirsNumber.Text & "' "
 

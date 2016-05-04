@@ -10,7 +10,7 @@ Namespace Apb.Sscp
         Public Property SscpTrackingNumber() As String
         Public Property Facility() As Apb.Facilities.Facility
         Public Property DateReceived() As Date
-        Public Property StaffResponsible() As Staff
+        Public Property StaffResponsible() As IaipUser
         Public Property DateComplete() As Date?
         Public Property Deleted() As Boolean
         Public Property DeletedDbCode As String

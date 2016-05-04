@@ -251,7 +251,8 @@ Module Extensions
     ''' <returns>The value of the Description attribute if present, else
     ''' the normal ToString() representation of the enum value.</returns>
     ''' <remarks>http://stackoverflow.com/a/14772005/212978</remarks>
-    <Extension()>
+    <DebuggerStepThrough>
+    <Extension>
     Public Function GetDescription(ByVal e As [Enum]) As String
         Dim enumType As Type = e.GetType()
         Dim name As String = e.ToString()
@@ -315,6 +316,20 @@ Module Extensions
         For Each value As [Enum] In flagValues.GetUniqueFlags
             Yield value.GetDescription
         Next
+    End Function
+
+    Public Function EnumToDataTable(enumType As Type) As DataTable
+        Dim dt As New DataTable()
+        dt.Columns.Add("Key", [Enum].GetUnderlyingType(enumType))
+        dt.Columns.Add("Description", GetType(String))
+
+        Dim e As [Enum]
+        For Each name As String In [Enum].GetNames(enumType)
+            e = [Enum].Parse(enumType, name)
+            dt.Rows.Add(e, e.GetDescription)
+        Next
+
+        Return dt
     End Function
 
 #End Region
@@ -383,6 +398,28 @@ Module Extensions
             .ValueMember = "Key"
         End With
     End Sub
+
+#End Region
+
+#Region " ICollection "
+
+    <Extension>
+    Public Function ContainsAny(Of T)(set1 As ICollection(Of T), set2 As ICollection(Of T)) As Boolean
+        If set1 Is Nothing OrElse set2 Is Nothing Then Return False
+        If set1 Is set2 Then Return True
+        If set1.Count < set2.Count Then
+            Dim hs As New HashSet(Of T)(set1)
+            For Each v As T In set2
+                If hs.Contains(v) Then Return True
+            Next
+        Else
+            Dim hs As New HashSet(Of T)(set2)
+            For Each v As T In set1
+                If hs.Contains(v) Then Return True
+            Next
+        End If
+        Return False
+    End Function
 
 #End Region
 

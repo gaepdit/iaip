@@ -2,32 +2,57 @@
 Imports System.Reflection
 Imports System.Deployment.Application
 
-Module App
+Public Module App
 
 #Region " URL handling "
 
     Public Sub OpenDocumentationUrl(Optional ByVal objectSender As Form = Nothing)
         monitor.TrackFeature("Url.OpenHelp")
+        If objectSender Is Nothing Then
+            ApplicationInsights.TrackEvent("Url.OpenHelp")
+        Else
+            ApplicationInsights.TrackEvent("Url.OpenHelp", "FromForm", objectSender.Name)
+        End If
         OpenUri(DocumentationUrl, objectSender)
     End Sub
 
     Public Sub OpenSupportUrl(Optional ByVal objectSender As Form = Nothing)
         monitor.TrackFeature("Url.OpenSupport")
+        If objectSender Is Nothing Then
+            ApplicationInsights.TrackEvent("Url.OpenSupport")
+        Else
+            ApplicationInsights.TrackEvent("Url.OpenSupport", "FromForm", objectSender.Name)
+        End If
         OpenUri(SupportUrl, objectSender)
     End Sub
 
     Public Sub OpenChangelogUrl(Optional ByVal objectSender As Form = Nothing)
         monitor.TrackFeature("Url.OpenChangelog")
+        If objectSender Is Nothing Then
+            ApplicationInsights.TrackEvent("Url.OpenChangelog")
+        Else
+            ApplicationInsights.TrackEvent("Url.OpenChangelog", "FromForm", objectSender.Name)
+        End If
         OpenUri(ChangelogUrl, objectSender)
     End Sub
 
     Public Sub OpenMapUrl(ByVal addressString As String, Optional ByVal objectSender As Form = Nothing)
         monitor.TrackFeature("Url.OpenMap")
+        If objectSender Is Nothing Then
+            ApplicationInsights.TrackEvent("Url.OpenMap")
+        Else
+            ApplicationInsights.TrackEvent("Url.OpenMap", "FromForm", objectSender.Name)
+        End If
         OpenUri(New Uri(MapUrlFragment & addressString), objectSender)
     End Sub
 
     Public Sub OpenPermitSearchUrl(ByVal airsNumber As Apb.ApbFacilityId, Optional ByVal objectSender As Form = Nothing)
         monitor.TrackFeature("Url.OpenPermitSearch")
+        If objectSender Is Nothing Then
+            ApplicationInsights.TrackEvent("Url.OpenPermitSearch")
+        Else
+            ApplicationInsights.TrackEvent("Url.OpenPermitSearch", "FromForm", objectSender.Name)
+        End If
         OpenUri(New Uri(PermitSearchUrlFragment & airsNumber.ToString), objectSender)
     End Sub
 
@@ -40,8 +65,8 @@ Module App
             Process.Start(uriString)
             Return True
         Catch ee As Exception When _
-        TypeOf ee Is System.ComponentModel.Win32Exception OrElse _
-        TypeOf ee Is System.ObjectDisposedException OrElse _
+        TypeOf ee Is System.ComponentModel.Win32Exception OrElse
+        TypeOf ee Is System.ObjectDisposedException OrElse
         TypeOf ee Is System.IO.FileNotFoundException
             Return False
         Finally
@@ -66,7 +91,7 @@ Module App
                 CurrentVersion = ApplicationDeployment.CurrentDeployment.CurrentVersion
             Else
                 Dim thisAssembly As Assembly = Assembly.GetExecutingAssembly()
-                Dim fileVersionInfo As FileVersionInfo = fileVersionInfo.GetVersionInfo(thisAssembly.Location)
+                Dim fileVersionInfo As FileVersionInfo = FileVersionInfo.GetVersionInfo(thisAssembly.Location)
                 CurrentVersion = New Version(fileVersionInfo.FileVersion)
             End If
         End If
@@ -105,14 +130,14 @@ Module App
                 info = AD.CheckForDetailedUpdate()
             Catch dde As DeploymentDownloadException
                 MessageBox.Show("The IAIP cannot be updated right now. " & vbNewLine & vbNewLine _
-                                & "Please check your network connection or try again later. " & _
-                                vbNewLine & vbNewLine & "Error: " + dde.Message, _
+                                & "Please check your network connection or try again later. " &
+                                vbNewLine & vbNewLine & "Error: " + dde.Message,
                                 "Error")
                 Return
             Catch ioe As InvalidOperationException
-                MessageBox.Show("This application cannot be updated. Please contact support for " & _
-                                "more information. " & vbNewLine & vbNewLine & _
-                                "Error: " & ioe.Message, _
+                MessageBox.Show("This application cannot be updated. Please contact support for " &
+                                "more information. " & vbNewLine & vbNewLine &
+                                "Error: " & ioe.Message,
                                 "Error")
                 Return
             End Try
@@ -140,17 +165,17 @@ Module App
                         'MessageBox.Show("The IAIP has been updated and will now restart.")
                         Application.Restart()
                     Catch dde As DeploymentDownloadException
-                        MessageBox.Show("The IAIP cannot be updated right now. " & vbNewLine & vbNewLine & _
+                        MessageBox.Show("The IAIP cannot be updated right now. " & vbNewLine & vbNewLine &
                                         "Please check your network connection or try again later.")
                         Return
                     End Try
                 End If
             Else
-                MessageBox.Show("You have the latest version. No updates are available. :)", _
+                MessageBox.Show("You have the latest version. No updates are available. :)",
                                 "No Update Available")
             End If
         Else
-            MessageBox.Show("Not running as a Network Deployed Application.", _
+            MessageBox.Show("Not running as a Network Deployed Application.",
                             "Error")
         End If
     End Sub
@@ -178,15 +203,29 @@ Module App
     End Sub
 
     Public Sub ShowCrystalReportsSupportMessage()
-        MessageBox.Show("You must install Crystal Reports in order to print reports. " & _
-                        "Click the Help button to download the installer, or contact the Data Management Unit for assistance.", _
-                        "Missing Crystal Reports Runtime", _
-                        MessageBoxButtons.OK, _
-                        MessageBoxIcon.Exclamation, _
-                        MessageBoxDefaultButton.Button2, _
-                        0, _
+        MessageBox.Show("You must install Crystal Reports in order to print reports. " &
+                        "Click the Help button to download the installer, or contact the Data Management Unit for assistance.",
+                        "Missing Crystal Reports Runtime",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Exclamation,
+                        MessageBoxDefaultButton.Button2,
+                        0,
                         "http://dmu.georgiaair.org/iaip/pre-install/")
     End Sub
+
+#End Region
+
+#Region " Alternate booleans "
+
+    Public Enum EnableOrDisable
+        Disable = False
+        Enable = True
+    End Enum
+
+    Public Enum OpenOrClosed
+        Closed = False
+        Open = True
+    End Enum
 
 #End Region
 
