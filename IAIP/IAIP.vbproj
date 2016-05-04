@@ -175,6 +175,7 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="Universal Forms\Users\IaipResetPassword.Designer.vb">
       <DependentUpon>IaipResetPassword.vb</DependentUpon>
     </Compile>
@@ -337,7 +338,6 @@
       <DependentUpon>crSSPPConfirmationLetter.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="ISMP\ISMPManagersTools.Designer.vb">
       <DependentUpon>ISMPManagersTools.vb</DependentUpon>
     </Compile>
