@@ -35,9 +35,13 @@ Module EqatecAnalytics
         ' Add additional installation meta data for analytics
         monitorInstallationInfo.Add("IaipUsername", CurrentUser.Username)
         monitor.SetInstallationInfo(CurrentUser.Username, monitorInstallationInfo)
-        If (CurrentServerEnvironment <> DB.DefaultServerEnvironment) Then
-            monitor.TrackFeature("Main.TestingEnvironment")
-        End If
+#If DEBUG Then
+        monitor.TrackFeature("Main.TestingEnvironment")
+#ElseIf UAT Then
+        monitor.TrackFeature("Main.UatEnvironment")
+#Else
+        monitor.TrackFeature("Main.ProductionEnvironment")
+#End If
         monitor.ForceSync()
     End Sub
 

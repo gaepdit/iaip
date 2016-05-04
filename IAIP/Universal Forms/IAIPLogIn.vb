@@ -38,7 +38,7 @@ Public Class IAIPLogIn
             CheckLanguageRegistrySetting()
 
             ChooseDbServerEnvironment()
-            TestingMenuItem.Visible = True
+            mmiTestingMenu.Visible = True
             CheckDBAvailability()
 
 #If UAT Then
@@ -107,7 +107,7 @@ Public Class IAIPLogIn
         If prr <> "" Then
             Dim prrd As DateTime = DateTime.ParseExact(prr, DateParseExactFormat, Nothing)
             If DateTime.Compare(prrd, Date.Now.AddHours(-8)) > 0 Then
-                PasswordResetMenuItem.Visible = True
+                mmiPasswordReset.Visible = True
             Else
                 ResetUserSetting(UserSetting.PasswordResetRequestedDate)
             End If
@@ -196,7 +196,7 @@ Public Class IAIPLogIn
         AddMonitorLoginData()
         SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
         ResetUserSetting(UserSetting.PasswordResetRequestedDate)
-        PasswordResetMenuItem.Visible = False
+        mmiPasswordReset.Visible = False
         OpenSingleForm(IAIPNavigation)
         Me.Close()
     End Sub
@@ -301,7 +301,7 @@ Public Class IAIPLogIn
 
         If passwordResetRequested Then
             SaveUserSetting(UserSetting.PasswordResetRequestedDate, Date.Now.ToString(DateParseExactFormat))
-            PasswordResetMenuItem.Visible = True
+            mmiPasswordReset.Visible = True
             ShowPasswordResetForm(usernameSubmitted)
         End If
 
@@ -319,7 +319,7 @@ Public Class IAIPLogIn
 
             If resetPassword.ShowDialog() = DialogResult.OK Then
                 ResetUserSetting(UserSetting.PasswordResetRequestedDate)
-                PasswordResetMenuItem.Visible = False
+                mmiPasswordReset.Visible = False
                 Me.Message = New IaipMessage("Password successfully changed. Please log in with your new password.", IaipMessage.WarningLevels.Info)
             Else
                 Me.Message = New IaipMessage("Check your email for password reset information. Please allow up to 15 minutes for delivery. " &
@@ -432,7 +432,7 @@ Public Class IAIPLogIn
         RequestPasswordReset()
     End Sub
 
-    Private Sub PasswordResetMenuItem_Click(sender As Object, e As EventArgs) Handles PasswordResetMenuItem.Click
+    Private Sub PasswordResetMenuItem_Click(sender As Object, e As EventArgs) Handles mmiPasswordReset.Click
         ShowPasswordResetForm()
     End Sub
 

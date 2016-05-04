@@ -277,7 +277,7 @@ Public Class PASPFeeAuditLog
             txtInitialAddressLine2.Clear()
             txtInitialCity.Clear()
             mtbInitialZipCode.Clear()
-            cboInitialOpStatus.SelectedValue = FacilityOperationalStatus.Unspecified
+            cboInitialOpStatus.SelectedValue = FacilityOperationalStatus.U
             cboInitialClassification.SelectedValue = FacilityClassification.Unspecified
             rdbInitialNSPSTrue.Checked = False
             rdbInitialNSPSFalse.Checked = False
@@ -545,7 +545,7 @@ Public Class PASPFeeAuditLog
                     txtContactEmail.Text = dr.Item("strGECOUserEmail")
                 End If
                 If IsDBNull(dr.Item("strOperationalStatus")) Then
-                    cboInitialOpStatus.SelectedValue = FacilityOperationalStatus.Unspecified
+                    cboInitialOpStatus.SelectedValue = FacilityOperationalStatus.U
                 Else
                     OpStatus = dr.Item("strOperationalStatus")
                     Select Case OpStatus
@@ -562,7 +562,7 @@ Public Class PASPFeeAuditLog
                         Case "I"
                             cboInitialOpStatus.SelectedValue = FacilityOperationalStatus.I
                         Case Else
-                            cboInitialOpStatus.SelectedValue = FacilityOperationalStatus.Unspecified
+                            cboInitialOpStatus.SelectedValue = FacilityOperationalStatus.U
                     End Select
                 End If
                 If IsDBNull(dr.Item("strClass")) Then

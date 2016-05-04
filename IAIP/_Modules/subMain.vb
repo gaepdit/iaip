@@ -6,7 +6,7 @@ Module subMain
 
 #Region " DB Connections "
 
-    Friend CurrentServerEnvironment As DB.ServerEnvironment = DB.Connections.ServerEnvironment.DEV
+    Friend CurrentServerEnvironment As DB.ServerEnvironment = DB.ServerEnvironment.DEV
     Friend CurrentConnection As OracleConnection
 
 #End Region
