@@ -7,7 +7,7 @@ The IAIP is a Windows Forms Application and currently targets the .NET Framework
 
 ## Prerequisites for building
 
-+ [Visual Studio](https://www.visualstudio.com/) 2010 or later
++ [Visual Studio](https://www.visualstudio.com/) 2015 or later
 
 + [Microsoft .NET Framework 4.5.2 Developer Pack](http://www.microsoft.com/en-us/download/details.aspx?id=42637)
 
