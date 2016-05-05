@@ -323,6 +323,7 @@ Public Class SSPPPermitUploader
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId:="cmdCB")>
     Sub UploadFile(ByVal FileName As String, ByVal DocLocation As String, ByVal DocxLocation As String,
                     ByVal PDFLocation As String, ByVal DocOnFile As String)
         Try

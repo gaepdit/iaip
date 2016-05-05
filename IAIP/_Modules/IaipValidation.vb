@@ -8,6 +8,7 @@ Module IaipValidation
         Return True
     End Function
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId:="testEmail")>
     Public Function IsValidEmailAddress(ByVal emailAddress As String, Optional requireDnrAddress As Boolean = False) As Boolean
         If String.IsNullOrEmpty(emailAddress) Then Return False
         If requireDnrAddress AndAlso Not Regex.IsMatch(emailAddress, DnrEmailPattern) Then Return False

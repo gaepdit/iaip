@@ -3804,6 +3804,8 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
+
+    <CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId:="cmdCB")>
     Sub AddExcelFile()
         Try
 

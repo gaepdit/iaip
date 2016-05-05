@@ -3820,11 +3820,7 @@ Public Class PASPFeeAuditLog
     End Sub
     Private Sub rdbEditNSPSExemptTrue_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles rdbEditNSPSExemptTrue.CheckedChanged
         Try
-            Dim NSPStemp As String = ""
-            Dim ReasonID As String = ""
-            Dim DisplayOrder As String = ""
             Dim dgvRow As New DataGridViewRow
-            Dim i As Integer = 1
 
             If rdbEditNSPSExemptTrue.Checked = False Then
                 Exit Sub
@@ -3853,74 +3849,6 @@ Public Class PASPFeeAuditLog
                 dgvEditExemptions.Rows.Add(dgvRow)
             End While
             dr.Close()
-
-            Exit Sub
-
-
-            SQL = "Select " &
-            "NSPSReasonCode, DisplayOrder " &
-            "from AIRBRANCH.FSLK_NSPSReasonYear " &
-            "where numFeeYear = '" & Me.FeeYear & "' " &
-            "order by NSPSReasonCode "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("NSPSReasonCode")) Then
-                    NSPStemp = NSPStemp
-                Else
-                    NSPStemp = NSPStemp & dr.Item("NSPSReasonCode")
-                    If IsDBNull(dr.Item("DisplayOrder")) Then
-                        NSPStemp = NSPStemp & "-" & i & ","
-                        i += 1
-                    Else
-                        NSPStemp = NSPStemp & "-" & dr.Item("DisplayOrder") & ","
-                        If dr.Item("DisplayOrder") >= i Then
-                            i = dr.Item("DisplayOrder") + 1
-                        End If
-                    End If
-                End If
-            End While
-            dr.Close()
-
-            dgvEditExemptions.Rows.Clear()
-            Do While NSPStemp <> ""
-                ReasonID = Mid(NSPStemp, 1, InStr(NSPStemp, "-", CompareMethod.Text) - 1)
-
-                If ReasonID.Length = 1 Then
-                    DisplayOrder = Mid(NSPStemp, InStr(NSPStemp, "-", CompareMethod.Text) + 1, InStr(NSPStemp, ",", CompareMethod.Text) - 3)
-                Else
-                    DisplayOrder = Mid(NSPStemp, InStr(NSPStemp, "-", CompareMethod.Text) + 1, InStr(NSPStemp, ",", CompareMethod.Text) - 4)
-                End If
-
-
-                temp = ReasonID & "-" & DisplayOrder & ","
-                NSPStemp = Replace(NSPStemp, temp, "")
-
-                'Dim x As Integer = 0
-                'While x < dgvNSPSExemptions.Rows.Count
-                '    Dim y As Integer = 0
-                '    While y < dgvNSPSExemptions.Rows(x).Cells.Count
-                '        Dim c As DataGridViewCell = dgvNSPSExemptions.Rows(x).Cells(y)
-                '        If Not c.Value Is DBNull.Value Or Nothing Then
-                '            If CType(c.Value, String) = ReasonID Then
-                '                dgvRow = New DataGridViewRow
-                '                dgvRow.CreateCells(dgvEditExemptions)
-                '                dgvRow.Cells(0).Value = 0
-                '                dgvRow.Cells(1).Value = dgvNSPSExemptions(0, x).Value
-                '                dgvRow.Cells(2).Value = dgvNSPSExemptions(1, x).Value
-                '                dgvEditExemptions.Rows.Add(dgvRow)
-                '            End If
-                '        End If
-                '        System.Math.Min(System.Threading.Interlocked.Increment(y), y - 1)
-                '    End While
-                '    System.Math.Min(System.Threading.Interlocked.Increment(x), x - 1)
-                'End While
-            Loop
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

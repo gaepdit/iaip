@@ -1487,6 +1487,8 @@ Public Class SSPPPublicNoticiesAndAdvisories
         End Try
 
     End Sub
+
+    <CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId:="cmdCB")>
     Sub UpdateLetter()
         Try
             Dim FileName As String = ""
@@ -2009,6 +2011,8 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
         End Try
     End Sub
+
+    <CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId:="cmdCB")>
     Private Sub btnSavePAPNChanges_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSavePAPNChanges.Click
         Try
             Dim FileName As String = ""

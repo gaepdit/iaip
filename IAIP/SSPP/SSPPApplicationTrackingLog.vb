@@ -6711,8 +6711,6 @@ Public Class SSPPApplicationTrackingLog
         Dim NAICSCode As String = ""
         Dim PlantDescription As String = ""
         Dim StateProgramCodes As String = ""
-        Dim tempStatus As String = ""
-        Dim Subpart As String = ""
 
         Dim query As String = ""
         Dim params As OracleParameter()
