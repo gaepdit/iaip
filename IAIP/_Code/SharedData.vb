@@ -54,7 +54,7 @@ Public Class SharedData
                     dt = DAL.StaffData.GetComplianceStaff()
 
                 Case SharedTable.Pollutants
-                    dt = DAL.CommonData.GetPollutantsTable()
+                    dt = DAL.GetPollutantsTable()
                     dt.PrimaryKey = New DataColumn() {dt.Columns("Pollutant Code")}
 
                 Case SharedTable.IaipAccountRoles

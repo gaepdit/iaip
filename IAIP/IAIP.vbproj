@@ -200,7 +200,10 @@
     <Compile Include="Users\IaipRequestUsername.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="_Code\RandomHelper.vb" />
+    <Compile Include="_Code\BooleanEnums.vb" />
+    <Compile Include="_Code\DateFunctions.vb" />
+    <Compile Include="_Code\StringFunctions.vb" />
+    <Compile Include="_Code\UrlHandler.vb" />
     <Compile Include="_DAL\DAL.Organization.vb" />
     <Compile Include="_Data Models\Users\IaipRoles.vb" />
     <Compile Include="_DB\DB.SPFunctions.vb" />
@@ -830,7 +833,6 @@
     <Compile Include="SSPP\Sub Forms\SSPPAttainmentStatus.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="_DAL\Common Data\DAL.CommonData.vb" />
     <Compile Include="_DAL\Facilities\DAL.PollutantsPrograms.vb" />
     <Compile Include="_DAL\Facilities\DAL.Afs.vb" />
     <Compile Include="_DAL\SSCP\DAL.Sscp.Fce.vb" />
@@ -859,7 +861,7 @@
     <Compile Include="_Code\IaipColors.vb" />
     <Compile Include="_Code\IaipMessage.vb" />
     <Compile Include="_Code\UserSettings.vb" />
-    <Compile Include="_Code\subMain.vb">
+    <Compile Include="_Code\AppVariables.vb">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Facility\IAIPFacilitySummary.Designer.vb">
@@ -1652,10 +1654,10 @@
     <Compile Include="_Code\FormHandler.vb" />
     <Compile Include="_Code\IaipFormHelpers.vb" />
     <Compile Include="_Code\FormSettings.vb" />
-    <Compile Include="_Code\General.vb" />
+    <Compile Include="_Code\FormControlsProcedures.vb" />
     <Compile Include="_Code\MD5.vb" />
     <Compile Include="_Code\DocumentMessages.vb" />
-    <Compile Include="_Code\Email.Outlook.vb" />
+    <Compile Include="_Code\OutlookEmail.vb" />
     <Compile Include="_Code\SimpleCrypt.vb" />
     <Compile Include="_Code\StartupShutdown.vb">
       <SubType>Code</SubType>

@@ -1,6 +1,6 @@
 Imports Oracle.ManagedDataAccess.Client
 
-Module subMain
+Module AppVariables
 
     ' App-wide public variables 
 
@@ -35,6 +35,14 @@ Module subMain
 
 #End Region
 
+#Region " API Keys "
+
+    Friend Const EqatecAnalyticsApiKey As String = "F635C42ABA7B4DE886EEFCEE31C98000"
+    Friend Const GoogleMapsApiKey As String = "AIzaSyAOMeyIrtZeEJb1Pci5jgtn_Uh3wr0NP14"
+    Friend Const ApplicationInsightsKey As String = "fc9b3ee9-eae9-4af4-a62d-ca041194890d"
+
+#End Region
+
 #Region " String formats "
 
     Friend Const DateParseExactFormat As String = "yyyy-MM-dd HH:mm tt"
@@ -58,7 +66,7 @@ Module subMain
 #Region " Old public variables "
     ' TODO: Destroy these
 
-    Public OracleDate As String = Format(Date.Today, "dd-MMM-yyyy")
+    Public OracleDate As String = Format(Today, DateFormat) ' Replace in SQL with SYSDATE; replace in code with Today
     Public AccountFormAccess(150, 4) As String
 
     Public cmd, cmd2 As OracleCommand

@@ -367,9 +367,8 @@ Public Class IAIPFacilitySummary
 
         MapPictureBox.Visible = False
 
-        Dim ApiKey As String = "AIzaSyAOMeyIrtZeEJb1Pci5jgtn_Uh3wr0NP14"
         Dim StaticMapsUrl As New System.Text.StringBuilder("https://maps.googleapis.com/maps/api/staticmap?")
-        StaticMapsUrl.Append("key=" & ApiKey)
+        StaticMapsUrl.Append("key=" & GoogleMapsApiKey)
         StaticMapsUrl.Append("&size=" & MapPictureBox.Width.ToString & "x" & MapPictureBox.Height.ToString)
         StaticMapsUrl.Append("&zoom=6&center=32.9,-83.3")
 

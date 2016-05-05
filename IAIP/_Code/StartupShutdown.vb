@@ -1,4 +1,4 @@
-﻿Module StartupShutdown
+﻿Friend Module StartupShutdown
 
     ''' <summary>
     ''' All the procedures to run as the application is starting up

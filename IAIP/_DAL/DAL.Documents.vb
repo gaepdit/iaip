@@ -171,7 +171,7 @@ Namespace DAL
                 .FileSize = DB.GetNullable(Of Decimal?)(row("NUMFILESIZE"))
                 .DocumentTypeId = row("NUMDOCUMENTTYPE")
                 .Comment = DB.GetNullable(Of String)(row("STRCOMMENT"))
-                .UploadDate = General.NormalizeDate(DB.GetNullable(Of Date)(row("CREATEDATE")))
+                .UploadDate = NormalizeDate(DB.GetNullable(Of Date)(row("CREATEDATE")))
                 .DocumentType = row("STRDOCUMENTTYPE")
             End With
         End Sub

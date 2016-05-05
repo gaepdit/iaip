@@ -8,8 +8,7 @@ Module EqatecAnalytics
     Public monitorInstallationInfo As New Dictionary(Of String, String)
 
     Public Sub InitializeMonitor()
-        Dim AnalyticsApiKey As String = "F635C42ABA7B4DE886EEFCEE31C98000"
-        Dim monitorSettings As IAnalyticsMonitorSettings = AnalyticsMonitorFactory.CreateSettings(AnalyticsApiKey)
+        Dim monitorSettings As IAnalyticsMonitorSettings = AnalyticsMonitorFactory.CreateSettings(EqatecAnalyticsApiKey)
 
 #If DEBUG Or BETA Then
         monitorSettings.TestMode = True

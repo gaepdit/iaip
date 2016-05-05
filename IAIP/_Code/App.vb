@@ -4,83 +4,8 @@ Imports System.Deployment.Application
 
 Public Module App
 
-#Region " URL handling "
-
-    Public Sub OpenDocumentationUrl(Optional ByVal objectSender As Form = Nothing)
-        monitor.TrackFeature("Url.OpenHelp")
-        If objectSender Is Nothing Then
-            ApplicationInsights.TrackEvent("Url.OpenHelp")
-        Else
-            ApplicationInsights.TrackEvent("Url.OpenHelp", "FromForm", objectSender.Name)
-        End If
-        OpenUri(DocumentationUrl, objectSender)
-    End Sub
-
-    Public Sub OpenSupportUrl(Optional ByVal objectSender As Form = Nothing)
-        monitor.TrackFeature("Url.OpenSupport")
-        If objectSender Is Nothing Then
-            ApplicationInsights.TrackEvent("Url.OpenSupport")
-        Else
-            ApplicationInsights.TrackEvent("Url.OpenSupport", "FromForm", objectSender.Name)
-        End If
-        OpenUri(SupportUrl, objectSender)
-    End Sub
-
-    Public Sub OpenChangelogUrl(Optional ByVal objectSender As Form = Nothing)
-        monitor.TrackFeature("Url.OpenChangelog")
-        If objectSender Is Nothing Then
-            ApplicationInsights.TrackEvent("Url.OpenChangelog")
-        Else
-            ApplicationInsights.TrackEvent("Url.OpenChangelog", "FromForm", objectSender.Name)
-        End If
-        OpenUri(ChangelogUrl, objectSender)
-    End Sub
-
-    Public Sub OpenMapUrl(ByVal addressString As String, Optional ByVal objectSender As Form = Nothing)
-        monitor.TrackFeature("Url.OpenMap")
-        If objectSender Is Nothing Then
-            ApplicationInsights.TrackEvent("Url.OpenMap")
-        Else
-            ApplicationInsights.TrackEvent("Url.OpenMap", "FromForm", objectSender.Name)
-        End If
-        OpenUri(New Uri(MapUrlFragment & addressString), objectSender)
-    End Sub
-
-    Public Sub OpenPermitSearchUrl(ByVal airsNumber As Apb.ApbFacilityId, Optional ByVal objectSender As Form = Nothing)
-        monitor.TrackFeature("Url.OpenPermitSearch")
-        If objectSender Is Nothing Then
-            ApplicationInsights.TrackEvent("Url.OpenPermitSearch")
-        Else
-            ApplicationInsights.TrackEvent("Url.OpenPermitSearch", "FromForm", objectSender.Name)
-        End If
-        OpenUri(New Uri(PermitSearchUrlFragment & airsNumber.ToString), objectSender)
-    End Sub
-
-    Private Function OpenUri(ByVal uriString As String, Optional ByVal objectSender As Object = Nothing) As Boolean
-        ' Reference: http://code.logos.com/blog/2008/01/using_processstart_to_link_to.html
-        Try
-            If objectSender IsNot Nothing Then objectSender.Cursor = Cursors.AppStarting
-            If uriString Is Nothing OrElse uriString = "" Then Return False
-
-            Process.Start(uriString)
-            Return True
-        Catch ee As Exception When _
-        TypeOf ee Is System.ComponentModel.Win32Exception OrElse
-        TypeOf ee Is System.ObjectDisposedException OrElse
-        TypeOf ee Is System.IO.FileNotFoundException
-            Return False
-        Finally
-            If objectSender IsNot Nothing Then objectSender.Cursor = Nothing
-        End Try
-    End Function
-
-    Public Function OpenUri(ByVal uri As Uri, Optional ByVal objectSender As Object = Nothing) As Boolean
-        Return OpenUri(uri.ToString, objectSender)
-    End Function
-
-#End Region
-
 #Region " Versioning Info "
+
     Friend CurrentVersion As Version = Nothing
 
     Public Function GetCurrentVersion() As Version
@@ -108,13 +33,6 @@ Public Module App
         If v.Revision = -1 Then Return v ' (A version with fewer than four components gets returned as-is)
         Return New Version(v.Major, v.Minor, v.Build)
     End Function
-
-    '' Not currently used, but may be useful in the future
-    'Private Function GetVersionAsMajorMinor(ByVal v As Version) As Version
-    '    ' This converts a Version from four components to three
-    '    If v.Build = -1 Then Return v ' (A version with fewer than three components gets returned as-is)
-    '    Return New Version(v.Major, v.Minor)
-    'End Function
 
 #End Region
 
@@ -212,20 +130,6 @@ Public Module App
                         0,
                         "http://dmu.georgiaair.org/iaip/pre-install/")
     End Sub
-
-#End Region
-
-#Region " Alternate booleans "
-
-    Public Enum EnableOrDisable
-        Disable = False
-        Enable = True
-    End Enum
-
-    Public Enum OpenOrClosed
-        Closed = False
-        Open = True
-    End Enum
 
 #End Region
 

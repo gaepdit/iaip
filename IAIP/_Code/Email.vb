@@ -1,9 +1,9 @@
-﻿Module Email
+﻿Public Module Email
 
-    Public Function CreateEmail(Optional ByVal subject As String = Nothing, _
-                         Optional ByVal body As String = Nothing, _
-                         Optional ByVal recipientsTo As String() = Nothing, _
-                         Optional ByVal recipientsCC As String() = Nothing, _
+    Public Function CreateEmail(Optional ByVal subject As String = Nothing,
+                         Optional ByVal body As String = Nothing,
+                         Optional ByVal recipientsTo As String() = Nothing,
+                         Optional ByVal recipientsCC As String() = Nothing,
                          Optional ByVal recipientsBCC As String() = Nothing) As Boolean
 
         monitor.TrackFeature("Email.SendUrlEmail")

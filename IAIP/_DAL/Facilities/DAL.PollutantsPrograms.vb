@@ -160,6 +160,15 @@ Namespace DAL
             Return DB.ValueExists(query, parameters)
         End Function
 
+        Public Function GetPollutantsTable() As DataTable
+            Dim query As String = "SELECT STRPOLLUTANTCODE AS ""Pollutant Code"", " &
+                "  STRPOLLUTANTDESCRIPTION AS ""Pollutant"" " &
+                "FROM AIRBRANCH.LOOKUPPOLLUTANTS " &
+                "WHERE STRAFSCODE = 'True' " &
+                "ORDER BY STRPOLLUTANTDESCRIPTION"
+            Return DB.GetDataTable(query)
+        End Function
+
     End Module
 
 End Namespace
