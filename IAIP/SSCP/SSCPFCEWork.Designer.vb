@@ -20,7 +20,6 @@ Partial Class SSCPFCEWork
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPFCEWork))
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.MenuFile = New System.Windows.Forms.MenuItem()
         Me.MenuSave = New System.Windows.Forms.MenuItem()
@@ -935,7 +934,6 @@ Partial Class SSCPFCEWork
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.TabControlFCE)
         Me.Controls.Add(Me.txtAirsNumber)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Menu = Me.MainMenu1
         Me.Name = "SSCPFCEWork"
         Me.Text = "Full Compliance Evaluation"
