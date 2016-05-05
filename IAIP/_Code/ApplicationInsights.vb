@@ -83,6 +83,9 @@ Friend Class ApplicationInsights
     End Sub
 
     Public Shared Sub AddTelemetryClientProperty(prop As TelemetryContextProperty, value As String)
+        If iaipTelemetryClient.Context.Properties.ContainsKey(prop.ToString) Then
+            iaipTelemetryClient.Context.Properties.Remove(prop.ToString)
+        End If
         iaipTelemetryClient.Context.Properties.Add(prop.ToString, value)
     End Sub
 
