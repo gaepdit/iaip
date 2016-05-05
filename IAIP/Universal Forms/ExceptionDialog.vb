@@ -47,17 +47,14 @@ Friend Class ExceptionDialog
     End Sub
 
     Private Sub SizeBox(ByVal ctl As System.Windows.Forms.TextBox)
-        Dim g As Graphics = Nothing
         Try
             '-- note that the height is taken as MAXIMUM, so size the label for maximum desired height!
-            g = Graphics.FromHwnd(ctl.Handle)
-            Dim objSizeF As SizeF = g.MeasureString(ctl.Text, ctl.Font, New SizeF(ctl.Width, ctl.Height))
-            g.Dispose()
-            ctl.Height = Convert.ToInt32(objSizeF.Height) + 5
+            Using g As Graphics = Graphics.FromHwnd(ctl.Handle)
+                Dim objSizeF As SizeF = g.MeasureString(ctl.Text, ctl.Font, New SizeF(ctl.Width, ctl.Height))
+                ctl.Height = Convert.ToInt32(objSizeF.Height) + 5
+            End Using
         Catch ex As System.Security.SecurityException
             '-- do nothing; we can't set control sizes without full trust
-        Finally
-            If Not g Is Nothing Then g.Dispose()
         End Try
     End Sub
 

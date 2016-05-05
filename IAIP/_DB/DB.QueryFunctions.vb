@@ -281,9 +281,7 @@ Namespace DB
                 Using fs As New FileStream(filePath, FileMode.Create, FileAccess.Write)
                     Using bw As New BinaryWriter(fs)
                         bw.Write(byteArray)
-                        bw.Close()
                     End Using ' bw
-                    fs.Close()
                 End Using ' fs
 
                 Return True
@@ -313,7 +311,6 @@ Namespace DB
                         Dim byteArray(length) As Byte
                         dr.GetBytes(0, 0, byteArray, 0, length)
 
-                        dr.Close()
                         dr.Dispose()
                         command.Connection.Close()
 
