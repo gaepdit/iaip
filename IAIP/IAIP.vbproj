@@ -176,49 +176,49 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalSuppressions.vb" />
-    <Compile Include="Universal Forms\Users\IaipResetPassword.Designer.vb">
+    <Compile Include="Users\IaipResetPassword.Designer.vb">
       <DependentUpon>IaipResetPassword.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universal Forms\Users\IaipResetPassword.vb">
+    <Compile Include="Users\IaipResetPassword.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\Users\IaipCreateUser.Designer.vb">
+    <Compile Include="Users\IaipCreateUser.Designer.vb">
       <DependentUpon>IaipCreateUser.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universal Forms\Users\IaipCreateUser.vb">
+    <Compile Include="Users\IaipCreateUser.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\Users\IaipRequestPasswordReset.Designer.vb">
+    <Compile Include="Users\IaipRequestPasswordReset.Designer.vb">
       <DependentUpon>IaipRequestPasswordReset.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universal Forms\Users\IaipRequestPasswordReset.vb">
+    <Compile Include="Users\IaipRequestPasswordReset.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\Users\IaipRequestUsername.Designer.vb">
+    <Compile Include="Users\IaipRequestUsername.Designer.vb">
       <DependentUpon>IaipRequestUsername.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universal Forms\Users\IaipRequestUsername.vb">
+    <Compile Include="Users\IaipRequestUsername.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="_Classes\RandomHelper.vb" />
+    <Compile Include="_Code\RandomHelper.vb" />
     <Compile Include="_DAL\DAL.Organization.vb" />
-    <Compile Include="_Data Models\IaipRoles.vb" />
+    <Compile Include="_Data Models\Users\IaipRoles.vb" />
     <Compile Include="_DB\DB.SPFunctions.vb" />
-    <Compile Include="_Modules\RegexPatterns.vb" />
-    <Compile Include="_Modules\IaipValidation.vb" />
-    <EmbeddedResource Include="Universal Forms\Users\IaipResetPassword.resx">
+    <Compile Include="_Code\RegexPatterns.vb" />
+    <Compile Include="_Code\IaipValidation.vb" />
+    <EmbeddedResource Include="Users\IaipResetPassword.resx">
       <DependentUpon>IaipResetPassword.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\Users\IaipCreateUser.resx">
+    <EmbeddedResource Include="Users\IaipCreateUser.resx">
       <DependentUpon>IaipCreateUser.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\Users\IaipRequestPasswordReset.resx">
+    <EmbeddedResource Include="Users\IaipRequestPasswordReset.resx">
       <DependentUpon>IaipRequestPasswordReset.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\Users\IaipRequestUsername.resx">
+    <EmbeddedResource Include="Users\IaipRequestUsername.resx">
       <DependentUpon>IaipRequestUsername.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\Users\IaipUserProfile.resx">
+    <EmbeddedResource Include="Users\IaipUserProfile.resx">
       <DependentUpon>IaipUserProfile.vb</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
@@ -374,19 +374,19 @@
     <Compile Include="Universal Forms\ExceptionDialog.Designer.vb">
       <DependentUpon>ExceptionDialog.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universal Forms\Users\IaipChangePassword.Designer.vb">
+    <Compile Include="Users\IaipChangePassword.Designer.vb">
       <DependentUpon>IaipChangePassword.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universal Forms\Users\IaipChangePassword.vb">
+    <Compile Include="Users\IaipChangePassword.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\Users\IaipUserProfile.Designer.vb">
+    <Compile Include="Users\IaipUserProfile.Designer.vb">
       <DependentUpon>IaipUserProfile.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universal Forms\Users\IaipUserProfile.vb">
+    <Compile Include="Users\IaipUserProfile.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="_Classes\ListViewItemComparer.vb">
+    <Compile Include="_Code\ListViewItemComparer.vb">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Fees\PASPFeeStatistics.Designer.vb">
@@ -836,7 +836,7 @@
     <Compile Include="_DAL\SSCP\DAL.Sscp.Fce.vb" />
     <Compile Include="_Data Models\Dmu\Dmu.EdtErrorMessage.vb" />
     <Compile Include="_Data Models\Dmu\Dmu.EdtSubmission.vb" />
-    <Compile Include="_Data Models\DocumentType.vb" />
+    <Compile Include="_Data Models\Documents\DocumentType.vb" />
     <Compile Include="_Data Models\Event Registration\Res.Registrant.vb" />
     <Compile Include="_Data Models\Event Registration\Res.EventRegistration.vb" />
     <Compile Include="_Data Models\Facilities\Location.vb" />
@@ -849,23 +849,23 @@
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.Report.vb" />
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.RmpInspection.vb" />
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.StackTest.vb" />
-    <Compile Include="_Data Services\SharedData.vb" />
+    <Compile Include="_Code\SharedData.vb" />
     <Compile Include="_DB\DB.QueryFunctions.vb" />
-    <Compile Include="_Modules\ApplicationInsights.vb" />
-    <Compile Include="_Modules\ErrorReporting.vb" />
-    <Compile Include="_Modules\ExcelExport.vb" />
-    <Compile Include="_Modules\Extensions.vb" />
-    <Compile Include="_Modules\App.vb" />
-    <Compile Include="_Modules\IaipColors.vb" />
-    <Compile Include="_Modules\IaipMessage.vb" />
-    <Compile Include="_Modules\UserSettings.vb" />
-    <Compile Include="_Modules\subMain.vb">
+    <Compile Include="_Code\ApplicationInsights.vb" />
+    <Compile Include="_Code\ErrorReporting.vb" />
+    <Compile Include="_Code\ExcelExport.vb" />
+    <Compile Include="_Code\Extensions.vb" />
+    <Compile Include="_Code\App.vb" />
+    <Compile Include="_Code\IaipColors.vb" />
+    <Compile Include="_Code\IaipMessage.vb" />
+    <Compile Include="_Code\UserSettings.vb" />
+    <Compile Include="_Code\subMain.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Universal Forms\IAIPFacilitySummary.Designer.vb">
+    <Compile Include="Facility\IAIPFacilitySummary.Designer.vb">
       <DependentUpon>IAIPFacilitySummary.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universal Forms\IAIPFacilitySummary.vb">
+    <Compile Include="Facility\IAIPFacilitySummary.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Universal Forms\IAIPDistrictSourceTool.Designer.vb">
@@ -898,64 +898,64 @@
     <Compile Include="Universal Forms\IAIPLogIn.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\Users\IaipUserManagement.Designer.vb">
+    <Compile Include="Users\IaipUserManagement.Designer.vb">
       <DependentUpon>IaipUserManagement.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universal Forms\Users\IaipUserManagement.vb">
+    <Compile Include="Users\IaipUserManagement.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\Sub Forms\IAIPFacilityCreator.Designer.vb">
+    <Compile Include="Facility\Sub Forms\IAIPFacilityCreator.Designer.vb">
       <DependentUpon>IAIPFacilityCreator.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universal Forms\Sub Forms\IAIPFacilityCreator.vb">
+    <Compile Include="Facility\Sub Forms\IAIPFacilityCreator.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\Sub Forms\IAIPEditAirProgramPollutants.Designer.vb">
+    <Compile Include="Facility\Sub Forms\IAIPEditAirProgramPollutants.Designer.vb">
       <DependentUpon>IAIPEditAirProgramPollutants.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universal Forms\Sub Forms\IAIPEditAirProgramPollutants.vb">
+    <Compile Include="Facility\Sub Forms\IAIPEditAirProgramPollutants.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\Sub Forms\IAIPEditFacilityLocation.Designer.vb">
+    <Compile Include="Facility\Sub Forms\IAIPEditFacilityLocation.Designer.vb">
       <DependentUpon>IAIPEditFacilityLocation.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universal Forms\Sub Forms\IAIPEditFacilityLocation.vb">
+    <Compile Include="Facility\Sub Forms\IAIPEditFacilityLocation.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\Sub Forms\IAIPEditHeaderData.Designer.vb">
+    <Compile Include="Facility\Sub Forms\IAIPEditHeaderData.Designer.vb">
       <DependentUpon>IAIPEditHeaderData.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universal Forms\Sub Forms\IAIPEditHeaderData.vb">
+    <Compile Include="Facility\Sub Forms\IAIPEditHeaderData.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\Sub Forms\IAIPEditSubParts.Designer.vb">
+    <Compile Include="Facility\Sub Forms\IAIPEditSubParts.Designer.vb">
       <DependentUpon>IAIPEditSubParts.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universal Forms\Sub Forms\IAIPEditSubParts.vb">
+    <Compile Include="Facility\Sub Forms\IAIPEditSubParts.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\Sub Forms\IAIPEditContacts.Designer.vb">
+    <Compile Include="Facility\Sub Forms\IAIPEditContacts.Designer.vb">
       <DependentUpon>IAIPEditContacts.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universal Forms\Sub Forms\IAIPEditContacts.vb">
+    <Compile Include="Facility\Sub Forms\IAIPEditContacts.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\Sub Forms\IAIPFacilityLookUpTool.Designer.vb">
+    <Compile Include="Facility\Sub Forms\IAIPFacilityLookUpTool.Designer.vb">
       <DependentUpon>IAIPFacilityLookUpTool.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universal Forms\Sub Forms\IAIPFacilityLookUpTool.vb">
+    <Compile Include="Facility\Sub Forms\IAIPFacilityLookUpTool.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\Sub Forms\IAIPFacilitySummaryPrint.Designer.vb">
+    <Compile Include="Facility\Sub Forms\IAIPFacilitySummaryPrint.Designer.vb">
       <DependentUpon>IAIPFacilitySummaryPrint.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universal Forms\Sub Forms\IAIPFacilitySummaryPrint.vb">
+    <Compile Include="Facility\Sub Forms\IAIPFacilitySummaryPrint.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\Sub Forms\IAIPListTool.Designer.vb">
+    <Compile Include="Universal Forms\IAIPListTool.Designer.vb">
       <DependentUpon>IAIPListTool.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universal Forms\Sub Forms\IAIPListTool.vb">
+    <Compile Include="Universal Forms\IAIPListTool.vb">
       <SubType>Form</SubType>
     </Compile>
     <EmbeddedResource Include="Crystal Reports\CRViewerForm.resx">
@@ -1391,7 +1391,7 @@
       <SubType>Designer</SubType>
       <DependentUpon>SSPPAttainmentStatus.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\IAIPFacilitySummary.resx">
+    <EmbeddedResource Include="Facility\IAIPFacilitySummary.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPFacilitySummary.vb</DependentUpon>
     </EmbeddedResource>
@@ -1415,46 +1415,46 @@
       <SubType>Designer</SubType>
       <DependentUpon>IAIPLogIn.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\Users\IaipUserManagement.resx">
+    <EmbeddedResource Include="Users\IaipUserManagement.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IaipUserManagement.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\Users\IaipChangePassword.resx">
+    <EmbeddedResource Include="Users\IaipChangePassword.resx">
       <DependentUpon>IaipChangePassword.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\Sub Forms\IAIPFacilityCreator.resx">
+    <EmbeddedResource Include="Facility\Sub Forms\IAIPFacilityCreator.resx">
       <DependentUpon>IAIPFacilityCreator.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\Sub Forms\IAIPEditAirProgramPollutants.resx">
+    <EmbeddedResource Include="Facility\Sub Forms\IAIPEditAirProgramPollutants.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPEditAirProgramPollutants.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\Sub Forms\IAIPEditFacilityLocation.resx">
+    <EmbeddedResource Include="Facility\Sub Forms\IAIPEditFacilityLocation.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPEditFacilityLocation.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\Sub Forms\IAIPEditHeaderData.resx">
+    <EmbeddedResource Include="Facility\Sub Forms\IAIPEditHeaderData.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPEditHeaderData.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\Sub Forms\IAIPEditSubParts.resx">
+    <EmbeddedResource Include="Facility\Sub Forms\IAIPEditSubParts.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPEditSubParts.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\Sub Forms\IAIPEditContacts.resx">
+    <EmbeddedResource Include="Facility\Sub Forms\IAIPEditContacts.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPEditContacts.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\Sub Forms\IAIPFacilityLookUpTool.resx">
+    <EmbeddedResource Include="Facility\Sub Forms\IAIPFacilityLookUpTool.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPFacilityLookUpTool.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\Sub Forms\IAIPFacilitySummaryPrint.resx">
+    <EmbeddedResource Include="Facility\Sub Forms\IAIPFacilitySummaryPrint.resx">
       <DependentUpon>IAIPFacilitySummaryPrint.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\Sub Forms\IAIPListTool.resx">
+    <EmbeddedResource Include="Universal Forms\IAIPListTool.resx">
       <SubType>Designer</SubType>
       <DependentUpon>IAIPListTool.vb</DependentUpon>
     </EmbeddedResource>
@@ -1464,7 +1464,6 @@
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\EmailNewUserWelcome.txt" />
     <None Include="Resources\PrintPreviewIcon.png" />
     <None Include="Resources\GeorgiaStaticMap.png" />
     <None Include="Resources\Seal_of_Georgia_unfinished_256x256x32.png" />
@@ -1507,8 +1506,8 @@
     <Compile Include="Universal Forms\ExceptionDialog.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="_Classes\BooleanFormatProvider.vb" />
-    <Compile Include="_Classes\IaipExceptionManager.vb" />
+    <Compile Include="_Code\BooleanFormatProvider.vb" />
+    <Compile Include="_Code\IaipExceptionManager.vb" />
     <Compile Include="_Data Models\Facilities\Apb.ApbFacilityId.vb" />
     <Compile Include="_Data Models\People\Contact.vb" />
     <Compile Include="_Data Models\Dmu\Dmu.EdtError.vb" />
@@ -1598,14 +1597,14 @@
     <Compile Include="Universal Forms\IaipAbout.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="_Data Models\IaipUser.vb" />
+    <Compile Include="_Data Models\Users\IaipUser.vb" />
     <Compile Include="_DAL\SSCP\DAL.Sscp.WorkItem.vb" />
     <Compile Include="_DAL\DAL.IaipUser.vb" />
     <Compile Include="_DAL\DAL.NavigationScreen.vb">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_DAL\DAL.SmokeSchool.vb" />
-    <Compile Include="_Classes\CollectionHelper.vb" />
+    <Compile Include="_Code\CollectionHelper.vb" />
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.WorkItem.vb" />
     <Compile Include="_Data Models\People\Person.vb" />
     <Compile Include="_Data Models\Event Registration\Res.ResEvent.vb">
@@ -1627,12 +1626,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="_Data Models\Facilities\Address.vb" />
-    <Compile Include="_Data Models\Document.vb">
+    <Compile Include="_Data Models\Documents\Document.vb">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_Data Models\Facilities\Facility.vb" />
-    <Compile Include="_Classes\FileSizeFormatProvider.vb" />
-    <Compile Include="_Classes\SettingsHelper.vb" />
+    <Compile Include="_Code\FileSizeFormatProvider.vb" />
+    <Compile Include="_Code\SettingsHelper.vb" />
     <Compile Include="_Data Models\SSCP\Apb.Sscp.Document.vb" />
     <Compile Include="_Data Models\SSCP\Apb.Sscp.EnforcementInfo.vb" />
     <Compile Include="_Data Models\SSPP\Apb.Sspp.ApplicationInfo.vb">
@@ -1642,26 +1641,26 @@
     <Compile Include="_DAL\DAL.Documents.vb" />
     <Compile Include="_DAL\DAL.EventRegistration.vb" />
     <Compile Include="_DB\DB.Utilities.vb" />
-    <Compile Include="_Modules\EqatecAnalytics.vb" />
-    <Compile Include="_Modules\BitFields.vb" />
-    <Compile Include="_Modules\CrystalReports.vb" />
-    <Compile Include="_Modules\CueTextBox.vb">
+    <Compile Include="_Code\EqatecAnalytics.vb" />
+    <Compile Include="_Code\BitFields.vb" />
+    <Compile Include="_Code\CrystalReports.vb" />
+    <Compile Include="_Code\CueTextBox.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="_Modules\Email.vb" />
-    <Compile Include="_Modules\FileSystem.vb" />
-    <Compile Include="_Modules\FormHandler.vb" />
-    <Compile Include="_Modules\FormHelpers.vb" />
-    <Compile Include="_Modules\FormSettings.vb" />
-    <Compile Include="_Modules\General.vb" />
-    <Compile Include="_Modules\MD5.vb" />
-    <Compile Include="_Modules\DocumentMessages.vb" />
-    <Compile Include="_Modules\Email.Outlook.vb" />
-    <Compile Include="_Modules\SimpleCrypt.vb" />
-    <Compile Include="_Modules\StartupShutdown.vb">
+    <Compile Include="_Code\Email.vb" />
+    <Compile Include="_Code\FileSystem.vb" />
+    <Compile Include="_Code\FormHandler.vb" />
+    <Compile Include="_Code\IaipFormHelpers.vb" />
+    <Compile Include="_Code\FormSettings.vb" />
+    <Compile Include="_Code\General.vb" />
+    <Compile Include="_Code\MD5.vb" />
+    <Compile Include="_Code\DocumentMessages.vb" />
+    <Compile Include="_Code\Email.Outlook.vb" />
+    <Compile Include="_Code\SimpleCrypt.vb" />
+    <Compile Include="_Code\StartupShutdown.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Modules\AppTimers.vb" />
+    <Compile Include="_Code\AppTimers.vb" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
