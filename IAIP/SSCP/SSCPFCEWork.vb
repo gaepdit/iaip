@@ -1,4 +1,5 @@
 Imports Oracle.ManagedDataAccess.Client
+Imports Iaip.SharedData
 
 Public Class SSCPFCEWork
     Dim SQL As String
@@ -140,7 +141,7 @@ Public Class SSCPFCEWork
             daFCE = New OracleDataAdapter(SQL, CurrentConnection)
             daFCE.Fill(dsFCE, "FCEdata")
 
-            dtStaff = SharedData.GetTable(SharedData.Tables.AllComplianceStaff)
+            dtStaff = GetSharedData(SharedTable.AllComplianceStaff)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

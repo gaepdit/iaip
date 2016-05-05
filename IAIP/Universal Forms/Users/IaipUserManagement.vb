@@ -1,5 +1,6 @@
 Imports System.Collections.Generic
 Imports System.Text
+Imports Iaip.SharedData
 
 Public Class IaipUserManagement
 
@@ -11,8 +12,8 @@ Public Class IaipUserManagement
     Private Property Message As New IaipMessage
     Private Property InvalidEntries As New List(Of Control)
 
-    Dim organizationDataSet As DataSet = OrganizationService.OrganizationDataSet
-    Dim iaipAccountRoles As DataTable = SharedData.GetTable(SharedData.Tables.IaipAccountRoles)
+    Dim organizationDataSet As DataSet = GetSharedData(SharedDataSet.EpdOrganization)
+    Dim iaipAccountRoles As DataTable = GetSharedData(SharedTable.IaipAccountRoles)
 
 #End Region
 

@@ -1,5 +1,6 @@
 Imports Oracle.ManagedDataAccess.Client
 Imports System.Collections.Generic
+Imports Iaip.SharedData
 
 
 Public Class SSCPEvents
@@ -63,7 +64,7 @@ Public Class SSCPEvents
     Private Sub Loadcombos()
         Try
 
-            Dim dtStaff As DataTable = SharedData.GetTable(SharedData.Tables.AllComplianceStaff)
+            Dim dtStaff As DataTable = GetSharedData(SharedTable.AllComplianceStaff)
 
             With cboStaffResponsible
                 .DataSource = dtStaff

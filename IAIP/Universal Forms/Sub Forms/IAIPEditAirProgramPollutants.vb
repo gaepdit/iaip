@@ -1,6 +1,6 @@
 Imports System.Collections.Generic
 Imports Iaip.Apb.Facilities
-Imports Iaip.Apb.Sscp
+Imports Iaip.SharedData
 
 Public Class IAIPEditAirProgramPollutants
 
@@ -50,7 +50,7 @@ Public Class IAIPEditAirProgramPollutants
 
     Private Sub LoadPollutants()
         With PollutantSelect
-            .DataSource = SharedData.GetTable(SharedData.Tables.Pollutants)
+            .DataSource = GetSharedData(SharedTable.Pollutants)
             .ValueMember = "Pollutant Code"
             .DisplayMember = "Pollutant"
             .SelectedIndex = -1

@@ -203,8 +203,6 @@
     <Compile Include="_Classes\RandomHelper.vb" />
     <Compile Include="_DAL\DAL.Organization.vb" />
     <Compile Include="_Data Models\IaipRoles.vb" />
-    <Compile Include="_Data Services\UsersService.vb" />
-    <Compile Include="_Data Services\OrganizationService.vb" />
     <Compile Include="_DB\DB.SPFunctions.vb" />
     <Compile Include="_Modules\RegexPatterns.vb" />
     <Compile Include="_Modules\IaipValidation.vb" />
@@ -852,7 +850,6 @@
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.RmpInspection.vb" />
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.StackTest.vb" />
     <Compile Include="_Data Services\SharedData.vb" />
-    <Compile Include="_Data Services\FeesService.vb" />
     <Compile Include="_DB\DB.QueryFunctions.vb" />
     <Compile Include="_Modules\ApplicationInsights.vb" />
     <Compile Include="_Modules\ErrorReporting.vb" />

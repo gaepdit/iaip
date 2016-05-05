@@ -1,6 +1,5 @@
 Imports Oracle.ManagedDataAccess.Client
-Imports System.Collections.Generic
-Imports System.Linq
+Imports Iaip.SharedData
 
 Public Class SSCPComplianceLog
     Dim SQL, SQL2, SQL3 As String
@@ -114,7 +113,7 @@ Public Class SSCPComplianceLog
             daComplianceUnit.Fill(dsComplianceUnit, "ComplianceUnit")
             daDistrictUnit.Fill(dsDistrictUnit, "DistrictUnit")
 
-            dtStaff = SharedData.GetTable(SharedData.Tables.AllComplianceStaff)
+            dtStaff = GetSharedData(SharedTable.AllComplianceStaff)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)

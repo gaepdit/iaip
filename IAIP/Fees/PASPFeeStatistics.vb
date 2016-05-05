@@ -1,6 +1,7 @@
 ﻿Imports Oracle.ManagedDataAccess.Client
 Imports CrystalDecisions.Shared
 Imports CrystalDecisions.CrystalReports.Engine
+Imports Iaip.SharedData
 
 Public Class PASPFeeStatistics
     Dim SQL, SQL2 As String
@@ -3106,14 +3107,14 @@ Public Class PASPFeeStatistics
 #Region "Fee Reports "
     Sub LoadComboBoxesF()
         With cboAirsNo
-            .DataSource = FeesService.AllFeeFacilities
+            .DataSource = GetSharedData(SharedTable.AllFeeFacilities)
             .DisplayMember = "AIRS Number"
             .ValueMember = "STRAIRSNUMBER"
             .SelectedIndex = 0
         End With
 
         With cboFacilityName
-            .DataSource = FeesService.AllFeeFacilities
+            .DataSource = GetSharedData(SharedTable.AllFeeFacilities)
             .DisplayMember = "Facility Name"
             .ValueMember = "STRAIRSNUMBER"
             .SelectedIndex = 0

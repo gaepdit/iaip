@@ -1,6 +1,6 @@
 ﻿Imports System.Text
 Imports System.Collections.Generic
-Imports System.Text.RegularExpressions
+Imports Iaip.SharedData
 
 Public Class IaipCreateUser
 
@@ -9,7 +9,7 @@ Public Class IaipCreateUser
     Friend Property NewUserId As Integer = 0
     Friend Property Message As New IaipMessage
     Private Property InvalidEntries As New List(Of Control)
-    Private Property OrganizationDataSet As DataSet = OrganizationService.OrganizationDataSet
+    Private Property OrganizationDataSet As DataSet = GetSharedData(SharedDataSet.EpdOrganization)
 
 #End Region
 

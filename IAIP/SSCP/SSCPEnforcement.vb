@@ -3,6 +3,7 @@ Imports System.Linq
 Imports System.Text
 Imports Iaip.Apb.Sscp
 Imports Iaip.DAL.DocumentData
+Imports Iaip.SharedData
 
 Public Class SscpEnforcement
 
@@ -96,8 +97,8 @@ Public Class SscpEnforcement
 #Region " Form setup "
 
     Private Sub GetLookupTables()
-        sscpStaff = SharedData.GetTable(SharedData.Tables.AllComplianceStaff)
-        violationTypes = SharedData.GetTable(SharedData.Tables.ViolationTypes)
+        sscpStaff = GetSharedData(SharedTable.AllComplianceStaff)
+        violationTypes = GetSharedData(SharedTable.ViolationTypes)
     End Sub
 
     Private Sub LoadComboBoxes()
