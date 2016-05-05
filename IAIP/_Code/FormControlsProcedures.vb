@@ -1,27 +1,6 @@
-﻿Public Module FormControlsProcedures
+﻿Friend Module FormControlsProcedures
 
-    ''' <summary>
-    ''' Disables and hides a Control by setting its .Enabled and .Visible properties to False
-    ''' </summary>
-    ''' <param name="control">The Control to disable and hide</param>
-    Public Sub DisableAndHide(ByVal control As Control)
-        If control IsNot Nothing Then
-            With control
-                .Enabled = False
-                .Visible = False
-            End With
-        End If
-    End Sub
-
-    ''' <summary>
-    ''' Disables and hides all Controls in an array by setting their .Enabled and .Visible properties to False
-    ''' </summary>
-    ''' <param name="controls">An array of Controls to disable and hide</param>
-    Public Sub DisableAndHide(ByVal controls As Control())
-        For Each control As Control In controls
-            DisableAndHide(control)
-        Next
-    End Sub
+#Region " Enable/disable "
 
     ''' <summary>
     ''' Disables Controls in an array by setting their .Enabled properties to False
@@ -32,6 +11,44 @@
             control.Enabled = False
         Next
     End Sub
+
+    ''' <summary>
+    ''' Enables all Controls in an array by setting their .Enabled property to True
+    ''' </summary>
+    ''' <param name="controls">An array of Controls to enable</param>
+    Public Sub EnableControls(ByVal controls As Control())
+        For Each control As Control In controls
+            control.Enabled = True
+        Next
+    End Sub
+
+#End Region
+
+#Region " Hide/show "
+
+    ''' <summary>
+    ''' Hides Controls in an array by setting their .Visible property to False
+    ''' </summary>
+    ''' <param name="controls">An array of Controls to hide</param>
+    Public Sub HideControls(ByVal controls As Control())
+        For Each control As Control In controls
+            control.Visible = False
+        Next
+    End Sub
+
+    ''' <summary>
+    ''' Shows all Controls in an array by setting their .Visible property to True
+    ''' </summary>
+    ''' <param name="controls">An array of Controls to show</param>
+    Public Sub ShowControls(ByVal controls As Control())
+        For Each control As Control In controls
+            control.Visible = True
+        Next
+    End Sub
+
+#End Region
+
+#Region " Prevent/allow "
 
     ''' <summary>
     ''' Prevents use of Controls in an array by setting their .Enabled or .ReadOnly properties to False, depending on the Object type
@@ -52,29 +69,6 @@
     End Sub
 
     ''' <summary>
-    ''' Enables and shows a Control by setting its .Enabled and .Visible properties to True
-    ''' </summary>
-    ''' <param name="control">The Control to enable and show</param>
-    Public Sub EnableAndShow(ByVal control As Control)
-        If control IsNot Nothing Then
-            With control
-                .Enabled = True
-                .Visible = True
-            End With
-        End If
-    End Sub
-
-    ''' <summary>
-    ''' Enables all Controls in an array by setting their .Enabled properties to True
-    ''' </summary>
-    ''' <param name="controls">An array of Controls to enable</param>
-    Public Sub EnableControls(ByVal controls As Control())
-        For Each control As Control In controls
-            control.Enabled = True
-        Next
-    End Sub
-
-    ''' <summary>
     ''' Allows use of Controls in an array by setting their .Enabled or .ReadOnly properties to True, depending on the Object type
     ''' </summary>
     ''' <param name="controls">An array of Controls to allow use of</param>
@@ -91,5 +85,7 @@
             End If
         Next
     End Sub
+
+#End Region
 
 End Module

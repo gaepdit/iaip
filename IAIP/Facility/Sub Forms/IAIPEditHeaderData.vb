@@ -131,7 +131,7 @@ Public Class IAIPEditHeaderData
 
     Private Sub CheckEditingPermissions()
         If Not EditingIsAllowed() Then
-            DisableAndHide(New Control() {EditData, SaveChangesButton, CancelEditButton})
+            HideControls({EditData, SaveChangesButton, CancelEditButton})
         End If
     End Sub
 

@@ -43,15 +43,13 @@ Public Class IAIPLogIn
     End Sub
 
     Private Sub DisableLogin(Optional messageText As String = Nothing)
-        Dim loginControls As Control() = {txtUserID, lblUserID, txtUserPassword, lblPassword, btnLoginButton}
-        DisableControls(loginControls)
+        DisableControls({txtUserID, lblUserID, txtUserPassword, lblPassword, btnLoginButton})
         Me.AcceptButton = Nothing
         Me.Message = New IaipMessage(messageText, IaipMessage.WarningLevels.Warning)
     End Sub
 
     Private Sub EnableLogin()
-        Dim loginControls As Control() = {txtUserID, lblUserID, txtUserPassword, lblPassword, btnLoginButton}
-        EnableControls(loginControls)
+        EnableControls({txtUserID, lblUserID, txtUserPassword, lblPassword, btnLoginButton})
 
         Me.AcceptButton = btnLoginButton
         If Message IsNot Nothing Then Message.Clear()

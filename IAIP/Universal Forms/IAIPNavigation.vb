@@ -58,7 +58,7 @@ Public Class IAIPNavigation
     Private Sub EnableSbeapTools()
         If CurrentUser.HasRole({142, 143, 118}) Then
             cboWorkViewerContext.Items.Add("SBEAP Cases")
-            EnableAndShow(SbeapQuickAccessPanel)
+            ShowControls({SbeapQuickAccessPanel})
         End If
     End Sub
 
