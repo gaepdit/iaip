@@ -842,7 +842,6 @@
     <Compile Include="_Data Models\Event Registration\Res.Registrant.vb" />
     <Compile Include="_Data Models\Event Registration\Res.EventRegistration.vb" />
     <Compile Include="_Data Models\Facilities\Location.vb" />
-    <Compile Include="_Data Models\ISMP\Ismp.ReferenceNumber.vb" />
     <Compile Include="_Data Models\SSCP\Apb.Sscp.EnforcementCase.vb" />
     <Compile Include="_Data Models\SSCP\Apb.Sscp.Fce.vb" />
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.Inspection.vb" />

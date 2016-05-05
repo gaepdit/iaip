@@ -12,8 +12,6 @@ Public Class SSCPEvents
     Friend WithEvents Label35 As System.Windows.Forms.Label
     Friend WithEvents cboStaffResponsible As System.Windows.Forms.ComboBox
     Dim daNotifications As OracleDataAdapter
-    Dim dsStaff As DataSet
-    Dim daStaff As OracleDataAdapter
 
     Dim ItemIsDeleted As Boolean = False
     Dim AIRSNumber As String = ""

@@ -11,7 +11,7 @@
         ' DateReceived for Stack Tests is date test summary received by SSCP
 
         ' Data from SSCPTESTREPORTS table
-        Public Property IsmpReferenceNumber As Apb.Ismp.ReferenceNumber
+        Public Property IsmpReferenceNumber As String
         Public Property TestDue As Date?
         Public Property FollowUpActionTaken As Boolean
 
