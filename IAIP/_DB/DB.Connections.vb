@@ -1,4 +1,6 @@
-﻿Namespace DB
+﻿Imports System.Configuration
+
+Namespace DB
     Module Connections
 
         ''' <summary>
@@ -18,7 +20,12 @@
         ''' <remarks></remarks>
         Public ReadOnly Property CurrentConnectionString() As String
             Get
-                Return Configuration.ConfigurationManager.ConnectionStrings(CurrentServerEnvironment.ToString).ConnectionString
+                Dim cs As ConnectionStringSettings = ConfigurationManager.ConnectionStrings("Iaip.My.MySettings." & CurrentServerEnvironment.ToString)
+                If Not cs Is Nothing Then
+                    Return cs.ConnectionString
+                Else
+                    Return Nothing
+                End If
             End Get
         End Property
 
