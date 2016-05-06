@@ -37,7 +37,6 @@ Partial Class IAIPNavigation
         Me.mmiSeparator1 = New System.Windows.Forms.MenuItem()
         Me.mmiAbout = New System.Windows.Forms.MenuItem()
         Me.TestingMenu = New System.Windows.Forms.MenuItem()
-        Me.TestPingDb = New System.Windows.Forms.MenuItem()
         Me.TestThrowError = New System.Windows.Forms.MenuItem()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.flpNavButtons = New System.Windows.Forms.FlowLayoutPanel()
@@ -179,18 +178,13 @@ Partial Class IAIPNavigation
         'TestingMenu
         '
         Me.TestingMenu.Index = 4
-        Me.TestingMenu.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.TestPingDb, Me.TestThrowError})
+        Me.TestingMenu.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.TestThrowError})
         Me.TestingMenu.Text = "T&esting"
         Me.TestingMenu.Visible = False
         '
-        'TestPingDb
-        '
-        Me.TestPingDb.Index = 0
-        Me.TestPingDb.Text = "PingDB"
-        '
         'TestThrowError
         '
-        Me.TestThrowError.Index = 1
+        Me.TestThrowError.Index = 0
         Me.TestThrowError.Text = "Throw error"
         '
         'lblTitle
@@ -824,7 +818,6 @@ Partial Class IAIPNavigation
     Friend WithEvents mmiResetForm As System.Windows.Forms.MenuItem
     Friend WithEvents pnlCurrentList As System.Windows.Forms.Panel
     Friend WithEvents pnlContextSubView As System.Windows.Forms.Panel
-    Friend WithEvents TestPingDb As System.Windows.Forms.MenuItem
     Friend WithEvents flpNavButtons As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents SbeapCaseLogNumberLabel As System.Windows.Forms.Label
     Friend WithEvents SbeapClientIDLabel As System.Windows.Forms.Label

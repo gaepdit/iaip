@@ -4,14 +4,11 @@
 
     Public Sub StartAppTimers()
         StartTimer(AppDurationTimer, AppDurationTimerInterval, AddressOf AppDurationTimerElapsed, False)
-        StartTimer(DbPingTimer, DbPingTimerInterval, AddressOf DbPingTimerElapsed)
-        'StartTimer(DbPingTimer, TimeSpan.FromMinutes(2), AddressOf DbPingTimerElapsed) ' 2 minutes (for testing purposes)
     End Sub
 
     Public Sub StopAppTimers()
         StopTimer(AppDurationTimer)
         StopTimer(ShutdownWarningTimer)
-        StopTimer(DbPingTimer)
     End Sub
 
     ''' <summary>
@@ -39,26 +36,6 @@
         If timer IsNot Nothing Then
             timer.Stop()
             timer.Dispose()
-        End If
-    End Sub
-
-#End Region
-
-#Region " Database ping timer "
-
-    Private DbPingTimer As Timers.Timer
-    Private DbPingTimerInterval As TimeSpan = TimeSpan.FromMinutes(35) ' 35 minutes 
-
-    Private Sub DbPingTimerElapsed()
-        monitor.TrackFeature("Timers.DbPingTimer")
-        ApplicationInsights.TrackEvent("Timers.DbPingTimer")
-        Dim result As Boolean = DB.PingDBConnection(CurrentConnection)
-        If Not result Then
-            monitor.TrackFeature("Timers.DbPingFailure")
-            ApplicationInsights.TrackEvent("Timers.DbPingFailure")
-            MessageBox.Show("The database connection has been lost. " & vbNewLine &
-                            "Please close and restart the IAIP.",
-                            "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub
 

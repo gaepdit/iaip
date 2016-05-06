@@ -1335,10 +1335,6 @@ Public Class IAIPNavigation
 
 #Region " Testing Menu click events "
 
-    Private Sub mmiPing_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestPingDb.Click
-        DB.PingDBConnection(CurrentConnection)
-    End Sub
-
     Private Sub mmiThrowError_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestThrowError.Click
         Throw New Exception("Unhandled exception testing")
     End Sub

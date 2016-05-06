@@ -6,46 +6,6 @@ Imports System.Reflection
 Namespace DB
     Module QueryFunctions
 
-#Region " Ping "
-
-        ''' <summary>
-        ''' Attempt to access an SqlConnection to determine if it is available and to keep it open if so.
-        ''' </summary>
-        ''' <param name="conn">The SqlConnection to access.</param>
-        ''' <returns>True if DB connection works. Otherwise, false.</returns>
-        ''' <remarks>
-        ''' This function has a dual purpose. First, to determine if a DB connection is available 
-        ''' (and exit gracefully if it is not). Second, to keep that connection perpetually open. 
-        ''' This is useful only because the IAIP uses a single SqlConnection that it assumes 
-        ''' to always be open (and fails miserably if it is not). Hence, there is no conn.Close() 
-        ''' statement after the cmd.ExecuteScalar() statement.
-        ''' 
-        ''' One day I will fix all database calls to work correctly and add a conn.Close to this 
-        ''' function...
-        ''' </remarks>
-        Public Function PingDBConnection(ByVal conn As SqlConnection) As Boolean
-            Dim query As String = "SELECT 1 FROM DUAL"
-            Dim success As Boolean = True
-            Dim startTime As Date = Date.UtcNow
-            Dim timer As Stopwatch = Stopwatch.StartNew
-
-            Using cmd As New SqlCommand(query, conn)
-                Try
-                    If conn.State = ConnectionState.Closed Then conn.Open()
-                    cmd.ExecuteScalar()
-                Catch ex As Exception
-                    success = False
-                Finally
-                    timer.Stop()
-                    ApplicationInsights.TrackDependency(TelemetryDependencyType.Oracle, MethodBase.GetCurrentMethod.Name, query, startTime, timer.Elapsed, success)
-                End Try
-            End Using
-
-            Return success
-        End Function
-
-#End Region
-
 #Region " Read (Scalar) "
 
         ''' <summary>

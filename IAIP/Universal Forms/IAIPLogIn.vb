@@ -33,6 +33,7 @@
         monitor.TrackFeature("Main." & Me.Name)
         monitor.TrackFeature("Forms." & Me.Name)
         UseDbServerEnvironment()
+        CheckDBAvailability()
     End Sub
 
     Private Sub DisableLogin(Optional messageText As String = Nothing)
@@ -315,8 +316,6 @@
                 Me.LogoBox.Image = My.Resources.UatLogo
                 lblIAIP.Text = "IAIP User Acceptance Testing (UAT)"
         End Select
-
-        CheckDBAvailability()
     End Sub
 
 #End Region
