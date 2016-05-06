@@ -1,4 +1,4 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 Imports Iaip.Dmu
 Imports System.Collections.Generic
 
@@ -14,33 +14,37 @@ Namespace DAL.Dmu
         ''' <param name="errorCode">The EDT Error Code to retrieve information about</param>
         ''' <returns>An EdtErrorMessage object</returns>
         Public Function GetErrorMessageDetail(ByVal errorCode As String) As EdtErrorMessage
-            Dim em As New EdtErrorMessage
-            Dim spName As String = "AIRBRANCH.ICIS_EDT.GetErrorMessageDetail"
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("ERRORCODE", OracleDbType.Varchar2, errorCode, ParameterDirection.Input),
-                New OracleParameter("ERRORMESSAGE", OracleDbType.Varchar2, 4000, Nothing, ParameterDirection.Output),
-                New OracleParameter("CATEGORY", OracleDbType.Varchar2, 100, Nothing, ParameterDirection.Output),
-                New OracleParameter("BUSINESSRULECODE", OracleDbType.Varchar2, 10, Nothing, ParameterDirection.Output),
-                New OracleParameter("BUSINESSRULE", OracleDbType.Varchar2, 4000, Nothing, ParameterDirection.Output),
-                New OracleParameter("DefaultUserID", OracleDbType.Int32, 22, Nothing, ParameterDirection.Output),
-                New OracleParameter("DefaultUserName", OracleDbType.Varchar2, 202, Nothing, ParameterDirection.Output)
-            }
+            Throw New NotImplementedException()
 
-            Dim result As Boolean = DB.SPRunCommand(spName, parameters)
+            ' TODO: SQL Server migration
 
-            If result Then
-                With em
-                    .ErrorCode = errorCode
-                    .ErrorMessage = DB.GetNullable(Of String)(parameters(1).Value.ToString)
-                    .ErrorCategory = DB.GetNullable(Of String)(parameters(2).Value.ToString)
-                    .BusinessRuleCode = DB.GetNullable(Of String)(parameters(3).Value.ToString)
-                    .BusinessRuleMessage = DB.GetNullable(Of String)(parameters(4).Value.ToString)
-                    .DefaultUserID = DB.GetNullable(Of Integer)(parameters(5).Value.ToString)
-                    .DefaultUserName = DB.GetNullable(Of String)(parameters(6).Value.ToString)
-                End With
-            End If
+            'Dim em As New EdtErrorMessage
+            'Dim spName As String = "AIRBRANCH.ICIS_EDT.GetErrorMessageDetail"
+            'Dim parameters As SqlParameter() = {
+            '    New SqlParameter("ERRORCODE", SqlDbType.VarChar, errorCode, ParameterDirection.Input),
+            '    New SqlParameter("ERRORMESSAGE", SqlDbType.VarChar, 4000, Nothing, ParameterDirection.Output),
+            '    New SqlParameter("CATEGORY", SqlDbType.VarChar, 100, Nothing, ParameterDirection.Output),
+            '    New SqlParameter("BUSINESSRULECODE", SqlDbType.VarChar, 10, Nothing, ParameterDirection.Output),
+            '    New SqlParameter("BUSINESSRULE", SqlDbType.VarChar, 4000, Nothing, ParameterDirection.Output),
+            '    New SqlParameter("DefaultUserID", SqlDbType.Int, 22, Nothing, ParameterDirection.Output),
+            '    New SqlParameter("DefaultUserName", SqlDbType.VarChar, 202, Nothing, ParameterDirection.Output)
+            '}
 
-            Return em
+            'Dim result As Boolean = DB.SPRunCommand(spName, parameters)
+
+            'If result Then
+            '    With em
+            '        .ErrorCode = errorCode
+            '        .ErrorMessage = DB.GetNullable(Of String)(parameters(1).Value.ToString)
+            '        .ErrorCategory = DB.GetNullable(Of String)(parameters(2).Value.ToString)
+            '        .BusinessRuleCode = DB.GetNullable(Of String)(parameters(3).Value.ToString)
+            '        .BusinessRuleMessage = DB.GetNullable(Of String)(parameters(4).Value.ToString)
+            '        .DefaultUserID = DB.GetNullable(Of Integer)(parameters(5).Value.ToString)
+            '        .DefaultUserName = DB.GetNullable(Of String)(parameters(6).Value.ToString)
+            '    End With
+            'End If
+
+            'Return em
         End Function
 
         ''' <summary>
@@ -51,7 +55,7 @@ Namespace DAL.Dmu
         ''' <returns>A DataTable</returns>
         Public Function GetErrorCounts(ByVal userID As Integer) As DataTable
             Dim spName As String = "AIRBRANCH.ICIS_EDT.GetErrorCounts"
-            Dim parameter As OracleParameter = New OracleParameter("userID", userID)
+            Dim parameter As SqlParameter = New SqlParameter("userID", userID)
             Return DB.SPGetDataTable(spName, parameter)
         End Function
 
@@ -62,7 +66,7 @@ Namespace DAL.Dmu
         ''' <returns>A DataTable</returns>
         Public Function GetErrors(ByVal errorCode As String) As DataTable
             Dim spName As String = "AIRBRANCH.ICIS_EDT.GetErrors"
-            Dim parameter As OracleParameter = New OracleParameter("errorCode", errorCode)
+            Dim parameter As SqlParameter = New SqlParameter("errorCode", errorCode)
             Return DB.SPGetDataTable(spName, parameter)
         End Function
 
@@ -75,7 +79,7 @@ Namespace DAL.Dmu
             Dim er As EdtError = Nothing
 
             Dim spName As String = "AIRBRANCH.ICIS_EDT.GetErrorDetail"
-            Dim parameter As OracleParameter = New OracleParameter("errorID", errorID)
+            Dim parameter As SqlParameter = New SqlParameter("errorID", errorID)
 
             Dim dt As DataTable = DB.SPGetDataTable(spName, parameter)
 
@@ -141,9 +145,9 @@ Namespace DAL.Dmu
         Public Function SetDefaultUser(ByVal errorCode As String, ByVal defaultUserID As Integer) As Boolean
             Dim spName As String = "AIRBRANCH.ICIS_EDT.SetDefaultUser"
 
-            Dim parameters As OracleParameter() = { _
-                New OracleParameter("ErrorCode", errorCode), _
-                New OracleParameter("UserID", defaultUserID) _
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("ErrorCode", errorCode),
+                New SqlParameter("UserID", defaultUserID)
             }
 
             Return DB.SPRunCommand(spName, parameters)
@@ -167,23 +171,27 @@ Namespace DAL.Dmu
         ''' <param name="errorIDs">An array of EDT error IDs to modify</param>
         ''' <returns>True if the action was successful; otherwise false</returns>
         Public Function SetResolvedStatus(ByVal resolved As Boolean, ByVal errorIDs As Integer()) As Boolean
-            Dim spName As String = "AIRBRANCH.ICIS_EDT.SetResolvedStatus"
+            Throw New NotImplementedException()
 
-            Dim p1 As OracleParameter = New OracleParameter("Resolved", resolved.ToString)
+            ' TODO: SQL Server migration
 
-            Dim p2 As OracleParameter = New OracleParameter("UserID", CurrentUser.UserID)
+            'Dim spName As String = "AIRBRANCH.ICIS_EDT.SetResolvedStatus"
 
-            Dim p3 As New OracleParameter
-            p3.ParameterName = "ErrorIdArray"
-            p3.OracleDbType = OracleDbType.Int32
-            p3.Direction = ParameterDirection.Input
-            p3.CollectionType = OracleCollectionType.PLSQLAssociativeArray
-            p3.Value = errorIDs
-            p3.Size = errorIDs.Length
+            'Dim p1 As SqlParameter = New SqlParameter("Resolved", resolved.ToString)
 
-            Dim parameters As OracleParameter() = {p1, p2, p3}
+            'Dim p2 As SqlParameter = New SqlParameter("UserID", CurrentUser.UserID)
 
-            Return DB.SPRunCommand(spName, parameters)
+            'Dim p3 As New SqlParameter
+            'p3.ParameterName = "ErrorIdArray"
+            'p3.SqlDbType = SqlDbType.Int
+            'p3.Direction = ParameterDirection.Input
+            'p3.CollectionType = OracleCollectionType.PLSQLAssociativeArray
+            'p3.Value = errorIDs
+            'p3.Size = errorIDs.Length
+
+            'Dim parameters As SqlParameter() = {p1, p2, p3}
+
+            'Return DB.SPRunCommand(spName, parameters)
         End Function
 
         ''' <summary>
@@ -204,21 +212,25 @@ Namespace DAL.Dmu
         ''' <param name="errorIDs">An array of EDT error IDs to modify</param>
         ''' <returns>True if the action was successful; otherwise false</returns>
         Public Function AssignErrorToUser(ByVal userId As Integer, ByVal errorIDs As Integer()) As Boolean
-            Dim spName As String = "AIRBRANCH.ICIS_EDT.AssignErrors"
+            Throw New NotImplementedException()
 
-            Dim p1 As OracleParameter = New OracleParameter("UserID", userId)
+            ' TODO: SQL Server migration
 
-            Dim p2 As New OracleParameter
-            p2.ParameterName = "ErrorIdArray"
-            p2.OracleDbType = OracleDbType.Int32
-            p2.Direction = ParameterDirection.Input
-            p2.CollectionType = OracleCollectionType.PLSQLAssociativeArray
-            p2.Value = errorIDs
-            p2.Size = errorIDs.Length
+            'Dim spName As String = "AIRBRANCH.ICIS_EDT.AssignErrors"
 
-            Dim parameters As OracleParameter() = {p1, p2}
+            'Dim p1 As SqlParameter = New SqlParameter("UserID", userId)
 
-            Return DB.SPRunCommand(spName, parameters)
+            'Dim p2 As New SqlParameter
+            'p2.ParameterName = "ErrorIdArray"
+            'p2.SqlDbType = SqlDbType.Int
+            'p2.Direction = ParameterDirection.Input
+            'p2.CollectionType = OracleCollectionType.PLSQLAssociativeArray
+            'p2.Value = errorIDs
+            'p2.Size = errorIDs.Length
+
+            'Dim parameters As SqlParameter() = {p1, p2}
+
+            'Return DB.SPRunCommand(spName, parameters)
         End Function
 
 #End Region

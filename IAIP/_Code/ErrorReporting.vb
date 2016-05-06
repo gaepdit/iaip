@@ -1,5 +1,5 @@
 ﻿Imports System.Collections.Generic
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 Module ErrorReporting
 
@@ -66,10 +66,10 @@ Module ErrorReporting
         Dim query As String = "INSERT INTO AIRBRANCH.IAIPERRORLOG " &
             " (STRERRORNUMBER, STRUSER, STRERRORLOCATION, STRERRORMESSAGE, DATERRORDATE) " &
             " values (AIRBRANCH.IAIPERRORNUMBER.NEXTVAL, :UserID, :ErrorLocation, :ErrorMessage, SYSDATE) "
-        Dim parameters As OracleParameter() = New OracleParameter() {
-            New OracleParameter("UserID", If(CurrentUser IsNot Nothing, CurrentUser.UserID, 0)),
-            New OracleParameter("ErrorLocation", errorLocation),
-            New OracleParameter("ErrorMessage", errorMessage)
+        Dim parameters As SqlParameter() = New SqlParameter() {
+            New SqlParameter("UserID", If(CurrentUser IsNot Nothing, CurrentUser.UserID, 0)),
+            New SqlParameter("ErrorLocation", errorLocation),
+            New SqlParameter("ErrorMessage", errorMessage)
         }
 
         Try

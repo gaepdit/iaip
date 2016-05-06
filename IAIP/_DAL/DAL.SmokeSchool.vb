@@ -1,4 +1,4 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 
 Namespace DAL
     Module SmokeSchoolData
@@ -35,7 +35,7 @@ Namespace DAL
                 " FROM AIRBRANCH.SMOKESCHOOLRESERVATION " &
                 " WHERE STRLOCATIONDATE = :pId " &
                 " ORDER BY LastName, FirstName, StudentID "
-            Dim parameter As New OracleParameter("pId", id)
+            Dim parameter As New SqlParameter("pId", id)
             Dim table As DataTable = DB.GetDataTable(query, parameter)
 
             For Each row As DataRow In table.Rows

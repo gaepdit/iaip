@@ -1,4 +1,4 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 'Imports CrystalDecisions.Shared
 'Imports CrystalDecisions.CrystalReports.Engine
@@ -12,13 +12,13 @@ Public Class PassFailNoShow
 
         Try
             Dim ds As DataSet
-            Dim da As OracleDataAdapter
+            Dim da As SqlDataAdapter
 
             Dim SQL As String = "Select * from AIRBRANCH.SmokeSchoolPrintInfo "
 
             ds = New DataSet
 
-            da = New OracleDataAdapter(SQL, CurrentConnection)
+            da = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If

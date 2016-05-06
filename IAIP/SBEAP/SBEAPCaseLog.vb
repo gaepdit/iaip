@@ -1,15 +1,15 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 Imports System.Math
 
 Public Class SBEAPCaseLog
     Dim SQL As String
     Dim dsCaseLog As DataSet
-    Dim daActions As OracleDataAdapter
-    Dim daStaff As OracleDataAdapter
-    Dim daCaseWork As OracleDataAdapter
+    Dim daActions As SqlDataAdapter
+    Dim daStaff As SqlDataAdapter
+    Dim daCaseWork As SqlDataAdapter
     Dim dsActions As DataSet
     Dim dsCaseLogGrid As DataSet
-    Dim daCaseLogGrid As OracleDataAdapter
+    Dim daCaseLogGrid As SqlDataAdapter
     Dim SQLAction As String
     Dim SQLSearch1 As String
     Dim SQLSearch2 As String
@@ -69,14 +69,14 @@ Public Class SBEAPCaseLog
             "where AIRBRANCH.epduserprofiles.numUserID = AIRBRANCH.SBEAPCaseLog.numStaffResponsible " &
             "or (numBranch = '5' and numProgram = '35') "
 
-            daStaff = New OracleDataAdapter(SQL, CurrentConnection)
+            daStaff = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = "Select " &
             "strWorkDescription, numActionType " &
             "from AIRBRANCH.LookUpSBEAPCaseWork " &
             "order by strWorkDescription "
 
-            daCaseWork = New OracleDataAdapter(SQL, CurrentConnection)
+            daCaseWork = New SqlDataAdapter(SQL, CurrentConnection)
 
             dsActions = New DataSet
 
@@ -85,7 +85,7 @@ Public Class SBEAPCaseLog
             "from AIRbranch.LookUpSBEAPcaseWork " &
             "order by strWorkDescription  "
 
-            daActions = New OracleDataAdapter(SQL, CurrentConnection)
+            daActions = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -366,7 +366,7 @@ Public Class SBEAPCaseLog
             SQLSearch1 & SQLSearch2
 
             dsCaseLogGrid = New DataSet
-            daCaseLogGrid = New OracleDataAdapter(SQL, CurrentConnection)
+            daCaseLogGrid = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If

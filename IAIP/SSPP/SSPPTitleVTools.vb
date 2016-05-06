@@ -1,5 +1,5 @@
 ﻿'Imports System.DateTime
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 'Imports System.IO
 Imports System.Data.OleDb
 'Imports System.Data.Odbc
@@ -7,11 +7,11 @@ Imports System.Data.OleDb
 Public Class SSPPTitleVTools
     Dim SQL, SQL2 As String
     Dim dsWebPublisher As DataSet
-    Dim daWebPublisher As OracleDataAdapter
+    Dim daWebPublisher As SqlDataAdapter
     Dim dsStaff As DataSet
-    Dim daStaff As New OracleDataAdapter
+    Dim daStaff As New SqlDataAdapter
     Dim ds As DataSet
-    Dim da As OracleDataAdapter
+    Dim da As SqlDataAdapter
     Dim airsno As String
     Dim Startdate As String
     Dim EndDate As String
@@ -148,7 +148,7 @@ Public Class SSPPTitleVTools
 
             dsWebPublisher = New DataSet
 
-            daWebPublisher = New OracleDataAdapter(SQL, CurrentConnection)
+            daWebPublisher = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -260,7 +260,7 @@ Public Class SSPPTitleVTools
                 "from AIRBRANCH.SSPPApplicationLinking " &
                 "where strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -281,7 +281,7 @@ Public Class SSPPTitleVTools
                     "where strMasterApplication = '" & MasterApplication & "' " &
                     "order by strApplicationNumber "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -355,7 +355,7 @@ Public Class SSPPTitleVTools
 
             dsStaff = New DataSet
 
-            daStaff = New OracleDataAdapter(SQL, CurrentConnection)
+            daStaff = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -392,7 +392,7 @@ Public Class SSPPTitleVTools
             "and AIRBRANCH.SSPPApplicationTracking.strApplicationNumber = AIRBRANCH.SSPPApplicationMaster.strApplicationNumber  " &
             "and AIRBRANCH.SSPPApplicationTracking.strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -562,7 +562,7 @@ Public Class SSPPTitleVTools
                 "datExperationDate = '" & ExperationDate & "', " &
                 "datPNExpires = '" & PNExpires & "' " &
                 "where strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -572,7 +572,7 @@ Public Class SSPPTitleVTools
                 SQL = "Update AIRBRANCH.SSPPApplicationData set " &
                 "strTargeted = '" & TargetedComments & "' " &
                 "where strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -601,7 +601,7 @@ Public Class SSPPTitleVTools
                             "datPNExpires = '" & PNExpires & "' " &
                             "where strApplicationNumber = '" & LinkedApplication & "' "
 
-                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            cmd = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
                             End If
@@ -613,7 +613,7 @@ Public Class SSPPTitleVTools
                             "strTargeted = '" & TargetedComments & "' " &
                             "where strApplicationNumber = '" & LinkedApplication & "' "
 
-                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            cmd = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
                             End If
@@ -629,7 +629,7 @@ Public Class SSPPTitleVTools
                     "strDraftOnWebNotification = 'False' " &
                     "where strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -707,11 +707,11 @@ Public Class SSPPTitleVTools
             "  '14' OR am.STRAPPLICATIONTYPE = '16' OR am.STRAPPLICATIONTYPE " &
             "  = '27' )"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             cmd.Parameters.Clear()
-            Dim param1 As OracleParameter = New OracleParameter("Startdate", Startdate)
+            Dim param1 As SqlParameter = New SqlParameter("Startdate", Startdate)
             cmd.Parameters.Add(param1)
-            Dim param2 As OracleParameter = New OracleParameter("EndDate", EndDate)
+            Dim param2 As SqlParameter = New SqlParameter("EndDate", EndDate)
             cmd.Parameters.Add(param2)
 
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -791,7 +791,7 @@ Public Class SSPPTitleVTools
                 "from AIRBRANCH.SSPPApplicationData " &
                 "Where strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -868,7 +868,7 @@ Public Class SSPPTitleVTools
             "or strApplicationType = '22') " &
             "order by strFacilityName, strAPplicationNumber DESC "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -978,7 +978,7 @@ Public Class SSPPTitleVTools
                 SQL = SQL & SQLLine & " order by strFacilityName "
                 SQL2 = SQL2 & SQLLine2
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1034,7 +1034,7 @@ Public Class SSPPTitleVTools
                 "Stationary Source Permitting Program " & vbCrLf &
                 "404/363-7020"
 
-                cmd = New OracleCommand(SQL2, CurrentConnection)
+                cmd = New SqlCommand(SQL2, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1088,7 +1088,7 @@ Public Class SSPPTitleVTools
             "and datDraftOnWeb is Not Null " &
             "order by strFacilityName, strAPplicationNumber DESC "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1155,7 +1155,7 @@ Public Class SSPPTitleVTools
                 "where strApplicationNumber = '" & MasterApp & "' "
 
                 temp = ""
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1182,7 +1182,7 @@ Public Class SSPPTitleVTools
                     "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationLinking.strApplicationNumber " &
                     "and AIRBRANCH.SSPPApplicationLinking.strMasterApplication = '" & temp & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1281,7 +1281,7 @@ Public Class SSPPTitleVTools
                     "from AIRBRANCH.SSPPApplicationLinking " &
                     "where strApplicationNumber = '" & temp & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1308,7 +1308,7 @@ Public Class SSPPTitleVTools
                     "and substr(strAIRSNumber, 5, 3) = strCountyCode " &
                     "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1382,7 +1382,7 @@ Public Class SSPPTitleVTools
                         "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationLinking.strApplicationNumber " &
                         "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode " &
                         "and strMasterApplication = '" & LinkedApp & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -1453,7 +1453,7 @@ Public Class SSPPTitleVTools
                 "Stationary Source Permitting Program " & vbCrLf &
                 "404/363-7020"
 
-                cmd = New OracleCommand(SQL2, CurrentConnection)
+                cmd = New SqlCommand(SQL2, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1500,7 +1500,7 @@ Public Class SSPPTitleVTools
                     "from AIRBRANCH.SSPPApplicationLinking " &
                     "where strApplicationNumber = '" & temp & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1525,7 +1525,7 @@ Public Class SSPPTitleVTools
                     "and substr(strAIRSNumber, 5, 3) = strCountyCode " &
                     "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1594,7 +1594,7 @@ Public Class SSPPTitleVTools
                         "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationLinking.strApplicationNumber " &
                         "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode " &
                         "and strMasterApplication = '" & LinkedApp & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -1663,7 +1663,7 @@ Public Class SSPPTitleVTools
                 "Stationary Source Permitting Program " & vbCrLf &
                 "404/363-7020"
 
-                cmd = New OracleCommand(SQL2, CurrentConnection)
+                cmd = New SqlCommand(SQL2, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1736,7 +1736,7 @@ Public Class SSPPTitleVTools
             "and (strApplicationType = '19'  or strApplicationType = '20') " &
             "order by strFacilityName, strApplicationNumber DESC "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1803,7 +1803,7 @@ Public Class SSPPTitleVTools
                 "where strApplicationNumber = '" & MasterApp & "' "
 
                 temp = ""
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1830,7 +1830,7 @@ Public Class SSPPTitleVTools
                     "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationLinking.strApplicationNumber " &
                     "and AIRBRANCH.SSPPApplicationLinking.strMasterApplication = '" & temp & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1928,7 +1928,7 @@ Public Class SSPPTitleVTools
                     "from AIRBRANCH.SSPPApplicationLinking " &
                     "where strApplicationNumber = '" & temp & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1953,7 +1953,7 @@ Public Class SSPPTitleVTools
                     "and substr(strAIRSNumber, 5, 3) = strCountyCode " &
                     "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -2022,7 +2022,7 @@ Public Class SSPPTitleVTools
                         "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationLinking.strApplicationNumber " &
                         "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode " &
                         "and strMasterApplication = '" & LinkedApp & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -2086,7 +2086,7 @@ Public Class SSPPTitleVTools
                 "Stationary Source Permitting Program " & vbCrLf &
                 "404/363-7020"
 
-                cmd = New OracleCommand(SQL2, CurrentConnection)
+                cmd = New SqlCommand(SQL2, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2134,7 +2134,7 @@ Public Class SSPPTitleVTools
                     "from AIRBRANCH.SSPPApplicationLinking " &
                     "where strApplicationNumber = '" & temp & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -2159,7 +2159,7 @@ Public Class SSPPTitleVTools
                     "and substr(strAIRSNumber, 5, 3) = strCountyCode " &
                     "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -2228,7 +2228,7 @@ Public Class SSPPTitleVTools
                         "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationLinking.strApplicationNumber " &
                         "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode " &
                         "and strMasterApplication = '" & LinkedApp & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -2290,7 +2290,7 @@ Public Class SSPPTitleVTools
                 "Stationary Source Permitting Program " & vbCrLf &
                 "404/363-7020"
 
-                cmd = New OracleCommand(SQL2, CurrentConnection)
+                cmd = New SqlCommand(SQL2, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2347,7 +2347,7 @@ Public Class SSPPTitleVTools
             "and DatFinalOnWeb is Not Null " &
             "order by strFacilityName, strAPplicationNumber DESC "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2414,7 +2414,7 @@ Public Class SSPPTitleVTools
                 "where strApplicationNumber = '" & MasterApp & "' "
 
                 temp = ""
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2441,7 +2441,7 @@ Public Class SSPPTitleVTools
                     "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationLinking.strApplicationNumber " &
                     "and AIRBRANCH.SSPPApplicationLinking.strMasterApplication = '" & temp & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -2540,7 +2540,7 @@ Public Class SSPPTitleVTools
                     SQL = "Select strMasterApplication " &
                     "from AIRBRANCH.SSPPApplicationLinking " &
                     "where strApplicationNumber = '" & temp & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -2568,7 +2568,7 @@ Public Class SSPPTitleVTools
                     "and substr(strAIRSNumber, 5, 3) = strCountyCode " &
                     "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -2653,7 +2653,7 @@ Public Class SSPPTitleVTools
                         "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationLinking.strApplicationNumber " &
                         "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode " &
                         "and strMasterApplication = '" & LinkedApp & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -2720,7 +2720,7 @@ Public Class SSPPTitleVTools
                 "Stationary Source Permitting Program " & vbCrLf &
                 "404/363-7020"
 
-                cmd = New OracleCommand(SQL2, CurrentConnection)
+                cmd = New SqlCommand(SQL2, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2769,7 +2769,7 @@ Public Class SSPPTitleVTools
                    "and AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " &
                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -2847,7 +2847,7 @@ Public Class SSPPTitleVTools
                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
 
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -2923,7 +2923,7 @@ Public Class SSPPTitleVTools
                    "and AIRBRANCH.EPDuserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " &
                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -2999,7 +2999,7 @@ Public Class SSPPTitleVTools
                     "and AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " &
                     "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -3320,7 +3320,7 @@ Public Class SSPPTitleVTools
             + "Order by strAIRSNumber "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, CurrentConnection)
+            da = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Open Then
             Else
@@ -3398,7 +3398,7 @@ Public Class SSPPTitleVTools
                       "WHERE numUserID = '" & userid & "' " &
                       "and strAirsNumber = '0413" & airsno & "' "
 
-            Dim cmd As New OracleCommand(updateString, CurrentConnection)
+            Dim cmd As New SqlCommand(updateString, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -3852,7 +3852,7 @@ Public Class SSPPTitleVTools
             SQL = "Select strApplicationNumber " &
             "From AIRBRANCH.SSPPApplicationContact " &
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -3881,7 +3881,7 @@ Public Class SSPPTitleVTools
                 "where AIRBRANCH.SSPPApplicationContact.strApplicationNumber = AIRBRANCH.SSPPApplicationMaster.strApplicationNumber " &
                 "and AIRBRANCH.SSPPApplicationContact.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -4015,7 +4015,7 @@ Public Class SSPPTitleVTools
              "from AIRBRANCH.APBContactInformation " &
              "where strContactKey = '0413" & txtAIRSNumber.Text & "30' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4211,7 +4211,7 @@ Public Class SSPPTitleVTools
             SQL = "Select strApplicationNumber " &
             "from AIRBRANCH.SSPPApplicationContact " &
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4257,7 +4257,7 @@ Public Class SSPPTitleVTools
                 "'" & Replace(ContactDescription, "'", "''") & "') "
             End If
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4357,7 +4357,7 @@ Public Class SSPPTitleVTools
             "From AIRBRANCH.APBContactInformation " &
             "where strContactKey = '0413" & txtAIRSNumber.Text & "20' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4700,7 +4700,7 @@ Public Class SSPPTitleVTools
              "'" & CurrentUser.UserID & "', '" & OracleDate & "', " &
              "'" & Replace(ContactDescription, "'", "''") & "') "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4739,7 +4739,7 @@ Public Class SSPPTitleVTools
             "where strAIRSNumber = '0413" & AIRSNumber & "' " &
             "and strKey like '" & Mid(Key, 1, 1) & "%' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4758,7 +4758,7 @@ Public Class SSPPTitleVTools
                 SQL = "Delete AIRBRANCH.APBContactInformation " &
                 "where strAIRSNumber = '0413" & AIRSNumber & "' " &
                 "and strKey = '" & Mid(Key, 1, 1) & "9'"
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -4775,7 +4775,7 @@ Public Class SSPPTitleVTools
                 "where strAIRSNumber = '0413" & AIRSNumber & "' " &
                 "and strKey = '" & Mid(Key, 1, 1) & (NewKey - 1) & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -4808,7 +4808,7 @@ Public Class SSPPTitleVTools
             "'" & OracleDate & "', " &
             "'" & Replace(ContactDescription, "'", "''") & "') "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If

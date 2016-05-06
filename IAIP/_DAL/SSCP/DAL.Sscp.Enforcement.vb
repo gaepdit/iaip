@@ -1,6 +1,6 @@
 ﻿Imports System.Collections.Generic
 Imports Iaip.Apb.Sscp
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 Namespace DAL.Sscp
 
@@ -13,7 +13,7 @@ Namespace DAL.Sscp
                 " FROM AIRBRANCH.SSCP_AUDITEDENFORCEMENT " &
                 " WHERE STRENFORCEMENTFINALIZED = 'False' " &
                 " AND STRAIRSNUMBER = :airs"
-            Dim parameter As OracleParameter = New OracleParameter("airs", airs.DbFormattedString)
+            Dim parameter As SqlParameter = New SqlParameter("airs", airs.DbFormattedString)
             Return DB.GetSingleValue(Of Integer)(query, parameter)
         End Function
 
@@ -36,11 +36,11 @@ Namespace DAL.Sscp
             If airs IsNot Nothing Then query &= " AND STRAIRSNUMBER = :airs "
             If Not String.IsNullOrEmpty(staffId) Then query &= " AND NUMSTAFFRESPONSIBLE = :staffId "
 
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("datestart", dateRangeStart),
-                New OracleParameter("dateend", dateRangeEnd),
-                New OracleParameter("airs", airs.DbFormattedString),
-                New OracleParameter("staffId", staffId)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("datestart", dateRangeStart),
+                New SqlParameter("dateend", dateRangeEnd),
+                New SqlParameter("airs", airs.DbFormattedString),
+                New SqlParameter("staffId", staffId)
             }
             Return DB.GetDataTable(query, parameters)
         End Function
@@ -56,7 +56,7 @@ Namespace DAL.Sscp
                 " FROM AIRBRANCH.SSCP_AUDITEDENFORCEMENT " &
                 " WHERE RowNum = 1 " &
                 " AND STRENFORCEMENTNUMBER = :enforcementId "
-            Dim parameter As New OracleParameter("enforcementId", enforcementId)
+            Dim parameter As New SqlParameter("enforcementId", enforcementId)
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
             Return Convert.ToBoolean(result)
@@ -68,7 +68,7 @@ Namespace DAL.Sscp
             Dim query As String = " SELECT STRENFORCEMENTNUMBER " &
                 " FROM AIRBRANCH.SSCP_AUDITEDENFORCEMENT " &
                 " WHERE STRTRACKINGNUMBER = :trackingNumber "
-            Dim parameter As New OracleParameter("trackingNumber", trackingNumber)
+            Dim parameter As New SqlParameter("trackingNumber", trackingNumber)
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
 
@@ -139,7 +139,7 @@ Namespace DAL.Sscp
                 " LEFT JOIN AIRBRANCH.EPDUSERPROFILES " &
                 " ON EPDUSERPROFILES.NUMUSERID = SSCP_AUDITEDENFORCEMENT.NUMSTAFFRESPONSIBLE " &
                 " WHERE SSCP_AUDITEDENFORCEMENT.STRENFORCEMENTNUMBER = :enforcementId "
-            Dim parameter As New OracleParameter("enforcementId", enforcementId)
+            Dim parameter As New SqlParameter("enforcementId", enforcementId)
             Dim dataTable As DataTable = DB.GetDataTable(query, parameter)
             If dataTable Is Nothing Then Return Nothing
 
@@ -236,7 +236,7 @@ Namespace DAL.Sscp
                 "LEFT JOIN AIRBRANCH.EPDUSERPROFILES up ON up.NUMUSERID = " &
                 "  enf.NUMSTAFFRESPONSIBLE " &
                 "WHERE enf.STRENFORCEMENTNUMBER = :enforcementId"
-            Dim parameter As New OracleParameter("enforcementId", enforcementId)
+            Dim parameter As New SqlParameter("enforcementId", enforcementId)
 
             Dim dataTable As DataTable = DB.GetDataTable(query, parameter)
             If dataTable Is Nothing Then Return Nothing
@@ -254,7 +254,7 @@ Namespace DAL.Sscp
             End If
 
             Dim queriesList As New List(Of String)
-            Dim parametersList As New List(Of OracleParameter())
+            Dim parametersList As New List(Of SqlParameter())
 
             With enforcementCase
 
@@ -319,84 +319,84 @@ Namespace DAL.Sscp
                         "    :STRAFSAORESOLVEDNUMBER, :STRMODIFINGPERSON, sysdate " &
                         "  ) ")
 
-                parametersList.Add(New OracleParameter() {
-                    New OracleParameter(":STRENFORCEMENTNUMBER", .EnforcementId),
-                    New OracleParameter(":STRTRACKINGNUMBER", DB.StoreNothingIfZero(.LinkedWorkItemId)),
-                    New OracleParameter(":STRAIRSNUMBER", .AirsNumber.DbFormattedString),
-                    New OracleParameter(":STRENFORCEMENTFINALIZED", .DateFinalized.HasValue.ToString),
-                    New OracleParameter(":DATENFORCEMENTFINALIZED", .DateFinalized),
-                    New OracleParameter(":NUMSTAFFRESPONSIBLE", .StaffResponsibleId),
-                    New OracleParameter(":STRSTATUS", .SubmittedToUcCode),
-                    New OracleParameter(":STRACTIONTYPE", .EnforcementType.ToString),
-                    New OracleParameter(":STRGENERALCOMMENTS", .Comment),
-                    New OracleParameter(":STRDISCOVERYDATE", .DiscoveryDate.HasValue.ToString),
-                    New OracleParameter(":DATDISCOVERYDATE", .DiscoveryDate),
-                    New OracleParameter(":STRDAYZERO", .DayZeroDate.HasValue.ToString),
-                    New OracleParameter(":DATDAYZERO", .DayZeroDate),
-                    New OracleParameter(":STRHPV", If(.ViolationType = "BLANK", "", .ViolationType)),
-                    New OracleParameter(":STRPOLLUTANTS", .ProgramPollutants),
-                    New OracleParameter(":STRPOLLUTANTSTATUS", "0"),
-                    New OracleParameter(":STRLONTOUC", .LonToUc.HasValue.ToString),
-                    New OracleParameter(":DATLONTOUC", .LonToUc),
-                    New OracleParameter(":STRLONSENT", .LonSent.HasValue.ToString),
-                    New OracleParameter(":DATLONSENT", .LonSent),
-                    New OracleParameter(":STRLONRESOLVED", .LonResolved.HasValue.ToString),
-                    New OracleParameter(":DATLONRESOLVED", .LonResolved),
-                    New OracleParameter(":STRLONCOMMENTS", .LonComment),
-                    New OracleParameter(":STRNOVTOUC", .NovToUc.HasValue.ToString),
-                    New OracleParameter(":DATNOVTOUC", .NovToUc),
-                    New OracleParameter(":STRNOVTOPM", .NovToPm.HasValue.ToString),
-                    New OracleParameter(":DATNOVTOPM", .NovToPm),
-                    New OracleParameter(":STRNOVSENT", .NovSent.HasValue.ToString),
-                    New OracleParameter(":DATNOVSENT", .NovSent),
-                    New OracleParameter(":STRNOVRESPONSERECEIVED", .NovResponseReceived.HasValue.ToString),
-                    New OracleParameter(":DATNOVRESPONSERECEIVED", .NovResponseReceived),
-                    New OracleParameter(":STRNFATOUC", .NfaToUc.HasValue.ToString),
-                    New OracleParameter(":DATNFATOUC", .NfaToUc),
-                    New OracleParameter(":STRNFATOPM", .NfaToPm.HasValue.ToString),
-                    New OracleParameter(":DATNFATOPM", .NfaToPm),
-                    New OracleParameter(":STRNFALETTERSENT", .NfaSent.HasValue.ToString),
-                    New OracleParameter(":DATNFALETTERSENT", .NfaSent),
-                    New OracleParameter(":STRNOVCOMMENT", .NovComment),
-                    New OracleParameter(":STRCOTOUC", .CoToUc.HasValue.ToString),
-                    New OracleParameter(":DATCOTOUC", .CoToUc),
-                    New OracleParameter(":STRCOTOPM", .CoToPm.HasValue.ToString),
-                    New OracleParameter(":DATCOTOPM", .CoToPm),
-                    New OracleParameter(":STRCOPROPOSED", .CoProposed.HasValue.ToString),
-                    New OracleParameter(":DATCOPROPOSED", .CoProposed),
-                    New OracleParameter(":STRCORECEIVEDFROMCOMPANY", .CoReceivedFromCompany.HasValue.ToString),
-                    New OracleParameter(":DATCORECEIVEDFROMCOMPANY", .CoReceivedFromCompany),
-                    New OracleParameter(":STRCORECEIVEDFROMDIRECTOR", .CoReceivedFromDirector.HasValue.ToString),
-                    New OracleParameter(":DATCORECEIVEDFROMDIRECTOR", .CoReceivedFromDirector),
-                    New OracleParameter(":STRCOEXECUTED", .CoExecuted.HasValue.ToString),
-                    New OracleParameter(":DATCOEXECUTED", .CoExecuted),
-                    New OracleParameter(":STRCONUMBER", .CoNumber),
-                    New OracleParameter(":STRCORESOLVED", .CoResolved.HasValue.ToString),
-                    New OracleParameter(":DATCORESOLVED", .CoResolved),
-                    New OracleParameter(":STRCOPENALTYAMOUNT", DB.StoreNothingIfZero(.CoPenaltyAmount)),
-                    New OracleParameter(":STRCOPENALTYAMOUNTCOMMENTS", .CoPenaltyAmountComment),
-                    New OracleParameter(":STRCOCOMMENT", .CoComment),
-                    New OracleParameter(":STRAOEXECUTED", .AoExecuted.HasValue.ToString),
-                    New OracleParameter(":DATAOEXECUTED", .AoExecuted),
-                    New OracleParameter(":STRAOAPPEALED", .AoAppealed.HasValue.ToString),
-                    New OracleParameter(":DATAOAPPEALED", .AoAppealed),
-                    New OracleParameter(":STRAORESOLVED", .AoResolved.HasValue.ToString),
-                    New OracleParameter(":DATAORESOLVED", .AoResolved),
-                    New OracleParameter(":STRAOCOMMENT", .AoComment),
-                    New OracleParameter(":STRAFSKEYACTIONNUMBER", DB.StoreNothingIfZero(.AfsKeyActionNumber)),
-                    New OracleParameter(":STRAFSNOVSENTNUMBER", DB.StoreNothingIfZero(.AfsNovActionNumber)),
-                    New OracleParameter(":STRAFSNOVRESOLVEDNUMBER", DB.StoreNothingIfZero(.AfsNfaActionNumber)),
-                    New OracleParameter(":STRAFSCOPROPOSEDNUMBER", DB.StoreNothingIfZero(.AfsCoProposedNumber)),
-                    New OracleParameter(":STRAFSCOEXECUTEDNUMBER", DB.StoreNothingIfZero(.AfsCoActionNumber)),
-                    New OracleParameter(":STRAFSCORESOLVEDNUMBER", DB.StoreNothingIfZero(.AfsCoResolvedActionNumber)),
-                    New OracleParameter(":STRAFSAOTOAGNUMBER", DB.StoreNothingIfZero(.AfsAoToAGActionNumber)),
-                    New OracleParameter(":STRAFSCIVILCOURTNUMBER", DB.StoreNothingIfZero(.AfsCivilCourtActionNumber)),
-                    New OracleParameter(":STRAFSAORESOLVEDNUMBER", DB.StoreNothingIfZero(.AfsAoResolvedActionNumber)),
-                    New OracleParameter(":STRMODIFINGPERSON", CurrentUser.UserID)
+                parametersList.Add(New SqlParameter() {
+                    New SqlParameter(":STRENFORCEMENTNUMBER", .EnforcementId),
+                    New SqlParameter(":STRTRACKINGNUMBER", DB.StoreNothingIfZero(.LinkedWorkItemId)),
+                    New SqlParameter(":STRAIRSNUMBER", .AirsNumber.DbFormattedString),
+                    New SqlParameter(":STRENFORCEMENTFINALIZED", .DateFinalized.HasValue.ToString),
+                    New SqlParameter(":DATENFORCEMENTFINALIZED", .DateFinalized),
+                    New SqlParameter(":NUMSTAFFRESPONSIBLE", .StaffResponsibleId),
+                    New SqlParameter(":STRSTATUS", .SubmittedToUcCode),
+                    New SqlParameter(":STRACTIONTYPE", .EnforcementType.ToString),
+                    New SqlParameter(":STRGENERALCOMMENTS", .Comment),
+                    New SqlParameter(":STRDISCOVERYDATE", .DiscoveryDate.HasValue.ToString),
+                    New SqlParameter(":DATDISCOVERYDATE", .DiscoveryDate),
+                    New SqlParameter(":STRDAYZERO", .DayZeroDate.HasValue.ToString),
+                    New SqlParameter(":DATDAYZERO", .DayZeroDate),
+                    New SqlParameter(":STRHPV", If(.ViolationType = "BLANK", "", .ViolationType)),
+                    New SqlParameter(":STRPOLLUTANTS", .ProgramPollutants),
+                    New SqlParameter(":STRPOLLUTANTSTATUS", "0"),
+                    New SqlParameter(":STRLONTOUC", .LonToUc.HasValue.ToString),
+                    New SqlParameter(":DATLONTOUC", .LonToUc),
+                    New SqlParameter(":STRLONSENT", .LonSent.HasValue.ToString),
+                    New SqlParameter(":DATLONSENT", .LonSent),
+                    New SqlParameter(":STRLONRESOLVED", .LonResolved.HasValue.ToString),
+                    New SqlParameter(":DATLONRESOLVED", .LonResolved),
+                    New SqlParameter(":STRLONCOMMENTS", .LonComment),
+                    New SqlParameter(":STRNOVTOUC", .NovToUc.HasValue.ToString),
+                    New SqlParameter(":DATNOVTOUC", .NovToUc),
+                    New SqlParameter(":STRNOVTOPM", .NovToPm.HasValue.ToString),
+                    New SqlParameter(":DATNOVTOPM", .NovToPm),
+                    New SqlParameter(":STRNOVSENT", .NovSent.HasValue.ToString),
+                    New SqlParameter(":DATNOVSENT", .NovSent),
+                    New SqlParameter(":STRNOVRESPONSERECEIVED", .NovResponseReceived.HasValue.ToString),
+                    New SqlParameter(":DATNOVRESPONSERECEIVED", .NovResponseReceived),
+                    New SqlParameter(":STRNFATOUC", .NfaToUc.HasValue.ToString),
+                    New SqlParameter(":DATNFATOUC", .NfaToUc),
+                    New SqlParameter(":STRNFATOPM", .NfaToPm.HasValue.ToString),
+                    New SqlParameter(":DATNFATOPM", .NfaToPm),
+                    New SqlParameter(":STRNFALETTERSENT", .NfaSent.HasValue.ToString),
+                    New SqlParameter(":DATNFALETTERSENT", .NfaSent),
+                    New SqlParameter(":STRNOVCOMMENT", .NovComment),
+                    New SqlParameter(":STRCOTOUC", .CoToUc.HasValue.ToString),
+                    New SqlParameter(":DATCOTOUC", .CoToUc),
+                    New SqlParameter(":STRCOTOPM", .CoToPm.HasValue.ToString),
+                    New SqlParameter(":DATCOTOPM", .CoToPm),
+                    New SqlParameter(":STRCOPROPOSED", .CoProposed.HasValue.ToString),
+                    New SqlParameter(":DATCOPROPOSED", .CoProposed),
+                    New SqlParameter(":STRCORECEIVEDFROMCOMPANY", .CoReceivedFromCompany.HasValue.ToString),
+                    New SqlParameter(":DATCORECEIVEDFROMCOMPANY", .CoReceivedFromCompany),
+                    New SqlParameter(":STRCORECEIVEDFROMDIRECTOR", .CoReceivedFromDirector.HasValue.ToString),
+                    New SqlParameter(":DATCORECEIVEDFROMDIRECTOR", .CoReceivedFromDirector),
+                    New SqlParameter(":STRCOEXECUTED", .CoExecuted.HasValue.ToString),
+                    New SqlParameter(":DATCOEXECUTED", .CoExecuted),
+                    New SqlParameter(":STRCONUMBER", .CoNumber),
+                    New SqlParameter(":STRCORESOLVED", .CoResolved.HasValue.ToString),
+                    New SqlParameter(":DATCORESOLVED", .CoResolved),
+                    New SqlParameter(":STRCOPENALTYAMOUNT", DB.StoreNothingIfZero(.CoPenaltyAmount)),
+                    New SqlParameter(":STRCOPENALTYAMOUNTCOMMENTS", .CoPenaltyAmountComment),
+                    New SqlParameter(":STRCOCOMMENT", .CoComment),
+                    New SqlParameter(":STRAOEXECUTED", .AoExecuted.HasValue.ToString),
+                    New SqlParameter(":DATAOEXECUTED", .AoExecuted),
+                    New SqlParameter(":STRAOAPPEALED", .AoAppealed.HasValue.ToString),
+                    New SqlParameter(":DATAOAPPEALED", .AoAppealed),
+                    New SqlParameter(":STRAORESOLVED", .AoResolved.HasValue.ToString),
+                    New SqlParameter(":DATAORESOLVED", .AoResolved),
+                    New SqlParameter(":STRAOCOMMENT", .AoComment),
+                    New SqlParameter(":STRAFSKEYACTIONNUMBER", DB.StoreNothingIfZero(.AfsKeyActionNumber)),
+                    New SqlParameter(":STRAFSNOVSENTNUMBER", DB.StoreNothingIfZero(.AfsNovActionNumber)),
+                    New SqlParameter(":STRAFSNOVRESOLVEDNUMBER", DB.StoreNothingIfZero(.AfsNfaActionNumber)),
+                    New SqlParameter(":STRAFSCOPROPOSEDNUMBER", DB.StoreNothingIfZero(.AfsCoProposedNumber)),
+                    New SqlParameter(":STRAFSCOEXECUTEDNUMBER", DB.StoreNothingIfZero(.AfsCoActionNumber)),
+                    New SqlParameter(":STRAFSCORESOLVEDNUMBER", DB.StoreNothingIfZero(.AfsCoResolvedActionNumber)),
+                    New SqlParameter(":STRAFSAOTOAGNUMBER", DB.StoreNothingIfZero(.AfsAoToAGActionNumber)),
+                    New SqlParameter(":STRAFSCIVILCOURTNUMBER", DB.StoreNothingIfZero(.AfsCivilCourtActionNumber)),
+                    New SqlParameter(":STRAFSAORESOLVEDNUMBER", DB.StoreNothingIfZero(.AfsAoResolvedActionNumber)),
+                    New SqlParameter(":STRMODIFINGPERSON", CurrentUser.UserID)
                 })
 
                 If DB.RunCommand(queriesList, parametersList) Then
-                    Dim param As OracleParameter = New OracleParameter("ENFORCEMENT", .EnforcementId)
+                    Dim param As SqlParameter = New SqlParameter("ENFORCEMENT", .EnforcementId)
                     DB.SPRunCommand("AIRBRANCH.PD_SSCPENFORCEMENT", param)
                     Return .EnforcementId
                 Else
@@ -417,8 +417,8 @@ Namespace DAL.Sscp
 
         Public Function DeleteEnforcement(enforcementId As String) As Boolean
             Dim queries As New List(Of String)
-            Dim parameters As New List(Of OracleParameter())
-            Dim parameter As OracleParameter() = {New OracleParameter("enforcementId", enforcementId)}
+            Dim parameters As New List(Of SqlParameter())
+            Dim parameter As SqlParameter() = {New SqlParameter("enforcementId", enforcementId)}
 
             queries.Add("DELETE FROM AIRBRANCH.SSCPENFORCEMENTSTIPULATED " &
                         "WHERE STRENFORCEMENTNUMBER = :enforcementId ")
@@ -447,7 +447,7 @@ Namespace DAL.Sscp
                 "FROM AIRBRANCH.SSCPENFORCEMENTSTIPULATED " &
                 "WHERE STRENFORCEMENTNUMBER = :enforcementId " &
                 "ORDER BY STRENFORCEMENTKEY"
-            Dim parameter As New OracleParameter("enforcementId", enforcementId)
+            Dim parameter As New SqlParameter("enforcementId", enforcementId)
             Return DB.GetDataTable(query, parameter)
         End Function
 
@@ -455,7 +455,7 @@ Namespace DAL.Sscp
             Dim query As String = "SELECT MAX(es.STRENFORCEMENTKEY) " &
                 "FROM AIRBRANCH.SSCPENFORCEMENTSTIPULATED es " &
                 "WHERE es.STRENFORCEMENTNUMBER = :enforcementId"
-            Dim parameter As New OracleParameter("enforcementId", enforcementId)
+            Dim parameter As New SqlParameter("enforcementId", enforcementId)
             Dim key As Integer = DB.GetSingleValue(Of Integer)(query, parameter)
             Return key + 1
         End Function
@@ -466,14 +466,14 @@ Namespace DAL.Sscp
             Dim afsKey As Integer = GetNextAfsActionNumber(airsNumber)
 
             Dim queries As New List(Of String)
-            Dim parameters As New List(Of OracleParameter())
+            Dim parameters As New List(Of SqlParameter())
 
             queries.Add("UPDATE AIRBRANCH.APBSUPPLAMENTALDATA " &
                         "SET STRAFSACTIONNUMBER = :afs " &
                         "WHERE STRAIRSNUMBER = :airsNumber ")
-            parameters.Add(New OracleParameter() {
-                New OracleParameter("afs", afsKey + 1),
-                New OracleParameter("airsNumber", airsNumber.DbFormattedString)
+            parameters.Add(New SqlParameter() {
+                New SqlParameter("afs", afsKey + 1),
+                New SqlParameter("airsNumber", airsNumber.DbFormattedString)
             })
 
             queries.Add("INSERT " &
@@ -489,13 +489,13 @@ Namespace DAL.Sscp
                         "    :enforcementId, :enfKey, :penalty, :penaltyComment, " &
                         "    :afsKey, :userid, sysdate " &
                         "  ) ")
-            parameters.Add(New OracleParameter() {
-                New OracleParameter("enforcementId", enforcementId),
-                New OracleParameter("enfKey", enfKey.ToString),
-                New OracleParameter("penalty", penalty.ToString),
-                New OracleParameter("penaltyComment", comment),
-                New OracleParameter("afsKey", afsKey.ToString),
-                New OracleParameter("userid", CurrentUser.UserID)
+            parameters.Add(New SqlParameter() {
+                New SqlParameter("enforcementId", enforcementId),
+                New SqlParameter("enfKey", enfKey.ToString),
+                New SqlParameter("penalty", penalty.ToString),
+                New SqlParameter("penaltyComment", comment),
+                New SqlParameter("afsKey", afsKey.ToString),
+                New SqlParameter("userid", CurrentUser.UserID)
             })
 
             Return DB.RunCommand(queries, parameters)
@@ -508,12 +508,12 @@ Namespace DAL.Sscp
                 "  STRMODIFINGPERSON = :userid, DATMODIFINGDATE = SYSDATE " &
                 "WHERE STRENFORCEMENTNUMBER = :enforcementId AND " &
                 "  STRENFORCEMENTKEY = :enfKey"
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("penalty", penalty.ToString),
-                New OracleParameter("penaltyComment", comment),
-                New OracleParameter("userid", CurrentUser.UserID),
-                New OracleParameter("enforcementId", enforcementId),
-                New OracleParameter("enfKey", enfKey)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("penalty", penalty.ToString),
+                New SqlParameter("penaltyComment", comment),
+                New SqlParameter("userid", CurrentUser.UserID),
+                New SqlParameter("enforcementId", enforcementId),
+                New SqlParameter("enfKey", enfKey)
             }
             Return DB.RunCommand(query, parameters)
         End Function
@@ -523,9 +523,9 @@ Namespace DAL.Sscp
                 "FROM AIRBRANCH.SSCPENFORCEMENTSTIPULATED " &
                 "WHERE STRENFORCEMENTNUMBER = :enforcementId AND " &
                 "  STRENFORCEMENTKEY = :enfKey"
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("enforcementId", enforcementId),
-                New OracleParameter("enfKey", enfKey)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("enforcementId", enforcementId),
+                New SqlParameter("enfKey", enfKey)
             }
             Return DB.RunCommand(query, parameters)
         End Function
@@ -558,7 +558,7 @@ Namespace DAL.Sscp
                 "LEFT JOIN AIRBRANCH.EPDUSERPROFILES upm ON " &
                 "  enf.STRMODIFINGPERSON = upm.NUMUSERID " &
                 "WHERE enf.STRENFORCEMENTNUMBER = :enforcementId"
-            Dim parameter As New OracleParameter("enforcementId", enforcementId)
+            Dim parameter As New SqlParameter("enforcementId", enforcementId)
             Return DB.GetDataTable(query, parameter)
         End Function
 

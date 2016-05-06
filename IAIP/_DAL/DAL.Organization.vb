@@ -1,4 +1,4 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 
 Namespace DAL
     Module Organization
@@ -19,7 +19,7 @@ Namespace DAL
             If branch > 0 Then query &= " AND NUMBRANCHCODE = :branch "
             query &= " ORDER BY Description "
 
-            Dim parameter As New OracleParameter("branch", branch)
+            Dim parameter As New SqlParameter("branch", branch)
             Dim dt As DataTable = DB.GetDataTable(query, parameter)
             dt.PrimaryKey = New DataColumn() {dt.Columns("ProgramCode")}
             Return dt
@@ -31,7 +31,7 @@ Namespace DAL
             If program > 0 Then query &= " AND NUMPROGRAMCODE = :program "
             query &= " ORDER BY Description "
 
-            Dim parameter As New OracleParameter("program", program)
+            Dim parameter As New SqlParameter("program", program)
             Dim dt As DataTable = DB.GetDataTable(query, parameter)
             dt.PrimaryKey = New DataColumn() {dt.Columns("UnitCode")}
             Return dt

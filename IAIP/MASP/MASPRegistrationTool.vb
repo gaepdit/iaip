@@ -1,4 +1,4 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 Imports System.Collections.Generic
 Imports Iaip.DAL.EventRegistrationData
 Imports Iaip.Apb.Res
@@ -6,7 +6,7 @@ Imports Iaip.Apb.Res
 Public Class MASPRegistrationTool
     Dim SQL As String
     Dim ds As DataSet
-    Dim da As OracleDataAdapter
+    Dim da As SqlDataAdapter
 
 #Region "Properties"
 
@@ -327,7 +327,7 @@ Public Class MASPRegistrationTool
             "strWebURL " &
             "From AIRBRANCH.RES_Event " &
             "where nuMRes_EventID = '" & selectedEventId & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -474,7 +474,7 @@ Public Class MASPRegistrationTool
             "and AIRBRANCH.Res_registration.numRes_EventID = '" & selectedEventId & "' "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, CurrentConnection)
+            da = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1010,7 +1010,7 @@ Public Class MASPRegistrationTool
                      "'" & WebPhoneNumber & "', '" & Replace(EventTime, "'", "''") & "', " &
                      "'" & Replace(EventEndTime, "'", "''") & "', '" & Replace(WebURL, "'", "''") & "') "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1021,7 +1021,7 @@ Public Class MASPRegistrationTool
             "max(numRes_eventID) as EventID " &
             "from AIRBRANCH.RES_Event "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1194,7 +1194,7 @@ Public Class MASPRegistrationTool
                 SQL & "updateUser = '" & CurrentUser.UserID & "', " &
                 "updateDateTime = '" & OracleDate & "' " &
                 "where numRes_EventID = '" & Res_EventID & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1218,7 +1218,7 @@ Public Class MASPRegistrationTool
             "where numRes_RegistrationID = '" & RegistrationID & "' " &
             "and strConfirmationNumber = '" & Confirmation & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1236,7 +1236,7 @@ Public Class MASPRegistrationTool
 
     Public Function PasscodeExists(ByVal id As String) As Boolean
         Dim query As String = "SELECT 'True' FROM AIRBRANCH.RES_EVENT WHERE ROWNUM=1 AND STRPASSCODE = :pId"
-        Dim parameter As New OracleParameter("pId", id)
+        Dim parameter As New SqlParameter("pId", id)
 
         Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
         Return Convert.ToBoolean(result)

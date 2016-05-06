@@ -1,4 +1,4 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 
 Public Class ISMPAddPollutants
@@ -8,11 +8,11 @@ Public Class ISMPAddPollutants
     Dim panel2 As New StatusBarPanel
     Dim panel3 As New StatusBarPanel
     Dim SQL As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
+    Dim cmd As SqlCommand
+    Dim dr As SqlDataReader
     Dim recExist As Boolean
     Dim dsPollutant As DataSet
-    Dim daPollutant As OracleDataAdapter
+    Dim daPollutant As SqlDataAdapter
 
 
     Private Sub ISMPAddPollutants_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -78,7 +78,7 @@ Public Class ISMPAddPollutants
 
             dsPollutant = New DataSet
 
-            daPollutant = New OracleDataAdapter(SQL, CurrentConnection)
+            daPollutant = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -162,7 +162,7 @@ Public Class ISMPAddPollutants
                     "from AIRBRANCH.LookUPPollutants " &
                     "where strPollutantcode = '" & txtPollutantCode.Text & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
 
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -178,7 +178,7 @@ Public Class ISMPAddPollutants
                         "('" & txtPollutantCode.Text & "', '" & txtPollutant.Text & "') "
                     End If
                 End If
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 LoadDataSet()
@@ -250,7 +250,7 @@ Public Class ISMPAddPollutants
                 SQL = "Select strPollutantCode " &
                 "from AIRBRANCH.LookUPPollutants " &
                 "where strPollutantCode = '" & PollutantCode & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = True Then

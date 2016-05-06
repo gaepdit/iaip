@@ -1,7 +1,7 @@
 ﻿Imports Iaip.Apb
 Imports Iaip.Apb.Facilities
 Imports Iaip.Apb.Sscp
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 Namespace DAL
 
@@ -14,7 +14,7 @@ Namespace DAL
                 "INNER JOIN AIRBRANCH.LOOKUPPOLLUTANTS lkpoll ON " &
                 "  poll.STRPOLLUTANTKEY = lkpoll.STRPOLLUTANTCODE " &
                 "WHERE poll.STRAIRSNUMBER = :airsNumber"
-            Dim parameter As New OracleParameter("airsNumber", airsNumber.DbFormattedString)
+            Dim parameter As New SqlParameter("airsNumber", airsNumber.DbFormattedString)
             Dim dt As DataTable = DB.GetDataTable(query, parameter)
             dt.PrimaryKey = New DataColumn() {dt.Columns("STRPOLLUTANTKEY")}
             Return dt
@@ -22,7 +22,7 @@ Namespace DAL
 
         Public Function GetFacilityAirPrograms(airsNumber As Apb.ApbFacilityId) As AirProgram
             Dim query As String = "SELECT STRAIRPROGRAMCODES FROM AIRBRANCH.APBHEADERDATA WHERE STRAIRSNUMBER = :airsNumber"
-            Dim parameter As New OracleParameter("airsNumber", airsNumber.DbFormattedString)
+            Dim parameter As New SqlParameter("airsNumber", airsNumber.DbFormattedString)
             Dim apc As String = DB.GetSingleValue(Of String)(query, parameter)
 
             If apc Is Nothing Then
@@ -71,7 +71,7 @@ Namespace DAL
                 "  app.STRMODIFINGPERSON = up.NUMUSERID " &
                 "WHERE app.STRAIRSNUMBER = :airsNumber " &
                 "ORDER BY ""Air Program Code"", ""Pollutant Code"""
-            Dim parameter As New OracleParameter("airsNumber", airsNumber.DbFormattedString)
+            Dim parameter As New SqlParameter("airsNumber", airsNumber.DbFormattedString)
             Return DB.GetDataTable(query, parameter)
         End Function
 
@@ -108,12 +108,12 @@ Namespace DAL
                 "    :STRMODIFINGPERSON, sysdate " &
                 "  )"
 
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("STRAIRSNUMBER", airsNumber.DbFormattedString),
-                New OracleParameter("STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram.ToString)),
-                New OracleParameter("STRPOLLUTANTKEY", pollutantCode),
-                New OracleParameter("STROPERATIONALSTATUS", operatingStatus.ToString),
-                New OracleParameter("STRMODIFINGPERSON", CurrentUser.UserID)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("STRAIRSNUMBER", airsNumber.DbFormattedString),
+                New SqlParameter("STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram.ToString)),
+                New SqlParameter("STRPOLLUTANTKEY", pollutantCode),
+                New SqlParameter("STROPERATIONALSTATUS", operatingStatus.ToString),
+                New SqlParameter("STRMODIFINGPERSON", CurrentUser.UserID)
             }
 
             Return DB.RunCommand(query, parameters)
@@ -132,11 +132,11 @@ Namespace DAL
                 "WHERE STRAIRPOLLUTANTKEY = :STRAIRPOLLUTANTKEY AND " &
                 "  STRPOLLUTANTKEY = :STRPOLLUTANTKEY "
 
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("STROPERATIONALSTATUS", operatingStatus.ToString),
-                New OracleParameter("STRMODIFINGPERSON", CurrentUser.UserID),
-                New OracleParameter("STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram.ToString)),
-                New OracleParameter("STRPOLLUTANTKEY", pollutantCode)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("STROPERATIONALSTATUS", operatingStatus.ToString),
+                New SqlParameter("STRMODIFINGPERSON", CurrentUser.UserID),
+                New SqlParameter("STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram.ToString)),
+                New SqlParameter("STRPOLLUTANTKEY", pollutantCode)
             }
 
             Return DB.RunCommand(query, parameters)
@@ -152,9 +152,9 @@ Namespace DAL
                 "WHERE STRAIRPOLLUTANTKEY = :STRAIRPOLLUTANTKEY " &
                 " AND STRPOLLUTANTKEY = :STRPOLLUTANTKEY "
 
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram.ToString)),
-                New OracleParameter("STRPOLLUTANTKEY", pollutantCode)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram.ToString)),
+                New SqlParameter("STRPOLLUTANTKEY", pollutantCode)
             }
 
             Return DB.ValueExists(query, parameters)

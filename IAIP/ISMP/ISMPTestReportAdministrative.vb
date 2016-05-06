@@ -1,21 +1,21 @@
 'Imports System.DateTime
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 Imports System.Windows.Forms
 
 Public Class ISMPTestReportAdministrative
     Dim SQL, SQL2 As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
+    Dim cmd As SqlCommand
+    Dim dr As SqlDataReader
     Dim recExist As Boolean
     Dim dsPollutant As DataSet
-    Dim daPollutant As OracleDataAdapter
+    Dim daPollutant As SqlDataAdapter
     Dim dsTestingFirms As DataSet
-    Dim daTestingFirms As OracleDataAdapter
+    Dim daTestingFirms As SqlDataAdapter
     Dim dsGrid As DataSet
-    Dim daGrid As OracleDataAdapter
+    Dim daGrid As SqlDataAdapter
     Dim dsFacility As DataSet
-    Dim daFacility As OracleDataAdapter
+    Dim daFacility As SqlDataAdapter
 
     Private Sub DevTestReportAdministrative_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
@@ -69,7 +69,7 @@ Public Class ISMPTestReportAdministrative
 
             dsFacility = New DataSet
 
-            daFacility = New OracleDataAdapter(SQL, CurrentConnection)
+            daFacility = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -164,8 +164,8 @@ Public Class ISMPTestReportAdministrative
             dsPollutant = New DataSet
             dsTestingFirms = New DataSet
 
-            daPollutant = New OracleDataAdapter(SQL, CurrentConnection)
-            daTestingFirms = New OracleDataAdapter(SQL2, CurrentConnection)
+            daPollutant = New SqlDataAdapter(SQL, CurrentConnection)
+            daTestingFirms = New SqlDataAdapter(SQL2, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -272,7 +272,7 @@ Public Class ISMPTestReportAdministrative
         "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
 
         dsGrid = New DataSet
-        daGrid = New OracleDataAdapter(SQL, CurrentConnection)
+        daGrid = New SqlDataAdapter(SQL, CurrentConnection)
 
         If CurrentConnection.State = ConnectionState.Closed Then
             CurrentConnection.Open()
@@ -305,7 +305,7 @@ Public Class ISMPTestReportAdministrative
                 "from AIRBRANCH.APBFacilityInformation " &
                 "where strAIRSNumber = '0413" & cboAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -349,11 +349,11 @@ Public Class ISMPTestReportAdministrative
                 "from AIRBRANCH.APBFacilityInformation " &
                 "where strAIRSNumber = '0413" & cboAIRSNumber.Text & "'"
 
-                Dim cmd As New OracleCommand(SQL, CurrentConnection)
+                Dim cmd As New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
-                Dim dr As OracleDataReader = cmd.ExecuteReader
+                Dim dr As SqlDataReader = cmd.ExecuteReader
                 Dim recExist As Boolean = dr.Read
                 If recExist Then
                     temp = dr.Item("strFacilityName")
@@ -409,7 +409,7 @@ Public Class ISMPTestReportAdministrative
                 "or strDelete is NUll) " &
                 "Order by AIRBRANCH.ISMPMaster.strReferenceNumber "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -447,7 +447,7 @@ Public Class ISMPTestReportAdministrative
             "from AIRBRANCH.ISMPMaster  " &
             "where strReferenceNumber like '" & RefYear & "%' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -533,7 +533,7 @@ Public Class ISMPTestReportAdministrative
 
                 SQL = "Select strReferenceNumber from AIRBRANCH.ISMPMaster where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -640,7 +640,7 @@ Public Class ISMPTestReportAdministrative
 
                 Try
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -652,7 +652,7 @@ Public Class ISMPTestReportAdministrative
 
                 Try
 
-                    cmd = New OracleCommand(SQL2, CurrentConnection)
+                    cmd = New SqlCommand(SQL2, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -711,7 +711,7 @@ Public Class ISMPTestReportAdministrative
                     "from AIRBRANCH.ISMPReportInformation " &
                     "where strReferenceNumber = '" & RefNum & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -732,7 +732,7 @@ Public Class ISMPTestReportAdministrative
                             SQL = "Select strUpdateStatus " &
                             "from AIRBRANCH.AFSISMPRecords " &
                             "where strReferenceNumber = '" & RefNum & "' "
-                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            cmd = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
                             End If
@@ -753,7 +753,7 @@ Public Class ISMPTestReportAdministrative
                                     SQL = "Update AIRBRANCH.AFSISMPRecords set " &
                                     "strUpDateStatus = 'C' " &
                                     "where strReferenceNumber = '" & RefNum & "' "
-                                    cmd = New OracleCommand(SQL, CurrentConnection)
+                                    cmd = New SqlCommand(SQL, CurrentConnection)
                                     If CurrentConnection.State = ConnectionState.Closed Then
                                         CurrentConnection.Open()
                                     End If
@@ -764,7 +764,7 @@ Public Class ISMPTestReportAdministrative
                                     "from AIRBRANCH.APBSupplamentalData " &
                                     "where strAIRSNumber = '0413" & AIRSNumber & "' "
 
-                                    cmd = New OracleCommand(SQL, CurrentConnection)
+                                    cmd = New SqlCommand(SQL, CurrentConnection)
                                     If CurrentConnection.State = ConnectionState.Closed Then
                                         CurrentConnection.Open()
                                     End If
@@ -783,7 +783,7 @@ Public Class ISMPTestReportAdministrative
                                     "'A', '" & CurrentUser.UserID & "', " &
                                     "'" & OracleDate & "') "
 
-                                    cmd = New OracleCommand(SQL, CurrentConnection)
+                                    cmd = New SqlCommand(SQL, CurrentConnection)
                                     If CurrentConnection.State = ConnectionState.Closed Then
                                         CurrentConnection.Open()
                                     End If
@@ -796,7 +796,7 @@ Public Class ISMPTestReportAdministrative
                                     "strAFSActionNumber = '" & AFSActionNumber & "' " &
                                     "where strAIRSNumber = '0413" & AIRSNumber & "' "
 
-                                    cmd = New OracleCommand(SQL, CurrentConnection)
+                                    cmd = New SqlCommand(SQL, CurrentConnection)
                                     If CurrentConnection.State = ConnectionState.Closed Then
                                         CurrentConnection.Open()
                                     End If
@@ -822,7 +822,7 @@ Public Class ISMPTestReportAdministrative
                             "strClosed = 'True', " &
                             "datCompleteDate = '" & DTPDateClosed.Text & "' " &
                             "where strReferenceNumber = '" & RefNum.ToString & "' "
-                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            cmd = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
                             End If
@@ -861,12 +861,12 @@ Public Class ISMPTestReportAdministrative
             If txtReferenceNumber.Text <> "" Then
 
                 SQL = "Select strAIRSNumber from AIRBRANCH.ISMPMaster where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                Dim cmd As New OracleCommand(SQL, CurrentConnection)
+                Dim cmd As New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
 
-                Dim dr As OracleDataReader = cmd.ExecuteReader
+                Dim dr As SqlDataReader = cmd.ExecuteReader
 
                 Dim recExist As Boolean = dr.Read
 
@@ -912,7 +912,7 @@ Public Class ISMPTestReportAdministrative
               "and AIRBRANCH.ISMPReportINformation.strComplianceStatus = AIRBRANCH.LookUpISMPComplianceStatus.strComplianceKey " &
               "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1035,7 +1035,7 @@ Public Class ISMPTestReportAdministrative
                 RefNum = Mid(RefNum, 1, (RefNum.IndexOf(" -")))
 
                 If DAL.Ismp.StackTestExists(RefNum) Then
-                    Dim parameter As New OracleParameter("ref", RefNum)
+                    Dim parameter As New SqlParameter("ref", RefNum)
 
                     SQL = "Update AIRBRANCH.ISMPReportInformation set " &
                         " strDelete = 'DELETE' where strReferenceNumber = :ref"
@@ -1045,7 +1045,7 @@ Public Class ISMPTestReportAdministrative
                     Dim trackingNumber As String = DB.GetSingleValue(Of String)(SQL, parameter)
 
                     If trackingNumber IsNot Nothing Then
-                        parameter = New OracleParameter("trackingnum", trackingNumber)
+                        parameter = New SqlParameter("trackingnum", trackingNumber)
                         SQL = " UPDATE AIRBRANCH.SSCPITEMMASTER SET STRDELETE = '" & Boolean.TrueString & "' " &
                         " WHERE STRTRACKINGNUMBER = :trackingnum "
                         DB.RunCommand(SQL, parameter)
@@ -1080,7 +1080,7 @@ Public Class ISMPTestReportAdministrative
                 "from AIRBRANCH.SSCPTestReports " &
                 "where strReferenceNumber = '" & RefNum & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1102,7 +1102,7 @@ Public Class ISMPTestReportAdministrative
                 "and AIRBRANCH.SSCPINSPECTIONSREQUIRED.intyear = maxresults.maxyear " &
                 "group by numSSCPEngineer "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1118,7 +1118,7 @@ Public Class ISMPTestReportAdministrative
                 SQL = "select datSSCPTestReportDue " &
                 "from AIRBRANCH.APBSupplamentalData " &
                 "where strAIRSNumber = '0413" & cboAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1146,7 +1146,7 @@ Public Class ISMPTestReportAdministrative
                 "'" & StaffResponsible & "', '', " &
                 "'" & CurrentUser.UserID & "', '" & OracleDate & "')"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1155,7 +1155,7 @@ Public Class ISMPTestReportAdministrative
 
                 SQL = "Select AIRBRANCH.SSCPTrackingNumber.currval from dual "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1176,7 +1176,7 @@ Public Class ISMPTestReportAdministrative
                 "' ', 'False', " &
                 "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1303,7 +1303,7 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
+            daGrid = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -1354,7 +1354,7 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
+            daGrid = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -1392,7 +1392,7 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
+            daGrid = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -1430,7 +1430,7 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
+            daGrid = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -1468,7 +1468,7 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
+            daGrid = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -1506,7 +1506,7 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
+            daGrid = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -1544,7 +1544,7 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
+            daGrid = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -1582,7 +1582,7 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
+            daGrid = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -1620,7 +1620,7 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
+            daGrid = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -1658,7 +1658,7 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
+            daGrid = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -1696,7 +1696,7 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
+            daGrid = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -1734,7 +1734,7 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
+            daGrid = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -1772,7 +1772,7 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
+            daGrid = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -1810,7 +1810,7 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
+            daGrid = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -1848,7 +1848,7 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
+            daGrid = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -1886,7 +1886,7 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
+            daGrid = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -1924,7 +1924,7 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
+            daGrid = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -1962,7 +1962,7 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
+            daGrid = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -2000,7 +2000,7 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
+            daGrid = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -2037,7 +2037,7 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
+            daGrid = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -2074,7 +2074,7 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
+            daGrid = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -2111,7 +2111,7 @@ Public Class ISMPTestReportAdministrative
 
             dsGrid = New DataSet
 
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
+            daGrid = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -2464,7 +2464,7 @@ Public Class ISMPTestReportAdministrative
                 "strReferenceNumber " &
                 "from AIRBRANCH.ISMPMaster " &
                 "where strReferenceNumber = '" & RefNum & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2480,7 +2480,7 @@ Public Class ISMPTestReportAdministrative
                 "strAIRSNumber " &
                 "from AIRBRANCH.APBMasterAIRS " &
                 "where strAIRSNumber = '0413" & AIRSNumber & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2496,7 +2496,7 @@ Public Class ISMPTestReportAdministrative
                 "values " &
                 "('" & RefNum & "', '0413" & AIRSNumber & "', " &
                 "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2523,7 +2523,7 @@ Public Class ISMPTestReportAdministrative
                 "'', '', " &
                 "'', '', '') "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2615,7 +2615,7 @@ Public Class ISMPTestReportAdministrative
                 "from AIRBRANCH.ISMPReportInformation " &
                 "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2626,7 +2626,7 @@ Public Class ISMPTestReportAdministrative
                     SQL = "Update AIRBRANCH.ISMPReportInformation set " &
                     "strClosed = 'True' " &
                     "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -2654,7 +2654,7 @@ Public Class ISMPTestReportAdministrative
                 "from AIRBRANCH.ISMPReportInformation " &
                 "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2665,7 +2665,7 @@ Public Class ISMPTestReportAdministrative
                     SQL = "Update AIRBRANCH.ISMPReportInformation set " &
                     "strClosed = 'False' " &
                     "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -2711,7 +2711,7 @@ Public Class ISMPTestReportAdministrative
                 "from AIRBRANCH.APBFacilityInformation " &
                 "where strAIRSNumber = '0413" & cboAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If

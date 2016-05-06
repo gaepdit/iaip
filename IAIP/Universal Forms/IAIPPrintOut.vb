@@ -1,4 +1,4 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 Imports CrystalDecisions.Shared
 Imports CrystalDecisions.CrystalReports.Engine
 Imports CrystalDecisions.Windows.Forms
@@ -7,15 +7,15 @@ Public Class IAIPPrintOut
 
 #Region " Local variables "
     Dim SQL As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
+    Dim cmd As SqlCommand
+    Dim dr As SqlDataReader
     Dim recExist As Boolean
     Dim ConfidentialData As String = "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
     Dim ReportType As String
     Dim WitnessingEngineer As String
     Dim WitnessingEngineer2 As String
     Dim ds As DataSet
-    Dim da As OracleDataAdapter
+    Dim da As SqlDataAdapter
 #End Region
 
 #Region " Form events "
@@ -39,7 +39,7 @@ Public Class IAIPPrintOut
 
     Private Sub LoadCorrectReport()
         Dim temp As String = ""
-        Dim da As OracleDataAdapter
+        Dim da As SqlDataAdapter
         Dim ds As New DataSet
         Dim rpt As New ReportClass
 
@@ -69,7 +69,7 @@ Public Class IAIPPrintOut
                     "where strCurrentContact = '1' " &
                     "and strKey = '1' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -89,7 +89,7 @@ Public Class IAIPPrintOut
                     "where strCurrentContact = '1' " &
                     "and strKey = '2' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -127,7 +127,7 @@ Public Class IAIPPrintOut
                             "from AIRBRANCH.VW_SSPP_Acknowledge " &
                             "where strApplicationNumber = '" & txtAIRSNumber.Text & "' "
 
-                            da = New OracleDataAdapter(SQL, CurrentConnection)
+                            da = New SqlDataAdapter(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
                             End If
@@ -158,11 +158,11 @@ Public Class IAIPPrintOut
                          "from AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPReportInformation " &
                          "where AIRBRANCH.ISMPReportInformation.strDocumentType = AIRBRANCH.ISMPDocumentType.strKey and " &
                          "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                        Dim cmd As New OracleCommand(SQL, CurrentConnection)
+                        Dim cmd As New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
-                        Dim dr As OracleDataReader = cmd.ExecuteReader
+                        Dim dr As SqlDataReader = cmd.ExecuteReader
                         Dim recExist As Boolean = dr.Read
                         If recExist = True Then
                             temp = dr.Item("strDocumentType")
@@ -219,11 +219,11 @@ Public Class IAIPPrintOut
                          "from AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPReportInformation " &
                          "where AIRBRANCH.ISMPReportInformation.strDocumentType = AIRBRANCH.ISMPDocumentType.strKey and " &
                          "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                        Dim cmd As New OracleCommand(SQL, CurrentConnection)
+                        Dim cmd As New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
-                        Dim dr As OracleDataReader = cmd.ExecuteReader
+                        Dim dr As SqlDataReader = cmd.ExecuteReader
                         Dim recExist As Boolean = dr.Read
                         If recExist = True Then
                             temp = dr.Item("strDocumentType")
@@ -398,7 +398,7 @@ Public Class IAIPPrintOut
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportOneStack.strReferenceNumber  " &
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1168,7 +1168,7 @@ Public Class IAIPPrintOut
                     "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUSerProfiles " &
                     "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUSerProfiles.numUserProfiles  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1351,7 +1351,7 @@ Public Class IAIPPrintOut
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportOneStack.strReferenceNumber  " &
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2218,7 +2218,7 @@ Public Class IAIPPrintOut
                     "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
                     "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -2400,7 +2400,7 @@ Public Class IAIPPrintOut
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportOneStack.strReferenceNumber  " &
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -3350,7 +3350,7 @@ Public Class IAIPPrintOut
                     "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
                     "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -3547,7 +3547,7 @@ Public Class IAIPPrintOut
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportTwoStack.strReferenceNumber  " &
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4746,7 +4746,7 @@ Public Class IAIPPrintOut
                     "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
                     "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -4941,7 +4941,7 @@ Public Class IAIPPrintOut
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportTwoStack.strReferenceNumber  " &
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -6093,7 +6093,7 @@ Public Class IAIPPrintOut
                     "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
                     "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -6278,7 +6278,7 @@ Public Class IAIPPrintOut
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportFlare.strReferenceNumber  " &
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -6879,7 +6879,7 @@ Public Class IAIPPrintOut
                      "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
                      "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
                      "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -7060,7 +7060,7 @@ Public Class IAIPPrintOut
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportPondAndGas.strReferenceNumber  " &
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -7765,7 +7765,7 @@ Public Class IAIPPrintOut
                     "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
                     "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -7945,7 +7945,7 @@ Public Class IAIPPrintOut
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportPondAndGas.strReferenceNumber  " &
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -8680,7 +8680,7 @@ Public Class IAIPPrintOut
                     "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
                     "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -8854,7 +8854,7 @@ Public Class IAIPPrintOut
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportFlare.strReferenceNumber  " &
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -9454,7 +9454,7 @@ Public Class IAIPPrintOut
                     "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
                     "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -9606,7 +9606,7 @@ Public Class IAIPPrintOut
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPREportMemo.strReferenceNumber  " &
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -9954,7 +9954,7 @@ Public Class IAIPPrintOut
                     "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
                     "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -10109,7 +10109,7 @@ Public Class IAIPPrintOut
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPREportMemo.strReferenceNumber  " &
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -10476,7 +10476,7 @@ Public Class IAIPPrintOut
                     "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
                     "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -10649,7 +10649,7 @@ Public Class IAIPPrintOut
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPREportMemo.strReferenceNumber  " &
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -11195,7 +11195,7 @@ Public Class IAIPPrintOut
                     "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
                     "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -11359,7 +11359,7 @@ Public Class IAIPPrintOut
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPREportOpacity.strReferenceNumber  " &
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -11820,7 +11820,7 @@ Public Class IAIPPrintOut
                     "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
                     "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -11990,7 +11990,7 @@ Public Class IAIPPrintOut
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPREportOpacity.strReferenceNumber  " &
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -12502,7 +12502,7 @@ Public Class IAIPPrintOut
                     "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
                     "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -12683,7 +12683,7 @@ Public Class IAIPPrintOut
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPREportOpacity.strReferenceNumber  " &
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -13456,7 +13456,7 @@ Public Class IAIPPrintOut
                     "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
                     "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -13628,7 +13628,7 @@ Public Class IAIPPrintOut
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportRATA.strReferenceNumber  " &
            "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -14601,7 +14601,7 @@ Public Class IAIPPrintOut
                     "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
                     "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -14719,7 +14719,7 @@ Public Class IAIPPrintOut
                 "where strApplicationNumber = '" & Replace(txtSQLLine.Text, "'", "''") & "' "
             End If
 
-            da = New OracleDataAdapter(SQL, CurrentConnection)
+            da = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -14734,7 +14734,7 @@ Public Class IAIPPrintOut
             "strSSPPProgramMang " &
             "from AIRBRANCH.LookUpAPBManagement "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()

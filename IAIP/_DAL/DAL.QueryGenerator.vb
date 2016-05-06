@@ -1,4 +1,4 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 Imports Oracle.ManagedDataAccess.Types
 
 Namespace DAL
@@ -11,11 +11,11 @@ Namespace DAL
                 " (USERSUBMITTING, DATESUBMITTED, ROWSRETURNED, QUERYSUBMITTED) " &
                 " VALUES (:UserSubmitting, :DateSubmitted, :RowsReturned, :QuerySubmitted) "
 
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("UserSubmitting", CurrentUser.UserID),
-                New OracleParameter("DateSubmitted", Date.Now),
-                New OracleParameter("RowsReturned", kvp.Value),
-                New OracleParameter("QuerySubmitted", kvp.Key)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("UserSubmitting", CurrentUser.UserID),
+                New SqlParameter("DateSubmitted", Date.Now),
+                New SqlParameter("RowsReturned", kvp.Value),
+                New SqlParameter("QuerySubmitted", kvp.Key)
             }
 
             Return DB.RunCommand(query, parameters, failSilently:=True)

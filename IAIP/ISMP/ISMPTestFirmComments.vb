@@ -1,14 +1,14 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 
 Public Class ISMPTestFirmComments
     Dim SQL As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
+    Dim cmd As SqlCommand
+    Dim dr As SqlDataReader
     Dim recExist As Boolean
 
     Dim dsTestingFirms As DataSet
-    Dim daTestingFirms As OracleDataAdapter
+    Dim daTestingFirms As SqlDataAdapter
 
     Private Sub ISMPTestFirmComments_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
@@ -62,7 +62,7 @@ Public Class ISMPTestFirmComments
             "order by strTestingFirm "
 
             dsTestingFirms = New DataSet
-            daTestingFirms = New OracleDataAdapter(SQL, CurrentConnection)
+            daTestingFirms = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -127,7 +127,7 @@ Public Class ISMPTestFirmComments
 
             SQL = SQL & " order by numCommentsID desc "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -174,7 +174,7 @@ Public Class ISMPTestFirmComments
                 "to_char(datTestDateEnd, 'dd-Mon-yyyy') as datTestDateEnd " &
                 "from AIRBRANCH.ISMPReportInformation " &
                 "where strReferenceNumber = '" & txtTestReportNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -292,7 +292,7 @@ Public Class ISMPTestFirmComments
                     "datModifingdate = sysdate " &
                     "where numcommentsID = '" & CommentID & "' "
                 End If
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -306,7 +306,7 @@ Public Class ISMPTestFirmComments
                     "max(AIRBRANCH.ISMPTestFirmComments.numcommentsid) " &
                     "from AIRBRANCH.ISMPTestFirmComments "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -333,7 +333,7 @@ Public Class ISMPTestFirmComments
                     "from AIRBRANCH.APBFacilityInformation " &
                     "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "'"
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -354,7 +354,7 @@ Public Class ISMPTestFirmComments
                     "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPTestNotification " &
                     "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.ISMPTestNotification.strAIRSNumber (+) " &
                     "and AIRBRANCH.ISMPTestNotification.strTestLogNumber = '" & txtTestNotificationNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -386,7 +386,7 @@ Public Class ISMPTestFirmComments
                     "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber (+) " &
                     "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtTestReportNumber.Text & "'  "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -472,7 +472,7 @@ Public Class ISMPTestFirmComments
                     "strModifingPerson = '" & CurrentUser.UserID & "', " &
                     "datModifingdate = sysdate " &
                     "where numcommentsID = '" & CommentID & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -591,7 +591,7 @@ Public Class ISMPTestFirmComments
                 "from AIRBRANCH.ISMPTestFirmComments " &
                 "where numCommentsID = '" & cboCommentNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -655,7 +655,7 @@ Public Class ISMPTestFirmComments
                 "datModifingDate = sysdate " &
                 "where numCommentsID = '" & CommentID & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -679,7 +679,7 @@ Public Class ISMPTestFirmComments
                 SQL = "Delete AIRBRANCH.ISMPTestFirmComments " &
                 "where numCommentsId = '" & cboCommentNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If

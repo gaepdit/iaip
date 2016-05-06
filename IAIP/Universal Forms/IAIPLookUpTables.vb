@@ -1,9 +1,9 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 
 Public Class IAIPLookUpTables
     Dim SQL As String
     Dim ds As DataSet
-    Dim da As OracleDataAdapter
+    Dim da As SqlDataAdapter
 
 
     Private Sub IAIPLookUpTables_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -21,7 +21,7 @@ Public Class IAIPLookUpTables
             "order by strApplicationTypeDesc "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, CurrentConnection)
+            da = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -119,7 +119,7 @@ Public Class IAIPLookUpTables
                 "((Select max(to_Number(strApplicationTypeCode)) + 1 as MaxID " &
                 "from AIRBRANCH.LookUpApplicationTypes), " &
                 "'" & txtApplicationDesc.Text & "', '" & AppStatus & "') "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -128,7 +128,7 @@ Public Class IAIPLookUpTables
 
                 SQL = "Select max(to_Number(strApplicationTypeCode)) + 1 as MaxID " &
                 "from AIRBRANCH.LookUpApplicationTypes "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -164,7 +164,7 @@ Public Class IAIPLookUpTables
                 "strApplicationTypeDesc = '" & Replace(txtApplicationDesc.Text, "'", "''") & "', " &
                 "strApplicationTypeUsed = '" & temp & "' " &
                 "where strApplicationTypeCode = '" & txtApplicationID.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -188,7 +188,7 @@ Public Class IAIPLookUpTables
                 SQL = "Select Count(*) as IDUsed " &
                 "from AIRBRANCH.SSPPApplicationMaster " &
                 "where strApplicationType = '" & txtApplicationID.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -211,7 +211,7 @@ Public Class IAIPLookUpTables
                 If temp <> "Keep" Then
                     SQL = "delete AIRBRANCH.LookUpApplicationTypes " &
                     "where strApplicationTypeCode = '" & txtApplicationID.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -398,7 +398,7 @@ Public Class IAIPLookUpTables
             "order by to_number(strKey) "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, CurrentConnection)
+            da = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -468,7 +468,7 @@ Public Class IAIPLookUpTables
                 "datEndDate, strCurrentContact " &
                 "from AIRBRANCH.LookUpAPBManagementType " &
                 "where numId = '" & txtAPBManagemetnID.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -667,7 +667,7 @@ Public Class IAIPLookUpTables
             "from AIRBRANCH.LookUpAPBManagementType " &
             "where strCurrentContact = '1' " &
             "and strKey = '" & ManagementType & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -679,7 +679,7 @@ Public Class IAIPLookUpTables
                     "strCurrentContact = '0', " &
                     "datEndDate = '" & OracleDate & "' " &
                     "where numId = '" & dr.Item("numID") & "' "
-                    cmd2 = New OracleCommand(SQL, CurrentConnection)
+                    cmd2 = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -694,7 +694,7 @@ Public Class IAIPLookUpTables
             "((select max(numId) + 1 from AIRBRANCH.LookUpAPBManagementType), '" & ManagementType & "', " &
             "'" & Replace(ManagementName, "'", "''") & "', '" & OracleDate & "', " &
             "'', '1') "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -886,7 +886,7 @@ Public Class IAIPLookUpTables
             "order by numID "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, CurrentConnection)
+            da = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If

@@ -1,10 +1,10 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 'Imports System.IO
 
 Public Class ISMPConfidentialData
     Dim SQL As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
+    Dim cmd As SqlCommand
+    Dim dr As SqlDataReader
     Dim RecExist As Boolean
     Dim ConfidentialData As String = ""
     Dim DocumentType As String
@@ -43,7 +43,7 @@ Public Class ISMPConfidentialData
             SQL = "Select strConfidentialData, strDocumentType  " &
             "from AIRBRANCH.ISMPReportInformation " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4560,7 +4560,7 @@ Public Class ISMPConfidentialData
                 SQL = "Update AIRBRANCH.ISMPReportInformation set " &
                 "strConfidentialData = '" & Replace(ConfidentialData, "'", "''") & "' " &
                 "where strReferencenumber = '" & txtReferenceNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If

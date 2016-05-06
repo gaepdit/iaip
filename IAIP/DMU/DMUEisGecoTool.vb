@@ -1,18 +1,18 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 Imports Iaip.Apb.Facilities
 
 Public Class DMUEisGecoTool
     Dim SQL, SQL2 As String
-    Dim cmd, cmd2 As OracleCommand
-    Dim dr, dr2 As OracleDataReader
+    Dim cmd, cmd2 As SqlCommand
+    Dim dr, dr2 As SqlDataReader
     Dim recExist As Boolean
     Dim ds As DataSet
-    Dim da As OracleDataAdapter
+    Dim da As SqlDataAdapter
     Dim recExist2 As Boolean
     Public dsES As DataSet
-    Public daES As OracleDataAdapter
+    Public daES As SqlDataAdapter
     Dim dsViewCount As DataSet
-    Dim daViewCount As OracleDataAdapter
+    Dim daViewCount As SqlDataAdapter
 
     Private Sub DMUEisGecoTool_Load(sender As Object, e As EventArgs) Handles Me.Load
 
@@ -78,7 +78,7 @@ Public Class DMUEisGecoTool
             "from AIRBRANCH.esschema " &
             "order by intESYear desc"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -111,9 +111,9 @@ Public Class DMUEisGecoTool
             SQL = "Select distinct STRESYEAR " &
                   "from AIRBRANCH.esmailout " &
                   "order by STRESYEAR desc"
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim cmd As New SqlCommand(SQL, CurrentConnection)
 
-            Dim dr As OracleDataReader = cmd.ExecuteReader()
+            Dim dr As SqlDataReader = cmd.ExecuteReader()
             dr.Read()
             year = dr("STRESYEAR") + 1
             cboMailoutYear.Items.Add(year)
@@ -218,7 +218,7 @@ Public Class DMUEisGecoTool
             "from AIRBRANCH.EIS_Admin " &
             "order by invYear desc "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -242,7 +242,7 @@ Public Class DMUEisGecoTool
             "and numunit = '14' " &
             "and numEmployeeStatus = '1'  "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -260,7 +260,7 @@ Public Class DMUEisGecoTool
 
             ds = New DataSet
 
-            da = New OracleDataAdapter(SQL, CurrentConnection)
+            da = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -467,7 +467,7 @@ Public Class DMUEisGecoTool
             + "Order by struseremail "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, CurrentConnection)
+            da = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Open Then
             Else
@@ -534,7 +534,7 @@ Public Class DMUEisGecoTool
             "where AIRBRANCH.OLAPUserProfile.numUserID = AIRBRANCH.OLAPUserLogIn.numuserid " &
             "and strUserEmail = upper('" & UserData & "') "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -672,7 +672,7 @@ Public Class DMUEisGecoTool
             dgvUserFacilities.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -716,7 +716,7 @@ Public Class DMUEisGecoTool
             End While
             dr.Close()
 
-            da = New OracleDataAdapter(SQL, CurrentConnection)
+            da = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -741,7 +741,7 @@ Public Class DMUEisGecoTool
                 SQL = "Select strFacilityName " &
                 "from AIRBRANCH.APBFacilityInformation " &
                 "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -775,7 +775,7 @@ Public Class DMUEisGecoTool
             If txtAirsNumber.Text <> "" Then
                 SQL = "Select * from AIRBRANCH.eiSI where strStateFacilityIdentifier = '" & txtAirsNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -941,7 +941,7 @@ Public Class DMUEisGecoTool
                     "order by EIEM.strInventoryYear DESC "
 
                     ds = New DataSet
-                    da = New OracleDataAdapter(SQL, CurrentConnection)
+                    da = New SqlDataAdapter(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1029,7 +1029,7 @@ Public Class DMUEisGecoTool
             Dim AirsNumber As String = "0413" & txtAirsNumber.Text
             Dim inventoryYear As String = cboEIYear.SelectedItem
             Dim airsYear As String
-            Dim dr As OracleDataReader
+            Dim dr As SqlDataReader
             ds = New DataSet
 
             airsYear = AirsNumber & inventoryYear
@@ -1071,7 +1071,7 @@ Public Class DMUEisGecoTool
                             "strNAICSPrimary " &
                      "from AIRBRANCH.eiSI where strAirsYear = '" & airsYear & "'"
 
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim cmd As New SqlCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
             If CurrentConnection.State = ConnectionState.Open Then
@@ -1142,7 +1142,7 @@ Public Class DMUEisGecoTool
             Dim AirsNumber As String = "0413" & txtAirsNumber.Text
             Dim inventoryYear As String = cboEIYear.SelectedItem
             Dim airsYear As String
-            Dim dr As OracleDataReader
+            Dim dr As SqlDataReader
             ds = New DataSet
 
             airsYear = AirsNumber & inventoryYear
@@ -1163,7 +1163,7 @@ Public Class DMUEisGecoTool
                          "strEmissionUnitDesc " &
                     "from AIRBRANCH.eiEU where strAirsYear = '" & airsYear & "'"
 
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim cmd As New SqlCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
             If CurrentConnection.State = ConnectionState.Open Then
@@ -1213,7 +1213,7 @@ Public Class DMUEisGecoTool
             Dim AirsNumber As String = "0413" & txtAirsNumber.Text
             Dim inventoryYear As String = cboEIYear.SelectedItem
             Dim airsYear As String
-            Dim dr As OracleDataReader
+            Dim dr As SqlDataReader
             ds = New DataSet
 
             airsYear = AirsNumber & inventoryYear
@@ -1245,7 +1245,7 @@ Public Class DMUEisGecoTool
                                "AIRBRANCH.EILOOKUPHORIZREFDATUM.STRHORIZONTALREFERENCEDATUM) as HDRCdesc " &
                             "from AIRBRANCH.eiER where strAirsYear = '" & airsYear & "'"
 
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim cmd As New SqlCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
             If CurrentConnection.State = ConnectionState.Open Then
@@ -1303,7 +1303,7 @@ Public Class DMUEisGecoTool
             Dim AirsNumber As String = "0413" & txtAirsNumber.Text
             Dim inventoryYear As String = cboEIYear.SelectedItem
             Dim airsYear As String
-            Dim dr As OracleDataReader
+            Dim dr As SqlDataReader
             ds = New DataSet
 
             airsYear = AirsNumber & inventoryYear
@@ -1340,7 +1340,7 @@ Public Class DMUEisGecoTool
                        "from AIRBRANCH.eiEP " &
                       "where strAirsYear = '" & airsYear & "'"
 
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim cmd As New SqlCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
             If CurrentConnection.State = ConnectionState.Open Then
@@ -1406,7 +1406,7 @@ Public Class DMUEisGecoTool
             Dim AirsNumber As String = "0413" & txtAirsNumber.Text
             Dim inventoryYear As String = cboEIYear.SelectedItem
             Dim airsYear As String
-            Dim dr As OracleDataReader
+            Dim dr As SqlDataReader
             ds = New DataSet
 
             airsYear = AirsNumber & inventoryYear
@@ -1461,7 +1461,7 @@ Public Class DMUEisGecoTool
 
             'SQL = "Select * from AIRBRANCH.eiEM where strAirsYear = '" & airsYear & "'"
 
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim cmd As New SqlCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
 
             If CurrentConnection.State = ConnectionState.Open Then
@@ -1761,7 +1761,7 @@ Public Class DMUEisGecoTool
             "where strStateFacilityIdentifier = '" & txtAirsNumber.Text & "' " &
             "order by EIYear desc "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1827,7 +1827,7 @@ Public Class DMUEisGecoTool
                 "where AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " &
                 "and AIRBRANCH.esmailout.STRESYEAR = '" & ESYear & "'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1844,7 +1844,7 @@ Public Class DMUEisGecoTool
                 "and AIRBRANCH.ESSCHEMA.STROPTOUT is not NULL " &
                 "and AIRBRANCH.esmailout.STRESYEAR = '" & ESYear & "'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1860,7 +1860,7 @@ Public Class DMUEisGecoTool
                 "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "'" &
                 " and AIRBRANCH.ESSchema.strOptOut = 'NO'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1876,7 +1876,7 @@ Public Class DMUEisGecoTool
                 "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "' " &
                 "and AIRBRANCH.ESSchema.strOptOut = 'YES'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
 
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -1893,7 +1893,7 @@ Public Class DMUEisGecoTool
                 "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "'" &
                 " and to_date(AIRBRANCH.ESSchema.STRDATEFIRSTCONFIRM) < = '" & deadline & "'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1908,7 +1908,7 @@ Public Class DMUEisGecoTool
                 "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "'" &
                 " and to_date(AIRBRANCH.ESSchema.STRDATEFIRSTCONFIRM) > '" & deadline & "'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1924,7 +1924,7 @@ Public Class DMUEisGecoTool
                 " and AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " &
                 " and AIRBRANCH.ESSchema.strOptOut = 'NO'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1941,7 +1941,7 @@ Public Class DMUEisGecoTool
                 " and AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " &
                 " and AIRBRANCH.ESSchema.strOptOut = 'YES'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1962,7 +1962,7 @@ Public Class DMUEisGecoTool
              "where AIRBRANCH.ESSCHEMA.intESYEAR = '" & ESYear & "'" &
              " and AIRBRANCH.ESSchema.strOptOut is NULL"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1979,7 +1979,7 @@ Public Class DMUEisGecoTool
             "and AIRBRANCH.esmailout.STRAIRSYEAR = AIRBRANCH.ESSchema.STRAIRSYEAR(+) " &
           " and AIRBRANCH.ESSchema.STRAIRSYEAR is NULL"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1998,7 +1998,7 @@ Public Class DMUEisGecoTool
                 " and AIRBRANCH.ESSchema.INTESYEAR = '" & ESYear & "' " &
                 " and AIRBRANCH.ESSchema.STROPTOUT is null"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2015,7 +2015,7 @@ Public Class DMUEisGecoTool
             "and AIRBRANCH.esmailout.STRAIRSYEAR = AIRBRANCH.ESSchema.STRAIRSYEAR(+) " &
             "and AIRBRANCH.ESSchema.strOptOut is NULL"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2038,7 +2038,7 @@ Public Class DMUEisGecoTool
             "Where AIRBRANCH.ESSCHEMA.STRAIRSYEAR = SchemaAIRS " &
             "AND MailoutAIRS is NULL"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2063,7 +2063,7 @@ Public Class DMUEisGecoTool
             "AND MailoutAIRS is NULL " &
             "and AIRBRANCH.ESSCHEMA.STROPTOUT='NO'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -2088,7 +2088,7 @@ Public Class DMUEisGecoTool
             "AND MailoutAIRS is NULL " &
             "and AIRBRANCH.ESSCHEMA.STROPTOUT='YES'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Open Then
             Else
@@ -2105,7 +2105,7 @@ Public Class DMUEisGecoTool
             "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "'" &
             " and AIRBRANCH.ESSchema.strOptOut is not NULL"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Open Then
             Else
                 CurrentConnection.Open()
@@ -2134,7 +2134,7 @@ Public Class DMUEisGecoTool
                   "where STRAIRSNUMBER = '" & AirsNo & "' " &
                   "and STRESYEAR = '" & ESyear & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2217,7 +2217,7 @@ Public Class DMUEisGecoTool
             "where STRAIRSNUMBER = '" & AirsNo & "' " &
             "and INTESYEAR = '" & intESyear & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2473,7 +2473,7 @@ Public Class DMUEisGecoTool
             "order by STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2540,7 +2540,7 @@ Public Class DMUEisGecoTool
             "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2597,7 +2597,7 @@ Public Class DMUEisGecoTool
             "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2660,7 +2660,7 @@ Public Class DMUEisGecoTool
             "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2730,7 +2730,7 @@ Public Class DMUEisGecoTool
             "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2785,7 +2785,7 @@ Public Class DMUEisGecoTool
             "order by STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2852,7 +2852,7 @@ Public Class DMUEisGecoTool
             "order by esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2904,7 +2904,7 @@ Public Class DMUEisGecoTool
             "order by AIRBRANCH.esMailOut.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2960,7 +2960,7 @@ Public Class DMUEisGecoTool
             "AND MailoutAIRS is NULL"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -3021,7 +3021,7 @@ Public Class DMUEisGecoTool
             "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -3073,7 +3073,7 @@ Public Class DMUEisGecoTool
             "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -3129,7 +3129,7 @@ Public Class DMUEisGecoTool
             "and AIRBRANCH.ESSCHEMA.STROPTOUT='YES'"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -3186,7 +3186,7 @@ Public Class DMUEisGecoTool
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -3240,7 +3240,7 @@ Public Class DMUEisGecoTool
             "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -3304,7 +3304,7 @@ Public Class DMUEisGecoTool
             "from AIRBRANCH.EsMailOut " &
             "where STRAIRSYEAR = '" & airsYear & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -3364,7 +3364,7 @@ Public Class DMUEisGecoTool
 
             End If
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -3386,7 +3386,7 @@ Public Class DMUEisGecoTool
             "where AIRBRANCH.ESMailOut.STRAIRSNUMBER = '" & AirsNo & "' " &
             "and AIRBRANCH.ESMailOut.STRESYEAR = '" & ESyear & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -3528,7 +3528,7 @@ Public Class DMUEisGecoTool
                 CurrentConnection.Open()
             End If
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
             recExist = dr.Read
@@ -3650,7 +3650,7 @@ Public Class DMUEisGecoTool
                         "AIRBRANCH.APBHEADERDATA.STRAIRSNUMBER= dt_ESContact.STRAIRSNumber and  " &
                         "dt_ESContact.STRAIRSNumber  = dt_PermitContact.STRAIRSNUMBER (+) "
 
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -3748,7 +3748,7 @@ Public Class DMUEisGecoTool
                             "'" & Replace(Replace(CONTACTEMAIL, "'", "''"), "N/A", " ") & "', " &
                             "'" & ESYear & "')"
 
-                            Dim cmd2 As New OracleCommand(SQL2, CurrentConnection)
+                            Dim cmd2 As New SqlCommand(SQL2, CurrentConnection)
                             'If conn.State = ConnectionState.Closed Then
                             '    conn.Open()
                             'End If
@@ -3781,7 +3781,7 @@ Public Class DMUEisGecoTool
                     "order by STRFACILITYNAME"
 
                     dsViewCount = New DataSet
-                    daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                    daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -3846,7 +3846,7 @@ Public Class DMUEisGecoTool
                 SQL = "delete from AIRBRANCH.ESmailout " &
                 "where strESyear = '" & ESyear & "'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -3909,7 +3909,7 @@ Public Class DMUEisGecoTool
             "order by STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -3970,7 +3970,7 @@ Public Class DMUEisGecoTool
             "from AIRBRANCH.EISI " &
             "order by STRINVENTORYYEAR desc "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -3997,7 +3997,7 @@ Public Class DMUEisGecoTool
             "from AIRBRANCH.EITHRESHOLDS " &
             "order by STRTYPE desc "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4057,7 +4057,7 @@ Public Class DMUEisGecoTool
                 "where AIRBRANCH.eImailout.STRAIRSYEAR = AIRBRANCH.EISI.STRAIRSYEAR(+) " &
                 "and AIRBRANCH.eImailout.STRINVENTORYYEAR = '" & EIYear & "'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -4073,7 +4073,7 @@ Public Class DMUEisGecoTool
                 "and AIRBRANCH.EISI.STROPTOUT is not NULL " &
                 "and AIRBRANCH.eImailout.STRINVENTORYYEAR = '" & EIYear & "'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
 
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -4090,7 +4090,7 @@ Public Class DMUEisGecoTool
             "and AIRBRANCH.eImailout.STRAIRSYEAR = AIRBRANCH.EISI.STRAIRSYEAR(+) " &
             "and AIRBRANCH.EISI.STRAIRSYEAR is NULL"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
 
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -4109,7 +4109,7 @@ Public Class DMUEisGecoTool
                 " and AIRBRANCH.EISI.STRINVENTORYYEAR = '" & EIYear & "' " &
                 " and AIRBRANCH.EISI.STROPTOUT is null"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
 
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -4125,7 +4125,7 @@ Public Class DMUEisGecoTool
                 "where AIRBRANCH.EISI.STRINVENTORYYEAR = '" & EIYear & "'" &
                 " and AIRBRANCH.EISI.strOptOut = 'NO'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -4139,7 +4139,7 @@ Public Class DMUEisGecoTool
                 "from AIRBRANCH.EISI " &
                 "where AIRBRANCH.EISI.STRINVENTORYYEAR = '" & EIYear & "' " &
                 "and AIRBRANCH.EISI.strOptOut = 'YES'"
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -4156,7 +4156,7 @@ Public Class DMUEisGecoTool
                 "and AIRBRANCH.EISI.strOptOut = 'NO' " &
                 "and AIRBRANCH.EISI.STRFINALIZE is not null"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -4174,7 +4174,7 @@ Public Class DMUEisGecoTool
                 "and AIRBRANCH.EISI.strOptOut = 'NO' " &
                 "and AIRBRANCH.EISI.STRFINALIZE is null"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -4190,7 +4190,7 @@ Public Class DMUEisGecoTool
                 "and AIRBRANCH.eImailout.STRAIRSYEAR = AIRBRANCH.EISI.STRAIRSYEAR(+) " &
                 "and AIRBRANCH.EISI.strOptOut = 'NO'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -4207,7 +4207,7 @@ Public Class DMUEisGecoTool
                 "and AIRBRANCH.eImailout.STRAIRSYEAR = AIRBRANCH.EISI.STRAIRSYEAR " &
                 "and AIRBRANCH.EISI.strOptOut = 'YES'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -4228,7 +4228,7 @@ Public Class DMUEisGecoTool
             "and AIRBRANCH.eImailout.STRAIRSYEAR = AIRBRANCH.EISI.STRAIRSYEAR(+) " &
             "and AIRBRANCH.EISI.strOptOut is NULL"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4243,7 +4243,7 @@ Public Class DMUEisGecoTool
          "where AIRBRANCH.EISI.STRINVENTORYYEAR = '" & EIYear & "' " &
          "and AIRBRANCH.EISI.strOptOut is NULL"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4265,7 +4265,7 @@ Public Class DMUEisGecoTool
             "Where AIRBRANCH.EISI.STRAIRSYEAR = SchemaAIRS " &
             "AND MailoutAIRS is NULL"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4289,7 +4289,7 @@ Public Class DMUEisGecoTool
             "AND MailoutAIRS is NULL " &
             "and AIRBRANCH.EISI.STROPTOUT='NO'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4312,7 +4312,7 @@ Public Class DMUEisGecoTool
             "AND MailoutAIRS is NULL " &
             "and AIRBRANCH.EISI.STROPTOUT='YES'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4328,7 +4328,7 @@ Public Class DMUEisGecoTool
             "where AIRBRANCH.EISI.STRINVENTORYYEAR = '" & EIYear & "' " &
             "and EISI.strOptOut is not NULL"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4348,7 +4348,7 @@ Public Class DMUEisGecoTool
     Private Sub findEIMailOut()
         Dim SQL As String
         Dim AirsNo As String = txtEIAirsNo.Text
-        Dim dr As OracleDataReader
+        Dim dr As SqlDataReader
         Dim EIyear As String = txtEIYear.Text
 
         Try
@@ -4357,7 +4357,7 @@ Public Class DMUEisGecoTool
             "where STRAIRSNUMBER = '" & AirsNo & "' " &
             "and STRINVENTORYYEAR = '" & EIyear & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4470,7 +4470,7 @@ Public Class DMUEisGecoTool
             "order by STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4540,7 +4540,7 @@ Public Class DMUEisGecoTool
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4587,7 +4587,7 @@ Public Class DMUEisGecoTool
             "order by AIRBRANCH.EISI.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4637,7 +4637,7 @@ Public Class DMUEisGecoTool
             "order by AIRBRANCH.EISI.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4695,7 +4695,7 @@ Public Class DMUEisGecoTool
             "AND MailoutAIRS is NULL"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4760,7 +4760,7 @@ Public Class DMUEisGecoTool
             "and AIRBRANCH.EISI.STROPTOUT='NO'"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4815,7 +4815,7 @@ Public Class DMUEisGecoTool
             "and AIRBRANCH.EISI.STROPTOUT='YES'"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4868,7 +4868,7 @@ Public Class DMUEisGecoTool
             "order by AIRBRANCH.EISI.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4927,7 +4927,7 @@ Public Class DMUEisGecoTool
             "order by AIRBRANCH.eisi.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4979,7 +4979,7 @@ Public Class DMUEisGecoTool
             "order by AIRBRANCH.eisi.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -5032,7 +5032,7 @@ Public Class DMUEisGecoTool
             "order by STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -5162,9 +5162,9 @@ Public Class DMUEisGecoTool
             SQL = "Select distinct STRINVENTORYYEAR " &
                       "from AIRBRANCH.EIMAILOUT  " &
                       "order by STRINVENTORYYEAR desc"
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim cmd As New SqlCommand(SQL, CurrentConnection)
 
-            Dim dr As OracleDataReader = cmd.ExecuteReader()
+            Dim dr As SqlDataReader = cmd.ExecuteReader()
             dr.Read()
             year = dr("STRINVENTORYYEAR") + 1
             cboEIMailoutYear.Items.Add(year)
@@ -5193,9 +5193,9 @@ Public Class DMUEisGecoTool
             SQL = "Select distinct STRINVENTORYYEAR " &
                       "from AIRBRANCH.EIMAILOUT  " &
                       "order by STRINVENTORYYEAR desc"
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim cmd As New SqlCommand(SQL, CurrentConnection)
 
-            Dim dr As OracleDataReader = cmd.ExecuteReader()
+            Dim dr As SqlDataReader = cmd.ExecuteReader()
             dr.Read()
             Do
                 year = dr("STRINVENTORYYEAR")
@@ -5222,9 +5222,9 @@ Public Class DMUEisGecoTool
             SQL = "Select distinct ESMAILOUT.STRESYEAR " &
                       "from AIRBRANCH.ESMAILOUT  " &
                       "order by STRESYEAR desc"
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim cmd As New SqlCommand(SQL, CurrentConnection)
 
-            Dim dr As OracleDataReader = cmd.ExecuteReader()
+            Dim dr As SqlDataReader = cmd.ExecuteReader()
             dr.Read()
             Do
                 year = dr("STRESYEAR")
@@ -5283,7 +5283,7 @@ Public Class DMUEisGecoTool
                 "FROM AIRBRANCH.EImailOut " &
                 "where STRINVENTORYYEAR = '" & EIYear & "'"
             End If
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -5365,7 +5365,7 @@ Public Class DMUEisGecoTool
                         "AIRBRANCH.APBHEADERDATA.STRAIRSNUMBER= dt_EIContact.STRAIRSNumber and  " &
                         "dt_EIContact.STRAIRSNumber  = dt_PermitContact.STRAIRSNUMBER (+) "
 
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -5462,7 +5462,7 @@ Public Class DMUEisGecoTool
                            "'" & Replace(Replace(CONTACTEMAIL, "'", "''"), "N/A", " ") & "', " &
                            "'" & EIYear & "')"
 
-                            cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                            cmd2 = New SqlCommand(SQL2, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
                             End If
@@ -5491,7 +5491,7 @@ Public Class DMUEisGecoTool
                     "order by STRFACILITYNAME"
 
                     dsViewCount = New DataSet
-                    daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                    daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -5570,7 +5570,7 @@ Public Class DMUEisGecoTool
 
                 MsgBox("EI mail out is deleted!")
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -5625,7 +5625,7 @@ Public Class DMUEisGecoTool
             SQL = "Select strAIRSYear " &
                   "from AIRBRANCH.EIMailout " &
                   "where STRAIRSYEAR = '" & airsYear & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -5684,7 +5684,7 @@ Public Class DMUEisGecoTool
                 MsgBox("your info is added!")
             End If
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -5710,7 +5710,7 @@ Public Class DMUEisGecoTool
     Private Sub deleteEImailout()
         Dim SQL As String
         Dim AirsNo As String = txtEIAirsNo.Text
-        Dim dr As OracleDataReader
+        Dim dr As SqlDataReader
 
         Dim EIyear As String = txtEIYear.Text
 
@@ -5719,7 +5719,7 @@ Public Class DMUEisGecoTool
           "where AIRBRANCH.EIMailOut.STRAIRSNUMBER = '" & AirsNo & "' " &
           " and AIRBRANCH.EIMailOut.STRINVENTORYYEAR = '" & EIyear & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -5757,7 +5757,7 @@ Public Class DMUEisGecoTool
             "order by AIRBRANCH.eisi.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -5812,7 +5812,7 @@ Public Class DMUEisGecoTool
             "order by AIRBRANCH.eisi.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -5868,7 +5868,7 @@ Public Class DMUEisGecoTool
             "order by STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -5969,7 +5969,7 @@ Public Class DMUEisGecoTool
             "FROM AIRBRANCH.EISI " &
             "where STRINVENTORYYEAR = '" & EIYear & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -5983,7 +5983,7 @@ Public Class DMUEisGecoTool
                 "FROM AIRBRANCH.EImailout " &
                 "where EImailout.STRINVENTORYYEAR = '" & EIYear & "'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -6008,7 +6008,7 @@ Public Class DMUEisGecoTool
                     "'3', " &
                     "'" & airsYear & "' )"
 
-                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    cmd2 = New SqlCommand(SQL2, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -6037,7 +6037,7 @@ Public Class DMUEisGecoTool
                     Case DialogResult.OK
                         sql = "delete from AIRBRANCH.EISI " &
                         "where EISI.STRINVENTORYYEAR = '" & EIYear & "'"
-                        cmd = New OracleCommand(sql, CurrentConnection)
+                        cmd = New SqlCommand(sql, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -6081,7 +6081,7 @@ Public Class DMUEisGecoTool
           "FROM AIRBRANCH.EISI " &
           "where  EISI.STRINVENTORYYEAR = '" & EIYear & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -6096,7 +6096,7 @@ Public Class DMUEisGecoTool
                "FROM AIRBRANCH.APBFACILITYINFORMATION " &
                "where  APBFACILITYINFORMATION.STRAIRSNUMBER = '" & AirsNo & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -6112,7 +6112,7 @@ Public Class DMUEisGecoTool
                              "where STRINVENTORYYEAR = '" & EIYear & "' " &
                              " And STRAIRSNUMBER = '" & AirsNo & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -6137,7 +6137,7 @@ Public Class DMUEisGecoTool
                         "'3', " &
                         "'" & airsYear & "' )"
 
-                        cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                        cmd2 = New SqlCommand(SQL2, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -6181,7 +6181,7 @@ Public Class DMUEisGecoTool
                     "from AIRBRANCH.EISI " &
                     "where strAIRSNumber = '" & AirsNo & "' " &
                     "and strInventoryYear = '" & EIYear & "' "
-                    cmd = New OracleCommand(sql, CurrentConnection)
+                    cmd = New SqlCommand(sql, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -6210,7 +6210,7 @@ Public Class DMUEisGecoTool
                     "where EISI.STRINVENTORYYEAR = '" & EIYear & "'" &
                     " And STROPTOUT is null" &
                     " And STRAIRSNUMBER = '" & AirsNo & "'"
-                    cmd = New OracleCommand(sql, CurrentConnection)
+                    cmd = New SqlCommand(sql, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -6252,7 +6252,7 @@ Public Class DMUEisGecoTool
             "AND MailoutAIRS is NULL"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -6309,7 +6309,7 @@ Public Class DMUEisGecoTool
             "and AIRBRANCH.EISI.STRAIRSYEAR is NULL"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -6363,7 +6363,7 @@ Public Class DMUEisGecoTool
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -6427,7 +6427,7 @@ Public Class DMUEisGecoTool
                 " and AIRBRANCH.EISI.STROPTOUT is null"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -6477,7 +6477,7 @@ Public Class DMUEisGecoTool
         "where AIRBRANCH.EISI.STRINVENTORYYEAR = '" & year & "'"
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -6520,7 +6520,7 @@ Public Class DMUEisGecoTool
             "where STRINVENTORYYEAR = '" & EIYear & "' " &
             " And STRAIRSNUMBER = '" & AirsNo & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -6567,7 +6567,7 @@ Public Class DMUEisGecoTool
             "FROM AIRBRANCH.ESSCHEMA " &
             "where ESSCHEMA.INTESYEAR = '" & ESYear & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -6581,7 +6581,7 @@ Public Class DMUEisGecoTool
                 "FROM AIRBRANCH.ESMAILOUT " &
                 "where ESMAILOUT.STRESYEAR = '" & ESYear & "'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -6606,7 +6606,7 @@ Public Class DMUEisGecoTool
                     "'3', " &
                     "'" & airsYear & "' )"
 
-                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    cmd2 = New SqlCommand(SQL2, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -6634,7 +6634,7 @@ Public Class DMUEisGecoTool
                     Case DialogResult.OK
                         sql = "delete from AIRBRANCH.ESSCHEMA " &
                         "where ESSCHEMA.INTESYEAR = '" & ESYear & "'"
-                        cmd = New OracleCommand(sql, CurrentConnection)
+                        cmd = New SqlCommand(sql, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -6678,7 +6678,7 @@ Public Class DMUEisGecoTool
           "FROM AIRBRANCH.ESSCHEMA " &
           "where  ESSCHEMA.INTESYEAR = '" & ESYear & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -6693,7 +6693,7 @@ Public Class DMUEisGecoTool
                "FROM AIRBRANCH.APBFACILITYINFORMATION " &
                "where  APBFACILITYINFORMATION.STRAIRSNUMBER = '" & AirsNo & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -6709,7 +6709,7 @@ Public Class DMUEisGecoTool
                              "where ESSCHEMA.INTESYEAR = '" & ESYear & "' " &
                              " And ESSCHEMA.STRAIRSNUMBER = '" & AirsNo & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -6734,7 +6734,7 @@ Public Class DMUEisGecoTool
                         "'3', " &
                         "'" & airsYear & "' )"
 
-                        cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                        cmd2 = New SqlCommand(SQL2, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -6772,7 +6772,7 @@ Public Class DMUEisGecoTool
                     sql = "delete from AIRBRANCH.ESSCHEMA " &
                     "where ESSCHEMA.INTESYEAR = '" & ESYear & "'" &
                     " And ESSCHEMA.STRAIRSNUMBER = '" & AirsNo & "'"
-                    cmd = New OracleCommand(sql, CurrentConnection)
+                    cmd = New SqlCommand(sql, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -6799,7 +6799,7 @@ Public Class DMUEisGecoTool
             "where AIRBRANCH.ESSCHEMA.INTESYEAR = '" & ESYear & "' " &
             " And AIRBRANCH.ESSCHEMA.STRAIRSNUMBER = '" & AirsNo & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -6836,7 +6836,7 @@ Public Class DMUEisGecoTool
         "where AIRBRANCH.ESSCHEMA.INTESYEAR = '" & year & "'"
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -6896,7 +6896,7 @@ Public Class DMUEisGecoTool
             "AND MailoutAIRS is NULL"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -6955,7 +6955,7 @@ Public Class DMUEisGecoTool
             "order by AIRBRANCH.ESMAILOUT.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -7008,7 +7008,7 @@ Public Class DMUEisGecoTool
             "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -7072,7 +7072,7 @@ Public Class DMUEisGecoTool
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -7110,7 +7110,7 @@ Public Class DMUEisGecoTool
             SQL = "SELECT AIRBRANCH.EITHRESHOLDYEARS.STREITYPE " &
                    "from  AIRBRANCH.EITHRESHOLDYEARS  " &
           "where AIRBRANCH.EITHRESHOLDYEARS.STRYEAR = '" & EItypeYear & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -7131,7 +7131,7 @@ Public Class DMUEisGecoTool
              " order by AIRBRANCH.EITHRESHOLDS.STRPOLLUTANT"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -7179,7 +7179,7 @@ Public Class DMUEisGecoTool
           "FROM AIRBRANCH.EITHRESHOLDYEARS " &
           "where  EITHRESHOLDYEARS.STRYEAR = '" & EItypeYear & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -7191,7 +7191,7 @@ Public Class DMUEisGecoTool
                 "STREITYPE = '" & EItype & "' " &
                 "where AIRBRANCH.EITHRESHOLDYEARS.STRYEAR = '" & EItypeYear & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -7228,7 +7228,7 @@ Public Class DMUEisGecoTool
                                 " FROM AIRBRANCH.EITHRESHOLDS " &
                                 "where   AIRBRANCH.EITHRESHOLDS.STRTYPE = '" & Replace(EItype2, "'", "''") & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -7242,7 +7242,7 @@ Public Class DMUEisGecoTool
                     SQL = "Select distinct(AIRBRANCH.EITHRESHOLDS.STRPOLLUTANT) as Pollutant " &
                    " FROM AIRBRANCH.EITHRESHOLDS "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -7261,7 +7261,7 @@ Public Class DMUEisGecoTool
                                 "('" & Replace(temp, "'", "''") & "', " &
                                 "'', '', '" & Replace(EItype2, "'", "''") & "', " &
                                 "(Select max(PollutantID) + 1 from AIRBranch.EIThresholds) ) "
-                            cmd2 = New OracleCommand(SQL, CurrentConnection)
+                            cmd2 = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
                             End If
@@ -7287,7 +7287,7 @@ Public Class DMUEisGecoTool
                     "where   AIRBRANCH.EITHRESHOLDS.STRTYPE = '" & Replace(EItype2, "'", "''") & "' "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -7352,7 +7352,7 @@ Public Class DMUEisGecoTool
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -7421,7 +7421,7 @@ Public Class DMUEisGecoTool
                            "FROM AIRBRANCH.APBFACILITYINFORMATION " &
                            "where  APBFACILITYINFORMATION.STRAIRSNUMBER = '" & airsno & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -7434,7 +7434,7 @@ Public Class DMUEisGecoTool
                            "FROM AIRBRANCH.APBFACILITYINFORMATION " &
                            "where  APBFACILITYINFORMATION.STRAIRSNUMBER = '" & airsno & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -7460,7 +7460,7 @@ Public Class DMUEisGecoTool
                       "FROM AIRBRANCH.EIS_Admin " &
                       "where  EIS_Admin.FACILITYSITEID = '" & facilitySiteID & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -7473,7 +7473,7 @@ Public Class DMUEisGecoTool
                             "where INVENTORYYEAR = '" & EISYear & "' " &
                             " And FACILITYSITEID = '" & facilitySiteID & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -7499,7 +7499,7 @@ Public Class DMUEisGecoTool
                                       "where FACILITYSITEID = '" & facilitySiteID & "' " &
                                       " And INVENTORYYEAR = '" & EISYear & "' "
 
-                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                cmd = New SqlCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
                                     CurrentConnection.Open()
                                 End If
@@ -7533,7 +7533,7 @@ Public Class DMUEisGecoTool
                         "'1', " &
                         "'" & OracleDate & "' )"
 
-                        cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                        cmd2 = New SqlCommand(SQL2, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -7561,7 +7561,7 @@ Public Class DMUEisGecoTool
                    "'" & Replace(UpdateUser, "'", "''") & "', " &
                    "'1', " &
                    "'" & OracleDate & "' )"
-                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    cmd2 = New SqlCommand(SQL2, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -7591,7 +7591,7 @@ Public Class DMUEisGecoTool
                     "'1', " &
                     "'" & OracleDate & "' )"
 
-                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    cmd2 = New SqlCommand(SQL2, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -7627,7 +7627,7 @@ Public Class DMUEisGecoTool
                   "'" & OracleDate & "' )"
 
 
-                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    cmd2 = New SqlCommand(SQL2, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -7650,7 +7650,7 @@ Public Class DMUEisGecoTool
                   "'1', " &
                   "'" & OracleDate & "' )"
 
-                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    cmd2 = New SqlCommand(SQL2, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -7681,7 +7681,7 @@ Public Class DMUEisGecoTool
                   "'1', " &
                   "'" & OracleDate & "' )"
 
-                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    cmd2 = New SqlCommand(SQL2, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -7702,7 +7702,7 @@ Public Class DMUEisGecoTool
                   "'1', " &
                   "'" & OracleDate & "' )"
 
-                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    cmd2 = New SqlCommand(SQL2, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -7747,7 +7747,7 @@ Public Class DMUEisGecoTool
              "where FACILITYSITEID = '" & FacilitySiteID & "' " &
              " And INVENTORYYEAR = '" & EISYear & "' "
 
-            cmd = New OracleCommand(sql, CurrentConnection)
+            cmd = New SqlCommand(sql, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -7778,7 +7778,7 @@ Public Class DMUEisGecoTool
                   " And FACILITYSITEID = '" & FacilitySiteID & "' " &
                   " And STRENROLLMENT = '" & enrollment & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -7810,7 +7810,7 @@ Public Class DMUEisGecoTool
                                    "FROM AIRBRANCH.EIS_Admin " &
                                    "where FACILITYSITEID = '" & FacilitySiteID & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -7839,7 +7839,7 @@ Public Class DMUEisGecoTool
             "from AIRBRANCH.EITHRESHOLDS " &
             "order by STRTYPE desc "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -7872,9 +7872,9 @@ Public Class DMUEisGecoTool
             SQL = "Select distinct INVENTORYYEAR " &
                       "from AIRBRANCH.EIS_Admin  " &
                       "order by INVENTORYYEAR desc"
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim cmd As New SqlCommand(SQL, CurrentConnection)
 
-            Dim dr As OracleDataReader = cmd.ExecuteReader()
+            Dim dr As SqlDataReader = cmd.ExecuteReader()
             dr.Read()
             Do
                 year = dr("INVENTORYYEAR")
@@ -7896,7 +7896,7 @@ Public Class DMUEisGecoTool
             "from AIRBRANCH.EITHRESHOLDYEARS " &
             "order by strYear desc "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -7929,8 +7929,8 @@ Public Class DMUEisGecoTool
     Private Sub loadcboEISstatusCodes()
         Dim dtCode As New DataTable
         Dim dscode As DataSet
-        Dim dacode As OracleDataAdapter
-        Dim daEIcode As OracleDataAdapter
+        Dim dacode As SqlDataAdapter
+        Dim daEIcode As SqlDataAdapter
         Dim dtEICode As New DataTable()
 
         Dim drDSRow As DataRow
@@ -7944,7 +7944,7 @@ Public Class DMUEisGecoTool
             "from AIRBRANCH.EISLK_EISSTATUSCODE "
 
             dscode = New DataSet
-            dacode = New OracleDataAdapter(SQL, CurrentConnection)
+            dacode = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -7977,7 +7977,7 @@ Public Class DMUEisGecoTool
             "order by strDesc"
 
             dscode = New DataSet
-            daEIcode = New OracleDataAdapter(SQL, CurrentConnection)
+            daEIcode = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -8045,7 +8045,7 @@ Public Class DMUEisGecoTool
             "where INVENTORYYEAR = '" & EISYear & "'" &
             " and active ='1' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -8060,7 +8060,7 @@ Public Class DMUEisGecoTool
             " and active ='1'"
 
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -8075,7 +8075,7 @@ Public Class DMUEisGecoTool
                "where EIS_MAILOUT.INTINVENTORYYEAR = '" & EISYear & "'" &
                " and active '1'"
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -8087,7 +8087,7 @@ Public Class DMUEisGecoTool
                                           "where EIS_ADMIN.INVENTORYYEAR = '" & EISYear & "'" &
                                           " order by FACILITYSITEID " &
                                           " and active = '1' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -8113,7 +8113,7 @@ Public Class DMUEisGecoTool
             "UpdateDateTime = '" & OracleDate & "' " &
             "where FACILITYSITEID = '" & facilitySiteID & "' " &
             " And INVENTORYYEAR = '" & EISYear & "' "
-                        cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                        cmd2 = New SqlCommand(SQL2, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -8155,7 +8155,7 @@ Public Class DMUEisGecoTool
                        "from AIRBRANCH.EIS_ADMIN " &
                        "where EIS_ADMIN.INVENTORYYEAR = '" & EISYear & "'" &
                        " order by FACILITYSITEID"
-                        cmd = New OracleCommand(sql, CurrentConnection)
+                        cmd = New SqlCommand(sql, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -8177,7 +8177,7 @@ Public Class DMUEisGecoTool
                 "where FACILITYSITEID = '" & FacilitySiteID & "' " &
                 " And INVENTORYYEAR = '" & EISYear & "' " &
                 " And Active = '" & active & "' "
-                            cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                            cmd2 = New SqlCommand(SQL2, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
                             End If
@@ -8241,7 +8241,7 @@ Public Class DMUEisGecoTool
                 "FROM AIRBRANCH.EIS_MAILOUT " &
                 "where INTINVENTORYYEAR = '" & EISYear & "'"
             End If
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -8271,7 +8271,7 @@ Public Class DMUEisGecoTool
                    "order by STRFACILITYNAME"
 
 
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -8372,7 +8372,7 @@ Public Class DMUEisGecoTool
                            "'" & Replace(UpdateUser, "'", "''") & "', " &
                            "'" & OracleDate & "' )"
 
-                            cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                            cmd2 = New SqlCommand(SQL2, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
                             End If
@@ -8401,7 +8401,7 @@ Public Class DMUEisGecoTool
                     "order by STRFACILITYNAME"
 
                     dsViewCount = New DataSet
-                    daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                    daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -8472,7 +8472,7 @@ Public Class DMUEisGecoTool
         "and strenrollment = '1' "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -8533,7 +8533,7 @@ Public Class DMUEisGecoTool
                 "order by STRFACILITYNAME"
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -8600,7 +8600,7 @@ Public Class DMUEisGecoTool
           "FROM AIRBRANCH.EITHRESHOLDYEARS " &
           "where  EITHRESHOLDYEARS.STRYEAR = '" & EIStypeYear & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -8610,7 +8610,7 @@ Public Class DMUEisGecoTool
             "STREITYPE = '" & EIStype & "' " &
             "where AIRBRANCH.EITHRESHOLDYEARS.STRYEAR = '" & EIStypeYear & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -8635,7 +8635,7 @@ Public Class DMUEisGecoTool
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -8678,7 +8678,7 @@ Public Class DMUEisGecoTool
             "from AIRBRANCH.EITHRESHOLDS " &
             "where EITHRESHOLDS.STRTYPE = '" & EIStype & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -8735,7 +8735,7 @@ Public Class DMUEisGecoTool
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -8781,7 +8781,7 @@ Public Class DMUEisGecoTool
                                 " FROM AIRBRANCH.EITHRESHOLDS " &
                                 "where   AIRBRANCH.EITHRESHOLDS.STRTYPE = '" & Replace(EIStype2, "'", "''") & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -8795,7 +8795,7 @@ Public Class DMUEisGecoTool
                     SQL = "Select distinct(AIRBRANCH.EITHRESHOLDS.STRPOLLUTANT) as Pollutant " &
                    " FROM AIRBRANCH.EITHRESHOLDS "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -8814,7 +8814,7 @@ Public Class DMUEisGecoTool
                                 "('" & Replace(temp, "'", "''") & "', " &
                                 "'', '', '" & Replace(EIStype2, "'", "''") & "', " &
                                 "(Select max(PollutantID) + 1 from AIRBranch.EIThresholds) ) "
-                            cmd2 = New OracleCommand(SQL, CurrentConnection)
+                            cmd2 = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
                             End If
@@ -8838,7 +8838,7 @@ Public Class DMUEisGecoTool
                     "where   AIRBRANCH.EITHRESHOLDS.STRTYPE = '" & Replace(EIStype2, "'", "''") & "' "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -8885,7 +8885,7 @@ Public Class DMUEisGecoTool
                   "where   AIRBRANCH.EIS_ADMIN.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' " &
                   " and EIS_ADMIN.INVENTORYYEAR = '" & Replace(EISYear, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -8898,7 +8898,7 @@ Public Class DMUEisGecoTool
                  "where   AIRBRANCH.EIS_ADMIN.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' " &
                  " and EIS_ADMIN.INVENTORYYEAR = '" & Replace(EISYear, "'", "''") & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -9032,7 +9032,7 @@ Public Class DMUEisGecoTool
                  "WHERE FACILITYSITEID = '" & fsid & "' " &
                  "and INVENTORYYEAR = '" & inventoryyear & "' "
 
-            Dim cmd As New OracleCommand(sql, CurrentConnection)
+            Dim cmd As New SqlCommand(sql, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -9071,7 +9071,7 @@ Public Class DMUEisGecoTool
              " FROM AIRBRANCH.APBFACILITYINFORMATION " &
              "where   AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER = '" & Replace(airsNo, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -9105,7 +9105,7 @@ Public Class DMUEisGecoTool
                   " FROM AIRBRANCH.EIS_FACILITYSITE " &
                   "where   AIRBRANCH.EIS_FACILITYSITE.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -9117,7 +9117,7 @@ Public Class DMUEisGecoTool
                  " FROM AIRBRANCH.EIS_FACILITYSITE " &
                  "where   AIRBRANCH.EIS_FACILITYSITE.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -9144,7 +9144,7 @@ Public Class DMUEisGecoTool
                 " FROM AIRBRANCH.EIS_FACILITYSITEADDRESS " &
                 "where   AIRBRANCH.EIS_FACILITYSITEADDRESS.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -9157,7 +9157,7 @@ Public Class DMUEisGecoTool
                  " FROM AIRBRANCH.EIS_FACILITYSITEADDRESS " &
                  "where   AIRBRANCH.EIS_FACILITYSITEADDRESS.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -9215,7 +9215,7 @@ Public Class DMUEisGecoTool
                  "UPDATEDATETIME = '" & OracleDate & "' " &
                  "WHERE FACILITYSITEID = '" & fsid & "' "
 
-            Dim cmd As New OracleCommand(sql, CurrentConnection)
+            Dim cmd As New SqlCommand(sql, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -9230,7 +9230,7 @@ Public Class DMUEisGecoTool
                "UPDATEDATETIME = '" & OracleDate & "' " &
                "WHERE FACILITYSITEID = '" & fsid & "' "
 
-            Dim cmd1 As New OracleCommand(sql1, CurrentConnection)
+            Dim cmd1 As New SqlCommand(sql1, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -9272,7 +9272,7 @@ Public Class DMUEisGecoTool
                 SQL = "Select strFacilityName " &
                 "from AIRBRANCH.APBFacilityInformation " &
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -9312,7 +9312,7 @@ Public Class DMUEisGecoTool
                 dgvUsers.Rows.Clear()
                 ds = New DataSet
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -9360,7 +9360,7 @@ Public Class DMUEisGecoTool
                 End While
                 dr.Close()
 
-                da = New OracleDataAdapter(SQL, CurrentConnection)
+                da = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -9383,7 +9383,7 @@ Public Class DMUEisGecoTool
             SQL = "Select numUserId " &
             "from AIRBRANCH.olapuserlogin " &
             "where struseremail = '" & Replace(UCase(txtEmail.Text), "'", "''") & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -9396,7 +9396,7 @@ Public Class DMUEisGecoTool
                 "(numUserId, strAirsNumber, strFacilityName) values( " &
                 "'" & userID & "', '0413" & mtbAIRSNumber.Text & "', '" & Replace(lblFaciltyName.Text, "'", "''") & "') "
 
-                Dim cmd1 As New OracleCommand(InsertString, CurrentConnection)
+                Dim cmd1 As New SqlCommand(InsertString, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -9421,7 +9421,7 @@ Public Class DMUEisGecoTool
             "WHERE numUserID = '" & cboUsers.SelectedValue & "' " &
             "and strAirsNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -9471,7 +9471,7 @@ Public Class DMUEisGecoTool
                 "WHERE numUserID = '" & dgvUsers(1, i).Value & "' " &
                 "and strAirsNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -9558,7 +9558,7 @@ Public Class DMUEisGecoTool
                 "numUserID = '" & txtWebUserID.Text & "' " &
                 "where numUserID = '" & txtWebUserID.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -9605,7 +9605,7 @@ Public Class DMUEisGecoTool
                 "strUserPassword = '" & getMd5Hash(txtEditUserPassword.Text) & "' " &
                 "where numUserID = '" & txtWebUserID.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -9642,7 +9642,7 @@ Public Class DMUEisGecoTool
                     "from AIRBRANCH.OLAPUserLogIN " &
                     "where upper(strUserEmail) = '" & Replace(txtEditEmail.Text.ToUpper, "'", "''") & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -9668,7 +9668,7 @@ Public Class DMUEisGecoTool
                     "strUserEmail = '" & Replace(txtEditEmail.Text.ToUpper, "'", "''") & "' " &
                     "where numUserID = '" & txtWebUserID.Text & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -9706,7 +9706,7 @@ Public Class DMUEisGecoTool
                 "where numUserId = '" & txtWebUserID.Text & "' " &
                 "and strAirsNumber = '0413" & mtbFacilityToAdd.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -9723,7 +9723,7 @@ Public Class DMUEisGecoTool
                      "from AIRBRANCH.APBFacilityInformation " &
                      "where strAIRSnumber = '0413" & mtbFacilityToAdd.Text & "')) "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -9747,7 +9747,7 @@ Public Class DMUEisGecoTool
                 "WHERE numUserID = '" & txtWebUserID.Text & "' " &
                 "and strAirsNumber = '0413" & cboFacilityToDelete.SelectedValue & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -9799,7 +9799,7 @@ Public Class DMUEisGecoTool
                 "WHERE numUserID = '" & txtWebUserID.Text & "' " &
                 "and strAirsNumber = '0413" & dgvUserFacilities(0, i).Value & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -9855,7 +9855,7 @@ Public Class DMUEisGecoTool
             "strFacilitySiteName, STRFACILITYSITESTATUSCODE " &
             "from AIRBRANCH.EIS_FacilitySite " &
             "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -9881,7 +9881,7 @@ Public Class DMUEisGecoTool
             "from AIRBRANCH.EIS_FacilitySiteAddress " &
             "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -9925,7 +9925,7 @@ Public Class DMUEisGecoTool
             "from AIRBRANCH.EIS_FacilityGeoCoord " &
             "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -9954,7 +9954,7 @@ Public Class DMUEisGecoTool
                 "  hd.STRAIRSNUMBER " &
                 "WHERE fi.STRAIRSNUMBER = '0413" & txtEILogSelectedAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -10003,7 +10003,7 @@ Public Class DMUEisGecoTool
             "where intInventoryYear = '" & txtEILogSelectedYear.Text & "' " &
             "and FacilitySiteID = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -10102,7 +10102,7 @@ Public Class DMUEisGecoTool
             "AIRBRANCH.EPDUserProfiles.numUserID  " &
             "and strContactKey = '0413" & txtEILogSelectedAIRSNumber.Text & "41' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -10220,7 +10220,7 @@ Public Class DMUEisGecoTool
            "where inventoryYear = '" & txtEILogSelectedYear.Text & "' " &
            "and FacilitySiteID = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -10378,7 +10378,7 @@ Public Class DMUEisGecoTool
             "where inventoryYear = '" & cboEILogYear.Text & "' " &
             "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -10645,7 +10645,7 @@ Public Class DMUEisGecoTool
       "and eis_qaAdmin.qaStatusCode = '2' " &
       "and eis_admin.inventoryyear = '" & cboEISStatisticsYear.Text & "' ) "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -11002,7 +11002,7 @@ Public Class DMUEisGecoTool
                      "where intInventoryyear = '" & txtSelectedEISMailout.Text & "' " &
                      "and FacilitySiteID = '" & txtEISStatsMailoutAIRSNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -11115,7 +11115,7 @@ Public Class DMUEisGecoTool
                 "where intInventoryYear = '" & txtSelectedEISStatYear.Text & "' " &
                 "and FacilitySiteID = '" & txtEISStatsMailoutAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -11160,7 +11160,7 @@ Public Class DMUEisGecoTool
                     "and strMailout = '1' " &
                     temp
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -11246,7 +11246,7 @@ Public Class DMUEisGecoTool
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -11362,7 +11362,7 @@ Public Class DMUEisGecoTool
                     "and strMailout = '1' " &
                     temp
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -11399,7 +11399,7 @@ Public Class DMUEisGecoTool
                 "where inventoryYear = '" & EISConfirm & "' " &
                 temp
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -11442,7 +11442,7 @@ Public Class DMUEisGecoTool
                     "and inventoryYear = '" & EISConfirm & "' " &
                     temp
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -11470,7 +11470,7 @@ Public Class DMUEisGecoTool
                     "and inventoryYear = '" & EISConfirm & "' " &
                     temp
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -11498,7 +11498,7 @@ Public Class DMUEisGecoTool
                         "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' " &
                         "and strOptOut = '0' )) "
 
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -11507,11 +11507,11 @@ Public Class DMUEisGecoTool
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
-                        cmd = New OracleCommand("AIRBranch.PD_EIS_QASTART", CurrentConnection)
+                        cmd = New SqlCommand("AIRBranch.PD_EIS_QASTART", CurrentConnection)
                         cmd.CommandType = CommandType.StoredProcedure
 
-                        cmd.Parameters.Add(New OracleParameter("AIRSNUMBER_IN", OracleDbType.Varchar2)).Value = dgvEISStats(1, i).Value
-                        cmd.Parameters.Add(New OracleParameter("INTYEAR_IN", OracleDbType.Decimal)).Value = EISConfirm
+                        cmd.Parameters.Add(New SqlParameter("AIRSNUMBER_IN", SqlDbType.VarChar)).Value = dgvEISStats(1, i).Value
+                        cmd.Parameters.Add(New SqlParameter("INTYEAR_IN", SqlDbType.Decimal)).Value = EISConfirm
 
                         cmd.ExecuteNonQuery()
 
@@ -11584,7 +11584,7 @@ Public Class DMUEisGecoTool
             "where inventoryyear = '" & cboEILogYear.Text & "' " &
             "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -11614,7 +11614,7 @@ Public Class DMUEisGecoTool
             "where inventoryyear = '" & cboEILogYear.Text & "' " &
             "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -11634,7 +11634,7 @@ Public Class DMUEisGecoTool
                     "strEISDeadlineComment = '" & Replace(DeadLineComments, "'", "''") & "' " &
                     "where INventoryyear = '" & cboEILogYear.Text & "' " &
                     "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -11741,7 +11741,7 @@ Public Class DMUEisGecoTool
                "where INventoryyear = '" & cboEILogYear.Text & "' " &
                "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -11764,11 +11764,11 @@ Public Class DMUEisGecoTool
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
-            cmd = New OracleCommand("AIRBranch.PD_EIS_Data", CurrentConnection)
+            cmd = New SqlCommand("AIRBranch.PD_EIS_Data", CurrentConnection)
             cmd.CommandType = CommandType.StoredProcedure
 
-            cmd.Parameters.Add(New OracleParameter("AIRSNUM", OracleDbType.Varchar2)).Value = txtEILogSelectedAIRSNumber.Text
-            cmd.Parameters.Add(New OracleParameter("INTYEAR", OracleDbType.Decimal)).Value = txtEILogSelectedYear.Text
+            cmd.Parameters.Add(New SqlParameter("AIRSNUM", SqlDbType.VarChar)).Value = txtEILogSelectedAIRSNumber.Text
+            cmd.Parameters.Add(New SqlParameter("INTYEAR", SqlDbType.Decimal)).Value = txtEILogSelectedYear.Text
 
             cmd.ExecuteNonQuery()
 
@@ -11880,7 +11880,7 @@ Public Class DMUEisGecoTool
             "where INventoryyear = '" & cboEILogYear.Text & "' " &
             "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -11892,12 +11892,12 @@ Public Class DMUEisGecoTool
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
-                cmd = New OracleCommand("AIRBranch.PD_EIS_QA_Done", CurrentConnection)
+                cmd = New SqlCommand("AIRBranch.PD_EIS_QA_Done", CurrentConnection)
                 cmd.CommandType = CommandType.StoredProcedure
 
-                cmd.Parameters.Add(New OracleParameter("AIRSNUM", OracleDbType.Varchar2)).Value = txtEILogSelectedAIRSNumber.Text
-                cmd.Parameters.Add(New OracleParameter("INTYEAR", OracleDbType.Decimal)).Value = txtEILogSelectedYear.Text
-                cmd.Parameters.Add(New OracleParameter("DATLASTSUBMIT", OracleDbType.Date)).Value = dtpQACompleted.Text
+                cmd.Parameters.Add(New SqlParameter("AIRSNUM", SqlDbType.VarChar)).Value = txtEILogSelectedAIRSNumber.Text
+                cmd.Parameters.Add(New SqlParameter("INTYEAR", SqlDbType.Decimal)).Value = txtEILogSelectedYear.Text
+                cmd.Parameters.Add(New SqlParameter("DATLASTSUBMIT", SqlDbType.DateTime2)).Value = dtpQACompleted.Text
 
                 cmd.ExecuteNonQuery()
             End If
@@ -11928,13 +11928,13 @@ Public Class DMUEisGecoTool
             " STRLOCATIONADDRESSPOSTALCODE = :PostalCode " &
             " where facilitysiteid = :AirsNumber"
 
-            Dim parameters As OracleParameter()
+            Dim parameters As SqlParameter()
 
-            parameters = New OracleParameter() {
-                New OracleParameter("Address", Address),
-                New OracleParameter("City", City),
-                New OracleParameter("PostalCode", PostalCode),
-                New OracleParameter("AirsNumber", txtEILogSelectedAIRSNumber.Text)
+            parameters = New SqlParameter() {
+                New SqlParameter("Address", Address),
+                New SqlParameter("City", City),
+                New SqlParameter("PostalCode", PostalCode),
+                New SqlParameter("AirsNumber", txtEILogSelectedAIRSNumber.Text)
             }
 
             DB.RunCommand(query, parameters)
@@ -11964,13 +11964,13 @@ Public Class DMUEisGecoTool
             " strMailingAddressPostalCode = :PostalCode " &
             " where facilitysiteid = :AirsNumber"
 
-            Dim parameters As OracleParameter()
+            Dim parameters As SqlParameter()
 
-            parameters = New OracleParameter() {
-                New OracleParameter("Address", Address),
-                New OracleParameter("City", City),
-                New OracleParameter("PostalCode", PostalCode),
-                New OracleParameter("AirsNumber", txtEILogSelectedAIRSNumber.Text)
+            parameters = New SqlParameter() {
+                New SqlParameter("Address", Address),
+                New SqlParameter("City", City),
+                New SqlParameter("PostalCode", PostalCode),
+                New SqlParameter("AirsNumber", txtEILogSelectedAIRSNumber.Text)
             }
 
             DB.RunCommand(query, parameters)
@@ -11999,11 +11999,11 @@ Public Class DMUEisGecoTool
             " strFacilitySiteName = :FacilityName " &
             " where facilitysiteid = :AirsNumber"
 
-            Dim parameters As OracleParameter()
+            Dim parameters As SqlParameter()
 
-            parameters = New OracleParameter() {
-                New OracleParameter("FacilityName", FacilityName),
-                New OracleParameter("AirsNumber", txtEILogSelectedAIRSNumber.Text)
+            parameters = New SqlParameter() {
+                New SqlParameter("FacilityName", FacilityName),
+                New SqlParameter("AirsNumber", txtEILogSelectedAIRSNumber.Text)
             }
 
             DB.RunCommand(query, parameters)
@@ -12027,7 +12027,7 @@ Public Class DMUEisGecoTool
                 "numLongitudeMeasure = '-" & mtbEIModifyLongitude.Text & "' " &
                 "where facilitySiteID = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -12041,7 +12041,7 @@ Public Class DMUEisGecoTool
                 "datModifingDate = sysdate " &
                 "where strAIRSNumber = '0413" & txtEILogSelectedAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -12073,11 +12073,11 @@ Public Class DMUEisGecoTool
                 " , UPDATEDATETIME = sysdate " &
                 " WHERE FACILITYSITEID = :siteid "
 
-            Dim parameters As OracleParameter() = New OracleParameter() {
-                New OracleParameter("statuscode", cbEisModifyOperStatus.SelectedValue.ToString),
-                New OracleParameter("sitecomment", "Site status updated from IAIP"),
-                New OracleParameter("updateuser", CurrentUser.UserID & "-" & CurrentUser.AlphaName),
-                New OracleParameter("siteid", txtEILogSelectedAIRSNumber.Text)
+            Dim parameters As SqlParameter() = New SqlParameter() {
+                New SqlParameter("statuscode", cbEisModifyOperStatus.SelectedValue.ToString),
+                New SqlParameter("sitecomment", "Site status updated from IAIP"),
+                New SqlParameter("updateuser", CurrentUser.UserID & "-" & CurrentUser.AlphaName),
+                New SqlParameter("siteid", txtEILogSelectedAIRSNumber.Text)
             }
 
             If DB.RunCommand(query, parameters) Then
@@ -12134,7 +12134,7 @@ Public Class DMUEisGecoTool
             "where FacilitySiteid = '" & txtEILogSelectedAIRSNumber.Text & "' " &
             "and intInventoryYear = '" & txtEILogSelectedYear.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -12315,7 +12315,7 @@ Public Class DMUEisGecoTool
                    "where intInventoryyear = '" & cboEISStatisticsYear.Text & "' " &
                    "and FacilitySiteID = '" & txtEISStatsMailoutAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -12475,7 +12475,7 @@ Public Class DMUEisGecoTool
                 "where strAIRSnumber = '0413" & txtEISStatsMailoutAIRSNumber.Text & "' "
 
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -12595,7 +12595,7 @@ Public Class DMUEisGecoTool
                     "where inventoryYear = '" & EISConfirm & "' " &
                     temp
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -12639,7 +12639,7 @@ Public Class DMUEisGecoTool
                 "where inventoryYear = '" & EISConfirm & "' " &
                 temp
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -12659,7 +12659,7 @@ Public Class DMUEisGecoTool
     Sub ViewPollutantThresholds()
         Try
             Dim dsThreshold As DataSet
-            Dim daThreshold As OracleDataAdapter
+            Dim daThreshold As SqlDataAdapter
 
             If rdbThreeYearPollutants.Checked = True Then
                 SQL = "Select " &
@@ -12678,7 +12678,7 @@ Public Class DMUEisGecoTool
             End If
 
             dsThreshold = New DataSet
-            daThreshold = New OracleDataAdapter(SQL, CurrentConnection)
+            daThreshold = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -12773,7 +12773,7 @@ Public Class DMUEisGecoTool
             "where upper(strPollutant) = '" & Replace(txtPollutant.Text.ToUpper, "'", "''") & "' " &
             "and strType = '" & ThresholdType & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -12789,7 +12789,7 @@ Public Class DMUEisGecoTool
                 "'" & txtThreshold.Text & "', " &
                 "'" & txtNonAttainmentThreshold.Text & "', " &
                 "'" & ThresholdType & "') "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -12827,7 +12827,7 @@ Public Class DMUEisGecoTool
             "where upper(strPollutant) = '" & Replace(txtPollutant.Text.ToUpper, "'", "''") & "' " &
             "and strType = '" & ThresholdType & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -12840,7 +12840,7 @@ Public Class DMUEisGecoTool
                       "numThresholdNAA = '" & txtNonAttainmentThreshold.Text & "' " &
                       "where strType = '" & ThresholdType & "'  " &
                       "and strPollutant =  '" & Replace(txtPollutant.Text, "'", "''") & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -12865,7 +12865,7 @@ Public Class DMUEisGecoTool
             "order by strYear desc "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, CurrentConnection)
+            da = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -12964,7 +12964,7 @@ Public Class DMUEisGecoTool
             "from AIRBranch.EIThresholdYears " &
             "where strYEar = '" & Replace(mtbThresholdYear.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -12980,7 +12980,7 @@ Public Class DMUEisGecoTool
                 "'" & EISYearType & "', " &
                 "'" & dtpEISDeadline.Text & "')  "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -13014,7 +13014,7 @@ Public Class DMUEisGecoTool
             "from AIRBranch.EIThresholdYears " &
             "where strYEar = '" & Replace(mtbThresholdYear.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -13027,7 +13027,7 @@ Public Class DMUEisGecoTool
                 "DatDeadline = '" & dtpEISDeadline.Text & "'  " &
                 "where strYear = '" & mtbThresholdYear.Text & "'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -13052,7 +13052,7 @@ Public Class DMUEisGecoTool
             If EISConfirm = txtSelectedEISStatYear.Text Then
                 SQL = "delete airbranch.EIS_UnitControlPollutant " &
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -13060,7 +13060,7 @@ Public Class DMUEisGecoTool
 
                 SQL = "delete airbranch.EIS_UnitControlMeasure  " &
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -13068,7 +13068,7 @@ Public Class DMUEisGecoTool
 
                 SQL = "delete airbranch.EIS_UnitControlApproach  " &
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -13076,7 +13076,7 @@ Public Class DMUEisGecoTool
 
                 SQL = "delete airbranch.EIS_RPGEOCoordinates  " &
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -13084,7 +13084,7 @@ Public Class DMUEisGecoTool
 
                 SQL = "delete airbranch.EIS_RPApportionment  " &
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -13092,7 +13092,7 @@ Public Class DMUEisGecoTool
 
                 SQL = "delete airbranch.EIS_ProcessControlPollutant " &
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -13100,7 +13100,7 @@ Public Class DMUEisGecoTool
 
                 SQL = "delete airbranch.EIS_ProcessControlMeasure " &
                 "where active = '0'"
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -13108,7 +13108,7 @@ Public Class DMUEisGecoTool
 
                 SQL = "delete airbranch.EIS_ProcessControlApproach  " &
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -13117,7 +13117,7 @@ Public Class DMUEisGecoTool
                 SQL = "delete airbranch.EIS_ReportingPeriodEmissions  " &
               "where active = '0'  " &
               "and intinventoryyear = '2010' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -13126,7 +13126,7 @@ Public Class DMUEisGecoTool
                 SQL = "delete airbranch.EIS_ProcessOperatingDetails  " &
                 "where active = '0'  " &
                 "and intInventoryYear = '2010' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -13135,7 +13135,7 @@ Public Class DMUEisGecoTool
                 SQL = "delete airbranch.EIS_ProcessRPTPeriodSCP  " &
                 "where Active = '0'  " &
                 "and intInventoryYear = '2010'"
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -13149,7 +13149,7 @@ Public Class DMUEisGecoTool
              "and Airbranch.EIS_RPApportionment.ProcessId = Airbranch.eis_Process.ProcessId " &
              "and Airbranch.EIS_RPApportionment.EmissionsUnitID  = Airbranch.eis_Process.EmissionsUnitID) "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -13166,7 +13166,7 @@ Public Class DMUEisGecoTool
                 " and Airbranch.EIS_ProcessControlPollutant.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID  " &
                 " and EIS_Process.active = '0' ) "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -13180,7 +13180,7 @@ Public Class DMUEisGecoTool
              "and Airbranch.EIS_ProcessControlMeasure.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID " &
              "and EIS_Process.active = '0' ) "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -13194,7 +13194,7 @@ Public Class DMUEisGecoTool
                 "and Airbranch.EIS_ProcessControlApproach.ProcessId = Airbranch.eis_Process.ProcessId " &
                 "and Airbranch.EIS_ProcessControlApproach.EmissionsUnitID  = Airbranch.eis_Process.EmissionsUnitID) "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -13208,7 +13208,7 @@ Public Class DMUEisGecoTool
                 "and Airbranch.EIS_ProcessControlPollutant.ProcessId = Airbranch.EIS_ProcessControlApproach.ProcessId " &
                 "and Airbranch.EIS_ProcessControlPollutant.EmissionsUnitID  = Airbranch.EIS_ProcessControlApproach.EmissionsUnitID) "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -13222,7 +13222,7 @@ Public Class DMUEisGecoTool
                 "and Airbranch.EIS_ProcessOperatingDetails.ProcessId = Airbranch.EIS_Process.ProcessId  " &
                 "and Airbranch.EIS_ProcessOperatingDetails.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID)  "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -13236,7 +13236,7 @@ Public Class DMUEisGecoTool
                 "and Airbranch.EIS_ReportingPeriodEmissions.ProcessId = Airbranch.EIS_Process.ProcessId  " &
                 "and Airbranch.EIS_ReportingPeriodEmissions.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID)  "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -13250,7 +13250,7 @@ Public Class DMUEisGecoTool
                  "and Airbranch.EIS_ProcessRPTPeriodSCP.ProcessId = Airbranch.EIS_Process.ProcessId  " &
                  "and Airbranch.EIS_ProcessRPTPeriodSCP.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID)  "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -13264,7 +13264,7 @@ Public Class DMUEisGecoTool
                  "and Airbranch.eis_processReportingPeriod.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID " &
                  "and EIS_Process.active = '0' ) "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -13272,7 +13272,7 @@ Public Class DMUEisGecoTool
 
                 SQL = "delete airbranch.EIS_Process  " &
                               "where Active = '0' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -13280,7 +13280,7 @@ Public Class DMUEisGecoTool
 
                 SQL = "Delete airbranch.EIS_EmissionsUnit   " &
                 "where active = '0' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -13290,7 +13290,7 @@ Public Class DMUEisGecoTool
                 "where active = '0'  " &
                 "and numRPStatusCodeYear = '2010' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -13351,7 +13351,7 @@ Public Class DMUEisGecoTool
                 "where inventoryyear = '" & EISConfirm & "', " &
                 "and facilitysiteid = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -13367,7 +13367,7 @@ Public Class DMUEisGecoTool
                   "where inventoryYear = '" & EISConfirm & "' " &
                   "and facilitysiteid = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -13389,12 +13389,12 @@ Public Class DMUEisGecoTool
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
-                    cmd = New OracleCommand("airbranch.PD_EIS_QASTART", CurrentConnection)
+                    cmd = New SqlCommand("airbranch.PD_EIS_QASTART", CurrentConnection)
                     cmd.CommandType = CommandType.StoredProcedure
                     temp = dgvEISStats(1, i).Value
 
-                    cmd.Parameters.Add(New OracleParameter("AIRSNUMBER_IN", OracleDbType.Varchar2)).Value = dgvEISStats(1, i).Value
-                    cmd.Parameters.Add(New OracleParameter("INTYEAR_IN", OracleDbType.Decimal)).Value = cboEISStatisticsYear.Text
+                    cmd.Parameters.Add(New SqlParameter("AIRSNUMBER_IN", SqlDbType.VarChar)).Value = dgvEISStats(1, i).Value
+                    cmd.Parameters.Add(New SqlParameter("INTYEAR_IN", SqlDbType.Decimal)).Value = cboEISStatisticsYear.Text
 
                     cmd.ExecuteNonQuery()
 
@@ -13486,7 +13486,7 @@ Public Class DMUEisGecoTool
             dgvEISStats.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -13647,7 +13647,7 @@ Public Class DMUEisGecoTool
             "strMailout = '1' " &
             "where inventoryYear = '" & txtSelectedEISMailout.Text & "' " &
             "and Active = '1' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -13673,7 +13673,7 @@ Public Class DMUEisGecoTool
           "and strMailout = '1' " &
           "and Active = '1' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -13719,7 +13719,7 @@ Public Class DMUEisGecoTool
             "where active = '1' " &
             "and InventoryYear = '" & txtEISStatsEnrollmentYear.Text & "' " &
             "and strMailout = '1' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -13747,7 +13747,7 @@ Public Class DMUEisGecoTool
             "and InventoryYear = '" & txtEISStatsEnrollmentYear.Text & "' " &
             "and strEnrollment = '1' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -13838,7 +13838,7 @@ Public Class DMUEisGecoTool
 
             dgvEISStats.Rows.Clear()
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If

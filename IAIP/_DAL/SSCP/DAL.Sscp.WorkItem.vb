@@ -1,4 +1,4 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 Imports Iaip.Apb.Sscp
 Imports Iaip.Apb.Sscp.WorkItem
 Imports System.Runtime.InteropServices
@@ -22,7 +22,7 @@ Namespace DAL.Sscp
                 " FROM AIRBRANCH.SSCPITEMMASTER " &
                 " WHERE RowNum = 1 " &
                 " AND STRTRACKINGNUMBER = :id "
-            Dim parameter As New OracleParameter("id", trackingNumber)
+            Dim parameter As New SqlParameter("id", trackingNumber)
 
             Return DB.GetBoolean(query, parameter)
         End Function
@@ -77,7 +77,7 @@ Namespace DAL.Sscp
                 " FROM AIRBRANCH.SSCPTESTREPORTS " &
                 " WHERE RowNum = 1 " &
                 " AND STRTRACKINGNUMBER = :id "
-            Dim parameter As New OracleParameter("id", trackingNumber)
+            Dim parameter As New SqlParameter("id", trackingNumber)
 
             refNum = DB.GetSingleValue(Of String)(query, parameter)
 
@@ -111,11 +111,11 @@ Namespace DAL.Sscp
                 "SELECT * FROM AIRBRANCH.VW_SSCP_STACKTESTS " &
                 " WHERE TRUNC(DATRECEIVEDFROMFACILITY) BETWEEN :datestart AND :dateend "
             query &= QueryFilter(airs, staffId, complete, deleted)
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("datestart", dateRangeStart),
-                New OracleParameter("dateend", dateRangeEnd),
-                New OracleParameter("airs", airs.DbFormattedString),
-                New OracleParameter("staffId", staffId)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("datestart", dateRangeStart),
+                New SqlParameter("dateend", dateRangeEnd),
+                New SqlParameter("airs", airs.DbFormattedString),
+                New SqlParameter("staffId", staffId)
             }
             Return DB.GetDataTable(query, parameters)
         End Function
@@ -135,7 +135,7 @@ Namespace DAL.Sscp
             Dim query As String = "SELECT INSPECTION_ID " &
             "  FROM AIRBRANCH.GEOS_INSPECTIONS_XREF " &
             "  WHERE STRTRACKINGNUMBER = :id "
-            Dim parameter As New OracleParameter("id", id)
+            Dim parameter As New SqlParameter("id", id)
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
             Return result
@@ -164,11 +164,11 @@ Namespace DAL.Sscp
                 "SELECT * FROM AIRBRANCH.VW_SSCP_INSPECTIONS " &
                 " WHERE TRUNC(DATINSPECTIONDATESTART) BETWEEN :datestart AND :dateend "
             query &= QueryFilter(airs, staffId, complete, deleted)
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("datestart", dateRangeStart),
-                New OracleParameter("dateend", dateRangeEnd),
-                New OracleParameter("airs", airs.DbFormattedString),
-                New OracleParameter("staffId", staffId)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("datestart", dateRangeStart),
+                New SqlParameter("dateend", dateRangeEnd),
+                New SqlParameter("airs", airs.DbFormattedString),
+                New SqlParameter("staffId", staffId)
             }
             Return DB.GetDataTable(query, parameters)
         End Function
@@ -200,11 +200,11 @@ Namespace DAL.Sscp
                 "SELECT * FROM AIRBRANCH.VW_SSCP_ACCS " &
                 " WHERE TRUNC(DATRECEIVEDDATE) BETWEEN :datestart AND :dateend "
             query &= QueryFilter(airs, staffId, complete, deleted)
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("datestart", dateRangeStart),
-                New OracleParameter("dateend", dateRangeEnd),
-                New OracleParameter("airs", airs.DbFormattedString),
-                New OracleParameter("staffId", staffId)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("datestart", dateRangeStart),
+                New SqlParameter("dateend", dateRangeEnd),
+                New SqlParameter("airs", airs.DbFormattedString),
+                New SqlParameter("staffId", staffId)
             }
             Return DB.GetDataTable(query, parameters)
         End Function
@@ -236,11 +236,11 @@ Namespace DAL.Sscp
                 "SELECT * FROM AIRBRANCH.VW_SSCP_NOTIFICATIONS " &
                 " WHERE TRUNC(DATRECEIVEDDATE) BETWEEN :datestart AND :dateend "
             query &= QueryFilter(airs, staffId, complete, deleted)
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("datestart", dateRangeStart),
-                New OracleParameter("dateend", dateRangeEnd),
-                New OracleParameter("airs", airs.DbFormattedString),
-                New OracleParameter("staffId", staffId)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("datestart", dateRangeStart),
+                New SqlParameter("dateend", dateRangeEnd),
+                New SqlParameter("airs", airs.DbFormattedString),
+                New SqlParameter("staffId", staffId)
             }
             Return DB.GetDataTable(query, parameters)
         End Function
@@ -272,11 +272,11 @@ Namespace DAL.Sscp
                 "SELECT * FROM AIRBRANCH.VW_SSCP_REPORTS " &
                 " WHERE TRUNC(DATRECEIVEDDATE) BETWEEN :datestart AND :dateend "
             query &= QueryFilter(airs, staffId, complete, deleted)
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("datestart", dateRangeStart),
-                New OracleParameter("dateend", dateRangeEnd),
-                New OracleParameter("airs", airs.DbFormattedString),
-                New OracleParameter("staffId", staffId)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("datestart", dateRangeStart),
+                New SqlParameter("dateend", dateRangeEnd),
+                New SqlParameter("airs", airs.DbFormattedString),
+                New SqlParameter("staffId", staffId)
             }
             Return DB.GetDataTable(query, parameters)
         End Function
@@ -308,11 +308,11 @@ Namespace DAL.Sscp
                 "SELECT * FROM AIRBRANCH.VW_SSCP_RMPINSPECTIONS " &
                 " WHERE TRUNC(DATINSPECTIONDATESTART) BETWEEN :datestart AND :dateend "
             query &= QueryFilter(airs, staffId, complete, deleted)
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("datestart", dateRangeStart),
-                New OracleParameter("dateend", dateRangeEnd),
-                New OracleParameter("airs", airs.DbFormattedString),
-                New OracleParameter("staffId", staffId)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("datestart", dateRangeStart),
+                New SqlParameter("dateend", dateRangeEnd),
+                New SqlParameter("airs", airs.DbFormattedString),
+                New SqlParameter("staffId", staffId)
             }
             Return DB.GetDataTable(query, parameters)
         End Function

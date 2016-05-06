@@ -1,27 +1,27 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 Imports Iaip.SharedData
 
 Public Class SSCPFCEWork
     Dim SQL As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
+    Dim cmd As SqlCommand
+    Dim dr As SqlDataReader
     Dim recExist As Boolean
     Dim dsFCE As DataSet
-    Dim daFCE As OracleDataAdapter
+    Dim daFCE As SqlDataAdapter
     Dim dsISMP As DataSet
-    Dim daISMP As OracleDataAdapter
+    Dim daISMP As SqlDataAdapter
     Dim dsInspections As DataSet
-    Dim daInspections As OracleDataAdapter
+    Dim daInspections As SqlDataAdapter
     Dim dsACC As DataSet
-    Dim daACC As OracleDataAdapter
+    Dim daACC As SqlDataAdapter
     Dim dsReport As DataSet
-    Dim daReport As OracleDataAdapter
+    Dim daReport As SqlDataAdapter
     Dim dsNotifications As DataSet
-    Dim daNotifications As OracleDataAdapter
+    Dim daNotifications As SqlDataAdapter
     Dim dsEnforcement As DataSet
-    Dim daEnforcement As OracleDataAdapter
+    Dim daEnforcement As SqlDataAdapter
     Dim dsPerformanceTest As DataSet
-    Dim daPerformanceTest As OracleDataAdapter
+    Dim daPerformanceTest As SqlDataAdapter
     Dim dtStaff As DataTable
 
 
@@ -73,7 +73,7 @@ Public Class SSCPFCEWork
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
             recExist = dr.Read
@@ -105,7 +105,7 @@ Public Class SSCPFCEWork
             "strClass, strAIRProgramCodes " &
             "from AIRBRANCH.APBHeaderData " &
             "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -138,7 +138,7 @@ Public Class SSCPFCEWork
             "order by datFCECompleted DESC "
 
             dsFCE = New DataSet
-            daFCE = New OracleDataAdapter(SQL, CurrentConnection)
+            daFCE = New SqlDataAdapter(SQL, CurrentConnection)
             daFCE.Fill(dsFCE, "FCEdata")
 
             dtStaff = GetSharedData(SharedTable.AllComplianceStaff)
@@ -325,9 +325,9 @@ Public Class SSCPFCEWork
 
             dsInspections = New DataSet
 
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim cmd As New SqlCommand(SQL, CurrentConnection)
 
-            daInspections = New OracleDataAdapter(cmd)
+            daInspections = New SqlDataAdapter(cmd)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -367,9 +367,9 @@ Public Class SSCPFCEWork
 
             dsACC = New DataSet
 
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim cmd As New SqlCommand(SQL, CurrentConnection)
 
-            daACC = New OracleDataAdapter(cmd)
+            daACC = New SqlDataAdapter(cmd)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -407,9 +407,9 @@ Public Class SSCPFCEWork
 
             dsReport = New DataSet
 
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim cmd As New SqlCommand(SQL, CurrentConnection)
 
-            daReport = New OracleDataAdapter(cmd)
+            daReport = New SqlDataAdapter(cmd)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -456,9 +456,9 @@ Public Class SSCPFCEWork
 
             dsNotifications = New DataSet
 
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim cmd As New SqlCommand(SQL, CurrentConnection)
 
-            daNotifications = New OracleDataAdapter(cmd)
+            daNotifications = New SqlDataAdapter(cmd)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -516,8 +516,8 @@ Public Class SSCPFCEWork
 
             dsISMP = New DataSet
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            daISMP = New OracleDataAdapter(cmd)
+            cmd = New SqlCommand(SQL, CurrentConnection)
+            daISMP = New SqlDataAdapter(cmd)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -555,7 +555,7 @@ Public Class SSCPFCEWork
 
             dsPerformanceTest = New DataSet
 
-            daPerformanceTest = New OracleDataAdapter(SQL, CurrentConnection)
+            daPerformanceTest = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -588,9 +588,9 @@ Public Class SSCPFCEWork
 
             dsEnforcement = New DataSet
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
-            daEnforcement = New OracleDataAdapter(cmd)
+            daEnforcement = New SqlDataAdapter(cmd)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -1368,7 +1368,7 @@ Public Class SSCPFCEWork
                 "from AIRBRANCH.SSCPFCE  " &
                 "where strFCENumber = '" & txtFCENumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1763,7 +1763,7 @@ Public Class SSCPFCEWork
                 SQL = "Select strClass " &
                 "from AIRBRANCH.APBHeaderData " &
                 "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1805,7 +1805,7 @@ Public Class SSCPFCEWork
                     SQL = "Select Max(strFCENumber) as FCENumber " &
                     "from AIRBRANCH.SSCPFCEMaster "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
 
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
@@ -1824,7 +1824,7 @@ Public Class SSCPFCEWork
                     "('" & FCENumber & "', '0413" & txtAirsNumber.Text & "', " &
                     "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     dr = cmd.ExecuteReader
 
                     SQL = "Insert into AIRBRANCH.SSCPFCE " &
@@ -1836,7 +1836,7 @@ Public Class SSCPFCEWork
                     "'" & FCECompleteDate & "', '" & FCEComments & "', '" & CurrentUser.UserID & "', " &
                     "'" & OracleDate & "', '" & FCEOnSite & "', '" & FCEYear & "') "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     dr = cmd.ExecuteReader
 
                     If Classification = "A" Or Classification = "SM" Then
@@ -1844,7 +1844,7 @@ Public Class SSCPFCEWork
                         "from AIRBRANCH.APBSupplamentalData " &
                         "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -1862,7 +1862,7 @@ Public Class SSCPFCEWork
                         "('" & FCENumber & "', '" & ActionNumber & "', " &
                         "'A', '" & CurrentUser.UserID & "', " &
                         "'" & OracleDate & "') "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -1874,7 +1874,7 @@ Public Class SSCPFCEWork
                         SQL = "Update AIRBRANCH.APBSupplamentalData set " &
                         "strAFSActionNUmber = '" & ActionNumber & "' " &
                         "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -1888,7 +1888,7 @@ Public Class SSCPFCEWork
                     "from AIRBRANCH.SSCPFCE " &
                     "where strFCENumber = '" & FCENumber & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1901,7 +1901,7 @@ Public Class SSCPFCEWork
                         "datModifingDate = '" & OracleDate & "' " &
                         "where strFCENumber = '" & FCENumber & "' "
 
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         dr = cmd.ExecuteReader
 
                         SQL = "Update AIRBRANCH.SSCPFCE Set " &
@@ -1915,7 +1915,7 @@ Public Class SSCPFCEWork
                         "strFCEYear = '" & FCEYear & "' " &
                         "where strFCENumber = '" & FCENumber & "'"
 
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         dr = cmd.ExecuteReader
                     End If
                 End If
@@ -1990,7 +1990,7 @@ Public Class SSCPFCEWork
                 SQL = "Select strClosed " &
                 "from AIRBRANCH.ISMPReportInformation " &
                 "where strReferenceNumber = '" & txtISMPReferenceNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If

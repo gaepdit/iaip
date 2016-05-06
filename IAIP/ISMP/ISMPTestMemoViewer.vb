@@ -1,4 +1,4 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 
 
@@ -9,7 +9,7 @@ Public Class ISMPTestMemoViewer
     Dim panel2 As New StatusBarPanel
     Dim panel3 As New StatusBarPanel
     Dim dsMemo As DataSet
-    Dim daMemo As OracleDataAdapter
+    Dim daMemo As SqlDataAdapter
 
 
     Private Sub ISMPTestMemoViewer_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -144,9 +144,9 @@ Public Class ISMPTestMemoViewer
 
             dsMemo = New DataSet
 
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim cmd As New SqlCommand(SQL, CurrentConnection)
 
-            daMemo = New OracleDataAdapter(cmd)
+            daMemo = New SqlDataAdapter(cmd)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()

@@ -1,9 +1,9 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 
 Public Class PASPFeesLog
     Dim SQL As String
     Dim ds As DataSet
-    Dim da As OracleDataAdapter
+    Dim da As SqlDataAdapter
 
     Private Sub PASPFeesLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
@@ -31,7 +31,7 @@ Public Class PASPFeesLog
               "distinct(numFeeYear) as FeeYear " &
               "From AIRBRANCH.FS_Admin order by FeeYear Desc "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -147,7 +147,7 @@ Public Class PASPFeesLog
                 "order by AIRSnumber "
 
                 ds = New DataSet
-                da = New OracleDataAdapter(SQL, CurrentConnection)
+                da = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -202,7 +202,7 @@ Public Class PASPFeesLog
                     "order by AIRSnumber "
 
                 ds = New DataSet
-                da = New OracleDataAdapter(SQL, CurrentConnection)
+                da = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If

@@ -1,4 +1,4 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 Imports System.IO
 Imports System.Collections.Generic
 
@@ -2344,14 +2344,14 @@ Public Class SSPPApplicationTrackingLog
     Sub LoadFacilityApplicationHistory()
         Dim AIRSNumber As String
         Dim query As String
-        Dim parameter As OracleParameter
+        Dim parameter As SqlParameter
 
         Try
 
             query = "Select strAIRSNumber " &
             "from AIRBRANCH.SSPPApplicationMaster " &
             "where strApplicationNumber = :appnumber"
-            parameter = New OracleParameter("appnumber", txtApplicationNumber.Text)
+            parameter = New SqlParameter("appnumber", txtApplicationNumber.Text)
 
             AIRSNumber = DB.GetSingleValue(Of String)(query, parameter)
 
@@ -2394,7 +2394,7 @@ Public Class SSPPApplicationTrackingLog
             "and AIRBRANCH.SSPPApplicationMaster.APBUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " &
             "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " &
             "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = :AIRSNumber "
-            parameter = New OracleParameter("AIRSNumber", AIRSNumber)
+            parameter = New SqlParameter("AIRSNumber", AIRSNumber)
 
             dtFacAppHistory = DB.GetDataTable(query, parameter)
 
@@ -2461,7 +2461,7 @@ Public Class SSPPApplicationTrackingLog
                "from AIRBRANCH.SSPPApplicationInformation " &
                "where strApplicationNumber = :appnumber " &
                "order by strRequestKey "
-            Dim parameter As New OracleParameter("appnumber", txtApplicationNumber.Text)
+            Dim parameter As New SqlParameter("appnumber", txtApplicationNumber.Text)
 
             Dim dtFacInfoHistory As DataTable = DB.GetDataTable(query, parameter)
 
@@ -2594,16 +2594,15 @@ Public Class SSPPApplicationTrackingLog
             "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber " &
             "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCPDistrictResponsible.strAIRSnumber (+) " &
             "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = :AirsNumber "
-            Dim parameter As New OracleParameter("AirsNumber", "0413" & txtAIRSNumber.Text)
+            Dim parameter As New SqlParameter("AirsNumber", "0413" & txtAIRSNumber.Text)
 
-            Using connection As New OracleConnection(DB.CurrentConnectionString)
-                Using cmd As OracleCommand = connection.CreateCommand
+            Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
-                    cmd.BindByName = True
                     cmd.CommandText = query
                     cmd.Parameters.Add(parameter)
                     cmd.Connection.Open()
-                    Using dr As OracleDataReader = cmd.ExecuteReader
+                    Using dr As SqlDataReader = cmd.ExecuteReader
 
                         recExist = dr.Read
                         If recExist = True Then
@@ -3210,7 +3209,7 @@ Public Class SSPPApplicationTrackingLog
             "from AIRBRANCH.APBHeaderData " &
             "where strAIRSNumber = :airsnumber "
 
-            Dim parameter As New OracleParameter("airsnumber", "0413" & txtAIRSNumber.Text)
+            Dim parameter As New SqlParameter("airsnumber", "0413" & txtAIRSNumber.Text)
 
             Attainment = DB.GetSingleValue(Of String)(query, parameter)
             If Attainment = "" Then Attainment = "00000"
@@ -3275,16 +3274,15 @@ Public Class SSPPApplicationTrackingLog
                 "from AIRBRANCH.SSPPApplicationContact " &
                 "where strApplicationNumber = :appnumber "
 
-                Dim parameter As New OracleParameter("appnumber", txtApplicationNumber.Text)
+                Dim parameter As New SqlParameter("appnumber", txtApplicationNumber.Text)
 
-                Using connection As New OracleConnection(DB.CurrentConnectionString)
-                    Using cmd As OracleCommand = connection.CreateCommand
+                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                    Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
-                        cmd.BindByName = True
                         cmd.CommandText = query
                         cmd.Parameters.Add(parameter)
                         cmd.Connection.Open()
-                        Using dr As OracleDataReader = cmd.ExecuteReader
+                        Using dr As SqlDataReader = cmd.ExecuteReader
 
                             While dr.Read
                                 If IsDBNull(dr.Item("strContactFirstname")) Then
@@ -3375,7 +3373,7 @@ Public Class SSPPApplicationTrackingLog
         Dim CloseOut As String = ""
         Dim temp As String = ""
         Dim query As String
-        Dim parameter As OracleParameter
+        Dim parameter As SqlParameter
         Try
             txtAIRSNumber.Clear()
 
@@ -3384,7 +3382,7 @@ Public Class SSPPApplicationTrackingLog
                 "datModifingdate " &
                 "from AIRBRANCH.SSPPApplicationMaster " &
                 "where strApplicationNumber = :appnumber "
-                parameter = New OracleParameter("appnumber", txtApplicationNumber.Text)
+                parameter = New SqlParameter("appnumber", txtApplicationNumber.Text)
                 TimeStamp = DB.GetSingleValue(Of String)(query, parameter)
 
                 If TCApplicationTrackingLog.TabPages.Contains(TPTrackingLog) Then
@@ -3425,16 +3423,15 @@ Public Class SSPPApplicationTrackingLog
                     "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber (+)  " &
                     "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = :appnumber"
 
-                    parameter = New OracleParameter("appnumber", txtApplicationNumber.Text)
+                    parameter = New SqlParameter("appnumber", txtApplicationNumber.Text)
 
-                    Using connection As New OracleConnection(DB.CurrentConnectionString)
-                        Using cmd As OracleCommand = connection.CreateCommand
+                    Using connection As New SqlConnection(DB.CurrentConnectionString)
+                        Using cmd As SqlCommand = connection.CreateCommand
                             cmd.CommandType = CommandType.Text
-                            cmd.BindByName = True
                             cmd.CommandText = query
                             cmd.Parameters.Add(parameter)
                             cmd.Connection.Open()
-                            Using dr As OracleDataReader = cmd.ExecuteReader
+                            Using dr As SqlDataReader = cmd.ExecuteReader
 
                                 recExist = dr.Read
                                 If recExist = True Then
@@ -3955,16 +3952,15 @@ Public Class SSPPApplicationTrackingLog
                     "where AIRBRANCH.SSPPApplicationData.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " &
                     "and AIRBRANCH.SSPPApplicationData.strApplicationNumber = :appnumber"
 
-                    parameter = New OracleParameter("appnumber", txtApplicationNumber.Text)
+                    parameter = New SqlParameter("appnumber", txtApplicationNumber.Text)
 
-                    Using connection As New OracleConnection(DB.CurrentConnectionString)
-                        Using cmd As OracleCommand = connection.CreateCommand
+                    Using connection As New SqlConnection(DB.CurrentConnectionString)
+                        Using cmd As SqlCommand = connection.CreateCommand
                             cmd.CommandType = CommandType.Text
-                            cmd.BindByName = True
                             cmd.CommandText = query
                             cmd.Parameters.Add(parameter)
                             cmd.Connection.Open()
-                            Using dr As OracleDataReader = cmd.ExecuteReader
+                            Using dr As SqlDataReader = cmd.ExecuteReader
 
                                 recExist = dr.Read
                                 If recExist = True Then
@@ -4061,16 +4057,15 @@ Public Class SSPPApplicationTrackingLog
                     "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber (+)  " &
                     "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = :appnumber"
 
-                    parameter = New OracleParameter("appnumber", txtApplicationNumber.Text)
+                    parameter = New SqlParameter("appnumber", txtApplicationNumber.Text)
 
-                    Using connection As New OracleConnection(DB.CurrentConnectionString)
-                        Using cmd As OracleCommand = connection.CreateCommand
+                    Using connection As New SqlConnection(DB.CurrentConnectionString)
+                        Using cmd As SqlCommand = connection.CreateCommand
                             cmd.CommandType = CommandType.Text
-                            cmd.BindByName = True
                             cmd.CommandText = query
                             cmd.Parameters.Add(parameter)
                             cmd.Connection.Open()
-                            Using dr As OracleDataReader = cmd.ExecuteReader
+                            Using dr As SqlDataReader = cmd.ExecuteReader
 
                                 recExist = dr.Read
                                 If recExist = True Then
@@ -4208,16 +4203,15 @@ Public Class SSPPApplicationTrackingLog
             "and AIRBRANCH.LookUpDistrictInformation.strDistrictCode = AIRBRANCH.LookUpDistricts.strDistrictCode  " &
             "and AIRBRANCH.APBHeaderData.strAIRSNumber = :airsnumber"
 
-            Dim parameter As New OracleParameter("airsnumber", "0413" & txtAIRSNumber.Text)
+            Dim parameter As New SqlParameter("airsnumber", "0413" & txtAIRSNumber.Text)
 
-            Using connection As New OracleConnection(DB.CurrentConnectionString)
-                Using cmd As OracleCommand = connection.CreateCommand
+            Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
-                    cmd.BindByName = True
                     cmd.CommandText = query
                     cmd.Parameters.Add(parameter)
                     cmd.Connection.Open()
-                    Using dr As OracleDataReader = cmd.ExecuteReader
+                    Using dr As SqlDataReader = cmd.ExecuteReader
                         recExist = dr.Read
                         If recExist = True Then
                             If IsDBNull(dr.Item("strFacilityName")) Then
@@ -4635,7 +4629,7 @@ Public Class SSPPApplicationTrackingLog
                "from AIRBRANCH.SSPPApplicationMaster " &
                "where datFinalizedDate Is Null " &
                "and strAirsNumber = :airsnumber"
-            Dim parameter As New OracleParameter("airsnumber", "0413" & txtAIRSNumber.Text)
+            Dim parameter As New SqlParameter("airsnumber", "0413" & txtAIRSNumber.Text)
 
             txtOutstandingApplication.Text = DB.GetSingleValue(Of String)(query, parameter)
             If txtOutstandingApplication.Text = "" Then txtOutstandingApplication.Text = "0"
@@ -4648,7 +4642,7 @@ Public Class SSPPApplicationTrackingLog
         Dim MasterApplication As String
         Dim ApplicationCount As String = 0
         Dim query As String
-        Dim parameter As OracleParameter
+        Dim parameter As SqlParameter
 
         Try
 
@@ -4663,7 +4657,7 @@ Public Class SSPPApplicationTrackingLog
                     "strMasterApplication " &
                     "from AIRBRANCH.SSPPApplicationLinking " &
                     "where strApplicationNumber = :appnumber"
-                parameter = New OracleParameter("appnumber", txtApplicationNumber.Text)
+                parameter = New SqlParameter("appnumber", txtApplicationNumber.Text)
                 MasterApplication = DB.GetSingleValue(Of String)(query, parameter)
 
                 If MasterApplication <> "" Then
@@ -4683,16 +4677,15 @@ Public Class SSPPApplicationTrackingLog
                         "from AIRBRANCH.SSPPApplicationLinking " &
                         "where strMasterApplication = :appnumber " &
                         "order by strApplicationNumber "
-                    parameter = New OracleParameter("appnumber", txtApplicationNumber.Text)
+                    parameter = New SqlParameter("appnumber", txtApplicationNumber.Text)
 
-                    Using connection As New OracleConnection(DB.CurrentConnectionString)
-                        Using cmd As OracleCommand = connection.CreateCommand
+                    Using connection As New SqlConnection(DB.CurrentConnectionString)
+                        Using cmd As SqlCommand = connection.CreateCommand
                             cmd.CommandType = CommandType.Text
-                            cmd.BindByName = True
                             cmd.CommandText = query
                             cmd.Parameters.Add(parameter)
                             cmd.Connection.Open()
-                            Using dr As OracleDataReader = cmd.ExecuteReader
+                            Using dr As SqlDataReader = cmd.ExecuteReader
                                 While dr.Read
                                     lbLinkApplications.Items.Add(dr.Item("strApplicationNumber"))
                                     ApplicationCount += 1
@@ -4768,9 +4761,9 @@ Public Class SSPPApplicationTrackingLog
         Dim PNExpires As String = ""
 
         Dim query As String
-        Dim parameters As OracleParameter()
+        Dim parameters As SqlParameter()
         Dim queriesList As New List(Of String)
-        Dim parametersList As New List(Of OracleParameter())
+        Dim parametersList As New List(Of SqlParameter())
 
         Try
             If txtApplicationNumber.Text <> "" Then
@@ -4790,27 +4783,27 @@ Public Class SSPPApplicationTrackingLog
                                     "(strApplicationNumber, strAIRSNumber, " &
                                     "strModifingPerson, datModifingDate) " &
                                     "values (:appnumber, :airsnumber, :updateuser, :updatedate) ")
-                    parametersList.Add({New OracleParameter("appnumber", txtApplicationNumber.Text),
-                                        New OracleParameter("airsnumber", "0413" & txtAIRSNumber.Text),
-                                        New OracleParameter("updateuser", CurrentUser.UserID),
-                                        New OracleParameter("updatedate", OracleDate)})
+                    parametersList.Add({New SqlParameter("appnumber", txtApplicationNumber.Text),
+                                        New SqlParameter("airsnumber", "0413" & txtAIRSNumber.Text),
+                                        New SqlParameter("updateuser", CurrentUser.UserID),
+                                        New SqlParameter("updatedate", OracleDate)})
 
                     queriesList.Add("Insert into AIRBRANCH.SSPPApplicationData " &
                                     "(strApplicationNumber, strModifingPerson, " &
                                     "datModifingDate) " &
                                     "values (:appnumber, :updateuser, :updatedate) ")
-                    parametersList.Add({New OracleParameter("appnumber", txtApplicationNumber.Text),
-                                        New OracleParameter("updateuser", CurrentUser.UserID),
-                                        New OracleParameter("updatedate", OracleDate)})
+                    parametersList.Add({New SqlParameter("appnumber", txtApplicationNumber.Text),
+                                        New SqlParameter("updateuser", CurrentUser.UserID),
+                                        New SqlParameter("updatedate", OracleDate)})
 
                     queriesList.Add("Insert into AIRBRANCH.SSPPApplicationTracking " &
                                     "(strApplicationNumber, strSubmittalNumber, " &
                                     " strModifingPerson, datModifingDate) " &
                                     "values (:appnumber, :submittalnumber, :updateuser, :updatedate) ")
-                    parametersList.Add({New OracleParameter("appnumber", txtApplicationNumber.Text),
-                                        New OracleParameter("submittalnumber", "1"),
-                                        New OracleParameter("updateuser", CurrentUser.UserID),
-                                        New OracleParameter("updatedate", OracleDate)})
+                    parametersList.Add({New SqlParameter("appnumber", txtApplicationNumber.Text),
+                                        New SqlParameter("submittalnumber", "1"),
+                                        New SqlParameter("updateuser", CurrentUser.UserID),
+                                        New SqlParameter("updatedate", OracleDate)})
 
                     DB.RunCommand(queriesList, parametersList)
                 End If
@@ -4888,14 +4881,14 @@ Public Class SSPPApplicationTrackingLog
                     "datModifingdate = sysdate " &
                     "where strApplicationNumber = :appnumber "
                 parameters = {
-                    New OracleParameter("airsnumber", "0413" & txtAIRSNumber.Text),
-                    New OracleParameter("staff", StaffResponsible),
-                    New OracleParameter("applicationtype", ApplicationType),
-                    New OracleParameter("permittype", PermitType),
-                    New OracleParameter("unit", Unit),
-                    New OracleParameter("datefinalized", DateFinalized),
-                    New OracleParameter("updateuser", CurrentUser.UserID),
-                    New OracleParameter("appnumber", txtApplicationNumber.Text)
+                    New SqlParameter("airsnumber", "0413" & txtAIRSNumber.Text),
+                    New SqlParameter("staff", StaffResponsible),
+                    New SqlParameter("applicationtype", ApplicationType),
+                    New SqlParameter("permittype", PermitType),
+                    New SqlParameter("unit", Unit),
+                    New SqlParameter("datefinalized", DateFinalized),
+                    New SqlParameter("updateuser", CurrentUser.UserID),
+                    New SqlParameter("appnumber", txtApplicationNumber.Text)
                 }
                 DB.RunCommand(query, parameters)
 
@@ -4903,7 +4896,7 @@ Public Class SSPPApplicationTrackingLog
                 "datModifingdate " &
                 "from AIRBRANCH.SSPPApplicationMaster " &
                 "where strApplicationNumber = :appnumber "
-                parameters = {New OracleParameter("appnumber", txtApplicationNumber.Text)}
+                parameters = {New SqlParameter("appnumber", txtApplicationNumber.Text)}
                 TimeStamp = DB.GetSingleValue(Of String)(query, parameters)
 
                 txtFacilityName.Text = Apb.Facilities.Facility.SanitizeFacilityNameForDb(txtFacilityName.Text)
@@ -5122,28 +5115,28 @@ Public Class SSPPApplicationTrackingLog
                 "datModifingdate = :OracleDate " &
                 "where strApplicationNumber = :txtApplicationNumber "
                 parameters = {
-                    New OracleParameter("FacilityName", FacilityName),
-                    New OracleParameter("FacilityAddress", FacilityAddress),
-                    New OracleParameter("FacilityCity", FacilityCity),
-                    New OracleParameter("FacilityZipCode", FacilityZipCode),
-                    New OracleParameter("OperationalStatus", OperationalStatus),
-                    New OracleParameter("Classification", Classification),
-                    New OracleParameter("AirProgramCodes", AirProgramCodes),
-                    New OracleParameter("SIC", SIC),
-                    New OracleParameter("NAICS", NAICS),
-                    New OracleParameter("PermitNumber", PermitNumber),
-                    New OracleParameter("PlantDesc", PlantDesc),
-                    New OracleParameter("Comments", Comments),
-                    New OracleParameter("ApplicationNotes", ApplicationNotes),
-                    New OracleParameter("TrackedRules", TrackedRules),
-                    New OracleParameter("StateProgramCodes", StateProgramCodes),
-                    New OracleParameter("PAReady", PAReady),
-                    New OracleParameter("PNReady", PNReady),
-                    New OracleParameter("SignificantComments", SignificantComments),
-                    New OracleParameter("PublicInvolved", PublicInvolved),
-                    New OracleParameter("UserGCode", CurrentUser.UserID),
-                    New OracleParameter("OracleDate", OracleDate),
-                    New OracleParameter("txtApplicationNumber", txtApplicationNumber.Text)
+                    New SqlParameter("FacilityName", FacilityName),
+                    New SqlParameter("FacilityAddress", FacilityAddress),
+                    New SqlParameter("FacilityCity", FacilityCity),
+                    New SqlParameter("FacilityZipCode", FacilityZipCode),
+                    New SqlParameter("OperationalStatus", OperationalStatus),
+                    New SqlParameter("Classification", Classification),
+                    New SqlParameter("AirProgramCodes", AirProgramCodes),
+                    New SqlParameter("SIC", SIC),
+                    New SqlParameter("NAICS", NAICS),
+                    New SqlParameter("PermitNumber", PermitNumber),
+                    New SqlParameter("PlantDesc", PlantDesc),
+                    New SqlParameter("Comments", Comments),
+                    New SqlParameter("ApplicationNotes", ApplicationNotes),
+                    New SqlParameter("TrackedRules", TrackedRules),
+                    New SqlParameter("StateProgramCodes", StateProgramCodes),
+                    New SqlParameter("PAReady", PAReady),
+                    New SqlParameter("PNReady", PNReady),
+                    New SqlParameter("SignificantComments", SignificantComments),
+                    New SqlParameter("PublicInvolved", PublicInvolved),
+                    New SqlParameter("UserGCode", CurrentUser.UserID),
+                    New SqlParameter("OracleDate", OracleDate),
+                    New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
                 }
                 DB.RunCommand(query, parameters)
 
@@ -5246,28 +5239,28 @@ Public Class SSPPApplicationTrackingLog
                 "datpnexpires = :PNExpires " &
                 "where strApplicationNumber = :txtApplicationNumber "
                 parameters = {
-                    New OracleParameter("ReceivedDate", ReceivedDate),
-                    New OracleParameter("SentByDate", SentByDate),
-                    New OracleParameter("AssignedToEngineer", AssignedToEngineer),
-                    New OracleParameter("ReAssignedToEngineer", ReAssignedToEngineer),
-                    New OracleParameter("PackageCompleteDate", PackageCompleteDate),
-                    New OracleParameter("AcknowledgementLetter", AcknowledgementLetter),
-                    New OracleParameter("ToPMI", ToPMI),
-                    New OracleParameter("ToPMII", ToPMII),
-                    New OracleParameter("ReturnToEngineer", ReturnToEngineer),
-                    New OracleParameter("PermitIssued", PermitIssued),
-                    New OracleParameter("AppDeadline", AppDeadline),
-                    New OracleParameter("Withdrawn", Withdrawn),
-                    New OracleParameter("DraftIssued", DraftIssued),
-                    New OracleParameter("UserGCode", CurrentUser.UserID),
-                    New OracleParameter("OracleDate", OracleDate),
-                    New OracleParameter("EPAWaived", EPAWaived),
-                    New OracleParameter("EPAEnds", EPAEnds),
-                    New OracleParameter("ToBC", ToBC),
-                    New OracleParameter("ToDO", ToDO),
-                    New OracleParameter("PAExpires", PAExpires),
-                    New OracleParameter("PNExpires", PNExpires),
-                    New OracleParameter("txtApplicationNumber", txtApplicationNumber.Text)
+                    New SqlParameter("ReceivedDate", ReceivedDate),
+                    New SqlParameter("SentByDate", SentByDate),
+                    New SqlParameter("AssignedToEngineer", AssignedToEngineer),
+                    New SqlParameter("ReAssignedToEngineer", ReAssignedToEngineer),
+                    New SqlParameter("PackageCompleteDate", PackageCompleteDate),
+                    New SqlParameter("AcknowledgementLetter", AcknowledgementLetter),
+                    New SqlParameter("ToPMI", ToPMI),
+                    New SqlParameter("ToPMII", ToPMII),
+                    New SqlParameter("ReturnToEngineer", ReturnToEngineer),
+                    New SqlParameter("PermitIssued", PermitIssued),
+                    New SqlParameter("AppDeadline", AppDeadline),
+                    New SqlParameter("Withdrawn", Withdrawn),
+                    New SqlParameter("DraftIssued", DraftIssued),
+                    New SqlParameter("UserGCode", CurrentUser.UserID),
+                    New SqlParameter("OracleDate", OracleDate),
+                    New SqlParameter("EPAWaived", EPAWaived),
+                    New SqlParameter("EPAEnds", EPAEnds),
+                    New SqlParameter("ToBC", ToBC),
+                    New SqlParameter("ToDO", ToDO),
+                    New SqlParameter("PAExpires", PAExpires),
+                    New SqlParameter("PNExpires", PNExpires),
+                    New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
                 }
                 DB.RunCommand(query, parameters)
 
@@ -5293,11 +5286,11 @@ Public Class SSPPApplicationTrackingLog
                             "datModifingdate = :OracleDate " &
                             "where strApplicationNumber = :LinkedApplication ")
                             parametersList.Add({
-                                New OracleParameter("DateFinalized", DateFinalized),
-                                New OracleParameter("PermitType", PermitType),
-                                New OracleParameter("UserGCode", CurrentUser.UserID),
-                                New OracleParameter("OracleDate", OracleDate),
-                                New OracleParameter("LinkedApplication", LinkedApplication)
+                                New SqlParameter("DateFinalized", DateFinalized),
+                                New SqlParameter("PermitType", PermitType),
+                                New SqlParameter("UserGCode", CurrentUser.UserID),
+                                New SqlParameter("OracleDate", OracleDate),
+                                New SqlParameter("LinkedApplication", LinkedApplication)
                             })
 
                             queriesList.Add("Update AIRBRANCH.SSPPApplicationData set " &
@@ -5316,20 +5309,20 @@ Public Class SSPPApplicationTrackingLog
                            "datModifingdate = :OracleDate  " &
                            "where strApplicationNumber = :LinkedApplication ")
                             parametersList.Add({
-                                               New OracleParameter("OperationalStatus", OperationalStatus),
-                                               New OracleParameter("Classification", Classification),
-                                               New OracleParameter("AirProgramCodes", AirProgramCodes),
-                                               New OracleParameter("SIC", SIC),
-                                               New OracleParameter("PermitNumber", PermitNumber),
-                                               New OracleParameter("PlantDesc", PlantDesc),
-                                               New OracleParameter("StateProgramCodes", StateProgramCodes),
-                                               New OracleParameter("PAReady", PAReady),
-                                               New OracleParameter("PNReady", PNReady),
-                                               New OracleParameter("SignificantComments", SignificantComments),
-                                               New OracleParameter("PublicInvolved", PublicInvolved),
-                                               New OracleParameter("UserGCode", CurrentUser.UserID),
-                                               New OracleParameter("OracleDate", OracleDate),
-                                               New OracleParameter("LinkedApplication", LinkedApplication)
+                                               New SqlParameter("OperationalStatus", OperationalStatus),
+                                               New SqlParameter("Classification", Classification),
+                                               New SqlParameter("AirProgramCodes", AirProgramCodes),
+                                               New SqlParameter("SIC", SIC),
+                                               New SqlParameter("PermitNumber", PermitNumber),
+                                               New SqlParameter("PlantDesc", PlantDesc),
+                                               New SqlParameter("StateProgramCodes", StateProgramCodes),
+                                               New SqlParameter("PAReady", PAReady),
+                                               New SqlParameter("PNReady", PNReady),
+                                               New SqlParameter("SignificantComments", SignificantComments),
+                                               New SqlParameter("PublicInvolved", PublicInvolved),
+                                               New SqlParameter("UserGCode", CurrentUser.UserID),
+                                               New SqlParameter("OracleDate", OracleDate),
+                                               New SqlParameter("LinkedApplication", LinkedApplication)
                                            })
 
                             queriesList.Add("Update AIRBRANCH.SSPPApplicationTracking set " &
@@ -5345,17 +5338,17 @@ Public Class SSPPApplicationTrackingLog
                             "datModifingDate = :OracleDate  " &
                             "where strApplicationNumber = :LinkedApplication  ")
                             parametersList.Add({
-                                               New OracleParameter("PermitIssued", PermitIssued),
-                                               New OracleParameter("DraftIssued", DraftIssued),
-                                               New OracleParameter("EPAWaived", EPAWaived),
-                                               New OracleParameter("EPAEnds", EPAEnds),
-                                               New OracleParameter("PAExpires", PAExpires),
-                                               New OracleParameter("PNExpires", PNExpires),
-                                               New OracleParameter("ToBC", ToBC),
-                                               New OracleParameter("ToDO", ToDO),
-                                               New OracleParameter("UserGCode", CurrentUser.UserID),
-                                               New OracleParameter("OracleDate", OracleDate),
-                                               New OracleParameter("LinkedApplication", LinkedApplication)
+                                               New SqlParameter("PermitIssued", PermitIssued),
+                                               New SqlParameter("DraftIssued", DraftIssued),
+                                               New SqlParameter("EPAWaived", EPAWaived),
+                                               New SqlParameter("EPAEnds", EPAEnds),
+                                               New SqlParameter("PAExpires", PAExpires),
+                                               New SqlParameter("PNExpires", PNExpires),
+                                               New SqlParameter("ToBC", ToBC),
+                                               New SqlParameter("ToDO", ToDO),
+                                               New SqlParameter("UserGCode", CurrentUser.UserID),
+                                               New SqlParameter("OracleDate", OracleDate),
+                                               New SqlParameter("LinkedApplication", LinkedApplication)
                                            })
 
                             DB.RunCommand(queriesList, parametersList)
@@ -5364,18 +5357,17 @@ Public Class SSPPApplicationTrackingLog
                                 "datToPMI, datToPMII " &
                                 "from AIRBRANCH.SSPPApplicationTracking " &
                                 "where strApplicationNumber = :LinkedApplication "
-                            parameters = {New OracleParameter("LinkedApplication", LinkedApplication)}
+                            parameters = {New SqlParameter("LinkedApplication", LinkedApplication)}
 
                             Dim query2 As String = ""
 
-                            Using connection As New OracleConnection(DB.CurrentConnectionString)
-                                Using cmd As OracleCommand = connection.CreateCommand
+                            Using connection As New SqlConnection(DB.CurrentConnectionString)
+                                Using cmd As SqlCommand = connection.CreateCommand
                                     cmd.CommandType = CommandType.Text
-                                    cmd.BindByName = True
                                     cmd.CommandText = query
                                     cmd.Parameters.AddRange(parameters)
                                     cmd.Connection.Open()
-                                    Using dr As OracleDataReader = cmd.ExecuteReader
+                                    Using dr As SqlDataReader = cmd.ExecuteReader
 
                                         While dr.Read
                                             If IsDBNull(dr.Item("datToPMI")) Then
@@ -5394,10 +5386,10 @@ Public Class SSPPApplicationTrackingLog
                             End Using
 
                             If Not String.IsNullOrWhiteSpace(query2) Then
-                                Dim parameters2 As OracleParameter() = {
-                                    New OracleParameter("ToPMI", ToPMI),
-                                    New OracleParameter("ToPMII", ToPMII),
-                                    New OracleParameter("LinkedApplication", LinkedApplication)
+                                Dim parameters2 As SqlParameter() = {
+                                    New SqlParameter("ToPMI", ToPMI),
+                                    New SqlParameter("ToPMII", ToPMII),
+                                    New SqlParameter("LinkedApplication", LinkedApplication)
                                 }
                                 DB.RunCommand(query2, parameters2)
                             End If
@@ -5517,7 +5509,7 @@ Public Class SSPPApplicationTrackingLog
         Dim DateInfoRequested As String
         Dim DateInfoReceived As String
         Dim query As String
-        Dim parameter As OracleParameter()
+        Dim parameter As SqlParameter()
 
         Try
 
@@ -5527,7 +5519,7 @@ Public Class SSPPApplicationTrackingLog
                         query = "Select max(strRequestKey) as RequestKey " &
                         "from AIRBRANCH.SSPPApplicationInformation " &
                         "where strApplicationNumber = :txtApplicationNumber"
-                        parameter = {New OracleParameter("txtApplicationNumber", txtApplicationNumber.Text)}
+                        parameter = {New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)}
                         InformationRequestKey = DB.GetSingleValue(Of String)(query, parameter)
                         If String.IsNullOrWhiteSpace(InformationRequestKey) Then InformationRequestKey = "0"
                         InformationRequestKey = CInt((InformationRequestKey) + 1)
@@ -5540,8 +5532,8 @@ Public Class SSPPApplicationTrackingLog
                     "where strApplicationNumber = :txtApplicationNumber " &
                     "and strRequestKey = :InformationRequestKey "
                     parameter = {
-                        New OracleParameter("txtApplicationNumber", txtApplicationNumber.Text),
-                        New OracleParameter("InformationRequestKey", InformationRequestKey)
+                        New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text),
+                        New SqlParameter("InformationRequestKey", InformationRequestKey)
                     }
                     Dim recordExists As Boolean = DB.ValueExists(query, parameter)
 
@@ -5572,14 +5564,14 @@ Public Class SSPPApplicationTrackingLog
                         "where strApplicationNumber = :txtApplicationNumber " &
                         "and strRequestKey = :InformationRequestKey  "
                         parameter = {
-                            New OracleParameter("DateInfoRequested", DateInfoRequested),
-                            New OracleParameter("InformationRequested", InformationRequested),
-                            New OracleParameter("DateInfoReceived", DateInfoReceived),
-                            New OracleParameter("InformationReceived", InformationReceived),
-                            New OracleParameter("UserGCode", CurrentUser.UserID),
-                            New OracleParameter("OracleDate", OracleDate),
-                            New OracleParameter("txtApplicationNumber", txtApplicationNumber.Text),
-                            New OracleParameter("InformationRequestKey", InformationRequestKey)
+                            New SqlParameter("DateInfoRequested", DateInfoRequested),
+                            New SqlParameter("InformationRequested", InformationRequested),
+                            New SqlParameter("DateInfoReceived", DateInfoReceived),
+                            New SqlParameter("InformationReceived", InformationReceived),
+                            New SqlParameter("UserGCode", CurrentUser.UserID),
+                            New SqlParameter("OracleDate", OracleDate),
+                            New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text),
+                            New SqlParameter("InformationRequestKey", InformationRequestKey)
                         }
                     Else
                         'Insert 
@@ -5594,14 +5586,14 @@ Public Class SSPPApplicationTrackingLog
                         ":DateInfoReceived , :InformationReceived , " &
                         ":UserGCode , :OracleDate ) "
                         parameter = {
-                            New OracleParameter("txtApplicationNumber", txtApplicationNumber.Text),
-                            New OracleParameter("InformationRequestKey", InformationRequestKey),
-                            New OracleParameter("DateInfoRequested", DateInfoRequested),
-                            New OracleParameter("InformationRequested", InformationRequested),
-                            New OracleParameter("DateInfoReceived", DateInfoReceived),
-                            New OracleParameter("InformationReceived", InformationReceived),
-                            New OracleParameter("UserGCode", CurrentUser.UserID),
-                            New OracleParameter("OracleDate", OracleDate)
+                            New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text),
+                            New SqlParameter("InformationRequestKey", InformationRequestKey),
+                            New SqlParameter("DateInfoRequested", DateInfoRequested),
+                            New SqlParameter("InformationRequested", InformationRequested),
+                            New SqlParameter("DateInfoReceived", DateInfoReceived),
+                            New SqlParameter("InformationReceived", InformationReceived),
+                            New SqlParameter("UserGCode", CurrentUser.UserID),
+                            New SqlParameter("OracleDate", OracleDate)
                         }
                     End If
                     DB.RunCommand(query, parameter)
@@ -5630,9 +5622,9 @@ Public Class SSPPApplicationTrackingLog
                 Dim query As String = "Delete AIRBRANCH.SSPPApplicationInformation " &
                 "where strApplicationNumber = :txtApplicationNumber " &
                 "and strRequestKey = :InformationRequestKey "
-                Dim parameter As OracleParameter() = {
-                    New OracleParameter("txtApplicationNumber", txtApplicationNumber.Text),
-                    New OracleParameter("InformationRequestKey", InformationRequestKey)
+                Dim parameter As SqlParameter() = {
+                    New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text),
+                    New SqlParameter("InformationRequestKey", InformationRequestKey)
                 }
                 DB.RunCommand(query, parameter)
 
@@ -5664,24 +5656,24 @@ Public Class SSPPApplicationTrackingLog
                 If DAL.Sspp.ApplicationExists(txtApplicationNumber.Text) Then
 
                     Dim queryList As New List(Of String)
-                    Dim paramList As New List(Of OracleParameter())
+                    Dim paramList As New List(Of SqlParameter())
 
                     queryList.Add("Update AIRBRANCH.SSPPApplicationData set " &
                         "strSSCPUnit = :cboSSCPUnits, " &
                         "strISMPUnit = :cboISMPUnits " &
                         "where strApplicationNumber = :txtApplicationNumber ")
                     paramList.Add({
-                        New OracleParameter("cboSSCPUnits", cboSSCPUnits.SelectedValue),
-                        New OracleParameter("cboISMPUnits", cboISMPUnits.SelectedValue),
-                        New OracleParameter("txtApplicationNumber", txtApplicationNumber.Text)
+                        New SqlParameter("cboSSCPUnits", cboSSCPUnits.SelectedValue),
+                        New SqlParameter("cboISMPUnits", cboISMPUnits.SelectedValue),
+                        New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
                     })
 
                     queryList.Add("Update AIRBRANCH.SSPPApplicationTracking set " &
                     "datReviewSubmitted = :DateReviewSubmitted " &
                     "where strApplicationNumber = :txtApplicationNumber ")
                     paramList.Add({
-                        New OracleParameter("DateReviewSubmitted", DateReviewSubmitted),
-                        New OracleParameter("txtApplicationNumber", txtApplicationNumber.Text)
+                        New SqlParameter("DateReviewSubmitted", DateReviewSubmitted),
+                        New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
                     })
 
                     DB.RunCommand(queryList, paramList)
@@ -5712,24 +5704,24 @@ Public Class SSPPApplicationTrackingLog
                     End If
 
                     Dim queryList As New List(Of String)
-                    Dim paramList As New List(Of OracleParameter())
+                    Dim paramList As New List(Of SqlParameter())
 
                     queryList.Add("Update AIRBRANCH.SSPPApplicationData set " &
                     "strSSCPReviewer = :cboSSCPStaff, " &
                     "strSSCPComments = :SSCPComments " &
                     "where strApplicationNumber = :txtApplicationNumber")
                     paramList.Add({
-                        New OracleParameter("cboSSCPStaff", cboSSCPStaff.SelectedValue),
-                        New OracleParameter("SSCPComments", SSCPComments),
-                        New OracleParameter("txtApplicationNumber", txtApplicationNumber.Text)
+                        New SqlParameter("cboSSCPStaff", cboSSCPStaff.SelectedValue),
+                        New SqlParameter("SSCPComments", SSCPComments),
+                        New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
                     })
 
                     queryList.Add("Update AIRBRANCH.SSPPApplicationTracking set " &
                     "datSSCPReviewDate = :DTPSSCPReview " &
                     "where strApplicationNumber = :txtApplicationNumber ")
                     paramList.Add({
-                        New OracleParameter("DTPSSCPReview", DTPSSCPReview.Text),
-                        New OracleParameter("txtApplicationNumber", txtApplicationNumber.Text)
+                        New SqlParameter("DTPSSCPReview", DTPSSCPReview.Text),
+                        New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
                     })
 
                     DB.RunCommand(queryList, paramList)
@@ -5753,7 +5745,7 @@ Public Class SSPPApplicationTrackingLog
             If txtApplicationNumber.Text <> "" Then
                 If DAL.Sspp.ApplicationExists(txtApplicationNumber.Text) Then
                     Dim queryList As New List(Of String)
-                    Dim paramList As New List(Of OracleParameter())
+                    Dim paramList As New List(Of SqlParameter())
 
                     If rdbISMPNo.Checked = True Then
                         ISMPComments = "N/A"
@@ -5766,17 +5758,17 @@ Public Class SSPPApplicationTrackingLog
                     "strISMPComments = :ISMPComments " &
                     "where strApplicationNumber = :txtApplicationNumber")
                     paramList.Add({
-                        New OracleParameter("cboISMPStaff", cboISMPStaff.SelectedValue),
-                        New OracleParameter("ISMPComments", ISMPComments),
-                        New OracleParameter("txtApplicationNumber", txtApplicationNumber.Text)
+                        New SqlParameter("cboISMPStaff", cboISMPStaff.SelectedValue),
+                        New SqlParameter("ISMPComments", ISMPComments),
+                        New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
                     })
 
                     queryList.Add("Update AIRBRANCH.SSPPApplicationTracking set " &
                     "datISMPReviewDate = :DTPISMPReview " &
                     "where strApplicationNumber = :txtApplicationNumber")
                     paramList.Add({
-                        New OracleParameter("DTPISMPReview", DTPISMPReview.Text),
-                        New OracleParameter("txtApplicationNumber", txtApplicationNumber.Text)
+                        New SqlParameter("DTPISMPReview", DTPISMPReview.Text),
+                        New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
                     })
 
                     DB.RunCommand(queryList, paramList)
@@ -5810,7 +5802,7 @@ Public Class SSPPApplicationTrackingLog
             Dim ContactZipCode As String = " "
             Dim ContactDescription As String = " "
             Dim query As String
-            Dim params As OracleParameter()
+            Dim params As SqlParameter()
             Dim recExists As Boolean
 
             If txtContactFirstName.Text <> "" Then
@@ -5892,7 +5884,7 @@ Public Class SSPPApplicationTrackingLog
             "from AIRBRANCH.SSPPApplicationContact " &
             "where strApplicationNumber = :txtApplicationNumber "
             params = {
-                New OracleParameter("txtApplicationNumber", txtApplicationNumber.Text)
+                New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
             }
             recExists = DB.ValueExists(query, params)
 
@@ -5915,21 +5907,21 @@ Public Class SSPPApplicationTrackingLog
                 "strContactDescription = :ContactDescription " &
                 "where strApplicationNumber = :txtApplicationNumber "
                 params = {
-                    New OracleParameter("ContactFirstName", ContactFirstName),
-                    New OracleParameter("ContactLastname", ContactLastname),
-                    New OracleParameter("ContactPrefix", ContactPrefix),
-                    New OracleParameter("ContactSuffix", ContactSuffix),
-                    New OracleParameter("ContactTitle", ContactTitle),
-                    New OracleParameter("ContactCompany", ContactCompany),
-                    New OracleParameter("ContactPhone", Replace(Replace(Replace(Replace(ContactPhone, "(", ""), ")", ""), "-", ""), " ", "")),
-                    New OracleParameter("ContactFax", Replace(Replace(Replace(Replace(ContactFax, "(", ""), ")", ""), "-", ""), " ", "")),
-                    New OracleParameter("ContactEmail", ContactEmail),
-                    New OracleParameter("ContactAddress", ContactAddress),
-                    New OracleParameter("ContactCity", ContactCity),
-                    New OracleParameter("ContactState", ContactState),
-                    New OracleParameter("ContactZipCode", Replace(ContactZipCode, "-", "")),
-                    New OracleParameter("ContactDescription", ContactDescription),
-                    New OracleParameter("txtApplicationNumber", txtApplicationNumber.Text)
+                    New SqlParameter("ContactFirstName", ContactFirstName),
+                    New SqlParameter("ContactLastname", ContactLastname),
+                    New SqlParameter("ContactPrefix", ContactPrefix),
+                    New SqlParameter("ContactSuffix", ContactSuffix),
+                    New SqlParameter("ContactTitle", ContactTitle),
+                    New SqlParameter("ContactCompany", ContactCompany),
+                    New SqlParameter("ContactPhone", Replace(Replace(Replace(Replace(ContactPhone, "(", ""), ")", ""), "-", ""), " ", "")),
+                    New SqlParameter("ContactFax", Replace(Replace(Replace(Replace(ContactFax, "(", ""), ")", ""), "-", ""), " ", "")),
+                    New SqlParameter("ContactEmail", ContactEmail),
+                    New SqlParameter("ContactAddress", ContactAddress),
+                    New SqlParameter("ContactCity", ContactCity),
+                    New SqlParameter("ContactState", ContactState),
+                    New SqlParameter("ContactZipCode", Replace(ContactZipCode, "-", "")),
+                    New SqlParameter("ContactDescription", ContactDescription),
+                    New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
                 }
             Else
                 'insert 
@@ -5951,21 +5943,21 @@ Public Class SSPPApplicationTrackingLog
                 ":ContactZipCode, " &
                 ":ContactDescription) "
                 params = {
-                    New OracleParameter("txtApplicationNumber", txtApplicationNumber.Text),
-                    New OracleParameter("ContactFirstName", ContactFirstName),
-                    New OracleParameter("ContactLastname", ContactLastname),
-                    New OracleParameter("ContactPrefix", ContactPrefix),
-                    New OracleParameter("ContactSuffix", ContactSuffix),
-                    New OracleParameter("ContactTitle", ContactTitle),
-                    New OracleParameter("ContactCompany", ContactCompany),
-                    New OracleParameter("ContactPhone", Replace(Replace(Replace(Replace(ContactPhone, "(", ""), ")", ""), "-", ""), " ", "")),
-                    New OracleParameter("ContactFax", Replace(Replace(Replace(Replace(ContactFax, "(", ""), ")", ""), "-", ""), " ", "")),
-                    New OracleParameter("ContactEmail", ContactEmail),
-                    New OracleParameter("ContactAddress", ContactAddress),
-                    New OracleParameter("ContactCity", ContactCity),
-                    New OracleParameter("ContactState", ContactState),
-                    New OracleParameter("ContactZipCode", Replace(ContactZipCode, "-", "")),
-                    New OracleParameter("ContactDescription", ContactDescription)
+                    New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text),
+                    New SqlParameter("ContactFirstName", ContactFirstName),
+                    New SqlParameter("ContactLastname", ContactLastname),
+                    New SqlParameter("ContactPrefix", ContactPrefix),
+                    New SqlParameter("ContactSuffix", ContactSuffix),
+                    New SqlParameter("ContactTitle", ContactTitle),
+                    New SqlParameter("ContactCompany", ContactCompany),
+                    New SqlParameter("ContactPhone", Replace(Replace(Replace(Replace(ContactPhone, "(", ""), ")", ""), "-", ""), " ", "")),
+                    New SqlParameter("ContactFax", Replace(Replace(Replace(Replace(ContactFax, "(", ""), ")", ""), "-", ""), " ", "")),
+                    New SqlParameter("ContactEmail", ContactEmail),
+                    New SqlParameter("ContactAddress", ContactAddress),
+                    New SqlParameter("ContactCity", ContactCity),
+                    New SqlParameter("ContactState", ContactState),
+                    New SqlParameter("ContactZipCode", Replace(ContactZipCode, "-", "")),
+                    New SqlParameter("ContactDescription", ContactDescription)
                 }
             End If
 
@@ -5993,8 +5985,8 @@ Public Class SSPPApplicationTrackingLog
                 "and Upper(AIRBRANCH.APBContactInformation.strContactZipCode) = Upper(AIRBRANCH.SSPPApplicationcontact.strContactZipCode)  " &
                 "and Upper(AIRBRANCH.APBContactInformation.strContactDescription) = Upper(AIRBRANCH.SSPPApplicationContact.strContactDescription)  "
                 params = {
-                    New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & "30"),
-                    New OracleParameter("app", txtApplicationNumber.Text)
+                    New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "30"),
+                    New SqlParameter("app", txtApplicationNumber.Text)
                 }
                 recExists = DB.ValueExists(query, params)
 
@@ -6003,7 +5995,7 @@ Public Class SSPPApplicationTrackingLog
                     "from AIRBRANCH.APBContactInformation " &
                     "where strAIRSNumber = :airs " &
                     "and substr(strkey, 1, 1) = '3' "
-                    params = {New OracleParameter("airs", "0413" & txtAIRSNumber.Text)}
+                    params = {New SqlParameter("airs", "0413" & txtAIRSNumber.Text)}
 
                     MaxKey = DB.GetSingleValue(Of String)(query, params)
 
@@ -6038,8 +6030,8 @@ Public Class SSPPApplicationTrackingLog
                         "where strAIRSnumber = :airs " &
                         "and strKey = :pKey "
                         params = {
-                            New OracleParameter("airs", "0413" & txtAIRSNumber.Text),
-                            New OracleParameter("pKey", "3" & i.ToString)
+                            New SqlParameter("airs", "0413" & txtAIRSNumber.Text),
+                            New SqlParameter("pKey", "3" & i.ToString)
                         }
                         DB.RunCommand(query, params)
                     End If
@@ -6051,8 +6043,8 @@ Public Class SSPPApplicationTrackingLog
                             "where strAIRSNumber = :airs " &
                             "and strKey = :pKey "
                         params = {
-                            New OracleParameter("airs", "0413" & txtAIRSNumber.Text),
-                            New OracleParameter("pKey", "3" & i.ToString)
+                            New SqlParameter("airs", "0413" & txtAIRSNumber.Text),
+                            New SqlParameter("pKey", "3" & i.ToString)
                         }
                         recExists = DB.ValueExists(query, params)
 
@@ -6098,8 +6090,8 @@ Public Class SSPPApplicationTrackingLog
                             "Where strCOntactKey = :oldKey) " &
                             "where strContactKey = :newKey "
                             params = {
-                                New OracleParameter("oldKey", "0413" & txtAIRSNumber.Text & "3" & i.ToString),
-                                New OracleParameter("newKey", "0413" & txtAIRSNumber.Text & "3" & (i + 1).ToString)
+                                New SqlParameter("oldKey", "0413" & txtAIRSNumber.Text & "3" & i.ToString),
+                                New SqlParameter("newKey", "0413" & txtAIRSNumber.Text & "3" & (i + 1).ToString)
                             }
                         Else
                             query = "Insert into AIRBRANCH.APBContactInformation " &
@@ -6130,8 +6122,8 @@ Public Class SSPPApplicationTrackingLog
                             "where strAIRSnumber = :airs " &
                             "and strKey = :pKey "
                             params = {
-                                New OracleParameter("airs", "0413" & txtAIRSNumber.Text),
-                                New OracleParameter("pKey", "3" & (i + 1).ToString)
+                                New SqlParameter("airs", "0413" & txtAIRSNumber.Text),
+                                New SqlParameter("pKey", "3" & (i + 1).ToString)
                             }
 
                         End If
@@ -6178,8 +6170,8 @@ Public Class SSPPApplicationTrackingLog
                             "where strApplicationNumber = :appNum)  " &
                            "where strContactKey = :pKey "
                     params = {
-                        New OracleParameter("appNum", txtApplicationNumber.Text),
-                        New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & "3" & i.ToString)
+                        New SqlParameter("appNum", txtApplicationNumber.Text),
+                        New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "3" & i.ToString)
                     }
                     DB.RunCommand(query, params)
 
@@ -6361,7 +6353,7 @@ Public Class SSPPApplicationTrackingLog
         Dim MasterAppType As String
         Dim i As Integer
         Dim query As String
-        Dim params As OracleParameter()
+        Dim params As SqlParameter()
         Dim appType As String
         Dim recExists As Boolean
 
@@ -6376,7 +6368,7 @@ Public Class SSPPApplicationTrackingLog
                         "strApplicationType " &
                         "from AIRBRANCH.SSPPApplicationMaster " &
                         "where strApplicationnumber = :item "
-                        params = {New OracleParameter("item", lbLinkApplications.Items.Item(i))}
+                        params = {New SqlParameter("item", lbLinkApplications.Items.Item(i))}
 
                         appType = DB.GetSingleValue(Of String)(query, params)
 
@@ -6404,7 +6396,7 @@ Public Class SSPPApplicationTrackingLog
                     query = "Select strApplicationNumber " &
                     "from AIRBRANCH.SSPPApplicationLinking " &
                     "where strApplicationNumber = :appnumber "
-                    params = {New OracleParameter("appnumber", lbLinkApplications.Items.Item(i))}
+                    params = {New SqlParameter("appnumber", lbLinkApplications.Items.Item(i))}
                     recExists = DB.ValueExists(query, params)
 
                     If recExists Then
@@ -6418,8 +6410,8 @@ Public Class SSPPApplicationTrackingLog
                     End If
 
                     params = {
-                        New OracleParameter("MasterApp", MasterApp),
-                        New OracleParameter("appItem", lbLinkApplications.Items.Item(i))
+                        New SqlParameter("MasterApp", MasterApp),
+                        New SqlParameter("appItem", lbLinkApplications.Items.Item(i))
                     }
                     DB.RunCommand(query, params)
                 Next
@@ -6438,7 +6430,7 @@ Public Class SSPPApplicationTrackingLog
     Sub ClearApplicationLinks()
         Dim MasterLink As String = ""
         Dim query As String
-        Dim param As OracleParameter
+        Dim param As SqlParameter
 
         Try
 
@@ -6446,13 +6438,13 @@ Public Class SSPPApplicationTrackingLog
                 query = "Select strMasterApplication " &
                 "from AIRBRANCH.SSPPApplicationLinking " &
                 "where strApplicationNumber = :pMaster"
-                param = New OracleParameter("pMaster", txtMasterApp.Text)
+                param = New SqlParameter("pMaster", txtMasterApp.Text)
                 MasterLink = DB.GetSingleValue(Of String)(query, param)
 
                 If MasterLink <> "" Then
                     query = "Delete AIRBRANCH.SSPPApplicationLinking " &
                     "where strMasterApplication = :pMaster"
-                    param = New OracleParameter("pMaster", MasterLink)
+                    param = New SqlParameter("pMaster", MasterLink)
                     DB.RunCommand(query, param)
 
                     txtMasterApp.Clear()
@@ -6478,7 +6470,7 @@ Public Class SSPPApplicationTrackingLog
         Dim ExperationDate As String
         Dim PNExpires As String
         Dim queryList As New List(Of String)
-        Dim paramsList As New List(Of OracleParameter())
+        Dim paramsList As New List(Of SqlParameter())
 
         Try
             If DTPNotifiedAppReceived.Checked = True Then
@@ -6540,23 +6532,23 @@ Public Class SSPPApplicationTrackingLog
                               "datPNExpires = :PNExpires  " &
                               "where strApplicationNumber = :txtApplicationNumber ")
                 paramsList.Add(
-                    {New OracleParameter("DraftOnWeb", DraftOnWeb),
-                     New OracleParameter("EPAStatesNotified", EPAStatesNotified),
-                     New OracleParameter("FinalOnWeb", FinalOnWeb),
-                     New OracleParameter("EPANotifiedPermitOnWeb", EPANotifiedPermitOnWeb),
-                     New OracleParameter("EffectiveDateOnPermit", EffectiveDateOnPermit),
-                     New OracleParameter("EPAStatesNotifiedAppRec", EPAStatesNotifiedAppRec),
-                     New OracleParameter("ExperationDate", ExperationDate),
-                     New OracleParameter("PNExpires", PNExpires),
-                     New OracleParameter("txtApplicationNumber", txtApplicationNumber.Text)
+                    {New SqlParameter("DraftOnWeb", DraftOnWeb),
+                     New SqlParameter("EPAStatesNotified", EPAStatesNotified),
+                     New SqlParameter("FinalOnWeb", FinalOnWeb),
+                     New SqlParameter("EPANotifiedPermitOnWeb", EPANotifiedPermitOnWeb),
+                     New SqlParameter("EffectiveDateOnPermit", EffectiveDateOnPermit),
+                     New SqlParameter("EPAStatesNotifiedAppRec", EPAStatesNotifiedAppRec),
+                     New SqlParameter("ExperationDate", ExperationDate),
+                     New SqlParameter("PNExpires", PNExpires),
+                     New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
                     })
 
                 queryList.Add("Update AIRBRANCH.SSPPApplicationData set " &
                               "strTargeted = :TargetedComments " &
                               "where strApplicationNumber = :txtApplicationNumber ")
                 paramsList.Add(
-                    {New OracleParameter("TargetedComments", TargetedComments),
-                     New OracleParameter("txtApplicationNumber", txtApplicationNumber.Text)
+                    {New SqlParameter("TargetedComments", TargetedComments),
+                     New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
                     })
 
                 DB.RunCommand(queryList, paramsList)
@@ -6586,23 +6578,23 @@ Public Class SSPPApplicationTrackingLog
                             "datPNExpires = :PNExpires  " &
                             "where strApplicationNumber = :LinkedApplication ")
                             paramsList.Add(
-                                {New OracleParameter("DraftOnWeb", DraftOnWeb),
-                                 New OracleParameter("EPAStatesNotified", EPAStatesNotified),
-                                 New OracleParameter("FinalOnWeb", FinalOnWeb),
-                                 New OracleParameter("EPANotifiedPermitOnWeb", EPANotifiedPermitOnWeb),
-                                 New OracleParameter("EffectiveDateOnPermit", EffectiveDateOnPermit),
-                                 New OracleParameter("EPAStatesNotifiedAppRec", EPAStatesNotifiedAppRec),
-                                 New OracleParameter("ExperationDate", ExperationDate),
-                                 New OracleParameter("PNExpires", PNExpires),
-                                 New OracleParameter("LinkedApplication", LinkedApplication)
+                                {New SqlParameter("DraftOnWeb", DraftOnWeb),
+                                 New SqlParameter("EPAStatesNotified", EPAStatesNotified),
+                                 New SqlParameter("FinalOnWeb", FinalOnWeb),
+                                 New SqlParameter("EPANotifiedPermitOnWeb", EPANotifiedPermitOnWeb),
+                                 New SqlParameter("EffectiveDateOnPermit", EffectiveDateOnPermit),
+                                 New SqlParameter("EPAStatesNotifiedAppRec", EPAStatesNotifiedAppRec),
+                                 New SqlParameter("ExperationDate", ExperationDate),
+                                 New SqlParameter("PNExpires", PNExpires),
+                                 New SqlParameter("LinkedApplication", LinkedApplication)
                                 })
 
                             queryList.Add("Update AIRBRANCH.SSPPApplicationData set " &
                             "strTargeted = :TargetedComments " &
                             "where strApplicationNumber = :LinkedApplication ")
                             paramsList.Add(
-                                {New OracleParameter("TargetedComments", TargetedComments),
-                                 New OracleParameter("LinkedApplication", LinkedApplication)
+                                {New SqlParameter("TargetedComments", TargetedComments),
+                                 New SqlParameter("LinkedApplication", LinkedApplication)
                                 })
 
                             DB.RunCommand(queryList, paramsList)
@@ -6621,7 +6613,7 @@ Public Class SSPPApplicationTrackingLog
         Dim ActionNumber As String = ""
         Dim UpdateStatus As String
         Dim query As String
-        Dim params As OracleParameter()
+        Dim params As SqlParameter()
         Dim recExists As Boolean = True
 
         Try
@@ -6630,7 +6622,7 @@ Public Class SSPPApplicationTrackingLog
             "strUpdateStatus " &
             "from AIRBRANCH.AFSSSPPRecords " &
             "where strApplicationNumber = :appnum "
-            params = {New OracleParameter("appnum", txtApplicationNumber.Text)}
+            params = {New SqlParameter("appnum", txtApplicationNumber.Text)}
 
             UpdateStatus = DB.GetSingleValue(Of String)(query, params)
             If String.IsNullOrEmpty(UpdateStatus) Then
@@ -6645,15 +6637,15 @@ Public Class SSPPApplicationTrackingLog
                     "strUpdateStatus = :UpdateStatus " &
                     "where strApplicationNumber = :appnum "
                 params = {
-                    New OracleParameter("UpdateStatus", UpdateStatus),
-                    New OracleParameter("appnum", txtApplicationNumber.Text)
+                    New SqlParameter("UpdateStatus", UpdateStatus),
+                    New SqlParameter("appnum", txtApplicationNumber.Text)
                 }
                 DB.RunCommand(query, params)
             Else
                 query = "Select strAFSActionNumber " &
                     "from AIRBRANCH.APBSupplamentalData " &
                     "where strAIRSNumber = :airs"
-                params = {New OracleParameter("airs", "0413" & txtAIRSNumber.Text)}
+                params = {New SqlParameter("airs", "0413" & txtAIRSNumber.Text)}
                 ActionNumber = DB.GetSingleValue(Of String)(query, params)
 
                 query = "Insert into AIRBRANCH.AFSSSPPRecords " &
@@ -6665,11 +6657,11 @@ Public Class SSPPApplicationTrackingLog
                     ":UpdateStatus , :UserGCode , " &
                     ":OracleDate ) "
                 params = {
-                    New OracleParameter("txtApplicationNumber", txtApplicationNumber.Text),
-                    New OracleParameter("ActionNumber", ActionNumber),
-                    New OracleParameter("UpdateStatus", UpdateStatus),
-                    New OracleParameter("UserGCode", CurrentUser.UserID),
-                    New OracleParameter("OracleDate", OracleDate)
+                    New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text),
+                    New SqlParameter("ActionNumber", ActionNumber),
+                    New SqlParameter("UpdateStatus", UpdateStatus),
+                    New SqlParameter("UserGCode", CurrentUser.UserID),
+                    New SqlParameter("OracleDate", OracleDate)
                 }
                 DB.RunCommand(query, params)
 
@@ -6679,8 +6671,8 @@ Public Class SSPPApplicationTrackingLog
                 "strAFSActionNumber = :ActionNumber " &
                 "where strAIRSNumber = :airs "
                 params = {
-                    New OracleParameter("ActionNumber", ActionNumber),
-                    New OracleParameter("airs", "0413" & txtAIRSNumber.Text)
+                    New SqlParameter("ActionNumber", ActionNumber),
+                    New SqlParameter("airs", "0413" & txtAIRSNumber.Text)
                 }
                 DB.RunCommand(query, params)
 
@@ -6705,9 +6697,9 @@ Public Class SSPPApplicationTrackingLog
         Dim StateProgramCodes As String = ""
 
         Dim query As String = ""
-        Dim params As OracleParameter()
+        Dim params As SqlParameter()
         Dim queryList As New List(Of String)
-        Dim paramsList As New List(Of OracleParameter())
+        Dim paramsList As New List(Of SqlParameter())
         Dim subpartList As New List(Of String)
 
         Try
@@ -6723,16 +6715,15 @@ Public Class SSPPApplicationTrackingLog
             "strStateProgramCodes " &
             "from AIRBRANCH.SSPPApplicationData " &
             "where strApplicationNumber = :appnumber "
-            params = {New OracleParameter("appnumber", txtApplicationNumber.Text)}
+            params = {New SqlParameter("appnumber", txtApplicationNumber.Text)}
 
-            Using connection As New OracleConnection(DB.CurrentConnectionString)
-                Using cmd As OracleCommand = connection.CreateCommand
+            Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
-                    cmd.BindByName = True
                     cmd.CommandText = query
                     cmd.Parameters.AddRange(params)
                     cmd.Connection.Open()
-                    Using dr As OracleDataReader = cmd.ExecuteReader
+                    Using dr As SqlDataReader = cmd.ExecuteReader
 
                         While dr.Read
                             If IsDBNull(dr.Item("strFacilityName")) Then
@@ -6814,23 +6805,23 @@ Public Class SSPPApplicationTrackingLog
             "datModifingdate = :OracleDate  " &
             "where strAIRSNumber = :airs ")
             paramsList.Add(
-                {New OracleParameter("FacilityName", FacilityName),
-                 New OracleParameter("FacilityStreet1", FacilityStreet1),
-                 New OracleParameter("FacilityStreet2", FacilityStreet2),
-                 New OracleParameter("City", City),
-                 New OracleParameter("ZipCode", ZipCode),
-                 New OracleParameter("Comments", "Updated by " & CurrentUser.AlphaName & ", through Permitting Action."),
-                 New OracleParameter("UserGCode", CurrentUser.UserID),
-                 New OracleParameter("OracleDate", OracleDate),
-                 New OracleParameter("airs", "0413" & txtAIRSNumber.Text)
+                {New SqlParameter("FacilityName", FacilityName),
+                 New SqlParameter("FacilityStreet1", FacilityStreet1),
+                 New SqlParameter("FacilityStreet2", FacilityStreet2),
+                 New SqlParameter("City", City),
+                 New SqlParameter("ZipCode", ZipCode),
+                 New SqlParameter("Comments", "Updated by " & CurrentUser.AlphaName & ", through Permitting Action."),
+                 New SqlParameter("UserGCode", CurrentUser.UserID),
+                 New SqlParameter("OracleDate", OracleDate),
+                 New SqlParameter("airs", "0413" & txtAIRSNumber.Text)
                 })
 
             queryList.Add("Update AIRBRANCH.OLAPUserAccess set " &
             "strFacilityName = :FacilityName " &
             "where strAIRSNumber = :airs ")
             paramsList.Add(
-                {New OracleParameter("FacilityName", FacilityName),
-                 New OracleParameter("airs", "0413" & txtAIRSNumber.Text)
+                {New SqlParameter("FacilityName", FacilityName),
+                 New SqlParameter("airs", "0413" & txtAIRSNumber.Text)
                 })
 
             queryList.Add("Update AIRBRANCH.APBHeaderData set " &
@@ -6847,17 +6838,17 @@ Public Class SSPPApplicationTrackingLog
             "datModifingDate = :OracleDate  " &
             "where strAIRSNumber = :airs ")
             paramsList.Add(
-                {New OracleParameter("OpStatus", OpStatus),
-                 New OracleParameter("Classification", Classification),
-                 New OracleParameter("AirProgramCodes", AirProgramCodes),
-                 New OracleParameter("SICCode", SICCode),
-                 New OracleParameter("NAICSCode", NAICSCode),
-                 New OracleParameter("PlantDescription", PlantDescription),
-                 New OracleParameter("StateProgramCodes", StateProgramCodes),
-                 New OracleParameter("Comments", "Updated by " & CurrentUser.AlphaName & ", through Permitting Action."),
-                 New OracleParameter("UserGCode", CurrentUser.UserID),
-                 New OracleParameter("OracleDate", OracleDate),
-                 New OracleParameter("airs", "0413" & txtAIRSNumber.Text)
+                {New SqlParameter("OpStatus", OpStatus),
+                 New SqlParameter("Classification", Classification),
+                 New SqlParameter("AirProgramCodes", AirProgramCodes),
+                 New SqlParameter("SICCode", SICCode),
+                 New SqlParameter("NAICSCode", NAICSCode),
+                 New SqlParameter("PlantDescription", PlantDescription),
+                 New SqlParameter("StateProgramCodes", StateProgramCodes),
+                 New SqlParameter("Comments", "Updated by " & CurrentUser.AlphaName & ", through Permitting Action."),
+                 New SqlParameter("UserGCode", CurrentUser.UserID),
+                 New SqlParameter("OracleDate", OracleDate),
+                 New SqlParameter("airs", "0413" & txtAIRSNumber.Text)
                 })
             DB.RunCommand(queryList, paramsList)
             queryList.Clear()
@@ -6982,14 +6973,14 @@ Public Class SSPPApplicationTrackingLog
     Private Sub UpdateProgramPollutantKey(key As String, OpStatus As String)
         Dim pKey As String = "0413" & txtAIRSNumber.Text & key
         Dim query As String = ""
-        Dim params As OracleParameter()
+        Dim params As SqlParameter()
         Dim queryList As New List(Of String)
-        Dim paramsList As New List(Of OracleParameter())
+        Dim paramsList As New List(Of SqlParameter())
 
         query = "Select strPollutantKey " &
                 "from AIRBRANCH.APBAirProgramPollutants " &
                 "where strAIRPollutantKey = :pKey "
-        params = {New OracleParameter("pKey", pKey)}
+        params = {New SqlParameter("pKey", pKey)}
 
         If Not DB.ValueExists(query, params) Then
             query = "Insert into AIRBRANCH.APBAirProgramPollutants " &
@@ -7003,10 +6994,10 @@ Public Class SSPPApplicationTrackingLog
              ":UserGCode , :OracleDate , " &
              "'O')"
             params = {
-                New OracleParameter("airs", "0413" & txtAIRSNumber.Text),
-                New OracleParameter("pKey", pKey),
-                New OracleParameter("UserGCode", CurrentUser.UserID),
-                New OracleParameter("OracleDate", OracleDate)
+                New SqlParameter("airs", "0413" & txtAIRSNumber.Text),
+                New SqlParameter("pKey", pKey),
+                New SqlParameter("UserGCode", CurrentUser.UserID),
+                New SqlParameter("OracleDate", OracleDate)
             }
             DB.RunCommand(query, params)
         Else
@@ -7014,14 +7005,14 @@ Public Class SSPPApplicationTrackingLog
             "strOperationalStatus = :OpStatus  " &
             "where strAirPOllutantKey = :pKey ")
             paramsList.Add({
-                New OracleParameter("OpStatus", OpStatus),
-                New OracleParameter("pKey", pKey)
+                New SqlParameter("OpStatus", OpStatus),
+                New SqlParameter("pKey", pKey)
             })
 
             queryList.Add("update AIRBRANCH.AFSAirPollutantData set " &
                 "strUpdateStatus = 'C' " &
                 "where strUpdateStatus = 'N' and strAIRPollutantKey = :pKey ")
-            paramsList.Add({New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & key)})
+            paramsList.Add({New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & key)})
 
             DB.RunCommand(queryList, paramsList)
         End If
@@ -7029,7 +7020,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub UpdateDeletedSubpartData(key As String, Optional subpartList As List(Of String) = Nothing)
         Dim queryList As New List(Of String)
-        Dim paramsList As New List(Of OracleParameter())
+        Dim paramsList As New List(Of SqlParameter())
 
         If subpartList Is Nothing OrElse subpartList.Count = 0 Then
             queryList.Add("Update AIRBRANCH.APBSubpartData set " &
@@ -7039,8 +7030,8 @@ Public Class SSPPApplicationTrackingLog
                           "where strSubpartKey = :pKey ")
             paramsList.Add(
                 {
-                    New OracleParameter("UserGCode", CurrentUser.UserID),
-                    New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & key)
+                    New SqlParameter("UserGCode", CurrentUser.UserID),
+                    New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & key)
                 })
         Else
             For Each subpart As String In subpartList
@@ -7052,9 +7043,9 @@ Public Class SSPPApplicationTrackingLog
                               "and strSubpart = :Subpart ")
                 paramsList.Add(
                     {
-                        New OracleParameter("UserGCode", CurrentUser.UserID),
-                        New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & key),
-                        New OracleParameter("Subpart", subpart)
+                        New SqlParameter("UserGCode", CurrentUser.UserID),
+                        New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & key),
+                        New SqlParameter("Subpart", subpart)
                     })
             Next
         End If
@@ -7067,15 +7058,15 @@ Public Class SSPPApplicationTrackingLog
 
         Dim pKey As String = "0413" & txtAIRSNumber.Text & key
         Dim query As String = ""
-        Dim params As OracleParameter() = Nothing
+        Dim params As SqlParameter() = Nothing
 
         For Each subpart As String In subpartList
             query = "Select Active from AIRBRANCH.APBSubpartData " &
                 "where strSubpartKey = :pKey " &
                 "and strSubpart = :subpart "
             params = {
-                New OracleParameter("pKey", pKey),
-                New OracleParameter("subpart", subpart)
+                New SqlParameter("pKey", pKey),
+                New SqlParameter("subpart", subpart)
             }
 
             If DB.ValueExists(query, params) Then
@@ -7086,9 +7077,9 @@ Public Class SSPPApplicationTrackingLog
                     "where strSubpartKey = :pKey " &
                     "and strSubpart = :subpart "
                 params = {
-                    New OracleParameter("UserGCode", CurrentUser.UserID),
-                    New OracleParameter("pKey", pKey),
-                    New OracleParameter("subpart", subpart)
+                    New SqlParameter("UserGCode", CurrentUser.UserID),
+                    New SqlParameter("pKey", pKey),
+                    New SqlParameter("subpart", subpart)
                 }
             Else
                 query = "INSERT INTO AIRBRANCH.APBSUBPARTDATA " &
@@ -7098,10 +7089,10 @@ Public Class SSPPApplicationTrackingLog
                     "(:airs, :pKey, :subpart, :UserGCode , " &
                     "sysdate, '1', sysdate)"
                 params = {
-                    New OracleParameter("airs", "0413" & txtAIRSNumber.Text),
-                    New OracleParameter("pKey", pKey),
-                    New OracleParameter("subpart", subpart),
-                    New OracleParameter("UserGCode", CurrentUser.UserID)
+                    New SqlParameter("airs", "0413" & txtAIRSNumber.Text),
+                    New SqlParameter("pKey", pKey),
+                    New SqlParameter("subpart", subpart),
+                    New SqlParameter("UserGCode", CurrentUser.UserID)
                 }
             End If
         Next
@@ -7146,7 +7137,7 @@ Public Class SSPPApplicationTrackingLog
     Sub FindMasterApp()
         Dim AppType As String = ""
         Dim query As String
-        Dim parameter As OracleParameter()
+        Dim parameter As SqlParameter()
 
         Try
             AppType = cboApplicationType.Text
@@ -7154,7 +7145,7 @@ Public Class SSPPApplicationTrackingLog
             query = "select strMasterApplication " &
               "from AIRBRANCH.SSPPApplicationLinking " &
               "where strApplicationNumber = :appnumber "
-            parameter = {New OracleParameter("appnumber", txtApplicationNumber.Text)}
+            parameter = {New SqlParameter("appnumber", txtApplicationNumber.Text)}
 
             MasterApp = DB.GetSingleValue(Of String)(query, parameter)
             If MasterApp = "" Then MasterApp = txtApplicationNumber.Text
@@ -7170,8 +7161,8 @@ Public Class SSPPApplicationTrackingLog
             "and (AIRBRANCH.SSPPApplicationLinking.strApplicationNumber = :MasterApp " &
             "or AIRBRANCH.APBPermits.strFileName like :MasterAppFn ) "
             parameter = {
-                New OracleParameter("MasterApp", MasterApp),
-                New OracleParameter("MasterAppFn", "%-" & MasterApp)
+                New SqlParameter("MasterApp", MasterApp),
+                New SqlParameter("MasterAppFn", "%-" & MasterApp)
             }
             Dim fn As String = DB.GetSingleValue(Of String)(query, parameter)
             If fn <> "" Then
@@ -7222,16 +7213,15 @@ Public Class SSPPApplicationTrackingLog
             "strDOCFileSize, strPDFFileSize " &
             "From AIRBRANCH.ApbPermits " &
             "where strFileName = :FileName"
-            Dim parameter As New OracleParameter("FileName", FileName)
+            Dim parameter As New SqlParameter("FileName", FileName)
 
-            Using connection As New OracleConnection(DB.CurrentConnectionString)
-                Using cmd As OracleCommand = connection.CreateCommand
+            Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
-                    cmd.BindByName = True
                     cmd.CommandText = query
                     cmd.Parameters.Add(parameter)
                     cmd.Connection.Open()
-                    Using dr As OracleDataReader = cmd.ExecuteReader
+                    Using dr As SqlDataReader = cmd.ExecuteReader
 
                         recExist = dr.Read
                         If recExist = True Then
@@ -7342,7 +7332,7 @@ Public Class SSPPApplicationTrackingLog
                 "strPDFModifingPerson = '', " &
                 "datPDFModifingDate = '' " &
                 "where strFileName = :FileName "
-                parameter = New OracleParameter("FileName", FileName)
+                parameter = New SqlParameter("FileName", FileName)
                 DB.RunCommand(query, parameter)
             Else
                 If PDFFile <> "" And PDFLocation <> "" Then
@@ -7431,14 +7421,14 @@ Public Class SSPPApplicationTrackingLog
 
                 query = "Delete AIRBRANCH.APBPermits " &
                    "where strFileName = :FileName "
-                parameter = New OracleParameter("FileName", FileName)
+                parameter = New SqlParameter("FileName", FileName)
                 DB.RunCommand(query, parameter)
 
                 query = "select " &
                 "rowCount " &
                 "from AIRBRANCH.APBPermits " &
                 "where strFileName = :FileName "
-                parameter = New OracleParameter("FileName", FileName)
+                parameter = New SqlParameter("FileName", FileName)
                 rowCount = DB.GetSingleValue(Of Integer)(query, parameter)
 
                 If rowCount = 0 Then
@@ -7465,11 +7455,11 @@ Public Class SSPPApplicationTrackingLog
                 query = "Select * from AIRBRANCH.APBPermits " &
                 "where strFileName = :FileName "
 
-                Using connection As New OracleConnection(DB.CurrentConnectionString)
-                    Using da As New OracleDataAdapter(query, connection)
+                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                    Using da As New SqlDataAdapter(query, connection)
                         da.SelectCommand.Parameters.Add(parameter)
 
-                        Dim cmdCB As OracleCommandBuilder = New OracleCommandBuilder(da)
+                        Dim cmdCB As SqlCommandBuilder = New SqlCommandBuilder(da)
                         ds = New DataSet("PDF")
                         da.MissingSchemaAction = MissingSchemaAction.AddWithKey
 
@@ -7507,7 +7497,7 @@ Public Class SSPPApplicationTrackingLog
         Try
             Dim saveFilePath As String
             Dim query As String = ""
-            Dim parameter As New OracleParameter("FileName", fileName)
+            Dim parameter As New SqlParameter("FileName", fileName)
 
             Dim sfd As New SaveFileDialog
             sfd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
@@ -7948,7 +7938,7 @@ Public Class SSPPApplicationTrackingLog
                 "datModifingdate " &
                 "from AIRBRANCH.SSPPApplicationMaster " &
                 "where strApplicationNumber = :appnumber "
-            Dim parameter As New OracleParameter("appnumber", txtApplicationNumber.Text)
+            Dim parameter As New SqlParameter("appnumber", txtApplicationNumber.Text)
             Dim temp As String = DB.GetSingleValue(Of String)(query, parameter)
 
             If TimeStamp <> "" AndAlso TimeStamp <> temp Then
@@ -8616,7 +8606,7 @@ Public Class SSPPApplicationTrackingLog
                     "strFileName " &
                     "from AIRBRANCH.APBPermits " &
                     "where strFileName like :filename "
-                Dim parameter As New OracleParameter("filename", "V_-" & MasterApp)
+                Dim parameter As New SqlParameter("filename", "V_-" & MasterApp)
                 Dim fn As String = DB.GetSingleValue(Of String)(query, parameter)
 
                 If fn <> "" Then
@@ -8677,7 +8667,7 @@ Public Class SSPPApplicationTrackingLog
                     "strFileName " &
                     "from AIRBRANCH.APBPermits " &
                     "where strFileName like :filename "
-                Dim parameter As New OracleParameter("filename", "P_-" & MasterApp)
+                Dim parameter As New SqlParameter("filename", "P_-" & MasterApp)
                 Dim fn As String = DB.GetSingleValue(Of String)(query, parameter)
 
                 If fn <> "" Then
@@ -8747,7 +8737,7 @@ Public Class SSPPApplicationTrackingLog
                     "strFileName " &
                     "from AIRBRANCH.APBPermits " &
                     "where strFileName like :filename "
-                Dim parameter As New OracleParameter("filename", "O_-" & MasterApp)
+                Dim parameter As New SqlParameter("filename", "O_-" & MasterApp)
                 Dim fn As String = DB.GetSingleValue(Of String)(query, parameter)
 
                 If fn <> "" Then
@@ -8817,16 +8807,15 @@ Public Class SSPPApplicationTrackingLog
                 "from AIRBRANCH.APBPermits " &
                 "where strFileName = :filename "
 
-                Dim parameter As New OracleParameter("filename", "VN-" & MasterApp)
+                Dim parameter As New SqlParameter("filename", "VN-" & MasterApp)
 
-                Using connection As New OracleConnection(DB.CurrentConnectionString)
-                    Using cmd As OracleCommand = connection.CreateCommand
+                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                    Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
-                        cmd.BindByName = True
                         cmd.CommandText = query
                         cmd.Parameters.Add(parameter)
                         cmd.Connection.Open()
-                        Using dr As OracleDataReader = cmd.ExecuteReader
+                        Using dr As SqlDataReader = cmd.ExecuteReader
 
                             recExist = dr.Read
                             If recExist = True Then
@@ -8939,16 +8928,15 @@ Public Class SSPPApplicationTrackingLog
                 "from AIRBRANCH.APBPermits " &
                 "where strFileName = :filename "
 
-                Dim parameter As New OracleParameter("filename", "VD-" & MasterApp)
+                Dim parameter As New SqlParameter("filename", "VD-" & MasterApp)
 
-                Using connection As New OracleConnection(DB.CurrentConnectionString)
-                    Using cmd As OracleCommand = connection.CreateCommand
+                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                    Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
-                        cmd.BindByName = True
                         cmd.CommandText = query
                         cmd.Parameters.Add(parameter)
                         cmd.Connection.Open()
-                        Using dr As OracleDataReader = cmd.ExecuteReader
+                        Using dr As SqlDataReader = cmd.ExecuteReader
 
                             recExist = dr.Read
                             If recExist = True Then
@@ -9060,16 +9048,15 @@ Public Class SSPPApplicationTrackingLog
                 "from AIRBRANCH.APBPermits " &
                 "where strFileName = :filename "
 
-                Dim parameter As New OracleParameter("filename", "VP-" & MasterApp)
+                Dim parameter As New SqlParameter("filename", "VP-" & MasterApp)
 
-                Using connection As New OracleConnection(DB.CurrentConnectionString)
-                    Using cmd As OracleCommand = connection.CreateCommand
+                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                    Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
-                        cmd.BindByName = True
                         cmd.CommandText = query
                         cmd.Parameters.Add(parameter)
                         cmd.Connection.Open()
-                        Using dr As OracleDataReader = cmd.ExecuteReader
+                        Using dr As SqlDataReader = cmd.ExecuteReader
 
                             recExist = dr.Read
                             If recExist = True Then
@@ -9182,16 +9169,15 @@ Public Class SSPPApplicationTrackingLog
                  "from AIRBRANCH.APBPermits " &
                  "where strFileName = :filename "
 
-                Dim parameter As New OracleParameter("filename", "VF-" & MasterApp)
+                Dim parameter As New SqlParameter("filename", "VF-" & MasterApp)
 
-                Using connection As New OracleConnection(DB.CurrentConnectionString)
-                    Using cmd As OracleCommand = connection.CreateCommand
+                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                    Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
-                        cmd.BindByName = True
                         cmd.CommandText = query
                         cmd.Parameters.Add(parameter)
                         cmd.Connection.Open()
-                        Using dr As OracleDataReader = cmd.ExecuteReader
+                        Using dr As SqlDataReader = cmd.ExecuteReader
 
                             recExist = dr.Read
                             If recExist = True Then
@@ -9303,16 +9289,15 @@ Public Class SSPPApplicationTrackingLog
                  "from AIRBRANCH.APBPermits " &
                  "where strFileName = :filename "
 
-                Dim parameter As New OracleParameter("filename", "VF-" & MasterApp)
+                Dim parameter As New SqlParameter("filename", "VF-" & MasterApp)
 
-                Using connection As New OracleConnection(DB.CurrentConnectionString)
-                    Using cmd As OracleCommand = connection.CreateCommand
+                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                    Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
-                        cmd.BindByName = True
                         cmd.CommandText = query
                         cmd.Parameters.Add(parameter)
                         cmd.Connection.Open()
-                        Using dr As OracleDataReader = cmd.ExecuteReader
+                        Using dr As SqlDataReader = cmd.ExecuteReader
 
                             recExist = dr.Read
                             If recExist = True Then
@@ -9423,16 +9408,15 @@ Public Class SSPPApplicationTrackingLog
                  "from AIRBRANCH.APBPermits " &
                  "where strFileName = :filename "
 
-                Dim parameter As New OracleParameter("filename", "PP-" & MasterApp)
+                Dim parameter As New SqlParameter("filename", "PP-" & MasterApp)
 
-                Using connection As New OracleConnection(DB.CurrentConnectionString)
-                    Using cmd As OracleCommand = connection.CreateCommand
+                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                    Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
-                        cmd.BindByName = True
                         cmd.CommandText = query
                         cmd.Parameters.Add(parameter)
                         cmd.Connection.Open()
-                        Using dr As OracleDataReader = cmd.ExecuteReader
+                        Using dr As SqlDataReader = cmd.ExecuteReader
 
                             recExist = dr.Read
                             If recExist = True Then
@@ -9543,16 +9527,15 @@ Public Class SSPPApplicationTrackingLog
                  "from AIRBRANCH.APBPermits " &
                  "where strFileName = :filename "
 
-                Dim parameter As New OracleParameter("filename", "PT-" & MasterApp)
+                Dim parameter As New SqlParameter("filename", "PT-" & MasterApp)
 
-                Using connection As New OracleConnection(DB.CurrentConnectionString)
-                    Using cmd As OracleCommand = connection.CreateCommand
+                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                    Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
-                        cmd.BindByName = True
                         cmd.CommandText = query
                         cmd.Parameters.Add(parameter)
                         cmd.Connection.Open()
-                        Using dr As OracleDataReader = cmd.ExecuteReader
+                        Using dr As SqlDataReader = cmd.ExecuteReader
 
                             recExist = dr.Read
                             If recExist = True Then
@@ -9663,16 +9646,15 @@ Public Class SSPPApplicationTrackingLog
                  "from AIRBRANCH.APBPermits " &
                  "where strFileName = :filename "
 
-                Dim parameter As New OracleParameter("filename", "PD-" & MasterApp)
+                Dim parameter As New SqlParameter("filename", "PD-" & MasterApp)
 
-                Using connection As New OracleConnection(DB.CurrentConnectionString)
-                    Using cmd As OracleCommand = connection.CreateCommand
+                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                    Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
-                        cmd.BindByName = True
                         cmd.CommandText = query
                         cmd.Parameters.Add(parameter)
                         cmd.Connection.Open()
-                        Using dr As OracleDataReader = cmd.ExecuteReader
+                        Using dr As SqlDataReader = cmd.ExecuteReader
 
                             recExist = dr.Read
                             If recExist = True Then
@@ -9783,16 +9765,15 @@ Public Class SSPPApplicationTrackingLog
                 "from AIRBRANCH.APBPermits " &
                 "where strFileName = :filename "
 
-                Dim parameter As New OracleParameter("filename", "PN-" & MasterApp)
+                Dim parameter As New SqlParameter("filename", "PN-" & MasterApp)
 
-                Using connection As New OracleConnection(DB.CurrentConnectionString)
-                    Using cmd As OracleCommand = connection.CreateCommand
+                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                    Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
-                        cmd.BindByName = True
                         cmd.CommandText = query
                         cmd.Parameters.Add(parameter)
                         cmd.Connection.Open()
-                        Using dr As OracleDataReader = cmd.ExecuteReader
+                        Using dr As SqlDataReader = cmd.ExecuteReader
 
                             recExist = dr.Read
                             If recExist = True Then
@@ -9903,16 +9884,15 @@ Public Class SSPPApplicationTrackingLog
                  "from AIRBRANCH.APBPermits " &
                  "where strFileName = :filename "
 
-                Dim parameter As New OracleParameter("filename", "PH-" & MasterApp)
+                Dim parameter As New SqlParameter("filename", "PH-" & MasterApp)
 
-                Using connection As New OracleConnection(DB.CurrentConnectionString)
-                    Using cmd As OracleCommand = connection.CreateCommand
+                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                    Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
-                        cmd.BindByName = True
                         cmd.CommandText = query
                         cmd.Parameters.Add(parameter)
                         cmd.Connection.Open()
-                        Using dr As OracleDataReader = cmd.ExecuteReader
+                        Using dr As SqlDataReader = cmd.ExecuteReader
 
                             recExist = dr.Read
                             If recExist = True Then
@@ -10023,16 +10003,15 @@ Public Class SSPPApplicationTrackingLog
                  "from AIRBRANCH.APBPermits " &
                  "where strFileName = :filename "
 
-                Dim parameter As New OracleParameter("filename", "PF-" & MasterApp)
+                Dim parameter As New SqlParameter("filename", "PF-" & MasterApp)
 
-                Using connection As New OracleConnection(DB.CurrentConnectionString)
-                    Using cmd As OracleCommand = connection.CreateCommand
+                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                    Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
-                        cmd.BindByName = True
                         cmd.CommandText = query
                         cmd.Parameters.Add(parameter)
                         cmd.Connection.Open()
-                        Using dr As OracleDataReader = cmd.ExecuteReader
+                        Using dr As SqlDataReader = cmd.ExecuteReader
 
                             recExist = dr.Read
                             If recExist = True Then
@@ -10143,16 +10122,15 @@ Public Class SSPPApplicationTrackingLog
                 "from AIRBRANCH.APBPermits " &
                 "where strFileName = :filename "
 
-                Dim parameter As New OracleParameter("filename", "PF-" & MasterApp)
+                Dim parameter As New SqlParameter("filename", "PF-" & MasterApp)
 
-                Using connection As New OracleConnection(DB.CurrentConnectionString)
-                    Using cmd As OracleCommand = connection.CreateCommand
+                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                    Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
-                        cmd.BindByName = True
                         cmd.CommandText = query
                         cmd.Parameters.Add(parameter)
                         cmd.Connection.Open()
-                        Using dr As OracleDataReader = cmd.ExecuteReader
+                        Using dr As SqlDataReader = cmd.ExecuteReader
 
                             recExist = dr.Read
                             If recExist = True Then
@@ -10262,16 +10240,15 @@ Public Class SSPPApplicationTrackingLog
                  "from AIRBRANCH.APBPermits " &
                  "where strFileName = :filename "
 
-                Dim parameter As New OracleParameter("filename", "ON-" & MasterApp)
+                Dim parameter As New SqlParameter("filename", "ON-" & MasterApp)
 
-                Using connection As New OracleConnection(DB.CurrentConnectionString)
-                    Using cmd As OracleCommand = connection.CreateCommand
+                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                    Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
-                        cmd.BindByName = True
                         cmd.CommandText = query
                         cmd.Parameters.Add(parameter)
                         cmd.Connection.Open()
-                        Using dr As OracleDataReader = cmd.ExecuteReader
+                        Using dr As SqlDataReader = cmd.ExecuteReader
 
                             recExist = dr.Read
                             If recExist = True Then
@@ -10383,16 +10360,15 @@ Public Class SSPPApplicationTrackingLog
                   "from AIRBRANCH.APBPermits " &
                   "where strFileName = :filename "
 
-                Dim parameter As New OracleParameter("filename", "OP-" & MasterApp)
+                Dim parameter As New SqlParameter("filename", "OP-" & MasterApp)
 
-                Using connection As New OracleConnection(DB.CurrentConnectionString)
-                    Using cmd As OracleCommand = connection.CreateCommand
+                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                    Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
-                        cmd.BindByName = True
                         cmd.CommandText = query
                         cmd.Parameters.Add(parameter)
                         cmd.Connection.Open()
-                        Using dr As OracleDataReader = cmd.ExecuteReader
+                        Using dr As SqlDataReader = cmd.ExecuteReader
 
                             recExist = dr.Read
                             If recExist = True Then
@@ -10923,19 +10899,18 @@ Public Class SSPPApplicationTrackingLog
             "and (AIRBRANCH.SSPPApplicationLinking.strApplicationNumber = :MasterApp " &
             "or AIRBRANCH.APBPermits.strFileName like :MasterAppFn ) "
 
-            Dim parameter As OracleParameter() = {
-                New OracleParameter("MasterApp", MasterApp),
-                New OracleParameter("MasterAppFn", "%-" & MasterApp)
+            Dim parameter As SqlParameter() = {
+                New SqlParameter("MasterApp", MasterApp),
+                New SqlParameter("MasterAppFn", "%-" & MasterApp)
             }
 
-            Using connection As New OracleConnection(DB.CurrentConnectionString)
-                Using cmd As OracleCommand = connection.CreateCommand
+            Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
-                    cmd.BindByName = True
                     cmd.CommandText = query
                     cmd.Parameters.AddRange(parameter)
                     cmd.Connection.Open()
-                    Using dr As OracleDataReader = cmd.ExecuteReader
+                    Using dr As SqlDataReader = cmd.ExecuteReader
 
                         While dr.Read
                             temp = dr.Item("strFileName")
@@ -10999,16 +10974,15 @@ Public Class SSPPApplicationTrackingLog
              "from AIRBRANCH.APBContactInformation " &
              "where strContactKey = :pKey "
 
-            Dim parameter As New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & "30")
+            Dim parameter As New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "30")
 
-            Using connection As New OracleConnection(DB.CurrentConnectionString)
-                Using cmd As OracleCommand = connection.CreateCommand
+            Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
-                    cmd.BindByName = True
                     cmd.CommandText = query
                     cmd.Parameters.Add(parameter)
                     cmd.Connection.Open()
-                    Using dr As OracleDataReader = cmd.ExecuteReader
+                    Using dr As SqlDataReader = cmd.ExecuteReader
                         While dr.Read
                             If IsDBNull(dr.Item("strContactFirstname")) Then
                                 txtContactFirstName.Clear()
@@ -11134,16 +11108,15 @@ Public Class SSPPApplicationTrackingLog
             "strEmailAddress, strPhone " &
             "from AIRBranch.EPDUserProfiles " &
             "where numUserID = :UserGCode "
-            Dim parameter As New OracleParameter("UserGCode", CurrentUser.UserID)
+            Dim parameter As New SqlParameter("UserGCode", CurrentUser.UserID)
 
-            Using connection As New OracleConnection(DB.CurrentConnectionString)
-                Using cmd As OracleCommand = connection.CreateCommand
+            Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
-                    cmd.BindByName = True
                     cmd.CommandText = query
                     cmd.Parameters.Add(parameter)
                     cmd.Connection.Open()
-                    Using dr As OracleDataReader = cmd.ExecuteReader
+                    Using dr As SqlDataReader = cmd.ExecuteReader
                         While dr.Read
                             StaffPhone = FormatDigitsAsPhoneNumber(DB.GetNullable(Of String)(dr.Item("strPhone")), True)
                             StaffEmail = DB.GetNullable(Of String)(dr.Item("strEmailAddress"))
@@ -11204,7 +11177,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Action As String = ""
             Dim i As Integer = 0
             Dim query As String
-            Dim parameter As OracleParameter()
+            Dim parameter As SqlParameter()
 
             dgvSIPSubParts.Rows.Clear()
             dgvSIPSubParts.Columns.Clear()
@@ -11257,16 +11230,15 @@ Public Class SSPPApplicationTrackingLog
             "where AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubpartSIP.strSubpart   " &
             "and AIRBRANCH.APBSubPartData.strSubpartKey = :pKey " &
             "and Active = '1' "
-            parameter = {New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & "0")}
+            parameter = {New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "0")}
 
-            Using connection As New OracleConnection(DB.CurrentConnectionString)
-                Using cmd As OracleCommand = connection.CreateCommand
+            Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
-                    cmd.BindByName = True
                     cmd.CommandText = query
                     cmd.Parameters.AddRange(parameter)
                     cmd.Connection.Open()
-                    Using dr As OracleDataReader = cmd.ExecuteReader
+                    Using dr As SqlDataReader = cmd.ExecuteReader
                         While dr.Read
                             dgvRow = New DataGridViewRow
                             dgvRow.CreateCells(dgvSIPSubParts)
@@ -11315,19 +11287,18 @@ Public Class SSPPApplicationTrackingLog
                     "order by createdatetime "
 
                     parameter = {
-                        New OracleParameter("airs", "0413" & txtAIRSNumber.Text),
-                        New OracleParameter("SubPart", SubPart),
-                        New OracleParameter("appnum", txtApplicationNumber.Text)
+                        New SqlParameter("airs", "0413" & txtAIRSNumber.Text),
+                        New SqlParameter("SubPart", SubPart),
+                        New SqlParameter("appnum", txtApplicationNumber.Text)
                     }
 
-                    Using connection As New OracleConnection(DB.CurrentConnectionString)
-                        Using cmd As OracleCommand = connection.CreateCommand
+                    Using connection As New SqlConnection(DB.CurrentConnectionString)
+                        Using cmd As SqlCommand = connection.CreateCommand
                             cmd.CommandType = CommandType.Text
-                            cmd.BindByName = True
                             cmd.CommandText = query
                             cmd.Parameters.AddRange(parameter)
                             cmd.Connection.Open()
-                            Using dr As OracleDataReader = cmd.ExecuteReader
+                            Using dr As SqlDataReader = cmd.ExecuteReader
                                 While dr.Read
                                     If IsDBNull(dr.Item("strApplicationNumber")) Then
                                     Else
@@ -11424,16 +11395,15 @@ Public Class SSPPApplicationTrackingLog
             "AIRBRANCH.SSPPSubpartData.strApplicationNumber   " &
             "and AIRBRANCH.SSPPSubPartData.strSubPart = AIRBRANCH.LookUpSubPartSIP.strSubPart  " &
             "and AIRBRANCH.SSPPSubpartData.strSubpartKey  = :pKey "
-            parameter = {New OracleParameter("pKey", txtApplicationNumber.Text & "0")}
+            parameter = {New SqlParameter("pKey", txtApplicationNumber.Text & "0")}
 
-            Using connection As New OracleConnection(DB.CurrentConnectionString)
-                Using cmd As OracleCommand = connection.CreateCommand
+            Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
-                    cmd.BindByName = True
                     cmd.CommandText = query
                     cmd.Parameters.AddRange(parameter)
                     cmd.Connection.Open()
-                    Using dr As OracleDataReader = cmd.ExecuteReader
+                    Using dr As SqlDataReader = cmd.ExecuteReader
                         While dr.Read
                             If IsDBNull(dr.Item("strApplicationNumber")) Then
                                 AppNum = ""
@@ -12135,7 +12105,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Action As String = ""
             Dim i As Integer = 0
             Dim query As String
-            Dim parameter As OracleParameter()
+            Dim parameter As SqlParameter()
 
             dgvNSPSSubParts.Rows.Clear()
             dgvNSPSSubParts.Columns.Clear()
@@ -12188,16 +12158,15 @@ Public Class SSPPApplicationTrackingLog
                 "where AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubpart60.strSubpart " &
                 "and AIRBRANCH.APBSubPartData.strSubpartKey = :pKey " &
                 "and Active = '1' "
-            parameter = {New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & "9")}
+            parameter = {New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "9")}
 
-            Using connection As New OracleConnection(DB.CurrentConnectionString)
-                Using cmd As OracleCommand = connection.CreateCommand
+            Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
-                    cmd.BindByName = True
                     cmd.CommandText = query
                     cmd.Parameters.AddRange(parameter)
                     cmd.Connection.Open()
-                    Using dr As OracleDataReader = cmd.ExecuteReader
+                    Using dr As SqlDataReader = cmd.ExecuteReader
                         While dr.Read
                             dgvRow = New DataGridViewRow
                             dgvRow.CreateCells(dgvNSPSSubParts)
@@ -12246,19 +12215,18 @@ Public Class SSPPApplicationTrackingLog
                     "order by createdatetime "
 
                     parameter = {
-                        New OracleParameter("airsnum", txtApplicationNumber.Text),
-                        New OracleParameter("Subpart", SubPart),
-                        New OracleParameter("appnum", txtApplicationNumber.Text)
+                        New SqlParameter("airsnum", txtApplicationNumber.Text),
+                        New SqlParameter("Subpart", SubPart),
+                        New SqlParameter("appnum", txtApplicationNumber.Text)
                     }
 
-                    Using connection As New OracleConnection(DB.CurrentConnectionString)
-                        Using cmd As OracleCommand = connection.CreateCommand
+                    Using connection As New SqlConnection(DB.CurrentConnectionString)
+                        Using cmd As SqlCommand = connection.CreateCommand
                             cmd.CommandType = CommandType.Text
-                            cmd.BindByName = True
                             cmd.CommandText = query
                             cmd.Parameters.AddRange(parameter)
                             cmd.Connection.Open()
-                            Using dr As OracleDataReader = cmd.ExecuteReader
+                            Using dr As SqlDataReader = cmd.ExecuteReader
                                 While dr.Read
                                     If IsDBNull(dr.Item("strApplicationNumber")) Then
                                     Else
@@ -12356,16 +12324,15 @@ Public Class SSPPApplicationTrackingLog
             "AIRBRANCH.SSPPSubpartData.strApplicationNumber   " &
             "and AIRBRANCH.SSPPSubPartData.strSubPart = AIRBRANCH.LookUpSubPart60.strSubPart  " &
             "and AIRBRANCH.SSPPSubpartData.strSubPartKey  = :pKey "
-            parameter = {New OracleParameter("pKey", txtApplicationNumber.Text & "9")}
+            parameter = {New SqlParameter("pKey", txtApplicationNumber.Text & "9")}
 
-            Using connection As New OracleConnection(DB.CurrentConnectionString)
-                Using cmd As OracleCommand = connection.CreateCommand
+            Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
-                    cmd.BindByName = True
                     cmd.CommandText = query
                     cmd.Parameters.AddRange(parameter)
                     cmd.Connection.Open()
-                    Using dr As OracleDataReader = cmd.ExecuteReader
+                    Using dr As SqlDataReader = cmd.ExecuteReader
                         While dr.Read
                             If IsDBNull(dr.Item("strApplicationNumber")) Then
                                 AppNum = ""
@@ -13012,7 +12979,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub DeleteProgramSubparts(appnum As String, programkey As String)
         Dim query As String = "Delete AIRBRANCH.SSPPSubpartData " &
             "where strSubpartKey = :pKey "
-        Dim parameter As New OracleParameter("pKey", appnum & programkey)
+        Dim parameter As New SqlParameter("pKey", appnum & programkey)
         DB.RunCommand(query, parameter)
     End Sub
 
@@ -13029,12 +12996,12 @@ Public Class SSPPApplicationTrackingLog
             "    :appnum, :pKey, :subpart, :activity, :pUser, sysdate, sysdate " &
             "  ) "
 
-        Dim parameters As OracleParameter() = {
-            New OracleParameter("appnum", appnum),
-            New OracleParameter("pKey", appnum & programKey),
-            New OracleParameter("subpart", subpart),
-            New OracleParameter("activity", activity),
-            New OracleParameter("pUser", CurrentUser.UserID)
+        Dim parameters As SqlParameter() = {
+            New SqlParameter("appnum", appnum),
+            New SqlParameter("pKey", appnum & programKey),
+            New SqlParameter("subpart", subpart),
+            New SqlParameter("activity", activity),
+            New SqlParameter("pUser", CurrentUser.UserID)
         }
         DB.RunCommand(query, parameters)
     End Sub
@@ -13075,23 +13042,22 @@ Public Class SSPPApplicationTrackingLog
             Dim Subpart As String = ""
             Dim Action As String = ""
             Dim i As Integer = 0
-            Dim parameter As OracleParameter()
+            Dim parameter As SqlParameter()
 
             Dim query As String = "Select " &
             "strSubpart " &
             "from AIRBRANCH.SSPPSubpartData " &
             "where strSubpartKey = :pKey " &
             "and strApplicationActivity = '1' "
-            parameter = {New OracleParameter("pKey", txtApplicationNumber.Text & "9")}
+            parameter = {New SqlParameter("pKey", txtApplicationNumber.Text & "9")}
 
-            Using connection As New OracleConnection(DB.CurrentConnectionString)
-                Using cmd As OracleCommand = connection.CreateCommand
+            Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
-                    cmd.BindByName = True
                     cmd.CommandText = query
                     cmd.Parameters.AddRange(parameter)
                     cmd.Connection.Open()
-                    Using dr As OracleDataReader = cmd.ExecuteReader
+                    Using dr As SqlDataReader = cmd.ExecuteReader
                         While dr.Read
                             If IsDBNull(dr.Item("strSubpart")) Then
                                 Subpart = ""
@@ -13114,9 +13080,9 @@ Public Class SSPPApplicationTrackingLog
                                         "where strSubpartKey = :pKey " &
                                         "and strSubpart = :Subpart "
                                     parameter = {
-                                        New OracleParameter("UserGCode", CurrentUser.UserID),
-                                        New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & "9"),
-                                        New OracleParameter("Subpart", Subpart)
+                                        New SqlParameter("UserGCode", CurrentUser.UserID),
+                                        New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "9"),
+                                        New SqlParameter("Subpart", Subpart)
                                     }
                                     DB.RunCommand(query, parameter)
 
@@ -13125,8 +13091,8 @@ Public Class SSPPApplicationTrackingLog
                                     "and strApplicationActivity = '1' " &
                                     "and strSubpart = :Subpart "
                                     parameter = {
-                                        New OracleParameter("pKey", txtApplicationNumber.Text & "9"),
-                                        New OracleParameter("Subpart", Subpart)
+                                        New SqlParameter("pKey", txtApplicationNumber.Text & "9"),
+                                        New SqlParameter("Subpart", Subpart)
                                     }
                                     DB.RunCommand(query, parameter)
                                 End If
@@ -13146,10 +13112,10 @@ Public Class SSPPApplicationTrackingLog
                 "where strSubpartKey = :pKey  " &
                 "and strSubpart = :Subpart "
                 parameter = {
-                    New OracleParameter("airsnum", "0413" & txtAIRSNumber.Text),
-                    New OracleParameter("UserGCode", CurrentUser.UserID),
-                    New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & "9"),
-                    New OracleParameter("Subpart", Subpart)
+                    New SqlParameter("airsnum", "0413" & txtAIRSNumber.Text),
+                    New SqlParameter("UserGCode", CurrentUser.UserID),
+                    New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "9"),
+                    New SqlParameter("Subpart", Subpart)
                 }
 
                 If DB.ValueExists(query, parameter) Then
@@ -13174,7 +13140,7 @@ Public Class SSPPApplicationTrackingLog
             query = "Delete AIRBRANCH.SSPPSubpartData " &
             "where strSubpartKey = :pKey " &
             "and strApplicationActivity <> '1' "
-            parameter = {New OracleParameter("pKey", txtApplicationNumber.Text & "9")}
+            parameter = {New SqlParameter("pKey", txtApplicationNumber.Text & "9")}
             DB.RunCommand(query, parameter)
 
             'Removed 
@@ -13188,9 +13154,9 @@ Public Class SSPPApplicationTrackingLog
                     "where strSubpartKey = :pKey " &
                     "and strSubpart = :Subpart "
                 parameter = {
-                    New OracleParameter("UserGCode", CurrentUser.UserID),
-                    New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & "9"),
-                    New OracleParameter("Subpart", Subpart)
+                    New SqlParameter("UserGCode", CurrentUser.UserID),
+                    New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "9"),
+                    New SqlParameter("Subpart", Subpart)
                 }
                 DB.RunCommand(query, parameter)
 
@@ -13200,10 +13166,10 @@ Public Class SSPPApplicationTrackingLog
                 "where strSubpartKey = :pKey " &
                 "and strSubpart = :Subpart "
                 parameter = {
-                    New OracleParameter("UserGCode", CurrentUser.UserID),
-                    New OracleParameter("appnum", txtApplicationNumber.Text),
-                    New OracleParameter("pKey", txtApplicationNumber.Text & "9"),
-                    New OracleParameter("Subpart", Subpart)
+                    New SqlParameter("UserGCode", CurrentUser.UserID),
+                    New SqlParameter("appnum", txtApplicationNumber.Text),
+                    New SqlParameter("pKey", txtApplicationNumber.Text & "9"),
+                    New SqlParameter("Subpart", Subpart)
                 }
 
                 If DB.ValueExists(query, parameter) Then
@@ -13240,10 +13206,10 @@ Public Class SSPPApplicationTrackingLog
                 "where strSubpartKey = :pKey " &
                 "and strSubpart = :Subpart "
                 parameter = {
-                    New OracleParameter("UserGCode", CurrentUser.UserID),
-                    New OracleParameter("appnum", txtApplicationNumber.Text),
-                    New OracleParameter("pKey", txtApplicationNumber.Text & "9"),
-                    New OracleParameter("Subpart", Subpart)
+                    New SqlParameter("UserGCode", CurrentUser.UserID),
+                    New SqlParameter("appnum", txtApplicationNumber.Text),
+                    New SqlParameter("pKey", txtApplicationNumber.Text & "9"),
+                    New SqlParameter("Subpart", Subpart)
                 }
 
                 Select Case Action
@@ -13303,9 +13269,9 @@ Public Class SSPPApplicationTrackingLog
             "from AIRBRANCH.AFSAirPollutantData " &
             "where strAirPollutantKey = :pKey "
             parameter = {
-                New OracleParameter("airsnum", "0413" & txtAIRSNumber.Text),
-                New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & "9"),
-                New OracleParameter("UserGCode", CurrentUser.UserID)
+                New SqlParameter("airsnum", "0413" & txtAIRSNumber.Text),
+                New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "9"),
+                New SqlParameter("UserGCode", CurrentUser.UserID)
             }
 
             If DB.ValueExists(query, parameter) Then
@@ -13372,7 +13338,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Action As String = ""
             Dim i As Integer = 0
             Dim query As String
-            Dim parameter As OracleParameter()
+            Dim parameter As SqlParameter()
 
             dgvNESHAPSubParts.Rows.Clear()
             dgvNESHAPSubParts.Columns.Clear()
@@ -13425,16 +13391,15 @@ Public Class SSPPApplicationTrackingLog
             "where AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubPart61.strSubpart   " &
             "and AIRBRANCH.APBSubPartData.strSubpartKey = :pKey " &
             "and Active = '1' "
-            parameter = {New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & "8")}
+            parameter = {New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "8")}
 
-            Using connection As New OracleConnection(DB.CurrentConnectionString)
-                Using cmd As OracleCommand = connection.CreateCommand
+            Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
-                    cmd.BindByName = True
                     cmd.CommandText = query
                     cmd.Parameters.AddRange(parameter)
                     cmd.Connection.Open()
-                    Using dr As OracleDataReader = cmd.ExecuteReader
+                    Using dr As SqlDataReader = cmd.ExecuteReader
                         While dr.Read
                             dgvRow = New DataGridViewRow
                             dgvRow.CreateCells(dgvNESHAPSubParts)
@@ -13483,19 +13448,18 @@ Public Class SSPPApplicationTrackingLog
                     "order by createdatetime "
 
                     parameter = {
-                        New OracleParameter("airsnum", "0413" & txtAIRSNumber.Text),
-                        New OracleParameter("SubPart", SubPart),
-                        New OracleParameter("appnum", txtApplicationNumber.Text)
+                        New SqlParameter("airsnum", "0413" & txtAIRSNumber.Text),
+                        New SqlParameter("SubPart", SubPart),
+                        New SqlParameter("appnum", txtApplicationNumber.Text)
                     }
 
-                    Using connection As New OracleConnection(DB.CurrentConnectionString)
-                        Using cmd As OracleCommand = connection.CreateCommand
+                    Using connection As New SqlConnection(DB.CurrentConnectionString)
+                        Using cmd As SqlCommand = connection.CreateCommand
                             cmd.CommandType = CommandType.Text
-                            cmd.BindByName = True
                             cmd.CommandText = query
                             cmd.Parameters.AddRange(parameter)
                             cmd.Connection.Open()
-                            Using dr As OracleDataReader = cmd.ExecuteReader
+                            Using dr As SqlDataReader = cmd.ExecuteReader
                                 While dr.Read
                                     If IsDBNull(dr.Item("strApplicationNumber")) Then
                                     Else
@@ -13592,16 +13556,15 @@ Public Class SSPPApplicationTrackingLog
             "AIRBRANCH.SSPPSubpartData.strApplicationNumber   " &
             "and AIRBRANCH.SSPPSubPartData.strSubPart = AIRBRANCH.LookUpSubPart61.strSubPart  " &
             "and AIRBRANCH.SSPPSubpartData.strSubPartKey  = :pKey "
-            parameter = {New OracleParameter("pKey", txtApplicationNumber.Text & "8")}
+            parameter = {New SqlParameter("pKey", txtApplicationNumber.Text & "8")}
 
-            Using connection As New OracleConnection(DB.CurrentConnectionString)
-                Using cmd As OracleCommand = connection.CreateCommand
+            Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
-                    cmd.BindByName = True
                     cmd.CommandText = query
                     cmd.Parameters.AddRange(parameter)
                     cmd.Connection.Open()
-                    Using dr As OracleDataReader = cmd.ExecuteReader
+                    Using dr As SqlDataReader = cmd.ExecuteReader
                         While dr.Read
                             If IsDBNull(dr.Item("strApplicationNumber")) Then
                                 AppNum = ""
@@ -14308,7 +14271,7 @@ Public Class SSPPApplicationTrackingLog
             Dim Action As String = ""
             Dim i As Integer = 0
             Dim query As String
-            Dim parameter As OracleParameter()
+            Dim parameter As SqlParameter()
 
             dgvMACTSubParts.Rows.Clear()
             dgvMACTSubParts.Columns.Clear()
@@ -14361,16 +14324,15 @@ Public Class SSPPApplicationTrackingLog
             "where AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubPart63.strSubpart   " &
             "and AIRBRANCH.APBSubPartData.strSubpartKey = :pKey " &
             "and Active = '1' "
-            parameter = {New OracleParameter("pKey", "0413" & txtAIRSNumber.Text & "M")}
+            parameter = {New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "M")}
 
-            Using connection As New OracleConnection(DB.CurrentConnectionString)
-                Using cmd As OracleCommand = connection.CreateCommand
+            Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
-                    cmd.BindByName = True
                     cmd.CommandText = query
                     cmd.Parameters.AddRange(parameter)
                     cmd.Connection.Open()
-                    Using dr As OracleDataReader = cmd.ExecuteReader
+                    Using dr As SqlDataReader = cmd.ExecuteReader
                         While dr.Read
                             dgvRow = New DataGridViewRow
                             dgvRow.CreateCells(dgvMACTSubParts)
@@ -14419,19 +14381,18 @@ Public Class SSPPApplicationTrackingLog
                     "order by createdatetime "
 
                     parameter = {
-                        New OracleParameter("airs", "0413" & txtAIRSNumber.Text),
-                        New OracleParameter("SubPart", SubPart),
-                        New OracleParameter("appnum", txtApplicationNumber.Text)
+                        New SqlParameter("airs", "0413" & txtAIRSNumber.Text),
+                        New SqlParameter("SubPart", SubPart),
+                        New SqlParameter("appnum", txtApplicationNumber.Text)
                     }
 
-                    Using connection As New OracleConnection(DB.CurrentConnectionString)
-                        Using cmd As OracleCommand = connection.CreateCommand
+                    Using connection As New SqlConnection(DB.CurrentConnectionString)
+                        Using cmd As SqlCommand = connection.CreateCommand
                             cmd.CommandType = CommandType.Text
-                            cmd.BindByName = True
                             cmd.CommandText = query
                             cmd.Parameters.AddRange(parameter)
                             cmd.Connection.Open()
-                            Using dr As OracleDataReader = cmd.ExecuteReader
+                            Using dr As SqlDataReader = cmd.ExecuteReader
                                 While dr.Read
                                     If IsDBNull(dr.Item("strApplicationNumber")) Then
                                     Else
@@ -14528,16 +14489,15 @@ Public Class SSPPApplicationTrackingLog
             "AIRBRANCH.SSPPSubpartData.strApplicationNumber   " &
             "and AIRBRANCH.SSPPSubPartData.strSubPart = AIRBRANCH.LookUpSubPart63.strSubPart  " &
             "and AIRBRANCH.SSPPSubpartData.strSubpartKey  = :pKey "
-            parameter = {New OracleParameter("pKey", txtApplicationNumber.Text & "M")}
+            parameter = {New SqlParameter("pKey", txtApplicationNumber.Text & "M")}
 
-            Using connection As New OracleConnection(DB.CurrentConnectionString)
-                Using cmd As OracleCommand = connection.CreateCommand
+            Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
-                    cmd.BindByName = True
                     cmd.CommandText = query
                     cmd.Parameters.AddRange(parameter)
                     cmd.Connection.Open()
-                    Using dr As OracleDataReader = cmd.ExecuteReader
+                    Using dr As SqlDataReader = cmd.ExecuteReader
                         While dr.Read
                             If IsDBNull(dr.Item("strApplicationNumber")) Then
                                 AppNum = ""

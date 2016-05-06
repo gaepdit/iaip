@@ -1,5 +1,3 @@
-Imports Oracle.ManagedDataAccess.Client
-
 Module AppVariables
 
     ' App-wide public variables 
@@ -7,7 +5,7 @@ Module AppVariables
 #Region " DB Connections "
 
     Friend CurrentServerEnvironment As DB.ServerEnvironment = DB.ServerEnvironment.PRD
-    Friend CurrentConnection As OracleConnection
+    Friend CurrentConnection As SqlClient.SqlConnection
 
 #End Region
 
@@ -69,8 +67,8 @@ Module AppVariables
     Public OracleDate As String = Format(Today, DateFormat) ' Replace in SQL with SYSDATE; replace in code with Today
     Public AccountFormAccess(150, 4) As String
 
-    Public cmd, cmd2 As OracleCommand
-    Public dr, dr2 As OracleDataReader
+    Public cmd, cmd2 As SqlClient.SqlCommand
+    Public dr, dr2 As SqlClient.SqlDataReader
     Public recExist As Boolean
     Public temp As String
 

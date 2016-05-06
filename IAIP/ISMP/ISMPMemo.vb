@@ -1,4 +1,4 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 'Imports System.Runtime.InteropServices
 
 Public Class ISMPMemo
@@ -71,8 +71,8 @@ Public Class ISMPMemo
 
     Sub SaveMemo()
         Dim SQL As String
-        Dim cmd As OracleCommand
-        Dim dr As OracleDataReader
+        Dim cmd As SqlCommand
+        Dim dr As SqlDataReader
         Dim dashes As String = "--------------------------------------------------------------------------------------------"
         Dim MemoTemp As String
 
@@ -86,7 +86,7 @@ Public Class ISMPMemo
                 SQL = "Select strReferenceNumber " &
                 "from AIRBRANCH.ISMPMaster " &
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
 
                 dr = cmd.ExecuteReader
                 Dim recExist As Boolean = dr.Read
@@ -94,7 +94,7 @@ Public Class ISMPMemo
                     SQL = "Select strMemorandumField " &
                     "from AIRBRANCH.ISMPTestREportMemo " &
                     "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
 
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
@@ -114,7 +114,7 @@ Public Class ISMPMemo
                         "values " &
                         "('" & txtReferenceNumber.Text & "', '" & Replace(txtMemoIN.Text, "'", "''") & "')"
                     End If
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     dr = cmd.ExecuteReader
                 End If
 
@@ -129,8 +129,8 @@ Public Class ISMPMemo
     End Sub
     Sub LoadMemo()
         Dim SQL As String
-        Dim cmd As OracleCommand
-        Dim dr As OracleDataReader
+        Dim cmd As SqlCommand
+        Dim dr As SqlDataReader
 
         Try
 
@@ -141,7 +141,7 @@ Public Class ISMPMemo
                 SQL = "Select strMemorandumField " &
                 "from AIRBRANCH.ISMPTestREportMemo " &
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
 
                 dr = cmd.ExecuteReader
                 Dim recExist As Boolean = dr.Read

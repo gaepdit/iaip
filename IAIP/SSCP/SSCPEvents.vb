@@ -1,4 +1,4 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 Imports System.Collections.Generic
 Imports Iaip.SharedData
 
@@ -6,13 +6,13 @@ Imports Iaip.SharedData
 Public Class SSCPEvents
     Inherits BaseForm
     Dim SQL As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
+    Dim cmd As SqlCommand
+    Dim dr As SqlDataReader
     Dim recExist As Boolean
     Dim dsNotifications As DataSet
     Friend WithEvents Label35 As System.Windows.Forms.Label
     Friend WithEvents cboStaffResponsible As System.Windows.Forms.ComboBox
-    Dim daNotifications As OracleDataAdapter
+    Dim daNotifications As SqlDataAdapter
 
     Dim ItemIsDeleted As Boolean = False
     Dim AIRSNumber As String = ""
@@ -88,7 +88,7 @@ Public Class SSCPEvents
             CurrentConnection.Open()
         End If
 
-        cmd = New OracleCommand(SQL, CurrentConnection)
+        cmd = New SqlCommand(SQL, CurrentConnection)
         dr = cmd.ExecuteReader
 
         While dr.Read
@@ -240,7 +240,7 @@ Public Class SSCPEvents
         "from AIRBRANCH.LookUPSSCPNotifications " &
         "order by strNotificationDESC "
 
-        daNotifications = New OracleDataAdapter(SQL, CurrentConnection)
+        daNotifications = New SqlDataAdapter(SQL, CurrentConnection)
 
         daNotifications.Fill(dsNotifications, "Notifications")
 
@@ -292,7 +292,7 @@ Public Class SSCPEvents
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
             recExist = dr.Read
@@ -349,7 +349,7 @@ Public Class SSCPEvents
             "from AIRBRANCH.APBSupplamentalData " &
             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -455,7 +455,7 @@ Public Class SSCPEvents
         "from AIRBRANCH.SSCPItemMaster " &
         "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
-        cmd = New OracleCommand(SQL, CurrentConnection)
+        cmd = New SqlCommand(SQL, CurrentConnection)
         If CurrentConnection.State = ConnectionState.Closed Then
             CurrentConnection.Open()
         End If
@@ -872,7 +872,7 @@ Public Class SSCPEvents
 
                 SQL = "Select strTrackingNumber from AIRBRANCH.SSCPREports where " &
                 "strTrackingNumber = '" & txtTrackingNumber.Text & "'"
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 recExist = dr.Read
@@ -895,7 +895,7 @@ Public Class SSCPEvents
                     "'" & Replace(GeneralComments, "'", "''") & "', '" & CurrentUser.UserID & "', " &
                     "'" & OracleDate & "', '1')"
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -919,7 +919,7 @@ Public Class SSCPEvents
                     "'" & Deviation & "', '" & Replace(GeneralComments, "'", "''") & "', " &
                     "'" & CurrentUser.UserID & "', '" & OracleDate & "')"
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -943,7 +943,7 @@ Public Class SSCPEvents
                     "datmodifingdate = '" & OracleDate & "' " &
                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "'"
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -955,7 +955,7 @@ Public Class SSCPEvents
                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "' " &
                     "and strSubmittalNumber = '" & NUPReportSubmittal.Value & "'"
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -998,7 +998,7 @@ Public Class SSCPEvents
                         "'" & CurrentUser.UserID & "', '" & OracleDate & "')"
                     End If
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1010,7 +1010,7 @@ Public Class SSCPEvents
                         SQL = "Update AIRBRANCH.SSCPItemMaster set " &
                         "datReceivedDate = '" & Me.DTPReportReceivedDate.Text & "' " &
                         "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -1087,7 +1087,7 @@ Public Class SSCPEvents
                 SQL = "Select * from AIRBRANCH.SSCPInspections " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 recExist = dr.Read
@@ -1127,7 +1127,7 @@ Public Class SSCPEvents
                     "where strtrackingNumber = '" & txtTrackingNumber.Text & "'"
                 End If
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
 
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -1180,7 +1180,7 @@ Public Class SSCPEvents
                 "from AIRBRANCH.SSCPACCS where " &
                 "strTrackingNumber = '" & txtTrackingNumber.Text & "'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 dr.Close()
@@ -1269,7 +1269,7 @@ Public Class SSCPEvents
                     "'" & CurrentUser.UserID & "', '" & OracleDate & "', '" & AccReportingYear & "', " &
                     "'" & AllDeviationsReported & "', '" & ResubmittalRequested & "')"
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1295,7 +1295,7 @@ Public Class SSCPEvents
                     "'" & OracleDate & "', '" & AccReportingYear & "', " &
                     "'" & AllDeviationsReported & "', '" & ResubmittalRequested & "')"
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1321,7 +1321,7 @@ Public Class SSCPEvents
                     "STRRESUBMITTALREQUIRED = '" & ResubmittalRequested & "' " &
                     "where strTrackingnumber = '" & txtTrackingNumber.Text & "'"
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1333,7 +1333,7 @@ Public Class SSCPEvents
                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "' " &
                     "and strSubmittalNumber = '" & NUPACCSubmittal.Text & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1380,7 +1380,7 @@ Public Class SSCPEvents
                         "'" & OracleDate & "', '" & AccReportingYear & "', " &
                         "'" & AllDeviationsReported & "', '" & ResubmittalRequested & "')"
                     End If
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1390,7 +1390,7 @@ Public Class SSCPEvents
                         SQL = "Update AIRBRANCH.SSCPItemMaster set " &
                         "datReceivedDate = '" & DTPACCReceivedDate.Text & "' " &
                         "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -1448,7 +1448,7 @@ Public Class SSCPEvents
             "from AIRBRANCH.SSCPTestReports " &
             "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
             recExist = dr.Read
@@ -1474,7 +1474,7 @@ Public Class SSCPEvents
                 "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
             End If
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
             dr.Close()
 
@@ -1482,7 +1482,7 @@ Public Class SSCPEvents
             "from AIRBRANCH.APBSupplamentalData " &
             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1494,7 +1494,7 @@ Public Class SSCPEvents
                 SQL = "Update AIRBRANCH.APBSupplamentalData set " &
                 "datSSCPTestReportDue = '" & DTPTestReportNewDueDate.Text & "' " &
                 "where strAIRSNUmber = '0413" & txtAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1507,7 +1507,7 @@ Public Class SSCPEvents
                 SQL = "Update AIRBRANCH.SSCPItemMaster set " &
                 "datReceivedDate = '" & Me.DTPTestReportReceivedDate.Text & "' " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1568,7 +1568,7 @@ Public Class SSCPEvents
             "from AIRBRANCH.SSCPNotifications " &
             "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1604,14 +1604,14 @@ Public Class SSCPEvents
                 "'" & OracleDate & "') "
             End If
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
             If Me.chbNotificationReceivedByAPB.Checked = True Then
                 SQL = "Update AIRBRANCH.SSCPItemMaster set " &
                 "datReceivedDate = '" & DTPNotificationReceived.Text & "' " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1641,7 +1641,7 @@ Public Class SSCPEvents
             "from AIRBRANCH.SSCPItemMaster " &
             "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1672,7 +1672,7 @@ Public Class SSCPEvents
                 "strDelete = '' " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1684,7 +1684,7 @@ Public Class SSCPEvents
                     "from AIRBRANCH.AFSSSCPRecords " &
                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1704,7 +1704,7 @@ Public Class SSCPEvents
                                 "strUpDateStatus = 'C' " &
                                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
-                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                cmd = New SqlCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
                                     CurrentConnection.Open()
                                 End If
@@ -1723,7 +1723,7 @@ Public Class SSCPEvents
                             "from AIRBRANCH.APBSupplamentalData " &
                             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            cmd = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
                             End If
@@ -1742,7 +1742,7 @@ Public Class SSCPEvents
                             "'A', '" & CurrentUser.UserID & "', " &
                             "'" & OracleDate & "') "
 
-                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            cmd = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
                             End If
@@ -1754,7 +1754,7 @@ Public Class SSCPEvents
                             SQL = "Update AIRBRANCH.APBSupplamentalData set " &
                             "strAFSActionNUmber = '" & ActionNumber & "' " &
                             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            cmd = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
                             End If
@@ -1770,7 +1770,7 @@ Public Class SSCPEvents
                     "where strTrackingnumber = '" & CStr(CInt(txtTrackingNumber.Text + 1)) & "' " &
                     "and streventType = '06' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1783,7 +1783,7 @@ Public Class SSCPEvents
                         "from AIRBRANCH.AFSSSCPRecords " &
                         "where strTrackingNumber = '" & CStr(CInt(txtTrackingNumber.Text + 1)) & "' "
 
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -1803,7 +1803,7 @@ Public Class SSCPEvents
                                     "strUpDateStatus = 'C' " &
                                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
-                                    cmd = New OracleCommand(SQL, CurrentConnection)
+                                    cmd = New SqlCommand(SQL, CurrentConnection)
                                     If CurrentConnection.State = ConnectionState.Closed Then
                                         CurrentConnection.Open()
                                     End If
@@ -1819,7 +1819,7 @@ Public Class SSCPEvents
                             "from AIRBRANCH.APBSupplamentalData " &
                             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            cmd = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
                             End If
@@ -1838,7 +1838,7 @@ Public Class SSCPEvents
                             "'A', '" & CurrentUser.UserID & "', " &
                             "'" & OracleDate & "') "
 
-                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            cmd = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
                             End If
@@ -1850,7 +1850,7 @@ Public Class SSCPEvents
                             SQL = "Update AIRBRANCH.APBSupplamentalData set " &
                             "strAFSActionNUmber = '" & ActionNumber & "' " &
                             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            cmd = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
                             End If
@@ -1865,7 +1865,7 @@ Public Class SSCPEvents
                     "from AIRBRANCH.AFSSSCPRecords " &
                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1885,7 +1885,7 @@ Public Class SSCPEvents
                                 "strUpDateStatus = 'C' " &
                                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
-                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                cmd = New SqlCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
                                     CurrentConnection.Open()
                                 End If
@@ -1901,7 +1901,7 @@ Public Class SSCPEvents
                         "from AIRBRANCH.APBSupplamentalData " &
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -1920,7 +1920,7 @@ Public Class SSCPEvents
                         "'A', '" & CurrentUser.UserID & "', " &
                         "'" & OracleDate & "') "
 
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -1932,7 +1932,7 @@ Public Class SSCPEvents
                         SQL = "Update AIRBRANCH.APBSupplamentalData set " &
                         "strAFSActionNUmber = '" & ActionNumber & "' " &
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -1981,7 +1981,7 @@ Public Class SSCPEvents
                     CurrentConnection.Open()
                 End If
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 recExist = dr.Read
@@ -2053,7 +2053,7 @@ Public Class SSCPEvents
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' " &
                 "and strSubmittalNumber = '" & NUPReportSubmittal.Value & "'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 recExist = dr.Read
@@ -2110,7 +2110,7 @@ Public Class SSCPEvents
     End Sub
     Sub LoadReportSubmittalDGR()
         Dim dsReportsDGR As DataSet
-        Dim daReportsDGR As OracleDataAdapter
+        Dim daReportsDGR As SqlDataAdapter
 
         Try
 
@@ -2123,9 +2123,9 @@ Public Class SSCPEvents
 
             dsReportsDGR = New DataSet
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
-            daReportsDGR = New OracleDataAdapter(cmd)
+            daReportsDGR = New SqlDataAdapter(cmd)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -2210,7 +2210,7 @@ Public Class SSCPEvents
                 "from AIRBRANCH.SSCPInspections " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
 
@@ -2297,7 +2297,7 @@ Public Class SSCPEvents
                 "from AIRBRANCH.SSCPACCS " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 recExist = dr.Read
@@ -2515,7 +2515,7 @@ Public Class SSCPEvents
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' " &
                 "and strSubmittalNumber = '" & NUPACCSubmittal.Value & "'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 recExist = dr.Read
@@ -2705,7 +2705,7 @@ Public Class SSCPEvents
     End Sub
     Sub LoadACCSubmittalDGR()
         Dim dsACCsDGR As DataSet
-        Dim daACCsDGR As OracleDataAdapter
+        Dim daACCsDGR As SqlDataAdapter
 
         Try
 
@@ -2718,9 +2718,9 @@ Public Class SSCPEvents
 
             dsACCsDGR = New DataSet
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
-            daACCsDGR = New OracleDataAdapter(cmd)
+            daACCsDGR = New SqlDataAdapter(cmd)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -2801,7 +2801,7 @@ Public Class SSCPEvents
                 "from AIRBRANCH.SSCPTestReports " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 recExist = dr.Read
@@ -2835,7 +2835,7 @@ Public Class SSCPEvents
                     SQL = "Select datReceivedDate, datCompleteDate " &
                     "from AIRBRANCH.ISMPReportInformation " &
                     "where strReferenceNumber = '" & txtISMPReferenceNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -2859,7 +2859,7 @@ Public Class SSCPEvents
                 "from AIRBRANCH.APBSupplamentalData " &
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = True Then
@@ -2879,7 +2879,7 @@ Public Class SSCPEvents
                     "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.LookUPPollutants " &
                     "where strReferenceNumber = '" & txtISMPReferenceNumber.Text & "' " &
                     "and AIRBRANCH.ISMPReportInformation.strPollutant = AIRBRANCH.LookUPPollutants.strPollutantCode "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -2921,7 +2921,7 @@ Public Class SSCPEvents
                 "From AIRBRANCH.SSCPNotifications " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
 
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -3055,7 +3055,7 @@ Public Class SSCPEvents
                 " FROM AIRBRANCH.AFSSSCPRECORDS " &
                 " WHERE RowNum = 1 AND STRUPDATESTATUS  <> 'A' " &
                 " AND STRTRACKINGNUMBER = :pId "
-            Dim parameter As OracleParameter = New OracleParameter("pId", txtTrackingNumber.Text)
+            Dim parameter As SqlParameter = New SqlParameter("pId", txtTrackingNumber.Text)
             recExist = Convert.ToBoolean(DB.GetSingleValue(Of String)(query, parameter))
 
             If recExist = True Then
@@ -3067,12 +3067,12 @@ Public Class SSCPEvents
 
             ' Delete record from AFSSSCPRECORDS and mark as deleted in SSCP item master
             Dim queryList As New List(Of String)
-            Dim parametersList As New List(Of OracleParameter())
-            Dim parameters As OracleParameter()
+            Dim parametersList As New List(Of SqlParameter())
+            Dim parameters As SqlParameter()
 
             query = " DELETE FROM AIRBRANCH.AFSSSCPRECORDS WHERE STRTRACKINGNUMBER = :pId "
             queryList.Add(query)
-            parameters = New OracleParameter() {New OracleParameter("pId", txtTrackingNumber.Text)}
+            parameters = New SqlParameter() {New SqlParameter("pId", txtTrackingNumber.Text)}
             parametersList.Add(parameters)
 
             query = " UPDATE AIRBRANCH.SSCPITEMMASTER SET STRDELETE = '" & Boolean.TrueString & "' " &

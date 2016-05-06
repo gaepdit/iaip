@@ -1,13 +1,13 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 Imports System.IO
 
 Public Class SSPPPublicNoticiesAndAdvisories
     Dim SQL As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
+    Dim cmd As SqlCommand
+    Dim dr As SqlDataReader
     Dim recExist As Boolean
     Dim dsPublicLetters As DataSet
-    Dim daPublicLetters As OracleDataAdapter
+    Dim daPublicLetters As SqlDataAdapter
 
 
     Private Sub DevPublicNoticiesAndAdvisories_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -85,7 +85,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
             dsPublicLetters = New DataSet
 
-            daPublicLetters = New OracleDataAdapter(SQL, CurrentConnection)
+            daPublicLetters = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -144,7 +144,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "from AIRBRANCH.SSPPPublicLetters " &
             "order by datPublishedDate "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -205,7 +205,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "and strPublicInvolvement = '1' " &
             AppNumbers
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -236,7 +236,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "and (datPNExpires > (sysdate + 24) and datPNExpires < (sysdate + 37)) " &
              AppNumbers
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -274,7 +274,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 SIPAppNumbers &
                 "order by strCountyName "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -379,7 +379,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 TVAppNumbers &
                 "order by strCountyName "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -496,7 +496,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode  " &
             "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+)  " &
             "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberEditor.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -621,7 +621,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode  " &
             "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+)  " &
             "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberEditor.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -778,7 +778,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 SQLLine &
                 "order by strCountyName "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -858,7 +858,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 SQLLine &
                 "order by strCountyName "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -938,7 +938,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "and strApplicationType = '16'  " &
                 "order by strCountyName "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1019,7 +1019,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "and (strApplicationType = '21' or strApplicationType = '22')  " &
                 "order by strCountyName "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1404,7 +1404,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 SQL = "select strFileName " &
                 "From AIRBRANCH.SSPPPublicLetters " &
                 "where strFileName = '" & FileName & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1509,7 +1509,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "from AIRBRANCH.SSPPPublicLetters " &
                 "where strFileName = '" & FileName & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1557,7 +1557,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 If FileName <> "" Then
                     SQL = "Delete AIRBRANCH.SSPPPublicLetters " &
                     "where strFileName = '" & FileName & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1571,7 +1571,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     fs.Write(bytedata, 0, bytedata.Length)
                     fs.Close()
 
-                    Dim da As OracleDataAdapter
+                    Dim da As SqlDataAdapter
                     Dim ds As DataSet
 
                     SQL = "Select * " &
@@ -1581,8 +1581,8 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
-                    da = New OracleDataAdapter(SQL, CurrentConnection)
-                    Dim cmdCB As OracleCommandBuilder = New OracleCommandBuilder(da)
+                    da = New SqlDataAdapter(SQL, CurrentConnection)
+                    Dim cmdCB As SqlCommandBuilder = New SqlCommandBuilder(da)
                     ds = New DataSet("IAIPData")
                     da.MissingSchemaAction = MissingSchemaAction.AddWithKey
 
@@ -1625,7 +1625,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     SQLLine = Mid(SQLLine, 1, (SQLLine.Length - 3))
                 End If
                 SQL = SQL & SQLLine
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1635,7 +1635,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 SQL = "Update AIRBRANCH.SSPPApplicationTracking set " &
                 "datPAExpires = '" & Me.DTPPADeadline.Text & "' " &
                 "where " & SQLLine
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1659,7 +1659,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     SQLLine = Mid(SQLLine, 1, (SQLLine.Length - 3))
                 End If
                 SQL = SQL & SQLLine
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1721,7 +1721,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "from AIRBRANCH.SSPPPublicLetters " &
             "where strFileName = '" & cboPAPNReports.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2033,7 +2033,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "from AIRBRANCH.SSPPPublicLetters " &
                 "where strFileName = '" & FileName & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2080,7 +2080,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 If FileName <> "" Then
                     SQL = "Delete AIRBRANCH.SSPPPublicLetters " &
                     "where strFileName = '" & FileName & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -2094,7 +2094,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     fs.Write(bytedata, 0, bytedata.Length)
                     fs.Close()
 
-                    Dim da As OracleDataAdapter
+                    Dim da As SqlDataAdapter
                     Dim ds As DataSet
 
                     SQL = "Select * " &
@@ -2104,8 +2104,8 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
-                    da = New OracleDataAdapter(SQL, CurrentConnection)
-                    Dim cmdCB As OracleCommandBuilder = New OracleCommandBuilder(da)
+                    da = New SqlDataAdapter(SQL, CurrentConnection)
+                    Dim cmdCB As SqlCommandBuilder = New SqlCommandBuilder(da)
                     ds = New DataSet("IAIPData")
                     da.MissingSchemaAction = MissingSchemaAction.AddWithKey
 

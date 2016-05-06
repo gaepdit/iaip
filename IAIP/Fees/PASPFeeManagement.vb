@@ -1,10 +1,10 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 Imports System.Collections.Generic
 
 Public Class PASPFeeManagement
     Dim SQL As String
     Dim ds As DataSet
-    Dim da As OracleDataAdapter
+    Dim da As SqlDataAdapter
 
     Private Sub PASPFeeManagement_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
@@ -55,7 +55,7 @@ Public Class PASPFeeManagement
             "order by numFeeYear desc "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, CurrentConnection)
+            da = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -183,7 +183,7 @@ Public Class PASPFeeManagement
             "order by NSPSReasonCode "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, CurrentConnection)
+            da = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -236,7 +236,7 @@ Public Class PASPFeeManagement
             "order by NSPSReasonCode "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, CurrentConnection)
+            da = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -527,7 +527,7 @@ Public Class PASPFeeManagement
             " and active = '1' " &
             "order by NSPSReasonCode "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -672,7 +672,7 @@ Public Class PASPFeeManagement
                 "where intYear = '" & dgvNSPSExemptionsByYear(0, dgvNSPSExemptionsByYear.CurrentRow.Index).Value & "' " &
                 "and (strNSPSReason like '%" & ReasonID & ",' or strNSPSReason = '" & ReasonID & "' or strNSPSReason like '%," & ReasonID & "') "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -712,7 +712,7 @@ Public Class PASPFeeManagement
                     "where intYear = '" & dgvNSPSExemptionsByYear(0, dgvNSPSExemptionsByYear.CurrentRow.Index).Value & "' " &
                     "and (strNSPSReason like '%" & ReasonID & ",' or strNSPSReason = '" & ReasonID & "' or strNSPSReason like '%," & ReasonID & "') "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -753,7 +753,7 @@ Public Class PASPFeeManagement
             "from AIRBRANCH.FSLK_NSPSReasonYear " &
             "where numFeeYear = '" & cboNSPSExemptionYear.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -777,7 +777,7 @@ Public Class PASPFeeManagement
                 "from AIRBRANCH.FSLK_NSPSReasonYear " &
                 "where numFeeYear = '" & cboNSPSExemptionYear.Text & "' " &
                 "and NSPSReasonCode = '" & ReasonID & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -953,7 +953,7 @@ Public Class PASPFeeManagement
             "and strEnrolled = '1' " &
             "and ACTIVE = '1' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -980,7 +980,7 @@ Public Class PASPFeeManagement
              "numCurrentStatus = 3 " &
             "where numFeeYear = '" & cboAvailableFeeYears.Text & "' " &
             "and ACTIVE = '1' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -993,7 +993,7 @@ Public Class PASPFeeManagement
             "and datInitialEnrollment is null " &
             "and ACTIVE = '1' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1003,11 +1003,11 @@ Public Class PASPFeeManagement
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
-            cmd = New OracleCommand("AIRBranch.PD_FEE_DATA", CurrentConnection)
+            cmd = New SqlCommand("AIRBranch.PD_FEE_DATA", CurrentConnection)
             cmd.CommandType = CommandType.StoredProcedure
 
-            cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = cboAvailableFeeYears.Text
-            cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleDbType.Varchar2)).Value = ""
+            cmd.Parameters.Add(New SqlParameter("FeeYear", SqlDbType.Decimal)).Value = cboAvailableFeeYears.Text
+            cmd.Parameters.Add(New SqlParameter("AIRSNumber", SqlDbType.VarChar)).Value = ""
 
             cmd.ExecuteNonQuery()
 
@@ -1052,7 +1052,7 @@ Public Class PASPFeeManagement
             "UpdateDateTime = '" & OracleDate & "' " &
             "where numFeeYear = '" & cboAvailableFeeYears.Text & "' " &
             "and ACTIVE = '1' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1103,7 +1103,7 @@ Public Class PASPFeeManagement
             "AND AIRBRANCH.FS_Admin.Active = '1' "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, CurrentConnection)
+            da = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1181,7 +1181,7 @@ Public Class PASPFeeManagement
             "from AIRBranch.FS_MailOut " &
             "where numfeeyear = '" & cboAvailableFeeYears.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1199,22 +1199,22 @@ Public Class PASPFeeManagement
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
-                cmd = New OracleCommand("AIRBranch.PD_FEE_MAILOUT", CurrentConnection)
+                cmd = New SqlCommand("AIRBranch.PD_FEE_MAILOUT", CurrentConnection)
                 cmd.CommandType = CommandType.StoredProcedure
 
-                cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = cboAvailableFeeYears.Text
-                cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleDbType.Varchar2)).Value = ""
+                cmd.Parameters.Add(New SqlParameter("FeeYear", SqlDbType.Decimal)).Value = cboAvailableFeeYears.Text
+                cmd.Parameters.Add(New SqlParameter("AIRSNumber", SqlDbType.VarChar)).Value = ""
 
                 cmd.ExecuteNonQuery()
 
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
-                cmd = New OracleCommand("AIRBranch.PD_FEE_DATA", CurrentConnection)
+                cmd = New SqlCommand("AIRBranch.PD_FEE_DATA", CurrentConnection)
                 cmd.CommandType = CommandType.StoredProcedure
 
-                cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = cboAvailableFeeYears.Text
-                cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleDbType.Varchar2)).Value = ""
+                cmd.Parameters.Add(New SqlParameter("FeeYear", SqlDbType.Decimal)).Value = cboAvailableFeeYears.Text
+                cmd.Parameters.Add(New SqlParameter("AIRSNumber", SqlDbType.VarChar)).Value = ""
 
                 cmd.ExecuteNonQuery()
 
@@ -1226,7 +1226,7 @@ Public Class PASPFeeManagement
                 "and strMailoutSent <> '0' " &
                 "and numCurrentStatus < 5 "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1276,7 +1276,7 @@ Public Class PASPFeeManagement
             "AND AIRBRANCH.FS_Admin.Active = '1' "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, CurrentConnection)
+            da = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1368,7 +1368,7 @@ Public Class PASPFeeManagement
             "from AIRBRANCH.FS_Admin " &
             "where numFeeYear = '" & cboAvailableFeeYears.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1385,7 +1385,7 @@ Public Class PASPFeeManagement
                     "where strAIRSNumber = '" & AIRSNumber & "' " &
                     "and strKey = '40' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1458,20 +1458,20 @@ Public Class PASPFeeManagement
                     "where strAIRSNumber = :AIRSNumber " &
                     "and numFeeYear = :AvailableFeeYears "
 
-                    Dim parameters As OracleParameter()
-                    parameters = New OracleParameter() {
-                        New OracleParameter("ContactFirstName", ContactFirstName),
-                        New OracleParameter("ContactLastName", ContactLastName),
-                        New OracleParameter("ContactPrefix", ContactPrefix),
-                        New OracleParameter("ContactSuffix", ContactSuffix),
-                        New OracleParameter("ContactCompanyName", ContactCompanyName),
-                        New OracleParameter("ContactAddress1", ContactAddress),
-                        New OracleParameter("ContactAddress2", ContactAddress),
-                        New OracleParameter("ContactCity", ContactCity),
-                        New OracleParameter("ContactState", ContactState),
-                        New OracleParameter("ContactZipCode", ContactZipCode),
-                        New OracleParameter("AIRSNumber", AIRSNumber),
-                        New OracleParameter("AvailableFeeYears", cboAvailableFeeYears.Text)
+                    Dim parameters As SqlParameter()
+                    parameters = New SqlParameter() {
+                        New SqlParameter("ContactFirstName", ContactFirstName),
+                        New SqlParameter("ContactLastName", ContactLastName),
+                        New SqlParameter("ContactPrefix", ContactPrefix),
+                        New SqlParameter("ContactSuffix", ContactSuffix),
+                        New SqlParameter("ContactCompanyName", ContactCompanyName),
+                        New SqlParameter("ContactAddress1", ContactAddress),
+                        New SqlParameter("ContactAddress2", ContactAddress),
+                        New SqlParameter("ContactCity", ContactCity),
+                        New SqlParameter("ContactState", ContactState),
+                        New SqlParameter("ContactZipCode", ContactZipCode),
+                        New SqlParameter("AIRSNumber", AIRSNumber),
+                        New SqlParameter("AvailableFeeYears", cboAvailableFeeYears.Text)
                     }
                     DB.RunCommand(SQL, parameters)
 
@@ -1567,7 +1567,7 @@ Public Class PASPFeeManagement
           "AND AIRBRANCH.FS_Admin.Active = '1' "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, CurrentConnection)
+            da = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1642,7 +1642,7 @@ Public Class PASPFeeManagement
             " and strEnrolled = '1' " &
             " and active = '1' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1753,7 +1753,7 @@ Public Class PASPFeeManagement
                 SQL = "Select strFacilityName " &
                 "from AIRBRANCH.APBFacilityInformation " &
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1793,7 +1793,7 @@ Public Class PASPFeeManagement
                 dgvUsers.Rows.Clear()
                 ds = New DataSet
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1841,7 +1841,7 @@ Public Class PASPFeeManagement
                 End While
                 dr.Close()
 
-                da = New OracleDataAdapter(SQL, CurrentConnection)
+                da = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1864,7 +1864,7 @@ Public Class PASPFeeManagement
             SQL = "Select numUserId " &
             "from AIRBRANCH.olapuserlogin " &
             "where struseremail = '" & Replace(UCase(txtEmail.Text), "'", "''") & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1877,7 +1877,7 @@ Public Class PASPFeeManagement
                 "(numUserId, strAirsNumber, strFacilityName) values( " &
                 "'" & userID & "', '0413" & mtbAIRSNumber.Text & "', '" & Replace(lblFaciltyName.Text, "'", "''") & "') "
 
-                Dim cmd1 As New OracleCommand(InsertString, CurrentConnection)
+                Dim cmd1 As New SqlCommand(InsertString, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1902,7 +1902,7 @@ Public Class PASPFeeManagement
             "WHERE numUserID = '" & cboUsers.SelectedValue & "' " &
             "and strAirsNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1952,7 +1952,7 @@ Public Class PASPFeeManagement
                 "WHERE numUserID = '" & dgvUsers(1, i).Value & "' " &
                 "and strAirsNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1990,7 +1990,7 @@ Public Class PASPFeeManagement
             "where AIRBRANCH.OLAPUserProfile.numUserID = AIRBRANCH.OLAPUserLogIn.numuserid " &
             "and strUserEmail = upper('" & UserData & "') "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2126,7 +2126,7 @@ Public Class PASPFeeManagement
             dgvUserFacilities.Rows.Clear()
             ds = New DataSet
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2170,7 +2170,7 @@ Public Class PASPFeeManagement
             End While
             dr.Close()
 
-            da = New OracleDataAdapter(SQL, CurrentConnection)
+            da = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2259,7 +2259,7 @@ Public Class PASPFeeManagement
                 "numUserID = '" & txtWebUserID.Text & "' " &
                 "where numUserID = '" & txtWebUserID.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2306,7 +2306,7 @@ Public Class PASPFeeManagement
                 "strUserPassword = '" & getMd5Hash(txtEditUserPassword.Text) & "' " &
                 "where numUserID = '" & txtWebUserID.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2343,7 +2343,7 @@ Public Class PASPFeeManagement
                     "from AIRBRANCH.OLAPUserLogIN " &
                     "where upper(strUserEmail) = '" & Replace(txtEditEmail.Text.ToUpper, "'", "''") & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -2369,7 +2369,7 @@ Public Class PASPFeeManagement
                     "strUserEmail = '" & Replace(txtEditEmail.Text.ToUpper, "'", "''") & "' " &
                     "where numUserID = '" & txtWebUserID.Text & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -2407,7 +2407,7 @@ Public Class PASPFeeManagement
                 "where numUserId = '" & txtWebUserID.Text & "' " &
                 "and strAirsNumber = '0413" & mtbFacilityToAdd.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2424,7 +2424,7 @@ Public Class PASPFeeManagement
                      "from AIRBRANCH.APBFacilityInformation " &
                      "where strAIRSnumber = '0413" & mtbFacilityToAdd.Text & "')) "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -2450,7 +2450,7 @@ Public Class PASPFeeManagement
                 "WHERE numUserID = '" & txtWebUserID.Text & "' " &
                 "and strAirsNumber = '0413" & cboFacilityToDelete.SelectedValue & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2503,7 +2503,7 @@ Public Class PASPFeeManagement
                 "WHERE numUserID = '" & txtWebUserID.Text & "' " &
                 "and strAirsNumber = '0413" & dgvUserFacilities(0, i).Value & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2645,7 +2645,7 @@ Public Class PASPFeeManagement
             "'" & ThirdQrtDue & "', '" & FourthQrtDue & "', " &
             "'', '" & AAThres & "', '" & NAThres & "') "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2758,7 +2758,7 @@ Public Class PASPFeeManagement
             "numNAThres = '" & NAThres & "' " &
             "where numFeeRateID = '" & FeeRateID & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2780,7 +2780,7 @@ Public Class PASPFeeManagement
             "'1', '" & CurrentUser.UserID & "', " &
             "'" & OracleDate & "', '" & OracleDate & "') "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2812,7 +2812,7 @@ Public Class PASPFeeManagement
                 "where NSPSReasonCode = '" & NSPSReasonCode & "' "
             End If
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2835,7 +2835,7 @@ Public Class PASPFeeManagement
             "'" & CurrentUser.UserID & "', '" & OracleDate & "', " &
             "'" & OracleDate & "') "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2858,7 +2858,7 @@ Public Class PASPFeeManagement
             "where numFeeYear = '" & numFeeYear & "' " &
             "and NSPSReasonCode = '" & NSPSReasonCode & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If

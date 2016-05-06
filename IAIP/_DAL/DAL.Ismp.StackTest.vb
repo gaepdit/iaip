@@ -1,4 +1,4 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 Imports Iaip.Apb.Sscp
 Imports System.Collections.Generic
 
@@ -18,7 +18,7 @@ Namespace DAL.Ismp
                 " FROM AIRBRANCH.ISMPREPORTINFORMATION " &
                 " WHERE RowNum = 1 " &
                 " AND STRREFERENCENUMBER = :ReferenceNumber "
-            Dim parameter As New OracleParameter("ReferenceNumber", referenceNumber)
+            Dim parameter As New SqlParameter("ReferenceNumber", referenceNumber)
 
             Return DB.GetBoolean(query, parameter)
         End Function
@@ -35,7 +35,7 @@ Namespace DAL.Ismp
                 " FROM AIRBRANCH.ISMPTESTNOTIFICATION " &
                 " WHERE RowNum = 1 " &
                 " AND STRTESTLOGNUMBER = :NotificationNumber "
-            Dim parameter As New OracleParameter("NotificationNumber", notificationNumber)
+            Dim parameter As New SqlParameter("NotificationNumber", notificationNumber)
 
             Return DB.GetBoolean(query, parameter)
         End Function
@@ -51,7 +51,7 @@ Namespace DAL.Ismp
             Dim query As String = "SELECT STRCLOSED " &
                 " FROM AIRBRANCH.ISMPREPORTINFORMATION " &
                 " WHERE STRREFERENCENUMBER = :ReferenceNumber "
-            Dim parameter As New OracleParameter("ReferenceNumber", referenceNumber)
+            Dim parameter As New SqlParameter("ReferenceNumber", referenceNumber)
 
             Return DB.GetBoolean(query, parameter)
         End Function
@@ -66,7 +66,7 @@ Namespace DAL.Ismp
             "ON ri.STRDOCUMENTTYPE = dt.STRKEY " &
             "WHERE ri.STRREFERENCENUMBER = :ReferenceNumber"
 
-            Dim parameter As New OracleParameter("ReferenceNumber", referenceNumber)
+            Dim parameter As New SqlParameter("ReferenceNumber", referenceNumber)
 
             Return DB.GetSingleValue(Of String)(query, parameter)
         End Function
@@ -86,9 +86,9 @@ Namespace DAL.Ismp
             End If
 
             Dim queryList As New List(Of String)
-            Dim parametersList As New List(Of OracleParameter())
-            Dim parameter As OracleParameter() = New OracleParameter() {
-                New OracleParameter("ReferenceNumber", referenceNumber)
+            Dim parametersList As New List(Of SqlParameter())
+            Dim parameter As SqlParameter() = New SqlParameter() {
+                New SqlParameter("ReferenceNumber", referenceNumber)
             }
 
             If tableName <> "UNASSIGNED" Then

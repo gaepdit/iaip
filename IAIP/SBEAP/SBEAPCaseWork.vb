@@ -1,15 +1,15 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 Public Class SBEAPCaseWork
     Dim SQL, SQL2 As String
     Dim dsCaseWork As DataSet
-    Dim daCaseWork As OracleDataAdapter
+    Dim daCaseWork As SqlDataAdapter
     Dim dsStaff As DataSet
-    Dim daStaff As OracleDataAdapter
+    Dim daStaff As SqlDataAdapter
     Dim dsStaffList As DataSet
-    Dim daStaffList As OracleDataAdapter
+    Dim daStaffList As SqlDataAdapter
     Dim dsActionLog As DataSet
-    Dim daActionLog As OracleDataAdapter
+    Dim daActionLog As SqlDataAdapter
     Dim temp As String
     Dim i As Integer
 
@@ -64,7 +64,7 @@ Public Class SBEAPCaseWork
             "from AIRBRANCH.LookUpSBEAPCaseWork " &
             "order by strWorkDescription "
 
-            daCaseWork = New OracleDataAdapter(SQL, CurrentConnection)
+            daCaseWork = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -115,7 +115,7 @@ Public Class SBEAPCaseWork
             "select 'NSBEAP' " &
             "from dual "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -141,7 +141,7 @@ Public Class SBEAPCaseWork
             "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SBEAPCaseLog.numStaffResponsible " &
             "Order by UserName "
 
-            daStaff = New OracleDataAdapter(SQL, CurrentConnection)
+            daStaff = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -238,7 +238,7 @@ Public Class SBEAPCaseWork
             "where AIRBRANCH.SBEAPClients.strCompanyCounty = AIRBRANCH.LookUpCountyInformation.strCountyCode (+) " &
             "and ClientId = '" & txtClientID.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -288,7 +288,7 @@ Public Class SBEAPCaseWork
             "from AIRBRANCH.SBEAPCaseLog " &
             "where ClientID = '" & txtClientID.Text & "' " &
             "and datCaseClosed is null"
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -326,7 +326,7 @@ Public Class SBEAPCaseWork
                 "where AIRBRANCH.SBEAPCaseLog.numModifingStaff = AIRBRANCH.EPDUserProfiles.numUserID (+) " &
                 "and numCaseID = '" & txtCaseID.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -416,7 +416,7 @@ Public Class SBEAPCaseWork
                 "count(*) as ClientCount " &
                 "from AIRBRANCH.SBEAPCaseLogLink " &
                 "where numCaseID = '" & txtCaseID.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -441,7 +441,7 @@ Public Class SBEAPCaseWork
                         "from AIRBRANCH.SBEAPCaseLogLink " &
                         "where numCaseID = '" & txtCaseID.Text & "' "
 
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -466,7 +466,7 @@ Public Class SBEAPCaseWork
                         "from AIRBRANCH.SBEAPCaseLogLink " &
                         "where numCaseID = '" & txtCaseID.Text & "' "
 
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -505,7 +505,7 @@ Public Class SBEAPCaseWork
             "order by numActionID desc "
 
             dsActionLog = New DataSet
-            daActionLog = New OracleDataAdapter(SQL, CurrentConnection)
+            daActionLog = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -639,7 +639,7 @@ Public Class SBEAPCaseWork
 
             dsStaffList = New DataSet
 
-            daStaffList = New OracleDataAdapter(SQL, CurrentConnection)
+            daStaffList = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -686,7 +686,7 @@ Public Class SBEAPCaseWork
             "from AIRBRANCH.SBEAPComplianceAssist " &
             "where numActionID = '" & txtActionID.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -788,7 +788,7 @@ Public Class SBEAPCaseWork
             "from AIRBRANCH.SBEAPTechnicalAssist " &
             "where numActionID = '" & txtActionID.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1036,7 +1036,7 @@ Public Class SBEAPCaseWork
             "from AIRBRANCH.SBEAPPhoneLog " &
             "where numActionID = '" & txtActionID.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1096,7 +1096,7 @@ Public Class SBEAPCaseWork
             "from AIRBRANCH.SBEAPConferenceLog " &
             "where numActionID = '" & txtActionID.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1191,7 +1191,7 @@ Public Class SBEAPCaseWork
             "strCaseNotes " &
             "from AIRBRANCH.SBEAPOtherLog " &
             "where numActionID = '" & txtActionID.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1293,7 +1293,7 @@ Public Class SBEAPCaseWork
 
                 SQL2 = ""
             End If
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1301,7 +1301,7 @@ Public Class SBEAPCaseWork
             dr.Close()
 
             If SQL2 <> "" Then
-                cmd = New OracleCommand(SQL2, CurrentConnection)
+                cmd = New SqlCommand(SQL2, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1326,7 +1326,7 @@ Public Class SBEAPCaseWork
                 SQL = "Delete AIRBRANCH.SBEAPCaseLogLink " &
                 "where numCaseID = '" & txtCaseID.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1337,7 +1337,7 @@ Public Class SBEAPCaseWork
                 "values " &
                 "('" & txtCaseID.Text & "', '" & ClientID & "') "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1350,7 +1350,7 @@ Public Class SBEAPCaseWork
                     SQL = "Delete AIRBRANCH.SBEAPCaseLogLink " &
                     "where numCaseID = '" & txtCaseID.Text & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1373,7 +1373,7 @@ Public Class SBEAPCaseWork
                             SQL = "Insert into AIRBRANCH.SBEAPCaseLogLink " &
                             "values " &
                             "('" & txtCaseID.Text & "', '" & ClientID & "') "
-                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            cmd = New SqlCommand(SQL, CurrentConnection)
 
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
@@ -1406,7 +1406,7 @@ Public Class SBEAPCaseWork
             "numActionId " &
             "from AIRBRANCH.SBEAPActionLog " &
             "where numActionID = '" & txtActionID.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1417,7 +1417,7 @@ Public Class SBEAPCaseWork
                 SQL = "Update AIRBRANCH.SBEAPActionLog set " &
                 "datActionOccured = '" & ActionOccured & "' " &
                 "where numActionId = '" & txtActionID.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1500,7 +1500,7 @@ Public Class SBEAPCaseWork
             "numActionID " &
             "from AIRBRANCH.SBEAPComplianceAssist " &
             "where numActionID = '" & txtActionID.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -1537,7 +1537,7 @@ Public Class SBEAPCaseWork
                 "datModifingDate = '" & OracleDate & "' " &
                 "where numActionID = '" & txtActionID.Text & "' "
             End If
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1744,7 +1744,7 @@ Public Class SBEAPCaseWork
             "numActionID " &
             "from AIRBRANCH.SBEAPTechnicalAssist " &
             "where numActionID = '" & txtActionID.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -1775,7 +1775,7 @@ Public Class SBEAPCaseWork
                 "datModifingDate = '" & OracleDate & "' " &
                 "where numActionID = '" & txtActionID.Text & "' "
             End If
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1825,7 +1825,7 @@ Public Class SBEAPCaseWork
             "numActionID " &
             "from AIRBRANCH.SBEAPPhoneLog " &
             "where numActionID = '" & txtActionID.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -1852,7 +1852,7 @@ Public Class SBEAPCaseWork
                 "datModifingDate = '" & OracleDate & "' " &
                 "where numActionID = '" & txtActionID.Text & "' "
             End If
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1935,7 +1935,7 @@ Public Class SBEAPCaseWork
             "from AIRBRANCH.SBEAPConferenceLog " &
             "where numActionID = '" & txtActionID.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -1969,7 +1969,7 @@ Public Class SBEAPCaseWork
                 "where numActionID = '" & txtActionID.Text & "' "
             End If
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1994,7 +1994,7 @@ Public Class SBEAPCaseWork
             "numActionID " &
             "from AIRBRANCH.SBEAPOtherLog " &
             "where numActionID = '" & txtActionID.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -2014,7 +2014,7 @@ Public Class SBEAPCaseWork
                 "datModifingDate = '" & OracleDate & "' " &
                 "where numActionID = '" & txtActionID.Text & "' "
             End If
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2166,7 +2166,7 @@ Public Class SBEAPCaseWork
                       "from AIRBRANCH.SBEAPClients " &
                       "where ClientID = '" & Client & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2265,7 +2265,7 @@ Public Class SBEAPCaseWork
                     "datModifingDate = '" & OracleDate & "' " &
                     "where numCaseID = '" & txtCaseID.Text & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -2280,7 +2280,7 @@ Public Class SBEAPCaseWork
                 "end ActionNumber " &
                 "from dual  "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2300,7 +2300,7 @@ Public Class SBEAPCaseWork
                 "'" & cboActionType.SelectedValue & "', '" & CurrentUser.UserID & "', " &
                 "'" & OracleDate & "', '" & CurrentUser.UserID & "', " &
                 "'" & OracleDate & "', '" & DTPActionOccured.Text & "') "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2405,7 +2405,7 @@ Public Class SBEAPCaseWork
                                 "where numActionID = '" & txtActionID.Text & "' "
                         End Select
 
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -2415,7 +2415,7 @@ Public Class SBEAPCaseWork
                         SQL = "delete AIRBRANCH.SBEAPActionLog " &
                         "where numActionID = '" & txtActionID.Text & "' "
 
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -2551,7 +2551,7 @@ Public Class SBEAPCaseWork
                             "numActionID, numActionType " &
                             "from AIRBRANCH.SBEAPActionLog " &
                             "where numCaseID = '" & txtCaseID.Text & "' "
-                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            cmd = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
                             End If
@@ -2575,7 +2575,7 @@ Public Class SBEAPCaseWork
                                     Case "4"
                                         SQL = "Delete AIRBRANCH.SBEAPConferenceLog " &
                                         "where numActionID = '" & ActionID & "'  "
-                                        cmd = New OracleCommand(SQL, CurrentConnection)
+                                        cmd = New SqlCommand(SQL, CurrentConnection)
                                         If CurrentConnection.State = ConnectionState.Closed Then
                                             CurrentConnection.Open()
                                         End If
@@ -2584,7 +2584,7 @@ Public Class SBEAPCaseWork
 
                                         SQL = "Delete AIRBRANCH.SBEAPActionLog " &
                                         "where numActionID = '" & ActionID & "'  "
-                                        cmd = New OracleCommand(SQL, CurrentConnection)
+                                        cmd = New SqlCommand(SQL, CurrentConnection)
                                         If CurrentConnection.State = ConnectionState.Closed Then
                                             CurrentConnection.Open()
                                         End If
@@ -2593,7 +2593,7 @@ Public Class SBEAPCaseWork
                                     Case "6"
                                         SQL = "Delete AIRBRANCH.SBEAPPhoneLog " &
                                         "where numActionID = '" & ActionID & "'  "
-                                        cmd = New OracleCommand(SQL, CurrentConnection)
+                                        cmd = New SqlCommand(SQL, CurrentConnection)
                                         If CurrentConnection.State = ConnectionState.Closed Then
                                             CurrentConnection.Open()
                                         End If
@@ -2602,7 +2602,7 @@ Public Class SBEAPCaseWork
 
                                         SQL = "Delete AIRBRANCH.SBEAPActionLog " &
                                         "where numActionID = '" & ActionID & "'  "
-                                        cmd = New OracleCommand(SQL, CurrentConnection)
+                                        cmd = New SqlCommand(SQL, CurrentConnection)
                                         If CurrentConnection.State = ConnectionState.Closed Then
                                             CurrentConnection.Open()
                                         End If
@@ -2611,7 +2611,7 @@ Public Class SBEAPCaseWork
                                     Case "10"
                                         SQL = "Delete AIRBRANCH.SBEAPTechnicalAssist " &
                                         "where numActionID = '" & ActionID & "'  "
-                                        cmd = New OracleCommand(SQL, CurrentConnection)
+                                        cmd = New SqlCommand(SQL, CurrentConnection)
                                         If CurrentConnection.State = ConnectionState.Closed Then
                                             CurrentConnection.Open()
                                         End If
@@ -2620,7 +2620,7 @@ Public Class SBEAPCaseWork
 
                                         SQL = "Delete AIRBRANCH.SBEAPActionLog " &
                                         "where numActionID = '" & ActionID & "'  "
-                                        cmd = New OracleCommand(SQL, CurrentConnection)
+                                        cmd = New SqlCommand(SQL, CurrentConnection)
                                         If CurrentConnection.State = ConnectionState.Closed Then
                                             CurrentConnection.Open()
                                         End If
@@ -2629,7 +2629,7 @@ Public Class SBEAPCaseWork
                                     Case "1" Or "2" Or "3" Or "5" Or "7" Or "8" Or "9" Or "11" Or "12"
                                         SQL = "Delete AIRBRANCH.SBEAPOtherLog " &
                                         "where numActionID = '" & ActionID & "'  "
-                                        cmd = New OracleCommand(SQL, CurrentConnection)
+                                        cmd = New SqlCommand(SQL, CurrentConnection)
                                         If CurrentConnection.State = ConnectionState.Closed Then
                                             CurrentConnection.Open()
                                         End If
@@ -2638,7 +2638,7 @@ Public Class SBEAPCaseWork
 
                                         SQL = "Delete AIRBRANCH.SBEAPActionLog " &
                                         "where numActionID = '" & ActionID & "'  "
-                                        cmd = New OracleCommand(SQL, CurrentConnection)
+                                        cmd = New SqlCommand(SQL, CurrentConnection)
                                         If CurrentConnection.State = ConnectionState.Closed Then
                                             CurrentConnection.Open()
                                         End If
@@ -2647,7 +2647,7 @@ Public Class SBEAPCaseWork
                                     Case Else
                                         SQL = "Delete AIRBRANCH.SBEAPConferenceLog " &
                                         "where numActionID = '" & ActionID & "'  "
-                                        cmd = New OracleCommand(SQL, CurrentConnection)
+                                        cmd = New SqlCommand(SQL, CurrentConnection)
                                         If CurrentConnection.State = ConnectionState.Closed Then
                                             CurrentConnection.Open()
                                         End If
@@ -2656,7 +2656,7 @@ Public Class SBEAPCaseWork
 
                                         SQL = "Delete AIRBRANCH.SBEAPPhoneLog " &
                                         "where numActionID = '" & ActionID & "'  "
-                                        cmd = New OracleCommand(SQL, CurrentConnection)
+                                        cmd = New SqlCommand(SQL, CurrentConnection)
                                         If CurrentConnection.State = ConnectionState.Closed Then
                                             CurrentConnection.Open()
                                         End If
@@ -2665,7 +2665,7 @@ Public Class SBEAPCaseWork
 
                                         SQL = "Delete AIRBRANCH.SBEAPTechnicalAssist " &
                                         "where numActionID = '" & ActionID & "'  "
-                                        cmd = New OracleCommand(SQL, CurrentConnection)
+                                        cmd = New SqlCommand(SQL, CurrentConnection)
                                         If CurrentConnection.State = ConnectionState.Closed Then
                                             CurrentConnection.Open()
                                         End If
@@ -2674,7 +2674,7 @@ Public Class SBEAPCaseWork
 
                                         SQL = "Delete AIRBRANCH.SBEAPOtherLog " &
                                         "where numActionID = '" & ActionID & "'  "
-                                        cmd = New OracleCommand(SQL, CurrentConnection)
+                                        cmd = New SqlCommand(SQL, CurrentConnection)
                                         If CurrentConnection.State = ConnectionState.Closed Then
                                             CurrentConnection.Open()
                                         End If
@@ -2683,7 +2683,7 @@ Public Class SBEAPCaseWork
 
                                         SQL = "Delete AIRBRANCH.SBEAPActionLog " &
                                         "where numActionID = '" & ActionID & "'  "
-                                        cmd = New OracleCommand(SQL, CurrentConnection)
+                                        cmd = New SqlCommand(SQL, CurrentConnection)
                                         If CurrentConnection.State = ConnectionState.Closed Then
                                             CurrentConnection.Open()
                                         End If
@@ -2695,7 +2695,7 @@ Public Class SBEAPCaseWork
 
                         SQL = "Delete AIRBRANCH.SBEAPCaseLog " &
                         "where numCaseID = '" & txtCaseID.Text & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -2704,7 +2704,7 @@ Public Class SBEAPCaseWork
 
                         SQL = "Delete AIRBRANCH.SBEAPCaseLogLink " &
                         "where numCaseID = '" & txtCaseID.Text & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If

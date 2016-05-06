@@ -1,4 +1,4 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 Imports Iaip.Apb.Sscp
 Imports System.Collections.Generic
 
@@ -15,7 +15,7 @@ Namespace DAL.Sscp
             If fceNumber = "" OrElse Not Integer.TryParse(fceNumber, Nothing) Then Return Nothing
 
             Dim query As String = "SELECT STRAIRSNUMBER FROM AIRBRANCH.SSCPFCEMASTER WHERE STRFCENUMBER = :fceNumber"
-            Dim parameter As New OracleParameter("fceNumber", fceNumber)
+            Dim parameter As New SqlParameter("fceNumber", fceNumber)
 
             Return New Apb.ApbFacilityId(DB.GetSingleValue(Of String)(query, parameter))
         End Function
@@ -39,10 +39,10 @@ Namespace DAL.Sscp
             If Not String.IsNullOrEmpty(staffId) Then query &= " AND STRREVIEWER = :staffId "
             If Not String.IsNullOrEmpty(year) Then query &= " AND STRFCEYEAR = :year "
 
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("airs", airs.DbFormattedString),
-                New OracleParameter("staffId", staffId),
-                New OracleParameter("year", year)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("airs", airs.DbFormattedString),
+                New SqlParameter("staffId", staffId),
+                New SqlParameter("year", year)
             }
             Return DB.GetDataTable(query, parameters)
         End Function
@@ -69,12 +69,12 @@ Namespace DAL.Sscp
             If Not String.IsNullOrEmpty(staffId) Then query &= " AND STRREVIEWER = :staffId "
             If Not String.IsNullOrEmpty(year) Then query &= " AND STRFCEYEAR = :year "
 
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("datestart", dateRangeStart),
-                New OracleParameter("dateend", dateRangeEnd),
-                New OracleParameter("airs", airs.DbFormattedString),
-                New OracleParameter("staffId", staffId),
-                New OracleParameter("year", year)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("datestart", dateRangeStart),
+                New SqlParameter("dateend", dateRangeEnd),
+                New SqlParameter("airs", airs.DbFormattedString),
+                New SqlParameter("staffId", staffId),
+                New SqlParameter("year", year)
             }
             Return DB.GetDataTable(query, parameters)
         End Function

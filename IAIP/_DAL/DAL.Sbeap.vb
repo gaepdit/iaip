@@ -1,4 +1,4 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 
 Namespace DAL.Sbeap
 
@@ -12,7 +12,7 @@ Namespace DAL.Sbeap
                 " WHERE RowNum = 1 " &
                 " AND CLIENTID = :pId "
 
-            Dim parameter As New OracleParameter("pId", clientID)
+            Dim parameter As New SqlParameter("pId", clientID)
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
             Return Convert.ToBoolean(result)
@@ -26,7 +26,7 @@ Namespace DAL.Sbeap
                 " WHERE RowNum = 1 " &
                 " AND NUMCASEID = :pId "
 
-            Dim parameter As New OracleParameter("pId", caseNumber)
+            Dim parameter As New SqlParameter("pId", caseNumber)
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
             Return Convert.ToBoolean(result)

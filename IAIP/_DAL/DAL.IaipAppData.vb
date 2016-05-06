@@ -1,4 +1,4 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 
 Namespace DAL
     Module IaipAppData
@@ -7,11 +7,11 @@ Namespace DAL
             Dim query As String = " SELECT FENABLED " &
                 " FROM AIRBRANCH.APBMASTERAPP " &
                 " WHERE STRAPPLICATIONNAME = :pAppName "
-            Dim parameter As OracleParameter = New OracleParameter("pAppName", APP_NAME)
+            Dim parameter As SqlParameter = New SqlParameter("pAppName", APP_NAME)
 
             Try
                 Return DB.GetBoolean(query, parameter, True)
-            Catch ex As OracleException
+            Catch ex As SqlException
                 Return False
             Catch ex As FormatException
                 Return False

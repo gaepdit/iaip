@@ -1,13 +1,13 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 
 Public Class IAIPEditFacilityLocation
     Dim SQL, SQL2 As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
+    Dim cmd As SqlCommand
+    Dim dr As SqlDataReader
     Dim dsFacilityInformation As DataSet
-    Dim daFacilityInformation As OracleDataAdapter
-    Dim daFacilityInformation2 As OracleDataAdapter
+    Dim daFacilityInformation As SqlDataAdapter
+    Dim daFacilityInformation2 As SqlDataAdapter
 
     Private Sub IAIPEditFacilityLocation_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
@@ -38,8 +38,8 @@ Public Class IAIPEditFacilityLocation
             "Order by strKey DESC "
 
             dsFacilityInformation = New DataSet
-            daFacilityInformation = New OracleDataAdapter(SQL, CurrentConnection)
-            daFacilityInformation2 = New OracleDataAdapter(SQL2, CurrentConnection)
+            daFacilityInformation = New SqlDataAdapter(SQL, CurrentConnection)
+            daFacilityInformation2 = New SqlDataAdapter(SQL2, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -325,7 +325,7 @@ Public Class IAIPEditFacilityLocation
                             "strModifingLocation = '2' " &
                             "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
-                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            cmd = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
                             End If
@@ -344,7 +344,7 @@ Public Class IAIPEditFacilityLocation
                                 "strFacilityName = '" & FacilityName & "' " &
                                 "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
-                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                cmd = New SqlCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
                                     CurrentConnection.Open()
                                 End If
@@ -358,7 +358,7 @@ Public Class IAIPEditFacilityLocation
                                 "updateDateTime = sysdate " &
                                 "where facilitySiteID = '" & txtAirsNumber.Text & "' "
 
-                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                cmd = New SqlCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
                                     CurrentConnection.Open()
                                 End If
@@ -417,7 +417,7 @@ Public Class IAIPEditFacilityLocation
                 "where strKey = '" & txtKey.Text & "' " &
                 "Order by strKey DESC "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If

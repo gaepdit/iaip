@@ -1,4 +1,4 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 Imports Oracle.ManagedDataAccess.Types
 
 Namespace DAL
@@ -6,7 +6,7 @@ Namespace DAL
 
         Public Function GetFSDataTable(ByVal whichTable As IAIPFacilitySummary.FacilityDataTable, ByVal airsNumber As Apb.ApbFacilityId) As DataTable
             Dim query As String = GetQueryString(whichTable)
-            Dim parameter As OracleParameter = New OracleParameter("AirsNumber", airsNumber.DbFormattedString)
+            Dim parameter As SqlParameter = New SqlParameter("AirsNumber", airsNumber.DbFormattedString)
             Return DB.GetDataTable(query, parameter)
         End Function
 

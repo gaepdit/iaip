@@ -1,12 +1,12 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 Imports Iaip.Apb.Facilities
 
 Public Class IAIPFacilityCreator
     Dim ds As New DataSet
-    Dim da As OracleDataAdapter
+    Dim da As SqlDataAdapter
     Dim SQL As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
+    Dim cmd As SqlCommand
+    Dim dr As SqlDataReader
 
     Private Sub IAIPFacilityCreator_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
@@ -50,7 +50,7 @@ Public Class IAIPFacilityCreator
             "order by strCountyName "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, CurrentConnection)
+            da = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -193,7 +193,7 @@ Public Class IAIPFacilityCreator
             End If
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, CurrentConnection)
+            da = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -263,7 +263,7 @@ Public Class IAIPFacilityCreator
                 "where AIRBRANCH.LookUPDistricts.strDistrictCode = AIRBRANCH.LookUPDistrictInformation.strDistrictCode " &
                 "and strDistrictCounty = '" & Mid(AIRSNumber, 1, 3) & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -357,7 +357,7 @@ Public Class IAIPFacilityCreator
             "from AIRBRANCH.APBMasterAIRS " &
             "where substr(strAIRSNumber, 1, 7) = '0413" & cboCounty.SelectedValue & "'), " &
             "'" & CurrentUser.UserID & "', '" & OracleDate & "' ) "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -368,7 +368,7 @@ Public Class IAIPFacilityCreator
             "from AIRBRANCH.APBMasterAIRS " &
             "where substr(strAIRSNumber, 1, 7) = '0413" & cboCounty.SelectedValue & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -583,7 +583,7 @@ Public Class IAIPFacilityCreator
             "" & FacilityLatitude & ", '007', " &
             "'25', '002', '4' ) "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -597,7 +597,7 @@ Public Class IAIPFacilityCreator
             "from AIRBRANCH.LookUpCountyInformation " &
             "where strCountyCode = '" & Mid(AIRSNumber, 5, 3) & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -630,7 +630,7 @@ Public Class IAIPFacilityCreator
             "'" & Replace(PlantDesc, "'", "''") & "', '" & AttainmentStatus & "', " &
             "'" & Replace(NAICSCode, "'", "''") & "', '4' ) "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -649,7 +649,7 @@ Public Class IAIPFacilityCreator
              "'" & DistrictOffice & "', '', " &
              "'00001', '" & Replace(RMPNumber, "'", "''") & "' ) "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -680,7 +680,7 @@ Public Class IAIPFacilityCreator
             "'" & Replace(MailingZipCode, "-", "") & "', '" & CurrentUser.UserID & "', " &
             "'" & OracleDate & "') "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -734,7 +734,7 @@ Public Class IAIPFacilityCreator
             "values " &
             "('" & AIRSNumber & "', 'False', " &
             "'1', sysdate) "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -768,7 +768,7 @@ Public Class IAIPFacilityCreator
                 "AIRBRANCH.SSPPApplicationContact " &
                 "where AIRBRANCH.SSPPApplicationData.strApplicationNumber = AIRBRANCH.SSPPApplicationContact.strApplicationNumber " &
                 "and AIRBRANCH.SSPPApplicationData.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1114,7 +1114,7 @@ Public Class IAIPFacilityCreator
             "and strkey = '30' " &
             "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1369,7 +1369,7 @@ Public Class IAIPFacilityCreator
                 "numApprovingSSCP, numApprovingSSPP " &
                 "from AIRBRANCH.APBSupplamentalData " &
                 "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1398,7 +1398,7 @@ Public Class IAIPFacilityCreator
                     "strCommentSSPP = '" & txtSSCPComments.Text & "' " &
                     "where strAIRSnumber = '0413" & txtNewAIRSNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1413,7 +1413,7 @@ Public Class IAIPFacilityCreator
                          "strCommentSSCP = '" & txtSSCPComments.Text & "' " &
                          "where strAIRSnumber = '0413" & txtNewAIRSNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -1428,7 +1428,7 @@ Public Class IAIPFacilityCreator
                         "strCommentSSPP = '" & txtSSCPComments.Text & "' " &
                         "where strAIRSnumber = '0413" & txtNewAIRSNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -1442,7 +1442,7 @@ Public Class IAIPFacilityCreator
                 "strUpdateStatus = 'A' " &
                 "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' " &
                 "and strUpdateStatus = 'H' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1507,7 +1507,7 @@ Public Class IAIPFacilityCreator
             "strCommentSSCP = '" & txtSSCPComments.Text & "' " &
             "where strAIRSnumber = '0413" & txtNewAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1535,7 +1535,7 @@ Public Class IAIPFacilityCreator
             "strCommentSSpP = '" & txtSSPPComments.Text & "' " &
             "where strAIRSnumber = '0413" & txtNewAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1593,7 +1593,7 @@ Public Class IAIPFacilityCreator
             "or upper(strFacilityStreet1) like '%" & FacilityAddress.ToUpper & "%') "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, CurrentConnection)
+            da = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1948,7 +1948,7 @@ Public Class IAIPFacilityCreator
             "numFacilityLatitude = '" & Replace(FacilityLatitude, "'", "''") & "' " &
             "where strAirsnumber = '" & AIRSNumber & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1967,7 +1967,7 @@ Public Class IAIPFacilityCreator
             "datModifingDate = '" & OracleDate & "' " &
             "where strAIRSNumber = '" & AIRSNumber & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1980,7 +1980,7 @@ Public Class IAIPFacilityCreator
             "datModifingDate = '" & OracleDate & "' " &
             "where strAIRSNumber = '" & AIRSNumber & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2004,7 +2004,7 @@ Public Class IAIPFacilityCreator
             "and strContactKey = '" & AIRSNumber & "30' " &
             "and strKey = '30' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If

@@ -1,4 +1,4 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 
 Public Class DMUDeveloperTool
 
@@ -185,9 +185,9 @@ Public Class DMUDeveloperTool
             "strSolution = :errSol " &
             "where strErrornumber = :errNum "
 
-            Dim Parameters As OracleParameter() = {
-            New OracleParameter("errSol", ErrorSolution),
-            New OracleParameter("errNum", txtErrorNumber.Text)
+            Dim Parameters As SqlParameter() = {
+            New SqlParameter("errSol", ErrorSolution),
+            New SqlParameter("errNum", txtErrorNumber.Text)
             }
 
             DB.RunCommand(query, Parameters)
@@ -223,7 +223,7 @@ Public Class DMUDeveloperTool
                     " From AIRBRANCH.OLAPERRORLog " &
                     " where numError = :errNum "
 
-                    Dim parameter As OracleParameter = New OracleParameter("errNum", txtWebErrorNumber.Text)
+                    Dim parameter As SqlParameter = New SqlParameter("errNum", txtWebErrorNumber.Text)
 
                     Dim row As DataRow = DB.GetDataRow(query, parameter)
 
@@ -255,9 +255,9 @@ Public Class DMUDeveloperTool
             "strSolution = :errSol " &
             "where numError = :errNum "
 
-            Dim Parameters As OracleParameter() = {
-            New OracleParameter("errSol", ErrorSolution),
-            New OracleParameter("errNum", txtWebErrorNumber.Text)
+            Dim Parameters As SqlParameter() = {
+            New SqlParameter("errSol", ErrorSolution),
+            New SqlParameter("errNum", txtWebErrorNumber.Text)
             }
 
             DB.RunCommand(query, Parameters)
@@ -290,7 +290,7 @@ Public Class DMUDeveloperTool
                     "where AIRBRANCH.IAIPErrorLog.strUser = AIRBRANCH.EPDUserProfiles.numUserID " &
                     "and strErrorNumber = '" & txtErrorNumber.Text & "' "
 
-                    Dim parameter As OracleParameter = New OracleParameter("errNum", txtErrorNumber.Text)
+                    Dim parameter As SqlParameter = New SqlParameter("errNum", txtErrorNumber.Text)
 
                     Dim row As DataRow = DB.GetDataRow(query, parameter)
 

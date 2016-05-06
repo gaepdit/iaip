@@ -1,13 +1,13 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 
 Public Class SSCPWorkEnTry
     Inherits BaseForm
     Dim SQL, SQL2 As String
-    Dim cmd, cmd2 As OracleCommand
-    Dim dr2 As OracleDataReader
+    Dim cmd, cmd2 As SqlCommand
+    Dim dr2 As SqlDataReader
     Dim dsCompliance As DataSet
-    Dim daCompliance As OracleDataAdapter
+    Dim daCompliance As SqlDataAdapter
 
     Private Sub SSCPWorkEnTry_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
@@ -27,7 +27,7 @@ Public Class SSCPWorkEnTry
 #Region "Page Load"
     Private Sub LoadDataSets()
         Dim SQL As String
-        Dim cmd As OracleCommand
+        Dim cmd As SqlCommand
 
         Try
 
@@ -37,10 +37,10 @@ Public Class SSCPWorkEnTry
             "from AIRBRANCH.LookUPComplianceActivities " &
             "order by strActivityName"
 
-            daCompliance = New OracleDataAdapter
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            daCompliance = New SqlDataAdapter
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
-            daCompliance = New OracleDataAdapter(cmd)
+            daCompliance = New SqlDataAdapter(cmd)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -110,8 +110,8 @@ Public Class SSCPWorkEnTry
 
                 SQL2 = "Select AIRBRANCH.SSCPTrackingNumber.Currval from Dual"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
+                cmd2 = New SqlCommand(SQL2, CurrentConnection)
 
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()

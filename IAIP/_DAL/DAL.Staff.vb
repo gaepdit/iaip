@@ -1,4 +1,4 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 
 Namespace DAL
     Module StaffData
@@ -12,7 +12,7 @@ Namespace DAL
                 " WHERE NUMEMPLOYEESTATUS = 1 " &
                 " AND NUMBRANCH           = :branch " &
                 " ORDER BY STRLASTNAME, STRFIRSTNAME "
-            Dim parameter As New OracleParameter("branch", branch)
+            Dim parameter As New SqlParameter("branch", branch)
 
             Return DB.GetDataTable(query, parameter)
         End Function

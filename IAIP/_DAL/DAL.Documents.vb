@@ -2,7 +2,7 @@
 Imports System.IO
 Imports System.Runtime.InteropServices
 
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 Imports Oracle.ManagedDataAccess.Types
 
 Imports Iaip.Apb.Sscp
@@ -143,7 +143,7 @@ Namespace DAL
                 " INNER JOIN AIRBRANCH.IAIP_LK_SSCPDOCUMENTTYPE " &
                 " ON IAIP_SSCP_ENFORCEMENTDOCS.NUMDOCUMENTTYPE = IAIP_LK_SSCPDOCUMENTTYPE.DOCUMENTTYPEID " &
                 " WHERE IAIP_SSCP_ENFORCEMENTDOCS.STRENFORCEMENTNUMBER = :pId "
-            Dim parameter As New OracleParameter("pId", enfNum)
+            Dim parameter As New SqlParameter("pId", enfNum)
             Return DB.GetDataTable(query, parameter)
         End Function
 
@@ -224,7 +224,7 @@ Namespace DAL
             Dim query As String = " SELECT IAIP_BINARYFILES.BLOBDOCUMENT " &
                                 " FROM AIRBRANCH.IAIP_BINARYFILES " &
                                 " WHERE IAIP_BINARYFILES.BINARYFILEID = :pBinId "
-            Dim parameter As OracleParameter = New OracleParameter("pBinId", id)
+            Dim parameter As SqlParameter = New SqlParameter("pBinId", id)
             Return DB.SaveBinaryFileFromDB(filePath, query, parameter)
         End Function
 
@@ -233,59 +233,63 @@ Namespace DAL
 #Region "Upload files"
 
         Private Function UploadDocument(ByVal doc As Document, ByVal pathToFile As String, ByVal metaDataQuery As String, ByVal metaDataId As String, Optional ByVal sender As Object = Nothing) As Boolean
-            If String.IsNullOrEmpty(pathToFile) Then Return False
+            Throw New NotImplementedException()
 
-            If sender IsNot Nothing Then
-                sender.Cursor = Cursors.AppStarting
-            End If
+            ' TODO: SQL Server migration
 
-            ' -- Transaction
-            ' 1. Get seq value
-            ' 2. Upload the binary file, use seq as id
-            ' 3. Upload file metadata, including binary file id
-            ' -- Commit transaction
+            'If String.IsNullOrEmpty(pathToFile) Then Return False
 
-            Dim queryList As New List(Of String)
-            Dim parametersList As New List(Of OracleParameter())
-            Dim binarySeqId As Integer = GetNextBinaryFileSequenceValue()
-            Dim parameters As OracleParameter()
+            'If sender IsNot Nothing Then
+            '    sender.Cursor = Cursors.AppStarting
+            'End If
 
-            queryList.Add(
-                " INSERT INTO AIRBRANCH.IAIP_BINARYFILES " &
-                " (BINARYFILEID,STRFILENAME,STRFILEEXTENSION,NUMFILESIZE,BLOBDOCUMENT,UPDATEUSER,UPDATEDATE,CREATEDATE) " &
-                " VALUES (:pBinId,:pFileName,:pFileExt,:pFileSize,:pBinFile,:pUser,:pUpdateDate,:pCreateDate) "
-            )
-            parameters = New OracleParameter() {
-                New OracleParameter("pBinId", binarySeqId),
-                New OracleParameter("pFileName", doc.FileName),
-                New OracleParameter("pFileExt", doc.FileExtension),
-                New OracleParameter("pFileSize", doc.FileSize),
-                New OracleParameter("pBinFile", OracleDbType.Blob, DB.ReadByteArrayFromFile(pathToFile), ParameterDirection.Input),
-                New OracleParameter("pUser", CurrentUser.UserID),
-                New OracleParameter("pUpdateDate", Date.Now),
-                New OracleParameter("pCreateDate", Date.Now)
-            }
-            parametersList.Add(parameters)
+            '' -- Transaction
+            '' 1. Get seq value
+            '' 2. Upload the binary file, use seq as id
+            '' 3. Upload file metadata, including binary file id
+            '' -- Commit transaction
 
-            queryList.Add(metaDataQuery)
-            parameters = New OracleParameter() {
-                New OracleParameter("pBinId", binarySeqId),
-                New OracleParameter("pMetaDataId", metaDataId),
-                New OracleParameter("pDocTypeId", doc.DocumentTypeId),
-                New OracleParameter("pComment", doc.Comment),
-                New OracleParameter("pUser", CurrentUser.UserID),
-                New OracleParameter("pUpdateDate", Date.Now),
-                New OracleParameter("pCreateDate", Date.Now)
-            }
-            parametersList.Add(parameters)
+            'Dim queryList As New List(Of String)
+            'Dim parametersList As New List(Of SqlParameter())
+            'Dim binarySeqId As Integer = GetNextBinaryFileSequenceValue()
+            'Dim parameters As SqlParameter()
 
-            Dim result As Boolean = DB.RunCommand(queryList, parametersList)
+            'queryList.Add(
+            '    " INSERT INTO AIRBRANCH.IAIP_BINARYFILES " &
+            '    " (BINARYFILEID,STRFILENAME,STRFILEEXTENSION,NUMFILESIZE,BLOBDOCUMENT,UPDATEUSER,UPDATEDATE,CREATEDATE) " &
+            '    " VALUES (:pBinId,:pFileName,:pFileExt,:pFileSize,:pBinFile,:pUser,:pUpdateDate,:pCreateDate) "
+            ')
+            'parameters = New SqlParameter() {
+            '    New SqlParameter("pBinId", binarySeqId),
+            '    New SqlParameter("pFileName", doc.FileName),
+            '    New SqlParameter("pFileExt", doc.FileExtension),
+            '    New SqlParameter("pFileSize", doc.FileSize),
+            '    New SqlParameter("pBinFile", SqlDbType.VarBinary, DB.ReadByteArrayFromFile(pathToFile), ParameterDirection.Input),
+            '    New SqlParameter("pUser", CurrentUser.UserID),
+            '    New SqlParameter("pUpdateDate", Date.Now),
+            '    New SqlParameter("pCreateDate", Date.Now)
+            '}
+            'parametersList.Add(parameters)
 
-            If sender IsNot Nothing Then
-                sender.Cursor = Nothing
-            End If
+            'queryList.Add(metaDataQuery)
+            'parameters = New SqlParameter() {
+            '    New SqlParameter("pBinId", binarySeqId),
+            '    New SqlParameter("pMetaDataId", metaDataId),
+            '    New SqlParameter("pDocTypeId", doc.DocumentTypeId),
+            '    New SqlParameter("pComment", doc.Comment),
+            '    New SqlParameter("pUser", CurrentUser.UserID),
+            '    New SqlParameter("pUpdateDate", Date.Now),
+            '    New SqlParameter("pCreateDate", Date.Now)
+            '}
+            'parametersList.Add(parameters)
 
-            Return result
+            'Dim result As Boolean = DB.RunCommand(queryList, parametersList)
+
+            'If sender IsNot Nothing Then
+            '    sender.Cursor = Nothing
+            'End If
+
+            'Return result
         End Function
 
         Public Function UploadEnforcementDocument(ByVal doc As EnforcementDocument, ByVal pathToFile As String, Optional ByVal sender As Object = Nothing) As Boolean
@@ -313,7 +317,7 @@ Namespace DAL
             End If
 
             Dim query As String = " DELETE FROM AIRBRANCH.IAIP_BINARYFILES WHERE BINARYFILEID = :pBinId "
-            Dim parameter As OracleParameter = New OracleParameter("pBinId", id)
+            Dim parameter As SqlParameter = New SqlParameter("pBinId", id)
 
             Dim result As Boolean = DB.RunCommand(query, parameter)
 
@@ -344,12 +348,12 @@ Namespace DAL
                 sender.Cursor = Cursors.AppStarting
             End If
 
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("pDocTypeId", doc.DocumentTypeId),
-                New OracleParameter("pComment", doc.Comment),
-                New OracleParameter("pUser", CurrentUser.UserID),
-                New OracleParameter("pUpdateDate", Date.Now),
-                New OracleParameter("pDocId", doc.DocumentId)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("pDocTypeId", doc.DocumentTypeId),
+                New SqlParameter("pComment", doc.Comment),
+                New SqlParameter("pUser", CurrentUser.UserID),
+                New SqlParameter("pUpdateDate", Date.Now),
+                New SqlParameter("pDocId", doc.DocumentId)
             }
 
             Dim result As Boolean = DB.RunCommand(query, parameters)
@@ -424,11 +428,11 @@ Namespace DAL
                 "   NUMORDINAL         = :pPosition " &
                 " WHERE DOCUMENTTYPEID = :pId "
 
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("pDocType", d.DocumentType),
-                New OracleParameter("pActive", d.Active.ToString),
-                New OracleParameter("pPosition", d.Ordinal),
-                New OracleParameter("pId", d.DocumentTypeId)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("pDocType", d.DocumentType),
+                New SqlParameter("pActive", d.Active.ToString),
+                New SqlParameter("pPosition", d.Ordinal),
+                New SqlParameter("pId", d.DocumentTypeId)
             }
 
             Dim result As Boolean = DB.RunCommand(query, parameters)
@@ -452,10 +456,10 @@ Namespace DAL
                 " (STRDOCUMENTTYPE, FACTIVE, NUMORDINAL ) " &
                 " VALUES (:pName, :pActive, :pOrdinal) "
 
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("pName", d.DocumentType),
-                New OracleParameter("pActive", d.Active.ToString),
-                New OracleParameter("pOrdinal", d.Ordinal)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("pName", d.DocumentType),
+                New SqlParameter("pActive", d.Active.ToString),
+                New SqlParameter("pOrdinal", d.Ordinal)
             }
 
             Dim result As Boolean = DB.RunCommand(query, parameters)

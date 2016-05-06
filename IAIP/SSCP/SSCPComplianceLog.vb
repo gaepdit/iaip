@@ -1,21 +1,21 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 Imports Iaip.SharedData
 
 Public Class SSCPComplianceLog
     Dim SQL, SQL2, SQL3 As String
-    Dim cmd, cmd2, cmd3 As OracleCommand
-    Dim dr, dr3 As OracleDataReader
+    Dim cmd, cmd2, cmd3 As SqlCommand
+    Dim dr, dr3 As SqlDataReader
     Dim recExist As Boolean
     Dim dsCompliance As DataSet
-    Dim daCompliance As OracleDataAdapter
+    Dim daCompliance As SqlDataAdapter
     Dim dsWorkEntry As DataSet
-    Dim daWorkEntry As OracleDataAdapter
+    Dim daWorkEntry As SqlDataAdapter
     Dim dsNotifications As DataSet
-    Dim daNotifications As OracleDataAdapter
+    Dim daNotifications As SqlDataAdapter
     Dim dsComplianceUnit As DataSet
-    Dim daComplianceUnit As OracleDataAdapter
+    Dim daComplianceUnit As SqlDataAdapter
     Dim dsDistrictUnit As DataSet
-    Dim daDistrictUnit As OracleDataAdapter
+    Dim daDistrictUnit As SqlDataAdapter
     Dim dtStaff As DataTable
 
     Private Sub DevWorkEntry_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -80,14 +80,14 @@ Public Class SSCPComplianceLog
             "where strActivityName <> 'Performance Tests' " &
             "order by strActivityName"
 
-            daCompliance = New OracleDataAdapter(SQL, CurrentConnection)
+            daCompliance = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = "Select " &
             "strNotificationDesc, strNotificationKey " &
             "from AIRBRANCH.LookUpSSCPNotifications " &
             "order by strNotificationDesc "
 
-            daNotifications = New OracleDataAdapter(SQL, CurrentConnection)
+            daNotifications = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = "select " &
             "strUnitDesc, numUnitCode " &
@@ -95,7 +95,7 @@ Public Class SSCPComplianceLog
             "where numProgramCode = '4'" &
             "order by strUnitDesc "
 
-            daComplianceUnit = New OracleDataAdapter(SQL, CurrentConnection)
+            daComplianceUnit = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = "select " &
             "strProgramDesc, numProgramCode  " &
@@ -105,7 +105,7 @@ Public Class SSCPComplianceLog
             "and strProgramDesc <> 'Small Business Assistance Program' " &
             "order by strprogramDesc "
 
-            daDistrictUnit = New OracleDataAdapter(SQL, CurrentConnection)
+            daDistrictUnit = New SqlDataAdapter(SQL, CurrentConnection)
 
             daCompliance.Fill(dsCompliance, "ComplianceActivity")
 
@@ -545,7 +545,7 @@ Public Class SSCPComplianceLog
                         SubSQL = "select numUserId " &
                         "from AIRBRANCH.EPDUserProfiles " &
                         "where numUnit = '" & temp & "' and numProgram = '4' "
-                        cmd = New OracleCommand(SubSQL, CurrentConnection)
+                        cmd = New SqlCommand(SubSQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -567,7 +567,7 @@ Public Class SSCPComplianceLog
                         SubSQL = "select numUserId " &
                         "from AIRBRANCH.EPDUserProfiles " &
                         "where numProgram = '" & temp & "' and numBranch = '5' "
-                        cmd = New OracleCommand(SubSQL, CurrentConnection)
+                        cmd = New SqlCommand(SubSQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -625,7 +625,7 @@ Public Class SSCPComplianceLog
             End If
 
             dsWorkEntry = New DataSet
-            daWorkEntry = New OracleDataAdapter(SQL, CurrentConnection)
+            daWorkEntry = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -720,7 +720,7 @@ Public Class SSCPComplianceLog
                     "where AIRBRANCH.ISMPReportInformation.strDocumentType = AIRBRANCH.ISMPDocumentType.strKEy " &
                     "and strReferenceNumber = '" & txtTrackingNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -771,9 +771,9 @@ Public Class SSCPComplianceLog
 
                     SQL3 = "Select AIRBRANCH.SSCPTrackingNumber.Currval from Dual"
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
-                    cmd3 = New OracleCommand(SQL3, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
+                    cmd2 = New SqlCommand(SQL2, CurrentConnection)
+                    cmd3 = New SqlCommand(SQL3, CurrentConnection)
 
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
@@ -816,7 +816,7 @@ Public Class SSCPComplianceLog
                     "from AIRBRANCH.SSCPItemMaster " &
                     "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -832,7 +832,7 @@ Public Class SSCPComplianceLog
                                 "strDelete = 'True' " &
                                 "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
 
-                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                cmd = New SqlCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
                                     CurrentConnection.Open()
                                 End If
@@ -858,7 +858,7 @@ Public Class SSCPComplianceLog
 
                         SQL = "Delete AIRBRANCH.SSCPEnforcementLetter " &
                         "where strEnforcementNumber = '" & txtWorkNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -867,7 +867,7 @@ Public Class SSCPComplianceLog
 
                         SQL = "Delete AIRBRANCH.SSCPEnforcementStipulated " &
                         "where strEnforcementNumber = '" & txtWorkNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -876,7 +876,7 @@ Public Class SSCPComplianceLog
 
                         SQL = "Delete AIRBRANCH.SSCP_AuditedEnforcement " &
                         "where strEnforcementNumber = '" & txtWorkNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -893,7 +893,7 @@ Public Class SSCPComplianceLog
                     SQL = "Select strUpDateStatus " &
                     "from AIRBRANCH.AFSSSCPEnforcementRecords " &
                     "where strEnforcementNumber = '" & txtWorkNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -919,7 +919,7 @@ Public Class SSCPComplianceLog
                                 "from AIRBRANCH.SSCP_AuditedEnforcement " &
                                 "where strEnforcementNumber = '" & txtWorkNumber.Text & "' "
 
-                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                cmd = New SqlCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
                                     CurrentConnection.Open()
                                 End If
@@ -935,7 +935,7 @@ Public Class SSCPComplianceLog
 
                                 SQL = "Delete AIRBRANCH.AFSSSCPEnforcementRecords " &
                                                       "where strEnforcementNumber = '" & txtWorkNumber.Text & "' "
-                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                cmd = New SqlCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
                                     CurrentConnection.Open()
                                 End If
@@ -955,7 +955,7 @@ Public Class SSCPComplianceLog
                                 "'" & OracleDate & "', '', " &
                                 "'') "
 
-                                cmd = New OracleCommand(SQL2, CurrentConnection)
+                                cmd = New SqlCommand(SQL2, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
                                     CurrentConnection.Open()
                                 End If
@@ -964,7 +964,7 @@ Public Class SSCPComplianceLog
 
                                 SQL = "Delete AIRBRANCH.SSCPEnforcementLetter " &
                                 "where strEnforcementNumber = '" & txtWorkNumber.Text & "' "
-                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                cmd = New SqlCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
                                     CurrentConnection.Open()
                                 End If
@@ -984,7 +984,7 @@ Public Class SSCPComplianceLog
                                "'" & OracleDate & "', '', " &
                                "'') "
 
-                                cmd = New OracleCommand(SQL2, CurrentConnection)
+                                cmd = New SqlCommand(SQL2, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
                                     CurrentConnection.Open()
                                 End If
@@ -995,7 +995,7 @@ Public Class SSCPComplianceLog
 
                                 SQL = "Delete AIRBRANCH.SSCPEnforcementStipulated " &
                                 "where strEnforcementNumber = '" & txtWorkNumber.Text & "' "
-                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                cmd = New SqlCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
                                     CurrentConnection.Open()
                                 End If
@@ -1015,7 +1015,7 @@ Public Class SSCPComplianceLog
                                "'" & OracleDate & "', '', " &
                                "'') "
 
-                                cmd = New OracleCommand(SQL2, CurrentConnection)
+                                cmd = New SqlCommand(SQL2, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
                                     CurrentConnection.Open()
                                 End If
@@ -1035,7 +1035,7 @@ Public Class SSCPComplianceLog
                                "'" & OracleDate & "', '', " &
                                "'') "
 
-                                cmd = New OracleCommand(SQL2, CurrentConnection)
+                                cmd = New SqlCommand(SQL2, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
                                     CurrentConnection.Open()
                                 End If
@@ -1044,7 +1044,7 @@ Public Class SSCPComplianceLog
 
                                 SQL = "Delete AIRBRANCH.SSCP_AuditedEnforcement " &
                                 "where strEnforcementNumber = '" & txtWorkNumber.Text & "' "
-                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                cmd = New SqlCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
                                     CurrentConnection.Open()
                                 End If
@@ -1064,7 +1064,7 @@ Public Class SSCPComplianceLog
                                "'" & OracleDate & "', '', " &
                                "'') "
 
-                                cmd = New OracleCommand(SQL2, CurrentConnection)
+                                cmd = New SqlCommand(SQL2, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
                                     CurrentConnection.Open()
                                 End If
@@ -1088,7 +1088,7 @@ Public Class SSCPComplianceLog
                     "from AIRBRANCH.AFSSSCPFCERecords " &
                     "where strFceNumber = '" & txtWorkNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1114,7 +1114,7 @@ Public Class SSCPComplianceLog
                                 "from AIRBRANCH.SSCPItemMaster " &
                                 "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
 
-                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                cmd = New SqlCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
                                     CurrentConnection.Open()
                                 End If
@@ -1131,7 +1131,7 @@ Public Class SSCPComplianceLog
 
                                 SQL = "Delete AIRBRANCH.AFSSSCPFCERecords " &
                             "where strFCENumber = '" & txtWorkNumber.Text & "' "
-                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                cmd = New SqlCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
                                     CurrentConnection.Open()
                                 End If
@@ -1151,7 +1151,7 @@ Public Class SSCPComplianceLog
                                "'" & OracleDate & "', '', " &
                                "'') "
 
-                                cmd = New OracleCommand(SQL2, CurrentConnection)
+                                cmd = New SqlCommand(SQL2, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
                                     CurrentConnection.Open()
                                 End If
@@ -1160,7 +1160,7 @@ Public Class SSCPComplianceLog
 
                                 SQL = "Delete AIRBRANCH.SSCPFCE " &
                                 "where strFCENumber = '" & txtWorkNumber.Text & "' "
-                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                cmd = New SqlCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
                                     CurrentConnection.Open()
                                 End If
@@ -1180,7 +1180,7 @@ Public Class SSCPComplianceLog
                                "'" & OracleDate & "', '', " &
                                "'') "
 
-                                cmd = New OracleCommand(SQL2, CurrentConnection)
+                                cmd = New SqlCommand(SQL2, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
                                     CurrentConnection.Open()
                                 End If
@@ -1189,7 +1189,7 @@ Public Class SSCPComplianceLog
 
                                 SQL = "Delete AIRBRANCH.SSCPFCEMaster " &
                                 "where strFCENumber = '" & txtWorkNumber.Text & "' "
-                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                cmd = New SqlCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
                                     CurrentConnection.Open()
                                 End If
@@ -1209,7 +1209,7 @@ Public Class SSCPComplianceLog
                                "'" & OracleDate & "', '', " &
                                "'') "
 
-                                cmd = New OracleCommand(SQL2, CurrentConnection)
+                                cmd = New SqlCommand(SQL2, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
                                     CurrentConnection.Open()
                                 End If
@@ -1232,7 +1232,7 @@ Public Class SSCPComplianceLog
                     "from AIRBRANCH.SSCPItemMaster " &
                     "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1248,7 +1248,7 @@ Public Class SSCPComplianceLog
                                 "strDelete = 'True' " &
                                 "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
 
-                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                cmd = New SqlCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
                                     CurrentConnection.Open()
                                 End If
@@ -1270,7 +1270,7 @@ Public Class SSCPComplianceLog
                     "from AIRBRANCH.SSCPItemMaster " &
                     "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1286,7 +1286,7 @@ Public Class SSCPComplianceLog
                                 "strDelete = 'True' " &
                                 "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
 
-                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                cmd = New SqlCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
                                     CurrentConnection.Open()
                                 End If
@@ -1311,7 +1311,7 @@ Public Class SSCPComplianceLog
                     "from AIRBRANCH.SSCPItemMaster " &
                     "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1327,7 +1327,7 @@ Public Class SSCPComplianceLog
                                 "strDelete = 'True' " &
                                 "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
 
-                                cmd = New OracleCommand(SQL, CurrentConnection)
+                                cmd = New SqlCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
                                     CurrentConnection.Open()
                                 End If
@@ -1358,7 +1358,7 @@ Public Class SSCPComplianceLog
             "from AIRBRANCH.SSCPItemMaster " &
             "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1370,7 +1370,7 @@ Public Class SSCPComplianceLog
                 SQL = "Update AIRBRANCH.SSCPItemMaster set " &
                 "strDelete = '' " &
                 "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1523,7 +1523,7 @@ Public Class SSCPComplianceLog
                 "where substr(strAIRSNumber, 5, 3) = strCountyCode " &
                 "and strAIRSnumber = '0413" & txtAIRSNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If

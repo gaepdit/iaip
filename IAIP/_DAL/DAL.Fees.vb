@@ -1,5 +1,5 @@
 ﻿Imports System.Collections.Generic
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 Namespace DAL
     Module FeesData
@@ -21,10 +21,10 @@ Namespace DAL
 
             If airs IsNot Nothing Then query &= " AND STRAIRSNUMBER = :airs "
 
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("startFeeYear", startFeeYear),
-                New OracleParameter("endFeeYear", endFeeYear),
-                New OracleParameter("airs", airs.DbFormattedString)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("startFeeYear", startFeeYear),
+                New SqlParameter("endFeeYear", endFeeYear),
+                New SqlParameter("airs", airs.DbFormattedString)
             }
             Return DB.GetDataTable(query, parameters)
         End Function
@@ -38,9 +38,9 @@ Namespace DAL
 
             Dim sp As String = "AIRBRANCH.PD_FEE_STATUS"
 
-            Dim parameters As OracleParameter() = New OracleParameter() {
-                New OracleParameter("FEEYEAR", OracleDbType.Decimal, feeYearDecimal, ParameterDirection.Input),
-                New OracleParameter("AIRSNUMBER", aN.DbFormattedString)
+            Dim parameters As SqlParameter() = New SqlParameter() {
+                New SqlParameter("FEEYEAR", SqlDbType.Decimal, feeYearDecimal, ParameterDirection.Input),
+                New SqlParameter("AIRSNUMBER", aN.DbFormattedString)
             }
 
             Try
@@ -76,9 +76,9 @@ Namespace DAL
                 " AND strAIRSnumber = :airsnumber " &
                 " AND numFeeYear = :feeyear "
 
-            Dim parameters As OracleParameter() = New OracleParameter() {
-                New OracleParameter("airsnumber", airsNumber.DbFormattedString),
-                New OracleParameter("feeyear", feeYearDecimal)
+            Dim parameters As SqlParameter() = New SqlParameter() {
+                New SqlParameter("airsnumber", airsNumber.DbFormattedString),
+                New SqlParameter("feeyear", feeYearDecimal)
             }
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameters)
@@ -107,23 +107,23 @@ Namespace DAL
                 " WHERE STRAIRSNUMBER   = :airsnumber " &
                 " AND NUMFEEYEAR        = :feeyear "
 
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("v2", contact.FirstName),
-                New OracleParameter("v3", contact.LastName),
-                New OracleParameter("v4", contact.Prefix),
-                New OracleParameter("v28", contact.Suffix),
-                New OracleParameter("v5", contact.Title),
-                New OracleParameter("v6", contact.CompanyName),
-                New OracleParameter("v7", contact.MailingAddress.Street),
-                New OracleParameter("v8", contact.MailingAddress.Street2),
-                New OracleParameter("v9", contact.MailingAddress.City),
-                New OracleParameter("v10", contact.MailingAddress.State),
-                New OracleParameter("v11", contact.MailingAddress.PostalCode),
-                New OracleParameter("v12", contact.EmailAddress),
-                New OracleParameter("v25", CurrentUser.UserID), 
-                New OracleParameter("v26", OracleDate),
-                New OracleParameter("airsnumber", airsNumber),
-                New OracleParameter("feeyear", feeYearDecimal)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("v2", contact.FirstName),
+                New SqlParameter("v3", contact.LastName),
+                New SqlParameter("v4", contact.Prefix),
+                New SqlParameter("v28", contact.Suffix),
+                New SqlParameter("v5", contact.Title),
+                New SqlParameter("v6", contact.CompanyName),
+                New SqlParameter("v7", contact.MailingAddress.Street),
+                New SqlParameter("v8", contact.MailingAddress.Street2),
+                New SqlParameter("v9", contact.MailingAddress.City),
+                New SqlParameter("v10", contact.MailingAddress.State),
+                New SqlParameter("v11", contact.MailingAddress.PostalCode),
+                New SqlParameter("v12", contact.EmailAddress),
+                New SqlParameter("v25", CurrentUser.UserID), 
+                New SqlParameter("v26", OracleDate),
+                New SqlParameter("airsnumber", airsNumber),
+                New SqlParameter("feeyear", feeYearDecimal)
             }
 
             Return DB.RunCommand(query, parameters)
@@ -151,22 +151,22 @@ Namespace DAL
                 " WHERE STRAIRSNUMBER   = :airsnumber " &
                 " AND NUMFEEYEAR        = :feeyear "
 
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("v13", facility.HeaderData.OperationalStatusCode),
-                New OracleParameter("v14", facility.HeaderData.ClassificationCode),
-                New OracleParameter("v15", If(facility.SubjectToNsps, "1", "0")),
-                New OracleParameter("v16", If(facility.SubjectToPart70, "1", "0")),
-                New OracleParameter("v17", facility.HeaderData.ShutdownDate),
-                New OracleParameter("v18", facility.FacilityName),
-                New OracleParameter("v19", facility.FacilityLocation.Address.Street),
-                New OracleParameter("v20", facility.FacilityLocation.Address.Street2),
-                New OracleParameter("v21", facility.FacilityLocation.Address.City),
-                New OracleParameter("v22", facility.FacilityLocation.Address.PostalCode),
-                New OracleParameter("v23", facility.Comment),
-                New OracleParameter("v25", CurrentUser.UserID),
-                New OracleParameter("v26", OracleDate),
-                New OracleParameter("airsnumber", airsNumber),
-                New OracleParameter("feeyear", feeYearDecimal)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("v13", facility.HeaderData.OperationalStatusCode),
+                New SqlParameter("v14", facility.HeaderData.ClassificationCode),
+                New SqlParameter("v15", If(facility.SubjectToNsps, "1", "0")),
+                New SqlParameter("v16", If(facility.SubjectToPart70, "1", "0")),
+                New SqlParameter("v17", facility.HeaderData.ShutdownDate),
+                New SqlParameter("v18", facility.FacilityName),
+                New SqlParameter("v19", facility.FacilityLocation.Address.Street),
+                New SqlParameter("v20", facility.FacilityLocation.Address.Street2),
+                New SqlParameter("v21", facility.FacilityLocation.Address.City),
+                New SqlParameter("v22", facility.FacilityLocation.Address.PostalCode),
+                New SqlParameter("v23", facility.Comment),
+                New SqlParameter("v25", CurrentUser.UserID),
+                New SqlParameter("v26", OracleDate),
+                New SqlParameter("airsnumber", airsNumber),
+                New SqlParameter("feeyear", feeYearDecimal)
             }
 
             Return DB.RunCommand(query, parameters)

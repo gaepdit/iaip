@@ -1,4 +1,4 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 Public Class SSPPApplicationLog
     Inherits BaseForm
@@ -6,16 +6,16 @@ Public Class SSPPApplicationLog
 #Region "Initialize variables"
     ' Local variables
     Private SQL As String
-    Private cmd As OracleCommand
-    Private dr As OracleDataReader
+    Private cmd As SqlCommand
+    Private dr As SqlDataReader
     Private dsApplication As DataSet
-    'Private daApplication As OracleDataAdapter
+    'Private daApplication As SqlDataAdapter
     Private dsUnitList As DataSet
-    Private daUnitList As OracleDataAdapter
+    Private daUnitList As SqlDataAdapter
     Private dsEngineerList As DataSet
-    Private daEngineerList As OracleDataAdapter
+    Private daEngineerList As SqlDataAdapter
     Private dsSubpart As DataSet
-    Private daSubpart As OracleDataAdapter
+    Private daSubpart As SqlDataAdapter
     Private SQLLine As String
     Private SQLSearch1 As String
     Private SQLSearch2 As String
@@ -355,7 +355,7 @@ Public Class SSPPApplicationLog
             "order by strUnitDesc "
 
             dsUnitList = New DataSet
-            daUnitList = New OracleDataAdapter(SQL, CurrentConnection)
+            daUnitList = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -393,7 +393,7 @@ Public Class SSPPApplicationLog
             "order by strLastName "
 
             dsEngineerList = New DataSet
-            daEngineerList = New OracleDataAdapter(SQL, CurrentConnection)
+            daEngineerList = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -431,7 +431,7 @@ Public Class SSPPApplicationLog
             "from AIRBRANCH.LookUpSubpartSIP " &
             "order by strSubpart "
 
-            daSubpart = New OracleDataAdapter(SQL, CurrentConnection)
+            daSubpart = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -486,7 +486,7 @@ Public Class SSPPApplicationLog
             "from AIRBRANCH.LookUpSubpart61 " &
             "order by strSubpart "
 
-            daSubpart = New OracleDataAdapter(SQL, CurrentConnection)
+            daSubpart = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -541,7 +541,7 @@ Public Class SSPPApplicationLog
             "from AIRBRANCH.LookUpSubpart60 " &
             "order by strSubpart "
 
-            daSubpart = New OracleDataAdapter(SQL, CurrentConnection)
+            daSubpart = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -597,7 +597,7 @@ Public Class SSPPApplicationLog
             "from AIRBRANCH.LookUpSubpart63 " &
             "order by strSubpart "
 
-            daSubpart = New OracleDataAdapter(SQL, CurrentConnection)
+            daSubpart = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -690,7 +690,7 @@ Public Class SSPPApplicationLog
                     "where numUserID = '" & CurrentUser.UserID & "' " &
                     "and numProgram = '5' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1946,8 +1946,8 @@ Public Class SSPPApplicationLog
                 Exit Sub
             End If
 
-            Using connection As New OracleConnection(DB.CurrentConnectionString)
-                Using dataAdapter As New OracleDataAdapter(SQL, CurrentConnection)
+            Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using dataAdapter As New SqlDataAdapter(SQL, CurrentConnection)
                     Try
                         connection.Open()
 
@@ -1957,7 +1957,7 @@ Public Class SSPPApplicationLog
                         End If
 
                         dataAdapter.Fill(dsApplication, "ApplicationLog")
-                    Catch ee As OracleException
+                    Catch ee As SqlException
                         MessageBox.Show("Could not connect to the database.")
                         e.Cancel = True
                     End Try

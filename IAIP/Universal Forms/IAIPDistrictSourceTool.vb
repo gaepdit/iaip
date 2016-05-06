@@ -1,16 +1,16 @@
 'Imports System.DateTime
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 
 Public Class IAIPDistrictSourceTool
     Dim SQL, SQL2 As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
+    Dim cmd As SqlCommand
+    Dim dr As SqlDataReader
     Dim recExist As Boolean
     Dim dsDistrict As DataSet
-    Dim daDistrict As OracleDataAdapter
+    Dim daDistrict As SqlDataAdapter
     Dim dsDistrictStaff As DataSet
-    Dim daDistrictStaff As OracleDataAdapter
+    Dim daDistrictStaff As SqlDataAdapter
 
 
     Private Sub IAIPDistrictSourcesTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -70,7 +70,7 @@ Public Class IAIPDistrictSourceTool
 
             End Select
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -111,7 +111,7 @@ Public Class IAIPDistrictSourceTool
                    "order by StrDistrictName"
 
             dsDistrict = New DataSet
-            daDistrict = New OracleDataAdapter(SQL, CurrentConnection)
+            daDistrict = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -217,7 +217,7 @@ Public Class IAIPDistrictSourceTool
             "or (numBranch = '5' and numProgram <> '35' and numEmployeeStatus = '1')) "
 
             dsDistrictStaff = New DataSet
-            daDistrictStaff = New OracleDataAdapter(SQL, CurrentConnection)
+            daDistrictStaff = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -269,7 +269,7 @@ Public Class IAIPDistrictSourceTool
                     "from AIRBRANCH.LookUpCountyInformation where " &
                     "strCountyName = '" & strObject & "') "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
 
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
@@ -292,7 +292,7 @@ Public Class IAIPDistrictSourceTool
                 SQL = "Select strDistrictCode from AIRBRANCH.LookUPDistricts " &
                 "where strDistrictCode = '" & txtNewDistrictCode.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -313,7 +313,7 @@ Public Class IAIPDistrictSourceTool
                     "'" & cboDistrictManager.SelectedValue & "') "
                 End If
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 LoadDistrictListBox()
@@ -327,7 +327,7 @@ Public Class IAIPDistrictSourceTool
                 SQL = "Delete AIRBRANCH.LookUPDistricts " &
                 "where strDistrictCode = '" & Me.cboDistrictToRemove.SelectedValue & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -537,7 +537,7 @@ Public Class IAIPDistrictSourceTool
                 "strDistrictName, strDistrictManager " &
                 "from AIRBRANCH.LookUPDistricts " &
                 "where strDistrictCode = '" & txtNewDistrictCode.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -593,7 +593,7 @@ Public Class IAIPDistrictSourceTool
             "from AIRBRANCH.LookUpCountyInformation " &
             "Order by strCountyName"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -611,7 +611,7 @@ Public Class IAIPDistrictSourceTool
                 "and strDistrictCode = '" & clbDistricts.SelectedValue & "' " &
                 "and strCountyName = '" & CountyName & "' "
 
-                cmd = New OracleCommand(SQL2, CurrentConnection)
+                cmd = New SqlCommand(SQL2, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If

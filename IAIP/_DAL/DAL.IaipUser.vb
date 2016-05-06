@@ -1,26 +1,30 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 Imports System.Collections.Generic
 
 Namespace DAL
     Module IaipUserData
 
         Public Function AuthenticateIaipUser(ByVal username As String, ByVal password As String) As IaipAuthenticationResult
-            If username = "" Then Return IaipAuthenticationResult.InvalidUsername
-            If password = "" Then Return IaipAuthenticationResult.InvalidLogin
+            Throw New NotImplementedException()
 
-            Dim spName As String = "AIRBRANCH.IAIP_USER.AuthenticateIaipUser"
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("ReturnValue", OracleDbType.Varchar2, 20, Nothing, ParameterDirection.ReturnValue),
-                New OracleParameter("username", username),
-                New OracleParameter("userpassword", password)
-            }
-            Dim result As Boolean = DB.SPRunCommand(spName, parameters)
+            ' TODO: SQL Server migration
 
-            If result AndAlso Not parameters(0).Value.IsNull Then
-                Return [Enum].Parse(GetType(IaipAuthenticationResult), parameters(0).Value.ToString)
-            Else
-                Return IaipAuthenticationResult.InvalidLogin
-            End If
+            'If username = "" Then Return IaipAuthenticationResult.InvalidUsername
+            'If password = "" Then Return IaipAuthenticationResult.InvalidLogin
+
+            'Dim spName As String = "AIRBRANCH.IAIP_USER.AuthenticateIaipUser"
+            'Dim parameters As SqlParameter() = {
+            '    New SqlParameter("ReturnValue", SqlDbType.VarChar, 20, Nothing, ParameterDirection.ReturnValue),
+            '    New SqlParameter("username", username),
+            '    New SqlParameter("userpassword", password)
+            '}
+            'Dim result As Boolean = DB.SPRunCommand(spName, parameters)
+
+            'If result AndAlso Not parameters(0).Value.IsNull Then
+            '    Return [Enum].Parse(GetType(IaipAuthenticationResult), parameters(0).Value.ToString)
+            'Else
+            '    Return IaipAuthenticationResult.InvalidLogin
+            'End If
         End Function
 
         Public Enum IaipAuthenticationResult
@@ -47,7 +51,7 @@ Namespace DAL
             If userid = 0 Then Return Nothing
 
             Dim spName As String = "AIRBRANCH.IAIP_USER.GetIaipUserByUserId"
-            Dim parameter As New OracleParameter("userid", userid)
+            Dim parameter As New SqlParameter("userid", userid)
 
             Return DB.SPGetDataTable(spName, parameter)
         End Function
@@ -56,7 +60,7 @@ Namespace DAL
             If username = "" Then Return Nothing
 
             Dim spName As String = "AIRBRANCH.IAIP_USER.GetIaipUserByUsername"
-            Dim parameter As New OracleParameter("username", username)
+            Dim parameter As New SqlParameter("username", username)
 
             Dim dataTable As DataTable = DB.SPGetDataTable(spName, parameter)
             If dataTable Is Nothing OrElse dataTable.Rows.Count = 0 Then Return Nothing
@@ -97,48 +101,60 @@ Namespace DAL
         End Function
 
         Public Function UsernameExists(username As String, Optional ignoreUser As Integer = 0) As Boolean
-            If username = "" Then Return False
-            Dim spName As String = "AIRBRANCH.IAIP_USER.UsernameExists"
-            Dim parameters As OracleParameter() = New OracleParameter() {
-                New OracleParameter("ReturnValue", OracleDbType.Varchar2, 5, Nothing, ParameterDirection.ReturnValue),
-                New OracleParameter("username", username),
-                New OracleParameter("ignoreUser", ignoreUser)
-            }
-            DB.SPRunCommand(spName, parameters)
-            Return DB.GetNullable(Of Boolean)(parameters(0).Value.ToString)
+            Throw New NotImplementedException()
+
+            ' TODO: SQL Server migration
+
+            'If username = "" Then Return False
+            'Dim spName As String = "AIRBRANCH.IAIP_USER.UsernameExists"
+            'Dim parameters As SqlParameter() = New SqlParameter() {
+            '    New SqlParameter("ReturnValue", SqlDbType.VarChar, 5, Nothing, ParameterDirection.ReturnValue),
+            '    New SqlParameter("username", username),
+            '    New SqlParameter("ignoreUser", ignoreUser)
+            '}
+            'DB.SPRunCommand(spName, parameters)
+            'Return DB.GetNullable(Of Boolean)(parameters(0).Value.ToString)
         End Function
 
         Public Function EmailIsInUse(email As String, Optional ignoreUser As Integer = 0) As Boolean
-            If email.Trim = "" Then Return False
-            Dim spName As String = "AIRBRANCH.IAIP_USER.EmailInUse"
-            Dim parameters As OracleParameter() = New OracleParameter() {
-                New OracleParameter("ReturnValue", OracleDbType.Varchar2, 5, Nothing, ParameterDirection.ReturnValue),
-                New OracleParameter("email", email.Trim.ToLower),
-                New OracleParameter("ignoreUser", ignoreUser)
-            }
-            DB.SPRunCommand(spName, parameters)
-            Return DB.GetNullable(Of Boolean)(parameters(0).Value.ToString)
+            Throw New NotImplementedException()
+
+            ' TODO: SQL Server migration
+
+            'If email.Trim = "" Then Return False
+            'Dim spName As String = "AIRBRANCH.IAIP_USER.EmailInUse"
+            'Dim parameters As SqlParameter() = New SqlParameter() {
+            '    New SqlParameter("ReturnValue", SqlDbType.VarChar, 5, Nothing, ParameterDirection.ReturnValue),
+            '    New SqlParameter("email", email.Trim.ToLower),
+            '    New SqlParameter("ignoreUser", ignoreUser)
+            '}
+            'DB.SPRunCommand(spName, parameters)
+            'Return DB.GetNullable(Of Boolean)(parameters(0).Value.ToString)
         End Function
 
         Public Function UpdateUserPassword(username As String, newPassword As String, oldPassword As String) As PasswordUpdateResponse
-            If username = "" Then Return PasswordUpdateResponse.InvalidUsername
-            If newPassword = "" Then Return PasswordUpdateResponse.InvalidNewPassword
-            If oldPassword = "" Then Return PasswordUpdateResponse.InvalidLogin
+            Throw New NotImplementedException()
 
-            Dim spName As String = "AIRBRANCH.IAIP_USER.UpdateUserPassword"
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("ReturnValue", OracleDbType.Varchar2, 20, Nothing, ParameterDirection.ReturnValue),
-                New OracleParameter("username", username),
-                New OracleParameter("newpassword", newPassword),
-                New OracleParameter("oldpassword", oldPassword)
-            }
-            Dim result As Boolean = DB.SPRunCommand(spName, parameters)
+            ' TODO: SQL Server migration
 
-            If result AndAlso Not parameters(0).Value.IsNull Then
-                Return [Enum].Parse(GetType(PasswordUpdateResponse), parameters(0).Value.ToString)
-            Else
-                Return PasswordUpdateResponse.UnknownError
-            End If
+            'If username = "" Then Return PasswordUpdateResponse.InvalidUsername
+            'If newPassword = "" Then Return PasswordUpdateResponse.InvalidNewPassword
+            'If oldPassword = "" Then Return PasswordUpdateResponse.InvalidLogin
+
+            'Dim spName As String = "AIRBRANCH.IAIP_USER.UpdateUserPassword"
+            'Dim parameters As SqlParameter() = {
+            '    New SqlParameter("ReturnValue", SqlDbType.VarChar, 20, Nothing, ParameterDirection.ReturnValue),
+            '    New SqlParameter("username", username),
+            '    New SqlParameter("newpassword", newPassword),
+            '    New SqlParameter("oldpassword", oldPassword)
+            '}
+            'Dim result As Boolean = DB.SPRunCommand(spName, parameters)
+
+            'If result AndAlso Not parameters(0).Value.IsNull Then
+            '    Return [Enum].Parse(GetType(PasswordUpdateResponse), parameters(0).Value.ToString)
+            'Else
+            '    Return PasswordUpdateResponse.UnknownError
+            'End If
 
         End Function
 
@@ -160,7 +176,7 @@ Namespace DAL
             End If
 
             Dim spName As String = "AIRBRANCH.IAIP_USER.RequestUsername"
-            Dim parameter As New OracleParameter("emailaddress", email)
+            Dim parameter As New SqlParameter("emailaddress", email)
             If DB.SPRunCommand(spName, parameter) Then
                 Return UsernameReminderResponse.Success
             Else
@@ -181,7 +197,7 @@ Namespace DAL
             End If
 
             Dim spName As String = "AIRBRANCH.IAIP_USER.RequestUserPasswordReset"
-            Dim parameter As New OracleParameter("username", username)
+            Dim parameter As New SqlParameter("username", username)
             If DB.SPRunCommand(spName, parameter) Then
                 Return ResetPasswordResponse.Success
             Else
@@ -196,26 +212,30 @@ Namespace DAL
         End Enum
 
         Public Function ResetUserPassword(username As String, newPassword As String, resettoken As String) As ResetPasswordResponse
-            If username = "" OrElse Not UsernameExists(username) Then
-                Return ResetPasswordResponse.InvalidUsername
-            End If
-            If newPassword = "" Then Return ResetPasswordResponse.InvalidNewPassword
-            If resettoken = "" Then Return ResetPasswordResponse.InvalidToken
+            Throw New NotImplementedException()
 
-            Dim spName As String = "AIRBRANCH.IAIP_USER.ResetUserPassword"
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("ReturnValue", OracleDbType.Varchar2, 20, Nothing, ParameterDirection.ReturnValue),
-                New OracleParameter("username", username),
-                New OracleParameter("newpassword", newPassword),
-                New OracleParameter("resettoken", resettoken)
-            }
-            Dim result As Boolean = DB.SPRunCommand(spName, parameters)
+            ' TODO: SQL Server migration
 
-            If result AndAlso Not parameters(0).Value.IsNull Then
-                Return [Enum].Parse(GetType(ResetPasswordResponse), parameters(0).Value.ToString)
-            Else
-                Return ResetPasswordResponse.UnknownError
-            End If
+            'If username = "" OrElse Not UsernameExists(username) Then
+            '    Return ResetPasswordResponse.InvalidUsername
+            'End If
+            'If newPassword = "" Then Return ResetPasswordResponse.InvalidNewPassword
+            'If resettoken = "" Then Return ResetPasswordResponse.InvalidToken
+
+            'Dim spName As String = "AIRBRANCH.IAIP_USER.ResetUserPassword"
+            'Dim parameters As SqlParameter() = {
+            '    New SqlParameter("ReturnValue", SqlDbType.VarChar, 20, Nothing, ParameterDirection.ReturnValue),
+            '    New SqlParameter("username", username),
+            '    New SqlParameter("newpassword", newPassword),
+            '    New SqlParameter("resettoken", resettoken)
+            '}
+            'Dim result As Boolean = DB.SPRunCommand(spName, parameters)
+
+            'If result AndAlso Not parameters(0).Value.IsNull Then
+            '    Return [Enum].Parse(GetType(ResetPasswordResponse), parameters(0).Value.ToString)
+            'Else
+            '    Return ResetPasswordResponse.UnknownError
+            'End If
         End Function
 
         Public Enum ResetPasswordResponse
@@ -233,19 +253,19 @@ Namespace DAL
                                       office As String, status As Boolean, ByRef newUserId As Integer) As Boolean
 
             Dim spName As String = "AIRBRANCH.IAIP_USER.CreateNewUser"
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("ReturnValue", OracleDbType.Int32, ParameterDirection.ReturnValue),
-                New OracleParameter("username", username),
-                New OracleParameter("lastname", lastname),
-                New OracleParameter("firstname", firstname),
-                New OracleParameter("emailaddress", emailaddress),
-                New OracleParameter("phone", phone),
-                New OracleParameter("branchid", branchid),
-                New OracleParameter("programid", programid),
-                New OracleParameter("unitid", unitid),
-                New OracleParameter("office", office),
-                New OracleParameter("status", DB.ConvertBooleanToDBValue(status, DB.BooleanDBConversionType.OneOrZero)),
-                New OracleParameter("createdby", CurrentUser.UserID)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("ReturnValue", SqlDbType.Int, ParameterDirection.ReturnValue),
+                New SqlParameter("username", username),
+                New SqlParameter("lastname", lastname),
+                New SqlParameter("firstname", firstname),
+                New SqlParameter("emailaddress", emailaddress),
+                New SqlParameter("phone", phone),
+                New SqlParameter("branchid", branchid),
+                New SqlParameter("programid", programid),
+                New SqlParameter("unitid", unitid),
+                New SqlParameter("office", office),
+                New SqlParameter("status", DB.ConvertBooleanToDBValue(status, DB.BooleanDBConversionType.OneOrZero)),
+                New SqlParameter("createdby", CurrentUser.UserID)
             }
             Dim result As Boolean = DB.SPRunCommand(spName, parameters)
 
@@ -266,13 +286,13 @@ Namespace DAL
                                     Optional includeInactive As Boolean = False
                                     ) As DataTable
             Dim spName As String = "AIRBRANCH.IAIP_USER.SearchUsers"
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("firstname", firstName),
-                New OracleParameter("lastname", lastName),
-                New OracleParameter("branchid", branch),
-                New OracleParameter("programid", program),
-                New OracleParameter("unitid", unit),
-                New OracleParameter("includeinactive", includeInactive.ToString)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("firstname", firstName),
+                New SqlParameter("lastname", lastName),
+                New SqlParameter("branchid", branch),
+                New SqlParameter("programid", program),
+                New SqlParameter("unitid", unit),
+                New SqlParameter("includeinactive", includeInactive.ToString)
             }
             Return DB.SPGetDataTable(spName, parameters)
         End Function
@@ -281,19 +301,19 @@ Namespace DAL
             If user.UserID = 0 Then Return False
 
             Dim spName As String = "AIRBRANCH.IAIP_USER.UpdateUserProfile"
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("userid", user.UserID),
-                New OracleParameter("username", user.Username),
-                New OracleParameter("lastname", user.LastName),
-                New OracleParameter("firstname", user.FirstName),
-                New OracleParameter("emailaddress", user.EmailAddress),
-                New OracleParameter("phone", user.PhoneNumber),
-                New OracleParameter("branchid", user.BranchID),
-                New OracleParameter("programid", user.ProgramID),
-                New OracleParameter("unitid", user.UnitId),
-                New OracleParameter("office", user.OfficeNumber),
-                New OracleParameter("status", DB.ConvertBooleanToDBValue(user.ActiveEmployee, DB.BooleanDBConversionType.OneOrZero)),
-                New OracleParameter("updatedby", CurrentUser.UserID)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("userid", user.UserID),
+                New SqlParameter("username", user.Username),
+                New SqlParameter("lastname", user.LastName),
+                New SqlParameter("firstname", user.FirstName),
+                New SqlParameter("emailaddress", user.EmailAddress),
+                New SqlParameter("phone", user.PhoneNumber),
+                New SqlParameter("branchid", user.BranchID),
+                New SqlParameter("programid", user.ProgramID),
+                New SqlParameter("unitid", user.UnitId),
+                New SqlParameter("office", user.OfficeNumber),
+                New SqlParameter("status", DB.ConvertBooleanToDBValue(user.ActiveEmployee, DB.BooleanDBConversionType.OneOrZero)),
+                New SqlParameter("updatedby", CurrentUser.UserID)
             }
             Return DB.SPRunCommand(spName, parameters)
         End Function
@@ -302,10 +322,10 @@ Namespace DAL
             If userId = 0 Then Return False
 
             Dim spName As String = "AIRBRANCH.IAIP_USER.UpdateUserRoles"
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("userid", userId),
-                New OracleParameter("rolesstring", roles.DbString),
-                New OracleParameter("updatedby", CurrentUser.UserID)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("userid", userId),
+                New SqlParameter("rolesstring", roles.DbString),
+                New SqlParameter("updatedby", CurrentUser.UserID)
             }
             Return DB.SPRunCommand(spName, parameters)
         End Function

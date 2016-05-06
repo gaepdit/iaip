@@ -1,4 +1,4 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 
 Namespace DAL
     Module NavigationScreenData
@@ -59,7 +59,7 @@ Namespace DAL
             Dim query As String = GetWorkViewerSQL(workViewerList)
             If query Is Nothing Or query = "" Then Return Nothing
 
-            Dim parameter As New OracleParameter("pId", parameterValue)
+            Dim parameter As New SqlParameter("pId", parameterValue)
 
             Return DB.GetDataTable(query, parameter)
         End Function

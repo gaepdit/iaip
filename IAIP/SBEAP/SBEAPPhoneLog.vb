@@ -1,9 +1,9 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 
 Public Class SBEAPPhoneLog
     Dim SQL, SQL2 As String
     Dim dsStaff As DataSet
-    Dim daStaff As OracleDataAdapter
+    Dim daStaff As SqlDataAdapter
 
     Public WriteOnly Property ValueFromClientLookUp() As String
         Set(ByVal Value As String)
@@ -79,7 +79,7 @@ Public Class SBEAPPhoneLog
             "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SBEAPCaseLog.numStaffResponsible " &
             "Order by UserName "
 
-            daStaff = New OracleDataAdapter(SQL, CurrentConnection)
+            daStaff = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -131,7 +131,7 @@ Public Class SBEAPPhoneLog
             "where AIRBRANCH.SBEAPClients.strCompanyCounty = AIRBRANCH.LookUpCountyInformation.strCountyCode (+) " &
             "and ClientId = '" & txtClientID.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -182,7 +182,7 @@ Public Class SBEAPPhoneLog
             "from AIRBRANCH.SBEAPCaseLog " &
             "where ClientID = '" & txtClientID.Text & "' " &
             "and datCaseClosed is null"
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -308,7 +308,7 @@ Public Class SBEAPPhoneLog
                     SQL2 = ""
                 End If
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -316,7 +316,7 @@ Public Class SBEAPPhoneLog
                 dr.Close()
 
                 If SQL2 <> "" Then
-                    cmd = New OracleCommand(SQL2, CurrentConnection)
+                    cmd = New SqlCommand(SQL2, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -339,7 +339,7 @@ Public Class SBEAPPhoneLog
                     "end ActionNumber " &
                     "from dual  "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -359,7 +359,7 @@ Public Class SBEAPPhoneLog
                     "'6', '" & CurrentUser.UserID & "', " &
                     "'" & OracleDate & "', '" & CurrentUser.UserID & "', " &
                     "'" & OracleDate & "', '" & OracleDate & "') "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -374,7 +374,7 @@ Public Class SBEAPPhoneLog
                     "'" & OneTimeAssist & "', '" & FrontDeskCall & "', " &
                     "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -391,7 +391,7 @@ Public Class SBEAPPhoneLog
                     "datModifingDate = '" & OracleDate & "' " &
                     "where numActionID = '" & txtActionID.Text & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If

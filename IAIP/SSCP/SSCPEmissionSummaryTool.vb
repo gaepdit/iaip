@@ -1,14 +1,14 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 
 Public Class SSCPEmissionSummaryTool
     Dim SQL As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
-    Dim daViewCount As OracleDataAdapter
+    Dim cmd As SqlCommand
+    Dim dr As SqlDataReader
+    Dim daViewCount As SqlDataAdapter
     Dim dsViewCount As DataSet
     Dim ds As DataSet
-    Dim da As OracleDataAdapter
+    Dim da As SqlDataAdapter
 
     Private Sub SSCPEmissionSummaryTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
@@ -36,7 +36,7 @@ Public Class SSCPEmissionSummaryTool
             "from AIRBRANCH.esschema " &
             "order by intESYear desc "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -69,7 +69,7 @@ Public Class SSCPEmissionSummaryTool
             "where strInventoryYear < 2010 ) " &
             "order by EIYear desc  "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -106,7 +106,7 @@ Public Class SSCPEmissionSummaryTool
             "where AIRBranch.VW_EIS_RPEMISSIONS.PollutantCode = AIRBranch.EISLK_PollutantCode.PollutantCode "
 
             ds = New DataSet
-            da = New OracleDataAdapter(SQL, CurrentConnection)
+            da = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -187,7 +187,7 @@ Public Class SSCPEmissionSummaryTool
                 "where AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " &
                 "and AIRBRANCH.esmailout.STRESYEAR = '" & ESYear & "'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -204,7 +204,7 @@ Public Class SSCPEmissionSummaryTool
                 "and AIRBRANCH.ESSCHEMA.STROPTOUT is not NULL " &
                 "and AIRBRANCH.esmailout.STRESYEAR = '" & ESYear & "'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -220,7 +220,7 @@ Public Class SSCPEmissionSummaryTool
                 "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "'" &
                 " and AIRBRANCH.ESSchema.strOptOut = 'NO'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -236,7 +236,7 @@ Public Class SSCPEmissionSummaryTool
                 "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "' " &
                 "and AIRBRANCH.ESSchema.strOptOut = 'YES'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
 
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -253,7 +253,7 @@ Public Class SSCPEmissionSummaryTool
                 "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "'" &
                 " and to_date(AIRBRANCH.ESSchema.STRDATEFIRSTCONFIRM) < = '" & deadline & "'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -268,7 +268,7 @@ Public Class SSCPEmissionSummaryTool
                 "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "'" &
                 " and to_date(AIRBRANCH.ESSchema.STRDATEFIRSTCONFIRM) > '" & deadline & "'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -284,7 +284,7 @@ Public Class SSCPEmissionSummaryTool
                 " and AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " &
                 " and AIRBRANCH.ESSchema.strOptOut = 'NO'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -301,7 +301,7 @@ Public Class SSCPEmissionSummaryTool
                 " and AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " &
                 " and AIRBRANCH.ESSchema.strOptOut = 'YES'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -322,7 +322,7 @@ Public Class SSCPEmissionSummaryTool
              "where AIRBRANCH.ESSCHEMA.intESYEAR = '" & ESYear & "'" &
              " and AIRBRANCH.ESSchema.strOptOut is NULL"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -345,7 +345,7 @@ Public Class SSCPEmissionSummaryTool
             "Where AIRBRANCH.ESSCHEMA.STRAIRSYEAR = SchemaAIRS " &
             "AND MailoutAIRS is NULL"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -369,7 +369,7 @@ Public Class SSCPEmissionSummaryTool
             "AND MailoutAIRS is NULL " &
             "and AIRBRANCH.ESSCHEMA.STROPTOUT='NO'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -394,7 +394,7 @@ Public Class SSCPEmissionSummaryTool
             "AND MailoutAIRS is NULL " &
             "and AIRBRANCH.ESSCHEMA.STROPTOUT='YES'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Open Then
             Else
@@ -411,7 +411,7 @@ Public Class SSCPEmissionSummaryTool
             "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "'" &
             " and AIRBRANCH.ESSchema.strOptOut is not NULL"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Open Then
             Else
                 CurrentConnection.Open()
@@ -440,7 +440,7 @@ Public Class SSCPEmissionSummaryTool
             "where STRAIRSNUMBER = '" & AirsNo & "' " &
             "and INTESYEAR = '" & intESyear & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -668,7 +668,7 @@ Public Class SSCPEmissionSummaryTool
             "order by STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -732,7 +732,7 @@ Public Class SSCPEmissionSummaryTool
             "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -785,7 +785,7 @@ Public Class SSCPEmissionSummaryTool
             "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -855,7 +855,7 @@ Public Class SSCPEmissionSummaryTool
             "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -933,7 +933,7 @@ Public Class SSCPEmissionSummaryTool
             "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -983,7 +983,7 @@ Public Class SSCPEmissionSummaryTool
             "order by STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1035,7 +1035,7 @@ Public Class SSCPEmissionSummaryTool
           "order by AIRBRANCH.esMailOut.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1091,7 +1091,7 @@ Public Class SSCPEmissionSummaryTool
             "AND MailoutAIRS is NULL"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1152,7 +1152,7 @@ Public Class SSCPEmissionSummaryTool
             "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1204,7 +1204,7 @@ Public Class SSCPEmissionSummaryTool
             "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1260,7 +1260,7 @@ Public Class SSCPEmissionSummaryTool
             "and AIRBRANCH.ESSCHEMA.STROPTOUT='YES'"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1317,7 +1317,7 @@ Public Class SSCPEmissionSummaryTool
 
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1371,7 +1371,7 @@ Public Class SSCPEmissionSummaryTool
             "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
-            daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1540,7 +1540,7 @@ Public Class SSCPEmissionSummaryTool
                     "order by AIRSNumber) "
 
                     ds = New DataSet
-                    da = New OracleDataAdapter(SQL, CurrentConnection)
+                    da = New SqlDataAdapter(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1661,7 +1661,7 @@ Public Class SSCPEmissionSummaryTool
                     "and ViewList.facilitysiteid  = NOXSum.facilitysiteid (+) "
 
                     ds = New DataSet
-                    da = New OracleDataAdapter(SQL, CurrentConnection)
+                    da = New SqlDataAdapter(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1796,7 +1796,7 @@ Public Class SSCPEmissionSummaryTool
 
                     End If
                     ds = New DataSet
-                    da = New OracleDataAdapter(SQL, CurrentConnection)
+                    da = New SqlDataAdapter(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If

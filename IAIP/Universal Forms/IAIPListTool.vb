@@ -1,24 +1,24 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 
 Public Class IAIPListTool
     Dim SQL As String
-    Dim dr As OracleDataReader
-    Dim cmd As OracleCommand
+    Dim dr As SqlDataReader
+    Dim cmd As SqlCommand
     Dim dsOrginizations As DataSet
-    Dim daOrginizations As OracleDataAdapter
+    Dim daOrginizations As SqlDataAdapter
     Dim dsBranch As DataSet
-    Dim daBranch As OracleDataAdapter
+    Dim daBranch As SqlDataAdapter
     Dim dsProgram As DataSet
-    Dim daProgram As OracleDataAdapter
+    Dim daProgram As SqlDataAdapter
     Dim dsUnit As DataSet
-    Dim daUnit As OracleDataAdapter
+    Dim daUnit As SqlDataAdapter
     Dim dsAccount As DataSet
-    Dim daAccount As OracleDataAdapter
+    Dim daAccount As SqlDataAdapter
     Dim dsAccounts As DataSet
-    Dim daAccounts As OracleDataAdapter
+    Dim daAccounts As SqlDataAdapter
     Dim dsForms As DataSet
-    Dim daForms As OracleDataAdapter
+    Dim daForms As SqlDataAdapter
 
     Private Sub IAIPListTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
@@ -62,7 +62,7 @@ Public Class IAIPListTool
             "and AIRBRANCH.lookupepdprograms.numprogramcode = AIRBRANCH.lookupepdunits.numprogramcode (+) " &
             "order by strbranchdesc, strProgramDesc, strUnitDesc "
 
-            daOrginizations = New OracleDataAdapter(SQL, CurrentConnection)
+            daOrginizations = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = "Select " &
             "numAccountCode, strAccountDesc, " &
@@ -71,7 +71,7 @@ Public Class IAIPListTool
             "from AIRBRANCH.LookUpIAIPAccounts " &
             "order by strAccountDesc "
 
-            daAccounts = New OracleDataAdapter(SQL, CurrentConnection)
+            daAccounts = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -93,7 +93,7 @@ Public Class IAIPListTool
             "order by strBranchDesc "
 
             dsBranch = New DataSet
-            daBranch = New OracleDataAdapter(SQL, CurrentConnection)
+            daBranch = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -171,7 +171,7 @@ Public Class IAIPListTool
             "from AIRBRANCH.LookUpIAIPForms "
 
             dsForms = New DataSet
-            daForms = New OracleDataAdapter(SQL, CurrentConnection)
+            daForms = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -312,7 +312,7 @@ Public Class IAIPListTool
             "order by strProgramDesc "
 
             dsProgram = New DataSet
-            daProgram = New OracleDataAdapter(SQL, CurrentConnection)
+            daProgram = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -356,7 +356,7 @@ Public Class IAIPListTool
             "order by strAccountDesc "
 
             dsAccount = New DataSet
-            daAccount = New OracleDataAdapter(SQL, CurrentConnection)
+            daAccount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -416,7 +416,7 @@ Public Class IAIPListTool
             "order by strUnitDesc "
 
             dsUnit = New DataSet
-            daUnit = New OracleDataAdapter(SQL, CurrentConnection)
+            daUnit = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -459,7 +459,7 @@ Public Class IAIPListTool
             "order by strAccountDesc "
 
             dsAccount = New DataSet
-            daAccount = New OracleDataAdapter(SQL, CurrentConnection)
+            daAccount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -521,7 +521,7 @@ Public Class IAIPListTool
             "order by strAccountDesc "
 
             dsAccount = New DataSet
-            daAccount = New OracleDataAdapter(SQL, CurrentConnection)
+            daAccount = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -783,7 +783,7 @@ Public Class IAIPListTool
 
             If SQLLine <> "" Then
                 SQL = SQL & SQLLine
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -820,7 +820,7 @@ Public Class IAIPListTool
             "strFormAccess " &
             "from AIRBRANCH.LookUpIAIPAccounts " &
             "where numAccountCode = '" & temp & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1063,7 +1063,7 @@ Public Class IAIPListTool
             "((select max(numBranchCode) + 1 from AIRBRANCH.LookUpEPDBranches), " &
             "'" & Replace(txtBranch.Text, "'", "''") & "') "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1071,7 +1071,7 @@ Public Class IAIPListTool
             dr.Close()
 
             SQL = "Select max(numBranchCode) from AIRBRANCH.LookUpEPDBranches "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1093,7 +1093,7 @@ Public Class IAIPListTool
                 SQL = "Update AIRBRANCH.LookUpEPDBranches set " &
                 "strBranchDesc = '" & Replace(txtBranch.Text, "'", "''") & "' " &
                 "where numBranchCode = '" & txtBranchCode.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1113,7 +1113,7 @@ Public Class IAIPListTool
             If txtBranchCode.Text <> "" Then
                 SQL = "Delete AIRBRANCH.LookUpEPDBranches " &
                 "where numBranchCode = '" & txtBranchCode.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1140,7 +1140,7 @@ Public Class IAIPListTool
                 "'" & Replace(txtProgram.Text, "'", "''") & "', " &
                 "'" & txtBranchCode.Text & "') "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1148,7 +1148,7 @@ Public Class IAIPListTool
                 dr.Close()
 
                 SQL = "select max(numProgramCode) from AIRBRANCH.LookUpEPDPrograms where numProgramCode < 99 "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1175,7 +1175,7 @@ Public Class IAIPListTool
                 "numBranchCode = '" & txtBranchCode.Text & "' " &
                 "where numProgramCode = '" & txtProgramCode.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1194,7 +1194,7 @@ Public Class IAIPListTool
         Try
             SQL = "Delete AIRBRANCH.LookUpEPDPrograms " &
             "where numProgramCode = '" & txtProgramCode.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1220,7 +1220,7 @@ Public Class IAIPListTool
                 "((select max(numUnitCode) + 1 From AIRBranch.LookUpEPDUnits), '" & Replace(txtUnit.Text, "'", "''") & "',  " &
                 "'" & Replace(txtProgramCode.Text, "'", "''") & "') "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1228,7 +1228,7 @@ Public Class IAIPListTool
                 dr.Close()
 
                 SQL = "select max(numUnitCode) from AIRBRANCH.LookUpEPDUnits "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1253,7 +1253,7 @@ Public Class IAIPListTool
                 "strUnitDesc = '" & txtUnit.Text & "' " &
                 "where numUnitCode = '" & txtUnitCode.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1273,7 +1273,7 @@ Public Class IAIPListTool
             SQL = "Delete AIRBRANCH.LookUpEPDUnits " &
             "where numUnitCode = '" & txtUnitCode.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1298,7 +1298,7 @@ Public Class IAIPListTool
             "'" & txtAccount.Text & "', " &
             "'" & txtBranchCode.Text & "', '" & txtProgramCode.Text & "', " &
             "'" & txtUnitCode.Text & "', '') "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1308,7 +1308,7 @@ Public Class IAIPListTool
             SQL = "Select max(numAccountCode) as MaxAccount " &
             "from AIRBRANCH.LookUpIAIPAccounts "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1334,7 +1334,7 @@ Public Class IAIPListTool
                 "numUnitCode = '" & txtUnitCode.Text & "' " &
                 "where numAccountCode = '" & txtAccountCode.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1353,7 +1353,7 @@ Public Class IAIPListTool
         Try
             SQL = "Delete AIRBRANCH.LookUpIAIPAccounts " &
             "where numAccountCode = '" & txtAccountCode.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If

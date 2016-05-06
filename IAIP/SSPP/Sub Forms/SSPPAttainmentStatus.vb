@@ -1,15 +1,15 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 
 Public Class SSPPAttainmentStatus
     Dim SQL, SQL2 As String
-    Dim cmd, cmd2 As OracleCommand
-    Dim dr, dr2 As OracleDataReader
+    Dim cmd, cmd2 As SqlCommand
+    Dim dr, dr2 As SqlDataReader
     Dim recExist As Boolean
     Dim dsAttainment As DataSet
-    Dim daAttainment As OracleDataAdapter
+    Dim daAttainment As SqlDataAdapter
     Dim dsCounty As DataSet
-    Dim daCounty As OracleDataAdapter
+    Dim daCounty As SqlDataAdapter
 
 
     Private Sub SSPPAttainmentStatus_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -74,13 +74,13 @@ Public Class SSPPAttainmentStatus
             SQL = "select strCountyCode, strCountyname " &
             "from AIRBRANCH.LookUpCountyInformation " &
             "order by strcountyName"
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
 
             dsCounty = New DataSet
-            daCounty = New OracleDataAdapter(SQL, CurrentConnection)
+            daCounty = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -162,7 +162,7 @@ Public Class SSPPAttainmentStatus
         SQLClause
 
         dsAttainment = New DataSet
-        daAttainment = New OracleDataAdapter(SQL, CurrentConnection)
+        daAttainment = New SqlDataAdapter(SQL, CurrentConnection)
 
         If CurrentConnection.State = ConnectionState.Closed Then
             CurrentConnection.Open()
@@ -206,7 +206,7 @@ Public Class SSPPAttainmentStatus
             "from AIRBRANCH.LookUpCountyInformation " &
             "where strCountyCode = '" & cboCounty.SelectedValue & "'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -290,7 +290,7 @@ Public Class SSPPAttainmentStatus
             SQL = "select strNonAttainment " &
             "from AIRBRANCH.LookUpCountyInformation " &
             "where strCountyCode = '" & cboCounty.SelectedValue & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -317,7 +317,7 @@ Public Class SSPPAttainmentStatus
             SQL = "Update AIRBRANCH.LookUpCountyInformation set " &
             "strNonAttainment = '" & AttainmentStatus & "' " &
             "where strCountyCode = '" & cboCounty.SelectedValue & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -328,7 +328,7 @@ Public Class SSPPAttainmentStatus
             "from AIRBRANCH.APBHeaderData " &
             "where substr(strAIRSNumber, 5, 3) = '" & cboCounty.SelectedValue & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -363,7 +363,7 @@ Public Class SSPPAttainmentStatus
                 "strAttainmentStatus = '" & AttainmentStatus & "' " &
                 "where strAIRSNumber = '" & dr.Item("strAirsNumber") & "' "
 
-                cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                cmd2 = New SqlCommand(SQL2, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -388,7 +388,7 @@ Public Class SSPPAttainmentStatus
             SQL = "select strNonAttainment " &
             "from AIRBRANCH.LookUpCountyInformation " &
             "where strCountyCode = '" & cboCounty.SelectedValue & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -415,7 +415,7 @@ Public Class SSPPAttainmentStatus
             SQL = "Update AIRBRANCH.LookUpCountyInformation set " &
             "strNonAttainment = '" & AttainmentStatus & "' " &
             "where strCountyCode = '" & cboCounty.SelectedValue & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -426,7 +426,7 @@ Public Class SSPPAttainmentStatus
             "from AIRBRANCH.APBHeaderData " &
             "where substr(strAIRSNumber, 5, 3) = '" & cboCounty.SelectedValue & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -461,7 +461,7 @@ Public Class SSPPAttainmentStatus
                 "strAttainmentStatus = '" & AttainmentStatus & "' " &
                 "where strAIRSNumber = '" & dr.Item("strAirsNumber") & "' "
 
-                cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                cmd2 = New SqlCommand(SQL2, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -485,7 +485,7 @@ Public Class SSPPAttainmentStatus
             SQL = "select strNonAttainment " &
             "from AIRBRANCH.LookUpCountyInformation " &
             "where strCountyCode = '" & cboCounty.SelectedValue & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -518,7 +518,7 @@ Public Class SSPPAttainmentStatus
             SQL = "Update AIRBRANCH.LookUpCountyInformation set " &
             "strNonAttainment = '" & AttainmentStatus & "' " &
             "where strCountyCode = '" & cboCounty.SelectedValue & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -529,7 +529,7 @@ Public Class SSPPAttainmentStatus
             "from AIRBRANCH.APBHeaderData " &
             "where substr(strAIRSNumber, 5, 3) = '" & cboCounty.SelectedValue & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -580,7 +580,7 @@ Public Class SSPPAttainmentStatus
                 "strAttainmentStatus = '" & AttainmentStatus & "' " &
                 "where strAIRSNumber = '" & dr.Item("strAirsNumber") & "' "
 
-                cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                cmd2 = New SqlCommand(SQL2, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If

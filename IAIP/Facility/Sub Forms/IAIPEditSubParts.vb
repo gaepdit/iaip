@@ -1,19 +1,19 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 
 Public Class IAIPEditSubParts
     Dim SQL, SQL2, SQL3, SQL4 As String
-    Dim cmd, cmd2 As OracleCommand
-    Dim dr, dr2 As OracleDataReader
+    Dim cmd, cmd2 As SqlCommand
+    Dim dr, dr2 As SqlDataReader
     Dim recExist As Boolean
     Dim dsPart60 As DataSet
-    Dim daPart60 As OracleDataAdapter
+    Dim daPart60 As SqlDataAdapter
     Dim dsPart61 As DataSet
-    Dim daPart61 As OracleDataAdapter
+    Dim daPart61 As SqlDataAdapter
     Dim dsPart63 As DataSet
-    Dim daPart63 As OracleDataAdapter
+    Dim daPart63 As SqlDataAdapter
     Dim dsSIP As DataSet
-    Dim daSIP As OracleDataAdapter
+    Dim daSIP As SqlDataAdapter
 
     Private Sub DevEditSubParts_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
@@ -53,10 +53,10 @@ Public Class IAIPEditSubParts
             dsPart63 = New DataSet
             dsSIP = New DataSet
 
-            daPart60 = New OracleDataAdapter(SQL, CurrentConnection)
-            daPart61 = New OracleDataAdapter(SQL2, CurrentConnection)
-            daPart63 = New OracleDataAdapter(SQL3, CurrentConnection)
-            daSIP = New OracleDataAdapter(SQL4, CurrentConnection)
+            daPart60 = New SqlDataAdapter(SQL, CurrentConnection)
+            daPart61 = New SqlDataAdapter(SQL2, CurrentConnection)
+            daPart63 = New SqlDataAdapter(SQL3, CurrentConnection)
+            daSIP = New SqlDataAdapter(SQL4, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -272,7 +272,7 @@ Public Class IAIPEditSubParts
                 "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSnumber " &
                 "and AIRBRANCH.APBFacilityInformation.strAIRSnumber = '0413" & txtAIRSNumber.Text & "'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -309,7 +309,7 @@ Public Class IAIPEditSubParts
                 "and Active = '1' " &
                 "order by strSubPart "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -388,7 +388,7 @@ Public Class IAIPEditSubParts
             SQL = "Select strDescription " &
             "from AIRBRANCH.LookupSubPartSIP " &
             "where strSubPart = '" & SubPart & "' "
-            cmd2 = New OracleCommand(SQL, CurrentConnection)
+            cmd2 = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -417,7 +417,7 @@ Public Class IAIPEditSubParts
             SQL = "Select strDescription " &
             "from AIRBRANCH.LookupSubPart60 " &
             "where strSubPart = '" & SubPart & "' "
-            cmd2 = New OracleCommand(SQL, CurrentConnection)
+            cmd2 = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -442,7 +442,7 @@ Public Class IAIPEditSubParts
             SQL = "Select strDescription " &
                        "from AIRBRANCH.LookupSubPart61 " &
                        "where strSubPart = '" & SubPart & "' "
-            cmd2 = New OracleCommand(SQL, CurrentConnection)
+            cmd2 = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -467,7 +467,7 @@ Public Class IAIPEditSubParts
             SQL = "Select strDescription " &
                        "from AIRBRANCH.LookupSubPart63 " &
                        "where strSubPart = '" & SubPart & "' "
-            cmd2 = New OracleCommand(SQL, CurrentConnection)
+            cmd2 = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -494,7 +494,7 @@ Public Class IAIPEditSubParts
             "where strSubpartKey = '0413" & txtAIRSNumber.Text & "0' " &
             "and strSubpart = '" & cboSIPSubpart.SelectedValue & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -518,7 +518,7 @@ Public Class IAIPEditSubParts
                 "'" & OracleDate & "', '1', " &
                 "'" & OracleDate & "') "
             End If
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -531,7 +531,7 @@ Public Class IAIPEditSubParts
             "strUpdateStatus = 'C' " &
             "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "0' " &
             "and strUpdateStatus = 'N' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -553,7 +553,7 @@ Public Class IAIPEditSubParts
             "where strSubpartKey = '0413" & txtAIRSNumber.Text & "9' " &
             "and strSubpart = '" & cboNSPSSubpart.SelectedValue & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -577,7 +577,7 @@ Public Class IAIPEditSubParts
                 "'" & OracleDate & "', '1', " &
                 "'" & OracleDate & "') "
             End If
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -590,7 +590,7 @@ Public Class IAIPEditSubParts
             "strUpdateStatus = 'C' " &
             "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "9' " &
             "and strUpdateStatus = 'N' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -612,7 +612,7 @@ Public Class IAIPEditSubParts
             "where strSubpartKey = '0413" & txtAIRSNumber.Text & "8' " &
             "and strSubpart = '" & cboNESHAPSubpart.SelectedValue & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -636,7 +636,7 @@ Public Class IAIPEditSubParts
                 "'" & OracleDate & "', '1', " &
                 "'" & OracleDate & "' ) "
             End If
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -649,7 +649,7 @@ Public Class IAIPEditSubParts
             "strUpdateStatus = 'C' " &
             "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "8' " &
             "and strUpdateStatus = 'N' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -671,7 +671,7 @@ Public Class IAIPEditSubParts
             "where strSubpartKey = '0413" & txtAIRSNumber.Text & "M' " &
             "and strSubpart = '" & cboMACTSubPart.SelectedValue & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -695,7 +695,7 @@ Public Class IAIPEditSubParts
                 "'" & OracleDate & "', '1', " &
                 "'" & OracleDate & "' ) "
             End If
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -708,7 +708,7 @@ Public Class IAIPEditSubParts
             "strUpdateStatus = 'C' " &
             "where strAirPollutantKey = '0413" & txtAIRSNumber.Text & "M' " &
             "and strUpdateStatus = 'N' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -741,7 +741,7 @@ Public Class IAIPEditSubParts
                     "updateDateTime = '" & OracleDate & "' " &
                     "where strSubPartKey = '0413" & txtAIRSNumber.Text & "0' " &
                     "and strSubpart = '" & Subpart & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -761,7 +761,7 @@ Public Class IAIPEditSubParts
                      "'" & OracleDate & "', '', " &
                      "'') "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -804,7 +804,7 @@ Public Class IAIPEditSubParts
                     "updateDateTime = '" & OracleDate & "' " &
                     "where strSubPartKey = '0413" & txtAIRSNumber.Text & "9' " &
                     "and strSubpart = '" & Subpart & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -824,7 +824,7 @@ Public Class IAIPEditSubParts
                      "'" & OracleDate & "', '', " &
                      "'') "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -868,7 +868,7 @@ Public Class IAIPEditSubParts
                     "updateDateTime = '" & OracleDate & "' " &
                     "where strSubPartKey = '0413" & txtAIRSNumber.Text & "8' " &
                     "and strSubpart = '" & Subpart & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -888,7 +888,7 @@ Public Class IAIPEditSubParts
                      "'" & OracleDate & "', '', " &
                      "'') "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -932,7 +932,7 @@ Public Class IAIPEditSubParts
                     "updateDateTime = '" & OracleDate & "' " &
                     "where strSubPartKey = '0413" & txtAIRSNumber.Text & "M' " &
                     "and strSubpart = '" & Subpart & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -952,7 +952,7 @@ Public Class IAIPEditSubParts
                      "'" & OracleDate & "', '', " &
                      "'') "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1113,7 +1113,7 @@ Public Class IAIPEditSubParts
                 SQL = "Select strSubPart " &
                 "From AIRBRANCH.LookUpSubpartSIP " &
                 "where strSubPart = '" & txtSIPCode.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1130,7 +1130,7 @@ Public Class IAIPEditSubParts
                     "('" & Replace(txtSIPCode.Text, "'", "''") & "', " &
                     "'" & Replace(txtSIPDescription.Text, "'", "''") & "') "
                 End If
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1166,7 +1166,7 @@ Public Class IAIPEditSubParts
                 SQL = "Select strSubPart " &
                 "From AIRBRANCH.LookUpSubpart60 " &
                 "where strSubPart = '" & txtNSPSCode.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1183,7 +1183,7 @@ Public Class IAIPEditSubParts
                     "('" & Replace(txtNSPSCode.Text, "'", "''") & "', " &
                     "'" & Replace(txtNSPSDescription.Text, "'", "''") & "') "
                 End If
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1218,7 +1218,7 @@ Public Class IAIPEditSubParts
                 SQL = "Select strSubPart " &
                 "From AIRBRANCH.LookUpSubpart61 " &
                 "where strSubPart = '" & txtNESHAPCode.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1235,7 +1235,7 @@ Public Class IAIPEditSubParts
                     "('" & Replace(txtNESHAPCode.Text, "'", "''") & "', " &
                     "'" & Replace(txtNESHAPDescription.Text, "'", "''") & "') "
                 End If
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1271,7 +1271,7 @@ Public Class IAIPEditSubParts
                 SQL = "Select strSubPart " &
                 "From AIRBRANCH.LookUpSubpart63 " &
                 "where strSubPart = '" & txtMACTCode.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1288,7 +1288,7 @@ Public Class IAIPEditSubParts
                     "('" & Replace(txtMACTCode.Text, "'", "''") & "', " &
                     "'" & Replace(txtMACTDescription.Text, "'", "''") & "') "
                 End If
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1320,7 +1320,7 @@ Public Class IAIPEditSubParts
             SQL = "Delete AIRBRANCH.LookUpSubpartSIP " &
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1338,7 +1338,7 @@ Public Class IAIPEditSubParts
             SQL = "Delete AIRBRANCH.LookUpSubpart60 " &
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1356,7 +1356,7 @@ Public Class IAIPEditSubParts
             SQL = "Delete AIRBRANCH.LookUpSubpart61 " &
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1374,7 +1374,7 @@ Public Class IAIPEditSubParts
             SQL = "Delete AIRBRANCH.LookUpSubpart63 " &
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If

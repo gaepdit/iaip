@@ -1,9 +1,9 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 
 Public Class SSPP_FeeContact
     Dim SQL As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
+    Dim cmd As SqlCommand
+    Dim dr As SqlDataReader
 
     Private Sub SSPP_FeeContact_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
@@ -39,7 +39,7 @@ Public Class SSPP_FeeContact
             "from AIRBRANCH.APBContactInformation " &
             "where strContactKey = '0413" & txtAIRSNumber.Text & "40' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -180,7 +180,7 @@ Public Class SSPP_FeeContact
                 "where strContactKey = '0413" & txtAIRSNumber.Text & "40' " &
                 "and strContactDescription = '" & txtDescription.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -221,7 +221,7 @@ Public Class SSPP_FeeContact
                 "datModifingDate = '" & OracleDate & "', " &
                 "strContactDescription = '" & Replace(txtDescription.Text, "'", "''") & "' " &
                 "where strContactKey = '0413" & txtAIRSNumber.Text & "40' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If

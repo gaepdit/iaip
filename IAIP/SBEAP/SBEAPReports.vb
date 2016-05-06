@@ -1,4 +1,4 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 Imports System.Collections
 Imports System.Reflection
 'Imports Microsoft.Reporting.WinForms
@@ -7,11 +7,11 @@ Imports System.Reflection
 Public Class SBEAPReports
     Dim SQL, SQL2 As String
     Dim dsView As DataSet
-    Dim daView As OracleDataAdapter
+    Dim daView As SqlDataAdapter
     Dim dsCombo As DataSet
-    Dim daCombo As OracleDataAdapter
+    Dim daCombo As SqlDataAdapter
     Dim dsAction As DataSet
-    Dim daAction As OracleDataAdapter
+    Dim daAction As SqlDataAdapter
 
     Private Sub SBEAPReports_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
@@ -38,7 +38,7 @@ Public Class SBEAPReports
             "from AIRBranch.LookUpSBEAPCaseWOrk " &
             "order by strWorkDescription "
 
-            daCombo = New OracleDataAdapter(SQL, CurrentConnection)
+            daCombo = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -94,7 +94,7 @@ Public Class SBEAPReports
             "from AIRBRANCH.SBEAPClients " &
             "where datCompanyCreated between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -117,7 +117,7 @@ Public Class SBEAPReports
             "or datCaseClosed between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "') ) "
 
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -131,7 +131,7 @@ Public Class SBEAPReports
             "from AIRBranch.SBEAPCaseLog " &
             "where datCaseOpened between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -150,7 +150,7 @@ Public Class SBEAPReports
             "or datCaseClosed between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "'  " &
             "or AIRBRANCH.sbeapActionLog.datCreationDate between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "')) "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -173,7 +173,7 @@ Public Class SBEAPReports
             "from AIRBranch.SBEAPCaseLog " &
             "where datCasecLosed between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -187,7 +187,7 @@ Public Class SBEAPReports
             "from AIRBRANCH.SBEAPActionLog " &
             "where datActionOccured between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -205,7 +205,7 @@ Public Class SBEAPReports
             "and strFrontDeskCall is not Null " &
             "and strFrontDeskCall = 'True' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -222,7 +222,7 @@ Public Class SBEAPReports
             "where datActionOccured between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' " &
             "group by numActionType "
 
-            daAction = New OracleDataAdapter(SQL, CurrentConnection)
+            daAction = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -268,7 +268,7 @@ Public Class SBEAPReports
             "and datCompanyCreated between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' "
 
             dsView = New DataSet
-            daView = New OracleDataAdapter(SQL, CurrentConnection)
+            daView = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -326,7 +326,7 @@ Public Class SBEAPReports
             "or datCaseClosed between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "') "
 
             dsView = New DataSet
-            daView = New OracleDataAdapter(SQL, CurrentConnection)
+            daView = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -379,7 +379,7 @@ Public Class SBEAPReports
             "and datCaseOpened between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' "
 
             dsView = New DataSet
-            daView = New OracleDataAdapter(SQL, CurrentConnection)
+            daView = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -442,7 +442,7 @@ Public Class SBEAPReports
             "or AIRBRANCH.sbeapActionLog.datCreationDate between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "') "
 
             dsView = New DataSet
-            daView = New OracleDataAdapter(SQL, CurrentConnection)
+            daView = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -518,7 +518,7 @@ Public Class SBEAPReports
             "or AIRBRANCH.sbeapActionLog.datCreationDate between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "') "
 
             dsView = New DataSet
-            daView = New OracleDataAdapter(SQL, CurrentConnection)
+            daView = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -574,7 +574,7 @@ Public Class SBEAPReports
             "and datCasecLosed between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' "
 
             dsView = New DataSet
-            daView = New OracleDataAdapter(SQL, CurrentConnection)
+            daView = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -637,7 +637,7 @@ Public Class SBEAPReports
            "and strFrontDeskCall = 'True' "
 
             dsView = New DataSet
-            daView = New OracleDataAdapter(SQL, CurrentConnection)
+            daView = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -696,7 +696,7 @@ Public Class SBEAPReports
             "and datActionOccured between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' "
 
             dsView = New DataSet
-            daView = New OracleDataAdapter(SQL, CurrentConnection)
+            daView = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -777,7 +777,7 @@ Public Class SBEAPReports
             End If
 
             dsView = New DataSet
-            daView = New OracleDataAdapter(SQL, CurrentConnection)
+            daView = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -841,8 +841,8 @@ Public Class SBEAPReports
     End Sub
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         Try
-            Dim cmd2 As OracleCommand
-            Dim dr2 As OracleDataReader
+            Dim cmd2 As SqlCommand
+            Dim dr2 As SqlDataReader
 
             SQL = "Select " &
             "numActionID, " &
@@ -850,7 +850,7 @@ Public Class SBEAPReports
             "from AIRBranch.SBEAPActionLog " &
             "where datActionoccured is null "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -861,7 +861,7 @@ Public Class SBEAPReports
                     SQL2 = "Update AIRBranch.SBEAPActionLog set " &
                     "datActionOccured = '" & dr.Item("datCreationDate") & "' " &
                     "where numActionID = '" & dr.Item("numActionID") & "' "
-                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
+                    cmd2 = New SqlCommand(SQL2, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If

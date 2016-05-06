@@ -1,13 +1,13 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 Public Class DMUDangerousTool
     Dim SQL As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
+    Dim cmd As SqlCommand
+    Dim dr As SqlDataReader
     Dim RecExist As Boolean
 
     Private Sub DMUDangerousTool_Load(sender As Object, e As EventArgs) Handles Me.Load
-        
+
     End Sub
 
     Private Sub btnMoveAIRSData_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnMoveAIRSData.Click
@@ -24,7 +24,7 @@ Public Class DMUDangerousTool
                 "strAIRSNumber = '0413" & NewAIRS & "' " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -36,7 +36,7 @@ Public Class DMUDangerousTool
                 "strAIRSNumber = '0413" & NewAIRS & "' " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -47,7 +47,7 @@ Public Class DMUDangerousTool
                 "strAIRSNumber = '0413" & NewAIRS & "' " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -59,7 +59,7 @@ Public Class DMUDangerousTool
                 "from AIRBRANCH.SSCPInspectionsRequired " &
                 "where strAIRSNumber = '0413" & NewAIRS & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -72,7 +72,7 @@ Public Class DMUDangerousTool
                     "strAIRSnumber = '0413" & NewAIRS & "' " &
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -82,7 +82,7 @@ Public Class DMUDangerousTool
                     SQL = "Delete AIRBRANCH.SSCPInspectionsRequired " &
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -94,7 +94,7 @@ Public Class DMUDangerousTool
                 "strAIRSNumber = '0413" & NewAIRS & "' " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -105,7 +105,7 @@ Public Class DMUDangerousTool
                 "from AIRBRANCH.SSCPDistrictResponsible " &
                 "where strAIRSNumber = '0413" & NewAIRS & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -117,7 +117,7 @@ Public Class DMUDangerousTool
                     "strAIRSNumber = '0413" & NewAIRS & "' " &
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -127,7 +127,7 @@ Public Class DMUDangerousTool
                     SQL = "Delete AIRBRANCH.SSCPDistrictResponsible " &
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -139,7 +139,7 @@ Public Class DMUDangerousTool
                 "from AIRBRANCH.SSCPDistrictAssignment " &
                 "where strAIRSNumber = '0413" & NewAIRS & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -151,7 +151,7 @@ Public Class DMUDangerousTool
                     "strAIRSNumber = '0413" & NewAIRS & "' " &
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -161,7 +161,7 @@ Public Class DMUDangerousTool
                     SQL = "Delete AIRBRANCH.SSCPDistrictAssignment " &
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -174,7 +174,7 @@ Public Class DMUDangerousTool
                               "from AIRBRANCH.SSCPInspectionsRequired " &
                               "where strAIRSNumber = '0413" & NewAIRS & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -186,7 +186,7 @@ Public Class DMUDangerousTool
                     "strAIRSNumber = '0413" & NewAIRS & "' " &
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -196,7 +196,7 @@ Public Class DMUDangerousTool
                     SQL = "Delete AIRBRANCH.SSCPInspectionsRequired " &
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -206,7 +206,7 @@ Public Class DMUDangerousTool
 
                 SQL = "Delete AIRBRANCH.OLAPUserAccess " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -218,7 +218,7 @@ Public Class DMUDangerousTool
                 "strAIRSNumber = '0413" & NewAIRS & "' " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -227,7 +227,7 @@ Public Class DMUDangerousTool
 
                 SQL = "Delete AIRBRANCH.ISMPFacilityAssignment " &
                "where strAIRSNumber = '0413" & OldAIRS & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -240,7 +240,7 @@ Public Class DMUDangerousTool
                 "strComments = 'Data Merged from old AIRS # " & OldAIRS & "' " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -252,7 +252,7 @@ Public Class DMUDangerousTool
                 "strComments = 'Data Merged from old AIRS # " & OldAIRS & "' " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -262,7 +262,7 @@ Public Class DMUDangerousTool
                 SQL = "Delete AIRBRANCH.HB_APBAirProgramPollutants " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -273,7 +273,7 @@ Public Class DMUDangerousTool
                 SQL = "Delete AIRBRANCH.APBSupplamentalData " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -283,7 +283,7 @@ Public Class DMUDangerousTool
                 SQL = "Delete AIRBRANCH.APBSubpartData " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -293,7 +293,7 @@ Public Class DMUDangerousTool
                 SQL = "Delete AIRBRANCH.AFSAIRPollutantData " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -303,7 +303,7 @@ Public Class DMUDangerousTool
                 SQL = "Delete AIRBRANCH.AFSFacilityData " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -313,7 +313,7 @@ Public Class DMUDangerousTool
                 SQL = "Delete AIRBRANCH.APBAirProgramPollutants " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -323,7 +323,7 @@ Public Class DMUDangerousTool
                 SQL = "Delete AIRBRANCH.APBContactInformation " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -333,7 +333,7 @@ Public Class DMUDangerousTool
                 SQL = "Delete AIRBRANCH.APBHeaderData " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -343,7 +343,7 @@ Public Class DMUDangerousTool
                 SQL = "Delete AIRBRANCH.APBFacilityInformation " &
                "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -353,7 +353,7 @@ Public Class DMUDangerousTool
                 SQL = "Delete AIRBRANCH.APBMasterAIRS " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -376,11 +376,11 @@ Public Class DMUDangerousTool
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
-            cmd = New OracleCommand("AIRBranch.PD_EIS_QASTART", CurrentConnection)
+            cmd = New SqlCommand("AIRBranch.PD_EIS_QASTART", CurrentConnection)
             cmd.CommandType = CommandType.StoredProcedure
 
-            cmd.Parameters.Add(New OracleParameter("AIRSNUMBER_IN", OracleDbType.Varchar2)).Value = txtEISAIRSNumber.Text
-            cmd.Parameters.Add(New OracleParameter("INTYEAR_IN", OracleDbType.Decimal)).Value = txtEISYear.Text
+            cmd.Parameters.Add(New SqlParameter("AIRSNUMBER_IN", SqlDbType.VarChar)).Value = txtEISAIRSNumber.Text
+            cmd.Parameters.Add(New SqlParameter("INTYEAR_IN", SqlDbType.Decimal)).Value = txtEISYear.Text
 
             cmd.ExecuteNonQuery()
 

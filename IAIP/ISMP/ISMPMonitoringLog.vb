@@ -1,21 +1,21 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 
 Public Class ISMPMonitoringLog
     Dim SQL As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
+    Dim cmd As SqlCommand
+    Dim dr As SqlDataReader
     Dim recExist As Boolean
     Dim dsTestReportViewer As DataSet
-    Dim daTestReportViewer As OracleDataAdapter
+    Dim daTestReportViewer As SqlDataAdapter
     Dim dsNotificationViewer As DataSet
-    Dim daNotificationViewer As OracleDataAdapter
+    Dim daNotificationViewer As SqlDataAdapter
     Dim dsTestFirmComments As DataSet
-    Dim daTestFirmComments As OracleDataAdapter
+    Dim daTestFirmComments As SqlDataAdapter
     Dim dsEngineer As DataSet
-    Dim daEngineer As OracleDataAdapter
+    Dim daEngineer As SqlDataAdapter
     Dim dsPollutants As DataSet
-    Dim daPollutants As OracleDataAdapter
+    Dim daPollutants As SqlDataAdapter
 
     Private Sub ISMPMonitoringLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
@@ -66,7 +66,7 @@ Public Class ISMPMonitoringLog
 
             dsEngineer = New DataSet
 
-            daEngineer = New OracleDataAdapter(SQL, CurrentConnection)
+            daEngineer = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -142,7 +142,7 @@ Public Class ISMPMonitoringLog
 
             dsPollutants = New DataSet
 
-            daPollutants = New OracleDataAdapter(SQL, CurrentConnection)
+            daPollutants = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -471,7 +471,7 @@ Public Class ISMPMonitoringLog
                 SQL = SQL & SQLWhere
 
                 dsTestReportViewer = New DataSet
-                daTestReportViewer = New OracleDataAdapter(SQL, CurrentConnection)
+                daTestReportViewer = New SqlDataAdapter(SQL, CurrentConnection)
 
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -638,7 +638,7 @@ Public Class ISMPMonitoringLog
                 SQL = SQL & SQLWhere
 
                 dsNotificationViewer = New DataSet
-                daNotificationViewer = New OracleDataAdapter(SQL, CurrentConnection)
+                daNotificationViewer = New SqlDataAdapter(SQL, CurrentConnection)
 
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -775,7 +775,7 @@ Public Class ISMPMonitoringLog
                 SQL = SQL & SQLWhere
 
                 dsTestFirmComments = New DataSet
-                daTestFirmComments = New OracleDataAdapter(SQL, CurrentConnection)
+                daTestFirmComments = New SqlDataAdapter(SQL, CurrentConnection)
 
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -849,7 +849,7 @@ Public Class ISMPMonitoringLog
                 "and substr(AIRBRANCH.ISMPTestNotification.strAIRSNumber, 1, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode (+)  " &
                 "and strTestLogNumber = '" & txtTestLogNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If

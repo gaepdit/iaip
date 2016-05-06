@@ -1,15 +1,15 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 
 Public Class ISMPNotificationLog
     Dim SQL, SQL2 As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
+    Dim cmd As SqlCommand
+    Dim dr As SqlDataReader
     Dim recExist As Boolean
     Dim dsFacilityData As DataSet
-    Dim daFacilityData As OracleDataAdapter
+    Dim daFacilityData As SqlDataAdapter
     Dim dsStaffResponsible As DataSet
-    Dim daStaffResponsible As OracleDataAdapter
+    Dim daStaffResponsible As SqlDataAdapter
 
     Private Sub DevNotificationLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
@@ -63,10 +63,10 @@ Public Class ISMPNotificationLog
             "order by UserName "
 
             dsFacilityData = New DataSet
-            daFacilityData = New OracleDataAdapter(SQL, CurrentConnection)
+            daFacilityData = New SqlDataAdapter(SQL, CurrentConnection)
 
             dsStaffResponsible = New DataSet
-            daStaffResponsible = New OracleDataAdapter(SQL2, CurrentConnection)
+            daStaffResponsible = New SqlDataAdapter(SQL2, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -159,7 +159,7 @@ Public Class ISMPNotificationLog
                 "from AIRBRANCH.ISMPTestNotification, AIRBRANCH.APBFacilityInformation  " &
                 "where AIRBRANCH.ISMPTestNotification.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber (+)  " &
                 "and AIRBRANCH.ISMPTestNotification.strTestLogNumber = '" & txtTestNotificationNumber.Text & "'  "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -333,7 +333,7 @@ Public Class ISMPNotificationLog
             "strReferenceNumber " &
             "from AIRBRANCH.ISMPTestLogLink " &
             "where strTestLogNumber = '" & txtTestNotificationNumber.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -364,7 +364,7 @@ Public Class ISMPNotificationLog
                 SQL = "select strTestLogNumber " &
                 "from AIRBRANCH.ISMPTestNotification " &
                 "where strTestLogNumber = '" & txtTestNotificationNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -439,7 +439,7 @@ Public Class ISMPNotificationLog
                     "and '" & Format(DTPTestDateStart.Value.AddDays(15), "dd-MMM-yyyy") & "' " &
                     "and strAIRSNumber = '0413" & cboAIRSNumber.Text & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -504,7 +504,7 @@ Public Class ISMPNotificationLog
                     "'" & TestNotificationDate & "', '" & TestNotificationDate & "', " &
                     "'" & Replace(txtPollutants.Text, "'", "''") & "') "
                 End If
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -524,7 +524,7 @@ Public Class ISMPNotificationLog
         Try
             SQL = "Select max(to_number(strTestLogNumber)) + 1 as TestNum " &
             "From AIRBRANCH.ISMPTestnotification "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If

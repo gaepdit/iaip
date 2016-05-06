@@ -1,4 +1,4 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 Public Class SSCPEnforcementChecklist
     Inherits BaseForm
@@ -160,17 +160,17 @@ Public Class SSCPEnforcementChecklist
             SQL = SQL & SQLLine & " Order by datReceivedDate DESC, strTrackingNumber DESC "
         End If
 
-        Dim oraparams(3) As OracleParameter
+        Dim oraparams(3) As SqlParameter
 
         If chbFilterDates.Checked Then
             oraparams = {
-                New OracleParameter("airsnumber", AirsNumber.DbFormattedString),
-                New OracleParameter("startdate", DTPStartDate.Value),
-                New OracleParameter("enddate", DTPEndDate.Value)
+                New SqlParameter("airsnumber", AirsNumber.DbFormattedString),
+                New SqlParameter("startdate", DTPStartDate.Value),
+                New SqlParameter("enddate", DTPEndDate.Value)
             }
         Else
             oraparams = {
-                New OracleParameter("airsnumber", AirsNumber.DbFormattedString)
+                New SqlParameter("airsnumber", AirsNumber.DbFormattedString)
             }
         End If
 

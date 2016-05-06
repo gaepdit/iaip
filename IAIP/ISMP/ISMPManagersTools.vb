@@ -1,5 +1,5 @@
 'Imports System.DateTime
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 Imports System.Windows.Forms
 'Imports Microsoft.Office.Core
 Imports System.IO
@@ -17,31 +17,31 @@ Public Class ISMPManagersTools
     'Dim Paneltemp1 As String
     Dim SQL, SQL2, SQL3 As String
     Dim SQL4, SQL5, SQL6 As String
-    Dim cmd, cmd2, cmd3 As OracleCommand
-    Dim cmd4, cmd5, cmd6 As OracleCommand
-    Dim dr, dr2, dr3 As OracleDataReader
-    Dim dr4, dr5, dr6 As OracleDataReader
+    Dim cmd, cmd2, cmd3 As SqlCommand
+    Dim cmd4, cmd5, cmd6 As SqlCommand
+    Dim dr, dr2, dr3 As SqlDataReader
+    Dim dr4, dr5, dr6 As SqlDataReader
     Dim recExist As Boolean
     Dim dsEngineer As DataSet
     Dim dsCounty As DataSet
     Dim dsCity As DataSet
     Dim dsFacilityList As DataSet
-    Dim daEngineer As OracleDataAdapter
-    Dim daCounty As OracleDataAdapter
-    Dim daCity As OracleDataAdapter
+    Dim daEngineer As SqlDataAdapter
+    Dim daCounty As SqlDataAdapter
+    Dim daCity As SqlDataAdapter
     Dim dsTestReportAssignments As DataSet
-    Dim daTestreportAssignments As OracleDataAdapter
-    Dim daFacilityList As OracleDataAdapter
+    Dim daTestreportAssignments As SqlDataAdapter
+    Dim daFacilityList As SqlDataAdapter
     Dim dsEngineerGrid As DataSet
-    Dim daEngineerGrid As OracleDataAdapter
+    Dim daEngineerGrid As SqlDataAdapter
     Dim dsSummaryReport As DataSet
-    Dim daSummaryReport As OracleDataAdapter
+    Dim daSummaryReport As SqlDataAdapter
     Dim dsExcelFiles As DataSet
-    Dim daUnitStats As OracleDataAdapter
-    Dim daExcelFiles As OracleDataAdapter
+    Dim daUnitStats As SqlDataAdapter
+    Dim daExcelFiles As SqlDataAdapter
     Dim dsUnitStats As DataSet
     Dim dsMethods As DataSet
-    Dim daMethods As OracleDataAdapter
+    Dim daMethods As SqlDataAdapter
 
 
     Private Sub ISMPManagersTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -226,9 +226,9 @@ Public Class ISMPManagersTools
             dsCounty = New DataSet
             dsCity = New DataSet
 
-            daEngineer = New OracleDataAdapter(SQL, CurrentConnection)
-            daCounty = New OracleDataAdapter(SQL2, CurrentConnection)
-            daCity = New OracleDataAdapter(SQL3, CurrentConnection)
+            daEngineer = New SqlDataAdapter(SQL, CurrentConnection)
+            daCounty = New SqlDataAdapter(SQL2, CurrentConnection)
+            daCity = New SqlDataAdapter(SQL3, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -383,9 +383,9 @@ Public Class ISMPManagersTools
             End If
 
             dsTestReportAssignments = New DataSet
-            daTestreportAssignments = New OracleDataAdapter
+            daTestreportAssignments = New SqlDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim cmd As New SqlCommand(SQL, CurrentConnection)
 
             daTestreportAssignments.SelectCommand = cmd
 
@@ -595,9 +595,9 @@ Public Class ISMPManagersTools
 
             dsExcelFiles = New DataSet
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
-            daExcelFiles = New OracleDataAdapter(cmd)
+            daExcelFiles = New SqlDataAdapter(cmd)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -663,7 +663,7 @@ Public Class ISMPManagersTools
             End If
 
             SQL = "Select * from AIRBRANCH.ISMPDocumentType"
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
             While dr.Read
@@ -790,7 +790,7 @@ Public Class ISMPManagersTools
             "order by strMethodCode "
 
             dsMethods = New DataSet
-            daMethods = New OracleDataAdapter(SQL, CurrentConnection)
+            daMethods = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -868,9 +868,9 @@ Public Class ISMPManagersTools
             End If
 
             dsTestReportAssignments = New DataSet
-            daTestreportAssignments = New OracleDataAdapter
+            daTestreportAssignments = New SqlDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim cmd As New SqlCommand(SQL, CurrentConnection)
 
             daTestreportAssignments.SelectCommand = cmd
 
@@ -930,9 +930,9 @@ Public Class ISMPManagersTools
             End If
 
             dsTestReportAssignments = New DataSet
-            daTestreportAssignments = New OracleDataAdapter
+            daTestreportAssignments = New SqlDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim cmd As New SqlCommand(SQL, CurrentConnection)
 
             daTestreportAssignments.SelectCommand = cmd
 
@@ -996,9 +996,9 @@ Public Class ISMPManagersTools
             End If
 
             dsTestReportAssignments = New DataSet
-            daTestreportAssignments = New OracleDataAdapter
+            daTestreportAssignments = New SqlDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim cmd As New SqlCommand(SQL, CurrentConnection)
 
             daTestreportAssignments.SelectCommand = cmd
 
@@ -1061,9 +1061,9 @@ Public Class ISMPManagersTools
             End If
 
             dsTestReportAssignments = New DataSet
-            daTestreportAssignments = New OracleDataAdapter
+            daTestreportAssignments = New SqlDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim cmd As New SqlCommand(SQL, CurrentConnection)
 
             daTestreportAssignments.SelectCommand = cmd
 
@@ -1126,9 +1126,9 @@ Public Class ISMPManagersTools
             End If
 
             dsTestReportAssignments = New DataSet
-            daTestreportAssignments = New OracleDataAdapter
+            daTestreportAssignments = New SqlDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim cmd As New SqlCommand(SQL, CurrentConnection)
 
             daTestreportAssignments.SelectCommand = cmd
 
@@ -1190,9 +1190,9 @@ Public Class ISMPManagersTools
             End If
 
             dsTestReportAssignments = New DataSet
-            daTestreportAssignments = New OracleDataAdapter
+            daTestreportAssignments = New SqlDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim cmd As New SqlCommand(SQL, CurrentConnection)
 
             daTestreportAssignments.SelectCommand = cmd
 
@@ -1257,9 +1257,9 @@ Public Class ISMPManagersTools
             End If
 
             dsTestReportAssignments = New DataSet
-            daTestreportAssignments = New OracleDataAdapter
+            daTestreportAssignments = New SqlDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim cmd As New SqlCommand(SQL, CurrentConnection)
 
             daTestreportAssignments.SelectCommand = cmd
 
@@ -1324,9 +1324,9 @@ Public Class ISMPManagersTools
             End If
 
             dsTestReportAssignments = New DataSet
-            daTestreportAssignments = New OracleDataAdapter
+            daTestreportAssignments = New SqlDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim cmd As New SqlCommand(SQL, CurrentConnection)
 
             daTestreportAssignments.SelectCommand = cmd
 
@@ -1391,9 +1391,9 @@ Public Class ISMPManagersTools
             End If
 
             dsTestReportAssignments = New DataSet
-            daTestreportAssignments = New OracleDataAdapter
+            daTestreportAssignments = New SqlDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim cmd As New SqlCommand(SQL, CurrentConnection)
 
             daTestreportAssignments.SelectCommand = cmd
 
@@ -1457,9 +1457,9 @@ Public Class ISMPManagersTools
             End If
 
             dsTestReportAssignments = New DataSet
-            daTestreportAssignments = New OracleDataAdapter
+            daTestreportAssignments = New SqlDataAdapter
 
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim cmd As New SqlCommand(SQL, CurrentConnection)
 
             daTestreportAssignments.SelectCommand = cmd
 
@@ -1532,7 +1532,7 @@ Public Class ISMPManagersTools
                     SQL = "select to_char(datReviewedBYUnitManager, 'dd-Mon-yyyy') as ReviewedByUnitManager " &
                           "from AIRBRANCH.ISMPReportInformation " &
                           "where strReferenceNumber = '" & strObject.ToString() & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     dr = cmd.ExecuteReader
                     While dr.Read
                         AssignDate = dr.Item("ReviewedByUnitManager")
@@ -1553,7 +1553,7 @@ Public Class ISMPManagersTools
                     "strPreComplianceStatus = '" & PreCompliance & "' " &
                     "where AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & strObject.ToString() & "'"
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
 
                     dr = cmd.ExecuteReader
 
@@ -1608,7 +1608,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & OneStack2 & "' " &
             "where strKEy = '002'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
             If chbOneStack3Runs.Checked = True Then
@@ -1620,7 +1620,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & OneStack3 & "' " &
             "where strKEy = '003'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
             If chbOneStack4Runs.Checked = True Then
@@ -1632,7 +1632,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & OneStack4 & "' " &
             "where strKEy = '004'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
             If chbTwoStack.Checked = True Then
@@ -1644,7 +1644,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & TwoStackStandard & "' " &
             "where strKEy = '005'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
 
@@ -1657,7 +1657,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & TwoStackDRE & "' " &
             "where strKEy = '006'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
 
@@ -1670,7 +1670,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & LoadingRack & "' " &
             "where strKEy = '007'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
 
@@ -1683,7 +1683,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & PondTreatment & "' " &
             "where strKEy = '008'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
 
@@ -1696,7 +1696,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & GasConc & "' " &
             "where strKEy = '009'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
 
@@ -1709,7 +1709,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & Flare & "' " &
             "where strKEy = '010'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
 
@@ -1722,7 +1722,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & Rata & "' " &
             "where strKEy = '011'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
 
@@ -1735,7 +1735,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & MemoStandard & "' " &
             "where strKEy = '012'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
 
@@ -1748,7 +1748,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & MemoFile & "' " &
             "where strKEy = '013'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
 
@@ -1761,7 +1761,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & Method9Multi & "' " &
             "where strKEy = '014'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
 
@@ -1774,7 +1774,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & Method22 & "' " &
             "where strKEy = '015'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
 
@@ -1787,7 +1787,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & Method9Single & "' " &
             "where strKEy = '016'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
 
@@ -1800,7 +1800,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & PEMS & "' " &
             "where strKEy = '017'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
 
@@ -1813,7 +1813,7 @@ Public Class ISMPManagersTools
             "strAFSPrint = '" & PTE & "' " &
             "where strKEy = '018'"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
         Catch ex As Exception
@@ -1845,7 +1845,7 @@ Public Class ISMPManagersTools
 
                     For Each strObject In lsbFacilities.Items
                         SQL2 = SQL & "where strAIRSNumber = '0413" & strObject.ToCharArray() & "' "
-                        cmd = New OracleCommand(SQL2, CurrentConnection)
+                        cmd = New SqlCommand(SQL2, CurrentConnection)
                         dr = cmd.ExecuteReader
                         SQL2 = ""
                     Next
@@ -1961,7 +1961,7 @@ Public Class ISMPManagersTools
             "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             Try
 
 
@@ -1989,7 +1989,7 @@ Public Class ISMPManagersTools
             "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2009,7 +2009,7 @@ Public Class ISMPManagersTools
             "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2030,7 +2030,7 @@ Public Class ISMPManagersTools
             "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2050,7 +2050,7 @@ Public Class ISMPManagersTools
             "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2070,7 +2070,7 @@ Public Class ISMPManagersTools
             "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2090,7 +2090,7 @@ Public Class ISMPManagersTools
             "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2110,7 +2110,7 @@ Public Class ISMPManagersTools
             "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2131,7 +2131,7 @@ Public Class ISMPManagersTools
             "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2151,7 +2151,7 @@ Public Class ISMPManagersTools
             "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2171,7 +2171,7 @@ Public Class ISMPManagersTools
             "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2191,7 +2191,7 @@ Public Class ISMPManagersTools
             "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2211,7 +2211,7 @@ Public Class ISMPManagersTools
             "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2233,7 +2233,7 @@ Public Class ISMPManagersTools
             "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2254,7 +2254,7 @@ Public Class ISMPManagersTools
             "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2275,7 +2275,7 @@ Public Class ISMPManagersTools
             "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2296,7 +2296,7 @@ Public Class ISMPManagersTools
            "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
            "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2317,7 +2317,7 @@ Public Class ISMPManagersTools
            "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
            "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2420,7 +2420,7 @@ Public Class ISMPManagersTools
                     "and strReviewingEngineer = '" & EngineerGCode & "' " &
                     "and " & DateBias & " "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     dr = cmd.ExecuteReader
                     While dr.Read
                         FacilityOpen += dr.Item("Count")
@@ -2435,7 +2435,7 @@ Public Class ISMPManagersTools
                     "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpen.Text & "' " &
                     "and " & DateBias & " "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
 
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -2451,7 +2451,7 @@ Public Class ISMPManagersTools
                     "or strWitnessingEngineer2 = '" & EngineerGCode & "') " &
                     "and " & DateBias & " "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     dr = cmd.ExecuteReader
                     While dr.Read
                         FacilityWitnessed += dr.Item("count")
@@ -2465,7 +2465,7 @@ Public Class ISMPManagersTools
                     "and strReviewingEngineer = '" & EngineerGCode & "' " &
                     "and " & DateBias & " "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
 
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -2489,7 +2489,7 @@ Public Class ISMPManagersTools
                     "and strReviewingEngineer = '" & EngineerGCode & "' " &
                     "and " & DateBias & " "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     dr = cmd.ExecuteReader
                     While dr.Read
                         FacilityOpen2 += dr.Item("Count")
@@ -2504,7 +2504,7 @@ Public Class ISMPManagersTools
                     "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpen2.Text & "' " &
                     "and " & DateBias & " "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
 
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -2520,7 +2520,7 @@ Public Class ISMPManagersTools
                     "or strWitnessingEngineer2 = '" & EngineerGCode & "') " &
                     "and " & DateBias & " "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     dr = cmd.ExecuteReader
                     While dr.Read
                         FacilityWitnessed2 += dr.Item("count")
@@ -2534,7 +2534,7 @@ Public Class ISMPManagersTools
                     "and strReviewingEngineer = '" & EngineerGCode & "' " &
                     "and " & DateBias & " "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
 
                     dr = cmd.ExecuteReader
                     While dr.Read
@@ -2551,7 +2551,7 @@ Public Class ISMPManagersTools
             "and strReviewingEngineer = '0' " &
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
             While dr.Read
                 FacilityOpen3 += dr.Item("Count")
@@ -2566,7 +2566,7 @@ Public Class ISMPManagersTools
             "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpen3.Text & "' " &
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2582,7 +2582,7 @@ Public Class ISMPManagersTools
             "or strWitnessingEngineer2 <> '0') " &
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
             While dr.Read
                 FacilityWitnessed3 += dr.Item("count")
@@ -2596,7 +2596,7 @@ Public Class ISMPManagersTools
             "and strReviewingEngineer = '0' " &
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2610,7 +2610,7 @@ Public Class ISMPManagersTools
             "and strDelete is NULL " &
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
             While dr.Read
                 FacilityOpen4 += dr.Item("Count")
@@ -2624,7 +2624,7 @@ Public Class ISMPManagersTools
             "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpen4.Text & "' " &
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -2640,7 +2640,7 @@ Public Class ISMPManagersTools
             "or strWitnessingEngineer2 <> '0') " &
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
             While dr.Read
                 FacilityWitnessed4 += dr.Item("count")
@@ -2653,7 +2653,7 @@ Public Class ISMPManagersTools
             "and strDelete is NULL " &
             "and " & DateBias & " "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
             dr = cmd.ExecuteReader
             While dr.Read
@@ -3074,12 +3074,12 @@ Public Class ISMPManagersTools
                 "and strReviewingEngineer = '" & EngineerGCode & "' " &
                 "order by DaysClosed ASC "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                cmd2 = New OracleCommand(SQL2, CurrentConnection)
-                cmd3 = New OracleCommand(SQL3, CurrentConnection)
-                cmd4 = New OracleCommand(SQL4, CurrentConnection)
-                cmd5 = New OracleCommand(SQL5, CurrentConnection)
-                cmd6 = New OracleCommand(SQL6, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
+                cmd2 = New SqlCommand(SQL2, CurrentConnection)
+                cmd3 = New SqlCommand(SQL3, CurrentConnection)
+                cmd4 = New SqlCommand(SQL4, CurrentConnection)
+                cmd5 = New SqlCommand(SQL5, CurrentConnection)
+                cmd6 = New SqlCommand(SQL6, CurrentConnection)
 
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -3449,7 +3449,7 @@ Public Class ISMPManagersTools
 
             dsEngineerGrid = New DataSet
 
-            daEngineerGrid = New OracleDataAdapter(SQL, CurrentConnection)
+            daEngineerGrid = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -3510,7 +3510,7 @@ Public Class ISMPManagersTools
                 CurrentConnection.Open()
             End If
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
             lsbEngineers.Items.Clear()
 
@@ -3551,7 +3551,7 @@ Public Class ISMPManagersTools
             SQL = "Select count(*) as Count from AIRBRANCH.ISMPReportInformation " &
             "where datReceivedDate between '" & DTPMonthlyStart.Text & "' and '" & DTPMonthlyEnd.Text & "' " &
             "and strDelete is NULL"
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
             While dr.Read
                 TestReceived = dr.Item("Count")
@@ -3561,7 +3561,7 @@ Public Class ISMPManagersTools
             SQL = "Select count(*) as Count from AIRBRANCH.ISMPReportInformation " &
             "where datCompleteDate between '" & DTPMonthlyStart.Text & "' and '" & DTPMonthlyEnd.Text & "' " &
             "and strClosed = 'True' and strDelete is NULL "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
             While dr.Read
                 TestCompleted = dr.Item("Count")
@@ -3571,7 +3571,7 @@ Public Class ISMPManagersTools
             SQL = "Select Count(*) as Count from AIRBRANCH.ISMPReportInformation " &
             "where datCompleteDate between '" & DTPMonthlyStart.Text & "' and '" & DTPMonthlyEnd.Text & "' " &
             "and strDelete is NULL and (strWitnessingEngineer <> '0' or strWitnessingEngineer2 <> '0') "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
             While dr.Read
                 TestWitnessed = dr.Item("Count")
@@ -3581,7 +3581,7 @@ Public Class ISMPManagersTools
             SQL = "Select Count(*) as Count from AIRBRANCH.ISMPReportInformation " &
             "where datCompleteDate between '" & DTPMonthlyStart.Text & "' and '" & DTPMonthlyEnd.Text & "' " &
             "and strDelete is NULL and strComplianceStatus = '05' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
             While dr.Read
                 OutofCompliance = dr.Item("count")
@@ -3592,7 +3592,7 @@ Public Class ISMPManagersTools
             "where datCompleteDate between '" & DTPMonthlyStart.Text & "' and '" & DTPMonthlyEnd.Text & "' " &
             "and strDelete is NULL " &
             "and strClosed = 'True' order by diff desc"
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
             While dr.Read
@@ -3723,7 +3723,7 @@ Public Class ISMPManagersTools
             "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.ISMPMaster.strAIRSNumber " &
             "and AIRBRANCH.ISMPReportInformation.strReportType = AIRBRANCH.ISMPReportType.strKey "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
             Report = ""
@@ -3844,7 +3844,7 @@ Public Class ISMPManagersTools
 
                 SQL = "select max(FileId) as ID " &
                 "from AIRBRANCH.ISMPTestReportAids "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = True Then
@@ -3864,7 +3864,7 @@ Public Class ISMPManagersTools
                 End If
                 FileName = Mid(FileName, 1, 50)
 
-                Dim da As OracleDataAdapter
+                Dim da As SqlDataAdapter
                 Dim ds As DataSet
                 Dim Fs As FileStream = New FileStream(PathName, FileMode.Open, FileAccess.Read)
                 Dim DocData As Byte()
@@ -3879,8 +3879,8 @@ Public Class ISMPManagersTools
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
-                da = New OracleDataAdapter(SQL, CurrentConnection)
-                Dim cmdCB As OracleCommandBuilder = New OracleCommandBuilder(da)
+                da = New SqlDataAdapter(SQL, CurrentConnection)
+                Dim cmdCB As SqlCommandBuilder = New SqlCommandBuilder(da)
                 ds = New DataSet("IAIPData")
                 da.MissingSchemaAction = MissingSchemaAction.AddWithKey
 
@@ -3923,7 +3923,7 @@ Public Class ISMPManagersTools
                 SQL = "Delete AIRBRANCH.ISMPTestReportAids " &
                 "where FileID = '" & FileID & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 LoadExcelDataSet()
@@ -3987,7 +3987,7 @@ Public Class ISMPManagersTools
 
             dsSummaryReport = New DataSet
 
-            daSummaryReport = New OracleDataAdapter(SQL, CurrentConnection)
+            daSummaryReport = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -4100,7 +4100,7 @@ Public Class ISMPManagersTools
                     "from AIRBRANCH.ISMPTestReportAids " &
                     "Where FileID = '" & FileID & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     dr = cmd.ExecuteReader
 
                     dr.Read()
@@ -4151,7 +4151,7 @@ Public Class ISMPManagersTools
             "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber " &
             "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSPPApplicationMaster.strAIRSNumber "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -4304,7 +4304,7 @@ Public Class ISMPManagersTools
             "order by strUnitDesc, Engineer "
 
             dsUnitStats = New DataSet
-            daUnitStats = New OracleDataAdapter(SQL, CurrentConnection)
+            daUnitStats = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -5696,9 +5696,9 @@ Public Class ISMPManagersTools
             "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.ISMPFacilityAssignment.strAIRSNumber " &
             "order by strAIRSNumber "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
 
-            daFacilityList = New OracleDataAdapter(SQL, CurrentConnection)
+            daFacilityList = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -6087,7 +6087,7 @@ Public Class ISMPManagersTools
             "and strClosed = 'True' "
 
             dsUnitStats = New DataSet
-            daUnitStats = New OracleDataAdapter(SQL, CurrentConnection)
+            daUnitStats = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -6150,7 +6150,7 @@ Public Class ISMPManagersTools
             "and strReviewingEngineer  = ChemUnit.numUserID "
 
             dsUnitStats = New DataSet
-            daUnitStats = New OracleDataAdapter(SQL, CurrentConnection)
+            daUnitStats = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -6213,7 +6213,7 @@ Public Class ISMPManagersTools
            "and strReviewingEngineer  = ComUnit.numUserID "
 
             dsUnitStats = New DataSet
-            daUnitStats = New OracleDataAdapter(SQL, CurrentConnection)
+            daUnitStats = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -6295,7 +6295,7 @@ Public Class ISMPManagersTools
                 "strMethodDesc " &
                 "from AIRBRANCH.LookUpISMPMethods " &
                 "where strMethodCode = '" & txtMethodCode.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -6337,7 +6337,7 @@ Public Class ISMPManagersTools
                 "strMethodCode " &
                 "From AIRBRANCH.LookUpISMPMethods " &
                 "where substr(strMethodDesc, 1, instr(strMethodDesc,'-')-2)  = 'Method " & Replace(txtMethodNumber.Text.ToUpper, "'", "''") & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -6351,7 +6351,7 @@ Public Class ISMPManagersTools
                         SQL = "Update AIRBRANCH.LookUpISMPMethods set " &
                         "strMethodDesc = 'Method " & Replace(txtMethodNumber.Text, "'", "''") & " - " & Replace(txtMethodDescription.Text, "'", "''") & "' " &
                         "where strMethodCode = '" & Replace(txtMethodCode.Text, "'", "''") & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -6360,7 +6360,7 @@ Public Class ISMPManagersTools
                     Else
                         SQL = "Select (max(strMethodCode) + 1) as MethodCode " &
                         "from AIRBRANCH.LookUpISMPMethods "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -6393,7 +6393,7 @@ Public Class ISMPManagersTools
                         "values " &
                         "('" & temp & "', " &
                         "'Method " & Replace(txtMethodNumber.Text, "'", "''") & " - " & Replace(txtMethodDescription.Text, "'", "''") & "') "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -6404,7 +6404,7 @@ Public Class ISMPManagersTools
                     dr.Close()
                     SQL = "Select (max(strMethodCode) + 1) as MethodCode " &
                     "from AIRBRANCH.LookUpISMPMethods "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -6437,7 +6437,7 @@ Public Class ISMPManagersTools
                     "values " &
                     "('" & temp & "', " &
                     "'Method " & Replace(txtMethodNumber.Text, "'", "''") & " - " & Replace(txtMethodDescription.Text, "'", "''") & "') "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -6520,7 +6520,7 @@ Public Class ISMPManagersTools
                 "strReferenceNumber " &
                 "from AIRBRANCH.ISMPMaster " &
                 "where strReferenceNumber = '" & RefNum & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -6536,7 +6536,7 @@ Public Class ISMPManagersTools
                 "strAIRSNumber " &
                 "from AIRBRANCH.APBMasterAIRS " &
                 "where strAIRSNumber = '0413" & AIRSNumber & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -6552,7 +6552,7 @@ Public Class ISMPManagersTools
                 "values " &
                 "('" & RefNum & "', '0413" & AIRSNumber & "', " &
                 "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -6578,7 +6578,7 @@ Public Class ISMPManagersTools
                 "'', '', " &
                 "'', '') "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -6630,7 +6630,7 @@ Public Class ISMPManagersTools
                 "from AIRBRANCH.ISMPReportInformation " &
                 "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -6641,7 +6641,7 @@ Public Class ISMPManagersTools
                     SQL = "Update AIRBRANCH.ISMPReportInformation set " &
                     "strClosed = 'True' " &
                     "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -6664,7 +6664,7 @@ Public Class ISMPManagersTools
                 "from AIRBRANCH.ISMPReportInformation " &
                 "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -6675,7 +6675,7 @@ Public Class ISMPManagersTools
                     SQL = "Update AIRBRANCH.ISMPReportInformation set " &
                     "strClosed = 'False' " &
                     "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If

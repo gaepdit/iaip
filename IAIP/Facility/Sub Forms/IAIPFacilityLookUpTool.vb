@@ -1,5 +1,5 @@
 'Imports System.DateTime
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 
 Public Class IAIPFacilityLookUpTool
@@ -54,7 +54,7 @@ Public Class IAIPFacilityLookUpTool
         ApplicationInsights.TrackEvent("FacilitySearch." & SearchType.ToString)
 
         Dim query As String = ""
-        Dim parameter As OracleParameter = Nothing
+        Dim parameter As SqlParameter = Nothing
 
         Select Case SearchType
             Case SearchByType.AirsNumber
@@ -65,7 +65,7 @@ Public Class IAIPFacilityLookUpTool
                 "from AIRBRANCH.APBFacilityInformation " &
                 "where strAirsNumber Like :SearchString"
 
-                parameter = New OracleParameter("SearchString", "%" & txtAIRSNumberSearch.Text & "%")
+                parameter = New SqlParameter("SearchString", "%" & txtAIRSNumberSearch.Text & "%")
 
             Case SearchByType.City
                 query = "Select " &
@@ -75,7 +75,7 @@ Public Class IAIPFacilityLookUpTool
                 "from AIRBRANCH.APBFacilityInformation " &
                 "where Upper(strFacilityCity) Like Upper(:SearchString)"
 
-                parameter = New OracleParameter("SearchString", "%" & txtCityNameSearch.Text & "%")
+                parameter = New SqlParameter("SearchString", "%" & txtCityNameSearch.Text & "%")
 
             Case SearchByType.County
                 query = "Select " &
@@ -86,7 +86,7 @@ Public Class IAIPFacilityLookUpTool
                  "where substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode " &
                  "and upper(strCountyName) like Upper(:SearchString) "
 
-                parameter = New OracleParameter("SearchString", "%" & txtCountyNameSearch.Text & "%")
+                parameter = New SqlParameter("SearchString", "%" & txtCountyNameSearch.Text & "%")
 
             Case SearchByType.FacilityName
                 query = "Select " &
@@ -96,7 +96,7 @@ Public Class IAIPFacilityLookUpTool
                 "from AIRBRANCH.APBFacilityInformation " &
                 "where Upper(strFacilityName) Like Upper(:SearchString)"
 
-                parameter = New OracleParameter("SearchString", "%" & txtFacilityNameSearch.Text & "%")
+                parameter = New SqlParameter("SearchString", "%" & txtFacilityNameSearch.Text & "%")
 
             Case SearchByType.HistoricalName
                 query = "Select " &
@@ -122,7 +122,7 @@ Public Class IAIPFacilityLookUpTool
                 "where AIRBRANCH.SSPPApplicationData.strApplicationNumber = AIRBRANCH.SSPPApplicationMaster.strApplicationNumber " &
                 "and upper(strFacilityname) like Upper(:SearchString) "
 
-                parameter = New OracleParameter("SearchString", "%" & txtFacilityNameSearch.Text & "%")
+                parameter = New SqlParameter("SearchString", "%" & txtFacilityNameSearch.Text & "%")
 
             Case SearchByType.SicCode
                 query = "Select " &
@@ -133,7 +133,7 @@ Public Class IAIPFacilityLookUpTool
                 "where Upper(AIRBRANCH.APBHeaderData.strSICCode) Like Upper(:SearchString) " &
                 "and AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.APBHeaderData.strAIRSNumber"
 
-                parameter = New OracleParameter("SearchString", txtSICCodeSearch.Text & "%")
+                parameter = New SqlParameter("SearchString", txtSICCodeSearch.Text & "%")
 
             Case SearchByType.Subpart
                 If rdbPart60.Checked Then
@@ -197,7 +197,7 @@ Public Class IAIPFacilityLookUpTool
                     "and (AIRBRANCH.APBSubpartData.strSubpart) like :SearchString   "
                 End If
 
-                parameter = New OracleParameter("SearchString", "%" & txtSubpartSearch.Text & "%")
+                parameter = New SqlParameter("SearchString", "%" & txtSubpartSearch.Text & "%")
 
             Case SearchByType.ZipCode
                 query = "Select " &
@@ -207,7 +207,7 @@ Public Class IAIPFacilityLookUpTool
                 "from AIRBRANCH.APBFacilityInformation " &
                 "where Upper(strFacilityZipCode) Like Upper(:SearchString)"
 
-                parameter = New OracleParameter("SearchString", "%" & txtZipCodeSearch.Text & "%")
+                parameter = New SqlParameter("SearchString", "%" & txtZipCodeSearch.Text & "%")
 
             Case SearchByType.Inspector
                 query = "Select  " &
@@ -222,7 +222,7 @@ Public Class IAIPFacilityLookUpTool
                 "and AIRBRANCH.VW_SSCPInspection_List.numSSCPEngineer = AIRBRANCH.EPDUserProfiles.numUserID   " &
                 "and Upper(strLastName||', '||strFirstName) like Upper(:SearchString)  "
 
-                parameter = New OracleParameter("SearchString", "%" & txtComplianceEngineer.Text & "%")
+                parameter = New SqlParameter("SearchString", "%" & txtComplianceEngineer.Text & "%")
 
             Case Else
                 query = ""

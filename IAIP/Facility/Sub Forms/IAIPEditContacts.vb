@@ -1,4 +1,4 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 Imports Iaip.Apb.Facilities
 Imports Iaip.DAL
 
@@ -39,9 +39,9 @@ Public Class IAIPEditContacts
 #End Region
 
     Dim SQL As String
-    Dim cmd As OracleCommand
+    Dim cmd As SqlCommand
     Dim dsContacts As DataSet
-    Dim daContacts As OracleDataAdapter
+    Dim daContacts As SqlDataAdapter
 
 #Region "Page Load"
 
@@ -118,7 +118,7 @@ Public Class IAIPEditContacts
                  "order by substr(strKey, 2), strKey "
 
                 dsContacts = New DataSet
-                daContacts = New OracleDataAdapter(SQL, CurrentConnection)
+                daContacts = New SqlDataAdapter(SQL, CurrentConnection)
 
                 daContacts.Fill(dsContacts, "Contacts")
                 ContactsDataGrid.DataSource = dsContacts
@@ -204,19 +204,18 @@ Public Class IAIPEditContacts
                 "where strAIRSNumber = :airsnumber " &
                 "and strKey = :key "
 
-                Dim parameters As OracleParameter() = New OracleParameter() {
-                    New OracleParameter("airsnumber", Me.AirsNumber.DbFormattedString),
-                    New OracleParameter("key", Key.ToString("D"))
+                Dim parameters As SqlParameter() = New SqlParameter() {
+                    New SqlParameter("airsnumber", Me.AirsNumber.DbFormattedString),
+                    New SqlParameter("key", Key.ToString("D"))
                 }
 
-                Using connection As New OracleConnection(DB.CurrentConnectionString)
-                    Using command As New OracleCommand(query, connection)
+                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                    Using command As New SqlCommand(query, connection)
                         command.CommandType = CommandType.Text
-                        command.BindByName = True
                         command.Parameters.AddRange(parameters)
                         command.Connection.Open()
 
-                        Dim dr As OracleDataReader = command.ExecuteReader
+                        Dim dr As SqlDataReader = command.ExecuteReader
                         While dr.Read
                             If IsDBNull(dr.Item("strContactFirstName")) Then
                                 txtNewFirstName.Clear()
@@ -418,7 +417,7 @@ Public Class IAIPEditContacts
                     "where strAIRSnumber = '" & AirsNumber.DbFormattedString & "' " &
                     "and strKey = '" & Key.ToString("D") & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -465,7 +464,7 @@ Public Class IAIPEditContacts
                        "STRCONTACTDESCRIPTION = '" & Replace(txtNewDescrption.Text, "'", "''") & "' " &
                        "where strAIRSnumber = '" & AirsNumber.DbFormattedString & "' " &
                        "and strKey = '" & newKey & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -517,7 +516,7 @@ Public Class IAIPEditContacts
                             "where strAIRSnumber = '" & AirsNumber.DbFormattedString & "' " &
                             "and strKey = '" & Mid(newKey, 1, 1) & "9' "
 
-                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            cmd = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
                             End If
@@ -528,7 +527,7 @@ Public Class IAIPEditContacts
                             "strContactKey = substr(strContactKey, 1, 13) || (substr(strContactKey, 14, 1) + 1) " &
                             "where strAIRSNumber = '" & AirsNumber.DbFormattedString & "' " &
                             "and strKey like '" & Mid(newKey, 1, 1) & "%' "
-                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            cmd = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
                             End If
@@ -563,7 +562,7 @@ Public Class IAIPEditContacts
                             "where strKey = '" & newKey & "' " &
                             "and strAIRSNumber = '" & AirsNumber.DbFormattedString & "')) "
 
-                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            cmd = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
                             End If
@@ -599,7 +598,7 @@ Public Class IAIPEditContacts
                             "where strKey = '" & newKey & "' " &
                             "and strAIRSNumber = '" & AirsNumber.DbFormattedString & "')) "
 
-                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            cmd = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
                             End If

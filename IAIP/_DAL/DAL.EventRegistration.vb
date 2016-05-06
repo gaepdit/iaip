@@ -1,5 +1,5 @@
 ﻿Imports System.Collections.Generic
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 Imports Oracle.ManagedDataAccess.Types
 Imports Iaip.Apb.Res
 
@@ -38,34 +38,38 @@ Namespace DAL
 #Region "Events"
 
         Public Function GetResEventsAsDataTable(ByVal toDate As Nullable(Of Date), ByVal fromDate As Nullable(Of Date)) As DataTable
-            Try
-                Dim query As String =
-                    " SELECT RES_EVENT.NUMRES_EVENTID, " &
-                    "     RES_EVENT.STRTITLE, " &
-                    "     RES_EVENT.STRDESCRIPTION, " &
-                    "     RES_EVENT.DATSTARTDATE, " &
-                    "     RES_EVENT.STREVENTSTARTTIME, " &
-                    "     RES_EVENT.STRVENUE, " &
-                    "     RES_EVENT.STRNOTES " &
-                    " FROM AIRBRANCH.RES_EVENT " &
-                    " WHERE AIRBRANCH.RES_EVENT.DATSTARTDATE       IS NOT NULL " &
-                    " AND (TRUNC(AIRBRANCH.RES_EVENT.DATSTARTDATE) >= TRUNC(:pFromDate) " &
-                    " OR :pFromDate                                IS NULL) " &
-                    " AND (TRUNC(AIRBRANCH.RES_EVENT.DATSTARTDATE) <= TRUNC(:pToDate) " &
-                    " OR :pToDate                                  IS NULL) " &
-                    " AND AIRBRANCH.RES_EVENT.ACTIVE                = '1' " &
-                    " ORDER BY AIRBRANCH.RES_EVENT.DATSTARTDATE "
+            Throw New NotImplementedException()
 
-                Dim parameters As OracleParameter() = {
-                    New OracleParameter("pFromDate", OracleDbType.Date, fromDate, ParameterDirection.Input),
-                    New OracleParameter("pToDate", OracleDbType.Date, toDate, ParameterDirection.Input)
-                }
+            ' TODO: SQL Server migration
 
-                Return DB.GetDataTable(query, parameters)
-            Catch ex As Exception
-                ErrorReport(ex, System.Reflection.MethodBase.GetCurrentMethod.Name)
-                Return Nothing
-            End Try
+            'Try
+            '    Dim query As String =
+            '        " SELECT RES_EVENT.NUMRES_EVENTID, " &
+            '        "     RES_EVENT.STRTITLE, " &
+            '        "     RES_EVENT.STRDESCRIPTION, " &
+            '        "     RES_EVENT.DATSTARTDATE, " &
+            '        "     RES_EVENT.STREVENTSTARTTIME, " &
+            '        "     RES_EVENT.STRVENUE, " &
+            '        "     RES_EVENT.STRNOTES " &
+            '        " FROM AIRBRANCH.RES_EVENT " &
+            '        " WHERE AIRBRANCH.RES_EVENT.DATSTARTDATE       IS NOT NULL " &
+            '        " AND (TRUNC(AIRBRANCH.RES_EVENT.DATSTARTDATE) >= TRUNC(:pFromDate) " &
+            '        " OR :pFromDate                                IS NULL) " &
+            '        " AND (TRUNC(AIRBRANCH.RES_EVENT.DATSTARTDATE) <= TRUNC(:pToDate) " &
+            '        " OR :pToDate                                  IS NULL) " &
+            '        " AND AIRBRANCH.RES_EVENT.ACTIVE                = '1' " &
+            '        " ORDER BY AIRBRANCH.RES_EVENT.DATSTARTDATE "
+
+            '    Dim parameters As SqlParameter() = {
+            '        New SqlParameter("pFromDate", SqlDbType.DateTime2, fromDate, ParameterDirection.Input),
+            '        New SqlParameter("pToDate", SqlDbType.DateTime2, toDate, ParameterDirection.Input)
+            '    }
+
+            '    Return DB.GetDataTable(query, parameters)
+            'Catch ex As Exception
+            '    ErrorReport(ex, System.Reflection.MethodBase.GetCurrentMethod.Name)
+            '    Return Nothing
+            'End Try
         End Function
 
 #End Region
@@ -112,7 +116,7 @@ Namespace DAL
                 " AND AIRBRANCH.RES_EVENT.NUMAPBCONTACT        = EP1.NUMUSERID(+) " &
                 " AND AIRBRANCH.RES_EVENT.NUMRES_EVENTID      = :pId "
 
-            Dim parameter As New OracleParameter("pId", id)
+            Dim parameter As New SqlParameter("pId", id)
 
             Dim dataTable As DataTable = DB.GetDataTable(query, parameter)
             If dataTable Is Nothing Then Return Nothing
@@ -204,7 +208,7 @@ Namespace DAL
                 " AND AIRBRANCH.RES_REGISTRATION.NUMGECOUSERID             = AIRBRANCH.OLAPUSERLOGIN.NUMUSERID " &
                 " AND AIRBRANCH.RES_REGISTRATION.NUMRES_EVENTID           = :pId "
 
-            Dim parameter As New OracleParameter("pId", id)
+            Dim parameter As New SqlParameter("pId", id)
 
             Return DB.GetDataTable(query, parameter)
         End Function

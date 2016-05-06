@@ -1,9 +1,9 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 
 Public Class SBEAPClientSearchTool
     Dim SQL As String
     Dim dsSearch As DataSet
-    Dim daSearch As OracleDataAdapter
+    Dim daSearch As SqlDataAdapter
 
 #Region " Form events "
 
@@ -132,7 +132,7 @@ Public Class SBEAPClientSearchTool
             End Select
 
             dsSearch = New DataSet
-            daSearch = New OracleDataAdapter(SQL, CurrentConnection)
+            daSearch = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()

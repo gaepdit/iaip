@@ -1,13 +1,13 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 Imports System.Collections.Generic
 
 
 Public Class SSCPEnforcementSelector
     Dim SQL As String
     Dim dsSSCPEnforcement As DataSet
-    Dim daSSCPEnforcement As OracleDataAdapter
+    Dim daSSCPEnforcement As SqlDataAdapter
     Dim dsComplianceUnits As DataSet
-    Dim daComplianceUnits As OracleDataAdapter
+    Dim daComplianceUnits As SqlDataAdapter
 
     Private Sub SSCPEnforcementSelector_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
@@ -46,7 +46,7 @@ Public Class SSCPEnforcementSelector
             "order by strUnitDesc  "
 
             dsComplianceUnits = New DataSet
-            daComplianceUnits = New OracleDataAdapter(SQL, CurrentConnection)
+            daComplianceUnits = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -389,9 +389,9 @@ Public Class SSCPEnforcementSelector
 
             dsSSCPEnforcement = New DataSet
 
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim cmd As New SqlCommand(SQL, CurrentConnection)
 
-            daSSCPEnforcement = New OracleDataAdapter(cmd)
+            daSSCPEnforcement = New SqlDataAdapter(cmd)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()

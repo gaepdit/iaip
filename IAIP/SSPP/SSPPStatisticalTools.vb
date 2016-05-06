@@ -1,28 +1,28 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 
 Public Class SSPPStatisticalTools
     'Dim SQL As String
-    'Dim cmd As OracleCommand
-    'Dim dr As OracleDataReader
+    'Dim cmd As SqlCommand
+    'Dim dr As SqlDataReader
     Dim recExist As Boolean
     Dim dsViewCount As DataSet
-    Dim daViewCount As OracleDataAdapter
+    Dim daViewCount As SqlDataAdapter
     Dim dsPermittingUnits As DataSet
-    Dim daPermittingUnits As OracleDataAdapter
+    Dim daPermittingUnits As SqlDataAdapter
     Dim tempLoad As String
 
     Dim SQL, SQL2, SQL3, SQL4 As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
+    Dim cmd As SqlCommand
+    Dim dr As SqlDataReader
     Dim dsPart60 As DataSet
-    Dim daPart60 As OracleDataAdapter
+    Dim daPart60 As SqlDataAdapter
     Dim dsPart61 As DataSet
-    Dim daPart61 As OracleDataAdapter
+    Dim daPart61 As SqlDataAdapter
     Dim dsPart63 As DataSet
-    Dim daPart63 As OracleDataAdapter
+    Dim daPart63 As SqlDataAdapter
     Dim dsSIP As DataSet
-    Dim daSIP As OracleDataAdapter
+    Dim daSIP As SqlDataAdapter
 
     Private Sub SSPPStatisticalTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
@@ -141,7 +141,7 @@ Public Class SSPPStatisticalTools
             "order by strUnitDesc "
 
             dsPermittingUnits = New DataSet
-            daPermittingUnits = New OracleDataAdapter(SQL, CurrentConnection)
+            daPermittingUnits = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -255,7 +255,7 @@ Public Class SSPPStatisticalTools
             "or strPermitType = '13') " &
             EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -282,7 +282,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -315,7 +315,7 @@ Public Class SSPPStatisticalTools
             "or strPermitType = '13') " &
             EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -341,7 +341,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -379,7 +379,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -411,7 +411,7 @@ Public Class SSPPStatisticalTools
             "and (strPermitType = '4' or strPermitType = '7') " &
             EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -437,7 +437,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -469,7 +469,7 @@ Public Class SSPPStatisticalTools
             "and (strPermitType = '4' or strPermitType = '7') " &
             EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -494,7 +494,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -526,7 +526,7 @@ Public Class SSPPStatisticalTools
             "and (strPermitType = '4' or strPermitType = '7') " &
             EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -551,7 +551,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -583,7 +583,7 @@ Public Class SSPPStatisticalTools
             "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '1') " &
             EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -609,7 +609,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -641,7 +641,7 @@ Public Class SSPPStatisticalTools
             "and (strPermitType = '4' or strPermitType = '7') " &
             EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -666,7 +666,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -699,7 +699,7 @@ Public Class SSPPStatisticalTools
             "and strPermitType = '6' " &
             EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -724,7 +724,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -758,7 +758,7 @@ Public Class SSPPStatisticalTools
             "and (strPermitType = '7' or strPermitType = '4') " &
             EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -785,7 +785,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -823,7 +823,7 @@ Public Class SSPPStatisticalTools
             EngineerLine
 
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -852,7 +852,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -888,7 +888,7 @@ Public Class SSPPStatisticalTools
             "and strPermitType <> '11' " &
             EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -917,7 +917,7 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 While dr.Read
@@ -1000,7 +1000,7 @@ Public Class SSPPStatisticalTools
             "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " &
                     EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1020,7 +1020,7 @@ Public Class SSPPStatisticalTools
             "and (datDraftIssued is Null or datDraftIssued < datToDirector) " &
                     EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1041,7 +1041,7 @@ Public Class SSPPStatisticalTools
             "and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) " &
                     EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1061,7 +1061,7 @@ Public Class SSPPStatisticalTools
             "and datDraftIssued is Not Null " &
                     EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1081,7 +1081,7 @@ Public Class SSPPStatisticalTools
             "and datEPAEnds is Null  " &
                     EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1104,7 +1104,7 @@ Public Class SSPPStatisticalTools
             "and datEPAEnds is Null  " &
                     EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1128,7 +1128,7 @@ Public Class SSPPStatisticalTools
             "and datToPMII is Not Null " &
                     EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1153,7 +1153,7 @@ Public Class SSPPStatisticalTools
             "and datToPMI is Not Null " &
                     EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1178,7 +1178,7 @@ Public Class SSPPStatisticalTools
             "and datToPMI is Null " &
                     EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1251,7 +1251,7 @@ Public Class SSPPStatisticalTools
             "or strApplicationType = '27' or strApplicationType = '17') " &
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1272,7 +1272,7 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate > add_months(sysdate, -12)  " &
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1294,7 +1294,7 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate < add_months(sysdate, -12) " &
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1315,7 +1315,7 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate < add_months(sysdate, -18)" &
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1389,7 +1389,7 @@ Public Class SSPPStatisticalTools
             "and strApplicationType <> '17' and strApplicationType <> '27' " &
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1410,7 +1410,7 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate >= add_months(sysdate, -3)  " &
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1432,7 +1432,7 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate < add_months(sysdate, -3) " &
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1454,7 +1454,7 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate < add_months(sysdate, -6) " &
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1476,7 +1476,7 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate < add_months(sysdate, -9) " &
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1497,7 +1497,7 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate < add_months(sysdate, -12)" &
                 EngineerLine
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1557,7 +1557,7 @@ Public Class SSPPStatisticalTools
             "and datFinalizeddate is null " &
             "and (strEPATOPSExcluded is null or strEPATOPSExcluded = 'False'))) EPA2a2 "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1586,7 +1586,7 @@ Public Class SSPPStatisticalTools
             "and strApplicationType = '14'  " &
             "and datFinalizeddate is null )) EPA2d2 "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1601,7 +1601,7 @@ Public Class SSPPStatisticalTools
             "where substr(strAirProgramCodes, 13, 1) = '1'  " &
             "and strOperationalStatus = 'O' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1623,7 +1623,7 @@ Public Class SSPPStatisticalTools
             "AND datPermitIssued > '" & StartDate & "' " &
             "AND datPermitIssued < '" & EndDate & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1646,7 +1646,7 @@ Public Class SSPPStatisticalTools
             "AND datPermitIssued < '" & EndDate & "' " &
             "and datReceivedDate > add_months(datPermitIssued, -18) "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1671,7 +1671,7 @@ Public Class SSPPStatisticalTools
             "and datPermitIssued is Null " &
             "and datReceivedDate < add_months('" & EndDate & "', -18) "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1713,7 +1713,7 @@ Public Class SSPPStatisticalTools
             "and substr(strAirProgramCodes, 13, 1) = '1'  " &
             "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber) "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1757,7 +1757,7 @@ Public Class SSPPStatisticalTools
             "and substr(strAirProgramCodes, 13, 1) = '1'  " &
             "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1819,7 +1819,7 @@ Public Class SSPPStatisticalTools
 "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  ) EPA6b where  EPA6A.airsnumber = EPA6b.airsNumber) "
 
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1845,7 +1845,7 @@ Public Class SSPPStatisticalTools
             "AND datPermitIssued > '" & StartDate & "' " &
             "AND datPermitIssued < '" & EndDate & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1868,7 +1868,7 @@ Public Class SSPPStatisticalTools
             "AND datPermitIssued < '" & EndDate & "' " &
             "and datReceivedDate > add_months(datPermitIssued, -18) "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1891,7 +1891,7 @@ Public Class SSPPStatisticalTools
             "AND datPermitIssued < '" & EndDate & "' " &
             "and datReceivedDate > add_months(datPermitIssued, -9) "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1917,7 +1917,7 @@ Public Class SSPPStatisticalTools
             "and datPermitIssued is Null " &
             "and datReceivedDate < add_months('" & EndDate & "', -18)"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2086,7 +2086,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2255,7 +2255,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2376,7 +2376,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2497,7 +2497,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2618,7 +2618,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2739,7 +2739,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2860,7 +2860,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2983,7 +2983,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -3111,7 +3111,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -3234,7 +3234,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -3365,7 +3365,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -3481,7 +3481,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -3597,7 +3597,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -3713,7 +3713,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -3832,7 +3832,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -3953,7 +3953,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -4075,7 +4075,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -4197,7 +4197,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -4327,7 +4327,7 @@ Public Class SSPPStatisticalTools
 
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -4447,7 +4447,7 @@ Public Class SSPPStatisticalTools
 
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -4567,7 +4567,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -4686,7 +4686,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -4818,7 +4818,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -4938,7 +4938,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -5059,7 +5059,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -5180,7 +5180,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -5301,7 +5301,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -5421,7 +5421,7 @@ Public Class SSPPStatisticalTools
                 EngineerLine
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -5516,7 +5516,7 @@ Public Class SSPPStatisticalTools
                 "or AIRBRANCH.APBHeaderData.strAIRSnumber = EPA2.AIRSNumber2) "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -5596,7 +5596,7 @@ Public Class SSPPStatisticalTools
                 "or AIRBRANCH.APBHeaderData.strAIRSnumber = EPA2.AIRSNumber2) "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -5655,7 +5655,7 @@ Public Class SSPPStatisticalTools
                 "and strOPerationalStatus = 'O'  "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -5741,7 +5741,7 @@ Public Class SSPPStatisticalTools
                 "AND datPermitIssued < '" & EndDate & "' "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -5832,7 +5832,7 @@ Public Class SSPPStatisticalTools
                 "and datReceivedDate > add_months(datPermitIssued, -18) "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -5919,7 +5919,7 @@ Public Class SSPPStatisticalTools
                 "and datReceivedDate < add_months('" & EndDate & "', -18) "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -6008,7 +6008,7 @@ Public Class SSPPStatisticalTools
                 "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -6093,7 +6093,7 @@ Public Class SSPPStatisticalTools
             "order by AIRSNumber "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -6199,7 +6199,7 @@ Public Class SSPPStatisticalTools
                 "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  ) EPA6b where  EPA6A.airsnumber = EPA6b.airsNumber) "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -6287,7 +6287,7 @@ Public Class SSPPStatisticalTools
                 "AND datPermitIssued < '" & EndDate & "' "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -6378,7 +6378,7 @@ Public Class SSPPStatisticalTools
                 "and datReceivedDate > add_months(datPermitIssued, -18) "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -6469,7 +6469,7 @@ Public Class SSPPStatisticalTools
                 "and datReceivedDate > add_months(datPermitIssued, -9) "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -6555,7 +6555,7 @@ Public Class SSPPStatisticalTools
                 "and datReceivedDate < add_months('" & EndDate & "', -18) "
 
                 dsViewCount = New DataSet
-                daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
+                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -6625,7 +6625,7 @@ Public Class SSPPStatisticalTools
                 "WHERE numUnit = '" & cboSSPPUnits.SelectedValue & "'   " &
                 "Order by UserName  "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -6650,7 +6650,7 @@ Public Class SSPPStatisticalTools
                     "where AIRBRANCH.EPDUserProfiles.numUserID = AppUsers.Users    " &
                     "Order by Username  "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -6856,10 +6856,10 @@ Public Class SSPPStatisticalTools
             dsPart63 = New DataSet
             dsSIP = New DataSet
 
-            daPart60 = New OracleDataAdapter(SQL, CurrentConnection)
-            daPart61 = New OracleDataAdapter(SQL2, CurrentConnection)
-            daPart63 = New OracleDataAdapter(SQL3, CurrentConnection)
-            daSIP = New OracleDataAdapter(SQL4, CurrentConnection)
+            daPart60 = New SqlDataAdapter(SQL, CurrentConnection)
+            daPart61 = New SqlDataAdapter(SQL2, CurrentConnection)
+            daPart63 = New SqlDataAdapter(SQL3, CurrentConnection)
+            daSIP = New SqlDataAdapter(SQL4, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -7009,7 +7009,7 @@ Public Class SSPPStatisticalTools
                 SQL = "Select strSubPart " &
                 "From AIRBRANCH.LookUpSubpartSIP " &
                 "where strSubPart = '" & txtSIPCode.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -7026,7 +7026,7 @@ Public Class SSPPStatisticalTools
                     "('" & Replace(txtSIPCode.Text, "'", "''") & "', " &
                     "'" & Replace(txtSIPDescription.Text, "'", "''") & "') "
                 End If
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -7062,7 +7062,7 @@ Public Class SSPPStatisticalTools
                 SQL = "Select strSubPart " &
                 "From AIRBRANCH.LookUpSubpart60 " &
                 "where strSubPart = '" & txtNSPSCode.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -7079,7 +7079,7 @@ Public Class SSPPStatisticalTools
                     "('" & Replace(txtNSPSCode.Text, "'", "''") & "', " &
                     "'" & Replace(txtNSPSDescription.Text, "'", "''") & "') "
                 End If
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -7114,7 +7114,7 @@ Public Class SSPPStatisticalTools
                 SQL = "Select strSubPart " &
                 "From AIRBRANCH.LookUpSubpart61 " &
                 "where strSubPart = '" & txtNESHAPCode.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -7131,7 +7131,7 @@ Public Class SSPPStatisticalTools
                     "('" & Replace(txtNESHAPCode.Text, "'", "''") & "', " &
                     "'" & Replace(txtNESHAPDescription.Text, "'", "''") & "') "
                 End If
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -7167,7 +7167,7 @@ Public Class SSPPStatisticalTools
                 SQL = "Select strSubPart " &
                 "From AIRBRANCH.LookUpSubpart63 " &
                 "where strSubPart = '" & txtMACTCode.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -7184,7 +7184,7 @@ Public Class SSPPStatisticalTools
                     "('" & Replace(txtMACTCode.Text, "'", "''") & "', " &
                     "'" & Replace(txtMACTDescription.Text, "'", "''") & "') "
                 End If
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -7216,7 +7216,7 @@ Public Class SSPPStatisticalTools
             SQL = "Delete AIRBRANCH.LookUpSubpartSIP " &
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -7234,7 +7234,7 @@ Public Class SSPPStatisticalTools
             SQL = "Delete AIRBRANCH.LookUpSubpart60 " &
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -7252,7 +7252,7 @@ Public Class SSPPStatisticalTools
             SQL = "Delete AIRBRANCH.LookUpSubpart61 " &
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -7270,7 +7270,7 @@ Public Class SSPPStatisticalTools
             SQL = "Delete AIRBRANCH.LookUpSubpart63 " &
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If

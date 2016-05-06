@@ -1,4 +1,4 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 
 Public Class PASPDepositsAmendments
@@ -23,7 +23,7 @@ Public Class PASPDepositsAmendments
             "strFacilityName " &
             "from AIRBRANCH.APBFacilityInformation " &
             "where strAIRSNumber = :AIRSNumber "
-        Dim param As New OracleParameter("AIRSNumber", New Apb.ApbFacilityId(AIRSNumber).DbFormattedString)
+        Dim param As New SqlParameter("AIRSNumber", New Apb.ApbFacilityId(AIRSNumber).DbFormattedString)
 
         Dim facName As String = DB.GetSingleValue(Of String)(query, param)
 
@@ -36,14 +36,14 @@ Public Class PASPDepositsAmendments
 
     Private Function ValidateData() As Boolean
         Dim query As String
-        Dim param() As OracleParameter
+        Dim param() As SqlParameter
 
         If mtbAIRSNumber.Text <> "" Then
             query = "Select " &
                 "strAIRSNumber " &
                 "from AIRBRANCH.APBFacilityInformation " &
                 "where strAIRSNumber = :AIRSNumber "
-            param = {New OracleParameter("AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)}
+            param = {New SqlParameter("AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)}
 
             If Not DB.ValueExists(query, param) Then
                 MsgBox("This AIRS # is not valid; please verify that it is entered correctly." & vbCrLf &
@@ -86,8 +86,8 @@ Public Class PASPDepositsAmendments
                 "where invoiceID = :InvoiceID " &
                 "and strAIRSNumber = :AIRSNumber "
             param = {
-                New OracleParameter("InvoiceID", txtInvoiceForDeposit.Text),
-                New OracleParameter("AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)
+                New SqlParameter("InvoiceID", txtInvoiceForDeposit.Text),
+                New SqlParameter("AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)
             }
             If Not DB.ValueExists(query, param) Then
                 MsgBox("Please select a valid Invoice Number", MsgBoxStyle.OkOnly, "No Valid Invoice No.")
@@ -111,9 +111,9 @@ Public Class PASPDepositsAmendments
             "WHERE tr.DATTRANSACTIONDATE BETWEEN :StartDate AND :EndDate AND " &
             "  tr.ACTIVE = '1' AND fi.ACTIVE = '1' " &
             "ORDER BY tr.STRBATCHNO"
-        Dim parameters As OracleParameter() = {
-            New OracleParameter("StartDate", dtpDepositReportStartDate.Value),
-            New OracleParameter("EndDate", dtpDepositReportEndDate.Value)
+        Dim parameters As SqlParameter() = {
+            New SqlParameter("StartDate", dtpDepositReportStartDate.Value),
+            New SqlParameter("EndDate", dtpDepositReportEndDate.Value)
         }
 
         dtDeposit = DB.GetDataTable(query, parameters)
@@ -131,7 +131,7 @@ Public Class PASPDepositsAmendments
 
             Dim query As String = "Delete AIRBRANCH.FSAddPaid " &
             "where intPayID = :trID"
-            Dim param As New OracleParameter("trID", txtTransactionID.Text)
+            Dim param As New SqlParameter("trID", txtTransactionID.Text)
             DB.RunCommand(query, param)
 
             btnSearchDeposits.Enabled = False
@@ -160,7 +160,7 @@ Public Class PASPDepositsAmendments
     End Sub
     Sub ViewInvoices()
         Dim query As String
-        Dim param() As OracleParameter
+        Dim param() As SqlParameter
 
         If txtCheckNumber.Text <> "" Then
             query = "select " &
@@ -183,7 +183,7 @@ Public Class PASPDepositsAmendments
                 "and AIRBRANCH.FS_Transactions.Active = '1' " &
                 "and AIRBRANCH.FS_FeeInvoice.Active = '1' " &
                 "order by strBatchNo  "
-            param = {New OracleParameter("chknum", "%" & txtCheckNumber.Text & "%")}
+            param = {New SqlParameter("chknum", "%" & txtCheckNumber.Text & "%")}
         Else
             query = "select " &
                 "distinct  ALLInvoices.strAIRSNumber, strDepositNo, datTransactionDate,  " &
@@ -220,8 +220,8 @@ Public Class PASPDepositsAmendments
                 "and AIRBranch.FS_Transactions.Active = '1' order by strBatchNo) Transactions " &
                 "where Allinvoices.InvoiceID = Transactions.InvoiceID  (+) "
             param = {
-                New OracleParameter("airsnum", "%" & mtbAIRSNumber.Text & "%"),
-                New OracleParameter("feeyear", mtbFeeYear.Text)
+                New SqlParameter("airsnum", "%" & mtbAIRSNumber.Text & "%"),
+                New SqlParameter("feeyear", mtbFeeYear.Text)
             }
 
         End If
@@ -462,22 +462,22 @@ Public Class PASPDepositsAmendments
                         "    :STRCOMMENT, :ACTIVE, :UPDATEUSER, sysdate, sysdate, " &
                         "    :STRAIRSNUMBER, :NUMFEEYEAR, :STRCREDITCARDNO " &
                         "  ) "
-                    Dim param() As OracleParameter
+                    Dim param() As SqlParameter
                     param = {
-                        New OracleParameter("INVOICEID", txtInvoiceForDeposit.Text),
-                        New OracleParameter("TRANSACTIONTYPECODE", "1"),
-                        New OracleParameter("DATTRANSACTIONDATE", DTPBatchDepositDateField.Text),
-                        New OracleParameter("NUMPAYMENT", Replace(Replace(txtDepositAmount.Text, ",", ""), "$", "")),
-                        New OracleParameter("STRCHECKNO", txtCheckNumberField.Text),
-                        New OracleParameter("STRDEPOSITNO", txtDepositNumberField.Text),
-                        New OracleParameter("STRBATCHNO", txtBatchNoField.Text),
-                        New OracleParameter("STRENTRYPERSON", CurrentUser.UserID),
-                        New OracleParameter("STRCOMMENT", txtDepositComments.Text),
-                        New OracleParameter("ACTIVE", "1"),
-                        New OracleParameter("UPDATEUSER", CurrentUser.UserID),
-                        New OracleParameter("STRAIRSNUMBER", "0413" & mtbAIRSNumber.Text),
-                        New OracleParameter("NUMFEEYEAR", mtbFeeYear2.Text),
-                        New OracleParameter("STRCREDITCARDNO", txtCreditCardNo.Text)
+                        New SqlParameter("INVOICEID", txtInvoiceForDeposit.Text),
+                        New SqlParameter("TRANSACTIONTYPECODE", "1"),
+                        New SqlParameter("DATTRANSACTIONDATE", DTPBatchDepositDateField.Text),
+                        New SqlParameter("NUMPAYMENT", Replace(Replace(txtDepositAmount.Text, ",", ""), "$", "")),
+                        New SqlParameter("STRCHECKNO", txtCheckNumberField.Text),
+                        New SqlParameter("STRDEPOSITNO", txtDepositNumberField.Text),
+                        New SqlParameter("STRBATCHNO", txtBatchNoField.Text),
+                        New SqlParameter("STRENTRYPERSON", CurrentUser.UserID),
+                        New SqlParameter("STRCOMMENT", txtDepositComments.Text),
+                        New SqlParameter("ACTIVE", "1"),
+                        New SqlParameter("UPDATEUSER", CurrentUser.UserID),
+                        New SqlParameter("STRAIRSNUMBER", "0413" & mtbAIRSNumber.Text),
+                        New SqlParameter("NUMFEEYEAR", mtbFeeYear2.Text),
+                        New SqlParameter("STRCREDITCARDNO", txtCreditCardNo.Text)
                     }
                     DB.RunCommand(query, param)
 
@@ -526,7 +526,7 @@ Public Class PASPDepositsAmendments
             "from airbranch.FS_TRANSACTIONS " &
             "where invoiceid = :invID " &
             "and Active = '1' ) Payments "
-            Dim param As New OracleParameter("invID", invoiceID)
+            Dim param As New SqlParameter("invID", invoiceID)
 
             Dim result As String = DB.GetSingleValue(Of String)(query, param)
             If String.IsNullOrWhiteSpace(result) Then
@@ -562,19 +562,19 @@ Public Class PASPDepositsAmendments
                             "  UPDATEUSER = :UPDATEUSER, UPDATEDATETIME = sysdate, " &
                             "  STRCREDITCARDNO = :STRCREDITCARDNO " &
                             "WHERE TRANSACTIONID = :TRANSACTIONID "
-                        Dim param As OracleParameter() = {
-                            New OracleParameter("INVOICEID", txtInvoiceForDeposit.Text),
-                            New OracleParameter("TRANSACTIONTYPECODE", "1"),
-                            New OracleParameter("DATTRANSACTIONDATE", DTPBatchDepositDateField.Text),
-                            New OracleParameter("NUMPAYMENT", Replace(Replace(txtDepositAmount.Text, ",", ""), "$", "")),
-                            New OracleParameter("STRCHECKNO", txtCheckNumberField.Text),
-                            New OracleParameter("STRDEPOSITNO", txtDepositNumberField.Text),
-                            New OracleParameter("STRBATCHNO", txtBatchNoField.Text),
-                            New OracleParameter("STRCOMMENT", txtDepositComments.Text),
-                            New OracleParameter("ACTIVE", "1"),
-                            New OracleParameter("UPDATEUSER", CurrentUser.UserID),
-                            New OracleParameter("STRCREDITCARDNO", txtCreditCardNo.Text),
-                            New OracleParameter("TRANSACTIONID", txtTransactionID.Text)
+                        Dim param As SqlParameter() = {
+                            New SqlParameter("INVOICEID", txtInvoiceForDeposit.Text),
+                            New SqlParameter("TRANSACTIONTYPECODE", "1"),
+                            New SqlParameter("DATTRANSACTIONDATE", DTPBatchDepositDateField.Text),
+                            New SqlParameter("NUMPAYMENT", Replace(Replace(txtDepositAmount.Text, ",", ""), "$", "")),
+                            New SqlParameter("STRCHECKNO", txtCheckNumberField.Text),
+                            New SqlParameter("STRDEPOSITNO", txtDepositNumberField.Text),
+                            New SqlParameter("STRBATCHNO", txtBatchNoField.Text),
+                            New SqlParameter("STRCOMMENT", txtDepositComments.Text),
+                            New SqlParameter("ACTIVE", "1"),
+                            New SqlParameter("UPDATEUSER", CurrentUser.UserID),
+                            New SqlParameter("STRCREDITCARDNO", txtCreditCardNo.Text),
+                            New SqlParameter("TRANSACTIONID", txtTransactionID.Text)
                         }
                         DB.RunCommand(query, param)
                     Else
@@ -628,7 +628,7 @@ Public Class PASPDepositsAmendments
                 Dim query As String = "Update AIRBRANCH.FS_Transactions set " &
                         "active = '0' " &
                         "where TransactionId = :trID "
-                Dim param As New OracleParameter("trID", txtTransactionID.Text)
+                Dim param As New SqlParameter("trID", txtTransactionID.Text)
                 DB.RunCommand(query, param)
 
                 btnSearchDeposits.Enabled = False
@@ -778,7 +778,7 @@ Public Class PASPDepositsAmendments
                 "strFacilityName " &
                 "from AIRBRANCH.APBFacilityInformation " &
                 "where strAIRSNumber = :AIRSNumber "
-                Dim param As New OracleParameter("AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)
+                Dim param As New SqlParameter("AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)
 
                 Dim facName As String = DB.GetSingleValue(Of String)(query, param)
 
@@ -879,7 +879,7 @@ Public Class PASPDepositsAmendments
 
     Private Sub llbSearchForInvoice_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbSearchForInvoice.LinkClicked
         Dim query As String
-        Dim param As OracleParameter()
+        Dim param As SqlParameter()
 
         Try
             lblAIRSNumber.Text = "AIRS #"
@@ -930,7 +930,7 @@ Public Class PASPDepositsAmendments
                     "and AIRBranch.FS_Transactions.Active = '1' order by strBatchNo) Transactions " &
                     "where Allinvoices.InvoiceID = Transactions.InvoiceID  (+) "
 
-                    param = {New OracleParameter("invID", "%" & txtSearchInvoice.Text & "%")}
+                    param = {New SqlParameter("invID", "%" & txtSearchInvoice.Text & "%")}
                 Else
                     query = "select " &
                         "distinct  ALLInvoices.strAIRSNumber, strDepositNo, datTransactionDate,  " &
@@ -967,8 +967,8 @@ Public Class PASPDepositsAmendments
                         "and AIRBranch.FS_Transactions.Active = '1' order by InvoiceID desc) Transactions " &
                         "where Allinvoices.InvoiceID = Transactions.InvoiceID  (+) "
                     param = {
-                        New OracleParameter("airs", "0413%" & mtbAIRSNumber.Text & "%"),
-                        New OracleParameter("feeyear", mtbFeeYear.Text)
+                        New SqlParameter("airs", "0413%" & mtbAIRSNumber.Text & "%"),
+                        New SqlParameter("feeyear", mtbFeeYear.Text)
                     }
                 End If
                 dtInvoice = DB.GetDataTable(query, param)
@@ -1021,7 +1021,7 @@ Public Class PASPDepositsAmendments
                         "strFacilityName " &
                         "from AIRBRANCH.APBFacilityInformation " &
                         "where strAIRSNumber = :AIRSNumber "
-                    param = {New OracleParameter("AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)}
+                    param = {New SqlParameter("AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)}
 
                     Dim facName As String = DB.GetSingleValue(Of String)(query, param)
 

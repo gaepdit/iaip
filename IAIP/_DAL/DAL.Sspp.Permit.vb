@@ -1,5 +1,5 @@
 ﻿Imports System.Collections.Generic
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 Imports Iaip.Apb.Sspp
 
 Namespace DAL.Sspp
@@ -12,7 +12,7 @@ Namespace DAL.Sspp
                 " FROM AIRBRANCH.APBISSUEDPERMIT " &
                 " WHERE RowNum = 1 " &
                 " AND STRPERMITNUMBER = :permitnumber "
-            Dim parameter As New OracleParameter("permitnumber", permitNumber)
+            Dim parameter As New SqlParameter("permitnumber", permitNumber)
 
             Return DB.GetBoolean(query, parameter)
         End Function
@@ -30,7 +30,7 @@ Namespace DAL.Sspp
                 " WHERE STRPERMITNUMBER = :permitnumber " &
                 " ORDER BY DATISSUED DESC"
 
-            Dim parameter As New OracleParameter("permitnumber", permitNumber)
+            Dim parameter As New SqlParameter("permitnumber", permitNumber)
             Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
             Return GetPermitFromDataRow(dr)
@@ -66,7 +66,7 @@ Namespace DAL.Sspp
                 " AND ACTIVE = '1' " &
                 " ORDER BY DATISSUED Nulls FIRST "
 
-            Dim parameter As New OracleParameter("airsnumber", airsNumber)
+            Dim parameter As New SqlParameter("airsnumber", airsNumber)
             Return DB.GetDataTable(query, parameter)
         End Function
 
@@ -104,21 +104,21 @@ Namespace DAL.Sspp
                 " WHERE ISSUEDPERMITID = :ID "
 
             Dim queryList As New List(Of String)
-            Dim parametersList As New List(Of OracleParameter())
-            Dim parameters As OracleParameter()
+            Dim parametersList As New List(Of SqlParameter())
+            Dim parameters As SqlParameter()
 
             For Each permit As Permit In permits
                 queryList.Add(query)
-                parameters = New OracleParameter() {
-                    New OracleParameter("AirsNumber", permit.AirsNumber),
-                    New OracleParameter("PermitNumber", permit.PermitNumber),
-                    New OracleParameter("IssuedDate", permit.IssuedDate),
-                    New OracleParameter("RevokedDate", permit.RevokedDate),
-                    New OracleParameter("UpdateDate", Date.Now),
-                    New OracleParameter("UpdatedBy", CurrentUser.UserID),
-                    New OracleParameter("Active", Convert.ToInt32(permit.Active)),
-                    New OracleParameter("PermitTypeCode", permit.PermitTypeCode),
-                    New OracleParameter("ID", permit.ID)
+                parameters = New SqlParameter() {
+                    New SqlParameter("AirsNumber", permit.AirsNumber),
+                    New SqlParameter("PermitNumber", permit.PermitNumber),
+                    New SqlParameter("IssuedDate", permit.IssuedDate),
+                    New SqlParameter("RevokedDate", permit.RevokedDate),
+                    New SqlParameter("UpdateDate", Date.Now),
+                    New SqlParameter("UpdatedBy", CurrentUser.UserID),
+                    New SqlParameter("Active", Convert.ToInt32(permit.Active)),
+                    New SqlParameter("PermitTypeCode", permit.PermitTypeCode),
+                    New SqlParameter("ID", permit.ID)
                 }
                 parametersList.Add(parameters)
             Next
@@ -167,17 +167,17 @@ Namespace DAL.Sspp
                 "     :PermitTypeCode " &
                 "   ) "
 
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("AirsNumber", permit.AirsNumber),
-                New OracleParameter("PermitNumber", permit.PermitNumber),
-                New OracleParameter("IssuedDate", permit.IssuedDate),
-                New OracleParameter("RevokedDate", permit.RevokedDate),
-                New OracleParameter("CreateDate", Date.Now),
-                New OracleParameter("CreatedBy", CurrentUser.UserID),
-                New OracleParameter("UpdateDate", Date.Now),
-                New OracleParameter("UpdatedBy", CurrentUser.UserID),
-                New OracleParameter("Active", Convert.ToInt32(permit.Active)),
-                New OracleParameter("PermitTypeCode", permit.PermitTypeCode)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("AirsNumber", permit.AirsNumber),
+                New SqlParameter("PermitNumber", permit.PermitNumber),
+                New SqlParameter("IssuedDate", permit.IssuedDate),
+                New SqlParameter("RevokedDate", permit.RevokedDate),
+                New SqlParameter("CreateDate", Date.Now),
+                New SqlParameter("CreatedBy", CurrentUser.UserID),
+                New SqlParameter("UpdateDate", Date.Now),
+                New SqlParameter("UpdatedBy", CurrentUser.UserID),
+                New SqlParameter("Active", Convert.ToInt32(permit.Active)),
+                New SqlParameter("PermitTypeCode", permit.PermitTypeCode)
             }
 
             Return DB.RunCommand(query, parameters)

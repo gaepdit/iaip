@@ -1,4 +1,4 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 Imports Iaip.Apb.Sscp
 
 Namespace DAL.Sscp
@@ -20,9 +20,9 @@ Namespace DAL.Sscp
                 " AND INTYEAR = :year " &
                 " AND STRAIRSNUMBER = :airs "
 
-            Dim parameters As OracleParameter() = New OracleParameter() {
-                New OracleParameter("year", targetYear),
-                New OracleParameter("airs", airsNumber.DbFormattedString)
+            Dim parameters As SqlParameter() = New SqlParameter() {
+                New SqlParameter("year", targetYear),
+                New SqlParameter("airs", airsNumber.DbFormattedString)
             }
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameters)
@@ -34,7 +34,7 @@ Namespace DAL.Sscp
                 " FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
                 " WHERE RowNum = 1 " &
                 " AND INTYEAR = :year "
-            Dim parameter As New OracleParameter("year", targetYear)
+            Dim parameter As New SqlParameter("year", targetYear)
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
             Return Convert.ToBoolean(result)
@@ -43,7 +43,7 @@ Namespace DAL.Sscp
         Public Function DeleteAssignmentYear(ByVal targetYear As Integer) As Boolean
             Dim query As String = " DELETE FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
                 " WHERE INTYEAR = :year "
-            Dim parameter As New OracleParameter("year", targetYear)
+            Dim parameter As New SqlParameter("year", targetYear)
 
             Return DB.RunCommand(query, parameter)
         End Function
@@ -61,7 +61,7 @@ Namespace DAL.Sscp
                 "  FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
                 "  WHERE INTYEAR = :oldYear " &
                 "  ORDER BY STRAIRSNUMBER "
-            Dim parameter1 As New OracleParameter("oldYear", oldYear)
+            Dim parameter1 As New SqlParameter("oldYear", oldYear)
             Dim dataTable As DataTable = DB.GetDataTable(query1, parameter1)
 
             If dataTable IsNot Nothing AndAlso dataTable.Rows.Count > 0 Then
@@ -98,10 +98,10 @@ Namespace DAL.Sscp
                             "  WHERE INTYEAR       = :oldyear " &
                             "    AND STRAIRSNUMBER = :airsnumber "
 
-                        Dim parameters2 As OracleParameter() = New OracleParameter() {
-                            New OracleParameter("targetyear", targetYear) _
-                            , New OracleParameter("oldyear", oldYear) _
-                            , New OracleParameter("airsnumber", airsNumberString)
+                        Dim parameters2 As SqlParameter() = New SqlParameter() {
+                            New SqlParameter("targetyear", targetYear) _
+                            , New SqlParameter("oldyear", oldYear) _
+                            , New SqlParameter("airsnumber", airsNumberString)
                         }
 
                         Dim recordInserted As Integer = 0

@@ -1,4 +1,4 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 Imports Iaip.Apb.Sspp
 
 Namespace DAL.Sspp
@@ -12,7 +12,7 @@ Namespace DAL.Sspp
                 " FROM AIRBRANCH.SSPPAPPLICATIONMASTER " &
                 " WHERE ROWNUM = 1 " &
                 " AND SSPPAPPLICATIONMASTER.STRAPPLICATIONNUMBER = :pId "
-            Dim parameter As New OracleParameter("pId", appNumber)
+            Dim parameter As New SqlParameter("pId", appNumber)
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
             Return Convert.ToBoolean(result)
@@ -78,7 +78,7 @@ Namespace DAL.Sspp
         '            ON SSPPAPPLICATIONMASTER.STRSTAFFRESPONSIBLE     = EPDUSERPROFILES.NUMUSERID
         '            WHERE SSPPAPPLICATIONMASTER.STRAPPLICATIONNUMBER = :pID
         '        ]]></s>.Value
-        '    Dim parameter As New OracleParameter("pId", appNumber)
+        '    Dim parameter As New SqlParameter("pId", appNumber)
         '    Dim dataTable As DataTable = DB.GetDataTable(query, parameter)
         '    If dataTable Is Nothing Then Return Nothing
 

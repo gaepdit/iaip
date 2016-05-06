@@ -1,33 +1,33 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 Imports System.IO
 
 Public Class ISMPTestReports
     Dim dsMethods As DataSet
-    Dim daMethods As OracleDataAdapter
+    Dim daMethods As SqlDataAdapter
     Dim dsEngineer As DataSet
-    Dim daEngineer As OracleDataAdapter
+    Dim daEngineer As SqlDataAdapter
     Dim dsComplianceStatus As DataSet
-    Dim daComplianceStatus As OracleDataAdapter
+    Dim daComplianceStatus As SqlDataAdapter
     Dim dsCCList As DataSet
-    Dim daCCList As OracleDataAdapter
+    Dim daCCList As SqlDataAdapter
     Dim dsUnits As DataSet
-    Dim daUnits As OracleDataAdapter
+    Dim daUnits As SqlDataAdapter
     Dim dsComplianceManager As DataSet
-    Dim daComplianceManager As OracleDataAdapter
+    Dim daComplianceManager As SqlDataAdapter
     Dim dsReportType As DataSet
-    Dim daReportType As OracleDataAdapter
+    Dim daReportType As SqlDataAdapter
     Dim dsTestingFirm As DataSet
-    Dim daTestingFirm As OracleDataAdapter
+    Dim daTestingFirm As SqlDataAdapter
     Dim dsISMPUnits As DataSet
-    Dim daISMPUnits As OracleDataAdapter
+    Dim daISMPUnits As SqlDataAdapter
     Dim dsPollutants As DataSet
-    Dim daPollutants As OracleDataAdapter
+    Dim daPollutants As SqlDataAdapter
     Dim SQL As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
+    Dim cmd As SqlCommand
+    Dim dr As SqlDataReader
     Dim RecExist As Boolean
     Dim dsComplianceStaff As DataSet
-    Dim daComplianceStaff As OracleDataAdapter
+    Dim daComplianceStaff As SqlDataAdapter
     Dim DocumentType As String
     Dim ApplicableRequirment As String
     Dim ReportComments As String
@@ -116,7 +116,7 @@ Public Class ISMPTestReports
             "from AIRBRANCH.LookUpISMPMethods " &
             "order by strMethodCode "
 
-            daMethods = New OracleDataAdapter(SQL, CurrentConnection)
+            daMethods = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = "select " &
             "case when numUserId = '0' then 'Not Witnessed'  " &
@@ -138,11 +138,11 @@ Public Class ISMPTestReports
             "from AIRBRANCH.EPDUSerProfiles, AIRBRANCH.ismpreportinformation " &
             "where AIRBRANCH.epdUserProfiles.numUserId = AIRBRANCH.ismpreportinformation.strWitnessingEngineer) "
 
-            daEngineer = New OracleDataAdapter(SQL, CurrentConnection)
+            daEngineer = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = "select strCompliancekey, strComplianceStatus from AIRBRANCH.LookUPISMPComplianceStatus"
 
-            daComplianceStatus = New OracleDataAdapter(SQL, CurrentConnection)
+            daComplianceStatus = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = <s><![CDATA[
 SELECT (AIRBranch.EPDUserProfiles.STRLASTNAME
@@ -162,18 +162,18 @@ UNION
 SELECT 'None', 0 FROM DUAL ORDER BY USERNAME
             ]]></s>.Value
 
-            daCCList = New OracleDataAdapter(SQL, CurrentConnection)
+            daCCList = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = "select strUnitKey, strUnitDescription from AIRBRANCH.LookUPUnits order by strUnitDescription"
 
-            daUnits = New OracleDataAdapter(SQL, CurrentConnection)
+            daUnits = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = "select " &
                 "strUnitDesc, numUnitCode  " &
                 "from AIRBRANCH.LookUpEPDUnits  " &
                 "where numProgramCode = '3' or numProgramCode = '0' "
 
-            daISMPUnits = New OracleDataAdapter(SQL, CurrentConnection)
+            daISMPUnits = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = <s><![CDATA[
 SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
@@ -203,16 +203,16 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
   SELECT 'None', 0 FROM DUAL 
   ORDER BY ComplianceManager
             ]]></s>.Value
-            daComplianceManager = New OracleDataAdapter(SQL, CurrentConnection)
+            daComplianceManager = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = "Select strTestingFirm, strTestingFirmKey from AIRBRANCH.LookUPTestingFirms order by strTestingFirm"
-            daTestingFirm = New OracleDataAdapter(SQL, CurrentConnection)
+            daTestingFirm = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = "Select strReportType, strKey from AIRBRANCH.ISMPReportType order by strReportType"
-            daReportType = New OracleDataAdapter(SQL, CurrentConnection)
+            daReportType = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = "Select strPollutantCode, strPollutantDescription from AIRBRANCH.LookUPPollutants order by strPollutantDescription"
-            daPollutants = New OracleDataAdapter(SQL, CurrentConnection)
+            daPollutants = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = "Select " &
             "case  " &
@@ -232,7 +232,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             "select staff as username, numuserID " &
             "from AIRBranch.VW_ComplianceStaff) "
 
-            daComplianceStaff = New OracleDataAdapter(SQL, CurrentConnection)
+            daComplianceStaff = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -2120,8 +2120,8 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             "ON fac.STRAIRSNUMBER = mas.STRAIRSNUMBER " &
             "WHERE mas.STRREFERENCENUMBER = :refnum"
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            Dim parameter As OracleParameter = New OracleParameter("RefNumber", RefNumber)
+            cmd = New SqlCommand(SQL, CurrentConnection)
+            Dim parameter As SqlParameter = New SqlParameter("RefNumber", RefNumber)
             cmd.Parameters.Clear()
             cmd.Parameters.Add(parameter)
 
@@ -2467,7 +2467,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             "* from AIRBranch.ISMPTestReportMemo " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -2536,7 +2536,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "from AIRBRANCH.ISMPReportOneStack " &
                     "where strReferenceNumber = '" & RefNum & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -2758,7 +2758,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "from AIRBRANCH.ISMPReportOneStack " &
                     "where strReferenceNumber = '" & RefNum & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -3020,7 +3020,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "from AIRBRANCH.ISMPReportOneStack " &
                     "where strReferenceNumber = '" & RefNum & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -3324,7 +3324,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "from AIRBRANCH.ISMPReportTwoStack " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -3925,7 +3925,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                      "from AIRBRANCH.ISMPReportTwoStack " &
                      "where strReferenceNumber = '" & RefNum & "'"
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -4499,7 +4499,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "from AIRBRANCH.ISMPReportFlare " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -4686,7 +4686,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "from AIRBRANCH.ISMPReportPondAndGas " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -4927,7 +4927,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "from AIRBRANCH.ISMPReportPondAndGas " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -5164,7 +5164,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "from AIRBRANCH.ISMPReportFlare " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -5353,7 +5353,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "from AIRBRANCH.ISMPReportRATA " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -5733,7 +5733,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "from AIRBRANCH.ISMPREportMemo " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -5761,7 +5761,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "from AIRBRANCH.ISMPREportMemo " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -5812,7 +5812,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "from AIRBRANCH.ISMPREportMemo " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -5941,7 +5941,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "from AIRBRANCH.ISMPREportOpacity " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -6045,7 +6045,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "from AIRBRANCH.ISMPREportOpacity " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -6340,7 +6340,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "from AIRBRANCH.ISMPREportOpacity " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -9377,7 +9377,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             SQL = "select strWitnessingEngineer " &
             "From AIRBRANCH.ISMPWitnessingEng " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -9415,7 +9415,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 "where AIRBRANCH.SSCPTestReports.strTrackingNumber = AIRBRANCH.SSCPItemMaster.strTrackingNumber " &
                 "and strReferenceNumber = '" & txtReferenceNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -9496,7 +9496,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 SQL = "Select strEnforcementNumber " &
                 "from AIRBRANCH.SSCP_AuditedEnforcement " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -9519,7 +9519,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 SQL = "Select datSSCPTestReportDue " &
                 "from AIRBRANCH.APBSupplamentalData " &
                 "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -9640,7 +9640,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             "and strClosed <> 'True') UnclosedLinks "
 
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -9656,7 +9656,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             "from AIRBRANCH.ISMPTestLogLink, AIRBRANCH.ISMPTestNotification " &
             "where AIRBRANCH.ISMPTestLogLink.strTestLogNumber = AIRBRANCH.ISMPTestNotification.strTestLogNumber " &
             "and strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -9693,7 +9693,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                   " and AIRBRANCH.SSCPINSPECTIONSREQUIRED.intyear = maxresults.maxyear " &
                   "group by strAssigningManager "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -9720,7 +9720,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             "and AIRBRANCH.LookUpDistrictInformation.strDistrictCounty = substr(AIRBRANCH.SSCPDistrictResponsible.strAIRSNumber, 5, 3) " &
             "and AIRBRANCH.SSCPDistrictResponsible.strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -10293,7 +10293,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 "from AIRBRANCH.ISMPReportInformation " &
                 "where strReferenceNumber = '" & OldRefNum & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -10350,7 +10350,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                   "and AIRBRANCH.ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID (+) " &
                   "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & RefNum & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -10547,7 +10547,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "from AIRBRANCH.ISMPReportInformation " &
                     "where strReferenceNUmber = '" & OldRefNum & "' "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -10799,7 +10799,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 "and (strIAIPPermissions like '%(4)%' or strIAIPPermissions like '%(115)%') " &
                 "and numUnit = '" & UserUnitTemp & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -11350,7 +11350,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
             'End If
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -11401,7 +11401,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 If Me.clbWitnessingEngineers.CheckedItems.Count > 0 Then
                     SQL = "Delete AIRBRANCH.ISMPWitnessingEng " &
                     "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -11415,7 +11415,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                             SQL = "Insert into AIRBRANCH.ISMPWitnessingEng " &
                             "values " &
                             "('" & txtReferenceNumber.Text & "', '" & temp & "') "
-                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            cmd = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
                             End If
@@ -11429,7 +11429,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             SQL = "delete AIRBRANCH.ISMPTestLogLink " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -11447,7 +11447,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 SQL = "Insert into AIRBRANCH.ISMPTestLogLink " &
                 "values " &
                 "('" & txtReferenceNumber.Text & "', '" & NotificationNumber & "') "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -11734,7 +11734,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 "'" & OracleDate & "', '03', " &
                 "'" & StaffResponsible & "', '', " &
                 "'" & CurrentUser.UserID & "', '" & OracleDate & "')"
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -11743,7 +11743,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
                 SQL = "Select AIRBRANCH.SSCPTrackingNumber.currval from dual "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -11764,7 +11764,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 "' ', 'False', " &
                 "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -11776,7 +11776,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 SQL = "Select strTrackingNumber " &
                 "from AIRBRANCH.SSCPItemMaster " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "'"
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -11792,7 +11792,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "strModifingPerson = '" & CurrentUser.UserID & "', " &
                     "datModifingDate = '" & OracleDate & "' " &
                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -11801,7 +11801,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     SQL = "Select strTrackingNumber " &
                     "from AIRBRANCH.SSCPTestReports " &
                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -11816,7 +11816,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         "strModifingPerson = '" & CurrentUser.UserID & "', " &
                         "datModifingDate = '" & OracleDate & "' " &
                         "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -11827,7 +11827,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         SQL = "Select strAIRSNumber " &
                         "from AIRBRANCH.APBSupplamentalData " &
                         "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -11840,7 +11840,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                             "strModifingPerson = '" & CurrentUser.UserID & "', " &
                             "datModifingdate = '" & OracleDate & "' " &
                             "where strAIRSnumber = '0413" & txtAirsNumber.Text & "' "
-                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            cmd = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
                             End If
@@ -12402,7 +12402,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             SQL = "Select strReferenceNumber " &
             "From AIRBRANCH.ISMPReportOneStack " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -12483,7 +12483,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 "'" & EmissRateUnit & "', '" & EmissRateAvg & "', " &
                 "'" & PercentAllowable & "') "
             End If
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -13182,7 +13182,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             SQL = "Select strReferenceNumber " &
             "From AIRBRANCH.ISMPReportTwoStack " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -13305,7 +13305,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 "'" & PercentAllowable & "') "
             End If
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -13465,7 +13465,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             SQL = "Select strReferenceNumber " &
             "from AIRBRANCH.ISMPReportFlare " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -13519,7 +13519,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 "'" & Destruct & "', ' ')  "
             End If
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -13704,7 +13704,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             SQL = "Select strReferenceNumber " &
             "from AIRBRANCH.ISMPReportPondAndGas " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -13762,7 +13762,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 "'" & TreatmentUnit & "', '" & TreatmentAvg & "', " &
                 "'" & Destruct & "') "
             End If
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -13947,7 +13947,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             SQL = "Select strReferenceNumber " &
             "from AIRBRANCH.ISMPReportPondAndGas " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -14005,7 +14005,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 "' ', ' ', " &
                 "'" & PercentAllowable & "') "
             End If
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -14137,7 +14137,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             SQL = "Select strReferenceNumber " &
             "from AIRBRANCH.ISMPReportFlare " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -14189,7 +14189,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 "' ', '" & PercentAllowable & "')  "
             End If
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -14489,7 +14489,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             SQL = "Select strReferenceNumber " &
             "from AIRBRANCH.ISMPReportRata " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -14557,7 +14557,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 "'" & Replace(AccRequiredStatement, "'", "''") & "', " &
                 "'" & IncludeKey & "') "
             End If
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -14686,7 +14686,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             SQL = "Select strReferenceNumber " &
             "from AIRBRANCH.ISMPReportMemo " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -14725,7 +14725,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 "'" & Replace(SerialNumber, "'", "''") & "') "
             End If
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -15033,7 +15033,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             SQL = "Select strReferencenumber " &
             "from AIRBRANCH.ISMPReportOpacity " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -15122,7 +15122,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 "'" & Equip5 & "', '" & OpacityStandard & "') "
             End If
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If

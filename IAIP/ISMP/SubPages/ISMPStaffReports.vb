@@ -1,5 +1,5 @@
 ﻿'Imports System.DateTime
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 Imports System.Windows.Forms
 'Imports Microsoft.Office.Core
 'Imports System.IO
@@ -11,10 +11,10 @@ Imports System.Data
 Public Class ISMPStaffReports
     Dim SQL, SQL2, SQL3 As String
     Dim SQL4, SQL5, SQL6 As String
-    Dim cmd, cmd2, cmd3 As OracleCommand
-    Dim cmd4, cmd5, cmd6 As OracleCommand
-    Dim dr, dr2, dr3 As OracleDataReader
-    Dim dr4, dr5, dr6 As OracleDataReader
+    Dim cmd, cmd2, cmd3 As SqlCommand
+    Dim cmd4, cmd5, cmd6 As SqlCommand
+    Dim dr, dr2, dr3 As SqlDataReader
+    Dim dr4, dr5, dr6 As SqlDataReader
 
     Private Sub ISMPStaffReports_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
@@ -428,12 +428,12 @@ Public Class ISMPStaffReports
                 "and strReviewingEngineer = '" & EngineerGCode & "' " &
                 "order by DaysClosed ASC "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                cmd2 = New OracleCommand(SQL2, CurrentConnection)
-                cmd3 = New OracleCommand(SQL3, CurrentConnection)
-                cmd4 = New OracleCommand(SQL4, CurrentConnection)
-                cmd5 = New OracleCommand(SQL5, CurrentConnection)
-                cmd6 = New OracleCommand(SQL6, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
+                cmd2 = New SqlCommand(SQL2, CurrentConnection)
+                cmd3 = New SqlCommand(SQL3, CurrentConnection)
+                cmd4 = New SqlCommand(SQL4, CurrentConnection)
+                cmd5 = New SqlCommand(SQL5, CurrentConnection)
+                cmd6 = New SqlCommand(SQL6, CurrentConnection)
 
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()

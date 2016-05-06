@@ -1,4 +1,4 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 
 Public Class ISMPAddTestingFirms
@@ -8,11 +8,11 @@ Public Class ISMPAddTestingFirms
     Dim panel2 As New StatusBarPanel
     Dim panel3 As New StatusBarPanel
     Dim SQL As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
+    Dim cmd As SqlCommand
+    Dim dr As SqlDataReader
     Dim recExist As Boolean
     Dim dsTestingFirms As DataSet
-    Dim daTestingFirms As OracleDataAdapter
+    Dim daTestingFirms As SqlDataAdapter
 
 
     Private Sub ISMPAddTestingFirms_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -81,7 +81,7 @@ Public Class ISMPAddTestingFirms
 
             dsTestingFirms = New DataSet
 
-            daTestingFirms = New OracleDataAdapter(SQL, CurrentConnection)
+            daTestingFirms = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -308,7 +308,7 @@ Public Class ISMPAddTestingFirms
                 SQL = "Select strTestingfirmKey " &
                 "from AIRBRANCH.LookUPTestingFirms " &
                 "where strTestingFirmKey = '" & TestingFirmKey & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
                 If recExist = True Then
@@ -452,7 +452,7 @@ Public Class ISMPAddTestingFirms
                     SQL = "Select strTestingFirmKey " &
                     "from AIRBRANCH.LookUPTestingFirms " &
                     "where strTestingFirmKey = '" & txtTestingFirmKey.Text & "'"
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
                     If recExist = True Then
@@ -485,7 +485,7 @@ Public Class ISMPAddTestingFirms
                         "'" & TestingFirmEmail & "') "
                     End If
                 End If
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
 
                 LoadDataSet()

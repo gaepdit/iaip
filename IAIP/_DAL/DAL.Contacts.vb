@@ -1,4 +1,4 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 
 Namespace DAL
     Module ContactData
@@ -38,9 +38,9 @@ Namespace DAL
                 " WHERE strAIRSNumber = :airsnumber " &
                 " AND strKey          = :key "
 
-            Dim parameters As OracleParameter() = New OracleParameter() {
-                New OracleParameter("airsnumber", airsNumber.DbFormattedString),
-                New OracleParameter("key", key.ToString("D"))
+            Dim parameters As SqlParameter() = New SqlParameter() {
+                New SqlParameter("airsnumber", airsNumber.DbFormattedString),
+                New SqlParameter("key", key.ToString("D"))
             }
 
             Dim dataTable As DataTable = DB.GetDataTable(query, parameters)

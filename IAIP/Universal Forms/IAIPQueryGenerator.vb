@@ -1,27 +1,27 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 Imports System.IO
 
 Public Class IAIPQueryGenerator
     Dim SQL As String
     Dim dsCounty As DataSet
-    Dim daCounty As OracleDataAdapter
+    Dim daCounty As SqlDataAdapter
     Dim dsDistrict As DataSet
-    Dim daDistrict As OracleDataAdapter
+    Dim daDistrict As SqlDataAdapter
     Dim dsSIPSubPart As DataSet
-    Dim daSIPSubPart As OracleDataAdapter
+    Dim daSIPSubPart As SqlDataAdapter
     Dim dsPart61SubPart As DataSet
-    Dim daPart61SubPart As OracleDataAdapter
+    Dim daPart61SubPart As SqlDataAdapter
     Dim dsPart60SubPart As DataSet
-    Dim daPart60SubPart As OracleDataAdapter
+    Dim daPart60SubPart As SqlDataAdapter
     Dim dsPart63SubPart As DataSet
-    Dim daPart63SubPart As OracleDataAdapter
+    Dim daPart63SubPart As SqlDataAdapter
     Dim dsSSCPStaff As DataSet
-    Dim daSSCPStaff As OracleDataAdapter
+    Dim daSSCPStaff As SqlDataAdapter
     Dim dsSSCPUnit As DataSet
-    Dim daSSCPUnit As OracleDataAdapter
+    Dim daSSCPUnit As SqlDataAdapter
 
     Dim dsSQLQuery As DataSet
-    Dim daSQLQuery As OracleDataAdapter
+    Dim daSQLQuery As SqlDataAdapter
 
     Private SubmittedQuery As Generic.KeyValuePair(Of String, Integer)
 
@@ -98,41 +98,41 @@ Public Class IAIPQueryGenerator
             "from AIRBRANCH.LookUpCountyInformation " &
             "order by strCountyName "
 
-            daCounty = New OracleDataAdapter(SQL, CurrentConnection)
+            daCounty = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = "select strDistrictCode, strDistrictName " &
             "from AIRBRANCH.LookUPDistricts " &
             "order by strDistrictName "
 
-            daDistrict = New OracleDataAdapter(SQL, CurrentConnection)
+            daDistrict = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = "select " &
             "strSubPart, strSubPart as SubPartCode " &
             "from AIRBRANCH.LookUpSubPartSIP " &
             "order by strSubPart "
 
-            daSIPSubPart = New OracleDataAdapter(SQL, CurrentConnection)
+            daSIPSubPart = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = "select " &
             "strSubPart, strSubPart as SubPartCode " &
             "from AIRBRANCH.LookUpSubPart61 " &
             "order by strSubPart "
 
-            daPart61SubPart = New OracleDataAdapter(SQL, CurrentConnection)
+            daPart61SubPart = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = "select " &
             "strSubPart, strSubPart as SubPartCode " &
             "from AIRBRANCH.LookUpSubPart60 " &
             "order by strSubPart "
 
-            daPart60SubPart = New OracleDataAdapter(SQL, CurrentConnection)
+            daPart60SubPart = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = "select " &
             "strSubPart, strSubPart as SubPartCode " &
             "from AIRBRANCH.LookUpSubPart63 " &
             "order by strSubPart "
 
-            daPart63SubPart = New OracleDataAdapter(SQL, CurrentConnection)
+            daPart63SubPart = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = "select * " &
                 "from " &
@@ -149,14 +149,14 @@ Public Class IAIPQueryGenerator
                 "where AIRBRANCH.EPDUserProfiles.numuserID = AIRBRANCH.SSCPItemMaster.strResponsibleStaff) " &
                 "order by Staff "
 
-            daSSCPStaff = New OracleDataAdapter(SQL, CurrentConnection)
+            daSSCPStaff = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = "select " &
             "numUnitCode, strUnitDesc " &
             "from AIRBranch.LookUpEPDUnits " &
             "where numProgramcode = '4' "
 
-            daSSCPUnit = New OracleDataAdapter(SQL, CurrentConnection)
+            daSSCPUnit = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -2614,7 +2614,7 @@ Public Class IAIPQueryGenerator
 
             dsSQLQuery = New DataSet
 
-            daSQLQuery = New OracleDataAdapter(MasterSQL, CurrentConnection)
+            daSQLQuery = New SqlDataAdapter(MasterSQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -4336,7 +4336,7 @@ Public Class IAIPQueryGenerator
             "order by strAIRSNumber "
 
             dsSQLQuery = New DataSet
-            daSQLQuery = New OracleDataAdapter(SQL, CurrentConnection)
+            daSQLQuery = New SqlDataAdapter(SQL, CurrentConnection)
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()

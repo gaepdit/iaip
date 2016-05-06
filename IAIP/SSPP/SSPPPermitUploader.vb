@@ -1,10 +1,10 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 Imports System.IO
 
 Public Class SSPPPermitUploader
     Dim SQL As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
+    Dim cmd As SqlCommand
+    Dim dr As SqlDataReader
     Dim recExist As Boolean
     Dim MasterApp As String
 
@@ -80,7 +80,7 @@ Public Class SSPPPermitUploader
             "strAIRSNumber " &
             "from AIRBRANCH.SSPPApplicationMaster " &
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -108,7 +108,7 @@ Public Class SSPPPermitUploader
                 "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " &
                 "and AIRBRANCH.ssppapplicationtracking.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
                 While dr.Read
                     If IsDBNull(dr.Item("strAIRSNumber")) Then
@@ -194,7 +194,7 @@ Public Class SSPPPermitUploader
             SQL = "select strMasterApplication " &
             "from AIRBRANCH.SSPPApplicationLinking " &
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -212,7 +212,7 @@ Public Class SSPPPermitUploader
                 "from AIRBRANCH.SSPPApplicationLinking " &
                 "where strMasterApplication = '" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -236,7 +236,7 @@ Public Class SSPPPermitUploader
             "and (AIRBRANCH.SSPPApplicationLinking.strApplicationNumber = '" & MasterApp & "' " &
             "or AIRBRANCH.APBPermits.strFileName like '%-" & MasterApp & "') "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -337,7 +337,7 @@ Public Class SSPPPermitUploader
             "strDOCFileSize, strPDFFileSize " &
             "From AIRBRANCH.ApbPermits " &
             "where strFileName = '" & FileName & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -447,7 +447,7 @@ Public Class SSPPPermitUploader
                 "strPDFModifingPerson = '', " &
                 "datPDFModifingDate = '' " &
                 "where strFileName = '" & FileName & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -539,13 +539,13 @@ Public Class SSPPPermitUploader
             End If
             If Flag <> "00" Then
                 Dim rowCount As String = ""
-                Dim da As OracleDataAdapter
+                Dim da As SqlDataAdapter
                 Dim ds As DataSet
 
                 If Flag <> "00" Then
                     SQL = "Delete AIRBRANCH.APBPermits " &
                     "where strFileName = '" & FileName & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -556,7 +556,7 @@ Public Class SSPPPermitUploader
                     "rowCount " &
                     "from AIRBRANCH.APBPermits " &
                     "where strFileName = '" & FileName & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -574,7 +574,7 @@ Public Class SSPPPermitUploader
                         SQL = "select " &
                         "(max(rowCount) + 1) as RowCount " &
                         "from AIRBRANCH.APBPermits "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -619,8 +619,8 @@ Public Class SSPPPermitUploader
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
-                    da = New OracleDataAdapter(SQL, CurrentConnection)
-                    Dim cmdCB As OracleCommandBuilder = New OracleCommandBuilder(da)
+                    da = New SqlDataAdapter(SQL, CurrentConnection)
+                    Dim cmdCB As SqlCommandBuilder = New SqlCommandBuilder(da)
                     ds = New DataSet("PDF")
                     da.MissingSchemaAction = MissingSchemaAction.AddWithKey
 
@@ -646,7 +646,7 @@ Public Class SSPPPermitUploader
                         SQL = "Update AIRBRANCH.SSPPApplicationTracking set " &
                         "datFinalOnWeb = '" & OracleDate & "' " &
                         "where strApplicationNumber = '" & MasterApp & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -659,7 +659,7 @@ Public Class SSPPPermitUploader
                     SQL = "Update AIRBRANCH.SSPPApplicationTracking set " &
                     "datFinalOnWeb = '" & OracleDate & "' " &
                     "where strApplicationNumber = '" & MasterApp & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -811,7 +811,7 @@ Public Class SSPPPermitUploader
                     SQL = "Select datFinalOnWeb " &
                     "from AIRBRANCH.SSPPApplicationTracking " &
                     "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -821,7 +821,7 @@ Public Class SSPPPermitUploader
                     If recExist = False Then
                         SQL = "Update AIRBRANCH.SSPPApplicationTracking set " &
                         "datFinalOnWeb = '" & OracleDate & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -1083,7 +1083,7 @@ Public Class SSPPPermitUploader
                     SQL = "Select datFinalOnWeb " &
                     "from AIRBRANCH.SSPPApplicationTracking " &
                     "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
@@ -1093,7 +1093,7 @@ Public Class SSPPPermitUploader
                     If recExist = False Then
                         SQL = "Update AIRBRANCH.SSPPApplicationTracking set " &
                         "datFinalOnWeb = '" & OracleDate & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -1168,7 +1168,7 @@ Public Class SSPPPermitUploader
                         SQL = "Select datFinalOnWeb " &
                         "from AIRBRANCH.SSPPApplicationTracking " &
                         "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -1178,7 +1178,7 @@ Public Class SSPPPermitUploader
                         If recExist = False Then
                             SQL = "Update AIRBRANCH.SSPPApplicationTracking set " &
                             "datFinalOnWeb = '" & OracleDate & "' "
-                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            cmd = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
                             End If
@@ -1209,7 +1209,7 @@ Public Class SSPPPermitUploader
             "strFileName " &
             "from AIRBRANCH.APBPermits " &
             "where strFileName = '" & FileType & "-" & txtApplicationNumber.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -1225,7 +1225,7 @@ Public Class SSPPPermitUploader
                         SQL = "Delete AIRBRANCH.APBPermits " &
                         "where strFileName = '" & FileType & "-" & txtApplicationNumber.Text & "' "
 
-                        cmd = New OracleCommand(SQL, CurrentConnection)
+                        cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
@@ -1305,7 +1305,7 @@ Public Class SSPPPermitUploader
                 "from AIRBRANCH.APBPermits " &
                 "where strFileName like 'V_-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1376,7 +1376,7 @@ Public Class SSPPPermitUploader
                 "from AIRBRANCH.APBPermits " &
                 "where strFileName like 'P_-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1455,7 +1455,7 @@ Public Class SSPPPermitUploader
                 "from AIRBRANCH.APBPermits " &
                 "where strFileName like 'O_-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1539,7 +1539,7 @@ Public Class SSPPPermitUploader
                 "from AIRBRANCH.APBPermits " &
                 "where strFileName = 'VN-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1662,7 +1662,7 @@ Public Class SSPPPermitUploader
                 "from AIRBRANCH.APBPermits " &
                 "where strFileName = 'VD-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1784,7 +1784,7 @@ Public Class SSPPPermitUploader
                 "from AIRBRANCH.APBPermits " &
                 "where strFileName = 'VP-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -1906,7 +1906,7 @@ Public Class SSPPPermitUploader
                  "from AIRBRANCH.APBPermits " &
                  "where strFileName = 'VF-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2039,7 +2039,7 @@ Public Class SSPPPermitUploader
                  "from AIRBRANCH.APBPermits " &
                  "where strFileName = 'PA-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2172,7 +2172,7 @@ Public Class SSPPPermitUploader
                  "from AIRBRANCH.APBPermits " &
                  "where strFileName = 'PP-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2303,7 +2303,7 @@ Public Class SSPPPermitUploader
                  "from AIRBRANCH.APBPermits " &
                  "where strFileName = 'PT-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2434,7 +2434,7 @@ Public Class SSPPPermitUploader
                  "from AIRBRANCH.APBPermits " &
                  "where strFileName = 'PD-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2565,7 +2565,7 @@ Public Class SSPPPermitUploader
                 "from AIRBRANCH.APBPermits " &
                 "where strFileName = 'PN-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2696,7 +2696,7 @@ Public Class SSPPPermitUploader
                  "from AIRBRANCH.APBPermits " &
                  "where strFileName = 'PH-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2827,7 +2827,7 @@ Public Class SSPPPermitUploader
                  "from AIRBRANCH.APBPermits " &
                  "where strFileName = 'PF-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -2958,7 +2958,7 @@ Public Class SSPPPermitUploader
                 "from AIRBRANCH.APBPermits " &
                 "where strFileName = 'PI-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -3078,7 +3078,7 @@ Public Class SSPPPermitUploader
                  "from AIRBRANCH.APBPermits " &
                  "where strFileName = 'ON-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -3200,7 +3200,7 @@ Public Class SSPPPermitUploader
                   "from AIRBRANCH.APBPermits " &
                   "where strFileName = 'OP-" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -3351,7 +3351,7 @@ Public Class SSPPPermitUploader
                 "from AIRBRANCH.SSPPApplicationData  " &
                 "where strApplicationNumber like '" & MasterApp & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
+                cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
@@ -3389,7 +3389,7 @@ Public Class SSPPPermitUploader
                             "from AIRBRANCH.APBPermits " &
                             "where strFileName = '" & FileName & "' "
 
-                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            cmd = New SqlCommand(SQL, CurrentConnection)
                             dr = cmd.ExecuteReader
 
                             dr.Read()
@@ -3424,7 +3424,7 @@ Public Class SSPPPermitUploader
                             "from AIRBRANCH.APBPermits " &
                             "where strFileName = '" & FileName & "' "
 
-                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            cmd = New SqlCommand(SQL, CurrentConnection)
                             dr = cmd.ExecuteReader
 
                             dr.Read()
@@ -3458,7 +3458,7 @@ Public Class SSPPPermitUploader
                             "from AIRBRANCH.APBPermits " &
                             "where strFileName = '" & FileName & "' "
 
-                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            cmd = New SqlCommand(SQL, CurrentConnection)
                             dr = cmd.ExecuteReader
 
                             dr.Read()
@@ -3492,7 +3492,7 @@ Public Class SSPPPermitUploader
                             "from AIRBRANCH.APBPermits " &
                             "where strFileName = '" & FileName & "' "
 
-                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            cmd = New SqlCommand(SQL, CurrentConnection)
                             dr = cmd.ExecuteReader
 
                             dr.Read()
