@@ -5,9 +5,9 @@ Namespace DAL
 
         Public Function AppIsEnabled() As Boolean
             Dim query As String = " SELECT FENABLED " &
-                " FROM AIRBRANCH.APBMASTERAPP " &
-                " WHERE STRAPPLICATIONNAME = :pAppName "
-            Dim parameter As SqlParameter = New SqlParameter("pAppName", APP_NAME)
+                " FROM APBMASTERAPP " &
+                " WHERE STRAPPLICATIONNAME = @STRAPPLICATIONNAME "
+            Dim parameter As SqlParameter = New SqlParameter("STRAPPLICATIONNAME", APP_NAME)
 
             Try
                 Return DB.GetBoolean(query, parameter, True)
