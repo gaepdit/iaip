@@ -27,6 +27,12 @@
             My.Settings.Save()
         End If
 
+        ' Language settings
+        CheckLanguageRegistrySetting()
+
+        ' DB Environment
+        SetUpDbServerEnvironment()
+
         ' EQATEC analytics monitor
         InitializeMonitor()
 
@@ -85,6 +91,30 @@
         monitor.TrackFeature("Main.LogOut")
         StopMonitor()
         InitializeMonitor()
+    End Sub
+
+    Private Sub CheckLanguageRegistrySetting()
+        Dim currentSetting As String
+        currentSetting = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Environment", "NLS_LANG", Nothing)
+        If currentSetting Is Nothing Or currentSetting <> "AMERICAN" Then
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Environment", "NLS_LANG", "AMERICAN")
+            Application.Restart()
+        End If
+    End Sub
+
+    Private Sub SetUpDbServerEnvironment()
+
+        CurrentServerEnvironment = DB.ServerEnvironment.PRD
+#If DEBUG Then
+        CurrentServerEnvironment = DB.ServerEnvironment.DEV
+#ElseIf UAT Then
+        CurrentServerEnvironment = DB.ServerEnvironment.UAT
+#End If
+
+        ' Set current connection based on current server environment
+        CurrentConnection = New SqlClient.SqlConnection(DB.CurrentConnectionString)
+
+        Console.WriteLine("CurrentServerEnvironment: " & CurrentServerEnvironment.ToString)
     End Sub
 
 End Module
