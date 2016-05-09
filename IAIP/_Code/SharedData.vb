@@ -176,6 +176,7 @@ Public Class SharedData
     ''' Returns data from the shared data service. If data has not been intialized, 
     ''' first retrieves the data from the database. Data is only retrieved the first
     ''' time it is used when the IAIP is run.
+    ''' </summary>
     ''' <param name="keyValueList">The shared List of KeyValuePairs to return.</param>
     ''' <returns>List of integer-indexed KeyValuePairs from the shared data service.</returns>
     Public Shared Function GetSharedData(keyValueList As SharedKeyValueList) As List(Of KeyValuePair(Of Integer, String))
