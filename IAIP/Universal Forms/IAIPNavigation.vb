@@ -88,17 +88,17 @@ Public Class IAIPNavigation
 
     Private Sub EnableConnectionEnvironmentOptions()
         Select Case CurrentServerEnvironment
-            Case DB.Connections.ServerEnvironment.DEV
+            Case ServerEnvironment.DEV
                 pnlDbEnv.Text = "DEV ENVIRONMENT"
                 pnlDbEnv.BackColor = Color.Tomato
                 pnlDbEnv.Visible = True
                 lblTitle.Text = "IAIP Navigation Screen — DEV"
                 TestingMenu.Visible = True
-            Case DB.Connections.ServerEnvironment.PRD
+            Case ServerEnvironment.PRD
                 pnlDbEnv.Text = "PRD"
                 pnlDbEnv.Visible = False
                 TestingMenu.Visible = False
-            Case DB.Connections.ServerEnvironment.UAT
+            Case ServerEnvironment.UAT
                 pnlDbEnv.Text = "UAT ENVIRONMENT"
                 pnlDbEnv.BackColor = Color.SpringGreen
                 pnlDbEnv.Visible = True

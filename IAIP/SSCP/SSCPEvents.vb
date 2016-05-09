@@ -1,7 +1,7 @@
 Imports System.Data.SqlClient
 Imports System.Collections.Generic
 Imports Iaip.SharedData
-
+Imports EpdItDbHelper
 
 Public Class SSCPEvents
     Inherits BaseForm
@@ -2385,7 +2385,7 @@ Public Class SSCPEvents
                         rdbACCEnforcementNeededYes.Checked = False
                         rdbACCEnforcementNeededNo.Checked = True
                     End If
-                    AllDeviationsReported = DB.GetNullable(Of String)(dr.Item("STRKNOWNDEVIATIONSREPORTED"))
+                    AllDeviationsReported = DBUtilities.GetNullable(Of String)(dr.Item("STRKNOWNDEVIATIONSREPORTED"))
                     If AllDeviationsReported = "" Then
                         rdbACCAllDeviationsReportedYes.Checked = False
                         rdbACCAllDeviationsReportedNo.Checked = False
@@ -2402,7 +2402,7 @@ Public Class SSCPEvents
                         rdbACCAllDeviationsReportedUnknown.Checked = False
                         rdbACCAllDeviationsReportedUnknown.Visible = False
                     End If
-                    ResubmittalRequested = DB.GetNullable(Of String)(dr.Item("STRRESUBMITTALREQUIRED"))
+                    ResubmittalRequested = DBUtilities.GetNullable(Of String)(dr.Item("STRRESUBMITTALREQUIRED"))
                     If ResubmittalRequested = "" Then
                         rdbACCResubmittalRequestedYes.Checked = False
                         rdbACCResubmittalRequestedNo.Checked = False
@@ -2603,7 +2603,7 @@ Public Class SSCPEvents
                         rdbACCEnforcementNeededYes.Checked = False
                         rdbACCEnforcementNeededNo.Checked = True
                     End If
-                    AllDeviationsReported = DB.GetNullable(Of String)(dr.Item("STRKNOWNDEVIATIONSREPORTED"))
+                    AllDeviationsReported = DBUtilities.GetNullable(Of String)(dr.Item("STRKNOWNDEVIATIONSREPORTED"))
                     If AllDeviationsReported = "" Then
                         rdbACCAllDeviationsReportedYes.Checked = False
                         rdbACCAllDeviationsReportedNo.Checked = False
@@ -2617,7 +2617,7 @@ Public Class SSCPEvents
                         rdbACCAllDeviationsReportedNo.Checked = True
                         rdbACCAllDeviationsReportedUnknown.Checked = False
                     End If
-                    ResubmittalRequested = DB.GetNullable(Of String)(dr.Item("STRRESUBMITTALREQUIRED"))
+                    ResubmittalRequested = DBUtilities.GetNullable(Of String)(dr.Item("STRRESUBMITTALREQUIRED"))
                     If ResubmittalRequested = "" Then
                         rdbACCResubmittalRequestedYes.Checked = False
                         rdbACCResubmittalRequestedNo.Checked = False

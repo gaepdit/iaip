@@ -1946,7 +1946,7 @@ Public Class SSPPApplicationLog
                 Exit Sub
             End If
 
-            Using connection As New SqlConnection(DB.CurrentConnectionString)
+            Using connection As New SqlConnection(CurrentConnectionString)
                 Using dataAdapter As New SqlDataAdapter(SQL, CurrentConnection)
                     Try
                         connection.Open()

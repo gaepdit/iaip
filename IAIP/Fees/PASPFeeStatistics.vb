@@ -8306,7 +8306,7 @@ Public Class PASPFeeStatistics
                 "and updateUser = :Username " &
                 "and numFeeyear = :FeeYear "
 
-                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
                         cmd.CommandText = query

@@ -1,6 +1,7 @@
 ﻿Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports Iaip.Apb.Sspp
+Imports EpdItDbHelper
 
 Namespace DAL.Sspp
     Module PermitData
@@ -73,13 +74,13 @@ Namespace DAL.Sspp
         Private Function GetPermitFromDataRow(ByVal row As DataRow) As Permit
             Dim permit As New Permit
             With permit
-                .Active = Convert.ToBoolean(Convert.ToInt32(DB.GetNullable(Of String)(row("ACTIVE"))))
-                .AirsNumber = DB.GetNullable(Of String)(row("STRAIRSNUMBER"))
-                .ID = DB.GetNullable(Of String)(row("ISSUEDPERMITID"))
-                .IssuedDate = DB.GetNullable(Of Date)(row("DATISSUED"))
-                .PermitNumber = DB.GetNullable(Of String)(row("STRPERMITNUMBER"))
-                .PermitTypeCode = DB.GetNullable(Of String)(row("PERMITTYPECODE"))
-                .RevokedDate = DB.GetNullable(Of Date?)(row("DATREVOKED"))
+                .Active = Convert.ToBoolean(Convert.ToInt32(DBUtilities.GetNullable(Of String)(row("ACTIVE"))))
+                .AirsNumber = DBUtilities.GetNullable(Of String)(row("STRAIRSNUMBER"))
+                .ID = DBUtilities.GetNullable(Of String)(row("ISSUEDPERMITID"))
+                .IssuedDate = DBUtilities.GetNullable(Of Date)(row("DATISSUED"))
+                .PermitNumber = DBUtilities.GetNullable(Of String)(row("STRPERMITNUMBER"))
+                .PermitTypeCode = DBUtilities.GetNullable(Of String)(row("PERMITTYPECODE"))
+                .RevokedDate = DBUtilities.GetNullable(Of Date?)(row("DATREVOKED"))
             End With
             Return permit
         End Function

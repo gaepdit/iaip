@@ -1,6 +1,7 @@
 Imports System.Data.SqlClient
 Imports System.IO
 Imports System.Collections.Generic
+Imports EpdItDbHelper
 
 Public Class SSPPApplicationTrackingLog
     Dim MasterApp As String
@@ -2596,7 +2597,7 @@ Public Class SSPPApplicationTrackingLog
             "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = :AirsNumber "
             Dim parameter As New SqlParameter("AirsNumber", "0413" & txtAIRSNumber.Text)
 
-            Using connection As New SqlConnection(DB.CurrentConnectionString)
+            Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
                     cmd.CommandText = query
@@ -3276,7 +3277,7 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim parameter As New SqlParameter("appnumber", txtApplicationNumber.Text)
 
-                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
                         cmd.CommandText = query
@@ -3425,7 +3426,7 @@ Public Class SSPPApplicationTrackingLog
 
                     parameter = New SqlParameter("appnumber", txtApplicationNumber.Text)
 
-                    Using connection As New SqlConnection(DB.CurrentConnectionString)
+                    Using connection As New SqlConnection(CurrentConnectionString)
                         Using cmd As SqlCommand = connection.CreateCommand
                             cmd.CommandType = CommandType.Text
                             cmd.CommandText = query
@@ -3954,7 +3955,7 @@ Public Class SSPPApplicationTrackingLog
 
                     parameter = New SqlParameter("appnumber", txtApplicationNumber.Text)
 
-                    Using connection As New SqlConnection(DB.CurrentConnectionString)
+                    Using connection As New SqlConnection(CurrentConnectionString)
                         Using cmd As SqlCommand = connection.CreateCommand
                             cmd.CommandType = CommandType.Text
                             cmd.CommandText = query
@@ -4059,7 +4060,7 @@ Public Class SSPPApplicationTrackingLog
 
                     parameter = New SqlParameter("appnumber", txtApplicationNumber.Text)
 
-                    Using connection As New SqlConnection(DB.CurrentConnectionString)
+                    Using connection As New SqlConnection(CurrentConnectionString)
                         Using cmd As SqlCommand = connection.CreateCommand
                             cmd.CommandType = CommandType.Text
                             cmd.CommandText = query
@@ -4205,7 +4206,7 @@ Public Class SSPPApplicationTrackingLog
 
             Dim parameter As New SqlParameter("airsnumber", "0413" & txtAIRSNumber.Text)
 
-            Using connection As New SqlConnection(DB.CurrentConnectionString)
+            Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
                     cmd.CommandText = query
@@ -4679,7 +4680,7 @@ Public Class SSPPApplicationTrackingLog
                         "order by strApplicationNumber "
                     parameter = New SqlParameter("appnumber", txtApplicationNumber.Text)
 
-                    Using connection As New SqlConnection(DB.CurrentConnectionString)
+                    Using connection As New SqlConnection(CurrentConnectionString)
                         Using cmd As SqlCommand = connection.CreateCommand
                             cmd.CommandType = CommandType.Text
                             cmd.CommandText = query
@@ -5361,7 +5362,7 @@ Public Class SSPPApplicationTrackingLog
 
                             Dim query2 As String = ""
 
-                            Using connection As New SqlConnection(DB.CurrentConnectionString)
+                            Using connection As New SqlConnection(CurrentConnectionString)
                                 Using cmd As SqlCommand = connection.CreateCommand
                                     cmd.CommandType = CommandType.Text
                                     cmd.CommandText = query
@@ -6717,7 +6718,7 @@ Public Class SSPPApplicationTrackingLog
             "where strApplicationNumber = :appnumber "
             params = {New SqlParameter("appnumber", txtApplicationNumber.Text)}
 
-            Using connection As New SqlConnection(DB.CurrentConnectionString)
+            Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
                     cmd.CommandText = query
@@ -7215,7 +7216,7 @@ Public Class SSPPApplicationTrackingLog
             "where strFileName = :FileName"
             Dim parameter As New SqlParameter("FileName", FileName)
 
-            Using connection As New SqlConnection(DB.CurrentConnectionString)
+            Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
                     cmd.CommandText = query
@@ -7455,7 +7456,7 @@ Public Class SSPPApplicationTrackingLog
                 query = "Select * from AIRBRANCH.APBPermits " &
                 "where strFileName = :FileName "
 
-                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using connection As New SqlConnection(CurrentConnectionString)
                     Using da As New SqlDataAdapter(query, connection)
                         da.SelectCommand.Parameters.Add(parameter)
 
@@ -8809,7 +8810,7 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim parameter As New SqlParameter("filename", "VN-" & MasterApp)
 
-                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
                         cmd.CommandText = query
@@ -8930,7 +8931,7 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim parameter As New SqlParameter("filename", "VD-" & MasterApp)
 
-                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
                         cmd.CommandText = query
@@ -9050,7 +9051,7 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim parameter As New SqlParameter("filename", "VP-" & MasterApp)
 
-                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
                         cmd.CommandText = query
@@ -9171,7 +9172,7 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim parameter As New SqlParameter("filename", "VF-" & MasterApp)
 
-                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
                         cmd.CommandText = query
@@ -9291,7 +9292,7 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim parameter As New SqlParameter("filename", "VF-" & MasterApp)
 
-                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
                         cmd.CommandText = query
@@ -9410,7 +9411,7 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim parameter As New SqlParameter("filename", "PP-" & MasterApp)
 
-                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
                         cmd.CommandText = query
@@ -9529,7 +9530,7 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim parameter As New SqlParameter("filename", "PT-" & MasterApp)
 
-                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
                         cmd.CommandText = query
@@ -9648,7 +9649,7 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim parameter As New SqlParameter("filename", "PD-" & MasterApp)
 
-                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
                         cmd.CommandText = query
@@ -9767,7 +9768,7 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim parameter As New SqlParameter("filename", "PN-" & MasterApp)
 
-                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
                         cmd.CommandText = query
@@ -9886,7 +9887,7 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim parameter As New SqlParameter("filename", "PH-" & MasterApp)
 
-                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
                         cmd.CommandText = query
@@ -10005,7 +10006,7 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim parameter As New SqlParameter("filename", "PF-" & MasterApp)
 
-                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
                         cmd.CommandText = query
@@ -10124,7 +10125,7 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim parameter As New SqlParameter("filename", "PF-" & MasterApp)
 
-                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
                         cmd.CommandText = query
@@ -10242,7 +10243,7 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim parameter As New SqlParameter("filename", "ON-" & MasterApp)
 
-                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
                         cmd.CommandText = query
@@ -10362,7 +10363,7 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim parameter As New SqlParameter("filename", "OP-" & MasterApp)
 
-                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
                         cmd.CommandType = CommandType.Text
                         cmd.CommandText = query
@@ -10904,7 +10905,7 @@ Public Class SSPPApplicationTrackingLog
                 New SqlParameter("MasterAppFn", "%-" & MasterApp)
             }
 
-            Using connection As New SqlConnection(DB.CurrentConnectionString)
+            Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
                     cmd.CommandText = query
@@ -10976,7 +10977,7 @@ Public Class SSPPApplicationTrackingLog
 
             Dim parameter As New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "30")
 
-            Using connection As New SqlConnection(DB.CurrentConnectionString)
+            Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
                     cmd.CommandText = query
@@ -11110,7 +11111,7 @@ Public Class SSPPApplicationTrackingLog
             "where numUserID = :UserGCode "
             Dim parameter As New SqlParameter("UserGCode", CurrentUser.UserID)
 
-            Using connection As New SqlConnection(DB.CurrentConnectionString)
+            Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
                     cmd.CommandText = query
@@ -11118,8 +11119,8 @@ Public Class SSPPApplicationTrackingLog
                     cmd.Connection.Open()
                     Using dr As SqlDataReader = cmd.ExecuteReader
                         While dr.Read
-                            StaffPhone = FormatDigitsAsPhoneNumber(DB.GetNullable(Of String)(dr.Item("strPhone")), True)
-                            StaffEmail = DB.GetNullable(Of String)(dr.Item("strEmailAddress"))
+                            StaffPhone = FormatDigitsAsPhoneNumber(DBUtilities.GetNullable(Of String)(dr.Item("strPhone")), True)
+                            StaffEmail = DBUtilities.GetNullable(Of String)(dr.Item("strEmailAddress"))
                         End While
                     End Using
                     cmd.Connection.Close()
@@ -11232,7 +11233,7 @@ Public Class SSPPApplicationTrackingLog
             "and Active = '1' "
             parameter = {New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "0")}
 
-            Using connection As New SqlConnection(DB.CurrentConnectionString)
+            Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
                     cmd.CommandText = query
@@ -11292,7 +11293,7 @@ Public Class SSPPApplicationTrackingLog
                         New SqlParameter("appnum", txtApplicationNumber.Text)
                     }
 
-                    Using connection As New SqlConnection(DB.CurrentConnectionString)
+                    Using connection As New SqlConnection(CurrentConnectionString)
                         Using cmd As SqlCommand = connection.CreateCommand
                             cmd.CommandType = CommandType.Text
                             cmd.CommandText = query
@@ -11397,7 +11398,7 @@ Public Class SSPPApplicationTrackingLog
             "and AIRBRANCH.SSPPSubpartData.strSubpartKey  = :pKey "
             parameter = {New SqlParameter("pKey", txtApplicationNumber.Text & "0")}
 
-            Using connection As New SqlConnection(DB.CurrentConnectionString)
+            Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
                     cmd.CommandText = query
@@ -12160,7 +12161,7 @@ Public Class SSPPApplicationTrackingLog
                 "and Active = '1' "
             parameter = {New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "9")}
 
-            Using connection As New SqlConnection(DB.CurrentConnectionString)
+            Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
                     cmd.CommandText = query
@@ -12220,7 +12221,7 @@ Public Class SSPPApplicationTrackingLog
                         New SqlParameter("appnum", txtApplicationNumber.Text)
                     }
 
-                    Using connection As New SqlConnection(DB.CurrentConnectionString)
+                    Using connection As New SqlConnection(CurrentConnectionString)
                         Using cmd As SqlCommand = connection.CreateCommand
                             cmd.CommandType = CommandType.Text
                             cmd.CommandText = query
@@ -12326,7 +12327,7 @@ Public Class SSPPApplicationTrackingLog
             "and AIRBRANCH.SSPPSubpartData.strSubPartKey  = :pKey "
             parameter = {New SqlParameter("pKey", txtApplicationNumber.Text & "9")}
 
-            Using connection As New SqlConnection(DB.CurrentConnectionString)
+            Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
                     cmd.CommandText = query
@@ -13051,7 +13052,7 @@ Public Class SSPPApplicationTrackingLog
             "and strApplicationActivity = '1' "
             parameter = {New SqlParameter("pKey", txtApplicationNumber.Text & "9")}
 
-            Using connection As New SqlConnection(DB.CurrentConnectionString)
+            Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
                     cmd.CommandText = query
@@ -13393,7 +13394,7 @@ Public Class SSPPApplicationTrackingLog
             "and Active = '1' "
             parameter = {New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "8")}
 
-            Using connection As New SqlConnection(DB.CurrentConnectionString)
+            Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
                     cmd.CommandText = query
@@ -13453,7 +13454,7 @@ Public Class SSPPApplicationTrackingLog
                         New SqlParameter("appnum", txtApplicationNumber.Text)
                     }
 
-                    Using connection As New SqlConnection(DB.CurrentConnectionString)
+                    Using connection As New SqlConnection(CurrentConnectionString)
                         Using cmd As SqlCommand = connection.CreateCommand
                             cmd.CommandType = CommandType.Text
                             cmd.CommandText = query
@@ -13558,7 +13559,7 @@ Public Class SSPPApplicationTrackingLog
             "and AIRBRANCH.SSPPSubpartData.strSubPartKey  = :pKey "
             parameter = {New SqlParameter("pKey", txtApplicationNumber.Text & "8")}
 
-            Using connection As New SqlConnection(DB.CurrentConnectionString)
+            Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
                     cmd.CommandText = query
@@ -14326,7 +14327,7 @@ Public Class SSPPApplicationTrackingLog
             "and Active = '1' "
             parameter = {New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "M")}
 
-            Using connection As New SqlConnection(DB.CurrentConnectionString)
+            Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
                     cmd.CommandText = query
@@ -14386,7 +14387,7 @@ Public Class SSPPApplicationTrackingLog
                         New SqlParameter("appnum", txtApplicationNumber.Text)
                     }
 
-                    Using connection As New SqlConnection(DB.CurrentConnectionString)
+                    Using connection As New SqlConnection(CurrentConnectionString)
                         Using cmd As SqlCommand = connection.CreateCommand
                             cmd.CommandType = CommandType.Text
                             cmd.CommandText = query
@@ -14491,7 +14492,7 @@ Public Class SSPPApplicationTrackingLog
             "and AIRBRANCH.SSPPSubpartData.strSubpartKey  = :pKey "
             parameter = {New SqlParameter("pKey", txtApplicationNumber.Text & "M")}
 
-            Using connection As New SqlConnection(DB.CurrentConnectionString)
+            Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
                     cmd.CommandType = CommandType.Text
                     cmd.CommandText = query

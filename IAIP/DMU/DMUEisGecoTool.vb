@@ -1,5 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Imports Iaip.Apb.Facilities
+Imports EpdItDbHelper
 
 Public Class DMUEisGecoTool
     Dim SQL, SQL2 As String
@@ -13988,9 +13989,9 @@ Public Class DMUEisGecoTool
                     dgvRow.Cells(26).Value = dr.Item("DATFINALIZE")
                 End If
 
-                dgvRow.Cells(27).Value = DB.GetNullable(Of String)(dr.Item("FITrackingNumber"))
-                dgvRow.Cells(28).Value = DB.GetNullable(Of String)(dr.Item("PointTrackingNumber"))
-                dgvRow.Cells(29).Value = DB.GetNullable(Of String)(dr.Item("Comments"))
+                dgvRow.Cells(27).Value = DBUtilities.GetNullable(Of String)(dr.Item("FITrackingNumber"))
+                dgvRow.Cells(28).Value = DBUtilities.GetNullable(Of String)(dr.Item("PointTrackingNumber"))
+                dgvRow.Cells(29).Value = DBUtilities.GetNullable(Of String)(dr.Item("Comments"))
 
                 dgvEISStats.Rows.Add(dgvRow)
             End While

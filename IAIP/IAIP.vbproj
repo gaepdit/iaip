@@ -205,7 +205,6 @@
     <Compile Include="_Code\UrlHandler.vb" />
     <Compile Include="_DAL\DAL.Organization.vb" />
     <Compile Include="_Data Models\Users\IaipRoles.vb" />
-    <Compile Include="_DB\DB.SPFunctions.vb" />
     <Compile Include="_Code\RegexPatterns.vb" />
     <Compile Include="_Code\IaipValidation.vb" />
     <EmbeddedResource Include="Users\IaipResetPassword.resx">
@@ -851,7 +850,6 @@
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.RmpInspection.vb" />
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.StackTest.vb" />
     <Compile Include="_Code\SharedData.vb" />
-    <Compile Include="_DB\DB.QueryFunctions.vb" />
     <Compile Include="_Code\ApplicationInsights.vb" />
     <Compile Include="_Code\ErrorReporting.vb" />
     <Compile Include="_Code\ExcelExport.vb" />
@@ -1531,7 +1529,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_DAL\DAL.Sspp.Permit.vb" />
-    <Compile Include="_DB\DB.Connections.vb" />
+    <Compile Include="_Code\DbConnections.vb" />
     <Compile Include="Crystal Reports\CRViewerForm.Designer.vb">
       <DependentUpon>CRViewerForm.vb</DependentUpon>
     </Compile>
@@ -1641,7 +1639,6 @@
     <Compile Include="_DAL\SSCP\DAL.Sscp.Enforcement.vb" />
     <Compile Include="_DAL\DAL.Documents.vb" />
     <Compile Include="_DAL\DAL.EventRegistration.vb" />
-    <Compile Include="_DB\DB.Utilities.vb" />
     <Compile Include="_Code\EqatecAnalytics.vb" />
     <Compile Include="_Code\BitFields.vb" />
     <Compile Include="_Code\CrystalReports.vb" />
@@ -1700,7 +1697,12 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\EpdItDbHelper\EpdItDbHelper\EpdItDbHelper.vbproj">
+      <Project>{d069b1f3-fcef-45ea-9bb4-0737d725bedd}</Project>
+      <Name>EpdItDbHelper</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
   </ItemGroup>
   <ItemGroup />

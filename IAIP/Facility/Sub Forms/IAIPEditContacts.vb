@@ -209,7 +209,7 @@ Public Class IAIPEditContacts
                     New SqlParameter("key", Key.ToString("D"))
                 }
 
-                Using connection As New SqlConnection(DB.CurrentConnectionString)
+                Using connection As New SqlConnection(CurrentConnectionString)
                     Using command As New SqlCommand(query, connection)
                         command.CommandType = CommandType.Text
                         command.Parameters.AddRange(parameters)

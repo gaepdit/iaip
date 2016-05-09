@@ -1,6 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Imports Iaip.Dmu
-Imports System.Collections.Generic
+Imports EpdItDbHelper
 
 Namespace DAL.Dmu
 
@@ -35,12 +35,12 @@ Namespace DAL.Dmu
             'If result Then
             '    With em
             '        .ErrorCode = errorCode
-            '        .ErrorMessage = DB.GetNullable(Of String)(parameters(1).Value.ToString)
-            '        .ErrorCategory = DB.GetNullable(Of String)(parameters(2).Value.ToString)
-            '        .BusinessRuleCode = DB.GetNullable(Of String)(parameters(3).Value.ToString)
-            '        .BusinessRuleMessage = DB.GetNullable(Of String)(parameters(4).Value.ToString)
-            '        .DefaultUserID = DB.GetNullable(Of Integer)(parameters(5).Value.ToString)
-            '        .DefaultUserName = DB.GetNullable(Of String)(parameters(6).Value.ToString)
+            '        .ErrorMessage = DBUtilities.GetNullable(Of String)(parameters(1).Value.ToString)
+            '        .ErrorCategory = DBUtilities.GetNullable(Of String)(parameters(2).Value.ToString)
+            '        .BusinessRuleCode = DBUtilities.GetNullable(Of String)(parameters(3).Value.ToString)
+            '        .BusinessRuleMessage = DBUtilities.GetNullable(Of String)(parameters(4).Value.ToString)
+            '        .DefaultUserID = DBUtilities.GetNullable(Of Integer)(parameters(5).Value.ToString)
+            '        .DefaultUserName = DBUtilities.GetNullable(Of String)(parameters(6).Value.ToString)
             '    End With
             'End If
 
@@ -96,37 +96,37 @@ Namespace DAL.Dmu
 
             Dim es As New EdtSubmission
             With es
-                .EdtForeignKeyID = DB.GetNullable(Of String)(row("FOREIGNKEY"))
-                .EdtID = DB.GetNullable(Of String)(row("EdtID"))
-                .EdtOperation = DB.GetNullable(Of String)(row("OPERATION"))
-                .EdtStatus = DB.GetNullable(Of String)(row("STATUS"))
-                .EdtSubmitDate = DB.GetNullable(Of Date)(row("SUBMITDATE"))
-                .EdtTableName = DB.GetNullable(Of String)(row("TABLENAME"))
-                .IaipID = DB.GetNullable(Of String)(row("IAIPID"))
-                [Enum].TryParse(DB.GetNullable(Of String)(row("IAIPIDCATEGORY")), .IaipIDCategory)
-                .IaipForeignID = DB.GetNullable(Of String)(row("IAIPFOREIGNID"))
-                [Enum].TryParse(DB.GetNullable(Of String)(row("IAIPFOREIGNIDCATEGORY")), .IaipForeignIDCategory)
+                .EdtForeignKeyID = DBUtilities.GetNullable(Of String)(row("FOREIGNKEY"))
+                .EdtID = DBUtilities.GetNullable(Of String)(row("EdtID"))
+                .EdtOperation = DBUtilities.GetNullable(Of String)(row("OPERATION"))
+                .EdtStatus = DBUtilities.GetNullable(Of String)(row("STATUS"))
+                .EdtSubmitDate = DBUtilities.GetNullable(Of Date)(row("SUBMITDATE"))
+                .EdtTableName = DBUtilities.GetNullable(Of String)(row("TABLENAME"))
+                .IaipID = DBUtilities.GetNullable(Of String)(row("IAIPID"))
+                [Enum].TryParse(DBUtilities.GetNullable(Of String)(row("IAIPIDCATEGORY")), .IaipIDCategory)
+                .IaipForeignID = DBUtilities.GetNullable(Of String)(row("IAIPFOREIGNID"))
+                [Enum].TryParse(DBUtilities.GetNullable(Of String)(row("IAIPFOREIGNIDCATEGORY")), .IaipForeignIDCategory)
             End With
 
             Dim em As New EdtErrorMessage
             With em
-                .BusinessRuleCode = DB.GetNullable(Of String)(row("BUSINESSRULECODE"))
-                .BusinessRuleMessage = DB.GetNullable(Of String)(row("BUSINESSRULE"))
-                .ErrorCategory = DB.GetNullable(Of String)(row("CATEGORY"))
-                .ErrorCode = DB.GetNullable(Of String)(row("ERRORCODE"))
-                .ErrorMessage = DB.GetNullable(Of String)(row("ERRORMESSAGE"))
+                .BusinessRuleCode = DBUtilities.GetNullable(Of String)(row("BUSINESSRULECODE"))
+                .BusinessRuleMessage = DBUtilities.GetNullable(Of String)(row("BUSINESSRULE"))
+                .ErrorCategory = DBUtilities.GetNullable(Of String)(row("CATEGORY"))
+                .ErrorCode = DBUtilities.GetNullable(Of String)(row("ERRORCODE"))
+                .ErrorMessage = DBUtilities.GetNullable(Of String)(row("ERRORMESSAGE"))
             End With
 
             Dim er As New EdtError
             With er
-                .AssignedToUserID = DB.GetNullable(Of Integer)(row("ASSIGNEDTOUSER"))
-                .EdtErrorMessageDetail = DB.GetNullable(Of String)(row("STATUSDETAIL"))
+                .AssignedToUserID = DBUtilities.GetNullable(Of Integer)(row("ASSIGNEDTOUSER"))
+                .EdtErrorMessageDetail = DBUtilities.GetNullable(Of String)(row("STATUSDETAIL"))
                 .EdtSubmission = es
                 .ErrorMessage = em
-                .Resolved = Convert.ToBoolean(DB.GetNullable(Of String)(row("RESOLVED")))
-                .ResolvedByUserID = DB.GetNullable(Of Integer)(row("RESOLVEDBYUSERID"))
-                .ResolvedByUserName = DB.GetNullable(Of String)(row("ResolvedByUserName"))
-                .ResolvedDate = DB.GetNullable(Of Date)(row("RESOLVEDDATE"))
+                .Resolved = Convert.ToBoolean(DBUtilities.GetNullable(Of String)(row("RESOLVED")))
+                .ResolvedByUserID = DBUtilities.GetNullable(Of Integer)(row("RESOLVEDBYUSERID"))
+                .ResolvedByUserName = DBUtilities.GetNullable(Of String)(row("ResolvedByUserName"))
+                .ResolvedDate = DBUtilities.GetNullable(Of Date)(row("RESOLVEDDATE"))
             End With
 
             Return er

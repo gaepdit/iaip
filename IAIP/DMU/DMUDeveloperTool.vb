@@ -1,4 +1,5 @@
 ﻿Imports System.Data.SqlClient
+Imports EpdItDbHelper
 
 Public Class DMUDeveloperTool
 
@@ -228,12 +229,12 @@ Public Class DMUDeveloperTool
                     Dim row As DataRow = DB.GetDataRow(query, parameter)
 
                     If row IsNot Nothing Then
-                        txtIPAddress.Text = DB.GetNullable(Of String)(row("strIPAddress"))
-                        txtWebErrorUser.Text = DB.GetNullable(Of String)(row("strUserEmail"))
-                        txtWebErrorLocation.Text = DB.GetNullable(Of String)(row("strErrorPage"))
-                        txtWebErrorDate.Text = DB.GetNullable(Of String)(row("dateTimeStamp"))
-                        txtWebErrorMessage.Text = DB.GetNullable(Of String)(row("strErrorMsg"))
-                        txtWebErrorSolution.Text = DB.GetNullable(Of String)(row("strSolution"))
+                        txtIPAddress.Text = DBUtilities.GetNullable(Of String)(row("strIPAddress"))
+                        txtWebErrorUser.Text = DBUtilities.GetNullable(Of String)(row("strUserEmail"))
+                        txtWebErrorLocation.Text = DBUtilities.GetNullable(Of String)(row("strErrorPage"))
+                        txtWebErrorDate.Text = DBUtilities.GetNullable(Of String)(row("dateTimeStamp"))
+                        txtWebErrorMessage.Text = DBUtilities.GetNullable(Of String)(row("strErrorMsg"))
+                        txtWebErrorSolution.Text = DBUtilities.GetNullable(Of String)(row("strSolution"))
                     End If
 
                 End If
@@ -295,11 +296,11 @@ Public Class DMUDeveloperTool
                     Dim row As DataRow = DB.GetDataRow(query, parameter)
 
                     If row IsNot Nothing Then
-                        txtErrorUser.Text = DB.GetNullable(Of String)(row("ErrorUser"))
-                        txtErrorLocation.Text = DB.GetNullable(Of String)(row("strErrorLocation"))
-                        txtErrorDate.Text = DB.GetNullable(Of String)(row("ErrorDate"))
-                        txtErrorSolution.Text = DB.GetNullable(Of String)(row("strSolution"))
-                        txtErrorMessage.Text = DB.GetNullable(Of String)(row("strErrorMessage"))
+                        txtErrorUser.Text = DBUtilities.GetNullable(Of String)(row("ErrorUser"))
+                        txtErrorLocation.Text = DBUtilities.GetNullable(Of String)(row("strErrorLocation"))
+                        txtErrorDate.Text = DBUtilities.GetNullable(Of String)(row("ErrorDate"))
+                        txtErrorSolution.Text = DBUtilities.GetNullable(Of String)(row("strSolution"))
+                        txtErrorMessage.Text = DBUtilities.GetNullable(Of String)(row("strErrorMessage"))
                     End If
 
                 End If

@@ -1,5 +1,5 @@
 ﻿Imports System.Data.SqlClient
-Imports Iaip.Apb.Sscp
+Imports EpdItDbHelper
 
 Namespace DAL.Sscp
 
@@ -66,7 +66,7 @@ Namespace DAL.Sscp
 
             If dataTable IsNot Nothing AndAlso dataTable.Rows.Count > 0 Then
                 For Each row As DataRow In dataTable.Rows
-                    Dim airsNumberString As String = DB.GetNullable(Of String)(row("STRAIRSNUMBER"))
+                    Dim airsNumberString As String = DBUtilities.GetNullable(Of String)(row("STRAIRSNUMBER"))
                     If Apb.ApbFacilityId.IsValidAirsNumberFormat(airsNumberString) AndAlso
                     Not FacilityAssignmentExists(airsNumberString, targetYear) Then
 

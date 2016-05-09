@@ -1,5 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Imports System.Collections.Generic
+Imports EpdItDbHelper
 
 Namespace DAL
     Module IaipUserData
@@ -73,21 +74,21 @@ Namespace DAL
 
             Dim user As New IaipUser
             With user
-                .UserID = DB.GetNullable(Of Integer)(row("UserID"))
-                .FirstName = DB.GetNullable(Of String)(row("First name"))
-                .LastName = DB.GetNullable(Of String)(row("Last name"))
-                .PhoneNumber = DB.GetNullable(Of String)(row("Phone number"))
-                .OfficeNumber = DB.GetNullable(Of String)(row("Office"))
-                .EmailAddress = DB.GetNullable(Of String)(row("Email address"))
-                .ActiveEmployee = Convert.ToBoolean(DB.GetNullable(Of Integer)(row("ActiveEmployee")))
-                .BranchID = DB.GetNullable(Of Integer)(row("BranchID"))
-                .BranchName = DB.GetNullable(Of String)(row("Branch"))
-                .ProgramID = DB.GetNullable(Of Integer)(row("ProgramID"))
-                .ProgramName = DB.GetNullable(Of String)(row("Program"))
-                .UnitId = DB.GetNullable(Of Integer)(row("UnitID"))
-                .UnitName = DB.GetNullable(Of String)(row("Unit"))
-                .Username = DB.GetNullable(Of String)(row("Username"))
-                .IaipRoles = DB.GetNullable(Of String)(row("RolesString"))
+                .UserID = DBUtilities.GetNullable(Of Integer)(row("UserID"))
+                .FirstName = DBUtilities.GetNullable(Of String)(row("First name"))
+                .LastName = DBUtilities.GetNullable(Of String)(row("Last name"))
+                .PhoneNumber = DBUtilities.GetNullable(Of String)(row("Phone number"))
+                .OfficeNumber = DBUtilities.GetNullable(Of String)(row("Office"))
+                .EmailAddress = DBUtilities.GetNullable(Of String)(row("Email address"))
+                .ActiveEmployee = Convert.ToBoolean(DBUtilities.GetNullable(Of Integer)(row("ActiveEmployee")))
+                .BranchID = DBUtilities.GetNullable(Of Integer)(row("BranchID"))
+                .BranchName = DBUtilities.GetNullable(Of String)(row("Branch"))
+                .ProgramID = DBUtilities.GetNullable(Of Integer)(row("ProgramID"))
+                .ProgramName = DBUtilities.GetNullable(Of String)(row("Program"))
+                .UnitId = DBUtilities.GetNullable(Of Integer)(row("UnitID"))
+                .UnitName = DBUtilities.GetNullable(Of String)(row("Unit"))
+                .Username = DBUtilities.GetNullable(Of String)(row("Username"))
+                .IaipRoles = DBUtilities.GetNullable(Of String)(row("RolesString"))
                 .RequirePasswordChange = Convert.ToBoolean(row("RequirePasswordChange"))
                 .RequestProfileUpdate = Convert.ToBoolean(row("RequestProfileUpdate"))
             End With
@@ -113,7 +114,7 @@ Namespace DAL
             '    New SqlParameter("ignoreUser", ignoreUser)
             '}
             'DB.SPRunCommand(spName, parameters)
-            'Return DB.GetNullable(Of Boolean)(parameters(0).Value.ToString)
+            'Return DBUtilities.GetNullable(Of Boolean)(parameters(0).Value.ToString)
         End Function
 
         Public Function EmailIsInUse(email As String, Optional ignoreUser As Integer = 0) As Boolean
@@ -129,7 +130,7 @@ Namespace DAL
             '    New SqlParameter("ignoreUser", ignoreUser)
             '}
             'DB.SPRunCommand(spName, parameters)
-            'Return DB.GetNullable(Of Boolean)(parameters(0).Value.ToString)
+            'Return DBUtilities.GetNullable(Of Boolean)(parameters(0).Value.ToString)
         End Function
 
         Public Function UpdateUserPassword(username As String, newPassword As String, oldPassword As String) As PasswordUpdateResponse
@@ -264,7 +265,7 @@ Namespace DAL
                 New SqlParameter("programid", programid),
                 New SqlParameter("unitid", unitid),
                 New SqlParameter("office", office),
-                New SqlParameter("status", DB.ConvertBooleanToDBValue(status, DB.BooleanDBConversionType.OneOrZero)),
+                New SqlParameter("status", DBUtilities.ConvertBooleanToDBValue(status, DBUtilities.BooleanDBConversionType.OneOrZero)),
                 New SqlParameter("createdby", CurrentUser.UserID)
             }
             Dim result As Boolean = DB.SPRunCommand(spName, parameters)
@@ -312,7 +313,7 @@ Namespace DAL
                 New SqlParameter("programid", user.ProgramID),
                 New SqlParameter("unitid", user.UnitId),
                 New SqlParameter("office", user.OfficeNumber),
-                New SqlParameter("status", DB.ConvertBooleanToDBValue(user.ActiveEmployee, DB.BooleanDBConversionType.OneOrZero)),
+                New SqlParameter("status", DBUtilities.ConvertBooleanToDBValue(user.ActiveEmployee, DBUtilities.BooleanDBConversionType.OneOrZero)),
                 New SqlParameter("updatedby", CurrentUser.UserID)
             }
             Return DB.SPRunCommand(spName, parameters)

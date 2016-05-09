@@ -1,4 +1,5 @@
 ﻿Imports System.Data.SqlClient
+Imports EpdItDbHelper
 
 Namespace DAL
     Module ContactData
@@ -54,22 +55,22 @@ Namespace DAL
         Private Sub FillContactFromDataRow(ByVal row As DataRow, ByRef contact As Contact)
             Dim address As New Address
             With address
-                .Street = DB.GetNullable(Of String)(row("strContactAddress1"))
-                .Street2 = DB.GetNullable(Of String)(row("strContactAddress2"))
-                .City = DB.GetNullable(Of String)(row("strContactCity"))
-                .PostalCode = DB.GetNullable(Of String)(row("strContactZipCode"))
-                .State = DB.GetNullable(Of String)(row("strContactstate"))
+                .Street = DBUtilities.GetNullable(Of String)(row("strContactAddress1"))
+                .Street2 = DBUtilities.GetNullable(Of String)(row("strContactAddress2"))
+                .City = DBUtilities.GetNullable(Of String)(row("strContactCity"))
+                .PostalCode = DBUtilities.GetNullable(Of String)(row("strContactZipCode"))
+                .State = DBUtilities.GetNullable(Of String)(row("strContactstate"))
             End With
             With contact
-                .FirstName = DB.GetNullable(Of String)(row("strContactFirstName"))
-                .LastName = DB.GetNullable(Of String)(row("strContactLastName"))
-                .Prefix = DB.GetNullable(Of String)(row("strContactPrefix"))
-                .Suffix = DB.GetNullable(Of String)(row("strContactSuffix"))
-                .CompanyName = DB.GetNullable(Of String)(row("strContactCompanyName"))
+                .FirstName = DBUtilities.GetNullable(Of String)(row("strContactFirstName"))
+                .LastName = DBUtilities.GetNullable(Of String)(row("strContactLastName"))
+                .Prefix = DBUtilities.GetNullable(Of String)(row("strContactPrefix"))
+                .Suffix = DBUtilities.GetNullable(Of String)(row("strContactSuffix"))
+                .CompanyName = DBUtilities.GetNullable(Of String)(row("strContactCompanyName"))
                 .MailingAddress = address
-                .EmailAddress = DB.GetNullable(Of String)(row("strContactEmail"))
-                .Title = DB.GetNullable(Of String)(row("STRCONTACTTITLE"))
-                .PhoneNumber = DB.GetNullable(Of String)(row("STRCONTACTPHONENUMBER1"))
+                .EmailAddress = DBUtilities.GetNullable(Of String)(row("strContactEmail"))
+                .Title = DBUtilities.GetNullable(Of String)(row("STRCONTACTTITLE"))
+                .PhoneNumber = DBUtilities.GetNullable(Of String)(row("STRCONTACTPHONENUMBER1"))
             End With
         End Sub
 

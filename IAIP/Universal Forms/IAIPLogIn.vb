@@ -302,13 +302,13 @@
         btnLoginButton.Text = "Log In"
 
         Select Case CurrentServerEnvironment
-            Case DB.ServerEnvironment.DEV
+            Case ServerEnvironment.DEV
                 ' Switch to DEV environment
                 Me.BackColor = Color.PapayaWhip
                 Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerEnvironment.ToString
                 btnLoginButton.Text = "Log in to DEV"
                 mmiTestingMenu.Visible = True
-            Case DB.ServerEnvironment.UAT
+            Case ServerEnvironment.UAT
                 ' Switch to DEV environment
                 Me.BackColor = Color.Snow
                 Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerEnvironment.ToString

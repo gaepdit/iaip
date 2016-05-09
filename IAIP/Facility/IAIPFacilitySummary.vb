@@ -3,6 +3,7 @@ Imports Iaip.Apb
 Imports Iaip.Apb.ApbFacilityId
 Imports Iaip.Apb.Facilities
 Imports Iaip.DAL.FacilitySummaryData
+Imports EpdItDbHelper
 
 Public Class IAIPFacilitySummary
 
@@ -832,7 +833,7 @@ Public Class IAIPFacilitySummary
 
     Private Sub BindingFormatTons(ByVal sender As Object, ByVal cevent As ConvertEventArgs)
         Dim num As Decimal = 0
-        cevent.Value = DB.GetNullable(Of String)(cevent.Value)
+        cevent.Value = DBUtilities.GetNullable(Of String)(cevent.Value)
 
         If Decimal.TryParse(cevent.Value, num) Then
             cevent.Value = num.ToString("N0") & " ton"
@@ -842,7 +843,7 @@ Public Class IAIPFacilitySummary
 
     Private Sub BindingFormatDollars(ByVal sender As Object, ByVal cevent As ConvertEventArgs)
         Dim num As Decimal = 0
-        cevent.Value = DB.GetNullable(Of String)(cevent.Value)
+        cevent.Value = DBUtilities.GetNullable(Of String)(cevent.Value)
 
         If Decimal.TryParse(cevent.Value, num) Then
             cevent.Value = "$" & num.ToString("N0")
@@ -851,7 +852,7 @@ Public Class IAIPFacilitySummary
 
     Private Sub BindingFormatDollarsPerTon(ByVal sender As Object, ByVal cevent As ConvertEventArgs)
         Dim num As Decimal = 0
-        cevent.Value = DB.GetNullable(Of String)(cevent.Value)
+        cevent.Value = DBUtilities.GetNullable(Of String)(cevent.Value)
 
         If Decimal.TryParse(cevent.Value, num) Then
             cevent.Value = "$" & num.ToString("N2") & " /ton"

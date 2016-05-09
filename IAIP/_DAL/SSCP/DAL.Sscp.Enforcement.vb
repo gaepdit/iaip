@@ -1,6 +1,7 @@
 ﻿Imports System.Collections.Generic
 Imports Iaip.Apb.Sscp
 Imports System.Data.SqlClient
+Imports EpdItDbHelper
 
 Namespace DAL.Sscp
 
@@ -87,8 +88,8 @@ Namespace DAL.Sscp
         Private Sub FillEnforcementInfoFromDataRow(ByVal row As DataRow, ByRef enfInfo As EnforcementInfo)
             Dim address As New Address
             With address
-                .City = DB.GetNullable(Of String)(row("STRFACILITYCITY"))
-                .State = DB.GetNullable(Of String)(row("STRFACILITYSTATE"))
+                .City = DBUtilities.GetNullable(Of String)(row("STRFACILITYCITY"))
+                .State = DBUtilities.GetNullable(Of String)(row("STRFACILITYSTATE"))
             End With
 
             Dim location As New Location
@@ -98,23 +99,23 @@ Namespace DAL.Sscp
 
             Dim facility As New Apb.Facilities.Facility
             With facility
-                .AirsNumber = DB.GetNullable(Of String)(row("STRAIRSNUMBER"))
-                .FacilityName = DB.GetNullable(Of String)(row("STRFACILITYNAME"))
+                .AirsNumber = DBUtilities.GetNullable(Of String)(row("STRAIRSNUMBER"))
+                .FacilityName = DBUtilities.GetNullable(Of String)(row("STRFACILITYNAME"))
                 .FacilityLocation = location
             End With
 
             Dim staff As New IaipUser
             With staff
-                .FirstName = DB.GetNullable(Of String)(row("STRFIRSTNAME"))
-                .LastName = DB.GetNullable(Of String)(row("STRLASTNAME"))
+                .FirstName = DBUtilities.GetNullable(Of String)(row("STRFIRSTNAME"))
+                .LastName = DBUtilities.GetNullable(Of String)(row("STRLASTNAME"))
             End With
 
             With enfInfo
-                .DiscoveryDate = DB.GetNullable(Of Date?)(row("DATDISCOVERYDATE"))
-                .DateFinalized = DB.GetNullable(Of Date?)(row("DATENFORCEMENTFINALIZED"))
+                .DiscoveryDate = DBUtilities.GetNullable(Of Date?)(row("DATDISCOVERYDATE"))
+                .DateFinalized = DBUtilities.GetNullable(Of Date?)(row("DATENFORCEMENTFINALIZED"))
                 .Open = Not Convert.ToBoolean(row("STRENFORCEMENTFINALIZED"))
                 .EnforcementNumber = row("STRENFORCEMENTNUMBER")
-                .EnforcementTypeCode = DB.GetNullable(Of String)(row("STRACTIONTYPE"))
+                .EnforcementTypeCode = DBUtilities.GetNullable(Of String)(row("STRACTIONTYPE"))
                 .Facility = facility
                 .StaffResponsible = staff
             End With
@@ -154,55 +155,55 @@ Namespace DAL.Sscp
 
             Dim enfCase As New EnforcementCase
             With enfCase
-                .StaffResponsibleId = DB.GetNullable(Of Integer)(row("NUMSTAFFRESPONSIBLE"))
-                .AirsNumber = DB.GetNullable(Of String)(row("STRAIRSNUMBER"))
-                .AoAppealed = DB.GetNullableDateTimeFromString(row("DATAOAPPEALED"))
-                .AoComment = DB.GetNullable(Of String)(row("STRAOCOMMENT"))
-                .AoExecuted = DB.GetNullableDateTimeFromString(row("DATAOEXECUTED"))
-                .AoResolved = DB.GetNullableDateTimeFromString(row("DATAORESOLVED"))
-                .AfsAoResolvedActionNumber = DB.GetNullable(Of Integer)(row("STRAFSAORESOLVEDNUMBER"))
-                .AfsAoToAGActionNumber = DB.GetNullable(Of Integer)(row("STRAFSAOTOAGNUMBER"))
-                .AfsCivilCourtActionNumber = DB.GetNullable(Of Integer)(row("STRAFSCIVILCOURTNUMBER"))
-                .AfsCoActionNumber = DB.GetNullable(Of Integer)(row("STRAFSCOEXECUTEDNUMBER"))
-                .CoComment = DB.GetNullable(Of String)(row("STRCOCOMMENT"))
-                .CoExecuted = DB.GetNullableDateTimeFromString(row("DATCOEXECUTED"))
-                .Comment = DB.GetNullable(Of String)(row("STRGENERALCOMMENTS"))
-                .CoNumber = DB.GetNullable(Of String)(row("STRCONUMBER"))
-                .CoPenaltyAmount = DB.GetNullable(Of Decimal)(row("STRCOPENALTYAMOUNT"))
-                .CoPenaltyAmountComment = DB.GetNullable(Of String)(row("STRCOPENALTYAMOUNTCOMMENTS"))
-                .CoProposed = DB.GetNullableDateTimeFromString(row("DATCOPROPOSED"))
-                .AfsCoProposedNumber = DB.GetNullable(Of Integer)(row("STRAFSCOPROPOSEDNUMBER"))
-                .CoReceivedFromCompany = DB.GetNullableDateTimeFromString(row("DATCORECEIVEDFROMCOMPANY"))
-                .CoReceivedFromDirector = DB.GetNullableDateTimeFromString(row("DATCORECEIVEDFROMDIRECTOR"))
-                .CoResolved = DB.GetNullableDateTimeFromString(row("DATCORESOLVED"))
-                .AfsCoResolvedActionNumber = DB.GetNullable(Of Integer)(row("STRAFSCORESOLVEDNUMBER"))
-                .CoToPm = DB.GetNullableDateTimeFromString(row("DATCOTOPM"))
-                .CoToUc = DB.GetNullableDateTimeFromString(row("DATCOTOUC"))
-                .DateFinalized = DB.GetNullableDateTimeFromString(row("DATENFORCEMENTFINALIZED"))
-                .DayZeroDate = DB.GetNullableDateTimeFromString(row("DATDAYZERO"))
-                .DiscoveryDate = DB.GetNullableDateTimeFromString(row("DATDISCOVERYDATE"))
-                .EnforcementId = DB.GetNullable(Of Integer)(row("STRENFORCEMENTNUMBER"))
-                .ViolationType = DB.GetNullable(Of String)(row("STRHPV"))
-                .AfsKeyActionNumber = DB.GetNullable(Of Integer)(row("STRAFSKEYACTIONNUMBER"))
-                .LinkedWorkItemId = DB.GetNullable(Of Integer)(row("STRTRACKINGNUMBER"))
-                .LonComment = DB.GetNullable(Of String)(row("STRLONCOMMENTS"))
-                .LonResolved = DB.GetNullableDateTimeFromString(row("DATLONRESOLVED"))
-                .LonSent = DB.GetNullableDateTimeFromString(row("DATLONSENT"))
-                .LonToUc = DB.GetNullableDateTimeFromString(row("DATLONTOUC"))
-                .AfsNfaActionNumber = DB.GetNullable(Of Integer)(row("STRAFSNOVRESOLVEDNUMBER"))
-                .NfaSent = DB.GetNullableDateTimeFromString(row("DATNFALETTERSENT"))
-                .NfaToPm = DB.GetNullableDateTimeFromString(row("DATNFATOPM"))
-                .NfaToUc = DB.GetNullableDateTimeFromString(row("DATNFATOUC"))
-                .AfsNovActionNumber = DB.GetNullable(Of Integer)(row("STRAFSNOVSENTNUMBER"))
-                .NovComment = DB.GetNullable(Of String)(row("STRNOVCOMMENT"))
-                .NovResponseReceived = DB.GetNullableDateTimeFromString(row("DATNOVRESPONSERECEIVED"))
-                .NovSent = DB.GetNullableDateTimeFromString(row("DATNOVSENT"))
-                .NovToPm = DB.GetNullableDateTimeFromString(row("DATNOVTOPM"))
-                .NovToUc = DB.GetNullableDateTimeFromString(row("DATNOVTOUC"))
-                .Open = Not DB.GetNullable(Of Boolean)(row("STRENFORCEMENTFINALIZED"))
-                .ProgramPollutants = DB.GetNullable(Of String)(row("STRPOLLUTANTS"))
-                .SubmittedToUcCode = DB.GetNullable(Of String)(row("STRSTATUS"))
-                .DateModified = DB.GetNullableDateTimeFromString(row("DATMODIFINGDATE"))
+                .StaffResponsibleId = DBUtilities.GetNullable(Of Integer)(row("NUMSTAFFRESPONSIBLE"))
+                .AirsNumber = DBUtilities.GetNullable(Of String)(row("STRAIRSNUMBER"))
+                .AoAppealed = DBUtilities.GetNullableDateTimeFromString(row("DATAOAPPEALED"))
+                .AoComment = DBUtilities.GetNullable(Of String)(row("STRAOCOMMENT"))
+                .AoExecuted = DBUtilities.GetNullableDateTimeFromString(row("DATAOEXECUTED"))
+                .AoResolved = DBUtilities.GetNullableDateTimeFromString(row("DATAORESOLVED"))
+                .AfsAoResolvedActionNumber = DBUtilities.GetNullable(Of Integer)(row("STRAFSAORESOLVEDNUMBER"))
+                .AfsAoToAGActionNumber = DBUtilities.GetNullable(Of Integer)(row("STRAFSAOTOAGNUMBER"))
+                .AfsCivilCourtActionNumber = DBUtilities.GetNullable(Of Integer)(row("STRAFSCIVILCOURTNUMBER"))
+                .AfsCoActionNumber = DBUtilities.GetNullable(Of Integer)(row("STRAFSCOEXECUTEDNUMBER"))
+                .CoComment = DBUtilities.GetNullable(Of String)(row("STRCOCOMMENT"))
+                .CoExecuted = DBUtilities.GetNullableDateTimeFromString(row("DATCOEXECUTED"))
+                .Comment = DBUtilities.GetNullable(Of String)(row("STRGENERALCOMMENTS"))
+                .CoNumber = DBUtilities.GetNullable(Of String)(row("STRCONUMBER"))
+                .CoPenaltyAmount = DBUtilities.GetNullable(Of Decimal)(row("STRCOPENALTYAMOUNT"))
+                .CoPenaltyAmountComment = DBUtilities.GetNullable(Of String)(row("STRCOPENALTYAMOUNTCOMMENTS"))
+                .CoProposed = DBUtilities.GetNullableDateTimeFromString(row("DATCOPROPOSED"))
+                .AfsCoProposedNumber = DBUtilities.GetNullable(Of Integer)(row("STRAFSCOPROPOSEDNUMBER"))
+                .CoReceivedFromCompany = DBUtilities.GetNullableDateTimeFromString(row("DATCORECEIVEDFROMCOMPANY"))
+                .CoReceivedFromDirector = DBUtilities.GetNullableDateTimeFromString(row("DATCORECEIVEDFROMDIRECTOR"))
+                .CoResolved = DBUtilities.GetNullableDateTimeFromString(row("DATCORESOLVED"))
+                .AfsCoResolvedActionNumber = DBUtilities.GetNullable(Of Integer)(row("STRAFSCORESOLVEDNUMBER"))
+                .CoToPm = DBUtilities.GetNullableDateTimeFromString(row("DATCOTOPM"))
+                .CoToUc = DBUtilities.GetNullableDateTimeFromString(row("DATCOTOUC"))
+                .DateFinalized = DBUtilities.GetNullableDateTimeFromString(row("DATENFORCEMENTFINALIZED"))
+                .DayZeroDate = DBUtilities.GetNullableDateTimeFromString(row("DATDAYZERO"))
+                .DiscoveryDate = DBUtilities.GetNullableDateTimeFromString(row("DATDISCOVERYDATE"))
+                .EnforcementId = DBUtilities.GetNullable(Of Integer)(row("STRENFORCEMENTNUMBER"))
+                .ViolationType = DBUtilities.GetNullable(Of String)(row("STRHPV"))
+                .AfsKeyActionNumber = DBUtilities.GetNullable(Of Integer)(row("STRAFSKEYACTIONNUMBER"))
+                .LinkedWorkItemId = DBUtilities.GetNullable(Of Integer)(row("STRTRACKINGNUMBER"))
+                .LonComment = DBUtilities.GetNullable(Of String)(row("STRLONCOMMENTS"))
+                .LonResolved = DBUtilities.GetNullableDateTimeFromString(row("DATLONRESOLVED"))
+                .LonSent = DBUtilities.GetNullableDateTimeFromString(row("DATLONSENT"))
+                .LonToUc = DBUtilities.GetNullableDateTimeFromString(row("DATLONTOUC"))
+                .AfsNfaActionNumber = DBUtilities.GetNullable(Of Integer)(row("STRAFSNOVRESOLVEDNUMBER"))
+                .NfaSent = DBUtilities.GetNullableDateTimeFromString(row("DATNFALETTERSENT"))
+                .NfaToPm = DBUtilities.GetNullableDateTimeFromString(row("DATNFATOPM"))
+                .NfaToUc = DBUtilities.GetNullableDateTimeFromString(row("DATNFATOUC"))
+                .AfsNovActionNumber = DBUtilities.GetNullable(Of Integer)(row("STRAFSNOVSENTNUMBER"))
+                .NovComment = DBUtilities.GetNullable(Of String)(row("STRNOVCOMMENT"))
+                .NovResponseReceived = DBUtilities.GetNullableDateTimeFromString(row("DATNOVRESPONSERECEIVED"))
+                .NovSent = DBUtilities.GetNullableDateTimeFromString(row("DATNOVSENT"))
+                .NovToPm = DBUtilities.GetNullableDateTimeFromString(row("DATNOVTOPM"))
+                .NovToUc = DBUtilities.GetNullableDateTimeFromString(row("DATNOVTOUC"))
+                .Open = Not DBUtilities.GetNullable(Of Boolean)(row("STRENFORCEMENTFINALIZED"))
+                .ProgramPollutants = DBUtilities.GetNullable(Of String)(row("STRPOLLUTANTS"))
+                .SubmittedToUcCode = DBUtilities.GetNullable(Of String)(row("STRSTATUS"))
+                .DateModified = DBUtilities.GetNullableDateTimeFromString(row("DATMODIFINGDATE"))
 
                 .EnforcementActions = New List(Of EnforcementActionType)
                 If .LonComment <> "" Or AnyOfTheseDatesHasValue({ .LonResolved, .LonSent, .LonToUc}) Then
@@ -321,7 +322,7 @@ Namespace DAL.Sscp
 
                 parametersList.Add(New SqlParameter() {
                     New SqlParameter(":STRENFORCEMENTNUMBER", .EnforcementId),
-                    New SqlParameter(":STRTRACKINGNUMBER", DB.StoreNothingIfZero(.LinkedWorkItemId)),
+                    New SqlParameter(":STRTRACKINGNUMBER", DBUtilities.StoreNothingIfZero(.LinkedWorkItemId)),
                     New SqlParameter(":STRAIRSNUMBER", .AirsNumber.DbFormattedString),
                     New SqlParameter(":STRENFORCEMENTFINALIZED", .DateFinalized.HasValue.ToString),
                     New SqlParameter(":DATENFORCEMENTFINALIZED", .DateFinalized),
@@ -373,7 +374,7 @@ Namespace DAL.Sscp
                     New SqlParameter(":STRCONUMBER", .CoNumber),
                     New SqlParameter(":STRCORESOLVED", .CoResolved.HasValue.ToString),
                     New SqlParameter(":DATCORESOLVED", .CoResolved),
-                    New SqlParameter(":STRCOPENALTYAMOUNT", DB.StoreNothingIfZero(.CoPenaltyAmount)),
+                    New SqlParameter(":STRCOPENALTYAMOUNT", DBUtilities.StoreNothingIfZero(.CoPenaltyAmount)),
                     New SqlParameter(":STRCOPENALTYAMOUNTCOMMENTS", .CoPenaltyAmountComment),
                     New SqlParameter(":STRCOCOMMENT", .CoComment),
                     New SqlParameter(":STRAOEXECUTED", .AoExecuted.HasValue.ToString),
@@ -383,15 +384,15 @@ Namespace DAL.Sscp
                     New SqlParameter(":STRAORESOLVED", .AoResolved.HasValue.ToString),
                     New SqlParameter(":DATAORESOLVED", .AoResolved),
                     New SqlParameter(":STRAOCOMMENT", .AoComment),
-                    New SqlParameter(":STRAFSKEYACTIONNUMBER", DB.StoreNothingIfZero(.AfsKeyActionNumber)),
-                    New SqlParameter(":STRAFSNOVSENTNUMBER", DB.StoreNothingIfZero(.AfsNovActionNumber)),
-                    New SqlParameter(":STRAFSNOVRESOLVEDNUMBER", DB.StoreNothingIfZero(.AfsNfaActionNumber)),
-                    New SqlParameter(":STRAFSCOPROPOSEDNUMBER", DB.StoreNothingIfZero(.AfsCoProposedNumber)),
-                    New SqlParameter(":STRAFSCOEXECUTEDNUMBER", DB.StoreNothingIfZero(.AfsCoActionNumber)),
-                    New SqlParameter(":STRAFSCORESOLVEDNUMBER", DB.StoreNothingIfZero(.AfsCoResolvedActionNumber)),
-                    New SqlParameter(":STRAFSAOTOAGNUMBER", DB.StoreNothingIfZero(.AfsAoToAGActionNumber)),
-                    New SqlParameter(":STRAFSCIVILCOURTNUMBER", DB.StoreNothingIfZero(.AfsCivilCourtActionNumber)),
-                    New SqlParameter(":STRAFSAORESOLVEDNUMBER", DB.StoreNothingIfZero(.AfsAoResolvedActionNumber)),
+                    New SqlParameter(":STRAFSKEYACTIONNUMBER", DBUtilities.StoreNothingIfZero(.AfsKeyActionNumber)),
+                    New SqlParameter(":STRAFSNOVSENTNUMBER", DBUtilities.StoreNothingIfZero(.AfsNovActionNumber)),
+                    New SqlParameter(":STRAFSNOVRESOLVEDNUMBER", DBUtilities.StoreNothingIfZero(.AfsNfaActionNumber)),
+                    New SqlParameter(":STRAFSCOPROPOSEDNUMBER", DBUtilities.StoreNothingIfZero(.AfsCoProposedNumber)),
+                    New SqlParameter(":STRAFSCOEXECUTEDNUMBER", DBUtilities.StoreNothingIfZero(.AfsCoActionNumber)),
+                    New SqlParameter(":STRAFSCORESOLVEDNUMBER", DBUtilities.StoreNothingIfZero(.AfsCoResolvedActionNumber)),
+                    New SqlParameter(":STRAFSAOTOAGNUMBER", DBUtilities.StoreNothingIfZero(.AfsAoToAGActionNumber)),
+                    New SqlParameter(":STRAFSCIVILCOURTNUMBER", DBUtilities.StoreNothingIfZero(.AfsCivilCourtActionNumber)),
+                    New SqlParameter(":STRAFSAORESOLVEDNUMBER", DBUtilities.StoreNothingIfZero(.AfsAoResolvedActionNumber)),
                     New SqlParameter(":STRMODIFINGPERSON", CurrentUser.UserID)
                 })
 

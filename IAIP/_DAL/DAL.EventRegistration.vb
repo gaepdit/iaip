@@ -1,7 +1,7 @@
 ﻿Imports System.Collections.Generic
 Imports System.Data.SqlClient
-Imports Oracle.ManagedDataAccess.Types
 Imports Iaip.Apb.Res
+Imports EpdItDbHelper
 
 Namespace DAL
     Module EventRegistrationData
@@ -137,48 +137,48 @@ Namespace DAL
         Public Sub FillResEventInfoFromDataRow(ByVal row As DataRow, ByRef re As ResEvent)
             Dim address As New Address
             With address
-                .Street = DB.GetNullable(Of String)(row("STRADDRESS"))
-                .City = DB.GetNullable(Of String)(row("STRCITY"))
-                .State = DB.GetNullable(Of String)(row("STRSTATE"))
-                Dim p As Nullable(Of Decimal) = DB.GetNullable(Of Decimal)(row("NUMZIPCODE"))
+                .Street = DBUtilities.GetNullable(Of String)(row("STRADDRESS"))
+                .City = DBUtilities.GetNullable(Of String)(row("STRCITY"))
+                .State = DBUtilities.GetNullable(Of String)(row("STRSTATE"))
+                Dim p As Nullable(Of Decimal) = DBUtilities.GetNullable(Of Decimal)(row("NUMZIPCODE"))
                 .PostalCode = If(p, Convert.ToString(p), Nothing)
             End With
 
             Dim contact As New IaipUser
             With contact
-                .FirstName = DB.GetNullable(Of String)(row("STRFIRSTNAME"))
-                .LastName = DB.GetNullable(Of String)(row("STRLASTNAME"))
-                .PhoneNumber = DB.GetNullable(Of String)(row("STRPHONE"))
-                .EmailAddress = DB.GetNullable(Of String)(row("STREMAILADDRESS"))
-                .UserID = Convert.ToInt32(DB.GetNullable(Of Decimal)(row("NUMAPBCONTACT")))
+                .FirstName = DBUtilities.GetNullable(Of String)(row("STRFIRSTNAME"))
+                .LastName = DBUtilities.GetNullable(Of String)(row("STRLASTNAME"))
+                .PhoneNumber = DBUtilities.GetNullable(Of String)(row("STRPHONE"))
+                .EmailAddress = DBUtilities.GetNullable(Of String)(row("STREMAILADDRESS"))
+                .UserID = Convert.ToInt32(DBUtilities.GetNullable(Of Decimal)(row("NUMAPBCONTACT")))
             End With
 
             Dim webContact As New IaipUser
             With webContact
-                .FirstName = DB.GetNullable(Of String)(row("STRFIRSTNAME2"))
-                .LastName = DB.GetNullable(Of String)(row("STRLASTNAME2"))
-                .PhoneNumber = DB.GetNullable(Of String)(row("STRPHONE2"))
-                .EmailAddress = DB.GetNullable(Of String)(row("STREMAILADDRESS2"))
-                .UserID = Convert.ToInt32(DB.GetNullable(Of Decimal)(row("STRUSERGCODE")))
+                .FirstName = DBUtilities.GetNullable(Of String)(row("STRFIRSTNAME2"))
+                .LastName = DBUtilities.GetNullable(Of String)(row("STRLASTNAME2"))
+                .PhoneNumber = DBUtilities.GetNullable(Of String)(row("STRPHONE2"))
+                .EmailAddress = DBUtilities.GetNullable(Of String)(row("STREMAILADDRESS2"))
+                .UserID = Convert.ToInt32(DBUtilities.GetNullable(Of Decimal)(row("STRUSERGCODE")))
             End With
 
             With re
-                .Active = Convert.ToBoolean(Convert.ToInt32(DB.GetNullable(Of String)(row("ACTIVE"))))
+                .Active = Convert.ToBoolean(Convert.ToInt32(DBUtilities.GetNullable(Of String)(row("ACTIVE"))))
                 .Address = address
-                .Capacity = DB.GetNullable(Of Decimal)(row("NUMCAPACITY"))
+                .Capacity = DBUtilities.GetNullable(Of Decimal)(row("NUMCAPACITY"))
                 .Contact = contact
-                .Description = DB.GetNullable(Of String)(row("STRDESCRIPTION"))
-                .EndDate = DB.GetNullable(Of Date)(row("DATENDDATE"))
-                .EndTime = DB.GetNullable(Of String)(row("STREVENTENDTIME"))
+                .Description = DBUtilities.GetNullable(Of String)(row("STRDESCRIPTION"))
+                .EndDate = DBUtilities.GetNullable(Of Date)(row("DATENDDATE"))
+                .EndTime = DBUtilities.GetNullable(Of String)(row("STREVENTENDTIME"))
                 .EventId = row("NUMRES_EVENTID")
-                .EventStatus = DB.GetNullable(Of String)(row("STREVENTSTATUS"))
-                .Title = DB.GetNullable(Of String)(row("STRTITLE"))
-                .LoginRequired = Convert.ToBoolean(Convert.ToInt32(DB.GetNullable(Of String)(row("STRLOGINREQUIRED"))))
-                .Notes = DB.GetNullable(Of String)(row("STRNOTES"))
-                .PassCode = DB.GetNullable(Of String)(row("STRPASSCODE"))
-                .StartDate = DB.GetNullable(Of Date)(row("DATSTARTDATE"))
-                .StartTime = DB.GetNullable(Of String)(row("STREVENTSTARTTIME"))
-                .Venue = DB.GetNullable(Of String)(row("STRVENUE"))
+                .EventStatus = DBUtilities.GetNullable(Of String)(row("STREVENTSTATUS"))
+                .Title = DBUtilities.GetNullable(Of String)(row("STRTITLE"))
+                .LoginRequired = Convert.ToBoolean(Convert.ToInt32(DBUtilities.GetNullable(Of String)(row("STRLOGINREQUIRED"))))
+                .Notes = DBUtilities.GetNullable(Of String)(row("STRNOTES"))
+                .PassCode = DBUtilities.GetNullable(Of String)(row("STRPASSCODE"))
+                .StartDate = DBUtilities.GetNullable(Of Date)(row("DATSTARTDATE"))
+                .StartTime = DBUtilities.GetNullable(Of String)(row("STREVENTSTARTTIME"))
+                .Venue = DBUtilities.GetNullable(Of String)(row("STRVENUE"))
                 .WebContact = webContact
             End With
         End Sub

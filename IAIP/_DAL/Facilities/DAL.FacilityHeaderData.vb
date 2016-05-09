@@ -3,6 +3,7 @@ Imports Iaip.Apb
 Imports Iaip.Apb.Facilities
 Imports System.Collections.Generic
 Imports System.Text.RegularExpressions
+Imports EpdItDbHelper
 
 Namespace DAL
     Module FacilityHeaderDataData
@@ -89,22 +90,22 @@ Namespace DAL
         ''' <remarks></remarks>
         Public Sub FillFacilityHeaderDataFromDataRow(ByVal row As DataRow, ByRef facilityHeaderData As FacilityHeaderData)
             With facilityHeaderData
-                .OperationalStatusCode = DB.GetNullable(Of String)(row("STROPERATIONALSTATUS"))
-                .ClassificationCode = DB.GetNullable(Of String)(row("STRCLASS"))
-                .SicCode = DB.GetNullable(Of String)(row("STRSICCODE"))
-                .ShutdownDate = DB.GetNullableDateTimeFromString(row("DATSHUTDOWNDATE"))
-                .StartupDate = DB.GetNullableDateTimeFromString(row("DATSTARTUPDATE"))
-                .Naics = DB.GetNullable(Of String)(row("STRNAICSCODE"))
-                .RmpId = DB.GetNullable(Of String)(row("STRRMPID"))
-                .FacilityDescription = DB.GetNullable(Of String)(row("STRPLANTDESCRIPTION"))
-                .AirProgramsCode = DB.GetNullable(Of String)(row("STRAIRPROGRAMCODES"))
-                .AirProgramClassificationsCode = DB.GetNullable(Of String)(row("STRSTATEPROGRAMCODES"))
-                .NonattainmentStatusesCode = DB.GetNullable(Of String)(row("STRATTAINMENTSTATUS"))
-                .HeaderUpdateComment = DB.GetNullable(Of String)(row("STRCOMMENTS"))
-                .DateDataModified = DB.GetNullableDateTimeFromString(row("DATMODIFINGDATE"))
-                .WhoModified = DB.GetNullable(Of String)(row("WhoModified"))
-                .WhereModifiedCode = DB.GetNullable(Of Integer)(row("STRMODIFINGLOCATION"))
-                .CmsMemberCode = DB.GetNullable(Of String)(row("STRCMSMEMBER"))
+                .OperationalStatusCode = DBUtilities.GetNullable(Of String)(row("STROPERATIONALSTATUS"))
+                .ClassificationCode = DBUtilities.GetNullable(Of String)(row("STRCLASS"))
+                .SicCode = DBUtilities.GetNullable(Of String)(row("STRSICCODE"))
+                .ShutdownDate = DBUtilities.GetNullableDateTimeFromString(row("DATSHUTDOWNDATE"))
+                .StartupDate = DBUtilities.GetNullableDateTimeFromString(row("DATSTARTUPDATE"))
+                .Naics = DBUtilities.GetNullable(Of String)(row("STRNAICSCODE"))
+                .RmpId = DBUtilities.GetNullable(Of String)(row("STRRMPID"))
+                .FacilityDescription = DBUtilities.GetNullable(Of String)(row("STRPLANTDESCRIPTION"))
+                .AirProgramsCode = DBUtilities.GetNullable(Of String)(row("STRAIRPROGRAMCODES"))
+                .AirProgramClassificationsCode = DBUtilities.GetNullable(Of String)(row("STRSTATEPROGRAMCODES"))
+                .NonattainmentStatusesCode = DBUtilities.GetNullable(Of String)(row("STRATTAINMENTSTATUS"))
+                .HeaderUpdateComment = DBUtilities.GetNullable(Of String)(row("STRCOMMENTS"))
+                .DateDataModified = DBUtilities.GetNullableDateTimeFromString(row("DATMODIFINGDATE"))
+                .WhoModified = DBUtilities.GetNullable(Of String)(row("WhoModified"))
+                .WhereModifiedCode = DBUtilities.GetNullable(Of Integer)(row("STRMODIFINGLOCATION"))
+                .CmsMemberCode = DBUtilities.GetNullable(Of String)(row("STRCMSMEMBER"))
             End With
         End Sub
 

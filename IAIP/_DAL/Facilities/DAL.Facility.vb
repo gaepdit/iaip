@@ -1,7 +1,7 @@
 ﻿Imports System.Data.SqlClient
 Imports Iaip.Apb
 Imports Iaip.Apb.Facilities
-Imports System.Collections.Generic
+Imports EpdItDbHelper
 
 Namespace DAL
     Module FacilityData
@@ -25,7 +25,7 @@ Namespace DAL
             '    New SqlParameter("AirsNumber", airsNumber.DbFormattedString)
             '}
             'DB.SPRunCommand(spName, parameters)
-            'Return DB.GetNullable(Of Boolean)(parameters(0).Value.ToString)
+            'Return DBUtilities.GetNullable(Of Boolean)(parameters(0).Value.ToString)
         End Function
 
         '' Not currently used, but may be useful in the future
@@ -86,12 +86,12 @@ Namespace DAL
         Private Sub FillFacilityFromDataRow(ByVal row As DataRow, ByRef facility As Apb.Facilities.Facility)
             Dim address As New Address
             With address
-                .City = DB.GetNullable(Of String)(row("STRFACILITYCITY"))
+                .City = DBUtilities.GetNullable(Of String)(row("STRFACILITYCITY"))
                 .Country = "United States of America"
-                .PostalCode = DB.GetNullable(Of String)(row("STRFACILITYZIPCODE"))
-                .State = DB.GetNullable(Of String)(row("STRFACILITYSTATE"))
-                .Street = DB.GetNullable(Of String)(row("STRFACILITYSTREET1"))
-                .Street2 = DB.GetNullable(Of String)(row("STRFACILITYSTREET2"))
+                .PostalCode = DBUtilities.GetNullable(Of String)(row("STRFACILITYZIPCODE"))
+                .State = DBUtilities.GetNullable(Of String)(row("STRFACILITYSTATE"))
+                .Street = DBUtilities.GetNullable(Of String)(row("STRFACILITYSTREET1"))
+                .Street2 = DBUtilities.GetNullable(Of String)(row("STRFACILITYSTREET2"))
                 If .Street2 = "N/A" Then
                     .Street2 = ""
                 End If
@@ -100,17 +100,17 @@ Namespace DAL
             Dim location As New Location
             With location
                 .Address = address
-                .County = DB.GetNullable(Of String)(row("STRCOUNTYNAME"))
-                .Latitude = DB.GetNullable(Of Decimal)(row("NUMFACILITYLATITUDE"))
-                .Longitude = DB.GetNullable(Of Decimal)(row("NUMFACILITYLONGITUDE"))
+                .County = DBUtilities.GetNullable(Of String)(row("STRCOUNTYNAME"))
+                .Latitude = DBUtilities.GetNullable(Of Decimal)(row("NUMFACILITYLATITUDE"))
+                .Longitude = DBUtilities.GetNullable(Of Decimal)(row("NUMFACILITYLONGITUDE"))
             End With
 
             With facility
                 .FacilityLocation = location
-                .FacilityName = DB.GetNullable(Of String)(row("STRFACILITYNAME"))
-                .ApprovedByApb = DB.GetNullable(Of Boolean)(row("ApbApproved"))
-                .DistrictOfficeLocation = DB.GetNullable(Of String)(row("STRDISTRICTNAME"))
-                .DistrictResponsible = DB.GetNullable(Of Boolean)(row("STRDISTRICTRESPONSIBLE"))
+                .FacilityName = DBUtilities.GetNullable(Of String)(row("STRFACILITYNAME"))
+                .ApprovedByApb = DBUtilities.GetNullable(Of Boolean)(row("ApbApproved"))
+                .DistrictOfficeLocation = DBUtilities.GetNullable(Of String)(row("STRDISTRICTNAME"))
+                .DistrictResponsible = DBUtilities.GetNullable(Of Boolean)(row("STRDISTRICTRESPONSIBLE"))
             End With
         End Sub
 
@@ -131,7 +131,7 @@ Namespace DAL
             '    New SqlParameter("AirsNumber", airsNumber.DbFormattedString)
             '}
             'DB.SPRunCommand(spName, parameters)
-            'Return DB.GetNullable(Of Boolean)(parameters(0).Value.ToString)
+            'Return DBUtilities.GetNullable(Of Boolean)(parameters(0).Value.ToString)
         End Function
 
         ''' <summary>

@@ -1,4 +1,5 @@
 ﻿Imports System.Data.SqlClient
+Imports EpdItDbHelper
 
 Namespace DAL
     Module SmokeSchoolData
@@ -39,8 +40,8 @@ Namespace DAL
             Dim table As DataTable = DB.GetDataTable(query, parameter)
 
             For Each row As DataRow In table.Rows
-                row("Phone") = FormatDigitsAsPhoneNumber(DB.GetNullable(Of String)(row("Phone")))
-                row("Fax") = FormatDigitsAsPhoneNumber(DB.GetNullable(Of String)(row("Fax")))
+                row("Phone") = FormatDigitsAsPhoneNumber(DBUtilities.GetNullable(Of String)(row("Phone")))
+                row("Fax") = FormatDigitsAsPhoneNumber(DBUtilities.GetNullable(Of String)(row("Fax")))
             Next
 
             Return table

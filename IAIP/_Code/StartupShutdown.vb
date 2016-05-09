@@ -104,17 +104,21 @@
 
     Private Sub SetUpDbServerEnvironment()
 
-        CurrentServerEnvironment = DB.ServerEnvironment.PRD
+        ' Set current server environment based on project build parameters
+        CurrentServerEnvironment = ServerEnvironment.PRD
 #If DEBUG Then
-        CurrentServerEnvironment = DB.ServerEnvironment.DEV
+        CurrentServerEnvironment = ServerEnvironment.DEV
 #ElseIf UAT Then
-        CurrentServerEnvironment = DB.ServerEnvironment.UAT
+        CurrentServerEnvironment = ServerEnvironment.UAT
 #End If
 
-        ' Set current connection based on current server environment
-        CurrentConnection = New SqlClient.SqlConnection(DB.CurrentConnectionString)
+        ' Set one single open connection based on current server environment
+        ' This method is deprecated, but is still used throughout the project
+        CurrentConnection = New SqlClient.SqlConnection(CurrentConnectionString)
 
-        Console.WriteLine("CurrentServerEnvironment: " & CurrentServerEnvironment.ToString)
+        ' Create EpdItDbHelper.DB object based on current server environment
+        ' This method is preferred and should be used for all future work
+        DB = New EpdItDbHelper.DB(CurrentConnectionString)
     End Sub
 
 End Module

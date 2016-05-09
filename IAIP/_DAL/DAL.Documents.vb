@@ -1,12 +1,9 @@
 ﻿Imports System.Collections.Generic
 Imports System.IO
 Imports System.Runtime.InteropServices
-
 Imports System.Data.SqlClient
-Imports Oracle.ManagedDataAccess.Types
-
 Imports Iaip.Apb.Sscp
-Imports Iaip.Apb.Sspp
+Imports EpdItDbHelper
 
 Namespace DAL
     Module DocumentData
@@ -168,10 +165,10 @@ Namespace DAL
             With doc
                 .BinaryFileId = Convert.ToInt32(row("BINARYFILEID"))
                 .FileName = row("STRFILENAME")
-                .FileSize = DB.GetNullable(Of Decimal?)(row("NUMFILESIZE"))
+                .FileSize = DBUtilities.GetNullable(Of Decimal?)(row("NUMFILESIZE"))
                 .DocumentTypeId = row("NUMDOCUMENTTYPE")
-                .Comment = DB.GetNullable(Of String)(row("STRCOMMENT"))
-                .UploadDate = NormalizeDate(DB.GetNullable(Of Date)(row("CREATEDATE")))
+                .Comment = DBUtilities.GetNullable(Of String)(row("STRCOMMENT"))
+                .UploadDate = NormalizeDate(DBUtilities.GetNullable(Of Date)(row("CREATEDATE")))
                 .DocumentType = row("STRDOCUMENTTYPE")
             End With
         End Sub
@@ -403,10 +400,10 @@ Namespace DAL
             d = New DocumentType
             With d
                 .Active = Convert.ToBoolean(row("FACTIVE"))
-                .DocumentType = DB.GetNullable(Of String)(row("STRDOCUMENTTYPE"))
+                .DocumentType = DBUtilities.GetNullable(Of String)(row("STRDOCUMENTTYPE"))
                 .DocumentTypeId = row("DOCUMENTTYPEID")
                 Try
-                    .Ordinal = DB.GetNullable(Of Short?)(row("NUMORDINAL"))
+                    .Ordinal = DBUtilities.GetNullable(Of Short?)(row("NUMORDINAL"))
 
                 Catch ex As Exception
 

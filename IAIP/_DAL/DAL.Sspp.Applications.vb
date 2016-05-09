@@ -1,5 +1,5 @@
 ﻿Imports System.Data.SqlClient
-Imports Iaip.Apb.Sspp
+Imports EpdItDbHelper
 
 Namespace DAL.Sspp
 
@@ -22,8 +22,8 @@ Namespace DAL.Sspp
         'Private Sub FillApplicationInfoFromDataRow(ByVal row As DataRow, ByRef appInfo As ApplicationInfo)
         '    Dim address As New Address
         '    With address
-        '        .City = DB.GetNullable(Of String)(row("STRFACILITYCITY"))
-        '        .State = DB.GetNullable(Of String)(row("STRFACILITYSTATE"))
+        '        .City = DBUtilities.GetNullable(Of String)(row("STRFACILITYCITY"))
+        '        .State = DBUtilities.GetNullable(Of String)(row("STRFACILITYSTATE"))
         '    End With
 
         '    Dim location As New Location
@@ -33,22 +33,22 @@ Namespace DAL.Sspp
 
         '    Dim facility As New Apb.Facilities.Facility
         '    With facility
-        '        .AirsNumber = DB.GetNullable(Of String)(row("STRAIRSNUMBER"))
-        '        .FacilityName = DB.GetNullable(Of String)(row("STRFACILITYNAME"))
+        '        .AirsNumber = DBUtilities.GetNullable(Of String)(row("STRAIRSNUMBER"))
+        '        .FacilityName = DBUtilities.GetNullable(Of String)(row("STRFACILITYNAME"))
         '        .FacilityLocation = location
         '    End With
 
         '    Dim staff As New Staff
         '    With staff
-        '        .FirstName = DB.GetNullable(Of String)(row("STRFIRSTNAME"))
-        '        .LastName = DB.GetNullable(Of String)(row("STRLASTNAME"))
+        '        .FirstName = DBUtilities.GetNullable(Of String)(row("STRFIRSTNAME"))
+        '        .LastName = DBUtilities.GetNullable(Of String)(row("STRLASTNAME"))
         '    End With
 
         '    With appInfo
-        '        .ApplicationNumber = DB.GetNullable(Of String)(row("STRAPPLICATIONNUMBER"))
-        '        .ApplicationType = DB.GetNullable(Of String)(row("STRAPPLICATIONTYPEDESC"))
-        '        .DateIssued = General.NormalizeDate(DB.GetNullable(Of Date)(row("DATFINALIZEDDATE")))
-        '        .PermitType = DB.GetNullable(Of String)(row("STRPERMITTYPEDESCRIPTION"))
+        '        .ApplicationNumber = DBUtilities.GetNullable(Of String)(row("STRAPPLICATIONNUMBER"))
+        '        .ApplicationType = DBUtilities.GetNullable(Of String)(row("STRAPPLICATIONTYPEDESC"))
+        '        .DateIssued = General.NormalizeDate(DBUtilities.GetNullable(Of Date)(row("DATFINALIZEDDATE")))
+        '        .PermitType = DBUtilities.GetNullable(Of String)(row("STRPERMITTYPEDESCRIPTION"))
         '        .Facility = facility
         '        .StaffResponsible = staff
         '    End With
