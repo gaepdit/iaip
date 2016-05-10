@@ -1,6 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Imports Iaip.Apb.Facilities
-Imports EpdItDbHelper
+Imports EpdIt
 
 Public Class DMUEisGecoTool
     Dim SQL, SQL2 As String

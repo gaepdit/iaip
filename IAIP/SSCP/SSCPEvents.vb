@@ -1,7 +1,7 @@
 Imports System.Data.SqlClient
 Imports System.Collections.Generic
 Imports Iaip.SharedData
-Imports EpdItDbHelper
+Imports EpdIt
 
 Public Class SSCPEvents
     Inherits BaseForm

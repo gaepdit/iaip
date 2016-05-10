@@ -6,7 +6,7 @@ Module AppVariables
 
     Friend CurrentServerEnvironment As ServerEnvironment = ServerEnvironment.PRD
     Friend CurrentConnection As SqlClient.SqlConnection
-    Friend DB As EpdItDbHelper.DB
+    Friend DB As EpdIt.DBHelper
 
 #End Region
 

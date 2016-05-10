@@ -1,6 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Imports Iaip.Dmu
-Imports EpdItDbHelper
+Imports EpdIt
 
 Namespace DAL.Dmu
 

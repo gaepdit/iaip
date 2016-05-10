@@ -1,5 +1,5 @@
 ﻿Imports System.Data.SqlClient
-Imports EpdItDbHelper
+Imports EpdIt
 
 Namespace DAL.Sscp
 

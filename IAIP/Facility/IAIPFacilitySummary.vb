@@ -3,7 +3,7 @@ Imports Iaip.Apb
 Imports Iaip.Apb.ApbFacilityId
 Imports Iaip.Apb.Facilities
 Imports Iaip.DAL.FacilitySummaryData
-Imports EpdItDbHelper
+Imports EpdIt
 
 Public Class IAIPFacilitySummary
 

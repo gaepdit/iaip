@@ -116,9 +116,9 @@
         ' This method is deprecated, but is still used throughout the project
         CurrentConnection = New SqlClient.SqlConnection(CurrentConnectionString)
 
-        ' Create EpdItDbHelper.DB object based on current server environment
+        ' Create EpdIt.DBHelper object based on current server environment
         ' This method is preferred and should be used for all future work
-        DB = New EpdItDbHelper.DB(CurrentConnectionString)
+        DB = New EpdIt.DBHelper(CurrentConnectionString)
     End Sub
 
 End Module

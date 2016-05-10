@@ -1,7 +1,7 @@
 ﻿Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports Iaip.Apb.Res
-Imports EpdItDbHelper
+Imports EpdIt
 
 Namespace DAL
     Module EventRegistrationData

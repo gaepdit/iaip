@@ -1,7 +1,7 @@
 ﻿Imports System.Data.SqlClient
 Imports Iaip.Apb
 Imports Iaip.Apb.Facilities
-Imports EpdItDbHelper
+Imports EpdIt
 
 Namespace DAL
     Module FacilityData

@@ -1,7 +1,7 @@
 ﻿Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports Iaip.Apb.Sspp
-Imports EpdItDbHelper
+Imports EpdIt
 
 Namespace DAL.Sspp
     Module PermitData

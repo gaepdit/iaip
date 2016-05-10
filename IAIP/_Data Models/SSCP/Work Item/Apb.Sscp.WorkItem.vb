@@ -1,5 +1,5 @@
 ﻿Imports System.Collections.Generic
-Imports EpdItDbHelper
+Imports EpdIt
 
 Namespace Apb.Sscp
 
@@ -16,10 +16,18 @@ Namespace Apb.Sscp
         Public Property Deleted() As Boolean
         Public Property DeletedDbCode As String
             Get
-                Return DBUtilities.ConvertBooleanToDBValue(Me.Deleted, DBUtilities.BooleanDBConversionType.TrueOrDBNull)
+                If Deleted Then
+                    Return "True"
+                Else
+                    Return ""
+                End If
             End Get
             Set(value As String)
-                Me.Deleted = DBUtilities.ConvertDBValueToBoolean(value, DBUtilities.BooleanDBConversionType.TrueOrDBNull)
+                If value = "True" Then
+                    Deleted = True
+                Else
+                    Deleted = False
+                End If
             End Set
         End Property
         Public Property DateAcknowledgmentLetterSent() As Date?

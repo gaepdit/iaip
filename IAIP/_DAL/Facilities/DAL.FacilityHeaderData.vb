@@ -3,7 +3,7 @@ Imports Iaip.Apb
 Imports Iaip.Apb.Facilities
 Imports System.Collections.Generic
 Imports System.Text.RegularExpressions
-Imports EpdItDbHelper
+Imports EpdIt
 
 Namespace DAL
     Module FacilityHeaderDataData

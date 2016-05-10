@@ -1,7 +1,7 @@
 Imports System.Data.SqlClient
 Imports System.IO
 Imports System.Collections.Generic
-Imports EpdItDbHelper
+Imports EpdIt
 
 Public Class SSPPApplicationTrackingLog
     Dim MasterApp As String

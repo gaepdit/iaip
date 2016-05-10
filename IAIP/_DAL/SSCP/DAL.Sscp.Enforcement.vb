@@ -1,7 +1,7 @@
 ﻿Imports System.Collections.Generic
 Imports Iaip.Apb.Sscp
 Imports System.Data.SqlClient
-Imports EpdItDbHelper
+Imports EpdIt
 
 Namespace DAL.Sscp
 
