@@ -16,12 +16,12 @@ Public Class DmuEdtErrorDetail
         End Set
     End Property
 
-    Private _activeUsersList As List(Of KeyValuePair(Of Integer, String))
-    Public Property ActiveUsersList() As List(Of KeyValuePair(Of Integer, String))
+    Private _activeUsersList As Dictionary(Of Integer, String)
+    Public Property ActiveUsersList() As Dictionary(Of Integer, String)
         Get
             Return _activeUsersList
         End Get
-        Set(ByVal value As List(Of KeyValuePair(Of Integer, String)))
+        Set(ByVal value As Dictionary(Of Integer, String))
             If value.Equals(_activeUsersList) Then Return
             _activeUsersList = value
             PrepUserComboBox()

@@ -4,7 +4,7 @@ Public Class SharedData
     Private Shared _initLock As Object = New Object()
     Private Shared _tDictionary As Dictionary(Of SharedTable, DataTable)
     Private Shared _dsDictionary As Dictionary(Of SharedDataSet, DataSet)
-    Private Shared _kvlDictionary As Dictionary(Of SharedKeyValueList, List(Of KeyValuePair(Of Integer, String)))
+    Private Shared _dictDictionary As Dictionary(Of SharedLookupDictionary, Dictionary(Of Integer, String))
 
 #Region " Enums: Available shared data "
 
@@ -29,7 +29,7 @@ Public Class SharedData
     ''' <summary>
     ''' Enum delineating all the available shared Lists of KeyValuePairs in the SharedData service
     ''' </summary>
-    Public Enum SharedKeyValueList
+    Public Enum SharedLookupDictionary
         ActiveUsers
     End Enum
 
@@ -108,22 +108,22 @@ Public Class SharedData
         End SyncLock
     End Sub
 
-    Private Shared Sub InitializeData(keyValueList As SharedKeyValueList)
+    Private Shared Sub InitializeData(lookupDictionary As SharedLookupDictionary)
         SyncLock _initLock
 
-            Dim kvl As New List(Of KeyValuePair(Of Integer, String))
+            Dim dict As New Dictionary(Of Integer, String)
 
-            Select Case keyValueList
+            Select Case lookupDictionary
 
-                Case SharedKeyValueList.ActiveUsers
-                    kvl = DAL.GetActiveUsers()
+                Case SharedLookupDictionary.ActiveUsers
+                    dict = DAL.GetActiveUsers()
 
             End Select
 
-            If _kvlDictionary.ContainsKey(keyValueList) Then
-                _kvlDictionary.Remove(keyValueList)
+            If _dictDictionary.ContainsKey(lookupDictionary) Then
+                _dictDictionary.Remove(lookupDictionary)
             End If
-            _kvlDictionary.Add(keyValueList, kvl)
+            _dictDictionary.Add(lookupDictionary, dict)
 
         End SyncLock
     End Sub
@@ -177,18 +177,18 @@ Public Class SharedData
     ''' first retrieves the data from the database. Data is only retrieved the first
     ''' time it is used when the IAIP is run.
     ''' </summary>
-    ''' <param name="keyValueList">The shared List of KeyValuePairs to return.</param>
+    ''' <param name="lookupDictionary">The shared List of KeyValuePairs to return.</param>
     ''' <returns>List of integer-indexed KeyValuePairs from the shared data service.</returns>
-    Public Shared Function GetSharedData(keyValueList As SharedKeyValueList) As List(Of KeyValuePair(Of Integer, String))
-        If _kvlDictionary Is Nothing Then
-            _kvlDictionary = New Dictionary(Of SharedKeyValueList, List(Of KeyValuePair(Of Integer, String)))
+    Public Shared Function GetSharedData(lookupDictionary As SharedLookupDictionary) As Dictionary(Of Integer, String)
+        If _dictDictionary Is Nothing Then
+            _dictDictionary = New Dictionary(Of SharedLookupDictionary, Dictionary(Of Integer, String))
         End If
 
-        If Not _kvlDictionary.ContainsKey(keyValueList) OrElse _kvlDictionary(keyValueList) Is Nothing Then
-            InitializeData(keyValueList)
+        If Not _dictDictionary.ContainsKey(lookupDictionary) OrElse _dictDictionary(lookupDictionary) Is Nothing Then
+            InitializeData(lookupDictionary)
         End If
 
-        Return _kvlDictionary(keyValueList)
+        Return _dictDictionary(lookupDictionary)
     End Function
 
 #End Region

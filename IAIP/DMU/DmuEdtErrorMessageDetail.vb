@@ -29,7 +29,7 @@ Public Class DmuEdtErrorMessageDetail
     Private edtErrorMessageDetails As Dmu.EdtErrorMessage
     Private statusOfSelectedRows As SelectedRowsState
     Private headerSuccess As Boolean
-    Private activeUsersList As List(Of KeyValuePair(Of Integer, String))
+    Private activeUsersList As Dictionary(Of Integer, String)
     Private totalCount As Integer = 0
     Private shownCount As Integer = 0
 
@@ -44,8 +44,8 @@ Public Class DmuEdtErrorMessageDetail
     End Sub
 
     Private Sub PrepUserComboBoxes()
-        activeUsersList = GetSharedData(SharedKeyValueList.ActiveUsers)
-        activeUsersList.Insert(0, New KeyValuePair(Of Integer, String)(0, "Unassigned"))
+        activeUsersList = GetSharedData(SharedLookupDictionary.ActiveUsers)
+        activeUsersList.Add(0, "Unassigned")
         UserAsDefault.BindToKeyValuePairs(activeUsersList)
         UserToAssign.BindToKeyValuePairs(activeUsersList)
     End Sub

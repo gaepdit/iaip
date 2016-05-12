@@ -351,7 +351,7 @@ Module Extensions
     End Sub
 
     <Extension()>
-    Public Sub BindToKeyValuePairs(ByVal c As ComboBox, ByVal l As List(Of KeyValuePair(Of Integer, String)))
+    Public Sub BindToKeyValuePairs(ByVal c As ComboBox, ByVal l As Dictionary(Of Integer, String))
         With c
             .DataSource = New BindingSource(l, Nothing)
             .DisplayMember = "Value"

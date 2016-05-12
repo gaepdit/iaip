@@ -96,9 +96,9 @@ Namespace DAL
             Return user
         End Function
 
-        Public Function GetActiveUsers() As List(Of KeyValuePair(Of Integer, String))
+        Public Function GetActiveUsers() As Dictionary(Of Integer, String)
             Dim spName As String = "AIRBRANCH.IAIP_USER.GetActiveUsers"
-            Return DB.SPGetListOfKeyValuePair(spName)
+            Return DB.SPGetLookupDictionary(spName)
         End Function
 
         Public Function UsernameExists(username As String, Optional ignoreUser As Integer = 0) As Boolean
