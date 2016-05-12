@@ -1698,7 +1698,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\EpdItDbHelper\EpdItDbHelper\EpdItDbHelper.vbproj">
+    <ProjectReference Include="..\..\db-helper-class\EpdItDbHelper\EpdItDbHelper.vbproj">
       <Project>{d069b1f3-fcef-45ea-9bb4-0737d725bedd}</Project>
       <Name>EpdItDbHelper</Name>
     </ProjectReference>
