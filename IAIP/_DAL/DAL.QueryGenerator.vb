@@ -5,7 +5,6 @@ Namespace DAL
     Module QueryGeneratorData
 
         Public Function LogQuery(ByVal kvp As Generic.KeyValuePair(Of String, Integer)) As Boolean
-
             Dim query As String =
                 " INSERT INTO AIRBRANCH.IAIP_LOG_QUERYGENERATOR " &
                 " (USERSUBMITTING, DATESUBMITTED, ROWSRETURNED, QUERYSUBMITTED) " &
@@ -18,7 +17,11 @@ Namespace DAL
                 New SqlParameter("QuerySubmitted", kvp.Key)
             }
 
-            Return DB.RunCommand(query, parameters, failSilently:=True)
+            Try
+                Return DB.RunCommand(query, parameters)
+            Catch ex As Exception
+                Return False
+            End Try
         End Function
 
     End Module

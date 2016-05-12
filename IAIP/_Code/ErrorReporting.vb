@@ -73,7 +73,7 @@ Module ErrorReporting
         }
 
         Try
-            Return DB.RunCommandIgnoreErrors(query, parameters)
+            Return DB.RunCommand(query, parameters)
         Catch ex As Exception
             Return False
         End Try

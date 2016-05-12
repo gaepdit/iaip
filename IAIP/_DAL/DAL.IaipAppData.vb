@@ -10,7 +10,7 @@ Namespace DAL
             Dim parameter As SqlParameter = New SqlParameter("STRAPPLICATIONNAME", APP_NAME)
 
             Try
-                Return DB.GetBoolean(query, parameter, True)
+                Return DB.GetBoolean(query, parameter)
             Catch ex As SqlException
                 Return False
             Catch ex As FormatException
