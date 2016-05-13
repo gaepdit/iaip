@@ -34,12 +34,15 @@ Friend Class ApplicationInsights
 #If DEBUG Then
         TelemetryConfiguration.Active.TelemetryChannel.DeveloperMode = True
         AddTelemetryClientProperty(TelemetryContextProperty.DebugMode, True.ToString)
+#ElseIf UAT Then
+        TelemetryConfiguration.Active.TelemetryChannel.DeveloperMode = True
+        AddTelemetryClientProperty(TelemetryContextProperty.DebugMode, True.ToString)
 #Else
         AddTelemetryClientProperty(TelemetryContextProperty.DebugMode, False.ToString)
 #End If
 
-#If BETA Then
-        AddTelemetryClientProperty(TelemetryContextProperty.ReleaseChannel, "Beta")
+#If UAT Then
+        AddTelemetryClientProperty(TelemetryContextProperty.ReleaseChannel, "UAT")
 #Else
         AddTelemetryClientProperty(TelemetryContextProperty.ReleaseChannel, "Production")
 #End If
