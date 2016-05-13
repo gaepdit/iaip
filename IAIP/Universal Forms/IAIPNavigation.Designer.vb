@@ -340,7 +340,6 @@ Partial Class IAIPNavigation
         Me.SbeapQuickAccessPanel.Controls.Add(Me.SbeapCaseLogNumberLabel)
         Me.SbeapQuickAccessPanel.Controls.Add(Me.SbeapClientIDLabel)
         Me.SbeapQuickAccessPanel.Controls.Add(Me.txtOpenSbeapClient)
-        Me.SbeapQuickAccessPanel.Enabled = False
         Me.SbeapQuickAccessPanel.Location = New System.Drawing.Point(483, 12)
         Me.SbeapQuickAccessPanel.Name = "SbeapQuickAccessPanel"
         Me.SbeapQuickAccessPanel.Size = New System.Drawing.Size(147, 102)

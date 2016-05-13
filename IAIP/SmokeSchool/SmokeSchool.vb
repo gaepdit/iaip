@@ -25,7 +25,7 @@ Public Class SmokeSchool
     Public ErrorFlag As String = "no"
 
     Private Sub ISMPSmokeSchool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        
+
         Try
 
             setPassedDate()
@@ -82,9 +82,9 @@ Public Class SmokeSchool
     End Sub
     Sub LoadDiplomaYear()
         Try
-            SQL = "Select " & _
-            "distinct(strYear) as TermYear " & _
-            "from AIRBRANCH.SmokeSchoolSchedule " & _
+            SQL = "Select " &
+            "distinct(strYear) as TermYear " &
+            "from AIRBRANCH.SmokeSchoolSchedule " &
             "order by TermYear desc "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -232,8 +232,8 @@ Public Class SmokeSchool
 
             cboSchedule1.Items.Clear()
 
-            oracleSQL = "Select strSchedule from airbranch.smokeSchoolSchedule " & _
-                        "where strDisplay = 'YES' " & _
+            oracleSQL = "Select strSchedule from airbranch.smokeSchoolSchedule " &
+                        "where strDisplay = 'YES' " &
                         "order by strSchedule"
             Dim cmd As New OracleCommand(oracleSQL, CurrentConnection)
 
@@ -335,7 +335,7 @@ Public Class SmokeSchool
             Dim SQL As String
             Dim dr As OracleDataReader
 
-            SQL = "select strSchedule, strDisplay from airbranch.smokeSchoolSchedule " & _
+            SQL = "select strSchedule, strDisplay from airbranch.smokeSchoolSchedule " &
             "order by strSchedule desc "
 
             Dim cmd As New OracleCommand(SQL, CurrentConnection)
@@ -378,8 +378,8 @@ Public Class SmokeSchool
             Dim SQL As String
             Dim dr As OracleDataReader
 
-            SQL = "select strSchedule from airbranch.smokeSchoolSchedule " & _
-            "where strDisplay = 'YES' " & _
+            SQL = "select strSchedule from airbranch.smokeSchoolSchedule " &
+            "where strDisplay = 'YES' " &
             "order by strSchedule desc "
 
             Dim cmd As New OracleCommand(SQL, CurrentConnection)
@@ -426,45 +426,45 @@ Public Class SmokeSchool
                 dsRes = New DataSet
 
                 If txtsortnbr.Text = "1" Then
-                    SQL = "SELECT numUserID, " & _
-                                 "strLastName, " & _
-                                 "strFirstName, " & _
-                                 "strSalutation, " & _
-                                 "strTitle, " & _
-                                 "strCompanyName, " & _
-                                 "strAddress1, " & _
-                                 "strAddress2, " & _
-                                 "strCity, " & _
-                                 "strState, " & _
-                                 "strZip, " & _
-                                 "strPhoneNumber, " & _
-                                 "strFax, " & _
-                                 "strEmail, " & _
-                                 "strConfirmationNbr, " & _
-                                 "strLocationDate, " & _
-                                 "strLectureYesNo " & _
-                          "from airbranch.smokeSchoolReservation " & _
+                    SQL = "SELECT numUserID, " &
+                                 "strLastName, " &
+                                 "strFirstName, " &
+                                 "strSalutation, " &
+                                 "strTitle, " &
+                                 "strCompanyName, " &
+                                 "strAddress1, " &
+                                 "strAddress2, " &
+                                 "strCity, " &
+                                 "strState, " &
+                                 "strZip, " &
+                                 "strPhoneNumber, " &
+                                 "strFax, " &
+                                 "strEmail, " &
+                                 "strConfirmationNbr, " &
+                                 "strLocationDate, " &
+                                 "strLectureYesNo " &
+                          "from airbranch.smokeSchoolReservation " &
                           "order by strLocationDate, strLastName, strFirstName"
                 Else
-                    SQL = "SELECT numUserID, " & _
-                                                     "strLastName, " & _
-                                                     "strFirstName, " & _
-                                                     "strSalutation, " & _
-                                                     "strTitle, " & _
-                                                     "strCompanyName, " & _
-                                                     "strAddress1, " & _
-                                                     "strAddress2, " & _
-                                                     "strCity, " & _
-                                                     "strState, " & _
-                                                     "strZip, " & _
-                                                     "strPhoneNumber, " & _
-                                                     "strFax, " & _
-                                                     "strEmail, " & _
-                                                     "strConfirmationNbr, " & _
-                                                     "strLocationDate, " & _
-                                                     "strLectureYesNo " & _
-                                                 "from airbranch.smokeSchoolReservation " & _
-                                                 "where strLocationDate = '" & locationTerm & "' " & _
+                    SQL = "SELECT numUserID, " &
+                                                     "strLastName, " &
+                                                     "strFirstName, " &
+                                                     "strSalutation, " &
+                                                     "strTitle, " &
+                                                     "strCompanyName, " &
+                                                     "strAddress1, " &
+                                                     "strAddress2, " &
+                                                     "strCity, " &
+                                                     "strState, " &
+                                                     "strZip, " &
+                                                     "strPhoneNumber, " &
+                                                     "strFax, " &
+                                                     "strEmail, " &
+                                                     "strConfirmationNbr, " &
+                                                     "strLocationDate, " &
+                                                     "strLectureYesNo " &
+                                                 "from airbranch.smokeSchoolReservation " &
+                                                 "where strLocationDate = '" & locationTerm & "' " &
                                                  "order by strLastName, strFirstName"
                 End If
 
@@ -532,42 +532,42 @@ Public Class SmokeSchool
             dsRes = New DataSet
 
             If txtsortnbr.Text = "1" Then
-                SQL = "SELECT numUserID, " & _
-                             "strLastName, " & _
-                             "strFirstName, " & _
-                             "strTitle, " & _
-                             "strCompanyName, " & _
-                             "strAddress1, " & _
-                             "strCity, " & _
-                             "strState, " & _
-                             "strZip, " & _
-                             "strPhoneNumber, " & _
-                             "strFax, " & _
-                             "strEmail, " & _
-                             "strConfirmationNbr, " & _
-                             "strLocationDate, " & _
-                             "strLectureYesNo " & _
-                      "from airbranch.smokeSchoolReservation " & _
+                SQL = "SELECT numUserID, " &
+                             "strLastName, " &
+                             "strFirstName, " &
+                             "strTitle, " &
+                             "strCompanyName, " &
+                             "strAddress1, " &
+                             "strCity, " &
+                             "strState, " &
+                             "strZip, " &
+                             "strPhoneNumber, " &
+                             "strFax, " &
+                             "strEmail, " &
+                             "strConfirmationNbr, " &
+                             "strLocationDate, " &
+                             "strLectureYesNo " &
+                      "from airbranch.smokeSchoolReservation " &
                       "order by strLocationDate, strLastName, strFirstName"
             End If
             If txtsortnbr.Text = "2" Then
-                SQL = "SELECT numUserID, " & _
-                             "strLastName, " & _
-                             "strFirstName, " & _
-                             "strTitle, " & _
-                             "strCompanyName, " & _
-                             "strAddress1, " & _
-                             "strCity, " & _
-                             "strState, " & _
-                             "strZip, " & _
-                             "strPhoneNumber, " & _
-                             "strFax, " & _
-                             "strEmail, " & _
-                             "strConfirmationNbr, " & _
-                             "strLocationDate, " & _
-                             "strLectureYesNo " & _
-                      "from airbranch.smokeSchoolReservation " & _
-                         "where strLocationDate = '" & txtSchedule2.Text & "' " & _
+                SQL = "SELECT numUserID, " &
+                             "strLastName, " &
+                             "strFirstName, " &
+                             "strTitle, " &
+                             "strCompanyName, " &
+                             "strAddress1, " &
+                             "strCity, " &
+                             "strState, " &
+                             "strZip, " &
+                             "strPhoneNumber, " &
+                             "strFax, " &
+                             "strEmail, " &
+                             "strConfirmationNbr, " &
+                             "strLocationDate, " &
+                             "strLectureYesNo " &
+                      "from airbranch.smokeSchoolReservation " &
+                         "where strLocationDate = '" & txtSchedule2.Text & "' " &
                          "order by strLastName, strFirstName"
             End If
 
@@ -636,28 +636,28 @@ Public Class SmokeSchool
 
             dsScores3 = New DataSet
 
-            SQL = "SELECT distinct intStudentId, " & _
-                  "strName, " & _
-                  "strCompanyName, " & _
-                  "strPassFailNoShow, " & _
-                  "strQuizScore, " & _
-                  "strDatePassed, " & _
-                  "strVisualRestrictions, " & _
-                  "strComment, " & _
-                  "strRUN1, " & _
-                  "strRUN2, " & _
-                  "strRUN3, " & _
-                  "strRUN4, " & _
-                  "strRUN5, " & _
-                  "strRUN6, " & _
-                  "strRUN7, " & _
-                  "strRUN8, " & _
-                  "strRUN9, " & _
-                  "strRUN10, " & _
-                  "strFirstName, " & _
-                  "strLastName, strScoreKey " & _
-                  "from airbranch.smokeSchoolScores " & _
-                  "where strLocationTerm = '" & locationTerm & "' " & _
+            SQL = "SELECT distinct intStudentId, " &
+                  "strName, " &
+                  "strCompanyName, " &
+                  "strPassFailNoShow, " &
+                  "strQuizScore, " &
+                  "strDatePassed, " &
+                  "strVisualRestrictions, " &
+                  "strComment, " &
+                  "strRUN1, " &
+                  "strRUN2, " &
+                  "strRUN3, " &
+                  "strRUN4, " &
+                  "strRUN5, " &
+                  "strRUN6, " &
+                  "strRUN7, " &
+                  "strRUN8, " &
+                  "strRUN9, " &
+                  "strRUN10, " &
+                  "strFirstName, " &
+                  "strLastName, strScoreKey " &
+                  "from airbranch.smokeSchoolScores " &
+                  "where strLocationTerm = '" & locationTerm & "' " &
                   "order by strName"
 
             Dim cmd As New OracleCommand(SQL, CurrentConnection)
@@ -724,11 +724,11 @@ Public Class SmokeSchool
 
             dsScores = New DataSet
 
-            SQL = "SELECT distinct intStudentId, " & _
-                  "strName, " & _
-                  "strCompanyName " & _
-                  "from airbranch.smokeSchoolScores " & _
-                  "where strLocationTerm = '" & locationTerm & "' " & _
+            SQL = "SELECT distinct intStudentId, " &
+                  "strName, " &
+                  "strCompanyName " &
+                  "from airbranch.smokeSchoolScores " &
+                  "where strLocationTerm = '" & locationTerm & "' " &
                   "order by strName"
 
             Dim cmd As New OracleCommand(SQL, CurrentConnection)
@@ -813,12 +813,12 @@ Public Class SmokeSchool
             End If
             startDate = Format(CDate(startDate), "MMM-dd-yyyy")
             endDate = Format(CDate(endDate), "MMM-dd-yyyy")
-            
+
             scheduleShort = year & " " & season & " - " & city
             schedule = scheduleShort & ": " & startDate & " thru " & endDate
 
-            SQL = "Select strSchedule " & _
-            "from AIRBRANCH.SmokeSchoolSchedule " & _
+            SQL = "Select strSchedule " &
+            "from AIRBRANCH.SmokeSchoolSchedule " &
             "where strSchedule = '" & schedule & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -831,33 +831,33 @@ Public Class SmokeSchool
             dr.Close()
 
             If recExist = True Then
-                SQL = "update airbranch.SmokeSchoolSchedule " & _
-                "set strYear = '" & Replace(year, "'", "''") & "', " & _
-                "strTerm = '" & Replace(season, "'", "''") & "', " & _
-                "strLocation = '" & Replace(city, "'", "''") & "', " & _
-                "strStartDate = '" & Replace(startDate, "'", "''") & "', " & _
-                "strEndDate = '" & Replace(endDate, "'", "''") & "', " & _
-                "strSchedule = '" & Replace(schedule, "'", "''") & "', " & _
-                "strScheduleShort = '" & Replace(scheduleShort, "'", "''") & "', " & _
-                "strDisplay = '" & Replace(display, "'", "''") & "'" & _
+                SQL = "update airbranch.SmokeSchoolSchedule " &
+                "set strYear = '" & Replace(year, "'", "''") & "', " &
+                "strTerm = '" & Replace(season, "'", "''") & "', " &
+                "strLocation = '" & Replace(city, "'", "''") & "', " &
+                "strStartDate = '" & Replace(startDate, "'", "''") & "', " &
+                "strEndDate = '" & Replace(endDate, "'", "''") & "', " &
+                "strSchedule = '" & Replace(schedule, "'", "''") & "', " &
+                "strScheduleShort = '" & Replace(scheduleShort, "'", "''") & "', " &
+                "strDisplay = '" & Replace(display, "'", "''") & "'" &
                 " where  strSchedule = '" & Replace(schedule, "'", "''") & "'"
             Else
-                SQL = "Insert Into airbranch.SmokeSchoolSchedule (strYear, " & _
-                "strTerm, " & _
-                "strLocation, " & _
-                "strStartDate, " & _
-                "strEndDate, " & _
-                "strSchedule, " & _
-                "strScheduleShort, " & _
-                "strDisplay) " & _
-                " Values (" & _
-                "'" & Replace(year, "'", "''") & "', " & _
-                "'" & Replace(season, "'", "''") & "', " & _
-                "'" & Replace(city, "'", "''") & "', " & _
-                "'" & Replace(startDate, "'", "''") & "', " & _
-                "'" & Replace(endDate, "'", "''") & "', " & _
-                "'" & Replace(schedule, "'", "''") & "', " & _
-                "'" & Replace(scheduleShort, "'", "''") & "', " & _
+                SQL = "Insert Into airbranch.SmokeSchoolSchedule (strYear, " &
+                "strTerm, " &
+                "strLocation, " &
+                "strStartDate, " &
+                "strEndDate, " &
+                "strSchedule, " &
+                "strScheduleShort, " &
+                "strDisplay) " &
+                " Values (" &
+                "'" & Replace(year, "'", "''") & "', " &
+                "'" & Replace(season, "'", "''") & "', " &
+                "'" & Replace(city, "'", "''") & "', " &
+                "'" & Replace(startDate, "'", "''") & "', " &
+                "'" & Replace(endDate, "'", "''") & "', " &
+                "'" & Replace(schedule, "'", "''") & "', " &
+                "'" & Replace(scheduleShort, "'", "''") & "', " &
                 "'" & Replace(display, "'", "''") & "') "
             End If
 
@@ -928,7 +928,7 @@ Public Class SmokeSchool
             End If
             startDate = Format(CDate(startDate), "MMM-dd-yyyy")
             endDate = Format(CDate(endDate), "MMM-dd-yyyy")
-            
+
             scheduleShort = year & " " & season & " - " & city
             schedule = scheduleShort & ": " & startDate & " thru " & endDate
 
@@ -1013,8 +1013,8 @@ Public Class SmokeSchool
                 txtSchedule.Text = cboSchedule1.SelectedItem
 
                 If txtID1.Text = "" Then
-                    SQL = "select max(numUserID) as strUserNumber " & _
-                    "from airbranch.SmokeSchoolReservation " & _
+                    SQL = "select max(numUserID) as strUserNumber " &
+                    "from airbranch.SmokeSchoolReservation " &
                     "where strlocationDate = '" & LocationTerm & "'"
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1053,10 +1053,10 @@ Public Class SmokeSchool
                     txtLastName1X.Text = txtLastName1.Text
                 End If
 
-                SQL = "select * " & _
-                "from AIRBRANCH.SmokeSchoolReservation " & _
-                "where upper(strLastName) = upper('" & Replace(txtLastName1X.Text, "'", "''") & "') " & _
-                "and upper(strFirstName) = upper('" & Replace(txtFirstName1X.Text, "'", "''") & "') " & _
+                SQL = "select * " &
+                "from AIRBRANCH.SmokeSchoolReservation " &
+                "where upper(strLastName) = upper('" & Replace(txtLastName1X.Text, "'", "''") & "') " &
+                "and upper(strFirstName) = upper('" & Replace(txtFirstName1X.Text, "'", "''") & "') " &
                 "and upper(strLocationDate) = upper('" & Replace(txtSchedule.Text, "'", "''") & "') "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1074,26 +1074,26 @@ Public Class SmokeSchool
                     msgResult = MsgBox(messageOut, MsgBoxStyle.YesNo)
 
                     If msgResult = 6 Then
-                        SQL = "update airbranch.SmokeSchoolReservation " & _
-                              "set numUserID = " & studentID & ", " & _
-                              "strFirstName = '" & Replace(fname, "'", "''") & "', " & _
-                              "strLastName = '" & Replace(lname, "'", "''") & "', " & _
-                              "strTitle = '" & Replace(title, "'", "''") & "', " & _
-                              "strSalutation = '" & Replace(salutation, "'", "''") & "', " & _
-                              "strCompanyName = '" & Replace(facility, "'", "''") & "', " & _
-                              "strAddress1 = '" & Replace(address1, "'", "''") & "', " & _
-                              "strAddress2 = '" & Replace(address2, "'", "''") & "', " & _
-                              "strCity = '" & Replace(city, "'", "''") & "', " & _
-                              "strState = '" & Replace(state, "'", "''") & "', " & _
-                              "strZip = '" & Replace(zip, "'", "''") & "', " & _
-                              "strPhoneNumber = '" & Replace(phone, "'", "''") & "', " & _
-                              "strFax = '" & Replace(fax, "'", "''") & "', " & _
-                              "strLectureYesNo = '" & lecture & "', " & _
-                              "strConfirmationNbr = '" & ConfirmNbr & "', " & _
-                              "strLocationDate = '" & txtSchedule1.Text & "', " & _
-                              "datTransactionDate = '" & TransactionDate & "' " & _
-                              " where upper(strLastName) = upper('" & Replace(txtLastName1X.Text, "'", "''") & "')" & _
-                              " and upper(strLocationDate) = upper('" & Replace(txtSchedule1.Text, "'", "''") & "')" & _
+                        SQL = "update airbranch.SmokeSchoolReservation " &
+                              "set numUserID = " & studentID & ", " &
+                              "strFirstName = '" & Replace(fname, "'", "''") & "', " &
+                              "strLastName = '" & Replace(lname, "'", "''") & "', " &
+                              "strTitle = '" & Replace(title, "'", "''") & "', " &
+                              "strSalutation = '" & Replace(salutation, "'", "''") & "', " &
+                              "strCompanyName = '" & Replace(facility, "'", "''") & "', " &
+                              "strAddress1 = '" & Replace(address1, "'", "''") & "', " &
+                              "strAddress2 = '" & Replace(address2, "'", "''") & "', " &
+                              "strCity = '" & Replace(city, "'", "''") & "', " &
+                              "strState = '" & Replace(state, "'", "''") & "', " &
+                              "strZip = '" & Replace(zip, "'", "''") & "', " &
+                              "strPhoneNumber = '" & Replace(phone, "'", "''") & "', " &
+                              "strFax = '" & Replace(fax, "'", "''") & "', " &
+                              "strLectureYesNo = '" & lecture & "', " &
+                              "strConfirmationNbr = '" & ConfirmNbr & "', " &
+                              "strLocationDate = '" & txtSchedule1.Text & "', " &
+                              "datTransactionDate = '" & TransactionDate & "' " &
+                              " where upper(strLastName) = upper('" & Replace(txtLastName1X.Text, "'", "''") & "')" &
+                              " and upper(strLocationDate) = upper('" & Replace(txtSchedule1.Text, "'", "''") & "')" &
                               " and upper(strFirstName) = upper('" & Replace(txtFirstName1X.Text, "'", "''") & "')"
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1117,43 +1117,43 @@ Public Class SmokeSchool
 
                     End If
                 Else
-                    SQL = "insert into airbranch.SmokeSchoolReservation " & _
-                          "(numUserID, " & _
-                          "strFirstName, " & _
-                          "strLastName, " & _
-                          "strTitle, " & _
-                          "strSalutation, " & _
-                          "strCompanyName, " & _
-                          "strAddress1, " & _
-                          "strAddress2, " & _
-                          "strCity, " & _
-                          "strState, " & _
-                          "strZip, " & _
-                          "strPhoneNumber, " & _
-                          "strFax, " & _
-                          "strEmail, " & _
-                          "strLectureYesNO, " & _
-                          "strConfirmationNbr, " & _
-                          "strLocationDate, " & _
-                          "datTransactionDate) " & _
-                          "values (" & _
-                          "'" & Replace(studentID, "'", "''") & "', " & _
-                          "'" & Replace(fname, "'", "''") & "', " & _
-                          "'" & Replace(lname, "'", "''") & "', " & _
-                          "'" & Replace(title, "'", "''") & "', " & _
-                          "'" & Replace(salutation, "'", "''") & "', " & _
-                          "'" & Replace(facility, "'", "''") & "', " & _
-                          "'" & Replace(address1, "'", "''") & "', " & _
-                          "'" & Replace(address2, "'", "''") & "', " & _
-                          "'" & Replace(city, "'", "''") & "', " & _
-                          "'" & Replace(state, "'", "''") & "', " & _
-                          "'" & Replace(zip, "'", "''") & "', " & _
-                          "'" & Replace(phone, "'", "''") & "', " & _
-                          "'" & Replace(fax, "'", "''") & "', " & _
-                          "'" & Replace(email, "'", "''") & "', " & _
-                          "'" & Replace(lecture, "'", "''") & "', " & _
-                          "'" & Replace(ConfirmNbr, "'", "''") & "', " & _
-                          "'" & Replace(LocationTerm, "'", "''") & "', " & _
+                    SQL = "insert into airbranch.SmokeSchoolReservation " &
+                          "(numUserID, " &
+                          "strFirstName, " &
+                          "strLastName, " &
+                          "strTitle, " &
+                          "strSalutation, " &
+                          "strCompanyName, " &
+                          "strAddress1, " &
+                          "strAddress2, " &
+                          "strCity, " &
+                          "strState, " &
+                          "strZip, " &
+                          "strPhoneNumber, " &
+                          "strFax, " &
+                          "strEmail, " &
+                          "strLectureYesNO, " &
+                          "strConfirmationNbr, " &
+                          "strLocationDate, " &
+                          "datTransactionDate) " &
+                          "values (" &
+                          "'" & Replace(studentID, "'", "''") & "', " &
+                          "'" & Replace(fname, "'", "''") & "', " &
+                          "'" & Replace(lname, "'", "''") & "', " &
+                          "'" & Replace(title, "'", "''") & "', " &
+                          "'" & Replace(salutation, "'", "''") & "', " &
+                          "'" & Replace(facility, "'", "''") & "', " &
+                          "'" & Replace(address1, "'", "''") & "', " &
+                          "'" & Replace(address2, "'", "''") & "', " &
+                          "'" & Replace(city, "'", "''") & "', " &
+                          "'" & Replace(state, "'", "''") & "', " &
+                          "'" & Replace(zip, "'", "''") & "', " &
+                          "'" & Replace(phone, "'", "''") & "', " &
+                          "'" & Replace(fax, "'", "''") & "', " &
+                          "'" & Replace(email, "'", "''") & "', " &
+                          "'" & Replace(lecture, "'", "''") & "', " &
+                          "'" & Replace(ConfirmNbr, "'", "''") & "', " &
+                          "'" & Replace(LocationTerm, "'", "''") & "', " &
                           "to_date('" & TransactionDate & "', 'dd-mon-yyyy hh24:mi:ss')) "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1302,10 +1302,10 @@ Public Class SmokeSchool
             Else
 
                 If lName <> "" And fName <> "" And txtID1.Text <> "" Then
-                    SQL = "Delete from airbranch.SmokeSchoolReservation " & _
-                                    " where upper(strLastName) = upper('" & Replace(lName, "'", "''") & "') " & _
-                                    " and upper(strFirstName) = upper('" & Replace(fName, "'", "''") & "') " & _
-                                    " and upper(numUserID) = upper('" & studentID & "') " & _
+                    SQL = "Delete from airbranch.SmokeSchoolReservation " &
+                                    " where upper(strLastName) = upper('" & Replace(lName, "'", "''") & "') " &
+                                    " and upper(strFirstName) = upper('" & Replace(fName, "'", "''") & "') " &
+                                    " and upper(numUserID) = upper('" & studentID & "') " &
                                     "and strLocationDate = '" & cboSchedule1.SelectedItem & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1376,7 +1376,7 @@ Public Class SmokeSchool
                 MsgBox("You must select a Location/Term")
                 Exit Sub
             Else
-                SQL = "select * from airbranch.SmokeSchoolReservation " & _
+                SQL = "select * from airbranch.SmokeSchoolReservation " &
                 "where strLocationDate = '" & txtSchedule2.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1426,8 +1426,8 @@ Public Class SmokeSchool
                     Else
                         scoreKey = locationDate & " - " & email
 
-                        SQL = "Select * from airbranch.SmokeSchoolScores " & _
-                               "where strscoreKey = '" & Replace(scoreKey, "'", "''") & "' " & _
+                        SQL = "Select * from airbranch.SmokeSchoolScores " &
+                               "where strscoreKey = '" & Replace(scoreKey, "'", "''") & "' " &
                                "and intStudentID = " & studentID
 
                         cmd2 = New OracleCommand(SQL, CurrentConnection)
@@ -1441,44 +1441,44 @@ Public Class SmokeSchool
                         If recExist = True Then
 
                         Else
-                            SQL = "insert into airbranch.SmokeSchoolScores ( " & _
-                                   "intStudentID, " & _
-                                   "strName, " & _
-                                   "strCompanyName, " & _
-                                   "strScoreKey, " & _
-                                   "strLocationTerm, " & _
-                                   "strComment, " & _
-                                   "strRun1, " & _
-                                   "strRun2, " & _
-                                   "strRun3, " & _
-                                   "strRun4, " & _
-                                   "strRun5, " & _
-                                   "strRun6, " & _
-                                   "strRun7, " & _
-                                   "strRun8, " & _
-                                   "strRun9, " & _
-                                   "strRun10, " & _
-                                   "strLastName, " & _
-                                   "strFirstName, " & _
-                                   "datTransactionDate) " & _
-                                   "values (" & studentID & ", " & _
-                                   "'" & Replace(name, "'", "''") & "', " & _
-                                   "'" & Replace(CompanyName, "'", "''") & "', " & _
-                                   "'" & Replace(scoreKey, "'", "''") & "', " & _
-                                   "'" & Replace(locationDate, "'", "''") & "', " & _
-                                   "'" & Replace(Comment, "'", "''") & "', " & _
-                                   "'" & Replace(Run1, "'", "''") & "', " & _
-                                   "'" & Replace(Run2, "'", "''") & "', " & _
-                                   "'" & Replace(Run3, "'", "''") & "', " & _
-                                   "'" & Replace(Run4, "'", "''") & "', " & _
-                                   "'" & Replace(Run5, "'", "''") & "', " & _
-                                   "'" & Replace(Run6, "'", "''") & "', " & _
-                                   "'" & Replace(Run7, "'", "''") & "', " & _
-                                   "'" & Replace(Run8, "'", "''") & "', " & _
-                                   "'" & Replace(Run9, "'", "''") & "', " & _
-                                   "'" & Replace(Run10, "'", "''") & "', " & _
-                                   "'" & Replace(lastName, "'", "''") & "', " & _
-                                   "'" & Replace(firstName, "'", "''") & "', " & _
+                            SQL = "insert into airbranch.SmokeSchoolScores ( " &
+                                   "intStudentID, " &
+                                   "strName, " &
+                                   "strCompanyName, " &
+                                   "strScoreKey, " &
+                                   "strLocationTerm, " &
+                                   "strComment, " &
+                                   "strRun1, " &
+                                   "strRun2, " &
+                                   "strRun3, " &
+                                   "strRun4, " &
+                                   "strRun5, " &
+                                   "strRun6, " &
+                                   "strRun7, " &
+                                   "strRun8, " &
+                                   "strRun9, " &
+                                   "strRun10, " &
+                                   "strLastName, " &
+                                   "strFirstName, " &
+                                   "datTransactionDate) " &
+                                   "values (" & studentID & ", " &
+                                   "'" & Replace(name, "'", "''") & "', " &
+                                   "'" & Replace(CompanyName, "'", "''") & "', " &
+                                   "'" & Replace(scoreKey, "'", "''") & "', " &
+                                   "'" & Replace(locationDate, "'", "''") & "', " &
+                                   "'" & Replace(Comment, "'", "''") & "', " &
+                                   "'" & Replace(Run1, "'", "''") & "', " &
+                                   "'" & Replace(Run2, "'", "''") & "', " &
+                                   "'" & Replace(Run3, "'", "''") & "', " &
+                                   "'" & Replace(Run4, "'", "''") & "', " &
+                                   "'" & Replace(Run5, "'", "''") & "', " &
+                                   "'" & Replace(Run6, "'", "''") & "', " &
+                                   "'" & Replace(Run7, "'", "''") & "', " &
+                                   "'" & Replace(Run8, "'", "''") & "', " &
+                                   "'" & Replace(Run9, "'", "''") & "', " &
+                                   "'" & Replace(Run10, "'", "''") & "', " &
+                                   "'" & Replace(lastName, "'", "''") & "', " &
+                                   "'" & Replace(firstName, "'", "''") & "', " &
                                    "'" & TransactionDate & "')"
 
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1540,8 +1540,8 @@ Public Class SmokeSchool
                 colon = InStr(locationDate, ":")
                 locationDate = Mid(locationDate, 1, colon - 1)
                 scoreKey = locationDate & " - " & name
-                SQL = "Select * from airbranch.SmokeSchoolScores " & _
-                       "where strLocationTerm = '" & locationDate & "' " & _
+                SQL = "Select * from airbranch.SmokeSchoolScores " &
+                       "where strLocationTerm = '" & locationDate & "' " &
                        "and strName = '" & Replace(name, "'", "''") & "'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1556,44 +1556,44 @@ Public Class SmokeSchool
                     MsgBox("Scores for " & name & " already exist for " & locationDate)
                     Exit Sub
                 Else
-                    SQL = "insert into airbranch.SmokeSchoolScores ( " & _
-                           "intStudentID, " & _
-                           "strName, " & _
-                           "strCompanyName, " & _
-                           "strScoreKey, " & _
-                           "strLocationTerm, " & _
-                           "strComment, " & _
-                           "strRun1, " & _
-                           "strRun2, " & _
-                           "strRun3, " & _
-                           "strRun4, " & _
-                           "strRun5, " & _
-                           "strRun6, " & _
-                           "strRun7, " & _
-                           "strRun8, " & _
-                           "strRun9, " & _
-                           "strRun10, " & _
-                           "strLastName, " & _
-                           "strFirstName, " & _
-                           "datTransactionDate) " & _
-                           "values (" & studentID & ", " & _
-                           "'" & Replace(name, "'", "''") & "', " & _
-                           "'" & Replace(CompanyName, "'", "''") & "', " & _
-                           "'" & Replace(scoreKey, "'", "''") & "', " & _
-                           "'" & Replace(locationDate, "'", "''") & "', " & _
-                           "'" & Replace(Comment, "'", "''") & "', " & _
-                           "'" & Replace(Run1, "'", "''") & "', " & _
-                           "'" & Replace(Run2, "'", "''") & "', " & _
-                           "'" & Replace(Run3, "'", "''") & "', " & _
-                           "'" & Replace(Run4, "'", "''") & "', " & _
-                           "'" & Replace(Run5, "'", "''") & "', " & _
-                           "'" & Replace(Run6, "'", "''") & "', " & _
-                           "'" & Replace(Run7, "'", "''") & "', " & _
-                           "'" & Replace(Run8, "'", "''") & "', " & _
-                           "'" & Replace(Run9, "'", "''") & "', " & _
-                           "'" & Replace(Run10, "'", "''") & "', " & _
-                           "'" & Replace(lastName, "'", "''") & "', " & _
-                           "'" & Replace(firstName, "'", "''") & "', " & _
+                    SQL = "insert into airbranch.SmokeSchoolScores ( " &
+                           "intStudentID, " &
+                           "strName, " &
+                           "strCompanyName, " &
+                           "strScoreKey, " &
+                           "strLocationTerm, " &
+                           "strComment, " &
+                           "strRun1, " &
+                           "strRun2, " &
+                           "strRun3, " &
+                           "strRun4, " &
+                           "strRun5, " &
+                           "strRun6, " &
+                           "strRun7, " &
+                           "strRun8, " &
+                           "strRun9, " &
+                           "strRun10, " &
+                           "strLastName, " &
+                           "strFirstName, " &
+                           "datTransactionDate) " &
+                           "values (" & studentID & ", " &
+                           "'" & Replace(name, "'", "''") & "', " &
+                           "'" & Replace(CompanyName, "'", "''") & "', " &
+                           "'" & Replace(scoreKey, "'", "''") & "', " &
+                           "'" & Replace(locationDate, "'", "''") & "', " &
+                           "'" & Replace(Comment, "'", "''") & "', " &
+                           "'" & Replace(Run1, "'", "''") & "', " &
+                           "'" & Replace(Run2, "'", "''") & "', " &
+                           "'" & Replace(Run3, "'", "''") & "', " &
+                           "'" & Replace(Run4, "'", "''") & "', " &
+                           "'" & Replace(Run5, "'", "''") & "', " &
+                           "'" & Replace(Run6, "'", "''") & "', " &
+                           "'" & Replace(Run7, "'", "''") & "', " &
+                           "'" & Replace(Run8, "'", "''") & "', " &
+                           "'" & Replace(Run9, "'", "''") & "', " &
+                           "'" & Replace(Run10, "'", "''") & "', " &
+                           "'" & Replace(lastName, "'", "''") & "', " &
+                           "'" & Replace(firstName, "'", "''") & "', " &
                            "'" & TransactionDate & "')"
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1629,7 +1629,7 @@ Public Class SmokeSchool
                 MsgBox("You must select a Location/Term")
                 Exit Sub
             Else
-                SQL = "Delete from airbranch.SmokeSchoolScores " & _
+                SQL = "Delete from airbranch.SmokeSchoolScores " &
                 " where strlocationTerm = '" & locationTerm & "'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1894,8 +1894,8 @@ Public Class SmokeSchool
                     datePassed = Format(CDate(datePassed), "dd-MMM-yyyy")
 
                     If txtScoreKey.Text <> "" Then
-                        SQL = "Select strScoreKey " & _
-                        "From AIRBRANCH.SmokeSchoolScores " & _
+                        SQL = "Select strScoreKey " &
+                        "From AIRBRANCH.SmokeSchoolScores " &
                         "where strScoreKey =  '" & Replace(txtScoreKey.Text, "'", "''") & "' "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1916,58 +1916,58 @@ Public Class SmokeSchool
                             Case 0
                                 Exit Sub
                             Case 1
-                                SQL = "update airbranch.SmokeSchoolScores " & _
-                                "set strPassFailNoShow = '" & PassFailNoShow & "', " & _
-                                "strQuizScore = '" & QuizScore & "', " & _
-                                "strComment = '" & Replace(Comment, "'", "''") & "', " & _
-                                "strRun1 = '" & Run1 & "', " & _
-                                "strRun2 = '" & Run2 & "', " & _
-                                "strRun3 = '" & Run3 & "', " & _
-                                "strRun4 = '" & Run4 & "', " & _
-                                "strRun5 = '" & Run5 & "', " & _
-                                "strRun6 = '" & Run6 & "', " & _
-                                "strRun7 = '" & Run7 & "', " & _
-                                "strRun8 = '" & Run8 & "', " & _
-                                "strRun9 = '" & Run9 & "', " & _
-                                "strRun10 = '" & Run10 & "', " & _
-                                "strFirstName = '" & Replace(fname, "'", "''") & "', " & _
-                                "strLastName = '" & Replace(lname, "'", "''") & "', " & _
-                                "strName = '" & Replace(name, "'", "''") & "', " & _
-                                "strCompanyName = '" & Replace(CompanyName, "'", "''") & "', " & _
-                                "strVisualRestrictions = '" & Replace(VisualRestrictions, "'", "''") & "', " & _
-                                "strDatePassed = '" & datePassed & "', " & _
-                                "datTransactionDate = '" & TransactionDate & "' " & _
+                                SQL = "update airbranch.SmokeSchoolScores " &
+                                "set strPassFailNoShow = '" & PassFailNoShow & "', " &
+                                "strQuizScore = '" & QuizScore & "', " &
+                                "strComment = '" & Replace(Comment, "'", "''") & "', " &
+                                "strRun1 = '" & Run1 & "', " &
+                                "strRun2 = '" & Run2 & "', " &
+                                "strRun3 = '" & Run3 & "', " &
+                                "strRun4 = '" & Run4 & "', " &
+                                "strRun5 = '" & Run5 & "', " &
+                                "strRun6 = '" & Run6 & "', " &
+                                "strRun7 = '" & Run7 & "', " &
+                                "strRun8 = '" & Run8 & "', " &
+                                "strRun9 = '" & Run9 & "', " &
+                                "strRun10 = '" & Run10 & "', " &
+                                "strFirstName = '" & Replace(fname, "'", "''") & "', " &
+                                "strLastName = '" & Replace(lname, "'", "''") & "', " &
+                                "strName = '" & Replace(name, "'", "''") & "', " &
+                                "strCompanyName = '" & Replace(CompanyName, "'", "''") & "', " &
+                                "strVisualRestrictions = '" & Replace(VisualRestrictions, "'", "''") & "', " &
+                                "strDatePassed = '" & datePassed & "', " &
+                                "datTransactionDate = '" & TransactionDate & "' " &
                                 "where strScoreKey = '" & Replace(txtScoreKey.Text, "'", "''") & "' "
                             Case Else
                                 Dim Result As DialogResult
-                                Result = MessageBox.Show("There are " & i.ToString & " entries for this individual. " & vbCrLf & _
-                                         "Do you want to update all the entries? " & vbCrLf & _
-                                         "If you need assistance contact the Data Management Unit.", _
-                                  "Smoke School", MessageBoxButtons.YesNoCancel, _
+                                Result = MessageBox.Show("There are " & i.ToString & " entries for this individual. " & vbCrLf &
+                                         "Do you want to update all the entries? " & vbCrLf &
+                                         "If you need assistance contact the Data Management Unit.",
+                                  "Smoke School", MessageBoxButtons.YesNoCancel,
                                     MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                                 Select Case Result
                                     Case DialogResult.Yes
-                                        SQL = "update airbranch.SmokeSchoolScores " & _
-                                        "set strPassFailNoShow = '" & PassFailNoShow & "', " & _
-                                        "strQuizScore = '" & QuizScore & "', " & _
-                                        "strComment = '" & Replace(Comment, "'", "''") & "', " & _
-                                        "strRun1 = '" & Run1 & "', " & _
-                                        "strRun2 = '" & Run2 & "', " & _
-                                        "strRun3 = '" & Run3 & "', " & _
-                                        "strRun4 = '" & Run4 & "', " & _
-                                        "strRun5 = '" & Run5 & "', " & _
-                                        "strRun6 = '" & Run6 & "', " & _
-                                        "strRun7 = '" & Run7 & "', " & _
-                                        "strRun8 = '" & Run8 & "', " & _
-                                        "strRun9 = '" & Run9 & "', " & _
-                                        "strRun10 = '" & Run10 & "', " & _
-                                        "strFirstName = '" & Replace(fname, "'", "''") & "', " & _
-                                        "strLastName = '" & Replace(lname, "'", "''") & "', " & _
-                                        "strName = '" & Replace(name, "'", "''") & "', " & _
-                                        "strCompanyName = '" & Replace(CompanyName, "'", "''") & "', " & _
-                                        "strVisualRestrictions = '" & Replace(VisualRestrictions, "'", "''") & "', " & _
-                                        "strDatePassed = '" & datePassed & "', " & _
-                                        "datTransactionDate = '" & TransactionDate & "' " & _
+                                        SQL = "update airbranch.SmokeSchoolScores " &
+                                        "set strPassFailNoShow = '" & PassFailNoShow & "', " &
+                                        "strQuizScore = '" & QuizScore & "', " &
+                                        "strComment = '" & Replace(Comment, "'", "''") & "', " &
+                                        "strRun1 = '" & Run1 & "', " &
+                                        "strRun2 = '" & Run2 & "', " &
+                                        "strRun3 = '" & Run3 & "', " &
+                                        "strRun4 = '" & Run4 & "', " &
+                                        "strRun5 = '" & Run5 & "', " &
+                                        "strRun6 = '" & Run6 & "', " &
+                                        "strRun7 = '" & Run7 & "', " &
+                                        "strRun8 = '" & Run8 & "', " &
+                                        "strRun9 = '" & Run9 & "', " &
+                                        "strRun10 = '" & Run10 & "', " &
+                                        "strFirstName = '" & Replace(fname, "'", "''") & "', " &
+                                        "strLastName = '" & Replace(lname, "'", "''") & "', " &
+                                        "strName = '" & Replace(name, "'", "''") & "', " &
+                                        "strCompanyName = '" & Replace(CompanyName, "'", "''") & "', " &
+                                        "strVisualRestrictions = '" & Replace(VisualRestrictions, "'", "''") & "', " &
+                                        "strDatePassed = '" & datePassed & "', " &
+                                        "datTransactionDate = '" & TransactionDate & "' " &
                                         "where strScoreKey = '" & Replace(txtScoreKey.Text, "'", "''") & "' "
                                     Case Else
                                         Exit Sub
@@ -2013,8 +2013,8 @@ Public Class SmokeSchool
             Dim i As Integer = 0
 
             If txtScoreKey.Text <> "" Then
-                SQL = "Select strScoreKey " & _
-                "From AIRBRANCH.SmokeSchoolScores " & _
+                SQL = "Select strScoreKey " &
+                "From AIRBRANCH.SmokeSchoolScores " &
                 "where strScoreKey =  '" & Replace(txtScoreKey.Text, "'", "''") & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2035,7 +2035,7 @@ Public Class SmokeSchool
 
                         Exit Sub
                     Case 1
-                        SQL = "Delete AIRBRANCH.SmokeSchoolScores " & _
+                        SQL = "Delete AIRBRANCH.SmokeSchoolScores " &
                         "where strScoreKey = '" & Replace(txtScoreKey.Text, "'", "''") & "' "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2046,14 +2046,14 @@ Public Class SmokeSchool
                         dr.Close()
                     Case Else
                         Dim Result As DialogResult
-                        Result = MessageBox.Show("There are " & i.ToString & " entries for this individual. " & vbCrLf & _
-                                                 "Do you want to remove all the entries? " & vbCrLf & _
-                                                 "If you need assistance contact the Data Management Unit.", _
-                          "Smoke School", MessageBoxButtons.YesNoCancel, _
+                        Result = MessageBox.Show("There are " & i.ToString & " entries for this individual. " & vbCrLf &
+                                                 "Do you want to remove all the entries? " & vbCrLf &
+                                                 "If you need assistance contact the Data Management Unit.",
+                          "Smoke School", MessageBoxButtons.YesNoCancel,
                             MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                         Select Case Result
                             Case DialogResult.Yes
-                                SQL = "Delete AIRBRANCH.SmokeSchoolScores " & _
+                                SQL = "Delete AIRBRANCH.SmokeSchoolScores " &
                                 "where strScoreKey = '" & Replace(txtScoreKey.Text, "'", "''") & "' "
 
                                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2119,7 +2119,7 @@ Public Class SmokeSchool
             colon = InStr(shortLocation, ":")
             shortLocation = Mid(shortLocation, 1, colon - 1)
 
-            SQL = "select * from airbranch.SmokeSchoolScores " & _
+            SQL = "select * from airbranch.SmokeSchoolScores " &
             "where strLocationTerm = '" & shortLocation & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2131,7 +2131,7 @@ Public Class SmokeSchool
             dr.Close()
 
             If recExist = True Then
-                SQL = "select * from airbranch.SmokeSchoolScores " & _
+                SQL = "select * from airbranch.SmokeSchoolScores " &
                 "where strLocationTerm = '" & shortLocation & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2525,9 +2525,9 @@ Public Class SmokeSchool
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "select * from airbranch.SmokeSchoolScores " & _
-            "where strLocationTerm = '" & LocationTerm & "'" & _
-            "  and strPassFailNoShow = '" & txtPassFailNoShow.Text & "'" & _
+            SQL = "select * from airbranch.SmokeSchoolScores " &
+            "where strLocationTerm = '" & LocationTerm & "'" &
+            "  and strPassFailNoShow = '" & txtPassFailNoShow.Text & "'" &
             " order by strName"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2549,9 +2549,9 @@ Public Class SmokeSchool
                 firstName = dr.Item("strFirstName")
                 lastName = dr.Item("strlastName")
 
-                SQL = "select * from airbranch.SmokeSchoolReservation " & _
-                "where strLastName = '" & Replace(lastName, "'", "''") & "' " & _
-                "and strFirstName = '" & Replace(firstName, "'", "''") & "' " & _
+                SQL = "select * from airbranch.SmokeSchoolReservation " &
+                "where strLastName = '" & Replace(lastName, "'", "''") & "' " &
+                "and strFirstName = '" & Replace(firstName, "'", "''") & "' " &
                 "and strLocationDate = '" & cboSchedule3.SelectedItem & "'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2588,7 +2588,7 @@ Public Class SmokeSchool
                 End While
                 dr2.Close()
 
-                SQL = "select * from airbranch.SmokeSchoolSchedule " & _
+                SQL = "select * from airbranch.SmokeSchoolSchedule " &
                 "where strScheduleShort = '" & LocationTerm & "'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2602,43 +2602,43 @@ Public Class SmokeSchool
                 End While
                 dr2.Close()
 
-                SQL = "insert into airbranch.SmokeSchoolPrintInfo (" & _
-                       "intStudentID, " & _
-                       "strName, " & _
-                       "strLocationTerm, " & _
-                       "strDatePassed, " & _
-                       "strCompanyName, " & _
-                       "strAddress1, " & _
-                       "strAddress2, " & _
-                       "strCity, " & _
-                       "strState, " & _
-                       "strZip, " & _
-                       "strFirstName, " & _
-                       "strLastName, " & _
-                       "strSite, " & _
-                       "strStartDate, " & _
-                       "strEndDate, " & _
-                       "strSchedule, " & _
-                       "strVisualRestrictions, " & _
-                       "strPassFailNoShow) " & _
-                       "values (" & _
-                       "'" & StudentID & "', " & _
-                       "'" & Replace(name, "'", "''") & "', " & _
-                       "'" & Replace(LocationTerm, "'", "''") & "', " & _
-                       "'" & Replace(datePassed, "'", "''") & "', " & _
-                       "'" & Replace(FacilityName, "'", "''") & "', " & _
-                       "'" & Replace(Address1, "'", "''") & "', " & _
-                       "'" & Replace(Address2, "'", "''") & "', " & _
-                       "'" & Replace(city, "'", "''") & "', " & _
-                       "'" & Replace(state, "'", "''") & "', " & _
-                       "'" & Replace(zip, "'", "''") & "', " & _
-                       "'" & Replace(firstName, "'", "''") & "', " & _
-                       "'" & Replace(lastName, "'", "''") & "', " & _
-                       "'" & Replace(site, "'", "''") & "', " & _
-                       "'" & Replace(startDate, "'", "''") & "', " & _
-                       "'" & Replace(endDate, "'", "''") & "', " & _
-                       "'" & Replace(schedule, "'", "''") & "', " & _
-                       "'" & Replace(VisualRestrictions, "'", "''") & "', " & _
+                SQL = "insert into airbranch.SmokeSchoolPrintInfo (" &
+                       "intStudentID, " &
+                       "strName, " &
+                       "strLocationTerm, " &
+                       "strDatePassed, " &
+                       "strCompanyName, " &
+                       "strAddress1, " &
+                       "strAddress2, " &
+                       "strCity, " &
+                       "strState, " &
+                       "strZip, " &
+                       "strFirstName, " &
+                       "strLastName, " &
+                       "strSite, " &
+                       "strStartDate, " &
+                       "strEndDate, " &
+                       "strSchedule, " &
+                       "strVisualRestrictions, " &
+                       "strPassFailNoShow) " &
+                       "values (" &
+                       "'" & StudentID & "', " &
+                       "'" & Replace(name, "'", "''") & "', " &
+                       "'" & Replace(LocationTerm, "'", "''") & "', " &
+                       "'" & Replace(datePassed, "'", "''") & "', " &
+                       "'" & Replace(FacilityName, "'", "''") & "', " &
+                       "'" & Replace(Address1, "'", "''") & "', " &
+                       "'" & Replace(Address2, "'", "''") & "', " &
+                       "'" & Replace(city, "'", "''") & "', " &
+                       "'" & Replace(state, "'", "''") & "', " &
+                       "'" & Replace(zip, "'", "''") & "', " &
+                       "'" & Replace(firstName, "'", "''") & "', " &
+                       "'" & Replace(lastName, "'", "''") & "', " &
+                       "'" & Replace(site, "'", "''") & "', " &
+                       "'" & Replace(startDate, "'", "''") & "', " &
+                       "'" & Replace(endDate, "'", "''") & "', " &
+                       "'" & Replace(schedule, "'", "''") & "', " &
+                       "'" & Replace(VisualRestrictions, "'", "''") & "', " &
                        "'" & Replace(PassFailNoShow, "'", "''") & "') "
 
 
@@ -2715,10 +2715,10 @@ Public Class SmokeSchool
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "select * from airbranch.SmokeSchoolScores " & _
-            "where strLocationTerm = '" & LocationTerm & "'" & _
-            "  and strPassFailNoShow = '" & txtPassFailNoShow.Text & "'" & _
-            "  and strName = '" & Replace(txtStudentName3.Text, "'", "''") & "'" & _
+            SQL = "select * from airbranch.SmokeSchoolScores " &
+            "where strLocationTerm = '" & LocationTerm & "'" &
+            "  and strPassFailNoShow = '" & txtPassFailNoShow.Text & "'" &
+            "  and strName = '" & Replace(txtStudentName3.Text, "'", "''") & "'" &
             " order by strName"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2737,8 +2737,8 @@ Public Class SmokeSchool
                 FacilityName = dr.Item("strCompanyName")
                 StudentID = dr.Item("intStudentID")
 
-                SQL = "select * from airbranch.SmokeSchoolReservation " & _
-                       "where numUserID = '" & Replace(StudentID, "'", "''") & "' " & _
+                SQL = "select * from airbranch.SmokeSchoolReservation " &
+                       "where numUserID = '" & Replace(StudentID, "'", "''") & "' " &
                        "and strLocationDate = '" & cboSchedule3.SelectedItem & "'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2775,7 +2775,7 @@ Public Class SmokeSchool
                 End While
                 dr2.Close()
 
-                SQL = "select * from airbranch.SmokeSchoolSchedule " & _
+                SQL = "select * from airbranch.SmokeSchoolSchedule " &
                 "where strScheduleShort = '" & LocationTerm & "'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2789,43 +2789,43 @@ Public Class SmokeSchool
                 End While
                 dr2.Close()
 
-                SQL = "insert into airbranch.SmokeSchoolPrintInfo (" & _
-                       "intStudentID, " & _
-                       "strName, " & _
-                       "strLocationTerm, " & _
-                       "strDatePassed, " & _
-                       "strCompanyName, " & _
-                       "strAddress1, " & _
-                       "strAddress2, " & _
-                       "strCity, " & _
-                       "strState, " & _
-                       "strZip, " & _
-                       "strFirstName, " & _
-                       "strLastName, " & _
-                       "strSite, " & _
-                       "strStartDate, " & _
-                       "strEndDate, " & _
-                       "strSchedule, " & _
-                       "strVisualRestrictions, " & _
-                       "strPassFailNoShow) " & _
-                       "values (" & _
-                       "'" & StudentID & "', " & _
-                       "'" & Replace(name, "'", "''") & "', " & _
-                       "'" & Replace(LocationTerm, "'", "''") & "', " & _
-                       "'" & Replace(datePassed, "'", "''") & "', " & _
-                       "'" & Replace(FacilityName, "'", "''") & "', " & _
-                       "'" & Replace(Address1, "'", "''") & "', " & _
-                       "'" & Replace(Address2, "'", "''") & "', " & _
-                       "'" & Replace(city, "'", "''") & "', " & _
-                       "'" & Replace(state, "'", "''") & "', " & _
-                       "'" & Replace(zip, "'", "''") & "', " & _
-                       "'" & Replace(firstName, "'", "''") & "', " & _
-                       "'" & Replace(lastName, "'", "''") & "', " & _
-                       "'" & Replace(site, "'", "''") & "', " & _
-                       "'" & Replace(startDate, "'", "''") & "', " & _
-                       "'" & Replace(endDate, "'", "''") & "', " & _
-                       "'" & Replace(schedule, "'", "''") & "', " & _
-                       "'" & Replace(VisualRestrictions, "'", "''") & "', " & _
+                SQL = "insert into airbranch.SmokeSchoolPrintInfo (" &
+                       "intStudentID, " &
+                       "strName, " &
+                       "strLocationTerm, " &
+                       "strDatePassed, " &
+                       "strCompanyName, " &
+                       "strAddress1, " &
+                       "strAddress2, " &
+                       "strCity, " &
+                       "strState, " &
+                       "strZip, " &
+                       "strFirstName, " &
+                       "strLastName, " &
+                       "strSite, " &
+                       "strStartDate, " &
+                       "strEndDate, " &
+                       "strSchedule, " &
+                       "strVisualRestrictions, " &
+                       "strPassFailNoShow) " &
+                       "values (" &
+                       "'" & StudentID & "', " &
+                       "'" & Replace(name, "'", "''") & "', " &
+                       "'" & Replace(LocationTerm, "'", "''") & "', " &
+                       "'" & Replace(datePassed, "'", "''") & "', " &
+                       "'" & Replace(FacilityName, "'", "''") & "', " &
+                       "'" & Replace(Address1, "'", "''") & "', " &
+                       "'" & Replace(Address2, "'", "''") & "', " &
+                       "'" & Replace(city, "'", "''") & "', " &
+                       "'" & Replace(state, "'", "''") & "', " &
+                       "'" & Replace(zip, "'", "''") & "', " &
+                       "'" & Replace(firstName, "'", "''") & "', " &
+                       "'" & Replace(lastName, "'", "''") & "', " &
+                       "'" & Replace(site, "'", "''") & "', " &
+                       "'" & Replace(startDate, "'", "''") & "', " &
+                       "'" & Replace(endDate, "'", "''") & "', " &
+                       "'" & Replace(schedule, "'", "''") & "', " &
+                       "'" & Replace(VisualRestrictions, "'", "''") & "', " &
                        "'" & Replace(PassFailNoShow, "'", "''") & "') "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3461,7 +3461,7 @@ Public Class SmokeSchool
             If txtsortnbr.Text = "1" Then
                 SQL = "select count(*) as numberOfStudents from airbranch.SmokeSchoolReservation "
             Else
-                SQL = "select count(*) as numberOfStudents from airbranch.SmokeSchoolReservation " & _
+                SQL = "select count(*) as numberOfStudents from airbranch.SmokeSchoolReservation " &
                 "where strLocationDate = '" & cboSchedule1.SelectedItem & "'"
             End If
 
@@ -3488,9 +3488,9 @@ Public Class SmokeSchool
             Dim cnt As Decimal
             Dim locationDate As String = cboSchedule1.SelectedItem
 
-            SQL = "select count(*) as numberOfStudents " & _
-                  "from airbranch.SmokeSchoolReservation " & _
-                  "where strLocationDate = '" & locationDate & "'" & _
+            SQL = "select count(*) as numberOfStudents " &
+                  "from airbranch.SmokeSchoolReservation " &
+                  "where strLocationDate = '" & locationDate & "'" &
                   "and strLectureYesNo = 'YES'"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3516,7 +3516,7 @@ Public Class SmokeSchool
             Dim dr As OracleDataReader
             Dim cnt As Decimal
 
-            SQL = "select count(*) as numberOfStudents3 from airbranch.SmokeSchoolReservation " & _
+            SQL = "select count(*) as numberOfStudents3 from airbranch.SmokeSchoolReservation " &
                   "where strLocationDate = '" & txtSchedule2.Text & "'"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3583,7 +3583,7 @@ Public Class SmokeSchool
             Else
                 locationDate = cboSchedule1.SelectedItem
 
-                SQL = "select * from airbranch.SmokeSchoolReservation " & _
+                SQL = "select * from airbranch.SmokeSchoolReservation " &
                 "where upper(strLocationDate) = upper('" & Replace(locationDate, "'", "''") & "')"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3596,10 +3596,10 @@ Public Class SmokeSchool
                     FirstName = dr.Item("strFirstName")
                     LastName = dr.Item("strLastName")
 
-                    SQL = "update airbranch.SmokeSchoolReservation " & _
-                          "set numUserID = " & studentID & " " & _
-                          " where upper(strLocationDate) = upper('" & Replace(locationDate, "'", "''") & "')" & _
-                          " and upper(strFirstName) = upper('" & Replace(FirstName, "'", "''") & "')" & _
+                    SQL = "update airbranch.SmokeSchoolReservation " &
+                          "set numUserID = " & studentID & " " &
+                          " where upper(strLocationDate) = upper('" & Replace(locationDate, "'", "''") & "')" &
+                          " and upper(strFirstName) = upper('" & Replace(FirstName, "'", "''") & "')" &
                           " and upper(strLastName) = upper('" & Replace(LastName, "'", "''") & "')"
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3624,8 +3624,8 @@ Public Class SmokeSchool
     End Sub
     Private Sub btnActivate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnActivate.Click
         Try
-            SQL = "Select strUserEmail " & _
-            "from AIRBRANCH.OlapUserLogIn " & _
+            SQL = "Select strUserEmail " &
+            "from AIRBRANCH.OlapUserLogIn " &
             "where strUserEmail = '" & Replace(UCase(txtEmailAddress.Text), "'", "''") & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3636,8 +3636,8 @@ Public Class SmokeSchool
             recExist = dr.Read
             dr.Close()
             If recExist = True Then
-                Dim updateString As String = "UPDATE AIRBRANCH.OlapUserLogin " & _
-                          "SET strconfirm = to_char(sysdate, 'yyyy/mm/dd hh:mi:ss') " & _
+                Dim updateString As String = "UPDATE AIRBRANCH.OlapUserLogin " &
+                          "SET strconfirm = to_char(sysdate, 'yyyy/mm/dd hh:mi:ss') " &
                           "WHERE struseremail = '" & Replace(UCase(txtEmailAddress.Text), "'", "''") & "' "
                 cmd = New OracleCommand(updateString, CurrentConnection)
 
@@ -3678,14 +3678,14 @@ Public Class SmokeSchool
     End Sub
 
     Public Function GetSmokeSchoolClassesByTerm(ByVal year As String, ByVal season As String) As DataTable
-        Dim query As String = "SELECT strLocation, strStartDate, strEndDate " & _
-            " FROM AIRBRANCH.SmokeSchoolSchedule " & _
-            " WHERE stryear = :pYear " & _
+        Dim query As String = "SELECT strLocation, strStartDate, strEndDate " &
+            " FROM AIRBRANCH.SmokeSchoolSchedule " &
+            " WHERE stryear = :pYear " &
             " AND strTerm   = :pTerm "
 
-        Dim parameters As OracleParameter() = New OracleParameter() { _
-            New OracleParameter("pYear", year), _
-            New OracleParameter("pTerm", season) _
+        Dim parameters As OracleParameter() = New OracleParameter() {
+            New OracleParameter("pYear", year),
+            New OracleParameter("pTerm", season)
         }
 
         Dim dataTable As DataTable = DB.GetDataTable(query, parameters)
@@ -3693,12 +3693,12 @@ Public Class SmokeSchool
     End Function
 
     Public Function GetSmokeSchoolPassingGradesByTerm(ByVal year As String, ByVal season As String) As DataTable
-        Dim query As String = "SELECT strLastName, strFirstName, strLocationTerm, " & _
-            " SUBSTR(strlocationterm, instr(strlocationterm, '-', 1, 1)+2) strLocation, " & _
-            " row_number () over (partition BY strlocationterm order by strlastname, strfirstname DESC) CertId " & _
-            " FROM AIRBRANCH.SmokeSchoolScores " & _
-            " WHERE strLocationTerm LIKE :pTerm " & _
-            " AND strPassFailNoShow = 'Pass' " & _
+        Dim query As String = "SELECT strLastName, strFirstName, strLocationTerm, " &
+            " SUBSTR(strlocationterm, instr(strlocationterm, '-', 1, 1)+2) strLocation, " &
+            " row_number () over (partition BY strlocationterm order by strlastname, strfirstname DESC) CertId " &
+            " FROM AIRBRANCH.SmokeSchoolScores " &
+            " WHERE strLocationTerm LIKE :pTerm " &
+            " AND strPassFailNoShow = 'Pass' " &
             " ORDER BY strLocation, strLastName, strfirstname "
 
         '2013 Fall - %'

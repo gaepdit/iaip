@@ -11,7 +11,7 @@ Public Class ISMPConfidentialData
 
 
     Private Sub DEVConfidentialData_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        
+
         Try
             Panel1.Text = "Mark field to be redacted..."
             Panel2.Text = CurrentUser.AlphaName
@@ -40,8 +40,8 @@ Public Class ISMPConfidentialData
 #Region "Page Load"
     Sub LoadData()
         Try
-            SQL = "Select strConfidentialData, strDocumentType  " & _
-            "from AIRBRANCH.ISMPReportInformation " & _
+            SQL = "Select strConfidentialData, strDocumentType  " &
+            "from AIRBRANCH.ISMPReportInformation " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -2365,7 +2365,7 @@ Public Class ISMPConfidentialData
                         Else
                             chbMethod9OtherInfo.Checked = False
                         End If
-                    
+
                     Case "Q" 'PTE
                         If Mid(ConfidentialData, 26, 1) = "1" Then
                             Me.chbMemoAppRequire.Checked = True
@@ -4557,8 +4557,8 @@ Public Class ISMPConfidentialData
                 Else
                     'ConfidentialData = ConfidentialData
                 End If
-                SQL = "Update AIRBRANCH.ISMPReportInformation set " & _
-                "strConfidentialData = '" & Replace(ConfidentialData, "'", "''") & "' " & _
+                SQL = "Update AIRBRANCH.ISMPReportInformation set " &
+                "strConfidentialData = '" & Replace(ConfidentialData, "'", "''") & "' " &
                 "where strReferencenumber = '" & txtReferenceNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then

@@ -6,16 +6,16 @@ Namespace DAL
 
         Public Function LogQuery(ByVal kvp As Generic.KeyValuePair(Of String, Integer)) As Boolean
 
-            Dim query As String = _
-                " INSERT INTO AIRBRANCH.IAIP_LOG_QUERYGENERATOR " & _
-                " (USERSUBMITTING, DATESUBMITTED, ROWSRETURNED, QUERYSUBMITTED) " & _
+            Dim query As String =
+                " INSERT INTO AIRBRANCH.IAIP_LOG_QUERYGENERATOR " &
+                " (USERSUBMITTING, DATESUBMITTED, ROWSRETURNED, QUERYSUBMITTED) " &
                 " VALUES (:UserSubmitting, :DateSubmitted, :RowsReturned, :QuerySubmitted) "
 
-            Dim parameters As OracleParameter() = { _
-                New OracleParameter("UserSubmitting", CurrentUser.UserID), _
-                New OracleParameter("DateSubmitted", Date.Now), _
-                New OracleParameter("RowsReturned", kvp.Value), _
-                New OracleParameter("QuerySubmitted", kvp.Key) _
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("UserSubmitting", CurrentUser.UserID),
+                New OracleParameter("DateSubmitted", Date.Now),
+                New OracleParameter("RowsReturned", kvp.Value),
+                New OracleParameter("QuerySubmitted", kvp.Key)
             }
 
             Return DB.RunCommand(query, parameters, failSilently:=True)

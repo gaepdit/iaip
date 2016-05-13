@@ -9,7 +9,7 @@ Public Class ISMPMemo
     Dim panel3 As New StatusBarPanel
 
     Private Sub ISMPMemo_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        
+
         Try
             TCISMPMemo.TabPages.Remove(TPFuturePrintOption)
 
@@ -83,16 +83,16 @@ Public Class ISMPMemo
                     CurrentConnection.Open()
                 End If
 
-                SQL = "Select strReferenceNumber " & _
-                "from AIRBRANCH.ISMPMaster " & _
+                SQL = "Select strReferenceNumber " &
+                "from AIRBRANCH.ISMPMaster " &
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
                 cmd = New OracleCommand(SQL, CurrentConnection)
 
                 dr = cmd.ExecuteReader
                 Dim recExist As Boolean = dr.Read
                 If recExist = True Then
-                    SQL = "Select strMemorandumField " & _
-                    "from AIRBRANCH.ISMPTestREportMemo " & _
+                    SQL = "Select strMemorandumField " &
+                    "from AIRBRANCH.ISMPTestREportMemo " &
                     "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
                     cmd = New OracleCommand(SQL, CurrentConnection)
 
@@ -105,13 +105,13 @@ Public Class ISMPMemo
                         MemoTemp = dr.Item("StrMemorandumField")
                         MemoTemp = MemoTemp & vbCrLf & Replace(txtMemoIN.Text, " '", "''")
 
-                        SQL = "Update AIRBRANCH.ISMPTestREportMemo set " & _
-                        "strMemorandumField = '" & Replace(MemoTemp, "'", "''") & "' " & _
+                        SQL = "Update AIRBRANCH.ISMPTestREportMemo set " &
+                        "strMemorandumField = '" & Replace(MemoTemp, "'", "''") & "' " &
                         "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
                     Else
-                        SQL = "Insert into AIRBRANCH.ISMPTestREportMemo " & _
-                        "(strReferenceNumber, strMemorandumField) " & _
-                        "values " & _
+                        SQL = "Insert into AIRBRANCH.ISMPTestREportMemo " &
+                        "(strReferenceNumber, strMemorandumField) " &
+                        "values " &
                         "('" & txtReferenceNumber.Text & "', '" & Replace(txtMemoIN.Text, "'", "''") & "')"
                     End If
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -138,8 +138,8 @@ Public Class ISMPMemo
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
-                SQL = "Select strMemorandumField " & _
-                "from AIRBRANCH.ISMPTestREportMemo " & _
+                SQL = "Select strMemorandumField " &
+                "from AIRBRANCH.ISMPTestREportMemo " &
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
                 cmd = New OracleCommand(SQL, CurrentConnection)
 

@@ -1,6 +1,5 @@
 Imports Oracle.ManagedDataAccess.Client
-Imports System.Collections.Generic
-Imports System.Linq
+Imports Iaip.SharedData
 
 Public Class SSCPComplianceLog
     Dim SQL, SQL2, SQL3 As String
@@ -20,7 +19,7 @@ Public Class SSCPComplianceLog
     Dim dtStaff As DataTable
 
     Private Sub DevWorkEntry_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        
+
         Try
             Panel1.Text = "Select a Function..."
             Panel2.Text = CurrentUser.AlphaName
@@ -114,7 +113,7 @@ Public Class SSCPComplianceLog
             daComplianceUnit.Fill(dsComplianceUnit, "ComplianceUnit")
             daDistrictUnit.Fill(dsDistrictUnit, "DistrictUnit")
 
-            dtStaff = SharedData.GetTable(SharedData.Tables.AllComplianceStaff)
+            dtStaff = GetSharedData(SharedTable.AllComplianceStaff)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -281,144 +280,144 @@ Public Class SSCPComplianceLog
 
         Try
 
-            SQL = "select " & _
-            "ALLDATA.AIRSNUMBER, STRFACILITYNAME, " & _
-            "STRCLASS, WORKEVENT, " & _
-            "StaffResponsible, UniqueNumber, " & _
-            "TO_DATE(RECEIVEDDATE, 'dd-Mon-YY') as RECEIVEDDATE, " & _
-            "TO_DATE(INSPECTIONDATE, 'dd-Mon-YY') as INSPECTIONDATE, " & _
-            "TO_DATE(FCEDATE, 'dd-Mon-YY') as FCEDATE, " & _
-            "TO_DATE(DISCOVERYDATE, 'dd-Mon-YY') as DISCOVERYDATE, " & _
-            "NUMUSERID, FLAG, COMPLETESTATUS, " & _
-            "CURRENTSTATUS, " & _
-            "to_date(INSDATE, 'dd-Mon-YY') as InsDate, " & _
-            "strNotificationType, " & _
-            "TO_DATE(LASTMODIFIED) as LASTMODIFIED " & _
-            "from " & _
-            "(select " & _
-            "SUBSTR(AIRBRANCH.SSCPITEMMASTER.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
-            "STRFACILITYNAME, STRCLASS, " & _
-            "case " & _
-            "when STREVENTTYPE = '05' then (strActivityName||'-'||strNotificationDesc) " & _
-            "else STRACTIVITYNAME " & _
-            "end WorkEvent, " & _
-            "(STRLASTNAME||', '||STRFIRSTNAME) as STAFFRESPONSIBLE, " & _
-            "AIRBRANCH.SSCPITEMMASTER.STRTRACKINGNUMBER as UNIQUENUMBER, " & _
-            "to_char(AIRBRANCH.SSCPITEMMASTER.DATRECEIVEDDATE) as RECEIVEDDATE, " & _
-            "case " & _
-            "when TO_CHAR(DATINSPECTIONDATESTART) is null then '' " & _
-            "else TO_CHAR(DATINSPECTIONDATESTART) " & _
-            "end INSPECTIONDATE, " & _
-            "'' as FCEDATE, " & _
-            "'' as DISCOVERYDATE, " & _
-            "to_char(AIRBRANCH.SSCPITEMMASTER.STRRESPONSIBLESTAFF) as NUMUSERID, " & _
-            "case " & _
-            "when STREVENTTYPE = '01' then 'IT' " & _
-            "when STREVENTTYPE = '02' then 'IT' " & _
-            "when STREVENTTYPE = '03' then 'IT' " & _
-            "when STREVENTTYPE = '04' then 'IT' " & _
-            "when STREVENTTYPE = '05' then 'IT' " & _
-            "when STREventType = '07' then 'IT' " & _
-            "end FLAG, " & _
-            "to_char(datCompleteDate) as CompleteStatus, " & _
-            "case " & _
-            "when STRDELETE is not null then 'Deleted' " & _
-            "when DATCOMPLETEDATE is not null then 'Closed' " & _
-            "else 'Open' " & _
-            "end CURRENTSTATUS, " & _
-            "case " & _
-            "when TO_CHAR(DATINSPECTIONDATESTART) is null then '' " & _
-            "else TO_CHAR(DATINSPECTIONDATESTART) " & _
-            "end INSDate, " & _
-            "strNotificationType, " & _
-            "case " & _
-            "when STREVENTTYPE = '01' then AIRBRANCH.SSCPREPORTS.DATMODIFINGDATE " & _
-            "when STREVENTTYPE = '02' then AIRBRANCH.SSCPINSPECTIONS.DATMODIFINGDATE " & _
-            "when STREVENTTYPE = '03' then AIRBRANCH.sscptestreports.datmodifingdate " & _
-            "when STREVENTTYPE = '04' then AIRBRANCH.SSCPACCS.DATMODIFINGDATE  " & _
-            "when STREVENTTYPE = '05' then AIRBRANCH.SSCPNOTIFICATIONS.DATMODIFINGDATE " & _
-            "when strEventType = '07' then AIRBRANCH.SSCPINSPECTIONS.DATMODIFINGDATE " & _
-            "end LASTMODIFIED " & _
-            "from AIRBRANCH.SSCPITEMMASTER, AIRBRANCH.APBFACILITYINFORMATION, " & _
-            "AIRBRANCH.LOOKUPCOMPLIANCEACTIVITIES, AIRBRANCH.EPDUSERPROFILES, " & _
-            "AIRBRANCH.APBHEADERDATA, AIRBRANCH.SSCPINSPECTIONS, " & _
-            "AIRBRANCH.SSCPNOTIFICATIONS, AIRBRANCH.LOOKUPSSCPNOTIFICATIONS, " & _
-            "AIRBRANCH.SSCPREPORTS, AIRBRANCH.SSCPACCS, " & _
-            "AIRBRANCH.sscptestreports " & _
-            "where AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER = AIRBRANCH.SSCPITEMMASTER.STRAIRSNUMBER   " & _
-            "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber " & _
-            "and AIRBRANCH.SSCPITEMMASTER.STREVENTTYPE = AIRBRANCH.LOOKUPCOMPLIANCEACTIVITIES.STRACTIVITYTYPE " & _
-            "and AIRBRANCH.SSCPITEMMASTER.STRRESPONSIBLESTAFF = AIRBRANCH.EPDUSERPROFILES.NUMUSERID  " & _
-            "and AIRBRANCH.SSCPITEMMASTER.STRTRACKINGNUMBER = AIRBRANCH.SSCPINSPECTIONS.STRTRACKINGNUMBER (+) " & _
-            "and AIRBRANCH.SSCPITEMMASTER.STRTRACKINGNUMBER = AIRBRANCH.SSCPNOTIFICATIONS.STRTRACKINGNUMBER (+) " & _
-            "and AIRBRANCH.SSCPNOTIFICATIONS.STRNOTIFICATIONTYPE = AIRBRANCH.LOOKUPSSCPNOTIFICATIONS.STRNOTIFICATIONKEY  (+) " & _
-            "and AIRBRANCH.SSCPITEMMASTER.STRTRACKINGNUMBER = AIRBRANCH.SSCPREPORTS.STRTRACKINGNUMBER (+) " & _
-            "and AIRBRANCH.SSCPITEMMASTER.STRTRACKINGNUMBER = AIRBRANCH.SSCPACCS.STRTRACKINGNUMBER (+) " & _
-            "and AIRBRANCH.SSCPITEMMASTER.STRTRACKINGNUMBER = AIRBRANCH.SSCPTESTREPORTS.STRTRACKINGNUMBER (+) " & _
-            "union " & _
-            "select " & _
-            "SUBSTR(AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
-            "strFacilityName, strClass, " & _
-            "'Full Compliance Evaluation' as WorkEvent, " & _
-            "(strLastName|| ', ' ||strFirstName) as StaffResponsible, " & _
-            "AIRBRANCH.SSCPFCEMaster.strFCENumber as UniqueNumber, " & _
-            "'' as ReceivedDate, '' as INSPECTIONDATE, " & _
-            "to_char(datFCECompleted) as FCEDate, " & _
-            "'' as DISCOVERYDATE, " & _
-            "to_char(numUserID) as numUserID, " & _
-            "'FC' as FLAG, " & _
-            "to_char(datFCECompleted) as CompleteStatus, " & _
-            "case " & _
-            "when datFCECompleted is Not Null then 'Closed' " & _
-            "else 'Open' " & _
-            "End CurrentStatus, " & _
-            "'' AS INSDate, " & _
-            "'' as strNotificationType, " & _
-            "AIRBRANCH.SSCPFCE.datModifingDate as LastModified " & _
-            "from " & _
-            "AIRBRANCH.APBFACILITYINFORMATION, AIRBRANCH.SSCPFCEMASTER, " & _
-            "AIRBRANCH.SSCPFCE, AIRBRANCH.EPDUSERPROFILES, " & _
-            "AIRBRANCH.APBHeaderData " & _
-            "where AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER = AIRBRANCH.SSCPFCEMASTER.STRAIRSNUMBER " & _
-            "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber  " & _
-            "and AIRBRANCH.EPDUSERPROFILES.NUMUSERID = AIRBRANCH.SSCPFCE.STRREVIEWER  " & _
-            "and AIRBRANCH.SSCPFCEMaster.strFCENumber = AIRBRANCH.SSCPFCE.strFCENumber  " & _
-            "union " & _
-            "select " & _
-            "SUBSTR(AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
-            "STRFACILITYNAME, STRCLASS, " & _
-            "'Enforcement-'||stractiontype as WorkEvent, " & _
-            "(strLastName|| ', ' ||strFirstName) as StaffResponsible, " & _
-            "AIRBRANCH.SSCP_AuditedEnforcement.strEnforcementNumber as UniqueNumber, " & _
-            "'' as ReceivedDate, '' as InspectionDate, '' as FCEDate, " & _
-            "TO_CHAR(DATDISCOVERYDATE) as DISCOVERYDATE, " & _
-            "to_char(numUserID) as numuserID, " & _
-            "'EN' as FLAG, " & _
-            "to_char(datEnforcementFinalized) as CompleteStatus, " & _
-            "case " & _
-              "when datEnforcementFinalized is Not Null then 'Closed' " & _
-            "else 'Open' " & _
-            "End CurrentStatus, " & _
-            "'' AS INSDate,  " & _
-            "'' as strNotificationType, " & _
-            "AIRBRANCH.SSCP_AuditedEnforcement.datModifingDate as LASTMODIFIED " & _
-            "from " & _
-            "AIRBRANCH.APBFACILITYINFORMATION, AIRBRANCH.SSCP_AuditedEnforcement, " & _
-            "AIRBRANCH.EPDUSERPROFILES, AIRBRANCH.APBHEADERDATA " & _
-            "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber " & _
-            "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCP_AuditedEnforcement.numStaffResponsible " & _
-            "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber) AllData " & _
-            "left join (select " & _
-            "SUBSTR(AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
-            "NUMSSCPENGINEER " & _
-            "from AIRBRANCH.SSCPINSPECTIONSREQUIREd, " & _
-            "(select " & _
-            "max(INTYEAR) MAXYEAR,  AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER " & _
-            "from AIRBRANCH.SSCPINSPECTIONSREQUIRED " & _
-            "group by AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER) MAXRESULTS " & _
-            "where AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = MAXRESULTS.STRAIRSNUMBER " & _
-            "and AIRBRANCH.SSCPINSPECTIONSREQUIRED.INTYEAR = MAXRESULTS.MAXYEAR ) RESPONSIBLESTAFF " & _
-            "on Alldata.AIRSNumber = REsponsibleStaff.AIRSNumber " & _
+            SQL = "select " &
+            "ALLDATA.AIRSNUMBER, STRFACILITYNAME, " &
+            "STRCLASS, WORKEVENT, " &
+            "StaffResponsible, UniqueNumber, " &
+            "TO_DATE(RECEIVEDDATE, 'dd-Mon-YY') as RECEIVEDDATE, " &
+            "TO_DATE(INSPECTIONDATE, 'dd-Mon-YY') as INSPECTIONDATE, " &
+            "TO_DATE(FCEDATE, 'dd-Mon-YY') as FCEDATE, " &
+            "TO_DATE(DISCOVERYDATE, 'dd-Mon-YY') as DISCOVERYDATE, " &
+            "NUMUSERID, FLAG, COMPLETESTATUS, " &
+            "CURRENTSTATUS, " &
+            "to_date(INSDATE, 'dd-Mon-YY') as InsDate, " &
+            "strNotificationType, " &
+            "TO_DATE(LASTMODIFIED) as LASTMODIFIED " &
+            "from " &
+            "(select " &
+            "SUBSTR(AIRBRANCH.SSCPITEMMASTER.STRAIRSNUMBER, 5) as AIRSNUMBER, " &
+            "STRFACILITYNAME, STRCLASS, " &
+            "case " &
+            "when STREVENTTYPE = '05' then (strActivityName||'-'||strNotificationDesc) " &
+            "else STRACTIVITYNAME " &
+            "end WorkEvent, " &
+            "(STRLASTNAME||', '||STRFIRSTNAME) as STAFFRESPONSIBLE, " &
+            "AIRBRANCH.SSCPITEMMASTER.STRTRACKINGNUMBER as UNIQUENUMBER, " &
+            "to_char(AIRBRANCH.SSCPITEMMASTER.DATRECEIVEDDATE) as RECEIVEDDATE, " &
+            "case " &
+            "when TO_CHAR(DATINSPECTIONDATESTART) is null then '' " &
+            "else TO_CHAR(DATINSPECTIONDATESTART) " &
+            "end INSPECTIONDATE, " &
+            "'' as FCEDATE, " &
+            "'' as DISCOVERYDATE, " &
+            "to_char(AIRBRANCH.SSCPITEMMASTER.STRRESPONSIBLESTAFF) as NUMUSERID, " &
+            "case " &
+            "when STREVENTTYPE = '01' then 'IT' " &
+            "when STREVENTTYPE = '02' then 'IT' " &
+            "when STREVENTTYPE = '03' then 'IT' " &
+            "when STREVENTTYPE = '04' then 'IT' " &
+            "when STREVENTTYPE = '05' then 'IT' " &
+            "when STREventType = '07' then 'IT' " &
+            "end FLAG, " &
+            "to_char(datCompleteDate) as CompleteStatus, " &
+            "case " &
+            "when STRDELETE is not null then 'Deleted' " &
+            "when DATCOMPLETEDATE is not null then 'Closed' " &
+            "else 'Open' " &
+            "end CURRENTSTATUS, " &
+            "case " &
+            "when TO_CHAR(DATINSPECTIONDATESTART) is null then '' " &
+            "else TO_CHAR(DATINSPECTIONDATESTART) " &
+            "end INSDate, " &
+            "strNotificationType, " &
+            "case " &
+            "when STREVENTTYPE = '01' then AIRBRANCH.SSCPREPORTS.DATMODIFINGDATE " &
+            "when STREVENTTYPE = '02' then AIRBRANCH.SSCPINSPECTIONS.DATMODIFINGDATE " &
+            "when STREVENTTYPE = '03' then AIRBRANCH.sscptestreports.datmodifingdate " &
+            "when STREVENTTYPE = '04' then AIRBRANCH.SSCPACCS.DATMODIFINGDATE  " &
+            "when STREVENTTYPE = '05' then AIRBRANCH.SSCPNOTIFICATIONS.DATMODIFINGDATE " &
+            "when strEventType = '07' then AIRBRANCH.SSCPINSPECTIONS.DATMODIFINGDATE " &
+            "end LASTMODIFIED " &
+            "from AIRBRANCH.SSCPITEMMASTER, AIRBRANCH.APBFACILITYINFORMATION, " &
+            "AIRBRANCH.LOOKUPCOMPLIANCEACTIVITIES, AIRBRANCH.EPDUSERPROFILES, " &
+            "AIRBRANCH.APBHEADERDATA, AIRBRANCH.SSCPINSPECTIONS, " &
+            "AIRBRANCH.SSCPNOTIFICATIONS, AIRBRANCH.LOOKUPSSCPNOTIFICATIONS, " &
+            "AIRBRANCH.SSCPREPORTS, AIRBRANCH.SSCPACCS, " &
+            "AIRBRANCH.sscptestreports " &
+            "where AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER = AIRBRANCH.SSCPITEMMASTER.STRAIRSNUMBER   " &
+            "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber " &
+            "and AIRBRANCH.SSCPITEMMASTER.STREVENTTYPE = AIRBRANCH.LOOKUPCOMPLIANCEACTIVITIES.STRACTIVITYTYPE " &
+            "and AIRBRANCH.SSCPITEMMASTER.STRRESPONSIBLESTAFF = AIRBRANCH.EPDUSERPROFILES.NUMUSERID  " &
+            "and AIRBRANCH.SSCPITEMMASTER.STRTRACKINGNUMBER = AIRBRANCH.SSCPINSPECTIONS.STRTRACKINGNUMBER (+) " &
+            "and AIRBRANCH.SSCPITEMMASTER.STRTRACKINGNUMBER = AIRBRANCH.SSCPNOTIFICATIONS.STRTRACKINGNUMBER (+) " &
+            "and AIRBRANCH.SSCPNOTIFICATIONS.STRNOTIFICATIONTYPE = AIRBRANCH.LOOKUPSSCPNOTIFICATIONS.STRNOTIFICATIONKEY  (+) " &
+            "and AIRBRANCH.SSCPITEMMASTER.STRTRACKINGNUMBER = AIRBRANCH.SSCPREPORTS.STRTRACKINGNUMBER (+) " &
+            "and AIRBRANCH.SSCPITEMMASTER.STRTRACKINGNUMBER = AIRBRANCH.SSCPACCS.STRTRACKINGNUMBER (+) " &
+            "and AIRBRANCH.SSCPITEMMASTER.STRTRACKINGNUMBER = AIRBRANCH.SSCPTESTREPORTS.STRTRACKINGNUMBER (+) " &
+            "union " &
+            "select " &
+            "SUBSTR(AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " &
+            "strFacilityName, strClass, " &
+            "'Full Compliance Evaluation' as WorkEvent, " &
+            "(strLastName|| ', ' ||strFirstName) as StaffResponsible, " &
+            "AIRBRANCH.SSCPFCEMaster.strFCENumber as UniqueNumber, " &
+            "'' as ReceivedDate, '' as INSPECTIONDATE, " &
+            "to_char(datFCECompleted) as FCEDate, " &
+            "'' as DISCOVERYDATE, " &
+            "to_char(numUserID) as numUserID, " &
+            "'FC' as FLAG, " &
+            "to_char(datFCECompleted) as CompleteStatus, " &
+            "case " &
+            "when datFCECompleted is Not Null then 'Closed' " &
+            "else 'Open' " &
+            "End CurrentStatus, " &
+            "'' AS INSDate, " &
+            "'' as strNotificationType, " &
+            "AIRBRANCH.SSCPFCE.datModifingDate as LastModified " &
+            "from " &
+            "AIRBRANCH.APBFACILITYINFORMATION, AIRBRANCH.SSCPFCEMASTER, " &
+            "AIRBRANCH.SSCPFCE, AIRBRANCH.EPDUSERPROFILES, " &
+            "AIRBRANCH.APBHeaderData " &
+            "where AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER = AIRBRANCH.SSCPFCEMASTER.STRAIRSNUMBER " &
+            "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber  " &
+            "and AIRBRANCH.EPDUSERPROFILES.NUMUSERID = AIRBRANCH.SSCPFCE.STRREVIEWER  " &
+            "and AIRBRANCH.SSCPFCEMaster.strFCENumber = AIRBRANCH.SSCPFCE.strFCENumber  " &
+            "union " &
+            "select " &
+            "SUBSTR(AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " &
+            "STRFACILITYNAME, STRCLASS, " &
+            "'Enforcement-'||stractiontype as WorkEvent, " &
+            "(strLastName|| ', ' ||strFirstName) as StaffResponsible, " &
+            "AIRBRANCH.SSCP_AuditedEnforcement.strEnforcementNumber as UniqueNumber, " &
+            "'' as ReceivedDate, '' as InspectionDate, '' as FCEDate, " &
+            "TO_CHAR(DATDISCOVERYDATE) as DISCOVERYDATE, " &
+            "to_char(numUserID) as numuserID, " &
+            "'EN' as FLAG, " &
+            "to_char(datEnforcementFinalized) as CompleteStatus, " &
+            "case " &
+              "when datEnforcementFinalized is Not Null then 'Closed' " &
+            "else 'Open' " &
+            "End CurrentStatus, " &
+            "'' AS INSDate,  " &
+            "'' as strNotificationType, " &
+            "AIRBRANCH.SSCP_AuditedEnforcement.datModifingDate as LASTMODIFIED " &
+            "from " &
+            "AIRBRANCH.APBFACILITYINFORMATION, AIRBRANCH.SSCP_AuditedEnforcement, " &
+            "AIRBRANCH.EPDUSERPROFILES, AIRBRANCH.APBHEADERDATA " &
+            "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber " &
+            "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCP_AuditedEnforcement.numStaffResponsible " &
+            "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber) AllData " &
+            "left join (select " &
+            "SUBSTR(AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER, 5) as AIRSNUMBER, " &
+            "NUMSSCPENGINEER " &
+            "from AIRBRANCH.SSCPINSPECTIONSREQUIREd, " &
+            "(select " &
+            "max(INTYEAR) MAXYEAR,  AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER " &
+            "from AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
+            "group by AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER) MAXRESULTS " &
+            "where AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = MAXRESULTS.STRAIRSNUMBER " &
+            "and AIRBRANCH.SSCPINSPECTIONSREQUIRED.INTYEAR = MAXRESULTS.MAXYEAR ) RESPONSIBLESTAFF " &
+            "on Alldata.AIRSNumber = REsponsibleStaff.AIRSNumber " &
             " where 1 = 1 "
 
             If chbAllWork.Checked <> True Then
@@ -479,10 +478,10 @@ Public Class SSCPComplianceLog
 
             If chbFilterDates.Checked = True Then
                 If chbAllWork.Checked = True Then
-                    SQLLine = " and (to_date(ReceivedDate) between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "' " & _
-                    "or to_date(InspectionDate) between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "' " & _
-                    "or to_date(FCEDate) between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "' " & _
-                    "or to_date(discoverydate) between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "' " & _
+                    SQLLine = " and (to_date(ReceivedDate) between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "' " &
+                    "or to_date(InspectionDate) between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "' " &
+                    "or to_date(FCEDate) between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "' " &
+                    "or to_date(discoverydate) between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "' " &
                     "or to_date(LASTMODIFIED) between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "') "
                 Else
                     If chbACCs.Checked = True Then
@@ -511,7 +510,7 @@ Public Class SSCPComplianceLog
                     End If
                     If chbLastModifiedDate.Checked = True Then
                         If SQLLine <> "" Then
-                            SQLLine = " and ( " & Mid(SQLLine, 1, (SQLLine.Length) - 3) & _
+                            SQLLine = " and ( " & Mid(SQLLine, 1, (SQLLine.Length) - 3) &
                             " or to_date(LASTMODIFIED) between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "' ) "
                         End If
                     Else
@@ -531,7 +530,7 @@ Public Class SSCPComplianceLog
                     For x As Integer = 0 To clbEngineer.Items.Count - 1
                         If clbEngineer.GetItemChecked(x) = True Then
                             clbEngineer.SelectedIndex = x
-                            SQLLine = SQLLine & " (numUserID = '" & clbEngineer.SelectedValue & "' " & _
+                            SQLLine = SQLLine & " (numUserID = '" & clbEngineer.SelectedValue & "' " &
                             "or NUMSSCPENGINEER = '" & clbEngineer.SelectedValue & "') Or "
                         End If
                     Next
@@ -543,8 +542,8 @@ Public Class SSCPComplianceLog
                     If clbAirBranchUnits.GetItemChecked(x) = True Then
                         clbAirBranchUnits.SelectedIndex = x
                         temp = clbAirBranchUnits.SelectedValue
-                        SubSQL = "select numUserId " & _
-                        "from AIRBRANCH.EPDUserProfiles " & _
+                        SubSQL = "select numUserId " &
+                        "from AIRBRANCH.EPDUserProfiles " &
                         "where numUnit = '" & temp & "' and numProgram = '4' "
                         cmd = New OracleCommand(SubSQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -552,7 +551,7 @@ Public Class SSCPComplianceLog
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
-                            SQLLine = SQLLine & " (numUserID = '" & dr.Item("numUserID") & "' " & _
+                            SQLLine = SQLLine & " (numUserID = '" & dr.Item("numUserID") & "' " &
                             "or NUMSSCPENGINEER = '" & dr.Item("numUserID") & "') Or "
                         End While
                         dr.Close()
@@ -565,8 +564,8 @@ Public Class SSCPComplianceLog
                         clbDistrictOffices.SelectedIndex = x
                         temp = clbDistrictOffices.SelectedValue
 
-                        SubSQL = "select numUserId " & _
-                        "from AIRBRANCH.EPDUserProfiles " & _
+                        SubSQL = "select numUserId " &
+                        "from AIRBRANCH.EPDUserProfiles " &
                         "where numProgram = '" & temp & "' and numBranch = '5' "
                         cmd = New OracleCommand(SubSQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -574,7 +573,7 @@ Public Class SSCPComplianceLog
                         End If
                         dr = cmd.ExecuteReader
                         While dr.Read
-                            SQLLine = SQLLine & " (numUserID = '" & dr.Item("numUserID") & "' " & _
+                            SQLLine = SQLLine & " (numUserID = '" & dr.Item("numUserID") & "' " &
                             "or NUMSSCPENGINEER = '" & dr.Item("numUserID") & "') Or "
                         End While
                         dr.Close()
@@ -713,12 +712,12 @@ Public Class SSCPComplianceLog
                 If txtTrackingNumber.Text <> "" Then
                     Dim RefNum As String = ""
 
-                    SQL = "Select " & _
-                    "AIRBRANCH.ISMPReportInformation.strReferenceNumber, " & _
-                    "AIRBRANCH.ISMPDocumentType.strDocumentType " & _
-                    "from AIRBRANCH.ISMPReportInformation, " & _
-                    "AIRBRANCH.ISMPDocumentType " & _
-                    "where AIRBRANCH.ISMPReportInformation.strDocumentType = AIRBRANCH.ISMPDocumentType.strKEy " & _
+                    SQL = "Select " &
+                    "AIRBRANCH.ISMPReportInformation.strReferenceNumber, " &
+                    "AIRBRANCH.ISMPDocumentType.strDocumentType " &
+                    "from AIRBRANCH.ISMPReportInformation, " &
+                    "AIRBRANCH.ISMPDocumentType " &
+                    "where AIRBRANCH.ISMPReportInformation.strDocumentType = AIRBRANCH.ISMPDocumentType.strKEy " &
                     "and strReferenceNumber = '" & txtTrackingNumber.Text & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -736,35 +735,35 @@ Public Class SSCPComplianceLog
                     If RefNum <> "" Then
                         If DAL.Ismp.StackTestExists(RefNum) Then OpenMultiForm(ISMPTestReports, RefNum)
                     Else
-                        MsgBox("The Reference Number is not valid." & vbCrLf & _
+                        MsgBox("The Reference Number is not valid." & vbCrLf &
                         "Please check the number you entered.", MsgBoxStyle.Information, "SSCP Compliance Log")
                     End If
                 End If
             ElseIf Me.rdbOther.Checked = True Then
                 If Me.cboEvent.SelectedIndex > 0 Then
-                    SQL = "Insert into AIRBRANCH.SSCPItemMaster " & _
-                    "(strTrackingNumber, strAIRSNumber, " & _
-                    "datReceivedDate, strEventType, " & _
-                    "strResponsibleStaff, datCompleteDate, " & _
-                    "strModifingPerson, datModifingDate) " & _
-                    "values " & _
-                    "(AIRBRANCH.SSCPTrackingNumber.nextval, '0413" & txtNewAIRSNumber.Text & "', " & _
-                    "'" & DTPDateReceived.Text & "', " & _
-                    "'" & cboEvent.SelectedValue & "', " & _
-                    "'" & CurrentUser.UserID & "', '', " & _
+                    SQL = "Insert into AIRBRANCH.SSCPItemMaster " &
+                    "(strTrackingNumber, strAIRSNumber, " &
+                    "datReceivedDate, strEventType, " &
+                    "strResponsibleStaff, datCompleteDate, " &
+                    "strModifingPerson, datModifingDate) " &
+                    "values " &
+                    "(AIRBRANCH.SSCPTrackingNumber.nextval, '0413" & txtNewAIRSNumber.Text & "', " &
+                    "'" & DTPDateReceived.Text & "', " &
+                    "'" & cboEvent.SelectedValue & "', " &
+                    "'" & CurrentUser.UserID & "', '', " &
                     "'" & CurrentUser.UserID & "', '" & OracleDate & "')"
 
                     If cboEvent.SelectedValue = "04" Then
-                        SQL2 = "Insert into AIRBRANCH.SSCPItemMaster " & _
-                        "(strTrackingNumber, strAIRSNumber, " & _
-                        "datReceivedDate, strEventType, " & _
-                        "strResponsibleStaff, datCompleteDate, " & _
-                        "strModifingPerson, datModifingDate) " & _
-                        "values " & _
-                        "(AIRBRANCH.SSCPTrackingNumber.nextval, '0413" & txtNewAIRSNumber.Text & "', " & _
-                        "'" & DTPDateReceived.Text & "', " & _
-                        "'06', " & _
-                        "'" & CurrentUser.UserID & "', '" & DTPDateReceived.Text & "', " & _
+                        SQL2 = "Insert into AIRBRANCH.SSCPItemMaster " &
+                        "(strTrackingNumber, strAIRSNumber, " &
+                        "datReceivedDate, strEventType, " &
+                        "strResponsibleStaff, datCompleteDate, " &
+                        "strModifingPerson, datModifingDate) " &
+                        "values " &
+                        "(AIRBRANCH.SSCPTrackingNumber.nextval, '0413" & txtNewAIRSNumber.Text & "', " &
+                        "'" & DTPDateReceived.Text & "', " &
+                        "'06', " &
+                        "'" & CurrentUser.UserID & "', '" & DTPDateReceived.Text & "', " &
                         "'" & CurrentUser.UserID & "', '" & OracleDate & "')"
                     Else
                         SQL2 = ""
@@ -813,8 +812,8 @@ Public Class SSCPComplianceLog
 
             Select Case txtTestType.Text
                 Case "Annual Compliance Certification"
-                    SQL = "Select strTrackingNumber " & _
-                    "from AIRBRANCH.SSCPItemMaster " & _
+                    SQL = "Select strTrackingNumber " &
+                    "from AIRBRANCH.SSCPItemMaster " &
                     "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -825,12 +824,12 @@ Public Class SSCPComplianceLog
                     recExist = dr.Read
                     dr.Close()
                     If recExist = True Then
-                        DeleteStatus = MessageBox.Show("Should this Work Item be deleted?", _
+                        DeleteStatus = MessageBox.Show("Should this Work Item be deleted?",
                                       "Work Entry Delete", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1)
                         Select Case DeleteStatus
                             Case DialogResult.Yes
-                                SQL = "Update AIRBRANCH.SSCPItemMaster set " & _
-                                "strDelete = 'True' " & _
+                                SQL = "Update AIRBRANCH.SSCPItemMaster set " &
+                                "strDelete = 'True' " &
                                 "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
 
                                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -853,11 +852,11 @@ Public Class SSCPComplianceLog
                 Case "Enforcement-LON"
                     ' Case Enforcement-LON MUST precede the next Case, which is a catch-all for remaining enforcement
 
-                    DeleteStatus = MessageBox.Show("Should this Enforcement Item be deleted? (This cannot be undone!)", _
+                    DeleteStatus = MessageBox.Show("Should this Enforcement Item be deleted? (This cannot be undone!)",
                                      "Work Entry Delete", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1)
                     If DeleteStatus = DialogResult.Yes Then
 
-                        SQL = "Delete AIRBRANCH.SSCPEnforcementLetter " & _
+                        SQL = "Delete AIRBRANCH.SSCPEnforcementLetter " &
                         "where strEnforcementNumber = '" & txtWorkNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -866,7 +865,7 @@ Public Class SSCPComplianceLog
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "Delete AIRBRANCH.SSCPEnforcementStipulated " & _
+                        SQL = "Delete AIRBRANCH.SSCPEnforcementStipulated " &
                         "where strEnforcementNumber = '" & txtWorkNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -875,7 +874,7 @@ Public Class SSCPComplianceLog
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "Delete AIRBRANCH.SSCP_AuditedEnforcement " & _
+                        SQL = "Delete AIRBRANCH.SSCP_AuditedEnforcement " &
                         "where strEnforcementNumber = '" & txtWorkNumber.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -891,8 +890,8 @@ Public Class SSCPComplianceLog
                 Case "Enforcement-" To "Enforcement-z"
                     ' This is a catch-all for all non-LON enforcement
 
-                    SQL = "Select strUpDateStatus " & _
-                    "from AIRBRANCH.AFSSSCPEnforcementRecords " & _
+                    SQL = "Select strUpDateStatus " &
+                    "from AIRBRANCH.AFSSSCPEnforcementRecords " &
                     "where strEnforcementNumber = '" & txtWorkNumber.Text & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -912,12 +911,12 @@ Public Class SSCPComplianceLog
                         MsgBox("This Enforcement Action has already been submitted to EPA, contact EPD IT to delete this Enforcement Action.",
                                MsgBoxStyle.Information, "Compliance Log")
                     Else
-                        DeleteStatus = MessageBox.Show("Should this Enforcement Item be deleted? (This cannot be undone!)", _
+                        DeleteStatus = MessageBox.Show("Should this Enforcement Item be deleted? (This cannot be undone!)",
                                      "Work Entry Delete", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1)
                         Select Case DeleteStatus
                             Case DialogResult.Yes
-                                SQL = "Select strAIRSNumber " & _
-                                "from AIRBRANCH.SSCP_AuditedEnforcement " & _
+                                SQL = "Select strAIRSNumber " &
+                                "from AIRBRANCH.SSCP_AuditedEnforcement " &
                                 "where strEnforcementNumber = '" & txtWorkNumber.Text & "' "
 
                                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -934,7 +933,7 @@ Public Class SSCPComplianceLog
                                 End While
                                 dr.Close()
 
-                                SQL = "Delete AIRBRANCH.AFSSSCPEnforcementRecords " & _
+                                SQL = "Delete AIRBRANCH.AFSSSCPEnforcementRecords " &
                                                       "where strEnforcementNumber = '" & txtWorkNumber.Text & "' "
                                 cmd = New OracleCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -943,17 +942,17 @@ Public Class SSCPComplianceLog
                                 dr = cmd.ExecuteReader
                                 dr.Close()
 
-                                SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
-                                "values " & _
-                                "(" & _
-                                "(select " & _
-                                "case when max(numCounter) is null then 1 " & _
-                                "else max(numCounter) + 1 " & _
-                                "end numCounter " & _
-                                "from AIRBRANCH.AFSDeletions), " & _
-                                "'" & tempAIRS & "', " & _
-                                "'" & Replace(SQL, "'", "''") & "', 'True', " & _
-                                "'" & OracleDate & "', '', " & _
+                                SQL2 = "Insert into AIRBRANCH.AFSDeletions " &
+                                "values " &
+                                "(" &
+                                "(select " &
+                                "case when max(numCounter) is null then 1 " &
+                                "else max(numCounter) + 1 " &
+                                "end numCounter " &
+                                "from AIRBRANCH.AFSDeletions), " &
+                                "'" & tempAIRS & "', " &
+                                "'" & Replace(SQL, "'", "''") & "', 'True', " &
+                                "'" & OracleDate & "', '', " &
                                 "'') "
 
                                 cmd = New OracleCommand(SQL2, CurrentConnection)
@@ -963,7 +962,7 @@ Public Class SSCPComplianceLog
                                 dr = cmd.ExecuteReader
                                 dr.Close()
 
-                                SQL = "Delete AIRBRANCH.SSCPEnforcementLetter " & _
+                                SQL = "Delete AIRBRANCH.SSCPEnforcementLetter " &
                                 "where strEnforcementNumber = '" & txtWorkNumber.Text & "' "
                                 cmd = New OracleCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -972,17 +971,17 @@ Public Class SSCPComplianceLog
                                 dr = cmd.ExecuteReader
                                 dr.Close()
 
-                                SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
-                               "values " & _
-                               "(" & _
-                               "(select " & _
-                               "case when max(numCounter) is null then 1 " & _
-                               "else max(numCounter) + 1 " & _
-                               "end numCounter " & _
-                               "from AIRBRANCH.AFSDeletions), " & _
-                               "'" & tempAIRS & "', " & _
-                               "'" & Replace(SQL, "'", "''") & "', 'True', " & _
-                               "'" & OracleDate & "', '', " & _
+                                SQL2 = "Insert into AIRBRANCH.AFSDeletions " &
+                               "values " &
+                               "(" &
+                               "(select " &
+                               "case when max(numCounter) is null then 1 " &
+                               "else max(numCounter) + 1 " &
+                               "end numCounter " &
+                               "from AIRBRANCH.AFSDeletions), " &
+                               "'" & tempAIRS & "', " &
+                               "'" & Replace(SQL, "'", "''") & "', 'True', " &
+                               "'" & OracleDate & "', '', " &
                                "'') "
 
                                 cmd = New OracleCommand(SQL2, CurrentConnection)
@@ -994,7 +993,7 @@ Public Class SSCPComplianceLog
 
 
 
-                                SQL = "Delete AIRBRANCH.SSCPEnforcementStipulated " & _
+                                SQL = "Delete AIRBRANCH.SSCPEnforcementStipulated " &
                                 "where strEnforcementNumber = '" & txtWorkNumber.Text & "' "
                                 cmd = New OracleCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1003,17 +1002,17 @@ Public Class SSCPComplianceLog
                                 dr = cmd.ExecuteReader
                                 dr.Close()
 
-                                SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
-                               "values " & _
-                               "(" & _
-                               "(select " & _
-                               "case when max(numCounter) is null then 1 " & _
-                               "else max(numCounter) + 1 " & _
-                               "end numCounter " & _
-                               "from AIRBRANCH.AFSDeletions), " & _
-                               "'" & tempAIRS & "', " & _
-                               "'" & Replace(SQL, "'", "''") & "', 'True', " & _
-                               "'" & OracleDate & "', '', " & _
+                                SQL2 = "Insert into AIRBRANCH.AFSDeletions " &
+                               "values " &
+                               "(" &
+                               "(select " &
+                               "case when max(numCounter) is null then 1 " &
+                               "else max(numCounter) + 1 " &
+                               "end numCounter " &
+                               "from AIRBRANCH.AFSDeletions), " &
+                               "'" & tempAIRS & "', " &
+                               "'" & Replace(SQL, "'", "''") & "', 'True', " &
+                               "'" & OracleDate & "', '', " &
                                "'') "
 
                                 cmd = New OracleCommand(SQL2, CurrentConnection)
@@ -1023,17 +1022,17 @@ Public Class SSCPComplianceLog
                                 dr = cmd.ExecuteReader
                                 dr.Close()
 
-                                SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
-                               "values " & _
-                               "(" & _
-                               "(select " & _
-                               "case when max(numCounter) is null then 1 " & _
-                               "else max(numCounter) + 1 " & _
-                               "end numCounter " & _
-                               "from AIRBRANCH.AFSDeletions), " & _
-                               "'" & tempAIRS & "', " & _
-                               "'" & Replace(SQL, "'", "''") & "', 'True', " & _
-                               "'" & OracleDate & "', '', " & _
+                                SQL2 = "Insert into AIRBRANCH.AFSDeletions " &
+                               "values " &
+                               "(" &
+                               "(select " &
+                               "case when max(numCounter) is null then 1 " &
+                               "else max(numCounter) + 1 " &
+                               "end numCounter " &
+                               "from AIRBRANCH.AFSDeletions), " &
+                               "'" & tempAIRS & "', " &
+                               "'" & Replace(SQL, "'", "''") & "', 'True', " &
+                               "'" & OracleDate & "', '', " &
                                "'') "
 
                                 cmd = New OracleCommand(SQL2, CurrentConnection)
@@ -1043,7 +1042,7 @@ Public Class SSCPComplianceLog
                                 dr = cmd.ExecuteReader
                                 dr.Close()
 
-                                SQL = "Delete AIRBRANCH.SSCP_AuditedEnforcement " & _
+                                SQL = "Delete AIRBRANCH.SSCP_AuditedEnforcement " &
                                 "where strEnforcementNumber = '" & txtWorkNumber.Text & "' "
                                 cmd = New OracleCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1052,17 +1051,17 @@ Public Class SSCPComplianceLog
                                 dr = cmd.ExecuteReader
                                 dr.Close()
 
-                                SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
-                               "values " & _
-                               "(" & _
-                               "(select " & _
-                               "case when max(numCounter) is null then 1 " & _
-                               "else max(numCounter) + 1 " & _
-                               "end numCounter " & _
-                               "from AIRBRANCH.AFSDeletions), " & _
-                               "'" & tempAIRS & "', " & _
-                               "'" & Replace(SQL, "'", "''") & "', 'True', " & _
-                               "'" & OracleDate & "', '', " & _
+                                SQL2 = "Insert into AIRBRANCH.AFSDeletions " &
+                               "values " &
+                               "(" &
+                               "(select " &
+                               "case when max(numCounter) is null then 1 " &
+                               "else max(numCounter) + 1 " &
+                               "end numCounter " &
+                               "from AIRBRANCH.AFSDeletions), " &
+                               "'" & tempAIRS & "', " &
+                               "'" & Replace(SQL, "'", "''") & "', 'True', " &
+                               "'" & OracleDate & "', '', " &
                                "'') "
 
                                 cmd = New OracleCommand(SQL2, CurrentConnection)
@@ -1085,8 +1084,8 @@ Public Class SSCPComplianceLog
                     End If
 
                 Case "Full Compliance Evaluation"
-                    SQL = "Select strUpDateStatus " & _
-                    "from AIRBRANCH.AFSSSCPFCERecords " & _
+                    SQL = "Select strUpDateStatus " &
+                    "from AIRBRANCH.AFSSSCPFCERecords " &
                     "where strFceNumber = '" & txtWorkNumber.Text & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1107,12 +1106,12 @@ Public Class SSCPComplianceLog
                         MsgBox("This FCE has already been submitted to EPA, contact EPD IT to delete this FCE.", MsgBoxStyle.Information, "Compliance Log")
                     Else
 
-                        DeleteStatus = MessageBox.Show("Should this FCE be deleted? (This cannot be undone!)", _
+                        DeleteStatus = MessageBox.Show("Should this FCE be deleted? (This cannot be undone!)",
                                      "Work Entry Delete", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1)
                         Select Case DeleteStatus
                             Case DialogResult.Yes
-                                SQL = "Select strAIRSNumber " & _
-                                "from AIRBRANCH.SSCPItemMaster " & _
+                                SQL = "Select strAIRSNumber " &
+                                "from AIRBRANCH.SSCPItemMaster " &
                                 "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
 
                                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1130,7 +1129,7 @@ Public Class SSCPComplianceLog
                                 dr.Close()
 
 
-                                SQL = "Delete AIRBRANCH.AFSSSCPFCERecords " & _
+                                SQL = "Delete AIRBRANCH.AFSSSCPFCERecords " &
                             "where strFCENumber = '" & txtWorkNumber.Text & "' "
                                 cmd = New OracleCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1139,17 +1138,17 @@ Public Class SSCPComplianceLog
                                 dr = cmd.ExecuteReader
                                 dr.Close()
 
-                                SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
-                               "values " & _
-                               "(" & _
-                               "(select " & _
-                               "case when max(numCounter) is null then 1 " & _
-                               "else max(numCounter) + 1 " & _
-                               "end numCounter " & _
-                               "from AIRBRANCH.AFSDeletions), " & _
-                               "'" & tempAIRS & "', " & _
-                               "'" & Replace(SQL, "'", "''") & "', 'True', " & _
-                               "'" & OracleDate & "', '', " & _
+                                SQL2 = "Insert into AIRBRANCH.AFSDeletions " &
+                               "values " &
+                               "(" &
+                               "(select " &
+                               "case when max(numCounter) is null then 1 " &
+                               "else max(numCounter) + 1 " &
+                               "end numCounter " &
+                               "from AIRBRANCH.AFSDeletions), " &
+                               "'" & tempAIRS & "', " &
+                               "'" & Replace(SQL, "'", "''") & "', 'True', " &
+                               "'" & OracleDate & "', '', " &
                                "'') "
 
                                 cmd = New OracleCommand(SQL2, CurrentConnection)
@@ -1159,7 +1158,7 @@ Public Class SSCPComplianceLog
                                 dr = cmd.ExecuteReader
                                 dr.Close()
 
-                                SQL = "Delete AIRBRANCH.SSCPFCE " & _
+                                SQL = "Delete AIRBRANCH.SSCPFCE " &
                                 "where strFCENumber = '" & txtWorkNumber.Text & "' "
                                 cmd = New OracleCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1168,17 +1167,17 @@ Public Class SSCPComplianceLog
                                 dr = cmd.ExecuteReader
                                 dr.Close()
 
-                                SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
-                               "values " & _
-                               "(" & _
-                               "(select " & _
-                               "case when max(numCounter) is null then 1 " & _
-                               "else max(numCounter) + 1 " & _
-                               "end numCounter " & _
-                               "from AIRBRANCH.AFSDeletions), " & _
-                               "'" & tempAIRS & "', " & _
-                               "'" & Replace(SQL, "'", "''") & "', 'True', " & _
-                               "'" & OracleDate & "', '', " & _
+                                SQL2 = "Insert into AIRBRANCH.AFSDeletions " &
+                               "values " &
+                               "(" &
+                               "(select " &
+                               "case when max(numCounter) is null then 1 " &
+                               "else max(numCounter) + 1 " &
+                               "end numCounter " &
+                               "from AIRBRANCH.AFSDeletions), " &
+                               "'" & tempAIRS & "', " &
+                               "'" & Replace(SQL, "'", "''") & "', 'True', " &
+                               "'" & OracleDate & "', '', " &
                                "'') "
 
                                 cmd = New OracleCommand(SQL2, CurrentConnection)
@@ -1188,7 +1187,7 @@ Public Class SSCPComplianceLog
                                 dr = cmd.ExecuteReader
                                 dr.Close()
 
-                                SQL = "Delete AIRBRANCH.SSCPFCEMaster " & _
+                                SQL = "Delete AIRBRANCH.SSCPFCEMaster " &
                                 "where strFCENumber = '" & txtWorkNumber.Text & "' "
                                 cmd = New OracleCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1197,17 +1196,17 @@ Public Class SSCPComplianceLog
                                 dr = cmd.ExecuteReader
                                 dr.Close()
 
-                                SQL2 = "Insert into AIRBRANCH.AFSDeletions " & _
-                               "values " & _
-                               "(" & _
-                               "(select " & _
-                               "case when max(numCounter) is null then 1 " & _
-                               "else max(numCounter) + 1 " & _
-                               "end numCounter " & _
-                               "from AIRBRANCH.AFSDeletions), " & _
-                               "'" & tempAIRS & "', " & _
-                               "'" & Replace(SQL, "'", "''") & "', 'True', " & _
-                               "'" & OracleDate & "', '', " & _
+                                SQL2 = "Insert into AIRBRANCH.AFSDeletions " &
+                               "values " &
+                               "(" &
+                               "(select " &
+                               "case when max(numCounter) is null then 1 " &
+                               "else max(numCounter) + 1 " &
+                               "end numCounter " &
+                               "from AIRBRANCH.AFSDeletions), " &
+                               "'" & tempAIRS & "', " &
+                               "'" & Replace(SQL, "'", "''") & "', 'True', " &
+                               "'" & OracleDate & "', '', " &
                                "'') "
 
                                 cmd = New OracleCommand(SQL2, CurrentConnection)
@@ -1229,8 +1228,8 @@ Public Class SSCPComplianceLog
                         End Select
                     End If
                 Case "Inspection"
-                    SQL = "Select strTrackingNumber " & _
-                    "from AIRBRANCH.SSCPItemMaster " & _
+                    SQL = "Select strTrackingNumber " &
+                    "from AIRBRANCH.SSCPItemMaster " &
                     "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1241,12 +1240,12 @@ Public Class SSCPComplianceLog
                     recExist = dr.Read
                     dr.Close()
                     If recExist = True Then
-                        DeleteStatus = MessageBox.Show("Should this Work Item be deleted?", _
+                        DeleteStatus = MessageBox.Show("Should this Work Item be deleted?",
                                       "Work Entry Delete", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1)
                         Select Case DeleteStatus
                             Case DialogResult.Yes
-                                SQL = "Update AIRBRANCH.SSCPItemMaster set " & _
-                                "strDelete = 'True' " & _
+                                SQL = "Update AIRBRANCH.SSCPItemMaster set " &
+                                "strDelete = 'True' " &
                                 "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
 
                                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1267,8 +1266,8 @@ Public Class SSCPComplianceLog
                         End Select
                     End If
                 Case "Notification" To "Notification-z"
-                    SQL = "Select strTrackingNumber " & _
-                    "from AIRBRANCH.SSCPItemMaster " & _
+                    SQL = "Select strTrackingNumber " &
+                    "from AIRBRANCH.SSCPItemMaster " &
                     "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1279,12 +1278,12 @@ Public Class SSCPComplianceLog
                     recExist = dr.Read
                     dr.Close()
                     If recExist = True Then
-                        DeleteStatus = MessageBox.Show("Should this Work Item be deleted?", _
+                        DeleteStatus = MessageBox.Show("Should this Work Item be deleted?",
                                       "Work Entry Delete", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1)
                         Select Case DeleteStatus
                             Case DialogResult.Yes
-                                SQL = "Update AIRBRANCH.SSCPItemMaster set " & _
-                                "strDelete = 'True' " & _
+                                SQL = "Update AIRBRANCH.SSCPItemMaster set " &
+                                "strDelete = 'True' " &
                                 "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
 
                                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1307,46 +1306,9 @@ Public Class SSCPComplianceLog
                 Case "Performance Tests"
                     MessageBox.Show("Performance tests must be deleted by ISMP.", "Can't Delete", MessageBoxButtons.OK, MessageBoxIcon.Stop)
 
-                    'SQL = "Select strTrackingNumber " & _
-                    '"from AIRBRANCH.SSCPItemMaster " & _
-                    '"where strTrackingNumber = '" & txtWorkNumber.Text & "' "
-
-                    'cmd = New OracleCommand(SQL, conn)
-                    'If conn.State = ConnectionState.Closed Then
-                    '    conn.Open()
-                    'End If
-                    'dr = cmd.ExecuteReader
-                    'recExist = dr.Read
-                    'dr.Close()
-                    'If recExist = True Then
-                    '    DeleteStatus = MessageBox.Show("Should this Work Item be deleted?", _
-                    '                  "Work Entry Delete", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1)
-                    '    Select Case DeleteStatus
-                    '        Case DialogResult.Yes
-                    '            SQL = "Update AIRBRANCH.SSCPItemMaster set " & _
-                    '            "strDelete = 'True' " & _
-                    '            "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
-
-                    '            cmd = New OracleCommand(SQL, conn)
-                    '            If conn.State = ConnectionState.Closed Then
-                    '                conn.Open()
-                    '            End If
-                    '            dr = cmd.ExecuteReader
-                    '            dr.Close()
-
-                    '            LoaddgvWork()
-
-                    '        Case DialogResult.No
-                    '            SQL = ""
-                    '        Case DialogResult.Cancel
-                    '            SQL = ""
-                    '        Case Else
-                    '            SQL = ""
-                    '    End Select
-                    'End If
                 Case "Report"
-                    SQL = "Select strTrackingNumber " & _
-                    "from AIRBRANCH.SSCPItemMaster " & _
+                    SQL = "Select strTrackingNumber " &
+                    "from AIRBRANCH.SSCPItemMaster " &
                     "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1357,12 +1319,12 @@ Public Class SSCPComplianceLog
                     recExist = dr.Read
                     dr.Close()
                     If recExist = True Then
-                        DeleteStatus = MessageBox.Show("Should this Work Item be deleted?", _
+                        DeleteStatus = MessageBox.Show("Should this Work Item be deleted?",
                                       "Work Entry Delete", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1)
                         Select Case DeleteStatus
                             Case DialogResult.Yes
-                                SQL = "Update AIRBRANCH.SSCPItemMaster set " & _
-                                "strDelete = 'True' " & _
+                                SQL = "Update AIRBRANCH.SSCPItemMaster set " &
+                                "strDelete = 'True' " &
                                 "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
 
                                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1392,8 +1354,8 @@ Public Class SSCPComplianceLog
     Sub UnDeleteWork()
         Try
 
-            SQL = "Select strTrackingNumber " & _
-            "from AIRBRANCH.SSCPItemMaster " & _
+            SQL = "Select strTrackingNumber " &
+            "from AIRBRANCH.SSCPItemMaster " &
             "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1405,8 +1367,8 @@ Public Class SSCPComplianceLog
             recExist = dr.Read
             dr.Close()
             If recExist = True Then
-                SQL = "Update AIRBRANCH.SSCPItemMaster set " & _
-                "strDelete = '' " & _
+                SQL = "Update AIRBRANCH.SSCPItemMaster set " &
+                "strDelete = '' " &
                 "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1555,10 +1517,10 @@ Public Class SSCPComplianceLog
 
 
             If txtAIRSNumber.Text <> "" Then
-                SQL = "Select " & _
-                "strFacilityCity, strCountyName " & _
-                "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.LookUpCountyInformation " & _
-                "where substr(strAIRSNumber, 5, 3) = strCountyCode " & _
+                SQL = "Select " &
+                "strFacilityCity, strCountyName " &
+                "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.LookUpCountyInformation " &
+                "where substr(strAIRSNumber, 5, 3) = strCountyCode " &
                 "and strAIRSnumber = '0413" & txtAIRSNumber.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)

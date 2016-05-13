@@ -5,7 +5,7 @@ Public Class DMUDeveloperTool
 #Region " Page Load Functions "
 
     Private Sub DMUDeveloperTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        
+
         LoadPermissions()
     End Sub
 
@@ -97,13 +97,13 @@ Public Class DMUDeveloperTool
 #Region " Error Log procedures "
 
     Private Sub LoadErrorLog()
-        Dim query As String = "Select " & _
-            " strErrorNumber, " & _
-            " (strLastName||', '||strFirstName) as ErrorUser, " & _
-            " strErrorLocation, strErrorMessage, " & _
-            " to_char(datErrorDate, 'DD-Mon-YYYY') as ErrorDate, " & _
-            " strSolution " & _
-            " from AIRBranch.IAIPErrorLog, AIRBranch.EPDUserProfiles " & _
+        Dim query As String = "Select " &
+            " strErrorNumber, " &
+            " (strLastName||', '||strFirstName) as ErrorUser, " &
+            " strErrorLocation, strErrorMessage, " &
+            " to_char(datErrorDate, 'DD-Mon-YYYY') as ErrorDate, " &
+            " strSolution " &
+            " from AIRBranch.IAIPErrorLog, AIRBranch.EPDUserProfiles " &
             " where AIRBranch.IAIPErrorLog.strUser = AIRBranch.EPDUserProfiles.numUserID "
 
         If rdbViewResolvedErrors.Checked = True Then
@@ -150,10 +150,10 @@ Public Class DMUDeveloperTool
 
     Private Sub LoadWebErrorLog()
 
-        Dim query As String = "select numError, " & _
-            "strIPAddress, strUserEmail, " & _
-            "strErrorPage, dateTimeStamp, " & _
-            "strErrorMsg, strSolution " & _
+        Dim query As String = "select numError, " &
+            "strIPAddress, strUserEmail, " &
+            "strErrorPage, dateTimeStamp, " &
+            "strErrorMsg, strSolution " &
             "From AIRBranch.OLAPERRORLog "
 
         If rdbResolvedWebErrors.Checked = True Then
@@ -181,13 +181,13 @@ Public Class DMUDeveloperTool
         End If
 
         If txtErrorNumber.Text <> "" Then
-            Dim query As String = "Update AIRBRANCH.IAIPErrorLog set " & _
-            "strSolution = :errSol " & _
+            Dim query As String = "Update AIRBRANCH.IAIPErrorLog set " &
+            "strSolution = :errSol " &
             "where strErrornumber = :errNum "
 
-            Dim Parameters As OracleParameter() = { _
-            New OracleParameter("errSol", ErrorSolution), _
-            New OracleParameter("errNum", txtErrorNumber.Text) _
+            Dim Parameters As OracleParameter() = {
+            New OracleParameter("errSol", ErrorSolution),
+            New OracleParameter("errNum", txtErrorNumber.Text)
             }
 
             DB.RunCommand(query, Parameters)
@@ -216,11 +216,11 @@ Public Class DMUDeveloperTool
 
                 If txtWebErrorNumber.Text <> "" Then
 
-                    Dim query As String = "select numError, " & _
-                    " strIPAddress, strUserEmail, " & _
-                    " strErrorPage, dateTimeStamp, " & _
-                    " strErrorMsg, strSolution " & _
-                    " From AIRBRANCH.OLAPERRORLog " & _
+                    Dim query As String = "select numError, " &
+                    " strIPAddress, strUserEmail, " &
+                    " strErrorPage, dateTimeStamp, " &
+                    " strErrorMsg, strSolution " &
+                    " From AIRBRANCH.OLAPERRORLog " &
                     " where numError = :errNum "
 
                     Dim parameter As OracleParameter = New OracleParameter("errNum", txtWebErrorNumber.Text)
@@ -251,13 +251,13 @@ Public Class DMUDeveloperTool
         End If
 
         If txtWebErrorNumber.Text <> "" Then
-            Dim query As String = "Update AIRBRANCH.OLAPErrorLog set " & _
-            "strSolution = :errSol " & _
+            Dim query As String = "Update AIRBRANCH.OLAPErrorLog set " &
+            "strSolution = :errSol " &
             "where numError = :errNum "
 
-            Dim Parameters As OracleParameter() = { _
-            New OracleParameter("errSol", ErrorSolution), _
-            New OracleParameter("errNum", txtWebErrorNumber.Text) _
+            Dim Parameters As OracleParameter() = {
+            New OracleParameter("errSol", ErrorSolution),
+            New OracleParameter("errNum", txtWebErrorNumber.Text)
             }
 
             DB.RunCommand(query, Parameters)
@@ -280,14 +280,14 @@ Public Class DMUDeveloperTool
 
                 If txtErrorNumber.Text <> "" Then
 
-                    Dim query As String = "Select " & _
-                    "strErrorNumber, " & _
-                    "(strLastName||', '||strFirstName) as ErrorUser,  " & _
-                    "strErrorLocation, strErrorMessage,  " & _
-                    "to_char(datErrorDate, 'DD-Mon-YYYY') as ErrorDate,  " & _
-                    "strSolution  " & _
-                    "from AIRBRANCH.IAIPErrorLog, AIRBRANCH.EPDUserProfiles  " & _
-                    "where AIRBRANCH.IAIPErrorLog.strUser = AIRBRANCH.EPDUserProfiles.numUserID " & _
+                    Dim query As String = "Select " &
+                    "strErrorNumber, " &
+                    "(strLastName||', '||strFirstName) as ErrorUser,  " &
+                    "strErrorLocation, strErrorMessage,  " &
+                    "to_char(datErrorDate, 'DD-Mon-YYYY') as ErrorDate,  " &
+                    "strSolution  " &
+                    "from AIRBRANCH.IAIPErrorLog, AIRBRANCH.EPDUserProfiles  " &
+                    "where AIRBRANCH.IAIPErrorLog.strUser = AIRBRANCH.EPDUserProfiles.numUserID " &
                     "and strErrorNumber = '" & txtErrorNumber.Text & "' "
 
                     Dim parameter As OracleParameter = New OracleParameter("errNum", txtErrorNumber.Text)

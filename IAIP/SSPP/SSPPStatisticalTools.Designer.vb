@@ -20,269 +20,269 @@ Partial Class SSPPStatisticalTools
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSPPStatisticalTools))
-        Me.TCSSPPStatistics = New System.Windows.Forms.TabControl
-        Me.TPPermittingStats = New System.Windows.Forms.TabPage
-        Me.TCPermitCounts = New System.Windows.Forms.TabControl
-        Me.TPPermitsIssued = New System.Windows.Forms.TabPage
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.Label45 = New System.Windows.Forms.Label
-        Me.txtTVTotalMedian = New System.Windows.Forms.TextBox
-        Me.Label43 = New System.Windows.Forms.Label
-        Me.txtTVInitialMedian = New System.Windows.Forms.TextBox
-        Me.txtPSDMedian = New System.Windows.Forms.TextBox
-        Me.txtNonPermitMedian = New System.Windows.Forms.TextBox
-        Me.txtOtherMedian = New System.Windows.Forms.TextBox
-        Me.txtPBRMedian = New System.Windows.Forms.TextBox
-        Me.txtSMMedian = New System.Windows.Forms.TextBox
-        Me.txtAAMedian = New System.Windows.Forms.TextBox
-        Me.txt502Median = New System.Windows.Forms.TextBox
-        Me.txtMinorMedian = New System.Windows.Forms.TextBox
-        Me.txtSigModMedian = New System.Windows.Forms.TextBox
-        Me.txtTVRenewalMedian = New System.Windows.Forms.TextBox
-        Me.Label42 = New System.Windows.Forms.Label
-        Me.llbViewAACount = New System.Windows.Forms.LinkLabel
-        Me.llbViewSMCount = New System.Windows.Forms.LinkLabel
-        Me.llbViewPBRCount = New System.Windows.Forms.LinkLabel
-        Me.llbViewOtherCount = New System.Windows.Forms.LinkLabel
-        Me.llbViewNoPermitCount = New System.Windows.Forms.LinkLabel
-        Me.llbViewPSDCount = New System.Windows.Forms.LinkLabel
-        Me.llbView502Count = New System.Windows.Forms.LinkLabel
-        Me.llbViewMinorModCount = New System.Windows.Forms.LinkLabel
-        Me.llbViewTVCount = New System.Windows.Forms.LinkLabel
-        Me.lblViewSigModCount = New System.Windows.Forms.LinkLabel
-        Me.txtPSDCount = New System.Windows.Forms.TextBox
-        Me.txtNonPermitCount = New System.Windows.Forms.TextBox
-        Me.txtOtherCount = New System.Windows.Forms.TextBox
-        Me.txtPBRCount = New System.Windows.Forms.TextBox
-        Me.txtSMCount = New System.Windows.Forms.TextBox
-        Me.txtAACount = New System.Windows.Forms.TextBox
-        Me.txt502Count = New System.Windows.Forms.TextBox
-        Me.txtMinorModCount = New System.Windows.Forms.TextBox
-        Me.txtSigModCount = New System.Windows.Forms.TextBox
-        Me.Label16 = New System.Windows.Forms.Label
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.txtTitleVRenewalCount = New System.Windows.Forms.TextBox
-        Me.txtTitleVInitialCount = New System.Windows.Forms.TextBox
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.GBPermitDates = New System.Windows.Forms.GroupBox
-        Me.chbAllApps = New System.Windows.Forms.CheckBox
-        Me.clbEngineers = New System.Windows.Forms.CheckedListBox
-        Me.Label60 = New System.Windows.Forms.Label
-        Me.cboSSPPUnits = New System.Windows.Forms.ComboBox
-        Me.btnRunReport = New System.Windows.Forms.Button
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.DTPPermitCountEnd = New System.Windows.Forms.DateTimePicker
-        Me.DTPPermitCountStart = New System.Windows.Forms.DateTimePicker
-        Me.TPOpenApplications = New System.Windows.Forms.TabPage
-        Me.TabControl1 = New System.Windows.Forms.TabControl
-        Me.TPAllOpenApplications = New System.Windows.Forms.TabPage
-        Me.chbAllApps2 = New System.Windows.Forms.CheckBox
-        Me.clbEngineers2 = New System.Windows.Forms.CheckedListBox
-        Me.Label71 = New System.Windows.Forms.Label
-        Me.cboSSPPUnits2 = New System.Windows.Forms.ComboBox
-        Me.txtToBCCount = New System.Windows.Forms.TextBox
-        Me.llbViewOpen45DayCount = New System.Windows.Forms.LinkLabel
-        Me.txtOpen45DayCount = New System.Windows.Forms.TextBox
-        Me.Label35 = New System.Windows.Forms.Label
-        Me.btnRunOpenReport = New System.Windows.Forms.Button
-        Me.llbViewToPMCount = New System.Windows.Forms.LinkLabel
-        Me.llbViewToUCCount = New System.Windows.Forms.LinkLabel
-        Me.llbViewWStaffCount = New System.Windows.Forms.LinkLabel
-        Me.llbViewDraftIssuedCount = New System.Windows.Forms.LinkLabel
-        Me.llbViewPublicNoticeCount = New System.Windows.Forms.LinkLabel
-        Me.llbViewAllOpenCount = New System.Windows.Forms.LinkLabel
-        Me.llbViewToBCDOCount = New System.Windows.Forms.LinkLabel
-        Me.txtWStaffCount = New System.Windows.Forms.TextBox
-        Me.txtToUCCount = New System.Windows.Forms.TextBox
-        Me.txtToPMCount = New System.Windows.Forms.TextBox
-        Me.txtDraftIssuedCount = New System.Windows.Forms.TextBox
-        Me.txtPublicNoticeCount = New System.Windows.Forms.TextBox
-        Me.txtToDOCount = New System.Windows.Forms.TextBox
-        Me.Label21 = New System.Windows.Forms.Label
-        Me.Label22 = New System.Windows.Forms.Label
-        Me.Label23 = New System.Windows.Forms.Label
-        Me.Label24 = New System.Windows.Forms.Label
-        Me.Label25 = New System.Windows.Forms.Label
-        Me.Label26 = New System.Windows.Forms.Label
-        Me.txtAllOpenCount = New System.Windows.Forms.TextBox
-        Me.Label28 = New System.Windows.Forms.Label
-        Me.Label29 = New System.Windows.Forms.Label
-        Me.Label30 = New System.Windows.Forms.Label
-        Me.TPAgeofOpenApplications = New System.Windows.Forms.TabPage
-        Me.GroupBox5 = New System.Windows.Forms.GroupBox
-        Me.chbAllApps3 = New System.Windows.Forms.CheckBox
-        Me.clbEngineers3 = New System.Windows.Forms.CheckedListBox
-        Me.Label72 = New System.Windows.Forms.Label
-        Me.cboSSPPUnits3 = New System.Windows.Forms.ComboBox
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox
-        Me.btnRunAge = New System.Windows.Forms.Button
-        Me.llbViewGreaterThanOpenCount = New System.Windows.Forms.LinkLabel
-        Me.txtGreaterThanOpenCount = New System.Windows.Forms.TextBox
-        Me.Label34 = New System.Windows.Forms.Label
-        Me.llbViewTwelveMonthOpenCount = New System.Windows.Forms.LinkLabel
-        Me.txtTwelveMonthOpenCount = New System.Windows.Forms.TextBox
-        Me.Label33 = New System.Windows.Forms.Label
-        Me.llbViewNineMonthOpenCount = New System.Windows.Forms.LinkLabel
-        Me.llbViewSixMonthOpenCount = New System.Windows.Forms.LinkLabel
-        Me.llbViewTotalOpenCount = New System.Windows.Forms.LinkLabel
-        Me.llbViewThreeMonthOpenCount = New System.Windows.Forms.LinkLabel
-        Me.txtNineMonthOpenCount = New System.Windows.Forms.TextBox
-        Me.txtSixMonthOpenCount = New System.Windows.Forms.TextBox
-        Me.txtThreeMonthOpenCount = New System.Windows.Forms.TextBox
-        Me.Label18 = New System.Windows.Forms.Label
-        Me.Label19 = New System.Windows.Forms.Label
-        Me.Label20 = New System.Windows.Forms.Label
-        Me.txtTotalOpenCount = New System.Windows.Forms.TextBox
-        Me.Label27 = New System.Windows.Forms.Label
-        Me.Label31 = New System.Windows.Forms.Label
-        Me.Label32 = New System.Windows.Forms.Label
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox
-        Me.btnRunTVAge = New System.Windows.Forms.Button
-        Me.llvViewTVGreaterCount = New System.Windows.Forms.LinkLabel
-        Me.llbViewTVTwelveCount = New System.Windows.Forms.LinkLabel
-        Me.llbViewTVTotalOpenCount = New System.Windows.Forms.LinkLabel
-        Me.llbViewTVOneYearCount = New System.Windows.Forms.LinkLabel
-        Me.txtTVGreaterCount = New System.Windows.Forms.TextBox
-        Me.txtTVTwelveCount = New System.Windows.Forms.TextBox
-        Me.txtTVOneYearCount = New System.Windows.Forms.TextBox
-        Me.Label36 = New System.Windows.Forms.Label
-        Me.Label37 = New System.Windows.Forms.Label
-        Me.Label38 = New System.Windows.Forms.Label
-        Me.txtTVTotalOpenCount = New System.Windows.Forms.TextBox
-        Me.Label39 = New System.Windows.Forms.Label
-        Me.Label40 = New System.Windows.Forms.Label
-        Me.Label41 = New System.Windows.Forms.Label
-        Me.TPEPAReport = New System.Windows.Forms.TabPage
-        Me.Panel4 = New System.Windows.Forms.Panel
-        Me.llbViewEPA6c = New System.Windows.Forms.LinkLabel
-        Me.txtEPA6C = New System.Windows.Forms.TextBox
-        Me.Label81 = New System.Windows.Forms.Label
-        Me.btnUpdateEPAReport = New System.Windows.Forms.Button
-        Me.llbViewEPA8a = New System.Windows.Forms.LinkLabel
-        Me.llbViewEPA7c = New System.Windows.Forms.LinkLabel
-        Me.llbViewEPA7b = New System.Windows.Forms.LinkLabel
-        Me.llbViewEPA7a = New System.Windows.Forms.LinkLabel
-        Me.llbViewEPA6b = New System.Windows.Forms.LinkLabel
-        Me.llbViewEPA6a = New System.Windows.Forms.LinkLabel
-        Me.llbViewEPA5a = New System.Windows.Forms.LinkLabel
-        Me.llbViewEPA4b = New System.Windows.Forms.LinkLabel
-        Me.llbViewEPA4a = New System.Windows.Forms.LinkLabel
-        Me.llbViewEPA3a = New System.Windows.Forms.LinkLabel
-        Me.llbViewEPA2d = New System.Windows.Forms.LinkLabel
-        Me.llbViewEPA2a = New System.Windows.Forms.LinkLabel
-        Me.txtEPA9a = New System.Windows.Forms.TextBox
-        Me.txtEPA8a = New System.Windows.Forms.TextBox
-        Me.txtEPA7c = New System.Windows.Forms.TextBox
-        Me.txtEPA7b = New System.Windows.Forms.TextBox
-        Me.txtEPA7a = New System.Windows.Forms.TextBox
-        Me.txtEPA6b = New System.Windows.Forms.TextBox
-        Me.txtEPA6a = New System.Windows.Forms.TextBox
-        Me.Label70 = New System.Windows.Forms.Label
-        Me.Label69 = New System.Windows.Forms.Label
-        Me.Label68 = New System.Windows.Forms.Label
-        Me.Label67 = New System.Windows.Forms.Label
-        Me.Label66 = New System.Windows.Forms.Label
-        Me.Label65 = New System.Windows.Forms.Label
-        Me.Label64 = New System.Windows.Forms.Label
-        Me.Label63 = New System.Windows.Forms.Label
-        Me.Label62 = New System.Windows.Forms.Label
-        Me.Label61 = New System.Windows.Forms.Label
-        Me.txtEPA5a = New System.Windows.Forms.TextBox
-        Me.Label59 = New System.Windows.Forms.Label
-        Me.Label58 = New System.Windows.Forms.Label
-        Me.txtEPA4b = New System.Windows.Forms.TextBox
-        Me.txtEPA4a = New System.Windows.Forms.TextBox
-        Me.Label57 = New System.Windows.Forms.Label
-        Me.Label56 = New System.Windows.Forms.Label
-        Me.Label55 = New System.Windows.Forms.Label
-        Me.txtEPA3a = New System.Windows.Forms.TextBox
-        Me.Label54 = New System.Windows.Forms.Label
-        Me.txtEPA2d = New System.Windows.Forms.TextBox
-        Me.txtEPA2c = New System.Windows.Forms.TextBox
-        Me.txtEPA2b = New System.Windows.Forms.TextBox
-        Me.txtEPA2a = New System.Windows.Forms.TextBox
-        Me.Label53 = New System.Windows.Forms.Label
-        Me.Label52 = New System.Windows.Forms.Label
-        Me.Label51 = New System.Windows.Forms.Label
-        Me.Label50 = New System.Windows.Forms.Label
-        Me.Label49 = New System.Windows.Forms.Label
-        Me.rdbJulyReport = New System.Windows.Forms.RadioButton
-        Me.Label48 = New System.Windows.Forms.Label
-        Me.rdbJanuaryReport = New System.Windows.Forms.RadioButton
-        Me.txtEPA1c = New System.Windows.Forms.TextBox
-        Me.cboEPAYear = New System.Windows.Forms.ComboBox
-        Me.txtEPA1b = New System.Windows.Forms.TextBox
-        Me.btnRunEPAReport = New System.Windows.Forms.Button
-        Me.txtEPA1a = New System.Windows.Forms.TextBox
-        Me.Label47 = New System.Windows.Forms.Label
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.Label46 = New System.Windows.Forms.Label
-        Me.Label44 = New System.Windows.Forms.Label
-        Me.GroupBox6 = New System.Windows.Forms.GroupBox
-        Me.txtEPAReportText = New System.Windows.Forms.TextBox
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.btnExportToExcel = New System.Windows.Forms.Button
-        Me.txtApplicationCount = New System.Windows.Forms.TextBox
-        Me.Label17 = New System.Windows.Forms.Label
-        Me.dgvApplicationCount = New System.Windows.Forms.DataGridView
-        Me.txtRecordNumber = New System.Windows.Forms.TextBox
-        Me.btnViewAppLogCount = New System.Windows.Forms.Button
-        Me.TCSSPPTools = New System.Windows.Forms.TabControl
-        Me.TPReports = New System.Windows.Forms.TabPage
-        Me.TPSubpart = New System.Windows.Forms.TabPage
-        Me.TCMiscTools = New System.Windows.Forms.TabControl
-        Me.TPEditSIP = New System.Windows.Forms.TabPage
-        Me.Panel6 = New System.Windows.Forms.Panel
-        Me.dgvSIP = New System.Windows.Forms.DataGridView
-        Me.Panel5 = New System.Windows.Forms.Panel
-        Me.btnClearSIP = New System.Windows.Forms.Button
-        Me.btnDeleteSIPSubpart = New System.Windows.Forms.Button
-        Me.txtSIPDescription = New System.Windows.Forms.TextBox
-        Me.Label73 = New System.Windows.Forms.Label
-        Me.btnEditSIP = New System.Windows.Forms.Button
-        Me.txtSIPCode = New System.Windows.Forms.TextBox
-        Me.Label74 = New System.Windows.Forms.Label
-        Me.TPEditNSPS = New System.Windows.Forms.TabPage
-        Me.dgvNSPS = New System.Windows.Forms.DataGridView
-        Me.Panel7 = New System.Windows.Forms.Panel
-        Me.btnClearNSPS = New System.Windows.Forms.Button
-        Me.btnDeleteNSPSSubpart = New System.Windows.Forms.Button
-        Me.txtNSPSDescription = New System.Windows.Forms.TextBox
-        Me.Label75 = New System.Windows.Forms.Label
-        Me.btnEditNSPS = New System.Windows.Forms.Button
-        Me.txtNSPSCode = New System.Windows.Forms.TextBox
-        Me.Label76 = New System.Windows.Forms.Label
-        Me.TPEditNESHAP = New System.Windows.Forms.TabPage
-        Me.dgvNESHAP = New System.Windows.Forms.DataGridView
-        Me.Panel8 = New System.Windows.Forms.Panel
-        Me.btnClearNESHAP = New System.Windows.Forms.Button
-        Me.btnDeleteNESHAPSubpart = New System.Windows.Forms.Button
-        Me.txtNESHAPDescription = New System.Windows.Forms.TextBox
-        Me.Label77 = New System.Windows.Forms.Label
-        Me.btnEditNESHAP = New System.Windows.Forms.Button
-        Me.txtNESHAPCode = New System.Windows.Forms.TextBox
-        Me.Label78 = New System.Windows.Forms.Label
-        Me.TPEditMACT = New System.Windows.Forms.TabPage
-        Me.dgvMACT = New System.Windows.Forms.DataGridView
-        Me.Panel9 = New System.Windows.Forms.Panel
-        Me.btnClearMACT = New System.Windows.Forms.Button
-        Me.btnDeleteMACTSubpart = New System.Windows.Forms.Button
-        Me.txtMACTDescription = New System.Windows.Forms.TextBox
-        Me.Label79 = New System.Windows.Forms.Label
-        Me.btnEditMACT = New System.Windows.Forms.Button
-        Me.txtMACTCode = New System.Windows.Forms.TextBox
-        Me.Label80 = New System.Windows.Forms.Label
+        Me.TCSSPPStatistics = New System.Windows.Forms.TabControl()
+        Me.TPPermittingStats = New System.Windows.Forms.TabPage()
+        Me.TCPermitCounts = New System.Windows.Forms.TabControl()
+        Me.TPPermitsIssued = New System.Windows.Forms.TabPage()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Label45 = New System.Windows.Forms.Label()
+        Me.txtTVTotalMedian = New System.Windows.Forms.TextBox()
+        Me.Label43 = New System.Windows.Forms.Label()
+        Me.txtTVInitialMedian = New System.Windows.Forms.TextBox()
+        Me.txtPSDMedian = New System.Windows.Forms.TextBox()
+        Me.txtNonPermitMedian = New System.Windows.Forms.TextBox()
+        Me.txtOtherMedian = New System.Windows.Forms.TextBox()
+        Me.txtPBRMedian = New System.Windows.Forms.TextBox()
+        Me.txtSMMedian = New System.Windows.Forms.TextBox()
+        Me.txtAAMedian = New System.Windows.Forms.TextBox()
+        Me.txt502Median = New System.Windows.Forms.TextBox()
+        Me.txtMinorMedian = New System.Windows.Forms.TextBox()
+        Me.txtSigModMedian = New System.Windows.Forms.TextBox()
+        Me.txtTVRenewalMedian = New System.Windows.Forms.TextBox()
+        Me.Label42 = New System.Windows.Forms.Label()
+        Me.llbViewAACount = New System.Windows.Forms.LinkLabel()
+        Me.llbViewSMCount = New System.Windows.Forms.LinkLabel()
+        Me.llbViewPBRCount = New System.Windows.Forms.LinkLabel()
+        Me.llbViewOtherCount = New System.Windows.Forms.LinkLabel()
+        Me.llbViewNoPermitCount = New System.Windows.Forms.LinkLabel()
+        Me.llbViewPSDCount = New System.Windows.Forms.LinkLabel()
+        Me.llbView502Count = New System.Windows.Forms.LinkLabel()
+        Me.llbViewMinorModCount = New System.Windows.Forms.LinkLabel()
+        Me.llbViewTVCount = New System.Windows.Forms.LinkLabel()
+        Me.lblViewSigModCount = New System.Windows.Forms.LinkLabel()
+        Me.txtPSDCount = New System.Windows.Forms.TextBox()
+        Me.txtNonPermitCount = New System.Windows.Forms.TextBox()
+        Me.txtOtherCount = New System.Windows.Forms.TextBox()
+        Me.txtPBRCount = New System.Windows.Forms.TextBox()
+        Me.txtSMCount = New System.Windows.Forms.TextBox()
+        Me.txtAACount = New System.Windows.Forms.TextBox()
+        Me.txt502Count = New System.Windows.Forms.TextBox()
+        Me.txtMinorModCount = New System.Windows.Forms.TextBox()
+        Me.txtSigModCount = New System.Windows.Forms.TextBox()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.txtTitleVRenewalCount = New System.Windows.Forms.TextBox()
+        Me.txtTitleVInitialCount = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.GBPermitDates = New System.Windows.Forms.GroupBox()
+        Me.chbAllApps = New System.Windows.Forms.CheckBox()
+        Me.clbEngineers = New System.Windows.Forms.CheckedListBox()
+        Me.Label60 = New System.Windows.Forms.Label()
+        Me.cboSSPPUnits = New System.Windows.Forms.ComboBox()
+        Me.btnRunReport = New System.Windows.Forms.Button()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.DTPPermitCountEnd = New System.Windows.Forms.DateTimePicker()
+        Me.DTPPermitCountStart = New System.Windows.Forms.DateTimePicker()
+        Me.TPOpenApplications = New System.Windows.Forms.TabPage()
+        Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.TPAllOpenApplications = New System.Windows.Forms.TabPage()
+        Me.chbAllApps2 = New System.Windows.Forms.CheckBox()
+        Me.clbEngineers2 = New System.Windows.Forms.CheckedListBox()
+        Me.Label71 = New System.Windows.Forms.Label()
+        Me.cboSSPPUnits2 = New System.Windows.Forms.ComboBox()
+        Me.txtToBCCount = New System.Windows.Forms.TextBox()
+        Me.llbViewOpen45DayCount = New System.Windows.Forms.LinkLabel()
+        Me.txtOpen45DayCount = New System.Windows.Forms.TextBox()
+        Me.Label35 = New System.Windows.Forms.Label()
+        Me.btnRunOpenReport = New System.Windows.Forms.Button()
+        Me.llbViewToPMCount = New System.Windows.Forms.LinkLabel()
+        Me.llbViewToUCCount = New System.Windows.Forms.LinkLabel()
+        Me.llbViewWStaffCount = New System.Windows.Forms.LinkLabel()
+        Me.llbViewDraftIssuedCount = New System.Windows.Forms.LinkLabel()
+        Me.llbViewPublicNoticeCount = New System.Windows.Forms.LinkLabel()
+        Me.llbViewAllOpenCount = New System.Windows.Forms.LinkLabel()
+        Me.llbViewToBCDOCount = New System.Windows.Forms.LinkLabel()
+        Me.txtWStaffCount = New System.Windows.Forms.TextBox()
+        Me.txtToUCCount = New System.Windows.Forms.TextBox()
+        Me.txtToPMCount = New System.Windows.Forms.TextBox()
+        Me.txtDraftIssuedCount = New System.Windows.Forms.TextBox()
+        Me.txtPublicNoticeCount = New System.Windows.Forms.TextBox()
+        Me.txtToDOCount = New System.Windows.Forms.TextBox()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.txtAllOpenCount = New System.Windows.Forms.TextBox()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.TPAgeofOpenApplications = New System.Windows.Forms.TabPage()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.chbAllApps3 = New System.Windows.Forms.CheckBox()
+        Me.clbEngineers3 = New System.Windows.Forms.CheckedListBox()
+        Me.Label72 = New System.Windows.Forms.Label()
+        Me.cboSSPPUnits3 = New System.Windows.Forms.ComboBox()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.btnRunAge = New System.Windows.Forms.Button()
+        Me.llbViewGreaterThanOpenCount = New System.Windows.Forms.LinkLabel()
+        Me.txtGreaterThanOpenCount = New System.Windows.Forms.TextBox()
+        Me.Label34 = New System.Windows.Forms.Label()
+        Me.llbViewTwelveMonthOpenCount = New System.Windows.Forms.LinkLabel()
+        Me.txtTwelveMonthOpenCount = New System.Windows.Forms.TextBox()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.llbViewNineMonthOpenCount = New System.Windows.Forms.LinkLabel()
+        Me.llbViewSixMonthOpenCount = New System.Windows.Forms.LinkLabel()
+        Me.llbViewTotalOpenCount = New System.Windows.Forms.LinkLabel()
+        Me.llbViewThreeMonthOpenCount = New System.Windows.Forms.LinkLabel()
+        Me.txtNineMonthOpenCount = New System.Windows.Forms.TextBox()
+        Me.txtSixMonthOpenCount = New System.Windows.Forms.TextBox()
+        Me.txtThreeMonthOpenCount = New System.Windows.Forms.TextBox()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.txtTotalOpenCount = New System.Windows.Forms.TextBox()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.btnRunTVAge = New System.Windows.Forms.Button()
+        Me.llvViewTVGreaterCount = New System.Windows.Forms.LinkLabel()
+        Me.llbViewTVTwelveCount = New System.Windows.Forms.LinkLabel()
+        Me.llbViewTVTotalOpenCount = New System.Windows.Forms.LinkLabel()
+        Me.llbViewTVOneYearCount = New System.Windows.Forms.LinkLabel()
+        Me.txtTVGreaterCount = New System.Windows.Forms.TextBox()
+        Me.txtTVTwelveCount = New System.Windows.Forms.TextBox()
+        Me.txtTVOneYearCount = New System.Windows.Forms.TextBox()
+        Me.Label36 = New System.Windows.Forms.Label()
+        Me.Label37 = New System.Windows.Forms.Label()
+        Me.Label38 = New System.Windows.Forms.Label()
+        Me.txtTVTotalOpenCount = New System.Windows.Forms.TextBox()
+        Me.Label39 = New System.Windows.Forms.Label()
+        Me.Label40 = New System.Windows.Forms.Label()
+        Me.Label41 = New System.Windows.Forms.Label()
+        Me.TPEPAReport = New System.Windows.Forms.TabPage()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.llbViewEPA6c = New System.Windows.Forms.LinkLabel()
+        Me.txtEPA6C = New System.Windows.Forms.TextBox()
+        Me.Label81 = New System.Windows.Forms.Label()
+        Me.btnUpdateEPAReport = New System.Windows.Forms.Button()
+        Me.llbViewEPA8a = New System.Windows.Forms.LinkLabel()
+        Me.llbViewEPA7c = New System.Windows.Forms.LinkLabel()
+        Me.llbViewEPA7b = New System.Windows.Forms.LinkLabel()
+        Me.llbViewEPA7a = New System.Windows.Forms.LinkLabel()
+        Me.llbViewEPA6b = New System.Windows.Forms.LinkLabel()
+        Me.llbViewEPA6a = New System.Windows.Forms.LinkLabel()
+        Me.llbViewEPA5a = New System.Windows.Forms.LinkLabel()
+        Me.llbViewEPA4b = New System.Windows.Forms.LinkLabel()
+        Me.llbViewEPA4a = New System.Windows.Forms.LinkLabel()
+        Me.llbViewEPA3a = New System.Windows.Forms.LinkLabel()
+        Me.llbViewEPA2d = New System.Windows.Forms.LinkLabel()
+        Me.llbViewEPA2a = New System.Windows.Forms.LinkLabel()
+        Me.txtEPA9a = New System.Windows.Forms.TextBox()
+        Me.txtEPA8a = New System.Windows.Forms.TextBox()
+        Me.txtEPA7c = New System.Windows.Forms.TextBox()
+        Me.txtEPA7b = New System.Windows.Forms.TextBox()
+        Me.txtEPA7a = New System.Windows.Forms.TextBox()
+        Me.txtEPA6b = New System.Windows.Forms.TextBox()
+        Me.txtEPA6a = New System.Windows.Forms.TextBox()
+        Me.Label70 = New System.Windows.Forms.Label()
+        Me.Label69 = New System.Windows.Forms.Label()
+        Me.Label68 = New System.Windows.Forms.Label()
+        Me.Label67 = New System.Windows.Forms.Label()
+        Me.Label66 = New System.Windows.Forms.Label()
+        Me.Label65 = New System.Windows.Forms.Label()
+        Me.Label64 = New System.Windows.Forms.Label()
+        Me.Label63 = New System.Windows.Forms.Label()
+        Me.Label62 = New System.Windows.Forms.Label()
+        Me.Label61 = New System.Windows.Forms.Label()
+        Me.txtEPA5a = New System.Windows.Forms.TextBox()
+        Me.Label59 = New System.Windows.Forms.Label()
+        Me.Label58 = New System.Windows.Forms.Label()
+        Me.txtEPA4b = New System.Windows.Forms.TextBox()
+        Me.txtEPA4a = New System.Windows.Forms.TextBox()
+        Me.Label57 = New System.Windows.Forms.Label()
+        Me.Label56 = New System.Windows.Forms.Label()
+        Me.Label55 = New System.Windows.Forms.Label()
+        Me.txtEPA3a = New System.Windows.Forms.TextBox()
+        Me.Label54 = New System.Windows.Forms.Label()
+        Me.txtEPA2d = New System.Windows.Forms.TextBox()
+        Me.txtEPA2c = New System.Windows.Forms.TextBox()
+        Me.txtEPA2b = New System.Windows.Forms.TextBox()
+        Me.txtEPA2a = New System.Windows.Forms.TextBox()
+        Me.Label53 = New System.Windows.Forms.Label()
+        Me.Label52 = New System.Windows.Forms.Label()
+        Me.Label51 = New System.Windows.Forms.Label()
+        Me.Label50 = New System.Windows.Forms.Label()
+        Me.Label49 = New System.Windows.Forms.Label()
+        Me.rdbJulyReport = New System.Windows.Forms.RadioButton()
+        Me.Label48 = New System.Windows.Forms.Label()
+        Me.rdbJanuaryReport = New System.Windows.Forms.RadioButton()
+        Me.txtEPA1c = New System.Windows.Forms.TextBox()
+        Me.cboEPAYear = New System.Windows.Forms.ComboBox()
+        Me.txtEPA1b = New System.Windows.Forms.TextBox()
+        Me.btnRunEPAReport = New System.Windows.Forms.Button()
+        Me.txtEPA1a = New System.Windows.Forms.TextBox()
+        Me.Label47 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label46 = New System.Windows.Forms.Label()
+        Me.Label44 = New System.Windows.Forms.Label()
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.txtEPAReportText = New System.Windows.Forms.TextBox()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.btnExportToExcel = New System.Windows.Forms.Button()
+        Me.txtApplicationCount = New System.Windows.Forms.TextBox()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.dgvApplicationCount = New System.Windows.Forms.DataGridView()
+        Me.txtRecordNumber = New System.Windows.Forms.TextBox()
+        Me.btnViewAppLogCount = New System.Windows.Forms.Button()
+        Me.TCSSPPTools = New System.Windows.Forms.TabControl()
+        Me.TPReports = New System.Windows.Forms.TabPage()
+        Me.TPSubpart = New System.Windows.Forms.TabPage()
+        Me.TCMiscTools = New System.Windows.Forms.TabControl()
+        Me.TPEditSIP = New System.Windows.Forms.TabPage()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.dgvSIP = New System.Windows.Forms.DataGridView()
+        Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.btnClearSIP = New System.Windows.Forms.Button()
+        Me.btnDeleteSIPSubpart = New System.Windows.Forms.Button()
+        Me.txtSIPDescription = New System.Windows.Forms.TextBox()
+        Me.Label73 = New System.Windows.Forms.Label()
+        Me.btnEditSIP = New System.Windows.Forms.Button()
+        Me.txtSIPCode = New System.Windows.Forms.TextBox()
+        Me.Label74 = New System.Windows.Forms.Label()
+        Me.TPEditNSPS = New System.Windows.Forms.TabPage()
+        Me.dgvNSPS = New System.Windows.Forms.DataGridView()
+        Me.Panel7 = New System.Windows.Forms.Panel()
+        Me.btnClearNSPS = New System.Windows.Forms.Button()
+        Me.btnDeleteNSPSSubpart = New System.Windows.Forms.Button()
+        Me.txtNSPSDescription = New System.Windows.Forms.TextBox()
+        Me.Label75 = New System.Windows.Forms.Label()
+        Me.btnEditNSPS = New System.Windows.Forms.Button()
+        Me.txtNSPSCode = New System.Windows.Forms.TextBox()
+        Me.Label76 = New System.Windows.Forms.Label()
+        Me.TPEditNESHAP = New System.Windows.Forms.TabPage()
+        Me.dgvNESHAP = New System.Windows.Forms.DataGridView()
+        Me.Panel8 = New System.Windows.Forms.Panel()
+        Me.btnClearNESHAP = New System.Windows.Forms.Button()
+        Me.btnDeleteNESHAPSubpart = New System.Windows.Forms.Button()
+        Me.txtNESHAPDescription = New System.Windows.Forms.TextBox()
+        Me.Label77 = New System.Windows.Forms.Label()
+        Me.btnEditNESHAP = New System.Windows.Forms.Button()
+        Me.txtNESHAPCode = New System.Windows.Forms.TextBox()
+        Me.Label78 = New System.Windows.Forms.Label()
+        Me.TPEditMACT = New System.Windows.Forms.TabPage()
+        Me.dgvMACT = New System.Windows.Forms.DataGridView()
+        Me.Panel9 = New System.Windows.Forms.Panel()
+        Me.btnClearMACT = New System.Windows.Forms.Button()
+        Me.btnDeleteMACTSubpart = New System.Windows.Forms.Button()
+        Me.txtMACTDescription = New System.Windows.Forms.TextBox()
+        Me.Label79 = New System.Windows.Forms.Label()
+        Me.btnEditMACT = New System.Windows.Forms.Button()
+        Me.txtMACTCode = New System.Windows.Forms.TextBox()
+        Me.Label80 = New System.Windows.Forms.Label()
         Me.TCSSPPStatistics.SuspendLayout()
         Me.TPPermittingStats.SuspendLayout()
         Me.TCPermitCounts.SuspendLayout()
@@ -725,8 +725,8 @@ Partial Class SSPPStatisticalTools
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(319, 39)
         Me.Label16.TabIndex = 15
-        Me.Label16.Text = "** PSD permits are a special rule type and not an application type. " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "   Therefor" & _
-            "e, PSD permits are also included in one of the " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    categories above."
+        Me.Label16.Text = "** PSD permits are a special rule type and not an application type. " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "   Therefor" &
+    "e, PSD permits are also included in one of the " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    categories above."
         '
         'Label15
         '
@@ -1319,7 +1319,7 @@ Partial Class SSPPStatisticalTools
         Me.TPAgeofOpenApplications.Location = New System.Drawing.Point(4, 22)
         Me.TPAgeofOpenApplications.Name = "TPAgeofOpenApplications"
         Me.TPAgeofOpenApplications.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPAgeofOpenApplications.Size = New System.Drawing.Size(494, 562)
+        Me.TPAgeofOpenApplications.Size = New System.Drawing.Size(494, 584)
         Me.TPAgeofOpenApplications.TabIndex = 1
         Me.TPAgeofOpenApplications.Text = "Age of Open Application(s)"
         Me.TPAgeofOpenApplications.UseVisualStyleBackColor = True
@@ -1862,8 +1862,8 @@ Partial Class SSPPStatisticalTools
         Me.Label81.Name = "Label81"
         Me.Label81.Size = New System.Drawing.Size(125, 52)
         Me.Label81.TabIndex = 80
-        Me.Label81.Text = "c) Total number of active" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "     permits with terms " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "     NOT extended past " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "   " & _
-            "  5 years:"
+        Me.Label81.Text = "c) Total number of active" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "     permits with terms " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "     NOT extended past " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "   " &
+    "  5 years:"
         '
         'btnUpdateEPAReport
         '
@@ -2063,8 +2063,8 @@ Partial Class SSPPStatisticalTools
         Me.Label69.Name = "Label69"
         Me.Label69.Size = New System.Drawing.Size(143, 52)
         Me.Label69.TabIndex = 40
-        Me.Label69.Text = "Total number of active " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    significant modification" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    applications older tha" & _
-            "n 18 " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    months:"
+        Me.Label69.Text = "Total number of active " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    significant modification" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    applications older tha" &
+    "n 18 " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    months:"
         '
         'Label68
         '
@@ -2082,8 +2082,8 @@ Partial Class SSPPStatisticalTools
         Me.Label67.Name = "Label67"
         Me.Label67.Size = New System.Drawing.Size(136, 65)
         Me.Label67.TabIndex = 38
-        Me.Label67.Text = "c) Number of significant " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    modifications finalized" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    during 6 month report" & _
-            "ing " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    period that were issued " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    within 9 months: "
+        Me.Label67.Text = "c) Number of significant " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    modifications finalized" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    during 6 month report" &
+    "ing " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    period that were issued " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    within 9 months: "
         '
         'Label66
         '
@@ -2092,8 +2092,8 @@ Partial Class SSPPStatisticalTools
         Me.Label66.Name = "Label66"
         Me.Label66.Size = New System.Drawing.Size(136, 65)
         Me.Label66.TabIndex = 37
-        Me.Label66.Text = "b) Number of significant " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    modifications finalized" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    during 6 month report" & _
-            "ing " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    period that were issued " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    within 9 months: "
+        Me.Label66.Text = "b) Number of significant " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    modifications finalized" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    during 6 month report" &
+    "ing " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    period that were issued " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    within 9 months: "
         '
         'Label65
         '
@@ -2102,8 +2102,8 @@ Partial Class SSPPStatisticalTools
         Me.Label65.Name = "Label65"
         Me.Label65.Size = New System.Drawing.Size(133, 52)
         Me.Label65.TabIndex = 36
-        Me.Label65.Text = "a) Total number of " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    significant modifications " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    issued during 6 month " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & _
-            "    reporting period: "
+        Me.Label65.Text = "a) Total number of " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    significant modifications " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    issued during 6 month " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) &
+    "    reporting period: "
         '
         'Label64
         '
@@ -2112,8 +2112,8 @@ Partial Class SSPPStatisticalTools
         Me.Label64.Name = "Label64"
         Me.Label64.Size = New System.Drawing.Size(84, 78)
         Me.Label64.TabIndex = 35
-        Me.Label64.Text = "7. Timeliness of " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "     Significant " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "     Modifications" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "     (PART" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "      eleme" & _
-            "nt - a " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "      and b only) "
+        Me.Label64.Text = "7. Timeliness of " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "     Significant " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "     Modifications" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "     (PART" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "      eleme" &
+    "nt - a " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "      and b only) "
         '
         'Label63
         '
@@ -2156,8 +2156,8 @@ Partial Class SSPPStatisticalTools
         Me.Label59.Name = "Label59"
         Me.Label59.Size = New System.Drawing.Size(137, 39)
         Me.Label59.TabIndex = 29
-        Me.Label59.Text = "The number of active initial " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    part 70 applications" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    older than 18 months" & _
-            ": "
+        Me.Label59.Text = "The number of active initial " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    part 70 applications" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    older than 18 months" &
+    ": "
         '
         'Label58
         '
@@ -2189,8 +2189,8 @@ Partial Class SSPPStatisticalTools
         Me.Label57.Name = "Label57"
         Me.Label57.Size = New System.Drawing.Size(137, 65)
         Me.Label57.TabIndex = 25
-        Me.Label57.Text = "b) Number of initial part 70 " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    permits finalized during 6 " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    month reporti" & _
-            "ng period " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    that were issued within" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    18 months: "
+        Me.Label57.Text = "b) Number of initial part 70 " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    permits finalized during 6 " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    month reporti" &
+    "ng period " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    that were issued within" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    18 months: "
         '
         'Label56
         '
@@ -2199,8 +2199,8 @@ Partial Class SSPPStatisticalTools
         Me.Label56.Name = "Label56"
         Me.Label56.Size = New System.Drawing.Size(136, 52)
         Me.Label56.TabIndex = 24
-        Me.Label56.Text = "a) Total number of initial " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    part 70 permits issued " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    during 6 month repo" & _
-            "rting " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    period: "
+        Me.Label56.Text = "a) Total number of initial " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    part 70 permits issued " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    during 6 month repo" &
+    "rting " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    period: "
         '
         'Label55
         '
@@ -2298,9 +2298,9 @@ Partial Class SSPPStatisticalTools
         Me.Label49.Name = "Label49"
         Me.Label49.Size = New System.Drawing.Size(139, 91)
         Me.Label49.TabIndex = 12
-        Me.Label49.Text = "a) Number of active part 70 " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    sources that have " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    obtained part 70 permit" & _
-            "s, " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    plus the number of " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    active part 70 sources " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    that have not yet" & _
-            " " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    obtained part 70 permits:"
+        Me.Label49.Text = "a) Number of active part 70 " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    sources that have " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    obtained part 70 permit" &
+    "s, " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    plus the number of " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    active part 70 sources " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    that have not yet" &
+    " " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    obtained part 70 permits:"
         '
         'rdbJulyReport
         '
@@ -2320,8 +2320,8 @@ Partial Class SSPPStatisticalTools
         Me.Label48.Name = "Label48"
         Me.Label48.Size = New System.Drawing.Size(96, 65)
         Me.Label48.TabIndex = 11
-        Me.Label48.Text = "2. Total Current " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "     Part 70 " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "     Source " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "     Universe and " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "     Permit U" & _
-            "niverse"
+        Me.Label48.Text = "2. Total Current " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "     Part 70 " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "     Source " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "     Universe and " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "     Permit U" &
+    "niverse"
         '
         'rdbJanuaryReport
         '
@@ -2483,8 +2483,8 @@ Partial Class SSPPStatisticalTools
         Me.dgvApplicationCount.AllowUserToDeleteRows = False
         Me.dgvApplicationCount.AllowUserToOrderColumns = True
         Me.dgvApplicationCount.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvApplicationCount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvApplicationCount.Location = New System.Drawing.Point(6, 51)
         Me.dgvApplicationCount.Name = "dgvApplicationCount"
@@ -2538,7 +2538,7 @@ Partial Class SSPPStatisticalTools
         Me.TPSubpart.Location = New System.Drawing.Point(4, 22)
         Me.TPSubpart.Name = "TPSubpart"
         Me.TPSubpart.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPSubpart.Size = New System.Drawing.Size(914, 626)
+        Me.TPSubpart.Size = New System.Drawing.Size(914, 648)
         Me.TPSubpart.TabIndex = 1
         Me.TPSubpart.Text = "Sub-part editor"
         Me.TPSubpart.UseVisualStyleBackColor = True
@@ -2553,7 +2553,7 @@ Partial Class SSPPStatisticalTools
         Me.TCMiscTools.Location = New System.Drawing.Point(3, 3)
         Me.TCMiscTools.Name = "TCMiscTools"
         Me.TCMiscTools.SelectedIndex = 0
-        Me.TCMiscTools.Size = New System.Drawing.Size(908, 620)
+        Me.TCMiscTools.Size = New System.Drawing.Size(908, 642)
         Me.TCMiscTools.TabIndex = 2
         '
         'TPEditSIP
@@ -2563,7 +2563,7 @@ Partial Class SSPPStatisticalTools
         Me.TPEditSIP.Location = New System.Drawing.Point(4, 22)
         Me.TPEditSIP.Name = "TPEditSIP"
         Me.TPEditSIP.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPEditSIP.Size = New System.Drawing.Size(900, 594)
+        Me.TPEditSIP.Size = New System.Drawing.Size(900, 616)
         Me.TPEditSIP.TabIndex = 0
         Me.TPEditSIP.Text = "Edit SIP Subparts"
         Me.TPEditSIP.UseVisualStyleBackColor = True
@@ -2574,7 +2574,7 @@ Partial Class SSPPStatisticalTools
         Me.Panel6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel6.Location = New System.Drawing.Point(3, 126)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(894, 465)
+        Me.Panel6.Size = New System.Drawing.Size(894, 487)
         Me.Panel6.TabIndex = 1
         '
         'dgvSIP
@@ -2584,7 +2584,7 @@ Partial Class SSPPStatisticalTools
         Me.dgvSIP.Location = New System.Drawing.Point(0, 0)
         Me.dgvSIP.Name = "dgvSIP"
         Me.dgvSIP.ReadOnly = True
-        Me.dgvSIP.Size = New System.Drawing.Size(894, 465)
+        Me.dgvSIP.Size = New System.Drawing.Size(894, 487)
         Me.dgvSIP.TabIndex = 0
         '
         'Panel5
@@ -2674,7 +2674,7 @@ Partial Class SSPPStatisticalTools
         Me.TPEditNSPS.Controls.Add(Me.Panel7)
         Me.TPEditNSPS.Location = New System.Drawing.Point(4, 22)
         Me.TPEditNSPS.Name = "TPEditNSPS"
-        Me.TPEditNSPS.Size = New System.Drawing.Size(900, 566)
+        Me.TPEditNSPS.Size = New System.Drawing.Size(900, 616)
         Me.TPEditNSPS.TabIndex = 1
         Me.TPEditNSPS.Text = "Edit NSPS"
         Me.TPEditNSPS.UseVisualStyleBackColor = True
@@ -2686,7 +2686,7 @@ Partial Class SSPPStatisticalTools
         Me.dgvNSPS.Location = New System.Drawing.Point(0, 123)
         Me.dgvNSPS.Name = "dgvNSPS"
         Me.dgvNSPS.ReadOnly = True
-        Me.dgvNSPS.Size = New System.Drawing.Size(900, 443)
+        Me.dgvNSPS.Size = New System.Drawing.Size(900, 493)
         Me.dgvNSPS.TabIndex = 2
         '
         'Panel7
@@ -2776,7 +2776,7 @@ Partial Class SSPPStatisticalTools
         Me.TPEditNESHAP.Controls.Add(Me.Panel8)
         Me.TPEditNESHAP.Location = New System.Drawing.Point(4, 22)
         Me.TPEditNESHAP.Name = "TPEditNESHAP"
-        Me.TPEditNESHAP.Size = New System.Drawing.Size(900, 566)
+        Me.TPEditNESHAP.Size = New System.Drawing.Size(900, 616)
         Me.TPEditNESHAP.TabIndex = 2
         Me.TPEditNESHAP.Text = "Edit NESHAP"
         Me.TPEditNESHAP.UseVisualStyleBackColor = True
@@ -2788,7 +2788,7 @@ Partial Class SSPPStatisticalTools
         Me.dgvNESHAP.Location = New System.Drawing.Point(0, 123)
         Me.dgvNESHAP.Name = "dgvNESHAP"
         Me.dgvNESHAP.ReadOnly = True
-        Me.dgvNESHAP.Size = New System.Drawing.Size(900, 443)
+        Me.dgvNESHAP.Size = New System.Drawing.Size(900, 493)
         Me.dgvNESHAP.TabIndex = 2
         '
         'Panel8
@@ -2878,7 +2878,7 @@ Partial Class SSPPStatisticalTools
         Me.TPEditMACT.Controls.Add(Me.Panel9)
         Me.TPEditMACT.Location = New System.Drawing.Point(4, 22)
         Me.TPEditMACT.Name = "TPEditMACT"
-        Me.TPEditMACT.Size = New System.Drawing.Size(900, 566)
+        Me.TPEditMACT.Size = New System.Drawing.Size(900, 616)
         Me.TPEditMACT.TabIndex = 3
         Me.TPEditMACT.Text = "Edit MACT"
         Me.TPEditMACT.UseVisualStyleBackColor = True
@@ -2890,7 +2890,7 @@ Partial Class SSPPStatisticalTools
         Me.dgvMACT.Location = New System.Drawing.Point(0, 123)
         Me.dgvMACT.Name = "dgvMACT"
         Me.dgvMACT.ReadOnly = True
-        Me.dgvMACT.Size = New System.Drawing.Size(900, 443)
+        Me.dgvMACT.Size = New System.Drawing.Size(900, 493)
         Me.dgvMACT.TabIndex = 2
         '
         'Panel9

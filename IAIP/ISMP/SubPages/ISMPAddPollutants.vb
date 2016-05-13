@@ -16,7 +16,7 @@ Public Class ISMPAddPollutants
 
 
     Private Sub ISMPAddPollutants_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        
+
         Try
 
             CreateStatusBar()
@@ -72,8 +72,8 @@ Public Class ISMPAddPollutants
     Sub LoadDataSet()
         Try
 
-            SQL = "Select strPollutantCode, strPOllutantDescription " & _
-                 "from AIRBRANCH.LookUPPollutants " & _
+            SQL = "Select strPollutantCode, strPOllutantDescription " &
+                 "from AIRBRANCH.LookUPPollutants " &
                  "Order by strPollutantDescription"
 
             dsPollutant = New DataSet
@@ -155,11 +155,11 @@ Public Class ISMPAddPollutants
                 End If
 
                 If chbDeletePollutant.Checked = True Then
-                    SQL = "Delete AIRBRANCH.LookUPPollutants " & _
+                    SQL = "Delete AIRBRANCH.LookUPPollutants " &
                     "where strPollutantCode = '" & txtPollutantCode.Text & "' "
                 Else
-                    SQL = "Select strPollutantDescription " & _
-                    "from AIRBRANCH.LookUPPollutants " & _
+                    SQL = "Select strPollutantDescription " &
+                    "from AIRBRANCH.LookUPPollutants " &
                     "where strPollutantcode = '" & txtPollutantCode.Text & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -167,14 +167,14 @@ Public Class ISMPAddPollutants
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
                     If recExist = True Then
-                        SQL = "Update AIRBRANCH.LookUPPollutants set " & _
-                        "strPollutantDescription = '" & txtPollutant.Text & "', " & _
-                        "strPollutantCode = '" & txtPollutantCode.Text & "' " & _
+                        SQL = "Update AIRBRANCH.LookUPPollutants set " &
+                        "strPollutantDescription = '" & txtPollutant.Text & "', " &
+                        "strPollutantCode = '" & txtPollutantCode.Text & "' " &
                         "where strPollutantCode = '" & txtPollutantCode.Text & "' "
                     Else
-                        SQL = "Insert into AIRBRANCH.LookUPPollutants " & _
-                        "(strPollutantCode, strPollutantDescription) " & _
-                        "values " & _
+                        SQL = "Insert into AIRBRANCH.LookUPPollutants " &
+                        "(strPollutantCode, strPollutantDescription) " &
+                        "values " &
                         "('" & txtPollutantCode.Text & "', '" & txtPollutant.Text & "') "
                     End If
                 End If
@@ -247,8 +247,8 @@ Public Class ISMPAddPollutants
                         'PollutantCode = PollutantCode
                 End Select
 
-                SQL = "Select strPollutantCode " & _
-                "from AIRBRANCH.LookUPPollutants " & _
+                SQL = "Select strPollutantCode " &
+                "from AIRBRANCH.LookUPPollutants " &
                 "where strPollutantCode = '" & PollutantCode & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader

@@ -14,15 +14,15 @@ Namespace DAL.Sscp
         End Function
 
         Public Function FacilityAssignmentExists(ByVal airsNumber As Apb.ApbFacilityId, ByVal targetYear As Integer) As Boolean
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " & _
-                " WHERE RowNum = 1 " & _
-                " AND INTYEAR = :year " & _
+            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
+                " FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
+                " WHERE RowNum = 1 " &
+                " AND INTYEAR = :year " &
                 " AND STRAIRSNUMBER = :airs "
 
-            Dim parameters As OracleParameter() = New OracleParameter() { _
-                New OracleParameter("year", targetYear), _
-                New OracleParameter("airs", airsNumber.DbFormattedString) _
+            Dim parameters As OracleParameter() = New OracleParameter() {
+                New OracleParameter("year", targetYear),
+                New OracleParameter("airs", airsNumber.DbFormattedString)
             }
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameters)
@@ -30,9 +30,9 @@ Namespace DAL.Sscp
         End Function
 
         Public Function AssignmentYearExists(ByVal targetYear As Integer) As Boolean
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " & _
-                " WHERE RowNum = 1 " & _
+            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
+                " FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
+                " WHERE RowNum = 1 " &
                 " AND INTYEAR = :year "
             Dim parameter As New OracleParameter("year", targetYear)
 
@@ -41,7 +41,7 @@ Namespace DAL.Sscp
         End Function
 
         Public Function DeleteAssignmentYear(ByVal targetYear As Integer) As Boolean
-            Dim query As String = " DELETE FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " & _
+            Dim query As String = " DELETE FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
                 " WHERE INTYEAR = :year "
             Dim parameter As New OracleParameter("year", targetYear)
 
@@ -57,9 +57,9 @@ Namespace DAL.Sscp
 
             Dim recordsInserted As Integer = 0
 
-            Dim query1 As String = " SELECT   STRAIRSNUMBER " & _
-                "  FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " & _
-                "  WHERE INTYEAR = :oldYear " & _
+            Dim query1 As String = " SELECT   STRAIRSNUMBER " &
+                "  FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
+                "  WHERE INTYEAR = :oldYear " &
                 "  ORDER BY STRAIRSNUMBER "
             Dim parameter1 As New OracleParameter("oldYear", oldYear)
             Dim dataTable As DataTable = DB.GetDataTable(query1, parameter1)
@@ -67,41 +67,41 @@ Namespace DAL.Sscp
             If dataTable IsNot Nothing AndAlso dataTable.Rows.Count > 0 Then
                 For Each row As DataRow In dataTable.Rows
                     Dim airsNumberString As String = DB.GetNullable(Of String)(row("STRAIRSNUMBER"))
-                    If Apb.ApbFacilityId.IsValidAirsNumberFormat(airsNumberString) AndAlso _
+                    If Apb.ApbFacilityId.IsValidAirsNumberFormat(airsNumberString) AndAlso
                     Not FacilityAssignmentExists(airsNumberString, targetYear) Then
 
-                        Dim query2 As String = "INSERT " & _
-                            "  INTO AIRBRANCH.SSCPINSPECTIONSREQUIRED " & _
-                            "    ( " & _
-                            "      NUMKEY " & _
-                            "    , STRAIRSNUMBER " & _
-                            "    , INTYEAR " & _
-                            "    , NUMSSCPENGINEER " & _
-                            "    , NUMSSCPUNIT " & _
-                            "    , STRINSPECTIONREQUIRED " & _
-                            "    , STRFCEREQUIRED " & _
-                            "    , STRASSIGNINGMANAGER " & _
-                            "    , DATASSIGNINGDATE " & _
-                            "    ) " & _
-                            " SELECT " & _
-                            "    (SELECT MAX(NUMKEY) + 1 FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " & _
-                            "    ) AS NEWKEY " & _
-                            "  , STRAIRSNUMBER " & _
-                            "  , :targetyear " & _
-                            "  , NUMSSCPENGINEER " & _
-                            "  , NUMSSCPUNIT " & _
-                            "  , STRINSPECTIONREQUIRED " & _
-                            "  , STRFCEREQUIRED " & _
-                            "  , STRASSIGNINGMANAGER " & _
-                            "  , DATASSIGNINGDATE " & _
-                            "  FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " & _
-                            "  WHERE INTYEAR       = :oldyear " & _
+                        Dim query2 As String = "INSERT " &
+                            "  INTO AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
+                            "    ( " &
+                            "      NUMKEY " &
+                            "    , STRAIRSNUMBER " &
+                            "    , INTYEAR " &
+                            "    , NUMSSCPENGINEER " &
+                            "    , NUMSSCPUNIT " &
+                            "    , STRINSPECTIONREQUIRED " &
+                            "    , STRFCEREQUIRED " &
+                            "    , STRASSIGNINGMANAGER " &
+                            "    , DATASSIGNINGDATE " &
+                            "    ) " &
+                            " SELECT " &
+                            "    (SELECT MAX(NUMKEY) + 1 FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
+                            "    ) AS NEWKEY " &
+                            "  , STRAIRSNUMBER " &
+                            "  , :targetyear " &
+                            "  , NUMSSCPENGINEER " &
+                            "  , NUMSSCPUNIT " &
+                            "  , STRINSPECTIONREQUIRED " &
+                            "  , STRFCEREQUIRED " &
+                            "  , STRASSIGNINGMANAGER " &
+                            "  , DATASSIGNINGDATE " &
+                            "  FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
+                            "  WHERE INTYEAR       = :oldyear " &
                             "    AND STRAIRSNUMBER = :airsnumber "
 
-                        Dim parameters2 As OracleParameter() = New OracleParameter() { _
+                        Dim parameters2 As OracleParameter() = New OracleParameter() {
                             New OracleParameter("targetyear", targetYear) _
                             , New OracleParameter("oldyear", oldYear) _
-                            , New OracleParameter("airsnumber", airsNumberString) _
+                            , New OracleParameter("airsnumber", airsNumberString)
                         }
 
                         Dim recordInserted As Integer = 0

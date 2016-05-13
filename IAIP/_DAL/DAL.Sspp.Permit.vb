@@ -8,9 +8,9 @@ Namespace DAL.Sspp
 #Region " Read "
 
         Public Function PermitExists(ByVal permitNumber As String) As Boolean
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM AIRBRANCH.APBISSUEDPERMIT " & _
-                " WHERE RowNum = 1 " & _
+            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
+                " FROM AIRBRANCH.APBISSUEDPERMIT " &
+                " WHERE RowNum = 1 " &
                 " AND STRPERMITNUMBER = :permitnumber "
             Dim parameter As New OracleParameter("permitnumber", permitNumber)
 
@@ -18,16 +18,16 @@ Namespace DAL.Sspp
         End Function
 
         Public Function GetPermit(ByVal permitNumber As String) As Permit
-            Dim query As String = _
-                " SELECT ISSUEDPERMITID, " & _
-                "   STRAIRSNUMBER, " & _
-                "   STRPERMITNUMBER, " & _
-                "   DATISSUED, " & _
-                "   DATREVOKED, " & _
-                "   ACTIVE, " & _
-                "   PERMITTYPECODE " & _
-                " FROM AIRBRANCH.APBISSUEDPERMIT " & _
-                " WHERE STRPERMITNUMBER = :permitnumber " & _
+            Dim query As String =
+                " SELECT ISSUEDPERMITID, " &
+                "   STRAIRSNUMBER, " &
+                "   STRPERMITNUMBER, " &
+                "   DATISSUED, " &
+                "   DATREVOKED, " &
+                "   ACTIVE, " &
+                "   PERMITTYPECODE " &
+                " FROM AIRBRANCH.APBISSUEDPERMIT " &
+                " WHERE STRPERMITNUMBER = :permitnumber " &
                 " ORDER BY DATISSUED DESC"
 
             Dim parameter As New OracleParameter("permitnumber", permitNumber)
@@ -35,22 +35,6 @@ Namespace DAL.Sspp
 
             Return GetPermitFromDataRow(dr)
         End Function
-
-        '' Not currently used, but may be useful in the future
-        'Public Function GetPermitsAsList(ByVal airsNumber As String) As List(Of Permit)
-
-        '    Dim permitList As New List(Of Permit)
-        '    Dim permit As New Permit
-
-        '    Dim dataTable As DataTable = GetPermitsAsTable(airsNumber)
-
-        '    For Each row As DataRow In dataTable.Rows
-        '        permit = GetPermitFromDataRow(row)
-        '        permitList.Add(permit)
-        '    Next
-
-        '    Return permitList
-        'End Function
 
         Public Function GetActivePermitsAsList(ByVal airsNumber As String) As List(Of Permit)
 
@@ -67,37 +51,19 @@ Namespace DAL.Sspp
             Return permitList
         End Function
 
-        '' Not currently used, but may be useful in the future
-        'Public Function GetPermitsAsTable(ByVal airsNumber As String) As DataTable
-        '    Dim query As String = _
-        '        " SELECT ISSUEDPERMITID, " & _
-        '        "   STRAIRSNUMBER, " & _
-        '        "   STRPERMITNUMBER, " & _
-        '        "   DATISSUED, " & _
-        '        "   DATREVOKED, " & _
-        '        "   ACTIVE, " & _
-        '        "   PERMITTYPECODE " & _
-        '        " FROM AIRBRANCH.APBISSUEDPERMIT " & _
-        '        " WHERE STRAIRSNUMBER = :airsnumber " & _
-        '        " ORDER BY DATISSUED DESC Nulls FIRST "
-
-        '    Dim parameter As New OracleParameter("airsnumber", airsNumber)
-        '    Return DB.GetDataTable(query, parameter)
-        'End Function
-
         Public Function GetActivePermitsAsTable(ByVal airsNumber As String) As DataTable
-            Dim query As String = _
-                " SELECT ISSUEDPERMITID, " & _
-                "   STRAIRSNUMBER, " & _
-                "   STRPERMITNUMBER, " & _
-                "   DATISSUED, " & _
-                "   DATREVOKED, " & _
-                "   UPDATEDBY, " & _
-                "   ACTIVE, " & _
-                "   PERMITTYPECODE " & _
-                " FROM AIRBRANCH.APBISSUEDPERMIT " & _
-                " WHERE STRAIRSNUMBER = :airsnumber " & _
-                " AND ACTIVE = '1' " & _
+            Dim query As String =
+                " SELECT ISSUEDPERMITID, " &
+                "   STRAIRSNUMBER, " &
+                "   STRPERMITNUMBER, " &
+                "   DATISSUED, " &
+                "   DATREVOKED, " &
+                "   UPDATEDBY, " &
+                "   ACTIVE, " &
+                "   PERMITTYPECODE " &
+                " FROM AIRBRANCH.APBISSUEDPERMIT " &
+                " WHERE STRAIRSNUMBER = :airsnumber " &
+                " AND ACTIVE = '1' " &
                 " ORDER BY DATISSUED Nulls FIRST "
 
             Dim parameter As New OracleParameter("airsnumber", airsNumber)
@@ -125,16 +91,16 @@ Namespace DAL.Sspp
         Public Function UpdatePermits(ByVal permits As List(Of Permit)) As Boolean
             If permits Is Nothing OrElse permits.Count = 0 Then Return False
 
-            Dim query As String = _
-                " UPDATE AIRBRANCH.APBISSUEDPERMIT " & _
-                " SET STRAIRSNUMBER    = :AirsNumber, " & _
-                "   STRPERMITNUMBER    = :PermitNumber, " & _
-                "   DATISSUED          = :IssuedDate, " & _
-                "   DATREVOKED         = :RevokedDate, " & _
-                "   UPDATEDATE         = :UpdateDate, " & _
-                "   UPDATEDBY          = :UpdatedBy, " & _
-                "   ACTIVE             = :Active, " & _
-                "   PERMITTYPECODE     = :PermitTypeCode " & _
+            Dim query As String =
+                " UPDATE AIRBRANCH.APBISSUEDPERMIT " &
+                " SET STRAIRSNUMBER    = :AirsNumber, " &
+                "   STRPERMITNUMBER    = :PermitNumber, " &
+                "   DATISSUED          = :IssuedDate, " &
+                "   DATREVOKED         = :RevokedDate, " &
+                "   UPDATEDATE         = :UpdateDate, " &
+                "   UPDATEDBY          = :UpdatedBy, " &
+                "   ACTIVE             = :Active, " &
+                "   PERMITTYPECODE     = :PermitTypeCode " &
                 " WHERE ISSUEDPERMITID = :ID "
 
             Dim queryList As New List(Of String)
@@ -143,16 +109,16 @@ Namespace DAL.Sspp
 
             For Each permit As Permit In permits
                 queryList.Add(query)
-                parameters = New OracleParameter() { _
-                    New OracleParameter("AirsNumber", permit.AirsNumber), _
-                    New OracleParameter("PermitNumber", permit.PermitNumber), _
-                    New OracleParameter("IssuedDate", permit.IssuedDate), _
-                    New OracleParameter("RevokedDate", permit.RevokedDate), _
-                    New OracleParameter("UpdateDate", Date.Now), _
-                    New OracleParameter("UpdatedBy", CurrentUser.UserID), _
-                    New OracleParameter("Active", Convert.ToInt32(permit.Active)), _
-                    New OracleParameter("PermitTypeCode", permit.PermitTypeCode), _
-                    New OracleParameter("ID", permit.ID) _
+                parameters = New OracleParameter() {
+                    New OracleParameter("AirsNumber", permit.AirsNumber),
+                    New OracleParameter("PermitNumber", permit.PermitNumber),
+                    New OracleParameter("IssuedDate", permit.IssuedDate),
+                    New OracleParameter("RevokedDate", permit.RevokedDate),
+                    New OracleParameter("UpdateDate", Date.Now),
+                    New OracleParameter("UpdatedBy", CurrentUser.UserID),
+                    New OracleParameter("Active", Convert.ToInt32(permit.Active)),
+                    New OracleParameter("PermitTypeCode", permit.PermitTypeCode),
+                    New OracleParameter("ID", permit.ID)
                 }
                 parametersList.Add(parameters)
             Next
@@ -170,48 +136,48 @@ Namespace DAL.Sspp
         Public Function AddPermit(ByVal permit As Permit) As Boolean
             If permit Is Nothing Then Return False
 
-            Dim query As String = _
-                " INSERT " & _
-                " INTO AIRBRANCH.APBISSUEDPERMIT " & _
-                "   ( " & _
-                "     ISSUEDPERMITID, " & _
-                "     STRAIRSNUMBER, " & _
-                "     STRPERMITNUMBER, " & _
-                "     DATISSUED, " & _
-                "     DATREVOKED, " & _
-                "     CREATEDATE, " & _
-                "     CREATEDBY, " & _
-                "     UPDATEDATE, " & _
-                "     UPDATEDBY, " & _
-                "     ACTIVE, " & _
-                "     PERMITTYPECODE " & _
-                "   ) " & _
-                "   VALUES " & _
-                "   ( " & _
-                "     AIRBRANCH.PERMITID_SEQ.NEXTVAL, " & _
-                "     :AirsNumber, " & _
-                "     :PermitNumber, " & _
-                "     :IssuedDate, " & _
-                "     :RevokedDate, " & _
-                "     :CreateDate, " & _
-                "     :CreatedBy, " & _
-                "     :UpdateDate, " & _
-                "     :UpdatedBy, " & _
-                "     :Active, " & _
-                "     :PermitTypeCode " & _
+            Dim query As String =
+                " INSERT " &
+                " INTO AIRBRANCH.APBISSUEDPERMIT " &
+                "   ( " &
+                "     ISSUEDPERMITID, " &
+                "     STRAIRSNUMBER, " &
+                "     STRPERMITNUMBER, " &
+                "     DATISSUED, " &
+                "     DATREVOKED, " &
+                "     CREATEDATE, " &
+                "     CREATEDBY, " &
+                "     UPDATEDATE, " &
+                "     UPDATEDBY, " &
+                "     ACTIVE, " &
+                "     PERMITTYPECODE " &
+                "   ) " &
+                "   VALUES " &
+                "   ( " &
+                "     AIRBRANCH.PERMITID_SEQ.NEXTVAL, " &
+                "     :AirsNumber, " &
+                "     :PermitNumber, " &
+                "     :IssuedDate, " &
+                "     :RevokedDate, " &
+                "     :CreateDate, " &
+                "     :CreatedBy, " &
+                "     :UpdateDate, " &
+                "     :UpdatedBy, " &
+                "     :Active, " &
+                "     :PermitTypeCode " &
                 "   ) "
 
-            Dim parameters As OracleParameter() = { _
-                New OracleParameter("AirsNumber", permit.AirsNumber), _
-                New OracleParameter("PermitNumber", permit.PermitNumber), _
-                New OracleParameter("IssuedDate", permit.IssuedDate), _
-                New OracleParameter("RevokedDate", permit.RevokedDate), _
-                New OracleParameter("CreateDate", Date.Now), _
-                New OracleParameter("CreatedBy", CurrentUser.UserID), _
-                New OracleParameter("UpdateDate", Date.Now), _
-                New OracleParameter("UpdatedBy", CurrentUser.UserID), _
-                New OracleParameter("Active", Convert.ToInt32(permit.Active)), _
-                New OracleParameter("PermitTypeCode", permit.PermitTypeCode) _
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("AirsNumber", permit.AirsNumber),
+                New OracleParameter("PermitNumber", permit.PermitNumber),
+                New OracleParameter("IssuedDate", permit.IssuedDate),
+                New OracleParameter("RevokedDate", permit.RevokedDate),
+                New OracleParameter("CreateDate", Date.Now),
+                New OracleParameter("CreatedBy", CurrentUser.UserID),
+                New OracleParameter("UpdateDate", Date.Now),
+                New OracleParameter("UpdatedBy", CurrentUser.UserID),
+                New OracleParameter("Active", Convert.ToInt32(permit.Active)),
+                New OracleParameter("PermitTypeCode", permit.PermitTypeCode)
             }
 
             Return DB.RunCommand(query, parameters)

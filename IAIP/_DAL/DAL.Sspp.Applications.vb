@@ -8,9 +8,9 @@ Namespace DAL.Sspp
         Public Function ApplicationExists(ByVal appNumber As String) As Boolean
             If appNumber = "" OrElse Not Integer.TryParse(appNumber, Nothing) Then Return False
 
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM AIRBRANCH.SSPPAPPLICATIONMASTER " & _
-                " WHERE ROWNUM = 1 " & _
+            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
+                " FROM AIRBRANCH.SSPPAPPLICATIONMASTER " &
+                " WHERE ROWNUM = 1 " &
                 " AND SSPPAPPLICATIONMASTER.STRAPPLICATIONNUMBER = :pId "
             Dim parameter As New OracleParameter("pId", appNumber)
 

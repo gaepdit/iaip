@@ -1189,7 +1189,7 @@ Partial Class PASPFeeStatistics
         Me.Label56.Name = "Label56"
         Me.Label56.Size = New System.Drawing.Size(479, 13)
         Me.Label56.TabIndex = 18
-        Me.Label56.Text = "Notice - AMENDMENT, ONE-TIME, and REFUND will all be summed up under Total Paymen" & _
+        Me.Label56.Text = "Notice - AMENDMENT, ONE-TIME, and REFUND will all be summed up under Total Paymen" &
     "t Due. "
         '
         'txtCount

@@ -22,8 +22,8 @@ Namespace Apb.Sscp
             End Set
         End Property
         Public Property DateAcknowledgmentLetterSent() As Date?
-        Public Overridable Property EventType() As WorkItemEventType
-        Public Overridable Property EventTypeDbCode() As String
+        Public Property EventType() As WorkItemEventType
+        Public Property EventTypeDbCode() As String
             Get
                 Return EventTypeDbCodes(EventType)
             End Get

@@ -25,15 +25,15 @@ Namespace DAL
             ' "STRSALUTATION" VARCHAR2(5 BYTE), 
             ' "STRYEARUSERTERMLOC" VARCHAR2(40 BYTE)
 
-            Dim query As String = " SELECT STRTITLE AS Title, STRCOMPANYNAME AS CompanyName, " & _
-                " STRADDRESS1 AS Address1, STRADDRESS2 AS Address2, STRCITY AS City, " & _
-                " STRSTATE AS State, STRZIP AS Zip, STRPHONENUMBER AS Phone, STRFAX AS Fax, " & _
-                " STREMAIL AS Email, STRCONFIRMATIONNBR AS ConfirmationNumber, " & _
-                " STRLOCATIONDATE AS LocationDate, STRLECTUREYESNO AS LectureYesNo, " & _
-                " STRFIRSTNAME AS FirstName, STRLASTNAME AS LastName, " & _
-                " TO_CHAR(NUMUSERID) AS StudentID " & _
-                " FROM AIRBRANCH.SMOKESCHOOLRESERVATION " & _
-                " WHERE STRLOCATIONDATE = :pId " & _
+            Dim query As String = " SELECT STRTITLE AS Title, STRCOMPANYNAME AS CompanyName, " &
+                " STRADDRESS1 AS Address1, STRADDRESS2 AS Address2, STRCITY AS City, " &
+                " STRSTATE AS State, STRZIP AS Zip, STRPHONENUMBER AS Phone, STRFAX AS Fax, " &
+                " STREMAIL AS Email, STRCONFIRMATIONNBR AS ConfirmationNumber, " &
+                " STRLOCATIONDATE AS LocationDate, STRLECTUREYESNO AS LectureYesNo, " &
+                " STRFIRSTNAME AS FirstName, STRLASTNAME AS LastName, " &
+                " TO_CHAR(NUMUSERID) AS StudentID " &
+                " FROM AIRBRANCH.SMOKESCHOOLRESERVATION " &
+                " WHERE STRLOCATIONDATE = :pId " &
                 " ORDER BY LastName, FirstName, StudentID "
             Dim parameter As New OracleParameter("pId", id)
             Dim table As DataTable = DB.GetDataTable(query, parameter)

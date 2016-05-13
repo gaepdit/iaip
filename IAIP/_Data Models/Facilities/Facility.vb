@@ -100,18 +100,18 @@ Namespace Apb.Facilities
 
         Public ReadOnly Property LongDisplay() As String
             Get
-                Dim ld As String = Me.AirsNumber.FormattedString & _
-                vbNewLine & _
+                Dim ld As String = Me.AirsNumber.FormattedString &
+                vbNewLine &
                 Me.FacilityName.ToString & vbNewLine
 
                 If Me.FacilityLocation IsNot Nothing Then
-                    ld = ld & Me.FacilityLocation.Address.ToString & vbNewLine & _
+                    ld = ld & Me.FacilityLocation.Address.ToString & vbNewLine &
                     Me.FacilityLocation.County.ToString & " county"
                 End If
 
                 If Me.HeaderData IsNot Nothing Then
-                    ld = ld & vbNewLine & vbNewLine & _
-                    "Classification: " & Me.HeaderData.Classification.GetDescription & vbNewLine & _
+                    ld = ld & vbNewLine & vbNewLine &
+                    "Classification: " & Me.HeaderData.Classification.GetDescription & vbNewLine &
                     "Status: " & Me.HeaderData.OperationalStatus.GetDescription
                 End If
 

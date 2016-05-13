@@ -2716,7 +2716,6 @@ Public Class SSPPApplicationTrackingLog
                             DistResponsible = "False"
                         End If
 
-                        dr.Close()
                     End Using
                     cmd.Connection.Close()
                 End Using
@@ -3361,7 +3360,6 @@ Public Class SSPPApplicationTrackingLog
                                 End If
                             End While
 
-                            dr.Close()
                         End Using
                         cmd.Connection.Close()
                     End Using
@@ -3939,7 +3937,6 @@ Public Class SSPPApplicationTrackingLog
                                         lblPNReady.Text = dr.Item("strPNPosted")
                                     End If
                                 End If
-                                dr.Close()
                             End Using
                             cmd.Connection.Close()
                         End Using
@@ -4038,7 +4035,6 @@ Public Class SSPPApplicationTrackingLog
                                         End If
                                     End If
                                 End If
-                                dr.Close()
                             End Using
                             cmd.Connection.Close()
                         End Using
@@ -4141,7 +4137,6 @@ Public Class SSPPApplicationTrackingLog
                                     End If
 
                                 End If
-                                dr.Close()
                             End Using
                             cmd.Connection.Close()
                         End Using
@@ -4327,7 +4322,6 @@ Public Class SSPPApplicationTrackingLog
                             PlantDesc = "N/A"
                             PlantLine = "Plant Description - "
                         End If
-                        dr.Close()
                     End Using
                     cmd.Connection.Close()
                 End Using
@@ -4703,7 +4697,6 @@ Public Class SSPPApplicationTrackingLog
                                     lbLinkApplications.Items.Add(dr.Item("strApplicationNumber"))
                                     ApplicationCount += 1
                                 End While
-                                dr.Close()
                             End Using
                             cmd.Connection.Close()
                         End Using
@@ -5395,7 +5388,6 @@ Public Class SSPPApplicationTrackingLog
                                             End If
                                         End While
 
-                                        dr.Close()
                                     End Using
                                     cmd.Connection.Close()
                                 End Using
@@ -6711,8 +6703,6 @@ Public Class SSPPApplicationTrackingLog
         Dim NAICSCode As String = ""
         Dim PlantDescription As String = ""
         Dim StateProgramCodes As String = ""
-        Dim tempStatus As String = ""
-        Dim Subpart As String = ""
 
         Dim query As String = ""
         Dim params As OracleParameter()
@@ -6807,7 +6797,6 @@ Public Class SSPPApplicationTrackingLog
                             End If
                         End While
 
-                        dr.Close()
                     End Using
                     cmd.Connection.Close()
                 End Using
@@ -7261,7 +7250,6 @@ Public Class SSPPApplicationTrackingLog
                             PDFFile = ""
                         End If
 
-                        dr.Close()
                     End Using
                     cmd.Connection.Close()
                 End Using
@@ -8879,7 +8867,6 @@ Public Class SSPPApplicationTrackingLog
                                 End If
                             End If
 
-                            dr.Close()
                         End Using
                         cmd.Connection.Close()
                     End Using
@@ -9002,7 +8989,6 @@ Public Class SSPPApplicationTrackingLog
                                 End If
                             End If
 
-                            dr.Close()
                         End Using
                         cmd.Connection.Close()
                     End Using
@@ -9124,7 +9110,6 @@ Public Class SSPPApplicationTrackingLog
                                 End If
                             End If
 
-                            dr.Close()
                         End Using
                         cmd.Connection.Close()
                     End Using
@@ -9247,7 +9232,6 @@ Public Class SSPPApplicationTrackingLog
                                 End If
                             End If
 
-                            dr.Close()
                         End Using
                         cmd.Connection.Close()
                     End Using
@@ -9368,7 +9352,6 @@ Public Class SSPPApplicationTrackingLog
                                 End If
                             End If
 
-                            dr.Close()
                         End Using
                         cmd.Connection.Close()
                     End Using
@@ -9489,7 +9472,6 @@ Public Class SSPPApplicationTrackingLog
                                 End If
                             End If
 
-                            dr.Close()
                         End Using
                         cmd.Connection.Close()
                     End Using
@@ -9610,7 +9592,6 @@ Public Class SSPPApplicationTrackingLog
                                 End If
                             End If
 
-                            dr.Close()
                         End Using
                         cmd.Connection.Close()
                     End Using
@@ -9731,7 +9712,6 @@ Public Class SSPPApplicationTrackingLog
                                 End If
                             End If
 
-                            dr.Close()
                         End Using
                         cmd.Connection.Close()
                     End Using
@@ -9852,7 +9832,6 @@ Public Class SSPPApplicationTrackingLog
                                 End If
                             End If
 
-                            dr.Close()
                         End Using
                         cmd.Connection.Close()
                     End Using
@@ -9973,7 +9952,6 @@ Public Class SSPPApplicationTrackingLog
                                 End If
                             End If
 
-                            dr.Close()
                         End Using
                         cmd.Connection.Close()
                     End Using
@@ -10094,7 +10072,6 @@ Public Class SSPPApplicationTrackingLog
                                 End If
                             End If
 
-                            dr.Close()
                         End Using
                         cmd.Connection.Close()
                     End Using
@@ -10215,7 +10192,6 @@ Public Class SSPPApplicationTrackingLog
                                 End If
                             End If
 
-                            dr.Close()
                         End Using
                         cmd.Connection.Close()
                     End Using
@@ -10335,7 +10311,6 @@ Public Class SSPPApplicationTrackingLog
                                 End If
                             End If
 
-                            dr.Close()
                         End Using
                         cmd.Connection.Close()
                     End Using
@@ -10457,7 +10432,6 @@ Public Class SSPPApplicationTrackingLog
                                 End If
                             End If
 
-                            dr.Close()
                         End Using
                         cmd.Connection.Close()
                     End Using
@@ -10972,7 +10946,6 @@ Public Class SSPPApplicationTrackingLog
                             End If
                         End While
 
-                        dr.Close()
                     End Using
                     cmd.Connection.Close()
                 End Using
@@ -11110,7 +11083,6 @@ Public Class SSPPApplicationTrackingLog
                             End If
                             txtContactDescription.Text = "From App #- " & txtApplicationNumber.Text & vbCrLf & txtContactDescription.Text
                         End While
-                        dr.Close()
                     End Using
                     cmd.Connection.Close()
                 End Using
@@ -11176,7 +11148,6 @@ Public Class SSPPApplicationTrackingLog
                             StaffPhone = FormatDigitsAsPhoneNumber(DB.GetNullable(Of String)(dr.Item("strPhone")), True)
                             StaffEmail = DB.GetNullable(Of String)(dr.Item("strEmailAddress"))
                         End While
-                        dr.Close()
                     End Using
                     cmd.Connection.Close()
                 End Using
@@ -11322,7 +11293,6 @@ Public Class SSPPApplicationTrackingLog
                             dgvRow.Cells(4).Value = "Existing"
                             dgvSIPSubParts.Rows.Add(dgvRow)
                         End While
-                        dr.Close()
                     End Using
                     cmd.Connection.Close()
                 End Using
@@ -11382,7 +11352,6 @@ Public Class SSPPApplicationTrackingLog
                                         dgvSIPSubParts(3, i).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
                                     End If
                                 End While
-                                dr.Close()
                             End Using
                             cmd.Connection.Close()
                         End Using
@@ -11583,7 +11552,6 @@ Public Class SSPPApplicationTrackingLog
                             End Select
 
                         End While
-                        dr.Close()
                     End Using
                     cmd.Connection.Close()
                 End Using
@@ -12256,7 +12224,6 @@ Public Class SSPPApplicationTrackingLog
                             dgvRow.Cells(4).Value = "Existing"
                             dgvNSPSSubParts.Rows.Add(dgvRow)
                         End While
-                        dr.Close()
                     End Using
                     cmd.Connection.Close()
                 End Using
@@ -12316,7 +12283,6 @@ Public Class SSPPApplicationTrackingLog
                                         dgvNSPSSubParts(3, i).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
                                     End If
                                 End While
-                                dr.Close()
                             End Using
                             cmd.Connection.Close()
                         End Using
@@ -12523,7 +12489,6 @@ Public Class SSPPApplicationTrackingLog
                             End Select
 
                         End While
-                        dr.Close()
                     End Using
                     cmd.Connection.Close()
                 End Using
@@ -13167,7 +13132,6 @@ Public Class SSPPApplicationTrackingLog
                                 End If
                             End If
                         End While
-                        dr.Close()
                     End Using
                     cmd.Connection.Close()
                 End Using
@@ -13497,7 +13461,6 @@ Public Class SSPPApplicationTrackingLog
                             dgvRow.Cells(4).Value = "Existing"
                             dgvNESHAPSubParts.Rows.Add(dgvRow)
                         End While
-                        dr.Close()
                     End Using
                     cmd.Connection.Close()
                 End Using
@@ -13557,7 +13520,6 @@ Public Class SSPPApplicationTrackingLog
                                         dgvNESHAPSubParts(3, i).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
                                     End If
                                 End While
-                                dr.Close()
                             End Using
                             cmd.Connection.Close()
                         End Using
@@ -13763,7 +13725,6 @@ Public Class SSPPApplicationTrackingLog
                             End Select
 
                         End While
-                        dr.Close()
                     End Using
                     cmd.Connection.Close()
                 End Using
@@ -14436,7 +14397,6 @@ Public Class SSPPApplicationTrackingLog
                             dgvRow.Cells(4).Value = "Existing"
                             dgvMACTSubParts.Rows.Add(dgvRow)
                         End While
-                        dr.Close()
                     End Using
                     cmd.Connection.Close()
                 End Using
@@ -14496,7 +14456,6 @@ Public Class SSPPApplicationTrackingLog
                                         dgvMACTSubParts(3, i).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
                                     End If
                                 End While
-                                dr.Close()
                             End Using
                             cmd.Connection.Close()
                         End Using
@@ -14605,7 +14564,7 @@ Public Class SSPPApplicationTrackingLog
                             Else
                                 CreateDateTime = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
                             End If
-            
+
                             Select Case Action
                                 Case "Removed"
                                     temp = ""
@@ -14619,7 +14578,7 @@ Public Class SSPPApplicationTrackingLog
                                             End With
                                         End If
                                     Next
-            
+
                                     If temp = "" Then
                                         dgvRow = New DataGridViewRow
                                         dgvRow.CreateCells(dgvMACTSubParts)
@@ -14634,7 +14593,7 @@ Public Class SSPPApplicationTrackingLog
                                             .DefaultCellStyle.BackColor = Color.Tomato
                                         End With
                                     End If
-            
+
                                     dgvRow = New DataGridViewRow
                                     dgvRow.CreateCells(dgvMACTSubPartDelete)
                                     dgvRow.Cells(0).Value = SubPart
@@ -14665,7 +14624,7 @@ Public Class SSPPApplicationTrackingLog
                                             .DefaultCellStyle.BackColor = Color.LightGreen
                                         End With
                                     End If
-            
+
                                     dgvRow = New DataGridViewRow
                                     dgvRow.CreateCells(dgvMACTSubpartAddEdit)
                                     dgvRow.Cells(0).Value = SubPart
@@ -14677,7 +14636,7 @@ Public Class SSPPApplicationTrackingLog
                                     With Me.dgvMACTSubpartAddEdit.Rows(i)
                                         .DefaultCellStyle.BackColor = Color.LightGreen
                                     End With
-            
+
                                 Case "Modified"
                                     temp = ""
                                     For i = 0 To dgvMACTSubParts.Rows.Count - 1
@@ -14689,7 +14648,7 @@ Public Class SSPPApplicationTrackingLog
                                             End With
                                         End If
                                     Next
-            
+
                                     dgvRow = New DataGridViewRow
                                     dgvRow.CreateCells(dgvMACTSubpartAddEdit)
                                     dgvRow.Cells(0).Value = SubPart
@@ -14698,11 +14657,10 @@ Public Class SSPPApplicationTrackingLog
                                     dgvRow.Cells(3).Value = "Modify"
                                     dgvMACTSubpartAddEdit.Rows.Add(dgvRow)
                                 Case Else
-            
+
                             End Select
-            
+
                         End While
-                        dr.Close()
                     End Using
                     cmd.Connection.Close()
                 End Using

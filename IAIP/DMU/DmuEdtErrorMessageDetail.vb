@@ -1,5 +1,5 @@
 ﻿Imports System.Collections.Generic
-Imports System.Linq
+Imports Iaip.SharedData
 
 Public Class DmuEdtErrorMessageDetail
 
@@ -38,13 +38,13 @@ Public Class DmuEdtErrorMessageDetail
 #Region " Load "
 
     Private Sub DmuEdtErrorMessageDetail_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        
+
         AddDisplayOptionHandlers()
         PrepUserComboBoxes()
     End Sub
 
     Private Sub PrepUserComboBoxes()
-        activeUsersList = UsersService.ActiveUsers
+        activeUsersList = GetSharedData(SharedKeyValueList.ActiveUsers)
         activeUsersList.Insert(0, New KeyValuePair(Of Integer, String)(0, "Unassigned"))
         UserAsDefault.BindToKeyValuePairs(activeUsersList)
         UserToAssign.BindToKeyValuePairs(activeUsersList)

@@ -125,23 +125,23 @@ Namespace DAL
         End Function
 
         Public Function GetEnforcementDocumentsAsTable(ByVal enfNum As String) As DataTable
-            Dim query As String = _
-                " SELECT " & _
-                "   IAIP_LK_SSCPDOCUMENTTYPE.STRDOCUMENTTYPE, " & _
-                "   IAIP_BINARYFILES.STRFILENAME, " & _
-                "   IAIP_SSCP_ENFORCEMENTDOCS.CREATEDATE, " & _
-                "   IAIP_SSCP_ENFORCEMENTDOCS.STRCOMMENT, " & _
-                "   IAIP_BINARYFILES.NUMFILESIZE, " & _
-                "   IAIP_BINARYFILES.BINARYFILEID, " & _
-                "   IAIP_BINARYFILES.STRFILEEXTENSION, " & _
-                "   IAIP_SSCP_ENFORCEMENTDOCS.ENFORCEMENTDOCSID, " & _
-                "   IAIP_SSCP_ENFORCEMENTDOCS.STRENFORCEMENTNUMBER, " & _
-                "   IAIP_SSCP_ENFORCEMENTDOCS.NUMDOCUMENTTYPE " & _
-                " FROM AIRBRANCH.IAIP_BINARYFILES " & _
-                " INNER JOIN AIRBRANCH.IAIP_SSCP_ENFORCEMENTDOCS " & _
-                " ON IAIP_BINARYFILES.BINARYFILEID = IAIP_SSCP_ENFORCEMENTDOCS.NUMBINARYFILE " & _
-                " INNER JOIN AIRBRANCH.IAIP_LK_SSCPDOCUMENTTYPE " & _
-                " ON IAIP_SSCP_ENFORCEMENTDOCS.NUMDOCUMENTTYPE = IAIP_LK_SSCPDOCUMENTTYPE.DOCUMENTTYPEID " & _
+            Dim query As String =
+                " SELECT " &
+                "   IAIP_LK_SSCPDOCUMENTTYPE.STRDOCUMENTTYPE, " &
+                "   IAIP_BINARYFILES.STRFILENAME, " &
+                "   IAIP_SSCP_ENFORCEMENTDOCS.CREATEDATE, " &
+                "   IAIP_SSCP_ENFORCEMENTDOCS.STRCOMMENT, " &
+                "   IAIP_BINARYFILES.NUMFILESIZE, " &
+                "   IAIP_BINARYFILES.BINARYFILEID, " &
+                "   IAIP_BINARYFILES.STRFILEEXTENSION, " &
+                "   IAIP_SSCP_ENFORCEMENTDOCS.ENFORCEMENTDOCSID, " &
+                "   IAIP_SSCP_ENFORCEMENTDOCS.STRENFORCEMENTNUMBER, " &
+                "   IAIP_SSCP_ENFORCEMENTDOCS.NUMDOCUMENTTYPE " &
+                " FROM AIRBRANCH.IAIP_BINARYFILES " &
+                " INNER JOIN AIRBRANCH.IAIP_SSCP_ENFORCEMENTDOCS " &
+                " ON IAIP_BINARYFILES.BINARYFILEID = IAIP_SSCP_ENFORCEMENTDOCS.NUMBINARYFILE " &
+                " INNER JOIN AIRBRANCH.IAIP_LK_SSCPDOCUMENTTYPE " &
+                " ON IAIP_SSCP_ENFORCEMENTDOCS.NUMDOCUMENTTYPE = IAIP_LK_SSCPDOCUMENTTYPE.DOCUMENTTYPEID " &
                 " WHERE IAIP_SSCP_ENFORCEMENTDOCS.STRENFORCEMENTNUMBER = :pId "
             Dim parameter As New OracleParameter("pId", enfNum)
             Return DB.GetDataTable(query, parameter)
@@ -171,7 +171,7 @@ Namespace DAL
                 .FileSize = DB.GetNullable(Of Decimal?)(row("NUMFILESIZE"))
                 .DocumentTypeId = row("NUMDOCUMENTTYPE")
                 .Comment = DB.GetNullable(Of String)(row("STRCOMMENT"))
-                .UploadDate = General.NormalizeDate(DB.GetNullable(Of Date)(row("CREATEDATE")))
+                .UploadDate = NormalizeDate(DB.GetNullable(Of Date)(row("CREATEDATE")))
                 .DocumentType = row("STRDOCUMENTTYPE")
             End With
         End Sub
@@ -221,8 +221,8 @@ Namespace DAL
         End Function
 
         Public Function DownloadFile(ByVal id As Integer, ByVal filePath As String) As Boolean
-            Dim query As String = " SELECT IAIP_BINARYFILES.BLOBDOCUMENT " & _
-                                " FROM AIRBRANCH.IAIP_BINARYFILES " & _
+            Dim query As String = " SELECT IAIP_BINARYFILES.BLOBDOCUMENT " &
+                                " FROM AIRBRANCH.IAIP_BINARYFILES " &
                                 " WHERE IAIP_BINARYFILES.BINARYFILEID = :pBinId "
             Dim parameter As OracleParameter = New OracleParameter("pBinId", id)
             Return DB.SaveBinaryFileFromDB(filePath, query, parameter)
@@ -250,32 +250,32 @@ Namespace DAL
             Dim binarySeqId As Integer = GetNextBinaryFileSequenceValue()
             Dim parameters As OracleParameter()
 
-            queryList.Add( _
-                " INSERT INTO AIRBRANCH.IAIP_BINARYFILES " & _
-                " (BINARYFILEID,STRFILENAME,STRFILEEXTENSION,NUMFILESIZE,BLOBDOCUMENT,UPDATEUSER,UPDATEDATE,CREATEDATE) " & _
-                " VALUES (:pBinId,:pFileName,:pFileExt,:pFileSize,:pBinFile,:pUser,:pUpdateDate,:pCreateDate) " _
+            queryList.Add(
+                " INSERT INTO AIRBRANCH.IAIP_BINARYFILES " &
+                " (BINARYFILEID,STRFILENAME,STRFILEEXTENSION,NUMFILESIZE,BLOBDOCUMENT,UPDATEUSER,UPDATEDATE,CREATEDATE) " &
+                " VALUES (:pBinId,:pFileName,:pFileExt,:pFileSize,:pBinFile,:pUser,:pUpdateDate,:pCreateDate) "
             )
-            parameters = New OracleParameter() { _
-                New OracleParameter("pBinId", binarySeqId), _
-                New OracleParameter("pFileName", doc.FileName), _
-                New OracleParameter("pFileExt", doc.FileExtension), _
-                New OracleParameter("pFileSize", doc.FileSize), _
-                New OracleParameter("pBinFile", OracleDbType.Blob, DB.ReadByteArrayFromFile(pathToFile), ParameterDirection.Input), _
-                New OracleParameter("pUser", CurrentUser.UserID), _
-                New OracleParameter("pUpdateDate", Date.Now), _
-                New OracleParameter("pCreateDate", Date.Now) _
+            parameters = New OracleParameter() {
+                New OracleParameter("pBinId", binarySeqId),
+                New OracleParameter("pFileName", doc.FileName),
+                New OracleParameter("pFileExt", doc.FileExtension),
+                New OracleParameter("pFileSize", doc.FileSize),
+                New OracleParameter("pBinFile", OracleDbType.Blob, DB.ReadByteArrayFromFile(pathToFile), ParameterDirection.Input),
+                New OracleParameter("pUser", CurrentUser.UserID),
+                New OracleParameter("pUpdateDate", Date.Now),
+                New OracleParameter("pCreateDate", Date.Now)
             }
             parametersList.Add(parameters)
 
             queryList.Add(metaDataQuery)
-            parameters = New OracleParameter() { _
-                New OracleParameter("pBinId", binarySeqId), _
-                New OracleParameter("pMetaDataId", metaDataId), _
-                New OracleParameter("pDocTypeId", doc.DocumentTypeId), _
-                New OracleParameter("pComment", doc.Comment), _
-                New OracleParameter("pUser", CurrentUser.UserID), _
-                New OracleParameter("pUpdateDate", Date.Now), _
-                New OracleParameter("pCreateDate", Date.Now) _
+            parameters = New OracleParameter() {
+                New OracleParameter("pBinId", binarySeqId),
+                New OracleParameter("pMetaDataId", metaDataId),
+                New OracleParameter("pDocTypeId", doc.DocumentTypeId),
+                New OracleParameter("pComment", doc.Comment),
+                New OracleParameter("pUser", CurrentUser.UserID),
+                New OracleParameter("pUpdateDate", Date.Now),
+                New OracleParameter("pCreateDate", Date.Now)
             }
             parametersList.Add(parameters)
 
@@ -290,9 +290,9 @@ Namespace DAL
 
         Public Function UploadEnforcementDocument(ByVal doc As EnforcementDocument, ByVal pathToFile As String, Optional ByVal sender As Object = Nothing) As Boolean
             If doc Is Nothing Then Return False
-            Dim metaDataQuery As String = _
-                            " INSERT INTO AIRBRANCH.IAIP_SSCP_ENFORCEMENTDOCS " & _
-                            " (NUMBINARYFILE,STRENFORCEMENTNUMBER,NUMDOCUMENTTYPE,STRCOMMENT,UPDATEUSER,UPDATEDATE,CREATEDATE) " & _
+            Dim metaDataQuery As String =
+                            " INSERT INTO AIRBRANCH.IAIP_SSCP_ENFORCEMENTDOCS " &
+                            " (NUMBINARYFILE,STRENFORCEMENTNUMBER,NUMDOCUMENTTYPE,STRCOMMENT,UPDATEUSER,UPDATEDATE,CREATEDATE) " &
                             " VALUES (:pBinId,:pMetaDataId,:pDocTypeId,:pComment,:pUser,:pUpdateDate,:pCreateDate) "
             Dim metaDataId As String = doc.EnforcementNumber
             Return UploadDocument(doc, pathToFile, metaDataQuery, metaDataId, sender)
@@ -329,12 +329,12 @@ Namespace DAL
 #Region "Update file description"
         Public Function UpdateEnforcementDocument(ByVal doc As EnforcementDocument, Optional ByVal sender As Object = Nothing) As Boolean
             If doc Is Nothing Then Return False
-            Dim query As String = _
-                " UPDATE AIRBRANCH.IAIP_SSCP_ENFORCEMENTDOCS " & _
-                " SET NUMDOCUMENTTYPE = :pDocTypeId, " & _
-                " STRCOMMENT = :pComment, " & _
-                " UPDATEUSER = :pUser, " & _
-                " UPDATEDATE = :pUpdateDate " & _
+            Dim query As String =
+                " UPDATE AIRBRANCH.IAIP_SSCP_ENFORCEMENTDOCS " &
+                " SET NUMDOCUMENTTYPE = :pDocTypeId, " &
+                " STRCOMMENT = :pComment, " &
+                " UPDATEUSER = :pUser, " &
+                " UPDATEDATE = :pUpdateDate " &
                 " WHERE ENFORCEMENTDOCSID = :pDocId "
             Return UpdateDocument(doc, query, sender)
         End Function
@@ -344,12 +344,12 @@ Namespace DAL
                 sender.Cursor = Cursors.AppStarting
             End If
 
-            Dim parameters As OracleParameter() = { _
-                New OracleParameter("pDocTypeId", doc.DocumentTypeId), _
-                New OracleParameter("pComment", doc.Comment), _
-                New OracleParameter("pUser", CurrentUser.UserID), _
-                New OracleParameter("pUpdateDate", Date.Now), _
-                New OracleParameter("pDocId", doc.DocumentId) _
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("pDocTypeId", doc.DocumentTypeId),
+                New OracleParameter("pComment", doc.Comment),
+                New OracleParameter("pUser", CurrentUser.UserID),
+                New OracleParameter("pUpdateDate", Date.Now),
+                New OracleParameter("pDocId", doc.DocumentId)
             }
 
             Dim result As Boolean = DB.RunCommand(query, parameters)
@@ -366,10 +366,10 @@ Namespace DAL
 #Region "Document Types"
 
         Public Function GetEnforcementDocumentTypesDict() As Dictionary(Of Integer, String)
-            Dim query As String = "SELECT DOCUMENTTYPEID, " & _
-                " STRDOCUMENTTYPE " & _
-                " FROM AIRBRANCH.IAIP_LK_SSCPDOCUMENTTYPE " & _
-                " WHERE FACTIVE = '" & Boolean.TrueString & "' " & _
+            Dim query As String = "SELECT DOCUMENTTYPEID, " &
+                " STRDOCUMENTTYPE " &
+                " FROM AIRBRANCH.IAIP_LK_SSCPDOCUMENTTYPE " &
+                " WHERE FACTIVE = '" & Boolean.TrueString & "' " &
                 " ORDER BY NUMORDINAL, STRDOCUMENTTYPE "
             Return DB.GetLookupDictionary(query)
         End Function
@@ -378,11 +378,11 @@ Namespace DAL
             Dim docTypesList As New List(Of DocumentType)
             Dim docType As New DocumentType
 
-            Dim query As String = "SELECT DOCUMENTTYPEID, " & _
-                " STRDOCUMENTTYPE, " & _
-                " FACTIVE, " & _
-                " NUMORDINAL " & _
-                " FROM AIRBRANCH.IAIP_LK_SSCPDOCUMENTTYPE " & _
+            Dim query As String = "SELECT DOCUMENTTYPEID, " &
+                " STRDOCUMENTTYPE, " &
+                " FACTIVE, " &
+                " NUMORDINAL " &
+                " FROM AIRBRANCH.IAIP_LK_SSCPDOCUMENTTYPE " &
                 " ORDER BY NUMORDINAL, STRDOCUMENTTYPE "
 
             Dim dataTable As DataTable = DB.GetDataTable(query)
@@ -417,18 +417,18 @@ Namespace DAL
                 sender.Cursor = Cursors.AppStarting
             End If
 
-            Dim query As String = _
-                " UPDATE AIRBRANCH.IAIP_LK_SSCPDOCUMENTTYPE " & _
-                " SET STRDOCUMENTTYPE  = :pDocType, " & _
-                "   FACTIVE            = :pActive, " & _
-                "   NUMORDINAL         = :pPosition " & _
+            Dim query As String =
+                " UPDATE AIRBRANCH.IAIP_LK_SSCPDOCUMENTTYPE " &
+                " SET STRDOCUMENTTYPE  = :pDocType, " &
+                "   FACTIVE            = :pActive, " &
+                "   NUMORDINAL         = :pPosition " &
                 " WHERE DOCUMENTTYPEID = :pId "
 
-            Dim parameters As OracleParameter() = { _
-                New OracleParameter("pDocType", d.DocumentType), _
-                New OracleParameter("pActive", d.Active.ToString), _
-                New OracleParameter("pPosition", d.Ordinal), _
-                New OracleParameter("pId", d.DocumentTypeId) _
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("pDocType", d.DocumentType),
+                New OracleParameter("pActive", d.Active.ToString),
+                New OracleParameter("pPosition", d.Ordinal),
+                New OracleParameter("pId", d.DocumentTypeId)
             }
 
             Dim result As Boolean = DB.RunCommand(query, parameters)
@@ -447,15 +447,15 @@ Namespace DAL
                 sender.Cursor = Cursors.AppStarting
             End If
 
-            Dim query As String = _
-                " INSERT INTO AIRBRANCH.IAIP_LK_SSCPDOCUMENTTYPE " & _
-                " (STRDOCUMENTTYPE, FACTIVE, NUMORDINAL ) " & _
+            Dim query As String =
+                " INSERT INTO AIRBRANCH.IAIP_LK_SSCPDOCUMENTTYPE " &
+                " (STRDOCUMENTTYPE, FACTIVE, NUMORDINAL ) " &
                 " VALUES (:pName, :pActive, :pOrdinal) "
 
-            Dim parameters As OracleParameter() = { _
-                New OracleParameter("pName", d.DocumentType), _
-                New OracleParameter("pActive", d.Active.ToString), _
-                New OracleParameter("pOrdinal", d.Ordinal) _
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("pName", d.DocumentType),
+                New OracleParameter("pActive", d.Active.ToString),
+                New OracleParameter("pOrdinal", d.Ordinal)
             }
 
             Dim result As Boolean = DB.RunCommand(query, parameters)

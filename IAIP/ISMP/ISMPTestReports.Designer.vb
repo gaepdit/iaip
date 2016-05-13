@@ -1152,8 +1152,8 @@ Partial Class ISMPTestReports
         Me.SCTestReports.Panel2.AutoScroll = true
         Me.SCTestReports.Panel2.BackColor = System.Drawing.SystemColors.ControlLight
         Me.SCTestReports.Panel2.Controls.Add(Me.TCDocumentTypes)
-        Me.SCTestReports.Size = New System.Drawing.Size(790, 715)
-        Me.SCTestReports.SplitterDistance = 387
+        Me.SCTestReports.Size = New System.Drawing.Size(790, 693)
+        Me.SCTestReports.SplitterDistance = 375
         Me.SCTestReports.TabIndex = 1
         '
         'GroupBox1
@@ -1217,14 +1217,14 @@ Partial Class ISMPTestReports
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(790, 387)
+        Me.GroupBox1.Size = New System.Drawing.Size(790, 375)
         Me.GroupBox1.TabIndex = 0
-        Me.GroupBox1.TabStop = false
+        Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Report Information "
         '
         'lblMemoEntered
         '
-        Me.lblMemoEntered.AutoSize = true
+        Me.lblMemoEntered.AutoSize = True
         Me.lblMemoEntered.Location = New System.Drawing.Point(190, 23)
         Me.lblMemoEntered.Name = "lblMemoEntered"
         Me.lblMemoEntered.Size = New System.Drawing.Size(76, 13)
@@ -1233,29 +1233,29 @@ Partial Class ISMPTestReports
         '
         'lblPreComplianceStatus
         '
-        Me.lblPreComplianceStatus.AutoSize = true
-        Me.lblPreComplianceStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline),System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.lblPreComplianceStatus.AutoSize = True
+        Me.lblPreComplianceStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblPreComplianceStatus.Location = New System.Drawing.Point(431, 310)
         Me.lblPreComplianceStatus.Name = "lblPreComplianceStatus"
         Me.lblPreComplianceStatus.Size = New System.Drawing.Size(327, 13)
         Me.lblPreComplianceStatus.TabIndex = 50
         Me.lblPreComplianceStatus.Text = "This test report was flagged as potentially non-compliant"
-        Me.lblPreComplianceStatus.Visible = false
+        Me.lblPreComplianceStatus.Visible = False
         '
         'txtDaysfromTestToAPB
         '
-        Me.txtDaysfromTestToAPB.AcceptsTab = true
+        Me.txtDaysfromTestToAPB.AcceptsTab = True
         Me.txtDaysfromTestToAPB.Location = New System.Drawing.Point(429, 165)
         Me.txtDaysfromTestToAPB.Name = "txtDaysfromTestToAPB"
-        Me.txtDaysfromTestToAPB.ReadOnly = true
+        Me.txtDaysfromTestToAPB.ReadOnly = True
         Me.txtDaysfromTestToAPB.Size = New System.Drawing.Size(40, 20)
         Me.txtDaysfromTestToAPB.TabIndex = 49
-        Me.txtDaysfromTestToAPB.TabStop = false
+        Me.txtDaysfromTestToAPB.TabStop = False
         Me.txtDaysfromTestToAPB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label1
         '
-        Me.Label1.AutoSize = true
+        Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(306, 168)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(117, 13)
@@ -1265,24 +1265,24 @@ Partial Class ISMPTestReports
         '
         'clbWitnessingEngineers
         '
-        Me.clbWitnessingEngineers.CheckOnClick = true
-        Me.clbWitnessingEngineers.FormattingEnabled = true
+        Me.clbWitnessingEngineers.CheckOnClick = True
+        Me.clbWitnessingEngineers.FormattingEnabled = True
         Me.clbWitnessingEngineers.Location = New System.Drawing.Point(166, 288)
         Me.clbWitnessingEngineers.Name = "clbWitnessingEngineers"
         Me.clbWitnessingEngineers.Size = New System.Drawing.Size(136, 94)
         Me.clbWitnessingEngineers.TabIndex = 14
-        Me.clbWitnessingEngineers.TabStop = false
+        Me.clbWitnessingEngineers.TabStop = False
         '
         'llbTestNotifiactionNumber
         '
-        Me.llbTestNotifiactionNumber.AutoSize = true
+        Me.llbTestNotifiactionNumber.AutoSize = True
         Me.llbTestNotifiactionNumber.Location = New System.Drawing.Point(11, 241)
         Me.llbTestNotifiactionNumber.Name = "llbTestNotifiactionNumber"
         Me.llbTestNotifiactionNumber.Size = New System.Drawing.Size(124, 13)
         Me.llbTestNotifiactionNumber.TabIndex = 53
-        Me.llbTestNotifiactionNumber.TabStop = true
+        Me.llbTestNotifiactionNumber.TabStop = True
         Me.llbTestNotifiactionNumber.Text = "Test Notification Number"
-        Me.llbTestNotifiactionNumber.Visible = false
+        Me.llbTestNotifiactionNumber.Visible = False
         '
         'cboTestNotificationNumber
         '
@@ -1295,7 +1295,7 @@ Partial Class ISMPTestReports
         '
         'labTestNotificationNumber
         '
-        Me.labTestNotificationNumber.AutoSize = true
+        Me.labTestNotificationNumber.AutoSize = True
         Me.labTestNotificationNumber.Location = New System.Drawing.Point(11, 241)
         Me.labTestNotificationNumber.Name = "labTestNotificationNumber"
         Me.labTestNotificationNumber.Size = New System.Drawing.Size(127, 13)
@@ -1305,7 +1305,7 @@ Partial Class ISMPTestReports
         '
         'Label21
         '
-        Me.Label21.AutoSize = true
+        Me.Label21.AutoSize = True
         Me.Label21.Location = New System.Drawing.Point(518, 217)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(139, 13)
@@ -1317,14 +1317,14 @@ Partial Class ISMPTestReports
         Me.txtAssignedToEngineer.BackColor = System.Drawing.SystemColors.Control
         Me.txtAssignedToEngineer.Location = New System.Drawing.Point(661, 213)
         Me.txtAssignedToEngineer.Name = "txtAssignedToEngineer"
-        Me.txtAssignedToEngineer.ReadOnly = true
+        Me.txtAssignedToEngineer.ReadOnly = True
         Me.txtAssignedToEngineer.Size = New System.Drawing.Size(97, 20)
         Me.txtAssignedToEngineer.TabIndex = 37
-        Me.txtAssignedToEngineer.TabStop = false
+        Me.txtAssignedToEngineer.TabStop = False
         '
         'Label17
         '
-        Me.Label17.AutoSize = true
+        Me.Label17.AutoSize = True
         Me.Label17.Location = New System.Drawing.Point(518, 241)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(103, 13)
@@ -1343,7 +1343,7 @@ Partial Class ISMPTestReports
         '
         'Label65
         '
-        Me.Label65.AutoSize = true
+        Me.Label65.AutoSize = True
         Me.Label65.Location = New System.Drawing.Point(533, 169)
         Me.Label65.Name = "Label65"
         Me.Label65.Size = New System.Drawing.Size(116, 13)
@@ -1353,7 +1353,7 @@ Partial Class ISMPTestReports
         '
         'Label20
         '
-        Me.Label20.AutoSize = true
+        Me.Label20.AutoSize = True
         Me.Label20.Location = New System.Drawing.Point(609, 290)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(22, 13)
@@ -1363,13 +1363,13 @@ Partial Class ISMPTestReports
         '
         'txtDaysInAPB
         '
-        Me.txtDaysInAPB.AcceptsTab = true
+        Me.txtDaysInAPB.AcceptsTab = True
         Me.txtDaysInAPB.Location = New System.Drawing.Point(675, 165)
         Me.txtDaysInAPB.Name = "txtDaysInAPB"
-        Me.txtDaysInAPB.ReadOnly = true
+        Me.txtDaysInAPB.ReadOnly = True
         Me.txtDaysInAPB.Size = New System.Drawing.Size(40, 20)
         Me.txtDaysInAPB.TabIndex = 39
-        Me.txtDaysInAPB.TabStop = false
+        Me.txtDaysInAPB.TabStop = False
         Me.txtDaysInAPB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'cboccBox
@@ -1386,15 +1386,15 @@ Partial Class ISMPTestReports
         '
         Me.txtDaysAssigned.Location = New System.Drawing.Point(718, 165)
         Me.txtDaysAssigned.Name = "txtDaysAssigned"
-        Me.txtDaysAssigned.ReadOnly = true
+        Me.txtDaysAssigned.ReadOnly = True
         Me.txtDaysAssigned.Size = New System.Drawing.Size(40, 20)
         Me.txtDaysAssigned.TabIndex = 40
-        Me.txtDaysAssigned.TabStop = false
+        Me.txtDaysAssigned.TabStop = False
         Me.txtDaysAssigned.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label297
         '
-        Me.Label297.AutoSize = true
+        Me.Label297.AutoSize = True
         Me.Label297.Location = New System.Drawing.Point(428, 117)
         Me.Label297.Name = "Label297"
         Me.Label297.Size = New System.Drawing.Size(162, 13)
@@ -1414,7 +1414,7 @@ Partial Class ISMPTestReports
         '
         'Label19
         '
-        Me.Label19.AutoSize = true
+        Me.Label19.AutoSize = True
         Me.Label19.Location = New System.Drawing.Point(341, 91)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(67, 13)
@@ -1443,7 +1443,7 @@ Partial Class ISMPTestReports
         '
         'Label18
         '
-        Me.Label18.AutoSize = true
+        Me.Label18.AutoSize = True
         Me.Label18.Location = New System.Drawing.Point(9, 117)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(69, 13)
@@ -1463,11 +1463,11 @@ Partial Class ISMPTestReports
         'DTPTestDateComplete
         '
         Me.DTPTestDateComplete.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPTestDateComplete.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.DTPTestDateComplete.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPTestDateComplete.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPTestDateComplete.Location = New System.Drawing.Point(639, 138)
         Me.DTPTestDateComplete.Name = "DTPTestDateComplete"
-        Me.DTPTestDateComplete.ShowCheckBox = true
+        Me.DTPTestDateComplete.ShowCheckBox = True
         Me.DTPTestDateComplete.Size = New System.Drawing.Size(119, 22)
         Me.DTPTestDateComplete.TabIndex = 11
         Me.DTPTestDateComplete.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
@@ -1475,11 +1475,11 @@ Partial Class ISMPTestReports
         'DTPTestDateStart
         '
         Me.DTPTestDateStart.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPTestDateStart.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.DTPTestDateStart.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPTestDateStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPTestDateStart.Location = New System.Drawing.Point(516, 138)
         Me.DTPTestDateStart.Name = "DTPTestDateStart"
-        Me.DTPTestDateStart.ShowCheckBox = true
+        Me.DTPTestDateStart.ShowCheckBox = True
         Me.DTPTestDateStart.Size = New System.Drawing.Size(117, 22)
         Me.DTPTestDateStart.TabIndex = 10
         Me.DTPTestDateStart.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
@@ -1506,7 +1506,7 @@ Partial Class ISMPTestReports
         '
         'Label16
         '
-        Me.Label16.AutoSize = true
+        Me.Label16.AutoSize = True
         Me.Label16.Location = New System.Drawing.Point(10, 169)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(58, 13)
@@ -1516,7 +1516,7 @@ Partial Class ISMPTestReports
         '
         'Label15
         '
-        Me.Label15.AutoSize = true
+        Me.Label15.AutoSize = True
         Me.Label15.Location = New System.Drawing.Point(523, 265)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(110, 13)
@@ -1528,14 +1528,14 @@ Partial Class ISMPTestReports
         Me.txtUnitManager.BackColor = System.Drawing.SystemColors.Control
         Me.txtUnitManager.Location = New System.Drawing.Point(133, 213)
         Me.txtUnitManager.Name = "txtUnitManager"
-        Me.txtUnitManager.ReadOnly = true
+        Me.txtUnitManager.ReadOnly = True
         Me.txtUnitManager.Size = New System.Drawing.Size(169, 20)
         Me.txtUnitManager.TabIndex = 29
-        Me.txtUnitManager.TabStop = false
+        Me.txtUnitManager.TabStop = False
         '
         'Label14
         '
-        Me.Label14.AutoSize = true
+        Me.Label14.AutoSize = True
         Me.Label14.Location = New System.Drawing.Point(10, 217)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(103, 13)
@@ -1547,14 +1547,14 @@ Partial Class ISMPTestReports
         Me.txtProgramManager.BackColor = System.Drawing.SystemColors.Control
         Me.txtProgramManager.Location = New System.Drawing.Point(133, 190)
         Me.txtProgramManager.Name = "txtProgramManager"
-        Me.txtProgramManager.ReadOnly = true
+        Me.txtProgramManager.ReadOnly = True
         Me.txtProgramManager.Size = New System.Drawing.Size(169, 20)
         Me.txtProgramManager.TabIndex = 28
-        Me.txtProgramManager.TabStop = false
+        Me.txtProgramManager.TabStop = False
         '
         'Label13
         '
-        Me.Label13.AutoSize = true
+        Me.Label13.AutoSize = True
         Me.Label13.Location = New System.Drawing.Point(10, 194)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(123, 13)
@@ -1573,7 +1573,7 @@ Partial Class ISMPTestReports
         '
         'Label12
         '
-        Me.Label12.AutoSize = true
+        Me.Label12.AutoSize = True
         Me.Label12.Location = New System.Drawing.Point(341, 67)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(135, 13)
@@ -1583,7 +1583,7 @@ Partial Class ISMPTestReports
         '
         'Label11
         '
-        Me.Label11.AutoSize = true
+        Me.Label11.AutoSize = True
         Me.Label11.Location = New System.Drawing.Point(13, 290)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(147, 13)
@@ -1596,20 +1596,20 @@ Partial Class ISMPTestReports
         Me.txtCompleteDate.BackColor = System.Drawing.SystemColors.Control
         Me.txtCompleteDate.Location = New System.Drawing.Point(661, 237)
         Me.txtCompleteDate.Name = "txtCompleteDate"
-        Me.txtCompleteDate.ReadOnly = true
+        Me.txtCompleteDate.ReadOnly = True
         Me.txtCompleteDate.Size = New System.Drawing.Size(97, 20)
         Me.txtCompleteDate.TabIndex = 36
-        Me.txtCompleteDate.TabStop = false
+        Me.txtCompleteDate.TabStop = False
         '
         'txtReceivedByAPB
         '
         Me.txtReceivedByAPB.BackColor = System.Drawing.SystemColors.Control
         Me.txtReceivedByAPB.Location = New System.Drawing.Point(661, 190)
         Me.txtReceivedByAPB.Name = "txtReceivedByAPB"
-        Me.txtReceivedByAPB.ReadOnly = true
+        Me.txtReceivedByAPB.ReadOnly = True
         Me.txtReceivedByAPB.Size = New System.Drawing.Size(97, 20)
         Me.txtReceivedByAPB.TabIndex = 38
-        Me.txtReceivedByAPB.TabStop = false
+        Me.txtReceivedByAPB.TabStop = False
         '
         'cboWitnessingEngineer
         '
@@ -1623,7 +1623,7 @@ Partial Class ISMPTestReports
         '
         'Label27
         '
-        Me.Label27.AutoSize = true
+        Me.Label27.AutoSize = True
         Me.Label27.Location = New System.Drawing.Point(518, 194)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(137, 13)
@@ -1632,7 +1632,7 @@ Partial Class ISMPTestReports
         '
         'Label28
         '
-        Me.Label28.AutoSize = true
+        Me.Label28.AutoSize = True
         Me.Label28.Location = New System.Drawing.Point(12, 267)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(99, 13)
@@ -1645,11 +1645,11 @@ Partial Class ISMPTestReports
         Me.txtFacilityState.BackColor = System.Drawing.SystemColors.Control
         Me.txtFacilityState.Location = New System.Drawing.Point(286, 92)
         Me.txtFacilityState.Name = "txtFacilityState"
-        Me.txtFacilityState.ReadOnly = true
+        Me.txtFacilityState.ReadOnly = True
         Me.txtFacilityState.Size = New System.Drawing.Size(32, 20)
         Me.txtFacilityState.TabIndex = 20
-        Me.txtFacilityState.TabStop = false
-        Me.txtFacilityState.Visible = false
+        Me.txtFacilityState.TabStop = False
+        Me.txtFacilityState.Visible = False
         '
         'txtSourceTested
         '
@@ -1665,44 +1665,44 @@ Partial Class ISMPTestReports
         Me.txtFacilityCity.BackColor = System.Drawing.SystemColors.Control
         Me.txtFacilityCity.Location = New System.Drawing.Point(115, 92)
         Me.txtFacilityCity.Name = "txtFacilityCity"
-        Me.txtFacilityCity.ReadOnly = true
+        Me.txtFacilityCity.ReadOnly = True
         Me.txtFacilityCity.Size = New System.Drawing.Size(167, 20)
         Me.txtFacilityCity.TabIndex = 24
-        Me.txtFacilityCity.TabStop = false
+        Me.txtFacilityCity.TabStop = False
         '
         'txtFacilityName
         '
         Me.txtFacilityName.BackColor = System.Drawing.SystemColors.Control
         Me.txtFacilityName.Location = New System.Drawing.Point(114, 68)
         Me.txtFacilityName.Name = "txtFacilityName"
-        Me.txtFacilityName.ReadOnly = true
+        Me.txtFacilityName.ReadOnly = True
         Me.txtFacilityName.Size = New System.Drawing.Size(204, 20)
         Me.txtFacilityName.TabIndex = 23
-        Me.txtFacilityName.TabStop = false
+        Me.txtFacilityName.TabStop = False
         '
         'txtAirsNumber
         '
         Me.txtAirsNumber.BackColor = System.Drawing.SystemColors.Control
         Me.txtAirsNumber.Location = New System.Drawing.Point(114, 44)
         Me.txtAirsNumber.Name = "txtAirsNumber"
-        Me.txtAirsNumber.ReadOnly = true
+        Me.txtAirsNumber.ReadOnly = True
         Me.txtAirsNumber.Size = New System.Drawing.Size(70, 20)
         Me.txtAirsNumber.TabIndex = 22
-        Me.txtAirsNumber.TabStop = false
+        Me.txtAirsNumber.TabStop = False
         '
         'txtReferenceNumber
         '
         Me.txtReferenceNumber.BackColor = System.Drawing.SystemColors.Control
         Me.txtReferenceNumber.Location = New System.Drawing.Point(114, 20)
         Me.txtReferenceNumber.Name = "txtReferenceNumber"
-        Me.txtReferenceNumber.ReadOnly = true
+        Me.txtReferenceNumber.ReadOnly = True
         Me.txtReferenceNumber.Size = New System.Drawing.Size(70, 20)
         Me.txtReferenceNumber.TabIndex = 21
-        Me.txtReferenceNumber.TabStop = false
+        Me.txtReferenceNumber.TabStop = False
         '
         'lblDatesTested
         '
-        Me.lblDatesTested.AutoSize = true
+        Me.lblDatesTested.AutoSize = True
         Me.lblDatesTested.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblDatesTested.Location = New System.Drawing.Point(428, 143)
         Me.lblDatesTested.Name = "lblDatesTested"
@@ -1712,7 +1712,7 @@ Partial Class ISMPTestReports
         '
         'Label6
         '
-        Me.Label6.AutoSize = true
+        Me.Label6.AutoSize = True
         Me.Label6.Location = New System.Drawing.Point(341, 19)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(80, 13)
@@ -1721,7 +1721,7 @@ Partial Class ISMPTestReports
         '
         'Label5
         '
-        Me.Label5.AutoSize = true
+        Me.Label5.AutoSize = True
         Me.Label5.Location = New System.Drawing.Point(9, 92)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(51, 13)
@@ -1730,7 +1730,7 @@ Partial Class ISMPTestReports
         '
         'Label4
         '
-        Me.Label4.AutoSize = true
+        Me.Label4.AutoSize = True
         Me.Label4.Location = New System.Drawing.Point(9, 68)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(73, 13)
@@ -1740,7 +1740,7 @@ Partial Class ISMPTestReports
         '
         'Label8
         '
-        Me.Label8.AutoSize = true
+        Me.Label8.AutoSize = True
         Me.Label8.Location = New System.Drawing.Point(341, 43)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(108, 13)
@@ -1750,7 +1750,7 @@ Partial Class ISMPTestReports
         '
         'Label9
         '
-        Me.Label9.AutoSize = true
+        Me.Label9.AutoSize = True
         Me.Label9.Location = New System.Drawing.Point(9, 147)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(84, 13)
@@ -1760,7 +1760,7 @@ Partial Class ISMPTestReports
         '
         'Label10
         '
-        Me.Label10.AutoSize = true
+        Me.Label10.AutoSize = True
         Me.Label10.Location = New System.Drawing.Point(9, 44)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(75, 13)
@@ -1769,7 +1769,7 @@ Partial Class ISMPTestReports
         '
         'labReferenceNumber
         '
-        Me.labReferenceNumber.AutoSize = true
+        Me.labReferenceNumber.AutoSize = True
         Me.labReferenceNumber.Location = New System.Drawing.Point(9, 20)
         Me.labReferenceNumber.Name = "labReferenceNumber"
         Me.labReferenceNumber.Size = New System.Drawing.Size(100, 13)
@@ -1794,12 +1794,12 @@ Partial Class ISMPTestReports
         Me.TCDocumentTypes.Location = New System.Drawing.Point(0, 0)
         Me.TCDocumentTypes.Name = "TCDocumentTypes"
         Me.TCDocumentTypes.SelectedIndex = 0
-        Me.TCDocumentTypes.Size = New System.Drawing.Size(790, 324)
+        Me.TCDocumentTypes.Size = New System.Drawing.Size(790, 314)
         Me.TCDocumentTypes.TabIndex = 1
         '
         'TPOneStack
         '
-        Me.TPOneStack.AutoScroll = true
+        Me.TPOneStack.AutoScroll = True
         Me.TPOneStack.Controls.Add(Me.Label22)
         Me.TPOneStack.Controls.Add(Me.txtOtherInformationOneStack)
         Me.TPOneStack.Controls.Add(Me.Label24)
@@ -1830,10 +1830,10 @@ Partial Class ISMPTestReports
         Me.TPOneStack.Location = New System.Drawing.Point(4, 22)
         Me.TPOneStack.Name = "TPOneStack"
         Me.TPOneStack.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPOneStack.Size = New System.Drawing.Size(782, 298)
+        Me.TPOneStack.Size = New System.Drawing.Size(782, 288)
         Me.TPOneStack.TabIndex = 0
         Me.TPOneStack.Text = "One Stack"
-        Me.TPOneStack.UseVisualStyleBackColor = true
+        Me.TPOneStack.UseVisualStyleBackColor = True
         '
         'Label22
         '
@@ -1845,9 +1845,9 @@ Partial Class ISMPTestReports
         '
         'txtOtherInformationOneStack
         '
-        Me.txtOtherInformationOneStack.AcceptsReturn = true
+        Me.txtOtherInformationOneStack.AcceptsReturn = True
         Me.txtOtherInformationOneStack.Location = New System.Drawing.Point(138, 348)
-        Me.txtOtherInformationOneStack.Multiline = true
+        Me.txtOtherInformationOneStack.Multiline = True
         Me.txtOtherInformationOneStack.Name = "txtOtherInformationOneStack"
         Me.txtOtherInformationOneStack.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtOtherInformationOneStack.Size = New System.Drawing.Size(616, 80)
@@ -1855,7 +1855,7 @@ Partial Class ISMPTestReports
         '
         'Label24
         '
-        Me.Label24.AutoSize = true
+        Me.Label24.AutoSize = True
         Me.Label24.Location = New System.Drawing.Point(6, 348)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(91, 13)
@@ -1872,7 +1872,7 @@ Partial Class ISMPTestReports
         Me.TCOneStack.SelectedIndex = 0
         Me.TCOneStack.Size = New System.Drawing.Size(782, 190)
         Me.TCOneStack.TabIndex = 767
-        Me.TCOneStack.TabStop = false
+        Me.TCOneStack.TabStop = False
         '
         'TPOneStackTwoRun
         '
@@ -1975,7 +1975,7 @@ Partial Class ISMPTestReports
         '
         'Label42
         '
-        Me.Label42.AutoSize = true
+        Me.Label42.AutoSize = True
         Me.Label42.Location = New System.Drawing.Point(494, 104)
         Me.Label42.Name = "Label42"
         Me.Label42.Size = New System.Drawing.Size(65, 13)
@@ -1991,7 +1991,7 @@ Partial Class ISMPTestReports
         Me.txtEmissRateAvgOneStackTwoRun.Name = "txtEmissRateAvgOneStackTwoRun"
         Me.txtEmissRateAvgOneStackTwoRun.Size = New System.Drawing.Size(72, 20)
         Me.txtEmissRateAvgOneStackTwoRun.TabIndex = 49
-        Me.txtEmissRateAvgOneStackTwoRun.TabStop = false
+        Me.txtEmissRateAvgOneStackTwoRun.TabStop = False
         '
         'txtPollConcAvgOneStackTwoRun
         '
@@ -2001,7 +2001,7 @@ Partial Class ISMPTestReports
         Me.txtPollConcAvgOneStackTwoRun.Name = "txtPollConcAvgOneStackTwoRun"
         Me.txtPollConcAvgOneStackTwoRun.Size = New System.Drawing.Size(72, 20)
         Me.txtPollConcAvgOneStackTwoRun.TabIndex = 45
-        Me.txtPollConcAvgOneStackTwoRun.TabStop = false
+        Me.txtPollConcAvgOneStackTwoRun.TabStop = False
         '
         'cboEmissRateUnitOneStackTwoRun
         '
@@ -2139,7 +2139,7 @@ Partial Class ISMPTestReports
         '
         'Label35
         '
-        Me.Label35.AutoSize = true
+        Me.Label35.AutoSize = True
         Me.Label35.Location = New System.Drawing.Point(4, 54)
         Me.Label35.Name = "Label35"
         Me.Label35.Size = New System.Drawing.Size(86, 13)
@@ -2149,7 +2149,7 @@ Partial Class ISMPTestReports
         '
         'Label36
         '
-        Me.Label36.AutoSize = true
+        Me.Label36.AutoSize = True
         Me.Label36.Location = New System.Drawing.Point(4, 76)
         Me.Label36.Name = "Label36"
         Me.Label36.Size = New System.Drawing.Size(115, 13)
@@ -2159,7 +2159,7 @@ Partial Class ISMPTestReports
         '
         'Label37
         '
-        Me.Label37.AutoSize = true
+        Me.Label37.AutoSize = True
         Me.Label37.Location = New System.Drawing.Point(4, 98)
         Me.Label37.Name = "Label37"
         Me.Label37.Size = New System.Drawing.Size(123, 13)
@@ -2169,7 +2169,7 @@ Partial Class ISMPTestReports
         '
         'Label38
         '
-        Me.Label38.AutoSize = true
+        Me.Label38.AutoSize = True
         Me.Label38.Location = New System.Drawing.Point(4, 120)
         Me.Label38.Name = "Label38"
         Me.Label38.Size = New System.Drawing.Size(120, 13)
@@ -2179,7 +2179,7 @@ Partial Class ISMPTestReports
         '
         'Label39
         '
-        Me.Label39.AutoSize = true
+        Me.Label39.AutoSize = True
         Me.Label39.Location = New System.Drawing.Point(4, 142)
         Me.Label39.Name = "Label39"
         Me.Label39.Size = New System.Drawing.Size(77, 13)
@@ -2189,7 +2189,7 @@ Partial Class ISMPTestReports
         '
         'Label40
         '
-        Me.Label40.AutoSize = true
+        Me.Label40.AutoSize = True
         Me.Label40.Location = New System.Drawing.Point(4, 32)
         Me.Label40.Name = "Label40"
         Me.Label40.Size = New System.Drawing.Size(107, 13)
@@ -2199,7 +2199,7 @@ Partial Class ISMPTestReports
         '
         'Label41
         '
-        Me.Label41.AutoSize = true
+        Me.Label41.AutoSize = True
         Me.Label41.Location = New System.Drawing.Point(36, 8)
         Me.Label41.Name = "Label41"
         Me.Label41.Size = New System.Drawing.Size(61, 13)
@@ -2213,7 +2213,7 @@ Partial Class ISMPTestReports
         Me.btnClearOneStackTwoRun2.Name = "btnClearOneStackTwoRun2"
         Me.btnClearOneStackTwoRun2.Size = New System.Drawing.Size(40, 20)
         Me.btnClearOneStackTwoRun2.TabIndex = 190
-        Me.btnClearOneStackTwoRun2.TabStop = false
+        Me.btnClearOneStackTwoRun2.TabStop = False
         Me.btnClearOneStackTwoRun2.Text = "Clear"
         '
         'btnClearOneStackTwoRun1
@@ -2222,7 +2222,7 @@ Partial Class ISMPTestReports
         Me.btnClearOneStackTwoRun1.Name = "btnClearOneStackTwoRun1"
         Me.btnClearOneStackTwoRun1.Size = New System.Drawing.Size(40, 20)
         Me.btnClearOneStackTwoRun1.TabIndex = 189
-        Me.btnClearOneStackTwoRun1.TabStop = false
+        Me.btnClearOneStackTwoRun1.TabStop = False
         Me.btnClearOneStackTwoRun1.Text = "Clear"
         '
         'TPOneStackThreeRun
@@ -2334,7 +2334,7 @@ Partial Class ISMPTestReports
         '
         'Label26
         '
-        Me.Label26.AutoSize = true
+        Me.Label26.AutoSize = True
         Me.Label26.Location = New System.Drawing.Point(600, 104)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(65, 13)
@@ -2348,10 +2348,10 @@ Partial Class ISMPTestReports
         Me.txtEmissRateAvgOneStackThreeRun.Location = New System.Drawing.Point(600, 142)
         Me.txtEmissRateAvgOneStackThreeRun.MaxLength = 11
         Me.txtEmissRateAvgOneStackThreeRun.Name = "txtEmissRateAvgOneStackThreeRun"
-        Me.txtEmissRateAvgOneStackThreeRun.ReadOnly = true
+        Me.txtEmissRateAvgOneStackThreeRun.ReadOnly = True
         Me.txtEmissRateAvgOneStackThreeRun.Size = New System.Drawing.Size(72, 20)
         Me.txtEmissRateAvgOneStackThreeRun.TabIndex = 74
-        Me.txtEmissRateAvgOneStackThreeRun.TabStop = false
+        Me.txtEmissRateAvgOneStackThreeRun.TabStop = False
         '
         'txtPollConcAvgOneStackThreeRun
         '
@@ -2359,10 +2359,10 @@ Partial Class ISMPTestReports
         Me.txtPollConcAvgOneStackThreeRun.Location = New System.Drawing.Point(600, 120)
         Me.txtPollConcAvgOneStackThreeRun.MaxLength = 11
         Me.txtPollConcAvgOneStackThreeRun.Name = "txtPollConcAvgOneStackThreeRun"
-        Me.txtPollConcAvgOneStackThreeRun.ReadOnly = true
+        Me.txtPollConcAvgOneStackThreeRun.ReadOnly = True
         Me.txtPollConcAvgOneStackThreeRun.Size = New System.Drawing.Size(72, 20)
         Me.txtPollConcAvgOneStackThreeRun.TabIndex = 69
-        Me.txtPollConcAvgOneStackThreeRun.TabStop = false
+        Me.txtPollConcAvgOneStackThreeRun.TabStop = False
         '
         'txtEmissRateOneStackThreeRun1C
         '
@@ -2537,7 +2537,7 @@ Partial Class ISMPTestReports
         '
         'Label23
         '
-        Me.Label23.AutoSize = true
+        Me.Label23.AutoSize = True
         Me.Label23.Location = New System.Drawing.Point(4, 54)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(86, 13)
@@ -2547,7 +2547,7 @@ Partial Class ISMPTestReports
         '
         'Label25
         '
-        Me.Label25.AutoSize = true
+        Me.Label25.AutoSize = True
         Me.Label25.Location = New System.Drawing.Point(4, 76)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(115, 13)
@@ -2557,7 +2557,7 @@ Partial Class ISMPTestReports
         '
         'Label29
         '
-        Me.Label29.AutoSize = true
+        Me.Label29.AutoSize = True
         Me.Label29.Location = New System.Drawing.Point(4, 98)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(123, 13)
@@ -2567,7 +2567,7 @@ Partial Class ISMPTestReports
         '
         'Label30
         '
-        Me.Label30.AutoSize = true
+        Me.Label30.AutoSize = True
         Me.Label30.Location = New System.Drawing.Point(4, 120)
         Me.Label30.Name = "Label30"
         Me.Label30.Size = New System.Drawing.Size(120, 13)
@@ -2577,7 +2577,7 @@ Partial Class ISMPTestReports
         '
         'Label31
         '
-        Me.Label31.AutoSize = true
+        Me.Label31.AutoSize = True
         Me.Label31.Location = New System.Drawing.Point(4, 142)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(77, 13)
@@ -2587,7 +2587,7 @@ Partial Class ISMPTestReports
         '
         'Label32
         '
-        Me.Label32.AutoSize = true
+        Me.Label32.AutoSize = True
         Me.Label32.Location = New System.Drawing.Point(4, 32)
         Me.Label32.Name = "Label32"
         Me.Label32.Size = New System.Drawing.Size(107, 13)
@@ -2597,7 +2597,7 @@ Partial Class ISMPTestReports
         '
         'Label33
         '
-        Me.Label33.AutoSize = true
+        Me.Label33.AutoSize = True
         Me.Label33.Location = New System.Drawing.Point(36, 8)
         Me.Label33.Name = "Label33"
         Me.Label33.Size = New System.Drawing.Size(61, 13)
@@ -2631,7 +2631,7 @@ Partial Class ISMPTestReports
         Me.btnClearOneStackThreeRun3.Name = "btnClearOneStackThreeRun3"
         Me.btnClearOneStackThreeRun3.Size = New System.Drawing.Size(40, 20)
         Me.btnClearOneStackThreeRun3.TabIndex = 168
-        Me.btnClearOneStackThreeRun3.TabStop = false
+        Me.btnClearOneStackThreeRun3.TabStop = False
         Me.btnClearOneStackThreeRun3.Text = "Clear"
         '
         'btnClearOneStackThreeRun2
@@ -2640,7 +2640,7 @@ Partial Class ISMPTestReports
         Me.btnClearOneStackThreeRun2.Name = "btnClearOneStackThreeRun2"
         Me.btnClearOneStackThreeRun2.Size = New System.Drawing.Size(40, 20)
         Me.btnClearOneStackThreeRun2.TabIndex = 167
-        Me.btnClearOneStackThreeRun2.TabStop = false
+        Me.btnClearOneStackThreeRun2.TabStop = False
         Me.btnClearOneStackThreeRun2.Text = "Clear"
         '
         'btnClearOneStackThreeRun1
@@ -2649,7 +2649,7 @@ Partial Class ISMPTestReports
         Me.btnClearOneStackThreeRun1.Name = "btnClearOneStackThreeRun1"
         Me.btnClearOneStackThreeRun1.Size = New System.Drawing.Size(40, 20)
         Me.btnClearOneStackThreeRun1.TabIndex = 166
-        Me.btnClearOneStackThreeRun1.TabStop = false
+        Me.btnClearOneStackThreeRun1.TabStop = False
         Me.btnClearOneStackThreeRun1.Text = "Clear"
         '
         'TPOneStackFourRun
@@ -2830,12 +2830,12 @@ Partial Class ISMPTestReports
         Me.btnClearOneStackFourRun4.Name = "btnClearOneStackFourRun4"
         Me.btnClearOneStackFourRun4.Size = New System.Drawing.Size(40, 20)
         Me.btnClearOneStackFourRun4.TabIndex = 212
-        Me.btnClearOneStackFourRun4.TabStop = false
+        Me.btnClearOneStackFourRun4.TabStop = False
         Me.btnClearOneStackFourRun4.Text = "Clear"
         '
         'Label34
         '
-        Me.Label34.AutoSize = true
+        Me.Label34.AutoSize = True
         Me.Label34.Location = New System.Drawing.Point(706, 104)
         Me.Label34.Name = "Label34"
         Me.Label34.Size = New System.Drawing.Size(65, 13)
@@ -2849,10 +2849,10 @@ Partial Class ISMPTestReports
         Me.txtEmissRateAvgOneStackFourRun.Location = New System.Drawing.Point(706, 142)
         Me.txtEmissRateAvgOneStackFourRun.MaxLength = 11
         Me.txtEmissRateAvgOneStackFourRun.Name = "txtEmissRateAvgOneStackFourRun"
-        Me.txtEmissRateAvgOneStackFourRun.ReadOnly = true
+        Me.txtEmissRateAvgOneStackFourRun.ReadOnly = True
         Me.txtEmissRateAvgOneStackFourRun.Size = New System.Drawing.Size(62, 20)
         Me.txtEmissRateAvgOneStackFourRun.TabIndex = 111
-        Me.txtEmissRateAvgOneStackFourRun.TabStop = false
+        Me.txtEmissRateAvgOneStackFourRun.TabStop = False
         '
         'txtPollConcAvgOneStackFourRun
         '
@@ -2860,10 +2860,10 @@ Partial Class ISMPTestReports
         Me.txtPollConcAvgOneStackFourRun.Location = New System.Drawing.Point(706, 120)
         Me.txtPollConcAvgOneStackFourRun.MaxLength = 11
         Me.txtPollConcAvgOneStackFourRun.Name = "txtPollConcAvgOneStackFourRun"
-        Me.txtPollConcAvgOneStackFourRun.ReadOnly = true
+        Me.txtPollConcAvgOneStackFourRun.ReadOnly = True
         Me.txtPollConcAvgOneStackFourRun.Size = New System.Drawing.Size(62, 20)
         Me.txtPollConcAvgOneStackFourRun.TabIndex = 105
-        Me.txtPollConcAvgOneStackFourRun.TabStop = false
+        Me.txtPollConcAvgOneStackFourRun.TabStop = False
         '
         'txtEmissRateOneStackFourRun1C
         '
@@ -3038,7 +3038,7 @@ Partial Class ISMPTestReports
         '
         'Label43
         '
-        Me.Label43.AutoSize = true
+        Me.Label43.AutoSize = True
         Me.Label43.Location = New System.Drawing.Point(4, 54)
         Me.Label43.Name = "Label43"
         Me.Label43.Size = New System.Drawing.Size(86, 13)
@@ -3048,7 +3048,7 @@ Partial Class ISMPTestReports
         '
         'Label44
         '
-        Me.Label44.AutoSize = true
+        Me.Label44.AutoSize = True
         Me.Label44.Location = New System.Drawing.Point(4, 76)
         Me.Label44.Name = "Label44"
         Me.Label44.Size = New System.Drawing.Size(115, 13)
@@ -3058,7 +3058,7 @@ Partial Class ISMPTestReports
         '
         'Label45
         '
-        Me.Label45.AutoSize = true
+        Me.Label45.AutoSize = True
         Me.Label45.Location = New System.Drawing.Point(4, 98)
         Me.Label45.Name = "Label45"
         Me.Label45.Size = New System.Drawing.Size(123, 13)
@@ -3068,7 +3068,7 @@ Partial Class ISMPTestReports
         '
         'Label46
         '
-        Me.Label46.AutoSize = true
+        Me.Label46.AutoSize = True
         Me.Label46.Location = New System.Drawing.Point(4, 120)
         Me.Label46.Name = "Label46"
         Me.Label46.Size = New System.Drawing.Size(120, 13)
@@ -3078,7 +3078,7 @@ Partial Class ISMPTestReports
         '
         'Label47
         '
-        Me.Label47.AutoSize = true
+        Me.Label47.AutoSize = True
         Me.Label47.Location = New System.Drawing.Point(4, 142)
         Me.Label47.Name = "Label47"
         Me.Label47.Size = New System.Drawing.Size(77, 13)
@@ -3088,7 +3088,7 @@ Partial Class ISMPTestReports
         '
         'Label48
         '
-        Me.Label48.AutoSize = true
+        Me.Label48.AutoSize = True
         Me.Label48.Location = New System.Drawing.Point(4, 32)
         Me.Label48.Name = "Label48"
         Me.Label48.Size = New System.Drawing.Size(107, 13)
@@ -3098,7 +3098,7 @@ Partial Class ISMPTestReports
         '
         'Label49
         '
-        Me.Label49.AutoSize = true
+        Me.Label49.AutoSize = True
         Me.Label49.Location = New System.Drawing.Point(36, 8)
         Me.Label49.Name = "Label49"
         Me.Label49.Size = New System.Drawing.Size(61, 13)
@@ -3132,7 +3132,7 @@ Partial Class ISMPTestReports
         Me.btnClearOneStackFourRun3.Name = "btnClearOneStackFourRun3"
         Me.btnClearOneStackFourRun3.Size = New System.Drawing.Size(40, 20)
         Me.btnClearOneStackFourRun3.TabIndex = 204
-        Me.btnClearOneStackFourRun3.TabStop = false
+        Me.btnClearOneStackFourRun3.TabStop = False
         Me.btnClearOneStackFourRun3.Text = "Clear"
         '
         'btnClearOneStackFourRun2
@@ -3141,7 +3141,7 @@ Partial Class ISMPTestReports
         Me.btnClearOneStackFourRun2.Name = "btnClearOneStackFourRun2"
         Me.btnClearOneStackFourRun2.Size = New System.Drawing.Size(40, 20)
         Me.btnClearOneStackFourRun2.TabIndex = 203
-        Me.btnClearOneStackFourRun2.TabStop = false
+        Me.btnClearOneStackFourRun2.TabStop = False
         Me.btnClearOneStackFourRun2.Text = "Clear"
         '
         'btnClearOneStackFourRun1
@@ -3150,14 +3150,14 @@ Partial Class ISMPTestReports
         Me.btnClearOneStackFourRun1.Name = "btnClearOneStackFourRun1"
         Me.btnClearOneStackFourRun1.Size = New System.Drawing.Size(40, 20)
         Me.btnClearOneStackFourRun1.TabIndex = 202
-        Me.btnClearOneStackFourRun1.TabStop = false
+        Me.btnClearOneStackFourRun1.TabStop = False
         Me.btnClearOneStackFourRun1.Text = "Clear"
         '
         'txtControlEquipmentOperatingDataOneStack
         '
         Me.txtControlEquipmentOperatingDataOneStack.Location = New System.Drawing.Point(138, 82)
         Me.txtControlEquipmentOperatingDataOneStack.MaxLength = 4000
-        Me.txtControlEquipmentOperatingDataOneStack.Multiline = true
+        Me.txtControlEquipmentOperatingDataOneStack.Multiline = True
         Me.txtControlEquipmentOperatingDataOneStack.Name = "txtControlEquipmentOperatingDataOneStack"
         Me.txtControlEquipmentOperatingDataOneStack.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtControlEquipmentOperatingDataOneStack.Size = New System.Drawing.Size(616, 40)
@@ -3165,10 +3165,10 @@ Partial Class ISMPTestReports
         '
         'txtApplicableRegulationOneStack
         '
-        Me.txtApplicableRegulationOneStack.AcceptsReturn = true
+        Me.txtApplicableRegulationOneStack.AcceptsReturn = True
         Me.txtApplicableRegulationOneStack.Location = New System.Drawing.Point(138, 50)
         Me.txtApplicableRegulationOneStack.MaxLength = 200
-        Me.txtApplicableRegulationOneStack.Multiline = true
+        Me.txtApplicableRegulationOneStack.Multiline = True
         Me.txtApplicableRegulationOneStack.Name = "txtApplicableRegulationOneStack"
         Me.txtApplicableRegulationOneStack.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtApplicableRegulationOneStack.Size = New System.Drawing.Size(616, 30)
@@ -3184,7 +3184,7 @@ Partial Class ISMPTestReports
         '
         'Label50
         '
-        Me.Label50.AutoSize = true
+        Me.Label50.AutoSize = True
         Me.Label50.Location = New System.Drawing.Point(394, 6)
         Me.Label50.Name = "Label50"
         Me.Label50.Size = New System.Drawing.Size(100, 13)
@@ -3226,7 +3226,7 @@ Partial Class ISMPTestReports
         '
         'Label51
         '
-        Me.Label51.AutoSize = true
+        Me.Label51.AutoSize = True
         Me.Label51.Location = New System.Drawing.Point(6, 50)
         Me.Label51.Name = "Label51"
         Me.Label51.Size = New System.Drawing.Size(122, 13)
@@ -3236,7 +3236,7 @@ Partial Class ISMPTestReports
         '
         'Label52
         '
-        Me.Label52.AutoSize = true
+        Me.Label52.AutoSize = True
         Me.Label52.Location = New System.Drawing.Point(6, 32)
         Me.Label52.Name = "Label52"
         Me.Label52.Size = New System.Drawing.Size(125, 13)
@@ -3321,7 +3321,7 @@ Partial Class ISMPTestReports
         '
         'Label55
         '
-        Me.Label55.AutoSize = true
+        Me.Label55.AutoSize = True
         Me.Label55.Location = New System.Drawing.Point(6, 326)
         Me.Label55.Name = "Label55"
         Me.Label55.Size = New System.Drawing.Size(95, 13)
@@ -3362,7 +3362,7 @@ Partial Class ISMPTestReports
         '
         'TPLoadingRack
         '
-        Me.TPLoadingRack.AutoScroll = true
+        Me.TPLoadingRack.AutoScroll = True
         Me.TPLoadingRack.Controls.Add(Me.Label292)
         Me.TPLoadingRack.Controls.Add(Me.Label291)
         Me.TPLoadingRack.Controls.Add(Me.Label165)
@@ -3410,7 +3410,7 @@ Partial Class ISMPTestReports
         Me.TPLoadingRack.Size = New System.Drawing.Size(782, 298)
         Me.TPLoadingRack.TabIndex = 1
         Me.TPLoadingRack.Text = "Loading Rack"
-        Me.TPLoadingRack.UseVisualStyleBackColor = true
+        Me.TPLoadingRack.UseVisualStyleBackColor = True
         '
         'Label292
         '
@@ -3481,14 +3481,14 @@ Partial Class ISMPTestReports
         Me.txtDestructionEfficiencyLoadingRack.Location = New System.Drawing.Point(135, 197)
         Me.txtDestructionEfficiencyLoadingRack.MaxLength = 11
         Me.txtDestructionEfficiencyLoadingRack.Name = "txtDestructionEfficiencyLoadingRack"
-        Me.txtDestructionEfficiencyLoadingRack.ReadOnly = true
+        Me.txtDestructionEfficiencyLoadingRack.ReadOnly = True
         Me.txtDestructionEfficiencyLoadingRack.Size = New System.Drawing.Size(96, 20)
         Me.txtDestructionEfficiencyLoadingRack.TabIndex = 148
-        Me.txtDestructionEfficiencyLoadingRack.TabStop = false
+        Me.txtDestructionEfficiencyLoadingRack.TabStop = False
         '
         'Label171
         '
-        Me.Label171.AutoSize = true
+        Me.Label171.AutoSize = True
         Me.Label171.Location = New System.Drawing.Point(364, 152)
         Me.Label171.Name = "Label171"
         Me.Label171.Size = New System.Drawing.Size(18, 13)
@@ -3498,7 +3498,7 @@ Partial Class ISMPTestReports
         '
         'Label154
         '
-        Me.Label154.AutoSize = true
+        Me.Label154.AutoSize = True
         Me.Label154.Location = New System.Drawing.Point(364, 175)
         Me.Label154.Name = "Label154"
         Me.Label154.Size = New System.Drawing.Size(30, 13)
@@ -3528,10 +3528,10 @@ Partial Class ISMPTestReports
         '
         'txtOtherInformationLoadingRack
         '
-        Me.txtOtherInformationLoadingRack.AcceptsReturn = true
+        Me.txtOtherInformationLoadingRack.AcceptsReturn = True
         Me.txtOtherInformationLoadingRack.Location = New System.Drawing.Point(135, 220)
         Me.txtOtherInformationLoadingRack.MaxLength = 4000
-        Me.txtOtherInformationLoadingRack.Multiline = true
+        Me.txtOtherInformationLoadingRack.Multiline = True
         Me.txtOtherInformationLoadingRack.Name = "txtOtherInformationLoadingRack"
         Me.txtOtherInformationLoadingRack.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtOtherInformationLoadingRack.Size = New System.Drawing.Size(616, 128)
@@ -3539,7 +3539,7 @@ Partial Class ISMPTestReports
         '
         'Label153
         '
-        Me.Label153.AutoSize = true
+        Me.Label153.AutoSize = True
         Me.Label153.Location = New System.Drawing.Point(3, 220)
         Me.Label153.Name = "Label153"
         Me.Label153.Size = New System.Drawing.Size(91, 13)
@@ -3549,7 +3549,7 @@ Partial Class ISMPTestReports
         '
         'Label155
         '
-        Me.Label155.AutoSize = true
+        Me.Label155.AutoSize = True
         Me.Label155.Location = New System.Drawing.Point(391, 197)
         Me.Label155.Name = "Label155"
         Me.Label155.Size = New System.Drawing.Size(77, 13)
@@ -3591,7 +3591,7 @@ Partial Class ISMPTestReports
         '
         'Label156
         '
-        Me.Label156.AutoSize = true
+        Me.Label156.AutoSize = True
         Me.Label156.Location = New System.Drawing.Point(3, 151)
         Me.Label156.Name = "Label156"
         Me.Label156.Size = New System.Drawing.Size(120, 13)
@@ -3610,7 +3610,7 @@ Partial Class ISMPTestReports
         '
         'Label164
         '
-        Me.Label164.AutoSize = true
+        Me.Label164.AutoSize = True
         Me.Label164.Location = New System.Drawing.Point(47, 129)
         Me.Label164.Name = "Label164"
         Me.Label164.Size = New System.Drawing.Size(74, 13)
@@ -3642,7 +3642,7 @@ Partial Class ISMPTestReports
         '
         Me.txtControlEquipmentOperatingDataLoadingRack.Location = New System.Drawing.Point(135, 83)
         Me.txtControlEquipmentOperatingDataLoadingRack.MaxLength = 4000
-        Me.txtControlEquipmentOperatingDataLoadingRack.Multiline = true
+        Me.txtControlEquipmentOperatingDataLoadingRack.Multiline = True
         Me.txtControlEquipmentOperatingDataLoadingRack.Name = "txtControlEquipmentOperatingDataLoadingRack"
         Me.txtControlEquipmentOperatingDataLoadingRack.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtControlEquipmentOperatingDataLoadingRack.Size = New System.Drawing.Size(616, 41)
@@ -3650,10 +3650,10 @@ Partial Class ISMPTestReports
         '
         'txtApplicableRegulationLoadingRack
         '
-        Me.txtApplicableRegulationLoadingRack.AcceptsReturn = true
+        Me.txtApplicableRegulationLoadingRack.AcceptsReturn = True
         Me.txtApplicableRegulationLoadingRack.Location = New System.Drawing.Point(135, 51)
         Me.txtApplicableRegulationLoadingRack.MaxLength = 200
-        Me.txtApplicableRegulationLoadingRack.Multiline = true
+        Me.txtApplicableRegulationLoadingRack.Multiline = True
         Me.txtApplicableRegulationLoadingRack.Name = "txtApplicableRegulationLoadingRack"
         Me.txtApplicableRegulationLoadingRack.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtApplicableRegulationLoadingRack.Size = New System.Drawing.Size(616, 32)
@@ -3669,7 +3669,7 @@ Partial Class ISMPTestReports
         '
         'Label166
         '
-        Me.Label166.AutoSize = true
+        Me.Label166.AutoSize = True
         Me.Label166.Location = New System.Drawing.Point(391, 7)
         Me.Label166.Name = "Label166"
         Me.Label166.Size = New System.Drawing.Size(100, 13)
@@ -3711,7 +3711,7 @@ Partial Class ISMPTestReports
         '
         'Label167
         '
-        Me.Label167.AutoSize = true
+        Me.Label167.AutoSize = True
         Me.Label167.Location = New System.Drawing.Point(3, 51)
         Me.Label167.Name = "Label167"
         Me.Label167.Size = New System.Drawing.Size(122, 13)
@@ -3721,7 +3721,7 @@ Partial Class ISMPTestReports
         '
         'Label168
         '
-        Me.Label168.AutoSize = true
+        Me.Label168.AutoSize = True
         Me.Label168.Location = New System.Drawing.Point(3, 31)
         Me.Label168.Name = "Label168"
         Me.Label168.Size = New System.Drawing.Size(125, 13)
@@ -3799,7 +3799,7 @@ Partial Class ISMPTestReports
         '
         'TPPondTreatment
         '
-        Me.TPPondTreatment.AutoScroll = true
+        Me.TPPondTreatment.AutoScroll = True
         Me.TPPondTreatment.Controls.Add(Me.Label286)
         Me.TPPondTreatment.Controls.Add(Me.Label285)
         Me.TPPondTreatment.Controls.Add(Me.Label284)
@@ -3854,7 +3854,7 @@ Partial Class ISMPTestReports
         Me.TPPondTreatment.Size = New System.Drawing.Size(782, 298)
         Me.TPPondTreatment.TabIndex = 2
         Me.TPPondTreatment.Text = "Pulping Process Condensate"
-        Me.TPPondTreatment.UseVisualStyleBackColor = true
+        Me.TPPondTreatment.UseVisualStyleBackColor = True
         '
         'Label286
         '
@@ -3939,10 +3939,10 @@ Partial Class ISMPTestReports
         '
         'txtOtherInformationPond
         '
-        Me.txtOtherInformationPond.AcceptsReturn = true
+        Me.txtOtherInformationPond.AcceptsReturn = True
         Me.txtOtherInformationPond.Location = New System.Drawing.Point(135, 218)
         Me.txtOtherInformationPond.MaxLength = 4000
-        Me.txtOtherInformationPond.Multiline = true
+        Me.txtOtherInformationPond.Multiline = True
         Me.txtOtherInformationPond.Name = "txtOtherInformationPond"
         Me.txtOtherInformationPond.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtOtherInformationPond.Size = New System.Drawing.Size(616, 128)
@@ -3950,7 +3950,7 @@ Partial Class ISMPTestReports
         '
         'Label137
         '
-        Me.Label137.AutoSize = true
+        Me.Label137.AutoSize = True
         Me.Label137.Location = New System.Drawing.Point(3, 218)
         Me.Label137.Name = "Label137"
         Me.Label137.Size = New System.Drawing.Size(91, 13)
@@ -3968,7 +3968,7 @@ Partial Class ISMPTestReports
         '
         'Label140
         '
-        Me.Label140.AutoSize = true
+        Me.Label140.AutoSize = True
         Me.Label140.Location = New System.Drawing.Point(3, 196)
         Me.Label140.Name = "Label140"
         Me.Label140.Size = New System.Drawing.Size(128, 13)
@@ -3978,7 +3978,7 @@ Partial Class ISMPTestReports
         '
         'Label142
         '
-        Me.Label142.AutoSize = true
+        Me.Label142.AutoSize = True
         Me.Label142.Location = New System.Drawing.Point(599, 130)
         Me.Label142.Name = "Label142"
         Me.Label142.Size = New System.Drawing.Size(65, 13)
@@ -3992,10 +3992,10 @@ Partial Class ISMPTestReports
         Me.txtTreatmentRateAvgPond.Location = New System.Drawing.Point(599, 174)
         Me.txtTreatmentRateAvgPond.MaxLength = 11
         Me.txtTreatmentRateAvgPond.Name = "txtTreatmentRateAvgPond"
-        Me.txtTreatmentRateAvgPond.ReadOnly = true
+        Me.txtTreatmentRateAvgPond.ReadOnly = True
         Me.txtTreatmentRateAvgPond.Size = New System.Drawing.Size(72, 20)
         Me.txtTreatmentRateAvgPond.TabIndex = 184
-        Me.txtTreatmentRateAvgPond.TabStop = false
+        Me.txtTreatmentRateAvgPond.TabStop = False
         '
         'txtPollConcAvgPond
         '
@@ -4003,10 +4003,10 @@ Partial Class ISMPTestReports
         Me.txtPollConcAvgPond.Location = New System.Drawing.Point(599, 152)
         Me.txtPollConcAvgPond.MaxLength = 11
         Me.txtPollConcAvgPond.Name = "txtPollConcAvgPond"
-        Me.txtPollConcAvgPond.ReadOnly = true
+        Me.txtPollConcAvgPond.ReadOnly = True
         Me.txtPollConcAvgPond.Size = New System.Drawing.Size(72, 20)
         Me.txtPollConcAvgPond.TabIndex = 179
-        Me.txtPollConcAvgPond.TabStop = false
+        Me.txtPollConcAvgPond.TabStop = False
         '
         'txtTreatmentRatePond1C
         '
@@ -4085,7 +4085,7 @@ Partial Class ISMPTestReports
         '
         'Label143
         '
-        Me.Label143.AutoSize = true
+        Me.Label143.AutoSize = True
         Me.Label143.Location = New System.Drawing.Point(3, 152)
         Me.Label143.Name = "Label143"
         Me.Label143.Size = New System.Drawing.Size(126, 13)
@@ -4095,7 +4095,7 @@ Partial Class ISMPTestReports
         '
         'Label144
         '
-        Me.Label144.AutoSize = true
+        Me.Label144.AutoSize = True
         Me.Label144.Location = New System.Drawing.Point(3, 176)
         Me.Label144.Name = "Label144"
         Me.Label144.Size = New System.Drawing.Size(84, 13)
@@ -4105,7 +4105,7 @@ Partial Class ISMPTestReports
         '
         'Label145
         '
-        Me.Label145.AutoSize = true
+        Me.Label145.AutoSize = True
         Me.Label145.Location = New System.Drawing.Point(47, 130)
         Me.Label145.Name = "Label145"
         Me.Label145.Size = New System.Drawing.Size(61, 13)
@@ -4139,7 +4139,7 @@ Partial Class ISMPTestReports
         Me.btnClearPondTreatment3.Name = "btnClearPondTreatment3"
         Me.btnClearPondTreatment3.Size = New System.Drawing.Size(40, 20)
         Me.btnClearPondTreatment3.TabIndex = 343
-        Me.btnClearPondTreatment3.TabStop = false
+        Me.btnClearPondTreatment3.TabStop = False
         Me.btnClearPondTreatment3.Text = "Clear"
         '
         'btnClearPondTreatment2
@@ -4148,7 +4148,7 @@ Partial Class ISMPTestReports
         Me.btnClearPondTreatment2.Name = "btnClearPondTreatment2"
         Me.btnClearPondTreatment2.Size = New System.Drawing.Size(40, 20)
         Me.btnClearPondTreatment2.TabIndex = 342
-        Me.btnClearPondTreatment2.TabStop = false
+        Me.btnClearPondTreatment2.TabStop = False
         Me.btnClearPondTreatment2.Text = "Clear"
         '
         'btnClearPondTreatment1
@@ -4157,14 +4157,14 @@ Partial Class ISMPTestReports
         Me.btnClearPondTreatment1.Name = "btnClearPondTreatment1"
         Me.btnClearPondTreatment1.Size = New System.Drawing.Size(40, 20)
         Me.btnClearPondTreatment1.TabIndex = 341
-        Me.btnClearPondTreatment1.TabStop = false
+        Me.btnClearPondTreatment1.TabStop = False
         Me.btnClearPondTreatment1.Text = "Clear"
         '
         'txtControlEquipmentOperatingDataPond
         '
         Me.txtControlEquipmentOperatingDataPond.Location = New System.Drawing.Point(135, 84)
         Me.txtControlEquipmentOperatingDataPond.MaxLength = 4000
-        Me.txtControlEquipmentOperatingDataPond.Multiline = true
+        Me.txtControlEquipmentOperatingDataPond.Multiline = True
         Me.txtControlEquipmentOperatingDataPond.Name = "txtControlEquipmentOperatingDataPond"
         Me.txtControlEquipmentOperatingDataPond.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtControlEquipmentOperatingDataPond.Size = New System.Drawing.Size(616, 41)
@@ -4172,10 +4172,10 @@ Partial Class ISMPTestReports
         '
         'txtApplicableRegulationPond
         '
-        Me.txtApplicableRegulationPond.AcceptsReturn = true
+        Me.txtApplicableRegulationPond.AcceptsReturn = True
         Me.txtApplicableRegulationPond.Location = New System.Drawing.Point(135, 52)
         Me.txtApplicableRegulationPond.MaxLength = 200
-        Me.txtApplicableRegulationPond.Multiline = true
+        Me.txtApplicableRegulationPond.Multiline = True
         Me.txtApplicableRegulationPond.Name = "txtApplicableRegulationPond"
         Me.txtApplicableRegulationPond.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtApplicableRegulationPond.Size = New System.Drawing.Size(616, 32)
@@ -4191,7 +4191,7 @@ Partial Class ISMPTestReports
         '
         'Label147
         '
-        Me.Label147.AutoSize = true
+        Me.Label147.AutoSize = True
         Me.Label147.Location = New System.Drawing.Point(391, 8)
         Me.Label147.Name = "Label147"
         Me.Label147.Size = New System.Drawing.Size(100, 13)
@@ -4233,7 +4233,7 @@ Partial Class ISMPTestReports
         '
         'Label148
         '
-        Me.Label148.AutoSize = true
+        Me.Label148.AutoSize = True
         Me.Label148.Location = New System.Drawing.Point(3, 52)
         Me.Label148.Name = "Label148"
         Me.Label148.Size = New System.Drawing.Size(122, 13)
@@ -4243,7 +4243,7 @@ Partial Class ISMPTestReports
         '
         'Label149
         '
-        Me.Label149.AutoSize = true
+        Me.Label149.AutoSize = True
         Me.Label149.Location = New System.Drawing.Point(3, 32)
         Me.Label149.Name = "Label149"
         Me.Label149.Size = New System.Drawing.Size(128, 13)
@@ -4312,7 +4312,7 @@ Partial Class ISMPTestReports
         '
         'TPGasConcentration
         '
-        Me.TPGasConcentration.AutoScroll = true
+        Me.TPGasConcentration.AutoScroll = True
         Me.TPGasConcentration.Controls.Add(Me.Label134)
         Me.TPGasConcentration.Controls.Add(Me.Label279)
         Me.TPGasConcentration.Controls.Add(Me.Label278)
@@ -4367,11 +4367,11 @@ Partial Class ISMPTestReports
         Me.TPGasConcentration.Size = New System.Drawing.Size(782, 298)
         Me.TPGasConcentration.TabIndex = 3
         Me.TPGasConcentration.Text = "Gas Concentration"
-        Me.TPGasConcentration.UseVisualStyleBackColor = true
+        Me.TPGasConcentration.UseVisualStyleBackColor = True
         '
         'Label134
         '
-        Me.Label134.AutoSize = true
+        Me.Label134.AutoSize = True
         Me.Label134.Location = New System.Drawing.Point(599, 130)
         Me.Label134.Name = "Label134"
         Me.Label134.Size = New System.Drawing.Size(65, 13)
@@ -4444,10 +4444,10 @@ Partial Class ISMPTestReports
         '
         'txtOtherInformationGas
         '
-        Me.txtOtherInformationGas.AcceptsReturn = true
+        Me.txtOtherInformationGas.AcceptsReturn = True
         Me.txtOtherInformationGas.Location = New System.Drawing.Point(135, 218)
         Me.txtOtherInformationGas.MaxLength = 4000
-        Me.txtOtherInformationGas.Multiline = true
+        Me.txtOtherInformationGas.Multiline = True
         Me.txtOtherInformationGas.Name = "txtOtherInformationGas"
         Me.txtOtherInformationGas.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtOtherInformationGas.Size = New System.Drawing.Size(616, 128)
@@ -4455,7 +4455,7 @@ Partial Class ISMPTestReports
         '
         'Label136
         '
-        Me.Label136.AutoSize = true
+        Me.Label136.AutoSize = True
         Me.Label136.Location = New System.Drawing.Point(3, 218)
         Me.Label136.Name = "Label136"
         Me.Label136.Size = New System.Drawing.Size(91, 13)
@@ -4473,7 +4473,7 @@ Partial Class ISMPTestReports
         '
         'Label135
         '
-        Me.Label135.AutoSize = true
+        Me.Label135.AutoSize = True
         Me.Label135.Location = New System.Drawing.Point(3, 196)
         Me.Label135.Name = "Label135"
         Me.Label135.Size = New System.Drawing.Size(95, 13)
@@ -4487,10 +4487,10 @@ Partial Class ISMPTestReports
         Me.txtEmissRateAvgGas.Location = New System.Drawing.Point(599, 174)
         Me.txtEmissRateAvgGas.MaxLength = 11
         Me.txtEmissRateAvgGas.Name = "txtEmissRateAvgGas"
-        Me.txtEmissRateAvgGas.ReadOnly = true
+        Me.txtEmissRateAvgGas.ReadOnly = True
         Me.txtEmissRateAvgGas.Size = New System.Drawing.Size(72, 20)
         Me.txtEmissRateAvgGas.TabIndex = 214
-        Me.txtEmissRateAvgGas.TabStop = false
+        Me.txtEmissRateAvgGas.TabStop = False
         '
         'txtPollConcAvgGas
         '
@@ -4498,10 +4498,10 @@ Partial Class ISMPTestReports
         Me.txtPollConcAvgGas.Location = New System.Drawing.Point(599, 152)
         Me.txtPollConcAvgGas.MaxLength = 11
         Me.txtPollConcAvgGas.Name = "txtPollConcAvgGas"
-        Me.txtPollConcAvgGas.ReadOnly = true
+        Me.txtPollConcAvgGas.ReadOnly = True
         Me.txtPollConcAvgGas.Size = New System.Drawing.Size(72, 20)
         Me.txtPollConcAvgGas.TabIndex = 209
-        Me.txtPollConcAvgGas.TabStop = false
+        Me.txtPollConcAvgGas.TabStop = False
         '
         'txtEmissRateGas1C
         '
@@ -4580,7 +4580,7 @@ Partial Class ISMPTestReports
         '
         'Label138
         '
-        Me.Label138.AutoSize = true
+        Me.Label138.AutoSize = True
         Me.Label138.Location = New System.Drawing.Point(3, 152)
         Me.Label138.Name = "Label138"
         Me.Label138.Size = New System.Drawing.Size(120, 13)
@@ -4590,7 +4590,7 @@ Partial Class ISMPTestReports
         '
         'Label139
         '
-        Me.Label139.AutoSize = true
+        Me.Label139.AutoSize = True
         Me.Label139.Location = New System.Drawing.Point(3, 176)
         Me.Label139.Name = "Label139"
         Me.Label139.Size = New System.Drawing.Size(77, 13)
@@ -4600,7 +4600,7 @@ Partial Class ISMPTestReports
         '
         'Label141
         '
-        Me.Label141.AutoSize = true
+        Me.Label141.AutoSize = True
         Me.Label141.Location = New System.Drawing.Point(47, 130)
         Me.Label141.Name = "Label141"
         Me.Label141.Size = New System.Drawing.Size(61, 13)
@@ -4634,7 +4634,7 @@ Partial Class ISMPTestReports
         Me.btnClearGasConcentration3.Name = "btnClearGasConcentration3"
         Me.btnClearGasConcentration3.Size = New System.Drawing.Size(40, 20)
         Me.btnClearGasConcentration3.TabIndex = 327
-        Me.btnClearGasConcentration3.TabStop = false
+        Me.btnClearGasConcentration3.TabStop = False
         Me.btnClearGasConcentration3.Text = "Clear"
         '
         'btnClearGasConcentration2
@@ -4643,7 +4643,7 @@ Partial Class ISMPTestReports
         Me.btnClearGasConcentration2.Name = "btnClearGasConcentration2"
         Me.btnClearGasConcentration2.Size = New System.Drawing.Size(40, 20)
         Me.btnClearGasConcentration2.TabIndex = 326
-        Me.btnClearGasConcentration2.TabStop = false
+        Me.btnClearGasConcentration2.TabStop = False
         Me.btnClearGasConcentration2.Text = "Clear"
         '
         'btnClearGasConcentration1
@@ -4652,7 +4652,7 @@ Partial Class ISMPTestReports
         Me.btnClearGasConcentration1.Name = "btnClearGasConcentration1"
         Me.btnClearGasConcentration1.Size = New System.Drawing.Size(40, 20)
         Me.btnClearGasConcentration1.TabIndex = 325
-        Me.btnClearGasConcentration1.TabStop = false
+        Me.btnClearGasConcentration1.TabStop = False
         Me.btnClearGasConcentration1.Text = "Clear"
         '
         'Label124
@@ -4668,7 +4668,7 @@ Partial Class ISMPTestReports
         '
         Me.txtControlEquipmentOperatingDataGas.Location = New System.Drawing.Point(135, 84)
         Me.txtControlEquipmentOperatingDataGas.MaxLength = 4000
-        Me.txtControlEquipmentOperatingDataGas.Multiline = true
+        Me.txtControlEquipmentOperatingDataGas.Multiline = True
         Me.txtControlEquipmentOperatingDataGas.Name = "txtControlEquipmentOperatingDataGas"
         Me.txtControlEquipmentOperatingDataGas.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtControlEquipmentOperatingDataGas.Size = New System.Drawing.Size(616, 41)
@@ -4676,10 +4676,10 @@ Partial Class ISMPTestReports
         '
         'txtApplicableRegulationGas
         '
-        Me.txtApplicableRegulationGas.AcceptsReturn = true
+        Me.txtApplicableRegulationGas.AcceptsReturn = True
         Me.txtApplicableRegulationGas.Location = New System.Drawing.Point(135, 52)
         Me.txtApplicableRegulationGas.MaxLength = 200
-        Me.txtApplicableRegulationGas.Multiline = true
+        Me.txtApplicableRegulationGas.Multiline = True
         Me.txtApplicableRegulationGas.Name = "txtApplicableRegulationGas"
         Me.txtApplicableRegulationGas.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtApplicableRegulationGas.Size = New System.Drawing.Size(616, 32)
@@ -4695,7 +4695,7 @@ Partial Class ISMPTestReports
         '
         'Label129
         '
-        Me.Label129.AutoSize = true
+        Me.Label129.AutoSize = True
         Me.Label129.Location = New System.Drawing.Point(391, 8)
         Me.Label129.Name = "Label129"
         Me.Label129.Size = New System.Drawing.Size(100, 13)
@@ -4737,7 +4737,7 @@ Partial Class ISMPTestReports
         '
         'Label130
         '
-        Me.Label130.AutoSize = true
+        Me.Label130.AutoSize = True
         Me.Label130.Location = New System.Drawing.Point(3, 52)
         Me.Label130.Name = "Label130"
         Me.Label130.Size = New System.Drawing.Size(122, 13)
@@ -4747,7 +4747,7 @@ Partial Class ISMPTestReports
         '
         'Label131
         '
-        Me.Label131.AutoSize = true
+        Me.Label131.AutoSize = True
         Me.Label131.Location = New System.Drawing.Point(3, 32)
         Me.Label131.Name = "Label131"
         Me.Label131.Size = New System.Drawing.Size(125, 13)
@@ -4825,7 +4825,7 @@ Partial Class ISMPTestReports
         '
         'TPFlare
         '
-        Me.TPFlare.AutoScroll = true
+        Me.TPFlare.AutoScroll = True
         Me.TPFlare.Controls.Add(Me.Label272)
         Me.TPFlare.Controls.Add(Me.Label271)
         Me.TPFlare.Controls.Add(Me.Label270)
@@ -4875,7 +4875,7 @@ Partial Class ISMPTestReports
         Me.TPFlare.Size = New System.Drawing.Size(782, 298)
         Me.TPFlare.TabIndex = 4
         Me.TPFlare.Text = "Flare"
-        Me.TPFlare.UseVisualStyleBackColor = true
+        Me.TPFlare.UseVisualStyleBackColor = True
         '
         'Label272
         '
@@ -4933,10 +4933,10 @@ Partial Class ISMPTestReports
         '
         'txtOtherInformationFlare
         '
-        Me.txtOtherInformationFlare.AcceptsReturn = true
+        Me.txtOtherInformationFlare.AcceptsReturn = True
         Me.txtOtherInformationFlare.Location = New System.Drawing.Point(135, 214)
         Me.txtOtherInformationFlare.MaxLength = 4000
-        Me.txtOtherInformationFlare.Multiline = true
+        Me.txtOtherInformationFlare.Multiline = True
         Me.txtOtherInformationFlare.Name = "txtOtherInformationFlare"
         Me.txtOtherInformationFlare.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtOtherInformationFlare.Size = New System.Drawing.Size(592, 136)
@@ -4952,7 +4952,7 @@ Partial Class ISMPTestReports
         '
         'Label113
         '
-        Me.Label113.AutoSize = true
+        Me.Label113.AutoSize = True
         Me.Label113.Location = New System.Drawing.Point(577, 132)
         Me.Label113.Name = "Label113"
         Me.Label113.Size = New System.Drawing.Size(52, 13)
@@ -4966,10 +4966,10 @@ Partial Class ISMPTestReports
         Me.txtHeatingValuesAvgFlare.Location = New System.Drawing.Point(559, 147)
         Me.txtHeatingValuesAvgFlare.MaxLength = 11
         Me.txtHeatingValuesAvgFlare.Name = "txtHeatingValuesAvgFlare"
-        Me.txtHeatingValuesAvgFlare.ReadOnly = true
+        Me.txtHeatingValuesAvgFlare.ReadOnly = True
         Me.txtHeatingValuesAvgFlare.Size = New System.Drawing.Size(88, 20)
         Me.txtHeatingValuesAvgFlare.TabIndex = 232
-        Me.txtHeatingValuesAvgFlare.TabStop = false
+        Me.txtHeatingValuesAvgFlare.TabStop = False
         '
         'txtVelocityAvgFlare
         '
@@ -4977,10 +4977,10 @@ Partial Class ISMPTestReports
         Me.txtVelocityAvgFlare.Location = New System.Drawing.Point(559, 169)
         Me.txtVelocityAvgFlare.MaxLength = 11
         Me.txtVelocityAvgFlare.Name = "txtVelocityAvgFlare"
-        Me.txtVelocityAvgFlare.ReadOnly = true
+        Me.txtVelocityAvgFlare.ReadOnly = True
         Me.txtVelocityAvgFlare.Size = New System.Drawing.Size(88, 20)
         Me.txtVelocityAvgFlare.TabIndex = 237
-        Me.txtVelocityAvgFlare.TabStop = false
+        Me.txtVelocityAvgFlare.TabStop = False
         '
         'txtVelocity1BFlare
         '
@@ -5052,7 +5052,7 @@ Partial Class ISMPTestReports
         '
         'Label121
         '
-        Me.Label121.AutoSize = true
+        Me.Label121.AutoSize = True
         Me.Label121.Location = New System.Drawing.Point(3, 214)
         Me.Label121.Name = "Label121"
         Me.Label121.Size = New System.Drawing.Size(91, 13)
@@ -5062,7 +5062,7 @@ Partial Class ISMPTestReports
         '
         'Label120
         '
-        Me.Label120.AutoSize = true
+        Me.Label120.AutoSize = True
         Me.Label120.Location = New System.Drawing.Point(3, 191)
         Me.Label120.Name = "Label120"
         Me.Label120.Size = New System.Drawing.Size(95, 13)
@@ -5072,7 +5072,7 @@ Partial Class ISMPTestReports
         '
         'Label119
         '
-        Me.Label119.AutoSize = true
+        Me.Label119.AutoSize = True
         Me.Label119.Location = New System.Drawing.Point(3, 169)
         Me.Label119.Name = "Label119"
         Me.Label119.Size = New System.Drawing.Size(47, 13)
@@ -5082,7 +5082,7 @@ Partial Class ISMPTestReports
         '
         'Label118
         '
-        Me.Label118.AutoSize = true
+        Me.Label118.AutoSize = True
         Me.Label118.Location = New System.Drawing.Point(3, 147)
         Me.Label118.Name = "Label118"
         Me.Label118.Size = New System.Drawing.Size(77, 13)
@@ -5092,7 +5092,7 @@ Partial Class ISMPTestReports
         '
         'Label116
         '
-        Me.Label116.AutoSize = true
+        Me.Label116.AutoSize = True
         Me.Label116.Location = New System.Drawing.Point(179, 132)
         Me.Label116.Name = "Label116"
         Me.Label116.Size = New System.Drawing.Size(13, 13)
@@ -5102,7 +5102,7 @@ Partial Class ISMPTestReports
         '
         'Label115
         '
-        Me.Label115.AutoSize = true
+        Me.Label115.AutoSize = True
         Me.Label115.Location = New System.Drawing.Point(275, 132)
         Me.Label115.Name = "Label115"
         Me.Label115.Size = New System.Drawing.Size(13, 13)
@@ -5112,7 +5112,7 @@ Partial Class ISMPTestReports
         '
         'Label114
         '
-        Me.Label114.AutoSize = true
+        Me.Label114.AutoSize = True
         Me.Label114.Location = New System.Drawing.Point(371, 132)
         Me.Label114.Name = "Label114"
         Me.Label114.Size = New System.Drawing.Size(13, 13)
@@ -5122,7 +5122,7 @@ Partial Class ISMPTestReports
         '
         'Label112
         '
-        Me.Label112.AutoSize = true
+        Me.Label112.AutoSize = True
         Me.Label112.Location = New System.Drawing.Point(47, 132)
         Me.Label112.Name = "Label112"
         Me.Label112.Size = New System.Drawing.Size(64, 13)
@@ -5132,7 +5132,7 @@ Partial Class ISMPTestReports
         '
         'Label111
         '
-        Me.Label111.AutoSize = true
+        Me.Label111.AutoSize = True
         Me.Label111.Location = New System.Drawing.Point(551, 32)
         Me.Label111.Name = "Label111"
         Me.Label111.Size = New System.Drawing.Size(48, 13)
@@ -5149,7 +5149,7 @@ Partial Class ISMPTestReports
         '
         'Label110
         '
-        Me.Label110.AutoSize = true
+        Me.Label110.AutoSize = True
         Me.Label110.Location = New System.Drawing.Point(279, 32)
         Me.Label110.Name = "Label110"
         Me.Label110.Size = New System.Drawing.Size(217, 13)
@@ -5158,7 +5158,7 @@ Partial Class ISMPTestReports
         '
         'Label109
         '
-        Me.Label109.AutoSize = true
+        Me.Label109.AutoSize = True
         Me.Label109.Location = New System.Drawing.Point(135, 32)
         Me.Label109.Name = "Label109"
         Me.Label109.Size = New System.Drawing.Size(92, 13)
@@ -5178,7 +5178,7 @@ Partial Class ISMPTestReports
         '
         Me.txtMonitoringDataFlare.Location = New System.Drawing.Point(135, 86)
         Me.txtMonitoringDataFlare.MaxLength = 4000
-        Me.txtMonitoringDataFlare.Multiline = true
+        Me.txtMonitoringDataFlare.Multiline = True
         Me.txtMonitoringDataFlare.Name = "txtMonitoringDataFlare"
         Me.txtMonitoringDataFlare.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtMonitoringDataFlare.Size = New System.Drawing.Size(616, 40)
@@ -5186,10 +5186,10 @@ Partial Class ISMPTestReports
         '
         'txtApplicableRegulationFlare
         '
-        Me.txtApplicableRegulationFlare.AcceptsReturn = true
+        Me.txtApplicableRegulationFlare.AcceptsReturn = True
         Me.txtApplicableRegulationFlare.Location = New System.Drawing.Point(135, 54)
         Me.txtApplicableRegulationFlare.MaxLength = 200
-        Me.txtApplicableRegulationFlare.Multiline = true
+        Me.txtApplicableRegulationFlare.Multiline = True
         Me.txtApplicableRegulationFlare.Name = "txtApplicableRegulationFlare"
         Me.txtApplicableRegulationFlare.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtApplicableRegulationFlare.Size = New System.Drawing.Size(616, 30)
@@ -5205,7 +5205,7 @@ Partial Class ISMPTestReports
         '
         'Label104
         '
-        Me.Label104.AutoSize = true
+        Me.Label104.AutoSize = True
         Me.Label104.Location = New System.Drawing.Point(391, 8)
         Me.Label104.Name = "Label104"
         Me.Label104.Size = New System.Drawing.Size(100, 13)
@@ -5231,7 +5231,7 @@ Partial Class ISMPTestReports
         '
         'Label105
         '
-        Me.Label105.AutoSize = true
+        Me.Label105.AutoSize = True
         Me.Label105.Location = New System.Drawing.Point(3, 54)
         Me.Label105.Name = "Label105"
         Me.Label105.Size = New System.Drawing.Size(122, 13)
@@ -5241,7 +5241,7 @@ Partial Class ISMPTestReports
         '
         'Label106
         '
-        Me.Label106.AutoSize = true
+        Me.Label106.AutoSize = True
         Me.Label106.Location = New System.Drawing.Point(3, 32)
         Me.Label106.Name = "Label106"
         Me.Label106.Size = New System.Drawing.Size(107, 13)
@@ -5271,7 +5271,7 @@ Partial Class ISMPTestReports
         '
         'Label107
         '
-        Me.Label107.AutoSize = true
+        Me.Label107.AutoSize = True
         Me.Label107.Location = New System.Drawing.Point(3, 86)
         Me.Label107.Name = "Label107"
         Me.Label107.Size = New System.Drawing.Size(85, 13)
@@ -5290,7 +5290,7 @@ Partial Class ISMPTestReports
         '
         'TPMethodNine
         '
-        Me.TPMethodNine.AutoScroll = true
+        Me.TPMethodNine.AutoScroll = True
         Me.TPMethodNine.Controls.Add(Me.txtOtherInformationMethod9)
         Me.TPMethodNine.Controls.Add(Me.Label79)
         Me.TPMethodNine.Controls.Add(Me.TCMethodNine)
@@ -5299,14 +5299,14 @@ Partial Class ISMPTestReports
         Me.TPMethodNine.Size = New System.Drawing.Size(782, 298)
         Me.TPMethodNine.TabIndex = 6
         Me.TPMethodNine.Text = "Method 9"
-        Me.TPMethodNine.UseVisualStyleBackColor = true
+        Me.TPMethodNine.UseVisualStyleBackColor = True
         '
         'txtOtherInformationMethod9
         '
-        Me.txtOtherInformationMethod9.AcceptsReturn = true
+        Me.txtOtherInformationMethod9.AcceptsReturn = True
         Me.txtOtherInformationMethod9.Location = New System.Drawing.Point(139, 285)
         Me.txtOtherInformationMethod9.MaxLength = 4000
-        Me.txtOtherInformationMethod9.Multiline = true
+        Me.txtOtherInformationMethod9.Multiline = True
         Me.txtOtherInformationMethod9.Name = "txtOtherInformationMethod9"
         Me.txtOtherInformationMethod9.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtOtherInformationMethod9.Size = New System.Drawing.Size(616, 96)
@@ -5314,7 +5314,7 @@ Partial Class ISMPTestReports
         '
         'Label79
         '
-        Me.Label79.AutoSize = true
+        Me.Label79.AutoSize = True
         Me.Label79.Location = New System.Drawing.Point(7, 285)
         Me.Label79.Name = "Label79"
         Me.Label79.Size = New System.Drawing.Size(91, 13)
@@ -5331,7 +5331,7 @@ Partial Class ISMPTestReports
         Me.TCMethodNine.SelectedIndex = 0
         Me.TCMethodNine.Size = New System.Drawing.Size(764, 272)
         Me.TCMethodNine.TabIndex = 258
-        Me.TCMethodNine.TabStop = false
+        Me.TCMethodNine.TabStop = False
         '
         'TPMethodNineSingle
         '
@@ -5368,7 +5368,7 @@ Partial Class ISMPTestReports
         '
         'Panel4
         '
-        Me.Panel4.AutoSize = true
+        Me.Panel4.AutoSize = True
         Me.Panel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel4.Controls.Add(Me.rdbMethod9Average30)
         Me.Panel4.Controls.Add(Me.rdbMethod9HighestAvg)
@@ -5379,25 +5379,25 @@ Partial Class ISMPTestReports
         '
         'rdbMethod9Average30
         '
-        Me.rdbMethod9Average30.AutoSize = true
+        Me.rdbMethod9Average30.AutoSize = True
         Me.rdbMethod9Average30.Location = New System.Drawing.Point(3, 26)
         Me.rdbMethod9Average30.Name = "rdbMethod9Average30"
         Me.rdbMethod9Average30.Size = New System.Drawing.Size(113, 17)
         Me.rdbMethod9Average30.TabIndex = 1
         Me.rdbMethod9Average30.Text = "30-minute average"
-        Me.rdbMethod9Average30.UseVisualStyleBackColor = true
+        Me.rdbMethod9Average30.UseVisualStyleBackColor = True
         '
         'rdbMethod9HighestAvg
         '
-        Me.rdbMethod9HighestAvg.AutoSize = true
-        Me.rdbMethod9HighestAvg.Checked = true
+        Me.rdbMethod9HighestAvg.AutoSize = True
+        Me.rdbMethod9HighestAvg.Checked = True
         Me.rdbMethod9HighestAvg.Location = New System.Drawing.Point(3, 3)
         Me.rdbMethod9HighestAvg.Name = "rdbMethod9HighestAvg"
         Me.rdbMethod9HighestAvg.Size = New System.Drawing.Size(146, 17)
         Me.rdbMethod9HighestAvg.TabIndex = 0
-        Me.rdbMethod9HighestAvg.TabStop = true
+        Me.rdbMethod9HighestAvg.TabStop = True
         Me.rdbMethod9HighestAvg.Text = "Highest 6-minute average"
-        Me.rdbMethod9HighestAvg.UseVisualStyleBackColor = true
+        Me.rdbMethod9HighestAvg.UseVisualStyleBackColor = True
         '
         'Label256
         '
@@ -5460,7 +5460,7 @@ Partial Class ISMPTestReports
         '
         'Label84
         '
-        Me.Label84.AutoSize = true
+        Me.Label84.AutoSize = True
         Me.Label84.Location = New System.Drawing.Point(237, 130)
         Me.Label84.Name = "Label84"
         Me.Label84.Size = New System.Drawing.Size(43, 13)
@@ -5470,7 +5470,7 @@ Partial Class ISMPTestReports
         '
         'Label83
         '
-        Me.Label83.AutoSize = true
+        Me.Label83.AutoSize = True
         Me.Label83.Location = New System.Drawing.Point(4, 152)
         Me.Label83.Name = "Label83"
         Me.Label83.Size = New System.Drawing.Size(46, 13)
@@ -5480,7 +5480,7 @@ Partial Class ISMPTestReports
         '
         'Label80
         '
-        Me.Label80.AutoSize = true
+        Me.Label80.AutoSize = True
         Me.Label80.Location = New System.Drawing.Point(4, 130)
         Me.Label80.Name = "Label80"
         Me.Label80.Size = New System.Drawing.Size(74, 13)
@@ -5544,7 +5544,7 @@ Partial Class ISMPTestReports
         '
         'Label66
         '
-        Me.Label66.AutoSize = true
+        Me.Label66.AutoSize = True
         Me.Label66.Location = New System.Drawing.Point(392, 8)
         Me.Label66.Name = "Label66"
         Me.Label66.Size = New System.Drawing.Size(100, 13)
@@ -5563,10 +5563,10 @@ Partial Class ISMPTestReports
         '
         'txtApplicableRegulationMethod9Single
         '
-        Me.txtApplicableRegulationMethod9Single.AcceptsReturn = true
+        Me.txtApplicableRegulationMethod9Single.AcceptsReturn = True
         Me.txtApplicableRegulationMethod9Single.Location = New System.Drawing.Point(136, 52)
         Me.txtApplicableRegulationMethod9Single.MaxLength = 200
-        Me.txtApplicableRegulationMethod9Single.Multiline = true
+        Me.txtApplicableRegulationMethod9Single.Multiline = True
         Me.txtApplicableRegulationMethod9Single.Name = "txtApplicableRegulationMethod9Single"
         Me.txtApplicableRegulationMethod9Single.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtApplicableRegulationMethod9Single.Size = New System.Drawing.Size(616, 30)
@@ -5574,10 +5574,10 @@ Partial Class ISMPTestReports
         '
         'txtControlEquipmentOperatingDataMethod9Single
         '
-        Me.txtControlEquipmentOperatingDataMethod9Single.AcceptsReturn = true
+        Me.txtControlEquipmentOperatingDataMethod9Single.AcceptsReturn = True
         Me.txtControlEquipmentOperatingDataMethod9Single.Location = New System.Drawing.Point(136, 84)
         Me.txtControlEquipmentOperatingDataMethod9Single.MaxLength = 4000
-        Me.txtControlEquipmentOperatingDataMethod9Single.Multiline = true
+        Me.txtControlEquipmentOperatingDataMethod9Single.Multiline = True
         Me.txtControlEquipmentOperatingDataMethod9Single.Name = "txtControlEquipmentOperatingDataMethod9Single"
         Me.txtControlEquipmentOperatingDataMethod9Single.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtControlEquipmentOperatingDataMethod9Single.Size = New System.Drawing.Size(616, 40)
@@ -5593,7 +5593,7 @@ Partial Class ISMPTestReports
         '
         'Label67
         '
-        Me.Label67.AutoSize = true
+        Me.Label67.AutoSize = True
         Me.Label67.Location = New System.Drawing.Point(4, 52)
         Me.Label67.Name = "Label67"
         Me.Label67.Size = New System.Drawing.Size(122, 13)
@@ -5603,7 +5603,7 @@ Partial Class ISMPTestReports
         '
         'Label68
         '
-        Me.Label68.AutoSize = true
+        Me.Label68.AutoSize = True
         Me.Label68.Location = New System.Drawing.Point(4, 32)
         Me.Label68.Name = "Label68"
         Me.Label68.Size = New System.Drawing.Size(125, 13)
@@ -5675,7 +5675,7 @@ Partial Class ISMPTestReports
         '
         'Panel5
         '
-        Me.Panel5.AutoSize = true
+        Me.Panel5.AutoSize = True
         Me.Panel5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel5.Controls.Add(Me.rdbMethod9MultiAverage30)
         Me.Panel5.Controls.Add(Me.rdbMethod9MultiHighestAvg)
@@ -5686,25 +5686,25 @@ Partial Class ISMPTestReports
         '
         'rdbMethod9MultiAverage30
         '
-        Me.rdbMethod9MultiAverage30.AutoSize = true
+        Me.rdbMethod9MultiAverage30.AutoSize = True
         Me.rdbMethod9MultiAverage30.Location = New System.Drawing.Point(3, 26)
         Me.rdbMethod9MultiAverage30.Name = "rdbMethod9MultiAverage30"
         Me.rdbMethod9MultiAverage30.Size = New System.Drawing.Size(113, 17)
         Me.rdbMethod9MultiAverage30.TabIndex = 1
         Me.rdbMethod9MultiAverage30.Text = "30-minute average"
-        Me.rdbMethod9MultiAverage30.UseVisualStyleBackColor = true
+        Me.rdbMethod9MultiAverage30.UseVisualStyleBackColor = True
         '
         'rdbMethod9MultiHighestAvg
         '
-        Me.rdbMethod9MultiHighestAvg.AutoSize = true
-        Me.rdbMethod9MultiHighestAvg.Checked = true
+        Me.rdbMethod9MultiHighestAvg.AutoSize = True
+        Me.rdbMethod9MultiHighestAvg.Checked = True
         Me.rdbMethod9MultiHighestAvg.Location = New System.Drawing.Point(3, 3)
         Me.rdbMethod9MultiHighestAvg.Name = "rdbMethod9MultiHighestAvg"
         Me.rdbMethod9MultiHighestAvg.Size = New System.Drawing.Size(146, 17)
         Me.rdbMethod9MultiHighestAvg.TabIndex = 0
-        Me.rdbMethod9MultiHighestAvg.TabStop = true
+        Me.rdbMethod9MultiHighestAvg.TabStop = True
         Me.rdbMethod9MultiHighestAvg.Text = "Highest 6-minute average"
-        Me.rdbMethod9MultiHighestAvg.UseVisualStyleBackColor = true
+        Me.rdbMethod9MultiHighestAvg.UseVisualStyleBackColor = True
         '
         'Label261
         '
@@ -5793,7 +5793,7 @@ Partial Class ISMPTestReports
         '
         'Label96
         '
-        Me.Label96.AutoSize = true
+        Me.Label96.AutoSize = True
         Me.Label96.Location = New System.Drawing.Point(278, 153)
         Me.Label96.Name = "Label96"
         Me.Label96.Size = New System.Drawing.Size(13, 13)
@@ -5802,7 +5802,7 @@ Partial Class ISMPTestReports
         '
         'Label95
         '
-        Me.Label95.AutoSize = true
+        Me.Label95.AutoSize = True
         Me.Label95.Location = New System.Drawing.Point(376, 153)
         Me.Label95.Name = "Label95"
         Me.Label95.Size = New System.Drawing.Size(13, 13)
@@ -5811,7 +5811,7 @@ Partial Class ISMPTestReports
         '
         'Label94
         '
-        Me.Label94.AutoSize = true
+        Me.Label94.AutoSize = True
         Me.Label94.Location = New System.Drawing.Point(474, 153)
         Me.Label94.Name = "Label94"
         Me.Label94.Size = New System.Drawing.Size(13, 13)
@@ -5820,7 +5820,7 @@ Partial Class ISMPTestReports
         '
         'Label93
         '
-        Me.Label93.AutoSize = true
+        Me.Label93.AutoSize = True
         Me.Label93.Location = New System.Drawing.Point(572, 153)
         Me.Label93.Name = "Label93"
         Me.Label93.Size = New System.Drawing.Size(13, 13)
@@ -5829,7 +5829,7 @@ Partial Class ISMPTestReports
         '
         'Label92
         '
-        Me.Label92.AutoSize = true
+        Me.Label92.AutoSize = True
         Me.Label92.Location = New System.Drawing.Point(180, 153)
         Me.Label92.Name = "Label92"
         Me.Label92.Size = New System.Drawing.Size(13, 13)
@@ -5846,7 +5846,7 @@ Partial Class ISMPTestReports
         '
         'Label90
         '
-        Me.Label90.AutoSize = true
+        Me.Label90.AutoSize = True
         Me.Label90.Location = New System.Drawing.Point(48, 153)
         Me.Label90.Name = "Label90"
         Me.Label90.Size = New System.Drawing.Size(75, 13)
@@ -6014,7 +6014,7 @@ Partial Class ISMPTestReports
         '
         'Label86
         '
-        Me.Label86.AutoSize = true
+        Me.Label86.AutoSize = True
         Me.Label86.Location = New System.Drawing.Point(4, 32)
         Me.Label86.Name = "Label86"
         Me.Label86.Size = New System.Drawing.Size(100, 13)
@@ -6024,10 +6024,10 @@ Partial Class ISMPTestReports
         '
         'txtApplicableRegulationMethod9Multi
         '
-        Me.txtApplicableRegulationMethod9Multi.AcceptsReturn = true
+        Me.txtApplicableRegulationMethod9Multi.AcceptsReturn = True
         Me.txtApplicableRegulationMethod9Multi.Location = New System.Drawing.Point(136, 75)
         Me.txtApplicableRegulationMethod9Multi.MaxLength = 200
-        Me.txtApplicableRegulationMethod9Multi.Multiline = true
+        Me.txtApplicableRegulationMethod9Multi.Multiline = True
         Me.txtApplicableRegulationMethod9Multi.Name = "txtApplicableRegulationMethod9Multi"
         Me.txtApplicableRegulationMethod9Multi.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtApplicableRegulationMethod9Multi.Size = New System.Drawing.Size(602, 30)
@@ -6037,7 +6037,7 @@ Partial Class ISMPTestReports
         '
         Me.txtControlEquipmentOperatingDataMethod9Multi.Location = New System.Drawing.Point(136, 108)
         Me.txtControlEquipmentOperatingDataMethod9Multi.MaxLength = 4000
-        Me.txtControlEquipmentOperatingDataMethod9Multi.Multiline = true
+        Me.txtControlEquipmentOperatingDataMethod9Multi.Multiline = True
         Me.txtControlEquipmentOperatingDataMethod9Multi.Name = "txtControlEquipmentOperatingDataMethod9Multi"
         Me.txtControlEquipmentOperatingDataMethod9Multi.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtControlEquipmentOperatingDataMethod9Multi.Size = New System.Drawing.Size(602, 41)
@@ -6053,7 +6053,7 @@ Partial Class ISMPTestReports
         '
         'Label87
         '
-        Me.Label87.AutoSize = true
+        Me.Label87.AutoSize = True
         Me.Label87.Location = New System.Drawing.Point(4, 74)
         Me.Label87.Name = "Label87"
         Me.Label87.Size = New System.Drawing.Size(122, 13)
@@ -6063,7 +6063,7 @@ Partial Class ISMPTestReports
         '
         'Label88
         '
-        Me.Label88.AutoSize = true
+        Me.Label88.AutoSize = True
         Me.Label88.Location = New System.Drawing.Point(4, 52)
         Me.Label88.Name = "Label88"
         Me.Label88.Size = New System.Drawing.Size(125, 13)
@@ -6152,57 +6152,57 @@ Partial Class ISMPTestReports
         '
         'txtEquipmentItem1EMethod9Multi
         '
-        Me.txtEquipmentItem1EMethod9Multi.AcceptsReturn = true
+        Me.txtEquipmentItem1EMethod9Multi.AcceptsReturn = True
         Me.txtEquipmentItem1EMethod9Multi.Location = New System.Drawing.Point(136, 200)
         Me.txtEquipmentItem1EMethod9Multi.MaxLength = 4000
-        Me.txtEquipmentItem1EMethod9Multi.Multiline = true
+        Me.txtEquipmentItem1EMethod9Multi.Multiline = True
         Me.txtEquipmentItem1EMethod9Multi.Name = "txtEquipmentItem1EMethod9Multi"
         Me.txtEquipmentItem1EMethod9Multi.Size = New System.Drawing.Size(616, 40)
         Me.txtEquipmentItem1EMethod9Multi.TabIndex = 279
         '
         'txtEquipmentItem1DMethod9Multi
         '
-        Me.txtEquipmentItem1DMethod9Multi.AcceptsReturn = true
+        Me.txtEquipmentItem1DMethod9Multi.AcceptsReturn = True
         Me.txtEquipmentItem1DMethod9Multi.Location = New System.Drawing.Point(136, 158)
         Me.txtEquipmentItem1DMethod9Multi.MaxLength = 4000
-        Me.txtEquipmentItem1DMethod9Multi.Multiline = true
+        Me.txtEquipmentItem1DMethod9Multi.Multiline = True
         Me.txtEquipmentItem1DMethod9Multi.Name = "txtEquipmentItem1DMethod9Multi"
         Me.txtEquipmentItem1DMethod9Multi.Size = New System.Drawing.Size(616, 40)
         Me.txtEquipmentItem1DMethod9Multi.TabIndex = 278
         '
         'txtEquipmentItem1BMethod9Multi
         '
-        Me.txtEquipmentItem1BMethod9Multi.AcceptsReturn = true
+        Me.txtEquipmentItem1BMethod9Multi.AcceptsReturn = True
         Me.txtEquipmentItem1BMethod9Multi.Location = New System.Drawing.Point(136, 74)
         Me.txtEquipmentItem1BMethod9Multi.MaxLength = 4000
-        Me.txtEquipmentItem1BMethod9Multi.Multiline = true
+        Me.txtEquipmentItem1BMethod9Multi.Multiline = True
         Me.txtEquipmentItem1BMethod9Multi.Name = "txtEquipmentItem1BMethod9Multi"
         Me.txtEquipmentItem1BMethod9Multi.Size = New System.Drawing.Size(616, 40)
         Me.txtEquipmentItem1BMethod9Multi.TabIndex = 276
         '
         'txtEquipmentItem1CMethod9Multi
         '
-        Me.txtEquipmentItem1CMethod9Multi.AcceptsReturn = true
+        Me.txtEquipmentItem1CMethod9Multi.AcceptsReturn = True
         Me.txtEquipmentItem1CMethod9Multi.Location = New System.Drawing.Point(136, 116)
         Me.txtEquipmentItem1CMethod9Multi.MaxLength = 4000
-        Me.txtEquipmentItem1CMethod9Multi.Multiline = true
+        Me.txtEquipmentItem1CMethod9Multi.Multiline = True
         Me.txtEquipmentItem1CMethod9Multi.Name = "txtEquipmentItem1CMethod9Multi"
         Me.txtEquipmentItem1CMethod9Multi.Size = New System.Drawing.Size(616, 40)
         Me.txtEquipmentItem1CMethod9Multi.TabIndex = 277
         '
         'txtEquipmentItem1AMethod9Multi
         '
-        Me.txtEquipmentItem1AMethod9Multi.AcceptsReturn = true
+        Me.txtEquipmentItem1AMethod9Multi.AcceptsReturn = True
         Me.txtEquipmentItem1AMethod9Multi.Location = New System.Drawing.Point(136, 32)
         Me.txtEquipmentItem1AMethod9Multi.MaxLength = 4000
-        Me.txtEquipmentItem1AMethod9Multi.Multiline = true
+        Me.txtEquipmentItem1AMethod9Multi.Multiline = True
         Me.txtEquipmentItem1AMethod9Multi.Name = "txtEquipmentItem1AMethod9Multi"
         Me.txtEquipmentItem1AMethod9Multi.Size = New System.Drawing.Size(616, 40)
         Me.txtEquipmentItem1AMethod9Multi.TabIndex = 275
         '
         'Label102
         '
-        Me.Label102.AutoSize = true
+        Me.Label102.AutoSize = True
         Me.Label102.Location = New System.Drawing.Point(4, 74)
         Me.Label102.Name = "Label102"
         Me.Label102.Size = New System.Drawing.Size(92, 13)
@@ -6211,7 +6211,7 @@ Partial Class ISMPTestReports
         '
         'Label101
         '
-        Me.Label101.AutoSize = true
+        Me.Label101.AutoSize = True
         Me.Label101.Location = New System.Drawing.Point(4, 116)
         Me.Label101.Name = "Label101"
         Me.Label101.Size = New System.Drawing.Size(92, 13)
@@ -6220,7 +6220,7 @@ Partial Class ISMPTestReports
         '
         'Label100
         '
-        Me.Label100.AutoSize = true
+        Me.Label100.AutoSize = True
         Me.Label100.Location = New System.Drawing.Point(4, 158)
         Me.Label100.Name = "Label100"
         Me.Label100.Size = New System.Drawing.Size(92, 13)
@@ -6229,7 +6229,7 @@ Partial Class ISMPTestReports
         '
         'Label99
         '
-        Me.Label99.AutoSize = true
+        Me.Label99.AutoSize = True
         Me.Label99.Location = New System.Drawing.Point(4, 200)
         Me.Label99.Name = "Label99"
         Me.Label99.Size = New System.Drawing.Size(92, 13)
@@ -6238,7 +6238,7 @@ Partial Class ISMPTestReports
         '
         'Label98
         '
-        Me.Label98.AutoSize = true
+        Me.Label98.AutoSize = True
         Me.Label98.Location = New System.Drawing.Point(4, 32)
         Me.Label98.Name = "Label98"
         Me.Label98.Size = New System.Drawing.Size(92, 13)
@@ -6247,8 +6247,8 @@ Partial Class ISMPTestReports
         '
         'Label97
         '
-        Me.Label97.AutoSize = true
-        Me.Label97.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.Label97.AutoSize = True
+        Me.Label97.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label97.Location = New System.Drawing.Point(4, 8)
         Me.Label97.Name = "Label97"
         Me.Label97.Size = New System.Drawing.Size(112, 13)
@@ -6257,7 +6257,7 @@ Partial Class ISMPTestReports
         '
         'TPMemorandum
         '
-        Me.TPMemorandum.AutoScroll = true
+        Me.TPMemorandum.AutoScroll = True
         Me.TPMemorandum.Controls.Add(Me.Label247)
         Me.TPMemorandum.Controls.Add(Me.txtApplicableRegulationMemorandum)
         Me.TPMemorandum.Controls.Add(Me.Label117)
@@ -6267,7 +6267,7 @@ Partial Class ISMPTestReports
         Me.TPMemorandum.Size = New System.Drawing.Size(782, 298)
         Me.TPMemorandum.TabIndex = 7
         Me.TPMemorandum.Text = "Memorandum"
-        Me.TPMemorandum.UseVisualStyleBackColor = true
+        Me.TPMemorandum.UseVisualStyleBackColor = True
         '
         'Label247
         '
@@ -6287,7 +6287,7 @@ Partial Class ISMPTestReports
         '
         'Label117
         '
-        Me.Label117.AutoSize = true
+        Me.Label117.AutoSize = True
         Me.Label117.Location = New System.Drawing.Point(7, 5)
         Me.Label117.Name = "Label117"
         Me.Label117.Size = New System.Drawing.Size(122, 13)
@@ -6305,7 +6305,7 @@ Partial Class ISMPTestReports
         Me.TCMemorandum.SelectedIndex = 0
         Me.TCMemorandum.Size = New System.Drawing.Size(764, 448)
         Me.TCMemorandum.TabIndex = 178
-        Me.TCMemorandum.TabStop = false
+        Me.TCMemorandum.TabStop = False
         '
         'TPMemoStandard
         '
@@ -6319,10 +6319,10 @@ Partial Class ISMPTestReports
         '
         'txtMemorandumStandard
         '
-        Me.txtMemorandumStandard.AcceptsReturn = true
+        Me.txtMemorandumStandard.AcceptsReturn = True
         Me.txtMemorandumStandard.Location = New System.Drawing.Point(8, 32)
         Me.txtMemorandumStandard.MaxLength = 4000
-        Me.txtMemorandumStandard.Multiline = true
+        Me.txtMemorandumStandard.Multiline = True
         Me.txtMemorandumStandard.Name = "txtMemorandumStandard"
         Me.txtMemorandumStandard.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtMemorandumStandard.Size = New System.Drawing.Size(740, 288)
@@ -6330,7 +6330,7 @@ Partial Class ISMPTestReports
         '
         'Label122
         '
-        Me.Label122.AutoSize = true
+        Me.Label122.AutoSize = True
         Me.Label122.Location = New System.Drawing.Point(4, 8)
         Me.Label122.Name = "Label122"
         Me.Label122.Size = New System.Drawing.Size(74, 13)
@@ -6426,17 +6426,17 @@ Partial Class ISMPTestReports
         '
         'txtMemorandumToFile
         '
-        Me.txtMemorandumToFile.AcceptsReturn = true
+        Me.txtMemorandumToFile.AcceptsReturn = True
         Me.txtMemorandumToFile.Location = New System.Drawing.Point(8, 86)
         Me.txtMemorandumToFile.MaxLength = 4000
-        Me.txtMemorandumToFile.Multiline = true
+        Me.txtMemorandumToFile.Multiline = True
         Me.txtMemorandumToFile.Name = "txtMemorandumToFile"
         Me.txtMemorandumToFile.Size = New System.Drawing.Size(740, 240)
         Me.txtMemorandumToFile.TabIndex = 294
         '
         'Label123
         '
-        Me.Label123.AutoSize = true
+        Me.Label123.AutoSize = True
         Me.Label123.Location = New System.Drawing.Point(4, 62)
         Me.Label123.Name = "Label123"
         Me.Label123.Size = New System.Drawing.Size(74, 13)
@@ -6498,10 +6498,10 @@ Partial Class ISMPTestReports
         '
         'txtMemorandumPTE
         '
-        Me.txtMemorandumPTE.AcceptsReturn = true
+        Me.txtMemorandumPTE.AcceptsReturn = True
         Me.txtMemorandumPTE.Location = New System.Drawing.Point(8, 120)
         Me.txtMemorandumPTE.MaxLength = 4000
-        Me.txtMemorandumPTE.Multiline = true
+        Me.txtMemorandumPTE.Multiline = True
         Me.txtMemorandumPTE.Name = "txtMemorandumPTE"
         Me.txtMemorandumPTE.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtMemorandumPTE.Size = New System.Drawing.Size(740, 230)
@@ -6509,7 +6509,7 @@ Partial Class ISMPTestReports
         '
         'Label190
         '
-        Me.Label190.AutoSize = true
+        Me.Label190.AutoSize = True
         Me.Label190.Location = New System.Drawing.Point(4, 96)
         Me.Label190.Name = "Label190"
         Me.Label190.Size = New System.Drawing.Size(71, 13)
@@ -6521,7 +6521,7 @@ Partial Class ISMPTestReports
         '
         Me.txtControlEquipmentOperatingDataMemorandumPTE.Location = New System.Drawing.Point(136, 52)
         Me.txtControlEquipmentOperatingDataMemorandumPTE.MaxLength = 200
-        Me.txtControlEquipmentOperatingDataMemorandumPTE.Multiline = true
+        Me.txtControlEquipmentOperatingDataMemorandumPTE.Multiline = True
         Me.txtControlEquipmentOperatingDataMemorandumPTE.Name = "txtControlEquipmentOperatingDataMemorandumPTE"
         Me.txtControlEquipmentOperatingDataMemorandumPTE.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtControlEquipmentOperatingDataMemorandumPTE.Size = New System.Drawing.Size(616, 40)
@@ -6537,7 +6537,7 @@ Partial Class ISMPTestReports
         '
         'Label192
         '
-        Me.Label192.AutoSize = true
+        Me.Label192.AutoSize = True
         Me.Label192.Location = New System.Drawing.Point(392, 8)
         Me.Label192.Name = "Label192"
         Me.Label192.Size = New System.Drawing.Size(100, 13)
@@ -6579,7 +6579,7 @@ Partial Class ISMPTestReports
         '
         'Label194
         '
-        Me.Label194.AutoSize = true
+        Me.Label194.AutoSize = True
         Me.Label194.Location = New System.Drawing.Point(4, 34)
         Me.Label194.Name = "Label194"
         Me.Label194.Size = New System.Drawing.Size(125, 13)
@@ -6657,7 +6657,7 @@ Partial Class ISMPTestReports
         '
         'TPRata
         '
-        Me.TPRata.AutoScroll = true
+        Me.TPRata.AutoScroll = True
         Me.TPRata.Controls.Add(Me.txtPart75Statement)
         Me.TPRata.Controls.Add(Me.lblRATAPart75)
         Me.TPRata.Controls.Add(Me.chbOmitRunRata5)
@@ -6743,7 +6743,7 @@ Partial Class ISMPTestReports
         Me.TPRata.Size = New System.Drawing.Size(782, 298)
         Me.TPRata.TabIndex = 8
         Me.TPRata.Text = "RATA"
-        Me.TPRata.UseVisualStyleBackColor = true
+        Me.TPRata.UseVisualStyleBackColor = True
         '
         'txtPart75Statement
         '
@@ -6755,7 +6755,7 @@ Partial Class ISMPTestReports
         '
         'lblRATAPart75
         '
-        Me.lblRATAPart75.AutoSize = true
+        Me.lblRATAPart75.AutoSize = True
         Me.lblRATAPart75.Location = New System.Drawing.Point(484, 230)
         Me.lblRATAPart75.Name = "lblRATAPart75"
         Me.lblRATAPart75.Size = New System.Drawing.Size(150, 13)
@@ -6768,7 +6768,7 @@ Partial Class ISMPTestReports
         Me.chbOmitRunRata5.Name = "chbOmitRunRata5"
         Me.chbOmitRunRata5.Size = New System.Drawing.Size(16, 16)
         Me.chbOmitRunRata5.TabIndex = 337
-        Me.chbOmitRunRata5.TabStop = false
+        Me.chbOmitRunRata5.TabStop = False
         '
         'chbOmitRunRata4
         '
@@ -6776,7 +6776,7 @@ Partial Class ISMPTestReports
         Me.chbOmitRunRata4.Name = "chbOmitRunRata4"
         Me.chbOmitRunRata4.Size = New System.Drawing.Size(16, 16)
         Me.chbOmitRunRata4.TabIndex = 334
-        Me.chbOmitRunRata4.TabStop = false
+        Me.chbOmitRunRata4.TabStop = False
         '
         'chbOmitRunRata3
         '
@@ -6784,7 +6784,7 @@ Partial Class ISMPTestReports
         Me.chbOmitRunRata3.Name = "chbOmitRunRata3"
         Me.chbOmitRunRata3.Size = New System.Drawing.Size(16, 16)
         Me.chbOmitRunRata3.TabIndex = 331
-        Me.chbOmitRunRata3.TabStop = false
+        Me.chbOmitRunRata3.TabStop = False
         '
         'chbOmitRunRata2
         '
@@ -6792,7 +6792,7 @@ Partial Class ISMPTestReports
         Me.chbOmitRunRata2.Name = "chbOmitRunRata2"
         Me.chbOmitRunRata2.Size = New System.Drawing.Size(16, 16)
         Me.chbOmitRunRata2.TabIndex = 328
-        Me.chbOmitRunRata2.TabStop = false
+        Me.chbOmitRunRata2.TabStop = False
         '
         'chbOmitRunRata12
         '
@@ -6800,7 +6800,7 @@ Partial Class ISMPTestReports
         Me.chbOmitRunRata12.Name = "chbOmitRunRata12"
         Me.chbOmitRunRata12.Size = New System.Drawing.Size(16, 16)
         Me.chbOmitRunRata12.TabIndex = 359
-        Me.chbOmitRunRata12.TabStop = false
+        Me.chbOmitRunRata12.TabStop = False
         '
         'chbOmitRunRata11
         '
@@ -6808,7 +6808,7 @@ Partial Class ISMPTestReports
         Me.chbOmitRunRata11.Name = "chbOmitRunRata11"
         Me.chbOmitRunRata11.Size = New System.Drawing.Size(16, 16)
         Me.chbOmitRunRata11.TabIndex = 356
-        Me.chbOmitRunRata11.TabStop = false
+        Me.chbOmitRunRata11.TabStop = False
         '
         'chbOmitRunRata10
         '
@@ -6816,7 +6816,7 @@ Partial Class ISMPTestReports
         Me.chbOmitRunRata10.Name = "chbOmitRunRata10"
         Me.chbOmitRunRata10.Size = New System.Drawing.Size(16, 16)
         Me.chbOmitRunRata10.TabIndex = 353
-        Me.chbOmitRunRata10.TabStop = false
+        Me.chbOmitRunRata10.TabStop = False
         '
         'chbOmitRunRata9
         '
@@ -6824,7 +6824,7 @@ Partial Class ISMPTestReports
         Me.chbOmitRunRata9.Name = "chbOmitRunRata9"
         Me.chbOmitRunRata9.Size = New System.Drawing.Size(16, 16)
         Me.chbOmitRunRata9.TabIndex = 350
-        Me.chbOmitRunRata9.TabStop = false
+        Me.chbOmitRunRata9.TabStop = False
         '
         'chbOmitRunRata8
         '
@@ -6832,7 +6832,7 @@ Partial Class ISMPTestReports
         Me.chbOmitRunRata8.Name = "chbOmitRunRata8"
         Me.chbOmitRunRata8.Size = New System.Drawing.Size(16, 16)
         Me.chbOmitRunRata8.TabIndex = 347
-        Me.chbOmitRunRata8.TabStop = false
+        Me.chbOmitRunRata8.TabStop = False
         '
         'chbOmitRunRata7
         '
@@ -6840,7 +6840,7 @@ Partial Class ISMPTestReports
         Me.chbOmitRunRata7.Name = "chbOmitRunRata7"
         Me.chbOmitRunRata7.Size = New System.Drawing.Size(16, 16)
         Me.chbOmitRunRata7.TabIndex = 343
-        Me.chbOmitRunRata7.TabStop = false
+        Me.chbOmitRunRata7.TabStop = False
         '
         'chbOmitRunRata6
         '
@@ -6848,7 +6848,7 @@ Partial Class ISMPTestReports
         Me.chbOmitRunRata6.Name = "chbOmitRunRata6"
         Me.chbOmitRunRata6.Size = New System.Drawing.Size(16, 16)
         Me.chbOmitRunRata6.TabIndex = 340
-        Me.chbOmitRunRata6.TabStop = false
+        Me.chbOmitRunRata6.TabStop = False
         '
         'chbOmitRunRata1
         '
@@ -6856,14 +6856,14 @@ Partial Class ISMPTestReports
         Me.chbOmitRunRata1.Name = "chbOmitRunRata1"
         Me.chbOmitRunRata1.Size = New System.Drawing.Size(16, 16)
         Me.chbOmitRunRata1.TabIndex = 325
-        Me.chbOmitRunRata1.TabStop = false
+        Me.chbOmitRunRata1.TabStop = False
         '
         'Label319
         '
-        Me.Label319.AutoSize = true
+        Me.Label319.AutoSize = True
         Me.Label319.BackColor = System.Drawing.SystemColors.Control
         Me.Label319.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label319.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.Label319.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label319.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label319.Location = New System.Drawing.Point(279, 86)
         Me.Label319.Name = "Label319"
@@ -6875,10 +6875,10 @@ Partial Class ISMPTestReports
         '
         'Label318
         '
-        Me.Label318.AutoSize = true
+        Me.Label318.AutoSize = True
         Me.Label318.BackColor = System.Drawing.SystemColors.Control
         Me.Label318.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label318.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.Label318.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label318.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label318.Location = New System.Drawing.Point(279, 70)
         Me.Label318.Name = "Label318"
@@ -6898,10 +6898,10 @@ Partial Class ISMPTestReports
         '
         'txtCMSRata11
         '
-        Me.txtCMSRata11.AcceptsReturn = true
+        Me.txtCMSRata11.AcceptsReturn = True
         Me.txtCMSRata11.BackColor = System.Drawing.SystemColors.Window
         Me.txtCMSRata11.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtCMSRata11.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.txtCMSRata11.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCMSRata11.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtCMSRata11.Location = New System.Drawing.Point(183, 329)
         Me.txtCMSRata11.MaxLength = 11
@@ -6913,10 +6913,10 @@ Partial Class ISMPTestReports
         '
         'txtCMSRata12
         '
-        Me.txtCMSRata12.AcceptsReturn = true
+        Me.txtCMSRata12.AcceptsReturn = True
         Me.txtCMSRata12.BackColor = System.Drawing.SystemColors.Window
         Me.txtCMSRata12.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtCMSRata12.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.txtCMSRata12.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCMSRata12.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtCMSRata12.Location = New System.Drawing.Point(183, 351)
         Me.txtCMSRata12.MaxLength = 11
@@ -6928,10 +6928,10 @@ Partial Class ISMPTestReports
         '
         'txtCMSRata10
         '
-        Me.txtCMSRata10.AcceptsReturn = true
+        Me.txtCMSRata10.AcceptsReturn = True
         Me.txtCMSRata10.BackColor = System.Drawing.SystemColors.Window
         Me.txtCMSRata10.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtCMSRata10.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.txtCMSRata10.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCMSRata10.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtCMSRata10.Location = New System.Drawing.Point(183, 307)
         Me.txtCMSRata10.MaxLength = 11
@@ -6943,10 +6943,10 @@ Partial Class ISMPTestReports
         '
         'txtCMSRata9
         '
-        Me.txtCMSRata9.AcceptsReturn = true
+        Me.txtCMSRata9.AcceptsReturn = True
         Me.txtCMSRata9.BackColor = System.Drawing.SystemColors.Window
         Me.txtCMSRata9.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtCMSRata9.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.txtCMSRata9.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCMSRata9.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtCMSRata9.Location = New System.Drawing.Point(183, 285)
         Me.txtCMSRata9.MaxLength = 11
@@ -6958,10 +6958,10 @@ Partial Class ISMPTestReports
         '
         'txtCMSRata8
         '
-        Me.txtCMSRata8.AcceptsReturn = true
+        Me.txtCMSRata8.AcceptsReturn = True
         Me.txtCMSRata8.BackColor = System.Drawing.SystemColors.Window
         Me.txtCMSRata8.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtCMSRata8.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.txtCMSRata8.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCMSRata8.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtCMSRata8.Location = New System.Drawing.Point(183, 263)
         Me.txtCMSRata8.MaxLength = 11
@@ -6973,10 +6973,10 @@ Partial Class ISMPTestReports
         '
         'txtCMSRata7
         '
-        Me.txtCMSRata7.AcceptsReturn = true
+        Me.txtCMSRata7.AcceptsReturn = True
         Me.txtCMSRata7.BackColor = System.Drawing.SystemColors.Window
         Me.txtCMSRata7.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtCMSRata7.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.txtCMSRata7.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCMSRata7.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtCMSRata7.Location = New System.Drawing.Point(183, 241)
         Me.txtCMSRata7.MaxLength = 11
@@ -6988,10 +6988,10 @@ Partial Class ISMPTestReports
         '
         'txtCMSRata6
         '
-        Me.txtCMSRata6.AcceptsReturn = true
+        Me.txtCMSRata6.AcceptsReturn = True
         Me.txtCMSRata6.BackColor = System.Drawing.SystemColors.Window
         Me.txtCMSRata6.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtCMSRata6.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.txtCMSRata6.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCMSRata6.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtCMSRata6.Location = New System.Drawing.Point(183, 219)
         Me.txtCMSRata6.MaxLength = 11
@@ -7003,10 +7003,10 @@ Partial Class ISMPTestReports
         '
         'txtCMSRata5
         '
-        Me.txtCMSRata5.AcceptsReturn = true
+        Me.txtCMSRata5.AcceptsReturn = True
         Me.txtCMSRata5.BackColor = System.Drawing.SystemColors.Window
         Me.txtCMSRata5.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtCMSRata5.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.txtCMSRata5.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCMSRata5.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtCMSRata5.Location = New System.Drawing.Point(183, 197)
         Me.txtCMSRata5.MaxLength = 11
@@ -7018,10 +7018,10 @@ Partial Class ISMPTestReports
         '
         'txtCMSRata4
         '
-        Me.txtCMSRata4.AcceptsReturn = true
+        Me.txtCMSRata4.AcceptsReturn = True
         Me.txtCMSRata4.BackColor = System.Drawing.SystemColors.Window
         Me.txtCMSRata4.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtCMSRata4.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.txtCMSRata4.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCMSRata4.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtCMSRata4.Location = New System.Drawing.Point(183, 175)
         Me.txtCMSRata4.MaxLength = 11
@@ -7033,10 +7033,10 @@ Partial Class ISMPTestReports
         '
         'txtCMSRata3
         '
-        Me.txtCMSRata3.AcceptsReturn = true
+        Me.txtCMSRata3.AcceptsReturn = True
         Me.txtCMSRata3.BackColor = System.Drawing.SystemColors.Window
         Me.txtCMSRata3.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtCMSRata3.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.txtCMSRata3.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCMSRata3.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtCMSRata3.Location = New System.Drawing.Point(183, 153)
         Me.txtCMSRata3.MaxLength = 11
@@ -7048,10 +7048,10 @@ Partial Class ISMPTestReports
         '
         'txtCMSRata2
         '
-        Me.txtCMSRata2.AcceptsReturn = true
+        Me.txtCMSRata2.AcceptsReturn = True
         Me.txtCMSRata2.BackColor = System.Drawing.SystemColors.Window
         Me.txtCMSRata2.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtCMSRata2.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.txtCMSRata2.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCMSRata2.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtCMSRata2.Location = New System.Drawing.Point(183, 131)
         Me.txtCMSRata2.MaxLength = 11
@@ -7063,10 +7063,10 @@ Partial Class ISMPTestReports
         '
         'Label316
         '
-        Me.Label316.AutoSize = true
+        Me.Label316.AutoSize = True
         Me.Label316.BackColor = System.Drawing.SystemColors.Control
         Me.Label316.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label316.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.Label316.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label316.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label316.Location = New System.Drawing.Point(90, 86)
         Me.Label316.Name = "Label316"
@@ -7078,10 +7078,10 @@ Partial Class ISMPTestReports
         '
         'txtRefMethodRata8
         '
-        Me.txtRefMethodRata8.AcceptsReturn = true
+        Me.txtRefMethodRata8.AcceptsReturn = True
         Me.txtRefMethodRata8.BackColor = System.Drawing.SystemColors.Window
         Me.txtRefMethodRata8.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtRefMethodRata8.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.txtRefMethodRata8.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRefMethodRata8.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtRefMethodRata8.Location = New System.Drawing.Point(87, 263)
         Me.txtRefMethodRata8.MaxLength = 11
@@ -7093,10 +7093,10 @@ Partial Class ISMPTestReports
         '
         'txtRefMethodRata9
         '
-        Me.txtRefMethodRata9.AcceptsReturn = true
+        Me.txtRefMethodRata9.AcceptsReturn = True
         Me.txtRefMethodRata9.BackColor = System.Drawing.SystemColors.Window
         Me.txtRefMethodRata9.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtRefMethodRata9.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.txtRefMethodRata9.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRefMethodRata9.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtRefMethodRata9.Location = New System.Drawing.Point(87, 285)
         Me.txtRefMethodRata9.MaxLength = 11
@@ -7108,10 +7108,10 @@ Partial Class ISMPTestReports
         '
         'txtRefMethodRata12
         '
-        Me.txtRefMethodRata12.AcceptsReturn = true
+        Me.txtRefMethodRata12.AcceptsReturn = True
         Me.txtRefMethodRata12.BackColor = System.Drawing.SystemColors.Window
         Me.txtRefMethodRata12.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtRefMethodRata12.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.txtRefMethodRata12.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRefMethodRata12.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtRefMethodRata12.Location = New System.Drawing.Point(87, 351)
         Me.txtRefMethodRata12.MaxLength = 11
@@ -7123,10 +7123,10 @@ Partial Class ISMPTestReports
         '
         'txtRefMethodRata11
         '
-        Me.txtRefMethodRata11.AcceptsReturn = true
+        Me.txtRefMethodRata11.AcceptsReturn = True
         Me.txtRefMethodRata11.BackColor = System.Drawing.SystemColors.Window
         Me.txtRefMethodRata11.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtRefMethodRata11.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.txtRefMethodRata11.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRefMethodRata11.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtRefMethodRata11.Location = New System.Drawing.Point(87, 329)
         Me.txtRefMethodRata11.MaxLength = 11
@@ -7138,10 +7138,10 @@ Partial Class ISMPTestReports
         '
         'txtRefMethodRata10
         '
-        Me.txtRefMethodRata10.AcceptsReturn = true
+        Me.txtRefMethodRata10.AcceptsReturn = True
         Me.txtRefMethodRata10.BackColor = System.Drawing.SystemColors.Window
         Me.txtRefMethodRata10.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtRefMethodRata10.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.txtRefMethodRata10.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRefMethodRata10.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtRefMethodRata10.Location = New System.Drawing.Point(87, 307)
         Me.txtRefMethodRata10.MaxLength = 11
@@ -7153,10 +7153,10 @@ Partial Class ISMPTestReports
         '
         'txtRefMethodRata7
         '
-        Me.txtRefMethodRata7.AcceptsReturn = true
+        Me.txtRefMethodRata7.AcceptsReturn = True
         Me.txtRefMethodRata7.BackColor = System.Drawing.SystemColors.Window
         Me.txtRefMethodRata7.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtRefMethodRata7.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.txtRefMethodRata7.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRefMethodRata7.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtRefMethodRata7.Location = New System.Drawing.Point(87, 241)
         Me.txtRefMethodRata7.MaxLength = 11
@@ -7168,10 +7168,10 @@ Partial Class ISMPTestReports
         '
         'txtRefMethodRata6
         '
-        Me.txtRefMethodRata6.AcceptsReturn = true
+        Me.txtRefMethodRata6.AcceptsReturn = True
         Me.txtRefMethodRata6.BackColor = System.Drawing.SystemColors.Window
         Me.txtRefMethodRata6.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtRefMethodRata6.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.txtRefMethodRata6.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRefMethodRata6.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtRefMethodRata6.Location = New System.Drawing.Point(87, 219)
         Me.txtRefMethodRata6.MaxLength = 11
@@ -7183,10 +7183,10 @@ Partial Class ISMPTestReports
         '
         'txtRefMethodRata5
         '
-        Me.txtRefMethodRata5.AcceptsReturn = true
+        Me.txtRefMethodRata5.AcceptsReturn = True
         Me.txtRefMethodRata5.BackColor = System.Drawing.SystemColors.Window
         Me.txtRefMethodRata5.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtRefMethodRata5.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.txtRefMethodRata5.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRefMethodRata5.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtRefMethodRata5.Location = New System.Drawing.Point(87, 197)
         Me.txtRefMethodRata5.MaxLength = 11
@@ -7198,10 +7198,10 @@ Partial Class ISMPTestReports
         '
         'txtRefMethodRata4
         '
-        Me.txtRefMethodRata4.AcceptsReturn = true
+        Me.txtRefMethodRata4.AcceptsReturn = True
         Me.txtRefMethodRata4.BackColor = System.Drawing.SystemColors.Window
         Me.txtRefMethodRata4.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtRefMethodRata4.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.txtRefMethodRata4.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRefMethodRata4.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtRefMethodRata4.Location = New System.Drawing.Point(87, 175)
         Me.txtRefMethodRata4.MaxLength = 11
@@ -7213,10 +7213,10 @@ Partial Class ISMPTestReports
         '
         'txtRefMethodRata3
         '
-        Me.txtRefMethodRata3.AcceptsReturn = true
+        Me.txtRefMethodRata3.AcceptsReturn = True
         Me.txtRefMethodRata3.BackColor = System.Drawing.SystemColors.Window
         Me.txtRefMethodRata3.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtRefMethodRata3.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.txtRefMethodRata3.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRefMethodRata3.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtRefMethodRata3.Location = New System.Drawing.Point(87, 153)
         Me.txtRefMethodRata3.MaxLength = 11
@@ -7228,10 +7228,10 @@ Partial Class ISMPTestReports
         '
         'txtRefMethodRata2
         '
-        Me.txtRefMethodRata2.AcceptsReturn = true
+        Me.txtRefMethodRata2.AcceptsReturn = True
         Me.txtRefMethodRata2.BackColor = System.Drawing.SystemColors.Window
         Me.txtRefMethodRata2.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtRefMethodRata2.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.txtRefMethodRata2.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRefMethodRata2.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtRefMethodRata2.Location = New System.Drawing.Point(87, 131)
         Me.txtRefMethodRata2.MaxLength = 11
@@ -7251,10 +7251,10 @@ Partial Class ISMPTestReports
         '
         'Label313
         '
-        Me.Label313.AutoSize = true
+        Me.Label313.AutoSize = True
         Me.Label313.BackColor = System.Drawing.SystemColors.Control
         Me.Label313.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label313.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.Label313.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label313.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label313.Location = New System.Drawing.Point(33, 352)
         Me.Label313.Name = "Label313"
@@ -7266,10 +7266,10 @@ Partial Class ISMPTestReports
         '
         'Label312
         '
-        Me.Label312.AutoSize = true
+        Me.Label312.AutoSize = True
         Me.Label312.BackColor = System.Drawing.SystemColors.Control
         Me.Label312.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label312.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.Label312.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label312.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label312.Location = New System.Drawing.Point(33, 330)
         Me.Label312.Name = "Label312"
@@ -7281,10 +7281,10 @@ Partial Class ISMPTestReports
         '
         'Label311
         '
-        Me.Label311.AutoSize = true
+        Me.Label311.AutoSize = True
         Me.Label311.BackColor = System.Drawing.SystemColors.Control
         Me.Label311.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label311.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.Label311.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label311.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label311.Location = New System.Drawing.Point(33, 308)
         Me.Label311.Name = "Label311"
@@ -7296,10 +7296,10 @@ Partial Class ISMPTestReports
         '
         'Label310
         '
-        Me.Label310.AutoSize = true
+        Me.Label310.AutoSize = True
         Me.Label310.BackColor = System.Drawing.SystemColors.Control
         Me.Label310.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label310.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.Label310.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label310.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label310.Location = New System.Drawing.Point(39, 286)
         Me.Label310.Name = "Label310"
@@ -7311,10 +7311,10 @@ Partial Class ISMPTestReports
         '
         'Label309
         '
-        Me.Label309.AutoSize = true
+        Me.Label309.AutoSize = True
         Me.Label309.BackColor = System.Drawing.SystemColors.Control
         Me.Label309.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label309.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.Label309.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label309.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label309.Location = New System.Drawing.Point(39, 264)
         Me.Label309.Name = "Label309"
@@ -7326,10 +7326,10 @@ Partial Class ISMPTestReports
         '
         'Label308
         '
-        Me.Label308.AutoSize = true
+        Me.Label308.AutoSize = True
         Me.Label308.BackColor = System.Drawing.SystemColors.Control
         Me.Label308.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label308.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.Label308.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label308.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label308.Location = New System.Drawing.Point(39, 242)
         Me.Label308.Name = "Label308"
@@ -7341,10 +7341,10 @@ Partial Class ISMPTestReports
         '
         'Label307
         '
-        Me.Label307.AutoSize = true
+        Me.Label307.AutoSize = True
         Me.Label307.BackColor = System.Drawing.SystemColors.Control
         Me.Label307.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label307.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.Label307.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label307.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label307.Location = New System.Drawing.Point(39, 220)
         Me.Label307.Name = "Label307"
@@ -7356,10 +7356,10 @@ Partial Class ISMPTestReports
         '
         'Label306
         '
-        Me.Label306.AutoSize = true
+        Me.Label306.AutoSize = True
         Me.Label306.BackColor = System.Drawing.SystemColors.Control
         Me.Label306.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label306.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.Label306.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label306.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label306.Location = New System.Drawing.Point(39, 198)
         Me.Label306.Name = "Label306"
@@ -7371,10 +7371,10 @@ Partial Class ISMPTestReports
         '
         'Label305
         '
-        Me.Label305.AutoSize = true
+        Me.Label305.AutoSize = True
         Me.Label305.BackColor = System.Drawing.SystemColors.Control
         Me.Label305.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label305.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.Label305.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label305.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label305.Location = New System.Drawing.Point(39, 176)
         Me.Label305.Name = "Label305"
@@ -7386,10 +7386,10 @@ Partial Class ISMPTestReports
         '
         'Label304
         '
-        Me.Label304.AutoSize = true
+        Me.Label304.AutoSize = True
         Me.Label304.BackColor = System.Drawing.SystemColors.Control
         Me.Label304.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label304.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.Label304.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label304.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label304.Location = New System.Drawing.Point(39, 132)
         Me.Label304.Name = "Label304"
@@ -7401,10 +7401,10 @@ Partial Class ISMPTestReports
         '
         'Label303
         '
-        Me.Label303.AutoSize = true
+        Me.Label303.AutoSize = True
         Me.Label303.BackColor = System.Drawing.SystemColors.Control
         Me.Label303.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label303.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.Label303.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label303.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label303.Location = New System.Drawing.Point(39, 154)
         Me.Label303.Name = "Label303"
@@ -7416,10 +7416,10 @@ Partial Class ISMPTestReports
         '
         'Label302
         '
-        Me.Label302.AutoSize = true
+        Me.Label302.AutoSize = True
         Me.Label302.BackColor = System.Drawing.SystemColors.Control
         Me.Label302.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label302.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.Label302.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label302.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label302.Location = New System.Drawing.Point(39, 110)
         Me.Label302.Name = "Label302"
@@ -7455,10 +7455,10 @@ Partial Class ISMPTestReports
         '
         'txtCMSRata1
         '
-        Me.txtCMSRata1.AcceptsReturn = true
+        Me.txtCMSRata1.AcceptsReturn = True
         Me.txtCMSRata1.BackColor = System.Drawing.SystemColors.Window
         Me.txtCMSRata1.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtCMSRata1.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.txtCMSRata1.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCMSRata1.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtCMSRata1.Location = New System.Drawing.Point(183, 109)
         Me.txtCMSRata1.MaxLength = 11
@@ -7470,10 +7470,10 @@ Partial Class ISMPTestReports
         '
         'txtRefMethodRata1
         '
-        Me.txtRefMethodRata1.AcceptsReturn = true
+        Me.txtRefMethodRata1.AcceptsReturn = True
         Me.txtRefMethodRata1.BackColor = System.Drawing.SystemColors.Window
         Me.txtRefMethodRata1.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtRefMethodRata1.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.txtRefMethodRata1.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRefMethodRata1.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtRefMethodRata1.Location = New System.Drawing.Point(87, 109)
         Me.txtRefMethodRata1.MaxLength = 11
@@ -7485,10 +7485,10 @@ Partial Class ISMPTestReports
         '
         'Label114b
         '
-        Me.Label114b.AutoSize = true
+        Me.Label114b.AutoSize = True
         Me.Label114b.BackColor = System.Drawing.SystemColors.Control
         Me.Label114b.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label114b.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.Label114b.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label114b.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label114b.Location = New System.Drawing.Point(79, 70)
         Me.Label114b.Name = "Label114b"
@@ -7505,7 +7505,7 @@ Partial Class ISMPTestReports
         Me.cboUnitsRata.BackColor = System.Drawing.SystemColors.Window
         Me.cboUnitsRata.Cursor = System.Windows.Forms.Cursors.Default
         Me.cboUnitsRata.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboUnitsRata.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.cboUnitsRata.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cboUnitsRata.ForeColor = System.Drawing.SystemColors.WindowText
         Me.cboUnitsRata.Location = New System.Drawing.Point(327, 107)
         Me.cboUnitsRata.Name = "cboUnitsRata"
@@ -7515,10 +7515,10 @@ Partial Class ISMPTestReports
         '
         'lable3b
         '
-        Me.lable3b.AutoSize = true
+        Me.lable3b.AutoSize = True
         Me.lable3b.BackColor = System.Drawing.SystemColors.Control
         Me.lable3b.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lable3b.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.lable3b.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lable3b.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lable3b.Location = New System.Drawing.Point(199, 78)
         Me.lable3b.Name = "lable3b"
@@ -7530,10 +7530,10 @@ Partial Class ISMPTestReports
         '
         'Label112b
         '
-        Me.Label112b.AutoSize = true
+        Me.Label112b.AutoSize = True
         Me.Label112b.BackColor = System.Drawing.SystemColors.Control
         Me.Label112b.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label112b.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.Label112b.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label112b.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label112b.Location = New System.Drawing.Point(351, 78)
         Me.Label112b.Name = "Label112b"
@@ -7545,10 +7545,10 @@ Partial Class ISMPTestReports
         '
         'Label111b
         '
-        Me.Label111b.AutoSize = true
+        Me.Label111b.AutoSize = True
         Me.Label111b.BackColor = System.Drawing.SystemColors.Control
         Me.Label111b.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label111b.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.Label111b.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label111b.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label111b.Location = New System.Drawing.Point(29, 86)
         Me.Label111b.Name = "Label111b"
@@ -7569,7 +7569,7 @@ Partial Class ISMPTestReports
         '
         'lblDiluentRata
         '
-        Me.lblDiluentRata.AutoSize = true
+        Me.lblDiluentRata.AutoSize = True
         Me.lblDiluentRata.Location = New System.Drawing.Point(484, 260)
         Me.lblDiluentRata.Name = "lblDiluentRata"
         Me.lblDiluentRata.Size = New System.Drawing.Size(21, 13)
@@ -7594,10 +7594,10 @@ Partial Class ISMPTestReports
         '
         'txtRelativeAccuracy
         '
-        Me.txtRelativeAccuracy.AcceptsReturn = true
+        Me.txtRelativeAccuracy.AcceptsReturn = True
         Me.txtRelativeAccuracy.BackColor = System.Drawing.SystemColors.Window
         Me.txtRelativeAccuracy.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtRelativeAccuracy.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.txtRelativeAccuracy.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtRelativeAccuracy.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtRelativeAccuracy.Location = New System.Drawing.Point(652, 82)
         Me.txtRelativeAccuracy.MaxLength = 11
@@ -7609,10 +7609,10 @@ Partial Class ISMPTestReports
         '
         'Label187
         '
-        Me.Label187.AutoSize = true
+        Me.Label187.AutoSize = True
         Me.Label187.BackColor = System.Drawing.SystemColors.Control
         Me.Label187.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label187.Font = New System.Drawing.Font("Arial", 8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.Label187.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label187.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label187.Location = New System.Drawing.Point(524, 82)
         Me.Label187.Name = "Label187"
@@ -7628,7 +7628,7 @@ Partial Class ISMPTestReports
         Me.lblStandardRata.Name = "lblStandardRata"
         Me.lblStandardRata.Size = New System.Drawing.Size(280, 48)
         Me.lblStandardRata.TabIndex = 548
-        Me.lblStandardRata.Text = "xxxxxxx % of the applicable standard (when the average of the (RM) test data is l"& _ 
+        Me.lblStandardRata.Text = "xxxxxxx % of the applicable standard (when the average of the (RM) test data is l" &
     "ess than 50% of the applicable standard)."
         '
         'lblRefMethodRata
@@ -7637,15 +7637,15 @@ Partial Class ISMPTestReports
         Me.lblRefMethodRata.Name = "lblRefMethodRata"
         Me.lblRefMethodRata.Size = New System.Drawing.Size(280, 48)
         Me.lblRefMethodRata.TabIndex = 547
-        Me.lblRefMethodRata.Text = "xxxxxxx % of the Average value of the Reference Method (RM) test data (when the a"& _ 
+        Me.lblRefMethodRata.Text = "xxxxxxx % of the Average value of the Reference Method (RM) test data (when the a" &
     "verage RM test data is greater then 50% of the applicable standard) ."
         '
         'txtOtherInformationRata
         '
-        Me.txtOtherInformationRata.AcceptsReturn = true
+        Me.txtOtherInformationRata.AcceptsReturn = True
         Me.txtOtherInformationRata.Location = New System.Drawing.Point(127, 382)
         Me.txtOtherInformationRata.MaxLength = 4000
-        Me.txtOtherInformationRata.Multiline = true
+        Me.txtOtherInformationRata.Multiline = True
         Me.txtOtherInformationRata.Name = "txtOtherInformationRata"
         Me.txtOtherInformationRata.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtOtherInformationRata.Size = New System.Drawing.Size(620, 109)
@@ -7653,7 +7653,7 @@ Partial Class ISMPTestReports
         '
         'Label185
         '
-        Me.Label185.AutoSize = true
+        Me.Label185.AutoSize = True
         Me.Label185.Location = New System.Drawing.Point(31, 382)
         Me.Label185.Name = "Label185"
         Me.Label185.Size = New System.Drawing.Size(91, 13)
@@ -7681,7 +7681,7 @@ Partial Class ISMPTestReports
         '
         'Label177
         '
-        Me.Label177.AutoSize = true
+        Me.Label177.AutoSize = True
         Me.Label177.Location = New System.Drawing.Point(383, 8)
         Me.Label177.Name = "Label177"
         Me.Label177.Size = New System.Drawing.Size(93, 13)
@@ -7698,7 +7698,7 @@ Partial Class ISMPTestReports
         '
         'Label175
         '
-        Me.Label175.AutoSize = true
+        Me.Label175.AutoSize = True
         Me.Label175.Location = New System.Drawing.Point(47, 40)
         Me.Label175.Name = "Label175"
         Me.Label175.Size = New System.Drawing.Size(113, 13)
@@ -7715,7 +7715,7 @@ Partial Class ISMPTestReports
         '
         'Label173
         '
-        Me.Label173.AutoSize = true
+        Me.Label173.AutoSize = True
         Me.Label173.Location = New System.Drawing.Point(47, 9)
         Me.Label173.Name = "Label173"
         Me.Label173.Size = New System.Drawing.Size(105, 13)
@@ -7724,7 +7724,7 @@ Partial Class ISMPTestReports
         '
         'TPTwoStack
         '
-        Me.TPTwoStack.AutoScroll = true
+        Me.TPTwoStack.AutoScroll = True
         Me.TPTwoStack.Controls.Add(Me.Label227)
         Me.TPTwoStack.Controls.Add(Me.Label226)
         Me.TPTwoStack.Controls.Add(Me.Label225)
@@ -7755,7 +7755,7 @@ Partial Class ISMPTestReports
         Me.TPTwoStack.Size = New System.Drawing.Size(782, 298)
         Me.TPTwoStack.TabIndex = 9
         Me.TPTwoStack.Text = "Two Stack"
-        Me.TPTwoStack.UseVisualStyleBackColor = true
+        Me.TPTwoStack.UseVisualStyleBackColor = True
         '
         'Label227
         '
@@ -7791,7 +7791,7 @@ Partial Class ISMPTestReports
         '
         'Label71
         '
-        Me.Label71.AutoSize = true
+        Me.Label71.AutoSize = True
         Me.Label71.Location = New System.Drawing.Point(5, 49)
         Me.Label71.Name = "Label71"
         Me.Label71.Size = New System.Drawing.Size(122, 13)
@@ -7801,7 +7801,7 @@ Partial Class ISMPTestReports
         '
         'Label72
         '
-        Me.Label72.AutoSize = true
+        Me.Label72.AutoSize = True
         Me.Label72.Location = New System.Drawing.Point(5, 31)
         Me.Label72.Name = "Label72"
         Me.Label72.Size = New System.Drawing.Size(125, 13)
@@ -7828,10 +7828,10 @@ Partial Class ISMPTestReports
         '
         'txtOtherInformationTwoStack
         '
-        Me.txtOtherInformationTwoStack.AcceptsReturn = true
+        Me.txtOtherInformationTwoStack.AcceptsReturn = True
         Me.txtOtherInformationTwoStack.Location = New System.Drawing.Point(137, 395)
         Me.txtOtherInformationTwoStack.MaxLength = 4000
-        Me.txtOtherInformationTwoStack.Multiline = true
+        Me.txtOtherInformationTwoStack.Multiline = True
         Me.txtOtherInformationTwoStack.Name = "txtOtherInformationTwoStack"
         Me.txtOtherInformationTwoStack.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtOtherInformationTwoStack.Size = New System.Drawing.Size(599, 106)
@@ -7839,7 +7839,7 @@ Partial Class ISMPTestReports
         '
         'Label56
         '
-        Me.Label56.AutoSize = true
+        Me.Label56.AutoSize = True
         Me.Label56.Location = New System.Drawing.Point(5, 395)
         Me.Label56.Name = "Label56"
         Me.Label56.Size = New System.Drawing.Size(91, 13)
@@ -7855,7 +7855,7 @@ Partial Class ISMPTestReports
         Me.TCTwoStack.SelectedIndex = 0
         Me.TCTwoStack.Size = New System.Drawing.Size(790, 260)
         Me.TCTwoStack.TabIndex = 344
-        Me.TCTwoStack.TabStop = false
+        Me.TCTwoStack.TabStop = False
         '
         'TPTwoStackStandard
         '
@@ -7950,7 +7950,7 @@ Partial Class ISMPTestReports
         '
         'Label298
         '
-        Me.Label298.AutoSize = true
+        Me.Label298.AutoSize = True
         Me.Label298.Location = New System.Drawing.Point(360, 192)
         Me.Label298.Name = "Label298"
         Me.Label298.Size = New System.Drawing.Size(47, 13)
@@ -8043,10 +8043,10 @@ Partial Class ISMPTestReports
         Me.txtEmissRateTotalAvgTwoStackStandard.BackColor = System.Drawing.SystemColors.Window
         Me.txtEmissRateTotalAvgTwoStackStandard.Location = New System.Drawing.Point(424, 188)
         Me.txtEmissRateTotalAvgTwoStackStandard.Name = "txtEmissRateTotalAvgTwoStackStandard"
-        Me.txtEmissRateTotalAvgTwoStackStandard.ReadOnly = true
+        Me.txtEmissRateTotalAvgTwoStackStandard.ReadOnly = True
         Me.txtEmissRateTotalAvgTwoStackStandard.Size = New System.Drawing.Size(68, 20)
         Me.txtEmissRateTotalAvgTwoStackStandard.TabIndex = 435
-        Me.txtEmissRateTotalAvgTwoStackStandard.TabStop = false
+        Me.txtEmissRateTotalAvgTwoStackStandard.TabStop = False
         '
         'txtEmissRateAvgTwoStackStandard2
         '
@@ -8054,10 +8054,10 @@ Partial Class ISMPTestReports
         Me.txtEmissRateAvgTwoStackStandard2.Location = New System.Drawing.Point(704, 188)
         Me.txtEmissRateAvgTwoStackStandard2.MaxLength = 11
         Me.txtEmissRateAvgTwoStackStandard2.Name = "txtEmissRateAvgTwoStackStandard2"
-        Me.txtEmissRateAvgTwoStackStandard2.ReadOnly = true
+        Me.txtEmissRateAvgTwoStackStandard2.ReadOnly = True
         Me.txtEmissRateAvgTwoStackStandard2.Size = New System.Drawing.Size(62, 20)
         Me.txtEmissRateAvgTwoStackStandard2.TabIndex = 431
-        Me.txtEmissRateAvgTwoStackStandard2.TabStop = false
+        Me.txtEmissRateAvgTwoStackStandard2.TabStop = False
         '
         'txtPollConcAvgTwoStackStandard1
         '
@@ -8065,10 +8065,10 @@ Partial Class ISMPTestReports
         Me.txtPollConcAvgTwoStackStandard1.Location = New System.Drawing.Point(704, 122)
         Me.txtPollConcAvgTwoStackStandard1.MaxLength = 11
         Me.txtPollConcAvgTwoStackStandard1.Name = "txtPollConcAvgTwoStackStandard1"
-        Me.txtPollConcAvgTwoStackStandard1.ReadOnly = true
+        Me.txtPollConcAvgTwoStackStandard1.ReadOnly = True
         Me.txtPollConcAvgTwoStackStandard1.Size = New System.Drawing.Size(62, 20)
         Me.txtPollConcAvgTwoStackStandard1.TabIndex = 421
-        Me.txtPollConcAvgTwoStackStandard1.TabStop = false
+        Me.txtPollConcAvgTwoStackStandard1.TabStop = False
         '
         'txtEmissRateTotalTwoStackStandard3
         '
@@ -8076,10 +8076,10 @@ Partial Class ISMPTestReports
         Me.txtEmissRateTotalTwoStackStandard3.Location = New System.Drawing.Point(282, 188)
         Me.txtEmissRateTotalTwoStackStandard3.MaxLength = 11
         Me.txtEmissRateTotalTwoStackStandard3.Name = "txtEmissRateTotalTwoStackStandard3"
-        Me.txtEmissRateTotalTwoStackStandard3.ReadOnly = true
+        Me.txtEmissRateTotalTwoStackStandard3.ReadOnly = True
         Me.txtEmissRateTotalTwoStackStandard3.Size = New System.Drawing.Size(68, 20)
         Me.txtEmissRateTotalTwoStackStandard3.TabIndex = 434
-        Me.txtEmissRateTotalTwoStackStandard3.TabStop = false
+        Me.txtEmissRateTotalTwoStackStandard3.TabStop = False
         '
         'txtEmissRateTotalTwoStackStandard2
         '
@@ -8087,10 +8087,10 @@ Partial Class ISMPTestReports
         Me.txtEmissRateTotalTwoStackStandard2.Location = New System.Drawing.Point(209, 188)
         Me.txtEmissRateTotalTwoStackStandard2.MaxLength = 11
         Me.txtEmissRateTotalTwoStackStandard2.Name = "txtEmissRateTotalTwoStackStandard2"
-        Me.txtEmissRateTotalTwoStackStandard2.ReadOnly = true
+        Me.txtEmissRateTotalTwoStackStandard2.ReadOnly = True
         Me.txtEmissRateTotalTwoStackStandard2.Size = New System.Drawing.Size(68, 20)
         Me.txtEmissRateTotalTwoStackStandard2.TabIndex = 433
-        Me.txtEmissRateTotalTwoStackStandard2.TabStop = false
+        Me.txtEmissRateTotalTwoStackStandard2.TabStop = False
         '
         'txtEmissRateTotalTwoStackStandard1
         '
@@ -8098,14 +8098,14 @@ Partial Class ISMPTestReports
         Me.txtEmissRateTotalTwoStackStandard1.Location = New System.Drawing.Point(136, 188)
         Me.txtEmissRateTotalTwoStackStandard1.MaxLength = 11
         Me.txtEmissRateTotalTwoStackStandard1.Name = "txtEmissRateTotalTwoStackStandard1"
-        Me.txtEmissRateTotalTwoStackStandard1.ReadOnly = true
+        Me.txtEmissRateTotalTwoStackStandard1.ReadOnly = True
         Me.txtEmissRateTotalTwoStackStandard1.Size = New System.Drawing.Size(68, 20)
         Me.txtEmissRateTotalTwoStackStandard1.TabIndex = 432
-        Me.txtEmissRateTotalTwoStackStandard1.TabStop = false
+        Me.txtEmissRateTotalTwoStackStandard1.TabStop = False
         '
         'Label62
         '
-        Me.Label62.AutoSize = true
+        Me.Label62.AutoSize = True
         Me.Label62.Location = New System.Drawing.Point(4, 188)
         Me.Label62.Name = "Label62"
         Me.Label62.Size = New System.Drawing.Size(119, 13)
@@ -8393,7 +8393,7 @@ Partial Class ISMPTestReports
         '
         'Label61
         '
-        Me.Label61.AutoSize = true
+        Me.Label61.AutoSize = True
         Me.Label61.Location = New System.Drawing.Point(36, 8)
         Me.Label61.Name = "Label61"
         Me.Label61.Size = New System.Drawing.Size(69, 13)
@@ -8403,7 +8403,7 @@ Partial Class ISMPTestReports
         '
         'Label57
         '
-        Me.Label57.AutoSize = true
+        Me.Label57.AutoSize = True
         Me.Label57.Location = New System.Drawing.Point(704, 100)
         Me.Label57.Name = "Label57"
         Me.Label57.Size = New System.Drawing.Size(65, 13)
@@ -8417,10 +8417,10 @@ Partial Class ISMPTestReports
         Me.txtEmissRateAvgTwoStackStandard1.Location = New System.Drawing.Point(704, 165)
         Me.txtEmissRateAvgTwoStackStandard1.MaxLength = 11
         Me.txtEmissRateAvgTwoStackStandard1.Name = "txtEmissRateAvgTwoStackStandard1"
-        Me.txtEmissRateAvgTwoStackStandard1.ReadOnly = true
+        Me.txtEmissRateAvgTwoStackStandard1.ReadOnly = True
         Me.txtEmissRateAvgTwoStackStandard1.Size = New System.Drawing.Size(62, 20)
         Me.txtEmissRateAvgTwoStackStandard1.TabIndex = 430
-        Me.txtEmissRateAvgTwoStackStandard1.TabStop = false
+        Me.txtEmissRateAvgTwoStackStandard1.TabStop = False
         '
         'txtPollConcAvgTwoStackStandard2
         '
@@ -8428,10 +8428,10 @@ Partial Class ISMPTestReports
         Me.txtPollConcAvgTwoStackStandard2.Location = New System.Drawing.Point(704, 144)
         Me.txtPollConcAvgTwoStackStandard2.MaxLength = 11
         Me.txtPollConcAvgTwoStackStandard2.Name = "txtPollConcAvgTwoStackStandard2"
-        Me.txtPollConcAvgTwoStackStandard2.ReadOnly = true
+        Me.txtPollConcAvgTwoStackStandard2.ReadOnly = True
         Me.txtPollConcAvgTwoStackStandard2.Size = New System.Drawing.Size(62, 20)
         Me.txtPollConcAvgTwoStackStandard2.TabIndex = 422
-        Me.txtPollConcAvgTwoStackStandard2.TabStop = false
+        Me.txtPollConcAvgTwoStackStandard2.TabStop = False
         '
         'cboEmissRateUnitTwoStackStandard
         '
@@ -8569,7 +8569,7 @@ Partial Class ISMPTestReports
         '
         'Label58
         '
-        Me.Label58.AutoSize = true
+        Me.Label58.AutoSize = True
         Me.Label58.Location = New System.Drawing.Point(4, 78)
         Me.Label58.Name = "Label58"
         Me.Label58.Size = New System.Drawing.Size(86, 13)
@@ -8579,7 +8579,7 @@ Partial Class ISMPTestReports
         '
         'Label59
         '
-        Me.Label59.AutoSize = true
+        Me.Label59.AutoSize = True
         Me.Label59.Location = New System.Drawing.Point(4, 100)
         Me.Label59.Name = "Label59"
         Me.Label59.Size = New System.Drawing.Size(115, 13)
@@ -8589,7 +8589,7 @@ Partial Class ISMPTestReports
         '
         'Label60
         '
-        Me.Label60.AutoSize = true
+        Me.Label60.AutoSize = True
         Me.Label60.Location = New System.Drawing.Point(4, 122)
         Me.Label60.Name = "Label60"
         Me.Label60.Size = New System.Drawing.Size(123, 13)
@@ -8599,7 +8599,7 @@ Partial Class ISMPTestReports
         '
         'Label63
         '
-        Me.Label63.AutoSize = true
+        Me.Label63.AutoSize = True
         Me.Label63.Location = New System.Drawing.Point(4, 144)
         Me.Label63.Name = "Label63"
         Me.Label63.Size = New System.Drawing.Size(120, 13)
@@ -8609,7 +8609,7 @@ Partial Class ISMPTestReports
         '
         'Label64
         '
-        Me.Label64.AutoSize = true
+        Me.Label64.AutoSize = True
         Me.Label64.Location = New System.Drawing.Point(4, 166)
         Me.Label64.Name = "Label64"
         Me.Label64.Size = New System.Drawing.Size(77, 13)
@@ -8619,7 +8619,7 @@ Partial Class ISMPTestReports
         '
         'Label69
         '
-        Me.Label69.AutoSize = true
+        Me.Label69.AutoSize = True
         Me.Label69.Location = New System.Drawing.Point(4, 56)
         Me.Label69.Name = "Label69"
         Me.Label69.Size = New System.Drawing.Size(107, 13)
@@ -8629,7 +8629,7 @@ Partial Class ISMPTestReports
         '
         'Label70
         '
-        Me.Label70.AutoSize = true
+        Me.Label70.AutoSize = True
         Me.Label70.Location = New System.Drawing.Point(36, 32)
         Me.Label70.Name = "Label70"
         Me.Label70.Size = New System.Drawing.Size(61, 13)
@@ -8663,7 +8663,7 @@ Partial Class ISMPTestReports
         '
         'Label75
         '
-        Me.Label75.AutoSize = true
+        Me.Label75.AutoSize = True
         Me.Label75.Location = New System.Drawing.Point(4, 210)
         Me.Label75.Name = "Label75"
         Me.Label75.Size = New System.Drawing.Size(95, 13)
@@ -8754,7 +8754,7 @@ Partial Class ISMPTestReports
         Me.TPTwoStackDRE.Size = New System.Drawing.Size(782, 234)
         Me.TPTwoStackDRE.TabIndex = 0
         Me.TPTwoStackDRE.Text = "DRE"
-        Me.TPTwoStackDRE.Visible = false
+        Me.TPTwoStackDRE.Visible = False
         '
         'Label246
         '
@@ -8834,10 +8834,10 @@ Partial Class ISMPTestReports
         Me.txtEmissRateAvgTwoStackDRE2.Location = New System.Drawing.Point(704, 188)
         Me.txtEmissRateAvgTwoStackDRE2.MaxLength = 11
         Me.txtEmissRateAvgTwoStackDRE2.Name = "txtEmissRateAvgTwoStackDRE2"
-        Me.txtEmissRateAvgTwoStackDRE2.ReadOnly = true
+        Me.txtEmissRateAvgTwoStackDRE2.ReadOnly = True
         Me.txtEmissRateAvgTwoStackDRE2.Size = New System.Drawing.Size(62, 20)
         Me.txtEmissRateAvgTwoStackDRE2.TabIndex = 486
-        Me.txtEmissRateAvgTwoStackDRE2.TabStop = false
+        Me.txtEmissRateAvgTwoStackDRE2.TabStop = False
         '
         'txtPollConcAvgTwoStackDRE1
         '
@@ -8845,10 +8845,10 @@ Partial Class ISMPTestReports
         Me.txtPollConcAvgTwoStackDRE1.Location = New System.Drawing.Point(704, 122)
         Me.txtPollConcAvgTwoStackDRE1.MaxLength = 11
         Me.txtPollConcAvgTwoStackDRE1.Name = "txtPollConcAvgTwoStackDRE1"
-        Me.txtPollConcAvgTwoStackDRE1.ReadOnly = true
+        Me.txtPollConcAvgTwoStackDRE1.ReadOnly = True
         Me.txtPollConcAvgTwoStackDRE1.Size = New System.Drawing.Size(62, 20)
         Me.txtPollConcAvgTwoStackDRE1.TabIndex = 476
-        Me.txtPollConcAvgTwoStackDRE1.TabStop = false
+        Me.txtPollConcAvgTwoStackDRE1.TabStop = False
         '
         'txtDestructionEfficiencyTwoStackDRE
         '
@@ -8856,14 +8856,14 @@ Partial Class ISMPTestReports
         Me.txtDestructionEfficiencyTwoStackDRE.Location = New System.Drawing.Point(136, 188)
         Me.txtDestructionEfficiencyTwoStackDRE.MaxLength = 11
         Me.txtDestructionEfficiencyTwoStackDRE.Name = "txtDestructionEfficiencyTwoStackDRE"
-        Me.txtDestructionEfficiencyTwoStackDRE.ReadOnly = true
+        Me.txtDestructionEfficiencyTwoStackDRE.ReadOnly = True
         Me.txtDestructionEfficiencyTwoStackDRE.Size = New System.Drawing.Size(68, 20)
         Me.txtDestructionEfficiencyTwoStackDRE.TabIndex = 487
-        Me.txtDestructionEfficiencyTwoStackDRE.TabStop = false
+        Me.txtDestructionEfficiencyTwoStackDRE.TabStop = False
         '
         'Label172
         '
-        Me.Label172.AutoSize = true
+        Me.Label172.AutoSize = True
         Me.Label172.Location = New System.Drawing.Point(4, 188)
         Me.Label172.Name = "Label172"
         Me.Label172.Size = New System.Drawing.Size(127, 13)
@@ -9142,7 +9142,7 @@ Partial Class ISMPTestReports
         '
         'Label174
         '
-        Me.Label174.AutoSize = true
+        Me.Label174.AutoSize = True
         Me.Label174.Location = New System.Drawing.Point(36, 8)
         Me.Label174.Name = "Label174"
         Me.Label174.Size = New System.Drawing.Size(69, 13)
@@ -9152,7 +9152,7 @@ Partial Class ISMPTestReports
         '
         'Label176
         '
-        Me.Label176.AutoSize = true
+        Me.Label176.AutoSize = True
         Me.Label176.Location = New System.Drawing.Point(704, 100)
         Me.Label176.Name = "Label176"
         Me.Label176.Size = New System.Drawing.Size(65, 13)
@@ -9166,10 +9166,10 @@ Partial Class ISMPTestReports
         Me.txtEmissRateAvgTwoStackDRE1.Location = New System.Drawing.Point(704, 166)
         Me.txtEmissRateAvgTwoStackDRE1.MaxLength = 11
         Me.txtEmissRateAvgTwoStackDRE1.Name = "txtEmissRateAvgTwoStackDRE1"
-        Me.txtEmissRateAvgTwoStackDRE1.ReadOnly = true
+        Me.txtEmissRateAvgTwoStackDRE1.ReadOnly = True
         Me.txtEmissRateAvgTwoStackDRE1.Size = New System.Drawing.Size(62, 20)
         Me.txtEmissRateAvgTwoStackDRE1.TabIndex = 485
-        Me.txtEmissRateAvgTwoStackDRE1.TabStop = false
+        Me.txtEmissRateAvgTwoStackDRE1.TabStop = False
         '
         'txtPollConcAvgTwoStackDRE2
         '
@@ -9177,10 +9177,10 @@ Partial Class ISMPTestReports
         Me.txtPollConcAvgTwoStackDRE2.Location = New System.Drawing.Point(704, 144)
         Me.txtPollConcAvgTwoStackDRE2.MaxLength = 11
         Me.txtPollConcAvgTwoStackDRE2.Name = "txtPollConcAvgTwoStackDRE2"
-        Me.txtPollConcAvgTwoStackDRE2.ReadOnly = true
+        Me.txtPollConcAvgTwoStackDRE2.ReadOnly = True
         Me.txtPollConcAvgTwoStackDRE2.Size = New System.Drawing.Size(62, 20)
         Me.txtPollConcAvgTwoStackDRE2.TabIndex = 477
-        Me.txtPollConcAvgTwoStackDRE2.TabStop = false
+        Me.txtPollConcAvgTwoStackDRE2.TabStop = False
         '
         'cboEmissRateUnitTwoStackDRE
         '
@@ -9294,7 +9294,7 @@ Partial Class ISMPTestReports
         '
         'Label178
         '
-        Me.Label178.AutoSize = true
+        Me.Label178.AutoSize = True
         Me.Label178.Location = New System.Drawing.Point(4, 78)
         Me.Label178.Name = "Label178"
         Me.Label178.Size = New System.Drawing.Size(86, 13)
@@ -9304,7 +9304,7 @@ Partial Class ISMPTestReports
         '
         'Label179
         '
-        Me.Label179.AutoSize = true
+        Me.Label179.AutoSize = True
         Me.Label179.Location = New System.Drawing.Point(4, 100)
         Me.Label179.Name = "Label179"
         Me.Label179.Size = New System.Drawing.Size(115, 13)
@@ -9314,7 +9314,7 @@ Partial Class ISMPTestReports
         '
         'Label180
         '
-        Me.Label180.AutoSize = true
+        Me.Label180.AutoSize = True
         Me.Label180.Location = New System.Drawing.Point(4, 122)
         Me.Label180.Name = "Label180"
         Me.Label180.Size = New System.Drawing.Size(123, 13)
@@ -9324,7 +9324,7 @@ Partial Class ISMPTestReports
         '
         'Label181
         '
-        Me.Label181.AutoSize = true
+        Me.Label181.AutoSize = True
         Me.Label181.Location = New System.Drawing.Point(4, 144)
         Me.Label181.Name = "Label181"
         Me.Label181.Size = New System.Drawing.Size(120, 13)
@@ -9334,7 +9334,7 @@ Partial Class ISMPTestReports
         '
         'Label182
         '
-        Me.Label182.AutoSize = true
+        Me.Label182.AutoSize = True
         Me.Label182.Location = New System.Drawing.Point(4, 166)
         Me.Label182.Name = "Label182"
         Me.Label182.Size = New System.Drawing.Size(77, 13)
@@ -9344,7 +9344,7 @@ Partial Class ISMPTestReports
         '
         'Label184
         '
-        Me.Label184.AutoSize = true
+        Me.Label184.AutoSize = True
         Me.Label184.Location = New System.Drawing.Point(4, 56)
         Me.Label184.Name = "Label184"
         Me.Label184.Size = New System.Drawing.Size(107, 13)
@@ -9354,7 +9354,7 @@ Partial Class ISMPTestReports
         '
         'Label186
         '
-        Me.Label186.AutoSize = true
+        Me.Label186.AutoSize = True
         Me.Label186.Location = New System.Drawing.Point(36, 32)
         Me.Label186.Name = "Label186"
         Me.Label186.Size = New System.Drawing.Size(61, 13)
@@ -9424,7 +9424,7 @@ Partial Class ISMPTestReports
         '
         Me.txtControlEquipmentOperatingDataTwoStack.Location = New System.Drawing.Point(137, 81)
         Me.txtControlEquipmentOperatingDataTwoStack.MaxLength = 4000
-        Me.txtControlEquipmentOperatingDataTwoStack.Multiline = true
+        Me.txtControlEquipmentOperatingDataTwoStack.Multiline = True
         Me.txtControlEquipmentOperatingDataTwoStack.Name = "txtControlEquipmentOperatingDataTwoStack"
         Me.txtControlEquipmentOperatingDataTwoStack.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtControlEquipmentOperatingDataTwoStack.Size = New System.Drawing.Size(616, 40)
@@ -9432,10 +9432,10 @@ Partial Class ISMPTestReports
         '
         'txtApplicableRegulationTwoStack
         '
-        Me.txtApplicableRegulationTwoStack.AcceptsReturn = true
+        Me.txtApplicableRegulationTwoStack.AcceptsReturn = True
         Me.txtApplicableRegulationTwoStack.Location = New System.Drawing.Point(137, 49)
         Me.txtApplicableRegulationTwoStack.MaxLength = 200
-        Me.txtApplicableRegulationTwoStack.Multiline = true
+        Me.txtApplicableRegulationTwoStack.Multiline = True
         Me.txtApplicableRegulationTwoStack.Name = "txtApplicableRegulationTwoStack"
         Me.txtApplicableRegulationTwoStack.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtApplicableRegulationTwoStack.Size = New System.Drawing.Size(616, 30)
@@ -9451,7 +9451,7 @@ Partial Class ISMPTestReports
         '
         'Label189
         '
-        Me.Label189.AutoSize = true
+        Me.Label189.AutoSize = True
         Me.Label189.Location = New System.Drawing.Point(393, 5)
         Me.Label189.Name = "Label189"
         Me.Label189.Size = New System.Drawing.Size(100, 13)
@@ -9543,7 +9543,7 @@ Partial Class ISMPTestReports
         '
         'TPMethodTwentyTwo
         '
-        Me.TPMethodTwentyTwo.AutoScroll = true
+        Me.TPMethodTwentyTwo.AutoScroll = True
         Me.TPMethodTwentyTwo.Controls.Add(Me.Label296)
         Me.TPMethodTwentyTwo.Controls.Add(Me.Label214)
         Me.TPMethodTwentyTwo.Controls.Add(Me.Label295)
@@ -9571,7 +9571,7 @@ Partial Class ISMPTestReports
         Me.TPMethodTwentyTwo.Size = New System.Drawing.Size(782, 298)
         Me.TPMethodTwentyTwo.TabIndex = 10
         Me.TPMethodTwentyTwo.Text = "Method 22"
-        Me.TPMethodTwentyTwo.UseVisualStyleBackColor = true
+        Me.TPMethodTwentyTwo.UseVisualStyleBackColor = True
         '
         'Label296
         '
@@ -9620,7 +9620,7 @@ Partial Class ISMPTestReports
         '
         'Label215
         '
-        Me.Label215.AutoSize = true
+        Me.Label215.AutoSize = True
         Me.Label215.Location = New System.Drawing.Point(233, 84)
         Me.Label215.Name = "Label215"
         Me.Label215.Size = New System.Drawing.Size(43, 13)
@@ -9630,10 +9630,10 @@ Partial Class ISMPTestReports
         '
         'txtOtherInformationMethod22
         '
-        Me.txtOtherInformationMethod22.AcceptsReturn = true
+        Me.txtOtherInformationMethod22.AcceptsReturn = True
         Me.txtOtherInformationMethod22.Location = New System.Drawing.Point(137, 130)
         Me.txtOtherInformationMethod22.MaxLength = 4000
-        Me.txtOtherInformationMethod22.Multiline = true
+        Me.txtOtherInformationMethod22.Multiline = True
         Me.txtOtherInformationMethod22.Name = "txtOtherInformationMethod22"
         Me.txtOtherInformationMethod22.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtOtherInformationMethod22.Size = New System.Drawing.Size(616, 176)
@@ -9641,7 +9641,7 @@ Partial Class ISMPTestReports
         '
         'Label216
         '
-        Me.Label216.AutoSize = true
+        Me.Label216.AutoSize = True
         Me.Label216.Location = New System.Drawing.Point(5, 130)
         Me.Label216.Name = "Label216"
         Me.Label216.Size = New System.Drawing.Size(91, 13)
@@ -9676,7 +9676,7 @@ Partial Class ISMPTestReports
         '
         'Label218
         '
-        Me.Label218.AutoSize = true
+        Me.Label218.AutoSize = True
         Me.Label218.Location = New System.Drawing.Point(50, 84)
         Me.Label218.Name = "Label218"
         Me.Label218.Size = New System.Drawing.Size(74, 13)
@@ -9686,10 +9686,10 @@ Partial Class ISMPTestReports
         '
         'txtApplicableRegulationMethod22
         '
-        Me.txtApplicableRegulationMethod22.AcceptsReturn = true
+        Me.txtApplicableRegulationMethod22.AcceptsReturn = True
         Me.txtApplicableRegulationMethod22.Location = New System.Drawing.Point(137, 52)
         Me.txtApplicableRegulationMethod22.MaxLength = 200
-        Me.txtApplicableRegulationMethod22.Multiline = true
+        Me.txtApplicableRegulationMethod22.Multiline = True
         Me.txtApplicableRegulationMethod22.Name = "txtApplicableRegulationMethod22"
         Me.txtApplicableRegulationMethod22.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtApplicableRegulationMethod22.Size = New System.Drawing.Size(616, 32)
@@ -9705,7 +9705,7 @@ Partial Class ISMPTestReports
         '
         'Label219
         '
-        Me.Label219.AutoSize = true
+        Me.Label219.AutoSize = True
         Me.Label219.Location = New System.Drawing.Point(393, 8)
         Me.Label219.Name = "Label219"
         Me.Label219.Size = New System.Drawing.Size(100, 13)
@@ -9731,7 +9731,7 @@ Partial Class ISMPTestReports
         '
         'Label220
         '
-        Me.Label220.AutoSize = true
+        Me.Label220.AutoSize = True
         Me.Label220.Location = New System.Drawing.Point(5, 52)
         Me.Label220.Name = "Label220"
         Me.Label220.Size = New System.Drawing.Size(122, 13)
@@ -9741,7 +9741,7 @@ Partial Class ISMPTestReports
         '
         'Label221
         '
-        Me.Label221.AutoSize = true
+        Me.Label221.AutoSize = True
         Me.Label221.Location = New System.Drawing.Point(5, 32)
         Me.Label221.Name = "Label221"
         Me.Label221.Size = New System.Drawing.Size(125, 13)
@@ -9780,7 +9780,7 @@ Partial Class ISMPTestReports
         '
         'TPSSCPWork
         '
-        Me.TPSSCPWork.AutoScroll = true
+        Me.TPSSCPWork.AutoScroll = True
         Me.TPSSCPWork.Controls.Add(Me.cboStaffResponsible)
         Me.TPSSCPWork.Controls.Add(Me.Label223)
         Me.TPSSCPWork.Controls.Add(Me.txtTrackingNumber)
@@ -9810,7 +9810,7 @@ Partial Class ISMPTestReports
         Me.TPSSCPWork.Size = New System.Drawing.Size(782, 298)
         Me.TPSSCPWork.TabIndex = 11
         Me.TPSSCPWork.Text = "Compliance Work"
-        Me.TPSSCPWork.UseVisualStyleBackColor = true
+        Me.TPSSCPWork.UseVisualStyleBackColor = True
         '
         'cboStaffResponsible
         '
@@ -9824,7 +9824,7 @@ Partial Class ISMPTestReports
         '
         'Label223
         '
-        Me.Label223.AutoSize = true
+        Me.Label223.AutoSize = True
         Me.Label223.Location = New System.Drawing.Point(8, 65)
         Me.Label223.Name = "Label223"
         Me.Label223.Size = New System.Drawing.Size(93, 13)
@@ -9836,13 +9836,13 @@ Partial Class ISMPTestReports
         '
         Me.txtTrackingNumber.Location = New System.Drawing.Point(118, 34)
         Me.txtTrackingNumber.Name = "txtTrackingNumber"
-        Me.txtTrackingNumber.ReadOnly = true
+        Me.txtTrackingNumber.ReadOnly = True
         Me.txtTrackingNumber.Size = New System.Drawing.Size(69, 20)
         Me.txtTrackingNumber.TabIndex = 420
         '
         'Label315
         '
-        Me.Label315.AutoSize = true
+        Me.Label315.AutoSize = True
         Me.Label315.Location = New System.Drawing.Point(8, 38)
         Me.Label315.Name = "Label315"
         Me.Label315.Size = New System.Drawing.Size(92, 13)
@@ -9851,7 +9851,7 @@ Partial Class ISMPTestReports
         '
         'chbAcknoledgmentLetterSent
         '
-        Me.chbAcknoledgmentLetterSent.AutoSize = true
+        Me.chbAcknoledgmentLetterSent.AutoSize = True
         Me.chbAcknoledgmentLetterSent.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.chbAcknoledgmentLetterSent.Location = New System.Drawing.Point(397, 65)
         Me.chbAcknoledgmentLetterSent.Name = "chbAcknoledgmentLetterSent"
@@ -9873,13 +9873,13 @@ Partial Class ISMPTestReports
         '
         Me.txtEnforcementNumber.Location = New System.Drawing.Point(541, 35)
         Me.txtEnforcementNumber.Name = "txtEnforcementNumber"
-        Me.txtEnforcementNumber.ReadOnly = true
+        Me.txtEnforcementNumber.ReadOnly = True
         Me.txtEnforcementNumber.Size = New System.Drawing.Size(77, 20)
         Me.txtEnforcementNumber.TabIndex = 412
         '
         'chbEventComplete
         '
-        Me.chbEventComplete.AutoSize = true
+        Me.chbEventComplete.AutoSize = True
         Me.chbEventComplete.Location = New System.Drawing.Point(11, 10)
         Me.chbEventComplete.Name = "chbEventComplete"
         Me.chbEventComplete.Size = New System.Drawing.Size(73, 17)
@@ -9905,25 +9905,25 @@ Partial Class ISMPTestReports
         '
         'btnSaveSSCPData
         '
-        Me.btnSaveSSCPData.AutoSize = true
+        Me.btnSaveSSCPData.AutoSize = True
         Me.btnSaveSSCPData.Location = New System.Drawing.Point(8, 334)
         Me.btnSaveSSCPData.Name = "btnSaveSSCPData"
         Me.btnSaveSSCPData.Size = New System.Drawing.Size(126, 23)
         Me.btnSaveSSCPData.TabIndex = 511
         Me.btnSaveSSCPData.Text = "Save Compliance Data"
-        Me.btnSaveSSCPData.UseVisualStyleBackColor = true
+        Me.btnSaveSSCPData.UseVisualStyleBackColor = True
         '
         'txtTestReportReceivedbySSCPDate
         '
         Me.txtTestReportReceivedbySSCPDate.Location = New System.Drawing.Point(208, 96)
         Me.txtTestReportReceivedbySSCPDate.Name = "txtTestReportReceivedbySSCPDate"
-        Me.txtTestReportReceivedbySSCPDate.ReadOnly = true
+        Me.txtTestReportReceivedbySSCPDate.ReadOnly = True
         Me.txtTestReportReceivedbySSCPDate.Size = New System.Drawing.Size(137, 20)
         Me.txtTestReportReceivedbySSCPDate.TabIndex = 408
         '
         'Label320
         '
-        Me.Label320.AutoSize = true
+        Me.Label320.AutoSize = True
         Me.Label320.Location = New System.Drawing.Point(8, 99)
         Me.Label320.Name = "Label320"
         Me.Label320.Size = New System.Drawing.Size(198, 13)
@@ -9965,7 +9965,7 @@ Partial Class ISMPTestReports
         '
         'Label322
         '
-        Me.Label322.AutoSize = true
+        Me.Label322.AutoSize = True
         Me.Label322.Location = New System.Drawing.Point(8, 296)
         Me.Label322.Name = "Label322"
         Me.Label322.Size = New System.Drawing.Size(121, 13)
@@ -9974,7 +9974,7 @@ Partial Class ISMPTestReports
         '
         'Label323
         '
-        Me.Label323.AutoSize = true
+        Me.Label323.AutoSize = True
         Me.Label323.Location = New System.Drawing.Point(8, 136)
         Me.Label323.Name = "Label323"
         Me.Label323.Size = New System.Drawing.Size(166, 13)
@@ -9993,7 +9993,7 @@ Partial Class ISMPTestReports
         '
         'chbTestReportChangeDueDate
         '
-        Me.chbTestReportChangeDueDate.AutoSize = true
+        Me.chbTestReportChangeDueDate.AutoSize = True
         Me.chbTestReportChangeDueDate.Location = New System.Drawing.Point(39, 156)
         Me.chbTestReportChangeDueDate.Name = "chbTestReportChangeDueDate"
         Me.chbTestReportChangeDueDate.Size = New System.Drawing.Size(135, 17)
@@ -10012,7 +10012,7 @@ Partial Class ISMPTestReports
         '
         'Label325
         '
-        Me.Label325.AutoSize = true
+        Me.Label325.AutoSize = True
         Me.Label325.Location = New System.Drawing.Point(386, 136)
         Me.Label325.Name = "Label325"
         Me.Label325.Size = New System.Drawing.Size(160, 13)
@@ -10021,17 +10021,17 @@ Partial Class ISMPTestReports
         '
         'txtTestReportComments
         '
-        Me.txtTestReportComments.AcceptsReturn = true
+        Me.txtTestReportComments.AcceptsReturn = True
         Me.txtTestReportComments.Location = New System.Drawing.Point(130, 192)
         Me.txtTestReportComments.MaxLength = 4000
-        Me.txtTestReportComments.Multiline = true
+        Me.txtTestReportComments.Multiline = True
         Me.txtTestReportComments.Name = "txtTestReportComments"
         Me.txtTestReportComments.Size = New System.Drawing.Size(615, 88)
         Me.txtTestReportComments.TabIndex = 508
         '
         'Label326
         '
-        Me.Label326.AutoSize = true
+        Me.Label326.AutoSize = True
         Me.Label326.Location = New System.Drawing.Point(8, 192)
         Me.Label326.Name = "Label326"
         Me.Label326.Size = New System.Drawing.Size(118, 13)
@@ -10042,26 +10042,26 @@ Partial Class ISMPTestReports
         '
         Me.txtTestReportDueDate.Location = New System.Drawing.Point(180, 132)
         Me.txtTestReportDueDate.Name = "txtTestReportDueDate"
-        Me.txtTestReportDueDate.ReadOnly = true
+        Me.txtTestReportDueDate.ReadOnly = True
         Me.txtTestReportDueDate.Size = New System.Drawing.Size(120, 20)
         Me.txtTestReportDueDate.TabIndex = 397
         '
         'DeletedTestFlag
         '
-        Me.DeletedTestFlag.AutoSize = true
-        Me.DeletedTestFlag.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.DeletedTestFlag.AutoSize = True
+        Me.DeletedTestFlag.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DeletedTestFlag.Location = New System.Drawing.Point(341, 36)
         Me.DeletedTestFlag.Name = "DeletedTestFlag"
         Me.DeletedTestFlag.Size = New System.Drawing.Size(252, 13)
         Me.DeletedTestFlag.TabIndex = 465
         Me.DeletedTestFlag.Text = "TEST REPORT IS FLAGGED AS DELETED"
-        Me.DeletedTestFlag.Visible = false
+        Me.DeletedTestFlag.Visible = False
         '
         'ISMPTestReports
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(790, 764)
+        Me.ClientSize = New System.Drawing.Size(790, 742)
         Me.Controls.Add(Me.DeletedTestFlag)
         Me.Controls.Add(Me.SCTestReports)
         Me.Controls.Add(Me.ToolStrip1)

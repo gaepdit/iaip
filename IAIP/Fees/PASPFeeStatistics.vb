@@ -1,6 +1,7 @@
 ﻿Imports Oracle.ManagedDataAccess.Client
 Imports CrystalDecisions.Shared
 Imports CrystalDecisions.CrystalReports.Engine
+Imports Iaip.SharedData
 
 Public Class PASPFeeStatistics
     Dim SQL, SQL2 As String
@@ -18,7 +19,7 @@ Public Class PASPFeeStatistics
 
     Private Sub DEVFeeStatistics_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
-            
+
             Me.Cursor = Cursors.WaitCursor
             pnlDetails.Dock = DockStyle.None
 
@@ -59,8 +60,8 @@ Public Class PASPFeeStatistics
             Dim Year As String
 
             Year = Now.Year
-            SQL = "Select distinct(numFeeYear) as FeeYear " & _
-            "from AIRBRANCH.FS_Admin " & _
+            SQL = "Select distinct(numFeeYear) as FeeYear " &
+            "from AIRBRANCH.FS_Admin " &
             "order by numFeeYear desc "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -78,7 +79,7 @@ Public Class PASPFeeStatistics
                 Else
                     cboStatYear.Items.Add(Year)
                 End If
-               
+
                 If cboFeeStatYear.Items.Contains(Year) Then
                 Else
                     cboFeeStatYear.Items.Add(Year)
@@ -92,9 +93,9 @@ Public Class PASPFeeStatistics
             cboStatPayType.Items.Add("ALL")
             cboStatPayType.Items.Add("ALL QUARTERS")
 
-            SQL = "Select strPayTypeDesc " & _
-            "from AIRBRANCH.FSLK_PayType " & _
-            "where Active = '1' " & _
+            SQL = "Select strPayTypeDesc " &
+            "from AIRBRANCH.FSLK_PayType " &
+            "where Active = '1' " &
             "order by numPaytypeID "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -114,7 +115,7 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
- 
+
     Private Sub btnViewDepositsStats_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewDepositsStats.Click
         Try
             Dim SQLReported As String = ""
@@ -123,299 +124,264 @@ Public Class PASPFeeStatistics
 
             Select Case cboStatPayType.Text
                 Case "ALL"
-                    SQLReported = "Select sum(numtotalFee) as TotalDue " & _
-                    "from AIRBRANCH.FS_FeeAuditedData, AIRBRANCH.FS_Admin  " & _
-                    "where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and AIRBRANCH.FS_Admin.strAIRSNumber = AIRBRANCH.FS_FeeAuditedData.strAIRSnumber " & _
-                    "and AIRBRANCH.FS_Admin.numFeeYear = AIRBRANCH.FS_FeeAuditedData.numFeeYear " & _
-                    "and AIRBRANCH.FS_Admin.Active = '1' " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " & _
+                    SQLReported = "Select sum(numtotalFee) as TotalDue " &
+                    "from AIRBRANCH.FS_FeeAuditedData, AIRBRANCH.FS_Admin  " &
+                    "where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " &
+                    "and AIRBRANCH.FS_Admin.strAIRSNumber = AIRBRANCH.FS_FeeAuditedData.strAIRSnumber " &
+                    "and AIRBRANCH.FS_Admin.numFeeYear = AIRBRANCH.FS_FeeAuditedData.numFeeYear " &
+                    "and AIRBRANCH.FS_Admin.Active = '1' " &
+                    "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " &
                     "and numCurrentStatus <> '12' "
 
-                    SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    "from AIRBRANCH.FS_FeeInvoice, AIRBRANCH.FS_Admin  " & _
-                    "where AIRBRANCH.FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and AIRBRANCH.FS_FeeInvoice.strAIRSnumber = AIRBRANCH.FS_Admin.strAIRSNumber " & _
-                    "and AIRBRANCH.FS_FeeInvoice.numFeeYEar = AIRBRANCH.fs_Admin.numFeeYear " & _
-                    "and AIRBRANCH.FS_FeeInvoice.Active = '1' " & _
-                    "and AIRBRANCH.FS_Admin.Active = '1' " & _
+                    SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " &
+                    "from AIRBRANCH.FS_FeeInvoice, AIRBRANCH.FS_Admin  " &
+                    "where AIRBRANCH.FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " &
+                    "and AIRBRANCH.FS_FeeInvoice.strAIRSnumber = AIRBRANCH.FS_Admin.strAIRSNumber " &
+                    "and AIRBRANCH.FS_FeeInvoice.numFeeYEar = AIRBRANCH.fs_Admin.numFeeYear " &
+                    "and AIRBRANCH.FS_FeeInvoice.Active = '1' " &
+                    "and AIRBRANCH.FS_Admin.Active = '1' " &
                     "and numCurrentStatus <> '12' "
 
-                    SQLPaid = "Select sum(numPayment) as TotalPaid " & _
-                    "from AIRBRANCH.FS_Transactions " & _
-                    "where numFeeYear = '" & cboStatYear.Text & "' " & _
+                    SQLPaid = "Select sum(numPayment) as TotalPaid " &
+                    "from AIRBRANCH.FS_Transactions " &
+                    "where numFeeYear = '" & cboStatYear.Text & "' " &
                     "and Active = '1' "
 
-                    'SQLPaidInvoiced = "select sum(numPayment) as TotalInvoicedPaid " & _
-                    '"from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " & _
-                    '"where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " & _
-                    '"and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and AIRBRANCH.FS_Transactions.active = '1' "
                 Case "ANNUAL"
-                    SQLReported = "Select sum(numtotalFee) as TotalDue " & _
-                    "from AIRBRANCH.FS_FeeAuditedData, AIRBRANCH.FS_Admin " & _
-                    "where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.strAIRSNumber = AIRBRANCH.FS_Admin.strAIRSNumber " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.nuMFeeYear = AIRBRANCH.FS_Admin.numFeeyear " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " & _
-                    "and AIRBRANCH.FS_Admin.Active = '1' " & _
-                    "and numCurrentStatus <> '12' " & _
+                    SQLReported = "Select sum(numtotalFee) as TotalDue " &
+                    "from AIRBRANCH.FS_FeeAuditedData, AIRBRANCH.FS_Admin " &
+                    "where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " &
+                    "and AIRBRANCH.FS_FeeAuditedData.strAIRSNumber = AIRBRANCH.FS_Admin.strAIRSNumber " &
+                    "and AIRBRANCH.FS_FeeAuditedData.nuMFeeYear = AIRBRANCH.FS_Admin.numFeeyear " &
+                    "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " &
+                    "and AIRBRANCH.FS_Admin.Active = '1' " &
+                    "and numCurrentStatus <> '12' " &
                     "and strpaymentplan = 'Entire Annual Year' "
 
-                    SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    "from AIRBRANCH.FS_FeeInvoice, AIRBRANCH.FS_Admin " & _
-                    "where AIRBRANCH.FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and AIRBRANCH.FS_FeeInvoice.strAIRSNumber = AIRBRANCH.FS_Admin.strAIRSNumber " & _
-                    "and AIRBRANCH.FS_FeeInvoice.numFeeyear = AIRBRANCH.FS_Admin.numFeeyear " & _
-                    "and AIRBRANCH.FS_admin.active = '1' " & _
-                    "and AIRbranch.FS_FeeInvoice.strPayType = '1'  " & _
-                    "and AIRBRANCH.FS_FeeInvoice.Active = '1' " & _
+                    SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " &
+                    "from AIRBRANCH.FS_FeeInvoice, AIRBRANCH.FS_Admin " &
+                    "where AIRBRANCH.FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " &
+                    "and AIRBRANCH.FS_FeeInvoice.strAIRSNumber = AIRBRANCH.FS_Admin.strAIRSNumber " &
+                    "and AIRBRANCH.FS_FeeInvoice.numFeeyear = AIRBRANCH.FS_Admin.numFeeyear " &
+                    "and AIRBRANCH.FS_admin.active = '1' " &
+                    "and AIRbranch.FS_FeeInvoice.strPayType = '1'  " &
+                    "and AIRBRANCH.FS_FeeInvoice.Active = '1' " &
                     "and numCurrentStatus <> '12' "
 
-                    SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    "from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " & _
-                    "where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " & _
-                    "and AIRBRANCH.FS_FeeInvoice.strPayType = '1' " & _
-                    "and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    SQLPaid = "select sum(numPayment) as TotalPaid " &
+                    "from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " &
+                    "where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " &
+                    "and AIRBRANCH.FS_FeeInvoice.strPayType = '1' " &
+                    "and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " &
                     "and AIRBRANCH.FS_Transactions.active = '1' "
 
 
                 Case "ALL QUARTERS"
-                    SQLReported = "Select sum(numtotalFee) as TotalDue " & _
-                    "from AIRBRANCH.FS_FeeAuditedData, AIRBRANCH.FS_Admin " & _
-                    "where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.strAIRSNumber = AIRBRANCH.FS_Admin.strAIRSNumber " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.nuMFeeYear = AIRBRANCH.FS_Admin.numFeeyear " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " & _
-                    "and AIRBRANCH.FS_Admin.Active = '1' " & _
-                    "and numCurrentStatus <> '12' " & _
+                    SQLReported = "Select sum(numtotalFee) as TotalDue " &
+                    "from AIRBRANCH.FS_FeeAuditedData, AIRBRANCH.FS_Admin " &
+                    "where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " &
+                    "and AIRBRANCH.FS_FeeAuditedData.strAIRSNumber = AIRBRANCH.FS_Admin.strAIRSNumber " &
+                    "and AIRBRANCH.FS_FeeAuditedData.nuMFeeYear = AIRBRANCH.FS_Admin.numFeeyear " &
+                    "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " &
+                    "and AIRBRANCH.FS_Admin.Active = '1' " &
+                    "and numCurrentStatus <> '12' " &
                     "and strpaymentplan = 'Four Quarterly Payments' "
 
-                    SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    "from AIRBRANCH.FS_FeeInvoice, AIRBRANCH.FS_Admin " & _
-                    "where AIRBRANCH.FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
-                     "and AIRBRANCH.FS_FeeInvoice.strAIRSnumber = AIRBRANCH.FS_Admin.strAIRSNumber " & _
-                    "and AIRBRANCH.FS_FeeInvoice.numFeeYEar = AIRBRANCH.fs_Admin.numFeeYear " & _
-                    "and AIRBRANCH.FS_FeeInvoice.Active = '1' " & _
-                    "and AIRBRANCH.FS_Admin.Active = '1' " & _
-                    "and AIRbranch.FS_FeeInvoice.strPayType <> '1'  " & _
+                    SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " &
+                    "from AIRBRANCH.FS_FeeInvoice, AIRBRANCH.FS_Admin " &
+                    "where AIRBRANCH.FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " &
+                     "and AIRBRANCH.FS_FeeInvoice.strAIRSnumber = AIRBRANCH.FS_Admin.strAIRSNumber " &
+                    "and AIRBRANCH.FS_FeeInvoice.numFeeYEar = AIRBRANCH.fs_Admin.numFeeYear " &
+                    "and AIRBRANCH.FS_FeeInvoice.Active = '1' " &
+                    "and AIRBRANCH.FS_Admin.Active = '1' " &
+                    "and AIRbranch.FS_FeeInvoice.strPayType <> '1'  " &
                     "and numCurrentStatus <> '12' "
 
-                    SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    "from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " & _
-                    "where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " & _
-                    "and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    "and AIRBRANCH.FS_Transactions.active = '1' " & _
-                    "and (AIRBRANCH.FS_FeeInvoice.strPayType = '2' " & _
-                    "or AIRBRANCH.FS_FeeInvoice.strPayType = '3' " & _
-                    "or AIRBRANCH.FS_FeeInvoice.strPayType = '4' " & _
+                    SQLPaid = "select sum(numPayment) as TotalPaid " &
+                    "from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " &
+                    "where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " &
+                    "and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " &
+                    "and AIRBRANCH.FS_Transactions.active = '1' " &
+                    "and (AIRBRANCH.FS_FeeInvoice.strPayType = '2' " &
+                    "or AIRBRANCH.FS_FeeInvoice.strPayType = '3' " &
+                    "or AIRBRANCH.FS_FeeInvoice.strPayType = '4' " &
                     "or AIRBRANCH.FS_FeeInvoice.strPayType = '5') "
 
-                    '      SQLPaidInvoiced = "select sum(numPayment) as TotalInvoicedPaid " & _
-                    '"from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " & _
-                    '"where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " & _
-                    '"and AIRBRANCH.FS_FeeInvoice.strPayType <> '1' " & _
-                    '"and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and AIRBRANCH.FS_Transactions.active = '1' "
                 Case "QUARTER ONE"
-                    SQLReported = "Select sum(numtotalFee/4) as TotalDue " & _
-                    "from AIRBRANCH.FS_FeeAuditedData, AIRBRANCH.FS_Admin " & _
-                    "where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                       "and AIRBRANCH.FS_FeeAuditedData.strAIRSNumber = AIRBRANCH.FS_Admin.strAIRSNumber " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.nuMFeeYear = AIRBRANCH.FS_Admin.numFeeyear " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " & _
-                    "and AIRBRANCH.FS_Admin.Active = '1' " & _
-                    "and numCurrentStatus <> '12' " & _
+                    SQLReported = "Select sum(numtotalFee/4) as TotalDue " &
+                    "from AIRBRANCH.FS_FeeAuditedData, AIRBRANCH.FS_Admin " &
+                    "where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " &
+                       "and AIRBRANCH.FS_FeeAuditedData.strAIRSNumber = AIRBRANCH.FS_Admin.strAIRSNumber " &
+                    "and AIRBRANCH.FS_FeeAuditedData.nuMFeeYear = AIRBRANCH.FS_Admin.numFeeyear " &
+                    "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " &
+                    "and AIRBRANCH.FS_Admin.Active = '1' " &
+                    "and numCurrentStatus <> '12' " &
                     "and strpaymentplan = 'Four Quarterly Payments' "
 
-                    SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    "from AIRBRANCH.FS_FeeInvoice,  AIRBRANCH.FS_Admin " & _
-                    "where AIRBRANCH.FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
-                      "and AIRBRANCH.FS_FeeInvoice.strAIRSnumber = AIRBRANCH.FS_Admin.strAIRSNumber " & _
-                    "and AIRBRANCH.FS_FeeInvoice.numFeeYEar = AIRBRANCH.fs_Admin.numFeeYear " & _
-                    "and AIRBRANCH.FS_FeeInvoice.Active = '1' " & _
-                    "and AIRBRANCH.FS_Admin.Active = '1' " & _
-                    "and numCurrentStatus <> '12' " & _
+                    SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " &
+                    "from AIRBRANCH.FS_FeeInvoice,  AIRBRANCH.FS_Admin " &
+                    "where AIRBRANCH.FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " &
+                      "and AIRBRANCH.FS_FeeInvoice.strAIRSnumber = AIRBRANCH.FS_Admin.strAIRSNumber " &
+                    "and AIRBRANCH.FS_FeeInvoice.numFeeYEar = AIRBRANCH.fs_Admin.numFeeYear " &
+                    "and AIRBRANCH.FS_FeeInvoice.Active = '1' " &
+                    "and AIRBRANCH.FS_Admin.Active = '1' " &
+                    "and numCurrentStatus <> '12' " &
                     "and AIRbranch.FS_FeeInvoice.strPayType = '2'  "
 
-                    SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    "from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " & _
-                    "where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " & _
-                    "and AIRBRANCH.FS_FeeInvoice.strPayType = '2' " & _
-                    "and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    SQLPaid = "select sum(numPayment) as TotalPaid " &
+                    "from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " &
+                    "where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " &
+                    "and AIRBRANCH.FS_FeeInvoice.strPayType = '2' " &
+                    "and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " &
                     "and AIRBRANCH.FS_Transactions.active = '1' "
 
-                    '      SQLPaidInvoiced = "select sum(numPayment) as TotalInvoicedPaid " & _
-                    '"from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " & _
-                    '"where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " & _
-                    '"and AIRBRANCH.FS_FeeInvoice.strPayType = '2' " & _
-                    '"and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and AIRBRANCH.FS_Transactions.active = '1' "
                 Case "QUARTER TWO"
-                    SQLReported = "Select sum(numtotalFee/4) as TotalDue " & _
-                    "from AIRBRANCH.FS_FeeAuditedData, AIRBRANCH.FS_Admin " & _
-                    "where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.strAIRSNumber = AIRBRANCH.FS_Admin.strAIRSNumber " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.nuMFeeYear = AIRBRANCH.FS_Admin.numFeeyear " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " & _
-                    "and AIRBRANCH.FS_Admin.Active = '1' " & _
-                    "and numCurrentStatus <> '12' " & _
+                    SQLReported = "Select sum(numtotalFee/4) as TotalDue " &
+                    "from AIRBRANCH.FS_FeeAuditedData, AIRBRANCH.FS_Admin " &
+                    "where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " &
+                    "and AIRBRANCH.FS_FeeAuditedData.strAIRSNumber = AIRBRANCH.FS_Admin.strAIRSNumber " &
+                    "and AIRBRANCH.FS_FeeAuditedData.nuMFeeYear = AIRBRANCH.FS_Admin.numFeeyear " &
+                    "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " &
+                    "and AIRBRANCH.FS_Admin.Active = '1' " &
+                    "and numCurrentStatus <> '12' " &
                     "and strpaymentplan = 'Four Quarterly Payments' "
 
-                    SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    "from AIRBRANCH.FS_FeeInvoice, AIRBRANCH.FS_Admin " & _
-                    "where AIRBRANCH.FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and AIRBRANCH.FS_FeeInvoice.strAIRSnumber = AIRBRANCH.FS_Admin.strAIRSNumber " & _
-                    "and AIRBRANCH.FS_FeeInvoice.numFeeYEar = AIRBRANCH.fs_Admin.numFeeYear " & _
-                    "and AIRBRANCH.FS_FeeInvoice.Active = '1' " & _
-                    "and AIRBRANCH.FS_Admin.Active = '1' " & _
-                    "and numCurrentStatus <> '12' " & _
+                    SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " &
+                    "from AIRBRANCH.FS_FeeInvoice, AIRBRANCH.FS_Admin " &
+                    "where AIRBRANCH.FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " &
+                    "and AIRBRANCH.FS_FeeInvoice.strAIRSnumber = AIRBRANCH.FS_Admin.strAIRSNumber " &
+                    "and AIRBRANCH.FS_FeeInvoice.numFeeYEar = AIRBRANCH.fs_Admin.numFeeYear " &
+                    "and AIRBRANCH.FS_FeeInvoice.Active = '1' " &
+                    "and AIRBRANCH.FS_Admin.Active = '1' " &
+                    "and numCurrentStatus <> '12' " &
                     "and AIRbranch.FS_FeeInvoice.strPayType = '3'   "
 
-                    SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    "from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " & _
-                    "where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " & _
-                    "and AIRBRANCH.FS_FeeInvoice.strPayType = '3' " & _
-                    "and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    SQLPaid = "select sum(numPayment) as TotalPaid " &
+                    "from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " &
+                    "where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " &
+                    "and AIRBRANCH.FS_FeeInvoice.strPayType = '3' " &
+                    "and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " &
                     "and AIRBRANCH.FS_Transactions.active = '1' "
 
-                    '      SQLPaidInvoiced = "select sum(numPayment) as TotalInvoicedPaid " & _
-                    '"from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " & _
-                    '"where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " & _
-                    '"and AIRBRANCH.FS_FeeInvoice.strPayType = '3' " & _
-                    '"and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and AIRBRANCH.FS_Transactions.active = '1' "
                 Case "QUARTER THREE"
-                    SQLReported = "Select sum(numtotalFee/4) as TotalDue " & _
-                    "from AIRBRANCH.FS_FeeAuditedData, AIRBRANCH.FS_Admin " & _
-                    "where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.strAIRSNumber = AIRBRANCH.FS_Admin.strAIRSNumber " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.nuMFeeYear = AIRBRANCH.FS_Admin.numFeeyear " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " & _
-                    "and AIRBRANCH.FS_Admin.Active = '1' " & _
-                    "and numCurrentStatus <> '12' " & _
+                    SQLReported = "Select sum(numtotalFee/4) as TotalDue " &
+                    "from AIRBRANCH.FS_FeeAuditedData, AIRBRANCH.FS_Admin " &
+                    "where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " &
+                    "and AIRBRANCH.FS_FeeAuditedData.strAIRSNumber = AIRBRANCH.FS_Admin.strAIRSNumber " &
+                    "and AIRBRANCH.FS_FeeAuditedData.nuMFeeYear = AIRBRANCH.FS_Admin.numFeeyear " &
+                    "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " &
+                    "and AIRBRANCH.FS_Admin.Active = '1' " &
+                    "and numCurrentStatus <> '12' " &
                     "and strpaymentplan = 'Four Quarterly Payments' "
 
-                    SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    "from AIRBRANCH.FS_FeeInvoice, AIRBRANCH.FS_Admin  " & _
-                    "where AIRBRANCH.FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and AIRBRANCH.FS_FeeInvoice.strAIRSnumber = AIRBRANCH.FS_Admin.strAIRSNumber " & _
-                    "and AIRBRANCH.FS_FeeInvoice.numFeeYEar = AIRBRANCH.fs_Admin.numFeeYear " & _
-                    "and AIRBRANCH.FS_FeeInvoice.Active = '1' " & _
-                    "and AIRBRANCH.FS_Admin.Active = '1' " & _
-                    "and numCurrentStatus <> '12' " & _
+                    SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " &
+                    "from AIRBRANCH.FS_FeeInvoice, AIRBRANCH.FS_Admin  " &
+                    "where AIRBRANCH.FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " &
+                    "and AIRBRANCH.FS_FeeInvoice.strAIRSnumber = AIRBRANCH.FS_Admin.strAIRSNumber " &
+                    "and AIRBRANCH.FS_FeeInvoice.numFeeYEar = AIRBRANCH.fs_Admin.numFeeYear " &
+                    "and AIRBRANCH.FS_FeeInvoice.Active = '1' " &
+                    "and AIRBRANCH.FS_Admin.Active = '1' " &
+                    "and numCurrentStatus <> '12' " &
                     "and AIRbranch.FS_FeeInvoice.strPayType = '4'   "
 
-                    SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    "from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " & _
-                    "where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " & _
-                    "and AIRBRANCH.FS_FeeInvoice.strPayType = '4' " & _
-                    "and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    SQLPaid = "select sum(numPayment) as TotalPaid " &
+                    "from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " &
+                    "where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " &
+                    "and AIRBRANCH.FS_FeeInvoice.strPayType = '4' " &
+                    "and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " &
                     "and AIRBRANCH.FS_Transactions.active = '1' "
 
-                    '      SQLPaidInvoiced = "select sum(numPayment) as TotalInvoicedPaid " & _
-                    '"from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " & _
-                    '"where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " & _
-                    '"and AIRBRANCH.FS_FeeInvoice.strPayType = '4' " & _
-                    '"and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and AIRBRANCH.FS_Transactions.active = '1' "
                 Case "QUARTER FOUR"
-                    SQLReported = "Select sum(numtotalFee/4 ) as TotalDue " & _
-                    "from AIRBRANCH.FS_FeeAuditedData, AIRBRANCH.FS_Admin  " & _
-                    "where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                   "and AIRBRANCH.FS_FeeAuditedData.strAIRSNumber = AIRBRANCH.FS_Admin.strAIRSNumber " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.nuMFeeYear = AIRBRANCH.FS_Admin.numFeeyear " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " & _
-                    "and AIRBRANCH.FS_Admin.Active = '1' " & _
-                    "and numCurrentStatus <> '12' " & _
+                    SQLReported = "Select sum(numtotalFee/4 ) as TotalDue " &
+                    "from AIRBRANCH.FS_FeeAuditedData, AIRBRANCH.FS_Admin  " &
+                    "where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " &
+                   "and AIRBRANCH.FS_FeeAuditedData.strAIRSNumber = AIRBRANCH.FS_Admin.strAIRSNumber " &
+                    "and AIRBRANCH.FS_FeeAuditedData.nuMFeeYear = AIRBRANCH.FS_Admin.numFeeyear " &
+                    "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " &
+                    "and AIRBRANCH.FS_Admin.Active = '1' " &
+                    "and numCurrentStatus <> '12' " &
                     "and strpaymentplan = 'Four Quarterly Payments' "
 
-                    SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    "from AIRBRANCH.FS_FeeInvoice, AIRBRANCH.FS_Admin  " & _
-                    "where AIRBRANCH.FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and AIRBRANCH.FS_FeeInvoice.strAIRSnumber = AIRBRANCH.FS_Admin.strAIRSNumber " & _
-                    "and AIRBRANCH.FS_FeeInvoice.numFeeYEar = AIRBRANCH.fs_Admin.numFeeYear " & _
-                    "and AIRBRANCH.FS_FeeInvoice.Active = '1' " & _
-                    "and AIRBRANCH.FS_Admin.Active = '1' " & _
-                    "and numCurrentStatus <> '12' " & _
+                    SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " &
+                    "from AIRBRANCH.FS_FeeInvoice, AIRBRANCH.FS_Admin  " &
+                    "where AIRBRANCH.FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " &
+                    "and AIRBRANCH.FS_FeeInvoice.strAIRSnumber = AIRBRANCH.FS_Admin.strAIRSNumber " &
+                    "and AIRBRANCH.FS_FeeInvoice.numFeeYEar = AIRBRANCH.fs_Admin.numFeeYear " &
+                    "and AIRBRANCH.FS_FeeInvoice.Active = '1' " &
+                    "and AIRBRANCH.FS_Admin.Active = '1' " &
+                    "and numCurrentStatus <> '12' " &
                     "and AIRbranch.FS_FeeInvoice.strPayType = '5'  "
 
-                    SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    "from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " & _
-                    "where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " & _
-                    "and AIRBRANCH.FS_FeeInvoice.strPayType = '5' " & _
-                    "and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    SQLPaid = "select sum(numPayment) as TotalPaid " &
+                    "from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " &
+                    "where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " &
+                    "and AIRBRANCH.FS_FeeInvoice.strPayType = '5' " &
+                    "and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " &
                     "and AIRBRANCH.FS_Transactions.active = '1' "
 
-                    'SQLPaidInvoiced = "select sum(numPayment) as TotalInvoicedPaid " & _
-                    '"from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " & _
-                    '"where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " & _
-                    '"and AIRBRANCH.FS_FeeInvoice.strPayType = '5' " & _
-                    '"and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and AIRBRANCH.FS_Transactions.active = '1' "
                 Case "AMENDMENT"
-                    SQLReported = "Select sum(numtotalFee ) as TotalDue " & _
-                    "from AIRBRANCH.FS_FeeAuditedData, AIRBRANCH.FS_Admin  " & _
-                    "where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.strAIRSNumber = AIRBRANCH.FS_Admin.strAIRSNumber " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.nuMFeeYear = AIRBRANCH.FS_Admin.numFeeyear " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " & _
-                    "and AIRBRANCH.FS_Admin.Active = '1' " & _
-                    "and numCurrentStatus <> '12' " & _
+                    SQLReported = "Select sum(numtotalFee ) as TotalDue " &
+                    "from AIRBRANCH.FS_FeeAuditedData, AIRBRANCH.FS_Admin  " &
+                    "where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " &
+                    "and AIRBRANCH.FS_FeeAuditedData.strAIRSNumber = AIRBRANCH.FS_Admin.strAIRSNumber " &
+                    "and AIRBRANCH.FS_FeeAuditedData.nuMFeeYear = AIRBRANCH.FS_Admin.numFeeyear " &
+                    "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " &
+                    "and AIRBRANCH.FS_Admin.Active = '1' " &
+                    "and numCurrentStatus <> '12' " &
                     "and strpaymentplan is null "
 
-                    SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    "from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " & _
-                    "where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " & _
-                    "and AIRBRANCH.FS_FeeInvoice.strPayType = '6' " & _
-                    "and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    SQLPaid = "select sum(numPayment) as TotalPaid " &
+                    "from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " &
+                    "where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " &
+                    "and AIRBRANCH.FS_FeeInvoice.strPayType = '6' " &
+                    "and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " &
                     "and AIRBRANCH.FS_Transactions.active = '1' "
                 Case "ONE-TIME"
-                    SQLReported = "Select sum(numtotalFee ) as TotalDue " & _
-                    "from AIRBRANCH.FS_FeeAuditedData, AIRBRANCH.FS_Admin  " & _
-                    "where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.strAIRSNumber = AIRBRANCH.FS_Admin.strAIRSNumber " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.nuMFeeYear = AIRBRANCH.FS_Admin.numFeeyear " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " & _
-                    "and AIRBRANCH.FS_Admin.Active = '1' " & _
-                    "and numCurrentStatus <> '12' " & _
+                    SQLReported = "Select sum(numtotalFee ) as TotalDue " &
+                    "from AIRBRANCH.FS_FeeAuditedData, AIRBRANCH.FS_Admin  " &
+                    "where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " &
+                    "and AIRBRANCH.FS_FeeAuditedData.strAIRSNumber = AIRBRANCH.FS_Admin.strAIRSNumber " &
+                    "and AIRBRANCH.FS_FeeAuditedData.nuMFeeYear = AIRBRANCH.FS_Admin.numFeeyear " &
+                    "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " &
+                    "and AIRBRANCH.FS_Admin.Active = '1' " &
+                    "and numCurrentStatus <> '12' " &
                     "and strpaymentplan is null "
 
-                    SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    "from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " & _
-                    "where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " & _
-                    "and AIRBRANCH.FS_FeeInvoice.strPayType = '8' " & _
-                    "and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    SQLPaid = "select sum(numPayment) as TotalPaid " &
+                    "from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " &
+                    "where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " &
+                    "and AIRBRANCH.FS_FeeInvoice.strPayType = '8' " &
+                    "and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " &
                     "and AIRBRANCH.FS_Transactions.active = '1' "
                 Case "REFUND"
-                    SQLReported = "Select sum(0) as TotalDue " & _
-                    "from AIRBRANCH.FS_FeeAuditedData, AIRBRANCH.FS_Admin " & _
-                    "where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.strAIRSNumber = AIRBRANCH.FS_Admin.strAIRSNumber " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.nuMFeeYear = AIRBRANCH.FS_Admin.numFeeyear " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " & _
-                    "and AIRBRANCH.FS_Admin.Active = '1' " & _
+                    SQLReported = "Select sum(0) as TotalDue " &
+                    "from AIRBRANCH.FS_FeeAuditedData, AIRBRANCH.FS_Admin " &
+                    "where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " &
+                    "and AIRBRANCH.FS_FeeAuditedData.strAIRSNumber = AIRBRANCH.FS_Admin.strAIRSNumber " &
+                    "and AIRBRANCH.FS_FeeAuditedData.nuMFeeYear = AIRBRANCH.FS_Admin.numFeeyear " &
+                    "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " &
+                    "and AIRBRANCH.FS_Admin.Active = '1' " &
                     "and numCurrentStatus <> '12' "
 
-                    SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    "from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " & _
-                    "where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " & _
-                    "and AIRBRANCH.FS_FeeInvoice.strPayType = '7' " & _
-                    "and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
+                    SQLPaid = "select sum(numPayment) as TotalPaid " &
+                    "from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " &
+                    "where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " &
+                    "and AIRBRANCH.FS_FeeInvoice.strPayType = '7' " &
+                    "and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " &
                     "and AIRBRANCH.FS_Transactions.active = '1' "
                 Case Else
-                    SQLReported = "Select sum(numtotalFee) as TotalDue " & _
-                    "from AIRBRANCH.FS_FeeAuditedData, AIRBRANCH.FS_Admin " & _
-                    "where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.strAIRSNumber = AIRBRANCH.FS_Admin.strAIRSNumber " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.nuMFeeYear = AIRBRANCH.FS_Admin.numFeeyear " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " & _
-                    "and AIRBRANCH.FS_Admin.Active = '1' " & _
+                    SQLReported = "Select sum(numtotalFee) as TotalDue " &
+                    "from AIRBRANCH.FS_FeeAuditedData, AIRBRANCH.FS_Admin " &
+                    "where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " &
+                    "and AIRBRANCH.FS_FeeAuditedData.strAIRSNumber = AIRBRANCH.FS_Admin.strAIRSNumber " &
+                    "and AIRBRANCH.FS_FeeAuditedData.nuMFeeYear = AIRBRANCH.FS_Admin.numFeeyear " &
+                    "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " &
+                    "and AIRBRANCH.FS_Admin.Active = '1' " &
                     "and numCurrentStatus <> '12' "
 
-                    SQLPaid = "Select sum(numPayment) as TotalPaid " & _
-                    "from AIRBRANCH.FS_Transactions " & _
-                    "where numFeeYear = '" & cboStatYear.Text & "' " & _
+                    SQLPaid = "Select sum(numPayment) as TotalPaid " &
+                    "from AIRBRANCH.FS_Transactions " &
+                    "where numFeeYear = '" & cboStatYear.Text & "' " &
                     "and Active = '1' "
             End Select
             If SQLReported <> "" Then
@@ -504,87 +470,87 @@ Public Class PASPFeeStatistics
         Try
             Select Case cboStatPayType.Text
                 Case "ALL"
-                    SQL = "select  " & _
-                    "substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " & _
-                    "strFacilityName, strPaymentPlan,  " & _
-                    "(numTotalFee ) as Due, AIRBRANCH.FS_FeeAuditedData.numFeeYear,  " & _
-                    "numPart70Fee, numSMFee, numNSPSFee,  " & _
-                    "numTotalFee, strClass, numAdminFee  " & _
-                    "From AIRBRANCH.APBFacilityInformation, AIRBRANCH.FS_FeeAuditedData, " & _
-                    "AIRBRANCH.FS_Admin " & _
-                    "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.FS_FeeAuditedData.strAIRSNumber  " & _
-                    "and AIRBRANCH.FS_feeAuditedData.strAIRSnumber = AIRBRANCH.FS_Admin.strAIRSNumber " & _
-                    "and AIRBRANCH.FS_feeAuditedData.numFeeYear = AIRBRANCH.FS_Admin.numFeeYear " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.active = '1' " & _
-                    "and AIRBRANCH.FS_Admin.Active = '1' " & _
-                    "and numCurrentStatus <> '12' " & _
+                    SQL = "select  " &
+                    "substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " &
+                    "strFacilityName, strPaymentPlan,  " &
+                    "(numTotalFee ) as Due, AIRBRANCH.FS_FeeAuditedData.numFeeYear,  " &
+                    "numPart70Fee, numSMFee, numNSPSFee,  " &
+                    "numTotalFee, strClass, numAdminFee  " &
+                    "From AIRBRANCH.APBFacilityInformation, AIRBRANCH.FS_FeeAuditedData, " &
+                    "AIRBRANCH.FS_Admin " &
+                    "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.FS_FeeAuditedData.strAIRSNumber  " &
+                    "and AIRBRANCH.FS_feeAuditedData.strAIRSnumber = AIRBRANCH.FS_Admin.strAIRSNumber " &
+                    "and AIRBRANCH.FS_feeAuditedData.numFeeYear = AIRBRANCH.FS_Admin.numFeeYear " &
+                    "and AIRBRANCH.FS_FeeAuditedData.active = '1' " &
+                    "and AIRBRANCH.FS_Admin.Active = '1' " &
+                    "and numCurrentStatus <> '12' " &
                     "and AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' "
                 Case "ANNUAL"
-                    SQL = "select  " & _
-                    "substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " & _
-                    "strFacilityName, strPaymentPlan,  " & _
-                    "(numTotalFee) as Due, AIRBRANCH.FS_FeeAuditedData.numFeeYear,  " & _
-                    "numPart70Fee, numSMFee, numNSPSFee,  " & _
-                    "numTotalFee, strClass, numAdminFee  " & _
-                    "From AIRBRANCH.APBFacilityInformation, AIRBRANCH.FS_FeeAuditedData, " & _
-                    "AIRBRANCH.FS_Admin " & _
-                    "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.FS_FeeAuditedData.strAIRSNumber  " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and AIRBRANCH.FS_feeAuditedData.strAIRSnumber = AIRBRANCH.FS_Admin.strAIRSNumber " & _
-                    "and AIRBRANCH.FS_feeAuditedData.numFeeYear = AIRBRANCH.FS_Admin.numFeeYear " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.active = '1' " & _
-                    "and AIRBRANCH.FS_Admin.Active = '1' " & _
-                    "and numCurrentStatus <> '12' " & _
+                    SQL = "select  " &
+                    "substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " &
+                    "strFacilityName, strPaymentPlan,  " &
+                    "(numTotalFee) as Due, AIRBRANCH.FS_FeeAuditedData.numFeeYear,  " &
+                    "numPart70Fee, numSMFee, numNSPSFee,  " &
+                    "numTotalFee, strClass, numAdminFee  " &
+                    "From AIRBRANCH.APBFacilityInformation, AIRBRANCH.FS_FeeAuditedData, " &
+                    "AIRBRANCH.FS_Admin " &
+                    "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.FS_FeeAuditedData.strAIRSNumber  " &
+                    "and AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " &
+                    "and AIRBRANCH.FS_feeAuditedData.strAIRSnumber = AIRBRANCH.FS_Admin.strAIRSNumber " &
+                    "and AIRBRANCH.FS_feeAuditedData.numFeeYear = AIRBRANCH.FS_Admin.numFeeYear " &
+                    "and AIRBRANCH.FS_FeeAuditedData.active = '1' " &
+                    "and AIRBRANCH.FS_Admin.Active = '1' " &
+                    "and numCurrentStatus <> '12' " &
                     "and strPaymentPlan = 'Entire Annual Year' "
                 Case "QUARTER ONE", "QUARTER TWO", "QUARTER THREE", "QUARTER FOUR", "ALL QUARTERS"
-                    SQL = "select  " & _
-                    "substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " & _
-                    "strFacilityName, strPaymentPlan,  " & _
-                    "(numTotalFee)/4 as Due, AIRBRANCH.FS_FeeAuditedData.numFeeYear,  " & _
-                    "numPart70Fee, numSMFee, numNSPSFee,  " & _
-                    "numTotalFee, strClass, numAdminFee  " & _
-                    "From AIRBRANCH.APBFacilityInformation, AIRBRANCH.FS_FeeAuditedData, " & _
-                    "AIRBRANCH.FS_Admin " & _
-                    "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.FS_FeeAuditedData.strAIRSNumber  " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    "and AIRBRANCH.FS_feeAuditedData.strAIRSnumber = AIRBRANCH.FS_Admin.strAIRSNumber " & _
-                    "and AIRBRANCH.FS_feeAuditedData.numFeeYear = AIRBRANCH.FS_Admin.numFeeYear " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.active = '1' " & _
-                    "and AIRBRANCH.FS_Admin.Active = '1' " & _
-                    "and numCurrentStatus <> '12' " & _
+                    SQL = "select  " &
+                    "substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " &
+                    "strFacilityName, strPaymentPlan,  " &
+                    "(numTotalFee)/4 as Due, AIRBRANCH.FS_FeeAuditedData.numFeeYear,  " &
+                    "numPart70Fee, numSMFee, numNSPSFee,  " &
+                    "numTotalFee, strClass, numAdminFee  " &
+                    "From AIRBRANCH.APBFacilityInformation, AIRBRANCH.FS_FeeAuditedData, " &
+                    "AIRBRANCH.FS_Admin " &
+                    "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.FS_FeeAuditedData.strAIRSNumber  " &
+                    "and AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " &
+                    "and AIRBRANCH.FS_feeAuditedData.strAIRSnumber = AIRBRANCH.FS_Admin.strAIRSNumber " &
+                    "and AIRBRANCH.FS_feeAuditedData.numFeeYear = AIRBRANCH.FS_Admin.numFeeYear " &
+                    "and AIRBRANCH.FS_FeeAuditedData.active = '1' " &
+                    "and AIRBRANCH.FS_Admin.Active = '1' " &
+                    "and numCurrentStatus <> '12' " &
                     "and strPaymentPlan = 'Four Quarterly Payments' "
                 Case "AMENDMENT", "ONE-TIME", "REFUND"
-                    SQL = "select  " & _
-                    "substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " & _
-                    "strFacilityName, strPaymentPlan,  " & _
-                    "(numTotalFee)/4 as Due, AIRBRANCH.FS_FeeAuditedData.numFeeYear,  " & _
-                    "numPart70Fee, numSMFee, numNSPSFee,  " & _
-                    "numTotalFee, strClass, numAdminFee  " & _
-                    "From AIRBRANCH.APBFacilityInformation, AIRBRANCH.FS_FeeAuditedData, " & _
-                    "AIRBRANCH.FS_Admin " & _
-                    "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.FS_FeeAuditedData.strAIRSNumber  " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                     "and AIRBRANCH.FS_feeAuditedData.strAIRSnumber = AIRBRANCH.FS_Admin.strAIRSNumber " & _
-                    "and AIRBRANCH.FS_feeAuditedData.numFeeYear = AIRBRANCH.FS_Admin.numFeeYear " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.active = '1' " & _
-                    "and AIRBRANCH.FS_Admin.Active = '1' " & _
-                    "and numCurrentStatus <> '12' " & _
+                    SQL = "select  " &
+                    "substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " &
+                    "strFacilityName, strPaymentPlan,  " &
+                    "(numTotalFee)/4 as Due, AIRBRANCH.FS_FeeAuditedData.numFeeYear,  " &
+                    "numPart70Fee, numSMFee, numNSPSFee,  " &
+                    "numTotalFee, strClass, numAdminFee  " &
+                    "From AIRBRANCH.APBFacilityInformation, AIRBRANCH.FS_FeeAuditedData, " &
+                    "AIRBRANCH.FS_Admin " &
+                    "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.FS_FeeAuditedData.strAIRSNumber  " &
+                    "and AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " &
+                     "and AIRBRANCH.FS_feeAuditedData.strAIRSnumber = AIRBRANCH.FS_Admin.strAIRSNumber " &
+                    "and AIRBRANCH.FS_feeAuditedData.numFeeYear = AIRBRANCH.FS_Admin.numFeeYear " &
+                    "and AIRBRANCH.FS_FeeAuditedData.active = '1' " &
+                    "and AIRBRANCH.FS_Admin.Active = '1' " &
+                    "and numCurrentStatus <> '12' " &
                     "and strPaymentPlan is null "
                 Case Else
-                    SQL = "select  " & _
-                    "substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " & _
-                    "strFacilityName, strPaymentPlan,  " & _
-                    "(numTotalFee) as Due, AIRBRANCH.FS_FeeAuditedData.numFeeYear,  " & _
-                    "numPart70Fee, numSMFee, numNSPSFee,  " & _
-                    "numTotalFee, strClass, numAdminFee  " & _
-                    "From AIRBRANCH.APBFacilityInformation, AIRBRANCH.FS_FeeAuditedData, " & _
-                    "AIRBRANCH.FS_Admin " & _
-                    "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.FS_FeeAuditedData.strAIRSNumber  " & _
-                     "and AIRBRANCH.FS_feeAuditedData.strAIRSnumber = AIRBRANCH.FS_Admin.strAIRSNumber " & _
-                    "and AIRBRANCH.FS_feeAuditedData.numFeeYear = AIRBRANCH.FS_Admin.numFeeYear " & _
-                    "and AIRBRANCH.FS_FeeAuditedData.active = '1' " & _
-                    "and AIRBRANCH.FS_Admin.Active = '1' " & _
-                    "and numCurrentStatus <> '12' " & _
+                    SQL = "select  " &
+                    "substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " &
+                    "strFacilityName, strPaymentPlan,  " &
+                    "(numTotalFee) as Due, AIRBRANCH.FS_FeeAuditedData.numFeeYear,  " &
+                    "numPart70Fee, numSMFee, numNSPSFee,  " &
+                    "numTotalFee, strClass, numAdminFee  " &
+                    "From AIRBRANCH.APBFacilityInformation, AIRBRANCH.FS_FeeAuditedData, " &
+                    "AIRBRANCH.FS_Admin " &
+                    "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.FS_FeeAuditedData.strAIRSNumber  " &
+                     "and AIRBRANCH.FS_feeAuditedData.strAIRSnumber = AIRBRANCH.FS_Admin.strAIRSNumber " &
+                    "and AIRBRANCH.FS_feeAuditedData.numFeeYear = AIRBRANCH.FS_Admin.numFeeYear " &
+                    "and AIRBRANCH.FS_FeeAuditedData.active = '1' " &
+                    "and AIRBRANCH.FS_Admin.Active = '1' " &
+                    "and numCurrentStatus <> '12' " &
                     "and AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' "
             End Select
 
@@ -653,249 +619,249 @@ Public Class PASPFeeStatistics
 
             Select Case cboStatPayType.Text
                 Case "ALL"
-                    SQL = "select " & _
-                      "substr(AIRBranch.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " & _
-                      "strFacilityName, " & _
-                      "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " & _
-                      "datTransactionDate, strCheckNo, AIRBranch.FS_Transactions.InvoiceID, " & _
-                      "AIRBranch.FS_Transactions.numFeeYear, numPart70Fee, " & _
-                      "numSMFee, numNSPSFee, numTotalFee, strClass, " & _
-                      "numAdminFee, (numTotalFee) as Due " & _
-                      "From AIRBranch.APBFacilityInformation, AIRBranch.FS_Transactions, " & _
-                      "AIRBranch.FS_FeeAuditedData, AIRBranch.FS_FeeInvoice, " & _
-                      "AIRBranch.FSLK_PayType " & _
-                      "where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FS_Transactions.strAIRSNumber " & _
-                      "and AIRBranch.FS_Transactions.strAIRSNumber = AIRBranch.FS_FeeAuditedData.strAIRSNumber (+) " & _
-                      "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " & _
-                      "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " & _
-                      "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " & _
-                      "and AIRBRANCH.FS_Transactions.Active = '1' " & _
-                      "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " & _
-                      "and AIRBRANCH.FS_FeeInvoice.Active = '1' " & _
+                    SQL = "select " &
+                      "substr(AIRBranch.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " &
+                      "strFacilityName, " &
+                      "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " &
+                      "datTransactionDate, strCheckNo, AIRBranch.FS_Transactions.InvoiceID, " &
+                      "AIRBranch.FS_Transactions.numFeeYear, numPart70Fee, " &
+                      "numSMFee, numNSPSFee, numTotalFee, strClass, " &
+                      "numAdminFee, (numTotalFee) as Due " &
+                      "From AIRBranch.APBFacilityInformation, AIRBranch.FS_Transactions, " &
+                      "AIRBranch.FS_FeeAuditedData, AIRBranch.FS_FeeInvoice, " &
+                      "AIRBranch.FSLK_PayType " &
+                      "where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FS_Transactions.strAIRSNumber " &
+                      "and AIRBranch.FS_Transactions.strAIRSNumber = AIRBranch.FS_FeeAuditedData.strAIRSNumber (+) " &
+                      "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " &
+                      "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " &
+                      "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " &
+                      "and AIRBRANCH.FS_Transactions.Active = '1' " &
+                      "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " &
+                      "and AIRBRANCH.FS_FeeInvoice.Active = '1' " &
                       "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' "
                 Case "ANNUAL"
-                    SQL = "select " & _
-                       "substr(AIRBranch.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " & _
-                       "strFacilityName, " & _
-                       "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " & _
-                       "datTransactionDate, strCheckNo, AIRBranch.FS_Transactions.InvoiceID, " & _
-                       "AIRBranch.FS_Transactions.numFeeYear, numPart70Fee, " & _
-                       "numSMFee, numNSPSFee, numTotalFee, strClass, " & _
-                       "numAdminFee, (numTotalFee) as Due " & _
-                       "From AIRBranch.APBFacilityInformation, AIRBranch.FS_Transactions, " & _
-                       "AIRBranch.FS_FeeAuditedData, AIRBranch.FS_FeeInvoice, " & _
-                      "AIRBranch.FSLK_PayType " & _
-                       "where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FS_Transactions.strAIRSNumber " & _
-                       "and AIRBranch.FS_Transactions.strAIRSNumber = AIRBranch.FS_FeeAuditedData.strAIRSNumber (+)  " & _
-                       "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " & _
-                        "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " & _
-                      "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " & _
-                      "and AIRBRANCH.FS_Transactions.Active = '1' " & _
-                      "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " & _
-                      "and AIRBRANCH.FS_FeeInvoice.Active = '1' " & _
-                       "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    SQL = "select " &
+                       "substr(AIRBranch.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " &
+                       "strFacilityName, " &
+                       "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " &
+                       "datTransactionDate, strCheckNo, AIRBranch.FS_Transactions.InvoiceID, " &
+                       "AIRBranch.FS_Transactions.numFeeYear, numPart70Fee, " &
+                       "numSMFee, numNSPSFee, numTotalFee, strClass, " &
+                       "numAdminFee, (numTotalFee) as Due " &
+                       "From AIRBranch.APBFacilityInformation, AIRBranch.FS_Transactions, " &
+                       "AIRBranch.FS_FeeAuditedData, AIRBranch.FS_FeeInvoice, " &
+                      "AIRBranch.FSLK_PayType " &
+                       "where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FS_Transactions.strAIRSNumber " &
+                       "and AIRBranch.FS_Transactions.strAIRSNumber = AIRBranch.FS_FeeAuditedData.strAIRSNumber (+)  " &
+                       "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " &
+                        "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " &
+                      "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " &
+                      "and AIRBRANCH.FS_Transactions.Active = '1' " &
+                      "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " &
+                      "and AIRBRANCH.FS_FeeInvoice.Active = '1' " &
+                       "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' " &
                        "and strPaymentPlan = 'Entire Annual Year' "
                 Case "QUARTER ONE"
-                    SQL = "select " & _
-                "substr(AIRBranch.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " & _
-                "strFacilityName, " & _
-                "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " & _
-                "datTransactionDate, strCheckNo, AIRBranch.FS_Transactions.InvoiceID, " & _
-                "AIRBranch.FS_Transactions.numFeeYear, numPart70Fee, " & _
-                "numSMFee, numNSPSFee, numTotalFee, strClass, " & _
-                "numAdminFee, (numTotalFee) as Due " & _
-                "From AIRBranch.APBFacilityInformation, AIRBranch.FS_Transactions, " & _
-                  "AIRBranch.FS_FeeAuditedData, AIRBranch.FS_FeeInvoice, " & _
-                  "AIRBranch.FSLK_PayType " & _
-                "where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FS_Transactions.strAIRSNumber " & _
-                "and AIRBranch.FS_Transactions.strAIRSNumber = AIRBranch.FS_FeeAuditedData.strAIRSNumber (+)  " & _
-                "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " & _
-                 "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " & _
-                  "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " & _
-                  "and AIRBRANCH.FS_Transactions.Active = '1' " & _
-                      "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " & _
-                      "and AIRBRANCH.FS_FeeInvoice.Active = '1' " & _
-                "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    SQL = "select " &
+                "substr(AIRBranch.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " &
+                "strFacilityName, " &
+                "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " &
+                "datTransactionDate, strCheckNo, AIRBranch.FS_Transactions.InvoiceID, " &
+                "AIRBranch.FS_Transactions.numFeeYear, numPart70Fee, " &
+                "numSMFee, numNSPSFee, numTotalFee, strClass, " &
+                "numAdminFee, (numTotalFee) as Due " &
+                "From AIRBranch.APBFacilityInformation, AIRBranch.FS_Transactions, " &
+                  "AIRBranch.FS_FeeAuditedData, AIRBranch.FS_FeeInvoice, " &
+                  "AIRBranch.FSLK_PayType " &
+                "where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FS_Transactions.strAIRSNumber " &
+                "and AIRBranch.FS_Transactions.strAIRSNumber = AIRBranch.FS_FeeAuditedData.strAIRSNumber (+)  " &
+                "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " &
+                 "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " &
+                  "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " &
+                  "and AIRBRANCH.FS_Transactions.Active = '1' " &
+                      "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " &
+                      "and AIRBRANCH.FS_FeeInvoice.Active = '1' " &
+                "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' " &
                 "and numPayTypeID = '2' "
                 Case "QUARTER TWO"
-                    SQL = "select " & _
-                   "substr(AIRBranch.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " & _
-                   "strFacilityName, " & _
-                   "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " & _
-                   "datTransactionDate, strCheckNo, AIRBranch.FS_Transactions.InvoiceID, " & _
-                   "AIRBranch.FS_Transactions.numFeeYear, numPart70Fee, " & _
-                   "numSMFee, numNSPSFee, numTotalFee, strClass, " & _
-                   "numAdminFee, (numTotalFee) as Due " & _
-                   "From AIRBranch.APBFacilityInformation, AIRBranch.FS_Transactions, " & _
-                    "AIRBranch.FS_FeeAuditedData, AIRBranch.FS_FeeInvoice, " & _
-                    "AIRBranch.FSLK_PayType " & _
-                   "where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FS_Transactions.strAIRSNumber " & _
-                   "and AIRBranch.FS_Transactions.strAIRSNumber = AIRBranch.FS_FeeAuditedData.strAIRSNumber (+)  " & _
-                   "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " & _
-                    "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " & _
-                   "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " & _
-                   "and AIRBRANCH.FS_Transactions.Active = '1' " & _
-                      "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " & _
-                      "and AIRBRANCH.FS_FeeInvoice.Active = '1' " & _
-                   "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    SQL = "select " &
+                   "substr(AIRBranch.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " &
+                   "strFacilityName, " &
+                   "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " &
+                   "datTransactionDate, strCheckNo, AIRBranch.FS_Transactions.InvoiceID, " &
+                   "AIRBranch.FS_Transactions.numFeeYear, numPart70Fee, " &
+                   "numSMFee, numNSPSFee, numTotalFee, strClass, " &
+                   "numAdminFee, (numTotalFee) as Due " &
+                   "From AIRBranch.APBFacilityInformation, AIRBranch.FS_Transactions, " &
+                    "AIRBranch.FS_FeeAuditedData, AIRBranch.FS_FeeInvoice, " &
+                    "AIRBranch.FSLK_PayType " &
+                   "where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FS_Transactions.strAIRSNumber " &
+                   "and AIRBranch.FS_Transactions.strAIRSNumber = AIRBranch.FS_FeeAuditedData.strAIRSNumber (+)  " &
+                   "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " &
+                    "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " &
+                   "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " &
+                   "and AIRBRANCH.FS_Transactions.Active = '1' " &
+                      "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " &
+                      "and AIRBRANCH.FS_FeeInvoice.Active = '1' " &
+                   "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' " &
                    "and numPayTypeID = '3' "
                 Case "QUARTER THREE"
-                    SQL = "select " & _
-           "substr(AIRBranch.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " & _
-           "strFacilityName, " & _
-           "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " & _
-           "datTransactionDate, strCheckNo, AIRBranch.FS_Transactions.InvoiceID, " & _
-           "AIRBranch.FS_Transactions.numFeeYear, numPart70Fee, " & _
-           "numSMFee, numNSPSFee, numTotalFee, strClass, " & _
-           "numAdminFee, (numTotalFee) as Due " & _
-           "From AIRBranch.APBFacilityInformation, AIRBranch.FS_Transactions, " & _
-             "AIRBranch.FS_FeeAuditedData, AIRBranch.FS_FeeInvoice, " & _
-             "AIRBranch.FSLK_PayType " & _
-           "where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FS_Transactions.strAIRSNumber " & _
-           "and AIRBranch.FS_Transactions.strAIRSNumber = AIRBranch.FS_FeeAuditedData.strAIRSNumber (+)  " & _
-           "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " & _
-            "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " & _
-             "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " & _
-             "and AIRBRANCH.FS_Transactions.Active = '1' " & _
-                      "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " & _
-                      "and AIRBRANCH.FS_FeeInvoice.Active = '1' " & _
-           "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    SQL = "select " &
+           "substr(AIRBranch.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " &
+           "strFacilityName, " &
+           "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " &
+           "datTransactionDate, strCheckNo, AIRBranch.FS_Transactions.InvoiceID, " &
+           "AIRBranch.FS_Transactions.numFeeYear, numPart70Fee, " &
+           "numSMFee, numNSPSFee, numTotalFee, strClass, " &
+           "numAdminFee, (numTotalFee) as Due " &
+           "From AIRBranch.APBFacilityInformation, AIRBranch.FS_Transactions, " &
+             "AIRBranch.FS_FeeAuditedData, AIRBranch.FS_FeeInvoice, " &
+             "AIRBranch.FSLK_PayType " &
+           "where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FS_Transactions.strAIRSNumber " &
+           "and AIRBranch.FS_Transactions.strAIRSNumber = AIRBranch.FS_FeeAuditedData.strAIRSNumber (+)  " &
+           "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " &
+            "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " &
+             "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " &
+             "and AIRBRANCH.FS_Transactions.Active = '1' " &
+                      "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " &
+                      "and AIRBRANCH.FS_FeeInvoice.Active = '1' " &
+           "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' " &
            "and numPayTypeID = '4' "
                 Case "QUARTER FOUR"
-                    SQL = "select " & _
-           "substr(AIRBranch.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " & _
-           "strFacilityName, " & _
-           "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " & _
-           "datTransactionDate, strCheckNo, AIRBranch.FS_Transactions.InvoiceID, " & _
-           "AIRBranch.FS_Transactions.numFeeYear, numPart70Fee, " & _
-           "numSMFee, numNSPSFee, numTotalFee, strClass, " & _
-           "numAdminFee, (numTotalFee) as Due " & _
-           "From AIRBranch.APBFacilityInformation, AIRBranch.FS_Transactions, " & _
-             "AIRBranch.FS_FeeAuditedData, AIRBranch.FS_FeeInvoice, " & _
-             "AIRBranch.FSLK_PayType " & _
-           "where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FS_Transactions.strAIRSNumber " & _
-           "and AIRBranch.FS_Transactions.strAIRSNumber = AIRBranch.FS_FeeAuditedData.strAIRSNumber (+)  " & _
-           "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " & _
-            "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " & _
-             "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " & _
-             "and AIRBRANCH.FS_Transactions.Active = '1' " & _
-                      "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " & _
-                      "and AIRBRANCH.FS_FeeInvoice.Active = '1' " & _
-           "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    SQL = "select " &
+           "substr(AIRBranch.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " &
+           "strFacilityName, " &
+           "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " &
+           "datTransactionDate, strCheckNo, AIRBranch.FS_Transactions.InvoiceID, " &
+           "AIRBranch.FS_Transactions.numFeeYear, numPart70Fee, " &
+           "numSMFee, numNSPSFee, numTotalFee, strClass, " &
+           "numAdminFee, (numTotalFee) as Due " &
+           "From AIRBranch.APBFacilityInformation, AIRBranch.FS_Transactions, " &
+             "AIRBranch.FS_FeeAuditedData, AIRBranch.FS_FeeInvoice, " &
+             "AIRBranch.FSLK_PayType " &
+           "where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FS_Transactions.strAIRSNumber " &
+           "and AIRBranch.FS_Transactions.strAIRSNumber = AIRBranch.FS_FeeAuditedData.strAIRSNumber (+)  " &
+           "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " &
+            "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " &
+             "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " &
+             "and AIRBRANCH.FS_Transactions.Active = '1' " &
+                      "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " &
+                      "and AIRBRANCH.FS_FeeInvoice.Active = '1' " &
+           "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' " &
            "and numPayTypeID = '5' "
 
                 Case "ALL QUARTERS"
-                    SQL = "select " & _
-                    "substr(AIRBranch.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " & _
-                    "strFacilityName, " & _
-                    "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " & _
-                    "datTransactionDate, strCheckNo, AIRBranch.FS_Transactions.InvoiceID, " & _
-                    "AIRBranch.FS_Transactions.numFeeYear, numPart70Fee, " & _
-                    "numSMFee, numNSPSFee, numTotalFee, strClass, " & _
-                    "numAdminFee, (numTotalFee) as Due " & _
-                    "From AIRBranch.APBFacilityInformation, AIRBranch.FS_Transactions, " & _
-                      "AIRBranch.FS_FeeAuditedData, AIRBranch.FS_FeeInvoice, " & _
-                      "AIRBranch.FSLK_PayType " & _
-                    "where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FS_Transactions.strAIRSNumber " & _
-                    "and AIRBranch.FS_Transactions.strAIRSNumber = AIRBranch.FS_FeeAuditedData.strAIRSNumber (+)  " & _
-                    "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " & _
-                     "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " & _
-                      "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " & _
-                      "and AIRBRANCH.FS_Transactions.Active = '1' " & _
-                      "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " & _
-                      "and AIRBRANCH.FS_FeeInvoice.Active = '1' " & _
-                    "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    SQL = "select " &
+                    "substr(AIRBranch.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " &
+                    "strFacilityName, " &
+                    "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " &
+                    "datTransactionDate, strCheckNo, AIRBranch.FS_Transactions.InvoiceID, " &
+                    "AIRBranch.FS_Transactions.numFeeYear, numPart70Fee, " &
+                    "numSMFee, numNSPSFee, numTotalFee, strClass, " &
+                    "numAdminFee, (numTotalFee) as Due " &
+                    "From AIRBranch.APBFacilityInformation, AIRBranch.FS_Transactions, " &
+                      "AIRBranch.FS_FeeAuditedData, AIRBranch.FS_FeeInvoice, " &
+                      "AIRBranch.FSLK_PayType " &
+                    "where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FS_Transactions.strAIRSNumber " &
+                    "and AIRBranch.FS_Transactions.strAIRSNumber = AIRBranch.FS_FeeAuditedData.strAIRSNumber (+)  " &
+                    "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " &
+                     "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " &
+                      "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " &
+                      "and AIRBRANCH.FS_Transactions.Active = '1' " &
+                      "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " &
+                      "and AIRBRANCH.FS_FeeInvoice.Active = '1' " &
+                    "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' " &
                     "and strPaymentPlan = 'Four Quarterly Payments' "
                 Case "AMENDMENT"
-                    SQL = "select " & _
-                     "substr(AIRBranch.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " & _
-                     "strFacilityName, " & _
-                     "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " & _
-                     "datTransactionDate, strCheckNo, AIRBranch.FS_Transactions.InvoiceID, " & _
-                     "AIRBranch.FS_Transactions.numFeeYear, numPart70Fee, " & _
-                     "numSMFee, numNSPSFee, numTotalFee, strClass, " & _
-                     "numAdminFee, (numTotalFee) as Due " & _
-                     "From AIRBranch.APBFacilityInformation, AIRBranch.FS_Transactions, " & _
-                       "AIRBranch.FS_FeeAuditedData, AIRBranch.FS_FeeInvoice, " & _
-                       "AIRBranch.FSLK_PayType " & _
-                     "where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FS_Transactions.strAIRSNumber " & _
-                     "and AIRBranch.FS_Transactions.strAIRSNumber = AIRBranch.FS_FeeAuditedData.strAIRSNumber (+)  " & _
-                     "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " & _
-                      "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " & _
-                       "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " & _
-                       "and AIRBRANCH.FS_Transactions.Active = '1' " & _
-                      "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " & _
-                      "and AIRBRANCH.FS_FeeInvoice.Active = '1' " & _
-                     "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    SQL = "select " &
+                     "substr(AIRBranch.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " &
+                     "strFacilityName, " &
+                     "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " &
+                     "datTransactionDate, strCheckNo, AIRBranch.FS_Transactions.InvoiceID, " &
+                     "AIRBranch.FS_Transactions.numFeeYear, numPart70Fee, " &
+                     "numSMFee, numNSPSFee, numTotalFee, strClass, " &
+                     "numAdminFee, (numTotalFee) as Due " &
+                     "From AIRBranch.APBFacilityInformation, AIRBranch.FS_Transactions, " &
+                       "AIRBranch.FS_FeeAuditedData, AIRBranch.FS_FeeInvoice, " &
+                       "AIRBranch.FSLK_PayType " &
+                     "where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FS_Transactions.strAIRSNumber " &
+                     "and AIRBranch.FS_Transactions.strAIRSNumber = AIRBranch.FS_FeeAuditedData.strAIRSNumber (+)  " &
+                     "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " &
+                      "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " &
+                       "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " &
+                       "and AIRBRANCH.FS_Transactions.Active = '1' " &
+                      "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " &
+                      "and AIRBRANCH.FS_FeeInvoice.Active = '1' " &
+                     "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' " &
                      "and numPayTypeID = '6' "
 
 
                 Case "ONE-TIME"
-                    SQL = "select " & _
-                   "substr(AIRBranch.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " & _
-                   "strFacilityName, " & _
-                   "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " & _
-                   "datTransactionDate, strCheckNo, AIRBranch.FS_Transactions.InvoiceID, " & _
-                   "AIRBranch.FS_Transactions.numFeeYear, numPart70Fee, " & _
-                   "numSMFee, numNSPSFee, numTotalFee, strClass, " & _
-                   "numAdminFee, (numTotalFee) as Due " & _
-                   "From AIRBranch.APBFacilityInformation, AIRBranch.FS_Transactions, " & _
-                     "AIRBranch.FS_FeeAuditedData, AIRBranch.FS_FeeInvoice, " & _
-                     "AIRBranch.FSLK_PayType " & _
-                   "where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FS_Transactions.strAIRSNumber " & _
-                   "and AIRBranch.FS_Transactions.strAIRSNumber = AIRBranch.FS_FeeAuditedData.strAIRSNumber (+)  " & _
-                   "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " & _
-                    "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " & _
-                     "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " & _
-                     "and AIRBRANCH.FS_Transactions.Active = '1' " & _
-                      "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " & _
-                      "and AIRBRANCH.FS_FeeInvoice.Active = '1' " & _
-                   "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    SQL = "select " &
+                   "substr(AIRBranch.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " &
+                   "strFacilityName, " &
+                   "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " &
+                   "datTransactionDate, strCheckNo, AIRBranch.FS_Transactions.InvoiceID, " &
+                   "AIRBranch.FS_Transactions.numFeeYear, numPart70Fee, " &
+                   "numSMFee, numNSPSFee, numTotalFee, strClass, " &
+                   "numAdminFee, (numTotalFee) as Due " &
+                   "From AIRBranch.APBFacilityInformation, AIRBranch.FS_Transactions, " &
+                     "AIRBranch.FS_FeeAuditedData, AIRBranch.FS_FeeInvoice, " &
+                     "AIRBranch.FSLK_PayType " &
+                   "where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FS_Transactions.strAIRSNumber " &
+                   "and AIRBranch.FS_Transactions.strAIRSNumber = AIRBranch.FS_FeeAuditedData.strAIRSNumber (+)  " &
+                   "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " &
+                    "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " &
+                     "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " &
+                     "and AIRBRANCH.FS_Transactions.Active = '1' " &
+                      "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " &
+                      "and AIRBRANCH.FS_FeeInvoice.Active = '1' " &
+                   "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' " &
                    "and numPayTypeID = '8' "
 
                 Case "REFUND"
-                    SQL = "select " & _
-                   "substr(AIRBranch.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " & _
-                   "strFacilityName, " & _
-                   "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " & _
-                   "datTransactionDate, strCheckNo, AIRBranch.FS_Transactions.InvoiceID, " & _
-                   "AIRBranch.FS_Transactions.numFeeYear, numPart70Fee, " & _
-                   "numSMFee, numNSPSFee, numTotalFee, strClass, " & _
-                   "numAdminFee, (numTotalFee) as Due " & _
-                   "From AIRBranch.APBFacilityInformation, AIRBranch.FS_Transactions, " & _
-                     "AIRBranch.FS_FeeAuditedData, AIRBranch.FS_FeeInvoice, " & _
-                     "AIRBranch.FSLK_PayType " & _
-                   "where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FS_Transactions.strAIRSNumber " & _
-                   "and AIRBranch.FS_Transactions.strAIRSNumber = AIRBranch.FS_FeeAuditedData.strAIRSNumber (+)  " & _
-                   "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " & _
-                    "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " & _
-                     "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " & _
-                     "and AIRBRANCH.FS_Transactions.Active = '1' " & _
-                      "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " & _
-                      "and AIRBRANCH.FS_FeeInvoice.Active = '1' " & _
-                   "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    SQL = "select " &
+                   "substr(AIRBranch.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " &
+                   "strFacilityName, " &
+                   "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " &
+                   "datTransactionDate, strCheckNo, AIRBranch.FS_Transactions.InvoiceID, " &
+                   "AIRBranch.FS_Transactions.numFeeYear, numPart70Fee, " &
+                   "numSMFee, numNSPSFee, numTotalFee, strClass, " &
+                   "numAdminFee, (numTotalFee) as Due " &
+                   "From AIRBranch.APBFacilityInformation, AIRBranch.FS_Transactions, " &
+                     "AIRBranch.FS_FeeAuditedData, AIRBranch.FS_FeeInvoice, " &
+                     "AIRBranch.FSLK_PayType " &
+                   "where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FS_Transactions.strAIRSNumber " &
+                   "and AIRBranch.FS_Transactions.strAIRSNumber = AIRBranch.FS_FeeAuditedData.strAIRSNumber (+)  " &
+                   "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " &
+                    "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " &
+                     "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " &
+                     "and AIRBRANCH.FS_Transactions.Active = '1' " &
+                      "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " &
+                      "and AIRBRANCH.FS_FeeInvoice.Active = '1' " &
+                   "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' " &
                    "and numPayTypeID = '7' "
 
                 Case Else
-                    SQL = "select " & _
-                     "substr(AIRBranch.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " & _
-                     "strFacilityName, " & _
-                     "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " & _
-                     "datTransactionDate, strCheckNo, AIRBranch.FS_Transactions.InvoiceID, " & _
-                     "AIRBranch.FS_Transactions.numFeeYear, numPart70Fee, " & _
-                     "numSMFee, numNSPSFee, numTotalFee, strClass, " & _
-                     "numAdminFee, (numTotalFee) as Due " & _
-                     "From AIRBranch.APBFacilityInformation, AIRBranch.FS_Transactions, " & _
-                       "AIRBranch.FS_FeeAuditedData, AIRBranch.FS_FeeInvoice, " & _
-                       "AIRBranch.FSLK_PayType " & _
-                     "where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FS_Transactions.strAIRSNumber " & _
-                     "and AIRBranch.FS_Transactions.strAIRSNumber = AIRBranch.FS_FeeAuditedData.strAIRSNumber (+)  " & _
-                     "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " & _
-                      "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " & _
-                       "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " & _
-                       "and AIRBRANCH.FS_Transactions.Active = '1' " & _
-                      "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " & _
-                      "and AIRBRANCH.FS_FeeInvoice.Active = '1' " & _
+                    SQL = "select " &
+                     "substr(AIRBranch.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " &
+                     "strFacilityName, " &
+                     "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " &
+                     "datTransactionDate, strCheckNo, AIRBranch.FS_Transactions.InvoiceID, " &
+                     "AIRBranch.FS_Transactions.numFeeYear, numPart70Fee, " &
+                     "numSMFee, numNSPSFee, numTotalFee, strClass, " &
+                     "numAdminFee, (numTotalFee) as Due " &
+                     "From AIRBranch.APBFacilityInformation, AIRBranch.FS_Transactions, " &
+                       "AIRBranch.FS_FeeAuditedData, AIRBranch.FS_FeeInvoice, " &
+                       "AIRBranch.FSLK_PayType " &
+                     "where AIRBranch.APBFacilityInformation.strAIRSNumber = AIRBranch.FS_Transactions.strAIRSNumber " &
+                     "and AIRBranch.FS_Transactions.strAIRSNumber = AIRBranch.FS_FeeAuditedData.strAIRSNumber (+)  " &
+                     "and airbranch.FS_Transactions.numFeeyear = Airbranch.FS_FeeAuditedData.numFeeYear (+) " &
+                      "and AIRBranch.FS_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  (+) " &
+                       "and airbranch.FS_FeeInvoice.strPayType = AIRbranch.FSLK_PayType.numPayTypeID " &
+                       "and AIRBRANCH.FS_Transactions.Active = '1' " &
+                      "and AIRBRANCH.FS_FeeAuditedData.Active = '1' " &
+                      "and AIRBRANCH.FS_FeeInvoice.Active = '1' " &
                      "and AIRBranch.FS_Transactions.numFeeYear = '" & cboStatYear.Text & "' "
             End Select
 
@@ -968,526 +934,526 @@ Public Class PASPFeeStatistics
     End Sub
     Private Sub btnViewBalance_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewBalance.Click
         Try
-            
+
             Select Case cboStatPayType.Text
                 Case "ALL"
-                    SQL = "select * from " & _
-                    "(select " & _
-                    "SUBSTR(AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
-                    "STRFACILITYNAME, " & _
-                    "TOTALDUE.INTYEAR, strPaymentPlan, " & _
-                    "case " & _
-                    "when TotalDue is null then 0 " & _
-                    "else TotalDue " & _
-                    "end totalDue, " & _
-                    "case " & _
-                    "when TotalPaid is null then 0 " & _
-                    "else TotalPaid " & _
-                    "end TotalPaid, " & _
-                    "case " & _
-                    "when TotalDue is null and TotalPaid is null then 0 " & _
-                    " when totaldue is null and totalpaid is not null then -totalpaid " & _
-                    "when totaldue is not null and totalpaid is null then totaldue " & _
-                    "else (TOTALDUE - TOTALPAID) " & _
-                    "end Balance " & _
-                    "from (select STRAIRSNUMBER, numfeeyear as  intyear, NUMTOTALFEE, NUMADMINFEE, (NUMTOTALFEE) as TOTALDUE " & _
-                    "from  AIRBRANCH.fs_feeAuditedData where active = '1') TOTALDUE,  " & _
-                    "( " & _
-                    "  SELECT  " & _
-                    " STRAIRSNUMBER, INTYEAR, " & _
-                    " CASE " & _
-                    " WHEN TOTALPAID IS NULL THEN 0 " & _
-                    " ELSE TOTALPAID " & _
-                    " END TOTALPAID " & _
-                    " FROM " & _
-                    " ( " & _
-                    " select AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
-                    " from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData   " & _
-                    " where AIRBRANCH.fs_Transactions.STRAIRSNUMBER = AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER (+) " & _
-                    " and AIRBRANCH.fs_Transactions.numfeeyear = AIRBRANCH.fs_feeAuditedData.numfeeyear   (+) " & _
-                    " and AIRBRANCH.fs_Transactions.active = '1' and AIRBRANCH.fs_feeAuditeddata.active = '1' " & _
-                    " group by AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear" & _
-                    " UNION " & _
-                    "  select AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
-                    " from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData   " & _
-                    " where AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER = AIRBRANCH.fs_Transactions.STRAIRSNUMBER (+) " & _
-                    " and AIRBRANCH.fs_feeAuditedData.numfeeyear = AIRBRANCH.fs_Transactions.numfeeyear   (+) " & _
-                    " and AIRBRANCH.fs_Transactions.active = '1' and AIRBRANCH.fs_feeAuditeddata.active = '1' " & _
-                    " group by AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear" & _
-                    "  )) TOTALPAID, " & _
-                    " AIRBRANCH.APBFACILITYINFORMATION, " & _
-                    "AIRBRANCH.fs_feeAuditedData   " & _
-                    "where (AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " & _
-                    "or AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " & _
-                    "and AIRBRANCH.APBFACILITYINFORMATION.strAIRSNumber = AIRBRANCH.fs_feeAuditedData.strAIRSNumber " & _
-                    "and TOTALDUE.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER (+) " & _
-                    "and TOTALDUE.INTYEAR = TOTALPAID.INTYEAR (+) " & _
-                    "and TOTALDUE.INTYEAR = '" & cboStatYear.Text & "' " & _
+                    SQL = "select * from " &
+                    "(select " &
+                    "SUBSTR(AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " &
+                    "STRFACILITYNAME, " &
+                    "TOTALDUE.INTYEAR, strPaymentPlan, " &
+                    "case " &
+                    "when TotalDue is null then 0 " &
+                    "else TotalDue " &
+                    "end totalDue, " &
+                    "case " &
+                    "when TotalPaid is null then 0 " &
+                    "else TotalPaid " &
+                    "end TotalPaid, " &
+                    "case " &
+                    "when TotalDue is null and TotalPaid is null then 0 " &
+                    " when totaldue is null and totalpaid is not null then -totalpaid " &
+                    "when totaldue is not null and totalpaid is null then totaldue " &
+                    "else (TOTALDUE - TOTALPAID) " &
+                    "end Balance " &
+                    "from (select STRAIRSNUMBER, numfeeyear as  intyear, NUMTOTALFEE, NUMADMINFEE, (NUMTOTALFEE) as TOTALDUE " &
+                    "from  AIRBRANCH.fs_feeAuditedData where active = '1') TOTALDUE,  " &
+                    "( " &
+                    "  SELECT  " &
+                    " STRAIRSNUMBER, INTYEAR, " &
+                    " CASE " &
+                    " WHEN TOTALPAID IS NULL THEN 0 " &
+                    " ELSE TOTALPAID " &
+                    " END TOTALPAID " &
+                    " FROM " &
+                    " ( " &
+                    " select AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " &
+                    " from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData   " &
+                    " where AIRBRANCH.fs_Transactions.STRAIRSNUMBER = AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER (+) " &
+                    " and AIRBRANCH.fs_Transactions.numfeeyear = AIRBRANCH.fs_feeAuditedData.numfeeyear   (+) " &
+                    " and AIRBRANCH.fs_Transactions.active = '1' and AIRBRANCH.fs_feeAuditeddata.active = '1' " &
+                    " group by AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear" &
+                    " UNION " &
+                    "  select AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " &
+                    " from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData   " &
+                    " where AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER = AIRBRANCH.fs_Transactions.STRAIRSNUMBER (+) " &
+                    " and AIRBRANCH.fs_feeAuditedData.numfeeyear = AIRBRANCH.fs_Transactions.numfeeyear   (+) " &
+                    " and AIRBRANCH.fs_Transactions.active = '1' and AIRBRANCH.fs_feeAuditeddata.active = '1' " &
+                    " group by AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear" &
+                    "  )) TOTALPAID, " &
+                    " AIRBRANCH.APBFACILITYINFORMATION, " &
+                    "AIRBRANCH.fs_feeAuditedData   " &
+                    "where (AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " &
+                    "or AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " &
+                    "and AIRBRANCH.APBFACILITYINFORMATION.strAIRSNumber = AIRBRANCH.fs_feeAuditedData.strAIRSNumber " &
+                    "and TOTALDUE.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER (+) " &
+                    "and TOTALDUE.INTYEAR = TOTALPAID.INTYEAR (+) " &
+                    "and TOTALDUE.INTYEAR = '" & cboStatYear.Text & "' " &
                     "and AIRBRANCH.fs_feeAuditedData.numFeeYear = '" & cboStatYear.Text & "') "
 
 
                 Case "ANNUAL"
-                    SQL = "select * from " & _
-                   "(select " & _
-                   "SUBSTR(AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
-                   "STRFACILITYNAME, " & _
-                   "TOTALDUE.INTYEAR, strPaymentPlan, " & _
-                   "case " & _
-                   "when TotalDue is null then 0 " & _
-                   "else TotalDue " & _
-                   "end totalDue, " & _
-                   "case " & _
-                   "when TotalPaid is null then 0 " & _
-                   "else TotalPaid " & _
-                   "end TotalPaid, " & _
-                   "case " & _
-                   "when TotalDue is null and TotalPaid is null then 0 " & _
-                   " when totaldue is null and totalpaid is not null then -totalpaid " & _
-                   "when totaldue is not null and totalpaid is null then totaldue " & _
-                   "else (TOTALDUE - TOTALPAID) " & _
-                   "end Balance " & _
-                   "from (select STRAIRSNUMBER, numfeeyear as  intyear, NUMTOTALFEE, NUMADMINFEE, (NUMTOTALFEE) as TOTALDUE " & _
-                   "from  AIRBRANCH.fs_feeAuditedData where active = '1') TOTALDUE,  " & _
-                   "( " & _
-                   "  SELECT  " & _
-                   " STRAIRSNUMBER, INTYEAR, " & _
-                   " CASE " & _
-                   " WHEN TOTALPAID IS NULL THEN 0 " & _
-                   " ELSE TOTALPAID " & _
-                   " END TOTALPAID " & _
-                   " FROM " & _
-                   " ( " & _
-                   " select AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
-                   " from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData   " & _
-                   " where AIRBRANCH.fs_Transactions.STRAIRSNUMBER = AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER (+) " & _
-                   " and AIRBRANCH.fs_Transactions.numfeeyear = AIRBRANCH.fs_feeAuditedData.numfeeyear   (+) " & _
-                   " and AIRBRANCH.fs_Transactions.active = '1' and AIRBRANCH.fs_feeAuditeddata.active = '1' " & _
-                   " group by AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear" & _
-                   " UNION " & _
-                   "  select AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
-                   " from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData   " & _
-                   " where AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER = AIRBRANCH.fs_Transactions.STRAIRSNUMBER (+) " & _
-                   " and AIRBRANCH.fs_feeAuditedData.numfeeyear = AIRBRANCH.fs_Transactions.numfeeyear   (+) " & _
-                   " and AIRBRANCH.fs_Transactions.active = '1' and AIRBRANCH.fs_feeAuditeddata.active = '1' " & _
-                   " group by AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear" & _
-                   "  )) TOTALPAID, " & _
-                   " AIRBRANCH.APBFACILITYINFORMATION, " & _
-                   "AIRBRANCH.fs_feeAuditedData   " & _
-                   "where (AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " & _
-                   "or AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " & _
-                   "and AIRBRANCH.APBFACILITYINFORMATION.strAIRSNumber = AIRBRANCH.fs_feeAuditedData.strAIRSNumber " & _
-                   "and TOTALDUE.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER (+) " & _
-                   "and TOTALDUE.INTYEAR = TOTALPAID.INTYEAR (+) " & _
-                   "and TOTALDUE.INTYEAR = '" & cboStatYear.Text & "' " & _
-                   "and AIRBRANCH.fs_feeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    SQL = "select * from " &
+                   "(select " &
+                   "SUBSTR(AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " &
+                   "STRFACILITYNAME, " &
+                   "TOTALDUE.INTYEAR, strPaymentPlan, " &
+                   "case " &
+                   "when TotalDue is null then 0 " &
+                   "else TotalDue " &
+                   "end totalDue, " &
+                   "case " &
+                   "when TotalPaid is null then 0 " &
+                   "else TotalPaid " &
+                   "end TotalPaid, " &
+                   "case " &
+                   "when TotalDue is null and TotalPaid is null then 0 " &
+                   " when totaldue is null and totalpaid is not null then -totalpaid " &
+                   "when totaldue is not null and totalpaid is null then totaldue " &
+                   "else (TOTALDUE - TOTALPAID) " &
+                   "end Balance " &
+                   "from (select STRAIRSNUMBER, numfeeyear as  intyear, NUMTOTALFEE, NUMADMINFEE, (NUMTOTALFEE) as TOTALDUE " &
+                   "from  AIRBRANCH.fs_feeAuditedData where active = '1') TOTALDUE,  " &
+                   "( " &
+                   "  SELECT  " &
+                   " STRAIRSNUMBER, INTYEAR, " &
+                   " CASE " &
+                   " WHEN TOTALPAID IS NULL THEN 0 " &
+                   " ELSE TOTALPAID " &
+                   " END TOTALPAID " &
+                   " FROM " &
+                   " ( " &
+                   " select AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " &
+                   " from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData   " &
+                   " where AIRBRANCH.fs_Transactions.STRAIRSNUMBER = AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER (+) " &
+                   " and AIRBRANCH.fs_Transactions.numfeeyear = AIRBRANCH.fs_feeAuditedData.numfeeyear   (+) " &
+                   " and AIRBRANCH.fs_Transactions.active = '1' and AIRBRANCH.fs_feeAuditeddata.active = '1' " &
+                   " group by AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear" &
+                   " UNION " &
+                   "  select AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " &
+                   " from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData   " &
+                   " where AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER = AIRBRANCH.fs_Transactions.STRAIRSNUMBER (+) " &
+                   " and AIRBRANCH.fs_feeAuditedData.numfeeyear = AIRBRANCH.fs_Transactions.numfeeyear   (+) " &
+                   " and AIRBRANCH.fs_Transactions.active = '1' and AIRBRANCH.fs_feeAuditeddata.active = '1' " &
+                   " group by AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear" &
+                   "  )) TOTALPAID, " &
+                   " AIRBRANCH.APBFACILITYINFORMATION, " &
+                   "AIRBRANCH.fs_feeAuditedData   " &
+                   "where (AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " &
+                   "or AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " &
+                   "and AIRBRANCH.APBFACILITYINFORMATION.strAIRSNumber = AIRBRANCH.fs_feeAuditedData.strAIRSNumber " &
+                   "and TOTALDUE.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER (+) " &
+                   "and TOTALDUE.INTYEAR = TOTALPAID.INTYEAR (+) " &
+                   "and TOTALDUE.INTYEAR = '" & cboStatYear.Text & "' " &
+                   "and AIRBRANCH.fs_feeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " &
                    "and strPaymentPlan = 'Entire Annual Year' )"
                 Case "ALL QUARTERS"
-                    SQL = "select * from " & _
-                     "(select " & _
-                     "SUBSTR(AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
-                     "STRFACILITYNAME, " & _
-                     "TOTALDUE.INTYEAR, strPaymentPlan, " & _
-                     "case " & _
-                     "when TotalDue is null then 0 " & _
-                     "else TotalDue " & _
-                     "end totalDue, " & _
-                     "case " & _
-                     "when TotalPaid is null then 0 " & _
-                     "else TotalPaid " & _
-                     "end TotalPaid, " & _
-                     "case " & _
-                     "when TotalDue is null and TotalPaid is null then 0 " & _
-                     " when totaldue is null and totalpaid is not null then -totalpaid " & _
-                     "when totaldue is not null and totalpaid is null then totaldue " & _
-                     "else (TOTALDUE - TOTALPAID) " & _
-                     "end Balance " & _
-                   "from (select STRAIRSNUMBER, numfeeyear as  intyear, NUMTOTALFEE, NUMADMINFEE, (NUMTOTALFEE) as TOTALDUE " & _
-                   "from  AIRBRANCH.fs_feeAuditedData where active = '1') TOTALDUE,  " & _
-                     "( " & _
- "  SELECT  " & _
- " STRAIRSNUMBER, INTYEAR, " & _
- " CASE " & _
- " WHEN TOTALPAID IS NULL THEN 0 " & _
- " ELSE TOTALPAID " & _
- " END TOTALPAID " & _
- " FROM " & _
- " ( " & _
- " select AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
- " from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData   " & _
- " where AIRBRANCH.fs_Transactions.STRAIRSNUMBER = AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER (+) " & _
- " and AIRBRANCH.fs_Transactions.numfeeyear = AIRBRANCH.fs_feeAuditedData.numfeeyear   (+) " & _
- " and AIRBRANCH.fs_Transactions.active = '1' and AIRBRANCH.fs_feeAuditeddata.active = '1' " & _
- " group by AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear" & _
- " UNION " & _
- "  select AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
- " from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData   " & _
- " where AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER = AIRBRANCH.fs_Transactions.STRAIRSNUMBER (+) " & _
- " and AIRBRANCH.fs_feeAuditedData.numfeeyear = AIRBRANCH.fs_Transactions.numfeeyear   (+) " & _
- " and AIRBRANCH.fs_Transactions.active = '1' and AIRBRANCH.fs_feeAuditeddata.active = '1' " & _
- " group by AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear" & _
- "  )) TOTALPAID, " & _
- " AIRBRANCH.APBFACILITYINFORMATION, " & _
-                   "AIRBRANCH.fs_feeAuditedData   " & _
-                   "where (AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " & _
-                   "or AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " & _
-                   "and AIRBRANCH.APBFACILITYINFORMATION.strAIRSNumber = AIRBRANCH.fs_feeAuditedData.strAIRSNumber " & _
-                   "and TOTALDUE.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER (+) " & _
-                   "and TOTALDUE.INTYEAR = TOTALPAID.INTYEAR (+) " & _
-                   "and TOTALDUE.INTYEAR = '" & cboStatYear.Text & "' " & _
-                   "and AIRBRANCH.fs_feeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    SQL = "select * from " &
+                     "(select " &
+                     "SUBSTR(AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " &
+                     "STRFACILITYNAME, " &
+                     "TOTALDUE.INTYEAR, strPaymentPlan, " &
+                     "case " &
+                     "when TotalDue is null then 0 " &
+                     "else TotalDue " &
+                     "end totalDue, " &
+                     "case " &
+                     "when TotalPaid is null then 0 " &
+                     "else TotalPaid " &
+                     "end TotalPaid, " &
+                     "case " &
+                     "when TotalDue is null and TotalPaid is null then 0 " &
+                     " when totaldue is null and totalpaid is not null then -totalpaid " &
+                     "when totaldue is not null and totalpaid is null then totaldue " &
+                     "else (TOTALDUE - TOTALPAID) " &
+                     "end Balance " &
+                   "from (select STRAIRSNUMBER, numfeeyear as  intyear, NUMTOTALFEE, NUMADMINFEE, (NUMTOTALFEE) as TOTALDUE " &
+                   "from  AIRBRANCH.fs_feeAuditedData where active = '1') TOTALDUE,  " &
+                     "( " &
+ "  SELECT  " &
+ " STRAIRSNUMBER, INTYEAR, " &
+ " CASE " &
+ " WHEN TOTALPAID IS NULL THEN 0 " &
+ " ELSE TOTALPAID " &
+ " END TOTALPAID " &
+ " FROM " &
+ " ( " &
+ " select AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " &
+ " from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData   " &
+ " where AIRBRANCH.fs_Transactions.STRAIRSNUMBER = AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER (+) " &
+ " and AIRBRANCH.fs_Transactions.numfeeyear = AIRBRANCH.fs_feeAuditedData.numfeeyear   (+) " &
+ " and AIRBRANCH.fs_Transactions.active = '1' and AIRBRANCH.fs_feeAuditeddata.active = '1' " &
+ " group by AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear" &
+ " UNION " &
+ "  select AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " &
+ " from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData   " &
+ " where AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER = AIRBRANCH.fs_Transactions.STRAIRSNUMBER (+) " &
+ " and AIRBRANCH.fs_feeAuditedData.numfeeyear = AIRBRANCH.fs_Transactions.numfeeyear   (+) " &
+ " and AIRBRANCH.fs_Transactions.active = '1' and AIRBRANCH.fs_feeAuditeddata.active = '1' " &
+ " group by AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear" &
+ "  )) TOTALPAID, " &
+ " AIRBRANCH.APBFACILITYINFORMATION, " &
+                   "AIRBRANCH.fs_feeAuditedData   " &
+                   "where (AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " &
+                   "or AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " &
+                   "and AIRBRANCH.APBFACILITYINFORMATION.strAIRSNumber = AIRBRANCH.fs_feeAuditedData.strAIRSNumber " &
+                   "and TOTALDUE.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER (+) " &
+                   "and TOTALDUE.INTYEAR = TOTALPAID.INTYEAR (+) " &
+                   "and TOTALDUE.INTYEAR = '" & cboStatYear.Text & "' " &
+                   "and AIRBRANCH.fs_feeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " &
                    "and strPaymentPlan = 'Four Quarterly Payments') "
 
                 Case "QUARTER ONE"
-                    SQL = "select * from " & _
-                    "(select " & _
-                    "SUBSTR(AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
-                    "STRFACILITYNAME, " & _
-                    "TOTALDUE.INTYEAR, strPaymentPlan, " & _
-                    "case " & _
-                    "when TotalDue is null then 0 " & _
-                    "else TotalDue " & _
-                    "end totalDue, " & _
-                    "case " & _
-                    "when TotalPaid is null then 0 " & _
-                    "else TotalPaid " & _
-                    "end TotalPaid, " & _
-                    "case " & _
-                    "when TotalDue is null and TotalPaid is null then 0 " & _
-                    " when totaldue is null and totalpaid is not null then -totalpaid " & _
-                    "when totaldue is not null and totalpaid is null then totaldue " & _
-                    "else (TOTALDUE - TOTALPAID) " & _
-                    "end Balance " & _
-                  "from " & _
-                  "(select STRAIRSNUMBER, numfeeyear as  intyear, NUMTOTALFEE, NUMADMINFEE, (NUMTOTALFEE)/4 as TOTALDUE " & _
-                  "from  AIRBranch.fs_feeAuditedData where active = '1') TOTALDUE, " & _
-             "( " & _
-"  SELECT  " & _
-" STRAIRSNUMBER, INTYEAR, " & _
-" CASE " & _
-" WHEN TOTALPAID IS NULL THEN 0 " & _
-" ELSE TOTALPAID " & _
-" END TOTALPAID " & _
-" FROM " & _
-" ( " & _
-" select AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
-" from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData, AIRBRANCH.fs_feeinvoice " & _
-" where AIRBRANCH.fs_Transactions.STRAIRSNUMBER = AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER (+) " & _
-" and AIRBRANCH.fs_Transactions.numfeeyear = AIRBRANCH.fs_feeAuditedData.numfeeyear   (+) " & _
-"and AIRBRANCH.Fs_transactions.invoiceid = AIRBRANCH.fs_feeinvoice.invoiceid (+) " & _
-"and strPayType = '2' " & _
-" and AIRBRANCH.fs_Transactions.active = '1' and AIRBRANCH.fs_feeAuditeddata.active = '1' " & _
-" group by AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear" & _
-" UNION " & _
-"  select AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
-" from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData, AIRBRANCH.fs_feeinvoice    " & _
-" where AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER = AIRBRANCH.fs_Transactions.STRAIRSNUMBER (+) " & _
-" and AIRBRANCH.fs_feeAuditedData.numfeeyear = AIRBRANCH.fs_Transactions.numfeeyear   (+) " & _
-"and AIRBRANCH.Fs_transactions.invoiceid = AIRBRANCH.fs_feeinvoice.invoiceid (+) " & _
-" and AIRBRANCH.fs_Transactions.active = '1' and AIRBRANCH.fs_feeAuditeddata.active = '1' " & _
-"and strPayType = '2' " & _
-" group by AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear" & _
-"  )) TOTALPAID, " & _
-" AIRBRANCH.APBFACILITYINFORMATION, " & _
-                  "  AIRBranch.fs_feeAuditedData  " & _
-                  "where (AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " & _
-                  "or AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " & _
-                  "and AIRBranch.APBFACILITYINFORMATION.strAIRSNumber = AIRBranch.fs_feeAuditedData.strAIRSNumber " & _
-                  "and TOTALDUE.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER (+) " & _
-                  "and TOTALDUE.INTYEAR = TOTALPAID.INTYEAR (+) " & _
-                  "and TOTALDUE.INTYEAR = '" & cboStatYear.Text & "' " & _
-                  "and AIRBranch.fs_feeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    SQL = "select * from " &
+                    "(select " &
+                    "SUBSTR(AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " &
+                    "STRFACILITYNAME, " &
+                    "TOTALDUE.INTYEAR, strPaymentPlan, " &
+                    "case " &
+                    "when TotalDue is null then 0 " &
+                    "else TotalDue " &
+                    "end totalDue, " &
+                    "case " &
+                    "when TotalPaid is null then 0 " &
+                    "else TotalPaid " &
+                    "end TotalPaid, " &
+                    "case " &
+                    "when TotalDue is null and TotalPaid is null then 0 " &
+                    " when totaldue is null and totalpaid is not null then -totalpaid " &
+                    "when totaldue is not null and totalpaid is null then totaldue " &
+                    "else (TOTALDUE - TOTALPAID) " &
+                    "end Balance " &
+                  "from " &
+                  "(select STRAIRSNUMBER, numfeeyear as  intyear, NUMTOTALFEE, NUMADMINFEE, (NUMTOTALFEE)/4 as TOTALDUE " &
+                  "from  AIRBranch.fs_feeAuditedData where active = '1') TOTALDUE, " &
+             "( " &
+"  SELECT  " &
+" STRAIRSNUMBER, INTYEAR, " &
+" CASE " &
+" WHEN TOTALPAID IS NULL THEN 0 " &
+" ELSE TOTALPAID " &
+" END TOTALPAID " &
+" FROM " &
+" ( " &
+" select AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " &
+" from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData, AIRBRANCH.fs_feeinvoice " &
+" where AIRBRANCH.fs_Transactions.STRAIRSNUMBER = AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER (+) " &
+" and AIRBRANCH.fs_Transactions.numfeeyear = AIRBRANCH.fs_feeAuditedData.numfeeyear   (+) " &
+"and AIRBRANCH.Fs_transactions.invoiceid = AIRBRANCH.fs_feeinvoice.invoiceid (+) " &
+"and strPayType = '2' " &
+" and AIRBRANCH.fs_Transactions.active = '1' and AIRBRANCH.fs_feeAuditeddata.active = '1' " &
+" group by AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear" &
+" UNION " &
+"  select AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " &
+" from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData, AIRBRANCH.fs_feeinvoice    " &
+" where AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER = AIRBRANCH.fs_Transactions.STRAIRSNUMBER (+) " &
+" and AIRBRANCH.fs_feeAuditedData.numfeeyear = AIRBRANCH.fs_Transactions.numfeeyear   (+) " &
+"and AIRBRANCH.Fs_transactions.invoiceid = AIRBRANCH.fs_feeinvoice.invoiceid (+) " &
+" and AIRBRANCH.fs_Transactions.active = '1' and AIRBRANCH.fs_feeAuditeddata.active = '1' " &
+"and strPayType = '2' " &
+" group by AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear" &
+"  )) TOTALPAID, " &
+" AIRBRANCH.APBFACILITYINFORMATION, " &
+                  "  AIRBranch.fs_feeAuditedData  " &
+                  "where (AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " &
+                  "or AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " &
+                  "and AIRBranch.APBFACILITYINFORMATION.strAIRSNumber = AIRBranch.fs_feeAuditedData.strAIRSNumber " &
+                  "and TOTALDUE.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER (+) " &
+                  "and TOTALDUE.INTYEAR = TOTALPAID.INTYEAR (+) " &
+                  "and TOTALDUE.INTYEAR = '" & cboStatYear.Text & "' " &
+                  "and AIRBranch.fs_feeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " &
                   " and strPaymentPlan = 'Four Quarterly Payments' ) "
 
                 Case "QUARTER TWO"
-                    SQL = "select * from " & _
-                     "(select " & _
-                     "SUBSTR(AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
-                     "STRFACILITYNAME, " & _
-                     "TOTALDUE.INTYEAR, strPaymentPlan, " & _
-                     "case " & _
-                     "when TotalDue is null then 0 " & _
-                     "else TotalDue " & _
-                     "end totalDue, " & _
-                     "case " & _
-                     "when TotalPaid is null then 0 " & _
-                     "else TotalPaid " & _
-                     "end TotalPaid, " & _
-                     "case " & _
-                     "when TotalDue is null and TotalPaid is null then 0 " & _
-                     " when totaldue is null and totalpaid is not null then -totalpaid " & _
-                     "when totaldue is not null and totalpaid is null then totaldue " & _
-                     "else (TOTALDUE - TOTALPAID) " & _
-                     "end Balance " & _
-                        "from " & _
-                        "(select STRAIRSNUMBER, numfeeyear as  intyear, NUMTOTALFEE, NUMADMINFEE, (NUMTOTALFEE)/4 as TOTALDUE " & _
-                        "from  AIRBranch.fs_feeAuditedData where active = '1') TOTALDUE, " & _
-                   "( " & _
-      "  SELECT  " & _
-      " STRAIRSNUMBER, INTYEAR, " & _
-      " CASE " & _
-      " WHEN TOTALPAID IS NULL THEN 0 " & _
-      " ELSE TOTALPAID " & _
-      " END TOTALPAID " & _
-      " FROM " & _
-      " ( " & _
-      " select AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
-      " from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData, AIRBRANCH.fs_feeinvoice " & _
-      " where AIRBRANCH.fs_Transactions.STRAIRSNUMBER = AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER (+) " & _
-      " and AIRBRANCH.fs_Transactions.numfeeyear = AIRBRANCH.fs_feeAuditedData.numfeeyear   (+) " & _
-      "and AIRBRANCH.Fs_transactions.invoiceid = AIRBRANCH.fs_feeinvoice.invoiceid (+) " & _
-      "and strPayType = '3' " & _
-      " and AIRBRANCH.fs_Transactions.active = '1' and AIRBRANCH.fs_feeAuditeddata.active = '1' " & _
-      " group by AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear" & _
-      " UNION " & _
-      "  select AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
-      " from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData, AIRBRANCH.fs_feeinvoice    " & _
-      " where AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER = AIRBRANCH.fs_Transactions.STRAIRSNUMBER (+) " & _
-      " and AIRBRANCH.fs_feeAuditedData.numfeeyear = AIRBRANCH.fs_Transactions.numfeeyear   (+) " & _
-      "and AIRBRANCH.Fs_transactions.invoiceid = AIRBRANCH.fs_feeinvoice.invoiceid (+) " & _
-      "and strPayType = '3' " & _
-      " and AIRBRANCH.fs_Transactions.active = '1' and AIRBRANCH.fs_feeAuditeddata.active = '1' " & _
-      " group by AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear" & _
-      "  )) TOTALPAID, " & _
-      " AIRBRANCH.APBFACILITYINFORMATION, " & _
-                        "  AIRBranch.fs_feeAuditedData  " & _
-                        "where (AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " & _
-                        "or AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " & _
-                        "and AIRBranch.APBFACILITYINFORMATION.strAIRSNumber = AIRBranch.fs_feeAuditedData.strAIRSNumber " & _
-                        "and TOTALDUE.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER (+) " & _
-                        "and TOTALDUE.INTYEAR = TOTALPAID.INTYEAR (+) " & _
-                        "and TOTALDUE.INTYEAR = '" & cboStatYear.Text & "' " & _
-                        "and AIRBranch.fs_feeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    SQL = "select * from " &
+                     "(select " &
+                     "SUBSTR(AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " &
+                     "STRFACILITYNAME, " &
+                     "TOTALDUE.INTYEAR, strPaymentPlan, " &
+                     "case " &
+                     "when TotalDue is null then 0 " &
+                     "else TotalDue " &
+                     "end totalDue, " &
+                     "case " &
+                     "when TotalPaid is null then 0 " &
+                     "else TotalPaid " &
+                     "end TotalPaid, " &
+                     "case " &
+                     "when TotalDue is null and TotalPaid is null then 0 " &
+                     " when totaldue is null and totalpaid is not null then -totalpaid " &
+                     "when totaldue is not null and totalpaid is null then totaldue " &
+                     "else (TOTALDUE - TOTALPAID) " &
+                     "end Balance " &
+                        "from " &
+                        "(select STRAIRSNUMBER, numfeeyear as  intyear, NUMTOTALFEE, NUMADMINFEE, (NUMTOTALFEE)/4 as TOTALDUE " &
+                        "from  AIRBranch.fs_feeAuditedData where active = '1') TOTALDUE, " &
+                   "( " &
+      "  SELECT  " &
+      " STRAIRSNUMBER, INTYEAR, " &
+      " CASE " &
+      " WHEN TOTALPAID IS NULL THEN 0 " &
+      " ELSE TOTALPAID " &
+      " END TOTALPAID " &
+      " FROM " &
+      " ( " &
+      " select AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " &
+      " from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData, AIRBRANCH.fs_feeinvoice " &
+      " where AIRBRANCH.fs_Transactions.STRAIRSNUMBER = AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER (+) " &
+      " and AIRBRANCH.fs_Transactions.numfeeyear = AIRBRANCH.fs_feeAuditedData.numfeeyear   (+) " &
+      "and AIRBRANCH.Fs_transactions.invoiceid = AIRBRANCH.fs_feeinvoice.invoiceid (+) " &
+      "and strPayType = '3' " &
+      " and AIRBRANCH.fs_Transactions.active = '1' and AIRBRANCH.fs_feeAuditeddata.active = '1' " &
+      " group by AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear" &
+      " UNION " &
+      "  select AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " &
+      " from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData, AIRBRANCH.fs_feeinvoice    " &
+      " where AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER = AIRBRANCH.fs_Transactions.STRAIRSNUMBER (+) " &
+      " and AIRBRANCH.fs_feeAuditedData.numfeeyear = AIRBRANCH.fs_Transactions.numfeeyear   (+) " &
+      "and AIRBRANCH.Fs_transactions.invoiceid = AIRBRANCH.fs_feeinvoice.invoiceid (+) " &
+      "and strPayType = '3' " &
+      " and AIRBRANCH.fs_Transactions.active = '1' and AIRBRANCH.fs_feeAuditeddata.active = '1' " &
+      " group by AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear" &
+      "  )) TOTALPAID, " &
+      " AIRBRANCH.APBFACILITYINFORMATION, " &
+                        "  AIRBranch.fs_feeAuditedData  " &
+                        "where (AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " &
+                        "or AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " &
+                        "and AIRBranch.APBFACILITYINFORMATION.strAIRSNumber = AIRBranch.fs_feeAuditedData.strAIRSNumber " &
+                        "and TOTALDUE.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER (+) " &
+                        "and TOTALDUE.INTYEAR = TOTALPAID.INTYEAR (+) " &
+                        "and TOTALDUE.INTYEAR = '" & cboStatYear.Text & "' " &
+                        "and AIRBranch.fs_feeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " &
                   " and strPaymentPlan = 'Four Quarterly Payments' ) "
 
                 Case "QUARTER THREE"
-                    SQL = "select * from " & _
-                        "(select " & _
-                        "SUBSTR(AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
-                        "STRFACILITYNAME, " & _
-                        "TOTALDUE.INTYEAR, strPaymentPlan, " & _
-                        "case " & _
-                        "when TotalDue is null then 0 " & _
-                        "else TotalDue " & _
-                        "end totalDue, " & _
-                        "case " & _
-                        "when TotalPaid is null then 0 " & _
-                        "else TotalPaid " & _
-                        "end TotalPaid, " & _
-                        "case " & _
-                        "when TotalDue is null and TotalPaid is null then 0 " & _
-                        " when totaldue is null and totalpaid is not null then -totalpaid " & _
-                        "when totaldue is not null and totalpaid is null then totaldue " & _
-                        "else (TOTALDUE - TOTALPAID) " & _
-                        "end Balance " & _
-                                     "from " & _
-                                     "(select STRAIRSNUMBER, numfeeyear as  intyear, NUMTOTALFEE, NUMADMINFEE, (NUMTOTALFEE)/4 as TOTALDUE " & _
-                                     "from  AIRBranch.fs_feeAuditedData where active = '1') TOTALDUE, " & _
-                                "( " & _
-                   "  SELECT  " & _
-                   " STRAIRSNUMBER, INTYEAR, " & _
-                   " CASE " & _
-                   " WHEN TOTALPAID IS NULL THEN 0 " & _
-                   " ELSE TOTALPAID " & _
-                   " END TOTALPAID " & _
-                   " FROM " & _
-                   " ( " & _
-                   " select AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
-                   " from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData, AIRBRANCH.fs_feeinvoice " & _
-                   " where AIRBRANCH.fs_Transactions.STRAIRSNUMBER = AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER (+) " & _
-                   " and AIRBRANCH.fs_Transactions.numfeeyear = AIRBRANCH.fs_feeAuditedData.numfeeyear   (+) " & _
-                   "and AIRBRANCH.Fs_transactions.invoiceid = AIRBRANCH.fs_feeinvoice.invoiceid (+) " & _
-                   "and strPayType = '4' " & _
-                   " group by AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear" & _
-                   " UNION " & _
-                   "  select AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
-                   " from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData, AIRBRANCH.fs_feeinvoice    " & _
-                   " where AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER = AIRBRANCH.fs_Transactions.STRAIRSNUMBER (+) " & _
-                   " and AIRBRANCH.fs_feeAuditedData.numfeeyear = AIRBRANCH.fs_Transactions.numfeeyear   (+) " & _
-                   "and AIRBRANCH.Fs_transactions.invoiceid = AIRBRANCH.fs_feeinvoice.invoiceid (+) " & _
-                   "and strPayType = '4' " & _
-                   " group by AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear" & _
-                   "  )) TOTALPAID, " & _
-                   " AIRBRANCH.APBFACILITYINFORMATION, " & _
-                                     "  AIRBranch.fs_feeAuditedData  " & _
-                                     "where (AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " & _
-                                     "or AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " & _
-                                     "and AIRBranch.APBFACILITYINFORMATION.strAIRSNumber = AIRBranch.fs_feeAuditedData.strAIRSNumber " & _
-                                     "and TOTALDUE.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER (+) " & _
-                                     "and TOTALDUE.INTYEAR = TOTALPAID.INTYEAR (+) " & _
-                                     "and TOTALDUE.INTYEAR = '" & cboStatYear.Text & "' " & _
-                                     "and AIRBranch.fs_feeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    SQL = "select * from " &
+                        "(select " &
+                        "SUBSTR(AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " &
+                        "STRFACILITYNAME, " &
+                        "TOTALDUE.INTYEAR, strPaymentPlan, " &
+                        "case " &
+                        "when TotalDue is null then 0 " &
+                        "else TotalDue " &
+                        "end totalDue, " &
+                        "case " &
+                        "when TotalPaid is null then 0 " &
+                        "else TotalPaid " &
+                        "end TotalPaid, " &
+                        "case " &
+                        "when TotalDue is null and TotalPaid is null then 0 " &
+                        " when totaldue is null and totalpaid is not null then -totalpaid " &
+                        "when totaldue is not null and totalpaid is null then totaldue " &
+                        "else (TOTALDUE - TOTALPAID) " &
+                        "end Balance " &
+                                     "from " &
+                                     "(select STRAIRSNUMBER, numfeeyear as  intyear, NUMTOTALFEE, NUMADMINFEE, (NUMTOTALFEE)/4 as TOTALDUE " &
+                                     "from  AIRBranch.fs_feeAuditedData where active = '1') TOTALDUE, " &
+                                "( " &
+                   "  SELECT  " &
+                   " STRAIRSNUMBER, INTYEAR, " &
+                   " CASE " &
+                   " WHEN TOTALPAID IS NULL THEN 0 " &
+                   " ELSE TOTALPAID " &
+                   " END TOTALPAID " &
+                   " FROM " &
+                   " ( " &
+                   " select AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " &
+                   " from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData, AIRBRANCH.fs_feeinvoice " &
+                   " where AIRBRANCH.fs_Transactions.STRAIRSNUMBER = AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER (+) " &
+                   " and AIRBRANCH.fs_Transactions.numfeeyear = AIRBRANCH.fs_feeAuditedData.numfeeyear   (+) " &
+                   "and AIRBRANCH.Fs_transactions.invoiceid = AIRBRANCH.fs_feeinvoice.invoiceid (+) " &
+                   "and strPayType = '4' " &
+                   " group by AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear" &
+                   " UNION " &
+                   "  select AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " &
+                   " from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData, AIRBRANCH.fs_feeinvoice    " &
+                   " where AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER = AIRBRANCH.fs_Transactions.STRAIRSNUMBER (+) " &
+                   " and AIRBRANCH.fs_feeAuditedData.numfeeyear = AIRBRANCH.fs_Transactions.numfeeyear   (+) " &
+                   "and AIRBRANCH.Fs_transactions.invoiceid = AIRBRANCH.fs_feeinvoice.invoiceid (+) " &
+                   "and strPayType = '4' " &
+                   " group by AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear" &
+                   "  )) TOTALPAID, " &
+                   " AIRBRANCH.APBFACILITYINFORMATION, " &
+                                     "  AIRBranch.fs_feeAuditedData  " &
+                                     "where (AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " &
+                                     "or AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " &
+                                     "and AIRBranch.APBFACILITYINFORMATION.strAIRSNumber = AIRBranch.fs_feeAuditedData.strAIRSNumber " &
+                                     "and TOTALDUE.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER (+) " &
+                                     "and TOTALDUE.INTYEAR = TOTALPAID.INTYEAR (+) " &
+                                     "and TOTALDUE.INTYEAR = '" & cboStatYear.Text & "' " &
+                                     "and AIRBranch.fs_feeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " &
                   " and strPaymentPlan = 'Four Quarterly Payments' ) "
 
                 Case "QUARTER FOUR"
-                    SQL = "select * from " & _
-                   "(select " & _
-                   "SUBSTR(AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
-                   "STRFACILITYNAME, " & _
-                   "TOTALDUE.INTYEAR, strPaymentPlan, " & _
-                   "case " & _
-                   "when TotalDue is null then 0 " & _
-                   "else TotalDue " & _
-                   "end totalDue, " & _
-                   "case " & _
-                   "when TotalPaid is null then 0 " & _
-                   "else TotalPaid " & _
-                   "end TotalPaid, " & _
-                   "case " & _
-                   "when TotalDue is null and TotalPaid is null then 0 " & _
-                   " when totaldue is null and totalpaid is not null then -totalpaid " & _
-                   "when totaldue is not null and totalpaid is null then totaldue " & _
-                   "else (TOTALDUE - TOTALPAID) " & _
-                   "end Balance " & _
-                  "from " & _
-                  "(select STRAIRSNUMBER, numfeeyear as  intyear, NUMTOTALFEE, NUMADMINFEE, (NUMTOTALFEE)/4 as TOTALDUE " & _
-                  "from  AIRBranch.fs_feeAuditedData where active = '1') TOTALDUE, " & _
-             "( " & _
-"  SELECT  " & _
-" STRAIRSNUMBER, INTYEAR, " & _
-" CASE " & _
-" WHEN TOTALPAID IS NULL THEN 0 " & _
-" ELSE TOTALPAID " & _
-" END TOTALPAID " & _
-" FROM " & _
-" ( " & _
-" select AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
-" from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData, AIRBRANCH.fs_feeinvoice " & _
-" where AIRBRANCH.fs_Transactions.STRAIRSNUMBER = AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER (+) " & _
-" and AIRBRANCH.fs_Transactions.numfeeyear = AIRBRANCH.fs_feeAuditedData.numfeeyear   (+) " & _
-"and AIRBRANCH.Fs_transactions.invoiceid = AIRBRANCH.fs_feeinvoice.invoiceid (+) " & _
-"and strPayType = '5' " & _
-" group by AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear" & _
-" UNION " & _
-"  select AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " & _
-" from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData, AIRBRANCH.fs_feeinvoice    " & _
-" where AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER = AIRBRANCH.fs_Transactions.STRAIRSNUMBER (+) " & _
-" and AIRBRANCH.fs_feeAuditedData.numfeeyear = AIRBRANCH.fs_Transactions.numfeeyear   (+) " & _
-"and AIRBRANCH.Fs_transactions.invoiceid = AIRBRANCH.fs_feeinvoice.invoiceid (+) " & _
-"and strPayType = '5' " & _
-" group by AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear" & _
-"  )) TOTALPAID, " & _
-" AIRBRANCH.APBFACILITYINFORMATION, " & _
-                  "  AIRBranch.fs_feeAuditedData  " & _
-                  "where (AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " & _
-                  "or AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " & _
-                  "and AIRBranch.APBFACILITYINFORMATION.strAIRSNumber = AIRBranch.fs_feeAuditedData.strAIRSNumber " & _
-                  "and TOTALDUE.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER (+) " & _
-                  "and TOTALDUE.INTYEAR = TOTALPAID.INTYEAR (+) " & _
-                  "and TOTALDUE.INTYEAR = '" & cboStatYear.Text & "' " & _
-                  "and AIRBranch.fs_feeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
+                    SQL = "select * from " &
+                   "(select " &
+                   "SUBSTR(AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " &
+                   "STRFACILITYNAME, " &
+                   "TOTALDUE.INTYEAR, strPaymentPlan, " &
+                   "case " &
+                   "when TotalDue is null then 0 " &
+                   "else TotalDue " &
+                   "end totalDue, " &
+                   "case " &
+                   "when TotalPaid is null then 0 " &
+                   "else TotalPaid " &
+                   "end TotalPaid, " &
+                   "case " &
+                   "when TotalDue is null and TotalPaid is null then 0 " &
+                   " when totaldue is null and totalpaid is not null then -totalpaid " &
+                   "when totaldue is not null and totalpaid is null then totaldue " &
+                   "else (TOTALDUE - TOTALPAID) " &
+                   "end Balance " &
+                  "from " &
+                  "(select STRAIRSNUMBER, numfeeyear as  intyear, NUMTOTALFEE, NUMADMINFEE, (NUMTOTALFEE)/4 as TOTALDUE " &
+                  "from  AIRBranch.fs_feeAuditedData where active = '1') TOTALDUE, " &
+             "( " &
+"  SELECT  " &
+" STRAIRSNUMBER, INTYEAR, " &
+" CASE " &
+" WHEN TOTALPAID IS NULL THEN 0 " &
+" ELSE TOTALPAID " &
+" END TOTALPAID " &
+" FROM " &
+" ( " &
+" select AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " &
+" from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData, AIRBRANCH.fs_feeinvoice " &
+" where AIRBRANCH.fs_Transactions.STRAIRSNUMBER = AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER (+) " &
+" and AIRBRANCH.fs_Transactions.numfeeyear = AIRBRANCH.fs_feeAuditedData.numfeeyear   (+) " &
+"and AIRBRANCH.Fs_transactions.invoiceid = AIRBRANCH.fs_feeinvoice.invoiceid (+) " &
+"and strPayType = '5' " &
+" group by AIRBRANCH.fs_Transactions.STRAIRSNUMBER, AIRBRANCH.fs_Transactions.numfeeyear" &
+" UNION " &
+"  select AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear as INTYEAR, sum(NUMPAYMENT) as TotalPaid      " &
+" from AIRBRANCH.fs_Transactions, AIRBRANCH.fs_feeAuditedData, AIRBRANCH.fs_feeinvoice    " &
+" where AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER = AIRBRANCH.fs_Transactions.STRAIRSNUMBER (+) " &
+" and AIRBRANCH.fs_feeAuditedData.numfeeyear = AIRBRANCH.fs_Transactions.numfeeyear   (+) " &
+"and AIRBRANCH.Fs_transactions.invoiceid = AIRBRANCH.fs_feeinvoice.invoiceid (+) " &
+"and strPayType = '5' " &
+" group by AIRBRANCH.fs_feeAuditedData.STRAIRSNUMBER, AIRBRANCH.fs_feeAuditedData.numfeeyear" &
+"  )) TOTALPAID, " &
+" AIRBRANCH.APBFACILITYINFORMATION, " &
+                  "  AIRBranch.fs_feeAuditedData  " &
+                  "where (AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " &
+                  "or AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " &
+                  "and AIRBranch.APBFACILITYINFORMATION.strAIRSNumber = AIRBranch.fs_feeAuditedData.strAIRSNumber " &
+                  "and TOTALDUE.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER (+) " &
+                  "and TOTALDUE.INTYEAR = TOTALPAID.INTYEAR (+) " &
+                  "and TOTALDUE.INTYEAR = '" & cboStatYear.Text & "' " &
+                  "and AIRBranch.fs_feeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " &
                   " and strPaymentPlan = 'Four Quarterly Payments' ) "
                 Case "AMENDMENT"
-                    SQL = "select * from " & _
-                    "(select " & _
-                    "SUBSTR(AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
-                    "STRFACILITYNAME, " & _
-                    "TOTALDUE.INTYEAR, strPaymentPlan, " & _
-                    "case " & _
-                    "when TotalDue is null then 0 " & _
-                    "else TotalDue " & _
-                    "end totalDue, " & _
-                    "case " & _
-                    "when TotalPaid is null then 0 " & _
-                    "else TotalPaid " & _
-                    "end TotalPaid, " & _
-                    "case " & _
-                    "when TotalDue is null and TotalPaid is null then 0 " & _
-                    " when totaldue is null and totalpaid is not null then -totalpaid " & _
-                    "when totaldue is not null and totalpaid is null then totaldue " & _
-                    "else (TOTALDUE - TOTALPAID) " & _
-                    "end Balance " & _
-                    "from " & _
-                    "(select STRAIRSNUMBER, numfeeyear as  intyear, NUMTOTALFEE, NUMADMINFEE, (NUMTOTALFEE)/4 as TOTALDUE " & _
-                    "from  AIRBranch.fs_feeAuditedData where active = '1') TOTALDUE, " & _
-                    "(select airbranch.Fs_transactions.STRAIRSNUMBER, airbranch.Fs_transactions.numfeeyear as INTYEAR, " & _
-                    "sum(NUMPAYMENT) as TotalPaid  " & _
-                    "from AIRBranch.fs_Transactions, airbranch.fs_feeinvoice " & _
-                    "where airbranch.Fs_transactions.invoiceid = airbranch.fs_feeinvoice.invoiceid " & _
-                    "and strPayType = '6' " & _
-                    "group by airbranch.Fs_transactions.STRAIRSNUMBER, airbranch.Fs_transactions.numfeeyear, AIRBranch.fs_Transactions.invoiceid) TOTALPAID, " & _
-                    "AIRBranch.APBFACILITYINFORMATION, AIRBranch.fs_feeAuditedData  " & _
-                    "where (AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " & _
-                    "or AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " & _
-                    "and AIRBranch.APBFACILITYINFORMATION.strAIRSNumber = AIRBranch.fs_feeAuditedData.strAIRSNumber " & _
-                    "and TOTALDUE.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER " & _
-                    "and TOTALDUE.INTYEAR = TOTALPAID.INTYEAR " & _
-                    "and TOTALDUE.INTYEAR = '" & cboStatYear.Text & "' " & _
+                    SQL = "select * from " &
+                    "(select " &
+                    "SUBSTR(AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " &
+                    "STRFACILITYNAME, " &
+                    "TOTALDUE.INTYEAR, strPaymentPlan, " &
+                    "case " &
+                    "when TotalDue is null then 0 " &
+                    "else TotalDue " &
+                    "end totalDue, " &
+                    "case " &
+                    "when TotalPaid is null then 0 " &
+                    "else TotalPaid " &
+                    "end TotalPaid, " &
+                    "case " &
+                    "when TotalDue is null and TotalPaid is null then 0 " &
+                    " when totaldue is null and totalpaid is not null then -totalpaid " &
+                    "when totaldue is not null and totalpaid is null then totaldue " &
+                    "else (TOTALDUE - TOTALPAID) " &
+                    "end Balance " &
+                    "from " &
+                    "(select STRAIRSNUMBER, numfeeyear as  intyear, NUMTOTALFEE, NUMADMINFEE, (NUMTOTALFEE)/4 as TOTALDUE " &
+                    "from  AIRBranch.fs_feeAuditedData where active = '1') TOTALDUE, " &
+                    "(select airbranch.Fs_transactions.STRAIRSNUMBER, airbranch.Fs_transactions.numfeeyear as INTYEAR, " &
+                    "sum(NUMPAYMENT) as TotalPaid  " &
+                    "from AIRBranch.fs_Transactions, airbranch.fs_feeinvoice " &
+                    "where airbranch.Fs_transactions.invoiceid = airbranch.fs_feeinvoice.invoiceid " &
+                    "and strPayType = '6' " &
+                    "group by airbranch.Fs_transactions.STRAIRSNUMBER, airbranch.Fs_transactions.numfeeyear, AIRBranch.fs_Transactions.invoiceid) TOTALPAID, " &
+                    "AIRBranch.APBFACILITYINFORMATION, AIRBranch.fs_feeAuditedData  " &
+                    "where (AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " &
+                    "or AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " &
+                    "and AIRBranch.APBFACILITYINFORMATION.strAIRSNumber = AIRBranch.fs_feeAuditedData.strAIRSNumber " &
+                    "and TOTALDUE.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER " &
+                    "and TOTALDUE.INTYEAR = TOTALPAID.INTYEAR " &
+                    "and TOTALDUE.INTYEAR = '" & cboStatYear.Text & "' " &
                     "and AIRBranch.fs_feeAuditedData.numFeeYear = '" & cboStatYear.Text & "') "
 
                 Case "ONE-TIME"
-                    SQL = "select * from " & _
-                    "(select " & _
-                    "SUBSTR(AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
-                    "STRFACILITYNAME, " & _
-                    "TOTALDUE.INTYEAR, strPaymentPlan, " & _
-                    "case " & _
-                    "when TotalDue is null then 0 " & _
-                    "else TotalDue " & _
-                    "end totalDue, " & _
-                    "case " & _
-                    "when TotalPaid is null then 0 " & _
-                    "else TotalPaid " & _
-                    "end TotalPaid, " & _
-                    "case " & _
-                    "when TotalDue is null and TotalPaid is null then 0 " & _
-                    " when totaldue is null and totalpaid is not null then -totalpaid " & _
-                    "when totaldue is not null and totalpaid is null then totaldue " & _
-                    "else (TOTALDUE - TOTALPAID) " & _
-                    "end Balance " & _
-                    "from " & _
-                    "(select STRAIRSNUMBER, numfeeyear as  intyear, NUMTOTALFEE, NUMADMINFEE, (NUMTOTALFEE)/4 as TOTALDUE " & _
-                    "from  AIRBranch.fs_feeAuditedData where active = '1') TOTALDUE, " & _
-                    "(select airbranch.Fs_transactions.STRAIRSNUMBER, airbranch.Fs_transactions.numfeeyear as INTYEAR, " & _
-                    "sum(NUMPAYMENT) as TotalPaid  " & _
-                    "from AIRBranch.fs_Transactions, airbranch.fs_feeinvoice " & _
-                    "where airbranch.Fs_transactions.invoiceid = airbranch.fs_feeinvoice.invoiceid " & _
-                    "and strPayType = '8' " & _
-                    "group by airbranch.Fs_transactions.STRAIRSNUMBER, airbranch.Fs_transactions.numfeeyear, AIRBranch.fs_Transactions.invoiceid) TOTALPAID, " & _
-                    "AIRBranch.APBFACILITYINFORMATION, AIRBranch.fs_feeAuditedData  " & _
-                    "where (AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " & _
-                    "or AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " & _
-                    "and AIRBranch.APBFACILITYINFORMATION.strAIRSNumber = AIRBranch.fs_feeAuditedData.strAIRSNumber " & _
-                    "and TOTALDUE.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER " & _
-                    "and TOTALDUE.INTYEAR = TOTALPAID.INTYEAR " & _
-                    "and TOTALDUE.INTYEAR = '" & cboStatYear.Text & "' " & _
+                    SQL = "select * from " &
+                    "(select " &
+                    "SUBSTR(AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " &
+                    "STRFACILITYNAME, " &
+                    "TOTALDUE.INTYEAR, strPaymentPlan, " &
+                    "case " &
+                    "when TotalDue is null then 0 " &
+                    "else TotalDue " &
+                    "end totalDue, " &
+                    "case " &
+                    "when TotalPaid is null then 0 " &
+                    "else TotalPaid " &
+                    "end TotalPaid, " &
+                    "case " &
+                    "when TotalDue is null and TotalPaid is null then 0 " &
+                    " when totaldue is null and totalpaid is not null then -totalpaid " &
+                    "when totaldue is not null and totalpaid is null then totaldue " &
+                    "else (TOTALDUE - TOTALPAID) " &
+                    "end Balance " &
+                    "from " &
+                    "(select STRAIRSNUMBER, numfeeyear as  intyear, NUMTOTALFEE, NUMADMINFEE, (NUMTOTALFEE)/4 as TOTALDUE " &
+                    "from  AIRBranch.fs_feeAuditedData where active = '1') TOTALDUE, " &
+                    "(select airbranch.Fs_transactions.STRAIRSNUMBER, airbranch.Fs_transactions.numfeeyear as INTYEAR, " &
+                    "sum(NUMPAYMENT) as TotalPaid  " &
+                    "from AIRBranch.fs_Transactions, airbranch.fs_feeinvoice " &
+                    "where airbranch.Fs_transactions.invoiceid = airbranch.fs_feeinvoice.invoiceid " &
+                    "and strPayType = '8' " &
+                    "group by airbranch.Fs_transactions.STRAIRSNUMBER, airbranch.Fs_transactions.numfeeyear, AIRBranch.fs_Transactions.invoiceid) TOTALPAID, " &
+                    "AIRBranch.APBFACILITYINFORMATION, AIRBranch.fs_feeAuditedData  " &
+                    "where (AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " &
+                    "or AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " &
+                    "and AIRBranch.APBFACILITYINFORMATION.strAIRSNumber = AIRBranch.fs_feeAuditedData.strAIRSNumber " &
+                    "and TOTALDUE.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER " &
+                    "and TOTALDUE.INTYEAR = TOTALPAID.INTYEAR " &
+                    "and TOTALDUE.INTYEAR = '" & cboStatYear.Text & "' " &
                     "and AIRBranch.fs_feeAuditedData.numFeeYear = '" & cboStatYear.Text & "') "
 
                 Case "REFUND"
-                    SQL = "select * from " & _
-                       "(select " & _
-                       "SUBSTR(AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " & _
-                       "STRFACILITYNAME, " & _
-                       "TOTALDUE.INTYEAR, strPaymentPlan, " & _
-                       "case " & _
-                       "when TotalDue is null then 0 " & _
-                       "else TotalDue " & _
-                       "end totalDue, " & _
-                       "case " & _
-                       "when TotalPaid is null then 0 " & _
-                       "else TotalPaid " & _
-                       "end TotalPaid, " & _
-                       "case " & _
-                       "when TotalDue is null and TotalPaid is null then 0 " & _
-                       " when totaldue is null and totalpaid is not null then -totalpaid " & _
-                       "when totaldue is not null and totalpaid is null then totaldue " & _
-                       "else (TOTALDUE - TOTALPAID) " & _
-                       "end Balance " & _
-                       "from " & _
-                       "(select STRAIRSNUMBER, numfeeyear as  intyear, NUMTOTALFEE, NUMADMINFEE, (NUMTOTALFEE)/4 as TOTALDUE " & _
-                       "from  AIRBranch.fs_feeAuditedData where active = '1') TOTALDUE, " & _
-                       "(select airbranch.Fs_transactions.STRAIRSNUMBER, airbranch.Fs_transactions.numfeeyear as INTYEAR, " & _
-                       "sum(NUMPAYMENT) as TotalPaid  " & _
-                       "from AIRBranch.fs_Transactions, airbranch.fs_feeinvoice " & _
-                       "where airbranch.Fs_transactions.invoiceid = airbranch.fs_feeinvoice.invoiceid " & _
-                       "and strPayType = '7' " & _
-                       "group by airbranch.Fs_transactions.STRAIRSNUMBER, airbranch.Fs_transactions.numfeeyear, AIRBranch.fs_Transactions.invoiceid) TOTALPAID, " & _
-                       "AIRBranch.APBFACILITYINFORMATION, AIRBranch.fs_feeAuditedData  " & _
-                       "where (AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " & _
-                       "or AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " & _
-                       "and AIRBranch.APBFACILITYINFORMATION.strAIRSNumber = AIRBranch.fs_feeAuditedData.strAIRSNumber " & _
-                       "and TOTALDUE.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER " & _
-                       "and TOTALDUE.INTYEAR = TOTALPAID.INTYEAR " & _
-                       "and TOTALDUE.INTYEAR = '" & cboStatYear.Text & "' " & _
+                    SQL = "select * from " &
+                       "(select " &
+                       "SUBSTR(AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " &
+                       "STRFACILITYNAME, " &
+                       "TOTALDUE.INTYEAR, strPaymentPlan, " &
+                       "case " &
+                       "when TotalDue is null then 0 " &
+                       "else TotalDue " &
+                       "end totalDue, " &
+                       "case " &
+                       "when TotalPaid is null then 0 " &
+                       "else TotalPaid " &
+                       "end TotalPaid, " &
+                       "case " &
+                       "when TotalDue is null and TotalPaid is null then 0 " &
+                       " when totaldue is null and totalpaid is not null then -totalpaid " &
+                       "when totaldue is not null and totalpaid is null then totaldue " &
+                       "else (TOTALDUE - TOTALPAID) " &
+                       "end Balance " &
+                       "from " &
+                       "(select STRAIRSNUMBER, numfeeyear as  intyear, NUMTOTALFEE, NUMADMINFEE, (NUMTOTALFEE)/4 as TOTALDUE " &
+                       "from  AIRBranch.fs_feeAuditedData where active = '1') TOTALDUE, " &
+                       "(select airbranch.Fs_transactions.STRAIRSNUMBER, airbranch.Fs_transactions.numfeeyear as INTYEAR, " &
+                       "sum(NUMPAYMENT) as TotalPaid  " &
+                       "from AIRBranch.fs_Transactions, airbranch.fs_feeinvoice " &
+                       "where airbranch.Fs_transactions.invoiceid = airbranch.fs_feeinvoice.invoiceid " &
+                       "and strPayType = '7' " &
+                       "group by airbranch.Fs_transactions.STRAIRSNUMBER, airbranch.Fs_transactions.numfeeyear, AIRBranch.fs_Transactions.invoiceid) TOTALPAID, " &
+                       "AIRBranch.APBFACILITYINFORMATION, AIRBranch.fs_feeAuditedData  " &
+                       "where (AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALDUE.STRAIRSNUMBER  " &
+                       "or AIRBranch.APBFACILITYINFORMATION.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER   ) " &
+                       "and AIRBranch.APBFACILITYINFORMATION.strAIRSNumber = AIRBranch.fs_feeAuditedData.strAIRSNumber " &
+                       "and TOTALDUE.STRAIRSNUMBER = TOTALPAID.STRAIRSNUMBER " &
+                       "and TOTALDUE.INTYEAR = TOTALPAID.INTYEAR " &
+                       "and TOTALDUE.INTYEAR = '" & cboStatYear.Text & "' " &
                        "and AIRBranch.fs_feeAuditedData.numFeeYear = '" & cboStatYear.Text & "') "
             End Select
             If chbNonZeroBalance.Checked = True Then
@@ -1607,13 +1573,13 @@ Public Class PASPFeeStatistics
     End Sub
     Sub LoadSelectedFeeData()
         Try
-            SQL = "select " & _
-            "strAIRSNUmber, nuMFeeYear, " & _
-            "intSubmittal, datSubmittal, " & _
-            "strComment, strIAIPdesc  " & _
-            "from AIRBRANCH.FS_Admin, airbranch.fslk_admin_status " & _
-            "where airbranch.fs_admin.numCurrentStatus = AIRbranch.FSLK_Admin_Status.ID  " & _
-            "and strAIRSNumber = '0413" & txtSelectedAIRSNumber.Text & "' " & _
+            SQL = "select " &
+            "strAIRSNUmber, nuMFeeYear, " &
+            "intSubmittal, datSubmittal, " &
+            "strComment, strIAIPdesc  " &
+            "from AIRBRANCH.FS_Admin, airbranch.fslk_admin_status " &
+            "where airbranch.fs_admin.numCurrentStatus = AIRbranch.FSLK_Admin_Status.ID  " &
+            "and strAIRSNumber = '0413" & txtSelectedAIRSNumber.Text & "' " &
             "and numFeeYear = '" & txtSelectedYear.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1652,22 +1618,22 @@ Public Class PASPFeeStatistics
             End While
             dr.Close()
 
-            SQL = "Select " & _
-            "intVOCTons, intPMTons, " & _
-            "intSO2Tons, intNOxTons, " & _
-            "numPart70Fee, numSMFee, " & _
-            "numNSPSFee, numTotalFee, " & _
-            "strNSPSExempt, " & _
-            "strOperate, numFeeRate, " & _
-            "strNSPSExemptReason, strPart70, " & _
-            "strSyntheticMinor, numCalculatedFee, " & _
-            "strClass, strNSPS, " & _
-            "datshutDown,  " & _
-            "numAdminFee, " & _
-            "(numTotalFee) as AllFees, " & _
-            "strPaymentPlan " & _
-            "from AIRBRANCH.FS_FeeAuditedData " & _
-            "where strAIRSNumber = '0413" & txtSelectedAIRSNumber.Text & "' " & _
+            SQL = "Select " &
+            "intVOCTons, intPMTons, " &
+            "intSO2Tons, intNOxTons, " &
+            "numPart70Fee, numSMFee, " &
+            "numNSPSFee, numTotalFee, " &
+            "strNSPSExempt, " &
+            "strOperate, numFeeRate, " &
+            "strNSPSExemptReason, strPart70, " &
+            "strSyntheticMinor, numCalculatedFee, " &
+            "strClass, strNSPS, " &
+            "datshutDown,  " &
+            "numAdminFee, " &
+            "(numTotalFee) as AllFees, " &
+            "strPaymentPlan " &
+            "from AIRBRANCH.FS_FeeAuditedData " &
+            "where strAIRSNumber = '0413" & txtSelectedAIRSNumber.Text & "' " &
             "and numFeeYear = '" & txtSelectedYear.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1831,12 +1797,12 @@ Public Class PASPFeeStatistics
                         SQL2 = SQL2 & " or nspsreasoncode = '" & temp & "' "
                         temp = ""
                     Loop
-                    SQL = "Select description " & _
-                    "from AIRBranch.FSLK_NSPSReason " & _
+                    SQL = "Select description " &
+                    "from AIRBranch.FSLK_NSPSReason " &
                     "where nspsreasoncode = '0' " & SQL2
                 Else
-                    SQL = "Select description " & _
-                    "from AIRBranch.FSLK_NSPSReason " & _
+                    SQL = "Select description " &
+                    "from AIRBranch.FSLK_NSPSReason " &
                     "where nspsreasoncode = '" & temp & "' "
                 End If
 
@@ -1858,21 +1824,21 @@ Public Class PASPFeeStatistics
                 txtNSPSExemptReason.Clear()
             End If
 
-            SQL = "select " & _
-            "TransactionID, Airbranch.FS_feeInvoice.InvoiceID, " & _
-            "numPayment, datTransactionDate, " & _
-            "strPayTypeDesc, strDepositNo, strCreditcardno, " & _
-            "strCheckNo, StrBatchNo, numAmount,  " & _
-            "AIRBranch.FS_Transactions.strComment " & _
-            "from AIRBranch.FS_Transactions, airbranch.FS_FeeInvoice, " & _
-            "AIRBranch.FSLK_PayType " & _
-            "where  Airbranch.FS_feeInvoice.strAIrsnumber = airbranch.FS_Transactions.strAIRSNumber (+) " & _
-            "and   Airbranch.FS_feeInvoice.nuMFeeyear = airbranch.FS_Transactions.nuMFeeYear (+) " & _
-            "and   Airbranch.FS_feeInvoice.InvoiceID = airbranch.FS_Transactions.InvoiceID (+) " & _
-            "and airbranch.fs_feeinvoice.strPaytype = AIRbranch.FSLK_PayType.numPayTypeID " & _
-            "and airbranch.FS_Transactions.active = '1' " & _
-            "and airbranch.FS_FeeInvoice.active = '1' " & _
-            "and airbranch.FS_feeInvoice.numfeeyear = '" & txtSelectedYear.Text & "'  " & _
+            SQL = "select " &
+            "TransactionID, Airbranch.FS_feeInvoice.InvoiceID, " &
+            "numPayment, datTransactionDate, " &
+            "strPayTypeDesc, strDepositNo, strCreditcardno, " &
+            "strCheckNo, StrBatchNo, numAmount,  " &
+            "AIRBranch.FS_Transactions.strComment " &
+            "from AIRBranch.FS_Transactions, airbranch.FS_FeeInvoice, " &
+            "AIRBranch.FSLK_PayType " &
+            "where  Airbranch.FS_feeInvoice.strAIrsnumber = airbranch.FS_Transactions.strAIRSNumber (+) " &
+            "and   Airbranch.FS_feeInvoice.nuMFeeyear = airbranch.FS_Transactions.nuMFeeYear (+) " &
+            "and   Airbranch.FS_feeInvoice.InvoiceID = airbranch.FS_Transactions.InvoiceID (+) " &
+            "and airbranch.fs_feeinvoice.strPaytype = AIRbranch.FSLK_PayType.numPayTypeID " &
+            "and airbranch.FS_Transactions.active = '1' " &
+            "and airbranch.FS_FeeInvoice.active = '1' " &
+            "and airbranch.FS_feeInvoice.numfeeyear = '" & txtSelectedYear.Text & "'  " &
             "and airbranch.FS_feeInvoice.strAIRSNumber = '0413" & txtSelectedAIRSNumber.Text & "' "
 
             ds = New DataSet
@@ -1919,7 +1885,7 @@ Public Class PASPFeeStatistics
             dgvStats.Columns("strComment").HeaderText = "Comments"
             dgvStats.Columns("strComment").DisplayIndex = 10
 
-         
+
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1954,7 +1920,7 @@ Public Class PASPFeeStatistics
     Private Sub btnExportToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportToExcel.Click
         dgvDepositsAndPayments.ExportToExcel(Me)
     End Sub
-   
+
 
 #Region "Late Fee Payer Report"
 
@@ -2001,30 +1967,30 @@ Public Class PASPFeeStatistics
             dgvLateFeePayerReport.Columns.Add("PendingPermit", "Pending Permit")
 
 
-            SQL = "select " & _
-            "substr(AIRBRANCH.FSPayAndSubmit.strAIRSNumber, 5) as AIRSNumber, " & _
-            "strFacilityName, strCountyName, " & _
-            "strClass, " & _
-            "case " & _
-            "when strOperationalStatus = 'X' then 'X - ' ||datShutDownDate " & _
-            "else strOperationalStatus " & _
-            "End strOperationalStatus, " & _
-            "strSICCode, " & _
-            "case " & _
-            "when substr(strAirProgramCodes, 8, 1) = '1' then 'Yes' " & _
-            "else 'No' " & _
-            "end NSPSStatus, " & _
-            "case " & _
-            "when substr(strAirProgramCodes, 13, 1) = '1' then 'Yes' " & _
-            "else 'No' " & _
-            "end TVStatus, " & _
-            "'" & cboFeeYear.Text & "' as FeeYear " & _
-            "from AIRBRANCH.FSPayAndSubmit, AIRBRANCH.APBFacilityInformation, " & _
-            "AIRBRANCH.LookUpCountyInformation, AIRBRANCH.APBHeaderData " & _
-            "where AIRBRANCH.FSPayAndSubmit.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " & _
-            "and AIRBRANCH.FSPayAndSubmit.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber " & _
-            "and substr(AIRBRANCH.FSPayAndSubmit.strAIRSNumber,5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode " & _
-            "and intYear = '" & cboFeeYear.Text & "' " & _
+            SQL = "select " &
+            "substr(AIRBRANCH.FSPayAndSubmit.strAIRSNumber, 5) as AIRSNumber, " &
+            "strFacilityName, strCountyName, " &
+            "strClass, " &
+            "case " &
+            "when strOperationalStatus = 'X' then 'X - ' ||datShutDownDate " &
+            "else strOperationalStatus " &
+            "End strOperationalStatus, " &
+            "strSICCode, " &
+            "case " &
+            "when substr(strAirProgramCodes, 8, 1) = '1' then 'Yes' " &
+            "else 'No' " &
+            "end NSPSStatus, " &
+            "case " &
+            "when substr(strAirProgramCodes, 13, 1) = '1' then 'Yes' " &
+            "else 'No' " &
+            "end TVStatus, " &
+            "'" & cboFeeYear.Text & "' as FeeYear " &
+            "from AIRBRANCH.FSPayAndSubmit, AIRBRANCH.APBFacilityInformation, " &
+            "AIRBRANCH.LookUpCountyInformation, AIRBRANCH.APBHeaderData " &
+            "where AIRBRANCH.FSPayAndSubmit.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
+            "and AIRBRANCH.FSPayAndSubmit.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber " &
+            "and substr(AIRBRANCH.FSPayAndSubmit.strAIRSNumber,5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode " &
+            "and intYear = '" & cboFeeYear.Text & "' " &
             "and intSubmittal = '0' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2095,10 +2061,10 @@ Public Class PASPFeeStatistics
                     FeeYear = dr.Item("FeeYear")
                 End If
 
-                SQL = "select " & _
-                "max(to_number(AIRBranch.SSPPApplicationMaster.strApplicationNumber)) as LastApp " & _
-                "from AirBranch.SSPPApplicationMaster " & _
-                "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                SQL = "select " &
+                "max(to_number(AIRBranch.SSPPApplicationMaster.strApplicationNumber)) as LastApp " &
+                "from AirBranch.SSPPApplicationMaster " &
+                "where strAIRSNumber = '0413" & AIRSNumber & "' " &
                 "and datFinalizedDate is not null"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2116,17 +2082,17 @@ Public Class PASPFeeStatistics
                 dr2.Close()
 
                 If LastApp <> "" Then
-                    SQL = "select " & _
-                    "strApplicationTypeDesc, strPermitNumber, " & _
-                    "case " & _
-                    "when datPermitIssued is null then to_char(datFinalizedDate, 'dd-Mon-yyyy') " & _
-                    "else to_char(datPermitIssued, 'dd-Mon-yyyy') " & _
-                    "end FinalDate " & _
-                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.LookUpApplicationTypes, " & _
-                    "AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.SSPPApplicationData  " & _
-                    "where AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " & _
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber (+) " & _
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber (+) " & _
+                    SQL = "select " &
+                    "strApplicationTypeDesc, strPermitNumber, " &
+                    "case " &
+                    "when datPermitIssued is null then to_char(datFinalizedDate, 'dd-Mon-yyyy') " &
+                    "else to_char(datPermitIssued, 'dd-Mon-yyyy') " &
+                    "end FinalDate " &
+                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.LookUpApplicationTypes, " &
+                    "AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.SSPPApplicationData  " &
+                    "where AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " &
+                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber (+) " &
+                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber (+) " &
                     "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & LastApp & "' "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2151,8 +2117,8 @@ Public Class PASPFeeStatistics
                             PermitNumber = dr2.Item("strPermitNumber")
                             If PermitNumber.Length = 15 Then
                                 If IsNumeric(Mid(PermitNumber, 1, 4)) Then
-                                    PermitNumber = Mid(PermitNumber, 1, 4) & "-" & Mid(PermitNumber, 5, 3) & "-" & _
-                                                     Mid(PermitNumber, 8, 4) & "-" & Mid(PermitNumber, 12, 1) & "-" & _
+                                    PermitNumber = Mid(PermitNumber, 1, 4) & "-" & Mid(PermitNumber, 5, 3) & "-" &
+                                                     Mid(PermitNumber, 8, 4) & "-" & Mid(PermitNumber, 12, 1) & "-" &
                                                       Mid(PermitNumber, 13, 2) & "-" & Mid(PermitNumber, 15)
                                 End If
                             End If
@@ -2161,10 +2127,10 @@ Public Class PASPFeeStatistics
                     dr2.Close()
                 End If
 
-                SQL = "select " & _
-                "strApplicationNumber " & _
-                "from AIRBRANCH.SSPPApplicationMaster " & _
-                "where datfinalizedDate Is null " & _
+                SQL = "select " &
+                "strApplicationNumber " &
+                "from AIRBRANCH.SSPPApplicationMaster " &
+                "where datfinalizedDate Is null " &
                 "and strAIRSNumber = '0413" & AIRSNumber & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2181,9 +2147,9 @@ Public Class PASPFeeStatistics
                 End While
                 dr2.Close()
 
-                SQL = "select " & _
-                "max(datReceiveddate) as MaxDate " & _
-                "from AIRBranch.SSCPItemMaster " & _
+                SQL = "select " &
+                "max(datReceiveddate) as MaxDate " &
+                "from AIRBranch.SSCPItemMaster " &
                 "where strAIRSNumber = '0413" & AIRSNumber & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2198,10 +2164,10 @@ Public Class PASPFeeStatistics
                 End While
                 dr2.Close()
 
-                SQL = "select " & _
-                "max(datFCECompleted) as MaxDate " & _
-                "from AIRBRANCH.SSCPFCEMaster, AIRBRANCH.SSCPFCE  " & _
-                "where AIRBRANCH.SSCPFCEMaster.strFCENumber = AIRBRANCH.SSCPFCE.strFCENumber " & _
+                SQL = "select " &
+                "max(datFCECompleted) as MaxDate " &
+                "from AIRBRANCH.SSCPFCEMaster, AIRBRANCH.SSCPFCE  " &
+                "where AIRBRANCH.SSCPFCEMaster.strFCENumber = AIRBRANCH.SSCPFCE.strFCENumber " &
                 "and strAIRSnumber = '0413" & AIRSNumber & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2223,9 +2189,9 @@ Public Class PASPFeeStatistics
                 End While
                 dr2.Close()
 
-                SQL = "select " & _
-                "max(datEnforcementFinalized) as MaxDate " & _
-                "from AIRBranch.SSCP_AuditedEnforcement " & _
+                SQL = "select " &
+                "max(datEnforcementFinalized) as MaxDate " &
+                "from AIRBranch.SSCP_AuditedEnforcement " &
                 "where strAIRSnumber = '0413" & AIRSNumber & "'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2249,12 +2215,12 @@ Public Class PASPFeeStatistics
 
                 Select Case LastCompliance
                     Case "Item"
-                        SQL = "select strTrackingNumber, datCompleteDate, " & _
-                        "strActivityName " & _
-                        "from AIRBRANCH.SSCPItemMaster, AIRBRANCH.LookupComplianceActivities  " & _
-                        "where AIRBRANCH.SSCPItemMaster.strEventType = AIRBRANCH.LookUpComplianceActivities.strActivityType  " & _
-                        "and strAIRSNumber = '0413" & AIRSNumber & "' " & _
-                        "and datCompleteDate = (select max(datCompleteDate) from AIRBRANCH.SSCPItemMaster " & _
+                        SQL = "select strTrackingNumber, datCompleteDate, " &
+                        "strActivityName " &
+                        "from AIRBRANCH.SSCPItemMaster, AIRBRANCH.LookupComplianceActivities  " &
+                        "where AIRBRANCH.SSCPItemMaster.strEventType = AIRBRANCH.LookUpComplianceActivities.strActivityType  " &
+                        "and strAIRSNumber = '0413" & AIRSNumber & "' " &
+                        "and datCompleteDate = (select max(datCompleteDate) from AIRBRANCH.SSCPItemMaster " &
                         "where strAIRSNumber = '0413" & AIRSNumber & "') "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2280,15 +2246,15 @@ Public Class PASPFeeStatistics
                             End If
                         End While
                     Case "FCE"
-                        SQL = "select " & _
-                        "AIRBRANCH.SSCPFCE.strFCENumber, datFCECompleted " & _
-                        "from AIRBRANCH.SSCPFCE, AIRBRANCH.SSCPFCEMaster  " & _
-                        "where AIRBRANCH.SSCPFCEMaster.strFCENumber = AIRBRANCH.SSCPFCE.strFCENumber " & _
-                        "and strAIRSNumber = '0413" & AIRSNumber & "' " & _
-                        "and AIRBRANCH.SSCPFCE.datFCECompleted = (select " & _
-                        "max(datFCECompleted) " & _
-                        "from AIRBRANCH.SSCPFCEMaster, AIRBRANCH.SSCPFCE  " & _
-                        "where AIRBRANCH.SSCPFCEMaster.strFCENumber = AIRBRANCH.SSCPFCE.strFCENumber " & _
+                        SQL = "select " &
+                        "AIRBRANCH.SSCPFCE.strFCENumber, datFCECompleted " &
+                        "from AIRBRANCH.SSCPFCE, AIRBRANCH.SSCPFCEMaster  " &
+                        "where AIRBRANCH.SSCPFCEMaster.strFCENumber = AIRBRANCH.SSCPFCE.strFCENumber " &
+                        "and strAIRSNumber = '0413" & AIRSNumber & "' " &
+                        "and AIRBRANCH.SSCPFCE.datFCECompleted = (select " &
+                        "max(datFCECompleted) " &
+                        "from AIRBRANCH.SSCPFCEMaster, AIRBRANCH.SSCPFCE  " &
+                        "where AIRBRANCH.SSCPFCEMaster.strFCENumber = AIRBRANCH.SSCPFCE.strFCENumber " &
                         "and strAIRSnumber = '0413" & AIRSNumber & "') "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2310,13 +2276,13 @@ Public Class PASPFeeStatistics
                         End While
                         dr2.Close()
                     Case "Enforcement"
-                        SQL = "select " & _
-                        "strEnforcementNumber, datEnforcementFinalized " & _
-                        "from AIRBRANCH.SSCP_AuditedEnforcement " & _
-                        "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
-                        "and datEnforcementFinalized = (Select " & _
-                        "max(datEnforcementFinalized) " & _
-                        "from AIRBRANCH.SSCP_AuditedEnforcement " & _
+                        SQL = "select " &
+                        "strEnforcementNumber, datEnforcementFinalized " &
+                        "from AIRBRANCH.SSCP_AuditedEnforcement " &
+                        "where strAIRSNumber = '0413" & AIRSNumber & "' " &
+                        "and datEnforcementFinalized = (Select " &
+                        "max(datEnforcementFinalized) " &
+                        "from AIRBRANCH.SSCP_AuditedEnforcement " &
                         "where strairsnumber = '0413" & AIRSNumber & "') "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2340,8 +2306,8 @@ Public Class PASPFeeStatistics
                     Case Else
                 End Select
 
-                dgvLateFeePayerReport.Rows.Add(AIRSNumber, FacilityName, County, Classification, _
-                                               OperationalStatus, SIC, NSPS, TV, FeeYear, LastCompliance, ComplianceDate, _
+                dgvLateFeePayerReport.Rows.Add(AIRSNumber, FacilityName, County, Classification,
+                                               OperationalStatus, SIC, NSPS, TV, FeeYear, LastCompliance, ComplianceDate,
                                                LastApp, AppDate, PermitNumber, PendingApp)
             End While
             dr.Close()
@@ -2359,30 +2325,30 @@ Public Class PASPFeeStatistics
     End Sub
     Private Sub btnRunReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunReport.Click
         Try
-            SQL = "select " & _
-            "substr(AIRBRANCH.FSPayAndSubmit.strAIRSNumber, 5) as AIRSNumber, " & _
-            "strFacilityName, strCountyName, " & _
-            "strClass, " & _
-            "case " & _
-            "when strOperationalStatus = 'X' then 'X - ' ||datShutDownDate " & _
-            "else strOperationalStatus " & _
-            "End strOperationalStatus, " & _
-            "strSICCode, " & _
-            "case " & _
-            "when substr(strAirProgramCodes, 8, 1) = '1' then 'Yes' " & _
-            "else 'No' " & _
-            "end NSPSStatus, " & _
-            "case " & _
-            "when substr(strAirProgramCodes, 13, 1) = '1' then 'Yes' " & _
-            "else 'No' " & _
-            "end TVStatus, " & _
-            "'" & cboFeeYear.Text & "' as FeeYear " & _
-            "from AIRBRANCH.FSPayAndSubmit, AIRBRANCH.APBFacilityInformation, " & _
-            "AIRBRANCH.LookUpCountyInformation, AIRBRANCH.APBHeaderData " & _
-            "where AIRBRANCH.FSPayAndSubmit.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " & _
-            "and AIRBRANCH.FSPayAndSubmit.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber " & _
-            "and substr(AIRBRANCH.FSPayAndSubmit.strAIRSNumber,5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode " & _
-            "and intYear = '" & cboFeeYear.Text & "' " & _
+            SQL = "select " &
+            "substr(AIRBRANCH.FSPayAndSubmit.strAIRSNumber, 5) as AIRSNumber, " &
+            "strFacilityName, strCountyName, " &
+            "strClass, " &
+            "case " &
+            "when strOperationalStatus = 'X' then 'X - ' ||datShutDownDate " &
+            "else strOperationalStatus " &
+            "End strOperationalStatus, " &
+            "strSICCode, " &
+            "case " &
+            "when substr(strAirProgramCodes, 8, 1) = '1' then 'Yes' " &
+            "else 'No' " &
+            "end NSPSStatus, " &
+            "case " &
+            "when substr(strAirProgramCodes, 13, 1) = '1' then 'Yes' " &
+            "else 'No' " &
+            "end TVStatus, " &
+            "'" & cboFeeYear.Text & "' as FeeYear " &
+            "from AIRBRANCH.FSPayAndSubmit, AIRBRANCH.APBFacilityInformation, " &
+            "AIRBRANCH.LookUpCountyInformation, AIRBRANCH.APBHeaderData " &
+            "where AIRBRANCH.FSPayAndSubmit.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
+            "and AIRBRANCH.FSPayAndSubmit.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber " &
+            "and substr(AIRBRANCH.FSPayAndSubmit.strAIRSNumber,5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode " &
+            "and intYear = '" & cboFeeYear.Text & "' " &
             "and intSubmittal = '0' "
 
             ds = New DataSet
@@ -2429,37 +2395,37 @@ Public Class PASPFeeStatistics
     Private Sub btnCheckforFeesPaid_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCheckforFeesPaid.Click
         Try
             If rdbHasPaidFee.Checked = True Then
-                SQL = "select  " & _
-                "substr(AIRBRANCH.FSPayAndSubmit.strAIRSNumber, 5) as AIRSNumber,   " & _
-                "strFacilityName, strCountyName,   " & _
-                "strClass,  " & _
-                "case   " & _
-                "when strOperationalStatus = 'X' then 'X - ' ||datShutDownDate   " & _
-                "else strOperationalStatus   " & _
-                "End strOperationalStatus,  " & _
-                "strSICCode,  " & _
-                "case   " & _
-                "when substr(strAirProgramCodes, 8, 1) = '1' then 'Yes'   " & _
-                "else 'No'   " & _
-                "end NSPSStatus, " & _
-                "case " & _
-                "when substr(strAirProgramCodes, 13, 1) = '1' then 'Yes' " & _
-                "else 'No' " & _
-                "end TVStatus, " & _
-                "sum(numPayment) TotalPaid, " & _
-                 "'" & cboFeeYear.Text & "' as FeeYear " & _
-                "from AIRBRANCH.FSPayAndSubmit, AIRBRANCH.APBFacilityInformation,   " & _
-                "AIRBRANCH.LookUpCountyInformation, AIRBRANCH.APBHeaderData,  " & _
-                "AIRBRANCH.FSAddPaid  " & _
-                "where AIRBRANCH.FSPayAndSubmit.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber   " & _
-                "and AIRBRANCH.FSPayAndSubmit.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber   " & _
-                "and AIRBRANCH.FSPayAndSubmit.strAIRSNumber = AIRBRANCH.FSAddPaid.strAIRSnumber   " & _
-                "and AIRBRANCH.FSPayAndSubmit.intYear = AIRBRANCH.FSAddPaid.intYear  " & _
-                "and substr(AIRBRANCH.FSPayAndSubmit.strAIRSNumber,5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode   " & _
-                "and AIRBRANCH.FSPayAndSubmit.intYear = '" & cboFeeYear.Text & "'   " & _
-                "and intSubmittal = '0'   " & _
-                "group by AIRBRANCH.FSPayAndSubmit.strAIRSNumber, strFacilityName, strCountyName,   " & _
-                "strClass, strOperationalStatus, datShutDownDate, strSICCode, strAirProgramCodes  " & _
+                SQL = "select  " &
+                "substr(AIRBRANCH.FSPayAndSubmit.strAIRSNumber, 5) as AIRSNumber,   " &
+                "strFacilityName, strCountyName,   " &
+                "strClass,  " &
+                "case   " &
+                "when strOperationalStatus = 'X' then 'X - ' ||datShutDownDate   " &
+                "else strOperationalStatus   " &
+                "End strOperationalStatus,  " &
+                "strSICCode,  " &
+                "case   " &
+                "when substr(strAirProgramCodes, 8, 1) = '1' then 'Yes'   " &
+                "else 'No'   " &
+                "end NSPSStatus, " &
+                "case " &
+                "when substr(strAirProgramCodes, 13, 1) = '1' then 'Yes' " &
+                "else 'No' " &
+                "end TVStatus, " &
+                "sum(numPayment) TotalPaid, " &
+                 "'" & cboFeeYear.Text & "' as FeeYear " &
+                "from AIRBRANCH.FSPayAndSubmit, AIRBRANCH.APBFacilityInformation,   " &
+                "AIRBRANCH.LookUpCountyInformation, AIRBRANCH.APBHeaderData,  " &
+                "AIRBRANCH.FSAddPaid  " &
+                "where AIRBRANCH.FSPayAndSubmit.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber   " &
+                "and AIRBRANCH.FSPayAndSubmit.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber   " &
+                "and AIRBRANCH.FSPayAndSubmit.strAIRSNumber = AIRBRANCH.FSAddPaid.strAIRSnumber   " &
+                "and AIRBRANCH.FSPayAndSubmit.intYear = AIRBRANCH.FSAddPaid.intYear  " &
+                "and substr(AIRBRANCH.FSPayAndSubmit.strAIRSNumber,5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode   " &
+                "and AIRBRANCH.FSPayAndSubmit.intYear = '" & cboFeeYear.Text & "'   " &
+                "and intSubmittal = '0'   " &
+                "group by AIRBRANCH.FSPayAndSubmit.strAIRSNumber, strFacilityName, strCountyName,   " &
+                "strClass, strOperationalStatus, datShutDownDate, strSICCode, strAirProgramCodes  " &
                 "order by AIRSNumber "
 
                 ds = New DataSet
@@ -2499,34 +2465,34 @@ Public Class PASPFeeStatistics
                 dgvLateFeeReport.Columns("FeeYear").HeaderText = "Fee Year"
                 dgvLateFeeReport.Columns("FeeYear").DisplayIndex = 9
             Else
-                SQL = "select " & _
-                "substr(AIRBRANCH.FSPayAndSubmit.strAIRSNumber, 5) as AIRSNumber, " & _
-                "strFacilityName, strCountyName, " & _
-                "strClass, " & _
-                "case " & _
-                "when strOperationalStatus = 'X' then 'X - ' ||datShutDownDate " & _
-                "else strOperationalStatus " & _
-                "End strOperationalStatus, " & _
-                "strSICCode, " & _
-                "case " & _
-                "when substr(strAirProgramCodes, 8, 1) = '1' then 'Yes' " & _
-                "else 'No' " & _
-                "end NSPSStatus, " & _
-                "case " & _
-                "when substr(strAirProgramCodes, 13, 1) = '1' then 'Yes' " & _
-                "else 'No' " & _
-                "end TVStatus, " & _
-                 "'" & cboFeeYear.Text & "' as FeeYear " & _
-                "from AIRBRANCH.FSPayAndSubmit, AIRBRANCH.APBFacilityInformation, " & _
-                "AIRBRANCH.LookUpCountyInformation, AIRBRANCH.APBHeaderData " & _
-                "where AIRBRANCH.FSPayAndSubmit.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " & _
-                "and AIRBRANCH.FSPayAndSubmit.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber " & _
-                "and substr(AIRBRANCH.FSPayAndSubmit.strAIRSNumber,5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode " & _
-                "and intYear = '" & cboFeeYear.Text & "' " & _
-                "and intSubmittal = '0' " & _
-                "and not exists (select * from AIRBRANCH.FSAddPaid " & _
-                "where AIRBRANCH.FSPayAndSubmit.strAIRSnumber = AIRBRANCH.FSAddPaid.strAIRSnumber " & _
-                "and AIRBRANCH.FSPayAndSubmit.intYear = AIRBRANCH.FSAddPaid.intYear) " & _
+                SQL = "select " &
+                "substr(AIRBRANCH.FSPayAndSubmit.strAIRSNumber, 5) as AIRSNumber, " &
+                "strFacilityName, strCountyName, " &
+                "strClass, " &
+                "case " &
+                "when strOperationalStatus = 'X' then 'X - ' ||datShutDownDate " &
+                "else strOperationalStatus " &
+                "End strOperationalStatus, " &
+                "strSICCode, " &
+                "case " &
+                "when substr(strAirProgramCodes, 8, 1) = '1' then 'Yes' " &
+                "else 'No' " &
+                "end NSPSStatus, " &
+                "case " &
+                "when substr(strAirProgramCodes, 13, 1) = '1' then 'Yes' " &
+                "else 'No' " &
+                "end TVStatus, " &
+                 "'" & cboFeeYear.Text & "' as FeeYear " &
+                "from AIRBRANCH.FSPayAndSubmit, AIRBRANCH.APBFacilityInformation, " &
+                "AIRBRANCH.LookUpCountyInformation, AIRBRANCH.APBHeaderData " &
+                "where AIRBRANCH.FSPayAndSubmit.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
+                "and AIRBRANCH.FSPayAndSubmit.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber " &
+                "and substr(AIRBRANCH.FSPayAndSubmit.strAIRSNumber,5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode " &
+                "and intYear = '" & cboFeeYear.Text & "' " &
+                "and intSubmittal = '0' " &
+                "and not exists (select * from AIRBRANCH.FSAddPaid " &
+                "where AIRBRANCH.FSPayAndSubmit.strAIRSnumber = AIRBRANCH.FSAddPaid.strAIRSnumber " &
+                "and AIRBRANCH.FSPayAndSubmit.intYear = AIRBRANCH.FSAddPaid.intYear) " &
                 "order by AIRSNumber "
 
                 ds = New DataSet
@@ -2583,9 +2549,9 @@ Public Class PASPFeeStatistics
                     For i = 0 To dgvLateFeeReport.RowCount.ToString - 1
                         AIRSNumber = dgvLateFeeReport(0, i).Value
 
-                        SQL = "update AIRBRANCH.FSPayAndSubmit set " & _
-                        "intSubmittal = '1' " & _
-                        "where strAIRSnumber = '0413" & AIRSNumber & "' " & _
+                        SQL = "update AIRBRANCH.FSPayAndSubmit set " &
+                        "intSubmittal = '1' " &
+                        "where strAIRSnumber = '0413" & AIRSNumber & "' " &
                         "and intYear = '" & cboFeeYear.Text & "' "
 
                         cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2597,10 +2563,10 @@ Public Class PASPFeeStatistics
 
                         temp = "0"
 
-                        SQL = "Select " & _
-                        "count(*) as FSCalc " & _
-                        "from AIRBRANCH.FSCalculations " & _
-                        "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
+                        SQL = "Select " &
+                        "count(*) as FSCalc " &
+                        "from AIRBRANCH.FSCalculations " &
+                        "where strAIRSNumber = '0413" & AIRSNumber & "' " &
                         "and intYear = '" & cboFeeYear.Text & "' "
                         cmd = New OracleCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -2616,13 +2582,13 @@ Public Class PASPFeeStatistics
                         End While
                         dr.Close()
                         If temp = "0" Then
-                            SQL = "Insert into AIRBRANCH.FSCalculations " & _
-                            "values " & _
-                            "('0413" & AIRSNumber & "', '" & cboFeeYear.Text & "', " & _
-                            "'0', '0', '0', '0', " & _
-                            "'0', '0', '0', '0', " & _
-                            "'NO', '0', 'YES', '33.0', " & _
-                            "'', 'No', 'No', '0', " & _
+                            SQL = "Insert into AIRBRANCH.FSCalculations " &
+                            "values " &
+                            "('0413" & AIRSNumber & "', '" & cboFeeYear.Text & "', " &
+                            "'0', '0', '0', '0', " &
+                            "'0', '0', '0', '0', " &
+                            "'NO', '0', 'YES', '33.0', " &
+                            "'', 'No', 'No', '0', " &
                             "'', '', '', '', '', '0') "
 
                             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2644,13 +2610,13 @@ Public Class PASPFeeStatistics
     End Sub
     Private Sub btnViewUnenrolled_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewUnenrolled.Click
         Try
-            SQL = "select " & _
-            "substr(AIRBRANCH.FEEMailOut.strAIRSNumber, 5) as AIRSNumber, " & _
-            "strFacilityName " & _
-            "from AIRBRANCH.FeeMailout " & _
-            "where intYear = '" & cboFeeYear.Text & "' " & _
-            "and not exists (select * from AIRBRANCH.FSPayAndSubmit " & _
-            "where AIRBRANCH.FeeMailOut.strAIRSnumber = AIRBRANCH.FSPayAndSubmit.strAIRSnumber " & _
+            SQL = "select " &
+            "substr(AIRBRANCH.FEEMailOut.strAIRSNumber, 5) as AIRSNumber, " &
+            "strFacilityName " &
+            "from AIRBRANCH.FeeMailout " &
+            "where intYear = '" & cboFeeYear.Text & "' " &
+            "and not exists (select * from AIRBRANCH.FSPayAndSubmit " &
+            "where AIRBRANCH.FeeMailOut.strAIRSnumber = AIRBRANCH.FSPayAndSubmit.strAIRSnumber " &
             "and AIRBRANCH.FeeMailOut.intYear = AIRBRANCH.FSPayAndSubmit.intYear) "
 
             ds = New DataSet
@@ -2727,9 +2693,9 @@ Public Class PASPFeeStatistics
 
             AIRSNumber = txtFeeAIRSNumber.Text
 
-            SQL = "select " & _
-            "max(datReceiveddate) as MaxDate " & _
-            "from AIRBranch.SSCPItemMaster " & _
+            SQL = "select " &
+            "max(datReceiveddate) as MaxDate " &
+            "from AIRBranch.SSCPItemMaster " &
             "where strAIRSNumber = '0413" & AIRSNumber & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2744,10 +2710,10 @@ Public Class PASPFeeStatistics
             End While
             dr2.Close()
 
-            SQL = "select " & _
-            "max(datFCECompleted) as MaxDate " & _
-            "from AIRBRANCH.SSCPFCEMaster, AIRBRANCH.SSCPFCE  " & _
-            "where AIRBRANCH.SSCPFCEMaster.strFCENumber = AIRBRANCH.SSCPFCE.strFCENumber " & _
+            SQL = "select " &
+            "max(datFCECompleted) as MaxDate " &
+            "from AIRBRANCH.SSCPFCEMaster, AIRBRANCH.SSCPFCE  " &
+            "where AIRBRANCH.SSCPFCEMaster.strFCENumber = AIRBRANCH.SSCPFCE.strFCENumber " &
             "and strAIRSnumber = '0413" & AIRSNumber & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2769,9 +2735,9 @@ Public Class PASPFeeStatistics
             End While
             dr2.Close()
 
-            SQL = "select " & _
-            "max(datEnforcementFinalized) as MaxDate " & _
-            "from AIRBranch.SSCP_AuditedEnforcement " & _
+            SQL = "select " &
+            "max(datEnforcementFinalized) as MaxDate " &
+            "from AIRBranch.SSCP_AuditedEnforcement " &
             "where strAIRSnumber = '0413" & AIRSNumber & "'"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2795,12 +2761,12 @@ Public Class PASPFeeStatistics
 
             Select Case ComplianceType
                 Case "Item"
-                    SQL = "select strTrackingNumber, datCompleteDate, " & _
-                    "strActivityName " & _
-                    "from AIRBRANCH.SSCPItemMaster, AIRBRANCH.LookupComplianceActivities  " & _
-                    "where AIRBRANCH.SSCPItemMaster.strEventType = AIRBRANCH.LookUpComplianceActivities.strActivityType  " & _
-                    "and strAIRSNumber = '0413" & AIRSNumber & "' " & _
-                    "and datCompleteDate = (select max(datCompleteDate) from AIRBRANCH.SSCPItemMaster " & _
+                    SQL = "select strTrackingNumber, datCompleteDate, " &
+                    "strActivityName " &
+                    "from AIRBRANCH.SSCPItemMaster, AIRBRANCH.LookupComplianceActivities  " &
+                    "where AIRBRANCH.SSCPItemMaster.strEventType = AIRBRANCH.LookUpComplianceActivities.strActivityType  " &
+                    "and strAIRSNumber = '0413" & AIRSNumber & "' " &
+                    "and datCompleteDate = (select max(datCompleteDate) from AIRBRANCH.SSCPItemMaster " &
                     "where strAIRSNumber = '0413" & AIRSNumber & "') "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2827,15 +2793,15 @@ Public Class PASPFeeStatistics
                     End While
                     lblComplianceDate.Text = "Date Completed"
                 Case "FCE"
-                    SQL = "select " & _
-                    "AIRBRANCH.SSCPFCE.strFCENumber, datFCECompleted " & _
-                    "from AIRBRANCH.SSCPFCE, AIRBRANCH.SSCPFCEMaster  " & _
-                    "where AIRBRANCH.SSCPFCEMaster.strFCENumber = AIRBRANCH.SSCPFCE.strFCENumber " & _
-                    "and strAIRSNumber = '0413" & AIRSNumber & "' " & _
-                    "and AIRBRANCH.SSCPFCE.datFCECompleted = (select " & _
-                    "max(datFCECompleted) " & _
-                    "from AIRBRANCH.SSCPFCEMaster, AIRBRANCH.SSCPFCE  " & _
-                    "where AIRBRANCH.SSCPFCEMaster.strFCENumber = AIRBRANCH.SSCPFCE.strFCENumber " & _
+                    SQL = "select " &
+                    "AIRBRANCH.SSCPFCE.strFCENumber, datFCECompleted " &
+                    "from AIRBRANCH.SSCPFCE, AIRBRANCH.SSCPFCEMaster  " &
+                    "where AIRBRANCH.SSCPFCEMaster.strFCENumber = AIRBRANCH.SSCPFCE.strFCENumber " &
+                    "and strAIRSNumber = '0413" & AIRSNumber & "' " &
+                    "and AIRBRANCH.SSCPFCE.datFCECompleted = (select " &
+                    "max(datFCECompleted) " &
+                    "from AIRBRANCH.SSCPFCEMaster, AIRBRANCH.SSCPFCE  " &
+                    "where AIRBRANCH.SSCPFCEMaster.strFCENumber = AIRBRANCH.SSCPFCE.strFCENumber " &
                     "and strAIRSnumber = '0413" & AIRSNumber & "') "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2859,13 +2825,13 @@ Public Class PASPFeeStatistics
                     dr2.Close()
                     lblComplianceDate.Text = "Date FCE Completed"
                 Case "Enforcement"
-                    SQL = "select " & _
-                    "strEnforcementNumber, datEnforcementFinalized " & _
-                    "from AIRBRANCH.SSCP_AuditedEnforcement " & _
-                    "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
-                    "and datEnforcementFinalized = (Select " & _
-                    "max(datEnforcementFinalized) " & _
-                    "from AIRBRANCH.SSCP_AuditedEnforcement " & _
+                    SQL = "select " &
+                    "strEnforcementNumber, datEnforcementFinalized " &
+                    "from AIRBRANCH.SSCP_AuditedEnforcement " &
+                    "where strAIRSNumber = '0413" & AIRSNumber & "' " &
+                    "and datEnforcementFinalized = (Select " &
+                    "max(datEnforcementFinalized) " &
+                    "from AIRBRANCH.SSCP_AuditedEnforcement " &
                     "where strairsnumber = '0413" & AIRSNumber & "') "
 
                     cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2896,10 +2862,10 @@ Public Class PASPFeeStatistics
             txtFeeComplianceEventType.Text = ComplianceType
             txtFeeLastComplianceEvent.Text = ComplianceDate
 
-            SQL = "select " & _
-            "max(to_number(AIRBranch.SSPPApplicationMaster.strApplicationNumber)) as LastApp " & _
-            "from AirBranch.SSPPApplicationMaster " & _
-            "where strAIRSNumber = '0413" & AIRSNumber & "' " & _
+            SQL = "select " &
+            "max(to_number(AIRBranch.SSPPApplicationMaster.strApplicationNumber)) as LastApp " &
+            "from AirBranch.SSPPApplicationMaster " &
+            "where strAIRSNumber = '0413" & AIRSNumber & "' " &
             "and datFinalizedDate is not null"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2917,17 +2883,17 @@ Public Class PASPFeeStatistics
             dr2.Close()
 
             If LastApp <> "" Then
-                SQL = "select " & _
-                "strApplicationTypeDesc, strPermitNumber, " & _
-                "case " & _
-                "when datPermitIssued is null then to_char(datFinalizedDate, 'dd-Mon-yyyy') " & _
-                "else to_char(datPermitIssued, 'dd-Mon-yyyy') " & _
-                "end FinalDate " & _
-                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.LookUpApplicationTypes, " & _
-                "AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.SSPPApplicationData  " & _
-                "where AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " & _
-                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber (+) " & _
-                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber (+) " & _
+                SQL = "select " &
+                "strApplicationTypeDesc, strPermitNumber, " &
+                "case " &
+                "when datPermitIssued is null then to_char(datFinalizedDate, 'dd-Mon-yyyy') " &
+                "else to_char(datPermitIssued, 'dd-Mon-yyyy') " &
+                "end FinalDate " &
+                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.LookUpApplicationTypes, " &
+                "AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.SSPPApplicationData  " &
+                "where AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " &
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber (+) " &
+                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber (+) " &
                 "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & LastApp & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2952,8 +2918,8 @@ Public Class PASPFeeStatistics
                         PermitNumber = dr2.Item("strPermitNumber")
                         If PermitNumber.Length = 15 Then
                             If IsNumeric(Mid(PermitNumber, 1, 4)) Then
-                                PermitNumber = Mid(PermitNumber, 1, 4) & "-" & Mid(PermitNumber, 5, 3) & "-" & _
-                                                 Mid(PermitNumber, 8, 4) & "-" & Mid(PermitNumber, 12, 1) & "-" & _
+                                PermitNumber = Mid(PermitNumber, 1, 4) & "-" & Mid(PermitNumber, 5, 3) & "-" &
+                                                 Mid(PermitNumber, 8, 4) & "-" & Mid(PermitNumber, 12, 1) & "-" &
                                                   Mid(PermitNumber, 13, 2) & "-" & Mid(PermitNumber, 15)
                             End If
                         End If
@@ -2967,17 +2933,17 @@ Public Class PASPFeeStatistics
             txtFeePermittingDate.Text = AppDate
             txtFeePermitNumber.Text = PermitNumber
 
-            SQL = "select " & _
-            "strApplicationNumber " & _
-            "from AIRBRANCH.SSPPApplicationMaster " & _
-            "where datfinalizedDate Is null " & _
+            SQL = "select " &
+            "strApplicationNumber " &
+            "from AIRBRANCH.SSPPApplicationMaster " &
+            "where datfinalizedDate Is null " &
             "and strAIRSNumber = '0413" & AIRSNumber & "' "
 
-            SQL = "select " & _
-            "strApplicationNumber, strApplicationTypeDesc " & _
-            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.LookUpApplicationTypes " & _
-            "where AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " & _
-            "and datfinalizedDate Is null " & _
+            SQL = "select " &
+            "strApplicationNumber, strApplicationTypeDesc " &
+            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.LookUpApplicationTypes " &
+            "where AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " &
+            "and datfinalizedDate Is null " &
             "and strAIRSNumber = '0413" & AIRSNumber & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3141,14 +3107,14 @@ Public Class PASPFeeStatistics
 #Region "Fee Reports "
     Sub LoadComboBoxesF()
         With cboAirsNo
-            .DataSource = FeesService.AllFeeFacilities
+            .DataSource = GetSharedData(SharedTable.AllFeeFacilities)
             .DisplayMember = "AIRS Number"
             .ValueMember = "STRAIRSNUMBER"
             .SelectedIndex = 0
         End With
 
         With cboFacilityName
-            .DataSource = FeesService.AllFeeFacilities
+            .DataSource = GetSharedData(SharedTable.AllFeeFacilities)
             .DisplayMember = "Facility Name"
             .ValueMember = "STRAIRSNUMBER"
             .SelectedIndex = 0
@@ -3216,17 +3182,17 @@ Public Class PASPFeeStatistics
 
             SQL = "Select * from AIRBRANCH.VW_Total_fee "
 
-            SQL = "SELECT  intYear, sum(intVOCTons) as intvoctons, " & _
-            "sum(intPMTons) as intPMTons, " & _
-            "sum(intSO2Tons) as intSO2Tons, " & _
-            "sum(intNOXtons) as intNOXTons, " & _
-            "sum(numSMFee) as numSMFee, " & _
-            "sum(numNSPSFee) as numNSPSFee, " & _
-            "sum(numTotalFee) as numTotalFee, " & _
-            "round(avg(numFeeRate)) as numFeeRate, " & _
-            "Round(avg(titlevminfee)) as titlevminfee, " & _
-            "round(avg(titlevfee)) as titlevfee  " & _
-            "from AIRBRANCH.vw_total_fee " & _
+            SQL = "SELECT  intYear, sum(intVOCTons) as intvoctons, " &
+            "sum(intPMTons) as intPMTons, " &
+            "sum(intSO2Tons) as intSO2Tons, " &
+            "sum(intNOXtons) as intNOXTons, " &
+            "sum(numSMFee) as numSMFee, " &
+            "sum(numNSPSFee) as numNSPSFee, " &
+            "sum(numTotalFee) as numTotalFee, " &
+            "round(avg(numFeeRate)) as numFeeRate, " &
+            "Round(avg(titlevminfee)) as titlevminfee, " &
+            "round(avg(titlevfee)) as titlevfee  " &
+            "from AIRBRANCH.vw_total_fee " &
             "group by intyear "
 
             da = New OracleDataAdapter(SQL, CurrentConnection)
@@ -8560,28 +8526,7 @@ Public Class PASPFeeStatistics
 "and AIRBranch.FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "'  " &
 "and  AIRBranch.FS_FeeInvoice.strPayType = '5'  "
                 Case "AMENDMENT", "ONE-TIME", "REFUND"
-                    'SQL = "select  " & _
-                    '"substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " & _
-                    '"strFacilityName, strPaymentPlan,  " & _
-                    '"(numTotalFee)/4 as Due, AIRBRANCH.FS_FeeAuditedData.numFeeYear,  " & _
-                    '"numPart70Fee, numSMFee, numNSPSFee,  " & _
-                    '"numTotalFee, strClass, numAdminFee  " & _
-                    '"From AIRBRANCH.APBFacilityInformation, AIRBRANCH.FS_FeeAuditedData " & _
-                    '"where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.FS_FeeAuditedData.strAIRSNumber  " & _
-                    '"and AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    '"and AIRBRANCH.FS_FeeAuditedData.Active = '1' " & _
-                    '"and strPaymentPlan is null "
                 Case Else
-                    'SQL = "select  " & _
-                    '"substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " & _
-                    '"strFacilityName, strPaymentPlan,  " & _
-                    '"(numTotalFee) as Due, AIRBRANCH.FS_FeeAuditedData.numFeeYear,  " & _
-                    '"numPart70Fee, numSMFee, numNSPSFee,  " & _
-                    '"numTotalFee, strClass, numAdminFee  " & _
-                    '"From AIRBRANCH.APBFacilityInformation, AIRBRANCH.FS_FeeAuditedData " & _
-                    '"where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.FS_FeeAuditedData.strAIRSNumber  " & _
-                    '"and AIRBRANCH.FS_FeeAuditedData.Active = '1' " & _
-                    '"and AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' "
             End Select
 
             If SQL <> "" Then
@@ -8663,16 +8608,6 @@ Public Class PASPFeeStatistics
 
             Select Case cboStatPayType.Text
                 Case "ALL"
-                    'SQLReported = "Select sum(numtotalFee) as TotalDue " & _
-                    '"from AIRBRANCH.FS_FeeAuditedData " & _
-                    '"where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    '"and Active = '1' "
-
-                    'SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    '"from AIRBRANCH.FS_FeeInvoice " & _
-                    '"where AIRBRANCH.FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    '"and Active = '1' "
-
                     SQL = "select " &
   "VarianceReport.strAIRSNumber, strFacilityName, " &
   "numFeeyear, AmountDue, " &
@@ -8787,187 +8722,27 @@ Public Class PASPFeeStatistics
                      "airbranch.APBfacilityinformation " &
                      "where VarianceREport.strAIRSNumber = APBFacilityInformation.strAIRSNumber "
 
-
-
-
-
                 Case "ANNUAL"
-                    'SQLReported = "Select sum(numtotalFee) as TotalDue " & _
-                    '"from AIRBRANCH.FS_FeeAuditedData " & _
-                    '"where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    '"and Active = '1' " & _
-                    '"and strpaymentplan = 'Entire Annual Year' "
-
-                    'SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    '"from AIRBRANCH.FS_FeeInvoice " & _
-                    '"where AIRBRANCH.FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    '"and AIRbranch.FS_FeeInvoice.strPayType = '1'  " & _
-                    '"and Active = '1' "
-
-                    'SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    '"from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " & _
-                    '"where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " & _
-                    '"and AIRBRANCH.FS_FeeInvoice.strPayType = '1' " & _
-                    '"and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and AIRBRANCH.FS_Transactions.active = '1' "
-
 
                 Case "ALL QUARTERS"
-                    'SQLReported = "Select sum(numtotalFee) as TotalDue " & _
-                    '"from AIRBRANCH.FS_FeeAuditedData " & _
-                    '"where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    '"and Active = '1' " & _
-                    '"and strpaymentplan = 'Four Quarterly Payments' "
-
-                    'SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    '"from AIRBRANCH.FS_FeeInvoice " & _
-                    '"where AIRBRANCH.FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    '"and AIRbranch.FS_FeeInvoice.strPayType <> '1'  " & _
-                    '"and Active = '1' "
-
-                    'SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    '"from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " & _
-                    '"where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " & _
-                    '"and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and AIRBRANCH.FS_Transactions.active = '1' " & _
-                    '"and (AIRBRANCH.FS_FeeInvoice.strPayType = '2' " & _
-                    '"or AIRBRANCH.FS_FeeInvoice.strPayType = '3' " & _
-                    '"or AIRBRANCH.FS_FeeInvoice.strPayType = '4' " & _
-                    '"or AIRBRANCH.FS_FeeInvoice.strPayType = '5') "
-
 
                 Case "QUARTER ONE"
-                    'SQLReported = "Select sum(numtotalFee/4) as TotalDue " & _
-                    '"from AIRBRANCH.FS_FeeAuditedData " & _
-                    '"where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    '"and Active = '1' " & _
-                    '"and strpaymentplan = 'Four Quarterly Payments' "
-
-                    'SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    '"from AIRBRANCH.FS_FeeInvoice " & _
-                    '"where AIRBRANCH.FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    '"and AIRbranch.FS_FeeInvoice.strPayType = '2'  " & _
-                    '"and Active = '1' "
-
-                    'SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    '"from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " & _
-                    '"where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " & _
-                    '"and AIRBRANCH.FS_FeeInvoice.strPayType = '2' " & _
-                    '"and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and AIRBRANCH.FS_Transactions.active = '1' "
 
                 Case "QUARTER TWO"
-                    'SQLReported = "Select sum(numtotalFee/4) as TotalDue " & _
-                    '"from AIRBRANCH.FS_FeeAuditedData " & _
-                    '"where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    '"and Active = '1' " & _
-                    '"and strpaymentplan = 'Four Quarterly Payments' "
-
-                    'SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    '"from AIRBRANCH.FS_FeeInvoice " & _
-                    '"where AIRBRANCH.FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    '"and AIRbranch.FS_FeeInvoice.strPayType = '3'  " & _
-                    '"and Active = '1' "
-
-                    'SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    '"from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " & _
-                    '"where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " & _
-                    '"and AIRBRANCH.FS_FeeInvoice.strPayType = '3' " & _
-                    '"and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and AIRBRANCH.FS_Transactions.active = '1' "
 
                 Case "QUARTER THREE"
-                    'SQLReported = "Select sum(numtotalFee/4) as TotalDue " & _
-                    '"from AIRBRANCH.FS_FeeAuditedData " & _
-                    '"where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    '"and Active = '1' " & _
-                    '"and strpaymentplan = 'Four Quarterly Payments' "
-
-                    'SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    '"from AIRBRANCH.FS_FeeInvoice " & _
-                    '"where AIRBRANCH.FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    '"and AIRbranch.FS_FeeInvoice.strPayType = '4'  " & _
-                    '"and Active = '1' "
-
-                    'SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    '"from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " & _
-                    '"where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " & _
-                    '"and AIRBRANCH.FS_FeeInvoice.strPayType = '4' " & _
-                    '"and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and AIRBRANCH.FS_Transactions.active = '1' "
 
                 Case "QUARTER FOUR"
-                    'SQLReported = "Select sum(numtotalFee/4 ) as TotalDue " & _
-                    '"from AIRBRANCH.FS_FeeAuditedData " & _
-                    '"where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    '"and Active = '1' " & _
-                    '"and strpaymentplan = 'Four Quarterly Payments' "
-
-                    'SQLInvoiced = "Select sum(numAmount) as TotalInvoiced " & _
-                    '"from AIRBRANCH.FS_FeeInvoice " & _
-                    '"where AIRBRANCH.FS_FeeInvoice.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    '"and AIRbranch.FS_FeeInvoice.strPayType = '5'  " & _
-                    '"and Active = '1' "
-
-                    'SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    '"from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " & _
-                    '"where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " & _
-                    '"and AIRBRANCH.FS_FeeInvoice.strPayType = '5' " & _
-                    '"and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and AIRBRANCH.FS_Transactions.active = '1' "
-
 
                 Case "AMENDMENT"
-                    'SQLReported = "Select sum(numtotalFee ) as TotalDue " & _
-                    '"from AIRBRANCH.FS_FeeAuditedData " & _
-                    '"where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    '"and Active = '1' " & _
-                    '"and strpaymentplan is null "
 
-                    'SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    '"from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " & _
-                    '"where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " & _
-                    '"and AIRBRANCH.FS_FeeInvoice.strPayType = '6' " & _
-                    '"and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and AIRBRANCH.FS_Transactions.active = '1' "
                 Case "ONE-TIME"
-                    'SQLReported = "Select sum(numtotalFee ) as TotalDue " & _
-                    '"from AIRBRANCH.FS_FeeAuditedData " & _
-                    '"where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    '"and Active = '1' " & _
-                    '"and strpaymentplan is null "
 
-                    'SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    '"from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " & _
-                    '"where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " & _
-                    '"and AIRBRANCH.FS_FeeInvoice.strPayType = '8' " & _
-                    '"and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and AIRBRANCH.FS_Transactions.active = '1' "
                 Case "REFUND"
-                    'SQLReported = "Select sum(0) as TotalDue " & _
-                    '"from AIRBRANCH.FS_FeeAuditedData " & _
-                    '"where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    '"and Active = '1' "
 
-                    'SQLPaid = "select sum(numPayment) as TotalPaid " & _
-                    '"from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice " & _
-                    '"where AIRBRANCH.FS_Transactions.InvoiceID = AIRBRANCH.FS_FeeInvoice.invoiceID " & _
-                    '"and AIRBRANCH.FS_FeeInvoice.strPayType = '7' " & _
-                    '"and AIRBRANCH.FS_Transactions.nuMFeeYEar = '" & cboStatYear.Text & "' " & _
-                    '"and AIRBRANCH.FS_Transactions.active = '1' "
                 Case Else
-                    'SQLReported = "Select sum(numtotalFee) as TotalDue " & _
-                    '"from AIRBRANCH.FS_FeeAuditedData " & _
-                    '"where AIRBRANCH.FS_FeeAuditedData.numFeeYear = '" & cboStatYear.Text & "' " & _
-                    '"and Active = '1' "
 
-                    'SQLPaid = "Select sum(numPayment) as TotalPaid " & _
-                    '"from AIRBRANCH.FS_Transactions " & _
-                    '"where numFeeYear = '" & cboStatYear.Text & "' " & _
-                    '"and Active = '1' "
             End Select
-
-
 
             SQL = "select substr(VarianceReport.strAIRSNumber, 5) as strAIRSNumber, strFacilityname, " &
             "numfeeyear, to_number(TotalInvoiced) as TotalInvoiced, to_number(TotalReported) as TotalReported  " &
@@ -9096,369 +8871,369 @@ Public Class PASPFeeStatistics
 
             Select Case cboStatPayType.Text
                 Case "ALL"
-                    SQL = "select " & _
-                    "substr(strAIRSNumber, 5) as strAIRSNumber, " & _
-                    "strFacilityName, numFeeyear, " & _
-                    "Payment, AmountOwed, Balance, PayType, FeeReported " & _
-                    "from " & _
-                    "(select " & _
-                    "Invoices.strairsnumber, strFacilityname, " & _
-                    "Payment, AmountOwed, numFeeYear, " & _
-                    "numTotalfee as FeeReported, " & _
-                    "case " & _
-                    "when (AmountOwed - Payment) = 0 then 0 " & _
-                    "when (AmountOwed - Payment) is null then AmountOwed " & _
-                    "else (AmountOwed - Payment) " & _
-                    "end Balance ,  PayType  " & _
-                    "from " & _
-                    "(select strairsnumber, sum(numpayment)  as Payment " & _
-                    "from AIRBranch.FS_Transactions " & _
-                    "where numFeeyear = '" & cboStatYear.Text & "' " & _
-                    "and active = '1' group by strairsnumber) Transactions, " & _
-                    "(select strairsnumber, sum(numamount)   as AmountOwed, " & _
-                    "numFeeYear, " & _
-                    "case " & _
-                    "when strPayType = '1' then 'Annual Payer' " & _
-                    "Else 'Quarterly Payer' " & _
-                    "end PayType " & _
-                    "from AIRBranch.FS_FeeInvoice " & _
-                    "where numfeeyear = '" & cboStatYear.Text & "' " & _
-                    "and active = 1  group by strairsnumber, numFeeYear, case " & _
-                    "when strPayType = '1' then 'Annual Payer' " & _
-                    "Else 'Quarterly Payer' " & _
-                    "end) Invoices, " & _
-                    "(select strairsnumber,  " & _
-                      "numTotalfee " & _
-                      "from Airbranch.FS_FeeAuditedData " & _
-                      "where numfeeyear = '" & cboStatYear.Text & "' " & _
-                      "and active = '1' ) Reported, " & _
-                    "AIRBranch.APBfacilityInformation  " & _
-                    "where Invoices.strAIRSNumber =   transactions.strairsnumber (+) " & _
-                    "and Invoices.strairsnumber = APBfacilityInformation.strAIRSNumber " & _
-                    "and Invoices.strAIRSNumber =   Reported.strairsnumber (+)  " & _
+                    SQL = "select " &
+                    "substr(strAIRSNumber, 5) as strAIRSNumber, " &
+                    "strFacilityName, numFeeyear, " &
+                    "Payment, AmountOwed, Balance, PayType, FeeReported " &
+                    "from " &
+                    "(select " &
+                    "Invoices.strairsnumber, strFacilityname, " &
+                    "Payment, AmountOwed, numFeeYear, " &
+                    "numTotalfee as FeeReported, " &
+                    "case " &
+                    "when (AmountOwed - Payment) = 0 then 0 " &
+                    "when (AmountOwed - Payment) is null then AmountOwed " &
+                    "else (AmountOwed - Payment) " &
+                    "end Balance ,  PayType  " &
+                    "from " &
+                    "(select strairsnumber, sum(numpayment)  as Payment " &
+                    "from AIRBranch.FS_Transactions " &
+                    "where numFeeyear = '" & cboStatYear.Text & "' " &
+                    "and active = '1' group by strairsnumber) Transactions, " &
+                    "(select strairsnumber, sum(numamount)   as AmountOwed, " &
+                    "numFeeYear, " &
+                    "case " &
+                    "when strPayType = '1' then 'Annual Payer' " &
+                    "Else 'Quarterly Payer' " &
+                    "end PayType " &
+                    "from AIRBranch.FS_FeeInvoice " &
+                    "where numfeeyear = '" & cboStatYear.Text & "' " &
+                    "and active = 1  group by strairsnumber, numFeeYear, case " &
+                    "when strPayType = '1' then 'Annual Payer' " &
+                    "Else 'Quarterly Payer' " &
+                    "end) Invoices, " &
+                    "(select strairsnumber,  " &
+                      "numTotalfee " &
+                      "from Airbranch.FS_FeeAuditedData " &
+                      "where numfeeyear = '" & cboStatYear.Text & "' " &
+                      "and active = '1' ) Reported, " &
+                    "AIRBranch.APBfacilityInformation  " &
+                    "where Invoices.strAIRSNumber =   transactions.strairsnumber (+) " &
+                    "and Invoices.strairsnumber = APBfacilityInformation.strAIRSNumber " &
+                    "and Invoices.strAIRSNumber =   Reported.strairsnumber (+)  " &
                     " order by strairsnumber) allData "
 
                 Case "ANNUAL"
-                    SQL = "select " & _
-                    "substr(strAIRSNumber, 5) as strAIRSNumber, " & _
-                    "strFacilityName, numFeeyear, " & _
-                    "Payment, AmountOwed, Balance, PayType, FeeReported " & _
-                    "from " & _
-                    "(select " & _
-                    "Invoices.strairsnumber, strFacilityname, " & _
-                    "Payment, AmountOwed, numFeeYear, " & _
-                    "numTotalfee as FeeReported, " & _
-                    "case " & _
-                    "when (AmountOwed - Payment) = 0 then 0 " & _
-                    "when (AmountOwed - Payment) is null then AmountOwed " & _
-                    "else (AmountOwed - Payment) " & _
-                    "end Balance ,  PayType  " & _
-                    "from " & _
-                    "(select strairsnumber, sum(numpayment)  as Payment " & _
-                    "from AIRBranch.FS_Transactions " & _
-                    "where numFeeyear = '" & cboStatYear.Text & "' " & _
-                    "and active = '1' group by strairsnumber) Transactions, " & _
-                    "(select strairsnumber, sum(numamount)   as AmountOwed, " & _
-                    "numFeeYear, " & _
-                    "case " & _
-                    "when strPayType = '1' then 'Annual Payer' " & _
-                    "Else 'Quarterly Payer' " & _
-                    "end PayType " & _
-                    "from AIRBranch.FS_FeeInvoice " & _
-                    "where numfeeyear = '" & cboStatYear.Text & "' " & _
-                    "and active = 1 " & _
-                    "and strPayType = '1' " & _
-                    " group by strairsnumber, numFeeYear, case " & _
-                    "when strPayType = '1' then 'Annual Payer' " & _
-                    "Else 'Quarterly Payer' " & _
-                    "end) Invoices, " & _
-                    "(select strairsnumber,  " & _
-                      "numTotalfee " & _
-                      "from Airbranch.FS_FeeAuditedData " & _
-                      "where numfeeyear = '" & cboStatYear.Text & "' " & _
-                      "and active = '1' ) Reported, " & _
-                    "AIRBranch.APBfacilityInformation  " & _
-                    "where Invoices.strAIRSNumber =   transactions.strairsnumber (+) " & _
-                    "and Invoices.strairsnumber = APBfacilityInformation.strAIRSNumber " & _
-                    "and Invoices.strAIRSNumber =   Reported.strairsnumber (+)  " & _
+                    SQL = "select " &
+                    "substr(strAIRSNumber, 5) as strAIRSNumber, " &
+                    "strFacilityName, numFeeyear, " &
+                    "Payment, AmountOwed, Balance, PayType, FeeReported " &
+                    "from " &
+                    "(select " &
+                    "Invoices.strairsnumber, strFacilityname, " &
+                    "Payment, AmountOwed, numFeeYear, " &
+                    "numTotalfee as FeeReported, " &
+                    "case " &
+                    "when (AmountOwed - Payment) = 0 then 0 " &
+                    "when (AmountOwed - Payment) is null then AmountOwed " &
+                    "else (AmountOwed - Payment) " &
+                    "end Balance ,  PayType  " &
+                    "from " &
+                    "(select strairsnumber, sum(numpayment)  as Payment " &
+                    "from AIRBranch.FS_Transactions " &
+                    "where numFeeyear = '" & cboStatYear.Text & "' " &
+                    "and active = '1' group by strairsnumber) Transactions, " &
+                    "(select strairsnumber, sum(numamount)   as AmountOwed, " &
+                    "numFeeYear, " &
+                    "case " &
+                    "when strPayType = '1' then 'Annual Payer' " &
+                    "Else 'Quarterly Payer' " &
+                    "end PayType " &
+                    "from AIRBranch.FS_FeeInvoice " &
+                    "where numfeeyear = '" & cboStatYear.Text & "' " &
+                    "and active = 1 " &
+                    "and strPayType = '1' " &
+                    " group by strairsnumber, numFeeYear, case " &
+                    "when strPayType = '1' then 'Annual Payer' " &
+                    "Else 'Quarterly Payer' " &
+                    "end) Invoices, " &
+                    "(select strairsnumber,  " &
+                      "numTotalfee " &
+                      "from Airbranch.FS_FeeAuditedData " &
+                      "where numfeeyear = '" & cboStatYear.Text & "' " &
+                      "and active = '1' ) Reported, " &
+                    "AIRBranch.APBfacilityInformation  " &
+                    "where Invoices.strAIRSNumber =   transactions.strairsnumber (+) " &
+                    "and Invoices.strairsnumber = APBfacilityInformation.strAIRSNumber " &
+                    "and Invoices.strAIRSNumber =   Reported.strairsnumber (+)  " &
                     " order by strairsnumber) allData "
                 Case "ALL QUARTERS"
-                    SQL = "select " & _
-                           "substr(strAIRSNumber, 5) as strAIRSNumber, " & _
-                           "strFacilityName, numFeeyear, " & _
-                           "Payment, AmountOwed, Balance, PayType, FeeReported " & _
-                           "from " & _
-                           "(select " & _
-                           "Invoices.strairsnumber, strFacilityname, " & _
-                           "Payment, AmountOwed, numFeeYear, " & _
-                           "numTotalfee as FeeReported, " & _
-                           "case " & _
-                           "when (AmountOwed - Payment) = 0 then 0 " & _
-                           "when (AmountOwed - Payment) is null then AmountOwed " & _
-                           "else (AmountOwed - Payment) " & _
-                           "end Balance ,  PayType  " & _
-                           "from " & _
-                           "(select strairsnumber, sum(numpayment)  as Payment " & _
-                           "from AIRBranch.FS_Transactions " & _
-                           "where numFeeyear = '" & cboStatYear.Text & "' " & _
-                           "and active = '1' group by strairsnumber) Transactions, " & _
-                           "(select strairsnumber, sum(numamount)   as AmountOwed, " & _
-                           "numFeeYear, " & _
-                           "case " & _
-                           "when strPayType = '1' then 'Annual Payer' " & _
-                           "Else 'Quarterly Payer' " & _
-                           "end PayType " & _
-                           "from AIRBranch.FS_FeeInvoice " & _
-                           "where numfeeyear = '" & cboStatYear.Text & "' " & _
-                           "and active = 1 " & _
-                           "and strPayType <> '1' " & _
-                           " group by strairsnumber, numFeeYear, case " & _
-                           "when strPayType = '1' then 'Annual Payer' " & _
-                           "Else 'Quarterly Payer' " & _
-                           "end) Invoices, " & _
-                           "(select strairsnumber,  " & _
-                             "numTotalfee " & _
-                             "from Airbranch.FS_FeeAuditedData " & _
-                             "where numfeeyear = '" & cboStatYear.Text & "' " & _
-                             "and active = '1' ) Reported, " & _
-                           "AIRBranch.APBfacilityInformation  " & _
-                           "where Invoices.strAIRSNumber =   transactions.strairsnumber (+) " & _
-                           "and Invoices.strairsnumber = APBfacilityInformation.strAIRSNumber " & _
-                           "and Invoices.strAIRSNumber =   Reported.strairsnumber (+)  " & _
+                    SQL = "select " &
+                           "substr(strAIRSNumber, 5) as strAIRSNumber, " &
+                           "strFacilityName, numFeeyear, " &
+                           "Payment, AmountOwed, Balance, PayType, FeeReported " &
+                           "from " &
+                           "(select " &
+                           "Invoices.strairsnumber, strFacilityname, " &
+                           "Payment, AmountOwed, numFeeYear, " &
+                           "numTotalfee as FeeReported, " &
+                           "case " &
+                           "when (AmountOwed - Payment) = 0 then 0 " &
+                           "when (AmountOwed - Payment) is null then AmountOwed " &
+                           "else (AmountOwed - Payment) " &
+                           "end Balance ,  PayType  " &
+                           "from " &
+                           "(select strairsnumber, sum(numpayment)  as Payment " &
+                           "from AIRBranch.FS_Transactions " &
+                           "where numFeeyear = '" & cboStatYear.Text & "' " &
+                           "and active = '1' group by strairsnumber) Transactions, " &
+                           "(select strairsnumber, sum(numamount)   as AmountOwed, " &
+                           "numFeeYear, " &
+                           "case " &
+                           "when strPayType = '1' then 'Annual Payer' " &
+                           "Else 'Quarterly Payer' " &
+                           "end PayType " &
+                           "from AIRBranch.FS_FeeInvoice " &
+                           "where numfeeyear = '" & cboStatYear.Text & "' " &
+                           "and active = 1 " &
+                           "and strPayType <> '1' " &
+                           " group by strairsnumber, numFeeYear, case " &
+                           "when strPayType = '1' then 'Annual Payer' " &
+                           "Else 'Quarterly Payer' " &
+                           "end) Invoices, " &
+                           "(select strairsnumber,  " &
+                             "numTotalfee " &
+                             "from Airbranch.FS_FeeAuditedData " &
+                             "where numfeeyear = '" & cboStatYear.Text & "' " &
+                             "and active = '1' ) Reported, " &
+                           "AIRBranch.APBfacilityInformation  " &
+                           "where Invoices.strAIRSNumber =   transactions.strairsnumber (+) " &
+                           "and Invoices.strairsnumber = APBfacilityInformation.strAIRSNumber " &
+                           "and Invoices.strAIRSNumber =   Reported.strairsnumber (+)  " &
                            " order by strairsnumber) allData "
                 Case "QUARTER ONE"
-                    SQL = "select " & _
-                  "substr(strAIRSNumber, 5) as strAIRSNumber, " & _
-                  "strFacilityName, numFeeyear, " & _
-                  "Payment, AmountOwed, Balance, PayType, FeeReported " & _
-                  "from " & _
-                  "(select " & _
-                  "Invoices.strairsnumber, strFacilityname, " & _
-                  "Payment, AmountOwed, numFeeYear, " & _
-                  "numTotalfee as FeeReported, " & _
-                  "case " & _
-                  "when (AmountOwed - Payment) = 0 then 0 " & _
-                  "when (AmountOwed - Payment) is null then AmountOwed " & _
-                  "else (AmountOwed - Payment) " & _
-                  "end Balance ,  PayType  " & _
-                  "from " & _
-                   "(select airbranch.fs_Transactions.strairsnumber, " & _
-                    "sum(numpayment) as Payment " & _
-                    "from airbranch.fs_Transactions, AIRBranch.FS_FeeInvoice  " & _
-                    "where airbranch.fs_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  " & _
-                    "and airbranch.fs_Transactions.numfeeyear = '" & cboStatYear.Text & "' " & _
-                      "and airbranch.fs_transactions.active = '1' " & _
-                    "and strPaytype = '2' group by airbranch.fs_Transactions.strairsnumber " & _
-                    ")Transactions, " & _
-                  "(select strairsnumber, sum(numamount)   as AmountOwed, " & _
-                  "numFeeYear, " & _
-                  "case " & _
-                  "when strPayType = '1' then 'Annual Payer' " & _
-                  "Else 'Quarterly Payer' " & _
-                  "end PayType " & _
-                  "from AIRBranch.FS_FeeInvoice " & _
-                  "where numfeeyear = '" & cboStatYear.Text & "' " & _
-                  "and active = 1 " & _
-                  "and strPayType = '2' " & _
-                  " group by strairsnumber, numFeeYear, case " & _
-                  "when strPayType = '1' then 'Annual Payer' " & _
-                  "Else 'Quarterly Payer' " & _
-                  "end) Invoices, " & _
-                  "(select strairsnumber,  " & _
-                    "numTotalfee " & _
-                    "from Airbranch.FS_FeeAuditedData " & _
-                    "where numfeeyear = '" & cboStatYear.Text & "' " & _
-                    "and active = '1' ) Reported, " & _
-                  "AIRBranch.APBfacilityInformation  " & _
-                  "where Invoices.strAIRSNumber =   transactions.strairsnumber (+) " & _
-                  "and Invoices.strairsnumber = APBfacilityInformation.strAIRSNumber " & _
-                  "and Invoices.strAIRSNumber =   Reported.strairsnumber (+)  " & _
+                    SQL = "select " &
+                  "substr(strAIRSNumber, 5) as strAIRSNumber, " &
+                  "strFacilityName, numFeeyear, " &
+                  "Payment, AmountOwed, Balance, PayType, FeeReported " &
+                  "from " &
+                  "(select " &
+                  "Invoices.strairsnumber, strFacilityname, " &
+                  "Payment, AmountOwed, numFeeYear, " &
+                  "numTotalfee as FeeReported, " &
+                  "case " &
+                  "when (AmountOwed - Payment) = 0 then 0 " &
+                  "when (AmountOwed - Payment) is null then AmountOwed " &
+                  "else (AmountOwed - Payment) " &
+                  "end Balance ,  PayType  " &
+                  "from " &
+                   "(select airbranch.fs_Transactions.strairsnumber, " &
+                    "sum(numpayment) as Payment " &
+                    "from airbranch.fs_Transactions, AIRBranch.FS_FeeInvoice  " &
+                    "where airbranch.fs_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  " &
+                    "and airbranch.fs_Transactions.numfeeyear = '" & cboStatYear.Text & "' " &
+                      "and airbranch.fs_transactions.active = '1' " &
+                    "and strPaytype = '2' group by airbranch.fs_Transactions.strairsnumber " &
+                    ")Transactions, " &
+                  "(select strairsnumber, sum(numamount)   as AmountOwed, " &
+                  "numFeeYear, " &
+                  "case " &
+                  "when strPayType = '1' then 'Annual Payer' " &
+                  "Else 'Quarterly Payer' " &
+                  "end PayType " &
+                  "from AIRBranch.FS_FeeInvoice " &
+                  "where numfeeyear = '" & cboStatYear.Text & "' " &
+                  "and active = 1 " &
+                  "and strPayType = '2' " &
+                  " group by strairsnumber, numFeeYear, case " &
+                  "when strPayType = '1' then 'Annual Payer' " &
+                  "Else 'Quarterly Payer' " &
+                  "end) Invoices, " &
+                  "(select strairsnumber,  " &
+                    "numTotalfee " &
+                    "from Airbranch.FS_FeeAuditedData " &
+                    "where numfeeyear = '" & cboStatYear.Text & "' " &
+                    "and active = '1' ) Reported, " &
+                  "AIRBranch.APBfacilityInformation  " &
+                  "where Invoices.strAIRSNumber =   transactions.strairsnumber (+) " &
+                  "and Invoices.strairsnumber = APBfacilityInformation.strAIRSNumber " &
+                  "and Invoices.strAIRSNumber =   Reported.strairsnumber (+)  " &
                   " order by strairsnumber) allData "
                 Case "QUARTER TWO"
-                    SQL = "select " & _
-                     "substr(strAIRSNumber, 5) as strAIRSNumber, " & _
-                     "strFacilityName, numFeeyear, " & _
-                     "Payment, AmountOwed, Balance, PayType, FeeReported " & _
-                     "from " & _
-                     "(select " & _
-                     "Invoices.strairsnumber, strFacilityname, " & _
-                     "Payment, AmountOwed, numFeeYear, " & _
-                     "numTotalfee as FeeReported, " & _
-                     "case " & _
-                     "when (AmountOwed - Payment) = 0 then 0 " & _
-                     "when (AmountOwed - Payment) is null then AmountOwed " & _
-                     "else (AmountOwed - Payment) " & _
-                     "end Balance ,  PayType  " & _
-                     "from " & _
-                       "(select airbranch.fs_Transactions.strairsnumber, " & _
-                    "sum(numpayment) as Payment " & _
-                    "from airbranch.fs_Transactions, AIRBranch.FS_FeeInvoice  " & _
-                    "where airbranch.fs_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  " & _
-                    "and airbranch.fs_Transactions.numfeeyear = '" & cboStatYear.Text & "' " & _
-                      "and airbranch.fs_transactions.active = '1' " & _
-                    "and strPaytype = '3' group by airbranch.fs_Transactions.strairsnumber " & _
-                    ")Transactions, " & _
-                     "(select strairsnumber, sum(numamount)   as AmountOwed, " & _
-                     "numFeeYear, " & _
-                     "case " & _
-                     "when strPayType = '1' then 'Annual Payer' " & _
-                     "Else 'Quarterly Payer' " & _
-                     "end PayType " & _
-                     "from AIRBranch.FS_FeeInvoice " & _
-                     "where numfeeyear = '" & cboStatYear.Text & "' " & _
-                     "and active = 1 " & _
-                     "and strPayType = '3' " & _
-                     " group by strairsnumber, numFeeYear, case " & _
-                     "when strPayType = '1' then 'Annual Payer' " & _
-                     "Else 'Quarterly Payer' " & _
-                     "end) Invoices, " & _
-                     "(select strairsnumber,  " & _
-                       "numTotalfee " & _
-                       "from Airbranch.FS_FeeAuditedData " & _
-                       "where numfeeyear = '" & cboStatYear.Text & "' " & _
-                       "and active = '1' ) Reported, " & _
-                     "AIRBranch.APBfacilityInformation  " & _
-                     "where Invoices.strAIRSNumber =   transactions.strairsnumber (+) " & _
-                     "and Invoices.strairsnumber = APBfacilityInformation.strAIRSNumber " & _
-                     "and Invoices.strAIRSNumber =   Reported.strairsnumber (+)  " & _
+                    SQL = "select " &
+                     "substr(strAIRSNumber, 5) as strAIRSNumber, " &
+                     "strFacilityName, numFeeyear, " &
+                     "Payment, AmountOwed, Balance, PayType, FeeReported " &
+                     "from " &
+                     "(select " &
+                     "Invoices.strairsnumber, strFacilityname, " &
+                     "Payment, AmountOwed, numFeeYear, " &
+                     "numTotalfee as FeeReported, " &
+                     "case " &
+                     "when (AmountOwed - Payment) = 0 then 0 " &
+                     "when (AmountOwed - Payment) is null then AmountOwed " &
+                     "else (AmountOwed - Payment) " &
+                     "end Balance ,  PayType  " &
+                     "from " &
+                       "(select airbranch.fs_Transactions.strairsnumber, " &
+                    "sum(numpayment) as Payment " &
+                    "from airbranch.fs_Transactions, AIRBranch.FS_FeeInvoice  " &
+                    "where airbranch.fs_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  " &
+                    "and airbranch.fs_Transactions.numfeeyear = '" & cboStatYear.Text & "' " &
+                      "and airbranch.fs_transactions.active = '1' " &
+                    "and strPaytype = '3' group by airbranch.fs_Transactions.strairsnumber " &
+                    ")Transactions, " &
+                     "(select strairsnumber, sum(numamount)   as AmountOwed, " &
+                     "numFeeYear, " &
+                     "case " &
+                     "when strPayType = '1' then 'Annual Payer' " &
+                     "Else 'Quarterly Payer' " &
+                     "end PayType " &
+                     "from AIRBranch.FS_FeeInvoice " &
+                     "where numfeeyear = '" & cboStatYear.Text & "' " &
+                     "and active = 1 " &
+                     "and strPayType = '3' " &
+                     " group by strairsnumber, numFeeYear, case " &
+                     "when strPayType = '1' then 'Annual Payer' " &
+                     "Else 'Quarterly Payer' " &
+                     "end) Invoices, " &
+                     "(select strairsnumber,  " &
+                       "numTotalfee " &
+                       "from Airbranch.FS_FeeAuditedData " &
+                       "where numfeeyear = '" & cboStatYear.Text & "' " &
+                       "and active = '1' ) Reported, " &
+                     "AIRBranch.APBfacilityInformation  " &
+                     "where Invoices.strAIRSNumber =   transactions.strairsnumber (+) " &
+                     "and Invoices.strairsnumber = APBfacilityInformation.strAIRSNumber " &
+                     "and Invoices.strAIRSNumber =   Reported.strairsnumber (+)  " &
                      " order by strairsnumber) allData "
                 Case "QUARTER THREE"
-                    SQL = "select " & _
-                         "substr(strAIRSNumber, 5) as strAIRSNumber, " & _
-                         "strFacilityName, numFeeyear, " & _
-                         "Payment, AmountOwed, Balance, PayType, FeeReported " & _
-                         "from " & _
-                         "(select " & _
-                         "Invoices.strairsnumber, strFacilityname, " & _
-                         "Payment, AmountOwed, numFeeYear, " & _
-                         "numTotalfee as FeeReported, " & _
-                         "case " & _
-                         "when (AmountOwed - Payment) = 0 then 0 " & _
-                         "when (AmountOwed - Payment) is null then AmountOwed " & _
-                         "else (AmountOwed - Payment) " & _
-                         "end Balance ,  PayType  " & _
-                         "from " & _
-                         "(select airbranch.fs_Transactions.strairsnumber, " & _
-                            "sum(numpayment) as Payment " & _
-                            "from airbranch.fs_Transactions, AIRBranch.FS_FeeInvoice  " & _
-                            "where airbranch.fs_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  " & _
-                            "and airbranch.fs_Transactions.numfeeyear = '" & cboStatYear.Text & "' " & _
-                              "and airbranch.fs_transactions.active = '1' " & _
-                            "and strPaytype = '4' group by airbranch.fs_Transactions.strairsnumber " & _
-                            ")Transactions, " & _
-                         "(select strairsnumber, sum(numamount)   as AmountOwed, " & _
-                         "numFeeYear, " & _
-                         "case " & _
-                         "when strPayType = '1' then 'Annual Payer' " & _
-                         "Else 'Quarterly Payer' " & _
-                         "end PayType " & _
-                         "from AIRBranch.FS_FeeInvoice " & _
-                         "where numfeeyear = '" & cboStatYear.Text & "' " & _
-                         "and active = 1 " & _
-                         "and strPayType = '4' " & _
-                         " group by strairsnumber, numFeeYear, case " & _
-                         "when strPayType = '1' then 'Annual Payer' " & _
-                         "Else 'Quarterly Payer' " & _
-                         "end) Invoices, " & _
-                         "(select strairsnumber,  " & _
-                           "numTotalfee " & _
-                           "from Airbranch.FS_FeeAuditedData " & _
-                           "where numfeeyear = '" & cboStatYear.Text & "' " & _
-                           "and active = '1' ) Reported, " & _
-                         "AIRBranch.APBfacilityInformation  " & _
-                         "where Invoices.strAIRSNumber =   transactions.strairsnumber (+) " & _
-                         "and Invoices.strairsnumber = APBfacilityInformation.strAIRSNumber " & _
-                         "and Invoices.strAIRSNumber =   Reported.strairsnumber (+)  " & _
+                    SQL = "select " &
+                         "substr(strAIRSNumber, 5) as strAIRSNumber, " &
+                         "strFacilityName, numFeeyear, " &
+                         "Payment, AmountOwed, Balance, PayType, FeeReported " &
+                         "from " &
+                         "(select " &
+                         "Invoices.strairsnumber, strFacilityname, " &
+                         "Payment, AmountOwed, numFeeYear, " &
+                         "numTotalfee as FeeReported, " &
+                         "case " &
+                         "when (AmountOwed - Payment) = 0 then 0 " &
+                         "when (AmountOwed - Payment) is null then AmountOwed " &
+                         "else (AmountOwed - Payment) " &
+                         "end Balance ,  PayType  " &
+                         "from " &
+                         "(select airbranch.fs_Transactions.strairsnumber, " &
+                            "sum(numpayment) as Payment " &
+                            "from airbranch.fs_Transactions, AIRBranch.FS_FeeInvoice  " &
+                            "where airbranch.fs_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  " &
+                            "and airbranch.fs_Transactions.numfeeyear = '" & cboStatYear.Text & "' " &
+                              "and airbranch.fs_transactions.active = '1' " &
+                            "and strPaytype = '4' group by airbranch.fs_Transactions.strairsnumber " &
+                            ")Transactions, " &
+                         "(select strairsnumber, sum(numamount)   as AmountOwed, " &
+                         "numFeeYear, " &
+                         "case " &
+                         "when strPayType = '1' then 'Annual Payer' " &
+                         "Else 'Quarterly Payer' " &
+                         "end PayType " &
+                         "from AIRBranch.FS_FeeInvoice " &
+                         "where numfeeyear = '" & cboStatYear.Text & "' " &
+                         "and active = 1 " &
+                         "and strPayType = '4' " &
+                         " group by strairsnumber, numFeeYear, case " &
+                         "when strPayType = '1' then 'Annual Payer' " &
+                         "Else 'Quarterly Payer' " &
+                         "end) Invoices, " &
+                         "(select strairsnumber,  " &
+                           "numTotalfee " &
+                           "from Airbranch.FS_FeeAuditedData " &
+                           "where numfeeyear = '" & cboStatYear.Text & "' " &
+                           "and active = '1' ) Reported, " &
+                         "AIRBranch.APBfacilityInformation  " &
+                         "where Invoices.strAIRSNumber =   transactions.strairsnumber (+) " &
+                         "and Invoices.strairsnumber = APBfacilityInformation.strAIRSNumber " &
+                         "and Invoices.strAIRSNumber =   Reported.strairsnumber (+)  " &
                          " order by strairsnumber) allData "
                 Case "QUARTER FOUR"
-                    SQL = "select " & _
-                          "substr(strAIRSNumber, 5) as strAIRSNumber, " & _
-                          "strFacilityName, numFeeyear, " & _
-                          "Payment, AmountOwed, Balance, PayType, FeeReported " & _
-                          "from " & _
-                          "(select " & _
-                          "Invoices.strairsnumber, strFacilityname, " & _
-                          "Payment, AmountOwed, numFeeYear, " & _
-                          "numTotalfee as FeeReported, " & _
-                          "case " & _
-                          "when (AmountOwed - Payment) = 0 then 0 " & _
-                          "when (AmountOwed - Payment) is null then AmountOwed " & _
-                          "else (AmountOwed - Payment) " & _
-                          "end Balance ,  PayType  " & _
-                          "from " & _
-                         "(select airbranch.fs_Transactions.strairsnumber, " & _
-                            "sum(numpayment) as Payment " & _
-                            "from airbranch.fs_Transactions, AIRBranch.FS_FeeInvoice  " & _
-                            "where airbranch.fs_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  " & _
-                            "and airbranch.fs_Transactions.numfeeyear = '" & cboStatYear.Text & "' " & _
-                            "and airbranch.fs_transactions.active = '1' " & _
-                            "and strPaytype = '5' group by airbranch.fs_Transactions.strairsnumber " & _
-                            ")Transactions, " & _
-                          "(select strairsnumber, sum(numamount)   as AmountOwed, " & _
-                          "numFeeYear, " & _
-                          "case " & _
-                          "when strPayType = '1' then 'Annual Payer' " & _
-                          "Else 'Quarterly Payer' " & _
-                          "end PayType " & _
-                          "from AIRBranch.FS_FeeInvoice " & _
-                          "where numfeeyear = '" & cboStatYear.Text & "' " & _
-                          "and active = 1 " & _
-                          "and strPayType = '5' " & _
-                          " group by strairsnumber, numFeeYear, case " & _
-                          "when strPayType = '1' then 'Annual Payer' " & _
-                          "Else 'Quarterly Payer' " & _
-                          "end) Invoices, " & _
-                          "(select strairsnumber,  " & _
-                            "numTotalfee " & _
-                            "from Airbranch.FS_FeeAuditedData " & _
-                            "where numfeeyear = '" & cboStatYear.Text & "' " & _
-                            "and active = '1' ) Reported, " & _
-                          "AIRBranch.APBfacilityInformation  " & _
-                          "where Invoices.strAIRSNumber =   transactions.strairsnumber (+) " & _
-                          "and Invoices.strairsnumber = APBfacilityInformation.strAIRSNumber " & _
-                          "and Invoices.strAIRSNumber =   Reported.strairsnumber (+)  " & _
+                    SQL = "select " &
+                          "substr(strAIRSNumber, 5) as strAIRSNumber, " &
+                          "strFacilityName, numFeeyear, " &
+                          "Payment, AmountOwed, Balance, PayType, FeeReported " &
+                          "from " &
+                          "(select " &
+                          "Invoices.strairsnumber, strFacilityname, " &
+                          "Payment, AmountOwed, numFeeYear, " &
+                          "numTotalfee as FeeReported, " &
+                          "case " &
+                          "when (AmountOwed - Payment) = 0 then 0 " &
+                          "when (AmountOwed - Payment) is null then AmountOwed " &
+                          "else (AmountOwed - Payment) " &
+                          "end Balance ,  PayType  " &
+                          "from " &
+                         "(select airbranch.fs_Transactions.strairsnumber, " &
+                            "sum(numpayment) as Payment " &
+                            "from airbranch.fs_Transactions, AIRBranch.FS_FeeInvoice  " &
+                            "where airbranch.fs_Transactions.invoiceid = AIRBranch.FS_FeeInvoice.invoiceid  " &
+                            "and airbranch.fs_Transactions.numfeeyear = '" & cboStatYear.Text & "' " &
+                            "and airbranch.fs_transactions.active = '1' " &
+                            "and strPaytype = '5' group by airbranch.fs_Transactions.strairsnumber " &
+                            ")Transactions, " &
+                          "(select strairsnumber, sum(numamount)   as AmountOwed, " &
+                          "numFeeYear, " &
+                          "case " &
+                          "when strPayType = '1' then 'Annual Payer' " &
+                          "Else 'Quarterly Payer' " &
+                          "end PayType " &
+                          "from AIRBranch.FS_FeeInvoice " &
+                          "where numfeeyear = '" & cboStatYear.Text & "' " &
+                          "and active = 1 " &
+                          "and strPayType = '5' " &
+                          " group by strairsnumber, numFeeYear, case " &
+                          "when strPayType = '1' then 'Annual Payer' " &
+                          "Else 'Quarterly Payer' " &
+                          "end) Invoices, " &
+                          "(select strairsnumber,  " &
+                            "numTotalfee " &
+                            "from Airbranch.FS_FeeAuditedData " &
+                            "where numfeeyear = '" & cboStatYear.Text & "' " &
+                            "and active = '1' ) Reported, " &
+                          "AIRBranch.APBfacilityInformation  " &
+                          "where Invoices.strAIRSNumber =   transactions.strairsnumber (+) " &
+                          "and Invoices.strairsnumber = APBfacilityInformation.strAIRSNumber " &
+                          "and Invoices.strAIRSNumber =   Reported.strairsnumber (+)  " &
                           " order by strairsnumber) allData "
                 Case Else
-                    SQL = "select " & _
-                         "substr(strAIRSNumber, 5) as strAIRSNumber, " & _
-                         "strFacilityName, numFeeyear, " & _
-                         "Payment, AmountOwed, Balance, PayType, FeeReported " & _
-                         "from " & _
-                         "(select " & _
-                         "Invoices.strairsnumber, strFacilityname, " & _
-                         "Payment, AmountOwed, numFeeYear, " & _
-                         "numTotalfee as FeeReported, " & _
-                         "case " & _
-                         "when (AmountOwed - Payment) = 0 then 0 " & _
-                         "when (AmountOwed - Payment) is null then AmountOwed " & _
-                         "else (AmountOwed - Payment) " & _
-                         "end Balance ,  PayType  " & _
-                         "from " & _
-                         "(select strairsnumber, sum(numpayment)  as Payment " & _
-                         "from AIRBranch.FS_Transactions " & _
-                         "where numFeeyear = '" & cboStatYear.Text & "' " & _
-                         "and active = '1' group by strairsnumber) Transactions, " & _
-                         "(select strairsnumber, sum(numamount)   as AmountOwed, " & _
-                         "numFeeYear, " & _
-                         "case " & _
-                         "when strPayType = '1' then 'Annual Payer' " & _
-                         "Else 'Quarterly Payer' " & _
-                         "end PayType " & _
-                         "from AIRBranch.FS_FeeInvoice " & _
-                         "where numfeeyear = '" & cboStatYear.Text & "' " & _
-                         "and active = 1  group by strairsnumber, numFeeYear, case " & _
-                         "when strPayType = '1' then 'Annual Payer' " & _
-                         "Else 'Quarterly Payer' " & _
-                         "end) Invoices, " & _
-                         "(select strairsnumber,  " & _
-                           "numTotalfee " & _
-                           "from Airbranch.FS_FeeAuditedData " & _
-                           "where numfeeyear = '" & cboStatYear.Text & "' " & _
-                           "and active = '1' ) Reported, " & _
-                         "AIRBranch.APBfacilityInformation  " & _
-                         "where Invoices.strAIRSNumber =   transactions.strairsnumber (+) " & _
-                         "and Invoices.strairsnumber = APBfacilityInformation.strAIRSNumber " & _
-                         "and Invoices.strAIRSNumber =   Reported.strairsnumber (+)  " & _
+                    SQL = "select " &
+                         "substr(strAIRSNumber, 5) as strAIRSNumber, " &
+                         "strFacilityName, numFeeyear, " &
+                         "Payment, AmountOwed, Balance, PayType, FeeReported " &
+                         "from " &
+                         "(select " &
+                         "Invoices.strairsnumber, strFacilityname, " &
+                         "Payment, AmountOwed, numFeeYear, " &
+                         "numTotalfee as FeeReported, " &
+                         "case " &
+                         "when (AmountOwed - Payment) = 0 then 0 " &
+                         "when (AmountOwed - Payment) is null then AmountOwed " &
+                         "else (AmountOwed - Payment) " &
+                         "end Balance ,  PayType  " &
+                         "from " &
+                         "(select strairsnumber, sum(numpayment)  as Payment " &
+                         "from AIRBranch.FS_Transactions " &
+                         "where numFeeyear = '" & cboStatYear.Text & "' " &
+                         "and active = '1' group by strairsnumber) Transactions, " &
+                         "(select strairsnumber, sum(numamount)   as AmountOwed, " &
+                         "numFeeYear, " &
+                         "case " &
+                         "when strPayType = '1' then 'Annual Payer' " &
+                         "Else 'Quarterly Payer' " &
+                         "end PayType " &
+                         "from AIRBranch.FS_FeeInvoice " &
+                         "where numfeeyear = '" & cboStatYear.Text & "' " &
+                         "and active = 1  group by strairsnumber, numFeeYear, case " &
+                         "when strPayType = '1' then 'Annual Payer' " &
+                         "Else 'Quarterly Payer' " &
+                         "end) Invoices, " &
+                         "(select strairsnumber,  " &
+                           "numTotalfee " &
+                           "from Airbranch.FS_FeeAuditedData " &
+                           "where numfeeyear = '" & cboStatYear.Text & "' " &
+                           "and active = '1' ) Reported, " &
+                         "AIRBranch.APBfacilityInformation  " &
+                         "where Invoices.strAIRSNumber =   transactions.strairsnumber (+) " &
+                         "and Invoices.strairsnumber = APBfacilityInformation.strAIRSNumber " &
+                         "and Invoices.strAIRSNumber =   Reported.strairsnumber (+)  " &
                          " order by strairsnumber) allData "
             End Select
             If chbNonZeroBalance.Checked = True Then

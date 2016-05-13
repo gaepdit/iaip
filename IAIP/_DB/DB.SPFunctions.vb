@@ -178,45 +178,6 @@ Namespace DB
             Return l
         End Function
 
-        ''' <summary>
-        ''' Calls an Oracle Stored Procedure and returns a List of the specified type.
-        ''' </summary>
-        ''' <typeparam name="T">The List type to return</typeparam>
-        ''' <param name="spName">The Oracle Stored Procedure to call (SP must be a function that returns a REFCURSOR)</param>
-        ''' <param name="parameter">A single Oracle Parameter to pass in</param>
-        ''' <returns>List of the specified type.</returns>
-        Public Function SPGetList(Of T)(ByVal spname As String, Optional ByVal parameter As OracleParameter = Nothing) As List(Of T)
-            Dim l As New List(Of T)
-            Dim dt As DataTable = SPGetDataTable(spname, parameter)
-
-            For Each r As DataRow In dt.Rows
-                l.Add(GetNullable(Of T)(r.Item(0)))
-            Next
-
-            Return l
-        End Function
-
-        '''' <summary>
-        '''' Calls an Oracle Stored Procedure and returns a Dictionary of keys and values
-        '''' </summary>
-        '''' <typeparam name="TKey">The type of the keys in the dictionary</typeparam>
-        '''' <typeparam name="TValue">The type of the values in the dictionary.</typeparam>
-        '''' <param name="spName">The Oracle Stored Procedure to call</param>
-        '''' <param name="parameter">A single Oracle Parameter to pass in</param>
-        '''' <returns>Dictionary of keys and values</returns>
-        '''' <remarks>Presumes that the stored procedure returns a table with two columns -- 
-        '''' keys and values -- and furthermore that the keys are never null.</remarks>
-        'Public Function SPGetDictionary(Of TKey, TValue)(ByVal spName As String, Optional ByVal parameter As OracleParameter = Nothing) As Dictionary(Of TKey, TValue)
-        '    Dim d As New Dictionary(Of TKey, TValue)
-        '    Dim t As DataTable = SPGetDataTable(spName, parameter)
-
-        '    For Each r As DataRow In t.Rows
-        '        d.Add(r.Item(0), GetNullable(Of TValue)(r.Item(1)))
-        '    Next
-
-        '    Return d
-        'End Function
-
 #End Region
 
 #Region " SYS_REFCURSOR Utility "

@@ -1,6 +1,6 @@
-﻿Imports System.IO
-Imports System.Collections.Generic
+﻿Imports System.Collections.Generic
 Imports Iaip.DAL.NavigationScreenData
+Imports Iaip.SharedData
 
 Public Class IAIPNavigation
 
@@ -58,7 +58,7 @@ Public Class IAIPNavigation
     Private Sub EnableSbeapTools()
         If CurrentUser.HasRole({142, 143, 118}) Then
             cboWorkViewerContext.Items.Add("SBEAP Cases")
-            EnableAndShow(SbeapQuickAccessPanel)
+            ShowControls({SbeapQuickAccessPanel})
         End If
     End Sub
 
@@ -97,7 +97,6 @@ Public Class IAIPNavigation
             Case DB.Connections.ServerEnvironment.PRD
                 pnlDbEnv.Text = "PRD"
                 pnlDbEnv.Visible = False
-                DisableAndHide(TestingMenu)
                 TestingMenu.Visible = False
             Case DB.Connections.ServerEnvironment.UAT
                 pnlDbEnv.Text = "UAT ENVIRONMENT"
@@ -1013,7 +1012,7 @@ Public Class IAIPNavigation
 
     Private Sub bgrUserPermissions_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bgrUserPermissions.DoWork
         Try
-            Dim AccountFormAccessLookup As DataTable = SharedData.GetTable(SharedData.Tables.IaipAccountRoles)
+            Dim AccountFormAccessLookup As DataTable = GetSharedData(SharedTable.IaipAccountRoles)
             Dim accountFormAccessString As String
 
             For Each account As Integer In CurrentUser.IaipRoles.RoleCodes

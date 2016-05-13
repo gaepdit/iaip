@@ -1,7 +1,7 @@
 Imports Oracle.ManagedDataAccess.Client
 
 Public Class DMUDangerousTool
-    Dim SQL, SQL2 As String
+    Dim SQL As String
     Dim cmd As OracleCommand
     Dim dr As OracleDataReader
     Dim RecExist As Boolean

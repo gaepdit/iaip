@@ -18,109 +18,13 @@ Namespace DAL.Sscp
         Public Function WorkItemExists(ByVal trackingNumber As String) As Boolean
             If trackingNumber = "" OrElse Not Integer.TryParse(trackingNumber, Nothing) Then Return False
 
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM AIRBRANCH.SSCPITEMMASTER " & _
-                " WHERE RowNum = 1 " & _
+            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
+                " FROM AIRBRANCH.SSCPITEMMASTER " &
+                " WHERE RowNum = 1 " &
                 " AND STRTRACKINGNUMBER = :id "
             Dim parameter As New OracleParameter("id", trackingNumber)
 
             Return DB.GetBoolean(query, parameter)
-        End Function
-
-        ''' <summary>
-        ''' Returns an SSCP work item for a given tracking number.
-        ''' </summary>
-        ''' <param name="trackingNumber">The tracking number of the work item to return.</param>
-        ''' <returns>An SSCP work item.</returns>
-        Public Function GetWorkItem(trackingNumber As String) As WorkItem
-            If trackingNumber = "" OrElse Not Integer.TryParse(trackingNumber, Nothing) Then Return Nothing
-            Dim query As String =
-                "SELECT STRTRACKINGNUMBER , STRAIRSNUMBER , DATRECEIVEDDATE , " &
-                "  STREVENTTYPE , STRRESPONSIBLESTAFF , DATCOMPLETEDATE , " &
-                "  STRDELETE , DATACKNOLEDGMENTLETTERSENT " &
-                "FROM SSCPITEMMASTER " &
-                "WHERE STRTRACKINGNUMBER = :trackingNumber"
-            Dim parameter As New OracleParameter("trackingNumber", trackingNumber)
-            Return ParseWorkItemFromDataRow(DB.GetDataRow(query, parameter))
-        End Function
-
-        ''' <summary>
-        ''' Returns a list of SSCP work items for a given facility.
-        ''' </summary>
-        ''' <param name="airs">The Facility ID.</param>
-        ''' <returns>A List of SSCP Work Items</returns>
-        ''' <remarks></remarks>
-        Public Function GetWorkItemList(airs As Apb.ApbFacilityId) As List(Of WorkItem)
-            Dim list As New List(Of WorkItem)
-            Dim dt As DataTable = GetWorkItemDataTable(airs)
-
-            If dt IsNot Nothing And dt.Rows.Count > 0 Then
-                For Each row As DataRow In dt.Rows
-                    list.Add(ParseWorkItemFromDataRow(row))
-                Next
-            End If
-
-            Return list
-        End Function
-
-        ''' <summary>
-        ''' Returns a DataTable of SSCP work items for a given facility.
-        ''' </summary>
-        ''' <param name="airs">The Facility ID.</param>
-        ''' <returns>A DataTable of SSCP Work Items</returns>
-        ''' <remarks></remarks>
-        Public Function GetWorkItemDataTable(airs As Apb.ApbFacilityId) As DataTable
-            Dim query As String =
-                "SELECT STRTRACKINGNUMBER , STRAIRSNUMBER , DATRECEIVEDDATE , " &
-                "  STREVENTTYPE , STRRESPONSIBLESTAFF , DATCOMPLETEDATE , " &
-                "  STRDELETE , DATACKNOLEDGMENTLETTERSENT " &
-                "FROM SSCPITEMMASTER " &
-                "WHERE STRAIRSNUMBER = :airs AND STRDELETE IS NULL"
-            Dim parameter As New OracleParameter("airs", airs.DbFormattedString)
-            Return DB.GetDataTable(query, parameter)
-        End Function
-
-        ''' <summary>
-        ''' Returns a DataTable of a specific SSCP work type for a given facility.
-        ''' </summary>
-        ''' <param name="airs">The Facility ID.</param>
-        ''' <param name="eventType">The work type desired.</param>
-        ''' <returns>A DataTable of SSCP Work Items of a specific work type.</returns>
-        ''' <remarks></remarks>
-        Public Function GetWorkItemDataTable(airs As Apb.ApbFacilityId, eventType As WorkItemEventType) As DataTable
-            Dim query As String =
-                "SELECT STRTRACKINGNUMBER , STRAIRSNUMBER , DATRECEIVEDDATE , " &
-                "  STREVENTTYPE , STRRESPONSIBLESTAFF , DATCOMPLETEDATE , " &
-                "  STRDELETE , DATACKNOLEDGMENTLETTERSENT " &
-                "FROM SSCPITEMMASTER " &
-                "WHERE STRAIRSNUMBER = :airs AND STRDELETE IS NULL AND " &
-                "  STREVENTTYPE = :eventtype"
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("airs", airs.DbFormattedString),
-                New OracleParameter("eventtype", EventTypeDbCodes(eventType))
-            }
-            Return DB.GetDataTable(query, parameters)
-        End Function
-
-        ''' <summary>
-        ''' Parses an SSCP work item using the data in a DataRow
-        ''' </summary>
-        ''' <param name="row">The DataRow to parse.</param>
-        ''' <returns>An SSCP work item parsed from the DataRow</returns>
-        Public Function ParseWorkItemFromDataRow(row As DataRow) As WorkItem
-            If IsNothing(row) Then Return Nothing
-            Dim workItem As New WorkItem
-            With workItem
-                .SscpTrackingNumber = row("STRTRACKINGNUMBER")
-                .Facility = GetFacility(row("STRAIRSNUMBER"))
-                .DateReceived = row("DATRECEIVEDDATE")
-                .StaffResponsible = GetIaipUserByUserId(row("STRRESPONSIBLESTAFF"))
-                .DateComplete = DB.GetNullable(Of Date)(row("DATCOMPLETEDATE"))
-                .DeletedDbCode = row("STRDELETE")
-                .DateAcknowledgmentLetterSent = DB.GetNullable(Of Date)(row("DATACKNOLEDGMENTLETTERSENT"))
-                .EventTypeDbCode = DB.GetNullable(Of String)(row("STREVENTTYPE"))
-            End With
-            Return workItem
         End Function
 
 #End Region
@@ -169,9 +73,9 @@ Namespace DAL.Sscp
         Public Function TryGetRefNumForWorkItem(ByVal trackingNumber As String, <OutAttribute> Optional ByRef refNum As String = "") As Boolean
             If trackingNumber = "" OrElse Not Integer.TryParse(trackingNumber, Nothing) Then Return False
 
-            Dim query As String = "SELECT STRREFERENCENUMBER " & _
-                " FROM AIRBRANCH.SSCPTESTREPORTS " & _
-                " WHERE RowNum = 1 " & _
+            Dim query As String = "SELECT STRREFERENCENUMBER " &
+                " FROM AIRBRANCH.SSCPTESTREPORTS " &
+                " WHERE RowNum = 1 " &
                 " AND STRTRACKINGNUMBER = :id "
             Dim parameter As New OracleParameter("id", trackingNumber)
 
@@ -182,31 +86,6 @@ Namespace DAL.Sscp
             Else
                 Return True
             End If
-        End Function
-
-        ''' <summary>
-        ''' Returns a DataTable of a SSCP stack test reviews for a given facility.
-        ''' </summary>
-        ''' <param name="airs">An optional Facility ID to filter for.</param>
-        ''' <param name="staffId">An optional Staff ID to filter for.</param>
-        ''' <param name="complete">Whether to filter for complete items or not. Defaults to all items.</param>
-        ''' <param name="deleted">Whether to filter for deleted items or not. Defaults to items that are not deleted.</param>
-        ''' <returns>A DataTable of SSCP stack test reviews.</returns>
-        Public Function GetCompStackTestDataTable(
-        Optional airs As Apb.ApbFacilityId = Nothing,
-        Optional staffId As String = Nothing,
-        Optional complete As WorkItemComplete = WorkItemComplete.All,
-        Optional deleted As WorkItemDeleted = WorkItemDeleted.NotDeleted
-                                              ) As DataTable
-            Dim query As String =
-                "SELECT * FROM AIRBRANCH.VW_SSCP_STACKTESTS " &
-                " WHERE 1=1 "
-            query &= QueryFilter(airs, staffId, complete, deleted)
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("airs", airs.DbFormattedString),
-                New OracleParameter("staffId", staffId)
-            }
-            Return DB.GetDataTable(query, parameters)
         End Function
 
         ''' <summary>
@@ -253,38 +132,13 @@ Namespace DAL.Sscp
         Public Function GetGeosInspectionId(ByVal id As String) As String
             If id = "" OrElse Not Integer.TryParse(id, Nothing) Then Return ""
 
-            Dim query As String = "SELECT INSPECTION_ID " & _
-            "  FROM AIRBRANCH.GEOS_INSPECTIONS_XREF " & _
+            Dim query As String = "SELECT INSPECTION_ID " &
+            "  FROM AIRBRANCH.GEOS_INSPECTIONS_XREF " &
             "  WHERE STRTRACKINGNUMBER = :id "
             Dim parameter As New OracleParameter("id", id)
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
             Return result
-        End Function
-
-        ''' <summary>
-        ''' Returns a DataTable of a SSCP inspections for a given facility.
-        ''' </summary>
-        ''' <param name="airs">An optional Facility ID to filter for.</param>
-        ''' <param name="staffId">An optional Staff ID to filter for.</param>
-        ''' <param name="complete">Whether to filter for complete items or not. Defaults to all items.</param>
-        ''' <param name="deleted">Whether to filter for deleted items or not. Defaults to items that are not deleted.</param>
-        ''' <returns>A DataTable of SSCP inspections.</returns>
-        Public Function GetInspectionDataTable(
-                Optional airs As Apb.ApbFacilityId = Nothing,
-                Optional staffId As String = Nothing,
-                Optional complete As WorkItemComplete = WorkItemComplete.All,
-                Optional deleted As WorkItemDeleted = WorkItemDeleted.NotDeleted
-                                                      ) As DataTable
-            Dim query As String =
-                "SELECT * FROM AIRBRANCH.VW_SSCP_INSPECTIONS " &
-                " WHERE 1=1 "
-            query &= QueryFilter(airs, staffId, complete, deleted)
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("airs", airs.DbFormattedString),
-                New OracleParameter("staffId", staffId)
-            }
-            Return DB.GetDataTable(query, parameters)
         End Function
 
         ''' <summary>
@@ -326,32 +180,6 @@ Namespace DAL.Sscp
         ''' <summary>
         ''' Returns a DataTable of ACCs for a given facility.
         ''' </summary>
-        ''' <param name="airs">An optional Facility ID to filter for.</param>
-        ''' <param name="staffId">An optional Staff ID to filter for.</param>
-        ''' <param name="complete">Whether to filter for complete items or not. Defaults to all items.</param>
-        ''' <param name="deleted">Whether to filter for deleted items or not. Defaults to items that are not deleted.</param>
-        ''' <returns>A DataTable of ACCs.</returns>
-        ''' <remarks></remarks>
-        Public Function GetAccDataTable(
-                Optional airs As Apb.ApbFacilityId = Nothing,
-                Optional staffId As String = Nothing,
-                Optional complete As WorkItemComplete = WorkItemComplete.All,
-                Optional deleted As WorkItemDeleted = WorkItemDeleted.NotDeleted
-                                                      ) As DataTable
-            Dim query As String =
-                "SELECT * FROM AIRBRANCH.VW_SSCP_ACCS " &
-                " WHERE 1=1 "
-            query &= QueryFilter(airs, staffId, complete, deleted)
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("airs", airs.DbFormattedString),
-                New OracleParameter("staffId", staffId)
-            }
-            Return DB.GetDataTable(query, parameters)
-        End Function
-
-        ''' <summary>
-        ''' Returns a DataTable of ACCs for a given facility.
-        ''' </summary>
         ''' <param name="dateRangeEnd">Ending date of a date range to filter for.</param>
         ''' <param name="dateRangeStart">Starting date of a date range to filter for.</param>
         ''' <param name="airs">An optional Facility ID to filter for.</param>
@@ -384,31 +212,6 @@ Namespace DAL.Sscp
 #End Region
 
 #Region " Notification "
-
-        ''' <summary>
-        ''' Returns a DataTable of a SSCP notifications for a given facility.
-        ''' </summary>
-        ''' <param name="airs">An optional Facility ID to filter for.</param>
-        ''' <param name="staffId">An optional Staff ID to filter for.</param>
-        ''' <param name="complete">Whether to filter for complete items or not. Defaults to all items.</param>
-        ''' <param name="deleted">Whether to filter for deleted items or not. Defaults to items that are not deleted.</param>
-        ''' <returns>A DataTable of SSCP notifications.</returns>
-        Public Function GetCompNotificationsDataTable(
-        Optional airs As Apb.ApbFacilityId = Nothing,
-        Optional staffId As String = Nothing,
-        Optional complete As WorkItemComplete = WorkItemComplete.All,
-        Optional deleted As WorkItemDeleted = WorkItemDeleted.NotDeleted
-                                              ) As DataTable
-            Dim query As String =
-                "SELECT * FROM AIRBRANCH.VW_SSCP_NOTIFICATIONS " &
-                " WHERE 1=1 "
-            query &= QueryFilter(airs, staffId, complete, deleted)
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("airs", airs.DbFormattedString),
-                New OracleParameter("staffId", staffId)
-            }
-            Return DB.GetDataTable(query, parameters)
-        End Function
 
         ''' <summary>
         ''' Returns a DataTable of a SSCP notifications for a given facility.
@@ -449,31 +252,6 @@ Namespace DAL.Sscp
         ''' <summary>
         ''' Returns a DataTable of a SSCP reports for a given facility.
         ''' </summary>
-        ''' <param name="airs">An optional Facility ID to filter for.</param>
-        ''' <param name="staffId">An optional Staff ID to filter for.</param>
-        ''' <param name="complete">Whether to filter for complete items or not. Defaults to all items.</param>
-        ''' <param name="deleted">Whether to filter for deleted items or not. Defaults to items that are not deleted.</param>
-        ''' <returns>A DataTable of SSCP reports.</returns>
-        Public Function GetCompReportsDataTable(
-        Optional airs As Apb.ApbFacilityId = Nothing,
-        Optional staffId As String = Nothing,
-        Optional complete As WorkItemComplete = WorkItemComplete.All,
-        Optional deleted As WorkItemDeleted = WorkItemDeleted.NotDeleted
-                                              ) As DataTable
-            Dim query As String =
-                "SELECT * FROM AIRBRANCH.VW_SSCP_REPORTS " &
-                " WHERE 1=1 "
-            query &= QueryFilter(airs, staffId, complete, deleted)
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("airs", airs.DbFormattedString),
-                New OracleParameter("staffId", staffId)
-            }
-            Return DB.GetDataTable(query, parameters)
-        End Function
-
-        ''' <summary>
-        ''' Returns a DataTable of a SSCP reports for a given facility.
-        ''' </summary>
         ''' <param name="dateRangeEnd">Ending date of a date range to filter for.</param>
         ''' <param name="dateRangeStart">Starting date of a date range to filter for.</param>
         ''' <param name="airs">An optional Facility ID to filter for.</param>
@@ -506,31 +284,6 @@ Namespace DAL.Sscp
 #End Region
 
 #Region " RMP Inspections "
-
-        ''' <summary>
-        ''' Returns a DataTable of a RMP inspections for a given facility.
-        ''' </summary>
-        ''' <param name="airs">An optional Facility ID to filter for.</param>
-        ''' <param name="staffId">An optional Staff ID to filter for.</param>
-        ''' <param name="complete">Whether to filter for complete items or not. Defaults to all items.</param>
-        ''' <param name="deleted">Whether to filter for deleted items or not. Defaults to items that are not deleted.</param>
-        ''' <returns>A DataTable of RMP inspections.</returns>
-        Public Function GetRmpInspectionDataTable(
-                Optional airs As Apb.ApbFacilityId = Nothing,
-                Optional staffId As String = Nothing,
-                Optional complete As WorkItemComplete = WorkItemComplete.All,
-                Optional deleted As WorkItemDeleted = WorkItemDeleted.NotDeleted
-                                                      ) As DataTable
-            Dim query As String =
-                "SELECT * FROM AIRBRANCH.VW_SSCP_RMPINSPECTIONS " &
-                " WHERE 1=1 "
-            query &= QueryFilter(airs, staffId, complete, deleted)
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("airs", airs.DbFormattedString),
-                New OracleParameter("staffId", staffId)
-            }
-            Return DB.GetDataTable(query, parameters)
-        End Function
 
         ''' <summary>
         ''' Returns a DataTable of a RMP inspections for a given facility.

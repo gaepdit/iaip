@@ -25,7 +25,7 @@ Public Class PASPFeeAuditLog
 #End Region
 
     Private Sub PASPFeeAuditLog_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        
+
         Try
             LoadSelectedNSPSExemptions()
             LoadTransactionTypes()
@@ -123,9 +123,9 @@ Public Class PASPFeeAuditLog
             Dim drDSRow As DataRow
             Dim drNewRow As DataRow
 
-            SQL = "select " & _
-            "numPayTypeID, strPayTypeDesc " & _
-            "from AIRBRANCH.FSLK_PayType " & _
+            SQL = "select " &
+            "numPayTypeID, strPayTypeDesc " &
+            "from AIRBRANCH.FSLK_PayType " &
             "order by numPayTypeID "
 
             ds = New DataSet
@@ -169,9 +169,9 @@ Public Class PASPFeeAuditLog
             Dim drDSRow As DataRow
             Dim drNewRow As DataRow
 
-            SQL = "Select " & _
-            "transactionTypeCode, Description " & _
-            "from AIRBRANCH.FSLK_TransactionType " & _
+            SQL = "Select " &
+            "transactionTypeCode, Description " &
+            "from AIRBRANCH.FSLK_TransactionType " &
             "order by description "
             ds = New DataSet
             da = New OracleDataAdapter(SQL, CurrentConnection)
@@ -327,22 +327,22 @@ Public Class PASPFeeAuditLog
             MailoutReplaceContactWithFeeContactButton.Enabled = False
             MailoutReplaceFacilityInfoButton.Enabled = False
 
-            SQL = "Select " & _
-            "strEnrolled, datInitialEnrollment, " & _
-            "datEnrollment, strInitialMailOut, " & _
-            "strMailOutSent, datMailOutSent, " & _
-            "intSubmittal, datSubmittal, " & _
-            "numCurrentStatus, " & _
-            "strIAIPDesc, strGECODesc, " & _
-            "datStatusDate, " & _
-            "strComment, " & _
-            "AIRBRANCH.FS_Admin.active, " & _
-            "AIRBRANCH.FS_Admin.updateUser, " & _
-            "AIRBRANCH.FS_Admin.updateDateTime, " & _
-            "AIRBRANCH.FS_Admin.CreateDateTime " & _
-            "From AIRBRANCH.FS_Admin, AIRBRANCH.FSLK_ADMIN_Status  " & _
-            "where AIRBRANCH.FS_Admin.numCurrentStatus = AIRBRANCH.FSLK_Admin_Status.ID (+) " & _
-            "and numFeeYear = '" & Me.FeeYear & "' " & _
+            SQL = "Select " &
+            "strEnrolled, datInitialEnrollment, " &
+            "datEnrollment, strInitialMailOut, " &
+            "strMailOutSent, datMailOutSent, " &
+            "intSubmittal, datSubmittal, " &
+            "numCurrentStatus, " &
+            "strIAIPDesc, strGECODesc, " &
+            "datStatusDate, " &
+            "strComment, " &
+            "AIRBRANCH.FS_Admin.active, " &
+            "AIRBRANCH.FS_Admin.updateUser, " &
+            "AIRBRANCH.FS_Admin.updateDateTime, " &
+            "AIRBRANCH.FS_Admin.CreateDateTime " &
+            "From AIRBRANCH.FS_Admin, AIRBRANCH.FSLK_ADMIN_Status  " &
+            "where AIRBRANCH.FS_Admin.numCurrentStatus = AIRBRANCH.FSLK_Admin_Status.ID (+) " &
+            "and numFeeYear = '" & Me.FeeYear & "' " &
             "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -459,22 +459,22 @@ Public Class PASPFeeAuditLog
             End While
             dr.Close()
 
-            SQL = "Select " & _
-            "strFirstName, strLastName, " & _
-            "strPrefix, strTitle, " & _
-            "strContactCoName, strContactAddress1, " & _
-            "strContactAddress2, strContactCity, " & _
-            "strContactState, strContactZipCode, " & _
-            "strGECOUserEmail, strOperationalStatus, " & _
-            "strClass, strNSPS, " & _
-            "strPart70, strFacilityName, " & _
-            "strFacilityAddress1, strFacilityAddress2, " & _
-            "strFacilityCity, strFacilityZipCode, " & _
-            "strComment, " & _
-            "datShutDownDate, " & _
-            "Active " & _
-            "from AIRBRANCH.FS_MailOut " & _
-            "where numFeeYear = '" & Me.FeeYear & "' " & _
+            SQL = "Select " &
+            "strFirstName, strLastName, " &
+            "strPrefix, strTitle, " &
+            "strContactCoName, strContactAddress1, " &
+            "strContactAddress2, strContactCity, " &
+            "strContactState, strContactZipCode, " &
+            "strGECOUserEmail, strOperationalStatus, " &
+            "strClass, strNSPS, " &
+            "strPart70, strFacilityName, " &
+            "strFacilityAddress1, strFacilityAddress2, " &
+            "strFacilityCity, strFacilityZipCode, " &
+            "strComment, " &
+            "datShutDownDate, " &
+            "Active " &
+            "from AIRBRANCH.FS_MailOut " &
+            "where numFeeYear = '" & Me.FeeYear & "' " &
             "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -665,16 +665,16 @@ Public Class PASPFeeAuditLog
             MailoutInitialPart70Panel.Enabled = False
             txtInitialFacilityComment.Enabled = False
 
-            SQL = "Select " & _
-            "strContactFirstName, strContactlastName, " & _
-            "strContactPrefix, strContactTitle, " & _
-            "strContactCompanyName, strContactAddress, " & _
-            "strContactCity, strContactState, " & _
-            "strContactZipCode, strContactPhoneNumber, " & _
-            "strContactFaxNumber, strContactEmail, " & _
-            "strComment " & _
-            "from AIRBRANCH.FS_ContactInfo " & _
-            "where numfeeyear = '" & Me.FeeYear & "' " & _
+            SQL = "Select " &
+            "strContactFirstName, strContactlastName, " &
+            "strContactPrefix, strContactTitle, " &
+            "strContactCompanyName, strContactAddress, " &
+            "strContactCity, strContactState, " &
+            "strContactZipCode, strContactPhoneNumber, " &
+            "strContactFaxNumber, strContactEmail, " &
+            "strComment " &
+            "from AIRBRANCH.FS_ContactInfo " &
+            "where numfeeyear = '" & Me.FeeYear & "' " &
             "and strAIRSnumber = '" & Me.ExpandedAirsNumber & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -763,26 +763,26 @@ Public Class PASPFeeAuditLog
     End Sub
     Sub LoadFeeInvoiceData()
         Try
-            SQL = "select " & _
-            "AIRBRANCH.FS_FEEDATA.NUMFEEYEAR, " & _
-            "AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER, " & _
-            "STRSYNTHETICMINOR, NUMSMFEE, " & _
-            "STRPART70, NUMPART70FEE, " & _
-            "INTVOCTONS, INTPMTONS, " & _
-            "INTSO2TONS, INTNOXTONS, " & _
-            "NUMCALCULATEDFEE, NUMFEERATE, " & _
-            "STRNSPS, NUMNSPSFEE, " & _
-            "STRNSPSEXEMPT, STRNSPSEXEMPTREASON, " & _
-            "NUMADMINFEE, NUMTOTALFEE, " & _
-            "STRCLASS, STROPERATE, " & _
-            "DATSHUTDOWN, STROFFICIALNAME, " & _
-            "strOfficialTitle, " & _
-            "strPaymentPlan, STRCONFIRMATIONNUMBER, " & _
-            "AIRBRANCH.FS_FEEDATA.strComment, " & _
-            "updateUser, " & _
-            "UpdateDateTime, CreateDateTime " & _
-            "from AIRBRANCH.FS_FEEDATA " & _
-            "where STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " & _
+            SQL = "select " &
+            "AIRBRANCH.FS_FEEDATA.NUMFEEYEAR, " &
+            "AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER, " &
+            "STRSYNTHETICMINOR, NUMSMFEE, " &
+            "STRPART70, NUMPART70FEE, " &
+            "INTVOCTONS, INTPMTONS, " &
+            "INTSO2TONS, INTNOXTONS, " &
+            "NUMCALCULATEDFEE, NUMFEERATE, " &
+            "STRNSPS, NUMNSPSFEE, " &
+            "STRNSPSEXEMPT, STRNSPSEXEMPTREASON, " &
+            "NUMADMINFEE, NUMTOTALFEE, " &
+            "STRCLASS, STROPERATE, " &
+            "DATSHUTDOWN, STROFFICIALNAME, " &
+            "strOfficialTitle, " &
+            "strPaymentPlan, STRCONFIRMATIONNUMBER, " &
+            "AIRBRANCH.FS_FEEDATA.strComment, " &
+            "updateUser, " &
+            "UpdateDateTime, CreateDateTime " &
+            "from AIRBRANCH.FS_FEEDATA " &
+            "where STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " &
             "and NUMFEEYEAR = '" & Me.FeeYear & "' "
 
             txtGECOExceptions.Clear()
@@ -1015,9 +1015,9 @@ Public Class PASPFeeAuditLog
                     SQLLine = Mid(SQLLine, 1, SQLLine.Length - 3)
                 End If
 
-                SQL = "Select Description " & _
-                "from AIRBRANCH.FSLK_NSPSReason " & _
-                "where " & _
+                SQL = "Select Description " &
+                "from AIRBRANCH.FSLK_NSPSReason " &
+                "where " &
                 SQLLine
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1037,9 +1037,9 @@ Public Class PASPFeeAuditLog
 
             SQLLine = ""
 
-            SQL = "Select " & _
-            "strNonAttainment " & _
-            "from AIRBRANCH.LookUpCountyInformation " & _
+            SQL = "Select " &
+            "strNonAttainment " &
+            "from AIRBRANCH.LookUpCountyInformation " &
             "where strCountyCode = '" & Mid(Me.AirsNumber.ToString, 1, 3) & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -1082,9 +1082,9 @@ Public Class PASPFeeAuditLog
                     SQLLine = Mid(SQLLine, 1, SQLLine.Length - 3)
                 End If
 
-                SQL = "Select Description " & _
-                "from AIRBRANCH.FSLK_NSPSReason " & _
-                "where " & _
+                SQL = "Select Description " &
+                "from AIRBRANCH.FSLK_NSPSReason " &
+                "where " &
                 SQLLine
 
                 da = New OracleDataAdapter(SQL, CurrentConnection)
@@ -1111,18 +1111,18 @@ Public Class PASPFeeAuditLog
                 dgvInvoiceDataNSPSExemptions.DataSource = ds
             End If
 
-            SQL = "Select " & _
-            "InvoiceID, numAmount, " & _
-            "datInvoiceDate, strComment, " & _
-            "strPayTypeDesc, " & _
-            "case " & _
-            "when strInvoiceStatus = '1' then 'Paid' " & _
-            "else 'Unpaid' " & _
-            "end InvoiceStatus " & _
-            "from AIRBRANCH.FS_FeeInvoice, AIRBRANCH.FSLK_PayType " & _
-            "where AIRBRANCH.FS_FeeInvoice.strPaytype = AIRBRANCH.FSLK_PayType.numpaytypeid " & _
-            "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " & _
-            "and numFeeYear = '" & Me.FeeYear & "' " & _
+            SQL = "Select " &
+            "InvoiceID, numAmount, " &
+            "datInvoiceDate, strComment, " &
+            "strPayTypeDesc, " &
+            "case " &
+            "when strInvoiceStatus = '1' then 'Paid' " &
+            "else 'Unpaid' " &
+            "end InvoiceStatus " &
+            "from AIRBRANCH.FS_FeeInvoice, AIRBRANCH.FSLK_PayType " &
+            "where AIRBRANCH.FS_FeeInvoice.strPaytype = AIRBRANCH.FSLK_PayType.numpaytypeid " &
+            "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " &
+            "and numFeeYear = '" & Me.FeeYear & "' " &
             "and AIRBRANCH.FS_FeeInvoice.Active = '1' "
 
             ds = New DataSet
@@ -1183,89 +1183,89 @@ Public Class PASPFeeAuditLog
     End Sub
     Sub LoadTransactionData()
         Try
-            SQL = "select " & _
-            "TRANSACTIONID,  INVOICES.INVOICEID, DATTRANSACTIONDATE, " & _
-            "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " & _
-            "ENTRYPERSON, " & _
-            "STRCOMMENT, STRCREDITCARDNO, TRANSACTIONTYPECODE, " & _
-            "case " & _
-            "when TRANSACTIONS.UPDATEUSER is not null then (STRLASTNAME||', '||STRFIRSTNAME) " & _
-            "else '' " & _
-            "end  UpdateUser, " & _
-            "TRANSACTIONS.UPDATEDATETIME, " & _
-            "TRANSACTIONS.CREATEDATETIME, " & _
-            "strPayTypedesc " & _
-            " from " & _
-            "(select " & _
-            "TRANSACTIONID,  INVOICEID, DATTRANSACTIONDATE, " & _
-            "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " & _
-            "(STRLASTNAME||', '||STRFIRSTNAME) as ENTRYPERSON, " & _
-            "STRCOMMENT, strCreditcardno, " & _
-            "transactiontypecode, " & _
-            "UPDATEUSER, UPDATEDATETIME, " & _
-            "createDateTime, strairsnumber, numfeeyear, ''  " & _
-            "from AIRBRANCH.FS_TRANSACTIONS, AIRBRANCH.EPDUSERPROFILES " & _
-            "where AIRBRANCH.FS_TRANSACTIONS.STRENTRYPERSON = AIRBRANCH.EPDUSERPROFILES.NUMUSERID (+) " & _
-            "and AIRBRANCH.FS_TRANSACTIONS.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " & _
-            "and AIRBRANCH.FS_TRANSACTIONS.NUMFEEYEAR = '" & Me.FeeYear & "' " & _
-            "and active = 1) TRANSACTIONS,  " & _
-            "(select " & _
-            "0, INVOICEID, " & _
-            "sysdate, 1, '', '', " & _
-            "'', '', '', '', 2, " & _
-            "AIRBRANCH.FS_feeINVOICE.UPDATEUSER, AIRBRANCH.FS_feeINVOICE.UPDATEDATETIME, " & _
-            "AIRBRANCH.FS_feeINVOICE.CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR, strpaytypedesc " & _
-            "from AIRBRANCH.FS_feeINVOICE, AIRBRANCH.FSLK_PayType " & _
-            "where AIRBRANCH.FS_FeeInvoice.strPayType = AIRBRANCH.FSLK_PayType.numPayTypeID " & _
-            "and STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " & _
-            "and NUMFEEYEAR = '" & Me.FeeYear & "' " & _
-            "and AIRBRANCH.FS_feeINVOICE.Active = '1' ) INVOICES, " & _
-            "AIRBRANCH.EPDUSERPROFILES " & _
-            "where TRANSACTIONS.STRAIRSNUMBER  =  INVOICES.STRAIRSNUMBER (+) " & _
-            "and TRANSACTIONS.NUMFEEYEAR  =  INVOICES.NUMFEEYEAR  (+) " & _
-            "and TRANSACTIONS.INVOICEID  =  INVOICES.INVOICEID (+) " & _
-            "and TRANSACTIONS.UPDATEUSER  = AIRBRANCH.epduserProfiles.numUserID   (+) " & _
-            " union " & _
-            "select " & _
-            "TRANSACTIONID,  INVOICES.INVOICEID, DATTRANSACTIONDATE, " & _
-            "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " & _
-            "ENTRYPERSON, " & _
-            "STRCOMMENT, STRCREDITCARDNO, TRANSACTIONTYPECODE, " & _
-            "case " & _
-            "when TRANSACTIONS.UPDATEUSER is not null then (STRLASTNAME||', '||STRFIRSTNAME) " & _
-            "else '' " & _
-            "end  UpdateUser, " & _
-            "TRANSACTIONS.UPDATEDATETIME, " & _
-            "TRANSACTIONS.CREATEDATETIME, strPayTypeDesc " & _
-            " from " & _
-            "(select " & _
-            "TRANSACTIONID,  INVOICEID, DATTRANSACTIONDATE, " & _
-            "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " & _
-            "(STRLASTNAME||', '||STRFIRSTNAME) as ENTRYPERSON, " & _
-            "STRCOMMENT, strCreditcardno, " & _
-            "transactiontypecode, " & _
-            "UPDATEUSER, UPDATEDATETIME, " & _
-            "createDateTime, strairsnumber, numfeeyear, ''  " & _
-            "from AIRBRANCH.FS_TRANSACTIONS, AIRBRANCH.EPDUSERPROFILES " & _
-            "where AIRBRANCH.FS_TRANSACTIONS.STRENTRYPERSON = AIRBRANCH.EPDUSERPROFILES.NUMUSERID (+) " & _
-            "and AIRBRANCH.FS_TRANSACTIONS.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " & _
-            "and AIRBRANCH.FS_TRANSACTIONS.NUMFEEYEAR = '" & Me.FeeYear & "' " & _
-            "and active = 1) TRANSACTIONS,  " & _
-            "(select " & _
-            "0, INVOICEID, " & _
-            "sysdate, 1, '', '', " & _
-            "'', '', '', '', 2, " & _
-            "AIRBRANCH.FS_feeINVOICE.UPDATEUSER, AIRBRANCH.FS_feeINVOICE.UPDATEDATETIME, " & _
-            "AIRBRANCH.FS_feeINVOICE.CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR, strPayTypeDesc " & _
-            "from AIRBRANCH.FS_feeINVOICE, AIRBRANCH.fsLK_Paytype " & _
-            "where AIRBRANCH.FS_feeINVOICE.strPayType = AIRBRANCH.fsLK_Paytype.numPayTypeID " & _
-            "and STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " & _
-            "and NUMFEEYEAR = '" & Me.FeeYear & "' " & _
-            "and AIRBRANCH.FS_feeINVOICE.Active = '1') INVOICES, " & _
-            "AIRBRANCH.EPDUSERPROFILES " & _
-            "where  INVOICES.STRAIRSNUMBER  = TRANSACTIONS.STRAIRSNUMBER (+) " & _
-            "and INVOICES.NUMFEEYEAR  =  TRANSACTIONS.NUMFEEYEAR  (+) " & _
-            "and INVOICES.INVOICEID  =  TRANSACTIONS.INVOICEID (+) " & _
+            SQL = "select " &
+            "TRANSACTIONID,  INVOICES.INVOICEID, DATTRANSACTIONDATE, " &
+            "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
+            "ENTRYPERSON, " &
+            "STRCOMMENT, STRCREDITCARDNO, TRANSACTIONTYPECODE, " &
+            "case " &
+            "when TRANSACTIONS.UPDATEUSER is not null then (STRLASTNAME||', '||STRFIRSTNAME) " &
+            "else '' " &
+            "end  UpdateUser, " &
+            "TRANSACTIONS.UPDATEDATETIME, " &
+            "TRANSACTIONS.CREATEDATETIME, " &
+            "strPayTypedesc " &
+            " from " &
+            "(select " &
+            "TRANSACTIONID,  INVOICEID, DATTRANSACTIONDATE, " &
+            "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
+            "(STRLASTNAME||', '||STRFIRSTNAME) as ENTRYPERSON, " &
+            "STRCOMMENT, strCreditcardno, " &
+            "transactiontypecode, " &
+            "UPDATEUSER, UPDATEDATETIME, " &
+            "createDateTime, strairsnumber, numfeeyear, ''  " &
+            "from AIRBRANCH.FS_TRANSACTIONS, AIRBRANCH.EPDUSERPROFILES " &
+            "where AIRBRANCH.FS_TRANSACTIONS.STRENTRYPERSON = AIRBRANCH.EPDUSERPROFILES.NUMUSERID (+) " &
+            "and AIRBRANCH.FS_TRANSACTIONS.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " &
+            "and AIRBRANCH.FS_TRANSACTIONS.NUMFEEYEAR = '" & Me.FeeYear & "' " &
+            "and active = 1) TRANSACTIONS,  " &
+            "(select " &
+            "0, INVOICEID, " &
+            "sysdate, 1, '', '', " &
+            "'', '', '', '', 2, " &
+            "AIRBRANCH.FS_feeINVOICE.UPDATEUSER, AIRBRANCH.FS_feeINVOICE.UPDATEDATETIME, " &
+            "AIRBRANCH.FS_feeINVOICE.CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR, strpaytypedesc " &
+            "from AIRBRANCH.FS_feeINVOICE, AIRBRANCH.FSLK_PayType " &
+            "where AIRBRANCH.FS_FeeInvoice.strPayType = AIRBRANCH.FSLK_PayType.numPayTypeID " &
+            "and STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " &
+            "and NUMFEEYEAR = '" & Me.FeeYear & "' " &
+            "and AIRBRANCH.FS_feeINVOICE.Active = '1' ) INVOICES, " &
+            "AIRBRANCH.EPDUSERPROFILES " &
+            "where TRANSACTIONS.STRAIRSNUMBER  =  INVOICES.STRAIRSNUMBER (+) " &
+            "and TRANSACTIONS.NUMFEEYEAR  =  INVOICES.NUMFEEYEAR  (+) " &
+            "and TRANSACTIONS.INVOICEID  =  INVOICES.INVOICEID (+) " &
+            "and TRANSACTIONS.UPDATEUSER  = AIRBRANCH.epduserProfiles.numUserID   (+) " &
+            " union " &
+            "select " &
+            "TRANSACTIONID,  INVOICES.INVOICEID, DATTRANSACTIONDATE, " &
+            "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
+            "ENTRYPERSON, " &
+            "STRCOMMENT, STRCREDITCARDNO, TRANSACTIONTYPECODE, " &
+            "case " &
+            "when TRANSACTIONS.UPDATEUSER is not null then (STRLASTNAME||', '||STRFIRSTNAME) " &
+            "else '' " &
+            "end  UpdateUser, " &
+            "TRANSACTIONS.UPDATEDATETIME, " &
+            "TRANSACTIONS.CREATEDATETIME, strPayTypeDesc " &
+            " from " &
+            "(select " &
+            "TRANSACTIONID,  INVOICEID, DATTRANSACTIONDATE, " &
+            "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
+            "(STRLASTNAME||', '||STRFIRSTNAME) as ENTRYPERSON, " &
+            "STRCOMMENT, strCreditcardno, " &
+            "transactiontypecode, " &
+            "UPDATEUSER, UPDATEDATETIME, " &
+            "createDateTime, strairsnumber, numfeeyear, ''  " &
+            "from AIRBRANCH.FS_TRANSACTIONS, AIRBRANCH.EPDUSERPROFILES " &
+            "where AIRBRANCH.FS_TRANSACTIONS.STRENTRYPERSON = AIRBRANCH.EPDUSERPROFILES.NUMUSERID (+) " &
+            "and AIRBRANCH.FS_TRANSACTIONS.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " &
+            "and AIRBRANCH.FS_TRANSACTIONS.NUMFEEYEAR = '" & Me.FeeYear & "' " &
+            "and active = 1) TRANSACTIONS,  " &
+            "(select " &
+            "0, INVOICEID, " &
+            "sysdate, 1, '', '', " &
+            "'', '', '', '', 2, " &
+            "AIRBRANCH.FS_feeINVOICE.UPDATEUSER, AIRBRANCH.FS_feeINVOICE.UPDATEDATETIME, " &
+            "AIRBRANCH.FS_feeINVOICE.CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR, strPayTypeDesc " &
+            "from AIRBRANCH.FS_feeINVOICE, AIRBRANCH.fsLK_Paytype " &
+            "where AIRBRANCH.FS_feeINVOICE.strPayType = AIRBRANCH.fsLK_Paytype.numPayTypeID " &
+            "and STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " &
+            "and NUMFEEYEAR = '" & Me.FeeYear & "' " &
+            "and AIRBRANCH.FS_feeINVOICE.Active = '1') INVOICES, " &
+            "AIRBRANCH.EPDUSERPROFILES " &
+            "where  INVOICES.STRAIRSNUMBER  = TRANSACTIONS.STRAIRSNUMBER (+) " &
+            "and INVOICES.NUMFEEYEAR  =  TRANSACTIONS.NUMFEEYEAR  (+) " &
+            "and INVOICES.INVOICEID  =  TRANSACTIONS.INVOICEID (+) " &
             "and TRANSACTIONS.UPDATEUSER  = AIRBRANCH.epduserProfiles.numUserID (+) "
 
             ds = New DataSet
@@ -1333,583 +1333,583 @@ Public Class PASPFeeAuditLog
         End If
 
         Try
-            SQL = "select * " & _
-            "from ( " & _
-            "SELECT " & _
-            "  case  " & _
-            "when (select  " & _
-            "STRSYNTHETICMINOR  " & _
-            "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-            "where AuditID =  " & _
-            "(select max(AuditID) MAXID  " & _
-            "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-            "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-            "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " & _
-            "and STRSYNTHETICMINOR is not null )) is not null then (select  " & _
-            "STRSYNTHETICMINOR  " & _
-            "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-            "where AuditID =  " & _
-            "(select max(AuditID) MAXID  " & _
-            "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-            "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-            "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " & _
-            "and STRSYNTHETICMINOR is not null ) ) " & _
-            "else null  " & _
-            "end STRSYNTHETICMINOR  " & _
-            "from AIRBRANCH.FS_FEEDATA    " & _
-            "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-            "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " & _
-            "(SELECT " & _
-            "  case  " & _
-            "when (select  " & _
-            "NUMsmfEE  " & _
-            "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-            "where AuditID =  " & _
-            "(select max(AuditID) MAXID  " & _
-            "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-            "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-            "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " & _
-            "and NUMsmfEE is not null )) is not null then (select  " & _
-            "NUMsmfEE  " & _
-            "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-            "where AuditID =  " & _
-            "(select max(AuditID) MAXID  " & _
-            "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-            "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-            "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " & _
-            "and NUMSMFEE is not null ) ) " & _
-            "else null  " & _
-            "end  NUMsmfEE " & _
-            "from AIRBRANCH.FS_FEEDATA    " & _
-            "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-            "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),   " & _
-            "(SELECT " & _
-            "  case  " & _
-            "when (select  " & _
-            "STRPART70  " & _
-            "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-            "where AuditID =  " & _
-            "(select max(AuditID) MAXID  " & _
-            "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-            "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-            "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " & _
-            "and STRPART70 is not null )) is not null then (select  " & _
-            "STRPART70  " & _
-            "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-            "where AuditID =  " & _
-            "(select max(AuditID) MAXID  " & _
-            "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-            "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-            "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " & _
-            "and STRPART70 is not null ) ) " & _
-                "else null  " & _
-                "end  STRPART70  " & _
-                "from AIRBRANCH.FS_FEEDATA    " & _
-                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " & _
-                "(SELECT " & _
-                "  case  " & _
-                "when (select  " & _
-                "numPart70Fee  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " & _
-                "and numPart70Fee is not null )) is not null then (select  " & _
-                "numPart70Fee  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " & _
-                "and numPart70Fee is not null ) ) " & _
-                "else null  " & _
-                "end  numPart70Fee " & _
-                "from AIRBRANCH.FS_FEEDATA    " & _
-                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " & _
-                "(SELECT " & _
-                "  case  " & _
-                "when (select  " & _
-                "INtVOCTONS  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " & _
-                "and INtVOCTONS is not null )) is not null then (select  " & _
-                "INtVOCTONS  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " & _
-                "and INtVOCTONS is not null ) ) " & _
-                "else null " & _
-                "end  INtVOCTONS  " & _
-                "from AIRBRANCH.FS_FEEDATA    " & _
-                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " & _
-                "(SELECT " & _
-                "  case  " & _
-                "when (select  " & _
-                "intpmtons  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " & _
-                "and intpmtons is not null )) is not null then (select  " & _
-                "intpmtons  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " & _
-                "and INTPMTONS is not null ) ) " & _
-                "else null  " & _
-                "end intpmtons  " & _
-                "from AIRBRANCH.FS_FEEDATA    " & _
-                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " & _
-                "(SELECT " & _
-                "  case  " & _
-                "when (select  " & _
-                "intSO2Tons  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " & _
-                "and intSO2Tons is not null )) is not null then (select  " & _
-                "intSO2Tons  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " & _
-                "and INTSO2TONS is not null ) ) " & _
-                "else null " & _
-                "end  INTSO2TONS  " & _
-                "from AIRBRANCH.FS_FEEDATA    " & _
-                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " & _
-                "(SELECT " & _
-                "  case  " & _
-                "when (select  " & _
-                "INTNOXTONS  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " & _
-                "and INTNOXTONS is not null )) is not null then (select  " & _
-                "INTNOXTONS  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " & _
-                "and INTNOXTONS is not null ) ) " & _
-                "else null  " & _
-                "end INTNOXTONS  " & _
-                "from AIRBRANCH.FS_FEEDATA    " & _
-                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " & _
-                "(SELECT " & _
-                "  case  " & _
-                "when (select  " & _
-                "numcalculatedFee  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " & _
-                "and numcalculatedFee is not null )) is not null then (select  " & _
-                "numcalculatedFee  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " & _
-                "and numcalculatedFee is not null ) ) " & _
-                "else null " & _
-                "end  numcalculatedFee  " & _
-                "from AIRBRANCH.FS_FEEDATA    " & _
-                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " & _
-                "(SELECT " & _
-                "  case  " & _
-                "when (select  " & _
-                "numFeeRate  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " & _
-                "and numFeeRate is not null )) is not null then (select  " & _
-                "numFeeRate  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " & _
-                "and NUMFEERATE is not null ) ) " & _
-                "else null  " & _
-                "end  numFeeRate  " & _
-                "from AIRBRANCH.FS_FEEDATA    " & _
-                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ), " & _
-                "(SELECT " & _
-                "  case  " & _
-                "when (select  " & _
-                "strNSPS  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " & _
-                "and strNSPS is not null )) is not null then (select  " & _
-                "strNSPS  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " & _
-                "and strNSPS is not null ) ) " & _
-                "else AIRBRANCH.FS_FEEDATA.strNSPS " & _
-                "end  strNSPS  " & _
-                "from AIRBRANCH.FS_FEEDATA    " & _
-                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "' ),  " & _
-                "(SELECT " & _
-                "  case  " & _
-                "when (select  " & _
-                "numNSPSFee  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " & _
-                "and numNSPSFee is not null )) is not null then (select  " & _
-                "numNSPSFee  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " & _
-                "and NUMNSPSFEE is not null ) ) " & _
-                "else null  " & _
-                "end  numNSPSFee  " & _
-                "from AIRBRANCH.FS_FEEDATA    " & _
-                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " & _
-                "(SELECT " & _
-                "  case  " & _
-                "when (select  " & _
-                "strNSPSExempt  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " & _
-                "and strNSPSExempt is not null )) is not null then (select  " & _
-                "strNSPSExempt  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " & _
-                "and STRNSPSEXEMPT is not null ) ) " & _
-                "else null " & _
-                "end  strNSPSExempt  " & _
-                "from AIRBRANCH.FS_FEEDATA    " & _
-                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " & _
-                "(SELECT " & _
-                "  case  " & _
-                "when (select  " & _
-                "strNSPSExemptReason  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " & _
-                "and strNSPSExemptReason is not null )) is not null then (select  " & _
-                "strNSPSExemptReason  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " & _
-                "and STRNSPSEXEMPTREASON is not null ) ) " & _
-                "else null  " & _
-                "end  strNSPSExemptReason  " & _
-                "from AIRBRANCH.FS_FEEDATA    " & _
-                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " & _
-                "(SELECT " & _
-                "  case  " & _
-                "when (select  " & _
-                "NUMADMINFEE  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " & _
-                "and NUMADMINFEE is not null )) is not null then (select " & _
-                "NUMADMINFEE  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " & _
-                "and NUMADMINFEE is not null ) ) " & _
-                "else null " & _
-                "end  NUMADMINFEE  " & _
-                "from AIRBRANCH.FS_FEEDATA    " & _
-                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " & _
-                "(SELECT " & _
-                "  case  " & _
-                "when (select  " & _
-                "numTotalFee  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " & _
-                "and numTotalFee is not null )) is not null then (select  " & _
-                "numTotalFee  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " & _
-                "and NUMTOTALFEE is not null ) ) " & _
-                "else null  " & _
-                "end  numTotalFee  " & _
-                "from AIRBRANCH.FS_FEEDATA    " & _
-                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " & _
-                "(SELECT " & _
-                "  case  " & _
-                "when (select  " & _
-                "strClass  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " & _
-                "and strClass is not null )) is not null then (select  " & _
-                "strClass  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " & _
-                "and strClass is not null ) ) " & _
-                "else null  " & _
-                "end  strClass  " & _
-                "from AIRBRANCH.FS_FEEDATA    " & _
-                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " & _
-                "(SELECT " & _
-                "  case  " & _
-                "when (select  " & _
-                "strOperate  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " & _
-                "and strOperate is not null )) is not null then (select  " & _
-                "strOperate  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " & _
-                "and STROPERATE is not null ) ) " & _
-                "else null  " & _
-                "end  strOperate  " & _
-                "from AIRBRANCH.FS_FEEDATA    " & _
-                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " & _
-                " (SELECT " & _
-                "  case  " & _
-                "when (select  " & _
-                "datShutDown  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " & _
-                "and datShutDown is not null )) is not null then (select  " & _
-                "datShutDown  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " & _
-                "and datShutDown is not null ) ) " & _
-                "else null  " & _
-                "end  datShutDown  " & _
-                "from AIRBRANCH.FS_FEEDATA    " & _
-                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " & _
-                "(SELECT " & _
-                "  case  " & _
-                "when (select  " & _
-                "strOfficialName  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " & _
-                "and strOfficialName is not null )) is not null then (select  " & _
-                "strOfficialName  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " & _
-                "and strOfficialName is not null ) ) " & _
-                "else null  " & _
-                "end  strOfficialName  " & _
-                "from AIRBRANCH.FS_FEEDATA    " & _
-                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " & _
-                "(SELECT " & _
-                "  case  " & _
-                "when (select  " & _
-                "strOfficialTitle  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " & _
-                "and strOfficialTitle is not null )) is not null then (select  " & _
-                "strOfficialTitle  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " & _
-                "and strOfficialTitle is not null ) ) " & _
-                "else null  " & _
-                "end  strOfficialTitle  " & _
-                "from AIRBRANCH.FS_FEEDATA    " & _
-                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " & _
-                "(SELECT " & _
-                "  case  " & _
-                "when (select  " & _
-                "STRPAYMENTPLAN  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " & _
-                "and STRPAYMENTPLAN is not null )) is not null then (select  " & _
-                "STRPAYMENTPLAN  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " & _
-                "and STRPAYMENTPLAN is not null ) ) " & _
-                "else null  " & _
-                "end  STRPAYMENTPLAN  " & _
-                "from AIRBRANCH.FS_FEEDATA    " & _
-                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " & _
-                "(SELECT " & _
-                "  case  " & _
-                "when (select  " & _
-                "ACTIVE  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " & _
-                "and ACTIVE is not null )) is not null then (select  " & _
-                "ACTIVE  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " & _
-                "and ACTIVE is not null ) ) " & _
-                "else null  " & _
-                "end  ACTIVE  " & _
-                "from AIRBRANCH.FS_FEEDATA    " & _
-                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " & _
-                "(SELECT " & _
-                "  case  " & _
-                "when (select  " & _
-                "updateUser  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " & _
-                "and updateUser is not null )) is not null then (select  " & _
-                "updateUser  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AuditID =  " & _
-                "(select max(AuditID) MAXID  " & _
-                "from AIRBRANCH.FS_FEEAMENDMENT  " & _
-                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
-                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " & _
-                "and updateUser is not null ) ) " & _
-                "else null  " & _
-                "end  updateUser  " & _
-                "from AIRBRANCH.FS_FEEDATA    " & _
-                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " & _
+            SQL = "select * " &
+            "from ( " &
+            "SELECT " &
+            "  case  " &
+            "when (select  " &
+            "STRSYNTHETICMINOR  " &
+            "from AIRBRANCH.FS_FEEAMENDMENT  " &
+            "where AuditID =  " &
+            "(select max(AuditID) MAXID  " &
+            "from AIRBRANCH.FS_FEEAMENDMENT  " &
+            "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+            "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
+            "and STRSYNTHETICMINOR is not null )) is not null then (select  " &
+            "STRSYNTHETICMINOR  " &
+            "from AIRBRANCH.FS_FEEAMENDMENT  " &
+            "where AuditID =  " &
+            "(select max(AuditID) MAXID  " &
+            "from AIRBRANCH.FS_FEEAMENDMENT  " &
+            "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+            "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
+            "and STRSYNTHETICMINOR is not null ) ) " &
+            "else null  " &
+            "end STRSYNTHETICMINOR  " &
+            "from AIRBRANCH.FS_FEEDATA    " &
+            "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+            "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
+            "(SELECT " &
+            "  case  " &
+            "when (select  " &
+            "NUMsmfEE  " &
+            "from AIRBRANCH.FS_FEEAMENDMENT  " &
+            "where AuditID =  " &
+            "(select max(AuditID) MAXID  " &
+            "from AIRBRANCH.FS_FEEAMENDMENT  " &
+            "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+            "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
+            "and NUMsmfEE is not null )) is not null then (select  " &
+            "NUMsmfEE  " &
+            "from AIRBRANCH.FS_FEEAMENDMENT  " &
+            "where AuditID =  " &
+            "(select max(AuditID) MAXID  " &
+            "from AIRBRANCH.FS_FEEAMENDMENT  " &
+            "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+            "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
+            "and NUMSMFEE is not null ) ) " &
+            "else null  " &
+            "end  NUMsmfEE " &
+            "from AIRBRANCH.FS_FEEDATA    " &
+            "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+            "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),   " &
+            "(SELECT " &
+            "  case  " &
+            "when (select  " &
+            "STRPART70  " &
+            "from AIRBRANCH.FS_FEEAMENDMENT  " &
+            "where AuditID =  " &
+            "(select max(AuditID) MAXID  " &
+            "from AIRBRANCH.FS_FEEAMENDMENT  " &
+            "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+            "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
+            "and STRPART70 is not null )) is not null then (select  " &
+            "STRPART70  " &
+            "from AIRBRANCH.FS_FEEAMENDMENT  " &
+            "where AuditID =  " &
+            "(select max(AuditID) MAXID  " &
+            "from AIRBRANCH.FS_FEEAMENDMENT  " &
+            "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+            "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
+            "and STRPART70 is not null ) ) " &
+                "else null  " &
+                "end  STRPART70  " &
+                "from AIRBRANCH.FS_FEEDATA    " &
+                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
+                "(SELECT " &
+                "  case  " &
+                "when (select  " &
+                "numPart70Fee  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
+                "and numPart70Fee is not null )) is not null then (select  " &
+                "numPart70Fee  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
+                "and numPart70Fee is not null ) ) " &
+                "else null  " &
+                "end  numPart70Fee " &
+                "from AIRBRANCH.FS_FEEDATA    " &
+                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
+                "(SELECT " &
+                "  case  " &
+                "when (select  " &
+                "INtVOCTONS  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
+                "and INtVOCTONS is not null )) is not null then (select  " &
+                "INtVOCTONS  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
+                "and INtVOCTONS is not null ) ) " &
+                "else null " &
+                "end  INtVOCTONS  " &
+                "from AIRBRANCH.FS_FEEDATA    " &
+                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
+                "(SELECT " &
+                "  case  " &
+                "when (select  " &
+                "intpmtons  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
+                "and intpmtons is not null )) is not null then (select  " &
+                "intpmtons  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
+                "and INTPMTONS is not null ) ) " &
+                "else null  " &
+                "end intpmtons  " &
+                "from AIRBRANCH.FS_FEEDATA    " &
+                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
+                "(SELECT " &
+                "  case  " &
+                "when (select  " &
+                "intSO2Tons  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
+                "and intSO2Tons is not null )) is not null then (select  " &
+                "intSO2Tons  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
+                "and INTSO2TONS is not null ) ) " &
+                "else null " &
+                "end  INTSO2TONS  " &
+                "from AIRBRANCH.FS_FEEDATA    " &
+                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
+                "(SELECT " &
+                "  case  " &
+                "when (select  " &
+                "INTNOXTONS  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
+                "and INTNOXTONS is not null )) is not null then (select  " &
+                "INTNOXTONS  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
+                "and INTNOXTONS is not null ) ) " &
+                "else null  " &
+                "end INTNOXTONS  " &
+                "from AIRBRANCH.FS_FEEDATA    " &
+                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
+                "(SELECT " &
+                "  case  " &
+                "when (select  " &
+                "numcalculatedFee  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
+                "and numcalculatedFee is not null )) is not null then (select  " &
+                "numcalculatedFee  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
+                "and numcalculatedFee is not null ) ) " &
+                "else null " &
+                "end  numcalculatedFee  " &
+                "from AIRBRANCH.FS_FEEDATA    " &
+                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
+                "(SELECT " &
+                "  case  " &
+                "when (select  " &
+                "numFeeRate  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
+                "and numFeeRate is not null )) is not null then (select  " &
+                "numFeeRate  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
+                "and NUMFEERATE is not null ) ) " &
+                "else null  " &
+                "end  numFeeRate  " &
+                "from AIRBRANCH.FS_FEEDATA    " &
+                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ), " &
+                "(SELECT " &
+                "  case  " &
+                "when (select  " &
+                "strNSPS  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
+                "and strNSPS is not null )) is not null then (select  " &
+                "strNSPS  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
+                "and strNSPS is not null ) ) " &
+                "else AIRBRANCH.FS_FEEDATA.strNSPS " &
+                "end  strNSPS  " &
+                "from AIRBRANCH.FS_FEEDATA    " &
+                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "' ),  " &
+                "(SELECT " &
+                "  case  " &
+                "when (select  " &
+                "numNSPSFee  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
+                "and numNSPSFee is not null )) is not null then (select  " &
+                "numNSPSFee  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
+                "and NUMNSPSFEE is not null ) ) " &
+                "else null  " &
+                "end  numNSPSFee  " &
+                "from AIRBRANCH.FS_FEEDATA    " &
+                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
+                "(SELECT " &
+                "  case  " &
+                "when (select  " &
+                "strNSPSExempt  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
+                "and strNSPSExempt is not null )) is not null then (select  " &
+                "strNSPSExempt  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
+                "and STRNSPSEXEMPT is not null ) ) " &
+                "else null " &
+                "end  strNSPSExempt  " &
+                "from AIRBRANCH.FS_FEEDATA    " &
+                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
+                "(SELECT " &
+                "  case  " &
+                "when (select  " &
+                "strNSPSExemptReason  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
+                "and strNSPSExemptReason is not null )) is not null then (select  " &
+                "strNSPSExemptReason  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
+                "and STRNSPSEXEMPTREASON is not null ) ) " &
+                "else null  " &
+                "end  strNSPSExemptReason  " &
+                "from AIRBRANCH.FS_FEEDATA    " &
+                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
+                "(SELECT " &
+                "  case  " &
+                "when (select  " &
+                "NUMADMINFEE  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
+                "and NUMADMINFEE is not null )) is not null then (select " &
+                "NUMADMINFEE  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
+                "and NUMADMINFEE is not null ) ) " &
+                "else null " &
+                "end  NUMADMINFEE  " &
+                "from AIRBRANCH.FS_FEEDATA    " &
+                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
+                "(SELECT " &
+                "  case  " &
+                "when (select  " &
+                "numTotalFee  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
+                "and numTotalFee is not null )) is not null then (select  " &
+                "numTotalFee  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
+                "and NUMTOTALFEE is not null ) ) " &
+                "else null  " &
+                "end  numTotalFee  " &
+                "from AIRBRANCH.FS_FEEDATA    " &
+                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
+                "(SELECT " &
+                "  case  " &
+                "when (select  " &
+                "strClass  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
+                "and strClass is not null )) is not null then (select  " &
+                "strClass  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
+                "and strClass is not null ) ) " &
+                "else null  " &
+                "end  strClass  " &
+                "from AIRBRANCH.FS_FEEDATA    " &
+                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
+                "(SELECT " &
+                "  case  " &
+                "when (select  " &
+                "strOperate  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
+                "and strOperate is not null )) is not null then (select  " &
+                "strOperate  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
+                "and STROPERATE is not null ) ) " &
+                "else null  " &
+                "end  strOperate  " &
+                "from AIRBRANCH.FS_FEEDATA    " &
+                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
+                " (SELECT " &
+                "  case  " &
+                "when (select  " &
+                "datShutDown  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
+                "and datShutDown is not null )) is not null then (select  " &
+                "datShutDown  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
+                "and datShutDown is not null ) ) " &
+                "else null  " &
+                "end  datShutDown  " &
+                "from AIRBRANCH.FS_FEEDATA    " &
+                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
+                "(SELECT " &
+                "  case  " &
+                "when (select  " &
+                "strOfficialName  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
+                "and strOfficialName is not null )) is not null then (select  " &
+                "strOfficialName  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
+                "and strOfficialName is not null ) ) " &
+                "else null  " &
+                "end  strOfficialName  " &
+                "from AIRBRANCH.FS_FEEDATA    " &
+                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
+                "(SELECT " &
+                "  case  " &
+                "when (select  " &
+                "strOfficialTitle  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
+                "and strOfficialTitle is not null )) is not null then (select  " &
+                "strOfficialTitle  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
+                "and strOfficialTitle is not null ) ) " &
+                "else null  " &
+                "end  strOfficialTitle  " &
+                "from AIRBRANCH.FS_FEEDATA    " &
+                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
+                "(SELECT " &
+                "  case  " &
+                "when (select  " &
+                "STRPAYMENTPLAN  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
+                "and STRPAYMENTPLAN is not null )) is not null then (select  " &
+                "STRPAYMENTPLAN  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
+                "and STRPAYMENTPLAN is not null ) ) " &
+                "else null  " &
+                "end  STRPAYMENTPLAN  " &
+                "from AIRBRANCH.FS_FEEDATA    " &
+                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
+                "(SELECT " &
+                "  case  " &
+                "when (select  " &
+                "ACTIVE  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
+                "and ACTIVE is not null )) is not null then (select  " &
+                "ACTIVE  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
+                "and ACTIVE is not null ) ) " &
+                "else null  " &
+                "end  ACTIVE  " &
+                "from AIRBRANCH.FS_FEEDATA    " &
+                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
+                "(SELECT " &
+                "  case  " &
+                "when (select  " &
+                "updateUser  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
+                "and updateUser is not null )) is not null then (select  " &
+                "updateUser  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AuditID =  " &
+                "(select max(AuditID) MAXID  " &
+                "from AIRBRANCH.FS_FEEAMENDMENT  " &
+                "where AIRBRANCH.FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
+                "and AIRBRANCH.FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
+                "and updateUser is not null ) ) " &
+                "else null  " &
+                "end  updateUser  " &
+                "from AIRBRANCH.FS_FEEDATA    " &
+                "where AIRBRANCH.FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
                 "and AIRBRANCH.FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ) "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2074,9 +2074,9 @@ Public Class PASPFeeAuditLog
                     SQLLine = Mid(SQLLine, 1, SQLLine.Length - 3)
                 End If
 
-                SQL = "Select Description " & _
-                "from AIRBRANCH.FSLK_NSPSReason " & _
-                "where " & _
+                SQL = "Select Description " &
+                "from AIRBRANCH.FSLK_NSPSReason " &
+                "where " &
                 SQLLine
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2096,39 +2096,39 @@ Public Class PASPFeeAuditLog
 
             SQLLine = ""
 
-            SQL = "Select " & _
-            "AIRBRANCH.FS_FeeAudit.AuditID, " & _
-            "case when strSyntheticMinor = '1' then 'True' " & _
-            "when strSYntheticMinor is null then '' " & _
-            "else 'False' " & _
-            "end SyntheticMinor, numSMFee, " & _
-            "case when strPart70 = '1' then 'True' " & _
-               "when strPart70 is null then '' " & _
-            "else 'False' " & _
-            "end Part70, numPart70Fee, " & _
-            "intVOCTons, intPMTons, " & _
-            "intSO2Tons, intNOXTons, " & _
-            "numCalculatedFee, numFeeRate, " & _
-            "case when strNSPS = '1' then 'True' " & _
-            "when strNSPS is null then '' " & _
-            "else 'False' " & _
-            "end NSPS, numNSPSFee, " & _
-            "case when strNSPSExempt = '1' then 'True' " & _
-                "when strNSPSExempt is null then '' " & _
-            "else 'False' " & _
-            "end NSPSExempt, " & _
-            "numAdminFee, numTotalFee, " & _
-            "strClass, strOperate, " & _
-            "datShutdown, strOfficialname, " & _
-            "strOfficialTitle, strPaymentPlan, " & _
-            "(strLastName||', '||strFirstName) as IAIPUpdate, " & _
-            "AIRBRANCH.FS_FeeAudit.UpdateDateTime, AIRBRANCH.FS_FeeAudit.CreateDateTime " & _
-            "from AIRBRANCH.FS_FeeAmendment, AIRBRANCH.EPDUserProfiles, " & _
-            "AIRBRANCH.FS_FeeAudit " & _
-            "where AIRBRANCH.FS_FeeAudit.UpdateUser = AIRBRANCH.EPDUserProfiles.numUserID " & _
-            "and AIRBRANCH.FS_FeeAudit.AuditID = AIRBRANCH.FS_FeeAmendment.AuditID (+) " & _
-            "and AIRBRANCH.FS_FeeAudit.strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " & _
-            "and AIRBRANCH.FS_FeeAudit.numFeeyear  = '" & Me.FeeYear & "' " & _
+            SQL = "Select " &
+            "AIRBRANCH.FS_FeeAudit.AuditID, " &
+            "case when strSyntheticMinor = '1' then 'True' " &
+            "when strSYntheticMinor is null then '' " &
+            "else 'False' " &
+            "end SyntheticMinor, numSMFee, " &
+            "case when strPart70 = '1' then 'True' " &
+               "when strPart70 is null then '' " &
+            "else 'False' " &
+            "end Part70, numPart70Fee, " &
+            "intVOCTons, intPMTons, " &
+            "intSO2Tons, intNOXTons, " &
+            "numCalculatedFee, numFeeRate, " &
+            "case when strNSPS = '1' then 'True' " &
+            "when strNSPS is null then '' " &
+            "else 'False' " &
+            "end NSPS, numNSPSFee, " &
+            "case when strNSPSExempt = '1' then 'True' " &
+                "when strNSPSExempt is null then '' " &
+            "else 'False' " &
+            "end NSPSExempt, " &
+            "numAdminFee, numTotalFee, " &
+            "strClass, strOperate, " &
+            "datShutdown, strOfficialname, " &
+            "strOfficialTitle, strPaymentPlan, " &
+            "(strLastName||', '||strFirstName) as IAIPUpdate, " &
+            "AIRBRANCH.FS_FeeAudit.UpdateDateTime, AIRBRANCH.FS_FeeAudit.CreateDateTime " &
+            "from AIRBRANCH.FS_FeeAmendment, AIRBRANCH.EPDUserProfiles, " &
+            "AIRBRANCH.FS_FeeAudit " &
+            "where AIRBRANCH.FS_FeeAudit.UpdateUser = AIRBRANCH.EPDUserProfiles.numUserID " &
+            "and AIRBRANCH.FS_FeeAudit.AuditID = AIRBRANCH.FS_FeeAmendment.AuditID (+) " &
+            "and AIRBRANCH.FS_FeeAudit.strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " &
+            "and AIRBRANCH.FS_FeeAudit.numFeeyear  = '" & Me.FeeYear & "' " &
             "and AIRBRANCH.FS_FeeAudit.Active = '1' "
 
             ds = New DataSet
@@ -2246,11 +2246,11 @@ Public Class PASPFeeAuditLog
     Sub RefreshAdminStatus()
         Try
             If Me.AirsNumber.ToString IsNot Nothing AndAlso Me.FeeYear IsNot Nothing Then
-                SQL = "select " & _
-                "strIAIPDesc " & _
-                "From AIRBRANCH.FS_Admin, AIRBRANCH.FSLK_ADMIN_Status " & _
-                "where AIRBRANCH.FS_Admin.numCurrentStatus = AIRBRANCH.FSLK_Admin_Status.ID (+) " & _
-                "and numFeeYear = '" & Me.FeeYear & "' " & _
+                SQL = "select " &
+                "strIAIPDesc " &
+                "From AIRBRANCH.FS_Admin, AIRBRANCH.FSLK_ADMIN_Status " &
+                "where AIRBRANCH.FS_Admin.numCurrentStatus = AIRBRANCH.FSLK_Admin_Status.ID (+) " &
+                "and numFeeYear = '" & Me.FeeYear & "' " &
                 "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "'  "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -2279,31 +2279,31 @@ Public Class PASPFeeAuditLog
             Dim drDSRow As DataRow
             Dim drNewRow As DataRow
 
-            SQL = "Select " & _
-            "numUserID, " & _
-            "(strLastName||', '||strFirstName) as Staff " & _
-            "from AIRBRANCH.EPDUserProfiles " & _
-            "where numBranch = '1' " & _
-            "and numProgram = '2' " & _
-            "and numUnit = '9' " & _
+            SQL = "Select " &
+            "numUserID, " &
+            "(strLastName||', '||strFirstName) as Staff " &
+            "from AIRBRANCH.EPDUserProfiles " &
+            "where numBranch = '1' " &
+            "and numProgram = '2' " &
+            "and numUnit = '9' " &
             "and numEmployeeStatus = '1' "
 
-            SQL = "select * " & _
-            "from " & _
-            "(select " & _
-            "(strLastName||', '||strFirstName) as Staff, " & _
-            "numUserID " & _
-            "from AIrbranch.EPDUserProfiles " & _
-            "where numbranch = '1' " & _
-            "and numprogram = '2' " & _
-            "and numUnit = '9' " & _
-            "and numEmployeeStatus = '1' " & _
-            "union " & _
-            "select distinct " & _
-            "(strLastName||', '||strFirstName) as Staff, " & _
-            "numUserID " & _
-            "from AIrbranch.EPDUserProfiles, AIRBranch.FS_FeeAmendment  " & _
-            "where AIRBranch.EPDUserProfiles.nuMUserID = AIRbranch.FS_FeeAmendment.UpdateUser ) " & _
+            SQL = "select * " &
+            "from " &
+            "(select " &
+            "(strLastName||', '||strFirstName) as Staff, " &
+            "numUserID " &
+            "from AIrbranch.EPDUserProfiles " &
+            "where numbranch = '1' " &
+            "and numprogram = '2' " &
+            "and numUnit = '9' " &
+            "and numEmployeeStatus = '1' " &
+            "union " &
+            "select distinct " &
+            "(strLastName||', '||strFirstName) as Staff, " &
+            "numUserID " &
+            "from AIrbranch.EPDUserProfiles, AIRBranch.FS_FeeAmendment  " &
+            "where AIRBranch.EPDUserProfiles.nuMUserID = AIRbranch.FS_FeeAmendment.UpdateUser ) " &
             "order by staff "
 
             ds = New DataSet
@@ -2538,15 +2538,15 @@ Public Class PASPFeeAuditLog
 
     Private Sub MailoutSaveContactButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutSaveContactButton.Click
         If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
-            MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " & _
-                            "Please double-check and try again." & _
-                            vbNewLine & vbNewLine & "NO DATA SAVED.", _
+            MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " &
+                            "Please double-check and try again." &
+                            vbNewLine & vbNewLine & "NO DATA SAVED.",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
         If Not DAL.FeeMailoutEntryExists(AirsNumber, FeeYear) Then
-            MessageBox.Show("Can't save contact: No mailout exists for that AIRS number and year.", _
+            MessageBox.Show("Can't save contact: No mailout exists for that AIRS number and year.",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
@@ -2558,22 +2558,22 @@ Public Class PASPFeeAuditLog
             tempContact = Nothing
             MailoutEditingToggle(False)
         Else
-            MessageBox.Show("There was an error saving contact data. Please try again.", _
+            MessageBox.Show("There was an error saving contact data. Please try again.",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub
 
     Private Sub MailoutSaveFacilityButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutSaveFacilityButton.Click
         If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
-            MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " & _
-                            "Please double-check and try again." & _
-                            vbNewLine & vbNewLine & "NO DATA SAVED.", _
+            MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " &
+                            "Please double-check and try again." &
+                            vbNewLine & vbNewLine & "NO DATA SAVED.",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
 
         If Not DAL.FeeMailoutEntryExists(AirsNumber, FeeYear) Then
-            MessageBox.Show("Can't save facility: No mailout exists for that AIRS number and year.", _
+            MessageBox.Show("Can't save facility: No mailout exists for that AIRS number and year.",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
@@ -2585,7 +2585,7 @@ Public Class PASPFeeAuditLog
             tempFacility = Nothing
             MailoutEditingToggle(False, False)
         Else
-            MessageBox.Show("There was an error saving facility data. Please try again.", _
+            MessageBox.Show("There was an error saving facility data. Please try again.",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub
@@ -2594,7 +2594,7 @@ Public Class PASPFeeAuditLog
 
     Private Sub EditContactsButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditContactsButton.Click
         If AirsNumber.ToString Is Nothing OrElse (mtbAirsNumber.Text <> AirsNumber.FormattedString) Then
-            MessageBox.Show("Please select a valid AIRS number first.", _
+            MessageBox.Show("Please select a valid AIRS number first.",
                             "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
@@ -2742,8 +2742,8 @@ Public Class PASPFeeAuditLog
             Dim ResultDoc As DialogResult
 
             If rdbInactiveStatus.Checked = True Then
-                ResultDoc = MessageBox.Show("If there are any transactions associated with this fee year they will ""effectively"" be deleted." & _
-                                            "Do you want to continue with an inactive status for this fee year data?", Me.Text, _
+                ResultDoc = MessageBox.Show("If there are any transactions associated with this fee year they will ""effectively"" be deleted." &
+                                            "Do you want to continue with an inactive status for this fee year data?", Me.Text,
                                             MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
 
                 Select Case ResultDoc
@@ -2754,36 +2754,36 @@ Public Class PASPFeeAuditLog
             End If
 
             If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
-                MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " & _
-                                "Please double-check and try again." & _
-                                vbNewLine & vbNewLine & "NO DATA SAVED.", _
+                MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " &
+                                "Please double-check and try again." &
+                                vbNewLine & vbNewLine & "NO DATA SAVED.",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM AIRBRANCH.FS_ADMIN " & _
-                " WHERE RowNum = 1 " & _
-                " AND strAIRSnumber = :pAirsNumber " & _
+            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
+                " FROM AIRBRANCH.FS_ADMIN " &
+                " WHERE RowNum = 1 " &
+                " AND strAIRSnumber = :pAirsNumber " &
                 " AND numFeeYear = :pFeeYear "
-            Dim parameters As OracleParameter() = { _
-                New OracleParameter("pAirsNumber", Me.ExpandedAirsNumber), _
-                New OracleParameter("pFeeYear", Me.FeeYear) _
+            Dim parameters As OracleParameter() = {
+                New OracleParameter("pAirsNumber", Me.ExpandedAirsNumber),
+                New OracleParameter("pFeeYear", Me.FeeYear)
             }
             Dim result As Boolean = DB.GetBoolean(query, parameters)
 
             If Not result Then
-                MsgBox("The faciltiy is not currently in the Fee universe for the selected year." & vbCrLf & _
+                MsgBox("The faciltiy is not currently in the Fee universe for the selected year." & vbCrLf &
                        "Use the Add New Facility to Year." & vbCrLf & vbCrLf & "NO DATA SAVED", MsgBoxStyle.Information, Me.Text)
                 Exit Sub
             End If
 
 
-            If Update_FS_Admin(Me.FeeYear, Me.AirsNumber.ShortString, _
-                             rdbEnrolledTrue.Checked, _
-                             dtpEnrollmentDate.Text, rdbMailoutTrue.Checked, _
-                             rdbLetterMailedTrue.Checked, dtpLetterMailed.Text, _
-                             rdbSubmittalTrue.Checked, dtpSubmittalDate.Text, _
+            If Update_FS_Admin(Me.FeeYear, Me.AirsNumber.ShortString,
+                             rdbEnrolledTrue.Checked,
+                             dtpEnrollmentDate.Text, rdbMailoutTrue.Checked,
+                             rdbLetterMailedTrue.Checked, dtpLetterMailed.Text,
+                             rdbSubmittalTrue.Checked, dtpSubmittalDate.Text,
                              txtFSAdminComments.Text, rdbActiveAdmin.Checked) = True Then
 
                 If rdbInactiveStatus.Checked = True Then
@@ -2812,18 +2812,18 @@ Public Class PASPFeeAuditLog
     Private Sub btnAddFSAdmin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddFSAdmin.Click
         Try
             If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
-                MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " & _
-                                "Please double-check and try again." & _
-                                vbNewLine & vbNewLine & "NO DATA SAVED.", _
+                MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " &
+                                "Please double-check and try again." &
+                                vbNewLine & vbNewLine & "NO DATA SAVED.",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
-            If Insert_FS_Admin(Me.FeeYear, Me.AirsNumber.ShortString, _
-                          rdbEnrolledTrue.Checked, _
-                          dtpEnrollmentDate.Text, rdbMailoutTrue.Checked, _
-                          rdbLetterMailedTrue.Checked, dtpLetterMailed.Text, _
-                          rdbSubmittalTrue.Checked, dtpSubmittalDate.Text, _
+            If Insert_FS_Admin(Me.FeeYear, Me.AirsNumber.ShortString,
+                          rdbEnrolledTrue.Checked,
+                          dtpEnrollmentDate.Text, rdbMailoutTrue.Checked,
+                          rdbLetterMailedTrue.Checked, dtpLetterMailed.Text,
+                          rdbSubmittalTrue.Checked, dtpSubmittalDate.Text,
                           txtFSAdminComments.Text) = True Then
 
                 MsgBox("Save completed", MsgBoxStyle.Information, Me.Text)
@@ -2838,9 +2838,9 @@ Public Class PASPFeeAuditLog
     End Sub
     Private Sub btnGECOViewPastContacts_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGECOViewPastContacts.Click
         Try
-            SQL = "Select * " & _
-            "from AIRBRANCH.FS_ContactInfo " & _
-            "where strAIRSnumber = '" & Me.ExpandedAirsNumber & "' " & _
+            SQL = "Select * " &
+            "from AIRBRANCH.FS_ContactInfo " &
+            "where strAIRSnumber = '" & Me.ExpandedAirsNumber & "' " &
             "order by numFeeYear desc "
 
             ds = New DataSet
@@ -2995,11 +2995,11 @@ Public Class PASPFeeAuditLog
     Function InvoiceCheck() As Boolean
         Try
             If IsNumeric(txtInvoiceID.Text) Then
-                SQL = "Select " & _
-                "InvoiceID " & _
-                "from AIRBranch.FS_FeeInvoice " & _
-                "where invoiceID = '" & txtInvoiceID.Text & "' " & _
-                "and strAIRSNumber = '" & Me.AirsNumber.DbFormattedString & "' " & _
+                SQL = "Select " &
+                "InvoiceID " &
+                "from AIRBranch.FS_FeeInvoice " &
+                "where invoiceID = '" & txtInvoiceID.Text & "' " &
+                "and strAIRSNumber = '" & Me.AirsNumber.DbFormattedString & "' " &
                 "and numFeeyear = '" & txtYear.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3031,15 +3031,15 @@ Public Class PASPFeeAuditLog
                 Or (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) _
                 Or txtAIRSNumber.Text = "" Or FeeYearsComboBox.SelectedIndex = 0 _
                 Or txtYear.Text = "" Then
-                MsgBox("The currently selected AIRS # does not match the selecting AIRS #." & _
+                MsgBox("The currently selected AIRS # does not match the selecting AIRS #." &
                        vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
             End If
 
             If txtTransactionID.Text <> "" Then
                 Dim TransactionCheck As DialogResult
-                TransactionCheck = MessageBox.Show("There is already an existing transaction associated with the " & _
-                        "invoice #: " & txtInvoiceID.Text & "." & vbCrLf & "OK - Add additional Transaction" & vbCrLf & _
+                TransactionCheck = MessageBox.Show("There is already an existing transaction associated with the " &
+                        "invoice #: " & txtInvoiceID.Text & "." & vbCrLf & "OK - Add additional Transaction" & vbCrLf &
                         "Cancel - Do nothing.", Me.Text, MessageBoxButtons.OKCancel, MessageBoxIcon.Information)
                 Select Case TransactionCheck
                     Case DialogResult.OK
@@ -3060,32 +3060,32 @@ Public Class PASPFeeAuditLog
             End If
 
             If txtInvoiceID.Text <> "" Then
-                SQL = "Insert into AIRBRANCH.FS_Transactions " & _
-                "values " & _
-                "((AIRBRANCH.seq_fs_transactions.nextVal), " & _
-                "'" & Replace(txtInvoiceID.Text, "'", "''") & "', " & _
-                "'" & Replace(cboTransactionType.SelectedValue, "'", "''") & "', '" & dtpTransactionDate.Text & "', " & _
-                "'" & Replace(Replace(Replace(txtTransactionAmount.Text, "'", "''"), ",", ""), "$", "") & "', " & _
-                "'" & Replace(txtTransactionCheckNo.Text, "'", "''") & "', " & _
-                "'" & Replace(txtDepositNo.Text, "'", "''") & "', '" & Replace(txtBatchNo.Text, "'", "''") & "', " & _
-                "'" & CurrentUser.UserID & "', '" & Replace(txtAPBComments.Text, "'", "''") & "', " & _
-                "'1', '" & CurrentUser.UserID & "', " & _
-                "'" & OracleDate & "', '" & OracleDate & "', " & _
-                "'" & Me.ExpandedAirsNumber & "', " & _
+                SQL = "Insert into AIRBRANCH.FS_Transactions " &
+                "values " &
+                "((AIRBRANCH.seq_fs_transactions.nextVal), " &
+                "'" & Replace(txtInvoiceID.Text, "'", "''") & "', " &
+                "'" & Replace(cboTransactionType.SelectedValue, "'", "''") & "', '" & dtpTransactionDate.Text & "', " &
+                "'" & Replace(Replace(Replace(txtTransactionAmount.Text, "'", "''"), ",", ""), "$", "") & "', " &
+                "'" & Replace(txtTransactionCheckNo.Text, "'", "''") & "', " &
+                "'" & Replace(txtDepositNo.Text, "'", "''") & "', '" & Replace(txtBatchNo.Text, "'", "''") & "', " &
+                "'" & CurrentUser.UserID & "', '" & Replace(txtAPBComments.Text, "'", "''") & "', " &
+                "'1', '" & CurrentUser.UserID & "', " &
+                "'" & OracleDate & "', '" & OracleDate & "', " &
+                "'" & Me.ExpandedAirsNumber & "', " &
                 "'" & Me.FeeYear & "', '" & Replace(txtTransactionCreditCardNo.Text, "'", "''") & "') "
             Else
-                SQL = "Insert into AIRBRANCH.FS_Transactions " & _
-               "values " & _
-               "((AIRBRANCH.seq_fs_transactions.nextVal), " & _
-               "'', " & _
-               "'" & Replace(cboTransactionType.SelectedValue, "'", "''") & "', '" & dtpTransactionDate.Text & "', " & _
-               "'" & Replace(Replace(Replace(txtTransactionAmount.Text, "'", "''"), ",", ""), "$", "") & "', " & _
-               "'" & Replace(txtTransactionCheckNo.Text, "'", "''") & "', " & _
-               "'" & Replace(txtDepositNo.Text, "'", "''") & "', '" & Replace(txtBatchNo.Text, "'", "''") & "', " & _
-               "'" & CurrentUser.UserID & "', '" & Replace(txtAPBComments.Text, "'", "''") & "', " & _
-               "'1', '" & CurrentUser.UserID & "', " & _
-               "'" & OracleDate & "', '" & OracleDate & "', " & _
-               "'" & Me.ExpandedAirsNumber & "', " & _
+                SQL = "Insert into AIRBRANCH.FS_Transactions " &
+               "values " &
+               "((AIRBRANCH.seq_fs_transactions.nextVal), " &
+               "'', " &
+               "'" & Replace(cboTransactionType.SelectedValue, "'", "''") & "', '" & dtpTransactionDate.Text & "', " &
+               "'" & Replace(Replace(Replace(txtTransactionAmount.Text, "'", "''"), ",", ""), "$", "") & "', " &
+               "'" & Replace(txtTransactionCheckNo.Text, "'", "''") & "', " &
+               "'" & Replace(txtDepositNo.Text, "'", "''") & "', '" & Replace(txtBatchNo.Text, "'", "''") & "', " &
+               "'" & CurrentUser.UserID & "', '" & Replace(txtAPBComments.Text, "'", "''") & "', " &
+               "'1', '" & CurrentUser.UserID & "', " &
+               "'" & OracleDate & "', '" & OracleDate & "', " &
+               "'" & Me.ExpandedAirsNumber & "', " &
                "'" & Me.FeeYear & "', '" & Replace(txtTransactionCreditCardNo.Text, "'", "''") & "') "
             End If
 
@@ -3096,7 +3096,7 @@ Public Class PASPFeeAuditLog
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Select max(TransactionID) " & _
+            SQL = "Select max(TransactionID) " &
             "from AIRBRANCH.FS_TRANSACTIONS "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3260,7 +3260,7 @@ Public Class PASPFeeAuditLog
                 Or (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) _
                 Or txtAIRSNumber.Text = "" Or FeeYearsComboBox.SelectedIndex = 0 _
                 Or txtYear.Text = "" Then
-                MsgBox("The currently selected AIRS # does not match the selecting AIRS #." & _
+                MsgBox("The currently selected AIRS # does not match the selecting AIRS #." &
                        vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
             End If
@@ -3279,19 +3279,19 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
-            SQL = "Update AIRBRANCH.FS_Transactions set " & _
-            "invoiceid = '" & txtInvoiceID.Text & "', " & _
-            "TransactionTypecode = '" & cboTransactionType.SelectedValue & "', " & _
-            "datTransactionDate = '" & dtpTransactionDate.Text & "', " & _
-            "numPayment = '" & Replace(Replace(Replace(txtTransactionAmount.Text, "'", "''"), ",", ""), "$", "") & "', " & _
-            "strCheckNo = '" & txtTransactionCheckNo.Text & "', " & _
-            "strDepositNo = '" & txtDepositNo.Text & "', " & _
-            "strBatchNo = '" & txtBatchNo.Text & "', " & _
-            "strComment = '" & txtAPBComments.Text & "', " & _
-            "active = '1', " & _
-            "updateUser = '" & CurrentUser.UserID & "', " & _
-            "updateDateTime = sysdate, " & _
-            "strCreditCardNo = '" & txtTransactionCreditCardNo.Text & "' " & _
+            SQL = "Update AIRBRANCH.FS_Transactions set " &
+            "invoiceid = '" & txtInvoiceID.Text & "', " &
+            "TransactionTypecode = '" & cboTransactionType.SelectedValue & "', " &
+            "datTransactionDate = '" & dtpTransactionDate.Text & "', " &
+            "numPayment = '" & Replace(Replace(Replace(txtTransactionAmount.Text, "'", "''"), ",", ""), "$", "") & "', " &
+            "strCheckNo = '" & txtTransactionCheckNo.Text & "', " &
+            "strDepositNo = '" & txtDepositNo.Text & "', " &
+            "strBatchNo = '" & txtBatchNo.Text & "', " &
+            "strComment = '" & txtAPBComments.Text & "', " &
+            "active = '1', " &
+            "updateUser = '" & CurrentUser.UserID & "', " &
+            "updateDateTime = sysdate, " &
+            "strCreditCardNo = '" & txtTransactionCreditCardNo.Text & "' " &
             "where TransactionID = '" & txtTransactionID.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3320,7 +3320,7 @@ Public Class PASPFeeAuditLog
                 Or (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) _
                 Or txtAIRSNumber.Text = "" Or FeeYearsComboBox.SelectedIndex = 0 _
                 Or txtYear.Text = "" Then
-                MsgBox("The currently selected AIRS # does not match the selecting AIRS #." & _
+                MsgBox("The currently selected AIRS # does not match the selecting AIRS #." &
                        vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
             End If
@@ -3334,10 +3334,10 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
-            SQL = "Update AIRBRANCH.FS_Transactions set " & _
-            "active = '0', " & _
-            "updateUser = '" & CurrentUser.UserID & "', " & _
-            "updateDateTime = sysdate " & _
+            SQL = "Update AIRBRANCH.FS_Transactions set " &
+            "active = '0', " &
+            "updateUser = '" & CurrentUser.UserID & "', " &
+            "updateDateTime = sysdate " &
             "where TransactionID = '" & txtTransactionID.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3361,20 +3361,20 @@ Public Class PASPFeeAuditLog
     End Sub
     Sub InvoiceStatusCheck(ByVal invoiceID As String)
         Try
-            SQL = "select " & _
-            "(invoiceTotal - PaymentTotal) as Balance " & _
-            "from (select " & _
-            "sum(numAmount) as InvoiceTotal " & _
-            "from airbranch.FS_Feeinvoice " & _
-            "where invoiceid = '" & invoiceID & "' " & _
-            "and Active = '1' ) INVOICED, " & _
-            "(select " & _
-            "case " & _
-            "when sum(NumPayment) is null then 0 " & _
-            "else sum(numPayment) " & _
-            "End PaymentTotal " & _
-            "from airbranch.FS_TRANSACTIONS " & _
-            "where invoiceid = '" & invoiceID & "' " & _
+            SQL = "select " &
+            "(invoiceTotal - PaymentTotal) as Balance " &
+            "from (select " &
+            "sum(numAmount) as InvoiceTotal " &
+            "from airbranch.FS_Feeinvoice " &
+            "where invoiceid = '" & invoiceID & "' " &
+            "and Active = '1' ) INVOICED, " &
+            "(select " &
+            "case " &
+            "when sum(NumPayment) is null then 0 " &
+            "else sum(numPayment) " &
+            "End PaymentTotal " &
+            "from airbranch.FS_TRANSACTIONS " &
+            "where invoiceid = '" & invoiceID & "' " &
             "and Active = '1' ) Payments "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3394,13 +3394,13 @@ Public Class PASPFeeAuditLog
 
             If temp <> "0" Then
                 'Not Paid in full
-                SQL = "Update AIRBRANCH.FS_FeeInvoice set " & _
-                "strInvoicestatus = '0' " & _
+                SQL = "Update AIRBRANCH.FS_FeeInvoice set " &
+                "strInvoicestatus = '0' " &
                 "where invoiceId = '" & invoiceID & "' "
             Else
                 'Paid in Full 
-                SQL = "Update AIRBRANCH.FS_FeeInvoice set " & _
-                "strInvoicestatus = '1' " & _
+                SQL = "Update AIRBRANCH.FS_FeeInvoice set " &
+                "strInvoicestatus = '1' " &
                 "where invoiceId = '" & invoiceID & "' "
             End If
 
@@ -3453,7 +3453,7 @@ Public Class PASPFeeAuditLog
                 Or (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) _
                 Or txtAIRSNumber.Text = "" Or FeeYearsComboBox.SelectedIndex = 0 _
                 Or txtYear.Text = "" Then
-                MsgBox("The currently selected AIRS # does not match the selecting AIRS #." & _
+                MsgBox("The currently selected AIRS # does not match the selecting AIRS #." &
                        vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
             End If
@@ -3599,9 +3599,9 @@ Public Class PASPFeeAuditLog
                 End If
             End If
 
-            SQL = "select count(*) as DataCheck " & _
-            "From AIRBRANCH.FS_FeeData " & _
-            "where strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " & _
+            SQL = "select count(*) as DataCheck " &
+            "From AIRBRANCH.FS_FeeData " &
+            "where strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " &
             "and numFeeYear = '" & Me.FeeYear & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3619,15 +3619,15 @@ Public Class PASPFeeAuditLog
             dr.Close()
 
             If temp = "0" Then
-                SQL = "insert into AIRBRANCH.FS_FeeData " & _
-                "(numfeeyear, strairsnumber, " & _
-                "strComment, Active, " & _
-                "UpdateUser, UpdateDateTime, " & _
-                "CreateDateTime) " & _
-                "values " & _
-                "('" & Me.FeeYear & "', '" & Me.ExpandedAirsNumber & "', " & _
-                "'Add Via IAIP Audit Process', '1', " & _
-                "'IAIP||" & CurrentUser.AlphaName & "', sysdate, " & _
+                SQL = "insert into AIRBRANCH.FS_FeeData " &
+                "(numfeeyear, strairsnumber, " &
+                "strComment, Active, " &
+                "UpdateUser, UpdateDateTime, " &
+                "CreateDateTime) " &
+                "values " &
+                "('" & Me.FeeYear & "', '" & Me.ExpandedAirsNumber & "', " &
+                "'Add Via IAIP Audit Process', '1', " &
+                "'IAIP||" & CurrentUser.AlphaName & "', sysdate, " &
                 "sysdate) "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -3679,22 +3679,22 @@ Public Class PASPFeeAuditLog
                 EndCollections = "False"
             End If
 
-            SQL = "Insert into AIRBRANCH.FS_FeeAudit " & _
-            "values " & _
-            "((select " & _
-            "case " & _
-            "when max(AuditID) is null then 1 " & _
-            "when Max(AuditID) is not null then max(AuditID) + 1 " & _
-            "else 1 " & _
-            "end AuditID " & _
-            "from AIRBRANCH.FS_FeeAudit), " & _
-            "'" & StaffResponsible & "', " & _
-            "'" & AuditLevel & "', '" & AuditEnforcement & "', " & _
-            "'" & Replace(AuditComments, "'", "''") & "', " & _
-            "'" & AuditStart & "', '" & AuditEnd & "', " & _
-            "'" & EndCollections & "', '" & CollectionsDate & "', " & _
-            "'1', '" & CurrentUser.UserID & "', " & _
-            "'" & OracleDate & "', '" & OracleDate & "', " & _
+            SQL = "Insert into AIRBRANCH.FS_FeeAudit " &
+            "values " &
+            "((select " &
+            "case " &
+            "when max(AuditID) is null then 1 " &
+            "when Max(AuditID) is not null then max(AuditID) + 1 " &
+            "else 1 " &
+            "end AuditID " &
+            "from AIRBRANCH.FS_FeeAudit), " &
+            "'" & StaffResponsible & "', " &
+            "'" & AuditLevel & "', '" & AuditEnforcement & "', " &
+            "'" & Replace(AuditComments, "'", "''") & "', " &
+            "'" & AuditStart & "', '" & AuditEnd & "', " &
+            "'" & EndCollections & "', '" & CollectionsDate & "', " &
+            "'1', '" & CurrentUser.UserID & "', " &
+            "'" & OracleDate & "', '" & OracleDate & "', " &
             "'" & Me.ExpandedAirsNumber & "', '" & Me.FeeYear & "' )  "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3704,10 +3704,8 @@ Public Class PASPFeeAuditLog
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "select max(AuditID) as AuditID " & _
-            "from AIRBRANCH. FS_FeeAudit " '& _
-            ' "where strAIRSNumber = '0413" & mtbFeeAdminAIRSNumber.Text & "' " & _
-            ' "and numFeeYear = '" & Me.FeeYear & "' "
+            SQL = "select max(AuditID) as AuditID " &
+            "from AIRBRANCH. FS_FeeAudit "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -3725,22 +3723,22 @@ Public Class PASPFeeAuditLog
             dr.Close()
 
             If chbMakeEdits.Checked = True Then
-                SQL = "Insert into AIRBRANCH.FS_FeeAmendment " & _
-                "values " & _
-                "('" & txtAuditID.Text & "',  " & _
-                "'" & Me.ExpandedAirsNumber & "', '" & Me.FeeYear & "', " & _
-                "'" & Replace(SM, "'", "''") & "', '" & Replace(SMFee, "'", "''") & "', " & _
-                "'" & Replace(Part70, "'", "''") & "', '" & Replace(Part70Fee, "'", "''") & "', " & _
-                "'" & Replace(VOCTons, "'", "''") & "', '" & Replace(PMTons, "'", "''") & "',  " & _
-                "'" & Replace(SO2Tons, "'", "''") & "', '" & Replace(NOxTons, "'", "''") & "', " & _
-                "'" & Replace(CalculatedFee, "'", "''") & "', '" & Replace(FeeRate, "'", "''") & "', " & _
-                "'" & Replace(NSPS, "'", "''") & "', '" & Replace(NSPSFee, "'", "''") & "', " & _
-                "'" & Replace(NSPSExempt, "'", "''") & "', '" & Replace(NSPSExemptions, "'", "''") & "', " & _
-                "'" & Replace(AdminFee, "'", "''") & "', '" & Replace(TotalFee, "'", "''") & "', " & _
-                "'" & Replace(Classification, "'", "''") & "', '" & Replace(OpStatus, "'", "''") & "', " & _
-                "'" & Replace(ShutDown, "'", "''") & "', '" & Replace(OfficialName, "'", "''") & "', " & _
-                "'" & Replace(OfficialTitle, "'", "''") & "', '" & Replace(PaymentType, "'", "''") & "', " & _
-                "'1', '" & CurrentUser.UserID & "', " & _
+                SQL = "Insert into AIRBRANCH.FS_FeeAmendment " &
+                "values " &
+                "('" & txtAuditID.Text & "',  " &
+                "'" & Me.ExpandedAirsNumber & "', '" & Me.FeeYear & "', " &
+                "'" & Replace(SM, "'", "''") & "', '" & Replace(SMFee, "'", "''") & "', " &
+                "'" & Replace(Part70, "'", "''") & "', '" & Replace(Part70Fee, "'", "''") & "', " &
+                "'" & Replace(VOCTons, "'", "''") & "', '" & Replace(PMTons, "'", "''") & "',  " &
+                "'" & Replace(SO2Tons, "'", "''") & "', '" & Replace(NOxTons, "'", "''") & "', " &
+                "'" & Replace(CalculatedFee, "'", "''") & "', '" & Replace(FeeRate, "'", "''") & "', " &
+                "'" & Replace(NSPS, "'", "''") & "', '" & Replace(NSPSFee, "'", "''") & "', " &
+                "'" & Replace(NSPSExempt, "'", "''") & "', '" & Replace(NSPSExemptions, "'", "''") & "', " &
+                "'" & Replace(AdminFee, "'", "''") & "', '" & Replace(TotalFee, "'", "''") & "', " &
+                "'" & Replace(Classification, "'", "''") & "', '" & Replace(OpStatus, "'", "''") & "', " &
+                "'" & Replace(ShutDown, "'", "''") & "', '" & Replace(OfficialName, "'", "''") & "', " &
+                "'" & Replace(OfficialTitle, "'", "''") & "', '" & Replace(PaymentType, "'", "''") & "', " &
+                "'1', '" & CurrentUser.UserID & "', " &
                 "sysdate, sysdate) "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3764,9 +3762,9 @@ Public Class PASPFeeAuditLog
             End If
 
             If EndCollections = "True" Then
-                SQL = "update AIRBranch.FS_Admin set " & _
-                "numCurrentStatus = '12' " & _
-                "where numFeeYear = '" & Me.FeeYear & "' " & _
+                SQL = "update AIRBranch.FS_Admin set " &
+                "numCurrentStatus = '12' " &
+                "where numFeeYear = '" & Me.FeeYear & "' " &
                 "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -3822,21 +3820,17 @@ Public Class PASPFeeAuditLog
     End Sub
     Private Sub rdbEditNSPSExemptTrue_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles rdbEditNSPSExemptTrue.CheckedChanged
         Try
-            Dim NSPStemp As String = ""
-            Dim ReasonID As String = ""
-            Dim DisplayOrder As String = ""
             Dim dgvRow As New DataGridViewRow
-            Dim i As Integer = 1
 
             If rdbEditNSPSExemptTrue.Checked = False Then
                 Exit Sub
             End If
 
-            SQL = "select " & _
-            "AIRBRANCH.FSLK_NspsReason.NSPSREasonCode , Description " & _
-            "from AIRBRANCH.FSLK_NSPSReason, AIRBRANCH.fslk_NSPSReasonYear " & _
-            "where AIRBRANCH.FSLK_NspsReason.NSPSREasonCode = AIRBRANCH.FSLK_NSPSREasonYear.nspsreasoncode  " & _
-            "and numFeeYear = 2009 " & _
+            SQL = "select " &
+            "AIRBRANCH.FSLK_NspsReason.NSPSREasonCode , Description " &
+            "from AIRBRANCH.FSLK_NSPSReason, AIRBRANCH.fslk_NSPSReasonYear " &
+            "where AIRBRANCH.FSLK_NspsReason.NSPSREasonCode = AIRBRANCH.FSLK_NSPSREasonYear.nspsreasoncode  " &
+            "and numFeeYear = 2009 " &
             "order by displayorder "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3855,74 +3849,6 @@ Public Class PASPFeeAuditLog
                 dgvEditExemptions.Rows.Add(dgvRow)
             End While
             dr.Close()
-
-            Exit Sub
-
-
-            SQL = "Select " & _
-            "NSPSReasonCode, DisplayOrder " & _
-            "from AIRBRANCH.FSLK_NSPSReasonYear " & _
-            "where numFeeYear = '" & Me.FeeYear & "' " & _
-            "order by NSPSReasonCode "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("NSPSReasonCode")) Then
-                    NSPStemp = NSPStemp
-                Else
-                    NSPStemp = NSPStemp & dr.Item("NSPSReasonCode")
-                    If IsDBNull(dr.Item("DisplayOrder")) Then
-                        NSPStemp = NSPStemp & "-" & i & ","
-                        i += 1
-                    Else
-                        NSPStemp = NSPStemp & "-" & dr.Item("DisplayOrder") & ","
-                        If dr.Item("DisplayOrder") >= i Then
-                            i = dr.Item("DisplayOrder") + 1
-                        End If
-                    End If
-                End If
-            End While
-            dr.Close()
-
-            dgvEditExemptions.Rows.Clear()
-            Do While NSPStemp <> ""
-                ReasonID = Mid(NSPStemp, 1, InStr(NSPStemp, "-", CompareMethod.Text) - 1)
-
-                If ReasonID.Length = 1 Then
-                    DisplayOrder = Mid(NSPStemp, InStr(NSPStemp, "-", CompareMethod.Text) + 1, InStr(NSPStemp, ",", CompareMethod.Text) - 3)
-                Else
-                    DisplayOrder = Mid(NSPStemp, InStr(NSPStemp, "-", CompareMethod.Text) + 1, InStr(NSPStemp, ",", CompareMethod.Text) - 4)
-                End If
-
-
-                temp = ReasonID & "-" & DisplayOrder & ","
-                NSPStemp = Replace(NSPStemp, temp, "")
-
-                'Dim x As Integer = 0
-                'While x < dgvNSPSExemptions.Rows.Count
-                '    Dim y As Integer = 0
-                '    While y < dgvNSPSExemptions.Rows(x).Cells.Count
-                '        Dim c As DataGridViewCell = dgvNSPSExemptions.Rows(x).Cells(y)
-                '        If Not c.Value Is DBNull.Value Or Nothing Then
-                '            If CType(c.Value, String) = ReasonID Then
-                '                dgvRow = New DataGridViewRow
-                '                dgvRow.CreateCells(dgvEditExemptions)
-                '                dgvRow.Cells(0).Value = 0
-                '                dgvRow.Cells(1).Value = dgvNSPSExemptions(0, x).Value
-                '                dgvRow.Cells(2).Value = dgvNSPSExemptions(1, x).Value
-                '                dgvEditExemptions.Rows.Add(dgvRow)
-                '            End If
-                '        End If
-                '        System.Math.Min(System.Threading.Interlocked.Increment(y), y - 1)
-                '    End While
-                '    System.Math.Min(System.Threading.Interlocked.Increment(x), x - 1)
-                'End While
-            Loop
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -3973,10 +3899,10 @@ Public Class PASPFeeAuditLog
                 MsgBox("Please select an existing invoice to Print.", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
             End If
-            SQL = "Select " & _
-             "strManagementName from " & _
-             "AIRBRANCH.LookUpAPBManagementType " & _
-             "where strCurrentContact = '1' " & _
+            SQL = "Select " &
+             "strManagementName from " &
+             "AIRBRANCH.LookUpAPBManagementType " &
+             "where strCurrentContact = '1' " &
              "and strKey = '1' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -3993,10 +3919,10 @@ Public Class PASPFeeAuditLog
             End While
             dr.Close()
 
-            SQL = "Select " & _
-            "strManagementName from " & _
-            "AIRBRANCH.LookUpAPBManagementType " & _
-            "where strCurrentContact = '1' " & _
+            SQL = "Select " &
+            "strManagementName from " &
+            "AIRBRANCH.LookUpAPBManagementType " &
+            "where strCurrentContact = '1' " &
             "and strKey = '2' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4013,17 +3939,17 @@ Public Class PASPFeeAuditLog
             End While
             dr.Close()
 
-            SQL = "Select " & _
-            "numAmount, datInvoiceDate, " & _
-            "strPayType, strPayTypeDesc, " & _
-            "AIRBRANCH.FS_FeeInvoice.CreateDateTime, " & _
-            "AIRBRANCH.FS_FeeInvoice.Active " & _
-            "from AIRBRANCH.FS_FeeInvoice, " & _
-            "AIRBRANCH.FSLK_PayType " & _
-            "where AIRBRANCH.FS_FeeInvoice.strPayType = " & _
-               "AIRBRANCH.FSLK_PayType.numPayTypeID " & _
-               "and InvoiceID = '" & txtInvoice.Text & "' " & _
-               "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " & _
+            SQL = "Select " &
+            "numAmount, datInvoiceDate, " &
+            "strPayType, strPayTypeDesc, " &
+            "AIRBRANCH.FS_FeeInvoice.CreateDateTime, " &
+            "AIRBRANCH.FS_FeeInvoice.Active " &
+            "from AIRBRANCH.FS_FeeInvoice, " &
+            "AIRBRANCH.FSLK_PayType " &
+            "where AIRBRANCH.FS_FeeInvoice.strPayType = " &
+               "AIRBRANCH.FSLK_PayType.numPayTypeID " &
+               "and InvoiceID = '" & txtInvoice.Text & "' " &
+               "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " &
                "and numFeeYear = '" & Me.FeeYear & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4065,11 +3991,11 @@ Public Class PASPFeeAuditLog
             End While
             dr.Close()
 
-            SQL = "Select " & _
-            "numTotalFee, numAdminFee, " & _
-            "(numTotalFee - numAdminFee) as TotalEmissionFees " & _
-            "from AIRBRANCH.FS_FeeAuditedData " & _
-            "where numFeeYear = '" & Me.FeeYear & "' " & _
+            SQL = "Select " &
+            "numTotalFee, numAdminFee, " &
+            "(numTotalFee - numAdminFee) as TotalEmissionFees " &
+            "from AIRBRANCH.FS_FeeAuditedData " &
+            "where numFeeYear = '" & Me.FeeYear & "' " &
             "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4100,13 +4026,13 @@ Public Class PASPFeeAuditLog
             End While
             dr.Close()
 
-            SQL = "Select " & _
-            "datTransactionDate, numPayment, " & _
-            "strCheckNo, strCreditCardNo, " & _
-            "strDepositNo " & _
-            "From AIRBRANCH.FS_Transactions " & _
-            "where strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " & _
-            "and numFeeYear = '" & Me.FeeYear & "' " & _
+            SQL = "Select " &
+            "datTransactionDate, numPayment, " &
+            "strCheckNo, strCreditCardNo, " &
+            "strDepositNo " &
+            "From AIRBRANCH.FS_Transactions " &
+            "where strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " &
+            "and numFeeYear = '" & Me.FeeYear & "' " &
             "and Active = '1' "
 
             ds = New DataSet
@@ -4260,26 +4186,26 @@ Public Class PASPFeeAuditLog
     End Sub
     Sub ViewAllInvoices()
         Try
-            SQL = "select distinct " & _
-            "AIRBRANCH.FS_FeeInvoice.InvoiceID, " & _
-            "AIRBRANCH.FS_FeeInvoice.numAmount, " & _
-            "datInvoiceDate, " & _
-            "case " & _
-            "when AIRBRANCH.FS_FeeInvoice.active = '1' then 'Active' " & _
-            "when AIRBRANCH.FS_FeeInvoice.active = '0' then 'VOID' " & _
-            "end InvoiceStatus, strPayTypeDesc, " & _
-            "case " & _
-            "when strInvoiceStatus = '1' then 'Paid in Full' " & _
-            "when strInvoiceStatus = '0' and " & _
-            "(numPayment <> '0' and numPayment is not null and AIRBRANCH.FS_Transactions.active = '1') then 'Partial Payment' " & _
-            "when strInvoicestatus = '0' then 'Unpaid' " & _
-            "end PayStatus, " & _
-            "AIRBRANCH.FS_FeeInvoice.strComment " & _
-            "from AIRBRANCH.FS_FeeInvoice, AIRBRANCH.FSLK_PayType, " & _
-            "AIRBRANCH.FS_Transactions " & _
-            "where AIRBRANCH.FS_FeeInvoice.strPayType = AIRBRANCH.FSLK_PayType.nuMPayTypeID " & _
-            "and AIRBRANCH.FS_FeeInvoice.InvoiceID = AIRBRANCH.FS_Transactions.InvoiceID (+) " & _
-            "and AIRBRANCH.FS_FeeInvoice.strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " & _
+            SQL = "select distinct " &
+            "AIRBRANCH.FS_FeeInvoice.InvoiceID, " &
+            "AIRBRANCH.FS_FeeInvoice.numAmount, " &
+            "datInvoiceDate, " &
+            "case " &
+            "when AIRBRANCH.FS_FeeInvoice.active = '1' then 'Active' " &
+            "when AIRBRANCH.FS_FeeInvoice.active = '0' then 'VOID' " &
+            "end InvoiceStatus, strPayTypeDesc, " &
+            "case " &
+            "when strInvoiceStatus = '1' then 'Paid in Full' " &
+            "when strInvoiceStatus = '0' and " &
+            "(numPayment <> '0' and numPayment is not null and AIRBRANCH.FS_Transactions.active = '1') then 'Partial Payment' " &
+            "when strInvoicestatus = '0' then 'Unpaid' " &
+            "end PayStatus, " &
+            "AIRBRANCH.FS_FeeInvoice.strComment " &
+            "from AIRBRANCH.FS_FeeInvoice, AIRBRANCH.FSLK_PayType, " &
+            "AIRBRANCH.FS_Transactions " &
+            "where AIRBRANCH.FS_FeeInvoice.strPayType = AIRBRANCH.FSLK_PayType.nuMPayTypeID " &
+            "and AIRBRANCH.FS_FeeInvoice.InvoiceID = AIRBRANCH.FS_Transactions.InvoiceID (+) " &
+            "and AIRBRANCH.FS_FeeInvoice.strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " &
             "and AIRBRANCH.FS_FeeInvoice.numFeeYear = '" & Me.FeeYear & "' "
 
             ds = New DataSet
@@ -4387,7 +4313,7 @@ Public Class PASPFeeAuditLog
                 Or (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) _
                 Or txtAIRSNumber.Text = "" Or FeeYearsComboBox.SelectedIndex = 0 _
                 Or txtYear.Text = "" Then
-                MsgBox("The currently selected AIRS # does not match the selecting AIRS #." & _
+                MsgBox("The currently selected AIRS # does not match the selecting AIRS #." &
                        vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
             End If
@@ -4403,14 +4329,14 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
-            SQL = "Insert into AIRBRANCH.FS_FeeINvoice " & _
-            "values " & _
-            "(AIRBRANCH.FeeInvoice_ID.nextVal, " & _
-            "'" & Me.ExpandedAirsNumber & "', '" & Me.FeeYear & "', " & _
-            "'" & Replace(Replace(txtAmount.Text, "$", ""), ",", "") & "', '" & Format(DTPInvoiceDate.Value, "dd-MMM-yyyy") & "', " & _
-            "'" & Replace(txtInvoiceComments.Text, "'", "''") & "', " & _
-            "'1', 'IAIP||" & CurrentUser.AlphaName & "', '" & OracleDate & "', " & _
-            "'" & OracleDate & "', '" & cboInvoiceType.SelectedValue & "', " & _
+            SQL = "Insert into AIRBRANCH.FS_FeeINvoice " &
+            "values " &
+            "(AIRBRANCH.FeeInvoice_ID.nextVal, " &
+            "'" & Me.ExpandedAirsNumber & "', '" & Me.FeeYear & "', " &
+            "'" & Replace(Replace(txtAmount.Text, "$", ""), ",", "") & "', '" & Format(DTPInvoiceDate.Value, "dd-MMM-yyyy") & "', " &
+            "'" & Replace(txtInvoiceComments.Text, "'", "''") & "', " &
+            "'1', 'IAIP||" & CurrentUser.AlphaName & "', '" & OracleDate & "', " &
+            "'" & OracleDate & "', '" & cboInvoiceType.SelectedValue & "', " &
             "'" & InvoiceStatus & "') "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4438,17 +4364,17 @@ Public Class PASPFeeAuditLog
             Dim Payment As String = "0"
 
             If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
-                MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " & _
-                                "Please double-check and try again." & _
-                                vbNewLine & vbNewLine & "NO DATA SAVED.", _
+                MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " &
+                                "Please double-check and try again." &
+                                vbNewLine & vbNewLine & "NO DATA SAVED.",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
-            SQL = "Select " & _
-            "numPayment " & _
-            "from AIRBRANCH.FS_Transactions " & _
-            "where invoiceID = '" & txtInvoice.Text & "' " & _
+            SQL = "Select " &
+            "numPayment " &
+            "from AIRBRANCH.FS_Transactions " &
+            "where invoiceID = '" & txtInvoice.Text & "' " &
             "and Active <> '0' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4466,13 +4392,13 @@ Public Class PASPFeeAuditLog
             dr.Close()
 
             If Payment <> "0" Then
-                MsgBox("There already exists a transaction for this invoice." & vbCrLf & _
-                       "Any Transaction needs to be deleted or zeroed out to VOID an Invoice.", _
+                MsgBox("There already exists a transaction for this invoice." & vbCrLf &
+                       "Any Transaction needs to be deleted or zeroed out to VOID an Invoice.",
                          MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
             End If
-            SQL = "Update AIRBRANCH.FS_FeeInvoice set " & _
-            "Active = '0' " & _
+            SQL = "Update AIRBRANCH.FS_FeeInvoice set " &
+            "Active = '0' " &
             "where InvoiceID = '" & txtInvoice.Text & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -4494,20 +4420,20 @@ Public Class PASPFeeAuditLog
             Dim InvoiceID As String = ""
 
             If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
-                MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " & _
-                                "Please double-check and try again." & _
-                                vbNewLine & vbNewLine & "NO DATA SAVED.", _
+                MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " &
+                                "Please double-check and try again." &
+                                vbNewLine & vbNewLine & "NO DATA SAVED.",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
-            SQL = "Select distinct " & _
-            "AIRBRANCH.FS_FeeInvoice.InvoiceID " & _
-            "from AIRBRANCH.FS_FeeInvoice, AIRBRANCH.FS_Transactions " & _
-            "where AIRBRANCH.FS_FeeInvoice.invoiceid = AIRBRANCH.FS_Transactions.InvoiceID (+) " & _
-            "and AIRBRANCH.FS_FeeInvoice.Active = '1' " & _
-            "and AIRBRANCH.FS_FeeInvoice.strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " & _
-            "and AIRBRANCH.FS_FeeInvoice.numFeeYear = '" & Me.FeeYear & "' " & _
+            SQL = "Select distinct " &
+            "AIRBRANCH.FS_FeeInvoice.InvoiceID " &
+            "from AIRBRANCH.FS_FeeInvoice, AIRBRANCH.FS_Transactions " &
+            "where AIRBRANCH.FS_FeeInvoice.invoiceid = AIRBRANCH.FS_Transactions.InvoiceID (+) " &
+            "and AIRBRANCH.FS_FeeInvoice.Active = '1' " &
+            "and AIRBRANCH.FS_FeeInvoice.strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " &
+            "and AIRBRANCH.FS_FeeInvoice.numFeeYear = '" & Me.FeeYear & "' " &
             "and (numPayment is null or numPayment = '0' ) "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4523,8 +4449,8 @@ Public Class PASPFeeAuditLog
                 End If
 
                 If InvoiceID <> "" Then
-                    SQL = "Update AIRBRANCH.FS_FeeInvoice set " & _
-                    "Active = '0' " & _
+                    SQL = "Update AIRBRANCH.FS_FeeInvoice set " &
+                    "Active = '0' " &
                     "where invoiceID = '" & InvoiceID & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -4546,16 +4472,16 @@ Public Class PASPFeeAuditLog
     Private Sub btnRemoveVOID_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRemoveVOID.Click
         Try
             If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
-                MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " & _
-                                "Please double-check and try again." & _
-                                vbNewLine & vbNewLine & "NO DATA SAVED.", _
+                MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " &
+                                "Please double-check and try again." &
+                                vbNewLine & vbNewLine & "NO DATA SAVED.",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
             If txtInvoice.Text <> "" Then
-                SQL = "Update AIRBRANCH.FS_FeeInvoice set " & _
-                "Active = '1' " & _
+                SQL = "Update AIRBRANCH.FS_FeeInvoice set " &
+                "Active = '1' " &
                 "where invoiceID = '" & txtInvoice.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -4620,9 +4546,9 @@ Public Class PASPFeeAuditLog
             Dim CollectionsDate As String = ""
 
             If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
-                MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " & _
-                                "Please double-check and try again." & _
-                                vbNewLine & vbNewLine & "NO DATA SAVED.", _
+                MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " &
+                                "Please double-check and try again." &
+                                vbNewLine & vbNewLine & "NO DATA SAVED.",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
@@ -4775,10 +4701,10 @@ Public Class PASPFeeAuditLog
             End If
 
             If chbMakeEdits.Checked = True Then
-                SQL = "select updateuser " & _
-                "from AIRBRANCH.FS_FeeAmendment " & _
-                "where numfeeyear = '" & FeeYear & "' " & _
-                "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " & _
+                SQL = "select updateuser " &
+                "from AIRBRANCH.FS_FeeAmendment " &
+                "where numfeeyear = '" & FeeYear & "' " &
+                "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " &
                 "and auditID = '" & txtAuditID.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -4790,49 +4716,49 @@ Public Class PASPFeeAuditLog
                 dr.Close()
 
                 If recExist = True Then
-                    SQL = "Update AIRBRANCH.FS_FeeAmendment set " & _
-                    "strSyntheticMinor = '" & SM & "', " & _
-                    "numSMFee = '" & SMFee & "',  " & _
-                    "strPart70 = '" & Part70 & "', " & _
-                    "numPart70Fee = '" & Part70Fee & "', " & _
-                    "intVOCTons = '" & VOCTons & "', " & _
-                    "intPMTons = '" & PMTons & "', " & _
-                    "intSO2Tons = '" & SO2Tons & "', " & _
-                    "intNOxTons = '" & NOxTons & "', " & _
-                    "numCalculatedFee = '" & CalculatedFee & "', " & _
-                    "numFeeRate = '" & FeeRate & "', " & _
-                    "strNSPS = '" & NSPS & "', " & _
-                    "nuMNSPSFee = '" & NSPSFee & "', " & _
-                    "strNSPSExempt = '" & NSPSExempt & "', " & _
-                    "strNSPSExemptReason = '" & NSPSExemptions & "', " & _
-                    "numAdminFee = '" & AdminFee & "', " & _
-                    "numTotalFee = '" & TotalFee & "', " & _
-                    "strClass = '" & Classification & "', " & _
-                    "strOperate = '" & OpStatus & "', " & _
-                    "datShutDown = '" & ShutDown & "', " & _
-                    "strOfficialName = '" & OfficialName & "', " & _
-                    "strOfficialTitle = '" & OfficialTitle & "', " & _
-                    "strPaymentPlan = '" & PaymentType & "', " & _
-                    "UpdateUser = '" & CurrentUser.UserID & "', " & _
-                    "updateDateTime = sysdate " & _
+                    SQL = "Update AIRBRANCH.FS_FeeAmendment set " &
+                    "strSyntheticMinor = '" & SM & "', " &
+                    "numSMFee = '" & SMFee & "',  " &
+                    "strPart70 = '" & Part70 & "', " &
+                    "numPart70Fee = '" & Part70Fee & "', " &
+                    "intVOCTons = '" & VOCTons & "', " &
+                    "intPMTons = '" & PMTons & "', " &
+                    "intSO2Tons = '" & SO2Tons & "', " &
+                    "intNOxTons = '" & NOxTons & "', " &
+                    "numCalculatedFee = '" & CalculatedFee & "', " &
+                    "numFeeRate = '" & FeeRate & "', " &
+                    "strNSPS = '" & NSPS & "', " &
+                    "nuMNSPSFee = '" & NSPSFee & "', " &
+                    "strNSPSExempt = '" & NSPSExempt & "', " &
+                    "strNSPSExemptReason = '" & NSPSExemptions & "', " &
+                    "numAdminFee = '" & AdminFee & "', " &
+                    "numTotalFee = '" & TotalFee & "', " &
+                    "strClass = '" & Classification & "', " &
+                    "strOperate = '" & OpStatus & "', " &
+                    "datShutDown = '" & ShutDown & "', " &
+                    "strOfficialName = '" & OfficialName & "', " &
+                    "strOfficialTitle = '" & OfficialTitle & "', " &
+                    "strPaymentPlan = '" & PaymentType & "', " &
+                    "UpdateUser = '" & CurrentUser.UserID & "', " &
+                    "updateDateTime = sysdate " &
                     "where AuditID = '" & txtAuditID.Text & "' "
                 Else
-                    SQL = "Insert into AIRBRANCH.FS_FeeAmendment " & _
-                    "values " & _
-                    "('" & txtAuditID.Text & "',  " & _
-                    "'" & Me.ExpandedAirsNumber & "', '" & Me.FeeYear & "', " & _
-                    "'" & Replace(SM, "'", "''") & "', '" & Replace(SMFee, "'", "''") & "', " & _
-                    "'" & Replace(Part70, "'", "''") & "', '" & Replace(Part70Fee, "'", "''") & "', " & _
-                    "'" & Replace(VOCTons, "'", "''") & "', '" & Replace(PMTons, "'", "''") & "',  " & _
-                    "'" & Replace(SO2Tons, "'", "''") & "', '" & Replace(NOxTons, "'", "''") & "', " & _
-                    "'" & Replace(CalculatedFee, "'", "''") & "', '" & Replace(FeeRate, "'", "''") & "', " & _
-                    "'" & Replace(NSPS, "'", "''") & "', '" & Replace(NSPSFee, "'", "''") & "', " & _
-                    "'" & Replace(NSPSExempt, "'", "''") & "', '" & Replace(NSPSExemptions, "'", "''") & "', " & _
-                    "'" & Replace(AdminFee, "'", "''") & "', '" & Replace(TotalFee, "'", "''") & "', " & _
-                    "'" & Replace(Classification, "'", "''") & "', '" & Replace(OpStatus, "'", "''") & "', " & _
-                    "'" & Replace(ShutDown, "'", "''") & "', '" & Replace(OfficialName, "'", "''") & "', " & _
-                    "'" & Replace(OfficialTitle, "'", "''") & "', '" & Replace(PaymentType, "'", "''") & "', " & _
-                    "'1', '" & CurrentUser.UserID & "', " & _
+                    SQL = "Insert into AIRBRANCH.FS_FeeAmendment " &
+                    "values " &
+                    "('" & txtAuditID.Text & "',  " &
+                    "'" & Me.ExpandedAirsNumber & "', '" & Me.FeeYear & "', " &
+                    "'" & Replace(SM, "'", "''") & "', '" & Replace(SMFee, "'", "''") & "', " &
+                    "'" & Replace(Part70, "'", "''") & "', '" & Replace(Part70Fee, "'", "''") & "', " &
+                    "'" & Replace(VOCTons, "'", "''") & "', '" & Replace(PMTons, "'", "''") & "',  " &
+                    "'" & Replace(SO2Tons, "'", "''") & "', '" & Replace(NOxTons, "'", "''") & "', " &
+                    "'" & Replace(CalculatedFee, "'", "''") & "', '" & Replace(FeeRate, "'", "''") & "', " &
+                    "'" & Replace(NSPS, "'", "''") & "', '" & Replace(NSPSFee, "'", "''") & "', " &
+                    "'" & Replace(NSPSExempt, "'", "''") & "', '" & Replace(NSPSExemptions, "'", "''") & "', " &
+                    "'" & Replace(AdminFee, "'", "''") & "', '" & Replace(TotalFee, "'", "''") & "', " &
+                    "'" & Replace(Classification, "'", "''") & "', '" & Replace(OpStatus, "'", "''") & "', " &
+                    "'" & Replace(ShutDown, "'", "''") & "', '" & Replace(OfficialName, "'", "''") & "', " &
+                    "'" & Replace(OfficialTitle, "'", "''") & "', '" & Replace(PaymentType, "'", "''") & "', " &
+                    "'1', '" & CurrentUser.UserID & "', " &
                     "sysdate, sysdate) "
                 End If
 
@@ -4899,29 +4825,18 @@ Public Class PASPFeeAuditLog
                 EndCollections = "False"
             End If
 
-            SQL = "Update AIRBRANCH.FS_FeeAudit set " & _
-            "numStaffResponsible = '" & StaffResponsible & "', " & _
-            "strAuditLevel = '" & AuditLevel & "', " & _
-            "numENFORCEMENT = '" & AuditENFORCEMENT & "', " & _
-            "strComments = '" & Replace(AuditComments, "'", "''") & "', " & _
-            "datAuditStart = '" & AuditStart & "', " & _
-            "datAuditEnd = '" & AuditEnd & "', " & _
-            "strEndCollections = '" & EndCollections & "', " & _
-            "datCollectionsEnded = '" & CollectionsDate & "', " & _
-            "updateuser = '" & CurrentUser.UserID & "', " & _
-            "updateDateTime = sysdate " & _
+            SQL = "Update AIRBRANCH.FS_FeeAudit set " &
+            "numStaffResponsible = '" & StaffResponsible & "', " &
+            "strAuditLevel = '" & AuditLevel & "', " &
+            "numENFORCEMENT = '" & AuditENFORCEMENT & "', " &
+            "strComments = '" & Replace(AuditComments, "'", "''") & "', " &
+            "datAuditStart = '" & AuditStart & "', " &
+            "datAuditEnd = '" & AuditEnd & "', " &
+            "strEndCollections = '" & EndCollections & "', " &
+            "datCollectionsEnded = '" & CollectionsDate & "', " &
+            "updateuser = '" & CurrentUser.UserID & "', " &
+            "updateDateTime = sysdate " &
             "where AuditID = '" & txtAuditID.Text & "' "
-
-
-            'SQL = "Insert into AIRBRANCH.FS_FeeAudit " & _
-            '"values " & _
-            '"('" & txtAuditID.Text & "', '" & StaffResponsible & "', " & _
-            '"'" & AuditLevel & "', '" & AuditNOV & "', " & _
-            '"'" & AuditCO & "', '" & Replace(AuditComments, "'", "''") & "', " & _
-            '"'" & AuditStart & "', '" & AuditEnd & "', " & _
-            '"'" & EndCollections & "', '" & CollectionsDate & "', " & _
-            '"'1', '" & CurrentUser.UserID & "', " & _
-            '"'" & OracleDate & "', '" & OracleDate & "') "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -4931,9 +4846,9 @@ Public Class PASPFeeAuditLog
             dr.Close()
 
             If EndCollections = "True" Then
-                SQL = "update AIRBranch.FS_Admin set " & _
-                "numCurrentStatus = '12' " & _
-                "where numFeeYear = '" & Me.FeeYear & "' " & _
+                SQL = "update AIRBranch.FS_Admin set " &
+                "numCurrentStatus = '12' " &
+                "where numFeeYear = '" & Me.FeeYear & "' " &
                 "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -4965,8 +4880,8 @@ Public Class PASPFeeAuditLog
 
             txtAuditID.Text = dgvAuditHistory(0, dgvAuditHistory.CurrentRow.Index).Value
 
-            SQL = "Select * " & _
-            "From AIRBRANCH.FS_FeeAudit " & _
+            SQL = "Select * " &
+            "From AIRBRANCH.FS_FeeAudit " &
             "where AuditID = '" & txtAuditID.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5037,8 +4952,8 @@ Public Class PASPFeeAuditLog
                     cboAuditType.Text = "Other"
             End Select
 
-            SQL = "select * " & _
-            "from AIRBRANCH.FS_FeeAmendment " & _
+            SQL = "select * " &
+            "from AIRBRANCH.FS_FeeAmendment " &
             "where auditID = '" & txtAuditID.Text & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5296,82 +5211,82 @@ Public Class PASPFeeAuditLog
             If rdbCurrentFeeyear.Checked = True Then
                 LoadTransactionData()
             Else
-                SQL = "select " & _
-         "TRANSACTIONID,  INVOICES.INVOICEID, DATTRANSACTIONDATE, " & _
-         "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " & _
-         "ENTRYPERSON, " & _
-         "STRCOMMENT, STRCREDITCARDNO, TRANSACTIONTYPECODE, " & _
-         "case " & _
-         "when TRANSACTIONS.UPDATEUSER is not null then (STRLASTNAME||', '||STRFIRSTNAME) " & _
-         "else '' " & _
-         "end  UpdateUser, " & _
-         "TRANSACTIONS.UPDATEDATETIME, " & _
-         "TRANSACTIONS.CREATEDATETIME, TRANSACTIONS.numFeeYear " & _
-         " from " & _
-         "(select " & _
-         "TRANSACTIONID,  INVOICEID, DATTRANSACTIONDATE, " & _
-         "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " & _
-         "(STRLASTNAME||', '||STRFIRSTNAME) as ENTRYPERSON, " & _
-         "STRCOMMENT, strCreditcardno, " & _
-         "transactiontypecode, " & _
-         "UPDATEUSER, UPDATEDATETIME, " & _
-         "createDateTime, strairsnumber, numfeeyear  " & _
-         "from AIRBRANCH.FS_TRANSACTIONS, AIRBRANCH.EPDUSERPROFILES " & _
-         "where AIRBRANCH.FS_TRANSACTIONS.STRENTRYPERSON = AIRBRANCH.EPDUSERPROFILES.NUMUSERID " & _
-         "and AIRBRANCH.FS_TRANSACTIONS.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " & _
-         "and active = 1) TRANSACTIONS,  " & _
-         "(select " & _
-         "0, INVOICEID, " & _
-         "sysdate, 1, '', '', " & _
-         "'', '', '', '', 2, " & _
-         "UPDATEUSER, UPDATEDATETIME, " & _
-         "CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR   " & _
-         "from AIRBRANCH.FS_feeINVOICE " & _
-         "where STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " & _
-         "and AIRBRANCH.FS_feeINVOICE.Active = '1' ) INVOICES, " & _
-         "AIRBRANCH.EPDUSERPROFILES " & _
-         "where TRANSACTIONS.STRAIRSNUMBER  =  INVOICES.STRAIRSNUMBER (+) " & _
-         "and TRANSACTIONS.NUMFEEYEAR  =  INVOICES.NUMFEEYEAR  (+) " & _
-         "and TRANSACTIONS.INVOICEID  =  INVOICES.INVOICEID (+) " & _
-         "and TRANSACTIONS.UPDATEUSER  = AIRBRANCH.epduserProfiles.numUserID   (+) " & _
-         " union " & _
-         "select " & _
-         "TRANSACTIONID,  INVOICES.INVOICEID, DATTRANSACTIONDATE, " & _
-         "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " & _
-         "ENTRYPERSON, " & _
-         "STRCOMMENT, STRCREDITCARDNO, TRANSACTIONTYPECODE, " & _
-         "case " & _
-         "when TRANSACTIONS.UPDATEUSER is not null then (STRLASTNAME||', '||STRFIRSTNAME) " & _
-         "else '' " & _
-         "end  UpdateUser, " & _
-         "TRANSACTIONS.UPDATEDATETIME, " & _
-         "TRANSACTIONS.CREATEDATETIME, TRANSACTIONS.numFeeYear  " & _
-         " from " & _
-         "(select " & _
-         "TRANSACTIONID,  INVOICEID, DATTRANSACTIONDATE, " & _
-         "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " & _
-         "(STRLASTNAME||', '||STRFIRSTNAME) as ENTRYPERSON, " & _
-         "STRCOMMENT, strCreditcardno, " & _
-         "transactiontypecode, " & _
-         "UPDATEUSER, UPDATEDATETIME, " & _
-         "createDateTime, strairsnumber, numfeeyear  " & _
-         "from AIRBRANCH.FS_TRANSACTIONS, AIRBRANCH.EPDUSERPROFILES " & _
-         "where AIRBRANCH.FS_TRANSACTIONS.STRENTRYPERSON = AIRBRANCH.EPDUSERPROFILES.NUMUSERID " & _
-         "and AIRBRANCH.FS_TRANSACTIONS.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " & _
-         "and active = 1) TRANSACTIONS,  " & _
-         "(select " & _
-         "0, INVOICEID, " & _
-         "sysdate, 1, '', '', " & _
-         "'', '', '', '', 2, " & _
-         "UPDATEUSER, UPDATEDATETIME, " & _
-         "CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR   " & _
-         "from AIRBRANCH.FS_feeINVOICE " & _
-         "where STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " & _
-         "and AIRBRANCH.FS_feeINVOICE.Active = '1') INVOICES, " & _
-         "AIRBRANCH.EPDUSERPROFILES " & _
-         "where  INVOICES.STRAIRSNUMBER  = TRANSACTIONS.STRAIRSNUMBER (+) " & _
-         "and INVOICES.NUMFEEYEAR  =  TRANSACTIONS.NUMFEEYEAR  (+) " & _
-         "and INVOICES.INVOICEID  =  TRANSACTIONS.INVOICEID (+) " & _
+                SQL = "select " &
+         "TRANSACTIONID,  INVOICES.INVOICEID, DATTRANSACTIONDATE, " &
+         "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
+         "ENTRYPERSON, " &
+         "STRCOMMENT, STRCREDITCARDNO, TRANSACTIONTYPECODE, " &
+         "case " &
+         "when TRANSACTIONS.UPDATEUSER is not null then (STRLASTNAME||', '||STRFIRSTNAME) " &
+         "else '' " &
+         "end  UpdateUser, " &
+         "TRANSACTIONS.UPDATEDATETIME, " &
+         "TRANSACTIONS.CREATEDATETIME, TRANSACTIONS.numFeeYear " &
+         " from " &
+         "(select " &
+         "TRANSACTIONID,  INVOICEID, DATTRANSACTIONDATE, " &
+         "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
+         "(STRLASTNAME||', '||STRFIRSTNAME) as ENTRYPERSON, " &
+         "STRCOMMENT, strCreditcardno, " &
+         "transactiontypecode, " &
+         "UPDATEUSER, UPDATEDATETIME, " &
+         "createDateTime, strairsnumber, numfeeyear  " &
+         "from AIRBRANCH.FS_TRANSACTIONS, AIRBRANCH.EPDUSERPROFILES " &
+         "where AIRBRANCH.FS_TRANSACTIONS.STRENTRYPERSON = AIRBRANCH.EPDUSERPROFILES.NUMUSERID " &
+         "and AIRBRANCH.FS_TRANSACTIONS.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " &
+         "and active = 1) TRANSACTIONS,  " &
+         "(select " &
+         "0, INVOICEID, " &
+         "sysdate, 1, '', '', " &
+         "'', '', '', '', 2, " &
+         "UPDATEUSER, UPDATEDATETIME, " &
+         "CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR   " &
+         "from AIRBRANCH.FS_feeINVOICE " &
+         "where STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " &
+         "and AIRBRANCH.FS_feeINVOICE.Active = '1' ) INVOICES, " &
+         "AIRBRANCH.EPDUSERPROFILES " &
+         "where TRANSACTIONS.STRAIRSNUMBER  =  INVOICES.STRAIRSNUMBER (+) " &
+         "and TRANSACTIONS.NUMFEEYEAR  =  INVOICES.NUMFEEYEAR  (+) " &
+         "and TRANSACTIONS.INVOICEID  =  INVOICES.INVOICEID (+) " &
+         "and TRANSACTIONS.UPDATEUSER  = AIRBRANCH.epduserProfiles.numUserID   (+) " &
+         " union " &
+         "select " &
+         "TRANSACTIONID,  INVOICES.INVOICEID, DATTRANSACTIONDATE, " &
+         "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
+         "ENTRYPERSON, " &
+         "STRCOMMENT, STRCREDITCARDNO, TRANSACTIONTYPECODE, " &
+         "case " &
+         "when TRANSACTIONS.UPDATEUSER is not null then (STRLASTNAME||', '||STRFIRSTNAME) " &
+         "else '' " &
+         "end  UpdateUser, " &
+         "TRANSACTIONS.UPDATEDATETIME, " &
+         "TRANSACTIONS.CREATEDATETIME, TRANSACTIONS.numFeeYear  " &
+         " from " &
+         "(select " &
+         "TRANSACTIONID,  INVOICEID, DATTRANSACTIONDATE, " &
+         "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
+         "(STRLASTNAME||', '||STRFIRSTNAME) as ENTRYPERSON, " &
+         "STRCOMMENT, strCreditcardno, " &
+         "transactiontypecode, " &
+         "UPDATEUSER, UPDATEDATETIME, " &
+         "createDateTime, strairsnumber, numfeeyear  " &
+         "from AIRBRANCH.FS_TRANSACTIONS, AIRBRANCH.EPDUSERPROFILES " &
+         "where AIRBRANCH.FS_TRANSACTIONS.STRENTRYPERSON = AIRBRANCH.EPDUSERPROFILES.NUMUSERID " &
+         "and AIRBRANCH.FS_TRANSACTIONS.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " &
+         "and active = 1) TRANSACTIONS,  " &
+         "(select " &
+         "0, INVOICEID, " &
+         "sysdate, 1, '', '', " &
+         "'', '', '', '', 2, " &
+         "UPDATEUSER, UPDATEDATETIME, " &
+         "CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR   " &
+         "from AIRBRANCH.FS_feeINVOICE " &
+         "where STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " &
+         "and AIRBRANCH.FS_feeINVOICE.Active = '1') INVOICES, " &
+         "AIRBRANCH.EPDUSERPROFILES " &
+         "where  INVOICES.STRAIRSNUMBER  = TRANSACTIONS.STRAIRSNUMBER (+) " &
+         "and INVOICES.NUMFEEYEAR  =  TRANSACTIONS.NUMFEEYEAR  (+) " &
+         "and INVOICES.INVOICEID  =  TRANSACTIONS.INVOICEID (+) " &
          "and TRANSACTIONS.UPDATEUSER  = AIRBRANCH.epduserProfiles.numUserID (+) "
 
                 ds = New DataSet
@@ -5513,11 +5428,11 @@ Public Class PASPFeeAuditLog
 #Region " CodeFile "
     ' Code that was formerly in CodeFile.vb but is only used in this form anyway
 
-    Function Insert_FS_Admin(ByVal FeeYear As String, ByVal AIRSNumber As String, _
-                         ByVal Enrolled As String, _
-                         ByVal DateEnrolled As String, ByVal InitialMailOut As String, _
-                         ByVal MailoutSent As String, ByVal DateMailOutSent As String, _
-                         ByVal Submittal As String, ByVal DateSubmittal As String, _
+    Function Insert_FS_Admin(ByVal FeeYear As String, ByVal AIRSNumber As String,
+                         ByVal Enrolled As String,
+                         ByVal DateEnrolled As String, ByVal InitialMailOut As String,
+                         ByVal MailoutSent As String, ByVal DateMailOutSent As String,
+                         ByVal Submittal As String, ByVal DateSubmittal As String,
                          ByVal Comment As String) As Boolean
         Try
             Dim AdminCheck As String = "0"
@@ -5529,10 +5444,10 @@ Public Class PASPFeeAuditLog
                 Return False
             End If
 
-            Dim SQL As String = "Select " & _
-            "count(*) as AdminCount " & _
-            "from AIRBRANCH.FS_Admin " & _
-            "where numFeeYear = '" & FeeYear & "' " & _
+            Dim SQL As String = "Select " &
+            "count(*) as AdminCount " &
+            "from AIRBRANCH.FS_Admin " &
+            "where numFeeYear = '" & FeeYear & "' " &
             "and strAIRSNumber = '0413" & AIRSNumber & "' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5590,16 +5505,16 @@ Public Class PASPFeeAuditLog
                 End If
             End If
 
-            SQL = "Insert into AIRBRANCH.FS_Admin " & _
-            "values " & _
-            "(" & FeeYear & ", '0413" & AIRSNumber & "', " & _
-            "'" & Enrolled & "', '', " & _
-            "'" & DateEnrolled & "', '" & InitialMailOut & "', " & _
-            "'" & MailoutSent & "', '" & DateMailOutSent & "', " & _
-            "'" & Submittal & "', '" & DateSubmittal & "', " & _
-            "'1', '" & OracleDate & "', " & _
-            "'" & Replace(Comment, "'", "''") & "', '1', " & _
-            "'IAIP||" & CurrentUser.AlphaName & "', '" & OracleDate & "', " & _
+            SQL = "Insert into AIRBRANCH.FS_Admin " &
+            "values " &
+            "(" & FeeYear & ", '0413" & AIRSNumber & "', " &
+            "'" & Enrolled & "', '', " &
+            "'" & DateEnrolled & "', '" & InitialMailOut & "', " &
+            "'" & MailoutSent & "', '" & DateMailOutSent & "', " &
+            "'" & Submittal & "', '" & DateSubmittal & "', " &
+            "'1', '" & OracleDate & "', " &
+            "'" & Replace(Comment, "'", "''") & "', '1', " &
+            "'IAIP||" & CurrentUser.AlphaName & "', '" & OracleDate & "', " &
             "'" & OracleDate & "') "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -5609,10 +5524,10 @@ Public Class PASPFeeAuditLog
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "Update AIRBRANCH.FS_Admin set " & _
-           "datInitialEnrollment = datEnrollment " & _
-           "where numFeeYear = '" & FeeYear & "' " & _
-           "and strAIRSnumber = '0413" & AIRSNumber & "' " & _
+            SQL = "Update AIRBRANCH.FS_Admin set " &
+           "datInitialEnrollment = datEnrollment " &
+           "where numFeeYear = '" & FeeYear & "' " &
+           "and strAIRSnumber = '0413" & AIRSNumber & "' " &
            "and datInitialEnrollment is null "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -5650,22 +5565,22 @@ Public Class PASPFeeAuditLog
             Return True
 
         Catch ex As Exception
-            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
 
-    Function Update_FS_Admin(ByVal FeeYear As String, ByVal AIRSNumber As String, _
-                             ByVal Enrolled As String, _
-                             ByVal DateEnrolled As String, ByVal InitialMailOut As String, _
-                             ByVal MailoutSent As String, ByVal DateMailOutSent As String, _
-                             ByVal Submittal As String, ByVal DateSubmittal As String, _
+    Function Update_FS_Admin(ByVal FeeYear As String, ByVal AIRSNumber As String,
+                             ByVal Enrolled As String,
+                             ByVal DateEnrolled As String, ByVal InitialMailOut As String,
+                             ByVal MailoutSent As String, ByVal DateMailOutSent As String,
+                             ByVal Submittal As String, ByVal DateSubmittal As String,
                              ByVal Comment As String, ByVal Active As String) As Boolean
         Try
             Dim SQL As String = ""
             If IsDBNull(Enrolled) Or Enrolled = "" Then
             Else
                 If Enrolled = False Then
-                    SQL = SQL & "strEnrolled = '0', " & _
+                    SQL = SQL & "strEnrolled = '0', " &
                     "datEnrollment = '', "
                     If IsDBNull(Active) Then
                     Else
@@ -5700,7 +5615,7 @@ Public Class PASPFeeAuditLog
             If IsDBNull(MailoutSent) Then
             Else
                 If MailoutSent = False Then
-                    SQL = SQL & "strMailOutsent = '0', " & _
+                    SQL = SQL & "strMailOutsent = '0', " &
                     "datMailOutSent = '', "
                 Else
                     SQL = SQL & "strMailOutSent = '1', "
@@ -5713,7 +5628,7 @@ Public Class PASPFeeAuditLog
             If IsDBNull(Submittal) Then
             Else
                 If Submittal = False Then
-                    SQL = SQL & "intSubmittal = '0', " & _
+                    SQL = SQL & "intSubmittal = '0', " &
                     "datSubmittal = '', "
                 Else
                     SQL = SQL & "intsubmittal = '1', "
@@ -5731,13 +5646,13 @@ Public Class PASPFeeAuditLog
             If SQL = "" Then
                 Return False
             Else
-                SQL = SQL & _
-                "updateUser = 'IAIP||" & CurrentUser.AlphaName & "', " & _
+                SQL = SQL &
+                "updateUser = 'IAIP||" & CurrentUser.AlphaName & "', " &
                 "updateDateTime = '" & OracleDate & "' "
             End If
 
-            SQL = "Update AIRBRANCH.FS_Admin set " & SQL & _
-            "where numFeeYear = '" & FeeYear & "' " & _
+            SQL = "Update AIRBRANCH.FS_Admin set " & SQL &
+            "where numFeeYear = '" & FeeYear & "' " &
             "and strAIRSNumber = '0413" & AIRSNumber & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -5762,10 +5677,10 @@ Public Class PASPFeeAuditLog
                 End If
             End If
 
-            SQL = "Update AIRBRANCH.FS_Admin set " & _
-            "datInitialEnrollment = datEnrollment " & _
-            "where numFeeYear = '" & FeeYear & "' " & _
-            "and strAIRSnumber = '0413" & AIRSNumber & "' " & _
+            SQL = "Update AIRBRANCH.FS_Admin set " &
+            "datInitialEnrollment = datEnrollment " &
+            "where numFeeYear = '" & FeeYear & "' " &
+            "and strAIRSnumber = '0413" & AIRSNumber & "' " &
             "and datInitialEnrollment is null "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -5804,20 +5719,20 @@ Public Class PASPFeeAuditLog
             Return True
 
         Catch ex As Exception
-            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
 
     Sub Validate_FS_Invoices(ByVal FeeYear As String, ByVal AirsNumber As String)
         Try
-            Dim SQL As String = "Update airbranch.FS_FeeInvoice set " & _
-            "strInvoiceStatus = '1', " & _
-            "UpdateUser = :Username,  " & _
-            "updateDateTime = sysdate " & _
-            "where numFeeYear = :FeeYear " & _
-            "and strAIRSNumber = :AirsNumber " & _
-            "and numAmount = '0' " & _
-            "and strInvoiceStatus = '0' " & _
+            Dim SQL As String = "Update airbranch.FS_FeeInvoice set " &
+            "strInvoiceStatus = '1', " &
+            "UpdateUser = :Username,  " &
+            "updateDateTime = sysdate " &
+            "where numFeeYear = :FeeYear " &
+            "and strAIRSNumber = :AirsNumber " &
+            "and numAmount = '0' " &
+            "and strInvoiceStatus = '0' " &
             "and active = '1' "
 
             Dim parameters As OracleParameter() = New OracleParameter() {
@@ -5835,7 +5750,7 @@ Public Class PASPFeeAuditLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, "CodeFile." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 

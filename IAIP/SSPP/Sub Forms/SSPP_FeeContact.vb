@@ -6,7 +6,7 @@ Public Class SSPP_FeeContact
     Dim dr As OracleDataReader
 
     Private Sub SSPP_FeeContact_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        
+
     End Sub
     Sub LoadCurrentFeeContact()
         Try
@@ -26,17 +26,17 @@ Public Class SSPP_FeeContact
             txtEmailAddress.Clear()
             txtDescription.Clear()
 
-            SQL = "Select " & _
-            "strContactKey, " & _
-            "strContactFirstName, strContactLastName, " & _
-            "strContactPrefix, strContactSuffix, " & _
-            "strContactTitle, strContactCompanyName, " & _
-            "strContactPhoneNumber1, strContactPhoneNumber2, " & _
-            "strContactFaxNumber, strContactEmail, " & _
-            "strContactAddress1, strContactCity, " & _
-            "strContactState, strContactZipCode, " & _
-            "strContactDescription " & _
-            "from AIRBRANCH.APBContactInformation " & _
+            SQL = "Select " &
+            "strContactKey, " &
+            "strContactFirstName, strContactLastName, " &
+            "strContactPrefix, strContactSuffix, " &
+            "strContactTitle, strContactCompanyName, " &
+            "strContactPhoneNumber1, strContactPhoneNumber2, " &
+            "strContactFaxNumber, strContactEmail, " &
+            "strContactAddress1, strContactCity, " &
+            "strContactState, strContactZipCode, " &
+            "strContactDescription " &
+            "from AIRBRANCH.APBContactInformation " &
             "where strContactKey = '0413" & txtAIRSNumber.Text & "40' "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -162,9 +162,9 @@ Public Class SSPP_FeeContact
     Private Sub btnLoadDefaultDescription_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoadDefaultDescription.Click
         Try
             txtDescription.Clear()
-            txtDescription.Text = "Fee Contact. " & vbCrLf & _
-            "Modified by: " & CurrentUser.AlphaName & vbCrLf & _
-            "Modified on: " & OracleDate & vbCrLf & _
+            txtDescription.Text = "Fee Contact. " & vbCrLf &
+            "Modified by: " & CurrentUser.AlphaName & vbCrLf &
+            "Modified on: " & OracleDate & vbCrLf &
             "Via Application # " & txtApplicationNumber.Text
 
         Catch ex As Exception
@@ -174,10 +174,10 @@ Public Class SSPP_FeeContact
     Private Sub btnSaveFeeContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveFeeContact.Click
         Try
             If txtAIRSNumber.Text <> "" Then
-                SQL = "Select " & _
-                "strContactKey " & _
-                "from AIRBRANCH.APBContactInformation " & _
-                "where strContactKey = '0413" & txtAIRSNumber.Text & "40' " & _
+                SQL = "Select " &
+                "strContactKey " &
+                "from AIRBRANCH.APBContactInformation " &
+                "where strContactKey = '0413" & txtAIRSNumber.Text & "40' " &
                 "and strContactDescription = '" & txtDescription.Text & "' "
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -189,37 +189,37 @@ Public Class SSPP_FeeContact
                 dr.Close()
 
                 If recExist = True Then
-                    MsgBox("The Contact Description is exactly the same are a record on file." & vbCrLf & _
-                           "Please enter a unique description before saving.", MsgBoxStyle.Exclamation, _
+                    MsgBox("The Contact Description is exactly the same are a record on file." & vbCrLf &
+                           "Please enter a unique description before saving.", MsgBoxStyle.Exclamation,
                            "Fee Contact Updtate")
                     Exit Sub
                 End If
 
                 If Not IsValidEmailAddress(txtEmailAddress.Text.Trim) Then
-                    MsgBox("Invalid Email Address" & vbCrLf & _
+                    MsgBox("Invalid Email Address" & vbCrLf &
                            "Please enter a valid Email Address", MsgBoxStyle.Exclamation, "Fee Contact Update")
                     Exit Sub
                 End If
 
-                SQL = "Update AIRBRANCH.APBContactInformation set " & _
-                "strContactFirstName = '" & Replace(txtFirstName.Text, "'", "''") & "', " & _
-                "strContactLastName = '" & Replace(txtLastName.Text, "'", "''") & "', " & _
-                "strContactPrefix = '" & Replace(txtSocialTitle.Text, "'", "''") & "', " & _
-                "strContactSuffix = '" & Replace(txtPedigree.Text, "'", "''") & "', " & _
-                "strContactCompanyName = '" & Replace(txtCompany.Text, "'", "''") & "', " & _
-                "strContactTitle = '" & Replace(txtTitle.Text, "'", "''") & "', " & _
-                "strContactPhoneNumber1 = '" & Replace(mtbPhoneNumber1.Text, "'", "''") & "', " & _
-                "strContactPhoneNumber2 = '" & Replace(mtbPhoneNumber2.Text, "'", "''") & "', " & _
-                "strContactFaxNumber = '" & Replace(mtbFaxNumber.Text, "'", "''") & "', " & _
-                "strContactEmail = '" & Replace(txtEmailAddress.Text.Trim, "'", "''") & "', " & _
-                "strContactAddress1 = '" & Replace(txtAddress.Text, "'", "''") & "', " & _
-                "strContactAddress2 = '', " & _
-                "strContactCity = '" & Replace(txtCity.Text, "'", "''") & "', " & _
-                "strContactState = '" & Replace(txtState.Text, "'", "''") & "', " & _
-                "strContactZipCode = '" & Replace(mtbZipCode.Text, "'", "''") & "', " & _
-                "strModifingPerson = '" & CurrentUser.UserID & "', " & _
-                "datModifingDate = '" & OracleDate & "', " & _
-                "strContactDescription = '" & Replace(txtDescription.Text, "'", "''") & "' " & _
+                SQL = "Update AIRBRANCH.APBContactInformation set " &
+                "strContactFirstName = '" & Replace(txtFirstName.Text, "'", "''") & "', " &
+                "strContactLastName = '" & Replace(txtLastName.Text, "'", "''") & "', " &
+                "strContactPrefix = '" & Replace(txtSocialTitle.Text, "'", "''") & "', " &
+                "strContactSuffix = '" & Replace(txtPedigree.Text, "'", "''") & "', " &
+                "strContactCompanyName = '" & Replace(txtCompany.Text, "'", "''") & "', " &
+                "strContactTitle = '" & Replace(txtTitle.Text, "'", "''") & "', " &
+                "strContactPhoneNumber1 = '" & Replace(mtbPhoneNumber1.Text, "'", "''") & "', " &
+                "strContactPhoneNumber2 = '" & Replace(mtbPhoneNumber2.Text, "'", "''") & "', " &
+                "strContactFaxNumber = '" & Replace(mtbFaxNumber.Text, "'", "''") & "', " &
+                "strContactEmail = '" & Replace(txtEmailAddress.Text.Trim, "'", "''") & "', " &
+                "strContactAddress1 = '" & Replace(txtAddress.Text, "'", "''") & "', " &
+                "strContactAddress2 = '', " &
+                "strContactCity = '" & Replace(txtCity.Text, "'", "''") & "', " &
+                "strContactState = '" & Replace(txtState.Text, "'", "''") & "', " &
+                "strContactZipCode = '" & Replace(mtbZipCode.Text, "'", "''") & "', " &
+                "strModifingPerson = '" & CurrentUser.UserID & "', " &
+                "datModifingDate = '" & OracleDate & "', " &
+                "strContactDescription = '" & Replace(txtDescription.Text, "'", "''") & "' " &
                 "where strContactKey = '0413" & txtAIRSNumber.Text & "40' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then

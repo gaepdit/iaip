@@ -19,10 +19,10 @@ Namespace DAL
             If sicCode Is Nothing OrElse String.IsNullOrEmpty(sicCode) Then Return False
             If Not Regex.IsMatch(sicCode, SicCodePattern) Then Return False
 
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM AIRBRANCH.LK_SIC " & _
-                " WHERE RowNum = 1 " & _
-                " AND ACTIVE = 1 " & _
+            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
+                " FROM AIRBRANCH.LK_SIC " &
+                " WHERE RowNum = 1 " &
+                " AND ACTIVE = 1 " &
                 " AND SIC_CODE = :pId "
             Dim parameter As New OracleParameter("pId", sicCode)
 
@@ -40,10 +40,10 @@ Namespace DAL
             If naicsCode Is Nothing OrElse String.IsNullOrEmpty(naicsCode) Then Return False
             If Not Regex.IsMatch(naicsCode, NaicsCodePattern) Then Return False
 
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " & _
-                " FROM AIRBRANCH.LK_NAICS " & _
-                " WHERE RowNum = 1 " & _
-                " AND ACTIVE = 1 " & _
+            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
+                " FROM AIRBRANCH.LK_NAICS " &
+                " WHERE RowNum = 1 " &
+                " AND ACTIVE = 1 " &
                 " AND NAICS_CODE = :pId "
             Dim parameter As New OracleParameter("pId", naicsCode)
 
@@ -120,12 +120,6 @@ Namespace DAL
             Return DB.SPGetDataTable(spName, parameter)
         End Function
 
-        Public Function GetFacilityAirPrograms(airsNumber As ApbFacilityId) As AirProgram
-            Dim query As String = "SELECT STRAIRPROGRAMCODES FROM AIRBRANCH.APBHEADERDATA WHERE STRAIRSNUMBER = :airsNumber"
-            Dim parameter As New OracleParameter("airsNumber", airsNumber.DbFormattedString)
-            Return ConvertBitFieldToEnum(Of AirProgram)(DB.GetSingleValue(Of String)(query, parameter))
-        End Function
-
         Public Function GetFacilityOperationalStatus(airsNumber As ApbFacilityId) As FacilityOperationalStatus
             Dim query As String = "SELECT STROPERATIONALSTATUS FROM AIRBRANCH.APBHEADERDATA WHERE STRAIRSNUMBER = :airsNumber"
             Dim parameter As New OracleParameter("airsNumber", airsNumber.DbFormattedString)
@@ -161,53 +155,53 @@ Namespace DAL
 
 
             ' 1. Update ApbHeaderData
-            queryList.Add( _
-                "UPDATE AIRBRANCH.APBHEADERDATA " & _
-                "  SET STROPERATIONALSTATUS = :OperationalStatusCode, " & _
-                "    STRCLASS               = :Classification, " & _
-                "    STRAIRPROGRAMCODES     = :AirProgramsCode, " & _
-                "    STRSICCODE             = :SicCode, " & _
-                "    DATSTARTUPDATE         = :StartupDate, " & _
-                "    DATSHUTDOWNDATE        = :ShutdownDate, " & _
-                "    STRCOMMENTS            = :HeaderUpdateComment, " & _
-                "    STRPLANTDESCRIPTION    = :FacilityDescription, " & _
-                "    STRATTAINMENTSTATUS    = :NonattainmentStatusesCode, " & _
-                "    STRSTATEPROGRAMCODES   = :AirProgramClassifications, " & _
-                "    STRMODIFINGLOCATION    = :fromLocation, " & _
-                "    STRNAICSCODE           = :Naics, " & _
-                "    STRMODIFINGPERSON      = :modifiedby, " & _
-                "    DATMODIFINGDATE        = sysdate " & _
-                "  WHERE STRAIRSNUMBER      = :airsnumber " _
+            queryList.Add(
+                "UPDATE AIRBRANCH.APBHEADERDATA " &
+                "  SET STROPERATIONALSTATUS = :OperationalStatusCode, " &
+                "    STRCLASS               = :Classification, " &
+                "    STRAIRPROGRAMCODES     = :AirProgramsCode, " &
+                "    STRSICCODE             = :SicCode, " &
+                "    DATSTARTUPDATE         = :StartupDate, " &
+                "    DATSHUTDOWNDATE        = :ShutdownDate, " &
+                "    STRCOMMENTS            = :HeaderUpdateComment, " &
+                "    STRPLANTDESCRIPTION    = :FacilityDescription, " &
+                "    STRATTAINMENTSTATUS    = :NonattainmentStatusesCode, " &
+                "    STRSTATEPROGRAMCODES   = :AirProgramClassifications, " &
+                "    STRMODIFINGLOCATION    = :fromLocation, " &
+                "    STRNAICSCODE           = :Naics, " &
+                "    STRMODIFINGPERSON      = :modifiedby, " &
+                "    DATMODIFINGDATE        = sysdate " &
+                "  WHERE STRAIRSNUMBER      = :airsnumber "
             )
-            parametersList.Add(New OracleParameter() { _
-                New OracleParameter("OperationalStatusCode", headerData.OperationalStatusCode), _
-                New OracleParameter("Classification", headerData.Classification.ToString), _
-                New OracleParameter("AirProgramsCode", headerData.AirProgramsCode), _
-                New OracleParameter("SicCode", headerData.SicCode), _
-                New OracleParameter("StartupDate", headerData.StartupDate), _
-                New OracleParameter("ShutdownDate", headerData.ShutdownDate), _
-                New OracleParameter("HeaderUpdateComment", headerData.HeaderUpdateComment), _
-                New OracleParameter("FacilityDescription", headerData.FacilityDescription), _
-                New OracleParameter("NonattainmentStatusesCode", headerData.NonattainmentStatusesCode), _
-                New OracleParameter("AirProgramClassifications", headerData.AirProgramClassificationsCode), _
-                New OracleParameter("fromLocation", Convert.ToInt32(fromLocation)), _
-                New OracleParameter("Naics", headerData.Naics), _
-                New OracleParameter("modifiedby", CurrentUser.UserID), _
-                New OracleParameter("airsnumber", headerData.AirsNumber.DbFormattedString) _
+            parametersList.Add(New OracleParameter() {
+                New OracleParameter("OperationalStatusCode", headerData.OperationalStatusCode),
+                New OracleParameter("Classification", headerData.Classification.ToString),
+                New OracleParameter("AirProgramsCode", headerData.AirProgramsCode),
+                New OracleParameter("SicCode", headerData.SicCode),
+                New OracleParameter("StartupDate", headerData.StartupDate),
+                New OracleParameter("ShutdownDate", headerData.ShutdownDate),
+                New OracleParameter("HeaderUpdateComment", headerData.HeaderUpdateComment),
+                New OracleParameter("FacilityDescription", headerData.FacilityDescription),
+                New OracleParameter("NonattainmentStatusesCode", headerData.NonattainmentStatusesCode),
+                New OracleParameter("AirProgramClassifications", headerData.AirProgramClassificationsCode),
+                New OracleParameter("fromLocation", Convert.ToInt32(fromLocation)),
+                New OracleParameter("Naics", headerData.Naics),
+                New OracleParameter("modifiedby", CurrentUser.UserID),
+                New OracleParameter("airsnumber", headerData.AirsNumber.DbFormattedString)
             })
 
             ' 2. Update ApbSupplamentalData (sic)
-            queryList.Add( _
-                " UPDATE AIRBRANCH.APBSUPPLAMENTALDATA " & _
-                "  SET STRMODIFINGPERSON = :modifiedby, " & _
-                "    DATMODIFINGDATE     = sysdate, " & _
-                "    STRRMPID            = :rmp " & _
-                "  WHERE STRAIRSNUMBER   = :airsnumber " _
+            queryList.Add(
+                " UPDATE AIRBRANCH.APBSUPPLAMENTALDATA " &
+                "  SET STRMODIFINGPERSON = :modifiedby, " &
+                "    DATMODIFINGDATE     = sysdate, " &
+                "    STRRMPID            = :rmp " &
+                "  WHERE STRAIRSNUMBER   = :airsnumber "
             )
-            parametersList.Add(New OracleParameter() { _
-                New OracleParameter("modifiedby", CurrentUser.UserID), _
-                New OracleParameter("rmp", headerData.RmpId), _
-                New OracleParameter("airsnumber", headerData.AirsNumber.DbFormattedString) _
+            parametersList.Add(New OracleParameter() {
+                New OracleParameter("modifiedby", CurrentUser.UserID),
+                New OracleParameter("rmp", headerData.RmpId),
+                New OracleParameter("airsnumber", headerData.AirsNumber.DbFormattedString)
             })
 
             ' Check for existance of each possible AirProgram
@@ -268,34 +262,34 @@ Namespace DAL
                 Else
 
                     ' 4. For any inactive APC, change any existing subparts in ApbSubpartData to inactive
-                    queryList.Add( _
-                        " UPDATE AIRBRANCH.APBSUBPARTDATA " & _
-                        "  SET ACTIVE          = :active, " & _
-                        "    UPDATEUSER        = :modifiedby, " & _
-                        "    UPDATEDATETIME    = sysdate " & _
-                        "  WHERE STRSUBPARTKEY = :airpollkey " _
+                    queryList.Add(
+                        " UPDATE AIRBRANCH.APBSUBPARTDATA " &
+                        "  SET ACTIVE          = :active, " &
+                        "    UPDATEUSER        = :modifiedby, " &
+                        "    UPDATEDATETIME    = sysdate " &
+                        "  WHERE STRSUBPARTKEY = :airpollkey "
                     )
-                    parametersList.Add(New OracleParameter() { _
-                        New OracleParameter("active", "0"), _
-                        New OracleParameter("modifiedby", CurrentUser.UserID), _
-                        New OracleParameter("airpollkey", headerData.AirsNumber.DbFormattedString & FacilityHeaderData.GetAirProgramDbKey(apc)) _
+                    parametersList.Add(New OracleParameter() {
+                        New OracleParameter("active", "0"),
+                        New OracleParameter("modifiedby", CurrentUser.UserID),
+                        New OracleParameter("airpollkey", headerData.AirsNumber.DbFormattedString & FacilityHeaderData.GetAirProgramDbKey(apc))
                     })
 
                 End If
             Next
 
             ' 5. Change update status in AfsAirPollutantData to 'C' where currently 'N'
-            queryList.Add( _
-                " UPDATE AIRBRANCH.AFSAIRPOLLUTANTDATA " & _
-                "  SET STRUPDATESTATUS   = 'C', " & _
-                "    STRMODIFINGPERSON   = :modifiedby, " & _
-                "    DATMODIFINGDATE     = sysdate " & _
-                "  WHERE STRAIRSNUMBER   = :airsnumber " & _
-                "    AND STRUPDATESTATUS = 'N' " _
+            queryList.Add(
+                " UPDATE AIRBRANCH.AFSAIRPOLLUTANTDATA " &
+                "  SET STRUPDATESTATUS   = 'C', " &
+                "    STRMODIFINGPERSON   = :modifiedby, " &
+                "    DATMODIFINGDATE     = sysdate " &
+                "  WHERE STRAIRSNUMBER   = :airsnumber " &
+                "    AND STRUPDATESTATUS = 'N' "
             )
-            parametersList.Add(New OracleParameter() { _
-                New OracleParameter("modifiedby", CurrentUser.UserID), _
-                New OracleParameter("airsnumber", headerData.AirsNumber.DbFormattedString) _
+            parametersList.Add(New OracleParameter() {
+                New OracleParameter("modifiedby", CurrentUser.UserID),
+                New OracleParameter("airsnumber", headerData.AirsNumber.DbFormattedString)
             })
 
             Return DB.RunCommand(queryList, parametersList)

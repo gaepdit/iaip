@@ -41,7 +41,7 @@ Partial Class IaipAbout
         Me.lblSubTitle.Name = "lblSubTitle"
         Me.lblSubTitle.Size = New System.Drawing.Size(274, 48)
         Me.lblSubTitle.TabIndex = 32
-        Me.lblSubTitle.Text = "Georgia Department of Natural Resources" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Environmental Protection Division" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Air P" & _
+        Me.lblSubTitle.Text = "Georgia Department of Natural Resources" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Environmental Protection Division" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Air P" &
     "rotection Branch"
         '
         'lblLicenseLabel

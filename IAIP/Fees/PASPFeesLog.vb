@@ -6,7 +6,7 @@ Public Class PASPFeesLog
     Dim da As OracleDataAdapter
 
     Private Sub PASPFeesLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        
+
         Try
             LoadDefaults()
 
@@ -18,17 +18,17 @@ Public Class PASPFeesLog
         Try
 
             ' clbFeeYear.Items.Add(Now.Year)
-            
-            SQL = "Select " & _
-            "extract(year from sysdate) as FeeYear from dual " & _
-            "union " & _
-            "Select " & _
-            "distinct(numFeeYear) as FeeYear " & _
+
+            SQL = "Select " &
+            "extract(year from sysdate) as FeeYear from dual " &
+            "union " &
+            "Select " &
+            "distinct(numFeeYear) as FeeYear " &
             "From AIRBRANCH.FS_Admin order by FeeYear Desc "
 
-        
-            SQL = "Select " & _
-              "distinct(numFeeYear) as FeeYear " & _
+
+            SQL = "Select " &
+              "distinct(numFeeYear) as FeeYear " &
               "From AIRBRANCH.FS_Admin order by FeeYear Desc "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -129,21 +129,21 @@ Public Class PASPFeesLog
             End If
 
             If txtInvoice.Text = "" Then
-                SQL = "select " & _
-                "substr(AIRBRANCH.FS_Admin.strAIRSnumber, 5) as AIRSNumber, " & _
-                "AIRBRANCH.APBFacilityInformation.strFacilityName, " & _
-                "AIRBRANCH.FS_Admin.numFeeYear, " & _
-                "stroperationalstatus,  " & _
-                "case " & _
-                "when stroperationalstatus <> 'O' then datShutDownDate " & _
-                "else null " & _
-                "End ShutDownDate, strIAIPDesc " & _
-                "from AIRBRANCH.FS_Admin, AIRBRANCH.APBFacilityInformation, " & _
-                "AIRBRANCH.APBHeaderData, AIRBRANCH.FSLK_Admin_Status " & _
-                "where AIRBRANCH.FS_Admin.strAIRSnumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " & _
-                "and AIRBRANCH.APBFacilityInformation.strAIRSnumber = AIRBRANCH.APBHeaderData.strAIRSNumber " & _
-                "and AIRBRANCH.FS_Admin.numCurrentStatus = AIRBRANCH.FSLK_Admin_Status.ID (+) " & _
-                FeeYearSQL & OpStatus & AIRSNumber & FacilityName & CollectionStatus & ShutDownBetween & _
+                SQL = "select " &
+                "substr(AIRBRANCH.FS_Admin.strAIRSnumber, 5) as AIRSNumber, " &
+                "AIRBRANCH.APBFacilityInformation.strFacilityName, " &
+                "AIRBRANCH.FS_Admin.numFeeYear, " &
+                "stroperationalstatus,  " &
+                "case " &
+                "when stroperationalstatus <> 'O' then datShutDownDate " &
+                "else null " &
+                "End ShutDownDate, strIAIPDesc " &
+                "from AIRBRANCH.FS_Admin, AIRBRANCH.APBFacilityInformation, " &
+                "AIRBRANCH.APBHeaderData, AIRBRANCH.FSLK_Admin_Status " &
+                "where AIRBRANCH.FS_Admin.strAIRSnumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
+                "and AIRBRANCH.APBFacilityInformation.strAIRSnumber = AIRBRANCH.APBHeaderData.strAIRSNumber " &
+                "and AIRBRANCH.FS_Admin.numCurrentStatus = AIRBRANCH.FSLK_Admin_Status.ID (+) " &
+                FeeYearSQL & OpStatus & AIRSNumber & FacilityName & CollectionStatus & ShutDownBetween &
                 "order by AIRSnumber "
 
                 ds = New DataSet
@@ -180,25 +180,25 @@ Public Class PASPFeesLog
                 dgvExistingYearAdmin.Columns("ShutDownDate").Width = (dgvExistingYearAdmin.Width * 0.2)
                 dgvExistingYearAdmin.Columns("ShutDownDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
             Else
-                SQL = "select " & _
-                    "substr(AIRBRANCH.FS_Admin.strAIRSnumber, 5) as AIRSNumber, " & _
-                    "AIRBRANCH.APBFacilityInformation.strFacilityName, " & _
-                    "AIRBRANCH.FS_Admin.numFeeYear, " & _
-                    "InvoiceID, " & _
-                    "stroperationalstatus,  " & _
-                    "case " & _
-                    "when stroperationalstatus <> 'O' then datShutDownDate " & _
-                    "else null " & _
-                    "End ShutDownDate, strIAIPDesc " & _
-                    "from AIRBRANCH.FS_Admin, AIRBRANCH.APBFacilityInformation, " & _
-                    "AIRBRANCH.APBHeaderData, AIRBRANCH.FSLK_Admin_Status, " & _
-                    "AIRBRANCH.FS_FeeInvoice " & _
-                    "where AIRBRANCH.FS_Admin.strAIRSnumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " & _
-                    "and AIRBRANCH.APBFacilityInformation.strAIRSnumber = AIRBRANCH.APBHeaderData.strAIRSNumber " & _
-                    "and AIRBRANCH.FS_Admin.strAIRSNumber = AIRBRANCH.FS_FeeInvoice.strAIRSNumber " & _
-                    "and AIRBRANCH.FS_Admin.numFeeYear = AIRBRANCH.FS_FeeInvoice.numFeeYear " & _
-                    "and AIRBRANCH.FS_Admin.numCurrentStatus = AIRBRANCH.FSLK_Admin_Status.ID (+) " & _
-                    FeeYearSQL & OpStatus & AIRSNumber & FacilityName & CollectionStatus & ShutDownBetween & _
+                SQL = "select " &
+                    "substr(AIRBRANCH.FS_Admin.strAIRSnumber, 5) as AIRSNumber, " &
+                    "AIRBRANCH.APBFacilityInformation.strFacilityName, " &
+                    "AIRBRANCH.FS_Admin.numFeeYear, " &
+                    "InvoiceID, " &
+                    "stroperationalstatus,  " &
+                    "case " &
+                    "when stroperationalstatus <> 'O' then datShutDownDate " &
+                    "else null " &
+                    "End ShutDownDate, strIAIPDesc " &
+                    "from AIRBRANCH.FS_Admin, AIRBRANCH.APBFacilityInformation, " &
+                    "AIRBRANCH.APBHeaderData, AIRBRANCH.FSLK_Admin_Status, " &
+                    "AIRBRANCH.FS_FeeInvoice " &
+                    "where AIRBRANCH.FS_Admin.strAIRSnumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
+                    "and AIRBRANCH.APBFacilityInformation.strAIRSnumber = AIRBRANCH.APBHeaderData.strAIRSNumber " &
+                    "and AIRBRANCH.FS_Admin.strAIRSNumber = AIRBRANCH.FS_FeeInvoice.strAIRSNumber " &
+                    "and AIRBRANCH.FS_Admin.numFeeYear = AIRBRANCH.FS_FeeInvoice.numFeeYear " &
+                    "and AIRBRANCH.FS_Admin.numCurrentStatus = AIRBRANCH.FSLK_Admin_Status.ID (+) " &
+                    FeeYearSQL & OpStatus & AIRSNumber & FacilityName & CollectionStatus & ShutDownBetween &
                     "order by AIRSnumber "
 
                 ds = New DataSet

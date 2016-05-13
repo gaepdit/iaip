@@ -11,7 +11,7 @@ Public Class SSCPEmissionSummaryTool
     Dim da As OracleDataAdapter
 
     Private Sub SSCPEmissionSummaryTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        
+
         Try
             pnl1.Text = ""
             pnl2.Text = CurrentUser.AlphaName
@@ -31,9 +31,9 @@ Public Class SSCPEmissionSummaryTool
         Dim year As String
 
         Try
-            SQL = "Select " & _
-            "distinct intESYear " & _
-            "from AIRBRANCH.esschema " & _
+            SQL = "Select " &
+            "distinct intESYear " &
+            "from AIRBRANCH.esschema " &
             "order by intESYear desc "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -52,21 +52,21 @@ Public Class SSCPEmissionSummaryTool
 
             cboEIYear.Items.Add("-Select a Year-")
 
-            SQL = "Select " & _
-            "distinct(strInventoryYear) as EIYear " & _
-            "from AIRBRANCH.EISI " & _
-            "where strInventoryYear < 2010 " & _
+            SQL = "Select " &
+            "distinct(strInventoryYear) as EIYear " &
+            "from AIRBRANCH.EISI " &
+            "where strInventoryYear < 2010 " &
             "order by strInventoryYear desc "
 
-            SQL = "select * from " & _
-            "(select " & _
-            "distinct(inventoryyear) as EIYear " & _
-            "from airbranch.eis_admin " & _
-            "union " & _
-            "Select  " & _
-            "distinct(to_number(strInventoryYear)) as EIYear " & _
-            "from AIRBranch.EISI " & _
-            "where strInventoryYear < 2010 ) " & _
+            SQL = "select * from " &
+            "(select " &
+            "distinct(inventoryyear) as EIYear " &
+            "from airbranch.eis_admin " &
+            "union " &
+            "Select  " &
+            "distinct(to_number(strInventoryYear)) as EIYear " &
+            "from AIRBranch.EISI " &
+            "where strInventoryYear < 2010 ) " &
             "order by EIYear desc  "
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -94,21 +94,15 @@ Public Class SSCPEmissionSummaryTool
             Dim drDSRow As DataRow
             Dim drNewRow As DataRow
 
-            'SQL = "select  " & _
-            '"distinct(AIRBranch.EIEM.strPollutantCode) as Pollutants,   " & _
-            '"strPollutantDesc  " & _
-            '"from AIRBranch.EILookUpPollutantCodes, AIRBranch.EIEM  " & _
-            '"where AIRBranch.EIEM.strPollutantCode = AIRBranch.EILookUpPollutantCodes.strPollutantCode  "
-
-            SQL = "select " & _
-            "distinct(AIRBranch.EIEM.strPollutantCode) as Pollutants,   " & _
-            "strPollutantDesc  " & _
-            "from AIRBranch.EILookUpPollutantCodes, AIRBranch.EIEM " & _
-            "where AIRBranch.EIEM.strPollutantCode = AIRBranch.EILookUpPollutantCodes.strPollutantCode " & _
-            "union " & _
-            "select distinct (AIRBranch.VW_EIS_RPEMISSIONS.PollutantCode), " & _
-            "AIRBranch.EISLK_PollutantCode .strDesc " & _
-            "from AIRBranch.VW_EIS_RPEMISSIONS, AIRBranch.EISLK_PollutantCode " & _
+            SQL = "select " &
+            "distinct(AIRBranch.EIEM.strPollutantCode) as Pollutants,   " &
+            "strPollutantDesc  " &
+            "from AIRBranch.EILookUpPollutantCodes, AIRBranch.EIEM " &
+            "where AIRBranch.EIEM.strPollutantCode = AIRBranch.EILookUpPollutantCodes.strPollutantCode " &
+            "union " &
+            "select distinct (AIRBranch.VW_EIS_RPEMISSIONS.PollutantCode), " &
+            "AIRBranch.EISLK_PollutantCode .strDesc " &
+            "from AIRBranch.VW_EIS_RPEMISSIONS, AIRBranch.EISLK_PollutantCode " &
             "where AIRBranch.VW_EIS_RPEMISSIONS.PollutantCode = AIRBranch.EISLK_PollutantCode.PollutantCode "
 
             ds = New DataSet
@@ -188,9 +182,9 @@ Public Class SSCPEmissionSummaryTool
 
         Try
             Try
-                SQL = "select count(*) as MailoutCount " & _
-                "from AIRBRANCH.esmailout, AIRBRANCH.ESSCHEMA " & _
-                "where AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " & _
+                SQL = "select count(*) as MailoutCount " &
+                "from AIRBRANCH.esmailout, AIRBRANCH.ESSCHEMA " &
+                "where AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " &
                 "and AIRBRANCH.esmailout.STRESYEAR = '" & ESYear & "'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -204,10 +198,10 @@ Public Class SSCPEmissionSummaryTool
                 End While
                 dr.Close()
 
-                SQL = "select count(*) as ResponseCount " & _
-                "from AIRBRANCH.esmailout, AIRBRANCH.ESSCHEMA " & _
-                "where AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR " & _
-                "and AIRBRANCH.ESSCHEMA.STROPTOUT is not NULL " & _
+                SQL = "select count(*) as ResponseCount " &
+                "from AIRBRANCH.esmailout, AIRBRANCH.ESSCHEMA " &
+                "where AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR " &
+                "and AIRBRANCH.ESSCHEMA.STROPTOUT is not NULL " &
                 "and AIRBRANCH.esmailout.STRESYEAR = '" & ESYear & "'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -221,9 +215,9 @@ Public Class SSCPEmissionSummaryTool
                 End While
                 dr.Close()
 
-                SQL = "select count(*) as TotaloptinCount " & _
-                "from AIRBRANCH.ESSchema " & _
-                "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "'" & _
+                SQL = "select count(*) as TotaloptinCount " &
+                "from AIRBRANCH.ESSchema " &
+                "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "'" &
                 " and AIRBRANCH.ESSchema.strOptOut = 'NO'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -237,9 +231,9 @@ Public Class SSCPEmissionSummaryTool
                 End While
                 dr.Close()
 
-                SQL = "select count(*) as TotaloptOutCount " & _
-                "from AIRBRANCH.ESSchema " & _
-                "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "' " & _
+                SQL = "select count(*) as TotaloptOutCount " &
+                "from AIRBRANCH.ESSchema " &
+                "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "' " &
                 "and AIRBRANCH.ESSchema.strOptOut = 'YES'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -254,9 +248,9 @@ Public Class SSCPEmissionSummaryTool
                 End While
                 dr.Close()
 
-                SQL = "select count(*) as TotalinincomplianceCount " & _
-                "from AIRBRANCH.ESSchema " & _
-                "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "'" & _
+                SQL = "select count(*) as TotalinincomplianceCount " &
+                "from AIRBRANCH.ESSchema " &
+                "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "'" &
                 " and to_date(AIRBRANCH.ESSchema.STRDATEFIRSTCONFIRM) < = '" & deadline & "'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -269,9 +263,9 @@ Public Class SSCPEmissionSummaryTool
                 End While
                 dr.Close()
 
-                SQL = "select count(*) as TotaloutofcomplianceCount " & _
-                "from AIRBRANCH.ESSchema " & _
-                "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "'" & _
+                SQL = "select count(*) as TotaloutofcomplianceCount " &
+                "from AIRBRANCH.ESSchema " &
+                "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "'" &
                 " and to_date(AIRBRANCH.ESSchema.STRDATEFIRSTCONFIRM) > '" & deadline & "'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -284,10 +278,10 @@ Public Class SSCPEmissionSummaryTool
                 End While
                 dr.Close()
 
-                SQL = "select count(*) as MailOutOptInCount " & _
-                "from AIRBRANCH.ESSchema, AIRBRANCH.ESMailout " & _
-                "where AIRBRANCH.ESMAILOUT.strESYEAR = '" & ESYear & "' " & _
-                " and AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " & _
+                SQL = "select count(*) as MailOutOptInCount " &
+                "from AIRBRANCH.ESSchema, AIRBRANCH.ESMailout " &
+                "where AIRBRANCH.ESMAILOUT.strESYEAR = '" & ESYear & "' " &
+                " and AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " &
                 " and AIRBRANCH.ESSchema.strOptOut = 'NO'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -301,10 +295,10 @@ Public Class SSCPEmissionSummaryTool
                 End While
                 dr.Close()
 
-                SQL = "select count(*) as MailOutOptOutCount " & _
-                "from AIRBRANCH.ESSchema, AIRBRANCH.ESMailout " & _
-                "where AIRBRANCH.ESMAILOUT.strESYEAR = '" & ESYear & "'" & _
-                " and AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " & _
+                SQL = "select count(*) as MailOutOptOutCount " &
+                "from AIRBRANCH.ESSchema, AIRBRANCH.ESMailout " &
+                "where AIRBRANCH.ESMAILOUT.strESYEAR = '" & ESYear & "'" &
+                " and AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " &
                 " and AIRBRANCH.ESSchema.strOptOut = 'YES'"
 
                 cmd = New OracleCommand(SQL, CurrentConnection)
@@ -323,9 +317,9 @@ Public Class SSCPEmissionSummaryTool
             End Try
 
 
-            SQL = "select count(*) as Nonresponsecount " & _
-             "from AIRBRANCH.ESSCHEMA " & _
-             "where AIRBRANCH.ESSCHEMA.intESYEAR = '" & ESYear & "'" & _
+            SQL = "select count(*) as Nonresponsecount " &
+             "from AIRBRANCH.ESSCHEMA " &
+             "where AIRBRANCH.ESSCHEMA.intESYEAR = '" & ESYear & "'" &
              " and AIRBRANCH.ESSchema.strOptOut is NULL"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -339,16 +333,16 @@ Public Class SSCPEmissionSummaryTool
             End While
             dr.Close()
 
-            SQL = "select count(*) as ExtraCount " & _
-            "from (Select AIRBRANCH.ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " & _
-            "AIRBRANCH.ESMAILOUT.STRAIRSYear AS MailoutAIRS " & _
-            "From AIRBRANCH.ESMailout, AIRBRANCH.ESSCHEMA" & _
-            " Where AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " & _
-            "AND AIRBRANCH.esschema.INTESYEAR= '" & intESyear & "' " & _
-            "AND AIRBRANCH.ESSCHEMA.STROPTOUT IS NOT NULL) " & _
-            "dt_NotInMailout, " & _
-            "AIRBRANCH.ESSCHEMA " & _
-            "Where AIRBRANCH.ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
+            SQL = "select count(*) as ExtraCount " &
+            "from (Select AIRBRANCH.ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " &
+            "AIRBRANCH.ESMAILOUT.STRAIRSYear AS MailoutAIRS " &
+            "From AIRBRANCH.ESMailout, AIRBRANCH.ESSCHEMA" &
+            " Where AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " &
+            "AND AIRBRANCH.esschema.INTESYEAR= '" & intESyear & "' " &
+            "AND AIRBRANCH.ESSCHEMA.STROPTOUT IS NOT NULL) " &
+            "dt_NotInMailout, " &
+            "AIRBRANCH.ESSCHEMA " &
+            "Where AIRBRANCH.ESSCHEMA.STRAIRSYEAR = SchemaAIRS " &
             "AND MailoutAIRS is NULL"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -362,17 +356,17 @@ Public Class SSCPEmissionSummaryTool
             End While
             dr.Close()
 
-            SQL = "select count(*) as ExtraOptinCount " & _
-            "from (Select AIRBRANCH.ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " & _
-            "AIRBRANCH.ESMAILOUT.STRAIRSYear AS MailoutAIRS " & _
-            "From AIRBRANCH.ESMailout, AIRBRANCH.ESSCHEMA " & _
-            "Where AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " & _
-            "AND AIRBRANCH.esschema.INTESYEAR= '" & intESyear & "' " & _
-            "AND AIRBRANCH.ESSCHEMA.STROPTOUT IS NOT NULL) " & _
-            "dt_NotInMailout, " & _
-            "AIRBRANCH.ESSCHEMA " & _
-            "Where AIRBRANCH.ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
-            "AND MailoutAIRS is NULL " & _
+            SQL = "select count(*) as ExtraOptinCount " &
+            "from (Select AIRBRANCH.ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " &
+            "AIRBRANCH.ESMAILOUT.STRAIRSYear AS MailoutAIRS " &
+            "From AIRBRANCH.ESMailout, AIRBRANCH.ESSCHEMA " &
+            "Where AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " &
+            "AND AIRBRANCH.esschema.INTESYEAR= '" & intESyear & "' " &
+            "AND AIRBRANCH.ESSCHEMA.STROPTOUT IS NOT NULL) " &
+            "dt_NotInMailout, " &
+            "AIRBRANCH.ESSCHEMA " &
+            "Where AIRBRANCH.ESSCHEMA.STRAIRSYEAR = SchemaAIRS " &
+            "AND MailoutAIRS is NULL " &
             "and AIRBRANCH.ESSCHEMA.STROPTOUT='NO'"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -387,17 +381,17 @@ Public Class SSCPEmissionSummaryTool
             End While
             dr.Close()
 
-            SQL = "select count(*) as ExtraOptOUTCount " & _
-            "from (Select AIRBRANCH.ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " & _
-            "AIRBRANCH.ESMAILOUT.STRAIRSYear AS MailoutAIRS " & _
-            "From AIRBRANCH.ESMailout, AIRBRANCH.ESSCHEMA " & _
-            "Where AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " & _
-            "AND AIRBRANCH.esschema.INTESYEAR= '" & intESyear & "' " & _
-            "AND AIRBRANCH.ESSCHEMA.STROPTOUT IS NOT NULL) " & _
-            "dt_NotInMailout, " & _
-            "AIRBRANCH.ESSCHEMA " & _
-            "Where AIRBRANCH.ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
-            "AND MailoutAIRS is NULL " & _
+            SQL = "select count(*) as ExtraOptOUTCount " &
+            "from (Select AIRBRANCH.ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " &
+            "AIRBRANCH.ESMAILOUT.STRAIRSYear AS MailoutAIRS " &
+            "From AIRBRANCH.ESMailout, AIRBRANCH.ESSCHEMA " &
+            "Where AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " &
+            "AND AIRBRANCH.esschema.INTESYEAR= '" & intESyear & "' " &
+            "AND AIRBRANCH.ESSCHEMA.STROPTOUT IS NOT NULL) " &
+            "dt_NotInMailout, " &
+            "AIRBRANCH.ESSCHEMA " &
+            "Where AIRBRANCH.ESSCHEMA.STRAIRSYEAR = SchemaAIRS " &
+            "AND MailoutAIRS is NULL " &
             "and AIRBRANCH.ESSCHEMA.STROPTOUT='YES'"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -412,9 +406,9 @@ Public Class SSCPEmissionSummaryTool
             End While
             dr.Close()
 
-            SQL = "select count(*) as TotalResponsecount " & _
-            "from AIRBRANCH.ESSchema " & _
-            "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "'" & _
+            SQL = "select count(*) as TotalResponsecount " &
+            "from AIRBRANCH.ESSchema " &
+            "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "'" &
             " and AIRBRANCH.ESSchema.strOptOut is not NULL"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -441,9 +435,9 @@ Public Class SSCPEmissionSummaryTool
         Dim intESyear As Integer = CInt(ESyear)
         Try
 
-            SQL = "SELECT * " & _
-            "from AIRBRANCH.esschema " & _
-            "where STRAIRSNUMBER = '" & AirsNo & "' " & _
+            SQL = "SELECT * " &
+            "from AIRBRANCH.esschema " &
+            "where STRAIRSNUMBER = '" & AirsNo & "' " &
             "and INTESYEAR = '" & intESyear & "'"
 
             cmd = New OracleCommand(SQL, CurrentConnection)
@@ -659,18 +653,18 @@ Public Class SSCPEmissionSummaryTool
 
             Dim year As String = txtESYear.Text
 
-            SQL = "SELECT STRAIRSNUMBER, " & _
-            "STRFACILITYNAME, " & _
-            "STRCONTACTFIRSTNAME, " & _
-            "STRCONTACTLASTNAME, " & _
-            "STRCONTACTCOMPANYname, " & _
-            "STRCONTACTADDRESS1, " & _
-            "STRCONTACTCITY, " & _
-            "STRCONTACTSTATE, " & _
-            "STRCONTACTZIPCODE, " & _
-            "STRCONTACTEMAIL " & _
-            "from AIRBRANCH.esMailOut " & _
-            "where STRESYEAR = '" & year & "' " & _
+            SQL = "SELECT STRAIRSNUMBER, " &
+            "STRFACILITYNAME, " &
+            "STRCONTACTFIRSTNAME, " &
+            "STRCONTACTLASTNAME, " &
+            "STRCONTACTCOMPANYname, " &
+            "STRCONTACTADDRESS1, " &
+            "STRCONTACTCITY, " &
+            "STRCONTACTSTATE, " &
+            "STRCONTACTZIPCODE, " &
+            "STRCONTACTEMAIL " &
+            "from AIRBRANCH.esMailOut " &
+            "where STRESYEAR = '" & year & "' " &
             "order by STRFACILITYNAME"
 
             dsViewCount = New DataSet
@@ -727,14 +721,14 @@ Public Class SSCPEmissionSummaryTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " & _
-            "AIRBRANCH.esSchema.STRFACILITYNAME, " & _
-            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " & _
-            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR " & _
-            "from AIRBRANCH.esSchema, AIRBRANCH.esmailout " & _
-            "where AIRBRANCH.esSchema.intESyear = '" & intYear & "' " & _
-            "and AIRBRANCH.esSchema.STROPTOUT = 'NO'" & _
-            "and AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " & _
+            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " &
+            "AIRBRANCH.esSchema.STRFACILITYNAME, " &
+            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " &
+            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR " &
+            "from AIRBRANCH.esSchema, AIRBRANCH.esmailout " &
+            "where AIRBRANCH.esSchema.intESyear = '" & intYear & "' " &
+            "and AIRBRANCH.esSchema.STROPTOUT = 'NO'" &
+            "and AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " &
             "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
@@ -780,14 +774,14 @@ Public Class SSCPEmissionSummaryTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " & _
-            "AIRBRANCH.esSchema.STRFACILITYNAME, " & _
-            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " & _
-            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR " & _
-            "from AIRBRANCH.esSchema, AIRBRANCH.esmailout  " & _
-            "where AIRBRANCH.esSchema.intESyear = '" & intYear & "' " & _
-            "and AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " & _
-            "and AIRBRANCH.esSchema.STROPTOUT = 'YES'" & _
+            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " &
+            "AIRBRANCH.esSchema.STRFACILITYNAME, " &
+            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " &
+            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR " &
+            "from AIRBRANCH.esSchema, AIRBRANCH.esmailout  " &
+            "where AIRBRANCH.esSchema.intESyear = '" & intYear & "' " &
+            "and AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " &
+            "and AIRBRANCH.esSchema.STROPTOUT = 'YES'" &
             "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
@@ -841,23 +835,23 @@ Public Class SSCPEmissionSummaryTool
                 deadline = "15-Jun-2007"
             End If
 
-            SQL = "SELECT airbranch.esSchema.STRAIRSNUMBER, " & _
-            "AIRBRANCH.esSchema.STRFACILITYNAME, " & _
-            "AIRBRANCH.esSchema.STROPTOUT, " & _
-            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR, " & _
-            "AIRBRANCH.esSchema.STRCONTACTFIRSTNAME, " & _
-            "AIRBRANCH.esSchema.STRCONTACTLASTNAME, " & _
-            "AIRBRANCH.esSchema.STRCONTACTCOMPANY, " & _
-            "AIRBRANCH.esSchema.STRCONTACTADDRESS1, " & _
-            "AIRBRANCH.esSchema.STRCONTACTCITY, " & _
-            "AIRBRANCH.esSchema.STRCONTACTSTATE, " & _
-            "AIRBRANCH.esSchema.STRCONTACTZIP, " & _
-            "AIRBRANCH.esSchema.STRCONTACTEMAIL, " & _
-            "AIRBRANCH.esSchema.STRCONTACTPHONENUMBER " & _
-            "from AIRBRANCH.esSchema " & _
-            "where intESyear = '" & intYear & "' " & _
-            "and AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
-            "and to_date(AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM) > '" & deadline & "' " & _
+            SQL = "SELECT airbranch.esSchema.STRAIRSNUMBER, " &
+            "AIRBRANCH.esSchema.STRFACILITYNAME, " &
+            "AIRBRANCH.esSchema.STROPTOUT, " &
+            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR, " &
+            "AIRBRANCH.esSchema.STRCONTACTFIRSTNAME, " &
+            "AIRBRANCH.esSchema.STRCONTACTLASTNAME, " &
+            "AIRBRANCH.esSchema.STRCONTACTCOMPANY, " &
+            "AIRBRANCH.esSchema.STRCONTACTADDRESS1, " &
+            "AIRBRANCH.esSchema.STRCONTACTCITY, " &
+            "AIRBRANCH.esSchema.STRCONTACTSTATE, " &
+            "AIRBRANCH.esSchema.STRCONTACTZIP, " &
+            "AIRBRANCH.esSchema.STRCONTACTEMAIL, " &
+            "AIRBRANCH.esSchema.STRCONTACTPHONENUMBER " &
+            "from AIRBRANCH.esSchema " &
+            "where intESyear = '" & intYear & "' " &
+            "and AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM is not NULL " &
+            "and to_date(AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM) > '" & deadline & "' " &
             "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
@@ -928,14 +922,14 @@ Public Class SSCPEmissionSummaryTool
                 deadline = "15-Jun-2007"
             End If
 
-            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " & _
-            "AIRBRANCH.esSchema.STRFACILITYNAME, " & _
-            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " & _
-            "AIRBRANCH.esSchema.STRCONTACTPHONENUMBER " & _
-            "from AIRBRANCH.esSchema " & _
-            "where AIRBRANCH.esSchema.intESyear = '" & intYear & "' " & _
-             "and AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
-            "and to_date(AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM) <= '" & deadline & "' " & _
+            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " &
+            "AIRBRANCH.esSchema.STRFACILITYNAME, " &
+            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " &
+            "AIRBRANCH.esSchema.STRCONTACTPHONENUMBER " &
+            "from AIRBRANCH.esSchema " &
+            "where AIRBRANCH.esSchema.intESyear = '" & intYear & "' " &
+             "and AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM is not NULL " &
+            "and to_date(AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM) <= '" & deadline & "' " &
             "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
@@ -974,84 +968,18 @@ Public Class SSCPEmissionSummaryTool
         End Try
     End Sub
 
-    '' Removed during Code Analysis review of CA1811
-    'Private Sub lblViewESMailOut_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs)
-    '    Try
-
-    '        Dim year As String = txtESYear.Text
-
-    '        SQL = "SELECT STRAIRSNUMBER, " & _
-    '        "STRFACILITYNAME, " & _
-    '        "STRCONTACTFIRSTNAME, " & _
-    '        "STRCONTACTLASTNAME, " & _
-    '        "STRCONTACTCOMPANYname, " & _
-    '        "STRCONTACTADDRESS1, " & _
-    '        "STRCONTACTCITY, " & _
-    '        "STRCONTACTSTATE, " & _
-    '        "STRCONTACTZIPCODE, " & _
-    '        "STRCONTACTEMAIL " & _
-    '        "from AIRBRANCH.esMailOut " & _
-    '        "where STRESYEAR = '" & year & "' " & _
-    '        "order by STRFACILITYNAME"
-
-    '        dsViewCount = New DataSet
-    '        daViewCount = New OracleDataAdapter(SQL, CurrentConnection)
-    '        If CurrentConnection.State = ConnectionState.Closed Then
-    '            CurrentConnection.Open()
-    '        End If
-    '        daViewCount.Fill(dsViewCount, "ViewCount")
-    '        dgvESDataCount.DataSource = dsViewCount
-    '        dgvESDataCount.DataMember = "ViewCount"
-
-    '        dgvESDataCount.RowHeadersVisible = False
-    '        dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-    '        dgvESDataCount.AllowUserToResizeColumns = True
-    '        dgvESDataCount.AllowUserToAddRows = False
-    '        dgvESDataCount.AllowUserToDeleteRows = False
-    '        dgvESDataCount.AllowUserToOrderColumns = True
-    '        dgvESDataCount.AllowUserToResizeRows = True
-
-    '        dgvESDataCount.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-    '        dgvESDataCount.Columns("STRAIRSNUMBER").DisplayIndex = 0
-    '        dgvESDataCount.Columns("strFacilityName").HeaderText = "Facility Name"
-    '        dgvESDataCount.Columns("strFacilityName").DisplayIndex = 1
-    '        dgvESDataCount.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
-    '        dgvESDataCount.Columns("STRCONTACTFIRSTNAME").DisplayIndex = 2
-    '        dgvESDataCount.Columns("STRCONTACTLASTNAME").HeaderText = "Contact Last Name"
-    '        dgvESDataCount.Columns("STRCONTACTLASTNAME").DisplayIndex = 3
-    '        dgvESDataCount.Columns("STRCONTACTCOMPANYname").HeaderText = "Contact Company"
-    '        dgvESDataCount.Columns("STRCONTACTCOMPANYname").DisplayIndex = 4
-    '        dgvESDataCount.Columns("STRCONTACTADDRESS1").HeaderText = "Address"
-    '        dgvESDataCount.Columns("STRCONTACTADDRESS1").DisplayIndex = 5
-    '        dgvESDataCount.Columns("STRCONTACTCITY").HeaderText = "City"
-    '        dgvESDataCount.Columns("STRCONTACTCITY").DisplayIndex = 6
-    '        dgvESDataCount.Columns("STRCONTACTSTATE").HeaderText = "State"
-    '        dgvESDataCount.Columns("STRCONTACTSTATE").DisplayIndex = 7
-    '        dgvESDataCount.Columns("STRCONTACTZIPCODE").HeaderText = "Zip"
-    '        dgvESDataCount.Columns("STRCONTACTZIPCODE").DisplayIndex = 8
-    '        dgvESDataCount.Columns("STRCONTACTEMAIL").HeaderText = "Contact Email"
-    '        dgvESDataCount.Columns("STRCONTACTEMAIL").DisplayIndex = 9
-
-    '        txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
-    '    Catch ex As Exception
-    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    Finally
-
-    '    End Try
-    'End Sub
-
     Private Sub lblViewESData_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewESData.LinkClicked
         Dim year As Integer = CInt(cboYear.SelectedItem)
         Try
 
-            SQL = "SELECT STRAIRSNUMBER, " & _
-            "STRFACILITYNAME, " & _
-            "DBLVOCEMISSION, " & _
-            "STRCONFIRMATIONNBR, " & _
-            "DBLNOXEMISSION, " & _
-            "STRDATEFIRSTCONFIRM " & _
-            "from AIRBRANCH.esSchema " & _
-            "where intESyear = '" & year & "' " & _
+            SQL = "SELECT STRAIRSNUMBER, " &
+            "STRFACILITYNAME, " &
+            "DBLVOCEMISSION, " &
+            "STRCONFIRMATIONNBR, " &
+            "DBLNOXEMISSION, " &
+            "STRDATEFIRSTCONFIRM " &
+            "from AIRBRANCH.esSchema " &
+            "where intESyear = '" & year & "' " &
             "order by STRFACILITYNAME"
 
             dsViewCount = New DataSet
@@ -1098,12 +1026,12 @@ Public Class SSCPEmissionSummaryTool
 
             Dim year As String = cboYear.SelectedItem
 
-            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " & _
-          "AIRBRANCH.esSchema.STRFACILITYNAME " & _
-          "from AIRBRANCH.esMailOut, AIRBRANCH.ESSCHEMA " & _
-          "where AIRBRANCH.esSchema.INTESYEAR = '" & year & "'" & _
-          "and AIRBRANCH.esSchema.strOPTOUT is NULL " & _
-          "and AIRBRANCH.esmailout.STRAIRSYEAR = AIRBRANCH.ESSchema.STRAIRSYEAR(+) " & _
+            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " &
+          "AIRBRANCH.esSchema.STRFACILITYNAME " &
+          "from AIRBRANCH.esMailOut, AIRBRANCH.ESSCHEMA " &
+          "where AIRBRANCH.esSchema.INTESYEAR = '" & year & "'" &
+          "and AIRBRANCH.esSchema.strOPTOUT is NULL " &
+          "and AIRBRANCH.esmailout.STRAIRSYEAR = AIRBRANCH.ESSchema.STRAIRSYEAR(+) " &
           "order by AIRBRANCH.esMailOut.STRFACILITYNAME"
 
             dsViewCount = New DataSet
@@ -1144,22 +1072,22 @@ Public Class SSCPEmissionSummaryTool
             Dim year As String = txtESYear.Text
             Dim intyear As Integer = Int(year)
 
-            SQL = "SELECT dt_NotInMailout.SchemaAIRS, AIRBRANCH.esSchema.STRAIRSNUMBER, " & _
-            "AIRBRANCH.esSchema.STRFACILITYNAME, " & _
-            "AIRBRANCH.esSchema.STRCONTACTFIRSTNAME, " & _
-            "AIRBRANCH.esSchema.STRCONTACTLASTNAME, " & _
-            "AIRBRANCH.esSchema.STRCONTACTCOMPANY, " & _
-            "AIRBRANCH.esSchema.STRCONTACTEMAIL, " & _
-            "AIRBRANCH.esSchema.STRCONTACTPHONENUMBER " & _
-            "from (Select AIRBRANCH.ESSCHEMA.STRAIRSNUMBER AS SchemaAIRS, " & _
-            "AIRBRANCH.ESMAILOUT.STRAIRSNUMBER AS MailoutAIRS" & _
-            " From AIRBRANCH.ESMailout, AIRBRANCH.ESSCHEMA" & _
-            " Where AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " & _
-            "AND INTESYEAR=  '" & intyear & "' " & _
-            "AND AIRBRANCH.ESSCHEMA.STROPTOUT IS NOT NULL) " & _
-            "dt_NotInMailout, " & _
-            "AIRBRANCH.ESSCHEMA " & _
-            "Where AIRBRANCH.ESSCHEMA.STRAIRSNUMBER = SchemaAIRS " & _
+            SQL = "SELECT dt_NotInMailout.SchemaAIRS, AIRBRANCH.esSchema.STRAIRSNUMBER, " &
+            "AIRBRANCH.esSchema.STRFACILITYNAME, " &
+            "AIRBRANCH.esSchema.STRCONTACTFIRSTNAME, " &
+            "AIRBRANCH.esSchema.STRCONTACTLASTNAME, " &
+            "AIRBRANCH.esSchema.STRCONTACTCOMPANY, " &
+            "AIRBRANCH.esSchema.STRCONTACTEMAIL, " &
+            "AIRBRANCH.esSchema.STRCONTACTPHONENUMBER " &
+            "from (Select AIRBRANCH.ESSCHEMA.STRAIRSNUMBER AS SchemaAIRS, " &
+            "AIRBRANCH.ESMAILOUT.STRAIRSNUMBER AS MailoutAIRS" &
+            " From AIRBRANCH.ESMailout, AIRBRANCH.ESSCHEMA" &
+            " Where AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " &
+            "AND INTESYEAR=  '" & intyear & "' " &
+            "AND AIRBRANCH.ESSCHEMA.STROPTOUT IS NOT NULL) " &
+            "dt_NotInMailout, " &
+            "AIRBRANCH.ESSCHEMA " &
+            "Where AIRBRANCH.ESSCHEMA.STRAIRSNUMBER = SchemaAIRS " &
             "AND MailoutAIRS is NULL"
 
             dsViewCount = New DataSet
@@ -1212,15 +1140,15 @@ Public Class SSCPEmissionSummaryTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " & _
-            "AIRBRANCH.esSchema.STRFACILITYNAME, " & _
-            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " & _
-            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR " & _
-            "from AIRBRANCH.esSchema, AIRBRANCH.esmailout " & _
-            "where AIRBRANCH.esSchema.intESyear = '" & intYear & "' " & _
-            "and AIRBRANCH.esSchema.STROPTOUT = 'NO'" & _
-            "and AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " & _
-            "and AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
+            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " &
+            "AIRBRANCH.esSchema.STRFACILITYNAME, " &
+            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " &
+            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR " &
+            "from AIRBRANCH.esSchema, AIRBRANCH.esmailout " &
+            "where AIRBRANCH.esSchema.intESyear = '" & intYear & "' " &
+            "and AIRBRANCH.esSchema.STROPTOUT = 'NO'" &
+            "and AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " &
+            "and AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM is not NULL " &
             "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
@@ -1264,15 +1192,15 @@ Public Class SSCPEmissionSummaryTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " & _
-            "AIRBRANCH.esSchema.STRFACILITYNAME, " & _
-            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " & _
-            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR " & _
-            "from AIRBRANCH.esSchema, AIRBRANCH.esmailout " & _
-            "where AIRBRANCH.esSchema.intESyear = '" & intYear & "' " & _
-            "and AIRBRANCH.esSchema.STROPTOUT = 'YES'" & _
-            " and AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " & _
-            "and AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM is not NULL " & _
+            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " &
+            "AIRBRANCH.esSchema.STRFACILITYNAME, " &
+            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " &
+            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR " &
+            "from AIRBRANCH.esSchema, AIRBRANCH.esmailout " &
+            "where AIRBRANCH.esSchema.intESyear = '" & intYear & "' " &
+            "and AIRBRANCH.esSchema.STROPTOUT = 'YES'" &
+            " and AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " &
+            "and AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM is not NULL " &
             "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
@@ -1316,19 +1244,19 @@ Public Class SSCPEmissionSummaryTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " & _
-            "AIRBRANCH.esSchema.STRFACILITYNAME, " & _
-            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " & _
-            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR " & _
-            "from (select AIRBRANCH.esSchema.strairsyear as SchemaAIRS, " & _
-            "AIRBRANCH.esmailout.strairsyear as MailoutAIRS " & _
-            "From AIRBRANCH.ESMailout, AIRBRANCH.ESSCHEMA " & _
-            "where AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " & _
-            "and AIRBRANCH.esSchema.intESyear = '" & intYear & "' " & _
-            "and AIRBRANCH.ESSCHEMA.STROPTOUT IS NOT NULL) " & _
-            "dt_NotInMailout, AIRBRANCH.ESSCHEMA " & _
-            "Where AIRBRANCH.ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
-            "and MailoutAIRS is NULL " & _
+            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " &
+            "AIRBRANCH.esSchema.STRFACILITYNAME, " &
+            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " &
+            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR " &
+            "from (select AIRBRANCH.esSchema.strairsyear as SchemaAIRS, " &
+            "AIRBRANCH.esmailout.strairsyear as MailoutAIRS " &
+            "From AIRBRANCH.ESMailout, AIRBRANCH.ESSCHEMA " &
+            "where AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " &
+            "and AIRBRANCH.esSchema.intESyear = '" & intYear & "' " &
+            "and AIRBRANCH.ESSCHEMA.STROPTOUT IS NOT NULL) " &
+            "dt_NotInMailout, AIRBRANCH.ESSCHEMA " &
+            "Where AIRBRANCH.ESSCHEMA.STRAIRSYEAR = SchemaAIRS " &
+            "and MailoutAIRS is NULL " &
             "and AIRBRANCH.ESSCHEMA.STROPTOUT='YES'"
 
             dsViewCount = New DataSet
@@ -1372,19 +1300,19 @@ Public Class SSCPEmissionSummaryTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " & _
-            "AIRBRANCH.esSchema.STRFACILITYNAME, " & _
-            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " & _
-            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR " & _
-            "from (select AIRBRANCH.esSchema.strairsyear as SchemaAIRS, " & _
-            "AIRBRANCH.esmailout.strairsyear as MailoutAIRS " & _
-            "From AIRBRANCH.ESMailout, AIRBRANCH.ESSCHEMA " & _
-            "where AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " & _
-            "and AIRBRANCH.esSchema.intESyear = '" & intYear & "' " & _
-            "and AIRBRANCH.ESSCHEMA.STROPTOUT IS NOT NULL) " & _
-            "dt_NotInMailout, AIRBRANCH.ESSCHEMA " & _
-            "Where AIRBRANCH.ESSCHEMA.STRAIRSYEAR = SchemaAIRS " & _
-            "and MailoutAIRS is NULL " & _
+            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " &
+            "AIRBRANCH.esSchema.STRFACILITYNAME, " &
+            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " &
+            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR " &
+            "from (select AIRBRANCH.esSchema.strairsyear as SchemaAIRS, " &
+            "AIRBRANCH.esmailout.strairsyear as MailoutAIRS " &
+            "From AIRBRANCH.ESMailout, AIRBRANCH.ESSCHEMA " &
+            "where AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " &
+            "and AIRBRANCH.esSchema.intESyear = '" & intYear & "' " &
+            "and AIRBRANCH.ESSCHEMA.STROPTOUT IS NOT NULL) " &
+            "dt_NotInMailout, AIRBRANCH.ESSCHEMA " &
+            "Where AIRBRANCH.ESSCHEMA.STRAIRSYEAR = SchemaAIRS " &
+            "and MailoutAIRS is NULL " &
             "and AIRBRANCH.ESSCHEMA.STROPTOUT='NO'"
 
 
@@ -1430,16 +1358,16 @@ Public Class SSCPEmissionSummaryTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " & _
-            "AIRBRANCH.esSchema.STRFACILITYNAME, " & _
-            "AIRBRANCH.esSchema.STRCONTACTFIRSTNAME, " & _
-            "AIRBRANCH.esSchema.STRCONTACTLASTNAME, " & _
-            "AIRBRANCH.esSchema.STRCONTACTCOMPANY, " & _
-            "AIRBRANCH.esSchema.STRCONTACTEMAIL, " & _
-            "AIRBRANCH.esSchema.STRCONTACTPHONENUMBER " & _
-            "from AIRBRANCH.esSchema " & _
-            "where AIRBRANCH.esSchema.intESyear = '" & intYear & "' " & _
-            "and AIRBRANCH.esSchema.STROPTOUT is not NULL " & _
+            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " &
+            "AIRBRANCH.esSchema.STRFACILITYNAME, " &
+            "AIRBRANCH.esSchema.STRCONTACTFIRSTNAME, " &
+            "AIRBRANCH.esSchema.STRCONTACTLASTNAME, " &
+            "AIRBRANCH.esSchema.STRCONTACTCOMPANY, " &
+            "AIRBRANCH.esSchema.STRCONTACTEMAIL, " &
+            "AIRBRANCH.esSchema.STRCONTACTPHONENUMBER " &
+            "from AIRBRANCH.esSchema " &
+            "where AIRBRANCH.esSchema.intESyear = '" & intYear & "' " &
+            "and AIRBRANCH.esSchema.STROPTOUT is not NULL " &
             "order by AIRBRANCH.esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
@@ -1485,30 +1413,6 @@ Public Class SSCPEmissionSummaryTool
         End Try
 
     End Sub
-
-    '' Removed during Code Analysis review of CA1811
-    'Private Sub DeleteESMailOut()
-    '    Dim AirsNo As String = txtESAirsNo.Text
-    '    Dim ESyear As String = txtESYear.Text
-
-    '    Try
-    '        SQL = "delete from AIRBRANCH.ESMailOut " & _
-    '        "where AIRBRANCH.ESMailOut.STRAIRSNUMBER = '" & AirsNo & "' " & _
-    '        "and AIRBRANCH.ESMailOut.STRESYEAR = '" & ESyear & "'"
-
-    '        cmd = New OracleCommand(SQL, CurrentConnection)
-    '        If CurrentConnection.State = ConnectionState.Closed Then
-    '            CurrentConnection.Open()
-    '        End If
-    '        dr = cmd.ExecuteReader
-    '        dr.Close()
-
-    '    Catch ex As Exception
-    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    Finally
-
-    '    End Try
-    'End Sub
 
     Private Sub clearESData()
         Try
@@ -1598,41 +1502,41 @@ Public Class SSCPEmissionSummaryTool
             'If cboEIYear.Text <> "" And cboEIYear.Items.Contains(cboEIYear.Text) And cboEIYear.SelectedIndex > 0 Then
             If cboEIYear.Text <> "" And cboEIYear.SelectedIndex > 0 Then
                 If cboEIYear.Text < 2010 Then
-                    SQL = "select " & _
-                    "rownum as EIRows, " & _
-                    "AIRSNumber, FacilityName, " & _
-                    "SO2, NOX, VOC, CO, NH3, Lead, " & _
-                    "PMFIL, '' as PM10FIL, PMPRI, PM10PRI, PM25PRI, " & _
-                    "'' as PMCON " & _
-                    "from " & _
-                    "(select " & _
-                    "rownum as EIRows, " & _
-                    "substr(strairsnumber,5,8) as AIRSNumber, strfacilityname as FacilityName, " & _
-                    "SO2, NOX, PMPRI, PMFIL, PM10PRI, PM25PRI, VOC, " & _
-                    "CO, NH3, Lead " & _
-                    "from " & _
-                    "(select dt.strairsnumber, dt.strfacilityname, " & _
-                    "sum(case when dt.strpollutantcode='SO2' then pollutanttotal else null end) SO2, " & _
-                    "sum(case when dt.strpollutantcode='NOX' then pollutanttotal else null end) NOx, " & _
-                    "sum(case when dt.strpollutantcode='PM-PRI' then pollutanttotal else null end) PMPRI, " & _
-                    "sum(case when dt.strpollutantcode='PM-FIL' then pollutanttotal else null end) PMFIL, " & _
-                    "sum(case when dt.strpollutantcode='PM10-PRI' then pollutanttotal else null end) PM10PRI, " & _
-                    "sum(case when dt.strpollutantcode='PM25-PRI' then pollutanttotal else null end) PM25PRI, " & _
-                    "sum(case when dt.strpollutantcode='VOC' then pollutanttotal else null end) VOC, " & _
-                    "sum(case when dt.strpollutantcode='CO' then pollutanttotal else null end) CO, " & _
-                    "sum(case when dt.strpollutantcode='NH3' then pollutanttotal else null end) NH3, " & _
-                    "sum(case when dt.strpollutantcode='7439921' then pollutanttotal else null end) Lead " & _
-                    "from " & _
-                    "(Select dtSumPollutant.strairsnumber, eisi.strfacilityname, dtSumPollutant.strpollutantcode, " & _
-                    "dtSumPollutant.PollutantTotal, dtSumPollutant.strinventoryyear " & _
-                    "from airbranch.eisi, " & _
-                    "(select eiem.strairsnumber, eiem.strpollutantcode, sum(eiem.dblemissionnumericvalue) as PollutantTotal, eiem.strinventoryyear " & _
-                    "from AIRBRANCH.eiem " & _
-                    "where eiem.strinventoryyear='" & cboEIYear.Text & "' " & _
-                    "group by eiem.strairsnumber, eiem.strpollutantcode, eiem.strinventoryyear) dtSumPollutant " & _
-                    "where eisi.strairsnumber = dtSumPollutant.strairsnumber and " & _
-                    "eisi.strinventoryyear = dtSumPollutant.strinventoryyear ) dt " & _
-                    "group by dt.strairsnumber, dt.strfacilityname) " & _
+                    SQL = "select " &
+                    "rownum as EIRows, " &
+                    "AIRSNumber, FacilityName, " &
+                    "SO2, NOX, VOC, CO, NH3, Lead, " &
+                    "PMFIL, '' as PM10FIL, PMPRI, PM10PRI, PM25PRI, " &
+                    "'' as PMCON " &
+                    "from " &
+                    "(select " &
+                    "rownum as EIRows, " &
+                    "substr(strairsnumber,5,8) as AIRSNumber, strfacilityname as FacilityName, " &
+                    "SO2, NOX, PMPRI, PMFIL, PM10PRI, PM25PRI, VOC, " &
+                    "CO, NH3, Lead " &
+                    "from " &
+                    "(select dt.strairsnumber, dt.strfacilityname, " &
+                    "sum(case when dt.strpollutantcode='SO2' then pollutanttotal else null end) SO2, " &
+                    "sum(case when dt.strpollutantcode='NOX' then pollutanttotal else null end) NOx, " &
+                    "sum(case when dt.strpollutantcode='PM-PRI' then pollutanttotal else null end) PMPRI, " &
+                    "sum(case when dt.strpollutantcode='PM-FIL' then pollutanttotal else null end) PMFIL, " &
+                    "sum(case when dt.strpollutantcode='PM10-PRI' then pollutanttotal else null end) PM10PRI, " &
+                    "sum(case when dt.strpollutantcode='PM25-PRI' then pollutanttotal else null end) PM25PRI, " &
+                    "sum(case when dt.strpollutantcode='VOC' then pollutanttotal else null end) VOC, " &
+                    "sum(case when dt.strpollutantcode='CO' then pollutanttotal else null end) CO, " &
+                    "sum(case when dt.strpollutantcode='NH3' then pollutanttotal else null end) NH3, " &
+                    "sum(case when dt.strpollutantcode='7439921' then pollutanttotal else null end) Lead " &
+                    "from " &
+                    "(Select dtSumPollutant.strairsnumber, eisi.strfacilityname, dtSumPollutant.strpollutantcode, " &
+                    "dtSumPollutant.PollutantTotal, dtSumPollutant.strinventoryyear " &
+                    "from airbranch.eisi, " &
+                    "(select eiem.strairsnumber, eiem.strpollutantcode, sum(eiem.dblemissionnumericvalue) as PollutantTotal, eiem.strinventoryyear " &
+                    "from AIRBRANCH.eiem " &
+                    "where eiem.strinventoryyear='" & cboEIYear.Text & "' " &
+                    "group by eiem.strairsnumber, eiem.strpollutantcode, eiem.strinventoryyear) dtSumPollutant " &
+                    "where eisi.strairsnumber = dtSumPollutant.strairsnumber and " &
+                    "eisi.strinventoryyear = dtSumPollutant.strinventoryyear ) dt " &
+                    "group by dt.strairsnumber, dt.strfacilityname) " &
                     "order by AIRSNumber) "
 
                     ds = New DataSet
@@ -1688,72 +1592,72 @@ Public Class SSCPEmissionSummaryTool
                     'dgvEIResults.Columns("PMCON").DisplayIndex = 14
 
                 Else
-                    SQL = "select " & _
-                    " rownum as EIRows, " & _
-                    "ViewList.FacilitySiteID as AIRSNumber, " & _
-                    "strFacilityName as FacilityName, " & _
-                    "SO2, NOX, VOC,  CO, NH3, LEAD, " & _
-                    "PMFIL, PM10FIL, PM10PRI, PM25PRI, PMCON " & _
-                    "from " & _
-                    "(select distinct (FacilitySiteID ) as FacilitySiteID " & _
-                    "from airbranch.VW_EIS_RPEMISSIONS " & _
-                    "where intinventoryyear = '" & cboEIYear.Text & "')ViewList,   " & _
-                    "(select facilitysiteid, sum(fltTotalemissions) as VOC    " & _
-                    "from airbranch.VW_EIS_RPEMISSIONS " & _
-                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'VOC'  " & _
-                    "group by facilitysiteid) VOCSum,  " & _
-                    "(select facilitysiteid, sum(fltTotalemissions) as PMFIL " & _
-                    "from airbranch.VW_EIS_RPEMISSIONS " & _
-                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'PM25-FIL'  " & _
-                    "group by facilitysiteid) PM25FILSum,  " & _
-                    "(select facilitysiteid, sum(fltTotalemissions) as LEAD    " & _
-                    "from airbranch.VW_EIS_RPEMISSIONS " & _
-                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = '7439921'  " & _
-                    "group by facilitysiteid) LEADSum,  " & _
-                    "(select facilitysiteid, sum(fltTotalemissions) as PM10PRI    " & _
-                    "from airbranch.VW_EIS_RPEMISSIONS " & _
-                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'PM10-PRI'  " & _
-                    "group by facilitysiteid) PM10PRISum,  " & _
-                    "(select facilitysiteid, sum(fltTotalemissions) as PM25PRI    " & _
-                    "from airbranch.VW_EIS_RPEMISSIONS " & _
-                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'PM25-PRI'  " & _
-                    "group by facilitysiteid) PM25PRISum,  " & _
-                    "(select facilitysiteid, sum(fltTotalemissions) as PMCON    " & _
-                    "from airbranch.VW_EIS_RPEMISSIONS " & _
-                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'PM-CON'  " & _
-                    "group by facilitysiteid) PMCONSum,  " & _
-                    "(select facilitysiteid, sum(fltTotalemissions) as PM10FIL    " & _
-                    "from airbranch.VW_EIS_RPEMISSIONS " & _
-                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'PM10-FIL'  " & _
-                    "group by facilitysiteid) PM10FILSum,  " & _
-                    "(select facilitysiteid, sum(fltTotalemissions) as NH3    " & _
-                    "from airbranch.VW_EIS_RPEMISSIONS " & _
-                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'NH3'  " & _
-                    "group by facilitysiteid) NH3Sum,  " & _
-                    "(select facilitysiteid, sum(fltTotalemissions) as SO2    " & _
-                    "from airbranch.VW_EIS_RPEMISSIONS " & _
-                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'SO2'  " & _
-                    "group by facilitysiteid) SO2Sum,  " & _
-                    "(select facilitysiteid, sum(fltTotalemissions) as CO    " & _
-                    "from airbranch.VW_EIS_RPEMISSIONS " & _
-                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'CO'  " & _
-                    "group by facilitysiteid) COSum,  " & _
-                    "(select facilitysiteid, sum(fltTotalemissions) as NOX    " & _
-                    "from airbranch.VW_EIS_RPEMISSIONS " & _
-                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'NOX'  " & _
-                    "group by facilitysiteid)NOXSum,  " & _
-                    "AIRBranch.APBFacilityInformation  " & _
-                    "where '0413'||ViewList.facilitysiteid = APBFacilityInformation.strAIRSNumber " & _
-                    "and ViewList.facilitysiteid = VOCSum.facilitysiteid (+)  " & _
-                    "and ViewList.facilitysiteid  = PM25FILSum.facilitysiteid (+)  " & _
-                    "and ViewList.facilitysiteid  = LEADSum.facilitysiteid (+)  " & _
-                    "and ViewList.facilitysiteid  = PM10PRISum.facilitysiteid (+)  " & _
-                    "and ViewList.facilitysiteid  = PM25PRISum.facilitysiteid (+)  " & _
-                    "and ViewList.facilitysiteid  = PMCONSum.facilitysiteid (+)  " & _
-                    "and ViewList.facilitysiteid  = PM10FILSum.facilitysiteid (+)  " & _
-                    "and ViewList.facilitysiteid  = NH3Sum.facilitysiteid (+)  " & _
-                    "and ViewList.facilitysiteid  = SO2Sum.facilitysiteid (+)  " & _
-                    "and ViewList.facilitysiteid  = COSum.facilitysiteid (+)  " & _
+                    SQL = "select " &
+                    " rownum as EIRows, " &
+                    "ViewList.FacilitySiteID as AIRSNumber, " &
+                    "strFacilityName as FacilityName, " &
+                    "SO2, NOX, VOC,  CO, NH3, LEAD, " &
+                    "PMFIL, PM10FIL, PM10PRI, PM25PRI, PMCON " &
+                    "from " &
+                    "(select distinct (FacilitySiteID ) as FacilitySiteID " &
+                    "from airbranch.VW_EIS_RPEMISSIONS " &
+                    "where intinventoryyear = '" & cboEIYear.Text & "')ViewList,   " &
+                    "(select facilitysiteid, sum(fltTotalemissions) as VOC    " &
+                    "from airbranch.VW_EIS_RPEMISSIONS " &
+                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'VOC'  " &
+                    "group by facilitysiteid) VOCSum,  " &
+                    "(select facilitysiteid, sum(fltTotalemissions) as PMFIL " &
+                    "from airbranch.VW_EIS_RPEMISSIONS " &
+                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'PM25-FIL'  " &
+                    "group by facilitysiteid) PM25FILSum,  " &
+                    "(select facilitysiteid, sum(fltTotalemissions) as LEAD    " &
+                    "from airbranch.VW_EIS_RPEMISSIONS " &
+                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = '7439921'  " &
+                    "group by facilitysiteid) LEADSum,  " &
+                    "(select facilitysiteid, sum(fltTotalemissions) as PM10PRI    " &
+                    "from airbranch.VW_EIS_RPEMISSIONS " &
+                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'PM10-PRI'  " &
+                    "group by facilitysiteid) PM10PRISum,  " &
+                    "(select facilitysiteid, sum(fltTotalemissions) as PM25PRI    " &
+                    "from airbranch.VW_EIS_RPEMISSIONS " &
+                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'PM25-PRI'  " &
+                    "group by facilitysiteid) PM25PRISum,  " &
+                    "(select facilitysiteid, sum(fltTotalemissions) as PMCON    " &
+                    "from airbranch.VW_EIS_RPEMISSIONS " &
+                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'PM-CON'  " &
+                    "group by facilitysiteid) PMCONSum,  " &
+                    "(select facilitysiteid, sum(fltTotalemissions) as PM10FIL    " &
+                    "from airbranch.VW_EIS_RPEMISSIONS " &
+                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'PM10-FIL'  " &
+                    "group by facilitysiteid) PM10FILSum,  " &
+                    "(select facilitysiteid, sum(fltTotalemissions) as NH3    " &
+                    "from airbranch.VW_EIS_RPEMISSIONS " &
+                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'NH3'  " &
+                    "group by facilitysiteid) NH3Sum,  " &
+                    "(select facilitysiteid, sum(fltTotalemissions) as SO2    " &
+                    "from airbranch.VW_EIS_RPEMISSIONS " &
+                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'SO2'  " &
+                    "group by facilitysiteid) SO2Sum,  " &
+                    "(select facilitysiteid, sum(fltTotalemissions) as CO    " &
+                    "from airbranch.VW_EIS_RPEMISSIONS " &
+                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'CO'  " &
+                    "group by facilitysiteid) COSum,  " &
+                    "(select facilitysiteid, sum(fltTotalemissions) as NOX    " &
+                    "from airbranch.VW_EIS_RPEMISSIONS " &
+                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'NOX'  " &
+                    "group by facilitysiteid)NOXSum,  " &
+                    "AIRBranch.APBFacilityInformation  " &
+                    "where '0413'||ViewList.facilitysiteid = APBFacilityInformation.strAIRSNumber " &
+                    "and ViewList.facilitysiteid = VOCSum.facilitysiteid (+)  " &
+                    "and ViewList.facilitysiteid  = PM25FILSum.facilitysiteid (+)  " &
+                    "and ViewList.facilitysiteid  = LEADSum.facilitysiteid (+)  " &
+                    "and ViewList.facilitysiteid  = PM10PRISum.facilitysiteid (+)  " &
+                    "and ViewList.facilitysiteid  = PM25PRISum.facilitysiteid (+)  " &
+                    "and ViewList.facilitysiteid  = PMCONSum.facilitysiteid (+)  " &
+                    "and ViewList.facilitysiteid  = PM10FILSum.facilitysiteid (+)  " &
+                    "and ViewList.facilitysiteid  = NH3Sum.facilitysiteid (+)  " &
+                    "and ViewList.facilitysiteid  = SO2Sum.facilitysiteid (+)  " &
+                    "and ViewList.facilitysiteid  = COSum.facilitysiteid (+)  " &
                     "and ViewList.facilitysiteid  = NOXSum.facilitysiteid (+) "
 
                     ds = New DataSet
@@ -1814,30 +1718,30 @@ Public Class SSCPEmissionSummaryTool
 
 
             'Original SQL statement from Brian Gregory 
-            SQL = "select substr(strairsnumber,5,8) as AIRSNumber, strfacilityname as FacilityName, SO2, NOX, PMPRI, PMFIL, PM10PRI, PM25PRI, VOC, " & _
-            "CO, NH3, Lead " & _
-            "from " & _
-            "(select dt.strairsnumber, dt.strfacilityname, " & _
-            "sum(case when dt.strpollutantcode='SO2' then pollutanttotal else null end) SO2, " & _
-            "sum(case when dt.strpollutantcode='NOX' then pollutanttotal else null end) NOx, " & _
-            "sum(case when dt.strpollutantcode='PM-PRI' then pollutanttotal else null end) PMPRI, " & _
-            "sum(case when dt.strpollutantcode='PM-FIL' then pollutanttotal else null end) PMFIL, " & _
-            "sum(case when dt.strpollutantcode='PM10-PRI' then pollutanttotal else null end) PM10PRI, " & _
-            "sum(case when dt.strpollutantcode='PM25-PRI' then pollutanttotal else null end) PM25PRI, " & _
-            "sum(case when dt.strpollutantcode='VOC' then pollutanttotal else null end) VOC, " & _
-            "sum(case when dt.strpollutantcode='CO' then pollutanttotal else null end) CO, " & _
-            "sum(case when dt.strpollutantcode='NH3' then pollutanttotal else null end) NH3, " & _
-            "sum(case when dt.strpollutantcode='7439921' then pollutanttotal else null end) Lead " & _
-            "from " & _
-            "(Select dtSumPollutant.strairsnumber, eisi.strfacilityname, dtSumPollutant.strpollutantcode, " & _
-             "dtSumPollutant.PollutantTotal, dtSumPollutant.strinventoryyear " & _
-            "from airbranch.eisi, " & _
-            "(select eiem.strairsnumber, eiem.strpollutantcode, sum(eiem.dblemissionnumericvalue) as PollutantTotal, eiem.strinventoryyear " & _
-            "from airbranch.eiem " & _
-            "where eiem.strinventoryyear='2005' " & _
-            "group by eiem.strairsnumber, eiem.strpollutantcode, eiem.strinventoryyear) dtSumPollutant " & _
-            "where eisi.strairsnumber = dtSumPollutant.strairsnumber and " & _
-            "eisi.strinventoryyear = dtSumPollutant.strinventoryyear ) dt " & _
+            SQL = "select substr(strairsnumber,5,8) as AIRSNumber, strfacilityname as FacilityName, SO2, NOX, PMPRI, PMFIL, PM10PRI, PM25PRI, VOC, " &
+            "CO, NH3, Lead " &
+            "from " &
+            "(select dt.strairsnumber, dt.strfacilityname, " &
+            "sum(case when dt.strpollutantcode='SO2' then pollutanttotal else null end) SO2, " &
+            "sum(case when dt.strpollutantcode='NOX' then pollutanttotal else null end) NOx, " &
+            "sum(case when dt.strpollutantcode='PM-PRI' then pollutanttotal else null end) PMPRI, " &
+            "sum(case when dt.strpollutantcode='PM-FIL' then pollutanttotal else null end) PMFIL, " &
+            "sum(case when dt.strpollutantcode='PM10-PRI' then pollutanttotal else null end) PM10PRI, " &
+            "sum(case when dt.strpollutantcode='PM25-PRI' then pollutanttotal else null end) PM25PRI, " &
+            "sum(case when dt.strpollutantcode='VOC' then pollutanttotal else null end) VOC, " &
+            "sum(case when dt.strpollutantcode='CO' then pollutanttotal else null end) CO, " &
+            "sum(case when dt.strpollutantcode='NH3' then pollutanttotal else null end) NH3, " &
+            "sum(case when dt.strpollutantcode='7439921' then pollutanttotal else null end) Lead " &
+            "from " &
+            "(Select dtSumPollutant.strairsnumber, eisi.strfacilityname, dtSumPollutant.strpollutantcode, " &
+             "dtSumPollutant.PollutantTotal, dtSumPollutant.strinventoryyear " &
+            "from airbranch.eisi, " &
+            "(select eiem.strairsnumber, eiem.strpollutantcode, sum(eiem.dblemissionnumericvalue) as PollutantTotal, eiem.strinventoryyear " &
+            "from airbranch.eiem " &
+            "where eiem.strinventoryyear='2005' " &
+            "group by eiem.strairsnumber, eiem.strpollutantcode, eiem.strinventoryyear) dtSumPollutant " &
+            "where eisi.strairsnumber = dtSumPollutant.strairsnumber and " &
+            "eisi.strinventoryyear = dtSumPollutant.strinventoryyear ) dt " &
             "group by dt.strairsnumber, dt.strfacilityname) "
 
 
@@ -1852,42 +1756,42 @@ Public Class SSCPEmissionSummaryTool
             If cboEIYear.Text <> "" And cboEIYear.SelectedIndex > 0 Then
                 If cboEIPollutants.Text <> "" Then
                     If cboEIYear.Text < 2010 Then
-                        SQL = "select " & _
-                        "rownum as EIRow, " & _
-                        "AIRSNumber, FacilityName, " & _
-                        "Pollutant " & _
-                        "from " & _
-                        "(select " & _
-                        "substr(dt.strairsnumber, 5) as AIRSNumber, " & _
-                        "eisi.strfacilityname as FacilityName, " & _
-                        "dt.pollutanttotal as Pollutant " & _
-                        "from AIRBRANCH.eisi," & _
-                        "(select strairsnumber, strpollutantcode, " & _
-                        "sum(dblemissionnumericvalue) as PollutantTotal, strinventoryyear " & _
-                        "from AIRBRANCH.eiem " & _
-                        "where strinventoryyear = '" & cboEIYear.Text & "' and " & _
-                        "strpollutantcode = '" & cboEIPollutants.SelectedValue & "' " & _
-                        "group by eiem.strairsnumber, eiem.strinventoryyear, strpollutantcode) dt " & _
-                        "where eisi.strairsnumber = dt.strairsnumber and " & _
-                        "eisi.strinventoryyear = dt.strinventoryyear " & _
+                        SQL = "select " &
+                        "rownum as EIRow, " &
+                        "AIRSNumber, FacilityName, " &
+                        "Pollutant " &
+                        "from " &
+                        "(select " &
+                        "substr(dt.strairsnumber, 5) as AIRSNumber, " &
+                        "eisi.strfacilityname as FacilityName, " &
+                        "dt.pollutanttotal as Pollutant " &
+                        "from AIRBRANCH.eisi," &
+                        "(select strairsnumber, strpollutantcode, " &
+                        "sum(dblemissionnumericvalue) as PollutantTotal, strinventoryyear " &
+                        "from AIRBRANCH.eiem " &
+                        "where strinventoryyear = '" & cboEIYear.Text & "' and " &
+                        "strpollutantcode = '" & cboEIPollutants.SelectedValue & "' " &
+                        "group by eiem.strairsnumber, eiem.strinventoryyear, strpollutantcode) dt " &
+                        "where eisi.strairsnumber = dt.strairsnumber and " &
+                        "eisi.strinventoryyear = dt.strinventoryyear " &
                         "order by AIRSNumber) "
                     Else
-                        SQL = "select  " & _
-                        "rownum as EIRow,  " & _
-                        "ViewList.FacilitySiteID as AIRSNumber,  " & _
-                        "strFacilityName as FacilityName,  " & _
-                        "Pollutant " & _
-                        "from  " & _
-                        "(select distinct (FacilitySiteID ) as FacilitySiteID  " & _
-                        "from airbranch.VW_EIS_RPEMISSIONS  " & _
-                        "where intinventoryyear = '" & cboEIYear.Text & "')ViewList,    " & _
-                        "(select facilitysiteid, sum(fltTotalemissions) as Pollutant     " & _
-                        "from airbranch.VW_EIS_RPEMISSIONS  " & _
-                        "where intinventoryyear = '" & cboEIYear.Text & "' " & _
-                        "and pollutantcode = '" & cboEIPollutants.SelectedValue & "'   " & _
-                        "group by facilitysiteid) PollutantSum, " & _
-                        "AIRBranch.APBFacilityInformation   " & _
-                        "where '0413'||ViewList.facilitysiteid = APBFacilityInformation.strAIRSNumber  " & _
+                        SQL = "select  " &
+                        "rownum as EIRow,  " &
+                        "ViewList.FacilitySiteID as AIRSNumber,  " &
+                        "strFacilityName as FacilityName,  " &
+                        "Pollutant " &
+                        "from  " &
+                        "(select distinct (FacilitySiteID ) as FacilitySiteID  " &
+                        "from airbranch.VW_EIS_RPEMISSIONS  " &
+                        "where intinventoryyear = '" & cboEIYear.Text & "')ViewList,    " &
+                        "(select facilitysiteid, sum(fltTotalemissions) as Pollutant     " &
+                        "from airbranch.VW_EIS_RPEMISSIONS  " &
+                        "where intinventoryyear = '" & cboEIYear.Text & "' " &
+                        "and pollutantcode = '" & cboEIPollutants.SelectedValue & "'   " &
+                        "group by facilitysiteid) PollutantSum, " &
+                        "AIRBranch.APBFacilityInformation   " &
+                        "where '0413'||ViewList.facilitysiteid = APBFacilityInformation.strAIRSNumber  " &
                         "and ViewList.facilitysiteid = PollutantSum.facilitysiteid    "
 
                     End If

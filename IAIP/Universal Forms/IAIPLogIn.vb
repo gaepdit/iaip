@@ -36,31 +36,20 @@ Public Class IAIPLogIn
         monitor.TrackFeature("Forms." & Me.Name)
         Try
             CheckLanguageRegistrySetting()
-
             ChooseDbServerEnvironment()
-            mmiTestingMenu.Visible = True
-            CheckDBAvailability()
-
-#If UAT Then
-            Me.LogoBox.Image = My.Resources.Resources.UatLogo
-            lblIAIP.Text = "IAIP User Acceptance Testing (UAT)"
-#End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
     Private Sub DisableLogin(Optional messageText As String = Nothing)
-        Dim loginControls As Control() = {txtUserID, lblUserID, txtUserPassword, lblPassword, btnLoginButton}
-        DisableControls(loginControls)
+        DisableControls({txtUserID, lblUserID, txtUserPassword, lblPassword, btnLoginButton})
         Me.AcceptButton = Nothing
         Me.Message = New IaipMessage(messageText, IaipMessage.WarningLevels.Warning)
     End Sub
 
     Private Sub EnableLogin()
-        Dim loginControls As Control() = {txtUserID, lblUserID, txtUserPassword, lblPassword, btnLoginButton}
-        EnableControls(loginControls)
+        EnableControls({txtUserID, lblUserID, txtUserPassword, lblPassword, btnLoginButton})
 
         Me.AcceptButton = btnLoginButton
         If Message IsNot Nothing Then Message.Clear()
@@ -339,21 +328,22 @@ Public Class IAIPLogIn
         CurrentServerEnvironment = DB.ServerEnvironment.DEV
 #ElseIf UAT Then
         CurrentServerEnvironment = DB.ServerEnvironment.UAT
-#Else
-        CurrentServerEnvironment = DB.ServerEnvironment.PRD
 #End If
 
         Select Case CurrentServerEnvironment
-            Case DB.Connections.ServerEnvironment.DEV
+            Case DB.ServerEnvironment.DEV
                 ' Switch to DEV environment
                 Me.BackColor = Color.PapayaWhip
                 Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerEnvironment.ToString
                 btnLoginButton.Text = "Log in to DEV"
-            Case DB.Connections.ServerEnvironment.UAT
+                mmiTestingMenu.Visible = True
+            Case DB.ServerEnvironment.UAT
                 ' Switch to DEV environment
                 Me.BackColor = Color.Snow
                 Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerEnvironment.ToString
                 btnLoginButton.Text = "Log in to UAT"
+                Me.LogoBox.Image = My.Resources.UatLogo
+                lblIAIP.Text = "IAIP User Acceptance Testing (UAT)"
         End Select
 
         ' Reset current connection based on current connection environment

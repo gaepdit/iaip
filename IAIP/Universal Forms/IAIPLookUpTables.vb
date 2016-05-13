@@ -7,17 +7,17 @@ Public Class IAIPLookUpTables
 
 
     Private Sub IAIPLookUpTables_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        
+
     End Sub
 
 #Region "ApplicationTypes"
     Sub LoadApplicationTypes()
         Try
-            SQL = "Select " & _
-            "to_number(strApplicationTypeCode) as strApplicationTypeCode, " & _
-            "strApplicationTypeDesc, " & _
-            "strApplicationTypeUsed " & _
-            "From AIRBRANCH.LookUpApplicationTypes " & _
+            SQL = "Select " &
+            "to_number(strApplicationTypeCode) as strApplicationTypeCode, " &
+            "strApplicationTypeDesc, " &
+            "strApplicationTypeUsed " &
+            "From AIRBRANCH.LookUpApplicationTypes " &
             "order by strApplicationTypeDesc "
 
             ds = New DataSet
@@ -114,10 +114,10 @@ Public Class IAIPLookUpTables
                     AppStatus = False
                 End If
 
-                SQL = "Insert into AIRBRANCH.LookUpApplicationTypes " & _
-                "values " & _
-                "((Select max(to_Number(strApplicationTypeCode)) + 1 as MaxID " & _
-                "from AIRBRANCH.LookUpApplicationTypes), " & _
+                SQL = "Insert into AIRBRANCH.LookUpApplicationTypes " &
+                "values " &
+                "((Select max(to_Number(strApplicationTypeCode)) + 1 as MaxID " &
+                "from AIRBRANCH.LookUpApplicationTypes), " &
                 "'" & txtApplicationDesc.Text & "', '" & AppStatus & "') "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -126,7 +126,7 @@ Public Class IAIPLookUpTables
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Select max(to_Number(strApplicationTypeCode)) + 1 as MaxID " & _
+                SQL = "Select max(to_Number(strApplicationTypeCode)) + 1 as MaxID " &
                 "from AIRBRANCH.LookUpApplicationTypes "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -160,9 +160,9 @@ Public Class IAIPLookUpTables
             End If
 
             If txtApplicationID.Text <> "" Then
-                SQL = "Update AIRBRANCH.LookUpApplicationTypes set " & _
-                "strApplicationTypeDesc = '" & Replace(txtApplicationDesc.Text, "'", "''") & "', " & _
-                "strApplicationTypeUsed = '" & temp & "' " & _
+                SQL = "Update AIRBRANCH.LookUpApplicationTypes set " &
+                "strApplicationTypeDesc = '" & Replace(txtApplicationDesc.Text, "'", "''") & "', " &
+                "strApplicationTypeUsed = '" & temp & "' " &
                 "where strApplicationTypeCode = '" & txtApplicationID.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -185,8 +185,8 @@ Public Class IAIPLookUpTables
     Private Sub btnDeleteAppType_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteAppType.Click
         Try
             If txtApplicationID.Text <> "" Then
-                SQL = "Select Count(*) as IDUsed " & _
-                "from AIRBRANCH.SSPPApplicationMaster " & _
+                SQL = "Select Count(*) as IDUsed " &
+                "from AIRBRANCH.SSPPApplicationMaster " &
                 "where strApplicationType = '" & txtApplicationID.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -209,7 +209,7 @@ Public Class IAIPLookUpTables
                 dr.Close()
 
                 If temp <> "Keep" Then
-                    SQL = "delete AIRBRANCH.LookUpApplicationTypes " & _
+                    SQL = "delete AIRBRANCH.LookUpApplicationTypes " &
                     "where strApplicationTypeCode = '" & txtApplicationID.Text & "' "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -353,48 +353,48 @@ Public Class IAIPLookUpTables
             '32 - PMI SSPP NOx
             '33 - PMI SSPP VOC
 
-            SQL = "Select " & _
-            "numId, strKey, " & _
-            "case " & _
-            "when strKey = '1' then 'EPD Director' " & _
-            "when strKey = '2' then 'EPD Commissioner' " & _
-            "when strKey = '3' then 'APB Branch Chief' " & _
-            "when strKey = '4' then 'PMII AMP' " & _
-            "when strKey = '5' then 'PMII ISMP' " & _
-            "when strKey = '6' then 'PMII MASP' " & _
-            "when strKey = '7' then 'PMII PASP' " & _
-            "when strKey = '8' then 'PMII SSCP' " & _
-            "when strKey = '9' then 'PMII SSPP' " & _
-            "when strKey = '10' then 'PMI AMP Data Analysis' " & _
-            "when strKey = '11' then 'PMI AMP Operations' " & _
-            "when strKey = '12' then 'PMI AMP Meterorology' " & _
-            "when strKey = '13' then 'PMI AMP QA' " & _
-            "when strKey = '14' then 'PMI AMP Operations 2' " & _
-            "when strKey = '15' then 'PMI ISMP Chemical & VOC' " & _
-            "when strKey = '16' then 'PMI ISMP Combustion & Mineral' " & _
-            "when strKey = '17' then 'PMI ISMP Data Management' " & _
-            "when strKey = '18' then 'PMI MASP Engines & Fuels' " & _
-            "when strKey = '19' then 'PMI MASP I/M' " & _
-            "when strKey = '20' then 'PMI MASP Enforucement' " & _
-            "when strKey = '21' then 'PMI MASP Public Affairs' " & _
-            "when strKey = '22' then 'PMI MASP PIRT' " & _
-            "when strKey = '23' then 'PMI PASP Admin & Financial' " & _
-            "when strKey = '24' then 'PMI PASP Data & Modeling' " & _
-            "when strKey = '25' then 'PMI PASP Planning & Reg.' " & _
-            "when strKey = '26' then 'PMI SSCP Air Toxics' " & _
-            "when strKey = '27' then 'PMI SSCP Chemcials/Minerals' " & _
-            "when strKey = '28' then 'PMI SSCP VOC/Combustion' " & _
-            "when strKey = '29' then 'PMI SSPP Chemcial' " & _
-            "when strKey = '30' then 'PMI SSPP Combustion' " & _
-            "when strKey = '31' then 'PMI SSPP Minerals' " & _
-            "when strKey = '32' then 'PMI SSPP NOx' " & _
-            "when strKey = '33' then 'PMI SSPP VOC' " & _
-            "else strKey " & _
-            "end MangerType, " & _
-            "strManagementName, datStartDate, " & _
-            "datEndDate, strCurrentContact " & _
-            "from AIRBRANCH.LookUpAPBManagementType " & _
-            "where strCurrentContact = '1' " & _
+            SQL = "Select " &
+            "numId, strKey, " &
+            "case " &
+            "when strKey = '1' then 'EPD Director' " &
+            "when strKey = '2' then 'EPD Commissioner' " &
+            "when strKey = '3' then 'APB Branch Chief' " &
+            "when strKey = '4' then 'PMII AMP' " &
+            "when strKey = '5' then 'PMII ISMP' " &
+            "when strKey = '6' then 'PMII MASP' " &
+            "when strKey = '7' then 'PMII PASP' " &
+            "when strKey = '8' then 'PMII SSCP' " &
+            "when strKey = '9' then 'PMII SSPP' " &
+            "when strKey = '10' then 'PMI AMP Data Analysis' " &
+            "when strKey = '11' then 'PMI AMP Operations' " &
+            "when strKey = '12' then 'PMI AMP Meterorology' " &
+            "when strKey = '13' then 'PMI AMP QA' " &
+            "when strKey = '14' then 'PMI AMP Operations 2' " &
+            "when strKey = '15' then 'PMI ISMP Chemical & VOC' " &
+            "when strKey = '16' then 'PMI ISMP Combustion & Mineral' " &
+            "when strKey = '17' then 'PMI ISMP Data Management' " &
+            "when strKey = '18' then 'PMI MASP Engines & Fuels' " &
+            "when strKey = '19' then 'PMI MASP I/M' " &
+            "when strKey = '20' then 'PMI MASP Enforucement' " &
+            "when strKey = '21' then 'PMI MASP Public Affairs' " &
+            "when strKey = '22' then 'PMI MASP PIRT' " &
+            "when strKey = '23' then 'PMI PASP Admin & Financial' " &
+            "when strKey = '24' then 'PMI PASP Data & Modeling' " &
+            "when strKey = '25' then 'PMI PASP Planning & Reg.' " &
+            "when strKey = '26' then 'PMI SSCP Air Toxics' " &
+            "when strKey = '27' then 'PMI SSCP Chemcials/Minerals' " &
+            "when strKey = '28' then 'PMI SSCP VOC/Combustion' " &
+            "when strKey = '29' then 'PMI SSPP Chemcial' " &
+            "when strKey = '30' then 'PMI SSPP Combustion' " &
+            "when strKey = '31' then 'PMI SSPP Minerals' " &
+            "when strKey = '32' then 'PMI SSPP NOx' " &
+            "when strKey = '33' then 'PMI SSPP VOC' " &
+            "else strKey " &
+            "end MangerType, " &
+            "strManagementName, datStartDate, " &
+            "datEndDate, strCurrentContact " &
+            "from AIRBRANCH.LookUpAPBManagementType " &
+            "where strCurrentContact = '1' " &
             "order by to_number(strKey) "
 
             ds = New DataSet
@@ -462,11 +462,11 @@ Public Class IAIPLookUpTables
             Dim Key As String = ""
 
             If txtAPBManagemetnID.Text <> "" Then
-                SQL = "Select " & _
-                "strKey, " & _
-                "strManagementName, datStartDate, " & _
-                "datEndDate, strCurrentContact " & _
-                "from AIRBRANCH.LookUpAPBManagementType " & _
+                SQL = "Select " &
+                "strKey, " &
+                "strManagementName, datStartDate, " &
+                "datEndDate, strCurrentContact " &
+                "from AIRBRANCH.LookUpAPBManagementType " &
                 "where numId = '" & txtAPBManagemetnID.Text & "' "
                 cmd = New OracleCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -663,9 +663,9 @@ Public Class IAIPLookUpTables
                     Exit Sub
             End Select
 
-            SQL = "Select numId " & _
-            "from AIRBRANCH.LookUpAPBManagementType " & _
-            "where strCurrentContact = '1' " & _
+            SQL = "Select numId " &
+            "from AIRBRANCH.LookUpAPBManagementType " &
+            "where strCurrentContact = '1' " &
             "and strKey = '" & ManagementType & "' "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -675,9 +675,9 @@ Public Class IAIPLookUpTables
             While dr.Read
                 If IsDBNull(dr.Item("numID")) Then
                 Else
-                    SQL = "Update AIRBRANCH.LookUpAPBManagementType set " & _
-                    "strCurrentContact = '0', " & _
-                    "datEndDate = '" & OracleDate & "' " & _
+                    SQL = "Update AIRBRANCH.LookUpAPBManagementType set " &
+                    "strCurrentContact = '0', " &
+                    "datEndDate = '" & OracleDate & "' " &
                     "where numId = '" & dr.Item("numID") & "' "
                     cmd2 = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -689,10 +689,10 @@ Public Class IAIPLookUpTables
             End While
             dr.Close()
 
-            SQL = "Insert into AIRBRANCH.LookUpAPBManagementType " & _
-            "values " & _
-            "((select max(numId) + 1 from AIRBRANCH.LookUpAPBManagementType), '" & ManagementType & "', " & _
-            "'" & Replace(ManagementName, "'", "''") & "', '" & OracleDate & "', " & _
+            SQL = "Insert into AIRBRANCH.LookUpAPBManagementType " &
+            "values " &
+            "((select max(numId) + 1 from AIRBRANCH.LookUpAPBManagementType), '" & ManagementType & "', " &
+            "'" & Replace(ManagementName, "'", "''") & "', '" & OracleDate & "', " &
             "'', '1') "
             cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -841,48 +841,48 @@ Public Class IAIPLookUpTables
                     Exit Sub
             End Select
 
-            SQL = "Select " & _
-            "numId, strKey, " & _
-            "case " & _
-            "when strKey = '1' then 'EPD Director' " & _
-            "when strKey = '2' then 'EPD Commissioner' " & _
-            "when strKey = '3' then 'APB Branch Chief' " & _
-            "when strKey = '4' then 'PMII AMP' " & _
-            "when strKey = '5' then 'PMII ISMP' " & _
-            "when strKey = '6' then 'PMII MASP' " & _
-            "when strKey = '7' then 'PMII PASP' " & _
-            "when strKey = '8' then 'PMII SSCP' " & _
-            "when strKey = '9' then 'PMII SSPP' " & _
-            "when strKey = '10' then 'PMI AMP Data Analysis' " & _
-            "when strKey = '11' then 'PMI AMP Operations' " & _
-            "when strKey = '12' then 'PMI AMP Meterorology' " & _
-            "when strKey = '13' then 'PMI AMP QA' " & _
-            "when strKey = '14' then 'PMI AMP Operations 2' " & _
-            "when strKey = '15' then 'PMI ISMP Chemical & VOC' " & _
-            "when strKey = '16' then 'PMI ISMP Combustion & Mineral' " & _
-            "when strKey = '17' then 'PMI ISMP Data Management' " & _
-            "when strKey = '18' then 'PMI MASP Engines & Fuels' " & _
-            "when strKey = '19' then 'PMI MASP I/M' " & _
-            "when strKey = '20' then 'PMI MASP Enforucement' " & _
-            "when strKey = '21' then 'PMI MASP Public Affairs' " & _
-            "when strKey = '22' then 'PMI MASP PIRT' " & _
-            "when strKey = '23' then 'PMI PASP Admin & Financial' " & _
-            "when strKey = '24' then 'PMI PASP Data & Modeling' " & _
-            "when strKey = '25' then 'PMI PASP Planning & Reg.' " & _
-            "when strKey = '26' then 'PMI SSCP Air Toxics' " & _
-            "when strKey = '27' then 'PMI SSCP Chemcials/Minerals' " & _
-            "when strKey = '28' then 'PMI SSCP VOC/Combustion' " & _
-            "when strKey = '29' then 'PMI SSPP Chemcial' " & _
-            "when strKey = '30' then 'PMI SSPP Combustion' " & _
-            "when strKey = '31' then 'PMI SSPP Minerals' " & _
-            "when strKey = '32' then 'PMI SSPP NOx' " & _
-            "when strKey = '33' then 'PMI SSPP VOC' " & _
-            "else strKey " & _
-            "end MangerType, " & _
-            "strManagementName, datStartDate, " & _
-            "datEndDate, strCurrentContact " & _
-            "from AIRBRANCH.LookUpAPBManagementType " & _
-            "where strKey = '" & ManagementType & "' " & _
+            SQL = "Select " &
+            "numId, strKey, " &
+            "case " &
+            "when strKey = '1' then 'EPD Director' " &
+            "when strKey = '2' then 'EPD Commissioner' " &
+            "when strKey = '3' then 'APB Branch Chief' " &
+            "when strKey = '4' then 'PMII AMP' " &
+            "when strKey = '5' then 'PMII ISMP' " &
+            "when strKey = '6' then 'PMII MASP' " &
+            "when strKey = '7' then 'PMII PASP' " &
+            "when strKey = '8' then 'PMII SSCP' " &
+            "when strKey = '9' then 'PMII SSPP' " &
+            "when strKey = '10' then 'PMI AMP Data Analysis' " &
+            "when strKey = '11' then 'PMI AMP Operations' " &
+            "when strKey = '12' then 'PMI AMP Meterorology' " &
+            "when strKey = '13' then 'PMI AMP QA' " &
+            "when strKey = '14' then 'PMI AMP Operations 2' " &
+            "when strKey = '15' then 'PMI ISMP Chemical & VOC' " &
+            "when strKey = '16' then 'PMI ISMP Combustion & Mineral' " &
+            "when strKey = '17' then 'PMI ISMP Data Management' " &
+            "when strKey = '18' then 'PMI MASP Engines & Fuels' " &
+            "when strKey = '19' then 'PMI MASP I/M' " &
+            "when strKey = '20' then 'PMI MASP Enforucement' " &
+            "when strKey = '21' then 'PMI MASP Public Affairs' " &
+            "when strKey = '22' then 'PMI MASP PIRT' " &
+            "when strKey = '23' then 'PMI PASP Admin & Financial' " &
+            "when strKey = '24' then 'PMI PASP Data & Modeling' " &
+            "when strKey = '25' then 'PMI PASP Planning & Reg.' " &
+            "when strKey = '26' then 'PMI SSCP Air Toxics' " &
+            "when strKey = '27' then 'PMI SSCP Chemcials/Minerals' " &
+            "when strKey = '28' then 'PMI SSCP VOC/Combustion' " &
+            "when strKey = '29' then 'PMI SSPP Chemcial' " &
+            "when strKey = '30' then 'PMI SSPP Combustion' " &
+            "when strKey = '31' then 'PMI SSPP Minerals' " &
+            "when strKey = '32' then 'PMI SSPP NOx' " &
+            "when strKey = '33' then 'PMI SSPP VOC' " &
+            "else strKey " &
+            "end MangerType, " &
+            "strManagementName, datStartDate, " &
+            "datEndDate, strCurrentContact " &
+            "from AIRBRANCH.LookUpAPBManagementType " &
+            "where strKey = '" & ManagementType & "' " &
             "order by numID "
 
             ds = New DataSet
