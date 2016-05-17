@@ -6,26 +6,21 @@ Namespace DAL
     Module IaipUserData
 
         Public Function AuthenticateIaipUser(ByVal username As String, ByVal password As String) As IaipAuthenticationResult
-            Throw New NotImplementedException()
+            If username = "" Then Return IaipAuthenticationResult.InvalidUsername
+            If password = "" Then Return IaipAuthenticationResult.InvalidLogin
 
-            ' TODO: SQL Server migration
+            Dim spName As String = "iaip_user.AuthenticateIaipUser"
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("username", username),
+                New SqlParameter("userpassword", password)
+            }
+            Dim result As String = DB.SPGetSingleValue(Of String)(spName, parameters)
 
-            'If username = "" Then Return IaipAuthenticationResult.InvalidUsername
-            'If password = "" Then Return IaipAuthenticationResult.InvalidLogin
-
-            'Dim spName As String = "AIRBRANCH.IAIP_USER.AuthenticateIaipUser"
-            'Dim parameters As SqlParameter() = {
-            '    New SqlParameter("ReturnValue", SqlDbType.VarChar, 20, Nothing, ParameterDirection.ReturnValue),
-            '    New SqlParameter("username", username),
-            '    New SqlParameter("userpassword", password)
-            '}
-            'Dim result As Boolean = DB.SPRunCommand(spName, parameters)
-
-            'If result AndAlso Not parameters(0).Value.IsNull Then
-            '    Return [Enum].Parse(GetType(IaipAuthenticationResult), parameters(0).Value.ToString)
-            'Else
-            '    Return IaipAuthenticationResult.InvalidLogin
-            'End If
+            If result IsNot Nothing Then
+                Return [Enum].Parse(GetType(IaipAuthenticationResult), result)
+            Else
+                Return IaipAuthenticationResult.InvalidLogin
+            End If
         End Function
 
         Public Enum IaipAuthenticationResult
