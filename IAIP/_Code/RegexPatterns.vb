@@ -32,8 +32,8 @@
     '   user.name@gaepd.org
     '   user.name@georgiaepd.com
     '   user.name@georgiaepd.org
-    ' Test regex here: http://regexr.com/3chkr
-    Public Const DnrEmailPattern As String = "^\w+\.\w+@(dnr\.(ga\.gov|state\.ga\.us)|gadnr\.org|(ga|georgia)epd\.(com|org))$"
+    ' Test regex here: http://regexr.com/3dea9
+    Public Const DnrEmailPattern As String = "^[\w-\.]+@(dnr\.(ga\.gov|state\.ga\.us)|gadnr\.org|(ga|georgia)epd\.(com|org))$"
 
     ' Currently unused
     ' See https://stackoverflow.com/questions/123559/a-comprehensive-regex-for-phone-number-validation#comment2795100_123666
