@@ -1785,11 +1785,7 @@ Public Class SSCPFCEWork
                 Else
                     FCEComments = Replace(txtFCEComments.Text, "'", "''")
                 End If
-                If cboReviewer.SelectedValue = "" Then
-                    StaffResponsible = CurrentUser.UserID
-                Else
-                    StaffResponsible = cboReviewer.SelectedValue
-                End If
+                StaffResponsible = cboReviewer.SelectedValue
                 If rdbFCEOnSite.Checked = True Then
                     FCEOnSite = "True"
                 Else

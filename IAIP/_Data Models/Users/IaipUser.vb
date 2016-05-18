@@ -34,6 +34,7 @@
         Title = another.Title
 
         UserID = another.UserID
+        Username = another.Username
         ActiveEmployee = another.ActiveEmployee
         BranchID = another.BranchID
         BranchName = another.BranchName
