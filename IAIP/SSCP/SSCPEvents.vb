@@ -1716,8 +1716,7 @@ Public Class SSCPEvents
                     Else
                         dr.Close()
 
-                        If Me.TPACC.Focus = True Or Me.TPInspection.Focus = True Or
-                              (Me.TPNotifications.Focus = True And Me.rdbNotificationFollowUpYes.Checked = True) Then
+                        If Me.TPACC.Focus = True Or Me.TPInspection.Focus = True Then
 
                             SQL = "Select strAFSActionNumber " &
                             "from AIRBRANCH.APBSupplamentalData " &
