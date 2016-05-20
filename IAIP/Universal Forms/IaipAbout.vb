@@ -4,7 +4,10 @@
         
         lblVersion.Text = "Version " & GetCurrentVersion().ToString
 
-#If UAT Then
+#If SqlServer Then
+        lblVersion.Text = lblVersion.Text & " UAT - SQL Server edition"
+        Me.LogoBox.Image = My.Resources.Resources.SSTestLogo
+#ElseIf UAT Then
         lblVersion.Text = lblVersion.Text & " UAT"
         Me.LogoBox.Image = My.Resources.Resources.UatLogo
 #End If

@@ -29,7 +29,7 @@ Partial Class BaseForm
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(284, 262)
-        Me.Icon = Global.Iaip.My.Resources.Resources.Icon
+        Me.Icon = Global.Iaip.My.Resources.Resources.PrdIcon
         Me.MinimumSize = New System.Drawing.Size(200, 200)
         Me.Name = "BaseForm"
         Me.Text = "BaseForm"

@@ -68,7 +68,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\x86\UAT\</OutputPath>
-    <DefineConstants>UAT = -1</DefineConstants>
+    <DefineConstants>SqlServer = -1,UAT = -1</DefineConstants>
     <BaseAddress>285212672</BaseAddress>
     <Optimize>true</Optimize>
     <WarningLevel>1</WarningLevel>
@@ -92,7 +92,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisRuleSet>..\Code Analysis\IAIP.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
-    <DefineConstants>UAT = 0</DefineConstants>
+    <DefineConstants>SqlServer = -1,UAT = 0</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <DefineTrace>true</DefineTrace>
@@ -106,7 +106,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <CodeAnalysisRuleSet>..\Code Analysis\IAIP.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
-    <DefineConstants>UAT = 0</DefineConstants>
+    <DefineConstants>SqlServer = -1,UAT = 0</DefineConstants>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
@@ -1463,6 +1463,8 @@
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\GA-outline.ico" />
+    <None Include="Resources\GA-outline-256.png" />
     <None Include="Resources\PrintPreviewIcon.png" />
     <None Include="Resources\GeorgiaStaticMap.png" />
     <None Include="Resources\Seal_of_Georgia_unfinished_256x256x32.png" />

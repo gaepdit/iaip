@@ -316,6 +316,10 @@
                 Me.LogoBox.Image = My.Resources.UatLogo
                 lblIAIP.Text = "IAIP User Acceptance Testing (UAT)"
         End Select
+
+#If SqlServer Then
+        Me.LogoBox.Image = My.Resources.SSTestLogo
+#End If
     End Sub
 
 #End Region

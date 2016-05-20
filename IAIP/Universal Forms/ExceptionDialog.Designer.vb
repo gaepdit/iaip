@@ -164,7 +164,7 @@ Partial Class ExceptionDialog
         Me.Controls.Add(Me.MoreHeading)
         Me.Controls.Add(Me.ActionHeading)
         Me.Controls.Add(Me.ErrorHeading)
-        Me.Icon = Global.Iaip.My.Resources.Resources.Icon
+        Me.Icon = Global.Iaip.My.Resources.Resources.PrdIcon
         Me.MinimizeBox = False
         Me.MinimumSize = New System.Drawing.Size(450, 0)
         Me.Name = "ExceptionDialog"

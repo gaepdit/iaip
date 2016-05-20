@@ -31,7 +31,9 @@ Public Class IAIPNavigation
         ' Start various Timers
         AppTimers.StartAppTimers()
 
-#If UAT Then
+#If SqlServer Then
+        Me.Text = "IAIP SQL Server Edition"
+#ElseIf UAT Then
         Me.Text = "IAIP UAT"
 #End If
     End Sub
@@ -89,7 +91,7 @@ Public Class IAIPNavigation
     Private Sub EnableConnectionEnvironmentOptions()
         Select Case CurrentServerEnvironment
             Case ServerEnvironment.DEV
-                pnlDbEnv.Text = "DEV ENVIRONMENT"
+                pnlDbEnv.Text = "DEV database"
                 pnlDbEnv.BackColor = Color.Tomato
                 pnlDbEnv.Visible = True
                 lblTitle.Text = "IAIP Navigation Screen — DEV"
@@ -99,7 +101,7 @@ Public Class IAIPNavigation
                 pnlDbEnv.Visible = False
                 TestingMenu.Visible = False
             Case ServerEnvironment.UAT
-                pnlDbEnv.Text = "UAT ENVIRONMENT"
+                pnlDbEnv.Text = "UAT database"
                 pnlDbEnv.BackColor = Color.SpringGreen
                 pnlDbEnv.Visible = True
                 lblTitle.Text = "IAIP Navigation Screen — UAT"
