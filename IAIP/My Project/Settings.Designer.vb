@@ -100,6 +100,28 @@ Namespace My
                 Return CType(Me("DEV"),String)
             End Get
         End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=167.192.209.70;Initial Catalog=airbranch;Persist Security Info=True;U"& _ 
+            "ser ID=DWaldron;Password=d1o2u3G")>  _
+        Public ReadOnly Property UAT() As String
+            Get
+                Return CType(Me("UAT"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=167.192.209.70;Initial Catalog=airbranch;Persist Security Info=True;U"& _ 
+            "ser ID=;Password=")>  _
+        Public ReadOnly Property PRD() As String
+            Get
+                Return CType(Me("PRD"),String)
+            End Get
+        End Property
     End Class
 End Namespace
 
