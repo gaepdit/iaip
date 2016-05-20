@@ -5,7 +5,7 @@
 
     Public Property UserID As Integer
     Public Property Username As String
-    Public Property ActiveEmployee As Boolean
+    Public Property ActiveEmployee As ActiveOrInactive
     Public Property BranchID As Integer
     Public Property BranchName As String
     Public Property ProgramID As Integer

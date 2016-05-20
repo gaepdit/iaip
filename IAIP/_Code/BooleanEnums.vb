@@ -10,4 +10,9 @@
         Open = True
     End Enum
 
+    Public Enum ActiveOrInactive
+        Inactive = False
+        Active = True
+    End Enum
+
 End Module
