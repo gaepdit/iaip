@@ -7,10 +7,10 @@
     <ProjectGuid>{B92680E9-391D-4109-993E-53E5B6946E93}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ApplicationIcon>Resources\Seal_of_Georgia_gold.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\GA-outline.ico</ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>IAIP</AssemblyName>
+    <AssemblyName>IAIP-SS</AssemblyName>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
     <AssemblyOriginatorKeyMode>None</AssemblyOriginatorKeyMode>
@@ -40,25 +40,24 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <TargetFrameworkProfile />
-    <PublishUrl>ftp://167.195.92.4/dmu.georgiaair.org/iaip/install/</PublishUrl>
+    <PublishUrl>ftp://167.195.92.4/dmu.georgiaair.org/iaip/test/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
-    <UpdateMode>Background</UpdateMode>
+    <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>1</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>true</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://dmu.georgiaair.org/iaip/install/</InstallUrl>
-    <SupportUrl>http://dmu.georgiaair.org/iaip/</SupportUrl>
-    <ProductName>Integrated Air Information Platform</ProductName>
+    <InstallUrl>http://dmu.georgiaair.org/iaip/test/</InstallUrl>
+    <ProductName>IAIP SS Edition</ProductName>
     <PublisherName>State of Georgia</PublisherName>
-    <MinimumRequiredVersion>4.3.0.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>0.1.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>installer.html</WebPage>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>4.3.0.0</ApplicationVersion>
+    <ApplicationVersion>0.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -77,7 +76,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <CodeAnalysisRuleSet>..\Code Analysis\IAIP.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>IAIP.xml</DocumentationFile>
+    <DocumentationFile>IAIP-SS.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -85,7 +84,7 @@
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\x86\Debug\</OutputPath>
     <BaseAddress>285212672</BaseAddress>
-    <DocumentationFile>IAIP.xml</DocumentationFile>
+    <DocumentationFile>IAIP-SS.xml</DocumentationFile>
     <WarningLevel>1</WarningLevel>
     <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
     <DebugType>full</DebugType>
@@ -98,7 +97,7 @@
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\x86\Release\</OutputPath>
     <BaseAddress>285212672</BaseAddress>
-    <DocumentationFile>IAIP.xml</DocumentationFile>
+    <DocumentationFile>IAIP-SS.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <WarningLevel>1</WarningLevel>
     <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
