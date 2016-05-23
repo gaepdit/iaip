@@ -31,10 +31,7 @@ Friend Class ApplicationInsights
             .User.Id = Environment.UserName
         End With
 
-#If DEBUG Then
-        TelemetryConfiguration.Active.TelemetryChannel.DeveloperMode = True
-        AddTelemetryClientProperty(TelemetryContextProperty.DebugMode, True.ToString)
-#ElseIf UAT Then
+#If DEBUG Or UAT Then
         TelemetryConfiguration.Active.TelemetryChannel.DeveloperMode = True
         AddTelemetryClientProperty(TelemetryContextProperty.DebugMode, True.ToString)
 #Else

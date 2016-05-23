@@ -10,7 +10,7 @@ Module EqatecAnalytics
     Public Sub InitializeMonitor()
         Dim monitorSettings As IAnalyticsMonitorSettings = AnalyticsMonitorFactory.CreateSettings(EqatecAnalyticsApiKey)
 
-#If DEBUG Or BETA Then
+#If DEBUG Or UAT Then
         monitorSettings.TestMode = True
 #End If
 
