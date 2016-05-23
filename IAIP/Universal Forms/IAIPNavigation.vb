@@ -107,6 +107,10 @@ Public Class IAIPNavigation
                 lblTitle.Text = "IAIP Navigation Screen — UAT"
                 TestingMenu.Visible = False
         End Select
+
+#If SqlServer Then
+        lblTitle.Text = "IAIP for SQL Server"
+#End If
     End Sub
 
 #End Region

@@ -319,6 +319,7 @@
 
 #If SqlServer Then
         Me.LogoBox.Image = My.Resources.SSTestLogo
+        lblIAIP.Text = "IAIP for SQL Server"
 #End If
     End Sub
 
