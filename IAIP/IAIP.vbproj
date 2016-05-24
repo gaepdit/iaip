@@ -10,7 +10,7 @@
     <ApplicationIcon>Resources\GA-outline.ico</ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>IAIP-SS</AssemblyName>
+    <AssemblyName>IAIP_SQL_Server</AssemblyName>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
     <AssemblyOriginatorKeyMode>None</AssemblyOriginatorKeyMode>
@@ -51,12 +51,12 @@
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://dmu.georgiaair.org/iaip/test/</InstallUrl>
-    <ProductName>IAIP SS Edition</ProductName>
+    <ProductName>IAIP SQL Server Edition</ProductName>
     <PublisherName>State of Georgia</PublisherName>
     <MinimumRequiredVersion>0.1.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>installer.html</WebPage>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>0.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -76,7 +76,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <CodeAnalysisRuleSet>..\Code Analysis\IAIP.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>IAIP-SS.xml</DocumentationFile>
+    <DocumentationFile>IAIP_SQL_Server.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -84,7 +84,7 @@
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\x86\Debug\</OutputPath>
     <BaseAddress>285212672</BaseAddress>
-    <DocumentationFile>IAIP-SS.xml</DocumentationFile>
+    <DocumentationFile>IAIP_SQL_Server.xml</DocumentationFile>
     <WarningLevel>1</WarningLevel>
     <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
     <DebugType>full</DebugType>
@@ -97,7 +97,7 @@
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\x86\Release\</OutputPath>
     <BaseAddress>285212672</BaseAddress>
-    <DocumentationFile>IAIP-SS.xml</DocumentationFile>
+    <DocumentationFile>IAIP_SQL_Server.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <WarningLevel>1</WarningLevel>
     <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
