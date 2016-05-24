@@ -53,7 +53,7 @@
         ''' </summary>
         Public ReadOnly Property DbFormattedString() As String
             Get
-                Return GaEpaRegionCode & GaStateNumericCode & Me.ShortString
+                Return GA_EPA_REGION_CODE & GA_STATE_NUMERIC_CODE & Me.ShortString
             End Get
         End Property
 
@@ -71,7 +71,7 @@
         ''' </summary>
         Public ReadOnly Property EpaFacilityIdentifier() As String
             Get
-                Return GaStateCode & "000000" & GaStateNumericCode & ShortString
+                Return GA_STATE_CODE & "000000" & GA_STATE_NUMERIC_CODE & ShortString
             End Get
         End Property
 

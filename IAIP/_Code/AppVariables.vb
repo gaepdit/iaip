@@ -29,16 +29,16 @@ Module AppVariables
     Friend Const APP_NAME As String = "IAIP"
     Friend Const APP_FRIENDLY_NAME As String = "Integrated Air Information Platform"
     Friend Const APP_ROOT_NAMESPACE As String = "Iaip"
-    Friend Const MinUsernameLength As Integer = 3
-    Friend Const MinPasswordLength As Integer = 3
+    Friend Const MIN_USERNAME_LENGTH As Integer = 3
+    Friend Const MIN_PASSWORD_LENGTH As Integer = 3
 
 #End Region
 
 #Region " API Keys "
 
-    Friend Const EqatecAnalyticsApiKey As String = "F635C42ABA7B4DE886EEFCEE31C98000"
-    Friend Const GoogleMapsApiKey As String = "AIzaSyAOMeyIrtZeEJb1Pci5jgtn_Uh3wr0NP14"
-    Friend Const ApplicationInsightsKey As String = "fc9b3ee9-eae9-4af4-a62d-ca041194890d"
+    Friend Const EQATEC_ANALYTICS_API_KEY As String = "F635C42ABA7B4DE886EEFCEE31C98000"
+    Friend Const GOOGLE_MAPS_API_KEY As String = "AIzaSyAOMeyIrtZeEJb1Pci5jgtn_Uh3wr0NP14"
+    Friend Const MS_APP_INSIGHTS_KEY As String = "fc9b3ee9-eae9-4af4-a62d-ca041194890d"
 
 #End Region
 
@@ -56,9 +56,18 @@ Module AppVariables
 
 #Region " Regional constants "
 
-    Friend Const GaStateCode As String = "GA"
-    Friend Const GaStateNumericCode As String = "13"
-    Friend Const GaEpaRegionCode As String = "04"
+    Friend Const GA_STATE_CODE As String = "GA"
+    Friend Const GA_STATE_NUMERIC_CODE As String = "13"
+    Friend Const GA_EPA_REGION_CODE As String = "04"
+
+#End Region
+
+#Region " Business logic constants "
+
+    Public Const FCE_DATA_PERIOD As Integer = 1
+    Public Const FCE_ENFORCEMENT_DATA_PERIOD As Integer = 5
+    Public Const MIN_FCE_SPAN_CLASS_A As Integer = 2
+    Public Const MIN_FCE_SPAN_CLASS_SM As Integer = 5
 
 #End Region
 

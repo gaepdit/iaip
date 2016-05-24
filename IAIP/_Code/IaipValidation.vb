@@ -28,14 +28,14 @@ Module IaipValidation
         InvalidCharacters
     End Enum
 
-    Public Function IsValidUsername(username As String, Optional minLength As Integer = MinUsernameLength) As StringValidationResult
+    Public Function IsValidUsername(username As String, Optional minLength As Integer = MIN_USERNAME_LENGTH) As StringValidationResult
         If String.IsNullOrEmpty(username) Then Return StringValidationResult.Empty
         If Not Regex.IsMatch(username, AlphaNumericPattern) Then Return StringValidationResult.InvalidCharacters
         If username.Length < minLength Then Return StringValidationResult.TooShort
         Return StringValidationResult.Valid
     End Function
 
-    Public Function IsValidPassword(password As String, Optional minLength As Integer = MinPasswordLength) As StringValidationResult
+    Public Function IsValidPassword(password As String, Optional minLength As Integer = MIN_PASSWORD_LENGTH) As StringValidationResult
         If String.IsNullOrEmpty(password) Then Return StringValidationResult.Empty
         If password.Length < minLength Then Return StringValidationResult.TooShort
         Return StringValidationResult.Valid

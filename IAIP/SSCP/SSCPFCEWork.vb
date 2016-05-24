@@ -2028,8 +2028,8 @@ Public Class SSCPFCEWork
 
         Dim airs As New Apb.ApbFacilityId(txtAirsNumber.Text)
         Dim endDate As Date = DTPFCECompleteDate.Value
-        Dim startDate As Date = endDate.AddYears(-1)
-        Dim enforcementStartDate As Date = endDate.AddYears(-5)
+        Dim startDate As Date = endDate.AddYears(-FCE_DATA_PERIOD)
+        Dim enforcementStartDate As Date = endDate.AddYears(-FCE_ENFORCEMENT_DATA_PERIOD)
 
         Dim rpt As New CR.Reports.SscpFceReport
 

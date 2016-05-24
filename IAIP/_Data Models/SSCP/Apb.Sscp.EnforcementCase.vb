@@ -190,7 +190,7 @@ Namespace Apb.Sscp
             If afs = 0 Then
                 Return "N/A"
             End If
-            Return GaStateCode & "000A0000" & GaStateNumericCode & AirsNumber.ShortString & afs.ToString("00000")
+            Return GA_STATE_CODE & "000A0000" & GA_STATE_NUMERIC_CODE & AirsNumber.ShortString & afs.ToString("00000")
         End Function
 
 #End Region

@@ -14,7 +14,7 @@ Friend Class ApplicationInsights
     Public Shared Sub InitializeTelemetryClient()
         iaipTelemetryClient = New TelemetryClient
 
-        iaipTelemetryClient.InstrumentationKey = ApplicationInsightsKey
+        iaipTelemetryClient.InstrumentationKey = MS_APP_INSIGHTS_KEY
 
 
         With iaipTelemetryClient.Context
