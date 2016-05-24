@@ -1,4 +1,5 @@
 ﻿Imports System.Collections.Generic
+Imports System.ComponentModel
 Imports Iaip.DAL.NavigationScreenData
 Imports Iaip.SharedData
 
@@ -7,23 +8,25 @@ Public Class IAIPNavigation
 #Region " Local variables and properties "
 
     Private Property WorkViewerTable As DataTable
-    Private Property CurrentWorkViewerContext As WorkViewerType = WorkViewerType.None
-    Private Property CurrentWorkViewerContextParameter As String = ""
+    Private Property CurrentNavWorkListContext As NavWorkListContext
+    Private Property CurrentNavWorkListScope As NavWorkListScope
+    Private Property CurrentNavWorkListParameter As String = ""
     Private Property ExitWhenClosed As Boolean = True
+    Private Property NavWorkListContextDictionary As Dictionary(Of NavWorkListContext, String)
 
 #End Region
 
 #Region " Form events "
 
-    Private Sub IAIPNavigation_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Private Sub IAIPNavigation_Load(sender As Object, e As EventArgs) Handles Me.Load
         monitor.TrackFeature("Main." & Me.Name)
         monitor.TrackFeature("Forms." & Me.Name)
 
         ' UI adjustments
         AssociateQuickNavButtons()
-        SetContextSelectorSubView()
-        BuildListChangerCombo()
-        EnableSbeapTools()
+        SetUpNavWorkListContextChanger()
+        SetUpNavWorkListScopeChanger()
+        CheckSbeapPermissions()
         LoadStatusBar()
         EnableConnectionEnvironmentOptions()
         DisplayUsername()
@@ -42,14 +45,17 @@ Public Class IAIPNavigation
         UsernameDisplay.Text = "Logged in as " & CurrentUser.Username
     End Sub
 
-    Private Sub IAIPNavigation_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
+    Private Sub IAIPNavigation_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         monitor.TrackFeatureStop("Startup.LoggingIn")
 
         ' Start the bgrUserPermissions background worker
         BuildAccountPermissions()
+
+        ' Start loading the Nav Work List background worker
+        LoadWorkViewerData()
     End Sub
 
-    Private Sub IAIPNavigation_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub IAIPNavigation_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         If ExitWhenClosed Then StartupShutdown.CloseIaip()
     End Sub
 
@@ -57,35 +63,28 @@ Public Class IAIPNavigation
 
 #Region " Page Load procedures "
 
-    Private Sub EnableSbeapTools()
+    Private Sub CheckSbeapPermissions()
         If CurrentUser.HasRole({142, 143, 118}) Then
-            cboWorkViewerContext.Items.Add("SBEAP Cases")
             ShowControls({SbeapQuickAccessPanel})
         End If
     End Sub
 
     Private Sub LoadStatusBar()
         pnlName.Text = CurrentUser.AlphaName
-        pnlDate.Text = OracleDate
+        pnlDate.Text = Format(Today, DateFormat)
         pnlProgram.Text = CurrentUser.ProgramName
     End Sub
 
-    Private Sub BuildListChangerCombo()
-        cboWorkViewerContext.Items.Clear()
-
-        cboWorkViewerContext.Items.Add("Default List")
-
-        cboWorkViewerContext.Items.Add("Compliance Facilities Assigned")
-        cboWorkViewerContext.Items.Add("Compliance Work")
-        cboWorkViewerContext.Items.Add("Delinquent Full Compliance Evaluations")
-        cboWorkViewerContext.Items.Add("Enforcement")
-        cboWorkViewerContext.Items.Add("Facilities with Subparts")
-        cboWorkViewerContext.Items.Add("Facilities missing Subparts")
-        cboWorkViewerContext.Items.Add("Monitoring Test Reports")
-        cboWorkViewerContext.Items.Add("Monitoring Test Notifications")
-        cboWorkViewerContext.Items.Add("Permit Applications")
-
-        cboWorkViewerContext.SelectedIndex = 0
+    Private Sub SetUpNavWorkListContextChanger()
+        NavWorkListContextDictionary = New Dictionary(Of NavWorkListContext, String)
+        For Each v As NavWorkListContext In [Enum].GetValues(GetType(NavWorkListContext))
+            NavWorkListContextDictionary.Add(v, v.GetDescription)
+        Next
+        If Not CurrentUser.HasRole({142, 143, 118}) Then
+            NavWorkListContextDictionary.Remove(NavWorkListContext.SbeapCases)
+        End If
+        cboNavWorkListContext.BindToDictionary(NavWorkListContextDictionary)
+        cboNavWorkListContext.SelectedValue = [Enum].Parse(GetType(NavWorkListContext), GetUserSetting(UserSetting.SelectedNavWorkListContext))
     End Sub
 
     Private Sub EnableConnectionEnvironmentOptions()
@@ -128,7 +127,7 @@ Public Class IAIPNavigation
         txtOpenTestReport.Tag = btnOpenTestReport
     End Sub
 
-    Private Sub QuickAccessButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Private Sub QuickAccessButton_Click(sender As Object, e As EventArgs) _
     Handles btnOpenFacilitySummary.Click, btnOpenTestReport.Click, btnOpenTestLog.Click, btnOpenSscpItem.Click, btnOpenSbeapClient.Click, btnOpenSbeapCaseLog.Click, btnOpenEnforcement.Click, btnOpenApplication.Click
         Dim thisButton As Button = CType(sender, Button)
         monitor.TrackFeature("QuickAccess." & thisButton.Name)
@@ -154,8 +153,8 @@ Public Class IAIPNavigation
         End Select
     End Sub
 
-    Private Sub QuickAccessTextbox_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
-    Handles txtOpenApplication.Enter, txtOpenEnforcement.Enter, txtOpenFacilitySummary.Enter, txtOpenSbeapCaseLog.Enter, _
+    Private Sub QuickAccessTextbox_Enter(sender As Object, e As EventArgs) _
+    Handles txtOpenApplication.Enter, txtOpenEnforcement.Enter, txtOpenFacilitySummary.Enter, txtOpenSbeapCaseLog.Enter,
     txtOpenSbeapClient.Enter, txtOpenSscpItem.Enter, txtOpenTestLog.Enter, txtOpenTestReport.Enter
         Dim thisButton As Button = CType(CType(sender, TextBox).Tag, Button)
         Me.AcceptButton = thisButton
@@ -163,8 +162,8 @@ Public Class IAIPNavigation
         thisButton.ForeColor = SystemColors.ControlText
     End Sub
 
-    Private Sub QuickAccessTextbox_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) _
-    Handles txtOpenApplication.Leave, txtOpenEnforcement.Leave, txtOpenFacilitySummary.Leave, txtOpenSbeapCaseLog.Leave, _
+    Private Sub QuickAccessTextbox_Leave(sender As Object, e As EventArgs) _
+    Handles txtOpenApplication.Leave, txtOpenEnforcement.Leave, txtOpenFacilitySummary.Leave, txtOpenSbeapCaseLog.Leave,
     txtOpenSbeapClient.Leave, txtOpenSscpItem.Leave, txtOpenTestLog.Leave, txtOpenTestReport.Leave
         Dim thisButton As Button = CType(CType(sender, TextBox).Tag, Button)
         Me.AcceptButton = Nothing
@@ -174,8 +173,8 @@ Public Class IAIPNavigation
         End If
     End Sub
 
-    Private Sub QuickAccessTextbox_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) _
-    Handles txtOpenApplication.TextChanged, txtOpenEnforcement.TextChanged, txtOpenFacilitySummary.TextChanged, txtOpenSbeapCaseLog.TextChanged, _
+    Private Sub QuickAccessTextbox_TextChanged(sender As Object, e As EventArgs) _
+    Handles txtOpenApplication.TextChanged, txtOpenEnforcement.TextChanged, txtOpenFacilitySummary.TextChanged, txtOpenSbeapCaseLog.TextChanged,
     txtOpenSbeapClient.TextChanged, txtOpenSscpItem.TextChanged, txtOpenTestLog.TextChanged, txtOpenTestReport.TextChanged
         Dim thisTextbox As TextBox = CType(sender, TextBox)
         Dim thisButton As Button = CType(thisTextbox.Tag, Button)
@@ -192,8 +191,8 @@ Public Class IAIPNavigation
         End If
     End Sub
 
-    Private Sub QuickAccessButton_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
-    Handles btnOpenApplication.Enter, btnOpenEnforcement.Enter, btnOpenFacilitySummary.Enter, btnOpenSbeapCaseLog.Enter, _
+    Private Sub QuickAccessButton_Enter(sender As Object, e As EventArgs) _
+    Handles btnOpenApplication.Enter, btnOpenEnforcement.Enter, btnOpenFacilitySummary.Enter, btnOpenSbeapCaseLog.Enter,
     btnOpenSbeapClient.Enter, btnOpenSscpItem.Enter, btnOpenTestLog.Enter, btnOpenTestReport.Enter
         Dim thisButton As Button = CType(sender, Button)
         If thisButton.Tag Then
@@ -202,8 +201,8 @@ Public Class IAIPNavigation
         End If
     End Sub
 
-    Private Sub QuickAccessButton_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) _
-    Handles btnOpenApplication.Leave, btnOpenEnforcement.Leave, btnOpenFacilitySummary.Leave, btnOpenSbeapCaseLog.Leave, _
+    Private Sub QuickAccessButton_Leave(sender As Object, e As EventArgs) _
+    Handles btnOpenApplication.Leave, btnOpenEnforcement.Leave, btnOpenFacilitySummary.Leave, btnOpenSbeapCaseLog.Leave,
     btnOpenSbeapClient.Leave, btnOpenSscpItem.Leave, btnOpenTestLog.Leave, btnOpenTestReport.Leave
         Dim thisButton As Button = CType(sender, Button)
         If Not Me.AcceptButton Is thisButton And Not thisButton.Tag Then
@@ -245,7 +244,7 @@ Public Class IAIPNavigation
                 MsgBox("Reference number is not in the system.", MsgBoxStyle.Information, Me.Text)
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -278,7 +277,7 @@ Public Class IAIPNavigation
                 MsgBox("Notification number is not in the system.", MsgBoxStyle.Information, Me.Text)
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -300,7 +299,7 @@ Public Class IAIPNavigation
                 MsgBox("Customer ID is not in the system.", MsgBoxStyle.Information, Me.Text)
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -323,7 +322,7 @@ Public Class IAIPNavigation
                 MsgBox("Case number is not in the system.", MsgBoxStyle.Information, Me.Text)
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -340,488 +339,106 @@ Public Class IAIPNavigation
 
 #End Region
 
-#Region " WorkViewer context selector "
+#Region " Nav Work List context "
+
+    ''' <summary>
+    ''' Enumeration of the various work list types (contexts) available on the main Navigation Screen
+    ''' </summary>
+    ''' <remarks>"None" may not be useful but is included just in case</remarks>
+    Public Enum NavWorkListContext
+        <Description("Compliance Work")> ComplianceWork
+        <Description("Late FCEs")> LateFce
+        <Description("Enforcement")> Enforcement
+        <Description("Facilities Missing Subparts")> FacilitiesMissingSubparts
+        <Description("Monitoring Test Reports")> MonitoringTestReports
+        <Description("Monitoring Test Notifications")> MonitoringTestNotifications
+        <Description("Permit Applications")> PermitApplications
+        <Description("SBEAP Cases")> SbeapCases
+    End Enum
+
+    Public Enum NavWorkListScope
+        StaffView
+        UnitView
+        ProgramView
+    End Enum
 
     Private Sub SetWorkViewerContext()
-        Try
+        ' Get current Nav Work List parameters
+        CurrentNavWorkListContext = cboNavWorkListContext.SelectedValue
 
-            CurrentWorkViewerContext = WorkViewerType.None
-            CurrentWorkViewerContextParameter = Nothing
-
-            Select Case cboWorkViewerContext.Text
-                Case "Default List"
-                    Select Case CurrentUser.BranchID
-                        Case 1 'Air Protection Branch
-                            Select Case CurrentUser.ProgramID
-
-                                Case 3 'ISMP
-                                    If CurrentUser.UnitId = 0 Then 'Program Manager
-                                        CurrentWorkViewerContext = WorkViewerType.ISMP_PM
-                                    ElseIf AccountFormAccess(17, 2) = "1" Then  'Unit Manager
-                                        CurrentWorkViewerContext = WorkViewerType.ISMP_UC
-                                        CurrentWorkViewerContextParameter = CurrentUser.UnitId
-                                    Else
-                                        CurrentWorkViewerContext = WorkViewerType.ISMP_Staff
-                                        ' TODO DWW: When a better User object is set up, change this (pnlName.Text)
-                                        ' to something more appropriate
-                                        CurrentWorkViewerContextParameter = pnlName.Text
-                                    End If
-
-                                Case 4 'SSCP
-                                    If CurrentUser.UnitId = 0 Then 'Program Manager
-                                        CurrentWorkViewerContext = WorkViewerType.SSCP_PM
-                                    ElseIf CurrentUser.HasRole(143) Then ' SBEAP Manager
-                                        CurrentWorkViewerContext = WorkViewerType.SBEAP_Program
-                                    ElseIf CurrentUser.HasRole(142) Then ' SBEAP staff
-                                        CurrentWorkViewerContext = WorkViewerType.SBEAP_Staff
-                                        CurrentWorkViewerContextParameter = CurrentUser.UserID
-                                    ElseIf AccountFormAccess(22, 3) = "1" Then 'Unit Manager
-                                        CurrentWorkViewerContext = WorkViewerType.SSCP_UC
-                                        CurrentWorkViewerContextParameter = CurrentUser.UnitId
-                                    ElseIf AccountFormAccess(10, 3) = "1" Then 'District Liaison
-                                        CurrentWorkViewerContext = WorkViewerType.SSCP_DistrictLiaison
-                                    Else
-                                        CurrentWorkViewerContext = WorkViewerType.SSCP_Staff
-                                        CurrentWorkViewerContextParameter = CurrentUser.UserID
-                                    End If
-
-                                Case 5 'SSPP
-                                    If AccountFormAccess(3, 3) = "1" And CurrentUser.UnitId = 0 Then  'Program Manager
-                                        CurrentWorkViewerContext = WorkViewerType.SSPP_PM
-                                    ElseIf AccountFormAccess(24, 3) = "1" Then 'Unit Manager
-                                        CurrentWorkViewerContext = WorkViewerType.SSPP_UC
-                                        CurrentWorkViewerContextParameter = CurrentUser.UnitId
-                                    ElseIf AccountFormAccess(9, 3) = "1" Then 'Administrative 2
-                                        CurrentWorkViewerContext = WorkViewerType.SSPP_Administrative
-                                        CurrentWorkViewerContextParameter = CurrentUser.UserID
-                                    Else
-                                        CurrentWorkViewerContext = WorkViewerType.SSPP_Staff
-                                        CurrentWorkViewerContextParameter = CurrentUser.UserID
-                                    End If
-
-                                Case Else
-                                    CurrentWorkViewerContext = WorkViewerType.PermitApplications_PM
-
-                            End Select
-
-                        Case 5 'Program Coordination 
-                            If CurrentUser.UnitId = 0 Then 'Program Manager
-                                CurrentWorkViewerContext = WorkViewerType.ProgCoord_PM
-                            ElseIf AccountFormAccess(22, 3) = "1" Then 'Unit Manager
-                                CurrentWorkViewerContext = WorkViewerType.ProgCoord_UC
-                                CurrentWorkViewerContextParameter = CurrentUser.UnitId
-                            ElseIf AccountFormAccess(10, 3) = "1" Then 'District Liaison
-                                CurrentWorkViewerContext = WorkViewerType.ProgCoord_DistrictLiaison
-                            Else
-                                CurrentWorkViewerContext = WorkViewerType.ProgCoord_Staff
-                                CurrentWorkViewerContextParameter = CurrentUser.UserID
-                            End If
-
-                        Case Else
-                            CurrentWorkViewerContext = WorkViewerType.None
-
-                    End Select
-
-                Case "Compliance Facilities Assigned"
-                    If rdbUCView.Checked Or rdbPMView.Checked Then
-                        CurrentWorkViewerContext = WorkViewerType.ComplianceFacilitiesAssigned_Program
-                        CurrentWorkViewerContextParameter = CurrentUser.ProgramID
-                    Else
-                        CurrentWorkViewerContext = WorkViewerType.ComplianceFacilitiesAssigned_Staff
-                        CurrentWorkViewerContextParameter = CurrentUser.UserID
-                    End If
-
-                Case "Compliance Work"
-                    If rdbUCView.Checked Then
-                        CurrentWorkViewerContext = WorkViewerType.ComplianceWork_UC
-                        CurrentWorkViewerContextParameter = CurrentUser.UnitId
-                        If CurrentUser.ProgramID = 5 Then
-                            CurrentWorkViewerContext = WorkViewerType.ComplianceWork_UC_ProgCoord
-                            CurrentWorkViewerContextParameter = CurrentUser.ProgramID
-                        End If
-                    ElseIf rdbPMView.Checked = True Then
-                        CurrentWorkViewerContext = WorkViewerType.ComplianceWork_PM
-                    Else
-                        CurrentWorkViewerContext = WorkViewerType.ComplianceWork_Staff
-                        CurrentWorkViewerContextParameter = CurrentUser.UserID
-                    End If
-
-                Case "Delinquent Full Compliance Evaluations"
-                    CurrentWorkViewerContext = WorkViewerType.DelinquentFCEs
-
-                Case "Enforcement"
-                    If rdbUCView.Checked Then
-                        CurrentWorkViewerContext = WorkViewerType.Enforcement_UC
-                        CurrentWorkViewerContextParameter = CurrentUser.UnitId
-                        If CurrentUser.ProgramID = 5 Then
-                            CurrentWorkViewerContext = WorkViewerType.Enforcement_UC_ProgCoord
-                            CurrentWorkViewerContextParameter = CurrentUser.ProgramID
-                        End If
-                    ElseIf rdbPMView.Checked Then
-                        CurrentWorkViewerContext = WorkViewerType.Enforcement_PM
-                    Else
-                        CurrentWorkViewerContext = WorkViewerType.Enforcement_Staff
-                        CurrentWorkViewerContextParameter = CurrentUser.UserID
-                    End If
-
-                Case "Facilities with Subparts"
-                    CurrentWorkViewerContext = WorkViewerType.FacilitiesWithSubparts
-
-                Case "Facilities missing Subparts"
-                    CurrentWorkViewerContext = WorkViewerType.FacilitiesMissingSubparts
-
-                Case "Monitoring Test Reports"
-                    If rdbStaffView.Checked Then
-                        CurrentWorkViewerContext = WorkViewerType.MonitoringTestReports_Staff
-                        ' TODO DWW: When a better user object is set up, change this (pnlName.Text)
-                        ' to something more appropriate
-                        CurrentWorkViewerContextParameter = pnlName.Text
-                    ElseIf rdbUCView.Checked Then
-                        CurrentWorkViewerContext = WorkViewerType.MonitoringTestReports_UC
-                        CurrentWorkViewerContextParameter = CurrentUser.UnitId
-                    ElseIf rdbPMView.Checked Or CurrentUser.UnitId = 0 Then
-                        CurrentWorkViewerContext = WorkViewerType.MonitoringTestReports_PM
-                    End If
-
-                Case "Monitoring Test Notifications"
-                    CurrentWorkViewerContext = WorkViewerType.MonitoringTestNotifications
-
-                Case "Permit Applications"
-                    If rdbUCView.Checked Then
-                        CurrentWorkViewerContext = WorkViewerType.PermitApplications_UC
-                        CurrentWorkViewerContextParameter = CurrentUser.UnitId
-                    ElseIf rdbPMView.Checked Or CurrentUser.UnitId = 0 Then
-                        CurrentWorkViewerContext = WorkViewerType.PermitApplications_PM
-                    Else
-                        CurrentWorkViewerContext = WorkViewerType.PermitApplications_Staff
-                        CurrentWorkViewerContextParameter = CurrentUser.UserID
-                    End If
-
-                Case "SBEAP Cases"
-                    If rdbUCView.Checked Or rdbPMView.Checked Then
-                        CurrentWorkViewerContext = WorkViewerType.SBEAP_Program
-                    Else
-                        CurrentWorkViewerContext = WorkViewerType.SBEAP_Staff
-                        CurrentWorkViewerContextParameter = CurrentUser.UserID
-                    End If
-
-
-                Case Else
-                    CurrentWorkViewerContext = WorkViewerType.None
-
-            End Select
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        If rdbStaffView.Checked Then
+            CurrentNavWorkListScope = NavWorkListScope.StaffView
+            CurrentNavWorkListParameter = CurrentUser.UserID
+        ElseIf rdbUnitView.Checked Then
+            CurrentNavWorkListScope = NavWorkListScope.UnitView
+            CurrentNavWorkListParameter = CurrentUser.UnitId
+        Else
+            CurrentNavWorkListScope = NavWorkListScope.ProgramView
+            CurrentNavWorkListParameter = CurrentUser.ProgramID
+        End If
     End Sub
 
-#End Region
-
-#Region " WorkViewer context selector events "
-
-    Private Sub btnChangeWorkViewerContext_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnChangeWorkViewerContext.Click
+    Private Sub btnLoadNavWorkList_Click(sender As Object, e As EventArgs) Handles btnLoadNavWorkList.Click
         monitor.TrackFeature("NavScreen.ChangeWorkViewer")
         LoadWorkViewerData()
-        ApplicationInsights.TrackEvent("NavScreen.ChangeWorkViewer", "WorkViewerContext", CurrentWorkViewerContext.ToString)
+        SaveUserSetting(UserSetting.SelectedNavWorkListContext, CurrentNavWorkListContext.ToString)
+        SaveUserSetting(UserSetting.SelectedNavWorkListScope, CurrentNavWorkListScope.ToString)
+        ApplicationInsights.TrackEvent("NavScreen.ChangeWorkViewer", "WorkViewerContext", CurrentNavWorkListContext.ToString)
     End Sub
 
-    Private Sub pnlCurrentList_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles pnlCurrentList.Enter
-        Me.AcceptButton = btnChangeWorkViewerContext
+    Private Sub pnlCurrentList_Enter(sender As Object, e As EventArgs) Handles pnlCurrentList.Enter
+        Me.AcceptButton = btnLoadNavWorkList
     End Sub
 
-    Private Sub pnlCurrentList_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles pnlCurrentList.Leave
+    Private Sub pnlCurrentList_Leave(sender As Object, e As EventArgs) Handles pnlCurrentList.Leave
         Me.AcceptButton = Nothing
     End Sub
 
-    Private Sub cboWorkViewerContext_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cboWorkViewerContext.SelectedIndexChanged
-        Select Case cboWorkViewerContext.Text
-            Case "Default List"
-                pnlContextSubView.Visible = False
-            Case "Compliance Facilities Assigned"
-                pnlContextSubView.Visible = True
-            Case "Compliance Work"
-                pnlContextSubView.Visible = True
-            Case "Delinquent Full Compliance Evaluations"
-                pnlContextSubView.Visible = False
-            Case "Enforcement"
-                pnlContextSubView.Visible = True
-            Case "Facilities with Subparts"
-                pnlContextSubView.Visible = False
-            Case "Facilities missing Subparts"
-                pnlContextSubView.Visible = False
-            Case "Monitoring Test Reports"
-                pnlContextSubView.Visible = True
-            Case "Monitoring Test Notifications"
-                pnlContextSubView.Visible = False
-            Case "Permit Applications"
-                pnlContextSubView.Visible = True
-            Case "SBEAP Cases"
-                pnlContextSubView.Visible = True
+    Private Sub cboNavWorkListContext_SelectedValueChanged(sender As Object, e As EventArgs)
+        Select Case CType(cboNavWorkListContext.SelectedValue, NavWorkListContext)
+            Case NavWorkListContext.ComplianceWork, NavWorkListContext.Enforcement, NavWorkListContext.MonitoringTestReports, NavWorkListContext.PermitApplications, NavWorkListContext.SbeapCases
+                NavWorkListScopePanel.Visible = True
+            Case NavWorkListContext.LateFce, NavWorkListContext.FacilitiesMissingSubparts, NavWorkListContext.MonitoringTestNotifications
+                NavWorkListScopePanel.Visible = False
         End Select
     End Sub
 
-    Private Sub SetContextSelectorSubView()
-        rdbStaffView.Checked = True
+    Private Sub SetUpNavWorkListScopeChanger()
+        Dim scope As NavWorkListScope = [Enum].Parse(GetType(NavWorkListScope), GetUserSetting(UserSetting.SelectedNavWorkListScope))
 
-        If CurrentUser.HasRole({114, 115, 121, 128, 141, 63}) Then
-            rdbUCView.Checked = True
-        End If
-
-        If CurrentUser.HasRole({2, 19, 28, 45, 57, 143}) Then
-            rdbPMView.Checked = True
-        End If
+        Select Case scope
+            Case NavWorkListScope.ProgramView
+                rdbAllView.Checked = True
+            Case NavWorkListScope.UnitView
+                rdbUnitView.Checked = True
+            Case Else
+                rdbStaffView.Checked = True
+        End Select
     End Sub
 
 #End Region
 
-#Region " WorkViewer formatters "
+#Region " Nav Work List formatters "
 
     Private Sub FormatWorkViewer()
         If dgvWorkViewer.Visible = True Then
-
-            Select Case CurrentWorkViewerContext
-
-                Case WorkViewerType.ISMP_PM, WorkViewerType.ISMP_Staff, WorkViewerType.ISMP_UC, _
-                WorkViewerType.MonitoringTestReports_PM, WorkViewerType.MonitoringTestReports_Staff, WorkViewerType.MonitoringTestReports_UC
-                    FormatWorkViewerForTestReports()
-
-                Case WorkViewerType.SSCP_DistrictLiaison, WorkViewerType.SSCP_PM, WorkViewerType.SSCP_Staff, WorkViewerType.SSCP_UC, _
-                WorkViewerType.ProgCoord_DistrictLiaison, WorkViewerType.ProgCoord_PM, WorkViewerType.ProgCoord_Staff, WorkViewerType.ProgCoord_UC, _
-                WorkViewerType.Enforcement_PM, WorkViewerType.Enforcement_Staff, WorkViewerType.Enforcement_UC, WorkViewerType.Enforcement_UC_ProgCoord
-                    FormatWorkViewerForEnforcement()
-
-                Case WorkViewerType.SSPP_Administrative, WorkViewerType.SSPP_PM, WorkViewerType.SSPP_Staff, WorkViewerType.SSPP_UC, _
-                WorkViewerType.PermitApplications_PM, WorkViewerType.PermitApplications_Staff, WorkViewerType.PermitApplications_UC
-                    FormatWorkViewerForPermitApplications()
-
-                Case WorkViewerType.ComplianceFacilitiesAssigned_Program, WorkViewerType.ComplianceFacilitiesAssigned_Staff
-                    FormatWorkViewerForComplianceFacilitiesAssigned()
-
-                Case WorkViewerType.ComplianceWork_PM, WorkViewerType.ComplianceWork_Staff, _
-                WorkViewerType.ComplianceWork_UC, WorkViewerType.ComplianceWork_UC_ProgCoord
-                    FormatWorkViewerForComplianceWork()
-
-                Case WorkViewerType.DelinquentFCEs
-                    FormatWorkViewerForFCEs()
-
-                Case WorkViewerType.FacilitiesMissingSubparts, WorkViewerType.FacilitiesWithSubparts
-                    FormatWorkViewerForFacilitySubparts()
-
-                Case WorkViewerType.MonitoringTestNotifications
-                    FormatWorkViewerForTestNotifications()
-
-                Case WorkViewerType.SBEAP_Program, WorkViewerType.SBEAP_Staff
-                    FormatWorkViewerForSbeapCases()
-
-            End Select
-
             dgvWorkViewer.SanelyResizeColumns()
             dgvWorkViewer.MakeColumnsLookLikeLinks(0)
+        End If
 
+        If CurrentNavWorkListContext = NavWorkListContext.MonitoringTestReports Then
+            LoadIsmpComplianceColor()
         End If
     End Sub
 
-    Private Sub FormatWorkViewerForSbeapCases()
-        dgvWorkViewer.Columns("numCaseID").HeaderText = "Case ID"
-        dgvWorkViewer.Columns("numCaseID").DisplayIndex = 0
-        dgvWorkViewer.Columns("ClientID").HeaderText = "Customer ID"
-        dgvWorkViewer.Columns("ClientID").DisplayIndex = 1
-        dgvWorkViewer.Columns("strCompanyName").HeaderText = "Customer Name"
-        dgvWorkViewer.Columns("strCompanyName").DisplayIndex = 2
-        dgvWorkViewer.Columns("CaseOpened").HeaderText = "Date Case Opened"
-        dgvWorkViewer.Columns("CaseOpened").DisplayIndex = 3
-        dgvWorkViewer.Columns("CaseOpened").DefaultCellStyle.Format = "dd-MMM-yyyy"
-        dgvWorkViewer.Columns("StaffResponsible").HeaderText = "Staff Responsible"
-        dgvWorkViewer.Columns("StaffResponsible").DisplayIndex = 4
-        dgvWorkViewer.Columns("strCaseSummary").HeaderText = "Case Description"
-        dgvWorkViewer.Columns("strCaseSummary").DisplayIndex = 5
-        dgvWorkViewer.Columns("strCaseSummary").Width = 200
-        dgvWorkViewer.Columns("numStaffResponsible").HeaderText = "Staff Responsible"
-        dgvWorkViewer.Columns("numStaffResponsible").DisplayIndex = 6
-        dgvWorkViewer.Columns("numStaffResponsible").Visible = False
-        dgvWorkViewer.Columns("caseClosed").HeaderText = "Date Closed"
-        dgvWorkViewer.Columns("caseClosed").DisplayIndex = 7
-        dgvWorkViewer.Columns("caseClosed").DefaultCellStyle.Format = "dd-MMM-yyyy"
-        dgvWorkViewer.Columns("caseClosed").Visible = False
-        dgvWorkViewer.Columns("LastUpDated").HeaderText = "Last Updated"
-        dgvWorkViewer.Columns("LastUpDated").DisplayIndex = 8
-        dgvWorkViewer.Columns("LastUpDated").DefaultCellStyle.Format = "dd-MMM-yyyy"
-    End Sub
-
-    Private Sub FormatWorkViewerForComplianceFacilitiesAssigned()
-        dgvWorkViewer.Columns("AIRSNumber").HeaderText = "AIRS #"
-        dgvWorkViewer.Columns("AIRSNumber").DisplayIndex = 0
-        dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
-        dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 1
-        dgvWorkViewer.Columns("strFacilityName").Width = dgvWorkViewer.Width * (0.5)
-        dgvWorkViewer.Columns("Staff").HeaderText = "Staff Responsible"
-        dgvWorkViewer.Columns("Staff").DisplayIndex = 2
-        dgvWorkViewer.Columns("Staff").Width = dgvWorkViewer.Width * (0.25)
-    End Sub
-
-    Private Sub FormatWorkViewerForComplianceWork()
-        dgvWorkViewer.Columns("strTrackingNumber").HeaderText = "Tracking #"
-        dgvWorkViewer.Columns("strTrackingNumber").DisplayIndex = 0
-        dgvWorkViewer.Columns("AIRSNumber").HeaderText = "AIRS #"
-        dgvWorkViewer.Columns("AIRSNumber").DisplayIndex = 1
-        dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
-        dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 2
-        dgvWorkViewer.Columns("DateReceived").HeaderText = "Date Received"
-        dgvWorkViewer.Columns("DateReceived").DisplayIndex = 3
-        dgvWorkViewer.Columns("DateReceived").DefaultCellStyle.Format = "dd-MMM-yyyy"
-        dgvWorkViewer.Columns("Staff").HeaderText = "Staff Responsible"
-        dgvWorkViewer.Columns("Staff").DisplayIndex = 4
-        dgvWorkViewer.Columns("StrActivityName").HeaderText = "Activity Type"
-        dgvWorkViewer.Columns("StrActivityName").DisplayIndex = 5
-        dgvWorkViewer.Columns("strResponsibleStaff").HeaderText = "Responsible Staff"
-        dgvWorkViewer.Columns("strResponsibleStaff").DisplayIndex = 6
-        dgvWorkViewer.Columns("strResponsibleStaff").Visible = False
-    End Sub
-
-    Private Sub FormatWorkViewerForFCEs()
-        dgvWorkViewer.Columns("AIRSNumber").HeaderText = "AIRS #"
-        dgvWorkViewer.Columns("AIRSNumber").DisplayIndex = 0
-        dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
-        dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 1
-        dgvWorkViewer.Columns("strCMSMember").HeaderText = "CMS Class"
-        dgvWorkViewer.Columns("strCMSMember").DisplayIndex = 2
-        dgvWorkViewer.Columns("LastFCE").HeaderText = "Last FCE"
-        dgvWorkViewer.Columns("LastFCE").DisplayIndex = 3
-        dgvWorkViewer.Columns("LastFCE").DefaultCellStyle.Format = "dd-MMM-yyyy"
-        dgvWorkViewer.Columns("strFacilityCity").HeaderText = "City"
-        dgvWorkViewer.Columns("strFacilityCity").DisplayIndex = 4
-        dgvWorkViewer.Columns("strCountyName").HeaderText = "County"
-        dgvWorkViewer.Columns("strCountyName").DisplayIndex = 5
-        dgvWorkViewer.Columns("strDistrictName").HeaderText = "District"
-        dgvWorkViewer.Columns("strDistrictName").DisplayIndex = 6
-        dgvWorkViewer.Columns("strOperationalStatus").HeaderText = "Operational Status"
-        dgvWorkViewer.Columns("strOperationalStatus").DisplayIndex = 7
-        dgvWorkViewer.Columns("strClass").HeaderText = "Classification"
-        dgvWorkViewer.Columns("strClass").DisplayIndex = 8
-    End Sub
-
-    Private Sub FormatWorkViewerForEnforcement()
-        dgvWorkViewer.Columns("strEnforcementNumber").HeaderText = "Enforcement #"
-        dgvWorkViewer.Columns("strEnforcementNumber").DisplayIndex = 0
-        dgvWorkViewer.Columns("AIRSNumber").HeaderText = "AIRS #"
-        dgvWorkViewer.Columns("AIRSNumber").DisplayIndex = 1
-        dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
-        dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 2
-        dgvWorkViewer.Columns("EnforcementStatus").HeaderText = "Enforcement Status"
-        dgvWorkViewer.Columns("EnforcementStatus").DisplayIndex = 3
-        dgvWorkViewer.Columns("Violationdate").HeaderText = "Discovery Date"
-        dgvWorkViewer.Columns("Violationdate").DisplayIndex = 4
-        dgvWorkViewer.Columns("Violationdate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-        dgvWorkViewer.Columns("HPVstatus").HeaderText = "Status"
-        dgvWorkViewer.Columns("HPVstatus").DisplayIndex = 5
-        dgvWorkViewer.Columns("Status").HeaderText = "Open/Closed"
-        dgvWorkViewer.Columns("Status").DisplayIndex = 6
-        dgvWorkViewer.Columns("Staff").HeaderText = "Staff Responsible"
-        dgvWorkViewer.Columns("Staff").DisplayIndex = 7
-    End Sub
-
-    Private Sub FormatWorkViewerForFacilitySubparts()
-        dgvWorkViewer.Columns("AIRSnumber").HeaderText = "AIRS #"
-        dgvWorkViewer.Columns("AIRSnumber").DisplayIndex = 0
-        dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
-        dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 1
-    End Sub
-
-    Private Sub FormatWorkViewerForTestReports()
-        dgvWorkViewer.Columns("strReferenceNumber").HeaderText = "Reference #"
-        dgvWorkViewer.Columns("strReferenceNumber").DisplayIndex = 0
-        dgvWorkViewer.Columns("AIRSNumber").HeaderText = "AIRS #"
-        dgvWorkViewer.Columns("AIRSNumber").DisplayIndex = 1
-        dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
-        dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 2
-        dgvWorkViewer.Columns("strFacilityCity").HeaderText = "City"
-        dgvWorkViewer.Columns("strFacilityCity").DisplayIndex = 3
-        dgvWorkViewer.Columns("strCountyName").HeaderText = "County"
-        dgvWorkViewer.Columns("strCountyName").DisplayIndex = 4
-        dgvWorkViewer.Columns("strEmissionSource").HeaderText = "Emission Source"
-        dgvWorkViewer.Columns("strEmissionSource").DisplayIndex = 5
-        dgvWorkViewer.Columns("strPollutantDescription").HeaderText = "Pollutant"
-        dgvWorkViewer.Columns("strPollutantDescription").DisplayIndex = 6
-        dgvWorkViewer.Columns("strReportType").HeaderText = "Report Type"
-        dgvWorkViewer.Columns("strReportType").DisplayIndex = 7
-        dgvWorkViewer.Columns("strDocumentType").HeaderText = "Document Type"
-        dgvWorkViewer.Columns("strDocumentType").DisplayIndex = 8
-        dgvWorkViewer.Columns("ReviewingEngineer").HeaderText = "Reviewing Engineer"
-        dgvWorkViewer.Columns("ReviewingEngineer").DisplayIndex = 9
-        dgvWorkViewer.Columns("TestDateStart").HeaderText = "Test Date"
-        dgvWorkViewer.Columns("TestDateStart").DefaultCellStyle.Format = "dd-MMM-yyyy"
-        dgvWorkViewer.Columns("TestDateStart").DisplayIndex = 10
-        dgvWorkViewer.Columns("ReceivedDate").HeaderText = "Received Date"
-        dgvWorkViewer.Columns("ReceivedDate").DisplayIndex = 11
-        dgvWorkViewer.Columns("ReceivedDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-        dgvWorkViewer.Columns("CompleteDate").HeaderText = "Complete Date"
-        dgvWorkViewer.Columns("CompleteDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-        dgvWorkViewer.Columns("CompleteDate").DisplayIndex = 12
-        dgvWorkViewer.Columns("Status").HeaderText = "Report Open/Closed"
-        dgvWorkViewer.Columns("Status").DisplayIndex = 13
-        dgvWorkViewer.Columns("strComplianceStatus").HeaderText = "Compliance Status"
-        dgvWorkViewer.Columns("strComplianceStatus").DisplayIndex = 14
-        dgvWorkViewer.Columns("mmoCommentAREA").HeaderText = "Comment Field"
-        dgvWorkViewer.Columns("mmoCommentAREA").DisplayIndex = 15
-        dgvWorkViewer.Columns("strPreComplianceStatus").HeaderText = "Precompliance Status"
-        dgvWorkViewer.Columns("strPreComplianceStatus").DisplayIndex = 16
-        dgvWorkViewer.Columns("strWitnessingEngineer").Visible = False
-        dgvWorkViewer.Columns("strWitnessingEngineer2").Visible = False
-        dgvWorkViewer.Columns("strUserUnit").Visible = False
-
-        LoadISMPComplianceColor()
-    End Sub
-
-    Private Sub FormatWorkViewerForTestNotifications()
-        dgvWorkViewer.Columns("TestNumber").HeaderText = "Test Log #"
-        dgvWorkViewer.Columns("TestNumber").DisplayIndex = 0
-        dgvWorkViewer.Columns("RefNum").HeaderText = "Reference #"
-        dgvWorkViewer.Columns("RefNum").DisplayIndex = 1
-        dgvWorkViewer.Columns("AIRSNumber").HeaderText = "AIRS #"
-        dgvWorkViewer.Columns("AIRSNumber").DisplayIndex = 2
-        dgvWorkViewer.Columns("FacilityName").HeaderText = "Facility Name"
-        dgvWorkViewer.Columns("FacilityName").DisplayIndex = 3
-        dgvWorkViewer.Columns("strEmissionUnit").HeaderText = "Emission Unit"
-        dgvWorkViewer.Columns("strEmissionUnit").DisplayIndex = 4
-        dgvWorkViewer.Columns("ProposedStartDate").HeaderText = "Start Date"
-        dgvWorkViewer.Columns("ProposedStartDate").DisplayIndex = 5
-        dgvWorkViewer.Columns("StaffResponsible").HeaderText = "Staff Responsible"
-        dgvWorkViewer.Columns("StaffResponsible").DisplayIndex = 6
-    End Sub
-
-    Private Sub FormatWorkViewerForPermitApplications()
-        dgvWorkViewer.Columns("strApplicationNumber").HeaderText = "App #"
-        dgvWorkViewer.Columns("strApplicationNumber").DisplayIndex = 0
-        dgvWorkViewer.Columns("strAIRSNumber").HeaderText = "AIRS #"
-        dgvWorkViewer.Columns("strAIRSNumber").DisplayIndex = 1
-        dgvWorkViewer.Columns("strFacilityName").HeaderText = "Facility Name"
-        dgvWorkViewer.Columns("strFacilityName").DisplayIndex = 2
-        dgvWorkViewer.Columns("StaffResponsible").HeaderText = "Staff Responsible"
-        dgvWorkViewer.Columns("StaffResponsible").DisplayIndex = 3
-        dgvWorkViewer.Columns("strApplicationType").HeaderText = "App Type"
-        dgvWorkViewer.Columns("strApplicationType").DisplayIndex = 4
-        dgvWorkViewer.Columns("datReceivedDate").HeaderText = "App Rcvd"
-        dgvWorkViewer.Columns("datReceivedDate").DisplayIndex = 5
-        dgvWorkViewer.Columns("datReceivedDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-        dgvWorkViewer.Columns("strPermitNumber").HeaderText = "Permit Number"
-        dgvWorkViewer.Columns("strPermitNumber").DisplayIndex = 6
-        dgvWorkViewer.Columns("AppStatus").HeaderText = "App Status"
-        dgvWorkViewer.Columns("AppStatus").DisplayIndex = 8
-        dgvWorkViewer.Columns("StatusDate").HeaderText = "Status Date"
-        dgvWorkViewer.Columns("StatusDate").DisplayIndex = 9
-        dgvWorkViewer.Columns("strPermitType").HeaderText = "Action Type"
-        dgvWorkViewer.Columns("strPermitType").DisplayIndex = 7
-    End Sub
-
-    Private Sub LoadISMPComplianceColor()
+    Private Sub LoadIsmpComplianceColor()
         Try
             For Each row As DataGridViewRow In dgvWorkViewer.Rows
                 If Not row.IsNewRow Then
-                    If row.Cells(19).Value IsNot DBNull.Value AndAlso row.Cells(19).Value = "True" Then
+                    If row.Cells("Precompliance Status").Value IsNot DBNull.Value AndAlso row.Cells("Precompliance Status").Value = "True" Then
                         row.DefaultCellStyle.BackColor = Color.Pink
                     End If
-                    If row.Cells(13).Value IsNot DBNull.Value AndAlso row.Cells(13).Value = "Not In Compliance" Then
+                    If row.Cells("Compliance Status").Value IsNot DBNull.Value AndAlso row.Cells("Compliance Status").Value = "Not In Compliance" Then
                         row.DefaultCellStyle.BackColor = Color.Tomato
                     End If
                 End If
@@ -831,7 +448,7 @@ Public Class IAIPNavigation
         End Try
     End Sub
 
-    Private Sub dgvWorkViewer_CellFormatting(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellFormattingEventArgs) Handles dgvWorkViewer.CellFormatting
+    Private Sub dgvWorkViewer_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvWorkViewer.CellFormatting
         If e IsNot Nothing AndAlso e.Value IsNot Nothing _
         AndAlso dgvWorkViewer.Columns(e.ColumnIndex).HeaderText = "AIRS #" _
         AndAlso Apb.ApbFacilityId.IsValidAirsNumberFormat(e.Value) Then
@@ -841,57 +458,47 @@ Public Class IAIPNavigation
 
 #End Region
 
-#Region " WorkViewer background worker (bgrLoadWorkViewer) "
+#Region " Nav Work List background worker (bgrLoadWorkViewer) "
 
     Private Sub LoadWorkViewerData()
         dgvWorkViewer.Visible = False
         lblMessageLabel.Visible = True
         lblMessageLabel.Text = "Loading data…"
         pnlCurrentList.Enabled = False
-        btnChangeWorkViewerContext.Text = "Loading…"
+        btnLoadNavWorkList.Text = "Loading…"
+        btnLoadNavWorkList.Enabled = False
         lblResultsCount.Visible = False
         lblResultsCount.Text = ""
 
         ClearQuickAccessTool()
 
         SetWorkViewerContext()
-        Try
-            If bgrLoadWorkViewer.IsBusy Then
-                bgrLoadWorkViewer.CancelAsync()
-            Else
-                bgrLoadWorkViewer.RunWorkerAsync()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        If bgrLoadWorkViewer.IsBusy Then
+            bgrLoadWorkViewer.CancelAsync()
+        Else
+            bgrLoadWorkViewer.RunWorkerAsync()
+        End If
     End Sub
 
-    Private Sub bgrLoadWorkViewer_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bgrLoadWorkViewer.DoWork
-        Try
-            WorkViewerTable = New DataTable
-            WorkViewerTable = DAL.GetWorkViewerListAsDataTable(CurrentWorkViewerContext, CurrentWorkViewerContextParameter)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub bgrLoadWorkViewer_DoWork(sender As Object, e As DoWorkEventArgs) Handles bgrLoadWorkViewer.DoWork
+        WorkViewerTable = GetNavWorkList(CurrentNavWorkListContext, CurrentNavWorkListScope, CurrentNavWorkListParameter)
     End Sub
 
-    Private Sub bgrLoadWorkViewer_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgrLoadWorkViewer.RunWorkerCompleted
+    Private Sub bgrLoadWorkViewer_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles bgrLoadWorkViewer.RunWorkerCompleted
         pnlCurrentList.Enabled = True
-        btnChangeWorkViewerContext.Text = "Load"
+        btnLoadNavWorkList.Text = "Load"
+        btnLoadNavWorkList.Enabled = True
 
         If WorkViewerTable IsNot Nothing AndAlso WorkViewerTable.Rows.Count > 0 Then
             dgvWorkViewer.DataSource = WorkViewerTable
-
             dgvWorkViewer.Visible = True
             lblMessageLabel.Visible = False
             lblMessageLabel.Text = ""
             lblResultsCount.Visible = True
             lblResultsCount.Text = WorkViewerTable.Rows.Count & " results"
-
             FormatWorkViewer()
         Else
             dgvWorkViewer.DataSource = Nothing
-
             dgvWorkViewer.Visible = False
             lblMessageLabel.Visible = True
             lblMessageLabel.Text = "No data to display"
@@ -902,20 +509,13 @@ Public Class IAIPNavigation
 
 #End Region
 
-#Region " WorkViewer (dgvWorkViewer) events "
+#Region " Nav Work List (dgvWorkViewer) events "
 
-    Private Sub dgvWorkViewer_Sorted(ByVal sender As Object, ByVal e As System.EventArgs) Handles dgvWorkViewer.Sorted
-        If CurrentWorkViewerContext = WorkViewerType.ISMP_PM _
-        Or CurrentWorkViewerContext = WorkViewerType.ISMP_Staff _
-        Or CurrentWorkViewerContext = WorkViewerType.ISMP_UC _
-        Or CurrentWorkViewerContext = WorkViewerType.MonitoringTestReports_PM _
-        Or CurrentWorkViewerContext = WorkViewerType.MonitoringTestReports_Staff _
-        Or CurrentWorkViewerContext = WorkViewerType.MonitoringTestReports_UC Then
-            LoadISMPComplianceColor()
-        End If
+    Private Sub dgvWorkViewer_Sorted(sender As Object, e As EventArgs) Handles dgvWorkViewer.Sorted
+        If CurrentNavWorkListContext = NavWorkListContext.MonitoringTestReports Then LoadIsmpComplianceColor()
     End Sub
 
-    Private Sub dgvWorkViewer_CellMouseEnter(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
+    Private Sub dgvWorkViewer_CellMouseEnter(sender As Object, e As DataGridViewCellEventArgs) _
     Handles dgvWorkViewer.CellMouseEnter
         'Console.WriteLine("CellMouseEnter: " & e.ColumnIndex.ToString & ", " & e.RowIndex.ToString)
         ' Change cursor and text color when hovering over first column (treats text like a hyperlink)
@@ -924,7 +524,7 @@ Public Class IAIPNavigation
         End If
     End Sub
 
-    Private Sub dgvWorkViewer_CellMouseLeave(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
+    Private Sub dgvWorkViewer_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) _
     Handles dgvWorkViewer.CellMouseLeave
         'Console.WriteLine("CellMouseLeave: " & e.ColumnIndex.ToString & ", " & e.RowIndex.ToString)
         ' Reset cursor and text color when mouse leaves (un-hovers) a cell
@@ -933,7 +533,7 @@ Public Class IAIPNavigation
         End If
     End Sub
 
-    Private Sub dgvWorkViewer_CellEnter(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
+    Private Sub dgvWorkViewer_CellEnter(sender As Object, e As DataGridViewCellEventArgs) _
     Handles dgvWorkViewer.CellEnter
         'Console.WriteLine("CellEnter: " & e.ColumnIndex.ToString & ", " & e.RowIndex.ToString)
         If e.RowIndex <> -1 AndAlso e.RowIndex < dgvWorkViewer.RowCount Then
@@ -941,7 +541,7 @@ Public Class IAIPNavigation
         End If
     End Sub
 
-    Private Sub dgvWorkViewer_CellClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
+    Private Sub dgvWorkViewer_CellClick(sender As Object, e As DataGridViewCellEventArgs) _
     Handles dgvWorkViewer.CellClick
         'Console.WriteLine("CellClick: " & e.ColumnIndex.ToString & ", " & e.RowIndex.ToString)
         If e.RowIndex <> -1 AndAlso e.RowIndex < dgvWorkViewer.RowCount AndAlso e.ColumnIndex = 0 Then
@@ -949,7 +549,7 @@ Public Class IAIPNavigation
         End If
     End Sub
 
-    Private Sub dgvWorkViewer_CellDoubleClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) _
+    Private Sub dgvWorkViewer_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) _
     Handles dgvWorkViewer.CellDoubleClick
         'Console.WriteLine("CellDoubleClick: " & e.ColumnIndex.ToString & ", " & e.RowIndex.ToString)
         If e.RowIndex <> -1 AndAlso e.RowIndex < dgvWorkViewer.RowCount AndAlso e.ColumnIndex <> 0 Then
@@ -979,7 +579,7 @@ Public Class IAIPNavigation
         End Select
     End Sub
 
-    Private Sub SelectItemNumbers(ByVal row As Integer)
+    Private Sub SelectItemNumbers(row As Integer)
         Select Case dgvWorkViewer.Columns(0).HeaderText
             Case "Case ID" ' SBEAP cases
                 txtOpenSbeapCaseLog.Text = dgvWorkViewer(0, row).FormattedValue
@@ -1016,44 +616,32 @@ Public Class IAIPNavigation
     End Sub
 
 
-    Private Sub bgrUserPermissions_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bgrUserPermissions.DoWork
-        Try
-            Dim AccountFormAccessLookup As DataTable = GetSharedData(SharedTable.IaipAccountRoles)
-            Dim accountFormAccessString As String
+    Private Sub bgrUserPermissions_DoWork(sender As Object, e As DoWorkEventArgs) Handles bgrUserPermissions.DoWork
+        Dim AccountFormAccessLookup As DataTable = GetSharedData(SharedTable.IaipAccountRoles)
+        Dim accountFormAccessString As String
 
-            For Each account As Integer In CurrentUser.IaipRoles.RoleCodes
-                accountFormAccessString = AccountFormAccessLookup.Rows.Find(account)("FormAccess").ToString
+        For Each account As Integer In CurrentUser.IaipRoles.RoleCodes
+            accountFormAccessString = AccountFormAccessLookup.Rows.Find(account)("FormAccess").ToString
 
-                If accountFormAccessString.Length > 0 Then
-                    Dim formAccessArray() As String = accountFormAccessString.Split(New Char() {"(", ")"}, StringSplitOptions.RemoveEmptyEntries)
+            If accountFormAccessString.Length > 0 Then
+                Dim formAccessArray() As String = accountFormAccessString.Split(New Char() {"(", ")"}, StringSplitOptions.RemoveEmptyEntries)
 
-                    For Each formAccessString As String In formAccessArray
-                        Dim formAccessSplit() As String = formAccessString.Split(New Char() {"-", ","})
-                        Dim formNumber As String = formAccessSplit(0)
-                        AccountFormAccess(formNumber, 0) = formNumber
-                        For i As Integer = 1 To 4
-                            AccountFormAccess(formNumber, i) = Convert.ToInt32(AccountFormAccess(formNumber, i)) Or Convert.ToInt32(formAccessSplit(i))
-                        Next
+                For Each formAccessString As String In formAccessArray
+                    Dim formAccessSplit() As String = formAccessString.Split(New Char() {"-", ","})
+                    Dim formNumber As String = formAccessSplit(0)
+                    AccountFormAccess(formNumber, 0) = formNumber
+                    For i As Integer = 1 To 4
+                        AccountFormAccess(formNumber, i) = Convert.ToInt32(AccountFormAccess(formNumber, i)) Or Convert.ToInt32(formAccessSplit(i))
                     Next
-                End If
-            Next
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+                Next
+            End If
+        Next
     End Sub
 
-    Private Sub bgrUserPermissions_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgrUserPermissions.RunWorkerCompleted
-        Try
-            btnChangeWorkViewerContext.Enabled = True
-            LoadWorkViewerData()
-
-            CreateNavButtonCategoriesList()
-            CreateNavButtonsList()
-            CreateNavButtons()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub bgrUserPermissions_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles bgrUserPermissions.RunWorkerCompleted
+        CreateNavButtonCategoriesList()
+        CreateNavButtonsList()
+        CreateNavButtons()
     End Sub
 
 #End Region
@@ -1063,7 +651,7 @@ Public Class IAIPNavigation
 #Region " Containers "
 
     Private Structure NavButton
-        Public Sub New(ByVal buttonText As String, ByVal formName As String)
+        Public Sub New(buttonText As String, formName As String)
             Me.ButtonText = buttonText
             Me.FormName = formName
         End Sub
@@ -1072,7 +660,7 @@ Public Class IAIPNavigation
     End Structure
 
     Private Structure NavButtonCategory
-        Public Sub New(ByVal category As NavButtonCategories, ByVal name As String, Optional ByVal shortname As String = Nothing)
+        Public Sub New(category As NavButtonCategories, name As String, Optional shortname As String = Nothing)
             Me.Category = category
             Me.Name = name
             Me.ShortName = If(shortname, category.ToString)
@@ -1090,15 +678,15 @@ Public Class IAIPNavigation
 
 #Region " Implementation "
 
-    Private Function AccountHasAccessToForm(ByVal index As Int32) As Boolean
+    Private Function AccountHasAccessToForm(index As Int32) As Boolean
         Return (AccountFormAccess(index, 0) IsNot Nothing _
                 AndAlso AccountFormAccess(index, 0) = index.ToString _
                 AndAlso (AccountFormAccess(index, 1) = "1" Or AccountFormAccess(index, 2) = "1" _
-                         Or AccountFormAccess(index, 3) = "1" Or AccountFormAccess(index, 4) = "1") _
+                         Or AccountFormAccess(index, 3) = "1" Or AccountFormAccess(index, 4) = "1")
                          )
     End Function
 
-    Private Sub AddNavButton(ByVal buttonText As String, ByVal formName As String, ByVal category As NavButtonCategories)
+    Private Sub AddNavButton(buttonText As String, formName As String, category As NavButtonCategories)
         If Not AllTheNavButtonCategories.Exists(Function(x) x.Category = category) Then
             AllTheNavButtonCategories.Add(New NavButtonCategory(category, category.ToString))
         End If
@@ -1113,30 +701,30 @@ Public Class IAIPNavigation
 
     End Sub
 
-    Private Sub AddNavButtonIfAccountHasFormAccess(ByVal index As Int32, _
-                                                   ByVal buttonText As String, ByVal formName As String, _
-                                                   ByVal category As NavButtonCategories)
+    Private Sub AddNavButtonIfAccountHasFormAccess(index As Integer,
+                                                    buttonText As String, formName As String,
+                                                    category As NavButtonCategories)
         If AccountHasAccessToForm(index) Then
             AddNavButton(buttonText, formName, category)
         End If
     End Sub
 
-    Private Sub AddNavButtonIfUserHasPermission(ByVal permissionsAllowed As Integer(), _
-                                                ByVal buttonText As String, ByVal formName As String, _
-                                                ByVal category As NavButtonCategories)
+    Private Sub AddNavButtonIfUserHasPermission(permissionsAllowed As Integer(),
+                                                 buttonText As String, formName As String,
+                                                 category As NavButtonCategories)
         If CurrentUser.HasRole(permissionsAllowed) Then
             AddNavButton(buttonText, formName, category)
         End If
     End Sub
 
-    Private Sub AddNavButtonIfUserHasPermission(ByVal permissionAllowed As Integer, _
-                                                ByVal buttonText As String, ByVal formName As String, _
-                                                ByVal category As NavButtonCategories)
-        AddNavButtonIfUserHasPermission({permissionAllowed}, _
+    Private Sub AddNavButtonIfUserHasPermission(permissionAllowed As Integer,
+                                                 buttonText As String, formName As String,
+                                                 category As NavButtonCategories)
+        AddNavButtonIfUserHasPermission({permissionAllowed},
                                         buttonText, formName, category)
     End Sub
 
-    Private Sub AddNavButtonCategory(ByVal category As NavButtonCategories, ByVal name As String, Optional ByVal shortname As String = Nothing)
+    Private Sub AddNavButtonCategory(category As NavButtonCategories, name As String, Optional shortname As String = Nothing)
         If CurrentUser.ProgramName = name OrElse CurrentUser.UnitName = name Then
             AllTheNavButtonCategories.Insert(0, New NavButtonCategory(category, name, shortname))
         Else
@@ -1144,8 +732,8 @@ Public Class IAIPNavigation
         End If
     End Sub
 
-    Private Sub NavButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        Dim nb As NavButton = CType(CType(sender, Button).Tag, NavButton)
+    Private Sub NavButton_Click(sender As Object, e As EventArgs)
+        Dim nb As NavButton = CType(sender, Button).Tag
         monitor.TrackFeature("NavScreen.NavButton")
         monitor.TrackFeature("NavButton." & nb.FormName)
         ApplicationInsights.TrackEvent("NavScreen.NavButton", "NavButton", nb.FormName)
@@ -1277,11 +865,11 @@ Public Class IAIPNavigation
 
 #Region " Main Menu click events "
 
-    Private Sub mmiExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExit.Click
+    Private Sub mmiExit_Click(sender As Object, e As EventArgs) Handles mmiExit.Click
         Me.Close()
     End Sub
 
-    Private Sub mmiExport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiExport.Click
+    Private Sub mmiExport_Click(sender As Object, e As EventArgs) Handles mmiExport.Click
         dgvWorkViewer.ExportToExcel(Me)
     End Sub
 
@@ -1323,17 +911,17 @@ Public Class IAIPNavigation
         End If
     End Sub
 
-    Private Sub mmiResetForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiResetForm.Click
+    Private Sub mmiResetForm_Click(sender As Object, e As EventArgs) Handles mmiResetForm.Click
         ResetAllFormSettings()
         Me.Location = New Point(0, 0)
         Me.Size = New Size(808, 460)
     End Sub
 
-    Private Sub mmiAbout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiAbout.Click
+    Private Sub mmiAbout_Click(sender As Object, e As EventArgs) Handles mmiAbout.Click
         IaipAbout.ShowDialog()
     End Sub
 
-    Private Sub mmiOnlineHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOnlineHelp.Click
+    Private Sub mmiOnlineHelp_Click(sender As Object, e As EventArgs) Handles mmiOnlineHelp.Click
         OpenDocumentationUrl(Me)
     End Sub
 
@@ -1341,7 +929,7 @@ Public Class IAIPNavigation
 
 #Region " Testing Menu click events "
 
-    Private Sub mmiThrowError_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestThrowError.Click
+    Private Sub mmiThrowError_Click(sender As Object, e As EventArgs) Handles TestThrowError.Click
         Throw New Exception("Unhandled exception testing")
     End Sub
 

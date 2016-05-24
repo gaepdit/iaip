@@ -1,5 +1,4 @@
 ﻿Imports System.Runtime.CompilerServices
-Imports System.Runtime.InteropServices
 Imports System.IO
 Imports System.Collections.Generic
 Imports System.Reflection
@@ -120,7 +119,7 @@ Module Extensions
         With dialog
             .Filter = "Excel File (*.xlsx)|*.xlsx"
             .DefaultExt = ".xlsx"
-            .FileName = "Export_" & System.DateTime.Now.ToString("yyyy-MM-dd_HH.mm.ss") & ".xlsx"
+            .FileName = "Export_" & Date.Now.ToString("yyyy-MM-dd_HH.mm.ss") & ".xlsx"
             .InitialDirectory = GetUserSetting(UserSetting.ExcelExportLocation)
         End With
 
@@ -131,14 +130,14 @@ Module Extensions
             Try
                 result = CreateExcelFileFromDataTable(dialog.FileName, dataTable, errorMessage)
             Catch ex As Exception
-                ErrorReport(ex, errorMessage, System.Reflection.MethodBase.GetCurrentMethod.Name)
+                ErrorReport(ex, errorMessage, MethodBase.GetCurrentMethod.Name)
             End Try
 
             If result Then
                 If Not Path.GetDirectoryName(dialog.FileName) = dialog.InitialDirectory Then
                     SaveUserSetting(UserSetting.ExcelExportLocation, Path.GetDirectoryName(dialog.FileName))
                 End If
-                System.Diagnostics.Process.Start(dialog.FileName)
+                Process.Start(dialog.FileName)
             Else
                 MessageBox.Show(errorMessage)
             End If
@@ -373,17 +372,13 @@ Module Extensions
         End If
 
         Dim enumItems As Array = [Enum].GetValues(enumType)
-        Dim enumDict As New Generic.Dictionary(Of [Enum], String)
+        Dim enumDict As New Dictionary(Of [Enum], String)
 
         For Each enumItem As [Enum] In enumItems
             enumDict(enumItem) = enumItem.GetDescription
         Next
 
-        With c
-            .DataSource = New BindingSource(enumDict, Nothing)
-            .DisplayMember = "Value"
-            .ValueMember = "Key"
-        End With
+        c.BindToDictionary(enumDict)
     End Sub
 
 #End Region

@@ -8,6 +8,8 @@
         FileDownloadLocation
         PrefillLoginId
         PasswordResetRequestedDate
+        SelectedNavWorkListContext
+        SelectedNavWorkListScope
     End Enum
 
     ' Define default value for above user settings here
@@ -18,8 +20,13 @@
                  UserSetting.PermitUploadLocation,
                  UserSetting.EnforcementUploadLocation,
                  UserSetting.FileDownloadLocation
-
                 Return Environment.GetFolderPath(Environment.SpecialFolder.Personal)
+
+            Case UserSetting.SelectedNavWorkListContext
+                Return IAIPNavigation.NavWorkListContext.PermitApplications.ToString
+
+            Case UserSetting.SelectedNavWorkListScope
+                Return IAIPNavigation.NavWorkListScope.StaffView.ToString
 
             Case Else
                 Return ""
