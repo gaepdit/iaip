@@ -84,6 +84,7 @@ Public Class IAIPNavigation
             NavWorkListContextDictionary.Remove(NavWorkListContext.SbeapCases)
         End If
         cboNavWorkListContext.BindToDictionary(NavWorkListContextDictionary)
+        AddHandler cboNavWorkListContext.SelectedValueChanged, AddressOf cboNavWorkListContext_SelectedValueChanged
         cboNavWorkListContext.SelectedValue = [Enum].Parse(GetType(NavWorkListContext), GetUserSetting(UserSetting.SelectedNavWorkListContext))
     End Sub
 
@@ -395,7 +396,8 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub cboNavWorkListContext_SelectedValueChanged(sender As Object, e As EventArgs)
-        Select Case CType(cboNavWorkListContext.SelectedValue, NavWorkListContext)
+        Dim c As NavWorkListContext = cboNavWorkListContext.SelectedValue
+        Select Case c
             Case NavWorkListContext.ComplianceWork, NavWorkListContext.Enforcement, NavWorkListContext.MonitoringTestReports, NavWorkListContext.PermitApplications, NavWorkListContext.SbeapCases
                 NavWorkListScopePanel.Visible = True
             Case NavWorkListContext.LateFce, NavWorkListContext.FacilitiesMissingSubparts, NavWorkListContext.MonitoringTestNotifications
@@ -449,10 +451,12 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub dgvWorkViewer_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvWorkViewer.CellFormatting
-        If e IsNot Nothing AndAlso e.Value IsNot Nothing _
-        AndAlso dgvWorkViewer.Columns(e.ColumnIndex).HeaderText = "AIRS #" _
-        AndAlso Apb.ApbFacilityId.IsValidAirsNumberFormat(e.Value) Then
-            e.Value = New Apb.ApbFacilityId(e.Value).FormattedString
+        If e IsNot Nothing AndAlso e.Value IsNot Nothing Then
+            If dgvWorkViewer.Columns(e.ColumnIndex).HeaderText.ToUpper = "AIRS #" AndAlso Apb.ApbFacilityId.IsValidAirsNumberFormat(e.Value) Then
+                e.Value = New Apb.ApbFacilityId(e.Value).FormattedString
+            ElseIf TypeOf e.Value Is Date Then
+                e.CellStyle.Format = DateFormat
+            End If
         End If
     End Sub
 
@@ -461,6 +465,7 @@ Public Class IAIPNavigation
 #Region " Nav Work List background worker (bgrLoadWorkViewer) "
 
     Private Sub LoadWorkViewerData()
+        dgvWorkViewer.DataSource = Nothing
         dgvWorkViewer.Visible = False
         lblMessageLabel.Visible = True
         lblMessageLabel.Text = "Loading data…"
