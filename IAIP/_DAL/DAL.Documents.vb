@@ -222,7 +222,7 @@ Namespace DAL
                                 " FROM AIRBRANCH.IAIP_BINARYFILES " &
                                 " WHERE IAIP_BINARYFILES.BINARYFILEID = :pBinId "
             Dim parameter As SqlParameter = New SqlParameter("pBinId", id)
-            Return DB.SaveBinaryFileFromDB(filePath, query, parameter)
+            Return SaveBinaryFileFromDB(filePath, query, parameter)
         End Function
 
 #End Region

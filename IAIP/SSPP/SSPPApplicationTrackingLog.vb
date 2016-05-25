@@ -7524,7 +7524,7 @@ Public Class SSPPApplicationTrackingLog
 
             If sfd.ShowDialog = DialogResult.OK Then
                 saveFilePath = sfd.FileName.ToString
-                DB.SaveBinaryFileFromDB(saveFilePath, query, parameter)
+                SaveBinaryFileFromDB(saveFilePath, query, parameter)
             End If
 
             If fileType = "11" Then
@@ -7537,7 +7537,7 @@ Public Class SSPPApplicationTrackingLog
 
                 If sfd.ShowDialog = DialogResult.OK Then
                     saveFilePath = sfd.FileName.ToString
-                    DB.SaveBinaryFileFromDB(saveFilePath, query, parameter)
+                    SaveBinaryFileFromDB(saveFilePath, query, parameter)
                 End If
             End If
 
