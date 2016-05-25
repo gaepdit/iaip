@@ -1716,8 +1716,7 @@ Public Class SSCPEvents
                     Else
                         dr.Close()
 
-                        If Me.TPACC.Focus = True Or Me.TPInspection.Focus = True Or
-                              (Me.TPNotifications.Focus = True And Me.rdbNotificationFollowUpYes.Checked = True) Then
+                        If Me.TPACC.Focus = True Or Me.TPInspection.Focus = True Then
 
                             SQL = "Select strAFSActionNumber " &
                             "from AIRBRANCH.APBSupplamentalData " &
@@ -3050,27 +3049,14 @@ Public Class SSCPEvents
                 Exit Sub
             End If
 
-            ' Determine if action has been submitted to EPA
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
-                " FROM AIRBRANCH.AFSSSCPRECORDS " &
-                " WHERE RowNum = 1 AND STRUPDATESTATUS  <> 'A' " &
-                " AND STRTRACKINGNUMBER = :pId "
-            Dim parameter As SqlParameter = New SqlParameter("pId", txtTrackingNumber.Text)
-            recExist = Convert.ToBoolean(DB.GetSingleValue(Of String)(query, parameter))
+            Dim query As String
 
-            If recExist = True Then
-                MsgBox("This Compliance Action has already been submitted to EPA and must be manually removed." & vbCrLf &
-                       "Please contact the Data Management Unit (Michael Floyd) with the tracking number to delete this action.",
-                       MsgBoxStyle.Exclamation, "SSCP Events")
-                Exit Sub
-            End If
-
-            ' Delete record from AFSSSCPRECORDS and mark as deleted in SSCP item master
+            ' Mark as deleted in SSCP item master and AFSSSCPRECORDS
             Dim queryList As New List(Of String)
             Dim parametersList As New List(Of SqlParameter())
             Dim parameters As SqlParameter()
 
-            query = " DELETE FROM AIRBRANCH.AFSSSCPRECORDS WHERE STRTRACKINGNUMBER = :pId "
+            query = " UDPATE AIRBRANCH.AFSSSCPRECORDS SET STRUPDATESTATUS = 'D' WHERE STRTRACKINGNUMBER = :pId "
             queryList.Add(query)
             parameters = New SqlParameter() {New SqlParameter("pId", txtTrackingNumber.Text)}
             parametersList.Add(parameters)
