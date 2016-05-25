@@ -322,7 +322,7 @@ Namespace DAL.Sscp
 
                 parametersList.Add(New SqlParameter() {
                     New SqlParameter(":STRENFORCEMENTNUMBER", .EnforcementId),
-                    New SqlParameter(":STRTRACKINGNUMBER", DBUtilities.StoreNothingIfZero(.LinkedWorkItemId)),
+                    New SqlParameter(":STRTRACKINGNUMBER", StoreNothingIfZero(.LinkedWorkItemId)),
                     New SqlParameter(":STRAIRSNUMBER", .AirsNumber.DbFormattedString),
                     New SqlParameter(":STRENFORCEMENTFINALIZED", .DateFinalized.HasValue.ToString),
                     New SqlParameter(":DATENFORCEMENTFINALIZED", .DateFinalized),
@@ -374,7 +374,7 @@ Namespace DAL.Sscp
                     New SqlParameter(":STRCONUMBER", .CoNumber),
                     New SqlParameter(":STRCORESOLVED", .CoResolved.HasValue.ToString),
                     New SqlParameter(":DATCORESOLVED", .CoResolved),
-                    New SqlParameter(":STRCOPENALTYAMOUNT", DBUtilities.StoreNothingIfZero(.CoPenaltyAmount)),
+                    New SqlParameter(":STRCOPENALTYAMOUNT", StoreNothingIfZero(.CoPenaltyAmount)),
                     New SqlParameter(":STRCOPENALTYAMOUNTCOMMENTS", .CoPenaltyAmountComment),
                     New SqlParameter(":STRCOCOMMENT", .CoComment),
                     New SqlParameter(":STRAOEXECUTED", .AoExecuted.HasValue.ToString),
@@ -384,15 +384,15 @@ Namespace DAL.Sscp
                     New SqlParameter(":STRAORESOLVED", .AoResolved.HasValue.ToString),
                     New SqlParameter(":DATAORESOLVED", .AoResolved),
                     New SqlParameter(":STRAOCOMMENT", .AoComment),
-                    New SqlParameter(":STRAFSKEYACTIONNUMBER", DBUtilities.StoreNothingIfZero(.AfsKeyActionNumber)),
-                    New SqlParameter(":STRAFSNOVSENTNUMBER", DBUtilities.StoreNothingIfZero(.AfsNovActionNumber)),
-                    New SqlParameter(":STRAFSNOVRESOLVEDNUMBER", DBUtilities.StoreNothingIfZero(.AfsNfaActionNumber)),
-                    New SqlParameter(":STRAFSCOPROPOSEDNUMBER", DBUtilities.StoreNothingIfZero(.AfsCoProposedNumber)),
-                    New SqlParameter(":STRAFSCOEXECUTEDNUMBER", DBUtilities.StoreNothingIfZero(.AfsCoActionNumber)),
-                    New SqlParameter(":STRAFSCORESOLVEDNUMBER", DBUtilities.StoreNothingIfZero(.AfsCoResolvedActionNumber)),
-                    New SqlParameter(":STRAFSAOTOAGNUMBER", DBUtilities.StoreNothingIfZero(.AfsAoToAGActionNumber)),
-                    New SqlParameter(":STRAFSCIVILCOURTNUMBER", DBUtilities.StoreNothingIfZero(.AfsCivilCourtActionNumber)),
-                    New SqlParameter(":STRAFSAORESOLVEDNUMBER", DBUtilities.StoreNothingIfZero(.AfsAoResolvedActionNumber)),
+                    New SqlParameter(":STRAFSKEYACTIONNUMBER", StoreNothingIfZero(.AfsKeyActionNumber)),
+                    New SqlParameter(":STRAFSNOVSENTNUMBER", StoreNothingIfZero(.AfsNovActionNumber)),
+                    New SqlParameter(":STRAFSNOVRESOLVEDNUMBER", StoreNothingIfZero(.AfsNfaActionNumber)),
+                    New SqlParameter(":STRAFSCOPROPOSEDNUMBER", StoreNothingIfZero(.AfsCoProposedNumber)),
+                    New SqlParameter(":STRAFSCOEXECUTEDNUMBER", StoreNothingIfZero(.AfsCoActionNumber)),
+                    New SqlParameter(":STRAFSCORESOLVEDNUMBER", StoreNothingIfZero(.AfsCoResolvedActionNumber)),
+                    New SqlParameter(":STRAFSAOTOAGNUMBER", StoreNothingIfZero(.AfsAoToAGActionNumber)),
+                    New SqlParameter(":STRAFSCIVILCOURTNUMBER", StoreNothingIfZero(.AfsCivilCourtActionNumber)),
+                    New SqlParameter(":STRAFSAORESOLVEDNUMBER", StoreNothingIfZero(.AfsAoResolvedActionNumber)),
                     New SqlParameter(":STRMODIFINGPERSON", CurrentUser.UserID)
                 })
 

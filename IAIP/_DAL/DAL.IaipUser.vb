@@ -260,7 +260,7 @@ Namespace DAL
                 New SqlParameter("programid", programid),
                 New SqlParameter("unitid", unitid),
                 New SqlParameter("office", office),
-                New SqlParameter("status", DBUtilities.ConvertBooleanToDBValue(status, DBUtilities.BooleanDBConversionType.OneOrZero)),
+                New SqlParameter("status", ConvertBooleanToDBValue(status, BooleanDBConversionType.OneOrZero)),
                 New SqlParameter("createdby", CurrentUser.UserID)
             }
             Dim result As Boolean = DB.SPRunCommand(spName, parameters)
@@ -308,7 +308,7 @@ Namespace DAL
                 New SqlParameter("programid", user.ProgramID),
                 New SqlParameter("unitid", user.UnitId),
                 New SqlParameter("office", user.OfficeNumber),
-                New SqlParameter("status", DBUtilities.ConvertBooleanToDBValue(user.ActiveEmployee, DBUtilities.BooleanDBConversionType.OneOrZero)),
+                New SqlParameter("status", ConvertBooleanToDBValue(user.ActiveEmployee, BooleanDBConversionType.OneOrZero)),
                 New SqlParameter("updatedby", CurrentUser.UserID)
             }
             Return DB.SPRunCommand(spName, parameters)
