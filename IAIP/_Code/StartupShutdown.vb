@@ -30,9 +30,6 @@
         ' EQATEC analytics monitor
         InitializeMonitor()
 
-        ' Microsoft Application Insights
-        ApplicationInsights.InitializeTelemetryClient()
-
         ' Initialize form settings
         AllFormSettings = GetAllFormSettings()
 
@@ -52,9 +49,6 @@
 
         ' EQATEC analytics monitor
         StopMonitor()
-
-        ' Microsoft Application Insights
-        ApplicationInsights.StopTelemetryClient()
 
     End Sub
 

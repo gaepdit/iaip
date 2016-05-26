@@ -51,11 +51,9 @@
 
     Private Sub DbPingTimerElapsed()
         monitor.TrackFeature("Timers.DbPingTimer")
-        ApplicationInsights.TrackEvent("Timers.DbPingTimer")
         Dim result As Boolean = DB.PingDBConnection(CurrentConnection)
         If Not result Then
             monitor.TrackFeature("Timers.DbPingFailure")
-            ApplicationInsights.TrackEvent("Timers.DbPingFailure")
             MessageBox.Show("The database connection has been lost. " & vbNewLine &
                             "Please close and restart the IAIP.",
                             "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -74,7 +72,6 @@
 
     Private Sub AppDurationTimerElapsed()
         monitor.TrackFeature("Timers.AppDurationTimer")
-        ApplicationInsights.TrackEvent("Timers.AppDurationTimer")
         StartTimer(ShutdownWarningTimer, ShutdownWarningTimerInterval,
                    AddressOf ShutdownWarningTimerElapsed, False)
 
@@ -99,7 +96,6 @@
 
     Private Sub ShutdownWarningTimerElapsed()
         monitor.TrackFeature("Timers.ShutdownWarningTimer")
-        ApplicationInsights.TrackEvent("Timers.ShutdownWarningTimer")
         StartupShutdown.CloseIaip()
     End Sub
 

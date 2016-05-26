@@ -145,7 +145,6 @@ Namespace DB
                             table = Nothing
                         Finally
                             timer.Stop()
-                            ApplicationInsights.TrackDependency(TelemetryDependencyType.Oracle, MethodBase.GetCurrentMethod.Name, spName, startTime, timer.Elapsed, success)
                         End Try
                     End Using
                 End Using
@@ -245,7 +244,6 @@ Namespace DB
                         ErrorReport(ee, spName, Reflection.MethodBase.GetCurrentMethod.Name)
                     Finally
                         timer.Stop()
-                        ApplicationInsights.TrackDependency(TelemetryDependencyType.Oracle, MethodBase.GetCurrentMethod.Name, spName, startTime, timer.Elapsed, success)
                     End Try
                 End Using
             End Using

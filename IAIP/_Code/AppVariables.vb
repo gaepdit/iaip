@@ -39,7 +39,6 @@ Module AppVariables
 
     Friend Const EqatecAnalyticsApiKey As String = "F635C42ABA7B4DE886EEFCEE31C98000"
     Friend Const GoogleMapsApiKey As String = "AIzaSyAOMeyIrtZeEJb1Pci5jgtn_Uh3wr0NP14"
-    Friend Const ApplicationInsightsKey As String = "fc9b3ee9-eae9-4af4-a62d-ca041194890d"
 
 #End Region
 

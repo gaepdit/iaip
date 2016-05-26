@@ -22,7 +22,6 @@ Module ErrorReporting
 
         ' First, track the exception using our analytics program. This is more reliable.
         monitor.TrackException(exc, contextMessage)
-        ApplicationInsights.TrackException(exc, contextMessage)
 
         ' Second, try logging the error message to the IAIP database. This requires a connection so will sometimes fail.
         Dim errorMessage As String = exc.Message

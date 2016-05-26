@@ -11,7 +11,6 @@ Public Class IaipExceptionManager
         ' Handles Application.ThreadException
         ' Handler added in StartupShutdown.Init
         monitor.TrackException(e.Exception, sender.ToString)
-        ApplicationInsights.TrackException(e.Exception, sender.ToString)
 
         Dim WhatHappened As String = "An unexpected error has occurred." & Environment.NewLine & Environment.NewLine &
             "The action you requested was not performed. When you click Exit, the IAIP will close."
