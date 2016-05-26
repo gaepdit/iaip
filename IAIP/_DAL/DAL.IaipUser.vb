@@ -11,8 +11,8 @@ Namespace DAL
 
             Dim spName As String = "iaip_user.AuthenticateIaipUser"
             Dim parameters As SqlParameter() = {
-                New SqlParameter("username", username),
-                New SqlParameter("userpassword", password)
+                New SqlParameter("@username", username),
+                New SqlParameter("@userpassword", password)
             }
             Dim result As String = DB.SPGetSingleValue(Of String)(spName, parameters)
 
@@ -47,7 +47,7 @@ Namespace DAL
             If userid = 0 Then Return Nothing
 
             Dim spName As String = "IAIP_USER.GetIaipUserByUserId"
-            Dim parameter As New SqlParameter("userid", userid)
+            Dim parameter As New SqlParameter("@userid", userid)
 
             Return DB.SPGetDataTable(spName, parameter)
         End Function
@@ -56,7 +56,7 @@ Namespace DAL
             If username = "" Then Return Nothing
 
             Dim spName As String = "IAIP_USER.GetIaipUserByUsername"
-            Dim parameter As New SqlParameter("username", username)
+            Dim parameter As New SqlParameter("@username", username)
 
             Dim dataTable As DataTable = DB.SPGetDataTable(spName, parameter)
             If dataTable Is Nothing OrElse dataTable.Rows.Count = 0 Then Return Nothing
@@ -104,9 +104,9 @@ Namespace DAL
             'If username = "" Then Return False
             'Dim spName As String = "IAIP_USER.UsernameExists"
             'Dim parameters As SqlParameter() = New SqlParameter() {
-            '    New SqlParameter("ReturnValue", SqlDbType.VarChar, 5, Nothing, ParameterDirection.ReturnValue),
-            '    New SqlParameter("username", username),
-            '    New SqlParameter("ignoreUser", ignoreUser)
+            '    New SqlParameter("@ReturnValue", SqlDbType.VarChar, 5, Nothing, ParameterDirection.ReturnValue),
+            '    New SqlParameter("@username", username),
+            '    New SqlParameter("@ignoreUser", ignoreUser)
             '}
             'DB.SPRunCommand(spName, parameters)
             'Return DBUtilities.GetNullable(Of Boolean)(parameters(0).Value.ToString)
@@ -120,9 +120,9 @@ Namespace DAL
             'If email.Trim = "" Then Return False
             'Dim spName As String = "IAIP_USER.EmailInUse"
             'Dim parameters As SqlParameter() = New SqlParameter() {
-            '    New SqlParameter("ReturnValue", SqlDbType.VarChar, 5, Nothing, ParameterDirection.ReturnValue),
-            '    New SqlParameter("email", email.Trim.ToLower),
-            '    New SqlParameter("ignoreUser", ignoreUser)
+            '    New SqlParameter("@ReturnValue", SqlDbType.VarChar, 5, Nothing, ParameterDirection.ReturnValue),
+            '    New SqlParameter("@email", email.Trim.ToLower),
+            '    New SqlParameter("@ignoreUser", ignoreUser)
             '}
             'DB.SPRunCommand(spName, parameters)
             'Return DBUtilities.GetNullable(Of Boolean)(parameters(0).Value.ToString)
@@ -139,10 +139,10 @@ Namespace DAL
 
             'Dim spName As String = "IAIP_USER.UpdateUserPassword"
             'Dim parameters As SqlParameter() = {
-            '    New SqlParameter("ReturnValue", SqlDbType.VarChar, 20, Nothing, ParameterDirection.ReturnValue),
-            '    New SqlParameter("username", username),
-            '    New SqlParameter("newpassword", newPassword),
-            '    New SqlParameter("oldpassword", oldPassword)
+            '    New SqlParameter("@ReturnValue", SqlDbType.VarChar, 20, Nothing, ParameterDirection.ReturnValue),
+            '    New SqlParameter("@username", username),
+            '    New SqlParameter("@newpassword", newPassword),
+            '    New SqlParameter("@oldpassword", oldPassword)
             '}
             'Dim result As Boolean = DB.SPRunCommand(spName, parameters)
 
@@ -172,7 +172,7 @@ Namespace DAL
             End If
 
             Dim spName As String = "IAIP_USER.RequestUsername"
-            Dim parameter As New SqlParameter("emailaddress", email)
+            Dim parameter As New SqlParameter("@emailaddress", email)
             If DB.SPRunCommand(spName, parameter) Then
                 Return UsernameReminderResponse.Success
             Else
@@ -193,7 +193,7 @@ Namespace DAL
             End If
 
             Dim spName As String = "IAIP_USER.RequestUserPasswordReset"
-            Dim parameter As New SqlParameter("username", username)
+            Dim parameter As New SqlParameter("@username", username)
             If DB.SPRunCommand(spName, parameter) Then
                 Return ResetPasswordResponse.Success
             Else
@@ -220,10 +220,10 @@ Namespace DAL
 
             'Dim spName As String = "IAIP_USER.ResetUserPassword"
             'Dim parameters As SqlParameter() = {
-            '    New SqlParameter("ReturnValue", SqlDbType.VarChar, 20, Nothing, ParameterDirection.ReturnValue),
-            '    New SqlParameter("username", username),
-            '    New SqlParameter("newpassword", newPassword),
-            '    New SqlParameter("resettoken", resettoken)
+            '    New SqlParameter("@ReturnValue", SqlDbType.VarChar, 20, Nothing, ParameterDirection.ReturnValue),
+            '    New SqlParameter("@username", username),
+            '    New SqlParameter("@newpassword", newPassword),
+            '    New SqlParameter("@resettoken", resettoken)
             '}
             'Dim result As Boolean = DB.SPRunCommand(spName, parameters)
 
@@ -250,18 +250,18 @@ Namespace DAL
 
             Dim spName As String = "IAIP_USER.CreateNewUser"
             Dim parameters As SqlParameter() = {
-                New SqlParameter("ReturnValue", SqlDbType.Int, ParameterDirection.ReturnValue),
-                New SqlParameter("username", username),
-                New SqlParameter("lastname", lastname),
-                New SqlParameter("firstname", firstname),
-                New SqlParameter("emailaddress", emailaddress),
-                New SqlParameter("phone", phone),
-                New SqlParameter("branchid", branchid),
-                New SqlParameter("programid", programid),
-                New SqlParameter("unitid", unitid),
-                New SqlParameter("office", office),
-                New SqlParameter("status", ConvertBooleanToDBValue(status, BooleanDBConversionType.OneOrZero)),
-                New SqlParameter("createdby", CurrentUser.UserID)
+                New SqlParameter("@ReturnValue", SqlDbType.Int, ParameterDirection.ReturnValue),
+                New SqlParameter("@username", username),
+                New SqlParameter("@lastname", lastname),
+                New SqlParameter("@firstname", firstname),
+                New SqlParameter("@emailaddress", emailaddress),
+                New SqlParameter("@phone", phone),
+                New SqlParameter("@branchid", branchid),
+                New SqlParameter("@programid", programid),
+                New SqlParameter("@unitid", unitid),
+                New SqlParameter("@office", office),
+                New SqlParameter("@status", ConvertBooleanToDBValue(status, BooleanDBConversionType.OneOrZero)),
+                New SqlParameter("@createdby", CurrentUser.UserID)
             }
             Dim result As Boolean = DB.SPRunCommand(spName, parameters)
 
@@ -283,12 +283,12 @@ Namespace DAL
                                     ) As DataTable
             Dim spName As String = "IAIP_USER.SearchUsers"
             Dim parameters As SqlParameter() = {
-                New SqlParameter("firstname", firstName),
-                New SqlParameter("lastname", lastName),
-                New SqlParameter("branchid", branch),
-                New SqlParameter("programid", program),
-                New SqlParameter("unitid", unit),
-                New SqlParameter("includeinactive", includeInactive.ToString)
+                New SqlParameter("@firstname", firstName),
+                New SqlParameter("@lastname", lastName),
+                New SqlParameter("@branchid", branch),
+                New SqlParameter("@programid", program),
+                New SqlParameter("@unitid", unit),
+                New SqlParameter("@includeinactive", includeInactive.ToString)
             }
             Return DB.SPGetDataTable(spName, parameters)
         End Function
@@ -298,18 +298,18 @@ Namespace DAL
 
             Dim spName As String = "IAIP_USER.UpdateUserProfile"
             Dim parameters As SqlParameter() = {
-                New SqlParameter("userid", user.UserID),
-                New SqlParameter("username", user.Username),
-                New SqlParameter("lastname", user.LastName),
-                New SqlParameter("firstname", user.FirstName),
-                New SqlParameter("emailaddress", user.EmailAddress),
-                New SqlParameter("phone", user.PhoneNumber),
-                New SqlParameter("branchid", user.BranchID),
-                New SqlParameter("programid", user.ProgramID),
-                New SqlParameter("unitid", user.UnitId),
-                New SqlParameter("office", user.OfficeNumber),
-                New SqlParameter("status", ConvertBooleanToDBValue(user.ActiveEmployee, BooleanDBConversionType.OneOrZero)),
-                New SqlParameter("updatedby", CurrentUser.UserID)
+                New SqlParameter("@userid", user.UserID),
+                New SqlParameter("@username", user.Username),
+                New SqlParameter("@lastname", user.LastName),
+                New SqlParameter("@firstname", user.FirstName),
+                New SqlParameter("@emailaddress", user.EmailAddress),
+                New SqlParameter("@phone", user.PhoneNumber),
+                New SqlParameter("@branchid", user.BranchID),
+                New SqlParameter("@programid", user.ProgramID),
+                New SqlParameter("@unitid", user.UnitId),
+                New SqlParameter("@office", user.OfficeNumber),
+                New SqlParameter("@status", ConvertBooleanToDBValue(user.ActiveEmployee, BooleanDBConversionType.OneOrZero)),
+                New SqlParameter("@updatedby", CurrentUser.UserID)
             }
             Return DB.SPRunCommand(spName, parameters)
         End Function
@@ -319,9 +319,9 @@ Namespace DAL
 
             Dim spName As String = "IAIP_USER.UpdateUserRoles"
             Dim parameters As SqlParameter() = {
-                New SqlParameter("userid", userId),
-                New SqlParameter("rolesstring", roles.DbString),
-                New SqlParameter("updatedby", CurrentUser.UserID)
+                New SqlParameter("@userid", userId),
+                New SqlParameter("@rolesstring", roles.DbString),
+                New SqlParameter("@updatedby", CurrentUser.UserID)
             }
             Return DB.SPRunCommand(spName, parameters)
         End Function

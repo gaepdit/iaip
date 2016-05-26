@@ -17,8 +17,8 @@ Namespace DAL.Ismp
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
                 " FROM ISMPREPORTINFORMATION " &
                 " WHERE RowNum = 1 " &
-                " AND STRREFERENCENUMBER = :ReferenceNumber "
-            Dim parameter As New SqlParameter("ReferenceNumber", referenceNumber)
+                " AND STRREFERENCENUMBER = @ReferenceNumber "
+            Dim parameter As New SqlParameter("@ReferenceNumber", referenceNumber)
 
             Return DB.GetBoolean(query, parameter)
         End Function
@@ -34,8 +34,8 @@ Namespace DAL.Ismp
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
                 " FROM ISMPTESTNOTIFICATION " &
                 " WHERE RowNum = 1 " &
-                " AND STRTESTLOGNUMBER = :NotificationNumber "
-            Dim parameter As New SqlParameter("NotificationNumber", notificationNumber)
+                " AND STRTESTLOGNUMBER = @NotificationNumber "
+            Dim parameter As New SqlParameter("@NotificationNumber", notificationNumber)
 
             Return DB.GetBoolean(query, parameter)
         End Function
@@ -50,8 +50,8 @@ Namespace DAL.Ismp
 
             Dim query As String = "SELECT STRCLOSED " &
                 " FROM ISMPREPORTINFORMATION " &
-                " WHERE STRREFERENCENUMBER = :ReferenceNumber "
-            Dim parameter As New SqlParameter("ReferenceNumber", referenceNumber)
+                " WHERE STRREFERENCENUMBER = @ReferenceNumber "
+            Dim parameter As New SqlParameter("@ReferenceNumber", referenceNumber)
 
             Return DB.GetBoolean(query, parameter)
         End Function
@@ -64,9 +64,9 @@ Namespace DAL.Ismp
             "FROM ISMPDocumentType dt " &
             "INNER JOIN ISMPReportInformation ri " &
             "ON ri.STRDOCUMENTTYPE = dt.STRKEY " &
-            "WHERE ri.STRREFERENCENUMBER = :ReferenceNumber"
+            "WHERE ri.STRREFERENCENUMBER = @ReferenceNumber"
 
-            Dim parameter As New SqlParameter("ReferenceNumber", referenceNumber)
+            Dim parameter As New SqlParameter("@ReferenceNumber", referenceNumber)
 
             Return DB.GetSingleValue(Of String)(query, parameter)
         End Function
@@ -88,17 +88,17 @@ Namespace DAL.Ismp
             Dim queryList As New List(Of String)
             Dim parametersList As New List(Of SqlParameter())
             Dim parameter As SqlParameter() = New SqlParameter() {
-                New SqlParameter("ReferenceNumber", referenceNumber)
+                New SqlParameter("@ReferenceNumber", referenceNumber)
             }
 
             If tableName <> "UNASSIGNED" Then
-                queryList.Add("DELETE FROM " & tableName & " WHERE strReferenceNumber = :ReferenceNumber")
+                queryList.Add("DELETE FROM " & tableName & " WHERE strReferenceNumber = @ReferenceNumber")
                 parametersList.Add(parameter)
             End If
 
             queryList.Add(" UPDATE ISMPReportInformation " &
                           " SET strDocumentType      = '001' " &
-                          " WHERE strReferenceNumber = :ReferenceNumber ")
+                          " WHERE strReferenceNumber = @ReferenceNumber ")
             parametersList.Add(parameter)
 
             Return DB.RunCommand(queryList, parametersList)

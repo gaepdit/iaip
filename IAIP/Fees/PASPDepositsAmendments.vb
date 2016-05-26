@@ -22,8 +22,8 @@ Public Class PASPDepositsAmendments
         Dim query As String = "Select " &
             "strFacilityName " &
             "from APBFacilityInformation " &
-            "where strAIRSNumber = :AIRSNumber "
-        Dim param As New SqlParameter("AIRSNumber", New Apb.ApbFacilityId(AIRSNumber).DbFormattedString)
+            "where strAIRSNumber = @AIRSNumber "
+        Dim param As New SqlParameter("@AIRSNumber", New Apb.ApbFacilityId(AIRSNumber).DbFormattedString)
 
         Dim facName As String = DB.GetSingleValue(Of String)(query, param)
 
@@ -42,8 +42,8 @@ Public Class PASPDepositsAmendments
             query = "Select " &
                 "strAIRSNumber " &
                 "from APBFacilityInformation " &
-                "where strAIRSNumber = :AIRSNumber "
-            param = {New SqlParameter("AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)}
+                "where strAIRSNumber = @AIRSNumber "
+            param = {New SqlParameter("@AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)}
 
             If Not DB.ValueExists(query, param) Then
                 MsgBox("This AIRS # is not valid; please verify that it is entered correctly." & vbCrLf &
@@ -83,11 +83,11 @@ Public Class PASPDepositsAmendments
             Return False
         Else
             query = "Select InvoiceID from FS_FeeInvoice " &
-                "where invoiceID = :InvoiceID " &
-                "and strAIRSNumber = :AIRSNumber "
+                "where invoiceID = @InvoiceID " &
+                "and strAIRSNumber = @AIRSNumber "
             param = {
-                New SqlParameter("InvoiceID", txtInvoiceForDeposit.Text),
-                New SqlParameter("AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)
+                New SqlParameter("@InvoiceID", txtInvoiceForDeposit.Text),
+                New SqlParameter("@AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)
             }
             If Not DB.ValueExists(query, param) Then
                 MsgBox("Please select a valid Invoice Number", MsgBoxStyle.OkOnly, "No Valid Invoice No.")
@@ -108,12 +108,12 @@ Public Class PASPDepositsAmendments
             "  fi.INVOICEID " &
             "INNER JOIN FSLK_PayType lpt ON lpt.NUMPAYTYPEID = " &
             "  fi.STRPAYTYPE " &
-            "WHERE tr.DATTRANSACTIONDATE BETWEEN :StartDate AND :EndDate AND " &
+            "WHERE tr.DATTRANSACTIONDATE BETWEEN @StartDate AND @EndDate AND " &
             "  tr.ACTIVE = '1' AND fi.ACTIVE = '1' " &
             "ORDER BY tr.STRBATCHNO"
         Dim parameters As SqlParameter() = {
-            New SqlParameter("StartDate", dtpDepositReportStartDate.Value),
-            New SqlParameter("EndDate", dtpDepositReportEndDate.Value)
+            New SqlParameter("@StartDate", dtpDepositReportStartDate.Value),
+            New SqlParameter("@EndDate", dtpDepositReportEndDate.Value)
         }
 
         dtDeposit = DB.GetDataTable(query, parameters)
@@ -130,8 +130,8 @@ Public Class PASPDepositsAmendments
             End If
 
             Dim query As String = "Delete FSAddPaid " &
-            "where intPayID = :trID"
-            Dim param As New SqlParameter("trID", txtTransactionID.Text)
+            "where intPayID = @trID"
+            Dim param As New SqlParameter("@trID", txtTransactionID.Text)
             DB.RunCommand(query, param)
 
             btnSearchDeposits.Enabled = False
@@ -179,11 +179,11 @@ Public Class PASPDepositsAmendments
                 "FSLK_TransactionType  " &
                 "where FS_FeeInvoice.InvoiceID = FS_Transactions.INvoiceID (+) " &
                 "and FS_Transactions.transactionTypeCode = FSLK_TransactionType.TransactionTypeCode (+) " &
-                "and strCheckNo like :chknum  " &
+                "and strCheckNo like @chknum  " &
                 "and FS_Transactions.Active = '1' " &
                 "and FS_FeeInvoice.Active = '1' " &
                 "order by strBatchNo  "
-            param = {New SqlParameter("chknum", "%" & txtCheckNumber.Text & "%")}
+            param = {New SqlParameter("@chknum", "%" & txtCheckNumber.Text & "%")}
         Else
             query = "select " &
                 "distinct  ALLInvoices.strAIRSNumber, strDepositNo, datTransactionDate,  " &
@@ -194,8 +194,8 @@ Public Class PASPDepositsAmendments
                 "(select substr(FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " &
                 "FS_FeeINvoice.numFeeYear, FS_FeeINvoice.InvoiceID " &
                 "from  FS_FeeInvoice " &
-                "where FS_FeeInvoice.strAIRSnumber like :airsnum " &
-                "and FS_FeeInvoice.numFeeYear = :feeyear " &
+                "where FS_FeeInvoice.strAIRSnumber like @airsnum " &
+                "and FS_FeeInvoice.numFeeYear = @feeyear " &
                 "and FS_FeeInvoice.Active = '1' " &
                 "union " &
                 "select distinct substr(FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " &
@@ -203,8 +203,8 @@ Public Class PASPDepositsAmendments
                 "from FS_Transactions, FS_FeeInvoice, FSLK_TransactionType  " &
                 "where FS_FeeINvoice.InvoiceID = FS_Transactions.INvoiceID (+) " &
                 "and FS_Transactions.transactionTypeCode = FSLK_TransactionType.TransactionTypeCode (+) " &
-                "and FS_FeeInvoice.strAIRSnumber like :airsnum " &
-                "and FS_FeeInvoice.numFeeYear = :feeyear and FS_FeeInvoice.Active = '1' " &
+                "and FS_FeeInvoice.strAIRSnumber like @airsnum " &
+                "and FS_FeeInvoice.numFeeYear = @feeyear and FS_FeeInvoice.Active = '1' " &
                 "and FS_Transactions.Active = '1'  ) ALLInvoices,  " &
                 "(select distinct substr(FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, strDepositNo, datTransactionDate, " &
                 "numPayment, FS_FeeINvoice.numFeeYear, strCheckNo, strBatchNo, Description, TransactionID, " &
@@ -214,14 +214,14 @@ Public Class PASPDepositsAmendments
                 "from FS_Transactions, FS_FeeInvoice, FSLK_TransactionType  " &
                 "where FS_FeeINvoice.InvoiceID = FS_Transactions.INvoiceID (+) " &
                 "and FS_Transactions.transactionTypeCode = FSLK_TransactionType.TransactionTypeCode (+) " &
-                "and FS_FeeInvoice.strAIRSnumber like :airsnum " &
-                "and FS_FeeInvoice.numFeeYear = :feeyear " &
+                "and FS_FeeInvoice.strAIRSnumber like @airsnum " &
+                "and FS_FeeInvoice.numFeeYear = @feeyear " &
                 "and FS_FeeInvoice.Active = '1' " &
                 "and FS_Transactions.Active = '1' order by strBatchNo) Transactions " &
                 "where Allinvoices.InvoiceID = Transactions.InvoiceID  (+) "
             param = {
-                New SqlParameter("airsnum", "%" & mtbAIRSNumber.Text & "%"),
-                New SqlParameter("feeyear", mtbFeeYear.Text)
+                New SqlParameter("@airsnum", "%" & mtbAIRSNumber.Text & "%"),
+                New SqlParameter("@feeyear", mtbFeeYear.Text)
             }
 
         End If
@@ -456,28 +456,28 @@ Public Class PASPDepositsAmendments
                         "  ) " &
                         "  VALUES " &
                         "  ( " &
-                        "    SEQ_FS_TRANSACTIONS.nextval, :INVOICEID, " &
-                        "    :TRANSACTIONTYPECODE, :DATTRANSACTIONDATE, :NUMPAYMENT, " &
-                        "    :STRCHECKNO, :STRDEPOSITNO, :STRBATCHNO, :STRENTRYPERSON, " &
-                        "    :STRCOMMENT, :ACTIVE, :UPDATEUSER, sysdate, sysdate, " &
-                        "    :STRAIRSNUMBER, :NUMFEEYEAR, :STRCREDITCARDNO " &
+                        "    SEQ_FS_TRANSACTIONS.nextval, @INVOICEID, " &
+                        "    @TRANSACTIONTYPECODE, @DATTRANSACTIONDATE, @NUMPAYMENT, " &
+                        "    @STRCHECKNO, @STRDEPOSITNO, @STRBATCHNO, @STRENTRYPERSON, " &
+                        "    @STRCOMMENT, @ACTIVE, @UPDATEUSER, sysdate, sysdate, " &
+                        "    @STRAIRSNUMBER, @NUMFEEYEAR, @STRCREDITCARDNO " &
                         "  ) "
                     Dim param() As SqlParameter
                     param = {
-                        New SqlParameter("INVOICEID", txtInvoiceForDeposit.Text),
-                        New SqlParameter("TRANSACTIONTYPECODE", "1"),
-                        New SqlParameter("DATTRANSACTIONDATE", DTPBatchDepositDateField.Text),
-                        New SqlParameter("NUMPAYMENT", Replace(Replace(txtDepositAmount.Text, ",", ""), "$", "")),
-                        New SqlParameter("STRCHECKNO", txtCheckNumberField.Text),
-                        New SqlParameter("STRDEPOSITNO", txtDepositNumberField.Text),
-                        New SqlParameter("STRBATCHNO", txtBatchNoField.Text),
-                        New SqlParameter("STRENTRYPERSON", CurrentUser.UserID),
-                        New SqlParameter("STRCOMMENT", txtDepositComments.Text),
-                        New SqlParameter("ACTIVE", "1"),
-                        New SqlParameter("UPDATEUSER", CurrentUser.UserID),
-                        New SqlParameter("STRAIRSNUMBER", "0413" & mtbAIRSNumber.Text),
-                        New SqlParameter("NUMFEEYEAR", mtbFeeYear2.Text),
-                        New SqlParameter("STRCREDITCARDNO", txtCreditCardNo.Text)
+                        New SqlParameter("@INVOICEID", txtInvoiceForDeposit.Text),
+                        New SqlParameter("@TRANSACTIONTYPECODE", "1"),
+                        New SqlParameter("@DATTRANSACTIONDATE", DTPBatchDepositDateField.Text),
+                        New SqlParameter("@NUMPAYMENT", Replace(Replace(txtDepositAmount.Text, ",", ""), "$", "")),
+                        New SqlParameter("@STRCHECKNO", txtCheckNumberField.Text),
+                        New SqlParameter("@STRDEPOSITNO", txtDepositNumberField.Text),
+                        New SqlParameter("@STRBATCHNO", txtBatchNoField.Text),
+                        New SqlParameter("@STRENTRYPERSON", CurrentUser.UserID),
+                        New SqlParameter("@STRCOMMENT", txtDepositComments.Text),
+                        New SqlParameter("@ACTIVE", "1"),
+                        New SqlParameter("@UPDATEUSER", CurrentUser.UserID),
+                        New SqlParameter("@STRAIRSNUMBER", "0413" & mtbAIRSNumber.Text),
+                        New SqlParameter("@NUMFEEYEAR", mtbFeeYear2.Text),
+                        New SqlParameter("@STRCREDITCARDNO", txtCreditCardNo.Text)
                     }
                     DB.RunCommand(query, param)
 
@@ -519,14 +519,14 @@ Public Class PASPDepositsAmendments
             "from (select " &
             "sum(numAmount) as InvoiceTotal " &
             "from FS_Feeinvoice " &
-            "where invoiceid = :invID " &
+            "where invoiceid = @invID " &
             "and Active = '1' ) INVOICED, " &
             "(select " &
             "sum(numPayment) as PaymentTotal " &
             "from FS_TRANSACTIONS " &
-            "where invoiceid = :invID " &
+            "where invoiceid = @invID " &
             "and Active = '1' ) Payments "
-            Dim param As New SqlParameter("invID", invoiceID)
+            Dim param As New SqlParameter("@invID", invoiceID)
 
             Dim result As String = DB.GetSingleValue(Of String)(query, param)
             If String.IsNullOrWhiteSpace(result) Then
@@ -536,11 +536,11 @@ Public Class PASPDepositsAmendments
             If result <> "0" Then
                 query = "Update FS_FeeInvoice set " &
                 "strInvoicestatus = '0' " &
-                "where invoiceId = :invID "
+                "where invoiceId = @invID "
             Else
                 query = "Update FS_FeeInvoice set " &
                 "strInvoicestatus = '1' " &
-                "where invoiceId = : invID "
+                "where invoiceId = @ invID "
             End If
             DB.RunCommand(query, param)
         Catch ex As Exception
@@ -554,27 +554,27 @@ Public Class PASPDepositsAmendments
                 If ValidateData() Then
                     If txtTransactionID.Text <> "" Then
                         Dim query As String = "UPDATE FS_TRANSACTIONS " &
-                            "SET INVOICEID = :INVOICEID, TRANSACTIONTYPECODE = " &
-                            "  :TRANSACTIONTYPECODE, DATTRANSACTIONDATE = " &
-                            "  :DATTRANSACTIONDATE, NUMPAYMENT = :NUMPAYMENT, STRCHECKNO = " &
-                            "  :STRCHECKNO, STRDEPOSITNO = :STRDEPOSITNO, STRBATCHNO = " &
-                            "  :STRBATCHNO, STRCOMMENT = :STRCOMMENT, ACTIVE = :ACTIVE, " &
-                            "  UPDATEUSER = :UPDATEUSER, UPDATEDATETIME = sysdate, " &
-                            "  STRCREDITCARDNO = :STRCREDITCARDNO " &
-                            "WHERE TRANSACTIONID = :TRANSACTIONID "
+                            "SET INVOICEID = @INVOICEID, TRANSACTIONTYPECODE = " &
+                            "  @TRANSACTIONTYPECODE, DATTRANSACTIONDATE = " &
+                            "  @DATTRANSACTIONDATE, NUMPAYMENT = @NUMPAYMENT, STRCHECKNO = " &
+                            "  @STRCHECKNO, STRDEPOSITNO = @STRDEPOSITNO, STRBATCHNO = " &
+                            "  @STRBATCHNO, STRCOMMENT = @STRCOMMENT, ACTIVE = @ACTIVE, " &
+                            "  UPDATEUSER = @UPDATEUSER, UPDATEDATETIME = sysdate, " &
+                            "  STRCREDITCARDNO = @STRCREDITCARDNO " &
+                            "WHERE TRANSACTIONID = @TRANSACTIONID "
                         Dim param As SqlParameter() = {
-                            New SqlParameter("INVOICEID", txtInvoiceForDeposit.Text),
-                            New SqlParameter("TRANSACTIONTYPECODE", "1"),
-                            New SqlParameter("DATTRANSACTIONDATE", DTPBatchDepositDateField.Text),
-                            New SqlParameter("NUMPAYMENT", Replace(Replace(txtDepositAmount.Text, ",", ""), "$", "")),
-                            New SqlParameter("STRCHECKNO", txtCheckNumberField.Text),
-                            New SqlParameter("STRDEPOSITNO", txtDepositNumberField.Text),
-                            New SqlParameter("STRBATCHNO", txtBatchNoField.Text),
-                            New SqlParameter("STRCOMMENT", txtDepositComments.Text),
-                            New SqlParameter("ACTIVE", "1"),
-                            New SqlParameter("UPDATEUSER", CurrentUser.UserID),
-                            New SqlParameter("STRCREDITCARDNO", txtCreditCardNo.Text),
-                            New SqlParameter("TRANSACTIONID", txtTransactionID.Text)
+                            New SqlParameter("@INVOICEID", txtInvoiceForDeposit.Text),
+                            New SqlParameter("@TRANSACTIONTYPECODE", "1"),
+                            New SqlParameter("@DATTRANSACTIONDATE", DTPBatchDepositDateField.Text),
+                            New SqlParameter("@NUMPAYMENT", Replace(Replace(txtDepositAmount.Text, ",", ""), "$", "")),
+                            New SqlParameter("@STRCHECKNO", txtCheckNumberField.Text),
+                            New SqlParameter("@STRDEPOSITNO", txtDepositNumberField.Text),
+                            New SqlParameter("@STRBATCHNO", txtBatchNoField.Text),
+                            New SqlParameter("@STRCOMMENT", txtDepositComments.Text),
+                            New SqlParameter("@ACTIVE", "1"),
+                            New SqlParameter("@UPDATEUSER", CurrentUser.UserID),
+                            New SqlParameter("@STRCREDITCARDNO", txtCreditCardNo.Text),
+                            New SqlParameter("@TRANSACTIONID", txtTransactionID.Text)
                         }
                         DB.RunCommand(query, param)
                     Else
@@ -627,8 +627,8 @@ Public Class PASPDepositsAmendments
             If result = System.Windows.Forms.DialogResult.Yes Then
                 Dim query As String = "Update FS_Transactions set " &
                         "active = '0' " &
-                        "where TransactionId = :trID "
-                Dim param As New SqlParameter("trID", txtTransactionID.Text)
+                        "where TransactionId = @trID "
+                Dim param As New SqlParameter("@trID", txtTransactionID.Text)
                 DB.RunCommand(query, param)
 
                 btnSearchDeposits.Enabled = False
@@ -777,8 +777,8 @@ Public Class PASPDepositsAmendments
                 Dim query As String = "Select " &
                 "strFacilityName " &
                 "from APBFacilityInformation " &
-                "where strAIRSNumber = :AIRSNumber "
-                Dim param As New SqlParameter("AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)
+                "where strAIRSNumber = @AIRSNumber "
+                Dim param As New SqlParameter("@AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)
 
                 Dim facName As String = DB.GetSingleValue(Of String)(query, param)
 
@@ -906,7 +906,7 @@ Public Class PASPDepositsAmendments
                     "(select substr(FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " &
                     "FS_FeeINvoice.numFeeYear, FS_FeeINvoice.InvoiceID " &
                     "from  FS_FeeInvoice " &
-                    "where FS_FeeInvoice.InvoiceID like :invID " &
+                    "where FS_FeeInvoice.InvoiceID like @invID " &
                     "and FS_FeeInvoice.Active = '1' " &
                     "union " &
                     "select distinct substr(FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " &
@@ -914,7 +914,7 @@ Public Class PASPDepositsAmendments
                     "from FS_Transactions, FS_FeeInvoice, FSLK_TransactionType  " &
                     "where FS_FeeINvoice.InvoiceID = FS_Transactions.INvoiceID (+) " &
                     "and FS_Transactions.transactionTypeCode = FSLK_TransactionType.TransactionTypeCode (+) " &
-                    "and FS_FeeInvoice.InvoiceID like :invID " &
+                    "and FS_FeeInvoice.InvoiceID like @invID " &
                     "and FS_FeeInvoice.Active = '1' " &
                     "and FS_Transactions.Active = '1'  ) ALLInvoices,  " &
                     "(select distinct substr(FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " &
@@ -930,7 +930,7 @@ Public Class PASPDepositsAmendments
                     "and FS_Transactions.Active = '1' order by strBatchNo) Transactions " &
                     "where Allinvoices.InvoiceID = Transactions.InvoiceID  (+) "
 
-                    param = {New SqlParameter("invID", "%" & txtSearchInvoice.Text & "%")}
+                    param = {New SqlParameter("@invID", "%" & txtSearchInvoice.Text & "%")}
                 Else
                     query = "select " &
                         "distinct  ALLInvoices.strAIRSNumber, strDepositNo, datTransactionDate,  " &
@@ -941,8 +941,8 @@ Public Class PASPDepositsAmendments
                         "(select substr(FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " &
                         "FS_FeeINvoice.numFeeYear, FS_FeeINvoice.InvoiceID " &
                         "from  FS_FeeInvoice " &
-                        "where FS_FeeInvoice.strAIRSnumber like :airs " &
-                        "and FS_FeeInvoice.numFeeYear = :feeyear " &
+                        "where FS_FeeInvoice.strAIRSnumber like @airs " &
+                        "and FS_FeeInvoice.numFeeYear = @feeyear " &
                         "and FS_FeeInvoice.Active = '1' " &
                         "union " &
                         "select distinct substr(FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " &
@@ -950,8 +950,8 @@ Public Class PASPDepositsAmendments
                         "from FS_Transactions, FS_FeeInvoice, FSLK_TransactionType  " &
                         "where FS_FeeINvoice.InvoiceID = FS_Transactions.INvoiceID (+) " &
                         "and FS_Transactions.transactionTypeCode = FSLK_TransactionType.TransactionTypeCode (+) " &
-                        "and FS_FeeInvoice.strAIRSnumber like :airs " &
-                        "and FS_FeeInvoice.numFeeYear = :feeyear and FS_FeeInvoice.Active = '1' " &
+                        "and FS_FeeInvoice.strAIRSnumber like @airs " &
+                        "and FS_FeeInvoice.numFeeYear = @feeyear and FS_FeeInvoice.Active = '1' " &
                         "and FS_Transactions.Active = '1'  ) ALLInvoices,  " &
                         "(select distinct substr(FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, strDepositNo, datTransactionDate, " &
                         "numPayment, FS_FeeINvoice.numFeeYear, strCheckNo, strBatchNo, Description, TransactionID, " &
@@ -961,14 +961,14 @@ Public Class PASPDepositsAmendments
                         "from FS_Transactions, FS_FeeInvoice, FSLK_TransactionType  " &
                         "where FS_FeeINvoice.InvoiceID = FS_Transactions.INvoiceID (+) " &
                         "and FS_Transactions.transactionTypeCode = FSLK_TransactionType.TransactionTypeCode (+) " &
-                        "and FS_FeeInvoice.strAIRSnumber like :airsnum " &
-                        "and FS_FeeInvoice.numFeeYear = :feeyear " &
+                        "and FS_FeeInvoice.strAIRSnumber like @airsnum " &
+                        "and FS_FeeInvoice.numFeeYear = @feeyear " &
                         "and FS_FeeInvoice.Active = '1' " &
                         "and FS_Transactions.Active = '1' order by InvoiceID desc) Transactions " &
                         "where Allinvoices.InvoiceID = Transactions.InvoiceID  (+) "
                     param = {
-                        New SqlParameter("airs", "0413%" & mtbAIRSNumber.Text & "%"),
-                        New SqlParameter("feeyear", mtbFeeYear.Text)
+                        New SqlParameter("@airs", "0413%" & mtbAIRSNumber.Text & "%"),
+                        New SqlParameter("@feeyear", mtbFeeYear.Text)
                     }
                 End If
                 dtInvoice = DB.GetDataTable(query, param)
@@ -1020,8 +1020,8 @@ Public Class PASPDepositsAmendments
                     query = "Select " &
                         "strFacilityName " &
                         "from APBFacilityInformation " &
-                        "where strAIRSNumber = :AIRSNumber "
-                    param = {New SqlParameter("AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)}
+                        "where strAIRSNumber = @AIRSNumber "
+                    param = {New SqlParameter("@AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)}
 
                     Dim facName As String = DB.GetSingleValue(Of String)(query, param)
 

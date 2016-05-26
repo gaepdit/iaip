@@ -8,13 +8,13 @@ Namespace DAL
             Dim query As String =
                 " INSERT INTO IAIP_LOG_QUERYGENERATOR " &
                 " (USERSUBMITTING, DATESUBMITTED, ROWSRETURNED, QUERYSUBMITTED) " &
-                " VALUES (:UserSubmitting, :DateSubmitted, :RowsReturned, :QuerySubmitted) "
+                " VALUES (@UserSubmitting, @DateSubmitted, @RowsReturned, @QuerySubmitted) "
 
             Dim parameters As SqlParameter() = {
-                New SqlParameter("UserSubmitting", CurrentUser.UserID),
-                New SqlParameter("DateSubmitted", Date.Now),
-                New SqlParameter("RowsReturned", kvp.Value),
-                New SqlParameter("QuerySubmitted", kvp.Key)
+                New SqlParameter("@UserSubmitting", CurrentUser.UserID),
+                New SqlParameter("@DateSubmitted", Date.Now),
+                New SqlParameter("@RowsReturned", kvp.Value),
+                New SqlParameter("@QuerySubmitted", kvp.Key)
             }
 
             Try

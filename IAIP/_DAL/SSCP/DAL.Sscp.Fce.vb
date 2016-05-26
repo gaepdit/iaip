@@ -14,8 +14,8 @@ Namespace DAL.Sscp
         Public Function GetFacilityIdByFceId(fceNumber As String) As Apb.ApbFacilityId
             If fceNumber = "" OrElse Not Integer.TryParse(fceNumber, Nothing) Then Return Nothing
 
-            Dim query As String = "SELECT STRAIRSNUMBER FROM SSCPFCEMASTER WHERE STRFCENUMBER = :fceNumber"
-            Dim parameter As New SqlParameter("fceNumber", fceNumber)
+            Dim query As String = "SELECT STRAIRSNUMBER FROM SSCPFCEMASTER WHERE STRFCENUMBER = @fceNumber"
+            Dim parameter As New SqlParameter("@fceNumber", fceNumber)
 
             Return New Apb.ApbFacilityId(DB.GetSingleValue(Of String)(query, parameter))
         End Function
@@ -35,14 +35,14 @@ Namespace DAL.Sscp
                 "SELECT * FROM VW_SSCP_FCES " &
                 " WHERE 1=1 "
 
-            If airs IsNot Nothing Then query &= " AND STRAIRSNUMBER = :airs "
-            If Not String.IsNullOrEmpty(staffId) Then query &= " AND STRREVIEWER = :staffId "
-            If Not String.IsNullOrEmpty(year) Then query &= " AND STRFCEYEAR = :year "
+            If airs IsNot Nothing Then query &= " AND STRAIRSNUMBER = @airs "
+            If Not String.IsNullOrEmpty(staffId) Then query &= " AND STRREVIEWER = @staffId "
+            If Not String.IsNullOrEmpty(year) Then query &= " AND STRFCEYEAR = @year "
 
             Dim parameters As SqlParameter() = {
-                New SqlParameter("airs", airs.DbFormattedString),
-                New SqlParameter("staffId", staffId),
-                New SqlParameter("year", year)
+                New SqlParameter("@airs", airs.DbFormattedString),
+                New SqlParameter("@staffId", staffId),
+                New SqlParameter("@year", year)
             }
             Return DB.GetDataTable(query, parameters)
         End Function
@@ -63,18 +63,18 @@ Namespace DAL.Sscp
                 Optional year As String = Nothing) As DataTable
             Dim query As String =
                 "SELECT * FROM VW_SSCP_FCES " &
-                " WHERE TRUNC(DATFCECOMPLETED) BETWEEN :datestart AND :dateend "
+                " WHERE TRUNC(DATFCECOMPLETED) BETWEEN @datestart AND @dateend "
 
-            If airs IsNot Nothing Then query &= " AND STRAIRSNUMBER = :airs "
-            If Not String.IsNullOrEmpty(staffId) Then query &= " AND STRREVIEWER = :staffId "
-            If Not String.IsNullOrEmpty(year) Then query &= " AND STRFCEYEAR = :year "
+            If airs IsNot Nothing Then query &= " AND STRAIRSNUMBER = @airs "
+            If Not String.IsNullOrEmpty(staffId) Then query &= " AND STRREVIEWER = @staffId "
+            If Not String.IsNullOrEmpty(year) Then query &= " AND STRFCEYEAR = @year "
 
             Dim parameters As SqlParameter() = {
-                New SqlParameter("datestart", dateRangeStart),
-                New SqlParameter("dateend", dateRangeEnd),
-                New SqlParameter("airs", airs.DbFormattedString),
-                New SqlParameter("staffId", staffId),
-                New SqlParameter("year", year)
+                New SqlParameter("@datestart", dateRangeStart),
+                New SqlParameter("@dateend", dateRangeEnd),
+                New SqlParameter("@airs", airs.DbFormattedString),
+                New SqlParameter("@staffId", staffId),
+                New SqlParameter("@year", year)
             }
             Return DB.GetDataTable(query, parameters)
         End Function

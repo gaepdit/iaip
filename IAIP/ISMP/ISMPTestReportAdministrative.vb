@@ -1035,19 +1035,19 @@ Public Class ISMPTestReportAdministrative
                 RefNum = Mid(RefNum, 1, (RefNum.IndexOf(" -")))
 
                 If DAL.Ismp.StackTestExists(RefNum) Then
-                    Dim parameter As New SqlParameter("ref", RefNum)
+                    Dim parameter As New SqlParameter("@ref", RefNum)
 
                     SQL = "Update ISMPReportInformation set " &
-                        " strDelete = 'DELETE' where strReferenceNumber = :ref"
+                        " strDelete = 'DELETE' where strReferenceNumber = @ref"
                     DB.RunCommand(SQL, parameter)
 
-                    SQL = "SELECT STRTRACKINGNUMBER FROM SSCPTESTREPORTS WHERE STRREFERENCENUMBER = :ref"
+                    SQL = "SELECT STRTRACKINGNUMBER FROM SSCPTESTREPORTS WHERE STRREFERENCENUMBER = @ref"
                     Dim trackingNumber As String = DB.GetSingleValue(Of String)(SQL, parameter)
 
                     If trackingNumber IsNot Nothing Then
-                        parameter = New SqlParameter("trackingnum", trackingNumber)
+                        parameter = New SqlParameter("@trackingnum", trackingNumber)
                         SQL = " UPDATE SSCPITEMMASTER SET STRDELETE = '" & Boolean.TrueString & "' " &
-                        " WHERE STRTRACKINGNUMBER = :trackingnum "
+                        " WHERE STRTRACKINGNUMBER = @trackingnum "
                         DB.RunCommand(SQL, parameter)
                     End If
 

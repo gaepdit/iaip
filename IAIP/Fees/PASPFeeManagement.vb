@@ -1006,8 +1006,8 @@ Public Class PASPFeeManagement
             cmd = New SqlCommand("PD_FEE_DATA", CurrentConnection)
             cmd.CommandType = CommandType.StoredProcedure
 
-            cmd.Parameters.Add(New SqlParameter("FeeYear", SqlDbType.Decimal)).Value = cboAvailableFeeYears.Text
-            cmd.Parameters.Add(New SqlParameter("AIRSNumber", SqlDbType.VarChar)).Value = ""
+            cmd.Parameters.Add(New SqlParameter("@FeeYear", SqlDbType.Decimal)).Value = cboAvailableFeeYears.Text
+            cmd.Parameters.Add(New SqlParameter("@AIRSNumber", SqlDbType.VarChar)).Value = ""
 
             cmd.ExecuteNonQuery()
 
@@ -1202,8 +1202,8 @@ Public Class PASPFeeManagement
                 cmd = New SqlCommand("PD_FEE_MAILOUT", CurrentConnection)
                 cmd.CommandType = CommandType.StoredProcedure
 
-                cmd.Parameters.Add(New SqlParameter("FeeYear", SqlDbType.Decimal)).Value = cboAvailableFeeYears.Text
-                cmd.Parameters.Add(New SqlParameter("AIRSNumber", SqlDbType.VarChar)).Value = ""
+                cmd.Parameters.Add(New SqlParameter("@FeeYear", SqlDbType.Decimal)).Value = cboAvailableFeeYears.Text
+                cmd.Parameters.Add(New SqlParameter("@AIRSNumber", SqlDbType.VarChar)).Value = ""
 
                 cmd.ExecuteNonQuery()
 
@@ -1213,8 +1213,8 @@ Public Class PASPFeeManagement
                 cmd = New SqlCommand("PD_FEE_DATA", CurrentConnection)
                 cmd.CommandType = CommandType.StoredProcedure
 
-                cmd.Parameters.Add(New SqlParameter("FeeYear", SqlDbType.Decimal)).Value = cboAvailableFeeYears.Text
-                cmd.Parameters.Add(New SqlParameter("AIRSNumber", SqlDbType.VarChar)).Value = ""
+                cmd.Parameters.Add(New SqlParameter("@FeeYear", SqlDbType.Decimal)).Value = cboAvailableFeeYears.Text
+                cmd.Parameters.Add(New SqlParameter("@AIRSNumber", SqlDbType.VarChar)).Value = ""
 
                 cmd.ExecuteNonQuery()
 
@@ -1445,33 +1445,33 @@ Public Class PASPFeeManagement
                     dr2.Close()
 
                     SQL = "Update FS_MailOut set " &
-                    "strFirstName = :ContactFirstName, " &
-                    "strLastName = :ContactLastName, " &
-                    "strPrefix = :ContactPrefix,  " &
-                    "strTitle = :ContactSuffix, " &
-                    "strContactCoName = :ContactCompanyName, " &
-                    "strContactAddress1 = :ContactAddress1, " &
-                    "strContactAddress2 = :ContactAddress2, " &
-                    "strContactCity = :ContactCity, " &
-                    "strContactState = :ContactState, " &
-                    "strcontactZipCode = :ContactZipCode " &
-                    "where strAIRSNumber = :AIRSNumber " &
-                    "and numFeeYear = :AvailableFeeYears "
+                    "strFirstName = @ContactFirstName, " &
+                    "strLastName = @ContactLastName, " &
+                    "strPrefix = @ContactPrefix,  " &
+                    "strTitle = @ContactSuffix, " &
+                    "strContactCoName = @ContactCompanyName, " &
+                    "strContactAddress1 = @ContactAddress1, " &
+                    "strContactAddress2 = @ContactAddress2, " &
+                    "strContactCity = @ContactCity, " &
+                    "strContactState = @ContactState, " &
+                    "strcontactZipCode = @ContactZipCode " &
+                    "where strAIRSNumber = @AIRSNumber " &
+                    "and numFeeYear = @AvailableFeeYears "
 
                     Dim parameters As SqlParameter()
                     parameters = New SqlParameter() {
-                        New SqlParameter("ContactFirstName", ContactFirstName),
-                        New SqlParameter("ContactLastName", ContactLastName),
-                        New SqlParameter("ContactPrefix", ContactPrefix),
-                        New SqlParameter("ContactSuffix", ContactSuffix),
-                        New SqlParameter("ContactCompanyName", ContactCompanyName),
-                        New SqlParameter("ContactAddress1", ContactAddress),
-                        New SqlParameter("ContactAddress2", ContactAddress),
-                        New SqlParameter("ContactCity", ContactCity),
-                        New SqlParameter("ContactState", ContactState),
-                        New SqlParameter("ContactZipCode", ContactZipCode),
-                        New SqlParameter("AIRSNumber", AIRSNumber),
-                        New SqlParameter("AvailableFeeYears", cboAvailableFeeYears.Text)
+                        New SqlParameter("@ContactFirstName", ContactFirstName),
+                        New SqlParameter("@ContactLastName", ContactLastName),
+                        New SqlParameter("@ContactPrefix", ContactPrefix),
+                        New SqlParameter("@ContactSuffix", ContactSuffix),
+                        New SqlParameter("@ContactCompanyName", ContactCompanyName),
+                        New SqlParameter("@ContactAddress1", ContactAddress),
+                        New SqlParameter("@ContactAddress2", ContactAddress),
+                        New SqlParameter("@ContactCity", ContactCity),
+                        New SqlParameter("@ContactState", ContactState),
+                        New SqlParameter("@ContactZipCode", ContactZipCode),
+                        New SqlParameter("@AIRSNumber", AIRSNumber),
+                        New SqlParameter("@AvailableFeeYears", cboAvailableFeeYears.Text)
                     }
                     DB.RunCommand(SQL, parameters)
 

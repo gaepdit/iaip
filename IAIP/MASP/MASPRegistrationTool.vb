@@ -1235,8 +1235,8 @@ Public Class MASPRegistrationTool
 #Region "DAL"
 
     Public Function PasscodeExists(ByVal id As String) As Boolean
-        Dim query As String = "SELECT 'True' FROM RES_EVENT WHERE ROWNUM=1 AND STRPASSCODE = :pId"
-        Dim parameter As New SqlParameter("pId", id)
+        Dim query As String = "SELECT 'True' FROM RES_EVENT WHERE ROWNUM=1 AND STRPASSCODE = @pId"
+        Dim parameter As New SqlParameter("@pId", id)
 
         Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
         Return Convert.ToBoolean(result)

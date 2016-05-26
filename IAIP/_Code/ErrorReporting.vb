@@ -64,11 +64,11 @@ Module ErrorReporting
     Private Function LogError(errorMessage As String, errorLocation As String) As Boolean
         Dim query As String = "INSERT INTO IAIPERRORLOG " &
             " (STRERRORNUMBER, STRUSER, STRERRORLOCATION, STRERRORMESSAGE, DATERRORDATE) " &
-            " values (IAIPERRORNUMBER.NEXTVAL, :UserID, :ErrorLocation, :ErrorMessage, SYSDATE) "
+            " values (IAIPERRORNUMBER.NEXTVAL, @UserID, @ErrorLocation, @ErrorMessage, SYSDATE) "
         Dim parameters As SqlParameter() = New SqlParameter() {
-            New SqlParameter("UserID", If(CurrentUser IsNot Nothing, CurrentUser.UserID, 0)),
-            New SqlParameter("ErrorLocation", errorLocation),
-            New SqlParameter("ErrorMessage", errorMessage)
+            New SqlParameter("@UserID", If(CurrentUser IsNot Nothing, CurrentUser.UserID, 0)),
+            New SqlParameter("@ErrorLocation", errorLocation),
+            New SqlParameter("@ErrorMessage", errorMessage)
         }
 
         Try

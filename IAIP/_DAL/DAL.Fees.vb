@@ -17,14 +17,14 @@ Namespace DAL
 
             Dim query As String =
                 "SELECT * FROM VW_FEES_FACILITY_SUMMARY " &
-                " WHERE NUMFEEYEAR BETWEEN :startFeeYear AND :endFeeYear "
+                " WHERE NUMFEEYEAR BETWEEN @startFeeYear AND @endFeeYear "
 
-            If airs IsNot Nothing Then query &= " AND STRAIRSNUMBER = :airs "
+            If airs IsNot Nothing Then query &= " AND STRAIRSNUMBER = @airs "
 
             Dim parameters As SqlParameter() = {
-                New SqlParameter("startFeeYear", startFeeYear),
-                New SqlParameter("endFeeYear", endFeeYear),
-                New SqlParameter("airs", airs.DbFormattedString)
+                New SqlParameter("@startFeeYear", startFeeYear),
+                New SqlParameter("@endFeeYear", endFeeYear),
+                New SqlParameter("@airs", airs.DbFormattedString)
             }
             Return DB.GetDataTable(query, parameters)
         End Function
@@ -39,8 +39,8 @@ Namespace DAL
             Dim sp As String = "PD_FEE_STATUS"
 
             Dim parameters As SqlParameter() = New SqlParameter() {
-                New SqlParameter("FEEYEAR", SqlDbType.Decimal, feeYearDecimal, ParameterDirection.Input),
-                New SqlParameter("AIRSNUMBER", aN.DbFormattedString)
+                New SqlParameter("@FEEYEAR", SqlDbType.Decimal, feeYearDecimal, ParameterDirection.Input),
+                New SqlParameter("@AIRSNUMBER", aN.DbFormattedString)
             }
 
             Try
@@ -73,12 +73,12 @@ Namespace DAL
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
                 " FROM FS_Mailout " &
                 " WHERE RowNum = 1 " &
-                " AND strAIRSnumber = :airsnumber " &
-                " AND numFeeYear = :feeyear "
+                " AND strAIRSnumber = @airsnumber " &
+                " AND numFeeYear = @feeyear "
 
             Dim parameters As SqlParameter() = New SqlParameter() {
-                New SqlParameter("airsnumber", airsNumber.DbFormattedString),
-                New SqlParameter("feeyear", feeYearDecimal)
+                New SqlParameter("@airsnumber", airsNumber.DbFormattedString),
+                New SqlParameter("@feeyear", feeYearDecimal)
             }
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameters)
@@ -90,40 +90,40 @@ Namespace DAL
             If Not Decimal.TryParse(feeYear, feeYearDecimal) Then Return False
 
             Dim query As String = "UPDATE FS_MAILOUT " &
-                " SET STRFIRSTNAME       = :v2, " &
-                "  STRLASTNAME          = :v3, " &
-                "  STRPREFIX            = :v4, " &
-                "  STRCONTACTSUFFIX     = :v28, " &
-                "  STRTITLE             = :v5, " &
-                "  STRCONTACTCONAME     = :v6, " &
-                "  STRCONTACTADDRESS1   = :v7, " &
-                "  STRCONTACTADDRESS2   = :v8, " &
-                "  STRCONTACTCITY       = :v9, " &
-                "  STRCONTACTSTATE      = :v10, " &
-                "  STRCONTACTZIPCODE    = :v11, " &
-                "  STRGECOUSEREMAIL     = :v12, " &
-                "  UPDATEUSER           = :v25, " &
-                "  UPDATEDATETIME       = :v26 " &
-                " WHERE STRAIRSNUMBER   = :airsnumber " &
-                " AND NUMFEEYEAR        = :feeyear "
+                " SET STRFIRSTNAME       = @v2, " &
+                "  STRLASTNAME          = @v3, " &
+                "  STRPREFIX            = @v4, " &
+                "  STRCONTACTSUFFIX     = @v28, " &
+                "  STRTITLE             = @v5, " &
+                "  STRCONTACTCONAME     = @v6, " &
+                "  STRCONTACTADDRESS1   = @v7, " &
+                "  STRCONTACTADDRESS2   = @v8, " &
+                "  STRCONTACTCITY       = @v9, " &
+                "  STRCONTACTSTATE      = @v10, " &
+                "  STRCONTACTZIPCODE    = @v11, " &
+                "  STRGECOUSEREMAIL     = @v12, " &
+                "  UPDATEUSER           = @v25, " &
+                "  UPDATEDATETIME       = @v26 " &
+                " WHERE STRAIRSNUMBER   = @airsnumber " &
+                " AND NUMFEEYEAR        = @feeyear "
 
             Dim parameters As SqlParameter() = {
-                New SqlParameter("v2", contact.FirstName),
-                New SqlParameter("v3", contact.LastName),
-                New SqlParameter("v4", contact.Prefix),
-                New SqlParameter("v28", contact.Suffix),
-                New SqlParameter("v5", contact.Title),
-                New SqlParameter("v6", contact.CompanyName),
-                New SqlParameter("v7", contact.MailingAddress.Street),
-                New SqlParameter("v8", contact.MailingAddress.Street2),
-                New SqlParameter("v9", contact.MailingAddress.City),
-                New SqlParameter("v10", contact.MailingAddress.State),
-                New SqlParameter("v11", contact.MailingAddress.PostalCode),
-                New SqlParameter("v12", contact.EmailAddress),
-                New SqlParameter("v25", CurrentUser.UserID), 
-                New SqlParameter("v26", OracleDate),
-                New SqlParameter("airsnumber", airsNumber),
-                New SqlParameter("feeyear", feeYearDecimal)
+                New SqlParameter("@v2", contact.FirstName),
+                New SqlParameter("@v3", contact.LastName),
+                New SqlParameter("@v4", contact.Prefix),
+                New SqlParameter("@v28", contact.Suffix),
+                New SqlParameter("@v5", contact.Title),
+                New SqlParameter("@v6", contact.CompanyName),
+                New SqlParameter("@v7", contact.MailingAddress.Street),
+                New SqlParameter("@v8", contact.MailingAddress.Street2),
+                New SqlParameter("@v9", contact.MailingAddress.City),
+                New SqlParameter("@v10", contact.MailingAddress.State),
+                New SqlParameter("@v11", contact.MailingAddress.PostalCode),
+                New SqlParameter("@v12", contact.EmailAddress),
+                New SqlParameter("@v25", CurrentUser.UserID), 
+                New SqlParameter("@v26", OracleDate),
+                New SqlParameter("@airsnumber", airsNumber),
+                New SqlParameter("@feeyear", feeYearDecimal)
             }
 
             Return DB.RunCommand(query, parameters)
@@ -135,38 +135,38 @@ Namespace DAL
             If Not Decimal.TryParse(feeYear, feeYearDecimal) Then Return False
 
             Dim query As String = "UPDATE FS_MAILOUT " &
-                " SET STROPERATIONALSTATUS = :v13, " &
-                "  STRCLASS             = :v14, " &
-                "  STRNSPS              = :v15, " &
-                "  STRPART70            = :v16, " &
-                "  DATSHUTDOWNDATE      = :v17, " &
-                "  STRFACILITYNAME      = :v18, " &
-                "  STRFACILITYADDRESS1  = :v19, " &
-                "  STRFACILITYADDRESS2  = :v20, " &
-                "  STRFACILITYCITY      = :v21, " &
-                "  STRFACILITYZIPCODE   = :v22, " &
-                "  STRCOMMENT           = :v23, " &
-                "  UPDATEUSER           = :v25, " &
-                "  UPDATEDATETIME       = :v26 " &
-                " WHERE STRAIRSNUMBER   = :airsnumber " &
-                " AND NUMFEEYEAR        = :feeyear "
+                " SET STROPERATIONALSTATUS = @v13, " &
+                "  STRCLASS             = @v14, " &
+                "  STRNSPS              = @v15, " &
+                "  STRPART70            = @v16, " &
+                "  DATSHUTDOWNDATE      = @v17, " &
+                "  STRFACILITYNAME      = @v18, " &
+                "  STRFACILITYADDRESS1  = @v19, " &
+                "  STRFACILITYADDRESS2  = @v20, " &
+                "  STRFACILITYCITY      = @v21, " &
+                "  STRFACILITYZIPCODE   = @v22, " &
+                "  STRCOMMENT           = @v23, " &
+                "  UPDATEUSER           = @v25, " &
+                "  UPDATEDATETIME       = @v26 " &
+                " WHERE STRAIRSNUMBER   = @airsnumber " &
+                " AND NUMFEEYEAR        = @feeyear "
 
             Dim parameters As SqlParameter() = {
-                New SqlParameter("v13", facility.HeaderData.OperationalStatusCode),
-                New SqlParameter("v14", facility.HeaderData.ClassificationCode),
-                New SqlParameter("v15", If(facility.SubjectToNsps, "1", "0")),
-                New SqlParameter("v16", If(facility.SubjectToPart70, "1", "0")),
-                New SqlParameter("v17", facility.HeaderData.ShutdownDate),
-                New SqlParameter("v18", facility.FacilityName),
-                New SqlParameter("v19", facility.FacilityLocation.Address.Street),
-                New SqlParameter("v20", facility.FacilityLocation.Address.Street2),
-                New SqlParameter("v21", facility.FacilityLocation.Address.City),
-                New SqlParameter("v22", facility.FacilityLocation.Address.PostalCode),
-                New SqlParameter("v23", facility.Comment),
-                New SqlParameter("v25", CurrentUser.UserID),
-                New SqlParameter("v26", OracleDate),
-                New SqlParameter("airsnumber", airsNumber),
-                New SqlParameter("feeyear", feeYearDecimal)
+                New SqlParameter("@v13", facility.HeaderData.OperationalStatusCode),
+                New SqlParameter("@v14", facility.HeaderData.ClassificationCode),
+                New SqlParameter("@v15", If(facility.SubjectToNsps, "1", "0")),
+                New SqlParameter("@v16", If(facility.SubjectToPart70, "1", "0")),
+                New SqlParameter("@v17", facility.HeaderData.ShutdownDate),
+                New SqlParameter("@v18", facility.FacilityName),
+                New SqlParameter("@v19", facility.FacilityLocation.Address.Street),
+                New SqlParameter("@v20", facility.FacilityLocation.Address.Street2),
+                New SqlParameter("@v21", facility.FacilityLocation.Address.City),
+                New SqlParameter("@v22", facility.FacilityLocation.Address.PostalCode),
+                New SqlParameter("@v23", facility.Comment),
+                New SqlParameter("@v25", CurrentUser.UserID),
+                New SqlParameter("@v26", OracleDate),
+                New SqlParameter("@airsnumber", airsNumber),
+                New SqlParameter("@feeyear", feeYearDecimal)
             }
 
             Return DB.RunCommand(query, parameters)

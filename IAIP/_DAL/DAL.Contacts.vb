@@ -36,12 +36,12 @@ Namespace DAL
                 "  STRCONTACTPHONENUMBER1, " &
                 "  strContactEmail " &
                 " FROM APBContactInformation " &
-                " WHERE strAIRSNumber = :airsnumber " &
-                " AND strKey          = :key "
+                " WHERE strAIRSNumber = @airsnumber " &
+                " AND strKey          = @key "
 
             Dim parameters As SqlParameter() = New SqlParameter() {
-                New SqlParameter("airsnumber", airsNumber.DbFormattedString),
-                New SqlParameter("key", key.ToString("D"))
+                New SqlParameter("@airsnumber", airsNumber.DbFormattedString),
+                New SqlParameter("@key", key.ToString("D"))
             }
 
             Dim dataTable As DataTable = DB.GetDataTable(query, parameters)

@@ -2118,10 +2118,10 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             "ON rep.NUMREVIEWINGMANAGER = p1.NUMUSERID " &
             "INNER JOIN APBFacilityInformation fac " &
             "ON fac.STRAIRSNUMBER = mas.STRAIRSNUMBER " &
-            "WHERE mas.STRREFERENCENUMBER = :refnum"
+            "WHERE mas.STRREFERENCENUMBER = @refnum"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
-            Dim parameter As SqlParameter = New SqlParameter("RefNumber", RefNumber)
+            Dim parameter As SqlParameter = New SqlParameter("@RefNumber", RefNumber)
             cmd.Parameters.Clear()
             cmd.Parameters.Add(parameter)
 

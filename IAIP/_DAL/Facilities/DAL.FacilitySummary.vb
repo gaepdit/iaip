@@ -6,7 +6,7 @@ Namespace DAL
 
         Public Function GetFSDataTable(ByVal whichTable As IAIPFacilitySummary.FacilityDataTable, ByVal airsNumber As Apb.ApbFacilityId) As DataTable
             Dim query As String = GetQueryString(whichTable)
-            Dim parameter As SqlParameter = New SqlParameter("AirsNumber", airsNumber.DbFormattedString)
+            Dim parameter As SqlParameter = New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
             Return DB.GetDataTable(query, parameter)
         End Function
 
@@ -21,7 +21,7 @@ Namespace DAL
                     "      DATENFORCEMENTFINALIZED IS NOT NULL THEN 'Closed' ELSE " &
                     "      'Open' END AS Status " &
                     "FROM SSCP_AUDITEDENFORCEMENT " &
-                    "WHERE STRAIRSNUMBER = :AirsNumber " &
+                    "WHERE STRAIRSNUMBER = @AirsNumber " &
                     "ORDER BY STRENFORCEMENTNUMBER DESC"
                 Case IAIPFacilitySummary.FacilityDataTable.ComplianceFCE
                     query =
@@ -34,13 +34,13 @@ Namespace DAL
                     "ON fce.STRFCENUMBER = fm.STRFCENUMBER " &
                     "LEFT JOIN EPDUSERPROFILES eup " &
                     "ON fce.STRREVIEWER = eup.NUMUSERID " &
-                    "WHERE fm.STRAIRSNUMBER = :AirsNumber " &
+                    "WHERE fm.STRAIRSNUMBER = @AirsNumber " &
                     "ORDER BY fce.DATFCECOMPLETED DESC"
                 Case IAIPFacilitySummary.FacilityDataTable.ComplianceWork
                     query =
                     "SELECT vw.STRTRACKINGNUMBER, vw.STRACTIVITYNAME, vw.RECEIVEDDATE " &
                     "FROM VW_SSCPWORKDATAGRID vw " &
-                    "WHERE vw.STRAIRSNUMBER = :AirsNumber " &
+                    "WHERE vw.STRAIRSNUMBER = @AirsNumber " &
                     "ORDER BY vw.STRTRACKINGNUMBER DESC"
                 Case IAIPFacilitySummary.FacilityDataTable.ContactsCompliance
                     query =
@@ -53,7 +53,7 @@ Namespace DAL
                     "  || strContactState || ' ' || strContactZipCode AS Address , " &
                     "  strContactDescription " &
                     "FROM APBContactInformation " &
-                    "WHERE strAIRSNumber = :AirsNumber AND strKey LIKE '2%' " &
+                    "WHERE strAIRSNumber = @AirsNumber AND strKey LIKE '2%' " &
                     "ORDER BY strContactKey"
                 Case IAIPFacilitySummary.FacilityDataTable.ContactsGeco
                     query =
@@ -68,7 +68,7 @@ Namespace DAL
                     "ON oua.NUMUSERID = oup.NUMUSERID " &
                     "LEFT JOIN OLAPUserLogIN oul " &
                     "ON oua.NUMUSERID = oul.NUMUSERID " &
-                    "WHERE oua.STRAIRSNUMBER = :AirsNumber"
+                    "WHERE oua.STRAIRSNUMBER = @AirsNumber"
                 Case IAIPFacilitySummary.FacilityDataTable.ContactsPermitting
                     query =
                     "SELECT strContactKey, strContactPrefix||' '|| " &
@@ -80,13 +80,13 @@ Namespace DAL
                     "  strContactCity|| ', '|| strContactState|| ' '|| " &
                     "  strContactZipCode AS Address, strContactDescription " &
                     "FROM APBContactInformation " &
-                    "WHERE strAIRSNumber = :AirsNumber AND strKey LIKE '3%' " &
+                    "WHERE strAIRSNumber = @AirsNumber AND strKey LIKE '3%' " &
                     "ORDER BY strContactKey"
                 Case IAIPFacilitySummary.FacilityDataTable.ContactsState
                     query =
                     "SELECT vw.AirProgram, vw.Staff, vw.Unit  " &
                     "FROM VW_FACILITY_STATECONTACTS vw " &
-                    "WHERE vw.AIRSNUMBER = :AirsNumber "
+                    "WHERE vw.AIRSNUMBER = @AirsNumber "
                 Case IAIPFacilitySummary.FacilityDataTable.ContactsTesting
                     query =
                     "SELECT strContactKey, strContactPrefix ||' ' ||strContactFirstName ||' ' || " &
@@ -98,7 +98,7 @@ Namespace DAL
                     "  strContactState || ' ' || strContactZipCode AS Address , " &
                     "  strContactDescription " &
                     "FROM APBContactInformation " &
-                    "WHERE strAIRSNumber = :AirsNumber AND strKey LIKE '1%' " &
+                    "WHERE strAIRSNumber = @AirsNumber AND strKey LIKE '1%' " &
                     "ORDER BY strContactKey"
                 Case IAIPFacilitySummary.FacilityDataTable.ContactsWebSite
                     query =
@@ -111,7 +111,7 @@ Namespace DAL
                     "  strContactCity|| ', '|| strContactState|| ' '|| " &
                     "  strContactZipCode AS address, strContactDescription " &
                     "FROM APBContactInformation " &
-                    "WHERE strAIRSNumber = :AirsNumber AND strKey LIKE '4%' " &
+                    "WHERE strAIRSNumber = @AirsNumber AND strKey LIKE '4%' " &
                     "ORDER BY strContactKey"
                 Case IAIPFacilitySummary.FacilityDataTable.EiPost2009
                     query =
@@ -120,7 +120,7 @@ Namespace DAL
                     "  PM10FILEMISSIONS , PM10PRIEMISSIONS , PM25FILEMISSIONS , " &
                     "  PM25PRIEMISSIONS , SO2EMISSIONS , VOCEMISSIONS " &
                     "FROM VW_EIS_EMISSIONSUMMARY " &
-                    "WHERE FACILITYSITEID =SUBSTR(:AirsNumber,5,8) " &
+                    "WHERE FACILITYSITEID =SUBSTR(@AirsNumber,5,8) " &
                     "ORDER BY INTINVENTORYYEAR DESC"
                 Case IAIPFacilitySummary.FacilityDataTable.EiPre2009
                     query =
@@ -151,7 +151,7 @@ Namespace DAL
                     "    em.DBLEMISSIONNUMERICVALUE ) AS TotalEmissions , " &
                     "    em.STRINVENTORYYEAR , em.STRSTATEFACILITYIDENTIFIER " &
                     "  FROM EIEM em " &
-                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( :AirsNumber, 5, " &
+                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( @AirsNumber, 5, " &
                     "    8 ) AND em.STRPOLLUTANTCODE = '7439921' " &
                     "  GROUP BY em.STRPOLLUTANTCODE , em.STRINVENTORYYEAR , " &
                     "    em.STRSTATEFACILITYIDENTIFIER " &
@@ -162,7 +162,7 @@ Namespace DAL
                     "    em.DBLEMISSIONNUMERICVALUE ) AS TotalEmissions , " &
                     "    em.STRINVENTORYYEAR , em.STRSTATEFACILITYIDENTIFIER " &
                     "  FROM EIEM em " &
-                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( :AirsNumber, 5, " &
+                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( @AirsNumber, 5, " &
                     "    8 ) AND em.STRPOLLUTANTCODE = 'NOX' " &
                     "  GROUP BY em.STRPOLLUTANTCODE , em.STRINVENTORYYEAR , " &
                     "    em.STRSTATEFACILITYIDENTIFIER " &
@@ -173,7 +173,7 @@ Namespace DAL
                     "    em.DBLEMISSIONNUMERICVALUE ) AS TotalEmissions , " &
                     "    em.STRINVENTORYYEAR , em.STRSTATEFACILITYIDENTIFIER " &
                     "  FROM EIEM em " &
-                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( :AirsNumber, 5, " &
+                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( @AirsNumber, 5, " &
                     "    8 ) AND em.STRPOLLUTANTCODE = 'CO' " &
                     "  GROUP BY em.STRPOLLUTANTCODE , em.STRINVENTORYYEAR , " &
                     "    em.STRSTATEFACILITYIDENTIFIER " &
@@ -184,7 +184,7 @@ Namespace DAL
                     "    em.DBLEMISSIONNUMERICVALUE ) AS TotalEmissions , " &
                     "    em.STRINVENTORYYEAR , em.STRSTATEFACILITYIDENTIFIER " &
                     "  FROM EIEM em " &
-                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( :AirsNumber, 5, " &
+                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( @AirsNumber, 5, " &
                     "    8 ) AND em.STRPOLLUTANTCODE = 'SO2' " &
                     "  GROUP BY em.STRPOLLUTANTCODE , em.STRINVENTORYYEAR , " &
                     "    em.STRSTATEFACILITYIDENTIFIER " &
@@ -195,7 +195,7 @@ Namespace DAL
                     "    em.DBLEMISSIONNUMERICVALUE ) AS TotalEmissions , " &
                     "    em.STRINVENTORYYEAR , em.STRSTATEFACILITYIDENTIFIER " &
                     "  FROM EIEM em " &
-                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( :AirsNumber, 5, " &
+                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( @AirsNumber, 5, " &
                     "    8 ) AND em.STRPOLLUTANTCODE = 'NH3' " &
                     "  GROUP BY em.STRPOLLUTANTCODE , em.STRINVENTORYYEAR , " &
                     "    em.STRSTATEFACILITYIDENTIFIER " &
@@ -206,7 +206,7 @@ Namespace DAL
                     "    em.DBLEMISSIONNUMERICVALUE ) AS TotalEmissions , " &
                     "    em.STRINVENTORYYEAR , em.STRSTATEFACILITYIDENTIFIER " &
                     "  FROM EIEM em " &
-                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( :AirsNumber, 5, " &
+                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( @AirsNumber, 5, " &
                     "    8 ) AND em.STRPOLLUTANTCODE = 'PM-PRI' " &
                     "  GROUP BY em.STRPOLLUTANTCODE , em.STRINVENTORYYEAR , " &
                     "    em.STRSTATEFACILITYIDENTIFIER " &
@@ -217,7 +217,7 @@ Namespace DAL
                     "    em.DBLEMISSIONNUMERICVALUE ) AS TotalEmissions , " &
                     "    em.STRINVENTORYYEAR , em.STRSTATEFACILITYIDENTIFIER " &
                     "  FROM EIEM em " &
-                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( :AirsNumber, 5, " &
+                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( @AirsNumber, 5, " &
                     "    8 ) AND em.STRPOLLUTANTCODE = 'PM10-PMI' " &
                     "  GROUP BY em.STRPOLLUTANTCODE , em.STRINVENTORYYEAR , " &
                     "    em.STRSTATEFACILITYIDENTIFIER " &
@@ -228,7 +228,7 @@ Namespace DAL
                     "    em.DBLEMISSIONNUMERICVALUE ) AS TotalEmissions , " &
                     "    em.STRINVENTORYYEAR , em.STRSTATEFACILITYIDENTIFIER " &
                     "  FROM EIEM em " &
-                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( :AirsNumber, 5, " &
+                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( @AirsNumber, 5, " &
                     "    8 ) AND em.STRPOLLUTANTCODE = 'PM25-PMI' " &
                     "  GROUP BY em.STRPOLLUTANTCODE , em.STRINVENTORYYEAR , " &
                     "    em.STRSTATEFACILITYIDENTIFIER " &
@@ -239,7 +239,7 @@ Namespace DAL
                     "    em.DBLEMISSIONNUMERICVALUE ) AS TotalEmissions , " &
                     "    em.STRINVENTORYYEAR , em.STRSTATEFACILITYIDENTIFIER " &
                     "  FROM EIEM em " &
-                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( :AirsNumber, 5, " &
+                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( @AirsNumber, 5, " &
                     "    8 ) AND em.STRPOLLUTANTCODE = 'PM-FIL' " &
                     "  GROUP BY em.STRPOLLUTANTCODE , em.STRINVENTORYYEAR , " &
                     "    em.STRSTATEFACILITYIDENTIFIER " &
@@ -250,20 +250,20 @@ Namespace DAL
                     "    em.DBLEMISSIONNUMERICVALUE ) AS TotalEmissions , " &
                     "    em.STRINVENTORYYEAR , em.STRSTATEFACILITYIDENTIFIER " &
                     "  FROM EIEM em " &
-                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( :AirsNumber, 5, " &
+                    "  WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( @AirsNumber, 5, " &
                     "    8 ) AND em.STRPOLLUTANTCODE = 'VOC' " &
                     "  GROUP BY em.STRPOLLUTANTCODE , em.STRINVENTORYYEAR , " &
                     "    em.STRSTATEFACILITYIDENTIFIER " &
                     "  ) VOCTable " &
                     "ON em.STRINVENTORYYEAR = VOCTable.STRINVENTORYYEAR " &
-                    "WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( :AirsNumber, 5, 8 " &
+                    "WHERE em.STRSTATEFACILITYIDENTIFIER = SUBSTR( @AirsNumber, 5, 8 " &
                     "  ) " &
                     "ORDER BY em.STRINVENTORYYEAR DESC"
                 Case IAIPFacilitySummary.FacilityDataTable.Fees
                     query =
                     "SELECT vw.* ,( NUMTOTALFEE - TOTALPAID ) AS Balance " &
                     "FROM VW_APBFACILITYFEES vw " &
-                    "WHERE vw.STRAIRSNUMBER = :AirsNumber " &
+                    "WHERE vw.STRAIRSNUMBER = @AirsNumber " &
                     "ORDER BY vw.INTYEAR DESC"
                 Case IAIPFacilitySummary.FacilityDataTable.FinancialDeposits
                     query =
@@ -278,7 +278,7 @@ Namespace DAL
                     "FROM FS_Transactions fst " &
                     "LEFT JOIN EPDUserProfiles eup " &
                     "ON fst.STRENTRYPERSON = eup.NUMUSERID " &
-                    "WHERE fst.STRAIRSNUMBER = :AirsNumber AND fst.ACTIVE = '1' " &
+                    "WHERE fst.STRAIRSNUMBER = @AirsNumber AND fst.ACTIVE = '1' " &
                     "ORDER BY fst.NUMFEEYEAR DESC , fst.DATTRANSACTIONDATE DESC"
                 Case IAIPFacilitySummary.FacilityDataTable.FinancialFees
                     query =
@@ -305,7 +305,7 @@ Namespace DAL
                     "INNER JOIN FS_Admin fsa " &
                     "ON fad.STRAIRSNUMBER = fsa.STRAIRSNUMBER AND fsa.NUMFEEYEAR = " &
                     "  fad.NUMFEEYEAR " &
-                    "WHERE fad.STRAIRSNUMBER = :AirsNumber AND fsa.ACTIVE = '1' AND " &
+                    "WHERE fad.STRAIRSNUMBER = @AirsNumber AND fsa.ACTIVE = '1' AND " &
                     "  fsa.STRENROLLED IS NOT NULL AND fsa.STRENROLLED = '1' " &
                     "ORDER BY fad.NUMFEEYEAR DESC"
                 Case IAIPFacilitySummary.FacilityDataTable.FinancialInvoices
@@ -324,7 +324,7 @@ Namespace DAL
                     "ON ffi.STRPAYTYPE = lpt.NUMPAYTYPEID " &
                     "LEFT JOIN FS_Transactions fst " &
                     "ON ffi.INVOICEID = fst.INVOICEID " &
-                    "WHERE ffi.STRAIRSNUMBER = :AirsNumber " &
+                    "WHERE ffi.STRAIRSNUMBER = @AirsNumber " &
                     "ORDER BY ffi.NUMFEEYEAR DESC , ffi.DATINVOICEDATE DESC"
                 Case IAIPFacilitySummary.FacilityDataTable.PermitApplications
                     query =
@@ -401,7 +401,7 @@ Namespace DAL
                     "ON appm.STRPERMITTYPE = lpt.STRPERMITTYPECODE " &
                     "LEFT JOIN EPDUserProfiles eup " &
                     "ON appm.STRSTAFFRESPONSIBLE = eup.NUMUSERID " &
-                    "WHERE appm.STRAIRSNUMBER = :AirsNumber " &
+                    "WHERE appm.STRAIRSNUMBER = @AirsNumber " &
                     "ORDER BY APPLICATIONNUMBER DESC"
                 Case IAIPFacilitySummary.FacilityDataTable.PermitRuleHistory
                     query =
@@ -416,7 +416,7 @@ Namespace DAL
                     "ON appm.STRAPPLICATIONNUMBER = sd.STRAPPLICATIONNUMBER " &
                     "INNER JOIN LookUpSubpartSIP lsip " &
                     "ON sd.STRSUBPART = lsip.STRSUBPART " &
-                    "WHERE appm.STRAIRSNUMBER = :AirsNumber AND SUBSTR( " &
+                    "WHERE appm.STRAIRSNUMBER = @AirsNumber AND SUBSTR( " &
                     "  sd.STRSUBPARTKEY, 6, 1 ) = '0' " &
                     "UNION " &
                     "SELECT sd.STRAPPLICATIONNUMBER , CASE                WHEN " &
@@ -430,7 +430,7 @@ Namespace DAL
                     "ON appm.STRAPPLICATIONNUMBER = sd.STRAPPLICATIONNUMBER " &
                     "INNER JOIN LookUpSubpart60 l60 " &
                     "ON sd.STRSUBPART = l60.STRSUBPART " &
-                    "WHERE appm.STRAIRSNUMBER = :AirsNumber AND SUBSTR( " &
+                    "WHERE appm.STRAIRSNUMBER = @AirsNumber AND SUBSTR( " &
                     "  sd.STRSUBPARTKEY, 6, 1 ) = '9' " &
                     "UNION " &
                     "SELECT sd.STRAPPLICATIONNUMBER , CASE                WHEN " &
@@ -444,7 +444,7 @@ Namespace DAL
                     "ON appm.STRAPPLICATIONNUMBER = sd.STRAPPLICATIONNUMBER " &
                     "INNER JOIN LookUpSubpart61 l61 " &
                     "ON sd.STRSUBPART = l61.STRSUBPART " &
-                    "WHERE appm.STRAIRSNUMBER = :AirsNumber AND SUBSTR( " &
+                    "WHERE appm.STRAIRSNUMBER = @AirsNumber AND SUBSTR( " &
                     "  sd.STRSUBPARTKEY, 6, 1 ) = '8' " &
                     "UNION " &
                     "SELECT sd.STRAPPLICATIONNUMBER , CASE                WHEN " &
@@ -458,7 +458,7 @@ Namespace DAL
                     "ON appm.STRAPPLICATIONNUMBER = sd.STRAPPLICATIONNUMBER " &
                     "INNER JOIN LookUpSubpart63 l63 " &
                     "ON sd.STRSUBPART = l63.STRSUBPART " &
-                    "WHERE appm.STRAIRSNUMBER = :AirsNumber AND SUBSTR( " &
+                    "WHERE appm.STRAIRSNUMBER = @AirsNumber AND SUBSTR( " &
                     "  sd.STRSUBPARTKEY, 6, 1 ) = 'M'"
                 Case IAIPFacilitySummary.FacilityDataTable.PermitRules
                     query =
@@ -467,7 +467,7 @@ Namespace DAL
                     "FROM APBSubpartData sd " &
                     "INNER JOIN LookUpSubPartSIP lsip " &
                     "ON sd.STRSUBPART = lsip.STRSUBPART " &
-                    "WHERE sd.ACTIVE <> '0' AND sd.STRAIRSNUMBER = :AirsNumber AND " &
+                    "WHERE sd.ACTIVE <> '0' AND sd.STRAIRSNUMBER = @AirsNumber AND " &
                     "  SUBSTR( sd.STRSUBPARTKEY, 13, 1 ) = '0' " &
                     "UNION " &
                     "SELECT 'NSPS (Part 60)' AS Part , l60.STRSUBPART , " &
@@ -475,7 +475,7 @@ Namespace DAL
                     "FROM APBSubpartData sd " &
                     "INNER JOIN LookUpSubPart60 l60 " &
                     "ON sd.STRSUBPART = l60.STRSUBPART " &
-                    "WHERE sd.ACTIVE <> '0' AND sd.STRAIRSNUMBER = :AirsNumber AND " &
+                    "WHERE sd.ACTIVE <> '0' AND sd.STRAIRSNUMBER = @AirsNumber AND " &
                     "  SUBSTR( sd.STRSUBPARTKEY, 13, 1 ) = '9' " &
                     "UNION " &
                     "SELECT 'NESHAP (Part 61)' AS Part , l61.STRSUBPART , " &
@@ -483,7 +483,7 @@ Namespace DAL
                     "FROM APBSubpartData sd " &
                     "INNER JOIN LookUpSubPart61 l61 " &
                     "ON sd.STRSUBPART = l61.STRSUBPART " &
-                    "WHERE sd.ACTIVE <> '0' AND sd.STRAIRSNUMBER = :AirsNumber AND " &
+                    "WHERE sd.ACTIVE <> '0' AND sd.STRAIRSNUMBER = @AirsNumber AND " &
                     "  SUBSTR( sd.STRSUBPARTKEY, 13, 1 ) = '8' " &
                     "UNION " &
                     "SELECT 'MACT (Part 63)' AS Part , l63.STRSUBPART , " &
@@ -491,14 +491,14 @@ Namespace DAL
                     "FROM APBSubpartData sd " &
                     "INNER JOIN LookUpSubPart63 l63 " &
                     "ON sd.STRSUBPART = l63.STRSUBPART " &
-                    "WHERE sd.ACTIVE <> '0' AND sd.STRAIRSNUMBER = :AirsNumber AND " &
+                    "WHERE sd.ACTIVE <> '0' AND sd.STRAIRSNUMBER = @AirsNumber AND " &
                     "  SUBSTR( sd.STRSUBPARTKEY, 13, 1 ) = 'M' " &
                     "ORDER BY Part , STRSUBPART"
                 Case IAIPFacilitySummary.FacilityDataTable.Permits
                     query =
                     "SELECT STRPERMITNUMBER , DATISSUED , DATREVOKED , ACTIVE " &
                     "FROM APBISSUEDPERMIT " &
-                    "WHERE STRAIRSNUMBER = SUBSTR( :AirsNumber, 5, 8 ) " &
+                    "WHERE STRAIRSNUMBER = SUBSTR( @AirsNumber, 5, 8 ) " &
                     "ORDER BY DATISSUED DESC NULLS FIRST"
                 Case IAIPFacilitySummary.FacilityDataTable.TestMemos
                     query =
@@ -507,7 +507,7 @@ Namespace DAL
                     "FROM ISMPTestREportMemo tm " &
                     "INNER JOIN ISMPMaster im " &
                     "ON tm.STRREFERENCENUMBER = im.STRREFERENCENUMBER " &
-                    "WHERE im.STRAIRSNUMBER = :AirsNumber " &
+                    "WHERE im.STRAIRSNUMBER = @AirsNumber " &
                     "ORDER BY tm.STRREFERENCENUMBER DESC"
                 Case IAIPFacilitySummary.FacilityDataTable.TestNotifications
                     query =
@@ -520,7 +520,7 @@ Namespace DAL
                     "ON tn.STRSTAFFRESPONSIBLE = up.NUMUSERID " &
                     "LEFT JOIN LookUpEPDUnits eu " &
                     "ON up.NUMUNIT = eu.NUMUNITCODE " &
-                    "WHERE tn.STRAIRSNUMBER = :AirsNumber " &
+                    "WHERE tn.STRAIRSNUMBER = @AirsNumber " &
                     "ORDER BY tn.STRTESTLOGNUMBER DESC"
                 Case IAIPFacilitySummary.FacilityDataTable.TestReports
                     query =
@@ -529,7 +529,7 @@ Namespace DAL
                     "  TESTDATESTART , RECEIVEDDATE , COMPLETEDATE , " &
                     "  STRCOMPLIANCESTATUS , STRPRECOMPLIANCESTATUS " &
                     "FROM VW_ISMPWORKDATAGRID " &
-                    "WHERE STRAIRSNUMBER = :AirsNumber "
+                    "WHERE STRAIRSNUMBER = @AirsNumber "
             End Select
 
             Return query

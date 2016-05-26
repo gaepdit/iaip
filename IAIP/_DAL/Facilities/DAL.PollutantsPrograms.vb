@@ -13,16 +13,16 @@ Namespace DAL
                 "FROM APBAIRPROGRAMPOLLUTANTS poll " &
                 "INNER JOIN LOOKUPPOLLUTANTS lkpoll ON " &
                 "  poll.STRPOLLUTANTKEY = lkpoll.STRPOLLUTANTCODE " &
-                "WHERE poll.STRAIRSNUMBER = :airsNumber"
-            Dim parameter As New SqlParameter("airsNumber", airsNumber.DbFormattedString)
+                "WHERE poll.STRAIRSNUMBER = @airsNumber"
+            Dim parameter As New SqlParameter("@airsNumber", airsNumber.DbFormattedString)
             Dim dt As DataTable = DB.GetDataTable(query, parameter)
             dt.PrimaryKey = New DataColumn() {dt.Columns("STRPOLLUTANTKEY")}
             Return dt
         End Function
 
         Public Function GetFacilityAirPrograms(airsNumber As Apb.ApbFacilityId) As AirProgram
-            Dim query As String = "SELECT STRAIRPROGRAMCODES FROM APBHEADERDATA WHERE STRAIRSNUMBER = :airsNumber"
-            Dim parameter As New SqlParameter("airsNumber", airsNumber.DbFormattedString)
+            Dim query As String = "SELECT STRAIRPROGRAMCODES FROM APBHEADERDATA WHERE STRAIRSNUMBER = @airsNumber"
+            Dim parameter As New SqlParameter("@airsNumber", airsNumber.DbFormattedString)
             Dim apc As String = DB.GetSingleValue(Of String)(query, parameter)
 
             If apc Is Nothing Then
@@ -69,9 +69,9 @@ Namespace DAL
                 "  app.STRPOLLUTANTKEY = lkpl.STRPOLLUTANTCODE " &
                 "INNER JOIN EPDUserProfiles up ON " &
                 "  app.STRMODIFINGPERSON = up.NUMUSERID " &
-                "WHERE app.STRAIRSNUMBER = :airsNumber " &
+                "WHERE app.STRAIRSNUMBER = @airsNumber " &
                 "ORDER BY ""Air Program Code"", ""Pollutant Code"""
-            Dim parameter As New SqlParameter("airsNumber", airsNumber.DbFormattedString)
+            Dim parameter As New SqlParameter("@airsNumber", airsNumber.DbFormattedString)
             Return DB.GetDataTable(query, parameter)
         End Function
 
@@ -103,17 +103,17 @@ Namespace DAL
                 "  ) " &
                 "  VALUES " &
                 "  ( " &
-                "    :STRAIRSNUMBER, :STRAIRPOLLUTANTKEY, :STRPOLLUTANTKEY, " &
-                "    :STROPERATIONALSTATUS, " &
-                "    :STRMODIFINGPERSON, sysdate " &
+                "    @STRAIRSNUMBER, @STRAIRPOLLUTANTKEY, @STRPOLLUTANTKEY, " &
+                "    @STROPERATIONALSTATUS, " &
+                "    @STRMODIFINGPERSON, sysdate " &
                 "  )"
 
             Dim parameters As SqlParameter() = {
-                New SqlParameter("STRAIRSNUMBER", airsNumber.DbFormattedString),
-                New SqlParameter("STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram.ToString)),
-                New SqlParameter("STRPOLLUTANTKEY", pollutantCode),
-                New SqlParameter("STROPERATIONALSTATUS", operatingStatus.ToString),
-                New SqlParameter("STRMODIFINGPERSON", CurrentUser.UserID)
+                New SqlParameter("@STRAIRSNUMBER", airsNumber.DbFormattedString),
+                New SqlParameter("@STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram.ToString)),
+                New SqlParameter("@STRPOLLUTANTKEY", pollutantCode),
+                New SqlParameter("@STROPERATIONALSTATUS", operatingStatus.ToString),
+                New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID)
             }
 
             Return DB.RunCommand(query, parameters)
@@ -126,17 +126,17 @@ Namespace DAL
                                                            ) As Boolean
 
             Dim query As String = "UPDATE APBAIRPROGRAMPOLLUTANTS " &
-                "SET STROPERATIONALSTATUS = :STROPERATIONALSTATUS, " &
-                "  STRMODIFINGPERSON = :STRMODIFINGPERSON, " &
+                "SET STROPERATIONALSTATUS = @STROPERATIONALSTATUS, " &
+                "  STRMODIFINGPERSON = @STRMODIFINGPERSON, " &
                 "  DATMODIFINGDATE = sysdate " &
-                "WHERE STRAIRPOLLUTANTKEY = :STRAIRPOLLUTANTKEY AND " &
-                "  STRPOLLUTANTKEY = :STRPOLLUTANTKEY "
+                "WHERE STRAIRPOLLUTANTKEY = @STRAIRPOLLUTANTKEY AND " &
+                "  STRPOLLUTANTKEY = @STRPOLLUTANTKEY "
 
             Dim parameters As SqlParameter() = {
-                New SqlParameter("STROPERATIONALSTATUS", operatingStatus.ToString),
-                New SqlParameter("STRMODIFINGPERSON", CurrentUser.UserID),
-                New SqlParameter("STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram.ToString)),
-                New SqlParameter("STRPOLLUTANTKEY", pollutantCode)
+                New SqlParameter("@STROPERATIONALSTATUS", operatingStatus.ToString),
+                New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID),
+                New SqlParameter("@STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram.ToString)),
+                New SqlParameter("@STRPOLLUTANTKEY", pollutantCode)
             }
 
             Return DB.RunCommand(query, parameters)
@@ -149,12 +149,12 @@ Namespace DAL
 
             Dim query As String = "SELECT STRAIRSNUMBER " &
                 "FROM APBAIRPROGRAMPOLLUTANTS " &
-                "WHERE STRAIRPOLLUTANTKEY = :STRAIRPOLLUTANTKEY " &
-                " AND STRPOLLUTANTKEY = :STRPOLLUTANTKEY "
+                "WHERE STRAIRPOLLUTANTKEY = @STRAIRPOLLUTANTKEY " &
+                " AND STRPOLLUTANTKEY = @STRPOLLUTANTKEY "
 
             Dim parameters As SqlParameter() = {
-                New SqlParameter("STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram.ToString)),
-                New SqlParameter("STRPOLLUTANTKEY", pollutantCode)
+                New SqlParameter("@STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram.ToString)),
+                New SqlParameter("@STRPOLLUTANTKEY", pollutantCode)
             }
 
             Return DB.ValueExists(query, parameters)

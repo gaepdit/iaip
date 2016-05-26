@@ -2351,8 +2351,8 @@ Public Class SSPPApplicationTrackingLog
 
             query = "Select strAIRSNumber " &
             "from SSPPApplicationMaster " &
-            "where strApplicationNumber = :appnumber"
-            parameter = New SqlParameter("appnumber", txtApplicationNumber.Text)
+            "where strApplicationNumber = @appnumber"
+            parameter = New SqlParameter("@appnumber", txtApplicationNumber.Text)
 
             AIRSNumber = DB.GetSingleValue(Of String)(query, parameter)
 
@@ -2394,8 +2394,8 @@ Public Class SSPPApplicationTrackingLog
             "and EPDUserProfiles.numUserID = SSPPApplicationMaster.strStaffResponsible " &
             "and SSPPApplicationMaster.APBUnit = LookUpEPDUnits.numUnitCode (+) " &
             "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
-            "and SSPPApplicationMaster.strAIRSNumber = :AIRSNumber "
-            parameter = New SqlParameter("AIRSNumber", AIRSNumber)
+            "and SSPPApplicationMaster.strAIRSNumber = @AIRSNumber "
+            parameter = New SqlParameter("@AIRSNumber", AIRSNumber)
 
             dtFacAppHistory = DB.GetDataTable(query, parameter)
 
@@ -2460,9 +2460,9 @@ Public Class SSPPApplicationTrackingLog
                "else strInformationReceived " &
                "end strInformationReceived " &
                "from SSPPApplicationInformation " &
-               "where strApplicationNumber = :appnumber " &
+               "where strApplicationNumber = @appnumber " &
                "order by strRequestKey "
-            Dim parameter As New SqlParameter("appnumber", txtApplicationNumber.Text)
+            Dim parameter As New SqlParameter("@appnumber", txtApplicationNumber.Text)
 
             Dim dtFacInfoHistory As DataTable = DB.GetDataTable(query, parameter)
 
@@ -2594,8 +2594,8 @@ Public Class SSPPApplicationTrackingLog
             "and LookUpDistrictInformation.strDistrictCode = LookUPDistricts.strDistrictCode " &
             "and APBFacilityInformation.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
             "and APBFacilityInformation.strAIRSNumber = SSCPDistrictResponsible.strAIRSnumber (+) " &
-            "and APBFacilityInformation.strAIRSNumber = :AirsNumber "
-            Dim parameter As New SqlParameter("AirsNumber", "0413" & txtAIRSNumber.Text)
+            "and APBFacilityInformation.strAIRSNumber = @AirsNumber "
+            Dim parameter As New SqlParameter("@AirsNumber", "0413" & txtAIRSNumber.Text)
 
             Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
@@ -3208,9 +3208,9 @@ Public Class SSPPApplicationTrackingLog
             Dim query As String = "Select " &
             "strAttainmentStatus " &
             "from APBHeaderData " &
-            "where strAIRSNumber = :airsnumber "
+            "where strAIRSNumber = @airsnumber "
 
-            Dim parameter As New SqlParameter("airsnumber", "0413" & txtAIRSNumber.Text)
+            Dim parameter As New SqlParameter("@airsnumber", "0413" & txtAIRSNumber.Text)
 
             Attainment = DB.GetSingleValue(Of String)(query, parameter)
             If Attainment = "" Then Attainment = "00000"
@@ -3273,9 +3273,9 @@ Public Class SSPPApplicationTrackingLog
                 "strContactZipCode, " &
                 "strContactDescription " &
                 "from SSPPApplicationContact " &
-                "where strApplicationNumber = :appnumber "
+                "where strApplicationNumber = @appnumber "
 
-                Dim parameter As New SqlParameter("appnumber", txtApplicationNumber.Text)
+                Dim parameter As New SqlParameter("@appnumber", txtApplicationNumber.Text)
 
                 Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
@@ -3382,8 +3382,8 @@ Public Class SSPPApplicationTrackingLog
                 query = "Select " &
                 "datModifingdate " &
                 "from SSPPApplicationMaster " &
-                "where strApplicationNumber = :appnumber "
-                parameter = New SqlParameter("appnumber", txtApplicationNumber.Text)
+                "where strApplicationNumber = @appnumber "
+                parameter = New SqlParameter("@appnumber", txtApplicationNumber.Text)
                 TimeStamp = DB.GetSingleValue(Of String)(query, parameter)
 
                 If TCApplicationTrackingLog.TabPages.Contains(TPTrackingLog) Then
@@ -3422,9 +3422,9 @@ Public Class SSPPApplicationTrackingLog
                     "where " &
                     "    SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber (+)  " &
                     "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber (+)  " &
-                    "and SSPPApplicationMaster.strApplicationNumber = :appnumber"
+                    "and SSPPApplicationMaster.strApplicationNumber = @appnumber"
 
-                    parameter = New SqlParameter("appnumber", txtApplicationNumber.Text)
+                    parameter = New SqlParameter("@appnumber", txtApplicationNumber.Text)
 
                     Using connection As New SqlConnection(CurrentConnectionString)
                         Using cmd As SqlCommand = connection.CreateCommand
@@ -3951,9 +3951,9 @@ Public Class SSPPApplicationTrackingLog
                     "from SSPPApplicationData, " &
                     "SSPPApplicationTracking " &
                     "where SSPPApplicationData.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
-                    "and SSPPApplicationData.strApplicationNumber = :appnumber"
+                    "and SSPPApplicationData.strApplicationNumber = @appnumber"
 
-                    parameter = New SqlParameter("appnumber", txtApplicationNumber.Text)
+                    parameter = New SqlParameter("@appnumber", txtApplicationNumber.Text)
 
                     Using connection As New SqlConnection(CurrentConnectionString)
                         Using cmd As SqlCommand = connection.CreateCommand
@@ -4056,9 +4056,9 @@ Public Class SSPPApplicationTrackingLog
                     "where " &
                     "    SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber (+)  " &
                     "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber (+)  " &
-                    "and SSPPApplicationMaster.strApplicationNumber = :appnumber"
+                    "and SSPPApplicationMaster.strApplicationNumber = @appnumber"
 
-                    parameter = New SqlParameter("appnumber", txtApplicationNumber.Text)
+                    parameter = New SqlParameter("@appnumber", txtApplicationNumber.Text)
 
                     Using connection As New SqlConnection(CurrentConnectionString)
                         Using cmd As SqlCommand = connection.CreateCommand
@@ -4202,9 +4202,9 @@ Public Class SSPPApplicationTrackingLog
             "and LookUpDistrictInformation.strDistrictCode = LookUpDistrictOffice.strDistrictCode  " &
             "and LookUpDistrictInformation.strDistrictCode = LookUpDistrictOffice.strDistrictCode  " &
             "and LookUpDistrictInformation.strDistrictCode = LookUpDistricts.strDistrictCode  " &
-            "and APBHeaderData.strAIRSNumber = :airsnumber"
+            "and APBHeaderData.strAIRSNumber = @airsnumber"
 
-            Dim parameter As New SqlParameter("airsnumber", "0413" & txtAIRSNumber.Text)
+            Dim parameter As New SqlParameter("@airsnumber", "0413" & txtAIRSNumber.Text)
 
             Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
@@ -4629,8 +4629,8 @@ Public Class SSPPApplicationTrackingLog
             Dim query As String = "select count(*) as ApplicationCount " &
                "from SSPPApplicationMaster " &
                "where datFinalizedDate Is Null " &
-               "and strAirsNumber = :airsnumber"
-            Dim parameter As New SqlParameter("airsnumber", "0413" & txtAIRSNumber.Text)
+               "and strAirsNumber = @airsnumber"
+            Dim parameter As New SqlParameter("@airsnumber", "0413" & txtAIRSNumber.Text)
 
             txtOutstandingApplication.Text = DB.GetSingleValue(Of String)(query, parameter)
             If txtOutstandingApplication.Text = "" Then txtOutstandingApplication.Text = "0"
@@ -4657,8 +4657,8 @@ Public Class SSPPApplicationTrackingLog
                 query = "Select " &
                     "strMasterApplication " &
                     "from SSPPApplicationLinking " &
-                    "where strApplicationNumber = :appnumber"
-                parameter = New SqlParameter("appnumber", txtApplicationNumber.Text)
+                    "where strApplicationNumber = @appnumber"
+                parameter = New SqlParameter("@appnumber", txtApplicationNumber.Text)
                 MasterApplication = DB.GetSingleValue(Of String)(query, parameter)
 
                 If MasterApplication <> "" Then
@@ -4676,9 +4676,9 @@ Public Class SSPPApplicationTrackingLog
                     query = "Select " &
                         " strApplicationNumber " &
                         "from SSPPApplicationLinking " &
-                        "where strMasterApplication = :appnumber " &
+                        "where strMasterApplication = @appnumber " &
                         "order by strApplicationNumber "
-                    parameter = New SqlParameter("appnumber", txtApplicationNumber.Text)
+                    parameter = New SqlParameter("@appnumber", txtApplicationNumber.Text)
 
                     Using connection As New SqlConnection(CurrentConnectionString)
                         Using cmd As SqlCommand = connection.CreateCommand
@@ -4783,28 +4783,28 @@ Public Class SSPPApplicationTrackingLog
                     queriesList.Add("Insert into SSPPApplicationMaster " &
                                     "(strApplicationNumber, strAIRSNumber, " &
                                     "strModifingPerson, datModifingDate) " &
-                                    "values (:appnumber, :airsnumber, :updateuser, :updatedate) ")
-                    parametersList.Add({New SqlParameter("appnumber", txtApplicationNumber.Text),
-                                        New SqlParameter("airsnumber", "0413" & txtAIRSNumber.Text),
-                                        New SqlParameter("updateuser", CurrentUser.UserID),
-                                        New SqlParameter("updatedate", OracleDate)})
+                                    "values (@appnumber, @airsnumber, @updateuser, @updatedate) ")
+                    parametersList.Add({New SqlParameter("@appnumber", txtApplicationNumber.Text),
+                                        New SqlParameter("@airsnumber", "0413" & txtAIRSNumber.Text),
+                                        New SqlParameter("@updateuser", CurrentUser.UserID),
+                                        New SqlParameter("@updatedate", OracleDate)})
 
                     queriesList.Add("Insert into SSPPApplicationData " &
                                     "(strApplicationNumber, strModifingPerson, " &
                                     "datModifingDate) " &
-                                    "values (:appnumber, :updateuser, :updatedate) ")
-                    parametersList.Add({New SqlParameter("appnumber", txtApplicationNumber.Text),
-                                        New SqlParameter("updateuser", CurrentUser.UserID),
-                                        New SqlParameter("updatedate", OracleDate)})
+                                    "values (@appnumber, @updateuser, @updatedate) ")
+                    parametersList.Add({New SqlParameter("@appnumber", txtApplicationNumber.Text),
+                                        New SqlParameter("@updateuser", CurrentUser.UserID),
+                                        New SqlParameter("@updatedate", OracleDate)})
 
                     queriesList.Add("Insert into SSPPApplicationTracking " &
                                     "(strApplicationNumber, strSubmittalNumber, " &
                                     " strModifingPerson, datModifingDate) " &
-                                    "values (:appnumber, :submittalnumber, :updateuser, :updatedate) ")
-                    parametersList.Add({New SqlParameter("appnumber", txtApplicationNumber.Text),
-                                        New SqlParameter("submittalnumber", "1"),
-                                        New SqlParameter("updateuser", CurrentUser.UserID),
-                                        New SqlParameter("updatedate", OracleDate)})
+                                    "values (@appnumber, @submittalnumber, @updateuser, @updatedate) ")
+                    parametersList.Add({New SqlParameter("@appnumber", txtApplicationNumber.Text),
+                                        New SqlParameter("@submittalnumber", "1"),
+                                        New SqlParameter("@updateuser", CurrentUser.UserID),
+                                        New SqlParameter("@updatedate", OracleDate)})
 
                     DB.RunCommand(queriesList, parametersList)
                 End If
@@ -4872,32 +4872,32 @@ Public Class SSPPApplicationTrackingLog
                 End If
 
                 query = "Update SSPPApplicationMaster set " &
-                    "strAIRSNumber = :airsnumber, " &
-                    "strStaffResponsible = :staff, " &
-                    "strApplicationType = :applicationtype, " &
-                    "strPermitType = :permittype, " &
-                    "APBUnit = :unit, " &
-                    "datFinalizedDate = :datefinalized, " &
-                    "strModifingperson = :updateuser, " &
+                    "strAIRSNumber = @airsnumber, " &
+                    "strStaffResponsible = @staff, " &
+                    "strApplicationType = @applicationtype, " &
+                    "strPermitType = @permittype, " &
+                    "APBUnit = @unit, " &
+                    "datFinalizedDate = @datefinalized, " &
+                    "strModifingperson = @updateuser, " &
                     "datModifingdate = sysdate " &
-                    "where strApplicationNumber = :appnumber "
+                    "where strApplicationNumber = @appnumber "
                 parameters = {
-                    New SqlParameter("airsnumber", "0413" & txtAIRSNumber.Text),
-                    New SqlParameter("staff", StaffResponsible),
-                    New SqlParameter("applicationtype", ApplicationType),
-                    New SqlParameter("permittype", PermitType),
-                    New SqlParameter("unit", Unit),
-                    New SqlParameter("datefinalized", DateFinalized),
-                    New SqlParameter("updateuser", CurrentUser.UserID),
-                    New SqlParameter("appnumber", txtApplicationNumber.Text)
+                    New SqlParameter("@airsnumber", "0413" & txtAIRSNumber.Text),
+                    New SqlParameter("@staff", StaffResponsible),
+                    New SqlParameter("@applicationtype", ApplicationType),
+                    New SqlParameter("@permittype", PermitType),
+                    New SqlParameter("@unit", Unit),
+                    New SqlParameter("@datefinalized", DateFinalized),
+                    New SqlParameter("@updateuser", CurrentUser.UserID),
+                    New SqlParameter("@appnumber", txtApplicationNumber.Text)
                 }
                 DB.RunCommand(query, parameters)
 
                 query = "Select " &
                 "datModifingdate " &
                 "from SSPPApplicationMaster " &
-                "where strApplicationNumber = :appnumber "
-                parameters = {New SqlParameter("appnumber", txtApplicationNumber.Text)}
+                "where strApplicationNumber = @appnumber "
+                parameters = {New SqlParameter("@appnumber", txtApplicationNumber.Text)}
                 TimeStamp = DB.GetSingleValue(Of String)(query, parameters)
 
                 txtFacilityName.Text = Apb.Facilities.Facility.SanitizeFacilityNameForDb(txtFacilityName.Text)
@@ -5091,53 +5091,53 @@ Public Class SSPPApplicationTrackingLog
                 End If
 
                 query = "Update SSPPApplicationData set " &
-                "strFacilityName = :FacilityName, " &
-                "strFacilityStreet1 = :FacilityAddress, " &
+                "strFacilityName = @FacilityName, " &
+                "strFacilityStreet1 = @FacilityAddress, " &
                 "strFacilityStreet2 = 'N/A', " &
-                "strFacilityCity = :FacilityCity, " &
+                "strFacilityCity = @FacilityCity, " &
                 "strFacilityState = 'GA', " &
-                "strFacilityZipCode = :FacilityZipCode, " &
-                "strOperationalStatus = :OperationalStatus, " &
-                "strClass = :Classification, " &
-                "strAirProgramCodes = :AirProgramCodes, " &
-                "strSICCode = :SIC, " &
-                "strNAICSCode = :NAICS, " &
-                "strPermitNumber = :PermitNumber, " &
-                "strPlantDescription = :PlantDesc, " &
-                "strComments = :Comments, " &
-                "strApplicationNotes = :ApplicationNotes, " &
-                "strTrackedRules = :TrackedRules, " &
-                "strStateProgramCodes = :StateProgramCodes, " &
-                "strPAReady = :PAReady, " &
-                "strPNReady = :PNReady, " &
-                "STRSIGNIFICANTCOMMENTS = :SignificantComments, " &
-                "strPublicInvolvement = :PublicInvolved, " &
-                "strModifingperson = :UserGCode, " &
-                "datModifingdate = :OracleDate " &
-                "where strApplicationNumber = :txtApplicationNumber "
+                "strFacilityZipCode = @FacilityZipCode, " &
+                "strOperationalStatus = @OperationalStatus, " &
+                "strClass = @Classification, " &
+                "strAirProgramCodes = @AirProgramCodes, " &
+                "strSICCode = @SIC, " &
+                "strNAICSCode = @NAICS, " &
+                "strPermitNumber = @PermitNumber, " &
+                "strPlantDescription = @PlantDesc, " &
+                "strComments = @Comments, " &
+                "strApplicationNotes = @ApplicationNotes, " &
+                "strTrackedRules = @TrackedRules, " &
+                "strStateProgramCodes = @StateProgramCodes, " &
+                "strPAReady = @PAReady, " &
+                "strPNReady = @PNReady, " &
+                "STRSIGNIFICANTCOMMENTS = @SignificantComments, " &
+                "strPublicInvolvement = @PublicInvolved, " &
+                "strModifingperson = @UserGCode, " &
+                "datModifingdate = @OracleDate " &
+                "where strApplicationNumber = @txtApplicationNumber "
                 parameters = {
-                    New SqlParameter("FacilityName", FacilityName),
-                    New SqlParameter("FacilityAddress", FacilityAddress),
-                    New SqlParameter("FacilityCity", FacilityCity),
-                    New SqlParameter("FacilityZipCode", FacilityZipCode),
-                    New SqlParameter("OperationalStatus", OperationalStatus),
-                    New SqlParameter("Classification", Classification),
-                    New SqlParameter("AirProgramCodes", AirProgramCodes),
-                    New SqlParameter("SIC", SIC),
-                    New SqlParameter("NAICS", NAICS),
-                    New SqlParameter("PermitNumber", PermitNumber),
-                    New SqlParameter("PlantDesc", PlantDesc),
-                    New SqlParameter("Comments", Comments),
-                    New SqlParameter("ApplicationNotes", ApplicationNotes),
-                    New SqlParameter("TrackedRules", TrackedRules),
-                    New SqlParameter("StateProgramCodes", StateProgramCodes),
-                    New SqlParameter("PAReady", PAReady),
-                    New SqlParameter("PNReady", PNReady),
-                    New SqlParameter("SignificantComments", SignificantComments),
-                    New SqlParameter("PublicInvolved", PublicInvolved),
-                    New SqlParameter("UserGCode", CurrentUser.UserID),
-                    New SqlParameter("OracleDate", OracleDate),
-                    New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
+                    New SqlParameter("@FacilityName", FacilityName),
+                    New SqlParameter("@FacilityAddress", FacilityAddress),
+                    New SqlParameter("@FacilityCity", FacilityCity),
+                    New SqlParameter("@FacilityZipCode", FacilityZipCode),
+                    New SqlParameter("@OperationalStatus", OperationalStatus),
+                    New SqlParameter("@Classification", Classification),
+                    New SqlParameter("@AirProgramCodes", AirProgramCodes),
+                    New SqlParameter("@SIC", SIC),
+                    New SqlParameter("@NAICS", NAICS),
+                    New SqlParameter("@PermitNumber", PermitNumber),
+                    New SqlParameter("@PlantDesc", PlantDesc),
+                    New SqlParameter("@Comments", Comments),
+                    New SqlParameter("@ApplicationNotes", ApplicationNotes),
+                    New SqlParameter("@TrackedRules", TrackedRules),
+                    New SqlParameter("@StateProgramCodes", StateProgramCodes),
+                    New SqlParameter("@PAReady", PAReady),
+                    New SqlParameter("@PNReady", PNReady),
+                    New SqlParameter("@SignificantComments", SignificantComments),
+                    New SqlParameter("@PublicInvolved", PublicInvolved),
+                    New SqlParameter("@UserGCode", CurrentUser.UserID),
+                    New SqlParameter("@OracleDate", OracleDate),
+                    New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text)
                 }
                 DB.RunCommand(query, parameters)
 
@@ -5217,51 +5217,51 @@ Public Class SSPPApplicationTrackingLog
                 End If
 
                 query = "Update SSPPApplicationTracking set " &
-                "datReceivedDate = :ReceivedDate, " &
-                "datSentByFacility = :SentByDate, " &
-                "datAssignedToEngineer = :AssignedToEngineer, " &
-                "datReassignedToEngineer = :ReAssignedToEngineer, " &
-                "datApplicationPackageComplete = :PackageCompleteDate, " &
-                "datAcknowledgementLetterSent = :AcknowledgementLetter, " &
-                "datToPMI = :ToPMI, " &
-                "datToPMII = :ToPMII, " &
-                "datReturnedtoEngineer = :ReturnToEngineer, " &
-                "datPermitIssued = :PermitIssued, " &
-                "datApplicationDeadline = :AppDeadline, " &
-                "datWithdrawn = :Withdrawn, " &
-                "datDraftIssued = :DraftIssued, " &
-                "strModifingPerson = :UserGCode, " &
-                "datModifingDate = :OracleDate, " &
-                "datEPAWaived = :EPAWaived, " &
-                "datEPAEnds = :EPAEnds, " &
-                "datToBranchCheif = :ToBC, " &
-                "datToDirector = :ToDO, " &
-                "datPAExpires = :PAExpires, " &
-                "datpnexpires = :PNExpires " &
-                "where strApplicationNumber = :txtApplicationNumber "
+                "datReceivedDate = @ReceivedDate, " &
+                "datSentByFacility = @SentByDate, " &
+                "datAssignedToEngineer = @AssignedToEngineer, " &
+                "datReassignedToEngineer = @ReAssignedToEngineer, " &
+                "datApplicationPackageComplete = @PackageCompleteDate, " &
+                "datAcknowledgementLetterSent = @AcknowledgementLetter, " &
+                "datToPMI = @ToPMI, " &
+                "datToPMII = @ToPMII, " &
+                "datReturnedtoEngineer = @ReturnToEngineer, " &
+                "datPermitIssued = @PermitIssued, " &
+                "datApplicationDeadline = @AppDeadline, " &
+                "datWithdrawn = @Withdrawn, " &
+                "datDraftIssued = @DraftIssued, " &
+                "strModifingPerson = @UserGCode, " &
+                "datModifingDate = @OracleDate, " &
+                "datEPAWaived = @EPAWaived, " &
+                "datEPAEnds = @EPAEnds, " &
+                "datToBranchCheif = @ToBC, " &
+                "datToDirector = @ToDO, " &
+                "datPAExpires = @PAExpires, " &
+                "datpnexpires = @PNExpires " &
+                "where strApplicationNumber = @txtApplicationNumber "
                 parameters = {
-                    New SqlParameter("ReceivedDate", ReceivedDate),
-                    New SqlParameter("SentByDate", SentByDate),
-                    New SqlParameter("AssignedToEngineer", AssignedToEngineer),
-                    New SqlParameter("ReAssignedToEngineer", ReAssignedToEngineer),
-                    New SqlParameter("PackageCompleteDate", PackageCompleteDate),
-                    New SqlParameter("AcknowledgementLetter", AcknowledgementLetter),
-                    New SqlParameter("ToPMI", ToPMI),
-                    New SqlParameter("ToPMII", ToPMII),
-                    New SqlParameter("ReturnToEngineer", ReturnToEngineer),
-                    New SqlParameter("PermitIssued", PermitIssued),
-                    New SqlParameter("AppDeadline", AppDeadline),
-                    New SqlParameter("Withdrawn", Withdrawn),
-                    New SqlParameter("DraftIssued", DraftIssued),
-                    New SqlParameter("UserGCode", CurrentUser.UserID),
-                    New SqlParameter("OracleDate", OracleDate),
-                    New SqlParameter("EPAWaived", EPAWaived),
-                    New SqlParameter("EPAEnds", EPAEnds),
-                    New SqlParameter("ToBC", ToBC),
-                    New SqlParameter("ToDO", ToDO),
-                    New SqlParameter("PAExpires", PAExpires),
-                    New SqlParameter("PNExpires", PNExpires),
-                    New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
+                    New SqlParameter("@ReceivedDate", ReceivedDate),
+                    New SqlParameter("@SentByDate", SentByDate),
+                    New SqlParameter("@AssignedToEngineer", AssignedToEngineer),
+                    New SqlParameter("@ReAssignedToEngineer", ReAssignedToEngineer),
+                    New SqlParameter("@PackageCompleteDate", PackageCompleteDate),
+                    New SqlParameter("@AcknowledgementLetter", AcknowledgementLetter),
+                    New SqlParameter("@ToPMI", ToPMI),
+                    New SqlParameter("@ToPMII", ToPMII),
+                    New SqlParameter("@ReturnToEngineer", ReturnToEngineer),
+                    New SqlParameter("@PermitIssued", PermitIssued),
+                    New SqlParameter("@AppDeadline", AppDeadline),
+                    New SqlParameter("@Withdrawn", Withdrawn),
+                    New SqlParameter("@DraftIssued", DraftIssued),
+                    New SqlParameter("@UserGCode", CurrentUser.UserID),
+                    New SqlParameter("@OracleDate", OracleDate),
+                    New SqlParameter("@EPAWaived", EPAWaived),
+                    New SqlParameter("@EPAEnds", EPAEnds),
+                    New SqlParameter("@ToBC", ToBC),
+                    New SqlParameter("@ToDO", ToDO),
+                    New SqlParameter("@PAExpires", PAExpires),
+                    New SqlParameter("@PNExpires", PNExpires),
+                    New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text)
                 }
                 DB.RunCommand(query, parameters)
 
@@ -5281,75 +5281,75 @@ Public Class SSPPApplicationTrackingLog
                             parametersList.Clear()
 
                             queriesList.Add("Update SSPPApplicationMaster set " &
-                            "datFinalizedDate = :DateFinalized, " &
-                            "strPermitType = :PermitType, " &
-                            "strModifingperson = :UserGCode, " &
-                            "datModifingdate = :OracleDate " &
-                            "where strApplicationNumber = :LinkedApplication ")
+                            "datFinalizedDate = @DateFinalized, " &
+                            "strPermitType = @PermitType, " &
+                            "strModifingperson = @UserGCode, " &
+                            "datModifingdate = @OracleDate " &
+                            "where strApplicationNumber = @LinkedApplication ")
                             parametersList.Add({
-                                New SqlParameter("DateFinalized", DateFinalized),
-                                New SqlParameter("PermitType", PermitType),
-                                New SqlParameter("UserGCode", CurrentUser.UserID),
-                                New SqlParameter("OracleDate", OracleDate),
-                                New SqlParameter("LinkedApplication", LinkedApplication)
+                                New SqlParameter("@DateFinalized", DateFinalized),
+                                New SqlParameter("@PermitType", PermitType),
+                                New SqlParameter("@UserGCode", CurrentUser.UserID),
+                                New SqlParameter("@OracleDate", OracleDate),
+                                New SqlParameter("@LinkedApplication", LinkedApplication)
                             })
 
                             queriesList.Add("Update SSPPApplicationData set " &
-                           "strOperationalStatus = :OperationalStatus, " &
-                           "strClass = :Classification , " &
-                           "strAirProgramCodes = :AirProgramCodes , " &
-                           "strSICCode = :SIC , " &
-                           "strPermitNumber = :PermitNumber, " &
-                           "strPlantDescription = :PlantDesc, " &
-                           "strStateProgramCodes = :StateProgramCodes , " &
-                           "strPAReady = :PAReady , " &
-                           "strPNReady = :PNReady , " &
-                           "strSignificantComments = :SignificantComments, " &
-                           "strPublicInvolvement = :PublicInvolved, " &
-                           "strModifingperson = :UserGCode , " &
-                           "datModifingdate = :OracleDate  " &
-                           "where strApplicationNumber = :LinkedApplication ")
+                           "strOperationalStatus = @OperationalStatus, " &
+                           "strClass = @Classification , " &
+                           "strAirProgramCodes = @AirProgramCodes , " &
+                           "strSICCode = @SIC , " &
+                           "strPermitNumber = @PermitNumber, " &
+                           "strPlantDescription = @PlantDesc, " &
+                           "strStateProgramCodes = @StateProgramCodes , " &
+                           "strPAReady = @PAReady , " &
+                           "strPNReady = @PNReady , " &
+                           "strSignificantComments = @SignificantComments, " &
+                           "strPublicInvolvement = @PublicInvolved, " &
+                           "strModifingperson = @UserGCode , " &
+                           "datModifingdate = @OracleDate  " &
+                           "where strApplicationNumber = @LinkedApplication ")
                             parametersList.Add({
-                                               New SqlParameter("OperationalStatus", OperationalStatus),
-                                               New SqlParameter("Classification", Classification),
-                                               New SqlParameter("AirProgramCodes", AirProgramCodes),
-                                               New SqlParameter("SIC", SIC),
-                                               New SqlParameter("PermitNumber", PermitNumber),
-                                               New SqlParameter("PlantDesc", PlantDesc),
-                                               New SqlParameter("StateProgramCodes", StateProgramCodes),
-                                               New SqlParameter("PAReady", PAReady),
-                                               New SqlParameter("PNReady", PNReady),
-                                               New SqlParameter("SignificantComments", SignificantComments),
-                                               New SqlParameter("PublicInvolved", PublicInvolved),
-                                               New SqlParameter("UserGCode", CurrentUser.UserID),
-                                               New SqlParameter("OracleDate", OracleDate),
-                                               New SqlParameter("LinkedApplication", LinkedApplication)
+                                               New SqlParameter("@OperationalStatus", OperationalStatus),
+                                               New SqlParameter("@Classification", Classification),
+                                               New SqlParameter("@AirProgramCodes", AirProgramCodes),
+                                               New SqlParameter("@SIC", SIC),
+                                               New SqlParameter("@PermitNumber", PermitNumber),
+                                               New SqlParameter("@PlantDesc", PlantDesc),
+                                               New SqlParameter("@StateProgramCodes", StateProgramCodes),
+                                               New SqlParameter("@PAReady", PAReady),
+                                               New SqlParameter("@PNReady", PNReady),
+                                               New SqlParameter("@SignificantComments", SignificantComments),
+                                               New SqlParameter("@PublicInvolved", PublicInvolved),
+                                               New SqlParameter("@UserGCode", CurrentUser.UserID),
+                                               New SqlParameter("@OracleDate", OracleDate),
+                                               New SqlParameter("@LinkedApplication", LinkedApplication)
                                            })
 
                             queriesList.Add("Update SSPPApplicationTracking set " &
-                            "datPermitIssued = :PermitIssued , " &
-                            "datDraftIssued = :DraftIssued , " &
-                            "datEPAWaived = :EPAWaived , " &
-                            "datEPAEnds = :EPAEnds , " &
-                            "datPAExpires  = :PAExpires , " &
-                            "datPNExpires = :PNExpires , " &
-                            "datToBranchCheif = :ToBC , " &
-                            "datToDirector = :ToDO , " &
-                            "strModifingPerson = :UserGCode , " &
-                            "datModifingDate = :OracleDate  " &
-                            "where strApplicationNumber = :LinkedApplication  ")
+                            "datPermitIssued = @PermitIssued , " &
+                            "datDraftIssued = @DraftIssued , " &
+                            "datEPAWaived = @EPAWaived , " &
+                            "datEPAEnds = @EPAEnds , " &
+                            "datPAExpires  = @PAExpires , " &
+                            "datPNExpires = @PNExpires , " &
+                            "datToBranchCheif = @ToBC , " &
+                            "datToDirector = @ToDO , " &
+                            "strModifingPerson = @UserGCode , " &
+                            "datModifingDate = @OracleDate  " &
+                            "where strApplicationNumber = @LinkedApplication  ")
                             parametersList.Add({
-                                               New SqlParameter("PermitIssued", PermitIssued),
-                                               New SqlParameter("DraftIssued", DraftIssued),
-                                               New SqlParameter("EPAWaived", EPAWaived),
-                                               New SqlParameter("EPAEnds", EPAEnds),
-                                               New SqlParameter("PAExpires", PAExpires),
-                                               New SqlParameter("PNExpires", PNExpires),
-                                               New SqlParameter("ToBC", ToBC),
-                                               New SqlParameter("ToDO", ToDO),
-                                               New SqlParameter("UserGCode", CurrentUser.UserID),
-                                               New SqlParameter("OracleDate", OracleDate),
-                                               New SqlParameter("LinkedApplication", LinkedApplication)
+                                               New SqlParameter("@PermitIssued", PermitIssued),
+                                               New SqlParameter("@DraftIssued", DraftIssued),
+                                               New SqlParameter("@EPAWaived", EPAWaived),
+                                               New SqlParameter("@EPAEnds", EPAEnds),
+                                               New SqlParameter("@PAExpires", PAExpires),
+                                               New SqlParameter("@PNExpires", PNExpires),
+                                               New SqlParameter("@ToBC", ToBC),
+                                               New SqlParameter("@ToDO", ToDO),
+                                               New SqlParameter("@UserGCode", CurrentUser.UserID),
+                                               New SqlParameter("@OracleDate", OracleDate),
+                                               New SqlParameter("@LinkedApplication", LinkedApplication)
                                            })
 
                             DB.RunCommand(queriesList, parametersList)
@@ -5357,8 +5357,8 @@ Public Class SSPPApplicationTrackingLog
                             query = "Select " &
                                 "datToPMI, datToPMII " &
                                 "from SSPPApplicationTracking " &
-                                "where strApplicationNumber = :LinkedApplication "
-                            parameters = {New SqlParameter("LinkedApplication", LinkedApplication)}
+                                "where strApplicationNumber = @LinkedApplication "
+                            parameters = {New SqlParameter("@LinkedApplication", LinkedApplication)}
 
                             Dim query2 As String = ""
 
@@ -5372,12 +5372,12 @@ Public Class SSPPApplicationTrackingLog
 
                                         While dr.Read
                                             If IsDBNull(dr.Item("datToPMI")) Then
-                                                query2 = "Update SSPPApplicationTracking set datToPMI = :ToPMI "
-                                                If IsDBNull(dr.Item("datToPMII")) Then query2 &= ", datToPMII = :ToPMII "
-                                                query2 &= " where strApplicationNumber = :LinkedApplication  "
+                                                query2 = "Update SSPPApplicationTracking set datToPMI = @ToPMI "
+                                                If IsDBNull(dr.Item("datToPMII")) Then query2 &= ", datToPMII = @ToPMII "
+                                                query2 &= " where strApplicationNumber = @LinkedApplication  "
                                             ElseIf IsDBNull(dr.Item("datToPMII")) Then
                                                 query2 = "Update SSPPApplicationTracking set " &
-                                                "datToPMII = :ToPMII where strApplicationNumber = :LinkedApplication "
+                                                "datToPMII = @ToPMII where strApplicationNumber = @LinkedApplication "
                                             End If
                                         End While
 
@@ -5388,9 +5388,9 @@ Public Class SSPPApplicationTrackingLog
 
                             If Not String.IsNullOrWhiteSpace(query2) Then
                                 Dim parameters2 As SqlParameter() = {
-                                    New SqlParameter("ToPMI", ToPMI),
-                                    New SqlParameter("ToPMII", ToPMII),
-                                    New SqlParameter("LinkedApplication", LinkedApplication)
+                                    New SqlParameter("@ToPMI", ToPMI),
+                                    New SqlParameter("@ToPMII", ToPMII),
+                                    New SqlParameter("@LinkedApplication", LinkedApplication)
                                 }
                                 DB.RunCommand(query2, parameters2)
                             End If
@@ -5519,8 +5519,8 @@ Public Class SSPPApplicationTrackingLog
                     If txtInformationRequestedKey.Text = "" Then
                         query = "Select max(strRequestKey) as RequestKey " &
                         "from SSPPApplicationInformation " &
-                        "where strApplicationNumber = :txtApplicationNumber"
-                        parameter = {New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)}
+                        "where strApplicationNumber = @txtApplicationNumber"
+                        parameter = {New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text)}
                         InformationRequestKey = DB.GetSingleValue(Of String)(query, parameter)
                         If String.IsNullOrWhiteSpace(InformationRequestKey) Then InformationRequestKey = "0"
                         InformationRequestKey = CInt((InformationRequestKey) + 1)
@@ -5530,11 +5530,11 @@ Public Class SSPPApplicationTrackingLog
 
                     query = "Select strApplicationNumber " &
                     "from SSPPApplicationInformation " &
-                    "where strApplicationNumber = :txtApplicationNumber " &
-                    "and strRequestKey = :InformationRequestKey "
+                    "where strApplicationNumber = @txtApplicationNumber " &
+                    "and strRequestKey = @InformationRequestKey "
                     parameter = {
-                        New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text),
-                        New SqlParameter("InformationRequestKey", InformationRequestKey)
+                        New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text),
+                        New SqlParameter("@InformationRequestKey", InformationRequestKey)
                     }
                     Dim recordExists As Boolean = DB.ValueExists(query, parameter)
 
@@ -5556,23 +5556,23 @@ Public Class SSPPApplicationTrackingLog
                     If recordExists Then
                         'Update
                         query = "Update SSPPApplicationInformation set " &
-                        "datInformationRequested = :DateInfoRequested , " &
-                        "strInformationRequested = :InformationRequested , " &
-                        "datInformationReceived = :DateInfoReceived , " &
-                        "strInformationReceived = :InformationReceived , " &
-                        "strModifingPerson = :UserGCode , " &
-                        "datModifingDate = :OracleDate  " &
-                        "where strApplicationNumber = :txtApplicationNumber " &
-                        "and strRequestKey = :InformationRequestKey  "
+                        "datInformationRequested = @DateInfoRequested , " &
+                        "strInformationRequested = @InformationRequested , " &
+                        "datInformationReceived = @DateInfoReceived , " &
+                        "strInformationReceived = @InformationReceived , " &
+                        "strModifingPerson = @UserGCode , " &
+                        "datModifingDate = @OracleDate  " &
+                        "where strApplicationNumber = @txtApplicationNumber " &
+                        "and strRequestKey = @InformationRequestKey  "
                         parameter = {
-                            New SqlParameter("DateInfoRequested", DateInfoRequested),
-                            New SqlParameter("InformationRequested", InformationRequested),
-                            New SqlParameter("DateInfoReceived", DateInfoReceived),
-                            New SqlParameter("InformationReceived", InformationReceived),
-                            New SqlParameter("UserGCode", CurrentUser.UserID),
-                            New SqlParameter("OracleDate", OracleDate),
-                            New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text),
-                            New SqlParameter("InformationRequestKey", InformationRequestKey)
+                            New SqlParameter("@DateInfoRequested", DateInfoRequested),
+                            New SqlParameter("@InformationRequested", InformationRequested),
+                            New SqlParameter("@DateInfoReceived", DateInfoReceived),
+                            New SqlParameter("@InformationReceived", InformationReceived),
+                            New SqlParameter("@UserGCode", CurrentUser.UserID),
+                            New SqlParameter("@OracleDate", OracleDate),
+                            New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text),
+                            New SqlParameter("@InformationRequestKey", InformationRequestKey)
                         }
                     Else
                         'Insert 
@@ -5582,19 +5582,19 @@ Public Class SSPPApplicationTrackingLog
                         "datInformationReceived, strInformationReceived, " &
                         "strModifingPerson, datModifingDate) " &
                         "values " &
-                        "(:txtApplicationNumber, :InformationRequestKey , " &
-                        ":DateInfoRequested , :InformationRequested , " &
-                        ":DateInfoReceived , :InformationReceived , " &
-                        ":UserGCode , :OracleDate ) "
+                        "(@txtApplicationNumber, @InformationRequestKey , " &
+                        "@DateInfoRequested , @InformationRequested , " &
+                        "@DateInfoReceived , @InformationReceived , " &
+                        "@UserGCode , @OracleDate ) "
                         parameter = {
-                            New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text),
-                            New SqlParameter("InformationRequestKey", InformationRequestKey),
-                            New SqlParameter("DateInfoRequested", DateInfoRequested),
-                            New SqlParameter("InformationRequested", InformationRequested),
-                            New SqlParameter("DateInfoReceived", DateInfoReceived),
-                            New SqlParameter("InformationReceived", InformationReceived),
-                            New SqlParameter("UserGCode", CurrentUser.UserID),
-                            New SqlParameter("OracleDate", OracleDate)
+                            New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text),
+                            New SqlParameter("@InformationRequestKey", InformationRequestKey),
+                            New SqlParameter("@DateInfoRequested", DateInfoRequested),
+                            New SqlParameter("@InformationRequested", InformationRequested),
+                            New SqlParameter("@DateInfoReceived", DateInfoReceived),
+                            New SqlParameter("@InformationReceived", InformationReceived),
+                            New SqlParameter("@UserGCode", CurrentUser.UserID),
+                            New SqlParameter("@OracleDate", OracleDate)
                         }
                     End If
                     DB.RunCommand(query, parameter)
@@ -5621,11 +5621,11 @@ Public Class SSPPApplicationTrackingLog
                 InformationRequestKey = txtInformationRequestedKey.Text
 
                 Dim query As String = "Delete SSPPApplicationInformation " &
-                "where strApplicationNumber = :txtApplicationNumber " &
-                "and strRequestKey = :InformationRequestKey "
+                "where strApplicationNumber = @txtApplicationNumber " &
+                "and strRequestKey = @InformationRequestKey "
                 Dim parameter As SqlParameter() = {
-                    New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text),
-                    New SqlParameter("InformationRequestKey", InformationRequestKey)
+                    New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text),
+                    New SqlParameter("@InformationRequestKey", InformationRequestKey)
                 }
                 DB.RunCommand(query, parameter)
 
@@ -5660,21 +5660,21 @@ Public Class SSPPApplicationTrackingLog
                     Dim paramList As New List(Of SqlParameter())
 
                     queryList.Add("Update SSPPApplicationData set " &
-                        "strSSCPUnit = :cboSSCPUnits, " &
-                        "strISMPUnit = :cboISMPUnits " &
-                        "where strApplicationNumber = :txtApplicationNumber ")
+                        "strSSCPUnit = @cboSSCPUnits, " &
+                        "strISMPUnit = @cboISMPUnits " &
+                        "where strApplicationNumber = @txtApplicationNumber ")
                     paramList.Add({
-                        New SqlParameter("cboSSCPUnits", cboSSCPUnits.SelectedValue),
-                        New SqlParameter("cboISMPUnits", cboISMPUnits.SelectedValue),
-                        New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
+                        New SqlParameter("@cboSSCPUnits", cboSSCPUnits.SelectedValue),
+                        New SqlParameter("@cboISMPUnits", cboISMPUnits.SelectedValue),
+                        New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text)
                     })
 
                     queryList.Add("Update SSPPApplicationTracking set " &
-                    "datReviewSubmitted = :DateReviewSubmitted " &
-                    "where strApplicationNumber = :txtApplicationNumber ")
+                    "datReviewSubmitted = @DateReviewSubmitted " &
+                    "where strApplicationNumber = @txtApplicationNumber ")
                     paramList.Add({
-                        New SqlParameter("DateReviewSubmitted", DateReviewSubmitted),
-                        New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
+                        New SqlParameter("@DateReviewSubmitted", DateReviewSubmitted),
+                        New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text)
                     })
 
                     DB.RunCommand(queryList, paramList)
@@ -5708,21 +5708,21 @@ Public Class SSPPApplicationTrackingLog
                     Dim paramList As New List(Of SqlParameter())
 
                     queryList.Add("Update SSPPApplicationData set " &
-                    "strSSCPReviewer = :cboSSCPStaff, " &
-                    "strSSCPComments = :SSCPComments " &
-                    "where strApplicationNumber = :txtApplicationNumber")
+                    "strSSCPReviewer = @cboSSCPStaff, " &
+                    "strSSCPComments = @SSCPComments " &
+                    "where strApplicationNumber = @txtApplicationNumber")
                     paramList.Add({
-                        New SqlParameter("cboSSCPStaff", cboSSCPStaff.SelectedValue),
-                        New SqlParameter("SSCPComments", SSCPComments),
-                        New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
+                        New SqlParameter("@cboSSCPStaff", cboSSCPStaff.SelectedValue),
+                        New SqlParameter("@SSCPComments", SSCPComments),
+                        New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text)
                     })
 
                     queryList.Add("Update SSPPApplicationTracking set " &
-                    "datSSCPReviewDate = :DTPSSCPReview " &
-                    "where strApplicationNumber = :txtApplicationNumber ")
+                    "datSSCPReviewDate = @DTPSSCPReview " &
+                    "where strApplicationNumber = @txtApplicationNumber ")
                     paramList.Add({
-                        New SqlParameter("DTPSSCPReview", DTPSSCPReview.Text),
-                        New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
+                        New SqlParameter("@DTPSSCPReview", DTPSSCPReview.Text),
+                        New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text)
                     })
 
                     DB.RunCommand(queryList, paramList)
@@ -5755,21 +5755,21 @@ Public Class SSPPApplicationTrackingLog
                     End If
 
                     queryList.Add("Update SSPPApplicationData set " &
-                    "strISMPReviewer = :cboISMPStaff , " &
-                    "strISMPComments = :ISMPComments " &
-                    "where strApplicationNumber = :txtApplicationNumber")
+                    "strISMPReviewer = @cboISMPStaff , " &
+                    "strISMPComments = @ISMPComments " &
+                    "where strApplicationNumber = @txtApplicationNumber")
                     paramList.Add({
-                        New SqlParameter("cboISMPStaff", cboISMPStaff.SelectedValue),
-                        New SqlParameter("ISMPComments", ISMPComments),
-                        New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
+                        New SqlParameter("@cboISMPStaff", cboISMPStaff.SelectedValue),
+                        New SqlParameter("@ISMPComments", ISMPComments),
+                        New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text)
                     })
 
                     queryList.Add("Update SSPPApplicationTracking set " &
-                    "datISMPReviewDate = :DTPISMPReview " &
-                    "where strApplicationNumber = :txtApplicationNumber")
+                    "datISMPReviewDate = @DTPISMPReview " &
+                    "where strApplicationNumber = @txtApplicationNumber")
                     paramList.Add({
-                        New SqlParameter("DTPISMPReview", DTPISMPReview.Text),
-                        New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
+                        New SqlParameter("@DTPISMPReview", DTPISMPReview.Text),
+                        New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text)
                     })
 
                     DB.RunCommand(queryList, paramList)
@@ -5883,82 +5883,82 @@ Public Class SSPPApplicationTrackingLog
 
             query = "Select strApplicationNumber " &
             "from SSPPApplicationContact " &
-            "where strApplicationNumber = :txtApplicationNumber "
+            "where strApplicationNumber = @txtApplicationNumber "
             params = {
-                New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
+                New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text)
             }
             recExists = DB.ValueExists(query, params)
 
             If recExists Then
                 'update
                 query = "Update SSPPApplicationContact set " &
-                "strContactFirstName = :ContactFirstName, " &
-                "strContactLastName = :ContactLastname, " &
-                "strContactPrefix = :ContactPrefix, " &
-                "strContactSuffix = :ContactSuffix, " &
-                "strContactTitle = :ContactTitle, " &
-                "strContactCompanyName = :ContactCompany, " &
-                "strContactPhoneNumber1 = :ContactPhone, " &
-                "strContactfaxnumber = :ContactFax, " &
-                "strContactemail = :ContactEmail, " &
-                "strContactAddress1 = :ContactAddress, " &
-                "strContactCity = :ContactCity, " &
-                "strContactState = :ContactState, " &
-                "strContactZipCode = :ContactZipCode, " &
-                "strContactDescription = :ContactDescription " &
-                "where strApplicationNumber = :txtApplicationNumber "
+                "strContactFirstName = @ContactFirstName, " &
+                "strContactLastName = @ContactLastname, " &
+                "strContactPrefix = @ContactPrefix, " &
+                "strContactSuffix = @ContactSuffix, " &
+                "strContactTitle = @ContactTitle, " &
+                "strContactCompanyName = @ContactCompany, " &
+                "strContactPhoneNumber1 = @ContactPhone, " &
+                "strContactfaxnumber = @ContactFax, " &
+                "strContactemail = @ContactEmail, " &
+                "strContactAddress1 = @ContactAddress, " &
+                "strContactCity = @ContactCity, " &
+                "strContactState = @ContactState, " &
+                "strContactZipCode = @ContactZipCode, " &
+                "strContactDescription = @ContactDescription " &
+                "where strApplicationNumber = @txtApplicationNumber "
                 params = {
-                    New SqlParameter("ContactFirstName", ContactFirstName),
-                    New SqlParameter("ContactLastname", ContactLastname),
-                    New SqlParameter("ContactPrefix", ContactPrefix),
-                    New SqlParameter("ContactSuffix", ContactSuffix),
-                    New SqlParameter("ContactTitle", ContactTitle),
-                    New SqlParameter("ContactCompany", ContactCompany),
-                    New SqlParameter("ContactPhone", Replace(Replace(Replace(Replace(ContactPhone, "(", ""), ")", ""), "-", ""), " ", "")),
-                    New SqlParameter("ContactFax", Replace(Replace(Replace(Replace(ContactFax, "(", ""), ")", ""), "-", ""), " ", "")),
-                    New SqlParameter("ContactEmail", ContactEmail),
-                    New SqlParameter("ContactAddress", ContactAddress),
-                    New SqlParameter("ContactCity", ContactCity),
-                    New SqlParameter("ContactState", ContactState),
-                    New SqlParameter("ContactZipCode", Replace(ContactZipCode, "-", "")),
-                    New SqlParameter("ContactDescription", ContactDescription),
-                    New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
+                    New SqlParameter("@ContactFirstName", ContactFirstName),
+                    New SqlParameter("@ContactLastname", ContactLastname),
+                    New SqlParameter("@ContactPrefix", ContactPrefix),
+                    New SqlParameter("@ContactSuffix", ContactSuffix),
+                    New SqlParameter("@ContactTitle", ContactTitle),
+                    New SqlParameter("@ContactCompany", ContactCompany),
+                    New SqlParameter("@ContactPhone", Replace(Replace(Replace(Replace(ContactPhone, "(", ""), ")", ""), "-", ""), " ", "")),
+                    New SqlParameter("@ContactFax", Replace(Replace(Replace(Replace(ContactFax, "(", ""), ")", ""), "-", ""), " ", "")),
+                    New SqlParameter("@ContactEmail", ContactEmail),
+                    New SqlParameter("@ContactAddress", ContactAddress),
+                    New SqlParameter("@ContactCity", ContactCity),
+                    New SqlParameter("@ContactState", ContactState),
+                    New SqlParameter("@ContactZipCode", Replace(ContactZipCode, "-", "")),
+                    New SqlParameter("@ContactDescription", ContactDescription),
+                    New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text)
                 }
             Else
                 'insert 
                 query = "Insert into SSPPApplicationContact " &
                 "values " &
-                "(:txtApplicationNumber, " &
-                ":ContactFirstName, " &
-                ":ContactLastname, " &
-                ":ContactPrefix, " &
-                ":ContactSuffix, " &
-                ":ContactTitle, " &
-                ":ContactCompany, " &
-                ":ContactPhone, " &
-                ":ContactFax, " &
-                ":ContactEmail, " &
-                ":ContactAddress, " &
-                ":ContactCity, " &
-                ":ContactState, " &
-                ":ContactZipCode, " &
-                ":ContactDescription) "
+                "(@txtApplicationNumber, " &
+                "@ContactFirstName, " &
+                "@ContactLastname, " &
+                "@ContactPrefix, " &
+                "@ContactSuffix, " &
+                "@ContactTitle, " &
+                "@ContactCompany, " &
+                "@ContactPhone, " &
+                "@ContactFax, " &
+                "@ContactEmail, " &
+                "@ContactAddress, " &
+                "@ContactCity, " &
+                "@ContactState, " &
+                "@ContactZipCode, " &
+                "@ContactDescription) "
                 params = {
-                    New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text),
-                    New SqlParameter("ContactFirstName", ContactFirstName),
-                    New SqlParameter("ContactLastname", ContactLastname),
-                    New SqlParameter("ContactPrefix", ContactPrefix),
-                    New SqlParameter("ContactSuffix", ContactSuffix),
-                    New SqlParameter("ContactTitle", ContactTitle),
-                    New SqlParameter("ContactCompany", ContactCompany),
-                    New SqlParameter("ContactPhone", Replace(Replace(Replace(Replace(ContactPhone, "(", ""), ")", ""), "-", ""), " ", "")),
-                    New SqlParameter("ContactFax", Replace(Replace(Replace(Replace(ContactFax, "(", ""), ")", ""), "-", ""), " ", "")),
-                    New SqlParameter("ContactEmail", ContactEmail),
-                    New SqlParameter("ContactAddress", ContactAddress),
-                    New SqlParameter("ContactCity", ContactCity),
-                    New SqlParameter("ContactState", ContactState),
-                    New SqlParameter("ContactZipCode", Replace(ContactZipCode, "-", "")),
-                    New SqlParameter("ContactDescription", ContactDescription)
+                    New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text),
+                    New SqlParameter("@ContactFirstName", ContactFirstName),
+                    New SqlParameter("@ContactLastname", ContactLastname),
+                    New SqlParameter("@ContactPrefix", ContactPrefix),
+                    New SqlParameter("@ContactSuffix", ContactSuffix),
+                    New SqlParameter("@ContactTitle", ContactTitle),
+                    New SqlParameter("@ContactCompany", ContactCompany),
+                    New SqlParameter("@ContactPhone", Replace(Replace(Replace(Replace(ContactPhone, "(", ""), ")", ""), "-", ""), " ", "")),
+                    New SqlParameter("@ContactFax", Replace(Replace(Replace(Replace(ContactFax, "(", ""), ")", ""), "-", ""), " ", "")),
+                    New SqlParameter("@ContactEmail", ContactEmail),
+                    New SqlParameter("@ContactAddress", ContactAddress),
+                    New SqlParameter("@ContactCity", ContactCity),
+                    New SqlParameter("@ContactState", ContactState),
+                    New SqlParameter("@ContactZipCode", Replace(ContactZipCode, "-", "")),
+                    New SqlParameter("@ContactDescription", ContactDescription)
                 }
             End If
 
@@ -5969,8 +5969,8 @@ Public Class SSPPApplicationTrackingLog
             If chbClosedOut.Checked = True And txtAIRSNumber.Text.Length = 8 And IsNumeric(txtAIRSNumber.Text) Then
                 query = "select strKey " &
                 "from APBContactInformation, SSPPApplicationContact  " &
-                "where APBContactInformation.strContactKey = :pKey " &
-                "and SSPPApplicationContact.strApplicationNumber = :app " &
+                "where APBContactInformation.strContactKey = @pKey " &
+                "and SSPPApplicationContact.strApplicationNumber = @app " &
                 "and Upper(APBContactInformation.strContactFirstName) = Upper(SSPPApplicationContact.strContactFirstName) " &
                 "and upper(APBContactInformation.strContactLastName) = Upper(SSPPApplicationContact.strContactLastName)  " &
                 "and Upper(APBContactInformation.strContactPrefix) = Upper(SSPPApplicationContact.strContactPrefix) " &
@@ -5986,17 +5986,17 @@ Public Class SSPPApplicationTrackingLog
                 "and Upper(APBContactInformation.strContactZipCode) = Upper(SSPPApplicationcontact.strContactZipCode)  " &
                 "and Upper(APBContactInformation.strContactDescription) = Upper(SSPPApplicationContact.strContactDescription)  "
                 params = {
-                    New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "30"),
-                    New SqlParameter("app", txtApplicationNumber.Text)
+                    New SqlParameter("@pKey", "0413" & txtAIRSNumber.Text & "30"),
+                    New SqlParameter("@app", txtApplicationNumber.Text)
                 }
                 recExists = DB.ValueExists(query, params)
 
                 If Not recExists Then
                     query = "select Max(strKey) as MaxKey " &
                     "from APBContactInformation " &
-                    "where strAIRSNumber = :airs " &
+                    "where strAIRSNumber = @airs " &
                     "and substr(strkey, 1, 1) = '3' "
-                    params = {New SqlParameter("airs", "0413" & txtAIRSNumber.Text)}
+                    params = {New SqlParameter("@airs", "0413" & txtAIRSNumber.Text)}
 
                     MaxKey = DB.GetSingleValue(Of String)(query, params)
 
@@ -6028,11 +6028,11 @@ Public Class SSPPApplicationTrackingLog
                         "strContactZipCode, strModifingPerson,  " &
                         "datModifingDate, strContactDescription " &
                         "from APBContactInformation  " &
-                        "where strAIRSnumber = :airs " &
-                        "and strKey = :pKey "
+                        "where strAIRSnumber = @airs " &
+                        "and strKey = @pKey "
                         params = {
-                            New SqlParameter("airs", "0413" & txtAIRSNumber.Text),
-                            New SqlParameter("pKey", "3" & i.ToString)
+                            New SqlParameter("@airs", "0413" & txtAIRSNumber.Text),
+                            New SqlParameter("@pKey", "3" & i.ToString)
                         }
                         DB.RunCommand(query, params)
                     End If
@@ -6041,11 +6041,11 @@ Public Class SSPPApplicationTrackingLog
                     Do While i > 0
                         query = "Select strKey " &
                             "from APBContactInformation " &
-                            "where strAIRSNumber = :airs " &
-                            "and strKey = :pKey "
+                            "where strAIRSNumber = @airs " &
+                            "and strKey = @pKey "
                         params = {
-                            New SqlParameter("airs", "0413" & txtAIRSNumber.Text),
-                            New SqlParameter("pKey", "3" & i.ToString)
+                            New SqlParameter("@airs", "0413" & txtAIRSNumber.Text),
+                            New SqlParameter("@pKey", "3" & i.ToString)
                         }
                         recExists = DB.ValueExists(query, params)
 
@@ -6054,45 +6054,45 @@ Public Class SSPPApplicationTrackingLog
                         If recExist = True Then
                             query = "Update APBContactInformation set " &
                             "strContactFirstName = (select strContactFirstName from APBContactInformation " &
-                            "where strContactKey = :oldKey),  " &
+                            "where strContactKey = @oldKey),  " &
                             "strContactLastname = (select strContactLastname from APBContactInformation " &
-                            "Where strCOntactKey = :oldKey),  " &
+                            "Where strCOntactKey = @oldKey),  " &
                             "strContactPrefix = (select strContactPrefix from APBContactInformation " &
-                            "Where strCOntactKey = :oldKey),  " &
+                            "Where strCOntactKey = @oldKey),  " &
                             "strContactSuffix = (select strContactSuffix from APBContactInformation " &
-                            "Where strCOntactKey = :oldKey),  " &
+                            "Where strCOntactKey = @oldKey),  " &
                             "strContactTitle = (select strContactTitle from APBContactInformation " &
-                            "Where strCOntactKey = :oldKey),  " &
+                            "Where strCOntactKey = @oldKey),  " &
                             "strContactCompanyName = (select strContactCompanyName from APBContactInformation " &
-                            "Where strCOntactKey = :oldKey),  " &
+                            "Where strCOntactKey = @oldKey),  " &
                             "strContactPhoneNumber1 = (select strContactPhoneNumber1 from APBContactInformation " &
-                            "Where strCOntactKey = :oldKey),  " &
+                            "Where strCOntactKey = @oldKey),  " &
                             "strContactPhoneNumber2 = (select strContactPhoneNumber2 from APBContactInformation " &
-                            "Where strCOntactKey = :oldKey),  " &
+                            "Where strCOntactKey = @oldKey),  " &
                             "strContactFaxNumber = (select strContactFaxNumber from APBContactInformation " &
-                            "Where strCOntactKey = :oldKey),  " &
+                            "Where strCOntactKey = @oldKey),  " &
                             "strContactEmail = (select strContactEmail from APBContactInformation " &
-                            "Where strCOntactKey = :oldKey),  " &
+                            "Where strCOntactKey = @oldKey),  " &
                             "strContactAddress1 = (select strContactAddress1 from APBContactInformation " &
-                            "Where strCOntactKey = :oldKey),  " &
+                            "Where strCOntactKey = @oldKey),  " &
                             "strContactAddress2 = (select strContactAddress2 from APBContactInformation " &
-                            "Where strCOntactKey = :oldKey),  " &
+                            "Where strCOntactKey = @oldKey),  " &
                             "strContactCity = (select strContactCity from APBContactInformation " &
-                            "Where strCOntactKey = :oldKey),  " &
+                            "Where strCOntactKey = @oldKey),  " &
                             "strContactState = (select strContactState from APBContactInformation " &
-                            "Where strCOntactKey = :oldKey),  " &
+                            "Where strCOntactKey = @oldKey),  " &
                             "strContactZipCode = (select strContactZipCode from APBContactInformation " &
-                            "Where strCOntactKey = :oldKey),  " &
+                            "Where strCOntactKey = @oldKey),  " &
                             "strModifingPerson = (select strModifingPerson from APBContactInformation " &
-                            "Where strCOntactKey = :oldKey),  " &
+                            "Where strCOntactKey = @oldKey),  " &
                             "datModifingDate = (select datModifingDate from APBContactInformation " &
-                            "Where strCOntactKey = :oldKey),  " &
+                            "Where strCOntactKey = @oldKey),  " &
                             "strContactDescription = (select strContactDescription from APBContactInformation " &
-                            "Where strCOntactKey = :oldKey) " &
-                            "where strContactKey = :newKey "
+                            "Where strCOntactKey = @oldKey) " &
+                            "where strContactKey = @newKey "
                             params = {
-                                New SqlParameter("oldKey", "0413" & txtAIRSNumber.Text & "3" & i.ToString),
-                                New SqlParameter("newKey", "0413" & txtAIRSNumber.Text & "3" & (i + 1).ToString)
+                                New SqlParameter("@oldKey", "0413" & txtAIRSNumber.Text & "3" & i.ToString),
+                                New SqlParameter("@newKey", "0413" & txtAIRSNumber.Text & "3" & (i + 1).ToString)
                             }
                         Else
                             query = "Insert into APBContactInformation " &
@@ -6120,11 +6120,11 @@ Public Class SSPPApplicationTrackingLog
                             "strContactZipCode, strModifingPerson,  " &
                             "datModifingDate, strContactDescription " &
                             "from APBContactInformation  " &
-                            "where strAIRSnumber = :airs " &
-                            "and strKey = :pKey "
+                            "where strAIRSnumber = @airs " &
+                            "and strKey = @pKey "
                             params = {
-                                New SqlParameter("airs", "0413" & txtAIRSNumber.Text),
-                                New SqlParameter("pKey", "3" & (i + 1).ToString)
+                                New SqlParameter("@airs", "0413" & txtAIRSNumber.Text),
+                                New SqlParameter("@pKey", "3" & (i + 1).ToString)
                             }
 
                         End If
@@ -6134,45 +6134,45 @@ Public Class SSPPApplicationTrackingLog
 
                     query = "Update APBContactInformation set " &
                            "strContactFirstName = (select strContactFirstName from SSPPApplicationContact " &
-                           "where strApplicationNumber = :appNum),  " &
+                           "where strApplicationNumber = @appNum),  " &
                            "strContactLastname = (select strContactLastname from SSPPApplicationContact " &
-                           "where strApplicationNumber = :appNum),  " &
+                           "where strApplicationNumber = @appNum),  " &
                            "strContactPrefix = (select strContactPrefix from SSPPApplicationContact " &
-                           "where strApplicationNumber = :appNum),  " &
+                           "where strApplicationNumber = @appNum),  " &
                            "strContactSuffix = (select strContactSuffix from SSPPApplicationContact " &
-                            "where strApplicationNumber = :appNum),  " &
+                            "where strApplicationNumber = @appNum),  " &
                            "strContactTitle = (select strContactTitle from SSPPApplicationContact " &
-                            "where strApplicationNumber = :appNum),  " &
+                            "where strApplicationNumber = @appNum),  " &
                            "strContactCompanyName = (select strContactCompanyName from SSPPApplicationContact " &
-                            "where strApplicationNumber = :appNum),  " &
+                            "where strApplicationNumber = @appNum),  " &
                            "strContactPhoneNumber1 = (select strContactPhoneNumber1 from SSPPApplicationContact " &
-                            "where strApplicationNumber = :appNum),  " &
+                            "where strApplicationNumber = @appNum),  " &
                            "strContactPhoneNumber2 = (select strContactPhoneNumber2 from SSPPApplicationContact " &
-                            "where strApplicationNumber = :appNum),  " &
+                            "where strApplicationNumber = @appNum),  " &
                            "strContactFaxNumber = (select strContactFaxNumber from SSPPApplicationContact " &
-                            "where strApplicationNumber = :appNum),  " &
+                            "where strApplicationNumber = @appNum),  " &
                            "strContactEmail = (select strContactEmail from SSPPApplicationContact " &
-                            "where strApplicationNumber = :appNum),  " &
+                            "where strApplicationNumber = @appNum),  " &
                            "strContactAddress1 = (select strContactAddress1 from SSPPApplicationContact " &
-                            "where strApplicationNumber = :appNum),  " &
+                            "where strApplicationNumber = @appNum),  " &
                            "strContactAddress2 = (select strContactAddress2 from SSPPApplicationContact " &
-                            "where strApplicationNumber = :appNum),  " &
+                            "where strApplicationNumber = @appNum),  " &
                            "strContactCity = (select strContactCity from SSPPApplicationContact " &
-                            "where strApplicationNumber = :appNum),  " &
+                            "where strApplicationNumber = @appNum),  " &
                            "strContactState = (select strContactState from SSPPApplicationContact " &
-                            "where strApplicationNumber = :appNum),  " &
+                            "where strApplicationNumber = @appNum),  " &
                            "strContactZipCode = (select strContactZipCode from SSPPApplicationContact " &
-                            "where strApplicationNumber = :appNum),  " &
+                            "where strApplicationNumber = @appNum),  " &
                            "strModifingPerson = (select strModifingPerson from SSPPApplicationContact " &
-                            "where strApplicationNumber = :appNum),  " &
+                            "where strApplicationNumber = @appNum),  " &
                            "datModifingDate = (select datModifingDate from SSPPApplicationContact " &
-                            "where strApplicationNumber = :appNum),  " &
+                            "where strApplicationNumber = @appNum),  " &
                            "strContactDescription = (select strContactDescription from SSPPApplicationContact " &
-                            "where strApplicationNumber = :appNum)  " &
-                           "where strContactKey = :pKey "
+                            "where strApplicationNumber = @appNum)  " &
+                           "where strContactKey = @pKey "
                     params = {
-                        New SqlParameter("appNum", txtApplicationNumber.Text),
-                        New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "3" & i.ToString)
+                        New SqlParameter("@appNum", txtApplicationNumber.Text),
+                        New SqlParameter("@pKey", "0413" & txtAIRSNumber.Text & "3" & i.ToString)
                     }
                     DB.RunCommand(query, params)
 
@@ -6368,8 +6368,8 @@ Public Class SSPPApplicationTrackingLog
                         query = "select " &
                         "strApplicationType " &
                         "from SSPPApplicationMaster " &
-                        "where strApplicationnumber = :item "
-                        params = {New SqlParameter("item", lbLinkApplications.Items.Item(i))}
+                        "where strApplicationnumber = @item "
+                        params = {New SqlParameter("@item", lbLinkApplications.Items.Item(i))}
 
                         appType = DB.GetSingleValue(Of String)(query, params)
 
@@ -6396,23 +6396,23 @@ Public Class SSPPApplicationTrackingLog
                 For i = 0 To lbLinkApplications.Items.Count - 1
                     query = "Select strApplicationNumber " &
                     "from SSPPApplicationLinking " &
-                    "where strApplicationNumber = :appnumber "
-                    params = {New SqlParameter("appnumber", lbLinkApplications.Items.Item(i))}
+                    "where strApplicationNumber = @appnumber "
+                    params = {New SqlParameter("@appnumber", lbLinkApplications.Items.Item(i))}
                     recExists = DB.ValueExists(query, params)
 
                     If recExists Then
                         query = "Update SSPPApplicationLinking set " &
-                        "strMasterApplication = :MasterApp " &
-                        "where strApplicationnumber = :appItem "
+                        "strMasterApplication = @MasterApp " &
+                        "where strApplicationnumber = @appItem "
                     Else
                         query = "Insert into SSPPApplicationLinking " &
                         "values " &
-                        "(:MasterApp, :appItem) "
+                        "(@MasterApp, @appItem) "
                     End If
 
                     params = {
-                        New SqlParameter("MasterApp", MasterApp),
-                        New SqlParameter("appItem", lbLinkApplications.Items.Item(i))
+                        New SqlParameter("@MasterApp", MasterApp),
+                        New SqlParameter("@appItem", lbLinkApplications.Items.Item(i))
                     }
                     DB.RunCommand(query, params)
                 Next
@@ -6438,14 +6438,14 @@ Public Class SSPPApplicationTrackingLog
             If txtMasterApp.Text <> "" Then
                 query = "Select strMasterApplication " &
                 "from SSPPApplicationLinking " &
-                "where strApplicationNumber = :pMaster"
-                param = New SqlParameter("pMaster", txtMasterApp.Text)
+                "where strApplicationNumber = @pMaster"
+                param = New SqlParameter("@pMaster", txtMasterApp.Text)
                 MasterLink = DB.GetSingleValue(Of String)(query, param)
 
                 If MasterLink <> "" Then
                     query = "Delete SSPPApplicationLinking " &
-                    "where strMasterApplication = :pMaster"
-                    param = New SqlParameter("pMaster", MasterLink)
+                    "where strMasterApplication = @pMaster"
+                    param = New SqlParameter("@pMaster", MasterLink)
                     DB.RunCommand(query, param)
 
                     txtMasterApp.Clear()
@@ -6523,33 +6523,33 @@ Public Class SSPPApplicationTrackingLog
 
             If txtApplicationNumber.Text <> "" Then
                 queryList.Add("Update SSPPApplicationTracking set " &
-                              "datDraftOnWeb = :DraftOnWeb, " &
-                              "datEPAStatesNotified = :EPAStatesNotified , " &
-                              "datFinalOnWeb = :FinalOnWeb , " &
-                              "datEPANotified = :EPANotifiedPermitOnWeb , " &
-                              "datEffective = :EffectiveDateOnPermit , " &
-                              "datEPAStatesNotifiedAppRec = :EPAStatesNotifiedAppRec ,  " &
-                              "datExperationDate = :ExperationDate , " &
-                              "datPNExpires = :PNExpires  " &
-                              "where strApplicationNumber = :txtApplicationNumber ")
+                              "datDraftOnWeb = @DraftOnWeb, " &
+                              "datEPAStatesNotified = @EPAStatesNotified , " &
+                              "datFinalOnWeb = @FinalOnWeb , " &
+                              "datEPANotified = @EPANotifiedPermitOnWeb , " &
+                              "datEffective = @EffectiveDateOnPermit , " &
+                              "datEPAStatesNotifiedAppRec = @EPAStatesNotifiedAppRec ,  " &
+                              "datExperationDate = @ExperationDate , " &
+                              "datPNExpires = @PNExpires  " &
+                              "where strApplicationNumber = @txtApplicationNumber ")
                 paramsList.Add(
-                    {New SqlParameter("DraftOnWeb", DraftOnWeb),
-                     New SqlParameter("EPAStatesNotified", EPAStatesNotified),
-                     New SqlParameter("FinalOnWeb", FinalOnWeb),
-                     New SqlParameter("EPANotifiedPermitOnWeb", EPANotifiedPermitOnWeb),
-                     New SqlParameter("EffectiveDateOnPermit", EffectiveDateOnPermit),
-                     New SqlParameter("EPAStatesNotifiedAppRec", EPAStatesNotifiedAppRec),
-                     New SqlParameter("ExperationDate", ExperationDate),
-                     New SqlParameter("PNExpires", PNExpires),
-                     New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
+                    {New SqlParameter("@DraftOnWeb", DraftOnWeb),
+                     New SqlParameter("@EPAStatesNotified", EPAStatesNotified),
+                     New SqlParameter("@FinalOnWeb", FinalOnWeb),
+                     New SqlParameter("@EPANotifiedPermitOnWeb", EPANotifiedPermitOnWeb),
+                     New SqlParameter("@EffectiveDateOnPermit", EffectiveDateOnPermit),
+                     New SqlParameter("@EPAStatesNotifiedAppRec", EPAStatesNotifiedAppRec),
+                     New SqlParameter("@ExperationDate", ExperationDate),
+                     New SqlParameter("@PNExpires", PNExpires),
+                     New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text)
                     })
 
                 queryList.Add("Update SSPPApplicationData set " &
-                              "strTargeted = :TargetedComments " &
-                              "where strApplicationNumber = :txtApplicationNumber ")
+                              "strTargeted = @TargetedComments " &
+                              "where strApplicationNumber = @txtApplicationNumber ")
                 paramsList.Add(
-                    {New SqlParameter("TargetedComments", TargetedComments),
-                     New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
+                    {New SqlParameter("@TargetedComments", TargetedComments),
+                     New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text)
                     })
 
                 DB.RunCommand(queryList, paramsList)
@@ -6569,33 +6569,33 @@ Public Class SSPPApplicationTrackingLog
                             paramsList.Clear()
 
                             queryList.Add("Update SSPPApplicationTracking set " &
-                            "datDraftOnWeb = :DraftOnWeb " &
-                            "datEPAStatesNotified = :EPAStatesNotified , " &
-                            "datFinalOnWeb = :FinalOnWeb , " &
-                            "datEPANotified = :EPANotifiedPermitOnWeb , " &
-                            "datEffective = :EffectiveDateOnPermit , " &
-                            "datEPAStatesNotifiedAppRec = :EPAStatesNotifiedAppRec ,  " &
-                            "datExperationDate = :ExperationDate , " &
-                            "datPNExpires = :PNExpires  " &
-                            "where strApplicationNumber = :LinkedApplication ")
+                            "datDraftOnWeb = @DraftOnWeb " &
+                            "datEPAStatesNotified = @EPAStatesNotified , " &
+                            "datFinalOnWeb = @FinalOnWeb , " &
+                            "datEPANotified = @EPANotifiedPermitOnWeb , " &
+                            "datEffective = @EffectiveDateOnPermit , " &
+                            "datEPAStatesNotifiedAppRec = @EPAStatesNotifiedAppRec ,  " &
+                            "datExperationDate = @ExperationDate , " &
+                            "datPNExpires = @PNExpires  " &
+                            "where strApplicationNumber = @LinkedApplication ")
                             paramsList.Add(
-                                {New SqlParameter("DraftOnWeb", DraftOnWeb),
-                                 New SqlParameter("EPAStatesNotified", EPAStatesNotified),
-                                 New SqlParameter("FinalOnWeb", FinalOnWeb),
-                                 New SqlParameter("EPANotifiedPermitOnWeb", EPANotifiedPermitOnWeb),
-                                 New SqlParameter("EffectiveDateOnPermit", EffectiveDateOnPermit),
-                                 New SqlParameter("EPAStatesNotifiedAppRec", EPAStatesNotifiedAppRec),
-                                 New SqlParameter("ExperationDate", ExperationDate),
-                                 New SqlParameter("PNExpires", PNExpires),
-                                 New SqlParameter("LinkedApplication", LinkedApplication)
+                                {New SqlParameter("@DraftOnWeb", DraftOnWeb),
+                                 New SqlParameter("@EPAStatesNotified", EPAStatesNotified),
+                                 New SqlParameter("@FinalOnWeb", FinalOnWeb),
+                                 New SqlParameter("@EPANotifiedPermitOnWeb", EPANotifiedPermitOnWeb),
+                                 New SqlParameter("@EffectiveDateOnPermit", EffectiveDateOnPermit),
+                                 New SqlParameter("@EPAStatesNotifiedAppRec", EPAStatesNotifiedAppRec),
+                                 New SqlParameter("@ExperationDate", ExperationDate),
+                                 New SqlParameter("@PNExpires", PNExpires),
+                                 New SqlParameter("@LinkedApplication", LinkedApplication)
                                 })
 
                             queryList.Add("Update SSPPApplicationData set " &
-                            "strTargeted = :TargetedComments " &
-                            "where strApplicationNumber = :LinkedApplication ")
+                            "strTargeted = @TargetedComments " &
+                            "where strApplicationNumber = @LinkedApplication ")
                             paramsList.Add(
-                                {New SqlParameter("TargetedComments", TargetedComments),
-                                 New SqlParameter("LinkedApplication", LinkedApplication)
+                                {New SqlParameter("@TargetedComments", TargetedComments),
+                                 New SqlParameter("@LinkedApplication", LinkedApplication)
                                 })
 
                             DB.RunCommand(queryList, paramsList)
@@ -6622,8 +6622,8 @@ Public Class SSPPApplicationTrackingLog
             query = "Select " &
             "strUpdateStatus " &
             "from AFSSSPPRecords " &
-            "where strApplicationNumber = :appnum "
-            params = {New SqlParameter("appnum", txtApplicationNumber.Text)}
+            "where strApplicationNumber = @appnum "
+            params = {New SqlParameter("@appnum", txtApplicationNumber.Text)}
 
             UpdateStatus = DB.GetSingleValue(Of String)(query, params)
             If String.IsNullOrEmpty(UpdateStatus) Then
@@ -6635,18 +6635,18 @@ Public Class SSPPApplicationTrackingLog
 
             If recExists Then
                 query = "Update AFSSSPPRecords set " &
-                    "strUpdateStatus = :UpdateStatus " &
-                    "where strApplicationNumber = :appnum "
+                    "strUpdateStatus = @UpdateStatus " &
+                    "where strApplicationNumber = @appnum "
                 params = {
-                    New SqlParameter("UpdateStatus", UpdateStatus),
-                    New SqlParameter("appnum", txtApplicationNumber.Text)
+                    New SqlParameter("@UpdateStatus", UpdateStatus),
+                    New SqlParameter("@appnum", txtApplicationNumber.Text)
                 }
                 DB.RunCommand(query, params)
             Else
                 query = "Select strAFSActionNumber " &
                     "from APBSupplamentalData " &
-                    "where strAIRSNumber = :airs"
-                params = {New SqlParameter("airs", "0413" & txtAIRSNumber.Text)}
+                    "where strAIRSNumber = @airs"
+                params = {New SqlParameter("@airs", "0413" & txtAIRSNumber.Text)}
                 ActionNumber = DB.GetSingleValue(Of String)(query, params)
 
                 query = "Insert into AFSSSPPRecords " &
@@ -6654,26 +6654,26 @@ Public Class SSPPApplicationTrackingLog
                     "strUpDateStatus, strModifingPerson, " &
                     "datModifingDate) " &
                     "values " &
-                    "(:txtApplicationNumber, :ActionNumber , " &
-                    ":UpdateStatus , :UserGCode , " &
-                    ":OracleDate ) "
+                    "(@txtApplicationNumber, @ActionNumber , " &
+                    "@UpdateStatus , @UserGCode , " &
+                    "@OracleDate ) "
                 params = {
-                    New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text),
-                    New SqlParameter("ActionNumber", ActionNumber),
-                    New SqlParameter("UpdateStatus", UpdateStatus),
-                    New SqlParameter("UserGCode", CurrentUser.UserID),
-                    New SqlParameter("OracleDate", OracleDate)
+                    New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text),
+                    New SqlParameter("@ActionNumber", ActionNumber),
+                    New SqlParameter("@UpdateStatus", UpdateStatus),
+                    New SqlParameter("@UserGCode", CurrentUser.UserID),
+                    New SqlParameter("@OracleDate", OracleDate)
                 }
                 DB.RunCommand(query, params)
 
                 ActionNumber = CInt(ActionNumber) + 1
 
                 query = "Update APBSupplamentalData set " &
-                "strAFSActionNumber = :ActionNumber " &
-                "where strAIRSNumber = :airs "
+                "strAFSActionNumber = @ActionNumber " &
+                "where strAIRSNumber = @airs "
                 params = {
-                    New SqlParameter("ActionNumber", ActionNumber),
-                    New SqlParameter("airs", "0413" & txtAIRSNumber.Text)
+                    New SqlParameter("@ActionNumber", ActionNumber),
+                    New SqlParameter("@airs", "0413" & txtAIRSNumber.Text)
                 }
                 DB.RunCommand(query, params)
 
@@ -6715,8 +6715,8 @@ Public Class SSPPApplicationTrackingLog
             "strPermitNumber, strPlantDescription, " &
             "strStateProgramCodes " &
             "from SSPPApplicationData " &
-            "where strApplicationNumber = :appnumber "
-            params = {New SqlParameter("appnumber", txtApplicationNumber.Text)}
+            "where strApplicationNumber = @appnumber "
+            params = {New SqlParameter("@appnumber", txtApplicationNumber.Text)}
 
             Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
@@ -6795,61 +6795,61 @@ Public Class SSPPApplicationTrackingLog
             End Using
 
             queryList.Add("Update APBFacilityInformation set " &
-            "strFacilityName = :FacilityName, " &
-            "strFacilityStreet1 = :FacilityStreet1, " &
-            "strFacilityStreet2 = :FacilityStreet2, " &
-            "strFacilityCity = :City, " &
-            "strFacilityZipCode = :ZipCode , " &
-            "strComments = :Comments , " &
+            "strFacilityName = @FacilityName, " &
+            "strFacilityStreet1 = @FacilityStreet1, " &
+            "strFacilityStreet2 = @FacilityStreet2, " &
+            "strFacilityCity = @City, " &
+            "strFacilityZipCode = @ZipCode , " &
+            "strComments = @Comments , " &
             "strModifingLocation = '1', " &
-            "strModifingPerson = :UserGCode , " &
-            "datModifingdate = :OracleDate  " &
-            "where strAIRSNumber = :airs ")
+            "strModifingPerson = @UserGCode , " &
+            "datModifingdate = @OracleDate  " &
+            "where strAIRSNumber = @airs ")
             paramsList.Add(
-                {New SqlParameter("FacilityName", FacilityName),
-                 New SqlParameter("FacilityStreet1", FacilityStreet1),
-                 New SqlParameter("FacilityStreet2", FacilityStreet2),
-                 New SqlParameter("City", City),
-                 New SqlParameter("ZipCode", ZipCode),
-                 New SqlParameter("Comments", "Updated by " & CurrentUser.AlphaName & ", through Permitting Action."),
-                 New SqlParameter("UserGCode", CurrentUser.UserID),
-                 New SqlParameter("OracleDate", OracleDate),
-                 New SqlParameter("airs", "0413" & txtAIRSNumber.Text)
+                {New SqlParameter("@FacilityName", FacilityName),
+                 New SqlParameter("@FacilityStreet1", FacilityStreet1),
+                 New SqlParameter("@FacilityStreet2", FacilityStreet2),
+                 New SqlParameter("@City", City),
+                 New SqlParameter("@ZipCode", ZipCode),
+                 New SqlParameter("@Comments", "Updated by " & CurrentUser.AlphaName & ", through Permitting Action."),
+                 New SqlParameter("@UserGCode", CurrentUser.UserID),
+                 New SqlParameter("@OracleDate", OracleDate),
+                 New SqlParameter("@airs", "0413" & txtAIRSNumber.Text)
                 })
 
             queryList.Add("Update OLAPUserAccess set " &
-            "strFacilityName = :FacilityName " &
-            "where strAIRSNumber = :airs ")
+            "strFacilityName = @FacilityName " &
+            "where strAIRSNumber = @airs ")
             paramsList.Add(
-                {New SqlParameter("FacilityName", FacilityName),
-                 New SqlParameter("airs", "0413" & txtAIRSNumber.Text)
+                {New SqlParameter("@FacilityName", FacilityName),
+                 New SqlParameter("@airs", "0413" & txtAIRSNumber.Text)
                 })
 
             queryList.Add("Update APBHeaderData set " &
-            "strOperationalStatus = :OpStatus , " &
-            "strClass = :Classification , " &
-            "strAIRProgramCodes = :AirProgramCodes , " &
-            "strSICCode = :SICCode, " &
-            "strNAICSCode = :NAICSCode , " &
-            "strPlantDescription = :PlantDescription, " &
-            "strStateProgramCodes = :StateProgramCodes , " &
-            "strComments = :Comments , " &
+            "strOperationalStatus = @OpStatus , " &
+            "strClass = @Classification , " &
+            "strAIRProgramCodes = @AirProgramCodes , " &
+            "strSICCode = @SICCode, " &
+            "strNAICSCode = @NAICSCode , " &
+            "strPlantDescription = @PlantDescription, " &
+            "strStateProgramCodes = @StateProgramCodes , " &
+            "strComments = @Comments , " &
             "strModifingLocation = '1', " &
-            "strModifingPerson = :UserGCode , " &
-            "datModifingDate = :OracleDate  " &
-            "where strAIRSNumber = :airs ")
+            "strModifingPerson = @UserGCode , " &
+            "datModifingDate = @OracleDate  " &
+            "where strAIRSNumber = @airs ")
             paramsList.Add(
-                {New SqlParameter("OpStatus", OpStatus),
-                 New SqlParameter("Classification", Classification),
-                 New SqlParameter("AirProgramCodes", AirProgramCodes),
-                 New SqlParameter("SICCode", SICCode),
-                 New SqlParameter("NAICSCode", NAICSCode),
-                 New SqlParameter("PlantDescription", PlantDescription),
-                 New SqlParameter("StateProgramCodes", StateProgramCodes),
-                 New SqlParameter("Comments", "Updated by " & CurrentUser.AlphaName & ", through Permitting Action."),
-                 New SqlParameter("UserGCode", CurrentUser.UserID),
-                 New SqlParameter("OracleDate", OracleDate),
-                 New SqlParameter("airs", "0413" & txtAIRSNumber.Text)
+                {New SqlParameter("@OpStatus", OpStatus),
+                 New SqlParameter("@Classification", Classification),
+                 New SqlParameter("@AirProgramCodes", AirProgramCodes),
+                 New SqlParameter("@SICCode", SICCode),
+                 New SqlParameter("@NAICSCode", NAICSCode),
+                 New SqlParameter("@PlantDescription", PlantDescription),
+                 New SqlParameter("@StateProgramCodes", StateProgramCodes),
+                 New SqlParameter("@Comments", "Updated by " & CurrentUser.AlphaName & ", through Permitting Action."),
+                 New SqlParameter("@UserGCode", CurrentUser.UserID),
+                 New SqlParameter("@OracleDate", OracleDate),
+                 New SqlParameter("@airs", "0413" & txtAIRSNumber.Text)
                 })
             DB.RunCommand(queryList, paramsList)
             queryList.Clear()
@@ -6980,8 +6980,8 @@ Public Class SSPPApplicationTrackingLog
 
         query = "Select strPollutantKey " &
                 "from APBAirProgramPollutants " &
-                "where strAIRPollutantKey = :pKey "
-        params = {New SqlParameter("pKey", pKey)}
+                "where strAIRPollutantKey = @pKey "
+        params = {New SqlParameter("@pKey", pKey)}
 
         If Not DB.ValueExists(query, params) Then
             query = "Insert into APBAirProgramPollutants " &
@@ -6990,30 +6990,30 @@ Public Class SSPPApplicationTrackingLog
              "strModifingPerson, datModifingDate, " &
              "strOperationalStatus) " &
              "values " &
-             "(:airs, :pKey, " &
+             "(@airs, @pKey, " &
              "'OT', 'C', " &
-             ":UserGCode , :OracleDate , " &
+             "@UserGCode , @OracleDate , " &
              "'O')"
             params = {
-                New SqlParameter("airs", "0413" & txtAIRSNumber.Text),
-                New SqlParameter("pKey", pKey),
-                New SqlParameter("UserGCode", CurrentUser.UserID),
-                New SqlParameter("OracleDate", OracleDate)
+                New SqlParameter("@airs", "0413" & txtAIRSNumber.Text),
+                New SqlParameter("@pKey", pKey),
+                New SqlParameter("@UserGCode", CurrentUser.UserID),
+                New SqlParameter("@OracleDate", OracleDate)
             }
             DB.RunCommand(query, params)
         Else
             queryList.Add("Update APBAirProgramPollutants set " &
-            "strOperationalStatus = :OpStatus  " &
-            "where strAirPOllutantKey = :pKey ")
+            "strOperationalStatus = @OpStatus  " &
+            "where strAirPOllutantKey = @pKey ")
             paramsList.Add({
-                New SqlParameter("OpStatus", OpStatus),
-                New SqlParameter("pKey", pKey)
+                New SqlParameter("@OpStatus", OpStatus),
+                New SqlParameter("@pKey", pKey)
             })
 
             queryList.Add("update AFSAirPollutantData set " &
                 "strUpdateStatus = 'C' " &
-                "where strUpdateStatus = 'N' and strAIRPollutantKey = :pKey ")
-            paramsList.Add({New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & key)})
+                "where strUpdateStatus = 'N' and strAIRPollutantKey = @pKey ")
+            paramsList.Add({New SqlParameter("@pKey", "0413" & txtAIRSNumber.Text & key)})
 
             DB.RunCommand(queryList, paramsList)
         End If
@@ -7026,27 +7026,27 @@ Public Class SSPPApplicationTrackingLog
         If subpartList Is Nothing OrElse subpartList.Count = 0 Then
             queryList.Add("Update APBSubpartData set " &
                           "Active = '0', " &
-                          "updateUser = :UserGCode , " &
+                          "updateUser = @UserGCode , " &
                           "updateDateTime = sysdate " &
-                          "where strSubpartKey = :pKey ")
+                          "where strSubpartKey = @pKey ")
             paramsList.Add(
                 {
-                    New SqlParameter("UserGCode", CurrentUser.UserID),
-                    New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & key)
+                    New SqlParameter("@UserGCode", CurrentUser.UserID),
+                    New SqlParameter("@pKey", "0413" & txtAIRSNumber.Text & key)
                 })
         Else
             For Each subpart As String In subpartList
                 queryList.Add("Update APBSubpartData set " &
                               "Active = '0', " &
-                              "updateUser = :UserGCode , " &
+                              "updateUser = @UserGCode , " &
                               "updateDateTime = sysdate " &
-                              "where strSubpartKey = :pKey " &
-                              "and strSubpart = :Subpart ")
+                              "where strSubpartKey = @pKey " &
+                              "and strSubpart = @Subpart ")
                 paramsList.Add(
                     {
-                        New SqlParameter("UserGCode", CurrentUser.UserID),
-                        New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & key),
-                        New SqlParameter("Subpart", subpart)
+                        New SqlParameter("@UserGCode", CurrentUser.UserID),
+                        New SqlParameter("@pKey", "0413" & txtAIRSNumber.Text & key),
+                        New SqlParameter("@Subpart", subpart)
                     })
             Next
         End If
@@ -7063,37 +7063,37 @@ Public Class SSPPApplicationTrackingLog
 
         For Each subpart As String In subpartList
             query = "Select Active from APBSubpartData " &
-                "where strSubpartKey = :pKey " &
-                "and strSubpart = :subpart "
+                "where strSubpartKey = @pKey " &
+                "and strSubpart = @subpart "
             params = {
-                New SqlParameter("pKey", pKey),
-                New SqlParameter("subpart", subpart)
+                New SqlParameter("@pKey", pKey),
+                New SqlParameter("@subpart", subpart)
             }
 
             If DB.ValueExists(query, params) Then
                 query = "Update APBSubpartData set " &
                     "Active = '1', " &
-                    "updateUser = :UserGCode , " &
+                    "updateUser = @UserGCode , " &
                     "updateDateTime = sysdate " &
-                    "where strSubpartKey = :pKey " &
-                    "and strSubpart = :subpart "
+                    "where strSubpartKey = @pKey " &
+                    "and strSubpart = @subpart "
                 params = {
-                    New SqlParameter("UserGCode", CurrentUser.UserID),
-                    New SqlParameter("pKey", pKey),
-                    New SqlParameter("subpart", subpart)
+                    New SqlParameter("@UserGCode", CurrentUser.UserID),
+                    New SqlParameter("@pKey", pKey),
+                    New SqlParameter("@subpart", subpart)
                 }
             Else
                 query = "INSERT INTO APBSUBPARTDATA " &
                     "  ( STRAIRSNUMBER, STRSUBPARTKEY, STRSUBPART, UPDATEUSER , " &
                     "    UPDATEDATETIME, ACTIVE, CREATEDATETIME " &
                     "  ) VALUES " &
-                    "(:airs, :pKey, :subpart, :UserGCode , " &
+                    "(@airs, @pKey, @subpart, @UserGCode , " &
                     "sysdate, '1', sysdate)"
                 params = {
-                    New SqlParameter("airs", "0413" & txtAIRSNumber.Text),
-                    New SqlParameter("pKey", pKey),
-                    New SqlParameter("subpart", subpart),
-                    New SqlParameter("UserGCode", CurrentUser.UserID)
+                    New SqlParameter("@airs", "0413" & txtAIRSNumber.Text),
+                    New SqlParameter("@pKey", pKey),
+                    New SqlParameter("@subpart", subpart),
+                    New SqlParameter("@UserGCode", CurrentUser.UserID)
                 }
             End If
         Next
@@ -7145,8 +7145,8 @@ Public Class SSPPApplicationTrackingLog
 
             query = "select strMasterApplication " &
               "from SSPPApplicationLinking " &
-              "where strApplicationNumber = :appnumber "
-            parameter = {New SqlParameter("appnumber", txtApplicationNumber.Text)}
+              "where strApplicationNumber = @appnumber "
+            parameter = {New SqlParameter("@appnumber", txtApplicationNumber.Text)}
 
             MasterApp = DB.GetSingleValue(Of String)(query, parameter)
             If MasterApp = "" Then MasterApp = txtApplicationNumber.Text
@@ -7159,11 +7159,11 @@ Public Class SSPPApplicationTrackingLog
             "distinct(APBPermits.strFileName)  " &
             "from APBpermits, SSPPApplicationLinking " &
             "where substr(APBpermits.strFileName, 4) = SSPPAPPlicationLinking.strmasterapplication (+) " &
-            "and (SSPPApplicationLinking.strApplicationNumber = :MasterApp " &
-            "or APBPermits.strFileName like :MasterAppFn ) "
+            "and (SSPPApplicationLinking.strApplicationNumber = @MasterApp " &
+            "or APBPermits.strFileName like @MasterAppFn ) "
             parameter = {
-                New SqlParameter("MasterApp", MasterApp),
-                New SqlParameter("MasterAppFn", "%-" & MasterApp)
+                New SqlParameter("@MasterApp", MasterApp),
+                New SqlParameter("@MasterAppFn", "%-" & MasterApp)
             }
             Dim fn As String = DB.GetSingleValue(Of String)(query, parameter)
             If fn <> "" Then
@@ -7213,8 +7213,8 @@ Public Class SSPPApplicationTrackingLog
             Dim query As String = "Select " &
             "strDOCFileSize, strPDFFileSize " &
             "From ApbPermits " &
-            "where strFileName = :FileName"
-            Dim parameter As New SqlParameter("FileName", FileName)
+            "where strFileName = @FileName"
+            Dim parameter As New SqlParameter("@FileName", FileName)
 
             Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
@@ -7332,8 +7332,8 @@ Public Class SSPPApplicationTrackingLog
                 "strPDFFileSize = '', " &
                 "strPDFModifingPerson = '', " &
                 "datPDFModifingDate = '' " &
-                "where strFileName = :FileName "
-                parameter = New SqlParameter("FileName", FileName)
+                "where strFileName = @FileName "
+                parameter = New SqlParameter("@FileName", FileName)
                 DB.RunCommand(query, parameter)
             Else
                 If PDFFile <> "" And PDFLocation <> "" Then
@@ -7421,15 +7421,15 @@ Public Class SSPPApplicationTrackingLog
                 Dim rowCount As Integer
 
                 query = "Delete APBPermits " &
-                   "where strFileName = :FileName "
-                parameter = New SqlParameter("FileName", FileName)
+                   "where strFileName = @FileName "
+                parameter = New SqlParameter("@FileName", FileName)
                 DB.RunCommand(query, parameter)
 
                 query = "select " &
                 "rowCount " &
                 "from APBPermits " &
-                "where strFileName = :FileName "
-                parameter = New SqlParameter("FileName", FileName)
+                "where strFileName = @FileName "
+                parameter = New SqlParameter("@FileName", FileName)
                 rowCount = DB.GetSingleValue(Of Integer)(query, parameter)
 
                 If rowCount = 0 Then
@@ -7454,7 +7454,7 @@ Public Class SSPPApplicationTrackingLog
                 Dim ds As DataSet
 
                 query = "Select * from APBPermits " &
-                "where strFileName = :FileName "
+                "where strFileName = @FileName "
 
                 Using connection As New SqlConnection(CurrentConnectionString)
                     Using da As New SqlDataAdapter(query, connection)
@@ -7498,7 +7498,7 @@ Public Class SSPPApplicationTrackingLog
         Try
             Dim saveFilePath As String
             Dim query As String = ""
-            Dim parameter As New SqlParameter("FileName", fileName)
+            Dim parameter As New SqlParameter("@FileName", fileName)
 
             Dim sfd As New SaveFileDialog
             sfd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
@@ -7512,14 +7512,14 @@ Public Class SSPPApplicationTrackingLog
                     query = "select " &
                         "DocPermitData " &
                         "from APBPermits " &
-                        "where strFileName = :FileName "
+                        "where strFileName = @FileName "
                 Case "01"
                     sfd.Filter = "Adobe PDF Files (*.pdf)|.pdf"
                     sfd.DefaultExt = ".pdf"
                     query = "select " &
                         "PdfPermitData " &
                         "from APBPermits " &
-                        "where strFileName = :FileName "
+                        "where strFileName = @FileName "
             End Select
 
             If sfd.ShowDialog = DialogResult.OK Then
@@ -7533,7 +7533,7 @@ Public Class SSPPApplicationTrackingLog
                 query = "select " &
                     "PdfPermitData " &
                     "from APBPermits " &
-                    "where strFileName = :FileName "
+                    "where strFileName = @FileName "
 
                 If sfd.ShowDialog = DialogResult.OK Then
                     saveFilePath = sfd.FileName.ToString
@@ -7938,8 +7938,8 @@ Public Class SSPPApplicationTrackingLog
             Dim query As String = "Select " &
                 "datModifingdate " &
                 "from SSPPApplicationMaster " &
-                "where strApplicationNumber = :appnumber "
-            Dim parameter As New SqlParameter("appnumber", txtApplicationNumber.Text)
+                "where strApplicationNumber = @appnumber "
+            Dim parameter As New SqlParameter("@appnumber", txtApplicationNumber.Text)
             Dim temp As String = DB.GetSingleValue(Of String)(query, parameter)
 
             If TimeStamp <> "" AndAlso TimeStamp <> temp Then
@@ -8606,8 +8606,8 @@ Public Class SSPPApplicationTrackingLog
                 Dim query As String = "select " &
                     "strFileName " &
                     "from APBPermits " &
-                    "where strFileName like :filename "
-                Dim parameter As New SqlParameter("filename", "V_-" & MasterApp)
+                    "where strFileName like @filename "
+                Dim parameter As New SqlParameter("@filename", "V_-" & MasterApp)
                 Dim fn As String = DB.GetSingleValue(Of String)(query, parameter)
 
                 If fn <> "" Then
@@ -8667,8 +8667,8 @@ Public Class SSPPApplicationTrackingLog
                 Dim query As String = "select " &
                     "strFileName " &
                     "from APBPermits " &
-                    "where strFileName like :filename "
-                Dim parameter As New SqlParameter("filename", "P_-" & MasterApp)
+                    "where strFileName like @filename "
+                Dim parameter As New SqlParameter("@filename", "P_-" & MasterApp)
                 Dim fn As String = DB.GetSingleValue(Of String)(query, parameter)
 
                 If fn <> "" Then
@@ -8737,8 +8737,8 @@ Public Class SSPPApplicationTrackingLog
                 Dim query As String = "select " &
                     "strFileName " &
                     "from APBPermits " &
-                    "where strFileName like :filename "
-                Dim parameter As New SqlParameter("filename", "O_-" & MasterApp)
+                    "where strFileName like @filename "
+                Dim parameter As New SqlParameter("@filename", "O_-" & MasterApp)
                 Dim fn As String = DB.GetSingleValue(Of String)(query, parameter)
 
                 If fn <> "" Then
@@ -8783,7 +8783,7 @@ Public Class SSPPApplicationTrackingLog
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                 "and numUserID = strDocModifingPerson " &
-                "and strFileName = :filename ) " &
+                "and strFileName = @filename ) " &
                 "end DocStaffResponsible, " &
                 "case " &
                 "when datDocModifingDate is Null then '' " &
@@ -8799,16 +8799,16 @@ Public Class SSPPApplicationTrackingLog
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                 "and numUserID = strPDFModifingPerson " &
-                "and strFileName = :filename ) " &
+                "and strFileName = @filename ) " &
                 "end PDFStaffResponsible, " &
                 "case " &
                 "when datPDFModifingDate is Null then '' " &
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                 "End datPDFModifingDate " &
                 "from APBPermits " &
-                "where strFileName = :filename "
+                "where strFileName = @filename "
 
-                Dim parameter As New SqlParameter("filename", "VN-" & MasterApp)
+                Dim parameter As New SqlParameter("@filename", "VN-" & MasterApp)
 
                 Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
@@ -8904,7 +8904,7 @@ Public Class SSPPApplicationTrackingLog
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                 "and numUserID = strDocModifingPerson " &
-                "and strFileName = :filename ) " &
+                "and strFileName = @filename ) " &
                 "end DocStaffResponsible, " &
                 "case " &
                 "when datDocModifingDate is Null then '' " &
@@ -8920,16 +8920,16 @@ Public Class SSPPApplicationTrackingLog
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                 "and numuserID = strPDFModifingPerson " &
-                "and strFileName = :filename) " &
+                "and strFileName = @filename) " &
                 "end PDFStaffResponsible, " &
                 "case " &
                 "when datPDFModifingDate is Null then '' " &
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                 "End datPDFModifingDate " &
                 "from APBPermits " &
-                "where strFileName = :filename "
+                "where strFileName = @filename "
 
-                Dim parameter As New SqlParameter("filename", "VD-" & MasterApp)
+                Dim parameter As New SqlParameter("@filename", "VD-" & MasterApp)
 
                 Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
@@ -9024,7 +9024,7 @@ Public Class SSPPApplicationTrackingLog
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                 "and numUserID = strDocModifingPerson " &
-                "and strFileName = :filename ) " &
+                "and strFileName = @filename ) " &
                 "end DocStaffResponsible, " &
                 "case " &
                 "when datDocModifingDate is Null then '' " &
@@ -9040,16 +9040,16 @@ Public Class SSPPApplicationTrackingLog
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                 "and numUserID = strPDFModifingPerson " &
-                "and strFileName = :filename ) " &
+                "and strFileName = @filename ) " &
                 "end PDFStaffResponsible, " &
                 "case " &
                 "when datPDFModifingDate is Null then '' " &
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                 "End datPDFModifingDate " &
                 "from APBPermits " &
-                "where strFileName = :filename "
+                "where strFileName = @filename "
 
-                Dim parameter As New SqlParameter("filename", "VP-" & MasterApp)
+                Dim parameter As New SqlParameter("@filename", "VP-" & MasterApp)
 
                 Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
@@ -9145,7 +9145,7 @@ Public Class SSPPApplicationTrackingLog
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
-                 "and strFileName = :filename ) " &
+                 "and strFileName = @filename ) " &
                  "end DocStaffResponsible, " &
                  "case " &
                  "when datDocModifingDate is Null then '' " &
@@ -9161,16 +9161,16 @@ Public Class SSPPApplicationTrackingLog
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
-                 "and strFileName =  :filename) " &
+                 "and strFileName = @filename) " &
                  "end PDFStaffResponsible, " &
                  "case " &
                  "when datPDFModifingDate is Null then '' " &
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                  "End datPDFModifingDate " &
                  "from APBPermits " &
-                 "where strFileName = :filename "
+                 "where strFileName = @filename "
 
-                Dim parameter As New SqlParameter("filename", "VF-" & MasterApp)
+                Dim parameter As New SqlParameter("@filename", "VF-" & MasterApp)
 
                 Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
@@ -9265,7 +9265,7 @@ Public Class SSPPApplicationTrackingLog
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
-                 "and strFileName = :filename ) " &
+                 "and strFileName = @filename ) " &
                  "end DocStaffResponsible, " &
                  "case " &
                  "when datDocModifingDate is Null then '' " &
@@ -9281,16 +9281,16 @@ Public Class SSPPApplicationTrackingLog
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
-                 "and strFileName = :filename ) " &
+                 "and strFileName = @filename ) " &
                  "end PDFStaffResponsible, " &
                  "case " &
                  "when datPDFModifingDate is Null then '' " &
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                  "End datPDFModifingDate " &
                  "from APBPermits " &
-                 "where strFileName = :filename "
+                 "where strFileName = @filename "
 
-                Dim parameter As New SqlParameter("filename", "VF-" & MasterApp)
+                Dim parameter As New SqlParameter("@filename", "VF-" & MasterApp)
 
                 Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
@@ -9384,7 +9384,7 @@ Public Class SSPPApplicationTrackingLog
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
-                 "and strFileName = :filename ) " &
+                 "and strFileName = @filename ) " &
                  "end DocStaffResponsible, " &
                  "case " &
                  "when datDocModifingDate is Null then '' " &
@@ -9400,16 +9400,16 @@ Public Class SSPPApplicationTrackingLog
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
-                 "and strFileName = :filename ) " &
+                 "and strFileName = @filename ) " &
                  "end PDFStaffResponsible, " &
                  "case " &
                  "when datPDFModifingDate is Null then '' " &
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                  "End datPDFModifingDate " &
                  "from APBPermits " &
-                 "where strFileName = :filename "
+                 "where strFileName = @filename "
 
-                Dim parameter As New SqlParameter("filename", "PP-" & MasterApp)
+                Dim parameter As New SqlParameter("@filename", "PP-" & MasterApp)
 
                 Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
@@ -9503,7 +9503,7 @@ Public Class SSPPApplicationTrackingLog
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
-                 "and strFileName = :filename ) " &
+                 "and strFileName = @filename ) " &
                  "end DocStaffResponsible, " &
                  "case " &
                  "when datDocModifingDate is Null then '' " &
@@ -9519,16 +9519,16 @@ Public Class SSPPApplicationTrackingLog
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
-                 "and strFileName = :filename )" &
+                 "and strFileName = @filename )" &
                  "end PDFStaffResponsible, " &
                  "case " &
                  "when datPDFModifingDate is Null then '' " &
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                  "End datPDFModifingDate " &
                  "from APBPermits " &
-                 "where strFileName = :filename "
+                 "where strFileName = @filename "
 
-                Dim parameter As New SqlParameter("filename", "PT-" & MasterApp)
+                Dim parameter As New SqlParameter("@filename", "PT-" & MasterApp)
 
                 Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
@@ -9622,7 +9622,7 @@ Public Class SSPPApplicationTrackingLog
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
-                 "and strFileName = :filename ) " &
+                 "and strFileName = @filename ) " &
                  "end DocStaffResponsible, " &
                  "case " &
                  "when datDocModifingDate is Null then '' " &
@@ -9638,16 +9638,16 @@ Public Class SSPPApplicationTrackingLog
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
-                 "and strFileName = :filename ) " &
+                 "and strFileName = @filename ) " &
                  "end PDFStaffResponsible, " &
                  "case " &
                  "when datPDFModifingDate is Null then '' " &
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                  "End datPDFModifingDate " &
                  "from APBPermits " &
-                 "where strFileName = :filename "
+                 "where strFileName = @filename "
 
-                Dim parameter As New SqlParameter("filename", "PD-" & MasterApp)
+                Dim parameter As New SqlParameter("@filename", "PD-" & MasterApp)
 
                 Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
@@ -9741,7 +9741,7 @@ Public Class SSPPApplicationTrackingLog
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                 "and numUserID = strDocModifingPerson " &
-                "and strFileName = :filename ) " &
+                "and strFileName = @filename ) " &
                 "end DocStaffResponsible, " &
                 "case " &
                 "when datDocModifingDate is Null then '' " &
@@ -9757,16 +9757,16 @@ Public Class SSPPApplicationTrackingLog
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                 "and numUserID = strPDFModifingPerson " &
-                "and strFileName = :filename ) " &
+                "and strFileName = @filename ) " &
                 "end PDFStaffResponsible, " &
                 "case " &
                 "when datPDFModifingDate is Null then '' " &
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                 "End datPDFModifingDate " &
                 "from APBPermits " &
-                "where strFileName = :filename "
+                "where strFileName = @filename "
 
-                Dim parameter As New SqlParameter("filename", "PN-" & MasterApp)
+                Dim parameter As New SqlParameter("@filename", "PN-" & MasterApp)
 
                 Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
@@ -9860,7 +9860,7 @@ Public Class SSPPApplicationTrackingLog
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strDocModifingPerson = EPDUserProfiles.numuserID " &
                  "and numUserID = strDocModifingPerson " &
-                 "and strFileName = :filename ) " &
+                 "and strFileName = @filename ) " &
                  "end DocStaffResponsible, " &
                  "case " &
                  "when datDocModifingDate is Null then '' " &
@@ -9876,16 +9876,16 @@ Public Class SSPPApplicationTrackingLog
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
-                 "and strFileName = :filename ) " &
+                 "and strFileName = @filename ) " &
                  "end PDFStaffResponsible, " &
                  "case " &
                  "when datPDFModifingDate is Null then '' " &
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                  "End datPDFModifingDate " &
                  "from APBPermits " &
-                 "where strFileName = :filename "
+                 "where strFileName = @filename "
 
-                Dim parameter As New SqlParameter("filename", "PH-" & MasterApp)
+                Dim parameter As New SqlParameter("@filename", "PH-" & MasterApp)
 
                 Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
@@ -9979,7 +9979,7 @@ Public Class SSPPApplicationTrackingLog
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
-                 "and strFileName = :filename ) " &
+                 "and strFileName = @filename ) " &
                  "end DocStaffResponsible, " &
                  "case " &
                  "when datDocModifingDate is Null then '' " &
@@ -9995,16 +9995,16 @@ Public Class SSPPApplicationTrackingLog
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
-                 "and strFileName = :filename ) " &
+                 "and strFileName = @filename ) " &
                  "end PDFStaffResponsible, " &
                  "case " &
                  "when datPDFModifingDate is Null then '' " &
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                  "End datPDFModifingDate " &
                  "from APBPermits " &
-                 "where strFileName = :filename "
+                 "where strFileName = @filename "
 
-                Dim parameter As New SqlParameter("filename", "PF-" & MasterApp)
+                Dim parameter As New SqlParameter("@filename", "PF-" & MasterApp)
 
                 Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
@@ -10098,7 +10098,7 @@ Public Class SSPPApplicationTrackingLog
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                 "and numUserID = strDocModifingPerson " &
-                "and strFileName = :filename ) " &
+                "and strFileName = @filename ) " &
                 "end DocStaffResponsible, " &
                 "case " &
                 "when datDocModifingDate is Null then '' " &
@@ -10114,16 +10114,16 @@ Public Class SSPPApplicationTrackingLog
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                 "and numUserID = strPDFModifingPerson " &
-                "and strFileName = :filename ) " &
+                "and strFileName = @filename ) " &
                 "end PDFStaffResponsible, " &
                 "case " &
                 "when datPDFModifingDate is Null then '' " &
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                 "End datPDFModifingDate " &
                 "from APBPermits " &
-                "where strFileName = :filename "
+                "where strFileName = @filename "
 
-                Dim parameter As New SqlParameter("filename", "PF-" & MasterApp)
+                Dim parameter As New SqlParameter("@filename", "PF-" & MasterApp)
 
                 Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
@@ -10216,7 +10216,7 @@ Public Class SSPPApplicationTrackingLog
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
-                 "and strFileName = :filename ) " &
+                 "and strFileName = @filename ) " &
                  "end DocStaffResponsible, " &
                  "case " &
                  "when datDocModifingDate is Null then '' " &
@@ -10232,16 +10232,16 @@ Public Class SSPPApplicationTrackingLog
                  "from APBPermits, EPDUSerProfiles " &
                  "where APBPermits.strPDFModifingPerson = EPDUSerProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
-                 "and strFileName = :filename ) " &
+                 "and strFileName = @filename ) " &
                  "end PDFStaffResponsible, " &
                  "case " &
                  "when datPDFModifingDate is Null then '' " &
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                  "End datPDFModifingDate " &
                  "from APBPermits " &
-                 "where strFileName = :filename "
+                 "where strFileName = @filename "
 
-                Dim parameter As New SqlParameter("filename", "ON-" & MasterApp)
+                Dim parameter As New SqlParameter("@filename", "ON-" & MasterApp)
 
                 Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
@@ -10336,7 +10336,7 @@ Public Class SSPPApplicationTrackingLog
                   "from APBPermits, EPDUserProfiles " &
                   "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                   "and numUserID = strDocModifingPerson " &
-                  "and strFileName = :filename ) " &
+                  "and strFileName = @filename ) " &
                   "end DocStaffResponsible, " &
                   "case " &
                   "when datDocModifingDate is Null then '' " &
@@ -10352,16 +10352,16 @@ Public Class SSPPApplicationTrackingLog
                   "from APBPermits, epduserprofiles " &
                   "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                   "and numUserID = strPDFModifingPerson " &
-                  "and strFileName = :filename ) " &
+                  "and strFileName = @filename ) " &
                   "end PDFStaffResponsible, " &
                   "case " &
                   "when datPDFModifingDate is Null then '' " &
                   "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                   "End datPDFModifingDate " &
                   "from APBPermits " &
-                  "where strFileName = :filename "
+                  "where strFileName = @filename "
 
-                Dim parameter As New SqlParameter("filename", "OP-" & MasterApp)
+                Dim parameter As New SqlParameter("@filename", "OP-" & MasterApp)
 
                 Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand
@@ -10897,12 +10897,12 @@ Public Class SSPPApplicationTrackingLog
             "from APBpermits, SSPPApplicationLinking " &
             "where substr(APBpermits.strFileName, 4) = " &
             "SSPPAPPlicationLinking.strmasterapplication (+) " &
-            "and (SSPPApplicationLinking.strApplicationNumber = :MasterApp " &
-            "or APBPermits.strFileName like :MasterAppFn ) "
+            "and (SSPPApplicationLinking.strApplicationNumber = @MasterApp " &
+            "or APBPermits.strFileName like @MasterAppFn ) "
 
             Dim parameter As SqlParameter() = {
-                New SqlParameter("MasterApp", MasterApp),
-                New SqlParameter("MasterAppFn", "%-" & MasterApp)
+                New SqlParameter("@MasterApp", MasterApp),
+                New SqlParameter("@MasterAppFn", "%-" & MasterApp)
             }
 
             Using connection As New SqlConnection(CurrentConnectionString)
@@ -10973,9 +10973,9 @@ Public Class SSPPApplicationTrackingLog
              "strContactZipCode, " &
              "strContactDescription " &
              "from APBContactInformation " &
-             "where strContactKey = :pKey "
+             "where strContactKey = @pKey "
 
-            Dim parameter As New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "30")
+            Dim parameter As New SqlParameter("@pKey", "0413" & txtAIRSNumber.Text & "30")
 
             Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
@@ -11108,8 +11108,8 @@ Public Class SSPPApplicationTrackingLog
             Dim query As String = "select " &
             "strEmailAddress, strPhone " &
             "from EPDUserProfiles " &
-            "where numUserID = :UserGCode "
-            Dim parameter As New SqlParameter("UserGCode", CurrentUser.UserID)
+            "where numUserID = @UserGCode "
+            Dim parameter As New SqlParameter("@UserGCode", CurrentUser.UserID)
 
             Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
@@ -11229,9 +11229,9 @@ Public Class SSPPApplicationTrackingLog
             "strDescription, CreateDateTime " &
             "from APBsubpartdata, LookUpSubPartSIP   " &
             "where APBSubpartData.strSubPart = LookUpSubpartSIP.strSubpart   " &
-            "and APBSubPartData.strSubpartKey = :pKey " &
+            "and APBSubPartData.strSubpartKey = @pKey " &
             "and Active = '1' "
-            parameter = {New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "0")}
+            parameter = {New SqlParameter("@pKey", "0413" & txtAIRSNumber.Text & "0")}
 
             Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
@@ -11281,16 +11281,16 @@ Public Class SSPPApplicationTrackingLog
                     "CreateDateTime " &
                     "from SSPPApplicationMaster, SSPPSubpartData   " &
                     "where SSPPSubpartData.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber  " &
-                    "and strAIRSnumber = :airs " &
+                    "and strAIRSnumber = @airs " &
                     "and substr(strSubpartkey, 6,1) = '0'  " &
-                    "and strSubpart = :SubPart " &
-                    "and SSPPSubpartData.strApplicationNumber  = :appnum " &
+                    "and strSubpart = @SubPart " &
+                    "and SSPPSubpartData.strApplicationNumber  = @appnum " &
                     "order by createdatetime "
 
                     parameter = {
-                        New SqlParameter("airs", "0413" & txtAIRSNumber.Text),
-                        New SqlParameter("SubPart", SubPart),
-                        New SqlParameter("appnum", txtApplicationNumber.Text)
+                        New SqlParameter("@airs", "0413" & txtAIRSNumber.Text),
+                        New SqlParameter("@SubPart", SubPart),
+                        New SqlParameter("@appnum", txtApplicationNumber.Text)
                     }
 
                     Using connection As New SqlConnection(CurrentConnectionString)
@@ -11395,8 +11395,8 @@ Public Class SSPPApplicationTrackingLog
             "where SSPPApplicationMaster.strApplicationNumber = " &
             "SSPPSubpartData.strApplicationNumber   " &
             "and SSPPSubPartData.strSubPart = LookUpSubPartSIP.strSubPart  " &
-            "and SSPPSubpartData.strSubpartKey  = :pKey "
-            parameter = {New SqlParameter("pKey", txtApplicationNumber.Text & "0")}
+            "and SSPPSubpartData.strSubpartKey  = @pKey "
+            parameter = {New SqlParameter("@pKey", txtApplicationNumber.Text & "0")}
 
             Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
@@ -12157,9 +12157,9 @@ Public Class SSPPApplicationTrackingLog
                 "strDescription, CreateDateTime " &
                 "from APBsubpartdata, LookUpSubPart60  " &
                 "where APBSubpartData.strSubPart = LookUpSubpart60.strSubpart " &
-                "and APBSubPartData.strSubpartKey = :pKey " &
+                "and APBSubPartData.strSubpartKey = @pKey " &
                 "and Active = '1' "
-            parameter = {New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "9")}
+            parameter = {New SqlParameter("@pKey", "0413" & txtAIRSNumber.Text & "9")}
 
             Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
@@ -12209,16 +12209,16 @@ Public Class SSPPApplicationTrackingLog
                     "CreateDateTime " &
                     "from SSPPApplicationMaster, SSPPSubpartData   " &
                     "where SSPPSubpartData.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber  " &
-                    "and strAIRSnumber = :airsnum " &
+                    "and strAIRSnumber = @airsnum " &
                     "and substr(strSubpartkey, 6,1) = '9'  " &
-                    "and strSubpart = :SubPart " &
-                    "and SSPPSubpartData.strApplicationNumber  = :appnum " &
+                    "and strSubpart = @SubPart " &
+                    "and SSPPSubpartData.strApplicationNumber  = @appnum " &
                     "order by createdatetime "
 
                     parameter = {
-                        New SqlParameter("airsnum", txtApplicationNumber.Text),
-                        New SqlParameter("Subpart", SubPart),
-                        New SqlParameter("appnum", txtApplicationNumber.Text)
+                        New SqlParameter("@airsnum", txtApplicationNumber.Text),
+                        New SqlParameter("@Subpart", SubPart),
+                        New SqlParameter("@appnum", txtApplicationNumber.Text)
                     }
 
                     Using connection As New SqlConnection(CurrentConnectionString)
@@ -12324,8 +12324,8 @@ Public Class SSPPApplicationTrackingLog
             "where SSPPApplicationMaster.strApplicationNumber = " &
             "SSPPSubpartData.strApplicationNumber   " &
             "and SSPPSubPartData.strSubPart = LookUpSubPart60.strSubPart  " &
-            "and SSPPSubpartData.strSubPartKey  = :pKey "
-            parameter = {New SqlParameter("pKey", txtApplicationNumber.Text & "9")}
+            "and SSPPSubpartData.strSubPartKey  = @pKey "
+            parameter = {New SqlParameter("@pKey", txtApplicationNumber.Text & "9")}
 
             Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
@@ -12979,8 +12979,8 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub DeleteProgramSubparts(appnum As String, programkey As String)
         Dim query As String = "Delete SSPPSubpartData " &
-            "where strSubpartKey = :pKey "
-        Dim parameter As New SqlParameter("pKey", appnum & programkey)
+            "where strSubpartKey = @pKey "
+        Dim parameter As New SqlParameter("@pKey", appnum & programkey)
         DB.RunCommand(query, parameter)
     End Sub
 
@@ -12994,15 +12994,15 @@ Public Class SSPPApplicationTrackingLog
             "  ) " &
             "  VALUES " &
             "  ( " &
-            "    :appnum, :pKey, :subpart, :activity, :pUser, sysdate, sysdate " &
+            "    @appnum, @pKey, @subpart, @activity, @pUser, sysdate, sysdate " &
             "  ) "
 
         Dim parameters As SqlParameter() = {
-            New SqlParameter("appnum", appnum),
-            New SqlParameter("pKey", appnum & programKey),
-            New SqlParameter("subpart", subpart),
-            New SqlParameter("activity", activity),
-            New SqlParameter("pUser", CurrentUser.UserID)
+            New SqlParameter("@appnum", appnum),
+            New SqlParameter("@pKey", appnum & programKey),
+            New SqlParameter("@subpart", subpart),
+            New SqlParameter("@activity", activity),
+            New SqlParameter("@pUser", CurrentUser.UserID)
         }
         DB.RunCommand(query, parameters)
     End Sub
@@ -13048,9 +13048,9 @@ Public Class SSPPApplicationTrackingLog
             Dim query As String = "Select " &
             "strSubpart " &
             "from SSPPSubpartData " &
-            "where strSubpartKey = :pKey " &
+            "where strSubpartKey = @pKey " &
             "and strApplicationActivity = '1' "
-            parameter = {New SqlParameter("pKey", txtApplicationNumber.Text & "9")}
+            parameter = {New SqlParameter("@pKey", txtApplicationNumber.Text & "9")}
 
             Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
@@ -13076,24 +13076,24 @@ Public Class SSPPApplicationTrackingLog
                                 If temp <> "Ignore" Then
                                     query = "Update APBSubpartData set " &
                                         "Active = '9', " &
-                                        "updateUser = :UserGCode , " &
+                                        "updateUser = @UserGCode , " &
                                         "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
-                                        "where strSubpartKey = :pKey " &
-                                        "and strSubpart = :Subpart "
+                                        "where strSubpartKey = @pKey " &
+                                        "and strSubpart = @Subpart "
                                     parameter = {
-                                        New SqlParameter("UserGCode", CurrentUser.UserID),
-                                        New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "9"),
-                                        New SqlParameter("Subpart", Subpart)
+                                        New SqlParameter("@UserGCode", CurrentUser.UserID),
+                                        New SqlParameter("@pKey", "0413" & txtAIRSNumber.Text & "9"),
+                                        New SqlParameter("@Subpart", Subpart)
                                     }
                                     DB.RunCommand(query, parameter)
 
                                     query = "Delete SSPPSubpartData " &
-                                    "where strSubpartKey = :pKey " &
+                                    "where strSubpartKey = @pKey " &
                                     "and strApplicationActivity = '1' " &
-                                    "and strSubpart = :Subpart "
+                                    "and strSubpart = @Subpart "
                                     parameter = {
-                                        New SqlParameter("pKey", txtApplicationNumber.Text & "9"),
-                                        New SqlParameter("Subpart", Subpart)
+                                        New SqlParameter("@pKey", txtApplicationNumber.Text & "9"),
+                                        New SqlParameter("@Subpart", Subpart)
                                     }
                                     DB.RunCommand(query, parameter)
                                 End If
@@ -13110,28 +13110,28 @@ Public Class SSPPApplicationTrackingLog
 
                 query = "Select strSubPart " &
                 "from APBSubpartData " &
-                "where strSubpartKey = :pKey  " &
-                "and strSubpart = :Subpart "
+                "where strSubpartKey = @pKey  " &
+                "and strSubpart = @Subpart "
                 parameter = {
-                    New SqlParameter("airsnum", "0413" & txtAIRSNumber.Text),
-                    New SqlParameter("UserGCode", CurrentUser.UserID),
-                    New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "9"),
-                    New SqlParameter("Subpart", Subpart)
+                    New SqlParameter("@airsnum", "0413" & txtAIRSNumber.Text),
+                    New SqlParameter("@UserGCode", CurrentUser.UserID),
+                    New SqlParameter("@pKey", "0413" & txtAIRSNumber.Text & "9"),
+                    New SqlParameter("@Subpart", Subpart)
                 }
 
                 If DB.ValueExists(query, parameter) Then
                     query = "Update APBSubpartData set " &
                     "Active = '1', " &
-                    "updateUser = :UserGCode " &
+                    "updateUser = @UserGCode " &
                     "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
-                    "where strSubpartKey = :pKey " &
-                    "and strSubpart = :Subpart "
+                    "where strSubpartKey = @pKey " &
+                    "and strSubpart = @Subpart "
                 Else
                     query = "INSERT INTO APBSUBPARTDATA " &
                     "  ( STRAIRSNUMBER, STRSUBPARTKEY, STRSUBPART, UPDATEUSER , " &
                     "    UPDATEDATETIME, ACTIVE, CREATEDATETIME " &
                     "  ) VALUES " &
-                    "(:airsnum, :pKey, :Subpart, :UserGCode, " &
+                    "(@airsnum, @pKey, @Subpart, @UserGCode, " &
                     "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " &
                     "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')))"
                 End If
@@ -13139,9 +13139,9 @@ Public Class SSPPApplicationTrackingLog
             Next
 
             query = "Delete SSPPSubpartData " &
-            "where strSubpartKey = :pKey " &
+            "where strSubpartKey = @pKey " &
             "and strApplicationActivity <> '1' "
-            parameter = {New SqlParameter("pKey", txtApplicationNumber.Text & "9")}
+            parameter = {New SqlParameter("@pKey", txtApplicationNumber.Text & "9")}
             DB.RunCommand(query, parameter)
 
             'Removed 
@@ -13150,37 +13150,37 @@ Public Class SSPPApplicationTrackingLog
 
                 query = "Update APBSubpartData set " &
                     "Active = '9', " &
-                    "updateUser = :UserGCode , " &
+                    "updateUser = @UserGCode , " &
                     "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
-                    "where strSubpartKey = :pKey " &
-                    "and strSubpart = :Subpart "
+                    "where strSubpartKey = @pKey " &
+                    "and strSubpart = @Subpart "
                 parameter = {
-                    New SqlParameter("UserGCode", CurrentUser.UserID),
-                    New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "9"),
-                    New SqlParameter("Subpart", Subpart)
+                    New SqlParameter("@UserGCode", CurrentUser.UserID),
+                    New SqlParameter("@pKey", "0413" & txtAIRSNumber.Text & "9"),
+                    New SqlParameter("@Subpart", Subpart)
                 }
                 DB.RunCommand(query, parameter)
 
                 query = "Select " &
                 "strSubpart " &
                 "from SSPPSubpartData " &
-                "where strSubpartKey = :pKey " &
-                "and strSubpart = :Subpart "
+                "where strSubpartKey = @pKey " &
+                "and strSubpart = @Subpart "
                 parameter = {
-                    New SqlParameter("UserGCode", CurrentUser.UserID),
-                    New SqlParameter("appnum", txtApplicationNumber.Text),
-                    New SqlParameter("pKey", txtApplicationNumber.Text & "9"),
-                    New SqlParameter("Subpart", Subpart)
+                    New SqlParameter("@UserGCode", CurrentUser.UserID),
+                    New SqlParameter("@appnum", txtApplicationNumber.Text),
+                    New SqlParameter("@pKey", txtApplicationNumber.Text & "9"),
+                    New SqlParameter("@Subpart", Subpart)
                 }
 
                 If DB.ValueExists(query, parameter) Then
                     query = "Update SSPPSubpartData set " &
                         "strApplicationActivity = '9', " &
-                        "updateUser = :UserGCode , " &
+                        "updateUser = @UserGCode , " &
                         "updateDateTime = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
-                        "where strApplicationNumber = :appnum " &
-                        "and strSubPartKey = :pKey " &
-                        "and strSubPart = :Subpart "
+                        "where strApplicationNumber = @appnum " &
+                        "and strSubPartKey = @pKey " &
+                        "and strSubPart = @Subpart "
                 Else
                     query = "INSERT INTO SSPPSUBPARTDATA " &
                         "  ( " &
@@ -13190,7 +13190,7 @@ Public Class SSPPApplicationTrackingLog
                         "  ) " &
                         "  VALUES " &
                         "  ( " &
-                        "    :appnum, :pKey, :Subpart, '9', :UserGCode, sysdate, sysdate " &
+                        "    @appnum, @pKey, @Subpart, '9', @UserGCode, sysdate, sysdate " &
                         "  ) "
                 End If
                 DB.RunCommand(query, parameter)
@@ -13204,13 +13204,13 @@ Public Class SSPPApplicationTrackingLog
                 query = "Select " &
                 "strSubpart " &
                 "from SSPPSubpartData " &
-                "where strSubpartKey = :pKey " &
-                "and strSubpart = :Subpart "
+                "where strSubpartKey = @pKey " &
+                "and strSubpart = @Subpart "
                 parameter = {
-                    New SqlParameter("UserGCode", CurrentUser.UserID),
-                    New SqlParameter("appnum", txtApplicationNumber.Text),
-                    New SqlParameter("pKey", txtApplicationNumber.Text & "9"),
-                    New SqlParameter("Subpart", Subpart)
+                    New SqlParameter("@UserGCode", CurrentUser.UserID),
+                    New SqlParameter("@appnum", txtApplicationNumber.Text),
+                    New SqlParameter("@pKey", txtApplicationNumber.Text & "9"),
+                    New SqlParameter("@Subpart", Subpart)
                 }
 
                 Select Case Action
@@ -13218,11 +13218,11 @@ Public Class SSPPApplicationTrackingLog
                         If DB.ValueExists(query, parameter) Then
                             query = "Update SSPPSubpartData set " &
                                 "strApplicationActivity = '1', " &
-                                "updateUser = :UserGCode , " &
+                                "updateUser = @UserGCode , " &
                                 "updateDateTime = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
-                                "where strApplicationNumber = :appnum " &
-                                "and strSubPartKey = :pKey " &
-                                "and strSubPart = :Subpart "
+                                "where strApplicationNumber = @appnum " &
+                                "and strSubPartKey = @pKey " &
+                                "and strSubPart = @Subpart "
                         Else
                             query = "INSERT INTO SSPPSUBPARTDATA " &
                                 "  ( " &
@@ -13232,18 +13232,18 @@ Public Class SSPPApplicationTrackingLog
                                 "  ) " &
                                 "  VALUES " &
                                 "  ( " &
-                                "    :appnum, :pKey, :Subpart, '1', :UserGCode, sysdate, sysdate " &
+                                "    @appnum, @pKey, @Subpart, '1', @UserGCode, sysdate, sysdate " &
                                 "  ) "
                         End If
                     Case "Modify"
                         If DB.ValueExists(query, parameter) Then
                             query = "Update SSPPSubpartData set " &
                                 "strApplicationActivity = '2', " &
-                                "updateUser = :UserGCode , " &
+                                "updateUser = @UserGCode , " &
                                 "updateDateTime = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
-                                "where strApplicationNumber = :appnum " &
-                                "and strSubPartKey = :pKey " &
-                                "and strSubPart = :Subpart "
+                                "where strApplicationNumber = @appnum " &
+                                "and strSubPartKey = @pKey " &
+                                "and strSubPart = @Subpart "
                         Else
                             query = "INSERT INTO SSPPSUBPARTDATA " &
                                 "  ( " &
@@ -13253,7 +13253,7 @@ Public Class SSPPApplicationTrackingLog
                                 "  ) " &
                                 "  VALUES " &
                                 "  ( " &
-                                "    :appnum, :pKey, :Subpart, '2', :UserGCode, sysdate, sysdate " &
+                                "    @appnum, @pKey, @Subpart, '2', @UserGCode, sysdate, sysdate " &
                                 "  ) "
                         End If
                     Case Else
@@ -13268,17 +13268,17 @@ Public Class SSPPApplicationTrackingLog
             query = "Select " &
             "strPollutantKey " &
             "from AFSAirPollutantData " &
-            "where strAirPollutantKey = :pKey "
+            "where strAirPollutantKey = @pKey "
             parameter = {
-                New SqlParameter("airsnum", "0413" & txtAIRSNumber.Text),
-                New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "9"),
-                New SqlParameter("UserGCode", CurrentUser.UserID)
+                New SqlParameter("@airsnum", "0413" & txtAIRSNumber.Text),
+                New SqlParameter("@pKey", "0413" & txtAIRSNumber.Text & "9"),
+                New SqlParameter("@UserGCode", CurrentUser.UserID)
             }
 
             If DB.ValueExists(query, parameter) Then
                 query = "Update AFSAirPollutantData set " &
                 "strUpdateStatus = 'C' " &
-                "where strAirPollutantKey = :pKey " &
+                "where strAirPollutantKey = @pKey " &
                 "and strUpdateStatus <> 'A' "
                 DB.RunCommand(query, parameter)
             Else
@@ -13289,17 +13289,17 @@ Public Class SSPPApplicationTrackingLog
                 "    STROPERATIONALSTATUS " &
                 "  ) " &
                 "  VALUES" &
-                "(:airsnum, :pKey, " &
+                "(@airsnum, @pKey, " &
                 "'OT', '3', " &
-                ":UserGCode, sysdate, " &
+                "@UserGCode, sysdate, " &
                 "'O') "
                 DB.RunCommand(query, parameter)
 
                 query = "Insert into AFSAirPollutantData " &
                 "values " &
-                "(:airsnum, :pKey, " &
+                "(@airsnum, @pKey, " &
                 "'OT', 'A', " &
-                ":UserGCode, sysdate) "
+                "@UserGCode, sysdate) "
                 DB.RunCommand(query, parameter)
             End If
 
@@ -13390,9 +13390,9 @@ Public Class SSPPApplicationTrackingLog
             "strDescription, CreateDateTime " &
             "from APBsubpartdata, LookUpSubPart61   " &
             "where APBSubpartData.strSubPart = LookUpSubPart61.strSubpart   " &
-            "and APBSubPartData.strSubpartKey = :pKey " &
+            "and APBSubPartData.strSubpartKey = @pKey " &
             "and Active = '1' "
-            parameter = {New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "8")}
+            parameter = {New SqlParameter("@pKey", "0413" & txtAIRSNumber.Text & "8")}
 
             Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
@@ -13442,16 +13442,16 @@ Public Class SSPPApplicationTrackingLog
                     "CreateDateTime " &
                     "from SSPPApplicationMaster, SSPPSubpartData   " &
                     "where SSPPSubpartData.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber  " &
-                    "and strAIRSnumber = :airsnum " &
+                    "and strAIRSnumber = @airsnum " &
                     "and substr(strSubpartkey, 6,1) = '8'  " &
-                    "and strSubpart = :SubPart " &
-                    "and SSPPSubpartData.strApplicationNumber  = :appnum " &
+                    "and strSubpart = @SubPart " &
+                    "and SSPPSubpartData.strApplicationNumber  = @appnum " &
                     "order by createdatetime "
 
                     parameter = {
-                        New SqlParameter("airsnum", "0413" & txtAIRSNumber.Text),
-                        New SqlParameter("SubPart", SubPart),
-                        New SqlParameter("appnum", txtApplicationNumber.Text)
+                        New SqlParameter("@airsnum", "0413" & txtAIRSNumber.Text),
+                        New SqlParameter("@SubPart", SubPart),
+                        New SqlParameter("@appnum", txtApplicationNumber.Text)
                     }
 
                     Using connection As New SqlConnection(CurrentConnectionString)
@@ -13556,8 +13556,8 @@ Public Class SSPPApplicationTrackingLog
             "where SSPPApplicationMaster.strApplicationNumber = " &
             "SSPPSubpartData.strApplicationNumber   " &
             "and SSPPSubPartData.strSubPart = LookUpSubPart61.strSubPart  " &
-            "and SSPPSubpartData.strSubPartKey  = :pKey "
-            parameter = {New SqlParameter("pKey", txtApplicationNumber.Text & "8")}
+            "and SSPPSubpartData.strSubPartKey  = @pKey "
+            parameter = {New SqlParameter("@pKey", txtApplicationNumber.Text & "8")}
 
             Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
@@ -14323,9 +14323,9 @@ Public Class SSPPApplicationTrackingLog
             "strDescription, CreateDateTime " &
             "from APBsubpartdata, LookUpSubPart63   " &
             "where APBSubpartData.strSubPart = LookUpSubPart63.strSubpart   " &
-            "and APBSubPartData.strSubpartKey = :pKey " &
+            "and APBSubPartData.strSubpartKey = @pKey " &
             "and Active = '1' "
-            parameter = {New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "M")}
+            parameter = {New SqlParameter("@pKey", "0413" & txtAIRSNumber.Text & "M")}
 
             Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand
@@ -14375,16 +14375,16 @@ Public Class SSPPApplicationTrackingLog
                     "CreateDateTime " &
                     "from SSPPApplicationMaster, SSPPSubpartData   " &
                     "where SSPPSubpartData.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber  " &
-                    "and strAIRSnumber = :airs " &
+                    "and strAIRSnumber = @airs " &
                     "and substr(strSubpartkey, 6,1) = 'M'  " &
-                    "and strSubpart = :SubPart " &
-                    "and SSPPSubpartData.strApplicationNumber  = :appnum " &
+                    "and strSubpart = @SubPart " &
+                    "and SSPPSubpartData.strApplicationNumber  = @appnum " &
                     "order by createdatetime "
 
                     parameter = {
-                        New SqlParameter("airs", "0413" & txtAIRSNumber.Text),
-                        New SqlParameter("SubPart", SubPart),
-                        New SqlParameter("appnum", txtApplicationNumber.Text)
+                        New SqlParameter("@airs", "0413" & txtAIRSNumber.Text),
+                        New SqlParameter("@SubPart", SubPart),
+                        New SqlParameter("@appnum", txtApplicationNumber.Text)
                     }
 
                     Using connection As New SqlConnection(CurrentConnectionString)
@@ -14489,8 +14489,8 @@ Public Class SSPPApplicationTrackingLog
             "where SSPPApplicationMaster.strApplicationNumber = " &
             "SSPPSubpartData.strApplicationNumber   " &
             "and SSPPSubPartData.strSubPart = LookUpSubPart63.strSubPart  " &
-            "and SSPPSubpartData.strSubpartKey  = :pKey "
-            parameter = {New SqlParameter("pKey", txtApplicationNumber.Text & "M")}
+            "and SSPPSubpartData.strSubpartKey  = @pKey "
+            parameter = {New SqlParameter("@pKey", txtApplicationNumber.Text & "M")}
 
             Using connection As New SqlConnection(CurrentConnectionString)
                 Using cmd As SqlCommand = connection.CreateCommand

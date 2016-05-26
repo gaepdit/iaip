@@ -16,10 +16,10 @@ Namespace DAL
         Public Function GetEpdProgramsAsDataTable(Optional ByVal branch As Integer = 0) As DataTable
             Dim query As String = " SELECT NUMPROGRAMCODE AS ProgramCode, STRPROGRAMDESC AS Description, NUMBRANCHCODE AS BranchCode FROM LOOKUPEPDPROGRAMS " &
                 " WHERE NUMPROGRAMCODE <> 0 "
-            If branch > 0 Then query &= " AND NUMBRANCHCODE = :branch "
+            If branch > 0 Then query &= " AND NUMBRANCHCODE = @branch "
             query &= " ORDER BY Description "
 
-            Dim parameter As New SqlParameter("branch", branch)
+            Dim parameter As New SqlParameter("@branch", branch)
             Dim dt As DataTable = DB.GetDataTable(query, parameter)
             dt.PrimaryKey = New DataColumn() {dt.Columns("ProgramCode")}
             Return dt
@@ -28,10 +28,10 @@ Namespace DAL
         Public Function GetEpdUnitsAsDataTable(Optional ByVal program As Integer = 0) As DataTable
             Dim query As String = " SELECT NUMUNITCODE AS UnitCode, STRUNITDESC AS Description, NUMPROGRAMCODE AS ProgramCode FROM LOOKUPEPDUNITS " &
                 " WHERE NUMUNITCODE <> 0 "
-            If program > 0 Then query &= " AND NUMPROGRAMCODE = :program "
+            If program > 0 Then query &= " AND NUMPROGRAMCODE = @program "
             query &= " ORDER BY Description "
 
-            Dim parameter As New SqlParameter("program", program)
+            Dim parameter As New SqlParameter("@program", program)
             Dim dt As DataTable = DB.GetDataTable(query, parameter)
             dt.PrimaryKey = New DataColumn() {dt.Columns("UnitCode")}
             Return dt

@@ -183,12 +183,12 @@ Public Class DMUDeveloperTool
 
         If txtErrorNumber.Text <> "" Then
             Dim query As String = "Update IAIPErrorLog set " &
-            "strSolution = :errSol " &
-            "where strErrornumber = :errNum "
+            "strSolution = @errSol " &
+            "where strErrornumber = @errNum "
 
             Dim Parameters As SqlParameter() = {
-            New SqlParameter("errSol", ErrorSolution),
-            New SqlParameter("errNum", txtErrorNumber.Text)
+            New SqlParameter("@errSol", ErrorSolution),
+            New SqlParameter("@errNum", txtErrorNumber.Text)
             }
 
             DB.RunCommand(query, Parameters)
@@ -222,9 +222,9 @@ Public Class DMUDeveloperTool
                     " strErrorPage, dateTimeStamp, " &
                     " strErrorMsg, strSolution " &
                     " From OLAPERRORLog " &
-                    " where numError = :errNum "
+                    " where numError = @errNum "
 
-                    Dim parameter As SqlParameter = New SqlParameter("errNum", txtWebErrorNumber.Text)
+                    Dim parameter As SqlParameter = New SqlParameter("@errNum", txtWebErrorNumber.Text)
 
                     Dim row As DataRow = DB.GetDataRow(query, parameter)
 
@@ -253,12 +253,12 @@ Public Class DMUDeveloperTool
 
         If txtWebErrorNumber.Text <> "" Then
             Dim query As String = "Update OLAPErrorLog set " &
-            "strSolution = :errSol " &
-            "where numError = :errNum "
+            "strSolution = @errSol " &
+            "where numError = @errNum "
 
             Dim Parameters As SqlParameter() = {
-            New SqlParameter("errSol", ErrorSolution),
-            New SqlParameter("errNum", txtWebErrorNumber.Text)
+            New SqlParameter("@errSol", ErrorSolution),
+            New SqlParameter("@errNum", txtWebErrorNumber.Text)
             }
 
             DB.RunCommand(query, Parameters)
@@ -291,7 +291,7 @@ Public Class DMUDeveloperTool
                     "where IAIPErrorLog.strUser = EPDUserProfiles.numUserID " &
                     "and strErrorNumber = '" & txtErrorNumber.Text & "' "
 
-                    Dim parameter As SqlParameter = New SqlParameter("errNum", txtErrorNumber.Text)
+                    Dim parameter As SqlParameter = New SqlParameter("@errNum", txtErrorNumber.Text)
 
                     Dim row As DataRow = DB.GetDataRow(query, parameter)
 

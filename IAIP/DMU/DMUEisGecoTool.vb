@@ -11511,8 +11511,8 @@ Public Class DMUEisGecoTool
                         cmd = New SqlCommand("PD_EIS_QASTART", CurrentConnection)
                         cmd.CommandType = CommandType.StoredProcedure
 
-                        cmd.Parameters.Add(New SqlParameter("AIRSNUMBER_IN", SqlDbType.VarChar)).Value = dgvEISStats(1, i).Value
-                        cmd.Parameters.Add(New SqlParameter("INTYEAR_IN", SqlDbType.Decimal)).Value = EISConfirm
+                        cmd.Parameters.Add(New SqlParameter("@AIRSNUMBER_IN", SqlDbType.VarChar)).Value = dgvEISStats(1, i).Value
+                        cmd.Parameters.Add(New SqlParameter("@INTYEAR_IN", SqlDbType.Decimal)).Value = EISConfirm
 
                         cmd.ExecuteNonQuery()
 
@@ -11768,8 +11768,8 @@ Public Class DMUEisGecoTool
             cmd = New SqlCommand("PD_EIS_Data", CurrentConnection)
             cmd.CommandType = CommandType.StoredProcedure
 
-            cmd.Parameters.Add(New SqlParameter("AIRSNUM", SqlDbType.VarChar)).Value = txtEILogSelectedAIRSNumber.Text
-            cmd.Parameters.Add(New SqlParameter("INTYEAR", SqlDbType.Decimal)).Value = txtEILogSelectedYear.Text
+            cmd.Parameters.Add(New SqlParameter("@AIRSNUM", SqlDbType.VarChar)).Value = txtEILogSelectedAIRSNumber.Text
+            cmd.Parameters.Add(New SqlParameter("@INTYEAR", SqlDbType.Decimal)).Value = txtEILogSelectedYear.Text
 
             cmd.ExecuteNonQuery()
 
@@ -11896,9 +11896,9 @@ Public Class DMUEisGecoTool
                 cmd = New SqlCommand("PD_EIS_QA_Done", CurrentConnection)
                 cmd.CommandType = CommandType.StoredProcedure
 
-                cmd.Parameters.Add(New SqlParameter("AIRSNUM", SqlDbType.VarChar)).Value = txtEILogSelectedAIRSNumber.Text
-                cmd.Parameters.Add(New SqlParameter("INTYEAR", SqlDbType.Decimal)).Value = txtEILogSelectedYear.Text
-                cmd.Parameters.Add(New SqlParameter("DATLASTSUBMIT", SqlDbType.DateTime2)).Value = dtpQACompleted.Text
+                cmd.Parameters.Add(New SqlParameter("@AIRSNUM", SqlDbType.VarChar)).Value = txtEILogSelectedAIRSNumber.Text
+                cmd.Parameters.Add(New SqlParameter("@INTYEAR", SqlDbType.Decimal)).Value = txtEILogSelectedYear.Text
+                cmd.Parameters.Add(New SqlParameter("@DATLASTSUBMIT", SqlDbType.DateTime2)).Value = dtpQACompleted.Text
 
                 cmd.ExecuteNonQuery()
             End If
@@ -11924,18 +11924,18 @@ Public Class DMUEisGecoTool
 
         If Address <> "" And City <> "" Then
             Dim query As String = "Update EIS_FacilitySiteAddress set " &
-            " STRLOCATIONADDRESSTEXT = :Address, " &
-            " STRLOCALITYNAME = :City, " &
-            " STRLOCATIONADDRESSPOSTALCODE = :PostalCode " &
-            " where facilitysiteid = :AirsNumber"
+            " STRLOCATIONADDRESSTEXT = @Address, " &
+            " STRLOCALITYNAME = @City, " &
+            " STRLOCATIONADDRESSPOSTALCODE = @PostalCode " &
+            " where facilitysiteid = @AirsNumber"
 
             Dim parameters As SqlParameter()
 
             parameters = New SqlParameter() {
-                New SqlParameter("Address", Address),
-                New SqlParameter("City", City),
-                New SqlParameter("PostalCode", PostalCode),
-                New SqlParameter("AirsNumber", txtEILogSelectedAIRSNumber.Text)
+                New SqlParameter("@Address", Address),
+                New SqlParameter("@City", City),
+                New SqlParameter("@PostalCode", PostalCode),
+                New SqlParameter("@AirsNumber", txtEILogSelectedAIRSNumber.Text)
             }
 
             DB.RunCommand(query, parameters)
@@ -11960,18 +11960,18 @@ Public Class DMUEisGecoTool
 
         If Address <> "" And City <> "" Then
             Dim query As String = "Update EIS_FacilitySiteAddress set " &
-            " strMailingAddressText = :Address, " &
-            " strMailingAddresscityname = :City, " &
-            " strMailingAddressPostalCode = :PostalCode " &
-            " where facilitysiteid = :AirsNumber"
+            " strMailingAddressText = @Address, " &
+            " strMailingAddresscityname = @City, " &
+            " strMailingAddressPostalCode = @PostalCode " &
+            " where facilitysiteid = @AirsNumber"
 
             Dim parameters As SqlParameter()
 
             parameters = New SqlParameter() {
-                New SqlParameter("Address", Address),
-                New SqlParameter("City", City),
-                New SqlParameter("PostalCode", PostalCode),
-                New SqlParameter("AirsNumber", txtEILogSelectedAIRSNumber.Text)
+                New SqlParameter("@Address", Address),
+                New SqlParameter("@City", City),
+                New SqlParameter("@PostalCode", PostalCode),
+                New SqlParameter("@AirsNumber", txtEILogSelectedAIRSNumber.Text)
             }
 
             DB.RunCommand(query, parameters)
@@ -11997,14 +11997,14 @@ Public Class DMUEisGecoTool
 
         If FacilityName <> "" Then
             Dim query As String = "Update EIS_FacilitySite set " &
-            " strFacilitySiteName = :FacilityName " &
-            " where facilitysiteid = :AirsNumber"
+            " strFacilitySiteName = @FacilityName " &
+            " where facilitysiteid = @AirsNumber"
 
             Dim parameters As SqlParameter()
 
             parameters = New SqlParameter() {
-                New SqlParameter("FacilityName", FacilityName),
-                New SqlParameter("AirsNumber", txtEILogSelectedAIRSNumber.Text)
+                New SqlParameter("@FacilityName", FacilityName),
+                New SqlParameter("@AirsNumber", txtEILogSelectedAIRSNumber.Text)
             }
 
             DB.RunCommand(query, parameters)
@@ -12068,17 +12068,17 @@ Public Class DMUEisGecoTool
             MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
         Else
             Dim query As String = "UPDATE EIS_FACILITYSITE " &
-                " SET STRFACILITYSITESTATUSCODE = :statuscode " &
-                " , STRFACILITYSITECOMMENT = :sitecomment " &
-                " , UPDATEUSER = :updateuser " &
+                " SET STRFACILITYSITESTATUSCODE = @statuscode " &
+                " , STRFACILITYSITECOMMENT = @sitecomment " &
+                " , UPDATEUSER = @updateuser " &
                 " , UPDATEDATETIME = sysdate " &
-                " WHERE FACILITYSITEID = :siteid "
+                " WHERE FACILITYSITEID = @siteid "
 
             Dim parameters As SqlParameter() = New SqlParameter() {
-                New SqlParameter("statuscode", cbEisModifyOperStatus.SelectedValue.ToString),
-                New SqlParameter("sitecomment", "Site status updated from IAIP"),
-                New SqlParameter("updateuser", CurrentUser.UserID & "-" & CurrentUser.AlphaName),
-                New SqlParameter("siteid", txtEILogSelectedAIRSNumber.Text)
+                New SqlParameter("@statuscode", cbEisModifyOperStatus.SelectedValue.ToString),
+                New SqlParameter("@sitecomment", "Site status updated from IAIP"),
+                New SqlParameter("@updateuser", CurrentUser.UserID & "-" & CurrentUser.AlphaName),
+                New SqlParameter("@siteid", txtEILogSelectedAIRSNumber.Text)
             }
 
             If DB.RunCommand(query, parameters) Then
@@ -13394,8 +13394,8 @@ Public Class DMUEisGecoTool
                     cmd.CommandType = CommandType.StoredProcedure
                     temp = dgvEISStats(1, i).Value
 
-                    cmd.Parameters.Add(New SqlParameter("AIRSNUMBER_IN", SqlDbType.VarChar)).Value = dgvEISStats(1, i).Value
-                    cmd.Parameters.Add(New SqlParameter("INTYEAR_IN", SqlDbType.Decimal)).Value = cboEISStatisticsYear.Text
+                    cmd.Parameters.Add(New SqlParameter("@AIRSNUMBER_IN", SqlDbType.VarChar)).Value = dgvEISStats(1, i).Value
+                    cmd.Parameters.Add(New SqlParameter("@INTYEAR_IN", SqlDbType.Decimal)).Value = cboEISStatisticsYear.Text
 
                     cmd.ExecuteNonQuery()
 

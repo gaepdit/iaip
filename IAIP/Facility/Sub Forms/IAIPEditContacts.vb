@@ -201,12 +201,12 @@ Public Class IAIPEditContacts
         Try
             If Me.AirsNumber.ToString IsNot Nothing And Key <> ContactKey.None Then
                 Dim query As String = "Select * from APBContactInformation " &
-                "where strAIRSNumber = :airsnumber " &
-                "and strKey = :key "
+                "where strAIRSNumber = @airsnumber " &
+                "and strKey = @key "
 
                 Dim parameters As SqlParameter() = New SqlParameter() {
-                    New SqlParameter("airsnumber", Me.AirsNumber.DbFormattedString),
-                    New SqlParameter("key", Key.ToString("D"))
+                    New SqlParameter("@airsnumber", Me.AirsNumber.DbFormattedString),
+                    New SqlParameter("@key", Key.ToString("D"))
                 }
 
                 Using connection As New SqlConnection(CurrentConnectionString)

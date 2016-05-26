@@ -2764,11 +2764,11 @@ Public Class PASPFeeAuditLog
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
                 " FROM FS_ADMIN " &
                 " WHERE RowNum = 1 " &
-                " AND strAIRSnumber = :pAirsNumber " &
-                " AND numFeeYear = :pFeeYear "
+                " AND strAIRSnumber = @pAirsNumber " &
+                " AND numFeeYear = @pFeeYear "
             Dim parameters As SqlParameter() = {
-                New SqlParameter("pAirsNumber", Me.ExpandedAirsNumber),
-                New SqlParameter("pFeeYear", Me.FeeYear)
+                New SqlParameter("@pAirsNumber", Me.ExpandedAirsNumber),
+                New SqlParameter("@pFeeYear", Me.FeeYear)
             }
             Dim result As Boolean = DB.GetBoolean(query, parameters)
 
@@ -3755,8 +3755,8 @@ Public Class PASPFeeAuditLog
                 cmd.CommandType = CommandType.StoredProcedure
 
                 Dim aN As Apb.ApbFacilityId = mtbAirsNumber.Text
-                cmd.Parameters.Add(New SqlParameter("AIRSNumber", SqlDbType.VarChar)).Value = aN.DbFormattedString
-                cmd.Parameters.Add(New SqlParameter("FeeYear", SqlDbType.Decimal)).Value = FeeYear
+                cmd.Parameters.Add(New SqlParameter("@AIRSNumber", SqlDbType.VarChar)).Value = aN.DbFormattedString
+                cmd.Parameters.Add(New SqlParameter("@FeeYear", SqlDbType.Decimal)).Value = FeeYear
 
                 cmd.ExecuteNonQuery()
             End If
@@ -4774,8 +4774,8 @@ Public Class PASPFeeAuditLog
                 cmd = New SqlCommand("PD_FeeAmendment", CurrentConnection)
                 cmd.CommandType = CommandType.StoredProcedure
 
-                cmd.Parameters.Add(New SqlParameter("AIRSNumber", SqlDbType.VarChar)).Value = Me.ExpandedAirsNumber
-                cmd.Parameters.Add(New SqlParameter("FeeYear", SqlDbType.Decimal)).Value = Me.FeeYear
+                cmd.Parameters.Add(New SqlParameter("@AIRSNumber", SqlDbType.VarChar)).Value = Me.ExpandedAirsNumber
+                cmd.Parameters.Add(New SqlParameter("@FeeYear", SqlDbType.Decimal)).Value = Me.FeeYear
 
                 cmd.ExecuteNonQuery()
 
@@ -5541,8 +5541,8 @@ Public Class PASPFeeAuditLog
             cmd = New SqlCommand("PD_FEE_MAILOUT", CurrentConnection)
             cmd.CommandType = CommandType.StoredProcedure
 
-            cmd.Parameters.Add(New SqlParameter("FeeYear", SqlDbType.Decimal)).Value = FeeYear
-            cmd.Parameters.Add(New SqlParameter("AIRSNumber", SqlDbType.VarChar)).Value = "0413" & AIRSNumber
+            cmd.Parameters.Add(New SqlParameter("@FeeYear", SqlDbType.Decimal)).Value = FeeYear
+            cmd.Parameters.Add(New SqlParameter("@AIRSNumber", SqlDbType.VarChar)).Value = "0413" & AIRSNumber
 
             cmd.ExecuteNonQuery()
 
@@ -5552,8 +5552,8 @@ Public Class PASPFeeAuditLog
             cmd = New SqlCommand("PD_FEE_DATA", CurrentConnection)
             cmd.CommandType = CommandType.StoredProcedure
 
-            cmd.Parameters.Add(New SqlParameter("FeeYear", SqlDbType.Decimal)).Value = FeeYear
-            cmd.Parameters.Add(New SqlParameter("AIRSNumber", SqlDbType.VarChar)).Value = "0413" & AIRSNumber
+            cmd.Parameters.Add(New SqlParameter("@FeeYear", SqlDbType.Decimal)).Value = FeeYear
+            cmd.Parameters.Add(New SqlParameter("@AIRSNumber", SqlDbType.VarChar)).Value = "0413" & AIRSNumber
 
             cmd.ExecuteNonQuery()
 
@@ -5695,8 +5695,8 @@ Public Class PASPFeeAuditLog
             cmd = New SqlCommand("PD_FEE_MAILOUT", CurrentConnection)
             cmd.CommandType = CommandType.StoredProcedure
 
-            cmd.Parameters.Add(New SqlParameter("FeeYear", SqlDbType.Decimal)).Value = FeeYear
-            cmd.Parameters.Add(New SqlParameter("AIRSNumber", SqlDbType.VarChar)).Value = "0413" & AIRSNumber
+            cmd.Parameters.Add(New SqlParameter("@FeeYear", SqlDbType.Decimal)).Value = FeeYear
+            cmd.Parameters.Add(New SqlParameter("@AIRSNumber", SqlDbType.VarChar)).Value = "0413" & AIRSNumber
 
             cmd.ExecuteNonQuery()
 
@@ -5706,8 +5706,8 @@ Public Class PASPFeeAuditLog
             cmd = New SqlCommand("PD_FEE_DATA", CurrentConnection)
             cmd.CommandType = CommandType.StoredProcedure
 
-            cmd.Parameters.Add(New SqlParameter("FeeYear", SqlDbType.Decimal)).Value = FeeYear
-            cmd.Parameters.Add(New SqlParameter("AIRSNumber", SqlDbType.VarChar)).Value = "0413" & AIRSNumber
+            cmd.Parameters.Add(New SqlParameter("@FeeYear", SqlDbType.Decimal)).Value = FeeYear
+            cmd.Parameters.Add(New SqlParameter("@AIRSNumber", SqlDbType.VarChar)).Value = "0413" & AIRSNumber
 
             cmd.ExecuteNonQuery()
 
@@ -5726,18 +5726,18 @@ Public Class PASPFeeAuditLog
         Try
             Dim SQL As String = "Update FS_FeeInvoice set " &
             "strInvoiceStatus = '1', " &
-            "UpdateUser = :Username,  " &
+            "UpdateUser = @Username,  " &
             "updateDateTime = sysdate " &
-            "where numFeeYear = :FeeYear " &
-            "and strAIRSNumber = :AirsNumber " &
+            "where numFeeYear = @FeeYear " &
+            "and strAIRSNumber = @AirsNumber " &
             "and numAmount = '0' " &
             "and strInvoiceStatus = '0' " &
             "and active = '1' "
 
             Dim parameters As SqlParameter() = New SqlParameter() {
-                New SqlParameter("Username", CurrentUser.AlphaName),
-                New SqlParameter("FeeYear", FeeYear),
-                New SqlParameter("AirsNumber", AirsNumber)
+                New SqlParameter("@Username", CurrentUser.AlphaName),
+                New SqlParameter("@FeeYear", FeeYear),
+                New SqlParameter("@AirsNumber", AirsNumber)
             }
 
             If Not DB.RunCommand(SQL, parameters) Then

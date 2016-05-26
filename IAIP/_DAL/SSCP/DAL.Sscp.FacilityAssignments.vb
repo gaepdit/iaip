@@ -17,12 +17,12 @@ Namespace DAL.Sscp
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
                 " FROM SSCPINSPECTIONSREQUIRED " &
                 " WHERE RowNum = 1 " &
-                " AND INTYEAR = :year " &
-                " AND STRAIRSNUMBER = :airs "
+                " AND INTYEAR = @year " &
+                " AND STRAIRSNUMBER = @airs "
 
             Dim parameters As SqlParameter() = New SqlParameter() {
-                New SqlParameter("year", targetYear),
-                New SqlParameter("airs", airsNumber.DbFormattedString)
+                New SqlParameter("@year", targetYear),
+                New SqlParameter("@airs", airsNumber.DbFormattedString)
             }
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameters)
@@ -33,8 +33,8 @@ Namespace DAL.Sscp
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
                 " FROM SSCPINSPECTIONSREQUIRED " &
                 " WHERE RowNum = 1 " &
-                " AND INTYEAR = :year "
-            Dim parameter As New SqlParameter("year", targetYear)
+                " AND INTYEAR = @year "
+            Dim parameter As New SqlParameter("@year", targetYear)
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
             Return Convert.ToBoolean(result)
@@ -42,8 +42,8 @@ Namespace DAL.Sscp
 
         Public Function DeleteAssignmentYear(ByVal targetYear As Integer) As Boolean
             Dim query As String = " DELETE FROM SSCPINSPECTIONSREQUIRED " &
-                " WHERE INTYEAR = :year "
-            Dim parameter As New SqlParameter("year", targetYear)
+                " WHERE INTYEAR = @year "
+            Dim parameter As New SqlParameter("@year", targetYear)
 
             Return DB.RunCommand(query, parameter)
         End Function
@@ -59,9 +59,9 @@ Namespace DAL.Sscp
 
             Dim query1 As String = " SELECT   STRAIRSNUMBER " &
                 "  FROM SSCPINSPECTIONSREQUIRED " &
-                "  WHERE INTYEAR = :oldYear " &
+                "  WHERE INTYEAR = @oldYear " &
                 "  ORDER BY STRAIRSNUMBER "
-            Dim parameter1 As New SqlParameter("oldYear", oldYear)
+            Dim parameter1 As New SqlParameter("@oldYear", oldYear)
             Dim dataTable As DataTable = DB.GetDataTable(query1, parameter1)
 
             If dataTable IsNot Nothing AndAlso dataTable.Rows.Count > 0 Then
@@ -87,7 +87,7 @@ Namespace DAL.Sscp
                             "    (SELECT MAX(NUMKEY) + 1 FROM SSCPINSPECTIONSREQUIRED " &
                             "    ) AS NEWKEY " &
                             "  , STRAIRSNUMBER " &
-                            "  , :targetyear " &
+                            "  , @targetyear " &
                             "  , NUMSSCPENGINEER " &
                             "  , NUMSSCPUNIT " &
                             "  , STRINSPECTIONREQUIRED " &
@@ -95,13 +95,13 @@ Namespace DAL.Sscp
                             "  , STRASSIGNINGMANAGER " &
                             "  , DATASSIGNINGDATE " &
                             "  FROM SSCPINSPECTIONSREQUIRED " &
-                            "  WHERE INTYEAR       = :oldyear " &
-                            "    AND STRAIRSNUMBER = :airsnumber "
+                            "  WHERE INTYEAR       = @oldyear " &
+                            "    AND STRAIRSNUMBER = @airsnumber "
 
                         Dim parameters2 As SqlParameter() = New SqlParameter() {
-                            New SqlParameter("targetyear", targetYear) _
-                            , New SqlParameter("oldyear", oldYear) _
-                            , New SqlParameter("airsnumber", airsNumberString)
+                            New SqlParameter("@targetyear", targetYear) _
+                            , New SqlParameter("@oldyear", oldYear) _
+                            , New SqlParameter("@airsnumber", airsNumberString)
                         }
 
                         Dim recordInserted As Integer = 0

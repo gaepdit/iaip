@@ -24,8 +24,8 @@ Namespace DAL
                 " FROM LK_SIC " &
                 " WHERE RowNum = 1 " &
                 " AND ACTIVE = 1 " &
-                " AND SIC_CODE = :pId "
-            Dim parameter As New SqlParameter("pId", sicCode)
+                " AND SIC_CODE = @pId "
+            Dim parameter As New SqlParameter("@pId", sicCode)
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
             Return Convert.ToBoolean(result)
@@ -45,8 +45,8 @@ Namespace DAL
                 " FROM LK_NAICS " &
                 " WHERE RowNum = 1 " &
                 " AND ACTIVE = 1 " &
-                " AND NAICS_CODE = :pId "
-            Dim parameter As New SqlParameter("pId", naicsCode)
+                " AND NAICS_CODE = @pId "
+            Dim parameter As New SqlParameter("@pId", naicsCode)
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
             Return Convert.ToBoolean(result)
@@ -64,7 +64,7 @@ Namespace DAL
         ''' <remarks>Data retrieved from VW_FACILITY_HEADERDATA view.</remarks>
         Public Function GetFacilityHeaderDataAsDataRow(ByVal airsNumber As ApbFacilityId) As DataRow
             Dim spName As String = "IAIP_FACILITY.GetFacilityHeaderData"
-            Dim parameter As New SqlParameter("AirsNumber", airsNumber.DbFormattedString)
+            Dim parameter As New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
             Return DB.SPGetDataRow(spName, parameter)
         End Function
 
@@ -117,13 +117,13 @@ Namespace DAL
         ''' <remarks>Data retrieved from VW_HB_APBHEADERDATA view.</remarks>
         Public Function GetFacilityHeaderDataHistoryAsDataTable(ByVal airsNumber As ApbFacilityId) As DataTable
             Dim spName As String = "IAIP_FACILITY.GetFacilityHeaderDataHistory"
-            Dim parameter As New SqlParameter("AirsNumber", airsNumber.DbFormattedString)
+            Dim parameter As New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
             Return DB.SPGetDataTable(spName, parameter)
         End Function
 
         Public Function GetFacilityOperationalStatus(airsNumber As ApbFacilityId) As FacilityOperationalStatus
-            Dim query As String = "SELECT STROPERATIONALSTATUS FROM APBHEADERDATA WHERE STRAIRSNUMBER = :airsNumber"
-            Dim parameter As New SqlParameter("airsNumber", airsNumber.DbFormattedString)
+            Dim query As String = "SELECT STROPERATIONALSTATUS FROM APBHEADERDATA WHERE STRAIRSNUMBER = @airsNumber"
+            Dim parameter As New SqlParameter("@airsNumber", airsNumber.DbFormattedString)
             Return [Enum].Parse(GetType(FacilityOperationalStatus), DB.GetSingleValue(Of String)(query, parameter))
         End Function
 
@@ -158,51 +158,51 @@ Namespace DAL
             ' 1. Update ApbHeaderData
             queryList.Add(
                 "UPDATE APBHEADERDATA " &
-                "  SET STROPERATIONALSTATUS = :OperationalStatusCode, " &
-                "    STRCLASS               = :Classification, " &
-                "    STRAIRPROGRAMCODES     = :AirProgramsCode, " &
-                "    STRSICCODE             = :SicCode, " &
-                "    DATSTARTUPDATE         = :StartupDate, " &
-                "    DATSHUTDOWNDATE        = :ShutdownDate, " &
-                "    STRCOMMENTS            = :HeaderUpdateComment, " &
-                "    STRPLANTDESCRIPTION    = :FacilityDescription, " &
-                "    STRATTAINMENTSTATUS    = :NonattainmentStatusesCode, " &
-                "    STRSTATEPROGRAMCODES   = :AirProgramClassifications, " &
-                "    STRMODIFINGLOCATION    = :fromLocation, " &
-                "    STRNAICSCODE           = :Naics, " &
-                "    STRMODIFINGPERSON      = :modifiedby, " &
+                "  SET STROPERATIONALSTATUS = @OperationalStatusCode, " &
+                "    STRCLASS               = @Classification, " &
+                "    STRAIRPROGRAMCODES     = @AirProgramsCode, " &
+                "    STRSICCODE             = @SicCode, " &
+                "    DATSTARTUPDATE         = @StartupDate, " &
+                "    DATSHUTDOWNDATE        = @ShutdownDate, " &
+                "    STRCOMMENTS            = @HeaderUpdateComment, " &
+                "    STRPLANTDESCRIPTION    = @FacilityDescription, " &
+                "    STRATTAINMENTSTATUS    = @NonattainmentStatusesCode, " &
+                "    STRSTATEPROGRAMCODES   = @AirProgramClassifications, " &
+                "    STRMODIFINGLOCATION    = @fromLocation, " &
+                "    STRNAICSCODE           = @Naics, " &
+                "    STRMODIFINGPERSON      = @modifiedby, " &
                 "    DATMODIFINGDATE        = sysdate " &
-                "  WHERE STRAIRSNUMBER      = :airsnumber "
+                "  WHERE STRAIRSNUMBER      = @airsnumber "
             )
             parametersList.Add(New SqlParameter() {
-                New SqlParameter("OperationalStatusCode", headerData.OperationalStatusCode),
-                New SqlParameter("Classification", headerData.Classification.ToString),
-                New SqlParameter("AirProgramsCode", headerData.AirProgramsCode),
-                New SqlParameter("SicCode", headerData.SicCode),
-                New SqlParameter("StartupDate", headerData.StartupDate),
-                New SqlParameter("ShutdownDate", headerData.ShutdownDate),
-                New SqlParameter("HeaderUpdateComment", headerData.HeaderUpdateComment),
-                New SqlParameter("FacilityDescription", headerData.FacilityDescription),
-                New SqlParameter("NonattainmentStatusesCode", headerData.NonattainmentStatusesCode),
-                New SqlParameter("AirProgramClassifications", headerData.AirProgramClassificationsCode),
-                New SqlParameter("fromLocation", Convert.ToInt32(fromLocation)),
-                New SqlParameter("Naics", headerData.Naics),
-                New SqlParameter("modifiedby", CurrentUser.UserID),
-                New SqlParameter("airsnumber", headerData.AirsNumber.DbFormattedString)
+                New SqlParameter("@OperationalStatusCode", headerData.OperationalStatusCode),
+                New SqlParameter("@Classification", headerData.Classification.ToString),
+                New SqlParameter("@AirProgramsCode", headerData.AirProgramsCode),
+                New SqlParameter("@SicCode", headerData.SicCode),
+                New SqlParameter("@StartupDate", headerData.StartupDate),
+                New SqlParameter("@ShutdownDate", headerData.ShutdownDate),
+                New SqlParameter("@HeaderUpdateComment", headerData.HeaderUpdateComment),
+                New SqlParameter("@FacilityDescription", headerData.FacilityDescription),
+                New SqlParameter("@NonattainmentStatusesCode", headerData.NonattainmentStatusesCode),
+                New SqlParameter("@AirProgramClassifications", headerData.AirProgramClassificationsCode),
+                New SqlParameter("@fromLocation", Convert.ToInt32(fromLocation)),
+                New SqlParameter("@Naics", headerData.Naics),
+                New SqlParameter("@modifiedby", CurrentUser.UserID),
+                New SqlParameter("@airsnumber", headerData.AirsNumber.DbFormattedString)
             })
 
             ' 2. Update ApbSupplamentalData (sic)
             queryList.Add(
                 " UPDATE APBSUPPLAMENTALDATA " &
-                "  SET STRMODIFINGPERSON = :modifiedby, " &
+                "  SET STRMODIFINGPERSON = @modifiedby, " &
                 "    DATMODIFINGDATE     = sysdate, " &
-                "    STRRMPID            = :rmp " &
-                "  WHERE STRAIRSNUMBER   = :airsnumber "
+                "    STRRMPID            = @rmp " &
+                "  WHERE STRAIRSNUMBER   = @airsnumber "
             )
             parametersList.Add(New SqlParameter() {
-                New SqlParameter("modifiedby", CurrentUser.UserID),
-                New SqlParameter("rmp", headerData.RmpId),
-                New SqlParameter("airsnumber", headerData.AirsNumber.DbFormattedString)
+                New SqlParameter("@modifiedby", CurrentUser.UserID),
+                New SqlParameter("@rmp", headerData.RmpId),
+                New SqlParameter("@airsnumber", headerData.AirsNumber.DbFormattedString)
             })
 
             ' Check for existance of each possible AirProgram
@@ -218,13 +218,13 @@ Namespace DAL
                     '     ApbAirProgramPollutants with new operating status
                     queryList.Add(
                         " UPDATE APBAIRPROGRAMPOLLUTANTS " &
-                        "  SET STROPERATIONALSTATUS = :operatingstatus " &
-                        "  WHERE STRAIRSNUMBER      = :airsnumber " &
+                        "  SET STROPERATIONALSTATUS = @operatingstatus " &
+                        "  WHERE STRAIRSNUMBER      = @airsnumber " &
                         "  AND STROPERATIONALSTATUS <> 'X' "
                     )
                     parametersList.Add(New SqlParameter() {
-                        New SqlParameter("operatingstatus", headerData.OperationalStatus.ToString),
-                        New SqlParameter("airsnumber", headerData.AirsNumber.DbFormattedString)
+                        New SqlParameter("@operatingstatus", headerData.OperationalStatus.ToString),
+                        New SqlParameter("@airsnumber", headerData.AirsNumber.DbFormattedString)
                     })
 
                     ' 3b. Any active APC must have at least one key in ApbAirProgramPollutants;
@@ -239,25 +239,25 @@ Namespace DAL
                         "    STRMODIFINGPERSON, " &
                         "    DATMODIFINGDATE, " &
                         "    STROPERATIONALSTATUS ) " &
-                        " SELECT :airsnumber, " &
-                        "    :airpollkey, " &
-                        "    :pollkey, " &
-                        "    :modifiedby, " &
+                        " SELECT @airsnumber, " &
+                        "    @airpollkey, " &
+                        "    @pollkey, " &
+                        "    @modifiedby, " &
                         "    SYSDATE, " &
-                        "    :operatingstatus " &
+                        "    @operatingstatus " &
                         " FROM DUAL " &
                         " WHERE NOT EXISTS " &
                         "  (SELECT NULL " &
                         "  FROM APBAIRPROGRAMPOLLUTANTS " &
-                        "  WHERE STRAIRPOLLUTANTKEY = :airpollkey " &
+                        "  WHERE STRAIRPOLLUTANTKEY = @airpollkey " &
                         "  ) "
                     )
                     parametersList.Add(New SqlParameter() {
-                        New SqlParameter("airsnumber", headerData.AirsNumber.DbFormattedString),
-                        New SqlParameter("airpollkey", headerData.AirsNumber.DbFormattedString & FacilityHeaderData.GetAirProgramDbKey(apc)),
-                        New SqlParameter("pollkey", "OT"),
-                        New SqlParameter("modifiedby", CurrentUser.UserID),
-                        New SqlParameter("operatingstatus", headerData.OperationalStatus.ToString)
+                        New SqlParameter("@airsnumber", headerData.AirsNumber.DbFormattedString),
+                        New SqlParameter("@airpollkey", headerData.AirsNumber.DbFormattedString & FacilityHeaderData.GetAirProgramDbKey(apc)),
+                        New SqlParameter("@pollkey", "OT"),
+                        New SqlParameter("@modifiedby", CurrentUser.UserID),
+                        New SqlParameter("@operatingstatus", headerData.OperationalStatus.ToString)
                     })
 
                 Else
@@ -265,15 +265,15 @@ Namespace DAL
                     ' 4. For any inactive APC, change any existing subparts in ApbSubpartData to inactive
                     queryList.Add(
                         " UPDATE APBSUBPARTDATA " &
-                        "  SET ACTIVE          = :active, " &
-                        "    UPDATEUSER        = :modifiedby, " &
+                        "  SET ACTIVE          = @active, " &
+                        "    UPDATEUSER        = @modifiedby, " &
                         "    UPDATEDATETIME    = sysdate " &
-                        "  WHERE STRSUBPARTKEY = :airpollkey "
+                        "  WHERE STRSUBPARTKEY = @airpollkey "
                     )
                     parametersList.Add(New SqlParameter() {
-                        New SqlParameter("active", "0"),
-                        New SqlParameter("modifiedby", CurrentUser.UserID),
-                        New SqlParameter("airpollkey", headerData.AirsNumber.DbFormattedString & FacilityHeaderData.GetAirProgramDbKey(apc))
+                        New SqlParameter("@active", "0"),
+                        New SqlParameter("@modifiedby", CurrentUser.UserID),
+                        New SqlParameter("@airpollkey", headerData.AirsNumber.DbFormattedString & FacilityHeaderData.GetAirProgramDbKey(apc))
                     })
 
                 End If
@@ -283,14 +283,14 @@ Namespace DAL
             queryList.Add(
                 " UPDATE AFSAIRPOLLUTANTDATA " &
                 "  SET STRUPDATESTATUS   = 'C', " &
-                "    STRMODIFINGPERSON   = :modifiedby, " &
+                "    STRMODIFINGPERSON   = @modifiedby, " &
                 "    DATMODIFINGDATE     = sysdate " &
-                "  WHERE STRAIRSNUMBER   = :airsnumber " &
+                "  WHERE STRAIRSNUMBER   = @airsnumber " &
                 "    AND STRUPDATESTATUS = 'N' "
             )
             parametersList.Add(New SqlParameter() {
-                New SqlParameter("modifiedby", CurrentUser.UserID),
-                New SqlParameter("airsnumber", headerData.AirsNumber.DbFormattedString)
+                New SqlParameter("@modifiedby", CurrentUser.UserID),
+                New SqlParameter("@airsnumber", headerData.AirsNumber.DbFormattedString)
             })
 
             Return DB.RunCommand(queryList, parametersList)

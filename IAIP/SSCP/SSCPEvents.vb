@@ -3056,13 +3056,13 @@ Public Class SSCPEvents
             Dim parametersList As New List(Of SqlParameter())
             Dim parameters As SqlParameter()
 
-            query = " UDPATE AFSSSCPRECORDS SET STRUPDATESTATUS = 'D' WHERE STRTRACKINGNUMBER = :pId "
+            query = " UDPATE AFSSSCPRECORDS SET STRUPDATESTATUS = 'D' WHERE STRTRACKINGNUMBER = @pId "
             queryList.Add(query)
-            parameters = New SqlParameter() {New SqlParameter("pId", txtTrackingNumber.Text)}
+            parameters = New SqlParameter() {New SqlParameter("@pId", txtTrackingNumber.Text)}
             parametersList.Add(parameters)
 
             query = " UPDATE SSCPITEMMASTER SET STRDELETE = '" & Boolean.TrueString & "' " &
-                " WHERE STRTRACKINGNUMBER = :pId "
+                " WHERE STRTRACKINGNUMBER = @pId "
             queryList.Add(query)
             parametersList.Add(parameters) ' parameters are same for both queries
 

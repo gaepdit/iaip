@@ -139,8 +139,8 @@ Namespace DAL
                 " ON IAIP_BINARYFILES.BINARYFILEID = IAIP_SSCP_ENFORCEMENTDOCS.NUMBINARYFILE " &
                 " INNER JOIN IAIP_LK_SSCPDOCUMENTTYPE " &
                 " ON IAIP_SSCP_ENFORCEMENTDOCS.NUMDOCUMENTTYPE = IAIP_LK_SSCPDOCUMENTTYPE.DOCUMENTTYPEID " &
-                " WHERE IAIP_SSCP_ENFORCEMENTDOCS.STRENFORCEMENTNUMBER = :pId "
-            Dim parameter As New SqlParameter("pId", enfNum)
+                " WHERE IAIP_SSCP_ENFORCEMENTDOCS.STRENFORCEMENTNUMBER = @pId "
+            Dim parameter As New SqlParameter("@pId", enfNum)
             Return DB.GetDataTable(query, parameter)
         End Function
 
@@ -220,8 +220,8 @@ Namespace DAL
         Public Function DownloadFile(ByVal id As Integer, ByVal filePath As String) As Boolean
             Dim query As String = " SELECT IAIP_BINARYFILES.BLOBDOCUMENT " &
                                 " FROM IAIP_BINARYFILES " &
-                                " WHERE IAIP_BINARYFILES.BINARYFILEID = :pBinId "
-            Dim parameter As SqlParameter = New SqlParameter("pBinId", id)
+                                " WHERE IAIP_BINARYFILES.BINARYFILEID = @pBinId "
+            Dim parameter As SqlParameter = New SqlParameter("@pBinId", id)
             Return SaveBinaryFileFromDB(filePath, query, parameter)
         End Function
 
@@ -254,29 +254,29 @@ Namespace DAL
             'queryList.Add(
             '    " INSERT INTO IAIP_BINARYFILES " &
             '    " (BINARYFILEID,STRFILENAME,STRFILEEXTENSION,NUMFILESIZE,BLOBDOCUMENT,UPDATEUSER,UPDATEDATE,CREATEDATE) " &
-            '    " VALUES (:pBinId,:pFileName,:pFileExt,:pFileSize,:pBinFile,:pUser,:pUpdateDate,:pCreateDate) "
+            '    " VALUES (@pBinId,@pFileName,@pFileExt,@pFileSize,@pBinFile,@pUser,@pUpdateDate,@pCreateDate) "
             ')
             'parameters = New SqlParameter() {
-            '    New SqlParameter("pBinId", binarySeqId),
-            '    New SqlParameter("pFileName", doc.FileName),
-            '    New SqlParameter("pFileExt", doc.FileExtension),
-            '    New SqlParameter("pFileSize", doc.FileSize),
-            '    New SqlParameter("pBinFile", SqlDbType.VarBinary, DB.ReadByteArrayFromFile(pathToFile), ParameterDirection.Input),
-            '    New SqlParameter("pUser", CurrentUser.UserID),
-            '    New SqlParameter("pUpdateDate", Date.Now),
-            '    New SqlParameter("pCreateDate", Date.Now)
+            '    New SqlParameter("@pBinId", binarySeqId),
+            '    New SqlParameter("@pFileName", doc.FileName),
+            '    New SqlParameter("@pFileExt", doc.FileExtension),
+            '    New SqlParameter("@pFileSize", doc.FileSize),
+            '    New SqlParameter("@pBinFile", SqlDbType.VarBinary, DB.ReadByteArrayFromFile(pathToFile), ParameterDirection.Input),
+            '    New SqlParameter("@pUser", CurrentUser.UserID),
+            '    New SqlParameter("@pUpdateDate", Date.Now),
+            '    New SqlParameter("@pCreateDate", Date.Now)
             '}
             'parametersList.Add(parameters)
 
             'queryList.Add(metaDataQuery)
             'parameters = New SqlParameter() {
-            '    New SqlParameter("pBinId", binarySeqId),
-            '    New SqlParameter("pMetaDataId", metaDataId),
-            '    New SqlParameter("pDocTypeId", doc.DocumentTypeId),
-            '    New SqlParameter("pComment", doc.Comment),
-            '    New SqlParameter("pUser", CurrentUser.UserID),
-            '    New SqlParameter("pUpdateDate", Date.Now),
-            '    New SqlParameter("pCreateDate", Date.Now)
+            '    New SqlParameter("@pBinId", binarySeqId),
+            '    New SqlParameter("@pMetaDataId", metaDataId),
+            '    New SqlParameter("@pDocTypeId", doc.DocumentTypeId),
+            '    New SqlParameter("@pComment", doc.Comment),
+            '    New SqlParameter("@pUser", CurrentUser.UserID),
+            '    New SqlParameter("@pUpdateDate", Date.Now),
+            '    New SqlParameter("@pCreateDate", Date.Now)
             '}
             'parametersList.Add(parameters)
 
@@ -294,7 +294,7 @@ Namespace DAL
             Dim metaDataQuery As String =
                             " INSERT INTO IAIP_SSCP_ENFORCEMENTDOCS " &
                             " (NUMBINARYFILE,STRENFORCEMENTNUMBER,NUMDOCUMENTTYPE,STRCOMMENT,UPDATEUSER,UPDATEDATE,CREATEDATE) " &
-                            " VALUES (:pBinId,:pMetaDataId,:pDocTypeId,:pComment,:pUser,:pUpdateDate,:pCreateDate) "
+                            " VALUES (@pBinId,@pMetaDataId,@pDocTypeId,@pComment,@pUser,@pUpdateDate,@pCreateDate) "
             Dim metaDataId As String = doc.EnforcementNumber
             Return UploadDocument(doc, pathToFile, metaDataQuery, metaDataId, sender)
         End Function
@@ -313,8 +313,8 @@ Namespace DAL
                 sender.Cursor = Cursors.AppStarting
             End If
 
-            Dim query As String = " DELETE FROM IAIP_BINARYFILES WHERE BINARYFILEID = :pBinId "
-            Dim parameter As SqlParameter = New SqlParameter("pBinId", id)
+            Dim query As String = " DELETE FROM IAIP_BINARYFILES WHERE BINARYFILEID = @pBinId "
+            Dim parameter As SqlParameter = New SqlParameter("@pBinId", id)
 
             Dim result As Boolean = DB.RunCommand(query, parameter)
 
@@ -332,11 +332,11 @@ Namespace DAL
             If doc Is Nothing Then Return False
             Dim query As String =
                 " UPDATE IAIP_SSCP_ENFORCEMENTDOCS " &
-                " SET NUMDOCUMENTTYPE = :pDocTypeId, " &
-                " STRCOMMENT = :pComment, " &
-                " UPDATEUSER = :pUser, " &
-                " UPDATEDATE = :pUpdateDate " &
-                " WHERE ENFORCEMENTDOCSID = :pDocId "
+                " SET NUMDOCUMENTTYPE = @pDocTypeId, " &
+                " STRCOMMENT = @pComment, " &
+                " UPDATEUSER = @pUser, " &
+                " UPDATEDATE = @pUpdateDate " &
+                " WHERE ENFORCEMENTDOCSID = @pDocId "
             Return UpdateDocument(doc, query, sender)
         End Function
 
@@ -346,11 +346,11 @@ Namespace DAL
             End If
 
             Dim parameters As SqlParameter() = {
-                New SqlParameter("pDocTypeId", doc.DocumentTypeId),
-                New SqlParameter("pComment", doc.Comment),
-                New SqlParameter("pUser", CurrentUser.UserID),
-                New SqlParameter("pUpdateDate", Date.Now),
-                New SqlParameter("pDocId", doc.DocumentId)
+                New SqlParameter("@pDocTypeId", doc.DocumentTypeId),
+                New SqlParameter("@pComment", doc.Comment),
+                New SqlParameter("@pUser", CurrentUser.UserID),
+                New SqlParameter("@pUpdateDate", Date.Now),
+                New SqlParameter("@pDocId", doc.DocumentId)
             }
 
             Dim result As Boolean = DB.RunCommand(query, parameters)
@@ -420,16 +420,16 @@ Namespace DAL
 
             Dim query As String =
                 " UPDATE IAIP_LK_SSCPDOCUMENTTYPE " &
-                " SET STRDOCUMENTTYPE  = :pDocType, " &
-                "   FACTIVE            = :pActive, " &
-                "   NUMORDINAL         = :pPosition " &
-                " WHERE DOCUMENTTYPEID = :pId "
+                " SET STRDOCUMENTTYPE  = @pDocType, " &
+                "   FACTIVE            = @pActive, " &
+                "   NUMORDINAL         = @pPosition " &
+                " WHERE DOCUMENTTYPEID = @pId "
 
             Dim parameters As SqlParameter() = {
-                New SqlParameter("pDocType", d.DocumentType),
-                New SqlParameter("pActive", d.Active.ToString),
-                New SqlParameter("pPosition", d.Ordinal),
-                New SqlParameter("pId", d.DocumentTypeId)
+                New SqlParameter("@pDocType", d.DocumentType),
+                New SqlParameter("@pActive", d.Active.ToString),
+                New SqlParameter("@pPosition", d.Ordinal),
+                New SqlParameter("@pId", d.DocumentTypeId)
             }
 
             Dim result As Boolean = DB.RunCommand(query, parameters)
@@ -451,12 +451,12 @@ Namespace DAL
             Dim query As String =
                 " INSERT INTO IAIP_LK_SSCPDOCUMENTTYPE " &
                 " (STRDOCUMENTTYPE, FACTIVE, NUMORDINAL ) " &
-                " VALUES (:pName, :pActive, :pOrdinal) "
+                " VALUES (@pName, @pActive, @pOrdinal) "
 
             Dim parameters As SqlParameter() = {
-                New SqlParameter("pName", d.DocumentType),
-                New SqlParameter("pActive", d.Active.ToString),
-                New SqlParameter("pOrdinal", d.Ordinal)
+                New SqlParameter("@pName", d.DocumentType),
+                New SqlParameter("@pActive", d.Active.ToString),
+                New SqlParameter("@pOrdinal", d.Ordinal)
             }
 
             Dim result As Boolean = DB.RunCommand(query, parameters)

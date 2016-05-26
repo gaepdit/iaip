@@ -21,8 +21,8 @@ Namespace DAL.Sscp
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
                 " FROM SSCPITEMMASTER " &
                 " WHERE RowNum = 1 " &
-                " AND STRTRACKINGNUMBER = :id "
-            Dim parameter As New SqlParameter("id", trackingNumber)
+                " AND STRTRACKINGNUMBER = @id "
+            Dim parameter As New SqlParameter("@id", trackingNumber)
 
             Return DB.GetBoolean(query, parameter)
         End Function
@@ -39,9 +39,9 @@ Namespace DAL.Sscp
                 ) As String
             Dim clause As String = ""
 
-            If airs IsNot Nothing Then clause &= " AND STRAIRSNUMBER = :airs "
+            If airs IsNot Nothing Then clause &= " AND STRAIRSNUMBER = @airs "
 
-            If Not String.IsNullOrEmpty(staffId) Then clause &= " AND STRRESPONSIBLESTAFF = :staffId "
+            If Not String.IsNullOrEmpty(staffId) Then clause &= " AND STRRESPONSIBLESTAFF = @staffId "
 
             If complete = WorkItemComplete.Complete Then
                 clause &= " AND DATCOMPLETEDATE IS NOT NULL "
@@ -76,8 +76,8 @@ Namespace DAL.Sscp
             Dim query As String = "SELECT STRREFERENCENUMBER " &
                 " FROM SSCPTESTREPORTS " &
                 " WHERE RowNum = 1 " &
-                " AND STRTRACKINGNUMBER = :id "
-            Dim parameter As New SqlParameter("id", trackingNumber)
+                " AND STRTRACKINGNUMBER = @id "
+            Dim parameter As New SqlParameter("@id", trackingNumber)
 
             refNum = DB.GetSingleValue(Of String)(query, parameter)
 
@@ -109,13 +109,13 @@ Namespace DAL.Sscp
 
             Dim query As String =
                 "SELECT * FROM VW_SSCP_STACKTESTS " &
-                " WHERE TRUNC(DATRECEIVEDFROMFACILITY) BETWEEN :datestart AND :dateend "
+                " WHERE TRUNC(DATRECEIVEDFROMFACILITY) BETWEEN @datestart AND @dateend "
             query &= QueryFilter(airs, staffId, complete, deleted)
             Dim parameters As SqlParameter() = {
-                New SqlParameter("datestart", dateRangeStart),
-                New SqlParameter("dateend", dateRangeEnd),
-                New SqlParameter("airs", airs.DbFormattedString),
-                New SqlParameter("staffId", staffId)
+                New SqlParameter("@datestart", dateRangeStart),
+                New SqlParameter("@dateend", dateRangeEnd),
+                New SqlParameter("@airs", airs.DbFormattedString),
+                New SqlParameter("@staffId", staffId)
             }
             Return DB.GetDataTable(query, parameters)
         End Function
@@ -134,8 +134,8 @@ Namespace DAL.Sscp
 
             Dim query As String = "SELECT INSPECTION_ID " &
             "  FROM GEOS_INSPECTIONS_XREF " &
-            "  WHERE STRTRACKINGNUMBER = :id "
-            Dim parameter As New SqlParameter("id", id)
+            "  WHERE STRTRACKINGNUMBER = @id "
+            Dim parameter As New SqlParameter("@id", id)
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
             Return result
@@ -162,13 +162,13 @@ Namespace DAL.Sscp
 
             Dim query As String =
                 "SELECT * FROM VW_SSCP_INSPECTIONS " &
-                " WHERE TRUNC(DATINSPECTIONDATESTART) BETWEEN :datestart AND :dateend "
+                " WHERE TRUNC(DATINSPECTIONDATESTART) BETWEEN @datestart AND @dateend "
             query &= QueryFilter(airs, staffId, complete, deleted)
             Dim parameters As SqlParameter() = {
-                New SqlParameter("datestart", dateRangeStart),
-                New SqlParameter("dateend", dateRangeEnd),
-                New SqlParameter("airs", airs.DbFormattedString),
-                New SqlParameter("staffId", staffId)
+                New SqlParameter("@datestart", dateRangeStart),
+                New SqlParameter("@dateend", dateRangeEnd),
+                New SqlParameter("@airs", airs.DbFormattedString),
+                New SqlParameter("@staffId", staffId)
             }
             Return DB.GetDataTable(query, parameters)
         End Function
@@ -198,13 +198,13 @@ Namespace DAL.Sscp
 
             Dim query As String =
                 "SELECT * FROM VW_SSCP_ACCS " &
-                " WHERE TRUNC(DATRECEIVEDDATE) BETWEEN :datestart AND :dateend "
+                " WHERE TRUNC(DATRECEIVEDDATE) BETWEEN @datestart AND @dateend "
             query &= QueryFilter(airs, staffId, complete, deleted)
             Dim parameters As SqlParameter() = {
-                New SqlParameter("datestart", dateRangeStart),
-                New SqlParameter("dateend", dateRangeEnd),
-                New SqlParameter("airs", airs.DbFormattedString),
-                New SqlParameter("staffId", staffId)
+                New SqlParameter("@datestart", dateRangeStart),
+                New SqlParameter("@dateend", dateRangeEnd),
+                New SqlParameter("@airs", airs.DbFormattedString),
+                New SqlParameter("@staffId", staffId)
             }
             Return DB.GetDataTable(query, parameters)
         End Function
@@ -234,13 +234,13 @@ Namespace DAL.Sscp
 
             Dim query As String =
                 "SELECT * FROM VW_SSCP_NOTIFICATIONS " &
-                " WHERE TRUNC(DATRECEIVEDDATE) BETWEEN :datestart AND :dateend "
+                " WHERE TRUNC(DATRECEIVEDDATE) BETWEEN @datestart AND @dateend "
             query &= QueryFilter(airs, staffId, complete, deleted)
             Dim parameters As SqlParameter() = {
-                New SqlParameter("datestart", dateRangeStart),
-                New SqlParameter("dateend", dateRangeEnd),
-                New SqlParameter("airs", airs.DbFormattedString),
-                New SqlParameter("staffId", staffId)
+                New SqlParameter("@datestart", dateRangeStart),
+                New SqlParameter("@dateend", dateRangeEnd),
+                New SqlParameter("@airs", airs.DbFormattedString),
+                New SqlParameter("@staffId", staffId)
             }
             Return DB.GetDataTable(query, parameters)
         End Function
@@ -270,13 +270,13 @@ Namespace DAL.Sscp
 
             Dim query As String =
                 "SELECT * FROM VW_SSCP_REPORTS " &
-                " WHERE TRUNC(DATRECEIVEDDATE) BETWEEN :datestart AND :dateend "
+                " WHERE TRUNC(DATRECEIVEDDATE) BETWEEN @datestart AND @dateend "
             query &= QueryFilter(airs, staffId, complete, deleted)
             Dim parameters As SqlParameter() = {
-                New SqlParameter("datestart", dateRangeStart),
-                New SqlParameter("dateend", dateRangeEnd),
-                New SqlParameter("airs", airs.DbFormattedString),
-                New SqlParameter("staffId", staffId)
+                New SqlParameter("@datestart", dateRangeStart),
+                New SqlParameter("@dateend", dateRangeEnd),
+                New SqlParameter("@airs", airs.DbFormattedString),
+                New SqlParameter("@staffId", staffId)
             }
             Return DB.GetDataTable(query, parameters)
         End Function
@@ -306,13 +306,13 @@ Namespace DAL.Sscp
 
             Dim query As String =
                 "SELECT * FROM VW_SSCP_RMPINSPECTIONS " &
-                " WHERE TRUNC(DATINSPECTIONDATESTART) BETWEEN :datestart AND :dateend "
+                " WHERE TRUNC(DATINSPECTIONDATESTART) BETWEEN @datestart AND @dateend "
             query &= QueryFilter(airs, staffId, complete, deleted)
             Dim parameters As SqlParameter() = {
-                New SqlParameter("datestart", dateRangeStart),
-                New SqlParameter("dateend", dateRangeEnd),
-                New SqlParameter("airs", airs.DbFormattedString),
-                New SqlParameter("staffId", staffId)
+                New SqlParameter("@datestart", dateRangeStart),
+                New SqlParameter("@dateend", dateRangeEnd),
+                New SqlParameter("@airs", airs.DbFormattedString),
+                New SqlParameter("@staffId", staffId)
             }
             Return DB.GetDataTable(query, parameters)
         End Function

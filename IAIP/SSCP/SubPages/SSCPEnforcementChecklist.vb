@@ -113,7 +113,7 @@ Public Class SSCPEnforcementChecklist
         "SSCPItemMaster.strEventType = LookUPComplianceActivities.strActivityType " &
         "and SSCPItemMaster.strairsnumber = APBFacilityInformation.strairsnumber " &
         "and EPDUserProfiles.numUserID = SSCPItemMaster.strResponsibleStaff " &
-        "and SSCPItemMaster.strAIRSNumber = :airsnumber " &
+        "and SSCPItemMaster.strAIRSNumber = @airsnumber " &
         "and SSCPItemMaster.strEventType <> '05' "
 
         If chbWorkType.Checked = True Then
@@ -153,7 +153,7 @@ Public Class SSCPEnforcementChecklist
         End If
 
         If chbFilterDates.Checked Then
-            SQLLine = SQLLine & " and SSCPItemMaster.datReceivedDate between :startdate and :enddate "
+            SQLLine = SQLLine & " and SSCPItemMaster.datReceivedDate between @startdate and @enddate "
         End If
 
         If SQLLine <> "" Then
@@ -164,13 +164,13 @@ Public Class SSCPEnforcementChecklist
 
         If chbFilterDates.Checked Then
             oraparams = {
-                New SqlParameter("airsnumber", AirsNumber.DbFormattedString),
-                New SqlParameter("startdate", DTPStartDate.Value),
-                New SqlParameter("enddate", DTPEndDate.Value)
+                New SqlParameter("@airsnumber", AirsNumber.DbFormattedString),
+                New SqlParameter("@startdate", DTPStartDate.Value),
+                New SqlParameter("@enddate", DTPEndDate.Value)
             }
         Else
             oraparams = {
-                New SqlParameter("airsnumber", AirsNumber.DbFormattedString)
+                New SqlParameter("@airsnumber", AirsNumber.DbFormattedString)
             }
         End If
 

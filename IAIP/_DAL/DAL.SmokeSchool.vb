@@ -34,9 +34,9 @@ Namespace DAL
                 " STRFIRSTNAME AS FirstName, STRLASTNAME AS LastName, " &
                 " TO_CHAR(NUMUSERID) AS StudentID " &
                 " FROM SMOKESCHOOLRESERVATION " &
-                " WHERE STRLOCATIONDATE = :pId " &
+                " WHERE STRLOCATIONDATE = @pId " &
                 " ORDER BY LastName, FirstName, StudentID "
-            Dim parameter As New SqlParameter("pId", id)
+            Dim parameter As New SqlParameter("@pId", id)
             Dim table As DataTable = DB.GetDataTable(query, parameter)
 
             For Each row As DataRow In table.Rows

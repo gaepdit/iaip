@@ -12,8 +12,8 @@ Namespace DAL.Sspp
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
                 " FROM APBISSUEDPERMIT " &
                 " WHERE RowNum = 1 " &
-                " AND STRPERMITNUMBER = :permitnumber "
-            Dim parameter As New SqlParameter("permitnumber", permitNumber)
+                " AND STRPERMITNUMBER = @permitnumber "
+            Dim parameter As New SqlParameter("@permitnumber", permitNumber)
 
             Return DB.GetBoolean(query, parameter)
         End Function
@@ -28,10 +28,10 @@ Namespace DAL.Sspp
                 "   ACTIVE, " &
                 "   PERMITTYPECODE " &
                 " FROM APBISSUEDPERMIT " &
-                " WHERE STRPERMITNUMBER = :permitnumber " &
+                " WHERE STRPERMITNUMBER = @permitnumber " &
                 " ORDER BY DATISSUED DESC"
 
-            Dim parameter As New SqlParameter("permitnumber", permitNumber)
+            Dim parameter As New SqlParameter("@permitnumber", permitNumber)
             Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
             Return GetPermitFromDataRow(dr)
@@ -63,11 +63,11 @@ Namespace DAL.Sspp
                 "   ACTIVE, " &
                 "   PERMITTYPECODE " &
                 " FROM APBISSUEDPERMIT " &
-                " WHERE STRAIRSNUMBER = :airsnumber " &
+                " WHERE STRAIRSNUMBER = @airsnumber " &
                 " AND ACTIVE = '1' " &
                 " ORDER BY DATISSUED Nulls FIRST "
 
-            Dim parameter As New SqlParameter("airsnumber", airsNumber)
+            Dim parameter As New SqlParameter("@airsnumber", airsNumber)
             Return DB.GetDataTable(query, parameter)
         End Function
 
@@ -94,15 +94,15 @@ Namespace DAL.Sspp
 
             Dim query As String =
                 " UPDATE APBISSUEDPERMIT " &
-                " SET STRAIRSNUMBER    = :AirsNumber, " &
-                "   STRPERMITNUMBER    = :PermitNumber, " &
-                "   DATISSUED          = :IssuedDate, " &
-                "   DATREVOKED         = :RevokedDate, " &
-                "   UPDATEDATE         = :UpdateDate, " &
-                "   UPDATEDBY          = :UpdatedBy, " &
-                "   ACTIVE             = :Active, " &
-                "   PERMITTYPECODE     = :PermitTypeCode " &
-                " WHERE ISSUEDPERMITID = :ID "
+                " SET STRAIRSNUMBER    = @AirsNumber, " &
+                "   STRPERMITNUMBER    = @PermitNumber, " &
+                "   DATISSUED          = @IssuedDate, " &
+                "   DATREVOKED         = @RevokedDate, " &
+                "   UPDATEDATE         = @UpdateDate, " &
+                "   UPDATEDBY          = @UpdatedBy, " &
+                "   ACTIVE             = @Active, " &
+                "   PERMITTYPECODE     = @PermitTypeCode " &
+                " WHERE ISSUEDPERMITID = @ID "
 
             Dim queryList As New List(Of String)
             Dim parametersList As New List(Of SqlParameter())
@@ -111,15 +111,15 @@ Namespace DAL.Sspp
             For Each permit As Permit In permits
                 queryList.Add(query)
                 parameters = New SqlParameter() {
-                    New SqlParameter("AirsNumber", permit.AirsNumber),
-                    New SqlParameter("PermitNumber", permit.PermitNumber),
-                    New SqlParameter("IssuedDate", permit.IssuedDate),
-                    New SqlParameter("RevokedDate", permit.RevokedDate),
-                    New SqlParameter("UpdateDate", Date.Now),
-                    New SqlParameter("UpdatedBy", CurrentUser.UserID),
-                    New SqlParameter("Active", Convert.ToInt32(permit.Active)),
-                    New SqlParameter("PermitTypeCode", permit.PermitTypeCode),
-                    New SqlParameter("ID", permit.ID)
+                    New SqlParameter("@AirsNumber", permit.AirsNumber),
+                    New SqlParameter("@PermitNumber", permit.PermitNumber),
+                    New SqlParameter("@IssuedDate", permit.IssuedDate),
+                    New SqlParameter("@RevokedDate", permit.RevokedDate),
+                    New SqlParameter("@UpdateDate", Date.Now),
+                    New SqlParameter("@UpdatedBy", CurrentUser.UserID),
+                    New SqlParameter("@Active", Convert.ToInt32(permit.Active)),
+                    New SqlParameter("@PermitTypeCode", permit.PermitTypeCode),
+                    New SqlParameter("@ID", permit.ID)
                 }
                 parametersList.Add(parameters)
             Next
@@ -156,29 +156,29 @@ Namespace DAL.Sspp
                 "   VALUES " &
                 "   ( " &
                 "     PERMITID_SEQ.NEXTVAL, " &
-                "     :AirsNumber, " &
-                "     :PermitNumber, " &
-                "     :IssuedDate, " &
-                "     :RevokedDate, " &
-                "     :CreateDate, " &
-                "     :CreatedBy, " &
-                "     :UpdateDate, " &
-                "     :UpdatedBy, " &
-                "     :Active, " &
-                "     :PermitTypeCode " &
+                "     @AirsNumber, " &
+                "     @PermitNumber, " &
+                "     @IssuedDate, " &
+                "     @RevokedDate, " &
+                "     @CreateDate, " &
+                "     @CreatedBy, " &
+                "     @UpdateDate, " &
+                "     @UpdatedBy, " &
+                "     @Active, " &
+                "     @PermitTypeCode " &
                 "   ) "
 
             Dim parameters As SqlParameter() = {
-                New SqlParameter("AirsNumber", permit.AirsNumber),
-                New SqlParameter("PermitNumber", permit.PermitNumber),
-                New SqlParameter("IssuedDate", permit.IssuedDate),
-                New SqlParameter("RevokedDate", permit.RevokedDate),
-                New SqlParameter("CreateDate", Date.Now),
-                New SqlParameter("CreatedBy", CurrentUser.UserID),
-                New SqlParameter("UpdateDate", Date.Now),
-                New SqlParameter("UpdatedBy", CurrentUser.UserID),
-                New SqlParameter("Active", Convert.ToInt32(permit.Active)),
-                New SqlParameter("PermitTypeCode", permit.PermitTypeCode)
+                New SqlParameter("@AirsNumber", permit.AirsNumber),
+                New SqlParameter("@PermitNumber", permit.PermitNumber),
+                New SqlParameter("@IssuedDate", permit.IssuedDate),
+                New SqlParameter("@RevokedDate", permit.RevokedDate),
+                New SqlParameter("@CreateDate", Date.Now),
+                New SqlParameter("@CreatedBy", CurrentUser.UserID),
+                New SqlParameter("@UpdateDate", Date.Now),
+                New SqlParameter("@UpdatedBy", CurrentUser.UserID),
+                New SqlParameter("@Active", Convert.ToInt32(permit.Active)),
+                New SqlParameter("@PermitTypeCode", permit.PermitTypeCode)
             }
 
             Return DB.RunCommand(query, parameters)

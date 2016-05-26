@@ -21,13 +21,13 @@ Namespace DAL.Dmu
             'Dim em As New EdtErrorMessage
             'Dim spName As String = "ICIS_EDT.GetErrorMessageDetail"
             'Dim parameters As SqlParameter() = {
-            '    New SqlParameter("ERRORCODE", SqlDbType.VarChar, errorCode, ParameterDirection.Input),
-            '    New SqlParameter("ERRORMESSAGE", SqlDbType.VarChar, 4000, Nothing, ParameterDirection.Output),
-            '    New SqlParameter("CATEGORY", SqlDbType.VarChar, 100, Nothing, ParameterDirection.Output),
-            '    New SqlParameter("BUSINESSRULECODE", SqlDbType.VarChar, 10, Nothing, ParameterDirection.Output),
-            '    New SqlParameter("BUSINESSRULE", SqlDbType.VarChar, 4000, Nothing, ParameterDirection.Output),
-            '    New SqlParameter("DefaultUserID", SqlDbType.Int, 22, Nothing, ParameterDirection.Output),
-            '    New SqlParameter("DefaultUserName", SqlDbType.VarChar, 202, Nothing, ParameterDirection.Output)
+            '    New SqlParameter("@ERRORCODE", SqlDbType.VarChar, errorCode, ParameterDirection.Input),
+            '    New SqlParameter("@ERRORMESSAGE", SqlDbType.VarChar, 4000, Nothing, ParameterDirection.Output),
+            '    New SqlParameter("@CATEGORY", SqlDbType.VarChar, 100, Nothing, ParameterDirection.Output),
+            '    New SqlParameter("@BUSINESSRULECODE", SqlDbType.VarChar, 10, Nothing, ParameterDirection.Output),
+            '    New SqlParameter("@BUSINESSRULE", SqlDbType.VarChar, 4000, Nothing, ParameterDirection.Output),
+            '    New SqlParameter("@DefaultUserID", SqlDbType.Int, 22, Nothing, ParameterDirection.Output),
+            '    New SqlParameter("@DefaultUserName", SqlDbType.VarChar, 202, Nothing, ParameterDirection.Output)
             '}
 
             'Dim result As Boolean = DB.SPRunCommand(spName, parameters)
@@ -55,7 +55,7 @@ Namespace DAL.Dmu
         ''' <returns>A DataTable</returns>
         Public Function GetErrorCounts(ByVal userID As Integer) As DataTable
             Dim spName As String = "ICIS_EDT.GetErrorCounts"
-            Dim parameter As SqlParameter = New SqlParameter("userID", userID)
+            Dim parameter As SqlParameter = New SqlParameter("@userID", userID)
             Return DB.SPGetDataTable(spName, parameter)
         End Function
 
@@ -66,7 +66,7 @@ Namespace DAL.Dmu
         ''' <returns>A DataTable</returns>
         Public Function GetErrors(ByVal errorCode As String) As DataTable
             Dim spName As String = "ICIS_EDT.GetErrors"
-            Dim parameter As SqlParameter = New SqlParameter("errorCode", errorCode)
+            Dim parameter As SqlParameter = New SqlParameter("@errorCode", errorCode)
             Return DB.SPGetDataTable(spName, parameter)
         End Function
 
@@ -79,7 +79,7 @@ Namespace DAL.Dmu
             Dim er As EdtError = Nothing
 
             Dim spName As String = "ICIS_EDT.GetErrorDetail"
-            Dim parameter As SqlParameter = New SqlParameter("errorID", errorID)
+            Dim parameter As SqlParameter = New SqlParameter("@errorID", errorID)
 
             Dim dt As DataTable = DB.SPGetDataTable(spName, parameter)
 
@@ -146,8 +146,8 @@ Namespace DAL.Dmu
             Dim spName As String = "ICIS_EDT.SetDefaultUser"
 
             Dim parameters As SqlParameter() = {
-                New SqlParameter("ErrorCode", errorCode),
-                New SqlParameter("UserID", defaultUserID)
+                New SqlParameter("@ErrorCode", errorCode),
+                New SqlParameter("@UserID", defaultUserID)
             }
 
             Return DB.SPRunCommand(spName, parameters)
@@ -177,9 +177,9 @@ Namespace DAL.Dmu
 
             'Dim spName As String = "ICIS_EDT.SetResolvedStatus"
 
-            'Dim p1 As SqlParameter = New SqlParameter("Resolved", resolved.ToString)
+            'Dim p1 As SqlParameter = New SqlParameter("@Resolved", resolved.ToString)
 
-            'Dim p2 As SqlParameter = New SqlParameter("UserID", CurrentUser.UserID)
+            'Dim p2 As SqlParameter = New SqlParameter("@UserID", CurrentUser.UserID)
 
             'Dim p3 As New SqlParameter
             'p3.ParameterName = "ErrorIdArray"
@@ -218,7 +218,7 @@ Namespace DAL.Dmu
 
             'Dim spName As String = "ICIS_EDT.AssignErrors"
 
-            'Dim p1 As SqlParameter = New SqlParameter("UserID", userId)
+            'Dim p1 As SqlParameter = New SqlParameter("@UserID", userId)
 
             'Dim p2 As New SqlParameter
             'p2.ParameterName = "ErrorIdArray"

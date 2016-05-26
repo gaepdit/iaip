@@ -62,9 +62,9 @@ Public Class IAIPFacilityLookUpTool
                 "strFacilityCity, " &
                 "strFacilityStreet1 " &
                 "from APBFacilityInformation " &
-                "where strAirsNumber Like :SearchString"
+                "where strAirsNumber Like @SearchString"
 
-                parameter = New SqlParameter("SearchString", "%" & txtAIRSNumberSearch.Text & "%")
+                parameter = New SqlParameter("@SearchString", "%" & txtAIRSNumberSearch.Text & "%")
 
             Case SearchByType.City
                 query = "Select " &
@@ -72,9 +72,9 @@ Public Class IAIPFacilityLookUpTool
                 "strFacilityCity, " &
                 "strFacilityStreet1 " &
                 "from APBFacilityInformation " &
-                "where Upper(strFacilityCity) Like Upper(:SearchString)"
+                "where Upper(strFacilityCity) Like Upper(@SearchString)"
 
-                parameter = New SqlParameter("SearchString", "%" & txtCityNameSearch.Text & "%")
+                parameter = New SqlParameter("@SearchString", "%" & txtCityNameSearch.Text & "%")
 
             Case SearchByType.County
                 query = "Select " &
@@ -83,9 +83,9 @@ Public Class IAIPFacilityLookUpTool
                  "strFacilityStreet1, strCountyName " &
                  "from APBFacilityInformation, LookUpCountyInformation " &
                  "where substr(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode " &
-                 "and upper(strCountyName) like Upper(:SearchString) "
+                 "and upper(strCountyName) like Upper(@SearchString) "
 
-                parameter = New SqlParameter("SearchString", "%" & txtCountyNameSearch.Text & "%")
+                parameter = New SqlParameter("@SearchString", "%" & txtCountyNameSearch.Text & "%")
 
             Case SearchByType.FacilityName
                 query = "Select " &
@@ -93,9 +93,9 @@ Public Class IAIPFacilityLookUpTool
                 "strFacilityCity, " &
                 "strFacilityStreet1 " &
                 "from APBFacilityInformation " &
-                "where Upper(strFacilityName) Like Upper(:SearchString)"
+                "where Upper(strFacilityName) Like Upper(@SearchString)"
 
-                parameter = New SqlParameter("SearchString", "%" & txtFacilityNameSearch.Text & "%")
+                parameter = New SqlParameter("@SearchString", "%" & txtFacilityNameSearch.Text & "%")
 
             Case SearchByType.HistoricalName
                 query = "Select " &
@@ -104,14 +104,14 @@ Public Class IAIPFacilityLookUpTool
                 "strFacilityCity, " &
                 "strFacilityStreet1 " &
                 "from APBFacilityInformation " &
-                "where Upper(strFacilityName) Like Upper(:SearchString)" &
+                "where Upper(strFacilityName) Like Upper(@SearchString)" &
                 "Union " &
                 "Select " &
                 "distinct(strFacilityName) as strFacilityName, " &
                 "substr(strAIRSNumber, 5) as shortAIRS, " &
                 "strFacilityCity, strFacilityStreet1 " &
                 "from HB_APBFacilityInformation " &
-                "where Upper(strFacilityName) Like Upper(:SearchString)" &
+                "where Upper(strFacilityName) Like Upper(@SearchString)" &
                 "Union " &
                 "select " &
                 "Distinct(strFacilityname) as strFacilityname,  " &
@@ -119,9 +119,9 @@ Public Class IAIPFacilityLookUpTool
                 "strFacilityCity, strFacilityStreet1  " &
                 "from SSPPApplicationData, SSPPApplicationMaster   " &
                 "where SSPPApplicationData.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber " &
-                "and upper(strFacilityname) like Upper(:SearchString) "
+                "and upper(strFacilityname) like Upper(@SearchString) "
 
-                parameter = New SqlParameter("SearchString", "%" & txtFacilityNameSearch.Text & "%")
+                parameter = New SqlParameter("@SearchString", "%" & txtFacilityNameSearch.Text & "%")
 
             Case SearchByType.SicCode
                 query = "Select " &
@@ -129,10 +129,10 @@ Public Class IAIPFacilityLookUpTool
                 "strSICCode, " &
                 "strFacilityCity, strFacilityStreet1 " &
                 "from APBFacilityInformation, APBHeaderData " &
-                "where Upper(APBHeaderData.strSICCode) Like Upper(:SearchString) " &
+                "where Upper(APBHeaderData.strSICCode) Like Upper(@SearchString) " &
                 "and APBFacilityInformation.strairsnumber = APBHeaderData.strAIRSNumber"
 
-                parameter = New SqlParameter("SearchString", txtSICCodeSearch.Text & "%")
+                parameter = New SqlParameter("@SearchString", txtSICCodeSearch.Text & "%")
 
             Case SearchByType.Subpart
                 If rdbPart60.Checked Then
@@ -148,7 +148,7 @@ Public Class IAIPFacilityLookUpTool
                     "APBFacilityInformation.strAIRSNumber = APBSubPartData.strAIRSNumber  " &
                     "and APBSubpartData.strSubPart = LookUpSubPart60.strSubpart  " &
                     "and substr(strSubpartKey, 13) = '9'  " &
-                    "and (APBSubpartData.strSubpart) like :SearchString   "
+                    "and (APBSubpartData.strSubpart) like @SearchString   "
 
                 ElseIf rdbPart61.Checked Then
                     query = "select " &
@@ -163,7 +163,7 @@ Public Class IAIPFacilityLookUpTool
                     "APBFacilityInformation.strAIRSNumber = APBSubPartData.strAIRSNumber  " &
                     "and APBSubpartData.strSubPart = LookUpSubPart61.strSubpart  " &
                     "and substr(strSubpartKey, 13) = '8'  " &
-                    "and (APBSubpartData.strSubpart) like :SearchString   "
+                    "and (APBSubpartData.strSubpart) like @SearchString   "
 
                 ElseIf rdbPart63.Checked Then
                     query = "select " &
@@ -178,7 +178,7 @@ Public Class IAIPFacilityLookUpTool
                     "APBFacilityInformation.strAIRSNumber = APBSubPartData.strAIRSNumber  " &
                     "and APBSubpartData.strSubPart = LookUpSubPart63.strSubpart  " &
                     "and substr(strSubpartKey, 13) = 'M'  " &
-                    "and (APBSubpartData.strSubpart) like :SearchString   "
+                    "and (APBSubpartData.strSubpart) like @SearchString   "
 
                 ElseIf rdbGASIP.Checked Then
                     query = "select " &
@@ -193,10 +193,10 @@ Public Class IAIPFacilityLookUpTool
                     "APBFacilityInformation.strAIRSNumber = APBSubPartData.strAIRSNumber  " &
                     "and APBSubpartData.strSubPart = LookUpSubPartSIP.strSubpart  " &
                     "and substr(strSubpartKey, 13) = '0'  " &
-                    "and (APBSubpartData.strSubpart) like :SearchString   "
+                    "and (APBSubpartData.strSubpart) like @SearchString   "
                 End If
 
-                parameter = New SqlParameter("SearchString", "%" & txtSubpartSearch.Text & "%")
+                parameter = New SqlParameter("@SearchString", "%" & txtSubpartSearch.Text & "%")
 
             Case SearchByType.ZipCode
                 query = "Select " &
@@ -204,9 +204,9 @@ Public Class IAIPFacilityLookUpTool
                 "strFacilityCity, " &
                 "strFacilityStreet1, strFacilityZipCode " &
                 "from APBFacilityInformation " &
-                "where Upper(strFacilityZipCode) Like Upper(:SearchString)"
+                "where Upper(strFacilityZipCode) Like Upper(@SearchString)"
 
-                parameter = New SqlParameter("SearchString", "%" & txtZipCodeSearch.Text & "%")
+                parameter = New SqlParameter("@SearchString", "%" & txtZipCodeSearch.Text & "%")
 
             Case SearchByType.Inspector
                 query = "Select  " &
@@ -219,9 +219,9 @@ Public Class IAIPFacilityLookUpTool
                 "EPDUserProfiles   " &
                 "where APBFacilityInformation.strAIRSNumber = '0413'||VW_SSCPInspection_List.AIRSNumber   " &
                 "and VW_SSCPInspection_List.numSSCPEngineer = EPDUserProfiles.numUserID   " &
-                "and Upper(strLastName||', '||strFirstName) like Upper(:SearchString)  "
+                "and Upper(strLastName||', '||strFirstName) like Upper(@SearchString)  "
 
-                parameter = New SqlParameter("SearchString", "%" & txtComplianceEngineer.Text & "%")
+                parameter = New SqlParameter("@SearchString", "%" & txtComplianceEngineer.Text & "%")
 
             Case Else
                 query = ""

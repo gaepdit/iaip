@@ -10,9 +10,9 @@ Namespace DAL
                 "     (STRLASTNAME || ', ' || STRFIRSTNAME) AS AlphaName " &
                 " FROM EPDUSERPROFILES " &
                 " WHERE NUMEMPLOYEESTATUS = 1 " &
-                " AND NUMBRANCH           = :branch " &
+                " AND NUMBRANCH           = @branch " &
                 " ORDER BY STRLASTNAME, STRFIRSTNAME "
-            Dim parameter As New SqlParameter("branch", branch)
+            Dim parameter As New SqlParameter("@branch", branch)
 
             Return DB.GetDataTable(query, parameter)
         End Function

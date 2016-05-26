@@ -3053,7 +3053,7 @@ Public Class PASPFeeStatistics
                 "FROM FS_TRANSACTIONS tr " &
                 "INNER JOIN APBFACILITYINFORMATION fi ON " &
                 "  tr.STRAIRSNUMBER = fi.STRAIRSNUMBER " &
-                "WHERE tr.DATTRANSACTIONDATE BETWEEN :StartDate AND :EndDate AND " &
+                "WHERE tr.DATTRANSACTIONDATE BETWEEN @StartDate AND @EndDate AND " &
                 "  tr.ACTIVE = '1' " &
                 "GROUP BY fi.STRFACILITYNAME, tr.TRANSACTIONTYPECODE, " &
                 "  tr.STRDEPOSITNO, tr.STRBATCHNO, tr.DATTRANSACTIONDATE, " &
@@ -3061,8 +3061,8 @@ Public Class PASPFeeStatistics
                 "  tr.TRANSACTIONTYPECODE"
 
             Dim parameters As SqlParameter() = {
-                New SqlParameter("StartDate", dtpStartDepositDate.Value),
-                New SqlParameter("EndDate", dtpEndDepositDate.Value)
+                New SqlParameter("@StartDate", dtpStartDepositDate.Value),
+                New SqlParameter("@EndDate", dtpEndDepositDate.Value)
             }
 
             dgvDepositsAndPayments.DataSource = DB.GetDataTable(query, parameters)
@@ -3391,12 +3391,12 @@ Public Class PASPFeeStatistics
         "  UPDATEDATETIME, CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR, " &
         "  STRCREDITCARDNO " &
         "FROM FS_TRANSACTIONS " &
-        "WHERE ACTIVE = '1' AND DATTRANSACTIONDATE BETWEEN :StartDate " &
-        "  AND :EndDate " &
+        "WHERE ACTIVE = '1' AND DATTRANSACTIONDATE BETWEEN @StartDate " &
+        "  AND @EndDate " &
         "ORDER BY NUMFEEYEAR DESC"
         Dim parameters As SqlParameter() = {
-            New SqlParameter("StartDate", dtpDepositReportStartDate.Value),
-            New SqlParameter("EndDate", dtpDepositReportEndDate.Value)
+            New SqlParameter("@StartDate", dtpDepositReportStartDate.Value),
+            New SqlParameter("@EndDate", dtpDepositReportEndDate.Value)
         }
 
         Dim ds As New DataSet
@@ -3420,9 +3420,9 @@ Public Class PASPFeeStatistics
                 "  UPDATEDATETIME, CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR, " &
                 "  STRCREDITCARDNO " &
                 "FROM FS_TRANSACTIONS " &
-                "WHERE ACTIVE = '1' AND STRAIRSNUMBER = :airs " &
+                "WHERE ACTIVE = '1' AND STRAIRSNUMBER = @airs " &
                 "ORDER BY NUMFEEYEAR DESC"
-            Dim parameter As New SqlParameter("airs", "0413" & cboAirs.Text)
+            Dim parameter As New SqlParameter("@airs", "0413" & cboAirs.Text)
 
             Dim ds As New DataSet
             Dim dt As DataTable = DB.GetDataTable(query, parameter)
@@ -8267,16 +8267,16 @@ Public Class PASPFeeStatistics
             If cboFeeStatYear.Text <> "" Then
                 Dim query As String = "Update FS_FeeInvoice set " &
                 "strInvoiceStatus = '1', " &
-                "UpdateUser = :Username,  " &
+                "UpdateUser = @Username,  " &
                 "updateDateTime = sysdate " &
-                "where numFeeYear = :FeeYear " &
+                "where numFeeYear = @FeeYear " &
                 "and numAmount = '0' " &
                 "and strInvoiceStatus = '0' " &
                 "and active = '1' "
 
                 Dim parameters As SqlParameter() = New SqlParameter() {
-                    New SqlParameter("Username", CurrentUser.AlphaName),
-                    New SqlParameter("FeeYear", cboFeeStatYear.Text)
+                    New SqlParameter("@Username", CurrentUser.AlphaName),
+                    New SqlParameter("@FeeYear", cboFeeStatYear.Text)
                 }
 
                 If Not DB.RunCommand(query, parameters) Then
@@ -8290,8 +8290,8 @@ Public Class PASPFeeStatistics
                 "where numAmount = '0' " &
                 "and strInvoiceStatus = '1' " &
                 "and Active = '1' " &
-                "and updateUser = :Username " &
-                "and numFeeyear = :FeeYear "
+                "and updateUser = @Username " &
+                "and numFeeyear = @FeeYear "
 
                 Using connection As New SqlConnection(CurrentConnectionString)
                     Using cmd As SqlCommand = connection.CreateCommand

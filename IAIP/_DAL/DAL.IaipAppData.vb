@@ -7,7 +7,7 @@ Namespace DAL
             Dim query As String = " SELECT FENABLED " &
                 " FROM APBMASTERAPP " &
                 " WHERE STRAPPLICATIONNAME = @STRAPPLICATIONNAME "
-            Dim parameter As SqlParameter = New SqlParameter("STRAPPLICATIONNAME", APP_NAME)
+            Dim parameter As SqlParameter = New SqlParameter("@STRAPPLICATIONNAME", APP_NAME)
 
             Try
                 Return DB.GetBoolean(query, parameter)

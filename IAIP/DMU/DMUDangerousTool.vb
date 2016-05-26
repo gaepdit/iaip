@@ -379,8 +379,8 @@ Public Class DMUDangerousTool
             cmd = New SqlCommand("PD_EIS_QASTART", CurrentConnection)
             cmd.CommandType = CommandType.StoredProcedure
 
-            cmd.Parameters.Add(New SqlParameter("AIRSNUMBER_IN", SqlDbType.VarChar)).Value = txtEISAIRSNumber.Text
-            cmd.Parameters.Add(New SqlParameter("INTYEAR_IN", SqlDbType.Decimal)).Value = txtEISYear.Text
+            cmd.Parameters.Add(New SqlParameter("@AIRSNUMBER_IN", SqlDbType.VarChar)).Value = txtEISAIRSNumber.Text
+            cmd.Parameters.Add(New SqlParameter("@INTYEAR_IN", SqlDbType.Decimal)).Value = txtEISYear.Text
 
             cmd.ExecuteNonQuery()
 

@@ -3680,12 +3680,12 @@ Public Class SmokeSchool
     Public Function GetSmokeSchoolClassesByTerm(ByVal year As String, ByVal season As String) As DataTable
         Dim query As String = "SELECT strLocation, strStartDate, strEndDate " &
             " FROM SmokeSchoolSchedule " &
-            " WHERE stryear = :pYear " &
-            " AND strTerm   = :pTerm "
+            " WHERE stryear = @pYear " &
+            " AND strTerm   = @pTerm "
 
         Dim parameters As SqlParameter() = New SqlParameter() {
-            New SqlParameter("pYear", year),
-            New SqlParameter("pTerm", season)
+            New SqlParameter("@pYear", year),
+            New SqlParameter("@pTerm", season)
         }
 
         Dim dataTable As DataTable = DB.GetDataTable(query, parameters)
@@ -3697,13 +3697,13 @@ Public Class SmokeSchool
             " SUBSTR(strlocationterm, instr(strlocationterm, '-', 1, 1)+2) strLocation, " &
             " row_number () over (partition BY strlocationterm order by strlastname, strfirstname DESC) CertId " &
             " FROM SmokeSchoolScores " &
-            " WHERE strLocationTerm LIKE :pTerm " &
+            " WHERE strLocationTerm LIKE @pTerm " &
             " AND strPassFailNoShow = 'Pass' " &
             " ORDER BY strLocation, strLastName, strfirstname "
 
         '2013 Fall - %'
         Dim term As String = year.ToString & " " & season.ToString & " - %"
-        Dim parameter As SqlParameter = New SqlParameter("pTerm", term)
+        Dim parameter As SqlParameter = New SqlParameter("@pTerm", term)
 
         Dim dataTable As DataTable = DB.GetDataTable(query, parameter)
         Return dataTable

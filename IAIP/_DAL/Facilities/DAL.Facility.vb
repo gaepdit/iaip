@@ -21,8 +21,8 @@ Namespace DAL
 
             'Dim spName As String = "IAIP_FACILITY.AirsNumberExists"
             'Dim parameters As SqlParameter() = New SqlParameter() {
-            '    New SqlParameter("ReturnValue", SqlDbType.VarChar, 5, Nothing, ParameterDirection.ReturnValue),
-            '    New SqlParameter("AirsNumber", airsNumber.DbFormattedString)
+            '    New SqlParameter("@ReturnValue", SqlDbType.VarChar, 5, Nothing, ParameterDirection.ReturnValue),
+            '    New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
             '}
             'DB.SPRunCommand(spName, parameters)
             'Return DBUtilities.GetNullable(Of Boolean)(parameters(0).Value.ToString)
@@ -78,7 +78,7 @@ Namespace DAL
         ''' <remarks>Data retrieved from VW_FACILITY_BASICINFO view.</remarks>
         Private Function GetFacilityAsDataRow(ByVal airsNumber As ApbFacilityId) As DataRow
             Dim spName As String = "IAIP_FACILITY.GetFacilityBasicInfo"
-            Dim parameter As New SqlParameter("AirsNumber", airsNumber.DbFormattedString)
+            Dim parameter As New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
 
             Return DB.SPGetDataRow(spName, parameter)
         End Function
@@ -127,8 +127,8 @@ Namespace DAL
 
             'Dim spName As String = "IAIP_FACILITY.HasFacilityBeenApproved"
             'Dim parameters As SqlParameter() = New SqlParameter() {
-            '    New SqlParameter("ReturnValue", SqlDbType.VarChar, 5, Nothing, ParameterDirection.ReturnValue),
-            '    New SqlParameter("AirsNumber", airsNumber.DbFormattedString)
+            '    New SqlParameter("@ReturnValue", SqlDbType.VarChar, 5, Nothing, ParameterDirection.ReturnValue),
+            '    New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
             '}
             'DB.SPRunCommand(spName, parameters)
             'Return DBUtilities.GetNullable(Of Boolean)(parameters(0).Value.ToString)
@@ -142,7 +142,7 @@ Namespace DAL
         ''' <remarks>Data retrieved from VW_FACILITY_DATADATES view.</remarks>
         Public Function GetDataExchangeDates(ByVal airsNumber As ApbFacilityId) As DataRow
             Dim spName As String = "IAIP_FACILITY.GetDataDates"
-            Dim parameter As New SqlParameter("AirsNumber", airsNumber.DbFormattedString)
+            Dim parameter As New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
             Return DB.SPGetDataRow(spName, parameter)
         End Function
 
@@ -168,11 +168,11 @@ Namespace DAL
             '    4. Revoke all open permits
             Dim spName As String = "IAIP_FACILITY.ShutDownFacility"
             Dim parameters As SqlParameter() = { _
-                New SqlParameter("AirsNumber", airsNumber.DbFormattedString), _
-                New SqlParameter("ShutDownDate", shutdownDate), _
-                New SqlParameter("Comments", comments), _
-                New SqlParameter("FromUiLocation", Convert.ToInt32(fromLocation)), _
-                New SqlParameter("UserId", CurrentUser.UserID) _
+                New SqlParameter("@AirsNumber", airsNumber.DbFormattedString), _
+                New SqlParameter("@ShutDownDate", shutdownDate), _
+                New SqlParameter("@Comments", comments), _
+                New SqlParameter("@FromUiLocation", Convert.ToInt32(fromLocation)), _
+                New SqlParameter("@UserId", CurrentUser.UserID) _
             }
 
             Return DB.SPRunCommand(spName, parameters)
@@ -185,7 +185,7 @@ Namespace DAL
         ''' <returns>True if successful; otherwise false</returns>
         Public Function DeleteFacility(ByVal airsNumber As ApbFacilityId) As Boolean
             Dim spName As String = "IAIP_FACILITY.DeleteFacility"
-            Dim parameter As SqlParameter = New SqlParameter("AirsNumber", airsNumber.DbFormattedString)
+            Dim parameter As SqlParameter = New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
             Return DB.SPRunCommand(spName, parameter)
         End Function
 
@@ -196,7 +196,7 @@ Namespace DAL
         ''' <returns>True if successful; otherwise false</returns>
         Public Function TriggerDataUpdateAtEPA(ByVal airsnumber As ApbFacilityId) As Boolean
             Dim spName As String = "IAIP_FACILITY.TriggerDataUpdateAtEPA"
-            Dim parameter As SqlParameter = New SqlParameter("AirsNumber", airsnumber.DbFormattedString)
+            Dim parameter As SqlParameter = New SqlParameter("@AirsNumber", airsnumber.DbFormattedString)
             Return DB.SPRunCommand(spName, parameter)
         End Function
 

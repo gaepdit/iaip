@@ -53,16 +53,16 @@ Namespace DAL
             '        "     RES_EVENT.STRNOTES " &
             '        " FROM RES_EVENT " &
             '        " WHERE RES_EVENT.DATSTARTDATE       IS NOT NULL " &
-            '        " AND (TRUNC(RES_EVENT.DATSTARTDATE) >= TRUNC(:pFromDate) " &
-            '        " OR :pFromDate                                IS NULL) " &
-            '        " AND (TRUNC(RES_EVENT.DATSTARTDATE) <= TRUNC(:pToDate) " &
-            '        " OR :pToDate                                  IS NULL) " &
+            '        " AND (TRUNC(RES_EVENT.DATSTARTDATE) >= TRUNC(@pFromDate) " &
+            '        " OR @pFromDate                                IS NULL) " &
+            '        " AND (TRUNC(RES_EVENT.DATSTARTDATE) <= TRUNC(@pToDate) " &
+            '        " OR @pToDate                                  IS NULL) " &
             '        " AND RES_EVENT.ACTIVE                = '1' " &
             '        " ORDER BY RES_EVENT.DATSTARTDATE "
 
             '    Dim parameters As SqlParameter() = {
-            '        New SqlParameter("pFromDate", SqlDbType.DateTime2, fromDate, ParameterDirection.Input),
-            '        New SqlParameter("pToDate", SqlDbType.DateTime2, toDate, ParameterDirection.Input)
+            '        New SqlParameter("@pFromDate", SqlDbType.DateTime2, fromDate, ParameterDirection.Input),
+            '        New SqlParameter("@pToDate", SqlDbType.DateTime2, toDate, ParameterDirection.Input)
             '    }
 
             '    Return DB.GetDataTable(query, parameters)
@@ -114,9 +114,9 @@ Namespace DAL
                 " WHERE RES_EVENT.NUMEVENTSTATUSCODE = RESLK_EVENTSTATUS.NUMRESLK_EVENTSTATUSID(+) " &
                 " AND RES_EVENT.STRUSERGCODE         = EP2.NUMUSERID(+) " &
                 " AND RES_EVENT.NUMAPBCONTACT        = EP1.NUMUSERID(+) " &
-                " AND RES_EVENT.NUMRES_EVENTID      = :pId "
+                " AND RES_EVENT.NUMRES_EVENTID      = @pId "
 
-            Dim parameter As New SqlParameter("pId", id)
+            Dim parameter As New SqlParameter("@pId", id)
 
             Dim dataTable As DataTable = DB.GetDataTable(query, parameter)
             If dataTable Is Nothing Then Return Nothing
@@ -206,9 +206,9 @@ Namespace DAL
                 " WHERE RES_REGISTRATION.NUMGECOUSERID           = OLAPUSERPROFILE.NUMUSERID " &
                 " AND RES_REGISTRATION.NUMREGISTRATIONSTATUSCODE = RESLK_REGISTRATIONSTATUS.NUMRESLK_REGISTRATIONSTATUSID " &
                 " AND RES_REGISTRATION.NUMGECOUSERID             = OLAPUSERLOGIN.NUMUSERID " &
-                " AND RES_REGISTRATION.NUMRES_EVENTID           = :pId "
+                " AND RES_REGISTRATION.NUMRES_EVENTID           = @pId "
 
-            Dim parameter As New SqlParameter("pId", id)
+            Dim parameter As New SqlParameter("@pId", id)
 
             Return DB.GetDataTable(query, parameter)
         End Function

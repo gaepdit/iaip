@@ -11,8 +11,8 @@ Namespace DAL.Sspp
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
                 " FROM SSPPAPPLICATIONMASTER " &
                 " WHERE ROWNUM = 1 " &
-                " AND SSPPAPPLICATIONMASTER.STRAPPLICATIONNUMBER = :pId "
-            Dim parameter As New SqlParameter("pId", appNumber)
+                " AND SSPPAPPLICATIONMASTER.STRAPPLICATIONNUMBER = @pId "
+            Dim parameter As New SqlParameter("@pId", appNumber)
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
             Return Convert.ToBoolean(result)
@@ -76,9 +76,9 @@ Namespace DAL.Sspp
         '            ON SSPPAPPLICATIONMASTER.STRAPPLICATIONTYPE = LOOKUPAPPLICATIONTYPES.STRAPPLICATIONTYPECODE
         '            LEFT JOIN EPDUSERPROFILES
         '            ON SSPPAPPLICATIONMASTER.STRSTAFFRESPONSIBLE     = EPDUSERPROFILES.NUMUSERID
-        '            WHERE SSPPAPPLICATIONMASTER.STRAPPLICATIONNUMBER = :pID
+        '            WHERE SSPPAPPLICATIONMASTER.STRAPPLICATIONNUMBER = @pID
         '        ]]></s>.Value
-        '    Dim parameter As New SqlParameter("pId", appNumber)
+        '    Dim parameter As New SqlParameter("@pId", appNumber)
         '    Dim dataTable As DataTable = DB.GetDataTable(query, parameter)
         '    If dataTable Is Nothing Then Return Nothing
 

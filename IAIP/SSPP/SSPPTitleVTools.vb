@@ -703,15 +703,15 @@ Public Class SSPPTitleVTools
             "WHERE ad.STRPERMITNUMBER LIKE '%V__0' AND " &
             "  hd.STROPERATIONALSTATUS <> 'X' AND SUBSTR( " &
             "  hd.STRAIRPROGRAMCODES, 13, 1 ) = '1' AND at.DATEFFECTIVE " &
-            "  BETWEEN :Startdate AND :EndDate AND( am.STRAPPLICATIONTYPE = " &
+            "  BETWEEN @Startdate AND @EndDate AND( am.STRAPPLICATIONTYPE = " &
             "  '14' OR am.STRAPPLICATIONTYPE = '16' OR am.STRAPPLICATIONTYPE " &
             "  = '27' )"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             cmd.Parameters.Clear()
-            Dim param1 As SqlParameter = New SqlParameter("Startdate", Startdate)
+            Dim param1 As SqlParameter = New SqlParameter("@Startdate", Startdate)
             cmd.Parameters.Add(param1)
-            Dim param2 As SqlParameter = New SqlParameter("EndDate", EndDate)
+            Dim param2 As SqlParameter = New SqlParameter("@EndDate", EndDate)
             cmd.Parameters.Add(param2)
 
             If CurrentConnection.State = ConnectionState.Closed Then
