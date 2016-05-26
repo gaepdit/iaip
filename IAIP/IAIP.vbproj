@@ -114,6 +114,10 @@
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="EpdIt.DbHelper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EpdIt.DbHelper.1.0.0\lib\net452\EpdIt.DbHelper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EQATEC.Analytics.Monitor, Version=3.2.61.0, Culture=neutral, PublicKeyToken=213c7c68adb58a17, processorArchitecture=MSIL">
       <HintPath>..\packages\EQATEC.Analytics.Monitor.3.2.61\lib\Net20\EQATEC.Analytics.Monitor.dll</HintPath>
       <Private>True</Private>
@@ -1700,12 +1704,6 @@
       <ProductName>SAP Crystal Reports Runtime Engine for .NET Framework</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\db-helper-class\EpdItDbHelper\EpdItDbHelper.vbproj">
-      <Project>{d069b1f3-fcef-45ea-9bb4-0737d725bedd}</Project>
-      <Name>EpdItDbHelper</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>
