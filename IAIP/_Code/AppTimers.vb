@@ -51,7 +51,6 @@
 
     Private Sub AppDurationTimerElapsed()
         monitor.TrackFeature("Timers.AppDurationTimer")
-        ApplicationInsights.TrackEvent("Timers.AppDurationTimer")
         StartTimer(ShutdownWarningTimer, ShutdownWarningTimerInterval,
                    AddressOf ShutdownWarningTimerElapsed, False)
 
@@ -76,7 +75,6 @@
 
     Private Sub ShutdownWarningTimerElapsed()
         monitor.TrackFeature("Timers.ShutdownWarningTimer")
-        ApplicationInsights.TrackEvent("Timers.ShutdownWarningTimer")
         StartupShutdown.CloseIaip()
     End Sub
 

@@ -3140,7 +3140,6 @@ Public Class PASPFeeStatistics
             ds = New DataSet
             rpt = New FacilityFee10
             monitor.TrackFeature("Report." & rpt.ResourceName)
-            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             SQL = "Select * from AIRBRANCH.VW_Facility_Fee " &
             "where strAIRSNumber = '0413" & cboAirsNo.SelectedValue & "' "
 
@@ -3177,7 +3176,6 @@ Public Class PASPFeeStatistics
             Me.Cursor = Cursors.WaitCursor
             ds = New DataSet
             rpt = New TotalFee10
-            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
             SQL = "Select * from AIRBRANCH.VW_Total_fee "
@@ -3217,7 +3215,6 @@ Public Class PASPFeeStatistics
             Me.Cursor = Cursors.WaitCursor
             ds = New DataSet
             rpt = New FacilityClassification10
-            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
             SQL = "Select * from AIRBRANCH.FSCalculations "
@@ -3265,7 +3262,6 @@ Public Class PASPFeeStatistics
             Else
                 rpt = New FacilityBalancewithZero10
             End If
-            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
             SQL = "SELECT " &
@@ -3335,7 +3331,6 @@ Public Class PASPFeeStatistics
             Me.Cursor = Cursors.Default
             ds = New DataSet
             rpt = New TotalPayment10
-            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             monitor.TrackFeature("Report." & rpt.ResourceName)
             SQL = "Select * from AIRBRANCH.VW_Total_PAYMENT "
             da = New SqlDataAdapter(SQL, CurrentConnection)
@@ -3363,7 +3358,6 @@ Public Class PASPFeeStatistics
             Me.Cursor = Cursors.WaitCursor
             ds = New DataSet
             rpt = New feeByYear10
-            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             monitor.TrackFeature("Report." & rpt.ResourceName)
             SQL = "Select * from AIRBRANCH.FeesDue "
 
@@ -3411,7 +3405,6 @@ Public Class PASPFeeStatistics
         ds.Tables.Add(dt)
 
         rpt = New DepositQA11
-        ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
         monitor.TrackFeature("Report." & rpt.ResourceName & ".byDate")
         rpt.SetDataSource(ds)
 
@@ -3453,7 +3446,6 @@ Public Class PASPFeeStatistics
             Me.Cursor = Cursors.WaitCursor
             ds = New DataSet
             rpt = New ClassChanged10
-            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
             SQL = "select * from AIRBRANCH.VW_Class_Changed"
@@ -3497,7 +3489,6 @@ Public Class PASPFeeStatistics
             da.Fill(ds, "VW_NSPS_Status")
 
             rpt = New NSPSStatus10
-            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             monitor.TrackFeature("Report." & rpt.ResourceName)
             rpt.SetDataSource(ds)
 
@@ -3515,7 +3506,6 @@ Public Class PASPFeeStatistics
             Me.Cursor = Cursors.WaitCursor
             ds = New DataSet
             rpt = New NSPSStatus1_10
-            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             monitor.TrackFeature("Report." & rpt.ResourceName)
             SQL = "Select * " &
             "from AIRBRANCH.VW_NSPS_Status " &
@@ -3544,7 +3534,6 @@ Public Class PASPFeeStatistics
             Me.Cursor = Cursors.WaitCursor
             ds = New DataSet
             rpt = New NSPSStatus2_10
-            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             monitor.TrackFeature("Report." & rpt.ResourceName)
             SQL = "Select * " &
             "from AIRBRANCH.VW_NSPS_Status " &
@@ -3574,7 +3563,6 @@ Public Class PASPFeeStatistics
             Me.Cursor = Cursors.WaitCursor
             ds = New DataSet
             rpt = New NoOperate10
-            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             monitor.TrackFeature("Report." & rpt.ResourceName)
             SQL = "Select * from AIRBRANCH.VW_No_Operate "
 
@@ -3605,7 +3593,6 @@ Public Class PASPFeeStatistics
             Me.Cursor = Cursors.WaitCursor
             ds = New DataSet
             rpt = New FacilityInfo10
-            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
             SQL = "Select * from AIRBRANCH.VW_Facility_Info "

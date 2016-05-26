@@ -26,7 +26,6 @@ Public Class PassFailNoShow
             da.Fill(ds, "SmokeSchoolPrintInfo")
 
             rpt = New crPassFailNoShow
-            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
             rpt.SetDataSource(ds)
