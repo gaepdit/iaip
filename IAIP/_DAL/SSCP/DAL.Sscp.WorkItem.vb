@@ -19,7 +19,7 @@ Namespace DAL.Sscp
             If trackingNumber = "" OrElse Not Integer.TryParse(trackingNumber, Nothing) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
-                " FROM AIRBRANCH.SSCPITEMMASTER " &
+                " FROM SSCPITEMMASTER " &
                 " WHERE RowNum = 1 " &
                 " AND STRTRACKINGNUMBER = :id "
             Dim parameter As New SqlParameter("id", trackingNumber)
@@ -74,7 +74,7 @@ Namespace DAL.Sscp
             If trackingNumber = "" OrElse Not Integer.TryParse(trackingNumber, Nothing) Then Return False
 
             Dim query As String = "SELECT STRREFERENCENUMBER " &
-                " FROM AIRBRANCH.SSCPTESTREPORTS " &
+                " FROM SSCPTESTREPORTS " &
                 " WHERE RowNum = 1 " &
                 " AND STRTRACKINGNUMBER = :id "
             Dim parameter As New SqlParameter("id", trackingNumber)
@@ -108,7 +108,7 @@ Namespace DAL.Sscp
                                                       ) As DataTable
 
             Dim query As String =
-                "SELECT * FROM AIRBRANCH.VW_SSCP_STACKTESTS " &
+                "SELECT * FROM VW_SSCP_STACKTESTS " &
                 " WHERE TRUNC(DATRECEIVEDFROMFACILITY) BETWEEN :datestart AND :dateend "
             query &= QueryFilter(airs, staffId, complete, deleted)
             Dim parameters As SqlParameter() = {
@@ -133,7 +133,7 @@ Namespace DAL.Sscp
             If id = "" OrElse Not Integer.TryParse(id, Nothing) Then Return ""
 
             Dim query As String = "SELECT INSPECTION_ID " &
-            "  FROM AIRBRANCH.GEOS_INSPECTIONS_XREF " &
+            "  FROM GEOS_INSPECTIONS_XREF " &
             "  WHERE STRTRACKINGNUMBER = :id "
             Dim parameter As New SqlParameter("id", id)
 
@@ -161,7 +161,7 @@ Namespace DAL.Sscp
                                                       ) As DataTable
 
             Dim query As String =
-                "SELECT * FROM AIRBRANCH.VW_SSCP_INSPECTIONS " &
+                "SELECT * FROM VW_SSCP_INSPECTIONS " &
                 " WHERE TRUNC(DATINSPECTIONDATESTART) BETWEEN :datestart AND :dateend "
             query &= QueryFilter(airs, staffId, complete, deleted)
             Dim parameters As SqlParameter() = {
@@ -197,7 +197,7 @@ Namespace DAL.Sscp
                                                       ) As DataTable
 
             Dim query As String =
-                "SELECT * FROM AIRBRANCH.VW_SSCP_ACCS " &
+                "SELECT * FROM VW_SSCP_ACCS " &
                 " WHERE TRUNC(DATRECEIVEDDATE) BETWEEN :datestart AND :dateend "
             query &= QueryFilter(airs, staffId, complete, deleted)
             Dim parameters As SqlParameter() = {
@@ -233,7 +233,7 @@ Namespace DAL.Sscp
                                                       ) As DataTable
 
             Dim query As String =
-                "SELECT * FROM AIRBRANCH.VW_SSCP_NOTIFICATIONS " &
+                "SELECT * FROM VW_SSCP_NOTIFICATIONS " &
                 " WHERE TRUNC(DATRECEIVEDDATE) BETWEEN :datestart AND :dateend "
             query &= QueryFilter(airs, staffId, complete, deleted)
             Dim parameters As SqlParameter() = {
@@ -269,7 +269,7 @@ Namespace DAL.Sscp
                                                       ) As DataTable
 
             Dim query As String =
-                "SELECT * FROM AIRBRANCH.VW_SSCP_REPORTS " &
+                "SELECT * FROM VW_SSCP_REPORTS " &
                 " WHERE TRUNC(DATRECEIVEDDATE) BETWEEN :datestart AND :dateend "
             query &= QueryFilter(airs, staffId, complete, deleted)
             Dim parameters As SqlParameter() = {
@@ -305,7 +305,7 @@ Namespace DAL.Sscp
                                                       ) As DataTable
 
             Dim query As String =
-                "SELECT * FROM AIRBRANCH.VW_SSCP_RMPINSPECTIONS " &
+                "SELECT * FROM VW_SSCP_RMPINSPECTIONS " &
                 " WHERE TRUNC(DATINSPECTIONDATESTART) BETWEEN :datestart AND :dateend "
             query &= QueryFilter(airs, staffId, complete, deleted)
             Dim parameters As SqlParameter() = {

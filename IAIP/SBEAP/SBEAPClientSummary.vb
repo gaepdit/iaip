@@ -43,15 +43,15 @@ Public Class SBEAPClientSummary
     Sub LoadDataSets()
         Try
             SQL = "Select " &
-            "Distinct(AIRBRANCH.LookUpCountyInformation.strCountyName) as CountyName, " &
-            "AIRBRANCH.LookUpCountyInformation.strCountyCode, " &
-            "AIRBRANCH.LookUpDistrictinformation.strDistrictCode, " &
+            "Distinct(LookUpCountyInformation.strCountyName) as CountyName, " &
+            "LookUpCountyInformation.strCountyCode, " &
+            "LookUpDistrictinformation.strDistrictCode, " &
             "strDistrictName, strOfficeName  " &
-            "from AIRBRANCH.LookUpCountyInformation, AIRBRANCH.LookUpDistrictInformation, " &
-            "AIRBRANCH.LookUpDistricts, AIRBRANCH.LookUpDistrictOffice  " &
-            "where AIRBRANCH.LookUpCountyInformation.strCountyCode = AIRBRANCH.LookUpDistrictinformation.strDistrictCounty " &
-            "and AIRBRANCH.LookUpDistrictInformation.strDistrictCode = AIRBRANCH.LookUpDistricts.strDistrictCode " &
-            "and AIRBRANCH.LookUpDistrictInformation.strDistrictCode = AIRBRANCH.LookUpDistrictOffice.strDistrictCode " &
+            "from LookUpCountyInformation, LookUpDistrictInformation, " &
+            "LookUpDistricts, LookUpDistrictOffice  " &
+            "where LookUpCountyInformation.strCountyCode = LookUpDistrictinformation.strDistrictCounty " &
+            "and LookUpDistrictInformation.strDistrictCode = LookUpDistricts.strDistrictCode " &
+            "and LookUpDistrictInformation.strDistrictCode = LookUpDistrictOffice.strDistrictCode " &
             "order by CountyName "
 
             dsCounty = New DataSet
@@ -141,7 +141,7 @@ Public Class SBEAPClientSummary
             Dim AirDescription As String = ""
 
             SQL = "Select ClientId " &
-            "from AIRBRANCH.SBEAPClients " &
+            "from SBEAPClients " &
             "where ClientID = '" & txtClientID.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -161,16 +161,16 @@ Public Class SBEAPClientSummary
                 "strMailingCity, strMailingState,  " &
                 "strMailingZipCode,  " &
                 "(select (strLastName||', '||strFirstName) as Creator  " &
-                "from AIRBRANCH.SBEAPClients, AIRBRANCH.EPDUserProfiles  " &
-                "where AIRBRANCH.SBEAPClients.strCompanyCreator = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                "from SBEAPClients, EPDUserProfiles  " &
+                "where SBEAPClients.strCompanyCreator = EPDUserProfiles.numUserID  " &
                 "and clientid = '" & txtClientID.Text & "') as Creator, " &
                 "to_char(datCompanyCreated, 'dd-Mon-yyyy') as datCompanyCreated,  " &
                 "(select (strLastName||', '||strFirstName) as Modifier " &
-                "from AIRBRANCH.SBEAPClients, AIRBRANCH.EPDUserProfiles  " &
-                "where AIRBRANCH.SBEAPClients.strModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                "from SBEAPClients, EPDUserProfiles  " &
+                "where SBEAPClients.strModifingPerson = EPDUserProfiles.numUserID  " &
                 "and clientid = '" & txtClientID.Text & "') as Modifier,  " &
                 "to_char(datModifingDate, 'dd-Mon-yyyy') as datModifingDate " &
-                "from AIRBRANCH.SBEAPClients  " &
+                "from SBEAPClients  " &
                 "where ClientID = '" & txtClientID.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -287,8 +287,8 @@ Public Class SBEAPClientSummary
                 "strSSCPUnit, strSSPPEngineer, " &
                 "strSSPPUnit, strISMPEngineer, " &
                 "strISMPUnit, strAirDescription " &
-                "from AIRBRANCH.SBEAPClientData, AIRBRANCH.LK_SIC " &
-                "where AIRBRANCH.SBEAPClientData.strClientSIC = AIRBRANCH.LK_SIC.SIC_CODE (+) " &
+                "from SBEAPClientData, LK_SIC " &
+                "where SBEAPClientData.strClientSIC = LK_SIC.SIC_CODE (+) " &
                 "and ClientID = '" & txtClientID.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -532,7 +532,7 @@ Public Class SBEAPClientSummary
             dsContact = New DataSet
 
             SQL = "select " &
-            "AIRBRANCH.SBEAPClientContacts.ClientContactID, " &
+            "SBEAPClientContacts.ClientContactID, " &
             "strClientFirstName, strClientLastName, " &
             "strclientSalutation, strClientCredentials, " &
             "strClientTitle, strClientPhoneNumber, " &
@@ -541,9 +541,9 @@ Public Class SBEAPClientSummary
             "strClientAddress, strClientCity, " &
             "strClientState, strClientZipCode, " &
             "strContactNotes " &
-            "from AIRBRANCH.SBEAPClientContacts, " &
-            "AIRBRANCH.SBEAPClientLink " &
-            "where AIRBRANCH.SBEAPClientContacts.ClientContactID = AIRBRANCH.SBEAPClientLink.ClientContactID " &
+            "from SBEAPClientContacts, " &
+            "SBEAPClientLink " &
+            "where SBEAPClientContacts.ClientContactID = SBEAPClientLink.ClientContactID " &
             "and ClientID = '" & txtClientID.Text & "' "
 
             daContact = New SqlDataAdapter(SQL, CurrentConnection)
@@ -689,9 +689,9 @@ Public Class SBEAPClientSummary
             End If
 
             If txtContactID.Text = "" Then
-                SQL = "Insert into AIRBRANCH.SBEAPClientContacts " &
+                SQL = "Insert into SBEAPClientContacts " &
                 "values " &
-                "((select (max(ClientContactID)+1) from AIRBRANCH.SBEAPClientContacts), " &
+                "((select (max(ClientContactID)+1) from SBEAPClientContacts), " &
                 "'" & Replace(Firstname, "'", "''") & "', " &
                 "'" & Replace(LastName, "'", "''") & "', " &
                 "'" & Replace(Salutation, "'", "''") & "', " &
@@ -717,7 +717,7 @@ Public Class SBEAPClientSummary
                 dr.Close()
 
                 SQL = "Select max(ClientContactID) as ClientID " &
-                "from AIRBRANCH.SBEAPClientContacts "
+                "from SBEAPClientContacts "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -730,7 +730,7 @@ Public Class SBEAPClientSummary
 
                 txtContactCreationInfo.Text = CurrentUser.AlphaName & " - " & OracleDate
             Else
-                SQL = "Update AIRBRANCH.SBEAPClientContacts set " &
+                SQL = "Update SBEAPClientContacts set " &
                 "strClientFirstName = '" & Replace(Firstname, "'", "''") & "', " &
                 "strClientLastName = '" & Replace(LastName, "'", "''") & "', " &
                 "strClientSalutation = '" & Replace(Salutation, "'", "''") & "', " &
@@ -760,7 +760,7 @@ Public Class SBEAPClientSummary
 
             SQL = "Select " &
             "ClientID " &
-            "from AIRBRANCH.SBEAPClientLink " &
+            "from SBEAPClientLink " &
             "where clientID = '" & txtClientID.Text & "' " &
             "and ClientContactID = '" & txtContactID.Text & "' "
 
@@ -772,12 +772,12 @@ Public Class SBEAPClientSummary
             recExist = dr.Read
             dr.Close()
             If recExist = False Then
-                SQL = "Insert into AIRBRANCH.SBEAPClientLink " &
+                SQL = "Insert into SBEAPClientLink " &
                 "values " &
                 "('" & txtClientID.Text & "', '" & txtContactID.Text & "', " &
                 "'" & MainContact & "') "
             Else
-                SQL = "Update AIRBRANCH.SBEAPClientLink set " &
+                SQL = "Update SBEAPClientLink set " &
                 "strMainContact = 'False' " &
                 "where ClientID = '" & txtClientID.Text & "' " &
                 "and ClientContactID = '" & txtContactID.Text & "' "
@@ -789,7 +789,7 @@ Public Class SBEAPClientSummary
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Update AIRBRANCH.SBEAPClientLink set " &
+                SQL = "Update SBEAPClientLink set " &
                 "ClientID = '" & txtClientID.Text & "', " &
                 "ClientContactID = '" & txtContactID.Text & "', " &
                 "strMainContact  = '" & MainContact & "' " &
@@ -903,9 +903,9 @@ Public Class SBEAPClientSummary
                 ContactNotes = ""
             End If
 
-            SQL = "Insert into AIRBRANCH.SBEAPClientContacts " &
+            SQL = "Insert into SBEAPClientContacts " &
                 "values " &
-                "((select (max(ClientContactID)+1) from AIRBRANCH.SBEAPClientContacts), " &
+                "((select (max(ClientContactID)+1) from SBEAPClientContacts), " &
                 "'" & Replace(Firstname, "'", "''") & "', " &
                 "'" & Replace(LastName, "'", "''") & "', " &
                 "'" & Replace(Salutation, "'", "''") & "', " &
@@ -931,7 +931,7 @@ Public Class SBEAPClientSummary
             dr.Close()
 
             SQL = "Select max(ClientContactID) as ClientID " &
-            "from AIRBRANCH.SBEAPClientContacts "
+            "from SBEAPClientContacts "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -947,7 +947,7 @@ Public Class SBEAPClientSummary
 
             SQL = "Select " &
             "ClientID " &
-            "from AIRBRANCH.SBEAPClientLink " &
+            "from SBEAPClientLink " &
             "where clientID = '" & txtClientID.Text & "' " &
             "and ClientContactID = '" & txtContactID.Text & "' "
 
@@ -959,12 +959,12 @@ Public Class SBEAPClientSummary
             recExist = dr.Read
             dr.Close()
             If recExist = False Then
-                SQL = "Insert into AIRBRANCH.SBEAPClientLink " &
+                SQL = "Insert into SBEAPClientLink " &
                 "values " &
                 "('" & txtClientID.Text & "', '" & txtContactID.Text & "', " &
                 "'" & MainContact & "') "
             Else
-                SQL = "Update AIRBRANCH.SBEAPClientLink set " &
+                SQL = "Update SBEAPClientLink set " &
                 "strMainContact = 'False' " &
                 "where ClientID = '" & txtClientID.Text & "' " &
                 "and ClientContactID = '" & txtContactID.Text & "' "
@@ -976,7 +976,7 @@ Public Class SBEAPClientSummary
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Update AIRBRANCH.SBEAPClientLink set " &
+                SQL = "Update SBEAPClientLink set " &
                 "ClientID = '" & txtClientID.Text & "', " &
                 "ClientContactID = '" & txtContactID.Text & "', " &
                 "strMainContact  = '" & MainContact & "' " &
@@ -1092,9 +1092,9 @@ Public Class SBEAPClientSummary
             End If
 
             SQL = "select " &
-            "AIRBRANCH.SBEAPClientContacts.clientContactID " &
-            "from AIRBRANCH.SBEAPClientContacts, AIRBRANCH.SBEAPClientLink " &
-            "where AIRBRANCH.SBEAPClientContacts.clientContactID = AIRBRANCH.SBEAPClientLink.ClientContactID  " &
+            "SBEAPClientContacts.clientContactID " &
+            "from SBEAPClientContacts, SBEAPClientLink " &
+            "where SBEAPClientContacts.clientContactID = SBEAPClientLink.ClientContactID  " &
             "and Upper(strClientFirstName) = upper('" & txtFirstName.Text & "') " &
             "and upper(strClientLastName) = Upper('" & txtLastName.Text & "') " &
             "and ClientID = '" & txtClientID.Text & "' "
@@ -1103,7 +1103,7 @@ Public Class SBEAPClientSummary
                 MsgBox("Either click 'Add New Contact' or select the contact from the table below before editing the Contact Information.", MsgBoxStyle.Information,
                        "Edit Contact Data")
             Else
-                SQL = "Update AIRBRANCH.SBEAPClientContacts set " &
+                SQL = "Update SBEAPClientContacts set " &
                 "strClientFirstName = '" & Replace(Firstname, "'", "''") & "', " &
                 "strClientLastName = '" & Replace(LastName, "'", "''") & "', " &
                 "strClientSalutation = '" & Replace(Salutation, "'", "''") & "', " &
@@ -1133,7 +1133,7 @@ Public Class SBEAPClientSummary
 
                 SQL = "Select " &
                 "ClientID " &
-                "from AIRBRANCH.SBEAPClientLink " &
+                "from SBEAPClientLink " &
                 "where clientID = '" & txtClientID.Text & "' " &
                 "and ClientContactID = '" & txtContactID.Text & "' "
 
@@ -1145,12 +1145,12 @@ Public Class SBEAPClientSummary
                 recExist = dr.Read
                 dr.Close()
                 If recExist = False Then
-                    SQL = "Insert into AIRBRANCH.SBEAPClientLink " &
+                    SQL = "Insert into SBEAPClientLink " &
                     "values " &
                     "('" & txtClientID.Text & "', '" & txtContactID.Text & "', " &
                     "'" & MainContact & "') "
                 Else
-                    SQL = "Update AIRBRANCH.SBEAPClientLink set " &
+                    SQL = "Update SBEAPClientLink set " &
                     "strMainContact = 'False' " &
                     "where ClientID = '" & txtClientID.Text & "' " &
                     "and ClientContactID = '" & txtContactID.Text & "' "
@@ -1162,7 +1162,7 @@ Public Class SBEAPClientSummary
                     dr = cmd.ExecuteReader
                     dr.Close()
 
-                    SQL = "Update AIRBRANCH.SBEAPClientLink set " &
+                    SQL = "Update SBEAPClientLink set " &
                     "ClientID = '" & txtClientID.Text & "', " &
                     "ClientContactID = '" & txtContactID.Text & "', " &
                     "strMainContact  = '" & MainContact & "' " &
@@ -1218,19 +1218,19 @@ Public Class SBEAPClientSummary
             "strClientCity, strClientState, " &
             "strClientZipCode, " &
             "(select (strLastName||', '||strFirstName) as Creator " &
-            "from AIRBRANCH.SBEAPClientContacts, AIRBRANCH.EPDUserProfiles " &
-            "where AIRBRANCH.SBEAPClientContacts.strClientCreator = AIRBRANCH.EPDUserProfiles.numUserID " &
+            "from SBEAPClientContacts, EPDUserProfiles " &
+            "where SBEAPClientContacts.strClientCreator = EPDUserProfiles.numUserID " &
             "and ClientContactID = '" & txtContactID.Text & "') as Creator, " &
             "to_char(datClientCreated, 'dd-Mon-yyyy') as datClientCreated, " &
             "(select (strLastName||', '||strFirstName) as Modifier " &
-            "from AIRBRANCH.SBEAPClientContacts, AIRBRANCH.EPDUserProfiles " &
-            "where AIRBRANCH.SBEAPClientContacts.strClientCreator = AIRBRANCH.EPDUserProfiles.numUserID " &
+            "from SBEAPClientContacts, EPDUserProfiles " &
+            "where SBEAPClientContacts.strClientCreator = EPDUserProfiles.numUserID " &
             "and ClientContactID = '" & txtContactID.Text & "') as Modifier, " &
             "to_char(datModifingDate, 'dd-Mon-yyyy') as datModifingDate,  " &
             "strMainContact, strContactNotes " &
-            "from AIRBRANCH.SBEAPClientContacts, AIRBRANCH.SBEAPClientLink " &
-            "where AIRBRANCH.SBEAPClientContacts.ClientContactID = AIRBRANCH.SBEAPClientLink.ClientContactID " &
-            "and AIRBRANCH.SBEAPClientContacts.ClientContactID = '" & txtContactID.Text & "' "
+            "from SBEAPClientContacts, SBEAPClientLink " &
+            "where SBEAPClientContacts.ClientContactID = SBEAPClientLink.ClientContactID " &
+            "and SBEAPClientContacts.ClientContactID = '" & txtContactID.Text & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1351,7 +1351,7 @@ Public Class SBEAPClientSummary
             CurrYear = Now.Year.ToString
 
             SQL = "Select max(ClientID) as MaxClientID " &
-            "from AIRBRANCH.SBEAPClients " &
+            "from SBEAPClients " &
             "where ClientID like '" & CurrYear & "%'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1636,7 +1636,7 @@ Public Class SBEAPClientSummary
 
                 SQL = "Select " &
                 "strCompanyName " &
-                "from AIRBRANCH.SBEAPClients " &
+                "from SBEAPClients " &
                 "where upper(strCompanyName) = '" & Replace(txtCompanyName.Text.ToUpper, "'", "''") & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1661,7 +1661,7 @@ Public Class SBEAPClientSummary
                 End If
             Else
                 SQL = "Select ClientID " &
-                "from AIRBRANCH.SBEAPClientData " &
+                "from SBEAPClientData " &
                 "where ClientID = '" & txtClientID.Text & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1682,7 +1682,7 @@ Public Class SBEAPClientSummary
                     ClientCreator = CurrentUser.UserID
                     GetNextClientID()
 
-                    SQL = "Insert into AIRBRANCH.SBEAPClients " &
+                    SQL = "Insert into SBEAPClients " &
                     "values " &
                     "('" & txtClientID.Text & "', " &
                     "'" & Replace(ClientName, "'", "''") & "', " &
@@ -1711,7 +1711,7 @@ Public Class SBEAPClientSummary
                     dr.Close()
 
                     SQL = "Select max(clientID) as MaxID " &
-                    "from AIRBRANCH.SBEAPClients "
+                    "from SBEAPClients "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -1723,7 +1723,7 @@ Public Class SBEAPClientSummary
                     End While
                     dr.Close()
 
-                    SQL = "Insert into AIRBRANCH.SBEAPClientData " &
+                    SQL = "Insert into SBEAPClientData " &
                     "values " &
                     "('" & txtClientID.Text & "', '" & Replace(ClientDescription, "'", "''") & "', " &
                     "'" & Replace(WebSite, "'", "''") & "', '" & SIC & "', " &
@@ -1746,7 +1746,7 @@ Public Class SBEAPClientSummary
                     MsgBox("The Client ID box currnetly has a value.", MsgBoxStyle.Information, "Client Maintenance")
                 End If
             Else
-                SQL = "Update AIRBRANCH.SBEAPClients set " &
+                SQL = "Update SBEAPClients set " &
                 "strCompanyName = '" & Replace(ClientName, "'", "''") & "', " &
                 "datStartDate = '" & Replace(StartDate, "'", "''") & "', " &
                 "strCompanyaddress = '" & Replace(ClientAddress, "'", "''") & "', " &
@@ -1773,7 +1773,7 @@ Public Class SBEAPClientSummary
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Update AIRBRANCH.SBEAPClientData set " &
+                SQL = "Update SBEAPClientData set " &
                 "strClientDescription = '" & ClientDescription & "', " &
                 "strClientWebSite = '" & WebSite & "', " &
                 "strClientSIC = '" & SIC & "', " &
@@ -1819,7 +1819,7 @@ Public Class SBEAPClientSummary
             "strPlantDescription, " &
             "strAIRProgramCodes, " &
             "strStateProgramCodes " &
-            "from AIRBRANCH.APBHeaderData " &
+            "from APBHeaderData " &
             "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1941,7 +1941,7 @@ Public Class SBEAPClientSummary
                 "strFacilityCity, strFacilityState, " &
                 "strFacilityZipCode, numFacilityLongitude, " &
                 "numFacilityLatitude " &
-                "from AIRBRANCH.APBFacilityInformation " &
+                "from APBFacilityInformation " &
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1991,18 +1991,18 @@ Public Class SBEAPClientSummary
 
             SQL = "Select " &
             "Distinct((strLastName||', '||strFirstName)) as ISMPEngineer, strUnitDesc   " &
-            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation,   " &
-            "AIRBRANCH.ISMPMaster, AIRBRANCH.LookUpEPDUnits    " &
-            "where AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDunits.numunitCode (+) " &
+            "from EPDUserProfiles, ISMPReportInformation,   " &
+            "ISMPMaster, LookUpEPDUnits    " &
+            "where EPDUserProfiles.numUnit = LookUpEPDunits.numunitCode (+) " &
             "and numUserID = strReviewingEngineer   " &
-            "AND AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber   " &
+            "AND ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber   " &
             "and strClosed = 'True'  " &
             "and datCompleteDate = (Select Distinct(Max(datCompleteDate)) as CompleteDate  " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster  " &
-            "where AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber   " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  " &
+            "from ISMPReportInformation, ISMPMaster  " &
+            "where ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber   " &
+            "and ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  " &
             "and strClosed = 'True')  " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  "
+            "and ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -2028,15 +2028,15 @@ Public Class SBEAPClientSummary
 
             SQL = "select  " &
             "Distinct((strLastName||', '||strFirstName)) as SSPPStaffResponsible, strUnitDesc   " &
-            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.SSPPApplicationMaster, " &
-            "AIRBRANCH.LookUpEPDUnits " &
-            "where AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " &
+            "from EPDUserProfiles, SSPPApplicationMaster, " &
+            "LookUpEPDUnits " &
+            "where EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
             "and numUserID = strStaffResponsible  " &
-            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber =  " &
+            "and SSPPApplicationMaster.strApplicationNumber =  " &
             "(select distinct(max(to_number(strApplicationNumber))) as GreatestApplication  " &
-            "from AIRBRANCH.SSPPApplicationMaster   " &
-            "where AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "')  " &
-            "and AIRBRANCH.SSPPApplicationMaster.strAIRSnumber = '0413" & mtbAIRSNumber.Text & "'  "
+            "from SSPPApplicationMaster   " &
+            "where SSPPApplicationMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "')  " &
+            "and SSPPApplicationMaster.strAIRSnumber = '0413" & mtbAIRSNumber.Text & "'  "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -2274,7 +2274,7 @@ Public Class SBEAPClientSummary
 
                 Select Case Result
                     Case DialogResult.Yes
-                        SQL = "Delete AIRBRANCH.SBEAPClientLink " &
+                        SQL = "Delete SBEAPClientLink " &
                         "where ClientContactID = '" & txtContactID.Text & "' "
 
                         cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2284,7 +2284,7 @@ Public Class SBEAPClientSummary
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "Delete AIRBRANCH.SBEAPClientContacts " &
+                        SQL = "Delete SBEAPClientContacts " &
                         "where ClientContactID = '" & txtContactID.Text & "' "
 
                         cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2338,7 +2338,7 @@ Public Class SBEAPClientSummary
 
                             SQL = "Select " &
                             "numCaseID " &
-                            "From AIRBRANCH.SBEAPCaseLogLink " &
+                            "From SBEAPCaseLogLink " &
                             "where ClientID = '" & txtClientID.Text & "' "
                             cmd = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
@@ -2359,7 +2359,7 @@ Public Class SBEAPClientSummary
 
                                     SQL = "Select " &
                                     "numActionID, numActionType " &
-                                    "from AIRBRANCH.SBEAPActionLog " &
+                                    "from SBEAPActionLog " &
                                     "where numCaseID = '" & CaseID & "' "
                                     cmd = New SqlCommand(SQL, CurrentConnection)
                                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -2383,7 +2383,7 @@ Public Class SBEAPClientSummary
                                     If ActionID <> "" And ActionID <> "Done" Then
                                         Select Case ActionType
                                             Case "4"
-                                                SQL = "Delete AIRBRANCH.SBEAPConferenceLog " &
+                                                SQL = "Delete SBEAPConferenceLog " &
                                                 "where numActionID = '" & ActionID & "'  "
                                                 cmd = New SqlCommand(SQL, CurrentConnection)
                                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2392,7 +2392,7 @@ Public Class SBEAPClientSummary
                                                 dr = cmd.ExecuteReader
                                                 dr.Close()
 
-                                                SQL = "Delete AIRBRANCH.SBEAPActionLog " &
+                                                SQL = "Delete SBEAPActionLog " &
                                                 "where numActionID = '" & ActionID & "'  "
                                                 cmd = New SqlCommand(SQL, CurrentConnection)
                                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2401,7 +2401,7 @@ Public Class SBEAPClientSummary
                                                 dr = cmd.ExecuteReader
                                                 dr.Close()
                                             Case "6"
-                                                SQL = "Delete AIRBRANCH.SBEAPPhoneLog " &
+                                                SQL = "Delete SBEAPPhoneLog " &
                                                 "where numActionID = '" & ActionID & "'  "
                                                 cmd = New SqlCommand(SQL, CurrentConnection)
                                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2410,7 +2410,7 @@ Public Class SBEAPClientSummary
                                                 dr = cmd.ExecuteReader
                                                 dr.Close()
 
-                                                SQL = "Delete AIRBRANCH.SBEAPActionLog " &
+                                                SQL = "Delete SBEAPActionLog " &
                                                 "where numActionID = '" & ActionID & "'  "
                                                 cmd = New SqlCommand(SQL, CurrentConnection)
                                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2419,7 +2419,7 @@ Public Class SBEAPClientSummary
                                                 dr = cmd.ExecuteReader
                                                 dr.Close()
                                             Case "10"
-                                                SQL = "Delete AIRBRANCH.SBEAPTechnicalAssist " &
+                                                SQL = "Delete SBEAPTechnicalAssist " &
                                                 "where numActionID = '" & ActionID & "'  "
                                                 cmd = New SqlCommand(SQL, CurrentConnection)
                                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2428,7 +2428,7 @@ Public Class SBEAPClientSummary
                                                 dr = cmd.ExecuteReader
                                                 dr.Close()
 
-                                                SQL = "Delete AIRBRANCH.SBEAPActionLog " &
+                                                SQL = "Delete SBEAPActionLog " &
                                                 "where numActionID = '" & ActionID & "'  "
                                                 cmd = New SqlCommand(SQL, CurrentConnection)
                                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2437,7 +2437,7 @@ Public Class SBEAPClientSummary
                                                 dr = cmd.ExecuteReader
                                                 dr.Close()
                                             Case "1" Or "2" Or "3" Or "5" Or "7" Or "8" Or "9" Or "11" Or "12"
-                                                SQL = "Delete AIRBRANCH.SBEAPOtherLog " &
+                                                SQL = "Delete SBEAPOtherLog " &
                                                 "where numActionID = '" & ActionID & "'  "
                                                 cmd = New SqlCommand(SQL, CurrentConnection)
                                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2446,7 +2446,7 @@ Public Class SBEAPClientSummary
                                                 dr = cmd.ExecuteReader
                                                 dr.Close()
 
-                                                SQL = "Delete AIRBRANCH.SBEAPActionLog " &
+                                                SQL = "Delete SBEAPActionLog " &
                                                 "where numActionID = '" & ActionID & "'  "
                                                 cmd = New SqlCommand(SQL, CurrentConnection)
                                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2455,7 +2455,7 @@ Public Class SBEAPClientSummary
                                                 dr = cmd.ExecuteReader
                                                 dr.Close()
                                             Case Else
-                                                SQL = "Delete AIRBRANCH.SBEAPConferenceLog " &
+                                                SQL = "Delete SBEAPConferenceLog " &
                                                 "where numActionID = '" & ActionID & "'  "
                                                 cmd = New SqlCommand(SQL, CurrentConnection)
                                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2464,7 +2464,7 @@ Public Class SBEAPClientSummary
                                                 dr = cmd.ExecuteReader
                                                 dr.Close()
 
-                                                SQL = "Delete AIRBRANCH.SBEAPPhoneLog " &
+                                                SQL = "Delete SBEAPPhoneLog " &
                                                 "where numActionID = '" & ActionID & "'  "
                                                 cmd = New SqlCommand(SQL, CurrentConnection)
                                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2473,7 +2473,7 @@ Public Class SBEAPClientSummary
                                                 dr = cmd.ExecuteReader
                                                 dr.Close()
 
-                                                SQL = "Delete AIRBRANCH.SBEAPTechnicalAssist " &
+                                                SQL = "Delete SBEAPTechnicalAssist " &
                                                 "where numActionID = '" & ActionID & "'  "
                                                 cmd = New SqlCommand(SQL, CurrentConnection)
                                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2482,7 +2482,7 @@ Public Class SBEAPClientSummary
                                                 dr = cmd.ExecuteReader
                                                 dr.Close()
 
-                                                SQL = "Delete AIRBRANCH.SBEAPOtherLog " &
+                                                SQL = "Delete SBEAPOtherLog " &
                                                 "where numActionID = '" & ActionID & "'  "
                                                 cmd = New SqlCommand(SQL, CurrentConnection)
                                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2491,7 +2491,7 @@ Public Class SBEAPClientSummary
                                                 dr = cmd.ExecuteReader
                                                 dr.Close()
 
-                                                SQL = "Delete AIRBRANCH.SBEAPActionLog " &
+                                                SQL = "Delete SBEAPActionLog " &
                                                 "where numActionID = '" & ActionID & "'  "
                                                 cmd = New SqlCommand(SQL, CurrentConnection)
                                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2502,7 +2502,7 @@ Public Class SBEAPClientSummary
                                         End Select
                                     End If
                                 Loop
-                                SQL = "Delete AIRBRANCH.SBEAPCaseLog " &
+                                SQL = "Delete SBEAPCaseLog " &
                                 "where numCaseID = '" & CaseID & "' "
                                 cmd = New SqlCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2511,7 +2511,7 @@ Public Class SBEAPClientSummary
                                 dr = cmd.ExecuteReader
                                 dr.Close()
 
-                                SQL = "Delete AIRBRANCH.SBEAPCaseLogLink " &
+                                SQL = "Delete SBEAPCaseLogLink " &
                                 "where numCaseID = '" & CaseID & "' "
                                 cmd = New SqlCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2528,7 +2528,7 @@ Public Class SBEAPClientSummary
 
                             SQL = "Select " &
                             "ClientID, ClientContactID " &
-                            "from AIRBRANCH.SBEAPClientLink " &
+                            "from SBEAPClientLink " &
                             "where ClientID = '" & txtClientID.Text & "' "
 
                             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2546,7 +2546,7 @@ Public Class SBEAPClientSummary
                             dr.Close()
 
                             If ContactID <> "" And ContactID <> "Done" Then
-                                SQL = "Delete AIRBRANCH.SBEAPClientContacts " &
+                                SQL = "Delete SBEAPClientContacts " &
                                 "where ClientContactID = '" & ContactID & "' "
                                 cmd = New SqlCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2555,7 +2555,7 @@ Public Class SBEAPClientSummary
                                 dr = cmd.ExecuteReader
                                 dr.Close()
 
-                                SQL = "Delete AIRBRANCH.SBEAPClientLink " &
+                                SQL = "Delete SBEAPClientLink " &
                                 "where ClientContactID = '" & ContactID & "' "
                                 cmd = New SqlCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2566,7 +2566,7 @@ Public Class SBEAPClientSummary
                             End If
                         Loop
 
-                        SQL = "Delete AIRBRANCH.SBEAPClientData " &
+                        SQL = "Delete SBEAPClientData " &
                         "where ClientID = '" & txtClientID.Text & "' "
                         cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -2575,7 +2575,7 @@ Public Class SBEAPClientSummary
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "Delete AIRBRANCH.SBEAPClients " &
+                        SQL = "Delete SBEAPClients " &
                         "where ClientID = '" & txtClientID.Text & "' "
                         cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -2689,7 +2689,7 @@ Public Class SBEAPClientSummary
     Sub LoadClientWork()
         Try
             SQL = "Select " &
-            "AIRBRANCH.SBEAPCaseLog.numCaseID, " &
+            "SBEAPCaseLog.numCaseID, " &
             "numStaffResponsible, " &
             "case " &
             "when numStaffResponsible is Null then '' " &
@@ -2698,13 +2698,13 @@ Public Class SBEAPClientSummary
             "to_date(datCaseOpened, 'dd-Mon-RRRR') as CaseOpened, " &
             "to_date(datCaseClosed, 'dd-Mon-RRRR') as CaseClosed, " &
             "strCompanyName, strCaseSummary, " &
-            "AIRBRANCH.SBEAPCaseLogLink.ClientID " &
-            "from AIRBRANCH.SBEAPCaseLog, AIRBRANCH.EPDUserProfiles, " &
-            "AIRBRANCH.SBEAPClients, AIRBRANCH.SBEAPCaseLogLink " &
-            "where AIRBRANCH.SBEAPCaseLog.numStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID (+) " &
-            "and AIRBRANCH.SBEAPCaseLog.numCaseID = AIRBRANCH.SBEAPCaseLogLink.numCaseID " &
-            "and AIRBRANCH.SBEAPCaseLogLink.ClientID = AIRBRANCH.SBEAPClients.ClientID (+)  " &
-            "and AIRBRANCH.SBEAPClients.ClientID = '" & txtClientID.Text & "'  "
+            "SBEAPCaseLogLink.ClientID " &
+            "from SBEAPCaseLog, EPDUserProfiles, " &
+            "SBEAPClients, SBEAPCaseLogLink " &
+            "where SBEAPCaseLog.numStaffResponsible = EPDUserProfiles.numUserID (+) " &
+            "and SBEAPCaseLog.numCaseID = SBEAPCaseLogLink.numCaseID " &
+            "and SBEAPCaseLogLink.ClientID = SBEAPClients.ClientID (+)  " &
+            "and SBEAPClients.ClientID = '" & txtClientID.Text & "'  "
 
             dsCaseLogGrid = New DataSet
             daCaseLogGrid = New SqlDataAdapter(SQL, CurrentConnection)

@@ -10,7 +10,7 @@ Namespace DAL.Sspp
 
         Public Function PermitExists(ByVal permitNumber As String) As Boolean
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
-                " FROM AIRBRANCH.APBISSUEDPERMIT " &
+                " FROM APBISSUEDPERMIT " &
                 " WHERE RowNum = 1 " &
                 " AND STRPERMITNUMBER = :permitnumber "
             Dim parameter As New SqlParameter("permitnumber", permitNumber)
@@ -27,7 +27,7 @@ Namespace DAL.Sspp
                 "   DATREVOKED, " &
                 "   ACTIVE, " &
                 "   PERMITTYPECODE " &
-                " FROM AIRBRANCH.APBISSUEDPERMIT " &
+                " FROM APBISSUEDPERMIT " &
                 " WHERE STRPERMITNUMBER = :permitnumber " &
                 " ORDER BY DATISSUED DESC"
 
@@ -62,7 +62,7 @@ Namespace DAL.Sspp
                 "   UPDATEDBY, " &
                 "   ACTIVE, " &
                 "   PERMITTYPECODE " &
-                " FROM AIRBRANCH.APBISSUEDPERMIT " &
+                " FROM APBISSUEDPERMIT " &
                 " WHERE STRAIRSNUMBER = :airsnumber " &
                 " AND ACTIVE = '1' " &
                 " ORDER BY DATISSUED Nulls FIRST "
@@ -93,7 +93,7 @@ Namespace DAL.Sspp
             If permits Is Nothing OrElse permits.Count = 0 Then Return False
 
             Dim query As String =
-                " UPDATE AIRBRANCH.APBISSUEDPERMIT " &
+                " UPDATE APBISSUEDPERMIT " &
                 " SET STRAIRSNUMBER    = :AirsNumber, " &
                 "   STRPERMITNUMBER    = :PermitNumber, " &
                 "   DATISSUED          = :IssuedDate, " &
@@ -139,7 +139,7 @@ Namespace DAL.Sspp
 
             Dim query As String =
                 " INSERT " &
-                " INTO AIRBRANCH.APBISSUEDPERMIT " &
+                " INTO APBISSUEDPERMIT " &
                 "   ( " &
                 "     ISSUEDPERMITID, " &
                 "     STRAIRSNUMBER, " &
@@ -155,7 +155,7 @@ Namespace DAL.Sspp
                 "   ) " &
                 "   VALUES " &
                 "   ( " &
-                "     AIRBRANCH.PERMITID_SEQ.NEXTVAL, " &
+                "     PERMITID_SEQ.NEXTVAL, " &
                 "     :AirsNumber, " &
                 "     :PermitNumber, " &
                 "     :IssuedDate, " &

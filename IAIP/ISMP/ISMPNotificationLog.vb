@@ -51,15 +51,15 @@ Public Class ISMPNotificationLog
             SQL = "select " &
             "substr(strAIRSNumber, 5) as AIRSNumber, " &
             "strFacilityname " &
-            "from AIRBRANCH.APBFacilityInformation " &
+            "from APBFacilityInformation " &
             "order by strFacilityname "
 
             SQL2 = "select " &
             "distinct(strLastName|| ', ' ||strFirstName) as UserName,  " &
-            "AIRBRANCH.epduserprofiles.numUserID  " &
-            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPTestNotification  " &
+            "epduserprofiles.numUserID  " &
+            "from EPDUserProfiles, ISMPTestNotification  " &
             "where (numProgram = '3' and numunit <> '14')  " &
-            "or AIRBRANCH.ISMPTestNotification.strStaffResponsible = to_char(AIRBRANCH.EPDUSerProfiles.numUserID) " &
+            "or ISMPTestNotification.strStaffResponsible = to_char(EPDUSerProfiles.numUserID) " &
             "order by UserName "
 
             dsFacilityData = New DataSet
@@ -156,9 +156,9 @@ Public Class ISMPNotificationLog
                 "strTelePhone, strFax, " &
                 "datTestPlanReceived, datTestNotification, " &
                 "strPollutants " &
-                "from AIRBRANCH.ISMPTestNotification, AIRBRANCH.APBFacilityInformation  " &
-                "where AIRBRANCH.ISMPTestNotification.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber (+)  " &
-                "and AIRBRANCH.ISMPTestNotification.strTestLogNumber = '" & txtTestNotificationNumber.Text & "'  "
+                "from ISMPTestNotification, APBFacilityInformation  " &
+                "where ISMPTestNotification.strAIRSNumber = APBFacilityInformation.strAIRSNumber (+)  " &
+                "and ISMPTestNotification.strTestLogNumber = '" & txtTestNotificationNumber.Text & "'  "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -331,7 +331,7 @@ Public Class ISMPNotificationLog
             txtReferenceNumber.Clear()
             SQL = "Select " &
             "strReferenceNumber " &
-            "from AIRBRANCH.ISMPTestLogLink " &
+            "from ISMPTestLogLink " &
             "where strTestLogNumber = '" & txtTestNotificationNumber.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -362,7 +362,7 @@ Public Class ISMPNotificationLog
                 Dim TestNotificationDate As String = ""
 
                 SQL = "select strTestLogNumber " &
-                "from AIRBRANCH.ISMPTestNotification " &
+                "from ISMPTestNotification " &
                 "where strTestLogNumber = '" & txtTestNotificationNumber.Text & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -404,7 +404,7 @@ Public Class ISMPNotificationLog
 
                 If recExist = True Then
                     'Update 
-                    SQL = "Update AIRBRANCH.ISMPTestNotification set " &
+                    SQL = "Update ISMPTestNotification set " &
                     "strEmissionUnit = '" & Replace(txtEmissionUnit.Text, "'", "''") & "', " &
                     "datProposedStartDate = '" & Me.DTPTestDateStart.Text & "', " &
                     "datProposedEndDate = '" & DTPTestDateEnd.Text & "', " &
@@ -433,7 +433,7 @@ Public Class ISMPNotificationLog
 
                     SQL = "Select " &
                     "strTestLogNumber, datProposedStartDate " &
-                    "from AIRBRANCH.ISMPTestNotification " &
+                    "from ISMPTestNotification " &
                     "where datProposedStartDate between " &
                     "'" & Format(DTPTestDateStart.Value.AddDays(-15), "dd-MMM-yyyy") & "' " &
                     "and '" & Format(DTPTestDateStart.Value.AddDays(15), "dd-MMM-yyyy") & "' " &
@@ -474,7 +474,7 @@ Public Class ISMPNotificationLog
                     End If
 
                     'Insert 
-                    SQL = "Insert into AIRBRANCH.ISMPTestNotification " &
+                    SQL = "Insert into ISMPTestNotification " &
                     "(strTestLogNumber, " &
                     "strEmissionUnit, " &
                     "datProposedStartDate, datProposedEndDate, " &
@@ -523,7 +523,7 @@ Public Class ISMPNotificationLog
     Sub SelectNewTestNotifcationNumber()
         Try
             SQL = "Select max(to_number(strTestLogNumber)) + 1 as TestNum " &
-            "From AIRBRANCH.ISMPTestnotification "
+            "From ISMPTestnotification "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()

@@ -29,11 +29,11 @@ Public Class IAIPEditFacilityLocation
         Try
 
             SQL = "Select * " &
-            "from AIRBRANCH.VW_APBFacilityLocation " &
+            "from VW_APBFacilityLocation " &
             "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
             SQL2 = "Select * " &
-            "from AIRBRANCH.VW_HB_APBFacilityLocation " &
+            "from VW_HB_APBFacilityLocation " &
             "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' " &
             "Order by strKey DESC "
 
@@ -292,7 +292,7 @@ Public Class IAIPEditFacilityLocation
                           Longitude <> "" Or Latitude <> "" Or
                           Comments <> "" Then
 
-                            SQL = "Update AIRBRANCH.APBFacilityInformation set "
+                            SQL = "Update APBFacilityInformation set "
                             If FacilityName <> "" Then
                                 SQL = SQL & "strFacilityName = '" & FacilityName & "', "
                             End If
@@ -340,7 +340,7 @@ Public Class IAIPEditFacilityLocation
                             dr.Close()
 
                             If FacilityName <> "" Then
-                                SQL = "Update AIRBRANCH.OLAPUserAccess set " &
+                                SQL = "Update OLAPUserAccess set " &
                                 "strFacilityName = '" & FacilityName & "' " &
                                 "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
@@ -351,7 +351,7 @@ Public Class IAIPEditFacilityLocation
                                 dr = cmd.ExecuteReader
                                 dr.Close()
 
-                                SQL = "Update airbranch.EIS_FacilitySite set " &
+                                SQL = "Update EIS_FacilitySite set " &
                                 "strFacilitySiteName = '" & FacilityName & "', " &
                                 "strFacilitySiteComment = 'Facility Name updated.', " &
                                 "UpdateUSer = '" & CurrentUser.AlphaName & "', " &
@@ -413,7 +413,7 @@ Public Class IAIPEditFacilityLocation
 
             If txtKey.Text <> "" Then
                 SQL = "Select * " &
-                "from AIRBRANCH.VW_HB_APBFacilityLocation " &
+                "from VW_HB_APBFacilityLocation " &
                 "where strKey = '" & txtKey.Text & "' " &
                 "Order by strKey DESC "
 

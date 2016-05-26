@@ -44,11 +44,11 @@ Public Class SSPPTitleVTools
             If AppNum = "Load" Then
                 SQLLine = ""
             Else
-                SQLLine = " and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & AppNum & "' "
+                SQLLine = " and SSPPApplicationMaster.strApplicationNumber = '" & AppNum & "' "
             End If
 
             SQL = "select " &
-            "to_Number(AIRBRANCH.SSPPApplicationMaster.strApplicationNumber) as ApplicationNumber, " &
+            "to_Number(SSPPApplicationMaster.strApplicationNumber) as ApplicationNumber, " &
             "case " &
             "When datDraftIssued is Null then ' ' " &
             "ELSE to_char(datDraftIssued, 'RRRR-MM-dd') " &
@@ -73,11 +73,11 @@ Public Class SSPPTitleVTools
             "Else to_char(datFinalizedDate, 'RRRR-MM-dd') " &
             "End datFinalizedDate, " &
             "strApplicationTypeDesc " &
-            "from AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.SSPPApplicationData, " &
-            "AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.LookUpApplicationTypes " &
-            "where AIRBRANCH.SSPPApplicationTracking.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber " &
-            "and AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode = strApplicationType " &
-            "and AIRBRANCH.SSPPApplicationTracking.strApplicationNumber = AIRBRANCH.SSPPApplicationMaster.strApplicationNumber " &
+            "from SSPPApplicationTracking, SSPPApplicationData, " &
+            "SSPPApplicationMaster, LookUpApplicationTypes " &
+            "where SSPPApplicationTracking.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+            "and LookUpApplicationTypes.strApplicationTypeCode = strApplicationType " &
+            "and SSPPApplicationTracking.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber " &
             "and (datDraftIssued is Not Null or datPermitIssued is Not Null or datEPAStatesNotified is Not Null) " &
             "and datFinalOnWeb is Null " &
             "and datFinalizedDate is Null " &
@@ -86,7 +86,7 @@ Public Class SSPPTitleVTools
             " or strApplicationType = '20' or strApplicationType = '22' or strApplicationType = '21')" & SQLLine
 
             SQL = "SELECT " &
-            "TO_NUMBER(AIRBRANCH.SSPPApplicationMaster.strApplicationNumber) AS ApplicationNumber,  " &
+            "TO_NUMBER(SSPPApplicationMaster.strApplicationNumber) AS ApplicationNumber,  " &
             "CASE  " &
             "   WHEN datDraftIssued IS NULL THEN ' '  " &
             "   ELSE TO_CHAR(datDraftIssued, 'RRRR-MM-dd') " &
@@ -111,11 +111,11 @@ Public Class SSPPTitleVTools
             "   ELSE TO_CHAR(datFinalizedDate, 'RRRR-MM-dd') " &
             "END datFinalizedDate,  " &
             "strApplicationTypeDesc  " &
-            "from AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.SSPPApplicationData,  " &
-            "AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.LookUpApplicationTypes " &
-            "WHERE AIRBRANCH.SSPPApplicationTracking.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " &
-            "AND AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " &
-            "AND AIRBRANCH.SSPPApplicationTracking.strApplicationNumber = AIRBRANCH.SSPPApplicationMaster.strApplicationNumber " &
+            "from SSPPApplicationTracking, SSPPApplicationData,  " &
+            "SSPPApplicationMaster, LookUpApplicationTypes " &
+            "WHERE SSPPApplicationTracking.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+            "AND LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " &
+            "AND SSPPApplicationTracking.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber " &
             "AND ( " &
             "(strApplicationType = '14' OR strApplicationType = '16' OR strApplicationType = '17') " &
             "AND (datDraftOnWeb IS NULL OR datPNExpires IS NULL " &
@@ -257,7 +257,7 @@ Public Class SSPPTitleVTools
             If txtWebPublisherApplicationNumber.Text <> "" Then
                 SQL = "Select " &
                 "strMasterApplication, strApplicationNumber " &
-                "from AIRBRANCH.SSPPApplicationLinking " &
+                "from SSPPApplicationLinking " &
                 "where strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -277,7 +277,7 @@ Public Class SSPPTitleVTools
                 If MasterApplication <> "" Then
                     SQL = "Select " &
                     "strMasterApplication, strApplicationNumber " &
-                    "from AIRBRANCH.SSPPApplicationLinking " &
+                    "from SSPPApplicationLinking " &
                     "where strMasterApplication = '" & MasterApplication & "' " &
                     "order by strApplicationNumber "
 
@@ -350,7 +350,7 @@ Public Class SSPPTitleVTools
             SQL = "select " &
             "(strLastName||', '||strFirstName) as UserName,  " &
             "numUserID  " &
-            "from AIRBranch.EPDUserProfiles  " &
+            "from EPDUserProfiles  " &
             "order by strLastName  "
 
             dsStaff = New DataSet
@@ -386,11 +386,11 @@ Public Class SSPPTitleVTools
             "datEPAStatesNotifiedAppRec, " &
             "datExperationDate, datPNExpires, " &
             "strApplicationType " &
-            "from AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.SSPPApplicationData, " &
-            "AIRBRANCH.SSPPApplicationMaster " &
-            "where AIRBRANCH.SSPPApplicationTracking.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber " &
-            "and AIRBRANCH.SSPPApplicationTracking.strApplicationNumber = AIRBRANCH.SSPPApplicationMaster.strApplicationNumber  " &
-            "and AIRBRANCH.SSPPApplicationTracking.strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
+            "from SSPPApplicationTracking, SSPPApplicationData, " &
+            "SSPPApplicationMaster " &
+            "where SSPPApplicationTracking.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+            "and SSPPApplicationTracking.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber  " &
+            "and SSPPApplicationTracking.strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -552,7 +552,7 @@ Public Class SSPPTitleVTools
             End If
 
             If txtWebPublisherApplicationNumber.Text <> "" Then
-                SQL = "Update AIRBRANCH.SSPPApplicationTracking set " &
+                SQL = "Update SSPPApplicationTracking set " &
                 "datDraftOnWeb = '" & DraftOnWeb & "', " &
                 "datEPAStatesNotified = '" & EPAStatesNotified & "', " &
                 "datFinalOnWeb = '" & FinalOnWeb & "', " &
@@ -569,7 +569,7 @@ Public Class SSPPTitleVTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Update AIRBRANCH.SSPPApplicationData set " &
+                SQL = "Update SSPPApplicationData set " &
                 "strTargeted = '" & TargetedComments & "' " &
                 "where strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -590,7 +590,7 @@ Public Class SSPPTitleVTools
                             LinkedApplication = ""
                         End If
                         If LinkedApplication <> "" Then
-                            SQL = "Update AIRBRANCH.SSPPApplicationTracking set " &
+                            SQL = "Update SSPPApplicationTracking set " &
                             "datDraftOnWeb = '" & DraftOnWeb & "', " &
                             "datEPAStatesNotified = '" & EPAStatesNotified & "', " &
                             "datFinalOnWeb = '" & FinalOnWeb & "', " &
@@ -609,7 +609,7 @@ Public Class SSPPTitleVTools
                             dr.Read()
                             dr.Close()
 
-                            SQL = "Update AIRBRANCH.SSPPApplicationData set " &
+                            SQL = "Update SSPPApplicationData set " &
                             "strTargeted = '" & TargetedComments & "' " &
                             "where strApplicationNumber = '" & LinkedApplication & "' "
 
@@ -625,7 +625,7 @@ Public Class SSPPTitleVTools
                 End If
 
                 If DraftOnWeb <> "" And EPAStatesNotified = "" Then
-                    SQL = "Update AIRBRANCH.SSPPApplicationData set " &
+                    SQL = "Update SSPPApplicationData set " &
                     "strDraftOnWebNotification = 'False' " &
                     "where strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
 
@@ -691,14 +691,14 @@ Public Class SSPPTitleVTools
             "  ad.STRPERMITNUMBER, 15 ) ) AS PermitNumber , TO_CHAR( " &
             "  at.DATPERMITISSUED, 'dd-Mon-yyyy' ) AS PermitIssued , TO_CHAR " &
             "  ( at.DATEFFECTIVE, 'dd-Mon-yyyy' ) AS EffectiveDate " &
-            "FROM AIRBRANCH.SSPPApplicationMaster am " &
-            "INNER JOIN AIRBRANCH.SSPPApplicationData ad " &
+            "FROM SSPPApplicationMaster am " &
+            "INNER JOIN SSPPApplicationData ad " &
             "ON ad.STRAPPLICATIONNUMBER = am.STRAPPLICATIONNUMBER " &
-            "INNER JOIN AIRBRANCH.SSPPApplicationTracking at " &
+            "INNER JOIN SSPPApplicationTracking at " &
             "ON am.STRAPPLICATIONNUMBER = at.STRAPPLICATIONNUMBER " &
-            "INNER JOIN AIRBRANCH.APBHeaderData hd " &
+            "INNER JOIN APBHeaderData hd " &
             "ON am.STRAIRSNUMBER = hd.STRAIRSNUMBER " &
-            "INNER JOIN AIRBRANCH.APBFacilityInformation fi " &
+            "INNER JOIN APBFacilityInformation fi " &
             "ON fi.STRAIRSNUMBER = am.STRAIRSNUMBER " &
             "WHERE ad.STRPERMITNUMBER LIKE '%V__0' AND " &
             "  hd.STROPERATIONALSTATUS <> 'X' AND SUBSTR( " &
@@ -788,7 +788,7 @@ Public Class SSPPTitleVTools
                 "strFacilityName, strFacilityStreet1, " &
                 "strFacilityCity, strFacilityState, " &
                 "strFacilityZipCode " &
-                "from AIRBRANCH.SSPPApplicationData " &
+                "from SSPPApplicationData " &
                 "Where strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -851,18 +851,18 @@ Public Class SSPPTitleVTools
             clbTitleVEmailList.Items.Clear()
 
             SQL = "Select " &
-            "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " &
+            "SSPPApplicationMaster.strApplicationNumber, " &
             "strFacilityName, strFacilityCity, " &
             "strApplicationTypeDesc, " &
             "(strLastName||', '||strFirstName) as StaffResponsible, " &
             "strUnitDesc " &
-            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData, " &
-            "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.EPDUserProfiles, " &
-            "AIRBRANCH.LookUpEPDUnits " &
-            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber " &
-            "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode " &
-            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " &
-            "and AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " &
+            "from SSPPApplicationMaster, SSPPApplicationData, " &
+            "LookUpApplicationTypes, EPDUserProfiles, " &
+            "LookUpEPDUnits " &
+            "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+            "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+            "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+            "and EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
             "and (strAppReceivedNotification is Null or strAppReceivedNotification = 'False') " &
             "and (strApplicationType = '19'  or strApplicationType = '20' or strApplicationType = '21' " &
             "or strApplicationType = '22') " &
@@ -953,24 +953,24 @@ Public Class SSPPTitleVTools
                 "following source(s): " & vbCrLf & vbCrLf
 
                 SQL = "Select " &
-                "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " &
+                "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strFacilityCity,  " &
                 "strApplicationTypeDesc,  " &
                 "strCountyName  " &
-                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData,  " &
-                "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.LookUpCountyInformation   " &
-                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " &
-                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode  " &
+                "from SSPPApplicationMaster, SSPPApplicationData,  " &
+                "LookUpApplicationTypes, LookUpCountyInformation   " &
+                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode  " &
                 "and substr(strAIRSNumber, 5, 3) = strCountyCode  "
 
-                SQL2 = "Update AIRBRANCH.SSPPApplicationData set " &
+                SQL2 = "Update SSPPApplicationData set " &
                 "strAppReceivedNotification = 'True' where "
 
                 For Each strObject In clbTitleVEmailList.CheckedItems
                     temp = strObject
                     temp = Mid(temp, 1, (InStr(temp, " -", CompareMethod.Text) - 1))
-                    SQLLine = SQLLine & " AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & temp & "' or "
-                    SQLLine2 = SQLLine2 & " AIRBRANCH.SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
+                    SQLLine = SQLLine & " SSPPApplicationMaster.strApplicationNumber = '" & temp & "' or "
+                    SQLLine2 = SQLLine2 & " SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
                 Next
 
                 SQLLine = "And ( " & Mid(SQLLine, 1, (SQLLine.Length - 3)) & " ) "
@@ -1068,19 +1068,19 @@ Public Class SSPPTitleVTools
             clbTitleVEmailList.Items.Clear()
 
             SQL = "Select " &
-            "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " &
+            "SSPPApplicationMaster.strApplicationNumber, " &
             "strFacilityName, strFacilityCity, " &
             "strApplicationTypeDesc, " &
             "(strLastName||', '||strFirstName) as StaffResponsible, " &
             "strUnitDesc " &
-            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData, " &
-            "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.SSPPApplicationTracking, " &
-            "AIRBRANCH.EPDUserProfiles, AIRBRANCH.LookUpEPDUnits " &
-            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber " &
-            "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode " &
-            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " &
-            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " &
-            "and AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " &
+            "from SSPPApplicationMaster, SSPPApplicationData, " &
+            "LookUpApplicationTypes, SSPPApplicationTracking, " &
+            "EPDUserProfiles, LookUpEPDUnits " &
+            "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+            "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+            "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+            "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+            "and EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
             "and (strDraftOnWebNotification is Null or strDraftOnWebNotification = 'False') " &
             "and (strApplicationType = '14'  or strApplicationType = '16' or strApplicationType = '21' " &
             "or strApplicationType = '22') " &
@@ -1151,7 +1151,7 @@ Public Class SSPPTitleVTools
                 MasterApp = Mid(LinkedApps, 1, (InStr(LinkedApps, ",", CompareMethod.Text) - 1))
                 SQL = "select " &
                 "strMasterApplication " &
-                "from AIRBRANCH.SSPPApplicationLinking " &
+                "from SSPPApplicationLinking " &
                 "where strApplicationNumber = '" & MasterApp & "' "
 
                 temp = ""
@@ -1167,20 +1167,20 @@ Public Class SSPPTitleVTools
 
                 If temp <> "" Then
                     SQL = "Select " &
-                    "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " &
+                    "SSPPApplicationMaster.strApplicationNumber,  " &
                     "strFacilityName, strFacilityCity,  " &
                     "strApplicationTypeDesc,  " &
                     "(strLastName||', '||strFirstName) as StaffResponsible,  " &
                     "strUnitDesc  " &
-                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData,  " &
-                    "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.SSPPApplicationLinking, " &
-                    "AIRBRANCH.EPDUserProfiles, AIRBRANCH.LookUpEPDUnits  " &
-                    "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode   " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " &
-                    "and AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationLinking.strApplicationNumber " &
-                    "and AIRBRANCH.SSPPApplicationLinking.strMasterApplication = '" & temp & "' "
+                    "from SSPPApplicationMaster, SSPPApplicationData,  " &
+                    "LookUpApplicationTypes, SSPPApplicationLinking, " &
+                    "EPDUserProfiles, LookUpEPDUnits  " &
+                    "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                    "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode   " &
+                    "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                    "and EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
+                    "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationLinking.strApplicationNumber " &
+                    "and SSPPApplicationLinking.strMasterApplication = '" & temp & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -1270,7 +1270,7 @@ Public Class SSPPTitleVTools
                 txtEmailLetter.Text = "In accordance with Georgia's Title V Implementation Agreement, attached are the public notices for the " &
                 "draft/proposed permits and amendments for the following sources: " & vbCrLf & vbCrLf
 
-                SQL2 = "Update AIRBRANCH.SSPPApplicationData set " &
+                SQL2 = "Update SSPPApplicationData set " &
                 "strDraftOnWebNotification = 'True' where "
 
                 For Each strObject In clbTitleVEmailList.CheckedItems
@@ -1278,7 +1278,7 @@ Public Class SSPPTitleVTools
                     temp = Mid(temp, 1, (InStr(temp, " -", CompareMethod.Text) - 1))
 
                     SQL = "Select strMasterApplication " &
-                    "from AIRBRANCH.SSPPApplicationLinking " &
+                    "from SSPPApplicationLinking " &
                     "where strApplicationNumber = '" & temp & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1295,18 +1295,18 @@ Public Class SSPPTitleVTools
                     dr.Close()
 
                     SQL = "Select " &
-                    "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " &
+                    "SSPPApplicationMaster.strApplicationNumber, " &
                     "strFacilityName, strFacilityCity,  " &
                     "strApplicationTypeDesc, " &
                     "strCountyName, datPNExpires " &
-                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData,  " &
-                    "AIRBRANCH.LookUpCountyInformation, AIRBRANCH.LookUpApplicationTypes, " &
-                    "AIRBRANCH.SSPPApplicationTracking " &
-                    "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode  " &
-                    "and AIRBRANCH.SSPPApplicationmaster.strAPplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber (+) " &
+                    "from SSPPApplicationMaster, SSPPApplicationData,  " &
+                    "LookUpCountyInformation, LookUpApplicationTypes, " &
+                    "SSPPApplicationTracking " &
+                    "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                    "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode  " &
+                    "and SSPPApplicationmaster.strAPplicationNumber = SSPPApplicationTracking.strApplicationNumber (+) " &
                     "and substr(strAIRSNumber, 5, 3) = strCountyCode " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
+                    "and SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -1375,12 +1375,12 @@ Public Class SSPPTitleVTools
                         AppLine = ""
 
                         SQL = "select " &
-                        "AIRBRANCH.SSPPApplicationLinking.strApplicationNumber, " &
+                        "SSPPApplicationLinking.strApplicationNumber, " &
                         "strApplicationTypeDesc " &
-                        "from AIRBRANCH.SSPPApplicationLinking, AIRBRANCH.SSPPApplicationMaster, " &
-                        "AIRBRANCH.LookUpApplicationTypes " &
-                        "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationLinking.strApplicationNumber " &
-                        "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode " &
+                        "from SSPPApplicationLinking, SSPPApplicationMaster, " &
+                        "LookUpApplicationTypes " &
+                        "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationLinking.strApplicationNumber " &
+                        "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
                         "and strMasterApplication = '" & LinkedApp & "' "
                         cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -1434,7 +1434,7 @@ Public Class SSPPTitleVTools
                         "30-day expires: " & PNExpires & vbCrLf & vbCrLf
 
                     End If
-                    SQLLine2 = SQLLine2 & " AIRBRANCH.SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
+                    SQLLine2 = SQLLine2 & " SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
                 Next
 
                 SQLLine2 = Mid(SQLLine2, 1, (SQLLine2.Length - 3))
@@ -1489,7 +1489,7 @@ Public Class SSPPTitleVTools
                 txtEmailLetter.Text = "In accordance with 40 CFR 70.8(b)(1), attached are the public notices for the draft/proposed permits and " &
                 "amendments for the following sources: " & vbCrLf & vbCrLf
 
-                SQL2 = "Update AIRBRANCH.SSPPApplicationData set " &
+                SQL2 = "Update SSPPApplicationData set " &
                 "strDraftOnWebNotification = 'True' where "
 
                 For Each strObject In clbTitleVEmailList.CheckedItems
@@ -1497,7 +1497,7 @@ Public Class SSPPTitleVTools
                     temp = Mid(temp, 1, (InStr(temp, " -", CompareMethod.Text) - 1))
 
                     SQL = "Select strMasterApplication " &
-                    "from AIRBRANCH.SSPPApplicationLinking " &
+                    "from SSPPApplicationLinking " &
                     "where strApplicationNumber = '" & temp & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1514,16 +1514,16 @@ Public Class SSPPTitleVTools
                     dr.Close()
 
                     SQL = "Select " &
-                    "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " &
+                    "SSPPApplicationMaster.strApplicationNumber, " &
                     "strFacilityName, strFacilityCity,  " &
                     "strApplicationTypeDesc, " &
                     "strCountyName " &
-                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData,  " &
-                    "AIRBRANCH.LookUpCountyInformation, AIRBRANCH.LookUpApplicationTypes " &
-                    "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode  " &
+                    "from SSPPApplicationMaster, SSPPApplicationData,  " &
+                    "LookUpCountyInformation, LookUpApplicationTypes " &
+                    "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                    "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode  " &
                     "and substr(strAIRSNumber, 5, 3) = strCountyCode " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
+                    "and SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -1587,12 +1587,12 @@ Public Class SSPPTitleVTools
                         AppLine = ""
 
                         SQL = "select " &
-                        "AIRBRANCH.SSPPApplicationLinking.strApplicationNumber, " &
+                        "SSPPApplicationLinking.strApplicationNumber, " &
                         "strApplicationTypeDesc " &
-                        "from AIRBRANCH.SSPPApplicationLinking, AIRBRANCH.SSPPApplicationMaster, " &
-                        "AIRBRANCH.LookUpApplicationTypes " &
-                        "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationLinking.strApplicationNumber " &
-                        "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode " &
+                        "from SSPPApplicationLinking, SSPPApplicationMaster, " &
+                        "LookUpApplicationTypes " &
+                        "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationLinking.strApplicationNumber " &
+                        "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
                         "and strMasterApplication = '" & LinkedApp & "' "
                         cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -1644,7 +1644,7 @@ Public Class SSPPTitleVTools
                         FacCity & " (" & County & " County), GA" & vbCrLf &
                         AppLine & vbCrLf & vbCrLf
                     End If
-                    SQLLine2 = SQLLine2 & " AIRBRANCH.SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
+                    SQLLine2 = SQLLine2 & " SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
                 Next
 
                 SQLLine2 = Mid(SQLLine2, 1, (SQLLine2.Length - 3))
@@ -1700,37 +1700,37 @@ Public Class SSPPTitleVTools
 
             'This is the old code that was changed on May 13, 2009 
             SQL = "Select " &
-            "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " &
+            "SSPPApplicationMaster.strApplicationNumber, " &
             "strFacilityName, strFacilityCity, " &
             "strApplicationTypeDesc, " &
             "(strLastName||', '||strFirstName) as StaffResponsible, " &
             "strUnitDesc " &
-            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData, " &
-            "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.EPDUserProfiles, " &
-            "AIRBRANCH.LookUpEPDUnits " &
-            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber " &
-            "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode " &
-            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " &
-            "and AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " &
+            "from SSPPApplicationMaster, SSPPApplicationData, " &
+            "LookUpApplicationTypes, EPDUserProfiles, " &
+            "LookUpEPDUnits " &
+            "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+            "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+            "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+            "and EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
             "and (strDraftOnWebNotification is Null or strDraftOnWebNotification = 'False') " &
             "and (strApplicationType = '19'  or strApplicationType = '20') " &
             "order by strFacilityName, strApplicationNumber DESC "
 
 
             SQL = "Select " &
-            "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " &
+            "SSPPApplicationMaster.strApplicationNumber, " &
             "strFacilityName, strFacilityCity, " &
             "strApplicationTypeDesc, " &
             "(strLastName||', '||strFirstName) as StaffResponsible, " &
             "strUnitDesc " &
-            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData, " &
-            "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.EPDUserProfiles, " &
-            "AIRBRANCH.LookUpEPDUnits, AIRBRANCH.SSPPApplicationTracking " &
-            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber " &
-            "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode " &
-            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " &
-            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " &
-            "and AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " &
+            "from SSPPApplicationMaster, SSPPApplicationData, " &
+            "LookUpApplicationTypes, EPDUserProfiles, " &
+            "LookUpEPDUnits, SSPPApplicationTracking " &
+            "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+            "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+            "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+            "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+            "and EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
             "and datEPAStatesNotified is not Null " &
             "and (strDraftOnWebNotification is Null or strDraftOnWebNotification = 'False') " &
             "and (strApplicationType = '19'  or strApplicationType = '20') " &
@@ -1799,7 +1799,7 @@ Public Class SSPPTitleVTools
                 MasterApp = Mid(LinkedApps, 1, (InStr(LinkedApps, ",", CompareMethod.Text) - 1))
                 SQL = "select " &
                 "strMasterApplication " &
-                "from AIRBRANCH.SSPPApplicationLinking " &
+                "from SSPPApplicationLinking " &
                 "where strApplicationNumber = '" & MasterApp & "' "
 
                 temp = ""
@@ -1815,20 +1815,20 @@ Public Class SSPPTitleVTools
 
                 If temp <> "" Then
                     SQL = "Select " &
-                    "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " &
+                    "SSPPApplicationMaster.strApplicationNumber,  " &
                     "strFacilityName, strFacilityCity,  " &
                     "strApplicationTypeDesc,  " &
                     "(strLastName||', '||strFirstName) as StaffResponsible,  " &
                     "strUnitDesc  " &
-                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData,  " &
-                    "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.SSPPApplicationLinking, " &
-                    "AIRBRANCH.EPDuserProfiles, AIRBRANCH.LookUPEPDunits " &
-                    "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode   " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID  " &
-                    "and AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationLinking.strApplicationNumber " &
-                    "and AIRBRANCH.SSPPApplicationLinking.strMasterApplication = '" & temp & "' "
+                    "from SSPPApplicationMaster, SSPPApplicationData,  " &
+                    "LookUpApplicationTypes, SSPPApplicationLinking, " &
+                    "EPDuserProfiles, LookUPEPDunits " &
+                    "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                    "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode   " &
+                    "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID  " &
+                    "and EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
+                    "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationLinking.strApplicationNumber " &
+                    "and SSPPApplicationLinking.strMasterApplication = '" & temp & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -1917,7 +1917,7 @@ Public Class SSPPTitleVTools
                 txtEmailLetter.Text = "In accordance with Georgia's Title V Implementation Agreement, attached is the proposed Part " &
                 "70 permit modification and permit amendment narrative for the following: " & vbCrLf & vbCrLf
 
-                SQL2 = "Update AIRBRANCH.SSPPApplicationData set " &
+                SQL2 = "Update SSPPApplicationData set " &
                 "strDraftOnWebNotification = 'True' where "
 
                 For Each strObject In clbTitleVEmailList.CheckedItems
@@ -1925,7 +1925,7 @@ Public Class SSPPTitleVTools
                     temp = Mid(temp, 1, (InStr(temp, " -", CompareMethod.Text) - 1))
 
                     SQL = "Select strMasterApplication " &
-                    "from AIRBRANCH.SSPPApplicationLinking " &
+                    "from SSPPApplicationLinking " &
                     "where strApplicationNumber = '" & temp & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1942,16 +1942,16 @@ Public Class SSPPTitleVTools
                     dr.Close()
 
                     SQL = "Select " &
-                    "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " &
+                    "SSPPApplicationMaster.strApplicationNumber, " &
                     "strFacilityName, strFacilityCity,  " &
                     "strApplicationTypeDesc, " &
                     "strCountyName " &
-                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData,  " &
-                    "AIRBRANCH.LookUpCountyInformation, AIRBRANCH.LookUpApplicationTypes " &
-                    "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode  " &
+                    "from SSPPApplicationMaster, SSPPApplicationData,  " &
+                    "LookUpCountyInformation, LookUpApplicationTypes " &
+                    "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                    "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode  " &
                     "and substr(strAIRSNumber, 5, 3) = strCountyCode " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
+                    "and SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -2015,12 +2015,12 @@ Public Class SSPPTitleVTools
                         AppLine = ""
 
                         SQL = "select " &
-                        "AIRBRANCH.SSPPApplicationLinking.strApplicationNumber, " &
+                        "SSPPApplicationLinking.strApplicationNumber, " &
                         "strApplicationTypeDesc " &
-                        "from AIRBRANCH.SSPPApplicationLinking, AIRBRANCH.SSPPApplicationMaster, " &
-                        "AIRBRANCH.LookUpApplicationTypes " &
-                        "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationLinking.strApplicationNumber " &
-                        "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode " &
+                        "from SSPPApplicationLinking, SSPPApplicationMaster, " &
+                        "LookUpApplicationTypes " &
+                        "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationLinking.strApplicationNumber " &
+                        "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
                         "and strMasterApplication = '" & LinkedApp & "' "
                         cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -2072,7 +2072,7 @@ Public Class SSPPTitleVTools
                         FacCity & " (" & County & " County), GA" & vbCrLf &
                         AppLine & vbCrLf & vbCrLf
                     End If
-                    SQLLine2 = SQLLine2 & " AIRBRANCH.SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
+                    SQLLine2 = SQLLine2 & " SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
                 Next
 
                 SQLLine2 = Mid(SQLLine2, 1, (SQLLine2.Length - 3))
@@ -2123,7 +2123,7 @@ Public Class SSPPTitleVTools
                 txtEmailLetter.Text = "In accordance with 40 CFR 70.8(b)(1), attached is the proposed Part 70 permit modification and  " &
                 "permit amendment narrative for the following source: " & vbCrLf & vbCrLf
 
-                SQL2 = "Update AIRBRANCH.SSPPApplicationData set " &
+                SQL2 = "Update SSPPApplicationData set " &
                 "strDraftOnWebNotification = 'True' where "
 
                 For Each strObject In clbTitleVEmailList.CheckedItems
@@ -2131,7 +2131,7 @@ Public Class SSPPTitleVTools
                     temp = Mid(temp, 1, (InStr(temp, " -", CompareMethod.Text) - 1))
 
                     SQL = "Select strMasterApplication " &
-                    "from AIRBRANCH.SSPPApplicationLinking " &
+                    "from SSPPApplicationLinking " &
                     "where strApplicationNumber = '" & temp & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2148,16 +2148,16 @@ Public Class SSPPTitleVTools
                     dr.Close()
 
                     SQL = "Select " &
-                    "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " &
+                    "SSPPApplicationMaster.strApplicationNumber, " &
                     "strFacilityName, strFacilityCity,  " &
                     "strApplicationTypeDesc, " &
                     "strCountyName " &
-                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData,  " &
-                    "AIRBRANCH.LookUpCountyInformation, AIRBRANCH.LookUpApplicationTypes " &
-                    "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode  " &
+                    "from SSPPApplicationMaster, SSPPApplicationData,  " &
+                    "LookUpCountyInformation, LookUpApplicationTypes " &
+                    "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                    "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode  " &
                     "and substr(strAIRSNumber, 5, 3) = strCountyCode " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
+                    "and SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -2221,12 +2221,12 @@ Public Class SSPPTitleVTools
                         AppLine = ""
 
                         SQL = "select " &
-                        "AIRBRANCH.SSPPApplicationLinking.strApplicationNumber, " &
+                        "SSPPApplicationLinking.strApplicationNumber, " &
                         "strApplicationTypeDesc " &
-                        "from AIRBRANCH.SSPPApplicationLinking, AIRBRANCH.SSPPApplicationMaster, " &
-                        "AIRBRANCH.LookUpApplicationTypes " &
-                        "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationLinking.strApplicationNumber " &
-                        "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode " &
+                        "from SSPPApplicationLinking, SSPPApplicationMaster, " &
+                        "LookUpApplicationTypes " &
+                        "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationLinking.strApplicationNumber " &
+                        "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
                         "and strMasterApplication = '" & LinkedApp & "' "
                         cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -2278,7 +2278,7 @@ Public Class SSPPTitleVTools
                         FacCity & " (" & County & " County), GA" & vbCrLf &
                         AppLine & vbCrLf & vbCrLf
                     End If
-                    SQLLine2 = SQLLine2 & " AIRBRANCH.SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
+                    SQLLine2 = SQLLine2 & " SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
                 Next
 
                 SQLLine2 = Mid(SQLLine2, 1, (SQLLine2.Length - 3))
@@ -2325,19 +2325,19 @@ Public Class SSPPTitleVTools
             clbTitleVEmailList.Items.Clear()
 
             SQL = "Select " &
-            "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " &
+            "SSPPApplicationMaster.strApplicationNumber, " &
             "strFacilityName, strFacilityCity, " &
             "strApplicationTypeDesc, " &
             "(strLastName||', '||strFirstName) as StaffResponsible, " &
             "strUnitDesc " &
-            "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData, " &
-            "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.SSPPApplicationTracking, " &
-            "AIRBRANCH.EPDUserProfiles, AIRBRANCH.LookUpEPDUnits " &
-            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber " &
-            "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode " &
-            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " &
-            "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDuserProfiles.numUserID " &
-            "and AIRBRANCH.EPDuserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " &
+            "from SSPPApplicationMaster, SSPPApplicationData, " &
+            "LookUpApplicationTypes, SSPPApplicationTracking, " &
+            "EPDUserProfiles, LookUpEPDUnits " &
+            "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+            "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+            "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+            "and SSPPApplicationMaster.strStaffResponsible = EPDuserProfiles.numUserID " &
+            "and EPDuserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
             "and (strFinalOnWebNotification is Null or strFinalOnWebNotification = 'False') " &
             "and (strApplicationType = '14'  or strApplicationType = '16' " &
             "or strApplicationType = '19' or strApplicationType = '20' " &
@@ -2410,7 +2410,7 @@ Public Class SSPPTitleVTools
                 MasterApp = Mid(LinkedApps, 1, (InStr(LinkedApps, ",", CompareMethod.Text) - 1))
                 SQL = "select " &
                 "strMasterApplication " &
-                "from AIRBRANCH.SSPPApplicationLinking " &
+                "from SSPPApplicationLinking " &
                 "where strApplicationNumber = '" & MasterApp & "' "
 
                 temp = ""
@@ -2426,20 +2426,20 @@ Public Class SSPPTitleVTools
 
                 If temp <> "" Then
                     SQL = "Select " &
-                    "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " &
+                    "SSPPApplicationMaster.strApplicationNumber,  " &
                     "strFacilityName, strFacilityCity,  " &
                     "strApplicationTypeDesc,  " &
                     "(strLastName||', '||strFirstName) as StaffResponsible,  " &
                     "strUnitDesc  " &
-                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData,  " &
-                    "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.SSPPApplicationLinking, " &
-                    "AIRBRANCH.EPDUserProfiles, AIRBRANCH.LookUpEPDUnits  " &
-                    "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode   " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDuserPRofiles.numUserID  " &
-                    "and AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDunits.numUnitCode (+) " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationLinking.strApplicationNumber " &
-                    "and AIRBRANCH.SSPPApplicationLinking.strMasterApplication = '" & temp & "' "
+                    "from SSPPApplicationMaster, SSPPApplicationData,  " &
+                    "LookUpApplicationTypes, SSPPApplicationLinking, " &
+                    "EPDUserProfiles, LookUpEPDUnits  " &
+                    "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                    "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode   " &
+                    "and SSPPApplicationMaster.strStaffResponsible = EPDuserPRofiles.numUserID  " &
+                    "and EPDUserProfiles.numUnit = LookUpEPDunits.numUnitCode (+) " &
+                    "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationLinking.strApplicationNumber " &
+                    "and SSPPApplicationLinking.strMasterApplication = '" & temp & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -2530,7 +2530,7 @@ Public Class SSPPTitleVTools
                 txtEmailLetter.Text = "In accordance with condition V.A.1.a of Georgia's Title V Agreement, the final Part 70 " &
                 "Permits were issued to the following sources:" & vbCrLf & vbCrLf
 
-                SQL2 = "Update AIRBRANCH.SSPPApplicationData set " &
+                SQL2 = "Update SSPPApplicationData set " &
                 "strFinalOnWebNotification = 'True' where "
 
                 For Each strObject In clbTitleVEmailList.CheckedItems
@@ -2538,7 +2538,7 @@ Public Class SSPPTitleVTools
                     temp = Mid(temp, 1, (InStr(temp, " -", CompareMethod.Text) - 1))
 
                     SQL = "Select strMasterApplication " &
-                    "from AIRBRANCH.SSPPApplicationLinking " &
+                    "from SSPPApplicationLinking " &
                     "where strApplicationNumber = '" & temp & "' "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -2554,19 +2554,19 @@ Public Class SSPPTitleVTools
                     dr.Close()
 
                     SQL = "Select " &
-                    "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " &
+                    "SSPPApplicationMaster.strApplicationNumber, " &
                     "strFacilityName, strFacilityCity,  " &
                     "strCountyName, strPermitNumber,  " &
                     "datPermitIssued, datEffective, " &
                     "strApplicationTypeDesc " &
-                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData,  " &
-                    "AIRBRANCH.LookUpCountyInformation, AIRBRANCH.LookUpApplicationTypes, " &
-                    "AIRBRANCH.SSPPApplicationTracking " &
-                    "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber  " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode  " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber (+) " &
+                    "from SSPPApplicationMaster, SSPPApplicationData,  " &
+                    "LookUpCountyInformation, LookUpApplicationTypes, " &
+                    "SSPPApplicationTracking " &
+                    "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                    "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode  " &
+                    "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber (+) " &
                     "and substr(strAIRSNumber, 5, 3) = strCountyCode " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
+                    "and SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -2646,12 +2646,12 @@ Public Class SSPPTitleVTools
                         AppLine = ""
 
                         SQL = "select " &
-                        "AIRBRANCH.SSPPApplicationLinking.strApplicationNumber, " &
+                        "SSPPApplicationLinking.strApplicationNumber, " &
                         "strApplicationTypeDesc " &
-                        "from AIRBRANCH.SSPPApplicationLinking, AIRBRANCH.SSPPApplicationMaster, " &
-                        "AIRBRANCH.LookUpApplicationTypes " &
-                        "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationLinking.strApplicationNumber " &
-                        "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode " &
+                        "from SSPPApplicationLinking, SSPPApplicationMaster, " &
+                        "LookUpApplicationTypes " &
+                        "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationLinking.strApplicationNumber " &
+                        "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
                         "and strMasterApplication = '" & LinkedApp & "' "
                         cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -2704,7 +2704,7 @@ Public Class SSPPTitleVTools
                         AppLine & vbCrLf &
                         PermitNumber & vbCrLf & DateIssued & vbCrLf & vbCrLf
                     End If
-                    SQLLine2 = SQLLine2 & " AIRBRANCH.SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
+                    SQLLine2 = SQLLine2 & " SSPPApplicationData.strApplicationNumber = '" & temp & "' or "
                 Next
 
                 SQLLine2 = Mid(SQLLine2, 1, (SQLLine2.Length - 3))
@@ -2754,20 +2754,20 @@ Public Class SSPPTitleVTools
             Select Case txtEmailType.Text
                 Case "AppReceived"
                     SQL = "Select " &
-                   "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " &
+                   "SSPPApplicationMaster.strApplicationNumber, " &
                    "strFacilityName, strFacilityCity, " &
                    "strApplicationTypeDesc, " &
                    "(strLastName||', '||strFirstName) as StaffResponsible, " &
                    "strUnitDesc " &
-                   "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData, " &
-                   "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.SSPPApplicationTracking, " &
-                   "AIRBRANCH.EPDUserProfiles, AIRBRANCH.LookUpEPDUnits " &
-                   "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber " &
-                   "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode " &
-                   "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " &
-                   "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " &
-                   "and AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " &
-                   "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
+                   "from SSPPApplicationMaster, SSPPApplicationData, " &
+                   "LookUpApplicationTypes, SSPPApplicationTracking, " &
+                   "EPDUserProfiles, LookUpEPDUnits " &
+                   "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+                   "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                   "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+                   "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                   "and EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
+                   "and SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -2831,20 +2831,20 @@ Public Class SSPPTitleVTools
                     dr.Close()
                 Case "DraftOnWeb"
                     SQL = "Select " &
-                   "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " &
+                   "SSPPApplicationMaster.strApplicationNumber, " &
                    "strFacilityName, strFacilityCity, " &
                    "strApplicationTypeDesc, " &
                    "(strLastName||', '||strFirstName) as StaffResponsible, " &
                    "strUnitDesc " &
-                   "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData, " &
-                   "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.SSPPApplicationTracking, " &
-                   "AIRBRANCH.EPDUserProfiles, AIRBRANCH.LookUpEPDUnits " &
-                   "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber " &
-                   "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode " &
-                   "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " &
-                   "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " &
-                   "and AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " &
-                   "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
+                   "from SSPPApplicationMaster, SSPPApplicationData, " &
+                   "LookUpApplicationTypes, SSPPApplicationTracking, " &
+                   "EPDUserProfiles, LookUpEPDUnits " &
+                   "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+                   "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                   "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+                   "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                   "and EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
+                   "and SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
 
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2909,19 +2909,19 @@ Public Class SSPPTitleVTools
                     dr.Close()
                 Case "MinorOnWeb"
                     SQL = "Select " &
-                   "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " &
+                   "SSPPApplicationMaster.strApplicationNumber, " &
                    "strFacilityName, strFacilityCity, " &
                    "strApplicationTypeDesc, " &
                    "(strLastName||', '||strFirstName) as StaffResponsible, " &
                    "strUnitDesc " &
-                   "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData, " &
-                   "AIRBRANCH.LookUpApplicationTypes,  " &
-                   "AIRBRANCH.EPDUserProfiles, AIRBRANCH.LookUpEPDUnits " &
-                   "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber " &
-                   "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode " &
-                   "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDuserProfiles.numUserID " &
-                   "and AIRBRANCH.EPDuserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " &
-                   "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
+                   "from SSPPApplicationMaster, SSPPApplicationData, " &
+                   "LookUpApplicationTypes,  " &
+                   "EPDUserProfiles, LookUpEPDUnits " &
+                   "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+                   "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                   "and SSPPApplicationMaster.strStaffResponsible = EPDuserProfiles.numUserID " &
+                   "and EPDuserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
+                   "and SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -2985,19 +2985,19 @@ Public Class SSPPTitleVTools
                     dr.Close()
                 Case "FinalOnWeb"
                     SQL = "Select " &
-                    "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " &
+                    "SSPPApplicationMaster.strApplicationNumber, " &
                     "strFacilityName, strFacilityCity, " &
                     "strApplicationTypeDesc, " &
                     "(strLastName||', '||strFirstName) as StaffResponsible, " &
                     "strUnitDesc " &
-                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationData, " &
-                    "AIRBRANCH.LookUpApplicationTypes, " &
-                    "AIRBRANCH.EPDuserProfiles, AIRBRANCH.LookUpEPDUnits " &
-                    "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDuserProfiles.numUserID " &
-                    "and AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
+                    "from SSPPApplicationMaster, SSPPApplicationData, " &
+                    "LookUpApplicationTypes, " &
+                    "EPDuserProfiles, LookUpEPDUnits " &
+                    "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+                    "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                    "and SSPPApplicationMaster.strStaffResponsible = EPDuserProfiles.numUserID " &
+                    "and EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
+                    "and SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -3316,7 +3316,7 @@ Public Class SSPPTitleVTools
 
             SQL = "Select DISTINCT substr(strairsnumber, 5) as strairsnumber, " _
             + "strfacilityname " _
-            + "from AIRBRANCH.APBFacilityInformation " _
+            + "from APBFacilityInformation " _
             + "Order by strAIRSNumber "
 
             ds = New DataSet
@@ -3390,7 +3390,7 @@ Public Class SSPPTitleVTools
         End If
 
         Try
-            Dim updateString As String = "UPDATE AIRBRANCH.OlapUserAccess " &
+            Dim updateString As String = "UPDATE OlapUserAccess " &
                       "SET intadminaccess = '" & admin & "', " &
                       "intFeeAccess = '" & fee & "', " &
                       "intEIAccess = '" & ei & "', " &
@@ -3850,7 +3850,7 @@ Public Class SSPPTitleVTools
     Sub LoadContactData()
         Try
             SQL = "Select strApplicationNumber " &
-            "From AIRBRANCH.SSPPApplicationContact " &
+            "From SSPPApplicationContact " &
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -3862,7 +3862,7 @@ Public Class SSPPTitleVTools
             dr.Close()
             If recExist = True Then
                 SQL = "Select " &
-                "substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5) as AIRSNumber, " &
+                "substr(SSPPApplicationMaster.strAIRSNumber, 5) as AIRSNumber, " &
                 "strContactFirstName, " &
                 "strContactLastName, " &
                 "strContactPrefix, " &
@@ -3877,9 +3877,9 @@ Public Class SSPPTitleVTools
                 "strContactState, " &
                 "strContactZipCode, " &
                 "strContactDescription " &
-                "from AIRBRANCH.SSPPApplicationContact, AIRBRANCH.SSPPApplicationMaster " &
-                "where AIRBRANCH.SSPPApplicationContact.strApplicationNumber = AIRBRANCH.SSPPApplicationMaster.strApplicationNumber " &
-                "and AIRBRANCH.SSPPApplicationContact.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
+                "from SSPPApplicationContact, SSPPApplicationMaster " &
+                "where SSPPApplicationContact.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber " &
+                "and SSPPApplicationContact.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -3983,7 +3983,7 @@ Public Class SSPPTitleVTools
                 "strContactState, " &
                 "strContactZipCode, " &
                 "strContactDescription " &
-                "from AIRBRANCH.APBContactInformation " &
+                "from APBContactInformation " &
                 "where strContactKey = '0413" & txtAIRSNumber.Text & "30' "
             End If
 
@@ -4012,7 +4012,7 @@ Public Class SSPPTitleVTools
              "strContactState, " &
              "strContactZipCode, " &
              "strContactDescription " &
-             "from AIRBRANCH.APBContactInformation " &
+             "from APBContactInformation " &
              "where strContactKey = '0413" & txtAIRSNumber.Text & "30' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -4209,7 +4209,7 @@ Public Class SSPPTitleVTools
             End If
 
             SQL = "Select strApplicationNumber " &
-            "from AIRBRANCH.SSPPApplicationContact " &
+            "from SSPPApplicationContact " &
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -4220,7 +4220,7 @@ Public Class SSPPTitleVTools
             dr.Close()
             If recExist = True Then
                 'update
-                SQL = "Update AIRBRANCH.SSPPApplicationContact set " &
+                SQL = "Update SSPPApplicationContact set " &
                 "strContactFirstName = '" & Replace(ContactFirstName, "'", "''") & "', " &
                 "strContactLastName = '" & Replace(ContactLastname, "'", "''") & "', " &
                 "strContactPrefix = '" & Replace(ContactPrefix, "'", "''") & "', " &
@@ -4238,7 +4238,7 @@ Public Class SSPPTitleVTools
                 "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
             Else
                 'insert 
-                SQL = "Insert into AIRBRANCH.SSPPApplicationContact " &
+                SQL = "Insert into SSPPApplicationContact " &
                 "values " &
                 "('" & txtApplicationNumber.Text & "', " &
                 "'" & Replace(ContactFirstName, "'", "''") & "', " &
@@ -4354,7 +4354,7 @@ Public Class SSPPTitleVTools
             End If
 
             SQL = "Select count(*) as SSCPContact " &
-            "From AIRBRANCH.APBContactInformation " &
+            "From APBContactInformation " &
             "where strContactKey = '0413" & txtAIRSNumber.Text & "20' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -4686,7 +4686,7 @@ Public Class SSPPTitleVTools
             If AIRSNumber = "" Then
                 Return False
             End If
-            Dim SQL As String = "Insert into AIRBRANCH.APBContactInformation " &
+            Dim SQL As String = "Insert into APBContactInformation " &
              "values " &
              "('0413" & AIRSNumber & Key & "', '0413" & AIRSNumber & "', " &
              "" & Key & " , '" & Replace(ContactFirstName, "'", "''") & "', " &
@@ -4735,7 +4735,7 @@ Public Class SSPPTitleVTools
 
             Dim SQL As String = "Select " &
             "substr(max(strKey) + 1, 2, 1) as NewKey " &
-            "from AIRBRANCH.APBContactInformation " &
+            "from APBContactInformation " &
             "where strAIRSNumber = '0413" & AIRSNumber & "' " &
             "and strKey like '" & Mid(Key, 1, 1) & "%' "
 
@@ -4755,7 +4755,7 @@ Public Class SSPPTitleVTools
 
             If NewKey = 0 Then
                 NewKey = 9
-                SQL = "Delete AIRBRANCH.APBContactInformation " &
+                SQL = "Delete APBContactInformation " &
                 "where strAIRSNumber = '0413" & AIRSNumber & "' " &
                 "and strKey = '" & Mid(Key, 1, 1) & "9'"
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -4769,7 +4769,7 @@ Public Class SSPPTitleVTools
             Do Until NewKey = 0
                 ' MsgBox(NewKey.ToString)
 
-                SQL = "Update AIRBRANCH.APBContactInformation set " &
+                SQL = "Update APBContactInformation set " &
                 "strKey = '" & Mid(Key, 1, 1) & NewKey & "', " &
                 "strContactKey = '0413" & AIRSNumber & Mid(Key, 1, 1) & NewKey & "' " &
                 "where strAIRSNumber = '0413" & AIRSNumber & "' " &
@@ -4785,7 +4785,7 @@ Public Class SSPPTitleVTools
                 NewKey -= 1
             Loop
 
-            SQL = "Insert into AIRBRANCH.APBContactInformation " &
+            SQL = "Insert into APBContactInformation " &
             "values " &
             "('0413" & AIRSNumber & Mid(Key, 1, 1) & NewKey & "', " &
             "'0413" & AIRSNumber & "', '" & Key & "', " &

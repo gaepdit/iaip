@@ -14,7 +14,7 @@ Namespace DAL.Sscp
         Public Function GetFacilityIdByFceId(fceNumber As String) As Apb.ApbFacilityId
             If fceNumber = "" OrElse Not Integer.TryParse(fceNumber, Nothing) Then Return Nothing
 
-            Dim query As String = "SELECT STRAIRSNUMBER FROM AIRBRANCH.SSCPFCEMASTER WHERE STRFCENUMBER = :fceNumber"
+            Dim query As String = "SELECT STRAIRSNUMBER FROM SSCPFCEMASTER WHERE STRFCENUMBER = :fceNumber"
             Dim parameter As New SqlParameter("fceNumber", fceNumber)
 
             Return New Apb.ApbFacilityId(DB.GetSingleValue(Of String)(query, parameter))
@@ -32,7 +32,7 @@ Namespace DAL.Sscp
                 Optional staffId As String = Nothing,
                 Optional year As String = Nothing) As DataTable
             Dim query As String =
-                "SELECT * FROM AIRBRANCH.VW_SSCP_FCES " &
+                "SELECT * FROM VW_SSCP_FCES " &
                 " WHERE 1=1 "
 
             If airs IsNot Nothing Then query &= " AND STRAIRSNUMBER = :airs "
@@ -62,7 +62,7 @@ Namespace DAL.Sscp
                 Optional staffId As String = Nothing,
                 Optional year As String = Nothing) As DataTable
             Dim query As String =
-                "SELECT * FROM AIRBRANCH.VW_SSCP_FCES " &
+                "SELECT * FROM VW_SSCP_FCES " &
                 " WHERE TRUNC(DATFCECOMPLETED) BETWEEN :datestart AND :dateend "
 
             If airs IsNot Nothing Then query &= " AND STRAIRSNUMBER = :airs "

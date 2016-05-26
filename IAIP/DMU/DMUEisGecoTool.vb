@@ -76,7 +76,7 @@ Public Class DMUEisGecoTool
         Try
             SQL = "Select " &
             "distinct intESYear " &
-            "from AIRBRANCH.esschema " &
+            "from esschema " &
             "order by intESYear desc"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -110,7 +110,7 @@ Public Class DMUEisGecoTool
             End If
 
             SQL = "Select distinct STRESYEAR " &
-                  "from AIRBRANCH.esmailout " &
+                  "from esmailout " &
                   "order by STRESYEAR desc"
             Dim cmd As New SqlCommand(SQL, CurrentConnection)
 
@@ -216,7 +216,7 @@ Public Class DMUEisGecoTool
             Dim drNewRow As DataRow
 
             SQL = "Select distinct(inventoryYear) as InvYear " &
-            "from AIRBRANCH.EIS_Admin " &
+            "from EIS_Admin " &
             "order by invYear desc "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -234,10 +234,10 @@ Public Class DMUEisGecoTool
             dr.Close()
 
             SQL = "select distinct strDMUResponsibleStaff as DMUStafff " &
-            "from AIRBranch.EIS_QAAdmin " &
+            "from EIS_QAAdmin " &
             "union " &
             "select distinct (strLastName ||', '|| strFirstName) as DMUStafff " &
-            "from AIRBranch.EPDUserProfiles " &
+            "from EPDUserProfiles " &
             "where numBranch = '1' " &
             "and numProgram = '3' " &
             "and numunit = '14' " &
@@ -255,7 +255,7 @@ Public Class DMUEisGecoTool
 
             SQL = "Select " &
             "QAStatusCode, strDesc " &
-            "From AIRBranch.EISLK_QAStatus " &
+            "From EISLK_QAStatus " &
             "Where active = '1' " &
             "order by UpdateDateTime  "
 
@@ -464,7 +464,7 @@ Public Class DMUEisGecoTool
 
 
             SQL = "Select numuserid, struseremail " _
-            + "from AIRBRANCH.OlapUserLogin " _
+            + "from OlapUserLogin " _
             + "Order by struseremail "
 
             ds = New DataSet
@@ -523,7 +523,7 @@ Public Class DMUEisGecoTool
     Sub LoadUserInfo(ByVal UserData As String)
         Try
             SQL = "Select " &
-            "AIRBRANCH.OLAPUserProfile.numUserID, " &
+            "OLAPUserProfile.numUserID, " &
             "strfirstname, strlastname, " &
             "strtitle, strcompanyname, " &
             "straddress, strcity, " &
@@ -531,8 +531,8 @@ Public Class DMUEisGecoTool
             "strphonenumber, strfaxnumber, " &
             "datLastLogIn, strConfirm, " &
             "strUserEmail " &
-            "from AIRBRANCH.OlapUserProfile, AIRBRANCH.OLAPUserLogIn " &
-            "where AIRBRANCH.OLAPUserProfile.numUserID = AIRBRANCH.OLAPUserLogIn.numuserid " &
+            "from OlapUserProfile, OLAPUserLogIn " &
+            "where OLAPUserProfile.numUserID = OLAPUserLogIn.numuserid " &
             "and strUserEmail = upper('" & UserData & "') "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -665,8 +665,8 @@ Public Class DMUEisGecoTool
              "Case When intFeeAccess = 0 Then 'False' When intFeeAccess = 1 Then 'True' End as intFeeAccess, " &
              "Case When intEIAccess = 0 Then 'False' When intEIAccess = 1 Then 'True' End as intEIAccess, " &
              "Case When intESAccess = 0 Then 'False' When intESAccess = 1 Then 'True' End as intESAccess " &
-             "FROM AIRBRANCH.OlapUserAccess, AIRBRANCH.OLAPUserLogIn  " &
-             "WHERE AIRBRANCH.OlapUserAccess.numUserId = AIRBRANCH.OLAPUserLogIn.numUserId " &
+             "FROM OlapUserAccess, OLAPUserLogIn  " &
+             "WHERE OlapUserAccess.numUserId = OLAPUserLogIn.numUserId " &
              "and  strUserEmail = upper('" & EmailLoc & "') " &
              "order by strfacilityname"
 
@@ -740,7 +740,7 @@ Public Class DMUEisGecoTool
         Try
             If txtAirsNumber.Text <> "" Then
                 SQL = "Select strFacilityName " &
-                "from AIRBRANCH.APBFacilityInformation " &
+                "from APBFacilityInformation " &
                 "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -774,7 +774,7 @@ Public Class DMUEisGecoTool
     Private Sub btnGetData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGetData.Click
         Try
             If txtAirsNumber.Text <> "" Then
-                SQL = "Select * from AIRBRANCH.eiSI where strStateFacilityIdentifier = '" & txtAirsNumber.Text & "' "
+                SQL = "Select * from eiSI where strStateFacilityIdentifier = '" & txtAirsNumber.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -827,107 +827,107 @@ Public Class DMUEisGecoTool
                     "when PMFILTable.TotalEmissions is Null then 0  " &
                     "else PMFILTable.TotalEmissions  " &
                     "end PMFIL " &
-                    "from AIRBRANCH.EIEM,  " &
+                    "from EIEM,  " &
                     "(Select  " &
-                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " &
-                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " &
-                    "AIRBRANCH.EIEM.strInventoryYear,  " &
+                    "EIEM.strPollutantCode as PollutantCode,   " &
+                    "sum(EIEM.dblEmissionNumericValue) as TotalEmissions,  " &
+                    "EIEM.strInventoryYear,  " &
                     "strStateFacilityIdentifier  " &
-                    "from AIRBRANCH.EIEM   " &
-                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " &
+                    "from EIEM   " &
+                    "where EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " &
                     "and strPollutantCode = 'CO'  " &
-                    "group by AIRBRANCH.EIEM.strPollutantCode,  " &
-                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) COTable,  " &
+                    "group by EIEM.strPollutantCode,  " &
+                    "EIEM.strInventoryYear, strStateFacilityIdentifier) COTable,  " &
                     "(Select  " &
-                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " &
-                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " &
-                    "AIRBRANCH.EIEM.strInventoryYear,  " &
+                    "EIEM.strPollutantCode as PollutantCode,   " &
+                    "sum(EIEM.dblEmissionNumericValue) as TotalEmissions,  " &
+                    "EIEM.strInventoryYear,  " &
                     "strStateFacilityIdentifier  " &
-                    "from AIRBRANCH.EIEM   " &
-                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " &
+                    "from EIEM   " &
+                    "where EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " &
                     "and strPollutantCode = '7439921'  " &
-                    "group by AIRBRANCH.EIEM.strPollutantCode,  " &
-                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) LeadTable,  " &
+                    "group by EIEM.strPollutantCode,  " &
+                    "EIEM.strInventoryYear, strStateFacilityIdentifier) LeadTable,  " &
                     "(Select  " &
-                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " &
-                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " &
-                    "AIRBRANCH.EIEM.strInventoryYear,  " &
+                    "EIEM.strPollutantCode as PollutantCode,   " &
+                    "sum(EIEM.dblEmissionNumericValue) as TotalEmissions,  " &
+                    "EIEM.strInventoryYear,  " &
                     "strStateFacilityIdentifier  " &
-                    "from AIRBRANCH.EIEM   " &
-                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " &
+                    "from EIEM   " &
+                    "where EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " &
                     "and strPollutantCode = 'NH3'  " &
-                    "group by AIRBRANCH.EIEM.strPollutantCode,  " &
-                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) NH3Table,  " &
+                    "group by EIEM.strPollutantCode,  " &
+                    "EIEM.strInventoryYear, strStateFacilityIdentifier) NH3Table,  " &
                     "(Select  " &
-                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " &
-                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " &
-                    "AIRBRANCH.EIEM.strInventoryYear,  " &
+                    "EIEM.strPollutantCode as PollutantCode,   " &
+                    "sum(EIEM.dblEmissionNumericValue) as TotalEmissions,  " &
+                    "EIEM.strInventoryYear,  " &
                     "strStateFacilityIdentifier  " &
-                    "from AIRBRANCH.EIEM   " &
-                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " &
+                    "from EIEM   " &
+                    "where EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " &
                     "and strPollutantCode = 'NOX'  " &
-                    "group by AIRBRANCH.EIEM.strPollutantCode,  " &
-                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) NOXTable,  " &
+                    "group by EIEM.strPollutantCode,  " &
+                    "EIEM.strInventoryYear, strStateFacilityIdentifier) NOXTable,  " &
                     "(Select  " &
-                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " &
-                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " &
-                    "AIRBRANCH.EIEM.strInventoryYear,  " &
+                    "EIEM.strPollutantCode as PollutantCode,   " &
+                    "sum(EIEM.dblEmissionNumericValue) as TotalEmissions,  " &
+                    "EIEM.strInventoryYear,  " &
                     "strStateFacilityIdentifier  " &
-                    "from AIRBRANCH.EIEM   " &
-                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " &
+                    "from EIEM   " &
+                    "where EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " &
                     "and strPollutantCode = 'PM-PRI'  " &
-                    "group by AIRBRANCH.EIEM.strPollutantCode,  " &
-                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) PMTable,  " &
+                    "group by EIEM.strPollutantCode,  " &
+                    "EIEM.strInventoryYear, strStateFacilityIdentifier) PMTable,  " &
                     "(Select  " &
-                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " &
-                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " &
-                    "AIRBRANCH.EIEM.strInventoryYear,  " &
+                    "EIEM.strPollutantCode as PollutantCode,   " &
+                    "sum(EIEM.dblEmissionNumericValue) as TotalEmissions,  " &
+                    "EIEM.strInventoryYear,  " &
                     "strStateFacilityIdentifier  " &
-                    "from AIRBRANCH.EIEM   " &
-                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " &
+                    "from EIEM   " &
+                    "where EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " &
                     "and strPollutantCode = 'PM10-PMI'  " &
-                    "group by AIRBRANCH.EIEM.strPollutantCode,  " &
-                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) PM10Table,  " &
+                    "group by EIEM.strPollutantCode,  " &
+                    "EIEM.strInventoryYear, strStateFacilityIdentifier) PM10Table,  " &
                     "(Select  " &
-                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " &
-                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " &
-                    "AIRBRANCH.EIEM.strInventoryYear,  " &
+                    "EIEM.strPollutantCode as PollutantCode,   " &
+                    "sum(EIEM.dblEmissionNumericValue) as TotalEmissions,  " &
+                    "EIEM.strInventoryYear,  " &
                     "strStateFacilityIdentifier  " &
-                    "from AIRBRANCH.EIEM   " &
-                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " &
+                    "from EIEM   " &
+                    "where EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " &
                     "and strPollutantCode = 'PM25-PMI'  " &
-                    "group by AIRBRANCH.EIEM.strPollutantCode,  " &
-                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) PM25Table,  " &
+                    "group by EIEM.strPollutantCode,  " &
+                    "EIEM.strInventoryYear, strStateFacilityIdentifier) PM25Table,  " &
                     "(Select  " &
-                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " &
-                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " &
-                    "AIRBRANCH.EIEM.strInventoryYear,  " &
+                    "EIEM.strPollutantCode as PollutantCode,   " &
+                    "sum(EIEM.dblEmissionNumericValue) as TotalEmissions,  " &
+                    "EIEM.strInventoryYear,  " &
                     "strStateFacilityIdentifier  " &
-                    "from AIRBRANCH.EIEM   " &
-                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " &
+                    "from EIEM   " &
+                    "where EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " &
                     "and strPollutantCode = 'SO2'  " &
-                    "group by AIRBRANCH.EIEM.strPollutantCode,  " &
-                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) SO2Table,  " &
+                    "group by EIEM.strPollutantCode,  " &
+                    "EIEM.strInventoryYear, strStateFacilityIdentifier) SO2Table,  " &
                     "(Select  " &
-                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " &
-                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " &
-                    "AIRBRANCH.EIEM.strInventoryYear,  " &
+                    "EIEM.strPollutantCode as PollutantCode,   " &
+                    "sum(EIEM.dblEmissionNumericValue) as TotalEmissions,  " &
+                    "EIEM.strInventoryYear,  " &
                     "strStateFacilityIdentifier  " &
-                    "from AIRBRANCH.EIEM   " &
-                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " &
+                    "from EIEM   " &
+                    "where EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " &
                     "and strPollutantCode = 'VOC'  " &
-                    "group by AIRBRANCH.EIEM.strPollutantCode,  " &
-                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) VOCTable,  " &
+                    "group by EIEM.strPollutantCode,  " &
+                    "EIEM.strInventoryYear, strStateFacilityIdentifier) VOCTable,  " &
                     "(Select  " &
-                    "AIRBRANCH.EIEM.strPollutantCode as PollutantCode,   " &
-                    "sum(AIRBRANCH.EIEM.dblEmissionNumericValue) as TotalEmissions,  " &
-                    "AIRBRANCH.EIEM.strInventoryYear,  " &
+                    "EIEM.strPollutantCode as PollutantCode,   " &
+                    "sum(EIEM.dblEmissionNumericValue) as TotalEmissions,  " &
+                    "EIEM.strInventoryYear,  " &
                     "strStateFacilityIdentifier  " &
-                    "from AIRBRANCH.EIEM   " &
-                    "where AIRBRANCH.EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " &
+                    "from EIEM   " &
+                    "where EIEM.strStateFacilityIdentifier = '" & txtAirsNumber.Text & "'  " &
                     "and strPollutantCode = 'PM-FIL'  " &
-                    "group by AIRBRANCH.EIEM.strPollutantCode,  " &
-                    "AIRBRANCH.EIEM.strInventoryYear, strStateFacilityIdentifier) PMFILTable " &
+                    "group by EIEM.strPollutantCode,  " &
+                    "EIEM.strInventoryYear, strStateFacilityIdentifier) PMFILTable " &
                     "where EIEM.strInventoryYear = COTable.strInventoryYear (+)   " &
                     "and EIEM.strInventoryYear = LeadTable.strInventoryYear (+)   " &
                     "and EIEM.strInventoryYear = NH3Table.strInventoryYear  (+)  " &
@@ -1045,15 +1045,15 @@ Public Class DMUEisGecoTool
                             "dblYCoordinate, " &
                             "strHorizontalCollectionCode, " &
                             "(Select STRHORIZCOLLECTIONMETHODDESC " &
-                               "from AIRBRANCH.EILOOKUPHORIZCOLMETHOD " &
-                               "where AIRBRANCH.EISI.STRHORIZONTALCOLLECTIONCODE = " &
-                               "AIRBRANCH.EILOOKUPHORIZCOLMETHOD.STRHORIZCOLLECTIONMETHODCODE) as HMCdesc, " &
+                               "from EILOOKUPHORIZCOLMETHOD " &
+                               "where EISI.STRHORIZONTALCOLLECTIONCODE = " &
+                               "EILOOKUPHORIZCOLMETHOD.STRHORIZCOLLECTIONMETHODCODE) as HMCdesc, " &
                             "strHorizontalReferenceCode, " &
                             "strHorizontalAccuracyMeasure, " &
                             "(Select STRHORIZONTALREFERENCEDESC " &
-                               "from AIRBRANCH.EILOOKUPHORIZREFDATUM " &
-                               "where AIRBRANCH.EISI.STRHORIZONTALREFERENCECODE = " &
-                               "AIRBRANCH.EILOOKUPHORIZREFDATUM.STRHORIZONTALREFERENCEDATUM) as HDRCdesc, " &
+                               "from EILOOKUPHORIZREFDATUM " &
+                               "where EISI.STRHORIZONTALREFERENCECODE = " &
+                               "EILOOKUPHORIZREFDATUM.STRHORIZONTALREFERENCEDATUM) as HDRCdesc, " &
                             "strContactPrefix, " &
                             "strContactFirstName, " &
                             "strContactLastName, " &
@@ -1070,7 +1070,7 @@ Public Class DMUEisGecoTool
                             "strSiteDescription, " &
                             "strSICPrimary, " &
                             "strNAICSPrimary " &
-                     "from AIRBRANCH.eiSI where strAirsYear = '" & airsYear & "'"
+                     "from eiSI where strAirsYear = '" & airsYear & "'"
 
             Dim cmd As New SqlCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
@@ -1152,17 +1152,17 @@ Public Class DMUEisGecoTool
                          "sngDesignCapacity, " &
                          "strDesignCapUnitNum, " &
                          "(Select STRUNITDESCRIPTION " &
-                               "from AIRBRANCH.EILOOKUPUNITCODES " &
-                               "where AIRBRANCH.EIEU.strDesignCapUnitNum = " &
-                               "AIRBRANCH.EILOOKUPUNITCODES.STRUNITCODE) as numDesc, " &
+                               "from EILOOKUPUNITCODES " &
+                               "where EIEU.strDesignCapUnitNum = " &
+                               "EILOOKUPUNITCODES.STRUNITCODE) as numDesc, " &
                          "strDesignCapUnitDenom, " &
                          "(Select STRUNITDESCRIPTION " &
-                               "from AIRBRANCH.EILOOKUPUNITCODES " &
-                               "where AIRBRANCH.EIEU.strDesignCapUnitDenom = " &
-                               "AIRBRANCH.EILOOKUPUNITCODES.STRUNITCODE) as denomDesc, " &
+                               "from EILOOKUPUNITCODES " &
+                               "where EIEU.strDesignCapUnitDenom = " &
+                               "EILOOKUPUNITCODES.STRUNITCODE) as denomDesc, " &
                          "sngMaxNameplateCapacity, " &
                          "strEmissionUnitDesc " &
-                    "from AIRBRANCH.eiEU where strAirsYear = '" & airsYear & "'"
+                    "from eiEU where strAirsYear = '" & airsYear & "'"
 
             Dim cmd As New SqlCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
@@ -1222,9 +1222,9 @@ Public Class DMUEisGecoTool
             SQL = "select strEmissionReleasePointID, " &
                             "strEmissionReleaseType, " &
                             "(Select STREMISSIONTYPEDESC " &
-                               "from AIRBRANCH.EILOOKUPEMISSIONTYPES " &
-                               "where AIRBRANCH.EIER.STREMISSIONRELEASETYPE = " &
-                               "AIRBRANCH.EILOOKUPEMISSIONTYPES.STREMISSIONTYPECODE) as stackType, " &
+                               "from EILOOKUPEMISSIONTYPES " &
+                               "where EIER.STREMISSIONRELEASETYPE = " &
+                               "EILOOKUPEMISSIONTYPES.STREMISSIONTYPECODE) as stackType, " &
                             "sngStackHeight, " &
                             "sngStackDiameter, " &
                             "sngExitGasTemperature, " &
@@ -1235,16 +1235,16 @@ Public Class DMUEisGecoTool
                             "strEmissionReleasePtDesc, " &
                             "strHorizontalCollectionCode, " &
                             "(Select STRHORIZCOLLECTIONMETHODDESC " &
-                               "from AIRBRANCH.EILOOKUPHORIZCOLMETHOD " &
-                               "where AIRBRANCH.EIER.STRHORIZONTALCOLLECTIONCODE = " &
-                               "AIRBRANCH.EILOOKUPHORIZCOLMETHOD.STRHORIZCOLLECTIONMETHODCODE) as HMCdesc, " &
+                               "from EILOOKUPHORIZCOLMETHOD " &
+                               "where EIER.STRHORIZONTALCOLLECTIONCODE = " &
+                               "EILOOKUPHORIZCOLMETHOD.STRHORIZCOLLECTIONMETHODCODE) as HMCdesc, " &
                             "strHorizontalAccuracyMeasure, " &
                             "strHorizontalReferenceCode, " &
                             "(Select STRHORIZONTALREFERENCEDESC " &
-                               "from AIRBRANCH.EILOOKUPHORIZREFDATUM " &
-                               "where AIRBRANCH.EIER.STRHORIZONTALREFERENCECODE = " &
-                               "AIRBRANCH.EILOOKUPHORIZREFDATUM.STRHORIZONTALREFERENCEDATUM) as HDRCdesc " &
-                            "from AIRBRANCH.eiER where strAirsYear = '" & airsYear & "'"
+                               "from EILOOKUPHORIZREFDATUM " &
+                               "where EIER.STRHORIZONTALREFERENCECODE = " &
+                               "EILOOKUPHORIZREFDATUM.STRHORIZONTALREFERENCEDATUM) as HDRCdesc " &
+                            "from eiER where strAirsYear = '" & airsYear & "'"
 
             Dim cmd As New SqlCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
@@ -1328,17 +1328,17 @@ Public Class DMUEisGecoTool
                             "sngDailySummerProcessTPut, " &
                             "strDailySummerProcessTPutNum, " &
                             "(Select STRUNITDESCRIPTION " &
-                               "from AIRBRANCH.EILOOKUPUNITCODES " &
-                               "where AIRBRANCH.EIEP.strDailySummerProcessTPutNum = " &
-                               "AIRBRANCH.EILOOKUPUNITCODES.STRUNITCODE) as DailySummerTputNumDesc, " &
+                               "from EILOOKUPUNITCODES " &
+                               "where EIEP.strDailySummerProcessTPutNum = " &
+                               "EILOOKUPUNITCODES.STRUNITCODE) as DailySummerTputNumDesc, " &
                             "sngActualThroughput, " &
                             "strThroughputUnitNumerator, " &
                             "(Select STRUNITDESCRIPTION " &
-                               "from AIRBRANCH.EILOOKUPUNITCODES " &
-                               "where AIRBRANCH.EIEP.strThroughputUnitNumerator = " &
-                               "AIRBRANCH.EILOOKUPUNITCODES.STRUNITCODE) as TputNumDesc, " &
+                               "from EILOOKUPUNITCODES " &
+                               "where EIEP.strThroughputUnitNumerator = " &
+                               "EILOOKUPUNITCODES.STRUNITCODE) as TputNumDesc, " &
                             "strStartTime " &
-                       "from AIRBRANCH.eiEP " &
+                       "from eiEP " &
                       "where strAirsYear = '" & airsYear & "'"
 
             Dim cmd As New SqlCommand(SQL, CurrentConnection)
@@ -1417,50 +1417,50 @@ Public Class DMUEisGecoTool
             SQL += "STRPROCESSID, "
             SQL += "strPollutantCode, "
             SQL += "(Select STRPOLLUTANTDESC "
-            SQL += "from AIRBRANCH.EILOOKUPPOLLUTANTCODES "
-            SQL += "where AIRBRANCH.EIEM.STRPOLLUTANTCODE = "
-            SQL += "AIRBRANCH.EILOOKUPPOLLUTANTCODES.STRPOLLUTANTCODE) as pollutantDesc, "
+            SQL += "from EILOOKUPPOLLUTANTCODES "
+            SQL += "where EIEM.STRPOLLUTANTCODE = "
+            SQL += "EILOOKUPPOLLUTANTCODES.STRPOLLUTANTCODE) as pollutantDesc, "
             SQL += "DBLEMISSIONNUMERICVALUE, "
             SQL += "STREMISSIONUNITNUMERATOR, "
             SQL += "(Select STRUNITDESCRIPTION "
-            SQL += "from AIRBRANCH.EILOOKUPUNITCODES "
-            SQL += "where AIRBRANCH.EIEM.STREMISSIONUNITNUMERATOR = "
-            SQL += "AIRBRANCH.EILOOKUPUNITCODES.STRUNITCODE) as EMISSIONUNITNUMERATORDesc, "
+            SQL += "from EILOOKUPUNITCODES "
+            SQL += "where EIEM.STREMISSIONUNITNUMERATOR = "
+            SQL += "EILOOKUPUNITCODES.STRUNITCODE) as EMISSIONUNITNUMERATORDesc, "
             SQL += "sngFactorNumericValue, "
             SQL += "strFactorUnitNumerator, "
             SQL += "(Select STRUNITDESCRIPTION "
-            SQL += "from AIRBRANCH.EILOOKUPUNITCODES "
-            SQL += "where AIRBRANCH.EIEM.strFactorUnitNumerator = "
-            SQL += "AIRBRANCH.EILOOKUPUNITCODES.STRUNITCODE) as FactorUnitNumeratorDesc, "
+            SQL += "from EILOOKUPUNITCODES "
+            SQL += "where EIEM.strFactorUnitNumerator = "
+            SQL += "EILOOKUPUNITCODES.STRUNITCODE) as FactorUnitNumeratorDesc, "
             SQL += "strFactorUnitDenominator, "
             SQL += "(Select STRUNITDESCRIPTION "
-            SQL += "from AIRBRANCH.EILOOKUPUNITCODES "
-            SQL += "where AIRBRANCH.EIEM.strFactorUnitDenominator = "
-            SQL += "AIRBRANCH.EILOOKUPUNITCODES.STRUNITCODE) as FactorUnitDenominatorDesc, "
+            SQL += "from EILOOKUPUNITCODES "
+            SQL += "where EIEM.strFactorUnitDenominator = "
+            SQL += "EILOOKUPUNITCODES.STRUNITCODE) as FactorUnitDenominatorDesc, "
             SQL += "strEmissionCalculationMetCode, "
             SQL += "(Select STREMISSIONCALCMETHODDESC "
-            SQL += "from AIRBRANCH.EILOOKUPEMISSIONCALCMETHOD "
-            SQL += "where AIRBRANCH.EIEM.strEmissionCalculationMetCode = "
-            SQL += "AIRBRANCH.EILOOKUPEMISSIONCALCMETHOD.STREMISSIONCALCMETHODCODE) as EMISSIONCALCMETHODDESC, "
+            SQL += "from EILOOKUPEMISSIONCALCMETHOD "
+            SQL += "where EIEM.strEmissionCalculationMetCode = "
+            SQL += "EILOOKUPEMISSIONCALCMETHOD.STREMISSIONCALCMETHODCODE) as EMISSIONCALCMETHODDESC, "
             SQL += "strControlStatus, "
             SQL += "strControlSystemDescription, "
             SQL += "strPrimaryDeviceTypeCode, "
             SQL += "(Select STRCONTROLDEVICEDesc "
-            SQL += "from AIRBRANCH.EILOOKUPCONTROLDEVICE "
-            SQL += "where AIRBRANCH.EIEM.strPrimaryDeviceTypeCode = "
-            SQL += "AIRBRANCH.EILOOKUPCONTROLDEVICE.STRCONTROLDEVICECODE) as PrimaryDeviceTypeDesc, "
+            SQL += "from EILOOKUPCONTROLDEVICE "
+            SQL += "where EIEM.strPrimaryDeviceTypeCode = "
+            SQL += "EILOOKUPCONTROLDEVICE.STRCONTROLDEVICECODE) as PrimaryDeviceTypeDesc, "
             SQL += "sngPrimaryPCTControlEffic, "
             SQL += "strSecondaryDeviceTypeCode, "
             SQL += "(Select STRCONTROLDEVICEDesc "
-            SQL += "from AIRBRANCH.EILOOKUPCONTROLDEVICE "
-            SQL += "where AIRBRANCH.EIEM.strSecondaryDeviceTypeCode = "
-            SQL += "AIRBRANCH.EILOOKUPCONTROLDEVICE.STRCONTROLDEVICECODE) as SecondaryDeviceTypeDesc, "
+            SQL += "from EILOOKUPCONTROLDEVICE "
+            SQL += "where EIEM.strSecondaryDeviceTypeCode = "
+            SQL += "EILOOKUPCONTROLDEVICE.STRCONTROLDEVICECODE) as SecondaryDeviceTypeDesc, "
             SQL += "sngPCTCaptureEfficiency, "
             SQL += "sngTotalCaptureControlEffic "
-            SQL += "from AIRBRANCH.eiEM "
+            SQL += "from eiEM "
             SQL += "where strAirsYear = '" & airsYear & "'"
 
-            'SQL = "Select * from AIRBRANCH.eiEM where strAirsYear = '" & airsYear & "'"
+            'SQL = "Select * from eiEM where strAirsYear = '" & airsYear & "'"
 
             Dim cmd As New SqlCommand(SQL, CurrentConnection)
             cmd.CommandType = CommandType.Text
@@ -1758,7 +1758,7 @@ Public Class DMUEisGecoTool
             cboEIYear.Items.Clear()
 
             SQL = "select distinct(strInventoryYear)  as EIYear " &
-            "from AIRBRANCH.EISI " &
+            "from EISI " &
             "where strStateFacilityIdentifier = '" & txtAirsNumber.Text & "' " &
             "order by EIYear desc "
 
@@ -1824,9 +1824,9 @@ Public Class DMUEisGecoTool
         Try
             Try
                 SQL = "select count(*) as ESMailoutCount " &
-                "from AIRBRANCH.esmailout, AIRBRANCH.ESSCHEMA " &
-                "where AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " &
-                "and AIRBRANCH.esmailout.STRESYEAR = '" & ESYear & "'"
+                "from esmailout, ESSCHEMA " &
+                "where ESMAILOUT.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR(+) " &
+                "and esmailout.STRESYEAR = '" & ESYear & "'"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1840,10 +1840,10 @@ Public Class DMUEisGecoTool
                 dr.Close()
 
                 SQL = "select count(*) as ResponseCount " &
-                "from AIRBRANCH.esmailout, AIRBRANCH.ESSCHEMA " &
-                "where AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR " &
-                "and AIRBRANCH.ESSCHEMA.STROPTOUT is not NULL " &
-                "and AIRBRANCH.esmailout.STRESYEAR = '" & ESYear & "'"
+                "from esmailout, ESSCHEMA " &
+                "where ESMAILOUT.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR " &
+                "and ESSCHEMA.STROPTOUT is not NULL " &
+                "and esmailout.STRESYEAR = '" & ESYear & "'"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1857,9 +1857,9 @@ Public Class DMUEisGecoTool
                 dr.Close()
 
                 SQL = "select count(*) as TotaloptinCount " &
-                "from AIRBRANCH.ESSchema " &
-                "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "'" &
-                " and AIRBRANCH.ESSchema.strOptOut = 'NO'"
+                "from ESSchema " &
+                "where ESSchema.intESYEAR = '" & intESyear & "'" &
+                " and ESSchema.strOptOut = 'NO'"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1873,9 +1873,9 @@ Public Class DMUEisGecoTool
                 dr.Close()
 
                 SQL = "select count(*) as TotaloptOutCount " &
-                "from AIRBRANCH.ESSchema " &
-                "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "' " &
-                "and AIRBRANCH.ESSchema.strOptOut = 'YES'"
+                "from ESSchema " &
+                "where ESSchema.intESYEAR = '" & intESyear & "' " &
+                "and ESSchema.strOptOut = 'YES'"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
 
@@ -1890,9 +1890,9 @@ Public Class DMUEisGecoTool
                 dr.Close()
 
                 SQL = "select count(*) as TotalinincomplianceCount " &
-                "from AIRBRANCH.ESSchema " &
-                "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "'" &
-                " and to_date(AIRBRANCH.ESSchema.STRDATEFIRSTCONFIRM) < = '" & deadline & "'"
+                "from ESSchema " &
+                "where ESSchema.intESYEAR = '" & intESyear & "'" &
+                " and to_date(ESSchema.STRDATEFIRSTCONFIRM) < = '" & deadline & "'"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1905,9 +1905,9 @@ Public Class DMUEisGecoTool
                 dr.Close()
 
                 SQL = "select count(*) as TotaloutofcomplianceCount " &
-                "from AIRBRANCH.ESSchema " &
-                "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "'" &
-                " and to_date(AIRBRANCH.ESSchema.STRDATEFIRSTCONFIRM) > '" & deadline & "'"
+                "from ESSchema " &
+                "where ESSchema.intESYEAR = '" & intESyear & "'" &
+                " and to_date(ESSchema.STRDATEFIRSTCONFIRM) > '" & deadline & "'"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1920,10 +1920,10 @@ Public Class DMUEisGecoTool
                 dr.Close()
 
                 SQL = "select count(*) as MailOutOptInCount " &
-                "from AIRBRANCH.ESSchema, AIRBRANCH.ESMailout " &
-                "where AIRBRANCH.ESMAILOUT.strESYEAR = '" & ESYear & "' " &
-                " and AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " &
-                " and AIRBRANCH.ESSchema.strOptOut = 'NO'"
+                "from ESSchema, ESMailout " &
+                "where ESMAILOUT.strESYEAR = '" & ESYear & "' " &
+                " and ESMAILOUT.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR(+) " &
+                " and ESSchema.strOptOut = 'NO'"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1937,10 +1937,10 @@ Public Class DMUEisGecoTool
                 dr.Close()
 
                 SQL = "select count(*) as MailOutOptOutCount " &
-                "from AIRBRANCH.ESSchema, AIRBRANCH.ESMailout " &
-                "where AIRBRANCH.ESMAILOUT.strESYEAR = '" & ESYear & "'" &
-                " and AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " &
-                " and AIRBRANCH.ESSchema.strOptOut = 'YES'"
+                "from ESSchema, ESMailout " &
+                "where ESMAILOUT.strESYEAR = '" & ESYear & "'" &
+                " and ESMAILOUT.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR(+) " &
+                " and ESSchema.strOptOut = 'YES'"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1959,9 +1959,9 @@ Public Class DMUEisGecoTool
 
 
             SQL = "select count(*) as Nonresponsecount " &
-             "from AIRBRANCH.ESSCHEMA " &
-             "where AIRBRANCH.ESSCHEMA.intESYEAR = '" & ESYear & "'" &
-             " and AIRBRANCH.ESSchema.strOptOut is NULL"
+             "from ESSCHEMA " &
+             "where ESSCHEMA.intESYEAR = '" & ESYear & "'" &
+             " and ESSchema.strOptOut is NULL"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1975,10 +1975,10 @@ Public Class DMUEisGecoTool
             dr.Close()
 
             SQL = "select count(*) as removedFacilitiescount " &
-          "from AIRBRANCH.ESSchema , AIRBRANCH.esmailout " &
-          "where AIRBRANCH.esMailOut.STRESYEAR = '" & ESYear & "'" &
-            "and AIRBRANCH.esmailout.STRAIRSYEAR = AIRBRANCH.ESSchema.STRAIRSYEAR(+) " &
-          " and AIRBRANCH.ESSchema.STRAIRSYEAR is NULL"
+          "from ESSchema , esmailout " &
+          "where esMailOut.STRESYEAR = '" & ESYear & "'" &
+            "and esmailout.STRAIRSYEAR = ESSchema.STRAIRSYEAR(+) " &
+          " and ESSchema.STRAIRSYEAR is NULL"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1992,12 +1992,12 @@ Public Class DMUEisGecoTool
             dr.Close()
 
             SQL = "select count(*) as extraNonresponderscount " &
-           "from AIRBRANCH.ESSchema " &
-           " where  not exists (select * from AIRBRANCH.ESMAILOUT " &
-                " where AIRBRANCH.ESSchema.STRAIRSNUMBER = AIRBRANCH.ESMAILOUT.STRAIRSNUMBER" &
+           "from ESSchema " &
+           " where  not exists (select * from ESMAILOUT " &
+                " where ESSchema.STRAIRSNUMBER = ESMAILOUT.STRAIRSNUMBER" &
                 " and ESSchema.INTESYEAR = ESMAILOUT.strESYEAR) " &
-                " and AIRBRANCH.ESSchema.INTESYEAR = '" & ESYear & "' " &
-                " and AIRBRANCH.ESSchema.STROPTOUT is null"
+                " and ESSchema.INTESYEAR = '" & ESYear & "' " &
+                " and ESSchema.STROPTOUT is null"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -2011,10 +2011,10 @@ Public Class DMUEisGecoTool
             dr.Close()
 
             SQL = "select count(*) as mailoutNonresponderscount " &
-          "from  AIRBRANCH.esmailout, AIRBRANCH.ESSchema " &
-            "where AIRBRANCH.esmailout.strESYEAR = '" & ESYear & "' " &
-            "and AIRBRANCH.esmailout.STRAIRSYEAR = AIRBRANCH.ESSchema.STRAIRSYEAR(+) " &
-            "and AIRBRANCH.ESSchema.strOptOut is NULL"
+          "from  esmailout, ESSchema " &
+            "where esmailout.strESYEAR = '" & ESYear & "' " &
+            "and esmailout.STRAIRSYEAR = ESSchema.STRAIRSYEAR(+) " &
+            "and ESSchema.strOptOut is NULL"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -2028,15 +2028,15 @@ Public Class DMUEisGecoTool
             dr.Close()
 
             SQL = "select count(*) as ExtraCount " &
-            "from (Select AIRBRANCH.ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " &
-            "AIRBRANCH.ESMAILOUT.STRAIRSYear AS MailoutAIRS " &
-            "From AIRBRANCH.ESMailout, AIRBRANCH.ESSCHEMA" &
-            " Where AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " &
-            "AND AIRBRANCH.esschema.INTESYEAR= '" & intESyear & "' " &
-            "AND AIRBRANCH.ESSCHEMA.STROPTOUT IS NOT NULL) " &
+            "from (Select ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " &
+            "ESMAILOUT.STRAIRSYear AS MailoutAIRS " &
+            "From ESMailout, ESSCHEMA" &
+            " Where ESMAILOUT.STRAIRSYEAR (+)= ESSCHEMA.STRAIRSYEAR " &
+            "AND esschema.INTESYEAR= '" & intESyear & "' " &
+            "AND ESSCHEMA.STROPTOUT IS NOT NULL) " &
             "dt_NotInMailout, " &
-            "AIRBRANCH.ESSCHEMA " &
-            "Where AIRBRANCH.ESSCHEMA.STRAIRSYEAR = SchemaAIRS " &
+            "ESSCHEMA " &
+            "Where ESSCHEMA.STRAIRSYEAR = SchemaAIRS " &
             "AND MailoutAIRS is NULL"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2052,17 +2052,17 @@ Public Class DMUEisGecoTool
             dr.Close()
 
             SQL = "select count(*) as ExtraOptinCount " &
-            "from (Select AIRBRANCH.ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " &
-            "AIRBRANCH.ESMAILOUT.STRAIRSYear AS MailoutAIRS " &
-            "From AIRBRANCH.ESMailout, AIRBRANCH.ESSCHEMA " &
-            "Where AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " &
-            "AND AIRBRANCH.esschema.INTESYEAR= '" & intESyear & "' " &
-            "AND AIRBRANCH.ESSCHEMA.STROPTOUT IS NOT NULL) " &
+            "from (Select ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " &
+            "ESMAILOUT.STRAIRSYear AS MailoutAIRS " &
+            "From ESMailout, ESSCHEMA " &
+            "Where ESMAILOUT.STRAIRSYEAR (+)= ESSCHEMA.STRAIRSYEAR " &
+            "AND esschema.INTESYEAR= '" & intESyear & "' " &
+            "AND ESSCHEMA.STROPTOUT IS NOT NULL) " &
             "dt_NotInMailout, " &
-            "AIRBRANCH.ESSCHEMA " &
-            "Where AIRBRANCH.ESSCHEMA.STRAIRSYEAR = SchemaAIRS " &
+            "ESSCHEMA " &
+            "Where ESSCHEMA.STRAIRSYEAR = SchemaAIRS " &
             "AND MailoutAIRS is NULL " &
-            "and AIRBRANCH.ESSCHEMA.STROPTOUT='NO'"
+            "and ESSCHEMA.STROPTOUT='NO'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
 
@@ -2077,17 +2077,17 @@ Public Class DMUEisGecoTool
             dr.Close()
 
             SQL = "select count(*) as ExtraOptOUTCount " &
-            "from (Select AIRBRANCH.ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " &
-            "AIRBRANCH.ESMAILOUT.STRAIRSYear AS MailoutAIRS " &
-            "From AIRBRANCH.ESMailout, AIRBRANCH.ESSCHEMA " &
-            "Where AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " &
-            "AND AIRBRANCH.esschema.INTESYEAR= '" & intESyear & "' " &
-            "AND AIRBRANCH.ESSCHEMA.STROPTOUT IS NOT NULL) " &
+            "from (Select ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " &
+            "ESMAILOUT.STRAIRSYear AS MailoutAIRS " &
+            "From ESMailout, ESSCHEMA " &
+            "Where ESMAILOUT.STRAIRSYEAR (+)= ESSCHEMA.STRAIRSYEAR " &
+            "AND esschema.INTESYEAR= '" & intESyear & "' " &
+            "AND ESSCHEMA.STROPTOUT IS NOT NULL) " &
             "dt_NotInMailout, " &
-            "AIRBRANCH.ESSCHEMA " &
-            "Where AIRBRANCH.ESSCHEMA.STRAIRSYEAR = SchemaAIRS " &
+            "ESSCHEMA " &
+            "Where ESSCHEMA.STRAIRSYEAR = SchemaAIRS " &
             "AND MailoutAIRS is NULL " &
-            "and AIRBRANCH.ESSCHEMA.STROPTOUT='YES'"
+            "and ESSCHEMA.STROPTOUT='YES'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
 
@@ -2102,9 +2102,9 @@ Public Class DMUEisGecoTool
             dr.Close()
 
             SQL = "select count(*) as TotalResponsecount " &
-            "from AIRBRANCH.ESSchema " &
-            "where AIRBRANCH.ESSchema.intESYEAR = '" & intESyear & "'" &
-            " and AIRBRANCH.ESSchema.strOptOut is not NULL"
+            "from ESSchema " &
+            "where ESSchema.intESYEAR = '" & intESyear & "'" &
+            " and ESSchema.strOptOut is not NULL"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Open Then
@@ -2131,7 +2131,7 @@ Public Class DMUEisGecoTool
 
         Try
             SQL = "SELECT * " &
-                  "from AIRBRANCH.esMailOut " &
+                  "from esMailOut " &
                   "where STRAIRSNUMBER = '" & AirsNo & "' " &
                   "and STRESYEAR = '" & ESyear & "'"
 
@@ -2214,7 +2214,7 @@ Public Class DMUEisGecoTool
         Try
 
             SQL = "SELECT * " &
-            "from AIRBRANCH.esschema " &
+            "from esschema " &
             "where STRAIRSNUMBER = '" & AirsNo & "' " &
             "and INTESYEAR = '" & intESyear & "'"
 
@@ -2469,7 +2469,7 @@ Public Class DMUEisGecoTool
             "STRCONTACTSTATE, " &
             "STRCONTACTZIPCODE, " &
             "STRCONTACTEMAIL " &
-            "from AIRBRANCH.esMailOut " &
+            "from esMailOut " &
             "where STRESYEAR = '" & year & "' " &
             "order by STRFACILITYNAME"
 
@@ -2528,17 +2528,17 @@ Public Class DMUEisGecoTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " &
-            "AIRBRANCH.esSchema.STRFACILITYNAME, " &
-            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " &
-            "AIRBRANCH.esSchema.DBLVOCEMISSION, " &
-           "AIRBRANCH.esSchema.DBLNOXEMISSION, " &
-            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR " &
-            "from AIRBRANCH.esSchema, AIRBRANCH.esmailout " &
-            "where AIRBRANCH.esSchema.intESyear = '" & intYear & "' " &
-            "and AIRBRANCH.esSchema.STROPTOUT = 'NO'" &
-            "and AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " &
-            "order by AIRBRANCH.esSchema.STRFACILITYNAME"
+            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
+            "esSchema.STRFACILITYNAME, " &
+            "esSchema.STRDATEFIRSTCONFIRM, " &
+            "esSchema.DBLVOCEMISSION, " &
+           "esSchema.DBLNOXEMISSION, " &
+            "esSchema.STRCONFIRMATIONNBR " &
+            "from esSchema, esmailout " &
+            "where esSchema.intESyear = '" & intYear & "' " &
+            "and esSchema.STROPTOUT = 'NO'" &
+            "and ESMAILOUT.STRAIRSYEAR (+)= ESSCHEMA.STRAIRSYEAR " &
+            "order by esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -2587,15 +2587,15 @@ Public Class DMUEisGecoTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " &
-            "AIRBRANCH.esSchema.STRFACILITYNAME, " &
-            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " &
-            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR " &
-            "from AIRBRANCH.esSchema, AIRBRANCH.esmailout  " &
-            "where AIRBRANCH.esSchema.intESyear = '" & intYear & "' " &
-            "and AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " &
-            "and AIRBRANCH.esSchema.STROPTOUT = 'YES'" &
-            "order by AIRBRANCH.esSchema.STRFACILITYNAME"
+            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
+            "esSchema.STRFACILITYNAME, " &
+            "esSchema.STRDATEFIRSTCONFIRM, " &
+            "esSchema.STRCONFIRMATIONNBR " &
+            "from esSchema, esmailout  " &
+            "where esSchema.intESyear = '" & intYear & "' " &
+            "and ESMAILOUT.STRAIRSYEAR (+)= ESSCHEMA.STRAIRSYEAR " &
+            "and esSchema.STROPTOUT = 'YES'" &
+            "order by esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -2641,24 +2641,24 @@ Public Class DMUEisGecoTool
             Dim deadline As String = "15-Jun-2007"
             deadline = "15-Jun-" & txtESYear.Text + 1
 
-            SQL = "SELECT airbranch.esSchema.STRAIRSNUMBER, " &
-            "AIRBRANCH.esSchema.STRFACILITYNAME, " &
-            "AIRBRANCH.esSchema.STROPTOUT, " &
-            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR, " &
-            "AIRBRANCH.esSchema.STRCONTACTFIRSTNAME, " &
-            "AIRBRANCH.esSchema.STRCONTACTLASTNAME, " &
-            "AIRBRANCH.esSchema.STRCONTACTCOMPANY, " &
-            "AIRBRANCH.esSchema.STRCONTACTADDRESS1, " &
-            "AIRBRANCH.esSchema.STRCONTACTCITY, " &
-            "AIRBRANCH.esSchema.STRCONTACTSTATE, " &
-            "AIRBRANCH.esSchema.STRCONTACTZIP, " &
-            "AIRBRANCH.esSchema.STRCONTACTEMAIL, " &
-            "AIRBRANCH.esSchema.STRCONTACTPHONENUMBER " &
-            "from AIRBRANCH.esSchema " &
+            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
+            "esSchema.STRFACILITYNAME, " &
+            "esSchema.STROPTOUT, " &
+            "esSchema.STRCONFIRMATIONNBR, " &
+            "esSchema.STRCONTACTFIRSTNAME, " &
+            "esSchema.STRCONTACTLASTNAME, " &
+            "esSchema.STRCONTACTCOMPANY, " &
+            "esSchema.STRCONTACTADDRESS1, " &
+            "esSchema.STRCONTACTCITY, " &
+            "esSchema.STRCONTACTSTATE, " &
+            "esSchema.STRCONTACTZIP, " &
+            "esSchema.STRCONTACTEMAIL, " &
+            "esSchema.STRCONTACTPHONENUMBER " &
+            "from esSchema " &
             "where intESyear = '" & intYear & "' " &
-            "and AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM is not NULL " &
-            "and to_date(AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM) > '" & deadline & "' " &
-            "order by AIRBRANCH.esSchema.STRFACILITYNAME"
+            "and esSchema.STRDATEFIRSTCONFIRM is not NULL " &
+            "and to_date(esSchema.STRDATEFIRSTCONFIRM) > '" & deadline & "' " &
+            "order by esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -2720,15 +2720,15 @@ Public Class DMUEisGecoTool
             Dim intYear As Integer = Int(year)
             Dim deadline As String = "15-Jun-" & intYear + 1
 
-            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " &
-            "AIRBRANCH.esSchema.STRFACILITYNAME, " &
-            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " &
-            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR " &
-            "from AIRBRANCH.esSchema " &
-            "where AIRBRANCH.esSchema.intESyear = '" & intYear & "' " &
-             "and AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM is not NULL " &
-            "and to_date(AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM) <= '" & deadline & "' " &
-            "order by AIRBRANCH.esSchema.STRFACILITYNAME"
+            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
+            "esSchema.STRFACILITYNAME, " &
+            "esSchema.STRDATEFIRSTCONFIRM, " &
+            "esSchema.STRCONFIRMATIONNBR " &
+            "from esSchema " &
+            "where esSchema.intESyear = '" & intYear & "' " &
+             "and esSchema.STRDATEFIRSTCONFIRM is not NULL " &
+            "and to_date(esSchema.STRDATEFIRSTCONFIRM) <= '" & deadline & "' " &
+            "order by esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -2781,7 +2781,7 @@ Public Class DMUEisGecoTool
             "esMailOut.STRCONTACTSTATE, " &
             "esMailOut.STRCONTACTZIPCODE, " &
             "esMailOut.STRCONTACTEMAIL " &
-            "from AIRBRANCH.esMailOut " &
+            "from esMailOut " &
             "where STRESYEAR = '" & year & "' " &
             "order by STRFACILITYNAME"
 
@@ -2848,7 +2848,7 @@ Public Class DMUEisGecoTool
             "else to_char(DBLNOXEMISSION) " &
             "end DBLNOXEMISSION, " &
             "esSchema.STRDATEFIRSTCONFIRM " &
-            "from AIRBRANCH.esSchema " &
+            "from esSchema " &
             "where esSchema.intESyear = '" & year & "' " &
             "order by esSchema.STRFACILITYNAME"
 
@@ -2896,13 +2896,13 @@ Public Class DMUEisGecoTool
 
             Dim year As String = txtESYear.Text
 
-            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " &
-            "AIRBRANCH.esSchema.STRFACILITYNAME " &
-            "from AIRBRANCH.esMailOut, AIRBRANCH.ESSCHEMA " &
-            "where AIRBRANCH.esSchema.INTESYEAR = '" & year & "'" &
-            "and AIRBRANCH.esSchema.strOPTOUT is NULL " &
-            "and AIRBRANCH.esmailout.STRAIRSYEAR = AIRBRANCH.ESSchema.STRAIRSYEAR(+) " &
-            "order by AIRBRANCH.esMailOut.STRFACILITYNAME"
+            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
+            "esSchema.STRFACILITYNAME " &
+            "from esMailOut, ESSCHEMA " &
+            "where esSchema.INTESYEAR = '" & year & "'" &
+            "and esSchema.strOPTOUT is NULL " &
+            "and esmailout.STRAIRSYEAR = ESSchema.STRAIRSYEAR(+) " &
+            "order by esMailOut.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -2942,22 +2942,22 @@ Public Class DMUEisGecoTool
             Dim year As String = txtESYear.Text
             Dim intyear As Integer = Int(year)
 
-            SQL = "SELECT dt_NotInMailout.SchemaAIRS, AIRBRANCH.esSchema.STRAIRSNUMBER, " &
-            "AIRBRANCH.esSchema.STRFACILITYNAME, " &
-            "AIRBRANCH.esSchema.STRCONTACTFIRSTNAME, " &
-            "AIRBRANCH.esSchema.STRCONTACTLASTNAME, " &
-            "AIRBRANCH.esSchema.STRCONTACTCOMPANY, " &
-            "AIRBRANCH.esSchema.STRCONTACTEMAIL, " &
-            "AIRBRANCH.esSchema.STRCONTACTPHONENUMBER " &
-            "from (Select AIRBRANCH.ESSCHEMA.STRAIRSNUMBER AS SchemaAIRS, " &
-            "AIRBRANCH.ESMAILOUT.STRAIRSNUMBER AS MailoutAIRS" &
-            " From AIRBRANCH.ESMailout, AIRBRANCH.ESSCHEMA" &
-            " Where AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " &
+            SQL = "SELECT dt_NotInMailout.SchemaAIRS, esSchema.STRAIRSNUMBER, " &
+            "esSchema.STRFACILITYNAME, " &
+            "esSchema.STRCONTACTFIRSTNAME, " &
+            "esSchema.STRCONTACTLASTNAME, " &
+            "esSchema.STRCONTACTCOMPANY, " &
+            "esSchema.STRCONTACTEMAIL, " &
+            "esSchema.STRCONTACTPHONENUMBER " &
+            "from (Select ESSCHEMA.STRAIRSNUMBER AS SchemaAIRS, " &
+            "ESMAILOUT.STRAIRSNUMBER AS MailoutAIRS" &
+            " From ESMailout, ESSCHEMA" &
+            " Where ESMAILOUT.STRAIRSYEAR (+)= ESSCHEMA.STRAIRSYEAR " &
             "AND INTESYEAR=  '" & intyear & "' " &
-            "AND AIRBRANCH.ESSCHEMA.STROPTOUT IS NOT NULL) " &
+            "AND ESSCHEMA.STROPTOUT IS NOT NULL) " &
             "dt_NotInMailout, " &
-            "AIRBRANCH.ESSCHEMA " &
-            "Where AIRBRANCH.ESSCHEMA.STRAIRSNUMBER = SchemaAIRS " &
+            "ESSCHEMA " &
+            "Where ESSCHEMA.STRAIRSNUMBER = SchemaAIRS " &
             "AND MailoutAIRS is NULL"
 
             dsViewCount = New DataSet
@@ -3010,16 +3010,16 @@ Public Class DMUEisGecoTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " &
-            "AIRBRANCH.esSchema.STRFACILITYNAME, " &
-            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " &
-            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR " &
-            "from AIRBRANCH.esSchema, AIRBRANCH.esmailout " &
-            "where AIRBRANCH.esSchema.intESyear = '" & intYear & "' " &
-            "and AIRBRANCH.esSchema.STROPTOUT = 'NO'" &
-            "and AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " &
-            "and AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM is not NULL " &
-            "order by AIRBRANCH.esSchema.STRFACILITYNAME"
+            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
+            "esSchema.STRFACILITYNAME, " &
+            "esSchema.STRDATEFIRSTCONFIRM, " &
+            "esSchema.STRCONFIRMATIONNBR " &
+            "from esSchema, esmailout " &
+            "where esSchema.intESyear = '" & intYear & "' " &
+            "and esSchema.STROPTOUT = 'NO'" &
+            "and ESMAILOUT.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR(+) " &
+            "and esSchema.STRDATEFIRSTCONFIRM is not NULL " &
+            "order by esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -3062,16 +3062,16 @@ Public Class DMUEisGecoTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " &
-            "AIRBRANCH.esSchema.STRFACILITYNAME, " &
-            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " &
-            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR " &
-            "from AIRBRANCH.esSchema, AIRBRANCH.esmailout " &
-            "where AIRBRANCH.esSchema.intESyear = '" & intYear & "' " &
-            "and AIRBRANCH.esSchema.STROPTOUT = 'YES'" &
-            " and AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " &
-            "and AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM is not NULL " &
-            "order by AIRBRANCH.esSchema.STRFACILITYNAME"
+            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
+            "esSchema.STRFACILITYNAME, " &
+            "esSchema.STRDATEFIRSTCONFIRM, " &
+            "esSchema.STRCONFIRMATIONNBR " &
+            "from esSchema, esmailout " &
+            "where esSchema.intESyear = '" & intYear & "' " &
+            "and esSchema.STROPTOUT = 'YES'" &
+            " and ESMAILOUT.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR(+) " &
+            "and esSchema.STRDATEFIRSTCONFIRM is not NULL " &
+            "order by esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -3114,20 +3114,20 @@ Public Class DMUEisGecoTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " &
-            "AIRBRANCH.esSchema.STRFACILITYNAME, " &
-            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " &
-            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR " &
-            "from (select AIRBRANCH.esSchema.strairsyear as SchemaAIRS, " &
-            "AIRBRANCH.esmailout.strairsyear as MailoutAIRS " &
-            "From AIRBRANCH.ESMailout, AIRBRANCH.ESSCHEMA " &
-            "where AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " &
-            "and AIRBRANCH.esSchema.intESyear = '" & intYear & "' " &
-            "and AIRBRANCH.ESSCHEMA.STROPTOUT IS NOT NULL) " &
-            "dt_NotInMailout, AIRBRANCH.ESSCHEMA " &
-            "Where AIRBRANCH.ESSCHEMA.STRAIRSYEAR = SchemaAIRS " &
+            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
+            "esSchema.STRFACILITYNAME, " &
+            "esSchema.STRDATEFIRSTCONFIRM, " &
+            "esSchema.STRCONFIRMATIONNBR " &
+            "from (select esSchema.strairsyear as SchemaAIRS, " &
+            "esmailout.strairsyear as MailoutAIRS " &
+            "From ESMailout, ESSCHEMA " &
+            "where ESMAILOUT.STRAIRSYEAR (+)= ESSCHEMA.STRAIRSYEAR " &
+            "and esSchema.intESyear = '" & intYear & "' " &
+            "and ESSCHEMA.STROPTOUT IS NOT NULL) " &
+            "dt_NotInMailout, ESSCHEMA " &
+            "Where ESSCHEMA.STRAIRSYEAR = SchemaAIRS " &
             "and MailoutAIRS is NULL " &
-            "and AIRBRANCH.ESSCHEMA.STROPTOUT='YES'"
+            "and ESSCHEMA.STROPTOUT='YES'"
 
             dsViewCount = New DataSet
             daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -3170,20 +3170,20 @@ Public Class DMUEisGecoTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " &
-            "AIRBRANCH.esSchema.STRFACILITYNAME, " &
-            "AIRBRANCH.esSchema.STRDATEFIRSTCONFIRM, " &
-            "AIRBRANCH.esSchema.STRCONFIRMATIONNBR " &
-            "from (select AIRBRANCH.esSchema.strairsyear as SchemaAIRS, " &
-            "AIRBRANCH.esmailout.strairsyear as MailoutAIRS " &
-            "From AIRBRANCH.ESMailout, AIRBRANCH.ESSCHEMA " &
-            "where AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " &
-            "and AIRBRANCH.esSchema.intESyear = '" & intYear & "' " &
-            "and AIRBRANCH.ESSCHEMA.STROPTOUT IS NOT NULL) " &
-            "dt_NotInMailout, AIRBRANCH.ESSCHEMA " &
-            "Where AIRBRANCH.ESSCHEMA.STRAIRSYEAR = SchemaAIRS " &
+            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
+            "esSchema.STRFACILITYNAME, " &
+            "esSchema.STRDATEFIRSTCONFIRM, " &
+            "esSchema.STRCONFIRMATIONNBR " &
+            "from (select esSchema.strairsyear as SchemaAIRS, " &
+            "esmailout.strairsyear as MailoutAIRS " &
+            "From ESMailout, ESSCHEMA " &
+            "where ESMAILOUT.STRAIRSYEAR (+)= ESSCHEMA.STRAIRSYEAR " &
+            "and esSchema.intESyear = '" & intYear & "' " &
+            "and ESSCHEMA.STROPTOUT IS NOT NULL) " &
+            "dt_NotInMailout, ESSCHEMA " &
+            "Where ESSCHEMA.STRAIRSYEAR = SchemaAIRS " &
             "and MailoutAIRS is NULL " &
-            "and AIRBRANCH.ESSCHEMA.STROPTOUT='NO'"
+            "and ESSCHEMA.STROPTOUT='NO'"
 
 
             dsViewCount = New DataSet
@@ -3228,17 +3228,17 @@ Public Class DMUEisGecoTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " &
-            "AIRBRANCH.esSchema.STRFACILITYNAME, " &
-            "AIRBRANCH.esSchema.STRCONTACTFIRSTNAME, " &
-            "AIRBRANCH.esSchema.STRCONTACTLASTNAME, " &
-            "AIRBRANCH.esSchema.STRCONTACTCOMPANY, " &
-            "AIRBRANCH.esSchema.STRCONTACTEMAIL, " &
-            "AIRBRANCH.esSchema.STRCONTACTPHONENUMBER " &
-            "from AIRBRANCH.esSchema " &
-            "where AIRBRANCH.esSchema.intESyear = '" & intYear & "' " &
-            "and AIRBRANCH.esSchema.STROPTOUT is not NULL " &
-            "order by AIRBRANCH.esSchema.STRFACILITYNAME"
+            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
+            "esSchema.STRFACILITYNAME, " &
+            "esSchema.STRCONTACTFIRSTNAME, " &
+            "esSchema.STRCONTACTLASTNAME, " &
+            "esSchema.STRCONTACTCOMPANY, " &
+            "esSchema.STRCONTACTEMAIL, " &
+            "esSchema.STRCONTACTPHONENUMBER " &
+            "from esSchema " &
+            "where esSchema.intESyear = '" & intYear & "' " &
+            "and esSchema.STROPTOUT is not NULL " &
+            "order by esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -3302,7 +3302,7 @@ Public Class DMUEisGecoTool
 
         Try
             SQL = "Select strAIRSYear " &
-            "from AIRBRANCH.EsMailOut " &
+            "from EsMailOut " &
             "where STRAIRSYEAR = '" & airsYear & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -3313,23 +3313,23 @@ Public Class DMUEisGecoTool
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = True Then
-                SQL = "update AIRBRANCH.ESMailOut set " &
-                "AIRBRANCH.ESMailOut.STRCONTACTPREFIX = '" & ESPrefix & "', " &
-                "AIRBRANCH.ESMailOut.STRCONTACTFIRSTNAME = '" & ESFirstName & "', " &
-                "AIRBRANCH.ESMailOut.STRCONTACTLASTNAME = '" & ESLastName & "', " &
-                "AIRBRANCH.ESMailOut.STRCONTACTCOMPANYNAME = '" & ESCompanyName & "', " &
-                "AIRBRANCH.ESMailOut.STRCONTACTADDRESS1 = '" & ESContactAddress1 & "', " &
-                "AIRBRANCH.ESMailOut.STRCONTACTADDRESS2 = '" & ESContactAddress2 & "', " &
-                "AIRBRANCH.ESMailOut.STRCONTACTCITY = '" & ESContactCity & "', " &
-                "AIRBRANCH.ESMailOut.STRCONTACTSTATE = '" & EScontactState & "', " &
-                "AIRBRANCH.ESMailOut.STRCONTACTZIPCODE = '" & ESContactZip & "', " &
-                "AIRBRANCH.ESMailOut.STRCONTACTEMAIL = '" & ESContactEmail & "'" &
+                SQL = "update ESMailOut set " &
+                "ESMailOut.STRCONTACTPREFIX = '" & ESPrefix & "', " &
+                "ESMailOut.STRCONTACTFIRSTNAME = '" & ESFirstName & "', " &
+                "ESMailOut.STRCONTACTLASTNAME = '" & ESLastName & "', " &
+                "ESMailOut.STRCONTACTCOMPANYNAME = '" & ESCompanyName & "', " &
+                "ESMailOut.STRCONTACTADDRESS1 = '" & ESContactAddress1 & "', " &
+                "ESMailOut.STRCONTACTADDRESS2 = '" & ESContactAddress2 & "', " &
+                "ESMailOut.STRCONTACTCITY = '" & ESContactCity & "', " &
+                "ESMailOut.STRCONTACTSTATE = '" & EScontactState & "', " &
+                "ESMailOut.STRCONTACTZIPCODE = '" & ESContactZip & "', " &
+                "ESMailOut.STRCONTACTEMAIL = '" & ESContactEmail & "'" &
                 "where ESMailOut.STRAIRSNUMBER = '" & AirsNo & "' "
 
                 MsgBox("your info is updated!")
 
             Else
-                SQL = "Insert into AIRBRANCH.ESMailOut " &
+                SQL = "Insert into ESMailOut " &
                 "(STRAIRSYEAR, " &
                 "STRAIRSNUMBER, " &
                 "STRFACILITYNAME, " &
@@ -3383,9 +3383,9 @@ Public Class DMUEisGecoTool
         Dim ESyear As String = txtESYear.Text
 
         Try
-            SQL = "delete from AIRBRANCH.ESMailOut " &
-            "where AIRBRANCH.ESMailOut.STRAIRSNUMBER = '" & AirsNo & "' " &
-            "and AIRBRANCH.ESMailOut.STRESYEAR = '" & ESyear & "'"
+            SQL = "delete from ESMailOut " &
+            "where ESMailOut.STRAIRSNUMBER = '" & AirsNo & "' " &
+            "and ESMailOut.STRESYEAR = '" & ESyear & "'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -3521,7 +3521,7 @@ Public Class DMUEisGecoTool
 
 
             SQL = "Select strAirsNumber " &
-            "FROM AIRBRANCH.ESmailOut " &
+            "FROM ESmailOut " &
             "where strESyear = '" & ESYear & "'"
 
 
@@ -3541,8 +3541,8 @@ Public Class DMUEisGecoTool
             Else
                 If cboMailoutYear.Text <> "" Then
                     If cboMailoutYear.Text.Length = 4 Then
-                        SQL = "Select dt_EScontact.STRairsnumber, AIRBRANCH.APBFacilityinformation.STRFACILITYNAME, " &
-                        "AIRBRANCH.APBHEADERDATA.stroperationalstatus, AIRBRANCH.APBHEADERDATA.STRCLASS, " &
+                        SQL = "Select dt_EScontact.STRairsnumber, APBFacilityinformation.STRFACILITYNAME, " &
+                        "APBHEADERDATA.stroperationalstatus, APBHEADERDATA.STRCLASS, " &
                         "(Case " &
                         "When dt_ESContact.STRKEY='42' THEN dt_ESContact.STRContactLastName " &
                         "When dt_ESContact.STRKEY Is Null THEN dt_PermitContact.STRContactLastName " &
@@ -3588,67 +3588,67 @@ Public Class DMUEisGecoTool
                         "dt_Contact.STRCONTACTPREFIX, dt_Contact.STRCONTACTADDRESS1, dt_Contact.STRCONTACTCITY,  " &
                         "dt_Contact.STRCONTACTSTATE, dt_Contact.STRCONTACTZIPCODE " &
                         "FROM " &
-                        "(Select * FROM AIRBRANCH.APBHEADERDATA " &
+                        "(Select * FROM APBHEADERDATA " &
                         "where (stroperationalstatus = 'O' OR stroperationalstatus = 'P' oR stroperationalstatus = 'C') AND  " &
                         "(STRCLASS = 'A')   " &
-                        "AND (AIRBRANCH.apbheaderdata.STRAIRSNUMBER Like '____121%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____013%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____015%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____045%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____057%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____063%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____067%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____077%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____089%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____097%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____113%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____117%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____135%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____139%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____151%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____217%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____223%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____247%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____255%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____297%') " &
+                        "AND (apbheaderdata.STRAIRSNUMBER Like '____121%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____013%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____015%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____045%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____057%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____063%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____067%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____077%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____089%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____097%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____113%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____117%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____135%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____139%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____151%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____217%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____223%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____247%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____255%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____297%') " &
                         " ) dt_ESList,      " &
-                        "(Select * From AIRBRANCH.APBCONTACTINFORMATION where STRKEY=42) dt_Contact " &
+                        "(Select * From APBCONTACTINFORMATION where STRKEY=42) dt_Contact " &
                         "Where dt_ESList.STRAIRSNUMBEr = dt_Contact.STRAIRSNUMBER (+)) dt_ESContact, " &
                         "(Select DISTINCT dt_eslist.STRAIRSNUMBER, dt_contact.STRKEY,  " &
                         "dt_Contact.STRCONTACTLASTNAME, dt_Contact.STRCONTACTFIRSTNAME, " &
                         "dt_Contact.STRContactCompanyName, dt_Contact.STRContactEmail, dt_Contact.STRCONTACTPREFIX,  " &
                         "dt_Contact.STRCONTACTADDRESS1, dt_Contact.strcontactcity, dt_Contact.STRCONTACTSTATE, dt_Contact.STRCONTACTZIPCODE " &
                         "FROM " &
-                        "(Select * FROM AIRBRANCH.APBHEADERDATA " &
+                        "(Select * FROM APBHEADERDATA " &
                         "where (stroperationalstatus = 'O' OR stroperationalstatus = 'P' oR stroperationalstatus = 'C') AND  " &
                         "(STRCLASS = 'A')   " &
-                        "AND (AIRBRANCH.apbheaderdata.STRAIRSNUMBER Like '____121%'    " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____013%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____015%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____045%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____057%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____063%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____067%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____077%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____089%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____097%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____113%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____117%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____135%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____139%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____151%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____217%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____223%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____247%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____255%' " &
-                        "or AIRBRANCH.apbheaderdata.STRAIRSNUMBER like '____297%') " &
+                        "AND (apbheaderdata.STRAIRSNUMBER Like '____121%'    " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____013%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____015%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____045%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____057%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____063%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____067%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____077%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____089%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____097%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____113%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____117%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____135%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____139%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____151%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____217%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____223%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____247%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____255%' " &
+                        "or apbheaderdata.STRAIRSNUMBER like '____297%') " &
                         ")dt_ESList,  " &
-                        "(Select * From AIRBRANCH.APBCONTACTINFORMATION where STRKEY=30) dt_Contact " &
+                        "(Select * From APBCONTACTINFORMATION where STRKEY=30) dt_Contact " &
                         "Where dt_ESList.STRAIRSNUMBEr = dt_Contact.STRAIRSNUMBER (+)) dt_PermitContact, " &
-                        "AIRBRANCH.APBFACILITYINFORMATION, " &
-                        "AIRBRANCH.APBHEADERDATA " &
-                        "Where AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER= dt_ESContact.STRAIRSNumber and  " &
-                        "AIRBRANCH.APBHEADERDATA.STRAIRSNUMBER= dt_ESContact.STRAIRSNumber and  " &
+                        "APBFACILITYINFORMATION, " &
+                        "APBHEADERDATA " &
+                        "Where APBFACILITYINFORMATION.STRAIRSNUMBER= dt_ESContact.STRAIRSNumber and  " &
+                        "APBHEADERDATA.STRAIRSNUMBER= dt_ESContact.STRAIRSNumber and  " &
                         "dt_ESContact.STRAIRSNumber  = dt_PermitContact.STRAIRSNUMBER (+) "
 
                         cmd = New SqlCommand(SQL, CurrentConnection)
@@ -3718,7 +3718,7 @@ Public Class DMUEisGecoTool
                                 CONTACTEMAIL = dr("STRCONTACTEMAIL")
                             End If
 
-                            SQL2 = "insert into AIRBRANCH.ESmailOut " &
+                            SQL2 = "insert into ESmailOut " &
                             "(strAirsYear, " &
                             "strAirsNumber, " &
                             "STRFACILITYNAME, " &
@@ -3777,7 +3777,7 @@ Public Class DMUEisGecoTool
                     "STRCONTACTSTATE, " &
                     "STRCONTACTZIPCODE, " &
                     "STRCONTACTEMAIL " &
-                    "from AIRBRANCH.esMailOut " &
+                    "from esMailOut " &
                     "where STRESYEAR = '" & year & "' " &
                     "order by STRFACILITYNAME"
 
@@ -3844,7 +3844,7 @@ Public Class DMUEisGecoTool
             If ESyear = "Select a Mailout Year & Click Below" Then
                 MsgBox("You must select a Mailout Year")
             Else
-                SQL = "delete from AIRBRANCH.ESmailout " &
+                SQL = "delete from ESmailout " &
                 "where strESyear = '" & ESyear & "'"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -3905,7 +3905,7 @@ Public Class DMUEisGecoTool
             "STRCONTACTSTATE, " &
             "STRCONTACTZIPCODE, " &
             "STRCONTACTEMAIL " &
-            "from AIRBRANCH.esMailOut " &
+            "from esMailOut " &
             "where STRESYEAR = '" & year & "' " &
             "order by STRFACILITYNAME"
 
@@ -3968,7 +3968,7 @@ Public Class DMUEisGecoTool
         Dim year As String
         Try
             SQL = "Select distinct STRINVENTORYYEAR " &
-            "from AIRBRANCH.EISI " &
+            "from EISI " &
             "order by STRINVENTORYYEAR desc "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -3995,7 +3995,7 @@ Public Class DMUEisGecoTool
         Dim EItype As String
         Try
             SQL = "Select distinct EITHRESHOLDS.STRTYPE " &
-            "from AIRBRANCH.EITHRESHOLDS " &
+            "from EITHRESHOLDS " &
             "order by STRTYPE desc "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -4054,9 +4054,9 @@ Public Class DMUEisGecoTool
             Try
 
                 SQL = "select count(*) as MailoutCount " &
-                "from AIRBRANCH.eImailout, AIRBRANCH.EISI " &
-                "where AIRBRANCH.eImailout.STRAIRSYEAR = AIRBRANCH.EISI.STRAIRSYEAR(+) " &
-                "and AIRBRANCH.eImailout.STRINVENTORYYEAR = '" & EIYear & "'"
+                "from eImailout, EISI " &
+                "where eImailout.STRAIRSYEAR = EISI.STRAIRSYEAR(+) " &
+                "and eImailout.STRINVENTORYYEAR = '" & EIYear & "'"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -4069,10 +4069,10 @@ Public Class DMUEisGecoTool
                 dr.Close()
 
                 SQL = "select count(*) as ResponseCount " &
-                "from AIRBRANCH.eImailout, AIRBRANCH.EISI " &
-                "where AIRBRANCH.eImailout.STRAIRSYEAR = AIRBRANCH.EISI.STRAIRSYEAR " &
-                "and AIRBRANCH.EISI.STROPTOUT is not NULL " &
-                "and AIRBRANCH.eImailout.STRINVENTORYYEAR = '" & EIYear & "'"
+                "from eImailout, EISI " &
+                "where eImailout.STRAIRSYEAR = EISI.STRAIRSYEAR " &
+                "and EISI.STROPTOUT is not NULL " &
+                "and eImailout.STRINVENTORYYEAR = '" & EIYear & "'"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
 
@@ -4086,10 +4086,10 @@ Public Class DMUEisGecoTool
                 dr.Close()
 
                 SQL = "select count(*) as removedFacilitiescount " &
-            "from  AIRBRANCH.eImailout, AIRBRANCH.EISI " &
-            "where AIRBRANCH.eImailout.STRINVENTORYYEAR = '" & EIYear & "' " &
-            "and AIRBRANCH.eImailout.STRAIRSYEAR = AIRBRANCH.EISI.STRAIRSYEAR(+) " &
-            "and AIRBRANCH.EISI.STRAIRSYEAR is NULL"
+            "from  eImailout, EISI " &
+            "where eImailout.STRINVENTORYYEAR = '" & EIYear & "' " &
+            "and eImailout.STRAIRSYEAR = EISI.STRAIRSYEAR(+) " &
+            "and EISI.STRAIRSYEAR is NULL"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
 
@@ -4103,12 +4103,12 @@ Public Class DMUEisGecoTool
                 dr.Close()
 
                 SQL = "select count(*) as extraNonresponderscount  " &
-                "from AIRBRANCH.EISI " &
-                " where  not exists (select * from AIRBRANCH.EIMAILOUT " &
-                " where AIRBRANCH.EISI.STRAIRSNUMBER = AIRBRANCH.EIMAILOUT.STRAIRSNUMBER" &
+                "from EISI " &
+                " where  not exists (select * from EIMAILOUT " &
+                " where EISI.STRAIRSNUMBER = EIMAILOUT.STRAIRSNUMBER" &
                 " and EISI.STRINVENTORYYEAR = EIMAILOUT.STRINVENTORYYEAR) " &
-                " and AIRBRANCH.EISI.STRINVENTORYYEAR = '" & EIYear & "' " &
-                " and AIRBRANCH.EISI.STROPTOUT is null"
+                " and EISI.STRINVENTORYYEAR = '" & EIYear & "' " &
+                " and EISI.STROPTOUT is null"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
 
@@ -4122,9 +4122,9 @@ Public Class DMUEisGecoTool
                 dr.Close()
 
                 SQL = "select count(*) as TotaloptinCount " &
-                "from AIRBRANCH.EISI " &
-                "where AIRBRANCH.EISI.STRINVENTORYYEAR = '" & EIYear & "'" &
-                " and AIRBRANCH.EISI.strOptOut = 'NO'"
+                "from EISI " &
+                "where EISI.STRINVENTORYYEAR = '" & EIYear & "'" &
+                " and EISI.strOptOut = 'NO'"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -4137,9 +4137,9 @@ Public Class DMUEisGecoTool
                 dr.Close()
 
                 SQL = "select count(*) as TotaloptOutCount " &
-                "from AIRBRANCH.EISI " &
-                "where AIRBRANCH.EISI.STRINVENTORYYEAR = '" & EIYear & "' " &
-                "and AIRBRANCH.EISI.strOptOut = 'YES'"
+                "from EISI " &
+                "where EISI.STRINVENTORYYEAR = '" & EIYear & "' " &
+                "and EISI.strOptOut = 'YES'"
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -4151,11 +4151,11 @@ Public Class DMUEisGecoTool
                 dr.Close()
 
                 SQL = "select count(*) as FinalizedCount " &
-                "from AIRBRANCH.EISI, AIRBRANCH.eImailout " &
-                "where AIRBRANCH.EISI.STRINVENTORYYEAR = '" & EIYear & "' " &
-                "and AIRBRANCH.eImailout.STRAIRSYEAR = AIRBRANCH.EISI.STRAIRSYEAR(+) " &
-                "and AIRBRANCH.EISI.strOptOut = 'NO' " &
-                "and AIRBRANCH.EISI.STRFINALIZE is not null"
+                "from EISI, eImailout " &
+                "where EISI.STRINVENTORYYEAR = '" & EIYear & "' " &
+                "and eImailout.STRAIRSYEAR = EISI.STRAIRSYEAR(+) " &
+                "and EISI.strOptOut = 'NO' " &
+                "and EISI.STRFINALIZE is not null"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -4169,11 +4169,11 @@ Public Class DMUEisGecoTool
                 dr.Close()
 
                 SQL = "select count(*) as inprocesscount " &
-                "from AIRBRANCH.EISI, AIRBRANCH.eImailout  " &
-                "where AIRBRANCH.EISI.STRINVENTORYYEAR = '" & EIYear & "' " &
-                "and AIRBRANCH.eImailout.STRAIRSYEAR = AIRBRANCH.EISI.STRAIRSYEAR(+) " &
-                "and AIRBRANCH.EISI.strOptOut = 'NO' " &
-                "and AIRBRANCH.EISI.STRFINALIZE is null"
+                "from EISI, eImailout  " &
+                "where EISI.STRINVENTORYYEAR = '" & EIYear & "' " &
+                "and eImailout.STRAIRSYEAR = EISI.STRAIRSYEAR(+) " &
+                "and EISI.strOptOut = 'NO' " &
+                "and EISI.STRFINALIZE is null"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -4186,10 +4186,10 @@ Public Class DMUEisGecoTool
                 dr.Close()
 
                 SQL = "select count(*) as MailOutOptInCount " &
-                "from AIRBRANCH.EISI, AIRBRANCH.eImailout " &
-                "where AIRBRANCH.eImailout.STRINVENTORYYEAR = '" & EIYear & "' " &
-                "and AIRBRANCH.eImailout.STRAIRSYEAR = AIRBRANCH.EISI.STRAIRSYEAR(+) " &
-                "and AIRBRANCH.EISI.strOptOut = 'NO'"
+                "from EISI, eImailout " &
+                "where eImailout.STRINVENTORYYEAR = '" & EIYear & "' " &
+                "and eImailout.STRAIRSYEAR = EISI.STRAIRSYEAR(+) " &
+                "and EISI.strOptOut = 'NO'"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -4203,10 +4203,10 @@ Public Class DMUEisGecoTool
                 dr.Close()
 
                 SQL = "select count(*) as MailOutOptOutCount " &
-                "from AIRBRANCH.EISI, AIRBRANCH.eImailout " &
-                "where AIRBRANCH.eImailout.STRINVENTORYYEAR = '" & EIYear & "' " &
-                "and AIRBRANCH.eImailout.STRAIRSYEAR = AIRBRANCH.EISI.STRAIRSYEAR " &
-                "and AIRBRANCH.EISI.strOptOut = 'YES'"
+                "from EISI, eImailout " &
+                "where eImailout.STRINVENTORYYEAR = '" & EIYear & "' " &
+                "and eImailout.STRAIRSYEAR = EISI.STRAIRSYEAR " &
+                "and EISI.strOptOut = 'YES'"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -4224,10 +4224,10 @@ Public Class DMUEisGecoTool
             End Try
 
             SQL = "select count(*) as mailoutNonresponderscount " &
-            "from  AIRBRANCH.eImailout, AIRBRANCH.EISI " &
-            "where AIRBRANCH.eImailout.STRINVENTORYYEAR = '" & EIYear & "' " &
-            "and AIRBRANCH.eImailout.STRAIRSYEAR = AIRBRANCH.EISI.STRAIRSYEAR(+) " &
-            "and AIRBRANCH.EISI.strOptOut is NULL"
+            "from  eImailout, EISI " &
+            "where eImailout.STRINVENTORYYEAR = '" & EIYear & "' " &
+            "and eImailout.STRAIRSYEAR = EISI.STRAIRSYEAR(+) " &
+            "and EISI.strOptOut is NULL"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -4240,9 +4240,9 @@ Public Class DMUEisGecoTool
             dr.Close()
 
             SQL = "select count(*) as Nonresponsecount " &
-         "from  AIRBRANCH.EISI " &
-         "where AIRBRANCH.EISI.STRINVENTORYYEAR = '" & EIYear & "' " &
-         "and AIRBRANCH.EISI.strOptOut is NULL"
+         "from  EISI " &
+         "where EISI.STRINVENTORYYEAR = '" & EIYear & "' " &
+         "and EISI.strOptOut is NULL"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -4255,15 +4255,15 @@ Public Class DMUEisGecoTool
             dr.Close()
 
             SQL = "select count(*) as ExtraCount " &
-            "from (Select AIRBRANCH.EISI.STRAIRSYEAR AS SchemaAIRS, " &
-            "AIRBRANCH.eImailout.STRAIRSYear AS MailoutAIRS " &
-            "From AIRBRANCH.eImailout, AIRBRANCH.EISI  " &
-            "Where AIRBRANCH.eImailout.STRAIRSYEAR (+) = AIRBRANCH.EISI.STRAIRSYEAR " &
-            "AND AIRBRANCH.EISI.STRINVENTORYYEAR= '" & EIYear & "' " &
-            "AND AIRBRANCH.EISI.STROPTOUT IS NOT NULL) " &
+            "from (Select EISI.STRAIRSYEAR AS SchemaAIRS, " &
+            "eImailout.STRAIRSYear AS MailoutAIRS " &
+            "From eImailout, EISI  " &
+            "Where eImailout.STRAIRSYEAR (+) = EISI.STRAIRSYEAR " &
+            "AND EISI.STRINVENTORYYEAR= '" & EIYear & "' " &
+            "AND EISI.STROPTOUT IS NOT NULL) " &
             "dt_NotInMailout, " &
-            "AIRBRANCH.EISI " &
-            "Where AIRBRANCH.EISI.STRAIRSYEAR = SchemaAIRS " &
+            "EISI " &
+            "Where EISI.STRAIRSYEAR = SchemaAIRS " &
             "AND MailoutAIRS is NULL"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -4278,17 +4278,17 @@ Public Class DMUEisGecoTool
             dr.Close()
 
             SQL = "select count(*) as ExtraOptinCount " &
-            "from (Select AIRBRANCH.EISI.STRAIRSYEAR AS SchemaAIRS, " &
-            "AIRBRANCH.EIMAILOUT.STRAIRSYear AS MailoutAIRS " &
-            "From AIRBRANCH.EIMailout, AIRBRANCH.EISI " &
-            "Where AIRBRANCH.EIMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.EISI.STRAIRSYEAR " &
-            "AND AIRBRANCH.EISI.STRINVENTORYYEAR= '" & EIYear & "' " &
-            "AND AIRBRANCH.EISI.STROPTOUT IS NOT NULL) " &
+            "from (Select EISI.STRAIRSYEAR AS SchemaAIRS, " &
+            "EIMAILOUT.STRAIRSYear AS MailoutAIRS " &
+            "From EIMailout, EISI " &
+            "Where EIMAILOUT.STRAIRSYEAR (+)= EISI.STRAIRSYEAR " &
+            "AND EISI.STRINVENTORYYEAR= '" & EIYear & "' " &
+            "AND EISI.STROPTOUT IS NOT NULL) " &
             "dt_NotInMailout, " &
-            "AIRBRANCH.EISI " &
-            "Where AIRBRANCH.EISI.STRAIRSYEAR = SchemaAIRS " &
+            "EISI " &
+            "Where EISI.STRAIRSYEAR = SchemaAIRS " &
             "AND MailoutAIRS is NULL " &
-            "and AIRBRANCH.EISI.STROPTOUT='NO'"
+            "and EISI.STROPTOUT='NO'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -4301,17 +4301,17 @@ Public Class DMUEisGecoTool
             dr.Close()
 
             SQL = "select count(*) as ExtraOptOUTCount " &
-            "from (Select AIRBRANCH.EISI.STRAIRSYEAR AS SchemaAIRS, " &
-            "AIRBRANCH.EIMAILOUT.STRAIRSYear AS MailoutAIRS " &
-            "From AIRBRANCH.EiMailout, AIRBRANCH.EISI " &
-            " Where AIRBRANCH.EIMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.EISI.STRAIRSYEAR " &
-            "AND AIRBRANCH.EISI.STRINVENTORYYEAR= '" & EIYear & "' " &
-            "AND AIRBRANCH.EISI.STROPTOUT IS NOT NULL) " &
+            "from (Select EISI.STRAIRSYEAR AS SchemaAIRS, " &
+            "EIMAILOUT.STRAIRSYear AS MailoutAIRS " &
+            "From EiMailout, EISI " &
+            " Where EIMAILOUT.STRAIRSYEAR (+)= EISI.STRAIRSYEAR " &
+            "AND EISI.STRINVENTORYYEAR= '" & EIYear & "' " &
+            "AND EISI.STROPTOUT IS NOT NULL) " &
             "dt_NotInMailout, " &
-            "AIRBRANCH.EISI " &
-            "Where AIRBRANCH.EISI.STRAIRSYEAR = SchemaAIRS " &
+            "EISI " &
+            "Where EISI.STRAIRSYEAR = SchemaAIRS " &
             "AND MailoutAIRS is NULL " &
-            "and AIRBRANCH.EISI.STROPTOUT='YES'"
+            "and EISI.STROPTOUT='YES'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -4325,8 +4325,8 @@ Public Class DMUEisGecoTool
             dr.Close()
 
             SQL = "select count(*) as TotalResponsecount " &
-            "from AIRBRANCH.EISI " &
-            "where AIRBRANCH.EISI.STRINVENTORYYEAR = '" & EIYear & "' " &
+            "from EISI " &
+            "where EISI.STRINVENTORYYEAR = '" & EIYear & "' " &
             "and EISI.strOptOut is not NULL"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -4354,7 +4354,7 @@ Public Class DMUEisGecoTool
 
         Try
             SQL = "SELECT * " &
-            "from AIRBRANCH.eIMailOut " &
+            "from eIMailOut " &
             "where STRAIRSNUMBER = '" & AirsNo & "' " &
             "and STRINVENTORYYEAR = '" & EIyear & "'"
 
@@ -4466,7 +4466,7 @@ Public Class DMUEisGecoTool
             "STRCONTACTSTATE, " &
             "STRCONTACTZIPCODE, " &
             "STRCONTACTEMAIL " &
-            "from AIRBRANCH.eIMailOut " &
+            "from eIMailOut " &
             "where STRinventoryYEAR = '" & year & "' " &
             "order by STRFACILITYNAME"
 
@@ -4523,21 +4523,21 @@ Public Class DMUEisGecoTool
 
             Dim year As String = txtEIYear.Text()
 
-            SQL = "SELECT AIRBRANCH.eiMailOut.STRAIRSNUMBER, " &
-            "AIRBRANCH.eiMailOut.STRFACILITYNAME " &
-            "from  AIRBRANCH.EISI,  AIRBRANCH.eiMailOut " &
+            SQL = "SELECT eiMailOut.STRAIRSNUMBER, " &
+            "eiMailOut.STRFACILITYNAME " &
+            "from  EISI,  eiMailOut " &
             "where " &
-            "and AIRBRANCH.EISI.STRINVENTORYYEAR = '" & year & "' " &
-            "and AIRBRANCH.EISI.strOptOut is NULL" &
-            " order by AIRBRANCH.eiMailOut.STRFACILITYNAME"
+            "and EISI.STRINVENTORYYEAR = '" & year & "' " &
+            "and EISI.strOptOut is NULL" &
+            " order by eiMailOut.STRFACILITYNAME"
 
 
             SQL = "select  " &
-            "AIRBRANCH.EISI.STRAIRSNUMBER, " &
-            "AIRBRANCH.EISI.STRFACILITYNAME " &
-            "from  AIRBRANCH.EISI  " &
-            "where AIRBRANCH.EISI.STRINVENTORYYEAR = '" & year & "'  " &
-            "and AIRBRANCH.EISI.strOptOut is NULL  "
+            "EISI.STRAIRSNUMBER, " &
+            "EISI.STRFACILITYNAME " &
+            "from  EISI  " &
+            "where EISI.STRINVENTORYYEAR = '" & year & "'  " &
+            "and EISI.strOptOut is NULL  "
 
 
             dsViewCount = New DataSet
@@ -4577,15 +4577,15 @@ Public Class DMUEisGecoTool
 
             Dim year As String = txtEIYear.Text
 
-            SQL = "SELECT airbranch.EISI.STRAIRSNUMBER, " &
-            "airbranch.EISI.STRFACILITYNAME, " &
-            "airbranch.EISI.STRFINALIZE, " &
-            "airbranch.EISI.STRCONFIRMATIONNUMBER " &
-            "from AIRBRANCH.EISI, AIRBRANCH.eImailout " &
-            "where AIRBRANCH.EISI.STRINVENTORYYEAR = '" & year & "' " &
-            "and AIRBRANCH.EISI.STROPTOUT = 'NO'" &
-            "and AIRBRANCH.eImailout.STRAIRSYEAR = AIRBRANCH.EISI.STRAIRSYEAR " &
-            "order by AIRBRANCH.EISI.STRFACILITYNAME"
+            SQL = "SELECT EISI.STRAIRSNUMBER, " &
+            "EISI.STRFACILITYNAME, " &
+            "EISI.STRFINALIZE, " &
+            "EISI.STRCONFIRMATIONNUMBER " &
+            "from EISI, eImailout " &
+            "where EISI.STRINVENTORYYEAR = '" & year & "' " &
+            "and EISI.STROPTOUT = 'NO'" &
+            "and eImailout.STRAIRSYEAR = EISI.STRAIRSYEAR " &
+            "order by EISI.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -4627,15 +4627,15 @@ Public Class DMUEisGecoTool
 
             Dim year As String = txtEIYear.Text
 
-            SQL = "SELECT AIRBRANCH.EISI.STRAIRSNUMBER, " &
-            "AIRBRANCH.EISI.STRFACILITYNAME, " &
-            "AIRBRANCH.EISI.STRFINALIZE, " &
-            "AIRBRANCH.EISI.STRCONFIRMATIONNUMBER " &
-            "from AIRBRANCH.EISI, AIRBRANCH.eImailout " &
-            "where AIRBRANCH.EISI.STRINVENTORYYEAR = '" & year & "' " &
-            "and AIRBRANCH.EISI.STROPTOUT = 'YES'" &
-            "and AIRBRANCH.eImailout.STRAIRSYEAR = AIRBRANCH.EISI.STRAIRSYEAR " &
-            "order by AIRBRANCH.EISI.STRFACILITYNAME"
+            SQL = "SELECT EISI.STRAIRSNUMBER, " &
+            "EISI.STRFACILITYNAME, " &
+            "EISI.STRFINALIZE, " &
+            "EISI.STRCONFIRMATIONNUMBER " &
+            "from EISI, eImailout " &
+            "where EISI.STRINVENTORYYEAR = '" & year & "' " &
+            "and EISI.STROPTOUT = 'YES'" &
+            "and eImailout.STRAIRSYEAR = EISI.STRAIRSYEAR " &
+            "order by EISI.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -4677,22 +4677,22 @@ Public Class DMUEisGecoTool
             Dim year As String = txtEIYear.Text
 
 
-            SQL = "SELECT dt_NotInMailout.SchemaAIRS, AIRBRANCH.EISI.STRAIRSNUMBER, " &
-            "AIRBRANCH.EISI.STRFACILITYNAME, " &
-            "AIRBRANCH.EISI.STRCONTACTFIRSTNAME, " &
-            "AIRBRANCH.EISI.STRCONTACTLASTNAME, " &
-            "AIRBRANCH.EISI.STRCONTACTCOMPANYNAME, " &
-            "AIRBRANCH.EISI.STRCONTACTEMAIL, " &
-            "AIRBRANCH.EISI.STRCONTACTPHONENUMBER1 " &
-            "from (Select AIRBRANCH.EISI.STRAIRSYEAR AS SchemaAIRS, " &
-            "AIRBRANCH.EIMailout.STRAIRSYEAR AS MailoutAIRS" &
-            " From AIRBRANCH.EIMailout, AIRBRANCH.EISI" &
-            " Where AIRBRANCH.EIMailout.STRAIRSYEAR (+)= AIRBRANCH.EISI.STRAIRSYEAR " &
-            "AND AIRBRANCH.EISI.STRINVENTORYYEAR=  '" & year & "' " &
-            "AND AIRBRANCH.EISI.STROPTOUT IS NOT NULL) " &
+            SQL = "SELECT dt_NotInMailout.SchemaAIRS, EISI.STRAIRSNUMBER, " &
+            "EISI.STRFACILITYNAME, " &
+            "EISI.STRCONTACTFIRSTNAME, " &
+            "EISI.STRCONTACTLASTNAME, " &
+            "EISI.STRCONTACTCOMPANYNAME, " &
+            "EISI.STRCONTACTEMAIL, " &
+            "EISI.STRCONTACTPHONENUMBER1 " &
+            "from (Select EISI.STRAIRSYEAR AS SchemaAIRS, " &
+            "EIMailout.STRAIRSYEAR AS MailoutAIRS" &
+            " From EIMailout, EISI" &
+            " Where EIMailout.STRAIRSYEAR (+)= EISI.STRAIRSYEAR " &
+            "AND EISI.STRINVENTORYYEAR=  '" & year & "' " &
+            "AND EISI.STROPTOUT IS NOT NULL) " &
             "dt_NotInMailout, " &
-            "AIRBRANCH.EISI " &
-            "Where AIRBRANCH.EISI.STRAIRSYEAR = SchemaAIRS " &
+            "EISI " &
+            "Where EISI.STRAIRSYEAR = SchemaAIRS " &
             "AND MailoutAIRS is NULL"
 
             dsViewCount = New DataSet
@@ -4745,20 +4745,20 @@ Public Class DMUEisGecoTool
 
             Dim year As String = txtEIYear.Text
 
-            SQL = "SELECT AIRBRANCH.EISI.STRAIRSNUMBER, " &
-            "AIRBRANCH.EISI.STRFACILITYNAME, " &
-            "AIRBRANCH.EISI.strfinalize, " &
-            "AIRBRANCH.EISI.STRCONFIRMATIONNumber " &
-            "from (select AIRBRANCH.EISI.strairsyear as SchemaAIRS, " &
-            "AIRBRANCH.eImailout.strairsyear as MailoutAIRS " &
-            "From AIRBRANCH.EIMailout, AIRBRANCH.EISI " &
-            "where AIRBRANCH.eImailout.STRAIRSYEAR (+)= AIRBRANCH.EISI.STRAIRSYEAR " &
-            "and AIRBRANCH.EISI.STRINVENTORYYEAR = '" & year & "' " &
-            "and AIRBRANCH.EISI.STROPTOUT IS NOT NULL) " &
-            "dt_NotInMailout, AIRBRANCH.EISI " &
-            "Where AIRBRANCH.EISI.STRAIRSYEAR = SchemaAIRS " &
+            SQL = "SELECT EISI.STRAIRSNUMBER, " &
+            "EISI.STRFACILITYNAME, " &
+            "EISI.strfinalize, " &
+            "EISI.STRCONFIRMATIONNumber " &
+            "from (select EISI.strairsyear as SchemaAIRS, " &
+            "eImailout.strairsyear as MailoutAIRS " &
+            "From EIMailout, EISI " &
+            "where eImailout.STRAIRSYEAR (+)= EISI.STRAIRSYEAR " &
+            "and EISI.STRINVENTORYYEAR = '" & year & "' " &
+            "and EISI.STROPTOUT IS NOT NULL) " &
+            "dt_NotInMailout, EISI " &
+            "Where EISI.STRAIRSYEAR = SchemaAIRS " &
             "and MailoutAIRS is NULL " &
-            "and AIRBRANCH.EISI.STROPTOUT='NO'"
+            "and EISI.STROPTOUT='NO'"
 
             dsViewCount = New DataSet
             daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -4800,20 +4800,20 @@ Public Class DMUEisGecoTool
 
             Dim year As String = txtEIYear.Text
 
-            SQL = "SELECT AIRBRANCH.EISI.STRAIRSNUMBER, " &
-            "AIRBRANCH.EISI.STRFACILITYNAME, " &
-            "AIRBRANCH.EISI.strfinalize, " &
-            "AIRBRANCH.EISI.STRCONFIRMATIONNumber " &
-            "from (select AIRBRANCH.EISI.strairsyear as SchemaAIRS, " &
-            "AIRBRANCH.eImailout.strairsyear as MailoutAIRS " &
-            "From AIRBRANCH.EIMailout, AIRBRANCH.EISI " &
-            "where AIRBRANCH.eImailout.STRAIRSYEAR (+) = AIRBRANCH.EISI.STRAIRSYEAR " &
-            "and AIRBRANCH.EISI.STRINVENTORYYEAR = '" & year & "' " &
-            "and AIRBRANCH.EISI.STROPTOUT IS NOT NULL) " &
-            "dt_NotInMailout, AIRBRANCH.EISI " &
-            "Where AIRBRANCH.EISI.STRAIRSYEAR = SchemaAIRS " &
+            SQL = "SELECT EISI.STRAIRSNUMBER, " &
+            "EISI.STRFACILITYNAME, " &
+            "EISI.strfinalize, " &
+            "EISI.STRCONFIRMATIONNumber " &
+            "from (select EISI.strairsyear as SchemaAIRS, " &
+            "eImailout.strairsyear as MailoutAIRS " &
+            "From EIMailout, EISI " &
+            "where eImailout.STRAIRSYEAR (+) = EISI.STRAIRSYEAR " &
+            "and EISI.STRINVENTORYYEAR = '" & year & "' " &
+            "and EISI.STROPTOUT IS NOT NULL) " &
+            "dt_NotInMailout, EISI " &
+            "Where EISI.STRAIRSYEAR = SchemaAIRS " &
             "and MailoutAIRS is NULL " &
-            "and AIRBRANCH.EISI.STROPTOUT='YES'"
+            "and EISI.STROPTOUT='YES'"
 
             dsViewCount = New DataSet
             daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -4856,17 +4856,17 @@ Public Class DMUEisGecoTool
 
             Dim year As String = txtEIYear.Text
 
-            SQL = "SELECT AIRBRANCH.EISI.STRAIRSNUMBER, " &
-            "AIRBRANCH.EISI.STRFACILITYNAME, " &
-            "AIRBRANCH.EISI.STRCONTACTFIRSTNAME, " &
-            "AIRBRANCH.EISI.STRCONTACTLASTNAME, " &
-            "AIRBRANCH.EISI.STRCONTACTCOMPANYname, " &
-            "AIRBRANCH.EISI.STRCONTACTEMAIL, " &
-            "AIRBRANCH.EISI.STRCONTACTPHONENUMBER1 " &
-            "from AIRBRANCH.EISI " &
-            "where AIRBRANCH.EISI.strinventoryYear = '" & year & "' " &
-            "and AIRBRANCH.EISI.STROPTOUT is not NULL " &
-            "order by AIRBRANCH.EISI.STRFACILITYNAME"
+            SQL = "SELECT EISI.STRAIRSNUMBER, " &
+            "EISI.STRFACILITYNAME, " &
+            "EISI.STRCONTACTFIRSTNAME, " &
+            "EISI.STRCONTACTLASTNAME, " &
+            "EISI.STRCONTACTCOMPANYname, " &
+            "EISI.STRCONTACTEMAIL, " &
+            "EISI.STRCONTACTPHONENUMBER1 " &
+            "from EISI " &
+            "where EISI.strinventoryYear = '" & year & "' " &
+            "and EISI.STROPTOUT is not NULL " &
+            "order by EISI.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -4917,15 +4917,15 @@ Public Class DMUEisGecoTool
             Dim year As String = txtEIYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT AIRBRANCH.EISI.STRAIRSNUMBER, " &
-            "AIRBRANCH.EISI.STRFACILITYNAME, " &
-            "AIRBRANCH.EISI.STRfinalize, " &
-            "AIRBRANCH.EISI.STRCONFIRMATIONNumber " &
-            "from AIRBRANCH.EISI, AIRBRANCH.eimailout " &
-            "where AIRBRANCH.EISI.strinventoryyear = '" & intYear & "' " &
-            "and AIRBRANCH.EISI.STROPTOUT = 'NO'" &
-            "and AIRBRANCH.EIMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.EISI.STRAIRSYEAR " &
-            "order by AIRBRANCH.eisi.STRFACILITYNAME"
+            SQL = "SELECT EISI.STRAIRSNUMBER, " &
+            "EISI.STRFACILITYNAME, " &
+            "EISI.STRfinalize, " &
+            "EISI.STRCONFIRMATIONNumber " &
+            "from EISI, eimailout " &
+            "where EISI.strinventoryyear = '" & intYear & "' " &
+            "and EISI.STROPTOUT = 'NO'" &
+            "and EIMAILOUT.STRAIRSYEAR (+)= EISI.STRAIRSYEAR " &
+            "order by eisi.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -4969,15 +4969,15 @@ Public Class DMUEisGecoTool
             Dim year As String = txtEIYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT AIRBRANCH.EISI.STRAIRSNUMBER, " &
-            "AIRBRANCH.EISI.STRFACILITYNAME, " &
-            "AIRBRANCH.EISI.STRfinalize, " &
-            "AIRBRANCH.EISI.STRCONFIRMATIONNumber " &
-            "from AIRBRANCH.EISI, AIRBRANCH.eimailout " &
-            "where AIRBRANCH.EISI.strinventoryyear = '" & intYear & "' " &
-            "and AIRBRANCH.EISI.STROPTOUT = 'YES'" &
-            "and AIRBRANCH.EIMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.EISI.STRAIRSYEAR " &
-            "order by AIRBRANCH.eisi.STRFACILITYNAME"
+            SQL = "SELECT EISI.STRAIRSNUMBER, " &
+            "EISI.STRFACILITYNAME, " &
+            "EISI.STRfinalize, " &
+            "EISI.STRCONFIRMATIONNumber " &
+            "from EISI, eimailout " &
+            "where EISI.strinventoryyear = '" & intYear & "' " &
+            "and EISI.STROPTOUT = 'YES'" &
+            "and EIMAILOUT.STRAIRSYEAR (+)= EISI.STRAIRSYEAR " &
+            "order by eisi.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -5028,7 +5028,7 @@ Public Class DMUEisGecoTool
             "STRCONTACTSTATE, " &
             "STRCONTACTZIPCODE, " &
             "STRCONTACTEMAIL " &
-            "from AIRBRANCH.eIMailOut " &
+            "from eIMailOut " &
             "where strinventoryyear = '" & year & "' " &
             "order by STRFACILITYNAME"
 
@@ -5161,7 +5161,7 @@ Public Class DMUEisGecoTool
             End If
 
             SQL = "Select distinct STRINVENTORYYEAR " &
-                      "from AIRBRANCH.EIMAILOUT  " &
+                      "from EIMAILOUT  " &
                       "order by STRINVENTORYYEAR desc"
             Dim cmd As New SqlCommand(SQL, CurrentConnection)
 
@@ -5192,7 +5192,7 @@ Public Class DMUEisGecoTool
             End If
 
             SQL = "Select distinct STRINVENTORYYEAR " &
-                      "from AIRBRANCH.EIMAILOUT  " &
+                      "from EIMAILOUT  " &
                       "order by STRINVENTORYYEAR desc"
             Dim cmd As New SqlCommand(SQL, CurrentConnection)
 
@@ -5221,7 +5221,7 @@ Public Class DMUEisGecoTool
             End If
 
             SQL = "Select distinct ESMAILOUT.STRESYEAR " &
-                      "from AIRBRANCH.ESMAILOUT  " &
+                      "from ESMAILOUT  " &
                       "order by STRESYEAR desc"
             Dim cmd As New SqlCommand(SQL, CurrentConnection)
 
@@ -5281,7 +5281,7 @@ Public Class DMUEisGecoTool
                 MsgBox("You must select a Mailout Year")
             Else
                 SQL = "Select strAirsNumber " &
-                "FROM AIRBRANCH.EImailOut " &
+                "FROM EImailOut " &
                 "where STRINVENTORYYEAR = '" & EIYear & "'"
             End If
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -5296,8 +5296,8 @@ Public Class DMUEisGecoTool
             Else
                 If cboEIMailoutYear.Text <> "" Then
                     If cboEIMailoutYear.Text.Length = 4 Then
-                        SQL = "Select dt_EIcontact.STRairsnumber, AIRBRANCH.APBFacilityinformation.STRFACILITYNAME, " &
-                        "AIRBRANCH.APBHEADERDATA.stroperationalstatus, AIRBRANCH.APBHEADERDATA.STRCLASS, " &
+                        SQL = "Select dt_EIcontact.STRairsnumber, APBFacilityinformation.STRFACILITYNAME, " &
+                        "APBHEADERDATA.stroperationalstatus, APBHEADERDATA.STRCLASS, " &
                         "(Case " &
                         "When dt_EIcontact.STRKEY='41' THEN dt_EIcontact.STRContactLastName " &
                         "When dt_EIcontact.STRKEY Is Null THEN dt_PermitContact.STRContactLastName " &
@@ -5343,27 +5343,27 @@ Public Class DMUEisGecoTool
                         "dt_Contact.STRCONTACTPREFIX, dt_Contact.STRCONTACTADDRESS1, dt_Contact.STRCONTACTCITY,  " &
                         "dt_Contact.STRCONTACTSTATE, dt_Contact.STRCONTACTZIPCODE " &
                         "FROM " &
-                        "(Select * FROM AIRBRANCH.APBHEADERDATA " &
+                        "(Select * FROM APBHEADERDATA " &
                         "where (stroperationalstatus = 'O' OR stroperationalstatus = 'P' oR stroperationalstatus = 'C') AND  " &
                         "(STRCLASS = 'A')   " &
                         ") dt_EIList,      " &
-                        "(Select * From AIRBRANCH.APBCONTACTINFORMATION where STRKEY=41) dt_Contact " &
+                        "(Select * From APBCONTACTINFORMATION where STRKEY=41) dt_Contact " &
                         "Where dt_EIList.STRAIRSNUMBEr = dt_Contact.STRAIRSNUMBER (+)) dt_EIContact, " &
                         "(Select DISTINCT dt_eIlist.STRAIRSNUMBER, dt_contact.STRKEY,  " &
                 "dt_Contact.STRCONTACTLASTNAME, dt_Contact.STRCONTACTFIRSTNAME, " &
                 "dt_Contact.STRContactCompanyName, dt_Contact.STRContactEmail, dt_Contact.STRCONTACTPREFIX,  " &
                 "dt_Contact.STRCONTACTADDRESS1, dt_Contact.strcontactcity, dt_Contact.STRCONTACTSTATE, dt_Contact.STRCONTACTZIPCODE " &
                 "FROM " &
-                        "(Select * FROM AIRBRANCH.APBHEADERDATA " &
+                        "(Select * FROM APBHEADERDATA " &
                         "where (stroperationalstatus = 'O' OR stroperationalstatus = 'P' oR stroperationalstatus = 'C') AND  " &
                         "(STRCLASS = 'A')   " &
                         ") dt_EIList,      " &
-                        "(Select * From AIRBRANCH.APBCONTACTINFORMATION where STRKEY=30) dt_Contact " &
+                        "(Select * From APBCONTACTINFORMATION where STRKEY=30) dt_Contact " &
                         "Where dt_EIList.STRAIRSNUMBEr = dt_Contact.STRAIRSNUMBER (+)) dt_PermitContact, " &
-                        "AIRBRANCH.APBFACILITYINFORMATION, " &
-                        "AIRBRANCH.APBHEADERDATA " &
-                        "Where AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER= dt_EIContact.STRAIRSNumber and  " &
-                        "AIRBRANCH.APBHEADERDATA.STRAIRSNUMBER= dt_EIContact.STRAIRSNumber and  " &
+                        "APBFACILITYINFORMATION, " &
+                        "APBHEADERDATA " &
+                        "Where APBFACILITYINFORMATION.STRAIRSNUMBER= dt_EIContact.STRAIRSNumber and  " &
+                        "APBHEADERDATA.STRAIRSNUMBER= dt_EIContact.STRAIRSNumber and  " &
                         "dt_EIContact.STRAIRSNumber  = dt_PermitContact.STRAIRSNUMBER (+) "
 
                         cmd = New SqlCommand(SQL, CurrentConnection)
@@ -5432,7 +5432,7 @@ Public Class DMUEisGecoTool
                                 CONTACTEMAIL = dr("STRCONTACTEMAIL")
                             End If
 
-                            SQL2 = "insert into AIRBRANCH.EImailOut " &
+                            SQL2 = "insert into EImailOut " &
                            "(strAirsYear, " &
                            "strAirsNumber, " &
                            "STRFACILITYNAME, " &
@@ -5487,7 +5487,7 @@ Public Class DMUEisGecoTool
                     "STRCONTACTSTATE, " &
                     "STRCONTACTZIPCODE, " &
                     "STRCONTACTEMAIL " &
-                    "from AIRBRANCH.eIMailOut " &
+                    "from eIMailOut " &
                     "where STRINVENTORYYEAR = '" & year & "' " &
                     "order by STRFACILITYNAME"
 
@@ -5566,8 +5566,8 @@ Public Class DMUEisGecoTool
             If EIyear = "Select a Mailout Year & Click Below" Then
                 MsgBox("You must select a Mailout Year", MsgBoxStyle.Information, "EIMailout")
             Else
-                SQL = "delete from AIRBRANCH.EImailout " &
-                "where AIRBRANCH.EImailout.STRINVENTORYYEAR = '" & EIyear & "'"
+                SQL = "delete from EImailout " &
+                "where EImailout.STRINVENTORYYEAR = '" & EIyear & "'"
 
                 MsgBox("EI mail out is deleted!")
 
@@ -5624,7 +5624,7 @@ Public Class DMUEisGecoTool
 
         Try
             SQL = "Select strAIRSYear " &
-                  "from AIRBRANCH.EIMailout " &
+                  "from EIMailout " &
                   "where STRAIRSYEAR = '" & airsYear & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -5635,36 +5635,36 @@ Public Class DMUEisGecoTool
 
 
             If recExist = True Then
-                SQL = "update AIRBRANCH.EIMailOut set " &
-                "AIRBRANCH.EIMailOut.STRCONTACTPREFIX = '" & EIPrefix & "', " &
-                "AIRBRANCH.EIMailOut.STRCONTACTFIRSTNAME = '" & EIFirstName & "', " &
-                "AIRBRANCH.EIMailOut.STRCONTACTLASTNAME = '" & EILastName & "', " &
-                "AIRBRANCH.EIMailOut.STRCONTACTCOMPANYNAME = '" & EICompanyName & "', " &
-                "AIRBRANCH.EIMailOut.STRCONTACTADDRESS1 = '" & EIContactAddress1 & "', " &
-                "AIRBRANCH.EIMailOut.STRCONTACTADDRESS2 = '" & EIContactAddress2 & "', " &
-                "AIRBRANCH.EIMailOut.STRCONTACTCITY = '" & EIContactCity & "', " &
-                "AIRBRANCH.EIMailOut.STRCONTACTSTATE = '" & EIcontactState & "', " &
-                "AIRBRANCH.EIMailOut.STRCONTACTZIPCODE = '" & EIContactZip & "', " &
-                "AIRBRANCH.EIMailOut.STRCONTACTEMAIL = '" & EIContactEmail & "'" &
-                "where AIRBRANCH.EIMailOut.STRAIRSYEAR = '" & airsYear & "' "
+                SQL = "update EIMailOut set " &
+                "EIMailOut.STRCONTACTPREFIX = '" & EIPrefix & "', " &
+                "EIMailOut.STRCONTACTFIRSTNAME = '" & EIFirstName & "', " &
+                "EIMailOut.STRCONTACTLASTNAME = '" & EILastName & "', " &
+                "EIMailOut.STRCONTACTCOMPANYNAME = '" & EICompanyName & "', " &
+                "EIMailOut.STRCONTACTADDRESS1 = '" & EIContactAddress1 & "', " &
+                "EIMailOut.STRCONTACTADDRESS2 = '" & EIContactAddress2 & "', " &
+                "EIMailOut.STRCONTACTCITY = '" & EIContactCity & "', " &
+                "EIMailOut.STRCONTACTSTATE = '" & EIcontactState & "', " &
+                "EIMailOut.STRCONTACTZIPCODE = '" & EIContactZip & "', " &
+                "EIMailOut.STRCONTACTEMAIL = '" & EIContactEmail & "'" &
+                "where EIMailOut.STRAIRSYEAR = '" & airsYear & "' "
                 MsgBox("your info is updated")
             Else
 
-                SQL = "Insert into AIRBRANCH.EIMailOut" &
-                "(AIRBRANCH.EIMailOut.STRAIRSYEAR, " &
-              "AIRBRANCH.EIMailOut.STRAIRSNUMBER, " &
-              "AIRBRANCH.EIMailOut.STRFACILITYNAME, " &
-              "AIRBRANCH.EIMailOut.STRCONTACTPREFIX, " &
-              "AIRBRANCH.EIMailOut.STRCONTACTFIRSTNAME, " &
-              "AIRBRANCH.EIMailOut.STRCONTACTLASTNAME, " &
-              "AIRBRANCH.EIMailOut.STRCONTACTCOMPANYNAME, " &
-              "AIRBRANCH.EIMailOut.STRCONTACTADDRESS1, " &
-              "AIRBRANCH.EIMailOut.STRCONTACTADDRESS2, " &
-              "AIRBRANCH.EIMailOut.STRCONTACTCITY, " &
-              "AIRBRANCH.EIMailOut.STRCONTACTSTATE, " &
-              "AIRBRANCH.EIMailOut.STRCONTACTZIPCODE, " &
-              "AIRBRANCH.EIMailOut.STRINVENTORYYEAR, " &
-              "AIRBRANCH.EIMailOut.STRCONTACTEMAIL) " &
+                SQL = "Insert into EIMailOut" &
+                "(EIMailOut.STRAIRSYEAR, " &
+              "EIMailOut.STRAIRSNUMBER, " &
+              "EIMailOut.STRFACILITYNAME, " &
+              "EIMailOut.STRCONTACTPREFIX, " &
+              "EIMailOut.STRCONTACTFIRSTNAME, " &
+              "EIMailOut.STRCONTACTLASTNAME, " &
+              "EIMailOut.STRCONTACTCOMPANYNAME, " &
+              "EIMailOut.STRCONTACTADDRESS1, " &
+              "EIMailOut.STRCONTACTADDRESS2, " &
+              "EIMailOut.STRCONTACTCITY, " &
+              "EIMailOut.STRCONTACTSTATE, " &
+              "EIMailOut.STRCONTACTZIPCODE, " &
+              "EIMailOut.STRINVENTORYYEAR, " &
+              "EIMailOut.STRCONTACTEMAIL) " &
                 "values (" &
                 "'" & Replace(airsYear, "'", "''") & "', " &
                 "'" & Replace(AirsNo, "'", "''") & "', " &
@@ -5716,9 +5716,9 @@ Public Class DMUEisGecoTool
         Dim EIyear As String = txtEIYear.Text
 
         Try
-            SQL = "delete from AIRBRANCH.EIMailOut " &
-          "where AIRBRANCH.EIMailOut.STRAIRSNUMBER = '" & AirsNo & "' " &
-          " and AIRBRANCH.EIMailOut.STRINVENTORYYEAR = '" & EIyear & "'"
+            SQL = "delete from EIMailOut " &
+          "where EIMailOut.STRAIRSNUMBER = '" & AirsNo & "' " &
+          " and EIMailOut.STRINVENTORYYEAR = '" & EIyear & "'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -5741,21 +5741,21 @@ Public Class DMUEisGecoTool
             Dim year As String = txtEIYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT AIRBRANCH.EISI.STRAIRSNUMBER, " &
-            "AIRBRANCH.EISI.STRFACILITYNAME, " &
+            SQL = "SELECT EISI.STRAIRSNUMBER, " &
+            "EISI.STRFACILITYNAME, " &
             "case " &
             "when substr(strFinalize, 2, 1) = '-' then '0'||substr(strFinalize, 1, 10) " &
             "else substr(strFinalize, 1,11) " &
             "end Finalize, " &
-            "AIRBRANCH.EISI.STRfinalize, " &
-            "AIRBRANCH.EISI.STRQADONE, " &
-            "AIRBRANCH.EISI.STRCONFIRMATIONNumber " &
-            "from AIRBRANCH.EISI, AIRBRANCH.eimailout " &
-            "where AIRBRANCH.EISI.strinventoryyear = '" & intYear & "' " &
-            "and AIRBRANCH.EISI.STROPTOUT = 'NO' " &
-            "and AIRBRANCH.EISI.strfinalize is not NULL " &
-            "and AIRBRANCH.EIMAILOUT.STRAIRSYEAR = AIRBRANCH.EISI.STRAIRSYEAR (+)" &
-            "order by AIRBRANCH.eisi.STRFACILITYNAME"
+            "EISI.STRfinalize, " &
+            "EISI.STRQADONE, " &
+            "EISI.STRCONFIRMATIONNumber " &
+            "from EISI, eimailout " &
+            "where EISI.strinventoryyear = '" & intYear & "' " &
+            "and EISI.STROPTOUT = 'NO' " &
+            "and EISI.strfinalize is not NULL " &
+            "and EIMAILOUT.STRAIRSYEAR = EISI.STRAIRSYEAR (+)" &
+            "order by eisi.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -5801,16 +5801,16 @@ Public Class DMUEisGecoTool
 
             Dim year As String = txtEIYear.Text
 
-            SQL = "SELECT AIRBRANCH.EISI.STRAIRSNUMBER, " &
-            "AIRBRANCH.EISI.STRFACILITYNAME, " &
-            "AIRBRANCH.EISI.STRDATELASTLOGIN, " &
-            "AIRBRANCH.EIMailOut.strContactEmail " &
-            "from AIRBRANCH.EISI, AIRBRANCH.eimailout " &
-            "where AIRBRANCH.eImailout.STRINVENTORYYEAR = '" & year & "'" &
-            "and AIRBRANCH.EISI.STROPTOUT = 'NO' " &
-            "and AIRBRANCH.EISI.strfinalize is NULL " &
-            "and AIRBRANCH.EIMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.EISI.STRAIRSYEAR " &
-            "order by AIRBRANCH.eisi.STRFACILITYNAME"
+            SQL = "SELECT EISI.STRAIRSNUMBER, " &
+            "EISI.STRFACILITYNAME, " &
+            "EISI.STRDATELASTLOGIN, " &
+            "EIMailOut.strContactEmail " &
+            "from EISI, eimailout " &
+            "where eImailout.STRINVENTORYYEAR = '" & year & "'" &
+            "and EISI.STROPTOUT = 'NO' " &
+            "and EISI.strfinalize is NULL " &
+            "and EIMAILOUT.STRAIRSYEAR (+)= EISI.STRAIRSYEAR " &
+            "order by eisi.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -5864,7 +5864,7 @@ Public Class DMUEisGecoTool
             "STRCONTACTSTATE, " &
             "STRCONTACTZIPCODE, " &
             "STRCONTACTEMAIL " &
-            "from AIRBRANCH.eIMailOut " &
+            "from eIMailOut " &
             "where STRINVENTORYYEAR = '" & year & "' " &
             "order by STRFACILITYNAME"
 
@@ -5967,7 +5967,7 @@ Public Class DMUEisGecoTool
 
         Try
             SQL = "Select * " &
-            "FROM AIRBRANCH.EISI " &
+            "FROM EISI " &
             "where STRINVENTORYYEAR = '" & EIYear & "'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -5981,7 +5981,7 @@ Public Class DMUEisGecoTool
                 MsgBox("That year " & EIYear & " is already enrolled.", MsgBoxStyle.Information, "EI Enrollment")
             Else
                 SQL = "Select EImailout.STRAIRSNUMBER, eimailout.STRFACILITYNAME " &
-                "FROM AIRBRANCH.EImailout " &
+                "FROM EImailout " &
                 "where EImailout.STRINVENTORYYEAR = '" & EIYear & "'"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -5994,7 +5994,7 @@ Public Class DMUEisGecoTool
                     AirsNo = dr("strAirsNumber")
                     airsYear = AirsNo & EIYear
                     FacilityName = dr("STRFACILITYNAME")
-                    SQL2 = "Insert into AIRBRANCH.EISI " &
+                    SQL2 = "Insert into EISI " &
                     "(EISI.STRAIRSNUMBER, " &
                     "EISI.STRFACILITYNAME, " &
                     "EISI.STRTRANSACTIONDATE, " &
@@ -6036,7 +6036,7 @@ Public Class DMUEisGecoTool
                 intAnswer = MessageBox.Show("Remove the enrollment?", "EI Enrollment", MessageBoxButtons.OKCancel, MessageBoxIcon.Information)
                 Select Case intAnswer
                     Case DialogResult.OK
-                        sql = "delete from AIRBRANCH.EISI " &
+                        sql = "delete from EISI " &
                         "where EISI.STRINVENTORYYEAR = '" & EIYear & "'"
                         cmd = New SqlCommand(sql, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -6078,8 +6078,8 @@ Public Class DMUEisGecoTool
 
         Try
 
-            SQL = "Select AIRBRANCH.EISI.STRINVENTORYYEAR " &
-          "FROM AIRBRANCH.EISI " &
+            SQL = "Select EISI.STRINVENTORYYEAR " &
+          "FROM EISI " &
           "where  EISI.STRINVENTORYYEAR = '" & EIYear & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -6093,8 +6093,8 @@ Public Class DMUEisGecoTool
             If recExist = True Then
 
 
-                SQL = "Select AIRBRANCH.APBFACILITYINFORMATION.STRFACILITYNAME " &
-               "FROM AIRBRANCH.APBFACILITYINFORMATION " &
+                SQL = "Select APBFACILITYINFORMATION.STRFACILITYNAME " &
+               "FROM APBFACILITYINFORMATION " &
                "where  APBFACILITYINFORMATION.STRAIRSNUMBER = '" & AirsNo & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -6109,7 +6109,7 @@ Public Class DMUEisGecoTool
                     facilityName = dr("STRFACILITYNAME")
 
                     SQL = "Select * " &
-                             "FROM AIRBRANCH.EISI " &
+                             "FROM EISI " &
                              "where STRINVENTORYYEAR = '" & EIYear & "' " &
                              " And STRAIRSNUMBER = '" & AirsNo & "' "
 
@@ -6123,7 +6123,7 @@ Public Class DMUEisGecoTool
                     If recExist = True Then
                         MsgBox("This facility (" & AirsNo & ") is already enrolled for " & EIYear & ".", MsgBoxStyle.Information, "EI Enrollment")
                     Else
-                        SQL2 = "Insert into AIRBRANCH.EISI " &
+                        SQL2 = "Insert into EISI " &
                         "(EISI.STRAIRSNUMBER, " &
                         "EISI.STRFACILITYNAME, " &
                         "EISI.STRTRANSACTIONDATE, " &
@@ -6179,7 +6179,7 @@ Public Class DMUEisGecoTool
                     "when strOptOut = 'YES' then 'OPTED OUT' " &
                     "when strOptOut = 'NO' then 'OPTED IN' " &
                     "End OptOut " &
-                    "from AIRBRANCH.EISI " &
+                    "from EISI " &
                     "where strAIRSNumber = '" & AirsNo & "' " &
                     "and strInventoryYear = '" & EIYear & "' "
                     cmd = New SqlCommand(sql, CurrentConnection)
@@ -6207,7 +6207,7 @@ Public Class DMUEisGecoTool
 
                     End Select
 
-                    sql = "delete from AIRBRANCH.EISI " &
+                    sql = "delete from EISI " &
                     "where EISI.STRINVENTORYYEAR = '" & EIYear & "'" &
                     " And STROPTOUT is null" &
                     " And STRAIRSNUMBER = '" & AirsNo & "'"
@@ -6234,22 +6234,22 @@ Public Class DMUEisGecoTool
             Dim year As String = txtEIYear.Text
 
 
-            SQL = "SELECT dt_NotInMailout.SchemaAIRS, AIRBRANCH.EISI.STRAIRSNUMBER, " &
-            "AIRBRANCH.EISI.STRFACILITYNAME, " &
-            "AIRBRANCH.EISI.STRCONTACTFIRSTNAME, " &
-            "AIRBRANCH.EISI.STRCONTACTLASTNAME, " &
-            "AIRBRANCH.EISI.STRCONTACTCOMPANYNAME, " &
-            "AIRBRANCH.EISI.STRCONTACTEMAIL, " &
-            "AIRBRANCH.EISI.STRCONTACTPHONENUMBER1 " &
-            "from (Select AIRBRANCH.EISI.STRAIRSYEAR AS SchemaAIRS, " &
-            "AIRBRANCH.EIMailout.STRAIRSYEAR AS MailoutAIRS" &
-            " From AIRBRANCH.EIMailout, AIRBRANCH.EISI" &
-            " Where AIRBRANCH.EIMailout.STRAIRSYEAR (+)= AIRBRANCH.EISI.STRAIRSYEAR " &
-            "AND AIRBRANCH.EISI.STRINVENTORYYEAR=  '" & year & "' " &
-            "AND AIRBRANCH.EISI.STROPTOUT IS NOT NULL) " &
+            SQL = "SELECT dt_NotInMailout.SchemaAIRS, EISI.STRAIRSNUMBER, " &
+            "EISI.STRFACILITYNAME, " &
+            "EISI.STRCONTACTFIRSTNAME, " &
+            "EISI.STRCONTACTLASTNAME, " &
+            "EISI.STRCONTACTCOMPANYNAME, " &
+            "EISI.STRCONTACTEMAIL, " &
+            "EISI.STRCONTACTPHONENUMBER1 " &
+            "from (Select EISI.STRAIRSYEAR AS SchemaAIRS, " &
+            "EIMailout.STRAIRSYEAR AS MailoutAIRS" &
+            " From EIMailout, EISI" &
+            " Where EIMailout.STRAIRSYEAR (+)= EISI.STRAIRSYEAR " &
+            "AND EISI.STRINVENTORYYEAR=  '" & year & "' " &
+            "AND EISI.STROPTOUT IS NOT NULL) " &
             "dt_NotInMailout, " &
-            "AIRBRANCH.EISI " &
-            "Where AIRBRANCH.EISI.STRAIRSYEAR = SchemaAIRS " &
+            "EISI " &
+            "Where EISI.STRAIRSYEAR = SchemaAIRS " &
             "AND MailoutAIRS is NULL"
 
             dsViewCount = New DataSet
@@ -6302,12 +6302,12 @@ Public Class DMUEisGecoTool
             Dim year As String = txtEIYear.Text
 
 
-            SQL = "SELECT AIRBRANCH.eiMailOut.STRAIRSNUMBER, " &
-            "AIRBRANCH.eiMailOut.STRFACILITYNAME " &
-            "from  AIRBRANCH.eImailout, AIRBRANCH.EISI " &
-            "where AIRBRANCH.eImailout.STRINVENTORYYEAR = '" & year & "' " &
-            "and AIRBRANCH.eImailout.STRAIRSYEAR = AIRBRANCH.EISI.STRAIRSYEAR(+) " &
-            "and AIRBRANCH.EISI.STRAIRSYEAR is NULL"
+            SQL = "SELECT eiMailOut.STRAIRSNUMBER, " &
+            "eiMailOut.STRFACILITYNAME " &
+            "from  eImailout, EISI " &
+            "where eImailout.STRINVENTORYYEAR = '" & year & "' " &
+            "and eImailout.STRAIRSYEAR = EISI.STRAIRSYEAR(+) " &
+            "and EISI.STRAIRSYEAR is NULL"
 
             dsViewCount = New DataSet
             daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -6347,20 +6347,20 @@ Public Class DMUEisGecoTool
             Dim year As String = txtEIYear.Text
 
 
-            SQL = "SELECT AIRBRANCH.eiMailOut.STRAIRSNUMBER, " &
-             "AIRBRANCH.eiMailOut.STRFACILITYNAME, " &
-             "AIRBRANCH.eiMailOut.STRCONTACTFIRSTNAME, " &
-             "AIRBRANCH.eiMailOut.STRCONTACTLASTNAME, " &
-             "AIRBRANCH.eiMailOut.STRCONTACTCOMPANYname, " &
-             "AIRBRANCH.eiMailOut.STRCONTACTADDRESS1, " &
-             "AIRBRANCH.eiMailOut.STRCONTACTCITY, " &
-             "AIRBRANCH.eiMailOut.STRCONTACTSTATE, " &
-             "AIRBRANCH.eiMailOut.STRCONTACTZIPCODE, " &
-              "AIRBRANCH.eiMailOut.STRCONTACTEMAIL " &
-            "from  AIRBRANCH.eImailout, AIRBRANCH.EISI " &
-             "where AIRBRANCH.eImailout.STRINVENTORYYEAR = '" & year & "' " &
-             "and AIRBRANCH.eImailout.STRAIRSYEAR = AIRBRANCH.EISI.STRAIRSYEAR(+) " &
-             "and AIRBRANCH.EISI.strOptOut is NULL"
+            SQL = "SELECT eiMailOut.STRAIRSNUMBER, " &
+             "eiMailOut.STRFACILITYNAME, " &
+             "eiMailOut.STRCONTACTFIRSTNAME, " &
+             "eiMailOut.STRCONTACTLASTNAME, " &
+             "eiMailOut.STRCONTACTCOMPANYname, " &
+             "eiMailOut.STRCONTACTADDRESS1, " &
+             "eiMailOut.STRCONTACTCITY, " &
+             "eiMailOut.STRCONTACTSTATE, " &
+             "eiMailOut.STRCONTACTZIPCODE, " &
+              "eiMailOut.STRCONTACTEMAIL " &
+            "from  eImailout, EISI " &
+             "where eImailout.STRINVENTORYYEAR = '" & year & "' " &
+             "and eImailout.STRAIRSYEAR = EISI.STRAIRSYEAR(+) " &
+             "and EISI.strOptOut is NULL"
 
 
             dsViewCount = New DataSet
@@ -6418,14 +6418,14 @@ Public Class DMUEisGecoTool
             Dim year As String = txtEIYear.Text
 
 
-            SQL = "SELECT AIRBRANCH.EISI.STRAIRSNUMBER, " &
-            "AIRBRANCH.EISI.STRFACILITYNAME " &
-           "from AIRBRANCH.EISI " &
-                " where  not exists (select * from AIRBRANCH.EIMAILOUT " &
-                " where AIRBRANCH.EISI.STRAIRSNUMBER = AIRBRANCH.EIMAILOUT.STRAIRSNUMBER" &
+            SQL = "SELECT EISI.STRAIRSNUMBER, " &
+            "EISI.STRFACILITYNAME " &
+           "from EISI " &
+                " where  not exists (select * from EIMAILOUT " &
+                " where EISI.STRAIRSNUMBER = EIMAILOUT.STRAIRSNUMBER" &
                 " and EISI.STRINVENTORYYEAR = EIMAILOUT.STRINVENTORYYEAR) " &
-                " and AIRBRANCH.EISI.STRINVENTORYYEAR = '" & year & "' " &
-                " and AIRBRANCH.EISI.STROPTOUT is null"
+                " and EISI.STRINVENTORYYEAR = '" & year & "' " &
+                " and EISI.STROPTOUT is null"
 
             dsViewCount = New DataSet
             daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -6471,11 +6471,11 @@ Public Class DMUEisGecoTool
                 MsgBox("Please choose a year to view!", MsgBoxStyle.Information, "EI Enrollment")
 
             Else
-                SQL = "SELECT AIRBRANCH.EISI.STRAIRSNUMBER, " &
-        "AIRBRANCH.EISI.STRFACILITYNAME, " &
-        "AIRBRANCH.EISI.STRTRANSACTIONDATE " &
-        "from AIRBRANCH.EISI " &
-        "where AIRBRANCH.EISI.STRINVENTORYYEAR = '" & year & "'"
+                SQL = "SELECT EISI.STRAIRSNUMBER, " &
+        "EISI.STRFACILITYNAME, " &
+        "EISI.STRTRANSACTIONDATE " &
+        "from EISI " &
+        "where EISI.STRINVENTORYYEAR = '" & year & "'"
 
                 dsViewCount = New DataSet
                 daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -6517,7 +6517,7 @@ Public Class DMUEisGecoTool
 
         Try
             SQL = "Select * " &
-            "FROM AIRBRANCH.EISI " &
+            "FROM EISI " &
             "where STRINVENTORYYEAR = '" & EIYear & "' " &
             " And STRAIRSNUMBER = '" & AirsNo & "' "
 
@@ -6565,7 +6565,7 @@ Public Class DMUEisGecoTool
 
         Try
             SQL = "Select * " &
-            "FROM AIRBRANCH.ESSCHEMA " &
+            "FROM ESSCHEMA " &
             "where ESSCHEMA.INTESYEAR = '" & ESYear & "'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -6579,7 +6579,7 @@ Public Class DMUEisGecoTool
                 MsgBox("That year " & ESYear & " is already enrolled.", MsgBoxStyle.Information, "EI Enrollment")
             Else
                 SQL = "Select ESMAILOUT.STRAIRSNUMBER, ESMAILOUT.STRFACILITYNAME " &
-                "FROM AIRBRANCH.ESMAILOUT " &
+                "FROM ESMAILOUT " &
                 "where ESMAILOUT.STRESYEAR = '" & ESYear & "'"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -6592,7 +6592,7 @@ Public Class DMUEisGecoTool
                     AirsNo = dr("strAirsNumber")
                     airsYear = AirsNo & ESYear
                     FacilityName = dr("STRFACILITYNAME")
-                    SQL2 = "Insert into AIRBRANCH.ESSCHEMA " &
+                    SQL2 = "Insert into ESSCHEMA " &
                     "(ESSCHEMA.STRAIRSNUMBER, " &
                     "ESSCHEMA.STRFACILITYNAME, " &
                     "ESSCHEMA.DATTRANSACTION, " &
@@ -6633,7 +6633,7 @@ Public Class DMUEisGecoTool
                 intAnswer = MessageBox.Show("Remove the enrollment?", "ES Enrollment", MessageBoxButtons.OKCancel, MessageBoxIcon.Information)
                 Select Case intAnswer
                     Case DialogResult.OK
-                        sql = "delete from AIRBRANCH.ESSCHEMA " &
+                        sql = "delete from ESSCHEMA " &
                         "where ESSCHEMA.INTESYEAR = '" & ESYear & "'"
                         cmd = New SqlCommand(sql, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -6675,8 +6675,8 @@ Public Class DMUEisGecoTool
 
         Try
 
-            SQL = "Select AIRBRANCH.ESSCHEMA.INTESYEAR " &
-          "FROM AIRBRANCH.ESSCHEMA " &
+            SQL = "Select ESSCHEMA.INTESYEAR " &
+          "FROM ESSCHEMA " &
           "where  ESSCHEMA.INTESYEAR = '" & ESYear & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -6690,8 +6690,8 @@ Public Class DMUEisGecoTool
             If recExist = True Then
 
 
-                SQL = "Select AIRBRANCH.APBFACILITYINFORMATION.STRFACILITYNAME " &
-               "FROM AIRBRANCH.APBFACILITYINFORMATION " &
+                SQL = "Select APBFACILITYINFORMATION.STRFACILITYNAME " &
+               "FROM APBFACILITYINFORMATION " &
                "where  APBFACILITYINFORMATION.STRAIRSNUMBER = '" & AirsNo & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -6706,7 +6706,7 @@ Public Class DMUEisGecoTool
                     facilityName = dr("STRFACILITYNAME")
 
                     SQL = "Select * " &
-                             "FROM AIRBRANCH.ESSCHEMA " &
+                             "FROM ESSCHEMA " &
                              "where ESSCHEMA.INTESYEAR = '" & ESYear & "' " &
                              " And ESSCHEMA.STRAIRSNUMBER = '" & AirsNo & "' "
 
@@ -6720,7 +6720,7 @@ Public Class DMUEisGecoTool
                     If recExist = True Then
                         MsgBox("This facility (" & AirsNo & ") is already enrolled for " & ESYear & ".", MsgBoxStyle.Information, "ES Enrollment")
                     Else
-                        SQL2 = "Insert into AIRBRANCH.ESSCHEMA " &
+                        SQL2 = "Insert into ESSCHEMA " &
                         "(ESSCHEMA.STRAIRSNUMBER, " &
                         "ESSCHEMA.STRFACILITYNAME, " &
                         "ESSCHEMA.DATTRANSACTION, " &
@@ -6770,7 +6770,7 @@ Public Class DMUEisGecoTool
             intAnswer = MessageBox.Show("Remove this facility (" & AirsNo & ") for " & ESYear & "?", "ES Enrollment", MessageBoxButtons.OKCancel, MessageBoxIcon.Information)
             Select Case intAnswer
                 Case DialogResult.OK
-                    sql = "delete from AIRBRANCH.ESSCHEMA " &
+                    sql = "delete from ESSCHEMA " &
                     "where ESSCHEMA.INTESYEAR = '" & ESYear & "'" &
                     " And ESSCHEMA.STRAIRSNUMBER = '" & AirsNo & "'"
                     cmd = New SqlCommand(sql, CurrentConnection)
@@ -6796,9 +6796,9 @@ Public Class DMUEisGecoTool
 
         Try
             SQL = "Select strAIRSYear as RowCount " &
-            "FROM AIRBRANCH.ESSCHEMA " &
-            "where AIRBRANCH.ESSCHEMA.INTESYEAR = '" & ESYear & "' " &
-            " And AIRBRANCH.ESSCHEMA.STRAIRSNUMBER = '" & AirsNo & "' "
+            "FROM ESSCHEMA " &
+            "where ESSCHEMA.INTESYEAR = '" & ESYear & "' " &
+            " And ESSCHEMA.STRAIRSNUMBER = '" & AirsNo & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -6830,11 +6830,11 @@ Public Class DMUEisGecoTool
                 MsgBox("Please choose a year to view!", MsgBoxStyle.Information, "ES Enrollment")
 
             Else
-                SQL = "SELECT AIRBRANCH.ESSCHEMA.STRAIRSNUMBER, " &
-        "AIRBRANCH.ESSCHEMA.STRFACILITYNAME, " &
-        "AIRBRANCH.ESSCHEMA.DATTRANSACTION " &
-        "from AIRBRANCH.ESSCHEMA " &
-        "where AIRBRANCH.ESSCHEMA.INTESYEAR = '" & year & "'"
+                SQL = "SELECT ESSCHEMA.STRAIRSNUMBER, " &
+        "ESSCHEMA.STRFACILITYNAME, " &
+        "ESSCHEMA.DATTRANSACTION " &
+        "from ESSCHEMA " &
+        "where ESSCHEMA.INTESYEAR = '" & year & "'"
 
                 dsViewCount = New DataSet
                 daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -6878,22 +6878,22 @@ Public Class DMUEisGecoTool
             Dim year As String = txtESYear.Text
             Dim intyear As Integer = Int(year)
 
-            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " &
-            "AIRBRANCH.esSchema.STRFACILITYNAME, " &
-            "AIRBRANCH.esSchema.STRCONTACTFIRSTNAME, " &
-            "AIRBRANCH.esSchema.STRCONTACTLASTNAME, " &
-            "AIRBRANCH.esSchema.STRCONTACTCOMPANY, " &
-            "AIRBRANCH.esSchema.STRCONTACTEMAIL, " &
-            "AIRBRANCH.esSchema.STRCONTACTPHONENUMBER " &
-            "from (Select AIRBRANCH.ESSCHEMA.STRAIRSNUMBER AS SchemaAIRS, " &
-            "AIRBRANCH.ESMAILOUT.STRAIRSNUMBER AS MailoutAIRS" &
-            " From AIRBRANCH.ESMailout, AIRBRANCH.ESSCHEMA" &
-            " Where AIRBRANCH.ESMAILOUT.STRAIRSYEAR (+)= AIRBRANCH.ESSCHEMA.STRAIRSYEAR " &
+            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
+            "esSchema.STRFACILITYNAME, " &
+            "esSchema.STRCONTACTFIRSTNAME, " &
+            "esSchema.STRCONTACTLASTNAME, " &
+            "esSchema.STRCONTACTCOMPANY, " &
+            "esSchema.STRCONTACTEMAIL, " &
+            "esSchema.STRCONTACTPHONENUMBER " &
+            "from (Select ESSCHEMA.STRAIRSNUMBER AS SchemaAIRS, " &
+            "ESMAILOUT.STRAIRSNUMBER AS MailoutAIRS" &
+            " From ESMailout, ESSCHEMA" &
+            " Where ESMAILOUT.STRAIRSYEAR (+)= ESSCHEMA.STRAIRSYEAR " &
             "AND ESSCHEMA.INTESYEAR=  '" & intyear & "' " &
-            "AND AIRBRANCH.ESSCHEMA.STROPTOUT IS NOT NULL) " &
+            "AND ESSCHEMA.STROPTOUT IS NOT NULL) " &
             "dt_NotInMailout, " &
-            "AIRBRANCH.ESSCHEMA " &
-            "Where AIRBRANCH.ESSCHEMA.STRAIRSNUMBER = SchemaAIRS " &
+            "ESSCHEMA " &
+            "Where ESSCHEMA.STRAIRSNUMBER = SchemaAIRS " &
             "AND MailoutAIRS is NULL"
 
             dsViewCount = New DataSet
@@ -6947,13 +6947,13 @@ Public Class DMUEisGecoTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT AIRBRANCH.ESMAILOUT.STRAIRSNUMBER, " &
-            "AIRBRANCH.ESMAILOUT.STRFACILITYNAME " &
-            "from AIRBRANCH.esSchema, AIRBRANCH.esmailout " &
-            "where AIRBRANCH.esMailOut.strESyear = '" & intYear & "' " &
-            "and AIRBRANCH.esSchema.STRAIRSYEAR is null " &
-            "and AIRBRANCH.ESMAILOUT.STRAIRSYEAR = AIRBRANCH.ESSCHEMA.STRAIRSYEAR(+) " &
-            "order by AIRBRANCH.ESMAILOUT.STRFACILITYNAME"
+            SQL = "SELECT ESMAILOUT.STRAIRSNUMBER, " &
+            "ESMAILOUT.STRFACILITYNAME " &
+            "from esSchema, esmailout " &
+            "where esMailOut.strESyear = '" & intYear & "' " &
+            "and esSchema.STRAIRSYEAR is null " &
+            "and ESMAILOUT.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR(+) " &
+            "order by ESMAILOUT.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -6992,21 +6992,21 @@ Public Class DMUEisGecoTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT AIRBRANCH.esMailOut.STRAIRSNUMBER, " &
-             "AIRBRANCH.esMailOut.STRFACILITYNAME, " &
-             "AIRBRANCH.esMailOut.STRCONTACTFIRSTNAME, " &
-             "AIRBRANCH.esMailOut.STRCONTACTLASTNAME, " &
-             "AIRBRANCH.esMailOut.STRCONTACTCOMPANYname, " &
-             "AIRBRANCH.esMailOut.STRCONTACTADDRESS1, " &
-             "AIRBRANCH.esMailOut.STRCONTACTCITY, " &
-             "AIRBRANCH.esMailOut.STRCONTACTSTATE, " &
-             "AIRBRANCH.esMailOut.STRCONTACTZIPCODE, " &
-             "AIRBRANCH.esMailOut.STRCONTACTEMAIL " &
-            "from  AIRBRANCH.esmailout, AIRBRANCH.ESSchema " &
-            "where AIRBRANCH.esmailout.strESYEAR = '" & intYear & "' " &
-            "and AIRBRANCH.esmailout.STRAIRSYEAR = AIRBRANCH.ESSchema.STRAIRSYEAR(+) " &
-            "and AIRBRANCH.ESSchema.strOptOut is NULL " &
-            "order by AIRBRANCH.esSchema.STRFACILITYNAME"
+            SQL = "SELECT esMailOut.STRAIRSNUMBER, " &
+             "esMailOut.STRFACILITYNAME, " &
+             "esMailOut.STRCONTACTFIRSTNAME, " &
+             "esMailOut.STRCONTACTLASTNAME, " &
+             "esMailOut.STRCONTACTCOMPANYname, " &
+             "esMailOut.STRCONTACTADDRESS1, " &
+             "esMailOut.STRCONTACTCITY, " &
+             "esMailOut.STRCONTACTSTATE, " &
+             "esMailOut.STRCONTACTZIPCODE, " &
+             "esMailOut.STRCONTACTEMAIL " &
+            "from  esmailout, ESSchema " &
+            "where esmailout.strESYEAR = '" & intYear & "' " &
+            "and esmailout.STRAIRSYEAR = ESSchema.STRAIRSYEAR(+) " &
+            "and ESSchema.strOptOut is NULL " &
+            "order by esSchema.STRFACILITYNAME"
 
             dsViewCount = New DataSet
             daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -7061,15 +7061,15 @@ Public Class DMUEisGecoTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT AIRBRANCH.esSchema.STRAIRSNUMBER, " &
-                "AIRBRANCH.esSchema.STRFACILITYNAME " &
-                "from AIRBRANCH.ESSchema " &
-                " where  not exists (select * from AIRBRANCH.ESMAILOUT " &
-                " where AIRBRANCH.ESSchema.STRAIRSNUMBER = AIRBRANCH.ESMAILOUT.STRAIRSNUMBER" &
+            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
+                "esSchema.STRFACILITYNAME " &
+                "from ESSchema " &
+                " where  not exists (select * from ESMAILOUT " &
+                " where ESSchema.STRAIRSNUMBER = ESMAILOUT.STRAIRSNUMBER" &
                 " and ESSchema.INTESYEAR = ESMAILOUT.strESYEAR) " &
-                " and AIRBRANCH.ESSchema.INTESYEAR = '" & intYear & "' " &
-                " and AIRBRANCH.ESSchema.STROPTOUT is null   " &
-                "order by AIRBRANCH.esSchema.STRFACILITYNAME"
+                " and ESSchema.INTESYEAR = '" & intYear & "' " &
+                " and ESSchema.STROPTOUT is null   " &
+                "order by esSchema.STRFACILITYNAME"
 
 
             dsViewCount = New DataSet
@@ -7108,9 +7108,9 @@ Public Class DMUEisGecoTool
             Dim EItype As String = cboEItype.SelectedItem
             Dim EItypeYear As String = lblEITypeYear.Text
 
-            SQL = "SELECT AIRBRANCH.EITHRESHOLDYEARS.STREITYPE " &
-                   "from  AIRBRANCH.EITHRESHOLDYEARS  " &
-          "where AIRBRANCH.EITHRESHOLDYEARS.STRYEAR = '" & EItypeYear & "' "
+            SQL = "SELECT EITHRESHOLDYEARS.STREITYPE " &
+                   "from  EITHRESHOLDYEARS  " &
+          "where EITHRESHOLDYEARS.STRYEAR = '" & EItypeYear & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -7124,12 +7124,12 @@ Public Class DMUEisGecoTool
                 End If
                 EItype = cboEItype.SelectedItem
             End While
-            SQL = "SELECT AIRBRANCH.EITHRESHOLDS.STRPOLLUTANT, " &
-            "AIRBRANCH.EITHRESHOLDS.NUMTHRESHOLD, " &
-                "AIRBRANCH.EITHRESHOLDS.NUMTHRESHOLDNAA " &
-            "from  AIRBRANCH.EITHRESHOLDS  " &
-            "where AIRBRANCH.EITHRESHOLDS.STRTYPE = '" & EItype & "' " &
-             " order by AIRBRANCH.EITHRESHOLDS.STRPOLLUTANT"
+            SQL = "SELECT EITHRESHOLDS.STRPOLLUTANT, " &
+            "EITHRESHOLDS.NUMTHRESHOLD, " &
+                "EITHRESHOLDS.NUMTHRESHOLDNAA " &
+            "from  EITHRESHOLDS  " &
+            "where EITHRESHOLDS.STRTYPE = '" & EItype & "' " &
+             " order by EITHRESHOLDS.STRPOLLUTANT"
 
             dsViewCount = New DataSet
             daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -7176,8 +7176,8 @@ Public Class DMUEisGecoTool
 
         Try
 
-            SQL = "Select AIRBRANCH.EITHRESHOLDYEARS.STRYEAR " &
-          "FROM AIRBRANCH.EITHRESHOLDYEARS " &
+            SQL = "Select EITHRESHOLDYEARS.STRYEAR " &
+          "FROM EITHRESHOLDYEARS " &
           "where  EITHRESHOLDYEARS.STRYEAR = '" & EItypeYear & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -7188,9 +7188,9 @@ Public Class DMUEisGecoTool
             recExist = dr.Read
 
             If recExist = True Then
-                SQL = "Update AIRBRANCH.EITHRESHOLDYEARS set " &
+                SQL = "Update EITHRESHOLDYEARS set " &
                 "STREITYPE = '" & EItype & "' " &
-                "where AIRBRANCH.EITHRESHOLDYEARS.STRYEAR = '" & EItypeYear & "' "
+                "where EITHRESHOLDYEARS.STRYEAR = '" & EItypeYear & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -7202,7 +7202,7 @@ Public Class DMUEisGecoTool
 
             Else
 
-                SQL = "Insert into AIRBRANCH.EITHRESHOLDYEARS " &
+                SQL = "Insert into EITHRESHOLDYEARS " &
                  "(STRYEAR, STREITYPE ) " &
                  "values " &
                  "('" & EItypeYear & "', '" & EItype & "') "
@@ -7225,9 +7225,9 @@ Public Class DMUEisGecoTool
             If txtNewEIType.Text = "" Then
                 MsgBox("Please enter new EI type!", MsgBoxStyle.Information, "EI Tools")
             Else
-                SQL = "Select AIRBRANCH.EITHRESHOLDS.STRTYPE " &
-                                " FROM AIRBRANCH.EITHRESHOLDS " &
-                                "where   AIRBRANCH.EITHRESHOLDS.STRTYPE = '" & Replace(EItype2, "'", "''") & "' "
+                SQL = "Select EITHRESHOLDS.STRTYPE " &
+                                " FROM EITHRESHOLDS " &
+                                "where   EITHRESHOLDS.STRTYPE = '" & Replace(EItype2, "'", "''") & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -7240,8 +7240,8 @@ Public Class DMUEisGecoTool
                 If recExist = True Then
                     MsgBox("EI type already exist. Please enter new type! ", MsgBoxStyle.Information, "EI Tools")
                 Else
-                    SQL = "Select distinct(AIRBRANCH.EITHRESHOLDS.STRPOLLUTANT) as Pollutant " &
-                   " FROM AIRBRANCH.EITHRESHOLDS "
+                    SQL = "Select distinct(EITHRESHOLDS.STRPOLLUTANT) as Pollutant " &
+                   " FROM EITHRESHOLDS "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -7257,11 +7257,11 @@ Public Class DMUEisGecoTool
                         End If
 
                         If temp <> "" Then
-                            SQL = "Insert into AIRBranch.EIThresholds " &
+                            SQL = "Insert into EIThresholds " &
                                 "Values " &
                                 "('" & Replace(temp, "'", "''") & "', " &
                                 "'', '', '" & Replace(EItype2, "'", "''") & "', " &
-                                "(Select max(PollutantID) + 1 from AIRBranch.EIThresholds) ) "
+                                "(Select max(PollutantID) + 1 from EIThresholds) ) "
                             cmd2 = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
@@ -7284,8 +7284,8 @@ Public Class DMUEisGecoTool
 
 
                 SQL = "Select * " &
-                    " FROM AIRBRANCH.EITHRESHOLDS " &
-                    "where   AIRBRANCH.EITHRESHOLDS.STRTYPE = '" & Replace(EItype2, "'", "''") & "' "
+                    " FROM EITHRESHOLDS " &
+                    "where   EITHRESHOLDS.STRTYPE = '" & Replace(EItype2, "'", "''") & "' "
 
                 dsViewCount = New DataSet
                 daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -7348,8 +7348,8 @@ Public Class DMUEisGecoTool
             Dim EItype2 As String = cboEIType2.SelectedItem
 
             SQL = "Select * " &
-                " FROM AIRBRANCH.EITHRESHOLDS " &
-                "where   AIRBRANCH.EITHRESHOLDS.STRTYPE = '" & Replace(EItype2, "'", "''") & "' "
+                " FROM EITHRESHOLDS " &
+                "where   EITHRESHOLDS.STRTYPE = '" & Replace(EItype2, "'", "''") & "' "
 
 
             dsViewCount = New DataSet
@@ -7418,8 +7418,8 @@ Public Class DMUEisGecoTool
 
         Try
             'Checks to see if AIRS No. is in IAIP
-            SQL = "Select AIRBRANCH.APBFACILITYINFORMATION.STRFACILITYNAME " &
-                           "FROM AIRBRANCH.APBFACILITYINFORMATION " &
+            SQL = "Select APBFACILITYINFORMATION.STRFACILITYNAME " &
+                           "FROM APBFACILITYINFORMATION " &
                            "where  APBFACILITYINFORMATION.STRAIRSNUMBER = '" & airsno & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -7432,7 +7432,7 @@ Public Class DMUEisGecoTool
             If recExist = True Then
 
                 SQL = "Select * " &
-                           "FROM AIRBRANCH.APBFACILITYINFORMATION " &
+                           "FROM APBFACILITYINFORMATION " &
                            "where  APBFACILITYINFORMATION.STRAIRSNUMBER = '" & airsno & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -7457,8 +7457,8 @@ Public Class DMUEisGecoTool
 
 
                 'Check to see if AirsNo is in EIS Admin - previous FI submittal
-                SQL = "Select AIRBRANCH.EIS_Admin.FACILITYSITEID " &
-                      "FROM AIRBRANCH.EIS_Admin " &
+                SQL = "Select EIS_Admin.FACILITYSITEID " &
+                      "FROM EIS_Admin " &
                       "where  EIS_Admin.FACILITYSITEID = '" & facilitySiteID & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -7470,7 +7470,7 @@ Public Class DMUEisGecoTool
                 If recExist = True Then
                     'Check to see if AIRS No is enrolled for the year by checking strenrollment =1
                     SQL = "Select FACILITYSITEID, strenrollment " &
-                            "FROM AIRBRANCH.EIS_Admin " &
+                            "FROM EIS_Admin " &
                             "where INVENTORYYEAR = '" & EISYear & "' " &
                             " And FACILITYSITEID = '" & facilitySiteID & "' "
 
@@ -7488,7 +7488,7 @@ Public Class DMUEisGecoTool
                                 MsgBox("This facility (" & facilitySiteID & ") is already enrolled for " & EISYear & ".", MsgBoxStyle.Information, "EIS Enrollment")
                             Case 0
                                 'update enrollment =1 and then msgbox
-                                SQL = "Update AIRBRANCH.EIS_ADMIN set " &
+                                SQL = "Update EIS_ADMIN set " &
                                       "INVENTORYYEAR = '" & EISYear & "', " &
                                       "FACILITYSITEID = '" & facilitySiteID & "', " &
                                       "STRENROLLMENT = '1', " &
@@ -7511,7 +7511,7 @@ Public Class DMUEisGecoTool
 
                     Else
                         ' insert into EIS_admin table with EISaccesscode=1, EISStatus=1, Enrollment=1 and strmailout=1
-                        SQL2 = "Insert into AIRBRANCH.EIS_Admin " &
+                        SQL2 = "Insert into EIS_Admin " &
                         "(EIS_Admin.INVENTORYYEAR, " &
                         "EIS_Admin.FACILITYSITEID, " &
                         "EIS_Admin.UPDATEDATETIME, " &
@@ -7546,7 +7546,7 @@ Public Class DMUEisGecoTool
                 Else
                     ' Inserts facility into the FI components - 5 tables
                     ' insert into EIS_FacilitySite table
-                    SQL2 = "Insert into AIRBRANCH.EIS_FACILITYSITE " &
+                    SQL2 = "Insert into EIS_FACILITYSITE " &
                    "(EIS_FACILITYSITE.FACILITYSITEID, " &
                    "EIS_FACILITYSITE.STRFACILITYSITENAME, " &
                    "EIS_FACILITYSITE.STRFACILITYSITESTATUSCODE, " &
@@ -7571,7 +7571,7 @@ Public Class DMUEisGecoTool
 
                     ' insert into EIS_admin table
                     'EISACCESSCODE needs to be changed to 1 once the EI components are in place - BCG
-                    SQL2 = "Insert into AIRBRANCH.EIS_Admin " &
+                    SQL2 = "Insert into EIS_Admin " &
                     "(EIS_Admin.INVENTORYYEAR, " &
                     "EIS_Admin.FACILITYSITEID, " &
                     "EIS_Admin.EISSTATUSCODE, " &
@@ -7600,7 +7600,7 @@ Public Class DMUEisGecoTool
                     dr2.Close()
 
                     'insert into EIS_FacilitySiteAddress table
-                    SQL2 = "Insert into AIRBRANCH.EIS_FACILITYSITEADDRESS " &
+                    SQL2 = "Insert into EIS_FACILITYSITEADDRESS " &
                   "(EIS_FACILITYSITEADDRESS.FACILITYSITEID, " &
                   "EIS_FACILITYSITEADDRESS.STRMAILINGADDRESSTEXT, " &
                   "EIS_FACILITYSITEADDRESS.STRMAILINGADDRESSCITYNAME, " &
@@ -7636,7 +7636,7 @@ Public Class DMUEisGecoTool
                     dr2.Close()
 
                     ' insert into EIS_FacilityIdentification table
-                    SQL2 = "Insert into AIRBRANCH.EIS_FACILITYIDENTIFICATION " &
+                    SQL2 = "Insert into EIS_FACILITYIDENTIFICATION " &
                   "(EIS_FACILITYIDENTIFICATION.FACILITYSITEID, " &
                   "EIS_FACILITYIDENTIFICATION.STRSTATEANDCOUNTYFIPSCODE, " &
                    "EIS_FACILITYIDENTIFICATION.UPDATEDATETIME, " &
@@ -7659,7 +7659,7 @@ Public Class DMUEisGecoTool
                     dr2.Close()
 
                     ' insert into EIS_FACILITYGEOCOORD table
-                    SQL2 = "Insert into AIRBRANCH.EIS_FACILITYGEOCOORD " &
+                    SQL2 = "Insert into EIS_FACILITYGEOCOORD " &
                   "(EIS_FACILITYGEOCOORD.FACILITYSITEID, " &
                   "EIS_FACILITYGEOCOORD.NUMLATITUDEMEASURE, " &
                   "EIS_FACILITYGEOCOORD.NUMLONGITUDEMEASURE, " &
@@ -7690,7 +7690,7 @@ Public Class DMUEisGecoTool
                     dr2.Close()
 
                     ' insert into EIS_FACILITYSITEAFFINDIV table
-                    SQL2 = "Insert into AIRBRANCH.EIS_FACILITYSITEAFFINDIV " &
+                    SQL2 = "Insert into EIS_FACILITYSITEAFFINDIV " &
                   "(EIS_FACILITYSITEAFFINDIV.FACILITYSITEID, " &
                   "EIS_FACILITYSITEAFFINDIV.UPDATEDATETIME, " &
                   "EIS_FACILITYSITEAFFINDIV.UPDATEUSER, " &
@@ -7735,7 +7735,7 @@ Public Class DMUEisGecoTool
         Dim sql As String
         Try
 
-            sql = "Update AIRBRANCH.EIS_ADMIN set " &
+            sql = "Update EIS_ADMIN set " &
              "INVENTORYYEAR = '" & EISYear & "', " &
              "FACILITYSITEID = '" & FacilitySiteID & "', " &
              "EISACCESSCODE = '" & EISAccessCode & "', " &
@@ -7774,7 +7774,7 @@ Public Class DMUEisGecoTool
 
         Try
             SQL = "Select FACILITYSITEID, EISACCESSCODE " &
-                  "FROM AIRBRANCH.EIS_Admin " &
+                  "FROM EIS_Admin " &
                   "where INVENTORYYEAR = '" & EISYear & "' " &
                   " And FACILITYSITEID = '" & FacilitySiteID & "' " &
                   " And STRENROLLMENT = '" & enrollment & "' "
@@ -7808,7 +7808,7 @@ Public Class DMUEisGecoTool
 
         Try
             SQL = "Select FACILITYSITEID " &
-                                   "FROM AIRBRANCH.EIS_Admin " &
+                                   "FROM EIS_Admin " &
                                    "where FACILITYSITEID = '" & FacilitySiteID & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -7837,7 +7837,7 @@ Public Class DMUEisGecoTool
         Dim EIStype As String
         Try
             SQL = "Select distinct EITHRESHOLDS.STRTYPE " &
-            "from AIRBRANCH.EITHRESHOLDS " &
+            "from EITHRESHOLDS " &
             "order by STRTYPE desc "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -7871,7 +7871,7 @@ Public Class DMUEisGecoTool
             End If
 
             SQL = "Select distinct INVENTORYYEAR " &
-                      "from AIRBRANCH.EIS_Admin  " &
+                      "from EIS_Admin  " &
                       "order by INVENTORYYEAR desc"
             Dim cmd As New SqlCommand(SQL, CurrentConnection)
 
@@ -7894,7 +7894,7 @@ Public Class DMUEisGecoTool
         Dim year As String
         Try
             SQL = "Select distinct strYear " &
-            "from AIRBRANCH.EITHRESHOLDYEARS " &
+            "from EITHRESHOLDYEARS " &
             "order by strYear desc "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -7942,7 +7942,7 @@ Public Class DMUEisGecoTool
 
         Try
             SQL = "Select distinct  EISSTATUSCODE, STRDESC " &
-            "from AIRBRANCH.EISLK_EISSTATUSCODE "
+            "from EISLK_EISSTATUSCODE "
 
             dscode = New DataSet
             dacode = New SqlDataAdapter(SQL, CurrentConnection)
@@ -7974,7 +7974,7 @@ Public Class DMUEisGecoTool
             End With
 
             SQL = "select strDesc, EISAccessCode " &
-            " from AIRBranch.EISLK_EISAccesscode  " &
+            " from EISLK_EISAccesscode  " &
             "order by strDesc"
 
             dscode = New DataSet
@@ -8042,7 +8042,7 @@ Public Class DMUEisGecoTool
 
         Try
             SQL = "Select * " &
-            "FROM AIRBRANCH.EIS_ADMIN " &
+            "FROM EIS_ADMIN " &
             "where INVENTORYYEAR = '" & EISYear & "'" &
             " and active ='1' "
 
@@ -8055,7 +8055,7 @@ Public Class DMUEisGecoTool
 
             If recExist = True Then
                 SQL = "Select * " &
-            "FROM AIRBRANCH.EIS_ADMIN " &
+            "FROM EIS_ADMIN " &
             "where INVENTORYYEAR = '" & EISYear & "'" &
             " and strenrollment = '1'" &
             " and active ='1'"
@@ -8072,7 +8072,7 @@ Public Class DMUEisGecoTool
                     MsgBox("That year " & EISYear & " is already enrolled.", MsgBoxStyle.Information, "EIS Enrollment")
                 Else
                     SQL = "Select EIS_MAILOUT.FACILITYSITEID, EIS_MAILOUT.STRFACILITYNAME " &
-               "FROM AIRBRANCH.EIS_MAILOUT " &
+               "FROM EIS_MAILOUT " &
                "where EIS_MAILOUT.INTINVENTORYYEAR = '" & EISYear & "'" &
                " and active '1'"
 
@@ -8084,7 +8084,7 @@ Public Class DMUEisGecoTool
                     dr.Read()
                     'Update strenrollment =1, EISstatuscode=1, and active =1 to EIS_admin table
                     SQL = "SELECT FACILITYSITEID " &
-                                          "from AIRBRANCH.EIS_ADMIN " &
+                                          "from EIS_ADMIN " &
                                           "where EIS_ADMIN.INVENTORYYEAR = '" & EISYear & "'" &
                                           " order by FACILITYSITEID " &
                                           " and active = '1' "
@@ -8104,7 +8104,7 @@ Public Class DMUEisGecoTool
                             facilitySiteID = dr("FACILITYSITEID")
                         End If
 
-                        SQL2 = "Update AIRBRANCH.EIS_ADMIN set " &
+                        SQL2 = "Update EIS_ADMIN set " &
             "EISACCESSCODE = '" & EISAccessCode & "', " &
             "EISSTATUSCODE = '" & EISSTATUSCODE & "', " &
             "STRENROLLMENT = '" & enrollment & "', " &
@@ -8153,7 +8153,7 @@ Public Class DMUEisGecoTool
                 Select Case intAnswer
                     Case DialogResult.OK
                         sql = "SELECT FACILITYSITEID " &
-                       "from AIRBRANCH.EIS_ADMIN " &
+                       "from EIS_ADMIN " &
                        "where EIS_ADMIN.INVENTORYYEAR = '" & EISYear & "'" &
                        " order by FACILITYSITEID"
                         cmd = New SqlCommand(sql, CurrentConnection)
@@ -8168,7 +8168,7 @@ Public Class DMUEisGecoTool
                                 FacilitySiteID = dr("FACILITYSITEID")
                             End If
                             ' add active 
-                            SQL2 = "Update AIRBRANCH.EIS_ADMIN set " &
+                            SQL2 = "Update EIS_ADMIN set " &
                 "EISACCESSCODE = '" & EISAccessCode & "', " &
                 "EISSTATUSCODE = '" & EISSTATUSCODE & "', " &
                 "STRENROLLMENT = '" & enrollment & "', " &
@@ -8239,7 +8239,7 @@ Public Class DMUEisGecoTool
                 MsgBox("You must select a Mailout Year")
             Else
                 SQL = "Select FacilitySiteID " &
-                "FROM AIRBRANCH.EIS_MAILOUT " &
+                "FROM EIS_MAILOUT " &
                 "where INTINVENTORYYEAR = '" & EISYear & "'"
             End If
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -8268,7 +8268,7 @@ Public Class DMUEisGecoTool
                    "STRCONTACTSTATE, " &
                    "STRCONTACTZIPCODE, " &
                    "STRCONTACTEMAIL " &
-                   "from AIRBRANCH.VIEW_EIS_Currentmailout " &
+                   "from VIEW_EIS_Currentmailout " &
                    "order by STRFACILITYNAME"
 
 
@@ -8338,7 +8338,7 @@ Public Class DMUEisGecoTool
                                 CONTACTEMAIL = dr("STRCONTACTEMAIL")
                             End If
                             'strmailout=1 in the EIS_admin
-                            SQL2 = "insert into AIRBRANCH.EIS_mailOut " &
+                            SQL2 = "insert into EIS_mailOut " &
                            "(INTINVENTORYYEAR, " &
                            "FACILITYSITEID, " &
                            "STRFACILITYNAME, " &
@@ -8397,7 +8397,7 @@ Public Class DMUEisGecoTool
                     "STRCONTACTSTATE, " &
                     "STRCONTACTZIPCODE, " &
                     "STRCONTACTEMAIL " &
-                    "from AIRBRANCH.EIS_MailOut " &
+                    "from EIS_MailOut " &
                     "where INTINVENTORYYEAR = '" & year & "' " &
                     "order by STRFACILITYNAME"
 
@@ -8466,10 +8466,10 @@ Public Class DMUEisGecoTool
                 MsgBox("Please choose a year to view!", MsgBoxStyle.Information, "EIS Enrollment")
 
             Else
-                SQL = "SELECT AIRBRANCH.EIS_admin.FACILITYSITEID, " &
-         "AIRBRANCH.EIS_admin.DATENROLLMENT " &
-        "from AIRBRANCH.EIS_admin " &
-        "where AIRBRANCH.EIS_admin.INVENTORYYEAR = '" & year & "' " &
+                SQL = "SELECT EIS_admin.FACILITYSITEID, " &
+         "EIS_admin.DATENROLLMENT " &
+        "from EIS_admin " &
+        "where EIS_admin.INVENTORYYEAR = '" & year & "' " &
         "and strenrollment = '1' "
 
                 dsViewCount = New DataSet
@@ -8529,7 +8529,7 @@ Public Class DMUEisGecoTool
                 "STRCONTACTSTATE, " &
                 "STRCONTACTZIPCODE, " &
                 "STRCONTACTEMAIL " &
-                "from AIRBRANCH.EIS_MailOut " &
+                "from EIS_MailOut " &
                 "where INTINVENTORYYEAR = '" & year & "' " &
                 "order by STRFACILITYNAME"
 
@@ -8597,8 +8597,8 @@ Public Class DMUEisGecoTool
 
         Try
 
-            SQL = "Select AIRBRANCH.EITHRESHOLDYEARS.STRYEAR " &
-          "FROM AIRBRANCH.EITHRESHOLDYEARS " &
+            SQL = "Select EITHRESHOLDYEARS.STRYEAR " &
+          "FROM EITHRESHOLDYEARS " &
           "where  EITHRESHOLDYEARS.STRYEAR = '" & EIStypeYear & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -8607,9 +8607,9 @@ Public Class DMUEisGecoTool
             End If
             dr = cmd.ExecuteReader
 
-            SQL = "Update AIRBRANCH.EITHRESHOLDYEARS set " &
+            SQL = "Update EITHRESHOLDYEARS set " &
             "STREITYPE = '" & EIStype & "' " &
-            "where AIRBRANCH.EITHRESHOLDYEARS.STRYEAR = '" & EIStypeYear & "' "
+            "where EITHRESHOLDYEARS.STRYEAR = '" & EIStypeYear & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -8631,8 +8631,8 @@ Public Class DMUEisGecoTool
             Dim EIStype2 As String = cboEISType2.SelectedItem
 
             SQL = "Select * " &
-                " FROM AIRBRANCH.EITHRESHOLDS " &
-                "where   AIRBRANCH.EITHRESHOLDS.STRTYPE = '" & Replace(EIStype2, "'", "''") & "' "
+                " FROM EITHRESHOLDS " &
+                "where   EITHRESHOLDS.STRTYPE = '" & Replace(EIStype2, "'", "''") & "' "
 
 
             dsViewCount = New DataSet
@@ -8676,7 +8676,7 @@ Public Class DMUEisGecoTool
         Dim EIStype As String = cboEISType2.SelectedItem
         Try
             SQL = "Select * " &
-            "from AIRBRANCH.EITHRESHOLDS " &
+            "from EITHRESHOLDS " &
             "where EITHRESHOLDS.STRTYPE = '" & EIStype & "'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -8731,8 +8731,8 @@ Public Class DMUEisGecoTool
             Dim EIStype As String = cboEISType.SelectedItem
 
             SQL = "Select * " &
-                " FROM AIRBRANCH.EITHRESHOLDS " &
-                "where   AIRBRANCH.EITHRESHOLDS.STRTYPE = '" & Replace(EIStype, "'", "''") & "' "
+                " FROM EITHRESHOLDS " &
+                "where   EITHRESHOLDS.STRTYPE = '" & Replace(EIStype, "'", "''") & "' "
 
 
             dsViewCount = New DataSet
@@ -8778,9 +8778,9 @@ Public Class DMUEisGecoTool
             If txtNewEISType.Text = "" Then
                 MsgBox("Please enter new EIS type!", MsgBoxStyle.Information, "EIS Tools")
             Else
-                SQL = "Select AIRBRANCH.EITHRESHOLDS.STRTYPE " &
-                                " FROM AIRBRANCH.EITHRESHOLDS " &
-                                "where   AIRBRANCH.EITHRESHOLDS.STRTYPE = '" & Replace(EIStype2, "'", "''") & "' "
+                SQL = "Select EITHRESHOLDS.STRTYPE " &
+                                " FROM EITHRESHOLDS " &
+                                "where   EITHRESHOLDS.STRTYPE = '" & Replace(EIStype2, "'", "''") & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -8793,8 +8793,8 @@ Public Class DMUEisGecoTool
                 If recExist = True Then
                     MsgBox("EIS type already exist. Please enter new type! ", MsgBoxStyle.Information, "EIS Tools")
                 Else
-                    SQL = "Select distinct(AIRBRANCH.EITHRESHOLDS.STRPOLLUTANT) as Pollutant " &
-                   " FROM AIRBRANCH.EITHRESHOLDS "
+                    SQL = "Select distinct(EITHRESHOLDS.STRPOLLUTANT) as Pollutant " &
+                   " FROM EITHRESHOLDS "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -8810,11 +8810,11 @@ Public Class DMUEisGecoTool
                         End If
 
                         If temp <> "" Then
-                            SQL = "Insert into AIRBranch.EIThresholds " &
+                            SQL = "Insert into EIThresholds " &
                                 "Values " &
                                 "('" & Replace(temp, "'", "''") & "', " &
                                 "'', '', '" & Replace(EIStype2, "'", "''") & "', " &
-                                "(Select max(PollutantID) + 1 from AIRBranch.EIThresholds) ) "
+                                "(Select max(PollutantID) + 1 from EIThresholds) ) "
                             cmd2 = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()
@@ -8835,8 +8835,8 @@ Public Class DMUEisGecoTool
                 End If
 
                 SQL = "Select * " &
-                    " FROM AIRBRANCH.EITHRESHOLDS " &
-                    "where   AIRBRANCH.EITHRESHOLDS.STRTYPE = '" & Replace(EIStype2, "'", "''") & "' "
+                    " FROM EITHRESHOLDS " &
+                    "where   EITHRESHOLDS.STRTYPE = '" & Replace(EIStype2, "'", "''") & "' "
 
                 dsViewCount = New DataSet
                 daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -8882,8 +8882,8 @@ Public Class DMUEisGecoTool
         Try
 
             SQL = "Select * " &
-                  " FROM AIRBRANCH.EIS_ADMIN " &
-                  "where   AIRBRANCH.EIS_ADMIN.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' " &
+                  " FROM EIS_ADMIN " &
+                  "where   EIS_ADMIN.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' " &
                   " and EIS_ADMIN.INVENTORYYEAR = '" & Replace(EISYear, "'", "''") & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -8895,8 +8895,8 @@ Public Class DMUEisGecoTool
             dr.Close()
             If recExist = True Then
                 SQL = "Select * " &
-                 " FROM AIRBRANCH.EIS_ADMIN " &
-                 "where   AIRBRANCH.EIS_ADMIN.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' " &
+                 " FROM EIS_ADMIN " &
+                 "where   EIS_ADMIN.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' " &
                  " and EIS_ADMIN.INVENTORYYEAR = '" & Replace(EISYear, "'", "''") & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -9021,7 +9021,7 @@ Public Class DMUEisGecoTool
             If optout = "Null" Then
                 optout = ""
             End If
-            sql = "UPDATE AIRBRANCH.EIS_admin " &
+            sql = "UPDATE EIS_admin " &
                  "SET EISSTATUSCODE = '" & statuscode & "', " &
                  "EISACCESSCODE = '" & AccessCode & "', " &
                  "STROPTOUT = '" & optout & "', " &
@@ -9069,8 +9069,8 @@ Public Class DMUEisGecoTool
         Try
 
             SQL = "Select * " &
-             " FROM AIRBRANCH.APBFACILITYINFORMATION " &
-             "where   AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER = '" & Replace(airsNo, "'", "''") & "' "
+             " FROM APBFACILITYINFORMATION " &
+             "where   APBFACILITYINFORMATION.STRAIRSNUMBER = '" & Replace(airsNo, "'", "''") & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -9103,8 +9103,8 @@ Public Class DMUEisGecoTool
             dr.Close()
 
             SQL = "Select * " &
-                  " FROM AIRBRANCH.EIS_FACILITYSITE " &
-                  "where   AIRBRANCH.EIS_FACILITYSITE.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' "
+                  " FROM EIS_FACILITYSITE " &
+                  "where   EIS_FACILITYSITE.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -9115,8 +9115,8 @@ Public Class DMUEisGecoTool
             dr.Close()
             If recExist = True Then
                 SQL = "Select STRFACILITYSITENAME " &
-                 " FROM AIRBRANCH.EIS_FACILITYSITE " &
-                 "where   AIRBRANCH.EIS_FACILITYSITE.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' "
+                 " FROM EIS_FACILITYSITE " &
+                 "where   EIS_FACILITYSITE.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -9142,8 +9142,8 @@ Public Class DMUEisGecoTool
             End If
 
             SQL = "Select * " &
-                " FROM AIRBRANCH.EIS_FACILITYSITEADDRESS " &
-                "where   AIRBRANCH.EIS_FACILITYSITEADDRESS.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' "
+                " FROM EIS_FACILITYSITEADDRESS " &
+                "where   EIS_FACILITYSITEADDRESS.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -9155,8 +9155,8 @@ Public Class DMUEisGecoTool
             If recExist = True Then
 
                 SQL = "Select * " &
-                 " FROM AIRBRANCH.EIS_FACILITYSITEADDRESS " &
-                 "where   AIRBRANCH.EIS_FACILITYSITEADDRESS.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' "
+                 " FROM EIS_FACILITYSITEADDRESS " &
+                 "where   EIS_FACILITYSITEADDRESS.FACILITYSITEID = '" & Replace(FacilitySiteID, "'", "''") & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -9210,7 +9210,7 @@ Public Class DMUEisGecoTool
         Dim updateuser As String = CurrentUser.UserID
 
         Try
-            sql = "UPDATE AIRBRANCH.EIS_FACILITYSITE " &
+            sql = "UPDATE EIS_FACILITYSITE " &
                  "SET STRFACILITYSITENAME = '" & facilityName & "', " &
                  "UPDATEUSER = '" & updateuser & "', " &
                  "UPDATEDATETIME = '" & OracleDate & "' " &
@@ -9223,7 +9223,7 @@ Public Class DMUEisGecoTool
             dr = cmd.ExecuteReader
             dr.Close()
 
-            sql1 = "UPDATE AIRBRANCH.EIS_FACILITYSITEADDRESS " &
+            sql1 = "UPDATE EIS_FACILITYSITEADDRESS " &
                "SET STRLOCATIONADDRESSTEXT = '" & FacilityAddress & "', " &
                "STRLOCALITYNAME = '" & facilityCity & "', " &
                "STRLOCATIONADDRESSPOSTALCODE = '" & facilityZip & "', " &
@@ -9271,7 +9271,7 @@ Public Class DMUEisGecoTool
                 txtEmail.Clear()
 
                 SQL = "Select strFacilityName " &
-                "from AIRBRANCH.APBFacilityInformation " &
+                "from APBFacilityInformation " &
                 "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -9288,8 +9288,8 @@ Public Class DMUEisGecoTool
                 dr.Close()
 
                 SQL = "SELECT " &
-                "AIRBRANCH.OlapUserAccess.NumUserID as ID, AIRBRANCH.OlapUserLogin.numuserid, " &
-                "AIRBRANCH.OlapUserLogin.strUserEmail as Email, " &
+                "OlapUserAccess.NumUserID as ID, OlapUserLogin.numuserid, " &
+                "OlapUserLogin.strUserEmail as Email, " &
                 "Case " &
                 "When intAdminAccess = 0 Then 'False' " &
                 "When intAdminAccess = 1 Then 'True' " &
@@ -9306,9 +9306,9 @@ Public Class DMUEisGecoTool
                 "When intESAccess = 0 Then 'False' " &
                 "When intESAccess = 1 Then 'True' " &
                 "End as intESAccess " &
-                "FROM AIRBRANCH.OlapUserAccess, AIRBRANCH.OlapUserLogin " &
-                "WHERE AIRBRANCH.OLAPUserAccess.NumUserId = AIRBRANCH.OlapUserLogin.NumUserID " &
-                "AND AIRBRANCH.OlapUserAccess.strAirsNumber = '0413" & mtbAIRSNumber.Text & "' order by email"
+                "FROM OlapUserAccess, OlapUserLogin " &
+                "WHERE OLAPUserAccess.NumUserId = OlapUserLogin.NumUserID " &
+                "AND OlapUserAccess.strAirsNumber = '0413" & mtbAIRSNumber.Text & "' order by email"
 
                 dgvUsers.Rows.Clear()
                 ds = New DataSet
@@ -9382,7 +9382,7 @@ Public Class DMUEisGecoTool
             Dim userID As Integer
 
             SQL = "Select numUserId " &
-            "from AIRBRANCH.olapuserlogin " &
+            "from olapuserlogin " &
             "where struseremail = '" & Replace(UCase(txtEmail.Text), "'", "''") & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -9393,7 +9393,7 @@ Public Class DMUEisGecoTool
 
             If recExist = True Then 'Email address is registered
                 userID = dr.Item("numUserId")
-                Dim InsertString As String = "Insert into AIRBRANCH.OlapUserAccess " &
+                Dim InsertString As String = "Insert into OlapUserAccess " &
                 "(numUserId, strAirsNumber, strFacilityName) values( " &
                 "'" & userID & "', '0413" & mtbAIRSNumber.Text & "', '" & Replace(lblFaciltyName.Text, "'", "''") & "') "
 
@@ -9418,7 +9418,7 @@ Public Class DMUEisGecoTool
     End Sub
     Private Sub btnDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDelete.Click
         Try
-            SQL = "DELETE AIRBRANCH.OlapUserAccess " &
+            SQL = "DELETE OlapUserAccess " &
             "WHERE numUserID = '" & cboUsers.SelectedValue & "' " &
             "and strAirsNumber = '0413" & mtbAIRSNumber.Text & "' "
 
@@ -9464,7 +9464,7 @@ Public Class DMUEisGecoTool
                     esaccess = "0"
                 End If
 
-                SQL = "UPDATE AIRBRANCH.OlapUserAccess " &
+                SQL = "UPDATE OlapUserAccess " &
                 "SET intadminaccess = '" & adminaccess & "', " &
                 "intFeeAccess = '" & feeaccess & "', " &
                 "intEIAccess = '" & eiaccess & "', " &
@@ -9553,7 +9553,7 @@ Public Class DMUEisGecoTool
                     FaxNumber = " strFaxNumber = '" & Replace(mtbEditFaxNumber.Text, "'", "''") & "', "
                 End If
 
-                SQL = "Update AIRBRANCH.OLAPUserProfile set " &
+                SQL = "Update OLAPUserProfile set " &
                 FirstName & LastName & Title & Company & Address &
                 City & State & Zip & PhoneNumber & FaxNumber &
                 "numUserID = '" & txtWebUserID.Text & "' " &
@@ -9602,7 +9602,7 @@ Public Class DMUEisGecoTool
         Try
             If txtWebUserID.Text <> "" And txtEditUserPassword.Text <> "" Then
                 'New password change code 6/30/2010
-                SQL = "Update AIRBRANCH.OLAPUserLogIN set " &
+                SQL = "Update OLAPUserLogIN set " &
                 "strUserPassword = '" & getMd5Hash(txtEditUserPassword.Text) & "' " &
                 "where numUserID = '" & txtWebUserID.Text & "' "
 
@@ -9640,7 +9640,7 @@ Public Class DMUEisGecoTool
                 If IsValidEmailAddress(txtEditEmail.Text) Then
                     SQL = "Select " &
                     "numUserID, strUserPassword " &
-                    "from AIRBRANCH.OLAPUserLogIN " &
+                    "from OLAPUserLogIN " &
                     "where upper(strUserEmail) = '" & Replace(txtEditEmail.Text.ToUpper, "'", "''") & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -9665,7 +9665,7 @@ Public Class DMUEisGecoTool
                         dr.Close()
                     End If
 
-                    SQL = "Update AIRBRANCH.OLAPUserLogIn set " &
+                    SQL = "Update OLAPUserLogIn set " &
                     "strUserEmail = '" & Replace(txtEditEmail.Text.ToUpper, "'", "''") & "' " &
                     "where numUserID = '" & txtWebUserID.Text & "' "
 
@@ -9703,7 +9703,7 @@ Public Class DMUEisGecoTool
             If txtWebUserID.Text <> "" And mtbFacilityToAdd.Text <> "" Then
                 SQL = "Select " &
                 "numUserId " &
-                "from AIRBRANCH.OlapUserAccess " &
+                "from OlapUserAccess " &
                 "where numUserId = '" & txtWebUserID.Text & "' " &
                 "and strAirsNumber = '0413" & mtbFacilityToAdd.Text & "' "
 
@@ -9716,12 +9716,12 @@ Public Class DMUEisGecoTool
                 dr.Close()
 
                 If recExist = False Then
-                    SQL = "Insert into AIRBRANCH.OlapUserAccess " &
+                    SQL = "Insert into OlapUserAccess " &
                      "(numUserId, strAirsNumber, strFacilityName) " &
                      "values " &
                      "('" & txtWebUserID.Text & "', '0413" & mtbFacilityToAdd.Text & "', " &
                      "(select strFacilityName " &
-                     "from AIRBRANCH.APBFacilityInformation " &
+                     "from APBFacilityInformation " &
                      "where strAIRSnumber = '0413" & mtbFacilityToAdd.Text & "')) "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -9744,7 +9744,7 @@ Public Class DMUEisGecoTool
     Private Sub btnDeleteFacilityUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteFacilityUser.Click
         Try
             If txtWebUserID.Text <> "" And cboFacilityToDelete.Text <> "" Then
-                SQL = "DELETE AIRBRANCH.OlapUserAccess " &
+                SQL = "DELETE OlapUserAccess " &
                 "WHERE numUserID = '" & txtWebUserID.Text & "' " &
                 "and strAirsNumber = '0413" & cboFacilityToDelete.SelectedValue & "' "
 
@@ -9792,7 +9792,7 @@ Public Class DMUEisGecoTool
                     esaccess = "0"
                 End If
 
-                SQL = "UPDATE AIRBRANCH.OlapUserAccess " &
+                SQL = "UPDATE OlapUserAccess " &
                 "SET intadminaccess = '" & adminaccess & "', " &
                 "intFeeAccess = '" & feeaccess & "', " &
                 "intEIAccess = '" & eiaccess & "', " &
@@ -9854,7 +9854,7 @@ Public Class DMUEisGecoTool
 
             SQL = "select  " &
             "strFacilitySiteName, STRFACILITYSITESTATUSCODE " &
-            "from AIRBRANCH.EIS_FacilitySite " &
+            "from EIS_FacilitySite " &
             "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -9879,7 +9879,7 @@ Public Class DMUEisGecoTool
 
             SQL = "select  " &
             "* " &
-            "from AIRBRANCH.EIS_FacilitySiteAddress " &
+            "from EIS_FacilitySiteAddress " &
             "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -9923,7 +9923,7 @@ Public Class DMUEisGecoTool
 
             SQL = "select  " &
             "* " &
-            "from AIRBRANCH.EIS_FacilityGeoCoord " &
+            "from EIS_FacilityGeoCoord " &
             "where FacilitySiteId = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -9950,8 +9950,8 @@ Public Class DMUEisGecoTool
                 "  fi.STRFACILITYCITY, fi.STRFACILITYSTATE, " &
                 "  fi.STRFACILITYZIPCODE, fi.NUMFACILITYLONGITUDE, " &
                 "  fi.NUMFACILITYLATITUDE, hd.STROPERATIONALSTATUS " &
-                "FROM AIRBRANCH.APBFACILITYINFORMATION fi " &
-                "INNER JOIN AIRBRANCH.APBHEADERDATA hd ON fi.STRAIRSNUMBER = " &
+                "FROM APBFACILITYINFORMATION fi " &
+                "INNER JOIN APBHEADERDATA hd ON fi.STRAIRSNUMBER = " &
                 "  hd.STRAIRSNUMBER " &
                 "WHERE fi.STRAIRSNUMBER = '0413" & txtEILogSelectedAIRSNumber.Text & "' "
 
@@ -10000,7 +10000,7 @@ Public Class DMUEisGecoTool
             dr.Close()
 
             SQL = "Select * " &
-            "from AIRBRANCH.EIS_Mailout " &
+            "from EIS_Mailout " &
             "where intInventoryYear = '" & txtEILogSelectedYear.Text & "' " &
             "and FacilitySiteID = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
@@ -10098,9 +10098,9 @@ Public Class DMUEisGecoTool
             "strContactCity, strContactState, " &
             "strContactZipCode, strContactDescription, " &
             "datModifingDate, (strLastName||', '||strFirstName) as ModifingPerson " &
-            "from AIRBRANCH.APBContactInformation, AIRBRANCH.EPDUserProfiles " &
-            "where AIRBRANCH.APBContactInformation.strModifingPerson = " &
-            "AIRBRANCH.EPDUserProfiles.numUserID  " &
+            "from APBContactInformation, EPDUserProfiles " &
+            "where APBContactInformation.strModifingPerson = " &
+            "EPDUserProfiles.numUserID  " &
             "and strContactKey = '0413" & txtEILogSelectedAIRSNumber.Text & "41' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -10217,7 +10217,7 @@ Public Class DMUEisGecoTool
             txtAllEISDeadlineComment.Clear()
 
             SQL = "Select * " &
-           "From AIRBRANCH.EIS_Admin " &
+           "From EIS_Admin " &
            "where inventoryYear = '" & txtEILogSelectedYear.Text & "' " &
            "and FacilitySiteID = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
@@ -10375,7 +10375,7 @@ Public Class DMUEisGecoTool
             txtAllEISDeadlineComment.Clear()
 
             SQL = "Select * " &
-            "from AIRBRANCH.EIS_QAAdmin " &
+            "from EIS_QAAdmin " &
             "where inventoryYear = '" & cboEILogYear.Text & "' " &
             "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
 
@@ -10492,58 +10492,58 @@ Public Class DMUEisGecoTool
 
             SQL = "select * from " &
              "(select count(*) as EISUniverse " &
-             "from AIRbranch.EIS_Admin " &
+             "from EIS_Admin " &
              "where active = '1' " &
              "and inventoryyear = '" & cboEISStatisticsYear.Text & "'), " &
              "(select count(*) as EISMailout " &
-             "from AIRbranch.EIS_Admin " &
+             "from EIS_Admin " &
              "where active = '1' " &
              "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " &
              "and strMailout = '1' ), " &
              "(select count(*) as EISEnrollment " &
-             "from AIRbranch.EIS_Admin " &
+             "from EIS_Admin " &
              "where active = '1' " &
              "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " &
              "and strEnrollment = '1' ),  " &
              "(select count(*) as EISUNEnrollment " &
-             "from AIRbranch.EIS_Admin " &
+             "from EIS_Admin " &
              "where active = '1' " &
              "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " &
              "and strMailout = '1' " &
              "and (strEnrollment = '0')),   " &
              "(select count(*) as EISNoActivity " &
-             "from AIRbranch.EIS_Admin " &
+             "from EIS_Admin " &
              "where active = '1' " &
              "and inventoryyear = '" & cboEISStatisticsYear.Text & "' " &
              "and strOptOut is null and strEnrollment = '1'), " &
              "(select count(*) as EISOptsIn " &
-             "from AIRbranch.EIS_Admin " &
+             "from EIS_Admin " &
              "where active = '1' " &
              "and inventoryyear = '" & cboEISStatisticsYear.Text & "' " &
              "and strOptOut = '0' and strEnrollment = '1'), " &
              "(select count(*) as EISOptsOut " &
-             "from AIRbranch.EIS_Admin " &
+             "from EIS_Admin " &
              "where active = '1' " &
              "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " &
              "and strMailout = '1' " &
              "and strEnrollment = '1' " &
              "and (strOptOut = '1') and strEnrollment = '1' ), " &
              "(select count(*) as EISSubmittal  " &
-             "from AIRbranch.EIS_Admin " &
+             "from EIS_Admin " &
              "where active = '1' " &
              "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " &
              "and strEnrollment = '1' " &
              "and eisstatuscode >= '3' " &
              "and (strOptOut = '0' )), " &
              "(select count(*) as EISInProgress " &
-             "from AIRBranch.EIS_Admin " &
+             "from EIS_Admin " &
              "where active = '1' " &
              "and inventoryYear = '" & cboEISStatisticsYear.Text & "' " &
              "and strEnrollment = '1' " &
              "and eisStatuscode = '2' and strEnrollment = '1' " &
              "and (strOptOut = '0')), " &
              "(select count(*) as EISQABegan   " &
-             "from AIRbranch.EIS_Admin " &
+             "from EIS_Admin " &
              "where active = '1' " &
              "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " &
              "and strMailout = '1' " &
@@ -10552,7 +10552,7 @@ Public Class DMUEisGecoTool
              "and eisstatuscode = '4' " &
              "and (strOptOut = '0' )), " &
              "(select count(*) as EISEPASubmitted   " &
-             "from AIRbranch.EIS_Admin " &
+             "from EIS_Admin " &
              "where active = '1' " &
              "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " &
              "and strMailout = '1' " &
@@ -10561,86 +10561,86 @@ Public Class DMUEisGecoTool
              "and eisstatuscode = '5' " &
              "and (strOptOut = '0' )), " &
              "(select count(*) as EISFinalized " &
-             "from AIRbranch.EIS_Admin " &
+             "from EIS_Admin " &
              "where active = '1' " &
              "and inventoryYear = '" & cboEISStatisticsYear.Text & "' " &
              "and strEnrollment = '1' " &
              "and (EISStatusCode = '3' OR EISStatusCode = '4' OR EISStatusCode = '5')), " &
      "( select count(*) as QASubmittedToDo " &
-     "from AIRbranch.EIS_Admin  " &
+     "from EIS_Admin  " &
      "where active = '1'  " &
      "and inventoryyear = '" & cboEISStatisticsYear.Text & "'   " &
      "and strEnrollment = '1'  " &
      "and eisstatuscode >= 3 " &
      "and (strOptOut = '0' ) " &
-     "and  NOT  exists (Select * from AIRBranch.EIS_QAAdmin " &
-     "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " &
-     "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID) ), " &
+     "and  NOT  exists (Select * from EIS_QAAdmin " &
+     "where EIS_QAAdmin.inventoryYear = EIS_Admin.inventoryYEar " &
+     "and EIS_QAAdmin.facilitysiteID = EIS_Admin.facilitysiteID) ), " &
      "( select count(*) as QAOptOutToDo " &
-     "from AIRbranch.EIS_Admin  " &
+     "from EIS_Admin  " &
      "where active = '1'  " &
      "and inventoryyear = '" & cboEISStatisticsYear.Text & "'   " &
      "and strEnrollment = '1'  " &
      "and (eisstatuscode = 3 or eisstatuscode = 4) " &
      "and (strOptOut = '1' or strOptout is null ) " &
-     "and  NOT  exists (Select * from AIRBranch.EIS_QAAdmin " &
-     "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " &
-     "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID) ), " &
+     "and  NOT  exists (Select * from EIS_QAAdmin " &
+     "where EIS_QAAdmin.inventoryYear = EIS_Admin.inventoryYEar " &
+     "and EIS_QAAdmin.facilitysiteID = EIS_Admin.facilitysiteID) ), " &
      "( select count(*) as QASubmittedBegan   " &
-     "from AIRbranch.EIS_Admin  " &
+     "from EIS_Admin  " &
      "where active = '1'  " &
      "and inventoryyear = '" & cboEISStatisticsYear.Text & "'   " &
      "and strEnrollment = '1'  " &
      "and eisstatuscode >= 3   " &
      "and (strOptOut = '0' ) " &
-     "and    exists (Select * from AIRBranch.EIS_QAAdmin " &
-     "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " &
-     "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " &
+     "and    exists (Select * from EIS_QAAdmin " &
+     "where EIS_QAAdmin.inventoryYear = EIS_Admin.inventoryYEar " &
+     "and EIS_QAAdmin.facilitysiteID = EIS_Admin.facilitysiteID " &
      "and datQAComplete is null ) ), " &
      "( select count(*) as QAOptOutBegan   " &
-     "from AIRbranch.EIS_Admin  " &
+     "from EIS_Admin  " &
      "where active = '1'  " &
      "and inventoryyear = '" & cboEISStatisticsYear.Text & "'   " &
      "and strEnrollment = '1'  " &
      "and (eisstatuscode = '3' or eisstatuscode = '4')   " &
      "and (strOptOut = '1' or strOptout is null) " &
-     "and  (not  exists (Select * from AIRBranch.EIS_QAAdmin " &
-     "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " &
-     "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " &
+     "and  (not  exists (Select * from EIS_QAAdmin " &
+     "where EIS_QAAdmin.inventoryYear = EIS_Admin.inventoryYEar " &
+     "and EIS_QAAdmin.facilitysiteID = EIS_Admin.facilitysiteID " &
      "and datQAComplete is null )   " &
-     "or  exists (Select * from AIRBranch.EIS_QAAdmin " &
-     "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " &
-     "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " &
+     "or  exists (Select * from EIS_QAAdmin " &
+     "where EIS_QAAdmin.inventoryYear = EIS_Admin.inventoryYEar " &
+     "and EIS_QAAdmin.facilitysiteID = EIS_Admin.facilitysiteID " &
      "and datQAComplete is null ))), " &
      "( select count(*) as QASubmittedToEPA  " &
-     "from AIRbranch.EIS_Admin  " &
+     "from EIS_Admin  " &
      "where active = '1'  " &
      "and inventoryyear = '" & cboEISStatisticsYear.Text & "'   " &
      "and strEnrollment = '1'  " &
      "and eisstatuscode >= '3' " &
      "and (strOptOut = '0' ) " &
-     "and    exists (Select * from AIRBranch.EIS_QAAdmin " &
-     "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " &
-     "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " &
+     "and    exists (Select * from EIS_QAAdmin " &
+     "where EIS_QAAdmin.inventoryYear = EIS_Admin.inventoryYEar " &
+     "and EIS_QAAdmin.facilitysiteID = EIS_Admin.facilitysiteID " &
       "and datQAComplete is not null ) ),  " &
      "( select count(*) as QAOptOutToEPA  " &
-     "from AIRbranch.EIS_Admin  " &
+     "from EIS_Admin  " &
      "where active = '1'  " &
      "and inventoryyear = '" & cboEISStatisticsYear.Text & "'   " &
      "and strEnrollment = '1'  " &
      "and eisstatuscode = '5'  " &
      "and (strOptOut = '1' or strOptout is null ) " &
-     "and  (not  exists (Select * from AIRBranch.EIS_QAAdmin " &
-     "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " &
-     "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID) " &
+     "and  (not  exists (Select * from EIS_QAAdmin " &
+     "where EIS_QAAdmin.inventoryYear = EIS_Admin.inventoryYEar " &
+     "and EIS_QAAdmin.facilitysiteID = EIS_Admin.facilitysiteID) " &
      "OR " &
-     "exists (Select * from AIRBranch.EIS_QAAdmin " &
-     "where AIRBranch.EIS_QAAdmin.inventoryYear = AIRBranch.EIS_Admin.inventoryYEar " &
-     "and AIRBranch.EIS_QAAdmin.facilitysiteID = AIRBranch.EIS_Admin.facilitysiteID " &
+     "exists (Select * from EIS_QAAdmin " &
+     "where EIS_QAAdmin.inventoryYear = EIS_Admin.inventoryYEar " &
+     "and EIS_QAAdmin.facilitysiteID = EIS_Admin.facilitysiteID " &
       "and datQAComplete is not null )" &
       " ) ), " &
       "(select count(*) as FIPassed " &
-      "from airbranch.EIS_Admin, AIRBranch.EIS_QAAdmin " &
+      "from EIS_Admin, EIS_QAAdmin " &
       "where EIS_Admin.InventoryYear = EIS_QAAdmin.inventoryYEar " &
       "and EIS_Admin.facilitysiteID = EIS_QAAdmin.facilitysiteID " &
       "and eis_qaAdmin.qaStatusCode = '2' " &
@@ -10999,7 +10999,7 @@ Public Class DMUEisGecoTool
                     "stroperationalStatus, strClass, " &
                     "strcomment, UpdateUser, " &
                     "updateDateTime, CreateDateTime " &
-                     "from AIRBranch.EIS_Mailout " &
+                     "from EIS_Mailout " &
                      "where intInventoryyear = '" & txtSelectedEISMailout.Text & "' " &
                      "and FacilitySiteID = '" & txtEISStatsMailoutAIRSNumber.Text & "' "
 
@@ -11099,7 +11099,7 @@ Public Class DMUEisGecoTool
     Private Sub btnSaveEISStatMailout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveEISStatMailout.Click
         Try
             If txtSelectedEISMailout.Text <> "" And txtEISStatsMailoutAIRSNumber.Text <> "" Then
-                SQL = "UPdate AIRBRANCH.EIS_Mailout set " &
+                SQL = "UPdate EIS_Mailout set " &
                 "strFacilityName = '" & txtEISStatsMailoutFacilityName.Text & "', " &
                 "strContactCompanyName = '" & txtEISStatsMailoutCompanyName.Text & "', " &
                 "strContactAddress1 = '" & txtEISStatsMailoutAddress1.Text & "', " &
@@ -11148,7 +11148,7 @@ Public Class DMUEisGecoTool
                 Next
                 If temp <> "" Then
                     temp = " and ( " & Mid(temp, 1, (temp.Length - 3)) & " ) "
-                    SQL = "Update AIRBRANCH.EIS_Admin set " &
+                    SQL = "Update EIS_Admin set " &
                     "strEnrollment = '1', " &
                     "EISAccessCode = '1', " &
                     "EISStatusCode = '1', " &
@@ -11192,11 +11192,11 @@ Public Class DMUEisGecoTool
 
             SQL = "select " &
             "'False' as ID, " &
-            " AIRBRANCH.EIS_Admin.facilitysiteid, " &
-           "AIRBRANCH.APBFacilityInformation.strFacilityname, " &
-           "AIRBRANCH.EIS_Admin.inventoryyear, " &
-           "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " &
-           "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " &
+            " EIS_Admin.facilitysiteid, " &
+           "APBFacilityInformation.strFacilityname, " &
+           "EIS_Admin.inventoryyear, " &
+           "EISLK_EISStatusCode.strDesc as EISStatus, " &
+           "EISLK_EISAccessCode.strDesc as EISAccess, " &
            "case " &
            "when strOptOut = '1' then 'Yes' " &
            "when strOptOut = '0' then 'No' " &
@@ -11231,17 +11231,17 @@ Public Class DMUEisGecoTool
            "when strDMUResponsibleStaff is null then '-' " &
            "else strDMUResponsibleStaff " &
            "end strDMUResponsibleStaff " &
-           "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " &
-           "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " &
-           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin " &
-           "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " &
-           "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " &
-           "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " &
-           "and AIRBranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_QAAdmin.FacilitySiteID (+) " &
-           "and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " &
-           "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " &
-           "and AIRBranch.EIS_Admin.Active = '1' " &
-           "and AIRbranch.EIS_Admin.inventoryyear = '" & txtEISStatsEnrollmentYear.Text & "'" &
+           "from EIS_Admin, APBFacilityInformation, " &
+           "EISLK_EISAccessCode, EISLK_EISStatusCode,  " &
+           "EIS_Mailout, EIS_QAAdmin " &
+           "where '0413'||EIS_Admin.FacilitySiteId = APBFacilityInformation.strAIRSNumber  " &
+           "and EIS_Admin.EISAccessCode = EISLK_EISAccessCode.EISAccessCode " &
+           "and EIS_Admin.EISStatusCode = EISLK_EISStatusCode.EISStatusCode " &
+           "and EIS_Admin.FacilitySiteID = EIS_QAAdmin.FacilitySiteID (+) " &
+           "and EIS_Admin.inventoryyear = EIS_QAAdmin.inventoryyear (+) " &
+           "and EIS_Admin.FacilitySiteID = EIS_Mailout.FacilitySiteID (+) " &
+           "and EIS_Admin.Active = '1' " &
+           "and EIS_Admin.inventoryyear = '" & txtEISStatsEnrollmentYear.Text & "'" &
            "and strEnrollment = '1' "
 
             dgvEISStats.Rows.Clear()
@@ -11350,7 +11350,7 @@ Public Class DMUEisGecoTool
                 Next
                 If temp <> "" Then
                     temp = " and ( " & Mid(temp, 1, (temp.Length - 3)) & " ) "
-                    SQL = "Update AIRBRANCH.EIS_Admin set " &
+                    SQL = "Update EIS_Admin set " &
                     "strEnrollment = '0', " &
                     "EISAccessCode = '1', " &
                     "EISStatusCode = '1', " &
@@ -11395,7 +11395,7 @@ Public Class DMUEisGecoTool
                 Next
                 temp = " and ( " & Mid(temp, 1, (temp.Length - 3)) & " ) "
 
-                SQL = "Update AIRBranch.EIS_Admin set " &
+                SQL = "Update EIS_Admin set " &
                 "EISAccessCode = '2' " &
                 "where inventoryYear = '" & EISConfirm & "' " &
                 temp
@@ -11433,7 +11433,7 @@ Public Class DMUEisGecoTool
                 If temp <> "" Then
                     temp = " and ( " & Mid(temp, 1, (temp.Length - 3)) & " ) "
 
-                    SQL = "Update AIRBranch.EIS_Admin set " &
+                    SQL = "Update EIS_Admin set " &
                     "EISAccessCode = '2', " &
                     "EISStatusCode = '4', " &
                     "datEISstatus = sysdate, " &
@@ -11461,7 +11461,7 @@ Public Class DMUEisGecoTool
                 If temp <> "" Then
                     temp = " and ( " & Mid(temp, 1, (temp.Length - 3)) & " ) "
 
-                    SQL = "Update AIRBranch.EIS_Admin set " &
+                    SQL = "Update EIS_Admin set " &
                     "EISAccessCode = '2', " &
                     "EISStatusCode = '5', " &
                     "datEISstatus = sysdate, " &
@@ -11480,7 +11480,7 @@ Public Class DMUEisGecoTool
 
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     If dgvEISStats(0, i).Value = True Then
-                        SQL = "insert into AIRBranch.EIS_QAAdmin " &
+                        SQL = "insert into EIS_QAAdmin " &
                         "(select " &
                         "'" & EISConfirm & "', '" & dgvEISStats(1, i).Value & "', " &
                         "sysdate, '', " &
@@ -11491,10 +11491,10 @@ Public Class DMUEisGecoTool
                         "sysdate, sysdate, " &
                         "'', '', '', '' " &
                         "from dual " &
-                        "where not exists (select * from AIRBranch.EIS_QAAdmin " &
+                        "where not exists (select * from EIS_QAAdmin " &
                         "where inventoryYear = '" & EISConfirm & "' " &
                         "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "') " &
-                        "and exists (select * from AIRBranch.EIS_Admin " &
+                        "and exists (select * from EIS_Admin " &
                         "where inventoryYear = '" & EISConfirm & "'  " &
                         "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' " &
                         "and strOptOut = '0' )) "
@@ -11508,7 +11508,7 @@ Public Class DMUEisGecoTool
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
                         End If
-                        cmd = New SqlCommand("AIRBranch.PD_EIS_QASTART", CurrentConnection)
+                        cmd = New SqlCommand("PD_EIS_QASTART", CurrentConnection)
                         cmd.CommandType = CommandType.StoredProcedure
 
                         cmd.Parameters.Add(New SqlParameter("AIRSNUMBER_IN", SqlDbType.VarChar)).Value = dgvEISStats(1, i).Value
@@ -11581,7 +11581,7 @@ Public Class DMUEisGecoTool
                 ActiveStatus = "0"
             End If
 
-            SQL = "Select FacilitySiteID from airbranch.EIS_Admin " &
+            SQL = "Select FacilitySiteID from EIS_Admin " &
             "where inventoryyear = '" & cboEILogYear.Text & "' " &
             "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
 
@@ -11599,7 +11599,7 @@ Public Class DMUEisGecoTool
                 Exit Sub
             End If
 
-            SQL = "Update AIRBranch.EIS_Admin set " &
+            SQL = "Update EIS_Admin set " &
             "EISStatusCode = '" & EISStatus & "', " &
             "DatEISStatus = '" & dtpEILogStatusDateSubmit.Text & "', " &
             "EISAccessCode = '" & EISAccess & "', " &
@@ -11630,7 +11630,7 @@ Public Class DMUEisGecoTool
                     txtEISDeadlineComment.Text &
                     vbCrLf & vbCrLf & txtAllEISDeadlineComment.Text
 
-                    SQL = "update Airbranch.EIS_Admin set " &
+                    SQL = "update EIS_Admin set " &
                     "datEISDeadline = '" & dtpDeadlineEIS.Text & "',  " &
                     "strEISDeadlineComment = '" & Replace(DeadLineComments, "'", "''") & "' " &
                     "where INventoryyear = '" & cboEILogYear.Text & "' " &
@@ -11724,7 +11724,7 @@ Public Class DMUEisGecoTool
                     pointError = "False"
                 End If
 
-                SQL = "Update AIRBRANCH.eis_QAAdmin set " &
+                SQL = "Update eis_QAAdmin set " &
                "datDateQAStart = '" & QAStart & "', " &
                "datDateQAPass = '" & QAPass & "', " &
                "QAStatusCode = '" & QAStatusCode & "', " &
@@ -11765,7 +11765,7 @@ Public Class DMUEisGecoTool
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
-            cmd = New SqlCommand("AIRBranch.PD_EIS_Data", CurrentConnection)
+            cmd = New SqlCommand("PD_EIS_Data", CurrentConnection)
             cmd.CommandType = CommandType.StoredProcedure
 
             cmd.Parameters.Add(New SqlParameter("AIRSNUM", SqlDbType.VarChar)).Value = txtEILogSelectedAIRSNumber.Text
@@ -11863,7 +11863,7 @@ Public Class DMUEisGecoTool
                 PointError = "False"
             End If
 
-            SQL = "Update AIRBRANCH.eis_QAAdmin set " &
+            SQL = "Update eis_QAAdmin set " &
             "datDateQAStart = '" & QAStart & "', " &
             "datDateQAPass = '" & QAPass & "', " &
             "QAStatusCode = '" & QAStatusCode & "', " &
@@ -11893,7 +11893,7 @@ Public Class DMUEisGecoTool
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
                 End If
-                cmd = New SqlCommand("AIRBranch.PD_EIS_QA_Done", CurrentConnection)
+                cmd = New SqlCommand("PD_EIS_QA_Done", CurrentConnection)
                 cmd.CommandType = CommandType.StoredProcedure
 
                 cmd.Parameters.Add(New SqlParameter("AIRSNUM", SqlDbType.VarChar)).Value = txtEILogSelectedAIRSNumber.Text
@@ -11923,7 +11923,7 @@ Public Class DMUEisGecoTool
         Dim PostalCode As String = mtbEIModifyZipCode.Text
 
         If Address <> "" And City <> "" Then
-            Dim query As String = "Update airbranch.EIS_FacilitySiteAddress set " &
+            Dim query As String = "Update EIS_FacilitySiteAddress set " &
             " STRLOCATIONADDRESSTEXT = :Address, " &
             " STRLOCALITYNAME = :City, " &
             " STRLOCATIONADDRESSPOSTALCODE = :PostalCode " &
@@ -11959,7 +11959,7 @@ Public Class DMUEisGecoTool
         Dim PostalCode As String = mtbEIModifyMZipCode.Text
 
         If Address <> "" And City <> "" Then
-            Dim query As String = "Update airbranch.EIS_FacilitySiteAddress set " &
+            Dim query As String = "Update EIS_FacilitySiteAddress set " &
             " strMailingAddressText = :Address, " &
             " strMailingAddresscityname = :City, " &
             " strMailingAddressPostalCode = :PostalCode " &
@@ -11996,7 +11996,7 @@ Public Class DMUEisGecoTool
         Dim FacilityName As String = txtEIModifyFacilityName.Text
 
         If FacilityName <> "" Then
-            Dim query As String = "Update airbranch.EIS_FacilitySite set " &
+            Dim query As String = "Update EIS_FacilitySite set " &
             " strFacilitySiteName = :FacilityName " &
             " where facilitysiteid = :AirsNumber"
 
@@ -12023,7 +12023,7 @@ Public Class DMUEisGecoTool
             End If
 
             If mtbEIModifyLatitude.Text <> "" And mtbEIModifyLongitude.Text <> "" Then
-                SQL = "Update airbranch.EIS_FacilityGEOCoord set " &
+                SQL = "Update EIS_FacilityGEOCoord set " &
                 "numLatitudeMeasure = '" & mtbEIModifyLatitude.Text & "', " &
                 "numLongitudeMeasure = '-" & mtbEIModifyLongitude.Text & "' " &
                 "where facilitySiteID = '" & txtEILogSelectedAIRSNumber.Text & "' "
@@ -12034,7 +12034,7 @@ Public Class DMUEisGecoTool
                 End If
                 cmd.ExecuteReader()
 
-                SQL = "Update AIRBranch.APBFacilityInformation set " &
+                SQL = "Update APBFacilityInformation set " &
                 "numFacilityLongitude = '-" & mtbEIModifyLongitude.Text & "', " &
                 "numFacilityLatitude = '" & mtbEIModifyLatitude.Text & "', " &
                 "strComments = 'Updated by " & CurrentUser.AlphaName & " through DMU Staff Tools - Emissions Inventory Log. ', " &
@@ -12067,7 +12067,7 @@ Public Class DMUEisGecoTool
         If txtEILogSelectedAIRSNumber.Text = "" Then
             MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
         Else
-            Dim query As String = "UPDATE AIRBRANCH.EIS_FACILITYSITE " &
+            Dim query As String = "UPDATE EIS_FACILITYSITE " &
                 " SET STRFACILITYSITESTATUSCODE = :statuscode " &
                 " , STRFACILITYSITECOMMENT = :sitecomment " &
                 " , UPDATEUSER = :updateuser " &
@@ -12119,7 +12119,7 @@ Public Class DMUEisGecoTool
                 Exit Sub
             End If
 
-            SQL = "Update airbranch.EIS_Mailout Set " &
+            SQL = "Update EIS_Mailout Set " &
             "strFacilityName= '" & Replace(txtEISMailoutEditFacilityName.Text, "'", "''") & "', " &
             "strContactCompanyName = '" & Replace(txtEISMailoutEditCompanyName.Text, "'", "''") & "', " &
             "strContactAddress1 = '" & Replace(txtEISMailoutEditAdress.Text, "'", "''") & "', " &
@@ -12312,7 +12312,7 @@ Public Class DMUEisGecoTool
                   "stroperationalStatus, strClass, " &
                   "strcomment, UpdateUser, " &
                   "updateDateTime, CreateDateTime " &
-                   "from AIRBranch.EIS_Mailout " &
+                   "from EIS_Mailout " &
                    "where intInventoryyear = '" & cboEISStatisticsYear.Text & "' " &
                    "and FacilitySiteID = '" & txtEISStatsMailoutAIRSNumber.Text & "' "
 
@@ -12404,8 +12404,8 @@ Public Class DMUEisGecoTool
 
             If txtEISStatsMailoutFacilityName.Text = "" Then
                 SQL = "Select * from " &
-                "(Select dt_EIcontact.STRairsnumber, AIRBRANCH.APBFacilityinformation.STRFACILITYNAME, " &
-                "AIRBRANCH.APBHEADERDATA.stroperationalstatus, AIRBRANCH.APBHEADERDATA.STRCLASS, " &
+                "(Select dt_EIcontact.STRairsnumber, APBFacilityinformation.STRFACILITYNAME, " &
+                "APBHEADERDATA.stroperationalstatus, APBHEADERDATA.STRCLASS, " &
                 "(Case " &
                 "When dt_EIcontact.STRKEY='41' THEN dt_EIcontact.STRContactLastName " &
                 "When dt_EIcontact.STRKEY Is Null THEN dt_PermitContact.STRContactLastName " &
@@ -12451,27 +12451,27 @@ Public Class DMUEisGecoTool
                 "dt_Contact.STRCONTACTPREFIX, dt_Contact.STRCONTACTADDRESS1, dt_Contact.STRCONTACTCITY,  " &
                 "dt_Contact.STRCONTACTSTATE, dt_Contact.STRCONTACTZIPCODE " &
                 "FROM " &
-                "(Select * FROM AIRBRANCH.APBHEADERDATA " &
+                "(Select * FROM APBHEADERDATA " &
                 "where (stroperationalstatus = 'O' OR stroperationalstatus = 'P' oR stroperationalstatus = 'C') AND  " &
                 "(STRCLASS = 'A')   " &
                 ") dt_EIList,      " &
-                "(Select * From AIRBRANCH.APBCONTACTINFORMATION where STRKEY=41) dt_Contact " &
+                "(Select * From APBCONTACTINFORMATION where STRKEY=41) dt_Contact " &
                 "Where dt_EIList.STRAIRSNUMBEr = dt_Contact.STRAIRSNUMBER (+)) dt_EIContact, " &
                 "(Select DISTINCT dt_eIlist.STRAIRSNUMBER, dt_contact.STRKEY,  " &
                 "dt_Contact.STRCONTACTLASTNAME, dt_Contact.STRCONTACTFIRSTNAME, " &
                 "dt_Contact.STRContactCompanyName, dt_Contact.STRContactEmail, dt_Contact.STRCONTACTPREFIX,  " &
                 "dt_Contact.STRCONTACTADDRESS1, dt_Contact.strcontactcity, dt_Contact.STRCONTACTSTATE, dt_Contact.STRCONTACTZIPCODE " &
                 "FROM " &
-                "(Select * FROM AIRBRANCH.APBHEADERDATA " &
+                "(Select * FROM APBHEADERDATA " &
                 "where (stroperationalstatus = 'O' OR stroperationalstatus = 'P' oR stroperationalstatus = 'C') AND  " &
                 "(STRCLASS = 'A')   " &
                 ") dt_EIList,      " &
-                "(Select * From AIRBRANCH.APBCONTACTINFORMATION where STRKEY=30) dt_Contact " &
+                "(Select * From APBCONTACTINFORMATION where STRKEY=30) dt_Contact " &
                 "Where dt_EIList.STRAIRSNUMBEr = dt_Contact.STRAIRSNUMBER (+)) dt_PermitContact, " &
-                "AIRBRANCH.APBFACILITYINFORMATION, " &
-                "AIRBRANCH.APBHEADERDATA " &
-                "Where AIRBRANCH.APBFACILITYINFORMATION.STRAIRSNUMBER= dt_EIContact.STRAIRSNumber and  " &
-                "AIRBRANCH.APBHEADERDATA.STRAIRSNUMBER= dt_EIContact.STRAIRSNumber and  " &
+                "APBFACILITYINFORMATION, " &
+                "APBHEADERDATA " &
+                "Where APBFACILITYINFORMATION.STRAIRSNUMBER= dt_EIContact.STRAIRSNumber and  " &
+                "APBHEADERDATA.STRAIRSNUMBER= dt_EIContact.STRAIRSNumber and  " &
                 "dt_EIContact.STRAIRSNumber  = dt_PermitContact.STRAIRSNUMBER (+) ) " &
                 "where strAIRSnumber = '0413" & txtEISStatsMailoutAIRSNumber.Text & "' "
 
@@ -12591,7 +12591,7 @@ Public Class DMUEisGecoTool
 
 
 
-                    SQL = "Update AIRBranch.EIS_Admin set " &
+                    SQL = "Update EIS_Admin set " &
                     "strMailOut = '1' " &
                     "where inventoryYear = '" & EISConfirm & "' " &
                     temp
@@ -12631,7 +12631,7 @@ Public Class DMUEisGecoTool
                 Next
                 temp = " and ( " & Mid(temp, 1, (temp.Length - 3)) & " ) "
 
-                SQL = "Update AIRBranch.EIS_Admin set " &
+                SQL = "Update EIS_Admin set " &
                 "EISAccessCode = '0', " &
                 "EISStatusCode = '5', " &
                 "datEISstatus = sysdate, " &
@@ -12666,14 +12666,14 @@ Public Class DMUEisGecoTool
                 SQL = "Select " &
                 "strPollutant, numThreshold, " &
                 "numThresholdNAA " &
-                "from AIRbranch.EIThresholds " &
+                "from EIThresholds " &
                 "where strType = '3YEAR' " &
                 "order by strPollutant "
             Else
                 SQL = "Select " &
                 "strPollutant, numThreshold, " &
                 "numThresholdNAA " &
-                "from AIRbranch.EIThresholds " &
+                "from EIThresholds " &
                 "where strType = 'ANNUAL' " &
                 "order by strPollutant "
             End If
@@ -12770,7 +12770,7 @@ Public Class DMUEisGecoTool
             End If
 
             SQL = "Select * from " &
-            "airbranch.EIThresholds " &
+            "EIThresholds " &
             "where upper(strPollutant) = '" & Replace(txtPollutant.Text.ToUpper, "'", "''") & "' " &
             "and strType = '" & ThresholdType & "'"
 
@@ -12784,7 +12784,7 @@ Public Class DMUEisGecoTool
             If recExist = True Then
                 MsgBox("Pollutant currently exists for selected Type." & vbCrLf & "No data Saved", MsgBoxStyle.Information, Me.Text)
             Else
-                SQL = "Insert into AIRBranch.EIThresholds " &
+                SQL = "Insert into EIThresholds " &
                 "values " &
                 "('" & Replace(txtPollutant.Text, "'", "''") & "', " &
                 "'" & txtThreshold.Text & "', " &
@@ -12824,7 +12824,7 @@ Public Class DMUEisGecoTool
             End If
 
             SQL = "Select * from " &
-            "airbranch.EIThresholds " &
+            "EIThresholds " &
             "where upper(strPollutant) = '" & Replace(txtPollutant.Text.ToUpper, "'", "''") & "' " &
             "and strType = '" & ThresholdType & "'"
 
@@ -12836,7 +12836,7 @@ Public Class DMUEisGecoTool
 
             recExist = dr.Read
             If recExist = True Then
-                SQL = "Update AIRBranch.EIThresholds set " &
+                SQL = "Update EIThresholds set " &
                       "numThreshold = '" & txtThreshold.Text & "', " &
                       "numThresholdNAA = '" & txtNonAttainmentThreshold.Text & "' " &
                       "where strType = '" & ThresholdType & "'  " &
@@ -12862,7 +12862,7 @@ Public Class DMUEisGecoTool
             SQL = "Select " &
             "strYear, " &
             "strEIType, datDeadLine " &
-            "from AIRBranch.EIThresholdYears " &
+            "from EIThresholdYears " &
             "order by strYear desc "
 
             ds = New DataSet
@@ -12962,7 +12962,7 @@ Public Class DMUEisGecoTool
 
             SQL = "Select " &
             "strYear " &
-            "from AIRBranch.EIThresholdYears " &
+            "from EIThresholdYears " &
             "where strYEar = '" & Replace(mtbThresholdYear.Text, "'", "''") & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -12975,7 +12975,7 @@ Public Class DMUEisGecoTool
             If recExist = True Then
                 MsgBox("EIS Year currently exists." & vbCrLf & "No data Saved", MsgBoxStyle.Information, Me.Text)
             Else
-                SQL = "Insert into AIRBranch.EIThresholdYears " &
+                SQL = "Insert into EIThresholdYears " &
                 "values " &
                 "('" & Replace(mtbThresholdYear.Text, "'", "''") & "', " &
                 "'" & EISYearType & "', " &
@@ -13012,7 +13012,7 @@ Public Class DMUEisGecoTool
 
             SQL = "Select " &
             "strYear " &
-            "from AIRBranch.EIThresholdYears " &
+            "from EIThresholdYears " &
             "where strYEar = '" & Replace(mtbThresholdYear.Text, "'", "''") & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -13023,7 +13023,7 @@ Public Class DMUEisGecoTool
 
             recExist = dr.Read
             If recExist = True Then
-                SQL = "Update AIRBranch.EIThresholdYears set " &
+                SQL = "Update EIThresholdYears set " &
                 "strEIType = '" & EISYearType & "', " &
                 "DatDeadline = '" & dtpEISDeadline.Text & "'  " &
                 "where strYear = '" & mtbThresholdYear.Text & "'"
@@ -13051,7 +13051,7 @@ Public Class DMUEisGecoTool
             EISConfirm = InputBox("Type in the EIS Year that you have selected to delete inactive data.", Me.Text)
 
             If EISConfirm = txtSelectedEISStatYear.Text Then
-                SQL = "delete airbranch.EIS_UnitControlPollutant " &
+                SQL = "delete EIS_UnitControlPollutant " &
                 "where active = '0' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -13059,7 +13059,7 @@ Public Class DMUEisGecoTool
                 End If
                 cmd.ExecuteReader()
 
-                SQL = "delete airbranch.EIS_UnitControlMeasure  " &
+                SQL = "delete EIS_UnitControlMeasure  " &
                 "where active = '0' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -13067,7 +13067,7 @@ Public Class DMUEisGecoTool
                 End If
                 cmd.ExecuteReader()
 
-                SQL = "delete airbranch.EIS_UnitControlApproach  " &
+                SQL = "delete EIS_UnitControlApproach  " &
                 "where active = '0' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -13075,7 +13075,7 @@ Public Class DMUEisGecoTool
                 End If
                 cmd.ExecuteReader()
 
-                SQL = "delete airbranch.EIS_RPGEOCoordinates  " &
+                SQL = "delete EIS_RPGEOCoordinates  " &
                 "where active = '0' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -13083,7 +13083,7 @@ Public Class DMUEisGecoTool
                 End If
                 cmd.ExecuteReader()
 
-                SQL = "delete airbranch.EIS_RPApportionment  " &
+                SQL = "delete EIS_RPApportionment  " &
                 "where active = '0' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -13091,7 +13091,7 @@ Public Class DMUEisGecoTool
                 End If
                 cmd.ExecuteReader()
 
-                SQL = "delete airbranch.EIS_ProcessControlPollutant " &
+                SQL = "delete EIS_ProcessControlPollutant " &
                 "where active = '0' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -13099,7 +13099,7 @@ Public Class DMUEisGecoTool
                 End If
                 cmd.ExecuteReader()
 
-                SQL = "delete airbranch.EIS_ProcessControlMeasure " &
+                SQL = "delete EIS_ProcessControlMeasure " &
                 "where active = '0'"
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -13107,7 +13107,7 @@ Public Class DMUEisGecoTool
                 End If
                 cmd.ExecuteReader()
 
-                SQL = "delete airbranch.EIS_ProcessControlApproach  " &
+                SQL = "delete EIS_ProcessControlApproach  " &
                 "where active = '0' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -13115,7 +13115,7 @@ Public Class DMUEisGecoTool
                 End If
                 cmd.ExecuteReader()
 
-                SQL = "delete airbranch.EIS_ReportingPeriodEmissions  " &
+                SQL = "delete EIS_ReportingPeriodEmissions  " &
               "where active = '0'  " &
               "and intinventoryyear = '2010' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -13124,7 +13124,7 @@ Public Class DMUEisGecoTool
                 End If
                 cmd.ExecuteReader()
 
-                SQL = "delete airbranch.EIS_ProcessOperatingDetails  " &
+                SQL = "delete EIS_ProcessOperatingDetails  " &
                 "where active = '0'  " &
                 "and intInventoryYear = '2010' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -13133,7 +13133,7 @@ Public Class DMUEisGecoTool
                 End If
                 cmd.ExecuteReader()
 
-                SQL = "delete airbranch.EIS_ProcessRPTPeriodSCP  " &
+                SQL = "delete EIS_ProcessRPTPeriodSCP  " &
                 "where Active = '0'  " &
                 "and intInventoryYear = '2010'"
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -13142,13 +13142,13 @@ Public Class DMUEisGecoTool
                 End If
                 cmd.ExecuteReader()
 
-                SQL = "delete Airbranch.EIS_RPApportionment " &
+                SQL = "delete EIS_RPApportionment " &
              "where exists (select * " &
-             "from Airbranch.eis_Process " &
+             "from eis_Process " &
              "where active = '0' " &
-             "and Airbranch.EIS_RPApportionment.facilitysiteid = Airbranch.eis_Process.facilitysiteid " &
-             "and Airbranch.EIS_RPApportionment.ProcessId = Airbranch.eis_Process.ProcessId " &
-             "and Airbranch.EIS_RPApportionment.EmissionsUnitID  = Airbranch.eis_Process.EmissionsUnitID) "
+             "and EIS_RPApportionment.facilitysiteid = eis_Process.facilitysiteid " &
+             "and EIS_RPApportionment.ProcessId = eis_Process.ProcessId " &
+             "and EIS_RPApportionment.EmissionsUnitID  = eis_Process.EmissionsUnitID) "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -13156,15 +13156,15 @@ Public Class DMUEisGecoTool
                 End If
                 cmd.ExecuteReader()
 
-                SQL = " delete Airbranch.EIS_ProcessControlPollutant " &
+                SQL = " delete EIS_ProcessControlPollutant " &
                 " where exists (select *  " &
-                " from Airbranch.EIS_ProcessControlApproach, airbranch.EIS_Process   " &
-                " where   Airbranch.EIS_ProcessControlPollutant.facilitysiteid = Airbranch.EIS_ProcessControlApproach.facilitysiteid " &
-                " and Airbranch.EIS_ProcessControlPollutant.ProcessId = Airbranch.EIS_ProcessControlApproach.ProcessId   " &
-                " and Airbranch.EIS_ProcessControlPollutant.EmissionsUnitID  = Airbranch.EIS_ProcessControlApproach.EmissionsUnitID " &
-                "and  Airbranch.EIS_ProcessControlPollutant.facilitysiteid = Airbranch.EIS_Process.facilitysiteid " &
-                " and Airbranch.EIS_ProcessControlPollutant.ProcessId = Airbranch.EIS_Process.ProcessId   " &
-                " and Airbranch.EIS_ProcessControlPollutant.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID  " &
+                " from EIS_ProcessControlApproach, EIS_Process   " &
+                " where   EIS_ProcessControlPollutant.facilitysiteid = EIS_ProcessControlApproach.facilitysiteid " &
+                " and EIS_ProcessControlPollutant.ProcessId = EIS_ProcessControlApproach.ProcessId   " &
+                " and EIS_ProcessControlPollutant.EmissionsUnitID  = EIS_ProcessControlApproach.EmissionsUnitID " &
+                "and  EIS_ProcessControlPollutant.facilitysiteid = EIS_Process.facilitysiteid " &
+                " and EIS_ProcessControlPollutant.ProcessId = EIS_Process.ProcessId   " &
+                " and EIS_ProcessControlPollutant.EmissionsUnitID  = EIS_Process.EmissionsUnitID  " &
                 " and EIS_Process.active = '0' ) "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -13173,12 +13173,12 @@ Public Class DMUEisGecoTool
                 End If
                 cmd.ExecuteReader()
 
-                SQL = "delete Airbranch.EIS_ProcessControlMeasure  " &
+                SQL = "delete EIS_ProcessControlMeasure  " &
              "where exists (select * " &
-             "from  airbranch.EIS_Process  " &
-             "where   Airbranch.EIS_ProcessControlMeasure.facilitysiteid = Airbranch.EIS_Process.facilitysiteid " &
-             "and Airbranch.EIS_ProcessControlMeasure.ProcessId = Airbranch.EIS_Process.ProcessId  " &
-             "and Airbranch.EIS_ProcessControlMeasure.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID " &
+             "from  EIS_Process  " &
+             "where   EIS_ProcessControlMeasure.facilitysiteid = EIS_Process.facilitysiteid " &
+             "and EIS_ProcessControlMeasure.ProcessId = EIS_Process.ProcessId  " &
+             "and EIS_ProcessControlMeasure.EmissionsUnitID  = EIS_Process.EmissionsUnitID " &
              "and EIS_Process.active = '0' ) "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -13187,13 +13187,13 @@ Public Class DMUEisGecoTool
                 End If
                 cmd.ExecuteReader()
 
-                SQL = "delete Airbranch.EIS_ProcessControlApproach " &
+                SQL = "delete EIS_ProcessControlApproach " &
                 "where exists (select * " &
-                "from Airbranch.eis_Process " &
+                "from eis_Process " &
                 "where active = '0' " &
-                "and Airbranch.EIS_ProcessControlApproach.facilitysiteid = Airbranch.eis_Process.facilitysiteid " &
-                "and Airbranch.EIS_ProcessControlApproach.ProcessId = Airbranch.eis_Process.ProcessId " &
-                "and Airbranch.EIS_ProcessControlApproach.EmissionsUnitID  = Airbranch.eis_Process.EmissionsUnitID) "
+                "and EIS_ProcessControlApproach.facilitysiteid = eis_Process.facilitysiteid " &
+                "and EIS_ProcessControlApproach.ProcessId = eis_Process.ProcessId " &
+                "and EIS_ProcessControlApproach.EmissionsUnitID  = eis_Process.EmissionsUnitID) "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -13201,13 +13201,13 @@ Public Class DMUEisGecoTool
                 End If
                 cmd.ExecuteReader()
 
-                SQL = "delete Airbranch.EIS_ProcessControlPollutant " &
+                SQL = "delete EIS_ProcessControlPollutant " &
                 "where exists (select * " &
-                "from Airbranch.EIS_ProcessControlApproach " &
+                "from EIS_ProcessControlApproach " &
                 "where active = '0' " &
-                "and Airbranch.EIS_ProcessControlPollutant.facilitysiteid = Airbranch.EIS_ProcessControlApproach.facilitysiteid " &
-                "and Airbranch.EIS_ProcessControlPollutant.ProcessId = Airbranch.EIS_ProcessControlApproach.ProcessId " &
-                "and Airbranch.EIS_ProcessControlPollutant.EmissionsUnitID  = Airbranch.EIS_ProcessControlApproach.EmissionsUnitID) "
+                "and EIS_ProcessControlPollutant.facilitysiteid = EIS_ProcessControlApproach.facilitysiteid " &
+                "and EIS_ProcessControlPollutant.ProcessId = EIS_ProcessControlApproach.ProcessId " &
+                "and EIS_ProcessControlPollutant.EmissionsUnitID  = EIS_ProcessControlApproach.EmissionsUnitID) "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -13215,13 +13215,13 @@ Public Class DMUEisGecoTool
                 End If
                 cmd.ExecuteReader()
 
-                SQL = "delete  Airbranch.EIS_ProcessOperatingDetails   " &
+                SQL = "delete  EIS_ProcessOperatingDetails   " &
                 "where exists (select * " &
-                "from Airbranch.EIS_Process  " &
+                "from EIS_Process  " &
                 "where active = '0'  " &
-                "and Airbranch.EIS_ProcessOperatingDetails.facilitysiteid = Airbranch.EIS_Process.facilitysiteid  " &
-                "and Airbranch.EIS_ProcessOperatingDetails.ProcessId = Airbranch.EIS_Process.ProcessId  " &
-                "and Airbranch.EIS_ProcessOperatingDetails.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID)  "
+                "and EIS_ProcessOperatingDetails.facilitysiteid = EIS_Process.facilitysiteid  " &
+                "and EIS_ProcessOperatingDetails.ProcessId = EIS_Process.ProcessId  " &
+                "and EIS_ProcessOperatingDetails.EmissionsUnitID  = EIS_Process.EmissionsUnitID)  "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -13229,13 +13229,13 @@ Public Class DMUEisGecoTool
                 End If
                 cmd.ExecuteReader()
 
-                SQL = "delete  Airbranch.EIS_ReportingPeriodEmissions   " &
+                SQL = "delete  EIS_ReportingPeriodEmissions   " &
                 "where exists (select * " &
-                "from Airbranch.EIS_Process  " &
+                "from EIS_Process  " &
                 "where active = '0'  " &
-                "and Airbranch.EIS_ReportingPeriodEmissions.facilitysiteid = Airbranch.EIS_Process.facilitysiteid  " &
-                "and Airbranch.EIS_ReportingPeriodEmissions.ProcessId = Airbranch.EIS_Process.ProcessId  " &
-                "and Airbranch.EIS_ReportingPeriodEmissions.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID)  "
+                "and EIS_ReportingPeriodEmissions.facilitysiteid = EIS_Process.facilitysiteid  " &
+                "and EIS_ReportingPeriodEmissions.ProcessId = EIS_Process.ProcessId  " &
+                "and EIS_ReportingPeriodEmissions.EmissionsUnitID  = EIS_Process.EmissionsUnitID)  "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -13243,13 +13243,13 @@ Public Class DMUEisGecoTool
                 End If
                 cmd.ExecuteReader()
 
-                SQL = "delete  Airbranch.EIS_ProcessRPTPeriodSCP   " &
+                SQL = "delete  EIS_ProcessRPTPeriodSCP   " &
                  "where exists (select * " &
-                 "from Airbranch.EIS_Process  " &
+                 "from EIS_Process  " &
                  "where active = '0'  " &
-                 "and Airbranch.EIS_ProcessRPTPeriodSCP.facilitysiteid = Airbranch.EIS_Process.facilitysiteid  " &
-                 "and Airbranch.EIS_ProcessRPTPeriodSCP.ProcessId = Airbranch.EIS_Process.ProcessId  " &
-                 "and Airbranch.EIS_ProcessRPTPeriodSCP.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID)  "
+                 "and EIS_ProcessRPTPeriodSCP.facilitysiteid = EIS_Process.facilitysiteid  " &
+                 "and EIS_ProcessRPTPeriodSCP.ProcessId = EIS_Process.ProcessId  " &
+                 "and EIS_ProcessRPTPeriodSCP.EmissionsUnitID  = EIS_Process.EmissionsUnitID)  "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -13257,12 +13257,12 @@ Public Class DMUEisGecoTool
                 End If
                 cmd.ExecuteReader()
 
-                SQL = "delete Airbranch.eis_processReportingPeriod   " &
+                SQL = "delete eis_processReportingPeriod   " &
                  "where exists (select * " &
-                 "from  airbranch.EIS_Process  " &
-                 "where   Airbranch.eis_processReportingPeriod.facilitysiteid = Airbranch.EIS_Process.facilitysiteid " &
-                 "and Airbranch.eis_processReportingPeriod.ProcessId = Airbranch.EIS_Process.ProcessId  " &
-                 "and Airbranch.eis_processReportingPeriod.EmissionsUnitID  = Airbranch.EIS_Process.EmissionsUnitID " &
+                 "from  EIS_Process  " &
+                 "where   eis_processReportingPeriod.facilitysiteid = EIS_Process.facilitysiteid " &
+                 "and eis_processReportingPeriod.ProcessId = EIS_Process.ProcessId  " &
+                 "and eis_processReportingPeriod.EmissionsUnitID  = EIS_Process.EmissionsUnitID " &
                  "and EIS_Process.active = '0' ) "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -13271,7 +13271,7 @@ Public Class DMUEisGecoTool
                 End If
                 cmd.ExecuteReader()
 
-                SQL = "delete airbranch.EIS_Process  " &
+                SQL = "delete EIS_Process  " &
                               "where Active = '0' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -13279,7 +13279,7 @@ Public Class DMUEisGecoTool
                 End If
                 cmd.ExecuteReader()
 
-                SQL = "Delete airbranch.EIS_EmissionsUnit   " &
+                SQL = "Delete EIS_EmissionsUnit   " &
                 "where active = '0' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -13287,7 +13287,7 @@ Public Class DMUEisGecoTool
                 End If
                 cmd.ExecuteReader()
 
-                SQL = "delete airbranch.EIS_Releasepoint  " &
+                SQL = "delete EIS_Releasepoint  " &
                 "where active = '0'  " &
                 "and numRPStatusCodeYear = '2010' "
 
@@ -13348,7 +13348,7 @@ Public Class DMUEisGecoTool
             EISConfirm = InputBox("Type in the EIS Year that you have selected to delete all current QA data.", Me.Text)
 
             If EISConfirm = txtEILogSelectedYear.Text Then
-                SQL = "delete AIRBranch.EIS_QAAdmin " &
+                SQL = "delete EIS_QAAdmin " &
                 "where inventoryyear = '" & EISConfirm & "', " &
                 "and facilitysiteid = '" & txtEILogSelectedAIRSNumber.Text & "' "
 
@@ -13359,7 +13359,7 @@ Public Class DMUEisGecoTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Update AIRBranch.EIS_Admin set " &
+                SQL = "Update EIS_Admin set " &
                   "EISAccessCode = '2', " &
                   "EISStatusCode = '3', " &
                   "datEISstatus = sysdate, " &
@@ -13390,7 +13390,7 @@ Public Class DMUEisGecoTool
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
-                    cmd = New SqlCommand("airbranch.PD_EIS_QASTART", CurrentConnection)
+                    cmd = New SqlCommand("PD_EIS_QASTART", CurrentConnection)
                     cmd.CommandType = CommandType.StoredProcedure
                     temp = dgvEISStats(1, i).Value
 
@@ -13418,11 +13418,11 @@ Public Class DMUEisGecoTool
             dgvEISStats.Rows.Clear()
             SQL = "select " &
             "'False' as ID, " &
-            " AIRBRANCH.EIS_Admin.facilitysiteid, " &
-           "AIRBRANCH.APBFacilityInformation.strFacilityname, " &
-           "AIRBRANCH.EIS_Admin.inventoryyear, " &
-           "AIRbranch.EISLK_EISStatusCode.strDesc as EISStatus, " &
-           "AIRbranch.EISLK_EISAccessCode.strDesc as EISAccess, " &
+            " EIS_Admin.facilitysiteid, " &
+           "APBFacilityInformation.strFacilityname, " &
+           "EIS_Admin.inventoryyear, " &
+           "EISLK_EISStatusCode.strDesc as EISStatus, " &
+           "EISLK_EISAccessCode.strDesc as EISAccess, " &
            "case " &
            "when strOptOut = '1' then 'Yes' " &
            "when strOptOut = '0' then 'No' " &
@@ -13457,28 +13457,28 @@ Public Class DMUEisGecoTool
           "when strDMUResponsibleStaff is null then '-' " &
            "else strDMUResponsibleStaff " &
             "end strDMUResponsibleStaff, " &
-            "AIRBranch.EIS_Mailout.strContactCompanyName as CoName, " &
-            "AIRBranch.EIS_Mailout.strContactAddress1 as ContactAddress1, " &
-            "AIRBranch.EIS_Mailout.strContactAddress2 as ContactAddress2, " &
-            "AIRBranch.EIS_Mailout.strContactCity as ContactCity, " &
-            "AIRBranch.EIS_Mailout.strContactState as  ContactState, " &
-            "AIRBranch.EIS_Mailout.strContactZipCode as ContactZip, " &
-            "AIRBranch.EIS_Mailout.strContactFirstname as ContactFirstName, " &
-            "AIRBranch.EIS_Mailout.strContactLastName as ContactLastName, " &
-            "AIRBranch.EIS_Mailout.strContactPrefix as ContactPrefix, " &
-            "AIRBranch.EIS_Mailout.strContactEmail  as ContactEmail " &
-           "from AIRbranch.EIS_Admin, airbranch.APBFacilityInformation, " &
-           "airbranch.EISLK_EISAccessCode, AIRBranch.EISLK_EISStatusCode,  " &
-           "AIRbranch.EIS_Mailout, AIRbranch.EIS_QAAdmin " &
-           "where '0413'||airbranch.EIS_Admin.FacilitySiteId = airbranch.APBFacilityInformation.strAIRSNumber  " &
-           "and AIRBranch.EIS_Admin.EISAccessCode = AIRBranch.EISLK_EISAccessCode.EISAccessCode " &
-           "and AIRBranch.EIS_Admin.EISStatusCode = AIRBranch.EISLK_EISStatusCode.EISStatusCode " &
-           "and AIRBranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_QAAdmin.FacilitySiteID (+) " &
-           "and AIRBranch.EIS_Admin.inventoryyear = AIRBranch.EIS_QAAdmin.inventoryyear (+) " &
-           "and AIRbranch.EIS_Admin.FacilitySiteID = AIRBranch.EIS_Mailout.FacilitySiteID (+) " &
-           "and AIRbranch.EIS_Admin.inventoryyear = AIRBranch.EIS_Mailout.intinventoryyear (+) " &
-            "and AIRBranch.EIS_Admin.Active = '1' " &
-           "and AIRbranch.EIS_Admin.inventoryyear = '" & txtSelectedEISMailout.Text & "'"
+            "EIS_Mailout.strContactCompanyName as CoName, " &
+            "EIS_Mailout.strContactAddress1 as ContactAddress1, " &
+            "EIS_Mailout.strContactAddress2 as ContactAddress2, " &
+            "EIS_Mailout.strContactCity as ContactCity, " &
+            "EIS_Mailout.strContactState as  ContactState, " &
+            "EIS_Mailout.strContactZipCode as ContactZip, " &
+            "EIS_Mailout.strContactFirstname as ContactFirstName, " &
+            "EIS_Mailout.strContactLastName as ContactLastName, " &
+            "EIS_Mailout.strContactPrefix as ContactPrefix, " &
+            "EIS_Mailout.strContactEmail  as ContactEmail " &
+           "from EIS_Admin, APBFacilityInformation, " &
+           "EISLK_EISAccessCode, EISLK_EISStatusCode,  " &
+           "EIS_Mailout, EIS_QAAdmin " &
+           "where '0413'||EIS_Admin.FacilitySiteId = APBFacilityInformation.strAIRSNumber  " &
+           "and EIS_Admin.EISAccessCode = EISLK_EISAccessCode.EISAccessCode " &
+           "and EIS_Admin.EISStatusCode = EISLK_EISStatusCode.EISStatusCode " &
+           "and EIS_Admin.FacilitySiteID = EIS_QAAdmin.FacilitySiteID (+) " &
+           "and EIS_Admin.inventoryyear = EIS_QAAdmin.inventoryyear (+) " &
+           "and EIS_Admin.FacilitySiteID = EIS_Mailout.FacilitySiteID (+) " &
+           "and EIS_Admin.inventoryyear = EIS_Mailout.intinventoryyear (+) " &
+            "and EIS_Admin.Active = '1' " &
+           "and EIS_Admin.inventoryyear = '" & txtSelectedEISMailout.Text & "'"
 
             If MailoutStatus = "1" Then
                 SQL = SQL & " and strMailout = '1' "
@@ -13644,7 +13644,7 @@ Public Class DMUEisGecoTool
                 Exit Sub
             End If
 
-            SQL = "Update airbranch.EIS_Admin set " &
+            SQL = "Update EIS_Admin set " &
             "strMailout = '1' " &
             "where inventoryYear = '" & txtSelectedEISMailout.Text & "' " &
             "and Active = '1' "
@@ -13668,7 +13668,7 @@ Public Class DMUEisGecoTool
     Private Sub btnRemoveAllMailout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRemoveAllMailout.Click
         Try
 
-            SQL = "Update airbranch.EIS_Admin set " &
+            SQL = "Update EIS_Admin set " &
           "strMailout = '' " &
           "where inventoryYear = '" & txtSelectedEISMailout.Text & "' " &
           "and strMailout = '1' " &
@@ -13714,7 +13714,7 @@ Public Class DMUEisGecoTool
                 Exit Sub
             End If
 
-            SQL = "Update AIRBranch.EIS_Admin set " &
+            SQL = "Update EIS_Admin set " &
             "strEnrollment = '1' , " &
             "EISSTATUSCODE= '1' " &
             "where active = '1' " &
@@ -13742,7 +13742,7 @@ Public Class DMUEisGecoTool
                 Exit Sub
             End If
 
-            SQL = "Update AIRBranch.EIS_Admin set " &
+            SQL = "Update EIS_Admin set " &
             "strEnrollment = '0' " &
             "where active = '1' " &
             "and InventoryYear = '" & txtEISStatsEnrollmentYear.Text & "' " &
@@ -13805,7 +13805,7 @@ Public Class DMUEisGecoTool
             "strComment as Comments, " &
             "STRFITRACKINGNUMBER as FITrackingNumber, " &
             "STRPOINTTRACKINGNUMBER as PointTrackingNumber " &
-            " from AIRBranch.VW_EIS_Stats " &
+            " from VW_EIS_Stats " &
             "where inventoryyear = '" & EISYear & "' " &
             "and Active = '" & EISActive & "' "
 
@@ -14056,8 +14056,8 @@ Public Class DMUEisGecoTool
             "  ef.STRFACILITYSITENAME AS ""Facility Name"", " &
             "  ef.STRFACILITYSITESTATUSCODE AS ""EIS Site Status"", " &
             "  hd.STROPERATIONALSTATUS AS ""IAIP Site Status"" " &
-            "FROM airbranch.EIS_FACILITYSITE ef " &
-            "INNER JOIN airbranch.APBHEADERDATA hd ON ef.FACILITYSITEID = SUBSTR( " &
+            "FROM EIS_FACILITYSITE ef " &
+            "INNER JOIN APBHEADERDATA hd ON ef.FACILITYSITEID = SUBSTR( " &
             "  hd.STRAIRSNUMBER, 5) " &
             "WHERE(ef.STRFACILITYSITESTATUSCODE = 'OP' AND " &
             "  hd.STROPERATIONALSTATUS <> 'O') OR( " &

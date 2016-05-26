@@ -73,7 +73,7 @@ Public Class ISMPAddPollutants
         Try
 
             SQL = "Select strPollutantCode, strPOllutantDescription " &
-                 "from AIRBRANCH.LookUPPollutants " &
+                 "from LookUPPollutants " &
                  "Order by strPollutantDescription"
 
             dsPollutant = New DataSet
@@ -155,11 +155,11 @@ Public Class ISMPAddPollutants
                 End If
 
                 If chbDeletePollutant.Checked = True Then
-                    SQL = "Delete AIRBRANCH.LookUPPollutants " &
+                    SQL = "Delete LookUPPollutants " &
                     "where strPollutantCode = '" & txtPollutantCode.Text & "' "
                 Else
                     SQL = "Select strPollutantDescription " &
-                    "from AIRBRANCH.LookUPPollutants " &
+                    "from LookUPPollutants " &
                     "where strPollutantcode = '" & txtPollutantCode.Text & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -167,12 +167,12 @@ Public Class ISMPAddPollutants
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
                     If recExist = True Then
-                        SQL = "Update AIRBRANCH.LookUPPollutants set " &
+                        SQL = "Update LookUPPollutants set " &
                         "strPollutantDescription = '" & txtPollutant.Text & "', " &
                         "strPollutantCode = '" & txtPollutantCode.Text & "' " &
                         "where strPollutantCode = '" & txtPollutantCode.Text & "' "
                     Else
-                        SQL = "Insert into AIRBRANCH.LookUPPollutants " &
+                        SQL = "Insert into LookUPPollutants " &
                         "(strPollutantCode, strPollutantDescription) " &
                         "values " &
                         "('" & txtPollutantCode.Text & "', '" & txtPollutant.Text & "') "
@@ -248,7 +248,7 @@ Public Class ISMPAddPollutants
                 End Select
 
                 SQL = "Select strPollutantCode " &
-                "from AIRBRANCH.LookUPPollutants " &
+                "from LookUPPollutants " &
                 "where strPollutantCode = '" & PollutantCode & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader

@@ -113,7 +113,7 @@ Public Class ISMPTestReports
 
             SQL = "Select strMethodCode, " &
             "strMethodDesc " &
-            "from AIRBRANCH.LookUpISMPMethods " &
+            "from LookUpISMPMethods " &
             "order by strMethodCode "
 
             daMethods = New SqlDataAdapter(SQL, CurrentConnection)
@@ -127,7 +127,7 @@ Public Class ISMPTestReports
             "(select  " &
             "(strLastName|| ', ' ||strFirstName) as UserName,  " &
             "NumUserID  " &
-            "from AIRBRANCH.EPDUSerProfiles  " &
+            "from EPDUSerProfiles  " &
             "where numProgram  = '3'  " &
             "and numEmployeeStatus = '1'   " &
             "and (numunit is null or numunit <> '14') " &
@@ -135,83 +135,83 @@ Public Class ISMPTestReports
             "select  " &
             "distinct(strLastName|| ', ' ||strFirstName) as UserName,  " &
             "NumUserID  " &
-            "from AIRBRANCH.EPDUSerProfiles, AIRBRANCH.ismpreportinformation " &
-            "where AIRBRANCH.epdUserProfiles.numUserId = AIRBRANCH.ismpreportinformation.strWitnessingEngineer) "
+            "from EPDUSerProfiles, ismpreportinformation " &
+            "where epdUserProfiles.numUserId = ismpreportinformation.strWitnessingEngineer) "
 
             daEngineer = New SqlDataAdapter(SQL, CurrentConnection)
 
-            SQL = "select strCompliancekey, strComplianceStatus from AIRBRANCH.LookUPISMPComplianceStatus"
+            SQL = "select strCompliancekey, strComplianceStatus from LookUPISMPComplianceStatus"
 
             daComplianceStatus = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = <s><![CDATA[
-SELECT (AIRBranch.EPDUserProfiles.STRLASTNAME
+SELECT (EPDUserProfiles.STRLASTNAME
   || ', '
-  || AIRBranch.EPDUserProfiles.STRFIRSTNAME) AS UserName,
-  AIRBranch.EPDUserProfiles.NUMUSERID
-FROM AIRBranch.EPDUserProfiles,
-  AIRBranch.IAIPPermissions
-WHERE AIRBranch.EPDUserProfiles.NUMUSERID = AIRBranch.IAIPPermissions.NUMUSERID
-AND AIRBranch.EPDUserProfiles.NUMEMPLOYEESTATUS = '1'
-AND ((AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(28)%')
-OR (AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(19)%')
-OR (AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(121)%')
-OR (AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(114)%')
-OR (AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(141)%'))
+  || EPDUserProfiles.STRFIRSTNAME) AS UserName,
+  EPDUserProfiles.NUMUSERID
+FROM EPDUserProfiles,
+  IAIPPermissions
+WHERE EPDUserProfiles.NUMUSERID = IAIPPermissions.NUMUSERID
+AND EPDUserProfiles.NUMEMPLOYEESTATUS = '1'
+AND ((IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(28)%')
+OR (IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(19)%')
+OR (IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(121)%')
+OR (IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(114)%')
+OR (IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(141)%'))
 UNION
 SELECT 'None', 0 FROM DUAL ORDER BY USERNAME
             ]]></s>.Value
 
             daCCList = New SqlDataAdapter(SQL, CurrentConnection)
 
-            SQL = "select strUnitKey, strUnitDescription from AIRBRANCH.LookUPUnits order by strUnitDescription"
+            SQL = "select strUnitKey, strUnitDescription from LookUPUnits order by strUnitDescription"
 
             daUnits = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = "select " &
                 "strUnitDesc, numUnitCode  " &
-                "from AIRBRANCH.LookUpEPDUnits  " &
+                "from LookUpEPDUnits  " &
                 "where numProgramCode = '3' or numProgramCode = '0' "
 
             daISMPUnits = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = <s><![CDATA[
-SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
+SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
     || ', '
-    || AIRBranch.EPDUserProfiles.STRFIRSTNAME) AS ComplianceManager,
-    AIRBranch.EPDUserProfiles.NUMUSERID
-  FROM AIRBranch.EPDUserProfiles,
-    AIRBranch.IAIPPermissions
-  WHERE AIRBranch.EPDUserProfiles.NUMUSERID        = AIRBranch.IAIPPermissions.NUMUSERID
-  AND (AIRBranch.EPDUserProfiles.NUMEMPLOYEESTATUS = '1'
-  AND (AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(19)%'
-  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(27)%'
-  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(21)%'
-  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(23)%'
-  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(25)%'
-  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(79)%'
-  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(80)%'
-  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(81)%'
-  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(82)%'
-  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(83)%'
-  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(84)%'
-  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(85)%'
-  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(86)%'
-  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(133)%'
-  OR AIRBranch.IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(114)%'))
+    || EPDUserProfiles.STRFIRSTNAME) AS ComplianceManager,
+    EPDUserProfiles.NUMUSERID
+  FROM EPDUserProfiles,
+    IAIPPermissions
+  WHERE EPDUserProfiles.NUMUSERID        = IAIPPermissions.NUMUSERID
+  AND (EPDUserProfiles.NUMEMPLOYEESTATUS = '1'
+  AND (IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(19)%'
+  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(27)%'
+  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(21)%'
+  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(23)%'
+  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(25)%'
+  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(79)%'
+  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(80)%'
+  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(81)%'
+  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(82)%'
+  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(83)%'
+  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(84)%'
+  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(85)%'
+  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(86)%'
+  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(133)%'
+  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(114)%'))
   UNION
   SELECT 'None', 0 FROM DUAL 
   ORDER BY ComplianceManager
             ]]></s>.Value
             daComplianceManager = New SqlDataAdapter(SQL, CurrentConnection)
 
-            SQL = "Select strTestingFirm, strTestingFirmKey from AIRBRANCH.LookUPTestingFirms order by strTestingFirm"
+            SQL = "Select strTestingFirm, strTestingFirmKey from LookUPTestingFirms order by strTestingFirm"
             daTestingFirm = New SqlDataAdapter(SQL, CurrentConnection)
 
-            SQL = "Select strReportType, strKey from AIRBRANCH.ISMPReportType order by strReportType"
+            SQL = "Select strReportType, strKey from ISMPReportType order by strReportType"
             daReportType = New SqlDataAdapter(SQL, CurrentConnection)
 
-            SQL = "Select strPollutantCode, strPollutantDescription from AIRBRANCH.LookUPPollutants order by strPollutantDescription"
+            SQL = "Select strPollutantCode, strPollutantDescription from LookUPPollutants order by strPollutantDescription"
             daPollutants = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = "Select " &
@@ -224,13 +224,13 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             "(select  " &
             "(strLastName|| ', ' ||strFirstName) as UserName,  " &
             "numUserID  " &
-            "from airbranch.EPDUserProfiles  " &
+            "from EPDUserProfiles  " &
             "where ((numProgram = '4'  or numbranch = '5' ) " &
             "and numEmployeeStatus = '1')  " &
             "or strLastName = 'District'  " &
             "Union " &
             "select staff as username, numuserID " &
-            "from AIRBranch.VW_ComplianceStaff) "
+            "from VW_ComplianceStaff) "
 
             daComplianceStaff = New SqlDataAdapter(SQL, CurrentConnection)
 
@@ -2107,16 +2107,16 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             "                           WHEN rep.STRCC = '0'   THEN 'None' " &
             "    ELSE( p3.STRLASTNAME || ', ' || p3.STRFIRSTNAME ) END " &
             "  CCName , rep.STRDELETE " &
-            "FROM AIRBRANCH.ISMPMaster mas " &
-            "INNER JOIN AIRBRANCH.ISMPReportInformation rep " &
+            "FROM ISMPMaster mas " &
+            "INNER JOIN ISMPReportInformation rep " &
             "ON mas.STRREFERENCENUMBER = rep.STRREFERENCENUMBER " &
-            "LEFT JOIN AIRBRANCH.EPDUserProfiles p3 " &
+            "LEFT JOIN EPDUserProfiles p3 " &
             "ON rep.STRCC = p3.NUMUSERID " &
-            "LEFT JOIN AIRBRANCH.EPDUSERPROFILES p2 " &
+            "LEFT JOIN EPDUSERPROFILES p2 " &
             "ON rep.STRCOMPLIANCEMANAGER = p2.NUMUSERID " &
-            "LEFT JOIN AIRBRANCH.EPDUSERPROFILES p1 " &
+            "LEFT JOIN EPDUSERPROFILES p1 " &
             "ON rep.NUMREVIEWINGMANAGER = p1.NUMUSERID " &
-            "INNER JOIN AIRBRANCH.APBFacilityInformation fac " &
+            "INNER JOIN APBFacilityInformation fac " &
             "ON fac.STRAIRSNUMBER = mas.STRAIRSNUMBER " &
             "WHERE mas.STRREFERENCENUMBER = :refnum"
 
@@ -2464,7 +2464,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             lblMemoEntered.Visible = False
 
             SQL = "Select " &
-            "* from AIRBranch.ISMPTestReportMemo " &
+            "* from ISMPTestReportMemo " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2533,7 +2533,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "strEmissionRateUnit,  " &
                     "strEmissionRateAvg, " &
                     "strPercentAllowable  " &
-                    "from AIRBRANCH.ISMPReportOneStack " &
+                    "from ISMPReportOneStack " &
                     "where strReferenceNumber = '" & RefNum & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2755,7 +2755,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "strEmissionRateUnit,  " &
                     "strEmissionRateAvg, " &
                     "strPercentAllowable  " &
-                    "from AIRBRANCH.ISMPReportOneStack " &
+                    "from ISMPReportOneStack " &
                     "where strReferenceNumber = '" & RefNum & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -3017,7 +3017,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "strEmissionRateUnit,  " &
                     "strEmissionRateAvg, " &
                     "strPercentAllowable  " &
-                    "from AIRBRANCH.ISMPReportOneStack " &
+                    "from ISMPReportOneStack " &
                     "where strReferenceNumber = '" & RefNum & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -3321,7 +3321,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "strEmissionRateTotal1, strEmissionRateTotal2, strEmissionRateTotal3, " &
                     "strEmissionRateTotalAvg, " &
                     "strPercentAllowable " &
-                    "from AIRBRANCH.ISMPReportTwoStack " &
+                    "from ISMPReportTwoStack " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -3922,7 +3922,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                      "strEmissionRateUnit, strEmissionRateAvg1, " &
                      "strEmissionRateAvg2, " &
                      "strDestructionPercent " &
-                     "from AIRBRANCH.ISMPReportTwoStack " &
+                     "from ISMPReportTwoStack " &
                      "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -4496,7 +4496,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "strPollutantConcenUnitIn, strPollutantConcenOut, strPollutantConcenUnitOut, " &
                     "strEmissionRate, strEmissionRateUnit, strDestructionEfficiency, " &
                     "strPercentAllowable " &
-                    "from AIRBRANCH.ISMPReportFlare " &
+                    "from ISMPReportFlare " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -4683,7 +4683,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "strTreatmentRate1A, strTreatmentRate1B, strTreatmentRate1C, " &
                     "strTreatmentRateUnit, strTreatmentRateAvg, " &
                     "strPercentAllowable " &
-                    "from AIRBRANCH.ISMPReportPondAndGas " &
+                    "from ISMPReportPondAndGas " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -4924,7 +4924,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "strEmissionRate1A, strEmissionRate1B, strEmissionRate1C, " &
                     "strEmissionRateUnit, strEmissionRateAvg, " &
                     "strPercentAllowable " &
-                    "from AIRBRANCH.ISMPReportPondAndGas " &
+                    "from ISMPReportPondAndGas " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -5161,7 +5161,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "strVelocity1A, strVelocity2A, strVelocity3A, " &
                     "strVelocityUnits, strVelocityAvg, " &
                     "strPercentAllowable " &
-                    "from AIRBRANCH.ISMPReportFlare " &
+                    "from ISMPReportFlare " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -5350,7 +5350,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "StrCMS11, StrCMS12, " &
                     "strAccuracyChoice, strAccuracyRequiredPercent, " &
                     "strAccuracyREquiredStatement, strRunsINcludedKey " &
-                    "from AIRBRANCH.ISMPReportRATA " &
+                    "from ISMPReportRATA " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -5730,7 +5730,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
                     SQL = "Select " &
                     "strMemorandumField " &
-                    "from AIRBRANCH.ISMPREportMemo " &
+                    "from ISMPREportMemo " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -5758,7 +5758,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     SQL = "Select " &
                     "strMemorandumField, strMonitorManufactureAndModel, " &
                     "strMonitorSerialNumber " &
-                    "from AIRBRANCH.ISMPREportMemo " &
+                    "from ISMPREportMemo " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -5809,7 +5809,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "strAllowableEmissionRate1A, strAllowableEmissionRate1B, " &
                     "strAllowableEmissionRate1C, strAllowableEmissionRateUnit1A, " &
                     "strAllowableEmissionRateUnit1B, strAllowableEmissionRateUnit1C " &
-                    "from AIRBRANCH.ISMPREportMemo " &
+                    "from ISMPREportMemo " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -5938,7 +5938,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "strAllowableEmissionRate1A, strAllowableEmissionRateUnit, " &
                     "strOpacityTestDuration, " &
                     "strOpacityPointA, strOpacityStandard  " &
-                    "from AIRBRANCH.ISMPREportOpacity " &
+                    "from ISMPREportOpacity " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -6042,7 +6042,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "strEquipmentItem2, strEquipmentItem3, " &
                     "strEquipmentItem4, strEquipmentItem5, " &
                     "strOpacityStandard " &
-                    "from AIRBRANCH.ISMPREportOpacity " &
+                    "from ISMPREportOpacity " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -6337,7 +6337,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "strOperatingCapacity1A, strOperatingCapacityUnit, " &
                      "STRALLOWABLEEMISSIONRATE22, " &
                     "strOpacityTestDuration, strAccumulatedEmissionTime " &
-                    "from AIRBRANCH.ISMPREportOpacity " &
+                    "from ISMPREportOpacity " &
                     "where strReferenceNumber = '" & RefNum & "'"
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -9375,7 +9375,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
     Sub LoadOtherWitnessingEng()
         Try
             SQL = "select strWitnessingEngineer " &
-            "From AIRBRANCH.ISMPWitnessingEng " &
+            "From ISMPWitnessingEng " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -9405,14 +9405,14 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
         Try
             If txtAirsNumber.Text <> "" Then
                 SQL = "Select " &
-                "AIRBRANCH.SSCPTestReports.strTrackingNumber, " &
+                "SSCPTestReports.strTrackingNumber, " &
                 "datTestReportDue, strTestReportComments, " &
                 "strTestReportFollowUp, datREceivedDate, " &
                 "strResponsibleStaff, datCompleteDate, " &
                 "datAcknoledgmentLetterSent " &
-                "from AIRBRANCH.SSCPTestReports, " &
-                "AIRBRANCH.SSCPItemMaster  " &
-                "where AIRBRANCH.SSCPTestReports.strTrackingNumber = AIRBRANCH.SSCPItemMaster.strTrackingNumber " &
+                "from SSCPTestReports, " &
+                "SSCPItemMaster  " &
+                "where SSCPTestReports.strTrackingNumber = SSCPItemMaster.strTrackingNumber " &
                 "and strReferenceNumber = '" & txtReferenceNumber.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -9494,7 +9494,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 End If
 
                 SQL = "Select strEnforcementNumber " &
-                "from AIRBRANCH.SSCP_AuditedEnforcement " &
+                "from SSCP_AuditedEnforcement " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -9517,7 +9517,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 dr.Close()
 
                 SQL = "Select datSSCPTestReportDue " &
-                "from AIRBRANCH.APBSupplamentalData " &
+                "from APBSupplamentalData " &
                 "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -9582,61 +9582,61 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             SQL = "select " &
             "(LogNumber|| ' --> ' ||StartDate) as LogNumber " &
             "from  " &
-            "(Select (AIRBRANCH.ISMPTESTNotification.strTestLogNumber) as LogNumber, " &
+            "(Select (ISMPTESTNotification.strTestLogNumber) as LogNumber, " &
             "to_char(datProposedStartDate) as StartDate " &
-            "from  AIRBRANCH.ISMPTESTNotification  " &
-            "where not exists(select AIRBRANCH.ISMPTestLogLink.strTestLogNumber  " &
-            "from AIRBRANCH.ISMPTestLogLink " &
-            "where AIRBRANCH.ISMPTestNotification.strTestLogNumber = AIRBRANCH.ISMPTestLogLink.strTestLogNumber)  " &
+            "from  ISMPTESTNotification  " &
+            "where not exists(select ISMPTestLogLink.strTestLogNumber  " &
+            "from ISMPTestLogLink " &
+            "where ISMPTestNotification.strTestLogNumber = ISMPTestLogLink.strTestLogNumber)  " &
             "and strAIRSNumber = '0413" & txtAirsNumber.Text & "') NonLinked  " &
             "UNION  " &
             "select " &
             "(LogNumber|| ' --> ' ||StartDate) as LogNumber " &
             "from  " &
-            "(select (AIRBRANCH.ISMPTestLogLink.strTestLogNumber) as LogNumber, " &
+            "(select (ISMPTestLogLink.strTestLogNumber) as LogNumber, " &
             "' ' as StartDate " &
-            "from AIRBRANCH.ISMPTestLogLink  " &
+            "from ISMPTestLogLink  " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "') CurrentLink " &
             "Union " &
             "select  " &
             "(LogNumber || ' --> ' ||StartDate) as LogNumber " &
-            "from (select distinct(AIRBRANCH.ISMPTestLogLink.strTestLogNumber) as LogNumber,  " &
+            "from (select distinct(ISMPTestLogLink.strTestLogNumber) as LogNumber,  " &
             "' ' as StartDate " &
-            "from AIRBRANCH.ISMPTestLogLink, AIRBRANCH.ISMPReportInformation,  " &
-            "AIRBRANCH.ISMPMaster " &
-            "where AIRBRANCH.ISMPTEstLogLink.strReferenceNumber = AIRBRANCH.ISMPREportInformation.strReferenceNumber  " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber  " &
+            "from ISMPTestLogLink, ISMPReportInformation,  " &
+            "ISMPMaster " &
+            "where ISMPTEstLogLink.strReferenceNumber = ISMPREportInformation.strReferenceNumber  " &
+            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
             "and strAIRSNumber = '0413" & txtAirsNumber.Text & "'  " &
             "and strClosed <> 'True') UnclosedLinks "
 
             SQL = "select " &
             "(LogNumber|| ' --> ' ||StartDate) as LogNumber " &
-            "from  (Select (AIRBRANCH.ISMPTESTNotification.strTestLogNumber) as LogNumber, " &
+            "from  (Select (ISMPTESTNotification.strTestLogNumber) as LogNumber, " &
             "to_char(datProposedStartDate) as StartDate " &
-            "from  AIRBRANCH.ISMPTESTNotification  " &
-            "where not exists(select AIRBRANCH.ISMPTestLogLink.strTestLogNumber  " &
-            "from AIRBRANCH.ISMPTestLogLink " &
-            "where AIRBRANCH.ISMPTestNotification.strTestLogNumber = AIRBRANCH.ISMPTestLogLink.strTestLogNumber)  " &
+            "from  ISMPTESTNotification  " &
+            "where not exists(select ISMPTestLogLink.strTestLogNumber  " &
+            "from ISMPTestLogLink " &
+            "where ISMPTestNotification.strTestLogNumber = ISMPTestLogLink.strTestLogNumber)  " &
             "and strAIRSNumber = '0413" & txtAirsNumber.Text & "') NonLinked  " &
             "UNION  " &
             "select " &
             "LogNumber " &
             "from (select " &
-            "(AIRBRANCH.ISMPTestLogLink.strTestLogNumber|| ' --> ' ||datProposedStartDate) as LogNumber " &
-            "from AIRBRANCH.ISMPTestLogLink, AIRBranch.ISMPTestNotification " &
-            "where AIRBRANCH.ISMPTestLogLink.strTestLogNumber = AIRBRANCH.ISMPTestNotification.strTestLogNumber " &
+            "(ISMPTestLogLink.strTestLogNumber|| ' --> ' ||datProposedStartDate) as LogNumber " &
+            "from ISMPTestLogLink, ISMPTestNotification " &
+            "where ISMPTestLogLink.strTestLogNumber = ISMPTestNotification.strTestLogNumber " &
             "and strReferenceNumber = '" & txtReferenceNumber.Text & "') CurrentLink " &
             "Union " &
             "select  (LogNumber || ' --> ' ||StartDate) as LogNumber " &
             "from " &
-            "(select distinct(AIRBRANCH.ISMPTestLogLink.strTestLogNumber) as LogNumber,  " &
+            "(select distinct(ISMPTestLogLink.strTestLogNumber) as LogNumber,  " &
             "datProposedstartdate as StartDate " &
-            "from AIRBRANCH.ISMPTestLogLink, AIRBRANCH.ISMPReportInformation,  " &
-            "AIRBRANCH.ISMPMaster, AIRBRANCH.ISMPTestNotification  " &
-            "where AIRBRANCH.ISMPTEstLogLink.strReferenceNumber = AIRBRANCH.ISMPREportInformation.strReferenceNumber  " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber  " &
-            "and AIRBRANCH.ISMPTestLogLink.strTestLogNumber = AIRBRANCH.ISMPTestNotification.strTestLogNumber  " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = '0413" & txtAirsNumber.Text & "'  " &
+            "from ISMPTestLogLink, ISMPReportInformation,  " &
+            "ISMPMaster, ISMPTestNotification  " &
+            "where ISMPTEstLogLink.strReferenceNumber = ISMPREportInformation.strReferenceNumber  " &
+            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
+            "and ISMPTestLogLink.strTestLogNumber = ISMPTestNotification.strTestLogNumber  " &
+            "and ISMPMaster.strAIRSNumber = '0413" & txtAirsNumber.Text & "'  " &
             "and strClosed <> 'True') UnclosedLinks "
 
 
@@ -9652,9 +9652,9 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             dr.Close()
 
             SQL = "select " &
-            "(AIRBRANCH.ISMPTestLogLink.strTestLogNumber|| ' --> ' ||datProposedStartDate) as LogNumber " &
-            "from AIRBRANCH.ISMPTestLogLink, AIRBRANCH.ISMPTestNotification " &
-            "where AIRBRANCH.ISMPTestLogLink.strTestLogNumber = AIRBRANCH.ISMPTestNotification.strTestLogNumber " &
+            "(ISMPTestLogLink.strTestLogNumber|| ' --> ' ||datProposedStartDate) as LogNumber " &
+            "from ISMPTestLogLink, ISMPTestNotification " &
+            "where ISMPTestLogLink.strTestLogNumber = ISMPTestNotification.strTestLogNumber " &
             "and strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -9684,13 +9684,13 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             Dim DistrictManager As String = ""
 
             SQL = "select max(INTYEAR), strAssigningManager " &
-                  "from AIRBRANCH.SSCPINSPECTIONSREQUIRED, " &
-                   "(select max(intyear) as MaxYear, AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER  " &
-                      "from AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
-                      "where AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = '0413" & txtAirsNumber.Text & "' " &
-                      "group by AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER ) MaxResults " &
-                  "where AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = '0413" & txtAirsNumber.Text & "' " &
-                  " and AIRBRANCH.SSCPINSPECTIONSREQUIRED.intyear = maxresults.maxyear " &
+                  "from SSCPINSPECTIONSREQUIRED, " &
+                   "(select max(intyear) as MaxYear, SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER  " &
+                      "from SSCPINSPECTIONSREQUIRED " &
+                      "where SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = '0413" & txtAirsNumber.Text & "' " &
+                      "group by SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER ) MaxResults " &
+                  "where SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = '0413" & txtAirsNumber.Text & "' " &
+                  " and SSCPINSPECTIONSREQUIRED.intyear = maxresults.maxyear " &
                   "group by strAssigningManager "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -9712,13 +9712,13 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
             SQL = "select " &
             "strDistrictManager  " &
-            "from AIRBRANCH.SSCPDistrictResponsible,  " &
-            "AIRBRANCH.LookUpDistricts,  " &
-            "AIRBRANCH.LookUpDistrictInformation   " &
+            "from SSCPDistrictResponsible,  " &
+            "LookUpDistricts,  " &
+            "LookUpDistrictInformation   " &
             "where strDistrictResponsible = 'True'  " &
-            "and AIRBRANCH.LookUpDistricts.strDistrictCode = AIRBRANCH.LookUpDistrictInformation.strDistrictCode   " &
-            "and AIRBRANCH.LookUpDistrictInformation.strDistrictCounty = substr(AIRBRANCH.SSCPDistrictResponsible.strAIRSNumber, 5, 3) " &
-            "and AIRBRANCH.SSCPDistrictResponsible.strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
+            "and LookUpDistricts.strDistrictCode = LookUpDistrictInformation.strDistrictCode   " &
+            "and LookUpDistrictInformation.strDistrictCounty = substr(SSCPDistrictResponsible.strAIRSNumber, 5, 3) " &
+            "and SSCPDistrictResponsible.strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -10284,13 +10284,13 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             OldRefNum = InputBox("Enter Old Reference Number.", "PrePopulate Tool.")
 
             If OldRefNum <> "" Then
-                SQL = "select AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                "from AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPReportInformation " &
-                "where AIRBRANCH.ISMPReportInformation.strDocumentType = AIRBRANCH.ISMPDocumentType.strKey " &
+                SQL = "select ISMPDocumentType.strDocumentType " &
+                "from ISMPDocumentType, ISMPReportInformation " &
+                "where ISMPReportInformation.strDocumentType = ISMPDocumentType.strKey " &
                 "and strReferenceNumber = '" & OldRefNum & "'"
 
                 SQL = "Select strDocumentType  " &
-                "from AIRBRANCH.ISMPReportInformation " &
+                "from ISMPReportInformation " &
                 "where strReferenceNumber = '" & OldRefNum & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -10309,9 +10309,9 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     ClearAll()
 
                     SQL = "Select " &
-                  "AIRBRANCH.ISMPMaster.strReferenceNumber,  " &
-                  "substr(AIRBRANCH.ISMpMaster.strAIRSnumber, 5) as AIRSNumber,  " &
-                  "AIRBRANCH.APBFacilityInformation.strFacilityName,  " &
+                  "ISMPMaster.strReferenceNumber,  " &
+                  "substr(ISMpMaster.strAIRSnumber, 5) as AIRSNumber,  " &
+                  "APBFacilityInformation.strFacilityName,  " &
                   "strFacilityCity, strFacilityState,  " &
                   "strPollutant, strEmissionSource,  " &
                   "strReportType, strDocumentType,  " &
@@ -10328,7 +10328,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                   "mmoCommentArea,  " &
                   "strClosed, strProgramManager,  " &
                   "strComplianceStatus, strCC,  " &
-                  "(AIRBRANCH.ISMPReportInformation.datReceivedDate - AIRBRANCH.ISMPReportInformation.datTestDateEnd) as DaysFromTest,  " &
+                  "(ISMPReportInformation.datReceivedDate - ISMPReportInformation.datTestDateEnd) as DaysFromTest,  " &
                   "case  " &
                   "when datCompleteDate = '04-Jul-1776' then to_char(sysdate-datReceivedDate)  " &
                   "else to_char(datCompleteDate - datReceivedDate)  " &
@@ -10343,12 +10343,12 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                   "when numReviewingManager is null then 'N/A' " &
                   "else (strLastName||', '||strFirstName) " &
                   "END UnitManager " &
-                  "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation,  " &
-                  "AIRBRANCH.ISMPReportInformation, AIRBRANCH.EPDUserProfiles     " &
-                  "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " &
-                  "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber  " &
-                  "and AIRBRANCH.ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID (+) " &
-                  "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & RefNum & "' "
+                  "from ISMPMaster, APBFacilityInformation,  " &
+                  "ISMPReportInformation, EPDUserProfiles     " &
+                  "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
+                  "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
+                  "and ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID (+) " &
+                  "and ISMPMaster.strReferenceNumber = '" & RefNum & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -10544,7 +10544,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     "strPollutant, strEmissionSource, " &
                     "strReportType, strDeterminationMethod, " &
                     "strApplicableRequirement, strControlEquipmentData " &
-                    "from AIRBRANCH.ISMPReportInformation " &
+                    "from ISMPReportInformation " &
                     "where strReferenceNUmber = '" & OldRefNum & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -10792,9 +10792,9 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     UserUnitTemp = ""
                 End If
                 SQL = "select (strLastName||', '||strFirstName) as UnitManager, " &
-                "AIRBRANCH.EPDUSerProfiles.numUserID " &
-                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.IAIPPermissions " &
-                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.IAIPPermissions.numUserID " &
+                "EPDUSerProfiles.numUserID " &
+                "from EPDUserProfiles, IAIPPermissions " &
+                "where EPDUserProfiles.numUserID = IAIPPermissions.numUserID " &
                 "and numEmployeeStatus = '1' " &
                 "and (strIAIPPermissions like '%(4)%' or strIAIPPermissions like '%(115)%') " &
                 "and numUnit = '" & UserUnitTemp & "' "
@@ -11321,7 +11321,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     DocumentType = "001"
             End Select
 
-            SQL = "Update AIRBRANCH.ISMPReportInformation set " &
+            SQL = "Update ISMPReportInformation set " &
             "strPollutant = '" & Pollutant & "', " &
             "strEmissionSource = '" & Replace(EmissionSource, "'", "''") & "', " &
             "strReportType = '" & ReportType & "', " &
@@ -11399,7 +11399,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             If OtherWitnessing > 0 Then
                 Dim temp As String = " "
                 If Me.clbWitnessingEngineers.CheckedItems.Count > 0 Then
-                    SQL = "Delete AIRBRANCH.ISMPWitnessingEng " &
+                    SQL = "Delete ISMPWitnessingEng " &
                     "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -11412,7 +11412,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         If clbWitnessingEngineers.GetItemChecked(x) = True Then
                             clbWitnessingEngineers.SelectedIndex = x
                             temp = clbWitnessingEngineers.SelectedValue
-                            SQL = "Insert into AIRBRANCH.ISMPWitnessingEng " &
+                            SQL = "Insert into ISMPWitnessingEng " &
                             "values " &
                             "('" & txtReferenceNumber.Text & "', '" & temp & "') "
                             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -11426,7 +11426,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 End If
             End If
 
-            SQL = "delete AIRBRANCH.ISMPTestLogLink " &
+            SQL = "delete ISMPTestLogLink " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -11444,7 +11444,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     NotificationNumber = cboTestNotificationNumber.Text
                 End If
 
-                SQL = "Insert into AIRBRANCH.ISMPTestLogLink " &
+                SQL = "Insert into ISMPTestLogLink " &
                 "values " &
                 "('" & txtReferenceNumber.Text & "', '" & NotificationNumber & "') "
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -11724,13 +11724,13 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 FollowUp = "False"
             End If
             If txtTrackingNumber.Text = "" Then
-                SQL = "Insert into AIRBRANCH.SSCPItemMaster " &
+                SQL = "Insert into SSCPItemMaster " &
                 "(strTrackingNumber, strAIRSNumber, " &
                 "datReceivedDate, strEventType, " &
                 "strResponsibleStaff, datCompleteDate, " &
                 "strModifingPerson, datModifingDate) " &
                 "values " &
-                "(AIRBRANCH.SSCPTrackingNumber.nextval, '0413" & txtAirsNumber.Text & "', " &
+                "(SSCPTrackingNumber.nextval, '0413" & txtAirsNumber.Text & "', " &
                 "'" & OracleDate & "', '03', " &
                 "'" & StaffResponsible & "', '', " &
                 "'" & CurrentUser.UserID & "', '" & OracleDate & "')"
@@ -11741,7 +11741,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Select AIRBRANCH.SSCPTrackingNumber.currval from dual "
+                SQL = "Select SSCPTrackingNumber.currval from dual "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -11753,7 +11753,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 End While
                 dr.Close()
 
-                SQL = "Insert into AIRBRANCH.SSCPTestReports " &
+                SQL = "Insert into SSCPTestReports " &
                 "(strTrackingNumber, strReferenceNumber, " &
                 "datTestReportDue, " &
                 "strTestReportComments, strTestReportFollowUp, " &
@@ -11774,7 +11774,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
 
             If txtTrackingNumber.Text <> "" Then
                 SQL = "Select strTrackingNumber " &
-                "from AIRBRANCH.SSCPItemMaster " &
+                "from SSCPItemMaster " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "'"
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -11785,7 +11785,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 dr.Close()
 
                 If RecExist = True Then
-                    SQL = "Update AIRBRANCH.SSCPItemMaster set " &
+                    SQL = "Update SSCPItemMaster set " &
                     "strResponsibleStaff = '" & StaffResponsible & "', " &
                     "datCompleteDate = '" & CompleteDate & "', " &
                     "datAcknoledgmentLetterSent = '" & AckLetter & "', " &
@@ -11799,7 +11799,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     dr = cmd.ExecuteReader
                     dr.Close()
                     SQL = "Select strTrackingNumber " &
-                    "from AIRBRANCH.SSCPTestReports " &
+                    "from SSCPTestReports " &
                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -11809,7 +11809,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     RecExist = dr.Read
                     dr.Close()
                     If RecExist = True Then
-                        SQL = "Update AIRBRANCH.SSCPTestReports set " &
+                        SQL = "Update SSCPTestReports set " &
                         "datTestReportDue = '" & TestDue & "', " &
                         "strTestReportComments = '" & Replace(ReportComments, "'", "''") & "', " &
                         "strTestReportFollowUp = '" & FollowUp & "', " &
@@ -11825,7 +11825,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                     End If
                     If txtAirsNumber.Text.Length = 8 Then
                         SQL = "Select strAIRSNumber " &
-                        "from AIRBRANCH.APBSupplamentalData " &
+                        "from APBSupplamentalData " &
                         "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
                         cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -11835,7 +11835,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         RecExist = dr.Read
                         dr.Close()
                         If RecExist = True Then
-                            SQL = "Update AIRBRANCH.APBSupplamentalData set " &
+                            SQL = "Update APBSupplamentalData set " &
                             "DatSSCPTestReportDue = '" & NextTest & "', " &
                             "strModifingPerson = '" & CurrentUser.UserID & "', " &
                             "datModifingdate = '" & OracleDate & "' " &
@@ -12400,7 +12400,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             End Select
 
             SQL = "Select strReferenceNumber " &
-            "From AIRBRANCH.ISMPReportOneStack " &
+            "From ISMPReportOneStack " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -12411,7 +12411,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             dr.Close()
 
             If RecExist = True Then
-                SQL = "Update AIRBRANCH.ISMPReportOneStack Set " &
+                SQL = "Update ISMPReportOneStack Set " &
                 "strMaxOperatingCapacity = '" & MaxOpCapacity & "', " &
                 " strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " &
                 "strOperatingCapacity = '" & OpCapacity & "', " &
@@ -12457,7 +12457,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 "strPercentAllowable = '" & PercentAllowable & "' " &
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
             Else
-                SQL = "Insert into AIRBRANCH.ISMPREportOneStack " &
+                SQL = "Insert into ISMPREportOneStack " &
                 "values " &
                 "('" & txtReferenceNumber.Text & "', " &
                 "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " &
@@ -13180,7 +13180,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             End Select
 
             SQL = "Select strReferenceNumber " &
-            "From AIRBRANCH.ISMPReportTwoStack " &
+            "From ISMPReportTwoStack " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -13191,7 +13191,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             dr.Close()
 
             If RecExist = True Then
-                SQL = "Update AIRBRANCH.ISMPReportTwoStack set " &
+                SQL = "Update ISMPReportTwoStack set " &
                 "strMaxOperatingCapacity = '" & MaxOpCapacity & "', " &
                 "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " &
                 "strOperatingCapacity = '" & OpCapacity & "', " &
@@ -13260,7 +13260,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 "strPercentAllowable = '" & PercentAllowable & "' " &
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             Else
-                SQL = "Insert into AIRBRANCH.ISMPReportTwoStack " &
+                SQL = "Insert into ISMPReportTwoStack " &
                 "values " &
                 "('" & txtReferenceNumber.Text & "', " &
                 "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " &
@@ -13463,7 +13463,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             End If
 
             SQL = "Select strReferenceNumber " &
-            "from AIRBRANCH.ISMPReportFlare " &
+            "from ISMPReportFlare " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -13474,7 +13474,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             dr.Close()
 
             If RecExist = True Then
-                SQL = "Update AIRBRANCH.ISMPReportFlare set " &
+                SQL = "Update ISMPReportFlare set " &
                 "strMaxOperatingCapacity  = '" & MaxOpCapacity & "', " &
                 "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " &
                 "strOperatingcapacity = '" & OpCapacity & "', " &
@@ -13496,7 +13496,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 "strDestructionEfficiency = '" & Destruct & "' " &
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             Else
-                SQL = "Insert into AIRBRANCH.ISMPReportFlare " &
+                SQL = "Insert into ISMPReportFlare " &
                 "values " &
                 "('" & txtReferenceNumber.Text & "', " &
                 "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " &
@@ -13702,7 +13702,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             End If
 
             SQL = "Select strReferenceNumber " &
-            "from AIRBRANCH.ISMPReportPondAndGas " &
+            "from ISMPReportPondAndGas " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -13713,7 +13713,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             dr.Close()
 
             If RecExist = True Then
-                SQL = "Update AIRBRANCH.ISMPReportPondAndGas set " &
+                SQL = "Update ISMPReportPondAndGas set " &
                 "strMaxOperatingCapacity = '" & MaxOpCapacity & "', " &
                 "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " &
                 "strOperatingCapacity  =  '" & OpCapacity & "', " &
@@ -13740,7 +13740,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 "strPercentallowable = '" & Destruct & "' " &
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             Else
-                SQL = "Insert into AIRBRANCH.ISMPReportPondAndGas " &
+                SQL = "Insert into ISMPReportPondAndGas " &
                 "values " &
                 "('" & txtReferenceNumber.Text & "', " &
                 "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " &
@@ -13945,7 +13945,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             End If
 
             SQL = "Select strReferenceNumber " &
-            "from AIRBRANCH.ISMPReportPondAndGas " &
+            "from ISMPReportPondAndGas " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -13956,7 +13956,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             dr.Close()
 
             If RecExist = True Then
-                SQL = "Update AIRBRANCH.ISMPReportPondAndGas set " &
+                SQL = "Update ISMPReportPondAndGas set " &
                 "strMaxOperatingCapacity = '" & MaxOpCapacity & "', " &
                 "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " &
                 "strOperatingCapacity  =  '" & OpCapacity & "', " &
@@ -13983,7 +13983,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 "strPercentAllowable = '" & PercentAllowable & "' " &
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             Else
-                SQL = "Insert into AIRBRANCH.ISMPReportPondAndGas " &
+                SQL = "Insert into ISMPReportPondAndGas " &
                 "values " &
                 "('" & txtReferenceNumber.Text & "', " &
                 "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " &
@@ -14135,7 +14135,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             End If
 
             SQL = "Select strReferenceNumber " &
-            "from AIRBRANCH.ISMPReportFlare " &
+            "from ISMPReportFlare " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -14146,7 +14146,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             dr.Close()
 
             If RecExist = True Then
-                SQL = "Update AIRBRANCH.ISMPReportFlare set " &
+                SQL = "Update ISMPReportFlare set " &
                 "strMaxOperatingCapacity  = '" & MaxOpCapacity & "', " &
                 "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " &
                 "strOperatingcapacity = '" & OpCapacity & "', " &
@@ -14166,7 +14166,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 "strPercentAllowable = '" & PercentAllowable & "' " &
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             Else
-                SQL = "Insert into AIRBRANCH.ISMPReportFlare " &
+                SQL = "Insert into ISMPReportFlare " &
                 "values " &
                 "('" & txtReferenceNumber.Text & "', " &
                 "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " &
@@ -14487,7 +14487,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             End If
 
             SQL = "Select strReferenceNumber " &
-            "from AIRBRANCH.ISMPReportRata " &
+            "from ISMPReportRata " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -14498,7 +14498,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             dr.Close()
 
             If RecExist = True Then
-                SQL = "Update AIRBRANCH.ISMPReportRATA set " &
+                SQL = "Update ISMPReportRATA set " &
                 "strDiluent = '" & Diluent & "', " &
                 "strApplicableStandard = '" & Replace(AppStandard, "'", "''") & "', " &
                 "strRelativeAccuracyPercent = '" & RelativeAccPercent & "', " &
@@ -14533,7 +14533,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 "strRunsIncludedKey = '" & IncludeKey & "' " &
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             Else
-                SQL = "Insert into AIRBRANCH.ISMPReportRATA " &
+                SQL = "Insert into ISMPReportRATA " &
                 "values " &
                 "('" & txtReferenceNumber.Text & "', " &
                 "'" & Diluent & "', " &
@@ -14684,7 +14684,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             End Select
 
             SQL = "Select strReferenceNumber " &
-            "from AIRBRANCH.ISMPReportMemo " &
+            "from ISMPReportMemo " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -14695,7 +14695,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             dr.Close()
 
             If RecExist = True Then
-                SQL = "Update AIRBRANCH.ISMPReportMemo set " &
+                SQL = "Update ISMPReportMemo set " &
                 "strMemorandumField = '" & Replace(MemoField, "'", "''") & "', " &
                 "strMaxOperatingCapacity = '" & MaxOpCapacity & "', " &
                 "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " &
@@ -14711,7 +14711,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 "strMonitorSerialNumber = '" & Replace(SerialNumber, "'", "''") & "' " &
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             Else
-                SQL = "Insert into AIRBRANCH.ISMPReportMemo " &
+                SQL = "Insert into ISMPReportMemo " &
                 "values " &
                 "('" & txtReferenceNumber.Text & "', " &
                 "'" & Replace(MemoField, "'", "''") & "', " &
@@ -15031,7 +15031,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             End Select
 
             SQL = "Select strReferencenumber " &
-            "from AIRBRANCH.ISMPReportOpacity " &
+            "from ISMPReportOpacity " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -15042,7 +15042,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             dr.Close()
 
             If RecExist = True Then
-                SQL = "Update AIRBRANCH.ISMPReportOpacity set " &
+                SQL = "Update ISMPReportOpacity set " &
                 "strMaxoperatingCapacity1A = '" & MaxOpCapacity1 & "', " &
                 "strMaxOperatingCapacity2A = '" & MaxOpCapacity2 & "', " &
                 "strMaxOperatingCapacity3A = '" & MaxOpCapacity3 & "', " &
@@ -15077,7 +15077,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 "STROPACITYStandard = '" & OpacityStandard & "' " &
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             Else
-                SQL = "Insert into AIRBRANCH.ISMPReportOpacity " &
+                SQL = "Insert into ISMPReportOpacity " &
                  "(strReferenceNumber, " &
                  "strMaxoperatingCapacity1A,  strMaxOperatingCapacity2A, " &
                  "strMaxOperatingCapacity3A,  strMaxOperatingCapacity4A,  " &

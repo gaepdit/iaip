@@ -41,7 +41,7 @@ Public Class SSCPEnforcementSelector
 
 
             SQL = "Select numUnitCode, strUnitDesc " &
-            "from AIRBranch.LookUpEPDUnits  " &
+            "from LookUpEPDUnits  " &
             "where numProgramCode = '4'  " &
             "order by strUnitDesc  "
 
@@ -239,13 +239,13 @@ Public Class SSCPEnforcementSelector
                        "	when datEnforcementFinalized is NUll then 'Open' " &
                        "Else 'Open' " &
                        "End as Status, " &
-                       "substr(AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " &
+                       "substr(SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " &
                         "(strLastName|| ', ' ||strFirstName) as Staff,  " &
                        "strFacilityName  " &
-                       "from AIRBRANCH.SSCP_AuditedEnforcement,  " &
-                       "AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles " &
-                       "Where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber " &
-                       "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCP_AuditedEnforcement.numStaffResponsible  " &
+                       "from SSCP_AuditedEnforcement,  " &
+                       "APBFacilityInformation, EPDUserProfiles " &
+                       "Where APBFacilityInformation.strAIRSNumber = SSCP_AuditedEnforcement.strAIRSNumber " &
+                       "and EPDUserProfiles.numUserID = SSCP_AuditedEnforcement.numStaffResponsible  " &
                        "order by strENforcementNumber DESC "
                 Case "AllOpen"
                     'txtAIRSNumber.Clear()
@@ -272,13 +272,13 @@ Public Class SSCPEnforcementSelector
                     "	when datEnforcementFinalized is NUll then 'Open' " &
                     "Else 'Open' " &
                     "End as Status, " &
-                    "substr(AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " &
+                    "substr(SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " &
                      "(strLastName|| ', ' ||strFirstName) as Staff,  " &
                     "strFacilityName  " &
-                    "from AIRBRANCH.SSCP_AuditedEnforcement,   " &
-                    "AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles " &
-                    "Where  AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber " &
-                    "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCP_AuditedEnforcement.numStaffResponsible  " &
+                    "from SSCP_AuditedEnforcement,   " &
+                    "APBFacilityInformation, EPDUserProfiles " &
+                    "Where  APBFacilityInformation.strAIRSNumber = SSCP_AuditedEnforcement.strAIRSNumber " &
+                    "and EPDUserProfiles.numUserID = SSCP_AuditedEnforcement.numStaffResponsible  " &
                     "and datEnforcementFinalized IS Null " &
                     "order by strENforcementNumber DESC "
                 Case "Single"
@@ -304,19 +304,19 @@ Public Class SSCPEnforcementSelector
                     "	when datEnforcementFinalized is NUll then 'Open' " &
                     "Else 'Open' " &
                     "End as Status, " &
-                    "substr(AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " &
+                    "substr(SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " &
                      "(strLastName|| ', ' ||strFirstName) as Staff,  " &
                     "strFacilityName " &
-                    "from AIRBRANCH.SSCP_AuditedEnforcement, " &
-                    "AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles " &
-                    "Where  AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber " &
-                    "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCP_AuditedEnforcement.numStaffResponsible  " &
-                    "and AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " &
+                    "from SSCP_AuditedEnforcement, " &
+                    "APBFacilityInformation, EPDUserProfiles " &
+                    "Where  APBFacilityInformation.strAIRSNumber = SSCP_AuditedEnforcement.strAIRSNumber " &
+                    "and EPDUserProfiles.numUserID = SSCP_AuditedEnforcement.numStaffResponsible  " &
+                    "and SSCP_AuditedEnforcement.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " &
                     "order by strENforcementNumber DESC "
                 Case "ByUnit"
                     If cboComplianceUnits.Text = "Unassigned" Then
                         SQL = "Select " &
-                        "to_number(AIRBRANCH.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber, " &
+                        "to_number(SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber, " &
                         "case  " &
                         "   when datEnforcementFinalized is Not Null then '4 - Closed Out' " &
                         "   when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " &
@@ -338,19 +338,19 @@ Public Class SSCPEnforcementSelector
                         " 	when datEnforcementFinalized is NUll then 'Open'  " &
                         "Else 'Open'  " &
                         "End as Status,  " &
-                         "substr(AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " &
+                         "substr(SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " &
                         "strFacilityName,  " &
                         "(strLastName|| ', ' ||strFirstName) as Staff  " &
-                        "from AIRBRANCH.SSCP_AuditedEnforcement,   " &
-                        "AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles  " &
-                        "Where  AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber  " &
+                        "from SSCP_AuditedEnforcement,   " &
+                        "APBFacilityInformation, EPDUserProfiles  " &
+                        "Where  APBFacilityInformation.strAIRSNumber = SSCP_AuditedEnforcement.strAIRSNumber  " &
                         "and (strStatus IS Null or strStatus = 'UC')  " &
                         "and datEnforcementFinalized is NULL  " &
-                        "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCP_AuditedEnforcement.numStaffResponsible  " &
-                        "and AIRBRANCH.EPDUserProfiles.numUserID = '0'  " &
+                        "and EPDUserProfiles.numUserID = SSCP_AuditedEnforcement.numStaffResponsible  " &
+                        "and EPDUserProfiles.numUserID = '0'  " &
                         "order by strENforcementNumber DESC "
                     Else
-                        SQL = "Select to_number(AIRBRANCH.SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber, " &
+                        SQL = "Select to_number(SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber, " &
                         "case  " &
                         "   when datEnforcementFinalized is Not Null then '4 - Closed Out' " &
                         "   when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " &
@@ -372,17 +372,17 @@ Public Class SSCPEnforcementSelector
                         " 	when datEnforcementFinalized is NUll then 'Open'  " &
                         "Else 'Open'  " &
                         "End as Status,  " &
-                         "substr(AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " &
+                         "substr(SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " &
                         "strFacilityName,  " &
                         "(strLastName|| ', ' ||strFirstName) as Staff  " &
-                        "from AIRBRANCH.SSCP_AuditedEnforcement, " &
-                        "AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles  " &
-                        "Where  AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCP_AuditedEnforcement.strAIRSNumber  " &
+                        "from SSCP_AuditedEnforcement, " &
+                        "APBFacilityInformation, EPDUserProfiles  " &
+                        "Where  APBFacilityInformation.strAIRSNumber = SSCP_AuditedEnforcement.strAIRSNumber  " &
                         "and (strStatus IS Null or strStatus = 'UC')  " &
                         "and datEnforcementFinalized is NULL  " &
-                        "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCP_AuditedEnforcement.numStaffResponsible  " &
-                        "and (AIRBRANCH.EPDUserProfiles.numUnit = '" & cboComplianceUnits.SelectedValue & "'  " &
-                        "or AIRBRANCH.EPDUserProfiles.numUserID = '0')  " &
+                        "and EPDUserProfiles.numUserID = SSCP_AuditedEnforcement.numStaffResponsible  " &
+                        "and (EPDUserProfiles.numUnit = '" & cboComplianceUnits.SelectedValue & "'  " &
+                        "or EPDUserProfiles.numUserID = '0')  " &
                         "order by strENforcementNumber DESC "
                     End If
             End Select

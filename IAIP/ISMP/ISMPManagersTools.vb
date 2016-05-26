@@ -208,18 +208,18 @@ Public Class ISMPManagersTools
             SQL = "select " &
             "(strLastName|| ', ' ||strFirstName) as UserName,  " &
             "numUserID, numUnit  " &
-            "from AIRBRANCH.EPDUSerProfiles, AIRBRANCH.LookUpEPDUnits  " &
-            "where AIRBRANCH.EPDUSerProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode  " &
+            "from EPDUSerProfiles, LookUpEPDUnits  " &
+            "where EPDUSerProfiles.numUnit = LookUpEPDUnits.numUnitCode  " &
             "and numProgram = '3'  " &
             "and numUnit <> '14'  " &
             "and numEmployeeStatus = '1' " &
             "and numUserID <> '0' " &
             "order by strlastname"
 
-            SQL2 = "select strCountyCode, strCountyName from AIRBRANCH.LookUpCountyInformation " &
+            SQL2 = "select strCountyCode, strCountyName from LookUpCountyInformation " &
             "order by strCountyName"
 
-            SQL3 = "select distinct(strFacilityCity) as City from AIRBRANCH.APBFacilityInformation " &
+            SQL3 = "select distinct(strFacilityCity) as City from APBFacilityInformation " &
             "order by strFacilityCity"
 
             dsEngineer = New DataSet
@@ -339,43 +339,43 @@ Public Class ISMPManagersTools
 
             If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " &
-                "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,   " &
+                "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,   " &
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
                 "strEmissionSource,   " &
                 "(Select strPollutantDescription   " &
-                "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant   " &
-                "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,   " &
+                "from LookUPPollutants, ISMPReportInformation  " &
+                "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant   " &
+                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,   " &
                 "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer   " &
-                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation   " &
-                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer   " &
-                "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer   " &
-                "from AIRBRANCH.ISMPMaster, AIRBranch.APBFacilityInformation, AIRBRANCH.ISMPReportInformation   " &
-                "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " &
-                "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+                "from EPDUserProfiles, ISMPReportInformation   " &
+                "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer   " &
+                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer   " &
+                "from ISMPMaster, APBFacilityInformation, ISMPReportInformation   " &
+                "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                 "and ( strclosed = 'False' or strClosed is null ) " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = '0'  " &
-                "and AIRBRANCH.ISMPReportInformation.strDelete is NULL "
+                "and ISMPReportInformation.strReviewingEngineer = '0'  " &
+                "and ISMPReportInformation.strDelete is NULL "
             Else
                 If AccountFormAccess(17, 2) = "1" Then
                     SQL = "Select " &
-                    "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
+                    "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
                     "strEmissionSource,  " &
                     "(Select strPollutantDescription  " &
-                    "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
+                    "from LookUPPollutants, ISMPReportInformation  " &
+                    "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
+                    "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
                     "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                    "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                    "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+                    "from EPDUserProfiles, ISMPReportInformation  " &
+                    "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
+                    "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
+                    "from ISMPMaster, APBFacilityInformation, ISMPReportInformation  " &
+                    "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+                    "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                       "and ( strclosed = 'False' or strClosed is null ) " &
-                    "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = '0' " &
-                    "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
+                    "and ISMPReportInformation.strReviewingEngineer = '0' " &
+                    "and ISMPReportInformation.strDelete is NULL"
 
                 Else
                     SQL = ""
@@ -591,7 +591,7 @@ Public Class ISMPManagersTools
             End If
 
             SQL = "Select FileID, FileTitle " &
-            "From AIRBRANCH.ISMPTestReportAids"
+            "From ISMPTestReportAids"
 
             dsExcelFiles = New DataSet
 
@@ -662,7 +662,7 @@ Public Class ISMPManagersTools
                 CurrentConnection.Open()
             End If
 
-            SQL = "Select * from AIRBRANCH.ISMPDocumentType"
+            SQL = "Select * from ISMPDocumentType"
             cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
 
@@ -786,7 +786,7 @@ Public Class ISMPManagersTools
         Try
             SQL = "Select " &
             "strMethodCode, strMethodDesc " &
-            "From AIRBRANCH.LookUpISMPMethods " &
+            "From LookUpISMPMethods " &
             "order by strMethodCode "
 
             dsMethods = New DataSet
@@ -828,40 +828,40 @@ Public Class ISMPManagersTools
 
             If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " &
-                "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
+                "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
                 "strEmissionSource,  " &
                 "(Select strPollutantDescription  " &
-                "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
+                "from LookUPPollutants, ISMPReportInformation  " &
+                "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
+                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
                 "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                  "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
+                "from EPDUserProfiles, ISMPReportInformation  " &
+                "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
+                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
+                "from ISMPMaster, APBFacilityInformation, ISMPReportInformation  " &
+                "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                  "and ISMPReportInformation.strDelete is NULL"
             Else
                 If AccountFormAccess(17, 2) = "1" Then
                     SQL = "Select " &
-                    "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
+                    "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
                     "strEmissionSource,  " &
                     "(Select strPollutantDescription  " &
-                    "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
+                    "from LookUPPollutants, ISMPReportInformation  " &
+                    "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
+                    "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
                     "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                    "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                    "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+                    "from EPDUserProfiles, ISMPReportInformation  " &
+                    "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
+                    "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
+                    "from ISMPMaster, APBFacilityInformation, ISMPReportInformation  " &
+                    "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+                    "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                     "and strReviewingUnit = '" & CurrentUser.UserID & "' " &
-                      "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
+                      "and ISMPReportInformation.strDelete is NULL"
                 Else
                     SQL = ""
                 End If
@@ -891,39 +891,39 @@ Public Class ISMPManagersTools
 
             If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " &
-                "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
+                "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
                 "strEmissionSource,  " &
                 "(Select strPollutantDescription  " &
-                "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
+                "from LookUPPollutants, ISMPReportInformation  " &
+                "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
+                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
                 "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                "from AIRBRANCH.EPDUSerProfiles, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.EPDUSerProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                  "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
+                "from EPDUSerProfiles, ISMPReportInformation  " &
+                "where EPDUSerProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
+                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
+                "from ISMPMaster, APBFacilityInformation, ISMPReportInformation  " &
+                "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                  "and ISMPReportInformation.strDelete is NULL"
             Else
                 If AccountFormAccess(17, 2) = "1" Then
                     SQL = "Select " &
-                    "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
+                    "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
                     "strEmissionSource,  " &
                     "(Select strPollutantDescription  " &
-                    "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
+                    "from LookUPPollutants, ISMPReportInformation  " &
+                    "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
+                    "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
                     "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                    "from AIRBRANCH.EPDUSerProfiles, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.EPDUSerProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                    "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                      "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
+                    "from EPDUSerProfiles, ISMPReportInformation  " &
+                    "where EPDUSerProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
+                    "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
+                    "from ISMPMaster, APBFacilityInformation, ISMPReportInformation  " &
+                    "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+                    "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                      "and ISMPReportInformation.strDelete is NULL"
                 Else
                     SQL = ""
                 End If
@@ -955,41 +955,41 @@ Public Class ISMPManagersTools
 
             If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " &
-                "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
+                "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
                 "strEmissionSource,  " &
                 "(Select strPollutantDescription  " &
-                "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
+                "from LookUPPollutants, ISMPReportInformation  " &
+                "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
+                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
                 "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = '0' " &
-                  "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
+                "from EPDUserProfiles, ISMPReportInformation  " &
+                "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
+                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
+                "from ISMPMaster, APBFacilityInformation, ISMPReportInformation  " &
+                "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                "and ISMPReportInformation.strReviewingEngineer = '0' " &
+                  "and ISMPReportInformation.strDelete is NULL"
             Else
                 If AccountFormAccess(17, 2) = "1" Then
                     SQL = "Select " &
-                    "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
+                    "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
                     "strEmissionSource,  " &
                     "(Select strPollutantDescription  " &
-                    "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
+                    "from LookUPPollutants, ISMPReportInformation  " &
+                    "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
+                    "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
                     "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                    "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                    "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                    "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = '0' " &
-                      "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
+                    "from EPDUserProfiles, ISMPReportInformation  " &
+                    "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
+                    "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
+                    "from ISMPMaster, APBFacilityInformation, ISMPReportInformation  " &
+                    "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+                    "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                    "and ISMPReportInformation.strReviewingEngineer = '0' " &
+                      "and ISMPReportInformation.strDelete is NULL"
                 Else
                     SQL = ""
                 End If
@@ -1019,42 +1019,42 @@ Public Class ISMPManagersTools
 
             If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " &
-                "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
+                "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
                 "strEmissionSource,  " &
                 "(Select strPollutantDescription  " &
-                "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
+                "from LookUPPollutants, ISMPReportInformation  " &
+                "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
+                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
                 "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                "from AIRBRANCH.EPDUSerProfiles, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.EPDUSerProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer <> '0' " &
-                  "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
+                "from EPDUSerProfiles, ISMPReportInformation  " &
+                "where EPDUSerProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
+                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
+                "from ISMPMaster, APBFacilityInformation, ISMPReportInformation  " &
+                "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                "and ISMPReportInformation.strReviewingEngineer <> '0' " &
+                  "and ISMPReportInformation.strDelete is NULL"
             Else
                 If AccountFormAccess(17, 2) = "1" Then
                     SQL = "Select " &
-                    "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
+                    "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
                     "strEmissionSource,  " &
                     "(Select strPollutantDescription  " &
-                    "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
+                    "from LookUPPollutants, ISMPReportInformation  " &
+                    "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
+                    "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
                     "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                    "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                    "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+                    "from EPDUserProfiles, ISMPReportInformation  " &
+                    "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
+                    "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
+                    "from ISMPMaster, APBFacilityInformation, ISMPReportInformation  " &
+                    "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+                    "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                     "and strReviewingUnit = '" & CurrentUser.UserID & "' " &
-                     "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer <> '0' " &
-                       "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
+                     "and ISMPReportInformation.strReviewingEngineer <> '0' " &
+                       "and ISMPReportInformation.strDelete is NULL"
                 Else
                     SQL = ""
                 End If
@@ -1085,41 +1085,41 @@ Public Class ISMPManagersTools
 
             If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " &
-                "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
+                "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
                 "strEmissionSource,  " &
                 "(Select strPollutantDescription  " &
-                "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
+                "from LookUPPollutants, ISMPReportInformation  " &
+                "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
+                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
                 "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer <> '0' " &
-                  "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
+                "from EPDUserProfiles, ISMPReportInformation  " &
+                "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
+                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
+                "from ISMPMaster, APBFacilityInformation, ISMPReportInformation  " &
+                "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                "and ISMPReportInformation.strReviewingEngineer <> '0' " &
+                  "and ISMPReportInformation.strDelete is NULL"
             Else
                 If AccountFormAccess(17, 2) = "1" Then
                     SQL = "Select " &
-                    "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
+                    "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
                     "strEmissionSource,  " &
                     "(Select strPollutantDescription  " &
-                    "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
+                    "from LookUPPollutants, ISMPReportInformation  " &
+                    "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
+                    "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
                     "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                    "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                    "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                    "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer <> '0' " &
-                      "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
+                    "from EPDUserProfiles, ISMPReportInformation  " &
+                    "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
+                    "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
+                    "from ISMPMaster, APBFacilityInformation, ISMPReportInformation  " &
+                    "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+                    "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                    "and ISMPReportInformation.strReviewingEngineer <> '0' " &
+                      "and ISMPReportInformation.strDelete is NULL"
                 Else
                     SQL = ""
                 End If
@@ -1150,40 +1150,40 @@ Public Class ISMPManagersTools
 
             If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " &
-                "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
+                "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
                 "strEmissionSource,  " &
                 "(Select strPollutantDescription  " &
-                "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
+                "from LookUPPollutants, ISMPReportInformation  " &
+                "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
+                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
                 "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                "and AIRBRANCH.ISMPReportInformation.strDelete is not NULL"
+                "from EPDUserProfiles, ISMPReportInformation  " &
+                "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
+                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
+                "from ISMPMaster, APBFacilityInformation, ISMPReportInformation  " &
+                "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                "and ISMPReportInformation.strDelete is not NULL"
             Else
                 If AccountFormAccess(17, 2) = "1" Then
                     SQL = "Select " &
-                    "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
+                    "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
                     "strEmissionSource,  " &
                     "(Select strPollutantDescription  " &
-                    "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
+                    "from LookUPPollutants, ISMPReportInformation  " &
+                    "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
+                    "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
                     "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                    "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                    "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+                    "from EPDUserProfiles, ISMPReportInformation  " &
+                    "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
+                    "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
+                    "from ISMPMaster, APBFacilityInformation, ISMPReportInformation  " &
+                    "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+                    "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                     "and strReviewingUnit = '" & CurrentUser.UserID & "' " &
-                    "and AIRBRANCH.ISMPReportInformation.strDelete is not NULL"
+                    "and ISMPReportInformation.strDelete is not NULL"
                 Else
                     SQL = ""
                 End If
@@ -1213,44 +1213,44 @@ Public Class ISMPManagersTools
 
             If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " &
-                "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
+                "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
                 "strEmissionSource,  " &
                 "(Select strPollutantDescription  " &
-                "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
+                "from LookUPPollutants, ISMPReportInformation  " &
+                "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
+                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
                 "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                 "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = '0' " &
-                 "and AIRBRANCH.ISMPReportInformation.strDocumentType = '" & ReportType & "' " &
-                "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
+                "from EPDUserProfiles, ISMPReportInformation  " &
+                "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
+                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
+                "from ISMPMaster, APBFacilityInformation, ISMPReportInformation  " &
+                "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                 "and ISMPReportInformation.strReviewingEngineer = '0' " &
+                 "and ISMPReportInformation.strDocumentType = '" & ReportType & "' " &
+                "and ISMPReportInformation.strDelete is NULL"
             Else
                 If AccountFormAccess(17, 2) = "1" Then
                     SQL = "Select " &
-                    "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
+                    "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
                     "strEmissionSource,  " &
                     "(Select strPollutantDescription  " &
-                    "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
+                    "from LookUPPollutants, ISMPReportInformation  " &
+                    "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
+                    "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
                     "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                    "from AIRBRANCH.EPDUSerProfiles, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.EPDUSerProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                    "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+                    "from EPDUSerProfiles, ISMPReportInformation  " &
+                    "where EPDUSerProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
+                    "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
+                    "from ISMPMaster, APBFacilityInformation, ISMPReportInformation  " &
+                    "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+                    "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                     "and strReviewingUnit = '" & CurrentUser.UserID & "' " &
-                    "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = '0' " &
-                    "and AIRBRANCH.ISMPReportInformation.strDocumentType = '" & ReportType & "' " &
-                    "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
+                    "and ISMPReportInformation.strReviewingEngineer = '0' " &
+                    "and ISMPReportInformation.strDocumentType = '" & ReportType & "' " &
+                    "and ISMPReportInformation.strDelete is NULL"
                 Else
                     SQL = ""
                 End If
@@ -1280,44 +1280,44 @@ Public Class ISMPManagersTools
 
             If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " &
-                "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
+                "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
                 "strEmissionSource,  " &
                 "(Select strPollutantDescription  " &
-                "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
+                "from LookUPPollutants, ISMPReportInformation  " &
+                "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
+                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
                 "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                "and AIRBRANCH.ISMPReportInformation.strDocumentType = '" & ReportType & "' " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer <> '0' " &
-                "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
+                "from EPDUserProfiles, ISMPReportInformation  " &
+                "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
+                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
+                "from ISMPMaster, APBFacilityInformation, ISMPReportInformation  " &
+                "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                "and ISMPReportInformation.strDocumentType = '" & ReportType & "' " &
+                "and ISMPReportInformation.strReviewingEngineer <> '0' " &
+                "and ISMPReportInformation.strDelete is NULL"
             Else
                 If AccountFormAccess(17, 2) = "1" Then
                     SQL = "Select " &
-                    "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
+                    "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
                     "strEmissionSource,  " &
                     "(Select strPollutantDescription  " &
-                    "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
+                    "from LookUPPollutants, ISMPReportInformation  " &
+                    "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
+                    "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
                     "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                    "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                    "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+                    "from EPDUserProfiles, ISMPReportInformation  " &
+                    "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
+                    "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
+                    "from ISMPMaster, APBFacilityInformation, ISMPReportInformation  " &
+                    "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+                    "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                     "and strReviewingUnit = '" & CurrentUser.UserID & "' " &
-                    "and AIRBRANCH.ISMPReportInformation.strDocumentType = '" & ReportType & "' " &
-                    "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer <> '0' " &
-                    "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
+                    "and ISMPReportInformation.strDocumentType = '" & ReportType & "' " &
+                    "and ISMPReportInformation.strReviewingEngineer <> '0' " &
+                    "and ISMPReportInformation.strDelete is NULL"
                 Else
                     SQL = ""
                 End If
@@ -1349,42 +1349,42 @@ Public Class ISMPManagersTools
 
             If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " &
-                    "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
+                    "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
                     "strEmissionSource,  " &
                     "(Select strPollutantDescription  " &
-                    "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
+                    "from LookUPPollutants, ISMPReportInformation  " &
+                    "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
+                    "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
                     "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                    "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                    "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                    "and AIRBRANCH.ISMPReportInformation.strDocumentType = '" & ReportType & "' " &
-                    "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
+                    "from EPDUserProfiles, ISMPReportInformation  " &
+                    "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
+                    "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
+                    "from ISMPMaster, APBFacilityInformation, ISMPReportInformation  " &
+                    "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+                    "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                    "and ISMPReportInformation.strDocumentType = '" & ReportType & "' " &
+                    "and ISMPReportInformation.strDelete is NULL"
             Else
                 If AccountFormAccess(17, 2) = "1" Then
                     SQL = "Select " &
-                    "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
+                    "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
                     "strEmissionSource,  " &
                     "(Select strPollutantDescription  " &
-                    "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
+                    "from LookUPPollutants, ISMPReportInformation  " &
+                    "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
+                    "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
                     "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                    "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                    "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+                    "from EPDUserProfiles, ISMPReportInformation  " &
+                    "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
+                    "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
+                    "from ISMPMaster, APBFacilityInformation, ISMPReportInformation  " &
+                    "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+                    "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                     "and strReviewingUnit = '" & CurrentUser.UserID & "' " &
-                    "and AIRBRANCH.ISMPReportInformation.strDocumentType = '" & ReportType & "' " &
-                    "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
+                    "and ISMPReportInformation.strDocumentType = '" & ReportType & "' " &
+                    "and ISMPReportInformation.strDelete is NULL"
                 Else
                     SQL = ""
                 End If
@@ -1415,42 +1415,42 @@ Public Class ISMPManagersTools
 
             If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " &
-                "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
+                "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
                 "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
                 "strEmissionSource,  " &
                 "(Select strPollutantDescription  " &
-                "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
+                "from LookUPPollutants, ISMPReportInformation  " &
+                "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
+                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
                 "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                "and AIRBRANCH.ISMPMaster.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " &
-                "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
+                "from EPDUserProfiles, ISMPReportInformation  " &
+                "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
+                "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
+                "from ISMPMaster, APBFacilityInformation, ISMPReportInformation  " &
+                "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                "and ISMPMaster.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " &
+                "and ISMPReportInformation.strDelete is NULL"
             Else
                 If AccountFormAccess(17, 2) = "1" Then
                     SQL = "Select " &
-                    "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
+                    "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
                     "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
                     "strEmissionSource,  " &
                     "(Select strPollutantDescription  " &
-                    "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
+                    "from LookUPPollutants, ISMPReportInformation  " &
+                    "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
+                    "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
                     "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                    "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                    "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+                    "from EPDUserProfiles, ISMPReportInformation  " &
+                    "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
+                    "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
+                    "from ISMPMaster, APBFacilityInformation, ISMPReportInformation  " &
+                    "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+                    "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                     "and strReviewingUnit = '" & CurrentUser.UserID & "' " &
-                      "and AIRBRANCH.ISMPMaster.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " &
-                    "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
+                      "and ISMPMaster.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " &
+                    "and ISMPReportInformation.strDelete is NULL"
                 Else
                     SQL = ""
                 End If
@@ -1530,7 +1530,7 @@ Public Class ISMPManagersTools
                 End If
                 For Each strObject In lblTestReportAssignment.Items
                     SQL = "select to_char(datReviewedBYUnitManager, 'dd-Mon-yyyy') as ReviewedByUnitManager " &
-                          "from AIRBRANCH.ISMPReportInformation " &
+                          "from ISMPReportInformation " &
                           "where strReferenceNumber = '" & strObject.ToString() & "' "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     dr = cmd.ExecuteReader
@@ -1545,13 +1545,13 @@ Public Class ISMPManagersTools
 
                     Dim tempUnit As String = CurrentUser.UnitId.ToString
 
-                    SQL = "Update AIRBRANCH.ISMPReportInformation set " &
+                    SQL = "Update ISMPReportInformation set " &
                     "strReviewingEngineer = '" & EngineerGCode & "', " &
                     "datReviewedBYUnitManager = '" & AssignDate & "', " &
                     "strReviewingUnit = '" & tempUnit & "', " &
                     "numReviewingManager = '" & CurrentUser.UserID & "', " &
                     "strPreComplianceStatus = '" & PreCompliance & "' " &
-                    "where AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & strObject.ToString() & "'"
+                    "where ISMPReportInformation.strReferenceNumber = '" & strObject.ToString() & "'"
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
 
@@ -1604,7 +1604,7 @@ Public Class ISMPManagersTools
             Else
                 OneStack2 = True
             End If
-            SQL = "Update AIRBRANCH.ISMPDocumentType set " &
+            SQL = "Update ISMPDocumentType set " &
             "strAFSPrint = '" & OneStack2 & "' " &
             "where strKEy = '002'"
 
@@ -1616,7 +1616,7 @@ Public Class ISMPManagersTools
             Else
                 OneStack3 = True
             End If
-            SQL = "Update AIRBRANCH.ISMPDocumentType set " &
+            SQL = "Update ISMPDocumentType set " &
             "strAFSPrint = '" & OneStack3 & "' " &
             "where strKEy = '003'"
 
@@ -1628,7 +1628,7 @@ Public Class ISMPManagersTools
             Else
                 OneStack4 = True
             End If
-            SQL = "Update AIRBRANCH.ISMPDocumentType set " &
+            SQL = "Update ISMPDocumentType set " &
             "strAFSPrint = '" & OneStack4 & "' " &
             "where strKEy = '004'"
 
@@ -1640,7 +1640,7 @@ Public Class ISMPManagersTools
             Else
                 TwoStackStandard = True
             End If
-            SQL = "Update AIRBRANCH.ISMPDocumentType set " &
+            SQL = "Update ISMPDocumentType set " &
             "strAFSPrint = '" & TwoStackStandard & "' " &
             "where strKEy = '005'"
 
@@ -1653,7 +1653,7 @@ Public Class ISMPManagersTools
             Else
                 TwoStackDRE = True
             End If
-            SQL = "Update AIRBRANCH.ISMPDocumentType set " &
+            SQL = "Update ISMPDocumentType set " &
             "strAFSPrint = '" & TwoStackDRE & "' " &
             "where strKEy = '006'"
 
@@ -1666,7 +1666,7 @@ Public Class ISMPManagersTools
             Else
                 LoadingRack = True
             End If
-            SQL = "Update AIRBRANCH.ISMPDocumentType set " &
+            SQL = "Update ISMPDocumentType set " &
             "strAFSPrint = '" & LoadingRack & "' " &
             "where strKEy = '007'"
 
@@ -1679,7 +1679,7 @@ Public Class ISMPManagersTools
             Else
                 PondTreatment = True
             End If
-            SQL = "Update AIRBRANCH.ISMPDocumentType set " &
+            SQL = "Update ISMPDocumentType set " &
             "strAFSPrint = '" & PondTreatment & "' " &
             "where strKEy = '008'"
 
@@ -1692,7 +1692,7 @@ Public Class ISMPManagersTools
             Else
                 GasConc = True
             End If
-            SQL = "Update AIRBRANCH.ISMPDocumentType set " &
+            SQL = "Update ISMPDocumentType set " &
             "strAFSPrint = '" & GasConc & "' " &
             "where strKEy = '009'"
 
@@ -1705,7 +1705,7 @@ Public Class ISMPManagersTools
             Else
                 Flare = True
             End If
-            SQL = "Update AIRBRANCH.ISMPDocumentType set " &
+            SQL = "Update ISMPDocumentType set " &
             "strAFSPrint = '" & Flare & "' " &
             "where strKEy = '010'"
 
@@ -1718,7 +1718,7 @@ Public Class ISMPManagersTools
             Else
                 Rata = True
             End If
-            SQL = "Update AIRBRANCH.ISMPDocumentType set " &
+            SQL = "Update ISMPDocumentType set " &
             "strAFSPrint = '" & Rata & "' " &
             "where strKEy = '011'"
 
@@ -1731,7 +1731,7 @@ Public Class ISMPManagersTools
             Else
                 MemoStandard = True
             End If
-            SQL = "Update AIRBRANCH.ISMPDocumentType set " &
+            SQL = "Update ISMPDocumentType set " &
             "strAFSPrint = '" & MemoStandard & "' " &
             "where strKEy = '012'"
 
@@ -1744,7 +1744,7 @@ Public Class ISMPManagersTools
             Else
                 MemoFile = True
             End If
-            SQL = "Update AIRBRANCH.ISMPDocumentType set " &
+            SQL = "Update ISMPDocumentType set " &
             "strAFSPrint = '" & MemoFile & "' " &
             "where strKEy = '013'"
 
@@ -1757,7 +1757,7 @@ Public Class ISMPManagersTools
             Else
                 Method9Multi = True
             End If
-            SQL = "Update AIRBRANCH.ISMPDocumentType set " &
+            SQL = "Update ISMPDocumentType set " &
             "strAFSPrint = '" & Method9Multi & "' " &
             "where strKEy = '014'"
 
@@ -1770,7 +1770,7 @@ Public Class ISMPManagersTools
             Else
                 Method22 = True
             End If
-            SQL = "Update AIRBRANCH.ISMPDocumentType set " &
+            SQL = "Update ISMPDocumentType set " &
             "strAFSPrint = '" & Method22 & "' " &
             "where strKEy = '015'"
 
@@ -1783,7 +1783,7 @@ Public Class ISMPManagersTools
             Else
                 Method9Single = True
             End If
-            SQL = "Update AIRBRANCH.ISMPDocumentType set " &
+            SQL = "Update ISMPDocumentType set " &
             "strAFSPrint = '" & Method9Single & "' " &
             "where strKEy = '016'"
 
@@ -1796,7 +1796,7 @@ Public Class ISMPManagersTools
             Else
                 PEMS = True
             End If
-            SQL = "Update AIRBRANCH.ISMPDocumentType set " &
+            SQL = "Update ISMPDocumentType set " &
             "strAFSPrint = '" & PEMS & "' " &
             "where strKEy = '017'"
 
@@ -1809,7 +1809,7 @@ Public Class ISMPManagersTools
             Else
                 PTE = True
             End If
-            SQL = "Update AIRBRANCH.ISMPDocumentType set " &
+            SQL = "Update ISMPDocumentType set " &
             "strAFSPrint = '" & PTE & "' " &
             "where strKEy = '018'"
 
@@ -1834,10 +1834,10 @@ Public Class ISMPManagersTools
                     CurrentConnection.Open()
                 End If
                 If rdbChemVOC.Checked = True Then
-                    SQL = "Update AIRBRANCH.ISMPFacilityAssignment set " &
+                    SQL = "Update ISMPFacilityAssignment set " &
                     "strISMPUnit = 'H' "
                 Else
-                    SQL = "Update AIRBRANCH.ISMPFacilityAssignment set " &
+                    SQL = "Update ISMPFacilityAssignment set " &
                     "strChemicalVOC = 'I' "
                 End If
                 Try
@@ -1951,14 +1951,14 @@ Public Class ISMPManagersTools
 
             'txtOpenFacility
             SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
+            "from ISMPReportInformation, ISMPMaster, APBFacilityInformation " &
             "where strClosed = 'False' " &
             "and strDelete is NULL " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+            "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
+            "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
+            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1979,14 +1979,14 @@ Public Class ISMPManagersTools
 
             'txtClosedFacility
             SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
+            "from ISMPReportInformation, ISMPMaster, APBFacilityInformation " &
             "where strClosed = 'True' " &
             "and strDelete is NULL " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+            "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
+            "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
+            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1998,14 +1998,14 @@ Public Class ISMPManagersTools
 
             'txtFacilityOpenDays
             SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
+            "from ISMPReportInformation, ISMPMaster, APBFacilityInformation " &
             "where " &
             "strDelete is NULL " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+            "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
+            "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
+            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
             "and " & DateBias & " "
 
@@ -2019,15 +2019,15 @@ Public Class ISMPManagersTools
             'Compliance Status Open
             'File Open 
             SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
+            "from ISMPReportInformation, ISMPMaster, APBFacilityInformation " &
             "where strClosed = 'False' " &
             "and strDelete is NULL " &
             "and strComplianceStatus = '01' " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+            "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
+            "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
+            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2039,15 +2039,15 @@ Public Class ISMPManagersTools
 
             'For Information Purposes Only
             SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
+            "from ISMPReportInformation, ISMPMaster, APBFacilityInformation " &
             "where strClosed = 'False' " &
             "and strDelete is NULL " &
             "and strComplianceStatus = '02' " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+            "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
+            "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
+            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2059,15 +2059,15 @@ Public Class ISMPManagersTools
 
             'In Compliance
             SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
+            "from ISMPReportInformation, ISMPMaster, APBFacilityInformation " &
             "where strClosed = 'False' " &
             "and strDelete is NULL " &
             "and strComplianceStatus = '03' " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+            "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
+            "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
+            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2079,15 +2079,15 @@ Public Class ISMPManagersTools
 
             'Indeterminate
             SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
+            "from ISMPReportInformation, ISMPMaster, APBFacilityInformation " &
             "where strClosed = 'False' " &
             "and strDelete is NULL " &
             "and strComplianceStatus = '04' " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+            "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
+            "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
+            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2099,15 +2099,15 @@ Public Class ISMPManagersTools
 
             'Not In Compliance
             SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
+            "from ISMPReportInformation, ISMPMaster, APBFacilityInformation " &
             "where strClosed = 'False' " &
             "and strDelete is NULL " &
             "and strComplianceStatus = '05' " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+            "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
+            "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
+            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2120,15 +2120,15 @@ Public Class ISMPManagersTools
             'Compliance Status Closed
             'File Open 
             SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
+            "from ISMPReportInformation, ISMPMaster, APBFacilityInformation " &
             "where strClosed = 'True' " &
             "and strDelete is NULL " &
             "and strComplianceStatus = '01' " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+            "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
+            "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
+            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2140,15 +2140,15 @@ Public Class ISMPManagersTools
 
             'For Information Purposes Only
             SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
+            "from ISMPReportInformation, ISMPMaster, APBFacilityInformation " &
             "where strClosed = 'True' " &
             "and strDelete is NULL " &
             "and strComplianceStatus = '02' " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+            "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
+            "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
+            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2160,15 +2160,15 @@ Public Class ISMPManagersTools
 
             'In Compliance
             SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
+            "from ISMPReportInformation, ISMPMaster, APBFacilityInformation " &
             "where strClosed = 'True' " &
             "and strDelete is NULL " &
             "and strComplianceStatus = '03' " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+            "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
+            "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
+            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2180,15 +2180,15 @@ Public Class ISMPManagersTools
 
             'Indeterminate
             SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
+            "from ISMPReportInformation, ISMPMaster, APBFacilityInformation " &
             "where strClosed = 'True' " &
             "and strDelete is NULL " &
             "and strComplianceStatus = '04' " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+            "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
+            "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
+            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2200,15 +2200,15 @@ Public Class ISMPManagersTools
 
             'Not In Compliance
             SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
+            "from ISMPReportInformation, ISMPMaster, APBFacilityInformation " &
             "where strClosed = 'True' " &
             "and strDelete is NULL " &
             "and strComplianceStatus = '05' " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+            "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
+            "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
+            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2221,15 +2221,15 @@ Public Class ISMPManagersTools
             'Compliance Status for Days Open
             'File Open 
             SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
+            "from ISMPReportInformation, ISMPMaster, APBFacilityInformation " &
             "where " &
             "strDelete is NULL " &
             "and strComplianceStatus = '01' " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+            "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
+            "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
+            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
             "and " & DateBias & " "
 
@@ -2242,15 +2242,15 @@ Public Class ISMPManagersTools
 
             'For Information Purposes Only
             SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
+            "from ISMPReportInformation, ISMPMaster, APBFacilityInformation " &
             "where " &
             "strDelete is NULL " &
             "and strComplianceStatus = '02' " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+            "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
+            "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
+            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
             "and " & DateBias & " "
 
@@ -2263,15 +2263,15 @@ Public Class ISMPManagersTools
 
             'In Compliance
             SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
+            "from ISMPReportInformation, ISMPMaster, APBFacilityInformation " &
             "where " &
             "strDelete is NULL " &
             "and strComplianceStatus = '03' " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+            "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
+            "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
+            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
             "and " & DateBias & " "
 
@@ -2284,15 +2284,15 @@ Public Class ISMPManagersTools
 
             'Indeterminate
             SQL = "Select count(*) as Count " &
-           "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
+           "from ISMPReportInformation, ISMPMaster, APBFacilityInformation " &
            "where " &
            "strDelete is NULL " &
            "and strComplianceStatus = '04' " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-           "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-           "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-           "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-           "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+           "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+           "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
+           "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
+           "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
            "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
            "and " & DateBias & " "
 
@@ -2305,15 +2305,15 @@ Public Class ISMPManagersTools
 
             'Not In Compliance
             SQL = "Select count(*) as Count " &
-           "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
+           "from ISMPReportInformation, ISMPMaster, APBFacilityInformation " &
            "where " &
            "strDelete is NULL " &
            "and strComplianceStatus = '05' " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-           "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-           "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-           "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-           "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+           "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+           "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
+           "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
+           "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
            "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
            "and " & DateBias & " "
 
@@ -2414,7 +2414,7 @@ Public Class ISMPManagersTools
 
                     'txtOpenFacility
                     SQL = "Select count(*) as Count " &
-                    "from AIRBRANCH.ISMPReportInformation " &
+                    "from ISMPReportInformation " &
                     "where strClosed = 'False' " &
                     "and strDelete is NULL " &
                     "and strReviewingEngineer = '" & EngineerGCode & "' " &
@@ -2428,7 +2428,7 @@ Public Class ISMPManagersTools
 
                     'txtFacilityOpenDays
                     SQL = "Select count(*) as Count " &
-                    "from AIRBRANCH.ISMPReportInformation " &
+                    "from ISMPReportInformation " &
                     "where " &
                     "strDelete is NULL " &
                     "and strReviewingEngineer = '" & EngineerGCode & "' " &
@@ -2444,7 +2444,7 @@ Public Class ISMPManagersTools
 
                     'txtWitnessedTests
                     SQL = "Select count(*) as Count " &
-                    "from AIRBRANCH.ISMPReportInformation " &
+                    "from ISMPReportInformation " &
                     "where " &
                     "strDelete is NULL " &
                     "and (strWitnessingEngineer = '" & EngineerGCode & "' " &
@@ -2459,7 +2459,7 @@ Public Class ISMPManagersTools
 
                     'txtClosedFacility
                     SQL = "Select count(*) as Count " &
-                    "from AIRBRANCH.ISMPReportInformation " &
+                    "from ISMPReportInformation " &
                     "where strClosed = 'True' " &
                     "and strDelete is NULL " &
                     "and strReviewingEngineer = '" & EngineerGCode & "' " &
@@ -2483,7 +2483,7 @@ Public Class ISMPManagersTools
 
                     'txtOpenFacility
                     SQL = "Select count(*) as Count " &
-                    "from AIRBRANCH.ISMPReportInformation " &
+                    "from ISMPReportInformation " &
                     "where strClosed = 'False' " &
                     "and strDelete is NULL " &
                     "and strReviewingEngineer = '" & EngineerGCode & "' " &
@@ -2497,7 +2497,7 @@ Public Class ISMPManagersTools
 
                     'txtFacilityOpenDays
                     SQL = "Select count(*) as Count " &
-                    "from AIRBRANCH.ISMPReportInformation " &
+                    "from ISMPReportInformation " &
                     "where " &
                     "strDelete is NULL " &
                     "and strReviewingEngineer = '" & EngineerGCode & "' " &
@@ -2513,7 +2513,7 @@ Public Class ISMPManagersTools
 
                     'txtWitnessedTests
                     SQL = "Select count(*) as Count " &
-                    "from AIRBRANCH.ISMPReportInformation " &
+                    "from ISMPReportInformation " &
                     "where " &
                     "strDelete is NULL " &
                     "and (strWitnessingEngineer = '" & EngineerGCode & "' " &
@@ -2528,7 +2528,7 @@ Public Class ISMPManagersTools
 
                     'txtClosedFacility
                     SQL = "Select count(*) as Count " &
-                    "from AIRBRANCH.ISMPReportInformation " &
+                    "from ISMPReportInformation " &
                     "where strClosed = 'True' " &
                     "and strDelete is NULL " &
                     "and strReviewingEngineer = '" & EngineerGCode & "' " &
@@ -2545,7 +2545,7 @@ Public Class ISMPManagersTools
 
             'txtOpenFacility
             SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation " &
+            "from ISMPReportInformation " &
             "where strClosed = 'False' " &
             "and strDelete is NULL " &
             "and strReviewingEngineer = '0' " &
@@ -2559,7 +2559,7 @@ Public Class ISMPManagersTools
 
             'txtFacilityOpenDays
             SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation " &
+            "from ISMPReportInformation " &
             "where " &
             "strDelete is NULL " &
             "and strReviewingEngineer = '0' " &
@@ -2575,7 +2575,7 @@ Public Class ISMPManagersTools
 
             'txtWitnessedTests
             SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation " &
+            "from ISMPReportInformation " &
             "where " &
             "strDelete is NULL " &
             "and (strWitnessingEngineer <> '0' " &
@@ -2590,7 +2590,7 @@ Public Class ISMPManagersTools
 
             'txtClosedFacility
             SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation " &
+            "from ISMPReportInformation " &
             "where strClosed = 'True' " &
             "and strDelete is NULL " &
             "and strReviewingEngineer = '0' " &
@@ -2605,7 +2605,7 @@ Public Class ISMPManagersTools
 
             'txtOpenFacility
             SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation " &
+            "from ISMPReportInformation " &
             "where strClosed = 'False' " &
             "and strDelete is NULL " &
             "and " & DateBias & " "
@@ -2618,7 +2618,7 @@ Public Class ISMPManagersTools
 
             'txtFacilityOpenDays
             SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation " &
+            "from ISMPReportInformation " &
             "where " &
             "strDelete is NULL " &
             "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpen4.Text & "' " &
@@ -2633,7 +2633,7 @@ Public Class ISMPManagersTools
 
             'txtWitnessedTests
             SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation " &
+            "from ISMPReportInformation " &
             "where " &
             "strDelete is NULL " &
             "and (strWitnessingEngineer <> '0' " &
@@ -2648,7 +2648,7 @@ Public Class ISMPManagersTools
 
             'txtClosedFacility
             SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation " &
+            "from ISMPReportInformation " &
             "where strClosed = 'True' " &
             "and strDelete is NULL " &
             "and " & DateBias & " "
@@ -2818,49 +2818,49 @@ Public Class ISMPManagersTools
                 "	Else CloseComplianceByDate " &
                 "End as CloseComplianceByDate,  " &
                 "OtherWitnessed " &
-                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation,  " &
+                "from EPDUserProfiles, ISMPReportInformation,  " &
                 "(Select strReviewingEngineer,  count(*) as ReceivedByDate   " &
-                "from AIRBRANCH.ISMPReportInformation   " &
+                "from ISMPReportInformation   " &
                 "where strDelete is NULL " &
                 "and " & DateBias & " " &
                 "Group by strReviewingEngineer) ReceivedByDates,  " &
                 "(Select strReviewingEngineer,  " &
                 "count(*) as OpenByDate  " &
-                "from AIRBRANCH.ISMPReportInformation  " &
+                "from ISMPReportInformation  " &
                 "where strClosed = 'False'  " &
                 "and strDelete is NULL  " &
                 "and " & DateBias & " " &
                 "Group by strReviewingEngineer) OpenByDates,  " &
                 "(Select strReviewingEngineer,  " &
                 "count(*) as CloseByDate  " &
-                "from AIRBRANCH.ISMPReportInformation  " &
+                "from ISMPReportInformation  " &
                 "where strClosed = 'True'  " &
                 "and StrDelete is NULL  " &
                 "and " & DateBias & " " &
                 "Group by strReviewingEngineer) CloseByDates,  " &
                 "(Select strWitnessingEngineer,  " &
                 "count(*) as WitnessedByDate  " &
-                "from AIRBRANCH.ISMPReportInformation  " &
+                "from ISMPReportInformation  " &
                 "where strDelete is NULL  " &
                 "and " & DateBias & " " &
                 "group by strWitnessingEngineer) WitnessedByDates,  " &
                 "(Select strWitnessingEngineer,  " &
                 "count(*) as OpenWitnessedByDate   " &
-                "from AIRBRANCH.ISMPReportInformation  " &
+                "from ISMPReportInformation  " &
                 "where strDelete is NULL  " &
                 "and strClosed = 'False'  " &
                  "and " & DateBias & " " &
                 "group by strWitnessingEngineer) OpenWitnessedByDates,  " &
                 "(select strWitnessingEngineer,  " &
                 "count(*) as CloseWitnessedByDate   " &
-                "from AIRBRANCH.ISMPReportInformation  " &
+                "from ISMPReportInformation  " &
                 "where strDelete is NULL  " &
                 "and strClosed = 'True' " &
                 "and " & DateBias & " " &
                 "group by strwitnessingEngineer) CloseWitnessedByDates,  " &
                 "(select strReviewingEngineer,  " &
                 "count(*) as GreaterByDate " &
-                "from AIRBRANCH.ISMPReportInformation  " &
+                "from ISMPReportInformation  " &
                 "where strDelete is NULL  " &
                 "and datReceivedDate < Decode(strClosed, 'False', (trunc(sysdate) - 50), " &
                 "                                        'True', (-50 + datCompleteDate)) " &
@@ -2868,7 +2868,7 @@ Public Class ISMPManagersTools
                 "Group by strReviewingEngineer) GreaterByDates,  " &
                 "(select strReviewingEngineer,  " &
                 "count(*) as OpenGreaterByDate " &
-                "from AIRBRANCH.ISMPReportInformation  " &
+                "from ISMPReportInformation  " &
                 "where strDelete is NULL  " &
                 "and strClosed = 'False'  " &
                 "and datReceivedDate < (trunc(sysdate) - 50)  " &
@@ -2876,7 +2876,7 @@ Public Class ISMPManagersTools
                 "Group by strReviewingEngineer) OpenGreaterByDates,  " &
                 "(select strReviewingEngineer,  " &
                 "count(*) as CloseGreaterByDate " &
-                "from AIRBRANCH.ISMPReportInformation  " &
+                "from ISMPReportInformation  " &
                 "where strDelete is NULL  " &
                 "and strClosed = 'True'  " &
                 "and datReceivedDate < (-50 + datCompleteDate) " &
@@ -2884,14 +2884,14 @@ Public Class ISMPManagersTools
                 "Group by strReviewingEngineer) CloseGreaterByDates,  " &
                 "(select strReviewingEngineer, " &
                 "count(*) as ComplianceByDate " &
-                "from AIRBRANCH.ISMPReportInformation " &
+                "from ISMPReportInformation " &
                 "where strComplianceStatus = '05' " &
                 "and strDelete is NULL " &
                 "and " & DateBias & " " &
                 "group by strReviewingEngineer) ComplianceByDates, " &
                 "(select strReviewingEngineer,   " &
                 "count(*) as OpenComplianceByDate  " &
-                "from AIRBRANCH.ISMPReportInformation   " &
+                "from ISMPReportInformation   " &
                 "where strComplianceStatus = '05'  " &
                 "and strClosed = 'False'  " &
                 "and strDelete is NULL  " &
@@ -2899,38 +2899,38 @@ Public Class ISMPManagersTools
                 "group by strReviewingEngineer) OpenComplianceByDates,   " &
                 "(Select strReviewingEngineer,  " &
                 "count(*) as CloseComplianceByDate  " &
-                "from AIRBRANCH.ISMPReportInformation   " &
+                "from ISMPReportInformation   " &
                 "where strComplianceStatus = '05'  " &
                 "and strClosed = 'True'  " &
                 "and strDelete is NULL  " &
                 "and " & DateBias & " " &
                 "group by strReviewingEngineer) CloseComplianceByDates,   " &
                 "(select  count(*) as OtherWitnessed " &
-                "from AIRBRANCH.ISMPWitnessingEng,  AIRBRANCH.ISMPReportInformation " &
-                "where AIRBRANCH.ISMPWitnessingEng.strreferencenumber  = AIRBRANCH.ISMPReportInformation.strreferencenumber  " &
+                "from ISMPWitnessingEng,  ISMPReportInformation " &
+                "where ISMPWitnessingEng.strreferencenumber  = ISMPReportInformation.strreferencenumber  " &
                 "and strDelete is null  " &
                 "and " & DateBias & "  " &
-                "and AIRBranch.ISMPWitnessingEng.strWitnessingEngineer = '" & EngineerGCode & "')  OtherWitnesses  " &
-                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = ReceivedByDates.strReviewingEngineer (+) " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = OpenBYDates.strReviewingEngineer (+)  " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = CloseByDates.strReviewingEngineer (+)  " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = WitnessedByDates.strWitnessingEngineer (+)  " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = OpenwitnessedByDates.strWitnessingEngineer (+)  " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = CloseWitnessedByDates.strWitnessingEngineer (+)  " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = GreaterByDates.strReviewingEngineer (+) " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = OpenGreaterByDates.strReviewingEngineer (+)  " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = CloseGreaterByDates.strReviewingEngineer (+)  " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = ComplianceByDates.strReviewingEngineer (+) " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = OpenComplianceByDates.strReviewingEngineer (+)  " &
-                "and AIRBRANCH.ISMPReportInformation.strREviewingEngineer = CloseComplianceByDates.strReviewingEngineer (+)  " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = '" & EngineerGCode & "' "
+                "and ISMPWitnessingEng.strWitnessingEngineer = '" & EngineerGCode & "')  OtherWitnesses  " &
+                "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
+                "and ISMPReportInformation.strReviewingEngineer = ReceivedByDates.strReviewingEngineer (+) " &
+                "and ISMPReportInformation.strReviewingEngineer = OpenBYDates.strReviewingEngineer (+)  " &
+                "and ISMPReportInformation.strReviewingEngineer = CloseByDates.strReviewingEngineer (+)  " &
+                "and ISMPReportInformation.strReviewingEngineer = WitnessedByDates.strWitnessingEngineer (+)  " &
+                "and ISMPReportInformation.strReviewingEngineer = OpenwitnessedByDates.strWitnessingEngineer (+)  " &
+                "and ISMPReportInformation.strReviewingEngineer = CloseWitnessedByDates.strWitnessingEngineer (+)  " &
+                "and ISMPReportInformation.strReviewingEngineer = GreaterByDates.strReviewingEngineer (+) " &
+                "and ISMPReportInformation.strReviewingEngineer = OpenGreaterByDates.strReviewingEngineer (+)  " &
+                "and ISMPReportInformation.strReviewingEngineer = CloseGreaterByDates.strReviewingEngineer (+)  " &
+                "and ISMPReportInformation.strReviewingEngineer = ComplianceByDates.strReviewingEngineer (+) " &
+                "and ISMPReportInformation.strReviewingEngineer = OpenComplianceByDates.strReviewingEngineer (+)  " &
+                "and ISMPReportInformation.strREviewingEngineer = CloseComplianceByDates.strReviewingEngineer (+)  " &
+                "and ISMPReportInformation.strReviewingEngineer = '" & EngineerGCode & "' "
 
                 SQL2 = "Select " &
                 "(strLastName|| ', ' ||strFirstName) as Staff, " &
                 "(trunc(sysdate) - datReceivedDate) as DaysOpenByDate " &
-                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
+                "from EPDUserProfiles, ISMPReportInformation " &
+                "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
                 "and strClosed = 'False' " &
                 "and strDelete is NULL " &
                 "and " & DateBias & " " &
@@ -2940,8 +2940,8 @@ Public Class ISMPManagersTools
                 SQL3 = "Select " &
                 "(strLastName|| ', ' ||strFirstName) as Staff, " &
                 "(datCompleteDate - datReceivedDate) as DaysCloseByDate " &
-                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
+                "from EPDUserProfiles, ISMPReportInformation " &
+                "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
                 "and strClosed = 'True' " &
                 "and strDelete is NULL " &
                 "and " & DateBias & " " &
@@ -2986,79 +2986,79 @@ Public Class ISMPManagersTools
                 "when ClosedGreaterTotal is NULL then 0   " &
                 "Else ClosedGreaterTotal   " &
                 "End as ClosedGreaterTotal   " &
-                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation, " &
+                "from EPDUserProfiles, ISMPReportInformation, " &
                 "(Select strReviewingEngineer,  " &
                 "count(*) as ReceivedTotal  " &
-                "from AIRBRANCH.ISMPReportInformation  " &
+                "from ISMPReportInformation  " &
                 "where strDelete is NULL  " &
                 "Group by strReviewingEngineer) ReceivedTotals,  " &
                 "(Select strReviewingEngineer,  " &
                 "count(*) as OpenTotal " &
-                "from AIRBRANCH.ISMPReportInformation  " &
+                "from ISMPReportInformation  " &
                 "where strClosed = 'False' " &
                 "and strDelete is NULL  " &
                 "Group by strReviewingEngineer) OpenTotals,  " &
                 "(select strWitnessingEngineer,  " &
                 "count(*) as OpenWitnessedTotal  " &
-                "from AIRBRANCH.ISMPReportInformation  " &
+                "from ISMPReportInformation  " &
                 "where strClosed = 'False' " &
                 "and strDelete is Null " &
                 "group by strWitnessingEngineer) OpenWitnessedTotals,  " &
                 "(select strReviewingEngineer,  " &
                 "count(*) as OpenComplianceTotal  " &
-                "from AIRBRANCH.ISMPReportInformation  " &
+                "from ISMPReportInformation  " &
                 "where strComplianceStatus = '05' " &
                 "and strClosed = 'False' " &
                 "and strDelete is NULL " &
                 "group by strReviewingEngineer) OpenComplianceTotals,  " &
                 "(select strReviewingEngineer,  " &
                 "count(*) as CloseTotal  " &
-                "from AIRBRANCH.ISMPReportInformation  " &
+                "from ISMPReportInformation  " &
                 "where strClosed = 'True'  " &
                 "and strDelete is NULL " &
                 "Group by strReviewingEngineer) CloseTotals,  " &
                 "(select strWitnessingEngineer,  " &
                 "count(*) as ClosedWitnessedTotal  " &
-                "from AIRBRANCH.ISMPReportInformation  " &
+                "from ISMPReportInformation  " &
                 "where strClosed = 'True' " &
                 "and strDelete is NULL  " &
                 "group by strWitnessingEngineer) ClosedWitnessedTotals,  " &
                 "(select strReviewingEngineer,  " &
                 "count(*) as ClosedComplianceTotal  " &
-                "from AIRBRANCH.ISMPReportInformation  " &
+                "from ISMPReportInformation  " &
                 "where strComplianceStatus = '05' " &
                 "and strClosed = 'True' " &
                 "and strDelete is NULL " &
                 "group by strReviewingEngineer) ClosedComplianceTotals, " &
                 "(select strReviewingEngineer, count(*) as OpenGreaterTotal " &
-                "from AIRBRANCH.ISMPReportInformation  " &
+                "from ISMPReportInformation  " &
                 "where strDelete is NULL  " &
                 "and strClosed = 'False'  " &
                 "and datReceivedDate < (trunc(sysdate) - 50)  " &
                 "Group by strReviewingEngineer) OpenGreaterTotals, " &
                 "(select strReviewingEngineer, count(*) as ClosedGreaterTotal " &
-                "from AIRBRANCH.ISMPReportInformation  " &
+                "from ISMPReportInformation  " &
                 "where strDelete is NULL  " &
                 "and strClosed = 'True'  " &
                 "and datReceivedDate < (-50 + datCompleteDate)  " &
                 "Group by strReviewingEngineer) ClosedGreaterTotals " &
-                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = ReceivedTotals.strReviewingEngineer (+) " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = OpenTotals.strReviewingEngineer (+) " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = OpenWitnessedTotals.strWitnessingEngineer (+) " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = OpenComplianceTotals.strReviewingEngineer (+) " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = CloseTotals.strReviewingEngineer (+)  " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = ClosedWitnessedTotals.strWitnessingEngineer (+)  " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = ClosedCompliancetotals.strReviewingEngineer (+) " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = OpenGreaterTotals.strReviewingEngineer (+) " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = ClosedGreaterTotals.strReviewingEngineer (+)   " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = '" & EngineerGCode & "' "
+                "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
+                "and ISMPReportInformation.strReviewingEngineer = ReceivedTotals.strReviewingEngineer (+) " &
+                "and ISMPReportInformation.strReviewingEngineer = OpenTotals.strReviewingEngineer (+) " &
+                "and ISMPReportInformation.strReviewingEngineer = OpenWitnessedTotals.strWitnessingEngineer (+) " &
+                "and ISMPReportInformation.strReviewingEngineer = OpenComplianceTotals.strReviewingEngineer (+) " &
+                "and ISMPReportInformation.strReviewingEngineer = CloseTotals.strReviewingEngineer (+)  " &
+                "and ISMPReportInformation.strReviewingEngineer = ClosedWitnessedTotals.strWitnessingEngineer (+)  " &
+                "and ISMPReportInformation.strReviewingEngineer = ClosedCompliancetotals.strReviewingEngineer (+) " &
+                "and ISMPReportInformation.strReviewingEngineer = OpenGreaterTotals.strReviewingEngineer (+) " &
+                "and ISMPReportInformation.strReviewingEngineer = ClosedGreaterTotals.strReviewingEngineer (+)   " &
+                "and ISMPReportInformation.strReviewingEngineer = '" & EngineerGCode & "' "
 
                 SQL5 = "Select " &
                 "(strLastName|| ', ' ||strFirstName) as Staff, " &
                 "(trunc(sysdate) - datReceivedDate) as DaysOpen " &
-                "from AIRBRANCH.EPDUSerProfiles, AIRBRANCH.ISMPReportInformation " &
-                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
+                "from EPDUSerProfiles, ISMPReportInformation " &
+                "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
                 "and strClosed = 'False' " &
                 "and strDelete is NULL " &
                 "and strReviewingEngineer = '" & EngineerGCode & "' " &
@@ -3067,8 +3067,8 @@ Public Class ISMPManagersTools
                 SQL6 = "Select " &
                 "(strLastName|| ', ' ||strFirstName) as Staff, " &
                 "(datCompleteDate -datReceivedDate) as DaysClosed " &
-                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
+                "from EPDUserProfiles, ISMPReportInformation " &
+                "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
                 "and strClosed = 'True' " &
                 "and strDelete is NULL " &
                 "and strReviewingEngineer = '" & EngineerGCode & "' " &
@@ -3425,22 +3425,22 @@ Public Class ISMPManagersTools
                 Engineer = Mid(Engineer, 1, (Len(Engineer) - 3)) & ") "
             End If
 
-            SQL = "Select AIRBRANCH.ISMPReportInformation.strReferenceNumber, strFacilityName, " &
-            "substr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5) as AIRSNumber, strClosed, " &
+            SQL = "Select ISMPReportInformation.strReferenceNumber, strFacilityName, " &
+            "substr(ISMPMaster.strAIRSNumber, 5) as AIRSNumber, strClosed, " &
             "to_char(datTestDateStart, 'dd-Mon-yyyy') as ForDatTestDateStart, " &
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as ForDatReceivedDate, " &
             "to_char(datCompleteDate, 'dd-Mon-yyyy') as ForDatCompleteDate, " &
             "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-            "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-            "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer, " &
+            "from EPDUserProfiles, ISMPReportInformation  " &
+            "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
+            "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer, " &
             "(Select (strLastName|| ', ' ||strFirstName) as WitnessingEngineer " &
-            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-            "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer " &
-            "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as WitnessingEngineer " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-            "where AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
+            "from EPDUserProfiles, ISMPReportInformation " &
+            "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer " &
+            "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as WitnessingEngineer " &
+            "from ISMPReportInformation, ISMPMaster, APBFacilityInformation " &
+            "where ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber " &
+            "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
             "and " & DateBias & " " & Engineer & " "
 
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -3492,16 +3492,16 @@ Public Class ISMPManagersTools
 
             SQL = "Select " &
             "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer " &
-            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-            "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer " &
-            "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer, " &
-            "AIRBRANCH.ISMPReportInformation.strReferenceNumber, strFacilityName, " &
+            "from EPDUserProfiles, ISMPReportInformation " &
+            "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer " &
+            "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer, " &
+            "ISMPReportInformation.strReferenceNumber, strFacilityName, " &
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as ForDatReceivedDate, " &
             "(to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) as Days " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
+            "from ISMPReportInformation, ISMPMaster, APBFacilityInformation " &
             "where " &
-            "AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
+            "ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber " &
+            "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
             "and strClosed = 'False' " &
             Engineer &
             "Order by strReviewingEngineer "
@@ -3548,7 +3548,7 @@ Public Class ISMPManagersTools
             End If
 
             'Tests Received in Date Range
-            SQL = "Select count(*) as Count from AIRBRANCH.ISMPReportInformation " &
+            SQL = "Select count(*) as Count from ISMPReportInformation " &
             "where datReceivedDate between '" & DTPMonthlyStart.Text & "' and '" & DTPMonthlyEnd.Text & "' " &
             "and strDelete is NULL"
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -3558,7 +3558,7 @@ Public Class ISMPManagersTools
             End While
 
             'Tests Completed in Date Range 
-            SQL = "Select count(*) as Count from AIRBRANCH.ISMPReportInformation " &
+            SQL = "Select count(*) as Count from ISMPReportInformation " &
             "where datCompleteDate between '" & DTPMonthlyStart.Text & "' and '" & DTPMonthlyEnd.Text & "' " &
             "and strClosed = 'True' and strDelete is NULL "
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -3568,7 +3568,7 @@ Public Class ISMPManagersTools
             End While
 
             'Tests Witnessed in Date Range
-            SQL = "Select Count(*) as Count from AIRBRANCH.ISMPReportInformation " &
+            SQL = "Select Count(*) as Count from ISMPReportInformation " &
             "where datCompleteDate between '" & DTPMonthlyStart.Text & "' and '" & DTPMonthlyEnd.Text & "' " &
             "and strDelete is NULL and (strWitnessingEngineer <> '0' or strWitnessingEngineer2 <> '0') "
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -3578,7 +3578,7 @@ Public Class ISMPManagersTools
             End While
 
             'Tests out of compliance 
-            SQL = "Select Count(*) as Count from AIRBRANCH.ISMPReportInformation " &
+            SQL = "Select Count(*) as Count from ISMPReportInformation " &
             "where datCompleteDate between '" & DTPMonthlyStart.Text & "' and '" & DTPMonthlyEnd.Text & "' " &
             "and strDelete is NULL and strComplianceStatus = '05' "
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -3588,7 +3588,7 @@ Public Class ISMPManagersTools
             End While
 
             'Test Median 
-            SQL = "Select (datCompleteDate - datReceivedDate) as diff from AIRBRANCH.ISMPReportInformation " &
+            SQL = "Select (datCompleteDate - datReceivedDate) as diff from ISMPReportInformation " &
             "where datCompleteDate between '" & DTPMonthlyStart.Text & "' and '" & DTPMonthlyEnd.Text & "' " &
             "and strDelete is NULL " &
             "and strClosed = 'True' order by diff desc"
@@ -3710,18 +3710,18 @@ Public Class ISMPManagersTools
                 CurrentConnection.Open()
             End If
 
-            SQL = "Select AIRBRANCH.ISMPReportInformation.strReferenceNumber, strEmissionSource, strPollutantDescription, " &
+            SQL = "Select ISMPReportInformation.strReferenceNumber, strEmissionSource, strPollutantDescription, " &
             "to_char(datTestDateStart, 'dd-Mon-yyyy') as fordatTestDateStart, to_char(datTestDateEnd, 'dd-Mon-yyyy') as fordatTestDateEnd, " &
-            "substr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5) as AIRSNumber, strFacilityName, strFacilityCity, strFacilityState, " &
-            "AIRBRANCH.ISMPReportType.strReportType " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, " &
-            "AIRBRANCH.ISMPReportType " &
+            "substr(ISMPMaster.strAIRSNumber, 5) as AIRSNumber, strFacilityName, strFacilityCity, strFacilityState, " &
+            "ISMPReportType.strReportType " &
+            "from ISMPReportInformation, LookUPPollutants, ISMPMaster, APBFacilityInformation, " &
+            "ISMPReportType " &
             "where strDelete is NULL and strComplianceStatus = '05' " &
             "and datCompleteDate between '" & DTPMonthlyStart.Text & "' and '" & DTPMonthlyEnd.Text & "' " &
             "and strPollutantCode = strPOllutant " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.ISMPMaster.strAIRSNumber " &
-            "and AIRBRANCH.ISMPReportInformation.strReportType = AIRBRANCH.ISMPReportType.strKey "
+            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+            "and APBFacilityInformation.strAIRSNumber = ISMPMaster.strAIRSNumber " &
+            "and ISMPReportInformation.strReportType = ISMPReportType.strKey "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             dr = cmd.ExecuteReader
@@ -3843,7 +3843,7 @@ Public Class ISMPManagersTools
             If PathName <> "N/A" Then
 
                 SQL = "select max(FileId) as ID " &
-                "from AIRBRANCH.ISMPTestReportAids "
+                "from ISMPTestReportAids "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
                 recExist = dr.Read
@@ -3873,7 +3873,7 @@ Public Class ISMPManagersTools
                 Fs.Close()
 
                 SQL = "Select * " &
-                "From AIRBRANCH.ISMPTestReportAIDS " &
+                "From ISMPTestReportAIDS " &
                 "where FileID = '" & IDnumber & "' "
 
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -3920,7 +3920,7 @@ Public Class ISMPManagersTools
                 FileID = txtFileName.Text
                 FileID = Mid(FileID, 1, FileID.IndexOf(" - "))
 
-                SQL = "Delete AIRBRANCH.ISMPTestReportAids " &
+                SQL = "Delete ISMPTestReportAids " &
                 "where FileID = '" & FileID & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -3961,24 +3961,24 @@ Public Class ISMPManagersTools
              "    When OpenFiftys is Null then 0 " &
              "    Else OpenFiftys " &
              "End as OpenFiftys " &
-             "From (SELECT AIRBRANCH.EPDUSerProfiles.STRFIRSTNAME as Engineer, Count(*) as OpenReports " &
-             "    FROM AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-             "    WHERE (AIRBRANCH.ISMPReportInformation.STRCLOSED = 'False' ) " &
-             "    and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer " &
+             "From (SELECT EPDUSerProfiles.STRFIRSTNAME as Engineer, Count(*) as OpenReports " &
+             "    FROM EPDUserProfiles, ISMPReportInformation " &
+             "    WHERE (ISMPReportInformation.STRCLOSED = 'False' ) " &
+             "    and EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer " &
              "Group by strfirstname) OpenReport, " &
-             "(SELECT AIRBRANCH.EPDUserProfiles.STRFIRSTNAME as Engineer, Count(*) as ClosedReports " &
-             "    FROM AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-             "    WHERE (AIRBRANCH.ISMPReportInformation.STRCLOSED = 'True' ) " &
-             "    and AIRBRANCH.EPDUSerProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer " &
+             "(SELECT EPDUserProfiles.STRFIRSTNAME as Engineer, Count(*) as ClosedReports " &
+             "    FROM EPDUserProfiles, ISMPReportInformation " &
+             "    WHERE (ISMPReportInformation.STRCLOSED = 'True' ) " &
+             "    and EPDUSerProfiles.numUserID = ISMPReportInformation.strReviewingEngineer " &
              "    and datCompleteDate Between Trunc(sysdate) - 60 and Trunc(sysdate) " &
              "Group by strfirstname) ClosedReport, " &
-             "(SELECT AIRBRANCH.EPDUSerProfiles.STRFIRSTNAME as Engineer, Count(*) as OpenFiftys " &
-             "    FROM AIRBRANCH.EPDUSerProfiles, AIRBRANCH.ISMPReportInformation " &
-             "    WHERE (AIRBRANCH.ISMPReportInformation.STRCLOSED = 'False' ) " &
-             "    and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer " &
+             "(SELECT EPDUSerProfiles.STRFIRSTNAME as Engineer, Count(*) as OpenFiftys " &
+             "    FROM EPDUSerProfiles, ISMPReportInformation " &
+             "    WHERE (ISMPReportInformation.STRCLOSED = 'False' ) " &
+             "    and EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer " &
              "    and datReceivedDate <= (Trunc(SysDate) - 50) " &
              "Group by strfirstname) OLdOpen, " &
-             "AIRBRANCH.EPDUserProfiles " &
+             "EPDUserProfiles " &
              "where strFirstname = OpenReport.Engineer (+) " &
              "and strFirstName = ClosedReport.Engineer (+) " &
              "and strFirstName = OldOpen.Engineer (+) " &
@@ -4097,7 +4097,7 @@ Public Class ISMPManagersTools
 
                     SQL = "Select " &
                     "FileId, FileTitle, ISMPBlob " &
-                    "from AIRBRANCH.ISMPTestReportAids " &
+                    "from ISMPTestReportAids " &
                     "Where FileID = '" & FileID & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -4139,17 +4139,17 @@ Public Class ISMPManagersTools
 
 
             SQL = "Select " &
-            "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " &
+            "SSPPApplicationMaster.strApplicationNumber, " &
             "strISMPUnit, strISMPReviewer, datISMPReviewDate,  " &
             "strISMPComments,  " &
-            "substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5) as AIRSNumber, " &
-            "AIRBRANCH.APBFacilityinformation.strFacilityName " &
-            "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.SSPPApplicationMaster,  " &
-            "AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.SSPPApplicationData " &
+            "substr(SSPPApplicationMaster.strAIRSNumber, 5) as AIRSNumber, " &
+            "APBFacilityinformation.strFacilityName " &
+            "from APBFacilityInformation, SSPPApplicationMaster,  " &
+            "SSPPApplicationTracking, SSPPApplicationData " &
             "where datISMPReviewDate between '" & DTPAppStartDate.Text & "' and '" & DTPAppEndDate.Text & "'  " &
-            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " &
-            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber " &
-            "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSPPApplicationMaster.strAIRSNumber "
+            "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+            "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+            "and APBFacilityInformation.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -4201,25 +4201,25 @@ Public Class ISMPManagersTools
             "MedDays,  " &
             "PercentDays,  " &
             "(Witness1.witcount + witness2.witcount + Witness3.witcount) as Witnessed " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.EPDUserProfiles,  " &
-            "AIRBRANCH.LookUpEPDUnits, " &
+            "from ISMPReportInformation, EPDUserProfiles,  " &
+            "LookUpEPDUnits, " &
             "(select count(*) as TotalReceived " &
-            "from AIRBRANCH.ISMPReportInformation  " &
+            "from ISMPReportInformation  " &
             "where datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " &
             "and (strDelete <> 'True' or strDelete is Null) " &
             "and strReviewingEngineer <> '0' " &
             "and strClosed = 'True') TotalReviewed,  " &
             "(select strReviewingEngineer, Count(*) as ReceivedCount " &
-            "from AIRBRANCH.ISMPReportInformation   " &
+            "from ISMPReportInformation   " &
             "where datcompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " &
             "and (strDelete is Null or strDelete <> 'True') " &
             "and strReviewingEngineer <> '0'  " &
             "and strClosed = 'True'  " &
             "group by strReviewingEngineer) TotalRec,  " &
             "(select count(*) as ComUnitTotal  " &
-            "from AIRBRANCH.ISMPReportInformation,   " &
+            "from ISMPReportInformation,   " &
             "(select numUserID   " &
-            "from AIRBRANCH.EPDUserProfiles   " &
+            "from EPDUserProfiles   " &
             "where numProgram = '3'  " &
             "and numUnit = '13') ComUnit  " &
             "where datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " &
@@ -4227,9 +4227,9 @@ Public Class ISMPManagersTools
             "and strClosed = 'True'  " &
             "and strReviewingEngineer  = ComUnit.numUserID) ComTotal,  " &
             "(select count(*) as ChemUnitTotal  " &
-            "from AIRBRANCH.ISMPReportInformation,   " &
+            "from ISMPReportInformation,   " &
             "(select numUserID   " &
-            "from AIRBRANCH.EPDUserProfiles   " &
+            "from EPDUserProfiles   " &
             "where numProgram = '3'   " &
             "and numUnit = '12') ChemUnit  " &
             "where datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " &
@@ -4245,7 +4245,7 @@ Public Class ISMPManagersTools
             "when strClosed = 'True' then (datCompleteDate - datReceivedDate)  " &
             "when strClosed = 'False' then (round(sysdate, 'DDD') - datReceivedDate) " &
             "END DayIn " &
-            "from AIRBRANCH.ISMPReportInformation " &
+            "from ISMPReportInformation " &
             "where datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " &
             "and (strDelete <> 'True' or strDelete is Null) " &
             "and strClosed = 'True'  " &
@@ -4260,47 +4260,47 @@ Public Class ISMPManagersTools
             "when strClosed = 'True' then (datCompleteDate - datReceivedDate)  " &
             "when strClosed = 'False' then (round(sysdate, 'DDD') - datReceivedDate) " &
             "END DaysIn " &
-            "from AIRBRANCH.ISMPReportInformation " &
+            "from ISMPReportInformation " &
             "where datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " &
             "and (strDelete <> 'True' or strDelete is Null) " &
             "and strReviewingEngineer <> '0'  " &
             "and strClosed = 'True')  " &
             "group by strReviewingEngineer) PercentDays,  " &
-            "(select AIRBRANCH.ISMPReportInformation.strWitnessingEngineer,  " &
+            "(select ISMPReportInformation.strWitnessingEngineer,  " &
             "count(*) as WitCount " &
-            "from AIRBRANCH.ISMPReportInformation   " &
+            "from ISMPReportInformation   " &
             "where datcompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " &
             "and (strDelete <> 'True' or strDelete is Null)  " &
-            "and AIRBRANCH.ISMPReportInformation.strWitnessingEngineer <> '0' " &
+            "and ISMPReportInformation.strWitnessingEngineer <> '0' " &
             "and strClosed = 'True'  " &
-            "group by AIRBRANCH.ISMPReportInformation.strWitnessingEngineer) Witness1,  " &
-            "(select AIRBRANCH.ISMPReportInformation.strWitnessingEngineer2,  " &
+            "group by ISMPReportInformation.strWitnessingEngineer) Witness1,  " &
+            "(select ISMPReportInformation.strWitnessingEngineer2,  " &
             "count(*) as WitCount " &
-            "from AIRBRANCH.ISMPReportInformation   " &
+            "from ISMPReportInformation   " &
             "where datcompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " &
             "and (strDelete <> 'True' or strDelete is Null)  " &
-            "and AIRBRANCH.ISMPReportInformation.strWitnessingEngineer2 <> '0' " &
+            "and ISMPReportInformation.strWitnessingEngineer2 <> '0' " &
             "and strClosed = 'True'  " &
-            "group by AIRBRANCH.ISMPReportInformation.strWitnessingEngineer2) Witness2,  " &
-            "(select  AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer,  " &
+            "group by ISMPReportInformation.strWitnessingEngineer2) Witness2,  " &
+            "(select  ISMPWitnessingEng.strWitnessingEngineer,  " &
             "count(*) as WitCount " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPWitnessingEng    " &
+            "from ISMPReportInformation, ISMPWitnessingEng    " &
             "where datcompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " &
             "and (strDelete <> 'True' or strDelete is Null)  " &
-            "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPWitnessingEng.strReferenceNumber   " &
+            "and ISMPReportInformation.strReferenceNumber = ISMPWitnessingEng.strReferenceNumber   " &
             "and strClosed = 'True'  " &
-            "group by AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer) Witness3  " &
-            "where AIRBRANCH.ISMPReportInformation.strReviewingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
-            "and AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode " &
+            "group by ISMPWitnessingEng.strWitnessingEngineer) Witness3  " &
+            "where ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
+            "and EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
             "and datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "' " &
             "and (strDelete <> 'True' or strDelete is Null)  " &
-            "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer <> '0'  " &
-            "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = TotalRec.strReviewingEngineer (+)  " &
-            "and AIRBRANCH.ISMPREportINformation.strReviewingEngineer = MedianTotal.strReviewingEngineer (+) " &
-            "and AIRBRANCH.ISMPREportINformation.strReviewingEngineer = PercentDays.strReviewingEngineer (+) " &
-            "and AIRBRANCH.ISMPREportINformation.strReviewingEngineer = Witness1.strWitnessingEngineer (+)  " &
-            "and AIRBRANCH.ISMPREportINformation.strReviewingEngineer = Witness2.strWitnessingEngineer2 (+) " &
-            "and AIRBRANCH.ISMPREportINformation.strReviewingEngineer = Witness3.strWitnessingEngineer (+)  " &
+            "and ISMPReportInformation.strReviewingEngineer <> '0'  " &
+            "and ISMPReportInformation.strReviewingEngineer = TotalRec.strReviewingEngineer (+)  " &
+            "and ISMPREportINformation.strReviewingEngineer = MedianTotal.strReviewingEngineer (+) " &
+            "and ISMPREportINformation.strReviewingEngineer = PercentDays.strReviewingEngineer (+) " &
+            "and ISMPREportINformation.strReviewingEngineer = Witness1.strWitnessingEngineer (+)  " &
+            "and ISMPREportINformation.strReviewingEngineer = Witness2.strWitnessingEngineer2 (+) " &
+            "and ISMPREportINformation.strReviewingEngineer = Witness3.strWitnessingEngineer (+)  " &
             "order by strUnitDesc, Engineer "
 
             dsUnitStats = New DataSet
@@ -5686,14 +5686,14 @@ Public Class ISMPManagersTools
 
             dsFacilityList = New DataSet
 
-            SQL = "Select strFacilityName, substr(AIRBRANCH.APBFacilityInformation.strAIRSnumber, 5) as StrAIRSNumber, " &
+            SQL = "Select strFacilityName, substr(APBFacilityInformation.strAIRSnumber, 5) as StrAIRSNumber, " &
             "CASE " &
             "when strISMPUnit = 'H' then 'Chemical and VOC' " &
             "when strISMPUnit = 'I' then 'Combustion and Mineral' " &
             "ELSE 'Unassigned' " &
             "END as UnitAssigned " &
-            "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPFacilityAssignment " &
-            "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.ISMPFacilityAssignment.strAIRSNumber " &
+            "from APBFacilityInformation, ISMPFacilityAssignment " &
+            "where APBFacilityInformation.strAIRSNumber = ISMPFacilityAssignment.strAIRSNumber " &
             "order by strAIRSNumber "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -6079,8 +6079,8 @@ Public Class ISMPManagersTools
             "when datCompleteDate = '04-Jul-1776' then Null  " &
             "else to_char(datCompleteDate, 'dd-Mon-yyyy')  " &
             "end datCompleteDate  " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.EPDUserProfiles    " &
-            "where AIRBRANCH.ISMPReportInformation.strReviewingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
+            "from ISMPReportInformation, EPDUserProfiles    " &
+            "where ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
             "and datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " &
             "and (strDelete <> 'True' or strDelete is Null)  " &
             "and strReviewingEngineer <> '0'  " &
@@ -6138,12 +6138,12 @@ Public Class ISMPManagersTools
             "when datCompleteDate = '04-Jul-1776' then Null  " &
             "else to_char(datCompleteDate, 'dd-Mon-yyyy')  " &
             "End datCompleteDate  " &
-            "from AIRBRANCH.ISMPReportInformation,  AIRBRANCH.EPDUserProfiles,  " &
+            "from ISMPReportInformation,  EPDUserProfiles,  " &
             "(select numUserID    " &
-            "from AIRBRANCH.EPDUserProfiles " &
+            "from EPDUserProfiles " &
             "where numProgram = '3'  " &
             "and numUnit = '12') ChemUnit   " &
-            "where AIRBRANCH.ISMPReportInformation.strReviewingEngineer = AIRBRANCH.EPDUSerProfiles.numUSerID   " &
+            "where ISMPReportInformation.strReviewingEngineer = EPDUSerProfiles.numUSerID   " &
             "and datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " &
             "and (strDelete <> 'True' or strDelete is Null)    " &
             "and strClosed = 'True'   " &
@@ -6201,12 +6201,12 @@ Public Class ISMPManagersTools
            "when datCompleteDate = '04-Jul-1776' then Null  " &
            "else to_char(datCompleteDate, 'dd-Mon-yyyy')  " &
            "End datCompleteDate  " &
-           "from AIRBRANCH.ISMPReportInformation,  AIRBRANCH.EPDUserProfiles,  " &
+           "from ISMPReportInformation,  EPDUserProfiles,  " &
            "(select numUserID " &
-           "from AIRBRANCH.EPDUserProfiles     " &
+           "from EPDUserProfiles     " &
            "where numProgram = '3' " &
            "and numUnit = '13') ComUnit   " &
-           "where AIRBRANCH.ISMPReportInformation.strReviewingEngineer = AIRBRANCH.EPDUserProfiles.numUserID   " &
+           "where ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID   " &
            "and datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " &
            "and (strDelete <> 'True' or strDelete is Null)    " &
            "and strClosed = 'True'   " &
@@ -6293,7 +6293,7 @@ Public Class ISMPManagersTools
             If txtMethodCode.Text <> "" Then
                 SQL = "Select " &
                 "strMethodDesc " &
-                "from AIRBRANCH.LookUpISMPMethods " &
+                "from LookUpISMPMethods " &
                 "where strMethodCode = '" & txtMethodCode.Text & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -6335,7 +6335,7 @@ Public Class ISMPManagersTools
 
                 SQL = "Select " &
                 "strMethodCode " &
-                "From AIRBRANCH.LookUpISMPMethods " &
+                "From LookUpISMPMethods " &
                 "where substr(strMethodDesc, 1, instr(strMethodDesc,'-')-2)  = 'Method " & Replace(txtMethodNumber.Text.ToUpper, "'", "''") & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -6348,7 +6348,7 @@ Public Class ISMPManagersTools
                     temp = dr.Item("strMethodCode")
                     dr.Close()
                     If temp = txtMethodCode.Text Then
-                        SQL = "Update AIRBRANCH.LookUpISMPMethods set " &
+                        SQL = "Update LookUpISMPMethods set " &
                         "strMethodDesc = 'Method " & Replace(txtMethodNumber.Text, "'", "''") & " - " & Replace(txtMethodDescription.Text, "'", "''") & "' " &
                         "where strMethodCode = '" & Replace(txtMethodCode.Text, "'", "''") & "' "
                         cmd = New SqlCommand(SQL, CurrentConnection)
@@ -6359,7 +6359,7 @@ Public Class ISMPManagersTools
                         dr.Close()
                     Else
                         SQL = "Select (max(strMethodCode) + 1) as MethodCode " &
-                        "from AIRBRANCH.LookUpISMPMethods "
+                        "from LookUpISMPMethods "
                         cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
@@ -6389,7 +6389,7 @@ Public Class ISMPManagersTools
                             End If
                         End While
 
-                        SQL = "Insert into AIRBRANCH.LookUpISMPMethods " &
+                        SQL = "Insert into LookUpISMPMethods " &
                         "values " &
                         "('" & temp & "', " &
                         "'Method " & Replace(txtMethodNumber.Text, "'", "''") & " - " & Replace(txtMethodDescription.Text, "'", "''") & "') "
@@ -6403,7 +6403,7 @@ Public Class ISMPManagersTools
                 Else
                     dr.Close()
                     SQL = "Select (max(strMethodCode) + 1) as MethodCode " &
-                    "from AIRBRANCH.LookUpISMPMethods "
+                    "from LookUpISMPMethods "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
@@ -6433,7 +6433,7 @@ Public Class ISMPManagersTools
                         End If
                     End While
 
-                    SQL = "Insert into AIRBRANCH.LookUpISMPMethods " &
+                    SQL = "Insert into LookUpISMPMethods " &
                     "values " &
                     "('" & temp & "', " &
                     "'Method " & Replace(txtMethodNumber.Text, "'", "''") & " - " & Replace(txtMethodDescription.Text, "'", "''") & "') "
@@ -6518,7 +6518,7 @@ Public Class ISMPManagersTools
 
                 SQL = "Select " &
                 "strReferenceNumber " &
-                "from AIRBRANCH.ISMPMaster " &
+                "from ISMPMaster " &
                 "where strReferenceNumber = '" & RefNum & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -6534,7 +6534,7 @@ Public Class ISMPManagersTools
 
                 SQL = "Select " &
                 "strAIRSNumber " &
-                "from AIRBRANCH.APBMasterAIRS " &
+                "from APBMasterAIRS " &
                 "where strAIRSNumber = '0413" & AIRSNumber & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -6548,7 +6548,7 @@ Public Class ISMPManagersTools
                     Exit Sub
                 End If
 
-                SQL = "Insert into AIRBRANCH.ISMPMaster " &
+                SQL = "Insert into ISMPMaster " &
                 "values " &
                 "('" & RefNum & "', '0413" & AIRSNumber & "', " &
                 "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
@@ -6559,7 +6559,7 @@ Public Class ISMPManagersTools
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Insert into AIRBRANCH.ISMPReportInformation " &
+                SQL = "Insert into ISMPReportInformation " &
                 "values " &
                 "('" & RefNum & "', '00001', " &
                 "'N/A', '001', " &
@@ -6627,7 +6627,7 @@ Public Class ISMPManagersTools
             If txtCloseTestReportRefNum.Text <> "" Then
                 SQL = "Select " &
                 "strReferenceNumber " &
-                "from AIRBRANCH.ISMPReportInformation " &
+                "from ISMPReportInformation " &
                 "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -6638,7 +6638,7 @@ Public Class ISMPManagersTools
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update AIRBRANCH.ISMPReportInformation set " &
+                    SQL = "Update ISMPReportInformation set " &
                     "strClosed = 'True' " &
                     "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -6661,7 +6661,7 @@ Public Class ISMPManagersTools
             If txtCloseTestReportRefNum.Text <> "" Then
                 SQL = "Select " &
                 "strReferenceNumber " &
-                "from AIRBRANCH.ISMPReportInformation " &
+                "from ISMPReportInformation " &
                 "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -6672,7 +6672,7 @@ Public Class ISMPManagersTools
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update AIRBRANCH.ISMPReportInformation set " &
+                    SQL = "Update ISMPReportInformation set " &
                     "strClosed = 'False' " &
                     "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
                     cmd = New SqlCommand(SQL, CurrentConnection)

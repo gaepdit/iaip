@@ -36,7 +36,7 @@ Public Class SSPP_FeeContact
             "strContactAddress1, strContactCity, " &
             "strContactState, strContactZipCode, " &
             "strContactDescription " &
-            "from AIRBRANCH.APBContactInformation " &
+            "from APBContactInformation " &
             "where strContactKey = '0413" & txtAIRSNumber.Text & "40' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -176,7 +176,7 @@ Public Class SSPP_FeeContact
             If txtAIRSNumber.Text <> "" Then
                 SQL = "Select " &
                 "strContactKey " &
-                "from AIRBRANCH.APBContactInformation " &
+                "from APBContactInformation " &
                 "where strContactKey = '0413" & txtAIRSNumber.Text & "40' " &
                 "and strContactDescription = '" & txtDescription.Text & "' "
 
@@ -201,7 +201,7 @@ Public Class SSPP_FeeContact
                     Exit Sub
                 End If
 
-                SQL = "Update AIRBRANCH.APBContactInformation set " &
+                SQL = "Update APBContactInformation set " &
                 "strContactFirstName = '" & Replace(txtFirstName.Text, "'", "''") & "', " &
                 "strContactLastName = '" & Replace(txtLastName.Text, "'", "''") & "', " &
                 "strContactPrefix = '" & Replace(txtSocialTitle.Text, "'", "''") & "', " &

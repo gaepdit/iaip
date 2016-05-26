@@ -17,7 +17,7 @@ Public Class IAIPLookUpTables
             "to_number(strApplicationTypeCode) as strApplicationTypeCode, " &
             "strApplicationTypeDesc, " &
             "strApplicationTypeUsed " &
-            "From AIRBRANCH.LookUpApplicationTypes " &
+            "From LookUpApplicationTypes " &
             "order by strApplicationTypeDesc "
 
             ds = New DataSet
@@ -114,10 +114,10 @@ Public Class IAIPLookUpTables
                     AppStatus = False
                 End If
 
-                SQL = "Insert into AIRBRANCH.LookUpApplicationTypes " &
+                SQL = "Insert into LookUpApplicationTypes " &
                 "values " &
                 "((Select max(to_Number(strApplicationTypeCode)) + 1 as MaxID " &
-                "from AIRBRANCH.LookUpApplicationTypes), " &
+                "from LookUpApplicationTypes), " &
                 "'" & txtApplicationDesc.Text & "', '" & AppStatus & "') "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -127,7 +127,7 @@ Public Class IAIPLookUpTables
                 dr.Close()
 
                 SQL = "Select max(to_Number(strApplicationTypeCode)) + 1 as MaxID " &
-                "from AIRBRANCH.LookUpApplicationTypes "
+                "from LookUpApplicationTypes "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -160,7 +160,7 @@ Public Class IAIPLookUpTables
             End If
 
             If txtApplicationID.Text <> "" Then
-                SQL = "Update AIRBRANCH.LookUpApplicationTypes set " &
+                SQL = "Update LookUpApplicationTypes set " &
                 "strApplicationTypeDesc = '" & Replace(txtApplicationDesc.Text, "'", "''") & "', " &
                 "strApplicationTypeUsed = '" & temp & "' " &
                 "where strApplicationTypeCode = '" & txtApplicationID.Text & "' "
@@ -186,7 +186,7 @@ Public Class IAIPLookUpTables
         Try
             If txtApplicationID.Text <> "" Then
                 SQL = "Select Count(*) as IDUsed " &
-                "from AIRBRANCH.SSPPApplicationMaster " &
+                "from SSPPApplicationMaster " &
                 "where strApplicationType = '" & txtApplicationID.Text & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -209,7 +209,7 @@ Public Class IAIPLookUpTables
                 dr.Close()
 
                 If temp <> "Keep" Then
-                    SQL = "delete AIRBRANCH.LookUpApplicationTypes " &
+                    SQL = "delete LookUpApplicationTypes " &
                     "where strApplicationTypeCode = '" & txtApplicationID.Text & "' "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -393,7 +393,7 @@ Public Class IAIPLookUpTables
             "end MangerType, " &
             "strManagementName, datStartDate, " &
             "datEndDate, strCurrentContact " &
-            "from AIRBRANCH.LookUpAPBManagementType " &
+            "from LookUpAPBManagementType " &
             "where strCurrentContact = '1' " &
             "order by to_number(strKey) "
 
@@ -466,7 +466,7 @@ Public Class IAIPLookUpTables
                 "strKey, " &
                 "strManagementName, datStartDate, " &
                 "datEndDate, strCurrentContact " &
-                "from AIRBRANCH.LookUpAPBManagementType " &
+                "from LookUpAPBManagementType " &
                 "where numId = '" & txtAPBManagemetnID.Text & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -664,7 +664,7 @@ Public Class IAIPLookUpTables
             End Select
 
             SQL = "Select numId " &
-            "from AIRBRANCH.LookUpAPBManagementType " &
+            "from LookUpAPBManagementType " &
             "where strCurrentContact = '1' " &
             "and strKey = '" & ManagementType & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -675,7 +675,7 @@ Public Class IAIPLookUpTables
             While dr.Read
                 If IsDBNull(dr.Item("numID")) Then
                 Else
-                    SQL = "Update AIRBRANCH.LookUpAPBManagementType set " &
+                    SQL = "Update LookUpAPBManagementType set " &
                     "strCurrentContact = '0', " &
                     "datEndDate = '" & OracleDate & "' " &
                     "where numId = '" & dr.Item("numID") & "' "
@@ -689,9 +689,9 @@ Public Class IAIPLookUpTables
             End While
             dr.Close()
 
-            SQL = "Insert into AIRBRANCH.LookUpAPBManagementType " &
+            SQL = "Insert into LookUpAPBManagementType " &
             "values " &
-            "((select max(numId) + 1 from AIRBRANCH.LookUpAPBManagementType), '" & ManagementType & "', " &
+            "((select max(numId) + 1 from LookUpAPBManagementType), '" & ManagementType & "', " &
             "'" & Replace(ManagementName, "'", "''") & "', '" & OracleDate & "', " &
             "'', '1') "
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -881,7 +881,7 @@ Public Class IAIPLookUpTables
             "end MangerType, " &
             "strManagementName, datStartDate, " &
             "datEndDate, strCurrentContact " &
-            "from AIRBRANCH.LookUpAPBManagementType " &
+            "from LookUpAPBManagementType " &
             "where strKey = '" & ManagementType & "' " &
             "order by numID "
 

@@ -103,46 +103,46 @@ Public Class SSCPEnforcementChecklist
         Dim SQLLine As String = ""
         Dim SQLCount As Integer = 0
 
-        Dim SQL As String = "Select substr(AIRBRANCH.SSCPItemMaster.strAIrsnumber, 5) as AIRSNumber, strfacilityName, " &
+        Dim SQL As String = "Select substr(SSCPItemMaster.strAIrsnumber, 5) as AIRSNumber, strfacilityName, " &
         "strActivityName, " &
         "to_char(datReceivedDate, 'yyyy-MM-dd') as ReceivedDate, " &
         "strTrackingNumber, (strLastName|| ', ' ||strFirstName) as Staff " &
-        "from AIRBRANCH.SSCPItemMaster, " &
-        "AIRBRANCH.LookUPComplianceActivities, AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles " &
+        "from SSCPItemMaster, " &
+        "LookUPComplianceActivities, APBFacilityInformation, EPDUserProfiles " &
         "where " &
-        "AIRBRANCH.SSCPItemMaster.strEventType = AIRBRANCH.LookUPComplianceActivities.strActivityType " &
-        "and AIRBRANCH.SSCPItemMaster.strairsnumber = AIRBRANCH.APBFacilityInformation.strairsnumber " &
-        "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCPItemMaster.strResponsibleStaff " &
-        "and AIRBRANCH.SSCPItemMaster.strAIRSNumber = :airsnumber " &
-        "and AIRBRANCH.SSCPItemMaster.strEventType <> '05' "
+        "SSCPItemMaster.strEventType = LookUPComplianceActivities.strActivityType " &
+        "and SSCPItemMaster.strairsnumber = APBFacilityInformation.strairsnumber " &
+        "and EPDUserProfiles.numUserID = SSCPItemMaster.strResponsibleStaff " &
+        "and SSCPItemMaster.strAIRSNumber = :airsnumber " &
+        "and SSCPItemMaster.strEventType <> '05' "
 
         If chbWorkType.Checked = True Then
             If chbAllWork.Checked <> True Then
                 If chbACCs.Checked = True Then
-                    SQLLine = SQLLine & "AIRBRANCH.SSCPItemMaster.strEventType = '04' "
+                    SQLLine = SQLLine & "SSCPItemMaster.strEventType = '04' "
                     SQLCount += 1
                 End If
                 If chbInspections.Checked = True Then
                     If SQLCount <> 0 Then
-                        SQLLine = SQLLine & "OR AIRBRANCH.SSCPItemMaster.strEventType = '02' "
+                        SQLLine = SQLLine & "OR SSCPItemMaster.strEventType = '02' "
                     Else
-                        SQLLine = SQLLine & "AIRBRANCH.SSCPItemMaster.strEventType = '02' "
+                        SQLLine = SQLLine & "SSCPItemMaster.strEventType = '02' "
                     End If
                     SQLCount += 1
                 End If
                 If chbPerformanceTests.Checked = True Then
                     If SQLCount <> 0 Then
-                        SQLLine = SQLLine & "OR AIRBRANCH.SSCPItemMaster.strEventType = '03' "
+                        SQLLine = SQLLine & "OR SSCPItemMaster.strEventType = '03' "
                     Else
-                        SQLLine = SQLLine & "AIRBRANCH.SSCPItemMaster.strEventType = '03' "
+                        SQLLine = SQLLine & "SSCPItemMaster.strEventType = '03' "
                     End If
                     SQLCount += 1
                 End If
                 If chbReports.Checked = True Then
                     If SQLCount <> 0 Then
-                        SQLLine = SQLLine & "OR AIRBRANCH.SSCPItemMaster.strEventType = '01' "
+                        SQLLine = SQLLine & "OR SSCPItemMaster.strEventType = '01' "
                     Else
-                        SQLLine = SQLLine & "AIRBRANCH.SSCPItemMaster.strEventType = '01' "
+                        SQLLine = SQLLine & "SSCPItemMaster.strEventType = '01' "
                     End If
                     SQLCount += 1
                 End If
@@ -153,7 +153,7 @@ Public Class SSCPEnforcementChecklist
         End If
 
         If chbFilterDates.Checked Then
-            SQLLine = SQLLine & " and AIRBRANCH.SSCPItemMaster.datReceivedDate between :startdate and :enddate "
+            SQLLine = SQLLine & " and SSCPItemMaster.datReceivedDate between :startdate and :enddate "
         End If
 
         If SQLLine <> "" Then

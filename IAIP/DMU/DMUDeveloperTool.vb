@@ -104,8 +104,8 @@ Public Class DMUDeveloperTool
             " strErrorLocation, strErrorMessage, " &
             " to_char(datErrorDate, 'DD-Mon-YYYY') as ErrorDate, " &
             " strSolution " &
-            " from AIRBranch.IAIPErrorLog, AIRBranch.EPDUserProfiles " &
-            " where AIRBranch.IAIPErrorLog.strUser = AIRBranch.EPDUserProfiles.numUserID "
+            " from IAIPErrorLog, EPDUserProfiles " &
+            " where IAIPErrorLog.strUser = EPDUserProfiles.numUserID "
 
         If rdbViewResolvedErrors.Checked = True Then
             query = query & " and strSolution IS NOT NUll "
@@ -155,7 +155,7 @@ Public Class DMUDeveloperTool
             "strIPAddress, strUserEmail, " &
             "strErrorPage, dateTimeStamp, " &
             "strErrorMsg, strSolution " &
-            "From AIRBranch.OLAPERRORLog "
+            "From OLAPERRORLog "
 
         If rdbResolvedWebErrors.Checked = True Then
             query = query & " where strSolution IS NOT NULL "
@@ -182,7 +182,7 @@ Public Class DMUDeveloperTool
         End If
 
         If txtErrorNumber.Text <> "" Then
-            Dim query As String = "Update AIRBRANCH.IAIPErrorLog set " &
+            Dim query As String = "Update IAIPErrorLog set " &
             "strSolution = :errSol " &
             "where strErrornumber = :errNum "
 
@@ -221,7 +221,7 @@ Public Class DMUDeveloperTool
                     " strIPAddress, strUserEmail, " &
                     " strErrorPage, dateTimeStamp, " &
                     " strErrorMsg, strSolution " &
-                    " From AIRBRANCH.OLAPERRORLog " &
+                    " From OLAPERRORLog " &
                     " where numError = :errNum "
 
                     Dim parameter As SqlParameter = New SqlParameter("errNum", txtWebErrorNumber.Text)
@@ -252,7 +252,7 @@ Public Class DMUDeveloperTool
         End If
 
         If txtWebErrorNumber.Text <> "" Then
-            Dim query As String = "Update AIRBRANCH.OLAPErrorLog set " &
+            Dim query As String = "Update OLAPErrorLog set " &
             "strSolution = :errSol " &
             "where numError = :errNum "
 
@@ -287,8 +287,8 @@ Public Class DMUDeveloperTool
                     "strErrorLocation, strErrorMessage,  " &
                     "to_char(datErrorDate, 'DD-Mon-YYYY') as ErrorDate,  " &
                     "strSolution  " &
-                    "from AIRBRANCH.IAIPErrorLog, AIRBRANCH.EPDUserProfiles  " &
-                    "where AIRBRANCH.IAIPErrorLog.strUser = AIRBRANCH.EPDUserProfiles.numUserID " &
+                    "from IAIPErrorLog, EPDUserProfiles  " &
+                    "where IAIPErrorLog.strUser = EPDUserProfiles.numUserID " &
                     "and strErrorNumber = '" & txtErrorNumber.Text & "' "
 
                     Dim parameter As SqlParameter = New SqlParameter("errNum", txtErrorNumber.Text)

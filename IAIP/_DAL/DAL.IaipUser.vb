@@ -46,7 +46,7 @@ Namespace DAL
         Public Function GetIaipUserByUserIdAsDataTable(ByVal userid As Integer) As DataTable
             If userid = 0 Then Return Nothing
 
-            Dim spName As String = "AIRBRANCH.IAIP_USER.GetIaipUserByUserId"
+            Dim spName As String = "IAIP_USER.GetIaipUserByUserId"
             Dim parameter As New SqlParameter("userid", userid)
 
             Return DB.SPGetDataTable(spName, parameter)
@@ -55,7 +55,7 @@ Namespace DAL
         Public Function GetIaipUserByUsername(ByVal username As String) As IaipUser
             If username = "" Then Return Nothing
 
-            Dim spName As String = "AIRBRANCH.IAIP_USER.GetIaipUserByUsername"
+            Dim spName As String = "IAIP_USER.GetIaipUserByUsername"
             Dim parameter As New SqlParameter("username", username)
 
             Dim dataTable As DataTable = DB.SPGetDataTable(spName, parameter)
@@ -92,7 +92,7 @@ Namespace DAL
         End Function
 
         Public Function GetActiveUsers() As Dictionary(Of Integer, String)
-            Dim spName As String = "AIRBRANCH.IAIP_USER.GetActiveUsers"
+            Dim spName As String = "IAIP_USER.GetActiveUsers"
             Return DB.SPGetLookupDictionary(spName)
         End Function
 
@@ -102,7 +102,7 @@ Namespace DAL
             ' TODO: SQL Server migration
 
             'If username = "" Then Return False
-            'Dim spName As String = "AIRBRANCH.IAIP_USER.UsernameExists"
+            'Dim spName As String = "IAIP_USER.UsernameExists"
             'Dim parameters As SqlParameter() = New SqlParameter() {
             '    New SqlParameter("ReturnValue", SqlDbType.VarChar, 5, Nothing, ParameterDirection.ReturnValue),
             '    New SqlParameter("username", username),
@@ -118,7 +118,7 @@ Namespace DAL
             ' TODO: SQL Server migration
 
             'If email.Trim = "" Then Return False
-            'Dim spName As String = "AIRBRANCH.IAIP_USER.EmailInUse"
+            'Dim spName As String = "IAIP_USER.EmailInUse"
             'Dim parameters As SqlParameter() = New SqlParameter() {
             '    New SqlParameter("ReturnValue", SqlDbType.VarChar, 5, Nothing, ParameterDirection.ReturnValue),
             '    New SqlParameter("email", email.Trim.ToLower),
@@ -137,7 +137,7 @@ Namespace DAL
             'If newPassword = "" Then Return PasswordUpdateResponse.InvalidNewPassword
             'If oldPassword = "" Then Return PasswordUpdateResponse.InvalidLogin
 
-            'Dim spName As String = "AIRBRANCH.IAIP_USER.UpdateUserPassword"
+            'Dim spName As String = "IAIP_USER.UpdateUserPassword"
             'Dim parameters As SqlParameter() = {
             '    New SqlParameter("ReturnValue", SqlDbType.VarChar, 20, Nothing, ParameterDirection.ReturnValue),
             '    New SqlParameter("username", username),
@@ -171,7 +171,7 @@ Namespace DAL
                 Return UsernameReminderResponse.EmailNotExist
             End If
 
-            Dim spName As String = "AIRBRANCH.IAIP_USER.RequestUsername"
+            Dim spName As String = "IAIP_USER.RequestUsername"
             Dim parameter As New SqlParameter("emailaddress", email)
             If DB.SPRunCommand(spName, parameter) Then
                 Return UsernameReminderResponse.Success
@@ -192,7 +192,7 @@ Namespace DAL
                 Return RequestPasswordResetResponse.InvalidUsername
             End If
 
-            Dim spName As String = "AIRBRANCH.IAIP_USER.RequestUserPasswordReset"
+            Dim spName As String = "IAIP_USER.RequestUserPasswordReset"
             Dim parameter As New SqlParameter("username", username)
             If DB.SPRunCommand(spName, parameter) Then
                 Return ResetPasswordResponse.Success
@@ -218,7 +218,7 @@ Namespace DAL
             'If newPassword = "" Then Return ResetPasswordResponse.InvalidNewPassword
             'If resettoken = "" Then Return ResetPasswordResponse.InvalidToken
 
-            'Dim spName As String = "AIRBRANCH.IAIP_USER.ResetUserPassword"
+            'Dim spName As String = "IAIP_USER.ResetUserPassword"
             'Dim parameters As SqlParameter() = {
             '    New SqlParameter("ReturnValue", SqlDbType.VarChar, 20, Nothing, ParameterDirection.ReturnValue),
             '    New SqlParameter("username", username),
@@ -248,7 +248,7 @@ Namespace DAL
                                       branchid As Integer, programid As Integer, unitid As Integer,
                                       office As String, status As Boolean, ByRef newUserId As Integer) As Boolean
 
-            Dim spName As String = "AIRBRANCH.IAIP_USER.CreateNewUser"
+            Dim spName As String = "IAIP_USER.CreateNewUser"
             Dim parameters As SqlParameter() = {
                 New SqlParameter("ReturnValue", SqlDbType.Int, ParameterDirection.ReturnValue),
                 New SqlParameter("username", username),
@@ -281,7 +281,7 @@ Namespace DAL
                                     unit As Integer,
                                     Optional includeInactive As Boolean = False
                                     ) As DataTable
-            Dim spName As String = "AIRBRANCH.IAIP_USER.SearchUsers"
+            Dim spName As String = "IAIP_USER.SearchUsers"
             Dim parameters As SqlParameter() = {
                 New SqlParameter("firstname", firstName),
                 New SqlParameter("lastname", lastName),
@@ -296,7 +296,7 @@ Namespace DAL
         Public Function UpdateUserProfile(user As IaipUser) As Boolean
             If user.UserID = 0 Then Return False
 
-            Dim spName As String = "AIRBRANCH.IAIP_USER.UpdateUserProfile"
+            Dim spName As String = "IAIP_USER.UpdateUserProfile"
             Dim parameters As SqlParameter() = {
                 New SqlParameter("userid", user.UserID),
                 New SqlParameter("username", user.Username),
@@ -317,7 +317,7 @@ Namespace DAL
         Public Function UpdateUserRoles(userId As Integer, roles As IaipRoles) As Boolean
             If userId = 0 Then Return False
 
-            Dim spName As String = "AIRBRANCH.IAIP_USER.UpdateUserRoles"
+            Dim spName As String = "IAIP_USER.UpdateUserRoles"
             Dim parameters As SqlParameter() = {
                 New SqlParameter("userid", userId),
                 New SqlParameter("rolesstring", roles.DbString),

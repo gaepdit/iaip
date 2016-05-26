@@ -11,7 +11,7 @@ Namespace DAL.Sscp
 
         Public Function GetEnforcementCountForFacility(airs As Apb.ApbFacilityId) As Integer
             Dim query As String = "SELECT COUNT(*) " &
-                " FROM AIRBRANCH.SSCP_AUDITEDENFORCEMENT " &
+                " FROM SSCP_AUDITEDENFORCEMENT " &
                 " WHERE STRENFORCEMENTFINALIZED = 'False' " &
                 " AND STRAIRSNUMBER = :airs"
             Dim parameter As SqlParameter = New SqlParameter("airs", airs.DbFormattedString)
@@ -31,7 +31,7 @@ Namespace DAL.Sscp
                 Optional airs As Apb.ApbFacilityId = Nothing,
                 Optional staffId As String = Nothing) As DataTable
             Dim query As String =
-                "SELECT * FROM AIRBRANCH.VW_SSCP_ENFORCEMENT_SUMMARY " &
+                "SELECT * FROM VW_SSCP_ENFORCEMENT_SUMMARY " &
                 " WHERE TRUNC(EnforcementDate) BETWEEN :datestart AND :dateend "
 
             If airs IsNot Nothing Then query &= " AND STRAIRSNUMBER = :airs "
@@ -54,7 +54,7 @@ Namespace DAL.Sscp
             If enforcementId = "" OrElse Not Integer.TryParse(enforcementId, Nothing) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
-                " FROM AIRBRANCH.SSCP_AUDITEDENFORCEMENT " &
+                " FROM SSCP_AUDITEDENFORCEMENT " &
                 " WHERE RowNum = 1 " &
                 " AND STRENFORCEMENTNUMBER = :enforcementId "
             Dim parameter As New SqlParameter("enforcementId", enforcementId)
@@ -67,7 +67,7 @@ Namespace DAL.Sscp
             If trackingNumber = "" OrElse Not Integer.TryParse(trackingNumber, Nothing) Then Return False
 
             Dim query As String = " SELECT STRENFORCEMENTNUMBER " &
-                " FROM AIRBRANCH.SSCP_AUDITEDENFORCEMENT " &
+                " FROM SSCP_AUDITEDENFORCEMENT " &
                 " WHERE STRTRACKINGNUMBER = :trackingNumber "
             Dim parameter As New SqlParameter("trackingNumber", trackingNumber)
 
@@ -134,10 +134,10 @@ Namespace DAL.Sscp
                 "   SSCP_AUDITEDENFORCEMENT.STRENFORCEMENTFINALIZED, " &
                 "   SSCP_AUDITEDENFORCEMENT.DATENFORCEMENTFINALIZED, " &
                 "   SSCP_AUDITEDENFORCEMENT.STRACTIONTYPE " &
-                " FROM AIRBRANCH.SSCP_AUDITEDENFORCEMENT " &
-                " LEFT JOIN AIRBRANCH.APBFACILITYINFORMATION " &
+                " FROM SSCP_AUDITEDENFORCEMENT " &
+                " LEFT JOIN APBFACILITYINFORMATION " &
                 " ON APBFACILITYINFORMATION.STRAIRSNUMBER = SSCP_AUDITEDENFORCEMENT.STRAIRSNUMBER " &
-                " LEFT JOIN AIRBRANCH.EPDUSERPROFILES " &
+                " LEFT JOIN EPDUSERPROFILES " &
                 " ON EPDUSERPROFILES.NUMUSERID = SSCP_AUDITEDENFORCEMENT.NUMSTAFFRESPONSIBLE " &
                 " WHERE SSCP_AUDITEDENFORCEMENT.STRENFORCEMENTNUMBER = :enforcementId "
             Dim parameter As New SqlParameter("enforcementId", enforcementId)
@@ -233,8 +233,8 @@ Namespace DAL.Sscp
 
             Dim query As String = "SELECT enf.*, " &
                 "  up.STRFIRSTNAME, up.STRLASTNAME " &
-                "FROM AIRBRANCH.SSCP_AUDITEDENFORCEMENT enf " &
-                "LEFT JOIN AIRBRANCH.EPDUSERPROFILES up ON up.NUMUSERID = " &
+                "FROM SSCP_AUDITEDENFORCEMENT enf " &
+                "LEFT JOIN EPDUSERPROFILES up ON up.NUMUSERID = " &
                 "  enf.NUMSTAFFRESPONSIBLE " &
                 "WHERE enf.STRENFORCEMENTNUMBER = :enforcementId"
             Dim parameter As New SqlParameter("enforcementId", enforcementId)
@@ -259,7 +259,7 @@ Namespace DAL.Sscp
 
             With enforcementCase
 
-                queriesList.Add("INSERT INTO AIRBRANCH.SSCP_ENFORCEMENT " &
+                queriesList.Add("INSERT INTO SSCP_ENFORCEMENT " &
                         "  ( " &
                         "    ID, STRENFORCEMENTNUMBER, STRTRACKINGNUMBER, STRAIRSNUMBER, " &
                         "    STRENFORCEMENTFINALIZED, DATENFORCEMENTFINALIZED, " &
@@ -290,7 +290,7 @@ Namespace DAL.Sscp
                         "  ) " &
                         "  VALUES " &
                         "  ( " &
-                        "    (SELECT MAX(ID) + 1 FROM AIRBRANCH.SSCP_ENFORCEMENT), " &
+                        "    (SELECT MAX(ID) + 1 FROM SSCP_ENFORCEMENT), " &
                         "    :STRENFORCEMENTNUMBER, :STRTRACKINGNUMBER, " &
                         "    :STRAIRSNUMBER, :STRENFORCEMENTFINALIZED, " &
                         "    :DATENFORCEMENTFINALIZED, :NUMSTAFFRESPONSIBLE, :STRSTATUS, " &
@@ -398,7 +398,7 @@ Namespace DAL.Sscp
 
                 If DB.RunCommand(queriesList, parametersList) Then
                     Dim param As SqlParameter = New SqlParameter("ENFORCEMENT", .EnforcementId)
-                    DB.SPRunCommand("AIRBRANCH.PD_SSCPENFORCEMENT", param)
+                    DB.SPRunCommand("PD_SSCPENFORCEMENT", param)
                     Return .EnforcementId
                 Else
                     Return 0
@@ -408,7 +408,7 @@ Namespace DAL.Sscp
         End Function
 
         Private Function GetNextEnforcementId() As Integer
-            Dim query As String = "SELECT AIRBRANCH.SSCPENFORCEMENTNUMBER.NEXTVAL FROM DUAL"
+            Dim query As String = "SELECT SSCPENFORCEMENTNUMBER.NEXTVAL FROM DUAL"
             Return DB.GetSingleValue(Of Integer)(query)
         End Function
 
@@ -421,15 +421,15 @@ Namespace DAL.Sscp
             Dim parameters As New List(Of SqlParameter())
             Dim parameter As SqlParameter() = {New SqlParameter("enforcementId", enforcementId)}
 
-            queries.Add("DELETE FROM AIRBRANCH.SSCPENFORCEMENTSTIPULATED " &
+            queries.Add("DELETE FROM SSCPENFORCEMENTSTIPULATED " &
                         "WHERE STRENFORCEMENTNUMBER = :enforcementId ")
             parameters.Add(parameter)
 
-            queries.Add("DELETE FROM AIRBRANCH.AFSSSCPENFORCEMENTRECORDS " &
+            queries.Add("DELETE FROM AFSSSCPENFORCEMENTRECORDS " &
                         "WHERE STRENFORCEMENTNUMBER = :enforcementId ")
             parameters.Add(parameter)
 
-            queries.Add("DELETE FROM AIRBRANCH.SSCP_AUDITEDENFORCEMENT " &
+            queries.Add("DELETE FROM SSCP_AUDITEDENFORCEMENT " &
                         "WHERE STRENFORCEMENTNUMBER = :enforcementId ")
             parameters.Add(parameter)
 
@@ -445,7 +445,7 @@ Namespace DAL.Sscp
                 " CASE WHEN STRSTIPULATEDPENALTYCOMMENTS IS NULL THEN 'N/A' " &
                 "  ELSE STRSTIPULATEDPENALTYCOMMENTS END STRSTIPULATEDPENALTYCOMMENTS, " &
                 " STRAFSSTIPULATEDPENALTYNUMBER " &
-                "FROM AIRBRANCH.SSCPENFORCEMENTSTIPULATED " &
+                "FROM SSCPENFORCEMENTSTIPULATED " &
                 "WHERE STRENFORCEMENTNUMBER = :enforcementId " &
                 "ORDER BY STRENFORCEMENTKEY"
             Dim parameter As New SqlParameter("enforcementId", enforcementId)
@@ -454,7 +454,7 @@ Namespace DAL.Sscp
 
         Public Function GetNextStipulatedPenaltyKey(enforcementId As String) As Integer
             Dim query As String = "SELECT MAX(es.STRENFORCEMENTKEY) " &
-                "FROM AIRBRANCH.SSCPENFORCEMENTSTIPULATED es " &
+                "FROM SSCPENFORCEMENTSTIPULATED es " &
                 "WHERE es.STRENFORCEMENTNUMBER = :enforcementId"
             Dim parameter As New SqlParameter("enforcementId", enforcementId)
             Dim key As Integer = DB.GetSingleValue(Of Integer)(query, parameter)
@@ -469,7 +469,7 @@ Namespace DAL.Sscp
             Dim queries As New List(Of String)
             Dim parameters As New List(Of SqlParameter())
 
-            queries.Add("UPDATE AIRBRANCH.APBSUPPLAMENTALDATA " &
+            queries.Add("UPDATE APBSUPPLAMENTALDATA " &
                         "SET STRAFSACTIONNUMBER = :afs " &
                         "WHERE STRAIRSNUMBER = :airsNumber ")
             parameters.Add(New SqlParameter() {
@@ -478,7 +478,7 @@ Namespace DAL.Sscp
             })
 
             queries.Add("INSERT " &
-                        "INTO AIRBRANCH.SSCPENFORCEMENTSTIPULATED " &
+                        "INTO SSCPENFORCEMENTSTIPULATED " &
                         "  ( " &
                         "    STRENFORCEMENTNUMBER, STRENFORCEMENTKEY, " &
                         "    STRSTIPULATEDPENALTY, STRSTIPULATEDPENALTYCOMMENTS, " &
@@ -503,7 +503,7 @@ Namespace DAL.Sscp
         End Function
 
         Public Function UpdateStipulatedPenalty(enforcementId As String, penalty As Decimal, comment As String, enfKey As Integer) As Boolean
-            Dim query As String = "UPDATE AIRBRANCH.SSCPENFORCEMENTSTIPULATED " &
+            Dim query As String = "UPDATE SSCPENFORCEMENTSTIPULATED " &
                 "SET STRSTIPULATEDPENALTY = :penalty, " &
                 "  STRSTIPULATEDPENALTYCOMMENTS = :penaltyComment, " &
                 "  STRMODIFINGPERSON = :userid, DATMODIFINGDATE = SYSDATE " &
@@ -521,7 +521,7 @@ Namespace DAL.Sscp
 
         Public Function DeleteStipulatedPenalty(enforcementId As String, enfKey As Integer) As Boolean
             Dim query As String = "DELETE " &
-                "FROM AIRBRANCH.SSCPENFORCEMENTSTIPULATED " &
+                "FROM SSCPENFORCEMENTSTIPULATED " &
                 "WHERE STRENFORCEMENTNUMBER = :enforcementId AND " &
                 "  STRENFORCEMENTKEY = :enfKey"
             Dim parameters As SqlParameter() = {
@@ -553,10 +553,10 @@ Namespace DAL.Sscp
                 "  enf.DATAOEXECUTED, enf.DATAOAPPEALED, enf.DATAORESOLVED, " &
                 "  enf.STRAOCOMMENT,(upm.STRLASTNAME || ', ' || upm.STRFIRSTNAME " &
                 "  ) AS ModifiedBy, enf.DATMODIFINGDATE " &
-                "FROM AIRBRANCH.SSCP_ENFORCEMENT enf " &
-                "LEFT JOIN AIRBRANCH.EPDUSERPROFILES upr ON " &
+                "FROM SSCP_ENFORCEMENT enf " &
+                "LEFT JOIN EPDUSERPROFILES upr ON " &
                 "  enf.NUMSTAFFRESPONSIBLE = upr.NUMUSERID " &
-                "LEFT JOIN AIRBRANCH.EPDUSERPROFILES upm ON " &
+                "LEFT JOIN EPDUSERPROFILES upm ON " &
                 "  enf.STRMODIFINGPERSON = upm.NUMUSERID " &
                 "WHERE enf.STRENFORCEMENTNUMBER = :enforcementId"
             Dim parameter As New SqlParameter("enforcementId", enforcementId)
@@ -573,7 +573,7 @@ Namespace DAL.Sscp
             Dim query As String =
                 "SELECT AIRVIOLATIONTYPECODE, VIOLATIONTYPEDESC, SEVERITYCODE " &
                 " , POLLUTANTREQUIRED, DEPRECATED " &
-                "FROM AIRBRANCH.LK_VIOLATION_TYPE " &
+                "FROM LK_VIOLATION_TYPE " &
                 "WHERE STATUS = 'A' "
             Dim dt As DataTable = DB.GetDataTable(query)
 

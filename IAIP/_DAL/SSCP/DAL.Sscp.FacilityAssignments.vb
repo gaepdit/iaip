@@ -15,7 +15,7 @@ Namespace DAL.Sscp
 
         Public Function FacilityAssignmentExists(ByVal airsNumber As Apb.ApbFacilityId, ByVal targetYear As Integer) As Boolean
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
-                " FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
+                " FROM SSCPINSPECTIONSREQUIRED " &
                 " WHERE RowNum = 1 " &
                 " AND INTYEAR = :year " &
                 " AND STRAIRSNUMBER = :airs "
@@ -31,7 +31,7 @@ Namespace DAL.Sscp
 
         Public Function AssignmentYearExists(ByVal targetYear As Integer) As Boolean
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
-                " FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
+                " FROM SSCPINSPECTIONSREQUIRED " &
                 " WHERE RowNum = 1 " &
                 " AND INTYEAR = :year "
             Dim parameter As New SqlParameter("year", targetYear)
@@ -41,7 +41,7 @@ Namespace DAL.Sscp
         End Function
 
         Public Function DeleteAssignmentYear(ByVal targetYear As Integer) As Boolean
-            Dim query As String = " DELETE FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
+            Dim query As String = " DELETE FROM SSCPINSPECTIONSREQUIRED " &
                 " WHERE INTYEAR = :year "
             Dim parameter As New SqlParameter("year", targetYear)
 
@@ -58,7 +58,7 @@ Namespace DAL.Sscp
             Dim recordsInserted As Integer = 0
 
             Dim query1 As String = " SELECT   STRAIRSNUMBER " &
-                "  FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
+                "  FROM SSCPINSPECTIONSREQUIRED " &
                 "  WHERE INTYEAR = :oldYear " &
                 "  ORDER BY STRAIRSNUMBER "
             Dim parameter1 As New SqlParameter("oldYear", oldYear)
@@ -71,7 +71,7 @@ Namespace DAL.Sscp
                     Not FacilityAssignmentExists(airsNumberString, targetYear) Then
 
                         Dim query2 As String = "INSERT " &
-                            "  INTO AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
+                            "  INTO SSCPINSPECTIONSREQUIRED " &
                             "    ( " &
                             "      NUMKEY " &
                             "    , STRAIRSNUMBER " &
@@ -84,7 +84,7 @@ Namespace DAL.Sscp
                             "    , DATASSIGNINGDATE " &
                             "    ) " &
                             " SELECT " &
-                            "    (SELECT MAX(NUMKEY) + 1 FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
+                            "    (SELECT MAX(NUMKEY) + 1 FROM SSCPINSPECTIONSREQUIRED " &
                             "    ) AS NEWKEY " &
                             "  , STRAIRSNUMBER " &
                             "  , :targetyear " &
@@ -94,7 +94,7 @@ Namespace DAL.Sscp
                             "  , STRFCEREQUIRED " &
                             "  , STRASSIGNINGMANAGER " &
                             "  , DATASSIGNINGDATE " &
-                            "  FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
+                            "  FROM SSCPINSPECTIONSREQUIRED " &
                             "  WHERE INTYEAR       = :oldyear " &
                             "    AND STRAIRSNUMBER = :airsnumber "
 

@@ -15,7 +15,7 @@ Namespace DAL.Ismp
             If referenceNumber = "" OrElse Not Integer.TryParse(referenceNumber, Nothing) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
-                " FROM AIRBRANCH.ISMPREPORTINFORMATION " &
+                " FROM ISMPREPORTINFORMATION " &
                 " WHERE RowNum = 1 " &
                 " AND STRREFERENCENUMBER = :ReferenceNumber "
             Dim parameter As New SqlParameter("ReferenceNumber", referenceNumber)
@@ -32,7 +32,7 @@ Namespace DAL.Ismp
             If notificationNumber = "" OrElse Not Integer.TryParse(notificationNumber, Nothing) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
-                " FROM AIRBRANCH.ISMPTESTNOTIFICATION " &
+                " FROM ISMPTESTNOTIFICATION " &
                 " WHERE RowNum = 1 " &
                 " AND STRTESTLOGNUMBER = :NotificationNumber "
             Dim parameter As New SqlParameter("NotificationNumber", notificationNumber)
@@ -49,7 +49,7 @@ Namespace DAL.Ismp
             If referenceNumber = "" OrElse Not Integer.TryParse(referenceNumber, Nothing) Then Return False
 
             Dim query As String = "SELECT STRCLOSED " &
-                " FROM AIRBRANCH.ISMPREPORTINFORMATION " &
+                " FROM ISMPREPORTINFORMATION " &
                 " WHERE STRREFERENCENUMBER = :ReferenceNumber "
             Dim parameter As New SqlParameter("ReferenceNumber", referenceNumber)
 
@@ -61,8 +61,8 @@ Namespace DAL.Ismp
 
             Dim query As String =
             "SELECT dt.STRTABLENAME " &
-            "FROM AIRBRANCH.ISMPDocumentType dt " &
-            "INNER JOIN AIRBRANCH.ISMPReportInformation ri " &
+            "FROM ISMPDocumentType dt " &
+            "INNER JOIN ISMPReportInformation ri " &
             "ON ri.STRDOCUMENTTYPE = dt.STRKEY " &
             "WHERE ri.STRREFERENCENUMBER = :ReferenceNumber"
 
@@ -92,11 +92,11 @@ Namespace DAL.Ismp
             }
 
             If tableName <> "UNASSIGNED" Then
-                queryList.Add("DELETE FROM AIRBRANCH." & tableName & " WHERE strReferenceNumber = :ReferenceNumber")
+                queryList.Add("DELETE FROM " & tableName & " WHERE strReferenceNumber = :ReferenceNumber")
                 parametersList.Add(parameter)
             End If
 
-            queryList.Add(" UPDATE AIRBRANCH.ISMPReportInformation " &
+            queryList.Add(" UPDATE ISMPReportInformation " &
                           " SET strDocumentType      = '001' " &
                           " WHERE strReferenceNumber = :ReferenceNumber ")
             parametersList.Add(parameter)

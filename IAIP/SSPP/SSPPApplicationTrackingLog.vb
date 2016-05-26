@@ -230,13 +230,13 @@ Public Class SSPPApplicationTrackingLog
                 "UNION " &
                 "SELECT(u.STRLASTNAME || ', ' || u.STRFIRSTNAME) AS EngineerName " &
                 "  , u.NUMUSERID " &
-                "FROM AIRBRANCH.EPDUSERPROFILES u " &
+                "FROM EPDUSERPROFILES u " &
                 "WHERE u.NUMPROGRAM = 5 " &
                 "UNION " &
                 "SELECT DISTINCT(u.STRLASTNAME || ', ' || u.STRFIRSTNAME) AS " &
                 "  EngineerName, u.NUMUSERID " &
-                "FROM AIRBRANCH.EPDUSERPROFILES u " &
-                "INNER JOIN AIRBRANCH.SSPPAPPLICATIONMASTER a ON " &
+                "FROM EPDUSERPROFILES u " &
+                "INNER JOIN SSPPAPPLICATIONMASTER a ON " &
                 "  a.STRSTAFFRESPONSIBLE = u.NUMUSERID " &
                 "WHERE u.NUMPROGRAM <> 5 AND u.NUMUSERID <> 0 " &
                 "ORDER BY EngineerName"
@@ -253,7 +253,7 @@ Public Class SSPPApplicationTrackingLog
                 "UNION " &
                 "SELECT(STRLASTNAME || ', ' ||STRFIRSTNAME) AS EngineerName, " &
                 "  NUMUSERID " &
-                "FROM AIRBRANCH.EPDUSERPROFILES " &
+                "FROM EPDUSERPROFILES " &
                 "WHERE NUMPROGRAM = '4' " &
                 "ORDER BY EngineerName"
             Dim dtSSCPList As DataTable = DB.GetDataTable(query)
@@ -269,7 +269,7 @@ Public Class SSPPApplicationTrackingLog
                 "UNION " &
                 "SELECT(STRLASTNAME || ', ' ||STRFIRSTNAME) AS EngineerName, " &
                 "  NUMUSERID " &
-                "FROM AIRBRANCH.EPDUSERPROFILES " &
+                "FROM EPDUSERPROFILES " &
                 "WHERE NUMPROGRAM = '3' " &
                 "ORDER BY EngineerName"
             Dim dtISMPList As DataTable = DB.GetDataTable(query)
@@ -281,7 +281,7 @@ Public Class SSPPApplicationTrackingLog
             End With
 
             query = "SELECT STRCOUNTYCODE, STRCOUNTYNAME " &
-                "FROM AIRBRANCH.LOOKUPCOUNTYINFORMATION " &
+                "FROM LOOKUPCOUNTYINFORMATION " &
                 "UNION " &
                 "SELECT '000', ' N/A' FROM DUAL ORDER BY STRCOUNTYNAME"
             Dim dtCountyList As DataTable = DB.GetDataTable(query)
@@ -293,7 +293,7 @@ Public Class SSPPApplicationTrackingLog
             End With
 
             query = "SELECT STRAPPLICATIONTYPECODE, STRAPPLICATIONTYPEDESC " &
-                "FROM AIRBRANCH.LOOKUPAPPLICATIONTYPES " &
+                "FROM LOOKUPAPPLICATIONTYPES " &
                 "WHERE STRAPPLICATIONTYPEUSED <> 'False' OR " &
                 "  STRAPPLICATIONTYPEUSED IS NULL " &
                 "UNION " &
@@ -307,7 +307,7 @@ Public Class SSPPApplicationTrackingLog
             End With
 
             query = "SELECT STRPERMITTYPECODE, STRPERMITTYPEDESCRIPTION " &
-                "FROM AIRBRANCH.LOOKUPPERMITTYPES " &
+                "FROM LOOKUPPERMITTYPES " &
                 "WHERE STRTYPEUSED <> 'False' OR STRTYPEUSED IS NULL " &
                 "UNION " &
                 "SELECT ' ', ' ' FROM DUAL ORDER BY STRPERMITTYPEDESCRIPTION"
@@ -319,7 +319,7 @@ Public Class SSPPApplicationTrackingLog
                 .SelectedIndex = 0
             End With
 
-            query = "SELECT CITY FROM AIRBRANCH.VW_CITIES ORDER BY CITY"
+            query = "SELECT CITY FROM VW_CITIES ORDER BY CITY"
             Dim dtCity As DataTable = DB.GetDataTable(query)
             With cboFacilityCity
                 .DataSource = dtCity
@@ -329,7 +329,7 @@ Public Class SSPPApplicationTrackingLog
             End With
 
             query = "SELECT STRUNITDESC, NUMUNITCODE " &
-                "FROM AIRBRANCH.LOOKUPEPDUNITS " &
+                "FROM LOOKUPEPDUNITS " &
                 "WHERE NUMPROGRAMCODE = 5 " &
                 "UNION " &
                 "SELECT ' ', 0 FROM DUAL ORDER BY STRUNITDESC"
@@ -342,7 +342,7 @@ Public Class SSPPApplicationTrackingLog
             End With
 
             query = "SELECT STRUNITDESC, NUMUNITCODE " &
-                "FROM AIRBRANCH.LOOKUPEPDUNITS " &
+                "FROM LOOKUPEPDUNITS " &
                 "WHERE NUMPROGRAMCODE = 4 " &
                 "UNION " &
                 "SELECT 'No Review Needed', 0 FROM DUAL ORDER BY STRUNITDESC"
@@ -355,7 +355,7 @@ Public Class SSPPApplicationTrackingLog
             End With
 
             query = "SELECT STRUNITDESC, NUMUNITCODE " &
-                "FROM AIRBRANCH.LOOKUPEPDUNITS " &
+                "FROM LOOKUPEPDUNITS " &
                 "WHERE NUMPROGRAMCODE = 3 " &
                 "UNION " &
                 "SELECT 'No Review Needed', 0 FROM DUAL ORDER BY STRUNITDESC"
@@ -2350,7 +2350,7 @@ Public Class SSPPApplicationTrackingLog
         Try
 
             query = "Select strAIRSNumber " &
-            "from AIRBRANCH.SSPPApplicationMaster " &
+            "from SSPPApplicationMaster " &
             "where strApplicationNumber = :appnumber"
             parameter = New SqlParameter("appnumber", txtApplicationNumber.Text)
 
@@ -2358,43 +2358,43 @@ Public Class SSPPApplicationTrackingLog
 
             If String.IsNullOrEmpty(AIRSNumber) Then AIRSNumber = txtAIRSNumber.Text
 
-            query = "Select to_Number(AIRBRANCH.SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber, " &
+            query = "Select to_Number(SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber, " &
             "case " &
             "    when strApplicationTypeDesc is Null then ' ' " &
             "Else strApplicationTypeDesc " &
             "End strApplicationTypeDesc, " &
             "case " &
-            "    when AIRBRANCH.SSPPApplicationMaster.strStaffResponsible is Null then ' ' " &
+            "    when SSPPApplicationMaster.strStaffResponsible is Null then ' ' " &
             "else (strLastName||', '||strFirstName) " &
             "end staffResponsible, " &
             "case " &
-            "    when AIRBRANCH.SSPPApplicationMaster.datFinalizedDate is Null then ' ' " &
-            "else to_char(AIRBRANCH.SSPPApplicationMaster.datFinalizedDate, 'FMMonth DD, YYYY') " &
+            "    when SSPPApplicationMaster.datFinalizedDate is Null then ' ' " &
+            "else to_char(SSPPApplicationMaster.datFinalizedDate, 'FMMonth DD, YYYY') " &
             "end FinalizedDate, " &
             "case " &
-            "    when AIRBRANCH.SSPPApplicationTracking.datSentByFacility is Null then ' ' " &
-            "else to_char(AIRBRANCH.SSPPApplicationTracking.datSentByFacility, 'FMMonth DD, YYYY') " &
+            "    when SSPPApplicationTracking.datSentByFacility is Null then ' ' " &
+            "else to_char(SSPPApplicationTracking.datSentByFacility, 'FMMonth DD, YYYY') " &
             "end DateSent, " &
             "case " &
-            "    when AIRBRANCH.LookUpEPDUnits.strUnitDesc is Null then ' ' " &
-            "Else AIRBRANCH.LookUpEPDUnits.strUnitDesc " &
+            "    when LookUpEPDUnits.strUnitDesc is Null then ' ' " &
+            "Else LookUpEPDUnits.strUnitDesc " &
             "End strUnitTitle, " &
             "case " &
-            "    when AIRBRANCH.SSPPApplicationData.strComments is Null then ' ' " &
-            "else AIRBRANCH.SSPPApplicationData.strComments " &
+            "    when SSPPApplicationData.strComments is Null then ' ' " &
+            "else SSPPApplicationData.strComments " &
             "end strComments, " &
             "case " &
-            "    when AIRBRANCH.SSPPApplicationData.strApplicationNotes is Null then ' ' " &
-            "else AIRBRANCH.SSPPApplicationData.strApplicationNotes " &
+            "    when SSPPApplicationData.strApplicationNotes is Null then ' ' " &
+            "else SSPPApplicationData.strApplicationNotes " &
             "end strApplicationNotes " &
-            "from AIRBRANCH.SSPPApplicationData, AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking, " &
-            "AIRBRANCH.EPDUserProfiles, AIRBRANCH.LookUpEPDUnits, AIRBRANCH.LookUpApplicationTypes  " &
-            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber " &
-            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " &
-            "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSPPApplicationMaster.strStaffResponsible " &
-            "and AIRBRANCH.SSPPApplicationMaster.APBUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " &
-            "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " &
-            "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = :AIRSNumber "
+            "from SSPPApplicationData, SSPPApplicationMaster, SSPPApplicationTracking, " &
+            "EPDUserProfiles, LookUpEPDUnits, LookUpApplicationTypes  " &
+            "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+            "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+            "and EPDUserProfiles.numUserID = SSPPApplicationMaster.strStaffResponsible " &
+            "and SSPPApplicationMaster.APBUnit = LookUpEPDUnits.numUnitCode (+) " &
+            "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
+            "and SSPPApplicationMaster.strAIRSNumber = :AIRSNumber "
             parameter = New SqlParameter("AIRSNumber", AIRSNumber)
 
             dtFacAppHistory = DB.GetDataTable(query, parameter)
@@ -2459,7 +2459,7 @@ Public Class SSPPApplicationTrackingLog
                "when strInformationReceived is Null then ' ' " &
                "else strInformationReceived " &
                "end strInformationReceived " &
-               "from AIRBRANCH.SSPPApplicationInformation " &
+               "from SSPPApplicationInformation " &
                "where strApplicationNumber = :appnumber " &
                "order by strRequestKey "
             Dim parameter As New SqlParameter("appnumber", txtApplicationNumber.Text)
@@ -2502,10 +2502,10 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Sub LoadSubPartData()
         Try
-            Dim dtPart60 As DataTable = DB.GetDataTable("Select strSubPart, strSubPart || ' - ' || strDescription as strDescription from AIRBRANCH.LookupSubPart60 order by strSubpart ")
-            Dim dtPart61 As DataTable = DB.GetDataTable("Select strSubPart, strSubPart || ' - ' || strDescription as strDescription from AIRBRANCH.LookupSubPart61 order by strSubpart ")
-            Dim dtPart63 As DataTable = DB.GetDataTable("Select strSubPart, strSubPart || ' - ' || strDescription as strDescription from AIRBRANCH.LookupSubPart63 order by strSubpart ")
-            Dim dtSIP As DataTable = DB.GetDataTable("Select strSubPart, strSubPart || ' - ' || strDescription as strDescription from AIRBRANCH.LookUpSubPartSIP order by strSubPart ")
+            Dim dtPart60 As DataTable = DB.GetDataTable("Select strSubPart, strSubPart || ' - ' || strDescription as strDescription from LookupSubPart60 order by strSubpart ")
+            Dim dtPart61 As DataTable = DB.GetDataTable("Select strSubPart, strSubPart || ' - ' || strDescription as strDescription from LookupSubPart61 order by strSubpart ")
+            Dim dtPart63 As DataTable = DB.GetDataTable("Select strSubPart, strSubPart || ' - ' || strDescription as strDescription from LookupSubPart63 order by strSubpart ")
+            Dim dtSIP As DataTable = DB.GetDataTable("Select strSubPart, strSubPart || ' - ' || strDescription as strDescription from LookUpSubPartSIP order by strSubPart ")
 
             With cboSIPSubpart
                 .DataSource = dtSIP
@@ -2581,20 +2581,20 @@ Public Class SSPPApplicationTrackingLog
             "strCountyName, strOfficeName, " &
             "strDistrictName, " &
             "strPlantDescription, " &
-            "AIRBRANCH.APBHeaderData.strAttainmentStatus, " &
+            "APBHeaderData.strAttainmentStatus, " &
             "strStateProgramCodes, strDistrictResponsible " &
-            "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBHeaderData, " &
-            "AIRBRANCH.LookUpCountyInformation, AIRBRANCH.LooKUPDistrictOffice, " &
-            "AIRBRANCH.LookUpDistrictInformation, AIRBRANCH.LookUPDistricts, " &
-            "AIRBRANCH.APBSupplamentalData, AIRBRANCH.SSCPDistrictResponsible " &
-            "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber " &
-            "and substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode " &
-            "and substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpDistrictInformation.strDistrictCounty " &
-            "and AIRBRANCH.LookUpDistrictinformation.strDistrictCode = AIRBRANCH.LooKUPDistrictOffice.strDistrictCode " &
-            "and AIRBRANCH.LookUpDistrictInformation.strDistrictCode = AIRBRANCH.LookUPDistricts.strDistrictCode " &
-            "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBSupplamentalData.strAIRSNumber " &
-            "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCPDistrictResponsible.strAIRSnumber (+) " &
-            "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = :AirsNumber "
+            "from APBFacilityInformation, APBHeaderData, " &
+            "LookUpCountyInformation, LooKUPDistrictOffice, " &
+            "LookUpDistrictInformation, LookUPDistricts, " &
+            "APBSupplamentalData, SSCPDistrictResponsible " &
+            "where APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber " &
+            "and substr(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode " &
+            "and substr(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpDistrictInformation.strDistrictCounty " &
+            "and LookUpDistrictinformation.strDistrictCode = LooKUPDistrictOffice.strDistrictCode " &
+            "and LookUpDistrictInformation.strDistrictCode = LookUPDistricts.strDistrictCode " &
+            "and APBFacilityInformation.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
+            "and APBFacilityInformation.strAIRSNumber = SSCPDistrictResponsible.strAIRSnumber (+) " &
+            "and APBFacilityInformation.strAIRSNumber = :AirsNumber "
             Dim parameter As New SqlParameter("AirsNumber", "0413" & txtAIRSNumber.Text)
 
             Using connection As New SqlConnection(CurrentConnectionString)
@@ -3207,7 +3207,7 @@ Public Class SSPPApplicationTrackingLog
 
             Dim query As String = "Select " &
             "strAttainmentStatus " &
-            "from AIRBRANCH.APBHeaderData " &
+            "from APBHeaderData " &
             "where strAIRSNumber = :airsnumber "
 
             Dim parameter As New SqlParameter("airsnumber", "0413" & txtAIRSNumber.Text)
@@ -3272,7 +3272,7 @@ Public Class SSPPApplicationTrackingLog
                 "strContactState, " &
                 "strContactZipCode, " &
                 "strContactDescription " &
-                "from AIRBRANCH.SSPPApplicationContact " &
+                "from SSPPApplicationContact " &
                 "where strApplicationNumber = :appnumber "
 
                 Dim parameter As New SqlParameter("appnumber", txtApplicationNumber.Text)
@@ -3381,7 +3381,7 @@ Public Class SSPPApplicationTrackingLog
             If DAL.Sspp.ApplicationExists(txtApplicationNumber.Text) Then
                 query = "Select " &
                 "datModifingdate " &
-                "from AIRBRANCH.SSPPApplicationMaster " &
+                "from SSPPApplicationMaster " &
                 "where strApplicationNumber = :appnumber "
                 parameter = New SqlParameter("appnumber", txtApplicationNumber.Text)
                 TimeStamp = DB.GetSingleValue(Of String)(query, parameter)
@@ -3397,7 +3397,7 @@ Public Class SSPPApplicationTrackingLog
                     "strAirProgramCodes, strSICCode,  " &
                     "strNAICSCode, " &
                     "strPermitNumber, strPlantDescription,  " &
-                    "AIRBRANCH.SSPPApplicationData.strComments as DataComments,  " &
+                    "SSPPApplicationData.strComments as DataComments,  " &
                     "strApplicationNotes, " &
                     "datFinalizedDate, " &
                     "strStateProgramCodes,  " &
@@ -3416,13 +3416,13 @@ Public Class SSPPApplicationTrackingLog
                     "strTrackedRules, STRSIGNIFICANTCOMMENTS, " &
                     "strPAPosted, strPNPosted " &
                     "from  " &
-                    "AIRBRANCH.SSPPApplicationMaster,  " &
-                    "AIRBRANCH.SSPPApplicationTracking,  " &
-                    "AIRBRANCH.SSPPApplicationData " &
+                    "SSPPApplicationMaster,  " &
+                    "SSPPApplicationTracking,  " &
+                    "SSPPApplicationData " &
                     "where " &
-                    "    AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber (+)  " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber (+)  " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = :appnumber"
+                    "    SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber (+)  " &
+                    "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber (+)  " &
+                    "and SSPPApplicationMaster.strApplicationNumber = :appnumber"
 
                     parameter = New SqlParameter("appnumber", txtApplicationNumber.Text)
 
@@ -3948,10 +3948,10 @@ Public Class SSPPApplicationTrackingLog
                     "strSSCPComments, strISMPUnit, " &
                     "strISMPReviewer, datISMPReviewDate, " &
                     "strISMPComments " &
-                    "from AIRBRANCH.SSPPApplicationData, " &
-                    "AIRBRANCH.SSPPApplicationTracking " &
-                    "where AIRBRANCH.SSPPApplicationData.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber " &
-                    "and AIRBRANCH.SSPPApplicationData.strApplicationNumber = :appnumber"
+                    "from SSPPApplicationData, " &
+                    "SSPPApplicationTracking " &
+                    "where SSPPApplicationData.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+                    "and SSPPApplicationData.strApplicationNumber = :appnumber"
 
                     parameter = New SqlParameter("appnumber", txtApplicationNumber.Text)
 
@@ -4050,13 +4050,13 @@ Public Class SSPPApplicationTrackingLog
                     "datExperationDate, strTargeted, " &
                     "datPNExpires " &
                     "from  " &
-                    "AIRBRANCH.SSPPApplicationMaster,  " &
-                    "AIRBRANCH.SSPPApplicationTracking,  " &
-                    "AIRBRANCH.SSPPApplicationData " &
+                    "SSPPApplicationMaster,  " &
+                    "SSPPApplicationTracking,  " &
+                    "SSPPApplicationData " &
                     "where " &
-                    "    AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber (+)  " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber (+)  " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = :appnumber"
+                    "    SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber (+)  " &
+                    "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber (+)  " &
+                    "and SSPPApplicationMaster.strApplicationNumber = :appnumber"
 
                     parameter = New SqlParameter("appnumber", txtApplicationNumber.Text)
 
@@ -4187,22 +4187,22 @@ Public Class SSPPApplicationTrackingLog
             "strNAICSCode, " &
             "strOperationalStatus, strAirProgramCodes,  " &
             "strPlantDescription,  " &
-            "AIRBRANCH.APBHeaderData.strAttainmentStatus,  " &
+            "APBHeaderData.strAttainmentStatus,  " &
             "strStateProgramCodes,  " &
             "strcountyName,  " &
             "strOfficeName,  " &
             "strDistrictName  " &
-            "from AIRBRANCH.APBFacilityInformation,  " &
-            "AIRBRANCH.APBHeaderData, AIRBRANCH.LookUpCountyInformation,  " &
-            "AIRBRANCH.LookUpDistrictOffice, AIRBRANCH.LookUpDistricts,  " &
-            "AIRBRANCH.LookUpDistrictInformation  " &
-            "where AIRBRANCH.APBFacilityInformation.strAIRSnumber = AIRBRANCH.APBHeaderData.strAIRSnumber " &
-            "and substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode  " &
-            "and substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpDistrictInformation.strDistrictCounty  " &
-            "and AIRBRANCH.LookUpDistrictInformation.strDistrictCode = AIRBRANCH.LookUpDistrictOffice.strDistrictCode  " &
-            "and AIRBRANCH.LookUpDistrictInformation.strDistrictCode = AIRBRANCH.LookUpDistrictOffice.strDistrictCode  " &
-            "and AIRBRANCH.LookUpDistrictInformation.strDistrictCode = AIRBRANCH.LookUpDistricts.strDistrictCode  " &
-            "and AIRBRANCH.APBHeaderData.strAIRSNumber = :airsnumber"
+            "from APBFacilityInformation,  " &
+            "APBHeaderData, LookUpCountyInformation,  " &
+            "LookUpDistrictOffice, LookUpDistricts,  " &
+            "LookUpDistrictInformation  " &
+            "where APBFacilityInformation.strAIRSnumber = APBHeaderData.strAIRSnumber " &
+            "and substr(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
+            "and substr(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpDistrictInformation.strDistrictCounty  " &
+            "and LookUpDistrictInformation.strDistrictCode = LookUpDistrictOffice.strDistrictCode  " &
+            "and LookUpDistrictInformation.strDistrictCode = LookUpDistrictOffice.strDistrictCode  " &
+            "and LookUpDistrictInformation.strDistrictCode = LookUpDistricts.strDistrictCode  " &
+            "and APBHeaderData.strAIRSNumber = :airsnumber"
 
             Dim parameter As New SqlParameter("airsnumber", "0413" & txtAIRSNumber.Text)
 
@@ -4627,7 +4627,7 @@ Public Class SSPPApplicationTrackingLog
     Sub CheckOpenApplications()
         Try
             Dim query As String = "select count(*) as ApplicationCount " &
-               "from AIRBRANCH.SSPPApplicationMaster " &
+               "from SSPPApplicationMaster " &
                "where datFinalizedDate Is Null " &
                "and strAirsNumber = :airsnumber"
             Dim parameter As New SqlParameter("airsnumber", "0413" & txtAIRSNumber.Text)
@@ -4656,7 +4656,7 @@ Public Class SSPPApplicationTrackingLog
             If txtApplicationNumber.Text <> "" Then
                 query = "Select " &
                     "strMasterApplication " &
-                    "from AIRBRANCH.SSPPApplicationLinking " &
+                    "from SSPPApplicationLinking " &
                     "where strApplicationNumber = :appnumber"
                 parameter = New SqlParameter("appnumber", txtApplicationNumber.Text)
                 MasterApplication = DB.GetSingleValue(Of String)(query, parameter)
@@ -4675,7 +4675,7 @@ Public Class SSPPApplicationTrackingLog
                 If MasterApplication <> "" Then
                     query = "Select " &
                         " strApplicationNumber " &
-                        "from AIRBRANCH.SSPPApplicationLinking " &
+                        "from SSPPApplicationLinking " &
                         "where strMasterApplication = :appnumber " &
                         "order by strApplicationNumber "
                     parameter = New SqlParameter("appnumber", txtApplicationNumber.Text)
@@ -4780,7 +4780,7 @@ Public Class SSPPApplicationTrackingLog
 
                 If Not DAL.Sspp.ApplicationExists(txtApplicationNumber.Text) Then
 
-                    queriesList.Add("Insert into AIRBRANCH.SSPPApplicationMaster " &
+                    queriesList.Add("Insert into SSPPApplicationMaster " &
                                     "(strApplicationNumber, strAIRSNumber, " &
                                     "strModifingPerson, datModifingDate) " &
                                     "values (:appnumber, :airsnumber, :updateuser, :updatedate) ")
@@ -4789,7 +4789,7 @@ Public Class SSPPApplicationTrackingLog
                                         New SqlParameter("updateuser", CurrentUser.UserID),
                                         New SqlParameter("updatedate", OracleDate)})
 
-                    queriesList.Add("Insert into AIRBRANCH.SSPPApplicationData " &
+                    queriesList.Add("Insert into SSPPApplicationData " &
                                     "(strApplicationNumber, strModifingPerson, " &
                                     "datModifingDate) " &
                                     "values (:appnumber, :updateuser, :updatedate) ")
@@ -4797,7 +4797,7 @@ Public Class SSPPApplicationTrackingLog
                                         New SqlParameter("updateuser", CurrentUser.UserID),
                                         New SqlParameter("updatedate", OracleDate)})
 
-                    queriesList.Add("Insert into AIRBRANCH.SSPPApplicationTracking " &
+                    queriesList.Add("Insert into SSPPApplicationTracking " &
                                     "(strApplicationNumber, strSubmittalNumber, " &
                                     " strModifingPerson, datModifingDate) " &
                                     "values (:appnumber, :submittalnumber, :updateuser, :updatedate) ")
@@ -4871,7 +4871,7 @@ Public Class SSPPApplicationTrackingLog
                     DateFinalized = ""
                 End If
 
-                query = "Update AIRBRANCH.SSPPApplicationMaster set " &
+                query = "Update SSPPApplicationMaster set " &
                     "strAIRSNumber = :airsnumber, " &
                     "strStaffResponsible = :staff, " &
                     "strApplicationType = :applicationtype, " &
@@ -4895,7 +4895,7 @@ Public Class SSPPApplicationTrackingLog
 
                 query = "Select " &
                 "datModifingdate " &
-                "from AIRBRANCH.SSPPApplicationMaster " &
+                "from SSPPApplicationMaster " &
                 "where strApplicationNumber = :appnumber "
                 parameters = {New SqlParameter("appnumber", txtApplicationNumber.Text)}
                 TimeStamp = DB.GetSingleValue(Of String)(query, parameters)
@@ -5090,7 +5090,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 End If
 
-                query = "Update AIRBRANCH.SSPPApplicationData set " &
+                query = "Update SSPPApplicationData set " &
                 "strFacilityName = :FacilityName, " &
                 "strFacilityStreet1 = :FacilityAddress, " &
                 "strFacilityStreet2 = 'N/A', " &
@@ -5216,7 +5216,7 @@ Public Class SSPPApplicationTrackingLog
                     PNExpires = ""
                 End If
 
-                query = "Update AIRBRANCH.SSPPApplicationTracking set " &
+                query = "Update SSPPApplicationTracking set " &
                 "datReceivedDate = :ReceivedDate, " &
                 "datSentByFacility = :SentByDate, " &
                 "datAssignedToEngineer = :AssignedToEngineer, " &
@@ -5280,7 +5280,7 @@ Public Class SSPPApplicationTrackingLog
                             queriesList.Clear()
                             parametersList.Clear()
 
-                            queriesList.Add("Update AIRBRANCH.SSPPApplicationMaster set " &
+                            queriesList.Add("Update SSPPApplicationMaster set " &
                             "datFinalizedDate = :DateFinalized, " &
                             "strPermitType = :PermitType, " &
                             "strModifingperson = :UserGCode, " &
@@ -5294,7 +5294,7 @@ Public Class SSPPApplicationTrackingLog
                                 New SqlParameter("LinkedApplication", LinkedApplication)
                             })
 
-                            queriesList.Add("Update AIRBRANCH.SSPPApplicationData set " &
+                            queriesList.Add("Update SSPPApplicationData set " &
                            "strOperationalStatus = :OperationalStatus, " &
                            "strClass = :Classification , " &
                            "strAirProgramCodes = :AirProgramCodes , " &
@@ -5326,7 +5326,7 @@ Public Class SSPPApplicationTrackingLog
                                                New SqlParameter("LinkedApplication", LinkedApplication)
                                            })
 
-                            queriesList.Add("Update AIRBRANCH.SSPPApplicationTracking set " &
+                            queriesList.Add("Update SSPPApplicationTracking set " &
                             "datPermitIssued = :PermitIssued , " &
                             "datDraftIssued = :DraftIssued , " &
                             "datEPAWaived = :EPAWaived , " &
@@ -5356,7 +5356,7 @@ Public Class SSPPApplicationTrackingLog
 
                             query = "Select " &
                                 "datToPMI, datToPMII " &
-                                "from AIRBRANCH.SSPPApplicationTracking " &
+                                "from SSPPApplicationTracking " &
                                 "where strApplicationNumber = :LinkedApplication "
                             parameters = {New SqlParameter("LinkedApplication", LinkedApplication)}
 
@@ -5372,11 +5372,11 @@ Public Class SSPPApplicationTrackingLog
 
                                         While dr.Read
                                             If IsDBNull(dr.Item("datToPMI")) Then
-                                                query2 = "Update AIRBRANCH.SSPPApplicationTracking set datToPMI = :ToPMI "
+                                                query2 = "Update SSPPApplicationTracking set datToPMI = :ToPMI "
                                                 If IsDBNull(dr.Item("datToPMII")) Then query2 &= ", datToPMII = :ToPMII "
                                                 query2 &= " where strApplicationNumber = :LinkedApplication  "
                                             ElseIf IsDBNull(dr.Item("datToPMII")) Then
-                                                query2 = "Update AIRBRANCH.SSPPApplicationTracking set " &
+                                                query2 = "Update SSPPApplicationTracking set " &
                                                 "datToPMII = :ToPMII where strApplicationNumber = :LinkedApplication "
                                             End If
                                         End While
@@ -5518,7 +5518,7 @@ Public Class SSPPApplicationTrackingLog
                 If DAL.Sspp.ApplicationExists(txtApplicationNumber.Text) Then
                     If txtInformationRequestedKey.Text = "" Then
                         query = "Select max(strRequestKey) as RequestKey " &
-                        "from AIRBRANCH.SSPPApplicationInformation " &
+                        "from SSPPApplicationInformation " &
                         "where strApplicationNumber = :txtApplicationNumber"
                         parameter = {New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)}
                         InformationRequestKey = DB.GetSingleValue(Of String)(query, parameter)
@@ -5529,7 +5529,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
 
                     query = "Select strApplicationNumber " &
-                    "from AIRBRANCH.SSPPApplicationInformation " &
+                    "from SSPPApplicationInformation " &
                     "where strApplicationNumber = :txtApplicationNumber " &
                     "and strRequestKey = :InformationRequestKey "
                     parameter = {
@@ -5555,7 +5555,7 @@ Public Class SSPPApplicationTrackingLog
 
                     If recordExists Then
                         'Update
-                        query = "Update AIRBRANCH.SSPPApplicationInformation set " &
+                        query = "Update SSPPApplicationInformation set " &
                         "datInformationRequested = :DateInfoRequested , " &
                         "strInformationRequested = :InformationRequested , " &
                         "datInformationReceived = :DateInfoReceived , " &
@@ -5576,7 +5576,7 @@ Public Class SSPPApplicationTrackingLog
                         }
                     Else
                         'Insert 
-                        query = "Insert into AIRBRANCH.SSPPApplicationInformation " &
+                        query = "Insert into SSPPApplicationInformation " &
                         "(strApplicationNumber, strRequestKey, " &
                         "datInformationRequested, strInformationRequested, " &
                         "datInformationReceived, strInformationReceived, " &
@@ -5620,7 +5620,7 @@ Public Class SSPPApplicationTrackingLog
             If txtInformationRequestedKey.Text <> "" Then
                 InformationRequestKey = txtInformationRequestedKey.Text
 
-                Dim query As String = "Delete AIRBRANCH.SSPPApplicationInformation " &
+                Dim query As String = "Delete SSPPApplicationInformation " &
                 "where strApplicationNumber = :txtApplicationNumber " &
                 "and strRequestKey = :InformationRequestKey "
                 Dim parameter As SqlParameter() = {
@@ -5659,7 +5659,7 @@ Public Class SSPPApplicationTrackingLog
                     Dim queryList As New List(Of String)
                     Dim paramList As New List(Of SqlParameter())
 
-                    queryList.Add("Update AIRBRANCH.SSPPApplicationData set " &
+                    queryList.Add("Update SSPPApplicationData set " &
                         "strSSCPUnit = :cboSSCPUnits, " &
                         "strISMPUnit = :cboISMPUnits " &
                         "where strApplicationNumber = :txtApplicationNumber ")
@@ -5669,7 +5669,7 @@ Public Class SSPPApplicationTrackingLog
                         New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
                     })
 
-                    queryList.Add("Update AIRBRANCH.SSPPApplicationTracking set " &
+                    queryList.Add("Update SSPPApplicationTracking set " &
                     "datReviewSubmitted = :DateReviewSubmitted " &
                     "where strApplicationNumber = :txtApplicationNumber ")
                     paramList.Add({
@@ -5707,7 +5707,7 @@ Public Class SSPPApplicationTrackingLog
                     Dim queryList As New List(Of String)
                     Dim paramList As New List(Of SqlParameter())
 
-                    queryList.Add("Update AIRBRANCH.SSPPApplicationData set " &
+                    queryList.Add("Update SSPPApplicationData set " &
                     "strSSCPReviewer = :cboSSCPStaff, " &
                     "strSSCPComments = :SSCPComments " &
                     "where strApplicationNumber = :txtApplicationNumber")
@@ -5717,7 +5717,7 @@ Public Class SSPPApplicationTrackingLog
                         New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
                     })
 
-                    queryList.Add("Update AIRBRANCH.SSPPApplicationTracking set " &
+                    queryList.Add("Update SSPPApplicationTracking set " &
                     "datSSCPReviewDate = :DTPSSCPReview " &
                     "where strApplicationNumber = :txtApplicationNumber ")
                     paramList.Add({
@@ -5754,7 +5754,7 @@ Public Class SSPPApplicationTrackingLog
                         ISMPComments = txtISMPComments.Text
                     End If
 
-                    queryList.Add("Update AIRBRANCH.SSPPApplicationData set " &
+                    queryList.Add("Update SSPPApplicationData set " &
                     "strISMPReviewer = :cboISMPStaff , " &
                     "strISMPComments = :ISMPComments " &
                     "where strApplicationNumber = :txtApplicationNumber")
@@ -5764,7 +5764,7 @@ Public Class SSPPApplicationTrackingLog
                         New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
                     })
 
-                    queryList.Add("Update AIRBRANCH.SSPPApplicationTracking set " &
+                    queryList.Add("Update SSPPApplicationTracking set " &
                     "datISMPReviewDate = :DTPISMPReview " &
                     "where strApplicationNumber = :txtApplicationNumber")
                     paramList.Add({
@@ -5882,7 +5882,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             query = "Select strApplicationNumber " &
-            "from AIRBRANCH.SSPPApplicationContact " &
+            "from SSPPApplicationContact " &
             "where strApplicationNumber = :txtApplicationNumber "
             params = {
                 New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
@@ -5891,7 +5891,7 @@ Public Class SSPPApplicationTrackingLog
 
             If recExists Then
                 'update
-                query = "Update AIRBRANCH.SSPPApplicationContact set " &
+                query = "Update SSPPApplicationContact set " &
                 "strContactFirstName = :ContactFirstName, " &
                 "strContactLastName = :ContactLastname, " &
                 "strContactPrefix = :ContactPrefix, " &
@@ -5926,7 +5926,7 @@ Public Class SSPPApplicationTrackingLog
                 }
             Else
                 'insert 
-                query = "Insert into AIRBRANCH.SSPPApplicationContact " &
+                query = "Insert into SSPPApplicationContact " &
                 "values " &
                 "(:txtApplicationNumber, " &
                 ":ContactFirstName, " &
@@ -5968,23 +5968,23 @@ Public Class SSPPApplicationTrackingLog
             'If DTPFinalAction.Checked = True And chbClosedOut.Checked = True And txtAIRSNumber.Text.Length = 8 Then
             If chbClosedOut.Checked = True And txtAIRSNumber.Text.Length = 8 And IsNumeric(txtAIRSNumber.Text) Then
                 query = "select strKey " &
-                "from AIRBRANCH.APBContactInformation, AIRBRANCH.SSPPApplicationContact  " &
-                "where AIRBRANCH.APBContactInformation.strContactKey = :pKey " &
-                "and AIRBRANCH.SSPPApplicationContact.strApplicationNumber = :app " &
-                "and Upper(AIRBRANCH.APBContactInformation.strContactFirstName) = Upper(AIRBRANCH.SSPPApplicationContact.strContactFirstName) " &
-                "and upper(AIRBRANCH.APBContactInformation.strContactLastName) = Upper(AIRBRANCH.SSPPApplicationContact.strContactLastName)  " &
-                "and Upper(AIRBRANCH.APBContactInformation.strContactPrefix) = Upper(AIRBRANCH.SSPPApplicationContact.strContactPrefix) " &
-                "and Upper(AIRBRANCH.APBContactInformation.strContactSuffix) = Upper(AIRBRANCH.SSPPApplicationContact.strContactSuffix)  " &
-                "and Upper(AIRBRANCH.APBContactInformation.strContactTitle) = Upper(AIRBRANCH.SSPPApplicationContact.strContactTitle)  " &
-                "and Upper(AIRBRANCH.APBContactInformation.strContactCompanyName) = Upper(AIRBRANCH.SSPPApplicationContact.strContactCompanyName)  " &
-                "and Upper(AIRBRANCH.APBContactInformation.strContactPhoneNumber1) = " &
-                "Upper(AIRBRANCH.SSPPApplicationContact.strContactPhoneNumber1)  " &
-                "and Upper(AIRBRANCH.APBContactInformation.strContactFaxNumber) = Upper(AIRBRANCH.SSPPApplicationContact.strContactFaxNumber)  " &
-                "and Upper(AIRBRANCH.APBContactInformation.strContactEmail) = Upper(AIRBRANCH.SSPPApplicationContact.strContactEmail)  " &
-                "and Upper(AIRBRANCH.APBContactInformation.strCOntactAddress1) = Upper(AIRBRANCH.SSPPApplicationContact.strContactAddress1)  " &
-                "and Upper(AIRBRANCH.APBContactInformation.strCOntactCity) = Upper(AIRBRANCH.SSPPApplicationContact.strContactCity)  " &
-                "and Upper(AIRBRANCH.APBContactInformation.strContactZipCode) = Upper(AIRBRANCH.SSPPApplicationcontact.strContactZipCode)  " &
-                "and Upper(AIRBRANCH.APBContactInformation.strContactDescription) = Upper(AIRBRANCH.SSPPApplicationContact.strContactDescription)  "
+                "from APBContactInformation, SSPPApplicationContact  " &
+                "where APBContactInformation.strContactKey = :pKey " &
+                "and SSPPApplicationContact.strApplicationNumber = :app " &
+                "and Upper(APBContactInformation.strContactFirstName) = Upper(SSPPApplicationContact.strContactFirstName) " &
+                "and upper(APBContactInformation.strContactLastName) = Upper(SSPPApplicationContact.strContactLastName)  " &
+                "and Upper(APBContactInformation.strContactPrefix) = Upper(SSPPApplicationContact.strContactPrefix) " &
+                "and Upper(APBContactInformation.strContactSuffix) = Upper(SSPPApplicationContact.strContactSuffix)  " &
+                "and Upper(APBContactInformation.strContactTitle) = Upper(SSPPApplicationContact.strContactTitle)  " &
+                "and Upper(APBContactInformation.strContactCompanyName) = Upper(SSPPApplicationContact.strContactCompanyName)  " &
+                "and Upper(APBContactInformation.strContactPhoneNumber1) = " &
+                "Upper(SSPPApplicationContact.strContactPhoneNumber1)  " &
+                "and Upper(APBContactInformation.strContactFaxNumber) = Upper(SSPPApplicationContact.strContactFaxNumber)  " &
+                "and Upper(APBContactInformation.strContactEmail) = Upper(SSPPApplicationContact.strContactEmail)  " &
+                "and Upper(APBContactInformation.strCOntactAddress1) = Upper(SSPPApplicationContact.strContactAddress1)  " &
+                "and Upper(APBContactInformation.strCOntactCity) = Upper(SSPPApplicationContact.strContactCity)  " &
+                "and Upper(APBContactInformation.strContactZipCode) = Upper(SSPPApplicationcontact.strContactZipCode)  " &
+                "and Upper(APBContactInformation.strContactDescription) = Upper(SSPPApplicationContact.strContactDescription)  "
                 params = {
                     New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "30"),
                     New SqlParameter("app", txtApplicationNumber.Text)
@@ -5993,7 +5993,7 @@ Public Class SSPPApplicationTrackingLog
 
                 If Not recExists Then
                     query = "select Max(strKey) as MaxKey " &
-                    "from AIRBRANCH.APBContactInformation " &
+                    "from APBContactInformation " &
                     "where strAIRSNumber = :airs " &
                     "and substr(strkey, 1, 1) = '3' "
                     params = {New SqlParameter("airs", "0413" & txtAIRSNumber.Text)}
@@ -6003,7 +6003,7 @@ Public Class SSPPApplicationTrackingLog
                     i = CInt(Mid(MaxKey, 2))
 
                     If MaxKey <> "39" Then
-                        query = "Insert into AIRBRANCH.APBContactInformation " &
+                        query = "Insert into APBContactInformation " &
                         "(strContactKey, strAIRSnumber, strKey, " &
                         "strContactFirstName, strContactLastName,  " &
                         "strContactPrefix, strContactSuffix,  " &
@@ -6027,7 +6027,7 @@ Public Class SSPPApplicationTrackingLog
                         "strContactCity, strContactState,  " &
                         "strContactZipCode, strModifingPerson,  " &
                         "datModifingDate, strContactDescription " &
-                        "from AIRBRANCH.APBContactInformation  " &
+                        "from APBContactInformation  " &
                         "where strAIRSnumber = :airs " &
                         "and strKey = :pKey "
                         params = {
@@ -6040,7 +6040,7 @@ Public Class SSPPApplicationTrackingLog
 
                     Do While i > 0
                         query = "Select strKey " &
-                            "from AIRBRANCH.APBContactInformation " &
+                            "from APBContactInformation " &
                             "where strAIRSNumber = :airs " &
                             "and strKey = :pKey "
                         params = {
@@ -6052,42 +6052,42 @@ Public Class SSPPApplicationTrackingLog
                         i -= 1
 
                         If recExist = True Then
-                            query = "Update AIRBRANCH.APBContactInformation set " &
-                            "strContactFirstName = (select strContactFirstName from AIRBRANCH.APBContactInformation " &
+                            query = "Update APBContactInformation set " &
+                            "strContactFirstName = (select strContactFirstName from APBContactInformation " &
                             "where strContactKey = :oldKey),  " &
-                            "strContactLastname = (select strContactLastname from AIRBRANCH.APBContactInformation " &
+                            "strContactLastname = (select strContactLastname from APBContactInformation " &
                             "Where strCOntactKey = :oldKey),  " &
-                            "strContactPrefix = (select strContactPrefix from AIRBRANCH.APBContactInformation " &
+                            "strContactPrefix = (select strContactPrefix from APBContactInformation " &
                             "Where strCOntactKey = :oldKey),  " &
-                            "strContactSuffix = (select strContactSuffix from AIRBRANCH.APBContactInformation " &
+                            "strContactSuffix = (select strContactSuffix from APBContactInformation " &
                             "Where strCOntactKey = :oldKey),  " &
-                            "strContactTitle = (select strContactTitle from AIRBRANCH.APBContactInformation " &
+                            "strContactTitle = (select strContactTitle from APBContactInformation " &
                             "Where strCOntactKey = :oldKey),  " &
-                            "strContactCompanyName = (select strContactCompanyName from AIRBRANCH.APBContactInformation " &
+                            "strContactCompanyName = (select strContactCompanyName from APBContactInformation " &
                             "Where strCOntactKey = :oldKey),  " &
-                            "strContactPhoneNumber1 = (select strContactPhoneNumber1 from AIRBRANCH.APBContactInformation " &
+                            "strContactPhoneNumber1 = (select strContactPhoneNumber1 from APBContactInformation " &
                             "Where strCOntactKey = :oldKey),  " &
-                            "strContactPhoneNumber2 = (select strContactPhoneNumber2 from AIRBRANCH.APBContactInformation " &
+                            "strContactPhoneNumber2 = (select strContactPhoneNumber2 from APBContactInformation " &
                             "Where strCOntactKey = :oldKey),  " &
-                            "strContactFaxNumber = (select strContactFaxNumber from AIRBRANCH.APBContactInformation " &
+                            "strContactFaxNumber = (select strContactFaxNumber from APBContactInformation " &
                             "Where strCOntactKey = :oldKey),  " &
-                            "strContactEmail = (select strContactEmail from AIRBRANCH.APBContactInformation " &
+                            "strContactEmail = (select strContactEmail from APBContactInformation " &
                             "Where strCOntactKey = :oldKey),  " &
-                            "strContactAddress1 = (select strContactAddress1 from AIRBRANCH.APBContactInformation " &
+                            "strContactAddress1 = (select strContactAddress1 from APBContactInformation " &
                             "Where strCOntactKey = :oldKey),  " &
-                            "strContactAddress2 = (select strContactAddress2 from AIRBRANCH.APBContactInformation " &
+                            "strContactAddress2 = (select strContactAddress2 from APBContactInformation " &
                             "Where strCOntactKey = :oldKey),  " &
-                            "strContactCity = (select strContactCity from AIRBRANCH.APBContactInformation " &
+                            "strContactCity = (select strContactCity from APBContactInformation " &
                             "Where strCOntactKey = :oldKey),  " &
-                            "strContactState = (select strContactState from AIRBRANCH.APBContactInformation " &
+                            "strContactState = (select strContactState from APBContactInformation " &
                             "Where strCOntactKey = :oldKey),  " &
-                            "strContactZipCode = (select strContactZipCode from AIRBRANCH.APBContactInformation " &
+                            "strContactZipCode = (select strContactZipCode from APBContactInformation " &
                             "Where strCOntactKey = :oldKey),  " &
-                            "strModifingPerson = (select strModifingPerson from AIRBRANCH.APBContactInformation " &
+                            "strModifingPerson = (select strModifingPerson from APBContactInformation " &
                             "Where strCOntactKey = :oldKey),  " &
-                            "datModifingDate = (select datModifingDate from AIRBRANCH.APBContactInformation " &
+                            "datModifingDate = (select datModifingDate from APBContactInformation " &
                             "Where strCOntactKey = :oldKey),  " &
-                            "strContactDescription = (select strContactDescription from AIRBRANCH.APBContactInformation " &
+                            "strContactDescription = (select strContactDescription from APBContactInformation " &
                             "Where strCOntactKey = :oldKey) " &
                             "where strContactKey = :newKey "
                             params = {
@@ -6095,7 +6095,7 @@ Public Class SSPPApplicationTrackingLog
                                 New SqlParameter("newKey", "0413" & txtAIRSNumber.Text & "3" & (i + 1).ToString)
                             }
                         Else
-                            query = "Insert into AIRBRANCH.APBContactInformation " &
+                            query = "Insert into APBContactInformation " &
                             "(strContactKey, strAIRSnumber, strKey, " &
                             "strContactFirstName, strContactLastName,  " &
                             "strContactPrefix, strContactSuffix,  " &
@@ -6119,7 +6119,7 @@ Public Class SSPPApplicationTrackingLog
                             "strContactCity, strContactState,  " &
                             "strContactZipCode, strModifingPerson,  " &
                             "datModifingDate, strContactDescription " &
-                            "from AIRBRANCH.APBContactInformation  " &
+                            "from APBContactInformation  " &
                             "where strAIRSnumber = :airs " &
                             "and strKey = :pKey "
                             params = {
@@ -6132,42 +6132,42 @@ Public Class SSPPApplicationTrackingLog
 
                     Loop
 
-                    query = "Update AIRBRANCH.APBContactInformation set " &
-                           "strContactFirstName = (select strContactFirstName from AIRBRANCH.SSPPApplicationContact " &
+                    query = "Update APBContactInformation set " &
+                           "strContactFirstName = (select strContactFirstName from SSPPApplicationContact " &
                            "where strApplicationNumber = :appNum),  " &
-                           "strContactLastname = (select strContactLastname from AIRBRANCH.SSPPApplicationContact " &
+                           "strContactLastname = (select strContactLastname from SSPPApplicationContact " &
                            "where strApplicationNumber = :appNum),  " &
-                           "strContactPrefix = (select strContactPrefix from AIRBRANCH.SSPPApplicationContact " &
+                           "strContactPrefix = (select strContactPrefix from SSPPApplicationContact " &
                            "where strApplicationNumber = :appNum),  " &
-                           "strContactSuffix = (select strContactSuffix from AIRBRANCH.SSPPApplicationContact " &
+                           "strContactSuffix = (select strContactSuffix from SSPPApplicationContact " &
                             "where strApplicationNumber = :appNum),  " &
-                           "strContactTitle = (select strContactTitle from AIRBRANCH.SSPPApplicationContact " &
+                           "strContactTitle = (select strContactTitle from SSPPApplicationContact " &
                             "where strApplicationNumber = :appNum),  " &
-                           "strContactCompanyName = (select strContactCompanyName from AIRBRANCH.SSPPApplicationContact " &
+                           "strContactCompanyName = (select strContactCompanyName from SSPPApplicationContact " &
                             "where strApplicationNumber = :appNum),  " &
-                           "strContactPhoneNumber1 = (select strContactPhoneNumber1 from AIRBRANCH.SSPPApplicationContact " &
+                           "strContactPhoneNumber1 = (select strContactPhoneNumber1 from SSPPApplicationContact " &
                             "where strApplicationNumber = :appNum),  " &
-                           "strContactPhoneNumber2 = (select strContactPhoneNumber2 from AIRBRANCH.SSPPApplicationContact " &
+                           "strContactPhoneNumber2 = (select strContactPhoneNumber2 from SSPPApplicationContact " &
                             "where strApplicationNumber = :appNum),  " &
-                           "strContactFaxNumber = (select strContactFaxNumber from AIRBRANCH.SSPPApplicationContact " &
+                           "strContactFaxNumber = (select strContactFaxNumber from SSPPApplicationContact " &
                             "where strApplicationNumber = :appNum),  " &
-                           "strContactEmail = (select strContactEmail from AIRBRANCH.SSPPApplicationContact " &
+                           "strContactEmail = (select strContactEmail from SSPPApplicationContact " &
                             "where strApplicationNumber = :appNum),  " &
-                           "strContactAddress1 = (select strContactAddress1 from AIRBRANCH.SSPPApplicationContact " &
+                           "strContactAddress1 = (select strContactAddress1 from SSPPApplicationContact " &
                             "where strApplicationNumber = :appNum),  " &
-                           "strContactAddress2 = (select strContactAddress2 from AIRBRANCH.SSPPApplicationContact " &
+                           "strContactAddress2 = (select strContactAddress2 from SSPPApplicationContact " &
                             "where strApplicationNumber = :appNum),  " &
-                           "strContactCity = (select strContactCity from AIRBRANCH.SSPPApplicationContact " &
+                           "strContactCity = (select strContactCity from SSPPApplicationContact " &
                             "where strApplicationNumber = :appNum),  " &
-                           "strContactState = (select strContactState from AIRBRANCH.SSPPApplicationContact " &
+                           "strContactState = (select strContactState from SSPPApplicationContact " &
                             "where strApplicationNumber = :appNum),  " &
-                           "strContactZipCode = (select strContactZipCode from AIRBRANCH.SSPPApplicationContact " &
+                           "strContactZipCode = (select strContactZipCode from SSPPApplicationContact " &
                             "where strApplicationNumber = :appNum),  " &
-                           "strModifingPerson = (select strModifingPerson from AIRBRANCH.SSPPApplicationContact " &
+                           "strModifingPerson = (select strModifingPerson from SSPPApplicationContact " &
                             "where strApplicationNumber = :appNum),  " &
-                           "datModifingDate = (select datModifingDate from AIRBRANCH.SSPPApplicationContact " &
+                           "datModifingDate = (select datModifingDate from SSPPApplicationContact " &
                             "where strApplicationNumber = :appNum),  " &
-                           "strContactDescription = (select strContactDescription from AIRBRANCH.SSPPApplicationContact " &
+                           "strContactDescription = (select strContactDescription from SSPPApplicationContact " &
                             "where strApplicationNumber = :appNum)  " &
                            "where strContactKey = :pKey "
                     params = {
@@ -6367,7 +6367,7 @@ Public Class SSPPApplicationTrackingLog
                     If lbLinkApplications.Items.Item(i) <> txtApplicationNumber.Text Then
                         query = "select " &
                         "strApplicationType " &
-                        "from AIRBRANCH.SSPPApplicationMaster " &
+                        "from SSPPApplicationMaster " &
                         "where strApplicationnumber = :item "
                         params = {New SqlParameter("item", lbLinkApplications.Items.Item(i))}
 
@@ -6395,17 +6395,17 @@ Public Class SSPPApplicationTrackingLog
 
                 For i = 0 To lbLinkApplications.Items.Count - 1
                     query = "Select strApplicationNumber " &
-                    "from AIRBRANCH.SSPPApplicationLinking " &
+                    "from SSPPApplicationLinking " &
                     "where strApplicationNumber = :appnumber "
                     params = {New SqlParameter("appnumber", lbLinkApplications.Items.Item(i))}
                     recExists = DB.ValueExists(query, params)
 
                     If recExists Then
-                        query = "Update AIRBRANCH.SSPPApplicationLinking set " &
+                        query = "Update SSPPApplicationLinking set " &
                         "strMasterApplication = :MasterApp " &
                         "where strApplicationnumber = :appItem "
                     Else
-                        query = "Insert into AIRBRANCH.SSPPApplicationLinking " &
+                        query = "Insert into SSPPApplicationLinking " &
                         "values " &
                         "(:MasterApp, :appItem) "
                     End If
@@ -6437,13 +6437,13 @@ Public Class SSPPApplicationTrackingLog
 
             If txtMasterApp.Text <> "" Then
                 query = "Select strMasterApplication " &
-                "from AIRBRANCH.SSPPApplicationLinking " &
+                "from SSPPApplicationLinking " &
                 "where strApplicationNumber = :pMaster"
                 param = New SqlParameter("pMaster", txtMasterApp.Text)
                 MasterLink = DB.GetSingleValue(Of String)(query, param)
 
                 If MasterLink <> "" Then
-                    query = "Delete AIRBRANCH.SSPPApplicationLinking " &
+                    query = "Delete SSPPApplicationLinking " &
                     "where strMasterApplication = :pMaster"
                     param = New SqlParameter("pMaster", MasterLink)
                     DB.RunCommand(query, param)
@@ -6522,7 +6522,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             If txtApplicationNumber.Text <> "" Then
-                queryList.Add("Update AIRBRANCH.SSPPApplicationTracking set " &
+                queryList.Add("Update SSPPApplicationTracking set " &
                               "datDraftOnWeb = :DraftOnWeb, " &
                               "datEPAStatesNotified = :EPAStatesNotified , " &
                               "datFinalOnWeb = :FinalOnWeb , " &
@@ -6544,7 +6544,7 @@ Public Class SSPPApplicationTrackingLog
                      New SqlParameter("txtApplicationNumber", txtApplicationNumber.Text)
                     })
 
-                queryList.Add("Update AIRBRANCH.SSPPApplicationData set " &
+                queryList.Add("Update SSPPApplicationData set " &
                               "strTargeted = :TargetedComments " &
                               "where strApplicationNumber = :txtApplicationNumber ")
                 paramsList.Add(
@@ -6568,7 +6568,7 @@ Public Class SSPPApplicationTrackingLog
                             queryList.Clear()
                             paramsList.Clear()
 
-                            queryList.Add("Update AIRBRANCH.SSPPApplicationTracking set " &
+                            queryList.Add("Update SSPPApplicationTracking set " &
                             "datDraftOnWeb = :DraftOnWeb " &
                             "datEPAStatesNotified = :EPAStatesNotified , " &
                             "datFinalOnWeb = :FinalOnWeb , " &
@@ -6590,7 +6590,7 @@ Public Class SSPPApplicationTrackingLog
                                  New SqlParameter("LinkedApplication", LinkedApplication)
                                 })
 
-                            queryList.Add("Update AIRBRANCH.SSPPApplicationData set " &
+                            queryList.Add("Update SSPPApplicationData set " &
                             "strTargeted = :TargetedComments " &
                             "where strApplicationNumber = :LinkedApplication ")
                             paramsList.Add(
@@ -6621,7 +6621,7 @@ Public Class SSPPApplicationTrackingLog
 
             query = "Select " &
             "strUpdateStatus " &
-            "from AIRBRANCH.AFSSSPPRecords " &
+            "from AFSSSPPRecords " &
             "where strApplicationNumber = :appnum "
             params = {New SqlParameter("appnum", txtApplicationNumber.Text)}
 
@@ -6634,7 +6634,7 @@ Public Class SSPPApplicationTrackingLog
             If UpdateStatus = "N" Then UpdateStatus = "C"
 
             If recExists Then
-                query = "Update AIRBRANCH.AFSSSPPRecords set " &
+                query = "Update AFSSSPPRecords set " &
                     "strUpdateStatus = :UpdateStatus " &
                     "where strApplicationNumber = :appnum "
                 params = {
@@ -6644,12 +6644,12 @@ Public Class SSPPApplicationTrackingLog
                 DB.RunCommand(query, params)
             Else
                 query = "Select strAFSActionNumber " &
-                    "from AIRBRANCH.APBSupplamentalData " &
+                    "from APBSupplamentalData " &
                     "where strAIRSNumber = :airs"
                 params = {New SqlParameter("airs", "0413" & txtAIRSNumber.Text)}
                 ActionNumber = DB.GetSingleValue(Of String)(query, params)
 
-                query = "Insert into AIRBRANCH.AFSSSPPRecords " &
+                query = "Insert into AFSSSPPRecords " &
                     "(strApplicationNumber, strAFSActionNumber, " &
                     "strUpDateStatus, strModifingPerson, " &
                     "datModifingDate) " &
@@ -6668,7 +6668,7 @@ Public Class SSPPApplicationTrackingLog
 
                 ActionNumber = CInt(ActionNumber) + 1
 
-                query = "Update AIRBRANCH.APBSupplamentalData set " &
+                query = "Update APBSupplamentalData set " &
                 "strAFSActionNumber = :ActionNumber " &
                 "where strAIRSNumber = :airs "
                 params = {
@@ -6714,7 +6714,7 @@ Public Class SSPPApplicationTrackingLog
             "strNAICSCode, " &
             "strPermitNumber, strPlantDescription, " &
             "strStateProgramCodes " &
-            "from AIRBRANCH.SSPPApplicationData " &
+            "from SSPPApplicationData " &
             "where strApplicationNumber = :appnumber "
             params = {New SqlParameter("appnumber", txtApplicationNumber.Text)}
 
@@ -6794,7 +6794,7 @@ Public Class SSPPApplicationTrackingLog
                 End Using
             End Using
 
-            queryList.Add("Update AIRBRANCH.APBFacilityInformation set " &
+            queryList.Add("Update APBFacilityInformation set " &
             "strFacilityName = :FacilityName, " &
             "strFacilityStreet1 = :FacilityStreet1, " &
             "strFacilityStreet2 = :FacilityStreet2, " &
@@ -6817,7 +6817,7 @@ Public Class SSPPApplicationTrackingLog
                  New SqlParameter("airs", "0413" & txtAIRSNumber.Text)
                 })
 
-            queryList.Add("Update AIRBRANCH.OLAPUserAccess set " &
+            queryList.Add("Update OLAPUserAccess set " &
             "strFacilityName = :FacilityName " &
             "where strAIRSNumber = :airs ")
             paramsList.Add(
@@ -6825,7 +6825,7 @@ Public Class SSPPApplicationTrackingLog
                  New SqlParameter("airs", "0413" & txtAIRSNumber.Text)
                 })
 
-            queryList.Add("Update AIRBRANCH.APBHeaderData set " &
+            queryList.Add("Update APBHeaderData set " &
             "strOperationalStatus = :OpStatus , " &
             "strClass = :Classification , " &
             "strAIRProgramCodes = :AirProgramCodes , " &
@@ -6979,12 +6979,12 @@ Public Class SSPPApplicationTrackingLog
         Dim paramsList As New List(Of SqlParameter())
 
         query = "Select strPollutantKey " &
-                "from AIRBRANCH.APBAirProgramPollutants " &
+                "from APBAirProgramPollutants " &
                 "where strAIRPollutantKey = :pKey "
         params = {New SqlParameter("pKey", pKey)}
 
         If Not DB.ValueExists(query, params) Then
-            query = "Insert into AIRBRANCH.APBAirProgramPollutants " &
+            query = "Insert into APBAirProgramPollutants " &
              "(strAirsNumber, strAirPollutantKey, " &
              "strPollutantKey, strComplianceStatus, " &
              "strModifingPerson, datModifingDate, " &
@@ -7002,7 +7002,7 @@ Public Class SSPPApplicationTrackingLog
             }
             DB.RunCommand(query, params)
         Else
-            queryList.Add("Update AIRBRANCH.APBAirProgramPollutants set " &
+            queryList.Add("Update APBAirProgramPollutants set " &
             "strOperationalStatus = :OpStatus  " &
             "where strAirPOllutantKey = :pKey ")
             paramsList.Add({
@@ -7010,7 +7010,7 @@ Public Class SSPPApplicationTrackingLog
                 New SqlParameter("pKey", pKey)
             })
 
-            queryList.Add("update AIRBRANCH.AFSAirPollutantData set " &
+            queryList.Add("update AFSAirPollutantData set " &
                 "strUpdateStatus = 'C' " &
                 "where strUpdateStatus = 'N' and strAIRPollutantKey = :pKey ")
             paramsList.Add({New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & key)})
@@ -7024,7 +7024,7 @@ Public Class SSPPApplicationTrackingLog
         Dim paramsList As New List(Of SqlParameter())
 
         If subpartList Is Nothing OrElse subpartList.Count = 0 Then
-            queryList.Add("Update AIRBRANCH.APBSubpartData set " &
+            queryList.Add("Update APBSubpartData set " &
                           "Active = '0', " &
                           "updateUser = :UserGCode , " &
                           "updateDateTime = sysdate " &
@@ -7036,7 +7036,7 @@ Public Class SSPPApplicationTrackingLog
                 })
         Else
             For Each subpart As String In subpartList
-                queryList.Add("Update AIRBRANCH.APBSubpartData set " &
+                queryList.Add("Update APBSubpartData set " &
                               "Active = '0', " &
                               "updateUser = :UserGCode , " &
                               "updateDateTime = sysdate " &
@@ -7062,7 +7062,7 @@ Public Class SSPPApplicationTrackingLog
         Dim params As SqlParameter() = Nothing
 
         For Each subpart As String In subpartList
-            query = "Select Active from AIRBRANCH.APBSubpartData " &
+            query = "Select Active from APBSubpartData " &
                 "where strSubpartKey = :pKey " &
                 "and strSubpart = :subpart "
             params = {
@@ -7071,7 +7071,7 @@ Public Class SSPPApplicationTrackingLog
             }
 
             If DB.ValueExists(query, params) Then
-                query = "Update AIRBRANCH.APBSubpartData set " &
+                query = "Update APBSubpartData set " &
                     "Active = '1', " &
                     "updateUser = :UserGCode , " &
                     "updateDateTime = sysdate " &
@@ -7083,7 +7083,7 @@ Public Class SSPPApplicationTrackingLog
                     New SqlParameter("subpart", subpart)
                 }
             Else
-                query = "INSERT INTO AIRBRANCH.APBSUBPARTDATA " &
+                query = "INSERT INTO APBSUBPARTDATA " &
                     "  ( STRAIRSNUMBER, STRSUBPARTKEY, STRSUBPART, UPDATEUSER , " &
                     "    UPDATEDATETIME, ACTIVE, CREATEDATETIME " &
                     "  ) VALUES " &
@@ -7144,7 +7144,7 @@ Public Class SSPPApplicationTrackingLog
             AppType = cboApplicationType.Text
 
             query = "select strMasterApplication " &
-              "from AIRBRANCH.SSPPApplicationLinking " &
+              "from SSPPApplicationLinking " &
               "where strApplicationNumber = :appnumber "
             parameter = {New SqlParameter("appnumber", txtApplicationNumber.Text)}
 
@@ -7156,11 +7156,11 @@ Public Class SSPPApplicationTrackingLog
             rdbOtherPermit.Checked = False
 
             query = "select " &
-            "distinct(AIRBRANCH.APBPermits.strFileName)  " &
-            "from AIRBRANCH.APBpermits, AIRBRANCH.SSPPApplicationLinking " &
-            "where substr(AIRBRANCH.APBpermits.strFileName, 4) = AIRBRANCH.SSPPAPPlicationLinking.strmasterapplication (+) " &
-            "and (AIRBRANCH.SSPPApplicationLinking.strApplicationNumber = :MasterApp " &
-            "or AIRBRANCH.APBPermits.strFileName like :MasterAppFn ) "
+            "distinct(APBPermits.strFileName)  " &
+            "from APBpermits, SSPPApplicationLinking " &
+            "where substr(APBpermits.strFileName, 4) = SSPPAPPlicationLinking.strmasterapplication (+) " &
+            "and (SSPPApplicationLinking.strApplicationNumber = :MasterApp " &
+            "or APBPermits.strFileName like :MasterAppFn ) "
             parameter = {
                 New SqlParameter("MasterApp", MasterApp),
                 New SqlParameter("MasterAppFn", "%-" & MasterApp)
@@ -7212,7 +7212,7 @@ Public Class SSPPApplicationTrackingLog
 
             Dim query As String = "Select " &
             "strDOCFileSize, strPDFFileSize " &
-            "From AIRBRANCH.ApbPermits " &
+            "From ApbPermits " &
             "where strFileName = :FileName"
             Dim parameter As New SqlParameter("FileName", FileName)
 
@@ -7327,7 +7327,7 @@ Public Class SSPPApplicationTrackingLog
                 End If
             End If
             If (PDFFile <> "" And Mid(Flag, 1, 1) = "1") Or DocOnFile = "On File" Then
-                query = "update AIRBRANCH.APBPermits set " &
+                query = "update APBPermits set " &
                 "PDFPermitData = '', " &
                 "strPDFFileSize = '', " &
                 "strPDFModifingPerson = '', " &
@@ -7420,14 +7420,14 @@ Public Class SSPPApplicationTrackingLog
             If Flag <> "00" Then
                 Dim rowCount As Integer
 
-                query = "Delete AIRBRANCH.APBPermits " &
+                query = "Delete APBPermits " &
                    "where strFileName = :FileName "
                 parameter = New SqlParameter("FileName", FileName)
                 DB.RunCommand(query, parameter)
 
                 query = "select " &
                 "rowCount " &
-                "from AIRBRANCH.APBPermits " &
+                "from APBPermits " &
                 "where strFileName = :FileName "
                 parameter = New SqlParameter("FileName", FileName)
                 rowCount = DB.GetSingleValue(Of Integer)(query, parameter)
@@ -7435,7 +7435,7 @@ Public Class SSPPApplicationTrackingLog
                 If rowCount = 0 Then
                     query = "select " &
                     "(max(rowCount) + 1) as RowCount " &
-                    "from AIRBRANCH.APBPermits "
+                    "from APBPermits "
                     rowCount = DB.GetSingleValue(Of Integer)(query)
                     If rowCount = 0 Then rowCount = 1
                 End If
@@ -7453,7 +7453,7 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim ds As DataSet
 
-                query = "Select * from AIRBRANCH.APBPermits " &
+                query = "Select * from APBPermits " &
                 "where strFileName = :FileName "
 
                 Using connection As New SqlConnection(CurrentConnectionString)
@@ -7511,14 +7511,14 @@ Public Class SSPPApplicationTrackingLog
                     sfd.DefaultExt = ".doc"
                     query = "select " &
                         "DocPermitData " &
-                        "from AIRBRANCH.APBPermits " &
+                        "from APBPermits " &
                         "where strFileName = :FileName "
                 Case "01"
                     sfd.Filter = "Adobe PDF Files (*.pdf)|.pdf"
                     sfd.DefaultExt = ".pdf"
                     query = "select " &
                         "PdfPermitData " &
-                        "from AIRBRANCH.APBPermits " &
+                        "from APBPermits " &
                         "where strFileName = :FileName "
             End Select
 
@@ -7532,7 +7532,7 @@ Public Class SSPPApplicationTrackingLog
                 sfd.DefaultExt = ".pdf"
                 query = "select " &
                     "PdfPermitData " &
-                    "from AIRBRANCH.APBPermits " &
+                    "from APBPermits " &
                     "where strFileName = :FileName "
 
                 If sfd.ShowDialog = DialogResult.OK Then
@@ -7937,7 +7937,7 @@ Public Class SSPPApplicationTrackingLog
 
             Dim query As String = "Select " &
                 "datModifingdate " &
-                "from AIRBRANCH.SSPPApplicationMaster " &
+                "from SSPPApplicationMaster " &
                 "where strApplicationNumber = :appnumber "
             Dim parameter As New SqlParameter("appnumber", txtApplicationNumber.Text)
             Dim temp As String = DB.GetSingleValue(Of String)(query, parameter)
@@ -8090,7 +8090,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub mmiNewApplication_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiNewApplication.Click
         Try
-            Dim query As String = "Select AIRBRANCH.SSPPApplicationKey.nextval from dual "
+            Dim query As String = "Select SSPPApplicationKey.nextval from dual "
             txtApplicationNumber.Text = DB.GetSingleValue(Of Integer)(query)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -8605,7 +8605,7 @@ Public Class SSPPApplicationTrackingLog
             If rdbTitleVPermit.Checked = True Then
                 Dim query As String = "select " &
                     "strFileName " &
-                    "from AIRBRANCH.APBPermits " &
+                    "from APBPermits " &
                     "where strFileName like :filename "
                 Dim parameter As New SqlParameter("filename", "V_-" & MasterApp)
                 Dim fn As String = DB.GetSingleValue(Of String)(query, parameter)
@@ -8666,7 +8666,7 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim query As String = "select " &
                     "strFileName " &
-                    "from AIRBRANCH.APBPermits " &
+                    "from APBPermits " &
                     "where strFileName like :filename "
                 Dim parameter As New SqlParameter("filename", "P_-" & MasterApp)
                 Dim fn As String = DB.GetSingleValue(Of String)(query, parameter)
@@ -8736,7 +8736,7 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim query As String = "select " &
                     "strFileName " &
-                    "from AIRBRANCH.APBPermits " &
+                    "from APBPermits " &
                     "where strFileName like :filename "
                 Dim parameter As New SqlParameter("filename", "O_-" & MasterApp)
                 Dim fn As String = DB.GetSingleValue(Of String)(query, parameter)
@@ -8780,8 +8780,8 @@ Public Class SSPPApplicationTrackingLog
                 "case " &
                 "when strDocModifingPerson is Null then '' " &
                 "else (select (strLastName||', '||strFirstName) as StaffName " &
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                "from APBPermits, EPDUserProfiles " &
+                "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                 "and numUserID = strDocModifingPerson " &
                 "and strFileName = :filename ) " &
                 "end DocStaffResponsible, " &
@@ -8796,8 +8796,8 @@ Public Class SSPPApplicationTrackingLog
                 "case " &
                 "when strPDFModifingPerson is Null then '' " &
                 "else (select (strLastName||', '||strFirstName) as StaffName " &
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                "from APBPermits, EPDUserProfiles " &
+                "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                 "and numUserID = strPDFModifingPerson " &
                 "and strFileName = :filename ) " &
                 "end PDFStaffResponsible, " &
@@ -8805,7 +8805,7 @@ Public Class SSPPApplicationTrackingLog
                 "when datPDFModifingDate is Null then '' " &
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                 "End datPDFModifingDate " &
-                "from AIRBRANCH.APBPermits " &
+                "from APBPermits " &
                 "where strFileName = :filename "
 
                 Dim parameter As New SqlParameter("filename", "VN-" & MasterApp)
@@ -8901,8 +8901,8 @@ Public Class SSPPApplicationTrackingLog
                 "case " &
                 "when strDocModifingPerson is Null then '' " &
                 "else (select (strLastName||', '||strFirstName) as StaffName " &
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                "from APBPermits, EPDUserProfiles " &
+                "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                 "and numUserID = strDocModifingPerson " &
                 "and strFileName = :filename ) " &
                 "end DocStaffResponsible, " &
@@ -8917,8 +8917,8 @@ Public Class SSPPApplicationTrackingLog
                 "case " &
                 "when strPDFModifingPerson is Null then '' " &
                 "else (select (strLastName||', '||strFirstName) as StaffName " &
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                "from APBPermits, EPDUserProfiles " &
+                "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                 "and numuserID = strPDFModifingPerson " &
                 "and strFileName = :filename) " &
                 "end PDFStaffResponsible, " &
@@ -8926,7 +8926,7 @@ Public Class SSPPApplicationTrackingLog
                 "when datPDFModifingDate is Null then '' " &
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                 "End datPDFModifingDate " &
-                "from AIRBRANCH.APBPermits " &
+                "from APBPermits " &
                 "where strFileName = :filename "
 
                 Dim parameter As New SqlParameter("filename", "VD-" & MasterApp)
@@ -9021,8 +9021,8 @@ Public Class SSPPApplicationTrackingLog
                 "case " &
                 "when strDocModifingPerson is Null then '' " &
                 "else (select (strLastName|| ' '||strFirstName) as StaffName " &
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                "from APBPermits, EPDUserProfiles " &
+                "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                 "and numUserID = strDocModifingPerson " &
                 "and strFileName = :filename ) " &
                 "end DocStaffResponsible, " &
@@ -9037,8 +9037,8 @@ Public Class SSPPApplicationTrackingLog
                 "case " &
                 "when strPDFModifingPerson is Null then '' " &
                 "else (select (strLastName||', '||strFirstName) as StaffName " &
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                "from APBPermits, EPDUserProfiles " &
+                "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                 "and numUserID = strPDFModifingPerson " &
                 "and strFileName = :filename ) " &
                 "end PDFStaffResponsible, " &
@@ -9046,7 +9046,7 @@ Public Class SSPPApplicationTrackingLog
                 "when datPDFModifingDate is Null then '' " &
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                 "End datPDFModifingDate " &
-                "from AIRBRANCH.APBPermits " &
+                "from APBPermits " &
                 "where strFileName = :filename "
 
                 Dim parameter As New SqlParameter("filename", "VP-" & MasterApp)
@@ -9142,8 +9142,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " &
                  "when strDocModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
                  "and strFileName = :filename ) " &
                  "end DocStaffResponsible, " &
@@ -9158,8 +9158,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " &
                  "when strPDFModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
                  "and strFileName =  :filename) " &
                  "end PDFStaffResponsible, " &
@@ -9167,7 +9167,7 @@ Public Class SSPPApplicationTrackingLog
                  "when datPDFModifingDate is Null then '' " &
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                  "End datPDFModifingDate " &
-                 "from AIRBRANCH.APBPermits " &
+                 "from APBPermits " &
                  "where strFileName = :filename "
 
                 Dim parameter As New SqlParameter("filename", "VF-" & MasterApp)
@@ -9262,8 +9262,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " &
                  "when strDocModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
                  "and strFileName = :filename ) " &
                  "end DocStaffResponsible, " &
@@ -9278,8 +9278,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " &
                  "when strPDFModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
                  "and strFileName = :filename ) " &
                  "end PDFStaffResponsible, " &
@@ -9287,7 +9287,7 @@ Public Class SSPPApplicationTrackingLog
                  "when datPDFModifingDate is Null then '' " &
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                  "End datPDFModifingDate " &
-                 "from AIRBRANCH.APBPermits " &
+                 "from APBPermits " &
                  "where strFileName = :filename "
 
                 Dim parameter As New SqlParameter("filename", "VF-" & MasterApp)
@@ -9381,8 +9381,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " &
                  "when strDocModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
                  "and strFileName = :filename ) " &
                  "end DocStaffResponsible, " &
@@ -9397,8 +9397,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " &
                  "when strPDFModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
                  "and strFileName = :filename ) " &
                  "end PDFStaffResponsible, " &
@@ -9406,7 +9406,7 @@ Public Class SSPPApplicationTrackingLog
                  "when datPDFModifingDate is Null then '' " &
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                  "End datPDFModifingDate " &
-                 "from AIRBRANCH.APBPermits " &
+                 "from APBPermits " &
                  "where strFileName = :filename "
 
                 Dim parameter As New SqlParameter("filename", "PP-" & MasterApp)
@@ -9500,8 +9500,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " &
                  "when strDocModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
                  "and strFileName = :filename ) " &
                  "end DocStaffResponsible, " &
@@ -9516,8 +9516,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " &
                  "when strPDFModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
                  "and strFileName = :filename )" &
                  "end PDFStaffResponsible, " &
@@ -9525,7 +9525,7 @@ Public Class SSPPApplicationTrackingLog
                  "when datPDFModifingDate is Null then '' " &
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                  "End datPDFModifingDate " &
-                 "from AIRBRANCH.APBPermits " &
+                 "from APBPermits " &
                  "where strFileName = :filename "
 
                 Dim parameter As New SqlParameter("filename", "PT-" & MasterApp)
@@ -9619,8 +9619,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " &
                  "when strDocModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
                  "and strFileName = :filename ) " &
                  "end DocStaffResponsible, " &
@@ -9635,8 +9635,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " &
                  "when strPDFModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
                  "and strFileName = :filename ) " &
                  "end PDFStaffResponsible, " &
@@ -9644,7 +9644,7 @@ Public Class SSPPApplicationTrackingLog
                  "when datPDFModifingDate is Null then '' " &
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                  "End datPDFModifingDate " &
-                 "from AIRBRANCH.APBPermits " &
+                 "from APBPermits " &
                  "where strFileName = :filename "
 
                 Dim parameter As New SqlParameter("filename", "PD-" & MasterApp)
@@ -9738,8 +9738,8 @@ Public Class SSPPApplicationTrackingLog
                 "case " &
                 "when strDocModifingPerson is Null then '' " &
                 "else (select (strLastName||', '||strFirstName) as StaffName " &
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                "from APBPermits, EPDUserProfiles " &
+                "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                 "and numUserID = strDocModifingPerson " &
                 "and strFileName = :filename ) " &
                 "end DocStaffResponsible, " &
@@ -9754,8 +9754,8 @@ Public Class SSPPApplicationTrackingLog
                 "case " &
                 "when strPDFModifingPerson is Null then '' " &
                 "else (select (strLastname||', '||strFirstName) as StaffName " &
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                "from APBPermits, EPDUserProfiles " &
+                "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                 "and numUserID = strPDFModifingPerson " &
                 "and strFileName = :filename ) " &
                 "end PDFStaffResponsible, " &
@@ -9763,7 +9763,7 @@ Public Class SSPPApplicationTrackingLog
                 "when datPDFModifingDate is Null then '' " &
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                 "End datPDFModifingDate " &
-                "from AIRBRANCH.APBPermits " &
+                "from APBPermits " &
                 "where strFileName = :filename "
 
                 Dim parameter As New SqlParameter("filename", "PN-" & MasterApp)
@@ -9857,8 +9857,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " &
                  "when strDocModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numuserID " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numuserID " &
                  "and numUserID = strDocModifingPerson " &
                  "and strFileName = :filename ) " &
                  "end DocStaffResponsible, " &
@@ -9873,8 +9873,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " &
                  "when strPDFModifingPerson is Null then '' " &
                  "else (select (strLastname||', '||strFirstname) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
                  "and strFileName = :filename ) " &
                  "end PDFStaffResponsible, " &
@@ -9882,7 +9882,7 @@ Public Class SSPPApplicationTrackingLog
                  "when datPDFModifingDate is Null then '' " &
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                  "End datPDFModifingDate " &
-                 "from AIRBRANCH.APBPermits " &
+                 "from APBPermits " &
                  "where strFileName = :filename "
 
                 Dim parameter As New SqlParameter("filename", "PH-" & MasterApp)
@@ -9976,8 +9976,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " &
                  "when strDocModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
                  "and strFileName = :filename ) " &
                  "end DocStaffResponsible, " &
@@ -9992,8 +9992,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " &
                  "when strPDFModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
                  "and strFileName = :filename ) " &
                  "end PDFStaffResponsible, " &
@@ -10001,7 +10001,7 @@ Public Class SSPPApplicationTrackingLog
                  "when datPDFModifingDate is Null then '' " &
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                  "End datPDFModifingDate " &
-                 "from AIRBRANCH.APBPermits " &
+                 "from APBPermits " &
                  "where strFileName = :filename "
 
                 Dim parameter As New SqlParameter("filename", "PF-" & MasterApp)
@@ -10095,8 +10095,8 @@ Public Class SSPPApplicationTrackingLog
                 "case " &
                 "when strDocModifingPerson is Null then '' " &
                 "else (select (strLastName||', '||strFirstName) as StaffName " &
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                "from APBPermits, EPDUserProfiles " &
+                "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                 "and numUserID = strDocModifingPerson " &
                 "and strFileName = :filename ) " &
                 "end DocStaffResponsible, " &
@@ -10111,8 +10111,8 @@ Public Class SSPPApplicationTrackingLog
                 "case " &
                 "when strPDFModifingPerson is Null then '' " &
                 "else (select (strLastName||', '||strFirstName) as StaffName " &
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                "from APBPermits, EPDUserProfiles " &
+                "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                 "and numUserID = strPDFModifingPerson " &
                 "and strFileName = :filename ) " &
                 "end PDFStaffResponsible, " &
@@ -10120,7 +10120,7 @@ Public Class SSPPApplicationTrackingLog
                 "when datPDFModifingDate is Null then '' " &
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                 "End datPDFModifingDate " &
-                "from AIRBRANCH.APBPermits " &
+                "from APBPermits " &
                 "where strFileName = :filename "
 
                 Dim parameter As New SqlParameter("filename", "PF-" & MasterApp)
@@ -10213,8 +10213,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " &
                  "when strDocModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
                  "and strFileName = :filename ) " &
                  "end DocStaffResponsible, " &
@@ -10229,8 +10229,8 @@ Public Class SSPPApplicationTrackingLog
                  "case " &
                  "when strPDFModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUSerProfiles " &
-                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUSerProfiles.numUserID  " &
+                 "from APBPermits, EPDUSerProfiles " &
+                 "where APBPermits.strPDFModifingPerson = EPDUSerProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
                  "and strFileName = :filename ) " &
                  "end PDFStaffResponsible, " &
@@ -10238,7 +10238,7 @@ Public Class SSPPApplicationTrackingLog
                  "when datPDFModifingDate is Null then '' " &
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                  "End datPDFModifingDate " &
-                 "from AIRBRANCH.APBPermits " &
+                 "from APBPermits " &
                  "where strFileName = :filename "
 
                 Dim parameter As New SqlParameter("filename", "ON-" & MasterApp)
@@ -10333,8 +10333,8 @@ Public Class SSPPApplicationTrackingLog
                   "case " &
                   "when strDocModifingPerson is Null then '' " &
                   "else (select (strLastName||', '||strFirstName) as StaffName " &
-                  "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                  "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                  "from APBPermits, EPDUserProfiles " &
+                  "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                   "and numUserID = strDocModifingPerson " &
                   "and strFileName = :filename ) " &
                   "end DocStaffResponsible, " &
@@ -10349,8 +10349,8 @@ Public Class SSPPApplicationTrackingLog
                   "case " &
                   "when strPDFModifingPerson is Null then '' " &
                   "else (select (strLastName||', '||strFirstName) as StaffName " &
-                  "from AIRBRANCH.APBPermits, AIRBRANCH.epduserprofiles " &
-                  "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                  "from APBPermits, epduserprofiles " &
+                  "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                   "and numUserID = strPDFModifingPerson " &
                   "and strFileName = :filename ) " &
                   "end PDFStaffResponsible, " &
@@ -10358,7 +10358,7 @@ Public Class SSPPApplicationTrackingLog
                   "when datPDFModifingDate is Null then '' " &
                   "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                   "End datPDFModifingDate " &
-                  "from AIRBRANCH.APBPermits " &
+                  "from APBPermits " &
                   "where strFileName = :filename "
 
                 Dim parameter As New SqlParameter("filename", "OP-" & MasterApp)
@@ -10892,13 +10892,13 @@ Public Class SSPPApplicationTrackingLog
             Dim PDFFile As String = ""
 
             Dim query As String = "select " &
-            "distinct(AIRBRANCH.APBPermits.strFileName),  " &
+            "distinct(APBPermits.strFileName),  " &
             "strDocFileSize, strPDFFileSize " &
-            "from AIRBRANCH.APBpermits, AIRBRANCH.SSPPApplicationLinking " &
-            "where substr(AIRBRANCH.APBpermits.strFileName, 4) = " &
-            "AIRBRANCH.SSPPAPPlicationLinking.strmasterapplication (+) " &
-            "and (AIRBRANCH.SSPPApplicationLinking.strApplicationNumber = :MasterApp " &
-            "or AIRBRANCH.APBPermits.strFileName like :MasterAppFn ) "
+            "from APBpermits, SSPPApplicationLinking " &
+            "where substr(APBpermits.strFileName, 4) = " &
+            "SSPPAPPlicationLinking.strmasterapplication (+) " &
+            "and (SSPPApplicationLinking.strApplicationNumber = :MasterApp " &
+            "or APBPermits.strFileName like :MasterAppFn ) "
 
             Dim parameter As SqlParameter() = {
                 New SqlParameter("MasterApp", MasterApp),
@@ -10972,7 +10972,7 @@ Public Class SSPPApplicationTrackingLog
              "strContactState, " &
              "strContactZipCode, " &
              "strContactDescription " &
-             "from AIRBRANCH.APBContactInformation " &
+             "from APBContactInformation " &
              "where strContactKey = :pKey "
 
             Dim parameter As New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "30")
@@ -11107,7 +11107,7 @@ Public Class SSPPApplicationTrackingLog
 
             Dim query As String = "select " &
             "strEmailAddress, strPhone " &
-            "from AIRBranch.EPDUserProfiles " &
+            "from EPDUserProfiles " &
             "where numUserID = :UserGCode "
             Dim parameter As New SqlParameter("UserGCode", CurrentUser.UserID)
 
@@ -11225,11 +11225,11 @@ Public Class SSPPApplicationTrackingLog
             query = "select distinct   " &
             "strAIRSnumber, " &
             "'' as AppNum, " &
-            "AIRBRANCH.apbsubpartdata.strSubpart, " &
+            "apbsubpartdata.strSubpart, " &
             "strDescription, CreateDateTime " &
-            "from AIRBRANCH.APBsubpartdata, AIRBRANCH.LookUpSubPartSIP   " &
-            "where AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubpartSIP.strSubpart   " &
-            "and AIRBRANCH.APBSubPartData.strSubpartKey = :pKey " &
+            "from APBsubpartdata, LookUpSubPartSIP   " &
+            "where APBSubpartData.strSubPart = LookUpSubpartSIP.strSubpart   " &
+            "and APBSubPartData.strSubpartKey = :pKey " &
             "and Active = '1' "
             parameter = {New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "0")}
 
@@ -11276,15 +11276,15 @@ Public Class SSPPApplicationTrackingLog
                     SubPart = dgvSIPSubParts.Item(1, i).Value
 
                     query = "select " &
-                    "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " &
+                    "SSPPApplicationMaster.strApplicationNumber,  " &
                     "strSubpart, strApplicationActivity,   " &
                     "CreateDateTime " &
-                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPSubpartData   " &
-                    "where AIRBRANCH.SSPPSubpartData.strApplicationNumber = AIRBRANCH.SSPPApplicationMaster.strApplicationNumber  " &
+                    "from SSPPApplicationMaster, SSPPSubpartData   " &
+                    "where SSPPSubpartData.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber  " &
                     "and strAIRSnumber = :airs " &
                     "and substr(strSubpartkey, 6,1) = '0'  " &
                     "and strSubpart = :SubPart " &
-                    "and AIRBRANCH.SSPPSubpartData.strApplicationNumber  = :appnum " &
+                    "and SSPPSubpartData.strApplicationNumber  = :appnum " &
                     "order by createdatetime "
 
                     parameter = {
@@ -11382,20 +11382,20 @@ Public Class SSPPApplicationTrackingLog
 
             query = "select  " &
             "strAIRSNumber, " &
-            "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " &
-            "AIRBRANCH.SSPPSubPartData.strSubpart, strDescription,  " &
+            "SSPPApplicationMaster.strApplicationNumber,  " &
+            "SSPPSubPartData.strSubpart, strDescription,  " &
             "case when strApplicationActivity = '0' then 'Removed'  " &
             "when strApplicationActivity ='1' then 'Added'  " &
             "when strApplicationActivity = '2' then 'Modified'  " &
             "else strApplicationActivity  " &
             "end Action,  " &
             "CreatedateTime  " &
-            "from AIRBRANCH.SSPPSubpartData, AIRBRANCH.SSPPApplicationMaster,   " &
-            "AIRBRANCH.LookUpSubPartSIP   " &
-            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = " &
-            "AIRBRANCH.SSPPSubpartData.strApplicationNumber   " &
-            "and AIRBRANCH.SSPPSubPartData.strSubPart = AIRBRANCH.LookUpSubPartSIP.strSubPart  " &
-            "and AIRBRANCH.SSPPSubpartData.strSubpartKey  = :pKey "
+            "from SSPPSubpartData, SSPPApplicationMaster,   " &
+            "LookUpSubPartSIP   " &
+            "where SSPPApplicationMaster.strApplicationNumber = " &
+            "SSPPSubpartData.strApplicationNumber   " &
+            "and SSPPSubPartData.strSubPart = LookUpSubPartSIP.strSubPart  " &
+            "and SSPPSubpartData.strSubpartKey  = :pKey "
             parameter = {New SqlParameter("pKey", txtApplicationNumber.Text & "0")}
 
             Using connection As New SqlConnection(CurrentConnectionString)
@@ -12153,11 +12153,11 @@ Public Class SSPPApplicationTrackingLog
             query = "select distinct   " &
                 "strAIRSnumber, " &
                 "'' as AppNum, " &
-                "AIRBRANCH.apbsubpartdata.strSubpart, " &
+                "apbsubpartdata.strSubpart, " &
                 "strDescription, CreateDateTime " &
-                "from AIRBRANCH.APBsubpartdata, AIRBRANCH.LookUpSubPart60  " &
-                "where AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubpart60.strSubpart " &
-                "and AIRBRANCH.APBSubPartData.strSubpartKey = :pKey " &
+                "from APBsubpartdata, LookUpSubPart60  " &
+                "where APBSubpartData.strSubPart = LookUpSubpart60.strSubpart " &
+                "and APBSubPartData.strSubpartKey = :pKey " &
                 "and Active = '1' "
             parameter = {New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "9")}
 
@@ -12204,15 +12204,15 @@ Public Class SSPPApplicationTrackingLog
                     SubPart = dgvNSPSSubParts.Item(1, i).Value
 
                     query = "select " &
-                    "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " &
+                    "SSPPApplicationMaster.strApplicationNumber,  " &
                     "strSubpart, strApplicationActivity,   " &
                     "CreateDateTime " &
-                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPSubpartData   " &
-                    "where AIRBRANCH.SSPPSubpartData.strApplicationNumber = AIRBRANCH.SSPPApplicationMaster.strApplicationNumber  " &
+                    "from SSPPApplicationMaster, SSPPSubpartData   " &
+                    "where SSPPSubpartData.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber  " &
                     "and strAIRSnumber = :airsnum " &
                     "and substr(strSubpartkey, 6,1) = '9'  " &
                     "and strSubpart = :SubPart " &
-                    "and AIRBRANCH.SSPPSubpartData.strApplicationNumber  = :appnum " &
+                    "and SSPPSubpartData.strApplicationNumber  = :appnum " &
                     "order by createdatetime "
 
                     parameter = {
@@ -12311,20 +12311,20 @@ Public Class SSPPApplicationTrackingLog
 
             query = "select  " &
             "strAIRSNumber, " &
-            "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " &
-            "AIRBRANCH.SSPPSubPartData.strSubpart, strDescription,  " &
+            "SSPPApplicationMaster.strApplicationNumber,  " &
+            "SSPPSubPartData.strSubpart, strDescription,  " &
             "case when strApplicationActivity = '0' then 'Removed'  " &
             "when strApplicationActivity ='1' then 'Added'  " &
             "when strApplicationActivity = '2' then 'Modified'  " &
             "else strApplicationActivity  " &
             "end Action,  " &
             "CreatedateTime  " &
-            "from AIRBRANCH.SSPPSubpartData, AIRBRANCH.SSPPApplicationMaster,   " &
-            "AIRBRANCH.LookUpSubPart60   " &
-            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = " &
-            "AIRBRANCH.SSPPSubpartData.strApplicationNumber   " &
-            "and AIRBRANCH.SSPPSubPartData.strSubPart = AIRBRANCH.LookUpSubPart60.strSubPart  " &
-            "and AIRBRANCH.SSPPSubpartData.strSubPartKey  = :pKey "
+            "from SSPPSubpartData, SSPPApplicationMaster,   " &
+            "LookUpSubPart60   " &
+            "where SSPPApplicationMaster.strApplicationNumber = " &
+            "SSPPSubpartData.strApplicationNumber   " &
+            "and SSPPSubPartData.strSubPart = LookUpSubPart60.strSubPart  " &
+            "and SSPPSubpartData.strSubPartKey  = :pKey "
             parameter = {New SqlParameter("pKey", txtApplicationNumber.Text & "9")}
 
             Using connection As New SqlConnection(CurrentConnectionString)
@@ -12978,7 +12978,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub DeleteProgramSubparts(appnum As String, programkey As String)
-        Dim query As String = "Delete AIRBRANCH.SSPPSubpartData " &
+        Dim query As String = "Delete SSPPSubpartData " &
             "where strSubpartKey = :pKey "
         Dim parameter As New SqlParameter("pKey", appnum & programkey)
         DB.RunCommand(query, parameter)
@@ -12986,7 +12986,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub SaveProgramSubpartData(appnum As String, programKey As String, subpart As String, activity As String)
         Dim query As String = "INSERT " &
-            "INTO AIRBRANCH.SSPPSUBPARTDATA " &
+            "INTO SSPPSUBPARTDATA " &
             "  ( " &
             "    STRAPPLICATIONNUMBER, STRSUBPARTKEY, STRSUBPART, " &
             "    STRAPPLICATIONACTIVITY, UPDATEUSER, UPDATEDATETIME, " &
@@ -13047,7 +13047,7 @@ Public Class SSPPApplicationTrackingLog
 
             Dim query As String = "Select " &
             "strSubpart " &
-            "from AIRBRANCH.SSPPSubpartData " &
+            "from SSPPSubpartData " &
             "where strSubpartKey = :pKey " &
             "and strApplicationActivity = '1' "
             parameter = {New SqlParameter("pKey", txtApplicationNumber.Text & "9")}
@@ -13074,7 +13074,7 @@ Public Class SSPPApplicationTrackingLog
                                     End If
                                 Next
                                 If temp <> "Ignore" Then
-                                    query = "Update AIRBRANCH.APBSubpartData set " &
+                                    query = "Update APBSubpartData set " &
                                         "Active = '9', " &
                                         "updateUser = :UserGCode , " &
                                         "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
@@ -13087,7 +13087,7 @@ Public Class SSPPApplicationTrackingLog
                                     }
                                     DB.RunCommand(query, parameter)
 
-                                    query = "Delete AIRBRANCH.SSPPSubpartData " &
+                                    query = "Delete SSPPSubpartData " &
                                     "where strSubpartKey = :pKey " &
                                     "and strApplicationActivity = '1' " &
                                     "and strSubpart = :Subpart "
@@ -13109,7 +13109,7 @@ Public Class SSPPApplicationTrackingLog
                 Subpart = dgvNSPSSubParts(1, i).Value
 
                 query = "Select strSubPart " &
-                "from AIRBRANCH.APBSubpartData " &
+                "from APBSubpartData " &
                 "where strSubpartKey = :pKey  " &
                 "and strSubpart = :Subpart "
                 parameter = {
@@ -13120,14 +13120,14 @@ Public Class SSPPApplicationTrackingLog
                 }
 
                 If DB.ValueExists(query, parameter) Then
-                    query = "Update AIRBRANCH.APBSubpartData set " &
+                    query = "Update APBSubpartData set " &
                     "Active = '1', " &
                     "updateUser = :UserGCode " &
                     "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
                     "where strSubpartKey = :pKey " &
                     "and strSubpart = :Subpart "
                 Else
-                    query = "INSERT INTO AIRBRANCH.APBSUBPARTDATA " &
+                    query = "INSERT INTO APBSUBPARTDATA " &
                     "  ( STRAIRSNUMBER, STRSUBPARTKEY, STRSUBPART, UPDATEUSER , " &
                     "    UPDATEDATETIME, ACTIVE, CREATEDATETIME " &
                     "  ) VALUES " &
@@ -13138,7 +13138,7 @@ Public Class SSPPApplicationTrackingLog
                 DB.RunCommand(query, parameter)
             Next
 
-            query = "Delete AIRBRANCH.SSPPSubpartData " &
+            query = "Delete SSPPSubpartData " &
             "where strSubpartKey = :pKey " &
             "and strApplicationActivity <> '1' "
             parameter = {New SqlParameter("pKey", txtApplicationNumber.Text & "9")}
@@ -13148,7 +13148,7 @@ Public Class SSPPApplicationTrackingLog
             For i = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
                 Subpart = dgvNSPSSubPartDelete(0, i).Value
 
-                query = "Update AIRBRANCH.APBSubpartData set " &
+                query = "Update APBSubpartData set " &
                     "Active = '9', " &
                     "updateUser = :UserGCode , " &
                     "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
@@ -13163,7 +13163,7 @@ Public Class SSPPApplicationTrackingLog
 
                 query = "Select " &
                 "strSubpart " &
-                "from AIRBRANCH.SSPPSubpartData " &
+                "from SSPPSubpartData " &
                 "where strSubpartKey = :pKey " &
                 "and strSubpart = :Subpart "
                 parameter = {
@@ -13174,7 +13174,7 @@ Public Class SSPPApplicationTrackingLog
                 }
 
                 If DB.ValueExists(query, parameter) Then
-                    query = "Update AIRBRANCH.SSPPSubpartData set " &
+                    query = "Update SSPPSubpartData set " &
                         "strApplicationActivity = '9', " &
                         "updateUser = :UserGCode , " &
                         "updateDateTime = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
@@ -13182,7 +13182,7 @@ Public Class SSPPApplicationTrackingLog
                         "and strSubPartKey = :pKey " &
                         "and strSubPart = :Subpart "
                 Else
-                    query = "INSERT INTO AIRBRANCH.SSPPSUBPARTDATA " &
+                    query = "INSERT INTO SSPPSUBPARTDATA " &
                         "  ( " &
                         "    STRAPPLICATIONNUMBER, STRSUBPARTKEY, STRSUBPART, " &
                         "    STRAPPLICATIONACTIVITY, UPDATEUSER, UPDATEDATETIME, " &
@@ -13203,7 +13203,7 @@ Public Class SSPPApplicationTrackingLog
 
                 query = "Select " &
                 "strSubpart " &
-                "from AIRBRANCH.SSPPSubpartData " &
+                "from SSPPSubpartData " &
                 "where strSubpartKey = :pKey " &
                 "and strSubpart = :Subpart "
                 parameter = {
@@ -13216,7 +13216,7 @@ Public Class SSPPApplicationTrackingLog
                 Select Case Action
                     Case "Added"
                         If DB.ValueExists(query, parameter) Then
-                            query = "Update AIRBRANCH.SSPPSubpartData set " &
+                            query = "Update SSPPSubpartData set " &
                                 "strApplicationActivity = '1', " &
                                 "updateUser = :UserGCode , " &
                                 "updateDateTime = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
@@ -13224,7 +13224,7 @@ Public Class SSPPApplicationTrackingLog
                                 "and strSubPartKey = :pKey " &
                                 "and strSubPart = :Subpart "
                         Else
-                            query = "INSERT INTO AIRBRANCH.SSPPSUBPARTDATA " &
+                            query = "INSERT INTO SSPPSUBPARTDATA " &
                                 "  ( " &
                                 "    STRAPPLICATIONNUMBER, STRSUBPARTKEY, STRSUBPART, " &
                                 "    STRAPPLICATIONACTIVITY, UPDATEUSER, UPDATEDATETIME, " &
@@ -13237,7 +13237,7 @@ Public Class SSPPApplicationTrackingLog
                         End If
                     Case "Modify"
                         If DB.ValueExists(query, parameter) Then
-                            query = "Update AIRBRANCH.SSPPSubpartData set " &
+                            query = "Update SSPPSubpartData set " &
                                 "strApplicationActivity = '2', " &
                                 "updateUser = :UserGCode , " &
                                 "updateDateTime = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
@@ -13245,7 +13245,7 @@ Public Class SSPPApplicationTrackingLog
                                 "and strSubPartKey = :pKey " &
                                 "and strSubPart = :Subpart "
                         Else
-                            query = "INSERT INTO AIRBRANCH.SSPPSUBPARTDATA " &
+                            query = "INSERT INTO SSPPSUBPARTDATA " &
                                 "  ( " &
                                 "    STRAPPLICATIONNUMBER, STRSUBPARTKEY, STRSUBPART, " &
                                 "    STRAPPLICATIONACTIVITY, UPDATEUSER, UPDATEDATETIME, " &
@@ -13267,7 +13267,7 @@ Public Class SSPPApplicationTrackingLog
 
             query = "Select " &
             "strPollutantKey " &
-            "from AIRBRANCH.AFSAirPollutantData " &
+            "from AFSAirPollutantData " &
             "where strAirPollutantKey = :pKey "
             parameter = {
                 New SqlParameter("airsnum", "0413" & txtAIRSNumber.Text),
@@ -13276,13 +13276,13 @@ Public Class SSPPApplicationTrackingLog
             }
 
             If DB.ValueExists(query, parameter) Then
-                query = "Update AIRBRANCH.AFSAirPollutantData set " &
+                query = "Update AFSAirPollutantData set " &
                 "strUpdateStatus = 'C' " &
                 "where strAirPollutantKey = :pKey " &
                 "and strUpdateStatus <> 'A' "
                 DB.RunCommand(query, parameter)
             Else
-                query = "INSERT INTO AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " &
+                query = "INSERT INTO APBAIRPROGRAMPOLLUTANTS " &
                 "  ( " &
                 "    STRAIRSNUMBER , STRAIRPOLLUTANTKEY , STRPOLLUTANTKEY , " &
                 "    STRCOMPLIANCESTATUS , STRMODIFINGPERSON , DATMODIFINGDATE , " &
@@ -13295,7 +13295,7 @@ Public Class SSPPApplicationTrackingLog
                 "'O') "
                 DB.RunCommand(query, parameter)
 
-                query = "Insert into AIRBRANCH.AFSAirPollutantData " &
+                query = "Insert into AFSAirPollutantData " &
                 "values " &
                 "(:airsnum, :pKey, " &
                 "'OT', 'A', " &
@@ -13386,11 +13386,11 @@ Public Class SSPPApplicationTrackingLog
             query = "select distinct   " &
             "strAIRSnumber, " &
             "'' as AppNum, " &
-            "AIRBRANCH.apbsubpartdata.strSubpart, " &
+            "apbsubpartdata.strSubpart, " &
             "strDescription, CreateDateTime " &
-            "from AIRBRANCH.APBsubpartdata, AIRBRANCH.LookUpSubPart61   " &
-            "where AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubPart61.strSubpart   " &
-            "and AIRBRANCH.APBSubPartData.strSubpartKey = :pKey " &
+            "from APBsubpartdata, LookUpSubPart61   " &
+            "where APBSubpartData.strSubPart = LookUpSubPart61.strSubpart   " &
+            "and APBSubPartData.strSubpartKey = :pKey " &
             "and Active = '1' "
             parameter = {New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "8")}
 
@@ -13437,15 +13437,15 @@ Public Class SSPPApplicationTrackingLog
                     SubPart = dgvNESHAPSubParts.Item(1, i).Value
 
                     query = "select " &
-                    "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " &
+                    "SSPPApplicationMaster.strApplicationNumber,  " &
                     "strSubpart, strApplicationActivity,   " &
                     "CreateDateTime " &
-                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPSubpartData   " &
-                    "where AIRBRANCH.SSPPSubpartData.strApplicationNumber = AIRBRANCH.SSPPApplicationMaster.strApplicationNumber  " &
+                    "from SSPPApplicationMaster, SSPPSubpartData   " &
+                    "where SSPPSubpartData.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber  " &
                     "and strAIRSnumber = :airsnum " &
                     "and substr(strSubpartkey, 6,1) = '8'  " &
                     "and strSubpart = :SubPart " &
-                    "and AIRBRANCH.SSPPSubpartData.strApplicationNumber  = :appnum " &
+                    "and SSPPSubpartData.strApplicationNumber  = :appnum " &
                     "order by createdatetime "
 
                     parameter = {
@@ -13543,20 +13543,20 @@ Public Class SSPPApplicationTrackingLog
 
             query = "select  " &
             "strAIRSNumber, " &
-            "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " &
-            "AIRBRANCH.SSPPSubPartData.strSubpart, strDescription,  " &
+            "SSPPApplicationMaster.strApplicationNumber,  " &
+            "SSPPSubPartData.strSubpart, strDescription,  " &
             "case when strApplicationActivity = '0' then 'Removed'  " &
             "when strApplicationActivity ='1' then 'Added'  " &
             "when strApplicationActivity = '2' then 'Modified'  " &
             "else strApplicationActivity  " &
             "end Action,  " &
             "CreatedateTime  " &
-            "from AIRBRANCH.SSPPSubpartData, AIRBRANCH.SSPPApplicationMaster,   " &
-            "AIRBRANCH.LookUpSubPart61   " &
-            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = " &
-            "AIRBRANCH.SSPPSubpartData.strApplicationNumber   " &
-            "and AIRBRANCH.SSPPSubPartData.strSubPart = AIRBRANCH.LookUpSubPart61.strSubPart  " &
-            "and AIRBRANCH.SSPPSubpartData.strSubPartKey  = :pKey "
+            "from SSPPSubpartData, SSPPApplicationMaster,   " &
+            "LookUpSubPart61   " &
+            "where SSPPApplicationMaster.strApplicationNumber = " &
+            "SSPPSubpartData.strApplicationNumber   " &
+            "and SSPPSubPartData.strSubPart = LookUpSubPart61.strSubPart  " &
+            "and SSPPSubpartData.strSubPartKey  = :pKey "
             parameter = {New SqlParameter("pKey", txtApplicationNumber.Text & "8")}
 
             Using connection As New SqlConnection(CurrentConnectionString)
@@ -14319,11 +14319,11 @@ Public Class SSPPApplicationTrackingLog
             query = "select distinct   " &
             "strAIRSnumber, " &
             "'' as AppNum, " &
-            "AIRBRANCH.apbsubpartdata.strSubpart, " &
+            "apbsubpartdata.strSubpart, " &
             "strDescription, CreateDateTime " &
-            "from AIRBRANCH.APBsubpartdata, AIRBRANCH.LookUpSubPart63   " &
-            "where AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubPart63.strSubpart   " &
-            "and AIRBRANCH.APBSubPartData.strSubpartKey = :pKey " &
+            "from APBsubpartdata, LookUpSubPart63   " &
+            "where APBSubpartData.strSubPart = LookUpSubPart63.strSubpart   " &
+            "and APBSubPartData.strSubpartKey = :pKey " &
             "and Active = '1' "
             parameter = {New SqlParameter("pKey", "0413" & txtAIRSNumber.Text & "M")}
 
@@ -14370,15 +14370,15 @@ Public Class SSPPApplicationTrackingLog
                     SubPart = dgvMACTSubParts.Item(1, i).Value
 
                     query = "select " &
-                    "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " &
+                    "SSPPApplicationMaster.strApplicationNumber,  " &
                     "strSubpart, strApplicationActivity,   " &
                     "CreateDateTime " &
-                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPSubpartData   " &
-                    "where AIRBRANCH.SSPPSubpartData.strApplicationNumber = AIRBRANCH.SSPPApplicationMaster.strApplicationNumber  " &
+                    "from SSPPApplicationMaster, SSPPSubpartData   " &
+                    "where SSPPSubpartData.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber  " &
                     "and strAIRSnumber = :airs " &
                     "and substr(strSubpartkey, 6,1) = 'M'  " &
                     "and strSubpart = :SubPart " &
-                    "and AIRBRANCH.SSPPSubpartData.strApplicationNumber  = :appnum " &
+                    "and SSPPSubpartData.strApplicationNumber  = :appnum " &
                     "order by createdatetime "
 
                     parameter = {
@@ -14476,20 +14476,20 @@ Public Class SSPPApplicationTrackingLog
 
             query = "select  " &
             "strAIRSNumber, " &
-            "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber,  " &
-            "AIRBRANCH.SSPPSubPartData.strSubpart, strDescription,  " &
+            "SSPPApplicationMaster.strApplicationNumber,  " &
+            "SSPPSubPartData.strSubpart, strDescription,  " &
             "case when strApplicationActivity = '0' then 'Removed'  " &
             "when strApplicationActivity ='1' then 'Added'  " &
             "when strApplicationActivity = '2' then 'Modified'  " &
             "else strApplicationActivity  " &
             "end Action,  " &
             "CreatedateTime  " &
-            "from AIRBRANCH.SSPPSubpartData, AIRBRANCH.SSPPApplicationMaster,   " &
-            "AIRBRANCH.LookUpSubPart63   " &
-            "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = " &
-            "AIRBRANCH.SSPPSubpartData.strApplicationNumber   " &
-            "and AIRBRANCH.SSPPSubPartData.strSubPart = AIRBRANCH.LookUpSubPart63.strSubPart  " &
-            "and AIRBRANCH.SSPPSubpartData.strSubpartKey  = :pKey "
+            "from SSPPSubpartData, SSPPApplicationMaster,   " &
+            "LookUpSubPart63   " &
+            "where SSPPApplicationMaster.strApplicationNumber = " &
+            "SSPPSubpartData.strApplicationNumber   " &
+            "and SSPPSubPartData.strSubPart = LookUpSubPart63.strSubPart  " &
+            "and SSPPSubpartData.strSubpartKey  = :pKey "
             parameter = {New SqlParameter("pKey", txtApplicationNumber.Text & "M")}
 
             Using connection As New SqlConnection(CurrentConnectionString)

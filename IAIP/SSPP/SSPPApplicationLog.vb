@@ -350,7 +350,7 @@ Public Class SSPPApplicationLog
 
             SQL = "select " &
             "strUnitDesc, numUnitCode " &
-            "from AIRBRANCH.LookUpEPDUnits " &
+            "from LookUpEPDUnits " &
             "where numProgramCode = '5' " &
             "order by strUnitDesc "
 
@@ -388,8 +388,8 @@ Public Class SSPPApplicationLog
             SQL = "Select " &
             "Distinct((strLastName|| ', ' ||strFirstName)) as EngineerName,  " &
             "numUserID, strLastName   " &
-            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.SSPPApplicationMaster  " &
-            "where AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " &
+            "from EPDUserProfiles, SSPPApplicationMaster  " &
+            "where SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
             "order by strLastName "
 
             dsEngineerList = New DataSet
@@ -428,7 +428,7 @@ Public Class SSPPApplicationLog
             SQL = "Select " &
             "strSubpart, " &
             "(strSubpart||' - '||strDescription) as Subpart " &
-            "from AIRBRANCH.LookUpSubpartSIP " &
+            "from LookUpSubpartSIP " &
             "order by strSubpart "
 
             daSubpart = New SqlDataAdapter(SQL, CurrentConnection)
@@ -483,7 +483,7 @@ Public Class SSPPApplicationLog
             SQL = "Select " &
             "strSubpart, " &
             "(strSubpart||' - '||strDescription) as Subpart " &
-            "from AIRBRANCH.LookUpSubpart61 " &
+            "from LookUpSubpart61 " &
             "order by strSubpart "
 
             daSubpart = New SqlDataAdapter(SQL, CurrentConnection)
@@ -538,7 +538,7 @@ Public Class SSPPApplicationLog
             SQL = "Select " &
             "strSubpart, " &
             "(strSubpart||' - '||strDescription) as Subpart " &
-            "from AIRBRANCH.LookUpSubpart60 " &
+            "from LookUpSubpart60 " &
             "order by strSubpart "
 
             daSubpart = New SqlDataAdapter(SQL, CurrentConnection)
@@ -594,7 +594,7 @@ Public Class SSPPApplicationLog
             SQL = "Select " &
             "strSubpart, " &
             "(strSubpart||' - '||strDescription) as Subpart " &
-            "from AIRBRANCH.LookUpSubpart63 " &
+            "from LookUpSubpart63 " &
             "order by strSubpart "
 
             daSubpart = New SqlDataAdapter(SQL, CurrentConnection)
@@ -686,7 +686,7 @@ Public Class SSPPApplicationLog
                 If AccountFormAccess(3, 3) = "1" And CurrentUser.UnitId <> 0 Then
                     'All Active Applications from UC's Unit
                     SQL = "Select numUnit " &
-                    "from AIRBRANCH.EPDUserProfiles " &
+                    "from EPDUserProfiles " &
                     "where numUserID = '" & CurrentUser.UserID & "' " &
                     "and numProgram = '5' "
 
@@ -797,7 +797,7 @@ Public Class SSPPApplicationLog
         Try
             If chbShowAll.Checked = True Then
                 SQL = "Select  " &
-                "  distinct(to_Number(AIRBRANCH.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,  " &
+                "  distinct(to_Number(SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,  " &
                 "   case  " &
                 "   	when strApplicationTypeDesc IS Null then ''  " &
                 "   Else strApplicationTypeDesc  " &
@@ -822,13 +822,13 @@ Public Class SSPPApplicationLog
                 "   else (strLastName|| ', ' ||strFirstName)  " &
                 "   end as StaffResponsible,  " &
                 "   case  " &
-                "   	when AIRBRANCH.SSPPApplicationData.strFacilityName is Null then ''  " &
-                "   else AIRBRANCH.SSPPApplicationData.strFacilityName  " &
+                "   	when SSPPApplicationData.strFacilityName is Null then ''  " &
+                "   else SSPPApplicationData.strFacilityName  " &
                 "   end as strFacilityName,  " &
                 "   case  " &
-                "   	when AIRBRANCH.SSPPApplicationMaster.strAIRSNumber is Null then ''  " &
-                "   	when AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = '0413' then ''  " &
-                "   else substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5)  " &
+                "   	when SSPPApplicationMaster.strAIRSNumber is Null then ''  " &
+                "   	when SSPPApplicationMaster.strAIRSNumber = '0413' then ''  " &
+                "   else substr(SSPPApplicationMaster.strAIRSNumber, 5)  " &
                 "   end as strAIRSNumber,  " &
                 "     case  " &
                 "   when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out'  " &
@@ -845,8 +845,8 @@ Public Class SSPPApplicationLog
                 "   when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'    " &
                 "   else '01 - At Engineer'   " &
                 "   end as AppStatus,  " &
-                "   AIRBRANCH.SSPPApplicationData.strSICCode,  " &
-                "   AIRBRANCH.SSPPApplicationData.strPlantDescription,  " &
+                "   SSPPApplicationData.strSICCode,  " &
+                "   SSPPApplicationData.strPlantDescription,  " &
                 "   Case  " &
                 "   	when APBUnit is Null then ''  " &
                 "   Else strUnitDesc    " &
@@ -902,8 +902,8 @@ Public Class SSPPApplicationLog
                 "   else to_char(datDraftIssued, 'RRRR-MM-dd')  " &
                 "   end as datDraftIssued,  " &
                 "   case  " &
-                "   	when AIRBRANCH.SSPPApplicationData.strComments is Null then ''  " &
-                "   else AIRBRANCH.SSPPApplicationData.strComments  " &
+                "   	when SSPPApplicationData.strComments is Null then ''  " &
+                "   else SSPPApplicationData.strComments  " &
                 "   End as strComments,   " &
                 "   case  " &
                 "   	when datWithdrawn is Null  then ''  " &
@@ -945,12 +945,12 @@ Public Class SSPPApplicationLog
                 "   else strUnitDesc  " &
                 "   end as strUserUnit,  " &
                 "   case  " &
-                "   	when AIRBRANCH.SSPPApplicationData.strFacilityStreet1 is NUll then ''  " &
-                "   else AIRBRANCH.SSPPApplicationData.strFacilityStreet1  " &
+                "   	when SSPPApplicationData.strFacilityStreet1 is NUll then ''  " &
+                "   else SSPPApplicationData.strFacilityStreet1  " &
                 "   end as strFacilityStreet1,  " &
                 "   case  " &
-                "   	when AIRBRANCH.SSPPApplicationData.strFacilityCity is Null then ''  " &
-                "   else AIRBRANCH.SSPPApplicationData.strFacilityCity  " &
+                "   	when SSPPApplicationData.strFacilityCity is Null then ''  " &
+                "   else SSPPApplicationData.strFacilityCity  " &
                 "   end as strFacilityCity,  " &
                 "   case  " &
                 "   	when strCountyName is Null then ''  " &
@@ -965,24 +965,24 @@ Public Class SSPPApplicationLog
                 "   else strOfficeName  " &
                 "   End as strOfficeName,  " &
                 "   case  " &
-                "   	     when AIRBRANCH.APBHeaderData.strAttainmentStatus is Null then ''  " &
-                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 2, 1) = '0' then 'No'  " &
-                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 2, 1) = '1' then '1-hr Ozone'  " &
-                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 2, 1) = '2' then '1-hr Ozone Contribute'  " &
+                "   	     when APBHeaderData.strAttainmentStatus is Null then ''  " &
+                "when substr(APBHeaderData.strAttainmentstatus, 2, 1) = '0' then 'No'  " &
+                "when substr(APBHeaderData.strAttainmentstatus, 2, 1) = '1' then '1-hr Ozone'  " &
+                "when substr(APBHeaderData.strAttainmentstatus, 2, 1) = '2' then '1-hr Ozone Contribute'  " &
                 "   end as OneHrOzone,  " &
                 "   case  " &
-                "   	     when AIRBRANCH.APBHeaderData.strAttainmentStatus is Null then ''  " &
-                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 3, 1) = '0' then 'No'  " &
-                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 3, 1) = '1' then '8-hr Ozone Atlanta'  " &
-                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 3, 1) = '2' then '8-hr Ozone Macon'  " &
+                "   	     when APBHeaderData.strAttainmentStatus is Null then ''  " &
+                "when substr(APBHeaderData.strAttainmentstatus, 3, 1) = '0' then 'No'  " &
+                "when substr(APBHeaderData.strAttainmentstatus, 3, 1) = '1' then '8-hr Ozone Atlanta'  " &
+                "when substr(APBHeaderData.strAttainmentstatus, 3, 1) = '2' then '8-hr Ozone Macon'  " &
                 "   end as EightHrOzone,  " &
                 "   case  " &
-                "   	     when AIRBRANCH.APBHeaderData.strAttainmentStatus is Null then ''  " &
-                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 4, 1) = '0' then 'No'  " &
-                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 4, 1) = '1' then 'PM - Atlanta'  " &
-                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 4, 1) = '2' then 'PM - Chattanooga'  " &
-                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 4, 1) = '3' then 'PM - Floyd'  " &
-                "when substr(AIRBRANCH.APBHeaderData.strAttainmentstatus, 4, 1) = '4' then 'PM - Macon'  " &
+                "   	     when APBHeaderData.strAttainmentStatus is Null then ''  " &
+                "when substr(APBHeaderData.strAttainmentstatus, 4, 1) = '0' then 'No'  " &
+                "when substr(APBHeaderData.strAttainmentstatus, 4, 1) = '1' then 'PM - Atlanta'  " &
+                "when substr(APBHeaderData.strAttainmentstatus, 4, 1) = '2' then 'PM - Chattanooga'  " &
+                "when substr(APBHeaderData.strAttainmentstatus, 4, 1) = '3' then 'PM - Floyd'  " &
+                "when substr(APBHeaderData.strAttainmentstatus, 4, 1) = '4' then 'PM - Macon'  " &
                 "   end as PMFine,  " &
                 "   case  " &
                 "      when strPAReady is Null then ''   " &
@@ -1011,12 +1011,12 @@ Public Class SSPPApplicationLog
                 "   else to_char(datToDirector, 'RRRR-MM-dd')  " &
                 "   end as datToDirector,  " &
                 "   case  " &
-                "        when AIRBRANCH.APBHeaderData.strStateProgramCodes is Null then ''  " &
-                "        when substr(AIRBRANCH.APBHeaderData.strStateProgramCodes, 1, 1) = '1' then 'NSR/PSD Major'  " &
+                "        when APBHeaderData.strStateProgramCodes is Null then ''  " &
+                "        when substr(APBHeaderData.strStateProgramCodes, 1, 1) = '1' then 'NSR/PSD Major'  " &
                 "   End as NSRMajor,  " &
                 "   Case  " &
-                "        when AIRBRANCH.APBHeaderData.strStateProgramCodes is Null then ''  " &
-                "        when substr(AIRBRANCH.APBHeaderData.strStateProgramCodes, 2, 1) = '1' then 'HAPs Major'  " &
+                "        when APBHeaderData.strStateProgramCodes is Null then ''  " &
+                "        when substr(APBHeaderData.strStateProgramCodes, 2, 1) = '1' then 'HAPs Major'  " &
                 "   End as HAPsMajor,  " &
                 "   case   " &
                 "   when datPermitIssued is Not Null then to_char(datPermitIssued, 'RRRR-MM-dd')     " &
@@ -1065,28 +1065,28 @@ Public Class SSPPApplicationLog
                 "   when substr(strTrackedRules, 8, 1) = '1' then 'Confidential information submitted'   " &
                 "   else ' '   " &
                 "   end ConfInfoRule,   " &
-                " (substr(AIRBRANCH.SSPPSubpartData.strSubpartKey, -1, 1) ||' - '||AIRBRANCH.SSPPSubpartData.strSubpart) as strSubpart " &
-                "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,  " &
-                "  AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.LookUpPermitTypes, " &
-                "  AIRBRANCH.LookUpCountyInformation, AIRBRANCH.LookUPDistrictInformation, " &
-                "  AIRBRANCH.LookUpDistricts, AIRBRANCH.LookUpDistrictOffice, AIRBRANCH.APBHeaderData, " &
-                "  AIRBRANCH.EPDUSerProfiles, AIRBRANCH.LookUpEPDUnits, " &
-                "AIRBRANCH.SSPPSubpartData " &
-                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber (+) " &
-                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber (+) " &
-                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpAPplicationTypes.strApplicationTypeCode (+) " &
-                "and AIRBRANCH.SSPPApplicationMaster.strPermitType = AIRBRANCH.LookUpPermitTypes.strPermitTypeCode (+)     " &
-                "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber (+)     " &
-                "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode (+) " &
-                "and AIRBRANCH.LookUpCountyInformation.strCountyCode = AIRBRANCH.LookUpDistrictInformation.strDistrictCounty (+)  " &
-                "and AIRBRANCH.LookUpDistrictInformation.strDistrictCode = AIRBRANCH.LookUPDistricts.strDistrictCode (+)  " &
-                "and AIRBRANCH.LookUPDistricts.strDistrictCode = AIRBRANCH.LooKUPDistrictOffice.strDistrictCode (+)  " &
-                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " &
-                "and AIRBRANCH.SSPPApplicationMaster.APBUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " &
-                "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPSubpartData.strApplicationNumber (+) "
+                " (substr(SSPPSubpartData.strSubpartKey, -1, 1) ||' - '||SSPPSubpartData.strSubpart) as strSubpart " &
+                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
+                "  SSPPApplicationData, LookUpApplicationTypes, LookUpPermitTypes, " &
+                "  LookUpCountyInformation, LookUPDistrictInformation, " &
+                "  LookUpDistricts, LookUpDistrictOffice, APBHeaderData, " &
+                "  EPDUSerProfiles, LookUpEPDUnits, " &
+                "SSPPSubpartData " &
+                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber (+) " &
+                "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber (+) " &
+                "and SSPPApplicationMaster.strApplicationType = LookUpAPplicationTypes.strApplicationTypeCode (+) " &
+                "and SSPPApplicationMaster.strPermitType = LookUpPermitTypes.strPermitTypeCode (+)     " &
+                "and SSPPApplicationMaster.strAIRSNumber = APBHeaderData.strAIRSNumber (+)     " &
+                "and substr(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode (+) " &
+                "and LookUpCountyInformation.strCountyCode = LookUpDistrictInformation.strDistrictCounty (+)  " &
+                "and LookUpDistrictInformation.strDistrictCode = LookUPDistricts.strDistrictCode (+)  " &
+                "and LookUPDistricts.strDistrictCode = LooKUPDistrictOffice.strDistrictCode (+)  " &
+                "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                "and SSPPApplicationMaster.APBUnit = LookUpEPDUnits.numUnitCode (+) " &
+                "and SSPPApplicationMaster.strApplicationNumber = SSPPSubpartData.strApplicationNumber (+) "
             Else
                 SQL = "Select  " &
-                    "  distinct(to_Number(AIRBRANCH.SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,  " &
+                    "  distinct(to_Number(SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,  " &
                     "  case   " &
                     " 	when strApplicationTypeDesc IS Null then ''   " &
                     " Else strApplicationTypeDesc   " &
@@ -1111,13 +1111,13 @@ Public Class SSPPApplicationLog
                     " else (strLastName|| ', ' ||strFirstName)   " &
                     " end as StaffResponsible,   " &
                     " case   " &
-                    " 	when AIRBRANCH.SSPPApplicationData.strFacilityName is Null then ''   " &
-                    " else AIRBRANCH.SSPPApplicationData.strFacilityName   " &
+                    " 	when SSPPApplicationData.strFacilityName is Null then ''   " &
+                    " else SSPPApplicationData.strFacilityName   " &
                     " end as strFacilityName,  " &
                     " case   " &
-                    " 	when AIRBRANCH.SSPPApplicationMaster.strAIRSNumber is Null then ''   " &
-                    " 	when AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = '0413' then ''   " &
-                    " else substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5)   " &
+                    " 	when SSPPApplicationMaster.strAIRSNumber is Null then ''   " &
+                    " 	when SSPPApplicationMaster.strAIRSNumber = '0413' then ''   " &
+                    " else substr(SSPPApplicationMaster.strAIRSNumber, 5)   " &
                     " end as strAIRSNumber,   " &
                     "case   " &
                     "when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out'   " &
@@ -1155,26 +1155,26 @@ Public Class SSPPApplicationLog
                     "when strStaffResponsible is Null or strStaffResponsible ='0' then 'Unknown'      " &
                     "else to_char(datAssignedToEngineer, 'RRRR-MM-dd')      " &
                     "end as StatusDate,   " &
-                    "AIRBRANCH.SSPPApplicationData.strSICCode,   " &
-                    "AIRBRANCH.SSPPApplicationData.strPlantDescription   " &
-                    "from AIRBRANCH.SSPPApplicationMaster, AIRBRANCH.SSPPApplicationTracking,   " &
-                    "  AIRBRANCH.SSPPApplicationData, AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.LookUpPermitTypes,  " &
-                    "  AIRBRANCH.LookUpCountyInformation, AIRBRANCH.LookUPDistrictInformation,  " &
-                    "  AIRBRANCH.LookUpDistricts, AIRBRANCH.LookUpDistrictOffice, AIRBRANCH.APBHeaderData,  " &
-                    "  AIRBRANCH.EPDUSerProfiles, AIRBRANCH.LookUpEPDUnits,  " &
-                    " AIRBRANCH.SSPPSubpartData " &
-                    "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber (+) " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber (+) " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpAPplicationTypes.strApplicationTypeCode (+) " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strPermitType = AIRBRANCH.LookUpPermitTypes.strPermitTypeCode (+)      " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = AIRBRANCH.APBHeaderData.strAIRSNumber (+)      " &
-                    "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode (+)  " &
-                    "and AIRBRANCH.LookUpCountyInformation.strCountyCode = AIRBRANCH.LookUpDistrictInformation.strDistrictCounty (+)   " &
-                    "and AIRBRANCH.LookUpDistrictInformation.strDistrictCode = AIRBRANCH.LookUPDistricts.strDistrictCode (+)   " &
-                    "and AIRBRANCH.LookUPDistricts.strDistrictCode = AIRBRANCH.LooKUPDistrictOffice.strDistrictCode (+)   " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID  " &
-                    "and AIRBRANCH.SSPPApplicationMaster.APBUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " &
-                    "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPSubpartData.strApplicationNumber (+) "
+                    "SSPPApplicationData.strSICCode,   " &
+                    "SSPPApplicationData.strPlantDescription   " &
+                    "from SSPPApplicationMaster, SSPPApplicationTracking,   " &
+                    "  SSPPApplicationData, LookUpApplicationTypes, LookUpPermitTypes,  " &
+                    "  LookUpCountyInformation, LookUPDistrictInformation,  " &
+                    "  LookUpDistricts, LookUpDistrictOffice, APBHeaderData,  " &
+                    "  EPDUSerProfiles, LookUpEPDUnits,  " &
+                    " SSPPSubpartData " &
+                    "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber (+) " &
+                    "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber (+) " &
+                    "and SSPPApplicationMaster.strApplicationType = LookUpAPplicationTypes.strApplicationTypeCode (+) " &
+                    "and SSPPApplicationMaster.strPermitType = LookUpPermitTypes.strPermitTypeCode (+)      " &
+                    "and SSPPApplicationMaster.strAIRSNumber = APBHeaderData.strAIRSNumber (+)      " &
+                    "and substr(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode (+)  " &
+                    "and LookUpCountyInformation.strCountyCode = LookUpDistrictInformation.strDistrictCounty (+)   " &
+                    "and LookUpDistrictInformation.strDistrictCode = LookUPDistricts.strDistrictCode (+)   " &
+                    "and LookUPDistricts.strDistrictCode = LooKUPDistrictOffice.strDistrictCode (+)   " &
+                    "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID  " &
+                    "and SSPPApplicationMaster.APBUnit = LookUpEPDUnits.numUnitCode (+) " &
+                    "and SSPPApplicationMaster.strApplicationNumber = SSPPSubpartData.strApplicationNumber (+) "
             End If
 
             If bgwApplicationLog.CancellationPending Then
@@ -1184,32 +1184,32 @@ Public Class SSPPApplicationLog
 
             Select Case FieldType1
                 Case "AIRS No."
-                    SQLSearch1 = " AIRBRANCH.SSPPApplicationMaster.strAIRSNumber like '%" & Replace(SearchText1, "'", "''") & "%' "
+                    SQLSearch1 = " SSPPApplicationMaster.strAIRSNumber like '%" & Replace(SearchText1, "'", "''") & "%' "
                 Case "Applicable Rules"
                     Select Case SearchText1b
                         Case "Any Rule"
-                            SQLSearch1 = " AIRBRANCH.SSPPApplicationData.strTrackedRules <> '0000000000' "
+                            SQLSearch1 = " SSPPApplicationData.strTrackedRules <> '0000000000' "
                         Case "PSD"
-                            SQLSearch1 = " substr(AIRBRANCH.SSPPApplicationData.strTrackedRules, 1, 1) = '1' "
+                            SQLSearch1 = " substr(SSPPApplicationData.strTrackedRules, 1, 1) = '1' "
                         Case "NAA NSR"
-                            SQLSearch1 = " substr(AIRBRANCH.SSPPApplicationData.strTrackedRules, 2, 1) = '1' "
+                            SQLSearch1 = " substr(SSPPApplicationData.strTrackedRules, 2, 1) = '1' "
                         Case "112(g)"
-                            SQLSearch1 = " substr(AIRBRANCH.SSPPApplicationData.strTrackedRules, 3, 1) = '1' "
+                            SQLSearch1 = " substr(SSPPApplicationData.strTrackedRules, 3, 1) = '1' "
                         Case "Rule (tt) RACT"
-                            SQLSearch1 = " substr(AIRBRANCH.SSPPApplicationData.strTrackedRules, 4, 1) = '1' "
+                            SQLSearch1 = " substr(SSPPApplicationData.strTrackedRules, 4, 1) = '1' "
                         Case "Rule (yy) RACT"
-                            SQLSearch1 = " substr(AIRBRANCH.SSPPApplicationData.strTrackedRules, 5, 1) = '1' "
+                            SQLSearch1 = " substr(SSPPApplicationData.strTrackedRules, 5, 1) = '1' "
                         Case "Actuals PAL"
-                            SQLSearch1 = " substr(AIRBRANCH.SSPPApplicationData.strTrackedRules, 6, 1) = '1' "
+                            SQLSearch1 = " substr(SSPPApplicationData.strTrackedRules, 6, 1) = '1' "
                         Case "Expedited Permit"
-                            SQLSearch1 = " substr(AIRBRANCH.SSPPApplicationData.strTrackedRules, 7, 1) = '1' "
+                            SQLSearch1 = " substr(SSPPApplicationData.strTrackedRules, 7, 1) = '1' "
                         Case "Confidential information submitted"
-                            SQLSearch1 = " substr(AIRBRANCH.SSPPApplicationData.strTrackedRules, 8, 1) = '1' "
+                            SQLSearch1 = " substr(SSPPApplicationData.strTrackedRules, 8, 1) = '1' "
                         Case Else
                             SQLSearch1 = " "
                     End Select
                 Case "Application No."
-                    SQLSearch1 = " AIRBRANCH.SSPPApplicationMaster.strApplicationNumber like '%" & Replace(SearchText1, "'", "''") & "%' "
+                    SQLSearch1 = " SSPPApplicationMaster.strApplicationNumber like '%" & Replace(SearchText1, "'", "''") & "%' "
                 Case "Application Status"
                     Select Case SearchText1b
                         Case "0 - Unassigned"
@@ -1254,9 +1254,9 @@ Public Class SSPPApplicationLog
                         SQLSearch1 = " Upper(strApplicationTypeDesc) like Upper('%" & SearchText1b & "%') "
                     End If
                 Case "Application Unit"
-                    SQLSearch1 = " Upper(AIRBRANCH.LookUpEPDUnits.strUnitDesc) like Upper('%" & Replace(SearchText1b, "'", "''") & "%') "
+                    SQLSearch1 = " Upper(LookUpEPDUnits.strUnitDesc) like Upper('%" & Replace(SearchText1b, "'", "''") & "%') "
                 Case "Applog Comments"
-                    SQLSearch1 = " Upper(AIRBRANCH.SSPPApplicationData.strComments) like Upper('%" & Replace(SearchText1, "'", "''") & "%') "
+                    SQLSearch1 = " Upper(SSPPApplicationData.strComments) like Upper('%" & Replace(SearchText1, "'", "''") & "%') "
                 Case "Date Acknowledged"
                     SQLSearch1 = " datAcknowledgementLetterSent between '" & SearchDate1 & "' and '" & SearchDate1b & "' "
                 Case "Date APL Completed"
@@ -1310,31 +1310,31 @@ Public Class SSPPApplicationLog
                 Case "Facility Street"
                     SQLSearch1 = " Upper(strFacilityStreet1) like Upper('%" & Replace(SearchText1, "'", "''") & "%') "
                 Case "HAPs Major"
-                    SQLSearch1 = " AIRBRANCH.APBHeaderData.strStateProgramCodes like '_1___' "
+                    SQLSearch1 = " APBHeaderData.strStateProgramCodes like '_1___' "
                 Case "NAA 1Hr-Yes"
-                    SQLSearch1 = " AIRBRANCH.APBHeaderData.strAttainmentStatus like '_1___' "
+                    SQLSearch1 = " APBHeaderData.strAttainmentStatus like '_1___' "
                 Case "NAA 1Hr-Contr."
-                    SQLSearch1 = " AIRBRANCH.APBHeaderData.strAttainmentStatus like '_2___' "
+                    SQLSearch1 = " APBHeaderData.strAttainmentStatus like '_2___' "
                 Case "NAA 1Hr-No"
-                    SQLSearch1 = " AIRBRANCH.APBHeaderData.strAttainmentStatus like '_0___' "
+                    SQLSearch1 = " APBHeaderData.strAttainmentStatus like '_0___' "
                 Case "NAA 8Hr-Atlanta"
-                    SQLSearch1 = " AIRBRANCH.APBHeaderData.strAttainmentStatus like '__1__' "
+                    SQLSearch1 = " APBHeaderData.strAttainmentStatus like '__1__' "
                 Case "NAA 8Hr-Macon"
-                    SQLSearch1 = " AIRBRANCH.APBHeaderData.strAttainmentStatus like '__2__' "
+                    SQLSearch1 = " APBHeaderData.strAttainmentStatus like '__2__' "
                 Case "NAA 8Hr-No"
-                    SQLSearch1 = " AIRBRANCH.APBHeaderData.strAttainmentStatus like '__0__' "
+                    SQLSearch1 = " APBHeaderData.strAttainmentStatus like '__0__' "
                 Case "NAA PM-Atlanta"
-                    SQLSearch1 = " AIRBRANCH.APBHeaderData.strAttainmentStatus like '___1_' "
+                    SQLSearch1 = " APBHeaderData.strAttainmentStatus like '___1_' "
                 Case "NAA PM-Chattanooga"
-                    SQLSearch1 = " AIRBRANCH.APBHeaderData.strAttainmentStatus like '___2_' "
+                    SQLSearch1 = " APBHeaderData.strAttainmentStatus like '___2_' "
                 Case "NAA PM-Floyd"
-                    SQLSearch1 = " AIRBRANCH.APBHeaderData.strAttainmentStatus like '___3_' "
+                    SQLSearch1 = " APBHeaderData.strAttainmentStatus like '___3_' "
                 Case "NAA PM-Macon"
-                    SQLSearch1 = " AIRBRANCH.APBHeaderData.strAttainmentStatus like '___4_' "
+                    SQLSearch1 = " APBHeaderData.strAttainmentStatus like '___4_' "
                 Case "NAA PM-No"
-                    SQLSearch1 = " AIRBRANCH.APBHeaderData.strAttainmentStatus like '___0_' "
+                    SQLSearch1 = " APBHeaderData.strAttainmentStatus like '___0_' "
                 Case "NSR/PSD Major"
-                    SQLSearch1 = " AIRBRANCH.APBHeaderData.strStateProgramCodes like '1____' "
+                    SQLSearch1 = " APBHeaderData.strStateProgramCodes like '1____' "
                 Case "PA Ready"
                     SQLSearch1 = " strPAReady is Not Null and strPAReady = 'True' "
                 Case "Permit Number"
@@ -1378,7 +1378,7 @@ Public Class SSPPApplicationLog
                         End Select
                     End If
                 Case "Plant Description"
-                    SQLSearch1 = " Upper(AIRBRANCH.SSPPApplicationData.strPlantDescription) like '%" & Replace(SearchText1.ToUpper, "'", "''") & "%' "
+                    SQLSearch1 = " Upper(SSPPApplicationData.strPlantDescription) like '%" & Replace(SearchText1.ToUpper, "'", "''") & "%' "
                 Case "PN Ready"
                     SQLSearch1 = " strPNReady is Not Null and strPNReady = 'True' "
                 Case "Public Advisory"
@@ -1401,49 +1401,49 @@ Public Class SSPPApplicationLog
                 Case "Status Date"
                     SQLSearch1 = " StatusDate between '" & SearchDate1 & "' and '" & SearchDate1b & "' "
                 Case "SIC Code"
-                    SQLSearch1 = " AIRBRANCH.SSPPApplicationData.strSICCode like '%" & Replace(SearchText1, "'", "''") & "%' "
+                    SQLSearch1 = " SSPPApplicationData.strSICCode like '%" & Replace(SearchText1, "'", "''") & "%' "
                 Case "Subpart - 0-SIP"
-                    SQLSearch1 = " ( AIRBRANCH.SSPPSubpartData.strSubpart = '" & SubpartSIP1 & "' " &
-                    "and substr(AIRBRANCH.SSPPSubpartData.strSubpartKey, -1, 1) = '0' ) "
+                    SQLSearch1 = " ( SSPPSubpartData.strSubpart = '" & SubpartSIP1 & "' " &
+                    "and substr(SSPPSubpartData.strSubpartKey, -1, 1) = '0' ) "
                 Case "Subpart - 8-NESHAP (Part 61)"
-                    SQLSearch1 = " ( AIRBRANCH.SSPPSubpartData.strSubpart = '" & SubpartNESHAP1 & "' " &
-                    "and substr(AIRBRANCH.SSPPSubpartData.strSubpartKey, -1, 1) = '8' ) "
+                    SQLSearch1 = " ( SSPPSubpartData.strSubpart = '" & SubpartNESHAP1 & "' " &
+                    "and substr(SSPPSubpartData.strSubpartKey, -1, 1) = '8' ) "
                 Case "Subpart - 9-NSPS (Part 60)"
-                    SQLSearch1 = " ( AIRBRANCH.SSPPSubpartData.strSubpart = '" & SubpartNSPS1 & "' " &
-                    "and substr(AIRBRANCH.SSPPSubpartData.strSubpartKey, -1, 1) = '9' ) "
+                    SQLSearch1 = " ( SSPPSubpartData.strSubpart = '" & SubpartNSPS1 & "' " &
+                    "and substr(SSPPSubpartData.strSubpartKey, -1, 1) = '9' ) "
                 Case "Subpart - M-MACT (Part 63)"
-                    SQLSearch1 = " ( AIRBRANCH.SSPPSubpartData.strSubpart = '" & SubpartMACT1 & "' " &
-                    "and substr(AIRBRANCH.SSPPSubpartData.strSubpartKey, -1, 1) = 'M' ) "
+                    SQLSearch1 = " ( SSPPSubpartData.strSubpart = '" & SubpartMACT1 & "' " &
+                    "and substr(SSPPSubpartData.strSubpartKey, -1, 1) = 'M' ) "
             End Select
 
             Select Case FieldType2
                 Case "AIRS No."
-                    SQLSearch2 = " AIRBRANCH.SSPPApplicationMaster.strAIRSNumber like '%" & Replace(SearchText2, "'", "''") & "%' "
+                    SQLSearch2 = " SSPPApplicationMaster.strAIRSNumber like '%" & Replace(SearchText2, "'", "''") & "%' "
                 Case "Applicable Rules"
                     Select Case SearchText2b
                         Case "Any Rule"
-                            SQLSearch2 = " AIRBRANCH.SSPPApplicationData.strTrackedRules <> '0000000000' "
+                            SQLSearch2 = " SSPPApplicationData.strTrackedRules <> '0000000000' "
                         Case "PSD"
-                            SQLSearch2 = " substr(AIRBRANCH.SSPPApplicationData.strTrackedRules, 1, 1) = '1' "
+                            SQLSearch2 = " substr(SSPPApplicationData.strTrackedRules, 1, 1) = '1' "
                         Case "NAA NSR"
-                            SQLSearch2 = " substr(AIRBRANCH.SSPPApplicationData.strTrackedRules, 2, 1) = '1' "
+                            SQLSearch2 = " substr(SSPPApplicationData.strTrackedRules, 2, 1) = '1' "
                         Case "112(g)"
-                            SQLSearch2 = " substr(AIRBRANCH.SSPPApplicationData.strTrackedRules, 3, 1) = '1' "
+                            SQLSearch2 = " substr(SSPPApplicationData.strTrackedRules, 3, 1) = '1' "
                         Case "Rule (tt) RACT"
-                            SQLSearch2 = " substr(AIRBRANCH.SSPPApplicationData.strTrackedRules, 4, 1) = '1' "
+                            SQLSearch2 = " substr(SSPPApplicationData.strTrackedRules, 4, 1) = '1' "
                         Case "Rule (yy) RACT"
-                            SQLSearch2 = " substr(AIRBRANCH.SSPPApplicationData.strTrackedRules, 5, 1) = '1' "
+                            SQLSearch2 = " substr(SSPPApplicationData.strTrackedRules, 5, 1) = '1' "
                         Case "Actuals PAL"
-                            SQLSearch2 = " substr(AIRBRANCH.SSPPApplicationData.strTrackedRules, 6, 1) = '1' "
+                            SQLSearch2 = " substr(SSPPApplicationData.strTrackedRules, 6, 1) = '1' "
                         Case "Expedited Permit"
-                            SQLSearch2 = " substr(AIRBRANCH.SSPPApplicationData.strTrackedRules, 7, 1) = '1' "
+                            SQLSearch2 = " substr(SSPPApplicationData.strTrackedRules, 7, 1) = '1' "
                         Case "Confidential information submitted"
-                            SQLSearch2 = " substr(AIRBRANCH.SSPPApplicationData.strTrackedRules, 8, 1) = '1' "
+                            SQLSearch2 = " substr(SSPPApplicationData.strTrackedRules, 8, 1) = '1' "
                         Case Else
                             SQLSearch2 = " "
                     End Select
                 Case "Application No."
-                    SQLSearch2 = " AIRBRANCH.SSPPApplicationMaster.strApplicationNumber like '%" & Replace(SearchText2, "'", "''") & "%' "
+                    SQLSearch2 = " SSPPApplicationMaster.strApplicationNumber like '%" & Replace(SearchText2, "'", "''") & "%' "
                 Case "Application Status"
                     Select Case SearchText2b
                         Case "0 - Unassigned"
@@ -1487,9 +1487,9 @@ Public Class SSPPApplicationLog
                         SQLSearch2 = " Upper(strApplicationTypeDesc) like Upper('%" & SearchText2b & "%') "
                     End If
                 Case "Application Unit"
-                    SQLSearch2 = " Upper(AIRBRANCH.LookUpEPDUnits.strUnitDesc) like Upper('%" & Replace(SearchText2b, "'", "''") & "%') "
+                    SQLSearch2 = " Upper(LookUpEPDUnits.strUnitDesc) like Upper('%" & Replace(SearchText2b, "'", "''") & "%') "
                 Case "Applog Comments"
-                    SQLSearch2 = " Upper(AIRBRANCH.SSPPApplicationData.strComments) like Upper('%" & Replace(SearchText2, "'", "''") & "%') "
+                    SQLSearch2 = " Upper(SSPPApplicationData.strComments) like Upper('%" & Replace(SearchText2, "'", "''") & "%') "
                 Case "Date Acknowledged"
                     SQLSearch2 = " datAcknowledgementLetterSent between '" & SearchDate2 & "' and '" & SearchDate2b & "'  "
                 Case "Date APL Completed"
@@ -1543,31 +1543,31 @@ Public Class SSPPApplicationLog
                 Case "Facility Street"
                     SQLSearch2 = " Upper(strFacilityStreet1) like Upper('%" & Replace(SearchText2, "'", "''") & "%') "
                 Case "HAPs Major"
-                    SQLSearch2 = " AIRBRANCH.APBHeaderData.strStateProgramCodes like '1____' "
+                    SQLSearch2 = " APBHeaderData.strStateProgramCodes like '1____' "
                 Case "NAA 1Hr-Yes"
-                    SQLSearch2 = " AIRBRANCH.APBHeaderData.strAttainmentStatus like '_1___' "
+                    SQLSearch2 = " APBHeaderData.strAttainmentStatus like '_1___' "
                 Case "NAA 1Hr-Contr."
-                    SQLSearch2 = " AIRBRANCH.APBHeaderData.strAttainmentStatus like '_2___' "
+                    SQLSearch2 = " APBHeaderData.strAttainmentStatus like '_2___' "
                 Case "NAA 1Hr-No"
-                    SQLSearch2 = " AIRBRANCH.APBHeaderData.strAttainmentStatus like '_0___' "
+                    SQLSearch2 = " APBHeaderData.strAttainmentStatus like '_0___' "
                 Case "NAA 8Hr-Atlanta"
-                    SQLSearch2 = " AIRBRANCH.APBHeaderData.strAttainmentStatus like '__1__' "
+                    SQLSearch2 = " APBHeaderData.strAttainmentStatus like '__1__' "
                 Case "NAA 8Hr-Macon"
-                    SQLSearch2 = " AIRBRANCH.APBHeaderData.strAttainmentStatus like '__2__' "
+                    SQLSearch2 = " APBHeaderData.strAttainmentStatus like '__2__' "
                 Case "NAA 8Hr-No"
-                    SQLSearch2 = " AIRBRANCH.APBHeaderData.strAttainmentStatus like '__0__' "
+                    SQLSearch2 = " APBHeaderData.strAttainmentStatus like '__0__' "
                 Case "NAA PM-Atlanta"
-                    SQLSearch2 = " AIRBRANCH.APBHeaderData.strAttainmentStatus like '___1_' "
+                    SQLSearch2 = " APBHeaderData.strAttainmentStatus like '___1_' "
                 Case "NAA PM-Chattanooga"
-                    SQLSearch2 = " AIRBRANCH.APBHeaderData.strAttainmentStatus like '___2_' "
+                    SQLSearch2 = " APBHeaderData.strAttainmentStatus like '___2_' "
                 Case "NAA PM-Floyd"
-                    SQLSearch2 = " AIRBRANCH.APBHeaderData.strAttainmentStatus like '___3_' "
+                    SQLSearch2 = " APBHeaderData.strAttainmentStatus like '___3_' "
                 Case "NAA PM-Macon"
-                    SQLSearch2 = " AIRBRANCH.APBHeaderData.strAttainmentStatus like '___4_' "
+                    SQLSearch2 = " APBHeaderData.strAttainmentStatus like '___4_' "
                 Case "NAA PM-No"
-                    SQLSearch2 = " AIRBRANCH.APBHeaderData.strAttainmentStatus like '___0_' "
+                    SQLSearch2 = " APBHeaderData.strAttainmentStatus like '___0_' "
                 Case "NSR/PSD Major"
-                    SQLSearch2 = " AIRBRANCH.APBHeaderData.strStateProgramCodes like '1____' "
+                    SQLSearch2 = " APBHeaderData.strStateProgramCodes like '1____' "
                 Case "PA Ready"
                     SQLSearch2 = " strPAReady is Not Null and strPAReady = 'True' "
                 Case "Permit Number"
@@ -1611,7 +1611,7 @@ Public Class SSPPApplicationLog
                         End Select
                     End If
                 Case "Plant Description"
-                    SQLSearch2 = " Upper(AIRBRANCH.SSPPApplicationData.strPlantDescription) like '%" & Replace(SearchText2.ToUpper, "'", "''") & "%' "
+                    SQLSearch2 = " Upper(SSPPApplicationData.strPlantDescription) like '%" & Replace(SearchText2.ToUpper, "'", "''") & "%' "
                 Case "PN Ready"
                     SQLSearch2 = " strPNReady is Not Null and strPNReady = 'True' "
                 Case "Public Advisory"
@@ -1632,21 +1632,21 @@ Public Class SSPPApplicationLog
                 Case "Regional Office"
                     SQLSearch2 = " Upper(strOfficeName) like Upper('%" & Replace(SearchText2b, "'", "''") & "%') "
                 Case "SIC Code"
-                    SQLSearch2 = " AIRBRANCH.SSPPApplicationData.strSICCode like '%" & Replace(SearchText2, "'", "''") & "%' "
+                    SQLSearch2 = " SSPPApplicationData.strSICCode like '%" & Replace(SearchText2, "'", "''") & "%' "
                 Case "Status Date"
                     SQLSearch2 = " StatusDate between '" & SearchDate2 & "' and '" & SearchDate2b & "' "
                 Case "Subpart - 0-SIP"
-                    SQLSearch2 = " ( AIRBRANCH.SSPPSubpartData.strSubpart = '" & SubpartSIP2 & "' " &
-                    "and substr(AIRBRANCH.SSPPSubpartData.strSubpartKey, -1, 1) = '0' ) "
+                    SQLSearch2 = " ( SSPPSubpartData.strSubpart = '" & SubpartSIP2 & "' " &
+                    "and substr(SSPPSubpartData.strSubpartKey, -1, 1) = '0' ) "
                 Case "Subpart - 8-NESHAP (Part 61)"
-                    SQLSearch2 = " ( AIRBRANCH.SSPPSubpartData.strSubpart = '" & SubpartNESHAP2 & "' " &
-                    "and substr(AIRBRANCH.SSPPSubpartData.strSubpartKey, -1, 1) = '8' ) "
+                    SQLSearch2 = " ( SSPPSubpartData.strSubpart = '" & SubpartNESHAP2 & "' " &
+                    "and substr(SSPPSubpartData.strSubpartKey, -1, 1) = '8' ) "
                 Case "Subpart - 9-NSPS (Part 60)"
-                    SQLSearch2 = " ( AIRBRANCH.SSPPSubpartData.strSubpart = '" & SubpartNSPS2 & "' " &
-                    "and substr(AIRBRANCH.SSPPSubpartData.strSubpartKey, -1, 1) = '9' ) "
+                    SQLSearch2 = " ( SSPPSubpartData.strSubpart = '" & SubpartNSPS2 & "' " &
+                    "and substr(SSPPSubpartData.strSubpartKey, -1, 1) = '9' ) "
                 Case "Subpart - M-MACT (Part 63)"
-                    SQLSearch2 = " ( AIRBRANCH.SSPPSubpartData.strSubpart = '" & SubpartMACT2 & "' " &
-                    "and substr(AIRBRANCH.SSPPSubpartData.strSubpartKey, -1, 1) = 'M' ) "
+                    SQLSearch2 = " ( SSPPSubpartData.strSubpart = '" & SubpartMACT2 & "' " &
+                    "and substr(SSPPSubpartData.strSubpartKey, -1, 1) = 'M' ) "
             End Select
 
             If FieldType1 = FieldType2 Then
@@ -1669,7 +1669,7 @@ Public Class SSPPApplicationLog
                 End Select
             End If
             If AppUnitText <> "All" Then
-                SQLLine = SQLLine & "and (Upper(AIRBRANCH.LookUpEPDUnits.strUnitDesc) = Upper('" & Replace(AppUnitText, "'", "''") & "') " &
+                SQLLine = SQLLine & "and (Upper(LookUpEPDUnits.strUnitDesc) = Upper('" & Replace(AppUnitText, "'", "''") & "') " &
                 "or (Upper(APBUnit) = Upper('" & Replace(AppUnit, "'", "''") & "'))) "
             End If
             If AppStatus <> "All" Then
@@ -1696,7 +1696,7 @@ Public Class SSPPApplicationLog
                 Case "AIRS No."
                     SQLOrder = SQLOrder & " strAIRSNumber " & temp
                 Case "Application No."
-                    SQLOrder = SQLOrder & " AIRBRANCH.SSPPApplicationMaster.strApplicationNumber " & temp
+                    SQLOrder = SQLOrder & " SSPPApplicationMaster.strApplicationNumber " & temp
                 Case "Application Status"
                     SQLOrder = SQLOrder & " AppStatus " & temp
                 Case "Application Type"
@@ -1786,7 +1786,7 @@ Public Class SSPPApplicationLog
                 Case "Permit Type"
                     SQLOrder = SQLOrder & " strPermitType " & temp
                 Case "Plant Description"
-                    SQLOrder = SQLOrder & " AIRBRANCH.SSPPApplicationData.strPlantDescription " & temp
+                    SQLOrder = SQLOrder & " SSPPApplicationData.strPlantDescription " & temp
                 Case "PN Ready"
                     SQLOrder = SQLOrder & " strPNReady " & temp
                 Case "Public Advisory"
@@ -1798,7 +1798,7 @@ Public Class SSPPApplicationLog
                 Case "Regional Office"
                     SQLOrder = SQLOrder & " strOfficeName " & temp
                 Case "SIC Code"
-                    SQLOrder = SQLOrder & " AIRBRANCH.SSPPApplicationData.strSICCode " & temp
+                    SQLOrder = SQLOrder & " SSPPApplicationData.strSICCode " & temp
             End Select
 
             If SQLOrder = " order by " Then
@@ -1822,7 +1822,7 @@ Public Class SSPPApplicationLog
                 Case "AIRS No."
                     SQLOrder = SQLOrder & " strAIRSNumber " & temp
                 Case "Application No."
-                    SQLOrder = SQLOrder & " AIRBRANCH.SSPPApplicationMaster.strApplicationNumber " & temp
+                    SQLOrder = SQLOrder & " SSPPApplicationMaster.strApplicationNumber " & temp
                 Case "Application Status"
                     SQLOrder = SQLOrder & " AppStatus " & temp
                 Case "Application Type"
@@ -1912,7 +1912,7 @@ Public Class SSPPApplicationLog
                 Case "Permit Type"
                     SQLOrder = SQLOrder & " strPermitType " & temp
                 Case "Plant Description"
-                    SQLOrder = SQLOrder & " AIRBRANCH.SSPPApplicationData.strPlantDescription " & temp
+                    SQLOrder = SQLOrder & " SSPPApplicationData.strPlantDescription " & temp
                 Case "PN Ready"
                     SQLOrder = SQLOrder & " strPNReady " & temp
                 Case "Public Advisory"
@@ -1924,7 +1924,7 @@ Public Class SSPPApplicationLog
                 Case "Regional Office"
                     SQLOrder = SQLOrder & " strOfficeName " & temp
                 Case "SIC Code"
-                    SQLOrder = SQLOrder & " AIRBRANCH.SSPPApplicationData.strSICCode " & temp
+                    SQLOrder = SQLOrder & " SSPPApplicationData.strSICCode " & temp
             End Select
 
             If bgwApplicationLog.CancellationPending Then

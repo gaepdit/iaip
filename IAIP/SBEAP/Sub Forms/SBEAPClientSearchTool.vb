@@ -36,19 +36,19 @@ Public Class SBEAPClientSearchTool
             Select Case Source
                 Case "CompanyName"
                     SQL = "Select " &
-                    "AIRBRANCH.SBEAPClients.ClientID, " &
-                    "AIRBRANCH.SBEAPClients.strCompanyName, " &
-                    "AIRBRANCH.SBEAPClients.strCompanyAddress, " &
-                    "AIRBRANCH.SBEAPClients.strCompanyCity " &
-                    "from AIRBRANCH.SBEAPClients " &
+                    "SBEAPClients.ClientID, " &
+                    "SBEAPClients.strCompanyName, " &
+                    "SBEAPClients.strCompanyAddress, " &
+                    "SBEAPClients.strCompanyCity " &
+                    "from SBEAPClients " &
                     "where Upper(strCompanyName) like '%" & Replace(txtSearchCompanyName.Text.ToUpper, "'", "''") & "%' "
                 Case "HistoricalCompanyName"
                     SQL = "select " &
                     "strCompanyName, " &
                     "ClientID, " &
-                    "AIRBRANCH.SBEAPClients.strCompanyAddress, " &
-                    "AIRBRANCH.SBEAPClients.strCompanyCity " &
-                    "from AIRBRANCH.SBEAPClients " &
+                    "SBEAPClients.strCompanyAddress, " &
+                    "SBEAPClients.strCompanyCity " &
+                    "from SBEAPClients " &
                     "where Upper(strCompanyName) like Upper('%" & Replace(txtSearchCompanyName.Text.ToUpper, "'", "''") & "%') " &
                     "union " &
                     "select " &
@@ -62,70 +62,70 @@ Public Class SBEAPClientSearchTool
                     SQL = "Select " &
                     "ClientID, " &
                     "strCompanyName, strCompanyAddress, " &
-                     "AIRBRANCH.SBEAPClients.strCompanyCity " &
-                    "from AIRBRANCH.SBEAPClients " &
+                     "SBEAPClients.strCompanyCity " &
+                    "from SBEAPClients " &
                     "where upper(strCompanyAddress) like ('%" & Replace(txtSearchStreet.Text.ToUpper, "'", "''") & "%') "
                 Case "City"
                     SQL = "Select " &
                     "clientId, " &
                     "strCompanyName, strCompanyCity, " &
                     "strCompanyAddress " &
-                    "from AIRBRANCH.SBEAPClients " &
+                    "from SBEAPClients " &
                     "where upper(strCompanyCity) like ('%" & Replace(txtSearchCity.Text.ToUpper, "'", "''") & "%') "
                 Case "ZipCode"
                     SQL = "Select " &
                    "clientId, " &
                    "strCompanyName, strCompanyZipCode, " &
                    "strCompanyAddress, strCompanyCity " &
-                   "from AIRBRANCH.SBEAPClients " &
+                   "from SBEAPClients " &
                    "where upper(strCompanyZipCode) like ('%" & Replace(txtSearchZipCode.Text.ToUpper, "'", "''") & "%') "
                 Case "County"
                     SQL = "Select " &
                     "ClientId, " &
                     "strCompanyName, strCountyName, " &
                     "strCompanyAddress, strCompanyCity " &
-                    "from AIRBRANCH.SBEAPClients, AIRBRANCH.LookUpCountyInformation " &
-                    "where AIRBRANCH.SBEAPClients.strCompanyCounty = AIRBRANCH.LookUpCountyInformation.strCountyCode " &
+                    "from SBEAPClients, LookUpCountyInformation " &
+                    "where SBEAPClients.strCompanyCounty = LookUpCountyInformation.strCountyCode " &
                     "and Upper(strCountyName) like ('%" & Replace(txtSearchCounty.Text.ToUpper, "'", "''") & "%') "
                 Case "SIC"
                     SQL = "Select " &
-                    "AIRBRANCH.SBEAPClients.ClientId, " &
+                    "SBEAPClients.ClientId, " &
                     "strCompanyName, strClientSIC, " &
                     "strCompanyAddress, strCompanyCity " &
-                    "from AIRBRANCH.SBEAPClients, AIRBRANCH.SBEAPClientData " &
-                    "where AIRBRANCH.SBEAPClients.ClientID = AIRBRANCH.SBEAPClientData.ClientID " &
+                    "from SBEAPClients, SBEAPClientData " &
+                    "where SBEAPClients.ClientID = SBEAPClientData.ClientID " &
                     "and upper(strClientSIC) like ('%" & Replace(txtSearchSIC.Text.ToUpper, "'", "''") & "%') "
                 Case "NAICS"
                     SQL = "Select " &
-                    "AIRBRANCH.SBEAPClients.ClientId, " &
+                    "SBEAPClients.ClientId, " &
                     "strCompanyName, strClientNAICS, " &
                     "strCompanyAddress, strCompanyCity " &
-                    "from AIRBRANCH.SBEAPClients, AIRBRANCH.SBEAPClientData " &
-                    "where AIRBRANCH.SBEAPClients.ClientID = AIRBRANCH.SBEAPClientData.ClientID " &
+                    "from SBEAPClients, SBEAPClientData " &
+                    "where SBEAPClients.ClientID = SBEAPClientData.ClientID " &
                     "and upper(strClientNAICS) like ('%" & Replace(txtSearchNAICS.Text.ToUpper, "'", "''") & "%') "
                 Case "AIRSNumber"
                     SQL = "Select " &
-                    "AIRBRANCH.SBEAPClients.ClientId, " &
+                    "SBEAPClients.ClientId, " &
                     "strCompanyName, strAIRSNumber, " &
                     "strCompanyAddress, strCompanyCity " &
-                    "from AIRBRANCH.SBEAPClients, AIRBRANCH.SBEAPClientData " &
-                    "where AIRBRANCH.SBEAPClients.ClientID = AIRBRANCH.SBEAPClientData.ClientID " &
+                    "from SBEAPClients, SBEAPClientData " &
+                    "where SBEAPClients.ClientID = SBEAPClientData.ClientID " &
                     "and upper(strAIRSNumber) like ('%" & Replace(txtSearchAIRSNumber.Text.ToUpper, "'", "''") & "%') "
                 Case "EmployeeLess"
                     SQL = "Select " &
-                    "AIRBRANCH.SBEAPClients.ClientId, " &
+                    "SBEAPClients.ClientId, " &
                     "strCompanyName, strClientEmployees, " &
                     "strCompanyAddress, strCompanyCity " &
-                    "from AIRBRANCH.SBEAPClients, AIRBRANCH.SBEAPClientData " &
-                    "where AIRBRANCH.SBEAPClients.ClientID = AIRBRANCH.SBEAPClientData.ClientID " &
+                    "from SBEAPClients, SBEAPClientData " &
+                    "where SBEAPClients.ClientID = SBEAPClientData.ClientID " &
                     "and strClientEmployees <= ('" & mtbSearchNumberOfEmployees.Text & "') "
                 Case "EmployeeGreater"
                     SQL = "Select " &
-                    "AIRBRANCH.SBEAPClients.ClientId, " &
+                    "SBEAPClients.ClientId, " &
                     "strCompanyName, strClientEmployees, " &
                     "strCompanyAddress, strCompanyCity " &
-                    "from AIRBRANCH.SBEAPClients, AIRBRANCH.SBEAPClientData " &
-                    "where AIRBRANCH.SBEAPClients.ClientID = AIRBRANCH.SBEAPClientData.ClientID " &
+                    "from SBEAPClients, SBEAPClientData " &
+                    "where SBEAPClients.ClientID = SBEAPClientData.ClientID " &
                     "and strClientEmployees >= ('" & mtbSearchNumberOfEmployees.Text & "') "
                 Case Else
 

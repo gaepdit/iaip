@@ -8,7 +8,7 @@ Namespace DAL
             Dim query As String =
                 " SELECT NUMUSERID, STRLASTNAME, STRFIRSTNAME, STREMAILADDRESS, STRPHONE, NUMEMPLOYEESTATUS, " &
                 "     (STRLASTNAME || ', ' || STRFIRSTNAME) AS AlphaName " &
-                " FROM AIRBRANCH.EPDUSERPROFILES " &
+                " FROM EPDUSERPROFILES " &
                 " WHERE NUMEMPLOYEESTATUS = 1 " &
                 " AND NUMBRANCH           = :branch " &
                 " ORDER BY STRLASTNAME, STRFIRSTNAME "
@@ -18,7 +18,7 @@ Namespace DAL
         End Function
 
         Public Function GetComplianceStaff() As DataTable
-            Dim query As String = "SELECT NUMUSERID, STAFF, STRLASTNAME FROM AIRBRANCH.VW_COMPLIANCESTAFF"
+            Dim query As String = "SELECT NUMUSERID, STAFF, STRLASTNAME FROM VW_COMPLIANCESTAFF"
             Return DB.GetDataTable(query)
         End Function
 

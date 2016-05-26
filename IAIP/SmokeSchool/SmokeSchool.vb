@@ -84,7 +84,7 @@ Public Class SmokeSchool
         Try
             SQL = "Select " &
             "distinct(strYear) as TermYear " &
-            "from AIRBRANCH.SmokeSchoolSchedule " &
+            "from SmokeSchoolSchedule " &
             "order by TermYear desc "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -232,7 +232,7 @@ Public Class SmokeSchool
 
             cboSchedule1.Items.Clear()
 
-            oracleSQL = "Select strSchedule from airbranch.smokeSchoolSchedule " &
+            oracleSQL = "Select strSchedule from smokeSchoolSchedule " &
                         "where strDisplay = 'YES' " &
                         "order by strSchedule"
             Dim cmd As New SqlCommand(oracleSQL, CurrentConnection)
@@ -267,7 +267,7 @@ Public Class SmokeSchool
                 CurrentConnection.Open()
             End If
 
-            oracleSQL = "Select strSchedule from airbranch.smokeSchoolSchedule order by strSchedule desc"
+            oracleSQL = "Select strSchedule from smokeSchoolSchedule order by strSchedule desc"
             Dim cmd As New SqlCommand(oracleSQL, CurrentConnection)
 
             Dim dr As SqlDataReader = cmd.ExecuteReader()
@@ -335,7 +335,7 @@ Public Class SmokeSchool
             Dim SQL As String
             Dim dr As SqlDataReader
 
-            SQL = "select strSchedule, strDisplay from airbranch.smokeSchoolSchedule " &
+            SQL = "select strSchedule, strDisplay from smokeSchoolSchedule " &
             "order by strSchedule desc "
 
             Dim cmd As New SqlCommand(SQL, CurrentConnection)
@@ -378,7 +378,7 @@ Public Class SmokeSchool
             Dim SQL As String
             Dim dr As SqlDataReader
 
-            SQL = "select strSchedule from airbranch.smokeSchoolSchedule " &
+            SQL = "select strSchedule from smokeSchoolSchedule " &
             "where strDisplay = 'YES' " &
             "order by strSchedule desc "
 
@@ -443,7 +443,7 @@ Public Class SmokeSchool
                                  "strConfirmationNbr, " &
                                  "strLocationDate, " &
                                  "strLectureYesNo " &
-                          "from airbranch.smokeSchoolReservation " &
+                          "from smokeSchoolReservation " &
                           "order by strLocationDate, strLastName, strFirstName"
                 Else
                     SQL = "SELECT numUserID, " &
@@ -463,7 +463,7 @@ Public Class SmokeSchool
                                                      "strConfirmationNbr, " &
                                                      "strLocationDate, " &
                                                      "strLectureYesNo " &
-                                                 "from airbranch.smokeSchoolReservation " &
+                                                 "from smokeSchoolReservation " &
                                                  "where strLocationDate = '" & locationTerm & "' " &
                                                  "order by strLastName, strFirstName"
                 End If
@@ -547,7 +547,7 @@ Public Class SmokeSchool
                              "strConfirmationNbr, " &
                              "strLocationDate, " &
                              "strLectureYesNo " &
-                      "from airbranch.smokeSchoolReservation " &
+                      "from smokeSchoolReservation " &
                       "order by strLocationDate, strLastName, strFirstName"
             End If
             If txtsortnbr.Text = "2" Then
@@ -566,7 +566,7 @@ Public Class SmokeSchool
                              "strConfirmationNbr, " &
                              "strLocationDate, " &
                              "strLectureYesNo " &
-                      "from airbranch.smokeSchoolReservation " &
+                      "from smokeSchoolReservation " &
                          "where strLocationDate = '" & txtSchedule2.Text & "' " &
                          "order by strLastName, strFirstName"
             End If
@@ -656,7 +656,7 @@ Public Class SmokeSchool
                   "strRUN10, " &
                   "strFirstName, " &
                   "strLastName, strScoreKey " &
-                  "from airbranch.smokeSchoolScores " &
+                  "from smokeSchoolScores " &
                   "where strLocationTerm = '" & locationTerm & "' " &
                   "order by strName"
 
@@ -727,7 +727,7 @@ Public Class SmokeSchool
             SQL = "SELECT distinct intStudentId, " &
                   "strName, " &
                   "strCompanyName " &
-                  "from airbranch.smokeSchoolScores " &
+                  "from smokeSchoolScores " &
                   "where strLocationTerm = '" & locationTerm & "' " &
                   "order by strName"
 
@@ -818,7 +818,7 @@ Public Class SmokeSchool
             schedule = scheduleShort & ": " & startDate & " thru " & endDate
 
             SQL = "Select strSchedule " &
-            "from AIRBRANCH.SmokeSchoolSchedule " &
+            "from SmokeSchoolSchedule " &
             "where strSchedule = '" & schedule & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -831,7 +831,7 @@ Public Class SmokeSchool
             dr.Close()
 
             If recExist = True Then
-                SQL = "update airbranch.SmokeSchoolSchedule " &
+                SQL = "update SmokeSchoolSchedule " &
                 "set strYear = '" & Replace(year, "'", "''") & "', " &
                 "strTerm = '" & Replace(season, "'", "''") & "', " &
                 "strLocation = '" & Replace(city, "'", "''") & "', " &
@@ -842,7 +842,7 @@ Public Class SmokeSchool
                 "strDisplay = '" & Replace(display, "'", "''") & "'" &
                 " where  strSchedule = '" & Replace(schedule, "'", "''") & "'"
             Else
-                SQL = "Insert Into airbranch.SmokeSchoolSchedule (strYear, " &
+                SQL = "Insert Into SmokeSchoolSchedule (strYear, " &
                 "strTerm, " &
                 "strLocation, " &
                 "strStartDate, " &
@@ -932,7 +932,7 @@ Public Class SmokeSchool
             scheduleShort = year & " " & season & " - " & city
             schedule = scheduleShort & ": " & startDate & " thru " & endDate
 
-            SQL = "delete from airbranch.SmokeSchoolSchedule where strSchedule = '" & schedule & "' "
+            SQL = "delete from SmokeSchoolSchedule where strSchedule = '" & schedule & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1014,7 +1014,7 @@ Public Class SmokeSchool
 
                 If txtID1.Text = "" Then
                     SQL = "select max(numUserID) as strUserNumber " &
-                    "from airbranch.SmokeSchoolReservation " &
+                    "from SmokeSchoolReservation " &
                     "where strlocationDate = '" & LocationTerm & "'"
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1054,7 +1054,7 @@ Public Class SmokeSchool
                 End If
 
                 SQL = "select * " &
-                "from AIRBRANCH.SmokeSchoolReservation " &
+                "from SmokeSchoolReservation " &
                 "where upper(strLastName) = upper('" & Replace(txtLastName1X.Text, "'", "''") & "') " &
                 "and upper(strFirstName) = upper('" & Replace(txtFirstName1X.Text, "'", "''") & "') " &
                 "and upper(strLocationDate) = upper('" & Replace(txtSchedule.Text, "'", "''") & "') "
@@ -1074,7 +1074,7 @@ Public Class SmokeSchool
                     msgResult = MsgBox(messageOut, MsgBoxStyle.YesNo)
 
                     If msgResult = 6 Then
-                        SQL = "update airbranch.SmokeSchoolReservation " &
+                        SQL = "update SmokeSchoolReservation " &
                               "set numUserID = " & studentID & ", " &
                               "strFirstName = '" & Replace(fname, "'", "''") & "', " &
                               "strLastName = '" & Replace(lname, "'", "''") & "', " &
@@ -1117,7 +1117,7 @@ Public Class SmokeSchool
 
                     End If
                 Else
-                    SQL = "insert into airbranch.SmokeSchoolReservation " &
+                    SQL = "insert into SmokeSchoolReservation " &
                           "(numUserID, " &
                           "strFirstName, " &
                           "strLastName, " &
@@ -1302,7 +1302,7 @@ Public Class SmokeSchool
             Else
 
                 If lName <> "" And fName <> "" And txtID1.Text <> "" Then
-                    SQL = "Delete from airbranch.SmokeSchoolReservation " &
+                    SQL = "Delete from SmokeSchoolReservation " &
                                     " where upper(strLastName) = upper('" & Replace(lName, "'", "''") & "') " &
                                     " and upper(strFirstName) = upper('" & Replace(fName, "'", "''") & "') " &
                                     " and upper(numUserID) = upper('" & studentID & "') " &
@@ -1376,7 +1376,7 @@ Public Class SmokeSchool
                 MsgBox("You must select a Location/Term")
                 Exit Sub
             Else
-                SQL = "select * from airbranch.SmokeSchoolReservation " &
+                SQL = "select * from SmokeSchoolReservation " &
                 "where strLocationDate = '" & txtSchedule2.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1426,7 +1426,7 @@ Public Class SmokeSchool
                     Else
                         scoreKey = locationDate & " - " & email
 
-                        SQL = "Select * from airbranch.SmokeSchoolScores " &
+                        SQL = "Select * from SmokeSchoolScores " &
                                "where strscoreKey = '" & Replace(scoreKey, "'", "''") & "' " &
                                "and intStudentID = " & studentID
 
@@ -1441,7 +1441,7 @@ Public Class SmokeSchool
                         If recExist = True Then
 
                         Else
-                            SQL = "insert into airbranch.SmokeSchoolScores ( " &
+                            SQL = "insert into SmokeSchoolScores ( " &
                                    "intStudentID, " &
                                    "strName, " &
                                    "strCompanyName, " &
@@ -1540,7 +1540,7 @@ Public Class SmokeSchool
                 colon = InStr(locationDate, ":")
                 locationDate = Mid(locationDate, 1, colon - 1)
                 scoreKey = locationDate & " - " & name
-                SQL = "Select * from airbranch.SmokeSchoolScores " &
+                SQL = "Select * from SmokeSchoolScores " &
                        "where strLocationTerm = '" & locationDate & "' " &
                        "and strName = '" & Replace(name, "'", "''") & "'"
 
@@ -1556,7 +1556,7 @@ Public Class SmokeSchool
                     MsgBox("Scores for " & name & " already exist for " & locationDate)
                     Exit Sub
                 Else
-                    SQL = "insert into airbranch.SmokeSchoolScores ( " &
+                    SQL = "insert into SmokeSchoolScores ( " &
                            "intStudentID, " &
                            "strName, " &
                            "strCompanyName, " &
@@ -1629,7 +1629,7 @@ Public Class SmokeSchool
                 MsgBox("You must select a Location/Term")
                 Exit Sub
             Else
-                SQL = "Delete from airbranch.SmokeSchoolScores " &
+                SQL = "Delete from SmokeSchoolScores " &
                 " where strlocationTerm = '" & locationTerm & "'"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1895,7 +1895,7 @@ Public Class SmokeSchool
 
                     If txtScoreKey.Text <> "" Then
                         SQL = "Select strScoreKey " &
-                        "From AIRBRANCH.SmokeSchoolScores " &
+                        "From SmokeSchoolScores " &
                         "where strScoreKey =  '" & Replace(txtScoreKey.Text, "'", "''") & "' "
 
                         cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1916,7 +1916,7 @@ Public Class SmokeSchool
                             Case 0
                                 Exit Sub
                             Case 1
-                                SQL = "update airbranch.SmokeSchoolScores " &
+                                SQL = "update SmokeSchoolScores " &
                                 "set strPassFailNoShow = '" & PassFailNoShow & "', " &
                                 "strQuizScore = '" & QuizScore & "', " &
                                 "strComment = '" & Replace(Comment, "'", "''") & "', " &
@@ -1947,7 +1947,7 @@ Public Class SmokeSchool
                                     MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                                 Select Case Result
                                     Case DialogResult.Yes
-                                        SQL = "update airbranch.SmokeSchoolScores " &
+                                        SQL = "update SmokeSchoolScores " &
                                         "set strPassFailNoShow = '" & PassFailNoShow & "', " &
                                         "strQuizScore = '" & QuizScore & "', " &
                                         "strComment = '" & Replace(Comment, "'", "''") & "', " &
@@ -2014,7 +2014,7 @@ Public Class SmokeSchool
 
             If txtScoreKey.Text <> "" Then
                 SQL = "Select strScoreKey " &
-                "From AIRBRANCH.SmokeSchoolScores " &
+                "From SmokeSchoolScores " &
                 "where strScoreKey =  '" & Replace(txtScoreKey.Text, "'", "''") & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2035,7 +2035,7 @@ Public Class SmokeSchool
 
                         Exit Sub
                     Case 1
-                        SQL = "Delete AIRBRANCH.SmokeSchoolScores " &
+                        SQL = "Delete SmokeSchoolScores " &
                         "where strScoreKey = '" & Replace(txtScoreKey.Text, "'", "''") & "' "
 
                         cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2053,7 +2053,7 @@ Public Class SmokeSchool
                             MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                         Select Case Result
                             Case DialogResult.Yes
-                                SQL = "Delete AIRBRANCH.SmokeSchoolScores " &
+                                SQL = "Delete SmokeSchoolScores " &
                                 "where strScoreKey = '" & Replace(txtScoreKey.Text, "'", "''") & "' "
 
                                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2119,7 +2119,7 @@ Public Class SmokeSchool
             colon = InStr(shortLocation, ":")
             shortLocation = Mid(shortLocation, 1, colon - 1)
 
-            SQL = "select * from airbranch.SmokeSchoolScores " &
+            SQL = "select * from SmokeSchoolScores " &
             "where strLocationTerm = '" & shortLocation & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2131,7 +2131,7 @@ Public Class SmokeSchool
             dr.Close()
 
             If recExist = True Then
-                SQL = "select * from airbranch.SmokeSchoolScores " &
+                SQL = "select * from SmokeSchoolScores " &
                 "where strLocationTerm = '" & shortLocation & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2516,7 +2516,7 @@ Public Class SmokeSchool
             colon = InStr(LocationTerm, ":")
             LocationTerm = Mid(LocationTerm, 1, colon - 1)
 
-            SQL = "delete from airbranch.SmokeSchoolPrintInfo"
+            SQL = "delete from SmokeSchoolPrintInfo"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -2525,7 +2525,7 @@ Public Class SmokeSchool
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "select * from airbranch.SmokeSchoolScores " &
+            SQL = "select * from SmokeSchoolScores " &
             "where strLocationTerm = '" & LocationTerm & "'" &
             "  and strPassFailNoShow = '" & txtPassFailNoShow.Text & "'" &
             " order by strName"
@@ -2549,7 +2549,7 @@ Public Class SmokeSchool
                 firstName = dr.Item("strFirstName")
                 lastName = dr.Item("strlastName")
 
-                SQL = "select * from airbranch.SmokeSchoolReservation " &
+                SQL = "select * from SmokeSchoolReservation " &
                 "where strLastName = '" & Replace(lastName, "'", "''") & "' " &
                 "and strFirstName = '" & Replace(firstName, "'", "''") & "' " &
                 "and strLocationDate = '" & cboSchedule3.SelectedItem & "'"
@@ -2588,7 +2588,7 @@ Public Class SmokeSchool
                 End While
                 dr2.Close()
 
-                SQL = "select * from airbranch.SmokeSchoolSchedule " &
+                SQL = "select * from SmokeSchoolSchedule " &
                 "where strScheduleShort = '" & LocationTerm & "'"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2602,7 +2602,7 @@ Public Class SmokeSchool
                 End While
                 dr2.Close()
 
-                SQL = "insert into airbranch.SmokeSchoolPrintInfo (" &
+                SQL = "insert into SmokeSchoolPrintInfo (" &
                        "intStudentID, " &
                        "strName, " &
                        "strLocationTerm, " &
@@ -2706,7 +2706,7 @@ Public Class SmokeSchool
             colon = InStr(LocationTerm, ":")
             LocationTerm = Mid(LocationTerm, 1, colon - 1)
 
-            SQL = "delete from airbranch.SmokeSchoolPrintInfo"
+            SQL = "delete from SmokeSchoolPrintInfo"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -2715,7 +2715,7 @@ Public Class SmokeSchool
             dr = cmd.ExecuteReader
             dr.Close()
 
-            SQL = "select * from airbranch.SmokeSchoolScores " &
+            SQL = "select * from SmokeSchoolScores " &
             "where strLocationTerm = '" & LocationTerm & "'" &
             "  and strPassFailNoShow = '" & txtPassFailNoShow.Text & "'" &
             "  and strName = '" & Replace(txtStudentName3.Text, "'", "''") & "'" &
@@ -2737,7 +2737,7 @@ Public Class SmokeSchool
                 FacilityName = dr.Item("strCompanyName")
                 StudentID = dr.Item("intStudentID")
 
-                SQL = "select * from airbranch.SmokeSchoolReservation " &
+                SQL = "select * from SmokeSchoolReservation " &
                        "where numUserID = '" & Replace(StudentID, "'", "''") & "' " &
                        "and strLocationDate = '" & cboSchedule3.SelectedItem & "'"
 
@@ -2775,7 +2775,7 @@ Public Class SmokeSchool
                 End While
                 dr2.Close()
 
-                SQL = "select * from airbranch.SmokeSchoolSchedule " &
+                SQL = "select * from SmokeSchoolSchedule " &
                 "where strScheduleShort = '" & LocationTerm & "'"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2789,7 +2789,7 @@ Public Class SmokeSchool
                 End While
                 dr2.Close()
 
-                SQL = "insert into airbranch.SmokeSchoolPrintInfo (" &
+                SQL = "insert into SmokeSchoolPrintInfo (" &
                        "intStudentID, " &
                        "strName, " &
                        "strLocationTerm, " &
@@ -3459,9 +3459,9 @@ Public Class SmokeSchool
             End If
 
             If txtsortnbr.Text = "1" Then
-                SQL = "select count(*) as numberOfStudents from airbranch.SmokeSchoolReservation "
+                SQL = "select count(*) as numberOfStudents from SmokeSchoolReservation "
             Else
-                SQL = "select count(*) as numberOfStudents from airbranch.SmokeSchoolReservation " &
+                SQL = "select count(*) as numberOfStudents from SmokeSchoolReservation " &
                 "where strLocationDate = '" & cboSchedule1.SelectedItem & "'"
             End If
 
@@ -3489,7 +3489,7 @@ Public Class SmokeSchool
             Dim locationDate As String = cboSchedule1.SelectedItem
 
             SQL = "select count(*) as numberOfStudents " &
-                  "from airbranch.SmokeSchoolReservation " &
+                  "from SmokeSchoolReservation " &
                   "where strLocationDate = '" & locationDate & "'" &
                   "and strLectureYesNo = 'YES'"
 
@@ -3516,7 +3516,7 @@ Public Class SmokeSchool
             Dim dr As SqlDataReader
             Dim cnt As Decimal
 
-            SQL = "select count(*) as numberOfStudents3 from airbranch.SmokeSchoolReservation " &
+            SQL = "select count(*) as numberOfStudents3 from SmokeSchoolReservation " &
                   "where strLocationDate = '" & txtSchedule2.Text & "'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -3583,7 +3583,7 @@ Public Class SmokeSchool
             Else
                 locationDate = cboSchedule1.SelectedItem
 
-                SQL = "select * from airbranch.SmokeSchoolReservation " &
+                SQL = "select * from SmokeSchoolReservation " &
                 "where upper(strLocationDate) = upper('" & Replace(locationDate, "'", "''") & "')"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -3596,7 +3596,7 @@ Public Class SmokeSchool
                     FirstName = dr.Item("strFirstName")
                     LastName = dr.Item("strLastName")
 
-                    SQL = "update airbranch.SmokeSchoolReservation " &
+                    SQL = "update SmokeSchoolReservation " &
                           "set numUserID = " & studentID & " " &
                           " where upper(strLocationDate) = upper('" & Replace(locationDate, "'", "''") & "')" &
                           " and upper(strFirstName) = upper('" & Replace(FirstName, "'", "''") & "')" &
@@ -3625,7 +3625,7 @@ Public Class SmokeSchool
     Private Sub btnActivate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnActivate.Click
         Try
             SQL = "Select strUserEmail " &
-            "from AIRBRANCH.OlapUserLogIn " &
+            "from OlapUserLogIn " &
             "where strUserEmail = '" & Replace(UCase(txtEmailAddress.Text), "'", "''") & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -3636,7 +3636,7 @@ Public Class SmokeSchool
             recExist = dr.Read
             dr.Close()
             If recExist = True Then
-                Dim updateString As String = "UPDATE AIRBRANCH.OlapUserLogin " &
+                Dim updateString As String = "UPDATE OlapUserLogin " &
                           "SET strconfirm = to_char(sysdate, 'yyyy/mm/dd hh:mi:ss') " &
                           "WHERE struseremail = '" & Replace(UCase(txtEmailAddress.Text), "'", "''") & "' "
                 cmd = New SqlCommand(updateString, CurrentConnection)
@@ -3679,7 +3679,7 @@ Public Class SmokeSchool
 
     Public Function GetSmokeSchoolClassesByTerm(ByVal year As String, ByVal season As String) As DataTable
         Dim query As String = "SELECT strLocation, strStartDate, strEndDate " &
-            " FROM AIRBRANCH.SmokeSchoolSchedule " &
+            " FROM SmokeSchoolSchedule " &
             " WHERE stryear = :pYear " &
             " AND strTerm   = :pTerm "
 
@@ -3696,7 +3696,7 @@ Public Class SmokeSchool
         Dim query As String = "SELECT strLastName, strFirstName, strLocationTerm, " &
             " SUBSTR(strlocationterm, instr(strlocationterm, '-', 1, 1)+2) strLocation, " &
             " row_number () over (partition BY strlocationterm order by strlastname, strfirstname DESC) CertId " &
-            " FROM AIRBRANCH.SmokeSchoolScores " &
+            " FROM SmokeSchoolScores " &
             " WHERE strLocationTerm LIKE :pTerm " &
             " AND strPassFailNoShow = 'Pass' " &
             " ORDER BY strLocation, strLastName, strfirstname "

@@ -64,7 +64,7 @@ Public Class IAIPPrintOut
 
                     SQL = "Select " &
                     "strManagementName from " &
-                    "AIRBRANCH.LookUpAPBManagementType " &
+                    "LookUpAPBManagementType " &
                     "where strCurrentContact = '1' " &
                     "and strKey = '1' "
 
@@ -84,7 +84,7 @@ Public Class IAIPPrintOut
 
                     SQL = "Select " &
                     "strManagementName from " &
-                    "AIRBRANCH.LookUpAPBManagementType " &
+                    "LookUpAPBManagementType " &
                     "where strCurrentContact = '1' " &
                     "and strKey = '2' "
 
@@ -123,7 +123,7 @@ Public Class IAIPPrintOut
                     Select Case txtOther.Text
                         Case "SSPP Confirm"
                             SQL = "Select * " &
-                            "from AIRBRANCH.VW_SSPP_Acknowledge " &
+                            "from VW_SSPP_Acknowledge " &
                             "where strApplicationNumber = '" & txtAIRSNumber.Text & "' "
 
                             da = New SqlDataAdapter(SQL, CurrentConnection)
@@ -153,9 +153,9 @@ Public Class IAIPPrintOut
 
                 Case "ISMPTestReport"
                     If txtReferenceNumber.Text <> "" Then
-                        SQL = "select AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                         "from AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPReportInformation " &
-                         "where AIRBRANCH.ISMPReportInformation.strDocumentType = AIRBRANCH.ISMPDocumentType.strKey and " &
+                        SQL = "select ISMPDocumentType.strDocumentType " &
+                         "from ISMPDocumentType, ISMPReportInformation " &
+                         "where ISMPReportInformation.strDocumentType = ISMPDocumentType.strKey and " &
                          "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
                         Dim cmd As New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -214,9 +214,9 @@ Public Class IAIPPrintOut
 
                 Case "SSCP"
                     If txtReferenceNumber.Text <> "" Then
-                        SQL = "select AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                         "from AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPReportInformation " &
-                         "where AIRBRANCH.ISMPReportInformation.strDocumentType = AIRBRANCH.ISMPDocumentType.strKey and " &
+                        SQL = "select ISMPDocumentType.strDocumentType " &
+                         "from ISMPDocumentType, ISMPReportInformation " &
+                         "where ISMPReportInformation.strDocumentType = ISMPDocumentType.strKey and " &
                          "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
                         Dim cmd As New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -303,42 +303,42 @@ Public Class IAIPPrintOut
             ParameterFields = New CrystalDecisions.Shared.ParameterFields
 
             SQL = "Select " &
-            "AIRBRANCH.ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "AIRBRANCH.APBFacilityInformation.strFacilityName as FacilityName, " &
+            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
+            "APBFacilityInformation.strFacilityName as FacilityName, " &
             "strFacilityCity as FacilityCity, " &
              "strFacilityState as FacilityState, " &
             "strPollutantDescription as PollutantDescription, " &
             "strEmissionSource, " &
-            "AIRBRANCH.ISMPReportType.strReportType, " &
+            "ISMPReportType.strReportType, " &
            "strApplicableRequirement, " &
            "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
+             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
            "Else " &
              "(select (strFirstName||' '||strLastName) " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-             "where AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
+             "from EPDUserProfiles, ISMPReportInformation " &
+             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
            "End as WitnessingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
            "Else  " &
              "'M/W' " &
            "End WitnessingEngineer2,     " &
            "Case  " &
-             "when AIRBRANCH.ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
+             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
            "Else  " &
              "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-             "where AIRBRANCH.ISMPReportInformation.numReviewingManager = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
+             "from EPDUserProfiles, ISMPReportInformation  " &
+             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
            "END UnitManager,  " &
            "datReviewedByUnitManager,  " &
            "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation   " &
-           "where AIRBRANCH.ISMPReportInformation.strComplianceManager = AIRBRANCH.EPDUserProfiles.nuMUserID " &
-           "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
+           "from EPDUserProfiles, ISMPReportInformation   " &
+           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
+           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
            "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
            "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
            "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
@@ -347,54 +347,54 @@ Public Class IAIPPrintOut
            "strComplianceStatement as ComplianceStatement,  " &
            "strControlEquipmentData,  " &
            "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.EPDUserProfiles  " &
-           "where AIRBRANCH.ISMPReportInformation.strCC = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-           "AIRBRANCH.ISMPReportOneStack.strReferenceNumber,  " &
+           "from ISMPReportInformation, EPDUserProfiles  " &
+           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
+           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
+           "ISMPReportOneStack.strReferenceNumber,  " &
            "strMaxOperatingCapacity,  " &
-           "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportOneStack   " &
+           "(select strUnitDescription from LookUPUnits, ISMPReportOneStack   " &
            "where strUnitkey = strMaxOperatingCapacityUnit   " &
-           "and AIRBRANCH.ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit,   " &
+           "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit,   " &
            "strOperatingCapacity,   " &
-           "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportOneStack   " &
+           "(select strUnitDescription from LookUPUnits, ISMPReportOneStack   " &
            "where strUnitkey = strOperatingCapacityUnit   " &
-           "and AIRBRANCH.ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,    " &
+           "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,    " &
            "strAllowableEmissionRate1, strAllowableEmissionRate2, strAllowableEmissionRate3,   " &
-           "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportOneStack   " &
+           "(select strUnitDescription from LookUPUnits, ISMPReportOneStack   " &
            "where strUnitkey = strAllowableEmissionRateUnit1   " &
-           "and AIRBRANCH.ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1,   " &
-           "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportOneStack   " &
+           "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1,   " &
+           "(select strUnitDescription from LookUPUnits, ISMPReportOneStack   " &
            "where strUnitkey = strAllowableEmissionRateUnit2   " &
-           "and AIRBRANCH.ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit2,   " &
-           "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportOneStack   " &
+           "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit2,   " &
+           "(select strUnitDescription from LookUPUnits, ISMPReportOneStack   " &
            "where strUnitkey = strAllowableEmissionRateUnit3   " &
-           "and AIRBRANCH.ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit3,   " &
+           "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit3,   " &
            "strRunNumber1a, strRunNumber1b, strGasTemperature1A, strGasTemperature1b,   " &
            "strGasMoisture1A, strGasMoisture1B,   " &
            "strGasFlowRateACFM1A, strGasFlowRateACFM1B, " &
            "strGasFlowRateDSCFM1A, strGasFlowRateDSCFM1B,   " &
            "strPollutantConcentration1A, strPollutantConcentration1B,   " &
-           "(Select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportOneStack   " &
+           "(Select strUnitDescription from LookUPUnits, ISMPReportOneStack   " &
            "where strUnitkey = strPollutantConcentrationUnit   " &
-           "and AIRBRANCH.ISMPReportOneStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as POllutantConcentrationUnit,   " &
+           "and ISMPReportOneStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as POllutantConcentrationUnit,   " &
            "strPOllutantConcentrationAvg,   " &
            "strEmissionRate1A, strEmissionRate1B, " &
-           "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportOneStack   " &
+           "(select strUnitDescription from LookUPUnits, ISMPReportOneStack   " &
            "where strUnitKey = strEmissionRateUnit   " &
-           "and AIRBRANCH.ISMPReportOneStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as EmissionRateUnit,   " &
+           "and ISMPReportOneStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as EmissionRateUnit,   " &
            "strEmissionRateAvg, strPercentAllowable, strConfidentialData   " &
-           "From AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation,  " &
-           "AIRBRANCH.ISMPReportInformation, AIRBRANCH.LookUpPollutants,  " &
-           "AIRBRANCH.ISMPReportType, AIRBRANCH.EPDUserProfiles,  " &
-           "AIRBRANCH.LookUpISMPComplianceStatus, AIRBRANCH.ISMPReportOneStack   " &
-           "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPReportInformation.strPollutant = AIRBRANCH.LookUpPollutants.strPollutantCode  " &
-           "and AIRBRANCH.ISMPReportInformation.strReportType = AIRBRANCH.ISMPReportType.strKey  " &
-           "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPReportInformation.strComplianceStatus = AIRBRANCH.LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportOneStack.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+           "From ISMPMaster, APBFacilityInformation,  " &
+           "ISMPReportInformation, LookUpPollutants,  " &
+           "ISMPReportType, EPDUserProfiles,  " &
+           "LookUpISMPComplianceStatus, ISMPReportOneStack   " &
+           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
+           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
+           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
+           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
+           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportOneStack.strReferenceNumber  " &
+           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1163,8 +1163,8 @@ Public Class IAIPPrintOut
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
                     "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUSerProfiles " &
-                    "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUSerProfiles.numUserProfiles  " &
+                    "from ISMPWitnessingEng, EPDUSerProfiles " &
+                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.numUserProfiles  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -1256,42 +1256,42 @@ Public Class IAIPPrintOut
             ParameterFields = New CrystalDecisions.Shared.ParameterFields
 
             SQL = "Select " &
-            "AIRBRANCH.ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "AIRBRANCH.APBFacilityInformation.strFacilityName as FacilityName, " &
+            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
+            "APBFacilityInformation.strFacilityName as FacilityName, " &
             "strFacilityCity as FacilityCity, " &
              "strFacilityState as FacilityState, " &
             "strPollutantDescription as PollutantDescription, " &
             "strEmissionSource, " &
-            "AIRBRANCH.ISMPReportType.strReportType, " &
+            "ISMPReportType.strReportType, " &
            "strApplicableRequirement, " &
            "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
+             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
            "Else " &
              "(select (strFirstName||' '||strLastName) " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-             "where AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
+             "from EPDUserProfiles, ISMPReportInformation " &
+             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
            "End as WitnessingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
            "Else  " &
              "'M/W' " &
            "End WitnessingEngineer2,     " &
            "Case  " &
-             "when AIRBRANCH.ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
+             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
            "Else  " &
              "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-             "where AIRBRANCH.ISMPReportInformation.numReviewingManager = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
+             "from EPDUserProfiles, ISMPReportInformation  " &
+             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
            "END UnitManager,  " &
            "datReviewedByUnitManager,  " &
            "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation   " &
-           "where AIRBRANCH.ISMPReportInformation.strComplianceManager = AIRBRANCH.EPDUserProfiles.nuMUserID " &
-           "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
+           "from EPDUserProfiles, ISMPReportInformation   " &
+           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
+           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
            "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
            "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
            "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
@@ -1300,53 +1300,53 @@ Public Class IAIPPrintOut
            "strComplianceStatement as ComplianceStatement,  " &
            "strControlEquipmentData,  " &
            "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.EPDUserProfiles  " &
-           "where AIRBRANCH.ISMPReportInformation.strCC = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-           "AIRBRANCH.ISMPReportOneStack.strReferencenumber, strMaxoperatingCapacity, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportOneStack " &
+           "from ISMPReportInformation, EPDUserProfiles  " &
+           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
+           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
+           "ISMPReportOneStack.strReferencenumber, strMaxoperatingCapacity, " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
             "where strUnitkey = strMaxOperatingCapacityUnit " &
-            "and AIRBRANCH.ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
+            "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
             "strOperatingCapacity, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportOneStack " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
             "where strUnitkey = strOperatingCapacityUnit " &
-            "and AIRBRANCH.ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
+            "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
             "strAllowableEmissionRate1, strAllowableEmissionRate2, strAllowableEmissionRate3, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportOneStack " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
             "where strUnitkey = strAllowableEmissionRateUnit1 " &
-            "and AIRBRANCH.ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportOneStack " &
+            "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
             "where strUnitkey = strAllowableEmissionRateUnit2 " &
-            "and AIRBRANCH.ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit2, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportOneStack " &
+            "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit2, " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
             "where strUnitkey = strAllowableEmissionRateUnit3 " &
-            "and AIRBRANCH.ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit3, " &
+            "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit3, " &
             "strRunNumber1a, strRunNumber1b, strRunNumber1c, strGasTemperature1A, strGasTemperature1b, " &
             "strGasTemperature1C, strGasMoisture1A, strGasMoisture1B, strGasMoisture1C, " &
             "strGasFlowRateACFM1A, strGasFlowRateACFM1B, strGasFlowRateACFM1c, " &
             "strGasFlowRateDSCFM1A, strGasFlowRateDSCFM1B, strGasFlowRateDSCFM1C, " &
             "strPollutantConcentration1A, strPollutantConcentration1B, strPollutantConcentration1C, " &
-            "(Select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportOneStack " &
+            "(Select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
             "where strUnitkey = strPollutantConcentrationUnit " &
-            "and AIRBRANCH.ISMPReportOneStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as POllutantConcentrationUnit, " &
+            "and ISMPReportOneStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as POllutantConcentrationUnit, " &
             "strPOllutantConcentrationAvg, " &
             "strEmissionRate1A, strEmissionRate1B, strEmissionRate1C, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportOneStack " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
             "where strUnitKey = strEmissionRateUnit " &
-            "and AIRBRANCH.ISMPReportOneStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as EmissionRateUnit, " &
+            "and ISMPReportOneStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as EmissionRateUnit, " &
             "strEmissionRateAvg, strPercentAllowable, strConfidentialData " &
-           "From AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation,  " &
-           "AIRBRANCH.ISMPReportInformation, AIRBRANCH.LookUpPollutants,  " &
-           "AIRBRANCH.ISMPReportType, AIRBRANCH.EPDUserProfiles,  " &
-           "AIRBRANCH.LookUpISMPComplianceStatus, AIRBRANCH.ISMPReportOneStack   " &
-           "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPReportInformation.strPollutant = AIRBRANCH.LookUpPollutants.strPollutantCode  " &
-           "and AIRBRANCH.ISMPReportInformation.strReportType = AIRBRANCH.ISMPReportType.strKey  " &
-           "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPReportInformation.strComplianceStatus = AIRBRANCH.LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportOneStack.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+           "From ISMPMaster, APBFacilityInformation,  " &
+           "ISMPReportInformation, LookUpPollutants,  " &
+           "ISMPReportType, EPDUserProfiles,  " &
+           "LookUpISMPComplianceStatus, ISMPReportOneStack   " &
+           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
+           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
+           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
+           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
+           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportOneStack.strReferenceNumber  " &
+           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -2212,8 +2212,8 @@ Public Class IAIPPrintOut
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
                     "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
-                    "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                    "from ISMPWitnessingEng, EPDUserProfiles " &
+                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -2304,42 +2304,42 @@ Public Class IAIPPrintOut
             ParameterFields = New CrystalDecisions.Shared.ParameterFields
 
             SQL = "Select " &
-            "AIRBRANCH.ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "AIRBRANCH.APBFacilityInformation.strFacilityName as FacilityName, " &
+            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
+            "APBFacilityInformation.strFacilityName as FacilityName, " &
             "strFacilityCity as FacilityCity, " &
              "strFacilityState as FacilityState, " &
             "strPollutantDescription as PollutantDescription, " &
             "strEmissionSource, " &
-            "AIRBRANCH.ISMPReportType.strReportType, " &
+            "ISMPReportType.strReportType, " &
            "strApplicableRequirement, " &
            "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
+             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
            "Else " &
              "(select (strFirstName||' '||strLastName) " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-             "where AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
+             "from EPDUserProfiles, ISMPReportInformation " &
+             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
            "End as WitnessingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
            "Else  " &
              "'M/W' " &
            "End WitnessingEngineer2,     " &
            "Case  " &
-             "when AIRBRANCH.ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
+             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
            "Else  " &
              "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-             "where AIRBRANCH.ISMPReportInformation.numReviewingManager = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
+             "from EPDUserProfiles, ISMPReportInformation  " &
+             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
            "END UnitManager,  " &
            "datReviewedByUnitManager,  " &
            "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation   " &
-           "where AIRBRANCH.ISMPReportInformation.strComplianceManager = AIRBRANCH.EPDUserProfiles.nuMUserID " &
-           "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
+           "from EPDUserProfiles, ISMPReportInformation   " &
+           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
+           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
            "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
            "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
            "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
@@ -2348,53 +2348,53 @@ Public Class IAIPPrintOut
            "strComplianceStatement as ComplianceStatement,  " &
            "strControlEquipmentData,  " &
            "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.EPDUserProfiles  " &
-           "where AIRBRANCH.ISMPReportInformation.strCC = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-           "AIRBRANCH.ISMPReportOneStack.strReferencenumber, strMaxoperatingCapacity, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportOneStack " &
+           "from ISMPReportInformation, EPDUserProfiles  " &
+           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
+           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
+           "ISMPReportOneStack.strReferencenumber, strMaxoperatingCapacity, " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
             "where strUnitkey = strMaxOperatingCapacityUnit " &
-            "and AIRBRANCH.ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
+            "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
             "strOperatingCapacity, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportOneStack " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
             "where strUnitkey = strOperatingCapacityUnit " &
-            "and AIRBRANCH.ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
+            "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
             "strAllowableEmissionRate1, strAllowableEmissionRate2, strAllowableEmissionRate3, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportOneStack " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
             "where strUnitkey = strAllowableEmissionRateUnit1 " &
-            "and AIRBRANCH.ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportOneStack " &
+            "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
             "where strUnitkey = strAllowableEmissionRateUnit2 " &
-            "and AIRBRANCH.ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit2, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportOneStack " &
+            "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit2, " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
             "where strUnitkey = strAllowableEmissionRateUnit3 " &
-            "and AIRBRANCH.ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit3, " &
+            "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit3, " &
             "strRunNumber1a, strRunNumber1b, strRunNumber1c, strRunNumber1D, strGasTemperature1A, strGasTemperature1b, " &
             "strGasTemperature1C, strGasTemperature1D, strGasMoisture1A, strGasMoisture1B, strGasMoisture1C, strGasMoisture1D, " &
             "strGasFlowRateACFM1A, strGasFlowRateACFM1B, strGasFlowRateACFM1c, strGasFlowRateACFM1D, " &
             "strGasFlowRateDSCFM1A, strGasFlowRateDSCFM1B, strGasFlowRateDSCFM1C, strGasFlowRateDSCFM1D, " &
             "strPollutantConcentration1A, strPollutantConcentration1B, strPollutantConcentration1C, strPollutantConcentration1D, " &
-            "(Select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportOneStack " &
+            "(Select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
             "where strUnitkey = strPollutantConcentrationUnit " &
-            "and AIRBRANCH.ISMPReportOneStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as POllutantConcentrationUnit, " &
+            "and ISMPReportOneStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as POllutantConcentrationUnit, " &
             "strPOllutantConcentrationAvg, " &
             "strEmissionRate1A, strEmissionRate1B, strEmissionRate1C, strEmissionRate1D, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportOneStack " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
             "where strUnitKey = strEmissionRateUnit " &
-            "and AIRBRANCH.ISMPReportOneStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as EmissionRateUnit, " &
+            "and ISMPReportOneStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as EmissionRateUnit, " &
             "strEmissionRateAvg, strPercentAllowable, strConfidentialData " &
-           "From AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation,  " &
-           "AIRBRANCH.ISMPReportInformation, AIRBRANCH.LookUpPollutants,  " &
-           "AIRBRANCH.ISMPReportType, AIRBRANCH.EPDUserProfiles,  " &
-           "AIRBRANCH.LookUpISMPComplianceStatus, AIRBRANCH.ISMPReportOneStack   " &
-           "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPReportInformation.strPollutant = AIRBRANCH.LookUpPollutants.strPollutantCode  " &
-           "and AIRBRANCH.ISMPReportInformation.strReportType = AIRBRANCH.ISMPReportType.strKey  " &
-           "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPReportInformation.strComplianceStatus = AIRBRANCH.LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportOneStack.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+           "From ISMPMaster, APBFacilityInformation,  " &
+           "ISMPReportInformation, LookUpPollutants,  " &
+           "ISMPReportType, EPDUserProfiles,  " &
+           "LookUpISMPComplianceStatus, ISMPReportOneStack   " &
+           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
+           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
+           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
+           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
+           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportOneStack.strReferenceNumber  " &
+           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -3343,8 +3343,8 @@ Public Class IAIPPrintOut
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
                     "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
-                    "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                    "from ISMPWitnessingEng, EPDUserProfiles " &
+                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -3435,42 +3435,42 @@ Public Class IAIPPrintOut
             ParameterFields = New CrystalDecisions.Shared.ParameterFields
 
             SQL = "Select " &
-            "AIRBRANCH.ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "AIRBRANCH.APBFacilityInformation.strFacilityName as FacilityName, " &
+            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
+            "APBFacilityInformation.strFacilityName as FacilityName, " &
             "strFacilityCity as FacilityCity, " &
              "strFacilityState as FacilityState, " &
             "strPollutantDescription as PollutantDescription, " &
             "strEmissionSource, " &
-            "AIRBRANCH.ISMPReportType.strReportType, " &
+            "ISMPReportType.strReportType, " &
            "strApplicableRequirement, " &
            "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
+             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
            "Else " &
              "(select (strFirstName||' '||strLastName) " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-             "where AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
+             "from EPDUserProfiles, ISMPReportInformation " &
+             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
            "End as WitnessingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
            "Else  " &
              "'M/W' " &
            "End WitnessingEngineer2,     " &
            "Case  " &
-             "when AIRBRANCH.ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
+             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
            "Else  " &
              "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-             "where AIRBRANCH.ISMPReportInformation.numReviewingManager = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
+             "from EPDUserProfiles, ISMPReportInformation  " &
+             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
            "END UnitManager,  " &
            "datReviewedByUnitManager,  " &
            "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation   " &
-           "where AIRBRANCH.ISMPReportInformation.strComplianceManager = AIRBRANCH.EPDUserProfiles.nuMUserID " &
-           "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
+           "from EPDUserProfiles, ISMPReportInformation   " &
+           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
+           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
            "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
            "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
            "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
@@ -3479,27 +3479,27 @@ Public Class IAIPPrintOut
            "strComplianceStatement as ComplianceStatement,  " &
            "strControlEquipmentData,  " &
            "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.EPDUserProfiles  " &
-           "where AIRBRANCH.ISMPReportInformation.strCC = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-           "AIRBRANCH.ISMPReportTwoStack.strReferencenumber, strMaxoperatingCapacity, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportTwoStack " &
+           "from ISMPReportInformation, EPDUserProfiles  " &
+           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
+           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
+           "ISMPReportTwoStack.strReferencenumber, strMaxoperatingCapacity, " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
             "where strUnitkey = strMaxOperatingCapacityUnit " &
-            "and AIRBRANCH.ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
+            "and ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
             "strOperatingCapacity, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportTwoStack " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
             "where strUnitkey = strOperatingCapacityUnit " &
-            "and AIRBRANCH.ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
+            "and ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
             "strAllowableEmissionRate1, strAllowableEmissionRate2, strAllowableEmissionRate3, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportTwoStack " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
             "where strUnitkey = strAllowableEmissionRateUnit1 " &
-            "and AIRBRANCH.ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportTwoStack " &
+            "and ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
             "where strUnitkey = strAllowableEmissionRateUnit2 " &
-            "and AIRBRANCH.ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit2, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportTwoStack " &
+            "and ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit2, " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
             "where strUnitkey = strAllowableEmissionRateUnit3 " &
-            "and AIRBRANCH.ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit3, " &
+            "and ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit3, " &
             "strStackOneName, strStackTwoName, " &
             "strRunNumber1a, strRunNumber1b, strRunNumber1c, strRunNumber2a, strRunNumber2b, strRunNumber2c, " &
             "strGasTemperature1A, strGasTemperature1b, strGasTemperature1C, " &
@@ -3512,16 +3512,16 @@ Public Class IAIPPrintOut
             "strGasFlowRateDSCFM2A, strGasFlowRateDSCFM2B, strGasFlowRateDSCFM2C, " &
             "strPollutantConcentration1A, strPollutantConcentration1B, strPollutantConcentration1C, " &
             "strPollutantConcentration2A, strPollutantConcentration2B, strPollutantConcentration2C, " &
-            "(Select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportTwoStack " &
+            "(Select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
             "where strUnitkey = strPollutantConcentrationUnit " &
-            "and AIRBRANCH.ISMPReportTwoStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as POllutantConcentrationUnit, " &
+            "and ISMPReportTwoStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as POllutantConcentrationUnit, " &
             "strPOllutantConcentrationAvg1, " &
             "strPOllutantConcentrationAvg2, " &
             "strEmissionRate1A, strEmissionRate1B, strEmissionRate1C, " &
             "strEmissionRate2A, strEmissionRate2B, strEmissionRate2C, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportTwoStack " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
             "where strUnitKey = strEmissionRateUnit " &
-            "and AIRBRANCH.ISMPReportTwoStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as EmissionRateUnit, " &
+            "and ISMPReportTwoStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as EmissionRateUnit, " &
             "strEmissionRateAvg1, " &
             "strEmissionRateAvg2, " &
             "strEmissionRateTotal1, " &
@@ -3529,18 +3529,18 @@ Public Class IAIPPrintOut
             "strEmissionRateTotal3, " &
             "strEmissionRateTotalAvg, " &
             "strPercentAllowable, strConfidentialData " &
-           "From AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation,  " &
-           "AIRBRANCH.ISMPReportInformation, AIRBRANCH.LookUpPollutants,  " &
-           "AIRBRANCH.ISMPReportType, AIRBRANCH.EPDUserProfiles,  " &
-           "AIRBRANCH.LookUpISMPComplianceStatus, AIRBRANCH.ISMPReportTwoStack   " &
-           "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPReportInformation.strPollutant = AIRBRANCH.LookUpPollutants.strPollutantCode  " &
-           "and AIRBRANCH.ISMPReportInformation.strReportType = AIRBRANCH.ISMPReportType.strKey  " &
-           "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPReportInformation.strComplianceStatus = AIRBRANCH.LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportTwoStack.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+           "From ISMPMaster, APBFacilityInformation,  " &
+           "ISMPReportInformation, LookUpPollutants,  " &
+           "ISMPReportType, EPDUserProfiles,  " &
+           "LookUpISMPComplianceStatus, ISMPReportTwoStack   " &
+           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
+           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
+           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
+           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
+           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportTwoStack.strReferenceNumber  " &
+           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -4738,8 +4738,8 @@ Public Class IAIPPrintOut
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
                     "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
-                    "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                    "from ISMPWitnessingEng, EPDUserProfiles " &
+                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -4831,42 +4831,42 @@ Public Class IAIPPrintOut
             ParameterFields = New CrystalDecisions.Shared.ParameterFields
 
             SQL = "Select " &
-            "AIRBRANCH.ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "AIRBRANCH.APBFacilityInformation.strFacilityName as FacilityName, " &
+            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
+            "APBFacilityInformation.strFacilityName as FacilityName, " &
             "strFacilityCity as FacilityCity, " &
              "strFacilityState as FacilityState, " &
             "strPollutantDescription as PollutantDescription, " &
             "strEmissionSource, " &
-            "AIRBRANCH.ISMPReportType.strReportType, " &
+            "ISMPReportType.strReportType, " &
            "strApplicableRequirement, " &
            "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
+             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
            "Else " &
              "(select (strFirstName||' '||strLastName) " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-             "where AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
+             "from EPDUserProfiles, ISMPReportInformation " &
+             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
            "End as WitnessingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
            "Else  " &
              "'M/W' " &
            "End WitnessingEngineer2,     " &
            "Case  " &
-             "when AIRBRANCH.ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
+             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
            "Else  " &
              "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-             "where AIRBRANCH.ISMPReportInformation.numReviewingManager = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
+             "from EPDUserProfiles, ISMPReportInformation  " &
+             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
            "END UnitManager,  " &
            "datReviewedByUnitManager,  " &
            "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation   " &
-           "where AIRBRANCH.ISMPReportInformation.strComplianceManager = AIRBRANCH.EPDUserProfiles.nuMUserID " &
-           "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
+           "from EPDUserProfiles, ISMPReportInformation   " &
+           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
+           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
            "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
            "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
            "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
@@ -4875,27 +4875,27 @@ Public Class IAIPPrintOut
            "strComplianceStatement as ComplianceStatement,  " &
            "strControlEquipmentData,  " &
            "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.EPDUserProfiles  " &
-           "where AIRBRANCH.ISMPReportInformation.strCC = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-           "AIRBRANCH.ISMPReportTwoStack.strReferencenumber, strMaxoperatingCapacity, " &
-        "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportTwoStack " &
+           "from ISMPReportInformation, EPDUserProfiles  " &
+           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
+           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
+           "ISMPReportTwoStack.strReferencenumber, strMaxoperatingCapacity, " &
+        "(select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
         "where strUnitkey = strMaxOperatingCapacityUnit " &
-        "and AIRBRANCH.ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
+        "and ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
         "strOperatingCapacity, " &
-        "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportTwoStack " &
+        "(select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
         "where strUnitkey = strOperatingCapacityUnit " &
-        "and AIRBRANCH.ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
+        "and ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
         "strAllowableEmissionRate1, strAllowableEmissionRate2, strAllowableEmissionRate3, " &
-        "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportTwoStack " &
+        "(select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
         "where strUnitkey = strAllowableEmissionRateUnit1 " &
-        "and AIRBRANCH.ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
-        "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportTwoStack " &
+        "and ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
+        "(select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
         "where strUnitkey = strAllowableEmissionRateUnit2 " &
-        "and AIRBRANCH.ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit2, " &
-        "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportTwoStack " &
+        "and ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit2, " &
+        "(select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
         "where strUnitkey = strAllowableEmissionRateUnit3 " &
-        "and AIRBRANCH.ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit3, " &
+        "and ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit3, " &
         "strStackOneName, strStackTwoName, " &
         "strRunNumber1a, strRunNumber1b, strRunNumber1c, strRunNumber2a, strRunNumber2b, strRunNumber2c, " &
         "strGasTemperature1A, strGasTemperature1b, strGasTemperature1C, " &
@@ -4908,32 +4908,32 @@ Public Class IAIPPrintOut
         "strGasFlowRateDSCFM2A, strGasFlowRateDSCFM2B, strGasFlowRateDSCFM2C, " &
         "strPollutantConcentration1A, strPollutantConcentration1B, strPollutantConcentration1C, " &
         "strPollutantConcentration2A, strPollutantConcentration2B, strPollutantConcentration2C, " &
-        "(Select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportTwoStack " &
+        "(Select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
         "where strUnitkey = strPollutantConcentrationUnit " &
-        "and AIRBRANCH.ISMPReportTwoStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as POllutantConcentrationUnit, " &
+        "and ISMPReportTwoStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as POllutantConcentrationUnit, " &
         "strPOllutantConcentrationAvg1, " &
         "strPOllutantConcentrationAvg2, " &
         "strEmissionRate1A, strEmissionRate1B, strEmissionRate1C, " &
         "strEmissionRate2A, strEmissionRate2B, strEmissionRate2C, " &
-        "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportTwoStack " &
+        "(select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
         "where strUnitKey = strEmissionRateUnit " &
-        "and AIRBRANCH.ISMPReportTwoStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as EmissionRateUnit, " &
+        "and ISMPReportTwoStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as EmissionRateUnit, " &
         "strEmissionRateAvg1, " &
         "strEmissionRateAvg2, " &
         "strDestructionPercent, " &
         "strPercentAllowable, strConfidentialData " &
-           "From AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation,  " &
-           "AIRBRANCH.ISMPReportInformation, AIRBRANCH.LookUpPollutants,  " &
-           "AIRBRANCH.ISMPReportType, AIRBRANCH.EPDUserProfiles,  " &
-           "AIRBRANCH.LookUpISMPComplianceStatus, AIRBRANCH.ISMPReportTwoStack   " &
-           "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPReportInformation.strPollutant = AIRBRANCH.LookUpPollutants.strPollutantCode  " &
-           "and AIRBRANCH.ISMPReportInformation.strReportType = AIRBRANCH.ISMPReportType.strKey  " &
-           "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPReportInformation.strComplianceStatus = AIRBRANCH.LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportTwoStack.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+           "From ISMPMaster, APBFacilityInformation,  " &
+           "ISMPReportInformation, LookUpPollutants,  " &
+           "ISMPReportType, EPDUserProfiles,  " &
+           "LookUpISMPComplianceStatus, ISMPReportTwoStack   " &
+           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
+           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
+           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
+           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
+           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportTwoStack.strReferenceNumber  " &
+           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -6084,8 +6084,8 @@ Public Class IAIPPrintOut
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
                     "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
-                    "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                    "from ISMPWitnessingEng, EPDUserProfiles " &
+                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -6177,42 +6177,42 @@ Public Class IAIPPrintOut
             ParameterFields = New CrystalDecisions.Shared.ParameterFields
 
             SQL = "Select " &
-            "AIRBRANCH.ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "AIRBRANCH.APBFacilityInformation.strFacilityName as FacilityName, " &
+            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
+            "APBFacilityInformation.strFacilityName as FacilityName, " &
             "strFacilityCity as FacilityCity, " &
              "strFacilityState as FacilityState, " &
             "strPollutantDescription as PollutantDescription, " &
             "strEmissionSource, " &
-            "AIRBRANCH.ISMPReportType.strReportType, " &
+            "ISMPReportType.strReportType, " &
            "strApplicableRequirement, " &
            "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
+             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
            "Else " &
              "(select (strFirstName||' '||strLastName) " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-             "where AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
+             "from EPDUserProfiles, ISMPReportInformation " &
+             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
            "End as WitnessingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
            "Else  " &
              "'M/W' " &
            "End WitnessingEngineer2,     " &
            "Case  " &
-             "when AIRBRANCH.ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
+             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
            "Else  " &
              "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-             "where AIRBRANCH.ISMPReportInformation.numReviewingManager = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
+             "from EPDUserProfiles, ISMPReportInformation  " &
+             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
            "END UnitManager,  " &
            "datReviewedByUnitManager,  " &
            "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation   " &
-           "where AIRBRANCH.ISMPReportInformation.strComplianceManager = AIRBRANCH.EPDUserProfiles.nuMUserID " &
-           "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
+           "from EPDUserProfiles, ISMPReportInformation   " &
+           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
+           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
            "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
            "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
            "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
@@ -6221,55 +6221,55 @@ Public Class IAIPPrintOut
            "strComplianceStatement as ComplianceStatement,  " &
            "strControlEquipmentData,  " &
            "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.EPDUserProfiles  " &
-           "where AIRBRANCH.ISMPReportInformation.strCC = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-          "AIRBRANCH.ISMPReportFlare.strReferencenumber, strMaxoperatingCapacity, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportFlare " &
+           "from ISMPReportInformation, EPDUserProfiles  " &
+           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
+           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
+          "ISMPReportFlare.strReferencenumber, strMaxoperatingCapacity, " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportFlare " &
             "where strUnitkey = strMaxOperatingCapacityUnit " &
-            "and AIRBRANCH.ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
+            "and ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
             "strOperatingCapacity, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportFlare " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportFlare " &
             "where strUnitkey = strOperatingCapacityUnit " &
-            "and AIRBRANCH.ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
+            "and ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
             "strAllowableEmissionRate1A, strAllowableEmissionRate2A, strAllowableEmissionRate3A, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportFlare " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportFlare " &
             "where strUnitkey = strAllowEmissionRateUnit1A " &
-            "and AIRBRANCH.ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportFlare " &
+            "and ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportFlare " &
             "where strUnitkey = strAllowEmissionRateUnit2A " &
-            "and AIRBRANCH.ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit2, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportFlare " &
+            "and ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit2, " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportFlare " &
             "where strUnitkey = strAllowEmissionRateUnit3A " &
-            "and AIRBRANCH.ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit3, " &
+            "and ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit3, " &
             "strTestDuration, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportFlare " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportFlare " &
             "where strUnitkey = strTestDurationUnit " &
-            "and AIRBRANCH.ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as TestDurationUnit, " &
+            "and ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as TestDurationUnit, " &
             "strPollutantConcenIn, strPollutantConcenOut, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportFlare " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportFlare " &
             "where strUnitkey = strPollutantConcenUnitIN " &
-            "and AIRBRANCH.ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as PollutantConcentrationUnitIN, " &
-             "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportFlare " &
+            "and ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as PollutantConcentrationUnitIN, " &
+             "(select strUnitDescription from LookUPUnits, ISMPReportFlare " &
             "where strUnitkey = strPollutantConcenUnitOUT " &
-            "and AIRBRANCH.ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as PollutantConcentrationUnitOUT, " &
+            "and ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as PollutantConcentrationUnitOUT, " &
             "strEmissionRate, " &
-             "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportFlare " &
+             "(select strUnitDescription from LookUPUnits, ISMPReportFlare " &
             "where strUnitkey = strEmissionRateUnit " &
-            "and AIRBRANCH.ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as EmissionRateUnit, " &
+            "and ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as EmissionRateUnit, " &
             "strDestructionEfficiency, strConfidentialData " &
-           "From AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation,  " &
-           "AIRBRANCH.ISMPReportInformation, AIRBRANCH.LookUpPollutants,  " &
-           "AIRBRANCH.ISMPReportType, AIRBRANCH.EPDUserProfiles,  " &
-           "AIRBRANCH.LookUpISMPComplianceStatus, AIRBRANCH.ISMPReportFlare   " &
-           "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPReportInformation.strPollutant = AIRBRANCH.LookUpPollutants.strPollutantCode  " &
-           "and AIRBRANCH.ISMPReportInformation.strReportType = AIRBRANCH.ISMPReportType.strKey  " &
-           "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPReportInformation.strComplianceStatus = AIRBRANCH.LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportFlare.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+           "From ISMPMaster, APBFacilityInformation,  " &
+           "ISMPReportInformation, LookUpPollutants,  " &
+           "ISMPReportType, EPDUserProfiles,  " &
+           "LookUpISMPComplianceStatus, ISMPReportFlare   " &
+           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
+           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
+           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
+           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
+           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportFlare.strReferenceNumber  " &
+           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -6869,8 +6869,8 @@ Public Class IAIPPrintOut
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
                      "(strFirstName||' '||strLastName) as WitnessingEng " &
-                     "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
-                     "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                     "from ISMPWitnessingEng, EPDUserProfiles " &
+                     "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
                      "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -6963,42 +6963,42 @@ Public Class IAIPPrintOut
             ParameterFields = New CrystalDecisions.Shared.ParameterFields
 
             SQL = "Select " &
-            "AIRBRANCH.ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "AIRBRANCH.APBFacilityInformation.strFacilityName as FacilityName, " &
+            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
+            "APBFacilityInformation.strFacilityName as FacilityName, " &
             "strFacilityCity as FacilityCity, " &
              "strFacilityState as FacilityState, " &
             "strPollutantDescription as PollutantDescription, " &
             "strEmissionSource, " &
-            "AIRBRANCH.ISMPReportType.strReportType, " &
+            "ISMPReportType.strReportType, " &
            "strApplicableRequirement, " &
            "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
+             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
            "Else " &
              "(select (strFirstName||' '||strLastName) " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-             "where AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
+             "from EPDUserProfiles, ISMPReportInformation " &
+             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
            "End as WitnessingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
            "Else  " &
              "'M/W' " &
            "End WitnessingEngineer2,     " &
            "Case  " &
-             "when AIRBRANCH.ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
+             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
            "Else  " &
              "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-             "where AIRBRANCH.ISMPReportInformation.numReviewingManager = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
+             "from EPDUserProfiles, ISMPReportInformation  " &
+             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
            "END UnitManager,  " &
            "datReviewedByUnitManager,  " &
            "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation   " &
-           "where AIRBRANCH.ISMPReportInformation.strComplianceManager = AIRBRANCH.EPDUserProfiles.nuMUserID " &
-           "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
+           "from EPDUserProfiles, ISMPReportInformation   " &
+           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
+           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
            "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
            "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
            "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
@@ -7007,50 +7007,50 @@ Public Class IAIPPrintOut
            "strComplianceStatement as ComplianceStatement,  " &
            "strControlEquipmentData,  " &
            "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.EPDUserProfiles  " &
-           "where AIRBRANCH.ISMPReportInformation.strCC = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-          "AIRBRANCH.ISMPReportPondAndGas.strReferencenumber, strMaxoperatingCapacity, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportPondAndGas " &
+           "from ISMPReportInformation, EPDUserProfiles  " &
+           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
+           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
+          "ISMPReportPondAndGas.strReferencenumber, strMaxoperatingCapacity, " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
             "where strUnitkey = strMaxOperatingCapacityUnit " &
-            "and AIRBRANCH.ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
+            "and ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
             "strOperatingCapacity, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportPondAndGas " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
             "where strUnitkey = strOperatingCapacityUnit " &
-            "and AIRBRANCH.ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
+            "and ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
             "strAllowableEmissionRate1, strAllowableEmissionRate2, strAllowableEmissionRate3, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportPondAndGas " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
             "where strUnitkey = strAllowableEmissionRateUnit1 " &
-            "and AIRBRANCH.ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportPondAndGas " &
+            "and ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
             "where strUnitkey = strAllowableEmissionRateUnit2 " &
-            "and AIRBRANCH.ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit2, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportPondAndGas " &
+            "and ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit2, " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
             "where strUnitkey = strAllowableEmissionRateUnit3 " &
-            "and AIRBRANCH.ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit3, " &
+            "and ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit3, " &
             "strRunNumber1a, strRunNumber1b, strRunNumber1c, " &
             "strPollutantConcentration1A, strPollutantConcentration1B, strPollutantConcentration1C, " &
-            "(Select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportPondAndGas " &
+            "(Select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
             "where strUnitkey = strPollutantConcentrationUnit " &
-            "and AIRBRANCH.ISMPReportPondAndGas.strReferenceNumber = '" & txtReferenceNumber.Text & "') as POllutantConcentrationUnit, " &
+            "and ISMPReportPondAndGas.strReferenceNumber = '" & txtReferenceNumber.Text & "') as POllutantConcentrationUnit, " &
             "strPOllutantConcentrationAvg, " &
             "strTreatmentRate1A, strTreatmentRate1B, strTreatmentRate1C, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportPondAndGas " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
             "where strUnitKey = strTreatmentRateUnit " &
-            "and AIRBRANCH.ISMPReportPondAndGas.strReferenceNumber = '" & txtReferenceNumber.Text & "') as TreatmentRateUnit, " &
+            "and ISMPReportPondAndGas.strReferenceNumber = '" & txtReferenceNumber.Text & "') as TreatmentRateUnit, " &
             "strTreatmentRateAvg, strPercentAllowable, strConfidentialData " &
-           "From AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation,  " &
-           "AIRBRANCH.ISMPReportInformation, AIRBRANCH.LookUpPollutants,  " &
-           "AIRBRANCH.ISMPReportType, AIRBRANCH.EPDUserProfiles,  " &
-           "AIRBRANCH.LookUpISMPComplianceStatus, AIRBRANCH.ISMPReportPondAndGas   " &
-           "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPReportInformation.strPollutant = AIRBRANCH.LookUpPollutants.strPollutantCode  " &
-           "and AIRBRANCH.ISMPReportInformation.strReportType = AIRBRANCH.ISMPReportType.strKey  " &
-           "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPReportInformation.strComplianceStatus = AIRBRANCH.LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportPondAndGas.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+           "From ISMPMaster, APBFacilityInformation,  " &
+           "ISMPReportInformation, LookUpPollutants,  " &
+           "ISMPReportType, EPDUserProfiles,  " &
+           "LookUpISMPComplianceStatus, ISMPReportPondAndGas   " &
+           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
+           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
+           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
+           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
+           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportPondAndGas.strReferenceNumber  " &
+           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -7754,8 +7754,8 @@ Public Class IAIPPrintOut
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
                     "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
-                    "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                    "from ISMPWitnessingEng, EPDUserProfiles " &
+                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -7847,42 +7847,42 @@ Public Class IAIPPrintOut
             ParameterFields = New CrystalDecisions.Shared.ParameterFields
 
             SQL = "Select " &
-            "AIRBRANCH.ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "AIRBRANCH.APBFacilityInformation.strFacilityName as FacilityName, " &
+            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
+            "APBFacilityInformation.strFacilityName as FacilityName, " &
             "strFacilityCity as FacilityCity, " &
              "strFacilityState as FacilityState, " &
             "strPollutantDescription as PollutantDescription, " &
             "strEmissionSource, " &
-            "AIRBRANCH.ISMPReportType.strReportType, " &
+            "ISMPReportType.strReportType, " &
            "strApplicableRequirement, " &
            "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
+             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
            "Else " &
              "(select (strFirstName||' '||strLastName) " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-             "where AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
+             "from EPDUserProfiles, ISMPReportInformation " &
+             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
            "End as WitnessingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
            "Else  " &
              "'M/W' " &
            "End WitnessingEngineer2,     " &
            "Case  " &
-             "when AIRBRANCH.ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
+             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
            "Else  " &
              "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-             "where AIRBRANCH.ISMPReportInformation.numReviewingManager = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
+             "from EPDUserProfiles, ISMPReportInformation  " &
+             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
            "END UnitManager,  " &
            "datReviewedByUnitManager,  " &
            "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation   " &
-           "where AIRBRANCH.ISMPReportInformation.strComplianceManager = AIRBRANCH.EPDUserProfiles.nuMUserID " &
-           "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
+           "from EPDUserProfiles, ISMPReportInformation   " &
+           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
+           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
            "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
            "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
            "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
@@ -7891,50 +7891,50 @@ Public Class IAIPPrintOut
            "strComplianceStatement as ComplianceStatement,  " &
            "strControlEquipmentData,  " &
            "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.EPDUserProfiles  " &
-           "where AIRBRANCH.ISMPReportInformation.strCC = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-          "AIRBRANCH.ISMPReportPondAndGas.strReferencenumber, strMaxoperatingCapacity, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportPondAndGas " &
+           "from ISMPReportInformation, EPDUserProfiles  " &
+           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
+           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
+          "ISMPReportPondAndGas.strReferencenumber, strMaxoperatingCapacity, " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
             "where strUnitkey = strMaxOperatingCapacityUnit " &
-            "and AIRBRANCH.ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
+            "and ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
             "strOperatingCapacity, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportPondAndGas " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
             "where strUnitkey = strOperatingCapacityUnit " &
-            "and AIRBRANCH.ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
+            "and ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
             "strAllowableEmissionRate1, strAllowableEmissionRate2, strAllowableEmissionRate3, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportPondAndGas " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
             "where strUnitkey = strAllowableEmissionRateUnit1 " &
-            "and AIRBRANCH.ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportPondAndGas " &
+            "and ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
             "where strUnitkey = strAllowableEmissionRateUnit2 " &
-            "and AIRBRANCH.ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit2, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportPondAndGas " &
+            "and ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit2, " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
             "where strUnitkey = strAllowableEmissionRateUnit3 " &
-            "and AIRBRANCH.ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit3, " &
+            "and ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit3, " &
             "strRunNumber1a, strRunNumber1b, strRunNumber1c, " &
             "strPollutantConcentration1A, strPollutantConcentration1B, strPollutantConcentration1C, " &
-            "(Select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportPondAndGas " &
+            "(Select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
             "where strUnitkey = strPollutantConcentrationUnit " &
-            "and AIRBRANCH.ISMPReportPondAndGas.strReferenceNumber = '" & txtReferenceNumber.Text & "') as POllutantConcentrationUnit, " &
+            "and ISMPReportPondAndGas.strReferenceNumber = '" & txtReferenceNumber.Text & "') as POllutantConcentrationUnit, " &
             "strPOllutantConcentrationAvg, " &
             "strEmissionRate1A, strEmissionRate1B, strEmissionRate1C, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportPondAndGas " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
             "where strUnitKey = strEmissionRateUnit " &
-            "and AIRBRANCH.ISMPReportPondAndGas.strReferenceNumber = '" & txtReferenceNumber.Text & "') as EmissionRateUnit, " &
+            "and ISMPReportPondAndGas.strReferenceNumber = '" & txtReferenceNumber.Text & "') as EmissionRateUnit, " &
             "strEmissionRateAvg, strPercentAllowable, strConfidentialData " &
-           "From AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation,  " &
-           "AIRBRANCH.ISMPReportInformation, AIRBRANCH.LookUpPollutants,  " &
-           "AIRBRANCH.ISMPReportType, AIRBRANCH.EPDUserProfiles,  " &
-           "AIRBRANCH.LookUpISMPComplianceStatus, AIRBRANCH.ISMPReportPondAndGas   " &
-           "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPReportInformation.strPollutant = AIRBRANCH.LookUpPollutants.strPollutantCode  " &
-           "and AIRBRANCH.ISMPReportInformation.strReportType = AIRBRANCH.ISMPReportType.strKey  " &
-           "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPReportInformation.strComplianceStatus = AIRBRANCH.LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportPondAndGas.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+           "From ISMPMaster, APBFacilityInformation,  " &
+           "ISMPReportInformation, LookUpPollutants,  " &
+           "ISMPReportType, EPDUserProfiles,  " &
+           "LookUpISMPComplianceStatus, ISMPReportPondAndGas   " &
+           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
+           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
+           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
+           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
+           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportPondAndGas.strReferenceNumber  " &
+           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -8668,8 +8668,8 @@ Public Class IAIPPrintOut
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
                     "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
-                    "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                    "from ISMPWitnessingEng, EPDUserProfiles " &
+                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -8766,42 +8766,42 @@ Public Class IAIPPrintOut
             ParameterFields = New CrystalDecisions.Shared.ParameterFields
 
             SQL = "Select " &
-            "AIRBRANCH.ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "AIRBRANCH.APBFacilityInformation.strFacilityName as FacilityName, " &
+            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
+            "APBFacilityInformation.strFacilityName as FacilityName, " &
             "strFacilityCity as FacilityCity, " &
              "strFacilityState as FacilityState, " &
             "strPollutantDescription as PollutantDescription, " &
             "strEmissionSource, " &
-            "AIRBRANCH.ISMPReportType.strReportType, " &
+            "ISMPReportType.strReportType, " &
            "strApplicableRequirement, " &
            "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
+             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
            "Else " &
              "(select (strFirstName||' '||strLastName) " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-             "where AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
+             "from EPDUserProfiles, ISMPReportInformation " &
+             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
            "End as WitnessingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
            "Else  " &
              "'M/W' " &
            "End WitnessingEngineer2,     " &
            "Case  " &
-             "when AIRBRANCH.ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
+             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
            "Else  " &
              "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-             "where AIRBRANCH.ISMPReportInformation.numReviewingManager = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
+             "from EPDUserProfiles, ISMPReportInformation  " &
+             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
            "END UnitManager,  " &
            "datReviewedByUnitManager,  " &
            "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation   " &
-           "where AIRBRANCH.ISMPReportInformation.strComplianceManager = AIRBRANCH.EPDUserProfiles.nuMUserID " &
-           "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
+           "from EPDUserProfiles, ISMPReportInformation   " &
+           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
+           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
            "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
            "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
            "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
@@ -8810,39 +8810,39 @@ Public Class IAIPPrintOut
            "strComplianceStatement as ComplianceStatement,  " &
            "strControlEquipmentData,  " &
            "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.EPDUserProfiles  " &
-           "where AIRBRANCH.ISMPReportInformation.strCC = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-          "AIRBRANCH.ISMPReportFlare.strReferencenumber, strMaxoperatingCapacity, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportFlare " &
+           "from ISMPReportInformation, EPDUserProfiles  " &
+           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
+           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
+          "ISMPReportFlare.strReferencenumber, strMaxoperatingCapacity, " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportFlare " &
             "where strUnitkey = strMaxOperatingCapacityUnit " &
-            "and AIRBRANCH.ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
+            "and ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
             "strOperatingCapacity, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportFlare " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportFlare " &
             "where strUnitkey = strOperatingCapacityUnit " &
-            "and AIRBRANCH.ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
+            "and ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
             "strLimitationVelocity, strLimitationHeatCapacity, " &
             "strHeatingValue1A, strHeatingValue2A, strHeatingValue3A, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportFlare " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportFlare " &
             "where strUnitkey = strHeatingValueUnits " &
-            "and AIRBRANCH.ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as HeatingValueUnits, " &
+            "and ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as HeatingValueUnits, " &
             "strHeatingValueAvg, strVelocity1A, strVelocity2A, strVelocity3A, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportFlare " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportFlare " &
             "where strUnitkey = strVelocityUnits " &
-            "and AIRBRANCH.ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as VelocityUnits, " &
+            "and ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as VelocityUnits, " &
             "strVelocityAvg, strPercentAllowable, strConfidentialData " &
-           "From AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation,  " &
-           "AIRBRANCH.ISMPReportInformation, AIRBRANCH.LookUpPollutants,  " &
-           "AIRBRANCH.ISMPReportType, AIRBRANCH.EPDUserProfiles,  " &
-           "AIRBRANCH.LookUpISMPComplianceStatus, AIRBRANCH.ISMPReportFlare   " &
-           "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPReportInformation.strPollutant = AIRBRANCH.LookUpPollutants.strPollutantCode  " &
-           "and AIRBRANCH.ISMPReportInformation.strReportType = AIRBRANCH.ISMPReportType.strKey  " &
-           "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPReportInformation.strComplianceStatus = AIRBRANCH.LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportFlare.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+           "From ISMPMaster, APBFacilityInformation,  " &
+           "ISMPReportInformation, LookUpPollutants,  " &
+           "ISMPReportType, EPDUserProfiles,  " &
+           "LookUpISMPComplianceStatus, ISMPReportFlare   " &
+           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
+           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
+           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
+           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
+           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportFlare.strReferenceNumber  " &
+           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -9441,8 +9441,8 @@ Public Class IAIPPrintOut
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
                     "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
-                    "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                    "from ISMPWitnessingEng, EPDUserProfiles " &
+                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -9534,42 +9534,42 @@ Public Class IAIPPrintOut
             ParameterFields = New CrystalDecisions.Shared.ParameterFields
 
             SQL = "Select " &
-            "AIRBRANCH.ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "AIRBRANCH.APBFacilityInformation.strFacilityName as FacilityName, " &
+            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
+            "APBFacilityInformation.strFacilityName as FacilityName, " &
             "strFacilityCity as FacilityCity, " &
              "strFacilityState as FacilityState, " &
             "strPollutantDescription as PollutantDescription, " &
             "strEmissionSource, " &
-            "AIRBRANCH.ISMPReportType.strReportType, " &
+            "ISMPReportType.strReportType, " &
            "strApplicableRequirement, " &
            "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
+             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
            "Else " &
              "(select (strFirstName||' '||strLastName) " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-             "where AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
+             "from EPDUserProfiles, ISMPReportInformation " &
+             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
            "End as WitnessingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
            "Else  " &
              "'M/W' " &
            "End WitnessingEngineer2,     " &
            "Case  " &
-             "when AIRBRANCH.ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
+             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
            "Else  " &
              "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-             "where AIRBRANCH.ISMPReportInformation.numReviewingManager = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
+             "from EPDUserProfiles, ISMPReportInformation  " &
+             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
            "END UnitManager,  " &
            "datReviewedByUnitManager,  " &
            "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation   " &
-           "where AIRBRANCH.ISMPReportInformation.strComplianceManager = AIRBRANCH.EPDUserProfiles.nuMUserID " &
-           "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
+           "from EPDUserProfiles, ISMPReportInformation   " &
+           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
+           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
            "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
            "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
            "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
@@ -9578,22 +9578,22 @@ Public Class IAIPPrintOut
            "strComplianceStatement as ComplianceStatement,  " &
            "strControlEquipmentData,  " &
            "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.EPDUserProfiles  " &
-           "where AIRBRANCH.ISMPReportInformation.strCC = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-         "AIRBRANCH.ISMPREportMemo.strReferencenumber, strMemorandumField, strConfidentialData " &
-           "From AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation,  " &
-           "AIRBRANCH.ISMPReportInformation, AIRBRANCH.LookUpPollutants,  " &
-           "AIRBRANCH.ISMPReportType, AIRBRANCH.EPDUserProfiles,  " &
-           "AIRBRANCH.LookUpISMPComplianceStatus, AIRBRANCH.ISMPREportMemo   " &
-           "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPReportInformation.strPollutant = AIRBRANCH.LookUpPollutants.strPollutantCode  " &
-           "and AIRBRANCH.ISMPReportInformation.strReportType = AIRBRANCH.ISMPReportType.strKey  " &
-           "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPReportInformation.strComplianceStatus = AIRBRANCH.LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPREportMemo.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+           "from ISMPReportInformation, EPDUserProfiles  " &
+           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
+           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
+         "ISMPREportMemo.strReferencenumber, strMemorandumField, strConfidentialData " &
+           "From ISMPMaster, APBFacilityInformation,  " &
+           "ISMPReportInformation, LookUpPollutants,  " &
+           "ISMPReportType, EPDUserProfiles,  " &
+           "LookUpISMPComplianceStatus, ISMPREportMemo   " &
+           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
+           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
+           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
+           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
+           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
+           "and ISMPMaster.strReferenceNumber = ISMPREportMemo.strReferenceNumber  " &
+           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -9940,8 +9940,8 @@ Public Class IAIPPrintOut
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
                     "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
-                    "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                    "from ISMPWitnessingEng, EPDUserProfiles " &
+                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -10035,42 +10035,42 @@ Public Class IAIPPrintOut
             ParameterFields = New CrystalDecisions.Shared.ParameterFields
 
             SQL = "Select " &
-            "AIRBRANCH.ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "AIRBRANCH.APBFacilityInformation.strFacilityName as FacilityName, " &
+            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
+            "APBFacilityInformation.strFacilityName as FacilityName, " &
             "strFacilityCity as FacilityCity, " &
              "strFacilityState as FacilityState, " &
             "strPollutantDescription as PollutantDescription, " &
             "strEmissionSource, " &
-            "AIRBRANCH.ISMPReportType.strReportType, " &
+            "ISMPReportType.strReportType, " &
            "strApplicableRequirement, " &
            "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
+             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
            "Else " &
              "(select (strFirstName||' '||strLastName) " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-             "where AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
+             "from EPDUserProfiles, ISMPReportInformation " &
+             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
            "End as WitnessingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
            "Else  " &
              "'M/W' " &
            "End WitnessingEngineer2,     " &
            "Case  " &
-             "when AIRBRANCH.ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
+             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
            "Else  " &
              "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-             "where AIRBRANCH.ISMPReportInformation.numReviewingManager = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
+             "from EPDUserProfiles, ISMPReportInformation  " &
+             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
            "END UnitManager,  " &
            "datReviewedByUnitManager,  " &
            "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation   " &
-           "where AIRBRANCH.ISMPReportInformation.strComplianceManager = AIRBRANCH.EPDUserProfiles.nuMUserID " &
-           "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
+           "from EPDUserProfiles, ISMPReportInformation   " &
+           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
+           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
            "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
            "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
            "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
@@ -10079,23 +10079,23 @@ Public Class IAIPPrintOut
            "strComplianceStatement as ComplianceStatement,  " &
            "strControlEquipmentData,  " &
            "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.EPDUserProfiles  " &
-           "where AIRBRANCH.ISMPReportInformation.strCC = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-        "AIRBRANCH.ISMPREportMemo.strReferencenumber, strMemorandumField, " &
+           "from ISMPReportInformation, EPDUserProfiles  " &
+           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
+           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
+        "ISMPREportMemo.strReferencenumber, strMemorandumField, " &
       "strMonitormanufactureandmodel, strmonitorserialnumber, strConfidentialData " &
-           "From AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation,  " &
-           "AIRBRANCH.ISMPReportInformation, AIRBRANCH.LookUpPollutants,  " &
-           "AIRBRANCH.ISMPReportType, AIRBRANCH.EPDUserProfiles,  " &
-           "AIRBRANCH.LookUpISMPComplianceStatus, AIRBRANCH.ISMPREportMemo   " &
-           "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPReportInformation.strPollutant = AIRBRANCH.LookUpPollutants.strPollutantCode  " &
-           "and AIRBRANCH.ISMPReportInformation.strReportType = AIRBRANCH.ISMPReportType.strKey  " &
-           "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPReportInformation.strComplianceStatus = AIRBRANCH.LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPREportMemo.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+           "From ISMPMaster, APBFacilityInformation,  " &
+           "ISMPReportInformation, LookUpPollutants,  " &
+           "ISMPReportType, EPDUserProfiles,  " &
+           "LookUpISMPComplianceStatus, ISMPREportMemo   " &
+           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
+           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
+           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
+           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
+           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
+           "and ISMPMaster.strReferenceNumber = ISMPREportMemo.strReferenceNumber  " &
+           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -10461,8 +10461,8 @@ Public Class IAIPPrintOut
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
                     "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
-                    "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                    "from ISMPWitnessingEng, EPDUserProfiles " &
+                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -10556,42 +10556,42 @@ Public Class IAIPPrintOut
             ParameterFields = New CrystalDecisions.Shared.ParameterFields
 
             SQL = "Select " &
-            "AIRBRANCH.ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "AIRBRANCH.APBFacilityInformation.strFacilityName as FacilityName, " &
+            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
+            "APBFacilityInformation.strFacilityName as FacilityName, " &
             "strFacilityCity as FacilityCity, " &
              "strFacilityState as FacilityState, " &
             "strPollutantDescription as PollutantDescription, " &
             "strEmissionSource, " &
-            "AIRBRANCH.ISMPReportType.strReportType, " &
+            "ISMPReportType.strReportType, " &
            "strApplicableRequirement, " &
            "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
+             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
            "Else " &
              "(select (strFirstName||' '||strLastName) " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-             "where AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
+             "from EPDUserProfiles, ISMPReportInformation " &
+             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
            "End as WitnessingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
            "Else  " &
              "'M/W' " &
            "End WitnessingEngineer2,     " &
            "Case  " &
-             "when AIRBRANCH.ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
+             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
            "Else  " &
              "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-             "where AIRBRANCH.ISMPReportInformation.numReviewingManager = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
+             "from EPDUserProfiles, ISMPReportInformation  " &
+             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
            "END UnitManager,  " &
            "datReviewedByUnitManager,  " &
            "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation   " &
-           "where AIRBRANCH.ISMPReportInformation.strComplianceManager = AIRBRANCH.EPDUserProfiles.nuMUserID " &
-           "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
+           "from EPDUserProfiles, ISMPReportInformation   " &
+           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
+           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
            "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
            "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
            "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
@@ -10600,41 +10600,41 @@ Public Class IAIPPrintOut
            "strComplianceStatement as ComplianceStatement,  " &
            "strControlEquipmentData,  " &
            "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.EPDUserProfiles  " &
-           "where AIRBRANCH.ISMPReportInformation.strCC = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-       "AIRBRANCH.ISMPREportMemo.strReferencenumber, strMemorandumField, " &
+           "from ISMPReportInformation, EPDUserProfiles  " &
+           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
+           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
+       "ISMPREportMemo.strReferencenumber, strMemorandumField, " &
       "strMaxoperatingCapacity, " &
-      "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPREportMemo " &
+      "(select strUnitDescription from LookUPUnits, ISMPREportMemo " &
       "where strUnitkey = strMaxOperatingCapacityUnit " &
-      "and AIRBRANCH.ISMPREportMemo.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
+      "and ISMPREportMemo.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
       "strOperatingCapacity, " &
-      "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPREportMemo " &
+      "(select strUnitDescription from LookUPUnits, ISMPREportMemo " &
       "where strUnitkey = strOperatingCapacityUnit " &
-      "and AIRBRANCH.ISMPREportMemo.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
+      "and ISMPREportMemo.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
       "strAllowableEmissionrate1A, strAllowableEmissionRate1B, strAllowableEmissionRate1C, " &
-      "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPREportMemo " &
+      "(select strUnitDescription from LookUPUnits, ISMPREportMemo " &
       "where strUnitkey = strAllowableEmissionRateUnit1A " &
-      "and AIRBRANCH.ISMPREportMemo.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
-      "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPREportMemo " &
+      "and ISMPREportMemo.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
+      "(select strUnitDescription from LookUPUnits, ISMPREportMemo " &
       "where strUnitkey = strAllowableEmissionRateUnit1B " &
-      "and AIRBRANCH.ISMPREportMemo.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit2, " &
-      "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPREportMemo " &
+      "and ISMPREportMemo.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit2, " &
+      "(select strUnitDescription from LookUPUnits, ISMPREportMemo " &
       "where strUnitkey = strAllowableEmissionRateUnit1C " &
-      "and AIRBRANCH.ISMPREportMemo.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit3, " &
+      "and ISMPREportMemo.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit3, " &
       "strConfidentialData " &
-           "From AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation,  " &
-           "AIRBRANCH.ISMPReportInformation, AIRBRANCH.LookUpPollutants,  " &
-           "AIRBRANCH.ISMPReportType, AIRBRANCH.EPDUserProfiles,  " &
-           "AIRBRANCH.LookUpISMPComplianceStatus, AIRBRANCH.ISMPREportMemo   " &
-           "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPReportInformation.strPollutant = AIRBRANCH.LookUpPollutants.strPollutantCode  " &
-           "and AIRBRANCH.ISMPReportInformation.strReportType = AIRBRANCH.ISMPReportType.strKey  " &
-           "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPReportInformation.strComplianceStatus = AIRBRANCH.LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPREportMemo.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+           "From ISMPMaster, APBFacilityInformation,  " &
+           "ISMPReportInformation, LookUpPollutants,  " &
+           "ISMPReportType, EPDUserProfiles,  " &
+           "LookUpISMPComplianceStatus, ISMPREportMemo   " &
+           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
+           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
+           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
+           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
+           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
+           "and ISMPMaster.strReferenceNumber = ISMPREportMemo.strReferenceNumber  " &
+           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -11179,8 +11179,8 @@ Public Class IAIPPrintOut
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
                     "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
-                    "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                    "from ISMPWitnessingEng, EPDUserProfiles " &
+                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -11271,79 +11271,79 @@ Public Class IAIPPrintOut
             ParameterFields = New CrystalDecisions.Shared.ParameterFields
 
             SQL = "Select " &
-            "AIRBRANCH.ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "AIRBRANCH.APBFacilityInformation.strFacilityName as FacilityName, " &
+            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
+            "APBFacilityInformation.strFacilityName as FacilityName, " &
             "strFacilityCity as FacilityCity, " &
              "strFacilityState as FacilityState, " &
             "strPollutantDescription as PollutantDescription, " &
             "strEmissionSource, " &
-            "AIRBRANCH.ISMPReportType.strReportType, " &
+            "ISMPReportType.strReportType, " &
            "strApplicableRequirement, " &
            "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
+             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
            "Else " &
              "(select (strFirstName||' '||strLastName) " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-             "where AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
+             "from EPDUserProfiles, ISMPReportInformation " &
+             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
            "End as WitnessingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
            "Else  " &
              "'M/W' " &
            "End WitnessingEngineer2,     " &
            "Case  " &
-             "when AIRBRANCH.ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
+             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
            "Else  " &
              "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-             "where AIRBRANCH.ISMPReportInformation.numReviewingManager = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
+             "from EPDUserProfiles, ISMPReportInformation  " &
+             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
            "END UnitManager,  " &
            "datReviewedByUnitManager,  " &
            "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation   " &
-           "where AIRBRANCH.ISMPReportInformation.strComplianceManager = AIRBRANCH.EPDUserProfiles.nuMUserID " &
-           "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
+           "from EPDUserProfiles, ISMPReportInformation   " &
+           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
+           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
            "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
            "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
            "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
            "datCompleteDate,  " &
            "mmoCommentArea, strCommissioner, strDirector, strProgramManager,  " &
            "strComplianceStatement as ComplianceStatement,  " &
-           "(Select AIRBRANCH.LookUPISMPComplianceStatus.strComplianceStatus " &
-           "from AIRBRANCH.LookUPISMPComplianceStatus, AIRBRANCH.ISMPReportInformation " &
-           "where AIRBRANCH.LookUPISMPComplianceStatus.strComplianceKey = AIRBRANCH.ISMPReportInformation.strComplianceStatus " &
-            "and AIRBRANCH.ISMPReportInformation.strReferencenumber = '" & txtReferenceNumber.Text & "') as ComplianceStatement2, " &
+           "(Select LookUPISMPComplianceStatus.strComplianceStatus " &
+           "from LookUPISMPComplianceStatus, ISMPReportInformation " &
+           "where LookUPISMPComplianceStatus.strComplianceKey = ISMPReportInformation.strComplianceStatus " &
+            "and ISMPReportInformation.strReferencenumber = '" & txtReferenceNumber.Text & "') as ComplianceStatement2, " &
            "strControlEquipmentData,  " &
            "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.EPDUserProfiles  " &
-           "where AIRBRANCH.ISMPReportInformation.strCC = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-       "AIRBRANCH.ISMPREportOpacity.strReferencenumber, strMaxOperatingCapacity1A, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPREportOpacity " &
+           "from ISMPReportInformation, EPDUserProfiles  " &
+           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
+           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
+       "ISMPREportOpacity.strReferencenumber, strMaxOperatingCapacity1A, " &
+            "(select strUnitDescription from LookUPUnits, ISMPREportOpacity " &
             "where strUnitkey = strMaxOperatingCapacityUnit " &
-            "and AIRBRANCH.ISMPREportOpacity.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
+            "and ISMPREportOpacity.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
             "strOperatingCapacity1A, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPREportOpacity " &
+            "(select strUnitDescription from LookUPUnits, ISMPREportOpacity " &
             "where strUnitkey = strOperatingCapacityUnit " &
-            "and AIRBRANCH.ISMPREportOpacity.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
+            "and ISMPREportOpacity.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
             "STRALLOWABLEEMISSIONRATE22, " &
             "strOpacityTestDuration, strAccumulatedEmissionTime, strConfidentialData " &
-           "From AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation,  " &
-           "AIRBRANCH.ISMPReportInformation, AIRBRANCH.LookUpPollutants,  " &
-           "AIRBRANCH.ISMPReportType, AIRBRANCH.EPDUserProfiles,  " &
-           "AIRBRANCH.LookUpISMPComplianceStatus, AIRBRANCH.ISMPREportOpacity   " &
-           "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPReportInformation.strPollutant = AIRBRANCH.LookUpPollutants.strPollutantCode  " &
-           "and AIRBRANCH.ISMPReportInformation.strReportType = AIRBRANCH.ISMPReportType.strKey  " &
-           "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPReportInformation.strComplianceStatus = AIRBRANCH.LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPREportOpacity.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+           "From ISMPMaster, APBFacilityInformation,  " &
+           "ISMPReportInformation, LookUpPollutants,  " &
+           "ISMPReportType, EPDUserProfiles,  " &
+           "LookUpISMPComplianceStatus, ISMPREportOpacity   " &
+           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
+           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
+           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
+           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
+           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
+           "and ISMPMaster.strReferenceNumber = ISMPREportOpacity.strReferenceNumber  " &
+           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -11803,8 +11803,8 @@ Public Class IAIPPrintOut
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
                     "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
-                    "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                    "from ISMPWitnessingEng, EPDUserProfiles " &
+                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -11897,83 +11897,83 @@ Public Class IAIPPrintOut
             ParameterFields = New CrystalDecisions.Shared.ParameterFields
 
             SQL = "Select " &
-            "AIRBRANCH.ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "AIRBRANCH.APBFacilityInformation.strFacilityName as FacilityName, " &
+            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
+            "APBFacilityInformation.strFacilityName as FacilityName, " &
             "strFacilityCity as FacilityCity, " &
              "strFacilityState as FacilityState, " &
             "strPollutantDescription as PollutantDescription, " &
             "strEmissionSource, " &
-            "AIRBRANCH.ISMPReportType.strReportType, " &
+            "ISMPReportType.strReportType, " &
            "strApplicableRequirement, " &
            "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
+             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
            "Else " &
              "(select (strFirstName||' '||strLastName) " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-             "where AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
+             "from EPDUserProfiles, ISMPReportInformation " &
+             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
            "End as WitnessingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
            "Else  " &
              "'M/W' " &
            "End WitnessingEngineer2,     " &
            "Case  " &
-             "when AIRBRANCH.ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
+             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
            "Else  " &
              "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-             "where AIRBRANCH.ISMPReportInformation.numReviewingManager = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
+             "from EPDUserProfiles, ISMPReportInformation  " &
+             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
            "END UnitManager,  " &
            "datReviewedByUnitManager,  " &
            "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation   " &
-           "where AIRBRANCH.ISMPReportInformation.strComplianceManager = AIRBRANCH.EPDUserProfiles.nuMUserID " &
-           "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
+           "from EPDUserProfiles, ISMPReportInformation   " &
+           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
+           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
            "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
            "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
            "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
            "datCompleteDate,  " &
            "mmoCommentArea, strCommissioner, strDirector, strProgramManager,  " &
            "strComplianceStatement as ComplianceStatement,  " &
-           "(Select AIRBRANCH.LookUPISMPComplianceStatus.strComplianceStatus " &
-           "from AIRBRANCH.LookUPISMPComplianceStatus, AIRBRANCH.ISMPReportInformation " &
-           "where AIRBRANCH.LookUPISMPComplianceStatus.strComplianceKey = AIRBRANCH.ISMPReportInformation.strComplianceStatus " &
-           "and AIRBRANCH.ISMPReportInformation.strReferencenumber = '" & txtReferenceNumber.Text & "') as ComplianceStatement2, " &
+           "(Select LookUPISMPComplianceStatus.strComplianceStatus " &
+           "from LookUPISMPComplianceStatus, ISMPReportInformation " &
+           "where LookUPISMPComplianceStatus.strComplianceKey = ISMPReportInformation.strComplianceStatus " &
+           "and ISMPReportInformation.strReferencenumber = '" & txtReferenceNumber.Text & "') as ComplianceStatement2, " &
            "strControlEquipmentData,  " &
            "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.EPDUserProfiles  " &
-           "where AIRBRANCH.ISMPReportInformation.strCC = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-           "AIRBRANCH.ISMPREportOpacity.strReferencenumber, strMaxOperatingCapacity1A, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPREportOpacity " &
+           "from ISMPReportInformation, EPDUserProfiles  " &
+           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
+           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
+           "ISMPREportOpacity.strReferencenumber, strMaxOperatingCapacity1A, " &
+            "(select strUnitDescription from LookUPUnits, ISMPREportOpacity " &
             "where strUnitkey = strMaxOperatingCapacityUnit " &
-            "and AIRBRANCH.ISMPREportOpacity.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
+            "and ISMPREportOpacity.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
             "strOperatingCapacity1A, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPREportOpacity " &
+            "(select strUnitDescription from LookUPUnits, ISMPREportOpacity " &
             "where strUnitkey = strOperatingCapacityUnit " &
-            "and AIRBRANCH.ISMPREportOpacity.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
+            "and ISMPREportOpacity.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
             "strAllowableEmissionRate1A, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPREportOpacity " &
+            "(select strUnitDescription from LookUPUnits, ISMPREportOpacity " &
             "where strUnitkey = strAllowableEmissionRateUnit " &
-            "and AIRBRANCH.ISMPREportOpacity.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
+            "and ISMPREportOpacity.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
             "strOpacityTestDuration, " &
             "strOpacityPointA, strConfidentialData, strOpacityStandard  " &
-           "From AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation,  " &
-           "AIRBRANCH.ISMPReportInformation, AIRBRANCH.LookUpPollutants,  " &
-           "AIRBRANCH.ISMPReportType, AIRBRANCH.EPDUserProfiles,  " &
-           "AIRBRANCH.LookUpISMPComplianceStatus, AIRBRANCH.ISMPREportOpacity   " &
-           "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPReportInformation.strPollutant = AIRBRANCH.LookUpPollutants.strPollutantCode  " &
-           "and AIRBRANCH.ISMPReportInformation.strReportType = AIRBRANCH.ISMPReportType.strKey  " &
-           "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPReportInformation.strComplianceStatus = AIRBRANCH.LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPREportOpacity.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+           "From ISMPMaster, APBFacilityInformation,  " &
+           "ISMPReportInformation, LookUpPollutants,  " &
+           "ISMPReportType, EPDUserProfiles,  " &
+           "LookUpISMPComplianceStatus, ISMPREportOpacity   " &
+           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
+           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
+           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
+           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
+           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
+           "and ISMPMaster.strReferenceNumber = ISMPREportOpacity.strReferenceNumber  " &
+           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -12484,8 +12484,8 @@ Public Class IAIPPrintOut
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
                     "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
-                    "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                    "from ISMPWitnessingEng, EPDUserProfiles " &
+                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -12579,93 +12579,93 @@ Public Class IAIPPrintOut
             ParameterFields = New CrystalDecisions.Shared.ParameterFields
 
             SQL = "Select " &
-            "AIRBRANCH.ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "AIRBRANCH.APBFacilityInformation.strFacilityName as FacilityName, " &
+            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
+            "APBFacilityInformation.strFacilityName as FacilityName, " &
             "strFacilityCity as FacilityCity, " &
              "strFacilityState as FacilityState, " &
             "strPollutantDescription as PollutantDescription, " &
             "strEmissionSource, " &
-            "AIRBRANCH.ISMPReportType.strReportType, " &
+            "ISMPReportType.strReportType, " &
            "strApplicableRequirement, " &
            "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
+             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
            "Else " &
              "(select (strFirstName||' '||strLastName) " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-             "where AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
+             "from EPDUserProfiles, ISMPReportInformation " &
+             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
            "End as WitnessingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
            "Else  " &
              "'M/W' " &
            "End WitnessingEngineer2,     " &
            "Case  " &
-             "when AIRBRANCH.ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
+             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
            "Else  " &
              "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-             "where AIRBRANCH.ISMPReportInformation.numReviewingManager = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
+             "from EPDUserProfiles, ISMPReportInformation  " &
+             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
            "END UnitManager,  " &
            "datReviewedByUnitManager,  " &
            "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation   " &
-           "where AIRBRANCH.ISMPReportInformation.strComplianceManager = AIRBRANCH.EPDUserProfiles.nuMUserID " &
-           "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
+           "from EPDUserProfiles, ISMPReportInformation   " &
+           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
+           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
            "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
            "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
            "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
            "datCompleteDate,  " &
            "mmoCommentArea, strCommissioner, strDirector, strProgramManager,  " &
            "strComplianceStatement as ComplianceStatement,  " &
-           "(Select AIRBRANCH.LookUPISMPComplianceStatus.strComplianceStatus " &
-           "from AIRBRANCH.LookUPISMPComplianceStatus, AIRBRANCH.ISMPReportInformation " &
-           "where AIRBRANCH.LookUPISMPComplianceStatus.strComplianceKey = AIRBRANCH.ISMPReportInformation.strComplianceStatus " &
-            "and AIRBRANCH.ISMPReportInformation.strReferencenumber = '" & txtReferenceNumber.Text & "') as ComplianceStatement2, " &
+           "(Select LookUPISMPComplianceStatus.strComplianceStatus " &
+           "from LookUPISMPComplianceStatus, ISMPReportInformation " &
+           "where LookUPISMPComplianceStatus.strComplianceKey = ISMPReportInformation.strComplianceStatus " &
+            "and ISMPReportInformation.strReferencenumber = '" & txtReferenceNumber.Text & "') as ComplianceStatement2, " &
            "strControlEquipmentData,  " &
            "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.EPDUserProfiles  " &
-           "where AIRBRANCH.ISMPReportInformation.strCC = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-       "AIRBRANCH.ISMPREportOpacity.strReferencenumber, strMaxOperatingCapacity1A, " &
+           "from ISMPReportInformation, EPDUserProfiles  " &
+           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
+           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
+       "ISMPREportOpacity.strReferencenumber, strMaxOperatingCapacity1A, " &
             "strMaxOperatingCapacity2A, strMaxOperatingCapacity3A, " &
             "strMaxOperatingCapacity4A, strMaxOperatingCapacity5A, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPREportOpacity " &
+            "(select strUnitDescription from LookUPUnits, ISMPREportOpacity " &
             "where strUnitkey = strMaxOperatingCapacityUnit " &
-            "and AIRBRANCH.ISMPREportOpacity.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
+            "and ISMPREportOpacity.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
             "strOperatingCapacity1A, strOperatingCapacity2A, " &
             "strOperatingCapacity3A, strOperatingCapacity4A, " &
             "strOperatingCapacity5A, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPREportOpacity " &
+            "(select strUnitDescription from LookUPUnits, ISMPREportOpacity " &
             "where strUnitkey = strOperatingCapacityUnit " &
-            "and AIRBRANCH.ISMPREportOpacity.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
+            "and ISMPREportOpacity.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
             "strAllowableEmissionRate1A, strAllowableEmissionRate2A, " &
             "strAllowableEmissionRate3A, strAllowableEmissionRate4A, " &
             "strAllowableEmissionRate5A, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPREportOpacity " &
+            "(select strUnitDescription from LookUPUnits, ISMPREportOpacity " &
             "where strUnitkey = strAllowableEmissionRateUnit " &
-            "and AIRBRANCH.ISMPREportOpacity.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
+            "and ISMPREportOpacity.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
             "strOpacityTestDuration, " &
             "strOpacityPointA, strOpacityPointB, strOpacityPointC, " &
             "strOpacityPointD, strOpacityPointE, " &
             "strEquipmentItem1, strEquipmentItem2, strEquipmentItem3, " &
             "strEquipmentItem4, strEquipmentItem5, " &
             "strConfidentialData, strOpacityStandard " &
-           "From AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation,  " &
-           "AIRBRANCH.ISMPReportInformation, AIRBRANCH.LookUpPollutants,  " &
-           "AIRBRANCH.ISMPReportType, AIRBRANCH.EPDUserProfiles,  " &
-           "AIRBRANCH.LookUpISMPComplianceStatus, AIRBRANCH.ISMPREportOpacity   " &
-           "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPReportInformation.strPollutant = AIRBRANCH.LookUpPollutants.strPollutantCode  " &
-           "and AIRBRANCH.ISMPReportInformation.strReportType = AIRBRANCH.ISMPReportType.strKey  " &
-           "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPReportInformation.strComplianceStatus = AIRBRANCH.LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPREportOpacity.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+           "From ISMPMaster, APBFacilityInformation,  " &
+           "ISMPReportInformation, LookUpPollutants,  " &
+           "ISMPReportType, EPDUserProfiles,  " &
+           "LookUpISMPComplianceStatus, ISMPREportOpacity   " &
+           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
+           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
+           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
+           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
+           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
+           "and ISMPMaster.strReferenceNumber = ISMPREportOpacity.strReferenceNumber  " &
+           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -13437,8 +13437,8 @@ Public Class IAIPPrintOut
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
                     "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
-                    "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                    "from ISMPWitnessingEng, EPDUserProfiles " &
+                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -13533,42 +13533,42 @@ Public Class IAIPPrintOut
             ParameterFields = New CrystalDecisions.Shared.ParameterFields
 
             SQL = "Select " &
-            "AIRBRANCH.ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "AIRBRANCH.APBFacilityInformation.strFacilityName as FacilityName, " &
+            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
+            "APBFacilityInformation.strFacilityName as FacilityName, " &
             "strFacilityCity as FacilityCity, " &
              "strFacilityState as FacilityState, " &
             "strPollutantDescription as PollutantDescription, " &
             "strEmissionSource, " &
-            "AIRBRANCH.ISMPReportType.strReportType, " &
+            "ISMPReportType.strReportType, " &
            "strApplicableRequirement, " &
            "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
+             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
            "Else " &
              "(select (strFirstName||' '||strLastName) " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-             "where AIRBRANCH.ISMPReportInformation.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
+             "from EPDUserProfiles, ISMPReportInformation " &
+             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
            "End as WitnessingEngineer, " &
            "Case " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when AIRBRANCH.ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
+             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
            "Else  " &
              "'M/W' " &
            "End WitnessingEngineer2,     " &
            "Case  " &
-             "when AIRBRANCH.ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
+             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
            "Else  " &
              "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-             "where AIRBRANCH.ISMPReportInformation.numReviewingManager = AIRBRANCH.EPDUserProfiles.numUserID " &
-             "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
+             "from EPDUserProfiles, ISMPReportInformation  " &
+             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
+             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
            "END UnitManager,  " &
            "datReviewedByUnitManager,  " &
            "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation   " &
-           "where AIRBRANCH.ISMPReportInformation.strComplianceManager = AIRBRANCH.EPDUserProfiles.nuMUserID " &
-           "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
+           "from EPDUserProfiles, ISMPReportInformation   " &
+           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
+           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
            "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
            "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
            "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
@@ -13577,39 +13577,39 @@ Public Class IAIPPrintOut
            "strComplianceStatement as ComplianceStatement,  " &
            "strControlEquipmentData,  " &
            "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.EPDUserProfiles  " &
-           "where AIRBRANCH.ISMPReportInformation.strCC = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-           "AIRBRANCH.ismpreportinformation.strComplianceStatus, " &
-       "AIRBRANCH.ISMPReportRATA.strReferencenumber, " &
+           "from ISMPReportInformation, EPDUserProfiles  " &
+           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
+           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
+           "ismpreportinformation.strComplianceStatus, " &
+       "ISMPReportRATA.strReferencenumber, " &
             "(Select strPOllutantDescription " &
-            "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportRATA " &
-            "where AIRBRANCH.LookUPPollutants.strPOllutantCode = AIRBRANCH.ISMPReportRATA.strDiluent " &
-            "and AIRBRANCH.ISMPReportRATA.strReferenceNumber = '" & txtReferenceNumber.Text & "') as Diluent, " &
+            "from LookUPPollutants, ISMPReportRATA " &
+            "where LookUPPollutants.strPOllutantCode = ISMPReportRATA.strDiluent " &
+            "and ISMPReportRATA.strReferenceNumber = '" & txtReferenceNumber.Text & "') as Diluent, " &
             "strAPplicableStandard, strRelativeAccuracyPercent, " &
             "strReferenceMethod1, strReferenceMethod2, strReferenceMethod3, " &
             "strReferenceMethod4, strReferenceMethod5, strReferenceMethod6, " &
             "strReferenceMethod7, strReferenceMethod8, strReferenceMethod9, " &
             "strReferenceMethod10, strReferenceMethod11, strReferenceMethod12, " &
-            "(select strUnitDescription from AIRBRANCH.LookUPUnits, AIRBRANCH.ISMPReportRATA " &
+            "(select strUnitDescription from LookUPUnits, ISMPReportRATA " &
             "where strUnitkey = strRataUnits " &
-            "and AIRBRANCH.ISMPReportRATA.strreferencenumber = '" & txtReferenceNumber.Text & "') as RataUnits, " &
+            "and ISMPReportRATA.strreferencenumber = '" & txtReferenceNumber.Text & "') as RataUnits, " &
             "StrCMS1, StrCMS2, StrCMS3, StrCMS4, StrCMS5, StrCMS6, " &
             "StrCMS7, StrCMS8, StrCMS9, StrCMS10, StrCMS11, StrCMS12, " &
             "strAccuracyRequiredPercent, strAccuracyREquiredStatement, strAccuracyChoice, " &
             "strRunsINcludedKey, strConfidentialData " &
-           "From AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation,  " &
-           "AIRBRANCH.ISMPReportInformation, AIRBRANCH.LookUpPollutants,  " &
-           "AIRBRANCH.ISMPReportType, AIRBRANCH.EPDUserProfiles,  " &
-           "AIRBRANCH.LookUpISMPComplianceStatus, AIRBRANCH.ISMPReportRATA   " &
-           "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPReportInformation.strPollutant = AIRBRANCH.LookUpPollutants.strPollutantCode  " &
-           "and AIRBRANCH.ISMPReportInformation.strReportType = AIRBRANCH.ISMPReportType.strKey  " &
-           "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
-           "and AIRBRANCH.ISMPReportInformation.strComplianceStatus = AIRBRANCH.LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportRATA.strReferenceNumber  " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+           "From ISMPMaster, APBFacilityInformation,  " &
+           "ISMPReportInformation, LookUpPollutants,  " &
+           "ISMPReportType, EPDUserProfiles,  " &
+           "LookUpISMPComplianceStatus, ISMPReportRATA   " &
+           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
+           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
+           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
+           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
+           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
+           "and ISMPMaster.strReferenceNumber = ISMPReportRATA.strReferenceNumber  " &
+           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -14581,8 +14581,8 @@ Public Class IAIPPrintOut
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
                     "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUserProfiles " &
-                    "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                    "from ISMPWitnessingEng, EPDUserProfiles " &
+                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -14689,7 +14689,7 @@ Public Class IAIPPrintOut
         Try
             ds = New DataSet
             SQL = "Select * " &
-            "from AIRBRANCH.VW_Title_V_Renewals " &
+            "from VW_Title_V_Renewals " &
             "where datPermitIssued between '" & txtStartDate.Text & "' " &
             "and '" & txtEndDate.Text & "' " &
             "or datEffective between '" & txtStartDate.Text & "' " &
@@ -14697,7 +14697,7 @@ Public Class IAIPPrintOut
 
             If txtSQLLine.Text <> "*" Then
                 SQL = "Select * " &
-                "from AIRBRANCH.VW_Title_V_Renewals " &
+                "from VW_Title_V_Renewals " &
                 "where strApplicationNumber = '" & Replace(txtSQLLine.Text, "'", "''") & "' "
             End If
 
@@ -14714,7 +14714,7 @@ Public Class IAIPPrintOut
             ParameterFields = New CrystalDecisions.Shared.ParameterFields
             SQL = "Select strDirector, strCommissioner, " &
             "strSSPPProgramMang " &
-            "from AIRBRANCH.LookUpAPBManagement "
+            "from LookUpAPBManagement "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
 

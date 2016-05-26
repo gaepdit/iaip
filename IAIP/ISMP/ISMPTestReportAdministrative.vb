@@ -65,7 +65,7 @@ Public Class ISMPTestReportAdministrative
             SQL = "select strFacilityName, substr(strAIRSNumber, 5) as strAIRSNumber, " &
             "strFacilityStreet1, strFacilityCity, strFacilityState, " &
             "strFacilityZipCode " &
-            "from AIRBRANCH.APBFacilityInformation order by strFacilityName"
+            "from APBFacilityInformation order by strFacilityName"
 
             dsFacility = New DataSet
 
@@ -158,8 +158,8 @@ Public Class ISMPTestReportAdministrative
     Private Sub FillPollutantandTestingFirms()
         Try
 
-            SQL = "Select strPollutantCode, strPollutantDescription from AIRBRANCH.LookUPPollutants order by strPollutantDescription"
-            SQL2 = "Select strTestingFirmKey, strTestingFirm from AIRBRANCH.LookUPTestingFirms order by strTestingFirm"
+            SQL = "Select strPollutantCode, strPollutantDescription from LookUPPollutants order by strPollutantDescription"
+            SQL2 = "Select strTestingFirmKey, strTestingFirm from LookUPTestingFirms order by strTestingFirm"
 
             dsPollutant = New DataSet
             dsTestingFirms = New DataSet
@@ -257,19 +257,19 @@ Public Class ISMPTestReportAdministrative
     Private Sub FillDateGrid()
         Dim SQL As String
 
-        SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber, " &
+        SQL = "select ISMPMaster.strReferenceNumber, " &
         "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
         "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-        " substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as StrAIRSNumber, " &
-        "strFacilityName, AIRBRANCH.ISMPDocumentType.strDocumentType " &
-        "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, " &
-        "AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-        "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-        "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-        "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+        " substr(ISMPMaster.strAirsnumber, 5) as StrAIRSNumber, " &
+        "strFacilityName, ISMPDocumentType.strDocumentType " &
+        "from ISMPReportInformation, ISMPDocumentType, " &
+        "ISMPMaster, APBFacilityInformation " &
+        "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+        "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+        "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
         "and strDelete is NULL " &
         "and strClosed = 'False' " &
-        "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+        "order by ISMPMaster.strReferenceNumber"
 
         dsGrid = New DataSet
         daGrid = New SqlDataAdapter(SQL, CurrentConnection)
@@ -302,7 +302,7 @@ Public Class ISMPTestReportAdministrative
                 "strFacilityName, strFacilityStreet1, " &
                 "strFacilityCity, " &
                 "strFacilityState, strFacilityZipcode " &
-                "from AIRBRANCH.APBFacilityInformation " &
+                "from APBFacilityInformation " &
                 "where strAIRSNumber = '0413" & cboAIRSNumber.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -346,7 +346,7 @@ Public Class ISMPTestReportAdministrative
 
                 SQL = "Select strFacilityName, strFacilityStreet1, " &
                 "strFacilityCity, strFacilityState, strFacilityZipCode " &
-                "from AIRBRANCH.APBFacilityInformation " &
+                "from APBFacilityInformation " &
                 "where strAIRSNumber = '0413" & cboAIRSNumber.Text & "'"
 
                 Dim cmd As New SqlCommand(SQL, CurrentConnection)
@@ -396,18 +396,18 @@ Public Class ISMPTestReportAdministrative
 
             If DTPDateReceived.Text <> "" And cboAIRSNumber.Text <> "" Then
                 SQL = "Select " &
-                "AIRBRANCH.ISMPMaster.strReferenceNumber, " &
+                "ISMPMaster.strReferenceNumber, " &
                 "strEmissionSource, strPollutantDescription " &
-                "from AIRBRANCH.ISMPMaster, AIRBRANCH.ISMPReportInformation, " &
-                "AIRBRANCH.LookUPPollutants " &
-                "where AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                "and AIRBRANCH.ISMPReportInformation.strPollutant = AIRBRANCH.LookUPPollutants.strPollutantCode " &
+                "from ISMPMaster, ISMPReportInformation, " &
+                "LookUPPollutants " &
+                "where ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                "and ISMPReportInformation.strPollutant = LookUPPollutants.strPollutantCode " &
                 "and strAIRSNumber = '0413" & cboAIRSNumber.Text & "' " &
                 "and datReceivedDate = '" & DTPDateReceived.Text & "' " &
                 "and strClosed <> 'True' " &
                 "and (strDelete <> 'DELETE' " &
                 "or strDelete is NUll) " &
-                "Order by AIRBRANCH.ISMPMaster.strReferenceNumber "
+                "Order by ISMPMaster.strReferenceNumber "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -444,7 +444,7 @@ Public Class ISMPTestReportAdministrative
             "case when max(strReferenceNumber) is null then to_char(sysdate, 'YYYY')||'00001'  " &
             "else to_char(max(to_number(strReferenceNumber) + 1 )) " &
             "end MaxRefNum  " &
-            "from AIRBRANCH.ISMPMaster  " &
+            "from ISMPMaster  " &
             "where strReferenceNumber like '" & RefYear & "%' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -531,7 +531,7 @@ Public Class ISMPTestReportAdministrative
                     rdbOpenReport.Checked = True
                 End If
 
-                SQL = "Select strReferenceNumber from AIRBRANCH.ISMPMaster where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+                SQL = "Select strReferenceNumber from ISMPMaster where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -542,11 +542,11 @@ Public Class ISMPTestReportAdministrative
                 dr.Close()
 
                 If recExist = True Then
-                    SQL = "Update AIRBRANCH.ISMPMaster set " &
+                    SQL = "Update ISMPMaster set " &
                     "strAIRSNumber = '0413" & AIRSNumber & "' " &
                     "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
 
-                    SQL2 = "Update AIRBRANCH.ISMPReportInformation set " &
+                    SQL2 = "Update ISMPReportInformation set " &
                     "strPollutant = '" & cboPollutant.SelectedValue & "', " &
                     "strEmissionSource = '" & txtEmissionSource.Text & "', " &
                     "strTestingFirm = '" & cboTestingFirms.SelectedValue & "', " &
@@ -558,13 +558,13 @@ Public Class ISMPTestReportAdministrative
                     "strDelete = '' " &
                     "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
                 Else
-                    SQL = "Insert into AIRBRANCH.ISMPMaster values ('" & txtReferenceNumber.Text & "', " &
+                    SQL = "Insert into ISMPMaster values ('" & txtReferenceNumber.Text & "', " &
                     "'0413" & AIRSNumber & "', '" & CurrentUser.UserID & "', " &
                     "'" & OracleDate & "')"
 
                     'This SQl statement was changed on 15-Oct-09 when LookUpAPBManagementType was created. MFloyd
 
-                    SQL2 = "Insert into AIRBRANCH.ISMPReportInformation " &
+                    SQL2 = "Insert into ISMPReportInformation " &
            "(strReferenceNumber, strPollutant, strEmissionSource, " &
            "strReportType, strDocumentType, strApplicableRequirement, " &
            "strTestingFirm, strReviewingEngineer, strWitnessingEngineer, " &
@@ -590,28 +590,28 @@ Public Class ISMPTestReportAdministrative
            "WHEN to_char(TABLE1.STRASSIGNINGMANAGER) <> '1' AND to_char(TABLE1.STRASSIGNINGMANAGER) IS NOT NULL THEN to_char(TABLE1.STRASSIGNINGMANAGER) " &
            " ELSE '337' " &
            "END ManagerResponsible  " &
-           "from AIRBRANCH.LookUPDistricts, AIRBRANCH.LOOKUPDISTRICTINFORMATION,  " &
-           "AIRBRANCH.SSCPDISTRICTRESPONSIBLE,     " &
-           "(select AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRASSIGNINGMANAGER, " &
-           "AIRBRANCH.SSCPINSPECTIONSREQUIRED.strAIRSNumber " &
-           "from AIRBRANCH.SSCPINSPECTIONSREQUIRED, " &
+           "from LookUPDistricts, LOOKUPDISTRICTINFORMATION,  " &
+           "SSCPDISTRICTRESPONSIBLE,     " &
+           "(select SSCPINSPECTIONSREQUIRED.STRASSIGNINGMANAGER, " &
+           "SSCPINSPECTIONSREQUIRED.strAIRSNumber " &
+           "from SSCPINSPECTIONSREQUIRED, " &
            "(select max(INTYEAR) as MAXYEAR, STRAIRSNUMBER " &
-           "from AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
+           "from SSCPINSPECTIONSREQUIRED " &
            "group by STRAIRSNUMBER) MAXRESULTS " &
-           "where AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = MAXRESULTS.STRAIRSNUMBER " &
-           "and AIRBRANCH.SSCPINSPECTIONSREQUIRED.INTYEAR = MAXRESULTS.MAXYEAR) Table1 " &
-           "WHERE AIRBRANCH.LOOKUPDISTRICTINFORMATION.strDistrictCode = AIRBRANCH.LookUPDistricts.strDistrictCode (+) " &
-           "AND AIRBRANCH.SSCPDistrictResponsible.strAIRSNumber = Table1.strAIRSnumber (+) " &
-           "AND SUBSTR(AIRBRANCH.SSCPDistrictResponsible.strAIRSNumber, 5, 3) = strDistrictCounty (+) " &
-           "and AIRBRANCH.SSCPDISTRICTRESPONSIBLE.STRAIRSNUMBER = '0413" & cboAIRSNumber.Text & "'), " &
+           "where SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = MAXRESULTS.STRAIRSNUMBER " &
+           "and SSCPINSPECTIONSREQUIRED.INTYEAR = MAXRESULTS.MAXYEAR) Table1 " &
+           "WHERE LOOKUPDISTRICTINFORMATION.strDistrictCode = LookUPDistricts.strDistrictCode (+) " &
+           "AND SSCPDistrictResponsible.strAIRSNumber = Table1.strAIRSnumber (+) " &
+           "AND SUBSTR(SSCPDistrictResponsible.strAIRSNumber, 5, 3) = strDistrictCounty (+) " &
+           "and SSCPDISTRICTRESPONSIBLE.STRAIRSNUMBER = '0413" & cboAIRSNumber.Text & "'), " &
            "'" & DTPTestDateStart.Text & "', '" & DTPTestDateEnd.Text & "', " &
            "'" & DTPDateReceived.Text & "', " &
            "'04-Jul-1776', 'N/A', '" & RecordStatus & "', " &
-           "(select strManagementName from AIRBRANCH.LookUpAPBManagementType " &
+           "(select strManagementName from LookUpAPBManagementType " &
            "where strKey = '1' and strCurrentContact = '1' ), " &
-           "(select strManagementName from AIRBRANCH.LookUpAPBManagementType " &
+           "(select strManagementName from LookUpAPBManagementType " &
            "where strKey = '2' and strCurrentContact = '1' ), " &
-           "(select strManagementName from AIRBRANCH.LookUpAPBManagementType " &
+           "(select strManagementName from LookUpAPBManagementType " &
            "where strKey = '5' and strCurrentContact = '1' ), " &
            "'01', " &
            "(SELECT " &
@@ -619,20 +619,20 @@ Public Class ISMPTestReportAdministrative
            "WHEN strDistrictResponsible <> 'False' AND strDistrictResponsible IS NOT NULL " &
            "THEN '0' ELSE '0' " &
            "END ManagerResponsible " &
-           "from AIRBRANCH.LookUPDistricts, AIRBRANCH.LOOKUPDISTRICTINFORMATION,  " &
-           "AIRBRANCH.SSCPDistrictResponsible,     " &
-           "(select AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRASSIGNINGMANAGER, " &
-            "AIRBRANCH.SSCPINSPECTIONSREQUIRED.strAIRSNumber " &
-            "from AIRBRANCH.SSCPINSPECTIONSREQUIRED, " &
+           "from LookUPDistricts, LOOKUPDISTRICTINFORMATION,  " &
+           "SSCPDistrictResponsible,     " &
+           "(select SSCPINSPECTIONSREQUIRED.STRASSIGNINGMANAGER, " &
+            "SSCPINSPECTIONSREQUIRED.strAIRSNumber " &
+            "from SSCPINSPECTIONSREQUIRED, " &
             "(select max(INTYEAR) as MAXYEAR, STRAIRSNUMBER " &
-            "from AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
+            "from SSCPINSPECTIONSREQUIRED " &
             "group by STRAIRSNUMBER) MAXRESULTS " &
-            "where AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = MAXRESULTS.STRAIRSNUMBER " &
-            "and AIRBRANCH.SSCPINSPECTIONSREQUIRED.INTYEAR = MAXRESULTS.MAXYEAR) Table1 " &
-           "WHERE AIRBRANCH.LOOKUPDISTRICTINFORMATION.strDistrictCode = AIRBRANCH.LookUPDistricts.strDistrictCode (+) " &
-           "AND AIRBRANCH.SSCPDistrictResponsible.strAIRSNumber = Table1.strAIRSnumber (+) " &
-           "AND SUBSTR(AIRBRANCH.SSCPDistrictResponsible.strAIRSNumber, 5, 3) = strDistrictCounty (+) " &
-           "AND AIRBRANCH.SSCPDistrictResponsible.strAIRSNumber = '0413" & cboAIRSNumber.Text & "'), " &
+            "where SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = MAXRESULTS.STRAIRSNUMBER " &
+            "and SSCPINSPECTIONSREQUIRED.INTYEAR = MAXRESULTS.MAXYEAR) Table1 " &
+           "WHERE LOOKUPDISTRICTINFORMATION.strDistrictCode = LookUPDistricts.strDistrictCode (+) " &
+           "AND SSCPDistrictResponsible.strAIRSNumber = Table1.strAIRSnumber (+) " &
+           "AND SUBSTR(SSCPDistrictResponsible.strAIRSNumber, 5, 3) = strDistrictCounty (+) " &
+           "AND SSCPDistrictResponsible.strAIRSNumber = '0413" & cboAIRSNumber.Text & "'), " &
            "'" & CurrentUser.UserID & "', '" & OracleDate & "', " &
            "'N/A', '', '')"
 
@@ -708,7 +708,7 @@ Public Class ISMPTestReportAdministrative
                         Exit Sub
                     End If
                     SQL = "Select strComplianceStatus " &
-                    "from AIRBRANCH.ISMPReportInformation " &
+                    "from ISMPReportInformation " &
                     "where strReferenceNumber = '" & RefNum & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -730,7 +730,7 @@ Public Class ISMPTestReportAdministrative
                             SQL = ""
                         Case Else
                             SQL = "Select strUpdateStatus " &
-                            "from AIRBRANCH.AFSISMPRecords " &
+                            "from AFSISMPRecords " &
                             "where strReferenceNumber = '" & RefNum & "' "
                             cmd = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
@@ -750,7 +750,7 @@ Public Class ISMPTestReportAdministrative
                                 Case "C"
                                     'Leave it alone
                                 Case "N"
-                                    SQL = "Update AIRBRANCH.AFSISMPRecords set " &
+                                    SQL = "Update AFSISMPRecords set " &
                                     "strUpDateStatus = 'C' " &
                                     "where strReferenceNumber = '" & RefNum & "' "
                                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -761,7 +761,7 @@ Public Class ISMPTestReportAdministrative
                                     dr.Close()
                                 Case ""
                                     SQL = "Select strAFSActionNumber " &
-                                    "from AIRBRANCH.APBSupplamentalData " &
+                                    "from APBSupplamentalData " &
                                     "where strAIRSNumber = '0413" & AIRSNumber & "' "
 
                                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -774,7 +774,7 @@ Public Class ISMPTestReportAdministrative
                                     End While
                                     dr.Close()
 
-                                    SQL = "Insert into AIRBRANCH.AFSISMPRecords " &
+                                    SQL = "Insert into AFSISMPRecords " &
                                     "(strReferenceNumber, strAFSActionNumber, " &
                                     "strUpDateStatus, strModifingPerson, " &
                                     "datModifingDate) " &
@@ -792,7 +792,7 @@ Public Class ISMPTestReportAdministrative
 
                                     AFSActionNumber = CInt(AFSActionNumber) + 1
 
-                                    SQL = "Update AIRBRANCH.APBSupplamentalData set " &
+                                    SQL = "Update APBSupplamentalData set " &
                                     "strAFSActionNumber = '" & AFSActionNumber & "' " &
                                     "where strAIRSNumber = '0413" & AIRSNumber & "' "
 
@@ -818,7 +818,7 @@ Public Class ISMPTestReportAdministrative
                               MsgBoxStyle.Exclamation, "ISMP Test Report Information")
                             Exit Sub
                         Case Else
-                            SQL = "Update AIRBRANCH.ISMPReportInformation set " &
+                            SQL = "Update ISMPReportInformation set " &
                             "strClosed = 'True', " &
                             "datCompleteDate = '" & DTPDateClosed.Text & "' " &
                             "where strReferenceNumber = '" & RefNum.ToString & "' "
@@ -860,7 +860,7 @@ Public Class ISMPTestReportAdministrative
 
             If txtReferenceNumber.Text <> "" Then
 
-                SQL = "Select strAIRSNumber from AIRBRANCH.ISMPMaster where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+                SQL = "Select strAIRSNumber from ISMPMaster where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
                 Dim cmd As New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -878,39 +878,39 @@ Public Class ISMPTestReportAdministrative
 
 
                     SQL = "Select  " &
-              "AIRBRANCH.ISMPReportInformation.strReferenceNumber, " &
+              "ISMPReportInformation.strReferenceNumber, " &
               "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
               "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
               "to_char(datTestDateEnd, 'dd-Mon-yyyy') as forDatTestDateEnd, " &
               "to_char(datReviewedByUnitmanager, 'dd-Mon-yyyy') as forDatReviewedByUnitManager, " &
               "to_char(datCompleteDate, 'dd-Mon-yyyy') as forDateComplete, " &
               "strClosed, " &
-              "AIRBRANCH.ISMpReportType.strReportType, " &
+              "ISMpReportType.strReportType, " &
               "(select (strLastName||', '||strFirstName) as ReviewingEngineer " &
-               "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-               "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer " &
-               "and AIRBRANCH.ISMPReportInformation.strReferencenumber = '" & txtReferenceNumber.Text & "') as ReviewingENgineer,  " &
+               "from EPDUserProfiles, ISMPReportInformation " &
+               "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer " &
+               "and ISMPReportInformation.strReferencenumber = '" & txtReferenceNumber.Text & "') as ReviewingENgineer,  " &
               "(strLastName||', '||strFirstName) as UnitManager, " &
                "strEmissionSource, " &
-               "AIRBRANCH.LookUpTestingFirms.strTestingFirm, " &
-               "AIRBRANCH.LookUpPollutants.strPollutantDescription,  " &
-               "AIRBRANCH.LookUpEPDUnits.strUnitDesc, " &
-               "AIRBRANCH.ISMPDocumentType.strDocumentType, " &
-               "AIRBRANCH.LookUpISMPComplianceStatus.strComplianceStatus " &
-            "from AIRBRANCH.ISMPMaster, AIRBRANCH.ISMPReportInformation, " &
-              "AIRBRANCH.ISMPReportType, AIRBRANCH.LookUpTestingFirms, " &
-              "AIRBRANCH.LookUpPollutants, AIRBRANCH.LookUpEPDUnits, " &
-              "AIRBRANCH.EPDUSerPRofiles, AIRBRANCH.ISMPDocumentType,  " &
-              "AIRBRANCH.LookUpISMpComplianceStatus " &
-            "where AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-              "and AIRBRANCH.ISMPReportInformation.strReportType = AIRBRANCH.ISMpReportType.strKey " &
-              "and AIRBRANCH.ISMPREportINformation.strTestingFirm = AIRBRANCH.LookUpTestingFirms.strTestingFirmKey " &
-              "and AIRBRANCH.ISMPReportInformation.strPollutant = AIRBRANCH.LookUpPollutants.strPollutantCode " &
-              "and AIRBRANCH.ISMPREportInformation.numReviewingManager = AIRBRANCH.EPDUserProfiles.numUserID (+) " &
-              "and AIRBRANCH.EPDUserPRofiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " &
-              "and AIRBRANCH.ISMPReportInformation.strDocumentTYpe = AIRBRANCH.ISMPDocumentType.strKEy " &
-              "and AIRBRANCH.ISMPReportINformation.strComplianceStatus = AIRBRANCH.LookUpISMPComplianceStatus.strComplianceKey " &
-              "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "' "
+               "LookUpTestingFirms.strTestingFirm, " &
+               "LookUpPollutants.strPollutantDescription,  " &
+               "LookUpEPDUnits.strUnitDesc, " &
+               "ISMPDocumentType.strDocumentType, " &
+               "LookUpISMPComplianceStatus.strComplianceStatus " &
+            "from ISMPMaster, ISMPReportInformation, " &
+              "ISMPReportType, LookUpTestingFirms, " &
+              "LookUpPollutants, LookUpEPDUnits, " &
+              "EPDUSerPRofiles, ISMPDocumentType,  " &
+              "LookUpISMpComplianceStatus " &
+            "where ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+              "and ISMPReportInformation.strReportType = ISMpReportType.strKey " &
+              "and ISMPREportINformation.strTestingFirm = LookUpTestingFirms.strTestingFirmKey " &
+              "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode " &
+              "and ISMPREportInformation.numReviewingManager = EPDUserProfiles.numUserID (+) " &
+              "and EPDUserPRofiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
+              "and ISMPReportInformation.strDocumentTYpe = ISMPDocumentType.strKEy " &
+              "and ISMPReportINformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey " &
+              "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -1037,16 +1037,16 @@ Public Class ISMPTestReportAdministrative
                 If DAL.Ismp.StackTestExists(RefNum) Then
                     Dim parameter As New SqlParameter("ref", RefNum)
 
-                    SQL = "Update AIRBRANCH.ISMPReportInformation set " &
+                    SQL = "Update ISMPReportInformation set " &
                         " strDelete = 'DELETE' where strReferenceNumber = :ref"
                     DB.RunCommand(SQL, parameter)
 
-                    SQL = "SELECT STRTRACKINGNUMBER FROM AIRBRANCH.SSCPTESTREPORTS WHERE STRREFERENCENUMBER = :ref"
+                    SQL = "SELECT STRTRACKINGNUMBER FROM SSCPTESTREPORTS WHERE STRREFERENCENUMBER = :ref"
                     Dim trackingNumber As String = DB.GetSingleValue(Of String)(SQL, parameter)
 
                     If trackingNumber IsNot Nothing Then
                         parameter = New SqlParameter("trackingnum", trackingNumber)
-                        SQL = " UPDATE AIRBRANCH.SSCPITEMMASTER SET STRDELETE = '" & Boolean.TrueString & "' " &
+                        SQL = " UPDATE SSCPITEMMASTER SET STRDELETE = '" & Boolean.TrueString & "' " &
                         " WHERE STRTRACKINGNUMBER = :trackingnum "
                         DB.RunCommand(SQL, parameter)
                     End If
@@ -1077,7 +1077,7 @@ Public Class ISMPTestReportAdministrative
             If cboAIRSNumber.Text <> "" Then
                 SQL = "select " &
                 "strTrackingNumber " &
-                "from AIRBRANCH.SSCPTestReports " &
+                "from SSCPTestReports " &
                 "where strReferenceNumber = '" & RefNum & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1093,13 +1093,13 @@ Public Class ISMPTestReportAdministrative
 
                 SQL = "Select " &
                 "numSSCPEngineer " &
-                "from AIRBRANCH.SSCPInspectionsRequired, " &
-                "(select max(intyear) as MaxYear, AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER  " &
-                "from AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
-                "where AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = '0413" & cboAIRSNumber.Text & "' " &
-                "group by AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER ) MaxResults " &
-                "where AIRBRANCH.SSCPINSPECTIONSREQUIRED.strAIRSNumber = '0413" & cboAIRSNumber.Text & "' " &
-                "and AIRBRANCH.SSCPINSPECTIONSREQUIRED.intyear = maxresults.maxyear " &
+                "from SSCPInspectionsRequired, " &
+                "(select max(intyear) as MaxYear, SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER  " &
+                "from SSCPINSPECTIONSREQUIRED " &
+                "where SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = '0413" & cboAIRSNumber.Text & "' " &
+                "group by SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER ) MaxResults " &
+                "where SSCPINSPECTIONSREQUIRED.strAIRSNumber = '0413" & cboAIRSNumber.Text & "' " &
+                "and SSCPINSPECTIONSREQUIRED.intyear = maxresults.maxyear " &
                 "group by numSSCPEngineer "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1116,7 +1116,7 @@ Public Class ISMPTestReportAdministrative
                 dr.Close()
 
                 SQL = "select datSSCPTestReportDue " &
-                "from AIRBRANCH.APBSupplamentalData " &
+                "from APBSupplamentalData " &
                 "where strAIRSNumber = '0413" & cboAIRSNumber.Text & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1135,13 +1135,13 @@ Public Class ISMPTestReportAdministrative
                 End If
                 dr.Close()
 
-                SQL = "Insert into AIRBRANCH.SSCPItemMaster " &
+                SQL = "Insert into SSCPItemMaster " &
                 "(strTrackingNumber, strAIRSNumber, " &
                 "datReceivedDate, strEventType, " &
                 "strResponsibleStaff, datCompleteDate, " &
                 "strModifingPerson, datModifingDate) " &
                 "values " &
-                "(AIRBRANCH.SSCPTrackingNumber.nextval, '0413" & cboAIRSNumber.Text & "', " &
+                "(SSCPTrackingNumber.nextval, '0413" & cboAIRSNumber.Text & "', " &
                 "'" & DTPDateClosed.Text & "', '03', " &
                 "'" & StaffResponsible & "', '', " &
                 "'" & CurrentUser.UserID & "', '" & OracleDate & "')"
@@ -1153,7 +1153,7 @@ Public Class ISMPTestReportAdministrative
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Select AIRBRANCH.SSCPTrackingNumber.currval from dual "
+                SQL = "Select SSCPTrackingNumber.currval from dual "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1165,7 +1165,7 @@ Public Class ISMPTestReportAdministrative
                 End While
                 dr.Close()
 
-                SQL = "Insert into AIRBRANCH.SSCPTestReports " &
+                SQL = "Insert into SSCPTestReports " &
                 "(strTrackingNumber, strReferenceNumber, " &
                 "datTestReportDue, " &
                 "strTestReportComments, strTestReportFollowUp, " &
@@ -1289,17 +1289,17 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber,  " &
+            SQL = "select ISMPMaster.strReferenceNumber,  " &
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
                   "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                  "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                  "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                  "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                  "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                  "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                  "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+                  "substr(ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
+                  "ISMPDocumentType.strDocumentType " &
+                  "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                  "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                  "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                  "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                   "and strDelete = 'DELETE' " &
-                  "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                  "order by ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
@@ -1338,19 +1338,19 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber,  " &
+            SQL = "select ISMPMaster.strReferenceNumber,  " &
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
             "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-            "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-            "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-            "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-            "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+            "substr(ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
+            "ISMPDocumentType.strDocumentType " &
+            "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+            "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+            "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
             "and strDelete is NULL " &
              "and strClosed = 'False' " &
-            "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'Unassigned' " &
-            "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+            "and ISMPDocumentType.strDocumentType = 'Unassigned' " &
+            "order by ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
@@ -1376,19 +1376,19 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber, " &
+            SQL = "select ISMPMaster.strReferenceNumber, " &
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
                  "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                 "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                 "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                 "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                 "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                 "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                 "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+                 "substr(ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
+                 "ISMPDocumentType.strDocumentType " &
+                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                 "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                  "and strDelete is NULL " &
                   "and strClosed = 'False' " &
-                 "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'One Stack (Two Runs)' " &
-                 "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                 "and ISMPDocumentType.strDocumentType = 'One Stack (Two Runs)' " &
+                 "order by ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
@@ -1414,19 +1414,19 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber, " &
+            SQL = "select ISMPMaster.strReferenceNumber, " &
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+                "substr(ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
+                "ISMPDocumentType.strDocumentType " &
+                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                 "and strDelete is NULL " &
                  "and strClosed = 'False' " &
-                "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'One Stack (Three Runs)' " &
-                "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                "and ISMPDocumentType.strDocumentType = 'One Stack (Three Runs)' " &
+                "order by ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
@@ -1452,19 +1452,19 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber, " &
+            SQL = "select ISMPMaster.strReferenceNumber, " &
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
                  "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                 "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                 "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                 "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                 "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                 "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                 "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+                 "substr(ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
+                 "ISMPDocumentType.strDocumentType " &
+                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                 "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                  "and strDelete is NULL " &
                   "and strClosed = 'False' " &
-                 "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'One Stack (Four Runs)' " &
-                 "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                 "and ISMPDocumentType.strDocumentType = 'One Stack (Four Runs)' " &
+                 "order by ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
@@ -1490,19 +1490,19 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber, " &
+            SQL = "select ISMPMaster.strReferenceNumber, " &
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+                "substr(ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
+                "ISMPDocumentType.strDocumentType " &
+                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                 "and strDelete is NULL " &
                  "and strClosed = 'False' " &
-                "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'Two Stack (Standard)' " &
-                "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                "and ISMPDocumentType.strDocumentType = 'Two Stack (Standard)' " &
+                "order by ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
@@ -1528,19 +1528,19 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber, " &
+            SQL = "select ISMPMaster.strReferenceNumber, " &
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
                  "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                 "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                 "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                 "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                 "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                 "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                 "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+                 "substr(ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
+                 "ISMPDocumentType.strDocumentType " &
+                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                 "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                  "and strDelete is NULL " &
                   "and strClosed = 'False' " &
-                 "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'Two Stack (DRE)' " &
-                 "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                 "and ISMPDocumentType.strDocumentType = 'Two Stack (DRE)' " &
+                 "order by ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
@@ -1566,19 +1566,19 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber, " &
+            SQL = "select ISMPMaster.strReferenceNumber, " &
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
                "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-               "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-               "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-               "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-               "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-               "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-               "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+               "substr(ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
+               "ISMPDocumentType.strDocumentType " &
+               "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+               "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+               "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+               "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                "and strDelete is NULL " &
                 "and strClosed = 'False' " &
-               "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'Loading Rack' " &
-               "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+               "and ISMPDocumentType.strDocumentType = 'Loading Rack' " &
+               "order by ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
@@ -1604,19 +1604,19 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber,  " &
+            SQL = "select ISMPMaster.strReferenceNumber,  " &
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
                  "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                 "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                 "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                 "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                 "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                 "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                 "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+                 "substr(ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
+                 "ISMPDocumentType.strDocumentType " &
+                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                 "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                  "and strDelete is NULL " &
                   "and strClosed = 'False' " &
-                 "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'Flare' " &
-                 "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                 "and ISMPDocumentType.strDocumentType = 'Flare' " &
+                 "order by ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
@@ -1642,19 +1642,19 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber, " &
+            SQL = "select ISMPMaster.strReferenceNumber, " &
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
                  "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                 "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                 "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                 "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                 "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                 "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                 "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+                 "substr(ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
+                 "ISMPDocumentType.strDocumentType " &
+                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                 "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                  "and strDelete is NULL " &
                   "and strClosed = 'False' " &
-                 "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'Pond Treatment' " &
-                 "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                 "and ISMPDocumentType.strDocumentType = 'Pond Treatment' " &
+                 "order by ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
@@ -1680,19 +1680,19 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber,  " &
+            SQL = "select ISMPMaster.strReferenceNumber,  " &
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
                  "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                 "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                 "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                 "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                 "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                 "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                 "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+                 "substr(ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
+                 "ISMPDocumentType.strDocumentType " &
+                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                 "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                  "and strDelete is NULL " &
                   "and strClosed = 'False' " &
-                 "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'Gas Concentration' " &
-                 "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                 "and ISMPDocumentType.strDocumentType = 'Gas Concentration' " &
+                 "order by ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
@@ -1718,19 +1718,19 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber, " &
+            SQL = "select ISMPMaster.strReferenceNumber, " &
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
                  "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                 "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                 "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                 "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                 "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                 "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                 "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+                 "substr(ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
+                 "ISMPDocumentType.strDocumentType " &
+                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                 "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                  "and strDelete is NULL " &
                   "and strClosed = 'False' " &
-                 "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'Rata' " &
-                 "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                 "and ISMPDocumentType.strDocumentType = 'Rata' " &
+                 "order by ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
@@ -1756,19 +1756,19 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber,  " &
+            SQL = "select ISMPMaster.strReferenceNumber,  " &
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+                "substr(ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
+                "ISMPDocumentType.strDocumentType " &
+                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                 "and strDelete is NULL " &
                  "and strClosed = 'False' " &
-                "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'PEMS' " &
-                "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                "and ISMPDocumentType.strDocumentType = 'PEMS' " &
+                "order by ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
@@ -1794,19 +1794,19 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber, " &
+            SQL = "select ISMPMaster.strReferenceNumber, " &
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+                "substr(ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
+                "ISMPDocumentType.strDocumentType " &
+                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                 "and strDelete is NULL " &
                  "and strClosed = 'False' " &
-                "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'Memorandum (Standard)' " &
-                "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                "and ISMPDocumentType.strDocumentType = 'Memorandum (Standard)' " &
+                "order by ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
@@ -1832,19 +1832,19 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber,  " &
+            SQL = "select ISMPMaster.strReferenceNumber,  " &
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+                "substr(ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
+                "ISMPDocumentType.strDocumentType " &
+                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                 "and strDelete is NULL " &
                  "and strClosed = 'False' " &
-                "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'Memorandum (To File)' " &
-                "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                "and ISMPDocumentType.strDocumentType = 'Memorandum (To File)' " &
+                "order by ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
@@ -1870,19 +1870,19 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber,  " &
+            SQL = "select ISMPMaster.strReferenceNumber,  " &
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
                   "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                  "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                  "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                  "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                  "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                  "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                  "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+                  "substr(ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
+                  "ISMPDocumentType.strDocumentType " &
+                  "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                  "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                  "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                  "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                   "and strDelete is NULL " &
                    "and strClosed = 'False' " &
-                  "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'PTE (Perminate Total Enclosure)' " &
-                  "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                  "and ISMPDocumentType.strDocumentType = 'PTE (Perminate Total Enclosure)' " &
+                  "order by ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
@@ -1908,19 +1908,19 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber,  " &
+            SQL = "select ISMPMaster.strReferenceNumber,  " &
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
                    "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                   "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                   "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                   "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                   "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                   "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                   "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+                   "substr(ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
+                   "ISMPDocumentType.strDocumentType " &
+                   "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                   "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                   "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                   "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                    "and strDelete is NULL " &
                     "and strClosed = 'False' " &
-                   "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'Method9 (Single)' " &
-                   "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                   "and ISMPDocumentType.strDocumentType = 'Method9 (Single)' " &
+                   "order by ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
@@ -1946,19 +1946,19 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber, " &
+            SQL = "select ISMPMaster.strReferenceNumber, " &
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
                  "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                 "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                 "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                 "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                 "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                 "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                 "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+                 "substr(ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
+                 "ISMPDocumentType.strDocumentType " &
+                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                 "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                  "and strDelete is NULL " &
                   "and strClosed = 'False' " &
-                 "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'Method 9 (Multi.)' " &
-                 "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                 "and ISMPDocumentType.strDocumentType = 'Method 9 (Multi.)' " &
+                 "order by ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
@@ -1984,19 +1984,19 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber,  " &
+            SQL = "select ISMPMaster.strReferenceNumber,  " &
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+                "substr(ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
+                "ISMPDocumentType.strDocumentType " &
+                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                 "and strDelete is NULL " &
                  "and strClosed = 'False' " &
-                "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'Method 22' " &
-                "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                "and ISMPDocumentType.strDocumentType = 'Method 22' " &
+                "order by ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
@@ -2022,18 +2022,18 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber, " &
+            SQL = "select ISMPMaster.strReferenceNumber, " &
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
                   "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                  "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                  "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                  "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                  "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                  "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                  "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+                  "substr(ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
+                  "ISMPDocumentType.strDocumentType " &
+                  "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                  "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                  "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                  "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                   "and strDelete is NULL " &
                    "and strClosed = 'False' " &
-                  "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                  "order by ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
@@ -2059,18 +2059,18 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber,  " &
+            SQL = "select ISMPMaster.strReferenceNumber,  " &
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
                "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-               "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-               "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-               "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-               "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-               "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-               "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+               "substr(ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
+               "ISMPDocumentType.strDocumentType " &
+               "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+               "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+               "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+               "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                "and strDelete is NULL " &
                "and strClosed = 'False' " &
-               "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+               "order by ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
@@ -2096,18 +2096,18 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber, " &
+            SQL = "select ISMPMaster.strReferenceNumber, " &
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
             "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-            "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-            "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-            "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-            "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+            "substr(ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
+            "ISMPDocumentType.strDocumentType " &
+            "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+            "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+            "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
             "and strDelete is NULL " &
             "and strClosed = 'True' " &
-            "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+            "order by ISMPMaster.strReferenceNumber"
 
             dsGrid = New DataSet
 
@@ -2462,7 +2462,7 @@ Public Class ISMPTestReportAdministrative
 
                 SQL = "Select " &
                 "strReferenceNumber " &
-                "from AIRBRANCH.ISMPMaster " &
+                "from ISMPMaster " &
                 "where strReferenceNumber = '" & RefNum & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2478,7 +2478,7 @@ Public Class ISMPTestReportAdministrative
 
                 SQL = "Select " &
                 "strAIRSNumber " &
-                "from AIRBRANCH.APBMasterAIRS " &
+                "from APBMasterAIRS " &
                 "where strAIRSNumber = '0413" & AIRSNumber & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2492,7 +2492,7 @@ Public Class ISMPTestReportAdministrative
                     Exit Sub
                 End If
 
-                SQL = "Insert into AIRBRANCH.ISMPMaster " &
+                SQL = "Insert into ISMPMaster " &
                 "values " &
                 "('" & RefNum & "', '0413" & AIRSNumber & "', " &
                 "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
@@ -2503,7 +2503,7 @@ Public Class ISMPTestReportAdministrative
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Insert into AIRBRANCH.ISMPReportInformation " &
+                SQL = "Insert into ISMPReportInformation " &
                 "values " &
                 "('" & RefNum & "', '00001', " &
                 "'N/A', '001', " &
@@ -2612,7 +2612,7 @@ Public Class ISMPTestReportAdministrative
             If txtCloseTestReportRefNum.Text <> "" Then
                 SQL = "Select " &
                 "strReferenceNumber " &
-                "from AIRBRANCH.ISMPReportInformation " &
+                "from ISMPReportInformation " &
                 "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2623,7 +2623,7 @@ Public Class ISMPTestReportAdministrative
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update AIRBRANCH.ISMPReportInformation set " &
+                    SQL = "Update ISMPReportInformation set " &
                     "strClosed = 'True' " &
                     "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2651,7 +2651,7 @@ Public Class ISMPTestReportAdministrative
             If txtCloseTestReportRefNum.Text <> "" Then
                 SQL = "Select " &
                 "strReferenceNumber " &
-                "from AIRBRANCH.ISMPReportInformation " &
+                "from ISMPReportInformation " &
                 "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2662,7 +2662,7 @@ Public Class ISMPTestReportAdministrative
                 recExist = dr.Read
                 dr.Close()
                 If recExist = True Then
-                    SQL = "Update AIRBRANCH.ISMPReportInformation set " &
+                    SQL = "Update ISMPReportInformation set " &
                     "strClosed = 'False' " &
                     "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2708,7 +2708,7 @@ Public Class ISMPTestReportAdministrative
                 "strFacilityName, strFacilityStreet1, " &
                 "strFacilityCity, " &
                 "strFacilityState, strFacilityZipcode " &
-                "from AIRBRANCH.APBFacilityInformation " &
+                "from APBFacilityInformation " &
                 "where strAIRSNumber = '0413" & cboAIRSNumber.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)

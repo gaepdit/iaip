@@ -5,7 +5,7 @@
 
     Private Sub btnGetContactData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGetContactData.Click
         Dim query As String = "select " &
-                "AIRBRANCH.SBEAPClients.ClientID, " &
+                "SBEAPClients.ClientID, " &
                 "strCompanyName, " &
                 "strClientFirstName, strClientLastName, " &
                 "strClientSalutation, strClientCredentials, " &
@@ -16,13 +16,13 @@
                 "strCompanyZipCode, strContactNotes,  " &
                 "strClientSIC, strClientNAICS, " &
                 "strClientDescription " &
-                "from AIRBRANCH.SBEAPClientContacts, " &
-                "AIRBRANCH.SBEAPClientLink, " &
-                "AIRBRANCH.SBEAPClients, " &
-                "AIRBRANCH.SBEAPClientData " &
-                "where AIRBRANCH.SBEAPClientContacts.ClientContactID = AIRBRANCH.SBEAPClientLink.ClientContactID  (+) " &
-                "and AIRBRANCH.SBEAPClientLink.ClientID = AIRBRANCH.SBEAPClientData.ClientID (+) " &
-                "and AIRBRANCH.SBEAPClientLink.ClientID = AIRBRANCH.SBEAPClients.ClientID (+) "
+                "from SBEAPClientContacts, " &
+                "SBEAPClientLink, " &
+                "SBEAPClients, " &
+                "SBEAPClientData " &
+                "where SBEAPClientContacts.ClientContactID = SBEAPClientLink.ClientContactID  (+) " &
+                "and SBEAPClientLink.ClientID = SBEAPClientData.ClientID (+) " &
+                "and SBEAPClientLink.ClientID = SBEAPClients.ClientID (+) "
 
         Dim dtMiscTools As DataTable = DB.GetDataTable(query)
 

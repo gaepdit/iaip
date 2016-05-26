@@ -72,7 +72,7 @@ Public Class SSPPAttainmentStatus
             Dim drDSRow As DataRow
 
             SQL = "select strCountyCode, strCountyname " &
-            "from AIRBRANCH.LookUpCountyInformation " &
+            "from LookUpCountyInformation " &
             "order by strcountyName"
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -158,7 +158,7 @@ Public Class SSPPAttainmentStatus
 
         SQL = "Select " &
         "strCountyName, strCountyCode, strNonAttainment  " &
-        "from AIRBRANCH.LookUpCountyInformation  " &
+        "from LookUpCountyInformation  " &
         SQLClause
 
         dsAttainment = New DataSet
@@ -203,7 +203,7 @@ Public Class SSPPAttainmentStatus
 
             SQL = "select " &
             "strNonAttainment " &
-            "from AIRBRANCH.LookUpCountyInformation " &
+            "from LookUpCountyInformation " &
             "where strCountyCode = '" & cboCounty.SelectedValue & "'"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -288,7 +288,7 @@ Public Class SSPPAttainmentStatus
             Dim AttainmentStatus As String = "00000"
 
             SQL = "select strNonAttainment " &
-            "from AIRBRANCH.LookUpCountyInformation " &
+            "from LookUpCountyInformation " &
             "where strCountyCode = '" & cboCounty.SelectedValue & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -314,7 +314,7 @@ Public Class SSPPAttainmentStatus
                 AttainmentStatus = Mid(AttainmentStatus, 1, 1) & "2" & Mid(AttainmentStatus, 3)
             End If
 
-            SQL = "Update AIRBRANCH.LookUpCountyInformation set " &
+            SQL = "Update LookUpCountyInformation set " &
             "strNonAttainment = '" & AttainmentStatus & "' " &
             "where strCountyCode = '" & cboCounty.SelectedValue & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -325,7 +325,7 @@ Public Class SSPPAttainmentStatus
             dr.Close()
 
             SQL = "Select strAttainmentStatus, strAIRSNumber " &
-            "from AIRBRANCH.APBHeaderData " &
+            "from APBHeaderData " &
             "where substr(strAIRSNumber, 5, 3) = '" & cboCounty.SelectedValue & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -359,7 +359,7 @@ Public Class SSPPAttainmentStatus
                     End If
                 End If
 
-                SQL2 = "Update AIRBRANCH.APBHeaderData set " &
+                SQL2 = "Update APBHeaderData set " &
                 "strAttainmentStatus = '" & AttainmentStatus & "' " &
                 "where strAIRSNumber = '" & dr.Item("strAirsNumber") & "' "
 
@@ -386,7 +386,7 @@ Public Class SSPPAttainmentStatus
             Dim AttainmentStatus As String = "00000"
 
             SQL = "select strNonAttainment " &
-            "from AIRBRANCH.LookUpCountyInformation " &
+            "from LookUpCountyInformation " &
             "where strCountyCode = '" & cboCounty.SelectedValue & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -412,7 +412,7 @@ Public Class SSPPAttainmentStatus
                 AttainmentStatus = Mid(AttainmentStatus, 1, 2) & "2" & Mid(AttainmentStatus, 4)
             End If
 
-            SQL = "Update AIRBRANCH.LookUpCountyInformation set " &
+            SQL = "Update LookUpCountyInformation set " &
             "strNonAttainment = '" & AttainmentStatus & "' " &
             "where strCountyCode = '" & cboCounty.SelectedValue & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -423,7 +423,7 @@ Public Class SSPPAttainmentStatus
             dr.Close()
 
             SQL = "Select strAttainmentStatus, strAIRSNumber " &
-            "from AIRBRANCH.APBHeaderData " &
+            "from APBHeaderData " &
             "where substr(strAIRSNumber, 5, 3) = '" & cboCounty.SelectedValue & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -457,7 +457,7 @@ Public Class SSPPAttainmentStatus
                     End If
                 End If
 
-                SQL2 = "Update AIRBRANCH.APBHeaderData set " &
+                SQL2 = "Update APBHeaderData set " &
                 "strAttainmentStatus = '" & AttainmentStatus & "' " &
                 "where strAIRSNumber = '" & dr.Item("strAirsNumber") & "' "
 
@@ -483,7 +483,7 @@ Public Class SSPPAttainmentStatus
             Dim AttainmentStatus As String = "00000"
 
             SQL = "select strNonAttainment " &
-            "from AIRBRANCH.LookUpCountyInformation " &
+            "from LookUpCountyInformation " &
             "where strCountyCode = '" & cboCounty.SelectedValue & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -515,7 +515,7 @@ Public Class SSPPAttainmentStatus
                 AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "4" & Mid(AttainmentStatus, 5)
             End If
 
-            SQL = "Update AIRBRANCH.LookUpCountyInformation set " &
+            SQL = "Update LookUpCountyInformation set " &
             "strNonAttainment = '" & AttainmentStatus & "' " &
             "where strCountyCode = '" & cboCounty.SelectedValue & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -526,7 +526,7 @@ Public Class SSPPAttainmentStatus
             dr.Close()
 
             SQL = "Select strAttainmentStatus, strAIRSNumber " &
-            "from AIRBRANCH.APBHeaderData " &
+            "from APBHeaderData " &
             "where substr(strAIRSNumber, 5, 3) = '" & cboCounty.SelectedValue & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -576,7 +576,7 @@ Public Class SSPPAttainmentStatus
                     End If
                 End If
 
-                SQL2 = "Update AIRBRANCH.APBHeaderData set " &
+                SQL2 = "Update APBHeaderData set " &
                 "strAttainmentStatus = '" & AttainmentStatus & "' " &
                 "where strAIRSNumber = '" & dr.Item("strAirsNumber") & "' "
 

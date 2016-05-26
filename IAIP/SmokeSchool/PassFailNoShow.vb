@@ -14,7 +14,7 @@ Public Class PassFailNoShow
             Dim ds As DataSet
             Dim da As SqlDataAdapter
 
-            Dim SQL As String = "Select * from AIRBRANCH.SmokeSchoolPrintInfo "
+            Dim SQL As String = "Select * from SmokeSchoolPrintInfo "
 
             ds = New DataSet
 

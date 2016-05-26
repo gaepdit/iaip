@@ -6,7 +6,7 @@ Namespace DAL
 
         Public Function LogQuery(ByVal kvp As Generic.KeyValuePair(Of String, Integer)) As Boolean
             Dim query As String =
-                " INSERT INTO AIRBRANCH.IAIP_LOG_QUERYGENERATOR " &
+                " INSERT INTO IAIP_LOG_QUERYGENERATOR " &
                 " (USERSUBMITTING, DATESUBMITTED, ROWSRETURNED, QUERYSUBMITTED) " &
                 " VALUES (:UserSubmitting, :DateSubmitted, :RowsReturned, :QuerySubmitted) "
 

@@ -61,7 +61,7 @@ Public Class SBEAPCaseWork
 
             SQL = "Select " &
             "numActionType, strWorkDescription " &
-            "from AIRBRANCH.LookUpSBEAPCaseWork " &
+            "from LookUpSBEAPCaseWork " &
             "order by strWorkDescription "
 
             daCaseWork = New SqlDataAdapter(SQL, CurrentConnection)
@@ -92,7 +92,7 @@ Public Class SBEAPCaseWork
             End With
 
             SQL = "Select strOfficeName " &
-            "from AIRBRANCH.LookUpDistrictOffice " &
+            "from LookUpDistrictOffice " &
             "Union " &
             "select 'APB' " &
             "from dual " &
@@ -130,15 +130,15 @@ Public Class SBEAPCaseWork
             SQL = "select " &
             "NumUserID, " &
             "(strLastName||', '||strFirstName) as UserName " &
-            "from AIRBRANCH.EPDUserProfiles " &
+            "from EPDUserProfiles " &
             "where numBranch = '5' " &
             "and numProgram = '35' " &
             "union " &
             "select " &
             "distinct(NumUserID) as NumUserID, " &
             "(strLastName||', '||strFirstName) as UserName " &
-            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.SBEAPCaseLog " &
-            "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SBEAPCaseLog.numStaffResponsible " &
+            "from EPDUserProfiles, SBEAPCaseLog " &
+            "where EPDUserProfiles.numUserID = SBEAPCaseLog.numStaffResponsible " &
             "Order by UserName "
 
             daStaff = New SqlDataAdapter(SQL, CurrentConnection)
@@ -234,8 +234,8 @@ Public Class SBEAPCaseWork
             "strCompanyState, " &
             "strCompanyZipCode, " &
             "strCountyName " &
-            "from AIRBRANCH.SBEAPClients, AIRBRANCH.LookUpCountyInformation " &
-            "where AIRBRANCH.SBEAPClients.strCompanyCounty = AIRBRANCH.LookUpCountyInformation.strCountyCode (+) " &
+            "from SBEAPClients, LookUpCountyInformation " &
+            "where SBEAPClients.strCompanyCounty = LookUpCountyInformation.strCountyCode (+) " &
             "and ClientId = '" & txtClientID.Text & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -285,7 +285,7 @@ Public Class SBEAPCaseWork
 
             SQL = "select " &
             "count(*) as Outstanding " &
-            "from AIRBRANCH.SBEAPCaseLog " &
+            "from SBEAPCaseLog " &
             "where ClientID = '" & txtClientID.Text & "' " &
             "and datCaseClosed is null"
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -322,8 +322,8 @@ Public Class SBEAPCaseWork
                 "strInterAgency, strReferralComments, " &
                 "datReferralDate, strComplaintBased, " &
                 "strCaseClosureLetterSent " &
-                "from AIRBRANCH.SBEAPCaseLog, AIRBRANCH.EPDUserProfiles " &
-                "where AIRBRANCH.SBEAPCaseLog.numModifingStaff = AIRBRANCH.EPDUserProfiles.numUserID (+) " &
+                "from SBEAPCaseLog, EPDUserProfiles " &
+                "where SBEAPCaseLog.numModifingStaff = EPDUserProfiles.numUserID (+) " &
                 "and numCaseID = '" & txtCaseID.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -414,7 +414,7 @@ Public Class SBEAPCaseWork
 
                 SQL = "Select " &
                 "count(*) as ClientCount " &
-                "from AIRBRANCH.SBEAPCaseLogLink " &
+                "from SBEAPCaseLogLink " &
                 "where numCaseID = '" & txtCaseID.Text & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -438,7 +438,7 @@ Public Class SBEAPCaseWork
 
                         SQL = "Select " &
                         "ClientID " &
-                        "from AIRBRANCH.SBEAPCaseLogLink " &
+                        "from SBEAPCaseLogLink " &
                         "where numCaseID = '" & txtCaseID.Text & "' "
 
                         cmd = New SqlCommand(SQL, CurrentConnection)
@@ -463,7 +463,7 @@ Public Class SBEAPCaseWork
 
                         SQL = "Select " &
                         "ClientID " &
-                        "from AIRBRANCH.SBEAPCaseLogLink " &
+                        "from SBEAPCaseLogLink " &
                         "where numCaseID = '" & txtCaseID.Text & "' "
 
                         cmd = New SqlCommand(SQL, CurrentConnection)
@@ -494,14 +494,14 @@ Public Class SBEAPCaseWork
             "numActionID, " &
             "numCaseID, " &
             "case " &
-            "when AIRBRANCH.SBEAPActionLog.numActionType is null then ' ' " &
+            "when SBEAPActionLog.numActionType is null then ' ' " &
             "else strWorkDescription " &
             "end ActionDescription, " &
             "to_date(datCreationDate, 'dd-Mon-RRRR') as CreationDate,  " &
             "to_date(datActionOccured, 'dd-Mon-RRRR') as OccuredDate " &
-            "from AIRBRANCH.SBEAPActionLog, AIRBRANCH.LookUpSBEAPCaseWork " &
-            "where AIRBRANCH.SBEAPActionLog.numActionType = AIRBRANCH.LookUpSBEAPCaseWork.numActionType (+)  " &
-            "and AIRBRANCH.SBEAPActionLog.numCaseID = '" & txtCaseID.Text & "' " &
+            "from SBEAPActionLog, LookUpSBEAPCaseWork " &
+            "where SBEAPActionLog.numActionType = LookUpSBEAPCaseWork.numActionType (+)  " &
+            "and SBEAPActionLog.numCaseID = '" & txtCaseID.Text & "' " &
             "order by numActionID desc "
 
             dsActionLog = New DataSet
@@ -633,7 +633,7 @@ Public Class SBEAPCaseWork
             SQL = "select " &
             "NumUserID, " &
             "(strLastName||', '||strFirstName) as UserName " &
-            "from AIRBRANCH.EPDUserProfiles " &
+            "from EPDUserProfiles " &
             "where numBranch = '5' " &
             "and numProgram = '35' "
 
@@ -683,7 +683,7 @@ Public Class SBEAPCaseWork
             "strLeadAssist, strOtherAssist, " &
             "strComment, strModifingStaff, " &
             "datModifingDate " &
-            "from AIRBRANCH.SBEAPComplianceAssist " &
+            "from SBEAPComplianceAssist " &
             "where numActionID = '" & txtActionID.Text & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -785,7 +785,7 @@ Public Class SBEAPCaseWork
             "datAssistStartDate, datAssistEndDate, " &
             "strAssistanceRequest, strAIRSnumber, " &
             "strTechnicalAssistNotes " &
-            "from AIRBRANCH.SBEAPTechnicalAssist " &
+            "from SBEAPTechnicalAssist " &
             "where numActionID = '" & txtActionID.Text & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1033,7 +1033,7 @@ Public Class SBEAPCaseWork
             "strPhoneLogNotes, " &
             "strOneTimeAssist, " &
             "strFrontDeskCall " &
-            "from AIRBRANCH.SBEAPPhoneLog " &
+            "from SBEAPPhoneLog " &
             "where numActionID = '" & txtActionID.Text & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1093,7 +1093,7 @@ Public Class SBEAPCaseWork
             "datConferenceStarted, datConferenceEnded, " &
             "strSBEAPPresentation, strListOfBusinessSectors, " &
             "strCOnferenceFollowUp, strStaffAttending " &
-            "from AIRBRANCH.SBEAPConferenceLog " &
+            "from SBEAPConferenceLog " &
             "where numActionID = '" & txtActionID.Text & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1189,7 +1189,7 @@ Public Class SBEAPCaseWork
         Try
             SQL = "Select " &
             "strCaseNotes " &
-            "from AIRBRANCH.SBEAPOtherLog " &
+            "from SBEAPOtherLog " &
             "where numActionID = '" & txtActionID.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1259,12 +1259,12 @@ Public Class SBEAPCaseWork
             End If
 
             If txtCaseID.Text = "" Then
-                SQL = "Insert into AIRBRANCH.SBEAPCaseLog " &
+                SQL = "Insert into SBEAPCaseLog " &
                 "values " &
                 "((Select " &
                 "case " &
-                "when (select max(numCaseID) from AIRBRANCH.SBEAPCaseLog) is Null then 1 " &
-                "else (select max(numCaseID) + 1 from AIRBRANCH.SBEAPCaseLog) " &
+                "when (select max(numCaseID) from SBEAPCaseLog) is Null then 1 " &
+                "else (select max(numCaseID) + 1 from SBEAPCaseLog) " &
                 "End CaseID " &
                 "from dual), " &
                 "'" & Staff & "', '" & DTPCaseOpened.Text & "', " &
@@ -1275,9 +1275,9 @@ Public Class SBEAPCaseWork
                 "'" & ReferralDate & "', '" & ComplaintBased & "', " &
                 "'" & CaseClosedLetter & "') "
 
-                SQL2 = "Select max(numCaseID) as CaseID from AIRBRANCH.SBEAPCaseLog "
+                SQL2 = "Select max(numCaseID) as CaseID from SBEAPCaseLog "
             Else
-                SQL = "Update AIRBRANCH.SBEAPCaseLog set " &
+                SQL = "Update SBEAPCaseLog set " &
                 "numStaffResponsible = '" & Staff & "', " &
                 "datCaseOpened = '" & DTPCaseOpened.Text & "', " &
                 "strCaseSummary = '" & Replace(txtCaseDescription.Text, "'", "''") & "', " &
@@ -1323,7 +1323,7 @@ Public Class SBEAPCaseWork
                     ClientID = ""
                 End If
 
-                SQL = "Delete AIRBRANCH.SBEAPCaseLogLink " &
+                SQL = "Delete SBEAPCaseLogLink " &
                 "where numCaseID = '" & txtCaseID.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1333,7 +1333,7 @@ Public Class SBEAPCaseWork
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Insert into AIRBRANCH.SBEAPCaseLogLink " &
+                SQL = "Insert into SBEAPCaseLogLink " &
                 "values " &
                 "('" & txtCaseID.Text & "', '" & ClientID & "') "
 
@@ -1347,7 +1347,7 @@ Public Class SBEAPCaseWork
                 ClientList = txtMultiClientList.Text
 
                 If ClientList <> "" Then
-                    SQL = "Delete AIRBRANCH.SBEAPCaseLogLink " &
+                    SQL = "Delete SBEAPCaseLogLink " &
                     "where numCaseID = '" & txtCaseID.Text & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1370,7 +1370,7 @@ Public Class SBEAPCaseWork
                         txtMultiClientList.Text = Replace(txtMultiClientList.Text, ClientID, "")
 
                         If ClientID <> "" Then
-                            SQL = "Insert into AIRBRANCH.SBEAPCaseLogLink " &
+                            SQL = "Insert into SBEAPCaseLogLink " &
                             "values " &
                             "('" & txtCaseID.Text & "', '" & ClientID & "') "
                             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1404,7 +1404,7 @@ Public Class SBEAPCaseWork
 
             SQL = "Select " &
             "numActionId " &
-            "from AIRBRANCH.SBEAPActionLog " &
+            "from SBEAPActionLog " &
             "where numActionID = '" & txtActionID.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1414,7 +1414,7 @@ Public Class SBEAPCaseWork
             recExist = dr.Read
             dr.Close()
             If recExist = True Then
-                SQL = "Update AIRBRANCH.SBEAPActionLog set " &
+                SQL = "Update SBEAPActionLog set " &
                 "datActionOccured = '" & ActionOccured & "' " &
                 "where numActionId = '" & txtActionID.Text & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1498,7 +1498,7 @@ Public Class SBEAPCaseWork
 
             SQL = "Select " &
             "numActionID " &
-            "from AIRBRANCH.SBEAPComplianceAssist " &
+            "from SBEAPComplianceAssist " &
             "where numActionID = '" & txtActionID.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
 
@@ -1509,7 +1509,7 @@ Public Class SBEAPCaseWork
             recExist = dr.Read
             dr.Close()
             If recExist = False Then
-                SQL = "Insert into AIRBRANCH.SBEAPComplianceAssist " &
+                SQL = "Insert into SBEAPComplianceAssist " &
                 "values " &
                 "('" & txtActionID.Text & "', " &
                 "'" & Replace(AirAssist, "'", "''") & "', " &
@@ -1523,7 +1523,7 @@ Public Class SBEAPCaseWork
                 "'" & Replace(Comments, "'", "''") & "', " &
                 "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
             Else
-                SQL = "Update AIRBRANCH.SBEAPComplianceAssist set " &
+                SQL = "Update SBEAPComplianceAssist set " &
                 "strAirAssist = '" & Replace(AirAssist, "'", "''") & "', " &
                 "strStormWaterAssist = '" & StormWaterAssist & "', " &
                 "strHazWasteAssist = '" & HazWasteAssist & "', " &
@@ -1742,7 +1742,7 @@ Public Class SBEAPCaseWork
 
             SQL = "Select " &
             "numActionID " &
-            "from AIRBRANCH.SBEAPTechnicalAssist " &
+            "from SBEAPTechnicalAssist " &
             "where numActionID = '" & txtActionID.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
 
@@ -1753,7 +1753,7 @@ Public Class SBEAPCaseWork
             recExist = dr.Read
             dr.Close()
             If recExist = False Then
-                SQL = "Insert into AIRBRANCH.SBEAPTechnicalAssist " &
+                SQL = "Insert into SBEAPTechnicalAssist " &
                 "values " &
                 "('" & txtActionID.Text & "', " &
                 "'" & Replace(AssistType, "'", "''") & "', " &
@@ -1763,7 +1763,7 @@ Public Class SBEAPCaseWork
                 "'" & Replace(TechnicalAssistComments, "'", "''") & "', " &
                 "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
             Else
-                SQL = "Update AIRBRANCH.SBEAPTechnicalAssist set " &
+                SQL = "Update SBEAPTechnicalAssist set " &
                 "strTechnicalAssistType = '" & Replace(AssistType, "'", "''") & "', " &
                 "datInitialContactDate = '" & ContactDate & "', " &
                 "datAssistStartDate = '" & AssistStart & "', " &
@@ -1823,7 +1823,7 @@ Public Class SBEAPCaseWork
 
             SQL = "Select " &
             "numActionID " &
-            "from AIRBRANCH.SBEAPPhoneLog " &
+            "from SBEAPPhoneLog " &
             "where numActionID = '" & txtActionID.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
 
@@ -1834,7 +1834,7 @@ Public Class SBEAPCaseWork
             recExist = dr.Read
             dr.Close()
             If recExist = False Then
-                SQL = "Insert into AIRBRANCH.SBEAPPhoneLog " &
+                SQL = "Insert into SBEAPPhoneLog " &
                 "values " &
                 "('" & txtActionID.Text & "', '" & Replace(CallerInfo, "'", "''") & "', " &
                 "'" & Replace(CallerPhone, "'", "''") & "', " &
@@ -1842,7 +1842,7 @@ Public Class SBEAPCaseWork
                 "'" & OneTimeAssist & "', '" & FrontDeskCall & "', " &
                 "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
             Else
-                SQL = "Update AIRBRANCH.SBEAPPhoneLog set " &
+                SQL = "Update SBEAPPhoneLog set " &
                 "strCallerInformation = '" & Replace(CallerInfo, "'", "''") & "', " &
                 "numCallerPhoneNumber = '" & CallerPhone & "', " &
                 "strPhoneLogNotes = '" & Replace(PhoneCallNotes, "'", "''") & "', " &
@@ -1932,7 +1932,7 @@ Public Class SBEAPCaseWork
 
             SQL = "Select " &
             "numActionID " &
-            "from AIRBRANCH.SBEAPConferenceLog " &
+            "from SBEAPConferenceLog " &
             "where numActionID = '" & txtActionID.Text & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1944,7 +1944,7 @@ Public Class SBEAPCaseWork
             recExist = dr.Read
             dr.Close()
             If recExist = False Then
-                SQL = "Insert into AIRBRANCH.SBEAPConferenceLog " &
+                SQL = "Insert into SBEAPConferenceLog " &
                 "values " &
                 "('" & txtActionID.Text & "', '" & Replace(ConferenceAttended, "'", "''") & "', " &
                 "'" & Replace(ConferenceLocation, "'", "''") & "', '" & Replace(ConferenceTopic, "'", "''") & "', " &
@@ -1953,7 +1953,7 @@ Public Class SBEAPCaseWork
                 "'" & Replace(ListofBusinesses, "'", "''") & "', '" & Replace(FollowUp, "'", "''") & "', " &
                 "'" & StaffAttendies & "', '" & CurrentUser.UserID & "', '" & OracleDate & "') "
             Else
-                SQL = "Update AIRBRANCH.SBEAPConferenceLog set " &
+                SQL = "Update SBEAPConferenceLog set " &
                 "strConferenceAttended = '" & Replace(ConferenceAttended, "'", "''") & "', " &
                 "strConferenceLocation = '" & Replace(ConferenceLocation, "'", "''") & "', " &
                 "strConferenceTopic = '" & Replace(ConferenceTopic, "'", "''") & "', " &
@@ -1992,7 +1992,7 @@ Public Class SBEAPCaseWork
 
             SQL = "Select " &
             "numActionID " &
-            "from AIRBRANCH.SBEAPOtherLog " &
+            "from SBEAPOtherLog " &
             "where numActionID = '" & txtActionID.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
 
@@ -2003,12 +2003,12 @@ Public Class SBEAPCaseWork
             recExist = dr.Read
             dr.Close()
             If recExist = False Then
-                SQL = "Insert into AIRBRANCH.SBEAPOtherLog " &
+                SQL = "Insert into SBEAPOtherLog " &
                 "values " &
                 "('" & txtActionID.Text & "', '" & Replace(CaseNotes, "'", "''") & "', " &
                 "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
             Else
-                SQL = "Update AIRBRANCH.SBEAPOtherLog set " &
+                SQL = "Update SBEAPOtherLog set " &
                 "strCaseNotes = '" & Replace(CaseNotes, "'", "''") & "', " &
                 "strModifingStaff = '" & CurrentUser.UserID & "', " &
                 "datModifingDate = '" & OracleDate & "' " &
@@ -2163,7 +2163,7 @@ Public Class SBEAPCaseWork
                 SQL = "Select " &
                       "strCompanyName, strCompanyAddress, " &
                       "strCompanyCity " &
-                      "from AIRBRANCH.SBEAPClients " &
+                      "from SBEAPClients " &
                       "where ClientID = '" & Client & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2261,7 +2261,7 @@ Public Class SBEAPCaseWork
                 If txtCaseID.Text = "" Then
                     UpdateCaseLog("New Action")
                 Else
-                    SQL = "Update AIRBRANCH.SBEAPCaseLog set " &
+                    SQL = "Update SBEAPCaseLog set " &
                     "datModifingDate = '" & OracleDate & "' " &
                     "where numCaseID = '" & txtCaseID.Text & "' "
 
@@ -2275,8 +2275,8 @@ Public Class SBEAPCaseWork
 
                 SQL = "select " &
                 "case " &
-                "when (select max(numActionID) from AIRBRANCH.SBEAPActionLog) is Null then 1 " &
-                "else (select max(numActionID) + 1 from AIRBRANCH.SBEAPActionLog)   " &
+                "when (select max(numActionID) from SBEAPActionLog) is Null then 1 " &
+                "else (select max(numActionID) + 1 from SBEAPActionLog)   " &
                 "end ActionNumber " &
                 "from dual  "
 
@@ -2294,7 +2294,7 @@ Public Class SBEAPCaseWork
                 End While
                 dr.Close()
 
-                SQL = "Insert into AIRBRANCH.SBEAPActionLog " &
+                SQL = "Insert into SBEAPActionLog " &
                 "values " &
                 "('" & txtActionID.Text & "', '" & txtCaseID.Text & "', " &
                 "'" & cboActionType.SelectedValue & "', '" & CurrentUser.UserID & "', " &
@@ -2392,16 +2392,16 @@ Public Class SBEAPCaseWork
                             Case "Compliance Assistance"
 
                             Case "Permit Assistance"
-                                SQL = "delete AIRBRANCH.SBEAPTechnicalAssist " &
+                                SQL = "delete SBEAPTechnicalAssist " &
                                 "where numActionID = '" & txtActionID.Text & "' "
                             Case "Phone Call Made/Received"
-                                SQL = "delete AIRBRANCH.SBEAPPhoneLog " &
+                                SQL = "delete SBEAPPhoneLog " &
                                 "where numActionID = '" & txtActionID.Text & "' "
                             Case "Meeting/Conferences Attended"
-                                SQL = "delete AIRBRANCH.SBEAPConferenceLog " &
+                                SQL = "delete SBEAPConferenceLog " &
                                  "where numActionID = '" & txtActionID.Text & "' "
                             Case Else
-                                SQL = "delete AIRBRANCH.SBEAPOtherLog " &
+                                SQL = "delete SBEAPOtherLog " &
                                 "where numActionID = '" & txtActionID.Text & "' "
                         End Select
 
@@ -2412,7 +2412,7 @@ Public Class SBEAPCaseWork
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "delete AIRBRANCH.SBEAPActionLog " &
+                        SQL = "delete SBEAPActionLog " &
                         "where numActionID = '" & txtActionID.Text & "' "
 
                         cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2549,7 +2549,7 @@ Public Class SBEAPCaseWork
 
                             SQL = "Select " &
                             "numActionID, numActionType " &
-                            "from AIRBRANCH.SBEAPActionLog " &
+                            "from SBEAPActionLog " &
                             "where numCaseID = '" & txtCaseID.Text & "' "
                             cmd = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
@@ -2573,7 +2573,7 @@ Public Class SBEAPCaseWork
                             If ActionID <> "" And ActionID <> "Done" Then
                                 Select Case ActionType
                                     Case "4"
-                                        SQL = "Delete AIRBRANCH.SBEAPConferenceLog " &
+                                        SQL = "Delete SBEAPConferenceLog " &
                                         "where numActionID = '" & ActionID & "'  "
                                         cmd = New SqlCommand(SQL, CurrentConnection)
                                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -2582,7 +2582,7 @@ Public Class SBEAPCaseWork
                                         dr = cmd.ExecuteReader
                                         dr.Close()
 
-                                        SQL = "Delete AIRBRANCH.SBEAPActionLog " &
+                                        SQL = "Delete SBEAPActionLog " &
                                         "where numActionID = '" & ActionID & "'  "
                                         cmd = New SqlCommand(SQL, CurrentConnection)
                                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -2591,7 +2591,7 @@ Public Class SBEAPCaseWork
                                         dr = cmd.ExecuteReader
                                         dr.Close()
                                     Case "6"
-                                        SQL = "Delete AIRBRANCH.SBEAPPhoneLog " &
+                                        SQL = "Delete SBEAPPhoneLog " &
                                         "where numActionID = '" & ActionID & "'  "
                                         cmd = New SqlCommand(SQL, CurrentConnection)
                                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -2600,7 +2600,7 @@ Public Class SBEAPCaseWork
                                         dr = cmd.ExecuteReader
                                         dr.Close()
 
-                                        SQL = "Delete AIRBRANCH.SBEAPActionLog " &
+                                        SQL = "Delete SBEAPActionLog " &
                                         "where numActionID = '" & ActionID & "'  "
                                         cmd = New SqlCommand(SQL, CurrentConnection)
                                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -2609,7 +2609,7 @@ Public Class SBEAPCaseWork
                                         dr = cmd.ExecuteReader
                                         dr.Close()
                                     Case "10"
-                                        SQL = "Delete AIRBRANCH.SBEAPTechnicalAssist " &
+                                        SQL = "Delete SBEAPTechnicalAssist " &
                                         "where numActionID = '" & ActionID & "'  "
                                         cmd = New SqlCommand(SQL, CurrentConnection)
                                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -2618,7 +2618,7 @@ Public Class SBEAPCaseWork
                                         dr = cmd.ExecuteReader
                                         dr.Close()
 
-                                        SQL = "Delete AIRBRANCH.SBEAPActionLog " &
+                                        SQL = "Delete SBEAPActionLog " &
                                         "where numActionID = '" & ActionID & "'  "
                                         cmd = New SqlCommand(SQL, CurrentConnection)
                                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -2627,7 +2627,7 @@ Public Class SBEAPCaseWork
                                         dr = cmd.ExecuteReader
                                         dr.Close()
                                     Case "1" Or "2" Or "3" Or "5" Or "7" Or "8" Or "9" Or "11" Or "12"
-                                        SQL = "Delete AIRBRANCH.SBEAPOtherLog " &
+                                        SQL = "Delete SBEAPOtherLog " &
                                         "where numActionID = '" & ActionID & "'  "
                                         cmd = New SqlCommand(SQL, CurrentConnection)
                                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -2636,7 +2636,7 @@ Public Class SBEAPCaseWork
                                         dr = cmd.ExecuteReader
                                         dr.Close()
 
-                                        SQL = "Delete AIRBRANCH.SBEAPActionLog " &
+                                        SQL = "Delete SBEAPActionLog " &
                                         "where numActionID = '" & ActionID & "'  "
                                         cmd = New SqlCommand(SQL, CurrentConnection)
                                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -2645,7 +2645,7 @@ Public Class SBEAPCaseWork
                                         dr = cmd.ExecuteReader
                                         dr.Close()
                                     Case Else
-                                        SQL = "Delete AIRBRANCH.SBEAPConferenceLog " &
+                                        SQL = "Delete SBEAPConferenceLog " &
                                         "where numActionID = '" & ActionID & "'  "
                                         cmd = New SqlCommand(SQL, CurrentConnection)
                                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -2654,7 +2654,7 @@ Public Class SBEAPCaseWork
                                         dr = cmd.ExecuteReader
                                         dr.Close()
 
-                                        SQL = "Delete AIRBRANCH.SBEAPPhoneLog " &
+                                        SQL = "Delete SBEAPPhoneLog " &
                                         "where numActionID = '" & ActionID & "'  "
                                         cmd = New SqlCommand(SQL, CurrentConnection)
                                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -2663,7 +2663,7 @@ Public Class SBEAPCaseWork
                                         dr = cmd.ExecuteReader
                                         dr.Close()
 
-                                        SQL = "Delete AIRBRANCH.SBEAPTechnicalAssist " &
+                                        SQL = "Delete SBEAPTechnicalAssist " &
                                         "where numActionID = '" & ActionID & "'  "
                                         cmd = New SqlCommand(SQL, CurrentConnection)
                                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -2672,7 +2672,7 @@ Public Class SBEAPCaseWork
                                         dr = cmd.ExecuteReader
                                         dr.Close()
 
-                                        SQL = "Delete AIRBRANCH.SBEAPOtherLog " &
+                                        SQL = "Delete SBEAPOtherLog " &
                                         "where numActionID = '" & ActionID & "'  "
                                         cmd = New SqlCommand(SQL, CurrentConnection)
                                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -2681,7 +2681,7 @@ Public Class SBEAPCaseWork
                                         dr = cmd.ExecuteReader
                                         dr.Close()
 
-                                        SQL = "Delete AIRBRANCH.SBEAPActionLog " &
+                                        SQL = "Delete SBEAPActionLog " &
                                         "where numActionID = '" & ActionID & "'  "
                                         cmd = New SqlCommand(SQL, CurrentConnection)
                                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -2693,7 +2693,7 @@ Public Class SBEAPCaseWork
                             End If
                         Loop
 
-                        SQL = "Delete AIRBRANCH.SBEAPCaseLog " &
+                        SQL = "Delete SBEAPCaseLog " &
                         "where numCaseID = '" & txtCaseID.Text & "' "
                         cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -2702,7 +2702,7 @@ Public Class SBEAPCaseWork
                         dr = cmd.ExecuteReader
                         dr.Close()
 
-                        SQL = "Delete AIRBRANCH.SBEAPCaseLogLink " &
+                        SQL = "Delete SBEAPCaseLogLink " &
                         "where numCaseID = '" & txtCaseID.Text & "' "
                         cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then

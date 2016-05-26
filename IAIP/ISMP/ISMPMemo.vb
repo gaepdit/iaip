@@ -84,7 +84,7 @@ Public Class ISMPMemo
                 End If
 
                 SQL = "Select strReferenceNumber " &
-                "from AIRBRANCH.ISMPMaster " &
+                "from ISMPMaster " &
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
                 cmd = New SqlCommand(SQL, CurrentConnection)
 
@@ -92,7 +92,7 @@ Public Class ISMPMemo
                 Dim recExist As Boolean = dr.Read
                 If recExist = True Then
                     SQL = "Select strMemorandumField " &
-                    "from AIRBRANCH.ISMPTestREportMemo " &
+                    "from ISMPTestREportMemo " &
                     "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
                     cmd = New SqlCommand(SQL, CurrentConnection)
 
@@ -105,11 +105,11 @@ Public Class ISMPMemo
                         MemoTemp = dr.Item("StrMemorandumField")
                         MemoTemp = MemoTemp & vbCrLf & Replace(txtMemoIN.Text, " '", "''")
 
-                        SQL = "Update AIRBRANCH.ISMPTestREportMemo set " &
+                        SQL = "Update ISMPTestREportMemo set " &
                         "strMemorandumField = '" & Replace(MemoTemp, "'", "''") & "' " &
                         "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
                     Else
-                        SQL = "Insert into AIRBRANCH.ISMPTestREportMemo " &
+                        SQL = "Insert into ISMPTestREportMemo " &
                         "(strReferenceNumber, strMemorandumField) " &
                         "values " &
                         "('" & txtReferenceNumber.Text & "', '" & Replace(txtMemoIN.Text, "'", "''") & "')"
@@ -139,7 +139,7 @@ Public Class ISMPMemo
                     CurrentConnection.Open()
                 End If
                 SQL = "Select strMemorandumField " &
-                "from AIRBRANCH.ISMPTestREportMemo " &
+                "from ISMPTestREportMemo " &
                 "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
                 cmd = New SqlCommand(SQL, CurrentConnection)
 

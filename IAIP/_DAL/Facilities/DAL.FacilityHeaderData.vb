@@ -21,7 +21,7 @@ Namespace DAL
             If Not Regex.IsMatch(sicCode, SicCodePattern) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
-                " FROM AIRBRANCH.LK_SIC " &
+                " FROM LK_SIC " &
                 " WHERE RowNum = 1 " &
                 " AND ACTIVE = 1 " &
                 " AND SIC_CODE = :pId "
@@ -42,7 +42,7 @@ Namespace DAL
             If Not Regex.IsMatch(naicsCode, NaicsCodePattern) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
-                " FROM AIRBRANCH.LK_NAICS " &
+                " FROM LK_NAICS " &
                 " WHERE RowNum = 1 " &
                 " AND ACTIVE = 1 " &
                 " AND NAICS_CODE = :pId "
@@ -63,7 +63,7 @@ Namespace DAL
         ''' <returns>DataRow containing header data for the specified facility</returns>
         ''' <remarks>Data retrieved from VW_FACILITY_HEADERDATA view.</remarks>
         Public Function GetFacilityHeaderDataAsDataRow(ByVal airsNumber As ApbFacilityId) As DataRow
-            Dim spName As String = "AIRBRANCH.IAIP_FACILITY.GetFacilityHeaderData"
+            Dim spName As String = "IAIP_FACILITY.GetFacilityHeaderData"
             Dim parameter As New SqlParameter("AirsNumber", airsNumber.DbFormattedString)
             Return DB.SPGetDataRow(spName, parameter)
         End Function
@@ -116,13 +116,13 @@ Namespace DAL
         ''' <returns>A DataTable of historical header data for the specified facility</returns>
         ''' <remarks>Data retrieved from VW_HB_APBHEADERDATA view.</remarks>
         Public Function GetFacilityHeaderDataHistoryAsDataTable(ByVal airsNumber As ApbFacilityId) As DataTable
-            Dim spName As String = "AIRBRANCH.IAIP_FACILITY.GetFacilityHeaderDataHistory"
+            Dim spName As String = "IAIP_FACILITY.GetFacilityHeaderDataHistory"
             Dim parameter As New SqlParameter("AirsNumber", airsNumber.DbFormattedString)
             Return DB.SPGetDataTable(spName, parameter)
         End Function
 
         Public Function GetFacilityOperationalStatus(airsNumber As ApbFacilityId) As FacilityOperationalStatus
-            Dim query As String = "SELECT STROPERATIONALSTATUS FROM AIRBRANCH.APBHEADERDATA WHERE STRAIRSNUMBER = :airsNumber"
+            Dim query As String = "SELECT STROPERATIONALSTATUS FROM APBHEADERDATA WHERE STRAIRSNUMBER = :airsNumber"
             Dim parameter As New SqlParameter("airsNumber", airsNumber.DbFormattedString)
             Return [Enum].Parse(GetType(FacilityOperationalStatus), DB.GetSingleValue(Of String)(query, parameter))
         End Function
@@ -157,7 +157,7 @@ Namespace DAL
 
             ' 1. Update ApbHeaderData
             queryList.Add(
-                "UPDATE AIRBRANCH.APBHEADERDATA " &
+                "UPDATE APBHEADERDATA " &
                 "  SET STROPERATIONALSTATUS = :OperationalStatusCode, " &
                 "    STRCLASS               = :Classification, " &
                 "    STRAIRPROGRAMCODES     = :AirProgramsCode, " &
@@ -193,7 +193,7 @@ Namespace DAL
 
             ' 2. Update ApbSupplamentalData (sic)
             queryList.Add(
-                " UPDATE AIRBRANCH.APBSUPPLAMENTALDATA " &
+                " UPDATE APBSUPPLAMENTALDATA " &
                 "  SET STRMODIFINGPERSON = :modifiedby, " &
                 "    DATMODIFINGDATE     = sysdate, " &
                 "    STRRMPID            = :rmp " &
@@ -217,7 +217,7 @@ Namespace DAL
                     ' 3a. For each active APC, update all existing keys in 
                     '     ApbAirProgramPollutants with new operating status
                     queryList.Add(
-                        " UPDATE AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " &
+                        " UPDATE APBAIRPROGRAMPOLLUTANTS " &
                         "  SET STROPERATIONALSTATUS = :operatingstatus " &
                         "  WHERE STRAIRSNUMBER      = :airsnumber " &
                         "  AND STROPERATIONALSTATUS <> 'X' "
@@ -232,7 +232,7 @@ Namespace DAL
                     '     & compliance status = 0 (compliance status column is deprecated)
                     queryList.Add(
                         " INSERT " &
-                        " INTO AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " &
+                        " INTO APBAIRPROGRAMPOLLUTANTS " &
                         "  ( STRAIRSNUMBER, " &
                         "    STRAIRPOLLUTANTKEY, " &
                         "    STRPOLLUTANTKEY, " &
@@ -248,7 +248,7 @@ Namespace DAL
                         " FROM DUAL " &
                         " WHERE NOT EXISTS " &
                         "  (SELECT NULL " &
-                        "  FROM AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " &
+                        "  FROM APBAIRPROGRAMPOLLUTANTS " &
                         "  WHERE STRAIRPOLLUTANTKEY = :airpollkey " &
                         "  ) "
                     )
@@ -264,7 +264,7 @@ Namespace DAL
 
                     ' 4. For any inactive APC, change any existing subparts in ApbSubpartData to inactive
                     queryList.Add(
-                        " UPDATE AIRBRANCH.APBSUBPARTDATA " &
+                        " UPDATE APBSUBPARTDATA " &
                         "  SET ACTIVE          = :active, " &
                         "    UPDATEUSER        = :modifiedby, " &
                         "    UPDATEDATETIME    = sysdate " &
@@ -281,7 +281,7 @@ Namespace DAL
 
             ' 5. Change update status in AfsAirPollutantData to 'C' where currently 'N'
             queryList.Add(
-                " UPDATE AIRBRANCH.AFSAIRPOLLUTANTDATA " &
+                " UPDATE AFSAIRPOLLUTANTDATA " &
                 "  SET STRUPDATESTATUS   = 'C', " &
                 "    STRMODIFINGPERSON   = :modifiedby, " &
                 "    DATMODIFINGDATE     = sysdate " &

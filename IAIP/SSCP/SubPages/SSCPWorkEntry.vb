@@ -34,7 +34,7 @@ Public Class SSCPWorkEnTry
             dsCompliance = New DataSet
 
             SQL = "select strActivityType, strActivityName, strActivityDescription " &
-            "from AIRBRANCH.LookUPComplianceActivities " &
+            "from LookUPComplianceActivities " &
             "order by strActivityName"
 
             daCompliance = New SqlDataAdapter
@@ -101,14 +101,14 @@ Public Class SSCPWorkEnTry
 
             If cboEvent.Text <> " " Then
 
-                SQL = "Insert into AIRBRANCH.SSCPItemMaster " &
+                SQL = "Insert into SSCPItemMaster " &
                 "(strTrackingNumber, strAIRSnumber, DatReceivedDate, strEventType, " &
                 "strModifingPerson, datModifingDate) values " &
-                "(AIRBRANCH.SSCPTrackingNumber.nextval, '0413" & txtAIRSNumber.Text & "', '" & DateReceived & "', " &
-                "(Select strActivityType from AIRBRANCH.LookUPComplianceActivities where strActivityName = '" & cboEvent.Text & "'), " &
+                "(SSCPTrackingNumber.nextval, '0413" & txtAIRSNumber.Text & "', '" & DateReceived & "', " &
+                "(Select strActivityType from LookUPComplianceActivities where strActivityName = '" & cboEvent.Text & "'), " &
                 "'" & CurrentUser.UserID & "', '" & OracleDate & "')"
 
-                SQL2 = "Select AIRBRANCH.SSCPTrackingNumber.Currval from Dual"
+                SQL2 = "Select SSCPTrackingNumber.Currval from Dual"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 cmd2 = New SqlCommand(SQL2, CurrentConnection)

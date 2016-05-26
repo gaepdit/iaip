@@ -61,7 +61,7 @@ Public Class IAIPFacilityLookUpTool
                 "strFacilityName, substr(strAIRSNumber, 5) as ShortAIRS, " &
                 "strFacilityCity, " &
                 "strFacilityStreet1 " &
-                "from AIRBRANCH.APBFacilityInformation " &
+                "from APBFacilityInformation " &
                 "where strAirsNumber Like :SearchString"
 
                 parameter = New SqlParameter("SearchString", "%" & txtAIRSNumberSearch.Text & "%")
@@ -71,7 +71,7 @@ Public Class IAIPFacilityLookUpTool
                 "strFacilityName, substr(strAIRSNumber, 5) as shortAIRS, " &
                 "strFacilityCity, " &
                 "strFacilityStreet1 " &
-                "from AIRBRANCH.APBFacilityInformation " &
+                "from APBFacilityInformation " &
                 "where Upper(strFacilityCity) Like Upper(:SearchString)"
 
                 parameter = New SqlParameter("SearchString", "%" & txtCityNameSearch.Text & "%")
@@ -81,8 +81,8 @@ Public Class IAIPFacilityLookUpTool
                  "strFacilityName, substr(strAIRSNumber, 5) as ShortAIRS, " &
                  "strFacilityCity, " &
                  "strFacilityStreet1, strCountyName " &
-                 "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.LookUpCountyInformation " &
-                 "where substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode " &
+                 "from APBFacilityInformation, LookUpCountyInformation " &
+                 "where substr(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode " &
                  "and upper(strCountyName) like Upper(:SearchString) "
 
                 parameter = New SqlParameter("SearchString", "%" & txtCountyNameSearch.Text & "%")
@@ -92,7 +92,7 @@ Public Class IAIPFacilityLookUpTool
                 "strFacilityName, substr(strAIRSNumber, 5) as shortAIRS, " &
                 "strFacilityCity, " &
                 "strFacilityStreet1 " &
-                "from AIRBRANCH.APBFacilityInformation " &
+                "from APBFacilityInformation " &
                 "where Upper(strFacilityName) Like Upper(:SearchString)"
 
                 parameter = New SqlParameter("SearchString", "%" & txtFacilityNameSearch.Text & "%")
@@ -103,97 +103,97 @@ Public Class IAIPFacilityLookUpTool
                 "substr(strAIRSNumber, 5) as shortAIRS, " &
                 "strFacilityCity, " &
                 "strFacilityStreet1 " &
-                "from AIRBRANCH.APBFacilityInformation " &
+                "from APBFacilityInformation " &
                 "where Upper(strFacilityName) Like Upper(:SearchString)" &
                 "Union " &
                 "Select " &
                 "distinct(strFacilityName) as strFacilityName, " &
                 "substr(strAIRSNumber, 5) as shortAIRS, " &
                 "strFacilityCity, strFacilityStreet1 " &
-                "from AIRBRANCH.HB_APBFacilityInformation " &
+                "from HB_APBFacilityInformation " &
                 "where Upper(strFacilityName) Like Upper(:SearchString)" &
                 "Union " &
                 "select " &
                 "Distinct(strFacilityname) as strFacilityname,  " &
                 "substr(strAIRSNumber, 5) as shortAIRS,  " &
                 "strFacilityCity, strFacilityStreet1  " &
-                "from AIRBRANCH.SSPPApplicationData, AIRBRANCH.SSPPApplicationMaster   " &
-                "where AIRBRANCH.SSPPApplicationData.strApplicationNumber = AIRBRANCH.SSPPApplicationMaster.strApplicationNumber " &
+                "from SSPPApplicationData, SSPPApplicationMaster   " &
+                "where SSPPApplicationData.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber " &
                 "and upper(strFacilityname) like Upper(:SearchString) "
 
                 parameter = New SqlParameter("SearchString", "%" & txtFacilityNameSearch.Text & "%")
 
             Case SearchByType.SicCode
                 query = "Select " &
-                "strFacilityName, substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as shortAIRS, " &
+                "strFacilityName, substr(APBFacilityInformation.strAIRSNumber, 5) as shortAIRS, " &
                 "strSICCode, " &
                 "strFacilityCity, strFacilityStreet1 " &
-                "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBHeaderData " &
-                "where Upper(AIRBRANCH.APBHeaderData.strSICCode) Like Upper(:SearchString) " &
-                "and AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.APBHeaderData.strAIRSNumber"
+                "from APBFacilityInformation, APBHeaderData " &
+                "where Upper(APBHeaderData.strSICCode) Like Upper(:SearchString) " &
+                "and APBFacilityInformation.strairsnumber = APBHeaderData.strAIRSNumber"
 
                 parameter = New SqlParameter("SearchString", txtSICCodeSearch.Text & "%")
 
             Case SearchByType.Subpart
                 If rdbPart60.Checked Then
                     query = "select " &
-                    "strFacilityName, substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " &
+                    "strFacilityName, substr(APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " &
                     "strFacilityCity,  " &
                     "strFacilityStreet1,  " &
-                    "(AIRBRANCH.LookUpsubPart60.strSubPart|| ' - '||AIRBRANCH.LookUpSubpart60.strDescription) as SubPartData " &
+                    "(LookUpsubPart60.strSubPart|| ' - '||LookUpSubpart60.strDescription) as SubPartData " &
                     "from  " &
-                    "AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBSubpartData,  " &
-                    "AIRBRANCH.LookUPSubPart60  " &
+                    "APBFacilityInformation, APBSubpartData,  " &
+                    "LookUPSubPart60  " &
                     "where  " &
-                    "AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBSubPartData.strAIRSNumber  " &
-                    "and AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubPart60.strSubpart  " &
+                    "APBFacilityInformation.strAIRSNumber = APBSubPartData.strAIRSNumber  " &
+                    "and APBSubpartData.strSubPart = LookUpSubPart60.strSubpart  " &
                     "and substr(strSubpartKey, 13) = '9'  " &
-                    "and (AIRBRANCH.APBSubpartData.strSubpart) like :SearchString   "
+                    "and (APBSubpartData.strSubpart) like :SearchString   "
 
                 ElseIf rdbPart61.Checked Then
                     query = "select " &
-                    "strFacilityName, substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " &
+                    "strFacilityName, substr(APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " &
                     "strFacilityCity,  " &
                     "strFacilityStreet1,  " &
-                    "(AIRBRANCH.LookUpsubPart61.strSubPart|| ' - '||AIRBRANCH.LookUpSubpart61.strDescription) as SubPartData " &
+                    "(LookUpsubPart61.strSubPart|| ' - '||LookUpSubpart61.strDescription) as SubPartData " &
                     "from  " &
-                    "AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBSubpartData,  " &
-                    "AIRBRANCH.LookUPSubPart61  " &
+                    "APBFacilityInformation, APBSubpartData,  " &
+                    "LookUPSubPart61  " &
                     "where  " &
-                    "AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBSubPartData.strAIRSNumber  " &
-                    "and AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubPart61.strSubpart  " &
+                    "APBFacilityInformation.strAIRSNumber = APBSubPartData.strAIRSNumber  " &
+                    "and APBSubpartData.strSubPart = LookUpSubPart61.strSubpart  " &
                     "and substr(strSubpartKey, 13) = '8'  " &
-                    "and (AIRBRANCH.APBSubpartData.strSubpart) like :SearchString   "
+                    "and (APBSubpartData.strSubpart) like :SearchString   "
 
                 ElseIf rdbPart63.Checked Then
                     query = "select " &
-                    "strFacilityName, substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " &
+                    "strFacilityName, substr(APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " &
                     "strFacilityCity,  " &
                     "strFacilityStreet1,  " &
-                    "(AIRBRANCH.LookUpsubPart63.strSubPart|| ' - '||AIRBRANCH.LookUpSubpart63.strDescription) as SubPartData " &
+                    "(LookUpsubPart63.strSubPart|| ' - '||LookUpSubpart63.strDescription) as SubPartData " &
                     "from  " &
-                    "AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBSubpartData,  " &
-                    "AIRBRANCH.LookUPSubPart63  " &
+                    "APBFacilityInformation, APBSubpartData,  " &
+                    "LookUPSubPart63  " &
                     "where  " &
-                    "AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBSubPartData.strAIRSNumber  " &
-                    "and AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubPart63.strSubpart  " &
+                    "APBFacilityInformation.strAIRSNumber = APBSubPartData.strAIRSNumber  " &
+                    "and APBSubpartData.strSubPart = LookUpSubPart63.strSubpart  " &
                     "and substr(strSubpartKey, 13) = 'M'  " &
-                    "and (AIRBRANCH.APBSubpartData.strSubpart) like :SearchString   "
+                    "and (APBSubpartData.strSubpart) like :SearchString   "
 
                 ElseIf rdbGASIP.Checked Then
                     query = "select " &
-                    "strFacilityName, substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " &
+                    "strFacilityName, substr(APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " &
                     "strFacilityCity,  " &
                     "strFacilityStreet1,  " &
-                    "(AIRBRANCH.LookUpSubPartSIP.strSubPart|| ' - '||AIRBRANCH.LookUpSubpartSIP.strDescription) as SubPartData " &
+                    "(LookUpSubPartSIP.strSubPart|| ' - '||LookUpSubpartSIP.strDescription) as SubPartData " &
                     "from  " &
-                    "AIRBRANCH.APBFacilityInformation, AIRBRANCH.APBSubpartData,  " &
-                    "AIRBRANCH.LookUPSubPartSIP " &
+                    "APBFacilityInformation, APBSubpartData,  " &
+                    "LookUPSubPartSIP " &
                     "where  " &
-                    "AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.APBSubPartData.strAIRSNumber  " &
-                    "and AIRBRANCH.APBSubpartData.strSubPart = AIRBRANCH.LookUpSubPartSIP.strSubpart  " &
+                    "APBFacilityInformation.strAIRSNumber = APBSubPartData.strAIRSNumber  " &
+                    "and APBSubpartData.strSubPart = LookUpSubPartSIP.strSubpart  " &
                     "and substr(strSubpartKey, 13) = '0'  " &
-                    "and (AIRBRANCH.APBSubpartData.strSubpart) like :SearchString   "
+                    "and (APBSubpartData.strSubpart) like :SearchString   "
                 End If
 
                 parameter = New SqlParameter("SearchString", "%" & txtSubpartSearch.Text & "%")
@@ -203,22 +203,22 @@ Public Class IAIPFacilityLookUpTool
                 "strFacilityName, substr(strAIRSNumber, 5) as shortAIRS, " &
                 "strFacilityCity, " &
                 "strFacilityStreet1, strFacilityZipCode " &
-                "from AIRBRANCH.APBFacilityInformation " &
+                "from APBFacilityInformation " &
                 "where Upper(strFacilityZipCode) Like Upper(:SearchString)"
 
                 parameter = New SqlParameter("SearchString", "%" & txtZipCodeSearch.Text & "%")
 
             Case SearchByType.Inspector
                 query = "Select  " &
-                " AIRBRANCH.APBFacilityInformation.strFacilityName, " &
-                "substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,   " &
-                " AIRBRANCH.APBFacilityInformation.strFacilityCity,   " &
-                " AIRBRANCH.APBFacilityInformation.strFacilityStreet1, " &
+                " APBFacilityInformation.strFacilityName, " &
+                "substr(APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,   " &
+                " APBFacilityInformation.strFacilityCity,   " &
+                " APBFacilityInformation.strFacilityStreet1, " &
                 "(strLastName||', '||strFirstname) as Inspector    " &
-                "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.VW_SSCPInspection_List, " &
-                "AIRBRANCH.EPDUserProfiles   " &
-                "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = '0413'||AIRBRANCH.VW_SSCPInspection_List.AIRSNumber   " &
-                "and AIRBRANCH.VW_SSCPInspection_List.numSSCPEngineer = AIRBRANCH.EPDUserProfiles.numUserID   " &
+                "from APBFacilityInformation, VW_SSCPInspection_List, " &
+                "EPDUserProfiles   " &
+                "where APBFacilityInformation.strAIRSNumber = '0413'||VW_SSCPInspection_List.AIRSNumber   " &
+                "and VW_SSCPInspection_List.numSSCPEngineer = EPDUserProfiles.numUserID   " &
                 "and Upper(strLastName||', '||strFirstName) like Upper(:SearchString)  "
 
                 parameter = New SqlParameter("SearchString", "%" & txtComplianceEngineer.Text & "%")

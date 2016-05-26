@@ -81,7 +81,7 @@ Public Class SSCPEvents
         Dim EventTypeDbString As String = ""
         Dim ReceivedDate As String = ""
 
-        SQL = "Select * from AIRBRANCH.SSCPItemMaster " &
+        SQL = "Select * from SSCPItemMaster " &
         "where strTrackingNumber = '" & txtTrackingNumber.Text & "'"
 
         If CurrentConnection.State = ConnectionState.Closed Then
@@ -237,7 +237,7 @@ Public Class SSCPEvents
         dsNotifications = New DataSet
 
         SQL = "Select strNotificationKey, strNotificationDESC " &
-        "from AIRBRANCH.LookUPSSCPNotifications " &
+        "from LookUPSSCPNotifications " &
         "order by strNotificationDESC "
 
         daNotifications = New SqlDataAdapter(SQL, CurrentConnection)
@@ -281,13 +281,13 @@ Public Class SSCPEvents
             "strlastname, strfirstname, " &
             "strResponsibleStaff, " &
             "strDelete " &
-            "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.LookUpCountyInformation,  " &
-            "AIRBRANCH.APBHeaderData, AIRBRANCH.EPDUserProfiles, AIRBRANCH.SSCPItemMaster  " &
-            "where AIRBRANCH.APBFacilityInformation.strAIRSNUMBER = AIRBRANCH.APBHeaderData.strAIRSNUmber " &
-            "and AIRBRANCH.LookUpCountyInformation.strCountyCode = substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5, 3)  " &
-            "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSCPItemMaster.strAIRSNumber  " &
-            "and AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SSCPItemMaster.strResponsibleStaff  " &
-            "and AIRBRANCH.SSCPItemMaster.strTrackingNumber = '" & txtTrackingNumber.Text & "' "
+            "from APBFacilityInformation, LookUpCountyInformation,  " &
+            "APBHeaderData, EPDUserProfiles, SSCPItemMaster  " &
+            "where APBFacilityInformation.strAIRSNUMBER = APBHeaderData.strAIRSNUmber " &
+            "and LookUpCountyInformation.strCountyCode = substr(APBFacilityInformation.strAIRSNumber, 5, 3)  " &
+            "and APBFacilityInformation.strAIRSNumber = SSCPItemMaster.strAIRSNumber  " &
+            "and EPDUserProfiles.numUserID = SSCPItemMaster.strResponsibleStaff  " &
+            "and SSCPItemMaster.strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -346,7 +346,7 @@ Public Class SSCPEvents
 
 
             SQL = "Select strRMPID " &
-            "from AIRBRANCH.APBSupplamentalData " &
+            "from APBSupplamentalData " &
             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -452,7 +452,7 @@ Public Class SSCPEvents
         Dim Completedate As String = ""
 
         SQL = "Select datCompleteDate " &
-        "from AIRBRANCH.SSCPItemMaster " &
+        "from SSCPItemMaster " &
         "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
         cmd = New SqlCommand(SQL, CurrentConnection)
@@ -870,7 +870,7 @@ Public Class SSCPEvents
                     CurrentConnection.Open()
                 End If
 
-                SQL = "Select strTrackingNumber from AIRBRANCH.SSCPREports where " &
+                SQL = "Select strTrackingNumber from SSCPREports where " &
                 "strTrackingNumber = '" & txtTrackingNumber.Text & "'"
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
@@ -878,7 +878,7 @@ Public Class SSCPEvents
                 recExist = dr.Read
 
                 If recExist = False Then
-                    SQL = "Insert into AIRBRANCH.SSCPREports " &
+                    SQL = "Insert into SSCPREports " &
                     "(strTrackingNumber, strReportPeriod, " &
                     "DatReportingPeriodStart, DatReportingPeriodEnd, " &
                     "strReportingPeriodComments, datreportduedate, " &
@@ -902,7 +902,7 @@ Public Class SSCPEvents
 
                     dr = cmd.ExecuteReader
 
-                    SQL = "Insert into AIRBRANCH.SSCPREportsHistory " &
+                    SQL = "Insert into SSCPREportsHistory " &
                     "(strTrackingNumber, strSubmittalNumber, " &
                     "strReportPeriod, DatReportingPeriodStart, " &
                     "DatReportingPeriodEnd, strReportingPeriodComments, " &
@@ -927,7 +927,7 @@ Public Class SSCPEvents
                     dr = cmd.ExecuteReader
 
                 Else
-                    SQL = "Update AIRBRANCH.SSCPREports set " &
+                    SQL = "Update SSCPREports set " &
                     "strSubmittalNumber = '" & NUPReportSubmittal.Value & "', " &
                     "strReportPeriod = '" & cboReportSchedule.Text & "', " &
                     "DatReportingPeriodStart = '" & DTPReportPeriodStart.Text & "', " &
@@ -951,7 +951,7 @@ Public Class SSCPEvents
                     dr.Close()
 
                     SQL = "Select strSubmittalNumber " &
-                    "from AIRBRANCH.SSCPREportsHistory " &
+                    "from SSCPREportsHistory " &
                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "' " &
                     "and strSubmittalNumber = '" & NUPReportSubmittal.Value & "'"
 
@@ -963,7 +963,7 @@ Public Class SSCPEvents
                     recExist = dr.Read
                     dr.Close()
                     If recExist = True Then
-                        SQL = "Update AIRBRANCH.SSCPREportsHistory set " &
+                        SQL = "Update SSCPREportsHistory set " &
                          "strSubmittalNumber = '" & NUPReportSubmittal.Value & "', " &
                          "strReportPeriod = '" & cboReportSchedule.Text & "', " &
                          "DatReportingPeriodStart = '" & DTPReportPeriodStart.Text & "', " &
@@ -980,7 +980,7 @@ Public Class SSCPEvents
                          "where strTrackingNumber = '" & txtTrackingNumber.Text & "' " &
                          "and strSubmittalNumber = '" & NUPReportSubmittal.Value & "'"
                     Else
-                        SQL = "Insert into AIRBRANCH.SSCPREportsHistory " &
+                        SQL = "Insert into SSCPREportsHistory " &
                         "(strTrackingNumber, strSubmittalNumber, " &
                         "strReportPeriod, DatReportingPeriodStart, " &
                         "DatReportingPeriodEnd, strReportingPeriodComments, " &
@@ -1007,7 +1007,7 @@ Public Class SSCPEvents
                     dr.Close()
 
                     If Me.chbReportReceivedByAPB.Checked = True Then
-                        SQL = "Update AIRBRANCH.SSCPItemMaster set " &
+                        SQL = "Update SSCPItemMaster set " &
                         "datReceivedDate = '" & Me.DTPReportReceivedDate.Text & "' " &
                         "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
                         cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1084,7 +1084,7 @@ Public Class SSCPEvents
                     CurrentConnection.Open()
                 End If
 
-                SQL = "Select * from AIRBRANCH.SSCPInspections " &
+                SQL = "Select * from SSCPInspections " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "'"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1093,7 +1093,7 @@ Public Class SSCPEvents
                 recExist = dr.Read
 
                 If recExist = False Then
-                    SQL = "Insert into AIRBRANCH.SSCPInspections " &
+                    SQL = "Insert into SSCPInspections " &
                     "(strTrackingNumber, DatInspectionDateStart, " &
                     "datinspectionDateEnd, strInspectionReason, " &
                     "strWeatherConditions, strInspectionGuide, " &
@@ -1112,7 +1112,7 @@ Public Class SSCPEvents
                     "'" & EnforcementFollowUp & "', '" & CurrentUser.UserID & "', " &
                     "'" & OracleDate & "')"
                 Else
-                    SQL = "Update AIRBRANCH.SSCPInspections set " &
+                    SQL = "Update SSCPInspections set " &
                     "DatInspectionDateStart = to_date('" & InspectionTimeStart & "', 'dd.mm.yyyy HH24:mi:ss'), " &
                     "datinspectionDateEnd = to_date('" & InspectionTimeEnd & "', 'dd.mm.yyyy HH24:mi:ss'), " &
                     "strInspectionReason = '" & Replace(InspectionReason, "'", "''") & "', " &
@@ -1177,7 +1177,7 @@ Public Class SSCPEvents
                 End If
 
                 SQL = "Select strTrackingNumber " &
-                "from AIRBRANCH.SSCPACCS where " &
+                "from SSCPACCS where " &
                 "strTrackingNumber = '" & txtTrackingNumber.Text & "'"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1249,7 +1249,7 @@ Public Class SSCPEvents
                 If recExist = False Then
                     NUPACCSubmittal.Text = 1
 
-                    SQL = "Insert into AIRBRANCH.SSCPACCS " &
+                    SQL = "Insert into SSCPACCS " &
                     "(strTrackingNumber, strSubmittalNumber, " &
                     "strPostMarkedOnTime, DATPostMarkDate, " &
                     "strsignedbyRO, strCorrectACCFOrms, " &
@@ -1275,7 +1275,7 @@ Public Class SSCPEvents
                     End If
                     dr = cmd.ExecuteReader
 
-                    SQL = "Insert into AIRBRANCH.SSCPACCSHistory " &
+                    SQL = "Insert into SSCPACCSHistory " &
                     "(strTrackingNumber, strSubmittalNumber, " &
                     "strPostMarkedOnTime, DATPostMarkDate, " &
                     "strsignedbyRO, StrCorrectACCForms, " &
@@ -1302,7 +1302,7 @@ Public Class SSCPEvents
                     dr = cmd.ExecuteReader
 
                 Else  'recExist = False 
-                    SQL = "Update AIRBRANCH.SSCPACCS set " &
+                    SQL = "Update SSCPACCS set " &
                     "strSubmittalNumber = '" & NUPACCSubmittal.Text & "', " &
                     "strPostMarkedOnTime = '" & PostedOnTime & "', " &
                     "DATPostMarkDate = '" & DTPACCPostmarked.Text & "', " &
@@ -1329,7 +1329,7 @@ Public Class SSCPEvents
                     dr.Close()
 
                     SQL = "Select strSubmittalNumber " &
-                    "from AIRBRANCH.SSCPACCSHistory " &
+                    "from SSCPACCSHistory " &
                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "' " &
                     "and strSubmittalNumber = '" & NUPACCSubmittal.Text & "' "
 
@@ -1340,7 +1340,7 @@ Public Class SSCPEvents
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
                     If recExist = True Then
-                        SQL = "Update AIRBRANCH.SSCPACCSHistory set " &
+                        SQL = "Update SSCPACCSHistory set " &
                         "strSubmittalNumber = '" & NUPACCSubmittal.Text & "', " &
                         "strPostMarkedOnTime = '" & PostedOnTime & "', " &
                         "DATPostMarkDate = '" & DTPACCPostmarked.Text & "', " &
@@ -1360,7 +1360,7 @@ Public Class SSCPEvents
                         "where strTrackingnumber = '" & txtTrackingNumber.Text & "' " &
                         "and strSubmittalNumber = '" & NUPACCSubmittal.Text & "'"
                     Else
-                        SQL = "Insert into AIRBRANCH.SSCPACCSHistory " &
+                        SQL = "Insert into SSCPACCSHistory " &
                         "(strTrackingNumber, strSubmittalNumber, " &
                         "strPostMarkedOnTime, DATPostMarkDate, " &
                         "strsignedbyRO, StrCorrectACCForms, " &
@@ -1387,7 +1387,7 @@ Public Class SSCPEvents
                     dr = cmd.ExecuteReader
 
                     If chbACCReceivedByAPB.Checked = True Then
-                        SQL = "Update AIRBRANCH.SSCPItemMaster set " &
+                        SQL = "Update SSCPItemMaster set " &
                         "datReceivedDate = '" & DTPACCReceivedDate.Text & "' " &
                         "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
                         cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1398,7 +1398,7 @@ Public Class SSCPEvents
                         dr.Close()
                     End If
 
-                End If 'If recExist in the AIRBRANCH.SSCPACCS table
+                End If 'If recExist in the SSCPACCS table
             End If  'Warnings Check
 
         Catch ex As Exception
@@ -1445,7 +1445,7 @@ Public Class SSCPEvents
             End If
 
             SQL = "Select strTrackingNumber " &
-            "from AIRBRANCH.SSCPTestReports " &
+            "from SSCPTestReports " &
             "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1453,7 +1453,7 @@ Public Class SSCPEvents
 
             recExist = dr.Read
             If recExist = True Then
-                SQL = "Update AIRBRANCH.SSCPTestReports set " &
+                SQL = "Update SSCPTestReports set " &
                 "strReferenceNumber = '" & ReferenceNumber & "', " &
                 "datTestReportDue = '" & TestReportDue & "', " &
                 "strTestReportComments = '" & Replace(TestReportComments, "'", "''") & "', " &
@@ -1462,7 +1462,7 @@ Public Class SSCPEvents
                 "datModifingDate = '" & OracleDate & "' " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
             Else
-                SQL = "Insert into AIRBRANCH.SSCPTestReports " &
+                SQL = "Insert into SSCPTestReports " &
                 "(strTrackingNumber, strReferenceNumber, " &
                 "datTestReportDue, " &
                 "strTestReportComments, strTestReportFollowUp, " &
@@ -1479,7 +1479,7 @@ Public Class SSCPEvents
             dr.Close()
 
             SQL = "Select strAIRSnumber " &
-            "from AIRBRANCH.APBSupplamentalData " &
+            "from APBSupplamentalData " &
             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1491,7 +1491,7 @@ Public Class SSCPEvents
             dr.Close()
 
             If recExist = True Then
-                SQL = "Update AIRBRANCH.APBSupplamentalData set " &
+                SQL = "Update APBSupplamentalData set " &
                 "datSSCPTestReportDue = '" & DTPTestReportNewDueDate.Text & "' " &
                 "where strAIRSNUmber = '0413" & txtAIRSNumber.Text & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1504,7 +1504,7 @@ Public Class SSCPEvents
             End If
 
             If Me.chbISMPTestReportReceivedByAPB.Checked = True Then
-                SQL = "Update AIRBRANCH.SSCPItemMaster set " &
+                SQL = "Update SSCPItemMaster set " &
                 "datReceivedDate = '" & Me.DTPTestReportReceivedDate.Text & "' " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1565,7 +1565,7 @@ Public Class SSCPEvents
             End If
 
             SQL = "Select strTrackingNumber " &
-            "from AIRBRANCH.SSCPNotifications " &
+            "from SSCPNotifications " &
             "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1575,7 +1575,7 @@ Public Class SSCPEvents
             dr = cmd.ExecuteReader
             recExist = dr.Read
             If recExist = True Then
-                SQL = "UPdate AIRBRANCH.SSCPNotifications set " &
+                SQL = "UPdate SSCPNotifications set " &
                 "datNotificationDue = '" & NotificationDueDate & "', " &
                 "strNotificationDue = '" & NotificationDue & "', " &
                 "datNotificationSent = '" & NotificationSentDate & "', " &
@@ -1588,7 +1588,7 @@ Public Class SSCPEvents
                 "datModifingDate = '" & OracleDate & "' " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
             Else
-                SQL = "Insert into AIRBRANCH.SSCPNotifications " &
+                SQL = "Insert into SSCPNotifications " &
                 "(strTrackingNumber, datNotificationDue, " &
                 "strNotificationDue, datNotificationSent, " &
                 "strNotificationSent, strNotificationType, " &
@@ -1608,7 +1608,7 @@ Public Class SSCPEvents
             dr = cmd.ExecuteReader
 
             If Me.chbNotificationReceivedByAPB.Checked = True Then
-                SQL = "Update AIRBRANCH.SSCPItemMaster set " &
+                SQL = "Update SSCPItemMaster set " &
                 "datReceivedDate = '" & DTPNotificationReceived.Text & "' " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1638,7 +1638,7 @@ Public Class SSCPEvents
 
         Try
             SQL = "Select strTrackingNumber " &
-            "from AIRBRANCH.SSCPItemMaster " &
+            "from SSCPItemMaster " &
             "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1665,7 +1665,7 @@ Public Class SSCPEvents
                     Staff = "0"
                 End If
 
-                SQL = "Update AIRBRANCH.SSCPItemMaster set " &
+                SQL = "Update SSCPItemMaster set " &
                 "datCompleteDate = '" & CompleteDate & "', " &
                 "datAcknoledgmentLetterSent = '" & AcknoledgmentLetter & "', " &
                 "strResponsibleStaff = '" & Staff & "', " &
@@ -1681,7 +1681,7 @@ Public Class SSCPEvents
 
                 If TPTestReports.Focus = False Then
                     SQL = "Select strUpDateStatus " &
-                    "from AIRBRANCH.AFSSSCPRecords " &
+                    "from AFSSSCPRecords " &
                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1700,7 +1700,7 @@ Public Class SSCPEvents
                             Case "C"
                                 'Leave it alone
                             Case "N"
-                                SQL = "Update AIRBRANCH.AFSSSCPRecords set " &
+                                SQL = "Update AFSSSCPRecords set " &
                                 "strUpDateStatus = 'C' " &
                                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
@@ -1719,7 +1719,7 @@ Public Class SSCPEvents
                         If Me.TPACC.Focus = True Or Me.TPInspection.Focus = True Then
 
                             SQL = "Select strAFSActionNumber " &
-                            "from AIRBRANCH.APBSupplamentalData " &
+                            "from APBSupplamentalData " &
                             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
                             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1732,7 +1732,7 @@ Public Class SSCPEvents
                             End While
                             dr.Close()
 
-                            SQL = "Insert into AIRBRANCH.AFSSSCPRecords " &
+                            SQL = "Insert into AFSSSCPRecords " &
                             "(strTrackingNumber, strAFSActionNumber, " &
                             "strUpDateStatus, strModifingPerson, " &
                             "datModifingdate) " &
@@ -1750,7 +1750,7 @@ Public Class SSCPEvents
 
                             ActionNumber = CStr(CInt(ActionNumber) + 1)
 
-                            SQL = "Update AIRBRANCH.APBSupplamentalData set " &
+                            SQL = "Update APBSupplamentalData set " &
                             "strAFSActionNUmber = '" & ActionNumber & "' " &
                             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
                             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1765,7 +1765,7 @@ Public Class SSCPEvents
 
                 If TPACC.Focus = True Then
                     SQL = "Select strTrackingNumber " &
-                    "from AIRBRANCH.SSCPItemMaster " &
+                    "from SSCPItemMaster " &
                     "where strTrackingnumber = '" & CStr(CInt(txtTrackingNumber.Text + 1)) & "' " &
                     "and streventType = '06' "
 
@@ -1779,7 +1779,7 @@ Public Class SSCPEvents
 
                     If recExist = True Then
                         SQL = "Select strUpDateStatus " &
-                        "from AIRBRANCH.AFSSSCPRecords " &
+                        "from AFSSSCPRecords " &
                         "where strTrackingNumber = '" & CStr(CInt(txtTrackingNumber.Text + 1)) & "' "
 
                         cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1798,7 +1798,7 @@ Public Class SSCPEvents
                                 Case "C"
                                     'Leave it alone
                                 Case "N"
-                                    SQL = "Update AIRBRANCH.AFSSSCPRecords set " &
+                                    SQL = "Update AFSSSCPRecords set " &
                                     "strUpDateStatus = 'C' " &
                                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
@@ -1815,7 +1815,7 @@ Public Class SSCPEvents
                             dr.Close()
 
                             SQL = "Select strAFSActionNumber " &
-                            "from AIRBRANCH.APBSupplamentalData " &
+                            "from APBSupplamentalData " &
                             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
                             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1828,7 +1828,7 @@ Public Class SSCPEvents
                             End While
                             dr.Close()
 
-                            SQL = "Insert into AIRBRANCH.AFSSSCPRecords " &
+                            SQL = "Insert into AFSSSCPRecords " &
                             "(strTrackingNumber, strAFSActionNumber, " &
                             "strUpDateStatus, strModifingPerson, " &
                             "datModifingdate) " &
@@ -1846,7 +1846,7 @@ Public Class SSCPEvents
 
                             ActionNumber = CStr(CInt(ActionNumber) + 1)
 
-                            SQL = "Update AIRBRANCH.APBSupplamentalData set " &
+                            SQL = "Update APBSupplamentalData set " &
                             "strAFSActionNUmber = '" & ActionNumber & "' " &
                             "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
                             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1861,7 +1861,7 @@ Public Class SSCPEvents
 
                 If TPReport.Focus = True Then
                     SQL = "Select strUpDateStatus " &
-                    "from AIRBRANCH.AFSSSCPRecords " &
+                    "from AFSSSCPRecords " &
                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1880,7 +1880,7 @@ Public Class SSCPEvents
                             Case "C"
                                 'Leave it alone
                             Case "N"
-                                SQL = "Update AIRBRANCH.AFSSSCPRecords set " &
+                                SQL = "Update AFSSSCPRecords set " &
                                 "strUpDateStatus = 'C' " &
                                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
@@ -1897,7 +1897,7 @@ Public Class SSCPEvents
                         dr.Close()
 
                         SQL = "Select strAFSActionNumber " &
-                        "from AIRBRANCH.APBSupplamentalData " &
+                        "from APBSupplamentalData " &
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
                         cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1910,7 +1910,7 @@ Public Class SSCPEvents
                         End While
                         dr.Close()
 
-                        SQL = "Insert into AIRBRANCH.AFSSSCPRecords " &
+                        SQL = "Insert into AFSSSCPRecords " &
                         "(strTrackingNumber, strAFSActionNumber, " &
                         "strUpDateStatus, strModifingPerson, " &
                         "datModifingdate) " &
@@ -1928,7 +1928,7 @@ Public Class SSCPEvents
 
                         ActionNumber = CStr(CInt(ActionNumber) + 1)
 
-                        SQL = "Update AIRBRANCH.APBSupplamentalData set " &
+                        SQL = "Update APBSupplamentalData set " &
                         "strAFSActionNUmber = '" & ActionNumber & "' " &
                         "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
                         cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1973,7 +1973,7 @@ Public Class SSCPEvents
                 "strEnforcementNeeded, strShowDeviation, " &
                 "strGeneralComments, strModifingPerson, " &
                 "datModifingDate, strSubmittalNumber " &
-                "from AIRBRANCH.SSCPREports " &
+                "from SSCPREports " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "'"
 
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2048,7 +2048,7 @@ Public Class SSCPEvents
                     CurrentConnection.Open()
                 End If
 
-                SQL = "Select * from AIRBRANCH.SSCPREportsHistory " &
+                SQL = "Select * from SSCPREportsHistory " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' " &
                 "and strSubmittalNumber = '" & NUPReportSubmittal.Value & "'"
 
@@ -2115,9 +2115,9 @@ Public Class SSCPEvents
 
             SQL = "Select strSubmittalNumber, datModifingDate, " &
                          "(strLastName|| ', ' ||strFirstName) as UserName " &
-                         "from AIRBRANCH.SSCPREportsHistory, AIRBRANCH.EPDUserProfiles " &
+                         "from SSCPREportsHistory, EPDUserProfiles " &
                          "where strTrackingNumber = '" & txtTrackingNumber.Text & "' " &
-                         "and AIRBRANCH.SSCPREportsHistory.strModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                         "and SSCPREportsHistory.strModifingPerson = EPDUserProfiles.numUserID " &
                          "order by strsubmittalnumber"
 
             dsReportsDGR = New DataSet
@@ -2206,7 +2206,7 @@ Public Class SSCPEvents
                 "strInspectionComments, " &
                 "strInspectionFollowUP, strModifingPerson, " &
                 "datModifingDate " &
-                "from AIRBRANCH.SSCPInspections " &
+                "from SSCPInspections " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2293,7 +2293,7 @@ Public Class SSCPEvents
                 "strComments, strEnforcementNeeded, " &
                 "strModifingPerson, datModifingDate, datAccReportingYear, " &
                 "STRKNOWNDEVIATIONSREPORTED, STRRESUBMITTALREQUIRED " &
-                "from AIRBRANCH.SSCPACCS " &
+                "from SSCPACCS " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2510,7 +2510,7 @@ Public Class SSCPEvents
                     CurrentConnection.Open()
                 End If
 
-                SQL = "Select * from AIRBRANCH.SSCPACCSHistory " &
+                SQL = "Select * from SSCPACCSHistory " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' " &
                 "and strSubmittalNumber = '" & NUPACCSubmittal.Value & "'"
 
@@ -2710,9 +2710,9 @@ Public Class SSCPEvents
 
             SQL = "Select strSubmittalNumber, datModifingDate, " &
             "(strLastName|| ', ' ||strFirstName) as UserName " &
-            "from AIRBRANCH.SSCPACCSHistory, AIRBRANCH.EPDUserProfiles " &
+            "from SSCPACCSHistory, EPDUserProfiles " &
             "where strTrackingNumber = '" & txtTrackingNumber.Text & "' " &
-            "and AIRBRANCH.SSCPACCSHistory.strModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+            "and SSCPACCSHistory.strModifingPerson = EPDUserProfiles.numUserID " &
             "order by strsubmittalnumber"
 
             dsACCsDGR = New DataSet
@@ -2797,7 +2797,7 @@ Public Class SSCPEvents
                 "datTestReportDue, " &
                 "strTestReportComments, strTestReportFOllowUP, " &
                 "strModifingPerson, datModifingDate " &
-                "from AIRBRANCH.SSCPTestReports " &
+                "from SSCPTestReports " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2832,7 +2832,7 @@ Public Class SSCPEvents
                     txtTestReportISMPCompleteDate.Text = "N/A"
                 Else
                     SQL = "Select datReceivedDate, datCompleteDate " &
-                    "from AIRBRANCH.ISMPReportInformation " &
+                    "from ISMPReportInformation " &
                     "where strReferenceNumber = '" & txtISMPReferenceNumber.Text & "' "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -2855,7 +2855,7 @@ Public Class SSCPEvents
                 End If
 
                 SQL = "Select datSSCPTestReportDue " &
-                "from AIRBRANCH.APBSupplamentalData " &
+                "from APBSupplamentalData " &
                 "where strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2875,9 +2875,9 @@ Public Class SSCPEvents
                 If txtISMPReferenceNumber.Text <> "N/A" Then
                     SQL = "Select " &
                     "strEmissionSource, strPollutantDescription " &
-                    "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.LookUPPollutants " &
+                    "from ISMPReportInformation, LookUPPollutants " &
                     "where strReferenceNumber = '" & txtISMPReferenceNumber.Text & "' " &
-                    "and AIRBRANCH.ISMPReportInformation.strPollutant = AIRBRANCH.LookUPPollutants.strPollutantCode "
+                    "and ISMPReportInformation.strPollutant = LookUPPollutants.strPollutantCode "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
@@ -2917,7 +2917,7 @@ Public Class SSCPEvents
                 "strNotificationTypeOther, strNotificationComment, " &
                 "strNotificationFollowUp, strModifingPerson, " &
                 "datModifingDate " &
-                "From AIRBRANCH.SSCPNotifications " &
+                "From SSCPNotifications " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "'"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -3056,12 +3056,12 @@ Public Class SSCPEvents
             Dim parametersList As New List(Of SqlParameter())
             Dim parameters As SqlParameter()
 
-            query = " UDPATE AIRBRANCH.AFSSSCPRECORDS SET STRUPDATESTATUS = 'D' WHERE STRTRACKINGNUMBER = :pId "
+            query = " UDPATE AFSSSCPRECORDS SET STRUPDATESTATUS = 'D' WHERE STRTRACKINGNUMBER = :pId "
             queryList.Add(query)
             parameters = New SqlParameter() {New SqlParameter("pId", txtTrackingNumber.Text)}
             parametersList.Add(parameters)
 
-            query = " UPDATE AIRBRANCH.SSCPITEMMASTER SET STRDELETE = '" & Boolean.TrueString & "' " &
+            query = " UPDATE SSCPITEMMASTER SET STRDELETE = '" & Boolean.TrueString & "' " &
                 " WHERE STRTRACKINGNUMBER = :pId "
             queryList.Add(query)
             parametersList.Add(parameters) ' parameters are same for both queries

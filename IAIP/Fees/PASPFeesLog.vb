@@ -24,12 +24,12 @@ Public Class PASPFeesLog
             "union " &
             "Select " &
             "distinct(numFeeYear) as FeeYear " &
-            "From AIRBRANCH.FS_Admin order by FeeYear Desc "
+            "From FS_Admin order by FeeYear Desc "
 
 
             SQL = "Select " &
               "distinct(numFeeYear) as FeeYear " &
-              "From AIRBRANCH.FS_Admin order by FeeYear Desc "
+              "From FS_Admin order by FeeYear Desc "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -64,7 +64,7 @@ Public Class PASPFeesLog
             For y As Integer = 0 To clbFeeYear.Items.Count - 1
                 If clbFeeYear.GetItemChecked(y) = True Then
                     clbFeeYear.SelectedIndex = y
-                    FeeYearSQL = FeeYearSQL & " AIRBRANCH.FS_Admin.numFeeYear = '" & clbFeeYear.Items(y).ToString & "' or "
+                    FeeYearSQL = FeeYearSQL & " FS_Admin.numFeeYear = '" & clbFeeYear.Items(y).ToString & "' or "
                 End If
             Next
             If FeeYearSQL <> " " Then
@@ -116,10 +116,10 @@ Public Class PASPFeesLog
                 OpStatus = " and ( " & OpStatus & " ) "
             End If
             If mtbSearchAirsNumber.Text <> "" Then
-                AIRSNumber = " and AIRBRANCH.APBFacilityInformation.strAIRSNumber like '%" & mtbSearchAirsNumber.Text & "%' "
+                AIRSNumber = " and APBFacilityInformation.strAIRSNumber like '%" & mtbSearchAirsNumber.Text & "%' "
             End If
             If txtSearchFacilityName.Text <> "" Then
-                FacilityName = " and AIRBRANCH.APBFacilityInformation.strFacilityName like '%" & txtSearchFacilityName.Text & "%' "
+                FacilityName = " and APBFacilityInformation.strFacilityName like '%" & txtSearchFacilityName.Text & "%' "
             End If
             If chbOwesFees.Checked = True Then
                 CollectionStatus = " and numCurrentStatus < 10 "
@@ -130,19 +130,19 @@ Public Class PASPFeesLog
 
             If txtInvoice.Text = "" Then
                 SQL = "select " &
-                "substr(AIRBRANCH.FS_Admin.strAIRSnumber, 5) as AIRSNumber, " &
-                "AIRBRANCH.APBFacilityInformation.strFacilityName, " &
-                "AIRBRANCH.FS_Admin.numFeeYear, " &
+                "substr(FS_Admin.strAIRSnumber, 5) as AIRSNumber, " &
+                "APBFacilityInformation.strFacilityName, " &
+                "FS_Admin.numFeeYear, " &
                 "stroperationalstatus,  " &
                 "case " &
                 "when stroperationalstatus <> 'O' then datShutDownDate " &
                 "else null " &
                 "End ShutDownDate, strIAIPDesc " &
-                "from AIRBRANCH.FS_Admin, AIRBRANCH.APBFacilityInformation, " &
-                "AIRBRANCH.APBHeaderData, AIRBRANCH.FSLK_Admin_Status " &
-                "where AIRBRANCH.FS_Admin.strAIRSnumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                "and AIRBRANCH.APBFacilityInformation.strAIRSnumber = AIRBRANCH.APBHeaderData.strAIRSNumber " &
-                "and AIRBRANCH.FS_Admin.numCurrentStatus = AIRBRANCH.FSLK_Admin_Status.ID (+) " &
+                "from FS_Admin, APBFacilityInformation, " &
+                "APBHeaderData, FSLK_Admin_Status " &
+                "where FS_Admin.strAIRSnumber = APBFacilityInformation.strAIRSNumber " &
+                "and APBFacilityInformation.strAIRSnumber = APBHeaderData.strAIRSNumber " &
+                "and FS_Admin.numCurrentStatus = FSLK_Admin_Status.ID (+) " &
                 FeeYearSQL & OpStatus & AIRSNumber & FacilityName & CollectionStatus & ShutDownBetween &
                 "order by AIRSnumber "
 
@@ -181,23 +181,23 @@ Public Class PASPFeesLog
                 dgvExistingYearAdmin.Columns("ShutDownDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
             Else
                 SQL = "select " &
-                    "substr(AIRBRANCH.FS_Admin.strAIRSnumber, 5) as AIRSNumber, " &
-                    "AIRBRANCH.APBFacilityInformation.strFacilityName, " &
-                    "AIRBRANCH.FS_Admin.numFeeYear, " &
+                    "substr(FS_Admin.strAIRSnumber, 5) as AIRSNumber, " &
+                    "APBFacilityInformation.strFacilityName, " &
+                    "FS_Admin.numFeeYear, " &
                     "InvoiceID, " &
                     "stroperationalstatus,  " &
                     "case " &
                     "when stroperationalstatus <> 'O' then datShutDownDate " &
                     "else null " &
                     "End ShutDownDate, strIAIPDesc " &
-                    "from AIRBRANCH.FS_Admin, AIRBRANCH.APBFacilityInformation, " &
-                    "AIRBRANCH.APBHeaderData, AIRBRANCH.FSLK_Admin_Status, " &
-                    "AIRBRANCH.FS_FeeInvoice " &
-                    "where AIRBRANCH.FS_Admin.strAIRSnumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                    "and AIRBRANCH.APBFacilityInformation.strAIRSnumber = AIRBRANCH.APBHeaderData.strAIRSNumber " &
-                    "and AIRBRANCH.FS_Admin.strAIRSNumber = AIRBRANCH.FS_FeeInvoice.strAIRSNumber " &
-                    "and AIRBRANCH.FS_Admin.numFeeYear = AIRBRANCH.FS_FeeInvoice.numFeeYear " &
-                    "and AIRBRANCH.FS_Admin.numCurrentStatus = AIRBRANCH.FSLK_Admin_Status.ID (+) " &
+                    "from FS_Admin, APBFacilityInformation, " &
+                    "APBHeaderData, FSLK_Admin_Status, " &
+                    "FS_FeeInvoice " &
+                    "where FS_Admin.strAIRSnumber = APBFacilityInformation.strAIRSNumber " &
+                    "and APBFacilityInformation.strAIRSnumber = APBHeaderData.strAIRSNumber " &
+                    "and FS_Admin.strAIRSNumber = FS_FeeInvoice.strAIRSNumber " &
+                    "and FS_Admin.numFeeYear = FS_FeeInvoice.numFeeYear " &
+                    "and FS_Admin.numCurrentStatus = FSLK_Admin_Status.ID (+) " &
                     FeeYearSQL & OpStatus & AIRSNumber & FacilityName & CollectionStatus & ShutDownBetween &
                     "order by AIRSnumber "
 

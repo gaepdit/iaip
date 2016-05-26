@@ -16,7 +16,7 @@ Namespace DAL
                 Optional airs As Apb.ApbFacilityId = Nothing) As DataTable
 
             Dim query As String =
-                "SELECT * FROM AIRBRANCH.VW_FEES_FACILITY_SUMMARY " &
+                "SELECT * FROM VW_FEES_FACILITY_SUMMARY " &
                 " WHERE NUMFEEYEAR BETWEEN :startFeeYear AND :endFeeYear "
 
             If airs IsNot Nothing Then query &= " AND STRAIRSNUMBER = :airs "
@@ -36,7 +36,7 @@ Namespace DAL
             Dim feeYearDecimal As Decimal
             If Not Decimal.TryParse(feeYear, feeYearDecimal) Then Return False
 
-            Dim sp As String = "AIRBRANCH.PD_FEE_STATUS"
+            Dim sp As String = "PD_FEE_STATUS"
 
             Dim parameters As SqlParameter() = New SqlParameter() {
                 New SqlParameter("FEEYEAR", SqlDbType.Decimal, feeYearDecimal, ParameterDirection.Input),
@@ -61,7 +61,7 @@ Namespace DAL
 
         Private Function GetAllFeeYearsAsDataTable() As DataTable
             Dim query As String = "SELECT DISTINCT(NUMFEEYEAR) AS FEEYEAR " &
-                "FROM AIRBRANCH.FSLK_NSPSREASONYEAR " &
+                "FROM FSLK_NSPSREASONYEAR " &
                 "ORDER BY FEEYEAR DESC"
             Return DB.GetDataTable(query)
         End Function
@@ -71,7 +71,7 @@ Namespace DAL
             If Not Decimal.TryParse(feeYear, feeYearDecimal) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
-                " FROM AIRBRANCH.FS_Mailout " &
+                " FROM FS_Mailout " &
                 " WHERE RowNum = 1 " &
                 " AND strAIRSnumber = :airsnumber " &
                 " AND numFeeYear = :feeyear "
@@ -89,7 +89,7 @@ Namespace DAL
             Dim feeYearDecimal As Decimal
             If Not Decimal.TryParse(feeYear, feeYearDecimal) Then Return False
 
-            Dim query As String = "UPDATE AIRBRANCH.FS_MAILOUT " &
+            Dim query As String = "UPDATE FS_MAILOUT " &
                 " SET STRFIRSTNAME       = :v2, " &
                 "  STRLASTNAME          = :v3, " &
                 "  STRPREFIX            = :v4, " &
@@ -134,7 +134,7 @@ Namespace DAL
             Dim feeYearDecimal As Decimal
             If Not Decimal.TryParse(feeYear, feeYearDecimal) Then Return False
 
-            Dim query As String = "UPDATE AIRBRANCH.FS_MAILOUT " &
+            Dim query As String = "UPDATE FS_MAILOUT " &
                 " SET STROPERATIONALSTATUS = :v13, " &
                 "  STRCLASS             = :v14, " &
                 "  STRNSPS              = :v15, " &
@@ -178,8 +178,8 @@ Namespace DAL
                 "  SUBSTR(fa.STRAIRSNUMBER, 5, 3) || '-' || SUBSTR( " &
                 "  fa.STRAIRSNUMBER, 8) AS ""AIRS Number"", fi.STRFACILITYNAME " &
                 "  AS ""Facility Name"" " &
-                "FROM AIRBRANCH.FS_ADMIN fa " &
-                "INNER JOIN AIRBRANCH.APBFACILITYINFORMATION fi ON " &
+                "FROM FS_ADMIN fa " &
+                "INNER JOIN APBFACILITYINFORMATION fi ON " &
                 "  fa.STRAIRSNUMBER = fi.STRAIRSNUMBER " &
                 "ORDER BY fi.STRFACILITYNAME"
             Return DB.GetDataTable(query)

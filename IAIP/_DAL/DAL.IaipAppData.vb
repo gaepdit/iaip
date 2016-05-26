@@ -19,7 +19,7 @@ Namespace DAL
         End Function
 
         Public Function GetIaipAccountRoles() As DataTable
-            Dim spName As String = "AIRBRANCH.IAIP_USER.GetIaipAccountRoles"
+            Dim spName As String = "IAIP_USER.GetIaipAccountRoles"
             Return DB.SPGetDataTable(spName)
         End Function
 

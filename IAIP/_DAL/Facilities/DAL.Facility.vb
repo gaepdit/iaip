@@ -19,7 +19,7 @@ Namespace DAL
 
             ' TODO: SQL Server migration
 
-            'Dim spName As String = "AIRBRANCH.IAIP_FACILITY.AirsNumberExists"
+            'Dim spName As String = "IAIP_FACILITY.AirsNumberExists"
             'Dim parameters As SqlParameter() = New SqlParameter() {
             '    New SqlParameter("ReturnValue", SqlDbType.VarChar, 5, Nothing, ParameterDirection.ReturnValue),
             '    New SqlParameter("AirsNumber", airsNumber.DbFormattedString)
@@ -77,7 +77,7 @@ Namespace DAL
         ''' <returns>DataRow containing basic info for the specified facility</returns>
         ''' <remarks>Data retrieved from VW_FACILITY_BASICINFO view.</remarks>
         Private Function GetFacilityAsDataRow(ByVal airsNumber As ApbFacilityId) As DataRow
-            Dim spName As String = "AIRBRANCH.IAIP_FACILITY.GetFacilityBasicInfo"
+            Dim spName As String = "IAIP_FACILITY.GetFacilityBasicInfo"
             Dim parameter As New SqlParameter("AirsNumber", airsNumber.DbFormattedString)
 
             Return DB.SPGetDataRow(spName, parameter)
@@ -125,7 +125,7 @@ Namespace DAL
 
             ' TODO: SQL Server migration
 
-            'Dim spName As String = "AIRBRANCH.IAIP_FACILITY.HasFacilityBeenApproved"
+            'Dim spName As String = "IAIP_FACILITY.HasFacilityBeenApproved"
             'Dim parameters As SqlParameter() = New SqlParameter() {
             '    New SqlParameter("ReturnValue", SqlDbType.VarChar, 5, Nothing, ParameterDirection.ReturnValue),
             '    New SqlParameter("AirsNumber", airsNumber.DbFormattedString)
@@ -141,7 +141,7 @@ Namespace DAL
         ''' <returns>A Dictionary with string keys and date values.</returns>
         ''' <remarks>Data retrieved from VW_FACILITY_DATADATES view.</remarks>
         Public Function GetDataExchangeDates(ByVal airsNumber As ApbFacilityId) As DataRow
-            Dim spName As String = "AIRBRANCH.IAIP_FACILITY.GetDataDates"
+            Dim spName As String = "IAIP_FACILITY.GetDataDates"
             Dim parameter As New SqlParameter("AirsNumber", airsNumber.DbFormattedString)
             Return DB.SPGetDataRow(spName, parameter)
         End Function
@@ -166,7 +166,7 @@ Namespace DAL
             '    2. Update APBAirProgramPollutants
             '    3. Update EIS_FacilitySite
             '    4. Revoke all open permits
-            Dim spName As String = "AIRBRANCH.IAIP_FACILITY.ShutDownFacility"
+            Dim spName As String = "IAIP_FACILITY.ShutDownFacility"
             Dim parameters As SqlParameter() = { _
                 New SqlParameter("AirsNumber", airsNumber.DbFormattedString), _
                 New SqlParameter("ShutDownDate", shutdownDate), _
@@ -184,7 +184,7 @@ Namespace DAL
         ''' <param name="airsNumber">The AIRS number to delete</param>
         ''' <returns>True if successful; otherwise false</returns>
         Public Function DeleteFacility(ByVal airsNumber As ApbFacilityId) As Boolean
-            Dim spName As String = "AIRBRANCH.IAIP_FACILITY.DeleteFacility"
+            Dim spName As String = "IAIP_FACILITY.DeleteFacility"
             Dim parameter As SqlParameter = New SqlParameter("AirsNumber", airsNumber.DbFormattedString)
             Return DB.SPRunCommand(spName, parameter)
         End Function
@@ -195,7 +195,7 @@ Namespace DAL
         ''' <param name="airsnumber">The AIRS number of the facility to update.</param>
         ''' <returns>True if successful; otherwise false</returns>
         Public Function TriggerDataUpdateAtEPA(ByVal airsnumber As ApbFacilityId) As Boolean
-            Dim spName As String = "AIRBRANCH.IAIP_FACILITY.TriggerDataUpdateAtEPA"
+            Dim spName As String = "IAIP_FACILITY.TriggerDataUpdateAtEPA"
             Dim parameter As SqlParameter = New SqlParameter("AirsNumber", airsnumber.DbFormattedString)
             Return DB.SPRunCommand(spName, parameter)
         End Function

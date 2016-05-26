@@ -325,7 +325,7 @@ Public Class MASPRegistrationTool
             "numAPBContact, numWebPhoneNumber, " &
             "strEventStartTime, strEventEndTime, " &
             "strWebURL " &
-            "From AIRBRANCH.RES_Event " &
+            "From RES_Event " &
             "where nuMRes_EventID = '" & selectedEventId & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -451,27 +451,27 @@ Public Class MASPRegistrationTool
     Sub LoadRegistrationManagement()
         Try
             SQL = "select " &
-            "AIRBRANCH.Res_Registration.numRes_registrationID, " &
-            "AIRBRANCH.Res_Event.strTitle as eventTitle,  " &
+            "Res_Registration.numRes_registrationID, " &
+            "Res_Event.strTitle as eventTitle,  " &
             "datRegistrationDateTime, " &
             "strConfirmationNumber, strComments, " &
-            "STRREGISTRATIONSTATUS, AIRBRANCH.Res_Registration.numGECouserID, " &
+            "STRREGISTRATIONSTATUS, Res_Registration.numGECouserID, " &
             "strSalutation, strFirstName, " &
             "strLastName, strUserEmail, " &
-            "AIRBRANCH.OlapUserProfile.strAddress, AIRBRANCH.OlapUserProfile.strCity, " &
-            "AIRBRANCH.OlapUserProfile.strState, strZip, " &
+            "OlapUserProfile.strAddress, OlapUserProfile.strCity, " &
+            "OlapUserProfile.strState, strZip, " &
             "strCompanyName, strPhonenumber, " &
             "strUserType, " &
-            "AIRBRANCH.OLAPUserProfile.strTitle as UserTitle " &
-            "from AIRBRANCH.Res_Registration, AIRBRANCH.OLAPUSERProfile, " &
-            "AIRBRANCH.res_event, AIRBRANCH.OLAPUserLogIn,  " &
-            "AIRBRANCH.RESLK_RegistrationStatus " &
-            "where AIRBRANCH.Res_Registration.numGECouserID = AIRBRANCH.OlapUserProfile.numUserID " &
-            "and AIRBRANCH.Res_registration.numRes_eventid = AIRBRANCH.Res_Event.numRes_EventId  " &
-            "and AIRBRANCH.Res_registration.numRegistrationStatusCode = " &
-            "AIRBRANCH.RESLK_RegistrationStatus.NUMRESLK_REGISTRATIONSTATUSID " &
-            "and AIRBRANCH.Res_Registration.numGECouserID = AIRBRANCH.OLAPUserLogIn.numuserid " &
-            "and AIRBRANCH.Res_registration.numRes_EventID = '" & selectedEventId & "' "
+            "OLAPUserProfile.strTitle as UserTitle " &
+            "from Res_Registration, OLAPUSERProfile, " &
+            "res_event, OLAPUserLogIn,  " &
+            "RESLK_RegistrationStatus " &
+            "where Res_Registration.numGECouserID = OlapUserProfile.numUserID " &
+            "and Res_registration.numRes_eventid = Res_Event.numRes_EventId  " &
+            "and Res_registration.numRegistrationStatusCode = " &
+            "RESLK_RegistrationStatus.NUMRESLK_REGISTRATIONSTATUSID " &
+            "and Res_Registration.numGECouserID = OLAPUserLogIn.numuserid " &
+            "and Res_registration.numRes_EventID = '" & selectedEventId & "' "
 
             ds = New DataSet
             da = New SqlDataAdapter(SQL, CurrentConnection)
@@ -976,7 +976,7 @@ Public Class MASPRegistrationTool
                 LogInRequired = "0"
             End If
 
-            SQL = "Insert into AIRBRANCH.RES_Event " &
+            SQL = "Insert into RES_Event " &
                      "(numRes_EventID, numEventStatusCode, " &
                      "strUserGCode, strTitle, " &
                      "strDescription, datStartDate, " &
@@ -994,7 +994,7 @@ Public Class MASPRegistrationTool
                      "((select " &
                      "case when max(numres_eventID) is null then 1 " &
                      "else max(numRes_EventID) + 1 End  " &
-                     "from AIRBRANCH.Res_event), " &
+                     "from Res_event), " &
                      "'" & Replace(EventStatusCode, "'", "''") & "',  '" & Replace(WebContact, "'", "''") & "', " &
                      "'" & Replace(Title, "'", "''") & "', " &
                      "'" & Replace(Description, "'", "''") & "', '" & Replace(StartDateTime, "'", "''") & "', " &
@@ -1019,7 +1019,7 @@ Public Class MASPRegistrationTool
 
             SQL = "Select " &
             "max(numRes_eventID) as EventID " &
-            "from AIRBRANCH.RES_Event "
+            "from RES_Event "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1190,7 +1190,7 @@ Public Class MASPRegistrationTool
                 SQL = SQL & "active = '" & Active & "', "
             End If
             If SQL <> "" Then
-                SQL = "Update AIRBRANCH.Res_Event set " &
+                SQL = "Update Res_Event set " &
                 SQL & "updateUser = '" & CurrentUser.UserID & "', " &
                 "updateDateTime = '" & OracleDate & "' " &
                 "where numRes_EventID = '" & Res_EventID & "' "
@@ -1212,7 +1212,7 @@ Public Class MASPRegistrationTool
                                      ByVal RegStatusCode As String, ByVal RegDate As String) As Boolean
         Try
 
-            SQL = "Update AIRBRANCH.Res_Registration set " &
+            SQL = "Update Res_Registration set " &
             "numREgistrationStatusCode = '" & RegStatusCode & "', " &
             "datRegistrationDateTime = '" & RegDate & "' " &
             "where numRes_RegistrationID = '" & RegistrationID & "' " &
@@ -1235,7 +1235,7 @@ Public Class MASPRegistrationTool
 #Region "DAL"
 
     Public Function PasscodeExists(ByVal id As String) As Boolean
-        Dim query As String = "SELECT 'True' FROM AIRBRANCH.RES_EVENT WHERE ROWNUM=1 AND STRPASSCODE = :pId"
+        Dim query As String = "SELECT 'True' FROM RES_EVENT WHERE ROWNUM=1 AND STRPASSCODE = :pId"
         Dim parameter As New SqlParameter("pId", id)
 
         Dim result As String = DB.GetSingleValue(Of String)(query, parameter)

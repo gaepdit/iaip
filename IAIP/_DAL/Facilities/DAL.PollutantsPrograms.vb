@@ -10,8 +10,8 @@ Namespace DAL
         Public Function GetFacilityPollutants(airsNumber As Apb.ApbFacilityId) As DataTable
             Dim query As String = "SELECT DISTINCT(poll.STRPOLLUTANTKEY), " &
                 "  lkpoll.STRPOLLUTANTDESCRIPTION " &
-                "FROM AIRBRANCH.APBAIRPROGRAMPOLLUTANTS poll " &
-                "INNER JOIN AIRBRANCH.LOOKUPPOLLUTANTS lkpoll ON " &
+                "FROM APBAIRPROGRAMPOLLUTANTS poll " &
+                "INNER JOIN LOOKUPPOLLUTANTS lkpoll ON " &
                 "  poll.STRPOLLUTANTKEY = lkpoll.STRPOLLUTANTCODE " &
                 "WHERE poll.STRAIRSNUMBER = :airsNumber"
             Dim parameter As New SqlParameter("airsNumber", airsNumber.DbFormattedString)
@@ -21,7 +21,7 @@ Namespace DAL
         End Function
 
         Public Function GetFacilityAirPrograms(airsNumber As Apb.ApbFacilityId) As AirProgram
-            Dim query As String = "SELECT STRAIRPROGRAMCODES FROM AIRBRANCH.APBHEADERDATA WHERE STRAIRSNUMBER = :airsNumber"
+            Dim query As String = "SELECT STRAIRPROGRAMCODES FROM APBHEADERDATA WHERE STRAIRSNUMBER = :airsNumber"
             Dim parameter As New SqlParameter("airsNumber", airsNumber.DbFormattedString)
             Dim apc As String = DB.GetSingleValue(Of String)(query, parameter)
 
@@ -64,10 +64,10 @@ Namespace DAL
                 "  ""Operating Status Code"", app.DATMODIFINGDATE AS " &
                 "  ""Date Modified"",(up.STRLASTNAME || ', ' || up.STRFIRSTNAME) " &
                 "  AS ""Modified By"" " &
-                "FROM AIRBRANCH.APBAirProgramPollutants app " &
-                "INNER JOIN AIRBRANCH.LookUPPollutants lkpl ON " &
+                "FROM APBAirProgramPollutants app " &
+                "INNER JOIN LookUPPollutants lkpl ON " &
                 "  app.STRPOLLUTANTKEY = lkpl.STRPOLLUTANTCODE " &
-                "INNER JOIN AIRBRANCH.EPDUserProfiles up ON " &
+                "INNER JOIN EPDUserProfiles up ON " &
                 "  app.STRMODIFINGPERSON = up.NUMUSERID " &
                 "WHERE app.STRAIRSNUMBER = :airsNumber " &
                 "ORDER BY ""Air Program Code"", ""Pollutant Code"""
@@ -95,7 +95,7 @@ Namespace DAL
                                                            ) As Boolean
 
             Dim query As String = "INSERT " &
-                "INTO AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " &
+                "INTO APBAIRPROGRAMPOLLUTANTS " &
                 "  ( " &
                 "    STRAIRSNUMBER, STRAIRPOLLUTANTKEY, STRPOLLUTANTKEY, " &
                 "    STROPERATIONALSTATUS, " &
@@ -125,7 +125,7 @@ Namespace DAL
                                                            operatingStatus As FacilityOperationalStatus
                                                            ) As Boolean
 
-            Dim query As String = "UPDATE AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " &
+            Dim query As String = "UPDATE APBAIRPROGRAMPOLLUTANTS " &
                 "SET STROPERATIONALSTATUS = :STROPERATIONALSTATUS, " &
                 "  STRMODIFINGPERSON = :STRMODIFINGPERSON, " &
                 "  DATMODIFINGDATE = sysdate " &
@@ -148,7 +148,7 @@ Namespace DAL
                                                            ) As Boolean
 
             Dim query As String = "SELECT STRAIRSNUMBER " &
-                "FROM AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " &
+                "FROM APBAIRPROGRAMPOLLUTANTS " &
                 "WHERE STRAIRPOLLUTANTKEY = :STRAIRPOLLUTANTKEY " &
                 " AND STRPOLLUTANTKEY = :STRPOLLUTANTKEY "
 
@@ -163,7 +163,7 @@ Namespace DAL
         Public Function GetPollutantsTable() As DataTable
             Dim query As String = "SELECT STRPOLLUTANTCODE AS ""Pollutant Code"", " &
                 "  STRPOLLUTANTDESCRIPTION AS ""Pollutant"" " &
-                "FROM AIRBRANCH.LOOKUPPOLLUTANTS " &
+                "FROM LOOKUPPOLLUTANTS " &
                 "WHERE STRAFSCODE = 'True' " &
                 "ORDER BY STRPOLLUTANTDESCRIPTION"
             Return DB.GetDataTable(query)

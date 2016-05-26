@@ -19,7 +19,7 @@ Namespace DAL.Dmu
             ' TODO: SQL Server migration
 
             'Dim em As New EdtErrorMessage
-            'Dim spName As String = "AIRBRANCH.ICIS_EDT.GetErrorMessageDetail"
+            'Dim spName As String = "ICIS_EDT.GetErrorMessageDetail"
             'Dim parameters As SqlParameter() = {
             '    New SqlParameter("ERRORCODE", SqlDbType.VarChar, errorCode, ParameterDirection.Input),
             '    New SqlParameter("ERRORMESSAGE", SqlDbType.VarChar, 4000, Nothing, ParameterDirection.Output),
@@ -54,7 +54,7 @@ Namespace DAL.Dmu
         ''' <param name="userID">The user ID for which to return error counts</param>
         ''' <returns>A DataTable</returns>
         Public Function GetErrorCounts(ByVal userID As Integer) As DataTable
-            Dim spName As String = "AIRBRANCH.ICIS_EDT.GetErrorCounts"
+            Dim spName As String = "ICIS_EDT.GetErrorCounts"
             Dim parameter As SqlParameter = New SqlParameter("userID", userID)
             Return DB.SPGetDataTable(spName, parameter)
         End Function
@@ -65,7 +65,7 @@ Namespace DAL.Dmu
         ''' <param name="errorCode">The Error Code for which to return errors</param>
         ''' <returns>A DataTable</returns>
         Public Function GetErrors(ByVal errorCode As String) As DataTable
-            Dim spName As String = "AIRBRANCH.ICIS_EDT.GetErrors"
+            Dim spName As String = "ICIS_EDT.GetErrors"
             Dim parameter As SqlParameter = New SqlParameter("errorCode", errorCode)
             Return DB.SPGetDataTable(spName, parameter)
         End Function
@@ -78,7 +78,7 @@ Namespace DAL.Dmu
         Public Function GetErrorDetail(ByVal errorID As String) As EdtError
             Dim er As EdtError = Nothing
 
-            Dim spName As String = "AIRBRANCH.ICIS_EDT.GetErrorDetail"
+            Dim spName As String = "ICIS_EDT.GetErrorDetail"
             Dim parameter As SqlParameter = New SqlParameter("errorID", errorID)
 
             Dim dt As DataTable = DB.SPGetDataTable(spName, parameter)
@@ -143,7 +143,7 @@ Namespace DAL.Dmu
         ''' <param name="defaultUserID">The User ID to set as the default for the error code</param>
         ''' <returns>True if the action was successful; otherwise false</returns>
         Public Function SetDefaultUser(ByVal errorCode As String, ByVal defaultUserID As Integer) As Boolean
-            Dim spName As String = "AIRBRANCH.ICIS_EDT.SetDefaultUser"
+            Dim spName As String = "ICIS_EDT.SetDefaultUser"
 
             Dim parameters As SqlParameter() = {
                 New SqlParameter("ErrorCode", errorCode),
@@ -175,7 +175,7 @@ Namespace DAL.Dmu
 
             ' TODO: SQL Server migration
 
-            'Dim spName As String = "AIRBRANCH.ICIS_EDT.SetResolvedStatus"
+            'Dim spName As String = "ICIS_EDT.SetResolvedStatus"
 
             'Dim p1 As SqlParameter = New SqlParameter("Resolved", resolved.ToString)
 
@@ -216,7 +216,7 @@ Namespace DAL.Dmu
 
             ' TODO: SQL Server migration
 
-            'Dim spName As String = "AIRBRANCH.ICIS_EDT.AssignErrors"
+            'Dim spName As String = "ICIS_EDT.AssignErrors"
 
             'Dim p1 As SqlParameter = New SqlParameter("UserID", userId)
 

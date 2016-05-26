@@ -78,7 +78,7 @@ Public Class SSPPPermitUploader
 
             SQL = "Select " &
             "strAIRSNumber " &
-            "from AIRBRANCH.SSPPApplicationMaster " &
+            "from SSPPApplicationMaster " &
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -90,23 +90,23 @@ Public Class SSPPPermitUploader
             dr.Close()
             If recExist = True Then
                 SQL = "Select " &
-                "substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5) as strAIRSnumber, " &
-                "AIRBRANCH.APBFacilityInformation.strFacilityName, AIRBRANCH.APBFacilityInformation.strFacilityStreet1, " &
-                "AIRBRANCH.APBFacilityInformation.strFacilityCity, AIRBRANCH.APBFacilityInformation.strFacilityZipCode, " &
+                "substr(SSPPApplicationMaster.strAIRSNumber, 5) as strAIRSnumber, " &
+                "APBFacilityInformation.strFacilityName, APBFacilityInformation.strFacilityStreet1, " &
+                "APBFacilityInformation.strFacilityCity, APBFacilityInformation.strFacilityZipCode, " &
                 "datFinalizedDate, strCountyName, strApplicationTypeDesc, strPermitTypeDescription, " &
                 "datPermitIssued, (strLastName||', '||strFirstName) as StaffResponsible, " &
                 "datFinalOnWeb " &
-                "from AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.SSPPApplicationMaster, " &
-                "AIRBRANCH.APBFacilityInformation, AIRBRANCH.LookUpCountyInformation, " &
-                "AIRBRANCH.LookUpApplicationTypes, AIRBRANCH.LookUpPermitTypes, " &
-                "AIRBRANCH.EPDUserProfiles " &
-                "where AIRBRANCH.SSPPApplicationMaster.strApplicationNumber  = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber (+) " &
-                "and AIRBRANCH.SSPPApplicationMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber  " &
-                "and substr(AIRBRANCH.SSPPApplicationMaster.strAIRSnumber, 5, 3)  = AIRBRANCH.LookUpCountyInformation.strCountyCode (+) " &
-                "and AIRBRANCH.SSPPApplicationMaster.strApplicationType = AIRBRANCH.LookUpApplicationTypes.strApplicationTypeCode (+) " &
-                "and AIRBRANCH.SSPPApplicationMaster.strPermitType = AIRBRANCH.LookUpPermitTypes.strPermitTypeCode (+) " &
-                "and AIRBRANCH.SSPPApplicationMaster.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID " &
-                "and AIRBRANCH.ssppapplicationtracking.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
+                "from SSPPApplicationTracking, SSPPApplicationMaster, " &
+                "APBFacilityInformation, LookUpCountyInformation, " &
+                "LookUpApplicationTypes, LookUpPermitTypes, " &
+                "EPDUserProfiles " &
+                "where SSPPApplicationMaster.strApplicationNumber  = SSPPApplicationTracking.strApplicationNumber (+) " &
+                "and SSPPApplicationMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
+                "and substr(SSPPApplicationMaster.strAIRSnumber, 5, 3)  = LookUpCountyInformation.strCountyCode (+) " &
+                "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
+                "and SSPPApplicationMaster.strPermitType = LookUpPermitTypes.strPermitTypeCode (+) " &
+                "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                "and ssppapplicationtracking.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
@@ -192,7 +192,7 @@ Public Class SSPPPermitUploader
             End If
 
             SQL = "select strMasterApplication " &
-            "from AIRBRANCH.SSPPApplicationLinking " &
+            "from SSPPApplicationLinking " &
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -209,7 +209,7 @@ Public Class SSPPPermitUploader
             dr.Close()
             If MasterApp <> "" Then
                 SQL = "Select strApplicationNumber " &
-                "from AIRBRANCH.SSPPApplicationLinking " &
+                "from SSPPApplicationLinking " &
                 "where strMasterApplication = '" & MasterApp & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -230,11 +230,11 @@ Public Class SSPPPermitUploader
             rdbOtherPermit.Checked = False
 
             SQL = "select " &
-            "distinct(AIRBRANCH.APBPermits.strFileName)  " &
-            "from AIRBRANCH.APBpermits, AIRBRANCH.SSPPApplicationLinking " &
-            "where substr(AIRBRANCH.APBpermits.strFileName, 4) = AIRBRANCH.SSPPAPPlicationLinking.strmasterapplication (+) " &
-            "and (AIRBRANCH.SSPPApplicationLinking.strApplicationNumber = '" & MasterApp & "' " &
-            "or AIRBRANCH.APBPermits.strFileName like '%-" & MasterApp & "') "
+            "distinct(APBPermits.strFileName)  " &
+            "from APBpermits, SSPPApplicationLinking " &
+            "where substr(APBpermits.strFileName, 4) = SSPPAPPlicationLinking.strmasterapplication (+) " &
+            "and (SSPPApplicationLinking.strApplicationNumber = '" & MasterApp & "' " &
+            "or APBPermits.strFileName like '%-" & MasterApp & "') "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -335,7 +335,7 @@ Public Class SSPPPermitUploader
 
             SQL = "Select " &
             "strDOCFileSize, strPDFFileSize " &
-            "From AIRBRANCH.ApbPermits " &
+            "From ApbPermits " &
             "where strFileName = '" & FileName & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -441,7 +441,7 @@ Public Class SSPPPermitUploader
                 End If
             End If
             If (PDFFile <> "" And Mid(Flag, 1, 1) = "1") Or DocOnFile = "On File" Then
-                SQL = "update AIRBRANCH.APBPermits set " &
+                SQL = "update APBPermits set " &
                 "PDFPermitData = '', " &
                 "strPDFFileSize = '', " &
                 "strPDFModifingPerson = '', " &
@@ -543,7 +543,7 @@ Public Class SSPPPermitUploader
                 Dim ds As DataSet
 
                 If Flag <> "00" Then
-                    SQL = "Delete AIRBRANCH.APBPermits " &
+                    SQL = "Delete APBPermits " &
                     "where strFileName = '" & FileName & "' "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -554,7 +554,7 @@ Public Class SSPPPermitUploader
 
                     SQL = "select " &
                     "rowCount " &
-                    "from AIRBRANCH.APBPermits " &
+                    "from APBPermits " &
                     "where strFileName = '" & FileName & "' "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -573,7 +573,7 @@ Public Class SSPPPermitUploader
                     If rowCount = "" Then
                         SQL = "select " &
                         "(max(rowCount) + 1) as RowCount " &
-                        "from AIRBRANCH.APBPermits "
+                        "from APBPermits "
                         cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
@@ -614,7 +614,7 @@ Public Class SSPPPermitUploader
                     fs.Read(rawData, 0, System.Convert.ToInt32(fs.Length))
                     fs.Close()
 
-                    SQL = "Select * from AIRBRANCH.APBPermits " &
+                    SQL = "Select * from APBPermits " &
                     "where strFileName = '" & FileName & "' "
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
@@ -643,7 +643,7 @@ Public Class SSPPPermitUploader
                     da.Update(ds, "PDF")
 
                     If Mid(FileName, 1, 2) = "OP" Then
-                        SQL = "Update AIRBRANCH.SSPPApplicationTracking set " &
+                        SQL = "Update SSPPApplicationTracking set " &
                         "datFinalOnWeb = '" & OracleDate & "' " &
                         "where strApplicationNumber = '" & MasterApp & "' "
                         cmd = New SqlCommand(SQL, CurrentConnection)
@@ -656,7 +656,7 @@ Public Class SSPPPermitUploader
                 End If
 
                 If Mid(FileName, 1, 2) = "OP" Then
-                    SQL = "Update AIRBRANCH.SSPPApplicationTracking set " &
+                    SQL = "Update SSPPApplicationTracking set " &
                     "datFinalOnWeb = '" & OracleDate & "' " &
                     "where strApplicationNumber = '" & MasterApp & "' "
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -809,7 +809,7 @@ Public Class SSPPPermitUploader
                     End If
 
                     SQL = "Select datFinalOnWeb " &
-                    "from AIRBRANCH.SSPPApplicationTracking " &
+                    "from SSPPApplicationTracking " &
                     "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -819,7 +819,7 @@ Public Class SSPPPermitUploader
                     recExist = dr.Read
                     dr.Close()
                     If recExist = False Then
-                        SQL = "Update AIRBRANCH.SSPPApplicationTracking set " &
+                        SQL = "Update SSPPApplicationTracking set " &
                         "datFinalOnWeb = '" & OracleDate & "' "
                         cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -1081,7 +1081,7 @@ Public Class SSPPPermitUploader
                     End If
 
                     SQL = "Select datFinalOnWeb " &
-                    "from AIRBRANCH.SSPPApplicationTracking " &
+                    "from SSPPApplicationTracking " &
                     "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -1091,7 +1091,7 @@ Public Class SSPPPermitUploader
                     recExist = dr.Read
                     dr.Close()
                     If recExist = False Then
-                        SQL = "Update AIRBRANCH.SSPPApplicationTracking set " &
+                        SQL = "Update SSPPApplicationTracking set " &
                         "datFinalOnWeb = '" & OracleDate & "' "
                         cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -1166,7 +1166,7 @@ Public Class SSPPPermitUploader
                         UploadFile("OP-" & MasterApp, doc, docx, pdf, docOnFile)
 
                         SQL = "Select datFinalOnWeb " &
-                        "from AIRBRANCH.SSPPApplicationTracking " &
+                        "from SSPPApplicationTracking " &
                         "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
                         cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -1176,7 +1176,7 @@ Public Class SSPPPermitUploader
                         recExist = dr.Read
                         dr.Close()
                         If recExist = False Then
-                            SQL = "Update AIRBRANCH.SSPPApplicationTracking set " &
+                            SQL = "Update SSPPApplicationTracking set " &
                             "datFinalOnWeb = '" & OracleDate & "' "
                             cmd = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1207,7 +1207,7 @@ Public Class SSPPPermitUploader
 
             SQL = "Select " &
             "strFileName " &
-            "from AIRBRANCH.APBPermits " &
+            "from APBPermits " &
             "where strFileName = '" & FileType & "-" & txtApplicationNumber.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1222,7 +1222,7 @@ Public Class SSPPPermitUploader
                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
                 Select Case ResultDoc
                     Case DialogResult.Yes
-                        SQL = "Delete AIRBRANCH.APBPermits " &
+                        SQL = "Delete APBPermits " &
                         "where strFileName = '" & FileType & "-" & txtApplicationNumber.Text & "' "
 
                         cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1302,7 +1302,7 @@ Public Class SSPPPermitUploader
             If rdbTitleVPermit.Checked = True And MasterApp <> "" Then
                 SQL = "select " &
                 "strFileName " &
-                "from AIRBRANCH.APBPermits " &
+                "from APBPermits " &
                 "where strFileName like 'V_-" & MasterApp & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1373,7 +1373,7 @@ Public Class SSPPPermitUploader
             If rdbPSDPermit.Checked = True And MasterApp <> "" Then
                 SQL = "select " &
                 "strFileName " &
-                "from AIRBRANCH.APBPermits " &
+                "from APBPermits " &
                 "where strFileName like 'P_-" & MasterApp & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1452,7 +1452,7 @@ Public Class SSPPPermitUploader
             If rdbOtherPermit.Checked = True And MasterApp <> "" Then
                 SQL = "select " &
                 "strFileName " &
-                "from AIRBRANCH.APBPermits " &
+                "from APBPermits " &
                 "where strFileName like 'O_-" & MasterApp & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1511,8 +1511,8 @@ Public Class SSPPPermitUploader
                 "case " &
                 "when strDocModifingPerson is Null then '' " &
                 "else (select (strLastName||', '||strFirstName) as StaffName " &
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                "from APBPermits, EPDUserProfiles " &
+                "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                 "and numUserID = strDocModifingPerson " &
                 "and strFileName = 'VN-" & MasterApp & "') " &
                 "end DocStaffResponsible, " &
@@ -1527,8 +1527,8 @@ Public Class SSPPPermitUploader
                 "case " &
                 "when strPDFModifingPerson is Null then '' " &
                 "else (select (strLastName||', '||strFirstName) as StaffName " &
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUSerProfiles " &
-                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUSerProfiles.numUserID  " &
+                "from APBPermits, EPDUSerProfiles " &
+                "where APBPermits.strPDFModifingPerson = EPDUSerProfiles.numUserID  " &
                 "and numUserID = strPDFModifingPerson " &
                 "and strFileName = 'VN-" & MasterApp & "') " &
                 "end PDFStaffResponsible, " &
@@ -1536,7 +1536,7 @@ Public Class SSPPPermitUploader
                 "when datPDFModifingDate is Null then '' " &
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                 "End datPDFModifingDate " &
-                "from AIRBRANCH.APBPermits " &
+                "from APBPermits " &
                 "where strFileName = 'VN-" & MasterApp & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1634,8 +1634,8 @@ Public Class SSPPPermitUploader
                 "case " &
                 "when strDocModifingPerson is Null then '' " &
                 "else (select (strLastName||', '||strFirstName) as StaffName " &
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUSerProfiles " &
-                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUSerProfiles.numUserID " &
+                "from APBPermits, EPDUSerProfiles " &
+                "where APBPermits.strDocModifingPerson = EPDUSerProfiles.numUserID " &
                 "and numUserID = strDocModifingPerson " &
                 "and strFileName = 'VD-" & MasterApp & "') " &
                 "end DocStaffResponsible, " &
@@ -1650,8 +1650,8 @@ Public Class SSPPPermitUploader
                 "case " &
                 "when strPDFModifingPerson is Null then '' " &
                 "else (select (strLastName||', '||strFirstName) as StaffName " &
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                "from APBPermits, EPDUserProfiles " &
+                "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                 "and numUserID = strPDFModifingPerson " &
                 "and strFileName = 'VD-" & MasterApp & "') " &
                 "end PDFStaffResponsible, " &
@@ -1659,7 +1659,7 @@ Public Class SSPPPermitUploader
                 "when datPDFModifingDate is Null then '' " &
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                 "End datPDFModifingDate " &
-                "from AIRBRANCH.APBPermits " &
+                "from APBPermits " &
                 "where strFileName = 'VD-" & MasterApp & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1756,8 +1756,8 @@ Public Class SSPPPermitUploader
                 "case " &
                 "when strDocModifingPerson is Null then '' " &
                 "else (select (strLastName||', '||strFirstName) as StaffName " &
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                "from APBPermits, EPDUserProfiles " &
+                "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                 "and numUserID = strDocModifingPerson " &
                 "and strFileName = 'VP-" & MasterApp & "') " &
                 "end DocStaffResponsible, " &
@@ -1772,8 +1772,8 @@ Public Class SSPPPermitUploader
                 "case " &
                 "when strPDFModifingPerson is Null then '' " &
                 "else (select (strLastName||', '||strFirstName) as StaffName " &
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                "from APBPermits, EPDUserProfiles " &
+                "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                 "and numUserID = strPDFModifingPerson " &
                 "and strFileName = 'VP-" & MasterApp & "') " &
                 "end PDFStaffResponsible, " &
@@ -1781,7 +1781,7 @@ Public Class SSPPPermitUploader
                 "when datPDFModifingDate is Null then '' " &
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                 "End datPDFModifingDate " &
-                "from AIRBRANCH.APBPermits " &
+                "from APBPermits " &
                 "where strFileName = 'VP-" & MasterApp & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1878,8 +1878,8 @@ Public Class SSPPPermitUploader
                  "case " &
                  "when strDocModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
                  "and strFileName = 'VF-" & MasterApp & "') " &
                  "end DocStaffResponsible, " &
@@ -1894,8 +1894,8 @@ Public Class SSPPPermitUploader
                  "case " &
                  "when strPDFModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
                  "and strFileName = 'VF-" & MasterApp & "') " &
                  "end PDFStaffResponsible, " &
@@ -1903,7 +1903,7 @@ Public Class SSPPPermitUploader
                  "when datPDFModifingDate is Null then '' " &
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                  "End datPDFModifingDate " &
-                 "from AIRBRANCH.APBPermits " &
+                 "from APBPermits " &
                  "where strFileName = 'VF-" & MasterApp & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2011,8 +2011,8 @@ Public Class SSPPPermitUploader
                  "case " &
                  "when strDocModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
                  "and strFileName = 'PA-" & MasterApp & "') " &
                  "end DocStaffResponsible, " &
@@ -2027,8 +2027,8 @@ Public Class SSPPPermitUploader
                  "case " &
                  "when strPDFModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
                  "and strFileName = 'PA-" & MasterApp & "') " &
                  "end PDFStaffResponsible, " &
@@ -2036,7 +2036,7 @@ Public Class SSPPPermitUploader
                  "when datPDFModifingDate is Null then '' " &
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                  "End datPDFModifingDate " &
-                 "from AIRBRANCH.APBPermits " &
+                 "from APBPermits " &
                  "where strFileName = 'PA-" & MasterApp & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2144,8 +2144,8 @@ Public Class SSPPPermitUploader
                  "case " &
                  "when strDocModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
                  "and strFileName = 'PP-" & MasterApp & "') " &
                  "end DocStaffResponsible, " &
@@ -2160,8 +2160,8 @@ Public Class SSPPPermitUploader
                  "case " &
                  "when strPDFModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
                  "and strFileName = 'PP-" & MasterApp & "') " &
                  "end PDFStaffResponsible, " &
@@ -2169,7 +2169,7 @@ Public Class SSPPPermitUploader
                  "when datPDFModifingDate is Null then '' " &
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                  "End datPDFModifingDate " &
-                 "from AIRBRANCH.APBPermits " &
+                 "from APBPermits " &
                  "where strFileName = 'PP-" & MasterApp & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2275,8 +2275,8 @@ Public Class SSPPPermitUploader
                  "case " &
                  "when strDocModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
                  "and strFileName = 'PT-" & MasterApp & "') " &
                  "end DocStaffResponsible, " &
@@ -2291,8 +2291,8 @@ Public Class SSPPPermitUploader
                  "case " &
                  "when strPDFModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
                  "and strFileName = 'PT-" & MasterApp & "') " &
                  "end PDFStaffResponsible, " &
@@ -2300,7 +2300,7 @@ Public Class SSPPPermitUploader
                  "when datPDFModifingDate is Null then '' " &
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                  "End datPDFModifingDate " &
-                 "from AIRBRANCH.APBPermits " &
+                 "from APBPermits " &
                  "where strFileName = 'PT-" & MasterApp & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2406,8 +2406,8 @@ Public Class SSPPPermitUploader
                  "case " &
                  "when strDocModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
                  "and strFileName = 'PD-" & MasterApp & "') " &
                  "end DocStaffResponsible, " &
@@ -2422,8 +2422,8 @@ Public Class SSPPPermitUploader
                  "case " &
                  "when strPDFModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
                  "and strFileName = 'PD-" & MasterApp & "') " &
                  "end PDFStaffResponsible, " &
@@ -2431,7 +2431,7 @@ Public Class SSPPPermitUploader
                  "when datPDFModifingDate is Null then '' " &
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                  "End datPDFModifingDate " &
-                 "from AIRBRANCH.APBPermits " &
+                 "from APBPermits " &
                  "where strFileName = 'PD-" & MasterApp & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2537,8 +2537,8 @@ Public Class SSPPPermitUploader
                 "case " &
                 "when strDocModifingPerson is Null then '' " &
                 "else (select (strLastName||', '||strFirstName) as StaffName " &
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                "from APBPermits, EPDUserProfiles " &
+                "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                 "and numUserID = strDocModifingPerson " &
                 "and strFileName = 'PN-" & MasterApp & "') " &
                 "end DocStaffResponsible, " &
@@ -2553,8 +2553,8 @@ Public Class SSPPPermitUploader
                 "case " &
                 "when strPDFModifingPerson is Null then '' " &
                 "else (select (strLastName||', '||strFirstName) as StaffName " &
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                "from APBPermits, EPDUserProfiles " &
+                "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                 "and numUserID = strPDFModifingPerson " &
                 "and strFileName = 'PN-" & MasterApp & "') " &
                 "end PDFStaffResponsible, " &
@@ -2562,7 +2562,7 @@ Public Class SSPPPermitUploader
                 "when datPDFModifingDate is Null then '' " &
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                 "End datPDFModifingDate " &
-                "from AIRBRANCH.APBPermits " &
+                "from APBPermits " &
                 "where strFileName = 'PN-" & MasterApp & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2668,8 +2668,8 @@ Public Class SSPPPermitUploader
                  "case " &
                  "when strDocModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
                  "and strFileName = 'PH-" & MasterApp & "') " &
                  "end DocStaffResponsible, " &
@@ -2684,8 +2684,8 @@ Public Class SSPPPermitUploader
                  "case " &
                  "when strPDFModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
                  "and strFileName = 'PH-" & MasterApp & "') " &
                  "end PDFStaffResponsible, " &
@@ -2693,7 +2693,7 @@ Public Class SSPPPermitUploader
                  "when datPDFModifingDate is Null then '' " &
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                  "End datPDFModifingDate " &
-                 "from AIRBRANCH.APBPermits " &
+                 "from APBPermits " &
                  "where strFileName = 'PH-" & MasterApp & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2799,8 +2799,8 @@ Public Class SSPPPermitUploader
                  "case " &
                  "when strDocModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
                  "and strFileName = 'PF-" & MasterApp & "') " &
                  "end DocStaffResponsible, " &
@@ -2815,8 +2815,8 @@ Public Class SSPPPermitUploader
                  "case " &
                  "when strPDFModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
                  "and strFileName = 'PF-" & MasterApp & "') " &
                  "end PDFStaffResponsible, " &
@@ -2824,7 +2824,7 @@ Public Class SSPPPermitUploader
                  "when datPDFModifingDate is Null then '' " &
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                  "End datPDFModifingDate " &
-                 "from AIRBRANCH.APBPermits " &
+                 "from APBPermits " &
                  "where strFileName = 'PF-" & MasterApp & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2930,8 +2930,8 @@ Public Class SSPPPermitUploader
                 "case " &
                 "when strDocModifingPerson is Null then '' " &
                 "else (select (strLastName||', '||strFirstName) as StaffName " &
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                "from APBPermits, EPDUserProfiles " &
+                "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                 "and numUserID = strDocModifingPerson " &
                 "and strFileName = 'PI-" & MasterApp & "') " &
                 "end DocStaffResponsible, " &
@@ -2946,8 +2946,8 @@ Public Class SSPPPermitUploader
                 "case " &
                 "when strPDFModifingPerson is Null then '' " &
                 "else (select (strLastName||', '||strFirstName) as StaffName " &
-                "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                "from APBPermits, EPDUserProfiles " &
+                "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                 "and numUserID = strPDFModifingPerson " &
                 "and strFileName = 'PI-" & MasterApp & "') " &
                 "end PDFStaffResponsible, " &
@@ -2955,7 +2955,7 @@ Public Class SSPPPermitUploader
                 "when datPDFModifingDate is Null then '' " &
                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                 "End datPDFModifingDate " &
-                "from AIRBRANCH.APBPermits " &
+                "from APBPermits " &
                 "where strFileName = 'PI-" & MasterApp & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -3050,8 +3050,8 @@ Public Class SSPPPermitUploader
                  "case " &
                  "when strDocModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
                  "and strFileName = 'ON-" & MasterApp & "') " &
                  "end DocStaffResponsible, " &
@@ -3066,8 +3066,8 @@ Public Class SSPPPermitUploader
                  "case " &
                  "when strPDFModifingPerson is Null then '' " &
                  "else (select (strLastName||', '||strFirstName) as StaffName " &
-                 "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                 "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                 "from APBPermits, EPDUserProfiles " &
+                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
                  "and strFileName = 'ON-" & MasterApp & "') " &
                  "end PDFStaffResponsible, " &
@@ -3075,7 +3075,7 @@ Public Class SSPPPermitUploader
                  "when datPDFModifingDate is Null then '' " &
                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                  "End datPDFModifingDate " &
-                 "from AIRBRANCH.APBPermits " &
+                 "from APBPermits " &
                  "where strFileName = 'ON-" & MasterApp & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -3172,8 +3172,8 @@ Public Class SSPPPermitUploader
                   "case " &
                   "when strDocModifingPerson is Null then '' " &
                   "else (select (strLastName||', '||strFirstName) as StaffName " &
-                  "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                  "where AIRBRANCH.APBPermits.strDocModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID " &
+                  "from APBPermits, EPDUserProfiles " &
+                  "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                   "and numUserID = strDocModifingPerson " &
                   "and strFileName = 'OP-" & MasterApp & "') " &
                   "end DocStaffResponsible, " &
@@ -3188,8 +3188,8 @@ Public Class SSPPPermitUploader
                   "case " &
                   "when strPDFModifingPerson is Null then '' " &
                   "else (select (strLastName||', '||strFirstName) as StaffName " &
-                  "from AIRBRANCH.APBPermits, AIRBRANCH.EPDUserProfiles " &
-                  "where AIRBRANCH.APBPermits.strPDFModifingPerson = AIRBRANCH.EPDUserProfiles.numUserID  " &
+                  "from APBPermits, EPDUserProfiles " &
+                  "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                   "and numUserID = strPDFModifingPerson " &
                   "and strFileName = 'OP-" & MasterApp & "') " &
                   "end PDFStaffResponsible, " &
@@ -3197,7 +3197,7 @@ Public Class SSPPPermitUploader
                   "when datPDFModifingDate is Null then '' " &
                   "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
                   "End datPDFModifingDate " &
-                  "from AIRBRANCH.APBPermits " &
+                  "from APBPermits " &
                   "where strFileName = 'OP-" & MasterApp & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -3348,7 +3348,7 @@ Public Class SSPPPermitUploader
                 "(substr(strPermitNumber,1, 4) ||'-'||substr(strPermitNumber, 5,3) " &
                 "   ||'-'||substr(strPermitNumber, 8,4)||'-'||substr(strPermitNumber, 12, 1)  " &
                 "   ||'-'||substr(strPermitNumber, 13, 2) ||'-'||substr(strPermitNumber, 15,1)) as PermitNumber " &
-                "from AIRBRANCH.SSPPApplicationData  " &
+                "from SSPPApplicationData  " &
                 "where strApplicationNumber like '" & MasterApp & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -3386,7 +3386,7 @@ Public Class SSPPPermitUploader
 
                             SQL = "select " &
                             "DocPermitData " &
-                            "from AIRBRANCH.APBPermits " &
+                            "from APBPermits " &
                             "where strFileName = '" & FileName & "' "
 
                             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -3421,7 +3421,7 @@ Public Class SSPPPermitUploader
 
                             SQL = "select " &
                             "pdfPermitData " &
-                            "from AIRBRANCH.APBPermits " &
+                            "from APBPermits " &
                             "where strFileName = '" & FileName & "' "
 
                             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -3455,7 +3455,7 @@ Public Class SSPPPermitUploader
 
                             SQL = "select " &
                             "DocPermitData " &
-                            "from AIRBRANCH.APBPermits " &
+                            "from APBPermits " &
                             "where strFileName = '" & FileName & "' "
 
                             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -3489,7 +3489,7 @@ Public Class SSPPPermitUploader
 
                             SQL = "select " &
                             "pdfPermitData " &
-                            "from AIRBRANCH.APBPermits " &
+                            "from APBPermits " &
                             "where strFileName = '" & FileName & "' "
 
                             cmd = New SqlCommand(SQL, CurrentConnection)

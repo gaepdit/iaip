@@ -134,10 +134,10 @@ Namespace DAL
                 "   IAIP_SSCP_ENFORCEMENTDOCS.ENFORCEMENTDOCSID, " &
                 "   IAIP_SSCP_ENFORCEMENTDOCS.STRENFORCEMENTNUMBER, " &
                 "   IAIP_SSCP_ENFORCEMENTDOCS.NUMDOCUMENTTYPE " &
-                " FROM AIRBRANCH.IAIP_BINARYFILES " &
-                " INNER JOIN AIRBRANCH.IAIP_SSCP_ENFORCEMENTDOCS " &
+                " FROM IAIP_BINARYFILES " &
+                " INNER JOIN IAIP_SSCP_ENFORCEMENTDOCS " &
                 " ON IAIP_BINARYFILES.BINARYFILEID = IAIP_SSCP_ENFORCEMENTDOCS.NUMBINARYFILE " &
-                " INNER JOIN AIRBRANCH.IAIP_LK_SSCPDOCUMENTTYPE " &
+                " INNER JOIN IAIP_LK_SSCPDOCUMENTTYPE " &
                 " ON IAIP_SSCP_ENFORCEMENTDOCS.NUMDOCUMENTTYPE = IAIP_LK_SSCPDOCUMENTTYPE.DOCUMENTTYPEID " &
                 " WHERE IAIP_SSCP_ENFORCEMENTDOCS.STRENFORCEMENTNUMBER = :pId "
             Dim parameter As New SqlParameter("pId", enfNum)
@@ -219,7 +219,7 @@ Namespace DAL
 
         Public Function DownloadFile(ByVal id As Integer, ByVal filePath As String) As Boolean
             Dim query As String = " SELECT IAIP_BINARYFILES.BLOBDOCUMENT " &
-                                " FROM AIRBRANCH.IAIP_BINARYFILES " &
+                                " FROM IAIP_BINARYFILES " &
                                 " WHERE IAIP_BINARYFILES.BINARYFILEID = :pBinId "
             Dim parameter As SqlParameter = New SqlParameter("pBinId", id)
             Return SaveBinaryFileFromDB(filePath, query, parameter)
@@ -252,7 +252,7 @@ Namespace DAL
             'Dim parameters As SqlParameter()
 
             'queryList.Add(
-            '    " INSERT INTO AIRBRANCH.IAIP_BINARYFILES " &
+            '    " INSERT INTO IAIP_BINARYFILES " &
             '    " (BINARYFILEID,STRFILENAME,STRFILEEXTENSION,NUMFILESIZE,BLOBDOCUMENT,UPDATEUSER,UPDATEDATE,CREATEDATE) " &
             '    " VALUES (:pBinId,:pFileName,:pFileExt,:pFileSize,:pBinFile,:pUser,:pUpdateDate,:pCreateDate) "
             ')
@@ -292,7 +292,7 @@ Namespace DAL
         Public Function UploadEnforcementDocument(ByVal doc As EnforcementDocument, ByVal pathToFile As String, Optional ByVal sender As Object = Nothing) As Boolean
             If doc Is Nothing Then Return False
             Dim metaDataQuery As String =
-                            " INSERT INTO AIRBRANCH.IAIP_SSCP_ENFORCEMENTDOCS " &
+                            " INSERT INTO IAIP_SSCP_ENFORCEMENTDOCS " &
                             " (NUMBINARYFILE,STRENFORCEMENTNUMBER,NUMDOCUMENTTYPE,STRCOMMENT,UPDATEUSER,UPDATEDATE,CREATEDATE) " &
                             " VALUES (:pBinId,:pMetaDataId,:pDocTypeId,:pComment,:pUser,:pUpdateDate,:pCreateDate) "
             Dim metaDataId As String = doc.EnforcementNumber
@@ -300,7 +300,7 @@ Namespace DAL
         End Function
 
         Private Function GetNextBinaryFileSequenceValue() As Integer
-            Dim query As String = " SELECT AIRBRANCH.IAIP_BINARYFILES_SEQ.NEXTVAL FROM DUAL "
+            Dim query As String = " SELECT IAIP_BINARYFILES_SEQ.NEXTVAL FROM DUAL "
             Return DB.GetSingleValue(Of Integer)(query)
         End Function
 
@@ -313,7 +313,7 @@ Namespace DAL
                 sender.Cursor = Cursors.AppStarting
             End If
 
-            Dim query As String = " DELETE FROM AIRBRANCH.IAIP_BINARYFILES WHERE BINARYFILEID = :pBinId "
+            Dim query As String = " DELETE FROM IAIP_BINARYFILES WHERE BINARYFILEID = :pBinId "
             Dim parameter As SqlParameter = New SqlParameter("pBinId", id)
 
             Dim result As Boolean = DB.RunCommand(query, parameter)
@@ -331,7 +331,7 @@ Namespace DAL
         Public Function UpdateEnforcementDocument(ByVal doc As EnforcementDocument, Optional ByVal sender As Object = Nothing) As Boolean
             If doc Is Nothing Then Return False
             Dim query As String =
-                " UPDATE AIRBRANCH.IAIP_SSCP_ENFORCEMENTDOCS " &
+                " UPDATE IAIP_SSCP_ENFORCEMENTDOCS " &
                 " SET NUMDOCUMENTTYPE = :pDocTypeId, " &
                 " STRCOMMENT = :pComment, " &
                 " UPDATEUSER = :pUser, " &
@@ -369,7 +369,7 @@ Namespace DAL
         Public Function GetEnforcementDocumentTypesDict() As Dictionary(Of Integer, String)
             Dim query As String = "SELECT DOCUMENTTYPEID, " &
                 " STRDOCUMENTTYPE " &
-                " FROM AIRBRANCH.IAIP_LK_SSCPDOCUMENTTYPE " &
+                " FROM IAIP_LK_SSCPDOCUMENTTYPE " &
                 " WHERE FACTIVE = '" & Boolean.TrueString & "' " &
                 " ORDER BY NUMORDINAL, STRDOCUMENTTYPE "
             Return DB.GetLookupDictionary(query)
@@ -383,7 +383,7 @@ Namespace DAL
                 " STRDOCUMENTTYPE, " &
                 " FACTIVE, " &
                 " NUMORDINAL " &
-                " FROM AIRBRANCH.IAIP_LK_SSCPDOCUMENTTYPE " &
+                " FROM IAIP_LK_SSCPDOCUMENTTYPE " &
                 " ORDER BY NUMORDINAL, STRDOCUMENTTYPE "
 
             Dim dataTable As DataTable = DB.GetDataTable(query)
@@ -419,7 +419,7 @@ Namespace DAL
             End If
 
             Dim query As String =
-                " UPDATE AIRBRANCH.IAIP_LK_SSCPDOCUMENTTYPE " &
+                " UPDATE IAIP_LK_SSCPDOCUMENTTYPE " &
                 " SET STRDOCUMENTTYPE  = :pDocType, " &
                 "   FACTIVE            = :pActive, " &
                 "   NUMORDINAL         = :pPosition " &
@@ -449,7 +449,7 @@ Namespace DAL
             End If
 
             Dim query As String =
-                " INSERT INTO AIRBRANCH.IAIP_LK_SSCPDOCUMENTTYPE " &
+                " INSERT INTO IAIP_LK_SSCPDOCUMENTTYPE " &
                 " (STRDOCUMENTTYPE, FACTIVE, NUMORDINAL ) " &
                 " VALUES (:pName, :pActive, :pOrdinal) "
 

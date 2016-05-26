@@ -41,7 +41,7 @@ Public Class ISMPConfidentialData
     Sub LoadData()
         Try
             SQL = "Select strConfidentialData, strDocumentType  " &
-            "from AIRBRANCH.ISMPReportInformation " &
+            "from ISMPReportInformation " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -4557,7 +4557,7 @@ Public Class ISMPConfidentialData
                 Else
                     'ConfidentialData = ConfidentialData
                 End If
-                SQL = "Update AIRBRANCH.ISMPReportInformation set " &
+                SQL = "Update ISMPReportInformation set " &
                 "strConfidentialData = '" & Replace(ConfidentialData, "'", "''") & "' " &
                 "where strReferencenumber = '" & txtReferenceNumber.Text & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)

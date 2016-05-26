@@ -20,7 +20,7 @@ Public Class DMUDangerousTool
 
             If OldAIRS <> "" And NewAIRS <> "" Then
                 'Permitting 
-                SQL = "Update AIRBRANCH.SSPPApplicationMaster set " &
+                SQL = "Update SSPPApplicationMaster set " &
                 "strAIRSNumber = '0413" & NewAIRS & "' " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
@@ -32,7 +32,7 @@ Public Class DMUDangerousTool
                 dr.Close()
 
                 'Compliance
-                SQL = "Update AIRBRANCH.SSCPItemMaster set " &
+                SQL = "Update SSCPItemMaster set " &
                 "strAIRSNumber = '0413" & NewAIRS & "' " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
@@ -43,7 +43,7 @@ Public Class DMUDangerousTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Update AIRBRANCH.SSCPFCEMaster set " &
+                SQL = "Update SSCPFCEMaster set " &
                 "strAIRSNumber = '0413" & NewAIRS & "' " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
@@ -56,7 +56,7 @@ Public Class DMUDangerousTool
 
                 SQL = "Select " &
                 "strAIRSnumber " &
-                "from AIRBRANCH.SSCPInspectionsRequired " &
+                "from SSCPInspectionsRequired " &
                 "where strAIRSNumber = '0413" & NewAIRS & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -68,7 +68,7 @@ Public Class DMUDangerousTool
                 dr.Close()
                 If RecExist = False Then
 
-                    SQL = "Update AIRBRANCH.SSCPInspectionsRequired set " &
+                    SQL = "Update SSCPInspectionsRequired set " &
                     "strAIRSnumber = '0413" & NewAIRS & "' " &
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
@@ -79,7 +79,7 @@ Public Class DMUDangerousTool
                     dr = cmd.ExecuteReader
                     dr.Close()
                 Else
-                    SQL = "Delete AIRBRANCH.SSCPInspectionsRequired " &
+                    SQL = "Delete SSCPInspectionsRequired " &
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -90,7 +90,7 @@ Public Class DMUDangerousTool
                     dr.Close()
                 End If
 
-                SQL = "Update AIRBRANCH.SSCP_Enforcement set " &
+                SQL = "Update SSCP_Enforcement set " &
                 "strAIRSNumber = '0413" & NewAIRS & "' " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
@@ -102,7 +102,7 @@ Public Class DMUDangerousTool
                 dr.Close()
 
                 SQL = "Select strAIRSNumber " &
-                "from AIRBRANCH.SSCPDistrictResponsible " &
+                "from SSCPDistrictResponsible " &
                 "where strAIRSNumber = '0413" & NewAIRS & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -113,7 +113,7 @@ Public Class DMUDangerousTool
                 RecExist = dr.Read
                 dr.Close()
                 If RecExist = False Then
-                    SQL = "Update AIRBRANCH.SSCPDistrictResponsible set " &
+                    SQL = "Update SSCPDistrictResponsible set " &
                     "strAIRSNumber = '0413" & NewAIRS & "' " &
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
@@ -124,7 +124,7 @@ Public Class DMUDangerousTool
                     dr = cmd.ExecuteReader
                     dr.Close()
                 Else
-                    SQL = "Delete AIRBRANCH.SSCPDistrictResponsible " &
+                    SQL = "Delete SSCPDistrictResponsible " &
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -136,7 +136,7 @@ Public Class DMUDangerousTool
                 End If
 
                 SQL = "Select strAIRSNumber " &
-                "from AIRBRANCH.SSCPDistrictAssignment " &
+                "from SSCPDistrictAssignment " &
                 "where strAIRSNumber = '0413" & NewAIRS & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -147,7 +147,7 @@ Public Class DMUDangerousTool
                 RecExist = dr.Read
                 dr.Close()
                 If RecExist = False Then
-                    SQL = "Update AIRBRANCH.SSCPDistrictAssignment set " &
+                    SQL = "Update SSCPDistrictAssignment set " &
                     "strAIRSNumber = '0413" & NewAIRS & "' " &
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
@@ -158,7 +158,7 @@ Public Class DMUDangerousTool
                     dr = cmd.ExecuteReader
                     dr.Close()
                 Else
-                    SQL = "Delete AIRBRANCH.SSCPDistrictAssignment " &
+                    SQL = "Delete SSCPDistrictAssignment " &
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -171,7 +171,7 @@ Public Class DMUDangerousTool
 
 
                 SQL = "Select strAIRSNumber " &
-                              "from AIRBRANCH.SSCPInspectionsRequired " &
+                              "from SSCPInspectionsRequired " &
                               "where strAIRSNumber = '0413" & NewAIRS & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -182,7 +182,7 @@ Public Class DMUDangerousTool
                 RecExist = dr.Read
                 dr.Close()
                 If RecExist = False Then
-                    SQL = "Update AIRBRANCH.SSCPInspectionsRequired set " &
+                    SQL = "Update SSCPInspectionsRequired set " &
                     "strAIRSNumber = '0413" & NewAIRS & "' " &
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
@@ -193,7 +193,7 @@ Public Class DMUDangerousTool
                     dr = cmd.ExecuteReader
                     dr.Close()
                 Else
-                    SQL = "Delete AIRBRANCH.SSCPInspectionsRequired " &
+                    SQL = "Delete SSCPInspectionsRequired " &
                     "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -204,7 +204,7 @@ Public Class DMUDangerousTool
                     dr.Close()
                 End If
 
-                SQL = "Delete AIRBRANCH.OLAPUserAccess " &
+                SQL = "Delete OLAPUserAccess " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -214,7 +214,7 @@ Public Class DMUDangerousTool
                 dr.Close()
 
                 'Monitoring
-                SQL = "Update AIRBRANCH.ISMPMaster set " &
+                SQL = "Update ISMPMaster set " &
                 "strAIRSNumber = '0413" & NewAIRS & "' " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
@@ -225,7 +225,7 @@ Public Class DMUDangerousTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Delete AIRBRANCH.ISMPFacilityAssignment " &
+                SQL = "Delete ISMPFacilityAssignment " &
                "where strAIRSNumber = '0413" & OldAIRS & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -235,7 +235,7 @@ Public Class DMUDangerousTool
                 dr.Close()
 
                 'Historical Tables
-                SQL = "Update AIRBRANCH.HB_APBHeaderData set " &
+                SQL = "Update HB_APBHeaderData set " &
                 "strAIRSNumber = '0413" & NewAIRS & "', " &
                 "strComments = 'Data Merged from old AIRS # " & OldAIRS & "' " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
@@ -247,7 +247,7 @@ Public Class DMUDangerousTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Update AIRBRANCH.HB_APBFacilityInformation set " &
+                SQL = "Update HB_APBFacilityInformation set " &
                 "strAIRSNumber = '0413" & NewAIRS & "', " &
                 "strComments = 'Data Merged from old AIRS # " & OldAIRS & "' " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
@@ -259,7 +259,7 @@ Public Class DMUDangerousTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Delete AIRBRANCH.HB_APBAirProgramPollutants " &
+                SQL = "Delete HB_APBAirProgramPollutants " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -270,7 +270,7 @@ Public Class DMUDangerousTool
                 dr.Close()
 
                 'Header Data
-                SQL = "Delete AIRBRANCH.APBSupplamentalData " &
+                SQL = "Delete APBSupplamentalData " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -280,7 +280,7 @@ Public Class DMUDangerousTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Delete AIRBRANCH.APBSubpartData " &
+                SQL = "Delete APBSubpartData " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -290,7 +290,7 @@ Public Class DMUDangerousTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Delete AIRBRANCH.AFSAIRPollutantData " &
+                SQL = "Delete AFSAIRPollutantData " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -300,7 +300,7 @@ Public Class DMUDangerousTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Delete AIRBRANCH.AFSFacilityData " &
+                SQL = "Delete AFSFacilityData " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -310,7 +310,7 @@ Public Class DMUDangerousTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Delete AIRBRANCH.APBAirProgramPollutants " &
+                SQL = "Delete APBAirProgramPollutants " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -320,7 +320,7 @@ Public Class DMUDangerousTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Delete AIRBRANCH.APBContactInformation " &
+                SQL = "Delete APBContactInformation " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -330,7 +330,7 @@ Public Class DMUDangerousTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Delete AIRBRANCH.APBHeaderData " &
+                SQL = "Delete APBHeaderData " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -340,7 +340,7 @@ Public Class DMUDangerousTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Delete AIRBRANCH.APBFacilityInformation " &
+                SQL = "Delete APBFacilityInformation " &
                "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -350,7 +350,7 @@ Public Class DMUDangerousTool
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Delete AIRBRANCH.APBMasterAIRS " &
+                SQL = "Delete APBMasterAIRS " &
                 "where strAIRSNumber = '0413" & OldAIRS & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -376,7 +376,7 @@ Public Class DMUDangerousTool
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
-            cmd = New SqlCommand("AIRBranch.PD_EIS_QASTART", CurrentConnection)
+            cmd = New SqlCommand("PD_EIS_QASTART", CurrentConnection)
             cmd.CommandType = CommandType.StoredProcedure
 
             cmd.Parameters.Add(New SqlParameter("AIRSNUMBER_IN", SqlDbType.VarChar)).Value = txtEISAIRSNumber.Text

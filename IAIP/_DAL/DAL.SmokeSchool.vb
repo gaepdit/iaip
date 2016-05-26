@@ -33,7 +33,7 @@ Namespace DAL
                 " STRLOCATIONDATE AS LocationDate, STRLECTUREYESNO AS LectureYesNo, " &
                 " STRFIRSTNAME AS FirstName, STRLASTNAME AS LastName, " &
                 " TO_CHAR(NUMUSERID) AS StudentID " &
-                " FROM AIRBRANCH.SMOKESCHOOLRESERVATION " &
+                " FROM SMOKESCHOOLRESERVATION " &
                 " WHERE STRLOCATIONDATE = :pId " &
                 " ORDER BY LastName, FirstName, StudentID "
             Dim parameter As New SqlParameter("pId", id)

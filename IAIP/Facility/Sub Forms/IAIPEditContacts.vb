@@ -113,7 +113,7 @@ Public Class IAIPEditContacts
                  "    when strContactDescription is Null then '' " &
                  "    ELSE strContactDescription " &
                  "END as ContactDescription " &
-                 "from AIRBRANCH.APBContactInformation " &
+                 "from APBContactInformation " &
                  "where strAIRSnumber = '" & AirsNumber.DbFormattedString & "' " &
                  "order by substr(strKey, 2), strKey "
 
@@ -200,7 +200,7 @@ Public Class IAIPEditContacts
     Sub NewContactDataLoad()
         Try
             If Me.AirsNumber.ToString IsNot Nothing And Key <> ContactKey.None Then
-                Dim query As String = "Select * from AIRBRANCH.APBContactInformation " &
+                Dim query As String = "Select * from APBContactInformation " &
                 "where strAIRSNumber = :airsnumber " &
                 "and strKey = :key "
 
@@ -396,7 +396,7 @@ Public Class IAIPEditContacts
                 End If
 
                 If Key <> ContactKey.None Then
-                    SQL = "Update airbranch.APBContactInformation set " &
+                    SQL = "Update APBContactInformation set " &
                     "STRCONTACTFIRSTNAME = '" & Replace(txtNewFirstName.Text, "'", "''") & "', " &
                     "STRCONTACTLASTNAME = '" & Replace(txtNewLastName.Text, "'", "''") & "', " &
                     "STRCONTACTPREFIX = '" & Replace(txtNewPrefix.Text, "'", "''") & "', " &
@@ -444,7 +444,7 @@ Public Class IAIPEditContacts
                     End If
 
                     If newKey <> "" Then
-                        SQL = "Update airbranch.APBContactInformation set " &
+                        SQL = "Update APBContactInformation set " &
                        "STRCONTACTFIRSTNAME = '" & Replace(txtNewFirstName.Text, "'", "''") & "', " &
                        "STRCONTACTLASTNAME = '" & Replace(txtNewLastName.Text, "'", "''") & "', " &
                        "STRCONTACTPREFIX = '" & Replace(txtNewPrefix.Text, "'", "''") & "', " &
@@ -512,7 +512,7 @@ Public Class IAIPEditContacts
                 Else
                     Select Case newKey
                         Case "10", "20", "30", "50", "60", "70"
-                            SQL = "delete airbranch.APBContactInformation " &
+                            SQL = "delete APBContactInformation " &
                             "where strAIRSnumber = '" & AirsNumber.DbFormattedString & "' " &
                             "and strKey = '" & Mid(newKey, 1, 1) & "9' "
 
@@ -522,7 +522,7 @@ Public Class IAIPEditContacts
                             End If
                             cmd.ExecuteReader()
 
-                            SQL = "Update AIRBranch.APBContactInformation set " &
+                            SQL = "Update APBContactInformation set " &
                             "strKey = substr(strKey, 1,1) || (substr(strKey, 2,1) + 1), " &
                             "strContactKey = substr(strContactKey, 1, 13) || (substr(strContactKey, 14, 1) + 1) " &
                             "where strAIRSNumber = '" & AirsNumber.DbFormattedString & "' " &
@@ -533,7 +533,7 @@ Public Class IAIPEditContacts
                             End If
                             cmd.ExecuteReader()
 
-                            SQL = "Insert into airbranch.APBContactInformation " &
+                            SQL = "Insert into APBContactInformation " &
                             "(STRCONTACTKEY, STRAIRSNUMBER,  " &
                             "STRKEY, STRCONTACTFIRSTNAME,  " &
                             "STRCONTACTLASTNAME, STRCONTACTPREFIX,  " &
@@ -558,7 +558,7 @@ Public Class IAIPEditContacts
                             " '" & CurrentUser.UserID & "',  sysdate, " &
                             " '" & Replace(txtNewDescrption.Text, "'", "''") & "' " &
                             "from dual  " &
-                            "where not exists (select * from AIRBranch.APBContactInformation  " &
+                            "where not exists (select * from APBContactInformation  " &
                             "where strKey = '" & newKey & "' " &
                             "and strAIRSNumber = '" & AirsNumber.DbFormattedString & "')) "
 
@@ -569,7 +569,7 @@ Public Class IAIPEditContacts
                             cmd.ExecuteReader()
 
                         Case Else
-                            SQL = "Insert into airbranch.APBContactInformation " &
+                            SQL = "Insert into APBContactInformation " &
                             "(STRCONTACTKEY, STRAIRSNUMBER,  " &
                             "STRKEY, STRCONTACTFIRSTNAME,  " &
                             "STRCONTACTLASTNAME, STRCONTACTPREFIX,  " &
@@ -594,7 +594,7 @@ Public Class IAIPEditContacts
                             " '" & CurrentUser.UserID & "',  sysdate, " &
                             " '" & Replace(txtNewDescrption.Text, "'", "''") & "' " &
                             "from dual  " &
-                            "where not exists (select * from AIRBranch.APBContactInformation  " &
+                            "where not exists (select * from APBContactInformation  " &
                             "where strKey = '" & newKey & "' " &
                             "and strAIRSNumber = '" & AirsNumber.DbFormattedString & "')) "
 

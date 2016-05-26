@@ -10,7 +10,7 @@ Namespace DAL
 
         Public Function GetResEventStatusesAsDictionary(Optional ByVal addBlank As Boolean = False, Optional ByVal blankPrompt As String = "") As SortedDictionary(Of Integer, String)
             Dim query As String = " SELECT NUMRESLK_EVENTSTATUSID, STREVENTSTATUS " &
-                " FROM AIRBRANCH.RESLK_EVENTSTATUS " &
+                " FROM RESLK_EVENTSTATUS " &
                 " WHERE ACTIVE = '1' " &
                 " ORDER BY STREVENTSTATUS "
             Dim d As Dictionary(Of Integer, String) = DB.GetLookupDictionary(query)
@@ -23,7 +23,7 @@ Namespace DAL
         Public Function GetRegistrationStatusesAsDictionary(Optional ByVal addBlank As Boolean = False, Optional ByVal blankPrompt As String = "") As SortedDictionary(Of Integer, String)
             Dim query As String = " SELECT NUMRESLK_REGISTRATIONSTATUSID, " &
                 " STRREGISTRATIONSTATUS " &
-                " FROM AIRBRANCH.RESLK_REGISTRATIONSTATUS " &
+                " FROM RESLK_REGISTRATIONSTATUS " &
                 " WHERE ACTIVE = '1' " &
                 " ORDER BY STRREGISTRATIONSTATUS "
             Dim d As Dictionary(Of Integer, String) = DB.GetLookupDictionary(query)
@@ -51,14 +51,14 @@ Namespace DAL
             '        "     RES_EVENT.STREVENTSTARTTIME, " &
             '        "     RES_EVENT.STRVENUE, " &
             '        "     RES_EVENT.STRNOTES " &
-            '        " FROM AIRBRANCH.RES_EVENT " &
-            '        " WHERE AIRBRANCH.RES_EVENT.DATSTARTDATE       IS NOT NULL " &
-            '        " AND (TRUNC(AIRBRANCH.RES_EVENT.DATSTARTDATE) >= TRUNC(:pFromDate) " &
+            '        " FROM RES_EVENT " &
+            '        " WHERE RES_EVENT.DATSTARTDATE       IS NOT NULL " &
+            '        " AND (TRUNC(RES_EVENT.DATSTARTDATE) >= TRUNC(:pFromDate) " &
             '        " OR :pFromDate                                IS NULL) " &
-            '        " AND (TRUNC(AIRBRANCH.RES_EVENT.DATSTARTDATE) <= TRUNC(:pToDate) " &
+            '        " AND (TRUNC(RES_EVENT.DATSTARTDATE) <= TRUNC(:pToDate) " &
             '        " OR :pToDate                                  IS NULL) " &
-            '        " AND AIRBRANCH.RES_EVENT.ACTIVE                = '1' " &
-            '        " ORDER BY AIRBRANCH.RES_EVENT.DATSTARTDATE "
+            '        " AND RES_EVENT.ACTIVE                = '1' " &
+            '        " ORDER BY RES_EVENT.DATSTARTDATE "
 
             '    Dim parameters As SqlParameter() = {
             '        New SqlParameter("pFromDate", SqlDbType.DateTime2, fromDate, ParameterDirection.Input),
@@ -107,14 +107,14 @@ Namespace DAL
                 "   EP2.STRFIRSTNAME    AS STRFIRSTNAME2, " &
                 "   EP2.STREMAILADDRESS AS STREMAILADDRESS2, " &
                 "   EP2.STRPHONE        AS STRPHONE2 " &
-                " FROM AIRBRANCH.RES_EVENT, " &
-                "   AIRBRANCH.RESLK_EVENTSTATUS, " &
-                "   AIRBRANCH.EPDUSERPROFILES EP2, " &
-                "   AIRBRANCH.EPDUSERPROFILES EP1 " &
-                " WHERE AIRBRANCH.RES_EVENT.NUMEVENTSTATUSCODE = AIRBRANCH.RESLK_EVENTSTATUS.NUMRESLK_EVENTSTATUSID(+) " &
-                " AND AIRBRANCH.RES_EVENT.STRUSERGCODE         = EP2.NUMUSERID(+) " &
-                " AND AIRBRANCH.RES_EVENT.NUMAPBCONTACT        = EP1.NUMUSERID(+) " &
-                " AND AIRBRANCH.RES_EVENT.NUMRES_EVENTID      = :pId "
+                " FROM RES_EVENT, " &
+                "   RESLK_EVENTSTATUS, " &
+                "   EPDUSERPROFILES EP2, " &
+                "   EPDUSERPROFILES EP1 " &
+                " WHERE RES_EVENT.NUMEVENTSTATUSCODE = RESLK_EVENTSTATUS.NUMRESLK_EVENTSTATUSID(+) " &
+                " AND RES_EVENT.STRUSERGCODE         = EP2.NUMUSERID(+) " &
+                " AND RES_EVENT.NUMAPBCONTACT        = EP1.NUMUSERID(+) " &
+                " AND RES_EVENT.NUMRES_EVENTID      = :pId "
 
             Dim parameter As New SqlParameter("pId", id)
 
@@ -199,14 +199,14 @@ Namespace DAL
                 "   OLAPUSERPROFILE.STRCOMPANYNAME, " &
                 "   OLAPUSERPROFILE.STRPHONENUMBER, " &
                 "   RES_REGISTRATION.NUMREGISTRATIONSTATUSCODE " &
-                " FROM AIRBRANCH.RES_REGISTRATION, " &
-                "   AIRBRANCH.OLAPUSERPROFILE, " &
-                "   AIRBRANCH.OLAPUSERLOGIN, " &
-                "   AIRBRANCH.RESLK_REGISTRATIONSTATUS " &
-                " WHERE AIRBRANCH.RES_REGISTRATION.NUMGECOUSERID           = AIRBRANCH.OLAPUSERPROFILE.NUMUSERID " &
-                " AND AIRBRANCH.RES_REGISTRATION.NUMREGISTRATIONSTATUSCODE = AIRBRANCH.RESLK_REGISTRATIONSTATUS.NUMRESLK_REGISTRATIONSTATUSID " &
-                " AND AIRBRANCH.RES_REGISTRATION.NUMGECOUSERID             = AIRBRANCH.OLAPUSERLOGIN.NUMUSERID " &
-                " AND AIRBRANCH.RES_REGISTRATION.NUMRES_EVENTID           = :pId "
+                " FROM RES_REGISTRATION, " &
+                "   OLAPUSERPROFILE, " &
+                "   OLAPUSERLOGIN, " &
+                "   RESLK_REGISTRATIONSTATUS " &
+                " WHERE RES_REGISTRATION.NUMGECOUSERID           = OLAPUSERPROFILE.NUMUSERID " &
+                " AND RES_REGISTRATION.NUMREGISTRATIONSTATUSCODE = RESLK_REGISTRATIONSTATUS.NUMRESLK_REGISTRATIONSTATUSID " &
+                " AND RES_REGISTRATION.NUMGECOUSERID             = OLAPUSERLOGIN.NUMUSERID " &
+                " AND RES_REGISTRATION.NUMRES_EVENTID           = :pId "
 
             Dim parameter As New SqlParameter("pId", id)
 

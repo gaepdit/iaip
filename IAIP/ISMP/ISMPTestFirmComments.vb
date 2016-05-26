@@ -58,7 +58,7 @@ Public Class ISMPTestFirmComments
         Try
             SQL = "Select " &
             "strTestingFirmKey, strTestingFirm " &
-            "from AIRBRANCH.LookUpTestingFirms " &
+            "from LookUpTestingFirms " &
             "order by strTestingFirm "
 
             dsTestingFirms = New DataSet
@@ -109,8 +109,8 @@ Public Class ISMPTestFirmComments
             "strComment, " &
             "to_char(datCommentDate, 'dd-Mon-yyyy') as CommentDate, " &
             "(strLastName|| ', ' ||strFirstName) as StaffResponsible " &
-            "from AIRBRANCH.ismptestfirmcomments, AIRBRANCH.EPDUSerProfiles " &
-            "where AIRBRANCH.ismptestfirmcomments.strStaffResponsible = AIRBRANCH.EPDUSerProfiles.numUserID "
+            "from ismptestfirmcomments, EPDUSerProfiles " &
+            "where ismptestfirmcomments.strStaffResponsible = EPDUSerProfiles.numUserID "
 
             If txtTestNotificationNumber.Text <> "" Then
                 SQL = SQL & " and strTestLogNumber = '" & txtTestNotificationNumber.Text & "' "
@@ -172,7 +172,7 @@ Public Class ISMPTestFirmComments
                 SQL = "Select " &
                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as datTestDateStart, " &
                 "to_char(datTestDateEnd, 'dd-Mon-yyyy') as datTestDateEnd " &
-                "from AIRBRANCH.ISMPReportInformation " &
+                "from ISMPReportInformation " &
                 "where strReferenceNumber = '" & txtTestReportNumber.Text & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -268,10 +268,10 @@ Public Class ISMPTestFirmComments
                 End If
 
                 If CommentID = "" Then
-                    SQL = "Insert into AIRBRANCH.ISMPTestFirmComments " &
+                    SQL = "Insert into ISMPTestFirmComments " &
                     "values " &
-                    "((select max(AIRBRANCH.ismptestfirmcomments.numcommentsid) + 1 " &
-                    "from AIRBRANCH.ismptestfirmcomments ),   " &
+                    "((select max(ismptestfirmcomments.numcommentsid) + 1 " &
+                    "from ismptestfirmcomments ),   " &
                     "'" & TestFirmKey & "', " &
                     "'" & AIRSNum & "', '" & TestLogNum & "', " &
                     "'" & RefNum & "', '" & SaveType & "', " &
@@ -279,7 +279,7 @@ Public Class ISMPTestFirmComments
                     "'" & Replace(Comment, "'", "''") & "', '" & CurrentUser.UserID & "', " &
                     "sysdate) "
                 Else
-                    SQL = "Update AIRBRANCH.ISMPTestFirmComments set " &
+                    SQL = "Update ISMPTestFirmComments set " &
                     "strTestingFirmKey = '" & TestFirmKey & "', " &
                     "strAIRSNumber = '" & AIRSNum & "', " &
                     "strTestLogNumber = '" & TestLogNum & "', " &
@@ -303,8 +303,8 @@ Public Class ISMPTestFirmComments
 
                 If CommentID = "" Then
                     SQL = "Select " &
-                    "max(AIRBRANCH.ISMPTestFirmComments.numcommentsid) " &
-                    "from AIRBRANCH.ISMPTestFirmComments "
+                    "max(ISMPTestFirmComments.numcommentsid) " &
+                    "from ISMPTestFirmComments "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -328,9 +328,9 @@ Public Class ISMPTestFirmComments
             Select Case RefreshType
                 Case "AIRS Number"
                     SQL = "select " &
-                    "substr(AIRBRANCH.APBFacilityInformation.strAIRSnumber, 5) as strAIRSnumber, " &
+                    "substr(APBFacilityInformation.strAIRSnumber, 5) as strAIRSnumber, " &
                     "strFacilityName " &
-                    "from AIRBRANCH.APBFacilityInformation " &
+                    "from APBFacilityInformation " &
                     "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "'"
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -348,12 +348,12 @@ Public Class ISMPTestFirmComments
                     dr.Close()
                 Case "Notification"
                     SQL = "select " &
-                    "substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as strAIRSNumber, " &
+                    "substr(APBFacilityInformation.strAIRSNumber, 5) as strAIRSNumber, " &
                     "strFacilityName, " &
                     "strTestLogNumber " &
-                    "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPTestNotification " &
-                    "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.ISMPTestNotification.strAIRSNumber (+) " &
-                    "and AIRBRANCH.ISMPTestNotification.strTestLogNumber = '" & txtTestNotificationNumber.Text & "' "
+                    "from APBFacilityInformation, ISMPTestNotification " &
+                    "where APBFacilityInformation.strAIRSNumber = ISMPTestNotification.strAIRSNumber (+) " &
+                    "and ISMPTestNotification.strTestLogNumber = '" & txtTestNotificationNumber.Text & "' "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
@@ -374,17 +374,17 @@ Public Class ISMPTestFirmComments
                     dr.Close()
                 Case "Test Report"
                     SQL = "select " &
-                    "AIRBRANCH.ISMPMaster.strReferenceNumber,  " &
-                    "substr(AIRBRANCH.APBFacilityInformation.strAIRSnumber, 5) as strAIRSNUmber, " &
+                    "ISMPMaster.strReferenceNumber,  " &
+                    "substr(APBFacilityInformation.strAIRSnumber, 5) as strAIRSNUmber, " &
                     "strFacilityName,  strTestLogNumber,  " &
                     "to_char(datTestDateStart, 'dd-Mon-yyyy') as datTestDateStart, " &
                     "to_char(datTestDateEnd, 'dd-Mon-yyyy') as datTestDateEnd " &
-                    "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation,  " &
-                    "AIRBRANCH.ISMPTestNotification, AIRBRANCH.ISMPReportInformation " &
-                    "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber  " &
-                    "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.ISMpTestNotification.strAIRSNumber (+)  " &
-                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber (+) " &
-                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtTestReportNumber.Text & "'  "
+                    "from ISMPMaster, APBFacilityInformation,  " &
+                    "ISMPTestNotification, ISMPReportInformation " &
+                    "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSnumber  " &
+                    "and ISMPMaster.strAIRSNumber = ISMpTestNotification.strAIRSNumber (+)  " &
+                    "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber (+) " &
+                    "and ISMPMaster.strReferenceNumber = '" & txtTestReportNumber.Text & "'  "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -464,7 +464,7 @@ Public Class ISMPTestFirmComments
                 End If
 
                 If CommentID <> "" Then
-                    SQL = "Update AIRBRANCH.ISMPTestFirmComments set " &
+                    SQL = "Update ISMPTestFirmComments set " &
                     "strTestingFirmKey = '" & TestFirmKey & "', " &
                     "strAIRSNumber = '" & AIRSNum & "', " &
                     "strTestLogNumber = '" & TestLogNum & "', " &
@@ -588,7 +588,7 @@ Public Class ISMPTestFirmComments
             If cboCommentNumber.Text <> "" Then
                 SQL = "Select " &
                 "strComment " &
-                "from AIRBRANCH.ISMPTestFirmComments " &
+                "from ISMPTestFirmComments " &
                 "where numCommentsID = '" & cboCommentNumber.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -643,7 +643,7 @@ Public Class ISMPTestFirmComments
                     RefNum = ""
                 End If
 
-                SQL = "Update AIRBRANCH.ISMPTestFirmComments set " &
+                SQL = "Update ISMPTestFirmComments set " &
                 "strTestingFirmKey = '" & TestFirmKey & "', " &
                 "strAIRSNumber = '" & AIRSNum & "', " &
                 "strTestLogNumber = '" & TestLogNum & "', " &
@@ -676,7 +676,7 @@ Public Class ISMPTestFirmComments
     Private Sub btnDeleteComment_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnDeleteComment.Click
         Try
             If cboCommentNumber.Text <> "" Then
-                SQL = "Delete AIRBRANCH.ISMPTestFirmComments " &
+                SQL = "Delete ISMPTestFirmComments " &
                 "where numCommentsId = '" & cboCommentNumber.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)

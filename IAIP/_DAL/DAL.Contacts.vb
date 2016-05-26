@@ -35,7 +35,7 @@ Namespace DAL
                 "  STRCONTACTTITLE, " &
                 "  STRCONTACTPHONENUMBER1, " &
                 "  strContactEmail " &
-                " FROM AIRBRANCH.APBContactInformation " &
+                " FROM APBContactInformation " &
                 " WHERE strAIRSNumber = :airsnumber " &
                 " AND strKey          = :key "
 

@@ -76,7 +76,7 @@ Public Class ISMPAddTestingFirms
                  "strFirmCity, strFirmState, " &
                  "strFirmZipCode, strFirmPhoneNumber1, " &
                  "strFirmPhoneNumber2, strFirmFax, strFirmEmail " &
-                 "from AIRBRANCH.LookUPTestingFirms " &
+                 "from LookUPTestingFirms " &
                  "Order by strTestingFirm "
 
             dsTestingFirms = New DataSet
@@ -306,7 +306,7 @@ Public Class ISMPAddTestingFirms
                 End Select
 
                 SQL = "Select strTestingfirmKey " &
-                "from AIRBRANCH.LookUPTestingFirms " &
+                "from LookUPTestingFirms " &
                 "where strTestingFirmKey = '" & TestingFirmKey & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 dr = cmd.ExecuteReader
@@ -446,17 +446,17 @@ Public Class ISMPAddTestingFirms
                     CurrentConnection.Open()
                 End If
                 If chbDeleteTestingFirm.Checked = True Then
-                    SQL = "Delete AIRBRANCH.LookUPTestingFirms " &
+                    SQL = "Delete LookUPTestingFirms " &
                     "where strTestingFirmKey = '" & txtTestingFirmKey.Text & "'"
                 Else
                     SQL = "Select strTestingFirmKey " &
-                    "from AIRBRANCH.LookUPTestingFirms " &
+                    "from LookUPTestingFirms " &
                     "where strTestingFirmKey = '" & txtTestingFirmKey.Text & "'"
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
                     If recExist = True Then
-                        SQL = "Update AIRBRANCH.LookUPTestingFirms set " &
+                        SQL = "Update LookUPTestingFirms set " &
                         "strTestingFirm = '" & TestingFirm & "', " &
                         "strFirmAddress1 = '" & TestingFirmAddress1 & "', " &
                         "strFirmAddress2 = '" & TestingFirmAddress2 & "', " &
@@ -469,7 +469,7 @@ Public Class ISMPAddTestingFirms
                         "strFirmEmail = '" & TestingFirmEmail & "' " &
                         "where strTestingFirmKey = '" & txtTestingFirmKey.Text & "' "
                     Else
-                        SQL = "Insert into AIRBRANCH.LookUPTestingFirms " &
+                        SQL = "Insert into LookUPTestingFirms " &
                         "(strTestingFirmKey, strTestingFirm, " &
                         "strFirmAddress1, strFirmAddress2, " &
                         "strFirmCity, strFirmState, " &

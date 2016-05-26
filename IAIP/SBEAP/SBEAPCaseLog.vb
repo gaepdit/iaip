@@ -65,15 +65,15 @@ Public Class SBEAPCaseLog
             SQL = "select " &
             "distinct(strLastName||', '||strFirstName) as Staff, " &
             "numUserID " &
-            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.SBEAPCaseLog " &
-            "where AIRBRANCH.epduserprofiles.numUserID = AIRBRANCH.SBEAPCaseLog.numStaffResponsible " &
+            "from EPDUserProfiles, SBEAPCaseLog " &
+            "where epduserprofiles.numUserID = SBEAPCaseLog.numStaffResponsible " &
             "or (numBranch = '5' and numProgram = '35') "
 
             daStaff = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = "Select " &
             "strWorkDescription, numActionType " &
-            "from AIRBRANCH.LookUpSBEAPCaseWork " &
+            "from LookUpSBEAPCaseWork " &
             "order by strWorkDescription "
 
             daCaseWork = New SqlDataAdapter(SQL, CurrentConnection)
@@ -82,7 +82,7 @@ Public Class SBEAPCaseLog
 
             SQL = "Select " &
             "numActionType, strWorkDescription " &
-            "from AIRbranch.LookUpSBEAPcaseWork " &
+            "from LookUpSBEAPcaseWork " &
             "order by strWorkDescription  "
 
             daActions = New SqlDataAdapter(SQL, CurrentConnection)
@@ -252,7 +252,7 @@ Public Class SBEAPCaseLog
 
             Select Case cboSortType1.Text
                 Case "Case ID"
-                    SQLOrder1 = " AIRBRANCH.VW_SBEAP_CaseLog.numCaseID "
+                    SQLOrder1 = " VW_SBEAP_CaseLog.numCaseID "
                 Case "Customer ID"
                     SQLOrder1 = " ClientID "
                 Case "Date Case Opened"
@@ -280,7 +280,7 @@ Public Class SBEAPCaseLog
 
             Select Case cboSortType2.Text
                 Case "Case ID"
-                    SQLOrder2 = " AIRBRANCH.VW_SBEAP_CaseLog.numCaseID "
+                    SQLOrder2 = " VW_SBEAP_CaseLog.numCaseID "
                 Case "Customer ID"
                     SQLOrder2 = " ClientID "
                 Case "Date Case Opened"
@@ -345,24 +345,24 @@ Public Class SBEAPCaseLog
         Try
             SQL = "select * from " &
             "((select " &
-            "AIRBRANCH.VW_SBEAP_Caselog.*, 'Action' as ActionType " &
-            "from AIRBRANCH.VW_SBEAP_Caselog " &
+            "VW_SBEAP_Caselog.*, 'Action' as ActionType " &
+            "from VW_SBEAP_Caselog " &
             "where " & SQLSearch3 & " " &
             "and Exists " &
             "(select * " &
-            "from AIRBRANCH.SBEAPActionLog " &
-            "where AIRBRANCH.VW_SBEAP_Caselog.numCaseID = AIRBRANCH.SBEAPActionLog.numCaseID " &
+            "from SBEAPActionLog " &
+            "where VW_SBEAP_Caselog.numCaseID = SBEAPActionLog.numCaseID " &
             " " & SQLAction & ")) " &
             "union " &
             "select * from " &
             "(select " &
-            "AIRBRANCH.VW_SBEAP_Caselog.*, 'No Action' as ActionType " &
-            "from AIRBRANCH.VW_SBEAP_Caselog " &
+            "VW_SBEAP_Caselog.*, 'No Action' as ActionType " &
+            "from VW_SBEAP_Caselog " &
             "where " & SQLSearch3 & " " &
             "and Not Exists " &
             "(select * " &
-            "from AIRBRANCH.SBEAPActionLog " &
-            "where AIRBRANCH.VW_SBEAP_Caselog.numCaseID = AIRBRANCH.SBEAPActionLog.numCaseID))) " &
+            "from SBEAPActionLog " &
+            "where VW_SBEAP_Caselog.numCaseID = SBEAPActionLog.numCaseID))) " &
             SQLSearch1 & SQLSearch2
 
             dsCaseLogGrid = New DataSet
