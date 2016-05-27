@@ -6,8 +6,6 @@ Imports Iaip.Apb.Sscp
 Imports Iaip.DAL.Sscp
 Imports Iaip.DAL.DocumentData
 
-Imports Oracle.ManagedDataAccess.Types
-
 Public Class SscpDocuments
 
 #Region "Properties"
@@ -40,7 +38,7 @@ Public Class SscpDocuments
 #Region "Page Load"
 
     Private Sub SscpDocuments_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        
+
         LoadDocumentTypes()
         ClearEverything()
         If enforcementInfo IsNot Nothing Then ShowEnforcement()

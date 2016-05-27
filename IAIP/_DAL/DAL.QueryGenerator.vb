@@ -1,5 +1,4 @@
 ﻿Imports System.Data.SqlClient
-Imports Oracle.ManagedDataAccess.Types
 
 Namespace DAL
     Module QueryGeneratorData
