@@ -5,8 +5,7 @@ Public Class DMUDeveloperTool
 
 #Region " Page Load Functions "
 
-    Private Sub DMUDeveloperTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
+    Private Sub DMUDeveloperTools_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
         LoadPermissions()
     End Sub
 
@@ -100,9 +99,9 @@ Public Class DMUDeveloperTool
     Private Sub LoadErrorLog()
         Dim query As String = "Select " &
             " strErrorNumber, " &
-            " (strLastName||', '||strFirstName) as ErrorUser, " &
+            " (strLastName + ', ' + strFirstName) as ErrorUser, " &
             " strErrorLocation, strErrorMessage, " &
-            " to_char(datErrorDate, 'DD-Mon-YYYY') as ErrorDate, " &
+            " datErrorDate as ErrorDate, " &
             " strSolution " &
             " from IAIPErrorLog, EPDUserProfiles " &
             " where IAIPErrorLog.strUser = EPDUserProfiles.numUserID "
@@ -114,9 +113,9 @@ Public Class DMUDeveloperTool
         End If
 
         If rdbLast30Days.Checked = True Then
-            query = query & " and datErrorDate > add_months(sysdate, -1) "
+            query = query & " and datErrorDate > dateadd(mm, -1, getdate()) "
         ElseIf rdbLast60days.Checked = True Then
-            query = query & " and datErrorDate > add_months(sysdate, -2) "
+            query = query & " and datErrorDate > dateadd(mm, -2, getdate()) "
         End If
 
         query = query & " Order by strErrornumber desc "
@@ -144,6 +143,7 @@ Public Class DMUDeveloperTool
         dgvErrorList.Columns("ErrorDate").DisplayIndex = 4
         dgvErrorList.Columns("strSolution").HeaderText = "Solution"
         dgvErrorList.Columns("strSolution").DisplayIndex = 5
+        dgvErrorList.SanelyResizeColumns
 
         txtErrorCount.Text = ErrorLog.Rows.Count.ToString
 
@@ -170,11 +170,11 @@ Public Class DMUDeveloperTool
 
     End Sub
 
-    Private Sub btnFilterErrors_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFilterErrors.Click
+    Private Sub btnFilterErrors_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnFilterErrors.Click
         LoadErrorLog()
     End Sub
 
-    Private Sub btnSaveError_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveError.Click
+    Private Sub btnSaveError_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnSaveError.Click
         Dim ErrorSolution As String = ""
 
         If txtErrorSolution.Text <> "" Then
@@ -187,8 +187,8 @@ Public Class DMUDeveloperTool
             "where strErrornumber = @errNum "
 
             Dim Parameters As SqlParameter() = {
-            New SqlParameter("@errSol", ErrorSolution),
-            New SqlParameter("@errNum", txtErrorNumber.Text)
+                New SqlParameter("@errSol", ErrorSolution),
+                New SqlParameter("@errNum", txtErrorNumber.Text)
             }
 
             DB.RunCommand(query, Parameters)
@@ -199,11 +199,11 @@ Public Class DMUDeveloperTool
         End If
     End Sub
 
-    Private Sub btnFilterWebErrors_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFilterWebErrors.Click
+    Private Sub btnFilterWebErrors_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnFilterWebErrors.Click
         LoadWebErrorLog()
     End Sub
 
-    Private Sub dgrWebErrorList_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgrWebErrorList.MouseUp
+    Private Sub dgrWebErrorList_MouseUp(ByVal sender As Object, ByVal e As MouseEventArgs) Handles dgrWebErrorList.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrWebErrorList.HitTest(e.X, e.Y)
 
         Try
@@ -240,11 +240,11 @@ Public Class DMUDeveloperTool
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnSaveWebErrorSolution_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveWebErrorSolution.Click
+    Private Sub btnSaveWebErrorSolution_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnSaveWebErrorSolution.Click
         Dim ErrorSolution As String = ""
 
         If txtWebErrorSolution.Text <> "" Then
@@ -257,8 +257,8 @@ Public Class DMUDeveloperTool
             "where numError = @errNum "
 
             Dim Parameters As SqlParameter() = {
-            New SqlParameter("@errSol", ErrorSolution),
-            New SqlParameter("@errNum", txtWebErrorNumber.Text)
+                New SqlParameter("@errSol", ErrorSolution),
+                New SqlParameter("@errNum", txtWebErrorNumber.Text)
             }
 
             DB.RunCommand(query, Parameters)
@@ -269,7 +269,7 @@ Public Class DMUDeveloperTool
         End If
     End Sub
 
-    Private Sub dgvErrorList_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvErrorList.MouseUp
+    Private Sub dgvErrorList_MouseUp(ByVal sender As Object, ByVal e As MouseEventArgs) Handles dgvErrorList.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvErrorList.HitTest(e.X, e.Y)
             If dgvErrorList.RowCount > 0 And hti.RowIndex <> -1 Then
@@ -283,9 +283,9 @@ Public Class DMUDeveloperTool
 
                     Dim query As String = "Select " &
                     "strErrorNumber, " &
-                    "(strLastName||', '||strFirstName) as ErrorUser,  " &
+                    "(strLastName + ', ' + strFirstName) as ErrorUser,  " &
                     "strErrorLocation, strErrorMessage,  " &
-                    "to_char(datErrorDate, 'DD-Mon-YYYY') as ErrorDate,  " &
+                    "datErrorDate as ErrorDate,  " &
                     "strSolution  " &
                     "from IAIPErrorLog, EPDUserProfiles  " &
                     "where IAIPErrorLog.strUser = EPDUserProfiles.numUserID " &
@@ -306,7 +306,7 @@ Public Class DMUDeveloperTool
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
