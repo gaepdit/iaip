@@ -97,35 +97,23 @@ Namespace DAL
         End Function
 
         Public Function UsernameExists(username As String, Optional ignoreUser As Integer = 0) As Boolean
-            Throw New NotImplementedException()
-
-            ' TODO: SQL Server migration
-
-            'If username = "" Then Return False
-            'Dim spName As String = "IAIP_USER.UsernameExists"
-            'Dim parameters As SqlParameter() = New SqlParameter() {
-            '    New SqlParameter("@ReturnValue", SqlDbType.VarChar, 5, Nothing, ParameterDirection.ReturnValue),
-            '    New SqlParameter("@username", username),
-            '    New SqlParameter("@ignoreUser", ignoreUser)
-            '}
-            'DB.SPRunCommand(spName, parameters)
-            'Return DBUtilities.GetNullable(Of Boolean)(parameters(0).Value.ToString)
+            If username = "" Then Return False
+            Dim spName As String = "iaip_user.UsernameExists"
+            Dim parameters As SqlParameter() = New SqlParameter() {
+                New SqlParameter("@username", username),
+                New SqlParameter("@ignoreUser", ignoreUser)
+            }
+            Return DB.SPGetBoolean(spName, parameters)
         End Function
 
         Public Function EmailIsInUse(email As String, Optional ignoreUser As Integer = 0) As Boolean
-            Throw New NotImplementedException()
-
-            ' TODO: SQL Server migration
-
-            'If email.Trim = "" Then Return False
-            'Dim spName As String = "IAIP_USER.EmailInUse"
-            'Dim parameters As SqlParameter() = New SqlParameter() {
-            '    New SqlParameter("@ReturnValue", SqlDbType.VarChar, 5, Nothing, ParameterDirection.ReturnValue),
-            '    New SqlParameter("@email", email.Trim.ToLower),
-            '    New SqlParameter("@ignoreUser", ignoreUser)
-            '}
-            'DB.SPRunCommand(spName, parameters)
-            'Return DBUtilities.GetNullable(Of Boolean)(parameters(0).Value.ToString)
+            If email.Trim = "" Then Return False
+            Dim spName As String = "iaip_user.EmailInUse"
+            Dim parameters As SqlParameter() = New SqlParameter() {
+                New SqlParameter("@email", email),
+                New SqlParameter("@ignoreUser", ignoreUser)
+            }
+            Return DB.SPGetBoolean(spName, parameters)
         End Function
 
         Public Function UpdateUserPassword(username As String, newPassword As String, oldPassword As String) As PasswordUpdateResponse
@@ -171,7 +159,7 @@ Namespace DAL
                 Return UsernameReminderResponse.EmailNotExist
             End If
 
-            Dim spName As String = "IAIP_USER.RequestUsername"
+            Dim spName As String = "iaip_user.RequestUsername"
             Dim parameter As New SqlParameter("@emailaddress", email)
             If DB.SPRunCommand(spName, parameter) Then
                 Return UsernameReminderResponse.Success
@@ -296,7 +284,7 @@ Namespace DAL
         Public Function UpdateUserProfile(user As IaipUser) As Boolean
             If user.UserID = 0 Then Return False
 
-            Dim spName As String = "IAIP_USER.UpdateUserProfile"
+            Dim spName As String = "iaip_user.UpdateUserProfile"
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@userid", user.UserID),
                 New SqlParameter("@username", user.Username),
