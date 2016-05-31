@@ -1517,7 +1517,7 @@
     <Compile Include="_Data Models\Facilities\FacilityHeaderData.vb" />
     <Compile Include="_Data Models\SSPP\Apb.Sspp.Permit.vb" />
     <Compile Include="_DAL\DAL.Dmu.EdtError.vb" />
-    <Compile Include="_DAL\Facilities\DAL.FacilitySummary.vb" />
+    <Compile Include="_DAL\Facilities\DAL.FacilitySummaryData.vb" />
     <Compile Include="_DAL\DAL.Ismp.StackTest.vb">
       <SubType>Code</SubType>
     </Compile>
@@ -1613,7 +1613,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.Acc.vb" />
-    <Compile Include="_DAL\Facilities\DAL.Facility.vb" />
+    <Compile Include="_DAL\Facilities\DAL.FacilityData.vb" />
     <Compile Include="_DAL\DAL.Staff.vb" />
     <Compile Include="SSCP\SscpDocuments.Designer.vb">
       <DependentUpon>SscpDocuments.vb</DependentUpon>
@@ -1699,8 +1699,6 @@
       <ProductName>SAP Crystal Reports Runtime Engine for .NET Framework</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />

@@ -248,6 +248,7 @@ Partial Class IAIPFacilitySummary
         Me.UpdateEpaMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DataDatesBackgroundWorker = New System.ComponentModel.BackgroundWorker()
         Me.NavigationPanel.SuspendLayout()
         Me.FSMainTabControl.SuspendLayout()
         Me.FSInfo.SuspendLayout()
@@ -455,7 +456,7 @@ Partial Class IAIPFacilitySummary
         Me.FSInfo.Location = New System.Drawing.Point(4, 22)
         Me.FSInfo.Name = "FSInfo"
         Me.FSInfo.Padding = New System.Windows.Forms.Padding(3)
-        Me.FSInfo.Size = New System.Drawing.Size(763, 450)
+        Me.FSInfo.Size = New System.Drawing.Size(642, 420)
         Me.FSInfo.TabIndex = 0
         Me.FSInfo.Text = "Info"
         Me.FSInfo.UseVisualStyleBackColor = True
@@ -2785,6 +2786,9 @@ Partial Class IAIPFacilitySummary
         Me.HelpMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.HelpMenuItem.Text = "Online &Help"
         '
+        'DataDatesBackgroundWorker
+        '
+        '
         'IAIPFacilitySummary
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -3068,4 +3072,5 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents MapCountyLink As System.Windows.Forms.LinkLabel
     Friend WithEvents Label1 As Label
     Friend WithEvents EpaFacilityIdDisplay As TextBox
+    Friend WithEvents DataDatesBackgroundWorker As System.ComponentModel.BackgroundWorker
 End Class
