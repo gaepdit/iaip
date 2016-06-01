@@ -5,12 +5,8 @@ Public Class IAIPLookUpTables
     Dim ds As DataSet
     Dim da As OracleDataAdapter
 
-
-    Private Sub IAIPLookUpTables_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
-    End Sub
-
 #Region "ApplicationTypes"
+
     Sub LoadApplicationTypes()
         Try
             SQL = "Select " &
@@ -53,11 +49,7 @@ Public Class IAIPLookUpTables
         End Try
     End Sub
     Private Sub btnLoadApplicationTypes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoadApplicationTypes.Click
-        Try
-            LoadApplicationTypes()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        LoadApplicationTypes()
     End Sub
     Private Sub dgvApplicationType_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvApplicationType.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvApplicationType.HitTest(e.X, e.Y)
@@ -89,15 +81,9 @@ Public Class IAIPLookUpTables
 
     End Sub
     Private Sub btnClearAppTypes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearAppTypes.Click
-        Try
-
-            txtApplicationID.Clear()
-            txtApplicationDesc.Clear()
-            chbActiveAppType.Checked = False
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        txtApplicationID.Clear()
+        txtApplicationDesc.Clear()
+        chbActiveAppType.Checked = False
     End Sub
     Private Sub btnAddEditAppType_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNewAppType.Click
         Try
@@ -230,8 +216,11 @@ Public Class IAIPLookUpTables
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
 #End Region
+
 #Region "APBManagement"
+
     Private Sub btnLoadAPBManagement_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoadAPBManagement.Click
         Try
             '1 - EPD Director
@@ -569,15 +558,9 @@ Public Class IAIPLookUpTables
         End Try
     End Sub
     Private Sub chbAPBMangementVacant_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbAPBMangementVacant.CheckedChanged
-        Try
-            If chbAPBMangementVacant.Checked = True Then
-                txtAPBManagementName.Clear()
-            Else
-
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        If chbAPBMangementVacant.Checked = True Then
+            txtAPBManagementName.Clear()
+        End If
     End Sub
     Sub SaveAPBManagement()
         Try
@@ -711,23 +694,13 @@ Public Class IAIPLookUpTables
         End Try
     End Sub
     Private Sub btnSaveAPBManagement_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveAPBManagement.Click
-        Try
-            SaveAPBManagement()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        SaveAPBManagement()
     End Sub
     Private Sub btnClearManagement_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearManagement.Click
-        Try
-            txtAPBManagemetnID.Clear()
-            txtAPBManagementName.Clear()
-            chbAPBMangementVacant.Checked = False
-            cboManagementType.Text = ""
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        txtAPBManagemetnID.Clear()
+        txtAPBManagementName.Clear()
+        chbAPBMangementVacant.Checked = False
+        cboManagementType.Text = ""
     End Sub
     Private Sub btnViewAllPastTypes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewAllPastTypes.Click
         Try
@@ -930,7 +903,6 @@ Public Class IAIPLookUpTables
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-
 
 #End Region
 
