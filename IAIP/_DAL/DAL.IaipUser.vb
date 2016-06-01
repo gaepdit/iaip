@@ -46,7 +46,7 @@ Namespace DAL
         Public Function GetIaipUserByUserIdAsDataTable(ByVal userid As Integer) As DataTable
             If userid = 0 Then Return Nothing
 
-            Dim spName As String = "IAIP_USER.GetIaipUserByUserId"
+            Dim spName As String = "iaip_user.GetIaipUserByUserId"
             Dim parameter As New SqlParameter("@userid", userid)
 
             Return DB.SPGetDataTable(spName, parameter)
@@ -55,7 +55,7 @@ Namespace DAL
         Public Function GetIaipUserByUsername(ByVal username As String) As IaipUser
             If username = "" Then Return Nothing
 
-            Dim spName As String = "IAIP_USER.GetIaipUserByUsername"
+            Dim spName As String = "iaip_user.GetIaipUserByUsername"
             Dim parameter As New SqlParameter("@username", username)
 
             Dim dataTable As DataTable = DB.SPGetDataTable(spName, parameter)
@@ -92,7 +92,7 @@ Namespace DAL
         End Function
 
         Public Function GetActiveUsers() As Dictionary(Of Integer, String)
-            Dim spName As String = "IAIP_USER.GetActiveUsers"
+            Dim spName As String = "iaip_user.GetActiveUsers"
             Return DB.SPGetLookupDictionary(spName)
         End Function
 
@@ -121,25 +121,23 @@ Namespace DAL
 
             ' TODO: SQL Server migration
 
-            'If username = "" Then Return PasswordUpdateResponse.InvalidUsername
-            'If newPassword = "" Then Return PasswordUpdateResponse.InvalidNewPassword
-            'If oldPassword = "" Then Return PasswordUpdateResponse.InvalidLogin
+            If username = "" Then Return PasswordUpdateResponse.InvalidUsername
+            If newPassword = "" Then Return PasswordUpdateResponse.InvalidNewPassword
+            If oldPassword = "" Then Return PasswordUpdateResponse.InvalidLogin
 
-            'Dim spName As String = "IAIP_USER.UpdateUserPassword"
-            'Dim parameters As SqlParameter() = {
-            '    New SqlParameter("@ReturnValue", SqlDbType.VarChar, 20, Nothing, ParameterDirection.ReturnValue),
-            '    New SqlParameter("@username", username),
-            '    New SqlParameter("@newpassword", newPassword),
-            '    New SqlParameter("@oldpassword", oldPassword)
-            '}
-            'Dim result As Boolean = DB.SPRunCommand(spName, parameters)
+            Dim spName As String = "IAIP_USER.UpdateUserPassword"
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@username", username),
+                New SqlParameter("@newpassword", newPassword),
+                New SqlParameter("@oldpassword", oldPassword)
+            }
+            Dim result As String = DB.GetSingleValue(Of String)(spName, parameters)
 
-            'If result AndAlso Not parameters(0).Value.IsNull Then
-            '    Return [Enum].Parse(GetType(PasswordUpdateResponse), parameters(0).Value.ToString)
-            'Else
-            '    Return PasswordUpdateResponse.UnknownError
-            'End If
-
+            If result IsNot Nothing Then
+                Return [Enum].Parse(GetType(PasswordUpdateResponse), result)
+            Else
+                Return PasswordUpdateResponse.UnknownError
+            End If
         End Function
 
         Public Enum PasswordUpdateResponse
@@ -161,6 +159,7 @@ Namespace DAL
 
             Dim spName As String = "iaip_user.RequestUsername"
             Dim parameter As New SqlParameter("@emailaddress", email)
+
             If DB.SPRunCommand(spName, parameter) Then
                 Return UsernameReminderResponse.Success
             Else
@@ -180,8 +179,9 @@ Namespace DAL
                 Return RequestPasswordResetResponse.InvalidUsername
             End If
 
-            Dim spName As String = "IAIP_USER.RequestUserPasswordReset"
+            Dim spName As String = "iaip_user.RequestUserPasswordReset"
             Dim parameter As New SqlParameter("@username", username)
+
             If DB.SPRunCommand(spName, parameter) Then
                 Return ResetPasswordResponse.Success
             Else
@@ -200,26 +200,25 @@ Namespace DAL
 
             ' TODO: SQL Server migration
 
-            'If username = "" OrElse Not UsernameExists(username) Then
-            '    Return ResetPasswordResponse.InvalidUsername
-            'End If
-            'If newPassword = "" Then Return ResetPasswordResponse.InvalidNewPassword
-            'If resettoken = "" Then Return ResetPasswordResponse.InvalidToken
+            If username = "" OrElse Not UsernameExists(username) Then
+                Return ResetPasswordResponse.InvalidUsername
+            End If
+            If newPassword = "" Then Return ResetPasswordResponse.InvalidNewPassword
+            If resettoken = "" Then Return ResetPasswordResponse.InvalidToken
 
-            'Dim spName As String = "IAIP_USER.ResetUserPassword"
-            'Dim parameters As SqlParameter() = {
-            '    New SqlParameter("@ReturnValue", SqlDbType.VarChar, 20, Nothing, ParameterDirection.ReturnValue),
-            '    New SqlParameter("@username", username),
-            '    New SqlParameter("@newpassword", newPassword),
-            '    New SqlParameter("@resettoken", resettoken)
-            '}
-            'Dim result As Boolean = DB.SPRunCommand(spName, parameters)
+            Dim spName As String = "iaip_user.ResetUserPassword"
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@username", username),
+                New SqlParameter("@newpassword", newPassword),
+                New SqlParameter("@resettoken", resettoken)
+            }
+            Dim result As String = DB.GetSingleValue(Of String)(spName, parameters)
 
-            'If result AndAlso Not parameters(0).Value.IsNull Then
-            '    Return [Enum].Parse(GetType(ResetPasswordResponse), parameters(0).Value.ToString)
-            'Else
-            '    Return ResetPasswordResponse.UnknownError
-            'End If
+            If result IsNot Nothing Then
+                Return [Enum].Parse(GetType(ResetPasswordResponse), result)
+            Else
+                Return ResetPasswordResponse.UnknownError
+            End If
         End Function
 
         Public Enum ResetPasswordResponse
@@ -236,9 +235,8 @@ Namespace DAL
                                       branchid As Integer, programid As Integer, unitid As Integer,
                                       office As String, status As Boolean, ByRef newUserId As Integer) As Boolean
 
-            Dim spName As String = "IAIP_USER.CreateNewUser"
+            Dim spName As String = "iaip_user.CreateNewUser"
             Dim parameters As SqlParameter() = {
-                New SqlParameter("@ReturnValue", SqlDbType.Int, ParameterDirection.ReturnValue),
                 New SqlParameter("@username", username),
                 New SqlParameter("@lastname", lastname),
                 New SqlParameter("@firstname", firstname),
@@ -251,14 +249,8 @@ Namespace DAL
                 New SqlParameter("@status", ConvertBooleanToDBValue(status, BooleanDBConversionType.OneOrZero)),
                 New SqlParameter("@createdby", CurrentUser.UserID)
             }
-            Dim result As Boolean = DB.SPRunCommand(spName, parameters)
 
-            If result AndAlso Not parameters(0).Value.IsNull Then
-                newUserId = Integer.Parse(parameters(0).Value.ToString())
-            Else
-                newUserId = 0
-            End If
-
+            newUserId = DB.SPGetSingleValue(Of Integer)(spName, parameters)
             Return (newUserId > 0)
         End Function
 
@@ -269,7 +261,7 @@ Namespace DAL
                                     unit As Integer,
                                     Optional includeInactive As Boolean = False
                                     ) As DataTable
-            Dim spName As String = "IAIP_USER.SearchUsers"
+            Dim spName As String = "iaip_user.SearchUsers"
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@firstname", firstName),
                 New SqlParameter("@lastname", lastName),
@@ -305,7 +297,7 @@ Namespace DAL
         Public Function UpdateUserRoles(userId As Integer, roles As IaipRoles) As Boolean
             If userId = 0 Then Return False
 
-            Dim spName As String = "IAIP_USER.UpdateUserRoles"
+            Dim spName As String = "iaip_user.UpdateUserRoles"
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@userid", userId),
                 New SqlParameter("@rolesstring", roles.DbString),
