@@ -1244,9 +1244,6 @@ Public Class IAIPNavigation
         AddNavButtonIfAccountHasFormAccess(10, "District Tools", NameOf(IAIPDistrictSourceTool), NavButtonCategories.DMU)
         AddNavButtonIfAccountHasFormAccess(133, "Lookup Tables", NameOf(IAIPLookUpTables), NavButtonCategories.DMU)
         AddNavButtonIfUserHasPermission(118, "Organization Editor", NameOf(IAIPListTool), NavButtonCategories.DMU)
-        If (CurrentUser.UserID = "345") Then
-            AddNavButtonIfAccountHasFormAccess(63, "Special Tools", NameOf(DMUDangerousTool), NavButtonCategories.DMU)
-        End If
 
         ' EIS
         AddNavButtonIfAccountHasFormAccess(20, "Emissions Summary Tool", NameOf(SSCPEmissionSummaryTool), NavButtonCategories.EIS)

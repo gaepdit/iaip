@@ -734,12 +734,6 @@
       <DependentUpon>SSPPPublicNotice.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DMU\DMUDangerousTool.Designer.vb">
-      <DependentUpon>DMUDangerousTool.vb</DependentUpon>
-    </Compile>
-    <Compile Include="DMU\DMUDangerousTool.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="ISMP\ISMPTestReportAdministrative.Designer.vb">
       <DependentUpon>ISMPTestReportAdministrative.vb</DependentUpon>
     </Compile>
@@ -1304,10 +1298,6 @@
     <EmbeddedResource Include="Crystal Reports\SSPP\SSPPPublicNotice.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>SSPPPublicNotice.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DMU\DMUDangerousTool.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>DMUDangerousTool.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ISMP\ISMPTestReportAdministrative.resx">
       <SubType>Designer</SubType>
