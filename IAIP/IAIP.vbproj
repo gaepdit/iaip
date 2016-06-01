@@ -739,12 +739,6 @@
       <DependentUpon>SSPPPublicNotice.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DMU\DMUDangerousTool.Designer.vb">
-      <DependentUpon>DMUDangerousTool.vb</DependentUpon>
-    </Compile>
-    <Compile Include="DMU\DMUDangerousTool.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="ISMP\ISMPTestReportAdministrative.Designer.vb">
       <DependentUpon>ISMPTestReportAdministrative.vb</DependentUpon>
     </Compile>
@@ -1309,10 +1303,6 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>SSPPPublicNotice.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="DMU\DMUDangerousTool.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>DMUDangerousTool.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ISMP\ISMPTestReportAdministrative.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ISMPTestReportAdministrative.vb</DependentUpon>
@@ -1699,6 +1689,18 @@
       <ProductName>SAP Crystal Reports Runtime Engine for .NET Framework</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="log4net">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
