@@ -51,7 +51,6 @@ Public Class IAIPFacilityLookUpTool
 
     Private Sub SearchBy(ByVal SearchType As SearchByType)
         monitor.TrackFeature("FacilitySearch." & SearchType.ToString)
-        ApplicationInsights.TrackEvent("FacilitySearch." & SearchType.ToString)
 
         Dim query As String = ""
         Dim parameter As OracleParameter = Nothing

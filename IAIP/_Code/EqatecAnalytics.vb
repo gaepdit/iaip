@@ -10,7 +10,7 @@ Module EqatecAnalytics
     Public Sub InitializeMonitor()
         Dim monitorSettings As IAnalyticsMonitorSettings = AnalyticsMonitorFactory.CreateSettings(EqatecAnalyticsApiKey)
 
-#If DEBUG Or BETA Then
+#If DEBUG Or UAT Then
         monitorSettings.TestMode = True
 #End If
 
@@ -42,7 +42,6 @@ Module EqatecAnalytics
         monitor.TrackFeature("Main.ProductionEnvironment")
 #End If
         monitor.ForceSync()
-        ApplicationInsights.UpdateTelemetryClientUser()
     End Sub
 
     Public Sub StopMonitor()

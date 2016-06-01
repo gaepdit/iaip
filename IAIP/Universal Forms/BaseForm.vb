@@ -1,5 +1,4 @@
 ﻿Imports System.Collections.Generic
-Imports Microsoft.ApplicationInsights.DataContracts
 
 Public Class BaseForm
 
@@ -50,7 +49,6 @@ Public Class BaseForm
     End Sub
 
     Private Sub LogPageView()
-        ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipForms, Me.Name, Date.Now - whenOpened)
         monitor.TrackFeature("Forms." & Me.Name)
     End Sub
 

@@ -4047,7 +4047,6 @@ Public Class PASPFeeAuditLog
 
             rpt = New crFS_Invoice
             monitor.TrackFeature("Report." & rpt.ResourceName)
-            ApplicationInsights.TrackPageView(TelemetryPageViewType.IaipCrReport, rpt.ResourceName)
 
             'Do this just once at the start
             ParameterFields = New CrystalDecisions.Shared.ParameterFields

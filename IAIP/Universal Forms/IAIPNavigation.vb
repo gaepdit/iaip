@@ -127,7 +127,6 @@ Public Class IAIPNavigation
         Dim thisButton As Button = CType(sender, Button)
         monitor.TrackFeature("QuickAccess." & thisButton.Name)
         monitor.TrackFeature("NavScreen.QuickAccess")
-        ApplicationInsights.TrackEvent("NavScreen.QuickAccess", "ButtonName", thisButton.Name)
         Select Case thisButton.Name
             Case btnOpenApplication.Name
                 OpenApplication()
@@ -517,7 +516,6 @@ Public Class IAIPNavigation
     Private Sub btnChangeWorkViewerContext_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnChangeWorkViewerContext.Click
         monitor.TrackFeature("NavScreen.ChangeWorkViewer")
         LoadWorkViewerData()
-        ApplicationInsights.TrackEvent("NavScreen.ChangeWorkViewer", "WorkViewerContext", CurrentWorkViewerContext.ToString)
     End Sub
 
     Private Sub pnlCurrentList_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles pnlCurrentList.Enter
@@ -954,7 +952,6 @@ Public Class IAIPNavigation
     Private Sub OpenSelectedItem()
         monitor.TrackFeature("NavScreen.WorkViewerLink")
         monitor.TrackFeature("WorkViewerLink." & dgvWorkViewer.Columns(0).HeaderText.Replace(" ", "_"))
-        ApplicationInsights.TrackEvent("NavScreen.WorkViewerLink", "WorkViewerLink", dgvWorkViewer.Columns(0).HeaderText)
         Select Case dgvWorkViewer.Columns(0).HeaderText
             Case "Case ID" ' SBEAP cases
                 OpenSbeapCaseLog()
@@ -1142,7 +1139,6 @@ Public Class IAIPNavigation
         Dim nb As NavButton = CType(CType(sender, Button).Tag, NavButton)
         monitor.TrackFeature("NavScreen.NavButton")
         monitor.TrackFeature("NavButton." & nb.FormName)
-        ApplicationInsights.TrackEvent("NavScreen.NavButton", "NavButton", nb.FormName)
         OpenSingleForm(nb.FormName)
     End Sub
 
@@ -1243,14 +1239,11 @@ Public Class IAIPNavigation
         AddNavButtonIfAccountHasFormAccess(137, "Registration Tool", NameOf(MASPRegistrationTool), NavButtonCategories.MASP)
 
         ' DMU
-        AddNavButtonIfAccountHasFormAccess(129, "Error Logs", NameOf(DMUDeveloperTool), NavButtonCategories.DMU)
+        AddNavButtonIfAccountHasFormAccess(129, "Error Logs", NameOf(DMUIaipErrorLog), NavButtonCategories.DMU)
         AddNavButtonIfUserHasPermission({118, 19, 28}, "EDT Errors", NameOf(DmuEdtErrorMessages), NavButtonCategories.DMU)
         AddNavButtonIfAccountHasFormAccess(10, "District Tools", NameOf(IAIPDistrictSourceTool), NavButtonCategories.DMU)
         AddNavButtonIfAccountHasFormAccess(133, "Lookup Tables", NameOf(IAIPLookUpTables), NavButtonCategories.DMU)
         AddNavButtonIfUserHasPermission(118, "Organization Editor", NameOf(IAIPListTool), NavButtonCategories.DMU)
-        If (CurrentUser.UserID = "345") Then
-            AddNavButtonIfAccountHasFormAccess(63, "Special Tools", NameOf(DMUDangerousTool), NavButtonCategories.DMU)
-        End If
 
         ' EIS
         AddNavButtonIfAccountHasFormAccess(20, "Emissions Summary Tool", NameOf(SSCPEmissionSummaryTool), NavButtonCategories.EIS)

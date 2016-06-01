@@ -25,9 +25,7 @@ Namespace My
         Private Sub MyApplication_UnhandledException(sender As Object, e As UnhandledExceptionEventArgs) _
             Handles Me.UnhandledException
             monitor.TrackException(e.Exception, sender.ToString)
-            ApplicationInsights.TrackException(e.Exception, sender.ToString)
             StopMonitor()
-            ApplicationInsights.StopTelemetryClient()
         End Sub
     End Class
 
