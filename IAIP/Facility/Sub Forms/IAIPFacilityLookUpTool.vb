@@ -1,6 +1,4 @@
-'Imports System.DateTime
 Imports System.Data.SqlClient
-
 
 Public Class IAIPFacilityLookUpTool
 
@@ -34,14 +32,11 @@ Public Class IAIPFacilityLookUpTool
 
 #Region " Form events "
 
-    Private Sub IAIPFacilityLookUpTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
-
+    Private Sub IAIPFacilityLookUpTool_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If Not Me.Modal Then Me.Close()
-
     End Sub
 
-    Private Sub IAIPFacilityLookUpTool_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
+    Private Sub IAIPFacilityLookUpTool_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         txtFacilityNameSearch.Focus()
     End Sub
 
@@ -49,8 +44,8 @@ Public Class IAIPFacilityLookUpTool
 
 #Region " Search Procedure "
 
-    Private Sub SearchBy(ByVal SearchType As SearchByType)
-        monitor.TrackFeature("FacilitySearch." & SearchType.ToString)
+    Private Sub SearchBy(SearchType As SearchByType)
+        monitor.TrackFeature("FacilitySearch. " & SearchType.ToString)
 
         Dim query As String = ""
         Dim parameter As SqlParameter = Nothing
@@ -58,7 +53,7 @@ Public Class IAIPFacilityLookUpTool
         Select Case SearchType
             Case SearchByType.AirsNumber
                 query = "Select " &
-                "strFacilityName, substr(strAIRSNumber, 5) as ShortAIRS, " &
+                "strFacilityName, right(strairsnumber, 8) as ShortAIRS, " &
                 "strFacilityCity, " &
                 "strFacilityStreet1 " &
                 "from APBFacilityInformation " &
@@ -68,68 +63,68 @@ Public Class IAIPFacilityLookUpTool
 
             Case SearchByType.City
                 query = "Select " &
-                "strFacilityName, substr(strAIRSNumber, 5) as shortAIRS, " &
+                "strFacilityName, right(strairsnumber, 8) as shortAIRS, " &
                 "strFacilityCity, " &
                 "strFacilityStreet1 " &
                 "from APBFacilityInformation " &
-                "where Upper(strFacilityCity) Like Upper(@SearchString)"
+                "where strFacilityCity Like @SearchString"
 
                 parameter = New SqlParameter("@SearchString", "%" & txtCityNameSearch.Text & "%")
 
             Case SearchByType.County
                 query = "Select " &
-                 "strFacilityName, substr(strAIRSNumber, 5) as ShortAIRS, " &
+                 "strFacilityName, right(strairsnumber, 8) as ShortAIRS, " &
                  "strFacilityCity, " &
                  "strFacilityStreet1, strCountyName " &
                  "from APBFacilityInformation, LookUpCountyInformation " &
-                 "where substr(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode " &
-                 "and upper(strCountyName) like Upper(@SearchString) "
+                 "where substring(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode " &
+                 "and strCountyName like @SearchString "
 
                 parameter = New SqlParameter("@SearchString", "%" & txtCountyNameSearch.Text & "%")
 
             Case SearchByType.FacilityName
                 query = "Select " &
-                "strFacilityName, substr(strAIRSNumber, 5) as shortAIRS, " &
+                "strFacilityName, right(strairsnumber, 8) as shortAIRS, " &
                 "strFacilityCity, " &
                 "strFacilityStreet1 " &
                 "from APBFacilityInformation " &
-                "where Upper(strFacilityName) Like Upper(@SearchString)"
+                "where strFacilityName Like @SearchString"
 
                 parameter = New SqlParameter("@SearchString", "%" & txtFacilityNameSearch.Text & "%")
 
             Case SearchByType.HistoricalName
                 query = "Select " &
                 "strFacilityName, " &
-                "substr(strAIRSNumber, 5) as shortAIRS, " &
+                "right(strairsnumber, 8) as shortAIRS, " &
                 "strFacilityCity, " &
                 "strFacilityStreet1 " &
                 "from APBFacilityInformation " &
-                "where Upper(strFacilityName) Like Upper(@SearchString)" &
+                "where strFacilityName Like @SearchString " &
                 "Union " &
                 "Select " &
                 "distinct(strFacilityName) as strFacilityName, " &
-                "substr(strAIRSNumber, 5) as shortAIRS, " &
+                "right(strairsnumber, 8) as shortAIRS, " &
                 "strFacilityCity, strFacilityStreet1 " &
                 "from HB_APBFacilityInformation " &
-                "where Upper(strFacilityName) Like Upper(@SearchString)" &
+                "where strFacilityName Like @SearchString " &
                 "Union " &
                 "select " &
-                "Distinct(strFacilityname) as strFacilityname,  " &
-                "substr(strAIRSNumber, 5) as shortAIRS,  " &
-                "strFacilityCity, strFacilityStreet1  " &
-                "from SSPPApplicationData, SSPPApplicationMaster   " &
+                "Distinct(strFacilityname) as strFacilityname, " &
+                "right(strairsnumber, 8) as shortAIRS, " &
+                "strFacilityCity, strFacilityStreet1 " &
+                "from SSPPApplicationData, SSPPApplicationMaster " &
                 "where SSPPApplicationData.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber " &
-                "and upper(strFacilityname) like Upper(@SearchString) "
+                "and strFacilityname like @SearchString "
 
                 parameter = New SqlParameter("@SearchString", "%" & txtFacilityNameSearch.Text & "%")
 
             Case SearchByType.SicCode
                 query = "Select " &
-                "strFacilityName, substr(APBFacilityInformation.strAIRSNumber, 5) as shortAIRS, " &
+                "strFacilityName, right(APBFacilityInformation.strAIRSNumber, 8) as shortAIRS, " &
                 "strSICCode, " &
                 "strFacilityCity, strFacilityStreet1 " &
                 "from APBFacilityInformation, APBHeaderData " &
-                "where Upper(APBHeaderData.strSICCode) Like Upper(@SearchString) " &
+                "where APBHeaderData.strSICCode Like @SearchString " &
                 "and APBFacilityInformation.strairsnumber = APBHeaderData.strAIRSNumber"
 
                 parameter = New SqlParameter("@SearchString", txtSICCodeSearch.Text & "%")
@@ -137,62 +132,62 @@ Public Class IAIPFacilityLookUpTool
             Case SearchByType.Subpart
                 If rdbPart60.Checked Then
                     query = "select " &
-                    "strFacilityName, substr(APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " &
-                    "strFacilityCity,  " &
-                    "strFacilityStreet1,  " &
-                    "(LookUpsubPart60.strSubPart|| ' - '||LookUpSubpart60.strDescription) as SubPartData " &
-                    "from  " &
-                    "APBFacilityInformation, APBSubpartData,  " &
-                    "LookUPSubPart60  " &
-                    "where  " &
-                    "APBFacilityInformation.strAIRSNumber = APBSubPartData.strAIRSNumber  " &
-                    "and APBSubpartData.strSubPart = LookUpSubPart60.strSubpart  " &
-                    "and substr(strSubpartKey, 13) = '9'  " &
+                    "strFacilityName, right(APBFacilityInformation.strAIRSNumber, 8) as shortAIRS, " &
+                    "strFacilityCity, " &
+                    "strFacilityStreet1, " &
+                    "(LookUpsubPart60.strSubPart+ ' - '+LookUpSubpart60.strDescription) as SubPartData " &
+                    "from " &
+                    "APBFacilityInformation, APBSubpartData, " &
+                    "LookUPSubPart60 " &
+                    "where " &
+                    "APBFacilityInformation.strAIRSNumber = APBSubPartData.strAIRSNumber " &
+                    "and APBSubpartData.strSubPart = LookUpSubPart60.strSubpart " &
+                    "and right(strSubpartKey, 1) = '9' " &
                     "and (APBSubpartData.strSubpart) like @SearchString   "
 
                 ElseIf rdbPart61.Checked Then
                     query = "select " &
-                    "strFacilityName, substr(APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " &
-                    "strFacilityCity,  " &
-                    "strFacilityStreet1,  " &
-                    "(LookUpsubPart61.strSubPart|| ' - '||LookUpSubpart61.strDescription) as SubPartData " &
-                    "from  " &
-                    "APBFacilityInformation, APBSubpartData,  " &
-                    "LookUPSubPart61  " &
-                    "where  " &
-                    "APBFacilityInformation.strAIRSNumber = APBSubPartData.strAIRSNumber  " &
-                    "and APBSubpartData.strSubPart = LookUpSubPart61.strSubpart  " &
-                    "and substr(strSubpartKey, 13) = '8'  " &
+                    "strFacilityName, right(APBFacilityInformation.strAIRSNumber, 8) as shortAIRS, " &
+                    "strFacilityCity, " &
+                    "strFacilityStreet1, " &
+                    "(LookUpsubPart61.strSubPart+ ' - '+LookUpSubpart61.strDescription) as SubPartData " &
+                    "from " &
+                    "APBFacilityInformation, APBSubpartData, " &
+                    "LookUPSubPart61 " &
+                    "where " &
+                    "APBFacilityInformation.strAIRSNumber = APBSubPartData.strAIRSNumber " &
+                    "and APBSubpartData.strSubPart = LookUpSubPart61.strSubpart " &
+                    "and right(strSubpartKey, 1) = '8' " &
                     "and (APBSubpartData.strSubpart) like @SearchString   "
 
                 ElseIf rdbPart63.Checked Then
                     query = "select " &
-                    "strFacilityName, substr(APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " &
-                    "strFacilityCity,  " &
-                    "strFacilityStreet1,  " &
-                    "(LookUpsubPart63.strSubPart|| ' - '||LookUpSubpart63.strDescription) as SubPartData " &
-                    "from  " &
-                    "APBFacilityInformation, APBSubpartData,  " &
-                    "LookUPSubPart63  " &
-                    "where  " &
-                    "APBFacilityInformation.strAIRSNumber = APBSubPartData.strAIRSNumber  " &
-                    "and APBSubpartData.strSubPart = LookUpSubPart63.strSubpart  " &
-                    "and substr(strSubpartKey, 13) = 'M'  " &
+                    "strFacilityName, right(APBFacilityInformation.strAIRSNumber, 8) as shortAIRS, " &
+                    "strFacilityCity, " &
+                    "strFacilityStreet1, " &
+                    "(LookUpsubPart63.strSubPart+ ' - '+LookUpSubpart63.strDescription) as SubPartData " &
+                    "from " &
+                    "APBFacilityInformation, APBSubpartData, " &
+                    "LookUPSubPart63 " &
+                    "where " &
+                    "APBFacilityInformation.strAIRSNumber = APBSubPartData.strAIRSNumber " &
+                    "and APBSubpartData.strSubPart = LookUpSubPart63.strSubpart " &
+                    "and right(strSubpartKey, 1) = 'M' " &
                     "and (APBSubpartData.strSubpart) like @SearchString   "
 
                 ElseIf rdbGASIP.Checked Then
                     query = "select " &
-                    "strFacilityName, substr(APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,  " &
-                    "strFacilityCity,  " &
-                    "strFacilityStreet1,  " &
-                    "(LookUpSubPartSIP.strSubPart|| ' - '||LookUpSubpartSIP.strDescription) as SubPartData " &
-                    "from  " &
-                    "APBFacilityInformation, APBSubpartData,  " &
+                    "strFacilityName, right(APBFacilityInformation.strAIRSNumber, 8) as shortAIRS, " &
+                    "strFacilityCity, " &
+                    "strFacilityStreet1, " &
+                    "(LookUpSubPartSIP.strSubPart+ ' - '+LookUpSubpartSIP.strDescription) as SubPartData " &
+                    "from " &
+                    "APBFacilityInformation, APBSubpartData, " &
                     "LookUPSubPartSIP " &
-                    "where  " &
-                    "APBFacilityInformation.strAIRSNumber = APBSubPartData.strAIRSNumber  " &
-                    "and APBSubpartData.strSubPart = LookUpSubPartSIP.strSubpart  " &
-                    "and substr(strSubpartKey, 13) = '0'  " &
+                    "where " &
+                    "APBFacilityInformation.strAIRSNumber = APBSubPartData.strAIRSNumber " &
+                    "and APBSubpartData.strSubPart = LookUpSubPartSIP.strSubpart " &
+                    "and right(strSubpartKey, 1) = '0' " &
                     "and (APBSubpartData.strSubpart) like @SearchString   "
                 End If
 
@@ -200,26 +195,26 @@ Public Class IAIPFacilityLookUpTool
 
             Case SearchByType.ZipCode
                 query = "Select " &
-                "strFacilityName, substr(strAIRSNumber, 5) as shortAIRS, " &
+                "strFacilityName, right(strairsnumber, 8) as shortAIRS, " &
                 "strFacilityCity, " &
                 "strFacilityStreet1, strFacilityZipCode " &
                 "from APBFacilityInformation " &
-                "where Upper(strFacilityZipCode) Like Upper(@SearchString)"
+                "where strFacilityZipCode Like @SearchString"
 
                 parameter = New SqlParameter("@SearchString", "%" & txtZipCodeSearch.Text & "%")
 
             Case SearchByType.Inspector
-                query = "Select  " &
+                query = "Select " &
                 " APBFacilityInformation.strFacilityName, " &
-                "substr(APBFacilityInformation.strAIRSNumber, 5) as shortAIRS,   " &
-                " APBFacilityInformation.strFacilityCity,   " &
+                "right(APBFacilityInformation.strAIRSNumber, 8) as shortAIRS, " &
+                " APBFacilityInformation.strFacilityCity, " &
                 " APBFacilityInformation.strFacilityStreet1, " &
-                "(strLastName||', '||strFirstname) as Inspector    " &
+                "(strLastName+', '+strFirstname) as Inspector " &
                 "from APBFacilityInformation, VW_SSCPInspection_List, " &
-                "EPDUserProfiles   " &
-                "where APBFacilityInformation.strAIRSNumber = '0413'||VW_SSCPInspection_List.AIRSNumber   " &
-                "and VW_SSCPInspection_List.numSSCPEngineer = EPDUserProfiles.numUserID   " &
-                "and Upper(strLastName||', '||strFirstName) like Upper(@SearchString)  "
+                "EPDUserProfiles " &
+                "where APBFacilityInformation.strAIRSNumber = '0413'+VW_SSCPInspection_List.AIRSNumber " &
+                "and VW_SSCPInspection_List.numSSCPEngineer = EPDUserProfiles.numUserID " &
+                "and strLastName+', '+strFirstName like @SearchString  "
 
                 parameter = New SqlParameter("@SearchString", "%" & txtComplianceEngineer.Text & "%")
 
@@ -232,46 +227,38 @@ Public Class IAIPFacilityLookUpTool
             dgvResults.DataSource = DB.GetDataTable(query, parameter)
 
             dgvResults.Columns("shortAIRS").HeaderText = "AIRS #"
-            dgvResults.Columns("shortAIRS").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             dgvResults.Columns("shortAIRS").DisplayIndex = 0
             dgvResults.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvResults.Columns("strFacilityName").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             dgvResults.Columns("strFacilityName").DisplayIndex = 1
             dgvResults.Columns("strFacilityCity").HeaderText = "City"
-            dgvResults.Columns("strFacilityCity").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             dgvResults.Columns("strFacilityCity").DisplayIndex = 2
             dgvResults.Columns("strFacilityStreet1").HeaderText = "Facility Address"
-            dgvResults.Columns("strFacilityStreet1").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             dgvResults.Columns("strFacilityStreet1").DisplayIndex = 3
 
             Select Case SearchType
                 Case SearchByType.County
                     dgvResults.Columns("strCountyName").HeaderText = "SIC Code"
-                    dgvResults.Columns("strCountyName").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
                     dgvResults.Columns("strCountyName").DisplayIndex = 4
 
                 Case SearchByType.SicCode
                     dgvResults.Columns("strSICCode").HeaderText = "SIC Code"
-                    dgvResults.Columns("strSICCode").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
                     dgvResults.Columns("strSICCode").DisplayIndex = 4
 
                 Case SearchByType.Subpart
                     dgvResults.Columns("SubPartData").HeaderText = "Subpart 'Code - Description' "
-                    dgvResults.Columns("SubPartData").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
                     dgvResults.Columns("SubPartData").DisplayIndex = 4
 
                 Case SearchByType.ZipCode
                     dgvResults.Columns("strFacilityZipCode").HeaderText = "Zip Code"
-                    dgvResults.Columns("strFacilityZipCode").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
                     dgvResults.Columns("strFacilityZipCode").DisplayIndex = 4
 
                 Case SearchByType.Inspector
                     dgvResults.Columns("Inspector").HeaderText = "Compliance Inspector"
-                    dgvResults.Columns("Inspector").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
                     dgvResults.Columns("Inspector").DisplayIndex = 4
 
             End Select
 
+            dgvResults.SanelyResizeColumns
         End If
     End Sub
 
@@ -293,32 +280,32 @@ Public Class IAIPFacilityLookUpTool
 
 #Region " Search-by buttons "
 
-    Private Sub btnAIRSNumberSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAIRSNumberSearch.Click
+    Private Sub btnAIRSNumberSearch_Click(sender As Object, e As EventArgs) Handles btnAIRSNumberSearch.Click
         SearchBy(SearchByType.AirsNumber)
     End Sub
-    Private Sub btnFacilityNameSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFacilityNameSearch.Click
+    Private Sub btnFacilityNameSearch_Click(sender As Object, e As EventArgs) Handles btnFacilityNameSearch.Click
         If chbHistoricalNames.Checked Then
             SearchBy(SearchByType.HistoricalName)
         Else
             SearchBy(SearchByType.FacilityName)
         End If
     End Sub
-    Private Sub btnCitySearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCitySearch.Click
+    Private Sub btnCitySearch_Click(sender As Object, e As EventArgs) Handles btnCitySearch.Click
         SearchBy(SearchByType.City)
     End Sub
-    Private Sub btnComplianceSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnComplianceSearch.Click
+    Private Sub btnComplianceSearch_Click(sender As Object, e As EventArgs) Handles btnComplianceSearch.Click
         SearchBy(SearchByType.Inspector)
     End Sub
-    Private Sub btnCountySearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountySearch.Click
+    Private Sub btnCountySearch_Click(sender As Object, e As EventArgs) Handles btnCountySearch.Click
         SearchBy(SearchByType.County)
     End Sub
-    Private Sub btnZipCodeSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnZipCodeSearch.Click
+    Private Sub btnZipCodeSearch_Click(sender As Object, e As EventArgs) Handles btnZipCodeSearch.Click
         SearchBy(SearchByType.ZipCode)
     End Sub
-    Private Sub btnSICCodeSearch_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSICCodeSearch.Click
+    Private Sub btnSICCodeSearch_Click(sender As Object, e As EventArgs) Handles btnSICCodeSearch.Click
         SearchBy(SearchByType.SicCode)
     End Sub
-    Private Sub btnSubpartSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSubpartSearch.Click
+    Private Sub btnSubpartSearch_Click(sender As Object, e As EventArgs) Handles btnSubpartSearch.Click
         SearchBy(SearchByType.Subpart)
     End Sub
 
@@ -326,7 +313,7 @@ Public Class IAIPFacilityLookUpTool
 
 #Region " Results DataGridView "
 
-    Private Sub dgvPossibleMatches_CellEnter(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvResults.CellEnter
+    Private Sub dgvPossibleMatches_CellEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgvResults.CellEnter
         If e.RowIndex <> -1 AndAlso e.RowIndex < dgvResults.RowCount Then
             txtAIRSNumber.Text = dgvResults(1, e.RowIndex).FormattedValue
             txtFacilityName.Text = dgvResults(0, e.RowIndex).FormattedValue
@@ -338,7 +325,7 @@ Public Class IAIPFacilityLookUpTool
 
 #Region " Toolbar "
 
-    Private Sub ClearButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ClearButton.Click
+    Private Sub ClearButton_Click(sender As Object, e As EventArgs) Handles ClearButton.Click
         ClearPage()
     End Sub
 
@@ -346,39 +333,39 @@ Public Class IAIPFacilityLookUpTool
 
 #Region " Accept button "
 
-    Private Sub tpFacilityName_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tpFacilityName.Enter
+    Private Sub tpFacilityName_Enter(sender As Object, e As EventArgs) Handles tpFacilityName.Enter
         Me.AcceptButton = btnFacilityNameSearch
     End Sub
 
-    Private Sub tpAIRSNumber_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tpAIRSNumber.Enter
+    Private Sub tpAIRSNumber_Enter(sender As Object, e As EventArgs) Handles tpAIRSNumber.Enter
         Me.AcceptButton = btnAIRSNumberSearch
     End Sub
 
-    Private Sub tpComplianceSearch_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tpComplianceSearch.Enter
+    Private Sub tpComplianceSearch_Enter(sender As Object, e As EventArgs) Handles tpComplianceSearch.Enter
         Me.AcceptButton = btnComplianceSearch
     End Sub
 
-    Private Sub tpCity_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tpCity.Enter
+    Private Sub tpCity_Enter(sender As Object, e As EventArgs) Handles tpCity.Enter
         Me.AcceptButton = btnCitySearch
     End Sub
 
-    Private Sub tpZipCode_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tpZipCode.Enter
+    Private Sub tpZipCode_Enter(sender As Object, e As EventArgs) Handles tpZipCode.Enter
         Me.AcceptButton = btnZipCodeSearch
     End Sub
 
-    Private Sub tpSIC_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tpSIC.Enter
+    Private Sub tpSIC_Enter(sender As Object, e As EventArgs) Handles tpSIC.Enter
         Me.AcceptButton = btnSICCodeSearch
     End Sub
 
-    Private Sub tpCounty_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tpCounty.Enter
+    Private Sub tpCounty_Enter(sender As Object, e As EventArgs) Handles tpCounty.Enter
         Me.AcceptButton = btnCountySearch
     End Sub
 
-    Private Sub tpSubpart_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tpSubpart.Enter
+    Private Sub tpSubpart_Enter(sender As Object, e As EventArgs) Handles tpSubpart.Enter
         Me.AcceptButton = btnSubpartSearch
     End Sub
 
-    Private Sub tabPages_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Private Sub tabPages_Leave(sender As Object, e As EventArgs) _
     Handles tpFacilityName.Leave, tpAIRSNumber.Leave, tpComplianceSearch.Leave, tpCity.Leave,
     tpZipCode.Leave, tpSIC.Leave, tpCounty.Leave, tpSubpart.Leave
         Me.AcceptButton = btnUseAIRSNumber

@@ -19,7 +19,7 @@ Partial Class IAIPFacilityLookUpTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.tcSearchOptions = New System.Windows.Forms.TabControl()
         Me.tpFacilityName = New System.Windows.Forms.TabPage()
         Me.chbHistoricalNames = New System.Windows.Forms.CheckBox()
@@ -449,8 +449,8 @@ Partial Class IAIPFacilityLookUpTool
         Me.dgvResults.AllowUserToAddRows = False
         Me.dgvResults.AllowUserToDeleteRows = False
         Me.dgvResults.AllowUserToResizeRows = False
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvResults.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvResults.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvResults.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
