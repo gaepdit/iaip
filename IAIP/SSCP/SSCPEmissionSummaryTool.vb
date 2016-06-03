@@ -1,6 +1,5 @@
 Imports System.Data.SqlClient
 
-
 Public Class SSCPEmissionSummaryTool
     Dim SQL As String
     Dim cmd As SqlCommand
@@ -10,21 +9,11 @@ Public Class SSCPEmissionSummaryTool
     Dim ds As DataSet
     Dim da As SqlDataAdapter
 
-    Private Sub SSCPEmissionSummaryTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+#Region " Form load "
 
-        Try
-            pnl1.Text = ""
-            pnl2.Text = CurrentUser.AlphaName
-            pnl3.Text = OracleDate
-
-            loadYear()
-            loadEIPollutant()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+    Private Sub SSCPEmissionSummaryTool_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        loadYear()
+        loadEIPollutant()
     End Sub
 
     Private Sub loadYear()
@@ -41,7 +30,6 @@ Public Class SSCPEmissionSummaryTool
                 CurrentConnection.Open()
             End If
             dr = cmd.ExecuteReader
-            ' cboYear.Items.Add("- Select a Year -")
             dr.Read()
             Do
                 year = dr("intESYear")
@@ -83,7 +71,7 @@ Public Class SSCPEmissionSummaryTool
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -113,8 +101,8 @@ Public Class SSCPEmissionSummaryTool
             End If
             da.Fill(ds, "EIPollutant")
 
-            dtEIPollutant.Columns.Add("Pollutants", GetType(System.String))
-            dtEIPollutant.Columns.Add("strPollutantDesc", GetType(System.String))
+            dtEIPollutant.Columns.Add("Pollutants", GetType(String))
+            dtEIPollutant.Columns.Add("strPollutantDesc", GetType(String))
 
             drNewRow = dtEIPollutant.NewRow()
             drNewRow("Pollutants") = "%"
@@ -136,17 +124,20 @@ Public Class SSCPEmissionSummaryTool
             End With
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-#Region "ES Tool"
 
-    Private Sub btnView_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnView.Click
+#End Region
+
+#Region " ES Tool "
+
+    Private Sub btnView_Click(sender As Object, e As EventArgs) Handles btnView.Click
         Try
             runcount()
             lblYear.Text = cboYear.SelectedItem
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -423,7 +414,7 @@ Public Class SSCPEmissionSummaryTool
             End While
             dr.Close()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -591,13 +582,13 @@ Public Class SSCPEmissionSummaryTool
             End While
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub dgvESDataCount_MouseUp1(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvESDataCount.MouseUp
+    Private Sub dgvESDataCount_MouseUp1(sender As Object, e As MouseEventArgs) Handles dgvESDataCount.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvESDataCount.HitTest(e.X, e.Y)
 
         Try
@@ -640,13 +631,13 @@ Public Class SSCPEmissionSummaryTool
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub lblViewMailOut_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewMailOut.LinkClicked
+    Private Sub lblViewMailOut_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewMailOut.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
 
         Try
@@ -708,13 +699,13 @@ Public Class SSCPEmissionSummaryTool
             txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
             txtMailOutCount.Text = txtRecordNumber.Text
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub lblViewOptin_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewTotalOptin.LinkClicked
+    Private Sub lblViewOptin_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewTotalOptin.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
 
@@ -760,14 +751,14 @@ Public Class SSCPEmissionSummaryTool
             txtTotalOptInCount.Text = dgvESDataCount.RowCount.ToString
             txtRecordNumber.Text = txtTotalOptInCount.Text
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
 
     End Sub
-    Private Sub lblViewOptOut_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewTotalOptOut.LinkClicked
+    Private Sub lblViewOptOut_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewTotalOptOut.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
 
@@ -814,12 +805,12 @@ Public Class SSCPEmissionSummaryTool
             txtRecordNumber.Text = txtTotalOptOutCount.Text
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-    Private Sub lblViewOutofcompliance_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewOutofcompliance.LinkClicked
+    Private Sub lblViewOutofcompliance_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewOutofcompliance.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
 
@@ -901,12 +892,12 @@ Public Class SSCPEmissionSummaryTool
             txtTotaloutofcompliance.Text = dgvESDataCount.RowCount.ToString
             txtRecordNumber.Text = txtTotaloutofcompliance.Text
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-    Private Sub lblViewINCompliance_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewINCompliance.LinkClicked
+    Private Sub lblViewINCompliance_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewINCompliance.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
 
@@ -961,14 +952,14 @@ Public Class SSCPEmissionSummaryTool
             txtTotalincompliance.Text = dgvESDataCount.RowCount.ToString
             txtRecordNumber.Text = txtTotalincompliance.Text
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
 
         End Try
     End Sub
 
-    Private Sub lblViewESData_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewESData.LinkClicked
+    Private Sub lblViewESData_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewESData.LinkClicked
         Dim year As Integer = CInt(cboYear.SelectedItem)
         Try
 
@@ -1015,13 +1006,13 @@ Public Class SSCPEmissionSummaryTool
             txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub lblViewNonResponse_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewNonResponse.LinkClicked
+    Private Sub lblViewNonResponse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewNonResponse.LinkClicked
         Try
 
             Dim year As String = cboYear.SelectedItem
@@ -1061,12 +1052,12 @@ Public Class SSCPEmissionSummaryTool
             clearESData()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-    Private Sub lblextraResponse_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblextraResponse.LinkClicked
+    Private Sub lblextraResponse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblextraResponse.LinkClicked
         Try
 
             Dim year As String = txtESYear.Text
@@ -1128,12 +1119,12 @@ Public Class SSCPEmissionSummaryTool
             clearESData()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-    Private Sub lblViewOptIn_LinkClicked_1(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewOptIn.LinkClicked
+    Private Sub lblViewOptIn_LinkClicked_1(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewOptIn.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
 
@@ -1180,12 +1171,12 @@ Public Class SSCPEmissionSummaryTool
             txtMailoutOptin.Text = dgvESDataCount.RowCount.ToString
             txtRecordNumber.Text = txtMailoutOptin.Text
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-    Private Sub lblViewOptOut_LinkClicked_1(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewOptOut.LinkClicked
+    Private Sub lblViewOptOut_LinkClicked_1(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewOptOut.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
 
@@ -1232,12 +1223,12 @@ Public Class SSCPEmissionSummaryTool
             txtMailOutOptOut.Text = dgvESDataCount.RowCount.ToString
             txtRecordNumber.Text = txtMailOutOptOut.Text
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-    Private Sub lblViewExtraOptOut_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewExtraOptOut.LinkClicked
+    Private Sub lblViewExtraOptOut_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewExtraOptOut.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
 
@@ -1288,12 +1279,12 @@ Public Class SSCPEmissionSummaryTool
             txtExtraOptout.Text = dgvESDataCount.RowCount.ToString
             txtRecordNumber.Text = txtExtraOptout.Text
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-    Private Sub lblViewExtraOptIn_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewExtraOptIn.LinkClicked
+    Private Sub lblViewExtraOptIn_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewExtraOptIn.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
 
@@ -1345,13 +1336,13 @@ Public Class SSCPEmissionSummaryTool
             txtExtraOptin.Text = dgvESDataCount.RowCount.ToString
             txtRecordNumber.Text = txtExtraOptin.Text
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub lblViewTotalResponse_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewTotalResponse.LinkClicked
+    Private Sub lblViewTotalResponse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewTotalResponse.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
 
@@ -1407,7 +1398,7 @@ Public Class SSCPEmissionSummaryTool
             clearESData()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1445,15 +1436,15 @@ Public Class SSCPEmissionSummaryTool
             txtConfirmationNbr.Text = ""
             txtFirstConfirmedDate.Text = ""
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-    Private Sub btnoutofcomplianceExport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnoutofcomplianceExport.Click
+    Private Sub btnoutofcomplianceExport_Click(sender As Object, e As EventArgs) Handles btnoutofcomplianceExport.Click
         dgvESDataCount.ExportToExcel(Me)
     End Sub
-    Private Sub btnPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrint.Click
+    Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
         Try
             If txtFACILITYNAME.Text = "" Then
                 MsgBox("You must select a Facility from the data grid view")
@@ -1466,40 +1457,35 @@ Public Class SSCPEmissionSummaryTool
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
 
 #End Region
-    Private Sub mmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiBack.Click
-        Try
-            Me.Close()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
 
-        End Try
-    End Sub
-    Private Sub SSCPEmissionSummaryTool_SizeChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.SizeChanged
+#Region " Form events "
+
+    Private Sub SSCPEmissionSummaryTool_SizeChanged(sender As Object, e As EventArgs) Handles Me.SizeChanged
         Try
             If Me.Size.Width > 560 Then
                 SplitContainer1.SanelySetSplitterDistance(556)
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-    Private Sub HelpToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HelpToolStripMenuItem.Click
-        OpenDocumentationUrl(Me)
-    End Sub
-    Private Sub btnEISummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEISummary.Click
+
+#End Region
+
+#Region " EI Tool "
+
+    Private Sub btnEISummary_Click(sender As Object, e As EventArgs) Handles btnEISummary.Click
         Try
-            'If cboEIYear.Text <> "" And cboEIYear.Items.Contains(cboEIYear.Text) And cboEIYear.SelectedIndex > 0 Then
             If cboEIYear.Text <> "" And cboEIYear.SelectedIndex > 0 Then
                 If cboEIYear.Text < 2010 Then
                     SQL = "select " &
@@ -1582,14 +1568,10 @@ Public Class SSCPEmissionSummaryTool
                     dgvEIResults.Columns("PMPRI").DisplayIndex = 9
                     dgvEIResults.Columns("PM10PRI").HeaderText = "Primary PM10 (Includes Filterables + Condensibles)"
                     dgvEIResults.Columns("PM10PRI").DisplayIndex = 10
-                    'dgvEIResults.Columns("PM10FIL").HeaderText = "Filterable PM10"
-                    'dgvEIResults.Columns("PM10FIL").DisplayIndex = 10
                     dgvEIResults.Columns("PM25PRI").HeaderText = "Primary PM 2.5 (Includes Filterables + Condensibles)"
                     dgvEIResults.Columns("PM25PRI").DisplayIndex = 11
                     dgvEIResults.Columns("PMFIL").HeaderText = "Filterable PM 2.5"
                     dgvEIResults.Columns("PMFIL").DisplayIndex = 12
-                    'dgvEIResults.Columns("PMCON").HeaderText = "Condensible PM (All less than 1 micron)"
-                    'dgvEIResults.Columns("PMCON").DisplayIndex = 14
 
                 Else
                     SQL = "select " &
@@ -1709,48 +1691,16 @@ Public Class SSCPEmissionSummaryTool
                     dgvEIResults.Columns("PM25PRI").DisplayIndex = 12
                     dgvEIResults.Columns("PMFIL").HeaderText = "Filterable PM 2.5"
                     dgvEIResults.Columns("PMFIL").DisplayIndex = 13
-
                 End If
-
-
             End If
             Exit Sub
 
-
-            'Original SQL statement from Brian Gregory 
-            SQL = "select substr(strairsnumber,5,8) as AIRSNumber, strfacilityname as FacilityName, SO2, NOX, PMPRI, PMFIL, PM10PRI, PM25PRI, VOC, " &
-            "CO, NH3, Lead " &
-            "from " &
-            "(select dt.strairsnumber, dt.strfacilityname, " &
-            "sum(case when dt.strpollutantcode='SO2' then pollutanttotal else null end) SO2, " &
-            "sum(case when dt.strpollutantcode='NOX' then pollutanttotal else null end) NOx, " &
-            "sum(case when dt.strpollutantcode='PM-PRI' then pollutanttotal else null end) PMPRI, " &
-            "sum(case when dt.strpollutantcode='PM-FIL' then pollutanttotal else null end) PMFIL, " &
-            "sum(case when dt.strpollutantcode='PM10-PRI' then pollutanttotal else null end) PM10PRI, " &
-            "sum(case when dt.strpollutantcode='PM25-PRI' then pollutanttotal else null end) PM25PRI, " &
-            "sum(case when dt.strpollutantcode='VOC' then pollutanttotal else null end) VOC, " &
-            "sum(case when dt.strpollutantcode='CO' then pollutanttotal else null end) CO, " &
-            "sum(case when dt.strpollutantcode='NH3' then pollutanttotal else null end) NH3, " &
-            "sum(case when dt.strpollutantcode='7439921' then pollutanttotal else null end) Lead " &
-            "from " &
-            "(Select dtSumPollutant.strairsnumber, eisi.strfacilityname, dtSumPollutant.strpollutantcode, " &
-             "dtSumPollutant.PollutantTotal, dtSumPollutant.strinventoryyear " &
-            "from eisi, " &
-            "(select eiem.strairsnumber, eiem.strpollutantcode, sum(eiem.dblemissionnumericvalue) as PollutantTotal, eiem.strinventoryyear " &
-            "from eiem " &
-            "where eiem.strinventoryyear='2005' " &
-            "group by eiem.strairsnumber, eiem.strpollutantcode, eiem.strinventoryyear) dtSumPollutant " &
-            "where eisi.strairsnumber = dtSumPollutant.strairsnumber and " &
-            "eisi.strinventoryyear = dtSumPollutant.strinventoryyear ) dt " &
-            "group by dt.strairsnumber, dt.strfacilityname) "
-
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnViewEISummaryByPollutant_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewEISummaryByPollutant.Click
+    Private Sub btnViewEISummaryByPollutant_Click(sender As Object, e As EventArgs) Handles btnViewEISummaryByPollutant.Click
         Try
 
             If cboEIYear.Text <> "" And cboEIYear.SelectedIndex > 0 Then
@@ -1831,11 +1781,14 @@ Public Class SSCPEmissionSummaryTool
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnExportEItoExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportEItoExcel.Click
+    Private Sub btnExportEItoExcel_Click(sender As Object, e As EventArgs) Handles btnExportEItoExcel.Click
         dgvEIResults.ExportToExcel(Me)
     End Sub
+
+#End Region
+
 End Class
