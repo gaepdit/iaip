@@ -25,6 +25,7 @@ Public Class IAIPFacilitySummary
     Private ThisFacility As Facility
     Private FacilitySummaryDataSet As DataSet
     Private DataDates As DataRow
+    Private bgw As BackgroundWorker
 
     Friend Enum FacilityDataTable
         ComplianceWork
@@ -314,19 +315,48 @@ Public Class IAIPFacilitySummary
             EpaFacilityIdDisplay.Text = .AirsNumber.EpaFacilityIdentifier
         End With
 
-        DataDatesBackgroundWorker.RunWorkerAsync()
+        DataDates = Nothing
+        SpinUpDataDatesBackgroundWorker()
     End Sub
 
-    Private Sub DataDatesBackgroundWorker_DoWork(sender As Object, e As DoWorkEventArgs) Handles DataDatesBackgroundWorker.DoWork
-        DataDates = DAL.FacilityData.GetDataExchangeDates(Me.AirsNumber)
+    Private Sub SpinUpDataDatesBackgroundWorker()
+        If bgw IsNot Nothing Then
+            If bgw.IsBusy Then bgw.CancelAsync()
+            bgw.Dispose()
+        End If
+
+        CreatedDateDisplay.Text = "..."
+        FisDateDisplay.Text = "..."
+        EpaDateDisplay.Text = "..."
+        DataUpdateDateDisplay.Text = "..."
+
+        bgw = New BackgroundWorker
+        bgw.WorkerSupportsCancellation = True
+        AddHandler bgw.DoWork, AddressOf DataDatesBackgroundWorker_DoWork
+        AddHandler bgw.RunWorkerCompleted, AddressOf DataDatesBackgroundWorker_RunWorkerCompleted
+        bgw.RunWorkerAsync()
     End Sub
 
-    Private Sub DataDatesBackgroundWorker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles DataDatesBackgroundWorker.RunWorkerCompleted
+    Private Sub DataDatesBackgroundWorker_DoWork(sender As Object, e As DoWorkEventArgs)
+        Dim dt As DataRow = DAL.GetDataExchangeDates(Me.AirsNumber)
+        If Not CType(sender, BackgroundWorker).CancellationPending Then DataDates = dt
+    End Sub
+
+    Private Sub DataDatesBackgroundWorker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs)
+        If Not e.Cancelled Then DisplayDataDates()
+    End Sub
+
+    Private Sub DisplayDataDates()
         If DataDates IsNot Nothing Then
             CreatedDateDisplay.Text = String.Format(DateStringFormat, DataDates("DbRecordCreated"))
             FisDateDisplay.Text = String.Format(DateStringFormat, DataDates("FisExchangeDate"))
             EpaDateDisplay.Text = String.Format(DateStringFormat, DataDates("EpaExchangeDate"))
             DataUpdateDateDisplay.Text = String.Format(DateStringFormat, DataDates("DataModifiedOn"))
+        Else
+            CreatedDateDisplay.Text = Nothing
+            FisDateDisplay.Text = Nothing
+            EpaDateDisplay.Text = Nothing
+            DataUpdateDateDisplay.Text = Nothing
         End If
     End Sub
 
