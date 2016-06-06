@@ -1,4 +1,5 @@
 Imports System.Data.SqlClient
+Imports EpdIt
 
 Public Class SSCPEmissionSummaryTool
     Dim SQL As String
@@ -17,115 +18,58 @@ Public Class SSCPEmissionSummaryTool
     End Sub
 
     Private Sub loadYear()
-        Dim year As String
+        SQL = "Select " &
+        "distinct intESYear " &
+        "from esschema " &
+        "order by intESYear desc "
 
-        Try
-            SQL = "Select " &
-            "distinct intESYear " &
-            "from esschema " &
-            "order by intESYear desc "
+        Dim dt As DataTable = DB.GetDataTable(SQL)
+        If dt IsNot Nothing Then
+            For Each dr As DataRow In dt.Rows
+                cboYear.Items.Add(DBUtilities.GetNullable(Of Integer)(dr("intESYear")))
+            Next
+        End If
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Read()
-            Do
-                year = dr("intESYear")
-                cboYear.Items.Add(year)
+        cboYear.SelectedIndex = 0
 
-            Loop While dr.Read
-            cboYear.SelectedIndex = 0
+        cboEIYear.Items.Add("-Select a Year-")
 
-            cboEIYear.Items.Add("-Select a Year-")
+        SQL = "SELECT inventoryyear AS EIYear
+                FROM eis_admin
+                UNION
+                SELECT strInventoryYear
+                FROM EISI
+                ORDER BY EIYear DESC"
 
-            SQL = "Select " &
-            "distinct(strInventoryYear) as EIYear " &
-            "from EISI " &
-            "where strInventoryYear < 2010 " &
-            "order by strInventoryYear desc "
-
-            SQL = "select * from " &
-            "(select " &
-            "distinct(inventoryyear) as EIYear " &
-            "from eis_admin " &
-            "union " &
-            "Select  " &
-            "distinct(to_number(strInventoryYear)) as EIYear " &
-            "from EISI " &
-            "where strInventoryYear < 2010 ) " &
-            "order by EIYear desc  "
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            While dr.Read
+        dt = DB.GetDataTable(SQL)
+        If dt IsNot Nothing Then
+            For Each dr As DataRow In dt.Rows
                 cboEIYear.Items.Add(dr.Item("EIYear"))
-            End While
-            dr.Close()
-            cboEIYear.SelectedIndex = 0
+            Next
+        End If
 
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        cboEIYear.SelectedIndex = 0
     End Sub
-    Private Sub loadEIPollutant()
-        Try
-            Dim dtEIPollutant As New DataTable
-            Dim drDSRow As DataRow
-            Dim drNewRow As DataRow
 
-            SQL = "select " &
-            "distinct(EIEM.strPollutantCode) as Pollutants,   " &
+    Private Sub loadEIPollutant()
+        SQL = "Select " &
+            "distinct(EIEM.strPollutantCode) As Pollutants,   " &
             "strPollutantDesc  " &
             "from EILookUpPollutantCodes, EIEM " &
             "where EIEM.strPollutantCode = EILookUpPollutantCodes.strPollutantCode " &
             "union " &
-            "select distinct (VW_EIS_RPEMISSIONS.PollutantCode), " &
+            "Select distinct (VW_EIS_RPEMISSIONS.PollutantCode), " &
             "EISLK_PollutantCode .strDesc " &
             "from VW_EIS_RPEMISSIONS, EISLK_PollutantCode " &
             "where VW_EIS_RPEMISSIONS.PollutantCode = EISLK_PollutantCode.PollutantCode "
+        Dim dtEIPollutant As DataTable = DB.GetDataTable(SQL)
 
-            ds = New DataSet
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "EIPollutant")
-
-            dtEIPollutant.Columns.Add("Pollutants", GetType(String))
-            dtEIPollutant.Columns.Add("strPollutantDesc", GetType(String))
-
-            drNewRow = dtEIPollutant.NewRow()
-            drNewRow("Pollutants") = "%"
-            drNewRow("strPollutantDesc") = "-Select a Pollutant-"
-            dtEIPollutant.Rows.Add(drNewRow)
-
-            For Each drDSRow In ds.Tables("EIPollutant").Rows()
-                drNewRow = dtEIPollutant.NewRow()
-                drNewRow("Pollutants") = drDSRow("Pollutants")
-                drNewRow("strPollutantDesc") = drDSRow("strPollutantDesc")
-                dtEIPollutant.Rows.Add(drNewRow)
-            Next
-
-            With cboEIPollutants
-                .DataSource = dtEIPollutant
-                .DisplayMember = "strPollutantDesc"
-                .ValueMember = "Pollutants"
-                .SelectedIndex = 0
-            End With
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        With cboEIPollutants
+            .DataSource = dtEIPollutant
+            .DisplayMember = "strPollutantDesc"
+            .ValueMember = "Pollutants"
+            .SelectedIndex = 0
+        End With
     End Sub
 
 #End Region
@@ -173,10 +117,10 @@ Public Class SSCPEmissionSummaryTool
 
         Try
             Try
-                SQL = "select count(*) as MailoutCount " &
+                SQL = "Select count(*) As MailoutCount " &
                 "from esmailout, ESSCHEMA " &
                 "where ESMAILOUT.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR(+) " &
-                "and esmailout.STRESYEAR = '" & ESYear & "'"
+                "And esmailout.STRESYEAR = '" & ESYear & "'"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1006,7 +950,7 @@ Public Class SSCPEmissionSummaryTool
             txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try

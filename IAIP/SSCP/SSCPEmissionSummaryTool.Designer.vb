@@ -686,7 +686,7 @@ Partial Class SSCPEmissionSummaryTool
         Me.TabDetails.Controls.Add(Me.Label145)
         Me.TabDetails.Location = New System.Drawing.Point(4, 22)
         Me.TabDetails.Name = "TabDetails"
-        Me.TabDetails.Size = New System.Drawing.Size(540, 524)
+        Me.TabDetails.Size = New System.Drawing.Size(540, 570)
         Me.TabDetails.TabIndex = 2
         Me.TabDetails.Text = "Details"
         Me.TabDetails.UseVisualStyleBackColor = True
@@ -1283,6 +1283,7 @@ Partial Class SSCPEmissionSummaryTool
         '
         'cboYear
         '
+        Me.cboYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboYear.FormattingEnabled = True
         Me.cboYear.Location = New System.Drawing.Point(93, 12)
         Me.cboYear.Name = "cboYear"
@@ -1406,6 +1407,7 @@ Partial Class SSCPEmissionSummaryTool
         '
         'cboEIPollutants
         '
+        Me.cboEIPollutants.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboEIPollutants.FormattingEnabled = True
         Me.cboEIPollutants.Location = New System.Drawing.Point(55, 66)
         Me.cboEIPollutants.Name = "cboEIPollutants"
@@ -1453,6 +1455,7 @@ Partial Class SSCPEmissionSummaryTool
         '
         'cboEIYear
         '
+        Me.cboEIYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboEIYear.FormattingEnabled = True
         Me.cboEIYear.Location = New System.Drawing.Point(83, 8)
         Me.cboEIYear.Name = "cboEIYear"
