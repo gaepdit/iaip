@@ -3,12 +3,6 @@ Imports EpdIt
 
 Public Class SSCPEmissionSummaryTool
     Dim SQL As String
-    Dim cmd As SqlCommand
-    Dim dr As SqlDataReader
-    Dim daViewCount As SqlDataAdapter
-    Dim dsViewCount As DataSet
-    Dim ds As DataSet
-    Dim da As SqlDataAdapter
 
 #Region " Form load "
 
@@ -1111,53 +1105,21 @@ Public Class SSCPEmissionSummaryTool
 
     Private Sub btnEISummary_Click(sender As Object, e As EventArgs) Handles btnEISummary.Click
         Try
-            If cboEIYear.Text <> "" And cboEIYear.SelectedIndex > 0 Then
+            If cboEIYear.Text <> "" Then
                 If cboEIYear.Text < 2010 Then
-                    SQL = "select " &
-                    "rownum as EIRows, " &
-                    "AIRSNumber, FacilityName, " &
-                    "SO2, NOX, VOC, CO, NH3, Lead, " &
-                    "PMFIL, '' as PM10FIL, PMPRI, PM10PRI, PM25PRI, " &
-                    "'' as PMCON " &
-                    "from " &
-                    "(select " &
-                    "rownum as EIRows, " &
-                    "substr(strairsnumber,5,8) as AIRSNumber, strfacilityname as FacilityName, " &
-                    "SO2, NOX, PMPRI, PMFIL, PM10PRI, PM25PRI, VOC, " &
-                    "CO, NH3, Lead " &
-                    "from " &
-                    "(select dt.strairsnumber, dt.strfacilityname, " &
-                    "sum(case when dt.strpollutantcode='SO2' then pollutanttotal else null end) SO2, " &
-                    "sum(case when dt.strpollutantcode='NOX' then pollutanttotal else null end) NOx, " &
-                    "sum(case when dt.strpollutantcode='PM-PRI' then pollutanttotal else null end) PMPRI, " &
-                    "sum(case when dt.strpollutantcode='PM-FIL' then pollutanttotal else null end) PMFIL, " &
-                    "sum(case when dt.strpollutantcode='PM10-PRI' then pollutanttotal else null end) PM10PRI, " &
-                    "sum(case when dt.strpollutantcode='PM25-PRI' then pollutanttotal else null end) PM25PRI, " &
-                    "sum(case when dt.strpollutantcode='VOC' then pollutanttotal else null end) VOC, " &
-                    "sum(case when dt.strpollutantcode='CO' then pollutanttotal else null end) CO, " &
-                    "sum(case when dt.strpollutantcode='NH3' then pollutanttotal else null end) NH3, " &
-                    "sum(case when dt.strpollutantcode='7439921' then pollutanttotal else null end) Lead " &
-                    "from " &
-                    "(Select dtSumPollutant.strairsnumber, eisi.strfacilityname, dtSumPollutant.strpollutantcode, " &
-                    "dtSumPollutant.PollutantTotal, dtSumPollutant.strinventoryyear " &
-                    "from eisi, " &
-                    "(select eiem.strairsnumber, eiem.strpollutantcode, sum(eiem.dblemissionnumericvalue) as PollutantTotal, eiem.strinventoryyear " &
-                    "from eiem " &
-                    "where eiem.strinventoryyear='" & cboEIYear.Text & "' " &
-                    "group by eiem.strairsnumber, eiem.strpollutantcode, eiem.strinventoryyear) dtSumPollutant " &
-                    "where eisi.strairsnumber = dtSumPollutant.strairsnumber and " &
-                    "eisi.strinventoryyear = dtSumPollutant.strinventoryyear ) dt " &
-                    "group by dt.strairsnumber, dt.strfacilityname) " &
-                    "order by AIRSNumber) "
+                    SQL = "SELECT ROW_NUMBER() OVER(ORDER BY AIRSNumber) AS EIRows, AIRSNumber, FacilityName, SO2, NOX, VOC, CO, NH3, Lead, PMFIL, '' AS PM10FIL, PMPRI, PM10PRI, PM25PRI, '' AS PMCON
+                        FROM (SELECT SUBSTRING(strairsnumber, 5, 8) AS AIRSNumber, strfacilityname AS FacilityName, SO2, NOX, PMPRI, PMFIL, PM10PRI, PM25PRI, VOC, CO, NH3, Lead
+                        FROM (SELECT dt.strairsnumber, dt.strfacilityname, SUM(CASE WHEN dt.strpollutantcode = 'SO2' THEN pollutanttotal ELSE NULL END) AS SO2, SUM(CASE WHEN dt.strpollutantcode = 'NOX' THEN pollutanttotal ELSE NULL END) AS NOx, SUM(CASE WHEN dt.strpollutantcode = 'PM-PRI' THEN pollutanttotal ELSE NULL END) AS PMPRI, SUM(CASE WHEN dt.strpollutantcode = 'PM-FIL' THEN pollutanttotal ELSE NULL END) AS PMFIL, SUM(CASE WHEN dt.strpollutantcode = 'PM10-PRI' THEN pollutanttotal ELSE NULL END) AS PM10PRI, SUM(CASE WHEN dt.strpollutantcode = 'PM25-PRI' THEN pollutanttotal ELSE NULL END) AS PM25PRI, SUM(CASE WHEN dt.strpollutantcode = 'VOC' THEN pollutanttotal ELSE NULL END) AS VOC, SUM(CASE WHEN dt.strpollutantcode = 'CO' THEN pollutanttotal ELSE NULL END) AS CO, SUM(CASE WHEN dt.strpollutantcode = 'NH3' THEN pollutanttotal ELSE NULL END) AS NH3, SUM(CASE WHEN dt.strpollutantcode = '7439921' THEN pollutanttotal ELSE NULL END) AS Lead
+                        FROM (SELECT dtSumPollutant.strairsnumber, eisi.strfacilityname, dtSumPollutant.strpollutantcode, dtSumPollutant.PollutantTotal, dtSumPollutant.strinventoryyear
+                        FROM eisi, (SELECT eiem.strairsnumber, eiem.strpollutantcode, SUM(eiem.dblemissionnumericvalue) AS PollutantTotal, eiem.strinventoryyear
+                        FROM eiem
+                        WHERE eiem.strinventoryyear = @year
+                        GROUP BY eiem.strairsnumber, eiem.strpollutantcode, eiem.strinventoryyear) AS dtSumPollutant
+                        WHERE eisi.strairsnumber = dtSumPollutant.strairsnumber AND eisi.strinventoryyear = dtSumPollutant.strinventoryyear) AS dt
+                        GROUP BY dt.strairsnumber, dt.strfacilityname) AS t1) AS t2"
+                    Dim param As New SqlParameter("@year", cboEIYear.Text)
 
-                    ds = New DataSet
-                    da = New SqlDataAdapter(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    da.Fill(ds, "EISummary")
-                    dgvEIResults.DataSource = ds
-                    dgvEIResults.DataMember = "EISummary"
+                    dgvEIResults.DataSource = DB.GetDataTable(SQL, param)
 
                     dgvEIResults.RowHeadersVisible = False
                     dgvEIResults.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1199,82 +1161,60 @@ Public Class SSCPEmissionSummaryTool
                     dgvEIResults.Columns("PMFIL").DisplayIndex = 12
 
                 Else
-                    SQL = "select " &
-                    " rownum as EIRows, " &
-                    "ViewList.FacilitySiteID as AIRSNumber, " &
-                    "strFacilityName as FacilityName, " &
-                    "SO2, NOX, VOC,  CO, NH3, LEAD, " &
-                    "PMFIL, PM10FIL, PM10PRI, PM25PRI, PMCON " &
-                    "from " &
-                    "(select distinct (FacilitySiteID ) as FacilitySiteID " &
-                    "from VW_EIS_RPEMISSIONS " &
-                    "where intinventoryyear = '" & cboEIYear.Text & "')ViewList,   " &
-                    "(select facilitysiteid, sum(fltTotalemissions) as VOC    " &
-                    "from VW_EIS_RPEMISSIONS " &
-                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'VOC'  " &
-                    "group by facilitysiteid) VOCSum,  " &
-                    "(select facilitysiteid, sum(fltTotalemissions) as PMFIL " &
-                    "from VW_EIS_RPEMISSIONS " &
-                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'PM25-FIL'  " &
-                    "group by facilitysiteid) PM25FILSum,  " &
-                    "(select facilitysiteid, sum(fltTotalemissions) as LEAD    " &
-                    "from VW_EIS_RPEMISSIONS " &
-                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = '7439921'  " &
-                    "group by facilitysiteid) LEADSum,  " &
-                    "(select facilitysiteid, sum(fltTotalemissions) as PM10PRI    " &
-                    "from VW_EIS_RPEMISSIONS " &
-                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'PM10-PRI'  " &
-                    "group by facilitysiteid) PM10PRISum,  " &
-                    "(select facilitysiteid, sum(fltTotalemissions) as PM25PRI    " &
-                    "from VW_EIS_RPEMISSIONS " &
-                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'PM25-PRI'  " &
-                    "group by facilitysiteid) PM25PRISum,  " &
-                    "(select facilitysiteid, sum(fltTotalemissions) as PMCON    " &
-                    "from VW_EIS_RPEMISSIONS " &
-                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'PM-CON'  " &
-                    "group by facilitysiteid) PMCONSum,  " &
-                    "(select facilitysiteid, sum(fltTotalemissions) as PM10FIL    " &
-                    "from VW_EIS_RPEMISSIONS " &
-                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'PM10-FIL'  " &
-                    "group by facilitysiteid) PM10FILSum,  " &
-                    "(select facilitysiteid, sum(fltTotalemissions) as NH3    " &
-                    "from VW_EIS_RPEMISSIONS " &
-                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'NH3'  " &
-                    "group by facilitysiteid) NH3Sum,  " &
-                    "(select facilitysiteid, sum(fltTotalemissions) as SO2    " &
-                    "from VW_EIS_RPEMISSIONS " &
-                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'SO2'  " &
-                    "group by facilitysiteid) SO2Sum,  " &
-                    "(select facilitysiteid, sum(fltTotalemissions) as CO    " &
-                    "from VW_EIS_RPEMISSIONS " &
-                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'CO'  " &
-                    "group by facilitysiteid) COSum,  " &
-                    "(select facilitysiteid, sum(fltTotalemissions) as NOX    " &
-                    "from VW_EIS_RPEMISSIONS " &
-                    "where intinventoryyear = '" & cboEIYear.Text & "' and pollutantcode = 'NOX'  " &
-                    "group by facilitysiteid)NOXSum,  " &
-                    "APBFacilityInformation  " &
-                    "where '0413'||ViewList.facilitysiteid = APBFacilityInformation.strAIRSNumber " &
-                    "and ViewList.facilitysiteid = VOCSum.facilitysiteid (+)  " &
-                    "and ViewList.facilitysiteid  = PM25FILSum.facilitysiteid (+)  " &
-                    "and ViewList.facilitysiteid  = LEADSum.facilitysiteid (+)  " &
-                    "and ViewList.facilitysiteid  = PM10PRISum.facilitysiteid (+)  " &
-                    "and ViewList.facilitysiteid  = PM25PRISum.facilitysiteid (+)  " &
-                    "and ViewList.facilitysiteid  = PMCONSum.facilitysiteid (+)  " &
-                    "and ViewList.facilitysiteid  = PM10FILSum.facilitysiteid (+)  " &
-                    "and ViewList.facilitysiteid  = NH3Sum.facilitysiteid (+)  " &
-                    "and ViewList.facilitysiteid  = SO2Sum.facilitysiteid (+)  " &
-                    "and ViewList.facilitysiteid  = COSum.facilitysiteid (+)  " &
-                    "and ViewList.facilitysiteid  = NOXSum.facilitysiteid (+) "
+                    SQL = "SELECT ROW_NUMBER() OVER(ORDER BY ViewList.FacilitySiteID) AS EIRows, ViewList.FacilitySiteID AS AIRSNumber, APBFacilityInformation.STRFACILITYNAME AS FacilityName, SO2Sum.SO2, NOXSum.NOX, VOCSum.VOC, COSum.CO, NH3Sum.NH3, LEADSum.LEAD, PM25FILSum.PMFIL, PM10FILSum.PM10FIL, PM10PRISum.PM10PRI, PM25PRISum.PM25PRI, PMCONSum.PMCON
+                        FROM (SELECT DISTINCT
+                        VW_EIS_RPEMISSIONS.FACILITYSITEID AS FacilitySiteID
+                        FROM VW_EIS_RPEMISSIONS
+                        WHERE VW_EIS_RPEMISSIONS.INTINVENTORYYEAR = @year) AS ViewList
+                        LEFT JOIN (SELECT VW_EIS_RPEMISSIONS.FACILITYSITEID, SUM(VW_EIS_RPEMISSIONS.FLTTOTALEMISSIONS) AS NOX
+                        FROM VW_EIS_RPEMISSIONS
+                        WHERE VW_EIS_RPEMISSIONS.INTINVENTORYYEAR = @year AND VW_EIS_RPEMISSIONS.POLLUTANTCODE = 'NOX'
+                        GROUP BY VW_EIS_RPEMISSIONS.FACILITYSITEID) AS NOXSum ON ViewList.FacilitySiteID = NOXSum.FACILITYSITEID AND ViewList.FacilitySiteID = NOXSum.NOX
+                        LEFT JOIN (SELECT VW_EIS_RPEMISSIONS.FACILITYSITEID, SUM(VW_EIS_RPEMISSIONS.FLTTOTALEMISSIONS) AS SO2
+                        FROM VW_EIS_RPEMISSIONS
+                        WHERE VW_EIS_RPEMISSIONS.INTINVENTORYYEAR = @year AND VW_EIS_RPEMISSIONS.POLLUTANTCODE = 'SO2'
+                        GROUP BY VW_EIS_RPEMISSIONS.FACILITYSITEID) AS SO2Sum ON ViewList.FacilitySiteID = SO2Sum.FACILITYSITEID
+                        LEFT JOIN (SELECT VW_EIS_RPEMISSIONS.FACILITYSITEID, SUM(VW_EIS_RPEMISSIONS.FLTTOTALEMISSIONS) AS PM10FIL
+                        FROM VW_EIS_RPEMISSIONS
+                        WHERE VW_EIS_RPEMISSIONS.INTINVENTORYYEAR = @year AND VW_EIS_RPEMISSIONS.POLLUTANTCODE = 'PM10-FIL'
+                        GROUP BY VW_EIS_RPEMISSIONS.FACILITYSITEID) AS PM10FILSum ON ViewList.FacilitySiteID = PM10FILSum.FACILITYSITEID
+                        LEFT JOIN (SELECT VW_EIS_RPEMISSIONS.FACILITYSITEID, SUM(VW_EIS_RPEMISSIONS.FLTTOTALEMISSIONS) AS PM25PRI
+                        FROM VW_EIS_RPEMISSIONS
+                        WHERE VW_EIS_RPEMISSIONS.INTINVENTORYYEAR = @year AND VW_EIS_RPEMISSIONS.POLLUTANTCODE = 'PM25-PRI'
+                        GROUP BY VW_EIS_RPEMISSIONS.FACILITYSITEID) AS PM25PRISum ON ViewList.FacilitySiteID = PM25PRISum.FACILITYSITEID
+                        LEFT JOIN (SELECT VW_EIS_RPEMISSIONS.FACILITYSITEID, SUM(VW_EIS_RPEMISSIONS.FLTTOTALEMISSIONS) AS LEAD
+                        FROM VW_EIS_RPEMISSIONS
+                        WHERE VW_EIS_RPEMISSIONS.INTINVENTORYYEAR = @year AND VW_EIS_RPEMISSIONS.POLLUTANTCODE = '7439921'
+                        GROUP BY VW_EIS_RPEMISSIONS.FACILITYSITEID) AS LEADSum ON ViewList.FacilitySiteID = LEADSum.FACILITYSITEID
+                        LEFT JOIN (SELECT VW_EIS_RPEMISSIONS.FACILITYSITEID, SUM(VW_EIS_RPEMISSIONS.FLTTOTALEMISSIONS) AS VOC
+                        FROM VW_EIS_RPEMISSIONS
+                        WHERE VW_EIS_RPEMISSIONS.INTINVENTORYYEAR = @year AND VW_EIS_RPEMISSIONS.POLLUTANTCODE = 'VOC'
+                        GROUP BY VW_EIS_RPEMISSIONS.FACILITYSITEID) AS VOCSum ON ViewList.FacilitySiteID = VOCSum.FACILITYSITEID
+                        LEFT JOIN (SELECT VW_EIS_RPEMISSIONS.FACILITYSITEID, SUM(VW_EIS_RPEMISSIONS.FLTTOTALEMISSIONS) AS PMFIL
+                        FROM VW_EIS_RPEMISSIONS
+                        WHERE VW_EIS_RPEMISSIONS.INTINVENTORYYEAR = @year AND VW_EIS_RPEMISSIONS.POLLUTANTCODE = 'PM25-FIL'
+                        GROUP BY VW_EIS_RPEMISSIONS.FACILITYSITEID) AS PM25FILSum ON ViewList.FacilitySiteID = PM25FILSum.FACILITYSITEID
+                        LEFT JOIN (SELECT VW_EIS_RPEMISSIONS.FACILITYSITEID, SUM(VW_EIS_RPEMISSIONS.FLTTOTALEMISSIONS) AS PM10PRI
+                        FROM VW_EIS_RPEMISSIONS
+                        WHERE VW_EIS_RPEMISSIONS.INTINVENTORYYEAR = @year AND VW_EIS_RPEMISSIONS.POLLUTANTCODE = 'PM10-PRI'
+                        GROUP BY VW_EIS_RPEMISSIONS.FACILITYSITEID) AS PM10PRISum ON ViewList.FacilitySiteID = PM10PRISum.FACILITYSITEID
+                        LEFT JOIN (SELECT VW_EIS_RPEMISSIONS.FACILITYSITEID, SUM(VW_EIS_RPEMISSIONS.FLTTOTALEMISSIONS) AS PMCON
+                        FROM VW_EIS_RPEMISSIONS
+                        WHERE VW_EIS_RPEMISSIONS.INTINVENTORYYEAR = @year AND VW_EIS_RPEMISSIONS.POLLUTANTCODE = 'PM-CON'
+                        GROUP BY VW_EIS_RPEMISSIONS.FACILITYSITEID) AS PMCONSum ON ViewList.FacilitySiteID = PMCONSum.FACILITYSITEID
+                        LEFT JOIN (SELECT VW_EIS_RPEMISSIONS.FACILITYSITEID, SUM(VW_EIS_RPEMISSIONS.FLTTOTALEMISSIONS) AS NH3
+                        FROM VW_EIS_RPEMISSIONS
+                        WHERE VW_EIS_RPEMISSIONS.INTINVENTORYYEAR = @year AND VW_EIS_RPEMISSIONS.POLLUTANTCODE = 'NH3'
+                        GROUP BY VW_EIS_RPEMISSIONS.FACILITYSITEID) AS NH3Sum ON ViewList.FacilitySiteID = NH3Sum.FACILITYSITEID
+                        LEFT JOIN (SELECT VW_EIS_RPEMISSIONS.FACILITYSITEID, SUM(VW_EIS_RPEMISSIONS.FLTTOTALEMISSIONS) AS CO
+                        FROM VW_EIS_RPEMISSIONS
+                        WHERE VW_EIS_RPEMISSIONS.INTINVENTORYYEAR = @year AND VW_EIS_RPEMISSIONS.POLLUTANTCODE = 'CO'
+                        GROUP BY VW_EIS_RPEMISSIONS.FACILITYSITEID) AS COSum ON ViewList.FacilitySiteID = COSum.FACILITYSITEID
+                        LEFT JOIN APBFacilityInformation ON '0413'+ViewList.FacilitySiteID = APBFacilityInformation.STRAIRSNUMBER"
 
-                    ds = New DataSet
-                    da = New SqlDataAdapter(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    da.Fill(ds, "EISummary")
-                    dgvEIResults.DataSource = ds
-                    dgvEIResults.DataMember = "EISummary"
+                    Dim param As New SqlParameter("@year", cboEIYear.Text)
+
+                    dgvEIResults.DataSource = DB.GetDataTable(SQL, param)
 
                     dgvEIResults.RowHeadersVisible = False
                     dgvEIResults.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1318,7 +1258,6 @@ Public Class SSCPEmissionSummaryTool
                     dgvEIResults.Columns("PMFIL").DisplayIndex = 13
                 End If
             End If
-            Exit Sub
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1328,81 +1267,57 @@ Public Class SSCPEmissionSummaryTool
     Private Sub btnViewEISummaryByPollutant_Click(sender As Object, e As EventArgs) Handles btnViewEISummaryByPollutant.Click
         Try
 
-            If cboEIYear.Text <> "" And cboEIYear.SelectedIndex > 0 Then
-                If cboEIPollutants.Text <> "" Then
-                    If cboEIYear.Text < 2010 Then
-                        SQL = "select " &
-                        "rownum as EIRow, " &
-                        "AIRSNumber, FacilityName, " &
-                        "Pollutant " &
-                        "from " &
-                        "(select " &
-                        "substr(dt.strairsnumber, 5) as AIRSNumber, " &
-                        "eisi.strfacilityname as FacilityName, " &
-                        "dt.pollutanttotal as Pollutant " &
-                        "from eisi," &
-                        "(select strairsnumber, strpollutantcode, " &
-                        "sum(dblemissionnumericvalue) as PollutantTotal, strinventoryyear " &
-                        "from eiem " &
-                        "where strinventoryyear = '" & cboEIYear.Text & "' and " &
-                        "strpollutantcode = '" & cboEIPollutants.SelectedValue & "' " &
-                        "group by eiem.strairsnumber, eiem.strinventoryyear, strpollutantcode) dt " &
-                        "where eisi.strairsnumber = dt.strairsnumber and " &
-                        "eisi.strinventoryyear = dt.strinventoryyear " &
-                        "order by AIRSNumber) "
-                    Else
-                        SQL = "select  " &
-                        "rownum as EIRow,  " &
-                        "ViewList.FacilitySiteID as AIRSNumber,  " &
-                        "strFacilityName as FacilityName,  " &
-                        "Pollutant " &
-                        "from  " &
-                        "(select distinct (FacilitySiteID ) as FacilitySiteID  " &
-                        "from VW_EIS_RPEMISSIONS  " &
-                        "where intinventoryyear = '" & cboEIYear.Text & "')ViewList,    " &
-                        "(select facilitysiteid, sum(fltTotalemissions) as Pollutant     " &
-                        "from VW_EIS_RPEMISSIONS  " &
-                        "where intinventoryyear = '" & cboEIYear.Text & "' " &
-                        "and pollutantcode = '" & cboEIPollutants.SelectedValue & "'   " &
-                        "group by facilitysiteid) PollutantSum, " &
-                        "APBFacilityInformation   " &
-                        "where '0413'||ViewList.facilitysiteid = APBFacilityInformation.strAIRSNumber  " &
-                        "and ViewList.facilitysiteid = PollutantSum.facilitysiteid    "
-
-                    End If
-                    ds = New DataSet
-                    da = New SqlDataAdapter(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    da.Fill(ds, "EISummary")
-                    dgvEIResults.DataSource = ds
-                    dgvEIResults.DataMember = "EISummary"
-
-                    dgvEIResults.RowHeadersVisible = False
-                    dgvEIResults.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                    dgvEIResults.AllowUserToResizeColumns = True
-                    dgvEIResults.AllowUserToAddRows = False
-                    dgvEIResults.AllowUserToDeleteRows = False
-                    dgvEIResults.AllowUserToOrderColumns = True
-                    dgvEIResults.AllowUserToResizeRows = True
-
-                    dgvEIResults.Columns("EIRow").HeaderText = "#"
-                    dgvEIResults.Columns("EIRow").DisplayIndex = 0
-                    dgvEIResults.Columns("EIRow").Width = 25
-                    dgvEIResults.Columns("EIRow").Visible = False
-                    dgvEIResults.Columns("AIRSNumber").HeaderText = "Airs No."
-                    dgvEIResults.Columns("AIRSNumber").DisplayIndex = 1
-                    dgvEIResults.Columns("AIRSNumber").Width = 75
-                    dgvEIResults.Columns("FacilityName").HeaderText = "Facility Name"
-                    dgvEIResults.Columns("FacilityName").DisplayIndex = 2
-                    dgvEIResults.Columns("FacilityName").Width = 225
-                    dgvEIResults.Columns("Pollutant").HeaderText = cboEIPollutants.Text
-                    dgvEIResults.Columns("Pollutant").DisplayIndex = 3
-
-                    txtEICount.Text = dgvEIResults.RowCount.ToString
+            If cboEIYear.Text <> "" AndAlso cboEIPollutants.Text <> "" Then
+                If cboEIYear.Text < 2010 Then
+                    SQL = "SELECT ROW_NUMBER() OVER(ORDER BY t1.AIRSNumber) AS EIRow, t1.AIRSNumber, t1.FacilityName, t1.Pollutant
+                        FROM (SELECT RIGHT(dt.STRAIRSNUMBER, 8) AS AIRSNumber, eisi.STRFACILITYNAME AS FacilityName, dt.PollutantTotal AS Pollutant
+                        FROM eisi, (SELECT eiem.STRAIRSNUMBER, eiem.STRPOLLUTANTCODE, SUM(eiem.DBLEMISSIONNUMERICVALUE) AS PollutantTotal, eiem.STRINVENTORYYEAR
+                        FROM eiem
+                        WHERE eiem.STRINVENTORYYEAR = @year AND eiem.STRPOLLUTANTCODE = @poll
+                        GROUP BY eiem.STRAIRSNUMBER, eiem.STRPOLLUTANTCODE, eiem.STRINVENTORYYEAR) AS dt
+                        WHERE dt.STRAIRSNUMBER = eisi.STRAIRSNUMBER AND dt.STRINVENTORYYEAR = eisi.STRINVENTORYYEAR) AS t1"
+                Else
+                    SQL = "SELECT ROW_NUMBER() OVER(ORDER BY ViewList.FacilitySiteID) AS EIRow, ViewList.FacilitySiteID AS AIRSNumber, strFacilityName AS FacilityName, Pollutant
+                        FROM (SELECT DISTINCT
+                        FacilitySiteID AS FacilitySiteID
+                        FROM VW_EIS_RPEMISSIONS
+                        WHERE intinventoryyear = @year) AS ViewList, (SELECT facilitysiteid, SUM(fltTotalemissions) AS Pollutant
+                        FROM VW_EIS_RPEMISSIONS
+                        WHERE intinventoryyear = @year AND pollutantcode = @poll
+                        GROUP BY facilitysiteid) AS PollutantSum, APBFacilityInformation
+                        WHERE '0413'+ViewList.facilitysiteid = APBFacilityInformation.strAIRSNumber AND ViewList.facilitysiteid = PollutantSum.facilitysiteid "
 
                 End If
+
+                Dim params As SqlParameter() = {
+                    New SqlParameter("@year", cboEIYear.Text),
+                    New SqlParameter("@poll", cboEIPollutants.SelectedValue)
+                }
+
+                dgvEIResults.DataSource = DB.GetDataTable(SQL, params)
+
+                dgvEIResults.RowHeadersVisible = False
+                dgvEIResults.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+                dgvEIResults.AllowUserToResizeColumns = True
+                dgvEIResults.AllowUserToAddRows = False
+                dgvEIResults.AllowUserToDeleteRows = False
+                dgvEIResults.AllowUserToOrderColumns = True
+                dgvEIResults.AllowUserToResizeRows = True
+
+                dgvEIResults.Columns("EIRow").HeaderText = "#"
+                dgvEIResults.Columns("EIRow").DisplayIndex = 0
+                dgvEIResults.Columns("EIRow").Width = 25
+                dgvEIResults.Columns("EIRow").Visible = False
+                dgvEIResults.Columns("AIRSNumber").HeaderText = "Airs No."
+                dgvEIResults.Columns("AIRSNumber").DisplayIndex = 1
+                dgvEIResults.Columns("AIRSNumber").Width = 75
+                dgvEIResults.Columns("FacilityName").HeaderText = "Facility Name"
+                dgvEIResults.Columns("FacilityName").DisplayIndex = 2
+                dgvEIResults.Columns("FacilityName").Width = 225
+                dgvEIResults.Columns("Pollutant").HeaderText = cboEIPollutants.Text
+                dgvEIResults.Columns("Pollutant").DisplayIndex = 3
+
+                txtEICount.Text = dgvEIResults.RowCount.ToString
             End If
 
         Catch ex As Exception
