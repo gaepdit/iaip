@@ -77,286 +77,106 @@ Public Class SSCPEmissionSummaryTool
 #Region " ES Tool "
 
     Private Sub btnView_Click(sender As Object, e As EventArgs) Handles btnView.Click
-        Try
-            runcount()
-            lblYear.Text = cboYear.SelectedItem
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        runcount()
+        lblYear.Text = cboYear.SelectedItem
     End Sub
+
     Private Sub runcount()
-        Dim Nonresponsecount As Integer
-        Dim MailoutCount As Integer
-        Dim MailOutOptInCount As Integer
-        Dim mailoutOptOutCount As Integer
-        Dim ResponseCount As Integer
-        Dim TotaloptinCount As Integer
-        Dim TotaloptoutCount As Integer
-        Dim TotalinincomplianceCount As Integer
-        Dim TotaloutofcomplianceCount As Integer
-        Dim extracount As Integer
-        Dim extraOptincount As Integer
-        Dim extraOptOutCount As Integer
-        Dim TotalResponsecount As Integer
         txtESYear.Text = cboYear.SelectedItem
-        Dim ESYear As String = txtESYear.Text
-        Dim intESyear As Integer = CInt(ESYear)
         Dim DeadlineYear As String = txtESYear.Text
+        If DeadlineYear = "" Then DeadlineYear = "2007"
+        Dim deadlineDate As New Date(DeadlineYear, 6, 15)
 
-        Dim deadline As String = ""
-        If DeadlineYear <> "" Then
-            DeadlineYear = CInt(DeadlineYear) + 1
-            deadline = "15-Jun-" & DeadlineYear
-        Else
-            deadline = "15-Jun-2007"
-        End If
-
+        Dim ESYearParam As New SqlParameter("@ESYear", DeadlineYear)
+        Dim intEsYearParam As New SqlParameter("@intESyear", CInt(DeadlineYear))
+        Dim params As SqlParameter() = {
+            New SqlParameter("@intESyear", CInt(txtESYear.Text)),
+            New SqlParameter("@deadline", deadlineDate)
+        }
 
         Try
-            Try
-                SQL = "Select count(*) As MailoutCount " &
-                "from esmailout, ESSCHEMA " &
-                "where ESMAILOUT.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR(+) " &
-                "And esmailout.STRESYEAR = '" & ESYear & "'"
+            SQL = "SELECT COUNT(*) FROM esmailout WHERE STRESYEAR = @ESYear "
+            txtMailOutCount.Text = DB.GetSingleValue(Of String)(SQL, ESYearParam)
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
+            SQL = "SELECT COUNT(*)
+                FROM   esmailout
+                INNER JOIN ESSCHEMA
+                  ON esmailout.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR
+                WHERE  ESSCHEMA.STROPTOUT IS NOT NULL
+                       AND esmailout.STRESYEAR = @ESYear"
+            txtResponseCount.Text = DB.GetSingleValue(Of String)(SQL, ESYearParam)
 
-                While dr.Read()
-                    txtMailOutCount.Text = dr.Item(MailoutCount)
-                End While
-                dr.Close()
+            SQL = "SELECT COUNT(*) FROM ESSchema
+                    WHERE intESYEAR = @intESyear AND strOptOut = 'NO'"
+            txtTotalOptInCount.Text = DB.GetSingleValue(Of String)(SQL, intEsYearParam)
 
-                SQL = "select count(*) as ResponseCount " &
-                "from esmailout, ESSCHEMA " &
-                "where ESMAILOUT.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR " &
-                "and ESSCHEMA.STROPTOUT is not NULL " &
-                "and esmailout.STRESYEAR = '" & ESYear & "'"
+            SQL = "SELECT COUNT(*) FROM ESSchema
+                    WHERE intESYEAR = @intESyear AND strOptOut = 'YES'"
+            txtTotalOptOutCount.Text = DB.GetSingleValue(Of String)(SQL, intEsYearParam)
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
+            SQL = "SELECT COUNT(*)
+                FROM   ESSchema
+                WHERE  intESYEAR = @intESyear
+                AND CAST(STRDATEFIRSTCONFIRM AS date) <= @deadline"
+            txtTotalincompliance.Text = DB.GetSingleValue(Of String)(SQL, params)
 
-                While dr.Read()
-                    txtResponseCount.Text = dr.Item(ResponseCount)
-                End While
-                dr.Close()
+            SQL = "select count(*) as TotaloutofcomplianceCount 
+            from ESSchema 
+                WHERE  intESYEAR = @intESyear
+                AND CAST(STRDATEFIRSTCONFIRM AS date) > @deadline"
+            txtTotaloutofcompliance.Text = DB.GetSingleValue(Of String)(SQL, params)
 
-                SQL = "select count(*) as TotaloptinCount " &
-                "from ESSchema " &
-                "where ESSchema.intESYEAR = '" & intESyear & "'" &
-                " and ESSchema.strOptOut = 'NO'"
+            SQL = "SELECT COUNT(*)
+                FROM ESSchema
+                RIGHT JOIN ESMailout ON ESMailout.STRAIRSYEAR = ESSchema.STRAIRSYEAR
+                WHERE ESMailout.STRESYEAR = @ESYear AND ESSchema.STROPTOUT = 'NO'"
+            txtMailoutOptin.Text = DB.GetSingleValue(Of String)(SQL, ESYearParam)
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
+            SQL = "SELECT COUNT(*)
+                FROM ESSchema
+                RIGHT JOIN ESMailout ON ESMailout.STRAIRSYEAR = ESSchema.STRAIRSYEAR
+                WHERE ESMailout.STRESYEAR = @ESYear AND ESSchema.STROPTOUT = 'YES'"
+            txtMailOutOptOut.Text = DB.GetSingleValue(Of String)(SQL, ESYearParam)
 
-                dr = cmd.ExecuteReader
-                While dr.Read()
-                    txtTotalOptInCount.Text = dr.Item(TotaloptinCount)
-                End While
-                dr.Close()
+            SQL = "select count(*) " &
+                "from ESSCHEMA " &
+                "where intESYEAR = @intESyear " &
+                " and strOptOut is NULL"
+            txtNonResponseCount.Text = DB.GetSingleValue(Of String)(SQL, intEsYearParam)
 
-                SQL = "select count(*) as TotaloptOutCount " &
-                "from ESSchema " &
-                "where ESSchema.intESYEAR = '" & intESyear & "' " &
-                "and ESSchema.strOptOut = 'YES'"
+            SQL = "SELECT COUNT(*) AS ExtraCount
+                FROM (SELECT ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, ESMailout.STRAIRSYEAR AS MailoutAIRS
+                FROM ESMailout
+                RIGHT JOIN ESSCHEMA ON ESSCHEMA.STRAIRSYEAR = ESMailout.STRAIRSYEAR
+                WHERE ESSCHEMA.INTESYEAR = @intESyear AND ESSCHEMA.STROPTOUT IS NOT NULL) AS dt_NotInMailout
+                INNER JOIN ESSCHEMA ON dt_NotInMailout.SchemaAIRS = ESSCHEMA.STRAIRSYEAR
+                WHERE dt_NotInMailout.MailoutAIRS IS NULL"
+            txtextraResponse.Text = DB.GetSingleValue(Of String)(SQL, intEsYearParam)
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
+            SQL = "SELECT COUNT(*) AS ExtraOptinCount
+                FROM (SELECT ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, ESMailout.STRAIRSYEAR AS MailoutAIRS
+                FROM ESMailout
+                RIGHT JOIN ESSCHEMA ON ESSCHEMA.STRAIRSYEAR = ESMailout.STRAIRSYEAR
+                WHERE ESSCHEMA.INTESYEAR = @intESyear AND ESSCHEMA.STROPTOUT IS NOT NULL) AS dt_NotInMailout
+                INNER JOIN ESSCHEMA ON dt_NotInMailout.SchemaAIRS = ESSCHEMA.STRAIRSYEAR
+                WHERE dt_NotInMailout.MailoutAIRS IS NULL AND ESSCHEMA.STROPTOUT = 'NO'"
+            txtExtraOptin.Text = DB.GetSingleValue(Of String)(SQL, intEsYearParam)
 
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-
-                dr = cmd.ExecuteReader
-                While dr.Read()
-                    txtTotalOptOutCount.Text = dr.Item(TotaloptoutCount)
-                End While
-                dr.Close()
-
-                SQL = "select count(*) as TotalinincomplianceCount " &
-                "from ESSchema " &
-                "where ESSchema.intESYEAR = '" & intESyear & "'" &
-                " and to_date(ESSchema.STRDATEFIRSTCONFIRM) < = '" & deadline & "'"
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read()
-                    txtTotalincompliance.Text = dr.Item(TotalinincomplianceCount)
-                End While
-                dr.Close()
-
-                SQL = "select count(*) as TotaloutofcomplianceCount " &
-                "from ESSchema " &
-                "where ESSchema.intESYEAR = '" & intESyear & "'" &
-                " and to_date(ESSchema.STRDATEFIRSTCONFIRM) > '" & deadline & "'"
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read()
-                    txtTotaloutofcompliance.Text = dr.Item(TotaloutofcomplianceCount)
-                End While
-                dr.Close()
-
-                SQL = "select count(*) as MailOutOptInCount " &
-                "from ESSchema, ESMailout " &
-                "where ESMAILOUT.strESYEAR = '" & ESYear & "' " &
-                " and ESMAILOUT.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR(+) " &
-                " and ESSchema.strOptOut = 'NO'"
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-
-                While dr.Read()
-                    txtMailoutOptin.Text = dr.Item(MailOutOptInCount)
-                End While
-                dr.Close()
-
-                SQL = "select count(*) as MailOutOptOutCount " &
-                "from ESSchema, ESMailout " &
-                "where ESMAILOUT.strESYEAR = '" & ESYear & "'" &
-                " and ESMAILOUT.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR(+) " &
-                " and ESSchema.strOptOut = 'YES'"
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-
-                While dr.Read()
-                    txtMailOutOptOut.Text = dr.Item(mailoutOptOutCount)
-                End While
-                dr.Close()
-
-            Catch ex As Exception
-                MsgBox("That Prefix is not in the db" + vbCrLf + ex.ToString())
-            End Try
-
-
-            SQL = "select count(*) as Nonresponsecount " &
-             "from ESSCHEMA " &
-             "where ESSCHEMA.intESYEAR = '" & ESYear & "'" &
-             " and ESSchema.strOptOut is NULL"
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            While dr.Read()
-                txtNonResponseCount.Text = dr.Item(Nonresponsecount)
-            End While
-            dr.Close()
-
-            SQL = "select count(*) as ExtraCount " &
-            "from (Select ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " &
-            "ESMAILOUT.STRAIRSYear AS MailoutAIRS " &
-            "From ESMailout, ESSCHEMA" &
-            " Where ESMAILOUT.STRAIRSYEAR (+)= ESSCHEMA.STRAIRSYEAR " &
-            "AND esschema.INTESYEAR= '" & intESyear & "' " &
-            "AND ESSCHEMA.STROPTOUT IS NOT NULL) " &
-            "dt_NotInMailout, " &
-            "ESSCHEMA " &
-            "Where ESSCHEMA.STRAIRSYEAR = SchemaAIRS " &
-            "AND MailoutAIRS is NULL"
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-
-            While dr.Read()
-                txtextraResponse.Text = dr.Item(extracount)
-            End While
-            dr.Close()
-
-            SQL = "select count(*) as ExtraOptinCount " &
-            "from (Select ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " &
-            "ESMAILOUT.STRAIRSYear AS MailoutAIRS " &
-            "From ESMailout, ESSCHEMA " &
-            "Where ESMAILOUT.STRAIRSYEAR (+)= ESSCHEMA.STRAIRSYEAR " &
-            "AND esschema.INTESYEAR= '" & intESyear & "' " &
-            "AND ESSCHEMA.STROPTOUT IS NOT NULL) " &
-            "dt_NotInMailout, " &
-            "ESSCHEMA " &
-            "Where ESSCHEMA.STRAIRSYEAR = SchemaAIRS " &
-            "AND MailoutAIRS is NULL " &
-            "and ESSCHEMA.STROPTOUT='NO'"
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-
-            While dr.Read()
-                txtExtraOptin.Text = dr.Item(extraOptincount)
-            End While
-            dr.Close()
-
-            SQL = "select count(*) as ExtraOptOUTCount " &
-            "from (Select ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " &
-            "ESMAILOUT.STRAIRSYear AS MailoutAIRS " &
-            "From ESMailout, ESSCHEMA " &
-            "Where ESMAILOUT.STRAIRSYEAR (+)= ESSCHEMA.STRAIRSYEAR " &
-            "AND esschema.INTESYEAR= '" & intESyear & "' " &
-            "AND ESSCHEMA.STROPTOUT IS NOT NULL) " &
-            "dt_NotInMailout, " &
-            "ESSCHEMA " &
-            "Where ESSCHEMA.STRAIRSYEAR = SchemaAIRS " &
-            "AND MailoutAIRS is NULL " &
-            "and ESSCHEMA.STROPTOUT='YES'"
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Open Then
-            Else
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read()
-                txtExtraOptout.Text = dr.Item(extraOptOutCount)
-            End While
-            dr.Close()
+            SQL = "SELECT COUNT(*) AS ExtraOptinCount
+                FROM (SELECT ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, ESMailout.STRAIRSYEAR AS MailoutAIRS
+                FROM ESMailout
+                RIGHT JOIN ESSCHEMA ON ESSCHEMA.STRAIRSYEAR = ESMailout.STRAIRSYEAR
+                WHERE ESSCHEMA.INTESYEAR = @intESyear AND ESSCHEMA.STROPTOUT IS NOT NULL) AS dt_NotInMailout
+                INNER JOIN ESSCHEMA ON dt_NotInMailout.SchemaAIRS = ESSCHEMA.STRAIRSYEAR
+                WHERE dt_NotInMailout.MailoutAIRS IS NULL AND ESSCHEMA.STROPTOUT = 'YES'"
+            txtExtraOptout.Text = DB.GetSingleValue(Of String)(SQL, intEsYearParam)
 
             SQL = "select count(*) as TotalResponsecount " &
             "from ESSchema " &
-            "where ESSchema.intESYEAR = '" & intESyear & "'" &
+            "where ESSchema.intESYEAR = @intESyear " &
             " and ESSchema.strOptOut is not NULL"
+            txtTotalResponse.Text = DB.GetSingleValue(Of String)(SQL, intEsYearParam)
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Open Then
-            Else
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-
-            While dr.Read()
-                txtTotalResponse.Text = dr.Item(TotalResponsecount)
-            End While
-            dr.Close()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -364,223 +184,189 @@ Public Class SSCPEmissionSummaryTool
         End Try
 
     End Sub
+
     Private Sub findESData()
         Dim AirsNo As String = txtESAirsNo.Text
         Dim ESyear As String = cboYear.SelectedItem
         Dim intESyear As Integer = CInt(ESyear)
-        Try
 
-            SQL = "SELECT * " &
-            "from esschema " &
-            "where STRAIRSNUMBER = '" & AirsNo & "' " &
-            "and INTESYEAR = '" & intESyear & "'"
+        SQL = "SELECT * " &
+        "from esschema " &
+        "where STRAIRSNUMBER = @AirsNo " &
+        "and INTESYEAR = @intESyear "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
+        Dim param As SqlParameter() = {New SqlParameter("@AirsNo", AirsNo), New SqlParameter("@intESyear", intESyear)}
+
+        Dim dr As DataRow = DB.GetDataRow(SQL, param)
+        If dr IsNot Nothing Then
+
+            If IsDBNull(dr("STRAIRSNUMBER")) Then
+                txtESAirsNo.Text = ""
+            Else
+                txtESAirsNo.Text = dr("STRAIRSNUMBER")
             End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr("STRAIRSNUMBER")) Then
-                    txtESAirsNo.Text = ""
-                Else
-                    txtESAirsNo.Text = dr("STRAIRSNUMBER")
-                End If
-                If IsDBNull(dr("STRFACILITYNAME")) Then
-                    txtFACILITYNAME.Text = ""
-                Else
-                    txtFACILITYNAME.Text = dr("STRFACILITYNAME")
-                End If
-                If IsDBNull(dr("STRFACILITYADDRESS")) Then
-                    txtFACILITYADDRESS.Text = ""
-                Else
-                    txtFACILITYADDRESS.Text = dr("STRFACILITYADDRESS")
-                End If
-                If IsDBNull(dr("STRFACILITYCITY")) Then
-                    txtFACILITYCITY.Text = ""
-                Else
-                    txtFACILITYCITY.Text = dr("STRFACILITYCITY")
-                End If
-                If IsDBNull(dr("STRFACILITYSTATE")) Then
-                    txtFACILITYSTATE.Text = ""
-                Else
-                    txtFACILITYSTATE.Text = dr("STRFACILITYSTATE")
-                End If
-                If IsDBNull(dr("STRFACILITYZIP")) Then
-                    txtFACILITYZIP.Text = ""
-                Else
-                    txtFACILITYZIP.Text = dr("STRFACILITYZIP")
-                End If
-                If IsDBNull(dr("STRCOUNTY")) Then
-                    txtCOUNTY.Text = ""
-                Else
-                    txtCOUNTY.Text = dr("STRCOUNTY")
-                End If
-                If IsDBNull(dr("DBLXCOORDINATE")) Then
-                    txtXCOORDINATE.Text = ""
-                Else
-                    txtXCOORDINATE.Text = dr("DBLXCOORDINATE")
-                End If
-                If IsDBNull(dr("DBLYCOORDINATE")) Then
-                    txtYCOORDINATE.Text = ""
-                Else
-                    txtYCOORDINATE.Text = dr("DBLYCOORDINATE")
-                End If
-                If IsDBNull(dr("STRHORIZONTALCOLLECTIONCODE")) Then
-                    txtHORIZONTALCOLLECTIONCODE.Text = ""
-                Else
-                    txtHORIZONTALCOLLECTIONCODE.Text = dr("STRHORIZONTALCOLLECTIONCODE")
-                End If
-                If IsDBNull(dr("STRHORIZONTALACCURACYMEASURE")) Then
-                    txtHORIZONTALACCURACYMEASURE.Text = ""
-                Else
-                    txtHORIZONTALACCURACYMEASURE.Text = dr("STRHORIZONTALACCURACYMEASURE")
-                End If
-                If IsDBNull(dr("STRHORIZONTALREFERENCECODE")) Then
-                    txtHORIZONTALREFERENCECODE.Text = ""
-                Else
-                    txtHORIZONTALREFERENCECODE.Text = dr("STRHORIZONTALREFERENCECODE")
-                End If
-                If IsDBNull(dr("STRCONTACTCOMPANY")) Then
-                    txtCompany.Text = ""
-                Else
-                    txtCompany.Text = dr("STRCONTACTCOMPANY")
-                End If
-                If IsDBNull(dr("STRCONTACTTITLE")) Then
-                    txtTitle.Text = ""
-                Else
-                    txtTitle.Text = dr("STRCONTACTTITLE")
-                End If
-                If IsDBNull(dr("STRCONTACTPHONENUMBER")) Then
-                    txtPhone.Text = ""
-                Else
-                    txtPhone.Text = dr("STRCONTACTPHONENUMBER")
-                End If
-                If IsDBNull(dr("STRCONTACTFAXNUMBER")) Then
-                    txtFax.Text = ""
-                Else
-                    txtFax.Text = dr("STRCONTACTFAXNUMBER")
-                End If
-                If IsDBNull(dr("STRCONTACTFIRSTNAME")) Then
-                    txtContactFirstName.Text = ""
-                Else
-                    txtContactFirstName.Text = dr("STRCONTACTFIRSTNAME")
-                End If
-                If IsDBNull(dr("STRCONTACTLASTNAME")) Then
-                    txtContactLastName.Text = ""
-                Else
-                    txtContactLastName.Text = dr("STRCONTACTLASTNAME")
-                End If
-                If IsDBNull(dr("STRCONTACTADDRESS1")) Then
-                    txtAddress1.Text = ""
-                Else
-                    txtAddress1.Text = dr("STRCONTACTADDRESS1")
-                End If
-                If IsDBNull(dr("STRCONTACTADDRESS2")) Then
-                    txtAddress2.Text = ""
-                Else
-                    txtAddress2.Text = dr("STRCONTACTADDRESS2")
-                End If
-                If IsDBNull(dr("STRCONTACTCITY")) Then
-                    txtCity.Text = ""
-                Else
-                    txtCity.Text = dr("STRCONTACTCITY")
-                End If
-                If IsDBNull(dr("STRCONTACTSTATE")) Then
-                    txtState.Text = ""
-                Else
-                    txtState.Text = dr("STRCONTACTSTATE")
-                End If
-                If IsDBNull(dr("STRCONTACTZIP")) Then
-                    txtZip.Text = ""
-                Else
-                    txtZip.Text = dr("STRCONTACTZIP")
-                End If
-                If IsDBNull(dr("STRCONTACTEMAIL")) Then
-                    txtEmail.Text = ""
-                Else
-                    txtEmail.Text = dr("STRCONTACTEMAIL")
-                End If
-                If IsDBNull(dr("DBLVOCEMISSION")) Then
-                    txtVOCEmission.Text = ""
-                Else
-                    txtVOCEmission.Text = dr("DBLVOCEMISSION")
-                End If
-                If IsDBNull(dr("DBLNOXEMISSION")) Then
-                    txtNOXEmission.Text = ""
-                Else
-                    txtNOXEmission.Text = dr("DBLNOXEMISSION")
-                End If
-                If IsDBNull(dr("STRCONFIRMATIONNBR")) Then
-                    txtConfirmationNbr.Text = ""
-                    txtConfirmationNumber.Text = ""
-                Else
-                    txtConfirmationNbr.Text = dr("STRCONFIRMATIONNBR")
-                    txtConfirmationNumber.Text = dr("STRCONFIRMATIONNBR")
-                End If
-                If IsDBNull(dr("STRDATEFIRSTCONFIRM")) Then
-                    txtFirstConfirmedDate.Text = ""
-                Else
-                    txtFirstConfirmedDate.Text = dr("STRDATEFIRSTCONFIRM")
-                End If
-            End While
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+            If IsDBNull(dr("STRFACILITYNAME")) Then
+                txtFACILITYNAME.Text = ""
+            Else
+                txtFACILITYNAME.Text = dr("STRFACILITYNAME")
+            End If
+            If IsDBNull(dr("STRFACILITYADDRESS")) Then
+                txtFACILITYADDRESS.Text = ""
+            Else
+                txtFACILITYADDRESS.Text = dr("STRFACILITYADDRESS")
+            End If
+            If IsDBNull(dr("STRFACILITYCITY")) Then
+                txtFACILITYCITY.Text = ""
+            Else
+                txtFACILITYCITY.Text = dr("STRFACILITYCITY")
+            End If
+            If IsDBNull(dr("STRFACILITYSTATE")) Then
+                txtFACILITYSTATE.Text = ""
+            Else
+                txtFACILITYSTATE.Text = dr("STRFACILITYSTATE")
+            End If
+            If IsDBNull(dr("STRFACILITYZIP")) Then
+                txtFACILITYZIP.Text = ""
+            Else
+                txtFACILITYZIP.Text = dr("STRFACILITYZIP")
+            End If
+            If IsDBNull(dr("STRCOUNTY")) Then
+                txtCOUNTY.Text = ""
+            Else
+                txtCOUNTY.Text = dr("STRCOUNTY")
+            End If
+            If IsDBNull(dr("DBLXCOORDINATE")) Then
+                txtXCOORDINATE.Text = ""
+            Else
+                txtXCOORDINATE.Text = dr("DBLXCOORDINATE")
+            End If
+            If IsDBNull(dr("DBLYCOORDINATE")) Then
+                txtYCOORDINATE.Text = ""
+            Else
+                txtYCOORDINATE.Text = dr("DBLYCOORDINATE")
+            End If
+            If IsDBNull(dr("STRHORIZONTALCOLLECTIONCODE")) Then
+                txtHORIZONTALCOLLECTIONCODE.Text = ""
+            Else
+                txtHORIZONTALCOLLECTIONCODE.Text = dr("STRHORIZONTALCOLLECTIONCODE")
+            End If
+            If IsDBNull(dr("STRHORIZONTALACCURACYMEASURE")) Then
+                txtHORIZONTALACCURACYMEASURE.Text = ""
+            Else
+                txtHORIZONTALACCURACYMEASURE.Text = dr("STRHORIZONTALACCURACYMEASURE")
+            End If
+            If IsDBNull(dr("STRHORIZONTALREFERENCECODE")) Then
+                txtHORIZONTALREFERENCECODE.Text = ""
+            Else
+                txtHORIZONTALREFERENCECODE.Text = dr("STRHORIZONTALREFERENCECODE")
+            End If
+            If IsDBNull(dr("STRCONTACTCOMPANY")) Then
+                txtCompany.Text = ""
+            Else
+                txtCompany.Text = dr("STRCONTACTCOMPANY")
+            End If
+            If IsDBNull(dr("STRCONTACTTITLE")) Then
+                txtTitle.Text = ""
+            Else
+                txtTitle.Text = dr("STRCONTACTTITLE")
+            End If
+            If IsDBNull(dr("STRCONTACTPHONENUMBER")) Then
+                txtPhone.Text = ""
+            Else
+                txtPhone.Text = dr("STRCONTACTPHONENUMBER")
+            End If
+            If IsDBNull(dr("STRCONTACTFAXNUMBER")) Then
+                txtFax.Text = ""
+            Else
+                txtFax.Text = dr("STRCONTACTFAXNUMBER")
+            End If
+            If IsDBNull(dr("STRCONTACTFIRSTNAME")) Then
+                txtContactFirstName.Text = ""
+            Else
+                txtContactFirstName.Text = dr("STRCONTACTFIRSTNAME")
+            End If
+            If IsDBNull(dr("STRCONTACTLASTNAME")) Then
+                txtContactLastName.Text = ""
+            Else
+                txtContactLastName.Text = dr("STRCONTACTLASTNAME")
+            End If
+            If IsDBNull(dr("STRCONTACTADDRESS1")) Then
+                txtAddress1.Text = ""
+            Else
+                txtAddress1.Text = dr("STRCONTACTADDRESS1")
+            End If
+            If IsDBNull(dr("STRCONTACTADDRESS2")) Then
+                txtAddress2.Text = ""
+            Else
+                txtAddress2.Text = dr("STRCONTACTADDRESS2")
+            End If
+            If IsDBNull(dr("STRCONTACTCITY")) Then
+                txtCity.Text = ""
+            Else
+                txtCity.Text = dr("STRCONTACTCITY")
+            End If
+            If IsDBNull(dr("STRCONTACTSTATE")) Then
+                txtState.Text = ""
+            Else
+                txtState.Text = dr("STRCONTACTSTATE")
+            End If
+            If IsDBNull(dr("STRCONTACTZIP")) Then
+                txtZip.Text = ""
+            Else
+                txtZip.Text = dr("STRCONTACTZIP")
+            End If
+            If IsDBNull(dr("STRCONTACTEMAIL")) Then
+                txtEmail.Text = ""
+            Else
+                txtEmail.Text = dr("STRCONTACTEMAIL")
+            End If
+            If IsDBNull(dr("DBLVOCEMISSION")) Then
+                txtVOCEmission.Text = ""
+            Else
+                txtVOCEmission.Text = dr("DBLVOCEMISSION")
+            End If
+            If IsDBNull(dr("DBLNOXEMISSION")) Then
+                txtNOXEmission.Text = ""
+            Else
+                txtNOXEmission.Text = dr("DBLNOXEMISSION")
+            End If
+            If IsDBNull(dr("STRCONFIRMATIONNBR")) Then
+                txtConfirmationNbr.Text = ""
+                txtConfirmationNumber.Text = ""
+            Else
+                txtConfirmationNbr.Text = dr("STRCONFIRMATIONNBR")
+                txtConfirmationNumber.Text = dr("STRCONFIRMATIONNBR")
+            End If
+            If IsDBNull(dr("STRDATEFIRSTCONFIRM")) Then
+                txtFirstConfirmedDate.Text = ""
+            Else
+                txtFirstConfirmedDate.Text = dr("STRDATEFIRSTCONFIRM")
+            End If
+        End If
     End Sub
+
     Private Sub dgvESDataCount_MouseUp1(sender As Object, e As MouseEventArgs) Handles dgvESDataCount.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvESDataCount.HitTest(e.X, e.Y)
 
         Try
-
-
             If dgvESDataCount.RowCount > 0 And hti.RowIndex <> -1 Then
                 If dgvESDataCount.Columns(0).HeaderText = "Airs No." Then
-                    If IsDBNull(dgvESDataCount(0, hti.RowIndex).Value) Then
-
-                    Else
+                    If Not IsDBNull(dgvESDataCount(0, hti.RowIndex).Value) Then
                         txtESAirsNo.Text = dgvESDataCount(0, hti.RowIndex).Value
-                    End If
-                Else
-                    If dgvESDataCount.Columns(0).HeaderText = "Airs No." Then
-                        If IsDBNull(dgvESDataCount(0, hti.RowIndex).Value) Then
-
-                        Else
-                            txtESAirsNo.Text = dgvESDataCount(0, hti.RowIndex).Value
-                        End If
-                    End If
-                End If
-                If dgvESDataCount.Columns(3).HeaderText = "Confirmation Number" Then
-                    If IsDBNull(dgvESDataCount(3, hti.RowIndex).Value) Then
-
-                    Else
-
-                        txtConfirmationNumber.Text = dgvESDataCount(3, hti.RowIndex).Value
-                        findESData()
-                    End If
-                Else
-                    If dgvESDataCount.Columns(3).HeaderText = "Confirmation Number" Then
-                        If IsDBNull(dgvESDataCount(3, hti.RowIndex).Value) Then
-
-                        Else
-                            findESData()
-                            txtConfirmationNumber.Text = dgvESDataCount(3, hti.RowIndex).Value
+                        If dgvESDataCount.Columns(3).HeaderText = "Confirmation Number" Then
+                            If Not IsDBNull(dgvESDataCount(3, hti.RowIndex).Value) Then
+                                txtConfirmationNumber.Text = dgvESDataCount(3, hti.RowIndex).Value
+                                findESData()
+                            End If
                         End If
                     End If
                 End If
             End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
+
     Private Sub lblViewMailOut_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewMailOut.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
 
@@ -599,17 +385,12 @@ Public Class SSCPEmissionSummaryTool
             "STRCONTACTZIPCODE, " &
             "STRCONTACTEMAIL " &
             "from esMailOut " &
-            "where STRESYEAR = '" & year & "' " &
+            "where STRESYEAR = @year " &
             "order by STRFACILITYNAME"
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            Dim dtViewCount As DataTable = DB.GetDataTable(SQL, New SqlParameter("@year", year))
+
+            dgvESDataCount.DataSource = dtViewCount
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -649,6 +430,7 @@ Public Class SSCPEmissionSummaryTool
         End Try
 
     End Sub
+
     Private Sub lblViewOptin_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewTotalOptin.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
@@ -656,24 +438,15 @@ Public Class SSCPEmissionSummaryTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
-            "esSchema.STRFACILITYNAME, " &
-            "esSchema.STRDATEFIRSTCONFIRM, " &
-            "esSchema.STRCONFIRMATIONNBR " &
-            "from esSchema, esmailout " &
-            "where esSchema.intESyear = '" & intYear & "' " &
-            "and esSchema.STROPTOUT = 'NO'" &
-            "and ESMAILOUT.STRAIRSYEAR (+)= ESSCHEMA.STRAIRSYEAR " &
-            "order by esSchema.STRFACILITYNAME"
+            SQL = "SELECT esSchema.STRAIRSNUMBER, esSchema.STRFACILITYNAME, esSchema.STRDATEFIRSTCONFIRM, esSchema.STRCONFIRMATIONNBR
+                FROM esSchema
+                LEFT JOIN esmailout ON esSchema.STRAIRSYEAR = esmailout.STRAIRSYEAR
+                WHERE esSchema.INTESYEAR = @intYear AND esSchema.STROPTOUT = 'NO'
+                ORDER BY esSchema.STRFACILITYNAME"
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            Dim dtView As DataTable = DB.GetDataTable(SQL, New SqlParameter("@intYear", intYear))
+
+            dgvESDataCount.DataSource = dtView
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -699,9 +472,8 @@ Public Class SSCPEmissionSummaryTool
         Finally
 
         End Try
-
-
     End Sub
+
     Private Sub lblViewOptOut_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewTotalOptOut.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
@@ -709,24 +481,15 @@ Public Class SSCPEmissionSummaryTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
-            "esSchema.STRFACILITYNAME, " &
-            "esSchema.STRDATEFIRSTCONFIRM, " &
-            "esSchema.STRCONFIRMATIONNBR " &
-            "from esSchema, esmailout  " &
-            "where esSchema.intESyear = '" & intYear & "' " &
-            "and ESMAILOUT.STRAIRSYEAR (+)= ESSCHEMA.STRAIRSYEAR " &
-            "and esSchema.STROPTOUT = 'YES'" &
-            "order by esSchema.STRFACILITYNAME"
+            SQL = "SELECT esSchema.STRAIRSNUMBER, esSchema.STRFACILITYNAME, esSchema.STRDATEFIRSTCONFIRM, esSchema.STRCONFIRMATIONNBR
+                FROM esSchema
+                LEFT JOIN esmailout ON esSchema.STRAIRSYEAR = esmailout.STRAIRSYEAR
+                WHERE esSchema.INTESYEAR = @intYear AND esSchema.STROPTOUT = 'YES'
+                ORDER BY esSchema.STRFACILITYNAME"
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            Dim dtView As DataTable = DB.GetDataTable(SQL, New SqlParameter("@intYear", intYear))
+
+            dgvESDataCount.DataSource = dtView
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -754,21 +517,19 @@ Public Class SSCPEmissionSummaryTool
 
         End Try
     End Sub
+
     Private Sub lblViewOutofcompliance_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewOutofcompliance.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
 
-            Dim year As String = txtESYear.Text
-            Dim intYear As Integer = Int(year)
             Dim DeadlineYear As String = txtESYear.Text
+            If DeadlineYear = "" Then DeadlineYear = "2007"
+            Dim deadlineDate As New Date(DeadlineYear, 6, 15)
 
-            Dim deadline As String = ""
-            If DeadlineYear <> "" Then
-                DeadlineYear = CInt(DeadlineYear) + 1
-                deadline = "15-Jun-" & DeadlineYear
-            Else
-                deadline = "15-Jun-2007"
-            End If
+            Dim params As SqlParameter() = {
+                New SqlParameter("@intYear", CInt(DeadlineYear)),
+                New SqlParameter("@deadline", deadlineDate)
+            }
 
             SQL = "SELECT esSchema.STRAIRSNUMBER, " &
             "esSchema.STRFACILITYNAME, " &
@@ -784,19 +545,14 @@ Public Class SSCPEmissionSummaryTool
             "esSchema.STRCONTACTEMAIL, " &
             "esSchema.STRCONTACTPHONENUMBER " &
             "from esSchema " &
-            "where intESyear = '" & intYear & "' " &
+            "where intESyear = @intYear " &
             "and esSchema.STRDATEFIRSTCONFIRM is not NULL " &
-            "and to_date(esSchema.STRDATEFIRSTCONFIRM) > '" & deadline & "' " &
+            "and cast(esSchema.STRDATEFIRSTCONFIRM as date) > @deadline " &
             "order by esSchema.STRFACILITYNAME"
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            Dim dtView As DataTable = DB.GetDataTable(SQL, params)
+
+            dgvESDataCount.DataSource = dtView
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -841,40 +597,33 @@ Public Class SSCPEmissionSummaryTool
 
         End Try
     End Sub
+
     Private Sub lblViewINCompliance_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewINCompliance.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
 
-            Dim year As String = txtESYear.Text
-            Dim intYear As Integer = Int(year)
             Dim DeadlineYear As String = txtESYear.Text
+            If DeadlineYear = "" Then DeadlineYear = "2007"
+            Dim deadlineDate As New Date(DeadlineYear, 6, 15)
 
-            Dim deadline As String = ""
-            If DeadlineYear <> "" Then
-                DeadlineYear = CInt(DeadlineYear) + 1
-                deadline = "15-Jun-" & DeadlineYear
-            Else
-                deadline = "15-Jun-2007"
-            End If
+            Dim params As SqlParameter() = {
+                New SqlParameter("@intYear", CInt(DeadlineYear)),
+                New SqlParameter("@deadline", deadlineDate)
+            }
 
             SQL = "SELECT esSchema.STRAIRSNUMBER, " &
             "esSchema.STRFACILITYNAME, " &
             "esSchema.STRDATEFIRSTCONFIRM, " &
             "esSchema.STRCONTACTPHONENUMBER " &
             "from esSchema " &
-            "where esSchema.intESyear = '" & intYear & "' " &
+            "where esSchema.intESyear = @intYear " &
              "and esSchema.STRDATEFIRSTCONFIRM is not NULL " &
-            "and to_date(esSchema.STRDATEFIRSTCONFIRM) <= '" & deadline & "' " &
+            "and cast(esSchema.STRDATEFIRSTCONFIRM as date) <= @deadline " &
             "order by esSchema.STRFACILITYNAME"
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            Dim dtView As DataTable = DB.GetDataTable(SQL, params)
+
+            dgvESDataCount.DataSource = dtView
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -914,17 +663,12 @@ Public Class SSCPEmissionSummaryTool
             "DBLNOXEMISSION, " &
             "STRDATEFIRSTCONFIRM " &
             "from esSchema " &
-            "where intESyear = '" & year & "' " &
+            "where intESyear = @year " &
             "order by STRFACILITYNAME"
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            Dim dtViewCount As DataTable = DB.GetDataTable(SQL, New SqlParameter("@year", year))
+
+            dgvESDataCount.DataSource = dtViewCount
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -956,27 +700,21 @@ Public Class SSCPEmissionSummaryTool
         End Try
 
     End Sub
+
     Private Sub lblViewNonResponse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewNonResponse.LinkClicked
         Try
 
             Dim year As String = cboYear.SelectedItem
 
-            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
-          "esSchema.STRFACILITYNAME " &
-          "from esMailOut, ESSCHEMA " &
-          "where esSchema.INTESYEAR = '" & year & "'" &
-          "and esSchema.strOPTOUT is NULL " &
-          "and esmailout.STRAIRSYEAR = ESSchema.STRAIRSYEAR(+) " &
-          "order by esMailOut.STRFACILITYNAME"
+            SQL = "SELECT ESSCHEMA.STRAIRSNUMBER, ESSCHEMA.STRFACILITYNAME
+                FROM esMailOut
+                LEFT JOIN ESSCHEMA ON esMailOut.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR
+                WHERE ESSCHEMA.INTESYEAR = @year AND ESSCHEMA.STROPTOUT IS NULL
+                ORDER BY esMailOut.STRFACILITYNAME"
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            Dim dtViewCount As DataTable = DB.GetDataTable(SQL, New SqlParameter("@year", year))
+
+            dgvESDataCount.DataSource = dtViewCount
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1001,38 +739,24 @@ Public Class SSCPEmissionSummaryTool
 
         End Try
     End Sub
+
     Private Sub lblextraResponse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblextraResponse.LinkClicked
         Try
 
             Dim year As String = txtESYear.Text
             Dim intyear As Integer = Int(year)
 
-            SQL = "SELECT dt_NotInMailout.SchemaAIRS, esSchema.STRAIRSNUMBER, " &
-            "esSchema.STRFACILITYNAME, " &
-            "esSchema.STRCONTACTFIRSTNAME, " &
-            "esSchema.STRCONTACTLASTNAME, " &
-            "esSchema.STRCONTACTCOMPANY, " &
-            "esSchema.STRCONTACTEMAIL, " &
-            "esSchema.STRCONTACTPHONENUMBER " &
-            "from (Select ESSCHEMA.STRAIRSNUMBER AS SchemaAIRS, " &
-            "ESMAILOUT.STRAIRSNUMBER AS MailoutAIRS" &
-            " From ESMailout, ESSCHEMA" &
-            " Where ESMAILOUT.STRAIRSYEAR (+)= ESSCHEMA.STRAIRSYEAR " &
-            "AND INTESYEAR=  '" & intyear & "' " &
-            "AND ESSCHEMA.STROPTOUT IS NOT NULL) " &
-            "dt_NotInMailout, " &
-            "ESSCHEMA " &
-            "Where ESSCHEMA.STRAIRSNUMBER = SchemaAIRS " &
-            "AND MailoutAIRS is NULL"
+            SQL = "SELECT dt_NotInMailout.SchemaAIRS, ESSCHEMA.STRAIRSNUMBER, ESSCHEMA.STRFACILITYNAME, ESSCHEMA.STRCONTACTFIRSTNAME, ESSCHEMA.STRCONTACTLASTNAME, ESSCHEMA.STRCONTACTCOMPANY, ESSCHEMA.STRCONTACTEMAIL, ESSCHEMA.STRCONTACTPHONENUMBER
+                    FROM (SELECT ESSCHEMA.STRAIRSNUMBER AS SchemaAIRS, ESMailout.STRAIRSNUMBER AS MailoutAIRS
+                          FROM ESMailout
+                          RIGHT JOIN ESSCHEMA ON ESSCHEMA.STRAIRSYEAR = ESMailout.STRAIRSYEAR
+                          WHERE ESSCHEMA.INTESYEAR = @intyear AND ESSCHEMA.STROPTOUT IS NOT NULL) AS dt_NotInMailout
+                    INNER JOIN ESSCHEMA ON dt_NotInMailout.SchemaAIRS = ESSCHEMA.STRAIRSNUMBER
+                    WHERE dt_NotInMailout.MailoutAIRS IS NULL"
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            Dim dtView As DataTable = DB.GetDataTable(SQL, New SqlParameter("@intYear", intyear))
+
+            dgvESDataCount.DataSource = dtView
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1068,6 +792,7 @@ Public Class SSCPEmissionSummaryTool
 
         End Try
     End Sub
+
     Private Sub lblViewOptIn_LinkClicked_1(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewOptIn.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
@@ -1075,25 +800,15 @@ Public Class SSCPEmissionSummaryTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
-            "esSchema.STRFACILITYNAME, " &
-            "esSchema.STRDATEFIRSTCONFIRM, " &
-            "esSchema.STRCONFIRMATIONNBR " &
-            "from esSchema, esmailout " &
-            "where esSchema.intESyear = '" & intYear & "' " &
-            "and esSchema.STROPTOUT = 'NO'" &
-            "and ESMAILOUT.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR(+) " &
-            "and esSchema.STRDATEFIRSTCONFIRM is not NULL " &
-            "order by esSchema.STRFACILITYNAME"
+            SQL = "SELECT esSchema.STRAIRSNUMBER, esSchema.STRFACILITYNAME, esSchema.STRDATEFIRSTCONFIRM, esSchema.STRCONFIRMATIONNBR
+                FROM esSchema
+                RIGHT JOIN esmailout ON esmailout.STRAIRSYEAR = esSchema.STRAIRSYEAR
+                WHERE esSchema.STRDATEFIRSTCONFIRM IS NOT NULL AND esSchema.INTESYEAR = @intYear AND esSchema.STROPTOUT = 'NO'
+                ORDER BY esSchema.STRFACILITYNAME"
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            Dim dtView As DataTable = DB.GetDataTable(SQL, New SqlParameter("@intYear", intYear))
+
+            dgvESDataCount.DataSource = dtView
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1120,6 +835,7 @@ Public Class SSCPEmissionSummaryTool
 
         End Try
     End Sub
+
     Private Sub lblViewOptOut_LinkClicked_1(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewOptOut.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
@@ -1127,25 +843,15 @@ Public Class SSCPEmissionSummaryTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
-            "esSchema.STRFACILITYNAME, " &
-            "esSchema.STRDATEFIRSTCONFIRM, " &
-            "esSchema.STRCONFIRMATIONNBR " &
-            "from esSchema, esmailout " &
-            "where esSchema.intESyear = '" & intYear & "' " &
-            "and esSchema.STROPTOUT = 'YES'" &
-            " and ESMAILOUT.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR(+) " &
-            "and esSchema.STRDATEFIRSTCONFIRM is not NULL " &
-            "order by esSchema.STRFACILITYNAME"
+            SQL = "SELECT esSchema.STRAIRSNUMBER, esSchema.STRFACILITYNAME, esSchema.STRDATEFIRSTCONFIRM, esSchema.STRCONFIRMATIONNBR
+                FROM esSchema
+                RIGHT JOIN esmailout ON esSchema.STRAIRSYEAR = esmailout.STRAIRSYEAR
+                WHERE esSchema.STRDATEFIRSTCONFIRM IS NOT NULL AND esSchema.INTESYEAR = @intYear AND esSchema.STROPTOUT = 'YES'
+                ORDER BY esSchema.STRFACILITYNAME"
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            Dim dtView As DataTable = DB.GetDataTable(SQL, New SqlParameter("@intYear", intYear))
+
+            dgvESDataCount.DataSource = dtView
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1172,6 +878,7 @@ Public Class SSCPEmissionSummaryTool
 
         End Try
     End Sub
+
     Private Sub lblViewExtraOptOut_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewExtraOptOut.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
@@ -1179,29 +886,17 @@ Public Class SSCPEmissionSummaryTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
-            "esSchema.STRFACILITYNAME, " &
-            "esSchema.STRDATEFIRSTCONFIRM, " &
-            "esSchema.STRCONFIRMATIONNBR " &
-            "from (select esSchema.strairsyear as SchemaAIRS, " &
-            "esmailout.strairsyear as MailoutAIRS " &
-            "From ESMailout, ESSCHEMA " &
-            "where ESMAILOUT.STRAIRSYEAR (+)= ESSCHEMA.STRAIRSYEAR " &
-            "and esSchema.intESyear = '" & intYear & "' " &
-            "and ESSCHEMA.STROPTOUT IS NOT NULL) " &
-            "dt_NotInMailout, ESSCHEMA " &
-            "Where ESSCHEMA.STRAIRSYEAR = SchemaAIRS " &
-            "and MailoutAIRS is NULL " &
-            "and ESSCHEMA.STROPTOUT='YES'"
+            SQL = "SELECT ESSCHEMA.STRAIRSNUMBER, ESSCHEMA.STRFACILITYNAME, ESSCHEMA.STRDATEFIRSTCONFIRM, ESSCHEMA.STRCONFIRMATIONNBR
+                FROM (SELECT ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, ESMailout.STRAIRSYEAR AS MailoutAIRS
+                      FROM ESMailout
+                      RIGHT JOIN ESSCHEMA ON ESMailout.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR
+                      WHERE ESSCHEMA.INTESYEAR = @intYear AND ESSCHEMA.STROPTOUT IS NOT NULL) AS dt_NotInMailout
+                INNER JOIN ESSCHEMA ON dt_NotInMailout.SchemaAIRS = ESSCHEMA.STRAIRSYEAR
+                WHERE dt_NotInMailout.MailoutAIRS IS NULL AND ESSCHEMA.STROPTOUT = 'YES'"
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            Dim dtView As DataTable = DB.GetDataTable(SQL, New SqlParameter("@intYear", intYear))
+
+            dgvESDataCount.DataSource = dtView
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1228,6 +923,7 @@ Public Class SSCPEmissionSummaryTool
 
         End Try
     End Sub
+
     Private Sub lblViewExtraOptIn_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewExtraOptIn.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
@@ -1235,30 +931,17 @@ Public Class SSCPEmissionSummaryTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
-            "esSchema.STRFACILITYNAME, " &
-            "esSchema.STRDATEFIRSTCONFIRM, " &
-            "esSchema.STRCONFIRMATIONNBR " &
-            "from (select esSchema.strairsyear as SchemaAIRS, " &
-            "esmailout.strairsyear as MailoutAIRS " &
-            "From ESMailout, ESSCHEMA " &
-            "where ESMAILOUT.STRAIRSYEAR (+)= ESSCHEMA.STRAIRSYEAR " &
-            "and esSchema.intESyear = '" & intYear & "' " &
-            "and ESSCHEMA.STROPTOUT IS NOT NULL) " &
-            "dt_NotInMailout, ESSCHEMA " &
-            "Where ESSCHEMA.STRAIRSYEAR = SchemaAIRS " &
-            "and MailoutAIRS is NULL " &
-            "and ESSCHEMA.STROPTOUT='NO'"
+            SQL = "SELECT ESSCHEMA.STRAIRSNUMBER, ESSCHEMA.STRFACILITYNAME, ESSCHEMA.STRDATEFIRSTCONFIRM, ESSCHEMA.STRCONFIRMATIONNBR
+                FROM (SELECT ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, ESMailout.STRAIRSYEAR AS MailoutAIRS
+                      FROM ESMailout
+                      RIGHT JOIN ESSCHEMA ON ESMailout.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR
+                      WHERE ESSCHEMA.INTESYEAR = @intYear AND ESSCHEMA.STROPTOUT IS NOT NULL) AS dt_NotInMailout
+                INNER JOIN ESSCHEMA ON dt_NotInMailout.SchemaAIRS = ESSCHEMA.STRAIRSYEAR
+                WHERE dt_NotInMailout.MailoutAIRS IS NULL AND ESSCHEMA.STROPTOUT = 'NO'"
 
+            Dim dtView As DataTable = DB.GetDataTable(SQL, New SqlParameter("@intYear", intYear))
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            dgvESDataCount.DataSource = dtView
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1286,6 +969,7 @@ Public Class SSCPEmissionSummaryTool
         End Try
 
     End Sub
+
     Private Sub lblViewTotalResponse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewTotalResponse.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
@@ -1301,18 +985,13 @@ Public Class SSCPEmissionSummaryTool
             "esSchema.STRCONTACTEMAIL, " &
             "esSchema.STRCONTACTPHONENUMBER " &
             "from esSchema " &
-            "where esSchema.intESyear = '" & intYear & "' " &
+            "where esSchema.intESyear = @intYear " &
             "and esSchema.STROPTOUT is not NULL " &
             "order by esSchema.STRFACILITYNAME"
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            Dim dtView As DataTable = DB.GetDataTable(SQL, New SqlParameter("@intYear", intYear))
+
+            dgvESDataCount.DataSource = dtView
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1385,9 +1064,11 @@ Public Class SSCPEmissionSummaryTool
 
         End Try
     End Sub
+
     Private Sub btnoutofcomplianceExport_Click(sender As Object, e As EventArgs) Handles btnoutofcomplianceExport.Click
         dgvESDataCount.ExportToExcel(Me)
     End Sub
+
     Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
         Try
             If txtFACILITYNAME.Text = "" Then
