@@ -53,9 +53,9 @@
 
     Private Sub FocusLogin()
         If txtUserID.Text = "" Then
-            If txtUserID.Enabled Then txtUserID.Focus()
+            If txtUserID.Enabled Then txtUserID.Select()
         Else
-            If txtUserPassword.Enabled Then txtUserPassword.Focus()
+            If txtUserPassword.Enabled Then txtUserPassword.Select()
         End If
     End Sub
 
@@ -96,17 +96,21 @@
     Private Function CheckDBAvailability() As Boolean
         If DAL.AppIsEnabled Then
             EnableLogin()
+            RetryButton.Visible = False
             Return True
         Else
-            DisableLogin("The IAIP is currently unavailable. Please check " &
-                         "back later. If you are working remotely, you must " &
-                         "connect to the VPN before using the IAIP. " &
-                         "If you continue to see this message after " &
-                         "two hours, please inform the Data Management Unit. " &
-                         "Thank you.")
+            DisableLogin("Can't connect. Please check your Internet " &
+                         "connection. If you are working remotely, you must " &
+                         "connect to the VPN before using the IAIP. ")
+            RetryButton.Visible = True
+            RetryButton.Select()
             Return False
         End If
     End Function
+
+    Private Sub RetryButton_Click(sender As Object, e As EventArgs) Handles RetryButton.Click
+        CheckDBAvailability()
+    End Sub
 
 #End Region
 
@@ -341,11 +345,11 @@
 #Region " Form usability "
 
     Private Sub lblUserID_Click(sender As Object, e As EventArgs) Handles lblUserID.Click
-        txtUserID.Focus()
+        txtUserID.Select()
     End Sub
 
     Private Sub lblPassword_Click(sender As Object, e As EventArgs) Handles lblPassword.Click
-        txtUserPassword.Focus()
+        txtUserPassword.Select()
     End Sub
 
 #End Region

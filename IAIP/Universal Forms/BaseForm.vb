@@ -6,8 +6,7 @@ Public Class BaseForm
 
     Public Property ID() As Integer
     Public Property Parameters() As Dictionary(Of FormParameter, String)
-    Private whenOpened As Date = Date.Now
-    
+
     Public Enum FormParameter
         AirsNumber
         FeeYear
@@ -17,12 +16,11 @@ Public Class BaseForm
         Key
     End Enum
 
-
 #End Region
 
 #Region "Form events"
 
-    Private Sub BaseForm_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
+    Private Sub BaseForm_Load(sender As Object, e As EventArgs) Handles Me.Load
 
 #If SqlServer Then
         Me.Icon = My.Resources.SSTestIcon
@@ -71,12 +69,12 @@ Public Class BaseForm
         End If
 
         If Me.WindowState = FormWindowState.Normal AndAlso Me.SizeGripStyle <> SizeGripStyle.Hide Then
-            Dim pointConverter As System.ComponentModel.TypeConverter =
-                System.ComponentModel.TypeDescriptor.GetConverter(GetType(Point))
+            Dim pointConverter As ComponentModel.TypeConverter =
+                ComponentModel.TypeDescriptor.GetConverter(GetType(Point))
             formSettings(FormSetting.Location.ToString) = pointConverter.ConvertToString(Me.Location)
 
-            Dim sizeConverter As System.ComponentModel.TypeConverter =
-                System.ComponentModel.TypeDescriptor.GetConverter(GetType(Size))
+            Dim sizeConverter As ComponentModel.TypeConverter =
+                ComponentModel.TypeDescriptor.GetConverter(GetType(Size))
             formSettings(FormSetting.Size.ToString) = sizeConverter.ConvertToString(Me.Size)
         End If
 
@@ -97,8 +95,8 @@ Public Class BaseForm
         End If
 
         If thisFormSettings.ContainsKey(FormSetting.Location.ToString) Then
-            Dim pointConverter As System.ComponentModel.TypeConverter = _
-                System.ComponentModel.TypeDescriptor.GetConverter(GetType(Point))
+            Dim pointConverter As ComponentModel.TypeConverter =
+                ComponentModel.TypeDescriptor.GetConverter(GetType(Point))
             Dim p As Point = pointConverter.ConvertFromString(thisFormSettings(FormSetting.Location.ToString))
             ' Don't move form off screen
             If Not PointIsOnAConnectedScreen(p) Then p = New Point(0, 0)
@@ -106,8 +104,8 @@ Public Class BaseForm
         End If
 
         If thisFormSettings.ContainsKey(FormSetting.Size.ToString) Then
-            Dim sizeConverter As System.ComponentModel.TypeConverter = _
-                System.ComponentModel.TypeDescriptor.GetConverter(GetType(Size))
+            Dim sizeConverter As ComponentModel.TypeConverter =
+                ComponentModel.TypeDescriptor.GetConverter(GetType(Size))
             Dim s As Size = sizeConverter.ConvertFromString(thisFormSettings(FormSetting.Size.ToString))
             s.Width = Math.Max(s.Width, Me.MinimumSize.Width)
             s.Height = Math.Max(s.Height, Me.MinimumSize.Height)
@@ -120,7 +118,7 @@ Public Class BaseForm
     ''' </summary>
     ''' <param name="pt">The System.Drawing.Point to test</param>
     ''' <returns>True if the Point is located within the bounds of a connected screen; otherwise, false.</returns>
-    Private Function PointIsOnAConnectedScreen(ByVal pt As Point) As Boolean
+    Private Function PointIsOnAConnectedScreen(pt As Point) As Boolean
         For Each s As Screen In Screen.AllScreens
             If s.Bounds.Contains(pt) Then
                 Return True
@@ -136,10 +134,10 @@ Public Class BaseForm
     ''' <returns>True if the form is reasonably located within the bounds of a connected screen; otherwise, false.</returns>
     ''' <remarks>Analyzes upper-left coordinates of form and also a point some reasonable distance 
     ''' from the upper-left, based on the minimum form width and height (set in subMain)</remarks>
-    Private Function FormIsOnAConnectedScreen(ByVal pt As Point) As Boolean
+    Private Function FormIsOnAConnectedScreen(pt As Point) As Boolean
         ' First, check if upper-left corner of form is on a screen
         ' Then, check if a point some reasonable distance from upper-left corner of form is on a screen
-        If PointIsOnAConnectedScreen(pt) AndAlso _
+        If PointIsOnAConnectedScreen(pt) AndAlso
         PointIsOnAConnectedScreen(New Point(pt.X + Me.MinimumSize.Width / 2, pt.Y + Me.MinimumSize.Height / 2)) Then
             Return True
         End If

@@ -51,6 +51,7 @@ Partial Class IAIPLogIn
         Me.lblGeneralMessage = New System.Windows.Forms.Label()
         Me.ForgotUsernameLink = New System.Windows.Forms.LinkLabel()
         Me.ForgotPasswordLink = New System.Windows.Forms.LinkLabel()
+        Me.RetryButton = New System.Windows.Forms.Button()
         CType(Me.LogoBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -170,7 +171,7 @@ Partial Class IAIPLogIn
         '
         Me.lblCurrentVersionMessage.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblCurrentVersionMessage.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.lblCurrentVersionMessage.Location = New System.Drawing.Point(26, 377)
+        Me.lblCurrentVersionMessage.Location = New System.Drawing.Point(26, 369)
         Me.lblCurrentVersionMessage.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblCurrentVersionMessage.Name = "lblCurrentVersionMessage"
         Me.lblCurrentVersionMessage.Size = New System.Drawing.Size(259, 36)
@@ -182,7 +183,7 @@ Partial Class IAIPLogIn
         'lblLicenseLabel
         '
         Me.lblLicenseLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLicenseLabel.Location = New System.Drawing.Point(26, 327)
+        Me.lblLicenseLabel.Location = New System.Drawing.Point(26, 314)
         Me.lblLicenseLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblLicenseLabel.Name = "lblLicenseLabel"
         Me.lblLicenseLabel.Size = New System.Drawing.Size(259, 36)
@@ -270,13 +271,13 @@ Partial Class IAIPLogIn
         '
         Me.lblGeneralMessage.AutoSize = True
         Me.lblGeneralMessage.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGeneralMessage.Location = New System.Drawing.Point(332, 309)
+        Me.lblGeneralMessage.Location = New System.Drawing.Point(332, 314)
         Me.lblGeneralMessage.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblGeneralMessage.MaximumSize = New System.Drawing.Size(382, 96)
         Me.lblGeneralMessage.Name = "lblGeneralMessage"
-        Me.lblGeneralMessage.Size = New System.Drawing.Size(163, 72)
+        Me.lblGeneralMessage.Size = New System.Drawing.Size(163, 54)
         Me.lblGeneralMessage.TabIndex = 38
-        Me.lblGeneralMessage.Text = "Message Placeholder 1" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "4"
+        Me.lblGeneralMessage.Text = "Message Placeholder 1" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3"
         Me.lblGeneralMessage.Visible = False
         '
         'ForgotUsernameLink
@@ -305,12 +306,24 @@ Partial Class IAIPLogIn
         Me.ForgotPasswordLink.Text = "Forgot Password?"
         Me.ForgotPasswordLink.Visible = False
         '
+        'RetryButton
+        '
+        Me.RetryButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RetryButton.Location = New System.Drawing.Point(335, 371)
+        Me.RetryButton.Name = "RetryButton"
+        Me.RetryButton.Size = New System.Drawing.Size(99, 31)
+        Me.RetryButton.TabIndex = 41
+        Me.RetryButton.Text = "Try again"
+        Me.RetryButton.UseVisualStyleBackColor = True
+        Me.RetryButton.Visible = False
+        '
         'IAIPLogIn
         '
         Me.AcceptButton = Me.btnLoginButton
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(742, 414)
+        Me.Controls.Add(Me.RetryButton)
         Me.Controls.Add(Me.ForgotPasswordLink)
         Me.Controls.Add(Me.ForgotUsernameLink)
         Me.Controls.Add(Me.LogoBox)
@@ -371,4 +384,5 @@ Partial Class IAIPLogIn
     Friend WithEvents ForgotPasswordLink As LinkLabel
     Friend WithEvents ForgotUsernameLink As LinkLabel
     Friend WithEvents mmiPasswordReset As MenuItem
+    Friend WithEvents RetryButton As Button
 End Class

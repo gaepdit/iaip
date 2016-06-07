@@ -17,6 +17,7 @@ Public Class SharedData
         AllComplianceStaff
         IaipAccountRoles
         AllFeeFacilities
+        EpdManagers
     End Enum
 
     ''' <summary>
@@ -64,6 +65,9 @@ Public Class SharedData
                 Case SharedTable.AllFeeFacilities
                     dt = DAL.GetAllFeeFacilities
                     dt.PrimaryKey = New DataColumn() {dt.Columns("STRAIRSNUMBER")}
+
+                Case SharedTable.EpdManagers
+                    dt = DAL.GetEpdManagersAsDataTable
 
             End Select
 
@@ -190,6 +194,22 @@ Public Class SharedData
 
         Return _dictDictionary(lookupDictionary)
     End Function
+
+#End Region
+
+#Region " Public functions for clearing shared data "
+
+    Public Shared Sub ClearSharedData(table As SharedTable)
+        If _tDictionary.ContainsKey(table) Then _tDictionary.Remove(table)
+    End Sub
+
+    Public Shared Sub ClearSharedData(dataSet As SharedDataSet)
+        If _dsDictionary.ContainsKey(dataSet) Then _dsDictionary.Remove(dataSet)
+    End Sub
+
+    Public Shared Sub ClearSharedData(keyValueList As SharedKeyValueList)
+        If _kvlDictionary.ContainsKey(keyValueList) Then _kvlDictionary.Remove(keyValueList)
+    End Sub
 
 #End Region
 

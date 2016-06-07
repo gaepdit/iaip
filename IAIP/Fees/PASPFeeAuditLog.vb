@@ -3880,8 +3880,8 @@ Public Class PASPFeeAuditLog
     Private Sub btnGenerateInvoice_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewPrintableInvoice.Click
         Try
             Dim rpt As New ReportClass
-            Dim Director As String = ""
-            Dim Commissioner As String = ""
+            Dim Director As String = DAL.GetEpdManagerName(DAL.EpdManagementTypes.EpdDirector)
+            Dim Commissioner As String = DAL.GetEpdManagerName(DAL.EpdManagementTypes.DnrCommissioner)
             Dim TotalEmissionFees As String = ""
             Dim InvoiceDate As String = ""
             Dim PayType As String = ""
@@ -3899,45 +3899,6 @@ Public Class PASPFeeAuditLog
                 MsgBox("Please select an existing invoice to Print.", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
             End If
-            SQL = "Select " &
-             "strManagementName from " &
-             "LookUpAPBManagementType " &
-             "where strCurrentContact = '1' " &
-             "and strKey = '1' "
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strManagementName")) Then
-                    Director = ""
-                Else
-                    Director = dr.Item("strManagementName")
-                End If
-            End While
-            dr.Close()
-
-            SQL = "Select " &
-            "strManagementName from " &
-            "LookUpAPBManagementType " &
-            "where strCurrentContact = '1' " &
-            "and strKey = '2' "
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strManagementName")) Then
-                    Commissioner = ""
-                Else
-                    Commissioner = dr.Item("strManagementName")
-                End If
-            End While
-            dr.Close()
 
             SQL = "Select " &
             "numAmount, datInvoiceDate, " &
