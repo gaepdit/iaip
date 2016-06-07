@@ -1,5 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Imports Iaip.SharedData
+Imports EpdIt.DBUtilities
 
 Namespace DAL
     Module Organization
@@ -39,8 +40,8 @@ Namespace DAL
         End Function
 
         Public Function GetEpdManagersAsDataTable() As DataTable
-            Dim query As String = "SELECT STRKEY AS ""Role"", STRMANAGEMENTNAME AS ""Name"" " &
-                "FROM AIRBRANCH.LOOKUPAPBMANAGEMENTTYPE WHERE STRCURRENTCONTACT = 'C'"
+            Dim query As String = "SELECT STRKEY AS Role, STRMANAGEMENTNAME AS Name " &
+                "FROM LOOKUPAPBMANAGEMENTTYPE WHERE STRCURRENTCONTACT = 'C'"
             Dim dt As DataTable = DB.GetDataTable(query)
             dt.PrimaryKey = New DataColumn() {dt.Columns("Role")}
             Return dt
@@ -52,7 +53,7 @@ Namespace DAL
             If dr Is Nothing Then
                 Return " "
             Else
-                Return DB.GetNullable(Of String)(dr("Name"))
+                Return GetNullable(Of String)(dr("Name"))
             End If
         End Function
 
@@ -65,7 +66,7 @@ Namespace DAL
                 result = SaveNewEpdManagerName(role, name)
                 ClearSharedData(SharedTable.EpdManagers)
             Else
-                If DB.GetNullable(Of String)(dr("Name")) = name Then
+                If GetNullable(Of String)(dr("Name")) = name Then
                     result = True
                 Else
                     result = UpdateEpdManagerName(role, name)
@@ -77,21 +78,21 @@ Namespace DAL
         End Function
 
         Private Function SaveNewEpdManagerName(role As EpdManagementTypes, name As String) As Boolean
-            Dim query As String = "INSERT INTO AIRBRANCH.LOOKUPAPBMANAGEMENTTYPE " &
+            Dim query As String = "INSERT INTO LOOKUPAPBMANAGEMENTTYPE " &
                 " ( NUMID, STRKEY, STRMANAGEMENTNAME, STRCURRENTCONTACT) " &
-                "  VALUES ( (SELECT MAX (NUMID) + 1 FROM AIRBRANCH.LOOKUPAPBMANAGEMENTTYPE), :prole, :pname, 'C')"
-            Dim params As OracleParameter() = {
-                New OracleParameter("prole", role.ToString),
-                New OracleParameter("pname", name)
+                "  VALUES ( (SELECT MAX (NUMID) + 1 FROM LOOKUPAPBMANAGEMENTTYPE), @prole, @pname, 'C')"
+            Dim params As SqlParameter() = {
+                New SqlParameter("@prole", role.ToString),
+                New SqlParameter("@pname", name)
             }
             Return DB.RunCommand(query, params)
         End Function
 
         Private Function UpdateEpdManagerName(role As EpdManagementTypes, name As String) As Boolean
-            Dim query As String = "UPDATE AIRBRANCH.LOOKUPAPBMANAGEMENTTYPE SET STRMANAGEMENTNAME = :pname WHERE STRKEY = :prole"
-            Dim params As OracleParameter() = {
-                New OracleParameter("prole", role.ToString),
-                New OracleParameter("pname", name)
+            Dim query As String = "UPDATE LOOKUPAPBMANAGEMENTTYPE SET STRMANAGEMENTNAME = @pname WHERE STRKEY = @prole"
+            Dim params As SqlParameter() = {
+                New SqlParameter("@prole", role.ToString),
+                New SqlParameter("@pname", name)
             }
             Return DB.RunCommand(query, params)
         End Function

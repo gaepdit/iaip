@@ -207,10 +207,6 @@ Public Class SharedData
         If _dsDictionary.ContainsKey(dataSet) Then _dsDictionary.Remove(dataSet)
     End Sub
 
-    Public Shared Sub ClearSharedData(keyValueList As SharedKeyValueList)
-        If _kvlDictionary.ContainsKey(keyValueList) Then _kvlDictionary.Remove(keyValueList)
-    End Sub
-
 #End Region
 
 End Class
