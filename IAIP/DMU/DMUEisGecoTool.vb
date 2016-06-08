@@ -1,6 +1,7 @@
 ﻿Imports System.Data.SqlClient
 Imports Iaip.Apb.Facilities
 Imports EpdIt
+Imports System.Linq
 
 Public Class DMUEisGecoTool
     Dim SQL, SQL2 As String
@@ -15,23 +16,16 @@ Public Class DMUEisGecoTool
     Dim daViewCount As SqlDataAdapter
 
     Private Sub DMUEisGecoTool_Load(sender As Object, e As EventArgs) Handles Me.Load
-
-        Try
-
-            LoadPermissions()
-            loadYear()
-            loadMailOutYear()
-            loadESEnrollmentYear()
-            loadcboEISstatusCodes()
-            FormatWebUsers()
-            LoadEISLog()
-            LoadStats()
-            LoadEISYear()
-            LoadOperStatus()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        LoadPermissions()
+        loadYear()
+        loadMailOutYear()
+        loadESEnrollmentYear()
+        loadcboEISstatusCodes()
+        FormatWebUsers()
+        LoadEISLog()
+        LoadStats()
+        LoadEISYear()
+        LoadOperStatus()
     End Sub
 
 #Region "Page Load"
@@ -41,84 +35,45 @@ Public Class DMUEisGecoTool
         cbEisModifyOperStatus.BindToDictionary(EisSiteStatusCodeDescriptions)
     End Sub
 
-    Sub LoadPermissions()
-        Try
-            TCDMUTools.TabPages.Remove(TPFeeTools)
+    Private Sub LoadPermissions()
+        If AccountFormAccess(130, 3) <> "1" And AccountFormAccess(130, 4) <> "1" Then
             TCDMUTools.TabPages.Remove(TPESTools)
-
-            If AccountFormAccess(130, 3) = "1" Or AccountFormAccess(130, 4) = "1" Then
-                TCDMUTools.TabPages.Add(TPESTools)
-                TCDMUTools.TabPages.Add(TPFeeTools)
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+            TCDMUTools.TabPages.Remove(TPFeeTools)
+        End If
     End Sub
 
     Private Sub loadYear()
-        Dim year As String
+        Dim SQL As String = "Select " &
+        "distinct intESYear " &
+        "from esschema " &
+        "order by intESYear desc"
+        Dim dt As DataTable = DB.GetDataTable(SQL)
 
-        Try
-            SQL = "Select " &
-            "distinct intESYear " &
-            "from esschema " &
-            "order by intESYear desc"
+        For Each dr As DataRow In dt.Rows
+            cboYear.Items.Add(dr("intESYear"))
+        Next
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Read()
-            Do
-                year = dr("intESYear")
-                cboYear.Items.Add(year)
-
-            Loop While dr.Read
-            cboYear.SelectedIndex = 0
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        cboYear.SelectedIndex = 0
     End Sub
+
     Private Sub loadMailOutYear()
         'Load MailOut Year dropdown boxes
-        Dim year As Integer
-        Dim SQL As String
+        Dim SQL As String = "Select distinct STRESYEAR " &
+            "from esmailout " &
+            "order by STRESYEAR desc"
+        Dim dt As DataTable = DB.GetDataTable(SQL)
 
-        Try
-            If CurrentConnection.State = ConnectionState.Open Then
-            Else
-                CurrentConnection.Open()
-            End If
+        Dim maxYear As Integer = Convert.ToInt32(dt.AsEnumerable().Max(Function(row) Convert.ToInt32(row("STRESYEAR")))) + 1
+        cboMailoutYear.Items.Add(maxYear.ToString)
 
-            SQL = "Select distinct STRESYEAR " &
-                  "from esmailout " &
-                  "order by STRESYEAR desc"
-            Dim cmd As New SqlCommand(SQL, CurrentConnection)
+        For Each dr As DataRow In dt.Rows
+            cboMailoutYear.Items.Add(dr("STRESYEAR"))
+        Next
 
-            Dim dr As SqlDataReader = cmd.ExecuteReader()
-            dr.Read()
-            year = dr("STRESYEAR") + 1
-            cboMailoutYear.Items.Add(year)
-            Do
-                year = dr("STRESYEAR")
-                cboMailoutYear.Items.Add(year)
-            Loop While dr.Read
-            cboMailoutYear.SelectedIndex = 0
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        cboMailoutYear.SelectedIndex = 0
     End Sub
-    Sub FormatWebUsers()
+
+    Private Sub FormatWebUsers()
         Try
             dgvUsers.RowHeadersVisible = False
             dgvUsers.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -196,244 +151,191 @@ Public Class DMUEisGecoTool
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadEISLog()
-        Try
-            Dim dtQAStatus As New DataTable
-            Dim drDSRow As DataRow
-            Dim drNewRow As DataRow
 
-            SQL = "Select distinct(inventoryYear) as InvYear " &
+    Private Sub LoadEISLog()
+        Dim SQL As String = "Select distinct(inventoryYear) as InvYear " &
             "from EIS_Admin " &
             "order by invYear desc "
+        Dim dt As DataTable = DB.GetDataTable(SQL)
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("InvYear")) Then
-                Else
-                    cboEILogYear.Items.Add(dr.Item("InvYear"))
-                    cboEISStatisticsYear.Items.Add(dr.Item("InvYear"))
-                End If
-            End While
-            dr.Close()
+        For Each dr As DataRow In dt.Rows
+            cboEILogYear.Items.Add(dr.Item("InvYear"))
+            cboEISStatisticsYear.Items.Add(dr.Item("InvYear"))
+        Next
 
-            SQL = "select distinct strDMUResponsibleStaff as DMUStafff " &
+        SQL = "select distinct strDMUResponsibleStaff as DMUStafff " &
             "from EIS_QAAdmin " &
             "union " &
-            "select distinct (strLastName ||', '|| strFirstName) as DMUStafff " &
+            "select distinct (strLastName +', '+ strFirstName) as DMUStafff " &
             "from EPDUserProfiles " &
             "where numBranch = '1' " &
             "and numProgram = '3' " &
             "and numunit = '14' " &
-            "and numEmployeeStatus = '1'  "
+            "and numEmployeeStatus = '1' "
+        dt = DB.GetDataTable(SQL)
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                cboEISQAStaff.Items.Add(dr.Item("DMUStafff"))
-            End While
-            dr.Close()
+        For Each dr As DataRow In dt.Rows
+            cboEISQAStaff.Items.Add(dr.Item("DMUStafff"))
+        Next
 
-            SQL = "Select " &
+        SQL = "Select " &
+            " '' as QAStatusCode, '' as strDesc " &
+            " union Select " &
             "QAStatusCode, strDesc " &
             "From EISLK_QAStatus " &
-            "Where active = '1' " &
-            "order by UpdateDateTime  "
+            "Where active = '1' "
+        Dim dtQAStatus As DataTable = DB.GetDataTable(SQL)
 
-            ds = New DataSet
-
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            da.Fill(ds, "QAStatus")
-
-            dtQAStatus.Columns.Add("QAStatusCode", GetType(System.String))
-            dtQAStatus.Columns.Add("strDesc", GetType(System.String))
-
-            drNewRow = dtQAStatus.NewRow()
-            drNewRow("QAStatusCode") = ""
-            drNewRow("strDesc") = ""
-            dtQAStatus.Rows.Add(drNewRow)
-
-            For Each drDSRow In ds.Tables("QAStatus").Rows()
-                drNewRow = dtQAStatus.NewRow()
-                drNewRow("QAStatusCode") = drDSRow("QAStatusCode")
-                drNewRow("strDesc") = drDSRow("strDesc")
-                dtQAStatus.Rows.Add(drNewRow)
-            Next
-
-            With cboEISQAStatus
-                .DataSource = dtQAStatus
-                .DisplayMember = "strDesc"
-                .ValueMember = "QAStatusCode"
-                .SelectedIndex = 0
-            End With
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        With cboEISQAStatus
+            .DataSource = dtQAStatus
+            .DisplayMember = "strDesc"
+            .ValueMember = "QAStatusCode"
+            .SelectedIndex = 0
+        End With
     End Sub
-    Sub LoadStats()
-        Try
-            dgvEISStats.RowHeadersVisible = False
-            dgvEISStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvEISStats.AllowUserToResizeColumns = True
-            dgvEISStats.AllowUserToAddRows = False
-            dgvEISStats.AllowUserToDeleteRows = False
-            dgvEISStats.AllowUserToOrderColumns = True
-            dgvEISStats.AllowUserToResizeRows = True
-            dgvEISStats.ColumnHeadersHeight = "35"
 
-            Dim colSelect As New DataGridViewCheckBoxColumn
-            dgvEISStats.Columns.Add(colSelect)
-            dgvEISStats.Columns(0).HeaderText = " "
-            dgvEISStats.Columns(0).Width = 50
+    Private Sub LoadStats()
+        dgvEISStats.RowHeadersVisible = False
+        dgvEISStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+        dgvEISStats.AllowUserToResizeColumns = True
+        dgvEISStats.AllowUserToAddRows = False
+        dgvEISStats.AllowUserToDeleteRows = False
+        dgvEISStats.AllowUserToOrderColumns = True
+        dgvEISStats.AllowUserToResizeRows = True
+        dgvEISStats.ColumnHeadersHeight = "35"
 
-            dgvEISStats.Columns.Add("FacilitySiteID", "AIRS No.")
-            dgvEISStats.Columns("FacilitySiteID").DisplayIndex = 1
-            dgvEISStats.Columns("FacilitySiteID").Visible = True
+        Dim colSelect As New DataGridViewCheckBoxColumn
+        dgvEISStats.Columns.Add(colSelect)
+        dgvEISStats.Columns(0).HeaderText = " "
+        dgvEISStats.Columns(0).Width = 50
 
-            dgvEISStats.Columns.Add("strFacilityName", "Facility Name")
-            dgvEISStats.Columns("strFacilityName").DisplayIndex = 2
-            dgvEISStats.Columns("strFacilityName").Width = 250
-            dgvEISStats.Columns("strFacilityName").ReadOnly = True
+        dgvEISStats.Columns.Add("FacilitySiteID", "AIRS No.")
+        dgvEISStats.Columns("FacilitySiteID").DisplayIndex = 1
+        dgvEISStats.Columns("FacilitySiteID").Visible = True
 
-            dgvEISStats.Columns.Add("InventoryYear", "EIS Year")
-            dgvEISStats.Columns("InventoryYear").DisplayIndex = 3
-            dgvEISStats.Columns("InventoryYear").Visible = True
+        dgvEISStats.Columns.Add("strFacilityName", "Facility Name")
+        dgvEISStats.Columns("strFacilityName").DisplayIndex = 2
+        dgvEISStats.Columns("strFacilityName").Width = 250
+        dgvEISStats.Columns("strFacilityName").ReadOnly = True
 
-            dgvEISStats.Columns.Add("EISStatus", "EIS Status")
-            dgvEISStats.Columns("EISStatus").DisplayIndex = 4
-            dgvEISStats.Columns("EISStatus").Visible = True
+        dgvEISStats.Columns.Add("InventoryYear", "EIS Year")
+        dgvEISStats.Columns("InventoryYear").DisplayIndex = 3
+        dgvEISStats.Columns("InventoryYear").Visible = True
 
-            dgvEISStats.Columns.Add("EISAccess", "EIS Access")
-            dgvEISStats.Columns("EISAccess").DisplayIndex = 5
-            dgvEISStats.Columns("EISAccess").Visible = True
+        dgvEISStats.Columns.Add("EISStatus", "EIS Status")
+        dgvEISStats.Columns("EISStatus").DisplayIndex = 4
+        dgvEISStats.Columns("EISStatus").Visible = True
 
-            dgvEISStats.Columns.Add("OptOut", "Opt Out")
-            dgvEISStats.Columns("OptOut").DisplayIndex = 6
-            dgvEISStats.Columns("OptOut").Visible = True
+        dgvEISStats.Columns.Add("EISAccess", "EIS Access")
+        dgvEISStats.Columns("EISAccess").DisplayIndex = 5
+        dgvEISStats.Columns("EISAccess").Visible = True
 
-            dgvEISStats.Columns.Add("MailOut", "Mailout")
-            dgvEISStats.Columns("MailOut").DisplayIndex = 7
-            dgvEISStats.Columns("MailOut").Visible = True
+        dgvEISStats.Columns.Add("OptOut", "Opt Out")
+        dgvEISStats.Columns("OptOut").DisplayIndex = 6
+        dgvEISStats.Columns("OptOut").Visible = True
 
-            dgvEISStats.Columns.Add("MailoutEmail", "Mailout Email")
-            dgvEISStats.Columns("MailoutEmail").DisplayIndex = 8
-            dgvEISStats.Columns("MailoutEmail").Visible = True
+        dgvEISStats.Columns.Add("MailOut", "Mailout")
+        dgvEISStats.Columns("MailOut").DisplayIndex = 7
+        dgvEISStats.Columns("MailOut").Visible = True
 
-            dgvEISStats.Columns.Add("strDMUResponsibleStaff", "QA Reviewer")
-            dgvEISStats.Columns("strDMUResponsibleStaff").DisplayIndex = 9
-            dgvEISStats.Columns("strDMUResponsibleStaff").Visible = True
+        dgvEISStats.Columns.Add("MailoutEmail", "Mailout Email")
+        dgvEISStats.Columns("MailoutEmail").DisplayIndex = 8
+        dgvEISStats.Columns("MailoutEmail").Visible = True
 
-            dgvEISStats.Columns.Add("Enrollment", "Enrollment")
-            dgvEISStats.Columns("Enrollment").DisplayIndex = 10
-            dgvEISStats.Columns("Enrollment").Visible = True
+        dgvEISStats.Columns.Add("strDMUResponsibleStaff", "QA Reviewer")
+        dgvEISStats.Columns("strDMUResponsibleStaff").DisplayIndex = 9
+        dgvEISStats.Columns("strDMUResponsibleStaff").Visible = True
 
-            dgvEISStats.Columns.Add("QASTATUS", "QA Status")
-            dgvEISStats.Columns("QASTATUS").DisplayIndex = 11
-            dgvEISStats.Columns("QASTATUS").Visible = True
+        dgvEISStats.Columns.Add("Enrollment", "Enrollment")
+        dgvEISStats.Columns("Enrollment").DisplayIndex = 10
+        dgvEISStats.Columns("Enrollment").Visible = True
 
-            dgvEISStats.Columns.Add("datQAStatus", "QA Status Data")
-            dgvEISStats.Columns("datQAStatus").DisplayIndex = 12
-            dgvEISStats.Columns("datQAStatus").Visible = True
-            dgvEISStats.Columns("datQAStatus").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        dgvEISStats.Columns.Add("QASTATUS", "QA Status")
+        dgvEISStats.Columns("QASTATUS").DisplayIndex = 11
+        dgvEISStats.Columns("QASTATUS").Visible = True
 
-
-            dgvEISStats.Columns.Add("IAIPPrefix", "IAIP Prefix")
-            dgvEISStats.Columns("IAIPPrefix").DisplayIndex = 13
-            dgvEISStats.Columns("IAIPPrefix").Visible = True
-
-            dgvEISStats.Columns.Add("IAIPFIRSTNAME", "IAIP First Name")
-            dgvEISStats.Columns("IAIPFIRSTNAME").DisplayIndex = 14
-            dgvEISStats.Columns("IAIPFIRSTNAME").Visible = True
+        dgvEISStats.Columns.Add("datQAStatus", "QA Status Data")
+        dgvEISStats.Columns("datQAStatus").DisplayIndex = 12
+        dgvEISStats.Columns("datQAStatus").Visible = True
+        dgvEISStats.Columns("datQAStatus").DefaultCellStyle.Format = "dd-MMM-yyyy"
 
 
-            dgvEISStats.Columns.Add("IAIPLASTNAME", "IAIP Last Name")
-            dgvEISStats.Columns("IAIPLASTNAME").DisplayIndex = 15
-            dgvEISStats.Columns("IAIPLASTNAME").Visible = True
+        dgvEISStats.Columns.Add("IAIPPrefix", "IAIP Prefix")
+        dgvEISStats.Columns("IAIPPrefix").DisplayIndex = 13
+        dgvEISStats.Columns("IAIPPrefix").Visible = True
 
-            dgvEISStats.Columns.Add("IAIPEMAIL", "IAIP Email")
-            dgvEISStats.Columns("IAIPEMAIL").DisplayIndex = 16
-            dgvEISStats.Columns("IAIPEMAIL").Visible = True
+        dgvEISStats.Columns.Add("IAIPFIRSTNAME", "IAIP First Name")
+        dgvEISStats.Columns("IAIPFIRSTNAME").DisplayIndex = 14
+        dgvEISStats.Columns("IAIPFIRSTNAME").Visible = True
 
-            dgvEISStats.Columns.Add("EISCOMPANYNAME", "Contact Co. Name")
-            dgvEISStats.Columns("EISCOMPANYNAME").DisplayIndex = 17
-            dgvEISStats.Columns("EISCOMPANYNAME").Visible = True
 
-            dgvEISStats.Columns.Add("EISADDRESS", "Contact Address")
-            dgvEISStats.Columns("EISADDRESS").DisplayIndex = 18
-            dgvEISStats.Columns("EISADDRESS").Visible = True
+        dgvEISStats.Columns.Add("IAIPLASTNAME", "IAIP Last Name")
+        dgvEISStats.Columns("IAIPLASTNAME").DisplayIndex = 15
+        dgvEISStats.Columns("IAIPLASTNAME").Visible = True
 
-            dgvEISStats.Columns.Add("EISADDRESS2", "Contact Address 2")
-            dgvEISStats.Columns("EISADDRESS2").DisplayIndex = 19
-            dgvEISStats.Columns("EISADDRESS2").Visible = True
+        dgvEISStats.Columns.Add("IAIPEMAIL", "IAIP Email")
+        dgvEISStats.Columns("IAIPEMAIL").DisplayIndex = 16
+        dgvEISStats.Columns("IAIPEMAIL").Visible = True
 
-            dgvEISStats.Columns.Add("EISCITY", "Contact City")
-            dgvEISStats.Columns("EISCITY").DisplayIndex = 20
-            dgvEISStats.Columns("EISCITY").Visible = True
+        dgvEISStats.Columns.Add("EISCOMPANYNAME", "Contact Co. Name")
+        dgvEISStats.Columns("EISCOMPANYNAME").DisplayIndex = 17
+        dgvEISStats.Columns("EISCOMPANYNAME").Visible = True
 
-            dgvEISStats.Columns.Add("EISState", "Contact State")
-            dgvEISStats.Columns("EISState").DisplayIndex = 21
-            dgvEISStats.Columns("EISState").Visible = True
+        dgvEISStats.Columns.Add("EISADDRESS", "Contact Address")
+        dgvEISStats.Columns("EISADDRESS").DisplayIndex = 18
+        dgvEISStats.Columns("EISADDRESS").Visible = True
 
-            dgvEISStats.Columns.Add("EISZipCode", "Contact Zip Code")
-            dgvEISStats.Columns("EISZipCode").DisplayIndex = 22
-            dgvEISStats.Columns("EISZipCode").Visible = True
+        dgvEISStats.Columns.Add("EISADDRESS2", "Contact Address 2")
+        dgvEISStats.Columns("EISADDRESS2").DisplayIndex = 19
+        dgvEISStats.Columns("EISADDRESS2").Visible = True
 
-            dgvEISStats.Columns.Add("EISPrefix", "Contact Prefix")
-            dgvEISStats.Columns("EISPrefix").DisplayIndex = 23
-            dgvEISStats.Columns("EISPrefix").Visible = True
+        dgvEISStats.Columns.Add("EISCITY", "Contact City")
+        dgvEISStats.Columns("EISCITY").DisplayIndex = 20
+        dgvEISStats.Columns("EISCITY").Visible = True
 
-            dgvEISStats.Columns.Add("EISFirstname", "Contact First Name")
-            dgvEISStats.Columns("EISFirstname").DisplayIndex = 24
-            dgvEISStats.Columns("EISFirstname").Visible = True
+        dgvEISStats.Columns.Add("EISState", "Contact State")
+        dgvEISStats.Columns("EISState").DisplayIndex = 21
+        dgvEISStats.Columns("EISState").Visible = True
 
-            dgvEISStats.Columns.Add("EISLastName", "Contact Last Name")
-            dgvEISStats.Columns("EISLastName").DisplayIndex = 25
-            dgvEISStats.Columns("EISLastName").Visible = True
+        dgvEISStats.Columns.Add("EISZipCode", "Contact Zip Code")
+        dgvEISStats.Columns("EISZipCode").DisplayIndex = 22
+        dgvEISStats.Columns("EISZipCode").Visible = True
 
-            dgvEISStats.Columns.Add("DATFINALIZE", "Date Submitted")
-            dgvEISStats.Columns("DATFINALIZE").DisplayIndex = 26
-            dgvEISStats.Columns("DATFINALIZE").Visible = True
+        dgvEISStats.Columns.Add("EISPrefix", "Contact Prefix")
+        dgvEISStats.Columns("EISPrefix").DisplayIndex = 23
+        dgvEISStats.Columns("EISPrefix").Visible = True
 
-            dgvEISStats.Columns.Add("FITrackingNumber", "FI Tracking Number")
-            dgvEISStats.Columns("FITrackingNumber").DisplayIndex = 27
-            dgvEISStats.Columns("FITrackingNumber").Visible = True
+        dgvEISStats.Columns.Add("EISFirstname", "Contact First Name")
+        dgvEISStats.Columns("EISFirstname").DisplayIndex = 24
+        dgvEISStats.Columns("EISFirstname").Visible = True
 
-            dgvEISStats.Columns.Add("PointTrackingNumber", "Point Tracking Number")
-            dgvEISStats.Columns("PointTrackingNumber").DisplayIndex = 28
-            dgvEISStats.Columns("PointTrackingNumber").Visible = True
+        dgvEISStats.Columns.Add("EISLastName", "Contact Last Name")
+        dgvEISStats.Columns("EISLastName").DisplayIndex = 25
+        dgvEISStats.Columns("EISLastName").Visible = True
 
-            dgvEISStats.Columns.Add("Comments", "Comments")
-            dgvEISStats.Columns("Comments").DisplayIndex = 29
-            dgvEISStats.Columns("Comments").Visible = True
+        dgvEISStats.Columns.Add("DATFINALIZE", "Date Submitted")
+        dgvEISStats.Columns("DATFINALIZE").DisplayIndex = 26
+        dgvEISStats.Columns("DATFINALIZE").Visible = True
 
-        Catch ex As Exception
+        dgvEISStats.Columns.Add("FITrackingNumber", "FI Tracking Number")
+        dgvEISStats.Columns("FITrackingNumber").DisplayIndex = 27
+        dgvEISStats.Columns("FITrackingNumber").Visible = True
 
-        End Try
+        dgvEISStats.Columns.Add("PointTrackingNumber", "Point Tracking Number")
+        dgvEISStats.Columns("PointTrackingNumber").DisplayIndex = 28
+        dgvEISStats.Columns("PointTrackingNumber").Visible = True
+
+        dgvEISStats.Columns.Add("Comments", "Comments")
+        dgvEISStats.Columns("Comments").DisplayIndex = 29
+        dgvEISStats.Columns("Comments").Visible = True
     End Sub
+
 #End Region
 
 #Region "Web Application Users"
+
     Private Sub btnActivateEmail_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnActivateEmail.Click
-        Try
-            LoadComboBoxesEmail()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        LoadComboBoxesEmail()
     End Sub
 
 #End Region
@@ -448,7 +350,6 @@ Public Class DMUEisGecoTool
         Dim SQL As String
 
         Try
-
 
             SQL = "Select numuserid, struseremail " _
             + "from OlapUserLogin " _
@@ -2902,37 +2803,21 @@ Public Class DMUEisGecoTool
         End Try
 
     End Sub
+
 #End Region
+
 #Region "EI Tool"
 
     Private Sub loadESEnrollmentYear()
         'Load MailOut Year dropdown boxes
-        Dim year As Integer
-        Dim SQL As String
-        Try
-            If CurrentConnection.State = ConnectionState.Open Then
-            Else
-                CurrentConnection.Open()
-            End If
+        Dim SQL As String = "Select distinct STRESYEAR " &
+                  "from ESMAILOUT  " &
+                  "order by STRESYEAR desc"
+        Dim dt As DataTable = DB.GetDataTable(SQL)
 
-            SQL = "Select distinct ESMAILOUT.STRESYEAR " &
-                      "from ESMAILOUT  " &
-                      "order by STRESYEAR desc"
-            Dim cmd As New SqlCommand(SQL, CurrentConnection)
-
-            Dim dr As SqlDataReader = cmd.ExecuteReader()
-            dr.Read()
-            Do
-                year = dr("STRESYEAR")
-                cboESYear.Items.Add(year)
-            Loop While dr.Read
-            ' cboESYear.SelectedIndex = 0
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        For Each dr As DataRow In dt.Rows
+            cboESYear.Items.Add(dr("STRESYEAR"))
+        Next
     End Sub
 
 #End Region
@@ -3520,89 +3405,28 @@ Public Class DMUEisGecoTool
     End Sub
 
     Private Sub loadcboEISstatusCodes()
-        Dim dtCode As New DataTable
-        Dim dscode As DataSet
-        Dim dacode As SqlDataAdapter
-        Dim daEIcode As SqlDataAdapter
-        Dim dtEICode As New DataTable()
+        Dim SQL As String = "Select '' as EISSTATUSCODE, '- Select EIS Status Code -' as STRDESC " &
+            " union select distinct  EISSTATUSCODE, STRDESC " &
+            " from EISLK_EISSTATUSCODE "
 
-        Dim drDSRow As DataRow
-        Dim DrNewRow As DataRow
-        Dim Drnewrow2 As DataRow
+        With cboEILogStatusCode
+            .DataSource = DB.GetDataTable(SQL)
+            .DisplayMember = "STRDESC"
+            .ValueMember = "EISSTATUSCODE"
+            .SelectedIndex = 0
+        End With
 
-        Dim SQL As String
+        SQL = "select '' as EISAccessCode, '- Select EIS Access Code -' as STRDESC " &
+            " union select EISAccessCode, strDesc " &
+            " from EISLK_EISAccesscode " &
+            " order by strDesc"
 
-        Try
-            SQL = "Select distinct  EISSTATUSCODE, STRDESC " &
-            "from EISLK_EISSTATUSCODE "
-
-            dscode = New DataSet
-            dacode = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dacode.Fill(dscode, "EISLK_EISSTATUSCODE")
-
-            dtCode.Columns.Add("EISSTATUSCODE", GetType(System.String))
-            dtCode.Columns.Add("STRDESC", GetType(System.String))
-            DrNewRow = dtCode.NewRow()
-            DrNewRow("EISSTATUSCODE") = ""
-            DrNewRow("STRDESC") = "- Select EIS Status Code -"
-            dtCode.Rows.Add(DrNewRow)
-
-            For Each drDSRow In dscode.Tables("EISLK_EISSTATUSCODE").Rows()
-                DrNewRow = dtCode.NewRow()
-                DrNewRow("EISSTATUSCODE") = drDSRow("EISSTATUSCODE")
-                DrNewRow("STRDESC") = drDSRow("STRDESC")
-                dtCode.Rows.Add(DrNewRow)
-            Next
-
-            With cboEILogStatusCode
-                .DataSource = dtCode
-                .DisplayMember = "STRDESC"
-                .ValueMember = "EISSTATUSCODE"
-                .SelectedIndex = 0
-            End With
-
-            SQL = "select strDesc, EISAccessCode " &
-            " from EISLK_EISAccesscode  " &
-            "order by strDesc"
-
-            dscode = New DataSet
-            daEIcode = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daEIcode.Fill(dscode, "EISAccessCode")
-
-            dtEICode.Columns.Add("EISAccessCode", GetType(System.String))
-            dtEICode.Columns.Add("STRDESC", GetType(System.String))
-            Drnewrow2 = dtEICode.NewRow()
-            Drnewrow2("EISAccessCode") = ""
-            Drnewrow2("STRDESC") = "- Select EIS Access Code -"
-            dtEICode.Rows.Add(Drnewrow2)
-
-            For Each drDSRow In dscode.Tables("EISAccessCode").Rows()
-                Drnewrow2 = dtEICode.NewRow()
-                Drnewrow2("EISAccessCode") = drDSRow("EISAccessCode")
-                Drnewrow2("STRDESC") = drDSRow("STRDESC")
-                dtEICode.Rows.Add(Drnewrow2)
-            Next
-
-            With cboEILogAccessCode
-                .DataSource = dtEICode
-                .DisplayMember = "STRDESC"
-                .ValueMember = "EISAccessCode"
-                .SelectedIndex = 0
-            End With
-
-        Catch ex As Exception
-            '  ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        With cboEILogAccessCode
+            .DataSource = DB.GetDataTable(SQL)
+            .DisplayMember = "STRDESC"
+            .ValueMember = "EISAccessCode"
+            .SelectedIndex = 0
+        End With
     End Sub
 
     Private Sub llbViewUserData_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewUserData.LinkClicked
@@ -4165,24 +3989,6 @@ Public Class DMUEisGecoTool
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-
-
-#Region "Emission Inventory Log"
-    Sub LoadEILog()
-        Try
-
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-
-
-
-
-
-#End Region
 
     Private Sub btnReloadFSData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReloadFSData.Click
         LoadFSData()
@@ -7208,45 +7014,33 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Sub LoadEISYear()
-        Try
-            SQL = "Select " &
-            "strYear, " &
-            "strEIType, datDeadLine " &
-            "from EIThresholdYears " &
-            "order by strYear desc "
+    Private Sub LoadEISYear()
+        Dim SQL As String = "Select " &
+        "strYear, " &
+        "strEIType, datDeadLine " &
+        "from EIThresholdYears " &
+        "order by strYear desc "
+        Dim dt As DataTable = DB.GetDataTable(SQL)
 
-            ds = New DataSet
-            da = New SqlDataAdapter(SQL, CurrentConnection)
+        dgvEISYear.DataSource = dt
 
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+        dgvEISYear.RowHeadersVisible = False
+        dgvEISYear.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+        dgvEISYear.AllowUserToResizeColumns = True
+        dgvEISYear.AllowUserToAddRows = False
+        dgvEISYear.AllowUserToDeleteRows = False
+        dgvEISYear.AllowUserToOrderColumns = True
+        dgvEISYear.AllowUserToResizeRows = True
 
-            da.Fill(ds, "EISYears")
-            dgvEISYear.DataSource = ds
-            dgvEISYear.DataMember = "EISYears"
-
-            dgvEISYear.RowHeadersVisible = False
-            dgvEISYear.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvEISYear.AllowUserToResizeColumns = True
-            dgvEISYear.AllowUserToAddRows = False
-            dgvEISYear.AllowUserToDeleteRows = False
-            dgvEISYear.AllowUserToOrderColumns = True
-            dgvEISYear.AllowUserToResizeRows = True
-
-            dgvEISYear.Columns("strYear").HeaderText = "EIS Year"
-            dgvEISYear.Columns("strYear").DisplayIndex = 0
-            dgvEISYear.Columns("strEIType").HeaderText = "Type"
-            dgvEISYear.Columns("strEIType").DisplayIndex = 1
-            dgvEISYear.Columns("datDeadLine").HeaderText = "EIS Date Deadline"
-            dgvEISYear.Columns("datDeadLine").DisplayIndex = 2
-            dgvEISYear.Columns("datDeadLine").DefaultCellStyle.Format = "dd-MMM-yyyy"
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        dgvEISYear.Columns("strYear").HeaderText = "EIS Year"
+        dgvEISYear.Columns("strYear").DisplayIndex = 0
+        dgvEISYear.Columns("strEIType").HeaderText = "Type"
+        dgvEISYear.Columns("strEIType").DisplayIndex = 1
+        dgvEISYear.Columns("datDeadLine").HeaderText = "EIS Date Deadline"
+        dgvEISYear.Columns("datDeadLine").DisplayIndex = 2
+        dgvEISYear.Columns("datDeadLine").DefaultCellStyle.Format = "dd-MMM-yyyy"
     End Sub
+
     Private Sub dgvEISYear_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvEISYear.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvEISYear.HitTest(e.X, e.Y)
 
