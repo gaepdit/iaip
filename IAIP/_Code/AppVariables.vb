@@ -73,7 +73,10 @@ Module AppVariables
 #Region " Old public variables "
     ' TODO: Destroy these
 
-    Public OracleDate As String = Format(Today, DateFormat) ' Replace in SQL with SYSDATE; replace in code with Today
+    ' Replace in SQL Server with GETDATE() (and check for parameter data types)
+    ' Replace in code with Today
+    Public OracleDate As String = Format(Today, DateFormat)
+
     Public AccountFormAccess(150, 4) As String
 
     Public cmd, cmd2 As SqlClient.SqlCommand
