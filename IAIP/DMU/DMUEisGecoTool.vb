@@ -6041,8 +6041,7 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub btnEIModifyUpdateLocation_Click(sender As Object, e As EventArgs) _
-    Handles btnEIModifyUpdateLocation.Click
+    Private Sub btnEIModifyUpdateLocation_Click(sender As Object, e As EventArgs) Handles btnEIModifyUpdateLocation.Click
 
         If txtEILogSelectedAIRSNumber.Text = "" Then
             MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
@@ -6077,8 +6076,7 @@ Public Class DMUEisGecoTool
         End If
     End Sub
 
-    Private Sub btnEIModifyUpdateMailing_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) _
-    Handles btnEIModifyUpdateMailing.Click
+    Private Sub btnEIModifyUpdateMailing_Click(sender As Object, e As EventArgs) Handles btnEIModifyUpdateMailing.Click
 
         If txtEILogSelectedAIRSNumber.Text = "" Then
             MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
@@ -6113,8 +6111,7 @@ Public Class DMUEisGecoTool
         End If
     End Sub
 
-    Private Sub btnEIModifyUpdateName_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) _
-    Handles btnEIModifyUpdateName.Click
+    Private Sub btnEIModifyUpdateName_Click(sender As Object, e As EventArgs) Handles btnEIModifyUpdateName.Click
         If txtEILogSelectedAIRSNumber.Text = "" Then
             MsgBox("Select a valid AIRS Number.", MsgBoxStyle.Exclamation, Me.Text)
             Exit Sub
@@ -6154,30 +6151,36 @@ Public Class DMUEisGecoTool
             End If
 
             If mtbEIModifyLatitude.Text <> "" And mtbEIModifyLongitude.Text <> "" Then
-                SQL = "Update EIS_FacilityGEOCoord set " &
-                "numLatitudeMeasure = '" & mtbEIModifyLatitude.Text & "', " &
-                "numLongitudeMeasure = '-" & mtbEIModifyLongitude.Text & "' " &
-                "where facilitySiteID = '" & txtEILogSelectedAIRSNumber.Text & "' "
+                Dim SQL As String = "Update EIS_FacilityGEOCoord set " &
+                "numLatitudeMeasure = @numLatitudeMeasure, " &
+                "numLongitudeMeasure = @numLongitudeMeasure " &
+                "where facilitySiteID = @facilitySiteID "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
+                Dim params As SqlParameter() = {
+                    New SqlParameter("@numLatitudeMeasure", mtbEIModifyLatitude.Text),
+                    New SqlParameter("@numLongitudeMeasure", -mtbEIModifyLongitude.Text),
+                    New SqlParameter("@facilitySiteID", txtEILogSelectedAIRSNumber.Text)
+                }
+
+                DB.RunCommand(SQL, params)
 
                 SQL = "Update APBFacilityInformation set " &
-                "numFacilityLongitude = '-" & mtbEIModifyLongitude.Text & "', " &
-                "numFacilityLatitude = '" & mtbEIModifyLatitude.Text & "', " &
-                "strComments = 'Updated by " & CurrentUser.AlphaName & " through DMU Staff Tools - Emissions Inventory Log. ', " &
-                "strModifingPerson = '" & CurrentUser.UserID & "', " &
-                "datModifingDate = sysdate " &
-                "where strAIRSNumber = '0413" & txtEILogSelectedAIRSNumber.Text & "' "
+                    "numFacilityLongitude = @numFacilityLongitude, " &
+                    "numFacilityLatitude = @numFacilityLatitude, " &
+                    "strComments = @strComments, " &
+                    "strModifingPerson = @strModifingPerson, " &
+                    "datModifingDate = getdate() " &
+                    "where strAIRSNumber = @strAIRSNumber "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
+                Dim params2 As SqlParameter() = {
+                    New SqlParameter("@numFacilityLongitude", -mtbEIModifyLongitude.Text),
+                    New SqlParameter("@numFacilityLatitude", mtbEIModifyLatitude.Text),
+                    New SqlParameter("@strComments", "Updated by " & CurrentUser.AlphaName & " through DMU Staff Tools - Emissions Inventory Log. "),
+                    New SqlParameter("@strModifingPerson", CurrentUser.UserID),
+                    New SqlParameter("@strAIRSNumber", "0413" & txtEILogSelectedAIRSNumber.Text)
+                }
+
+                DB.RunCommand(SQL, params2)
 
                 MsgBox("Data updated.", MsgBoxStyle.Information, Me.Text)
             Else
@@ -6190,7 +6193,7 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub btnUpdateLatLong_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateLatLong.Click
+    Private Sub btnUpdateLatLong_Click(sender As Object, e As EventArgs) Handles btnUpdateLatLong.Click
         UpdateFacilityGEOCoord()
     End Sub
 
@@ -6220,7 +6223,7 @@ Public Class DMUEisGecoTool
         End If
     End Sub
 
-    Private Sub btnEIModifyCopy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEIModifyCopy.Click
+    Private Sub btnEIModifyCopy_Click(sender As Object, e As EventArgs) Handles btnEIModifyCopy.Click
         txtEIModifyFacilityName.Text = txtEIModifyIAIPFacilityName.Text
         txtEIModifyLocation.Text = txtEIModifyIAIPLocation.Text
         txtEIModifyCity.Text = txtEIModifyIAIPCity.Text
