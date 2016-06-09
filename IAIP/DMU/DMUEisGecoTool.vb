@@ -5895,19 +5895,14 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub btnEILogAddNewFacility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEILogAddNewFacility.Click
+    Private Sub btnEILogAddNewFacility_Click(sender As Object, e As EventArgs) Handles btnEILogAddNewFacility.Click
         Try
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            cmd = New SqlCommand("PD_EIS_Data", CurrentConnection)
-            cmd.CommandType = CommandType.StoredProcedure
-
-            cmd.Parameters.Add(New SqlParameter("@AIRSNUM", SqlDbType.VarChar)).Value = txtEILogSelectedAIRSNumber.Text
-            cmd.Parameters.Add(New SqlParameter("@INTYEAR", SqlDbType.Decimal)).Value = txtEILogSelectedYear.Text
-
-            cmd.ExecuteNonQuery()
+            Dim spname As String = "PD_EIS_Data"
+            Dim params As SqlParameter() = {
+                New SqlParameter("@AIRSNUM", txtEILogSelectedAIRSNumber.Text),
+                New SqlParameter("@INTYEAR", txtEILogSelectedYear.Text)
+            }
+            DB.SPRunCommand(spname, params)
 
             LoadAdminData()
             MsgBox("New Facility Added", MsgBoxStyle.Information, Me.Text)

@@ -2769,7 +2769,7 @@ Partial Class DMUEisGecoTool
         Me.btnEILogAddNewFacility.Name = "btnEILogAddNewFacility"
         Me.btnEILogAddNewFacility.Size = New System.Drawing.Size(133, 23)
         Me.btnEILogAddNewFacility.TabIndex = 17
-        Me.btnEILogAddNewFacility.Text = "Add New Faciltiy to Year"
+        Me.btnEILogAddNewFacility.Text = "Add New Facility to Year"
         Me.btnEILogAddNewFacility.UseVisualStyleBackColor = True
         '
         'btnEILogUpdate
