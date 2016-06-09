@@ -4013,7 +4013,9 @@ Public Class DMUEisGecoTool
             "strFacilitySiteName, STRFACILITYSITESTATUSCODE " &
             "from EIS_FacilitySite " &
             "where FacilitySiteId = @FacilitySiteId "
+
             Dim param As New SqlParameter("@FacilitySiteId", txtEILogSelectedAIRSNumber.Text)
+
             Dim dr As DataRow = DB.GetDataRow(SQL, param)
 
             If IsDBNull(dr.Item("strFacilitySiteName")) Then
@@ -4090,7 +4092,9 @@ Public Class DMUEisGecoTool
                 "INNER JOIN APBHEADERDATA hd ON fi.STRAIRSNUMBER = " &
                 "  hd.STRAIRSNUMBER " &
                 "WHERE fi.STRAIRSNUMBER = @airs "
+
             Dim param2 As New SqlParameter("@airs", "0413" & txtEILogSelectedAIRSNumber.Text)
+
             dr = DB.GetDataRow(SQL, param2)
 
             If IsDBNull(dr.Item("strFacilityName")) Then
@@ -4133,10 +4137,12 @@ Public Class DMUEisGecoTool
             "from EIS_Mailout " &
             "where intInventoryYear = @intInventoryYear " &
             "and FacilitySiteID = @FacilitySiteID "
+
             Dim params As SqlParameter() = {
                 New SqlParameter("@intInventoryYear", txtEILogSelectedYear.Text),
                 New SqlParameter("@FacilitySiteID", txtEILogSelectedAIRSNumber.Text)
             }
+
             dr = DB.GetDataRow(SQL, params)
 
             If IsDBNull(dr.Item("strFacilityName")) Then
@@ -4229,7 +4235,9 @@ Public Class DMUEisGecoTool
             "where APBContactInformation.strModifingPerson = " &
             "EPDUserProfiles.numUserID  " &
             "and strContactKey = @key "
+
             Dim param3 As New SqlParameter("@key", "0413" & txtEILogSelectedAIRSNumber.Text & "41")
+
             dr = DB.GetDataRow(SQL, param3)
 
             If IsDBNull(dr.Item("strContactFirstName")) Then
@@ -4340,10 +4348,12 @@ Public Class DMUEisGecoTool
            "From EIS_Admin " &
            "where inventoryYear = @inventoryYear " &
            "and FacilitySiteID = @FacilitySiteID "
+
             Dim params As SqlParameter() = {
                 New SqlParameter("@inventoryYear", txtEILogSelectedYear.Text),
                 New SqlParameter("@FacilitySiteID", txtEILogSelectedAIRSNumber.Text)
             }
+
             Dim dr As DataRow = DB.GetDataRow(SQL, params)
 
             If IsDBNull(dr.Item("EISStatusCode")) Then
@@ -4477,12 +4487,14 @@ Public Class DMUEisGecoTool
 
             Dim SQL As String = "Select * " &
             "from EIS_QAAdmin " &
-            "where inventoryYear = '" & cboEILogYear.Text & "' " &
-            "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
+            "where inventoryYear = @inventoryYear " &
+            "and FacilitySiteID = @FacilitySiteID "
+
             Dim params As SqlParameter() = {
                 New SqlParameter("@inventoryYear", cboEILogYear.Text),
                 New SqlParameter("@FacilitySiteID", mtbEILogAIRSNumber.Text)
             }
+
             Dim dr As DataRow = DB.GetDataRow(SQL, params)
 
             If IsDBNull(dr.Item("datDateQAStart")) Then
@@ -5629,7 +5641,7 @@ Public Class DMUEisGecoTool
     End Sub
 
 
-    Private Sub btnEILogUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEILogUpdate.Click
+    Private Sub btnEILogUpdate_Click(sender As Object, e As EventArgs) Handles btnEILogUpdate.Click
         Try
             Dim EISAccess As String = " "
             Dim OptOut As String = ""
@@ -5679,18 +5691,16 @@ Public Class DMUEisGecoTool
                 ActiveStatus = "0"
             End If
 
-            SQL = "Select FacilitySiteID from EIS_Admin " &
-            "where inventoryyear = '" & cboEILogYear.Text & "' " &
-            "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
+            Dim SQL As String = "Select FacilitySiteID from EIS_Admin " &
+            "where inventoryyear = @inventoryyear " &
+            "and FacilitySiteID = @FacilitySiteID "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
+            Dim params As SqlParameter() = {
+                New SqlParameter("@inventoryyear", cboEILogYear.Text),
+                New SqlParameter("@FacilitySiteID", mtbEILogAIRSNumber.Text)
+            }
 
-            If recExist = False Then
+            If Not DB.ValueExists(SQL, params) Then
                 MsgBox("The facility is not currently in the EIS universe for the selected year." & vbCrLf &
                        "Use the Add New Facility to Year." & vbCrLf & vbCrLf & "NO DATA SAVED", MsgBoxStyle.Information, Me.Text)
 
@@ -5698,26 +5708,38 @@ Public Class DMUEisGecoTool
             End If
 
             SQL = "Update EIS_Admin set " &
-            "EISStatusCode = '" & EISStatus & "', " &
-            "DatEISStatus = '" & dtpEILogStatusDateSubmit.Text & "', " &
-            "EISAccessCode = '" & EISAccess & "', " &
-            "strOptOut = '" & OptOut & "', " &
-            "strIncorrectOptOut = '" & IncorrectlyOptedOut & "', " &
-            "strMailout = '" & Mailout & "', " &
-            "strEnrollment = '" & Enrollment & "', " &
-            "datEnrollment = '" & dtpEILogDateEnrolled.Text & "', " &
-            "strComment = '" & Replace(txtEILogComments.Text, "'", "''") & "', " &
-            "active = '" & ActiveStatus & "', " &
-            "updateUser = '" & Replace(CurrentUser.AlphaName, "'", "''") & "', " &
-            "updateDateTime = sysdate " &
-            "where inventoryyear = '" & cboEILogYear.Text & "' " &
-            "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
+            "EISStatusCode = @EISStatusCode, " &
+            "DatEISStatus = @DatEISStatus, " &
+            "EISAccessCode = @EISAccessCode, " &
+            "strOptOut = @strOptOut, " &
+            "strIncorrectOptOut = @strIncorrectOptOut, " &
+            "strMailout = @strMailout, " &
+            "strEnrollment = @strEnrollment, " &
+            "datEnrollment = @datEnrollment, " &
+            "strComment = @strComment, " &
+            "active = @active, " &
+            "updateUser = @updateUser, " &
+            "updateDateTime = getdate() " &
+            "where inventoryyear = @inventoryyear " &
+            "and FacilitySiteID = @FacilitySiteID "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            cmd.ExecuteReader()
+            Dim params2 As SqlParameter() = {
+                New SqlParameter("@EISStatusCode", EISStatus),
+                New SqlParameter("@DatEISStatus", dtpEILogStatusDateSubmit.Text),
+                New SqlParameter("@EISAccessCode", EISAccess),
+                New SqlParameter("@strOptOut", OptOut),
+                New SqlParameter("@strIncorrectOptOut", IncorrectlyOptedOut),
+                New SqlParameter("@strMailout", Mailout),
+                New SqlParameter("@strEnrollment", Enrollment),
+                New SqlParameter("@datEnrollment", dtpEILogDateEnrolled.Text),
+                New SqlParameter("@strComment", txtEILogComments.Text),
+                New SqlParameter("@active", ActiveStatus),
+                New SqlParameter("@updateUser", CurrentUser.AlphaName),
+                New SqlParameter("@inventoryyear", cboEILogYear.Text),
+                New SqlParameter("@FacilitySiteID", mtbEILogAIRSNumber.Text)
+            }
+
+            DB.RunCommand(SQL, params2)
 
             If dtpDeadlineEIS.Checked = True Then
                 Dim DeadLineComments As String = ""
@@ -5729,19 +5751,22 @@ Public Class DMUEisGecoTool
                     vbCrLf & vbCrLf & txtAllEISDeadlineComment.Text
 
                     SQL = "update EIS_Admin set " &
-                    "datEISDeadline = '" & dtpDeadlineEIS.Text & "',  " &
-                    "strEISDeadlineComment = '" & Replace(DeadLineComments, "'", "''") & "' " &
-                    "where INventoryyear = '" & cboEILogYear.Text & "' " &
-                    "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    cmd.ExecuteReader()
+                    "datEISDeadline = @datEISDeadline,  " &
+                    "strEISDeadlineComment = @strEISDeadlineComment  " &
+                    "where INventoryyear = @INventoryyear " &
+                    "and FacilitySiteID = @FacilitySiteID  "
+
+                    Dim params3 As SqlParameter() = {
+                        New SqlParameter("@datEISDeadline", dtpDeadlineEIS.Text),
+                        New SqlParameter("@strEISDeadlineComment", DeadLineComments),
+                        New SqlParameter("@INventoryyear", cboEILogYear.Text),
+                        New SqlParameter("@FacilitySiteID", mtbEILogAIRSNumber.Text)
+                    }
+
+                    DB.RunCommand(SQL, params3)
                 End If
             End If
 
-            'If cboEILogStatusCode.SelectedValue = "4" Or cboEILogStatusCode.SelectedValue = "5" And rdbEILogOpOutYes.Checked = False Then
             If rdbEILogOpOutYes.Checked = False Then
                 Dim QAStart As String = ""
                 Dim QAPass As String = ""
@@ -5823,28 +5848,41 @@ Public Class DMUEisGecoTool
                 End If
 
                 SQL = "Update eis_QAAdmin set " &
-               "datDateQAStart = '" & QAStart & "', " &
-               "datDateQAPass = '" & QAPass & "', " &
-               "QAStatusCode = '" & QAStatusCode & "', " &
-               "datQAStatus = '" & QAStatusDate & "', " &
-               "strDMUResponsibleStaff = '" & Replace(StaffResponsible, "'", "''") & "', " &
-               "datQAComplete = '" & QAComplete & "', " &
-               "strComment = '" & Replace(QAComments, "'", "''") & "', " &
+               "datDateQAStart = @datDateQAStart, " &
+               "datDateQAPass = @datDateQAPass, " &
+               "QAStatusCode = @QAStatusCode, " &
+               "datQAStatus = @datQAStatus, " &
+               "strDMUResponsibleStaff = @strDMUResponsibleStaff, " &
+               "datQAComplete = @datQAComplete, " &
+               "strComment = @strComment, " &
                "active = '1', " &
-               "updateuser = '" & Replace(CurrentUser.AlphaName, "'", "''") & "', " &
-               "updateDateTime = sysdate, " &
-               "strFITrackingnumber = '" & Replace(FITracking, "'", "''") & "', " &
-               "strFIError = '" & Replace(FIError, "'", "''") & "', " &
-               "STRPOINTTRACKINGNUMBER = '" & Replace(pointTracking, "'", "''") & "', " &
-               "strpointerror = '" & Replace(pointError, "'", "''") & "' " &
-               "where INventoryyear = '" & cboEILogYear.Text & "' " &
-               "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
+               "updateuser = @updateuser, " &
+               "updateDateTime = getdate(), " &
+               "strFITrackingnumber = @strFITrackingnumber, " &
+               "strFIError = @strFIError, " &
+               "STRPOINTTRACKINGNUMBER = @STRPOINTTRACKINGNUMBER, " &
+               "strpointerror = @strpointerror " &
+               "where INventoryyear = @INventoryyear " &
+               "and FacilitySiteID = @FacilitySiteID "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
+                Dim params4 As SqlParameter() = {
+                    New SqlParameter("@datDateQAStart", QAStart),
+                    New SqlParameter("@datDateQAPass", QAPass),
+                    New SqlParameter("@QAStatusCode", QAStatusCode),
+                    New SqlParameter("@datQAStatus", QAStatusDate),
+                    New SqlParameter("@strDMUResponsibleStaff", StaffResponsible),
+                    New SqlParameter("@datQAComplete", QAComplete),
+                    New SqlParameter("@strComment", QAComments),
+                    New SqlParameter("@updateuser", CurrentUser.AlphaName),
+                    New SqlParameter("@strFITrackingnumber", FITracking),
+                    New SqlParameter("@strFIError", FIError),
+                    New SqlParameter("@STRPOINTTRACKINGNUMBER", pointTracking),
+                    New SqlParameter("@strpointerror", pointError),
+                    New SqlParameter("@INventoryyear", cboEILogYear.Text),
+                    New SqlParameter("@FacilitySiteID", mtbEILogAIRSNumber.Text)
+                }
+
+                DB.RunCommand(SQL, params4)
 
                 LoadQASpecificData()
             End If
@@ -5853,7 +5891,7 @@ Public Class DMUEisGecoTool
             MsgBox("Admin Data updated.", MsgBoxStyle.Information, Me.Text)
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
