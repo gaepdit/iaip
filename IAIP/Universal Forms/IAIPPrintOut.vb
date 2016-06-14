@@ -52,8 +52,8 @@ Public Class IAIPPrintOut
                     rpt = New crAPBPrintOut2
                     monitor.TrackFeature("Report." & rpt.ResourceName)
 
-                    Dim Commissioner As String = ""
-                    Dim Director As String = ""
+                    Dim Director As String = DAL.GetEpdManagerName(DAL.EpdManagementTypes.EpdDirector)
+                    Dim Commissioner As String = DAL.GetEpdManagerName(DAL.EpdManagementTypes.DnrCommissioner)
 
                     Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
                     Dim ParameterField As CrystalDecisions.Shared.ParameterField
@@ -61,46 +61,6 @@ Public Class IAIPPrintOut
 
                     'Do this just once at the start
                     ParameterFields = New CrystalDecisions.Shared.ParameterFields
-
-                    SQL = "Select " &
-                    "strManagementName from " &
-                    "AIRBRANCH.LookUpAPBManagementType " &
-                    "where strCurrentContact = '1' " &
-                    "and strKey = '1' "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        If IsDBNull(dr.Item("strManagementName")) Then
-                            Director = ""
-                        Else
-                            Director = dr.Item("strManagementName")
-                        End If
-                    End While
-                    dr.Close()
-
-                    SQL = "Select " &
-                    "strManagementName from " &
-                    "AIRBRANCH.LookUpAPBManagementType " &
-                    "where strCurrentContact = '1' " &
-                    "and strKey = '2' "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        If IsDBNull(dr.Item("strManagementName")) Then
-                            Commissioner = ""
-                        Else
-                            Commissioner = dr.Item("strManagementName")
-                        End If
-                    End While
-                    dr.Close()
 
                     'Do this at the beginning of every new entry 
                     ParameterField = New CrystalDecisions.Shared.ParameterField
@@ -14675,9 +14635,9 @@ Public Class IAIPPrintOut
 
 #Region "SSPP"
     Sub PrintOutTitleVRenewals()
-        Dim Commissioner As String = ""
-        Dim Director As String = ""
-        Dim ProgramManager As String = ""
+        Dim Director As String = DAL.GetEpdManagerName(DAL.EpdManagementTypes.EpdDirector)
+        Dim Commissioner As String = DAL.GetEpdManagerName(DAL.EpdManagementTypes.DnrCommissioner)
+        Dim SsppProgramManager As String = DAL.GetEpdManagerName(DAL.EpdManagementTypes.SsppProgramManager)
         Dim rpt As New ReportClass
 
         rpt = New CRTitleVRenewal10
@@ -14712,23 +14672,6 @@ Public Class IAIPPrintOut
 
             'Do this just once at the start
             ParameterFields = New CrystalDecisions.Shared.ParameterFields
-            SQL = "Select strDirector, strCommissioner, " &
-            "strSSPPProgramMang " &
-            "from AIRBRANCH.LookUpAPBManagement "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                Commissioner = dr.Item("strCommissioner")
-                Director = dr.Item("strDirector")
-                ProgramManager = dr.Item("strSSPPProgramMang")
-            End While
-            dr.Close()
 
             'Do this at the beginning of every new enTry 
             ParameterField = New CrystalDecisions.Shared.ParameterField
@@ -14753,7 +14696,7 @@ Public Class IAIPPrintOut
             spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
 
             ParameterField.ParameterFieldName = "ProgramManager"
-            spValue.Value = ProgramManager
+            spValue.Value = SsppProgramManager
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
 

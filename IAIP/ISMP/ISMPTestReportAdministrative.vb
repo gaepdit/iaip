@@ -608,11 +608,11 @@ Public Class ISMPTestReportAdministrative
            "'" & DTPDateReceived.Text & "', " &
            "'04-Jul-1776', 'N/A', '" & RecordStatus & "', " &
            "(select strManagementName from AIRBRANCH.LookUpAPBManagementType " &
-           "where strKey = '1' and strCurrentContact = '1' ), " &
+           "where strKey = '" & DAL.EpdManagementTypes.EpdDirector.ToString & "' and strCurrentContact = 'C' ), " &
            "(select strManagementName from AIRBRANCH.LookUpAPBManagementType " &
-           "where strKey = '2' and strCurrentContact = '1' ), " &
+           "where strKey = '" & DAL.EpdManagementTypes.DnrCommissioner.ToString & "' and strCurrentContact = 'C' ), " &
            "(select strManagementName from AIRBRANCH.LookUpAPBManagementType " &
-           "where strKey = '5' and strCurrentContact = '1' ), " &
+           "where strKey = '" & DAL.EpdManagementTypes.IsmpProgramManager.ToString & "' and strCurrentContact = 'C' ), " &
            "'01', " &
            "(SELECT " &
            "CASE " &
