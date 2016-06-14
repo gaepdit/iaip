@@ -94,7 +94,7 @@ Namespace My
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
          Global.System.Configuration.DefaultSettingValueAttribute("Data Source=167.192.209.70;Initial Catalog=airbranch;Persist Security Info=True;U"& _ 
-            "ser ID=DWaldron;Password=d1o2u3G")>  _
+            "ser ID=iaip_app_user;Password=6F/YjKPojH]26uZ")>  _
         Public ReadOnly Property DEV() As String
             Get
                 Return CType(Me("DEV"),String)
@@ -104,8 +104,8 @@ Namespace My
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=167.192.209.70;Initial Catalog=airbranch;Persist Security Info=True;U"& _ 
-            "ser ID=DWaldron;Password=d1o2u3G")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=167.192.209.70,1988;Initial Catalog=airbranch;Persist Security Info=T"& _ 
+            "rue;User ID=iaip_app_user;Password=""3f5;u=4syeZCoSn""")>  _
         Public ReadOnly Property UAT() As String
             Get
                 Return CType(Me("UAT"),String)
@@ -115,8 +115,8 @@ Namespace My
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=167.192.209.70;Initial Catalog=airbranch;Persist Security Info=True;U"& _ 
-            "ser ID=;Password=")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=167.192.209.7;Initial Catalog=airbranch;Persist Security Info=True;Us"& _ 
+            "er ID=iaip_app_user;Password=96AL~k5uou[Ntpx")>  _
         Public ReadOnly Property PRD() As String
             Get
                 Return CType(Me("PRD"),String)
