@@ -103,7 +103,7 @@ Public Class IAIPNavigation
                 pnlDbEnv.BackColor = Color.SpringGreen
                 pnlDbEnv.Visible = True
                 lblTitle.Text = "IAIP Navigation Screen — UAT"
-                TestingMenu.Visible = False
+                TestingMenu.Visible = True
         End Select
     End Sub
 
