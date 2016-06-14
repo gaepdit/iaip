@@ -4018,70 +4018,78 @@ Public Class DMUEisGecoTool
 
             Dim dr As DataRow = DB.GetDataRow(SQL, param)
 
-            If IsDBNull(dr.Item("strFacilitySiteName")) Then
-                txtEIModifyFacilityName.Clear()
-                txtEILogFacilityName.Clear()
-            Else
-                txtEIModifyFacilityName.Text = dr.Item("strFacilitySiteName")
-                txtEILogFacilityName.Text = dr.Item("strFacilitySiteName")
-            End If
+            If dr IsNot Nothing Then
+                If IsDBNull(dr.Item("strFacilitySiteName")) Then
+                    txtEIModifyFacilityName.Clear()
+                    txtEILogFacilityName.Clear()
+                Else
+                    txtEIModifyFacilityName.Text = dr.Item("strFacilitySiteName")
+                    txtEILogFacilityName.Text = dr.Item("strFacilitySiteName")
+                End If
 
-            If IsDBNull(dr.Item("STRFACILITYSITESTATUSCODE")) Then
-                cbEisModifyOperStatus.SelectedValue = EisSiteStatus.UNK
-            Else
-                cbEisModifyOperStatus.SelectedValue = [Enum].Parse(GetType(EisSiteStatus), dr.Item("STRFACILITYSITESTATUSCODE"))
+                If IsDBNull(dr.Item("STRFACILITYSITESTATUSCODE")) Then
+                    cbEisModifyOperStatus.SelectedValue = EisSiteStatus.UNK
+                Else
+                    cbEisModifyOperStatus.SelectedValue = [Enum].Parse(GetType(EisSiteStatus), dr.Item("STRFACILITYSITESTATUSCODE"))
+                End If
             End If
 
             SQL = "select * " &
             "from EIS_FacilitySiteAddress " &
             "where FacilitySiteId = @FacilitySiteId "
+
             dr = DB.GetDataRow(SQL, param)
 
-            If IsDBNull(dr.Item("strLocationAddressText")) Then
-                txtEIModifyLocation.Clear()
-            Else
-                txtEIModifyLocation.Text = dr.Item("strLocationAddressText")
-            End If
-            If IsDBNull(dr.Item("strLocalityName")) Then
-                txtEIModifyCity.Clear()
-            Else
-                txtEIModifyCity.Text = dr.Item("strLocalityName")
-            End If
-            If IsDBNull(dr.Item("strLocationAddressPostalCode")) Then
-                mtbEIModifyZipCode.Clear()
-            Else
-                mtbEIModifyZipCode.Text = dr.Item("strLocationAddressPostalCode")
-            End If
-            If IsDBNull(dr.Item("STRMAILINGADDRESSTEXT")) Then
-                txtEIModifyMLocation.Clear()
-            Else
-                txtEIModifyMLocation.Text = dr.Item("STRMAILINGADDRESSTEXT")
-            End If
-            If IsDBNull(dr.Item("STRMAILINGADDRESSCITYNAME")) Then
-                txtEIModifyMCity.Clear()
-            Else
-                txtEIModifyMCity.Text = dr.Item("STRMAILINGADDRESSCITYNAME")
-            End If
-            If IsDBNull(dr.Item("STRMAILINGADDRESSPOSTALCODE")) Then
-                mtbEIModifyMZipCode.Clear()
-            Else
-                mtbEIModifyMZipCode.Text = dr.Item("STRMAILINGADDRESSPOSTALCODE")
+            If dr IsNot Nothing Then
+                If IsDBNull(dr.Item("strLocationAddressText")) Then
+                    txtEIModifyLocation.Clear()
+                Else
+                    txtEIModifyLocation.Text = dr.Item("strLocationAddressText")
+                End If
+                If IsDBNull(dr.Item("strLocalityName")) Then
+                    txtEIModifyCity.Clear()
+                Else
+                    txtEIModifyCity.Text = dr.Item("strLocalityName")
+                End If
+                If IsDBNull(dr.Item("strLocationAddressPostalCode")) Then
+                    mtbEIModifyZipCode.Clear()
+                Else
+                    mtbEIModifyZipCode.Text = dr.Item("strLocationAddressPostalCode")
+                End If
+                If IsDBNull(dr.Item("STRMAILINGADDRESSTEXT")) Then
+                    txtEIModifyMLocation.Clear()
+                Else
+                    txtEIModifyMLocation.Text = dr.Item("STRMAILINGADDRESSTEXT")
+                End If
+                If IsDBNull(dr.Item("STRMAILINGADDRESSCITYNAME")) Then
+                    txtEIModifyMCity.Clear()
+                Else
+                    txtEIModifyMCity.Text = dr.Item("STRMAILINGADDRESSCITYNAME")
+                End If
+                If IsDBNull(dr.Item("STRMAILINGADDRESSPOSTALCODE")) Then
+                    mtbEIModifyMZipCode.Clear()
+                Else
+                    mtbEIModifyMZipCode.Text = dr.Item("STRMAILINGADDRESSPOSTALCODE")
+                End If
             End If
 
             SQL = "select numLatitudeMeasure, numLongitudeMeasure " &
             "from EIS_FacilityGeoCoord " &
             "where FacilitySiteId = @FacilitySiteId "
+
             dr = DB.GetDataRow(SQL, param)
 
-            If IsDBNull(dr.Item("numLatitudeMeasure")) Then
-                mtbEIModifyLatitude.Clear()
-            Else
-                mtbEIModifyLatitude.Text = dr.Item("numLatitudeMeasure")
-            End If
-            If IsDBNull(dr.Item("numLongitudeMeasure")) Then
-                mtbEIModifyLongitude.Clear()
-            Else
-                mtbEIModifyLongitude.Text = dr.Item("numLongitudeMeasure")
+            If dr IsNot Nothing Then
+                If IsDBNull(dr.Item("numLatitudeMeasure")) Then
+                    mtbEIModifyLatitude.Clear()
+                Else
+                    mtbEIModifyLatitude.Text = dr.Item("numLatitudeMeasure")
+                End If
+                If IsDBNull(dr.Item("numLongitudeMeasure")) Then
+                    mtbEIModifyLongitude.Clear()
+                Else
+                    mtbEIModifyLongitude.Text = dr.Item("numLongitudeMeasure")
+                End If
             End If
 
             SQL = "SELECT fi.STRFACILITYNAME, fi.STRFACILITYSTREET1, " &
@@ -4097,40 +4105,42 @@ Public Class DMUEisGecoTool
 
             dr = DB.GetDataRow(SQL, param2)
 
-            If IsDBNull(dr.Item("strFacilityName")) Then
-                txtEIModifyIAIPFacilityName.Clear()
-            Else
-                txtEIModifyIAIPFacilityName.Text = dr.Item("strFacilityName")
-            End If
-            If IsDBNull(dr.Item("strFacilityStreet1")) Then
-                txtEIModifyIAIPLocation.Clear()
-            Else
-                txtEIModifyIAIPLocation.Text = dr.Item("strFacilityStreet1")
-            End If
-            If IsDBNull(dr.Item("strFacilityCity")) Then
-                txtEIModifyIAIPCity.Clear()
-            Else
-                txtEIModifyIAIPCity.Text = dr.Item("strFacilityCity")
-            End If
-            If IsDBNull(dr.Item("strFacilityZipCode")) Then
-                mtbEIModifyIAIPZipCode.Clear()
-            Else
-                mtbEIModifyIAIPZipCode.Text = dr.Item("strFacilityZipCode")
-            End If
-            If IsDBNull(dr.Item("numFacilityLongitude")) Then
-                mtbEIModifyIAIPLongitude.Clear()
-            Else
-                mtbEIModifyIAIPLongitude.Text = dr.Item("numFacilityLongitude")
-            End If
-            If IsDBNull(dr.Item("numFacilityLatitude")) Then
-                mtbEIModifyIAIPLatitude.Clear()
-            Else
-                mtbEIModifyIAIPLatitude.Text = dr.Item("numFacilityLatitude")
-            End If
-            If IsDBNull(dr.Item("STROPERATIONALSTATUS")) Then
-                cbIaipOperStatus.SelectedValue = FacilityOperationalStatus.U
-            Else
-                cbIaipOperStatus.SelectedValue = [Enum].Parse(GetType(FacilityOperationalStatus), dr.Item("STROPERATIONALSTATUS"))
+            If dr IsNot Nothing Then
+                If IsDBNull(dr.Item("strFacilityName")) Then
+                    txtEIModifyIAIPFacilityName.Clear()
+                Else
+                    txtEIModifyIAIPFacilityName.Text = dr.Item("strFacilityName")
+                End If
+                If IsDBNull(dr.Item("strFacilityStreet1")) Then
+                    txtEIModifyIAIPLocation.Clear()
+                Else
+                    txtEIModifyIAIPLocation.Text = dr.Item("strFacilityStreet1")
+                End If
+                If IsDBNull(dr.Item("strFacilityCity")) Then
+                    txtEIModifyIAIPCity.Clear()
+                Else
+                    txtEIModifyIAIPCity.Text = dr.Item("strFacilityCity")
+                End If
+                If IsDBNull(dr.Item("strFacilityZipCode")) Then
+                    mtbEIModifyIAIPZipCode.Clear()
+                Else
+                    mtbEIModifyIAIPZipCode.Text = dr.Item("strFacilityZipCode")
+                End If
+                If IsDBNull(dr.Item("numFacilityLongitude")) Then
+                    mtbEIModifyIAIPLongitude.Clear()
+                Else
+                    mtbEIModifyIAIPLongitude.Text = dr.Item("numFacilityLongitude")
+                End If
+                If IsDBNull(dr.Item("numFacilityLatitude")) Then
+                    mtbEIModifyIAIPLatitude.Clear()
+                Else
+                    mtbEIModifyIAIPLatitude.Text = dr.Item("numFacilityLatitude")
+                End If
+                If IsDBNull(dr.Item("STROPERATIONALSTATUS")) Then
+                    cbIaipOperStatus.SelectedValue = FacilityOperationalStatus.U
+                Else
+                    cbIaipOperStatus.SelectedValue = [Enum].Parse(GetType(FacilityOperationalStatus), dr.Item("STROPERATIONALSTATUS"))
+                End If
             End If
 
             SQL = "Select * " &
@@ -4145,80 +4155,82 @@ Public Class DMUEisGecoTool
 
             dr = DB.GetDataRow(SQL, params)
 
-            If IsDBNull(dr.Item("strFacilityName")) Then
-                txtEISMailoutFacilityName.Clear()
-            Else
-                txtEISMailoutFacilityName.Text = dr.Item("strFacilityName")
-            End If
-            If IsDBNull(dr.Item("strContactCompanyName")) Then
-                txtEISMailoutCompanyName.Clear()
-            Else
-                txtEISMailoutCompanyName.Text = dr.Item("strContactCompanyName")
-            End If
-            If IsDBNull(dr.Item("strContactAddress1")) Then
-                txtEISMailoutAddress.Clear()
-            Else
-                txtEISMailoutAddress.Text = dr.Item("strContactAddress1")
-            End If
-            If IsDBNull(dr.Item("strContactAddress2")) Then
-                txtEISMailoutAddress2.Clear()
-            Else
-                txtEISMailoutAddress2.Text = dr.Item("strContactAddress2")
-            End If
-            If IsDBNull(dr.Item("strContactCity")) Then
-                txtEISMailoutCity.Clear()
-            Else
-                txtEISMailoutCity.Text = dr.Item("strContactCity")
-            End If
-            If IsDBNull(dr.Item("strContactState")) Then
-                txtEISMailoutState.Clear()
-            Else
-                txtEISMailoutState.Text = dr.Item("strContactState")
-            End If
-            If IsDBNull(dr.Item("strContactZipCode")) Then
-                txtEISMailoutZipCode.Clear()
-            Else
-                txtEISMailoutZipCode.Text = dr.Item("strContactZipCode")
-            End If
-            If IsDBNull(dr.Item("strContactFirstName")) Then
-                txtEISMailoutFirstName.Clear()
-            Else
-                txtEISMailoutFirstName.Text = dr.Item("strContactFirstName")
-            End If
-            If IsDBNull(dr.Item("strContactLastName")) Then
-                txtEISMailoutLastName.Clear()
-            Else
-                txtEISMailoutLastName.Text = dr.Item("strContactLastName")
-            End If
-            If IsDBNull(dr.Item("strContactPrefix")) Then
-                txtEISMailoutPrefix.Clear()
-            Else
-                txtEISMailoutPrefix.Text = dr.Item("strContactPrefix")
-            End If
-            If IsDBNull(dr.Item("strContactEmail")) Then
-                txtEISMailoutEmail.Clear()
-            Else
-                txtEISMailoutEmail.Text = dr.Item("strContactEmail")
-            End If
-            If IsDBNull(dr.Item("strComment")) Then
-                txtEISMailoutComments.Clear()
-            Else
-                txtEISMailoutComments.Text = dr.Item("strComment")
-            End If
-            If IsDBNull(dr.Item("UpdateUser")) Then
-                txtEISMailoutUpdateUser.Clear()
-            Else
-                txtEISMailoutUpdateUser.Text = dr.Item("UpdateUser")
-            End If
-            If IsDBNull(dr.Item("UpdateDateTime")) Then
-                txtEISMailoutUpdateDateTime.Clear()
-            Else
-                txtEISMailoutUpdateDateTime.Text = dr.Item("UpdateDateTime")
-            End If
-            If IsDBNull(dr.Item("CreateDateTime")) Then
-                txtEISMailoutCreateDateTime.Clear()
-            Else
-                txtEISMailoutCreateDateTime.Text = dr.Item("CreateDateTime")
+            If dr IsNot Nothing Then
+                If IsDBNull(dr.Item("strFacilityName")) Then
+                    txtEISMailoutFacilityName.Clear()
+                Else
+                    txtEISMailoutFacilityName.Text = dr.Item("strFacilityName")
+                End If
+                If IsDBNull(dr.Item("strContactCompanyName")) Then
+                    txtEISMailoutCompanyName.Clear()
+                Else
+                    txtEISMailoutCompanyName.Text = dr.Item("strContactCompanyName")
+                End If
+                If IsDBNull(dr.Item("strContactAddress1")) Then
+                    txtEISMailoutAddress.Clear()
+                Else
+                    txtEISMailoutAddress.Text = dr.Item("strContactAddress1")
+                End If
+                If IsDBNull(dr.Item("strContactAddress2")) Then
+                    txtEISMailoutAddress2.Clear()
+                Else
+                    txtEISMailoutAddress2.Text = dr.Item("strContactAddress2")
+                End If
+                If IsDBNull(dr.Item("strContactCity")) Then
+                    txtEISMailoutCity.Clear()
+                Else
+                    txtEISMailoutCity.Text = dr.Item("strContactCity")
+                End If
+                If IsDBNull(dr.Item("strContactState")) Then
+                    txtEISMailoutState.Clear()
+                Else
+                    txtEISMailoutState.Text = dr.Item("strContactState")
+                End If
+                If IsDBNull(dr.Item("strContactZipCode")) Then
+                    txtEISMailoutZipCode.Clear()
+                Else
+                    txtEISMailoutZipCode.Text = dr.Item("strContactZipCode")
+                End If
+                If IsDBNull(dr.Item("strContactFirstName")) Then
+                    txtEISMailoutFirstName.Clear()
+                Else
+                    txtEISMailoutFirstName.Text = dr.Item("strContactFirstName")
+                End If
+                If IsDBNull(dr.Item("strContactLastName")) Then
+                    txtEISMailoutLastName.Clear()
+                Else
+                    txtEISMailoutLastName.Text = dr.Item("strContactLastName")
+                End If
+                If IsDBNull(dr.Item("strContactPrefix")) Then
+                    txtEISMailoutPrefix.Clear()
+                Else
+                    txtEISMailoutPrefix.Text = dr.Item("strContactPrefix")
+                End If
+                If IsDBNull(dr.Item("strContactEmail")) Then
+                    txtEISMailoutEmail.Clear()
+                Else
+                    txtEISMailoutEmail.Text = dr.Item("strContactEmail")
+                End If
+                If IsDBNull(dr.Item("strComment")) Then
+                    txtEISMailoutComments.Clear()
+                Else
+                    txtEISMailoutComments.Text = dr.Item("strComment")
+                End If
+                If IsDBNull(dr.Item("UpdateUser")) Then
+                    txtEISMailoutUpdateUser.Clear()
+                Else
+                    txtEISMailoutUpdateUser.Text = dr.Item("UpdateUser")
+                End If
+                If IsDBNull(dr.Item("UpdateDateTime")) Then
+                    txtEISMailoutUpdateDateTime.Clear()
+                Else
+                    txtEISMailoutUpdateDateTime.Text = dr.Item("UpdateDateTime")
+                End If
+                If IsDBNull(dr.Item("CreateDateTime")) Then
+                    txtEISMailoutCreateDateTime.Clear()
+                Else
+                    txtEISMailoutCreateDateTime.Text = dr.Item("CreateDateTime")
+                End If
             End If
 
             SQL = "select " &
@@ -4240,101 +4252,103 @@ Public Class DMUEisGecoTool
 
             dr = DB.GetDataRow(SQL, param3)
 
-            If IsDBNull(dr.Item("strContactFirstName")) Then
-                txtEISContactFirstName.Clear()
-            Else
-                txtEISContactFirstName.Text = dr.Item("strContactFirstName")
-            End If
-            If IsDBNull(dr.Item("strContactLastName")) Then
-                txtEISContactLastName.Clear()
-            Else
-                txtEISContactLastName.Text = dr.Item("strContactLastName")
-            End If
-            If IsDBNull(dr.Item("strContactPrefix")) Then
-                txtEISContactPrefix.Clear()
-            Else
-                txtEISContactPrefix.Text = dr.Item("strContactPrefix")
-            End If
-            If IsDBNull(dr.Item("strContactSuffix")) Then
-                txtEISContactSuffix.Clear()
-            Else
-                txtEISContactSuffix.Text = dr.Item("strContactSuffix")
-            End If
-            If IsDBNull(dr.Item("strContactTitle")) Then
-                txtEISContactTitle.Clear()
-            Else
-                txtEISContactTitle.Text = dr.Item("strContactTitle")
-            End If
-            If IsDBNull(dr.Item("strContactPhoneNumber1")) Then
-                txtEISContactPhone.Clear()
-            Else
-                txtEISContactPhone.Text = dr.Item("strContactPhoneNumber1")
-            End If
-            If IsDBNull(dr.Item("strContactPhoneNumber2")) Then
-                txtEISContactPhone2.Clear()
-            Else
-                txtEISContactPhone2.Text = dr.Item("strContactPhoneNumber2")
-            End If
-            If IsDBNull(dr.Item("strContactFaxNumber")) Then
-                txtEISContactFax.Clear()
-            Else
-                txtEISContactFax.Text = dr.Item("strContactFaxNumber")
-            End If
-            If IsDBNull(dr.Item("strContactEmail")) Then
-                txtEISContactEmail.Clear()
-            Else
-                txtEISContactEmail.Text = dr.Item("strContactEmail")
-            End If
-            If IsDBNull(dr.Item("strContactCompanyName")) Then
-                txtEISContactCompanyName.Clear()
-            Else
-                txtEISContactCompanyName.Text = dr.Item("strContactCompanyName")
-            End If
-            If IsDBNull(dr.Item("strContactAddress1")) Then
-                txtEISContactAddress.Clear()
-            Else
-                txtEISContactAddress.Text = dr.Item("strContactAddress1")
-            End If
-            If IsDBNull(dr.Item("strContactAddress2")) Then
-                txtEISContactAddress2.Clear()
-            Else
-                txtEISContactAddress2.Text = dr.Item("strContactAddress2")
-            End If
-            If IsDBNull(dr.Item("strContactCity")) Then
-                txtEISContactCity.Clear()
-            Else
-                txtEISContactCity.Text = dr.Item("strContactCity")
-            End If
-            If IsDBNull(dr.Item("strContactState")) Then
-                txtEISContactState.Clear()
-            Else
-                txtEISContactState.Text = dr.Item("strContactState")
-            End If
-            If IsDBNull(dr.Item("strContactZipCode")) Then
-                txtEISContactZipCode.Clear()
-            Else
-                txtEISContactZipCode.Text = dr.Item("strContactZipCode")
-            End If
-            If IsDBNull(dr.Item("strContactDescription")) Then
-                txtEISContactDescription.Clear()
-            Else
-                txtEISContactDescription.Text = dr.Item("strContactDescription")
-            End If
-            If IsDBNull(dr.Item("ModifingPerson")) Then
-                txtEISContactUpdateUser.Clear()
-            Else
-                txtEISContactUpdateUser.Text = dr.Item("ModifingPerson")
-            End If
-            If IsDBNull(dr.Item("datModifingDate")) Then
-                txtEISContactUpdateDateTime.Clear()
-            Else
-                txtEISContactUpdateDateTime.Text = dr.Item("datModifingDate")
+            If dr IsNot Nothing Then
+                If IsDBNull(dr.Item("strContactFirstName")) Then
+                    txtEISContactFirstName.Clear()
+                Else
+                    txtEISContactFirstName.Text = dr.Item("strContactFirstName")
+                End If
+                If IsDBNull(dr.Item("strContactLastName")) Then
+                    txtEISContactLastName.Clear()
+                Else
+                    txtEISContactLastName.Text = dr.Item("strContactLastName")
+                End If
+                If IsDBNull(dr.Item("strContactPrefix")) Then
+                    txtEISContactPrefix.Clear()
+                Else
+                    txtEISContactPrefix.Text = dr.Item("strContactPrefix")
+                End If
+                If IsDBNull(dr.Item("strContactSuffix")) Then
+                    txtEISContactSuffix.Clear()
+                Else
+                    txtEISContactSuffix.Text = dr.Item("strContactSuffix")
+                End If
+                If IsDBNull(dr.Item("strContactTitle")) Then
+                    txtEISContactTitle.Clear()
+                Else
+                    txtEISContactTitle.Text = dr.Item("strContactTitle")
+                End If
+                If IsDBNull(dr.Item("strContactPhoneNumber1")) Then
+                    txtEISContactPhone.Clear()
+                Else
+                    txtEISContactPhone.Text = dr.Item("strContactPhoneNumber1")
+                End If
+                If IsDBNull(dr.Item("strContactPhoneNumber2")) Then
+                    txtEISContactPhone2.Clear()
+                Else
+                    txtEISContactPhone2.Text = dr.Item("strContactPhoneNumber2")
+                End If
+                If IsDBNull(dr.Item("strContactFaxNumber")) Then
+                    txtEISContactFax.Clear()
+                Else
+                    txtEISContactFax.Text = dr.Item("strContactFaxNumber")
+                End If
+                If IsDBNull(dr.Item("strContactEmail")) Then
+                    txtEISContactEmail.Clear()
+                Else
+                    txtEISContactEmail.Text = dr.Item("strContactEmail")
+                End If
+                If IsDBNull(dr.Item("strContactCompanyName")) Then
+                    txtEISContactCompanyName.Clear()
+                Else
+                    txtEISContactCompanyName.Text = dr.Item("strContactCompanyName")
+                End If
+                If IsDBNull(dr.Item("strContactAddress1")) Then
+                    txtEISContactAddress.Clear()
+                Else
+                    txtEISContactAddress.Text = dr.Item("strContactAddress1")
+                End If
+                If IsDBNull(dr.Item("strContactAddress2")) Then
+                    txtEISContactAddress2.Clear()
+                Else
+                    txtEISContactAddress2.Text = dr.Item("strContactAddress2")
+                End If
+                If IsDBNull(dr.Item("strContactCity")) Then
+                    txtEISContactCity.Clear()
+                Else
+                    txtEISContactCity.Text = dr.Item("strContactCity")
+                End If
+                If IsDBNull(dr.Item("strContactState")) Then
+                    txtEISContactState.Clear()
+                Else
+                    txtEISContactState.Text = dr.Item("strContactState")
+                End If
+                If IsDBNull(dr.Item("strContactZipCode")) Then
+                    txtEISContactZipCode.Clear()
+                Else
+                    txtEISContactZipCode.Text = dr.Item("strContactZipCode")
+                End If
+                If IsDBNull(dr.Item("strContactDescription")) Then
+                    txtEISContactDescription.Clear()
+                Else
+                    txtEISContactDescription.Text = dr.Item("strContactDescription")
+                End If
+                If IsDBNull(dr.Item("ModifingPerson")) Then
+                    txtEISContactUpdateUser.Clear()
+                Else
+                    txtEISContactUpdateUser.Text = dr.Item("ModifingPerson")
+                End If
+                If IsDBNull(dr.Item("datModifingDate")) Then
+                    txtEISContactUpdateDateTime.Clear()
+                Else
+                    txtEISContactUpdateDateTime.Text = dr.Item("datModifingDate")
+                End If
             End If
 
             LoadQASpecificData()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -4356,110 +4370,112 @@ Public Class DMUEisGecoTool
 
             Dim dr As DataRow = DB.GetDataRow(SQL, params)
 
-            If IsDBNull(dr.Item("EISStatusCode")) Then
-                cboEILogStatusCode.Text = ""
-            Else
-                cboEILogStatusCode.SelectedValue = dr.Item("EISStatusCode")
-                txtEILogStatusCode.Text = cboEILogStatusCode.Text
-            End If
-            If IsDBNull(dr.Item("datEISStatus")) Then
-                dtpEILogStatusDateSubmit.Value = Today
-            Else
-                dtpEILogStatusDateSubmit.Text = dr.Item("datEISStatus")
-            End If
-            If IsDBNull(dr.Item("EISAccessCode")) Then
-                cboEILogAccessCode.Text = ""
-            Else
-                cboEILogAccessCode.SelectedValue = dr.Item("EISAccessCode")
-            End If
-            If IsDBNull(dr.Item("strOptOut")) Then
-                rdbEILogOpOutYes.Checked = False
-                rdbEILogOpOutNo.Checked = False
-            Else
-                If dr.Item("strOptOut") = "1" Then
-                    rdbEILogOpOutYes.Checked = True
+            If dr IsNot Nothing Then
+                If IsDBNull(dr.Item("EISStatusCode")) Then
+                    cboEILogStatusCode.Text = ""
                 Else
-                    rdbEILogOpOutNo.Checked = True
+                    cboEILogStatusCode.SelectedValue = dr.Item("EISStatusCode")
+                    txtEILogStatusCode.Text = cboEILogStatusCode.Text
                 End If
-            End If
-            If IsDBNull(dr.Item("strIncorrectOptOut")) Then
-                chbOptedOutIncorrectly.Checked = False
-            Else
-                If dr.Item("strIncorrectOptOut") = "1" Then
-                    chbOptedOutIncorrectly.Checked = True
+                If IsDBNull(dr.Item("datEISStatus")) Then
+                    dtpEILogStatusDateSubmit.Value = Today
                 Else
+                    dtpEILogStatusDateSubmit.Text = dr.Item("datEISStatus")
+                End If
+                If IsDBNull(dr.Item("EISAccessCode")) Then
+                    cboEILogAccessCode.Text = ""
+                Else
+                    cboEILogAccessCode.SelectedValue = dr.Item("EISAccessCode")
+                End If
+                If IsDBNull(dr.Item("strOptOut")) Then
+                    rdbEILogOpOutYes.Checked = False
+                    rdbEILogOpOutNo.Checked = False
+                Else
+                    If dr.Item("strOptOut") = "1" Then
+                        rdbEILogOpOutYes.Checked = True
+                    Else
+                        rdbEILogOpOutNo.Checked = True
+                    End If
+                End If
+                If IsDBNull(dr.Item("strIncorrectOptOut")) Then
                     chbOptedOutIncorrectly.Checked = False
-                End If
-            End If
-            If IsDBNull(dr.Item("strMailout")) Then
-                rdbEILogMailoutYes.Checked = False
-                rdbEILogMailoutNo.Checked = False
-            Else
-                If dr.Item("strMailout") = "1" Then
-                    rdbEILogMailoutYes.Checked = True
                 Else
-                    rdbEILogMailoutNo.Checked = True
+                    If dr.Item("strIncorrectOptOut") = "1" Then
+                        chbOptedOutIncorrectly.Checked = True
+                    Else
+                        chbOptedOutIncorrectly.Checked = False
+                    End If
                 End If
-            End If
-            If IsDBNull(dr.Item("strEnrollment")) Then
-                rdbEILogEnrolledYes.Checked = False
-                rdbEILogEnrolledNo.Checked = False
-            Else
-                If dr.Item("strEnrollment") = "1" Then
-                    rdbEILogEnrolledYes.Checked = True
+                If IsDBNull(dr.Item("strMailout")) Then
+                    rdbEILogMailoutYes.Checked = False
+                    rdbEILogMailoutNo.Checked = False
                 Else
-                    rdbEILogEnrolledNo.Checked = True
+                    If dr.Item("strMailout") = "1" Then
+                        rdbEILogMailoutYes.Checked = True
+                    Else
+                        rdbEILogMailoutNo.Checked = True
+                    End If
                 End If
-            End If
-            If IsDBNull(dr.Item("datEnrollment")) Then
-                dtpEILogDateEnrolled.Value = Today
-            Else
-                dtpEILogDateEnrolled.Text = dr.Item("datEnrollment")
-            End If
-            If IsDBNull(dr.Item("strComment")) Then
-                txtEILogComments.Clear()
-            Else
-                txtEILogComments.Text = dr.Item("strComment")
-            End If
-            If IsDBNull(dr.Item("Active")) Then
-                rdbEILogActiveYes.Checked = False
-                rdbEILogActiveNo.Checked = False
-            Else
-                If dr.Item("Active") = "1" Then
-                    rdbEILogActiveYes.Checked = True
+                If IsDBNull(dr.Item("strEnrollment")) Then
+                    rdbEILogEnrolledYes.Checked = False
+                    rdbEILogEnrolledNo.Checked = False
                 Else
-                    rdbEILogActiveNo.Checked = True
+                    If dr.Item("strEnrollment") = "1" Then
+                        rdbEILogEnrolledYes.Checked = True
+                    Else
+                        rdbEILogEnrolledNo.Checked = True
+                    End If
                 End If
-            End If
-            If IsDBNull(dr.Item("updateUser")) Then
-                txtEILogUpdatedBy.Clear()
-            Else
-                txtEILogUpdatedBy.Text = dr.Item("UpdateUser")
-            End If
-            If IsDBNull(dr.Item("updateDatetime")) Then
-                txtEILogUpdatedTime.Clear()
-            Else
-                txtEILogUpdatedTime.Text = dr.Item("updateDatetime")
-            End If
-            If IsDBNull(dr.Item("intPrepopYear")) Then
-                txtEILogPrePopYear.Clear()
-            Else
-                txtEILogPrePopYear.Text = dr.Item("intPrepopYear")
-            End If
-            If IsDBNull(dr.Item("datEISDeadline")) Then
+                If IsDBNull(dr.Item("datEnrollment")) Then
+                    dtpEILogDateEnrolled.Value = Today
+                Else
+                    dtpEILogDateEnrolled.Text = dr.Item("datEnrollment")
+                End If
+                If IsDBNull(dr.Item("strComment")) Then
+                    txtEILogComments.Clear()
+                Else
+                    txtEILogComments.Text = dr.Item("strComment")
+                End If
+                If IsDBNull(dr.Item("Active")) Then
+                    rdbEILogActiveYes.Checked = False
+                    rdbEILogActiveNo.Checked = False
+                Else
+                    If dr.Item("Active") = "1" Then
+                        rdbEILogActiveYes.Checked = True
+                    Else
+                        rdbEILogActiveNo.Checked = True
+                    End If
+                End If
+                If IsDBNull(dr.Item("updateUser")) Then
+                    txtEILogUpdatedBy.Clear()
+                Else
+                    txtEILogUpdatedBy.Text = dr.Item("UpdateUser")
+                End If
+                If IsDBNull(dr.Item("updateDatetime")) Then
+                    txtEILogUpdatedTime.Clear()
+                Else
+                    txtEILogUpdatedTime.Text = dr.Item("updateDatetime")
+                End If
+                If IsDBNull(dr.Item("intPrepopYear")) Then
+                    txtEILogPrePopYear.Clear()
+                Else
+                    txtEILogPrePopYear.Text = dr.Item("intPrepopYear")
+                End If
+                If IsDBNull(dr.Item("datEISDeadline")) Then
 
-            Else
-                dtpDeadlineEIS.Text = dr.Item("datEISDeadline")
-                dtpDeadlineEIS.Checked = False
-            End If
-            If IsDBNull(dr.Item("strEISDeadlineComment")) Then
+                Else
+                    dtpDeadlineEIS.Text = dr.Item("datEISDeadline")
+                    dtpDeadlineEIS.Checked = False
+                End If
+                If IsDBNull(dr.Item("strEISDeadlineComment")) Then
 
-            Else
-                txtAllEISDeadlineComment.Text = dr.Item("strEISDeadlineComment")
+                Else
+                    txtAllEISDeadlineComment.Text = dr.Item("strEISDeadlineComment")
+                End If
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -4497,77 +4513,79 @@ Public Class DMUEisGecoTool
 
             Dim dr As DataRow = DB.GetDataRow(SQL, params)
 
-            If IsDBNull(dr.Item("datDateQAStart")) Then
-                dtpQAStarted.Value = Today
-            Else
-                dtpQAStarted.Text = dr.Item("datDateQAStart")
-            End If
-            If IsDBNull(dr.Item("datDateQAPass")) Then
-                dtpQAPassed.Value = Today
-                dtpQAPassed.Checked = False
-            Else
-                dtpQAPassed.Text = dr.Item("datDateQAPass")
-                dtpQAPassed.Checked = True
-            End If
-            If IsDBNull(dr.Item("QAStatusCode")) Then
-                cboEISQAStatus.Text = ""
-            Else
-                cboEISQAStatus.SelectedValue = dr.Item("QAStatusCode")
-            End If
-            If IsDBNull(dr.Item("datQAStatus")) Then
-                dtpQAStatus.Value = Today
-            Else
-                dtpQAStatus.Text = dr.Item("datQAStatus")
-            End If
-            If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
-                cboEISQAStaff.Text = ""
-            Else
-                cboEISQAStaff.Text = dr.Item("strDMUResponsibleStaff")
-            End If
-            If IsDBNull(dr.Item("datQAComplete")) Then
-                dtpQACompleted.Value = Today
-                dtpQACompleted.Checked = False
-            Else
-                dtpQACompleted.Text = dr.Item("datQAComplete")
-                dtpQACompleted.Checked = True
-            End If
-            If IsDBNull(dr.Item("strComment")) Then
-                txtQAComments.Clear()
-                txtAllQAComments.Clear()
-            Else
-                txtAllQAComments.Clear()
-                txtAllQAComments.Text = dr.Item("strComment")
-            End If
-            If IsDBNull(dr.Item("strFITrackingNumber")) Then
-                txtFITrackingNumber.Text = ""
-                txtAllFITrackingNumbers.Clear()
-            Else
-                txtFITrackingNumber.Text = ""
-                txtAllFITrackingNumbers.Text = dr.Item("strFITrackingNumber")
-            End If
-            If IsDBNull(dr.Item("strPointTrackingNumber")) Then
-                txtPointTrackingNumber.Text = ""
-                txtAllPointTrackingNumbers.Clear()
-            Else
-                txtPointTrackingNumber.Text = ""
-                txtAllPointTrackingNumbers.Text = dr.Item("strPointTrackingNumber")
-            End If
-            If IsDBNull(dr.Item("strFIError")) Then
-                chbFIErrors.Checked = False
-            Else
-                If dr.Item("strFIError") = "True" Then
-                    chbFIErrors.Checked = True
+            If dr IsNot Nothing Then
+                If IsDBNull(dr.Item("datDateQAStart")) Then
+                    dtpQAStarted.Value = Today
                 Else
-                    chbFIErrors.Checked = False
+                    dtpQAStarted.Text = dr.Item("datDateQAStart")
                 End If
-            End If
-            If IsDBNull(dr.Item("strPointError")) Then
-                chbPointErrors.Checked = False
-            Else
-                If dr.Item("strpointError") = "True" Then
-                    chbPointErrors.Checked = True
+                If IsDBNull(dr.Item("datDateQAPass")) Then
+                    dtpQAPassed.Value = Today
+                    dtpQAPassed.Checked = False
                 Else
+                    dtpQAPassed.Text = dr.Item("datDateQAPass")
+                    dtpQAPassed.Checked = True
+                End If
+                If IsDBNull(dr.Item("QAStatusCode")) Then
+                    cboEISQAStatus.Text = ""
+                Else
+                    cboEISQAStatus.SelectedValue = dr.Item("QAStatusCode")
+                End If
+                If IsDBNull(dr.Item("datQAStatus")) Then
+                    dtpQAStatus.Value = Today
+                Else
+                    dtpQAStatus.Text = dr.Item("datQAStatus")
+                End If
+                If IsDBNull(dr.Item("strDMUResponsibleStaff")) Then
+                    cboEISQAStaff.Text = ""
+                Else
+                    cboEISQAStaff.Text = dr.Item("strDMUResponsibleStaff")
+                End If
+                If IsDBNull(dr.Item("datQAComplete")) Then
+                    dtpQACompleted.Value = Today
+                    dtpQACompleted.Checked = False
+                Else
+                    dtpQACompleted.Text = dr.Item("datQAComplete")
+                    dtpQACompleted.Checked = True
+                End If
+                If IsDBNull(dr.Item("strComment")) Then
+                    txtQAComments.Clear()
+                    txtAllQAComments.Clear()
+                Else
+                    txtAllQAComments.Clear()
+                    txtAllQAComments.Text = dr.Item("strComment")
+                End If
+                If IsDBNull(dr.Item("strFITrackingNumber")) Then
+                    txtFITrackingNumber.Text = ""
+                    txtAllFITrackingNumbers.Clear()
+                Else
+                    txtFITrackingNumber.Text = ""
+                    txtAllFITrackingNumbers.Text = dr.Item("strFITrackingNumber")
+                End If
+                If IsDBNull(dr.Item("strPointTrackingNumber")) Then
+                    txtPointTrackingNumber.Text = ""
+                    txtAllPointTrackingNumbers.Clear()
+                Else
+                    txtPointTrackingNumber.Text = ""
+                    txtAllPointTrackingNumbers.Text = dr.Item("strPointTrackingNumber")
+                End If
+                If IsDBNull(dr.Item("strFIError")) Then
+                    chbFIErrors.Checked = False
+                Else
+                    If dr.Item("strFIError") = "True" Then
+                        chbFIErrors.Checked = True
+                    Else
+                        chbFIErrors.Checked = False
+                    End If
+                End If
+                If IsDBNull(dr.Item("strPointError")) Then
                     chbPointErrors.Checked = False
+                Else
+                    If dr.Item("strpointError") = "True" Then
+                        chbPointErrors.Checked = True
+                    Else
+                        chbPointErrors.Checked = False
+                    End If
                 End If
             End If
 
@@ -4576,7 +4594,7 @@ Public Class DMUEisGecoTool
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
