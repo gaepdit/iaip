@@ -6263,20 +6263,20 @@ Public Class DMUEisGecoTool
             End If
 
             Dim SQL As String = "Update EIS_Mailout Set " &
-            "strFacilityName= @txtEISMailoutEditFacilityName, " &
-            "strContactCompanyName = @txtEISMailoutEditCompanyName, " &
-            "strContactAddress1 = @txtEISMailoutEditAdress, " &
-            "strContactAddress2 = @txtEISMailoutEditAddress2, " &
-            "strContactCity = @txtEISMailoutEditCity, " &
-            "strContactState = @txtEISMailoutEditState, " &
-            "strContactZipCode = @txtEISMailoutEditZipCode, " &
-            "strContactFirstName = @txtEISMailoutEditFirstName, " &
-            "strContactLastName = @txtEISMailoutEditLastName, " &
-            "strContactPrefix = @txtEISMailoutEditPrefix, " &
-            "strContactEmail = @txtEISMailoutEditEmailAddress, " &
-            "strComment = @txtEISMailoutEditComments " &
-            "where FacilitySiteid = @txtEILogSelectedAIRSNumber " &
-            "and intInventoryYear = @txtEILogSelectedYear "
+            "strFacilityName= @strFacilityName, " &
+            "strContactCompanyName = @strContactCompanyName, " &
+            "strContactAddress1 = @strContactAddress1, " &
+            "strContactAddress2 = @strContactAddress2, " &
+            "strContactCity = @strContactCity, " &
+            "strContactState = @strContactState, " &
+            "strContactZipCode = @strContactZipCode, " &
+            "strContactFirstName = @strContactFirstName, " &
+            "strContactLastName = @strContactLastName, " &
+            "strContactPrefix = @strContactPrefix, " &
+            "strContactEmail = @strContactEmail, " &
+            "strComment = @strComment " &
+            "where FacilitySiteid = @FacilitySiteid " &
+            "and intInventoryYear = @intInventoryYear "
 
             Dim params As SqlParameter() = {
                 New SqlParameter("@strFacilityName", txtEISMailoutEditFacilityName.Text),
