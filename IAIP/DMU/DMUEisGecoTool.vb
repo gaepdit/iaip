@@ -3990,7 +3990,7 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub btnReloadFSData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReloadFSData.Click
+    Private Sub btnReloadFSData_Click(sender As Object, e As EventArgs) Handles btnReloadFSData.Click
         LoadFSData()
     End Sub
 
@@ -6245,7 +6245,7 @@ Public Class DMUEisGecoTool
         End Select
     End Sub
 
-    Private Sub btnEISMailoutUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEISMailoutUpdate.Click
+    Private Sub btnEISMailoutUpdate_Click(sender As Object, e As EventArgs) Handles btnEISMailoutUpdate.Click
         Try
 
             If txtEILogSelectedAIRSNumber.Text = "" Then
@@ -6253,27 +6253,40 @@ Public Class DMUEisGecoTool
                 Exit Sub
             End If
 
-            SQL = "Update EIS_Mailout Set " &
-            "strFacilityName= '" & Replace(txtEISMailoutEditFacilityName.Text, "'", "''") & "', " &
-            "strContactCompanyName = '" & Replace(txtEISMailoutEditCompanyName.Text, "'", "''") & "', " &
-            "strContactAddress1 = '" & Replace(txtEISMailoutEditAdress.Text, "'", "''") & "', " &
-            "strContactAddress2 = '" & Replace(txtEISMailoutEditAddress2.Text, "'", "''") & "', " &
-            "strContactCity = '" & Replace(txtEISMailoutEditCity.Text, "'", "''") & "', " &
-            "strContactState = '" & Replace(txtEISMailoutEditState.Text, "'", "''") & "', " &
-            "strContactZipCode = '" & Replace(txtEISMailoutEditZipCode.Text, "'", "''") & "', " &
-            "strContactFirstName = '" & Replace(txtEISMailoutEditFirstName.Text, "'", "''") & "', " &
-            "strContactLastName = '" & Replace(txtEISMailoutEditLastName.Text, "'", "''") & "', " &
-            "strContactPrefix = '" & Replace(txtEISMailoutEditPrefix.Text, "'", "''") & "', " &
-            "strContactEmail = '" & Replace(txtEISMailoutEditEmailAddress.Text, "'", "''") & "', " &
-            "strComment = '" & Replace(txtEISMailoutEditComments.Text, "'", "''") & "' " &
-            "where FacilitySiteid = '" & txtEILogSelectedAIRSNumber.Text & "' " &
-            "and intInventoryYear = '" & txtEILogSelectedYear.Text & "' "
+            Dim SQL As String = "Update EIS_Mailout Set " &
+            "strFacilityName= @txtEISMailoutEditFacilityName, " &
+            "strContactCompanyName = @txtEISMailoutEditCompanyName, " &
+            "strContactAddress1 = @txtEISMailoutEditAdress, " &
+            "strContactAddress2 = @txtEISMailoutEditAddress2, " &
+            "strContactCity = @txtEISMailoutEditCity, " &
+            "strContactState = @txtEISMailoutEditState, " &
+            "strContactZipCode = @txtEISMailoutEditZipCode, " &
+            "strContactFirstName = @txtEISMailoutEditFirstName, " &
+            "strContactLastName = @txtEISMailoutEditLastName, " &
+            "strContactPrefix = @txtEISMailoutEditPrefix, " &
+            "strContactEmail = @txtEISMailoutEditEmailAddress, " &
+            "strComment = @txtEISMailoutEditComments " &
+            "where FacilitySiteid = @txtEILogSelectedAIRSNumber " &
+            "and intInventoryYear = @txtEILogSelectedYear "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            cmd.ExecuteReader()
+            Dim params As SqlParameter() = {
+                New SqlParameter("@strFacilityName", txtEISMailoutEditFacilityName.Text),
+                New SqlParameter("@strContactCompanyName", txtEISMailoutEditCompanyName.Text),
+                New SqlParameter("@strContactAddress1", txtEISMailoutEditAdress.Text),
+                New SqlParameter("@strContactAddress2", txtEISMailoutEditAddress2.Text),
+                New SqlParameter("@strContactCity", txtEISMailoutEditCity.Text),
+                New SqlParameter("@strContactState", txtEISMailoutEditState.Text),
+                New SqlParameter("@strContactZipCode", txtEISMailoutEditZipCode.Text),
+                New SqlParameter("@strContactFirstName", txtEISMailoutEditFirstName.Text),
+                New SqlParameter("@strContactLastName", txtEISMailoutEditLastName.Text),
+                New SqlParameter("@strContactPrefix", txtEISMailoutEditPrefix.Text),
+                New SqlParameter("@strContactEmail", txtEISMailoutEditEmailAddress.Text),
+                New SqlParameter("@strComment", txtEISMailoutEditComments.Text),
+                New SqlParameter("@FacilitySiteid", txtEILogSelectedAIRSNumber.Text),
+                New SqlParameter("@intInventoryYear", txtEILogSelectedYear.Text)
+            }
+
+            DB.RunCommand(SQL, params)
 
             MsgBox("Data updated", MsgBoxStyle.Information, Me.Text)
 
@@ -8158,7 +8171,6 @@ Public Class DMUEisGecoTool
     Handles txtEIModifyMLocation.Enter, txtEIModifyMCity.Enter, mtbEIModifyMZipCode.Enter
         Me.AcceptButton = btnEIModifyUpdateMailing
     End Sub
-
 
     Private Sub EIModifyLatitudeLongitude_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
     Handles mtbEIModifyLatitude.Enter, mtbEIModifyLongitude.Enter

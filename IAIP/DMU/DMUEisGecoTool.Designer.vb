@@ -22,8 +22,8 @@ Partial Class DMUEisGecoTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TCDMUTools = New System.Windows.Forms.TabControl()
         Me.TPEISLog = New System.Windows.Forms.TabPage()
         Me.TabControl6 = New System.Windows.Forms.TabControl()
@@ -78,7 +78,6 @@ Partial Class DMUEisGecoTool
         Me.txtEISMailoutEditComments = New System.Windows.Forms.TextBox()
         Me.txtEISMailoutComments = New System.Windows.Forms.TextBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.btnRefreshMailoutData = New System.Windows.Forms.Button()
         Me.Label65 = New System.Windows.Forms.Label()
         Me.txtEISMailoutEmail = New System.Windows.Forms.TextBox()
         Me.txtEISMailoutEditEmailAddress = New System.Windows.Forms.TextBox()
@@ -1278,7 +1277,6 @@ Partial Class DMUEisGecoTool
         '
         'GroupBox2
         '
-        Me.GroupBox2.Controls.Add(Me.btnRefreshMailoutData)
         Me.GroupBox2.Controls.Add(Me.Label65)
         Me.GroupBox2.Controls.Add(Me.txtEISMailoutEmail)
         Me.GroupBox2.Controls.Add(Me.txtEISMailoutEditEmailAddress)
@@ -1316,17 +1314,6 @@ Partial Class DMUEisGecoTool
         Me.GroupBox2.TabIndex = 0
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Contact Info"
-        '
-        'btnRefreshMailoutData
-        '
-        Me.btnRefreshMailoutData.AutoSize = True
-        Me.btnRefreshMailoutData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRefreshMailoutData.Location = New System.Drawing.Point(782, 11)
-        Me.btnRefreshMailoutData.Name = "btnRefreshMailoutData"
-        Me.btnRefreshMailoutData.Size = New System.Drawing.Size(161, 23)
-        Me.btnRefreshMailoutData.TabIndex = 20
-        Me.btnRefreshMailoutData.Text = "Refresh with current IAIP Data"
-        Me.btnRefreshMailoutData.UseVisualStyleBackColor = True
         '
         'Label65
         '
@@ -2886,7 +2873,7 @@ Partial Class DMUEisGecoTool
         Me.Panel15.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel15.Controls.Add(Me.rdbEILogOpOutNo)
         Me.Panel15.Controls.Add(Me.rdbEILogOpOutYes)
-        Me.Panel15.Location = New System.Drawing.Point(59, 115)
+        Me.Panel15.Location = New System.Drawing.Point(59, 116)
         Me.Panel15.Name = "Panel15"
         Me.Panel15.Size = New System.Drawing.Size(91, 22)
         Me.Panel15.TabIndex = 5
@@ -2928,7 +2915,7 @@ Partial Class DMUEisGecoTool
         Me.Panel14.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel14.Controls.Add(Me.rdbEILogMailoutNo)
         Me.Panel14.Controls.Add(Me.rdbEILogMailoutYes)
-        Me.Panel14.Location = New System.Drawing.Point(59, 57)
+        Me.Panel14.Location = New System.Drawing.Point(59, 58)
         Me.Panel14.Name = "Panel14"
         Me.Panel14.Size = New System.Drawing.Size(91, 22)
         Me.Panel14.TabIndex = 3
@@ -2970,7 +2957,7 @@ Partial Class DMUEisGecoTool
         Me.Panel13.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel13.Controls.Add(Me.rdbEILogEnrolledNo)
         Me.Panel13.Controls.Add(Me.rdbEILogEnrolledYes)
-        Me.Panel13.Location = New System.Drawing.Point(59, 85)
+        Me.Panel13.Location = New System.Drawing.Point(59, 86)
         Me.Panel13.Name = "Panel13"
         Me.Panel13.Size = New System.Drawing.Size(91, 22)
         Me.Panel13.TabIndex = 4
@@ -4806,23 +4793,23 @@ Partial Class DMUEisGecoTool
         '
         'dgvESDataCount
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvESDataCount.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvESDataCount.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
         Me.dgvESDataCount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvESDataCount.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvESDataCount.DefaultCellStyle = DataGridViewCellStyle6
         Me.dgvESDataCount.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvESDataCount.Location = New System.Drawing.Point(3, 55)
         Me.dgvESDataCount.Name = "dgvESDataCount"
@@ -7813,7 +7800,6 @@ End Sub
     Friend WithEvents Label240 As System.Windows.Forms.Label
     Friend WithEvents btnEIModifyCopy As System.Windows.Forms.Button
     Friend WithEvents btnEILogUpdate As System.Windows.Forms.Button
-    Friend WithEvents btnRefreshMailoutData As System.Windows.Forms.Button
     Friend WithEvents TPEISStatistics As System.Windows.Forms.TabPage
     Friend WithEvents Panel17 As System.Windows.Forms.Panel
     Friend WithEvents dgvEISStats As System.Windows.Forms.DataGridView
