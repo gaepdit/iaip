@@ -20,7 +20,7 @@ Partial Class IAIPNavigation
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.mmiFile = New System.Windows.Forms.MenuItem()
         Me.mmiExit = New System.Windows.Forms.MenuItem()
@@ -736,8 +736,8 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.AllowUserToDeleteRows = False
         Me.dgvWorkViewer.AllowUserToOrderColumns = True
         Me.dgvWorkViewer.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvWorkViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvWorkViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvWorkViewer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.dgvWorkViewer.ColumnHeadersHeight = 35
         Me.dgvWorkViewer.Dock = System.Windows.Forms.DockStyle.Fill
