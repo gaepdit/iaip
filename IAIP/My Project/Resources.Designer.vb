@@ -69,7 +69,7 @@ Namespace My.Resources
                 Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
-
+        
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
@@ -77,6 +77,16 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("EraseIcon", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property ErrorIcon() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ErrorIcon", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
         
@@ -157,6 +167,16 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("UatLogo", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property WarningIcon() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("WarningIcon", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
     End Module

@@ -1,5 +1,3 @@
-Imports System.Drawing
-
 '--
 '-- Generic user error dialog
 '--
@@ -12,21 +10,32 @@ Imports System.Drawing
 '-- http://www.codinghorror.com
 '--
 Friend Class ExceptionDialog
-    Inherits System.Windows.Forms.Form
+    Inherits Form
 
     Const _intSpacing As Integer = 10
+    Const showMoreText As String = "Show error details >>"
+    Const hideMoreText As String = "Hide error details <<"
 
-    Private Sub UserErrorDialog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Me.Name)
+    Public Property Unrecoverable As Boolean = False
+
+    Private Sub UserErrorDialog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        monitor.TrackFeature("Forms." & Name)
 
         '-- make sure our window is on top
-        Me.TopMost = True
-        Me.TopMost = False
+        TopMost = True
+        TopMost = False
+
+        '-- show whether unrecoverable 
+        If Unrecoverable Then
+            btnOK.Text = "Exit"
+            Icon = My.Resources.ErrorIcon
+        End If
 
         '-- More >> has to be expanded
-        Me.ErrorDetails.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.ErrorDetails.Visible = False
-        Me.btnCopy.Visible = False
+        btnMore.Text = showMoreText
+        ErrorDetails.Anchor = AnchorStyles.None
+        ErrorDetails.Visible = False
+        btnCopy.Visible = False
 
         '-- size the labels' height to accommodate the amount of text in them
         SizeBox(ErrorMessage)
@@ -36,59 +45,58 @@ Friend Class ExceptionDialog
         ActionHeading.Top = ErrorMessage.Top + ErrorMessage.Height + _intSpacing
         ActionMessage.Top = ActionHeading.Top + ActionHeading.Height + _intSpacing
 
-        MoreHeading.Top = ActionMessage.Top + ActionMessage.Height + _intSpacing
-        btnMore.Top = MoreHeading.Top - 3
-        btnCopy.Top = MoreHeading.Top - 3
+        btnMore.Top = ActionMessage.Top + ActionMessage.Height + _intSpacing - 3
+        btnCopy.Top = btnMore.Top
 
         '-- now shift bottom of dialog up
-        Me.ClientSize = New Size(Me.ClientSize.Width, btnMore.Top + btnMore.Height + _intSpacing + btnOK.Height + _intSpacing)
+        ClientSize = New Size(ClientSize.Width, btnMore.Top + btnMore.Height + _intSpacing + btnOK.Height + _intSpacing)
 
-        Me.CenterToScreen()
+        CenterToScreen()
     End Sub
 
-    Private Sub SizeBox(ByVal ctl As System.Windows.Forms.TextBox)
+    Private Sub SizeBox(ctl As TextBox)
         Try
             '-- note that the height is taken as MAXIMUM, so size the label for maximum desired height!
             Using g As Graphics = Graphics.FromHwnd(ctl.Handle)
                 Dim objSizeF As SizeF = g.MeasureString(ctl.Text, ctl.Font, New SizeF(ctl.Width, ctl.Height))
                 ctl.Height = Convert.ToInt32(objSizeF.Height) + 5
             End Using
-        Catch ex As System.Security.SecurityException
+        Catch ex As Security.SecurityException
             '-- do nothing; we can't set control sizes without full trust
         End Try
     End Sub
 
-    Private Sub btnMore_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnMore.Click
-        If btnMore.Text = ">>" Then
-            Me.Height = Me.Height + 300
+    Private Sub btnMore_Click(sender As Object, e As EventArgs) Handles btnMore.Click
+        If btnMore.Text = showMoreText Then
+            Height = Height + 300
             With ErrorDetails
-                .Location = New System.Drawing.Point(MoreHeading.Left, btnMore.Top + btnMore.Height + _intSpacing)
-                .Height = Me.ClientSize.Height - ErrorDetails.Top - _intSpacing - btnOK.Height - _intSpacing
+                .Location = New Point(btnMore.Left, btnMore.Top + btnMore.Height + _intSpacing)
+                .Height = ClientSize.Height - ErrorDetails.Top - _intSpacing - btnOK.Height - _intSpacing
                 .Anchor = AnchorStyles.Top Or AnchorStyles.Bottom _
                             Or AnchorStyles.Left Or AnchorStyles.Right
                 .Visible = True
             End With
-            btnMore.Text = "<<"
+            btnMore.Text = hideMoreText
             btnCopy.Visible = True
             btnCopy.Focus()
         Else
-            Me.SuspendLayout()
-            btnMore.Text = ">>"
-            Me.ClientSize = New Size(Me.ClientSize.Width, btnMore.Top + btnMore.Height + _intSpacing + btnOK.Height + _intSpacing)
+            SuspendLayout()
+            btnMore.Text = showMoreText
+            ClientSize = New Size(ClientSize.Width, btnMore.Top + btnMore.Height + _intSpacing + btnOK.Height + _intSpacing)
             ErrorDetails.Anchor = AnchorStyles.None
             ErrorDetails.Visible = False
             btnCopy.Visible = False
-            Me.ResumeLayout()
+            ResumeLayout()
         End If
     End Sub
 
-    Private Sub btnCopy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCopy.Click
+    Private Sub btnCopy_Click(sender As Object, e As EventArgs) Handles btnCopy.Click
         Clipboard.SetText(ErrorDetails.Text)
         btnCopy.Text = "Copied!"
     End Sub
 
-    Private Sub btnOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOK.Click
-        Me.Close()
+    Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
+        Close()
     End Sub
 
 End Class

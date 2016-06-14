@@ -47,7 +47,7 @@ Public Class IaipExceptionManager
             .ErrorMessage.Text = WhatHappened
             .ActionMessage.Text = WhatUserCanDo
             .ErrorDetails.Text = FormatExceptionForUser(exc)
-            If showExitButton Then .btnOK.Text = "Exit"
+            If showExitButton Then .Unrecoverable = True
         End With
 
         Return ed.ShowDialog()
