@@ -5912,7 +5912,7 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub btnUpdateQAData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateQAData.Click
+    Private Sub btnUpdateQAData_Click(sender As Object, e As EventArgs) Handles btnUpdateQAData.Click
         Try
             Dim QAStart As String = ""
             Dim QAPass As String = ""
@@ -5938,7 +5938,7 @@ Public Class DMUEisGecoTool
                 QAComplete = ""
             End If
             QAStatusCode = cboEISQAStatus.SelectedValue
-            QAStatusDate = OracleDate
+            QAStatusDate = Format(Today, DateFormat)
             StaffResponsible = cboEISQAStaff.Text
             If txtQAComments.Text = "" Then
                 If txtAllQAComments.Text = "" Then
@@ -5948,9 +5948,9 @@ Public Class DMUEisGecoTool
                 End If
             Else
                 If txtAllQAComments.Text = "" Then
-                    QAComments = CurrentUser.AlphaName & " - " & OracleDate & vbCrLf & txtQAComments.Text
+                    QAComments = CurrentUser.AlphaName & " - " & Format(Today, DateFormat) & vbCrLf & txtQAComments.Text
                 Else
-                    QAComments = CurrentUser.AlphaName & " - " & OracleDate & vbCrLf & txtQAComments.Text & vbCrLf & vbCrLf &
+                    QAComments = CurrentUser.AlphaName & " - " & Format(Today, DateFormat) & vbCrLf & txtQAComments.Text & vbCrLf & vbCrLf &
                          txtAllQAComments.Text
                 End If
             End If
@@ -5962,9 +5962,9 @@ Public Class DMUEisGecoTool
                 End If
             Else
                 If txtAllFITrackingNumbers.Text = "" Then
-                    FITracking = CurrentUser.AlphaName & " - " & OracleDate & vbCrLf & txtFITrackingNumber.Text
+                    FITracking = CurrentUser.AlphaName & " - " & Format(Today, DateFormat) & vbCrLf & txtFITrackingNumber.Text
                 Else
-                    FITracking = CurrentUser.AlphaName & " - " & OracleDate & vbCrLf & txtFITrackingNumber.Text & vbCrLf & vbCrLf &
+                    FITracking = CurrentUser.AlphaName & " - " & Format(Today, DateFormat) & vbCrLf & txtFITrackingNumber.Text & vbCrLf & vbCrLf &
                                 txtAllFITrackingNumbers.Text
                 End If
             End If
@@ -5982,9 +5982,9 @@ Public Class DMUEisGecoTool
                 End If
             Else
                 If txtAllPointTrackingNumbers.Text = "" Then
-                    PointTracking = CurrentUser.AlphaName & " - " & OracleDate & vbCrLf & txtPointTrackingNumber.Text
+                    PointTracking = CurrentUser.AlphaName & " - " & Format(Today, DateFormat) & vbCrLf & txtPointTrackingNumber.Text
                 Else
-                    PointTracking = CurrentUser.AlphaName & " - " & OracleDate & vbCrLf & txtPointTrackingNumber.Text & vbCrLf & vbCrLf &
+                    PointTracking = CurrentUser.AlphaName & " - " & Format(Today, DateFormat) & vbCrLf & txtPointTrackingNumber.Text & vbCrLf & vbCrLf &
                             txtAllPointTrackingNumbers.Text
                 End If
             End If
@@ -5994,50 +5994,59 @@ Public Class DMUEisGecoTool
                 PointError = "False"
             End If
 
-            SQL = "Update eis_QAAdmin set " &
-            "datDateQAStart = '" & QAStart & "', " &
-            "datDateQAPass = '" & QAPass & "', " &
-            "QAStatusCode = '" & QAStatusCode & "', " &
-            "datQAStatus = '" & QAStatusDate & "', " &
-            "strDMUResponsibleStaff = '" & Replace(StaffResponsible, "'", "''") & "', " &
-            "datQAComplete = '" & QAComplete & "', " &
-            "strComment = '" & Replace(QAComments, "'", "''") & "', " &
+            Dim SQL As String = "Update eis_QAAdmin set " &
+            "datDateQAStart = @QAStart & " &
+            "datDateQAPass = @QAPass & " &
+            "QAStatusCode = @QAStatusCode & " &
+            "datQAStatus = @QAStatusDate & " &
+            "strDMUResponsibleStaff = @StaffResponsible, " &
+            "datQAComplete = @QAComplete & " &
+            "strComment = @QAComments, " &
             "active = '1', " &
-            "updateuser = '" & Replace(CurrentUser.AlphaName, "'", "''") & "', " &
-            "updateDateTime = sysdate, " &
-            "strFITrackingnumber = '" & Replace(FITracking, "'", "''") & "', " &
-            "strFIError = '" & Replace(FIError, "'", "''") & "', " &
-            "STRPOINTTRACKINGNUMBER = '" & Replace(PointTracking, "'", "''") & "', " &
-            "strpointerror = '" & Replace(PointError, "'", "''") & "' " &
-            "where INventoryyear = '" & cboEILogYear.Text & "' " &
-            "and FacilitySiteID = '" & mtbEILogAIRSNumber.Text & "' "
+            "updateuser = @CurrentUser, " &
+            "updateDateTime = getdate(), " &
+            "strFITrackingnumber = @FITracking, " &
+            "strFIError = @FIError, " &
+            "STRPOINTTRACKINGNUMBER = @PointTracking, " &
+            "strpointerror = @PointError," &
+            "where INventoryyear = @cboEILogYear " &
+            "and FacilitySiteID = @mtbEILogAIRSNumber "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            cmd.ExecuteReader()
+            Dim params As SqlParameter() = {
+                New SqlParameter("@datDateQAStart", QAStart),
+                New SqlParameter("@datDateQAPass", QAPass),
+                New SqlParameter("@QAStatusCode", QAStatusCode),
+                New SqlParameter("@datQAStatus", QAStatusDate),
+                New SqlParameter("@strDMUResponsibleStaff", StaffResponsible),
+                New SqlParameter("@datQAComplete", QAComplete),
+                New SqlParameter("@strComment", QAComments),
+                New SqlParameter("@updateuser", CurrentUser),
+                New SqlParameter("@strFITrackingnumber", FITracking),
+                New SqlParameter("@strFIError", FIError),
+                New SqlParameter("@STRPOINTTRACKINGNUMBER", PointTracking),
+                New SqlParameter("@strpointerror", PointError),
+                New SqlParameter("@INventoryyear", cboEILogYear.Text),
+                New SqlParameter("@FacilitySiteID", mtbEILogAIRSNumber.Text)
+            }
+
+            DB.RunCommand(SQL, params)
 
             LoadQASpecificData()
 
             If dtpQACompleted.Checked = True Then
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd = New SqlCommand("PD_EIS_QA_Done", CurrentConnection)
-                cmd.CommandType = CommandType.StoredProcedure
-
-                cmd.Parameters.Add(New SqlParameter("@AIRSNUM", SqlDbType.VarChar)).Value = txtEILogSelectedAIRSNumber.Text
-                cmd.Parameters.Add(New SqlParameter("@INTYEAR", SqlDbType.Decimal)).Value = txtEILogSelectedYear.Text
-                cmd.Parameters.Add(New SqlParameter("@DATLASTSUBMIT", SqlDbType.DateTime2)).Value = dtpQACompleted.Text
-
-                cmd.ExecuteNonQuery()
+                Dim spname As String = "PD_EIS_QA_Done"
+                Dim params2 As SqlParameter() = {
+                    New SqlParameter("@AIRSNUM", txtEILogSelectedAIRSNumber.Text),
+                    New SqlParameter("@INTYEAR", txtEILogSelectedYear.Text),
+                    New SqlParameter("@DATLASTSUBMIT", dtpQACompleted.Text)
+                }
+                DB.SPRunCommand(spname, params2)
             End If
 
             MsgBox("QA data saved.", MsgBoxStyle.Information, Me.Text)
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -7476,44 +7485,45 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub btnRemoveFromQA_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRemoveFromQA.Click
+    Private Sub btnRemoveFromQA_Click(sender As Object, e As EventArgs) Handles btnRemoveFromQA.Click
         Try
             Dim EISConfirm As String = ""
 
             EISConfirm = InputBox("Type in the EIS Year that you have selected to delete all current QA data.", Me.Text)
 
             If EISConfirm = txtEILogSelectedYear.Text Then
-                SQL = "delete EIS_QAAdmin " &
-                "where inventoryyear = '" & EISConfirm & "', " &
-                "and facilitysiteid = '" & txtEILogSelectedAIRSNumber.Text & "' "
+                Dim sql1 As String = "delete EIS_QAAdmin " &
+                "where inventoryyear = @inventoryyear " &
+                "and facilitysiteid = @facilitysiteid "
+                Dim params1 As SqlParameter() = {
+                    New SqlParameter("@inventoryyear", EISConfirm),
+                    New SqlParameter("@facilitysiteid", txtEILogSelectedAIRSNumber.Text)
+                }
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
-
-                SQL = "Update EIS_Admin set " &
+                Dim sql2 As String = "Update EIS_Admin set " &
                   "EISAccessCode = '2', " &
                   "EISStatusCode = '3', " &
                   "datEISstatus = sysdate, " &
                   "UpdateUser = '" & Replace(CurrentUser.AlphaName, "'", "''") & "', " &
-                  "updatedatetime = sysdate " &
+                  "updatedatetime = getdate() " &
                   "where inventoryYear = '" & EISConfirm & "' " &
                   "and facilitysiteid = '" & txtEILogSelectedAIRSNumber.Text & "' "
+                Dim params2 As SqlParameter() = {
+                    New SqlParameter("@UpdateUser", CurrentUser.AlphaName),
+                    New SqlParameter("@inventoryYear", EISConfirm),
+                    New SqlParameter("@facilitysiteid", txtEILogSelectedAIRSNumber.Text)
+                }
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader(CommandBehavior.CloseConnection)
+                Dim querylist As New Generic.List(Of String) From {sql1, sql2}
+                Dim paramlist As New Generic.List(Of SqlParameter()) From {params1, params2}
+
+                DB.RunCommand(querylist, paramlist)
 
                 MsgBox("Done", MsgBoxStyle.Information, Me.Text)
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
