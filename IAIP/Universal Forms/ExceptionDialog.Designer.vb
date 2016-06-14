@@ -32,7 +32,6 @@ Partial Class ExceptionDialog
     Friend WithEvents ErrorMessage As System.Windows.Forms.TextBox
     Friend WithEvents btnCopy As System.Windows.Forms.Button
     Friend WithEvents ErrorDetails As System.Windows.Forms.TextBox
-    Friend WithEvents MoreHeading As System.Windows.Forms.Label
     Friend WithEvents ActionHeading As System.Windows.Forms.Label
     Friend WithEvents ErrorHeading As System.Windows.Forms.Label
     Friend WithEvents btnOK As System.Windows.Forms.Button
@@ -42,7 +41,6 @@ Partial Class ExceptionDialog
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.ErrorHeading = New System.Windows.Forms.Label()
         Me.ActionHeading = New System.Windows.Forms.Label()
-        Me.MoreHeading = New System.Windows.Forms.Label()
         Me.btnOK = New System.Windows.Forms.Button()
         Me.ErrorDetails = New System.Windows.Forms.TextBox()
         Me.btnMore = New System.Windows.Forms.Button()
@@ -71,16 +69,6 @@ Partial Class ExceptionDialog
         Me.ActionHeading.TabIndex = 4
         Me.ActionHeading.Text = "What you can do:"
         '
-        'MoreHeading
-        '
-        Me.MoreHeading.AutoSize = True
-        Me.MoreHeading.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.MoreHeading.Location = New System.Drawing.Point(12, 322)
-        Me.MoreHeading.Name = "MoreHeading"
-        Me.MoreHeading.Size = New System.Drawing.Size(76, 13)
-        Me.MoreHeading.TabIndex = 6
-        Me.MoreHeading.Text = "Error details"
-        '
         'btnOK
         '
         Me.btnOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -108,11 +96,11 @@ Partial Class ExceptionDialog
         '
         'btnMore
         '
-        Me.btnMore.Location = New System.Drawing.Point(94, 316)
+        Me.btnMore.Location = New System.Drawing.Point(12, 316)
         Me.btnMore.Name = "btnMore"
-        Me.btnMore.Size = New System.Drawing.Size(28, 24)
+        Me.btnMore.Size = New System.Drawing.Size(129, 24)
         Me.btnMore.TabIndex = 0
-        Me.btnMore.Text = ">>"
+        Me.btnMore.Text = "Show error details >>"
         '
         'btnCopy
         '
@@ -161,10 +149,9 @@ Partial Class ExceptionDialog
         Me.Controls.Add(Me.btnMore)
         Me.Controls.Add(Me.ErrorDetails)
         Me.Controls.Add(Me.btnOK)
-        Me.Controls.Add(Me.MoreHeading)
         Me.Controls.Add(Me.ActionHeading)
         Me.Controls.Add(Me.ErrorHeading)
-        Me.Icon = Global.Iaip.My.Resources.Resources.PrdIcon
+        Me.Icon = Global.Iaip.My.Resources.Resources.WarningIcon
         Me.MinimizeBox = False
         Me.MinimumSize = New System.Drawing.Size(450, 0)
         Me.Name = "ExceptionDialog"
