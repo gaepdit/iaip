@@ -76,7 +76,8 @@ Namespace DAL.Sscp
             Dim query As String = "SELECT STRREFERENCENUMBER " &
                 " FROM AIRBRANCH.SSCPTESTREPORTS " &
                 " WHERE RowNum = 1 " &
-                " AND STRTRACKINGNUMBER = :id "
+                " AND STRTRACKINGNUMBER = :id " &
+                " AND STRREFERENCENUMBER <> 'N/A' "
             Dim parameter As New OracleParameter("id", trackingNumber)
 
             refNum = DB.GetSingleValue(Of String)(query, parameter)
