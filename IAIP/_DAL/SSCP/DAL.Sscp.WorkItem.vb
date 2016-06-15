@@ -77,6 +77,7 @@ Namespace DAL.Sscp
                 " FROM SSCPTESTREPORTS " &
                 " WHERE RowNum = 1 " &
                 " AND STRTRACKINGNUMBER = @id "
+                " AND STRREFERENCENUMBER <> 'N/A' "
             Dim parameter As New SqlParameter("@id", trackingNumber)
 
             refNum = DB.GetSingleValue(Of String)(query, parameter)
