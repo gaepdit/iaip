@@ -91,8 +91,8 @@
         If DisplayLabel IsNot Nothing Then
             DisplayLabel.Text = ""
             DisplayLabel.Visible = False
-            DisplayLabel.ForeColor = SystemColors.ControlText
-            DisplayLabel.BackColor = SystemColors.Control
+            DisplayLabel.ForeColor = Color.Empty
+            DisplayLabel.BackColor = Color.Empty
         End If
 
         If ErrorProvider IsNot Nothing Then ErrorProvider.Clear()

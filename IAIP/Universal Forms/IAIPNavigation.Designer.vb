@@ -640,7 +640,7 @@ Partial Class IAIPNavigation
         Me.btnLoadNavWorkList.Name = "btnLoadNavWorkList"
         Me.btnLoadNavWorkList.Size = New System.Drawing.Size(61, 23)
         Me.btnLoadNavWorkList.TabIndex = 1
-        Me.btnLoadNavWorkList.Text = "Loading…"
+        Me.btnLoadNavWorkList.Text = "Loadingâ€¦"
         Me.btnLoadNavWorkList.UseVisualStyleBackColor = True
         '
         'lblWorkViewerContext
