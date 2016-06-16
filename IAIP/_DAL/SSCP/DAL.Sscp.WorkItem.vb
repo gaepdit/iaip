@@ -76,7 +76,7 @@ Namespace DAL.Sscp
             Dim query As String = "SELECT STRREFERENCENUMBER " &
                 " FROM SSCPTESTREPORTS " &
                 " WHERE RowNum = 1 " &
-                " AND STRTRACKINGNUMBER = @id "
+                " AND STRTRACKINGNUMBER = @id " &
                 " AND STRREFERENCENUMBER <> 'N/A' "
             Dim parameter As New SqlParameter("@id", trackingNumber)
 
