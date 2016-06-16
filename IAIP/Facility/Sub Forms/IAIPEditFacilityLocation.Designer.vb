@@ -19,7 +19,7 @@ Partial Class IAIPEditFacilityLocation
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.dgvFacilityInformationHistory = New System.Windows.Forms.DataGridView()
         Me.txtComments = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -52,8 +52,8 @@ Partial Class IAIPEditFacilityLocation
         Me.dgvFacilityInformationHistory.AllowUserToAddRows = False
         Me.dgvFacilityInformationHistory.AllowUserToDeleteRows = False
         Me.dgvFacilityInformationHistory.AllowUserToResizeRows = False
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvFacilityInformationHistory.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvFacilityInformationHistory.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvFacilityInformationHistory.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -65,7 +65,7 @@ Partial Class IAIPEditFacilityLocation
         Me.dgvFacilityInformationHistory.RowHeadersVisible = False
         Me.dgvFacilityInformationHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvFacilityInformationHistory.Size = New System.Drawing.Size(490, 270)
-        Me.dgvFacilityInformationHistory.TabIndex = 227
+        Me.dgvFacilityInformationHistory.TabIndex = 9
         '
         'txtComments
         '
@@ -76,7 +76,7 @@ Partial Class IAIPEditFacilityLocation
         Me.txtComments.Multiline = True
         Me.txtComments.Name = "txtComments"
         Me.txtComments.Size = New System.Drawing.Size(393, 55)
-        Me.txtComments.TabIndex = 226
+        Me.txtComments.TabIndex = 8
         '
         'Label3
         '
@@ -106,7 +106,7 @@ Partial Class IAIPEditFacilityLocation
         Me.txtFacilityName.Location = New System.Drawing.Point(87, 55)
         Me.txtFacilityName.Name = "txtFacilityName"
         Me.txtFacilityName.Size = New System.Drawing.Size(393, 20)
-        Me.txtFacilityName.TabIndex = 217
+        Me.txtFacilityName.TabIndex = 0
         '
         'Label4
         '
@@ -126,7 +126,7 @@ Partial Class IAIPEditFacilityLocation
         Me.txtStreetAddress.MaxLength = 250
         Me.txtStreetAddress.Name = "txtStreetAddress"
         Me.txtStreetAddress.Size = New System.Drawing.Size(393, 20)
-        Me.txtStreetAddress.TabIndex = 207
+        Me.txtStreetAddress.TabIndex = 1
         '
         'txtStreetAddress2
         '
@@ -135,7 +135,7 @@ Partial Class IAIPEditFacilityLocation
         Me.txtStreetAddress2.MaxLength = 250
         Me.txtStreetAddress2.Name = "txtStreetAddress2"
         Me.txtStreetAddress2.Size = New System.Drawing.Size(393, 20)
-        Me.txtStreetAddress2.TabIndex = 208
+        Me.txtStreetAddress2.TabIndex = 2
         '
         'Label5
         '
@@ -195,7 +195,7 @@ Partial Class IAIPEditFacilityLocation
         Me.txtFacilityCity.Location = New System.Drawing.Point(87, 133)
         Me.txtFacilityCity.Name = "txtFacilityCity"
         Me.txtFacilityCity.Size = New System.Drawing.Size(101, 20)
-        Me.txtFacilityCity.TabIndex = 209
+        Me.txtFacilityCity.TabIndex = 3
         '
         'txtFacilityLatitude
         '
@@ -204,7 +204,7 @@ Partial Class IAIPEditFacilityLocation
         Me.txtFacilityLatitude.MaxLength = 20
         Me.txtFacilityLatitude.Name = "txtFacilityLatitude"
         Me.txtFacilityLatitude.Size = New System.Drawing.Size(101, 20)
-        Me.txtFacilityLatitude.TabIndex = 215
+        Me.txtFacilityLatitude.TabIndex = 6
         '
         'txtFacilityLongitude
         '
@@ -213,7 +213,7 @@ Partial Class IAIPEditFacilityLocation
         Me.txtFacilityLongitude.MaxLength = 20
         Me.txtFacilityLongitude.Name = "txtFacilityLongitude"
         Me.txtFacilityLongitude.Size = New System.Drawing.Size(101, 20)
-        Me.txtFacilityLongitude.TabIndex = 214
+        Me.txtFacilityLongitude.TabIndex = 7
         '
         'txtFacilityState
         '
@@ -222,7 +222,7 @@ Partial Class IAIPEditFacilityLocation
         Me.txtFacilityState.MaxLength = 2
         Me.txtFacilityState.Name = "txtFacilityState"
         Me.txtFacilityState.Size = New System.Drawing.Size(27, 20)
-        Me.txtFacilityState.TabIndex = 211
+        Me.txtFacilityState.TabIndex = 4
         Me.txtFacilityState.Text = "GA"
         '
         'Label1
@@ -241,7 +241,7 @@ Partial Class IAIPEditFacilityLocation
         Me.mtbFacilityZipCode.Mask = "00000-9999"
         Me.mtbFacilityZipCode.Name = "mtbFacilityZipCode"
         Me.mtbFacilityZipCode.Size = New System.Drawing.Size(68, 20)
-        Me.mtbFacilityZipCode.TabIndex = 367
+        Me.mtbFacilityZipCode.TabIndex = 5
         '
         'ToolStrip1
         '
@@ -263,10 +263,12 @@ Partial Class IAIPEditFacilityLocation
         'lblAirsNumber
         '
         Me.lblAirsNumber.AutoSize = True
+        Me.lblAirsNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblAirsNumber.Location = New System.Drawing.Point(86, 31)
         Me.lblAirsNumber.Name = "lblAirsNumber"
-        Me.lblAirsNumber.Size = New System.Drawing.Size(0, 13)
+        Me.lblAirsNumber.Size = New System.Drawing.Size(60, 13)
         Me.lblAirsNumber.TabIndex = 369
+        Me.lblAirsNumber.Text = "Unknown"
         '
         'lblModifiedNote
         '
@@ -304,7 +306,7 @@ Partial Class IAIPEditFacilityLocation
         Me.Controls.Add(Me.txtFacilityState)
         Me.Controls.Add(Me.Label1)
         Me.Name = "IAIPEditFacilityLocation"
-        Me.Text = "Edit Facility Location"
+        Me.Text = "Edit facility location"
         CType(Me.dgvFacilityInformationHistory, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()

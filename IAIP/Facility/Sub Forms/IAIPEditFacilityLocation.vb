@@ -20,6 +20,7 @@ Public Class IAIPEditFacilityLocation
             Try
                 Me.AirsNumber = Parameters(FormParameter.AirsNumber)
                 lblAirsNumber.Text = Me.AirsNumber.FormattedString
+                Me.Text = Me.Text & " - " & Me.AirsNumber.FormattedString
             Catch ex As Exception
                 Me.AirsNumber = Nothing
             End Try
@@ -99,6 +100,7 @@ Public Class IAIPEditFacilityLocation
             dgvFacilityInformationHistory.Columns("strAIRSNumber").HeaderText = "AIRS Number"
             dgvFacilityInformationHistory.Columns("strAIRSNumber").DisplayIndex = 13
             dgvFacilityInformationHistory.Columns("strAIRSNumber").Visible = False
+            dgvFacilityInformationHistory.SanelyResizeColumns
         End If
     End Sub
 
@@ -309,10 +311,7 @@ Public Class IAIPEditFacilityLocation
             txtFacilityLongitude.BackColor = Color.Yellow
         End If
 
-        If txtComments.Text = "" Then
-            DataIsValid = False
-            txtComments.BackColor = Color.Yellow
-        ElseIf txtComments.Text = drCurrentData.Item("STRCOMMENTS") Then
+        If txtComments.Text = "" OrElse txtComments.Text = DBUtilities.GetNullable(Of String)(drCurrentData.Item("STRCOMMENTS")) Then
             DataIsValid = False
             txtComments.BackColor = Color.Yellow
             MessageBox.Show("Since this is a direct change to the data, please make a unique comment" &
