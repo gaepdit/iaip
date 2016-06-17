@@ -4372,7 +4372,7 @@ Public Class DMUEisGecoTool
 
             If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("EISStatusCode")) Then
-                    cboEILogStatusCode.Text = ""
+                    cboEILogStatusCode.SelectedText = ""
                 Else
                     cboEILogStatusCode.SelectedValue = dr.Item("EISStatusCode")
                     txtEILogStatusCode.Text = cboEILogStatusCode.Text
@@ -4589,7 +4589,7 @@ Public Class DMUEisGecoTool
                 End If
             End If
 
-            If cboEILogStatusCode.SelectedValue >= 4 Then
+            If cboEILogStatusCode.SelectedText <> "" AndAlso cboEILogStatusCode.SelectedValue >= 4 Then
                 pnlQAProcess.Enabled = True
             End If
 
@@ -5701,8 +5701,12 @@ Public Class DMUEisGecoTool
             Else
                 IncorrectlyOptedOut = "0"
             End If
-            EISStatus = cboEILogStatusCode.SelectedValue
-            EISAccess = cboEILogAccessCode.SelectedValue
+            If cboEILogStatusCode.SelectedText <> "" Then
+                EISStatus = cboEILogStatusCode.SelectedValue
+            End If
+            If cboEILogAccessCode.SelectedText <> "" Then
+                EISAccess = cboEILogAccessCode.SelectedValue
+            End If
             If rdbEILogActiveYes.Checked = True Then
                 ActiveStatus = "1"
             Else
