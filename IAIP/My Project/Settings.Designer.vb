@@ -105,7 +105,7 @@ Namespace My
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
          Global.System.Configuration.DefaultSettingValueAttribute("Data Source=167.192.209.70,1988;Initial Catalog=airbranch;Persist Security Info=T"& _ 
-            "rue;User ID=iaip_app_user;Password=""3f5;u=4syeZCoSn""")>  _
+            "rue;User ID=iaip_app_user;Password=3f5u=4syeZCoSn")>  _
         Public ReadOnly Property UAT() As String
             Get
                 Return CType(Me("UAT"),String)
