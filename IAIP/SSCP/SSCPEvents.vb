@@ -3056,7 +3056,7 @@ Public Class SSCPEvents
             Dim parametersList As New List(Of OracleParameter())
             Dim parameters As OracleParameter()
 
-            query = " UDPATE AIRBRANCH.AFSSSCPRECORDS SET STRUPDATESTATUS = 'D' WHERE STRTRACKINGNUMBER = :pId "
+            query = " UPDATE AIRBRANCH.AFSSSCPRECORDS SET STRUPDATESTATUS = 'D' WHERE STRTRACKINGNUMBER = :pId "
             queryList.Add(query)
             parameters = New OracleParameter() {New OracleParameter("pId", txtTrackingNumber.Text)}
             parametersList.Add(parameters)
