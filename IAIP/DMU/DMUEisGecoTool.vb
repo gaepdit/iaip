@@ -2,6 +2,7 @@
 Imports Iaip.Apb.Facilities
 Imports EpdIt
 Imports System.Linq
+Imports System.Collections.Generic
 
 Public Class DMUEisGecoTool
     Dim SQL, SQL2 As String
@@ -5367,151 +5368,162 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub btnCloseOutEIS_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCloseOutEIS.Click
+    Private Sub btnCloseOutEIS_Click(sender As Object, ByVal e As EventArgs) Handles btnCloseOutEIS.Click
         Try
-            Dim EISConfirm As String = ""
-
-            EISConfirm = InputBox("Type in the EIS Year that you have selected to close out.", Me.Text)
+            Dim EISConfirm As String = InputBox("Type in the EIS Year that you have selected to close out.", Me.Text)
 
             If EISConfirm = txtSelectedEISStatYear.Text Then
-                temp = ""
+                Dim query As String = "Update EIS_Admin set " &
+                " EISAccessCode = '2' " &
+                " where inventoryYear = @inventoryYear " &
+                " and FacilitySiteID in ({0}) "
+
+                Dim paramNameList As New List(Of String)
+                Dim paramList As New List(Of SqlParameter)
+
+                paramList.Add(New SqlParameter("@inventoryYear", EISConfirm))
+
+                Dim paramName As String
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
-                    temp = temp & " FacilitySiteID = '" & dgvEISStats(1, i).Value & "' or "
+                    paramName = "@site" & Replace(dgvEISStats(1, i).Value, "-", "")
+                    paramNameList.Add(paramName)
+                    paramList.Add(New SqlParameter(paramName, dgvEISStats(1, i).Value))
                 Next
-                temp = " and ( " & Mid(temp, 1, (temp.Length - 3)) & " ) "
+                Dim inClause As String = String.Join(",", paramNameList)
 
-                SQL = "Update EIS_Admin set " &
-                "EISAccessCode = '2' " &
-                "where inventoryYear = '" & EISConfirm & "' " &
-                temp
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
+                If paramNameList.Count > 0 Then
+                    DB.RunCommand(String.Format(query, inClause), paramList.ToArray)
+                    ViewEISStats()
+                    MsgBox(EISConfirm & " Emission Inventory Year closed out.", MsgBoxStyle.Information, Me.Text)
+                Else
+                    MsgBox("No facilities displayed.")
                 End If
-                cmd.ExecuteReader()
-                ViewEISStats()
-                MsgBox(EISConfirm & " Emission Inventory Year Closed out.", MsgBoxStyle.Information, Me.Text)
-
             Else
-                MsgBox("Year does not match selected EIS year")
-
+                MsgBox("Year does not match selected EIS year.")
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnEISBeginQA_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEISBeginQA.Click
+    Private Sub btnEISBeginQA_Click(sender As Object, e As EventArgs) Handles btnEISBeginQA.Click
         Try
-            Dim EISConfirm As String = ""
-
-            EISConfirm = InputBox("Type in the EIS Year that you have selected to move Facilities into the QA process.", Me.Text)
+            Dim EISConfirm As String = InputBox("Type in the EIS Year that you have selected to move Facilities into the QA process.", Me.Text)
 
             If EISConfirm = txtSelectedEISStatYear.Text Then
-                temp = ""
-                For i As Integer = 0 To dgvEISStats.Rows.Count - 1
-                    If dgvEISStats(0, i).Value = True And dgvEISStats(6, i).Value = "No" Then
-                        temp = temp & " FacilitySiteID = '" & dgvEISStats(1, i).Value & "' or "
-                    End If
-                Next
-                If temp <> "" Then
-                    temp = " and ( " & Mid(temp, 1, (temp.Length - 3)) & " ) "
 
-                    SQL = "Update EIS_Admin set " &
+                Dim selection As Boolean = False
+                For Each row As DataGridViewRow In dgvEISStats.Rows
+                    If row.Cells(0).Value Then selection = True
+                Next
+                If Not selection Then
+                    MsgBox("No facilities selected.")
+                    Exit Sub
+                End If
+
+                Dim queryList As New List(Of String)
+                Dim paramsList As New List(Of SqlParameter())
+
+                ' Update EIS_Admin for non-opted-out facilities
+                Dim query1 As String = "Update EIS_Admin set " &
                     "EISAccessCode = '2', " &
                     "EISStatusCode = '4', " &
                     "datEISstatus = sysdate, " &
-                    "UpdateUser = '" & Replace(CurrentUser.AlphaName, "'", "''") & "', " &
-                    "updatedatetime = sysdate " &
+                    "UpdateUser = @updateuser, " &
+                    "updatedatetime = getdate() " &
                     "where strOptOut = '0' " &
-                    "and inventoryYear = '" & EISConfirm & "' " &
-                    temp
+                    "and inventoryYear = @inventoryYear " &
+                    "and FacilitySiteID in ({0}) "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    cmd.ExecuteReader(CommandBehavior.CloseConnection)
-                End If
+                Dim paramNameList1 As New List(Of String)
+                Dim paramList1 As New List(Of SqlParameter)
 
-                temp = ""
+                paramList1.Add(New SqlParameter("@updateuser", CurrentUser.AlphaName))
+                paramList1.Add(New SqlParameter("@inventoryYear", EISConfirm))
+
+                Dim paramName As String
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
-                    'temp = dgvEISStats(6, i).Value
-
-                    If dgvEISStats(0, i).Value = True And dgvEISStats(6, i).Value = "Yes" Then
-                        temp = temp & " FacilitySiteID = '" & dgvEISStats(1, i).Value & "' or "
+                    If dgvEISStats(0, i).Value = True And dgvEISStats(6, i).Value = "No" Then
+                        paramName = "@site" & Replace(dgvEISStats(1, i).Value, "-", "")
+                        paramNameList1.Add(paramName)
+                        paramList1.Add(New SqlParameter(paramName, dgvEISStats(1, i).Value))
                     End If
                 Next
-                If temp <> "" Then
-                    temp = " and ( " & Mid(temp, 1, (temp.Length - 3)) & " ) "
 
-                    SQL = "Update EIS_Admin set " &
+                If paramNameList1.Count > 0 Then
+                    queryList.Add(String.Format(query1, String.Join(",", paramNameList1)))
+                    paramsList.Add(paramList1.ToArray)
+                End If
+
+                ' Update EIS_Admin for opted-out facilities
+                Dim query2 As String = "Update EIS_Admin set " &
                     "EISAccessCode = '2', " &
                     "EISStatusCode = '5', " &
-                    "datEISstatus = sysdate, " &
-                    "UpdateUser = '" & Replace(CurrentUser.AlphaName, "'", "''") & "', " &
-                    "updatedatetime = sysdate " &
+                    "datEISstatus = getdate(), " &
+                    "UpdateUser = @UpdateUser, " &
+                    "updatedatetime = getdate() " &
                     "where strOptOut = '1' " &
-                    "and inventoryYear = '" & EISConfirm & "' " &
-                    temp
+                    "and inventoryYear = @inventoryYear " &
+                    "and FacilitySiteID in ({0}) "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
+                Dim paramNameList2 As New List(Of String)
+                Dim paramList2 As New List(Of SqlParameter)
+
+                paramList2.Add(New SqlParameter("@updateuser", CurrentUser.AlphaName))
+                paramList2.Add(New SqlParameter("@inventoryYear", EISConfirm))
+
+                For i As Integer = 0 To dgvEISStats.Rows.Count - 1
+                    If dgvEISStats(0, i).Value = True And dgvEISStats(6, i).Value = "Yes" Then
+                        paramName = "@site" & Replace(dgvEISStats(1, i).Value, "-", "")
+                        paramNameList2.Add(paramName)
+                        paramList2.Add(New SqlParameter(paramName, dgvEISStats(1, i).Value))
                     End If
-                    cmd.ExecuteReader(CommandBehavior.CloseConnection)
+                Next
+
+                If paramNameList2.Count > 0 Then
+                    queryList.Add(String.Format(query2, String.Join(",", paramNameList2)))
+                    paramsList.Add(paramList2.ToArray)
                 End If
+
+                ' Update EIS_QAAdmin with new facilities
+                Dim query3 As String = "INSERT INTO EIS_QAAdmin (INVENTORYYEAR, FACILITYSITEID, DATDATEQASTART, DATDATEQAPASS, QASTATUSCODE, DATQASTATUS, STRDMURESPONSIBLESTAFF, DATQACOMPLETE, STRCOMMENT, ACTIVE, UPDATEUSER, UPDATEDATETIME, CREATEDATETIME, STRFITRACKINGNUMBER, STRPOINTTRACKINGNUMBER, STRFIERROR, STRPOINTERROR)
+                    SELECT @INVENTORYYEAR, @FACILITYSITEID, GETDATE(), '', '1', GETDATE(), @UPDATEUSER, '', '', '1', @UPDATEUSER, GETDATE(), GETDATE(), '', '', '', ''
+                    WHERE NOT EXISTS (SELECT * FROM EIS_QAAdmin
+                    WHERE inventoryYear = @INVENTORYYEAR AND FacilitySiteID = @FACILITYSITEID) 
+                    AND EXISTS (SELECT * FROM EIS_Admin
+                    WHERE inventoryYear = @INVENTORYYEAR AND FacilitySiteID = @FACILITYSITEID AND strOptOut = '0')"
 
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     If dgvEISStats(0, i).Value = True Then
-                        SQL = "insert into EIS_QAAdmin " &
-                        "(select " &
-                        "'" & EISConfirm & "', '" & dgvEISStats(1, i).Value & "', " &
-                        "sysdate, '', " &
-                        "'1', sysdate, " &
-                        "'" & CurrentUser.AlphaName & "', " &
-                        "'', '', " &
-                        "'1', '" & CurrentUser.AlphaName & "', " &
-                        "sysdate, sysdate, " &
-                        "'', '', '', '' " &
-                        "from dual " &
-                        "where not exists (select * from EIS_QAAdmin " &
-                        "where inventoryYear = '" & EISConfirm & "' " &
-                        "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "') " &
-                        "and exists (select * from EIS_Admin " &
-                        "where inventoryYear = '" & EISConfirm & "'  " &
-                        "and FacilitySiteID = '" & dgvEISStats(1, i).Value & "' " &
-                        "and strOptOut = '0' )) "
-
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        cmd.ExecuteReader(CommandBehavior.CloseConnection)
-
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        cmd = New SqlCommand("PD_EIS_QASTART", CurrentConnection)
-                        cmd.CommandType = CommandType.StoredProcedure
-
-                        cmd.Parameters.Add(New SqlParameter("@AIRSNUMBER_IN", SqlDbType.VarChar)).Value = dgvEISStats(1, i).Value
-                        cmd.Parameters.Add(New SqlParameter("@INTYEAR_IN", SqlDbType.Decimal)).Value = EISConfirm
-
-                        cmd.ExecuteNonQuery()
-
+                        queryList.Add(query3)
+                        paramsList.Add({
+                            New SqlParameter("@INVENTORYYEAR", EISConfirm),
+                            New SqlParameter("@FACILITYSITEID", dgvEISStats(1, i).Value),
+                            New SqlParameter("@UPDATEUSER", CurrentUser.AlphaName)
+                        })
                     End If
                 Next
+
+                DB.RunCommand(queryList, paramsList)
+
+                Dim spName As String = "PD_EIS_QASTART"
+                For i As Integer = 0 To dgvEISStats.Rows.Count - 1
+                    If dgvEISStats(0, i).Value = True Then
+                        Dim param As SqlParameter() = {
+                            New SqlParameter("@AIRSNUMBER_IN", dgvEISStats(1, i).Value),
+                            New SqlParameter("@INTYEAR_IN", EISConfirm)
+                        }
+                        DB.SPRunCommand(spName, param)
+                    End If
+                Next
+
                 ViewEISStats()
-                MsgBox(EISConfirm & " QA process began.", MsgBoxStyle.Information, Me.Text)
-
+                MsgBox(EISConfirm & " QA process begun.", MsgBoxStyle.Information, Me.Text)
             Else
-                MsgBox("Year does not match selected EIS year")
-
+                MsgBox("Year does not match selected EIS year.")
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -6651,44 +6663,47 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub btnEISComplete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEISComplete.Click
+    Private Sub btnEISComplete_Click(sender As Object, e As EventArgs) Handles btnEISComplete.Click
         Try
-            Dim EISConfirm As String = ""
-
-            EISConfirm = InputBox("Type in the EIS Year that you have selected to move Facilities into the QA process.", Me.Text)
+            Dim EISConfirm As String = InputBox("Type in the EIS Year that you have selected to mark Facilities as complete.", Me.Text)
 
             If EISConfirm = txtSelectedEISStatYear.Text Then
-                temp = ""
-                For i As Integer = 0 To dgvEISStats.Rows.Count - 1
-                    If dgvEISStats(0, i).Value = True Then
-                        temp = temp & " FacilitySiteID = '" & dgvEISStats(1, i).Value & "' or "
-                    End If
-                Next
-                temp = " and ( " & Mid(temp, 1, (temp.Length - 3)) & " ) "
-
-                SQL = "Update EIS_Admin set " &
+                Dim query As String = "Update EIS_Admin set " &
                 "EISAccessCode = '0', " &
                 "EISStatusCode = '5', " &
-                "datEISstatus = sysdate, " &
-                "UpdateUser = '" & Replace(CurrentUser.AlphaName, "'", "''") & "', " &
-                "updatedatetime = sysdate " &
-                "where inventoryYear = '" & EISConfirm & "' " &
-                temp
+                "datEISstatus = getdate(), " &
+                "UpdateUser = @UpdateUser, " &
+                "updatedatetime = getdate() " &
+                "where inventoryYear = @inventoryYear " &
+                " and FacilitySiteID in ({0}) "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
+                Dim paramNameList As New List(Of String)
+                Dim paramList As New List(Of SqlParameter)
+
+                paramList.Add(New SqlParameter("@inventoryYear", EISConfirm))
+                paramList.Add(New SqlParameter("@UpdateUser", CurrentUser.AlphaName))
+
+                Dim paramName As String
+                For i As Integer = 0 To dgvEISStats.Rows.Count - 1
+                    If dgvEISStats(0, i).Value = True Then
+                        paramName = "@site" & Replace(dgvEISStats(1, i).Value, "-", "")
+                        paramNameList.Add(paramName)
+                        paramList.Add(New SqlParameter(paramName, dgvEISStats(1, i).Value))
+                    End If
+                Next
+                Dim inClause As String = String.Join(",", paramNameList)
+
+                If paramNameList.Count > 0 Then
+                    DB.RunCommand(String.Format(query, inClause), paramList.ToArray)
+                    MsgBox(EISConfirm & " EIS process completed.", MsgBoxStyle.Information, Me.Text)
+                Else
+                    MsgBox("No facilities selected.")
                 End If
-                cmd.ExecuteReader()
-
-                MsgBox(EISConfirm & " EIS process completed.", MsgBoxStyle.Information, Me.Text)
-
             Else
                 MsgBox("Year does not match selected EIS year")
-
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -7067,7 +7082,7 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub btnLoadEISLog_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoadEISLog.Click
+    Private Sub btnLoadEISLog_Click(sender As Object, e As EventArgs) Handles btnLoadEISLog.Click
         Try
             If mtbEISLogAIRSNumber.Text <> "" And cboEISStatisticsYear.Text.Length = 4 Then
                 mtbEILogAIRSNumber.Text = mtbEISLogAIRSNumber.Text
@@ -7079,7 +7094,7 @@ Public Class DMUEisGecoTool
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -7128,8 +7143,8 @@ Public Class DMUEisGecoTool
                     New SqlParameter("@facilitysiteid", txtEILogSelectedAIRSNumber.Text)
                 }
 
-                Dim querylist As New Generic.List(Of String) From {sql1, sql2}
-                Dim paramlist As New Generic.List(Of SqlParameter()) From {params1, params2}
+                Dim querylist As New List(Of String) From {sql1, sql2}
+                Dim paramlist As New List(Of SqlParameter()) From {params1, params2}
 
                 DB.RunCommand(querylist, paramlist)
 
@@ -7141,33 +7156,30 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub btnCleanUp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCleanUp.Click
+    Private Sub btnCleanUp_Click(sender As Object, e As EventArgs) Handles btnCleanUp.Click
         Try
+            Dim spName As String = "PD_EIS_QASTART"
+
+            Dim selection As Boolean = False
+
             For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                 If dgvEISStats(0, i).Value = True Then
-
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    cmd = New SqlCommand("PD_EIS_QASTART", CurrentConnection)
-                    cmd.CommandType = CommandType.StoredProcedure
-                    temp = dgvEISStats(1, i).Value
-
-                    cmd.Parameters.Add(New SqlParameter("@AIRSNUMBER_IN", SqlDbType.VarChar)).Value = dgvEISStats(1, i).Value
-                    cmd.Parameters.Add(New SqlParameter("@INTYEAR_IN", SqlDbType.Decimal)).Value = cboEISStatisticsYear.Text
-
-                    cmd.ExecuteNonQuery()
-
-                    If CurrentConnection.State = ConnectionState.Open Then
-                        CurrentConnection.Close()
-                    End If
+                    Dim params As SqlParameter() = {
+                        New SqlParameter("@AIRSNUMBER_IN", dgvEISStats(1, i).Value),
+                        New SqlParameter("@INTYEAR_IN", cboEISStatisticsYear.Text)
+                    }
+                    DB.SPRunCommand(spName, params)
+                    selection = True
                 End If
             Next
 
-            MsgBox("Complete", MsgBoxStyle.Information, Me.Text)
-
+            If selection Then
+                MsgBox("Complete", MsgBoxStyle.Information, Me.Text)
+            Else
+                MsgBox("No facilities selected.")
+            End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 

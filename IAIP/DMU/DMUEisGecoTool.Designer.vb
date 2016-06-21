@@ -22,8 +22,8 @@ Partial Class DMUEisGecoTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TCDMUTools = New System.Windows.Forms.TabControl()
         Me.TPEISLog = New System.Windows.Forms.TabPage()
         Me.TabControl6 = New System.Windows.Forms.TabControl()
@@ -3047,7 +3047,7 @@ Partial Class DMUEisGecoTool
         'llbEISStatsSubmittedBeganwithBothErrors
         '
         Me.llbEISStatsSubmittedBeganwithBothErrors.AutoSize = True
-        Me.llbEISStatsSubmittedBeganwithBothErrors.Location = New System.Drawing.Point(204, 412)
+        Me.llbEISStatsSubmittedBeganwithBothErrors.Location = New System.Drawing.Point(200, 422)
         Me.llbEISStatsSubmittedBeganwithBothErrors.Name = "llbEISStatsSubmittedBeganwithBothErrors"
         Me.llbEISStatsSubmittedBeganwithBothErrors.Size = New System.Drawing.Size(74, 13)
         Me.llbEISStatsSubmittedBeganwithBothErrors.TabIndex = 157
@@ -3057,7 +3057,7 @@ Partial Class DMUEisGecoTool
         'llbEISStatsSubmittedBeganwFIErrors
         '
         Me.llbEISStatsSubmittedBeganwFIErrors.AutoSize = True
-        Me.llbEISStatsSubmittedBeganwFIErrors.Location = New System.Drawing.Point(204, 381)
+        Me.llbEISStatsSubmittedBeganwFIErrors.Location = New System.Drawing.Point(200, 391)
         Me.llbEISStatsSubmittedBeganwFIErrors.Name = "llbEISStatsSubmittedBeganwFIErrors"
         Me.llbEISStatsSubmittedBeganwFIErrors.Size = New System.Drawing.Size(88, 13)
         Me.llbEISStatsSubmittedBeganwFIErrors.TabIndex = 156
@@ -3067,7 +3067,7 @@ Partial Class DMUEisGecoTool
         'llbEISStatsSubmittedBeganwithoutErrors
         '
         Me.llbEISStatsSubmittedBeganwithoutErrors.AutoSize = True
-        Me.llbEISStatsSubmittedBeganwithoutErrors.Location = New System.Drawing.Point(204, 427)
+        Me.llbEISStatsSubmittedBeganwithoutErrors.Location = New System.Drawing.Point(200, 437)
         Me.llbEISStatsSubmittedBeganwithoutErrors.Name = "llbEISStatsSubmittedBeganwithoutErrors"
         Me.llbEISStatsSubmittedBeganwithoutErrors.Size = New System.Drawing.Size(82, 13)
         Me.llbEISStatsSubmittedBeganwithoutErrors.TabIndex = 155
@@ -3077,7 +3077,7 @@ Partial Class DMUEisGecoTool
         'llbEISStatsSubmittedBeganwithEIErrors
         '
         Me.llbEISStatsSubmittedBeganwithEIErrors.AutoSize = True
-        Me.llbEISStatsSubmittedBeganwithEIErrors.Location = New System.Drawing.Point(204, 397)
+        Me.llbEISStatsSubmittedBeganwithEIErrors.Location = New System.Drawing.Point(200, 407)
         Me.llbEISStatsSubmittedBeganwithEIErrors.Name = "llbEISStatsSubmittedBeganwithEIErrors"
         Me.llbEISStatsSubmittedBeganwithEIErrors.Size = New System.Drawing.Size(89, 13)
         Me.llbEISStatsSubmittedBeganwithEIErrors.TabIndex = 154
@@ -3290,9 +3290,9 @@ Partial Class DMUEisGecoTool
         Me.btnCloseOutEIS.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnCloseOutEIS.Location = New System.Drawing.Point(325, 32)
         Me.btnCloseOutEIS.Name = "btnCloseOutEIS"
-        Me.btnCloseOutEIS.Size = New System.Drawing.Size(81, 23)
+        Me.btnCloseOutEIS.Size = New System.Drawing.Size(101, 36)
         Me.btnCloseOutEIS.TabIndex = 126
-        Me.btnCloseOutEIS.Text = "Close out EIS"
+        Me.btnCloseOutEIS.Text = "Close out EIS for " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "displayed facilities"
         Me.btnCloseOutEIS.UseVisualStyleBackColor = True
         '
         'btnEISBeginQA
@@ -3301,9 +3301,9 @@ Partial Class DMUEisGecoTool
         Me.btnEISBeginQA.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnEISBeginQA.Location = New System.Drawing.Point(85, 365)
         Me.btnEISBeginQA.Name = "btnEISBeginQA"
-        Me.btnEISBeginQA.Size = New System.Drawing.Size(98, 23)
+        Me.btnEISBeginQA.Size = New System.Drawing.Size(195, 23)
         Me.btnEISBeginQA.TabIndex = 125
-        Me.btnEISBeginQA.Text = "Start QA Process"
+        Me.btnEISBeginQA.Text = "Start QA process for selected facilities"
         Me.btnEISBeginQA.UseVisualStyleBackColor = True
         '
         'llbEISNoActivity
@@ -4580,23 +4580,23 @@ Partial Class DMUEisGecoTool
         '
         'dgvESDataCount
         '
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvESDataCount.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvESDataCount.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvESDataCount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvESDataCount.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvESDataCount.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvESDataCount.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvESDataCount.Location = New System.Drawing.Point(3, 55)
         Me.dgvESDataCount.Name = "dgvESDataCount"
