@@ -6,7 +6,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyTitle("IAIP for SQL Server")>
 <Assembly: AssemblyDescription("GA Air Protection Branch integrated database system; SQL Server Edition")>
 <Assembly: AssemblyProduct("IAIP for SQL Server")> 
-<Assembly: Guid("3de1d3bd-80ec-462f-84ba-749620c13b3f")> 
+<Assembly: Guid("3de1d3bd-80ec-462f-84ba-749620c13b3f")>
 
 #ElseIf UAT Then
 
@@ -26,8 +26,8 @@ Imports System.Runtime.InteropServices
 
 #If SqlServer Then
 
-<Assembly: AssemblyVersion("0.1.0.0")>
-<Assembly: AssemblyFileVersion("0.1.0.0")>
+<Assembly: AssemblyVersion("0.2.0.0")>
+<Assembly: AssemblyFileVersion("0.2.0.0")>
 
 #Else
 
