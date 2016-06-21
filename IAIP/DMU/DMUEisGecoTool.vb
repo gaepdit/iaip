@@ -4600,186 +4600,46 @@ Public Class DMUEisGecoTool
 
 
     Private Sub btnViewEISStats_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewEISStats.Click
-        Try
-            ViewEISStats()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        ViewEISStats()
     End Sub
 
-    Sub ViewEISStats()
+    Private Sub ViewEISStats()
         Try
 
-            txtSelectedEISStatYear.Text = cboEISStatisticsYear.Text
-
-            If txtSelectedEISStatYear.Text.Length <> 4 Then
-                MsgBox("Please select a valid Year from the dropdown first.", MsgBoxStyle.Exclamation, Me.Text)
+            If cboEISStatisticsYear.Text = "" Then
+                MessageBox.Show("Please select a valid year first.")
                 Exit Sub
             End If
 
-            SQL = "select * from " &
-             "(select count(*) as EISUniverse " &
-             "from EIS_Admin " &
-             "where active = '1' " &
-             "and inventoryyear = '" & cboEISStatisticsYear.Text & "'), " &
-             "(select count(*) as EISMailout " &
-             "from EIS_Admin " &
-             "where active = '1' " &
-             "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " &
-             "and strMailout = '1' ), " &
-             "(select count(*) as EISEnrollment " &
-             "from EIS_Admin " &
-             "where active = '1' " &
-             "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " &
-             "and strEnrollment = '1' ),  " &
-             "(select count(*) as EISUNEnrollment " &
-             "from EIS_Admin " &
-             "where active = '1' " &
-             "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " &
-             "and strMailout = '1' " &
-             "and (strEnrollment = '0')),   " &
-             "(select count(*) as EISNoActivity " &
-             "from EIS_Admin " &
-             "where active = '1' " &
-             "and inventoryyear = '" & cboEISStatisticsYear.Text & "' " &
-             "and strOptOut is null and strEnrollment = '1'), " &
-             "(select count(*) as EISOptsIn " &
-             "from EIS_Admin " &
-             "where active = '1' " &
-             "and inventoryyear = '" & cboEISStatisticsYear.Text & "' " &
-             "and strOptOut = '0' and strEnrollment = '1'), " &
-             "(select count(*) as EISOptsOut " &
-             "from EIS_Admin " &
-             "where active = '1' " &
-             "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " &
-             "and strMailout = '1' " &
-             "and strEnrollment = '1' " &
-             "and (strOptOut = '1') and strEnrollment = '1' ), " &
-             "(select count(*) as EISSubmittal  " &
-             "from EIS_Admin " &
-             "where active = '1' " &
-             "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " &
-             "and strEnrollment = '1' " &
-             "and eisstatuscode >= '3' " &
-             "and (strOptOut = '0' )), " &
-             "(select count(*) as EISInProgress " &
-             "from EIS_Admin " &
-             "where active = '1' " &
-             "and inventoryYear = '" & cboEISStatisticsYear.Text & "' " &
-             "and strEnrollment = '1' " &
-             "and eisStatuscode = '2' and strEnrollment = '1' " &
-             "and (strOptOut = '0')), " &
-             "(select count(*) as EISQABegan   " &
-             "from EIS_Admin " &
-             "where active = '1' " &
-             "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " &
-             "and strMailout = '1' " &
-             "and strEnrollment = '1' " &
-             "and EISAccesscode = '2'  " &
-             "and eisstatuscode = '4' " &
-             "and (strOptOut = '0' )), " &
-             "(select count(*) as EISEPASubmitted   " &
-             "from EIS_Admin " &
-             "where active = '1' " &
-             "and inventoryyear = '" & cboEISStatisticsYear.Text & "'  " &
-             "and strMailout = '1' " &
-             "and strEnrollment = '1' " &
-             "and EISAccesscode = '0'  " &
-             "and eisstatuscode = '5' " &
-             "and (strOptOut = '0' )), " &
-             "(select count(*) as EISFinalized " &
-             "from EIS_Admin " &
-             "where active = '1' " &
-             "and inventoryYear = '" & cboEISStatisticsYear.Text & "' " &
-             "and strEnrollment = '1' " &
-             "and (EISStatusCode = '3' OR EISStatusCode = '4' OR EISStatusCode = '5')), " &
-     "( select count(*) as QASubmittedToDo " &
-     "from EIS_Admin  " &
-     "where active = '1'  " &
-     "and inventoryyear = '" & cboEISStatisticsYear.Text & "'   " &
-     "and strEnrollment = '1'  " &
-     "and eisstatuscode >= 3 " &
-     "and (strOptOut = '0' ) " &
-     "and  NOT  exists (Select * from EIS_QAAdmin " &
-     "where EIS_QAAdmin.inventoryYear = EIS_Admin.inventoryYEar " &
-     "and EIS_QAAdmin.facilitysiteID = EIS_Admin.facilitysiteID) ), " &
-     "( select count(*) as QAOptOutToDo " &
-     "from EIS_Admin  " &
-     "where active = '1'  " &
-     "and inventoryyear = '" & cboEISStatisticsYear.Text & "'   " &
-     "and strEnrollment = '1'  " &
-     "and (eisstatuscode = 3 or eisstatuscode = 4) " &
-     "and (strOptOut = '1' or strOptout is null ) " &
-     "and  NOT  exists (Select * from EIS_QAAdmin " &
-     "where EIS_QAAdmin.inventoryYear = EIS_Admin.inventoryYEar " &
-     "and EIS_QAAdmin.facilitysiteID = EIS_Admin.facilitysiteID) ), " &
-     "( select count(*) as QASubmittedBegan   " &
-     "from EIS_Admin  " &
-     "where active = '1'  " &
-     "and inventoryyear = '" & cboEISStatisticsYear.Text & "'   " &
-     "and strEnrollment = '1'  " &
-     "and eisstatuscode >= 3   " &
-     "and (strOptOut = '0' ) " &
-     "and    exists (Select * from EIS_QAAdmin " &
-     "where EIS_QAAdmin.inventoryYear = EIS_Admin.inventoryYEar " &
-     "and EIS_QAAdmin.facilitysiteID = EIS_Admin.facilitysiteID " &
-     "and datQAComplete is null ) ), " &
-     "( select count(*) as QAOptOutBegan   " &
-     "from EIS_Admin  " &
-     "where active = '1'  " &
-     "and inventoryyear = '" & cboEISStatisticsYear.Text & "'   " &
-     "and strEnrollment = '1'  " &
-     "and (eisstatuscode = '3' or eisstatuscode = '4')   " &
-     "and (strOptOut = '1' or strOptout is null) " &
-     "and  (not  exists (Select * from EIS_QAAdmin " &
-     "where EIS_QAAdmin.inventoryYear = EIS_Admin.inventoryYEar " &
-     "and EIS_QAAdmin.facilitysiteID = EIS_Admin.facilitysiteID " &
-     "and datQAComplete is null )   " &
-     "or  exists (Select * from EIS_QAAdmin " &
-     "where EIS_QAAdmin.inventoryYear = EIS_Admin.inventoryYEar " &
-     "and EIS_QAAdmin.facilitysiteID = EIS_Admin.facilitysiteID " &
-     "and datQAComplete is null ))), " &
-     "( select count(*) as QASubmittedToEPA  " &
-     "from EIS_Admin  " &
-     "where active = '1'  " &
-     "and inventoryyear = '" & cboEISStatisticsYear.Text & "'   " &
-     "and strEnrollment = '1'  " &
-     "and eisstatuscode >= '3' " &
-     "and (strOptOut = '0' ) " &
-     "and    exists (Select * from EIS_QAAdmin " &
-     "where EIS_QAAdmin.inventoryYear = EIS_Admin.inventoryYEar " &
-     "and EIS_QAAdmin.facilitysiteID = EIS_Admin.facilitysiteID " &
-      "and datQAComplete is not null ) ),  " &
-     "( select count(*) as QAOptOutToEPA  " &
-     "from EIS_Admin  " &
-     "where active = '1'  " &
-     "and inventoryyear = '" & cboEISStatisticsYear.Text & "'   " &
-     "and strEnrollment = '1'  " &
-     "and eisstatuscode = '5'  " &
-     "and (strOptOut = '1' or strOptout is null ) " &
-     "and  (not  exists (Select * from EIS_QAAdmin " &
-     "where EIS_QAAdmin.inventoryYear = EIS_Admin.inventoryYEar " &
-     "and EIS_QAAdmin.facilitysiteID = EIS_Admin.facilitysiteID) " &
-     "OR " &
-     "exists (Select * from EIS_QAAdmin " &
-     "where EIS_QAAdmin.inventoryYear = EIS_Admin.inventoryYEar " &
-     "and EIS_QAAdmin.facilitysiteID = EIS_Admin.facilitysiteID " &
-      "and datQAComplete is not null )" &
-      " ) ), " &
-      "(select count(*) as FIPassed " &
-      "from EIS_Admin, EIS_QAAdmin " &
-      "where EIS_Admin.InventoryYear = EIS_QAAdmin.inventoryYEar " &
-      "and EIS_Admin.facilitysiteID = EIS_QAAdmin.facilitysiteID " &
-      "and eis_qaAdmin.qaStatusCode = '2' " &
-      "and eis_admin.inventoryyear = '" & cboEISStatisticsYear.Text & "' ) "
+            txtSelectedEISStatYear.Text = cboEISStatisticsYear.Text
+            txtSelectedEISMailout.Text = cboEISStatisticsYear.Text
+            txtEISStatsEnrollmentYear.Text = cboEISStatisticsYear.Text
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim query As String = "SELECT * FROM (SELECT COUNT(*) AS EISUniverse FROM EIS_Admin WHERE active = '1' AND inventoryyear = @inventoryyear) AS t1, 
+                (SELECT COUNT(*) AS EISMailout FROM EIS_Admin WHERE active = '1' AND inventoryyear = @inventoryyear AND strMailout = '1') AS t2, 
+                (SELECT COUNT(*) AS EISEnrollment FROM EIS_Admin WHERE active = '1' AND inventoryyear = @inventoryyear AND strEnrollment = '1') AS t3, 
+                (SELECT COUNT(*) AS EISUNEnrollment FROM EIS_Admin WHERE active = '1' AND inventoryyear = @inventoryyear AND strMailout = '1' AND strEnrollment = '0') AS t4, 
+                (SELECT COUNT(*) AS EISNoActivity FROM EIS_Admin WHERE active = '1' AND inventoryyear = @inventoryyear AND strOptOut IS NULL AND strEnrollment = '1') AS t5, 
+                (SELECT COUNT(*) AS EISOptsIn FROM EIS_Admin WHERE active = '1' AND inventoryyear = @inventoryyear AND strOptOut = '0' AND strEnrollment = '1') AS t6, 
+                (SELECT COUNT(*) AS EISOptsOut FROM EIS_Admin WHERE active = '1' AND inventoryyear = @inventoryyear AND strMailout = '1' AND strEnrollment = '1' AND strOptOut = '1' AND strEnrollment = '1') AS t7, 
+                (SELECT COUNT(*) AS EISSubmittal FROM EIS_Admin WHERE active = '1' AND inventoryyear = @inventoryyear AND strEnrollment = '1' AND eisstatuscode >= '3' AND strOptOut = '0') AS t8, 
+                (SELECT COUNT(*) AS EISInProgress FROM EIS_Admin WHERE active = '1' AND inventoryYear = @inventoryyear AND strEnrollment = '1' AND eisStatuscode = '2' AND strEnrollment = '1' AND strOptOut = '0') AS t9, 
+                (SELECT COUNT(*) AS EISQABegan FROM EIS_Admin WHERE active = '1' AND inventoryyear = @inventoryyear AND strMailout = '1' AND strEnrollment = '1' AND EISAccesscode = '2' AND eisstatuscode = '4' AND strOptOut = '0') AS t10, 
+                (SELECT COUNT(*) AS EISEPASubmitted FROM EIS_Admin WHERE active = '1' AND inventoryyear = @inventoryyear AND strMailout = '1' AND strEnrollment = '1' AND EISAccesscode = '0' AND eisstatuscode = '5' AND strOptOut = '0') AS t11, 
+                (SELECT COUNT(*) AS EISFinalized FROM EIS_Admin WHERE active = '1' AND inventoryYear = @inventoryyear AND strEnrollment = '1' AND (EISStatusCode = '3' OR EISStatusCode = '4' OR EISStatusCode = '5') ) AS t12, 
+                (SELECT COUNT(*) AS QASubmittedToDo FROM EIS_Admin WHERE active = '1' AND inventoryyear = @inventoryyear AND strEnrollment = '1' AND eisstatuscode >= 3 AND strOptOut = '0' AND NOT EXISTS (SELECT * FROM EIS_QAAdmin WHERE EIS_QAAdmin.inventoryYear = EIS_Admin.inventoryYEar AND EIS_QAAdmin.facilitysiteID = EIS_Admin.facilitysiteID) ) AS t13, 
+                (SELECT COUNT(*) AS QAOptOutToDo FROM EIS_Admin WHERE active = '1' AND inventoryyear = @inventoryyear AND strEnrollment = '1' AND (eisstatuscode = 3 OR eisstatuscode = 4) AND (strOptOut = '1' OR strOptout IS NULL) AND NOT EXISTS (SELECT * FROM EIS_QAAdmin WHERE EIS_QAAdmin.inventoryYear = EIS_Admin.inventoryYEar AND EIS_QAAdmin.facilitysiteID = EIS_Admin.facilitysiteID) ) AS t14, 
+                (SELECT COUNT(*) AS QASubmittedBegan FROM EIS_Admin WHERE active = '1' AND inventoryyear = @inventoryyear AND strEnrollment = '1' AND eisstatuscode >= 3 AND strOptOut = '0' AND EXISTS (SELECT * FROM EIS_QAAdmin WHERE EIS_QAAdmin.inventoryYear = EIS_Admin.inventoryYEar AND EIS_QAAdmin.facilitysiteID = EIS_Admin.facilitysiteID AND datQAComplete IS NULL) ) AS t15, 
+                (SELECT COUNT(*) AS QAOptOutBegan FROM EIS_Admin WHERE active = '1' AND inventoryyear = @inventoryyear AND strEnrollment = '1' AND (eisstatuscode = '3' OR eisstatuscode = '4') AND (strOptOut = '1' OR strOptout IS NULL) AND (NOT EXISTS (SELECT * FROM EIS_QAAdmin WHERE EIS_QAAdmin.inventoryYear = EIS_Admin.inventoryYEar AND EIS_QAAdmin.facilitysiteID = EIS_Admin.facilitysiteID AND datQAComplete IS NULL) OR EXISTS (SELECT * FROM EIS_QAAdmin WHERE EIS_QAAdmin.inventoryYear = EIS_Admin.inventoryYEar AND EIS_QAAdmin.facilitysiteID = EIS_Admin.facilitysiteID AND datQAComplete IS NULL) ) ) AS t16, 
+                (SELECT COUNT(*) AS QASubmittedToEPA FROM EIS_Admin WHERE active = '1' AND inventoryyear = @inventoryyear AND strEnrollment = '1' AND eisstatuscode >= '3' AND strOptOut = '0' AND EXISTS (SELECT * FROM EIS_QAAdmin WHERE EIS_QAAdmin.inventoryYear = EIS_Admin.inventoryYEar AND EIS_QAAdmin.facilitysiteID = EIS_Admin.facilitysiteID AND datQAComplete IS NOT NULL) ) AS t17, 
+                (SELECT COUNT(*) AS QAOptOutToEPA FROM EIS_Admin WHERE active = '1' AND inventoryyear = @inventoryyear AND strEnrollment = '1' AND eisstatuscode = '5' AND (strOptOut = '1' OR strOptout IS NULL) AND (NOT EXISTS (SELECT * FROM EIS_QAAdmin WHERE EIS_QAAdmin.inventoryYear = EIS_Admin.inventoryYEar AND EIS_QAAdmin.facilitysiteID = EIS_Admin.facilitysiteID) OR EXISTS (SELECT * FROM EIS_QAAdmin WHERE EIS_QAAdmin.inventoryYear = EIS_Admin.inventoryYEar AND EIS_QAAdmin.facilitysiteID = EIS_Admin.facilitysiteID AND datQAComplete IS NOT NULL) ) ) AS t18, 
+                (SELECT COUNT(*) AS FIPassed FROM EIS_Admin, EIS_QAAdmin WHERE EIS_Admin.InventoryYear = EIS_QAAdmin.inventoryYEar AND EIS_Admin.facilitysiteID = EIS_QAAdmin.facilitysiteID AND eis_qaAdmin.qaStatusCode = '2' AND eis_admin.inventoryyear = @inventoryyear) AS t19"
+
+            Dim param As New SqlParameter("@inventoryyear", cboEISStatisticsYear.Text)
+
+            Dim dr As DataRow = DB.GetDataRow(query, param)
+
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("EISUniverse")) Then
                     txtEISActiveEIUniverse.Clear()
                 Else
@@ -4873,13 +4733,10 @@ Public Class DMUEisGecoTool
                 Else
                     txtEISFIPassed.Text = dr.Item("FIPassed")
                 End If
-            End While
-            dr.Close()
-            txtSelectedEISMailout.Text = cboEISStatisticsYear.Text
-            txtEISStatsEnrollmentYear.Text = cboEISStatisticsYear.Text
+            End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -7203,271 +7060,6 @@ Public Class DMUEisGecoTool
                 MsgBox("Data Updated", MsgBoxStyle.Information, Me.Text)
             Else
                 MsgBox("EIS Year does not currently exists." & vbCrLf & "No data Saved", MsgBoxStyle.Information, Me.Text)
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub btnClearInactiveData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearInactiveData.Click
-        Try
-            Dim EISConfirm As String = ""
-
-            EISConfirm = InputBox("Type in the EIS Year that you have selected to delete inactive data.", Me.Text)
-
-            If EISConfirm = txtSelectedEISStatYear.Text Then
-                SQL = "delete EIS_UnitControlPollutant " &
-                "where active = '0' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
-
-                SQL = "delete EIS_UnitControlMeasure  " &
-                "where active = '0' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
-
-                SQL = "delete EIS_UnitControlApproach  " &
-                "where active = '0' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
-
-                SQL = "delete EIS_RPGEOCoordinates  " &
-                "where active = '0' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
-
-                SQL = "delete EIS_RPApportionment  " &
-                "where active = '0' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
-
-                SQL = "delete EIS_ProcessControlPollutant " &
-                "where active = '0' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
-
-                SQL = "delete EIS_ProcessControlMeasure " &
-                "where active = '0'"
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
-
-                SQL = "delete EIS_ProcessControlApproach  " &
-                "where active = '0' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
-
-                SQL = "delete EIS_ReportingPeriodEmissions  " &
-              "where active = '0'  " &
-              "and intinventoryyear = '2010' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
-
-                SQL = "delete EIS_ProcessOperatingDetails  " &
-                "where active = '0'  " &
-                "and intInventoryYear = '2010' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
-
-                SQL = "delete EIS_ProcessRPTPeriodSCP  " &
-                "where Active = '0'  " &
-                "and intInventoryYear = '2010'"
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
-
-                SQL = "delete EIS_RPApportionment " &
-             "where exists (select * " &
-             "from eis_Process " &
-             "where active = '0' " &
-             "and EIS_RPApportionment.facilitysiteid = eis_Process.facilitysiteid " &
-             "and EIS_RPApportionment.ProcessId = eis_Process.ProcessId " &
-             "and EIS_RPApportionment.EmissionsUnitID  = eis_Process.EmissionsUnitID) "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
-
-                SQL = " delete EIS_ProcessControlPollutant " &
-                " where exists (select *  " &
-                " from EIS_ProcessControlApproach, EIS_Process   " &
-                " where   EIS_ProcessControlPollutant.facilitysiteid = EIS_ProcessControlApproach.facilitysiteid " &
-                " and EIS_ProcessControlPollutant.ProcessId = EIS_ProcessControlApproach.ProcessId   " &
-                " and EIS_ProcessControlPollutant.EmissionsUnitID  = EIS_ProcessControlApproach.EmissionsUnitID " &
-                "and  EIS_ProcessControlPollutant.facilitysiteid = EIS_Process.facilitysiteid " &
-                " and EIS_ProcessControlPollutant.ProcessId = EIS_Process.ProcessId   " &
-                " and EIS_ProcessControlPollutant.EmissionsUnitID  = EIS_Process.EmissionsUnitID  " &
-                " and EIS_Process.active = '0' ) "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
-
-                SQL = "delete EIS_ProcessControlMeasure  " &
-             "where exists (select * " &
-             "from  EIS_Process  " &
-             "where   EIS_ProcessControlMeasure.facilitysiteid = EIS_Process.facilitysiteid " &
-             "and EIS_ProcessControlMeasure.ProcessId = EIS_Process.ProcessId  " &
-             "and EIS_ProcessControlMeasure.EmissionsUnitID  = EIS_Process.EmissionsUnitID " &
-             "and EIS_Process.active = '0' ) "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
-
-                SQL = "delete EIS_ProcessControlApproach " &
-                "where exists (select * " &
-                "from eis_Process " &
-                "where active = '0' " &
-                "and EIS_ProcessControlApproach.facilitysiteid = eis_Process.facilitysiteid " &
-                "and EIS_ProcessControlApproach.ProcessId = eis_Process.ProcessId " &
-                "and EIS_ProcessControlApproach.EmissionsUnitID  = eis_Process.EmissionsUnitID) "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
-
-                SQL = "delete EIS_ProcessControlPollutant " &
-                "where exists (select * " &
-                "from EIS_ProcessControlApproach " &
-                "where active = '0' " &
-                "and EIS_ProcessControlPollutant.facilitysiteid = EIS_ProcessControlApproach.facilitysiteid " &
-                "and EIS_ProcessControlPollutant.ProcessId = EIS_ProcessControlApproach.ProcessId " &
-                "and EIS_ProcessControlPollutant.EmissionsUnitID  = EIS_ProcessControlApproach.EmissionsUnitID) "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
-
-                SQL = "delete  EIS_ProcessOperatingDetails   " &
-                "where exists (select * " &
-                "from EIS_Process  " &
-                "where active = '0'  " &
-                "and EIS_ProcessOperatingDetails.facilitysiteid = EIS_Process.facilitysiteid  " &
-                "and EIS_ProcessOperatingDetails.ProcessId = EIS_Process.ProcessId  " &
-                "and EIS_ProcessOperatingDetails.EmissionsUnitID  = EIS_Process.EmissionsUnitID)  "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
-
-                SQL = "delete  EIS_ReportingPeriodEmissions   " &
-                "where exists (select * " &
-                "from EIS_Process  " &
-                "where active = '0'  " &
-                "and EIS_ReportingPeriodEmissions.facilitysiteid = EIS_Process.facilitysiteid  " &
-                "and EIS_ReportingPeriodEmissions.ProcessId = EIS_Process.ProcessId  " &
-                "and EIS_ReportingPeriodEmissions.EmissionsUnitID  = EIS_Process.EmissionsUnitID)  "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
-
-                SQL = "delete  EIS_ProcessRPTPeriodSCP   " &
-                 "where exists (select * " &
-                 "from EIS_Process  " &
-                 "where active = '0'  " &
-                 "and EIS_ProcessRPTPeriodSCP.facilitysiteid = EIS_Process.facilitysiteid  " &
-                 "and EIS_ProcessRPTPeriodSCP.ProcessId = EIS_Process.ProcessId  " &
-                 "and EIS_ProcessRPTPeriodSCP.EmissionsUnitID  = EIS_Process.EmissionsUnitID)  "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
-
-                SQL = "delete eis_processReportingPeriod   " &
-                 "where exists (select * " &
-                 "from  EIS_Process  " &
-                 "where   eis_processReportingPeriod.facilitysiteid = EIS_Process.facilitysiteid " &
-                 "and eis_processReportingPeriod.ProcessId = EIS_Process.ProcessId  " &
-                 "and eis_processReportingPeriod.EmissionsUnitID  = EIS_Process.EmissionsUnitID " &
-                 "and EIS_Process.active = '0' ) "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
-
-                SQL = "delete EIS_Process  " &
-                              "where Active = '0' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
-
-                SQL = "Delete EIS_EmissionsUnit   " &
-                "where active = '0' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
-
-                SQL = "delete EIS_Releasepoint  " &
-                "where active = '0'  " &
-                "and numRPStatusCodeYear = '2010' "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
-
-                MsgBox(EISConfirm & " Emission Inventory Year Inactive data deleted.", MsgBoxStyle.Information, Me.Text)
-
-            Else
-                MsgBox("Year does not match selected EIS year")
-
             End If
 
         Catch ex As Exception
