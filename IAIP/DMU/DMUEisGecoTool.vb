@@ -58,7 +58,6 @@ Public Class DMUEisGecoTool
     End Sub
 
     Private Sub loadMailOutYear()
-        'Load MailOut Year dropdown boxes
         Dim SQL As String = "Select distinct STRESYEAR " &
             "from esmailout " &
             "order by STRESYEAR desc"
@@ -1985,253 +1984,155 @@ Public Class DMUEisGecoTool
         Dim FacilityClass As String = " "
 
         Try
-
-
-
-            SQL = "Select strAirsNumber " &
+            Dim SQL As String = "Select strAirsNumber " &
             "FROM ESmailOut " &
-            "where strESyear = '" & ESYear & "'"
+            "where strESyear = @strESyear "
+            Dim param As New SqlParameter("strESyear", ESYear)
 
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            dr = cmd.ExecuteReader
-
-            recExist = dr.Read
-
-            dr.Close()
-
-            If recExist = True Then
+            If DB.ValueExists(SQL, param) Then
                 MsgBox("That year is already being used." & vbCrLf & "If you want to use that year," & vbCrLf & "you must first delete that year from the database.")
             Else
                 If cboMailoutYear.Text <> "" Then
-                    If cboMailoutYear.Text.Length = 4 Then
-                        SQL = "Select dt_EScontact.STRairsnumber, APBFacilityinformation.STRFACILITYNAME, " &
-                        "APBHEADERDATA.stroperationalstatus, APBHEADERDATA.STRCLASS, " &
-                        "(Case " &
-                        "When dt_ESContact.STRKEY='42' THEN dt_ESContact.STRContactLastName " &
-                        "When dt_ESContact.STRKEY Is Null THEN dt_PermitContact.STRContactLastName " &
-                        "Else 'N/A' " &
-                        "END) STRContactLastName, " &
-                        "(Case " &
-                        "When dt_ESContact.STRKEY='42' THEN dt_ESContact.STRContactfirstName " &
-                        "When dt_ESContact.STRKEY Is Null THEN dt_PermitContact.STRContactfirstName " &
-                        "Else 'N/A' " &
-                        "END) STRContactfirstName, " &
-                        "(Case " &
-                        "When dt_esContact.STRKEY='42' THEN dt_esContact.STRContactCompanyName " &
-                        "When dt_esContact.STRKEY Is Null THEN dt_PermitContact.STRContactCompanyName " &
-                        "END) STRContactCompanyName, " &
-                        "(Case " &
-                        "When dt_ESContact.STRKEY='42' THEN dt_ESContact.STRContactEmail " &
-                        "When dt_ESContact.STRKEY Is Null THEN dt_PermitContact.STRContactEmail " &
-                        "END) STRContactEmail, " &
-                        "(Case " &
-                        "When dt_ESContact.STRKEY='42' THEN dt_ESContact.STRCONTACTPREFIX " &
-                        "When dt_ESContact.STRKEY Is Null THEN dt_PermitContact.STRCONTACTPREFIX " &
-                        "END) strCONTACTPREFIX, " &
-                        "(Case " &
-                        "When dt_ESContact.STRKEY='42' THEN dt_ESContact.STRCONTACTADDRESS1 " &
-                        "When dt_ESContact.STRKEY Is Null THEN dt_PermitContact.STRCONTACTADDRESS1 " &
-                        "END) STRCONTACTADDRESS1, " &
-                        "(Case " &
-                        "When dt_ESContact.STRKEY='42' THEN dt_ESContact.STRCONTACTCITY " &
-                        "When dt_ESContact.STRKEY Is Null THEN dt_PermitContact.STRCONTACTCITY " &
-                        "END) STRCONTACTCITY, " &
-                        "(Case " &
-                        "When dt_ESContact.STRKEY='42' THEN dt_ESContact.STRCONTACTSTATE " &
-                        "When dt_ESContact.STRKEY Is Null THEN dt_PermitContact.STRCONTACTSTATE " &
-                        "END) STRCONTACTSTATE,  " &
-                        "(Case " &
-                        "When dt_ESContact.STRKEY='42' THEN dt_ESContact.STRCONTACTZIPCODE " &
-                        "When dt_ESContact.STRKEY Is Null THEN dt_PermitContact.STRCONTACTZIPCODE " &
-                        "END) STRCONTACTZIPCODE " &
-                        "From " &
-                        "(Select DISTINCT dt_eslist.STRAIRSNUMBER, dt_contact.STRKEY,  " &
-                        "dt_Contact.STRCONTACTLASTNAME, dt_Contact.STRCONTACTFIRSTNAME, " &
-                        "dt_Contact.STRContactCompanyName, dt_Contact.STRContactEmail,  " &
-                        "dt_Contact.STRCONTACTPREFIX, dt_Contact.STRCONTACTADDRESS1, dt_Contact.STRCONTACTCITY,  " &
-                        "dt_Contact.STRCONTACTSTATE, dt_Contact.STRCONTACTZIPCODE " &
-                        "FROM " &
-                        "(Select * FROM APBHEADERDATA " &
-                        "where (stroperationalstatus = 'O' OR stroperationalstatus = 'P' oR stroperationalstatus = 'C') AND  " &
-                        "(STRCLASS = 'A')   " &
-                        "AND (apbheaderdata.STRAIRSNUMBER Like '____121%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____013%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____015%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____045%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____057%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____063%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____067%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____077%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____089%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____097%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____113%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____117%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____135%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____139%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____151%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____217%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____223%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____247%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____255%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____297%') " &
-                        " ) dt_ESList,      " &
-                        "(Select * From APBCONTACTINFORMATION where STRKEY=42) dt_Contact " &
-                        "Where dt_ESList.STRAIRSNUMBEr = dt_Contact.STRAIRSNUMBER (+)) dt_ESContact, " &
-                        "(Select DISTINCT dt_eslist.STRAIRSNUMBER, dt_contact.STRKEY,  " &
-                        "dt_Contact.STRCONTACTLASTNAME, dt_Contact.STRCONTACTFIRSTNAME, " &
-                        "dt_Contact.STRContactCompanyName, dt_Contact.STRContactEmail, dt_Contact.STRCONTACTPREFIX,  " &
-                        "dt_Contact.STRCONTACTADDRESS1, dt_Contact.strcontactcity, dt_Contact.STRCONTACTSTATE, dt_Contact.STRCONTACTZIPCODE " &
-                        "FROM " &
-                        "(Select * FROM APBHEADERDATA " &
-                        "where (stroperationalstatus = 'O' OR stroperationalstatus = 'P' oR stroperationalstatus = 'C') AND  " &
-                        "(STRCLASS = 'A')   " &
-                        "AND (apbheaderdata.STRAIRSNUMBER Like '____121%'    " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____013%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____015%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____045%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____057%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____063%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____067%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____077%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____089%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____097%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____113%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____117%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____135%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____139%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____151%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____217%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____223%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____247%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____255%' " &
-                        "or apbheaderdata.STRAIRSNUMBER like '____297%') " &
-                        ")dt_ESList,  " &
-                        "(Select * From APBCONTACTINFORMATION where STRKEY=30) dt_Contact " &
-                        "Where dt_ESList.STRAIRSNUMBEr = dt_Contact.STRAIRSNUMBER (+)) dt_PermitContact, " &
-                        "APBFACILITYINFORMATION, " &
-                        "APBHEADERDATA " &
-                        "Where APBFACILITYINFORMATION.STRAIRSNUMBER= dt_ESContact.STRAIRSNumber and  " &
-                        "APBHEADERDATA.STRAIRSNUMBER= dt_ESContact.STRAIRSNumber and  " &
-                        "dt_ESContact.STRAIRSNumber  = dt_PermitContact.STRAIRSNUMBER (+) "
+                    SQL = "SELECT dt_ESContact.STRAIRSNUMBER, fi.STRFACILITYNAME, hd.STROPERATIONALSTATUS, hd.STRCLASS,
+                        CASE WHEN dt_ESContact.STRKEY = '42' THEN dt_ESContact.STRCONTACTLASTNAME WHEN dt_ESContact.STRKEY IS NULL THEN dt_PermitContact.STRCONTACTLASTNAME ELSE 'N/A' END AS STRContactLastName,
+                        CASE WHEN dt_ESContact.STRKEY = '42' THEN dt_ESContact.STRCONTACTFIRSTNAME WHEN dt_ESContact.STRKEY IS NULL THEN dt_PermitContact.STRCONTACTFIRSTNAME ELSE 'N/A' END AS STRContactfirstName,
+                        CASE WHEN dt_ESContact.STRKEY = '42' THEN dt_ESContact.STRCONTACTCOMPANYNAME WHEN dt_ESContact.STRKEY IS NULL THEN dt_PermitContact.STRCONTACTCOMPANYNAME END AS STRContactCompanyName,
+                        CASE WHEN dt_ESContact.STRKEY = '42' THEN dt_ESContact.STRCONTACTEMAIL WHEN dt_ESContact.STRKEY IS NULL THEN dt_PermitContact.STRCONTACTEMAIL END AS STRContactEmail,
+                        CASE WHEN dt_ESContact.STRKEY = '42' THEN dt_ESContact.STRCONTACTPREFIX WHEN dt_ESContact.STRKEY IS NULL THEN dt_PermitContact.STRCONTACTPREFIX END AS strCONTACTPREFIX,
+                        CASE WHEN dt_ESContact.STRKEY = '42' THEN dt_ESContact.STRCONTACTADDRESS1 WHEN dt_ESContact.STRKEY IS NULL THEN dt_PermitContact.STRCONTACTADDRESS1 END AS STRCONTACTADDRESS1,
+                        CASE WHEN dt_ESContact.STRKEY = '42' THEN dt_ESContact.STRCONTACTCITY WHEN dt_ESContact.STRKEY IS NULL THEN dt_PermitContact.STRCONTACTCITY END AS STRCONTACTCITY,
+                        CASE WHEN dt_ESContact.STRKEY = '42' THEN dt_ESContact.STRCONTACTSTATE WHEN dt_ESContact.STRKEY IS NULL THEN dt_PermitContact.STRCONTACTSTATE END AS STRCONTACTSTATE,
+                        CASE WHEN dt_ESContact.STRKEY = '42' THEN dt_ESContact.STRCONTACTZIPCODE WHEN dt_ESContact.STRKEY IS NULL THEN dt_PermitContact.STRCONTACTZIPCODE END AS STRCONTACTZIPCODE
+                        FROM (SELECT DISTINCT
+                        dt_ESList.STRAIRSNUMBER, dt_Contact.STRKEY, dt_Contact.STRCONTACTLASTNAME, dt_Contact.STRCONTACTFIRSTNAME, dt_Contact.STRCONTACTCOMPANYNAME, dt_Contact.STRCONTACTEMAIL, dt_Contact.STRCONTACTPREFIX, dt_Contact.STRCONTACTADDRESS1, dt_Contact.STRCONTACTCITY, dt_Contact.STRCONTACTSTATE, dt_Contact.STRCONTACTZIPCODE
+                        FROM (SELECT *
+                        FROM APBHEADERDATA AS hd
+                        WHERE (hd.STROPERATIONALSTATUS = 'O' OR hd.STROPERATIONALSTATUS = 'P' OR hd.STROPERATIONALSTATUS = 'C') AND hd.STRCLASS = 'A' AND (hd.STRAIRSNUMBER LIKE '____121%' OR hd.STRAIRSNUMBER LIKE '____013%' OR hd.STRAIRSNUMBER LIKE '____015%' OR hd.STRAIRSNUMBER LIKE '____045%' OR hd.STRAIRSNUMBER LIKE '____057%' OR hd.STRAIRSNUMBER LIKE '____063%' OR hd.STRAIRSNUMBER LIKE '____067%' OR hd.STRAIRSNUMBER LIKE '____077%' OR hd.STRAIRSNUMBER LIKE '____089%' OR hd.STRAIRSNUMBER LIKE '____097%' OR hd.STRAIRSNUMBER LIKE '____113%' OR hd.STRAIRSNUMBER LIKE '____117%' OR hd.STRAIRSNUMBER LIKE '____135%' OR hd.STRAIRSNUMBER LIKE '____139%' OR hd.STRAIRSNUMBER LIKE '____151%' OR hd.STRAIRSNUMBER LIKE '____217%' OR hd.STRAIRSNUMBER LIKE '____223%' OR hd.STRAIRSNUMBER LIKE '____247%' OR hd.STRAIRSNUMBER LIKE '____255%' OR hd.STRAIRSNUMBER LIKE '____297%') ) AS dt_ESList
+                        LEFT JOIN (SELECT *
+                        FROM APBCONTACTINFORMATION AS ci
+                        WHERE ci.STRKEY = 42) AS dt_Contact ON dt_ESList.STRAIRSNUMBER = dt_Contact.STRAIRSNUMBER) AS dt_ESContact
+                        LEFT JOIN (SELECT DISTINCT
+                        dt_ESList.STRAIRSNUMBER, dt_Contact.STRKEY, dt_Contact.STRCONTACTLASTNAME, dt_Contact.STRCONTACTFIRSTNAME, dt_Contact.STRCONTACTCOMPANYNAME, dt_Contact.STRCONTACTEMAIL, dt_Contact.STRCONTACTPREFIX, dt_Contact.STRCONTACTADDRESS1, dt_Contact.STRCONTACTCITY, dt_Contact.STRCONTACTSTATE, dt_Contact.STRCONTACTZIPCODE
+                        FROM (SELECT *
+                        FROM APBHEADERDATA AS hd
+                        WHERE (hd.STROPERATIONALSTATUS = 'O' OR hd.STROPERATIONALSTATUS = 'P' OR hd.STROPERATIONALSTATUS = 'C') AND hd.STRCLASS = 'A' AND (hd.STRAIRSNUMBER LIKE '____121%' OR hd.STRAIRSNUMBER LIKE '____013%' OR hd.STRAIRSNUMBER LIKE '____015%' OR hd.STRAIRSNUMBER LIKE '____045%' OR hd.STRAIRSNUMBER LIKE '____057%' OR hd.STRAIRSNUMBER LIKE '____063%' OR hd.STRAIRSNUMBER LIKE '____067%' OR hd.STRAIRSNUMBER LIKE '____077%' OR hd.STRAIRSNUMBER LIKE '____089%' OR hd.STRAIRSNUMBER LIKE '____097%' OR hd.STRAIRSNUMBER LIKE '____113%' OR hd.STRAIRSNUMBER LIKE '____117%' OR hd.STRAIRSNUMBER LIKE '____135%' OR hd.STRAIRSNUMBER LIKE '____139%' OR hd.STRAIRSNUMBER LIKE '____151%' OR hd.STRAIRSNUMBER LIKE '____217%' OR hd.STRAIRSNUMBER LIKE '____223%' OR hd.STRAIRSNUMBER LIKE '____247%' OR hd.STRAIRSNUMBER LIKE '____255%' OR hd.STRAIRSNUMBER LIKE '____297%') ) AS dt_ESList
+                        LEFT JOIN (SELECT *
+                        FROM APBCONTACTINFORMATION AS ci
+                        WHERE ci.STRKEY = 30) AS dt_Contact ON dt_ESList.STRAIRSNUMBER = dt_Contact.STRAIRSNUMBER) AS dt_PermitContact ON dt_ESContact.STRAIRSNUMBER = dt_PermitContact.STRAIRSNUMBER
+                        INNER JOIN APBHEADERDATA AS hd ON dt_ESContact.STRAIRSNUMBER = hd.STRAIRSNUMBER
+                        INNER JOIN APBFACILITYINFORMATION AS fi ON dt_ESContact.STRAIRSNUMBER = fi.STRAIRSNUMBER"
+                    Dim dt As DataTable = DB.GetDataTable(SQL)
 
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
+                    For Each dr As DataRow In dt.Rows
+                        airsNumber = dr("strAirsNumber")
+                        airsYear = airsNumber & ESYear
+                        ESYear = cboMailoutYear.SelectedItem
+                        If IsDBNull(dr("STRFACILITYNAME")) Then
+                            FACILITYNAME = " "
+                        Else
+                            FACILITYNAME = dr("STRFACILITYNAME")
                         End If
-                        dr = cmd.ExecuteReader
+                        If IsDBNull(dr("STROPERATIONALSTATUS")) Then
+                            OperationalStatus = " "
+                        Else
+                            OperationalStatus = dr("STROPERATIONALSTATUS")
+                        End If
+                        If IsDBNull(dr("STRCLASS")) Then
+                            FacilityClass = " "
+                        Else
+                            FacilityClass = dr("STRCLASS")
+                        End If
+                        If IsDBNull(dr("STRCONTACTCOMPANYNAME")) Then
+                            CONTACTCOMPANYNAME = " "
+                        Else
+                            CONTACTCOMPANYNAME = dr("STRCONTACTCOMPANYNAME")
+                        End If
+                        If IsDBNull(dr("STRCONTACTADDRESS1")) Then
+                            CONTACTADDRESS1 = " "
+                        Else
+                            CONTACTADDRESS1 = dr("STRCONTACTADDRESS1")
+                        End If
+                        If IsDBNull(dr("STRCONTACTCITY")) Then
+                            CONTACTCITY = " "
+                        Else
+                            CONTACTCITY = dr("STRCONTACTCITY")
+                        End If
+                        If IsDBNull(dr("STRCONTACTSTATE")) Then
+                            CONTACTSTATE = " "
+                        Else
+                            CONTACTSTATE = dr("STRCONTACTSTATE")
+                        End If
+                        If IsDBNull(dr("STRCONTACTZIPCODE")) Then
+                            CONTACTZIPCODE = " "
+                        Else
+                            CONTACTZIPCODE = dr("STRCONTACTZIPCODE")
+                        End If
+                        If IsDBNull(dr("STRCONTACTFIRSTNAME")) Then
+                            CONTACTFIRSTNAME = " "
+                        Else
+                            CONTACTFIRSTNAME = dr("STRCONTACTFIRSTNAME")
+                        End If
+                        If IsDBNull(dr("STRCONTACTLASTNAME")) Then
+                            CONTACTLASTNAME = " "
+                        Else
+                            CONTACTLASTNAME = dr("STRCONTACTLASTNAME")
+                        End If
+                        If IsDBNull(dr("STRCONTACTEMAIL")) Then
+                            CONTACTEMAIL = " "
+                        Else
+                            CONTACTEMAIL = dr("STRCONTACTEMAIL")
+                        End If
 
-                        dr.Read()
-                        Do
-                            airsNumber = dr("strAirsNumber")
-                            airsYear = airsNumber & ESYear
-                            ESYear = cboMailoutYear.SelectedItem
-                            If IsDBNull(dr("STRFACILITYNAME")) Then
-                                FACILITYNAME = " "
-                            Else
-                                FACILITYNAME = dr("STRFACILITYNAME")
-                            End If
-                            If IsDBNull(dr("STROPERATIONALSTATUS")) Then
-                                OperationalStatus = " "
-                            Else
-                                OperationalStatus = dr("STROPERATIONALSTATUS")
-                            End If
-                            If IsDBNull(dr("STRCLASS")) Then
-                                FacilityClass = " "
-                            Else
-                                FacilityClass = dr("STRCLASS")
-                            End If
-                            If IsDBNull(dr("STRCONTACTCOMPANYNAME")) Then
-                                CONTACTCOMPANYNAME = " "
-                            Else
-                                CONTACTCOMPANYNAME = dr("STRCONTACTCOMPANYNAME")
-                            End If
-                            If IsDBNull(dr("STRCONTACTADDRESS1")) Then
-                                CONTACTADDRESS1 = " "
-                            Else
-                                CONTACTADDRESS1 = dr("STRCONTACTADDRESS1")
-                            End If
-                            If IsDBNull(dr("STRCONTACTCITY")) Then
-                                CONTACTCITY = " "
-                            Else
-                                CONTACTCITY = dr("STRCONTACTCITY")
-                            End If
-                            If IsDBNull(dr("STRCONTACTSTATE")) Then
-                                CONTACTSTATE = " "
-                            Else
-                                CONTACTSTATE = dr("STRCONTACTSTATE")
-                            End If
-                            If IsDBNull(dr("STRCONTACTZIPCODE")) Then
-                                CONTACTZIPCODE = " "
-                            Else
-                                CONTACTZIPCODE = dr("STRCONTACTZIPCODE")
-                            End If
-                            If IsDBNull(dr("STRCONTACTFIRSTNAME")) Then
-                                CONTACTFIRSTNAME = " "
-                            Else
-                                CONTACTFIRSTNAME = dr("STRCONTACTFIRSTNAME")
-                            End If
-                            If IsDBNull(dr("STRCONTACTLASTNAME")) Then
-                                CONTACTLASTNAME = " "
-                            Else
-                                CONTACTLASTNAME = dr("STRCONTACTLASTNAME")
-                            End If
-                            If IsDBNull(dr("STRCONTACTEMAIL")) Then
-                                CONTACTEMAIL = " "
-                            Else
-                                CONTACTEMAIL = dr("STRCONTACTEMAIL")
-                            End If
-
-                            SQL2 = "insert into ESmailOut " &
-                            "(strAirsYear, " &
-                            "strAirsNumber, " &
-                            "STRFACILITYNAME, " &
-                            "STROPERATIONALSTATUS, " &
-                            "STRCLASS, " &
-                            "STRCONTACTCOMPANYNAME, " &
-                            "STRCONTACTADDRESS1, " &
-                            "STRCONTACTCITY, " &
-                            "STRCONTACTSTATE, " &
-                            "STRCONTACTZIPCODE, " &
-                            "STRCONTACTFIRSTNAME, " &
-                            "STRCONTACTLASTNAME, " &
-                            "STRCONTACTEMAIL, " &
-                            "strESYear) " &
-                            "values " &
-                            "('" & airsYear & "', " &
-                            "'" & airsNumber & "', " &
-                            "'" & Replace(FACILITYNAME, "'", "''") & "', " &
-                            "'" & Replace(OperationalStatus, "'", "''") & "', " &
-                            "'" & Replace(FacilityClass, "'", "''") & "', " &
-                             "'" & Replace(Replace(CONTACTCOMPANYNAME, "'", "''"), "N/A", " ") & "', " &
-                            "'" & Replace(Replace(CONTACTADDRESS1, "'", "''"), "N/A", " ") & "', " &
-                            "'" & Replace(Replace(CONTACTCITY, "'", "''"), "N/A", " ") & "', " &
-                            "'" & CONTACTSTATE & "', " &
-                            "'" & Replace(CONTACTZIPCODE, "N/A", " ") & "', " &
-                            "'" & Replace(Replace(CONTACTFIRSTNAME, "'", "''"), "N/A", " ") & "', " &
-                            "'" & Replace(Replace(CONTACTLASTNAME, "'", "''"), "N/A", " ") & "', " &
-                            "'" & Replace(Replace(CONTACTEMAIL, "'", "''"), "N/A", " ") & "', " &
-                            "'" & ESYear & "')"
-
-                            Dim cmd2 As New SqlCommand(SQL2, CurrentConnection)
-                            'If conn.State = ConnectionState.Closed Then
-                            '    conn.Open()
-                            'End If
-                            cmd2.CommandType = CommandType.Text
-
-                            dr2 = cmd2.ExecuteReader
-                            'dr2.Close()
-                        Loop While dr.Read
-
-
-                    End If
-
-
-                    Dim year As String = cboMailoutYear.SelectedItem
+                        Dim sql2 As String = "insert into ESmailOut " &
+                            "(" &
+                            "strAirsYear," &
+                            "strAirsNumber," &
+                            "STRFACILITYNAME," &
+                            "STROPERATIONALSTATUS," &
+                            "STRCLASS," &
+                            "STRCONTACTCOMPANYNAME," &
+                            "STRCONTACTADDRESS1," &
+                            "STRCONTACTCITY," &
+                            "STRCONTACTSTATE," &
+                            "STRCONTACTZIPCODE," &
+                            "STRCONTACTFIRSTNAME," &
+                            "STRCONTACTLASTNAME," &
+                            "STRCONTACTEMAIL," &
+                            "strESYear" &
+                            ") values (" &
+                            "@strAirsYear," &
+                            "@strAirsNumber," &
+                            "@STRFACILITYNAME," &
+                            "@STROPERATIONALSTATUS," &
+                            "@STRCLASS," &
+                            "@STRCONTACTCOMPANYNAME," &
+                            "@STRCONTACTADDRESS1," &
+                            "@STRCONTACTCITY," &
+                            "@STRCONTACTSTATE," &
+                            "@STRCONTACTZIPCODE," &
+                            "@STRCONTACTFIRSTNAME," &
+                            "@STRCONTACTLASTNAME," &
+                            "@STRCONTACTEMAIL," &
+                            "@strESYear" &
+                            ")"
+                        Dim params As SqlParameter() = {
+                            New SqlParameter("@strAirsYear", airsYear),
+                            New SqlParameter("@strAirsNumber", airsNumber),
+                            New SqlParameter("@STRFACILITYNAME", FACILITYNAME),
+                            New SqlParameter("@STROPERATIONALSTATUS", OperationalStatus),
+                            New SqlParameter("@STRCLASS", FacilityClass),
+                            New SqlParameter("@STRCONTACTCOMPANYNAME", Replace(CONTACTCOMPANYNAME, "N/A", " ")),
+                            New SqlParameter("@STRCONTACTADDRESS1", Replace(CONTACTADDRESS1, "N/A", " ")),
+                            New SqlParameter("@STRCONTACTCITY", Replace(CONTACTCITY, "N/A", " ")),
+                            New SqlParameter("@STRCONTACTSTATE", CONTACTSTATE),
+                            New SqlParameter("@STRCONTACTZIPCODE", Replace(CONTACTZIPCODE, "N/A", " ")),
+                            New SqlParameter("@STRCONTACTFIRSTNAME", Replace(CONTACTFIRSTNAME, "N/A", " ")),
+                            New SqlParameter("@STRCONTACTLASTNAME", Replace(CONTACTLASTNAME, "N/A", " ")),
+                            New SqlParameter("@STRCONTACTEMAIL", Replace(CONTACTEMAIL, "N/A", " ")),
+                            New SqlParameter("@strESYear", ESYear)
+                        }
+                        DB.RunCommand(sql2, params)
+                    Next
 
                     SQL = "SELECT STRAIRSNUMBER, " &
                     "STRFACILITYNAME, " &
@@ -2246,17 +2147,12 @@ Public Class DMUEisGecoTool
                     "STRCONTACTZIPCODE, " &
                     "STRCONTACTEMAIL " &
                     "from esMailOut " &
-                    "where STRESYEAR = '" & year & "' " &
+                    "where STRESYEAR = @year " &
                     "order by STRFACILITYNAME"
 
-                    dsViewCount = New DataSet
-                    daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    daViewCount.Fill(dsViewCount, "ViewCount")
-                    dgvESDataCount.DataSource = dsViewCount
-                    dgvESDataCount.DataMember = "ViewCount"
+                    Dim param2 As New SqlParameter("@year", cboMailoutYear.SelectedItem)
+
+                    dgvESDataCount.DataSource = DB.GetDataTable(SQL, param2)
 
                     dgvESDataCount.RowHeadersVisible = False
                     dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -2292,80 +2188,58 @@ Public Class DMUEisGecoTool
                     dgvESDataCount.Columns("STRCONTACTEMAIL").DisplayIndex = 11
 
                     txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
-
                 End If
             End If
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
 
     Private Sub deleteESmailOutbyYear()
         Dim ESyear As String = cboMailoutYear.SelectedItem
 
         Try
-
-
             If ESyear = "Select a Mailout Year & Click Below" Then
                 MsgBox("You must select a Mailout Year")
             Else
-                SQL = "delete from ESmailout " &
-                "where strESyear = '" & ESyear & "'"
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                Dim SQL As String = "delete from ESmailout " &
+                "where strESyear = @strESyear "
+                Dim param As New SqlParameter("@strESyear", ESyear)
+                DB.RunCommand(SQL, param)
                 MsgBox("ES mail out is deleted!")
-
             End If
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
 
-    Private Sub btnGenMailOut_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGenMailOut.Click
+    Private Sub btnGenMailOut_Click_1(sender As Object, e As EventArgs) Handles btnGenMailOut.Click
         Try
             GenerateESMailOut()
             cboMailoutYear.Items.Clear()
             loadMailOutYear()
             cboMailoutYear.Text = ""
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnDelMailOut_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDelMailOut.Click
+    Private Sub btnDelMailOut_Click_1(sender As Object, e As EventArgs) Handles btnDelMailOut.Click
         Try
             deleteESmailOutbyYear()
             cboMailoutYear.Items.Clear()
             loadMailOutYear()
             cboMailoutYear.Text = ""
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub lblviewselectedyearMailoutList_LinkClicked_1(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblviewselectedyearMailoutList.LinkClicked
-
+    Private Sub lblviewselectedyearMailoutList_LinkClicked_1(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblviewselectedyearMailoutList.LinkClicked
         Try
             Dim year As String = cboMailoutYear.SelectedItem
 
-            SQL = "SELECT STRAIRSNUMBER, " &
+            Dim SQL As String = "SELECT STRAIRSNUMBER, " &
             "STRFACILITYNAME, " &
             "STROPERATIONALSTATUS, " &
             "STRCLASS, " &
@@ -2378,17 +2252,12 @@ Public Class DMUEisGecoTool
             "STRCONTACTZIPCODE, " &
             "STRCONTACTEMAIL " &
             "from esMailOut " &
-            "where STRESYEAR = '" & year & "' " &
+            "where STRESYEAR = @STRESYEAR " &
             "order by STRFACILITYNAME"
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            Dim param As New SqlParameter("@STRESYEAR", year)
+
+            dgvESDataCount.DataSource = DB.GetDataTable(SQL, param)
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -2424,13 +2293,9 @@ Public Class DMUEisGecoTool
             dgvESDataCount.Columns("STRCONTACTEMAIL").DisplayIndex = 11
 
             txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
 
 #End Region
@@ -6143,14 +6008,14 @@ Public Class DMUEisGecoTool
         Try
             Dim sql As String
             If rdbThreeYearPollutants.Checked = True Then
-                SQL = "Select " &
+                sql = "Select " &
                 "strPollutant, numThreshold, " &
                 "numThresholdNAA " &
                 "from EIThresholds " &
                 "where strType = '3YEAR' " &
                 "order by strPollutant "
             Else
-                SQL = "Select " &
+                sql = "Select " &
                 "strPollutant, numThreshold, " &
                 "numThresholdNAA " &
                 "from EIThresholds " &
@@ -6158,7 +6023,7 @@ Public Class DMUEisGecoTool
                 "order by strPollutant "
             End If
 
-            Dim dt As DataTable = DB.GetDataTable(SQL)
+            Dim dt As DataTable = DB.GetDataTable(sql)
 
             dgvThresholdPollutants.DataSource = dt
 
