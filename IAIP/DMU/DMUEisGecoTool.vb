@@ -1419,36 +1419,18 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub lblViewESData_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewESData.LinkClicked
-        Dim year As Integer = CInt(cboYear.SelectedItem)
+    Private Sub lblViewESData_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewESData.LinkClicked
         Try
+            Dim SQL As String = "SELECT esSchema.STRAIRSNUMBER, esSchema.STRFACILITYNAME,
+                CASE WHEN DBLVOCEMISSION = '-1' THEN 'No Value' ELSE CAST(DBLVOCEMISSION AS VARCHAR(MAX)) END AS DBLVOCEMISSION, esSchema.STRCONFIRMATIONNBR,
+                CASE WHEN DBLNOXEMISSION = '-1' THEN 'No Value' ELSE CAST(DBLNOXEMISSION AS VARCHAR(MAX)) END AS DBLNOXEMISSION, esSchema.STRDATEFIRSTCONFIRM
+                FROM esSchema
+                WHERE esSchema.intESyear = '2014'
+                ORDER BY esSchema.STRFACILITYNAME"
 
-            dsES = New DataSet
+            Dim param As New SqlParameter("@year", cboYear.SelectedItem)
 
-            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
-            "esSchema.STRFACILITYNAME, " &
-            "case " &
-            "when DBLVOCEMISSION= '-1' then 'No Value' " &
-            "else to_char(DBLVOCEMISSION) " &
-            "end DBLVOCEMISSION, " &
-            "esSchema.STRCONFIRMATIONNBR, " &
-            "case " &
-            "when DBLNOXEMISSION = '-1' then 'No Value' " &
-            "else to_char(DBLNOXEMISSION) " &
-            "end DBLNOXEMISSION, " &
-            "esSchema.STRDATEFIRSTCONFIRM " &
-            "from esSchema " &
-            "where esSchema.intESyear = '" & year & "' " &
-            "order by esSchema.STRFACILITYNAME"
-
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            dgvESDataCount.DataSource = DB.GetDataTable(SQL, param)
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1472,13 +1454,9 @@ Public Class DMUEisGecoTool
             dgvESDataCount.Columns("STRDATEFIRSTCONFIRM").DisplayIndex = 5
 
             txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
 
     Private Sub lblViewNonResponse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewNonResponse.LinkClicked
