@@ -2336,7 +2336,7 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub btnESenrollment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnESenrollment.Click
+    Private Sub btnESenrollment_Click(sender As Object, e As EventArgs) Handles btnESenrollment.Click
         Try
             If cboESYear.Text = "" Then
                 MsgBox("Please choose a Year!", MsgBoxStyle.Information, "ES Enrollment")
@@ -2346,79 +2346,70 @@ Public Class DMUEisGecoTool
                 loadESEnrollmentYear()
                 cboESYear.Text = ""
             End If
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ESMailoutenrollment()
+
+    Private Sub ESMailoutenrollment()
         Dim AirsNo As String
         Dim FacilityName As String
         Dim ESYear As Integer = CInt(cboESYear.SelectedItem)
         Dim airsYear As String
 
         Try
-            SQL = "Select * " &
+            Dim SQL As String = "Select * " &
             "FROM ESSCHEMA " &
-            "where ESSCHEMA.INTESYEAR = '" & ESYear & "'"
+            "where INTESYEAR = @ESYear "
+            Dim param As New SqlParameter("@ESYear", ESYear)
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-
-            If recExist = True Then
+            If DB.ValueExists(SQL, param) Then
                 MsgBox("That year " & ESYear & " is already enrolled.", MsgBoxStyle.Information, "EI Enrollment")
             Else
                 SQL = "Select ESMAILOUT.STRAIRSNUMBER, ESMAILOUT.STRFACILITYNAME " &
                 "FROM ESMAILOUT " &
-                "where ESMAILOUT.STRESYEAR = '" & ESYear & "'"
+                "where STRESYEAR = @ESYear "
+                Dim dt As DataTable = DB.GetDataTable(SQL, param)
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Read()
-                Do
+                For Each dr As DataRow In dt.Rows
                     AirsNo = dr("strAirsNumber")
                     airsYear = AirsNo & ESYear
                     FacilityName = dr("STRFACILITYNAME")
-                    SQL2 = "Insert into ESSCHEMA " &
+
+                    Dim SQL2 As String = "Insert into ESSCHEMA " &
                     "(ESSCHEMA.STRAIRSNUMBER, " &
                     "ESSCHEMA.STRFACILITYNAME, " &
                     "ESSCHEMA.DATTRANSACTION, " &
                     "ESSCHEMA.INTESYEAR, " &
                     "ESSCHEMA.NUMUSERID, " &
                     "ESSCHEMA.STRAIRSYEAR) " &
-                    "values " &
-                    "('" & Replace(AirsNo, "'", "''") & "', " &
-                    "'" & Replace(FacilityName, "'", "''") & "', " &
-                    "'" & OracleDate & "', " &
-                    "'" & Replace(ESYear, "'", "''") & "', " &
+                    "values (" &
+                    "@STRAIRSNUMBER, " &
+                    "@STRFACILITYNAME, " &
+                    "@DATTRANSACTION, " &
+                    "@INTESYEAR, " &
                     "'3', " &
-                    "'" & airsYear & "' )"
+                    "@STRAIRSYEAR) "
 
-                    cmd2 = New SqlCommand(SQL2, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr2 = cmd2.ExecuteReader
-                    dr2.Close()
-                Loop While dr.Read
+                    Dim params As SqlParameter() = {
+                        New SqlParameter("@STRAIRSNUMBER", AirsNo),
+                        New SqlParameter("@STRFACILITYNAME", FacilityName),
+                        New SqlParameter("@DATTRANSACTION", OracleDate),
+                        New SqlParameter("@INTESYEAR", ESYear),
+                        New SqlParameter("@STRAIRSYEAR", airsYear)
+                    }
+
+                    DB.RunCommand(SQL2, params)
+                Next
+
                 MsgBox("The facilities for year " & ESYear & " have been enrolled", MsgBoxStyle.Information, "EI Enrollment")
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnESdeenrollment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnESdeenrollment.Click
+
+    Private Sub btnESdeenrollment_Click(sender As Object, e As EventArgs) Handles btnESdeenrollment.Click
         Dim ESYear As Integer = CInt(cboESYear.SelectedItem)
         Dim sql As String
         Try
@@ -2427,16 +2418,15 @@ Public Class DMUEisGecoTool
             Else
                 Dim intAnswer As DialogResult
                 intAnswer = MessageBox.Show("Remove the enrollment?", "ES Enrollment", MessageBoxButtons.OKCancel, MessageBoxIcon.Information)
+
                 Select Case intAnswer
                     Case DialogResult.OK
                         sql = "delete from ESSCHEMA " &
-                        "where ESSCHEMA.INTESYEAR = '" & ESYear & "'"
-                        cmd = New SqlCommand(sql, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        dr.Close()
+                            "where ESSCHEMA.INTESYEAR = @ESYear "
+                        Dim param As New SqlParameter("@ESYear", ESYear)
+
+                        DB.RunCommand(sql, param)
+
                         MsgBox("Enrollment has been removed!", MsgBoxStyle.Information, "ES Enrollment")
                     Case Else
                         MsgBox("Enrollment has not been removed!", MsgBoxStyle.Information, "ES Enrollment")
@@ -2446,13 +2436,11 @@ Public Class DMUEisGecoTool
                 loadESEnrollmentYear()
                 cboESYear.Text = ""
             End If
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnaddfacilitytoES_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnaddfacilitytoES.Click
         Try
             addonefacilityES()
@@ -2616,30 +2604,22 @@ Public Class DMUEisGecoTool
 
         End Try
     End Sub
-    Private Sub lblviewESenrollment_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblviewESenrollment.LinkClicked
-        Try
 
+    Private Sub lblviewESenrollment_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblviewESenrollment.LinkClicked
+        Try
             Dim year As String = cboESYear.Text
 
             If cboESYear.Text = "" Then
-
                 MsgBox("Please choose a year to view!", MsgBoxStyle.Information, "ES Enrollment")
-
             Else
-                SQL = "SELECT ESSCHEMA.STRAIRSNUMBER, " &
-        "ESSCHEMA.STRFACILITYNAME, " &
-        "ESSCHEMA.DATTRANSACTION " &
-        "from ESSCHEMA " &
-        "where ESSCHEMA.INTESYEAR = '" & year & "'"
+                Dim SQL As String = "SELECT ESSCHEMA.STRAIRSNUMBER, " &
+                    "ESSCHEMA.STRFACILITYNAME, " &
+                    "ESSCHEMA.DATTRANSACTION " &
+                    "from ESSCHEMA " &
+                    "where ESSCHEMA.INTESYEAR = @year "
+                Dim param As New SqlParameter("@year", year)
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvESDataCount.DataSource = dsViewCount
-                dgvESDataCount.DataMember = "ViewCount"
+                dgvESDataCount.DataSource = DB.GetDataTable(SQL, param)
 
                 dgvESDataCount.RowHeadersVisible = False
                 dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -2657,15 +2637,10 @@ Public Class DMUEisGecoTool
                 dgvESDataCount.Columns("DATTRANSACTION").DisplayIndex = 2
 
                 txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
-
-
-
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
