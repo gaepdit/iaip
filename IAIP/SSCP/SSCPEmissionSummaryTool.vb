@@ -1063,25 +1063,6 @@ Public Class SSCPEmissionSummaryTool
         dgvESDataCount.ExportToExcel(Me)
     End Sub
 
-    Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
-        Try
-            If txtFACILITYNAME.Text = "" Then
-                MsgBox("You must select a Facility from the data grid view")
-            Else
-                PrintOut = Nothing
-                If PrintOut Is Nothing Then PrintOut = New IAIPPrintOut
-                PrintOut.txtPrintType.Text = "ES Print Out"
-                PrintOut.txtSQLLine.Text = Me.txtConfirmationNumber.Text
-                PrintOut.Show()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-
 #End Region
 
 #Region " Form events "

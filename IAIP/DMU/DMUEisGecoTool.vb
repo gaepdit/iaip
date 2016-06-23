@@ -1990,23 +1990,6 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub btnPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrint.Click
-        Try
-            If txtFACILITYNAME.Text = "" Then
-                MsgBox("You must select a Facility from the data grid view")
-            Else
-                PrintOut = Nothing
-                If PrintOut Is Nothing Then PrintOut = New IAIPPrintOut
-                PrintOut.txtPrintType.Text = "ES Print Out"
-                PrintOut.txtSQLLine.Text = Me.txtConfirmationNumber.Text
-                PrintOut.Show()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
     Private Sub GenerateESMailOut()
         Dim airsNumber As String
         Dim airsYear As String

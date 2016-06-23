@@ -502,7 +502,6 @@ Partial Class DMUEisGecoTool
         Me.txtESContactLastName = New System.Windows.Forms.TextBox()
         Me.Label113 = New System.Windows.Forms.Label()
         Me.lblViewESData = New System.Windows.Forms.LinkLabel()
-        Me.btnPrint = New System.Windows.Forms.Button()
         Me.txtFirstConfirmedDate = New System.Windows.Forms.TextBox()
         Me.Label114 = New System.Windows.Forms.Label()
         Me.txtNOXEmission = New System.Windows.Forms.TextBox()
@@ -5435,7 +5434,6 @@ Partial Class DMUEisGecoTool
         Me.TabDetails.Controls.Add(Me.txtESContactLastName)
         Me.TabDetails.Controls.Add(Me.Label113)
         Me.TabDetails.Controls.Add(Me.lblViewESData)
-        Me.TabDetails.Controls.Add(Me.btnPrint)
         Me.TabDetails.Controls.Add(Me.txtFirstConfirmedDate)
         Me.TabDetails.Controls.Add(Me.Label114)
         Me.TabDetails.Controls.Add(Me.txtNOXEmission)
@@ -5548,15 +5546,6 @@ Partial Class DMUEisGecoTool
         Me.lblViewESData.TabIndex = 0
         Me.lblViewESData.TabStop = True
         Me.lblViewESData.Text = "View All ES Data"
-        '
-        'btnPrint
-        '
-        Me.btnPrint.Location = New System.Drawing.Point(373, 445)
-        Me.btnPrint.Name = "btnPrint"
-        Me.btnPrint.Size = New System.Drawing.Size(50, 23)
-        Me.btnPrint.TabIndex = 62
-        Me.btnPrint.Text = "Print"
-        Me.btnPrint.UseVisualStyleBackColor = True
         '
         'txtFirstConfirmedDate
         '
@@ -7244,7 +7233,6 @@ End Sub
     Friend WithEvents txtESContactLastName As System.Windows.Forms.TextBox
     Friend WithEvents Label113 As System.Windows.Forms.Label
     Friend WithEvents lblViewESData As System.Windows.Forms.LinkLabel
-    Friend WithEvents btnPrint As System.Windows.Forms.Button
     Friend WithEvents txtFirstConfirmedDate As System.Windows.Forms.TextBox
     Friend WithEvents Label114 As System.Windows.Forms.Label
     Friend WithEvents txtNOXEmission As System.Windows.Forms.TextBox
