@@ -627,348 +627,177 @@ Public Class DMUEisGecoTool
 
 #Region "ES Tool"
 
-    Private Sub btnView_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnView.Click
-        Try
-            runcount()
-            lblYear.Text = cboYear.SelectedItem
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+    Private Sub btnView_Click(sender As Object, e As EventArgs) Handles btnView.Click
+        runcount()
+        lblYear.Text = cboYear.SelectedItem
     End Sub
+
     Private Sub runcount()
-        Dim Nonresponsecount As Integer
-        Dim ESMailoutCount As Integer
-        Dim MailOutOptInCount As Integer
-        Dim mailoutOptOutCount As Integer
-        Dim ResponseCount As Integer
-        Dim TotaloptinCount As Integer
-        Dim TotaloptoutCount As Integer
-        Dim TotalinincomplianceCount As Integer
-        Dim TotaloutofcomplianceCount As Integer
-        Dim extracount As Integer
-        '  Dim extracount2 As Integer
-        Dim extraOptincount As Integer
-        Dim extraOptOutCount As Integer
-        Dim TotalResponsecount As Integer
         Dim year As Integer = CInt(cboYear.SelectedItem)
-        txtESYear.Text = cboYear.SelectedItem
-        Dim ESYear As String = txtESYear.Text
+        txtESYear.Text = year.ToString
 
-        Dim removedFacilitiescount As Integer
-        Dim mailoutNonresponderscount As Integer
-        Dim extraNonresponderscount As Integer
-
-
-        Dim intESyear As Integer = CInt(ESYear)
-        Dim deadline As String = "15-Jun-" & year + 1
+        Dim deadline As New Date(year + 1, 6, 15)
+        Dim sql As String
+        Dim param As New SqlParameter("@year", year.ToString)
+        Dim params As SqlParameter() = {
+            param,
+            New SqlParameter("@deadline", deadline)
+        }
 
         Try
             Try
-                SQL = "select count(*) as ESMailoutCount " &
-                "from esmailout, ESSCHEMA " &
-                "where ESMAILOUT.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR(+) " &
-                "and esmailout.STRESYEAR = '" & ESYear & "'"
+                sql = "SELECT COUNT (*) AS ESMailoutCount " &
+                    "FROM ESMAILOUT em " &
+                    "LEFT JOIN ESSCHEMA es " &
+                    "ON em.STRAIRSYEAR  = es.STRAIRSYEAR " &
+                    "WHERE em.STRESYEAR = @year"
+                txtESMailOutCount.Text = DB.GetSingleValue(Of Integer)(sql, param).ToString
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-
-                While dr.Read()
-                    txtESMailOutCount.Text = dr.Item(ESMailoutCount)
-                End While
-                dr.Close()
-
-                SQL = "select count(*) as ResponseCount " &
+                sql = "select count(*) as ResponseCount " &
                 "from esmailout, ESSCHEMA " &
                 "where ESMAILOUT.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR " &
                 "and ESSCHEMA.STROPTOUT is not NULL " &
-                "and esmailout.STRESYEAR = '" & ESYear & "'"
+                "and esmailout.STRESYEAR = @year "
+                txtResponseCount.Text = DB.GetSingleValue(Of Integer)(sql, param).ToString
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-
-                While dr.Read()
-                    txtResponseCount.Text = dr.Item(ResponseCount)
-                End While
-                dr.Close()
-
-                SQL = "select count(*) as TotaloptinCount " &
+                sql = "select count(*) as TotaloptinCount " &
                 "from ESSchema " &
-                "where ESSchema.intESYEAR = '" & intESyear & "'" &
+                "where ESSchema.intESYEAR = @year " &
                 " and ESSchema.strOptOut = 'NO'"
+                txtTotalOptInCount.Text = DB.GetSingleValue(Of Integer)(sql, param).ToString
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-
-                dr = cmd.ExecuteReader
-                While dr.Read()
-                    txtTotalOptInCount.Text = dr.Item(TotaloptinCount)
-                End While
-                dr.Close()
-
-                SQL = "select count(*) as TotaloptOutCount " &
+                sql = "select count(*) as TotaloptOutCount " &
                 "from ESSchema " &
-                "where ESSchema.intESYEAR = '" & intESyear & "' " &
+                "where ESSchema.intESYEAR = @year " &
                 "and ESSchema.strOptOut = 'YES'"
+                txtTotalOptOutCount.Text = DB.GetSingleValue(Of Integer)(sql, param).ToString
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-
-                dr = cmd.ExecuteReader
-                While dr.Read()
-                    txtTotalOptOutCount.Text = dr.Item(TotaloptoutCount)
-                End While
-                dr.Close()
-
-                SQL = "select count(*) as TotalinincomplianceCount " &
+                sql = "select count(*) as TotalinincomplianceCount " &
                 "from ESSchema " &
-                "where ESSchema.intESYEAR = '" & intESyear & "'" &
-                " and to_date(ESSchema.STRDATEFIRSTCONFIRM) < = '" & deadline & "'"
+                "where ESSchema.intESYEAR = @year " &
+                " and CAST(STRDATEFIRSTCONFIRM AS date) < = @deadline "
+                txtTotalincompliance.Text = DB.GetSingleValue(Of Integer)(sql, params).ToString
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read()
-                    txtTotalincompliance.Text = dr.Item(TotalinincomplianceCount)
-                End While
-                dr.Close()
-
-                SQL = "select count(*) as TotaloutofcomplianceCount " &
+                sql = "select count(*) as TotaloutofcomplianceCount " &
                 "from ESSchema " &
-                "where ESSchema.intESYEAR = '" & intESyear & "'" &
-                " and to_date(ESSchema.STRDATEFIRSTCONFIRM) > '" & deadline & "'"
+                "where ESSchema.intESYEAR = @year " &
+                " and CAST(STRDATEFIRSTCONFIRM AS date) > @deadline "
+                txtTotaloutofcompliance.Text = DB.GetSingleValue(Of Integer)(sql, params).ToString
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read()
-                    txtTotaloutofcompliance.Text = dr.Item(TotaloutofcomplianceCount)
-                End While
-                dr.Close()
+                sql = "SELECT COUNT ( *) AS MailOutOptInCount " &
+                    "FROM ESSchema es " &
+                    "RIGHT JOIN ESMailout em " &
+                    "ON em.STRAIRSYEAR  = es.STRAIRSYEAR " &
+                    "WHERE em.STRESYEAR = @year " &
+                    "AND es.STROPTOUT   = 'NO'"
+                txtMailoutOptin.Text = DB.GetSingleValue(Of Integer)(sql, param).ToString
 
-                SQL = "select count(*) as MailOutOptInCount " &
-                "from ESSchema, ESMailout " &
-                "where ESMAILOUT.strESYEAR = '" & ESYear & "' " &
-                " and ESMAILOUT.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR(+) " &
-                " and ESSchema.strOptOut = 'NO'"
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-
-                While dr.Read()
-                    txtMailoutOptin.Text = dr.Item(MailOutOptInCount)
-                End While
-                dr.Close()
-
-                SQL = "select count(*) as MailOutOptOutCount " &
-                "from ESSchema, ESMailout " &
-                "where ESMAILOUT.strESYEAR = '" & ESYear & "'" &
-                " and ESMAILOUT.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR(+) " &
-                " and ESSchema.strOptOut = 'YES'"
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-
-                While dr.Read()
-                    txtMailOutOptOut.Text = dr.Item(mailoutOptOutCount)
-                End While
-                dr.Close()
+                sql = "SELECT COUNT ( *) AS MailOutOptOutCount " &
+                    "FROM ESSchema es " &
+                    "RIGHT JOIN ESMailout em " &
+                    "ON em.STRAIRSYEAR  = es.STRAIRSYEAR " &
+                    "WHERE em.STRESYEAR = @year " &
+                    "AND es.STROPTOUT   = 'YES'"
+                txtMailOutOptOut.Text = DB.GetSingleValue(Of Integer)(sql, param).ToString
 
             Catch ex As Exception
                 MsgBox("That Prefix is not in the db" + vbCrLf + ex.ToString())
             End Try
 
 
-            SQL = "select count(*) as Nonresponsecount " &
+            sql = "select count(*) as Nonresponsecount " &
              "from ESSCHEMA " &
-             "where ESSCHEMA.intESYEAR = '" & ESYear & "'" &
+             "where ESSCHEMA.intESYEAR = @year " &
              " and ESSchema.strOptOut is NULL"
+            txtNonResponseCount.Text = DB.GetSingleValue(Of Integer)(sql, param).ToString
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+            sql = "SELECT COUNT (*) AS removedFacilitiescount " &
+                "FROM ESSchema es " &
+                "RIGHT JOIN esmailout em " &
+                "ON em.STRAIRSYEAR   = es.STRAIRSYEAR " &
+                "WHERE em.STRESYEAR  = @year " &
+                "AND es.STRAIRSYEAR IS NULL"
+            txtESremovedFacilities.Text = DB.GetSingleValue(Of Integer)(sql, param).ToString
 
-            dr = cmd.ExecuteReader
-            While dr.Read()
-                txtNonResponseCount.Text = dr.Item(Nonresponsecount)
-            End While
-            dr.Close()
+            sql = "SELECT COUNT ( *) AS extraNonresponderscount " &
+                "FROM ESSchema es " &
+                "WHERE NOT EXISTS " &
+                "  (SELECT * " &
+                "  FROM ESMAILOUT em " &
+                "  WHERE es.STRAIRSNUMBER = em.STRAIRSNUMBER " &
+                "  AND es.INTESYEAR       = em.STRESYEAR " &
+                "  ) " &
+                "AND es.INTESYEAR  = @year " &
+                "AND es.STROPTOUT IS NULL"
+            txtESextranonresponder.Text = DB.GetSingleValue(Of Integer)(sql, param).ToString
 
-            SQL = "select count(*) as removedFacilitiescount " &
-          "from ESSchema , esmailout " &
-          "where esMailOut.STRESYEAR = '" & ESYear & "'" &
-            "and esmailout.STRAIRSYEAR = ESSchema.STRAIRSYEAR(+) " &
-          " and ESSchema.STRAIRSYEAR is NULL"
+            sql = "SELECT COUNT ( *) AS mailoutNonresponderscount " &
+                "FROM esmailout em " &
+                "LEFT JOIN ESSchema es " &
+                "ON em.STRAIRSYEAR  = es.STRAIRSYEAR " &
+                "WHERE em.STRESYEAR = @year " &
+                "AND es.STROPTOUT  IS NULL"
+            txtESmailoutNonResponder.Text = DB.GetSingleValue(Of Integer)(sql, param).ToString
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+            sql = "SELECT COUNT ( *) AS ExtraCount " &
+                "FROM " &
+                "  (SELECT es.STRAIRSYEAR AS SchemaAIRS " &
+                "  , em.STRAIRSYEAR       AS MailoutAIRS " &
+                "  FROM ESMailout em " &
+                "  RIGHT JOIN ESSCHEMA es " &
+                "  ON es.STRAIRSYEAR  = em.STRAIRSYEAR " &
+                "  WHERE es.INTESYEAR = @year " &
+                "  AND es.STROPTOUT  IS NOT NULL " &
+                "  ) dt_NotInMailout " &
+                "INNER JOIN ESSCHEMA es " &
+                "ON dt_NotInMailout.SchemaAIRS      = es.STRAIRSYEAR " &
+                "WHERE dt_NotInMailout.MailoutAIRS IS NULL"
+            Dim extracount As Integer = DB.GetSingleValue(Of Integer)(sql, param).ToString
+            txtESextraResponders.Text = extracount
+            txtextraResponse.Text = extracount
 
-            dr = cmd.ExecuteReader
-            While dr.Read()
-                txtESremovedFacilities.Text = dr.Item(removedFacilitiescount)
-            End While
-            dr.Close()
+            sql = "SELECT COUNT ( *) AS ExtraOptinCount " &
+                "FROM " &
+                "  (SELECT es.STRAIRSYEAR AS SchemaAIRS " &
+                "  , em.STRAIRSYEAR       AS MailoutAIRS " &
+                "  FROM ESMailout em " &
+                "  RIGHT JOIN ESSCHEMA es " &
+                "  ON es.STRAIRSYEAR  = em.STRAIRSYEAR " &
+                "  WHERE es.INTESYEAR = @year " &
+                "  AND es.STROPTOUT  IS NOT NULL " &
+                "  ) dt_NotInMailout " &
+                "INNER JOIN ESSCHEMA es " &
+                "ON dt_NotInMailout.SchemaAIRS      = es.STRAIRSYEAR " &
+                "WHERE dt_NotInMailout.MailoutAIRS IS NULL " &
+                "AND es.STROPTOUT                   = 'NO'"
+            txtExtraOptin.Text = DB.GetSingleValue(Of Integer)(sql, param).ToString
 
-            SQL = "select count(*) as extraNonresponderscount " &
-           "from ESSchema " &
-           " where  not exists (select * from ESMAILOUT " &
-                " where ESSchema.STRAIRSNUMBER = ESMAILOUT.STRAIRSNUMBER" &
-                " and ESSchema.INTESYEAR = ESMAILOUT.strESYEAR) " &
-                " and ESSchema.INTESYEAR = '" & ESYear & "' " &
-                " and ESSchema.STROPTOUT is null"
+            sql = "SELECT COUNT ( *) AS ExtraOptOUTCount " &
+                "FROM " &
+                "  (SELECT es.STRAIRSYEAR AS SchemaAIRS " &
+                "  , em.STRAIRSYEAR       AS MailoutAIRS " &
+                "  FROM ESMailout em " &
+                "  RIGHT JOIN ESSCHEMA es " &
+                "  ON es.STRAIRSYEAR  = em.STRAIRSYEAR " &
+                "  WHERE es.INTESYEAR = @year " &
+                "  AND es.STROPTOUT  IS NOT NULL " &
+                "  ) dt_NotInMailout " &
+                "INNER JOIN ESSCHEMA es " &
+                "ON dt_NotInMailout.SchemaAIRS      = es.STRAIRSYEAR " &
+                "WHERE dt_NotInMailout.MailoutAIRS IS NULL " &
+                "AND es.STROPTOUT                   = 'YES'"
+            txtExtraOptout.Text = DB.GetSingleValue(Of Integer)(sql, param).ToString
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            While dr.Read()
-                txtESextranonresponder.Text = dr.Item(extraNonresponderscount)
-            End While
-            dr.Close()
-
-            SQL = "select count(*) as mailoutNonresponderscount " &
-          "from  esmailout, ESSchema " &
-            "where esmailout.strESYEAR = '" & ESYear & "' " &
-            "and esmailout.STRAIRSYEAR = ESSchema.STRAIRSYEAR(+) " &
-            "and ESSchema.strOptOut is NULL"
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            While dr.Read()
-                txtESmailoutNonResponder.Text = dr.Item(mailoutNonresponderscount)
-            End While
-            dr.Close()
-
-            SQL = "select count(*) as ExtraCount " &
-            "from (Select ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " &
-            "ESMAILOUT.STRAIRSYear AS MailoutAIRS " &
-            "From ESMailout, ESSCHEMA" &
-            " Where ESMAILOUT.STRAIRSYEAR (+)= ESSCHEMA.STRAIRSYEAR " &
-            "AND esschema.INTESYEAR= '" & intESyear & "' " &
-            "AND ESSCHEMA.STROPTOUT IS NOT NULL) " &
-            "dt_NotInMailout, " &
-            "ESSCHEMA " &
-            "Where ESSCHEMA.STRAIRSYEAR = SchemaAIRS " &
-            "AND MailoutAIRS is NULL"
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-
-            While dr.Read()
-                txtESextraResponders.Text = dr.Item(extracount)
-                txtextraResponse.Text = dr.Item(extracount)
-            End While
-            dr.Close()
-
-            SQL = "select count(*) as ExtraOptinCount " &
-            "from (Select ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " &
-            "ESMAILOUT.STRAIRSYear AS MailoutAIRS " &
-            "From ESMailout, ESSCHEMA " &
-            "Where ESMAILOUT.STRAIRSYEAR (+)= ESSCHEMA.STRAIRSYEAR " &
-            "AND esschema.INTESYEAR= '" & intESyear & "' " &
-            "AND ESSCHEMA.STROPTOUT IS NOT NULL) " &
-            "dt_NotInMailout, " &
-            "ESSCHEMA " &
-            "Where ESSCHEMA.STRAIRSYEAR = SchemaAIRS " &
-            "AND MailoutAIRS is NULL " &
-            "and ESSCHEMA.STROPTOUT='NO'"
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-
-            While dr.Read()
-                txtExtraOptin.Text = dr.Item(extraOptincount)
-            End While
-            dr.Close()
-
-            SQL = "select count(*) as ExtraOptOUTCount " &
-            "from (Select ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, " &
-            "ESMAILOUT.STRAIRSYear AS MailoutAIRS " &
-            "From ESMailout, ESSCHEMA " &
-            "Where ESMAILOUT.STRAIRSYEAR (+)= ESSCHEMA.STRAIRSYEAR " &
-            "AND esschema.INTESYEAR= '" & intESyear & "' " &
-            "AND ESSCHEMA.STROPTOUT IS NOT NULL) " &
-            "dt_NotInMailout, " &
-            "ESSCHEMA " &
-            "Where ESSCHEMA.STRAIRSYEAR = SchemaAIRS " &
-            "AND MailoutAIRS is NULL " &
-            "and ESSCHEMA.STROPTOUT='YES'"
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Open Then
-            Else
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read()
-                txtExtraOptout.Text = dr.Item(extraOptOutCount)
-            End While
-            dr.Close()
-
-            SQL = "select count(*) as TotalResponsecount " &
+            sql = "select count(*) as TotalResponsecount " &
             "from ESSchema " &
-            "where ESSchema.intESYEAR = '" & intESyear & "'" &
+            "where ESSchema.intESYEAR = @year " &
             " and ESSchema.strOptOut is not NULL"
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Open Then
-            Else
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-
-            While dr.Read()
-                txtTotalResponse.Text = dr.Item(TotalResponsecount)
-            End While
-            dr.Close()
+            txtTotalResponse.Text = DB.GetSingleValue(Of Integer)(sql, param).ToString
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
+
     Private Sub findESMailOut()
         Dim AirsNo As String = txtESAIRSNo2.Text
         Dim ESyear As String = txtESYear.Text
@@ -1051,6 +880,7 @@ Public Class DMUEisGecoTool
         End Try
 
     End Sub
+
     Private Sub findESData()
         Dim AirsNo As String = txtESAirsNo.Text
         Dim ESyear As String = cboYear.SelectedItem
@@ -1226,9 +1056,11 @@ Public Class DMUEisGecoTool
         End Try
 
     End Sub
-    Sub ExportEStoExcel()
+
+    Private Sub ExportEStoExcel()
         dgvESDataCount.ExportToExcel(Me)
     End Sub
+
     Private Sub dgvESDataCount_MouseUp1(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvESDataCount.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvESDataCount.HitTest(e.X, e.Y)
 
@@ -1296,6 +1128,7 @@ Public Class DMUEisGecoTool
         End Try
 
     End Sub
+
     Private Sub lblViewMailOut_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewMailOut.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
 
@@ -1365,6 +1198,7 @@ Public Class DMUEisGecoTool
         End Try
 
     End Sub
+
     Private Sub lblViewOptin_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewTotalOptin.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
@@ -1424,6 +1258,7 @@ Public Class DMUEisGecoTool
 
 
     End Sub
+
     Private Sub lblViewOptOut_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewTotalOptOut.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
@@ -1476,6 +1311,7 @@ Public Class DMUEisGecoTool
 
         End Try
     End Sub
+
     Private Sub lblViewOutofcompliance_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewOutofcompliance.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
@@ -1556,6 +1392,7 @@ Public Class DMUEisGecoTool
 
         End Try
     End Sub
+
     Private Sub lblViewINCompliance_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewINCompliance.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
@@ -1608,6 +1445,7 @@ Public Class DMUEisGecoTool
 
         End Try
     End Sub
+
     Private Sub lblViewESMailOut_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewESMailOut.LinkClicked
         Try
 
@@ -1674,6 +1512,7 @@ Public Class DMUEisGecoTool
 
         End Try
     End Sub
+
     Private Sub lblViewESData_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewESData.LinkClicked
         Dim year As Integer = CInt(cboYear.SelectedItem)
         Try
@@ -1735,6 +1574,7 @@ Public Class DMUEisGecoTool
         End Try
 
     End Sub
+
     Private Sub lblViewNonResponse_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewNonResponse.LinkClicked
         Try
 
@@ -1780,6 +1620,7 @@ Public Class DMUEisGecoTool
 
         End Try
     End Sub
+
     Private Sub lblextraResponse_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblextraResponse.LinkClicked
         Try
 
@@ -1847,6 +1688,7 @@ Public Class DMUEisGecoTool
 
         End Try
     End Sub
+
     Private Sub lblViewOptIn_LinkClicked_1(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewOptIn.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
@@ -1899,6 +1741,7 @@ Public Class DMUEisGecoTool
 
         End Try
     End Sub
+
     Private Sub lblViewOptOut_LinkClicked_1(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewOptOut.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
@@ -1951,6 +1794,7 @@ Public Class DMUEisGecoTool
 
         End Try
     End Sub
+
     Private Sub lblViewExtraOptOut_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewExtraOptOut.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
@@ -2007,6 +1851,7 @@ Public Class DMUEisGecoTool
 
         End Try
     End Sub
+
     Private Sub lblViewExtraOptIn_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewExtraOptIn.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
@@ -2065,6 +1910,7 @@ Public Class DMUEisGecoTool
         End Try
 
     End Sub
+
     Private Sub lblViewTotalResponse_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewTotalResponse.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
@@ -2222,6 +2068,7 @@ Public Class DMUEisGecoTool
 
         End Try
     End Sub
+
     Private Sub DeleteESMailOut()
         Dim AirsNo As String = txtESAIRSNo2.Text
         Dim ESyear As String = txtESYear.Text
@@ -2244,6 +2091,7 @@ Public Class DMUEisGecoTool
 
         End Try
     End Sub
+
     Private Sub ClearMailOut()
         Try
             txtESAIRSNo2.Text = ""
@@ -2264,6 +2112,7 @@ Public Class DMUEisGecoTool
 
         End Try
     End Sub
+
     Private Sub clearESData()
         Try
             txtESAirsNo.Text = ""
@@ -2300,6 +2149,7 @@ Public Class DMUEisGecoTool
 
         End Try
     End Sub
+
     Private Sub btnSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSave.Click
         Try
             SaveESMailOut()
@@ -2310,15 +2160,11 @@ Public Class DMUEisGecoTool
 
         End Try
     End Sub
-    Private Sub btnExporttoExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExporttoExcel.Click
-        Try
-            ExportEStoExcel()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
 
-        End Try
+    Private Sub btnExporttoExcel_Click(sender As Object, e As EventArgs) Handles btnExporttoExcel.Click
+        ExportEStoExcel()
     End Sub
+
     Private Sub btnESDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnESDelete.Click
         Try
             DeleteESMailOut()
@@ -2328,6 +2174,7 @@ Public Class DMUEisGecoTool
         End Try
         MsgBox("The info has been deleted!")
     End Sub
+
     Private Sub btnPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrint.Click
         Try
             If txtFACILITYNAME.Text = "" Then
@@ -2344,7 +2191,8 @@ Public Class DMUEisGecoTool
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub GenerateESMailOut()
+
+    Private Sub GenerateESMailOut()
         Dim airsNumber As String
         Dim airsYear As String
         Dim FACILITYNAME As String = " "
@@ -2679,6 +2527,7 @@ Public Class DMUEisGecoTool
         End Try
 
     End Sub
+
     Private Sub deleteESmailOutbyYear()
         Dim ESyear As String = cboMailoutYear.SelectedItem
 
@@ -2708,6 +2557,7 @@ Public Class DMUEisGecoTool
         End Try
 
     End Sub
+
     Private Sub btnGenMailOut_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGenMailOut.Click
         Try
             GenerateESMailOut()
@@ -2720,6 +2570,7 @@ Public Class DMUEisGecoTool
 
         End Try
     End Sub
+
     Private Sub btnDelMailOut_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDelMailOut.Click
         Try
             deleteESmailOutbyYear()
@@ -2732,6 +2583,7 @@ Public Class DMUEisGecoTool
 
         End Try
     End Sub
+
     Private Sub lblviewselectedyearMailoutList_LinkClicked_1(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblviewselectedyearMailoutList.LinkClicked
 
         Try
