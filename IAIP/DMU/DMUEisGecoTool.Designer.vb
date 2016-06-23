@@ -4709,7 +4709,7 @@ Partial Class DMUEisGecoTool
         'lblviewextraNonresponse
         '
         Me.lblviewextraNonresponse.AutoSize = True
-        Me.lblviewextraNonresponse.Location = New System.Drawing.Point(315, 191)
+        Me.lblviewextraNonresponse.Location = New System.Drawing.Point(274, 186)
         Me.lblviewextraNonresponse.Name = "lblviewextraNonresponse"
         Me.lblviewextraNonresponse.Size = New System.Drawing.Size(30, 13)
         Me.lblviewextraNonresponse.TabIndex = 11
@@ -4718,7 +4718,7 @@ Partial Class DMUEisGecoTool
         '
         'txtESextranonresponder
         '
-        Me.txtESextranonresponder.Location = New System.Drawing.Point(157, 188)
+        Me.txtESextranonresponder.Location = New System.Drawing.Point(168, 183)
         Me.txtESextranonresponder.Name = "txtESextranonresponder"
         Me.txtESextranonresponder.Size = New System.Drawing.Size(100, 20)
         Me.txtESextranonresponder.TabIndex = 10
@@ -4726,7 +4726,7 @@ Partial Class DMUEisGecoTool
         'Label197
         '
         Me.Label197.AutoSize = True
-        Me.Label197.Location = New System.Drawing.Point(26, 191)
+        Me.Label197.Location = New System.Drawing.Point(26, 186)
         Me.Label197.Name = "Label197"
         Me.Label197.Size = New System.Drawing.Size(108, 13)
         Me.Label197.TabIndex = 51
@@ -4735,7 +4735,7 @@ Partial Class DMUEisGecoTool
         'lblviewmailoutnonresponder
         '
         Me.lblviewmailoutnonresponder.AutoSize = True
-        Me.lblviewmailoutnonresponder.Location = New System.Drawing.Point(315, 165)
+        Me.lblviewmailoutnonresponder.Location = New System.Drawing.Point(274, 160)
         Me.lblviewmailoutnonresponder.Name = "lblviewmailoutnonresponder"
         Me.lblviewmailoutnonresponder.Size = New System.Drawing.Size(30, 13)
         Me.lblviewmailoutnonresponder.TabIndex = 9
@@ -4744,7 +4744,7 @@ Partial Class DMUEisGecoTool
         '
         'txtESmailoutNonResponder
         '
-        Me.txtESmailoutNonResponder.Location = New System.Drawing.Point(157, 162)
+        Me.txtESmailoutNonResponder.Location = New System.Drawing.Point(168, 157)
         Me.txtESmailoutNonResponder.Name = "txtESmailoutNonResponder"
         Me.txtESmailoutNonResponder.Size = New System.Drawing.Size(100, 20)
         Me.txtESmailoutNonResponder.TabIndex = 8
@@ -4752,16 +4752,16 @@ Partial Class DMUEisGecoTool
         'Label196
         '
         Me.Label196.AutoSize = True
-        Me.Label196.Location = New System.Drawing.Point(23, 165)
+        Me.Label196.Location = New System.Drawing.Point(26, 160)
         Me.Label196.Name = "Label196"
-        Me.Label196.Size = New System.Drawing.Size(121, 13)
+        Me.Label196.Size = New System.Drawing.Size(118, 13)
         Me.Label196.TabIndex = 48
-        Me.Label196.Text = "Mailout Non- Response:"
+        Me.Label196.Text = "Mailout Non-Response:"
         '
         'lblviewESremovedfacility
         '
         Me.lblviewESremovedfacility.AutoSize = True
-        Me.lblviewESremovedfacility.Location = New System.Drawing.Point(315, 139)
+        Me.lblviewESremovedfacility.Location = New System.Drawing.Point(274, 134)
         Me.lblviewESremovedfacility.Name = "lblviewESremovedfacility"
         Me.lblviewESremovedfacility.Size = New System.Drawing.Size(30, 13)
         Me.lblviewESremovedfacility.TabIndex = 7
@@ -4770,7 +4770,7 @@ Partial Class DMUEisGecoTool
         '
         'txtESremovedFacilities
         '
-        Me.txtESremovedFacilities.Location = New System.Drawing.Point(157, 136)
+        Me.txtESremovedFacilities.Location = New System.Drawing.Point(168, 131)
         Me.txtESremovedFacilities.Name = "txtESremovedFacilities"
         Me.txtESremovedFacilities.Size = New System.Drawing.Size(100, 20)
         Me.txtESremovedFacilities.TabIndex = 6
@@ -4778,7 +4778,7 @@ Partial Class DMUEisGecoTool
         'Label195
         '
         Me.Label195.AutoSize = True
-        Me.Label195.Location = New System.Drawing.Point(23, 139)
+        Me.Label195.Location = New System.Drawing.Point(26, 134)
         Me.Label195.Name = "Label195"
         Me.Label195.Size = New System.Drawing.Size(136, 13)
         Me.Label195.TabIndex = 45
@@ -4787,7 +4787,7 @@ Partial Class DMUEisGecoTool
         'lblviewESextraresponder
         '
         Me.lblviewESextraresponder.AutoSize = True
-        Me.lblviewESextraresponder.Location = New System.Drawing.Point(272, 87)
+        Me.lblviewESextraresponder.Location = New System.Drawing.Point(274, 82)
         Me.lblviewESextraresponder.Name = "lblviewESextraresponder"
         Me.lblviewESextraresponder.Size = New System.Drawing.Size(30, 13)
         Me.lblviewESextraresponder.TabIndex = 3
@@ -4796,7 +4796,7 @@ Partial Class DMUEisGecoTool
         '
         'txtESextraResponders
         '
-        Me.txtESextraResponders.Location = New System.Drawing.Point(103, 84)
+        Me.txtESextraResponders.Location = New System.Drawing.Point(103, 79)
         Me.txtESextraResponders.Name = "txtESextraResponders"
         Me.txtESextraResponders.Size = New System.Drawing.Size(100, 20)
         Me.txtESextraResponders.TabIndex = 2
@@ -4804,7 +4804,7 @@ Partial Class DMUEisGecoTool
         'Label194
         '
         Me.Label194.AutoSize = True
-        Me.Label194.Location = New System.Drawing.Point(12, 87)
+        Me.Label194.Location = New System.Drawing.Point(12, 82)
         Me.Label194.Name = "Label194"
         Me.Label194.Size = New System.Drawing.Size(85, 13)
         Me.Label194.TabIndex = 42
@@ -4813,7 +4813,7 @@ Partial Class DMUEisGecoTool
         'lblViewMailOut
         '
         Me.lblViewMailOut.AutoSize = True
-        Me.lblViewMailOut.Location = New System.Drawing.Point(271, 55)
+        Me.lblViewMailOut.Location = New System.Drawing.Point(274, 53)
         Me.lblViewMailOut.Name = "lblViewMailOut"
         Me.lblViewMailOut.Size = New System.Drawing.Size(30, 13)
         Me.lblViewMailOut.TabIndex = 1
@@ -4823,7 +4823,7 @@ Partial Class DMUEisGecoTool
         'Label76
         '
         Me.Label76.AutoSize = True
-        Me.Label76.Location = New System.Drawing.Point(12, 225)
+        Me.Label76.Location = New System.Drawing.Point(12, 223)
         Me.Label76.Name = "Label76"
         Me.Label76.Size = New System.Drawing.Size(58, 13)
         Me.Label76.TabIndex = 8
@@ -4831,7 +4831,7 @@ Partial Class DMUEisGecoTool
         '
         'txtResponseCount
         '
-        Me.txtResponseCount.Location = New System.Drawing.Point(103, 225)
+        Me.txtResponseCount.Location = New System.Drawing.Point(103, 220)
         Me.txtResponseCount.Name = "txtResponseCount"
         Me.txtResponseCount.Size = New System.Drawing.Size(100, 20)
         Me.txtResponseCount.TabIndex = 12
@@ -4839,7 +4839,7 @@ Partial Class DMUEisGecoTool
         'lblViewTotalResponse
         '
         Me.lblViewTotalResponse.AutoSize = True
-        Me.lblViewTotalResponse.Location = New System.Drawing.Point(275, 427)
+        Me.lblViewTotalResponse.Location = New System.Drawing.Point(274, 408)
         Me.lblViewTotalResponse.Name = "lblViewTotalResponse"
         Me.lblViewTotalResponse.Size = New System.Drawing.Size(30, 13)
         Me.lblViewTotalResponse.TabIndex = 24
@@ -4848,7 +4848,7 @@ Partial Class DMUEisGecoTool
         '
         'txtTotalResponse
         '
-        Me.txtTotalResponse.Location = New System.Drawing.Point(100, 424)
+        Me.txtTotalResponse.Location = New System.Drawing.Point(103, 405)
         Me.txtTotalResponse.Name = "txtTotalResponse"
         Me.txtTotalResponse.Size = New System.Drawing.Size(100, 20)
         Me.txtTotalResponse.TabIndex = 23
@@ -4856,7 +4856,7 @@ Partial Class DMUEisGecoTool
         'Label77
         '
         Me.Label77.AutoSize = True
-        Me.Label77.Location = New System.Drawing.Point(12, 509)
+        Me.Label77.Location = New System.Drawing.Point(12, 492)
         Me.Label77.Name = "Label77"
         Me.Label77.Size = New System.Drawing.Size(95, 13)
         Me.Label77.TabIndex = 34
@@ -4865,7 +4865,7 @@ Partial Class DMUEisGecoTool
         'lblViewExtraOptOut
         '
         Me.lblViewExtraOptOut.AutoSize = True
-        Me.lblViewExtraOptOut.Location = New System.Drawing.Point(275, 378)
+        Me.lblViewExtraOptOut.Location = New System.Drawing.Point(274, 368)
         Me.lblViewExtraOptOut.Name = "lblViewExtraOptOut"
         Me.lblViewExtraOptOut.Size = New System.Drawing.Size(30, 13)
         Me.lblViewExtraOptOut.TabIndex = 22
@@ -4874,7 +4874,7 @@ Partial Class DMUEisGecoTool
         '
         'txtExtraOptout
         '
-        Me.txtExtraOptout.Location = New System.Drawing.Point(156, 375)
+        Me.txtExtraOptout.Location = New System.Drawing.Point(156, 365)
         Me.txtExtraOptout.Name = "txtExtraOptout"
         Me.txtExtraOptout.Size = New System.Drawing.Size(100, 20)
         Me.txtExtraOptout.TabIndex = 21
@@ -4882,7 +4882,7 @@ Partial Class DMUEisGecoTool
         'Label78
         '
         Me.Label78.AutoSize = True
-        Me.Label78.Location = New System.Drawing.Point(103, 375)
+        Me.Label78.Location = New System.Drawing.Point(103, 368)
         Me.Label78.Name = "Label78"
         Me.Label78.Size = New System.Drawing.Size(47, 13)
         Me.Label78.TabIndex = 22
@@ -4891,7 +4891,7 @@ Partial Class DMUEisGecoTool
         'lblViewExtraOptIn
         '
         Me.lblViewExtraOptIn.AutoSize = True
-        Me.lblViewExtraOptIn.Location = New System.Drawing.Point(275, 352)
+        Me.lblViewExtraOptIn.Location = New System.Drawing.Point(274, 342)
         Me.lblViewExtraOptIn.Name = "lblViewExtraOptIn"
         Me.lblViewExtraOptIn.Size = New System.Drawing.Size(30, 13)
         Me.lblViewExtraOptIn.TabIndex = 20
@@ -4900,7 +4900,7 @@ Partial Class DMUEisGecoTool
         '
         'txtExtraOptin
         '
-        Me.txtExtraOptin.Location = New System.Drawing.Point(156, 349)
+        Me.txtExtraOptin.Location = New System.Drawing.Point(156, 339)
         Me.txtExtraOptin.Name = "txtExtraOptin"
         Me.txtExtraOptin.Size = New System.Drawing.Size(100, 20)
         Me.txtExtraOptin.TabIndex = 19
@@ -4908,7 +4908,7 @@ Partial Class DMUEisGecoTool
         'Label79
         '
         Me.Label79.AutoSize = True
-        Me.Label79.Location = New System.Drawing.Point(111, 352)
+        Me.Label79.Location = New System.Drawing.Point(111, 342)
         Me.Label79.Name = "Label79"
         Me.Label79.Size = New System.Drawing.Size(39, 13)
         Me.Label79.TabIndex = 19
@@ -4917,7 +4917,7 @@ Partial Class DMUEisGecoTool
         'lblViewOptOut
         '
         Me.lblViewOptOut.AutoSize = True
-        Me.lblViewOptOut.Location = New System.Drawing.Point(275, 280)
+        Me.lblViewOptOut.Location = New System.Drawing.Point(274, 275)
         Me.lblViewOptOut.Name = "lblViewOptOut"
         Me.lblViewOptOut.Size = New System.Drawing.Size(30, 13)
         Me.lblViewOptOut.TabIndex = 16
@@ -4926,7 +4926,7 @@ Partial Class DMUEisGecoTool
         '
         'txtMailOutOptOut
         '
-        Me.txtMailOutOptOut.Location = New System.Drawing.Point(156, 277)
+        Me.txtMailOutOptOut.Location = New System.Drawing.Point(156, 272)
         Me.txtMailOutOptOut.Name = "txtMailOutOptOut"
         Me.txtMailOutOptOut.Size = New System.Drawing.Size(100, 20)
         Me.txtMailOutOptOut.TabIndex = 15
@@ -4934,7 +4934,7 @@ Partial Class DMUEisGecoTool
         'Label80
         '
         Me.Label80.AutoSize = True
-        Me.Label80.Location = New System.Drawing.Point(103, 280)
+        Me.Label80.Location = New System.Drawing.Point(103, 275)
         Me.Label80.Name = "Label80"
         Me.Label80.Size = New System.Drawing.Size(47, 13)
         Me.Label80.TabIndex = 13
@@ -4943,7 +4943,7 @@ Partial Class DMUEisGecoTool
         'lblViewOptIn
         '
         Me.lblViewOptIn.AutoSize = True
-        Me.lblViewOptIn.Location = New System.Drawing.Point(275, 251)
+        Me.lblViewOptIn.Location = New System.Drawing.Point(274, 249)
         Me.lblViewOptIn.Name = "lblViewOptIn"
         Me.lblViewOptIn.Size = New System.Drawing.Size(30, 13)
         Me.lblViewOptIn.TabIndex = 14
@@ -4952,7 +4952,7 @@ Partial Class DMUEisGecoTool
         '
         'txtMailoutOptin
         '
-        Me.txtMailoutOptin.Location = New System.Drawing.Point(156, 251)
+        Me.txtMailoutOptin.Location = New System.Drawing.Point(156, 246)
         Me.txtMailoutOptin.Name = "txtMailoutOptin"
         Me.txtMailoutOptin.Size = New System.Drawing.Size(100, 20)
         Me.txtMailoutOptin.TabIndex = 13
@@ -4960,7 +4960,7 @@ Partial Class DMUEisGecoTool
         'Label81
         '
         Me.Label81.AutoSize = True
-        Me.Label81.Location = New System.Drawing.Point(111, 254)
+        Me.Label81.Location = New System.Drawing.Point(111, 249)
         Me.Label81.Name = "Label81"
         Me.Label81.Size = New System.Drawing.Size(39, 13)
         Me.Label81.TabIndex = 10
@@ -4969,7 +4969,7 @@ Partial Class DMUEisGecoTool
         'Label82
         '
         Me.Label82.AutoSize = True
-        Me.Label82.Location = New System.Drawing.Point(12, 427)
+        Me.Label82.Location = New System.Drawing.Point(12, 408)
         Me.Label82.Name = "Label82"
         Me.Label82.Size = New System.Drawing.Size(85, 13)
         Me.Label82.TabIndex = 25
@@ -4978,7 +4978,7 @@ Partial Class DMUEisGecoTool
         'lblextraResponse
         '
         Me.lblextraResponse.AutoSize = True
-        Me.lblextraResponse.Location = New System.Drawing.Point(275, 326)
+        Me.lblextraResponse.Location = New System.Drawing.Point(274, 314)
         Me.lblextraResponse.Name = "lblextraResponse"
         Me.lblextraResponse.Size = New System.Drawing.Size(30, 13)
         Me.lblextraResponse.TabIndex = 18
@@ -4987,7 +4987,7 @@ Partial Class DMUEisGecoTool
         '
         'txtextraResponse
         '
-        Me.txtextraResponse.Location = New System.Drawing.Point(103, 316)
+        Me.txtextraResponse.Location = New System.Drawing.Point(103, 311)
         Me.txtextraResponse.Name = "txtextraResponse"
         Me.txtextraResponse.Size = New System.Drawing.Size(100, 20)
         Me.txtextraResponse.TabIndex = 17
@@ -4995,7 +4995,7 @@ Partial Class DMUEisGecoTool
         'Label83
         '
         Me.Label83.AutoSize = True
-        Me.Label83.Location = New System.Drawing.Point(13, 323)
+        Me.Label83.Location = New System.Drawing.Point(12, 314)
         Me.Label83.Name = "Label83"
         Me.Label83.Size = New System.Drawing.Size(85, 13)
         Me.Label83.TabIndex = 16
@@ -5004,7 +5004,7 @@ Partial Class DMUEisGecoTool
         'lblViewNonResponse
         '
         Me.lblViewNonResponse.AutoSize = True
-        Me.lblViewNonResponse.Location = New System.Drawing.Point(315, 113)
+        Me.lblViewNonResponse.Location = New System.Drawing.Point(274, 108)
         Me.lblViewNonResponse.Name = "lblViewNonResponse"
         Me.lblViewNonResponse.Size = New System.Drawing.Size(30, 13)
         Me.lblViewNonResponse.TabIndex = 5
@@ -5014,7 +5014,7 @@ Partial Class DMUEisGecoTool
         'lblViewOutofcompliance
         '
         Me.lblViewOutofcompliance.AutoSize = True
-        Me.lblViewOutofcompliance.Location = New System.Drawing.Point(275, 560)
+        Me.lblViewOutofcompliance.Location = New System.Drawing.Point(274, 541)
         Me.lblViewOutofcompliance.Name = "lblViewOutofcompliance"
         Me.lblViewOutofcompliance.Size = New System.Drawing.Size(30, 13)
         Me.lblViewOutofcompliance.TabIndex = 33
@@ -5024,7 +5024,7 @@ Partial Class DMUEisGecoTool
         'lblViewINCompliance
         '
         Me.lblViewINCompliance.AutoSize = True
-        Me.lblViewINCompliance.Location = New System.Drawing.Point(275, 534)
+        Me.lblViewINCompliance.Location = New System.Drawing.Point(274, 515)
         Me.lblViewINCompliance.Name = "lblViewINCompliance"
         Me.lblViewINCompliance.Size = New System.Drawing.Size(30, 13)
         Me.lblViewINCompliance.TabIndex = 30
@@ -5034,7 +5034,7 @@ Partial Class DMUEisGecoTool
         'lblViewTotalOptOut
         '
         Me.lblViewTotalOptOut.AutoSize = True
-        Me.lblViewTotalOptOut.Location = New System.Drawing.Point(275, 479)
+        Me.lblViewTotalOptOut.Location = New System.Drawing.Point(274, 460)
         Me.lblViewTotalOptOut.Name = "lblViewTotalOptOut"
         Me.lblViewTotalOptOut.Size = New System.Drawing.Size(30, 13)
         Me.lblViewTotalOptOut.TabIndex = 28
@@ -5044,7 +5044,7 @@ Partial Class DMUEisGecoTool
         'lblViewTotalOptin
         '
         Me.lblViewTotalOptin.AutoSize = True
-        Me.lblViewTotalOptin.Location = New System.Drawing.Point(275, 453)
+        Me.lblViewTotalOptin.Location = New System.Drawing.Point(274, 434)
         Me.lblViewTotalOptin.Name = "lblViewTotalOptin"
         Me.lblViewTotalOptin.Size = New System.Drawing.Size(30, 13)
         Me.lblViewTotalOptin.TabIndex = 26
@@ -5053,7 +5053,7 @@ Partial Class DMUEisGecoTool
         '
         'txtTotaloutofcompliance
         '
-        Me.txtTotaloutofcompliance.Location = New System.Drawing.Point(117, 557)
+        Me.txtTotaloutofcompliance.Location = New System.Drawing.Point(117, 538)
         Me.txtTotaloutofcompliance.Name = "txtTotaloutofcompliance"
         Me.txtTotaloutofcompliance.Size = New System.Drawing.Size(100, 20)
         Me.txtTotaloutofcompliance.TabIndex = 31
@@ -5061,7 +5061,7 @@ Partial Class DMUEisGecoTool
         'Label84
         '
         Me.Label84.AutoSize = True
-        Me.Label84.Location = New System.Drawing.Point(14, 557)
+        Me.Label84.Location = New System.Drawing.Point(14, 541)
         Me.Label84.Name = "Label84"
         Me.Label84.Size = New System.Drawing.Size(97, 13)
         Me.Label84.TabIndex = 38
@@ -5069,7 +5069,7 @@ Partial Class DMUEisGecoTool
         '
         'txtTotalincompliance
         '
-        Me.txtTotalincompliance.Location = New System.Drawing.Point(117, 531)
+        Me.txtTotalincompliance.Location = New System.Drawing.Point(117, 512)
         Me.txtTotalincompliance.Name = "txtTotalincompliance"
         Me.txtTotalincompliance.Size = New System.Drawing.Size(100, 20)
         Me.txtTotalincompliance.TabIndex = 29
@@ -5077,7 +5077,7 @@ Partial Class DMUEisGecoTool
         'Label85
         '
         Me.Label85.AutoSize = True
-        Me.Label85.Location = New System.Drawing.Point(34, 534)
+        Me.Label85.Location = New System.Drawing.Point(34, 515)
         Me.Label85.Name = "Label85"
         Me.Label85.Size = New System.Drawing.Size(77, 13)
         Me.Label85.TabIndex = 35
@@ -5085,7 +5085,7 @@ Partial Class DMUEisGecoTool
         '
         'txtNonResponseCount
         '
-        Me.txtNonResponseCount.Location = New System.Drawing.Point(157, 110)
+        Me.txtNonResponseCount.Location = New System.Drawing.Point(168, 105)
         Me.txtNonResponseCount.Name = "txtNonResponseCount"
         Me.txtNonResponseCount.Size = New System.Drawing.Size(100, 20)
         Me.txtNonResponseCount.TabIndex = 4
@@ -5093,7 +5093,7 @@ Partial Class DMUEisGecoTool
         'Label86
         '
         Me.Label86.AutoSize = True
-        Me.Label86.Location = New System.Drawing.Point(27, 113)
+        Me.Label86.Location = New System.Drawing.Point(26, 108)
         Me.Label86.Name = "Label86"
         Me.Label86.Size = New System.Drawing.Size(81, 13)
         Me.Label86.TabIndex = 5
@@ -5101,7 +5101,7 @@ Partial Class DMUEisGecoTool
         '
         'txtTotalOptOutCount
         '
-        Me.txtTotalOptOutCount.Location = New System.Drawing.Point(156, 476)
+        Me.txtTotalOptOutCount.Location = New System.Drawing.Point(156, 457)
         Me.txtTotalOptOutCount.Name = "txtTotalOptOutCount"
         Me.txtTotalOptOutCount.Size = New System.Drawing.Size(100, 20)
         Me.txtTotalOptOutCount.TabIndex = 27
@@ -5109,7 +5109,7 @@ Partial Class DMUEisGecoTool
         'Label87
         '
         Me.Label87.AutoSize = True
-        Me.Label87.Location = New System.Drawing.Point(103, 479)
+        Me.Label87.Location = New System.Drawing.Point(103, 460)
         Me.Label87.Name = "Label87"
         Me.Label87.Size = New System.Drawing.Size(47, 13)
         Me.Label87.TabIndex = 31
@@ -5117,7 +5117,7 @@ Partial Class DMUEisGecoTool
         '
         'txtTotalOptInCount
         '
-        Me.txtTotalOptInCount.Location = New System.Drawing.Point(156, 450)
+        Me.txtTotalOptInCount.Location = New System.Drawing.Point(156, 431)
         Me.txtTotalOptInCount.Name = "txtTotalOptInCount"
         Me.txtTotalOptInCount.Size = New System.Drawing.Size(100, 20)
         Me.txtTotalOptInCount.TabIndex = 25
@@ -5125,7 +5125,7 @@ Partial Class DMUEisGecoTool
         'Label89
         '
         Me.Label89.AutoSize = True
-        Me.Label89.Location = New System.Drawing.Point(111, 457)
+        Me.Label89.Location = New System.Drawing.Point(111, 434)
         Me.Label89.Name = "Label89"
         Me.Label89.Size = New System.Drawing.Size(39, 13)
         Me.Label89.TabIndex = 28
@@ -5133,7 +5133,7 @@ Partial Class DMUEisGecoTool
         '
         'txtESMailOutCount
         '
-        Me.txtESMailOutCount.Location = New System.Drawing.Point(103, 55)
+        Me.txtESMailOutCount.Location = New System.Drawing.Point(103, 50)
         Me.txtESMailOutCount.Name = "txtESMailOutCount"
         Me.txtESMailOutCount.Size = New System.Drawing.Size(100, 20)
         Me.txtESMailOutCount.TabIndex = 0
@@ -5141,7 +5141,7 @@ Partial Class DMUEisGecoTool
         'Label92
         '
         Me.Label92.AutoSize = True
-        Me.Label92.Location = New System.Drawing.Point(13, 62)
+        Me.Label92.Location = New System.Drawing.Point(12, 53)
         Me.Label92.Name = "Label92"
         Me.Label92.Size = New System.Drawing.Size(71, 13)
         Me.Label92.TabIndex = 2
@@ -5152,7 +5152,7 @@ Partial Class DMUEisGecoTool
         Me.lblYear.AutoSize = True
         Me.lblYear.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblYear.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.lblYear.Location = New System.Drawing.Point(346, 18)
+        Me.lblYear.Location = New System.Drawing.Point(339, 16)
         Me.lblYear.Name = "lblYear"
         Me.lblYear.Size = New System.Drawing.Size(48, 22)
         Me.lblYear.TabIndex = 1
@@ -5163,7 +5163,7 @@ Partial Class DMUEisGecoTool
         Me.Label93.AutoSize = True
         Me.Label93.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label93.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.Label93.Location = New System.Drawing.Point(15, 18)
+        Me.Label93.Location = New System.Drawing.Point(11, 16)
         Me.Label93.Name = "Label93"
         Me.Label93.Size = New System.Drawing.Size(322, 22)
         Me.Label93.TabIndex = 0
@@ -5227,11 +5227,11 @@ Partial Class DMUEisGecoTool
         'Label94
         '
         Me.Label94.AutoSize = True
-        Me.Label94.Location = New System.Drawing.Point(271, 137)
+        Me.Label94.Location = New System.Drawing.Point(263, 136)
         Me.Label94.Name = "Label94"
-        Me.Label94.Size = New System.Drawing.Size(104, 13)
+        Me.Label94.Size = New System.Drawing.Size(107, 13)
         Me.Label94.TabIndex = 20
-        Me.Label94.Text = "Company Address1: "
+        Me.Label94.Text = "Company Address 1: "
         '
         'btnESDelete
         '
@@ -5277,7 +5277,7 @@ Partial Class DMUEisGecoTool
         'Label98
         '
         Me.Label98.AutoSize = True
-        Me.Label98.Location = New System.Drawing.Point(311, 241)
+        Me.Label98.Location = New System.Drawing.Point(314, 241)
         Me.Label98.Name = "Label98"
         Me.Label98.Size = New System.Drawing.Size(56, 13)
         Me.Label98.TabIndex = 28
@@ -5293,7 +5293,7 @@ Partial Class DMUEisGecoTool
         'Label99
         '
         Me.Label99.AutoSize = True
-        Me.Label99.Location = New System.Drawing.Point(285, 215)
+        Me.Label99.Location = New System.Drawing.Point(288, 215)
         Me.Label99.Name = "Label99"
         Me.Label99.Size = New System.Drawing.Size(82, 13)
         Me.Label99.TabIndex = 26
@@ -5325,11 +5325,11 @@ Partial Class DMUEisGecoTool
         'Label105
         '
         Me.Label105.AutoSize = True
-        Me.Label105.Location = New System.Drawing.Point(271, 163)
+        Me.Label105.Location = New System.Drawing.Point(263, 162)
         Me.Label105.Name = "Label105"
-        Me.Label105.Size = New System.Drawing.Size(104, 13)
+        Me.Label105.Size = New System.Drawing.Size(107, 13)
         Me.Label105.TabIndex = 22
-        Me.Label105.Text = "Company Address2: "
+        Me.Label105.Text = "Company Address 2: "
         '
         'txtEScompanyName
         '
@@ -5341,7 +5341,7 @@ Partial Class DMUEisGecoTool
         'Label106
         '
         Me.Label106.AutoSize = True
-        Me.Label106.Location = New System.Drawing.Point(8, 267)
+        Me.Label106.Location = New System.Drawing.Point(9, 267)
         Me.Label106.Name = "Label106"
         Me.Label106.Size = New System.Drawing.Size(88, 13)
         Me.Label106.TabIndex = 18
@@ -5357,7 +5357,7 @@ Partial Class DMUEisGecoTool
         'Label107
         '
         Me.Label107.AutoSize = True
-        Me.Label107.Location = New System.Drawing.Point(11, 241)
+        Me.Label107.Location = New System.Drawing.Point(9, 241)
         Me.Label107.Name = "Label107"
         Me.Label107.Size = New System.Drawing.Size(64, 13)
         Me.Label107.TabIndex = 16
@@ -5373,7 +5373,7 @@ Partial Class DMUEisGecoTool
         'Label108
         '
         Me.Label108.AutoSize = True
-        Me.Label108.Location = New System.Drawing.Point(14, 215)
+        Me.Label108.Location = New System.Drawing.Point(9, 215)
         Me.Label108.Name = "Label108"
         Me.Label108.Size = New System.Drawing.Size(63, 13)
         Me.Label108.TabIndex = 14
@@ -5389,7 +5389,7 @@ Partial Class DMUEisGecoTool
         'Label109
         '
         Me.Label109.AutoSize = True
-        Me.Label109.Location = New System.Drawing.Point(14, 189)
+        Me.Label109.Location = New System.Drawing.Point(9, 189)
         Me.Label109.Name = "Label109"
         Me.Label109.Size = New System.Drawing.Size(39, 13)
         Me.Label109.TabIndex = 12
@@ -5405,7 +5405,7 @@ Partial Class DMUEisGecoTool
         'Label110
         '
         Me.Label110.AutoSize = True
-        Me.Label110.Location = New System.Drawing.Point(14, 163)
+        Me.Label110.Location = New System.Drawing.Point(9, 163)
         Me.Label110.Name = "Label110"
         Me.Label110.Size = New System.Drawing.Size(76, 13)
         Me.Label110.TabIndex = 10
@@ -5421,7 +5421,7 @@ Partial Class DMUEisGecoTool
         'Label111
         '
         Me.Label111.AutoSize = True
-        Me.Label111.Location = New System.Drawing.Point(14, 137)
+        Me.Label111.Location = New System.Drawing.Point(9, 137)
         Me.Label111.Name = "Label111"
         Me.Label111.Size = New System.Drawing.Size(50, 13)
         Me.Label111.TabIndex = 6

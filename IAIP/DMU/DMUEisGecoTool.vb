@@ -800,21 +800,20 @@ Public Class DMUEisGecoTool
 
     Private Sub findESMailOut()
         Dim AirsNo As String = txtESAIRSNo2.Text
-        Dim ESyear As String = txtESYear.Text
+        Dim ESyear As String = cboYear.SelectedItem
 
         Try
-            SQL = "SELECT * " &
+            Dim SQL As String = "SELECT * " &
                   "from esMailOut " &
-                  "where STRAIRSNUMBER = '" & AirsNo & "' " &
-                  "and STRESYEAR = '" & ESyear & "'"
+                  "where STRAIRSNUMBER = @STRAIRSNUMBER " &
+                  "and STRESYEAR = @STRESYEAR "
+            Dim params As SqlParameter() = {
+                New SqlParameter("@STRAIRSNUMBER", AirsNo),
+                New SqlParameter("@STRESYEAR", ESyear)
+            }
+            Dim dr As DataRow = DB.GetDataRow(SQL, params)
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            While dr.Read
+            If dr IsNot Nothing Then
                 If IsDBNull(dr("STRFACILITYNAME")) Then
                     txtESFacilityName.Text = ""
                 Else
@@ -870,34 +869,29 @@ Public Class DMUEisGecoTool
                 Else
                     txtcontactEmail.Text = dr("STRCONTACTEMAIL")
                 End If
-            End While
-
+            End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
 
     Private Sub findESData()
         Dim AirsNo As String = txtESAirsNo.Text
         Dim ESyear As String = cboYear.SelectedItem
         Dim intESyear As Integer = CInt(ESyear)
+
         Try
-
-            SQL = "SELECT * " &
+            Dim SQL As String = "SELECT * " &
             "from esschema " &
-            "where STRAIRSNUMBER = '" & AirsNo & "' " &
-            "and INTESYEAR = '" & intESyear & "'"
+            "where STRAIRSNUMBER = @STRAIRSNUMBER " &
+            "and INTESYEAR = @INTESYEAR "
+            Dim params As SqlParameter() = {
+                New SqlParameter("@STRAIRSNUMBER", AirsNo),
+                New SqlParameter("@INTESYEAR", intESyear)
+            }
+            Dim dr As DataRow = DB.GetDataRow(SQL, params)
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            If dr IsNot Nothing Then
                 If IsDBNull(dr("STRAIRSNUMBER")) Then
                     txtESAirsNo.Text = ""
                 Else
@@ -1046,27 +1040,22 @@ Public Class DMUEisGecoTool
                 Else
                     txtFirstConfirmedDate.Text = dr("STRDATEFIRSTCONFIRM")
                 End If
-            End While
+            End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
 
     Private Sub ExportEStoExcel()
         dgvESDataCount.ExportToExcel(Me)
     End Sub
 
-    Private Sub dgvESDataCount_MouseUp1(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvESDataCount.MouseUp
+    Private Sub dgvESDataCount_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvESDataCount.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvESDataCount.HitTest(e.X, e.Y)
 
         Try
             If dgvESDataCount.RowCount > 0 Then
-                'If dgvESDataCount.Columns(1).HeaderText <> "Facility Name" Then
                 If dgvESDataCount.ColumnCount > 2 Then
                     If dgvESDataCount.RowCount > 0 And hti.RowIndex <> -1 Then
                         If dgvESDataCount.Columns(0).HeaderText = "Airs No." Then
@@ -1121,22 +1110,13 @@ Public Class DMUEisGecoTool
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
 
-    Private Sub lblViewMailOut_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewMailOut.LinkClicked
-        txtESYear.Text = cboYear.SelectedItem
-
+    Private Sub lblViewMailOut_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewMailOut.LinkClicked
         Try
-
-            Dim year As String = txtESYear.Text
-
-            SQL = "SELECT STRAIRSNUMBER, " &
+            Dim SQL As String = "SELECT STRAIRSNUMBER, " &
             "STRFACILITYNAME, " &
             "STRCONTACTFIRSTNAME, " &
             "STRCONTACTLASTNAME, " &
@@ -1147,17 +1127,11 @@ Public Class DMUEisGecoTool
             "STRCONTACTZIPCODE, " &
             "STRCONTACTEMAIL " &
             "from esMailOut " &
-            "where STRESYEAR = '" & year & "' " &
+            "where STRESYEAR = @year " &
             "order by STRFACILITYNAME"
+            Dim param As New SqlParameter("@year", lblYear.Text)
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            dgvESDataCount.DataSource = DB.GetDataTable(SQL, param)
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1191,41 +1165,27 @@ Public Class DMUEisGecoTool
             txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
 
-    Private Sub lblViewOptin_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewTotalOptin.LinkClicked
-        txtESYear.Text = cboYear.SelectedItem
+    Private Sub lblViewOptin_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewTotalOptin.LinkClicked
         Try
+            SQL = "SELECT es.STRAIRSNUMBER " &
+                ", es.STRFACILITYNAME " &
+                ", es.STRDATEFIRSTCONFIRM " &
+                ", es.DBLVOCEMISSION " &
+                ", es.DBLNOXEMISSION " &
+                ", es.STRCONFIRMATIONNBR " &
+                "FROM esSchema es " &
+                "LEFT JOIN esmailout em " &
+                "ON es.STRAIRSYEAR  = em.STRAIRSYEAR " &
+                "WHERE es.INTESYEAR = @year " &
+                "AND es.STROPTOUT   = 'NO' " &
+                "ORDER BY es.STRFACILITYNAME"
+            Dim param As New SqlParameter("@year", lblYear.Text)
 
-            Dim year As String = txtESYear.Text
-            Dim intYear As Integer = Int(year)
-
-            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
-            "esSchema.STRFACILITYNAME, " &
-            "esSchema.STRDATEFIRSTCONFIRM, " &
-            "esSchema.DBLVOCEMISSION, " &
-           "esSchema.DBLNOXEMISSION, " &
-            "esSchema.STRCONFIRMATIONNBR " &
-            "from esSchema, esmailout " &
-            "where esSchema.intESyear = '" & intYear & "' " &
-            "and esSchema.STROPTOUT = 'NO'" &
-            "and ESMAILOUT.STRAIRSYEAR (+)= ESSCHEMA.STRAIRSYEAR " &
-            "order by esSchema.STRFACILITYNAME"
-
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            dgvESDataCount.DataSource = DB.GetDataTable(SQL, param)
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1251,39 +1211,25 @@ Public Class DMUEisGecoTool
             txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
-
     End Sub
 
-    Private Sub lblViewOptOut_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewTotalOptOut.LinkClicked
-        txtESYear.Text = cboYear.SelectedItem
+    Private Sub lblViewOptOut_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewTotalOptOut.LinkClicked
         Try
+            Dim SQL As String = "SELECT es.STRAIRSNUMBER " &
+                ", es.STRFACILITYNAME " &
+                ", es.STRDATEFIRSTCONFIRM " &
+                ", es.STRCONFIRMATIONNBR " &
+                "FROM esSchema es " &
+                "LEFT JOIN esmailout em " &
+                "ON es.STRAIRSYEAR  = em.STRAIRSYEAR " &
+                "WHERE es.INTESYEAR = @year " &
+                "AND es.STROPTOUT   = 'YES' " &
+                "ORDER BY es.STRFACILITYNAME"
+            Dim param As New SqlParameter("@year", lblYear.Text)
 
-            Dim year As String = txtESYear.Text
-            Dim intYear As Integer = Int(year)
-
-            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
-            "esSchema.STRFACILITYNAME, " &
-            "esSchema.STRDATEFIRSTCONFIRM, " &
-            "esSchema.STRCONFIRMATIONNBR " &
-            "from esSchema, esmailout  " &
-            "where esSchema.intESyear = '" & intYear & "' " &
-            "and ESMAILOUT.STRAIRSYEAR (+)= ESSCHEMA.STRAIRSYEAR " &
-            "and esSchema.STROPTOUT = 'YES'" &
-            "order by esSchema.STRFACILITYNAME"
-
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            dgvESDataCount.DataSource = DB.GetDataTable(SQL, param)
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1303,25 +1249,14 @@ Public Class DMUEisGecoTool
             dgvESDataCount.Columns("STRCONFIRMATIONNBR").DisplayIndex = 3
 
             txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
-
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub lblViewOutofcompliance_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewOutofcompliance.LinkClicked
-        txtESYear.Text = cboYear.SelectedItem
+    Private Sub lblViewOutofcompliance_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewOutofcompliance.LinkClicked
         Try
-
-            Dim year As String = txtESYear.Text
-            Dim intYear As Integer = Int(year)
-            Dim deadline As String = "15-Jun-2007"
-            deadline = "15-Jun-" & txtESYear.Text + 1
-
-            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
+            Dim SQL As String = "SELECT esSchema.STRAIRSNUMBER, " &
             "esSchema.STRFACILITYNAME, " &
             "esSchema.STROPTOUT, " &
             "esSchema.STRCONFIRMATIONNBR, " &
@@ -1335,19 +1270,17 @@ Public Class DMUEisGecoTool
             "esSchema.STRCONTACTEMAIL, " &
             "esSchema.STRCONTACTPHONENUMBER " &
             "from esSchema " &
-            "where intESyear = '" & intYear & "' " &
+            "where intESyear = @year " &
             "and esSchema.STRDATEFIRSTCONFIRM is not NULL " &
-            "and to_date(esSchema.STRDATEFIRSTCONFIRM) > '" & deadline & "' " &
+            " and CAST(esSchema.STRDATEFIRSTCONFIRM AS date) > @deadline " &
             "order by esSchema.STRFACILITYNAME"
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            Dim params As SqlParameter() = {
+                New SqlParameter("@year", lblYear.Text),
+                New SqlParameter("@deadline", New Date(CInt(lblYear.Text) + 1, 6, 15))
+            }
+
+            dgvESDataCount.DataSource = DB.GetDataTable(SQL, params)
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1385,40 +1318,29 @@ Public Class DMUEisGecoTool
             dgvESDataCount.Columns("STRCONTACTPHONENUMBER").DisplayIndex = 12
 
             txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub lblViewINCompliance_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewINCompliance.LinkClicked
-        txtESYear.Text = cboYear.SelectedItem
+    Private Sub lblViewINCompliance_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewINCompliance.LinkClicked
         Try
-
-            Dim year As String = txtESYear.Text
-            Dim intYear As Integer = Int(year)
-            Dim deadline As String = "15-Jun-" & intYear + 1
-
-            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
+            Dim SQL As String = "SELECT esSchema.STRAIRSNUMBER, " &
             "esSchema.STRFACILITYNAME, " &
             "esSchema.STRDATEFIRSTCONFIRM, " &
             "esSchema.STRCONFIRMATIONNBR " &
             "from esSchema " &
-            "where esSchema.intESyear = '" & intYear & "' " &
-             "and esSchema.STRDATEFIRSTCONFIRM is not NULL " &
-            "and to_date(esSchema.STRDATEFIRSTCONFIRM) <= '" & deadline & "' " &
+            "where esSchema.intESyear = @year " &
+            "and esSchema.STRDATEFIRSTCONFIRM is not NULL " &
+            " and CAST(esSchema.STRDATEFIRSTCONFIRM AS date) < = @deadline " &
             "order by esSchema.STRFACILITYNAME"
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            Dim params As SqlParameter() = {
+                New SqlParameter("@year", lblYear.Text),
+                New SqlParameter("@deadline", New Date(CInt(lblYear.Text) + 1, 6, 15))
+            }
+
+            dgvESDataCount.DataSource = DB.GetDataTable(SQL, params)
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1438,21 +1360,13 @@ Public Class DMUEisGecoTool
             dgvESDataCount.Columns("STRCONFIRMATIONNBR").DisplayIndex = 3
 
             txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub lblViewESMailOut_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewESMailOut.LinkClicked
+    Private Sub lblViewESMailOut_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewESMailOut.LinkClicked
         Try
-
-            Dim year As String = txtESYear.Text
-            txtESYear.Text = cboYear.SelectedItem
-
-
             SQL = "SELECT esMailOut.STRAIRSNUMBER, " &
             "esMailOut.STRFACILITYNAME, " &
             "esMailOut.STRCONTACTFIRSTNAME, " &
@@ -1464,17 +1378,11 @@ Public Class DMUEisGecoTool
             "esMailOut.STRCONTACTZIPCODE, " &
             "esMailOut.STRCONTACTEMAIL " &
             "from esMailOut " &
-            "where STRESYEAR = '" & year & "' " &
+            "where STRESYEAR = @year " &
             "order by STRFACILITYNAME"
+            Dim param As New SqlParameter("@year", cboYear.SelectedItem)
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            dgvESDataCount.DataSource = DB.GetDataTable(SQL, param)
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1507,9 +1415,7 @@ Public Class DMUEisGecoTool
 
             txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -1575,27 +1481,19 @@ Public Class DMUEisGecoTool
 
     End Sub
 
-    Private Sub lblViewNonResponse_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewNonResponse.LinkClicked
+    Private Sub lblViewNonResponse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewNonResponse.LinkClicked
         Try
+            Dim SQL As String = "SELECT es.STRAIRSNUMBER " &
+                ", es.STRFACILITYNAME " &
+                "FROM esMailOut em " &
+                "LEFT JOIN ESSCHEMA es " &
+                "ON em.STRAIRSYEAR  = es.STRAIRSYEAR " &
+                "WHERE es.INTESYEAR = @year " &
+                "AND es.STROPTOUT  IS NULL " &
+                "ORDER BY em.STRFACILITYNAME"
+            Dim param As New SqlParameter("@year", lblYear.Text)
 
-            Dim year As String = txtESYear.Text
-
-            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
-            "esSchema.STRFACILITYNAME " &
-            "from esMailOut, ESSCHEMA " &
-            "where esSchema.INTESYEAR = '" & year & "'" &
-            "and esSchema.strOPTOUT is NULL " &
-            "and esmailout.STRAIRSYEAR = ESSchema.STRAIRSYEAR(+) " &
-            "order by esMailOut.STRFACILITYNAME"
-
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            dgvESDataCount.DataSource = DB.GetDataTable(SQL, param)
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1611,48 +1509,36 @@ Public Class DMUEisGecoTool
             dgvESDataCount.Columns("strFacilityName").DisplayIndex = 1
 
             txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
-
-            ' clearESData()
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub lblextraResponse_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblextraResponse.LinkClicked
+    Private Sub lblextraResponse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblextraResponse.LinkClicked
         Try
+            Dim SQL As String = "SELECT dt_NotInMailout.SchemaAIRS " &
+                    ", es.STRAIRSNUMBER " &
+                    ", es.STRFACILITYNAME " &
+                    ", es.STRCONTACTFIRSTNAME " &
+                    ", es.STRCONTACTLASTNAME " &
+                    ", es.STRCONTACTCOMPANY " &
+                    ", es.STRCONTACTEMAIL " &
+                    ", es.STRCONTACTPHONENUMBER " &
+                    "FROM " &
+                    "  (SELECT es.STRAIRSNUMBER AS SchemaAIRS " &
+                    "  , em.STRAIRSNUMBER       AS MailoutAIRS " &
+                    "  FROM ESMailout em " &
+                    "  RIGHT JOIN ESSCHEMA es " &
+                    "  ON es.STRAIRSYEAR  = em.STRAIRSYEAR " &
+                    "  WHERE es.INTESYEAR = @year " &
+                    "  AND es.STROPTOUT  IS NOT NULL " &
+                    "  ) dt_NotInMailout " &
+                    "INNER JOIN ESSCHEMA es " &
+                    "ON dt_NotInMailout.SchemaAIRS      = es.STRAIRSNUMBER " &
+                    "WHERE dt_NotInMailout.MailoutAIRS IS NULL"
+            Dim param As New SqlParameter("@year", lblYear.Text)
 
-            Dim year As String = txtESYear.Text
-            Dim intyear As Integer = Int(year)
-
-            SQL = "SELECT dt_NotInMailout.SchemaAIRS, esSchema.STRAIRSNUMBER, " &
-            "esSchema.STRFACILITYNAME, " &
-            "esSchema.STRCONTACTFIRSTNAME, " &
-            "esSchema.STRCONTACTLASTNAME, " &
-            "esSchema.STRCONTACTCOMPANY, " &
-            "esSchema.STRCONTACTEMAIL, " &
-            "esSchema.STRCONTACTPHONENUMBER " &
-            "from (Select ESSCHEMA.STRAIRSNUMBER AS SchemaAIRS, " &
-            "ESMAILOUT.STRAIRSNUMBER AS MailoutAIRS" &
-            " From ESMailout, ESSCHEMA" &
-            " Where ESMAILOUT.STRAIRSYEAR (+)= ESSCHEMA.STRAIRSYEAR " &
-            "AND INTESYEAR=  '" & intyear & "' " &
-            "AND ESSCHEMA.STROPTOUT IS NOT NULL) " &
-            "dt_NotInMailout, " &
-            "ESSCHEMA " &
-            "Where ESSCHEMA.STRAIRSNUMBER = SchemaAIRS " &
-            "AND MailoutAIRS is NULL"
-
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            dgvESDataCount.DataSource = DB.GetDataTable(SQL, param)
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1678,43 +1564,27 @@ Public Class DMUEisGecoTool
             dgvESDataCount.Columns("STRCONTACTPHONENUMBER").DisplayIndex = 6
 
             txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
-
-            'clearESData()
-            'ClearMailOut()
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub lblViewOptIn_LinkClicked_1(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewOptIn.LinkClicked
-        txtESYear.Text = cboYear.SelectedItem
+    Private Sub lblViewOptIn_LinkClicked_1(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewOptIn.LinkClicked
         Try
+            SQL = "SELECT es.STRAIRSNUMBER " &
+                ", es.STRFACILITYNAME " &
+                ", es.STRDATEFIRSTCONFIRM " &
+                ", es.STRCONFIRMATIONNBR " &
+                "FROM esSchema es " &
+                "RIGHT JOIN esmailout em " &
+                "ON em.STRAIRSYEAR             = es.STRAIRSYEAR " &
+                "WHERE es.STRDATEFIRSTCONFIRM IS NOT NULL " &
+                "AND es.INTESYEAR              = @year " &
+                "AND es.STROPTOUT              = 'NO' " &
+                "ORDER BY es.STRFACILITYNAME"
+            Dim param As New SqlParameter("@year", lblYear.Text)
 
-            Dim year As String = txtESYear.Text
-            Dim intYear As Integer = Int(year)
-
-            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
-            "esSchema.STRFACILITYNAME, " &
-            "esSchema.STRDATEFIRSTCONFIRM, " &
-            "esSchema.STRCONFIRMATIONNBR " &
-            "from esSchema, esmailout " &
-            "where esSchema.intESyear = '" & intYear & "' " &
-            "and esSchema.STROPTOUT = 'NO'" &
-            "and ESMAILOUT.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR(+) " &
-            "and esSchema.STRDATEFIRSTCONFIRM is not NULL " &
-            "order by esSchema.STRFACILITYNAME"
-
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            dgvESDataCount.DataSource = DB.GetDataTable(SQL, param)
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1734,40 +1604,27 @@ Public Class DMUEisGecoTool
             dgvESDataCount.Columns("STRCONFIRMATIONNBR").DisplayIndex = 3
 
             txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub lblViewOptOut_LinkClicked_1(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewOptOut.LinkClicked
-        txtESYear.Text = cboYear.SelectedItem
+    Private Sub lblViewOptOut_LinkClicked_1(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewOptOut.LinkClicked
         Try
+            Dim SQL As String = "SELECT es.STRAIRSNUMBER " &
+                ", es.STRFACILITYNAME " &
+                ", es.STRDATEFIRSTCONFIRM " &
+                ", es.STRCONFIRMATIONNBR " &
+                "FROM esSchema es " &
+                "RIGHT JOIN esmailout em " &
+                "ON em.STRAIRSYEAR             = es.STRAIRSYEAR " &
+                "WHERE es.STRDATEFIRSTCONFIRM IS NOT NULL " &
+                "AND es.INTESYEAR              = @year " &
+                "AND es.STROPTOUT              = 'YES' " &
+                "ORDER BY es.STRFACILITYNAME"
+            Dim param As New SqlParameter("@year", lblYear.Text)
 
-            Dim year As String = txtESYear.Text
-            Dim intYear As Integer = Int(year)
-
-            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
-            "esSchema.STRFACILITYNAME, " &
-            "esSchema.STRDATEFIRSTCONFIRM, " &
-            "esSchema.STRCONFIRMATIONNBR " &
-            "from esSchema, esmailout " &
-            "where esSchema.intESyear = '" & intYear & "' " &
-            "and esSchema.STROPTOUT = 'YES'" &
-            " and ESMAILOUT.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR(+) " &
-            "and esSchema.STRDATEFIRSTCONFIRM is not NULL " &
-            "order by esSchema.STRFACILITYNAME"
-
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            dgvESDataCount.DataSource = DB.GetDataTable(SQL, param)
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1787,44 +1644,33 @@ Public Class DMUEisGecoTool
             dgvESDataCount.Columns("STRCONFIRMATIONNBR").DisplayIndex = 3
 
             txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub lblViewExtraOptOut_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewExtraOptOut.LinkClicked
-        txtESYear.Text = cboYear.SelectedItem
+    Private Sub lblViewExtraOptOut_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewExtraOptOut.LinkClicked
         Try
+            Dim SQL As String = "SELECT es.STRAIRSNUMBER " &
+                ", es.STRFACILITYNAME " &
+                ", es.STRDATEFIRSTCONFIRM " &
+                ", es.STRCONFIRMATIONNBR " &
+                "FROM " &
+                "  (SELECT es.STRAIRSYEAR AS SchemaAIRS " &
+                "  , em.STRAIRSYEAR       AS MailoutAIRS " &
+                "  FROM ESMailout em " &
+                "  RIGHT JOIN ESSCHEMA es " &
+                "  ON es.STRAIRSYEAR  = em.STRAIRSYEAR " &
+                "  WHERE es.INTESYEAR = @year " &
+                "  AND es.STROPTOUT  IS NOT NULL " &
+                "  ) dt_NotInMailout " &
+                "INNER JOIN ESSCHEMA es " &
+                "ON dt_NotInMailout.SchemaAIRS      = es.STRAIRSYEAR " &
+                "WHERE dt_NotInMailout.MailoutAIRS IS NULL " &
+                "AND es.STROPTOUT                   = 'YES'"
+            Dim param As New SqlParameter("@year", lblYear.Text)
 
-            Dim year As String = txtESYear.Text
-            Dim intYear As Integer = Int(year)
-
-            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
-            "esSchema.STRFACILITYNAME, " &
-            "esSchema.STRDATEFIRSTCONFIRM, " &
-            "esSchema.STRCONFIRMATIONNBR " &
-            "from (select esSchema.strairsyear as SchemaAIRS, " &
-            "esmailout.strairsyear as MailoutAIRS " &
-            "From ESMailout, ESSCHEMA " &
-            "where ESMAILOUT.STRAIRSYEAR (+)= ESSCHEMA.STRAIRSYEAR " &
-            "and esSchema.intESyear = '" & intYear & "' " &
-            "and ESSCHEMA.STROPTOUT IS NOT NULL) " &
-            "dt_NotInMailout, ESSCHEMA " &
-            "Where ESSCHEMA.STRAIRSYEAR = SchemaAIRS " &
-            "and MailoutAIRS is NULL " &
-            "and ESSCHEMA.STROPTOUT='YES'"
-
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            dgvESDataCount.DataSource = DB.GetDataTable(SQL, param)
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1844,45 +1690,33 @@ Public Class DMUEisGecoTool
             dgvESDataCount.Columns("STRCONFIRMATIONNBR").DisplayIndex = 3
 
             txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub lblViewExtraOptIn_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewExtraOptIn.LinkClicked
-        txtESYear.Text = cboYear.SelectedItem
+    Private Sub lblViewExtraOptIn_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewExtraOptIn.LinkClicked
         Try
+            SQL = "SELECT es.STRAIRSNUMBER " &
+                ", es.STRFACILITYNAME " &
+                ", es.STRDATEFIRSTCONFIRM " &
+                ", es.STRCONFIRMATIONNBR " &
+                "FROM " &
+                "  (SELECT es.STRAIRSYEAR AS SchemaAIRS " &
+                "  , em.STRAIRSYEAR       AS MailoutAIRS " &
+                "  FROM ESMailout em " &
+                "  RIGHT JOIN ESSCHEMA es " &
+                "  ON em.STRAIRSYEAR  = es.STRAIRSYEAR " &
+                "  WHERE es.INTESYEAR = @year " &
+                "  AND es.STROPTOUT  IS NOT NULL " &
+                "  ) dt_NotInMailout " &
+                "INNER JOIN ESSCHEMA es " &
+                "ON es.STRAIRSYEAR                  = dt_NotInMailout.SchemaAIRS " &
+                "WHERE dt_NotInMailout.MailoutAIRS IS NULL " &
+                "AND es.STROPTOUT                   = 'NO'"
+            Dim param As New SqlParameter("@year", lblYear.Text)
 
-            Dim year As String = txtESYear.Text
-            Dim intYear As Integer = Int(year)
-
-            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
-            "esSchema.STRFACILITYNAME, " &
-            "esSchema.STRDATEFIRSTCONFIRM, " &
-            "esSchema.STRCONFIRMATIONNBR " &
-            "from (select esSchema.strairsyear as SchemaAIRS, " &
-            "esmailout.strairsyear as MailoutAIRS " &
-            "From ESMailout, ESSCHEMA " &
-            "where ESMAILOUT.STRAIRSYEAR (+)= ESSCHEMA.STRAIRSYEAR " &
-            "and esSchema.intESyear = '" & intYear & "' " &
-            "and ESSCHEMA.STROPTOUT IS NOT NULL) " &
-            "dt_NotInMailout, ESSCHEMA " &
-            "Where ESSCHEMA.STRAIRSYEAR = SchemaAIRS " &
-            "and MailoutAIRS is NULL " &
-            "and ESSCHEMA.STROPTOUT='NO'"
-
-
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            dgvESDataCount.DataSource = DB.GetDataTable(SQL, param)
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1904,21 +1738,13 @@ Public Class DMUEisGecoTool
             txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
 
-    Private Sub lblViewTotalResponse_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewTotalResponse.LinkClicked
-        txtESYear.Text = cboYear.SelectedItem
+    Private Sub lblViewTotalResponse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewTotalResponse.LinkClicked
         Try
-
-            Dim year As String = txtESYear.Text
-            Dim intYear As Integer = Int(year)
-
-            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
+            Dim SQL As String = "SELECT esSchema.STRAIRSNUMBER, " &
             "esSchema.STRFACILITYNAME, " &
             "esSchema.STRCONTACTFIRSTNAME, " &
             "esSchema.STRCONTACTLASTNAME, " &
@@ -1926,18 +1752,12 @@ Public Class DMUEisGecoTool
             "esSchema.STRCONTACTEMAIL, " &
             "esSchema.STRCONTACTPHONENUMBER " &
             "from esSchema " &
-            "where esSchema.intESyear = '" & intYear & "' " &
+            "where esSchema.intESyear = @year " &
             "and esSchema.STROPTOUT is not NULL " &
             "order by esSchema.STRFACILITYNAME"
+            Dim param As New SqlParameter("@year", lblYear.Text)
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            dgvESDataCount.DataSource = DB.GetDataTable(SQL, param)
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1965,13 +1785,9 @@ Public Class DMUEisGecoTool
             txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
 
             clearESData()
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
 
     Private Sub SaveESMailOut()
@@ -1983,7 +1799,7 @@ Public Class DMUEisGecoTool
         Dim ESCompanyName As String = txtEScompanyName.Text
         Dim ESContactAddress1 As String = txtcontactAddress1.Text
         Dim ESContactAddress2 As String = txtcontactAddress2.Text
-        Dim ESYear As String = txtESYear.Text
+        Dim ESYear As String = cboYear.SelectedItem
         Dim ESContactCity As String = txtcontactCity.Text
         Dim EScontactState As String = txtcontactState.Text
         Dim ESContactZip As String = txtcontactZipCode.Text
@@ -1991,104 +1807,112 @@ Public Class DMUEisGecoTool
         Dim airsYear As String = AirsNo & ESYear
 
         Try
-            SQL = "Select strAIRSYear " &
+            Dim SQL As String = "Select strAIRSYear " &
             "from EsMailOut " &
-            "where STRAIRSYEAR = '" & airsYear & "' "
+            "where STRAIRSYEAR = @STRAIRSYEAR "
+            Dim param As New SqlParameter("@STRAIRSYEAR", airsYear)
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            If recExist = True Then
+            If DB.ValueExists(SQL, param) Then
                 SQL = "update ESMailOut set " &
-                "ESMailOut.STRCONTACTPREFIX = '" & ESPrefix & "', " &
-                "ESMailOut.STRCONTACTFIRSTNAME = '" & ESFirstName & "', " &
-                "ESMailOut.STRCONTACTLASTNAME = '" & ESLastName & "', " &
-                "ESMailOut.STRCONTACTCOMPANYNAME = '" & ESCompanyName & "', " &
-                "ESMailOut.STRCONTACTADDRESS1 = '" & ESContactAddress1 & "', " &
-                "ESMailOut.STRCONTACTADDRESS2 = '" & ESContactAddress2 & "', " &
-                "ESMailOut.STRCONTACTCITY = '" & ESContactCity & "', " &
-                "ESMailOut.STRCONTACTSTATE = '" & EScontactState & "', " &
-                "ESMailOut.STRCONTACTZIPCODE = '" & ESContactZip & "', " &
-                "ESMailOut.STRCONTACTEMAIL = '" & ESContactEmail & "'" &
-                "where ESMailOut.STRAIRSNUMBER = '" & AirsNo & "' "
+                    "ESMailOut.STRCONTACTPREFIX = @STRCONTACTPREFIX, " &
+                    "ESMailOut.STRCONTACTFIRSTNAME = @STRCONTACTFIRSTNAME, " &
+                    "ESMailOut.STRCONTACTLASTNAME = @STRCONTACTLASTNAME, " &
+                    "ESMailOut.STRCONTACTCOMPANYNAME = @STRCONTACTCOMPANYNAME, " &
+                    "ESMailOut.STRCONTACTADDRESS1 = @STRCONTACTADDRESS1, " &
+                    "ESMailOut.STRCONTACTADDRESS2 = @STRCONTACTADDRESS2, " &
+                    "ESMailOut.STRCONTACTCITY = @STRCONTACTCITY, " &
+                    "ESMailOut.STRCONTACTSTATE = @STRCONTACTSTATE, " &
+                    "ESMailOut.STRCONTACTZIPCODE = @STRCONTACTZIPCODE, " &
+                    "ESMailOut.STRCONTACTEMAIL = @STRCONTACTEMAIL " &
+                    "where ESMailOut.STRAIRSNUMBER = @STRAIRSNUMBER "
+
+                Dim params As SqlParameter() = {
+                    New SqlParameter("@STRCONTACTPREFIX", ESPrefix),
+                    New SqlParameter("@STRCONTACTFIRSTNAME", ESFirstName),
+                    New SqlParameter("@STRCONTACTLASTNAME", ESLastName),
+                    New SqlParameter("@STRCONTACTCOMPANYNAME", ESCompanyName),
+                    New SqlParameter("@STRCONTACTADDRESS1", ESContactAddress1),
+                    New SqlParameter("@STRCONTACTADDRESS2", ESContactAddress2),
+                    New SqlParameter("@STRCONTACTCITY", ESContactCity),
+                    New SqlParameter("@STRCONTACTSTATE", EScontactState),
+                    New SqlParameter("@STRCONTACTZIPCODE", ESContactZip),
+                    New SqlParameter("@STRCONTACTEMAIL", ESContactEmail),
+                    New SqlParameter("@STRAIRSNUMBER", AirsNo)
+                }
+                DB.RunCommand(SQL, params)
 
                 MsgBox("your info is updated!")
-
             Else
                 SQL = "Insert into ESMailOut " &
-                "(STRAIRSYEAR, " &
-                "STRAIRSNUMBER, " &
-                "STRFACILITYNAME, " &
-                "STRCONTACTPREFIX, " &
-                "STRCONTACTFIRSTNAME, " &
-                "STRCONTACTLASTNAME, " &
-                "STRCONTACTCOMPANYNAME, " &
-                "STRCONTACTADDRESS1, " &
-                "STRCONTACTADDRESS2, " &
-                "STRCONTACTCITY, " &
-                "STRCONTACTSTATE, " &
-                "STRCONTACTZIPCODE, " &
-                "STRESYEAR, " &
-                "STRCONTACTEMAIL) " &
-                "values (" &
-                "'" & Replace(airsYear, "'", "''") & "', " &
-                "'" & Replace(AirsNo, "'", "''") & "', " &
-                "'" & Replace(ESFacilityName, "'", "''") & "', " &
-                "'" & Replace(ESPrefix, "'", "''") & "', " &
-                "'" & Replace(ESFirstName, "'", "''") & "', " &
-                "'" & Replace(ESLastName, "'", "''") & "', " &
-                "'" & Replace(ESCompanyName, "'", "''") & "', " &
-                "'" & Replace(ESContactAddress1, "'", "''") & "', " &
-                "'" & Replace(ESContactAddress2, "'", "''") & "', " &
-                "'" & Replace(ESContactCity, "'", "''") & "', " &
-                "'" & Replace(EScontactState, "'", "''") & "', " &
-                "'" & Replace(ESContactZip, "'", "''") & "', " &
-                "'" & Replace(ESYear, "'", "''") & "', " &
-                "'" & Replace(ESContactEmail, "'", "''") & "' " &
-                " )"
+                    "(STRAIRSYEAR, " &
+                    "STRAIRSNUMBER, " &
+                    "STRFACILITYNAME, " &
+                    "STRCONTACTPREFIX, " &
+                    "STRCONTACTFIRSTNAME, " &
+                    "STRCONTACTLASTNAME, " &
+                    "STRCONTACTCOMPANYNAME, " &
+                    "STRCONTACTADDRESS1, " &
+                    "STRCONTACTADDRESS2, " &
+                    "STRCONTACTCITY, " &
+                    "STRCONTACTSTATE, " &
+                    "STRCONTACTZIPCODE, " &
+                    "STRESYEAR, " &
+                    "STRCONTACTEMAIL) " &
+                    "values (" &
+                    "@STRAIRSYEAR, " &
+                    "@STRAIRSNUMBER, " &
+                    "@STRFACILITYNAME, " &
+                    "@STRCONTACTPREFIX, " &
+                    "@STRCONTACTFIRSTNAME, " &
+                    "@STRCONTACTLASTNAME, " &
+                    "@STRCONTACTCOMPANYNAME, " &
+                    "@STRCONTACTADDRESS1, " &
+                    "@STRCONTACTADDRESS2, " &
+                    "@STRCONTACTCITY, " &
+                    "@STRCONTACTSTATE, " &
+                    "@STRCONTACTZIPCODE, " &
+                    "@STRESYEAR, " &
+                    "@STRCONTACTEMAIL) "
+                Dim params As SqlParameter() = {
+                    New SqlParameter("@STRAIRSYEAR", airsYear),
+                    New SqlParameter("@STRAIRSNUMBER", AirsNo),
+                    New SqlParameter("@STRFACILITYNAME", ESFacilityName),
+                    New SqlParameter("@STRCONTACTPREFIX", ESPrefix),
+                    New SqlParameter("@STRCONTACTFIRSTNAME", ESFirstName),
+                    New SqlParameter("@STRCONTACTLASTNAME", ESLastName),
+                    New SqlParameter("@STRCONTACTCOMPANYNAME", ESCompanyName),
+                    New SqlParameter("@STRCONTACTADDRESS1", ESContactAddress1),
+                    New SqlParameter("@STRCONTACTADDRESS2", ESContactAddress2),
+                    New SqlParameter("@STRCONTACTCITY", ESContactCity),
+                    New SqlParameter("@STRCONTACTSTATE", EScontactState),
+                    New SqlParameter("@STRCONTACTZIPCODE", ESContactZip),
+                    New SqlParameter("@STRESYEAR", ESYear),
+                    New SqlParameter("@STRCONTACTEMAIL", ESContactEmail)
+                }
+                DB.RunCommand(SQL, params)
 
                 MsgBox("your info is added!")
-
             End If
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
     Private Sub DeleteESMailOut()
         Dim AirsNo As String = txtESAIRSNo2.Text
-        Dim ESyear As String = txtESYear.Text
+        Dim ESyear As String = cboYear.SelectedItem
 
         Try
-            SQL = "delete from ESMailOut " &
-            "where ESMailOut.STRAIRSNUMBER = '" & AirsNo & "' " &
-            "and ESMailOut.STRESYEAR = '" & ESyear & "'"
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
+            Dim SQL As String = "delete from ESMailOut " &
+            "where ESMailOut.STRAIRSNUMBER = @STRAIRSNUMBER " &
+            "and ESMailOut.STRESYEAR = @STRESYEAR "
+            Dim params As SqlParameter() = {
+                New SqlParameter("@STRAIRSNUMBER", AirsNo),
+                New SqlParameter("@STRESYEAR", ESyear)
+            }
+            DB.RunCommand(SQL, params)
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -2107,9 +1931,7 @@ Public Class DMUEisGecoTool
             txtcontactZipCode.Text = ""
             txtcontactEmail.Text = ""
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -2150,29 +1972,22 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub btnSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSave.Click
-        Try
-            SaveESMailOut()
-            MsgBox("The info has been saved!")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+        SaveESMailOut()
     End Sub
 
     Private Sub btnExporttoExcel_Click(sender As Object, e As EventArgs) Handles btnExporttoExcel.Click
         ExportEStoExcel()
     End Sub
 
-    Private Sub btnESDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnESDelete.Click
+    Private Sub btnESDelete_Click(sender As Object, e As EventArgs) Handles btnESDelete.Click
         Try
             DeleteESMailOut()
             ClearMailOut()
+            MsgBox("The info has been deleted!")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-        MsgBox("The info has been deleted!")
     End Sub
 
     Private Sub btnPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrint.Click
@@ -3027,38 +2842,31 @@ Public Class DMUEisGecoTool
 
         End Try
     End Sub
-    Private Sub lblviewESextraresponder_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblviewESextraresponder.LinkClicked
+
+    Private Sub lblviewESextraresponder_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblviewESextraresponder.LinkClicked
         Try
+            Dim SQL As String = "SELECT es.STRAIRSNUMBER " &
+                ", es.STRFACILITYNAME " &
+                ", es.STRCONTACTFIRSTNAME " &
+                ", es.STRCONTACTLASTNAME " &
+                ", es.STRCONTACTCOMPANY " &
+                ", es.STRCONTACTEMAIL " &
+                ", es.STRCONTACTPHONENUMBER " &
+                "FROM " &
+                "  (SELECT es.STRAIRSNUMBER AS SchemaAIRS " &
+                "  , em.STRAIRSNUMBER       AS MailoutAIRS " &
+                "  FROM ESMailout em " &
+                "  RIGHT JOIN ESSCHEMA es " &
+                "  ON es.STRAIRSYEAR  = em.STRAIRSYEAR " &
+                "  WHERE es.INTESYEAR = @year " &
+                "  AND es.STROPTOUT  IS NOT NULL " &
+                "  ) dt_NotInMailout " &
+                "INNER JOIN ESSCHEMA es " &
+                "ON dt_NotInMailout.SchemaAIRS      = es.STRAIRSNUMBER " &
+                "WHERE dt_NotInMailout.MailoutAIRS IS NULL"
+            Dim param As New SqlParameter("@year", lblYear.Text)
 
-            Dim year As String = txtESYear.Text
-            Dim intyear As Integer = Int(year)
-
-            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
-            "esSchema.STRFACILITYNAME, " &
-            "esSchema.STRCONTACTFIRSTNAME, " &
-            "esSchema.STRCONTACTLASTNAME, " &
-            "esSchema.STRCONTACTCOMPANY, " &
-            "esSchema.STRCONTACTEMAIL, " &
-            "esSchema.STRCONTACTPHONENUMBER " &
-            "from (Select ESSCHEMA.STRAIRSNUMBER AS SchemaAIRS, " &
-            "ESMAILOUT.STRAIRSNUMBER AS MailoutAIRS" &
-            " From ESMailout, ESSCHEMA" &
-            " Where ESMAILOUT.STRAIRSYEAR (+)= ESSCHEMA.STRAIRSYEAR " &
-            "AND ESSCHEMA.INTESYEAR=  '" & intyear & "' " &
-            "AND ESSCHEMA.STROPTOUT IS NOT NULL) " &
-            "dt_NotInMailout, " &
-            "ESSCHEMA " &
-            "Where ESSCHEMA.STRAIRSNUMBER = SchemaAIRS " &
-            "AND MailoutAIRS is NULL"
-
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            dgvESDataCount.DataSource = DB.GetDataTable(SQL, param)
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -3084,40 +2892,27 @@ Public Class DMUEisGecoTool
             dgvESDataCount.Columns("STRCONTACTPHONENUMBER").DisplayIndex = 6
 
             txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
-            '    txtextraResponse.Text = dgvESDataCount.RowCount.ToString
 
             clearESData()
             ClearMailOut()
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub lblviewESremovedfacility_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblviewESremovedfacility.LinkClicked
-        txtESYear.Text = cboYear.SelectedItem
+
+    Private Sub lblviewESremovedfacility_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblviewESremovedfacility.LinkClicked
         Try
+            Dim SQL As String = "SELECT em.STRAIRSNUMBER " &
+                ", em.STRFACILITYNAME " &
+                "FROM esSchema es " &
+                "RIGHT JOIN esmailout em " &
+                "ON em.STRAIRSYEAR   = es.STRAIRSYEAR " &
+                "WHERE em.STRESYEAR  = @year " &
+                "AND es.STRAIRSYEAR IS NULL " &
+                "ORDER BY em.STRFACILITYNAME"
+            Dim param As New SqlParameter("@year", lblYear.Text)
 
-            Dim year As String = txtESYear.Text
-            Dim intYear As Integer = Int(year)
-
-            SQL = "SELECT ESMAILOUT.STRAIRSNUMBER, " &
-            "ESMAILOUT.STRFACILITYNAME " &
-            "from esSchema, esmailout " &
-            "where esMailOut.strESyear = '" & intYear & "' " &
-            "and esSchema.STRAIRSYEAR is null " &
-            "and ESMAILOUT.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR(+) " &
-            "order by ESMAILOUT.STRFACILITYNAME"
-
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            dgvESDataCount.DataSource = DB.GetDataTable(SQL, param)
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -3133,44 +2928,32 @@ Public Class DMUEisGecoTool
             dgvESDataCount.Columns("strFacilityName").DisplayIndex = 1
 
             txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub lblviewmailoutnonresponder_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblviewmailoutnonresponder.LinkClicked
-        txtESYear.Text = cboYear.SelectedItem
+
+    Private Sub lblviewmailoutnonresponder_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblviewmailoutnonresponder.LinkClicked
         Try
+            Dim SQL As String = "SELECT esmailout.STRAIRSNUMBER " &
+                ", esmailout.STRFACILITYNAME " &
+                ", esmailout.STRCONTACTFIRSTNAME " &
+                ", esmailout.STRCONTACTLASTNAME " &
+                ", esmailout.STRCONTACTCOMPANYNAME " &
+                ", esmailout.STRCONTACTADDRESS1 " &
+                ", esmailout.STRCONTACTCITY " &
+                ", esmailout.STRCONTACTSTATE " &
+                ", esmailout.STRCONTACTZIPCODE " &
+                ", esmailout.STRCONTACTEMAIL " &
+                "FROM esmailout " &
+                "LEFT JOIN ESSchema " &
+                "ON esmailout.STRAIRSYEAR  = ESSchema.STRAIRSYEAR " &
+                "WHERE esmailout.STRESYEAR = @year " &
+                "AND ESSchema.STROPTOUT   IS NULL " &
+                "ORDER BY ESSchema.STRFACILITYNAME"
+            Dim param As New SqlParameter("@year", lblYear.Text)
 
-            Dim year As String = txtESYear.Text
-            Dim intYear As Integer = Int(year)
-
-            SQL = "SELECT esMailOut.STRAIRSNUMBER, " &
-             "esMailOut.STRFACILITYNAME, " &
-             "esMailOut.STRCONTACTFIRSTNAME, " &
-             "esMailOut.STRCONTACTLASTNAME, " &
-             "esMailOut.STRCONTACTCOMPANYname, " &
-             "esMailOut.STRCONTACTADDRESS1, " &
-             "esMailOut.STRCONTACTCITY, " &
-             "esMailOut.STRCONTACTSTATE, " &
-             "esMailOut.STRCONTACTZIPCODE, " &
-             "esMailOut.STRCONTACTEMAIL " &
-            "from  esmailout, ESSchema " &
-            "where esmailout.strESYEAR = '" & intYear & "' " &
-            "and esmailout.STRAIRSYEAR = ESSchema.STRAIRSYEAR(+) " &
-            "and ESSchema.strOptOut is NULL " &
-            "order by esSchema.STRFACILITYNAME"
-
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            dgvESDataCount.DataSource = DB.GetDataTable(SQL, param)
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -3202,13 +2985,11 @@ Public Class DMUEisGecoTool
             dgvESDataCount.Columns("STRCONTACTEMAIL").DisplayIndex = 9
 
             txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub lblviewextraNonresponse_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblviewextraNonresponse.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
