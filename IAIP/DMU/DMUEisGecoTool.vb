@@ -5133,12 +5133,10 @@ Public Class DMUEisGecoTool
 
     Private Sub btnEISStatsEnrollment_Click(sender As Object, e As EventArgs) Handles btnEISStatsEnrollment.Click
         Try
-            Dim EISConfirm As String = ""
-
-            EISConfirm = InputBox("Type in the EIS Year that you have selected to enroll Facilities into the QA process.", Me.Text)
+            Dim EISConfirm As String = InputBox("Type in the EIS Year that you have selected to enroll Facilities into the QA process.", Me.Text)
 
             If EISConfirm = txtEISStatsEnrollmentYear.Text Then
-                temp = ""
+                Dim temp As String = ""
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     If dgvEISStats(0, i).Value = True Then
                         temp = temp & " FacilitySiteID = '" & dgvEISStats(1, i).Value & "' or "
@@ -5146,12 +5144,13 @@ Public Class DMUEisGecoTool
                 Next
                 If temp <> "" Then
                     temp = " and ( " & Mid(temp, 1, (temp.Length - 3)) & " ) "
-                    SQL = "Update EIS_Admin set " &
+
+                    Dim SQL As String = "Update EIS_Admin set " &
                     "strEnrollment = '1', " &
                     "EISAccessCode = '1', " &
                     "EISStatusCode = '1', " &
-                    "DatEISStatus = sysdate " &
-                    "where inventoryyear = '" & EISConfirm & "' " &
+                    "DatEISStatus = getdate() " &
+                    "where inventoryyear = @inventoryyear " &
                     "and strEnrollment = '0' " &
                     "and strOptOut is null " &
                     "and EISAccessCode = '0' " &
@@ -5159,188 +5158,26 @@ Public Class DMUEisGecoTool
                     "and strMailout = '1' " &
                     temp
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    cmd.ExecuteReader()
+                    Dim param As New SqlParameter("@inventoryyear", EISConfirm)
+                    DB.RunCommand(SQL, param)
                 End If
 
                 MsgBox("Facilities enrolled in " & EISConfirm & " EIS.", MsgBoxStyle.Information, Me.Text)
-
             Else
                 MsgBox("Year does not match selected EIS year")
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub llbEISStatsViewEnrollment_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEISStatsViewEnrollment.LinkClicked
+    Private Sub btnEISStatsRemoveEnrollment_Click(sender As Object, e As EventArgs) Handles btnEISStatsRemoveEnrollment.Click
         Try
-            txtEISStatsEnrollmentYear.Text = cboEISStatisticsYear.Text
-
-            If txtEISStatsEnrollmentYear.Text.Length <> 4 Then
-                MsgBox("Please select a valid Year from the dropdown first.", MsgBoxStyle.Exclamation, Me.Text)
-                Exit Sub
-            End If
-
-            Dim dgvRow As New DataGridViewRow
-
-            SQL = "select " &
-            "'False' as ID, " &
-            " EIS_Admin.facilitysiteid, " &
-           "APBFacilityInformation.strFacilityname, " &
-           "EIS_Admin.inventoryyear, " &
-           "EISLK_EISStatusCode.strDesc as EISStatus, " &
-           "EISLK_EISAccessCode.strDesc as EISAccess, " &
-           "case " &
-           "when strOptOut = '1' then 'Yes' " &
-           "when strOptOut = '0' then 'No' " &
-           "else '-' " &
-           "End strOptOut, " &
-           "case " &
-           "when strMailout = '1' then 'Yes' " &
-           "else 'No' " &
-           "end strMailout, " &
-           "case " &
-           "when strEnrollment = '1' then 'Yes' " &
-           "when strEnrollment = '0' then 'No' " &
-           "else '-' " &
-           "end strEnrollment, " &
-           "case " &
-           "when strContactEmail is null then '-' " &
-           "else strContactEmail " &
-           "end ContactEmail, " &
-           "case " &
-           "When strContactPrefix is null then '-' " &
-           "else strContactPrefix " &
-           "end strContactPrefix, " &
-           "case " &
-           "when strContactFirstName is null then '-' " &
-           "else strContactFirstName " &
-           "end strContactFirstName, " &
-           "case " &
-           "When strContactLastName is null then '-' " &
-           "else strContactLastName " &
-           "end strContactLastName, " &
-           "case " &
-           "when strDMUResponsibleStaff is null then '-' " &
-           "else strDMUResponsibleStaff " &
-           "end strDMUResponsibleStaff " &
-           "from EIS_Admin, APBFacilityInformation, " &
-           "EISLK_EISAccessCode, EISLK_EISStatusCode,  " &
-           "EIS_Mailout, EIS_QAAdmin " &
-           "where '0413'||EIS_Admin.FacilitySiteId = APBFacilityInformation.strAIRSNumber  " &
-           "and EIS_Admin.EISAccessCode = EISLK_EISAccessCode.EISAccessCode " &
-           "and EIS_Admin.EISStatusCode = EISLK_EISStatusCode.EISStatusCode " &
-           "and EIS_Admin.FacilitySiteID = EIS_QAAdmin.FacilitySiteID (+) " &
-           "and EIS_Admin.inventoryyear = EIS_QAAdmin.inventoryyear (+) " &
-           "and EIS_Admin.FacilitySiteID = EIS_Mailout.FacilitySiteID (+) " &
-           "and EIS_Admin.Active = '1' " &
-           "and EIS_Admin.inventoryyear = '" & txtEISStatsEnrollmentYear.Text & "'" &
-           "and strEnrollment = '1' "
-
-            dgvEISStats.Rows.Clear()
-            ds = New DataSet
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvEISStats)
-                If IsDBNull(dr.Item("ID")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("ID")
-                End If
-
-                If IsDBNull(dr.Item("FacilitySiteID")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    dgvRow.Cells(2).Value = ""
-                Else
-                    dgvRow.Cells(2).Value = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("InventoryYear")) Then
-                    dgvRow.Cells(3).Value = ""
-                Else
-                    dgvRow.Cells(3).Value = dr.Item("InventoryYear")
-                End If
-                If IsDBNull(dr.Item("EISStatus")) Then
-                    dgvRow.Cells(4).Value = ""
-                Else
-                    dgvRow.Cells(4).Value = dr.Item("EISStatus")
-                End If
-                If IsDBNull(dr.Item("EISAccess")) Then
-                    dgvRow.Cells(5).Value = ""
-                Else
-                    dgvRow.Cells(5).Value = dr.Item("EISAccess")
-                End If
-                If IsDBNull(dr.Item("strOptOut")) Then
-                    dgvRow.Cells(6).Value = ""
-                Else
-                    dgvRow.Cells(6).Value = dr.Item("strOptOut")
-                End If
-
-                If IsDBNull(dr.Item("strMailout")) Then
-                    dgvRow.Cells(7).Value = ""
-                Else
-                    dgvRow.Cells(7).Value = dr.Item("strMailout")
-                End If
-                If IsDBNull(dr.Item("ContactEmail")) Then
-                    dgvRow.Cells(8).Value = ""
-                Else
-                    dgvRow.Cells(8).Value = dr.Item("ContactEmail")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    dgvRow.Cells(9).Value = ""
-                Else
-                    dgvRow.Cells(9).Value = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    dgvRow.Cells(10).Value = ""
-                Else
-                    dgvRow.Cells(10).Value = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    dgvRow.Cells(11).Value = ""
-                Else
-                    dgvRow.Cells(11).Value = dr.Item("strContactLastName")
-                End If
-                If IsDBNull(dr.Item("strEnrollment")) Then
-                    dgvRow.Cells(13).Value = ""
-                Else
-                    dgvRow.Cells(13).Value = dr.Item("strEnrollment")
-                End If
-
-
-                dgvEISStats.Rows.Add(dgvRow)
-            End While
-            dr.Close()
-
-            txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub btnEISStatsRemoveEnrollment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEISStatsRemoveEnrollment.Click
-        Try
-            Dim EISConfirm As String = ""
-
-            EISConfirm = InputBox("Type in the EIS Year that you have selected to enroll Facilities into the QA process.", Me.Text)
+            Dim EISConfirm As String = InputBox("Type in the EIS Year that you have selected to enroll Facilities into the QA process.", Me.Text)
 
             If EISConfirm = txtEISStatsEnrollmentYear.Text Then
-                temp = ""
+                Dim temp As String = ""
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     If dgvEISStats(0, i).Value = True Then
                         temp = temp & " FacilitySiteID = '" & dgvEISStats(1, i).Value & "' or "
@@ -5348,12 +5185,12 @@ Public Class DMUEisGecoTool
                 Next
                 If temp <> "" Then
                     temp = " and ( " & Mid(temp, 1, (temp.Length - 3)) & " ) "
-                    SQL = "Update EIS_Admin set " &
+                    Dim SQL As String = "Update EIS_Admin set " &
                     "strEnrollment = '0', " &
                     "EISAccessCode = '1', " &
                     "EISStatusCode = '1', " &
-                    "DatEISStatus = sysdate " &
-                    "where inventoryyear = '" & EISConfirm & "' " &
+                    "DatEISStatus = getdate() " &
+                    "where inventoryyear = @inventoryyear " &
                     "and strEnrollment = '1' " &
                     "and strOptOut is null " &
                     "and EISAccessCode = '0' " &
@@ -5361,22 +5198,17 @@ Public Class DMUEisGecoTool
                     "and strMailout = '1' " &
                     temp
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    cmd.ExecuteReader()
+                    Dim param As New SqlParameter("@inventoryyear", EISConfirm)
+                    DB.RunCommand(SQL, param)
                 End If
 
                 MsgBox("Facilities enrolled in " & EISConfirm & " EIS.", MsgBoxStyle.Information, Me.Text)
-
             Else
                 MsgBox("Year does not match selected EIS year")
             End If
 
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -6715,9 +6547,7 @@ Public Class DMUEisGecoTool
 
     Sub ViewPollutantThresholds()
         Try
-            Dim dsThreshold As DataSet
-            Dim daThreshold As SqlDataAdapter
-
+            Dim sql As String
             If rdbThreeYearPollutants.Checked = True Then
                 SQL = "Select " &
                 "strPollutant, numThreshold, " &
@@ -6734,16 +6564,9 @@ Public Class DMUEisGecoTool
                 "order by strPollutant "
             End If
 
-            dsThreshold = New DataSet
-            daThreshold = New SqlDataAdapter(SQL, CurrentConnection)
+            Dim dt As DataTable = DB.GetDataTable(SQL)
 
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daThreshold.Fill(dsThreshold, "ThresholdPollutants")
-            dgvThresholdPollutants.DataSource = dsThreshold
-            dgvThresholdPollutants.DataMember = "ThresholdPollutants"
+            dgvThresholdPollutants.DataSource = dt
 
             dgvThresholdPollutants.RowHeadersVisible = False
             dgvThresholdPollutants.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -6760,19 +6583,12 @@ Public Class DMUEisGecoTool
             dgvThresholdPollutants.Columns("numThresholdNAA").HeaderText = "NonAttainment Area Threshold"
             dgvThresholdPollutants.Columns("numThresholdNAA").DisplayIndex = 2
 
-            '   txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbViewThresholdPollutants_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewThresholdPollutants.LinkClicked
-        Try
-            ViewPollutantThresholds()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub llbViewThresholdPollutants_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewThresholdPollutants.LinkClicked
+        ViewPollutantThresholds()
     End Sub
 
     Private Sub dgvThresholdPollutants_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvThresholdPollutants.MouseUp
@@ -6807,7 +6623,7 @@ Public Class DMUEisGecoTool
 
         End Try
     End Sub
-    Private Sub btnAddNewPollutant_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNewPollutant.Click
+    Private Sub btnAddNewPollutant_Click(sender As Object, e As EventArgs) Handles btnAddNewPollutant.Click
         Try
             Dim ThresholdType As String = ""
 
@@ -6825,44 +6641,41 @@ Public Class DMUEisGecoTool
                 Exit Sub
             End If
 
-            SQL = "Select * from " &
+            Dim SQL As String = "Select * from " &
             "EIThresholds " &
-            "where upper(strPollutant) = '" & Replace(txtPollutant.Text.ToUpper, "'", "''") & "' " &
-            "and strType = '" & ThresholdType & "'"
+            "where upper(strPollutant) = @strPollutant " &
+            "and strType = @strType "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
+            Dim params As SqlParameter() = {
+                New SqlParameter("@strPollutant", txtPollutant.Text.ToUpper),
+                New SqlParameter("@strType", ThresholdType)
+            }
 
-            recExist = dr.Read
-            If recExist = True Then
+            If DB.ValueExists(SQL, params) Then
                 MsgBox("Pollutant currently exists for selected Type." & vbCrLf & "No data Saved", MsgBoxStyle.Information, Me.Text)
             Else
-                SQL = "Insert into EIThresholds " &
-                "values " &
-                "('" & Replace(txtPollutant.Text, "'", "''") & "', " &
-                "'" & txtThreshold.Text & "', " &
-                "'" & txtNonAttainmentThreshold.Text & "', " &
-                "'" & ThresholdType & "') "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
+                Dim SQL2 As String = "INSERT INTO EITHRESHOLDS " &
+                    " (STRPOLLUTANT, NUMTHRESHOLD, NUMTHRESHOLDNAA, STRTYPE) " &
+                    "VALUES " &
+                    " (@STRPOLLUTANT, @NUMTHRESHOLD, @NUMTHRESHOLDNAA, @STRTYPE) "
+                Dim params2 As SqlParameter() = {
+                    New SqlParameter("@STRPOLLUTANT", txtPollutant.Text),
+                    New SqlParameter("@NUMTHRESHOLD", txtThreshold.Text),
+                    New SqlParameter("@NUMTHRESHOLDNAA", txtNonAttainmentThreshold.Text),
+                    New SqlParameter("@STRTYPE", ThresholdType)
+                }
+                DB.RunCommand(SQL2, params2)
+
                 ViewPollutantThresholds()
                 MsgBox("Data Added", MsgBoxStyle.Information, Me.Text)
-
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnUpdatePollutant_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdatePollutant.Click
+    Private Sub btnUpdatePollutant_Click(sender As Object, e As EventArgs) Handles btnUpdatePollutant.Click
         Try
-
             Dim ThresholdType As String = ""
 
             If rdbAnnualPollutants.Checked = True Then
@@ -6879,29 +6692,30 @@ Public Class DMUEisGecoTool
                 Exit Sub
             End If
 
-            SQL = "Select * from " &
+            Dim SQL As String = "Select * from " &
             "EIThresholds " &
-            "where upper(strPollutant) = '" & Replace(txtPollutant.Text.ToUpper, "'", "''") & "' " &
-            "and strType = '" & ThresholdType & "'"
+            "where upper(strPollutant) = @strPollutant " &
+            "and strType = @strType "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
+            Dim params As SqlParameter() = {
+                New SqlParameter("@strPollutant", txtPollutant.Text.ToUpper),
+                New SqlParameter("@strType", ThresholdType)
+            }
 
-            recExist = dr.Read
-            If recExist = True Then
-                SQL = "Update EIThresholds set " &
-                      "numThreshold = '" & txtThreshold.Text & "', " &
-                      "numThresholdNAA = '" & txtNonAttainmentThreshold.Text & "' " &
-                      "where strType = '" & ThresholdType & "'  " &
-                      "and strPollutant =  '" & Replace(txtPollutant.Text, "'", "''") & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
+            If DB.ValueExists(SQL, params) Then
+                Dim SQL2 As String = "UPDATE EITHRESHOLDS " &
+                    "SET NUMTHRESHOLD   = @NUMTHRESHOLD " &
+                    ", NUMTHRESHOLDNAA  = @NUMTHRESHOLDNAA " &
+                    "WHERE STRPOLLUTANT = @STRPOLLUTANT " &
+                    "AND STRTYPE        = @STRTYPE"
+                Dim params2 As SqlParameter() = {
+                    New SqlParameter("@NUMTHRESHOLD", txtThreshold.Text),
+                    New SqlParameter("@NUMTHRESHOLDNAA", txtNonAttainmentThreshold.Text),
+                    New SqlParameter("@STRPOLLUTANT", txtPollutant.Text),
+                    New SqlParameter("@STRTYPE", ThresholdType)
+                }
+                DB.RunCommand(SQL2, params2)
+
                 ViewPollutantThresholds()
                 MsgBox("Data Updated", MsgBoxStyle.Information, Me.Text)
             Else
@@ -6909,7 +6723,7 @@ Public Class DMUEisGecoTool
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -6977,7 +6791,7 @@ Public Class DMUEisGecoTool
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbClearEISYear_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbClearEISYear.LinkClicked
+    Private Sub llbClearEISYear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbClearEISYear.LinkClicked
         Try
 
             mtbThresholdYear.Clear()
@@ -6986,10 +6800,10 @@ Public Class DMUEisGecoTool
             dtpEISDeadline.Value = Today
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnAddEISYear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddEISYear.Click
+    Private Sub btnAddEISYear_Click(sender As Object, e As EventArgs) Handles btnAddEISYear.Click
         Try
             Dim EISYearType As String = ""
 
@@ -7004,42 +6818,36 @@ Public Class DMUEisGecoTool
                 EISYearType = "ANNUAL"
             End If
 
-            SQL = "Select " &
+            Dim SQL As String = "Select " &
             "strYear " &
             "from EIThresholdYears " &
-            "where strYEar = '" & Replace(mtbThresholdYear.Text, "'", "''") & "' "
+            "where strYEar = @strYEar "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
+            Dim param As New SqlParameter("@strYEar", mtbThresholdYear.Text)
 
-            recExist = dr.Read
-            If recExist = True Then
+            If DB.ValueExists(SQL, param) Then
                 MsgBox("EIS Year currently exists." & vbCrLf & "No data Saved", MsgBoxStyle.Information, Me.Text)
             Else
-                SQL = "Insert into EIThresholdYears " &
-                "values " &
-                "('" & Replace(mtbThresholdYear.Text, "'", "''") & "', " &
-                "'" & EISYearType & "', " &
-                "'" & dtpEISDeadline.Text & "')  "
+                SQL = "INSERT INTO EITHRESHOLDYEARS " &
+                    " (STRYEAR, STREITYPE, DATDEADLINE) " &
+                    " VALUES " &
+                    " (@STRYEAR, @STREITYPE, @DATDEADLINE) "
+                Dim params As SqlParameter() = {
+                    New SqlParameter("@STRYEAR", mtbThresholdYear.Text),
+                    New SqlParameter("@STREITYPE", EISYearType),
+                    New SqlParameter("@DATDEADLINE", dtpEISDeadline.Text)
+                }
+                DB.RunCommand(SQL, params)
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
                 LoadEISYear()
                 MsgBox("Data Added", MsgBoxStyle.Information, Me.Text)
-
             End If
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnUpdateEISYear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateEISYear.Click
+
+    Private Sub btnUpdateEISYear_Click(sender As Object, e As EventArgs) Handles btnUpdateEISYear.Click
         Try
             Dim EISYearType As String = ""
 
@@ -7054,29 +6862,24 @@ Public Class DMUEisGecoTool
                 EISYearType = "ANNUAL"
             End If
 
-            SQL = "Select " &
-            "strYear " &
-            "from EIThresholdYears " &
-            "where strYEar = '" & Replace(mtbThresholdYear.Text, "'", "''") & "' "
+            Dim SQL As String = "Select " &
+                "strYear " &
+                "from EIThresholdYears " &
+                "where strYEar = @strYEar "
+            Dim param As New SqlParameter("@strYEar", mtbThresholdYear.Text)
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
+            If DB.ValueExists(SQL, param) Then
+                SQL = "UPDATE EITHRESHOLDYEARS " &
+                    " SET STREITYPE = @STREITYPE, " &
+                    " DATDEADLINE = @DATDEADLINE " &
+                    " WHERE STRYEAR = @STRYEAR "
+                Dim params As SqlParameter() = {
+                    New SqlParameter("@STREITYPE", EISYearType),
+                    New SqlParameter("@DATDEADLINE", dtpEISDeadline.Text),
+                    New SqlParameter("@STRYEAR", mtbThresholdYear.Text)
+                }
+                DB.RunCommand(SQL, params)
 
-            recExist = dr.Read
-            If recExist = True Then
-                SQL = "Update EIThresholdYears set " &
-                "strEIType = '" & EISYearType & "', " &
-                "DatDeadline = '" & dtpEISDeadline.Text & "'  " &
-                "where strYear = '" & mtbThresholdYear.Text & "'"
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
                 LoadEISYear()
                 MsgBox("Data Updated", MsgBoxStyle.Information, Me.Text)
             Else
@@ -7084,7 +6887,7 @@ Public Class DMUEisGecoTool
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -7461,7 +7264,7 @@ Public Class DMUEisGecoTool
     End Sub
 
 
-    Private Sub btnViewEISEnrolled_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewEISEnrolled.Click
+    Private Sub btnViewEISEnrolled_Click(sender As Object, e As EventArgs) Handles btnViewEISEnrolled.Click
         Try
             If txtEISStatsEnrollmentYear.Text.Length <> 4 Then
                 MsgBox("Please select a valid Year from the dropdown first.", MsgBoxStyle.Exclamation, Me.Text)
@@ -7474,27 +7277,24 @@ Public Class DMUEisGecoTool
             lblEISCount.Text = "EIS Enrolled"
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnEISEnrollMailoutList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEISEnrollMailoutList.Click
+    Private Sub btnEISEnrollMailoutList_Click(sender As Object, e As EventArgs) Handles btnEISEnrollMailoutList.Click
         Try
             If txtEISStatsEnrollmentYear.Text.Length <> 4 Then
                 MsgBox("Please select a valid Year from the dropdown first.", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
             End If
 
-            SQL = "Update EIS_Admin set " &
+            Dim SQL As String = "Update EIS_Admin set " &
             "strEnrollment = '1' , " &
             "EISSTATUSCODE= '1' " &
             "where active = '1' " &
-            "and InventoryYear = '" & txtEISStatsEnrollmentYear.Text & "' " &
+            "and InventoryYear = @InventoryYear " &
             "and strMailout = '1' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            cmd.ExecuteNonQuery()
+            Dim param As New SqlParameter("@InventoryYear", txtEISStatsEnrollmentYear.Text)
+            DB.RunCommand(SQL, param)
 
             EIS_VIEW(txtEISStatsEnrollmentYear.Text, "", "1", "1", "", "", "", "")
 
@@ -7502,27 +7302,24 @@ Public Class DMUEisGecoTool
             lblEISCount.Text = "EIS Enrolled (Generated)"
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnRemoveEISEnrolled_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRemoveEISEnrolled.Click
+    Private Sub btnRemoveEISEnrolled_Click(sender As Object, e As EventArgs) Handles btnRemoveEISEnrolled.Click
         Try
             If txtEISStatsEnrollmentYear.Text.Length <> 4 Then
                 MsgBox("Please select a valid Year from the dropdown first.", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
             End If
 
-            SQL = "Update EIS_Admin set " &
+            Dim SQL As String = "Update EIS_Admin set " &
             "strEnrollment = '0' " &
             "where active = '1' " &
-            "and InventoryYear = '" & txtEISStatsEnrollmentYear.Text & "' " &
+            "and InventoryYear = @InventoryYear " &
             "and strEnrollment = '1' "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            cmd.ExecuteNonQuery()
+            Dim param As New SqlParameter("@InventoryYear", txtEISStatsEnrollmentYear.Text)
+            DB.RunCommand(SQL, param)
 
             EIS_VIEW(txtEISStatsEnrollmentYear.Text, "", "1", "1", "", "", "", "")
 
@@ -7530,7 +7327,7 @@ Public Class DMUEisGecoTool
             lblEISCount.Text = "EIS Enrolled (Removed)"
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -7827,8 +7624,8 @@ Public Class DMUEisGecoTool
             "  ef.STRFACILITYSITESTATUSCODE AS ""EIS Site Status"", " &
             "  hd.STROPERATIONALSTATUS AS ""IAIP Site Status"" " &
             "FROM EIS_FACILITYSITE ef " &
-            "INNER JOIN APBHEADERDATA hd ON ef.FACILITYSITEID = SUBSTR( " &
-            "  hd.STRAIRSNUMBER, 5) " &
+            "INNER JOIN APBHEADERDATA hd ON ef.FACILITYSITEID = RIGHT( " &
+            "  hd.STRAIRSNUMBER, 8) " &
             "WHERE(ef.STRFACILITYSITESTATUSCODE = 'OP' AND " &
             "  hd.STROPERATIONALSTATUS <> 'O') OR( " &
             "  ef.STRFACILITYSITESTATUSCODE = 'PS' AND " &

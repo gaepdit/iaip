@@ -364,7 +364,6 @@ Partial Class DMUEisGecoTool
         Me.btnViewEISEnrolled = New System.Windows.Forms.Button()
         Me.txtEISStatsEnrollmentYear = New System.Windows.Forms.TextBox()
         Me.Label275 = New System.Windows.Forms.Label()
-        Me.llbEISStatsViewEnrollment = New System.Windows.Forms.LinkLabel()
         Me.btnEISStatsRemoveEnrollment = New System.Windows.Forms.Button()
         Me.btnEISStatsEnrollment = New System.Windows.Forms.Button()
         Me.TPEISThresholds = New System.Windows.Forms.TabPage()
@@ -4051,7 +4050,6 @@ Partial Class DMUEisGecoTool
         Me.TPEISEnrollment.Controls.Add(Me.btnViewEISEnrolled)
         Me.TPEISEnrollment.Controls.Add(Me.txtEISStatsEnrollmentYear)
         Me.TPEISEnrollment.Controls.Add(Me.Label275)
-        Me.TPEISEnrollment.Controls.Add(Me.llbEISStatsViewEnrollment)
         Me.TPEISEnrollment.Controls.Add(Me.btnEISStatsRemoveEnrollment)
         Me.TPEISEnrollment.Controls.Add(Me.btnEISStatsEnrollment)
         Me.TPEISEnrollment.Location = New System.Drawing.Point(4, 22)
@@ -4112,17 +4110,6 @@ Partial Class DMUEisGecoTool
         Me.Label275.Size = New System.Drawing.Size(206, 22)
         Me.Label275.TabIndex = 62
         Me.Label275.Text = "Enrollment list for Year "
-        '
-        'llbEISStatsViewEnrollment
-        '
-        Me.llbEISStatsViewEnrollment.AutoSize = True
-        Me.llbEISStatsViewEnrollment.Location = New System.Drawing.Point(186, 46)
-        Me.llbEISStatsViewEnrollment.Name = "llbEISStatsViewEnrollment"
-        Me.llbEISStatsViewEnrollment.Size = New System.Drawing.Size(82, 13)
-        Me.llbEISStatsViewEnrollment.TabIndex = 24
-        Me.llbEISStatsViewEnrollment.TabStop = True
-        Me.llbEISStatsViewEnrollment.Text = "View Enrollment"
-        Me.llbEISStatsViewEnrollment.Visible = False
         '
         'btnEISStatsRemoveEnrollment
         '
@@ -7657,7 +7644,6 @@ End Sub
     Friend WithEvents Label268 As System.Windows.Forms.Label
     Friend WithEvents cboESYear As System.Windows.Forms.ComboBox
     Friend WithEvents Label189 As System.Windows.Forms.Label
-    Friend WithEvents llbEISStatsViewEnrollment As System.Windows.Forms.LinkLabel
     Friend WithEvents btnEISStatsRemoveEnrollment As System.Windows.Forms.Button
     Friend WithEvents btnEISStatsEnrollment As System.Windows.Forms.Button
     Friend WithEvents TPEISThresholds As System.Windows.Forms.TabPage
