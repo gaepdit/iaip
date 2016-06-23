@@ -4741,7 +4741,7 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub llbEISEIUniverse_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEISEIUniverse.LinkClicked
+    Private Sub llbEISEIUniverse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISEIUniverse.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -4752,11 +4752,11 @@ Public Class DMUEisGecoTool
             lblEISCount.Text = "Active EIS Universe Count"
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub llbEISMailOutTotal_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEISMailOutTotal.LinkClicked
+    Private Sub llbEISMailOutTotal_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISMailOutTotal.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -4767,11 +4767,11 @@ Public Class DMUEisGecoTool
             lblEISCount.Text = "Mailout Total Count"
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub llbEISEnrolled_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEISEnrolled.LinkClicked
+    Private Sub llbEISEnrolled_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISEnrolled.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -4783,10 +4783,10 @@ Public Class DMUEisGecoTool
             lblEISCount.Text = "Enrolled Count"
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbEISNoActivity_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEISNoActivity.LinkClicked
+    Private Sub llbEISNoActivity_LinkClicked(sender As Object, ByVal e As LinkLabelLinkClickedEventArgs) Handles llbEISNoActivity.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -4797,10 +4797,10 @@ Public Class DMUEisGecoTool
             lblEISCount.Text = "No Activity Count"
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbEISUnenrolled_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEISUnenrolled.LinkClicked
+    Private Sub llbEISUnenrolled_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISUnenrolled.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -4809,10 +4809,10 @@ Public Class DMUEisGecoTool
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "Unenrolled Count"
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbEISInProgress_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEISInProgress.LinkClicked
+    Private Sub llbEISInProgress_LinkClicked(sender As Object, ByVal e As LinkLabelLinkClickedEventArgs) Handles llbEISInProgress.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -4823,11 +4823,11 @@ Public Class DMUEisGecoTool
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "In Progress Count"
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub llbEISOptedIn_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEISOptedIn.LinkClicked
+    Private Sub llbEISOptedIn_LinkClicked(sender As Object, ByVal e As LinkLabelLinkClickedEventArgs) Handles llbEISOptedIn.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -4838,11 +4838,11 @@ Public Class DMUEisGecoTool
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "Opted-In Count"
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub llbEISOptedOut_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEISOptedOut.LinkClicked
+    Private Sub llbEISOptedOut_LinkClicked(sender As Object, ByVal e As LinkLabelLinkClickedEventArgs) Handles llbEISOptedOut.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -4853,11 +4853,11 @@ Public Class DMUEisGecoTool
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "Opted-Out Count"
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub llbEISSubmitted_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEISSubmitted.LinkClicked
+    Private Sub llbEISSubmitted_LinkClicked(sender As Object, ByVal e As LinkLabelLinkClickedEventArgs) Handles llbEISSubmitted.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -4868,11 +4868,11 @@ Public Class DMUEisGecoTool
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "In Progress Count"
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub llbEISFinalized_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEISFinalized.LinkClicked
+    Private Sub llbEISFinalized_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISFinalized.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -4884,11 +4884,11 @@ Public Class DMUEisGecoTool
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "Finalized Count"
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub llbEISQABegan_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEISQABegan.LinkClicked
+    Private Sub llbEISQABegan_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISQABegan.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -4899,11 +4899,11 @@ Public Class DMUEisGecoTool
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "In Progress Count"
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub llbEISSubmittedToEPA_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEISSubmittedToEPA.LinkClicked
+    Private Sub llbEISSubmittedToEPA_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISSubmittedToEPA.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -4915,7 +4915,7 @@ Public Class DMUEisGecoTool
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "QA Submitted, EPA Submitted Count"
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -5082,31 +5082,43 @@ Public Class DMUEisGecoTool
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSaveEISStatMailout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveEISStatMailout.Click
+    Private Sub btnSaveEISStatMailout_Click(sender As Object, e As EventArgs) Handles btnSaveEISStatMailout.Click
         Try
             If txtSelectedEISMailout.Text <> "" And txtEISStatsMailoutAIRSNumber.Text <> "" Then
                 SQL = "UPdate EIS_Mailout set " &
-                "strFacilityName = '" & txtEISStatsMailoutFacilityName.Text & "', " &
-                "strContactCompanyName = '" & txtEISStatsMailoutCompanyName.Text & "', " &
-                "strContactAddress1 = '" & txtEISStatsMailoutAddress1.Text & "', " &
-                "strContactAddress2 = '" & txtEISStatsMailoutAddress2.Text & "', " &
-                "strContactCity = '" & txtEISStatsMailoutCity.Text & "', " &
-                "strContactState = '" & txtEISStatsMailoutState.Text & "', " &
-                "strContactZipCode = '" & txtEISStatsMailoutZipCode.Text & "', " &
-                "strContactFirstName = '" & txtEISStatsMailoutFirstName.Text & "', " &
-                "strContactLastName = '" & txtEISStatsMailoutLastName.Text & "', " &
-                "strContactPrefix = '" & txtEISStatsMailoutPrefix.Text & "', " &
-                "strContactEmail = '" & txtEISStatsMailoutEmailAddress.Text & "', " &
-                "strComment = '" & txtEISStatsMailoutComments.Text & "', " &
-                "updateDateTime = sysdate " &
-                "where intInventoryYear = '" & txtSelectedEISStatYear.Text & "' " &
-                "and FacilitySiteID = '" & txtEISStatsMailoutAIRSNumber.Text & "' "
+                    "strFacilityName = @strFacilityName, " &
+                    "strContactCompanyName = @strContactCompanyName, " &
+                    "strContactAddress1 = @strContactAddress1, " &
+                    "strContactAddress2 = @strContactAddress2, " &
+                    "strContactCity = @strContactCity, " &
+                    "strContactState = @strContactState, " &
+                    "strContactZipCode = @strContactZipCode, " &
+                    "strContactFirstName = @strContactFirstName, " &
+                    "strContactLastName = @strContactLastName, " &
+                    "strContactPrefix = @strContactPrefix, " &
+                    "strContactEmail = @strContactEmail, " &
+                    "strComment = @strComment, " &
+                    "where intInventoryYear = @intInventoryYear " &
+                    "and FacilitySiteID = @FacilitySiteID "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteNonQuery()
+                Dim params As SqlParameter() = {
+                    New SqlParameter("@strFacilityName", txtEISStatsMailoutFacilityName.Text),
+                    New SqlParameter("@strContactCompanyName", txtEISStatsMailoutCompanyName.Text),
+                    New SqlParameter("@strContactAddress1", txtEISStatsMailoutAddress1.Text),
+                    New SqlParameter("@strContactAddress2", txtEISStatsMailoutAddress2.Text),
+                    New SqlParameter("@strContactCity", txtEISStatsMailoutCity.Text),
+                    New SqlParameter("@strContactState", txtEISStatsMailoutState.Text),
+                    New SqlParameter("@strContactZipCode", txtEISStatsMailoutZipCode.Text),
+                    New SqlParameter("@strContactFirstName", txtEISStatsMailoutFirstName.Text),
+                    New SqlParameter("@strContactLastName", txtEISStatsMailoutLastName.Text),
+                    New SqlParameter("@strContactPrefix", txtEISStatsMailoutPrefix.Text),
+                    New SqlParameter("@strContactEmail", txtEISStatsMailoutEmailAddress.Text),
+                    New SqlParameter("@strComment", txtEISStatsMailoutComments.Text),
+                    New SqlParameter("@intInventoryYear", txtSelectedEISStatYear.Text),
+                    New SqlParameter("@FacilitySiteID", txtEISStatsMailoutAIRSNumber.Text)
+                }
+
+                DB.RunCommand(SQL, params)
 
                 MsgBox("Data updated", MsgBoxStyle.Information, Me.Text)
             Else
@@ -5115,11 +5127,11 @@ Public Class DMUEisGecoTool
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnEISStatsEnrollment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEISStatsEnrollment.Click
+    Private Sub btnEISStatsEnrollment_Click(sender As Object, e As EventArgs) Handles btnEISStatsEnrollment.Click
         Try
             Dim EISConfirm As String = ""
 
@@ -6195,7 +6207,7 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub llbEISStatsSubmittedToDo_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEISStatsSubmittedToDo.LinkClicked
+    Private Sub llbEISStatsSubmittedToDo_LinkClicked(sender As Object, ByVal e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsSubmittedToDo.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -6206,11 +6218,11 @@ Public Class DMUEisGecoTool
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "QA Submitted, To-Do Count"
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub llbEISStatsSubmittedBegan_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEISStatsSubmittedBegan.LinkClicked
+    Private Sub llbEISStatsSubmittedBegan_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsSubmittedBegan.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -6222,11 +6234,11 @@ Public Class DMUEisGecoTool
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "QA Submitted, Started Count"
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub llbEISStatsSubmittedBeganwFIErrors_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEISStatsSubmittedBeganwFIErrors.LinkClicked
+    Private Sub llbEISStatsSubmittedBeganwFIErrors_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsSubmittedBeganwFIErrors.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -6239,11 +6251,11 @@ Public Class DMUEisGecoTool
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "QA Submitted, Started Count"
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub llbEISStatsSubmittedBeganwithEIErrors_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEISStatsSubmittedBeganwithEIErrors.LinkClicked
+    Private Sub llbEISStatsSubmittedBeganwithEIErrors_LinkClicked(sender As Object, ByVal e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsSubmittedBeganwithEIErrors.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -6256,10 +6268,10 @@ Public Class DMUEisGecoTool
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "QA Submitted, Started Count"
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbEISStatsSubmittedBeganwithBothErrors_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEISStatsSubmittedBeganwithBothErrors.LinkClicked
+    Private Sub llbEISStatsSubmittedBeganwithBothErrors_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsSubmittedBeganwithBothErrors.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -6272,10 +6284,10 @@ Public Class DMUEisGecoTool
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "QA Submitted, Started Count"
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbEISStatsSubmittedBeganwithoutErrors_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEISStatsSubmittedBeganwithoutErrors.LinkClicked
+    Private Sub llbEISStatsSubmittedBeganwithoutErrors_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsSubmittedBeganwithoutErrors.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -6290,11 +6302,11 @@ Public Class DMUEisGecoTool
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "QA Submitted, Started Count"
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub llbEISStatsOptedOutToDo_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEISStatsOptedOutToDo.LinkClicked
+    Private Sub llbEISStatsOptedOutToDo_LinkClicked(sender As Object, ByVal e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsOptedOutToDo.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -6306,11 +6318,11 @@ Public Class DMUEisGecoTool
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "QA Opted-Out, To-do Count"
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub llbEISStatsOptedOutBegan_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEISStatsOptedOutBegan.LinkClicked
+    Private Sub llbEISStatsOptedOutBegan_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsOptedOutBegan.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -6322,11 +6334,11 @@ Public Class DMUEisGecoTool
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "QA Opted-Out, Started Count"
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub llbEISStatsOptedOutSubmittedToEPA_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEISStatsOptedOutSubmittedToEPA.LinkClicked
+    Private Sub llbEISStatsOptedOutSubmittedToEPA_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsOptedOutSubmittedToEPA.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -6338,18 +6350,18 @@ Public Class DMUEisGecoTool
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "QA Submitted, EPA Submitted Count"
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub llbSearchForFacility_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbSearchForFacility.LinkClicked
+    Private Sub llbSearchForFacility_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbSearchForFacility.LinkClicked
         Try
             If cboEISStatisticsYear.Text = "" Then
                 MsgBox("Please select a valid Year from the dropdown first.", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
             End If
 
-            SQL = "Select " &
+            Dim SQL As String = "Select " &
                   "strFacilityName, " &
                   "strContactCompanyName, strContactAddress1, " &
                   "strContactAddress2, strContactCity, " &
@@ -6360,16 +6372,15 @@ Public Class DMUEisGecoTool
                   "strcomment, UpdateUser, " &
                   "updateDateTime, CreateDateTime " &
                    "from EIS_Mailout " &
-                   "where intInventoryyear = '" & cboEISStatisticsYear.Text & "' " &
-                   "and FacilitySiteID = '" & txtEISStatsMailoutAIRSNumber.Text & "' "
+                   "where intInventoryyear = @intInventoryyear " &
+                   "and FacilitySiteID = @FacilitySiteID "
+            Dim params As SqlParameter() = {
+                New SqlParameter("@intInventoryyear", cboEISStatisticsYear.Text),
+                New SqlParameter("@FacilitySiteID", txtEISStatsMailoutAIRSNumber.Text)
+            }
+            Dim dr As DataRow = DB.GetDataRow(SQL, params)
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            While dr.Read
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("strFacilityName")) Then
                     txtEISStatsMailoutFacilityName.Clear()
                 Else
@@ -6445,91 +6456,106 @@ Public Class DMUEisGecoTool
                 Else
                     txtEISStatsMailoutCreateDate.Text = dr.Item("CreateDateTime")
                 End If
-
-            End While
-            dr.Close()
+            End If
 
             If txtEISStatsMailoutFacilityName.Text = "" Then
-                SQL = "Select * from " &
-                "(Select dt_EIcontact.STRairsnumber, APBFacilityinformation.STRFACILITYNAME, " &
-                "APBHEADERDATA.stroperationalstatus, APBHEADERDATA.STRCLASS, " &
-                "(Case " &
-                "When dt_EIcontact.STRKEY='41' THEN dt_EIcontact.STRContactLastName " &
-                "When dt_EIcontact.STRKEY Is Null THEN dt_PermitContact.STRContactLastName " &
-                "Else '' " &
-                "END) STRContactLastName, " &
-                "(Case " &
-                "When dt_EIcontact.STRKEY='41' THEN dt_EIcontact.STRContactfirstName " &
-                "When dt_EIcontact.STRKEY Is Null THEN dt_PermitContact.STRContactfirstName " &
-                "Else '' " &
-                "END) STRContactfirstName, " &
-                "(Case " &
-                "When dt_EIcontact.STRKEY='41' THEN dt_EIcontact.STRContactCompanyName " &
-                "When dt_EIcontact.STRKEY Is Null THEN dt_PermitContact.STRContactCompanyName " &
-                "END) STRContactCompanyName, " &
-                "(Case " &
-                "When dt_EIcontact.STRKEY='41' THEN dt_EIcontact.STRContactEmail " &
-                "When dt_EIcontact.STRKEY Is Null THEN dt_PermitContact.STRContactEmail " &
-                "END) STRContactEmail, " &
-                "(Case " &
-                "When dt_EIcontact.STRKEY='41' THEN dt_EIcontact.STRCONTACTPREFIX " &
-                "When dt_EIcontact.STRKEY Is Null THEN dt_PermitContact.STRCONTACTPREFIX " &
-                "END) strCONTACTPREFIX, " &
-                "(Case " &
-                "When dt_EIcontact.STRKEY='41' THEN dt_EIcontact.STRCONTACTADDRESS1 " &
-                "When dt_EIcontact.STRKEY Is Null THEN dt_PermitContact.STRCONTACTADDRESS1 " &
-                "END) STRCONTACTADDRESS1, " &
-                "(Case " &
-                "When dt_EIContact.STRKEY='41' THEN dt_EIContact.STRCONTACTCITY " &
-                "When dt_EIContact.STRKEY Is Null THEN dt_PermitContact.STRCONTACTCITY " &
-                "END) STRCONTACTCITY, " &
-                "(Case " &
-                "When dt_EIcontact.STRKEY='41' THEN dt_EIcontact.STRCONTACTSTATE " &
-                "When dt_EIcontact.STRKEY Is Null THEN dt_PermitContact.STRCONTACTSTATE " &
-                "END) STRCONTACTSTATE,  " &
-                "(Case " &
-                "When dt_EIcontact.STRKEY='41' THEN dt_EIcontact.STRCONTACTZIPCODE " &
-                "When dt_EIcontact.STRKEY Is Null THEN dt_PermitContact.STRCONTACTZIPCODE " &
-                "END) STRCONTACTZIPCODE " &
-                "From " &
-                "(Select DISTINCT dt_eIlist.STRAIRSNUMBER, dt_contact.STRKEY,  " &
-                "dt_Contact.STRCONTACTLASTNAME, dt_Contact.STRCONTACTFIRSTNAME, " &
-                "dt_Contact.STRContactCompanyName, dt_Contact.STRContactEmail,  " &
-                "dt_Contact.STRCONTACTPREFIX, dt_Contact.STRCONTACTADDRESS1, dt_Contact.STRCONTACTCITY,  " &
-                "dt_Contact.STRCONTACTSTATE, dt_Contact.STRCONTACTZIPCODE " &
-                "FROM " &
-                "(Select * FROM APBHEADERDATA " &
-                "where (stroperationalstatus = 'O' OR stroperationalstatus = 'P' oR stroperationalstatus = 'C') AND  " &
-                "(STRCLASS = 'A')   " &
-                ") dt_EIList,      " &
-                "(Select * From APBCONTACTINFORMATION where STRKEY=41) dt_Contact " &
-                "Where dt_EIList.STRAIRSNUMBEr = dt_Contact.STRAIRSNUMBER (+)) dt_EIContact, " &
-                "(Select DISTINCT dt_eIlist.STRAIRSNUMBER, dt_contact.STRKEY,  " &
-                "dt_Contact.STRCONTACTLASTNAME, dt_Contact.STRCONTACTFIRSTNAME, " &
-                "dt_Contact.STRContactCompanyName, dt_Contact.STRContactEmail, dt_Contact.STRCONTACTPREFIX,  " &
-                "dt_Contact.STRCONTACTADDRESS1, dt_Contact.strcontactcity, dt_Contact.STRCONTACTSTATE, dt_Contact.STRCONTACTZIPCODE " &
-                "FROM " &
-                "(Select * FROM APBHEADERDATA " &
-                "where (stroperationalstatus = 'O' OR stroperationalstatus = 'P' oR stroperationalstatus = 'C') AND  " &
-                "(STRCLASS = 'A')   " &
-                ") dt_EIList,      " &
-                "(Select * From APBCONTACTINFORMATION where STRKEY=30) dt_Contact " &
-                "Where dt_EIList.STRAIRSNUMBEr = dt_Contact.STRAIRSNUMBER (+)) dt_PermitContact, " &
-                "APBFACILITYINFORMATION, " &
-                "APBHEADERDATA " &
-                "Where APBFACILITYINFORMATION.STRAIRSNUMBER= dt_EIContact.STRAIRSNumber and  " &
-                "APBHEADERDATA.STRAIRSNUMBER= dt_EIContact.STRAIRSNumber and  " &
-                "dt_EIContact.STRAIRSNumber  = dt_PermitContact.STRAIRSNUMBER (+) ) " &
-                "where strAIRSnumber = '0413" & txtEISStatsMailoutAIRSNumber.Text & "' "
+                SQL = "SELECT * " &
+                    "FROM " &
+                    "  (SELECT dt_EIContact.STRAIRSNUMBER, fi.STRFACILITYNAME, " &
+                    "    hd.STROPERATIONALSTATUS, hd.STRCLASS,( " &
+                    "    CASE                                WHEN dt_EIContact.STRKEY = '41' THEN " &
+                    "        dt_EIContact.STRCONTACTLASTNAME WHEN " &
+                    "        dt_EIContact.STRKEY IS NULL THEN " &
+                    "        dt_PermitContact.STRCONTACTLASTNAME ELSE '' " &
+                    "    END) STRContactLastName,( " &
+                    "    CASE                                 WHEN dt_EIContact.STRKEY = '41' THEN " &
+                    "        dt_EIContact.STRCONTACTFIRSTNAME WHEN " &
+                    "        dt_EIContact.STRKEY IS NULL THEN " &
+                    "        dt_PermitContact.STRCONTACTFIRSTNAME ELSE '' " &
+                    "    END) STRContactfirstName,( " &
+                    "    CASE                                   WHEN dt_EIContact.STRKEY = '41' THEN " &
+                    "        dt_EIContact.STRCONTACTCOMPANYNAME WHEN " &
+                    "        dt_EIContact.STRKEY IS NULL THEN " &
+                    "        dt_PermitContact.STRCONTACTCOMPANYNAME " &
+                    "    END) STRContactCompanyName,( " &
+                    "    CASE                             WHEN dt_EIContact.STRKEY = '41' THEN " &
+                    "        dt_EIContact.STRCONTACTEMAIL WHEN dt_EIContact.STRKEY " &
+                    "        IS NULL THEN dt_PermitContact.STRCONTACTEMAIL " &
+                    "    END) STRContactEmail,( " &
+                    "    CASE                              WHEN dt_EIContact.STRKEY = '41' THEN " &
+                    "        dt_EIContact.STRCONTACTPREFIX WHEN dt_EIContact.STRKEY " &
+                    "        IS NULL THEN dt_PermitContact.STRCONTACTPREFIX " &
+                    "    END) strCONTACTPREFIX,( " &
+                    "    CASE                                WHEN dt_EIContact.STRKEY = '41' THEN " &
+                    "        dt_EIContact.STRCONTACTADDRESS1 WHEN " &
+                    "        dt_EIContact.STRKEY IS NULL THEN " &
+                    "        dt_PermitContact.STRCONTACTADDRESS1 " &
+                    "    END) STRCONTACTADDRESS1,( " &
+                    "    CASE                            WHEN dt_EIContact.STRKEY = '41' THEN " &
+                    "        dt_EIContact.STRCONTACTCITY WHEN dt_EIContact.STRKEY IS " &
+                    "        NULL THEN dt_PermitContact.STRCONTACTCITY " &
+                    "    END) STRCONTACTCITY,( " &
+                    "    CASE                             WHEN dt_EIContact.STRKEY = '41' THEN " &
+                    "        dt_EIContact.STRCONTACTSTATE WHEN dt_EIContact.STRKEY " &
+                    "        IS NULL THEN dt_PermitContact.STRCONTACTSTATE " &
+                    "    END) STRCONTACTSTATE,( " &
+                    "    CASE                               WHEN dt_EIContact.STRKEY = '41' THEN " &
+                    "        dt_EIContact.STRCONTACTZIPCODE WHEN dt_EIContact.STRKEY " &
+                    "        IS NULL THEN dt_PermitContact.STRCONTACTZIPCODE " &
+                    "    END) STRCONTACTZIPCODE " &
+                    "  FROM " &
+                    "    (SELECT DISTINCT dt_EIList.STRAIRSNUMBER, dt_Contact.STRKEY " &
+                    "      , dt_Contact.STRCONTACTLASTNAME, " &
+                    "      dt_Contact.STRCONTACTFIRSTNAME, " &
+                    "      dt_Contact.STRCONTACTCOMPANYNAME, " &
+                    "      dt_Contact.STRCONTACTEMAIL, dt_Contact.STRCONTACTPREFIX, " &
+                    "      dt_Contact.STRCONTACTADDRESS1, dt_Contact.STRCONTACTCITY, " &
+                    "      dt_Contact.STRCONTACTSTATE, dt_Contact.STRCONTACTZIPCODE " &
+                    "    FROM " &
+                    "      (SELECT * " &
+                    "      FROM APBHEADERDATA hd " &
+                    "      WHERE(hd.STROPERATIONALSTATUS = 'O' OR " &
+                    "        hd.STROPERATIONALSTATUS = 'P' OR " &
+                    "        hd.STROPERATIONALSTATUS = 'C') AND hd.STRCLASS = 'A' " &
+                    "      ) dt_EIList " &
+                    "    LEFT JOIN " &
+                    "      (SELECT * FROM APBCONTACTINFORMATION ci WHERE ci.STRKEY = " &
+                    "        41 " &
+                    "      ) dt_Contact ON dt_EIList.STRAIRSNUMBER = " &
+                    "      dt_Contact.STRAIRSNUMBER " &
+                    "    ) dt_EIContact " &
+                    "  LEFT JOIN " &
+                    "    (SELECT DISTINCT dt_EIList.STRAIRSNUMBER, dt_Contact.STRKEY " &
+                    "      , dt_Contact.STRCONTACTLASTNAME, " &
+                    "      dt_Contact.STRCONTACTFIRSTNAME, " &
+                    "      dt_Contact.STRCONTACTCOMPANYNAME, " &
+                    "      dt_Contact.STRCONTACTEMAIL, dt_Contact.STRCONTACTPREFIX, " &
+                    "      dt_Contact.STRCONTACTADDRESS1, dt_Contact.STRCONTACTCITY, " &
+                    "      dt_Contact.STRCONTACTSTATE, dt_Contact.STRCONTACTZIPCODE " &
+                    "    FROM " &
+                    "      (SELECT * FROM APBHEADERDATA hd WHERE( " &
+                    "        hd.STROPERATIONALSTATUS = 'O' OR " &
+                    "        hd.STROPERATIONALSTATUS = 'P' OR " &
+                    "        hd.STROPERATIONALSTATUS = 'C') AND hd.STRCLASS = 'A' " &
+                    "      ) dt_EIList " &
+                    "    LEFT JOIN " &
+                    "      (SELECT * FROM APBCONTACTINFORMATION ci WHERE ci.STRKEY = " &
+                    "        30 " &
+                    "      ) dt_Contact ON dt_EIList.STRAIRSNUMBER = " &
+                    "      dt_Contact.STRAIRSNUMBER " &
+                    "    ) dt_PermitContact ON dt_EIContact.STRAIRSNUMBER = " &
+                    "    dt_PermitContact.STRAIRSNUMBER " &
+                    "  INNER JOIN APBHEADERDATA hd ON dt_EIContact.STRAIRSNUMBER = " &
+                    "    hd.STRAIRSNUMBER " &
+                    "  INNER JOIN APBFACILITYINFORMATION fi ON " &
+                    "    dt_EIContact.STRAIRSNUMBER = fi.STRAIRSNUMBER " &
+                    "  ) t1 " &
+                    " WHERE STRAIRSNUMBER = @STRAIRSNUMBER "
+                Dim param As New SqlParameter("@strAIRSnumber", "0413" & txtEISStatsMailoutAIRSNumber.Text)
 
+                Dim dr2 As DataRow = DB.GetDataRow(SQL, param)
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-
-                dr = cmd.ExecuteReader
-                While dr.Read
+                If dr2 IsNot Nothing Then
                     If IsDBNull(dr.Item("strFacilityName")) Then
                         txtEISStatsMailoutFacilityName.Clear()
                     Else
@@ -6545,11 +6571,7 @@ Public Class DMUEisGecoTool
                     Else
                         txtEISStatsMailoutAddress1.Text = dr.Item("strContactAddress1")
                     End If
-                    'If IsDBNull(dr.Item("strContactAddress2")) Then
                     txtEISStatsMailoutAddress2.Clear()
-                    'Else
-                    '    txtEISStatsMailoutAddress2.Text = dr.Item("strContactAddress2")
-                    'End If
                     If IsDBNull(dr.Item("strContactCity")) Then
                         txtEISStatsMailoutCity.Clear()
                     Else
@@ -6585,11 +6607,7 @@ Public Class DMUEisGecoTool
                     Else
                         txtEISStatsMailoutEmailAddress.Text = dr.Item("strContactEmail")
                     End If
-                    'If IsDBNull(dr.Item("strcomment")) Then
                     txtEISStatsMailoutComments.Clear()
-                    'Else
-                    '    txtEISStatsMailoutComments.Text = dr.Item("strcomment")
-                    'End If
                     If IsDBNull(dr.Item("UpdateUser")) Then
                         txtEISStatsMailoutUpdateUser.Clear()
                     Else
@@ -6605,27 +6623,23 @@ Public Class DMUEisGecoTool
                     Else
                         txtEISStatsMailoutCreateDate.Text = dr.Item("CreateDateTime")
                     End If
+                End If
 
-                End While
-                dr.Close()
                 btnAddtoEISMailout.Visible = True
 
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-
-    Private Sub btnAddtoEISMailout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddtoEISMailout.Click
+    Private Sub btnAddtoEISMailout_Click(sender As Object, e As EventArgs) Handles btnAddtoEISMailout.Click
         Try
-            Dim EISConfirm As String = ""
-
-            EISConfirm = InputBox("Type in the EIS Year that you have selected to add facilies into Mailout.", Me.Text)
+            Dim EISConfirm As String = InputBox("Type in the EIS Year that you have selected to add facilies into Mailout.", Me.Text)
 
             If EISConfirm = txtSelectedEISStatYear.Text Then
-                temp = ""
+                Dim temp As String = ""
 
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     If dgvEISStats(0, i).Value = True And dgvEISStats(7, i).Value = "No" Then
@@ -6636,30 +6650,22 @@ Public Class DMUEisGecoTool
                 If temp <> "" Then
                     temp = " and ( " & Mid(temp, 1, (temp.Length - 3)) & " ) "
 
-
-
-                    SQL = "Update EIS_Admin set " &
+                    Dim SQL As String = "Update EIS_Admin set " &
                     "strMailOut = '1' " &
-                    "where inventoryYear = '" & EISConfirm & "' " &
+                    "where inventoryYear = @inventoryyear " &
                     temp
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    cmd.ExecuteReader()
+                    Dim param As New SqlParameter("@inventoryyear", EISConfirm)
+                    DB.RunCommand(SQL, param)
+
                     MsgBox(EISConfirm & " Emission Inventory Facilities in Mailout.", MsgBoxStyle.Information, Me.Text)
                 End If
 
             Else
                 MsgBox("Year does not match selected EIS year")
-
             End If
-
-
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -7098,7 +7104,7 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub llbEISStatsFipassed_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEISStatsFipassed.LinkClicked
+    Private Sub llbEISStatsFipassed_LinkClicked(sender As Object, ByVal e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsFipassed.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -7110,7 +7116,7 @@ Public Class DMUEisGecoTool
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "QA Submitted, EPA Submitted Count"
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -7391,7 +7397,7 @@ Public Class DMUEisGecoTool
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnViewMailoutData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewMailoutData.Click
+    Private Sub btnViewMailoutData_Click(sender As Object, e As EventArgs) Handles btnViewMailoutData.Click
         Try
             If txtSelectedEISMailout.Text = "" Then
                 MsgBox("Please select a valid Year from the dropdown first.", MsgBoxStyle.Exclamation, Me.Text)
@@ -7404,27 +7410,24 @@ Public Class DMUEisGecoTool
             lblEISCount.Text = "EIS Mailout Count"
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnGenerateMailout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGenerateMailout.Click
+    Private Sub btnGenerateMailout_Click(sender As Object, e As EventArgs) Handles btnGenerateMailout.Click
         Try
             If txtSelectedEISMailout.Text = "" Then
                 MsgBox("Please select a valid Year from the dropdown first.", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
             End If
 
-            SQL = "Update EIS_Admin set " &
+            Dim SQL As String = "Update EIS_Admin set " &
             "strMailout = '1' " &
-            "where inventoryYear = '" & txtSelectedEISMailout.Text & "' " &
+            "where inventoryYear = @inventoryYear " &
             "and Active = '1' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
+            Dim param As New SqlParameter("@inventoryYear", txtSelectedEISMailout.Text)
 
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            cmd.ExecuteNonQuery()
+            DB.RunCommand(SQL, param)
 
             EIS_VIEW(txtSelectedEISMailout.Text, "1", "", "1", "", "", "", "")
 
@@ -7432,32 +7435,28 @@ Public Class DMUEisGecoTool
             lblEISCount.Text = "EIS Mailout Count (Generated)"
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnRemoveAllMailout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRemoveAllMailout.Click
+    Private Sub btnRemoveAllMailout_Click(sender As Object, e As EventArgs) Handles btnRemoveAllMailout.Click
         Try
 
-            SQL = "Update EIS_Admin set " &
+            Dim SQL As String = "Update EIS_Admin set " &
           "strMailout = '' " &
-          "where inventoryYear = '" & txtSelectedEISMailout.Text & "' " &
+          "where inventoryYear = @inventoryYear " &
           "and strMailout = '1' " &
           "and Active = '1' "
+            Dim param As New SqlParameter("@inventoryYear", txtSelectedEISMailout.Text)
+            DB.RunCommand(SQL, param)
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            cmd.ExecuteNonQuery()
             EIS_VIEW(txtSelectedEISMailout.Text, "1", "", "1", "", "", "", "")
 
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "EIS Mailout Count (Removed)"
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -7535,9 +7534,9 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Sub EIS_VIEW(ByVal EISYear As String, ByVal EISMailout As String, ByVal EISEnrollment As String,
-                   ByVal EISActive As String, ByVal Optout As String, ByVal EISStatus As String,
-                   ByVal EISAccess As String, ByVal QAStatus As String)
+    Sub EIS_VIEW(EISYear As String, EISMailout As String, EISEnrollment As String,
+                    EISActive As String, Optout As String, EISStatus As String,
+                    EISAccess As String, QAStatus As String)
 
         'EISYear = value
         'EISMailout = value: 0,1, or null
@@ -7561,7 +7560,7 @@ Public Class DMUEisGecoTool
             SQL = "Select " &
             "'False' as ID, " &
             "FACILITYSITEID, " &
-            "STRFACILITYNAME, INVENTORYYEAR," &
+            "STRFACILITYNAME, INVENTORYYEAR, " &
             "EISSTAtuS, EISACCESS, OPTOUT, " &
             "MAILOUT, MAILOUTEMAIL, " &
             "STRDMURESPONSIBLESTAFF, ENROLLMENT, " &
@@ -7577,14 +7576,14 @@ Public Class DMUEisGecoTool
             "STRFITRACKINGNUMBER as FITrackingNumber, " &
             "STRPOINTTRACKINGNUMBER as PointTrackingNumber " &
             " from VW_EIS_Stats " &
-            "where inventoryyear = '" & EISYear & "' " &
-            "and Active = '" & EISActive & "' "
+            "where inventoryyear = @inventoryyear " &
+            "and Active = @Active "
 
             If EISMailout <> "" Then
-                SQL = SQL & " and strMailout = '" & EISMailout & "' "
+                SQL = SQL & " and strMailout = @strMailout "
             End If
             If EISEnrollment <> "" Then
-                SQL = SQL & " and strEnrollment = '" & EISEnrollment & "' "
+                SQL = SQL & " and strEnrollment = @strEnrollment "
             End If
             If Optout <> "" Then
                 Select Case Optout
@@ -7608,23 +7607,26 @@ Public Class DMUEisGecoTool
                 SQL = SQL & QAStatus
             End If
 
+            Dim params As SqlParameter() = {
+                New SqlParameter("@inventoryyear", EISYear),
+                New SqlParameter("@Active", EISActive),
+                New SqlParameter("@strMailout", EISMailout),
+                New SqlParameter("@strEnrollment", EISEnrollment)
+            }
+
             dgvEISStats.Rows.Clear()
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
+            Dim dt As DataTable = DB.GetDataTable(SQL, params)
 
-            While dr.Read
+            For Each dr As DataRow In dt.Rows
                 dgvRow = New DataGridViewRow
                 dgvRow.CreateCells(dgvEISStats)
+
                 If IsDBNull(dr.Item("ID")) Then
                     dgvRow.Cells(0).Value = ""
                 Else
                     dgvRow.Cells(0).Value = dr.Item("ID")
                 End If
-
                 If IsDBNull(dr.Item("FacilitySiteID")) Then
                     dgvRow.Cells(1).Value = ""
                 Else
@@ -7701,7 +7703,6 @@ Public Class DMUEisGecoTool
                 Else
                     dgvRow.Cells(15).Value = dr.Item("IAIPLASTNAME")
                 End If
-
                 If IsDBNull(dr.Item("IAIPEMAIL")) Then
                     dgvRow.Cells(16).Value = ""
                 Else
@@ -7765,15 +7766,14 @@ Public Class DMUEisGecoTool
                 dgvRow.Cells(29).Value = DBUtilities.GetNullable(Of String)(dr.Item("Comments"))
 
                 dgvEISStats.Rows.Add(dgvRow)
-            End While
-            dr.Close()
+            Next
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnEISSummaryToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEISSummaryToExcel.Click
+    Private Sub btnEISSummaryToExcel_Click(sender As Object, e As EventArgs) Handles btnEISSummaryToExcel.Click
         dgvEISStats.ExportToExcel(Me)
     End Sub
 
