@@ -2828,38 +2828,30 @@ Public Class DMUEisGecoTool
         End With
     End Sub
 
-    Private Sub llbViewUserData_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewUserData.LinkClicked
-        Try
-            ViewFacilitySpecificUsers()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub llbViewUserData_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewUserData.LinkClicked
+        ViewFacilitySpecificUsers()
     End Sub
-    Sub ViewFacilitySpecificUsers()
+
+    Private Sub ViewFacilitySpecificUsers()
         Try
-            Dim dgvRow As New DataGridViewRow
 
             If mtbAIRSNumber.Text.Length <> 8 Then
                 MsgBox("Please enter a complete 8 digit AIRS #.", MsgBoxStyle.Information, "DMU Tools")
             Else
+                Dim dgvRow As DataGridViewRow
                 txtEmail.Clear()
 
-                SQL = "Select strFacilityName " &
+                Dim SQL As String = "Select strFacilityName " &
                 "from APBFacilityInformation " &
-                "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
+                "where strAIRSNumber = @strAIRSNumber "
+                Dim param As New SqlParameter("@strAIRSNumber", "0413" & mtbAIRSNumber.Text)
+                Dim fn As String = DB.GetSingleValue(Of String)(SQL, param)
+
+                If fn = "" Then
+                    lblFaciltyName.Text = " - "
+                Else
+                    lblFaciltyName.Text = Facility.SanitizeFacilityNameForDb(fn)
                 End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("strFacilityName")) Then
-                        lblFaciltyName.Text = " - "
-                    Else
-                        lblFaciltyName.Text = Facility.SanitizeFacilityNameForDb(dr.Item("strFacilityName"))
-                    End If
-                End While
-                dr.Close()
 
                 SQL = "SELECT " &
                 "OlapUserAccess.NumUserID as ID, OlapUserLogin.numuserid, " &
@@ -2882,17 +2874,13 @@ Public Class DMUEisGecoTool
                 "End as intESAccess " &
                 "FROM OlapUserAccess, OlapUserLogin " &
                 "WHERE OLAPUserAccess.NumUserId = OlapUserLogin.NumUserID " &
-                "AND OlapUserAccess.strAirsNumber = '0413" & mtbAIRSNumber.Text & "' order by email"
+                "AND OlapUserAccess.strAirsNumber = @strAirsNumber order by email"
+
+                Dim dt As DataTable = DB.GetDataTable(SQL, param)
 
                 dgvUsers.Rows.Clear()
-                ds = New DataSet
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
+                For Each dr As DataRow In dt.Rows
                     dgvRow = New DataGridViewRow
                     dgvRow.CreateCells(dgvUsers)
                     If IsDBNull(dr.Item("ID")) Then
@@ -2932,50 +2920,39 @@ Public Class DMUEisGecoTool
                         dgvRow.Cells(6).Value = dr.Item("intESAccess")
                     End If
                     dgvUsers.Rows.Add(dgvRow)
-                End While
-                dr.Close()
+                Next
 
-                da = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                da.Fill(ds, "FacilityUsers")
-
-                cboUsers.DataSource = ds.Tables("FacilityUsers")
+                cboUsers.DataSource = dt
                 cboUsers.DisplayMember = "Email"
                 cboUsers.ValueMember = "ID"
                 cboUsers.Text = ""
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnAddUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddUser.Click
+
+    Private Sub btnAddUser_Click(sender As Object, e As EventArgs) Handles btnAddUser.Click
         Try
-            Dim userID As Integer
+            Dim userID As Integer?
 
-            SQL = "Select numUserId " &
+            Dim SQL As String = "Select numUserId " &
             "from olapuserlogin " &
-            "where struseremail = '" & Replace(UCase(txtEmail.Text), "'", "''") & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
+            "where struseremail = @struseremail "
+            Dim param As New SqlParameter("@struseremail", UCase(txtEmail.Text))
+            userID = DB.GetSingleValue(Of Decimal?)(SQL, param)
 
-            If recExist = True Then 'Email address is registered
-                userID = dr.Item("numUserId")
-                Dim InsertString As String = "Insert into OlapUserAccess " &
-                "(numUserId, strAirsNumber, strFacilityName) values( " &
-                "'" & userID & "', '0413" & mtbAIRSNumber.Text & "', '" & Replace(lblFaciltyName.Text, "'", "''") & "') "
-
-                Dim cmd1 As New SqlCommand(InsertString, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd1.ExecuteNonQuery()
+            If userID IsNot Nothing Then 'Email address is registered
+                SQL = "Insert into OlapUserAccess " &
+                    "(numUserId, strAirsNumber, strFacilityName) values " &
+                    "(@numUserId, @strAirsNumber, @strFacilityName) "
+                Dim params As SqlParameter() = {
+                    New SqlParameter("@numUserId", userID),
+                    New SqlParameter("@strAirsNumber", "0413" & mtbAIRSNumber.Text),
+                    New SqlParameter("@strFacilityName", lblFaciltyName.Text)
+                }
+                DB.RunCommand(SQL, params)
 
                 ViewFacilitySpecificUsers()
 
@@ -2983,33 +2960,31 @@ Public Class DMUEisGecoTool
             Else 'email address not registered
                 MsgBox("This Email Address is not registered", MsgBoxStyle.OkOnly, "Insert Failed!")
             End If
-
-            If dr.IsClosed = False Then dr.Close()
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDelete.Click
+
+    Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
         Try
             SQL = "DELETE OlapUserAccess " &
-            "WHERE numUserID = '" & cboUsers.SelectedValue & "' " &
-            "and strAirsNumber = '0413" & mtbAIRSNumber.Text & "' "
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            cmd.ExecuteNonQuery()
+                "WHERE numUserID = @numUserID " &
+                "and strAirsNumber = @strAirsNumber "
+            Dim params As SqlParameter() = {
+                New SqlParameter("@numUserID", cboUsers.SelectedValue),
+                New SqlParameter("@strAirsNumber", "0413" & mtbAIRSNumber.Text)
+            }
+            DB.RunCommand(SQL, params)
 
             ViewFacilitySpecificUsers()
             MsgBox("The User has been removed for this facility", MsgBoxStyle.Information, "User Removed!")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdate.Click
+
+    Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
         Try
             Dim adminaccess As String
             Dim feeaccess As String
@@ -3038,28 +3013,33 @@ Public Class DMUEisGecoTool
                     esaccess = "0"
                 End If
 
-                SQL = "UPDATE OlapUserAccess " &
-                "SET intadminaccess = '" & adminaccess & "', " &
-                "intFeeAccess = '" & feeaccess & "', " &
-                "intEIAccess = '" & eiaccess & "', " &
-                "intESAccess = '" & esaccess & "' " &
-                "WHERE numUserID = '" & dgvUsers(1, i).Value & "' " &
-                "and strAirsNumber = '0413" & mtbAIRSNumber.Text & "' "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteNonQuery()
+                Dim SQL As String = "UPDATE OlapUserAccess " &
+                    "SET " &
+                    "intadminaccess = @intadminaccess, " &
+                    "intFeeAccess = @intFeeAccess, " &
+                    "intEIAccess = @intEIAccess, " &
+                    "intESAccess = @intESAccess " &
+                    "WHERE numUserID = @numUserID " &
+                    "and strAirsNumber = @strAirsNumber "
+                Dim params As SqlParameter() = {
+                    New SqlParameter("@intadminaccess", adminaccess),
+                    New SqlParameter("@intFeeAccess", feeaccess),
+                    New SqlParameter("@intEIAccess", eiaccess),
+                    New SqlParameter("@intESAccess", esaccess),
+                    New SqlParameter("@numUserID", dgvUsers(1, i).Value),
+                    New SqlParameter("@strAirsNumber", "0413" & mtbAIRSNumber.Text)
+                }
+                DB.RunCommand(SQL, params)
             Next
 
             ViewFacilitySpecificUsers()
             MsgBox("The records have been updated", MsgBoxStyle.Information, "Update Success!")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnEditUserData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditUserData.Click
         Try
             txtEditFirstName.Visible = True
