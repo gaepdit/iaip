@@ -2441,96 +2441,70 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub btnaddfacilitytoES_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnaddfacilitytoES.Click
-        Try
-            addonefacilityES()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+    Private Sub btnaddfacilitytoES_Click(sender As Object, e As EventArgs) Handles btnaddfacilitytoES.Click
+        addonefacilityES()
     End Sub
+
     Private Sub addonefacilityES()
         Dim AirsNo As String = "0413" & txtESairNumber.Text
         Dim ESYear As Integer = txtESYearforFacility.Text
         Dim airsYear As String = AirsNo & ESYear
         Dim facilityName As String
 
-
         Try
+            Dim SQL As String = "Select INTESYEAR " &
+                "FROM ESSCHEMA " &
+                "where INTESYEAR = @ESYear "
+            Dim param As New SqlParameter("@ESYear", ESYear)
 
-            SQL = "Select ESSCHEMA.INTESYEAR " &
-          "FROM ESSCHEMA " &
-          "where  ESSCHEMA.INTESYEAR = '" & ESYear & "' "
+            If DB.ValueExists(SQL, param) Then
+                SQL = "Select STRFACILITYNAME " &
+                    "FROM APBFACILITYINFORMATION " &
+                    "where STRAIRSNUMBER = @AirsNo "
+                Dim param2 As New SqlParameter("@AirsNo ", AirsNo)
+                facilityName = DB.GetSingleValue(Of String)(SQL, param2)
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-
-
-            If recExist = True Then
-
-
-                SQL = "Select APBFACILITYINFORMATION.STRFACILITYNAME " &
-               "FROM APBFACILITYINFORMATION " &
-               "where  APBFACILITYINFORMATION.STRAIRSNUMBER = '" & AirsNo & "' "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-
-
-                If recExist = True Then
-                    facilityName = dr("STRFACILITYNAME")
-
+                If facilityName <> "" Then
                     SQL = "Select * " &
-                             "FROM ESSCHEMA " &
-                             "where ESSCHEMA.INTESYEAR = '" & ESYear & "' " &
-                             " And ESSCHEMA.STRAIRSNUMBER = '" & AirsNo & "' "
+                        "FROM ESSCHEMA " &
+                        "where INTESYEAR = @ESYear " &
+                        " And STRAIRSNUMBER = @AirsNo "
+                    Dim param3 As SqlParameter() = {
+                        param,
+                        New SqlParameter("@AirsNo", AirsNo)
+                    }
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-
-                    If recExist = True Then
+                    If DB.ValueExists(SQL, param3) Then
                         MsgBox("This facility (" & AirsNo & ") is already enrolled for " & ESYear & ".", MsgBoxStyle.Information, "ES Enrollment")
                     Else
-                        SQL2 = "Insert into ESSCHEMA " &
-                        "(ESSCHEMA.STRAIRSNUMBER, " &
-                        "ESSCHEMA.STRFACILITYNAME, " &
-                        "ESSCHEMA.DATTRANSACTION, " &
-                        "ESSCHEMA.INTESYEAR, " &
-                        "ESSCHEMA.NUMUSERID, " &
-                        "ESSCHEMA.STRAIRSYEAR) " &
-                        "values " &
-                        "('" & Replace(AirsNo, "'", "''") & "', " &
-                        "'" & Replace(facilityName, "'", "''") & "', " &
-                        "'" & OracleDate & "', " &
-                        "'" & Replace(ESYear, "'", "''") & "', " &
+                        SQL = "Insert into ESSCHEMA " &
+                        "(STRAIRSNUMBER, " &
+                        "STRFACILITYNAME, " &
+                        "DATTRANSACTION, " &
+                        "INTESYEAR, " &
+                        "NUMUSERID, " &
+                        "STRAIRSYEAR) " &
+                        "VALUES " &
+                        "(@STRAIRSNUMBER, " &
+                        "@STRFACILITYNAME, " &
+                        "getdate(), " &
+                        "@INTESYEAR, " &
                         "'3', " &
-                        "'" & airsYear & "' )"
+                        "@STRAIRSYEAR) "
 
-                        cmd2 = New SqlCommand(SQL2, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr2 = cmd2.ExecuteReader
-                        dr2.Close()
+                        Dim param4 As SqlParameter() = {
+                            New SqlParameter("@STRAIRSNUMBER", AirsNo),
+                            New SqlParameter("@STRFACILITYNAME", facilityName),
+                            New SqlParameter("@INTESYEAR", ESYear),
+                            New SqlParameter("@STRAIRSYEAR", airsYear)
+                        }
+
+                        DB.RunCommand(SQL, param4)
 
                         MsgBox("This facility (" & AirsNo & ") has been enrolled for " & ESYear & ".", MsgBoxStyle.Information, "ES Enrollment")
                     End If
 
                 Else
-
                     MsgBox("This Airs Number (" & AirsNo & ") is not valid. Please enter valid Airs Number.", MsgBoxStyle.Information, "ES Enrollment")
                 End If
             Else
@@ -2538,70 +2512,60 @@ Public Class DMUEisGecoTool
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnremoveFacilityES_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnremoveFacilityES.Click
+
+    Private Sub btnremoveFacilityES_Click(sender As Object, e As EventArgs) Handles btnremoveFacilityES.Click
         Dim ESYear As Integer = txtESYearforFacility.Text
         Dim AirsNo As String = "0413" & txtESairNumber.Text
 
-        Dim sql As String
         Try
-
             Dim intAnswer As DialogResult
-            intAnswer = MessageBox.Show("Remove this facility (" & AirsNo & ") for " & ESYear & "?", "ES Enrollment", MessageBoxButtons.OKCancel, MessageBoxIcon.Information)
+            intAnswer = MessageBox.Show("Remove this facility (" & AirsNo & ") for " & ESYear & "?", "ES Enrollment", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+
             Select Case intAnswer
-                Case DialogResult.OK
-                    sql = "delete from ESSCHEMA " &
-                    "where ESSCHEMA.INTESYEAR = '" & ESYear & "'" &
-                    " And ESSCHEMA.STRAIRSNUMBER = '" & AirsNo & "'"
-                    cmd = New SqlCommand(sql, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
+                Case DialogResult.Yes
+                    Dim sql As String = "delete from ESSCHEMA " &
+                        "where ESSCHEMA.INTESYEAR = @ESYear " &
+                        " And ESSCHEMA.STRAIRSNUMBER = @AirsNo "
+                    Dim param As SqlParameter() = {
+                        New SqlParameter("@ESYear", ESYear),
+                        New SqlParameter("@AirsNo", AirsNo)
+                    }
+                    DB.RunCommand(sql, param)
+
                     MsgBox("This Facility (" & AirsNo & ") has been removed for " & ESYear & "!", MsgBoxStyle.Information, "ES Enrollment")
                 Case Else
                     MsgBox("This Facility (" & AirsNo & ") has not been removed for " & ESYear & "!", MsgBoxStyle.Information, "ES Enrollment")
             End Select
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnCheckESstatus_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCheckESstatus.Click
+
+    Private Sub btnCheckESstatus_Click(sender As Object, e As EventArgs) Handles btnCheckESstatus.Click
         Dim AirsNo As String = "0413" & txtESairNumber.Text
         Dim ESYear As Integer = txtESYearforFacility.Text
 
         Try
-            SQL = "Select strAIRSYear as RowCount " &
-            "FROM ESSCHEMA " &
-            "where ESSCHEMA.INTESYEAR = '" & ESYear & "' " &
-            " And ESSCHEMA.STRAIRSNUMBER = '" & AirsNo & "' "
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-
-            recExist = dr.Read
-
-            If recExist = True Then
+            Dim sql As String = "Select strAIRSYear " &
+                "FROM ESSCHEMA " &
+                "where ESSCHEMA.INTESYEAR = @ESYear " &
+                " And ESSCHEMA.STRAIRSNUMBER = @AirsNo "
+            Dim param As SqlParameter() = {
+                        New SqlParameter("@ESYear", ESYear),
+                        New SqlParameter("@AirsNo", AirsNo)
+                    }
+            If DB.ValueExists(sql, param) Then
                 MsgBox("This facility (" & AirsNo & ") has been enrolled for " & ESYear & "!", MsgBoxStyle.Information, "ES Enrollment")
             Else
                 MsgBox("This facility (" & AirsNo & ") is not enrolled for " & ESYear & "!", MsgBoxStyle.Information, "ES Enrollment")
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
