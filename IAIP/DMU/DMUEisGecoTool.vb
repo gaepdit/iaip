@@ -332,85 +332,11 @@ Public Class DMUEisGecoTool
 
 #End Region
 
-#Region "Web Application Users"
-
-    Private Sub btnActivateEmail_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnActivateEmail.Click
-        LoadComboBoxesEmail()
-    End Sub
-
-#End Region
-
 #Region "Mahesh Code for Web App Users"
 
-    Sub LoadComboBoxesEmail()
-        Dim dtAIRS As New DataTable
-        Dim drDSRow As DataRow
-        Dim drNewRow As DataRow
-
-        Dim SQL As String
-
+    Private Sub LoadUserInfo(UserData As String)
         Try
-
-            SQL = "Select numuserid, struseremail " _
-            + "from OlapUserLogin " _
-            + "Order by struseremail "
-
-            ds = New DataSet
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Open Then
-            Else
-                CurrentConnection.Open()
-            End If
-
-            da.Fill(ds, "UserEmail")
-
-            dtAIRS.Columns.Add("numuserid", GetType(System.String))
-            dtAIRS.Columns.Add("struseremail", GetType(System.String))
-
-            drNewRow = dtAIRS.NewRow()
-            drNewRow("numuserid") = " "
-            drNewRow("struseremail") = " "
-            dtAIRS.Rows.Add(drNewRow)
-
-            For Each drDSRow In ds.Tables("UserEmail").Rows()
-                drNewRow = dtAIRS.NewRow()
-                drNewRow("numuserid") = drDSRow("numuserid")
-                drNewRow("struseremail") = drDSRow("struseremail")
-                dtAIRS.Rows.Add(drNewRow)
-            Next
-
-            With cboUserEmail
-                .DataSource = dtAIRS
-                .DisplayMember = "struseremail"
-                .ValueMember = "numuserid"
-                .SelectedIndex = 0
-            End With
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
-    End Sub
-
-    Private Sub lblViewFacility_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewFacility.LinkClicked
-        Try
-
-
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-
-    Sub LoadUserInfo(ByVal UserData As String)
-        Try
-            SQL = "Select " &
+            Dim SQL As String = "Select " &
             "OLAPUserProfile.numUserID, " &
             "strfirstname, strlastname, " &
             "strtitle, strcompanyname, " &
@@ -421,16 +347,11 @@ Public Class DMUEisGecoTool
             "strUserEmail " &
             "from OlapUserProfile, OLAPUserLogIn " &
             "where OLAPUserProfile.numUserID = OLAPUserLogIn.numuserid " &
-            "and strUserEmail = upper('" & UserData & "') "
+            "and strUserEmail = @strUserEmail "
+            Dim param As New SqlParameter("@strUserEmail", UserData)
+            Dim dr As DataRow = DB.GetDataRow(SQL, param)
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            If recExist = True Then
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("numUserID")) Then
                     txtWebUserID.Clear()
                 Else
@@ -538,35 +459,31 @@ Public Class DMUEisGecoTool
             btnUpdatePassword.Visible = False
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
-    Sub LoadUserFacilityInfo(ByVal EmailLoc As String)
+
+    Private Sub LoadUserFacilityInfo(ByVal EmailLoc As String)
         Try
             Dim dgvRow As New DataGridViewRow
 
-            SQL = "SELECT substr(strairsnumber, 5) as strAIRSNumber, strfacilityname, " &
+            SQL = "SELECT right(strairsnumber, 8) as strAIRSNumber, strfacilityname, " &
              "Case When intAdminAccess = 0 Then 'False' When intAdminAccess = 1 Then 'True' End as intAdminAccess, " &
              "Case When intFeeAccess = 0 Then 'False' When intFeeAccess = 1 Then 'True' End as intFeeAccess, " &
              "Case When intEIAccess = 0 Then 'False' When intEIAccess = 1 Then 'True' End as intEIAccess, " &
              "Case When intESAccess = 0 Then 'False' When intESAccess = 1 Then 'True' End as intESAccess " &
              "FROM OlapUserAccess, OLAPUserLogIn  " &
              "WHERE OlapUserAccess.numUserId = OLAPUserLogIn.numUserId " &
-             "and  strUserEmail = upper('" & EmailLoc & "') " &
+             "and  strUserEmail = @strUserEmail " &
              "order by strfacilityname"
+            Dim param As New SqlParameter("@strUserEmail", EmailLoc)
 
             dgvUserFacilities.Rows.Clear()
             ds = New DataSet
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim dt As DataTable = DB.GetDataTable(SQL, param)
+
+            For Each dr As DataRow In dt.Rows
                 dgvRow = New DataGridViewRow
                 dgvRow.CreateCells(dgvUserFacilities)
                 If IsDBNull(dr.Item("strAIRSNumber")) Then
@@ -602,23 +519,15 @@ Public Class DMUEisGecoTool
                     dgvRow.Cells(5).Value = dr.Item("intESAccess")
                 End If
                 dgvUserFacilities.Rows.Add(dgvRow)
-            End While
-            dr.Close()
+            Next
 
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "FacilityUsers")
-
-            cboFacilityToDelete.DataSource = ds.Tables("FacilityUsers")
+            cboFacilityToDelete.DataSource = dt
             cboFacilityToDelete.DisplayMember = "strfacilityname"
             cboFacilityToDelete.ValueMember = "strairsnumber"
             cboFacilityToDelete.Text = ""
 
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -2316,24 +2225,9 @@ Public Class DMUEisGecoTool
 
 #End Region
 
-    Private Sub lblViewEmailData_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewEmailData.LinkClicked
-        Try
-            LoadUserInfo(txtWebUserEmail.Text)
-            LoadUserFacilityInfo(txtWebUserEmail.Text)
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-    Private Sub cboUserEmail_SelectedValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboUserEmail.SelectedValueChanged
-        Try
-            txtWebUserEmail.Text = cboUserEmail.Text
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+    Private Sub lblViewEmailData_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewEmailData.LinkClicked
+        LoadUserInfo(txtWebUserEmail.Text)
+        LoadUserFacilityInfo(txtWebUserEmail.Text)
     End Sub
 
     Private Sub btnESenrollment_Click(sender As Object, e As EventArgs) Handles btnESenrollment.Click
@@ -3040,7 +2934,7 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub btnEditUserData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditUserData.Click
+    Private Sub btnEditUserData_Click(sender As Object, e As EventArgs) Handles btnEditUserData.Click
         Try
             txtEditFirstName.Visible = True
             txtEditLastName.Visible = True
@@ -3057,68 +2951,75 @@ Public Class DMUEisGecoTool
             btnChangeEmailAddress.Visible = True
             txtEditEmail.Visible = True
             btnUpdatePassword.Visible = True
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSaveEditedData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveEditedData.Click
+
+    Private Sub btnSaveEditedData_Click(sender As Object, e As EventArgs) Handles btnSaveEditedData.Click
         Try
-            Dim FirstName As String = " "
-            Dim LastName As String = " "
-            Dim Title As String = " "
-            Dim Company As String = " "
-            Dim Address As String = " "
-            Dim City As String = " "
-            Dim State As String = " "
-            Dim Zip As String = " "
-            Dim PhoneNumber As String = " "
-            Dim FaxNumber As String = " "
+            Dim FirstName As String = ""
+            Dim LastName As String = ""
+            Dim Title As String = ""
+            Dim Company As String = ""
+            Dim Address As String = ""
+            Dim City As String = ""
+            Dim State As String = ""
+            Dim Zip As String = ""
+            Dim PhoneNumber As String = ""
+            Dim FaxNumber As String = ""
 
             If txtWebUserID.Text <> "" Then
                 If txtEditFirstName.Text <> "" Then
-                    FirstName = " strFirstName = '" & Replace(txtEditFirstName.Text, "'", "''") & "', "
+                    FirstName = " strFirstName = @strFirstName "
                 End If
                 If txtEditLastName.Text <> "" Then
-                    LastName = " strLastName = '" & Replace(txtEditLastName.Text, "'", "''") & "', "
+                    LastName = " strLastName = @strLastName "
                 End If
                 If txtEditTitle.Text <> "" Then
-                    Title = " strTitle = '" & Replace(txtEditTitle.Text, "'", "''") & "', "
+                    Title = " strTitle = @strTitle "
                 End If
                 If txtEditCompany.Text <> "" Then
-                    Company = " strCompanyName = '" & Replace(txtEditCompany.Text, "'", "''") & "', "
+                    Company = " strCompanyName = @strCompanyName "
                 End If
                 If txtEditAddress.Text <> "" Then
-                    Address = " strAddress = '" & Replace(txtEditAddress.Text, "'", "''") & "', "
+                    Address = " strAddress = @strAddress "
                 End If
                 If txtEditCity.Text <> "" Then
-                    City = " strCity = '" & Replace(txtEditCity.Text, "'", "''") & "', "
+                    City = " strCity = @strCity "
                 End If
                 If mtbEditState.Text <> "" Then
-                    State = " strState = '" & Replace(mtbEditState.Text, "'", "''") & "', "
+                    State = " strState = @strState "
                 End If
                 If mtbEditZipCode.Text <> "" Then
-                    Zip = " strZip = '" & Replace(mtbEditZipCode.Text, "'", "''") & "', "
+                    Zip = " strZip = @strZip "
                 End If
                 If mtbEditPhoneNumber.Text <> "" Then
-                    PhoneNumber = " strPhoneNumber = '" & Replace(mtbEditPhoneNumber.Text, "'", "''") & "', "
+                    PhoneNumber = " strPhoneNumber = @strPhoneNumber "
                 End If
                 If mtbEditFaxNumber.Text <> "" Then
-                    FaxNumber = " strFaxNumber = '" & Replace(mtbEditFaxNumber.Text, "'", "''") & "', "
+                    FaxNumber = " strFaxNumber = @strFaxNumber "
                 End If
 
                 SQL = "Update OLAPUserProfile set " &
-                FirstName & LastName & Title & Company & Address &
-                City & State & Zip & PhoneNumber & FaxNumber &
-                "numUserID = '" & txtWebUserID.Text & "' " &
-                "where numUserID = '" & txtWebUserID.Text & "' "
+                    ConcatNonEmptyStrings(",", {FirstName, LastName, Title, Company, Address, City, State, Zip, PhoneNumber, FaxNumber}) &
+                    "where numUserID = @numUserID "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                Dim params As SqlParameter() = {
+                    New SqlParameter("@strFirstName", txtEditFirstName.Text),
+                    New SqlParameter("@strLastName", txtEditLastName.Text),
+                    New SqlParameter("@strTitle", txtEditTitle.Text),
+                    New SqlParameter("@strCompanyName", txtEditCompany.Text),
+                    New SqlParameter("@strAddress", txtEditAddress.Text),
+                    New SqlParameter("@strCity", txtEditCity.Text),
+                    New SqlParameter("@strState", mtbEditState.Text),
+                    New SqlParameter("@strZip", mtbEditZipCode.Text),
+                    New SqlParameter("@strPhoneNumber", mtbEditPhoneNumber.Text),
+                    New SqlParameter("@strFaxNumber", mtbEditFaxNumber.Text),
+                    New SqlParameter("@numUserID", txtWebUserID.Text)
+                }
+
+                DB.RunCommand(SQL, params)
 
                 lblFName.Text = "First Name: " & txtEditFirstName.Text
                 lblLName.Text = "Last Name: " & txtEditLastName.Text
@@ -3144,28 +3045,24 @@ Public Class DMUEisGecoTool
                 btnChangeEmailAddress.Visible = False
                 txtEditEmail.Visible = False
                 btnUpdatePassword.Visible = False
-            Else
-
             End If
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnUpdatePassword_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdatePassword.Click
+
+    Private Sub btnUpdatePassword_Click(sender As Object, e As EventArgs) Handles btnUpdatePassword.Click
         Try
             If txtWebUserID.Text <> "" And txtEditUserPassword.Text <> "" Then
                 'New password change code 6/30/2010
-                SQL = "Update OLAPUserLogIN set " &
-                "strUserPassword = '" & getMd5Hash(txtEditUserPassword.Text) & "' " &
-                "where numUserID = '" & txtWebUserID.Text & "' "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                Dim SQL As String = "Update OLAPUserLogIN set " &
+                "strUserPassword = @strUserPassword " &
+                "where numUserID = @numUserID "
+                Dim params As SqlParameter() = {
+                    New SqlParameter("@strUserPassword", "3dc183cf4b0ea0778a1819994ad6cf25"),'getMd5Hash(txtEditUserPassword.Text)),
+                    New SqlParameter("@numUserID", txtWebUserID.Text)
+                }
+                DB.RunCommand(SQL, params)
 
                 txtEditUserPassword.Clear()
                 txtEditFirstName.Visible = False
@@ -3185,55 +3082,39 @@ Public Class DMUEisGecoTool
                 btnUpdatePassword.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnChangeEmailAddress_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnChangeEmailAddress.Click
+
+    Private Sub btnChangeEmailAddress_Click(sender As Object, e As EventArgs) Handles btnChangeEmailAddress.Click
         Try
             If txtWebUserID.Text <> "" Then
                 If IsValidEmailAddress(txtEditEmail.Text) Then
-                    SQL = "Select " &
-                    "numUserID, strUserPassword " &
+                    Dim SQL As String = "Select " &
+                    "1 " &
                     "from OLAPUserLogIN " &
-                    "where upper(strUserEmail) = '" & Replace(txtEditEmail.Text.ToUpper, "'", "''") & "' "
+                    "where strUserEmail = @strUserEmail " &
+                    " and numUserID <> @numUserID "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    dr.Close()
-                    If recExist = True Then
-                        dr = cmd.ExecuteReader
-                        While dr.Read
-                            If IsDBNull(dr.Item("numUserID")) Then
-                            Else
-                                If txtWebUserID.Text <> dr.Item("numUserID") Then
-                                    MsgBox("Another user already has this email address and it would violate a unique constraint if you were " &
-                                           "to add this email to this user.", MsgBoxStyle.Exclamation, "Mailout and Stats")
-                                    Exit Sub
-                                End If
-                            End If
-                        End While
-                        dr.Close()
+                    Dim params As SqlParameter() = {
+                        New SqlParameter("@strUserEmail", txtEditEmail.Text.ToUpper),
+                        New SqlParameter("@numUserID", txtWebUserID.Text)
+                    }
+
+                    If DB.GetBoolean(SQL, params) Then
+                        MsgBox("Another user already has this email address and it would violate a unique constraint if you were " &
+                               "to add this email to this user.", MsgBoxStyle.Exclamation, "Mailout and Stats")
+                        Exit Sub
                     End If
 
                     SQL = "Update OLAPUserLogIn set " &
-                    "strUserEmail = '" & Replace(txtEditEmail.Text.ToUpper, "'", "''") & "' " &
-                    "where numUserID = '" & txtWebUserID.Text & "' "
+                    " strUserEmail = @strUserEmail " &
+                    " where numUserID = @numUserID "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
+                    DB.RunCommand(SQL, params)
 
-                    cboUserEmail.Text = ""
                     txtWebUserEmail.Text = txtEditEmail.Text
 
-                    '  LoadDataGridFacility(txtWebUserEmail.Text)
                     LoadUserInfo(txtWebUserEmail.Text)
 
                     If txtWebUserID.Text = "" Then
@@ -3249,40 +3130,38 @@ Public Class DMUEisGecoTool
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnAddFacilitytoUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddFacilitytoUser.Click
+
+    Private Sub btnAddFacilitytoUser_Click(sender As Object, e As EventArgs) Handles btnAddFacilitytoUser.Click
         Try
             If txtWebUserID.Text <> "" And mtbFacilityToAdd.Text <> "" Then
                 SQL = "Select " &
-                "numUserId " &
+                "1 " &
                 "from OlapUserAccess " &
-                "where numUserId = '" & txtWebUserID.Text & "' " &
-                "and strAirsNumber = '0413" & mtbFacilityToAdd.Text & "' "
+                "where numUserId = @numUserId " &
+                " And strAirsNumber = @strAirsNumber "
+                Dim params As SqlParameter() = {
+                    New SqlParameter("@numUserId", txtWebUserID.Text),
+                    New SqlParameter("@strAirsNumber", "0413" & mtbFacilityToAdd.Text)
+                }
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-
-                If recExist = False Then
+                If Not DB.GetBoolean(SQL, params) Then
                     SQL = "Insert into OlapUserAccess " &
-                     "(numUserId, strAirsNumber, strFacilityName) " &
-                     "values " &
-                     "('" & txtWebUserID.Text & "', '0413" & mtbFacilityToAdd.Text & "', " &
-                     "(select strFacilityName " &
-                     "from APBFacilityInformation " &
-                     "where strAIRSnumber = '0413" & mtbFacilityToAdd.Text & "')) "
+                        "(numUserId, strAirsNumber, strFacilityName) " &
+                        "values " &
+                        "(@numUserId, @strAirsNumber, " &
+                        "(select strFacilityName " &
+                        "from APBFacilityInformation " &
+                        "where strAIRSnumber = @strAirsNumber)) "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    cmd.ExecuteNonQuery()
+                    Dim params2 As SqlParameter() = {
+                        New SqlParameter("@numUserId", txtWebUserID.Text),
+                        New SqlParameter("@strAirsNumber", "0413" & mtbFacilityToAdd.Text)
+                    }
+
+                    DB.RunCommand(SQL, params2)
 
                     LoadUserFacilityInfo(txtWebUserEmail.Text)
                     MsgBox("The facility has been added to this user", MsgBoxStyle.Information, "Insert Success!")
@@ -3290,34 +3169,32 @@ Public Class DMUEisGecoTool
                     MsgBox("The facility already exists for this user." & vbCrLf & "NO DATA SAVED", MsgBoxStyle.Exclamation, Me.Text)
                 End If
             End If
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDeleteFacilityUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteFacilityUser.Click
+
+    Private Sub btnDeleteFacilityUser_Click(sender As Object, e As EventArgs) Handles btnDeleteFacilityUser.Click
         Try
             If txtWebUserID.Text <> "" And cboFacilityToDelete.Text <> "" Then
                 SQL = "DELETE OlapUserAccess " &
-                "WHERE numUserID = '" & txtWebUserID.Text & "' " &
-                "and strAirsNumber = '0413" & cboFacilityToDelete.SelectedValue & "' "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteNonQuery()
+                "WHERE numUserID = @numUserID " &
+                "and strAirsNumber = @strAirsNumber "
+                Dim params As SqlParameter() = {
+                    New SqlParameter("@numUserID", txtWebUserID.Text),
+                    New SqlParameter("@strAirsNumber", "0413" & cboFacilityToDelete.SelectedValue)
+                }
+                DB.RunCommand(SQL, params)
 
                 LoadUserFacilityInfo(txtWebUserEmail.Text)
                 MsgBox("The facility has been removed for this user", MsgBoxStyle.Information, "Facility Removed!")
-
             End If
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnUpdateUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateUser.Click
+
+    Private Sub btnUpdateUser_Click(sender As Object, e As EventArgs) Handles btnUpdateUser.Click
         Try
             Dim adminaccess As String
             Dim feeaccess As String
@@ -3346,26 +3223,29 @@ Public Class DMUEisGecoTool
                     esaccess = "0"
                 End If
 
-                SQL = "UPDATE OlapUserAccess " &
-                "SET intadminaccess = '" & adminaccess & "', " &
-                "intFeeAccess = '" & feeaccess & "', " &
-                "intEIAccess = '" & eiaccess & "', " &
-                "intESAccess = '" & esaccess & "' " &
-                "WHERE numUserID = '" & txtWebUserID.Text & "' " &
-                "and strAirsNumber = '0413" & dgvUserFacilities(0, i).Value & "' "
+                Dim SQL As String = "UPDATE OlapUserAccess " &
+                    "SET intadminaccess = @intadminaccess, " &
+                    "intFeeAccess = @intFeeAccess, " &
+                    "intEIAccess = @intEIAccess, " &
+                    "intESAccess = @intESAccess " &
+                    "WHERE numUserID = @numUserID " &
+                    "and strAirsNumber = @strAirsNumber "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteNonQuery()
+                Dim params As SqlParameter() = {
+                    New SqlParameter("@intadminaccess", adminaccess),
+                    New SqlParameter("@intFeeAccess", feeaccess),
+                    New SqlParameter("@intEIAccess", eiaccess),
+                    New SqlParameter("@intESAccess", esaccess),
+                    New SqlParameter("@numUserID", txtWebUserID.Text),
+                    New SqlParameter("@strAirsNumber", "0413" & dgvUserFacilities(0, i).Value)
+                }
+                DB.RunCommand(SQL, params)
             Next
 
             LoadUserFacilityInfo(txtWebUserEmail.Text)
             MsgBox("The records have been updated", MsgBoxStyle.Information, "Update Success!")
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 

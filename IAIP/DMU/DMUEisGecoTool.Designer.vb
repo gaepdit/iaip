@@ -22,8 +22,8 @@ Partial Class DMUEisGecoTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TCDMUTools = New System.Windows.Forms.TabControl()
         Me.TPEISLog = New System.Windows.Forms.TabPage()
         Me.TabControl6 = New System.Windows.Forms.TabControl()
@@ -644,13 +644,9 @@ Partial Class DMUEisGecoTool
         Me.lblFName = New System.Windows.Forms.Label()
         Me.Label44 = New System.Windows.Forms.Label()
         Me.pnlUserEmail = New System.Windows.Forms.Panel()
-        Me.cboUserEmail = New System.Windows.Forms.ComboBox()
-        Me.lblViewFacility = New System.Windows.Forms.LinkLabel()
         Me.lblViewEmailData = New System.Windows.Forms.LinkLabel()
         Me.Label39 = New System.Windows.Forms.Label()
-        Me.Label52 = New System.Windows.Forms.Label()
         Me.txtWebUserEmail = New System.Windows.Forms.TextBox()
-        Me.btnActivateEmail = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TCDMUTools.SuspendLayout()
         Me.TPEISLog.SuspendLayout()
@@ -4562,23 +4558,23 @@ Partial Class DMUEisGecoTool
         '
         'dgvESDataCount
         '
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvESDataCount.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvESDataCount.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvESDataCount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvESDataCount.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvESDataCount.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvESDataCount.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvESDataCount.Location = New System.Drawing.Point(3, 55)
         Me.dgvESDataCount.Name = "dgvESDataCount"
@@ -6874,41 +6870,14 @@ Partial Class DMUEisGecoTool
         '
         'pnlUserEmail
         '
-        Me.pnlUserEmail.Controls.Add(Me.cboUserEmail)
-        Me.pnlUserEmail.Controls.Add(Me.lblViewFacility)
         Me.pnlUserEmail.Controls.Add(Me.lblViewEmailData)
         Me.pnlUserEmail.Controls.Add(Me.Label39)
-        Me.pnlUserEmail.Controls.Add(Me.Label52)
         Me.pnlUserEmail.Controls.Add(Me.txtWebUserEmail)
-        Me.pnlUserEmail.Controls.Add(Me.btnActivateEmail)
         Me.pnlUserEmail.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlUserEmail.Location = New System.Drawing.Point(0, 0)
         Me.pnlUserEmail.Name = "pnlUserEmail"
         Me.pnlUserEmail.Size = New System.Drawing.Size(1000, 45)
         Me.pnlUserEmail.TabIndex = 147
-        '
-        'cboUserEmail
-        '
-        Me.cboUserEmail.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cboUserEmail.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboUserEmail.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboUserEmail.Location = New System.Drawing.Point(637, 8)
-        Me.cboUserEmail.Name = "cboUserEmail"
-        Me.cboUserEmail.Size = New System.Drawing.Size(244, 21)
-        Me.cboUserEmail.TabIndex = 1
-        Me.cboUserEmail.Visible = False
-        '
-        'lblViewFacility
-        '
-        Me.lblViewFacility.AutoSize = True
-        Me.lblViewFacility.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblViewFacility.Location = New System.Drawing.Point(887, 11)
-        Me.lblViewFacility.Name = "lblViewFacility"
-        Me.lblViewFacility.Size = New System.Drawing.Size(56, 13)
-        Me.lblViewFacility.TabIndex = 143
-        Me.lblViewFacility.TabStop = True
-        Me.lblViewFacility.Text = "View Data"
-        Me.lblViewFacility.Visible = False
         '
         'lblViewEmailData
         '
@@ -6932,36 +6901,12 @@ Partial Class DMUEisGecoTool
         Me.Label39.Text = "User Email Address:"
         Me.Label39.TextAlign = System.Drawing.ContentAlignment.BottomLeft
         '
-        'Label52
-        '
-        Me.Label52.AutoSize = True
-        Me.Label52.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label52.Location = New System.Drawing.Point(531, 12)
-        Me.Label52.Name = "Label52"
-        Me.Label52.Size = New System.Drawing.Size(101, 13)
-        Me.Label52.TabIndex = 106
-        Me.Label52.Text = "User Email Address:"
-        Me.Label52.TextAlign = System.Drawing.ContentAlignment.BottomLeft
-        Me.Label52.Visible = False
-        '
         'txtWebUserEmail
         '
         Me.txtWebUserEmail.Location = New System.Drawing.Point(114, 8)
         Me.txtWebUserEmail.Name = "txtWebUserEmail"
         Me.txtWebUserEmail.Size = New System.Drawing.Size(224, 20)
         Me.txtWebUserEmail.TabIndex = 0
-        '
-        'btnActivateEmail
-        '
-        Me.btnActivateEmail.AutoSize = True
-        Me.btnActivateEmail.BackColor = System.Drawing.Color.YellowGreen
-        Me.btnActivateEmail.Location = New System.Drawing.Point(409, 9)
-        Me.btnActivateEmail.Name = "btnActivateEmail"
-        Me.btnActivateEmail.Size = New System.Drawing.Size(105, 23)
-        Me.btnActivateEmail.TabIndex = 174
-        Me.btnActivateEmail.Text = "Activate Tool"
-        Me.btnActivateEmail.UseVisualStyleBackColor = False
-        Me.btnActivateEmail.Visible = False
         '
         'Label1
         '
@@ -7269,13 +7214,9 @@ End Sub
     Friend WithEvents TPWebUsers As System.Windows.Forms.TabPage
     Friend WithEvents TPWebUsers1 As System.Windows.Forms.TabPage
     Friend WithEvents pnlUserEmail As System.Windows.Forms.Panel
-    Friend WithEvents cboUserEmail As System.Windows.Forms.ComboBox
-    Friend WithEvents lblViewFacility As System.Windows.Forms.LinkLabel
     Friend WithEvents lblViewEmailData As System.Windows.Forms.LinkLabel
     Friend WithEvents Label39 As System.Windows.Forms.Label
-    Friend WithEvents Label52 As System.Windows.Forms.Label
     Friend WithEvents txtWebUserEmail As System.Windows.Forms.TextBox
-    Friend WithEvents btnActivateEmail As System.Windows.Forms.Button
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Panel4 As System.Windows.Forms.Panel
     Friend WithEvents Panel5 As System.Windows.Forms.Panel
