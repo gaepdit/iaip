@@ -20,15 +20,10 @@ Namespace DAL
             If sicCode Is Nothing OrElse String.IsNullOrEmpty(sicCode) Then Return False
             If Not Regex.IsMatch(sicCode, SicCodePattern) Then Return False
 
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
-                " FROM LK_SIC " &
-                " WHERE RowNum = 1 " &
-                " AND ACTIVE = 1 " &
-                " AND SIC_CODE = @pId "
-            Dim parameter As New SqlParameter("@pId", sicCode)
+            Dim spName As String = "iaip_facility.IsSicValid"
+            Dim parameter As New SqlParameter("@sic_code", sicCode)
 
-            Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
-            Return Convert.ToBoolean(result)
+            Return DB.SPGetSingleValue(Of String)(spName, parameter)
         End Function
 
         ''' <summary>
@@ -41,15 +36,10 @@ Namespace DAL
             If naicsCode Is Nothing OrElse String.IsNullOrEmpty(naicsCode) Then Return False
             If Not Regex.IsMatch(naicsCode, NaicsCodePattern) Then Return False
 
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
-                " FROM LK_NAICS " &
-                " WHERE RowNum = 1 " &
-                " AND ACTIVE = 1 " &
-                " AND NAICS_CODE = @pId "
-            Dim parameter As New SqlParameter("@pId", naicsCode)
+            Dim spName As String = "iaip_facility.IsNaicsValid"
+            Dim parameter As New SqlParameter("@naics_code", naicsCode)
 
-            Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
-            Return Convert.ToBoolean(result)
+            Return DB.SPGetSingleValue(Of String)(spName, parameter)
         End Function
 
 #End Region
