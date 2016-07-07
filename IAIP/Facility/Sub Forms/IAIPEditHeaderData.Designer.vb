@@ -240,6 +240,7 @@ Partial Class IAIPEditHeaderData
         'SicCode
         '
         Me.SicCode.Location = New System.Drawing.Point(523, 56)
+        Me.SicCode.MaxLength = 4
         Me.SicCode.Name = "SicCode"
         Me.SicCode.Size = New System.Drawing.Size(71, 20)
         Me.SicCode.TabIndex = 6
@@ -563,6 +564,7 @@ Partial Class IAIPEditHeaderData
         'NaicsCode
         '
         Me.NaicsCode.Location = New System.Drawing.Point(523, 83)
+        Me.NaicsCode.MaxLength = 6
         Me.NaicsCode.Name = "NaicsCode"
         Me.NaicsCode.Size = New System.Drawing.Size(71, 20)
         Me.NaicsCode.TabIndex = 7
@@ -578,7 +580,7 @@ Partial Class IAIPEditHeaderData
         Me.SaveChangesButton.Padding = New System.Windows.Forms.Padding(3, 0, 0, 0)
         Me.SaveChangesButton.Size = New System.Drawing.Size(108, 23)
         Me.SaveChangesButton.TabIndex = 14
-        Me.SaveChangesButton.Text = "     Save Changes"
+        Me.SaveChangesButton.Text = "     &Save Changes"
         Me.SaveChangesButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.SaveChangesButton.UseVisualStyleBackColor = True
         '
@@ -589,7 +591,7 @@ Partial Class IAIPEditHeaderData
         Me.CancelEditButton.Name = "CancelEditButton"
         Me.CancelEditButton.Size = New System.Drawing.Size(76, 23)
         Me.CancelEditButton.TabIndex = 15
-        Me.CancelEditButton.Text = "Cancel"
+        Me.CancelEditButton.Text = "&Cancel"
         Me.CancelEditButton.UseVisualStyleBackColor = True
         '
         'EditData

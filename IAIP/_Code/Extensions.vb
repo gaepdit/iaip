@@ -3,6 +3,8 @@ Imports System.IO
 Imports System.Collections.Generic
 Imports System.Reflection
 Imports System.ComponentModel
+Imports System.Linq
+Imports Microsoft.SqlServer.Server
 
 Module Extensions
 
@@ -411,6 +413,22 @@ Module Extensions
     Public Function AddBlankRowToList(l As List(Of String), Optional blankPrompt As String = "") As List(Of String)
         l.Insert(0, blankPrompt)
         Return l
+    End Function
+
+#End Region
+
+#Region " IEnumerable "
+
+    <Extension>
+    Public Function AsSqlDataRecord(Of T)(values As IEnumerable(Of T)) As IEnumerable(Of SqlDataRecord)
+        If values Is Nothing OrElse Not values.Any() Then Return Nothing
+
+        Dim metadata As SqlMetaData = SqlMetaData.InferFromValue(values.First(), "item")
+        Return values.Select(Function(v)
+                                 Dim r As New SqlDataRecord(metadata)
+                                 r.SetValues(v)
+                                 Return r
+                             End Function)
     End Function
 
 #End Region

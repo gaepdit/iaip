@@ -4,6 +4,8 @@ Imports Iaip.Apb.Facilities
 Imports System.Collections.Generic
 Imports System.Text.RegularExpressions
 Imports EpdIt
+Imports Microsoft.SqlServer.Server
+Imports System.Linq
 
 Namespace DAL
     Module FacilityHeaderDataData
@@ -16,7 +18,7 @@ Namespace DAL
         ''' <param name="sicCode">The SIC Code to test.</param>
         ''' <returns>True if the SIC Code exists; otherwise false.</returns>
         ''' <remarks>Does not make any judgments about appropriateness of SIC Code otherwise.</remarks>
-        Public Function SicCodeIsValid(ByVal sicCode As String) As Boolean
+        Public Function SicCodeIsValid(sicCode As String) As Boolean
             If sicCode Is Nothing OrElse String.IsNullOrEmpty(sicCode) Then Return False
             If Not Regex.IsMatch(sicCode, SicCodePattern) Then Return False
 
@@ -32,7 +34,7 @@ Namespace DAL
         ''' <param name="naicsCode">The NAICS Code to test.</param>
         ''' <returns>True if the NAICS Code exists; otherwise false.</returns>
         ''' <remarks>Does not make any judgments about appropriateness of NAICS Code otherwise.</remarks>
-        Public Function NaicsCodeIsValid(ByVal naicsCode As String) As Boolean
+        Public Function NaicsCodeIsValid(naicsCode As String) As Boolean
             If naicsCode Is Nothing OrElse String.IsNullOrEmpty(naicsCode) Then Return False
             If Not Regex.IsMatch(naicsCode, NaicsCodePattern) Then Return False
 
@@ -52,7 +54,7 @@ Namespace DAL
         ''' <param name="airsNumber">The AIRS number of the specified facility</param>
         ''' <returns>DataRow containing header data for the specified facility</returns>
         ''' <remarks>Data retrieved from VW_FACILITY_HEADERDATA view.</remarks>
-        Public Function GetFacilityHeaderDataAsDataRow(ByVal airsNumber As ApbFacilityId) As DataRow
+        Public Function GetFacilityHeaderDataAsDataRow(airsNumber As ApbFacilityId) As DataRow
             Dim spName As String = "IAIP_FACILITY.GetFacilityHeaderData"
             Dim parameter As New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
             Return DB.SPGetDataRow(spName, parameter)
@@ -64,7 +66,7 @@ Namespace DAL
         ''' <param name="airsNumber">The AIRS number of the specified facility</param>
         ''' <returns>A FacilityHeaderData object containing header data for the specified facility</returns>
         ''' <remarks></remarks>
-        Public Function GetFacilityHeaderData(ByVal airsNumber As ApbFacilityId) As FacilityHeaderData
+        Public Function GetFacilityHeaderData(airsNumber As ApbFacilityId) As FacilityHeaderData
             Dim row As DataRow = GetFacilityHeaderDataAsDataRow(airsNumber)
             Dim facilityHeaderData As New FacilityHeaderData(airsNumber)
 
@@ -78,7 +80,7 @@ Namespace DAL
         ''' <param name="row">A DataRow containing data from the database</param>
         ''' <param name="facilityHeaderData">A FacilityHeaderData object to complete</param>
         ''' <remarks></remarks>
-        Public Sub FillFacilityHeaderDataFromDataRow(ByVal row As DataRow, ByRef facilityHeaderData As FacilityHeaderData)
+        Public Sub FillFacilityHeaderDataFromDataRow(row As DataRow, ByRef facilityHeaderData As FacilityHeaderData)
             With facilityHeaderData
                 .OperationalStatusCode = DBUtilities.GetNullable(Of String)(row("STROPERATIONALSTATUS"))
                 .ClassificationCode = DBUtilities.GetNullable(Of String)(row("STRCLASS"))
@@ -105,7 +107,7 @@ Namespace DAL
         ''' <param name="airsNumber">The AIRS number of the specified facility</param>
         ''' <returns>A DataTable of historical header data for the specified facility</returns>
         ''' <remarks>Data retrieved from VW_HB_APBHEADERDATA view.</remarks>
-        Public Function GetFacilityHeaderDataHistoryAsDataTable(ByVal airsNumber As ApbFacilityId) As DataTable
+        Public Function GetFacilityHeaderDataHistoryAsDataTable(airsNumber As ApbFacilityId) As DataTable
             Dim spName As String = "IAIP_FACILITY.GetFacilityHeaderDataHistory"
             Dim parameter As New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
             Return DB.SPGetDataTable(spName, parameter)
@@ -128,162 +130,63 @@ Namespace DAL
         ''' <param name="fromLocation">A ModificationLocation Enum representing the user interface location where a change in facility header data was initiated</param>
         ''' <returns>True if the data was successfully saved to the database; otherwise, False</returns>
         ''' <remarks></remarks>
-        Public Function SaveFacilityHeaderData(ByVal headerData As FacilityHeaderData, ByVal fromLocation As HeaderDataModificationLocation) As Boolean
+        Public Function SaveFacilityHeaderData(headerData As FacilityHeaderData, fromLocation As HeaderDataModificationLocation) As Boolean
             If Not AirsNumberExists(headerData.AirsNumber) Then Return False
 
-            ' -- Transaction
-            ' 1. Update ApbHeaderData
-            ' 2. Update ApbSupplamentalData (sic)
-            ' 3. Any active APC must have at least one key in ApbAirProgramPollutants:
-            '    * Update all existing keys with new operating status
-            '    * If none exist, add one with the new operating status, pollutant = OT & compliance status = C
-            ' 4. For any inactive APC, change any existing subparts in ApbSubpartData to inactive
-            ' 5. Change update status in AfsAirPollutantData to 'C' where currently 'N'
-            ' -- Commit transaction
+            ' Stored Procedure accomplishes the following:
+            '  1. Update ApbHeaderData
+            '  2. Update ApbSupplamentalData (sic)
+            '  3. Any active APC must have at least one key in ApbAirProgramPollutants:
+            '     * Update all existing keys with new operating status
+            '     * If none exist, add one with the new operating status, pollutant = OT & compliance status = C
+            '  4. For any inactive APC, change any existing subparts in ApbSubpartData to inactive
+            '  5. Change update status in AfsAirPollutantData to 'C' where currently 'N'
 
-            Dim queryList As New List(Of String)
-            Dim parametersList As New List(Of SqlParameter())
+            Dim spName As String = "iaip_facility.UpdateFacilityHeaderData"
 
-
-            ' 1. Update ApbHeaderData
-            queryList.Add(
-                "UPDATE APBHEADERDATA " &
-                "  SET STROPERATIONALSTATUS = @OperationalStatusCode, " &
-                "    STRCLASS               = @Classification, " &
-                "    STRAIRPROGRAMCODES     = @AirProgramsCode, " &
-                "    STRSICCODE             = @SicCode, " &
-                "    DATSTARTUPDATE         = @StartupDate, " &
-                "    DATSHUTDOWNDATE        = @ShutdownDate, " &
-                "    STRCOMMENTS            = @HeaderUpdateComment, " &
-                "    STRPLANTDESCRIPTION    = @FacilityDescription, " &
-                "    STRATTAINMENTSTATUS    = @NonattainmentStatusesCode, " &
-                "    STRSTATEPROGRAMCODES   = @AirProgramClassifications, " &
-                "    STRMODIFINGLOCATION    = @fromLocation, " &
-                "    STRNAICSCODE           = @Naics, " &
-                "    STRMODIFINGPERSON      = @modifiedby, " &
-                "    DATMODIFINGDATE        = sysdate " &
-                "  WHERE STRAIRSNUMBER      = @airsnumber "
-            )
-            parametersList.Add(New SqlParameter() {
-                New SqlParameter("@OperationalStatusCode", headerData.OperationalStatusCode),
-                New SqlParameter("@Classification", headerData.Classification.ToString),
-                New SqlParameter("@AirProgramsCode", headerData.AirProgramsCode),
-                New SqlParameter("@SicCode", headerData.SicCode),
-                New SqlParameter("@StartupDate", headerData.StartupDate),
-                New SqlParameter("@ShutdownDate", headerData.ShutdownDate),
-                New SqlParameter("@HeaderUpdateComment", headerData.HeaderUpdateComment),
-                New SqlParameter("@FacilityDescription", headerData.FacilityDescription),
-                New SqlParameter("@NonattainmentStatusesCode", headerData.NonattainmentStatusesCode),
-                New SqlParameter("@AirProgramClassifications", headerData.AirProgramClassificationsCode),
-                New SqlParameter("@fromLocation", Convert.ToInt32(fromLocation)),
-                New SqlParameter("@Naics", headerData.Naics),
-                New SqlParameter("@modifiedby", CurrentUser.UserID),
-                New SqlParameter("@airsnumber", headerData.AirsNumber.DbFormattedString)
-            })
-
-            ' 2. Update ApbSupplamentalData (sic)
-            queryList.Add(
-                " UPDATE APBSUPPLAMENTALDATA " &
-                "  SET STRMODIFINGPERSON = @modifiedby, " &
-                "    DATMODIFINGDATE     = sysdate, " &
-                "    STRRMPID            = @rmp " &
-                "  WHERE STRAIRSNUMBER   = @airsnumber "
-            )
-            parametersList.Add(New SqlParameter() {
-                New SqlParameter("@modifiedby", CurrentUser.UserID),
-                New SqlParameter("@rmp", headerData.RmpId),
-                New SqlParameter("@airsnumber", headerData.AirsNumber.DbFormattedString)
-            })
-
-            ' Check for existance of each possible AirProgram
-            Dim apcArray As Array = System.[Enum].GetValues(GetType(AirProgram))
+            ' Build active and inactive apc lists...
+            Dim activeApcList As New List(Of String)
+            Dim inactiveApcList As New List(Of String)
+            Dim apcArray As Array = [Enum].GetValues(GetType(AirProgram))
             For Each apc As AirProgram In apcArray
                 If apc = AirProgram.None Then
                     Continue For
                 End If
 
                 If (headerData.AirPrograms.HasFlag(apc)) Then
-
-                    ' 3a. For each active APC, update all existing keys in 
-                    '     ApbAirProgramPollutants with new operating status
-                    queryList.Add(
-                        " UPDATE APBAIRPROGRAMPOLLUTANTS " &
-                        "  SET STROPERATIONALSTATUS = @operatingstatus " &
-                        "  WHERE STRAIRSNUMBER      = @airsnumber " &
-                        "  AND STROPERATIONALSTATUS <> 'X' "
-                    )
-                    parametersList.Add(New SqlParameter() {
-                        New SqlParameter("@operatingstatus", headerData.OperationalStatus.ToString),
-                        New SqlParameter("@airsnumber", headerData.AirsNumber.DbFormattedString)
-                    })
-
-                    ' 3b. Any active APC must have at least one key in ApbAirProgramPollutants;
-                    '     if none exist, add one with the new operating status, pollutant = OT 
-                    '     & compliance status = 0 (compliance status column is deprecated)
-                    queryList.Add(
-                        " INSERT " &
-                        " INTO APBAIRPROGRAMPOLLUTANTS " &
-                        "  ( STRAIRSNUMBER, " &
-                        "    STRAIRPOLLUTANTKEY, " &
-                        "    STRPOLLUTANTKEY, " &
-                        "    STRMODIFINGPERSON, " &
-                        "    DATMODIFINGDATE, " &
-                        "    STROPERATIONALSTATUS ) " &
-                        " SELECT @airsnumber, " &
-                        "    @airpollkey, " &
-                        "    @pollkey, " &
-                        "    @modifiedby, " &
-                        "    SYSDATE, " &
-                        "    @operatingstatus " &
-                        " FROM DUAL " &
-                        " WHERE NOT EXISTS " &
-                        "  (SELECT NULL " &
-                        "  FROM APBAIRPROGRAMPOLLUTANTS " &
-                        "  WHERE STRAIRPOLLUTANTKEY = @airpollkey " &
-                        "  ) "
-                    )
-                    parametersList.Add(New SqlParameter() {
-                        New SqlParameter("@airsnumber", headerData.AirsNumber.DbFormattedString),
-                        New SqlParameter("@airpollkey", headerData.AirsNumber.DbFormattedString & FacilityHeaderData.GetAirProgramDbKey(apc)),
-                        New SqlParameter("@pollkey", "OT"),
-                        New SqlParameter("@modifiedby", CurrentUser.UserID),
-                        New SqlParameter("@operatingstatus", headerData.OperationalStatus.ToString)
-                    })
-
+                    activeApcList.Add(FacilityHeaderData.GetAirProgramDbKey(apc))
                 Else
-
-                    ' 4. For any inactive APC, change any existing subparts in ApbSubpartData to inactive
-                    queryList.Add(
-                        " UPDATE APBSUBPARTDATA " &
-                        "  SET ACTIVE          = @active, " &
-                        "    UPDATEUSER        = @modifiedby, " &
-                        "    UPDATEDATETIME    = sysdate " &
-                        "  WHERE STRSUBPARTKEY = @airpollkey "
-                    )
-                    parametersList.Add(New SqlParameter() {
-                        New SqlParameter("@active", "0"),
-                        New SqlParameter("@modifiedby", CurrentUser.UserID),
-                        New SqlParameter("@airpollkey", headerData.AirsNumber.DbFormattedString & FacilityHeaderData.GetAirProgramDbKey(apc))
-                    })
-
+                    inactiveApcList.Add(FacilityHeaderData.GetAirProgramDbKey(apc))
                 End If
             Next
 
-            ' 5. Change update status in AfsAirPollutantData to 'C' where currently 'N'
-            queryList.Add(
-                " UPDATE AFSAIRPOLLUTANTDATA " &
-                "  SET STRUPDATESTATUS   = 'C', " &
-                "    STRMODIFINGPERSON   = @modifiedby, " &
-                "    DATMODIFINGDATE     = sysdate " &
-                "  WHERE STRAIRSNUMBER   = @airsnumber " &
-                "    AND STRUPDATESTATUS = 'N' "
-            )
-            parametersList.Add(New SqlParameter() {
-                New SqlParameter("@modifiedby", CurrentUser.UserID),
-                New SqlParameter("@airsnumber", headerData.AirsNumber.DbFormattedString)
-            })
+            Dim params As SqlParameter() = {
+                New SqlParameter("@airsNumber", headerData.AirsNumber.DbFormattedString),
+                New SqlParameter("@operationalStatusCode", headerData.OperationalStatusCode),
+                New SqlParameter("@classification", headerData.Classification.ToString),
+                New SqlParameter("@airProgramsCode", headerData.AirProgramsCode),
+                New SqlParameter("@sic", headerData.SicCode),
+                New SqlParameter("@naics", headerData.Naics),
+                New SqlParameter("@startupDate", headerData.StartupDate),
+                New SqlParameter("@shutdownDate", headerData.ShutdownDate),
+                New SqlParameter("@headerUpdateComment", headerData.HeaderUpdateComment),
+                New SqlParameter("@facilityDescription", headerData.FacilityDescription),
+                New SqlParameter("@nonattainmentStatusesCode", headerData.NonattainmentStatusesCode),
+                New SqlParameter("@airProgramClassificationsCode", headerData.AirProgramClassificationsCode),
+                New SqlParameter("@fromLocation", Convert.ToInt32(fromLocation)),
+                New SqlParameter("@rmpId", headerData.RmpId),
+                New SqlParameter("@modifiedBy", CurrentUser.UserID),
+                New SqlParameter("@activeApcList", SqlDbType.Structured) With {
+                    .Value = activeApcList.AsSqlDataRecord,
+                    .TypeName = "dbo.StringList"
+                },
+                New SqlParameter("@inactiveApcList", SqlDbType.Structured) With {
+                    .Value = inactiveApcList.AsSqlDataRecord,
+                    .TypeName = "dbo.StringList"
+                }
+            }
 
-            Return DB.RunCommand(queryList, parametersList)
+            Return DB.SPRunCommand(spName, params)
         End Function
 
 #End Region

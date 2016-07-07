@@ -4485,6 +4485,7 @@ Public Class DMUEisGecoTool
 
                 paramList.Add(New SqlParameter("@inventoryYear", EISConfirm))
 
+                ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
                 Dim paramName As String
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     paramName = "@site" & Replace(dgvEISStats(1, i).Value, "-", "")
@@ -4543,6 +4544,7 @@ Public Class DMUEisGecoTool
                 paramList1.Add(New SqlParameter("@updateuser", CurrentUser.AlphaName))
                 paramList1.Add(New SqlParameter("@inventoryYear", EISConfirm))
 
+                ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
                 Dim paramName As String
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     If dgvEISStats(0, i).Value = True And dgvEISStats(6, i).Value = "No" Then
@@ -4574,6 +4576,7 @@ Public Class DMUEisGecoTool
                 paramList2.Add(New SqlParameter("@updateuser", CurrentUser.AlphaName))
                 paramList2.Add(New SqlParameter("@inventoryYear", EISConfirm))
 
+                ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     If dgvEISStats(0, i).Value = True And dgvEISStats(6, i).Value = "Yes" Then
                         paramName = "@site" & Replace(dgvEISStats(1, i).Value, "-", "")
@@ -5779,6 +5782,7 @@ Public Class DMUEisGecoTool
                 paramList.Add(New SqlParameter("@inventoryYear", EISConfirm))
                 paramList.Add(New SqlParameter("@UpdateUser", CurrentUser.AlphaName))
 
+                ' TODO DWW: Change to table-valued parameter instead of dynamically built "IN" list
                 Dim paramName As String
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     If dgvEISStats(0, i).Value = True Then
