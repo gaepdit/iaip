@@ -1,6 +1,4 @@
 ﻿Imports System.Data.SqlClient
-Imports Iaip.Apb.Sscp
-Imports System.Collections.Generic
 
 Namespace DAL.Sscp
 
@@ -63,7 +61,7 @@ Namespace DAL.Sscp
                 Optional year As String = Nothing) As DataTable
             Dim query As String =
                 "SELECT * FROM VW_SSCP_FCES " &
-                " WHERE TRUNC(DATFCECOMPLETED) BETWEEN @datestart AND @dateend "
+                " WHERE DATFCECOMPLETED BETWEEN @datestart AND @dateend "
 
             If airs IsNot Nothing Then query &= " AND STRAIRSNUMBER = @airs "
             If Not String.IsNullOrEmpty(staffId) Then query &= " AND STRREVIEWER = @staffId "
@@ -72,9 +70,9 @@ Namespace DAL.Sscp
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@datestart", dateRangeStart),
                 New SqlParameter("@dateend", dateRangeEnd),
-                New SqlParameter("@airs", airs.DbFormattedString),
-                New SqlParameter("@staffId", staffId),
-                New SqlParameter("@year", year)
+                New SqlParameter("@airs", If(airs.DbFormattedString, "")),
+                New SqlParameter("@staffId", If(staffId, "")),
+                New SqlParameter("@year", If(year, ""))
             }
             Return DB.GetDataTable(query, parameters)
         End Function

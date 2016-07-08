@@ -17,9 +17,8 @@ Namespace DAL
 
             Dim query As String =
                 "SELECT * FROM VW_FEES_FACILITY_SUMMARY " &
-                " WHERE NUMFEEYEAR BETWEEN @startFeeYear AND @endFeeYear "
-
-            If airs IsNot Nothing Then query &= " AND STRAIRSNUMBER = @airs "
+                " WHERE NUMFEEYEAR BETWEEN @startFeeYear AND @endFeeYear " &
+                " AND (@airs IS NULL OR STRAIRSNUMBER = @airs) "
 
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@startFeeYear", startFeeYear),
@@ -29,7 +28,7 @@ Namespace DAL
             Return DB.GetDataTable(query, parameters)
         End Function
 
-        Public Function Update_FS_Admin_Status(ByVal feeYear As String, ByVal airsNumber As String) As Boolean
+        Public Function Update_FS_Admin_Status(feeYear As String, airsNumber As String) As Boolean
             If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(airsNumber) Then Return False
             Dim aN As Apb.ApbFacilityId = airsNumber
 
@@ -66,7 +65,7 @@ Namespace DAL
             Return DB.GetDataTable(query)
         End Function
 
-        Public Function FeeMailoutEntryExists(ByVal airsNumber As Apb.ApbFacilityId, ByVal feeYear As String) As Boolean
+        Public Function FeeMailoutEntryExists(airsNumber As Apb.ApbFacilityId, feeYear As String) As Boolean
             Dim feeYearDecimal As Decimal
             If Not Decimal.TryParse(feeYear, feeYearDecimal) Then Return False
 
@@ -85,7 +84,7 @@ Namespace DAL
             Return Convert.ToBoolean(result)
         End Function
 
-        Public Function UpdateFeeMailoutContact(ByVal contact As Contact, ByVal airsNumber As String, ByVal feeYear As String) As Boolean
+        Public Function UpdateFeeMailoutContact(contact As Contact, airsNumber As String, feeYear As String) As Boolean
             Dim feeYearDecimal As Decimal
             If Not Decimal.TryParse(feeYear, feeYearDecimal) Then Return False
 
@@ -120,7 +119,7 @@ Namespace DAL
                 New SqlParameter("@v10", contact.MailingAddress.State),
                 New SqlParameter("@v11", contact.MailingAddress.PostalCode),
                 New SqlParameter("@v12", contact.EmailAddress),
-                New SqlParameter("@v25", CurrentUser.UserID), 
+                New SqlParameter("@v25", CurrentUser.UserID),
                 New SqlParameter("@v26", OracleDate),
                 New SqlParameter("@airsnumber", airsNumber),
                 New SqlParameter("@feeyear", feeYearDecimal)
@@ -130,7 +129,7 @@ Namespace DAL
 
         End Function
 
-        Public Function UpdateFeeMailoutFacility(ByVal facility As Apb.Facilities.Facility, ByVal airsNumber As String, ByVal feeYear As String) As Boolean
+        Public Function UpdateFeeMailoutFacility(facility As Apb.Facilities.Facility, airsNumber As String, feeYear As String) As Boolean
             Dim feeYearDecimal As Decimal
             If Not Decimal.TryParse(feeYear, feeYearDecimal) Then Return False
 

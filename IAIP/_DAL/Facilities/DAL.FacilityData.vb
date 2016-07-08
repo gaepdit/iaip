@@ -14,7 +14,7 @@ Namespace DAL
         ''' <param name="airsNumber">The AIRS number to test.</param>
         ''' <returns>True if the AIRS number exists; otherwise false.</returns>
         ''' <remarks>Looks for value in APBMASTERAIRS table. Does not make any judgments about state of facility otherwise.</remarks>
-        Public Function AirsNumberExists(ByVal airsNumber As ApbFacilityId) As Boolean
+        Public Function AirsNumberExists(airsNumber As ApbFacilityId) As Boolean
             Dim spName As String = "iaip_facility.AirsNumberExists"
             Dim parameter As New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
             Return DB.SPGetBoolean(spName, parameter)
@@ -25,7 +25,7 @@ Namespace DAL
         ''' </summary>
         ''' <param name="airsNumber">The AIRS number to search for as a string.</param>
         ''' <returns>The facility name, or an empty string if facility AIRS number does not exist.</returns>
-        Public Function GetFacilityName(ByVal airsNumber As ApbFacilityId) As String
+        Public Function GetFacilityName(airsNumber As ApbFacilityId) As String
             Dim fac As Facility = GetFacility(airsNumber)
             Return fac.FacilityName
         End Function
@@ -36,7 +36,7 @@ Namespace DAL
         ''' <param name="airsNumber">The AIRS number to search for.</param>
         ''' <returns>A Facility with basic information, or Nothing if AIRS number does not exist.</returns>
         ''' <remarks></remarks>
-        Public Function GetFacility(ByVal airsNumber As ApbFacilityId) As Facility
+        Public Function GetFacility(airsNumber As ApbFacilityId) As Facility
             Dim row As DataRow = GetFacilityAsDataRow(airsNumber)
             If row IsNot Nothing Then
                 Dim facility As New Facility(airsNumber)
@@ -53,7 +53,7 @@ Namespace DAL
         ''' <param name="airsNumber">The AIRS number of the specified facility</param>
         ''' <returns>DataRow containing basic info for the specified facility</returns>
         ''' <remarks>Data retrieved from VW_FACILITY_BASICINFO view.</remarks>
-        Private Function GetFacilityAsDataRow(ByVal airsNumber As ApbFacilityId) As DataRow
+        Private Function GetFacilityAsDataRow(airsNumber As ApbFacilityId) As DataRow
             Dim spName As String = "iaip_facility.GetFacilityBasicInfo"
             Dim parameter As New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
             Try
@@ -64,7 +64,7 @@ Namespace DAL
             End Try
         End Function
 
-        Private Sub FillFacilityFromDataRow(ByVal row As DataRow, ByRef facility As Facility)
+        Private Sub FillFacilityFromDataRow(row As DataRow, ByRef facility As Facility)
             Dim address As New Address
             With address
                 .City = DBUtilities.GetNullable(Of String)(row("STRFACILITYCITY"))
@@ -101,7 +101,7 @@ Namespace DAL
         ''' <param name="airsNumber">The AIRS number to check</param>
         ''' <returns>True if facility has been approved; otherwise, false</returns>
         ''' <remarks>Looks at STRUPDATESTATUS in AFSFACILITYDATA table.</remarks>
-        Public Function FacilityHasBeenApproved(ByVal airsNumber As Apb.ApbFacilityId) As Boolean
+        Public Function FacilityHasBeenApproved(airsNumber As Apb.ApbFacilityId) As Boolean
             Dim spName As String = "iaip_facility.HasFacilityBeenApproved"
             Dim parameter As New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
             Return DB.SPGetBoolean(spName, parameter)
@@ -113,7 +113,7 @@ Namespace DAL
         ''' <param name="airsNumber">The AIRS number of the facility to query</param>
         ''' <returns>A Dictionary with string keys and date values.</returns>
         ''' <remarks>Data retrieved from VW_FACILITY_DATADATES view.</remarks>
-        Public Function GetDataExchangeDates(ByVal airsNumber As ApbFacilityId) As DataRow
+        Public Function GetDataExchangeDates(airsNumber As ApbFacilityId) As DataRow
             Dim spName As String = "iaip_facility.GetDataDates"
             Dim parameter As New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
             Return DB.SPGetDataRow(spName, parameter)
@@ -129,10 +129,10 @@ Namespace DAL
         ''' <param name="airsNumber">The AIRS number of the facility to shut down</param>
         ''' <param name="shutdownDate">The actual date the facility shut down</param>
         ''' <returns>True if successful; otherwise false</returns>
-        Public Function ShutDownFacility(ByVal airsNumber As Apb.ApbFacilityId, _
-                                         ByVal shutdownDate As Date, _
-                                         ByVal comments As String, _
-                                         ByVal fromLocation As HeaderDataModificationLocation _
+        Public Function ShutDownFacility(airsNumber As Apb.ApbFacilityId,
+                                          shutdownDate As Date,
+                                          comments As String,
+                                          fromLocation As HeaderDataModificationLocation
                                          ) As Boolean
             ' -- Transaction (handled in database procedure):
             '    1. Update APBHeaderData
@@ -140,12 +140,12 @@ Namespace DAL
             '    3. Update EIS_FacilitySite
             '    4. Revoke all open permits
             Dim spName As String = "iaip_facility.ShutDownFacility"
-            Dim parameters As SqlParameter() = { _
-                New SqlParameter("@AirsNumber", airsNumber.DbFormattedString), _
-                New SqlParameter("@ShutDownDate", shutdownDate), _
-                New SqlParameter("@Comments", comments), _
-                New SqlParameter("@FromUiLocation", Convert.ToInt32(fromLocation)), _
-                New SqlParameter("@UserId", CurrentUser.UserID) _
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@AirsNumber", airsNumber.DbFormattedString),
+                New SqlParameter("@ShutDownDate", shutdownDate),
+                New SqlParameter("@Comments", comments),
+                New SqlParameter("@FromUiLocation", Convert.ToInt32(fromLocation)),
+                New SqlParameter("@UserId", CurrentUser.UserID)
             }
 
             Return DB.SPRunCommand(spName, parameters)
@@ -156,7 +156,7 @@ Namespace DAL
         ''' </summary>
         ''' <param name="airsNumber">The AIRS number to delete</param>
         ''' <returns>True if successful; otherwise false</returns>
-        Public Function DeleteFacility(ByVal airsNumber As ApbFacilityId) As Boolean
+        Public Function DeleteFacility(airsNumber As ApbFacilityId) As Boolean
             Dim spName As String = "iaip_facility.DeleteFacility"
             Dim parameter As SqlParameter = New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
             Return DB.SPRunCommand(spName, parameter)
@@ -167,7 +167,7 @@ Namespace DAL
         ''' </summary>
         ''' <param name="airsnumber">The AIRS number of the facility to update.</param>
         ''' <returns>True if successful; otherwise false</returns>
-        Public Function TriggerDataUpdateAtEPA(ByVal airsnumber As ApbFacilityId) As Boolean
+        Public Function TriggerDataUpdateAtEPA(airsnumber As ApbFacilityId) As Boolean
             Dim spName As String = "iaip_facility.TriggerDataUpdateAtEPA"
             Dim parameter As SqlParameter = New SqlParameter("@AirsNumber", airsnumber.DbFormattedString)
             Return DB.SPRunCommand(spName, parameter)

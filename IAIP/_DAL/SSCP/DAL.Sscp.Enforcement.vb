@@ -32,7 +32,7 @@ Namespace DAL.Sscp
                 Optional staffId As String = Nothing) As DataTable
             Dim query As String =
                 "SELECT * FROM VW_SSCP_ENFORCEMENT_SUMMARY " &
-                " WHERE TRUNC(EnforcementDate) BETWEEN @datestart AND @dateend "
+                " WHERE EnforcementDate BETWEEN @datestart AND @dateend "
 
             If airs IsNot Nothing Then query &= " AND STRAIRSNUMBER = @airs "
             If Not String.IsNullOrEmpty(staffId) Then query &= " AND NUMSTAFFRESPONSIBLE = @staffId "
@@ -40,8 +40,8 @@ Namespace DAL.Sscp
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@datestart", dateRangeStart),
                 New SqlParameter("@dateend", dateRangeEnd),
-                New SqlParameter("@airs", airs.DbFormattedString),
-                New SqlParameter("@staffId", staffId)
+                New SqlParameter("@airs", If(airs.DbFormattedString, "")),
+                New SqlParameter("@staffId", If(staffId, ""))
             }
             Return DB.GetDataTable(query, parameters)
         End Function
