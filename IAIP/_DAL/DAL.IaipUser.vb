@@ -183,9 +183,9 @@ Namespace DAL
             Dim spName As String = "AIRBRANCH.IAIP_USER.RequestUserPasswordReset"
             Dim parameter As New OracleParameter("username", username)
             If DB.SPRunCommand(spName, parameter) Then
-                Return ResetPasswordResponse.Success
+                Return RequestPasswordResetResponse.Success
             Else
-                Return ResetPasswordResponse.UnknownError
+                Return RequestPasswordResetResponse.UnknownError
             End If
         End Function
 
