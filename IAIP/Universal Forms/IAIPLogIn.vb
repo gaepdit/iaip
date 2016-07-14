@@ -85,7 +85,7 @@
         Dim prr As String = GetUserSetting(UserSetting.PasswordResetRequestedDate)
         If prr <> "" Then
             Dim prrd As DateTime = DateTime.ParseExact(prr, DateParseExactFormat, Nothing)
-            If DateTime.Compare(prrd, Date.Now.AddHours(-8)) > 0 Then
+            If Date.Compare(prrd, Date.Now.AddHours(-24)) > 0 Then
                 mmiPasswordReset.Visible = True
             Else
                 ResetUserSetting(UserSetting.PasswordResetRequestedDate)

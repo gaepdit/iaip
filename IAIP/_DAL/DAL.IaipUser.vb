@@ -179,9 +179,9 @@ Namespace DAL
             Dim parameter As New SqlParameter("@username", username)
 
             If DB.SPRunCommand(spName, parameter) Then
-                Return ResetPasswordResponse.Success
+                Return RequestPasswordResetResponse.Success
             Else
-                Return ResetPasswordResponse.UnknownError
+                Return RequestPasswordResetResponse.UnknownError
             End If
         End Function
 
@@ -192,10 +192,6 @@ Namespace DAL
         End Enum
 
         Public Function ResetUserPassword(username As String, newPassword As String, resettoken As String) As ResetPasswordResponse
-            Throw New NotImplementedException()
-
-            ' TODO: SQL Server migration
-
             If username = "" OrElse Not UsernameExists(username) Then
                 Return ResetPasswordResponse.InvalidUsername
             End If
@@ -208,7 +204,7 @@ Namespace DAL
                 New SqlParameter("@newpassword", newPassword),
                 New SqlParameter("@resettoken", resettoken)
             }
-            Dim result As String = DB.GetSingleValue(Of String)(spName, parameters)
+            Dim result As String = DB.SPGetSingleValue(Of String)(spName, parameters)
 
             If result IsNot Nothing Then
                 Return [Enum].Parse(GetType(ResetPasswordResponse), result)
