@@ -20,7 +20,7 @@ Partial Class IAIPNavigation
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.mmiFile = New System.Windows.Forms.MenuItem()
         Me.mmiExit = New System.Windows.Forms.MenuItem()
@@ -28,6 +28,7 @@ Partial Class IAIPNavigation
         Me.mmiExport = New System.Windows.Forms.MenuItem()
         Me.ProfileMenuItem = New System.Windows.Forms.MenuItem()
         Me.UsernameDisplay = New System.Windows.Forms.MenuItem()
+        Me.UsernameSeparator = New System.Windows.Forms.MenuItem()
         Me.UpdateProfile = New System.Windows.Forms.MenuItem()
         Me.ChangePassword = New System.Windows.Forms.MenuItem()
         Me.LogOut = New System.Windows.Forms.MenuItem()
@@ -124,7 +125,7 @@ Partial Class IAIPNavigation
         'ProfileMenuItem
         '
         Me.ProfileMenuItem.Index = 2
-        Me.ProfileMenuItem.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.UsernameDisplay, Me.UpdateProfile, Me.ChangePassword, Me.LogOut})
+        Me.ProfileMenuItem.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.UsernameDisplay, Me.UsernameSeparator, Me.UpdateProfile, Me.ChangePassword, Me.LogOut})
         Me.ProfileMenuItem.Text = "&Account"
         '
         'UsernameDisplay
@@ -133,19 +134,24 @@ Partial Class IAIPNavigation
         Me.UsernameDisplay.Index = 0
         Me.UsernameDisplay.Text = "Logged in as username"
         '
+        'UsernameSeparator
+        '
+        Me.UsernameSeparator.Index = 1
+        Me.UsernameSeparator.Text = "-"
+        '
         'UpdateProfile
         '
-        Me.UpdateProfile.Index = 1
+        Me.UpdateProfile.Index = 2
         Me.UpdateProfile.Text = "&Update profile"
         '
         'ChangePassword
         '
-        Me.ChangePassword.Index = 2
+        Me.ChangePassword.Index = 3
         Me.ChangePassword.Text = "&Change password"
         '
         'LogOut
         '
-        Me.LogOut.Index = 3
+        Me.LogOut.Index = 4
         Me.LogOut.Text = "&Log out"
         '
         'mmiHelp
@@ -736,8 +742,8 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.AllowUserToDeleteRows = False
         Me.dgvWorkViewer.AllowUserToOrderColumns = True
         Me.dgvWorkViewer.AllowUserToResizeRows = False
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvWorkViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvWorkViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvWorkViewer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.dgvWorkViewer.ColumnHeadersHeight = 35
         Me.dgvWorkViewer.Dock = System.Windows.Forms.DockStyle.Fill
@@ -848,4 +854,5 @@ Partial Class IAIPNavigation
     Friend WithEvents LogOut As System.Windows.Forms.MenuItem
     Friend WithEvents UsernameDisplay As MenuItem
     Friend WithEvents cboNavWorkListContext As ComboBox
+    Friend WithEvents UsernameSeparator As MenuItem
 End Class

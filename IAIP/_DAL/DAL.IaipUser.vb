@@ -117,21 +117,17 @@ Namespace DAL
         End Function
 
         Public Function UpdateUserPassword(username As String, newPassword As String, oldPassword As String) As PasswordUpdateResponse
-            Throw New NotImplementedException()
-
-            ' TODO: SQL Server migration
-
             If username = "" Then Return PasswordUpdateResponse.InvalidUsername
             If newPassword = "" Then Return PasswordUpdateResponse.InvalidNewPassword
             If oldPassword = "" Then Return PasswordUpdateResponse.InvalidLogin
 
-            Dim spName As String = "IAIP_USER.UpdateUserPassword"
+            Dim spName As String = "iaip_user.UpdateUserPassword"
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@username", username),
                 New SqlParameter("@newpassword", newPassword),
                 New SqlParameter("@oldpassword", oldPassword)
             }
-            Dim result As String = DB.GetSingleValue(Of String)(spName, parameters)
+            Dim result As String = DB.SPGetSingleValue(Of String)(spName, parameters)
 
             If result IsNot Nothing Then
                 Return [Enum].Parse(GetType(PasswordUpdateResponse), result)
