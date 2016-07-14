@@ -3056,7 +3056,7 @@ Public Class SSCPEvents
             Dim parametersList As New List(Of SqlParameter())
             Dim parameters As SqlParameter()
 
-            query = " UDPATE AFSSSCPRECORDS SET STRUPDATESTATUS = 'D' WHERE STRTRACKINGNUMBER = @pId "
+            query = " UPDATE AFSSSCPRECORDS SET STRUPDATESTATUS = 'D' WHERE STRTRACKINGNUMBER = @pId "
             queryList.Add(query)
             parameters = New SqlParameter() {New SqlParameter("@pId", txtTrackingNumber.Text)}
             parametersList.Add(parameters)

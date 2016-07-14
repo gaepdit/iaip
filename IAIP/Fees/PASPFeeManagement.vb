@@ -1358,7 +1358,8 @@ Public Class PASPFeeManagement
             Dim ContactPrefix As String = ""
             Dim ContactSuffix As String = ""
             Dim ContactCompanyName As String = ""
-            Dim ContactAddress As String = ""
+            Dim ContactAddress1 As String = ""
+            Dim ContactAddress2 As String = ""
             Dim ContactCity As String = ""
             Dim ContactState As String = ""
             Dim ContactZipCode As String = ""
@@ -1417,14 +1418,14 @@ Public Class PASPFeeManagement
                             ContactCompanyName = dr2.Item("strContactCompanyName")
                         End If
                         If IsDBNull(dr2.Item("strContactAddress1")) Then
-                            ContactAddress = ""
+                            ContactAddress1 = ""
                         Else
-                            ContactAddress = dr2.Item("strContactAddress1")
+                            ContactAddress1 = dr2.Item("strContactAddress1")
                         End If
                         If IsDBNull(dr2.Item("strContactAddress2")) Then
-                            ContactAddress = ""
+                            ContactAddress2 = ""
                         Else
-                            ContactAddress = dr2.Item("strContactAddress2")
+                            ContactAddress2 = dr2.Item("strContactAddress2")
                         End If
                         If IsDBNull(dr2.Item("strContactcity")) Then
                             ContactCity = ""
@@ -1465,8 +1466,8 @@ Public Class PASPFeeManagement
                         New SqlParameter("@ContactPrefix", ContactPrefix),
                         New SqlParameter("@ContactSuffix", ContactSuffix),
                         New SqlParameter("@ContactCompanyName", ContactCompanyName),
-                        New SqlParameter("@ContactAddress1", ContactAddress),
-                        New SqlParameter("@ContactAddress2", ContactAddress),
+                        New SqlParameter("@ContactAddress1", ContactAddress1),
+                        New SqlParameter("@ContactAddress2", ContactAddress2),
                         New SqlParameter("@ContactCity", ContactCity),
                         New SqlParameter("@ContactState", ContactState),
                         New SqlParameter("@ContactZipCode", ContactZipCode),
@@ -1478,7 +1479,6 @@ Public Class PASPFeeManagement
                 End If
             End While
             dr.Close()
-
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
