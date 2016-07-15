@@ -3727,9 +3727,9 @@ Partial Class DMUEisGecoTool
         '
         'btnAddtoEISMailout
         '
-        Me.btnAddtoEISMailout.Location = New System.Drawing.Point(395, 9)
+        Me.btnAddtoEISMailout.Location = New System.Drawing.Point(259, 9)
         Me.btnAddtoEISMailout.Name = "btnAddtoEISMailout"
-        Me.btnAddtoEISMailout.Size = New System.Drawing.Size(19, 23)
+        Me.btnAddtoEISMailout.Size = New System.Drawing.Size(155, 23)
         Me.btnAddtoEISMailout.TabIndex = 71
         Me.btnAddtoEISMailout.Text = "Add selected to Maillout"
         Me.btnAddtoEISMailout.UseVisualStyleBackColor = True
