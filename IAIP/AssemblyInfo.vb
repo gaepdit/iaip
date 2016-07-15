@@ -26,13 +26,13 @@ Imports System.Runtime.InteropServices
 
 #If SqlServer Then
 
-<Assembly: AssemblyVersion("0.2.0.0")>
-<Assembly: AssemblyFileVersion("0.2.0.0")>
+<Assembly: AssemblyVersion("0.3.0.0")>
+<Assembly: AssemblyFileVersion("0.3.0.0")>
 
 #Else
 
-<Assembly: AssemblyVersion("4.3.7.0")>
-<Assembly: AssemblyFileVersion("4.3.7.0")>
+<Assembly: AssemblyVersion("4.3.8.0")>
+<Assembly: AssemblyFileVersion("4.3.8.0")>
 
 #End If
 

@@ -53,11 +53,11 @@
     <InstallUrl>http://dmu.georgiaair.org/iaip/test/</InstallUrl>
     <ProductName>IAIP SQL Server Edition</ProductName>
     <PublisherName>State of Georgia</PublisherName>
-    <MinimumRequiredVersion>0.1.0.2</MinimumRequiredVersion>
+    <MinimumRequiredVersion>0.3.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>installer.html</WebPage>
     <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>0.2.0.%2a</ApplicationVersion>
+    <ApplicationVersion>0.3.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -114,12 +114,12 @@
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="EpdIt.DbHelper, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EpdIt.DbHelper.1.0.3\lib\net452\EpdIt.DbHelper.dll</HintPath>
+    <Reference Include="EpdIt.DbHelper, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EpdIt.DbHelper.1.0.4\lib\net452\EpdIt.DbHelper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="EQATEC.Analytics.Monitor, Version=3.2.61.0, Culture=neutral, PublicKeyToken=213c7c68adb58a17, processorArchitecture=MSIL">
-      <HintPath>..\packages\EQATEC.Analytics.Monitor.3.2.61\lib\Net20\EQATEC.Analytics.Monitor.dll</HintPath>
+    <Reference Include="EQATEC.Analytics.Monitor, Version=3.3.43.0, Culture=neutral, PublicKeyToken=213c7c68adb58a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\EQATEC.Analytics.Monitor.3.3.43\lib\Net20\EQATEC.Analytics.Monitor.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
