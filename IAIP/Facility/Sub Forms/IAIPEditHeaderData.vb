@@ -445,9 +445,9 @@ Public Class IAIPEditHeaderData
         If facility1.NonattainmentStatusesCode <> facility2.NonattainmentStatusesCode Then Return True
         If facility1.OperationalStatusCode <> facility2.OperationalStatusCode Then Return True
         If facility1.RmpId <> facility2.RmpId Then Return True
-        If facility1.ShutdownDate <> facility2.ShutdownDate Then Return True
+        If Not Nullable.Equals(facility1.ShutdownDate, facility2.ShutdownDate) Then Return True
         If facility1.SicCode <> facility2.SicCode Then Return True
-        If facility1.StartupDate <> facility2.StartupDate Then Return True
+        If Not Nullable.Equals(facility1.StartupDate, facility2.StartupDate) Then Return True
 
         Return False
     End Function
