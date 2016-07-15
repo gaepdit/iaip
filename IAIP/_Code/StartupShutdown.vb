@@ -76,6 +76,7 @@
 
     Friend Sub LogOutUser()
         CurrentUser = Nothing
+        Array.Clear(AccountFormAccess, 0, AccountFormAccess.Length)
         monitor.TrackFeature("Main.LogOut")
         StopMonitor()
         InitializeMonitor()
