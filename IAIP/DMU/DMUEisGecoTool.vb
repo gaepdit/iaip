@@ -4355,7 +4355,7 @@ Public Class DMUEisGecoTool
                     "strContactLastName = @strContactLastName, " &
                     "strContactPrefix = @strContactPrefix, " &
                     "strContactEmail = @strContactEmail, " &
-                    "strComment = @strComment, " &
+                    "strComment = @strComment " &
                     "where intInventoryYear = @intInventoryYear " &
                     "and FacilitySiteID = @FacilitySiteID "
 
