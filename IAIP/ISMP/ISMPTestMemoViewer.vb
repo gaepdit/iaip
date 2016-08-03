@@ -12,7 +12,7 @@ Public Class ISMPTestMemoViewer
     Dim daMemo As SqlDataAdapter
 
 
-    Private Sub ISMPTestMemoViewer_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub ISMPTestMemoViewer_Load(sender As Object, e As System.EventArgs) Handles MyBase.Load
 
         Try
 
@@ -70,7 +70,7 @@ Public Class ISMPTestMemoViewer
 
 #End Region
 
-    Private Sub ISMPTestMemoViewer_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
+    Private Sub ISMPTestMemoViewer_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
             Me.Dispose()
         Catch ex As Exception
@@ -79,7 +79,7 @@ Public Class ISMPTestMemoViewer
 
     End Sub
 #Region "Functions"
-    Sub LoadDataSet(ByVal Loading As String)
+    Sub LoadDataSet(Loading As String)
         Dim SQL As String
         Dim SQLLine As String = " "
         Dim SQLLine2 As String = "AND ("
@@ -240,7 +240,7 @@ Public Class ISMPTestMemoViewer
     End Sub
 #End Region
 
-    Private Sub TBTestMemoViewer_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBTestMemoViewer.ButtonClick
+    Private Sub TBTestMemoViewer_ButtonClick(sender As System.Object, e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBTestMemoViewer.ButtonClick
         Try
 
             Select Case TBTestMemoViewer.Buttons.IndexOf(e.Button)
@@ -260,7 +260,7 @@ Public Class ISMPTestMemoViewer
         End Try
 
     End Sub
-    Private Sub MmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiBack.Click
+    Private Sub MmiBack_Click(sender As System.Object, e As System.EventArgs) Handles MmiBack.Click
         Try
 
             Me.Close()
@@ -271,7 +271,7 @@ Public Class ISMPTestMemoViewer
         End Try
 
     End Sub
-    Private Sub MmiExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiExit.Click
+    Private Sub MmiExit_Click(sender As System.Object, e As System.EventArgs) Handles MmiExit.Click
         Try
 
             Me.Close()
@@ -282,7 +282,7 @@ Public Class ISMPTestMemoViewer
         End Try
 
     End Sub
-    Private Sub mmiCut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCut.Click
+    Private Sub mmiCut_Click(sender As System.Object, e As System.EventArgs) Handles mmiCut.Click
         Try
 
             SendKeys.Send("^(x)")
@@ -293,7 +293,7 @@ Public Class ISMPTestMemoViewer
         End Try
 
     End Sub
-    Private Sub MmiCopy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiCopy.Click
+    Private Sub MmiCopy_Click(sender As System.Object, e As System.EventArgs) Handles MmiCopy.Click
         Try
 
             SendKeys.Send("^(c)")
@@ -304,7 +304,7 @@ Public Class ISMPTestMemoViewer
         End Try
 
     End Sub
-    Private Sub MmiPaste_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiPaste.Click
+    Private Sub MmiPaste_Click(sender As System.Object, e As System.EventArgs) Handles MmiPaste.Click
         Try
 
             SendKeys.Send("^(v)")
@@ -315,7 +315,7 @@ Public Class ISMPTestMemoViewer
         End Try
 
     End Sub
-    Private Sub MmiReset_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiReset.Click
+    Private Sub MmiReset_Click(sender As System.Object, e As System.EventArgs) Handles MmiReset.Click
         Try
 
             ResetOptions()
@@ -326,7 +326,7 @@ Public Class ISMPTestMemoViewer
         End Try
 
     End Sub
-    Private Sub mmiShowToolbar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiShowToolbar.Click
+    Private Sub mmiShowToolbar_Click(sender As System.Object, e As System.EventArgs) Handles mmiShowToolbar.Click
         Try
 
             If TBTestMemoViewer.Visible = True Then
@@ -343,10 +343,10 @@ Public Class ISMPTestMemoViewer
         End Try
 
     End Sub
-    Private Sub MmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiHelp.Click
+    Private Sub MmiHelp_Click(sender As System.Object, e As System.EventArgs) Handles MmiHelp.Click
         OpenDocumentationUrl(Me)
     End Sub
-    Private Sub LLSelectReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLSelectReport.LinkClicked
+    Private Sub LLSelectReport_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLSelectReport.LinkClicked
         Try
 
             SelectTestReport()
@@ -357,10 +357,10 @@ Public Class ISMPTestMemoViewer
         End Try
 
     End Sub
-    Private Sub LLViewMemo_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLViewMemo.LinkClicked
+    Private Sub LLViewMemo_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLViewMemo.LinkClicked
         OpenFormTestMemo(Me.txtReferenceNumber2.Text)
     End Sub
-    Private Sub LLRunSearch_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLRunSearch.LinkClicked
+    Private Sub LLRunSearch_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLRunSearch.LinkClicked
         Try
 
             dsMemo.Clear()
@@ -372,7 +372,7 @@ Public Class ISMPTestMemoViewer
         End Try
 
     End Sub
-    Private Sub dgrMemoViewer_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgrMemoViewer.MouseUp
+    Private Sub dgrMemoViewer_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgrMemoViewer.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrMemoViewer.HitTest(e.X, e.Y)
 
         Try

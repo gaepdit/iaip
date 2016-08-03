@@ -43,7 +43,7 @@
         Return messageList
     End Function
     Private DocumentMessages As Hashtable = GetDocumentMessages()
-    Public Function GetDocumentMessage(ByVal key As DocumentMessageType) As String
+    Public Function GetDocumentMessage(key As DocumentMessageType) As String
         Return DocumentMessages(key)
     End Function
 

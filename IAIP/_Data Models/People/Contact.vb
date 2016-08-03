@@ -6,7 +6,7 @@
         Get
             Return _companyName
         End Get
-        Set(ByVal value As String)
+        Set(value As String)
             _companyName = value
         End Set
     End Property
@@ -16,7 +16,7 @@
         Get
             Return _mailingAddress
         End Get
-        Set(ByVal value As Address)
+        Set(value As Address)
             _mailingAddress = value
         End Set
     End Property
@@ -26,7 +26,7 @@
         Get
             Return _secondaryPhoneNumber
         End Get
-        Set(ByVal value As String)
+        Set(value As String)
             _secondaryPhoneNumber = value
         End Set
     End Property
@@ -36,7 +36,7 @@
         Get
             Return _faxNumber
         End Get
-        Set(ByVal value As String)
+        Set(value As String)
             _faxNumber = value
         End Set
     End Property
@@ -46,7 +46,7 @@
         Get
             Return _description
         End Get
-        Set(ByVal value As String)
+        Set(value As String)
             _description = value
         End Set
     End Property

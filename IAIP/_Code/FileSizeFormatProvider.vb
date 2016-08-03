@@ -7,7 +7,7 @@ Public Class FileSizeFormatProvider
     Implements IFormatProvider
     Implements ICustomFormatter
 
-    Public Function GetFormat(ByVal formatType As Type) As Object Implements System.IFormatProvider.GetFormat
+    Public Function GetFormat(formatType As Type) As Object Implements System.IFormatProvider.GetFormat
         If formatType Is GetType(ICustomFormatter) Then
             Return Me
         End If
@@ -19,7 +19,7 @@ Public Class FileSizeFormatProvider
     Private Const OneMegaByte As Decimal = OneKiloByte * 1024D
     Private Const OneGigaByte As Decimal = OneMegaByte * 1024D
 
-    Public Function Format(ByVal format__1 As String, ByVal arg As Object, ByVal formatProvider As IFormatProvider) As String Implements System.ICustomFormatter.Format
+    Public Function Format(format__1 As String, arg As Object, formatProvider As IFormatProvider) As String Implements System.ICustomFormatter.Format
         If format__1 Is Nothing OrElse Not format__1.StartsWith(fileSizeFormat) Then
             Return defaultFormat(format__1, arg, formatProvider)
         End If
@@ -57,7 +57,7 @@ Public Class FileSizeFormatProvider
 
     End Function
 
-    Private Shared Function defaultFormat(ByVal format As String, ByVal arg As Object, ByVal formatProvider As IFormatProvider) As String
+    Private Shared Function defaultFormat(format As String, arg As Object, formatProvider As IFormatProvider) As String
         Dim formattableArg As IFormattable = TryCast(arg, IFormattable)
         If formattableArg IsNot Nothing Then
             Return formattableArg.ToString(format, formatProvider)

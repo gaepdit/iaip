@@ -5,7 +5,7 @@ Public Class PASPFeesLog
     Dim ds As DataSet
     Dim da As SqlDataAdapter
 
-    Private Sub PASPFeesLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub PASPFeesLog_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
         Try
             LoadDefaults()
@@ -245,7 +245,7 @@ Public Class PASPFeesLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnRunFilter_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunFilter.Click
+    Private Sub btnRunFilter_Click(sender As System.Object, e As System.EventArgs) Handles btnRunFilter.Click
         Try
             RunSearch()
 
@@ -253,7 +253,7 @@ Public Class PASPFeesLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvExistingYearAdmin_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvExistingYearAdmin.MouseUp
+    Private Sub dgvExistingYearAdmin_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvExistingYearAdmin.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvExistingYearAdmin.HitTest(e.X, e.Y)
 
         Try
@@ -270,7 +270,7 @@ Public Class PASPFeesLog
         End Try
 
     End Sub
-    Private Sub btnOpenFeeWorkTool_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenFeeWorkTool.Click
+    Private Sub btnOpenFeeWorkTool_Click(sender As System.Object, e As System.EventArgs) Handles btnOpenFeeWorkTool.Click
         Dim parameters As New Generic.Dictionary(Of BaseForm.FormParameter, String)
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbSelectedAIRSNumber.Text) Then
             parameters(FormParameter.AirsNumber) = mtbSelectedAIRSNumber.Text
@@ -279,7 +279,7 @@ Public Class PASPFeesLog
 
         OpenSingleForm(PASPFeeAuditLog, parameters:=parameters, closeFirst:=True)
     End Sub
-    Private Sub btnExportToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportToExcel.Click
+    Private Sub btnExportToExcel_Click(sender As System.Object, e As System.EventArgs) Handles btnExportToExcel.Click
         dgvExistingYearAdmin.ExportToExcel(Me)
     End Sub
 End Class

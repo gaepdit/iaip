@@ -5,7 +5,7 @@ Public Class DMUIaipErrorLog
 
 #Region " Page Load Functions "
 
-    Private Sub DMUDeveloperTools_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
+    Private Sub DMUDeveloperTools_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadPermissions()
     End Sub
 
@@ -170,11 +170,11 @@ Public Class DMUIaipErrorLog
 
     End Sub
 
-    Private Sub btnFilterErrors_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnFilterErrors.Click
+    Private Sub btnFilterErrors_Click(sender As Object, e As EventArgs) Handles btnFilterErrors.Click
         LoadErrorLog()
     End Sub
 
-    Private Sub btnSaveError_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnSaveError.Click
+    Private Sub btnSaveError_Click(sender As Object, e As EventArgs) Handles btnSaveError.Click
         Dim ErrorSolution As String = ""
 
         If txtErrorSolution.Text <> "" Then
@@ -199,11 +199,11 @@ Public Class DMUIaipErrorLog
         End If
     End Sub
 
-    Private Sub btnFilterWebErrors_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnFilterWebErrors.Click
+    Private Sub btnFilterWebErrors_Click(sender As Object, e As EventArgs) Handles btnFilterWebErrors.Click
         LoadWebErrorLog()
     End Sub
 
-    Private Sub dgrWebErrorList_MouseUp(ByVal sender As Object, ByVal e As MouseEventArgs) Handles dgrWebErrorList.MouseUp
+    Private Sub dgrWebErrorList_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrWebErrorList.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrWebErrorList.HitTest(e.X, e.Y)
 
         Try
@@ -244,7 +244,7 @@ Public Class DMUIaipErrorLog
         End Try
     End Sub
 
-    Private Sub btnSaveWebErrorSolution_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnSaveWebErrorSolution.Click
+    Private Sub btnSaveWebErrorSolution_Click(sender As Object, e As EventArgs) Handles btnSaveWebErrorSolution.Click
         Dim ErrorSolution As String = ""
 
         If txtWebErrorSolution.Text <> "" Then
@@ -269,7 +269,7 @@ Public Class DMUIaipErrorLog
         End If
     End Sub
 
-    Private Sub dgvErrorList_MouseUp(ByVal sender As Object, ByVal e As MouseEventArgs) Handles dgvErrorList.MouseUp
+    Private Sub dgvErrorList_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvErrorList.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvErrorList.HitTest(e.X, e.Y)
             If dgvErrorList.RowCount > 0 And hti.RowIndex <> -1 Then

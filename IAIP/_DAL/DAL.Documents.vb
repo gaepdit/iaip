@@ -12,7 +12,7 @@ Namespace DAL
         ' File filters for open/save dialog boxes
         ' Document extensions from http://en.wikipedia.org/wiki/List_of_file_formats#Document
 
-        Public Function FileSaveFilters(ByVal key As String) As String
+        Public Function FileSaveFilters(key As String) As String
             Dim fileFilters As New Dictionary(Of String, String)
             With fileFilters
                 ' Text
@@ -107,7 +107,7 @@ Namespace DAL
 
 #Region "Retrieve Enforcement Documents"
 
-        Public Function GetEnforcementDocumentsAsList(ByVal enfNum As String) As List(Of EnforcementDocument)
+        Public Function GetEnforcementDocumentsAsList(enfNum As String) As List(Of EnforcementDocument)
             Dim docsList As New List(Of EnforcementDocument)
             Dim doc As New EnforcementDocument
 
@@ -121,7 +121,7 @@ Namespace DAL
             Return docsList
         End Function
 
-        Public Function GetEnforcementDocumentsAsTable(ByVal enfNum As String) As DataTable
+        Public Function GetEnforcementDocumentsAsTable(enfNum As String) As DataTable
             Dim query As String =
                 " SELECT " &
                 "   IAIP_LK_SSCPDOCUMENTTYPE.STRDOCUMENTTYPE, " &
@@ -148,7 +148,7 @@ Namespace DAL
 
 #Region "Read Documents from DataRow"
 
-        Private Function GetEnforcementDocumentFromDataRow(ByVal row As DataRow) As EnforcementDocument
+        Private Function GetEnforcementDocumentFromDataRow(row As DataRow) As EnforcementDocument
             Dim doc As New EnforcementDocument
 
             FillDocumentFromDataRow(row, CType(doc, EnforcementDocument))
@@ -161,7 +161,7 @@ Namespace DAL
             Return doc
         End Function
 
-        Private Sub FillDocumentFromDataRow(ByVal row As DataRow, ByRef doc As Document)
+        Private Sub FillDocumentFromDataRow(row As DataRow, ByRef doc As Document)
             With doc
                 .BinaryFileId = Convert.ToInt32(row("BINARYFILEID"))
                 .FileName = row("STRFILENAME")
@@ -177,7 +177,7 @@ Namespace DAL
 
 #Region "Download files"
 
-        Public Function DownloadDocument(ByVal doc As Document, <Out()> Optional ByRef canceled As Boolean = False, Optional ByVal sender As Object = Nothing) As Boolean
+        Public Function DownloadDocument(doc As Document, <Out()> Optional ByRef canceled As Boolean = False, Optional sender As Object = Nothing) As Boolean
             If doc Is Nothing OrElse doc.BinaryFileId = 0 Then Return False
 
             If sender IsNot Nothing Then
@@ -217,7 +217,7 @@ Namespace DAL
             Return result
         End Function
 
-        Public Function DownloadFile(ByVal id As Integer, ByVal filePath As String) As Boolean
+        Public Function DownloadFile(id As Integer, filePath As String) As Boolean
             Dim query As String = " SELECT IAIP_BINARYFILES.BLOBDOCUMENT " &
                                 " FROM IAIP_BINARYFILES " &
                                 " WHERE IAIP_BINARYFILES.BINARYFILEID = @pBinId "
@@ -229,7 +229,7 @@ Namespace DAL
 
 #Region "Upload files"
 
-        Private Function UploadDocument(ByVal doc As Document, ByVal pathToFile As String, ByVal metaDataQuery As String, ByVal metaDataId As String, Optional ByVal sender As Object = Nothing) As Boolean
+        Private Function UploadDocument(doc As Document, pathToFile As String, metaDataQuery As String, metaDataId As String, Optional sender As Object = Nothing) As Boolean
             Throw New NotImplementedException()
 
             ' TODO: SQL Server migration
@@ -289,7 +289,7 @@ Namespace DAL
             'Return result
         End Function
 
-        Public Function UploadEnforcementDocument(ByVal doc As EnforcementDocument, ByVal pathToFile As String, Optional ByVal sender As Object = Nothing) As Boolean
+        Public Function UploadEnforcementDocument(doc As EnforcementDocument, pathToFile As String, Optional sender As Object = Nothing) As Boolean
             If doc Is Nothing Then Return False
             Dim metaDataQuery As String =
                             " INSERT INTO IAIP_SSCP_ENFORCEMENTDOCS " &
@@ -308,7 +308,7 @@ Namespace DAL
 
 #Region "Delete files"
 
-        Public Function DeleteDocument(ByVal id As Integer, Optional ByVal sender As Object = Nothing) As Boolean
+        Public Function DeleteDocument(id As Integer, Optional sender As Object = Nothing) As Boolean
             If sender IsNot Nothing Then
                 sender.Cursor = Cursors.AppStarting
             End If
@@ -328,7 +328,7 @@ Namespace DAL
 #End Region
 
 #Region "Update file description"
-        Public Function UpdateEnforcementDocument(ByVal doc As EnforcementDocument, Optional ByVal sender As Object = Nothing) As Boolean
+        Public Function UpdateEnforcementDocument(doc As EnforcementDocument, Optional sender As Object = Nothing) As Boolean
             If doc Is Nothing Then Return False
             Dim query As String =
                 " UPDATE IAIP_SSCP_ENFORCEMENTDOCS " &
@@ -340,7 +340,7 @@ Namespace DAL
             Return UpdateDocument(doc, query, sender)
         End Function
 
-        Public Function UpdateDocument(ByVal doc As Document, ByVal query As String, Optional ByVal sender As Object = Nothing) As Boolean
+        Public Function UpdateDocument(doc As Document, query As String, Optional sender As Object = Nothing) As Boolean
             If sender IsNot Nothing Then
                 sender.Cursor = Cursors.AppStarting
             End If
@@ -396,7 +396,7 @@ Namespace DAL
             Return docTypesList
         End Function
 
-        Private Sub FillEnforcementDocumentTypeFromDataRow(ByVal row As DataRow, ByRef d As DocumentType)
+        Private Sub FillEnforcementDocumentTypeFromDataRow(row As DataRow, ByRef d As DocumentType)
             d = New DocumentType
             With d
                 .Active = Convert.ToBoolean(row("FACTIVE"))
@@ -411,7 +411,7 @@ Namespace DAL
             End With
         End Sub
 
-        Public Function UpdateEnforcementDocumentType(ByVal d As DocumentType, Optional ByVal sender As Object = Nothing) As Boolean
+        Public Function UpdateEnforcementDocumentType(d As DocumentType, Optional sender As Object = Nothing) As Boolean
             If d Is Nothing Then Return False
 
             If sender IsNot Nothing Then
@@ -441,7 +441,7 @@ Namespace DAL
             Return result
         End Function
 
-        Public Function SaveEnforcementDocumentType(ByVal d As DocumentType, Optional ByVal sender As Object = Nothing) As Boolean
+        Public Function SaveEnforcementDocumentType(d As DocumentType, Optional sender As Object = Nothing) As Boolean
             If d Is Nothing Then Return False
 
             If sender IsNot Nothing Then

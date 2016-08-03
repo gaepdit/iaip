@@ -10,7 +10,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
     Dim daPublicLetters As SqlDataAdapter
 
 
-    Private Sub DevPublicNoticiesAndAdvisories_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub DevPublicNoticiesAndAdvisories_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
         Try
             Panel1.Text = "Public Advisories Letter Generator"
@@ -1768,7 +1768,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
     End Sub
 #End Region
 #Region "Declarations"
-    Private Sub DevPublicNoticiesAndAdvisories_SizeChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.SizeChanged
+    Private Sub DevPublicNoticiesAndAdvisories_SizeChanged(sender As Object, e As System.EventArgs) Handles Me.SizeChanged
         Try
             If Me.Size.Width > 200 Then
                 If Me.Size.Width > 0 Then
@@ -1798,7 +1798,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
         End Try
     End Sub
-    Private Sub btnPreview_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPreview.Click
+    Private Sub btnPreview_Click(sender As System.Object, e As System.EventArgs) Handles btnPreview.Click
         Try
 
             CreatePublicNoticeList()
@@ -1810,7 +1810,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
         End Try
 
     End Sub
-    Private Sub btnEditApplicationList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddToApplicationList.Click
+    Private Sub btnEditApplicationList_Click(sender As System.Object, e As System.EventArgs) Handles btnAddToApplicationList.Click
         Try
 
             'Do not allow in unless it is in the upper table!!!!!!!
@@ -1830,7 +1830,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
         End Try
 
     End Sub
-    Private Sub btnRemoveFromApplicationList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRemoveFromApplicationList.Click
+    Private Sub btnRemoveFromApplicationList_Click(sender As System.Object, e As System.EventArgs) Handles btnRemoveFromApplicationList.Click
         Try
 
             If txtApplicationNumberEditor.Text <> "" Then
@@ -1844,7 +1844,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
         End Try
 
     End Sub
-    Private Sub btnGeneratePublicNotice_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGeneratePublicNotice.Click
+    Private Sub btnGeneratePublicNotice_Click(sender As System.Object, e As System.EventArgs) Handles btnGeneratePublicNotice.Click
         Try
             If TCPublicNotices.TabPages.Contains(TPPublishDocument) Then
             Else
@@ -1864,7 +1864,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
         End Try
 
     End Sub
-    Private Sub dgvPublicNotice_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvPublicNotice.MouseUp
+    Private Sub dgvPublicNotice_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvPublicNotice.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvPublicNotice.HitTest(e.X, e.Y)
 
@@ -1879,7 +1879,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
         End Try
 
     End Sub
-    Private Sub btnOpenApplication_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenApplication.Click
+    Private Sub btnOpenApplication_Click(sender As System.Object, e As System.EventArgs) Handles btnOpenApplication.Click
         Try
 
             If txtApplicationNumber.Text <> "" Then
@@ -1893,7 +1893,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
         End Try
 
     End Sub
-    Private Sub btnGeneratePNReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGeneratePNReport.Click
+    Private Sub btnGeneratePNReport_Click(sender As System.Object, e As System.EventArgs) Handles btnGeneratePNReport.Click
         Try
 
             txtPublicNoticeDocument.Clear()
@@ -1906,7 +1906,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
         End Try
 
     End Sub
-    Private Sub txtApplicationList_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lsbPublicAdvisories.SelectedIndexChanged
+    Private Sub txtApplicationList_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles lsbPublicAdvisories.SelectedIndexChanged
         Try
             If lsbPublicAdvisories.SelectedIndex > -1 Then
                 txtApplicationNumber.Text = lsbPublicAdvisories.SelectedItem.ToString
@@ -1919,7 +1919,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
         End Try
 
     End Sub
-    Private Sub lsbPublicNoticies_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lsbPublicNoticies.SelectedIndexChanged
+    Private Sub lsbPublicNoticies_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles lsbPublicNoticies.SelectedIndexChanged
         Try
             txtApplicationNumber.Text = lsbPublicNoticies.SelectedItem.ToString
 
@@ -1930,7 +1930,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
         End Try
 
     End Sub
-    Private Sub btnPublishPDF_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPublishPDF.Click
+    Private Sub btnPublishPDF_Click(sender As System.Object, e As System.EventArgs) Handles btnPublishPDF.Click
         Try
             If lblFileName.Text = "pdf File Name" Then
                 GenerateFileName()
@@ -1950,7 +1950,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
         End Try
 
     End Sub
-    Private Sub btnOpenPAPN_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenPAPN.Click
+    Private Sub btnOpenPAPN_Click(sender As System.Object, e As System.EventArgs) Handles btnOpenPAPN.Click
         Try
 
             If cboPAPNReports.Text <> "" Then
@@ -1965,7 +1965,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
         End Try
     End Sub
-    Private Sub btnViewOldPDFs_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewOldPDFs.Click
+    Private Sub btnViewOldPDFs_Click(sender As System.Object, e As System.EventArgs) Handles btnViewOldPDFs.Click
         Try
             Dim rpt As New SSPPPublicNotice
             monitor.TrackFeature("Report." & rpt.ResourceName)
@@ -1998,7 +1998,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
         End Try
     End Sub
-    Private Sub btnClearPreview_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearPreview.Click
+    Private Sub btnClearPreview_Click(sender As System.Object, e As System.EventArgs) Handles btnClearPreview.Click
         Try
 
             lsbApplicationList.Items.Clear()
@@ -2011,7 +2011,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
     End Sub
 
     <CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId:="cmdCB")>
-    Private Sub btnSavePAPNChanges_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSavePAPNChanges.Click
+    Private Sub btnSavePAPNChanges_Click(sender As System.Object, e As System.EventArgs) Handles btnSavePAPNChanges.Click
         Try
             Dim FileName As String = ""
             Dim DestFilePath As String = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "temp.rtf")
@@ -2132,7 +2132,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
 #End Region
 
-    Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
+    Private Sub mmiHelp_Click(sender As System.Object, e As System.EventArgs) Handles mmiHelp.Click
         OpenDocumentationUrl(Me)
     End Sub
 

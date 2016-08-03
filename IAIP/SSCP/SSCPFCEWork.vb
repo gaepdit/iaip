@@ -25,7 +25,7 @@ Public Class SSCPFCEWork
     Dim dtStaff As DataTable
 
 
-    Private Sub SSCPFCE_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub SSCPFCE_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
         Try
 
@@ -1346,7 +1346,7 @@ Public Class SSCPFCEWork
 
 #End Region
 #Region "Delarations"
-    Private Sub txtFCENumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtFCENumber.TextChanged
+    Private Sub txtFCENumber_TextChanged(sender As Object, e As System.EventArgs) Handles txtFCENumber.TextChanged
         Try
             If txtFCENumber.Text = "" Then
                 cboReviewer.SelectedValue = CurrentUser.UserID
@@ -1418,7 +1418,7 @@ Public Class SSCPFCEWork
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbViewFCEData_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewFCEData.LinkClicked
+    Private Sub llbViewFCEData_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewFCEData.LinkClicked
         Try
 
             LoadFCEInspectionData()
@@ -1435,7 +1435,7 @@ Public Class SSCPFCEWork
     End Sub
 
 #Region "Data Grid Mouse Up's"
-    Private Sub dgrFCEACC_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgrFCEACC.MouseUp
+    Private Sub dgrFCEACC_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgrFCEACC.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrFCEACC.HitTest(e.X, e.Y)
         Try
 
@@ -1490,7 +1490,7 @@ Public Class SSCPFCEWork
         End Try
 
     End Sub
-    Private Sub dgrFCECorrespondance_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgrFCECorrespondance.MouseUp
+    Private Sub dgrFCECorrespondance_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgrFCECorrespondance.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrFCECorrespondance.HitTest(e.X, e.Y)
 
         Try
@@ -1521,7 +1521,7 @@ Public Class SSCPFCEWork
         End Try
 
     End Sub
-    Private Sub dgrFCEEnforcement_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgrFCEEnforcement.MouseUp
+    Private Sub dgrFCEEnforcement_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgrFCEEnforcement.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrFCEEnforcement.HitTest(e.X, e.Y)
 
         Try
@@ -1546,7 +1546,7 @@ Public Class SSCPFCEWork
         End Try
 
     End Sub
-    Private Sub dgrFCEInspections_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgrFCEInspections.MouseUp
+    Private Sub dgrFCEInspections_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgrFCEInspections.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrFCEInspections.HitTest(e.X, e.Y)
 
         Try
@@ -1595,7 +1595,7 @@ Public Class SSCPFCEWork
         End Try
 
     End Sub
-    Private Sub dgrISMPSummaryReports_MouseUp(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgrISMPSummaryReports.MouseUp
+    Private Sub dgrISMPSummaryReports_MouseUp(sender As System.Object, e As System.Windows.Forms.MouseEventArgs) Handles dgrISMPSummaryReports.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrISMPSummaryReports.HitTest(e.X, e.Y)
 
         Try
@@ -1647,7 +1647,7 @@ Public Class SSCPFCEWork
         End Try
 
     End Sub
-    Private Sub dgrFCEReports_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgrFCEReports.MouseUp
+    Private Sub dgrFCEReports_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgrFCEReports.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrFCEReports.HitTest(e.X, e.Y)
 
         Try
@@ -1696,7 +1696,7 @@ Public Class SSCPFCEWork
         End Try
 
     End Sub
-    Private Sub dgrPerformanceTests_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgrPerformanceTests.MouseUp
+    Private Sub dgrPerformanceTests_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgrPerformanceTests.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrPerformanceTests.HitTest(e.X, e.Y)
 
         Try
@@ -1732,11 +1732,11 @@ Public Class SSCPFCEWork
     End Sub
 #End Region
     Public WriteOnly Property ValueFromFacilityLookUp() As String
-        Set(ByVal Value As String)
+        Set(Value As String)
             txtAirsNumber.Text = Value
         End Set
     End Property
-    Private Sub SSCPFCECheckList_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
+    Private Sub SSCPFCECheckList_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         SSCPFCE = Nothing
         Me.Dispose()
     End Sub
@@ -1963,22 +1963,22 @@ Public Class SSCPFCEWork
     End Sub
 
 #Region "Open Subborting Documents"
-    Private Sub llbFCEInspections_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFCEInspections.LinkClicked
+    Private Sub llbFCEInspections_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFCEInspections.LinkClicked
         OpenFormSscpWorkItem(txtInspectionTrackingNumber.Text)
     End Sub
-    Private Sub llbFCEACC_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFCEACC.LinkClicked
+    Private Sub llbFCEACC_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFCEACC.LinkClicked
         OpenFormSscpWorkItem(txtACCTrackingNumber.Text)
     End Sub
-    Private Sub llbFCEReports_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFCEReports.LinkClicked
+    Private Sub llbFCEReports_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFCEReports.LinkClicked
         OpenFormSscpWorkItem(txtReportTrackingNumber.Text)
     End Sub
-    Private Sub llbPerformanceTests_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbPerformanceTests.LinkClicked
+    Private Sub llbPerformanceTests_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbPerformanceTests.LinkClicked
         OpenFormSscpWorkItem(txtPerformanceTests.Text)
     End Sub
-    Private Sub llbNotification_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbNotification.LinkClicked
+    Private Sub llbNotification_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbNotification.LinkClicked
         OpenFormSscpWorkItem(txtNotificationTrackingNumber.Text)
     End Sub
-    Private Sub llbISMPSummaryReports_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbISMPSummaryReports.LinkClicked
+    Private Sub llbISMPSummaryReports_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbISMPSummaryReports.LinkClicked
         Dim temp As String = ""
         Try
 
@@ -2009,7 +2009,7 @@ Public Class SSCPFCEWork
         End Try
 
     End Sub
-    Private Sub llbFCEEnforcement_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFCEEnforcement.LinkClicked
+    Private Sub llbFCEEnforcement_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFCEEnforcement.LinkClicked
         OpenFormEnforcement(txtEnforcement.Text)
     End Sub
 #End Region
@@ -2083,15 +2083,15 @@ Public Class SSCPFCEWork
 #End Region
 
 #Region "Menu and toolbar"
-    Private Sub MenuSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuSave.Click
+    Private Sub MenuSave_Click(sender As System.Object, e As System.EventArgs) Handles MenuSave.Click
         SaveFCE()
     End Sub
 
-    Private Sub MenuPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuPrint.Click
+    Private Sub MenuPrint_Click(sender As System.Object, e As System.EventArgs) Handles MenuPrint.Click
         LoadSSCPFCEReport()
     End Sub
 
-    Private Sub MenuClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuClose.Click
+    Private Sub MenuClose_Click(sender As System.Object, e As System.EventArgs) Handles MenuClose.Click
         Me.Close()
     End Sub
 

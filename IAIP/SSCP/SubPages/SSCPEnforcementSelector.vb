@@ -9,7 +9,7 @@ Public Class SSCPEnforcementSelector
     Dim dsComplianceUnits As DataSet
     Dim daComplianceUnits As SqlDataAdapter
 
-    Private Sub SSCPEnforcementSelector_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub SSCPEnforcementSelector_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
         Try
 
@@ -23,7 +23,7 @@ Public Class SSCPEnforcementSelector
         End Try
 
     End Sub
-    Private Sub SSCPEnforcementSelector_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
+    Private Sub SSCPEnforcementSelector_Activated(sender As Object, e As System.EventArgs) Handles Me.Activated
         txtAIRSNumber.Focus()
     End Sub
     Private Sub ParseParameters()
@@ -89,7 +89,7 @@ Public Class SSCPEnforcementSelector
 
     End Sub
 #Region "Main Menu"
-    Private Sub mmiSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSearch.Click
+    Private Sub mmiSearch_Click(sender As System.Object, e As System.EventArgs) Handles mmiSearch.Click
         Try
 
             OpenFacilityLookupTool()
@@ -100,7 +100,7 @@ Public Class SSCPEnforcementSelector
         End Try
 
     End Sub
-    Private Sub mmiOpenEnforcement_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOpenEnforcement.Click
+    Private Sub mmiOpenEnforcement_Click(sender As System.Object, e As System.EventArgs) Handles mmiOpenEnforcement.Click
         Try
 
             OpenEnforcement()
@@ -111,16 +111,16 @@ Public Class SSCPEnforcementSelector
         End Try
 
     End Sub
-    Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
+    Private Sub mmiHelp_Click(sender As System.Object, e As System.EventArgs) Handles mmiHelp.Click
         OpenDocumentationUrl(Me)
     End Sub
 #End Region
     Public WriteOnly Property ValueFromFacilityLookUp() As String
-        Set(ByVal Value As String)
+        Set(Value As String)
             txtAIRSNumber.Text = Value
         End Set
     End Property
-    Private Sub TBSSCPFCESelector_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBSSCPFCESelector.ButtonClick
+    Private Sub TBSSCPFCESelector_ButtonClick(sender As System.Object, e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBSSCPFCESelector.ButtonClick
         Try
 
             Select Case TBSSCPFCESelector.Buttons.IndexOf(e.Button)
@@ -136,7 +136,7 @@ Public Class SSCPEnforcementSelector
         End Try
 
     End Sub
-    Private Sub txtAIRSNumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtAIRSNumber.TextChanged
+    Private Sub txtAIRSNumber_TextChanged(sender As Object, e As System.EventArgs) Handles txtAIRSNumber.TextChanged
         Try
             If txtAIRSNumber.Text.Length = 8 Then
                 Dim airsNum As String = txtAIRSNumber.Text
@@ -155,7 +155,7 @@ Public Class SSCPEnforcementSelector
         End Try
 
     End Sub
-    Private Sub btnOpenEnforcement_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenEnforcement.Click
+    Private Sub btnOpenEnforcement_Click(sender As System.Object, e As System.EventArgs) Handles btnOpenEnforcement.Click
         Try
             If txtFacilityName.Text <> "Invalid AIRS Number" And txtFacilityName.Text <> "" Then
                 OpenEnforcement()
@@ -166,7 +166,7 @@ Public Class SSCPEnforcementSelector
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnOpenEnforcements_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenEnforcements.Click
+    Private Sub btnOpenEnforcements_Click(sender As System.Object, e As System.EventArgs) Handles btnOpenEnforcements.Click
         Try
 
             LoadSSCPEnforcementDataGrid("AllOpen")
@@ -212,7 +212,7 @@ Public Class SSCPEnforcementSelector
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadSSCPEnforcementDataGrid(ByVal Source As String)
+    Sub LoadSSCPEnforcementDataGrid(Source As String)
         Try
 
             Select Case Source
@@ -442,7 +442,7 @@ Public Class SSCPEnforcementSelector
         End Try
 
     End Sub
-    Private Sub btnView_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnView.Click
+    Private Sub btnView_Click(sender As System.Object, e As System.EventArgs) Handles btnView.Click
         Try
 
             LoadSSCPEnforcementDataGrid("ByUnit")
@@ -453,7 +453,7 @@ Public Class SSCPEnforcementSelector
         End Try
 
     End Sub
-    Private Sub dgvSSCPEnforcement_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvSSCPEnforcement.MouseUp
+    Private Sub dgvSSCPEnforcement_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvSSCPEnforcement.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvSSCPEnforcement.HitTest(e.X, e.Y)
 
         Try
@@ -471,7 +471,7 @@ Public Class SSCPEnforcementSelector
         End Try
 
     End Sub
-    Private Sub btnViewAllEnforcements_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewAllEnforcements.Click
+    Private Sub btnViewAllEnforcements_Click(sender As System.Object, e As System.EventArgs) Handles btnViewAllEnforcements.Click
         Try
 
             LoadSSCPEnforcementDataGrid("All")
@@ -482,7 +482,7 @@ Public Class SSCPEnforcementSelector
         End Try
 
     End Sub
-    Private Sub btnExport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExport.Click
+    Private Sub btnExport_Click(sender As System.Object, e As System.EventArgs) Handles btnExport.Click
         dgvSSCPEnforcement.ExportToExcel(Me)
     End Sub
 

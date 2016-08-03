@@ -39,7 +39,7 @@ Public Class CRViewerForm
     ''' <param name="dataTable">A DataTable to be used by the report</param>
     ''' <param name="parameters">A Dictionary of parameters to be used by the report</param>
     ''' <param name="title">The window title</param>
-    Public Sub New(ByVal reportDocument As ReportClass, ByVal dataTable As DataTable, Optional ByVal parameters As Dictionary(Of String, String) = Nothing, Optional ByVal title As String = Nothing)
+    Public Sub New(reportDocument As ReportClass, dataTable As DataTable, Optional parameters As Dictionary(Of String, String) = Nothing, Optional title As String = Nothing)
         ' This call is required by the Windows Form Designer.
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
@@ -56,7 +56,7 @@ Public Class CRViewerForm
     ''' <param name="dataSet">A DataTable to be used by the report</param>
     ''' <param name="parameters">A Dictionary of parameters to be used by the report</param>
     ''' <param name="title">The window title</param>
-    Public Sub New(ByVal reportDocument As ReportClass, ByVal dataSet As DataSet, Optional ByVal parameters As Dictionary(Of String, String) = Nothing, Optional ByVal title As String = Nothing)
+    Public Sub New(reportDocument As ReportClass, dataSet As DataSet, Optional parameters As Dictionary(Of String, String) = Nothing, Optional title As String = Nothing)
         ' This call is required by the Windows Form Designer.
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
@@ -73,7 +73,7 @@ Public Class CRViewerForm
     ''' <param name="data">IEnumerable data to be used by the report</param>
     ''' <param name="parameters">A Dictionary of parameters to be used by the report</param>
     ''' <param name="title">The window title</param>
-    Public Sub New(ByVal reportDocument As ReportClass, ByVal data As IEnumerable, Optional ByVal parameters As Dictionary(Of String, String) = Nothing, Optional ByVal title As String = Nothing)
+    Public Sub New(reportDocument As ReportClass, data As IEnumerable, Optional parameters As Dictionary(Of String, String) = Nothing, Optional title As String = Nothing)
         ' This call is required by the Windows Form Designer.
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
@@ -89,7 +89,7 @@ Public Class CRViewerForm
     ''' <param name="reportDocument">The Crystal Reports report document to load</param>
     ''' <param name="parameters">A Dictionary of parameters to be used by the report</param>
     ''' <param name="title">The window title</param>
-    Public Sub New(ByVal reportDocument As ReportClass, Optional ByVal parameters As Dictionary(Of String, String) = Nothing, Optional ByVal title As String = Nothing)
+    Public Sub New(reportDocument As ReportClass, Optional parameters As Dictionary(Of String, String) = Nothing, Optional title As String = Nothing)
         ' This call is required by the Windows Form Designer.
         InitializeComponent()
         ' Add any initialization after the InitializeComponent() call.
@@ -106,7 +106,7 @@ Public Class CRViewerForm
     ' ''' <param name="dataSource">A DataTable to be used by the report</param>
     ' ''' <param name="parameters">A Dictionary of parameters to be used by the report</param>
     ' ''' <param name="title">The window title</param>
-    'Public Sub New(ByVal reportDocument As ReportClass, ByVal dataSource As IDataReader, Optional ByVal parameters As Dictionary(Of String, String) = Nothing, Optional ByVal title As String = Nothing)
+    'Public Sub New(reportDocument As ReportClass, dataSource As IDataReader, Optional parameters As Dictionary(Of String, String) = Nothing, Optional title As String = Nothing)
     '    ' This call is required by the Windows Form Designer.
     '    InitializeComponent()
     '    ' Add any initialization after the InitializeComponent() call.
@@ -120,7 +120,7 @@ Public Class CRViewerForm
 
 #Region " Form events "
 
-    Private Sub CrystalReportViewerForm_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub CrystalReportViewerForm_FormClosed(sender As Object, e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         CRViewerControl.ReportSource = Nothing
         If CRReportDocument IsNot Nothing Then
             CRReportDocument.Close()
@@ -128,7 +128,7 @@ Public Class CRViewerForm
         End If
     End Sub
 
-    Private Sub CrystalReportViewerForm_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Private Sub CrystalReportViewerForm_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         monitor.TrackFeature("Report." & CRReportDocument.ResourceName)
 
         If Me.CRReportDocument IsNot Nothing Then
@@ -141,7 +141,7 @@ Public Class CRViewerForm
 #End Region
 
 #Region " Utilities "
-    Private Sub CRSetParameters(ByVal document As ReportClass, ByVal parameters As Dictionary(Of String, String))
+    Private Sub CRSetParameters(document As ReportClass, parameters As Dictionary(Of String, String))
         Dim fieldDefinitions As ParameterFieldDefinitions = document.DataDefinition.ParameterFields
         Dim parameterValues As ParameterValues = New ParameterValues()
 
@@ -154,7 +154,7 @@ Public Class CRViewerForm
         Next
     End Sub
 
-    Private Sub CRViewerTabs(ByVal viewer As CrystalReportViewer, ByVal visible As Boolean)
+    Private Sub CRViewerTabs(viewer As CrystalReportViewer, visible As Boolean)
         ' http://bloggingabout.net/blogs/jschreuder/archive/2005/08/03/8760.aspx
         If viewer IsNot Nothing Then
             For Each control As Control In viewer.Controls

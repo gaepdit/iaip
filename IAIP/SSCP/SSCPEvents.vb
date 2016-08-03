@@ -25,7 +25,7 @@ Public Class SSCPEvents
 
 #Region " Form load "
 
-    Private Sub SSCP_Reports_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub SSCP_Reports_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
         Try
             btnPrint.Visible = False
@@ -49,7 +49,7 @@ Public Class SSCPEvents
         End Try
     End Sub
 
-    Private Sub SSCPEvents_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
+    Private Sub SSCPEvents_Shown(sender As Object, e As System.EventArgs) Handles Me.Shown
         Try
             ShowCorrectTab()
         Catch ex As Exception
@@ -695,7 +695,7 @@ Public Class SSCPEvents
     End Sub
 #End Region
 
-    Private Sub cboReportSchedule_SelectedValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cboReportSchedule.SelectedIndexChanged
+    Private Sub cboReportSchedule_SelectedValueChanged(sender As System.Object, e As System.EventArgs) Handles cboReportSchedule.SelectedIndexChanged
         Dim today As Date = Date.Today
         Dim year As String = today.Year
 
@@ -3082,7 +3082,7 @@ Public Class SSCPEvents
 
 #Region "Validate"
 #Region "Reports"
-    Private Sub cboReportSchedule_Validating(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles cboReportSchedule.Validating
+    Private Sub cboReportSchedule_Validating(sender As System.Object, e As System.ComponentModel.CancelEventArgs) Handles cboReportSchedule.Validating
         Try
 
             ValidatecboReportSchedule()
@@ -3093,7 +3093,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub rdbReportCompleteYes_Validating(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbReportCompleteYes.Validating
+    Private Sub rdbReportCompleteYes_Validating(sender As System.Object, e As System.ComponentModel.CancelEventArgs) Handles rdbReportCompleteYes.Validating
         Try
 
             ValidateReportComplete()
@@ -3104,7 +3104,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub rdbReportCompleteNo_Validating(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbReportCompleteNo.Validating
+    Private Sub rdbReportCompleteNo_Validating(sender As System.Object, e As System.ComponentModel.CancelEventArgs) Handles rdbReportCompleteNo.Validating
         Try
 
             ValidateReportComplete()
@@ -3115,7 +3115,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub rdbReportDeviationYes_Validating(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbReportDeviationYes.Validating
+    Private Sub rdbReportDeviationYes_Validating(sender As System.Object, e As System.ComponentModel.CancelEventArgs) Handles rdbReportDeviationYes.Validating
         Try
 
             ValidateShowDeviation()
@@ -3126,7 +3126,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub rdbReportDeviationNo_Validating(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbReportDeviationNo.Validating
+    Private Sub rdbReportDeviationNo_Validating(sender As System.Object, e As System.ComponentModel.CancelEventArgs) Handles rdbReportDeviationNo.Validating
         Try
 
             ValidateShowDeviation()
@@ -3137,7 +3137,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub rdbReportEnforcementYes_Validating(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbReportEnforcementYes.Validating
+    Private Sub rdbReportEnforcementYes_Validating(sender As System.Object, e As System.ComponentModel.CancelEventArgs) Handles rdbReportEnforcementYes.Validating
         Try
 
             ValidateEnforcementNeeded()
@@ -3148,7 +3148,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub rdbReportEnforcementNo_Validating(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbReportEnforcementNo.Validating
+    Private Sub rdbReportEnforcementNo_Validating(sender As System.Object, e As System.ComponentModel.CancelEventArgs) Handles rdbReportEnforcementNo.Validating
         Try
 
             ValidateEnforcementNeeded()
@@ -3159,7 +3159,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub NUPSubmittal_Validating(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles NUPReportSubmittal.Validating
+    Private Sub NUPSubmittal_Validating(sender As System.Object, e As System.ComponentModel.CancelEventArgs) Handles NUPReportSubmittal.Validating
         Try
 
             ValidateSubmittalNumber()
@@ -3172,7 +3172,7 @@ Public Class SSCPEvents
     End Sub
 #End Region
 #Region "Inspections"
-    Private Sub cboInspectionComplianceStatus_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles cboInspectionComplianceStatus.Validating
+    Private Sub cboInspectionComplianceStatus_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cboInspectionComplianceStatus.Validating
         Try
 
             ValidatecboInspectionComplianceStatus()
@@ -3183,7 +3183,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub rdbInspectionFacilityOperatingYes_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbInspectionFacilityOperatingYes.Validating
+    Private Sub rdbInspectionFacilityOperatingYes_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles rdbInspectionFacilityOperatingYes.Validating
         Try
 
             ValidateFacilityOperating()
@@ -3194,7 +3194,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub rdbInspectionFacilityOperatingNo_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbInspectionFacilityOperatingNo.Validating
+    Private Sub rdbInspectionFacilityOperatingNo_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles rdbInspectionFacilityOperatingNo.Validating
         Try
 
             ValidateFacilityOperating()
@@ -3205,7 +3205,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub DTPInspectionDateStart_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles DTPInspectionDateStart.Validating
+    Private Sub DTPInspectionDateStart_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles DTPInspectionDateStart.Validating
         Try
 
             ValidateDTPInspectionDates()
@@ -3216,7 +3216,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub DTPInspectionDateEnd_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles DTPInspectionDateEnd.Validating
+    Private Sub DTPInspectionDateEnd_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles DTPInspectionDateEnd.Validating
         Try
 
             ValidateDTPInspectionDates()
@@ -3230,7 +3230,7 @@ Public Class SSCPEvents
 
 #End Region
 #Region "ACC"
-    Private Sub rdbACCConditionsYes_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbACCConditionsYes.Validating
+    Private Sub rdbACCConditionsYes_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles rdbACCConditionsYes.Validating
         Try
 
             ValidateTitleVConditions()
@@ -3241,7 +3241,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub rdbACCConditionsNo_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbACCConditionsNo.Validating
+    Private Sub rdbACCConditionsNo_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles rdbACCConditionsNo.Validating
         Try
 
             ValidateTitleVConditions()
@@ -3252,7 +3252,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub rdbACCCorrectACCNo_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbACCCorrectACCNo.Validating
+    Private Sub rdbACCCorrectACCNo_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles rdbACCCorrectACCNo.Validating
         Try
 
             ValidateCorrectACCForms()
@@ -3263,7 +3263,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub rdbACCCorrectACCYes_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbACCCorrectACCYes.Validating
+    Private Sub rdbACCCorrectACCYes_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles rdbACCCorrectACCYes.Validating
         Try
 
             ValidateCorrectACCForms()
@@ -3274,7 +3274,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub rdbACCCorrectYes_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbACCCorrectYes.Validating
+    Private Sub rdbACCCorrectYes_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles rdbACCCorrectYes.Validating
         Try
 
             ValidateCorrectlyFilledOut()
@@ -3285,7 +3285,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub rdbACCCorrectNo_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbACCCorrectNo.Validating, rdbACCAllDeviationsReportedUnknown.Validating
+    Private Sub rdbACCCorrectNo_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles rdbACCCorrectNo.Validating, rdbACCAllDeviationsReportedUnknown.Validating
         Try
 
             ValidateCorrectlyFilledOut()
@@ -3296,7 +3296,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub rdbACCDeviationsReportedYes_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbACCDeviationsReportedYes.Validating
+    Private Sub rdbACCDeviationsReportedYes_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles rdbACCDeviationsReportedYes.Validating
         Try
 
             ValidateReportedDeviations()
@@ -3307,7 +3307,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub rdbACCDeviationsReportedNo_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbACCDeviationsReportedNo.Validating
+    Private Sub rdbACCDeviationsReportedNo_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles rdbACCDeviationsReportedNo.Validating
         Try
 
             ValidateReportedDeviations()
@@ -3318,7 +3318,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub rdbACCEnforcementNeededYes_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbACCEnforcementNeededYes.Validating
+    Private Sub rdbACCEnforcementNeededYes_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles rdbACCEnforcementNeededYes.Validating
         Try
 
             ValidateACCEnforcementNeeded()
@@ -3329,7 +3329,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub rdbACCAllDeviationsReported_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) _
+    Private Sub rdbACCAllDeviationsReported_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) _
     Handles rdbACCAllDeviationsReportedYes.Validating, rdbACCAllDeviationsReportedNo.Validating, rdbACCAllDeviationsReportedUnknown.Validating
         Try
             ValidateACCAllDeviationsReported()
@@ -3337,7 +3337,7 @@ Public Class SSCPEvents
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub rdbACCResubmittalRequested_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) _
+    Private Sub rdbACCResubmittalRequested_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) _
     Handles rdbACCResubmittalRequestedYes.Validating, rdbACCResubmittalRequestedNo.Validating, rdbACCResubmittalRequestedUnknown.Validating
         Try
             ValidateACCResubmittalRequested()
@@ -3345,7 +3345,7 @@ Public Class SSCPEvents
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub rdbACCEnforcementNeededNo_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbACCEnforcementNeededNo.Validating
+    Private Sub rdbACCEnforcementNeededNo_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles rdbACCEnforcementNeededNo.Validating
         Try
 
             ValidateACCEnforcementNeeded()
@@ -3356,7 +3356,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub rdbACCPostmarkYes_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbACCPostmarkYes.Validating
+    Private Sub rdbACCPostmarkYes_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles rdbACCPostmarkYes.Validating
         Try
 
             ValidatePostmarkDate()
@@ -3368,7 +3368,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub rdbACCPostmarkNo_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbACCPostmarkNo.Validating
+    Private Sub rdbACCPostmarkNo_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles rdbACCPostmarkNo.Validating
         Try
 
             ValidatePostmarkDate()
@@ -3380,7 +3380,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub rdbACCPreviousDeviationsYes_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbACCPreviouslyUnreportedDeviationsYes.Validating
+    Private Sub rdbACCPreviousDeviationsYes_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles rdbACCPreviouslyUnreportedDeviationsYes.Validating
         Try
 
             ValidatePreviouslyReportedDeviations()
@@ -3391,7 +3391,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub rdbACCPreviousDeviationsNo_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbACCPreviouslyUnreportedDeviationsNo.Validating
+    Private Sub rdbACCPreviousDeviationsNo_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles rdbACCPreviouslyUnreportedDeviationsNo.Validating
         Try
 
             ValidatePreviouslyReportedDeviations()
@@ -3402,7 +3402,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub rdbACCROYes_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbACCROYes.Validating
+    Private Sub rdbACCROYes_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles rdbACCROYes.Validating
         Try
 
             ValidateROSigned()
@@ -3413,7 +3413,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub rdbACCRONo_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles rdbACCRONo.Validating
+    Private Sub rdbACCRONo_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles rdbACCRONo.Validating
         Try
 
             ValidateROSigned()
@@ -3424,7 +3424,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub NUPACCSubmittal_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles NUPACCSubmittal.Validating
+    Private Sub NUPACCSubmittal_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles NUPACCSubmittal.Validating
         Try
 
             ValidateNUPACCSubmittal()
@@ -3838,7 +3838,7 @@ Public Class SSCPEvents
 #End Region
 #End Region
 
-    Private Sub dgrReportResubmittal_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgrReportResubmittal.MouseUp
+    Private Sub dgrReportResubmittal_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgrReportResubmittal.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrReportResubmittal.HitTest(e.X, e.Y)
         Try
 
@@ -3862,7 +3862,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub DGRACCResubmittal_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles DGRACCResubmittal.MouseUp
+    Private Sub DGRACCResubmittal_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles DGRACCResubmittal.MouseUp
         Dim hti As DataGrid.HitTestInfo = DGRACCResubmittal.HitTest(e.X, e.Y)
         Try
 
@@ -3886,7 +3886,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub chbTestReportChangeDueDate_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbTestReportChangeDueDate.CheckedChanged
+    Private Sub chbTestReportChangeDueDate_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbTestReportChangeDueDate.CheckedChanged
         Try
 
             If chbTestReportChangeDueDate.Checked = False Then
@@ -3901,7 +3901,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub DTPTestReportDueDate_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles DTPTestReportDueDate.TextChanged
+    Private Sub DTPTestReportDueDate_TextChanged(sender As Object, e As System.EventArgs) Handles DTPTestReportDueDate.TextChanged
         Try
 
             If chbTestReportChangeDueDate.Checked = True Then
@@ -3915,7 +3915,7 @@ Public Class SSCPEvents
 
     End Sub
 
-    Private Sub cboNotificationType_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboNotificationType.SelectedIndexChanged
+    Private Sub cboNotificationType_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles cboNotificationType.SelectedIndexChanged
         Try
 
             Select Case cboNotificationType.Text
@@ -3961,7 +3961,7 @@ Public Class SSCPEvents
     End Sub
 
 
-    Private Sub chbEventComplete_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbEventComplete.CheckedChanged
+    Private Sub chbEventComplete_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbEventComplete.CheckedChanged
         Try
 
             If AccountFormAccess(49, 1) = "1" Or AccountFormAccess(49, 2) = "1" Or AccountFormAccess(49, 3) = "1" Or AccountFormAccess(49, 4) = "1" Then
@@ -3978,10 +3978,10 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub btnEnforcementProcess_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEnforcementProcess.Click
+    Private Sub btnEnforcementProcess_Click(sender As System.Object, e As System.EventArgs) Handles btnEnforcementProcess.Click
         OpenEnforcement()
     End Sub
-    Private Sub btnReportMoreOptions_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReportMoreOptions.Click
+    Private Sub btnReportMoreOptions_Click(sender As System.Object, e As System.EventArgs) Handles btnReportMoreOptions.Click
         Dim tempWidth As String
         Dim tempHeight As String
 
@@ -4002,7 +4002,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub btnViewTestReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewTestReport.Click
+    Private Sub btnViewTestReport_Click(sender As System.Object, e As System.EventArgs) Handles btnViewTestReport.Click
         Try
 
             If txtISMPReferenceNumber.Text <> "N/A" Then
@@ -4019,7 +4019,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub btnACCSubmittals_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnACCSubmittals.Click
+    Private Sub btnACCSubmittals_Click(sender As System.Object, e As System.EventArgs) Handles btnACCSubmittals.Click
         Dim tempWidth As String
         Dim tempHeight As String
 
@@ -4040,7 +4040,7 @@ Public Class SSCPEvents
         End Try
 
     End Sub
-    Private Sub chbReportReceivedByAPB_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbReportReceivedByAPB.CheckedChanged
+    Private Sub chbReportReceivedByAPB_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbReportReceivedByAPB.CheckedChanged
         Try
             If chbReportReceivedByAPB.Checked = True Then
                 DTPReportReceivedDate.Enabled = True
@@ -4054,7 +4054,7 @@ Public Class SSCPEvents
 
         End Try
     End Sub
-    Private Sub chbISMPTestReportReceivedByAPB_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbISMPTestReportReceivedByAPB.CheckedChanged
+    Private Sub chbISMPTestReportReceivedByAPB_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbISMPTestReportReceivedByAPB.CheckedChanged
         Try
             If chbISMPTestReportReceivedByAPB.Checked = True Then
                 DTPTestReportReceivedDate.Enabled = True
@@ -4068,7 +4068,7 @@ Public Class SSCPEvents
 
         End Try
     End Sub
-    Private Sub chbNotificationReceivedByAPB_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbNotificationReceivedByAPB.CheckedChanged
+    Private Sub chbNotificationReceivedByAPB_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbNotificationReceivedByAPB.CheckedChanged
         Try
             If chbNotificationReceivedByAPB.Checked = True Then
                 DTPNotificationReceived.Enabled = True
@@ -4082,7 +4082,7 @@ Public Class SSCPEvents
 
         End Try
     End Sub
-    Private Sub chbACCReceivedByAPB_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbACCReceivedByAPB.CheckedChanged
+    Private Sub chbACCReceivedByAPB_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbACCReceivedByAPB.CheckedChanged
         Try
             If chbACCReceivedByAPB.Checked = True Then
                 DTPACCReceivedDate.Enabled = True

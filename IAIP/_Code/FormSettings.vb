@@ -24,7 +24,7 @@ Module FormSettings
     End Sub
 
     ' Public function for retrieving form settings
-    Friend Function GetFormSettings(ByVal formName As String) As Dictionary(Of String, String)
+    Friend Function GetFormSettings(formName As String) As Dictionary(Of String, String)
         If AllFormSettings.ContainsKey(formName) Then
             Return AllFormSettings(formName)
         End If
@@ -32,7 +32,7 @@ Module FormSettings
     End Function
 
     ' Public function for saving individual form settings
-    Friend Sub SaveFormSettings(ByVal formName As String, ByVal formSettings As Dictionary(Of String, String))
+    Friend Sub SaveFormSettings(formName As String, formSettings As Dictionary(Of String, String))
         AllFormSettings(formName) = formSettings
     End Sub
 

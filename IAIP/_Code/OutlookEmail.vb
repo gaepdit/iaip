@@ -13,11 +13,11 @@ Module OutlookEmail
     End Function
 
     Public Function CreateOutlookEmail( _
-                Optional ByVal subject As String = Nothing, _
-                Optional ByVal body As String = Nothing, _
-                Optional ByVal recipientsTo As String() = Nothing, _
-                Optional ByVal recipientsCC As String() = Nothing, _
-                Optional ByVal recipientsBCC As String() = Nothing _
+                Optional subject As String = Nothing, _
+                Optional body As String = Nothing, _
+                Optional recipientsTo As String() = Nothing, _
+                Optional recipientsCC As String() = Nothing, _
+                Optional recipientsBCC As String() = Nothing _
                 ) As Boolean
         monitor.TrackFeature("Email.SendOutlookEmail")
 
@@ -52,7 +52,7 @@ Module OutlookEmail
         End Try
     End Function
 
-    Private Sub AddRecipients(ByRef mail As Outlook.MailItem, ByVal recipientArray As String(), ByVal toType As Outlook.OlMailRecipientType)
+    Private Sub AddRecipients(ByRef mail As Outlook.MailItem, recipientArray As String(), toType As Outlook.OlMailRecipientType)
         Dim recipients As Outlook.Recipients = Nothing
         Dim recipient As Outlook.Recipient = Nothing
 

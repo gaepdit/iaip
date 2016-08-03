@@ -17,7 +17,7 @@ Namespace DAL
             DistrictOffices = 70
         End Enum
 
-        Public Function GetCurrentContact(ByVal airsNumber As Apb.ApbFacilityId, ByVal key As ContactKey) As Contact
+        Public Function GetCurrentContact(airsNumber As Apb.ApbFacilityId, key As ContactKey) As Contact
             If key = ContactKey.None OrElse Not [Enum].IsDefined(GetType(ContactKey), key) Then Return Nothing
 
             Dim contact As New Contact
@@ -52,7 +52,7 @@ Namespace DAL
             Return contact
         End Function
 
-        Private Sub FillContactFromDataRow(ByVal row As DataRow, ByRef contact As Contact)
+        Private Sub FillContactFromDataRow(row As DataRow, ByRef contact As Contact)
             Dim address As New Address
             With address
                 .Street = DBUtilities.GetNullable(Of String)(row("strContactAddress1"))

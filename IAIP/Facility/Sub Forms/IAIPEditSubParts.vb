@@ -15,7 +15,7 @@ Public Class IAIPEditSubParts
     Dim dsSIP As DataSet
     Dim daSIP As SqlDataAdapter
 
-    Private Sub DevEditSubParts_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub DevEditSubParts_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
         Try
 
@@ -381,7 +381,7 @@ Public Class IAIPEditSubParts
         End Try
 
     End Sub
-    Sub LoadSIPDescription(ByVal SubPart As String)
+    Sub LoadSIPDescription(SubPart As String)
         Try
 
 
@@ -410,7 +410,7 @@ Public Class IAIPEditSubParts
 
         End Try
     End Sub
-    Sub LoadNSPSDescription(ByVal SubPart As String)
+    Sub LoadNSPSDescription(SubPart As String)
         Try
 
 
@@ -436,7 +436,7 @@ Public Class IAIPEditSubParts
 
         End Try
     End Sub
-    Sub LoadNESHAPDescription(ByVal SubPart As String)
+    Sub LoadNESHAPDescription(SubPart As String)
         Try
 
             SQL = "Select strDescription " &
@@ -461,7 +461,7 @@ Public Class IAIPEditSubParts
 
         End Try
     End Sub
-    Sub LoadMACTDescription(ByVal SubPart As String)
+    Sub LoadMACTDescription(SubPart As String)
         Try
 
             SQL = "Select strDescription " &
@@ -980,11 +980,11 @@ Public Class IAIPEditSubParts
 
 #Region "Declarations"
 
-    Private Sub txtAIRSNumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtAIRSNumber.TextChanged
+    Private Sub txtAIRSNumber_TextChanged(sender As Object, e As System.EventArgs) Handles txtAIRSNumber.TextChanged
         LoadInformation()
     End Sub
 
-    Private Sub btnSaveSIPSubpart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveSIPSubpart.Click
+    Private Sub btnSaveSIPSubpart_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveSIPSubpart.Click
         Try
 
 
@@ -999,7 +999,7 @@ Public Class IAIPEditSubParts
         End Try
 
     End Sub
-    Private Sub btnSaveNSPSSubpart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveNSPSSubpart.Click
+    Private Sub btnSaveNSPSSubpart_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveNSPSSubpart.Click
         Try
 
 
@@ -1014,7 +1014,7 @@ Public Class IAIPEditSubParts
         End Try
 
     End Sub
-    Private Sub btnSaveNESHAPSubpart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveNESHAPSubpart.Click
+    Private Sub btnSaveNESHAPSubpart_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveNESHAPSubpart.Click
         Try
 
 
@@ -1029,7 +1029,7 @@ Public Class IAIPEditSubParts
         End Try
 
     End Sub
-    Private Sub btnAddMACTSubpart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddMACTSubpart.Click
+    Private Sub btnAddMACTSubpart_Click(sender As System.Object, e As System.EventArgs) Handles btnAddMACTSubpart.Click
         Try
 
 
@@ -1044,7 +1044,7 @@ Public Class IAIPEditSubParts
         End Try
 
     End Sub
-    Private Sub btnDeleteSIPSubpart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRemoveSIPSubpart.Click
+    Private Sub btnDeleteSIPSubpart_Click(sender As System.Object, e As System.EventArgs) Handles btnRemoveSIPSubpart.Click
         Try
 
 
@@ -1059,7 +1059,7 @@ Public Class IAIPEditSubParts
         End Try
 
     End Sub
-    Private Sub btnDeleteNSPSSubpart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRemoveNSPSSubpart.Click
+    Private Sub btnDeleteNSPSSubpart_Click(sender As System.Object, e As System.EventArgs) Handles btnRemoveNSPSSubpart.Click
         Try
 
 
@@ -1074,7 +1074,7 @@ Public Class IAIPEditSubParts
         End Try
 
     End Sub
-    Private Sub btnDeleteNESHAPSubpart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRemoveNESHAPSubpart.Click
+    Private Sub btnDeleteNESHAPSubpart_Click(sender As System.Object, e As System.EventArgs) Handles btnRemoveNESHAPSubpart.Click
         Try
 
 
@@ -1089,7 +1089,7 @@ Public Class IAIPEditSubParts
         End Try
 
     End Sub
-    Private Sub btnDeleteMACTSubPart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnremoveMACTSubPart.Click
+    Private Sub btnDeleteMACTSubPart_Click(sender As System.Object, e As System.EventArgs) Handles btnremoveMACTSubPart.Click
         Try
 
 
@@ -1104,7 +1104,7 @@ Public Class IAIPEditSubParts
         End Try
 
     End Sub
-    Private Sub btnEditSIP_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditSIP.Click
+    Private Sub btnEditSIP_Click(sender As System.Object, e As System.EventArgs) Handles btnEditSIP.Click
         Try
             If txtSIPCode.Text <> "" And txtSIPDescription.Text <> "" Then
                 txtSIPCode.BackColor = Color.White
@@ -1157,7 +1157,7 @@ Public Class IAIPEditSubParts
 
         End Try
     End Sub
-    Private Sub btnEditNSPS_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditNSPS.Click
+    Private Sub btnEditNSPS_Click(sender As System.Object, e As System.EventArgs) Handles btnEditNSPS.Click
         Try
             If txtNSPSCode.Text <> "" And txtNSPSDescription.Text <> "" Then
                 txtNSPSCode.BackColor = Color.White
@@ -1209,7 +1209,7 @@ Public Class IAIPEditSubParts
 
         End Try
     End Sub
-    Private Sub btnEditNESHAP_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditNESHAP.Click
+    Private Sub btnEditNESHAP_Click(sender As System.Object, e As System.EventArgs) Handles btnEditNESHAP.Click
         Try
             If txtNESHAPCode.Text <> "" And txtNESHAPDescription.Text <> "" Then
                 txtNESHAPCode.BackColor = Color.White
@@ -1262,7 +1262,7 @@ Public Class IAIPEditSubParts
 
         End Try
     End Sub
-    Private Sub btnEditMACT_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditMACT.Click
+    Private Sub btnEditMACT_Click(sender As System.Object, e As System.EventArgs) Handles btnEditMACT.Click
         Try
             If txtMACTCode.Text <> "" And txtMACTDescription.Text <> "" Then
                 txtMACTCode.BackColor = Color.White
@@ -1315,7 +1315,7 @@ Public Class IAIPEditSubParts
 
         End Try
     End Sub
-    Private Sub btnDeleteSIPSubpart_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteSIPSubpart.Click
+    Private Sub btnDeleteSIPSubpart_Click_1(sender As System.Object, e As System.EventArgs) Handles btnDeleteSIPSubpart.Click
         Try
             SQL = "Delete LookUpSubpartSIP " &
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
@@ -1333,7 +1333,7 @@ Public Class IAIPEditSubParts
 
         End Try
     End Sub
-    Private Sub btnDeleteNSPSSubpart_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteNSPSSubpart.Click
+    Private Sub btnDeleteNSPSSubpart_Click_1(sender As System.Object, e As System.EventArgs) Handles btnDeleteNSPSSubpart.Click
         Try
             SQL = "Delete LookUpSubpart60 " &
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
@@ -1351,7 +1351,7 @@ Public Class IAIPEditSubParts
 
         End Try
     End Sub
-    Private Sub btnDeleteNESHAPSubpart_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteNESHAPSubpart.Click
+    Private Sub btnDeleteNESHAPSubpart_Click_1(sender As System.Object, e As System.EventArgs) Handles btnDeleteNESHAPSubpart.Click
         Try
             SQL = "Delete LookUpSubpart61 " &
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
@@ -1369,7 +1369,7 @@ Public Class IAIPEditSubParts
 
         End Try
     End Sub
-    Private Sub btnDeleteMACTSubpart_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteMACTSubpart.Click
+    Private Sub btnDeleteMACTSubpart_Click_1(sender As System.Object, e As System.EventArgs) Handles btnDeleteMACTSubpart.Click
         Try
             SQL = "Delete LookUpSubpart63 " &
             "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
@@ -1388,7 +1388,7 @@ Public Class IAIPEditSubParts
 
         End Try
     End Sub
-    Private Sub btnClearSIP_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearSIP.Click
+    Private Sub btnClearSIP_Click(sender As System.Object, e As System.EventArgs) Handles btnClearSIP.Click
         Try
             txtSIPCode.Clear()
             txtSIPCode.BackColor = Color.White
@@ -1400,7 +1400,7 @@ Public Class IAIPEditSubParts
 
         End Try
     End Sub
-    Private Sub btnClearNSPS_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearNSPS.Click
+    Private Sub btnClearNSPS_Click(sender As System.Object, e As System.EventArgs) Handles btnClearNSPS.Click
         Try
             txtNSPSCode.Clear()
             txtNSPSCode.BackColor = Color.White
@@ -1412,7 +1412,7 @@ Public Class IAIPEditSubParts
 
         End Try
     End Sub
-    Private Sub btnClearNESHAP_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearNESHAP.Click
+    Private Sub btnClearNESHAP_Click(sender As System.Object, e As System.EventArgs) Handles btnClearNESHAP.Click
         Try
             txtNESHAPCode.Clear()
             txtNESHAPCode.BackColor = Color.White
@@ -1424,7 +1424,7 @@ Public Class IAIPEditSubParts
 
         End Try
     End Sub
-    Private Sub btnClearMACT_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearMACT.Click
+    Private Sub btnClearMACT_Click(sender As System.Object, e As System.EventArgs) Handles btnClearMACT.Click
         Try
             txtMACTCode.Clear()
             txtMACTCode.BackColor = Color.White
@@ -1438,7 +1438,7 @@ Public Class IAIPEditSubParts
     End Sub
 
 #End Region
-    Private Sub dgvSIP_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvSIP.MouseUp
+    Private Sub dgvSIP_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvSIP.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvSIP.HitTest(e.X, e.Y)
             If dgvSIP.Columns(0).HeaderText = "Subpart Code" Then
@@ -1456,7 +1456,7 @@ Public Class IAIPEditSubParts
 
         End Try
     End Sub
-    Private Sub dgvNSPS_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvNSPS.MouseUp
+    Private Sub dgvNSPS_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvNSPS.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvNSPS.HitTest(e.X, e.Y)
             If dgvNSPS.Columns(0).HeaderText = "Subpart Code" Then
@@ -1474,7 +1474,7 @@ Public Class IAIPEditSubParts
 
         End Try
     End Sub
-    Private Sub dgvNESHAP_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvNESHAP.MouseUp
+    Private Sub dgvNESHAP_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvNESHAP.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvNESHAP.HitTest(e.X, e.Y)
             If dgvNESHAP.Columns(0).HeaderText = "Subpart Code" Then
@@ -1492,7 +1492,7 @@ Public Class IAIPEditSubParts
 
         End Try
     End Sub
-    Private Sub dgvMACT_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvMACT.MouseUp
+    Private Sub dgvMACT_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvMACT.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvMACT.HitTest(e.X, e.Y)
             If dgvMACT.Columns(0).HeaderText = "Subpart Code" Then
@@ -1510,7 +1510,7 @@ Public Class IAIPEditSubParts
 
         End Try
     End Sub
-    Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub mmiHelp_Click(sender As System.Object, e As System.EventArgs)
         OpenDocumentationUrl(Me)
     End Sub
 End Class

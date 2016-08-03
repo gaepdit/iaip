@@ -24,7 +24,7 @@ Public Class SmokeSchool
     Public getIDoverRideFlag As String = "off"
     Public ErrorFlag As String = "no"
 
-    Private Sub ISMPSmokeSchool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub ISMPSmokeSchool_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
         Try
 
@@ -767,7 +767,7 @@ Public Class SmokeSchool
     End Sub
 #End Region
 #Region " SETUP Routines "
-    Private Sub btnSaveSchedule_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveSchedule.Click
+    Private Sub btnSaveSchedule_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveSchedule.Click
         Try
             saveSetupSchedule()
         Catch ex As Exception
@@ -880,7 +880,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub btnDeleteSchedule_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteSchedule.Click
+    Private Sub btnDeleteSchedule_Click(sender As System.Object, e As System.EventArgs) Handles btnDeleteSchedule.Click
         Try
             deleteSetupSchedule()
         Catch ex As Exception
@@ -953,7 +953,7 @@ Public Class SmokeSchool
         End Try
 
     End Sub
-    Private Sub dtpStartDate_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles dtpStartDate.TextChanged
+    Private Sub dtpStartDate_TextChanged(sender As Object, e As System.EventArgs) Handles dtpStartDate.TextChanged
         Dim date1 As Date
         Dim date2 As Date
         Try
@@ -968,7 +968,7 @@ Public Class SmokeSchool
     End Sub
 #End Region
 #Region " RESERVATION Routines "
-    Private Sub btnSaveRes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveRes.Click
+    Private Sub btnSaveRes_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveRes.Click
         Try
             ErrorFlag = "no"
             saveReservation()
@@ -1283,7 +1283,7 @@ Public Class SmokeSchool
         End Try
 
     End Sub
-    Private Sub btnDeleteRes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteRes.Click
+    Private Sub btnDeleteRes_Click(sender As System.Object, e As System.EventArgs) Handles btnDeleteRes.Click
         Try
             deleteReservation()
         Catch ex As Exception
@@ -1338,7 +1338,7 @@ Public Class SmokeSchool
     End Sub
 #End Region
 #Region " Move Reservation Routines "
-    Private Sub btnMoveRes2Scores_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnMoveRes2Scores.Click
+    Private Sub btnMoveRes2Scores_Click(sender As System.Object, e As System.EventArgs) Handles btnMoveRes2Scores.Click
         Try
             moveRes2Scores()
             BindDataGridScores1()
@@ -1499,7 +1499,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub btnMoveResStudent2Scores_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnMoveResStudent2Scores.Click
+    Private Sub btnMoveResStudent2Scores_Click(sender As System.Object, e As System.EventArgs) Handles btnMoveResStudent2Scores.Click
         Try
             moveResStudent2Scores()
         Catch ex As Exception
@@ -1612,7 +1612,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub btnRemoveRes2Scores_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRemoveRes2Scores.Click
+    Private Sub btnRemoveRes2Scores_Click(sender As System.Object, e As System.EventArgs) Handles btnRemoveRes2Scores.Click
         Try
             removeResFromScores()
         Catch ex As Exception
@@ -1648,7 +1648,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub btnCache2Res_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCache2Res.Click
+    Private Sub btnCache2Res_Click(sender As System.Object, e As System.EventArgs) Handles btnCache2Res.Click
         Try
             moveCacheToReservation()
         Catch ex As Exception
@@ -1684,7 +1684,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub btnMove2Cache_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnMove2Cache.Click
+    Private Sub btnMove2Cache_Click(sender As System.Object, e As System.EventArgs) Handles btnMove2Cache.Click
         Try
             moveReservationToCache()
         Catch ex As Exception
@@ -1722,7 +1722,7 @@ Public Class SmokeSchool
     End Sub
 #End Region
 #Region " Scores Routines "
-    Private Sub btnSave3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSave3.Click
+    Private Sub btnSave3_Click(sender As System.Object, e As System.EventArgs) Handles btnSave3.Click
         Try
             saveScores()
         Catch ex As Exception
@@ -1999,7 +1999,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub btnDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDelete.Click
+    Private Sub btnDelete_Click(sender As System.Object, e As System.EventArgs) Handles btnDelete.Click
         Try
             deleteScores()
         Catch ex As Exception
@@ -2081,7 +2081,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub btnSelectClass3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSelectClass3.Click
+    Private Sub btnSelectClass3_Click(sender As System.Object, e As System.EventArgs) Handles btnSelectClass3.Click
         Try
             If cboSchedule3.SelectedIndex = 0 Or cboSchedule3.SelectedIndex = 1 Then
                 MsgBox("You must select a Location/Term")
@@ -2176,7 +2176,7 @@ Public Class SmokeSchool
         End Try
     End Sub
 #Region "Checkbox Changes"
-    Private Sub chbRun1A_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun1A.Click
+    Private Sub chbRun1A_Click(sender As Object, e As System.EventArgs) Handles chbRun1A.Click
         Try
             chbRun1B.Checked = False
             chbRun1C.Checked = False
@@ -2185,7 +2185,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun1B_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun1B.Click
+    Private Sub chbRun1B_Click(sender As Object, e As System.EventArgs) Handles chbRun1B.Click
         Try
             chbRun1A.Checked = False
             chbRun1C.Checked = False
@@ -2194,7 +2194,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun1C_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun1C.Click
+    Private Sub chbRun1C_Click(sender As Object, e As System.EventArgs) Handles chbRun1C.Click
         Try
             chbRun1A.Checked = False
             chbRun1B.Checked = False
@@ -2203,7 +2203,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun2A_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun2A.Click
+    Private Sub chbRun2A_Click(sender As Object, e As System.EventArgs) Handles chbRun2A.Click
         Try
             chbRun2B.Checked = False
             chbRun2C.Checked = False
@@ -2212,7 +2212,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun2B_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun2B.Click
+    Private Sub chbRun2B_Click(sender As Object, e As System.EventArgs) Handles chbRun2B.Click
         Try
             chbRun2A.Checked = False
             chbRun2C.Checked = False
@@ -2221,7 +2221,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun2C_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun2C.Click
+    Private Sub chbRun2C_Click(sender As Object, e As System.EventArgs) Handles chbRun2C.Click
         Try
             chbRun2A.Checked = False
             chbRun2B.Checked = False
@@ -2230,7 +2230,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun3A_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun3A.Click
+    Private Sub chbRun3A_Click(sender As Object, e As System.EventArgs) Handles chbRun3A.Click
         Try
             chbRun3B.Checked = False
             chbRun3C.Checked = False
@@ -2239,7 +2239,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun3B_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun3B.Click
+    Private Sub chbRun3B_Click(sender As Object, e As System.EventArgs) Handles chbRun3B.Click
         Try
             chbRun3A.Checked = False
             chbRun3C.Checked = False
@@ -2248,7 +2248,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun3C_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun3C.Click
+    Private Sub chbRun3C_Click(sender As Object, e As System.EventArgs) Handles chbRun3C.Click
         Try
             chbRun3A.Checked = False
             chbRun3B.Checked = False
@@ -2257,7 +2257,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun4A_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun4A.Click
+    Private Sub chbRun4A_Click(sender As Object, e As System.EventArgs) Handles chbRun4A.Click
         Try
             chbRun4B.Checked = False
             chbRun4C.Checked = False
@@ -2266,7 +2266,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun4B_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun4B.Click
+    Private Sub chbRun4B_Click(sender As Object, e As System.EventArgs) Handles chbRun4B.Click
         Try
             chbRun4A.Checked = False
             chbRun4C.Checked = False
@@ -2275,7 +2275,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun4C_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun4C.Click
+    Private Sub chbRun4C_Click(sender As Object, e As System.EventArgs) Handles chbRun4C.Click
         Try
             chbRun4A.Checked = False
             chbRun4B.Checked = False
@@ -2284,7 +2284,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun5A_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun5A.Click
+    Private Sub chbRun5A_Click(sender As Object, e As System.EventArgs) Handles chbRun5A.Click
         Try
             chbRun5B.Checked = False
             chbRun5C.Checked = False
@@ -2293,7 +2293,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun5B_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun5B.Click
+    Private Sub chbRun5B_Click(sender As Object, e As System.EventArgs) Handles chbRun5B.Click
         Try
             chbRun5A.Checked = False
             chbRun5C.Checked = False
@@ -2302,7 +2302,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun5C_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun5C.Click
+    Private Sub chbRun5C_Click(sender As Object, e As System.EventArgs) Handles chbRun5C.Click
         Try
             chbRun5A.Checked = False
             chbRun5B.Checked = False
@@ -2311,7 +2311,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun6A_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun6A.Click
+    Private Sub chbRun6A_Click(sender As Object, e As System.EventArgs) Handles chbRun6A.Click
         Try
             chbRun6B.Checked = False
             chbRun6C.Checked = False
@@ -2320,7 +2320,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun6B_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun6B.Click
+    Private Sub chbRun6B_Click(sender As Object, e As System.EventArgs) Handles chbRun6B.Click
         Try
             chbRun6A.Checked = False
             chbRun6C.Checked = False
@@ -2329,7 +2329,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun6C_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun6C.Click
+    Private Sub chbRun6C_Click(sender As Object, e As System.EventArgs) Handles chbRun6C.Click
         Try
             chbRun6A.Checked = False
             chbRun6B.Checked = False
@@ -2338,7 +2338,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun7A_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun7A.Click
+    Private Sub chbRun7A_Click(sender As Object, e As System.EventArgs) Handles chbRun7A.Click
         Try
             chbRun7B.Checked = False
             chbRun7C.Checked = False
@@ -2347,7 +2347,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun7B_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun7B.Click
+    Private Sub chbRun7B_Click(sender As Object, e As System.EventArgs) Handles chbRun7B.Click
         Try
             chbRun7A.Checked = False
             chbRun7C.Checked = False
@@ -2356,7 +2356,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun7C_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun7C.Click
+    Private Sub chbRun7C_Click(sender As Object, e As System.EventArgs) Handles chbRun7C.Click
         Try
             chbRun7A.Checked = False
             chbRun7B.Checked = False
@@ -2365,7 +2365,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun8A_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun8A.Click
+    Private Sub chbRun8A_Click(sender As Object, e As System.EventArgs) Handles chbRun8A.Click
         Try
             chbRun8B.Checked = False
             chbRun8C.Checked = False
@@ -2374,7 +2374,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun8B_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun8B.Click
+    Private Sub chbRun8B_Click(sender As Object, e As System.EventArgs) Handles chbRun8B.Click
         Try
             chbRun8A.Checked = False
             chbRun8C.Checked = False
@@ -2383,7 +2383,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun8C_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun8C.Click
+    Private Sub chbRun8C_Click(sender As Object, e As System.EventArgs) Handles chbRun8C.Click
         Try
             chbRun8A.Checked = False
             chbRun8B.Checked = False
@@ -2392,7 +2392,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun9A_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun9A.Click
+    Private Sub chbRun9A_Click(sender As Object, e As System.EventArgs) Handles chbRun9A.Click
         Try
             chbRun9B.Checked = False
             chbRun9C.Checked = False
@@ -2401,7 +2401,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun9B_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun9B.Click
+    Private Sub chbRun9B_Click(sender As Object, e As System.EventArgs) Handles chbRun9B.Click
         Try
             chbRun9A.Checked = False
             chbRun9C.Checked = False
@@ -2410,7 +2410,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun9C_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun9C.Click
+    Private Sub chbRun9C_Click(sender As Object, e As System.EventArgs) Handles chbRun9C.Click
         Try
             chbRun9A.Checked = False
             chbRun9B.Checked = False
@@ -2419,7 +2419,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun10A_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun10A.Click
+    Private Sub chbRun10A_Click(sender As Object, e As System.EventArgs) Handles chbRun10A.Click
         Try
             chbRun10B.Checked = False
             chbRun10C.Checked = False
@@ -2428,7 +2428,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun10B_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun10B.Click
+    Private Sub chbRun10B_Click(sender As Object, e As System.EventArgs) Handles chbRun10B.Click
         Try
             chbRun10A.Checked = False
             chbRun10C.Checked = False
@@ -2437,7 +2437,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub chbRun10C_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbRun10C.Click
+    Private Sub chbRun10C_Click(sender As Object, e As System.EventArgs) Handles chbRun10C.Click
         Try
             chbRun10A.Checked = False
             chbRun10B.Checked = False
@@ -2466,10 +2466,10 @@ Public Class SmokeSchool
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnPrintRoster_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrintRoster.Click
+    Private Sub btnPrintRoster_Click(sender As System.Object, e As System.EventArgs) Handles btnPrintRoster.Click
         PrintRoster()
     End Sub
-    Private Sub btnPrintPass_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrintPass.Click
+    Private Sub btnPrintPass_Click(sender As System.Object, e As System.EventArgs) Handles btnPrintPass.Click
         Try
             txtPassFailNoShow.Text = "Pass"
 
@@ -2661,7 +2661,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub btnPrintThisOne_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrintThisOne.Click
+    Private Sub btnPrintThisOne_Click(sender As System.Object, e As System.EventArgs) Handles btnPrintThisOne.Click
         Try
             txtPassFailNoShow.Text = "Pass"
 
@@ -2845,7 +2845,7 @@ Public Class SmokeSchool
     End Sub
 #End Region
 #Region " Clear Routine "
-    Private Sub btnClearRes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearRes.Click
+    Private Sub btnClearRes_Click(sender As System.Object, e As System.EventArgs) Handles btnClearRes.Click
         Try
             clearRes()
         Catch ex As Exception
@@ -2881,7 +2881,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub btnScheduleClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnScheduleClear.Click
+    Private Sub btnScheduleClear_Click(sender As System.Object, e As System.EventArgs) Handles btnScheduleClear.Click
         Try
             clearSchedule()
         Catch ex As Exception
@@ -2904,7 +2904,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub btnCacheClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCacheClear.Click
+    Private Sub btnCacheClear_Click(sender As System.Object, e As System.EventArgs) Handles btnCacheClear.Click
         Try
             clearCache()
         Catch ex As Exception
@@ -2942,7 +2942,7 @@ Public Class SmokeSchool
     End Sub
 #End Region
 #Region " Mouse UP routines "
-    Private Sub dgvSchedule_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvSchedule.MouseUp
+    Private Sub dgvSchedule_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvSchedule.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvSchedule.HitTest(e.X, e.Y)
             Dim year As String
@@ -2986,7 +2986,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub dgvRes_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvRes.MouseUp
+    Private Sub dgvRes_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvRes.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvRes.HitTest(e.X, e.Y)
             Dim phoneNumber1 As String
@@ -3120,7 +3120,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub dgvSchedule2_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvSchedule2.MouseUp
+    Private Sub dgvSchedule2_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvSchedule2.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvSchedule2.HitTest(e.X, e.Y)
             If dgvSchedule2.RowCount > 0 And hti.RowIndex <> -1 Then
@@ -3138,7 +3138,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub dgvScore3_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvScore3.MouseUp
+    Private Sub dgvScore3_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvScore3.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvScore3.HitTest(e.X, e.Y)
         Dim run1 As String
         Dim run2 As String
@@ -3392,7 +3392,7 @@ Public Class SmokeSchool
     End Sub
 #End Region
 #Region " Text Box Change Routines "
-    Private Sub txtPhoneAC1_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtPhoneAC1.TextChanged
+    Private Sub txtPhoneAC1_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtPhoneAC1.TextChanged
         Try
             Dim phoneac As String = txtPhoneAC1.Text
             If phoneac.Length = 3 Then
@@ -3403,7 +3403,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub txtPhoneEXC1_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtPhoneEXC1.TextChanged
+    Private Sub txtPhoneEXC1_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtPhoneEXC1.TextChanged
         Try
             Dim phoneexc As String = txtPhoneEXC1.Text
             If phoneexc.Length = 3 Then
@@ -3414,7 +3414,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub txtPhoneNBR1_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtPhoneNBR1.TextChanged
+    Private Sub txtPhoneNBR1_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtPhoneNBR1.TextChanged
         Try
             Dim phonenbr As String = txtPhoneNBR1.Text
             If phonenbr.Length = 4 Then
@@ -3425,7 +3425,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub txtFaxAC1_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtFaxAC1.TextChanged
+    Private Sub txtFaxAC1_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtFaxAC1.TextChanged
         Try
             Dim faxac As String = txtFaxAC1.Text
             If faxac.Length = 3 Then
@@ -3436,7 +3436,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub txtFaxEXC1_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtFaxEXC1.TextChanged
+    Private Sub txtFaxEXC1_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtFaxEXC1.TextChanged
         Try
             Dim faxexc As String = txtFaxEXC1.Text
             If faxexc.Length = 3 Then
@@ -3535,7 +3535,7 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub btnSelectClass1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSelectClass1.Click
+    Private Sub btnSelectClass1_Click(sender As System.Object, e As System.EventArgs) Handles btnSelectClass1.Click
         Try
             If cboSchedule1.SelectedIndex = 0 Then
                 MsgBox("You must select a Term and Location")
@@ -3559,11 +3559,11 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub btnExport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExport.Click
+    Private Sub btnExport_Click(sender As System.Object, e As System.EventArgs) Handles btnExport.Click
         dgvRes.ExportToExcel(Me)
     End Sub
 
-    Private Sub btnUpdateIDs_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateIDs.Click
+    Private Sub btnUpdateIDs_Click(sender As System.Object, e As System.EventArgs) Handles btnUpdateIDs.Click
         Try
             updateUserIDs()
         Catch ex As Exception
@@ -3619,10 +3619,10 @@ Public Class SmokeSchool
         Finally
         End Try
     End Sub
-    Private Sub btnExportPassToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportPassToExcel.Click
+    Private Sub btnExportPassToExcel_Click(sender As System.Object, e As System.EventArgs) Handles btnExportPassToExcel.Click
         dgvScore3.ExportToExcel(Me)
     End Sub
-    Private Sub btnActivate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnActivate.Click
+    Private Sub btnActivate_Click(sender As System.Object, e As System.EventArgs) Handles btnActivate.Click
         Try
             SQL = "Select strUserEmail " &
             "from OlapUserLogIn " &
@@ -3658,7 +3658,7 @@ Public Class SmokeSchool
 
 #End Region
 
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(sender As System.Object, e As System.EventArgs) Handles Button1.Click
         Try
 
             BindDataGridSchedule2()
@@ -3668,7 +3668,7 @@ Public Class SmokeSchool
         End Try
     End Sub
 
-    Private Sub btnRefreshClasses_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRefreshClasses.Click
+    Private Sub btnRefreshClasses_Click(sender As System.Object, e As System.EventArgs) Handles btnRefreshClasses.Click
         Try
             LoadLocTerm3()
 
@@ -3677,7 +3677,7 @@ Public Class SmokeSchool
         End Try
     End Sub
 
-    Public Function GetSmokeSchoolClassesByTerm(ByVal year As String, ByVal season As String) As DataTable
+    Public Function GetSmokeSchoolClassesByTerm(year As String, season As String) As DataTable
         Dim query As String = "SELECT strLocation, strStartDate, strEndDate " &
             " FROM SmokeSchoolSchedule " &
             " WHERE stryear = @pYear " &
@@ -3692,7 +3692,7 @@ Public Class SmokeSchool
         Return dataTable
     End Function
 
-    Public Function GetSmokeSchoolPassingGradesByTerm(ByVal year As String, ByVal season As String) As DataTable
+    Public Function GetSmokeSchoolPassingGradesByTerm(year As String, season As String) As DataTable
         Dim query As String = "SELECT strLastName, strFirstName, strLocationTerm, " &
             " SUBSTR(strlocationterm, instr(strlocationterm, '-', 1, 1)+2) strLocation, " &
             " row_number () over (partition BY strlocationterm order by strlastname, strfirstname DESC) CertId " &
@@ -3709,7 +3709,7 @@ Public Class SmokeSchool
         Return dataTable
     End Function
 
-    Private Sub newbtnRunDiplomaReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunDiplomaReport.Click
+    Private Sub newbtnRunDiplomaReport_Click(sender As System.Object, e As System.EventArgs) Handles btnRunDiplomaReport.Click
         Try
 
             Dim termYear As String
@@ -3780,7 +3780,7 @@ Public Class SmokeSchool
         End Try
     End Sub
 
-    Private Sub btnExportDiplomas_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportDiplomas.Click
+    Private Sub btnExportDiplomas_Click(sender As System.Object, e As System.EventArgs) Handles btnExportDiplomas.Click
         dgvDiplomas.ExportToExcel(Me)
     End Sub
 

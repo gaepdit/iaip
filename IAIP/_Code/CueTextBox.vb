@@ -12,7 +12,7 @@ Friend Class CueTextBox
         Friend Const EM_SETCUEBANNER As UInteger = ECM_FIRST + 1
 
         <Runtime.InteropServices.DllImport("user32.dll", CharSet:=Runtime.InteropServices.CharSet.Unicode)> _
-        Public Shared Function SendMessage(ByVal hWnd As IntPtr, ByVal Msg As UInt32, ByVal wParam As IntPtr, ByVal lParam As String) As IntPtr
+        Public Shared Function SendMessage(hWnd As IntPtr, Msg As UInt32, wParam As IntPtr, lParam As String) As IntPtr
         End Function
     End Class
 
@@ -22,7 +22,7 @@ Friend Class CueTextBox
         Get
             Return _cue
         End Get
-        Set(ByVal value As String)
+        Set(value As String)
             _cue = value
             UpdateCue()
         End Set
@@ -34,7 +34,7 @@ Friend Class CueTextBox
         End If
     End Sub
 
-    Protected Overrides Sub OnHandleCreated(ByVal e As EventArgs)
+    Protected Overrides Sub OnHandleCreated(e As EventArgs)
         MyBase.OnHandleCreated(e)
         UpdateCue()
     End Sub

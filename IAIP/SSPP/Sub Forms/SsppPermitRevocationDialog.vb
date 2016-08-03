@@ -16,14 +16,14 @@ Public Class SsppPermitRevocationDialog
 
 #Region " Form Events "
 
-    Private Sub SsppPermitRevocationDialog_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Private Sub SsppPermitRevocationDialog_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         monitor.TrackFeature("Forms." & Me.Name)
         For Each p As Permit In ActivePermits
             ActivePermitsCheckedListBox.Items.Add(p)
         Next
     End Sub
 
-    Private Sub OkButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OkButton.Click
+    Private Sub OkButton_Click(sender As System.Object, e As System.EventArgs) Handles OkButton.Click
         Warning.Visible = False
 
         ' Something has to be selected before proceeding ("None" or at least one permit)
@@ -43,7 +43,7 @@ Public Class SsppPermitRevocationDialog
         Me.Close()
     End Sub
 
-    Private Sub NoneCheckbox_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NoneCheckbox.CheckedChanged
+    Private Sub NoneCheckbox_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles NoneCheckbox.CheckedChanged
         ActivePermitsCheckedListBox.Enabled = Not NoneCheckbox.Checked
         If NoneCheckbox.Checked Then
             While ActivePermitsCheckedListBox.CheckedIndices.Count > 0

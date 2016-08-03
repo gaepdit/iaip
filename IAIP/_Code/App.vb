@@ -28,7 +28,7 @@ Public Module App
         Return GetVersionAsMajorMinorBuild(GetCurrentVersion)
     End Function
 
-    Private Function GetVersionAsMajorMinorBuild(ByVal v As Version) As Version
+    Private Function GetVersionAsMajorMinorBuild(v As Version) As Version
         ' This converts a Version from four components to three
         If v.Revision = -1 Then Return v ' (A version with fewer than four components gets returned as-is)
         Return New Version(v.Major, v.Minor, v.Build)

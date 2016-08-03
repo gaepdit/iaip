@@ -17,7 +17,7 @@ Public Class ISMPMonitoringLog
     Dim dsPollutants As DataSet
     Dim daPollutants As SqlDataAdapter
 
-    Private Sub ISMPMonitoringLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub ISMPMonitoringLog_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
         Try
 
@@ -960,7 +960,7 @@ Public Class ISMPMonitoringLog
 
     End Sub
 #End Region
-    Private Sub ISMPTestReportViewer_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
+    Private Sub ISMPTestReportViewer_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
             Me.Dispose()
         Catch ex As Exception
@@ -970,7 +970,7 @@ Public Class ISMPMonitoringLog
         End Try
 
     End Sub
-    Private Sub LLSelectReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLSelectReport.LinkClicked
+    Private Sub LLSelectReport_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLSelectReport.LinkClicked
         Try
 
             SelectTestReport()
@@ -981,7 +981,7 @@ Public Class ISMPMonitoringLog
         End Try
 
     End Sub
-    Private Sub btnRunFilter_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunFilter.Click
+    Private Sub btnRunFilter_Click(sender As System.Object, e As System.EventArgs) Handles btnRunFilter.Click
         Try
 
             LoadDataSet()
@@ -993,7 +993,7 @@ Public Class ISMPMonitoringLog
         End Try
 
     End Sub
-    Private Sub MmiReset_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiReset.Click
+    Private Sub MmiReset_Click(sender As System.Object, e As System.EventArgs) Handles mmiReset.Click
         Try
 
             ResetOptions()
@@ -1004,7 +1004,7 @@ Public Class ISMPMonitoringLog
         End Try
 
     End Sub
-    Private Sub mmiCut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub mmiCut_Click(sender As System.Object, e As System.EventArgs)
         Try
 
             SendKeys.Send("^(x)")
@@ -1015,7 +1015,7 @@ Public Class ISMPMonitoringLog
         End Try
 
     End Sub
-    Private Sub MmiPaste_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub MmiPaste_Click(sender As System.Object, e As System.EventArgs)
         Try
 
             SendKeys.Send("^(v)")
@@ -1026,7 +1026,7 @@ Public Class ISMPMonitoringLog
         End Try
 
     End Sub
-    Private Sub MmiCopy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub MmiCopy_Click(sender As System.Object, e As System.EventArgs)
         Try
 
             SendKeys.Send("^(c)")
@@ -1037,10 +1037,10 @@ Public Class ISMPMonitoringLog
         End Try
 
     End Sub
-    Private Sub MmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
+    Private Sub MmiHelp_Click(sender As System.Object, e As System.EventArgs) Handles mmiHelp.Click
         OpenDocumentationUrl(Me)
     End Sub
-    Private Sub MmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiBack.Click
+    Private Sub MmiBack_Click(sender As System.Object, e As System.EventArgs) Handles mmiBack.Click
         Try
 
             Me.Close()
@@ -1051,7 +1051,7 @@ Public Class ISMPMonitoringLog
         End Try
 
     End Sub
-    Private Sub dgvTestReportViewer_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvTestReportViewer.MouseUp
+    Private Sub dgvTestReportViewer_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvTestReportViewer.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvTestReportViewer.HitTest(e.X, e.Y)
 
         Try
@@ -1103,7 +1103,7 @@ Public Class ISMPMonitoringLog
         End Try
 
     End Sub
-    Private Sub dgvTestFirmComments_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvTestFirmComments.MouseUp
+    Private Sub dgvTestFirmComments_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvTestFirmComments.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvTestFirmComments.HitTest(e.X, e.Y)
 
         Try
@@ -1164,14 +1164,14 @@ Public Class ISMPMonitoringLog
 
 
     End Sub
-    Private Sub tsbResize_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbResize.Click
+    Private Sub tsbResize_Click(sender As System.Object, e As System.EventArgs) Handles tsbResize.Click
         Try
             SCMonitoringLog.ToggleSplitterDistance(235, 500)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvNotificationLog_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvNotificationLog.MouseUp
+    Private Sub dgvNotificationLog_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvNotificationLog.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvNotificationLog.HitTest(e.X, e.Y)
 
         Try
@@ -1225,7 +1225,7 @@ Public Class ISMPMonitoringLog
         End Try
 
     End Sub
-    Private Sub llbSelectTestLog_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbSelectTestLog.LinkClicked
+    Private Sub llbSelectTestLog_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbSelectTestLog.LinkClicked
         Try
             If Not IsNothing(ISMPNotificationLogForm) Then
                 ISMPNotificationLogForm.txtTestNotificationNumber.Text = txtTestLogNumber.Text
@@ -1244,7 +1244,7 @@ Public Class ISMPMonitoringLog
         End Try
 
     End Sub
-    Private Sub llbOpenComments_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbOpenComments.LinkClicked
+    Private Sub llbOpenComments_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbOpenComments.LinkClicked
         Try
 
             If TestFirmComments Is Nothing Then
@@ -1278,7 +1278,7 @@ Public Class ISMPMonitoringLog
         End Try
     End Sub
 
-    Private Sub tsbBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbBack.Click
+    Private Sub tsbBack_Click(sender As System.Object, e As System.EventArgs) Handles tsbBack.Click
         Try
 
             Me.Dispose()
@@ -1290,7 +1290,7 @@ Public Class ISMPMonitoringLog
     End Sub
 
     Public WriteOnly Property ValueFromFacilityLookUp() As String
-        Set(ByVal Value As String)
+        Set(Value As String)
             txtAIRSNumberFilter.Text = Value
         End Set
     End Property
@@ -1308,11 +1308,11 @@ Public Class ISMPMonitoringLog
         End Try
     End Sub
 
-    Private Sub tsbFacilitySearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbFacilitySearch.Click
+    Private Sub tsbFacilitySearch_Click(sender As System.Object, e As System.EventArgs) Handles tsbFacilitySearch.Click
         OpenFacilityLookupTool()
     End Sub
 
-    Private Sub tsbExportToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbExportToExcel.Click
+    Private Sub tsbExportToExcel_Click(sender As System.Object, e As System.EventArgs) Handles tsbExportToExcel.Click
         dgvTestReportViewer.ExportToExcel(Me)
     End Sub
     Sub LoadCompliaceColor()
@@ -1338,7 +1338,7 @@ Public Class ISMPMonitoringLog
         End Try
     End Sub
 
-    Private Sub dgvTestReportViewer_Sorted(ByVal sender As Object, ByVal e As System.EventArgs) Handles dgvTestReportViewer.Sorted
+    Private Sub dgvTestReportViewer_Sorted(sender As Object, e As System.EventArgs) Handles dgvTestReportViewer.Sorted
         Try
             LoadCompliaceColor()
         Catch ex As Exception
@@ -1346,7 +1346,7 @@ Public Class ISMPMonitoringLog
         End Try
     End Sub
 
-    Private Sub mmiReports_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiReports.Click
+    Private Sub mmiReports_Click(sender As System.Object, e As System.EventArgs) Handles mmiReports.Click
         Try
             If StaffReports Is Nothing Then
                 If StaffReports Is Nothing Then StaffReports = New ISMPStaffReports

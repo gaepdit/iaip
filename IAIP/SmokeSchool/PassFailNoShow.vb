@@ -5,7 +5,7 @@ Imports System.Data.SqlClient
 
 Public Class PassFailNoShow
 
-    Private Sub PassFailNoShow_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub PassFailNoShow_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         
         Dim rpt As New crPassFailNoShow
         'Dim key As String = txtPassFailNoShow.Text

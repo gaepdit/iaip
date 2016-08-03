@@ -50,7 +50,7 @@ Namespace DAL.Sscp
 
 #Region " Exists "
 
-        Public Function EnforcementExists(ByVal enforcementId As String) As Boolean
+        Public Function EnforcementExists(enforcementId As String) As Boolean
             If enforcementId = "" OrElse Not Integer.TryParse(enforcementId, Nothing) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
@@ -63,7 +63,7 @@ Namespace DAL.Sscp
             Return Convert.ToBoolean(result)
         End Function
 
-        Public Function EnforcementExistsForTrackingNumber(ByVal trackingNumber As String, ByRef enfNumber As String) As Boolean
+        Public Function EnforcementExistsForTrackingNumber(trackingNumber As String, ByRef enfNumber As String) As Boolean
             If trackingNumber = "" OrElse Not Integer.TryParse(trackingNumber, Nothing) Then Return False
 
             Dim query As String = " SELECT STRENFORCEMENTNUMBER " &
@@ -85,7 +85,7 @@ Namespace DAL.Sscp
 
 #Region " Get enforcement info "
 
-        Private Sub FillEnforcementInfoFromDataRow(ByVal row As DataRow, ByRef enfInfo As EnforcementInfo)
+        Private Sub FillEnforcementInfoFromDataRow(row As DataRow, ByRef enfInfo As EnforcementInfo)
             Dim address As New Address
             With address
                 .City = DBUtilities.GetNullable(Of String)(row("STRFACILITYCITY"))
@@ -121,7 +121,7 @@ Namespace DAL.Sscp
             End With
         End Sub
 
-        Public Function GetEnforcementInfo(ByVal enforcementId As String) As EnforcementInfo
+        Public Function GetEnforcementInfo(enforcementId As String) As EnforcementInfo
             Dim query As String =
                 " SELECT SSCP_AUDITEDENFORCEMENT.STRENFORCEMENTNUMBER, " &
                 "   SSCP_AUDITEDENFORCEMENT.STRAIRSNUMBER, " &
@@ -151,7 +151,7 @@ Namespace DAL.Sscp
             Return enfInfo
         End Function
 
-        Private Function EnforcementCaseFromDataRow(ByVal row As DataRow) As EnforcementCase
+        Private Function EnforcementCaseFromDataRow(row As DataRow) As EnforcementCase
 
             Dim enfCase As New EnforcementCase
             With enfCase
@@ -228,7 +228,7 @@ Namespace DAL.Sscp
             Return enfCase
         End Function
 
-        Public Function GetEnforcementCase(ByVal enforcementId As String) As EnforcementCase
+        Public Function GetEnforcementCase(enforcementId As String) As EnforcementCase
             If enforcementId = "" OrElse Not Integer.TryParse(enforcementId, Nothing) Then Return Nothing
 
             Dim query As String = "SELECT enf.*, " &

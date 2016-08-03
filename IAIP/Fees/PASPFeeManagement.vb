@@ -6,7 +6,7 @@ Public Class PASPFeeManagement
     Dim ds As DataSet
     Dim da As SqlDataAdapter
 
-    Private Sub PASPFeeManagement_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub PASPFeeManagement_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
         Try
             LoadFeeRates("1")
@@ -36,7 +36,7 @@ Public Class PASPFeeManagement
 
 #Region "Subs and Functions"
 
-    Sub LoadFeeRates(ByVal ActiveStatus As String)
+    Sub LoadFeeRates(ActiveStatus As String)
         Try
             SQL = "Select " &
             "numFeeRateID, " &
@@ -167,7 +167,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadNSPSExemptions(ByVal ActiveStatus As String)
+    Sub LoadNSPSExemptions(ActiveStatus As String)
         Try
             SQL = "Select " &
             "NSPSReasonCode, Description, " &
@@ -220,7 +220,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadNSPSExemptions2(ByVal ActiveStatus As String)
+    Sub LoadNSPSExemptions2(ActiveStatus As String)
         Try
             SQL = "Select " &
             "NSPSReasonCode, Description, " &
@@ -323,14 +323,14 @@ Public Class PASPFeeManagement
 
 #End Region
 
-    Private Sub btnClearFeeData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearFeeData.Click
+    Private Sub btnClearFeeData_Click(sender As System.Object, e As System.EventArgs) Handles btnClearFeeData.Click
         Try
             ClearFeeData()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvFeeRates_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvFeeRates.MouseUp
+    Private Sub dgvFeeRates_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvFeeRates.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvFeeRates.HitTest(e.X, e.Y)
 
@@ -440,7 +440,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnsaveRate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnsaveRate.Click
+    Private Sub btnsaveRate_Click(sender As System.Object, e As System.EventArgs) Handles btnsaveRate.Click
         Try
             If Insert_FS_FeeRate(txtFeeYear.Text, dtpFeePeriodStart.Text, dtpFeePeriodEnd.Text,
                                txtTitleVfee.Text, txtAnnualSMFee.Text, txtperTonRate.Text, txtAnnualNSPSFee.Text,
@@ -460,7 +460,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnUpdateFeeData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateFeeData.Click
+    Private Sub btnUpdateFeeData_Click(sender As System.Object, e As System.EventArgs) Handles btnUpdateFeeData.Click
         Try
             If txtFeeID.Text <> "" Then
                 If Update_FS_FeeRate(txtFeeID.Text, txtFeeYear.Text, dtpFeePeriodStart.Text, dtpFeePeriodEnd.Text,
@@ -482,7 +482,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDeleteFeeRate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteFeeRate.Click
+    Private Sub btnDeleteFeeRate_Click(sender As System.Object, e As System.EventArgs) Handles btnDeleteFeeRate.Click
         Try
             If txtFeeID.Text <> "" Then
                 If Update_FS_FeeRate(txtFeeID.Text, txtFeeYear.Text, dtpFeePeriodStart.Text, dtpFeePeriodEnd.Text,
@@ -502,7 +502,7 @@ Public Class PASPFeeManagement
 
         End Try
     End Sub
-    Private Sub btnViewDeletedFeeRates_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewDeletedFeeRates.Click
+    Private Sub btnViewDeletedFeeRates_Click(sender As System.Object, e As System.EventArgs) Handles btnViewDeletedFeeRates.Click
         Try
 
             LoadFeeRates("0")
@@ -590,7 +590,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSelectForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSelectForm.Click
+    Private Sub btnSelectForm_Click(sender As System.Object, e As System.EventArgs) Handles btnSelectForm.Click
         Try
             Dim dgvRow As New DataGridViewRow
             Dim temp As String
@@ -628,7 +628,7 @@ Public Class PASPFeeManagement
         Finally
         End Try
     End Sub
-    Private Sub btnViewNSPSExemptionsByYear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewNSPSExemptionsByYear.Click
+    Private Sub btnViewNSPSExemptionsByYear_Click(sender As System.Object, e As System.EventArgs) Handles btnViewNSPSExemptionsByYear.Click
         Try
             If cboNSPSExemptionYear.Text <> "" Then
                 LoadNSPSExemptionByYear()
@@ -638,7 +638,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSelectAllForms_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSelectAllForms.Click
+    Private Sub btnSelectAllForms_Click(sender As System.Object, e As System.EventArgs) Handles btnSelectAllForms.Click
         Try
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
@@ -659,7 +659,7 @@ Public Class PASPFeeManagement
         Finally
         End Try
     End Sub
-    Private Sub btnUnselectForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUnselectForm.Click
+    Private Sub btnUnselectForm_Click(sender As System.Object, e As System.EventArgs) Handles btnUnselectForm.Click
         Try
             Dim ReasonID As String = ""
 
@@ -692,7 +692,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnUnselectAllForms_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUnselectAllForms.Click
+    Private Sub btnUnselectAllForms_Click(sender As System.Object, e As System.EventArgs) Handles btnUnselectAllForms.Click
         Try
             Dim ReasonID As String = ""
             Dim i As Integer = 0
@@ -735,7 +735,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnUpdateNSPSbyYear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateNSPSbyYear.Click
+    Private Sub btnUpdateNSPSbyYear_Click(sender As System.Object, e As System.EventArgs) Handles btnUpdateNSPSbyYear.Click
         If cboNSPSExemptionYear.Text = "" OrElse Not IsNumeric(cboNSPSExemptionYear.Text) Then
             MessageBox.Show("Please select a Fee Year first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
@@ -829,7 +829,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnAddNSPSExemption_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNSPSExemption.Click
+    Private Sub btnAddNSPSExemption_Click(sender As System.Object, e As System.EventArgs) Handles btnAddNSPSExemption.Click
         Try
             If Insert_FSLK_NSPSReason(txtNSPSExemption.Text) = True Then
                 txtNSPSExemption.Clear()
@@ -852,7 +852,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDeleteNSPSExemption_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteNSPSExemption.Click
+    Private Sub btnDeleteNSPSExemption_Click(sender As System.Object, e As System.EventArgs) Handles btnDeleteNSPSExemption.Click
         Try
             'Update_FSLK_NSPSReason
             If txtDeleteNSPSExemptions.Text <> "" Then
@@ -870,7 +870,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnViewDeletedNSPS_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewDeletedNSPS.Click
+    Private Sub btnViewDeletedNSPS_Click(sender As System.Object, e As System.EventArgs) Handles btnViewDeletedNSPS.Click
         Try
             LoadNSPSExemptions2("0")
 
@@ -878,7 +878,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvNSPSExemptions_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvNSPSExemptions.MouseUp
+    Private Sub dgvNSPSExemptions_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvNSPSExemptions.MouseUp
         Try
             'Dim hti As DataGridView.HitTestInfo = dgvNSPSExemptions.HitTest(e.X, e.Y)
 
@@ -902,7 +902,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnUpdateNSPSExemption_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateNSPSExemption.Click
+    Private Sub btnUpdateNSPSExemption_Click(sender As System.Object, e As System.EventArgs) Handles btnUpdateNSPSExemption.Click
         Try
             If txtDeleteNSPSExemptions.Text <> "" Then
                 If Update_FSLK_NSPSReason(txtDeleteNSPSExemptions.Text, txtNSPSExemption.Text, "1") = True Then
@@ -919,7 +919,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnReloadFeeRate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReloadFeeRate.Click
+    Private Sub btnReloadFeeRate_Click(sender As System.Object, e As System.EventArgs) Handles btnReloadFeeRate.Click
         Try
 
             LoadFeeRates("1")
@@ -928,7 +928,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnViewEnrolledFacilities_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewEnrolledFacilities.Click
+    Private Sub btnViewEnrolledFacilities_Click(sender As System.Object, e As System.EventArgs) Handles btnViewEnrolledFacilities.Click
         Try
 
             ViewEnrolledFacilities()
@@ -937,7 +937,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnFirstEnrollment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFirstEnrollment.Click
+    Private Sub btnFirstEnrollment_Click(sender As System.Object, e As System.EventArgs) Handles btnFirstEnrollment.Click
         Try
             Dim EnrollCheck As String = ""
 
@@ -1019,7 +1019,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnUnenrollFeeYear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUnenrollFeeYear.Click
+    Private Sub btnUnenrollFeeYear_Click(sender As System.Object, e As System.EventArgs) Handles btnUnenrollFeeYear.Click
         Try
             If cboAvailableFeeYears.Text = "" Then
                 MsgBox("NO FACILITIES ENROLLED." & vbCrLf & "Select a fee year first.", MsgBoxStyle.Exclamation, Me.Text)
@@ -1167,10 +1167,10 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnViewMailout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewMailout.Click
+    Private Sub btnViewMailout_Click(sender As System.Object, e As System.EventArgs) Handles btnViewMailout.Click
         ViewMailOut()
     End Sub
-    Private Sub btnGenerateMailoutList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGenerateMailoutList.Click
+    Private Sub btnGenerateMailoutList_Click(sender As System.Object, e As System.EventArgs) Handles btnGenerateMailoutList.Click
         Try
             If cboAvailableFeeYears.Text = "" OrElse Not IsNumeric(cboAvailableFeeYears.Text) Then
                 MsgBox("Select a valid fee year first.", MsgBoxStyle.Exclamation, Me.Text)
@@ -1340,7 +1340,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnUpdateContactData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateContactData.Click
+    Private Sub btnUpdateContactData_Click(sender As System.Object, e As System.EventArgs) Handles btnUpdateContactData.Click
         ' Warn user
         Dim confirm As DialogResult = MessageBox.Show("This will replace mailout contact data with the current " & vbNewLine &
             "fee contact for all sources in the mailout list. " &
@@ -1485,11 +1485,11 @@ Public Class PASPFeeManagement
         End Try
     End Sub
 
-    Private Sub btnExportToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportToExcel.Click
+    Private Sub btnExportToExcel_Click(sender As System.Object, e As System.EventArgs) Handles btnExportToExcel.Click
         dgvFeeManagementLists.ExportToExcel(Me)
     End Sub
 
-    Private Sub dgvExistingExemptions_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvExistingExemptions.MouseUp
+    Private Sub dgvExistingExemptions_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvExistingExemptions.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvExistingExemptions.HitTest(e.X, e.Y)
 
@@ -1513,14 +1513,14 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnRefreshNSPSExemptions_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRefreshNSPSExemptions.Click
+    Private Sub btnRefreshNSPSExemptions_Click(sender As System.Object, e As System.EventArgs) Handles btnRefreshNSPSExemptions.Click
         Try
             LoadNSPSExemptions2("1")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnClearNSPSExemptions_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearNSPSExemptions.Click
+    Private Sub btnClearNSPSExemptions_Click(sender As System.Object, e As System.EventArgs) Handles btnClearNSPSExemptions.Click
         Try
             txtDeleteNSPSExemptions.Clear()
             txtNSPSExemption.Clear()
@@ -1528,7 +1528,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnViewFacilitiesSubjectToFees_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewFacilitiesSubjectToFees.Click
+    Private Sub btnViewFacilitiesSubjectToFees_Click(sender As System.Object, e As System.EventArgs) Handles btnViewFacilitiesSubjectToFees.Click
         Try
             SQL = "Select " &
           "substr(fS_Admin.strAIRSnumber, 5) as AIRSNumber,  " &
@@ -1624,7 +1624,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSetMailoutDate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSetMailoutDate.Click
+    Private Sub btnSetMailoutDate_Click(sender As System.Object, e As System.EventArgs) Handles btnSetMailoutDate.Click
         Dim confirm As DialogResult = MessageBox.Show("Are you sure you want to set the initial mailout date for all sources in the mailout list?",
             "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1)
         If confirm = DialogResult.No Then
@@ -1734,7 +1734,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbViewUserData_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewUserData.LinkClicked
+    Private Sub llbViewUserData_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewUserData.LinkClicked
         Try
             ViewFacilitySpecificUsers()
         Catch ex As Exception
@@ -1857,7 +1857,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnAddUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddUser.Click
+    Private Sub btnAddUser_Click(sender As System.Object, e As System.EventArgs) Handles btnAddUser.Click
         Try
             Dim userID As Integer
 
@@ -1896,7 +1896,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDelete.Click
+    Private Sub btnDelete_Click(sender As System.Object, e As System.EventArgs) Handles btnDelete.Click
         Try
             SQL = "DELETE OlapUserAccess " &
             "WHERE numUserID = '" & cboUsers.SelectedValue & "' " &
@@ -1915,7 +1915,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdate.Click
+    Private Sub btnUpdate_Click(sender As System.Object, e As System.EventArgs) Handles btnUpdate.Click
         Try
             Dim adminaccess As String
             Dim feeaccess As String
@@ -1966,7 +1966,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub lblViewEmailData_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewEmailData.LinkClicked
+    Private Sub lblViewEmailData_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewEmailData.LinkClicked
         Try
             LoadUserInfo(txtWebUserEmail.Text)
             LoadUserFacilityInfo(txtWebUserEmail.Text)
@@ -1975,7 +1975,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadUserInfo(ByVal UserData As String)
+    Sub LoadUserInfo(UserData As String)
         Try
             SQL = "Select " &
             "OLAPUserProfile.numUserID, " &
@@ -2109,7 +2109,7 @@ Public Class PASPFeeManagement
         End Try
 
     End Sub
-    Sub LoadUserFacilityInfo(ByVal EmailLoc As String)
+    Sub LoadUserFacilityInfo(EmailLoc As String)
         Try
             Dim dgvRow As New DataGridViewRow
 
@@ -2186,7 +2186,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnEditUserData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditUserData.Click
+    Private Sub btnEditUserData_Click(sender As System.Object, e As System.EventArgs) Handles btnEditUserData.Click
         Try
             txtEditFirstName.Visible = True
             txtEditLastName.Visible = True
@@ -2208,7 +2208,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSaveEditedData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveEditedData.Click
+    Private Sub btnSaveEditedData_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveEditedData.Click
         Try
             Dim FirstName As String = " "
             Dim LastName As String = " "
@@ -2298,7 +2298,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnUpdatePassword_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdatePassword.Click
+    Private Sub btnUpdatePassword_Click(sender As System.Object, e As System.EventArgs) Handles btnUpdatePassword.Click
         Try
             If txtWebUserID.Text <> "" And txtEditUserPassword.Text <> "" Then
                 'New password change code 6/30/2010
@@ -2334,7 +2334,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnChangeEmailAddress_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnChangeEmailAddress.Click
+    Private Sub btnChangeEmailAddress_Click(sender As System.Object, e As System.EventArgs) Handles btnChangeEmailAddress.Click
         Try
             If txtWebUserID.Text <> "" Then
                 If IsValidEmailAddress(txtEditEmail.Text) Then
@@ -2398,7 +2398,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnAddFacilitytoUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddFacilitytoUser.Click
+    Private Sub btnAddFacilitytoUser_Click(sender As System.Object, e As System.EventArgs) Handles btnAddFacilitytoUser.Click
         Try
             If txtWebUserID.Text <> "" And mtbFacilityToAdd.Text <> "" Then
                 SQL = "Select " &
@@ -2443,7 +2443,7 @@ Public Class PASPFeeManagement
     End Sub
 
 
-    Private Sub btnDeleteFacilityUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteFacilityUser.Click
+    Private Sub btnDeleteFacilityUser_Click(sender As System.Object, e As System.EventArgs) Handles btnDeleteFacilityUser.Click
         Try
             If txtWebUserID.Text <> "" And cboFacilityToDelete.Text <> "" Then
                 SQL = "DELETE OlapUserAccess " &
@@ -2466,7 +2466,7 @@ Public Class PASPFeeManagement
         End Try
     End Sub
 
-    Private Sub btnUpdateUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateUser.Click
+    Private Sub btnUpdateUser_Click(sender As System.Object, e As System.EventArgs) Handles btnUpdateUser.Click
         Try
             Dim adminaccess As String
             Dim feeaccess As String
@@ -2518,7 +2518,7 @@ Public Class PASPFeeManagement
         End Try
     End Sub
 
-    Private Sub cboAvailableFeeYears_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cboAvailableFeeYears.SelectedIndexChanged
+    Private Sub cboAvailableFeeYears_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles cboAvailableFeeYears.SelectedIndexChanged
         If cboAvailableFeeYears.SelectedIndex > 1 Then
             btnGenerateMailoutList.Enabled = False
             btnFirstEnrollment.Enabled = False
@@ -2536,7 +2536,7 @@ Public Class PASPFeeManagement
         End If
     End Sub
 
-    Private Sub btnOpenFeesLog_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenFeesLog.Click
+    Private Sub btnOpenFeesLog_Click(sender As System.Object, e As System.EventArgs) Handles btnOpenFeesLog.Click
         Dim parameters As New Generic.Dictionary(Of BaseForm.FormParameter, String)
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbCheckAIRSNumber.Text) Then
             parameters(FormParameter.AirsNumber) = mtbCheckAIRSNumber.Text
@@ -2546,7 +2546,7 @@ Public Class PASPFeeManagement
         OpenSingleForm(PASPFeeAuditLog, parameters:=parameters, closeFirst:=True)
     End Sub
 
-    Private Sub dgvFeeManagementLists_SelectionChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles dgvFeeManagementLists.SelectionChanged
+    Private Sub dgvFeeManagementLists_SelectionChanged(sender As System.Object, e As System.EventArgs) Handles dgvFeeManagementLists.SelectionChanged
         mtbCheckAIRSNumber.Clear()
         If dgvFeeManagementLists.SelectedRows.Count = 1 Then
             mtbCheckAIRSNumber.Text = dgvFeeManagementLists.CurrentRow.Cells("AIRSNumber").Value.ToString
@@ -2556,13 +2556,13 @@ Public Class PASPFeeManagement
 #Region " CodeFile "
     ' Code that was formerly in CodeFile.vb but is only used in this form anyway
 
-    Function Insert_FS_FeeRate(ByVal FeeYear As String, ByVal PeriodStart As String,
-                          ByVal PeriodEnd As String, ByVal Part70Fee As String, ByVal SMFee As String,
-                          ByVal PerTonRate As String, ByVal NSPSFee As String, ByVal FeeDueDate As String,
-                          ByVal AdminFee As String, ByVal AdminApplicable As String, ByVal Comments As String,
-                           ByVal FirstQrtDue As String, ByVal SecondQrtDue As String,
-                          ByVal ThirdQrtDue As String, ByVal FourthQrtDue As String, ByVal AAThres As String,
-                          ByVal NAThres As String) As Boolean
+    Function Insert_FS_FeeRate(FeeYear As String, PeriodStart As String,
+                          PeriodEnd As String, Part70Fee As String, SMFee As String,
+                          PerTonRate As String, NSPSFee As String, FeeDueDate As String,
+                          AdminFee As String, AdminApplicable As String, Comments As String,
+                           FirstQrtDue As String, SecondQrtDue As String,
+                          ThirdQrtDue As String, FourthQrtDue As String, AAThres As String,
+                          NAThres As String) As Boolean
         Try
             If IsDBNull(FeeYear) Or FeeYear = "" Then
                 Return False
@@ -2659,13 +2659,13 @@ Public Class PASPFeeManagement
         End Try
     End Function
 
-    Function Update_FS_FeeRate(ByVal FeeRateID As String, ByVal FeeYear As String, ByVal PeriodStart As String,
-                          ByVal PeriodEnd As String, ByVal Part70Fee As String, ByVal SMFee As String,
-                          ByVal PerTonRate As String, ByVal NSPSFee As String, ByVal FeeDueDate As String,
-                          ByVal AdminFee As String, ByVal AdminApplicable As String, ByVal Comments As String,
-                          ByVal Active As String, ByVal FirstQrtDue As String, ByVal SecondQrtDue As String,
-                          ByVal ThridQrtDue As String, ByVal FourthQrtDue As String, ByVal AAThres As String,
-                          ByVal NAThres As String) As Boolean
+    Function Update_FS_FeeRate(FeeRateID As String, FeeYear As String, PeriodStart As String,
+                          PeriodEnd As String, Part70Fee As String, SMFee As String,
+                          PerTonRate As String, NSPSFee As String, FeeDueDate As String,
+                          AdminFee As String, AdminApplicable As String, Comments As String,
+                          Active As String, FirstQrtDue As String, SecondQrtDue As String,
+                          ThridQrtDue As String, FourthQrtDue As String, AAThres As String,
+                          NAThres As String) As Boolean
         Try
             If IsNumeric(FeeRateID) Then
             Else
@@ -2771,7 +2771,7 @@ Public Class PASPFeeManagement
         End Try
     End Function
 
-    Function Insert_FSLK_NSPSReason(ByVal Description As String) As Boolean
+    Function Insert_FSLK_NSPSReason(Description As String) As Boolean
         Try
             Dim SQL As String = "Insert into FSLK_NSPSReason " &
             "Values " &
@@ -2794,7 +2794,7 @@ Public Class PASPFeeManagement
         End Try
     End Function
 
-    Function Update_FSLK_NSPSReason(ByVal NSPSReasonCode As String, ByVal Description As String, ByVal ActiveStatus As String) As Boolean
+    Function Update_FSLK_NSPSReason(NSPSReasonCode As String, Description As String, ActiveStatus As String) As Boolean
         Try
             Dim SQL As String
             If Description = "" Then
@@ -2826,7 +2826,7 @@ Public Class PASPFeeManagement
         End Try
     End Function
 
-    Function Insert_FSLK_NSPSReasonYear(ByVal numFeeYear As String, ByVal NSPSReasonCode As String, ByVal DisplayOrder As String) As Boolean
+    Function Insert_FSLK_NSPSReasonYear(numFeeYear As String, NSPSReasonCode As String, DisplayOrder As String) As Boolean
         Try
             Dim SQL As String = "Insert into FSLK_NSPSReasonYear " &
             "values " &
@@ -2846,8 +2846,8 @@ Public Class PASPFeeManagement
         End Try
     End Function
 
-    Function Update_FSLK_NSPSReasonYear(ByVal numFeeYear As String, ByVal NSPSReasonCode As String, ByVal DisplayOrder As String,
-                                       ByVal ActiveStatus As String) As Boolean
+    Function Update_FSLK_NSPSReasonYear(numFeeYear As String, NSPSReasonCode As String, DisplayOrder As String,
+                                       ActiveStatus As String) As Boolean
         Try
             Dim SQL As String = "Update FSLK_NSPSReasonYear set " &
             "NSPSReasonCode = '" & NSPSReasonCode & "', " &

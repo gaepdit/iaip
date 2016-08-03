@@ -48,10 +48,10 @@ Public Class IAIPLookUpTables
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnLoadApplicationTypes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoadApplicationTypes.Click
+    Private Sub btnLoadApplicationTypes_Click(sender As System.Object, e As System.EventArgs) Handles btnLoadApplicationTypes.Click
         LoadApplicationTypes()
     End Sub
-    Private Sub dgvApplicationType_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvApplicationType.MouseUp
+    Private Sub dgvApplicationType_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvApplicationType.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvApplicationType.HitTest(e.X, e.Y)
         Dim temp As String = ""
         Try
@@ -80,12 +80,12 @@ Public Class IAIPLookUpTables
         End Try
 
     End Sub
-    Private Sub btnClearAppTypes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearAppTypes.Click
+    Private Sub btnClearAppTypes_Click(sender As System.Object, e As System.EventArgs) Handles btnClearAppTypes.Click
         txtApplicationID.Clear()
         txtApplicationDesc.Clear()
         chbActiveAppType.Checked = False
     End Sub
-    Private Sub btnAddEditAppType_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNewAppType.Click
+    Private Sub btnAddEditAppType_Click(sender As System.Object, e As System.EventArgs) Handles btnAddNewAppType.Click
         Try
             Dim AppStatus As String
 
@@ -136,7 +136,7 @@ Public Class IAIPLookUpTables
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnEditAppType_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditAppType.Click
+    Private Sub btnEditAppType_Click(sender As System.Object, e As System.EventArgs) Handles btnEditAppType.Click
         Try
             Dim temp As String = ""
             If chbActiveAppType.Checked = True Then
@@ -168,7 +168,7 @@ Public Class IAIPLookUpTables
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDeleteAppType_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteAppType.Click
+    Private Sub btnDeleteAppType_Click(sender As System.Object, e As System.EventArgs) Handles btnDeleteAppType.Click
         Try
             If txtApplicationID.Text <> "" Then
                 SQL = "Select Count(*) as IDUsed " &
@@ -221,7 +221,7 @@ Public Class IAIPLookUpTables
 
 #Region "APBManagement"
 
-    Private Sub btnLoadAPBManagement_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoadAPBManagement.Click
+    Private Sub btnLoadAPBManagement_Click(sender As System.Object, e As System.EventArgs) Handles btnLoadAPBManagement.Click
         Try
             '1 - EPD Director
             '2 - EPD Commissioner
@@ -431,7 +431,7 @@ Public Class IAIPLookUpTables
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvLookUpManagement_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvLookUpManagement.MouseUp
+    Private Sub dgvLookUpManagement_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvLookUpManagement.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvLookUpManagement.HitTest(e.X, e.Y)
 
@@ -557,7 +557,7 @@ Public Class IAIPLookUpTables
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub chbAPBMangementVacant_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbAPBMangementVacant.CheckedChanged
+    Private Sub chbAPBMangementVacant_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbAPBMangementVacant.CheckedChanged
         If chbAPBMangementVacant.Checked = True Then
             txtAPBManagementName.Clear()
         End If
@@ -693,16 +693,16 @@ Public Class IAIPLookUpTables
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSaveAPBManagement_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveAPBManagement.Click
+    Private Sub btnSaveAPBManagement_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveAPBManagement.Click
         SaveAPBManagement()
     End Sub
-    Private Sub btnClearManagement_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearManagement.Click
+    Private Sub btnClearManagement_Click(sender As System.Object, e As System.EventArgs) Handles btnClearManagement.Click
         txtAPBManagemetnID.Clear()
         txtAPBManagementName.Clear()
         chbAPBMangementVacant.Checked = False
         cboManagementType.Text = ""
     End Sub
-    Private Sub btnViewAllPastTypes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewAllPastTypes.Click
+    Private Sub btnViewAllPastTypes_Click(sender As System.Object, e As System.EventArgs) Handles btnViewAllPastTypes.Click
         Try
             Dim ManagementType As String = ""
 

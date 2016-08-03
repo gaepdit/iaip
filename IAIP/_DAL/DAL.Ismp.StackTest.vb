@@ -11,7 +11,7 @@ Namespace DAL.Ismp
         ''' </summary>
         ''' <param name="referenceNumber">The stack test reference number to check</param>
         ''' <returns>True if the reference number exists; otherwise, false.</returns>
-        Public Function StackTestExists(ByVal referenceNumber As String) As Boolean
+        Public Function StackTestExists(referenceNumber As String) As Boolean
             If referenceNumber = "" OrElse Not Integer.TryParse(referenceNumber, Nothing) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
@@ -28,7 +28,7 @@ Namespace DAL.Ismp
         ''' </summary>
         ''' <param name="notificationNumber">The stack test notification number to check</param>
         ''' <returns>True if the notification exists; otherwise, false.</returns>
-        Public Function TestNotificationExists(ByVal notificationNumber As String) As Boolean
+        Public Function TestNotificationExists(notificationNumber As String) As Boolean
             If notificationNumber = "" OrElse Not Integer.TryParse(notificationNumber, Nothing) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
@@ -45,7 +45,7 @@ Namespace DAL.Ismp
         ''' </summary>
         ''' <param name="referenceNumber">The stack test reference number to check</param>
         ''' <returns>True if the stack test has been closed out; otherwise, false.</returns>
-        Public Function StackTestIsClosedOut(ByVal referenceNumber As String) As Boolean
+        Public Function StackTestIsClosedOut(referenceNumber As String) As Boolean
             If referenceNumber = "" OrElse Not Integer.TryParse(referenceNumber, Nothing) Then Return False
 
             Dim query As String = "SELECT STRCLOSED " &
@@ -56,7 +56,7 @@ Namespace DAL.Ismp
             Return DB.GetBoolean(query, parameter)
         End Function
 
-        Private Function GetStackTestDbTable(ByVal referenceNumber As String) As String
+        Private Function GetStackTestDbTable(referenceNumber As String) As String
             If referenceNumber = "" OrElse Not Integer.TryParse(referenceNumber, Nothing) Then Return Nothing
 
             Dim query As String =
@@ -76,7 +76,7 @@ Namespace DAL.Ismp
         ''' </summary>
         ''' <param name="referenceNumber">The reference number of the stack test to clear.</param>
         ''' <returns>True if the action was successful; otherwise, false.</returns>
-        Public Function ClearStackTestData(ByVal referenceNumber As String) As Boolean
+        Public Function ClearStackTestData(referenceNumber As String) As Boolean
             If referenceNumber = "" OrElse Not Integer.TryParse(referenceNumber, Nothing) Then Return Nothing
 
             Dim tableName As String = GetStackTestDbTable(referenceNumber)

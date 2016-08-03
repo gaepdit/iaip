@@ -16,7 +16,7 @@ Public Class ISMPStaffReports
     Dim dr, dr2, dr3 As SqlDataReader
     Dim dr4, dr5, dr6 As SqlDataReader
 
-    Private Sub ISMPStaffReports_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub ISMPStaffReports_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
         Try
 
@@ -28,7 +28,7 @@ Public Class ISMPStaffReports
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbRunEngineerStatReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbRunEngineerStatReport.LinkClicked
+    Private Sub llbRunEngineerStatReport_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbRunEngineerStatReport.LinkClicked
         Try
             EngineerUnitStats()
 
@@ -50,7 +50,7 @@ Public Class ISMPStaffReports
         End Try
 
     End Sub
-    Sub RunUnitEngineerStatistics(ByVal EngineerGCode As String)
+    Sub RunUnitEngineerStatistics(EngineerGCode As String)
         Dim DateBias As String = ""
 
         Dim Staff As String = ""
@@ -618,7 +618,7 @@ Public Class ISMPStaffReports
 
     End Sub
 
-    Private Sub llbExportStatsToWord_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbExportStatsToWord.LinkClicked
+    Private Sub llbExportStatsToWord_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbExportStatsToWord.LinkClicked
         Dim WordText As String
         'Dim WordApp As New Word.ApplicationClass
         'Dim wordDoc As Word.DocumentClass
@@ -639,7 +639,7 @@ Public Class ISMPStaffReports
         End Try
 
     End Sub
-    Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
+    Private Sub mmiHelp_Click(sender As System.Object, e As System.EventArgs) Handles mmiHelp.Click
         OpenDocumentationUrl(Me)
     End Sub
 End Class

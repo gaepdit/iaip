@@ -2,7 +2,7 @@
 
 Public Class CollectionHelper
 
-    Public Shared Function ConvertToDataTable(Of T)(ByVal list As IList) As DataTable
+    Public Shared Function ConvertToDataTable(Of T)(list As IList) As DataTable
         Dim table As DataTable = CreateTable(Of T)()
         Dim entityType As Type = GetType(T)
         Dim properties As PropertyDescriptorCollection = TypeDescriptor.GetProperties(entityType)

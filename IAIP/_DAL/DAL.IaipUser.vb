@@ -5,7 +5,7 @@ Imports EpdIt
 Namespace DAL
     Module IaipUserData
 
-        Public Function AuthenticateIaipUser(ByVal username As String, ByVal password As String) As IaipAuthenticationResult
+        Public Function AuthenticateIaipUser(username As String, password As String) As IaipAuthenticationResult
             If username = "" Then Return IaipAuthenticationResult.InvalidUsername
             If password = "" Then Return IaipAuthenticationResult.InvalidLogin
 
@@ -30,7 +30,7 @@ Namespace DAL
             InactiveUser
         End Enum
 
-        Public Function GetIaipUserByUserId(ByVal userid As String) As IaipUser
+        Public Function GetIaipUserByUserId(userid As String) As IaipUser
             Dim id As Integer
 
             If userid = "" OrElse Not Integer.TryParse(userid, id) Then
@@ -43,7 +43,7 @@ Namespace DAL
             Return FillIaipUserFromDataRow(dataTable.Rows(0))
         End Function
 
-        Public Function GetIaipUserByUserIdAsDataTable(ByVal userid As Integer) As DataTable
+        Public Function GetIaipUserByUserIdAsDataTable(userid As Integer) As DataTable
             If userid = 0 Then Return Nothing
 
             Dim spName As String = "iaip_user.GetIaipUserByUserId"
@@ -52,7 +52,7 @@ Namespace DAL
             Return DB.SPGetDataTable(spName, parameter)
         End Function
 
-        Public Function GetIaipUserByUsername(ByVal username As String) As IaipUser
+        Public Function GetIaipUserByUsername(username As String) As IaipUser
             If username = "" Then Return Nothing
 
             Dim spName As String = "iaip_user.GetIaipUserByUsername"
@@ -64,7 +64,7 @@ Namespace DAL
             Return FillIaipUserFromDataRow(dataTable.Rows(0))
         End Function
 
-        Private Function FillIaipUserFromDataRow(ByVal row As DataRow) As IaipUser
+        Private Function FillIaipUserFromDataRow(row As DataRow) As IaipUser
             If row Is Nothing Then Return Nothing
 
             Dim user As New IaipUser

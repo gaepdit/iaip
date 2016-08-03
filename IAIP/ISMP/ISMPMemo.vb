@@ -8,7 +8,7 @@ Public Class ISMPMemo
     Dim panel2 As New StatusBarPanel
     Dim panel3 As New StatusBarPanel
 
-    Private Sub ISMPMemo_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub ISMPMemo_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
         Try
             TCISMPMemo.TabPages.Remove(TPFuturePrintOption)
@@ -158,7 +158,7 @@ Public Class ISMPMemo
         End Try
 
     End Sub
-    Private Sub MmiCopy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiCopy.Click
+    Private Sub MmiCopy_Click(sender As System.Object, e As System.EventArgs) Handles MmiCopy.Click
         Try
 
             SendKeys.Send("^(c)")
@@ -169,7 +169,7 @@ Public Class ISMPMemo
         End Try
 
     End Sub
-    Private Sub MmiCut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiCut.Click
+    Private Sub MmiCut_Click(sender As System.Object, e As System.EventArgs) Handles MmiCut.Click
         Try
 
             SendKeys.Send("^(x)")
@@ -180,7 +180,7 @@ Public Class ISMPMemo
         End Try
 
     End Sub
-    Private Sub MmiPaste_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiPaste.Click
+    Private Sub MmiPaste_Click(sender As System.Object, e As System.EventArgs) Handles MmiPaste.Click
         Try
 
             SendKeys.Send("^(v)")
@@ -191,7 +191,7 @@ Public Class ISMPMemo
         End Try
 
     End Sub
-    Private Sub ISMPMemo_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
+    Private Sub ISMPMemo_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
 
             Me.Hide()
@@ -202,7 +202,7 @@ Public Class ISMPMemo
         End Try
 
     End Sub
-    Private Sub MmiClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiClose.Click
+    Private Sub MmiClose_Click(sender As System.Object, e As System.EventArgs) Handles MmiClose.Click
         Try
 
             Me.Hide()
@@ -213,7 +213,7 @@ Public Class ISMPMemo
         End Try
 
     End Sub
-    Private Sub TBMemo_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBMemo.ButtonClick
+    Private Sub TBMemo_ButtonClick(sender As System.Object, e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBMemo.ButtonClick
         Try
 
             Select Case TBMemo.Buttons.IndexOf(e.Button)
@@ -232,7 +232,7 @@ Public Class ISMPMemo
         End Try
 
     End Sub
-    Private Sub MmiSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiSave.Click
+    Private Sub MmiSave_Click(sender As System.Object, e As System.EventArgs) Handles MmiSave.Click
         Try
 
             SaveMemo()
@@ -248,7 +248,7 @@ Public Class ISMPMemo
     End Sub
 
 
-    Private Sub MenuItem5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuItem5.Click
+    Private Sub MenuItem5_Click(sender As System.Object, e As System.EventArgs) Handles MenuItem5.Click
         OpenDocumentationUrl(Me)
     End Sub
 End Class

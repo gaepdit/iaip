@@ -10,7 +10,7 @@ Public Class ISMPTestFirmComments
     Dim dsTestingFirms As DataSet
     Dim daTestingFirms As SqlDataAdapter
 
-    Private Sub ISMPTestFirmComments_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub ISMPTestFirmComments_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
         Try
             ClearPage()
@@ -227,7 +227,7 @@ Public Class ISMPTestFirmComments
         Finally
         End Try
     End Sub
-    Sub SaveCommentData(ByVal SaveType As String)
+    Sub SaveCommentData(SaveType As String)
         Try
             Dim CommentID As String = ""
             Dim TestFirmKey As String = ""
@@ -323,7 +323,7 @@ Public Class ISMPTestFirmComments
         End Try
 
     End Sub
-    Sub LoadHeaderData(ByVal RefreshType As String)
+    Sub LoadHeaderData(RefreshType As String)
         Try
             Select Case RefreshType
                 Case "AIRS Number"
@@ -495,7 +495,7 @@ Public Class ISMPTestFirmComments
 
 #End Region
 #Region "Declarations"
-    Private Sub btnSavePreTest_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSavePreTest.Click
+    Private Sub btnSavePreTest_Click(sender As System.Object, e As System.EventArgs) Handles btnSavePreTest.Click
         Try
             SaveCommentData("1")
         Catch ex As Exception
@@ -503,7 +503,7 @@ Public Class ISMPTestFirmComments
         Finally
         End Try
     End Sub
-    Private Sub btnSaveDayOf_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveDayOf.Click
+    Private Sub btnSaveDayOf_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveDayOf.Click
         Try
             SaveCommentData("2")
         Catch ex As Exception
@@ -511,7 +511,7 @@ Public Class ISMPTestFirmComments
         Finally
         End Try
     End Sub
-    Private Sub btnSaveTestReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveTestReport.Click
+    Private Sub btnSaveTestReport_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveTestReport.Click
         Try
             SaveCommentData("3")
         Catch ex As Exception
@@ -519,7 +519,7 @@ Public Class ISMPTestFirmComments
         Finally
         End Try
     End Sub
-    Private Sub btnOpenManagerTools_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenManagerTools.Click
+    Private Sub btnOpenManagerTools_Click(sender As System.Object, e As System.EventArgs) Handles btnOpenManagerTools.Click
         Try
 
             If txtAddComments.Size.Width > (Me.Size.Width) - 212 Then
@@ -541,7 +541,7 @@ Public Class ISMPTestFirmComments
         Finally
         End Try
     End Sub
-    Private Sub tsbBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbBack.Click
+    Private Sub tsbBack_Click(sender As System.Object, e As System.EventArgs) Handles tsbBack.Click
         Try
             Me.Hide()
         Catch ex As Exception
@@ -549,7 +549,7 @@ Public Class ISMPTestFirmComments
         Finally
         End Try
     End Sub
-    Private Sub tsmBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmBack.Click
+    Private Sub tsmBack_Click(sender As System.Object, e As System.EventArgs) Handles tsmBack.Click
         Try
             Me.Hide()
         Catch ex As Exception
@@ -570,20 +570,20 @@ Public Class ISMPTestFirmComments
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub tsbLookUpAirNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbLookUpAirNumber.Click
+    Private Sub tsbLookUpAirNumber_Click(sender As System.Object, e As System.EventArgs) Handles tsbLookUpAirNumber.Click
         OpenFacilityLookupTool()
     End Sub
     Public WriteOnly Property ValueFromFacilityLookUp() As String
-        Set(ByVal Value As String)
+        Set(Value As String)
             txtAIRSNumber.Text = Value
         End Set
     End Property
     Public WriteOnly Property ValueFromFacilityLookUp2() As String
-        Set(ByVal Value2 As String)
+        Set(Value2 As String)
             txtFacilityTested.Text = Value2
         End Set
     End Property
-    Private Sub cboCommentNumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboCommentNumber.TextChanged
+    Private Sub cboCommentNumber_TextChanged(sender As Object, e As System.EventArgs) Handles cboCommentNumber.TextChanged
         Try
             If cboCommentNumber.Text <> "" Then
                 SQL = "Select " &
@@ -616,7 +616,7 @@ Public Class ISMPTestFirmComments
         Finally
         End Try
     End Sub
-    Private Sub btnEditComment_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEditComment.Click
+    Private Sub btnEditComment_Click(sender As Object, e As System.EventArgs) Handles btnEditComment.Click
         Try
             Dim CommentID As String = ""
             Dim TestFirmKey As String = ""
@@ -673,7 +673,7 @@ Public Class ISMPTestFirmComments
         Finally
         End Try
     End Sub
-    Private Sub btnDeleteComment_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnDeleteComment.Click
+    Private Sub btnDeleteComment_Click(sender As Object, e As System.EventArgs) Handles btnDeleteComment.Click
         Try
             If cboCommentNumber.Text <> "" Then
                 SQL = "Delete ISMPTestFirmComments " &
@@ -696,7 +696,7 @@ Public Class ISMPTestFirmComments
         Finally
         End Try
     End Sub
-    Private Sub btnRefreshNotifications_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRefreshNotifications.Click
+    Private Sub btnRefreshNotifications_Click(sender As System.Object, e As System.EventArgs) Handles btnRefreshNotifications.Click
         Try
             LoadHeaderData("Notification")
 
@@ -705,7 +705,7 @@ Public Class ISMPTestFirmComments
         Finally
         End Try
     End Sub
-    Private Sub btnRefreshReportNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRefreshReportNumber.Click
+    Private Sub btnRefreshReportNumber_Click(sender As System.Object, e As System.EventArgs) Handles btnRefreshReportNumber.Click
         Try
             LoadHeaderData("Test Report")
 
@@ -714,7 +714,7 @@ Public Class ISMPTestFirmComments
         Finally
         End Try
     End Sub
-    Private Sub btnRefreshAIRSNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRefreshAIRSNumber.Click
+    Private Sub btnRefreshAIRSNumber_Click(sender As System.Object, e As System.EventArgs) Handles btnRefreshAIRSNumber.Click
         Try
             LoadHeaderData("AIRS Number")
 
@@ -723,7 +723,7 @@ Public Class ISMPTestFirmComments
         Finally
         End Try
     End Sub
-    Private Sub tsbSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbSave.Click
+    Private Sub tsbSave_Click(sender As System.Object, e As System.EventArgs) Handles tsbSave.Click
         Try
             SaveHeaderData()
         Catch ex As Exception
@@ -733,7 +733,7 @@ Public Class ISMPTestFirmComments
     End Sub
 #End Region
 
-    Private Sub HelpToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HelpToolStripMenuItem.Click
+    Private Sub HelpToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles HelpToolStripMenuItem.Click
         OpenDocumentationUrl(Me)
     End Sub
 End Class

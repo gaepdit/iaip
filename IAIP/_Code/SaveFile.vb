@@ -3,7 +3,7 @@ Imports System.IO
 
 Module SaveFile
 
-    Public Function SaveBinaryFileFromDB(filePath As String, query As String, Optional ByVal parameter As SqlParameter = Nothing) As Boolean
+    Public Function SaveBinaryFileFromDB(filePath As String, query As String, Optional parameter As SqlParameter = Nothing) As Boolean
         Dim parameterArray As SqlParameter() = Nothing
         If parameter IsNot Nothing Then
             parameterArray = {parameter}
@@ -11,7 +11,7 @@ Module SaveFile
         Return SaveBinaryFileFromDB(filePath, query, parameterArray)
     End Function
 
-    Public Function SaveBinaryFileFromDB(filePath As String, query As String, ByVal parameterArray As SqlParameter()) As Boolean
+    Public Function SaveBinaryFileFromDB(filePath As String, query As String, parameterArray As SqlParameter()) As Boolean
         Dim byteArray As Byte() = DB.GetByteArray(query, parameterArray)
 
         Try
@@ -32,7 +32,7 @@ Module SaveFile
     ''' </summary>
     ''' <param name="pathToFile">The path to the file to read.</param>
     ''' <returns>A Byte array.</returns>
-    Public Function ReadByteArrayFromFile(ByVal pathToFile As String) As Byte()
+    Public Function ReadByteArrayFromFile(pathToFile As String) As Byte()
         Return File.ReadAllBytes(pathToFile)
     End Function
 

@@ -6,7 +6,7 @@
     ''' <param name="d">The Date to normalize.</param>
     ''' <returns>A nullable Date that has been normalized.</returns>
     ''' <remarks></remarks>
-    Public Function NormalizeDate(ByVal d As Date?) As Date?
+    Public Function NormalizeDate(d As Date?) As Date?
         ' Converts a date to Nothing if date is equal to #7/4/1776#
 
         If d.Equals(CType(Nothing, Date)) Then Return d

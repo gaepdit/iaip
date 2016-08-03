@@ -11,7 +11,7 @@ Public Class DmuEdtErrorMessages
 
 #Region " Load "
 
-    Private Sub DmuEdtErrors_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Private Sub DmuEdtErrors_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         
         GetData()
         AddDisplayOptionHandlers()
@@ -28,7 +28,7 @@ Public Class DmuEdtErrorMessages
 
 #Region " Data "
 
-    Private Sub ReloadButton_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles ReloadButton.Click
+    Private Sub ReloadButton_Click(sender As Object, e As System.EventArgs) Handles ReloadButton.Click
         GetData()
     End Sub
 
@@ -112,7 +112,7 @@ Public Class DmuEdtErrorMessages
         EdtErrorCountDisplay.Text = shown.ToString & " error" & If(shown = 1, "", "s") & " shown / " & total.ToString & " total"
     End Sub
 
-    Private Sub DisplayOptionsChanged(ByVal sender As Object, ByVal e As System.EventArgs)
+    Private Sub DisplayOptionsChanged(sender As Object, e As System.EventArgs)
         SetGridFilter()
     End Sub
 
@@ -120,40 +120,40 @@ Public Class DmuEdtErrorMessages
 
 #Region " DataGridView Selection and Events "
 
-    Private Sub OpenErrorMessageDetail(ByVal errorCode As String)
+    Private Sub OpenErrorMessageDetail(errorCode As String)
         Dim edtErrorMessageDetail As DmuEdtErrorMessageDetail = OpenMultiForm(DmuEdtErrorMessageDetail, errorCode.GetHashCode)
         edtErrorMessageDetail.EdtErrorCode = errorCode
     End Sub
 
-    Private Sub EdtErrorMessageGrid_CellClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellClick
+    Private Sub EdtErrorMessageGrid_CellClick(sender As Object, e As System.Windows.Forms.DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellClick
         ' Only within the cell content of first column
         If e.RowIndex <> -1 And e.RowIndex < EdtErrorMessageGrid.RowCount And e.ColumnIndex = 0 Then
             OpenErrorMessageDetail(EdtErrorMessageGrid.Rows(e.RowIndex).Cells(0).Value.ToString)
         End If
     End Sub
 
-    Private Sub EdtErrorMessageGrid_CellDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellDoubleClick
+    Private Sub EdtErrorMessageGrid_CellDoubleClick(sender As Object, e As System.Windows.Forms.DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellDoubleClick
         'Double-click within the cell content (but exclude first column to avoid double-firing)
         If e.RowIndex <> -1 And e.RowIndex < EdtErrorMessageGrid.RowCount And e.ColumnIndex <> 0 Then
             OpenErrorMessageDetail(EdtErrorMessageGrid.Rows(e.RowIndex).Cells(0).Value.ToString)
         End If
     End Sub
 
-    Private Sub EdtErrorMessageGrid_CellMouseEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellMouseEnter
+    Private Sub EdtErrorMessageGrid_CellMouseEnter(sender As Object, e As System.Windows.Forms.DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellMouseEnter
         ' Change cursor and text color when hovering over first column (treats text like a hyperlink)
         If e.RowIndex <> -1 And e.RowIndex < EdtErrorMessageGrid.RowCount And e.ColumnIndex = 0 Then
             EdtErrorMessageGrid.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex, True)
         End If
     End Sub
 
-    Private Sub EdtErrorMessageGrid_CellMouseLeave(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellMouseLeave
+    Private Sub EdtErrorMessageGrid_CellMouseLeave(sender As Object, e As System.Windows.Forms.DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellMouseLeave
         ' Reset cursor and text color when mouse leaves (un-hovers) a cell
         If e.RowIndex <> -1 And e.RowIndex < EdtErrorMessageGrid.RowCount And e.ColumnIndex = 0 Then
             EdtErrorMessageGrid.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex, False)
         End If
     End Sub
 
-    Private Sub EdtErrorMessageGrid_KeyUp(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles EdtErrorMessageGrid.KeyUp
+    Private Sub EdtErrorMessageGrid_KeyUp(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles EdtErrorMessageGrid.KeyUp
         If e.KeyCode = Keys.Enter Then
             OpenErrorMessageDetail(EdtErrorMessageGrid.CurrentRow.Cells(0).Value.ToString)
         End If

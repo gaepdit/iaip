@@ -5,7 +5,7 @@ Module CrystalReports
 
 #Region "Crystal Reports displayer"
 
-    Public Sub SetUpCrystalReportViewer(ByVal report As ReportClass, ByVal crReportViewer As CrystalReportViewer, ByVal TabText As String)
+    Public Sub SetUpCrystalReportViewer(report As ReportClass, crReportViewer As CrystalReportViewer, TabText As String)
         crReportViewer.ReportSource = report
 
         crReportViewer.ToolPanelView = ToolPanelViewType.None

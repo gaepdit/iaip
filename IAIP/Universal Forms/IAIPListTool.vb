@@ -20,7 +20,7 @@ Public Class IAIPListTool
     Dim dsForms As DataSet
     Dim daForms As SqlDataAdapter
 
-    Private Sub IAIPListTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub IAIPListTool_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
         Try
             btnAddBranch.Enabled = False
@@ -568,7 +568,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Sub LoadProgram(ByVal BranchCode As String)
+    Sub LoadProgram(BranchCode As String)
         Try
             Dim dtProgram As New DataTable
             Dim drDSRow As DataRow
@@ -619,7 +619,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Sub LoadUnit(ByVal ProgramCode As String)
+    Sub LoadUnit(ProgramCode As String)
         Try
             Dim dtUnit As New DataTable
             Dim drDSRow As DataRow
@@ -670,7 +670,7 @@ Public Class IAIPListTool
 
         End Try
     End Sub
-    Sub LoadAccounts(ByVal UnitCode As String, ByVal ProgramCode As String, ByVal BranchCode As String)
+    Sub LoadAccounts(UnitCode As String, ProgramCode As String, BranchCode As String)
         Try
             Dim dtAccount As New DataTable
             Dim drDSRow As DataRow
@@ -898,7 +898,7 @@ Public Class IAIPListTool
 
 #End Region
 #Region "Declaration"
-    Private Sub dgvBranch_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvBranch.MouseUp
+    Private Sub dgvBranch_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvBranch.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvBranch.HitTest(e.X, e.Y)
             If dgvBranch.RowCount > 0 And hti.RowIndex <> -1 Then
@@ -920,7 +920,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub dgvProgram_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvProgram.MouseUp
+    Private Sub dgvProgram_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvProgram.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvProgram.HitTest(e.X, e.Y)
             If dgvProgram.RowCount > 0 And hti.RowIndex <> -1 Then
@@ -942,7 +942,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub dgvUnit_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvUnit.MouseUp
+    Private Sub dgvUnit_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvUnit.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvUnit.HitTest(e.X, e.Y)
             If dgvUnit.RowCount > 0 And hti.RowIndex <> -1 Then
@@ -964,7 +964,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub dgvAccounts_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvAccounts.MouseUp
+    Private Sub dgvAccounts_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvAccounts.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvAccounts.HitTest(e.X, e.Y)
             If dgvAccounts.RowCount > 0 And hti.RowIndex <> -1 Then
@@ -1000,7 +1000,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub tsbClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbClear.Click
+    Private Sub tsbClear_Click(sender As System.Object, e As System.EventArgs) Handles tsbClear.Click
         Try
             dsProgram = New DataSet
             dsUnit = New DataSet
@@ -1024,7 +1024,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub txtBranchCode_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtBranchCode.TextChanged
+    Private Sub txtBranchCode_TextChanged(sender As Object, e As System.EventArgs) Handles txtBranchCode.TextChanged
         Try
             CheckButtons()
         Catch ex As Exception
@@ -1032,7 +1032,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub txtProgramCode_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtProgramCode.TextChanged
+    Private Sub txtProgramCode_TextChanged(sender As Object, e As System.EventArgs) Handles txtProgramCode.TextChanged
         Try
             CheckButtons()
         Catch ex As Exception
@@ -1040,7 +1040,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub txtUnitCode_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtUnitCode.TextChanged
+    Private Sub txtUnitCode_TextChanged(sender As Object, e As System.EventArgs) Handles txtUnitCode.TextChanged
         Try
             CheckButtons()
         Catch ex As Exception
@@ -1048,7 +1048,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub txtAccountCode_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtAccountCode.TextChanged
+    Private Sub txtAccountCode_TextChanged(sender As Object, e As System.EventArgs) Handles txtAccountCode.TextChanged
         Try
             CheckButtons()
         Catch ex As Exception
@@ -1056,7 +1056,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub btnAddBranch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddBranch.Click
+    Private Sub btnAddBranch_Click(sender As System.Object, e As System.EventArgs) Handles btnAddBranch.Click
         Try
             SQL = "Insert into LookUpEPDBranches " &
             "values " &
@@ -1087,7 +1087,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub btnEditBranch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditBranch.Click
+    Private Sub btnEditBranch_Click(sender As System.Object, e As System.EventArgs) Handles btnEditBranch.Click
         Try
             If txtBranchCode.Text <> "" Then
                 SQL = "Update LookUpEPDBranches set " &
@@ -1108,7 +1108,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub btnDeleteBranch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteBranch.Click
+    Private Sub btnDeleteBranch_Click(sender As System.Object, e As System.EventArgs) Handles btnDeleteBranch.Click
         Try
             If txtBranchCode.Text <> "" Then
                 SQL = "Delete LookUpEPDBranches " &
@@ -1131,7 +1131,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub btnAddProgram_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddProgram.Click
+    Private Sub btnAddProgram_Click(sender As System.Object, e As System.EventArgs) Handles btnAddProgram.Click
         Try
             If txtBranchCode.Text <> "" Then
                 SQL = "Insert into LookUpEPDPrograms " &
@@ -1166,7 +1166,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub btnEditProgram_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditProgram.Click
+    Private Sub btnEditProgram_Click(sender As System.Object, e As System.EventArgs) Handles btnEditProgram.Click
         Try
             If txtProgramCode.Text <> "" And txtBranchCode.Text <> "" Then
 
@@ -1190,7 +1190,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub btnDeleteProgram_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteProgram.Click
+    Private Sub btnDeleteProgram_Click(sender As System.Object, e As System.EventArgs) Handles btnDeleteProgram.Click
         Try
             SQL = "Delete LookUpEPDPrograms " &
             "where numProgramCode = '" & txtProgramCode.Text & "' "
@@ -1211,7 +1211,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub btnAddUnit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddUnit.Click
+    Private Sub btnAddUnit_Click(sender As System.Object, e As System.EventArgs) Handles btnAddUnit.Click
         Try
             If txtProgramCode.Text <> "" Then
                 SQL = "Insert into LookUpEPDUnits " &
@@ -1246,7 +1246,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub btnEditUnit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditUnit.Click
+    Private Sub btnEditUnit_Click(sender As System.Object, e As System.EventArgs) Handles btnEditUnit.Click
         Try
             If txtUnitCode.Text <> "" And txtProgramCode.Text <> "" Then
                 SQL = "Update LookUpEPDUnits set " &
@@ -1268,7 +1268,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub btnDeleteUnit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteUnit.Click
+    Private Sub btnDeleteUnit_Click(sender As System.Object, e As System.EventArgs) Handles btnDeleteUnit.Click
         Try
             SQL = "Delete LookUpEPDUnits " &
             "where numUnitCode = '" & txtUnitCode.Text & "' "
@@ -1290,7 +1290,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub btnAddAccount_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddAccount.Click
+    Private Sub btnAddAccount_Click(sender As System.Object, e As System.EventArgs) Handles btnAddAccount.Click
         Try
             SQL = "Insert into LookUpIAIPAccounts " &
             "values " &
@@ -1324,7 +1324,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub btnEditAccount_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditAccount.Click
+    Private Sub btnEditAccount_Click(sender As System.Object, e As System.EventArgs) Handles btnEditAccount.Click
         Try
             If txtAccountCode.Text <> "" Then
                 SQL = "Update LookUpIAIPAccounts set " &
@@ -1349,7 +1349,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub btnDeleteAccount_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteAccount.Click
+    Private Sub btnDeleteAccount_Click(sender As System.Object, e As System.EventArgs) Handles btnDeleteAccount.Click
         Try
             SQL = "Delete LookUpIAIPAccounts " &
             "where numAccountCode = '" & txtAccountCode.Text & "' "
@@ -1368,7 +1368,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub btnClearBranch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearBranch.Click
+    Private Sub btnClearBranch_Click(sender As System.Object, e As System.EventArgs) Handles btnClearBranch.Click
         Try
             txtBranch.Clear()
             txtBranchCode.Clear()
@@ -1377,7 +1377,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub btnClearProgram_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearProgram.Click
+    Private Sub btnClearProgram_Click(sender As System.Object, e As System.EventArgs) Handles btnClearProgram.Click
         Try
             txtProgram.Clear()
             txtProgramCode.Clear()
@@ -1386,7 +1386,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub btnClearUnit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearUnit.Click
+    Private Sub btnClearUnit_Click(sender As System.Object, e As System.EventArgs) Handles btnClearUnit.Click
         Try
             txtUnit.Clear()
             txtUnitCode.Clear()
@@ -1395,7 +1395,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub btnClearAccount_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearAccount.Click
+    Private Sub btnClearAccount_Click(sender As System.Object, e As System.EventArgs) Handles btnClearAccount.Click
         Try
             txtAccount.Clear()
             txtAccountCode.Clear()
@@ -1404,7 +1404,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub cboBranch_SelectedValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboBranch.SelectedValueChanged
+    Private Sub cboBranch_SelectedValueChanged(sender As Object, e As System.EventArgs) Handles cboBranch.SelectedValueChanged
         Try
             Dim Unit As String
             Dim Program As String
@@ -1437,7 +1437,7 @@ Public Class IAIPListTool
 
         End Try
     End Sub
-    Private Sub cboProgram_SelectedValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboProgram.SelectedValueChanged
+    Private Sub cboProgram_SelectedValueChanged(sender As Object, e As System.EventArgs) Handles cboProgram.SelectedValueChanged
         Try
             Dim Unit As String
             Dim Program As String
@@ -1471,7 +1471,7 @@ Public Class IAIPListTool
 
         End Try
     End Sub
-    Private Sub cboUnit_SelectedValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboUnit.SelectedValueChanged
+    Private Sub cboUnit_SelectedValueChanged(sender As Object, e As System.EventArgs) Handles cboUnit.SelectedValueChanged
         Try
             Dim Unit As String
             Dim Program As String
@@ -1500,7 +1500,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub btnSelectForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSelectForm.Click
+    Private Sub btnSelectForm_Click(sender As System.Object, e As System.EventArgs) Handles btnSelectForm.Click
         Try
             Dim dgvRow As New DataGridViewRow
             Dim temp As String
@@ -1538,7 +1538,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub btnSelectAllForms_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSelectAllForms.Click
+    Private Sub btnSelectAllForms_Click(sender As System.Object, e As System.EventArgs) Handles btnSelectAllForms.Click
         Try
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
@@ -1560,7 +1560,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub btnUnselectForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUnselectForm.Click
+    Private Sub btnUnselectForm_Click(sender As System.Object, e As System.EventArgs) Handles btnUnselectForm.Click
         Try
             dgvSelectedForms.Rows.Remove(dgvSelectedForms.CurrentRow)
 
@@ -1571,7 +1571,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub btnUnselectAllForms_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUnselectAllForms.Click
+    Private Sub btnUnselectAllForms_Click(sender As System.Object, e As System.EventArgs) Handles btnUnselectAllForms.Click
         Try
 
             dgvSelectedForms.Rows.Clear()
@@ -1583,7 +1583,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub chbCascadeBranch_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbCascadeBranch.CheckedChanged
+    Private Sub chbCascadeBranch_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbCascadeBranch.CheckedChanged
         Try
 
             If chbCascadeBranch.Checked = True Or chbCascadeProgram.Checked = True Then
@@ -1596,7 +1596,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub chbCascadeProgram_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbCascadeProgram.CheckedChanged
+    Private Sub chbCascadeProgram_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbCascadeProgram.CheckedChanged
         Try
             If chbCascadeBranch.Checked = True Or chbCascadeProgram.Checked = True Then
                 clbAccounts.Enabled = False
@@ -1608,7 +1608,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub chbCascadeUnit_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub chbCascadeUnit_CheckedChanged(sender As System.Object, e As System.EventArgs)
         Try
             If chbCascadeBranch.Checked = True Or chbCascadeProgram.Checked = True Then
                 clbAccounts.Enabled = False
@@ -1620,7 +1620,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub btnUpdateAccount_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateAccount.Click
+    Private Sub btnUpdateAccount_Click(sender As System.Object, e As System.EventArgs) Handles btnUpdateAccount.Click
         Try
 
             UpdateAccount()
@@ -1630,7 +1630,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub dgvSelectedForms_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvSelectedForms.MouseUp
+    Private Sub dgvSelectedForms_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvSelectedForms.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvSelectedForms.HitTest(e.X, e.Y)
             Dim i As Integer = 0
@@ -1687,7 +1687,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub btnViewAccountForms_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewAccountForms.Click
+    Private Sub btnViewAccountForms_Click(sender As System.Object, e As System.EventArgs) Handles btnViewAccountForms.Click
         Try
             ViewForms()
         Catch ex As Exception
@@ -1695,7 +1695,7 @@ Public Class IAIPListTool
         Finally
         End Try
     End Sub
-    Private Sub tsbRefreshForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbRefreshForm.Click
+    Private Sub tsbRefreshForm_Click(sender As System.Object, e As System.EventArgs) Handles tsbRefreshForm.Click
         Try
             txtBranch.Clear()
             txtBranchCode.Clear()
@@ -1754,7 +1754,7 @@ Public Class IAIPListTool
 
 
 
-    Private Sub HelpToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub HelpToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs)
         OpenDocumentationUrl(Me)
     End Sub
 End Class

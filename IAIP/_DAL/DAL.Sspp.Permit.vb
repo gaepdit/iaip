@@ -8,7 +8,7 @@ Namespace DAL.Sspp
 
 #Region " Read "
 
-        Public Function PermitExists(ByVal permitNumber As String) As Boolean
+        Public Function PermitExists(permitNumber As String) As Boolean
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
                 " FROM APBISSUEDPERMIT " &
                 " WHERE RowNum = 1 " &
@@ -18,7 +18,7 @@ Namespace DAL.Sspp
             Return DB.GetBoolean(query, parameter)
         End Function
 
-        Public Function GetPermit(ByVal permitNumber As String) As Permit
+        Public Function GetPermit(permitNumber As String) As Permit
             Dim query As String =
                 " SELECT ISSUEDPERMITID, " &
                 "   STRAIRSNUMBER, " &
@@ -37,7 +37,7 @@ Namespace DAL.Sspp
             Return GetPermitFromDataRow(dr)
         End Function
 
-        Public Function GetActivePermitsAsList(ByVal airsNumber As String) As List(Of Permit)
+        Public Function GetActivePermitsAsList(airsNumber As String) As List(Of Permit)
 
             Dim permitList As New List(Of Permit)
             Dim permit As New Permit
@@ -52,7 +52,7 @@ Namespace DAL.Sspp
             Return permitList
         End Function
 
-        Public Function GetActivePermitsAsTable(ByVal airsNumber As String) As DataTable
+        Public Function GetActivePermitsAsTable(airsNumber As String) As DataTable
             Dim query As String =
                 " SELECT ISSUEDPERMITID, " &
                 "   STRAIRSNUMBER, " &
@@ -71,7 +71,7 @@ Namespace DAL.Sspp
             Return DB.GetDataTable(query, parameter)
         End Function
 
-        Private Function GetPermitFromDataRow(ByVal row As DataRow) As Permit
+        Private Function GetPermitFromDataRow(row As DataRow) As Permit
             Dim permit As New Permit
             With permit
                 .Active = Convert.ToBoolean(Convert.ToInt32(DBUtilities.GetNullable(Of String)(row("ACTIVE"))))
@@ -89,7 +89,7 @@ Namespace DAL.Sspp
 
 #Region " Write "
 
-        Public Function UpdatePermits(ByVal permits As List(Of Permit)) As Boolean
+        Public Function UpdatePermits(permits As List(Of Permit)) As Boolean
             If permits Is Nothing OrElse permits.Count = 0 Then Return False
 
             Dim query As String =
@@ -127,14 +127,14 @@ Namespace DAL.Sspp
             Return DB.RunCommand(queryList, parametersList)
         End Function
 
-        Public Function UpdatePermit(ByVal permit As Permit) As Boolean
+        Public Function UpdatePermit(permit As Permit) As Boolean
             If permit Is Nothing Then Return False
             Dim permitList As New List(Of Permit)
             permitList.Add(permit)
             Return UpdatePermits(permitList)
         End Function
 
-        Public Function AddPermit(ByVal permit As Permit) As Boolean
+        Public Function AddPermit(permit As Permit) As Boolean
             If permit Is Nothing Then Return False
 
             Dim query As String =

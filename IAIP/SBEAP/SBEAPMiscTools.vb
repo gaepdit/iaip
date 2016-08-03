@@ -1,9 +1,9 @@
 ﻿Public Class SBEAPMiscTools
-    Private Sub SBEAPMiscTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub SBEAPMiscTools_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         
     End Sub
 
-    Private Sub btnGetContactData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGetContactData.Click
+    Private Sub btnGetContactData_Click(sender As System.Object, e As System.EventArgs) Handles btnGetContactData.Click
         Dim query As String = "select " &
                 "SBEAPClients.ClientID, " &
                 "strCompanyName, " &

@@ -8,7 +8,7 @@ Namespace DAL
 
 #Region "Lookups"
 
-        Public Function GetResEventStatusesAsDictionary(Optional ByVal addBlank As Boolean = False, Optional ByVal blankPrompt As String = "") As SortedDictionary(Of Integer, String)
+        Public Function GetResEventStatusesAsDictionary(Optional addBlank As Boolean = False, Optional blankPrompt As String = "") As SortedDictionary(Of Integer, String)
             Dim query As String = " SELECT NUMRESLK_EVENTSTATUSID, STREVENTSTATUS " &
                 " FROM RESLK_EVENTSTATUS " &
                 " WHERE ACTIVE = '1' " &
@@ -20,7 +20,7 @@ Namespace DAL
             Return New SortedDictionary(Of Integer, String)(d)
         End Function
 
-        Public Function GetRegistrationStatusesAsDictionary(Optional ByVal addBlank As Boolean = False, Optional ByVal blankPrompt As String = "") As SortedDictionary(Of Integer, String)
+        Public Function GetRegistrationStatusesAsDictionary(Optional addBlank As Boolean = False, Optional blankPrompt As String = "") As SortedDictionary(Of Integer, String)
             Dim query As String = " SELECT NUMRESLK_REGISTRATIONSTATUSID, " &
                 " STRREGISTRATIONSTATUS " &
                 " FROM RESLK_REGISTRATIONSTATUS " &
@@ -37,7 +37,7 @@ Namespace DAL
 
 #Region "Events"
 
-        Public Function GetResEventsAsDataTable(ByVal toDate As Nullable(Of Date), ByVal fromDate As Nullable(Of Date)) As DataTable
+        Public Function GetResEventsAsDataTable(toDate As Nullable(Of Date), fromDate As Nullable(Of Date)) As DataTable
             Throw New NotImplementedException()
 
             ' TODO: SQL Server migration
@@ -76,7 +76,7 @@ Namespace DAL
 
 #Region "Event Details"
 
-        Public Function GetResEventByIdAsDataRow(ByVal id As Integer) As DataRow
+        Public Function GetResEventByIdAsDataRow(id As Integer) As DataRow
             Dim query As String =
                 " SELECT RES_EVENT.NUMRES_EVENTID, " &
                 "   RES_EVENT.ACTIVE, " &
@@ -125,7 +125,7 @@ Namespace DAL
         End Function
 
         '' Not currently used, but may be useful in the future
-        'Public Function GetResEventById(ByVal id As Integer) As ResEvent
+        'Public Function GetResEventById(id As Integer) As ResEvent
         '    Dim dataRow As DataRow = GetResEventByIdAsDataRow(id)
         '    Dim resEvent As New ResEvent
 
@@ -134,7 +134,7 @@ Namespace DAL
         '    Return resEvent
         'End Function
 
-        Public Sub FillResEventInfoFromDataRow(ByVal row As DataRow, ByRef re As ResEvent)
+        Public Sub FillResEventInfoFromDataRow(row As DataRow, ByRef re As ResEvent)
             Dim address As New Address
             With address
                 .Street = DBUtilities.GetNullable(Of String)(row("STRADDRESS"))
@@ -187,7 +187,7 @@ Namespace DAL
 
 #Region "Event Registrants"
 
-        Public Function GetRegistrantsByEventId(ByVal id As Integer) As DataTable
+        Public Function GetRegistrantsByEventId(id As Integer) As DataTable
             Dim query As String =
                 " SELECT RES_REGISTRATION.NUMRES_REGISTRATIONID, " &
                 "   RES_REGISTRATION.DATREGISTRATIONDATETIME, " &

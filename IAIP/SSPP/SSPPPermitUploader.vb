@@ -10,7 +10,7 @@ Public Class SSPPPermitUploader
 
 #Region "Form events"
 
-    Private Sub IAIPPermitUploader_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub IAIPPermitUploader_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         Try
 
             TCPermitUploader.TabPages.Remove(TPTV)
@@ -33,7 +33,7 @@ Public Class SSPPPermitUploader
 
 #Region "General tools"
 
-    Private Sub btnFindApplication_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFindApplication.Click, btnClear.Click
+    Private Sub btnFindApplication_Click(sender As System.Object, e As System.EventArgs) Handles btnFindApplication.Click, btnClear.Click
         Try
 
             If txtApplicationNumber.Text <> "" Then
@@ -48,7 +48,7 @@ Public Class SSPPPermitUploader
 
     End Sub
 
-    Private Sub txtApplicationNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtApplicationNumber.KeyPress
+    Private Sub txtApplicationNumber_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtApplicationNumber.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
@@ -309,7 +309,7 @@ Public Class SSPPPermitUploader
 
 #Region "Save files"
 
-    Private Sub btnUploadFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUploadFile.Click
+    Private Sub btnUploadFile_Click(sender As System.Object, e As System.EventArgs) Handles btnUploadFile.Click
         Try
             SaveFiles()
             FindApplicationInformation()
@@ -324,8 +324,8 @@ Public Class SSPPPermitUploader
     End Sub
 
     <CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId:="cmdCB")>
-    Sub UploadFile(ByVal FileName As String, ByVal DocLocation As String, ByVal DocxLocation As String,
-                    ByVal PDFLocation As String, ByVal DocOnFile As String)
+    Sub UploadFile(FileName As String, DocLocation As String, DocxLocation As String,
+                    PDFLocation As String, DocOnFile As String)
         Try
             Dim Flag As String = "00"
             Dim DocFile As String = ""
@@ -1201,7 +1201,7 @@ Public Class SSPPPermitUploader
 
 #Region "Delete files"
 
-    Sub DeleteFile(ByVal FileType As String)
+    Sub DeleteFile(FileType As String)
         Try
             Dim ResultDoc As DialogResult
 
@@ -1285,7 +1285,7 @@ Public Class SSPPPermitUploader
 
     End Sub
 
-    Private Sub rdbTitleVPermit_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdbTitleVPermit.CheckedChanged
+    Private Sub rdbTitleVPermit_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rdbTitleVPermit.CheckedChanged
         Try
             Dim TVNarrative As String = ""
             Dim TVDraft As String = ""
@@ -1348,7 +1348,7 @@ Public Class SSPPPermitUploader
 
     End Sub
 
-    Private Sub rdbPSDPermit_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdbPSDPermit.CheckedChanged
+    Private Sub rdbPSDPermit_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rdbPSDPermit.CheckedChanged
         Try
             Dim PSDAppSummary As String = ""
             Dim PSDPrelimDet As String = ""
@@ -1439,7 +1439,7 @@ Public Class SSPPPermitUploader
 
     End Sub
 
-    Private Sub rdbOtherPermit_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdbOtherPermit.CheckedChanged
+    Private Sub rdbOtherPermit_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rdbOtherPermit.CheckedChanged
         Try
             Dim OtherNarrative As String = ""
             Dim OtherPermit As String = ""
@@ -1492,7 +1492,7 @@ Public Class SSPPPermitUploader
 
 #Region "Document checkboxes"
 
-    Private Sub chbTVNarrative_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbTVNarrative.CheckedChanged
+    Private Sub chbTVNarrative_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbTVNarrative.CheckedChanged
         Try
 
             If chbTVNarrative.Checked = True And MasterApp <> "" Then
@@ -1616,7 +1616,7 @@ Public Class SSPPPermitUploader
         End Try
 
     End Sub
-    Private Sub chbTVDraft_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbTVDraft.CheckedChanged
+    Private Sub chbTVDraft_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbTVDraft.CheckedChanged
         Try
 
             If chbTVDraft.Checked = True And MasterApp <> "" Then
@@ -1738,7 +1738,7 @@ Public Class SSPPPermitUploader
         End Try
 
     End Sub
-    Private Sub chbTVPublicNotice_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbTVPublicNotice.CheckedChanged
+    Private Sub chbTVPublicNotice_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbTVPublicNotice.CheckedChanged
         Try
 
             If chbTVPublicNotice.Checked = True And MasterApp <> "" Then
@@ -1860,7 +1860,7 @@ Public Class SSPPPermitUploader
         End Try
 
     End Sub
-    Private Sub chbTVFinal_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbTVFinal.CheckedChanged
+    Private Sub chbTVFinal_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbTVFinal.CheckedChanged
         Try
 
             If chbTVFinal.Checked = True And MasterApp <> "" Then
@@ -1982,7 +1982,7 @@ Public Class SSPPPermitUploader
         End Try
 
     End Sub
-    Private Sub chbPSDApplicationSummary_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbPSDApplicationSummary.CheckedChanged
+    Private Sub chbPSDApplicationSummary_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbPSDApplicationSummary.CheckedChanged
         Try
 
             If chbPSDApplicationSummary.Checked = True And MasterApp <> "" Then
@@ -2114,7 +2114,7 @@ Public Class SSPPPermitUploader
         End Try
 
     End Sub
-    Private Sub chbPSDPrelimDet_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbPSDPrelimDet.CheckedChanged
+    Private Sub chbPSDPrelimDet_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbPSDPrelimDet.CheckedChanged
         Try
 
             If chbPSDPrelimDet.Checked = True And MasterApp <> "" Then
@@ -2247,7 +2247,7 @@ Public Class SSPPPermitUploader
         End Try
 
     End Sub
-    Private Sub chbPSDNarrative_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbPSDNarrative.CheckedChanged
+    Private Sub chbPSDNarrative_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbPSDNarrative.CheckedChanged
         Try
 
             If chbPSDNarrative.Checked = True And MasterApp <> "" Then
@@ -2378,7 +2378,7 @@ Public Class SSPPPermitUploader
         End Try
 
     End Sub
-    Private Sub chbPSDDraftPermit_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbPSDDraftPermit.CheckedChanged
+    Private Sub chbPSDDraftPermit_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbPSDDraftPermit.CheckedChanged
         Try
 
             If chbPSDDraftPermit.Checked = True And MasterApp <> "" Then
@@ -2509,7 +2509,7 @@ Public Class SSPPPermitUploader
         End Try
 
     End Sub
-    Private Sub chbPSDPublicNotice_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbPSDPublicNotice.CheckedChanged
+    Private Sub chbPSDPublicNotice_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbPSDPublicNotice.CheckedChanged
         Try
 
             If chbPSDPublicNotice.Checked = True And MasterApp <> "" Then
@@ -2640,7 +2640,7 @@ Public Class SSPPPermitUploader
         End Try
 
     End Sub
-    Private Sub chbPSDHearingNotice_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbPSDHearingNotice.CheckedChanged
+    Private Sub chbPSDHearingNotice_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbPSDHearingNotice.CheckedChanged
         Try
 
             If chbPSDHearingNotice.Checked = True And MasterApp <> "" Then
@@ -2771,7 +2771,7 @@ Public Class SSPPPermitUploader
         End Try
 
     End Sub
-    Private Sub chbPSDFinalDet_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbPSDFinalDet.CheckedChanged
+    Private Sub chbPSDFinalDet_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbPSDFinalDet.CheckedChanged
         Try
 
             If chbPSDFinalDet.Checked = True And MasterApp <> "" Then
@@ -2902,7 +2902,7 @@ Public Class SSPPPermitUploader
         End Try
 
     End Sub
-    Private Sub chbPSDFinalPermit_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbPSDFinalPermit.CheckedChanged
+    Private Sub chbPSDFinalPermit_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbPSDFinalPermit.CheckedChanged
         Try
 
             If chbPSDFinalPermit.Checked = True And MasterApp <> "" Then
@@ -3033,7 +3033,7 @@ Public Class SSPPPermitUploader
         End Try
 
     End Sub
-    Private Sub chbOtherNarrative_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbOtherNarrative.CheckedChanged
+    Private Sub chbOtherNarrative_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbOtherNarrative.CheckedChanged
         Try
             If chbOtherNarrative.Checked = True And MasterApp <> "" Then
                 txtOtherNarrativeDoc.Visible = True
@@ -3154,7 +3154,7 @@ Public Class SSPPPermitUploader
         End Try
 
     End Sub
-    Private Sub chbOtherPermit_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbOtherPermit.CheckedChanged
+    Private Sub chbOtherPermit_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbOtherPermit.CheckedChanged
         Try
 
             If chbOtherPermit.Checked = True And MasterApp <> "" Then
@@ -3281,7 +3281,7 @@ Public Class SSPPPermitUploader
 
 #Region "Document upload buttons"
 
-    Private Sub UploadButtons_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Private Sub UploadButtons_Click(sender As System.Object, e As System.EventArgs) _
     Handles btnOtherNarrative.Click, btnOtherPermit.Click,
         btnPSDAppSummary.Click, btnPSDDraftPermit.Click, btnPSDFinalDet.Click,
         btnPSDFinalPermit.Click, btnPSDHearingNotice.Click, btnPSDNarrative.Click,
@@ -3336,7 +3336,7 @@ Public Class SSPPPermitUploader
 
 #Region "Download files"
 
-    Sub DownloadFile(ByVal FileName As String, ByVal FileType As String)
+    Sub DownloadFile(FileName As String, FileType As String)
         Try
             Dim PermitNumber As String = ""
             Dim path As New SaveFileDialog
@@ -3519,7 +3519,7 @@ Public Class SSPPPermitUploader
         End Try
     End Sub
 
-    Private Sub btnOtherNarrativeDownload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOtherNarrativeDownload.Click
+    Private Sub btnOtherNarrativeDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnOtherNarrativeDownload.Click
         Try
             Dim Result As String = ""
 
@@ -3554,7 +3554,7 @@ Public Class SSPPPermitUploader
 
         End Try
     End Sub
-    Private Sub btnOtherPermitDownload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOtherPermitDownload.Click
+    Private Sub btnOtherPermitDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnOtherPermitDownload.Click
         Try
             Dim Result As String = ""
 
@@ -3588,7 +3588,7 @@ Public Class SSPPPermitUploader
 
         End Try
     End Sub
-    Private Sub btnTVNarrativeDownload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTVNarrativeDownload.Click
+    Private Sub btnTVNarrativeDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnTVNarrativeDownload.Click
         Try
             Dim Result As String = ""
 
@@ -3622,7 +3622,7 @@ Public Class SSPPPermitUploader
 
         End Try
     End Sub
-    Private Sub btnTVDraftDownload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTVDraftDownload.Click
+    Private Sub btnTVDraftDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnTVDraftDownload.Click
         Try
             Dim Result As String = ""
 
@@ -3656,7 +3656,7 @@ Public Class SSPPPermitUploader
 
         End Try
     End Sub
-    Private Sub btnTVPublicNoticeDownload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTVPublicNoticeDownload.Click
+    Private Sub btnTVPublicNoticeDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnTVPublicNoticeDownload.Click
         Try
             Dim Result As String = ""
 
@@ -3690,7 +3690,7 @@ Public Class SSPPPermitUploader
 
         End Try
     End Sub
-    Private Sub btnTVFinalDownload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTVFinalDownload.Click
+    Private Sub btnTVFinalDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnTVFinalDownload.Click
         Try
             Dim Result As String = ""
 
@@ -3724,7 +3724,7 @@ Public Class SSPPPermitUploader
 
         End Try
     End Sub
-    Private Sub btnPSDAppSummaryDownload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPSDAppSummaryDownload.Click
+    Private Sub btnPSDAppSummaryDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnPSDAppSummaryDownload.Click
         Try
             Dim Result As String = ""
 
@@ -3758,7 +3758,7 @@ Public Class SSPPPermitUploader
 
         End Try
     End Sub
-    Private Sub btnPSDPrelimDetDownload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPSDPrelimDetDownload.Click
+    Private Sub btnPSDPrelimDetDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnPSDPrelimDetDownload.Click
         Try
             Dim Result As String = ""
 
@@ -3792,7 +3792,7 @@ Public Class SSPPPermitUploader
 
         End Try
     End Sub
-    Private Sub btnPSDNarrativeDownload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPSDNarrativeDownload.Click
+    Private Sub btnPSDNarrativeDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnPSDNarrativeDownload.Click
         Try
             Dim Result As String = ""
 
@@ -3826,7 +3826,7 @@ Public Class SSPPPermitUploader
 
         End Try
     End Sub
-    Private Sub btnPSDDraftPermitDownload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPSDDraftPermitDownload.Click
+    Private Sub btnPSDDraftPermitDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnPSDDraftPermitDownload.Click
         Try
             Dim Result As String = ""
 
@@ -3860,7 +3860,7 @@ Public Class SSPPPermitUploader
 
         End Try
     End Sub
-    Private Sub btnPSDPublicNoticeDownload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPSDPublicNoticeDownload.Click
+    Private Sub btnPSDPublicNoticeDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnPSDPublicNoticeDownload.Click
         Try
             Dim Result As String = ""
 
@@ -3894,7 +3894,7 @@ Public Class SSPPPermitUploader
 
         End Try
     End Sub
-    Private Sub btnPSDHearingNoticeDownload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPSDHearingNoticeDownload.Click
+    Private Sub btnPSDHearingNoticeDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnPSDHearingNoticeDownload.Click
         Try
             Dim Result As String = ""
 
@@ -3928,7 +3928,7 @@ Public Class SSPPPermitUploader
 
         End Try
     End Sub
-    Private Sub btnPSDFinalDetDownload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPSDFinalDetDownload.Click
+    Private Sub btnPSDFinalDetDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnPSDFinalDetDownload.Click
         Try
             Dim Result As String = ""
 
@@ -3962,7 +3962,7 @@ Public Class SSPPPermitUploader
 
         End Try
     End Sub
-    Private Sub btnPSDFinalPermitDownload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPSDFinalPermitDownload.Click
+    Private Sub btnPSDFinalPermitDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnPSDFinalPermitDownload.Click
         Try
             Dim Result As String = ""
 
@@ -4001,7 +4001,7 @@ Public Class SSPPPermitUploader
 #End Region
 
 #Region "Delete buttons"
-    Private Sub btnDeletePSDAppSummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeletePSDAppSummary.Click
+    Private Sub btnDeletePSDAppSummary_Click(sender As System.Object, e As System.EventArgs) Handles btnDeletePSDAppSummary.Click
         Try
             DeleteFile("PA")
 
@@ -4009,7 +4009,7 @@ Public Class SSPPPermitUploader
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDeletePSDPrelimDet_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeletePSDPrelimDet.Click
+    Private Sub btnDeletePSDPrelimDet_Click(sender As System.Object, e As System.EventArgs) Handles btnDeletePSDPrelimDet.Click
         Try
             DeleteFile("PP")
 
@@ -4017,7 +4017,7 @@ Public Class SSPPPermitUploader
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDeletePSDNarrative_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeletePSDNarrative.Click
+    Private Sub btnDeletePSDNarrative_Click(sender As System.Object, e As System.EventArgs) Handles btnDeletePSDNarrative.Click
         Try
             DeleteFile("PT")
 
@@ -4025,7 +4025,7 @@ Public Class SSPPPermitUploader
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDeletePSDDraftPermit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeletePSDDraftPermit.Click
+    Private Sub btnDeletePSDDraftPermit_Click(sender As System.Object, e As System.EventArgs) Handles btnDeletePSDDraftPermit.Click
         Try
             DeleteFile("PD")
 
@@ -4033,7 +4033,7 @@ Public Class SSPPPermitUploader
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDeletePSDPublicNotice_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeletePSDPublicNotice.Click
+    Private Sub btnDeletePSDPublicNotice_Click(sender As System.Object, e As System.EventArgs) Handles btnDeletePSDPublicNotice.Click
         Try
             DeleteFile("PN")
 
@@ -4041,7 +4041,7 @@ Public Class SSPPPermitUploader
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDeletePSDHearingNotice_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeletePSDHearingNotice.Click
+    Private Sub btnDeletePSDHearingNotice_Click(sender As System.Object, e As System.EventArgs) Handles btnDeletePSDHearingNotice.Click
         Try
             DeleteFile("PH")
 
@@ -4049,7 +4049,7 @@ Public Class SSPPPermitUploader
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDeletePSDFinalDet_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeletePSDFinalDet.Click
+    Private Sub btnDeletePSDFinalDet_Click(sender As System.Object, e As System.EventArgs) Handles btnDeletePSDFinalDet.Click
         Try
             DeleteFile("PF")
 
@@ -4057,7 +4057,7 @@ Public Class SSPPPermitUploader
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDeletePSDFinalPermit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeletePSDFinalPermit.Click
+    Private Sub btnDeletePSDFinalPermit_Click(sender As System.Object, e As System.EventArgs) Handles btnDeletePSDFinalPermit.Click
         Try
             DeleteFile("PI")
 
@@ -4065,7 +4065,7 @@ Public Class SSPPPermitUploader
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDeleteTVNarrative_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteTVNarrative.Click
+    Private Sub btnDeleteTVNarrative_Click(sender As System.Object, e As System.EventArgs) Handles btnDeleteTVNarrative.Click
         Try
             DeleteFile("VN")
 
@@ -4073,7 +4073,7 @@ Public Class SSPPPermitUploader
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDeleteTVDraft_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteTVDraft.Click
+    Private Sub btnDeleteTVDraft_Click(sender As System.Object, e As System.EventArgs) Handles btnDeleteTVDraft.Click
         Try
             DeleteFile("VD")
 
@@ -4081,7 +4081,7 @@ Public Class SSPPPermitUploader
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDeleteTVPublicNot_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteTVPublicNot.Click
+    Private Sub btnDeleteTVPublicNot_Click(sender As System.Object, e As System.EventArgs) Handles btnDeleteTVPublicNot.Click
         Try
             DeleteFile("VP")
 
@@ -4089,7 +4089,7 @@ Public Class SSPPPermitUploader
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDeleteTVFinal_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteTVFinal.Click
+    Private Sub btnDeleteTVFinal_Click(sender As System.Object, e As System.EventArgs) Handles btnDeleteTVFinal.Click
         Try
             DeleteFile("VF")
 
@@ -4097,7 +4097,7 @@ Public Class SSPPPermitUploader
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDeleteOtherNarrative_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteOtherNarrative.Click
+    Private Sub btnDeleteOtherNarrative_Click(sender As System.Object, e As System.EventArgs) Handles btnDeleteOtherNarrative.Click
         Try
             DeleteFile("ON")
 
@@ -4105,7 +4105,7 @@ Public Class SSPPPermitUploader
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDeleteOtherPermit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteOtherPermit.Click
+    Private Sub btnDeleteOtherPermit_Click(sender As System.Object, e As System.EventArgs) Handles btnDeleteOtherPermit.Click
         Try
             DeleteFile("OP")
 

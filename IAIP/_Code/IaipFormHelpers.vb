@@ -12,7 +12,7 @@ Module IaipFormHelpers
         Return facilitySummary
     End Function
 
-    Public Function OpenFormFacilitySummary(ByVal airsNumber As String) As Form
+    Public Function OpenFormFacilitySummary(airsNumber As String) As Form
         If airsNumber.Length = 0 Then
             Return OpenFormFacilitySummary()
         End If
@@ -24,7 +24,7 @@ Module IaipFormHelpers
         End If
     End Function
 
-    Public Function OpenFormFacilitySummary(ByVal airsNumber As ApbFacilityId) As Form
+    Public Function OpenFormFacilitySummary(airsNumber As ApbFacilityId) As Form
         If Not DAL.FacilityData.AirsNumberExists(airsNumber) Then
             MessageBox.Show("AIRS number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return Nothing
@@ -42,7 +42,7 @@ Module IaipFormHelpers
 
 #Region " Work Item "
 
-    Public Function OpenFormSscpWorkItem(ByVal id As String) As Form
+    Public Function OpenFormSscpWorkItem(id As String) As Form
         If DAL.Sscp.WorkItemExists(id) Then
             Dim refNum As String = ""
             If DAL.Sscp.TryGetRefNumForWorkItem(id, refNum) Then
@@ -66,7 +66,7 @@ Module IaipFormHelpers
 
 #Region " FCE "
 
-    Public Sub OpenFormFce(ByVal airsNumber As ApbFacilityId, Optional ByVal year As String = "")
+    Public Sub OpenFormFce(airsNumber As ApbFacilityId, Optional year As String = "")
         SSCPFCE = New SSCPFCEWork
         SSCPFCE.txtAirsNumber.Text = airsNumber.ToString
         SSCPFCE.Show()
@@ -75,7 +75,7 @@ Module IaipFormHelpers
         End If
     End Sub
 
-    Public Sub OpenFormFce(ByVal fceNumber As String)
+    Public Sub OpenFormFce(fceNumber As String)
         If Not String.IsNullOrEmpty(fceNumber) Then
             Dim airsNumber As ApbFacilityId = DAL.Sscp.GetFacilityIdByFceId(fceNumber)
             If airsNumber IsNot Nothing Then
@@ -89,7 +89,7 @@ Module IaipFormHelpers
 
 #Region " Enforcement "
 
-    Public Function OpenFormEnforcement(ByVal enforcementId As String) As Form
+    Public Function OpenFormEnforcement(enforcementId As String) As Form
         Dim parameters As New Dictionary(Of FormParameter, String)
         If DAL.Sscp.EnforcementExists(enforcementId) Then
             parameters(FormParameter.EnforcementId) = enforcementId
@@ -120,7 +120,7 @@ Module IaipFormHelpers
 
 #Region " ISMP "
 
-    Public Sub OpenFormTestPrintout(ByVal referenceNumber As String)
+    Public Sub OpenFormTestPrintout(referenceNumber As String)
         If DAL.Ismp.StackTestExists(referenceNumber) Then
             If CurrentUser.ProgramID = 3 Then
                 OpenMultiForm(ISMPTestReports, referenceNumber)
@@ -139,7 +139,7 @@ Module IaipFormHelpers
         End If
     End Sub
 
-    Public Sub OpenFormTestNotification(ByVal id As String)
+    Public Sub OpenFormTestNotification(id As String)
         If DAL.Ismp.TestNotificationExists(id) Then
             ISMPNotificationLogForm = New ISMPNotificationLog
             ISMPNotificationLogForm.txtTestNotificationNumber.Text = id
@@ -149,7 +149,7 @@ Module IaipFormHelpers
         End If
     End Sub
 
-    Public Sub OpenFormTestMemo(ByVal referenceNumber As String)
+    Public Sub OpenFormTestMemo(referenceNumber As String)
         If DAL.Ismp.StackTestExists(referenceNumber) Then
             ISMPMemoEdit = New ISMPMemo
             ISMPMemoEdit.txtReferenceNumber.Text = referenceNumber
@@ -162,7 +162,7 @@ Module IaipFormHelpers
 
 #Region " SSPP "
 
-    Public Function OpenFormPermitApplication(ByVal applicationNumber As String) As Form
+    Public Function OpenFormPermitApplication(applicationNumber As String) As Form
         If DAL.Sspp.ApplicationExists(applicationNumber) Then
             Dim app As SSPPApplicationTrackingLog = OpenSingleForm(SSPPApplicationTrackingLog, applicationNumber)
             app.txtApplicationNumber.Text = applicationNumber

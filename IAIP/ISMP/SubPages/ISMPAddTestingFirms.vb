@@ -15,7 +15,7 @@ Public Class ISMPAddTestingFirms
     Dim daTestingFirms As SqlDataAdapter
 
 
-    Private Sub ISMPAddTestingFirms_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub ISMPAddTestingFirms_Load(sender As Object, e As System.EventArgs) Handles MyBase.Load
 
         Try
 
@@ -538,7 +538,7 @@ Public Class ISMPAddTestingFirms
 
     End Sub
 #End Region
-    Private Sub ISMPAddTestingFirms_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
+    Private Sub ISMPAddTestingFirms_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
 
             ISMPAddTestingFirm = Nothing
@@ -549,7 +549,7 @@ Public Class ISMPAddTestingFirms
         End Try
 
     End Sub
-    Private Sub dgrTestingFirms_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgrTestingFirms.MouseUp
+    Private Sub dgrTestingFirms_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgrTestingFirms.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrTestingFirms.HitTest(e.X, e.Y)
 
         Try
@@ -594,7 +594,7 @@ Public Class ISMPAddTestingFirms
         End Try
 
     End Sub
-    Private Sub txtTestingFirmKey_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtTestingFirmKey.TextChanged
+    Private Sub txtTestingFirmKey_TextChanged(sender As Object, e As System.EventArgs) Handles txtTestingFirmKey.TextChanged
         Try
 
             If txtTestingFirmKey.Text <> "" Then
@@ -609,7 +609,7 @@ Public Class ISMPAddTestingFirms
     End Sub
 
 #Region "Main Menu Item"
-    Private Sub MmiSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiSave.Click
+    Private Sub MmiSave_Click(sender As System.Object, e As System.EventArgs) Handles MmiSave.Click
         Try
 
             Save()
@@ -620,7 +620,7 @@ Public Class ISMPAddTestingFirms
         End Try
 
     End Sub
-    Private Sub MmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiBack.Click
+    Private Sub MmiBack_Click(sender As System.Object, e As System.EventArgs) Handles MmiBack.Click
         Try
 
             Back()
@@ -631,7 +631,7 @@ Public Class ISMPAddTestingFirms
         End Try
 
     End Sub
-    Private Sub mmiCut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCut.Click
+    Private Sub mmiCut_Click(sender As System.Object, e As System.EventArgs) Handles mmiCut.Click
         Try
 
             SendKeys.Send("(^X)")
@@ -642,7 +642,7 @@ Public Class ISMPAddTestingFirms
         End Try
 
     End Sub
-    Private Sub mmiCopy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCopy.Click
+    Private Sub mmiCopy_Click(sender As System.Object, e As System.EventArgs) Handles mmiCopy.Click
         Try
 
             SendKeys.Send("(^C)")
@@ -653,7 +653,7 @@ Public Class ISMPAddTestingFirms
         End Try
 
     End Sub
-    Private Sub mmiPaste_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPaste.Click
+    Private Sub mmiPaste_Click(sender As System.Object, e As System.EventArgs) Handles mmiPaste.Click
         Try
 
             SendKeys.Send("(^V)")
@@ -664,7 +664,7 @@ Public Class ISMPAddTestingFirms
         End Try
 
     End Sub
-    Private Sub mmiClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClear.Click
+    Private Sub mmiClear_Click(sender As System.Object, e As System.EventArgs) Handles mmiClear.Click
         Try
 
             Clear()
@@ -675,12 +675,12 @@ Public Class ISMPAddTestingFirms
         End Try
 
     End Sub
-    Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
+    Private Sub mmiHelp_Click(sender As System.Object, e As System.EventArgs) Handles mmiHelp.Click
         OpenDocumentationUrl(Me)
     End Sub
 #End Region
 
-    Private Sub TBAddTestingFirm_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBAddTestingFirm.ButtonClick
+    Private Sub TBAddTestingFirm_ButtonClick(sender As System.Object, e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBAddTestingFirm.ButtonClick
         Try
 
             Select Case TBAddTestingFirm.Buttons.IndexOf(e.Button)

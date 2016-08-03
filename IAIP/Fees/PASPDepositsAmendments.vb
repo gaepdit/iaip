@@ -7,7 +7,7 @@ Public Class PASPDepositsAmendments
 
 #Region "Page Load Functions"
 
-    Private Sub PASPDepositsAmendments_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub PASPDepositsAmendments_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
         dtpBatchDepositDate.Text = Date.Today
         dtpDepositReportStartDate.Text = Format(CDate(Date.Today).AddMonths(-1), "dd-MMM-yyyy")
@@ -18,7 +18,7 @@ Public Class PASPDepositsAmendments
 
 #Region "Fee Deposits"
 
-    Private Sub LoadFacilityData(ByVal AIRSNumber As String)
+    Private Sub LoadFacilityData(AIRSNumber As String)
         Dim query As String = "Select " &
             "strFacilityName " &
             "from APBFacilityInformation " &
@@ -229,7 +229,7 @@ Public Class PASPDepositsAmendments
         dtInvoice = DB.GetDataTable(query, param)
     End Sub
 
-    Private Sub btnSearchDeposits_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearchDeposits.Click
+    Private Sub btnSearchDeposits_Click(sender As System.Object, e As System.EventArgs) Handles btnSearchDeposits.Click
         btnSearchDeposits.Enabled = False
 
         bgwDeposits.WorkerReportsProgress = True
@@ -237,7 +237,7 @@ Public Class PASPDepositsAmendments
         bgwDeposits.RunWorkerAsync()
     End Sub
 
-    Private Sub lblViewInvoices_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewInvoices.LinkClicked
+    Private Sub lblViewInvoices_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewInvoices.LinkClicked
         lblAIRSNumber.Text = "AIRS #"
         lblFacilityName.Text = "Facility Name"
         mtbFeeYear2.Clear()
@@ -263,7 +263,7 @@ Public Class PASPDepositsAmendments
         End If
     End Sub
 
-    Private Sub dgvDeposits_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvDeposits.MouseUp
+    Private Sub dgvDeposits_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvDeposits.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvDeposits.HitTest(e.X, e.Y)
 
@@ -355,7 +355,7 @@ Public Class PASPDepositsAmendments
         End Try
     End Sub
 
-    Private Sub dgvInvoices_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvInvoices.MouseUp
+    Private Sub dgvInvoices_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvInvoices.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvInvoices.HitTest(e.X, e.Y)
 
@@ -441,7 +441,7 @@ Public Class PASPDepositsAmendments
         End Try
     End Sub
 
-    Private Sub btnAddNewCheckDeposit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNewCheckDeposit.Click
+    Private Sub btnAddNewCheckDeposit_Click(sender As System.Object, e As System.EventArgs) Handles btnAddNewCheckDeposit.Click
         Try
             If ValidateData() Then
                 If txtTransactionID.Text = "" Then
@@ -512,7 +512,7 @@ Public Class PASPDepositsAmendments
         End Try
     End Sub
 
-    Private Sub InvoiceStatusCheck(ByVal invoiceID As String)
+    Private Sub InvoiceStatusCheck(invoiceID As String)
         Try
             Dim query As String = "select " &
             "(invoiceTotal - PaymentTotal) as Balance " &
@@ -548,7 +548,7 @@ Public Class PASPDepositsAmendments
         End Try
     End Sub
 
-    Private Sub btnUpdateExistingDeposit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateExistingDeposit.Click
+    Private Sub btnUpdateExistingDeposit_Click(sender As System.Object, e As System.EventArgs) Handles btnUpdateExistingDeposit.Click
         Try
             If txtTransactionID.Text <> "" Then
                 If ValidateData() Then
@@ -613,7 +613,7 @@ Public Class PASPDepositsAmendments
         End Try
     End Sub
 
-    Private Sub btnDeleteCheckDeposit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteCheckDeposit.Click
+    Private Sub btnDeleteCheckDeposit_Click(sender As System.Object, e As System.EventArgs) Handles btnDeleteCheckDeposit.Click
         Try
             If txtTransactionID.Text = "" Then
                 MsgBox("Select a transaction first.", MsgBoxStyle.Information, Me.Text)
@@ -663,17 +663,17 @@ Public Class PASPDepositsAmendments
         End Try
     End Sub
 
-    Private Sub btnDeleteInventoryRecords_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteInventoryRecords.Click
+    Private Sub btnDeleteInventoryRecords_Click(sender As System.Object, e As System.EventArgs) Handles btnDeleteInventoryRecords.Click
         If txtTransactionID.Text <> "" Then
             DeleteInvoice()
         End If
     End Sub
 
-    Private Sub bgwDeposits_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bgwDeposits.DoWork
+    Private Sub bgwDeposits_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgwDeposits.DoWork
         DepositSearch()
     End Sub
 
-    Private Sub bgwDeposits_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgwDeposits.RunWorkerCompleted
+    Private Sub bgwDeposits_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgwDeposits.RunWorkerCompleted
         Try
             dgvDeposits.DataSource = dtDeposit
 
@@ -724,11 +724,11 @@ Public Class PASPDepositsAmendments
         End Try
     End Sub
 
-    Private Sub bgwInvoices_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bgwInvoices.DoWork
+    Private Sub bgwInvoices_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgwInvoices.DoWork
         ViewInvoices()
     End Sub
 
-    Private Sub bgwInvoices_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgwInvoices.RunWorkerCompleted
+    Private Sub bgwInvoices_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgwInvoices.RunWorkerCompleted
         Try
             dgvInvoices.DataSource = dtInvoice
 
@@ -813,7 +813,7 @@ Public Class PASPDepositsAmendments
         txtCreditCardNo.Clear()
     End Sub
 
-    Private Sub btnClearEntryInformation_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearEntryInformation.Click
+    Private Sub btnClearEntryInformation_Click(sender As System.Object, e As System.EventArgs) Handles btnClearEntryInformation.Click
         ClearForm()
 
         lblViewInvoices.Enabled = False
@@ -825,7 +825,7 @@ Public Class PASPDepositsAmendments
 
 #End Region
 
-    Private Sub btnClearForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearForm.Click
+    Private Sub btnClearForm_Click(sender As System.Object, e As System.EventArgs) Handles btnClearForm.Click
         Try
             ClearForm()
             txtBatchNumber.Clear()
@@ -848,7 +848,7 @@ Public Class PASPDepositsAmendments
         End Try
     End Sub
 
-    Private Sub llbSearchForCheck_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbSearchForCheck.LinkClicked
+    Private Sub llbSearchForCheck_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbSearchForCheck.LinkClicked
         Try
             lblAIRSNumber.Text = "AIRS #"
             lblFacilityName.Text = "Facility Name"
@@ -877,7 +877,7 @@ Public Class PASPDepositsAmendments
         End Try
     End Sub
 
-    Private Sub llbSearchForInvoice_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbSearchForInvoice.LinkClicked
+    Private Sub llbSearchForInvoice_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbSearchForInvoice.LinkClicked
         Dim query As String
         Dim param As SqlParameter()
 

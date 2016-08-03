@@ -14,12 +14,12 @@ Public Class SBEAPCaseWork
     Dim i As Integer
 
     Public WriteOnly Property ValueFromClientLookUp() As String
-        Set(ByVal Value As String)
+        Set(Value As String)
             txtClientID.Text = Value
         End Set
     End Property
 
-    Private Sub SBEAPCaseLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub SBEAPCaseLog_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
         Try
             If IsNumeric(txtCaseID.Text) = True Then
@@ -177,7 +177,7 @@ Public Class SBEAPCaseWork
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub FormStatus(ByVal Status As String)
+    Sub FormStatus(Status As String)
         Try
             If Status = "Disable" Then
                 tsbSave.Enabled = False
@@ -1210,7 +1210,7 @@ Public Class SBEAPCaseWork
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub UpdateCaseLog(ByVal Origin As String)
+    Sub UpdateCaseLog(Origin As String)
         Try
             Dim ClientList As String = ""
             Dim Staff As String = ""
@@ -2205,7 +2205,7 @@ Public Class SBEAPCaseWork
         End Try
     End Sub
 #End Region
-    Private Sub tsbSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbSave.Click
+    Private Sub tsbSave_Click(sender As System.Object, e As System.EventArgs) Handles tsbSave.Click
         Try
             UpdateCaseLog("Non Action")
 
@@ -2213,7 +2213,7 @@ Public Class SBEAPCaseWork
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub tsbClientSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbClientSearch.Click
+    Private Sub tsbClientSearch_Click(sender As System.Object, e As System.EventArgs) Handles tsbClientSearch.Click
         Try
             Dim clientSearchDialog As New SBEAPClientSearchTool
             clientSearchDialog.ShowDialog()
@@ -2225,7 +2225,7 @@ Public Class SBEAPCaseWork
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnRefreshClient_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRefreshClient.Click
+    Private Sub btnRefreshClient_Click(sender As System.Object, e As System.EventArgs) Handles btnRefreshClient.Click
         Try
             If txtClientID.Text <> "" Then
                 LoadClientInfo()
@@ -2239,7 +2239,7 @@ Public Class SBEAPCaseWork
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub DTPCaseClosed_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DTPCaseClosed.ValueChanged
+    Private Sub DTPCaseClosed_ValueChanged(sender As System.Object, e As System.EventArgs) Handles DTPCaseClosed.ValueChanged
         Try
             If temp <> "Data Load" Then
                 If DTPCaseClosed.Checked = True Then
@@ -2254,7 +2254,7 @@ Public Class SBEAPCaseWork
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnAddNewAction_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNewAction.Click
+    Private Sub btnAddNewAction_Click(sender As System.Object, e As System.EventArgs) Handles btnAddNewAction.Click
         Try
             If cboActionType.Text <> "" And cboActionType.SelectedIndex > 0 Then
                 ClearActions()
@@ -2316,7 +2316,7 @@ Public Class SBEAPCaseWork
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub txtCaseID_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtCaseID.TextChanged
+    Private Sub txtCaseID_TextChanged(sender As Object, e As System.EventArgs) Handles txtCaseID.TextChanged
         Try
             If IsNumeric(txtCaseID.Text) = True Then
                 btnAddNewAction.Enabled = True
@@ -2329,7 +2329,7 @@ Public Class SBEAPCaseWork
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvActionLog_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvActionLog.MouseUp
+    Private Sub dgvActionLog_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvActionLog.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvActionLog.HitTest(e.X, e.Y)
             If dgvActionLog.RowCount > 0 And hti.RowIndex <> -1 Then
@@ -2350,7 +2350,7 @@ Public Class SBEAPCaseWork
         Finally
         End Try
     End Sub
-    Private Sub btnViewActionType_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewActionType.Click
+    Private Sub btnViewActionType_Click(sender As System.Object, e As System.EventArgs) Handles btnViewActionType.Click
         Try
             LoadActionTab()
 
@@ -2358,7 +2358,7 @@ Public Class SBEAPCaseWork
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnClearActions_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearActions.Click
+    Private Sub btnClearActions_Click(sender As System.Object, e As System.EventArgs) Handles btnClearActions.Click
         Try
             ClearActions()
             txtActionID.Clear()
@@ -2370,7 +2370,7 @@ Public Class SBEAPCaseWork
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub tsbBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbBack.Click
+    Private Sub tsbBack_Click(sender As System.Object, e As System.EventArgs) Handles tsbBack.Click
         Try
             CaseWork = Nothing
             Me.Close()
@@ -2378,7 +2378,7 @@ Public Class SBEAPCaseWork
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDeleteAction_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteAction.Click
+    Private Sub btnDeleteAction_Click(sender As System.Object, e As System.EventArgs) Handles btnDeleteAction.Click
         Try
             Dim Result As DialogResult
             If txtActionID.Text <> "" Then
@@ -2437,7 +2437,7 @@ Public Class SBEAPCaseWork
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub mmiAddNewClient_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiAddNewClient.Click
+    Private Sub mmiAddNewClient_Click(sender As System.Object, e As System.EventArgs) Handles mmiAddNewClient.Click
         Try
             If ClientSummary Is Nothing Then
 
@@ -2450,7 +2450,7 @@ Public Class SBEAPCaseWork
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub tsbClearFrom_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbClearFrom.Click
+    Private Sub tsbClearFrom_Click(sender As System.Object, e As System.EventArgs) Handles tsbClearFrom.Click
         Try
 
             ClearForm()
@@ -2458,7 +2458,7 @@ Public Class SBEAPCaseWork
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub rdbSingleClient_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdbSingleClient.CheckedChanged
+    Private Sub rdbSingleClient_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rdbSingleClient.CheckedChanged
         Try
             If rdbSingleClient.Checked = True Then
                 pnlSingleClient.Visible = True
@@ -2476,7 +2476,7 @@ Public Class SBEAPCaseWork
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub rdbMultiClient_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdbMultiClient.CheckedChanged
+    Private Sub rdbMultiClient_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rdbMultiClient.CheckedChanged
         Try
             If rdbMultiClient.Checked = True Then
                 pnlMultiClient.Visible = True
@@ -2494,7 +2494,7 @@ Public Class SBEAPCaseWork
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnAddClients_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddClients.Click
+    Private Sub btnAddClients_Click(sender As System.Object, e As System.EventArgs) Handles btnAddClients.Click
         Try
             Dim Client As String = ""
 
@@ -2518,7 +2518,7 @@ Public Class SBEAPCaseWork
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnRemoveClient_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRemoveClient.Click
+    Private Sub btnRemoveClient_Click(sender As System.Object, e As System.EventArgs) Handles btnRemoveClient.Click
         Try
             If txtDeleteClient.Text.Length = 8 Then
                 txtMultiClientList.Text = Replace(txtMultiClientList.Text, (txtDeleteClient.Text & vbCrLf), "")
@@ -2721,7 +2721,7 @@ Public Class SBEAPCaseWork
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub tsmDeleteCaseWork_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmDeleteCaseWork.Click
+    Private Sub tsmDeleteCaseWork_Click(sender As System.Object, e As System.EventArgs) Handles tsmDeleteCaseWork.Click
         Try
 
             If txtCaseID.Text <> "" Then
@@ -2733,7 +2733,7 @@ Public Class SBEAPCaseWork
         End Try
     End Sub
 
-    'Private Sub tsbPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbPrint.Click
+    'Private Sub tsbPrint_Click(sender As System.Object, e As System.EventArgs) Handles tsbPrint.Click
     '    Try
 
     '        If PrintForm Is Nothing Then

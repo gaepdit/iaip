@@ -4,13 +4,13 @@ Imports Iaip.IAIPFacilitySummary
 Namespace DAL
     Module FacilitySummaryData
 
-        Public Function GetFSDataTable(ByVal whichTable As FacilityDataTable, ByVal airsNumber As Apb.ApbFacilityId) As DataTable
+        Public Function GetFSDataTable(whichTable As FacilityDataTable, airsNumber As Apb.ApbFacilityId) As DataTable
             Dim spName As String = GetCorrectStoredProcedureName(whichTable)
             Dim parameter As SqlParameter = New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
             Return DB.SPGetDataTable(spName, parameter)
         End Function
 
-        Private Function GetCorrectStoredProcedureName(ByVal whichTable As FacilityDataTable) As String
+        Private Function GetCorrectStoredProcedureName(whichTable As FacilityDataTable) As String
             Select Case whichTable
 
                 Case FacilityDataTable.ComplianceEnforcement

@@ -15,7 +15,7 @@ Public Class ISMPAddPollutants
     Dim daPollutant As SqlDataAdapter
 
 
-    Private Sub ISMPAddPollutants_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub ISMPAddPollutants_Load(sender As Object, e As System.EventArgs) Handles MyBase.Load
 
         Try
 
@@ -285,7 +285,7 @@ Public Class ISMPAddPollutants
     End Sub
 #End Region
 
-    Private Sub TBAddPollutant_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBAddPollutant.ButtonClick
+    Private Sub TBAddPollutant_ButtonClick(sender As System.Object, e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBAddPollutant.ButtonClick
         Try
 
             Select Case TBAddPollutant.Buttons.IndexOf(e.Button)
@@ -303,7 +303,7 @@ Public Class ISMPAddPollutants
         End Try
 
     End Sub
-    Private Sub dgrPollutants_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgrPollutants.MouseUp
+    Private Sub dgrPollutants_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgrPollutants.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrPollutants.HitTest(e.X, e.Y)
 
         Try
@@ -327,7 +327,7 @@ Public Class ISMPAddPollutants
 
 
     End Sub
-    Private Sub ISMPAddPollutants_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
+    Private Sub ISMPAddPollutants_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
 
             ISMPAddPollutant = Nothing
@@ -340,7 +340,7 @@ Public Class ISMPAddPollutants
     End Sub
 
 #Region "Main Menu Item"
-    Private Sub MmiSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiSave.Click
+    Private Sub MmiSave_Click(sender As System.Object, e As System.EventArgs) Handles MmiSave.Click
         Try
 
             Save()
@@ -351,7 +351,7 @@ Public Class ISMPAddPollutants
         End Try
 
     End Sub
-    Private Sub MmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiBack.Click
+    Private Sub MmiBack_Click(sender As System.Object, e As System.EventArgs) Handles MmiBack.Click
         Try
 
             Back()
@@ -362,7 +362,7 @@ Public Class ISMPAddPollutants
         End Try
 
     End Sub
-    Private Sub mmiCut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCut.Click
+    Private Sub mmiCut_Click(sender As System.Object, e As System.EventArgs) Handles mmiCut.Click
         Try
 
             SendKeys.Send("(^X)")
@@ -373,7 +373,7 @@ Public Class ISMPAddPollutants
         End Try
 
     End Sub
-    Private Sub mmiCopy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCopy.Click
+    Private Sub mmiCopy_Click(sender As System.Object, e As System.EventArgs) Handles mmiCopy.Click
         Try
 
             SendKeys.Send("(^C)")
@@ -384,7 +384,7 @@ Public Class ISMPAddPollutants
         End Try
 
     End Sub
-    Private Sub mmiPaste_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPaste.Click
+    Private Sub mmiPaste_Click(sender As System.Object, e As System.EventArgs) Handles mmiPaste.Click
         Try
 
             SendKeys.Send("(^V)")
@@ -395,7 +395,7 @@ Public Class ISMPAddPollutants
         End Try
 
     End Sub
-    Private Sub mmiClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClear.Click
+    Private Sub mmiClear_Click(sender As System.Object, e As System.EventArgs) Handles mmiClear.Click
         Try
 
             Clear()
@@ -406,13 +406,13 @@ Public Class ISMPAddPollutants
         End Try
 
     End Sub
-    Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
+    Private Sub mmiHelp_Click(sender As System.Object, e As System.EventArgs) Handles mmiHelp.Click
         OpenDocumentationUrl(Me)
     End Sub
 #End Region
 
 
-    Private Sub llbGetNextValue_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbGetNextValue.LinkClicked
+    Private Sub llbGetNextValue_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbGetNextValue.LinkClicked
         Try
 
             GetNextPollutantCode()

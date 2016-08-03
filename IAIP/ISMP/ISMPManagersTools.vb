@@ -44,7 +44,7 @@ Public Class ISMPManagersTools
     Dim daMethods As SqlDataAdapter
 
 
-    Private Sub ISMPManagersTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub ISMPManagersTools_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
         Try
             CreateStatusBar()
@@ -1478,7 +1478,7 @@ Public Class ISMPManagersTools
     End Sub
 
 #End Region
-    Private Sub LVTestReportAssignment_ColumnClick(ByVal sender As Object, ByVal e As System.Windows.Forms.ColumnClickEventArgs) Handles LVTestReportAssignment.ColumnClick
+    Private Sub LVTestReportAssignment_ColumnClick(sender As Object, e As System.Windows.Forms.ColumnClickEventArgs) Handles LVTestReportAssignment.ColumnClick
         Try
 
             LVTestReportAssignment.ListViewItemSorter = New ListViewItemComparer(e.Column)
@@ -1490,7 +1490,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub ISMPManagersTools_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
+    Private Sub ISMPManagersTools_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
             Me.Dispose()
         Catch ex As Exception
@@ -2689,7 +2689,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Sub RunUnitEngineerStatistics(ByVal EngineerGCode As String)
+    Sub RunUnitEngineerStatistics(EngineerGCode As String)
         Dim DateBias As String = ""
 
         Dim Staff As String = ""
@@ -4412,7 +4412,7 @@ Public Class ISMPManagersTools
         End Try
     End Sub
 #End Region
-    'Private Sub txtAIRSNumber_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    'Private Sub txtAIRSNumber_TextChanged(sender As System.Object, e As System.EventArgs)
     '    Try
 
     '        If txtAIRSNumber.Text <> "" Then
@@ -4436,7 +4436,7 @@ Public Class ISMPManagersTools
     '    End Try
 
     'End Sub
-    Private Sub TBManagersTools_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBManagersTools.ButtonClick
+    Private Sub TBManagersTools_ButtonClick(sender As System.Object, e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBManagersTools.ButtonClick
         Try
 
             Select Case TBManagersTools.Buttons.IndexOf(e.Button)
@@ -4483,7 +4483,7 @@ Public Class ISMPManagersTools
 
     End Sub
 #Region "Menu Items"
-    Private Sub MmiSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiSave.Click
+    Private Sub MmiSave_Click(sender As System.Object, e As System.EventArgs) Handles MmiSave.Click
         Try
 
             If TPReportAssignment.Focus = True Then
@@ -4496,7 +4496,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiBack.Click
+    Private Sub MmiBack_Click(sender As System.Object, e As System.EventArgs) Handles MmiBack.Click
         Try
 
             Me.Close()
@@ -4507,7 +4507,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiExit.Click
+    Private Sub MmiExit_Click(sender As System.Object, e As System.EventArgs) Handles MmiExit.Click
         Try
 
             Me.Close()
@@ -4518,7 +4518,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiClear.Click
+    Private Sub MmiClear_Click(sender As System.Object, e As System.EventArgs) Handles MmiClear.Click
         Try
 
             ClearTestReportAssignmentTab()
@@ -4529,7 +4529,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiClearTab_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiClearTab.Click
+    Private Sub MmiClearTab_Click(sender As System.Object, e As System.EventArgs) Handles MmiClearTab.Click
         Try
 
             If TPReportAssignment.Focus = True Then
@@ -4545,7 +4545,7 @@ Public Class ISMPManagersTools
 
     End Sub
 #Region "Viewing Options"
-    Private Sub MmiViewTestReports_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiViewTestReports.Click
+    Private Sub MmiViewTestReports_Click(sender As System.Object, e As System.EventArgs) Handles MmiViewTestReports.Click
         Try
 
             If TPReportAssignment.Focus = True Then
@@ -4562,7 +4562,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiUnassignedTestReports_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiUnassignedTestReports.Click
+    Private Sub MmiUnassignedTestReports_Click(sender As System.Object, e As System.EventArgs) Handles MmiUnassignedTestReports.Click
         Try
 
             If TPReportAssignment.Focus = True Then
@@ -4579,7 +4579,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAssignedTestReports_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAssignedTestReports.Click
+    Private Sub MmiAssignedTestReports_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedTestReports.Click
         Try
 
             If TPReportAssignment.Focus = True Then
@@ -4596,7 +4596,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiShowDeletedRecords_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiShowDeletedRecords.Click
+    Private Sub MmiShowDeletedRecords_Click(sender As System.Object, e As System.EventArgs) Handles MmiShowDeletedRecords.Click
         Try
 
             If TPReportAssignment.Focus = True Then
@@ -4628,23 +4628,23 @@ Public Class ISMPManagersTools
         End Try
     End Sub
 
-    Private Sub MmiViewByFacility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiViewByFacility.Click
+    Private Sub MmiViewByFacility_Click(sender As System.Object, e As System.EventArgs) Handles MmiViewByFacility.Click
         If TPReportAssignment.Focus = True Then
             OpenFacilityLookupTool()
         End If
     End Sub
     Public WriteOnly Property ValueFromFacilityLookUp() As String
-        Set(ByVal Value As String)
+        Set(Value As String)
             txtAIRSNumber.Text = Value
             txtAIRSNumber2.Text = Value
         End Set
     End Property
     Public WriteOnly Property ValueFromFacilityLookUp2() As String
-        Set(ByVal Value2 As String)
+        Set(Value2 As String)
             txtFacility.Text = Value2
         End Set
     End Property
-    Private Sub MmiByEngineer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiByEngineer.Click
+    Private Sub MmiByEngineer_Click(sender As System.Object, e As System.EventArgs) Handles MmiByEngineer.Click
         Try
 
             'Must have all engineers loaded some how
@@ -4656,7 +4656,7 @@ Public Class ISMPManagersTools
 
 
     End Sub
-    Private Sub MmiAllByUnit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAllByUnit.Click
+    Private Sub MmiAllByUnit_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllByUnit.Click
         Try
 
             If TPReportAssignment.Focus = True Then
@@ -4673,7 +4673,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiUnassignedByUnit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiUnassignedByUnit.Click
+    Private Sub MmiUnassignedByUnit_Click(sender As System.Object, e As System.EventArgs) Handles MmiUnassignedByUnit.Click
         Try
 
             If TPReportAssignment.Focus = True Then
@@ -4690,7 +4690,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAssignedByUnit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAssignedByUnit.Click
+    Private Sub MmiAssignedByUnit_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedByUnit.Click
         Try
 
             If TPReportAssignment.Focus = True Then
@@ -4708,7 +4708,7 @@ Public Class ISMPManagersTools
 
     End Sub
 #Region "By Test Report-Unassigned"
-    Private Sub MmiUnassigned_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiUnassigned.Click
+    Private Sub MmiUnassigned_Click(sender As System.Object, e As System.EventArgs) Handles MmiUnassigned.Click
         Try
 
             Dim ReportType As String
@@ -4725,7 +4725,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiOneStackTwoRun_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiOneStackTwoRun.Click
+    Private Sub MmiOneStackTwoRun_Click(sender As System.Object, e As System.EventArgs) Handles MmiOneStackTwoRun.Click
         Try
 
             Dim ReportType As String
@@ -4742,7 +4742,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiOneStackThreeRun_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiOneStackThreeRun.Click
+    Private Sub MmiOneStackThreeRun_Click(sender As System.Object, e As System.EventArgs) Handles MmiOneStackThreeRun.Click
         Try
 
             Dim ReportType As String
@@ -4759,7 +4759,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiOneStackFourRun_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiOneStackFourRun.Click
+    Private Sub MmiOneStackFourRun_Click(sender As System.Object, e As System.EventArgs) Handles MmiOneStackFourRun.Click
         Try
 
             Dim ReportType As String
@@ -4776,7 +4776,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiTwoStackStandard_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiTwoStackStandard.Click
+    Private Sub MmiTwoStackStandard_Click(sender As System.Object, e As System.EventArgs) Handles MmiTwoStackStandard.Click
         Try
 
             Dim ReportType As String
@@ -4793,7 +4793,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiTwoStackDRE_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiTwoStackDRE.Click
+    Private Sub MmiTwoStackDRE_Click(sender As System.Object, e As System.EventArgs) Handles MmiTwoStackDRE.Click
         Try
 
             Dim ReportType As String
@@ -4810,7 +4810,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiLoadingRack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiLoadingRack.Click
+    Private Sub MmiLoadingRack_Click(sender As System.Object, e As System.EventArgs) Handles MmiLoadingRack.Click
         Try
 
             Dim ReportType As String
@@ -4827,7 +4827,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiFlare_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiFlare.Click
+    Private Sub MmiFlare_Click(sender As System.Object, e As System.EventArgs) Handles MmiFlare.Click
         Try
 
             Dim ReportType As String
@@ -4844,7 +4844,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiPondTreatment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiPondTreatment.Click
+    Private Sub MmiPondTreatment_Click(sender As System.Object, e As System.EventArgs) Handles MmiPondTreatment.Click
         Try
 
             Dim ReportType As String
@@ -4861,7 +4861,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiGasConcentration_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiGasConcentration.Click
+    Private Sub MmiGasConcentration_Click(sender As System.Object, e As System.EventArgs) Handles MmiGasConcentration.Click
         Try
 
             Dim ReportType As String
@@ -4878,7 +4878,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiRata_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiRata.Click
+    Private Sub MmiRata_Click(sender As System.Object, e As System.EventArgs) Handles MmiRata.Click
         Try
 
             Dim ReportType As String
@@ -4895,7 +4895,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiPEMS_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiPEMS.Click
+    Private Sub MmiPEMS_Click(sender As System.Object, e As System.EventArgs) Handles MmiPEMS.Click
         Try
 
             Dim ReportType As String
@@ -4912,7 +4912,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiMemoStandard_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiMemoStandard.Click
+    Private Sub MmiMemoStandard_Click(sender As System.Object, e As System.EventArgs) Handles MmiMemoStandard.Click
         Try
 
             Dim ReportType As String
@@ -4929,7 +4929,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiMemoToFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiMemoToFile.Click
+    Private Sub MmiMemoToFile_Click(sender As System.Object, e As System.EventArgs) Handles MmiMemoToFile.Click
         Try
 
             Dim ReportType As String
@@ -4946,7 +4946,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiMemoPTE_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiMemoPTE.Click
+    Private Sub MmiMemoPTE_Click(sender As System.Object, e As System.EventArgs) Handles MmiMemoPTE.Click
         Try
 
             Dim ReportType As String
@@ -4963,7 +4963,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiMethod9Single_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiMethod9Single.Click
+    Private Sub MmiMethod9Single_Click(sender As System.Object, e As System.EventArgs) Handles MmiMethod9Single.Click
         Try
 
             Dim ReportType As String
@@ -4980,7 +4980,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiMethod9Multi_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiMethod9Multi.Click
+    Private Sub MmiMethod9Multi_Click(sender As System.Object, e As System.EventArgs) Handles MmiMethod9Multi.Click
         Try
 
             Dim ReportType As String
@@ -4997,7 +4997,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiMethod22_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiMethod22.Click
+    Private Sub MmiMethod22_Click(sender As System.Object, e As System.EventArgs) Handles MmiMethod22.Click
         Try
 
             Dim ReportType As String
@@ -5016,7 +5016,7 @@ Public Class ISMPManagersTools
     End Sub
 #End Region
 #Region "By Test Report-Assigned"
-    Private Sub MmiAssignedNoDocument_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAssignedNoDocument.Click
+    Private Sub MmiAssignedNoDocument_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedNoDocument.Click
         Try
 
             Dim ReportType As String
@@ -5033,7 +5033,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAssignedOneStackTwoRuns_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAssignedOneStackTwoRuns.Click
+    Private Sub MmiAssignedOneStackTwoRuns_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedOneStackTwoRuns.Click
         Try
 
             Dim ReportType As String
@@ -5050,7 +5050,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAssignedOneStackThreeRuns_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAssignedOneStackThreeRuns.Click
+    Private Sub MmiAssignedOneStackThreeRuns_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedOneStackThreeRuns.Click
         Try
 
             Dim ReportType As String
@@ -5067,7 +5067,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAssignedOneStackFourRuns_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAssignedOneStackFourRuns.Click
+    Private Sub MmiAssignedOneStackFourRuns_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedOneStackFourRuns.Click
         Try
 
             Dim ReportType As String
@@ -5084,7 +5084,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAssignedTwoStackStandard_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAssignedTwoStackStandard.Click
+    Private Sub MmiAssignedTwoStackStandard_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedTwoStackStandard.Click
         Try
 
             Dim ReportType As String
@@ -5101,7 +5101,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAssignedTwoStackDRE_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAssignedTwoStackDRE.Click
+    Private Sub MmiAssignedTwoStackDRE_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedTwoStackDRE.Click
         Try
 
             Dim ReportType As String
@@ -5118,7 +5118,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAssignedLoadingRack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAssignedLoadingRack.Click
+    Private Sub MmiAssignedLoadingRack_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedLoadingRack.Click
         Try
 
             Dim ReportType As String
@@ -5135,7 +5135,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAssignedFlare_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAssignedFlare.Click
+    Private Sub MmiAssignedFlare_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedFlare.Click
         Try
 
             Dim ReportType As String
@@ -5152,7 +5152,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAssignedPondTreatment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAssignedPondTreatment.Click
+    Private Sub MmiAssignedPondTreatment_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedPondTreatment.Click
         Try
 
             Dim ReportType As String
@@ -5169,7 +5169,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAssignedGasConcentration_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAssignedGasConcentration.Click
+    Private Sub MmiAssignedGasConcentration_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedGasConcentration.Click
         Try
 
             Dim ReportType As String
@@ -5186,7 +5186,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAssignedRata_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAssignedRata.Click
+    Private Sub MmiAssignedRata_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedRata.Click
         Try
 
             Dim ReportType As String
@@ -5203,7 +5203,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAssignedPEMS_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAssignedPEMS.Click
+    Private Sub MmiAssignedPEMS_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedPEMS.Click
         Try
 
             Dim ReportType As String
@@ -5220,7 +5220,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAssignedMemoStandard_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAssignedMemoStandard.Click
+    Private Sub MmiAssignedMemoStandard_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedMemoStandard.Click
         Try
 
             Dim ReportType As String
@@ -5237,7 +5237,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAssignedMemoToFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAssignedMemoToFile.Click
+    Private Sub MmiAssignedMemoToFile_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedMemoToFile.Click
         Try
 
             Dim ReportType As String
@@ -5254,7 +5254,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAssignedMemoPTE_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAssignedMemoPTE.Click
+    Private Sub MmiAssignedMemoPTE_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedMemoPTE.Click
         Try
 
             Dim ReportType As String
@@ -5271,7 +5271,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAssignedMethod9Single_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAssignedMethod9Single.Click
+    Private Sub MmiAssignedMethod9Single_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedMethod9Single.Click
         Try
 
             Dim ReportType As String
@@ -5288,7 +5288,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAssignedMethod9Multi_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAssignedMethod9Multi.Click
+    Private Sub MmiAssignedMethod9Multi_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedMethod9Multi.Click
         Try
 
             Dim ReportType As String
@@ -5305,7 +5305,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAssignedMethod22_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAssignedMethod22.Click
+    Private Sub MmiAssignedMethod22_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedMethod22.Click
         Try
 
             Dim ReportType As String
@@ -5324,7 +5324,7 @@ Public Class ISMPManagersTools
     End Sub
 #End Region
 #Region "By Test Report-All"
-    Private Sub MmiAllNoDoc_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAllNoDoc.Click
+    Private Sub MmiAllNoDoc_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllNoDoc.Click
         Try
 
             Dim ReportType As String
@@ -5341,7 +5341,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAllOneStackTwoRuns_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAllOneStackTwoRuns.Click
+    Private Sub MmiAllOneStackTwoRuns_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllOneStackTwoRuns.Click
         Try
 
             Dim ReportType As String
@@ -5358,7 +5358,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAllOneStackThreeRuns_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAllOneStackThreeRuns.Click
+    Private Sub MmiAllOneStackThreeRuns_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllOneStackThreeRuns.Click
         Try
 
             Dim ReportType As String
@@ -5375,7 +5375,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAllOneStackFourRuns_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAllOneStackFourRuns.Click
+    Private Sub MmiAllOneStackFourRuns_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllOneStackFourRuns.Click
         Try
 
             Dim ReportType As String
@@ -5392,7 +5392,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAllTwoStackStandard_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAllTwoStackStandard.Click
+    Private Sub MmiAllTwoStackStandard_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllTwoStackStandard.Click
         Try
 
             Dim ReportType As String
@@ -5409,7 +5409,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAllTwoStackDRE_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAllTwoStackDRE.Click
+    Private Sub MmiAllTwoStackDRE_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllTwoStackDRE.Click
         Try
 
             Dim ReportType As String
@@ -5426,7 +5426,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAllLoadingRack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAllLoadingRack.Click
+    Private Sub MmiAllLoadingRack_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllLoadingRack.Click
         Try
 
             Dim ReportType As String
@@ -5443,7 +5443,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAllFlare_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAllFlare.Click
+    Private Sub MmiAllFlare_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllFlare.Click
         Try
 
             Dim ReportType As String
@@ -5460,7 +5460,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAllPondTreatment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAllPondTreatment.Click
+    Private Sub MmiAllPondTreatment_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllPondTreatment.Click
         Try
 
             Dim ReportType As String
@@ -5477,7 +5477,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAllGasConcentration_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAllGasConcentration.Click
+    Private Sub MmiAllGasConcentration_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllGasConcentration.Click
         Try
 
             Dim ReportType As String
@@ -5494,7 +5494,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAllRata_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAllRata.Click
+    Private Sub MmiAllRata_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllRata.Click
         Try
 
             Dim ReportType As String
@@ -5511,7 +5511,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAllPEMS_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAllPEMS.Click
+    Private Sub MmiAllPEMS_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllPEMS.Click
         Try
 
             Dim ReportType As String
@@ -5528,7 +5528,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAllMemoStandard_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAllMemoStandard.Click
+    Private Sub MmiAllMemoStandard_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllMemoStandard.Click
         Try
 
             Dim ReportType As String
@@ -5545,7 +5545,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAllMemoToFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAllMemoToFile.Click
+    Private Sub MmiAllMemoToFile_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllMemoToFile.Click
         Try
 
             Dim ReportType As String
@@ -5562,7 +5562,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAllMemoPTE_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAllMemoPTE.Click
+    Private Sub MmiAllMemoPTE_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllMemoPTE.Click
         Try
 
             Dim ReportType As String
@@ -5579,7 +5579,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAllMethod9Single_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAllMethod9Single.Click
+    Private Sub MmiAllMethod9Single_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllMethod9Single.Click
         Try
 
             Dim ReportType As String
@@ -5596,7 +5596,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAllMethod9Multi_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAllMethod9Multi.Click
+    Private Sub MmiAllMethod9Multi_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllMethod9Multi.Click
         Try
 
             Dim ReportType As String
@@ -5613,7 +5613,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub MmiAllMethod22_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAllMethod22.Click
+    Private Sub MmiAllMethod22_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllMethod22.Click
         Try
 
             Dim ReportType As String
@@ -5635,7 +5635,7 @@ Public Class ISMPManagersTools
 
 
 #End Region
-    Private Sub LVTestReportAssignment_ItemCheck(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemCheckEventArgs) Handles LVTestReportAssignment.ItemCheck
+    Private Sub LVTestReportAssignment_ItemCheck(sender As Object, e As System.Windows.Forms.ItemCheckEventArgs) Handles LVTestReportAssignment.ItemCheck
         Try
 
             Dim count As Integer = txtTestReportCount.Text
@@ -5655,7 +5655,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub LLRunFacilityReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLRunFacilityReport.LinkClicked
+    Private Sub LLRunFacilityReport_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLRunFacilityReport.LinkClicked
         Try
 
             RunFacilityStatistics()
@@ -5666,12 +5666,12 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub LLFaciltiySearch_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLFaciltiySearch.LinkClicked
+    Private Sub LLFaciltiySearch_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLFaciltiySearch.LinkClicked
         If TPTestReportStatistics.Focus = True Then
             OpenFacilityLookupTool()
         End If
     End Sub
-    Private Sub MmiCut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiCut.Click
+    Private Sub MmiCut_Click(sender As System.Object, e As System.EventArgs) Handles MmiCut.Click
         Try
 
         Catch ex As Exception
@@ -5746,7 +5746,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub LLBAllFacilities_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLBAllFacilities.LinkClicked
+    Private Sub LLBAllFacilities_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLBAllFacilities.LinkClicked
         Try
 
             FillFacilitiesDataGrid()
@@ -5757,7 +5757,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub LVFacilities_ColumnClick(ByVal sender As Object, ByVal e As System.Windows.Forms.ColumnClickEventArgs) Handles LVFacilities.ColumnClick
+    Private Sub LVFacilities_ColumnClick(sender As Object, e As System.Windows.Forms.ColumnClickEventArgs) Handles LVFacilities.ColumnClick
         Try
 
             ' Set the ListViewItemSorter property to a new ListViewItemComparer object.
@@ -5771,7 +5771,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub LVFacilities_ItemCheck(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemCheckEventArgs) Handles LVFacilities.ItemCheck
+    Private Sub LVFacilities_ItemCheck(sender As Object, e As System.Windows.Forms.ItemCheckEventArgs) Handles LVFacilities.ItemCheck
         Try
 
             If LVFacilities.Items.Item(e.Index).Checked = True Then
@@ -5786,7 +5786,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub llbRunMonthlyReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbRunMonthlyReport.LinkClicked
+    Private Sub llbRunMonthlyReport_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbRunMonthlyReport.LinkClicked
         Try
 
             RunMonthlyReport()
@@ -5799,7 +5799,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub llbPrintMonthlyReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbPrintMonthlyReport.LinkClicked
+    Private Sub llbPrintMonthlyReport_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbPrintMonthlyReport.LinkClicked
         Try
 
             ExportToWord()
@@ -5810,7 +5810,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub LlbUnitStatistics_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LlbUnitStatistics.LinkClicked
+    Private Sub LlbUnitStatistics_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LlbUnitStatistics.LinkClicked
         Try
 
 
@@ -5824,7 +5824,7 @@ Public Class ISMPManagersTools
 
 
     End Sub
-    Private Sub txtDaysOpen_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtDaysOpen.TextChanged
+    Private Sub txtDaysOpen_TextChanged(sender As Object, e As System.EventArgs) Handles txtDaysOpen.TextChanged
         Try
 
             If txtDaysOpen2.ReadOnly = True Then
@@ -5839,7 +5839,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub txtDaysOpen2_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtDaysOpen2.TextChanged
+    Private Sub txtDaysOpen2_TextChanged(sender As Object, e As System.EventArgs) Handles txtDaysOpen2.TextChanged
         Try
 
             If txtDaysOpen.ReadOnly = True Then
@@ -5854,7 +5854,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub llbEngineerTestReports_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEngineerTestReports.LinkClicked
+    Private Sub llbEngineerTestReports_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEngineerTestReports.LinkClicked
         Try
 
             EngineerTestReport()
@@ -5866,7 +5866,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub dgrEngineersFacilityList_MouseUp(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgrEngineersFacilityList.MouseUp
+    Private Sub dgrEngineersFacilityList_MouseUp(sender As System.Object, e As System.Windows.Forms.MouseEventArgs) Handles dgrEngineersFacilityList.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrEngineersFacilityList.HitTest(e.X, e.Y)
 
         Try
@@ -5908,7 +5908,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub llbViewReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewReport.LinkClicked
+    Private Sub llbViewReport_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewReport.LinkClicked
         Try
             Dim id As String = txtReferenceNumber.Text
             If DAL.Ismp.StackTestExists(id) Then OpenMultiForm(ISMPTestReports, id)
@@ -5916,10 +5916,10 @@ Public Class ISMPManagersTools
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbExportToExcel_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbExportToExcel.LinkClicked
+    Private Sub llbExportToExcel_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbExportToExcel.LinkClicked
         dsEngineerGrid.Tables(0).ExportToExcel(Me)
     End Sub
-    Private Sub llbRunSummaryReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs)
+    Private Sub llbRunSummaryReport_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs)
         Try
 
             RunSummaryReport()
@@ -5930,7 +5930,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub llbPrintSummaryReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs)
+    Private Sub llbPrintSummaryReport_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs)
         Try
 
             PrintSummaryReport()
@@ -5941,7 +5941,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub llbAddExcelFile_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbAddExcelFile.LinkClicked
+    Private Sub llbAddExcelFile_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbAddExcelFile.LinkClicked
         Try
 
             AddExcelFile()
@@ -5952,7 +5952,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub llbRemoveFile_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbRemoveFile.LinkClicked
+    Private Sub llbRemoveFile_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbRemoveFile.LinkClicked
         Try
 
             RemoveExcelFile()
@@ -5963,7 +5963,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub dgrExcelFiles_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgrExcelFiles.MouseUp
+    Private Sub dgrExcelFiles_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgrExcelFiles.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrExcelFiles.HitTest(e.X, e.Y)
 
         Try
@@ -5984,7 +5984,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub llbPrintSummaryReport_LinkClicked_1(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbPrintSummaryReport.LinkClicked
+    Private Sub llbPrintSummaryReport_LinkClicked_1(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbPrintSummaryReport.LinkClicked
         Try
 
             PrintSummaryReport()
@@ -5995,7 +5995,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub llbRunEngineerStatReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbRunEngineerStatReport.LinkClicked
+    Private Sub llbRunEngineerStatReport_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbRunEngineerStatReport.LinkClicked
         Try
 
 
@@ -6008,7 +6008,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub llbExportStatsToWord_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbExportStatsToWord.LinkClicked
+    Private Sub llbExportStatsToWord_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbExportStatsToWord.LinkClicked
         Try
 
             PrintEngineerUnitStats()
@@ -6019,7 +6019,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub llbDownloadExcelFiles_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDownloadExcelFiles.LinkClicked
+    Private Sub llbDownloadExcelFiles_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDownloadExcelFiles.LinkClicked
         Try
 
             DownloadExcelFiles()
@@ -6030,7 +6030,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub btnRunApplicationReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunApplicationReport.Click
+    Private Sub btnRunApplicationReport_Click(sender As System.Object, e As System.EventArgs) Handles btnRunApplicationReport.Click
         Try
 
             RunApplicationReport()
@@ -6041,7 +6041,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub btnApplicationReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnApplicationReport.Click
+    Private Sub btnApplicationReport_Click(sender As System.Object, e As System.EventArgs) Handles btnApplicationReport.Click
         Try
 
             PrintApplicationReport()
@@ -6052,7 +6052,7 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub btnRunUnitStatsReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunUnitStatsReport.Click
+    Private Sub btnRunUnitStatsReport_Click(sender As System.Object, e As System.EventArgs) Handles btnRunUnitStatsReport.Click
         Try
 
             RunUnitStatistics2()
@@ -6063,7 +6063,7 @@ Public Class ISMPManagersTools
 
         End Try
     End Sub
-    Private Sub lblTotalTests_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblTotalTests.LinkClicked
+    Private Sub lblTotalTests_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblTotalTests.LinkClicked
         Try
             SQL = "select strReferenceNumber, " &
             "(strLastName|| ', ' ||strFirstName) as Engineer,  " &
@@ -6122,7 +6122,7 @@ Public Class ISMPManagersTools
 
         End Try
     End Sub
-    Private Sub lblChemTests_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblChemTests.LinkClicked
+    Private Sub lblChemTests_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblChemTests.LinkClicked
         Try
             SQL = "select strReferenceNumber, " &
             "(strLastName|| ', ' ||strFirstName) as Engineer,  " &
@@ -6185,7 +6185,7 @@ Public Class ISMPManagersTools
 
         End Try
     End Sub
-    Private Sub lblComTests_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblComTests.LinkClicked
+    Private Sub lblComTests_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblComTests.LinkClicked
         Try
             SQL = "select strReferenceNumber, " &
            "(strLastName|| ', ' ||strFirstName) as Engineer,  " &
@@ -6248,7 +6248,7 @@ Public Class ISMPManagersTools
 
         End Try
     End Sub
-    Private Sub dgvUnitStats_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvUnitStats.MouseUp
+    Private Sub dgvUnitStats_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvUnitStats.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvUnitStats.HitTest(e.X, e.Y)
 
         Try
@@ -6264,7 +6264,7 @@ Public Class ISMPManagersTools
 
         End Try
     End Sub
-    Private Sub btnViewTestReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewTestReport.Click
+    Private Sub btnViewTestReport_Click(sender As System.Object, e As System.EventArgs) Handles btnViewTestReport.Click
         Try
             Dim id As String = txtUnitStatReferenceNumber.Text
             If DAL.Ismp.StackTestExists(id) Then OpenMultiForm(ISMPTestReports, id)
@@ -6272,7 +6272,7 @@ Public Class ISMPManagersTools
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvMethods_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvMethods.MouseUp
+    Private Sub dgvMethods_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvMethods.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvMethods.HitTest(e.X, e.Y)
 
         Try
@@ -6286,7 +6286,7 @@ Public Class ISMPManagersTools
 
         End Try
     End Sub
-    Private Sub txtMethodCode_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtMethodCode.TextChanged
+    Private Sub txtMethodCode_TextChanged(sender As Object, e As System.EventArgs) Handles txtMethodCode.TextChanged
         Try
             Dim temp As String = ""
 
@@ -6324,7 +6324,7 @@ Public Class ISMPManagersTools
         End Try
     End Sub
 
-    Private Sub btnUpdateMethods_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateMethods.Click
+    Private Sub btnUpdateMethods_Click(sender As System.Object, e As System.EventArgs) Handles btnUpdateMethods.Click
         Try
             Dim temp As String = ""
 
@@ -6464,11 +6464,11 @@ Public Class ISMPManagersTools
     End Sub
 
 
-    Private Sub MmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiHelp.Click
+    Private Sub MmiHelp_Click(sender As System.Object, e As System.EventArgs) Handles MmiHelp.Click
         OpenDocumentationUrl(Me)
     End Sub
 
-    Private Sub btnAddTestReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddTestReport.Click
+    Private Sub btnAddTestReport_Click(sender As System.Object, e As System.EventArgs) Handles btnAddTestReport.Click
         Try
             Dim RefNum As String
             Dim AIRSNumber As String
@@ -6599,7 +6599,7 @@ Public Class ISMPManagersTools
         End Try
     End Sub
 
-    Private Sub btnClearAddTestReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearAddTestReport.Click
+    Private Sub btnClearAddTestReport_Click(sender As System.Object, e As System.EventArgs) Handles btnClearAddTestReport.Click
         Try
             txtAddTestReportRefNum.Clear()
             txtAddTestReportRefNum.BackColor = Color.White
@@ -6622,7 +6622,7 @@ Public Class ISMPManagersTools
         End Try
     End Sub
 
-    Private Sub btnCloseHistoricTestReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCloseHistoricTestReport.Click
+    Private Sub btnCloseHistoricTestReport_Click(sender As System.Object, e As System.EventArgs) Handles btnCloseHistoricTestReport.Click
         Try
             If txtCloseTestReportRefNum.Text <> "" Then
                 SQL = "Select " &
@@ -6656,7 +6656,7 @@ Public Class ISMPManagersTools
         End Try
     End Sub
 
-    Private Sub btnReOpenHistoricTestReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReOpenHistoricTestReport.Click
+    Private Sub btnReOpenHistoricTestReport_Click(sender As System.Object, e As System.EventArgs) Handles btnReOpenHistoricTestReport.Click
         Try
             If txtCloseTestReportRefNum.Text <> "" Then
                 SQL = "Select " &

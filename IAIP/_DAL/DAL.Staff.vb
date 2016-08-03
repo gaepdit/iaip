@@ -3,7 +3,7 @@
 Namespace DAL
     Module StaffData
 
-        Public Function GetActiveStaffAsDataTable(Optional ByVal branch As Integer = 1) As DataTable
+        Public Function GetActiveStaffAsDataTable(Optional branch As Integer = 1) As DataTable
             ' Default to Air Branch if no branch code is provided
             Dim query As String =
                 " SELECT NUMUSERID, STRLASTNAME, STRFIRSTNAME, STREMAILADDRESS, STRPHONE, NUMEMPLOYEESTATUS, " &

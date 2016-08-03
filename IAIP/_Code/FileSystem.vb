@@ -1,6 +1,6 @@
 ﻿Module FileSystem
 
-    Public Sub DeleteFileIfPossible(ByVal fileHandle As String, Optional ByVal recycle As Boolean = True)
+    Public Sub DeleteFileIfPossible(fileHandle As String, Optional recycle As Boolean = True)
         Try
             If FileIO.FileSystem.FileExists(fileHandle) Then
                 If recycle Then

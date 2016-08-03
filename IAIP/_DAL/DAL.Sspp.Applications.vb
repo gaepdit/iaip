@@ -5,7 +5,7 @@ Namespace DAL.Sspp
 
     Module ApplicationData
 
-        Public Function ApplicationExists(ByVal appNumber As String) As Boolean
+        Public Function ApplicationExists(appNumber As String) As Boolean
             If appNumber = "" OrElse Not Integer.TryParse(appNumber, Nothing) Then Return False
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
@@ -19,7 +19,7 @@ Namespace DAL.Sspp
         End Function
 
         '' Not currently used, but may be useful in the future
-        'Private Sub FillApplicationInfoFromDataRow(ByVal row As DataRow, ByRef appInfo As ApplicationInfo)
+        'Private Sub FillApplicationInfoFromDataRow(row As DataRow, ByRef appInfo As ApplicationInfo)
         '    Dim address As New Address
         '    With address
         '        .City = DBUtilities.GetNullable(Of String)(row("STRFACILITYCITY"))
@@ -55,7 +55,7 @@ Namespace DAL.Sspp
         'End Sub
 
         '' Not currently used, but may be useful in the future
-        'Public Function GetApplicationInfo(ByVal appNumber As String) As ApplicationInfo
+        'Public Function GetApplicationInfo(appNumber As String) As ApplicationInfo
         '    Dim query As String = <s><![CDATA[
         '            SELECT SSPPAPPLICATIONMASTER.STRAPPLICATIONNUMBER,
         '              SSPPAPPLICATIONMASTER.STRAIRSNUMBER,

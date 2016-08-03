@@ -5,7 +5,7 @@ Public Class SSPP_FeeContact
     Dim cmd As SqlCommand
     Dim dr As SqlDataReader
 
-    Private Sub SSPP_FeeContact_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub SSPP_FeeContact_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
     End Sub
     Sub LoadCurrentFeeContact()
@@ -130,14 +130,14 @@ Public Class SSPP_FeeContact
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub txtAIRSNumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtAIRSNumber.TextChanged
+    Private Sub txtAIRSNumber_TextChanged(sender As Object, e As System.EventArgs) Handles txtAIRSNumber.TextChanged
         Try
             LoadCurrentFeeContact()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClear.Click
+    Private Sub btnClear_Click(sender As System.Object, e As System.EventArgs) Handles btnClear.Click
         Try
             txtSocialTitle.Clear()
             txtFirstName.Clear()
@@ -159,7 +159,7 @@ Public Class SSPP_FeeContact
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnLoadDefaultDescription_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoadDefaultDescription.Click
+    Private Sub btnLoadDefaultDescription_Click(sender As System.Object, e As System.EventArgs) Handles btnLoadDefaultDescription.Click
         Try
             txtDescription.Clear()
             txtDescription.Text = "Fee Contact. " & vbCrLf &
@@ -171,7 +171,7 @@ Public Class SSPP_FeeContact
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSaveFeeContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveFeeContact.Click
+    Private Sub btnSaveFeeContact_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveFeeContact.Click
         Try
             If txtAIRSNumber.Text <> "" Then
                 SQL = "Select " &

@@ -7,12 +7,12 @@ Public Class SBEAPClientSearchTool
 
 #Region " Form events "
 
-    Private Sub SBEAPClientSearchTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub SBEAPClientSearchTool_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
         If Not Me.Modal Then Me.Close()
     End Sub
 
-    Private Sub SBEAPClientSearchTool_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
+    Private Sub SBEAPClientSearchTool_Shown(sender As Object, e As System.EventArgs) Handles Me.Shown
         txtSearchCompanyName.Focus()
     End Sub
 
@@ -30,7 +30,7 @@ Public Class SBEAPClientSearchTool
 
 #Region " Search procedures "
 
-    Sub ClientSearch(ByVal Source As String)
+    Sub ClientSearch(Source As String)
         Try
 
             Select Case Source
@@ -266,7 +266,7 @@ Public Class SBEAPClientSearchTool
 
 #Region " Search buttons "
 
-    Private Sub btnSearchCompanyName_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearchCompanyName.Click
+    Private Sub btnSearchCompanyName_Click(sender As System.Object, e As System.EventArgs) Handles btnSearchCompanyName.Click
         Try
             If chbSearchHistoricalNames.Checked = False Then
                 ClientSearch("CompanyName")
@@ -279,7 +279,7 @@ Public Class SBEAPClientSearchTool
 
         End Try
     End Sub
-    Private Sub btnSearchStreet_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearchStreet.Click
+    Private Sub btnSearchStreet_Click(sender As System.Object, e As System.EventArgs) Handles btnSearchStreet.Click
         Try
             ClientSearch("StreetAddress")
         Catch ex As Exception
@@ -288,7 +288,7 @@ Public Class SBEAPClientSearchTool
 
         End Try
     End Sub
-    Private Sub btnSearchCity_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearchCity.Click
+    Private Sub btnSearchCity_Click(sender As System.Object, e As System.EventArgs) Handles btnSearchCity.Click
         Try
             ClientSearch("City")
         Catch ex As Exception
@@ -297,7 +297,7 @@ Public Class SBEAPClientSearchTool
 
         End Try
     End Sub
-    Private Sub btnSearchZipCode_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearchZipCode.Click
+    Private Sub btnSearchZipCode_Click(sender As System.Object, e As System.EventArgs) Handles btnSearchZipCode.Click
         Try
             ClientSearch("ZipCode")
         Catch ex As Exception
@@ -306,7 +306,7 @@ Public Class SBEAPClientSearchTool
 
         End Try
     End Sub
-    Private Sub btnSearchCounty_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearchCounty.Click
+    Private Sub btnSearchCounty_Click(sender As System.Object, e As System.EventArgs) Handles btnSearchCounty.Click
         Try
             ClientSearch("County")
         Catch ex As Exception
@@ -315,7 +315,7 @@ Public Class SBEAPClientSearchTool
 
         End Try
     End Sub
-    Private Sub btnSearchSIC_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearchSIC.Click
+    Private Sub btnSearchSIC_Click(sender As System.Object, e As System.EventArgs) Handles btnSearchSIC.Click
         Try
             ClientSearch("SIC")
         Catch ex As Exception
@@ -324,7 +324,7 @@ Public Class SBEAPClientSearchTool
 
         End Try
     End Sub
-    Private Sub btnSearchNAICS_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearchNAICS.Click
+    Private Sub btnSearchNAICS_Click(sender As System.Object, e As System.EventArgs) Handles btnSearchNAICS.Click
         Try
             ClientSearch("NAICS")
         Catch ex As Exception
@@ -333,7 +333,7 @@ Public Class SBEAPClientSearchTool
 
         End Try
     End Sub
-    Private Sub btnSearchAIRSNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearchAIRSNumber.Click
+    Private Sub btnSearchAIRSNumber_Click(sender As System.Object, e As System.EventArgs) Handles btnSearchAIRSNumber.Click
         Try
             ClientSearch("AIRSNumber")
         Catch ex As Exception
@@ -342,7 +342,7 @@ Public Class SBEAPClientSearchTool
 
         End Try
     End Sub
-    Private Sub btnSearchNumberOfEmployees_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearchNumberOfEmployees.Click
+    Private Sub btnSearchNumberOfEmployees_Click(sender As System.Object, e As System.EventArgs) Handles btnSearchNumberOfEmployees.Click
         Try
             If rdbEmployeeLessThan.Checked = True Then
                 ClientSearch("EmployeeLess")
@@ -362,7 +362,7 @@ Public Class SBEAPClientSearchTool
 
 #Region " Results DataGridView "
 
-    Private Sub dgvClientInformation_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvClientInformation.MouseUp
+    Private Sub dgvClientInformation_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvClientInformation.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvClientInformation.HitTest(e.X, e.Y)
 
         Try
@@ -380,7 +380,7 @@ Public Class SBEAPClientSearchTool
 
 #Region " Toolbar "
 
-    Private Sub tsbClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbClear.Click
+    Private Sub tsbClear_Click(sender As System.Object, e As System.EventArgs) Handles tsbClear.Click
         txtSearchAIRSNumber.Clear()
         txtSearchCity.Clear()
         txtSearchCompanyName.Clear()
@@ -398,43 +398,43 @@ Public Class SBEAPClientSearchTool
 
 #Region " Accept Button "
 
-    Private Sub TPClientCompanyName_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TPClientCompanyName.Enter
+    Private Sub TPClientCompanyName_Enter(sender As System.Object, e As System.EventArgs) Handles TPClientCompanyName.Enter
         Me.AcceptButton = btnSearchCompanyName
     End Sub
 
-    Private Sub TPAddressSearch_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TPAddressSearch.Enter
+    Private Sub TPAddressSearch_Enter(sender As System.Object, e As System.EventArgs) Handles TPAddressSearch.Enter
         Me.AcceptButton = btnSearchStreet
     End Sub
 
-    Private Sub TPCitySearch_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TPCitySearch.Enter
+    Private Sub TPCitySearch_Enter(sender As System.Object, e As System.EventArgs) Handles TPCitySearch.Enter
         Me.AcceptButton = btnSearchCity
     End Sub
 
-    Private Sub TPZipCodeSearch_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TPZipCodeSearch.Enter
+    Private Sub TPZipCodeSearch_Enter(sender As System.Object, e As System.EventArgs) Handles TPZipCodeSearch.Enter
         Me.AcceptButton = btnSearchZipCode
     End Sub
 
-    Private Sub TPCountySearch_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TPCountySearch.Enter
+    Private Sub TPCountySearch_Enter(sender As System.Object, e As System.EventArgs) Handles TPCountySearch.Enter
         Me.AcceptButton = btnSearchCounty
     End Sub
 
-    Private Sub TPSICSearch_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TPSICSearch.Enter
+    Private Sub TPSICSearch_Enter(sender As System.Object, e As System.EventArgs) Handles TPSICSearch.Enter
         Me.AcceptButton = btnSearchSIC
     End Sub
 
-    Private Sub TPNAICSSearch_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TPNAICSSearch.Enter
+    Private Sub TPNAICSSearch_Enter(sender As System.Object, e As System.EventArgs) Handles TPNAICSSearch.Enter
         Me.AcceptButton = btnSearchNAICS
     End Sub
 
-    Private Sub TPAIRSNumberSearch_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TPAIRSNumberSearch.Enter
+    Private Sub TPAIRSNumberSearch_Enter(sender As System.Object, e As System.EventArgs) Handles TPAIRSNumberSearch.Enter
         Me.AcceptButton = btnSearchAIRSNumber
     End Sub
 
-    Private Sub TPNumberOfEmployees_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TPNumberOfEmployees.Enter
+    Private Sub TPNumberOfEmployees_Enter(sender As System.Object, e As System.EventArgs) Handles TPNumberOfEmployees.Enter
         Me.AcceptButton = btnSearchNumberOfEmployees
     End Sub
 
-    Private Sub tabPages_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Private Sub tabPages_Leave(sender As System.Object, e As System.EventArgs) _
     Handles TPClientCompanyName.Leave, TPAddressSearch.Leave, TPCitySearch.Leave, TPZipCodeSearch.Leave,
     TPCountySearch.Leave, TPSICSearch.Leave, TPNAICSSearch.Leave, TPAIRSNumberSearch.Leave, TPNumberOfEmployees.Leave
         Me.AcceptButton = UseSelection

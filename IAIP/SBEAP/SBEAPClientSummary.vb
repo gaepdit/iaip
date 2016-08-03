@@ -10,12 +10,12 @@ Public Class SBEAPClientSummary
     Dim daCaseLogGrid As SqlDataAdapter
 
     Public WriteOnly Property ValueFromClientLookUp() As String
-        Set(ByVal Value As String)
+        Set(Value As String)
             txtClientID.Text = Value
         End Set
     End Property
 
-    Private Sub SBEAPClientMaintenance_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub SBEAPClientMaintenance_FormClosed(sender As Object, e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         Try
             ClientSummary = Nothing
 
@@ -24,7 +24,7 @@ Public Class SBEAPClientSummary
         End Try
     End Sub
 
-    Private Sub SBEAPClientMaintenance_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub SBEAPClientMaintenance_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
         Try
             pnl1.Text = "Client Summary"
@@ -2081,7 +2081,7 @@ Public Class SBEAPClientSummary
     End Sub
 #End Region
 #Region "Declarations"
-    Private Sub cboCounty_SelectedValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboCounty.SelectedValueChanged
+    Private Sub cboCounty_SelectedValueChanged(sender As Object, e As System.EventArgs) Handles cboCounty.SelectedValueChanged
         Try
             Dim dtDistrictInfo As DataTable
             Dim drDistrict As DataRow()
@@ -2099,7 +2099,7 @@ Public Class SBEAPClientSummary
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnViewClientSummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewClientSummary.Click
+    Private Sub btnViewClientSummary_Click(sender As System.Object, e As System.EventArgs) Handles btnViewClientSummary.Click
         Try
 
             If txtClientID.Text <> "" Then
@@ -2113,7 +2113,7 @@ Public Class SBEAPClientSummary
     End Sub
 
 #End Region
-    Private Sub txtStreetAddress_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtStreetAddress.TextChanged
+    Private Sub txtStreetAddress_TextChanged(sender As Object, e As System.EventArgs) Handles txtStreetAddress.TextChanged
         Try
             If txtStreetAddress.Text <> "" Then
                 txtMailingAddress.Text = txtStreetAddress.Text
@@ -2124,7 +2124,7 @@ Public Class SBEAPClientSummary
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub txtStreetAddress2_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtStreetAddress2.TextChanged
+    Private Sub txtStreetAddress2_TextChanged(sender As Object, e As System.EventArgs) Handles txtStreetAddress2.TextChanged
         Try
             If txtStreetAddress2.Text <> "" Then
                 txtMailingAddress2.Text = txtStreetAddress2.Text
@@ -2135,7 +2135,7 @@ Public Class SBEAPClientSummary
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub txtCity_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtCity.TextChanged
+    Private Sub txtCity_TextChanged(sender As Object, e As System.EventArgs) Handles txtCity.TextChanged
         Try
             If txtCity.Text <> "" Then
                 txtMailingCity.Text = txtCity.Text
@@ -2146,7 +2146,7 @@ Public Class SBEAPClientSummary
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub txtState_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtState.TextChanged
+    Private Sub txtState_TextChanged(sender As Object, e As System.EventArgs) Handles txtState.TextChanged
         Try
             If txtState.Text <> "" Then
                 txtMailingState.Text = txtState.Text
@@ -2157,7 +2157,7 @@ Public Class SBEAPClientSummary
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub mtbZipCode_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles mtbZipCode.TextChanged
+    Private Sub mtbZipCode_TextChanged(sender As Object, e As System.EventArgs) Handles mtbZipCode.TextChanged
         Try
             If mtbZipCode.Text <> "" Then
                 mtbMailingZipCode.Text = mtbZipCode.Text
@@ -2168,7 +2168,7 @@ Public Class SBEAPClientSummary
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnAddContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddContact.Click
+    Private Sub btnAddContact_Click(sender As System.Object, e As System.EventArgs) Handles btnAddContact.Click
         Try
 
             UpdateContactData()
@@ -2177,7 +2177,7 @@ Public Class SBEAPClientSummary
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvContactInformation_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvContactInformation.MouseUp
+    Private Sub dgvContactInformation_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvContactInformation.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvContactInformation.HitTest(e.X, e.Y)
 
         Try
@@ -2197,7 +2197,7 @@ Public Class SBEAPClientSummary
 
         End Try
     End Sub
-    Private Sub btnSearchForContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearchForContact.Click
+    Private Sub btnSearchForContact_Click(sender As System.Object, e As System.EventArgs) Handles btnSearchForContact.Click
         Try
             If txtContactID.Text <> "" Then
                 LoadContact()
@@ -2206,7 +2206,7 @@ Public Class SBEAPClientSummary
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub tsbSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbSave.Click
+    Private Sub tsbSave_Click(sender As System.Object, e As System.EventArgs) Handles tsbSave.Click
         Try
             SaveClientData()
 
@@ -2215,7 +2215,7 @@ Public Class SBEAPClientSummary
         End Try
     End Sub
 
-    Private Sub tsbSearchTool_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbSearchTool.Click
+    Private Sub tsbSearchTool_Click(sender As System.Object, e As System.EventArgs) Handles tsbSearchTool.Click
         Try
             Dim clientSearchDialog As New SBEAPClientSearchTool
             clientSearchDialog.ShowDialog()
@@ -2228,7 +2228,7 @@ Public Class SBEAPClientSummary
         End Try
     End Sub
 
-    Private Sub tsbBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbBack.Click
+    Private Sub tsbBack_Click(sender As System.Object, e As System.EventArgs) Handles tsbBack.Click
         Try
             ClientSummary = Nothing
             Me.Close()
@@ -2238,7 +2238,7 @@ Public Class SBEAPClientSummary
         End Try
     End Sub
 
-    Private Sub btnRefreshAIRSData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRefreshAIRSData.Click
+    Private Sub btnRefreshAIRSData_Click(sender As System.Object, e As System.EventArgs) Handles btnRefreshAIRSData.Click
         Try
             RefreshAIRSData()
 
@@ -2248,7 +2248,7 @@ Public Class SBEAPClientSummary
     End Sub
 
 
-    Private Sub btnClearContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearContact.Click
+    Private Sub btnClearContact_Click(sender As System.Object, e As System.EventArgs) Handles btnClearContact.Click
         Try
             ClearContactData()
         Catch ex As Exception
@@ -2256,7 +2256,7 @@ Public Class SBEAPClientSummary
         End Try
     End Sub
 
-    Private Sub btnAddNewContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNewContact.Click
+    Private Sub btnAddNewContact_Click(sender As System.Object, e As System.EventArgs) Handles btnAddNewContact.Click
         Try
             AddNewContactData()
         Catch ex As Exception
@@ -2264,7 +2264,7 @@ Public Class SBEAPClientSummary
         End Try
     End Sub
 
-    Private Sub btnDeleteContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteContact.Click
+    Private Sub btnDeleteContact_Click(sender As System.Object, e As System.EventArgs) Handles btnDeleteContact.Click
         Try
             Dim Result As DialogResult
             If txtContactID.Text <> "" Then
@@ -2305,7 +2305,7 @@ Public Class SBEAPClientSummary
         End Try
     End Sub
 
-    Private Sub btnGetSiteAddress_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGetSiteAddress.Click
+    Private Sub btnGetSiteAddress_Click(sender As System.Object, e As System.EventArgs) Handles btnGetSiteAddress.Click
         Try
             txtContactAddress.Text = txtStreetAddress.Text
             txtContactCity.Text = txtCity.Text
@@ -2318,7 +2318,7 @@ Public Class SBEAPClientSummary
     End Sub
 
 
-    Private Sub mmiDeleteClient_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiDeleteClient.Click
+    Private Sub mmiDeleteClient_Click(sender As System.Object, e As System.EventArgs) Handles mmiDeleteClient.Click
         Try
             Dim Result As DialogResult
             Dim ContactID As String = ""
@@ -2595,7 +2595,7 @@ Public Class SBEAPClientSummary
         End Try
     End Sub
 
-    Private Sub tsbClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbClear.Click
+    Private Sub tsbClear_Click(sender As System.Object, e As System.EventArgs) Handles tsbClear.Click
         Try
 
             ClearClientSummary()
@@ -2750,7 +2750,7 @@ Public Class SBEAPClientSummary
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnOpenCase_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenCase.Click
+    Private Sub btnOpenCase_Click(sender As System.Object, e As System.EventArgs) Handles btnOpenCase.Click
         Try
             If txtCaseID.Text <> "" Then
                 If CaseWork Is Nothing Then
@@ -2768,7 +2768,7 @@ Public Class SBEAPClientSummary
         End Try
     End Sub
 
-    Private Sub dgvCaseLog_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvCaseLog.MouseUp
+    Private Sub dgvCaseLog_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvCaseLog.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvCaseLog.HitTest(e.X, e.Y)
             If dgvCaseLog.RowCount > 0 And hti.RowIndex <> -1 Then
@@ -2786,7 +2786,7 @@ Public Class SBEAPClientSummary
         End Try
     End Sub
 
-    Private Sub btnAddNewCase_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNewCase.Click
+    Private Sub btnAddNewCase_Click(sender As System.Object, e As System.EventArgs) Handles btnAddNewCase.Click
         Try
             If CaseWork Is Nothing Then
 
@@ -2807,7 +2807,7 @@ Public Class SBEAPClientSummary
         End Try
     End Sub
 
-    Private Sub llbSICSearch_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbSICSearch.LinkClicked
+    Private Sub llbSICSearch_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbSICSearch.LinkClicked
         Try
 
             System.Diagnostics.Process.Start("http://www.osha.gov/pls/imis/sicsearch.html")
@@ -2817,7 +2817,7 @@ Public Class SBEAPClientSummary
         End Try
     End Sub
 
-    Private Sub llbNAICSSearch_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbNAICSSearch.LinkClicked
+    Private Sub llbNAICSSearch_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbNAICSSearch.LinkClicked
         Try
 
             System.Diagnostics.Process.Start("http://www.naics.com/search.htm")

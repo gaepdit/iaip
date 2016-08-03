@@ -10,7 +10,7 @@ Public Class ISMPConfidentialData
     Dim DocumentType As String
 
 
-    Private Sub DEVConfidentialData_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub DEVConfidentialData_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
         Try
             Panel1.Text = "Mark field to be redacted..."
@@ -25,7 +25,7 @@ Public Class ISMPConfidentialData
 
         End Try
     End Sub
-    Private Sub DEVConfidentialData_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
+    Private Sub DEVConfidentialData_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
             ISMPConfidential = Nothing
             Me.Dispose()
@@ -4581,7 +4581,7 @@ Public Class ISMPConfidentialData
         End Try
     End Sub
 
-    Private Sub tsbSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbSave.Click
+    Private Sub tsbSave_Click(sender As System.Object, e As System.EventArgs) Handles tsbSave.Click
         Try
 
             SaveConfidentialData()
@@ -4592,7 +4592,7 @@ Public Class ISMPConfidentialData
 
         End Try
     End Sub
-    Private Sub mmiSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiSave.Click
+    Private Sub mmiSave_Click(sender As System.Object, e As System.EventArgs) Handles mmiSave.Click
         Try
 
             SaveConfidentialData()
@@ -4603,7 +4603,7 @@ Public Class ISMPConfidentialData
 
         End Try
     End Sub
-    Private Sub mmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiBack.Click
+    Private Sub mmiBack_Click(sender As System.Object, e As System.EventArgs) Handles mmiBack.Click
         Try
             ISMPConfidential = Nothing
             Me.Dispose()
@@ -4613,7 +4613,7 @@ Public Class ISMPConfidentialData
 
         End Try
     End Sub
-    Private Sub tsbBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbBack.Click
+    Private Sub tsbBack_Click(sender As System.Object, e As System.EventArgs) Handles tsbBack.Click
         Try
             ISMPConfidential = Nothing
             Me.Dispose()
@@ -4625,7 +4625,7 @@ Public Class ISMPConfidentialData
     End Sub
 
 
-    Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
+    Private Sub mmiHelp_Click(sender As System.Object, e As System.EventArgs) Handles mmiHelp.Click
         OpenDocumentationUrl(Me)
     End Sub
 End Class

@@ -7,7 +7,7 @@
 
         Private _value As String
 
-        Public Sub New(ByVal input As String)
+        Public Sub New(input As String)
             ' Parse and save or throw exception
             If IsValidAirsNumberFormat(input) Then
                 _value = GetNormalizedAirsNumber(input)
@@ -79,11 +79,11 @@
 
 #Region " Operators "
 
-        Public Shared Narrowing Operator CType(ByVal airsNumber As String) As ApbFacilityId
+        Public Shared Narrowing Operator CType(airsNumber As String) As ApbFacilityId
             Return New ApbFacilityId(airsNumber)
         End Operator
 
-        'Public Shared Widening Operator CType(ByVal airsNumber As ApbFacilityId) As String
+        'Public Shared Widening Operator CType(airsNumber As ApbFacilityId) As String
         '    Return airsNumber.ToString
         'End Operator
 
@@ -91,13 +91,13 @@
 
 #Region " IEquatable Interface implementation "
 
-        Public Overloads Function Equals(ByVal other As ApbFacilityId) As Boolean _
+        Public Overloads Function Equals(other As ApbFacilityId) As Boolean _
         Implements IEquatable(Of ApbFacilityId).Equals
             If other Is Nothing Then Return False
             Return Me.ToString.Equals(other.ToString)
         End Function
 
-        Public Overrides Function Equals(ByVal obj As Object) As Boolean
+        Public Overrides Function Equals(obj As Object) As Boolean
             If obj Is Nothing Then Return False
             If TypeOf obj Is ApbFacilityId Then Return Equals(DirectCast(obj, ApbFacilityId))
             Return False
@@ -118,7 +118,7 @@
         ''' <returns>True if airsNumber is valid; otherwise, False.</returns>
         ''' <remarks>Valid AIRS numbers are in the form 000-00000 or 04-13-000-0000 (with or without the dashes)</remarks>
         <DebuggerStepThrough()> _
-        Public Shared Function IsValidAirsNumberFormat(ByVal airsNumber As String) As Boolean
+        Public Shared Function IsValidAirsNumberFormat(airsNumber As String) As Boolean
             If airsNumber Is Nothing Then Return False
             Return System.Text.RegularExpressions.Regex.IsMatch(airsNumber, AirsNumberPattern)
         End Function
@@ -129,7 +129,7 @@
         ''' <param name="airsNumber">The AIRS number to convert.</param>
         ''' <returns>A string representation of an AIRS number in the form "00000000".</returns>
         <DebuggerStepThrough()> _
-        Private Function GetNormalizedAirsNumber(ByVal airsNumber As String) As String
+        Private Function GetNormalizedAirsNumber(airsNumber As String) As String
             ' Converts a string representation of an AIRS number to the "00000000" form 
             ' (eight numerals, no dashes).
             '
@@ -156,11 +156,11 @@
             MyBase.New(invalidAirsNumberMessage)
         End Sub
 
-        Public Sub New(ByVal auxMessage As String)
+        Public Sub New(auxMessage As String)
             MyBase.New(String.Format("{0} - {1}", invalidAirsNumberMessage, auxMessage))
         End Sub
 
-        Public Sub New(ByVal auxMessage As String, ByVal inner As Exception)
+        Public Sub New(auxMessage As String, inner As Exception)
             MyBase.New(String.Format("{0} - {1}", invalidAirsNumberMessage, auxMessage), inner)
         End Sub
     End Class

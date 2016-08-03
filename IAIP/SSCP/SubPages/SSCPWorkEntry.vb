@@ -9,7 +9,7 @@ Public Class SSCPWorkEnTry
     Dim dsCompliance As DataSet
     Dim daCompliance As SqlDataAdapter
 
-    Private Sub SSCPWorkEnTry_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub SSCPWorkEnTry_Load(sender As Object, e As System.EventArgs) Handles MyBase.Load
 
         Try
 
@@ -158,7 +158,7 @@ Public Class SSCPWorkEnTry
     End Sub
 #End Region
 
-    Private Sub TBComplianceEvents_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBComplianceEvents.ButtonClick
+    Private Sub TBComplianceEvents_ButtonClick(sender As System.Object, e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBComplianceEvents.ButtonClick
         Try
 
             Select Case TBComplianceEvents.Buttons.IndexOf(e.Button)
@@ -176,7 +176,7 @@ Public Class SSCPWorkEnTry
         End Try
 
     End Sub
-    Private Sub cboEvent_SelectedValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboEvent.SelectedValueChanged
+    Private Sub cboEvent_SelectedValueChanged(sender As Object, e As System.EventArgs) Handles cboEvent.SelectedValueChanged
         Dim dtActivity As New DataTable
 
         Try
@@ -208,7 +208,7 @@ Public Class SSCPWorkEnTry
         End Try
 
     End Sub
-    Private Sub cboEvent_Leave(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboEvent.Leave
+    Private Sub cboEvent_Leave(sender As Object, e As System.EventArgs) Handles cboEvent.Leave
         Dim dtActivity As New DataTable
 
         Try

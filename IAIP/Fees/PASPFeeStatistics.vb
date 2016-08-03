@@ -17,7 +17,7 @@ Public Class PASPFeeStatistics
     Dim crParameterDiscreteValue As New ParameterDiscreteValue
     Dim rpt As ReportClass
 
-    Private Sub DEVFeeStatistics_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub DEVFeeStatistics_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         Try
 
             Me.Cursor = Cursors.WaitCursor
@@ -116,7 +116,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub btnViewDepositsStats_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewDepositsStats.Click
+    Private Sub btnViewDepositsStats_Click(sender As System.Object, e As System.EventArgs) Handles btnViewDepositsStats.Click
         Try
             Dim SQLReported As String = ""
             Dim SQLInvoiced As String = ""
@@ -466,7 +466,7 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnViewPaymentDue_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewPaymentDue.Click
+    Private Sub btnViewPaymentDue_Click(sender As System.Object, e As System.EventArgs) Handles btnViewPaymentDue.Click
         Try
             Select Case cboStatPayType.Text
                 Case "ALL"
@@ -614,7 +614,7 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub bntViewTotalPaid_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles bntViewTotalPaid.Click
+    Private Sub bntViewTotalPaid_Click(sender As System.Object, e As System.EventArgs) Handles bntViewTotalPaid.Click
         Try
 
             Select Case cboStatPayType.Text
@@ -932,7 +932,7 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnViewBalance_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewBalance.Click
+    Private Sub btnViewBalance_Click(sender As System.Object, e As System.EventArgs) Handles btnViewBalance.Click
         Try
 
             Select Case cboStatPayType.Text
@@ -1555,7 +1555,7 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnViewSelectedFeeData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewSelectedFeeData.Click
+    Private Sub btnViewSelectedFeeData_Click(sender As System.Object, e As System.EventArgs) Handles btnViewSelectedFeeData.Click
         Try
             If pnlDetails.Dock = DockStyle.None Then
                 pnlDetails.Dock = DockStyle.Top
@@ -1891,7 +1891,7 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvDepositsAndPayments_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvDepositsAndPayments.MouseUp
+    Private Sub dgvDepositsAndPayments_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvDepositsAndPayments.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvDepositsAndPayments.HitTest(e.X, e.Y)
         Try
             If dgvDepositsAndPayments.RowCount > 0 And hti.RowIndex <> -1 Then
@@ -1905,7 +1905,7 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnHideResults_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnHideResults.Click
+    Private Sub btnHideResults_Click(sender As System.Object, e As System.EventArgs) Handles btnHideResults.Click
         Try
             If pnlDetails.Dock = DockStyle.None Then
                 pnlDetails.Dock = DockStyle.Top
@@ -1917,7 +1917,7 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnExportToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportToExcel.Click
+    Private Sub btnExportToExcel_Click(sender As System.Object, e As System.EventArgs) Handles btnExportToExcel.Click
         dgvDepositsAndPayments.ExportToExcel(Me)
     End Sub
 
@@ -1927,7 +1927,7 @@ Public Class PASPFeeStatistics
 
 #End Region
 
-    Private Sub btnRunLateFeeReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunLateFeeReport.Click
+    Private Sub btnRunLateFeeReport_Click(sender As System.Object, e As System.EventArgs) Handles btnRunLateFeeReport.Click
         Try
             Dim AIRSNumber As String = ""
             Dim FacilityName As String = ""
@@ -2323,7 +2323,7 @@ Public Class PASPFeeStatistics
             ' ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnRunReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunReport.Click
+    Private Sub btnRunReport_Click(sender As System.Object, e As System.EventArgs) Handles btnRunReport.Click
         Try
             SQL = "select " &
             "substr(FSPayAndSubmit.strAIRSNumber, 5) as AIRSNumber, " &
@@ -2392,7 +2392,7 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnCheckforFeesPaid_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCheckforFeesPaid.Click
+    Private Sub btnCheckforFeesPaid_Click(sender As System.Object, e As System.EventArgs) Handles btnCheckforFeesPaid.Click
         Try
             If rdbHasPaidFee.Checked = True Then
                 SQL = "select  " &
@@ -2538,7 +2538,7 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnRemovePaidFacilities_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRemovePaidFacilities.Click
+    Private Sub btnRemovePaidFacilities_Click(sender As System.Object, e As System.EventArgs) Handles btnRemovePaidFacilities.Click
         Try
             Dim AIRSNumber As String = ""
             Dim i As Integer
@@ -2608,7 +2608,7 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnViewUnenrolled_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewUnenrolled.Click
+    Private Sub btnViewUnenrolled_Click(sender As System.Object, e As System.EventArgs) Handles btnViewUnenrolled.Click
         Try
             SQL = "select " &
             "substr(FEEMailOut.strAIRSNumber, 5) as AIRSNumber, " &
@@ -2646,7 +2646,7 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvLateFeeReport_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvLateFeeReport.MouseUp
+    Private Sub dgvLateFeeReport_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvLateFeeReport.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvLateFeeReport.HitTest(e.X, e.Y)
             If dgvLateFeeReport.RowCount > 0 And hti.RowIndex <> -1 Then
@@ -2973,10 +2973,10 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnFeeFacilitySummary_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFeeFacilitySummary.Click
+    Private Sub btnFeeFacilitySummary_Click(sender As System.Object, e As System.EventArgs) Handles btnFeeFacilitySummary.Click
         OpenFormFacilitySummary(txtFeeAIRSNumber.Text)
     End Sub
-    Private Sub btnFeeViewComplianceEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFeeViewComplianceEvent.Click
+    Private Sub btnFeeViewComplianceEvent_Click(sender As System.Object, e As System.EventArgs) Handles btnFeeViewComplianceEvent.Click
         Try
             If txtFeeComplianceEvent.Text <> "" Then
                 Select Case txtFeeComplianceEventType.Text
@@ -2992,13 +2992,13 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnFeeViewPermittingEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFeeViewPermittingEvent.Click
+    Private Sub btnFeeViewPermittingEvent_Click(sender As System.Object, e As System.EventArgs) Handles btnFeeViewPermittingEvent.Click
         OpenFormPermitApplication(txtFeePermittingEvent.Text)
     End Sub
-    Private Sub btnFeePendingPermittingEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFeePendingPermittingEvent.Click
+    Private Sub btnFeePendingPermittingEvent_Click(sender As System.Object, e As System.EventArgs) Handles btnFeePendingPermittingEvent.Click
         OpenFormPermitApplication(txtFeePendingPermit.Text)
     End Sub
-    Private Sub btnViewData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewData.Click
+    Private Sub btnViewData_Click(sender As System.Object, e As System.EventArgs) Handles btnViewData.Click
         Try
             If txtFeeAIRSNumber.Text <> "" Then
                 LoadFeeData()
@@ -3007,10 +3007,10 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnExportFeeReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportFeeReport.Click
+    Private Sub btnExportFeeReport_Click(sender As System.Object, e As System.EventArgs) Handles btnExportFeeReport.Click
         dgvLateFeeReport.ExportToExcel(Me)
     End Sub
-    Private Sub chbDepositDateSearch_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbDepositDateSearch.CheckedChanged
+    Private Sub chbDepositDateSearch_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbDepositDateSearch.CheckedChanged
         Try
             If chbDepositDateSearch.Checked = True Then
                 dtpStartDepositDate.Enabled = True
@@ -3040,7 +3040,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub btnRunDepositReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunDepositReport.Click
+    Private Sub btnRunDepositReport_Click(sender As System.Object, e As System.EventArgs) Handles btnRunDepositReport.Click
         Try
             Dim query As String = "SELECT SUBSTR(fi.STRAIRSNUMBER, 5) AS AIRSNUMBER, " &
                 "  fi.STRFACILITYNAME, tr.TRANSACTIONTYPECODE, " &
@@ -3171,7 +3171,7 @@ Public Class PASPFeeStatistics
 #End Region
 
 #Region "Year Specific"
-    Private Sub btnFeesandEmissions_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFeesandEmissions.Click
+    Private Sub btnFeesandEmissions_Click(sender As System.Object, e As System.EventArgs) Handles btnFeesandEmissions.Click
         Try
             Me.Cursor = Cursors.WaitCursor
             ds = New DataSet
@@ -3210,7 +3210,7 @@ Public Class PASPFeeStatistics
             Me.Cursor = Cursors.Default
         End Try
     End Sub
-    Private Sub btnClassification_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClassification.Click
+    Private Sub btnClassification_Click(sender As System.Object, e As System.EventArgs) Handles btnClassification.Click
         Try
             Me.Cursor = Cursors.WaitCursor
             ds = New DataSet
@@ -3326,7 +3326,7 @@ Public Class PASPFeeStatistics
 #End Region
 
 #Region "Financial"
-    Private Sub btnPayment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPayment.Click
+    Private Sub btnPayment_Click(sender As System.Object, e As System.EventArgs) Handles btnPayment.Click
         Try
             Me.Cursor = Cursors.Default
             ds = New DataSet
@@ -3353,7 +3353,7 @@ Public Class PASPFeeStatistics
 
     End Sub
 
-    Private Sub btnFeeByYear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFeeByYear.Click
+    Private Sub btnFeeByYear_Click(sender As System.Object, e As System.EventArgs) Handles btnFeeByYear.Click
         Try
             Me.Cursor = Cursors.WaitCursor
             ds = New DataSet
@@ -3441,7 +3441,7 @@ Public Class PASPFeeStatistics
 
 #Region "Compliance"
 
-    Private Sub btnClassChange_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClassChange.Click
+    Private Sub btnClassChange_Click(sender As System.Object, e As System.EventArgs) Handles btnClassChange.Click
         Try
             Me.Cursor = Cursors.WaitCursor
             ds = New DataSet
@@ -3471,7 +3471,7 @@ Public Class PASPFeeStatistics
 
     End Sub
 
-    Private Sub lblNSPS1_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblNSPS1.LinkClicked
+    Private Sub lblNSPS1_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblNSPS1.LinkClicked
         Try
             Me.Cursor = Cursors.WaitCursor
             ds = New DataSet
@@ -3501,7 +3501,7 @@ Public Class PASPFeeStatistics
         End Try
 
     End Sub
-    Private Sub lblNSPS2_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblNSPS2.LinkClicked
+    Private Sub lblNSPS2_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblNSPS2.LinkClicked
         Try
             Me.Cursor = Cursors.WaitCursor
             ds = New DataSet
@@ -3529,7 +3529,7 @@ Public Class PASPFeeStatistics
         End Try
 
     End Sub
-    Private Sub lblNSPS3_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblNSPS3.LinkClicked
+    Private Sub lblNSPS3_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblNSPS3.LinkClicked
         Try
             Me.Cursor = Cursors.WaitCursor
             ds = New DataSet
@@ -3558,7 +3558,7 @@ Public Class PASPFeeStatistics
 
     End Sub
 
-    Private Sub btnNoOperate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNoOperate.Click
+    Private Sub btnNoOperate_Click(sender As System.Object, e As System.EventArgs) Handles btnNoOperate.Click
         Try
             Me.Cursor = Cursors.WaitCursor
             ds = New DataSet
@@ -3588,7 +3588,7 @@ Public Class PASPFeeStatistics
 
 #Region "General"
 
-    Private Sub btnFacInfoChange_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFacInfoChange.Click
+    Private Sub btnFacInfoChange_Click(sender As System.Object, e As System.EventArgs) Handles btnFacInfoChange.Click
         Try
             Me.Cursor = Cursors.WaitCursor
             ds = New DataSet
@@ -3619,7 +3619,7 @@ Public Class PASPFeeStatistics
 
 #End Region
 
-    Private Sub btnViewStats_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewStats.Click
+    Private Sub btnViewStats_Click(sender As System.Object, e As System.EventArgs) Handles btnViewStats.Click
         Try
 
             SQL = "select * from " &
@@ -3936,7 +3936,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbFSSummaryFeeUniverse_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryFeeUniverse.LinkClicked
+    Private Sub llbFSSummaryFeeUniverse_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryFeeUniverse.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -3992,7 +3992,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbFSSummaryUnEnrolled_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryUnEnrolled.LinkClicked
+    Private Sub llbFSSummaryUnEnrolled_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryUnEnrolled.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -4049,7 +4049,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbFSSummaryCeaseCollection_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryCeaseCollection.LinkClicked
+    Private Sub llbFSSummaryCeaseCollection_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryCeaseCollection.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -4107,7 +4107,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbFSSummaryEnrolled_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryEnrolled.LinkClicked
+    Private Sub llbFSSummaryEnrolled_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryEnrolled.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -4165,7 +4165,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbFSSummaryMailOut_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryMailOut.LinkClicked
+    Private Sub llbFSSummaryMailOut_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryMailOut.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -4224,7 +4224,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbFSSummaryAdditions_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryAdditions.LinkClicked
+    Private Sub llbFSSummaryAdditions_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryAdditions.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -4283,7 +4283,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbFSSummaryNotReported_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryNotReported.LinkClicked
+    Private Sub llbFSSummaryNotReported_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryNotReported.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -4341,7 +4341,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbFSSummaryInProgress_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryInProgress.LinkClicked
+    Private Sub llbFSSummaryInProgress_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryInProgress.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -4400,7 +4400,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbFSSummaryFinalized_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryFinalized.LinkClicked
+    Private Sub llbFSSummaryFinalized_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryFinalized.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -4464,7 +4464,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbFSSummaryOnTime_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryOnTime.LinkClicked
+    Private Sub llbFSSummaryOnTime_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryOnTime.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -4525,7 +4525,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbFSSummaryLateResponse_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryLateResponse.LinkClicked
+    Private Sub llbFSSummaryLateResponse_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryLateResponse.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -4587,7 +4587,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbFSSummaryLateWithFee_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryLateWithFee.LinkClicked
+    Private Sub llbFSSummaryLateWithFee_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryLateWithFee.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -4648,7 +4648,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbFSSummaryNotPaid_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryNotPaid.LinkClicked
+    Private Sub llbFSSummaryNotPaid_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryNotPaid.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -4709,7 +4709,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbFSSummaryOutofBalance_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryOutofBalance.LinkClicked
+    Private Sub llbFSSummaryOutofBalance_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryOutofBalance.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -4767,7 +4767,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbFSSummaryPartial_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryPartial.LinkClicked
+    Private Sub llbFSSummaryPartial_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryPartial.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -4832,7 +4832,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbFSSummaryAnnual_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryAnnual.LinkClicked
+    Private Sub llbFSSummaryAnnual_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryAnnual.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -4891,7 +4891,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbFSSummaryQuarterly_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryQuarterly.LinkClicked
+    Private Sub llbFSSummaryQuarterly_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryQuarterly.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -4950,7 +4950,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbFSSummaryOverpaid_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryOverpaid.LinkClicked
+    Private Sub llbFSSummaryOverpaid_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryOverpaid.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -5010,7 +5010,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbFSSummaryPaidInFull_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryPaidInFull.LinkClicked
+    Private Sub llbFSSummaryPaidInFull_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryPaidInFull.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -5068,7 +5068,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbFSSummaryPaidFinalized_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryPaidFinalized.LinkClicked
+    Private Sub llbFSSummaryPaidFinalized_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryPaidFinalized.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -5127,7 +5127,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbFSSummaryPaidNotFinalized_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryPaidNotFinalized.LinkClicked
+    Private Sub llbFSSummaryPaidNotFinalized_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFSSummaryPaidNotFinalized.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -5187,7 +5187,7 @@ Public Class PASPFeeStatistics
     End Sub
 
 
-    Private Sub llbDetailFeeUniverse_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailFeeUniverse.LinkClicked
+    Private Sub llbDetailFeeUniverse_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailFeeUniverse.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -5387,7 +5387,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbDetailUnEnrolled_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailUnEnrolled.LinkClicked
+    Private Sub llbDetailUnEnrolled_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailUnEnrolled.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -5534,7 +5534,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbDetailCeaseCollection_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailCeaseCollection.LinkClicked
+    Private Sub llbDetailCeaseCollection_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailCeaseCollection.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -5682,7 +5682,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbDetailEnrolled_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailEnrolled.LinkClicked
+    Private Sub llbDetailEnrolled_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailEnrolled.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -5830,7 +5830,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbDetailMailout_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailMailout.LinkClicked
+    Private Sub llbDetailMailout_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailMailout.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -5979,7 +5979,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbDetailAdditions_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailAdditions.LinkClicked
+    Private Sub llbDetailAdditions_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailAdditions.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -6127,7 +6127,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbDetailNotReported_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailNotReported.LinkClicked
+    Private Sub llbDetailNotReported_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailNotReported.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -6274,7 +6274,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbDetailInProgress_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailInProgress.LinkClicked
+    Private Sub llbDetailInProgress_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailInProgress.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -6422,7 +6422,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbDetailFinalized_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailFinalized.LinkClicked
+    Private Sub llbDetailFinalized_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailFinalized.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -6580,7 +6580,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbDetailLateResponse_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailLateResponse.LinkClicked
+    Private Sub llbDetailLateResponse_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailLateResponse.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -6733,7 +6733,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbDetailLateWithFee_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailLateWithFee.LinkClicked
+    Private Sub llbDetailLateWithFee_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailLateWithFee.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -6885,7 +6885,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbDetailNotPaid_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailNotPaid.LinkClicked
+    Private Sub llbDetailNotPaid_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailNotPaid.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -7054,7 +7054,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbDetailOutOfBalance_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailOutOfBalance.LinkClicked
+    Private Sub llbDetailOutOfBalance_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailOutOfBalance.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -7204,7 +7204,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbDetailPartial_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailPartial.LinkClicked
+    Private Sub llbDetailPartial_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailPartial.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -7350,7 +7350,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbDetailAnnual_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailAnnual.LinkClicked
+    Private Sub llbDetailAnnual_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailAnnual.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -7496,7 +7496,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbDetailQuarterly_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailQuarterly.LinkClicked
+    Private Sub llbDetailQuarterly_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailQuarterly.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -7642,7 +7642,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbDetailOverpaid_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailOverpaid.LinkClicked
+    Private Sub llbDetailOverpaid_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailOverpaid.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -7788,7 +7788,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbDetailPaidInFull_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailPaidInFull.LinkClicked
+    Private Sub llbDetailPaidInFull_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailPaidInFull.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -7937,7 +7937,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbDetailPaidFinalized_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailPaidFinalized.LinkClicked
+    Private Sub llbDetailPaidFinalized_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailPaidFinalized.LinkClicked
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
@@ -8087,7 +8087,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub llbDetailPaidNotFinalized_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailPaidNotFinalized.LinkClicked
+    Private Sub llbDetailPaidNotFinalized_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDetailPaidNotFinalized.LinkClicked
 
         Try
             If cboFeeStatYear.Text <> "" Then
@@ -8240,11 +8240,11 @@ Public Class PASPFeeStatistics
 
 
 
-    Private Sub btnExportFeeStats_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportFeeStats.Click
+    Private Sub btnExportFeeStats_Click(sender As System.Object, e As System.EventArgs) Handles btnExportFeeStats.Click
         dgvFeeStats.ExportToExcel(Me)
     End Sub
 
-    Private Sub dgvFeeStats_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvFeeStats.MouseUp
+    Private Sub dgvFeeStats_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvFeeStats.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvFeeStats.HitTest(e.X, e.Y)
             If dgvFeeStats.RowCount > 0 And hti.RowIndex <> -1 Then
@@ -8262,7 +8262,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub btnCheckInvoices_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCheckInvoices.Click
+    Private Sub btnCheckInvoices_Click(sender As System.Object, e As System.EventArgs) Handles btnCheckInvoices.Click
         Try
             If cboFeeStatYear.Text <> "" Then
                 Dim query As String = "Update FS_FeeInvoice set " &
@@ -8319,7 +8319,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub btnInvoicedPaymentDue_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnInvoicedPaymentDue.Click
+    Private Sub btnInvoicedPaymentDue_Click(sender As System.Object, e As System.EventArgs) Handles btnInvoicedPaymentDue.Click
         Try
             SQL = " "
 
@@ -8579,7 +8579,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub btnOpenFeesLog_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenFeesLog.Click
+    Private Sub btnOpenFeesLog_Click(sender As System.Object, e As System.EventArgs) Handles btnOpenFeesLog.Click
         Dim parameters As New Generic.Dictionary(Of BaseForm.FormParameter, String)
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtFeeStatAirsNumber.Text) Then
             parameters(FormParameter.AirsNumber) = txtFeeStatAirsNumber.Text
@@ -8589,7 +8589,7 @@ Public Class PASPFeeStatistics
         OpenSingleForm(PASPFeeAuditLog, parameters:=parameters, closeFirst:=True)
     End Sub
 
-    Private Sub btnInvoiceReportVariance_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnInvoiceReportVariance.Click
+    Private Sub btnInvoiceReportVariance_Click(sender As System.Object, e As System.EventArgs) Handles btnInvoiceReportVariance.Click
         Try
 
             Select Case cboStatPayType.Text
@@ -8852,7 +8852,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub btnViewInvoicedBalance_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewInvoicedBalance.Click
+    Private Sub btnViewInvoicedBalance_Click(sender As System.Object, e As System.EventArgs) Handles btnViewInvoicedBalance.Click
         Try
 
             Select Case cboStatPayType.Text

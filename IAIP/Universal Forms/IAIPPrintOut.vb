@@ -20,7 +20,7 @@ Public Class IAIPPrintOut
 
 #Region " Form events "
 
-    Private Sub IAIPPrintOut_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub IAIPPrintOut_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
 
         LoadCorrectReport()
@@ -14714,7 +14714,7 @@ Public Class IAIPPrintOut
 #End Region
 
 #Region " Utilities "
-    Private Sub CRViewerTabs(ByVal viewer As CrystalReportViewer, ByVal visible As Boolean)
+    Private Sub CRViewerTabs(viewer As CrystalReportViewer, visible As Boolean)
         ' http://bloggingabout.net/blogs/jschreuder/archive/2005/08/03/8760.aspx
         If viewer IsNot Nothing Then
             For Each control As Control In viewer.Controls

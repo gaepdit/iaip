@@ -13,7 +13,7 @@ Public Class IAIPDistrictSourceTool
     Dim daDistrictStaff As SqlDataAdapter
 
 
-    Private Sub IAIPDistrictSourcesTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub IAIPDistrictSourcesTool_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
         Try
 
@@ -37,7 +37,7 @@ Public Class IAIPDistrictSourceTool
     End Sub
 
 #Region "Page Load"
-    Sub LoadCountyListBox(ByVal LoadSource As String)
+    Sub LoadCountyListBox(LoadSource As String)
         Dim SQLLine As String = ""
 
         Try
@@ -371,7 +371,7 @@ Public Class IAIPDistrictSourceTool
 
 #End Region
 #Region "Declaration"
-    Private Sub MmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiBack.Click
+    Private Sub MmiBack_Click(sender As System.Object, e As System.EventArgs) Handles MmiBack.Click
         Try
 
             Back()
@@ -382,7 +382,7 @@ Public Class IAIPDistrictSourceTool
         End Try
 
     End Sub
-    Private Sub mmiCut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCut.Click
+    Private Sub mmiCut_Click(sender As System.Object, e As System.EventArgs) Handles mmiCut.Click
         Try
 
             SendKeys.Send("^(X)")
@@ -393,7 +393,7 @@ Public Class IAIPDistrictSourceTool
         End Try
 
     End Sub
-    Private Sub mmiCopy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCopy.Click
+    Private Sub mmiCopy_Click(sender As System.Object, e As System.EventArgs) Handles mmiCopy.Click
         Try
 
             SendKeys.Send("^(C)")
@@ -404,7 +404,7 @@ Public Class IAIPDistrictSourceTool
         End Try
 
     End Sub
-    Private Sub mmiPaste_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPaste.Click
+    Private Sub mmiPaste_Click(sender As System.Object, e As System.EventArgs) Handles mmiPaste.Click
         Try
 
             SendKeys.Send("^(V)")
@@ -415,7 +415,7 @@ Public Class IAIPDistrictSourceTool
         End Try
 
     End Sub
-    Private Sub mmiClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClear.Click
+    Private Sub mmiClear_Click(sender As System.Object, e As System.EventArgs) Handles mmiClear.Click
         Try
 
             Clear()
@@ -426,10 +426,10 @@ Public Class IAIPDistrictSourceTool
         End Try
 
     End Sub
-    Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
+    Private Sub mmiHelp_Click(sender As System.Object, e As System.EventArgs) Handles mmiHelp.Click
         OpenDocumentationUrl(Me)
     End Sub
-    Private Sub TBManagingDistricts_ButtonClick(ByVal sender As Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBManagingDistricts.ButtonClick
+    Private Sub TBManagingDistricts_ButtonClick(sender As Object, e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBManagingDistricts.ButtonClick
         Try
 
             Select Case TBManagingDistricts.Buttons.IndexOf(e.Button)
@@ -447,7 +447,7 @@ Public Class IAIPDistrictSourceTool
         End Try
 
     End Sub
-    Private Sub llbViewDistricts_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewDistricts.LinkClicked
+    Private Sub llbViewDistricts_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewDistricts.LinkClicked
         Try
 
             Select Case clbDistricts.CheckedItems.Count
@@ -463,7 +463,7 @@ Public Class IAIPDistrictSourceTool
         End Try
 
     End Sub
-    Private Sub btnCheckAllCounties_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCheckAllCounties.Click
+    Private Sub btnCheckAllCounties_Click(sender As System.Object, e As System.EventArgs) Handles btnCheckAllCounties.Click
         Dim i As Integer
 
         Try
@@ -478,7 +478,7 @@ Public Class IAIPDistrictSourceTool
         End Try
 
     End Sub
-    Private Sub btnClearChecks_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearChecks.Click
+    Private Sub btnClearChecks_Click(sender As System.Object, e As System.EventArgs) Handles btnClearChecks.Click
         Dim i As Integer
         Try
 
@@ -493,7 +493,7 @@ Public Class IAIPDistrictSourceTool
         End Try
 
     End Sub
-    Private Sub IAIPDistrictSourcesTool_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
+    Private Sub IAIPDistrictSourcesTool_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
 
             Back()
@@ -504,7 +504,7 @@ Public Class IAIPDistrictSourceTool
         End Try
 
     End Sub
-    Private Sub BtnSaveDistricts_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnSaveDistricts.Click
+    Private Sub BtnSaveDistricts_Click(sender As System.Object, e As System.EventArgs) Handles BtnSaveDistricts.Click
         Try
 
             SaveDistrictList()
@@ -516,7 +516,7 @@ Public Class IAIPDistrictSourceTool
         End Try
 
     End Sub
-    Private Sub btnAddUpdateInfo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddUpdateInfo.Click
+    Private Sub btnAddUpdateInfo_Click(sender As System.Object, e As System.EventArgs) Handles btnAddUpdateInfo.Click
         Try
 
             SaveNewDistricts()
@@ -528,7 +528,7 @@ Public Class IAIPDistrictSourceTool
         End Try
 
     End Sub
-    Private Sub lsbDistricts_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles lsbDistricts.MouseUp
+    Private Sub lsbDistricts_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles lsbDistricts.MouseUp
         Try
             txtNewDistrictCode.Text = Mid(lsbDistricts.SelectedValue, ((lsbDistricts.SelectedValue).ToString.IndexOf("-") + 3))
 
@@ -581,7 +581,7 @@ Public Class IAIPDistrictSourceTool
 
 
 
-    Private Sub btnViewDistrict_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewDistrict.Click
+    Private Sub btnViewDistrict_Click(sender As System.Object, e As System.EventArgs) Handles btnViewDistrict.Click
         Dim CountyName As String = ""
         Dim i As Integer = 0
 

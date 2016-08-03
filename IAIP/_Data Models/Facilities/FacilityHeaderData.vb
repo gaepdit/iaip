@@ -16,7 +16,7 @@ Namespace Apb.Facilities
         Public Sub New()
         End Sub
 
-        Public Sub New(ByVal airsNumber As Apb.ApbFacilityId)
+        Public Sub New(airsNumber As Apb.ApbFacilityId)
             Me.AirsNumber = airsNumber
         End Sub
 
@@ -31,7 +31,7 @@ Namespace Apb.Facilities
             Get
                 Return _sic
             End Get
-            Set(ByVal value As String)
+            Set(value As String)
                 _sic = RealStringOrNothing(value)
             End Set
         End Property
@@ -45,7 +45,7 @@ Namespace Apb.Facilities
             Get
                 Return _naics
             End Get
-            Set(ByVal value As String)
+            Set(value As String)
                 _naics = RealStringOrNothing(value)
             End Set
         End Property
@@ -55,7 +55,7 @@ Namespace Apb.Facilities
             Get
                 Return _rmpId
             End Get
-            Set(ByVal value As String)
+            Set(value As String)
                 If IsValidRmpId(value) Then
                     _rmpId = value
                 Else
@@ -69,7 +69,7 @@ Namespace Apb.Facilities
             Get
                 Return _facilityDescription
             End Get
-            Set(ByVal value As String)
+            Set(value As String)
                 _facilityDescription = RealStringOrNothing(value)
             End Set
         End Property
@@ -79,7 +79,7 @@ Namespace Apb.Facilities
             Get
                 Return _headerUpdateComment
             End Get
-            Set(ByVal value As String)
+            Set(value As String)
                 _headerUpdateComment = RealStringOrNothing(value)
             End Set
         End Property
@@ -94,7 +94,7 @@ Namespace Apb.Facilities
             Get
                 Return WhereModified.ToString
             End Get
-            Set(ByVal value As String)
+            Set(value As String)
                 WhereModified = [Enum].Parse(GetType(HeaderDataModificationLocation), value)
             End Set
         End Property
@@ -121,7 +121,7 @@ Namespace Apb.Facilities
             Get
                 Return OperationalStatus.ToString()
             End Get
-            Set(ByVal value As String)
+            Set(value As String)
                 OperationalStatus = [Enum].Parse(GetType(FacilityOperationalStatus), value)
             End Set
         End Property
@@ -149,7 +149,7 @@ Namespace Apb.Facilities
             Get
                 Return Classification.ToString()
             End Get
-            Set(ByVal value As String)
+            Set(value As String)
                 Classification = [Enum].Parse(GetType(FacilityClassification), value)
             End Set
         End Property
@@ -173,7 +173,7 @@ Namespace Apb.Facilities
             Get
                 Return CmsMember.ToString()
             End Get
-            Set(ByVal value As String)
+            Set(value As String)
                 CmsMember = [Enum].Parse(GetType(FacilityCmsMember), value)
             End Set
         End Property
@@ -209,7 +209,7 @@ Namespace Apb.Facilities
                 PMFineNonAttainmentState.ToString("D") &
                 "0"
             End Get
-            Set(ByVal value As String)
+            Set(value As String)
                 If String.IsNullOrEmpty(value) Then
                     OneHourOzoneNonAttainment = OneHourOzoneNonattainmentStatus.No
                     EightHourOzoneNonAttainment = EightHourOzoneNonattainmentStatus.None
@@ -240,7 +240,7 @@ Namespace Apb.Facilities
             Get
                 Return ConvertEnumToBitFlags(Of AirProgram)(Me.AirPrograms, AirProgramsCodeLength)
             End Get
-            Set(ByVal value As String)
+            Set(value As String)
                 AirPrograms = ConvertBitFieldToEnum(Of AirProgram)(value)
             End Set
         End Property
@@ -297,7 +297,7 @@ Namespace Apb.Facilities
             Get
                 Return ConvertEnumToBitFlags(Of AirProgramClassification)(Me.AirProgramClassifications, AirProgramClassificationsCodeLength)
             End Get
-            Set(ByVal value As String)
+            Set(value As String)
                 AirProgramClassifications = ConvertBitFieldToEnum(Of AirProgramClassification)(value)
             End Set
         End Property
@@ -316,12 +316,12 @@ Namespace Apb.Facilities
         ''' </summary>
         ''' <param name="rmpID">The string to test</param>
         ''' <returns>True if test string is in the format of a valid RMP ID. Otherwise, false.</returns>
-        Public Shared Function IsValidRmpId(ByVal rmpID As String) As Boolean
+        Public Shared Function IsValidRmpId(rmpID As String) As Boolean
             If rmpID Is Nothing Then Return False
             Return Regex.IsMatch(rmpID, RmpIdPattern)
         End Function
 
-        Public Shared Function GetAirProgramDbKey(ByVal selectedAirProgram As AirProgram) As String
+        Public Shared Function GetAirProgramDbKey(selectedAirProgram As AirProgram) As String
             Select Case selectedAirProgram
                 Case AirProgram.AcidPrecipitation
                     Return "A"

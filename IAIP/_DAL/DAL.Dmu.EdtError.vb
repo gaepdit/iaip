@@ -13,7 +13,7 @@ Namespace DAL.Dmu
         ''' </summary>
         ''' <param name="errorCode">The EDT Error Code to retrieve information about</param>
         ''' <returns>An EdtErrorMessage object</returns>
-        Public Function GetErrorMessageDetail(ByVal errorCode As String) As EdtErrorMessage
+        Public Function GetErrorMessageDetail(errorCode As String) As EdtErrorMessage
             Throw New NotImplementedException()
 
             ' TODO: SQL Server migration
@@ -53,7 +53,7 @@ Namespace DAL.Dmu
         ''' </summary>
         ''' <param name="userID">The user ID for which to return error counts</param>
         ''' <returns>A DataTable</returns>
-        Public Function GetErrorCounts(ByVal userID As Integer) As DataTable
+        Public Function GetErrorCounts(userID As Integer) As DataTable
             Dim spName As String = "ICIS_EDT.GetErrorCounts"
             Dim parameter As SqlParameter = New SqlParameter("@userID", userID)
             Return DB.SPGetDataTable(spName, parameter)
@@ -64,7 +64,7 @@ Namespace DAL.Dmu
         ''' </summary>
         ''' <param name="errorCode">The Error Code for which to return errors</param>
         ''' <returns>A DataTable</returns>
-        Public Function GetErrors(ByVal errorCode As String) As DataTable
+        Public Function GetErrors(errorCode As String) As DataTable
             Dim spName As String = "ICIS_EDT.GetErrors"
             Dim parameter As SqlParameter = New SqlParameter("@errorCode", errorCode)
             Return DB.SPGetDataTable(spName, parameter)
@@ -75,7 +75,7 @@ Namespace DAL.Dmu
         ''' </summary>
         ''' <param name="errorID">The Error ID to retrieve</param>
         ''' <returns>An EdtError Object</returns>
-        Public Function GetErrorDetail(ByVal errorID As String) As EdtError
+        Public Function GetErrorDetail(errorID As String) As EdtError
             Dim er As EdtError = Nothing
 
             Dim spName As String = "ICIS_EDT.GetErrorDetail"
@@ -91,7 +91,7 @@ Namespace DAL.Dmu
             Return er
         End Function
 
-        Private Function MakeEdtErrorDetailFrom(ByVal row As DataRow) As EdtError
+        Private Function MakeEdtErrorDetailFrom(row As DataRow) As EdtError
             If row Is Nothing Then Return Nothing
 
             Dim es As New EdtSubmission
@@ -142,7 +142,7 @@ Namespace DAL.Dmu
         ''' <param name="errorCode">The EDT error code for which to specify the default user</param>
         ''' <param name="defaultUserID">The User ID to set as the default for the error code</param>
         ''' <returns>True if the action was successful; otherwise false</returns>
-        Public Function SetDefaultUser(ByVal errorCode As String, ByVal defaultUserID As Integer) As Boolean
+        Public Function SetDefaultUser(errorCode As String, defaultUserID As Integer) As Boolean
             Dim spName As String = "ICIS_EDT.SetDefaultUser"
 
             Dim parameters As SqlParameter() = {
@@ -159,7 +159,7 @@ Namespace DAL.Dmu
         ''' <param name="resolved">True to set as resolved; false to set as open</param>
         ''' <param name="errorID">The EDT error ID</param>
         ''' <returns>True if the action was successful; otherwise false</returns>
-        Public Function SetResolvedStatus(ByVal resolved As Boolean, ByVal errorID As Integer) As Boolean
+        Public Function SetResolvedStatus(resolved As Boolean, errorID As Integer) As Boolean
             Dim errorIDs As Integer() = {errorID}
             Return SetResolvedStatus(resolved, errorIDs)
         End Function
@@ -170,7 +170,7 @@ Namespace DAL.Dmu
         ''' <param name="resolved">True to set as resolved; false to set as open</param>
         ''' <param name="errorIDs">An array of EDT error IDs to modify</param>
         ''' <returns>True if the action was successful; otherwise false</returns>
-        Public Function SetResolvedStatus(ByVal resolved As Boolean, ByVal errorIDs As Integer()) As Boolean
+        Public Function SetResolvedStatus(resolved As Boolean, errorIDs As Integer()) As Boolean
             Throw New NotImplementedException()
 
             ' TODO: SQL Server migration
@@ -200,7 +200,7 @@ Namespace DAL.Dmu
         ''' <param name="userId">The user ID of the user assigned to the error</param>
         ''' <param name="errorID">The EDT error ID to modify</param>
         ''' <returns>True if the action was successful; otherwise false</returns>
-        Public Function AssignErrorToUser(ByVal userId As Integer, ByVal errorID As Integer) As Boolean
+        Public Function AssignErrorToUser(userId As Integer, errorID As Integer) As Boolean
             Dim errorIDs As Integer() = {errorID}
             Return AssignErrorToUser(userId, errorIDs)
         End Function
@@ -211,7 +211,7 @@ Namespace DAL.Dmu
         ''' <param name="userId">The user ID of the user assigned to the errors</param>
         ''' <param name="errorIDs">An array of EDT error IDs to modify</param>
         ''' <returns>True if the action was successful; otherwise false</returns>
-        Public Function AssignErrorToUser(ByVal userId As Integer, ByVal errorIDs As Integer()) As Boolean
+        Public Function AssignErrorToUser(userId As Integer, errorIDs As Integer()) As Boolean
             Throw New NotImplementedException()
 
             ' TODO: SQL Server migration

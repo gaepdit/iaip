@@ -11,7 +11,7 @@ Public Class IAIPEditContacts
         Get
             Return _airsNumber
         End Get
-        Set(ByVal value As Apb.ApbFacilityId)
+        Set(value As Apb.ApbFacilityId)
             _airsNumber = value
         End Set
     End Property
@@ -21,7 +21,7 @@ Public Class IAIPEditContacts
         Get
             Return _facilityName
         End Get
-        Set(ByVal value As String)
+        Set(value As String)
             _facilityName = value
         End Set
     End Property
@@ -31,7 +31,7 @@ Public Class IAIPEditContacts
         Get
             Return _key
         End Get
-        Set(ByVal value As ContactKey)
+        Set(value As ContactKey)
             _key = value
         End Set
     End Property
@@ -45,7 +45,7 @@ Public Class IAIPEditContacts
 
 #Region "Page Load"
 
-    Private Sub APBAddContacts_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub APBAddContacts_Load(sender As Object, e As System.EventArgs) Handles MyBase.Load
 
         ParseParameters()
         LoadContactsDataset()
@@ -341,7 +341,7 @@ Public Class IAIPEditContacts
         End Try
     End Sub
 
-    Private Sub dgrContacts_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles ContactsDataGrid.MouseUp
+    Private Sub dgrContacts_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles ContactsDataGrid.MouseUp
         Dim hti As DataGridView.HitTestInfo = ContactsDataGrid.HitTest(e.X, e.Y)
 
         Try
@@ -362,7 +362,7 @@ Public Class IAIPEditContacts
 
 #Region "Buttons"
 
-    Private Sub btnNewClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNewClear.Click
+    Private Sub btnNewClear_Click(sender As System.Object, e As System.EventArgs) Handles btnNewClear.Click
         txtNewAddress.Clear()
         txtNewCity.Clear()
         txtNewCompany.Clear()
@@ -381,7 +381,7 @@ Public Class IAIPEditContacts
         Key = ContactKey.None
     End Sub
 
-    Private Sub btnNewUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNewUpdate.Click
+    Private Sub btnNewUpdate_Click(sender As System.Object, e As System.EventArgs) Handles btnNewUpdate.Click
         Try
             Dim newKey As String = ""
 
@@ -481,7 +481,7 @@ Public Class IAIPEditContacts
         End Try
     End Sub
 
-    Private Sub btnNewSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNewSave.Click
+    Private Sub btnNewSave_Click(sender As System.Object, e As System.EventArgs) Handles btnNewSave.Click
         Try
             Dim newKey As String = ""
 

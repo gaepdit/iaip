@@ -517,7 +517,7 @@ Public Class SscpEnforcement
 
 #Region " General tab: Link work item "
 
-    Private Sub LinkToEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LinkToEvent.Click
+    Private Sub LinkToEvent_Click(sender As System.Object, e As System.EventArgs) Handles LinkToEvent.Click
         OpenEventLinker()
     End Sub
 
@@ -928,7 +928,7 @@ Public Class SscpEnforcement
         End If
     End Sub
 
-    Private Sub EnableOrDisableDocuments(ByVal enabler As EnableOrDisable)
+    Private Sub EnableOrDisableDocuments(enabler As EnableOrDisable)
         Dim enabled As Boolean = (enabler = EnableOrDisable.Enable)
         With pnlDocument
             .Enabled = enabled
@@ -973,14 +973,14 @@ Public Class SscpEnforcement
         End With
     End Sub
 
-    Private Sub dataGridView_CellFormatting(ByVal sender As Object, ByVal e As DataGridViewCellFormattingEventArgs) Handles DocumentList.CellFormatting
+    Private Sub dataGridView_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles DocumentList.CellFormatting
         If TypeOf e.CellStyle.FormatProvider Is ICustomFormatter Then
             e.Value = TryCast(e.CellStyle.FormatProvider.GetFormat(GetType(ICustomFormatter)), ICustomFormatter).Format(e.CellStyle.Format, e.Value, e.CellStyle.FormatProvider)
             e.FormattingApplied = True
         End If
     End Sub
 
-    Private Sub dgvDocumentList_DataBindingComplete(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewBindingCompleteEventArgs) Handles DocumentList.DataBindingComplete
+    Private Sub dgvDocumentList_DataBindingComplete(sender As System.Object, e As System.Windows.Forms.DataGridViewBindingCompleteEventArgs) Handles DocumentList.DataBindingComplete
         FormatDocumentList()
         DocumentList.SanelyResizeColumns()
         DocumentList.ClearSelection()
@@ -990,7 +990,7 @@ Public Class SscpEnforcement
 
 #Region " Document update/download/delete "
 
-    Private Sub dgvDocumentList_SelectionChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DocumentList.SelectionChanged
+    Private Sub dgvDocumentList_SelectionChanged(sender As System.Object, e As System.EventArgs) Handles DocumentList.SelectionChanged
         If DocumentList.SelectedRows.Count = 1 Then
             EnableOrDisableDocuments(EnableOrDisable.Enable)
         Else
@@ -998,7 +998,7 @@ Public Class SscpEnforcement
         End If
     End Sub
 
-    Private Sub btnDocumentDownload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDocumentDownload.Click
+    Private Sub btnDocumentDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnDocumentDownload.Click
         If Message IsNot Nothing Then Message.Clear()
 
         Dim doc As EnforcementDocument = EnforcementDocumentFromFileListRow(DocumentList.CurrentRow)
@@ -1013,7 +1013,7 @@ Public Class SscpEnforcement
         End If
     End Sub
 
-    Private Sub btnDocumentUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DocumentUpdateButton.Click
+    Private Sub btnDocumentUpdate_Click(sender As System.Object, e As System.EventArgs) Handles DocumentUpdateButton.Click
         Dim doc As EnforcementDocument = EnforcementDocumentFromFileListRow(DocumentList.CurrentRow)
         doc.Comment = txtDocumentDescription.Text
         Dim updated As Boolean = UpdateEnforcementDocument(doc, Me)
@@ -1025,7 +1025,7 @@ Public Class SscpEnforcement
         End If
     End Sub
 
-    Private Function EnforcementDocumentFromFileListRow(ByVal row As DataGridViewRow) As EnforcementDocument
+    Private Function EnforcementDocumentFromFileListRow(row As DataGridViewRow) As EnforcementDocument
         Dim doc As New EnforcementDocument
         With doc
             .EnforcementNumber = row.Cells("EnforcementNumber").Value
@@ -1045,12 +1045,12 @@ Public Class SscpEnforcement
 
 #Region " Accept Button (Documents) "
 
-    Private Sub NoAcceptButton(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Private Sub NoAcceptButton(sender As System.Object, e As System.EventArgs) _
     Handles txtDocumentDescription.Leave
         Me.AcceptButton = Nothing
     End Sub
 
-    Private Sub FileProperties_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Private Sub FileProperties_Enter(sender As System.Object, e As System.EventArgs) _
     Handles txtDocumentDescription.Enter
         Me.AcceptButton = DocumentUpdateButton
     End Sub
@@ -1061,11 +1061,11 @@ Public Class SscpEnforcement
 
 #Region " Audit History tab "
 
-    Private Sub RefreshAuditHistory_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RefreshAuditHistory.Click
+    Private Sub RefreshAuditHistory_Click(sender As System.Object, e As System.EventArgs) Handles RefreshAuditHistory.Click
         LoadAuditData()
     End Sub
 
-    Private Sub ExportAuditHistory_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExportAuditHistory.Click
+    Private Sub ExportAuditHistory_Click(sender As System.Object, e As System.EventArgs) Handles ExportAuditHistory.Click
         AuditHistory.ExportToExcel(Me)
     End Sub
 
@@ -1202,19 +1202,19 @@ Public Class SscpEnforcement
 
 #Region " Menu and Toolbar "
 
-    Private Sub SaveButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SaveButton.Click
+    Private Sub SaveButton_Click(sender As System.Object, e As System.EventArgs) Handles SaveButton.Click
         ValidateAndSave()
     End Sub
 
-    Private Sub SaveMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SaveMenuItem.Click
+    Private Sub SaveMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles SaveMenuItem.Click
         ValidateAndSave()
     End Sub
 
-    Private Sub CloseMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CloseMenuItem.Click
+    Private Sub CloseMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles CloseMenuItem.Click
         Me.Close()
     End Sub
 
-    Private Sub ShowAuditHistoryMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ShowAuditHistoryMenuItem.Click
+    Private Sub ShowAuditHistoryMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles ShowAuditHistoryMenuItem.Click
         ShowAuditHistory()
     End Sub
 
@@ -1222,7 +1222,7 @@ Public Class SscpEnforcement
         ShowEpaValues()
     End Sub
 
-    Private Sub DeleteEnforcement_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DeleteEnforcementMenuItem.Click
+    Private Sub DeleteEnforcement_Click(sender As System.Object, e As System.EventArgs) Handles DeleteEnforcementMenuItem.Click
         DeleteEnforcement()
     End Sub
 

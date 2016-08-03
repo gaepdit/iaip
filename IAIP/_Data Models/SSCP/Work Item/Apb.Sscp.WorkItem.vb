@@ -36,7 +36,7 @@ Namespace Apb.Sscp
             Get
                 Return EventTypeDbCodes(EventType)
             End Get
-            Set(ByVal value As String)
+            Set(value As String)
                 Select Case value
                     Case "01"
                         EventType = WorkItemEventType.Report

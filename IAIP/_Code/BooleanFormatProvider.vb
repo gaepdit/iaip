@@ -4,7 +4,7 @@
 
     ' Don't forget to set the CellFormatting event on the datagridview/whatever
 
-    Public Function GetFormat(ByVal formatType As Type) As Object _
+    Public Function GetFormat(formatType As Type) As Object _
     Implements IFormatProvider.GetFormat
 
         If formatType Is GetType(ICustomFormatter) Then
@@ -20,7 +20,7 @@
         OnOff
     End Enum
 
-    Public Function Format(ByVal booleanFormat As String, ByVal arg As Object, ByVal formatProvider As IFormatProvider) As String _
+    Public Function Format(booleanFormat As String, arg As Object, formatProvider As IFormatProvider) As String _
     Implements ICustomFormatter.Format
 
         If arg Is Nothing Then

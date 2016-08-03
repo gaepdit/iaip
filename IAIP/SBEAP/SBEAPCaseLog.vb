@@ -18,7 +18,7 @@ Public Class SBEAPCaseLog
     Dim SQLOrder2 As String
 
 
-    Private Sub SBEAPCaseLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub SBEAPCaseLog_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
         Try
             label1.Text = "Select Case Work"
@@ -379,7 +379,7 @@ Public Class SBEAPCaseLog
 
 
 #End Region
-    Private Sub cboFieldType1_SelectedValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboFieldType1.SelectedValueChanged
+    Private Sub cboFieldType1_SelectedValueChanged(sender As Object, e As System.EventArgs) Handles cboFieldType1.SelectedValueChanged
         Try
             Dim drDSRow As DataRow
             Dim drNewRow As DataRow
@@ -490,7 +490,7 @@ Public Class SBEAPCaseLog
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub cboFieldType2_SelectedValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboFieldType2.SelectedValueChanged
+    Private Sub cboFieldType2_SelectedValueChanged(sender As Object, e As System.EventArgs) Handles cboFieldType2.SelectedValueChanged
         Try
             Dim drDSRow As DataRow
             Dim drNewRow As DataRow
@@ -600,7 +600,7 @@ Public Class SBEAPCaseLog
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSearchCaseLog_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearchCaseLog.Click
+    Private Sub btnSearchCaseLog_Click(sender As System.Object, e As System.EventArgs) Handles btnSearchCaseLog.Click
         Try
             btnSearchCaseLog.Enabled = False
             btnResetSearch.Enabled = False
@@ -615,7 +615,7 @@ Public Class SBEAPCaseLog
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnOpenCase_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenCase.Click
+    Private Sub btnOpenCase_Click(sender As System.Object, e As System.EventArgs) Handles btnOpenCase.Click
         Try
             If txtCaseID.Text <> "" Then
                 If CaseWork Is Nothing Then
@@ -632,7 +632,7 @@ Public Class SBEAPCaseLog
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvCaseLog_CellDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvCaseLog.CellDoubleClick
+    Private Sub dgvCaseLog_CellDoubleClick(sender As Object, e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvCaseLog.CellDoubleClick
         Try
             If e.RowIndex > -1 Then
                 If dgvCaseLog.Columns(0).HeaderText = "Case ID" Then
@@ -657,7 +657,7 @@ Public Class SBEAPCaseLog
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvCaseLog_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvCaseLog.MouseUp
+    Private Sub dgvCaseLog_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvCaseLog.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvCaseLog.HitTest(e.X, e.Y)
             If dgvCaseLog.RowCount > 0 And hti.RowIndex <> -1 Then
@@ -674,10 +674,10 @@ Public Class SBEAPCaseLog
         Finally
         End Try
     End Sub
-    Private Sub tsbExport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbExport.Click
+    Private Sub tsbExport_Click(sender As System.Object, e As System.EventArgs) Handles tsbExport.Click
         dgvCaseLog.ExportToExcel(Me)
     End Sub
-    Private Sub btnResetSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnResetSearch.Click
+    Private Sub btnResetSearch_Click(sender As System.Object, e As System.EventArgs) Handles btnResetSearch.Click
         Try
             cboFieldType1.Text = "Case ID"
             cboFieldType2.Text = "Staff Responsible"
@@ -690,7 +690,7 @@ Public Class SBEAPCaseLog
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub tsbBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbBack.Click
+    Private Sub tsbBack_Click(sender As System.Object, e As System.EventArgs) Handles tsbBack.Click
         Try
             Me.Close()
 
@@ -698,7 +698,7 @@ Public Class SBEAPCaseLog
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub mmiOpenNewCase_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOpenNewCase.Click
+    Private Sub mmiOpenNewCase_Click(sender As System.Object, e As System.EventArgs) Handles mmiOpenNewCase.Click
         Try
             If CaseWork Is Nothing Then
 
@@ -712,14 +712,14 @@ Public Class SBEAPCaseLog
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub bgw1_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bgw1.DoWork
+    Private Sub bgw1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw1.DoWork
         Try
             SearchCaseWork()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub bgw1_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw1.RunWorkerCompleted
+    Private Sub bgw1_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw1.RunWorkerCompleted
         Try
             dgvCaseLog.DataSource = dsCaseLogGrid
             dgvCaseLog.DataMember = "NavScreen"
@@ -798,7 +798,7 @@ Public Class SBEAPCaseLog
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvCaseLog_Sorted(ByVal sender As Object, ByVal e As System.EventArgs) Handles dgvCaseLog.Sorted
+    Private Sub dgvCaseLog_Sorted(sender As Object, e As System.EventArgs) Handles dgvCaseLog.Sorted
         Try
             LoadCaseColors()
         Catch ex As Exception

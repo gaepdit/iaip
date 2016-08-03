@@ -16,7 +16,7 @@ Public Class SSPPTitleVTools
     Dim Startdate As String
     Dim EndDate As String
 
-    Private Sub DMUTitleVTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub DMUTitleVTools_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
         Try
 
@@ -34,7 +34,7 @@ Public Class SSPPTitleVTools
     End Sub
 
 #Region "Page Load Functions"
-    Sub LoadWebPublisherDataGrid(ByVal AppNum As String)
+    Sub LoadWebPublisherDataGrid(AppNum As String)
         Dim SQLLine As String
 
         Try
@@ -3068,7 +3068,7 @@ Public Class SSPPTitleVTools
 
     End Sub
 #End Region
-    Private Sub DEVDataManagementTools_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
+    Private Sub DEVDataManagementTools_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
             Me.Dispose()
         Catch ex As Exception
@@ -3078,10 +3078,10 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnViewApplication_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewApplication.Click
+    Private Sub btnViewApplication_Click(sender As System.Object, e As System.EventArgs) Handles btnViewApplication.Click
         OpenFormPermitApplication(txtWebPublisherApplicationNumber.Text)
     End Sub
-    Private Sub btnReloadGrid_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReloadGrid.Click
+    Private Sub btnReloadGrid_Click(sender As System.Object, e As System.EventArgs) Handles btnReloadGrid.Click
         Try
 
             LoadWebPublisherDataGrid("Load")
@@ -3092,7 +3092,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub dgrWebPublisher_MouseUp(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgrWebPublisher.MouseUp
+    Private Sub dgrWebPublisher_MouseUp(sender As System.Object, e As System.Windows.Forms.MouseEventArgs) Handles dgrWebPublisher.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrWebPublisher.HitTest(e.X, e.Y)
         Try
 
@@ -3113,7 +3113,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub txtWebPublisherApplicationNumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtWebPublisherApplicationNumber.TextChanged
+    Private Sub txtWebPublisherApplicationNumber_TextChanged(sender As Object, e As System.EventArgs) Handles txtWebPublisherApplicationNumber.TextChanged
         Try
 
             'If txtWebPublisherApplicationNumber.Text <> "" Then
@@ -3127,7 +3127,7 @@ Public Class SSPPTitleVTools
 
     End Sub
 #Region "Checkbox Changes"
-    Private Sub chbNotifiedAppReceived_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbNotifiedAppReceived.CheckedChanged
+    Private Sub chbNotifiedAppReceived_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbNotifiedAppReceived.CheckedChanged
         Try
 
             If chbNotifiedAppReceived.Checked = True Then
@@ -3142,7 +3142,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub chbDraftOnWeb_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbDraftOnWeb.CheckedChanged
+    Private Sub chbDraftOnWeb_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbDraftOnWeb.CheckedChanged
         Try
 
             If chbDraftOnWeb.Checked = True Then
@@ -3157,7 +3157,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub chbPNExpires_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbPNExpires.CheckedChanged
+    Private Sub chbPNExpires_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbPNExpires.CheckedChanged
         Try
 
             If chbPNExpires.Checked = True Then
@@ -3172,7 +3172,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub chbEPAandStatesNotified_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbEPAandStatesNotified.CheckedChanged
+    Private Sub chbEPAandStatesNotified_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbEPAandStatesNotified.CheckedChanged
         Try
 
             If chbEPAandStatesNotified.Checked = True Then
@@ -3187,7 +3187,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub chbFinalOnWeb_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbFinalOnWeb.CheckedChanged
+    Private Sub chbFinalOnWeb_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbFinalOnWeb.CheckedChanged
         Try
 
             If chbFinalOnWeb.Checked = True Then
@@ -3202,7 +3202,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub chbEPANotifiedPermitOnWeb_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbEPANotifiedPermitOnWeb.CheckedChanged
+    Private Sub chbEPANotifiedPermitOnWeb_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbEPANotifiedPermitOnWeb.CheckedChanged
         Try
 
             If chbEPANotifiedPermitOnWeb.Checked = True Then
@@ -3217,7 +3217,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub chbEffectiveDateOfPermit_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbEffectiveDateOfPermit.CheckedChanged
+    Private Sub chbEffectiveDateOfPermit_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbEffectiveDateOfPermit.CheckedChanged
         Try
 
             If chbEffectiveDateOfPermit.Checked = True Then
@@ -3232,7 +3232,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub chbExperationDate_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbExpirationDate.CheckedChanged
+    Private Sub chbExperationDate_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbExpirationDate.CheckedChanged
         Try
 
             If chbExpirationDate.Checked = True Then
@@ -3248,7 +3248,7 @@ Public Class SSPPTitleVTools
 
     End Sub
 #End Region
-    Private Sub btnSaveWebPublisher_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveWebPublisher.Click
+    Private Sub btnSaveWebPublisher_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveWebPublisher.Click
         Try
 
             SaveWebPublisherData()
@@ -3259,7 +3259,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClear.Click
+    Private Sub btnClear_Click(sender As System.Object, e As System.EventArgs) Handles btnClear.Click
         Try
 
             chbDraftOnWeb.Checked = False
@@ -3290,7 +3290,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnSearchForApplication_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearchForApplication.Click
+    Private Sub btnSearchForApplication_Click(sender As System.Object, e As System.EventArgs) Handles btnSearchForApplication.Click
         Try
 
 
@@ -3365,7 +3365,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub UpdateRecords(ByVal userid As Object, ByVal adminaccess As Object, ByVal feeaccess As Object, ByVal eiaccess As Object, ByVal esaccess As Object)
+    Private Sub UpdateRecords(userid As Object, adminaccess As Object, feeaccess As Object, eiaccess As Object, esaccess As Object)
 
         Dim admin, fee, ei, es As Integer
         If adminaccess = True Then
@@ -3412,7 +3412,7 @@ Public Class SSPPTitleVTools
 
 #End Region
 #Region "Fee Password Reset"
-    Private Sub SetPassword_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
+    Private Sub SetPassword_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         Try
 
             Me.Dispose()
@@ -3425,7 +3425,7 @@ Public Class SSPPTitleVTools
     End Sub
 
 #End Region
-    Private Sub txtWebPublisherApplicationNumber_Leave(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtWebPublisherApplicationNumber.Leave
+    Private Sub txtWebPublisherApplicationNumber_Leave(sender As Object, e As System.EventArgs) Handles txtWebPublisherApplicationNumber.Leave
         Try
 
             If txtWebPublisherApplicationNumber.Text <> "" Then
@@ -3439,7 +3439,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub txtWebPublisherApplicationNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtWebPublisherApplicationNumber.KeyPress
+    Private Sub txtWebPublisherApplicationNumber_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtWebPublisherApplicationNumber.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
@@ -3454,7 +3454,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnRunTitleVReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunTitleVReport.Click
+    Private Sub btnRunTitleVReport_Click(sender As System.Object, e As System.EventArgs) Handles btnRunTitleVReport.Click
         Try
 
             RunTitleVRenewalReport()
@@ -3465,7 +3465,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnPrintRenewalLetters_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrintRenewalLetters.Click
+    Private Sub btnPrintRenewalLetters_Click(sender As System.Object, e As System.EventArgs) Handles btnPrintRenewalLetters.Click
         Try
 
             Dim SQLLine As String = "*"
@@ -3486,7 +3486,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnPreviewESNReceived_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPreviewESNReceived.Click
+    Private Sub btnPreviewESNReceived_Click(sender As System.Object, e As System.EventArgs) Handles btnPreviewESNReceived.Click
         Try
 
 
@@ -3501,7 +3501,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnPreviewESNReceived_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles btnPreviewESNReceived.KeyPress
+    Private Sub btnPreviewESNReceived_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles btnPreviewESNReceived.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
@@ -3517,7 +3517,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnPreviewDraftOnWeb_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPreviewDraftOnWeb.Click
+    Private Sub btnPreviewDraftOnWeb_Click(sender As System.Object, e As System.EventArgs) Handles btnPreviewDraftOnWeb.Click
         Try
 
 
@@ -3532,7 +3532,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnPreviewDraftOnWeb_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles btnPreviewDraftOnWeb.KeyPress
+    Private Sub btnPreviewDraftOnWeb_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles btnPreviewDraftOnWeb.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
@@ -3547,7 +3547,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnPreviewMinorMod_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPreviewMinorMod.Click
+    Private Sub btnPreviewMinorMod_Click(sender As System.Object, e As System.EventArgs) Handles btnPreviewMinorMod.Click
         Try
 
 
@@ -3562,7 +3562,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnPreviewMinorMod_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles btnPreviewMinorMod.KeyPress
+    Private Sub btnPreviewMinorMod_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles btnPreviewMinorMod.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
@@ -3578,7 +3578,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnPreviewFinalOnWeb_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPreviewFinalOnWeb.Click
+    Private Sub btnPreviewFinalOnWeb_Click(sender As System.Object, e As System.EventArgs) Handles btnPreviewFinalOnWeb.Click
         Try
 
 
@@ -3593,7 +3593,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnPreviewFinalOnWeb_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles btnPreviewFinalOnWeb.KeyPress
+    Private Sub btnPreviewFinalOnWeb_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles btnPreviewFinalOnWeb.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
@@ -3608,7 +3608,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnEmailESNReceived_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEmailESNReceived.Click
+    Private Sub btnEmailESNReceived_Click(sender As System.Object, e As System.EventArgs) Handles btnEmailESNReceived.Click
         Try
 
 
@@ -3621,7 +3621,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnEmailESNReceived_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles btnEmailESNReceived.KeyPress
+    Private Sub btnEmailESNReceived_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles btnEmailESNReceived.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
@@ -3635,7 +3635,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnEmailDraftOnWeb_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEmailDraftOnWeb.Click
+    Private Sub btnEmailDraftOnWeb_Click(sender As System.Object, e As System.EventArgs) Handles btnEmailDraftOnWeb.Click
         Try
 
 
@@ -3648,7 +3648,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnEmailDraftOnWeb_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles btnEmailDraftOnWeb.KeyPress
+    Private Sub btnEmailDraftOnWeb_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles btnEmailDraftOnWeb.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
@@ -3661,7 +3661,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnEmailDraftOnWebState_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEmailDraftOnWebState.Click
+    Private Sub btnEmailDraftOnWebState_Click(sender As System.Object, e As System.EventArgs) Handles btnEmailDraftOnWebState.Click
         Try
 
             GenerateDraftOnWebState()
@@ -3673,7 +3673,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnEmailDraftOnWebState_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles btnEmailDraftOnWebState.KeyPress
+    Private Sub btnEmailDraftOnWebState_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles btnEmailDraftOnWebState.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
@@ -3686,7 +3686,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnMinorModOnWebEPD_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnMinorModOnWebEPD.Click
+    Private Sub btnMinorModOnWebEPD_Click(sender As System.Object, e As System.EventArgs) Handles btnMinorModOnWebEPD.Click
         Try
 
 
@@ -3699,7 +3699,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnMinorModOnWebEPD_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles btnMinorModOnWebEPD.KeyPress
+    Private Sub btnMinorModOnWebEPD_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles btnMinorModOnWebEPD.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
@@ -3712,7 +3712,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnMinorModOnWebState_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnMinorModOnWebState.Click
+    Private Sub btnMinorModOnWebState_Click(sender As System.Object, e As System.EventArgs) Handles btnMinorModOnWebState.Click
         Try
 
 
@@ -3725,7 +3725,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnMinorModOnWebState_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles btnMinorModOnWebState.KeyPress
+    Private Sub btnMinorModOnWebState_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles btnMinorModOnWebState.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
@@ -3738,7 +3738,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnEmailFinalOnWeb_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEmailFinalOnWeb.Click
+    Private Sub btnEmailFinalOnWeb_Click(sender As System.Object, e As System.EventArgs) Handles btnEmailFinalOnWeb.Click
         Try
 
             GenerateFinalOnWeb()
@@ -3750,7 +3750,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnEmailFinalOnWeb_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles btnEmailFinalOnWeb.KeyPress
+    Private Sub btnEmailFinalOnWeb_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles btnEmailFinalOnWeb.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
@@ -3765,7 +3765,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnAddApplicationToList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddApplicationToList.Click
+    Private Sub btnAddApplicationToList_Click(sender As System.Object, e As System.EventArgs) Handles btnAddApplicationToList.Click
         Try
 
             AddAppToList()
@@ -3779,7 +3779,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub txtApplicationNumberToAdd_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtApplicationNumberToAdd.KeyPress
+    Private Sub txtApplicationNumberToAdd_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtApplicationNumberToAdd.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
@@ -3794,7 +3794,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub txtEmailLetter_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtEmailLetter.KeyPress
+    Private Sub txtEmailLetter_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtEmailLetter.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(1) Then
@@ -3807,7 +3807,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnPrintSingleTitleVRenewal_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrintSingleTitleVRenewal.Click
+    Private Sub btnPrintSingleTitleVRenewal_Click(sender As System.Object, e As System.EventArgs) Handles btnPrintSingleTitleVRenewal.Click
         Try
 
             Dim SQLLine As String = "*"
@@ -3835,7 +3835,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnLoadAppContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoadAppContact.Click
+    Private Sub btnLoadAppContact_Click(sender As System.Object, e As System.EventArgs) Handles btnLoadAppContact.Click
         Try
             If txtApplicationNumber.Text <> "" Then
                 LoadContactData()
@@ -3994,7 +3994,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub btnGetCurrentPermittingContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGetCurrentPermittingContact.Click
+    Private Sub btnGetCurrentPermittingContact_Click(sender As System.Object, e As System.EventArgs) Handles btnGetCurrentPermittingContact.Click
         Try
 
             SQL = "Select " &
@@ -4103,7 +4103,7 @@ Public Class SSPPTitleVTools
 
         End Try
     End Sub
-    Private Sub btnSaveContactApp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveContactApp.Click
+    Private Sub btnSaveContactApp_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveContactApp.Click
         Try
             If txtApplicationNumber.Text <> "" And txtContactFirstName.Text <> "" And txtContactLastName.Text <> "" Then
                 SaveApplicationContact()
@@ -4399,7 +4399,7 @@ Public Class SSPPTitleVTools
 
         End Try
     End Sub
-    Private Sub btnLoadFromWarehouse_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoadFromWarehouse.Click
+    Private Sub btnLoadFromWarehouse_Click(sender As System.Object, e As System.EventArgs) Handles btnLoadFromWarehouse.Click
         Try
             Dim GATVConn As Object = ""
             Dim GATVcmd As Object = ""
@@ -4670,15 +4670,15 @@ Public Class SSPPTitleVTools
 #Region " CodeFile "
     ' Code that was formerly in CodeFile.vb but is only used in this form anyway
 
-    Function Insert_APBContactInformation(ByVal AIRSNumber As String, ByVal Key As String,
-                                      ByVal ContactFirstName As String, ByVal ContactLastName As String,
-                                      ByVal ContactPrefix As String, ByVal ContactSuffix As String,
-                                      ByVal ContactTitle As String, ByVal ContactCompanyName As String,
-                                      ByVal ContactPhoneNumber1 As String,
-                                      ByVal ContactFaxNumber As String, ByVal ContactEmail As String,
-                                      ByVal ContactAddress1 As String,
-                                      ByVal ContactCity As String, ByVal ContactState As String,
-                                      ByVal ContactZipCode As String, ByVal ContactDescription As String) As Boolean
+    Function Insert_APBContactInformation(AIRSNumber As String, Key As String,
+                                      ContactFirstName As String, ContactLastName As String,
+                                      ContactPrefix As String, ContactSuffix As String,
+                                      ContactTitle As String, ContactCompanyName As String,
+                                      ContactPhoneNumber1 As String,
+                                      ContactFaxNumber As String, ContactEmail As String,
+                                      ContactAddress1 As String,
+                                      ContactCity As String, ContactState As String,
+                                      ContactZipCode As String, ContactDescription As String) As Boolean
         Try
             If ContactState.Length > 2 Then
                 ContactState = "GA"
@@ -4715,15 +4715,15 @@ Public Class SSPPTitleVTools
 
     End Function
 
-    Function Update_APBContactInformation(ByVal AIRSNumber As String, ByVal Key As String,
-                                         ByVal ContactFirstName As String, ByVal ContactLastName As String,
-                                         ByVal ContactPrefix As String, ByVal ContactSuffix As String,
-                                         ByVal ContactTitle As String, ByVal ContactCompanyName As String,
-                                         ByVal ContactPhoneNumber1 As String, ByVal ContactPhoneNumber2 As String,
-                                         ByVal ContactFaxNumber As String, ByVal ContactEmail As String,
-                                         ByVal ContactAddress1 As String, ByVal ContactAddress2 As String,
-                                         ByVal ContactCity As String, ByVal ContactState As String,
-                                         ByVal ContactZipCode As String, ByVal ContactDescription As String) As Boolean
+    Function Update_APBContactInformation(AIRSNumber As String, Key As String,
+                                         ContactFirstName As String, ContactLastName As String,
+                                         ContactPrefix As String, ContactSuffix As String,
+                                         ContactTitle As String, ContactCompanyName As String,
+                                         ContactPhoneNumber1 As String, ContactPhoneNumber2 As String,
+                                         ContactFaxNumber As String, ContactEmail As String,
+                                         ContactAddress1 As String, ContactAddress2 As String,
+                                         ContactCity As String, ContactState As String,
+                                         ContactZipCode As String, ContactDescription As String) As Boolean
         Try
             Dim NewKey As Integer = 0
             If ContactState.Length > 2 Then

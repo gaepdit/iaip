@@ -5,7 +5,7 @@ Namespace DAL.Sscp
 
     Module FacilityAssignments
 
-        Public Function FacilityAssignmentExists(ByVal airsNumber As String, ByVal targetYear As Integer) As Boolean
+        Public Function FacilityAssignmentExists(airsNumber As String, targetYear As Integer) As Boolean
             If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(airsNumber) Then
                 Return False
             Else
@@ -13,7 +13,7 @@ Namespace DAL.Sscp
             End If
         End Function
 
-        Public Function FacilityAssignmentExists(ByVal airsNumber As Apb.ApbFacilityId, ByVal targetYear As Integer) As Boolean
+        Public Function FacilityAssignmentExists(airsNumber As Apb.ApbFacilityId, targetYear As Integer) As Boolean
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
                 " FROM SSCPINSPECTIONSREQUIRED " &
                 " WHERE RowNum = 1 " &
@@ -29,7 +29,7 @@ Namespace DAL.Sscp
             Return Convert.ToBoolean(result)
         End Function
 
-        Public Function AssignmentYearExists(ByVal targetYear As Integer) As Boolean
+        Public Function AssignmentYearExists(targetYear As Integer) As Boolean
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
                 " FROM SSCPINSPECTIONSREQUIRED " &
                 " WHERE RowNum = 1 " &
@@ -40,7 +40,7 @@ Namespace DAL.Sscp
             Return Convert.ToBoolean(result)
         End Function
 
-        Public Function DeleteAssignmentYear(ByVal targetYear As Integer) As Boolean
+        Public Function DeleteAssignmentYear(targetYear As Integer) As Boolean
             Dim query As String = " DELETE FROM SSCPINSPECTIONSREQUIRED " &
                 " WHERE INTYEAR = @year "
             Dim parameter As New SqlParameter("@year", targetYear)
@@ -48,7 +48,7 @@ Namespace DAL.Sscp
             Return DB.RunCommand(query, parameter)
         End Function
 
-        Public Function CopyAssignmentYear(ByVal oldYear As Integer, ByVal targetYear As Integer) As Integer
+        Public Function CopyAssignmentYear(oldYear As Integer, targetYear As Integer) As Integer
             ' I realize this Function is horrible and should be moved into a Stored Procedure,
             ' but the expected number of times this Function will be called in the life of this 
             ' application is approximately one (plus or minus one). It is not worth the extra

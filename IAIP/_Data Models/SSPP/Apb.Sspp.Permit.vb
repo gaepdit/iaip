@@ -8,15 +8,15 @@ Namespace Apb.Sspp
         Public Sub New()
         End Sub
 
-        Public Sub New(ByVal permitNumber As String)
+        Public Sub New(permitNumber As String)
             Me.PermitNumber = permitNumber
         End Sub
 
-        Public Sub New(ByVal airsNumber As String, _
-                       ByVal permitNumber As String, _
-                       ByVal issuedDate As Date, _
-                       ByVal active As Boolean, _
-                       ByVal permitTypeCode As Integer)
+        Public Sub New(airsNumber As String, _
+                       permitNumber As String, _
+                       issuedDate As Date, _
+                       active As Boolean, _
+                       permitTypeCode As Integer)
             Me.AirsNumber = airsNumber
             Me.PermitNumber = permitNumber
             Me.IssuedDate = issuedDate
@@ -38,13 +38,13 @@ Namespace Apb.Sspp
 
 #Region " IEquatable Interface implementation "
 
-        Public Overloads Function Equals(ByVal other As Permit) As Boolean _
+        Public Overloads Function Equals(other As Permit) As Boolean _
             Implements IEquatable(Of Permit).Equals
             If other Is Nothing Then Return False
             Return Me.PermitNumber.Equals(other.PermitNumber)
         End Function
 
-        Public Overrides Function Equals(ByVal obj As Object) As Boolean
+        Public Overrides Function Equals(obj As Object) As Boolean
             If obj Is Nothing Then Return MyBase.Equals(obj)
             If TypeOf obj Is Permit Then Return Equals(DirectCast(obj, Permit))
             Return False
@@ -58,7 +58,7 @@ Namespace Apb.Sspp
 
 #Region " Shared functions "
 
-        Public Shared Function IsValidPermitNumber(ByVal permitNumber As String) As Boolean
+        Public Shared Function IsValidPermitNumber(permitNumber As String) As Boolean
             ' Valid permit numbers are in the form 0000-000-0000-A-00-?
             ' (with the dashes)
             If permitNumber Is Nothing Then Return False

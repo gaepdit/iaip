@@ -3,7 +3,7 @@
 Namespace DAL
     Module QueryGeneratorData
 
-        Public Function LogQuery(ByVal kvp As Generic.KeyValuePair(Of String, Integer)) As Boolean
+        Public Function LogQuery(kvp As Generic.KeyValuePair(Of String, Integer)) As Boolean
             Dim query As String =
                 " INSERT INTO IAIP_LOG_QUERYGENERATOR " &
                 " (USERSUBMITTING, DATESUBMITTED, ROWSRETURNED, QUERYSUBMITTED) " &

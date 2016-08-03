@@ -17,7 +17,7 @@ Public Class MASPRegistrationTool
 
 #Region "Form events"
 
-    Private Sub MASPRegistrationTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub MASPRegistrationTool_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
 
         LoadComboBoxes()
@@ -32,7 +32,7 @@ Public Class MASPRegistrationTool
 
     End Sub
 
-    Private Sub MASPRegistrationTool_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
+    Private Sub MASPRegistrationTool_Shown(sender As Object, e As System.EventArgs) Handles Me.Shown
         AddHandler rdbEventsFilterFuture.CheckedChanged, AddressOf rdbEventsFilter_CheckedChanged
         AddHandler rdbEventsFilterPast.CheckedChanged, AddressOf rdbEventsFilter_CheckedChanged
         AddHandler rdbEventsFilterAll.CheckedChanged, AddressOf rdbEventsFilter_CheckedChanged
@@ -151,12 +151,12 @@ Public Class MASPRegistrationTool
         End With
     End Sub
 
-    Private Sub rdbEventsFilter_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub rdbEventsFilter_CheckedChanged(sender As System.Object, e As System.EventArgs)
         RemoveHandler dgvEvents.SelectionChanged, AddressOf dgvEvents_SelectionChanged
         LoadEvent()
     End Sub
 
-    Private Sub dgvEvents_DataBindingComplete(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewBindingCompleteEventArgs) Handles dgvEvents.DataBindingComplete
+    Private Sub dgvEvents_DataBindingComplete(sender As System.Object, e As System.Windows.Forms.DataGridViewBindingCompleteEventArgs) Handles dgvEvents.DataBindingComplete
         With dgvEvents
             .SanelyResizeColumns()
             .ClearSelection()
@@ -164,7 +164,7 @@ Public Class MASPRegistrationTool
         AddHandler dgvEvents.SelectionChanged, AddressOf dgvEvents_SelectionChanged
     End Sub
 
-    Private Sub dgvEvents_SelectionChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub dgvEvents_SelectionChanged(sender As System.Object, e As System.EventArgs)
         Try
             If dgvEvents.SelectedCells.Count > 0 Then
                 Dim selectedRow As DataGridViewRow = dgvEvents.Rows(dgvEvents.CurrentCell.RowIndex)
@@ -188,7 +188,7 @@ Public Class MASPRegistrationTool
 
 #Region "Load Individual Event Data"
 
-    Private Sub btnViewDetails_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewDetails.Click
+    Private Sub btnViewDetails_Click(sender As System.Object, e As System.EventArgs) Handles btnViewDetails.Click
         If selectedEventId IsNot Nothing Then
             selectedEvent = New ResEvent(selectedEventId)
             LoadEventOverview()
@@ -296,7 +296,7 @@ Public Class MASPRegistrationTool
         txtOvWaitingList.Text = numWaiting.ToString
     End Sub
 
-    Private Sub dgvOverviewRegistrants_DataBindingComplete(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewBindingCompleteEventArgs) Handles dgvOverviewRegistrants.DataBindingComplete
+    Private Sub dgvOverviewRegistrants_DataBindingComplete(sender As System.Object, e As System.Windows.Forms.DataGridViewBindingCompleteEventArgs) Handles dgvOverviewRegistrants.DataBindingComplete
         With dgvOverviewRegistrants
             .SanelyResizeColumns()
             .ClearSelection()
@@ -556,7 +556,7 @@ Public Class MASPRegistrationTool
 #End Region
 
 #Region "Events Management"
-    Private Sub btnSaveNewEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveNewEvent.Click
+    Private Sub btnSaveNewEvent_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveNewEvent.Click
         Try
             If chbEventPasscode.Checked AndAlso chbEventPasscode.Text = "Error" Then
                 MsgBox("Passcode is invalid; please fix.", MsgBoxStyle.Exclamation, "Error")
@@ -592,7 +592,7 @@ Public Class MASPRegistrationTool
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnUpdateEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateEvent.Click
+    Private Sub btnUpdateEvent_Click(sender As System.Object, e As System.EventArgs) Handles btnUpdateEvent.Click
         Try
             If chbEventPasscode.Checked AndAlso chbEventPasscode.Text = "Error" Then
                 MsgBox("Passcode is invalid; please fix.", MsgBoxStyle.Exclamation, "Error")
@@ -622,7 +622,7 @@ Public Class MASPRegistrationTool
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDeleteEvent_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteEvent.Click
+    Private Sub btnDeleteEvent_Click(sender As System.Object, e As System.EventArgs) Handles btnDeleteEvent.Click
         Try
             If Update_RES_Event(selectedEventId,
                                 "", "", "",
@@ -642,7 +642,7 @@ Public Class MASPRegistrationTool
         End Try
     End Sub
 
-    Private Sub chbEventPasscode_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbEventPasscode.CheckedChanged
+    Private Sub chbEventPasscode_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbEventPasscode.CheckedChanged
         Try
             If chbEventPasscode.Checked = True Then
                 btnGeneratePasscode.Visible = True
@@ -670,11 +670,11 @@ Public Class MASPRegistrationTool
         Return "Error"
     End Function
 
-    Private Sub btnGeneratePasscode_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGeneratePasscode.Click
+    Private Sub btnGeneratePasscode_Click(sender As System.Object, e As System.EventArgs) Handles btnGeneratePasscode.Click
         chbEventPasscode.Text = GeneratePasscode()
     End Sub
 
-    Private Sub btnClearEventManagement_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearEventManagement.Click
+    Private Sub btnClearEventManagement_Click(sender As System.Object, e As System.EventArgs) Handles btnClearEventManagement.Click
         ClearEventSelection()
     End Sub
     Private Sub ClearEventSelection()
@@ -706,7 +706,7 @@ Public Class MASPRegistrationTool
 
 #End Region
 #Region "Registration Management"
-    Private Sub dgvRegistrationManagement_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvRegistrationManagement.MouseUp
+    Private Sub dgvRegistrationManagement_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvRegistrationManagement.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvRegistrationManagement.HitTest(e.X, e.Y)
 
@@ -828,13 +828,13 @@ Public Class MASPRegistrationTool
 #End Region
 
 
-    'Private Sub cboEventWebContact_Leave(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboEventWebContact.Leave
+    'Private Sub cboEventWebContact_Leave(sender As Object, e As System.EventArgs) Handles cboEventWebContact.Leave
     '    If cboEventWebContact.Items.Contains(cboEventWebContact.Text) = False Then
     '        cboEventWebContact.SelectedIndex = 0
     '    End If
     'End Sub
 
-    Private Sub btnModifyRegistration_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnModifyRegistration.Click
+    Private Sub btnModifyRegistration_Click(sender As System.Object, e As System.EventArgs) Handles btnModifyRegistration.Click
         Try
 
             If Update_RES_Registration(txtRegID.Text, txtRegConfirmationNum.Text,
@@ -851,7 +851,7 @@ Public Class MASPRegistrationTool
         End Try
     End Sub
 
-    Private Sub btnMapEventLocation_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnMapEventLocation.Click
+    Private Sub btnMapEventLocation_Click(sender As System.Object, e As System.EventArgs) Handles btnMapEventLocation.Click
         Try
 
 
@@ -887,13 +887,13 @@ Public Class MASPRegistrationTool
     End Sub
 
 
-    Private Sub btnExportRegistrantsToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportRegistrantsToExcel.Click
+    Private Sub btnExportRegistrantsToExcel_Click(sender As System.Object, e As System.EventArgs) Handles btnExportRegistrantsToExcel.Click
         dgvOverviewRegistrants.ExportToExcel()
     End Sub
 
 #Region "Emails"
 
-    Private Sub SendEmail(Optional ByVal whichSet As String = "")
+    Private Sub SendEmail(Optional whichSet As String = "")
         Dim subject As String = selectedEvent.Title & " – " & selectedEvent.StartDate
         Dim body As String = selectedEvent.Title & vbNewLine & vbNewLine &
             selectedEvent.Description & vbNewLine & vbNewLine &
@@ -913,7 +913,7 @@ Public Class MASPRegistrationTool
         Me.Cursor = Nothing
     End Sub
 
-    Private Function GetCorrectRecipients(Optional ByVal statusFilter As String = "") As List(Of String)
+    Private Function GetCorrectRecipients(Optional statusFilter As String = "") As List(Of String)
         Dim recipients As New List(Of String)
 
         For Each row As DataGridViewRow In dgvOverviewRegistrants.Rows
@@ -925,15 +925,15 @@ Public Class MASPRegistrationTool
         Return recipients
     End Function
 
-    Private Sub btnEmailAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEmailAll.Click
+    Private Sub btnEmailAll_Click(sender As System.Object, e As System.EventArgs) Handles btnEmailAll.Click
         SendEmail()
     End Sub
 
-    Private Sub btnEmailRegistrants_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEmailRegistrants.Click
+    Private Sub btnEmailRegistrants_Click(sender As System.Object, e As System.EventArgs) Handles btnEmailRegistrants.Click
         SendEmail("Confirmed")
     End Sub
 
-    Private Sub btnEmailWaitList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEmailWaitList.Click
+    Private Sub btnEmailWaitList_Click(sender As System.Object, e As System.EventArgs) Handles btnEmailWaitList.Click
         SendEmail("Waiting List")
     End Sub
 
@@ -941,18 +941,18 @@ Public Class MASPRegistrationTool
 
 #Region "Insert/Update event/registration"
 
-    Function Insert_RES_Event(ByVal EventStatusCode As String, ByVal Title As String,
-                            ByVal Description As String, ByVal StartDateTime As String,
-                            ByVal EndDateTime As String, ByVal Venue As String,
-                            ByVal Address As String, ByVal City As String,
-                            ByVal State As String, ByVal ZipCode As String,
-                            ByVal Capacity As String, ByVal Notes As String,
-                            ByVal APBContact As String,
-                            ByVal WebContact As String, ByVal WebPhoneNumber As String,
-                            ByVal LogInRequired As String,
-                            ByVal PassCodeRequired As String, ByVal PassCode As String,
-                            ByVal Active As String, ByVal EventTime As String,
-                            ByVal EventEndTime As String, ByVal WebURL As String) As String
+    Function Insert_RES_Event(EventStatusCode As String, Title As String,
+                            Description As String, StartDateTime As String,
+                            EndDateTime As String, Venue As String,
+                            Address As String, City As String,
+                            State As String, ZipCode As String,
+                            Capacity As String, Notes As String,
+                            APBContact As String,
+                            WebContact As String, WebPhoneNumber As String,
+                            LogInRequired As String,
+                            PassCodeRequired As String, PassCode As String,
+                            Active As String, EventTime As String,
+                            EventEndTime As String, WebURL As String) As String
         Try
             Dim EventID As String = "0"
 
@@ -1044,19 +1044,19 @@ Public Class MASPRegistrationTool
         Return ""
     End Function
 
-    Function Update_RES_Event(ByVal Res_EventID As String,
-                           ByVal EventStatusCode As String, ByVal Title As String,
-                           ByVal Description As String, ByVal StartDateTime As String,
-                           ByVal EndDateTime As String, ByVal Venue As String,
-                           ByVal Address As String, ByVal City As String,
-                           ByVal State As String, ByVal ZipCode As String,
-                           ByVal Capacity As String, ByVal Notes As String,
-                           ByVal APBContact As String,
-                           ByVal WebContact As String,
-                           ByVal LogInRequired As String,
-                           ByVal PassCodeRequired As String, ByVal PassCode As String,
-                           ByVal Active As String, ByVal EventTime As String,
-                           ByVal EventEndTime As String, ByVal WebURL As String) As Boolean
+    Function Update_RES_Event(Res_EventID As String,
+                           EventStatusCode As String, Title As String,
+                           Description As String, StartDateTime As String,
+                           EndDateTime As String, Venue As String,
+                           Address As String, City As String,
+                           State As String, ZipCode As String,
+                           Capacity As String, Notes As String,
+                           APBContact As String,
+                           WebContact As String,
+                           LogInRequired As String,
+                           PassCodeRequired As String, PassCode As String,
+                           Active As String, EventTime As String,
+                           EventEndTime As String, WebURL As String) As Boolean
         Try
             Dim SQL As String = ""
             If IsDBNull(EventStatusCode) Then
@@ -1208,8 +1208,8 @@ Public Class MASPRegistrationTool
         End Try
     End Function
 
-    Function Update_RES_Registration(ByVal RegistrationID As String, ByVal Confirmation As String,
-                                     ByVal RegStatusCode As String, ByVal RegDate As String) As Boolean
+    Function Update_RES_Registration(RegistrationID As String, Confirmation As String,
+                                     RegStatusCode As String, RegDate As String) As Boolean
         Try
 
             SQL = "Update Res_Registration set " &
@@ -1234,7 +1234,7 @@ Public Class MASPRegistrationTool
 
 #Region "DAL"
 
-    Public Function PasscodeExists(ByVal id As String) As Boolean
+    Public Function PasscodeExists(id As String) As Boolean
         Dim query As String = "SELECT 'True' FROM RES_EVENT WHERE ROWNUM=1 AND STRPASSCODE = @pId"
         Dim parameter As New SqlParameter("@pId", id)
 

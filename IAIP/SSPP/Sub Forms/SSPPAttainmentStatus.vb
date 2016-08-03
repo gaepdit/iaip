@@ -12,7 +12,7 @@ Public Class SSPPAttainmentStatus
     Dim daCounty As SqlDataAdapter
 
 
-    Private Sub SSPPAttainmentStatus_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub SSPPAttainmentStatus_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
         Try
 
@@ -599,7 +599,7 @@ Public Class SSPPAttainmentStatus
 
 #End Region
 #Region "Declarations"
-    Private Sub btnViewSelectedData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewSelectedData.Click
+    Private Sub btnViewSelectedData_Click(sender As System.Object, e As System.EventArgs) Handles btnViewSelectedData.Click
         Try
 
 
@@ -612,7 +612,7 @@ Public Class SSPPAttainmentStatus
         End Try
 
     End Sub
-    Private Sub btnViewCountyInfo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewCountyInfo.Click
+    Private Sub btnViewCountyInfo_Click(sender As System.Object, e As System.EventArgs) Handles btnViewCountyInfo.Click
         Try
 
 
@@ -626,7 +626,7 @@ Public Class SSPPAttainmentStatus
         End Try
 
     End Sub
-    Private Sub dgvAttainmentStatus_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvAttainmentStatus.MouseUp
+    Private Sub dgvAttainmentStatus_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvAttainmentStatus.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvAttainmentStatus.HitTest(e.X, e.Y)
 
         Try
@@ -648,7 +648,7 @@ Public Class SSPPAttainmentStatus
 
 
     End Sub
-    Private Sub btnClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClear.Click
+    Private Sub btnClear_Click(sender As System.Object, e As System.EventArgs) Handles btnClear.Click
         Try
 
             ClearForm()
@@ -660,7 +660,7 @@ Public Class SSPPAttainmentStatus
 
 
     End Sub
-    Private Sub btnSaveChanges_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveChanges.Click
+    Private Sub btnSaveChanges_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveChanges.Click
         Try
 
 
@@ -676,7 +676,7 @@ Public Class SSPPAttainmentStatus
         End Try
 
     End Sub
-    Private Sub btnOneHourChanges_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOneHourChanges.Click
+    Private Sub btnOneHourChanges_Click(sender As System.Object, e As System.EventArgs) Handles btnOneHourChanges.Click
         Try
 
             SaveOneHourChanges()
@@ -688,7 +688,7 @@ Public Class SSPPAttainmentStatus
         End Try
 
     End Sub
-    Private Sub btnEightHourChanges_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEightHourChanges.Click
+    Private Sub btnEightHourChanges_Click(sender As System.Object, e As System.EventArgs) Handles btnEightHourChanges.Click
         Try
 
             SaveEightHourChanges()
@@ -700,7 +700,7 @@ Public Class SSPPAttainmentStatus
         End Try
 
     End Sub
-    Private Sub btnPMFineChanges_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPMFineChanges.Click
+    Private Sub btnPMFineChanges_Click(sender As System.Object, e As System.EventArgs) Handles btnPMFineChanges.Click
         Try
 
             SavePMFineChanges()
@@ -712,7 +712,7 @@ Public Class SSPPAttainmentStatus
         End Try
 
     End Sub
-    Private Sub TBAttainmentStatus_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBAttainmentStatus.ButtonClick
+    Private Sub TBAttainmentStatus_ButtonClick(sender As System.Object, e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBAttainmentStatus.ButtonClick
         Try
 
             Select Case TBAttainmentStatus.Buttons.IndexOf(e.Button)
@@ -737,7 +737,7 @@ Public Class SSPPAttainmentStatus
 #End Region
 
 
-    Private Sub MmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiHelp.Click
+    Private Sub MmiHelp_Click(sender As System.Object, e As System.EventArgs) Handles MmiHelp.Click
         OpenDocumentationUrl(Me)
     End Sub
 End Class

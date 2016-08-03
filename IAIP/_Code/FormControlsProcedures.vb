@@ -6,7 +6,7 @@
     ''' Disables Controls in an array by setting their .Enabled properties to False
     ''' </summary>
     ''' <param name="controls">An array of Controls to disable</param>
-    Public Sub DisableControls(ByVal controls As Control())
+    Public Sub DisableControls(controls As Control())
         For Each control As Control In controls
             control.Enabled = False
         Next
@@ -16,7 +16,7 @@
     ''' Enables all Controls in an array by setting their .Enabled property to True
     ''' </summary>
     ''' <param name="controls">An array of Controls to enable</param>
-    Public Sub EnableControls(ByVal controls As Control())
+    Public Sub EnableControls(controls As Control())
         For Each control As Control In controls
             control.Enabled = True
         Next
@@ -30,7 +30,7 @@
     ''' Hides Controls in an array by setting their .Visible property to False
     ''' </summary>
     ''' <param name="controls">An array of Controls to hide</param>
-    Public Sub HideControls(ByVal controls As Control())
+    Public Sub HideControls(controls As Control())
         For Each control As Control In controls
             control.Visible = False
         Next
@@ -40,7 +40,7 @@
     ''' Shows all Controls in an array by setting their .Visible property to True
     ''' </summary>
     ''' <param name="controls">An array of Controls to show</param>
-    Public Sub ShowControls(ByVal controls As Control())
+    Public Sub ShowControls(controls As Control())
         For Each control As Control In controls
             control.Visible = True
         Next
@@ -55,7 +55,7 @@
     ''' </summary>
     ''' <param name="controls">An array of Controls to prevent use of</param>
     ''' <remarks>Does not disable textboxes so they can still be easily read or selected.</remarks>
-    Public Sub PreventControls(ByVal controls As Control())
+    Public Sub PreventControls(controls As Control())
         For Each control As Control In controls
             Dim type As Type = control.GetType
             If type Is GetType(TextBox) Then
@@ -73,7 +73,7 @@
     ''' </summary>
     ''' <param name="controls">An array of Controls to allow use of</param>
     ''' <remarks>Opposite of the PreventControls procedure</remarks>
-    Public Sub AllowControls(ByVal controls As Control())
+    Public Sub AllowControls(controls As Control())
         For Each control As Control In controls
             Dim type As Type = control.GetType
             If type Is GetType(TextBox) Then

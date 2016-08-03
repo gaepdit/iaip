@@ -463,7 +463,7 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub LoadUserFacilityInfo(ByVal EmailLoc As String)
+    Private Sub LoadUserFacilityInfo(EmailLoc As String)
         Try
             Dim dgvRow As New DataGridViewRow
 
@@ -2649,7 +2649,7 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub lblviewextraNonresponse_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblviewextraNonresponse.LinkClicked
+    Private Sub lblviewextraNonresponse_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblviewextraNonresponse.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
 
@@ -3858,7 +3858,7 @@ Public Class DMUEisGecoTool
     End Sub
 
 
-    Private Sub btnViewEISStats_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewEISStats.Click
+    Private Sub btnViewEISStats_Click(sender As System.Object, e As System.EventArgs) Handles btnViewEISStats.Click
         ViewEISStats()
     End Sub
 
@@ -4044,7 +4044,7 @@ Public Class DMUEisGecoTool
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbEISNoActivity_LinkClicked(sender As Object, ByVal e As LinkLabelLinkClickedEventArgs) Handles llbEISNoActivity.LinkClicked
+    Private Sub llbEISNoActivity_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISNoActivity.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -4070,7 +4070,7 @@ Public Class DMUEisGecoTool
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbEISInProgress_LinkClicked(sender As Object, ByVal e As LinkLabelLinkClickedEventArgs) Handles llbEISInProgress.LinkClicked
+    Private Sub llbEISInProgress_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISInProgress.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -4085,7 +4085,7 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub llbEISOptedIn_LinkClicked(sender As Object, ByVal e As LinkLabelLinkClickedEventArgs) Handles llbEISOptedIn.LinkClicked
+    Private Sub llbEISOptedIn_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISOptedIn.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -4100,7 +4100,7 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub llbEISOptedOut_LinkClicked(sender As Object, ByVal e As LinkLabelLinkClickedEventArgs) Handles llbEISOptedOut.LinkClicked
+    Private Sub llbEISOptedOut_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISOptedOut.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -4115,7 +4115,7 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub llbEISSubmitted_LinkClicked(sender As Object, ByVal e As LinkLabelLinkClickedEventArgs) Handles llbEISSubmitted.LinkClicked
+    Private Sub llbEISSubmitted_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISSubmitted.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -4177,7 +4177,7 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub dgvEISStats_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvEISStats.MouseUp
+    Private Sub dgvEISStats_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvEISStats.MouseUp
         Try
             Dim CurrentTabPage As TabPage = TCEISStats.SelectedTab
             Dim hti As DataGridView.HitTestInfo = dgvEISStats.HitTest(e.X, e.Y)
@@ -4470,7 +4470,7 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub btnCloseOutEIS_Click(sender As Object, ByVal e As EventArgs) Handles btnCloseOutEIS.Click
+    Private Sub btnCloseOutEIS_Click(sender As Object, e As EventArgs) Handles btnCloseOutEIS.Click
         Try
             Dim EISConfirm As String = InputBox("Type in the EIS Year that you have selected to close out.", Me.Text)
 
@@ -5300,7 +5300,7 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub llbEISStatsSubmittedToDo_LinkClicked(sender As Object, ByVal e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsSubmittedToDo.LinkClicked
+    Private Sub llbEISStatsSubmittedToDo_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsSubmittedToDo.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -5348,7 +5348,7 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub llbEISStatsSubmittedBeganwithEIErrors_LinkClicked(sender As Object, ByVal e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsSubmittedBeganwithEIErrors.LinkClicked
+    Private Sub llbEISStatsSubmittedBeganwithEIErrors_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsSubmittedBeganwithEIErrors.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -5399,7 +5399,7 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub llbEISStatsOptedOutToDo_LinkClicked(sender As Object, ByVal e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsOptedOutToDo.LinkClicked
+    Private Sub llbEISStatsOptedOutToDo_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsOptedOutToDo.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -5853,7 +5853,7 @@ Public Class DMUEisGecoTool
         ViewPollutantThresholds()
     End Sub
 
-    Private Sub dgvThresholdPollutants_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvThresholdPollutants.MouseUp
+    Private Sub dgvThresholdPollutants_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvThresholdPollutants.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvThresholdPollutants.HitTest(e.X, e.Y)
 
         Try
@@ -6016,7 +6016,7 @@ Public Class DMUEisGecoTool
         dgvEISYear.Columns("datDeadLine").DefaultCellStyle.Format = "dd-MMM-yyyy"
     End Sub
 
-    Private Sub dgvEISYear_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvEISYear.MouseUp
+    Private Sub dgvEISYear_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvEISYear.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvEISYear.HitTest(e.X, e.Y)
 
         Try
@@ -6169,7 +6169,7 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub llbEISStatsFipassed_LinkClicked(sender As Object, ByVal e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsFipassed.LinkClicked
+    Private Sub llbEISStatsFipassed_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEISStatsFipassed.LinkClicked
         Try
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
@@ -6254,7 +6254,7 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Sub ViewMailoutData(ByVal MailoutStatus As String)
+    Sub ViewMailoutData(MailoutStatus As String)
         Try
             Dim dgvRow As New DataGridViewRow
             dgvEISStats.Rows.Clear()
@@ -6838,7 +6838,7 @@ Public Class DMUEisGecoTool
 
 #Region " Accept Button "
 
-    Private Sub AcceptButton_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Private Sub AcceptButton_Leave(sender As System.Object, e As System.EventArgs) _
     Handles mtbEILogAIRSNumber.Leave,
     txtEIModifyFacilityName.Leave,
     txtEIModifyLocation.Leave, txtEIModifyCity.Leave, mtbEIModifyZipCode.Leave,
@@ -6847,27 +6847,27 @@ Public Class DMUEisGecoTool
         Me.AcceptButton = Nothing
     End Sub
 
-    Private Sub mtbEILogAIRSNumber_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Private Sub mtbEILogAIRSNumber_Enter(sender As System.Object, e As System.EventArgs) _
     Handles mtbEILogAIRSNumber.Enter
         Me.AcceptButton = btnReloadFSData
     End Sub
 
-    Private Sub txtEIModifyFacilityName_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Private Sub txtEIModifyFacilityName_Enter(sender As System.Object, e As System.EventArgs) _
     Handles txtEIModifyFacilityName.Enter
         Me.AcceptButton = btnEIModifyUpdateName
     End Sub
 
-    Private Sub EIModifyLocation_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Private Sub EIModifyLocation_Enter(sender As System.Object, e As System.EventArgs) _
     Handles txtEIModifyLocation.Enter, txtEIModifyCity.Enter, mtbEIModifyZipCode.Enter
         Me.AcceptButton = btnEIModifyUpdateLocation
     End Sub
 
-    Private Sub EIModifyMailing_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Private Sub EIModifyMailing_Enter(sender As System.Object, e As System.EventArgs) _
     Handles txtEIModifyMLocation.Enter, txtEIModifyMCity.Enter, mtbEIModifyMZipCode.Enter
         Me.AcceptButton = btnEIModifyUpdateMailing
     End Sub
 
-    Private Sub EIModifyLatitudeLongitude_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Private Sub EIModifyLatitudeLongitude_Enter(sender As System.Object, e As System.EventArgs) _
     Handles mtbEIModifyLatitude.Enter, mtbEIModifyLongitude.Enter
         Me.AcceptButton = btnUpdateLatLong
     End Sub

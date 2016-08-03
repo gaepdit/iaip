@@ -4,7 +4,7 @@ Imports EpdIt
 Namespace DAL
     Module SmokeSchoolData
 
-        Public Function GetSmokeSchoolRosterAsDataTable(ByVal id As String) As DataTable
+        Public Function GetSmokeSchoolRosterAsDataTable(id As String) As DataTable
             ' "STRTITLE" VARCHAR2(50 BYTE), 
             ' "STRCOMPANYNAME" VARCHAR2(50 BYTE), 
             ' "STRADDRESS1" VARCHAR2(50 BYTE), 
