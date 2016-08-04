@@ -38,7 +38,7 @@ Namespace DAL
             Dim sp As String = "PD_FEE_STATUS"
 
             Dim parameters As SqlParameter() = New SqlParameter() {
-                New SqlParameter("@FEEYEAR", SqlDbType.Decimal, feeYearDecimal, ParameterDirection.Input),
+                New SqlParameter("@FEEYEAR", SqlDbType.Decimal) With {.Value = feeYearDecimal},
                 New SqlParameter("@AIRSNUMBER", aN.DbFormattedString)
             }
 

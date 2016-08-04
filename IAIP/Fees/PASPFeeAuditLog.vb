@@ -2186,8 +2186,7 @@ Public Class PASPFeeAuditLog
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
                 " FROM FS_ADMIN " &
-                " WHERE RowNum = 1 " &
-                " AND strAIRSnumber = @pAirsNumber " &
+                " WHERE strAIRSnumber = @pAirsNumber " &
                 " AND numFeeYear = @pFeeYear "
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@pAirsNumber", Me.AirsNumber.DbFormattedString),
@@ -2196,17 +2195,16 @@ Public Class PASPFeeAuditLog
             Dim result As Boolean = DB.GetBoolean(query, parameters)
 
             If Not result Then
-                MsgBox("The faciltiy is not currently in the Fee universe for the selected year." & vbCrLf &
+                MsgBox("The facility is not currently in the Fee universe for the selected year." & vbCrLf &
                        "Use the Add New Facility to Year." & vbCrLf & vbCrLf & "NO DATA SAVED", MsgBoxStyle.Information, Me.Text)
                 Exit Sub
             End If
 
-
-            If Update_FS_Admin(Me.FeeYear, Me.AirsNumber.ShortString,
+            If Update_FS_Admin(Me.FeeYear, Me.AirsNumber,
                              rdbEnrolledTrue.Checked,
-                             dtpEnrollmentDate.Text, rdbMailoutTrue.Checked,
-                             rdbLetterMailedTrue.Checked, dtpLetterMailed.Text,
-                             rdbSubmittalTrue.Checked, dtpSubmittalDate.Text,
+                             dtpEnrollmentDate.Value, rdbMailoutTrue.Checked,
+                             rdbLetterMailedTrue.Checked, dtpLetterMailed.Value,
+                             rdbSubmittalTrue.Checked, dtpSubmittalDate.Value,
                              txtFSAdminComments.Text, rdbActiveAdmin.Checked) = True Then
 
                 If rdbInactiveStatus.Checked = True Then
@@ -4944,157 +4942,107 @@ Public Class PASPFeeAuditLog
         End Try
     End Function
 
-    Function Update_FS_Admin(ByVal FeeYear As String, ByVal AIRSNumber As String,
-                             ByVal Enrolled As String,
-                             ByVal DateEnrolled As String, ByVal InitialMailOut As String,
-                             ByVal MailoutSent As String, ByVal DateMailOutSent As String,
-                             ByVal Submittal As String, ByVal DateSubmittal As String,
-                             ByVal Comment As String, ByVal Active As String) As Boolean
+    Private Function Update_FS_Admin(ByVal FeeYear As String, ByVal AIRSNumber As Apb.ApbFacilityId,
+                             ByVal Enrolled As Boolean,
+                             ByVal DateEnrolled As Date, ByVal InitialMailOut As Boolean,
+                             ByVal MailoutSent As Boolean, ByVal DateMailOutSent As Date,
+                             ByVal Submittal As Boolean, ByVal DateSubmittal As Date,
+                             ByVal Comment As String, ByVal Active As Boolean) As Boolean
         Try
-            Dim SQL As String = ""
-            If IsDBNull(Enrolled) Or Enrolled = "" Then
-            Else
-                If Enrolled = False Then
-                    SQL = SQL & "strEnrolled = '0', " &
-                    "datEnrollment = '', "
-                    If IsDBNull(Active) Then
-                    Else
-                        If Active = False Then
-                            SQL = SQL & "Active = '0', "
-                        Else
-                            SQL = SQL & "Active = '1', "
-                        End If
-                    End If
-                Else
-                    SQL = SQL & "strEnrolled = '1', "
-                    If IsDBNull(DateEnrolled) Then
-                    Else
-                        SQL = SQL & "datEnrollment = '" & DateEnrolled & "', "
-                    End If
+            If AIRSNumber Is Nothing OrElse Not IsNumeric(FeeYear) Then
+                Return False
+            End If
 
-                    If Active = False Then
-                        SQL = SQL & "Active = '0', "
-                    Else
-                        SQL = SQL & "Active = '1', "
-                    End If
-                End If
-            End If
-            If IsDBNull(InitialMailOut) Then
+            Dim SQL As String = ""
+
+            If Enrolled = False Then
+                SQL = SQL & "strEnrolled = '0', " &
+                "datEnrollment = '', "
             Else
-                If InitialMailOut = False Then
-                    SQL = SQL & "strInitialMailOut = '0', "
-                Else
-                    SQL = SQL & "strInitialMailOut = '1', "
-                End If
+                SQL = SQL & "strEnrolled = '1', "
+                SQL = SQL & "datEnrollment = @datEnrollment, "
             End If
-            If IsDBNull(MailoutSent) Then
+
+            If Active = False Then
+                SQL = SQL & "Active = '0', "
             Else
-                If MailoutSent = False Then
-                    SQL = SQL & "strMailOutsent = '0', " &
-                    "datMailOutSent = '', "
-                Else
-                    SQL = SQL & "strMailOutSent = '1', "
-                    If IsDBNull(DateMailOutSent) Then
-                    Else
-                        SQL = SQL & "datMailOutSent = '" & DateMailOutSent & "', "
-                    End If
-                End If
+                SQL = SQL & "Active = '1', "
             End If
-            If IsDBNull(Submittal) Then
+
+            If InitialMailOut = False Then
+                SQL = SQL & "strInitialMailOut = '0', "
             Else
-                If Submittal = False Then
-                    SQL = SQL & "intSubmittal = '0', " &
-                    "datSubmittal = '', "
-                Else
-                    SQL = SQL & "intsubmittal = '1', "
-                    If IsDBNull(DateSubmittal) Then
-                    Else
-                        SQL = SQL & "datSubmittal = '" & DateSubmittal & "', "
-                    End If
-                End If
+                SQL = SQL & "strInitialMailOut = '1', "
             End If
-            If IsDBNull(Comment) Then
+
+            If MailoutSent = False Then
+                SQL = SQL & "strMailOutsent = '0', " &
+                "datMailOutSent = '', "
             Else
-                SQL = SQL & "strComment = '" & Replace(Comment, "'", "''") & "', "
+                SQL = SQL & "strMailOutSent = '1', "
+                SQL = SQL & "datMailOutSent = @datMailOutSent, "
             End If
+
+            If Submittal = False Then
+                SQL = SQL & "intSubmittal = '0', " &
+                "datSubmittal = '', "
+            Else
+                SQL = SQL & "intsubmittal = '1', "
+                SQL = SQL & "datSubmittal = @datSubmittal, "
+            End If
+
+            SQL = SQL & "strComment = @strComment, "
 
             If SQL = "" Then
                 Return False
             Else
                 SQL = SQL &
-                "updateUser = 'IAIP||" & CurrentUser.AlphaName & "', " &
-                "updateDateTime = '" & OracleDate & "' "
+                "updateUser = @updateUser, " &
+                "updateDateTime = getdate() "
             End If
 
             SQL = "Update FS_Admin set " & SQL &
-            "where numFeeYear = '" & FeeYear & "' " &
-            "and strAIRSNumber = '0413" & AIRSNumber & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            "where numFeeYear = @year " &
+            "and strAIRSNumber = @airs "
 
-            If IsDBNull(FeeYear) Or FeeYear = "" Then
-            Else
-                If IsNumeric(FeeYear) Then
-                Else
-                    Return False
-                End If
-            End If
+            Dim params As SqlParameter() = {
+                New SqlParameter("@airs", AIRSNumber.DbFormattedString),
+                New SqlParameter("@year", FeeYear),
+                New SqlParameter("@datEnrollment", DateEnrolled),
+                New SqlParameter("@datMailOutSent", DateMailOutSent),
+                New SqlParameter("@datSubmittal", DateSubmittal),
+                New SqlParameter("@strComment", Comment),
+                New SqlParameter("@updateUser", "IAIP||" & CurrentUser.AlphaName)
+            }
 
-            If IsDBNull(AIRSNumber) Or AIRSNumber = "" Then
-            Else
-                If IsNumeric(AIRSNumber) Then
-                Else
-                    Return False
-                End If
-            End If
+            DB.RunCommand(SQL, params)
 
             SQL = "Update FS_Admin set " &
             "datInitialEnrollment = datEnrollment " &
-            "where numFeeYear = '" & FeeYear & "' " &
-            "and strAIRSnumber = '0413" & AIRSNumber & "' " &
+            "where numFeeYear = @FeeYear " &
+            "and strAIRSnumber = @AIRSNumber " &
             "and datInitialEnrollment is null "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
 
+            Dim params2 As SqlParameter() = {
+                New SqlParameter("@FeeYear", SqlDbType.Decimal) With {.Value = FeeYear},
+                New SqlParameter("@AIRSNumber", SqlDbType.VarChar) With {.Value = AIRSNumber.DbFormattedString}
+            }
 
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            cmd = New SqlCommand("PD_FEE_MAILOUT", CurrentConnection)
-            cmd.CommandType = CommandType.StoredProcedure
+            DB.RunCommand(SQL, params2)
+            Dim spName As String = "PD_FEE_MAILOUT"
+            DB.SPRunCommand(spName, params2)
 
-            cmd.Parameters.Add(New SqlParameter("@FeeYear", SqlDbType.Decimal)).Value = FeeYear
-            cmd.Parameters.Add(New SqlParameter("@AIRSNumber", SqlDbType.VarChar)).Value = "0413" & AIRSNumber
+            spName = "PD_FEE_DATA"
+            DB.SPRunCommand(spName, params2)
 
-            cmd.ExecuteNonQuery()
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            cmd = New SqlCommand("PD_FEE_DATA", CurrentConnection)
-            cmd.CommandType = CommandType.StoredProcedure
-
-            cmd.Parameters.Add(New SqlParameter("@FeeYear", SqlDbType.Decimal)).Value = FeeYear
-            cmd.Parameters.Add(New SqlParameter("@AIRSNumber", SqlDbType.VarChar)).Value = "0413" & AIRSNumber
-
-            cmd.ExecuteNonQuery()
-
-            If Not DAL.Update_FS_Admin_Status(FeeYear, AIRSNumber) Then
+            If Not DAL.Update_FS_Admin_Status(FeeYear, AIRSNumber.ShortString) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
             Return True
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
 
