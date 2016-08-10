@@ -1,60 +1,24 @@
 ﻿Imports System.Data.SqlClient
 
 Public Class PASPFeesLog
-    Dim SQL As String
-    Dim ds As DataSet
-    Dim da As SqlDataAdapter
 
-    Private Sub PASPFeesLog_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-
-        Try
-            LoadDefaults()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub PASPFeesLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        LoadFeeYears()
     End Sub
-    Sub LoadDefaults()
-        Try
 
-            ' clbFeeYear.Items.Add(Now.Year)
+    Private Sub LoadFeeYears()
+        Dim SQL As String = "SELECT DISTINCT NUMFEEYEAR FROM FS_ADMIN ORDER BY NUMFEEYEAR DESC"
+        Dim dt As DataTable = DB.GetDataTable(SQL)
 
-            SQL = "Select " &
-            "extract(year from sysdate) as FeeYear from dual " &
-            "union " &
-            "Select " &
-            "distinct(numFeeYear) as FeeYear " &
-            "From FS_Admin order by FeeYear Desc "
-
-
-            SQL = "Select " &
-              "distinct(numFeeYear) as FeeYear " &
-              "From FS_Admin order by FeeYear Desc "
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("FeeYear")) Then
-                    clbFeeYear.Items.Add("")
-                Else
-                    If clbFeeYear.Items.Contains(dr.Item("FeeYear")) Then
-                    Else
-                        clbFeeYear.Items.Add(dr.Item("FeeYear"))
-                    End If
-                End If
-            End While
-            dr.Close()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        For Each dr As DataRow In dt.Rows
+            clbFeeYear.Items.Add(dr("NUMFEEYEAR"))
+        Next
     End Sub
-    Sub RunSearch()
+
+    Private Sub RunSearch()
         Try
-            Dim FeeYearSQL As String = " "
+            Dim SQL As String
+            Dim FeeYearSQL As String = ""
             Dim OpStatus As String = ""
             Dim AIRSNumber As String = ""
             Dim FacilityName As String = ""
@@ -64,48 +28,48 @@ Public Class PASPFeesLog
             For y As Integer = 0 To clbFeeYear.Items.Count - 1
                 If clbFeeYear.GetItemChecked(y) = True Then
                     clbFeeYear.SelectedIndex = y
-                    FeeYearSQL = FeeYearSQL & " FS_Admin.numFeeYear = '" & clbFeeYear.Items(y).ToString & "' or "
+                    FeeYearSQL = FeeYearSQL & " a.numFeeYear = '" & clbFeeYear.Items(y).ToString & "' or "
                 End If
             Next
-            If FeeYearSQL <> " " Then
-                FeeYearSQL = " and (" & Mid(FeeYearSQL, 1, (FeeYearSQL.Length) - 3) & " ) "
+            If FeeYearSQL <> "" Then
+                FeeYearSQL = " (" & Mid(FeeYearSQL, 1, (FeeYearSQL.Length) - 3) & " ) "
             End If
-            If chbOperating.Checked = True Then
+            If chbOperating.Checked Then
                 If OpStatus = "" Then
                     OpStatus = " stroperationalstatus = 'O' "
                 Else
                     OpStatus = OpStatus & " or stroperationalstatus = 'O' "
                 End If
             End If
-            If chbClosed.Checked = True Then
+            If chbClosed.Checked Then
                 If OpStatus = "" Then
                     OpStatus = " stroperationalstatus = 'X' "
                 Else
                     OpStatus = OpStatus & " or stroperationalstatus = 'X' "
                 End If
             End If
-            If chbPlanned.Checked = True Then
+            If chbPlanned.Checked Then
                 If OpStatus = "" Then
                     OpStatus = " stroperationalstatus = 'P' "
                 Else
                     OpStatus = OpStatus & " or stroperationalstatus = 'P' "
                 End If
             End If
-            If chbConstruction.Checked = True Then
+            If chbConstruction.Checked Then
                 If OpStatus = "" Then
                     OpStatus = " stroperationalstatus = 'C' "
                 Else
                     OpStatus = OpStatus & " or stroperationalstatus = 'C' "
                 End If
             End If
-            If chbSeasonal.Checked = True Then
+            If chbSeasonal.Checked Then
                 If OpStatus = "" Then
                     OpStatus = " stroperationalstatus = 'I' "
                 Else
                     OpStatus = OpStatus & " or stroperationalstatus = 'I' "
                 End If
             End If
-            If chbTempClosed.Checked = True Then
+            If chbTempClosed.Checked Then
                 If OpStatus = "" Then
                     OpStatus = " stroperationalstatus = 'T' "
                 Else
@@ -113,147 +77,96 @@ Public Class PASPFeesLog
                 End If
             End If
             If OpStatus <> "" Then
-                OpStatus = " and ( " & OpStatus & " ) "
+                OpStatus = " ( " & OpStatus & " ) "
             End If
             If mtbSearchAirsNumber.Text <> "" Then
-                AIRSNumber = " and APBFacilityInformation.strAIRSNumber like '%" & mtbSearchAirsNumber.Text & "%' "
+                AIRSNumber = " a.strAIRSNumber like '%" & mtbSearchAirsNumber.Text & "%' "
             End If
             If txtSearchFacilityName.Text <> "" Then
-                FacilityName = " and APBFacilityInformation.strFacilityName like '%" & txtSearchFacilityName.Text & "%' "
+                FacilityName = " a.strFacilityName like '%" & txtSearchFacilityName.Text & "%' "
             End If
-            If chbOwesFees.Checked = True Then
-                CollectionStatus = " and numCurrentStatus < 10 "
+            If chbOwesFees.Checked Then
+                CollectionStatus = " numCurrentStatus < 10 "
             End If
-            If chbShutdown.Checked = True Then
-                ShutDownBetween = " and datShutDownDate between '" & dtpStartShutDown.Text & "' and '" & dtpEndShutDown.Text & "' "
+            If chbShutdown.Checked Then
+                ShutDownBetween = " datShutDownDate between '" & dtpStartShutDown.Text & "' and '" & dtpEndShutDown.Text & "' "
             End If
 
-            If txtInvoice.Text = "" Then
-                SQL = "select " &
-                "substr(FS_Admin.strAIRSnumber, 5) as AIRSNumber, " &
-                "APBFacilityInformation.strFacilityName, " &
-                "FS_Admin.numFeeYear, " &
-                "stroperationalstatus,  " &
-                "case " &
-                "when stroperationalstatus <> 'O' then datShutDownDate " &
-                "else null " &
-                "End ShutDownDate, strIAIPDesc " &
-                "from FS_Admin, APBFacilityInformation, " &
-                "APBHeaderData, FSLK_Admin_Status " &
-                "where FS_Admin.strAIRSnumber = APBFacilityInformation.strAIRSNumber " &
-                "and APBFacilityInformation.strAIRSnumber = APBHeaderData.strAIRSNumber " &
-                "and FS_Admin.numCurrentStatus = FSLK_Admin_Status.ID (+) " &
-                FeeYearSQL & OpStatus & AIRSNumber & FacilityName & CollectionStatus & ShutDownBetween &
-                "order by AIRSnumber "
+            Dim whereClause As String = ConcatNonEmptyStrings(" and ", {FeeYearSQL, OpStatus, AIRSNumber, FacilityName, CollectionStatus, ShutDownBetween})
 
-                ds = New DataSet
-                da = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
+            If whereClause <> "" Then whereClause = " WHERE " & whereClause
 
-                da.Fill(ds, "Fee_Admin")
-                dgvExistingYearAdmin.DataSource = ds
-                dgvExistingYearAdmin.DataMember = "Fee_Admin"
+            If Not chbShowInvoices.Checked Then
+                SQL = "SELECT SUBSTRING(a.STRAIRSNUMBER, 5, 8) AS AIRSNumber, f.STRFACILITYNAME, a.NUMFEEYEAR, h.STROPERATIONALSTATUS, " &
+                    " CASE WHEN h.STROPERATIONALSTATUS <> 'O' THEN h.DATSHUTDOWNDATE ELSE NULL END AS ShutDownDate, s.STRIAIPDESC " &
+                    " FROM FS_Admin AS a " &
+                    " INNER JOIN APBFacilityInformation AS f ON f.STRAIRSNUMBER = a.STRAIRSNUMBER " &
+                    " INNER JOIN APBHeaderData AS h ON h.STRAIRSNUMBER = f.STRAIRSNUMBER " &
+                    " LEFT JOIN FSLK_Admin_Status AS s ON a.NUMCURRENTSTATUS = s.ID " &
+                    whereClause &
+                    " ORDER BY AIRSNumber "
 
-                dgvExistingYearAdmin.RowHeadersVisible = False
-                dgvExistingYearAdmin.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                dgvExistingYearAdmin.AllowUserToResizeColumns = True
-                dgvExistingYearAdmin.AllowUserToAddRows = False
-                dgvExistingYearAdmin.AllowUserToDeleteRows = False
-                dgvExistingYearAdmin.AllowUserToOrderColumns = True
-                dgvExistingYearAdmin.AllowUserToResizeRows = True
+                dgvExistingYearAdmin.DataSource = DB.GetDataTable(SQL)
                 dgvExistingYearAdmin.Columns("numFeeYear").HeaderText = "Year"
                 dgvExistingYearAdmin.Columns("numFeeYear").DisplayIndex = 0
-                dgvExistingYearAdmin.Columns("numFeeYear").Width = (dgvExistingYearAdmin.Width * 0.1)
                 dgvExistingYearAdmin.Columns("AIRSNumber").HeaderText = "AIRS #"
                 dgvExistingYearAdmin.Columns("AIRSNumber").DisplayIndex = 1
-                dgvExistingYearAdmin.Columns("AIRSNumber").Width = (dgvExistingYearAdmin.Width * 0.15)
                 dgvExistingYearAdmin.Columns("strFacilityName").HeaderText = "Facility Name"
                 dgvExistingYearAdmin.Columns("strFacilityName").DisplayIndex = 2
-                dgvExistingYearAdmin.Columns("strFacilityName").Width = (dgvExistingYearAdmin.Width * 0.5)
                 dgvExistingYearAdmin.Columns("stroperationalstatus").HeaderText = "Op. Status"
                 dgvExistingYearAdmin.Columns("stroperationalstatus").DisplayIndex = 3
-                dgvExistingYearAdmin.Columns("stroperationalstatus").Width = (dgvExistingYearAdmin.Width * 0.1)
                 dgvExistingYearAdmin.Columns("ShutDownDate").HeaderText = "Shut Down Date"
                 dgvExistingYearAdmin.Columns("ShutDownDate").DisplayIndex = 4
-                dgvExistingYearAdmin.Columns("ShutDownDate").Width = (dgvExistingYearAdmin.Width * 0.2)
                 dgvExistingYearAdmin.Columns("ShutDownDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
             Else
-                SQL = "select " &
-                    "substr(FS_Admin.strAIRSnumber, 5) as AIRSNumber, " &
-                    "APBFacilityInformation.strFacilityName, " &
-                    "FS_Admin.numFeeYear, " &
-                    "InvoiceID, " &
-                    "stroperationalstatus,  " &
-                    "case " &
-                    "when stroperationalstatus <> 'O' then datShutDownDate " &
-                    "else null " &
-                    "End ShutDownDate, strIAIPDesc " &
-                    "from FS_Admin, APBFacilityInformation, " &
-                    "APBHeaderData, FSLK_Admin_Status, " &
-                    "FS_FeeInvoice " &
-                    "where FS_Admin.strAIRSnumber = APBFacilityInformation.strAIRSNumber " &
-                    "and APBFacilityInformation.strAIRSnumber = APBHeaderData.strAIRSNumber " &
-                    "and FS_Admin.strAIRSNumber = FS_FeeInvoice.strAIRSNumber " &
-                    "and FS_Admin.numFeeYear = FS_FeeInvoice.numFeeYear " &
-                    "and FS_Admin.numCurrentStatus = FSLK_Admin_Status.ID (+) " &
-                    FeeYearSQL & OpStatus & AIRSNumber & FacilityName & CollectionStatus & ShutDownBetween &
-                    "order by AIRSnumber "
+                SQL = "SELECT SUBSTRING(a.STRAIRSNUMBER, 5, 12) AS AIRSNumber, f.STRFACILITYNAME, a.NUMFEEYEAR, i.INVOICEID, " & "h.STROPERATIONALSTATUS, " &
+                    "CASE WHEN h.STROPERATIONALSTATUS <> 'O' THEN h.DATSHUTDOWNDATE ELSE NULL END AS ShutDownDate, k.STRIAIPDESC " &
+                    "FROM FS_Admin AS a " &
+                    "INNER JOIN FS_FeeInvoice AS i ON i.STRAIRSNUMBER = a.STRAIRSNUMBER AND i.NUMFEEYEAR = a.NUMFEEYEAR " &
+                    "LEFT JOIN FSLK_Admin_Status AS k ON a.NUMCURRENTSTATUS = k.ID " &
+                    "INNER JOIN APBFacilityInformation AS f ON a.STRAIRSNUMBER = f.STRAIRSNUMBER " &
+                    "INNER JOIN APBHeaderData AS h ON f.STRAIRSNUMBER = h.STRAIRSNUMBER " &
+                    whereClause &
+                    "ORDER BY AIRSNumber "
 
-                ds = New DataSet
-                da = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-
-                da.Fill(ds, "Fee_Admin")
-                dgvExistingYearAdmin.DataSource = ds
-                dgvExistingYearAdmin.DataMember = "Fee_Admin"
-
-                dgvExistingYearAdmin.RowHeadersVisible = False
-                dgvExistingYearAdmin.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                dgvExistingYearAdmin.AllowUserToResizeColumns = True
-                dgvExistingYearAdmin.AllowUserToAddRows = False
-                dgvExistingYearAdmin.AllowUserToDeleteRows = False
-                dgvExistingYearAdmin.AllowUserToOrderColumns = True
-                dgvExistingYearAdmin.AllowUserToResizeRows = True
+                dgvExistingYearAdmin.DataSource = DB.GetDataTable(SQL)
                 dgvExistingYearAdmin.Columns("numFeeYear").HeaderText = "Year"
                 dgvExistingYearAdmin.Columns("numFeeYear").DisplayIndex = 0
-                dgvExistingYearAdmin.Columns("numFeeYear").Width = (dgvExistingYearAdmin.Width * 0.1)
                 dgvExistingYearAdmin.Columns("AIRSNumber").HeaderText = "AIRS #"
                 dgvExistingYearAdmin.Columns("AIRSNumber").DisplayIndex = 1
-                dgvExistingYearAdmin.Columns("AIRSNumber").Width = (dgvExistingYearAdmin.Width * 0.15)
-                dgvExistingYearAdmin.Columns("InvoiceID").HeaderText = "AIRS #"
+                dgvExistingYearAdmin.Columns("InvoiceID").HeaderText = "Invoice #"
                 dgvExistingYearAdmin.Columns("InvoiceID").DisplayIndex = 3
-                dgvExistingYearAdmin.Columns("InvoiceID").Width = (dgvExistingYearAdmin.Width * 0.15)
                 dgvExistingYearAdmin.Columns("strFacilityName").HeaderText = "Facility Name"
                 dgvExistingYearAdmin.Columns("strFacilityName").DisplayIndex = 2
-                dgvExistingYearAdmin.Columns("strFacilityName").Width = (dgvExistingYearAdmin.Width * 0.5)
                 dgvExistingYearAdmin.Columns("stroperationalstatus").HeaderText = "Op. Status"
                 dgvExistingYearAdmin.Columns("stroperationalstatus").DisplayIndex = 4
-                dgvExistingYearAdmin.Columns("stroperationalstatus").Width = (dgvExistingYearAdmin.Width * 0.1)
                 dgvExistingYearAdmin.Columns("ShutDownDate").HeaderText = "Shut Down Date"
                 dgvExistingYearAdmin.Columns("ShutDownDate").DisplayIndex = 5
-                dgvExistingYearAdmin.Columns("ShutDownDate").Width = (dgvExistingYearAdmin.Width * 0.2)
                 dgvExistingYearAdmin.Columns("ShutDownDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
             End If
+
+
+            dgvExistingYearAdmin.RowHeadersVisible = False
+            dgvExistingYearAdmin.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+            dgvExistingYearAdmin.AllowUserToResizeColumns = True
+            dgvExistingYearAdmin.AllowUserToAddRows = False
+            dgvExistingYearAdmin.AllowUserToDeleteRows = False
+            dgvExistingYearAdmin.AllowUserToOrderColumns = True
+            dgvExistingYearAdmin.AllowUserToResizeRows = True
+            dgvExistingYearAdmin.SanelyResizeColumns()
 
             txtResultsCount.Text = dgvExistingYearAdmin.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnRunFilter_Click(sender As System.Object, e As System.EventArgs) Handles btnRunFilter.Click
-        Try
-            RunSearch()
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub btnRunFilter_Click(sender As Object, e As EventArgs) Handles btnRunFilter.Click
+        RunSearch()
     End Sub
-    Private Sub dgvExistingYearAdmin_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvExistingYearAdmin.MouseUp
+
+    Private Sub dgvExistingYearAdmin_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvExistingYearAdmin.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvExistingYearAdmin.HitTest(e.X, e.Y)
 
         Try
@@ -262,16 +175,15 @@ Public Class PASPFeesLog
                 mtbSelectedAIRSNumber.Text = dgvExistingYearAdmin(0, hti.RowIndex).Value
                 txtSelectedFacilityName.Text = dgvExistingYearAdmin(1, hti.RowIndex).Value
                 mtbSelectedFeeYear.Text = dgvExistingYearAdmin(2, hti.RowIndex).Value
-
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
-    Private Sub btnOpenFeeWorkTool_Click(sender As System.Object, e As System.EventArgs) Handles btnOpenFeeWorkTool.Click
-        Dim parameters As New Generic.Dictionary(Of BaseForm.FormParameter, String)
+
+    Private Sub btnOpenFeeWorkTool_Click(sender As Object, e As EventArgs) Handles btnOpenFeeWorkTool.Click
+        Dim parameters As New Generic.Dictionary(Of FormParameter, String)
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbSelectedAIRSNumber.Text) Then
             parameters(FormParameter.AirsNumber) = mtbSelectedAIRSNumber.Text
         End If
@@ -279,7 +191,9 @@ Public Class PASPFeesLog
 
         OpenSingleForm(PASPFeeAuditLog, parameters:=parameters, closeFirst:=True)
     End Sub
-    Private Sub btnExportToExcel_Click(sender As System.Object, e As System.EventArgs) Handles btnExportToExcel.Click
+
+    Private Sub btnExportToExcel_Click(sender As Object, e As EventArgs) Handles btnExportToExcel.Click
         dgvExistingYearAdmin.ExportToExcel(Me)
     End Sub
+
 End Class
