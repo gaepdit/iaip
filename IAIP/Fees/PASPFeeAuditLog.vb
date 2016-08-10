@@ -17,7 +17,7 @@ Public Class PASPFeeAuditLog
 
 #End Region
 
-    Private Sub PASPFeeAuditLog_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Private Sub PASPFeeAuditLog_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         LoadSelectedNSPSExemptions()
         LoadTransactionTypes()
         LoadPayTypes()
@@ -1766,11 +1766,11 @@ Public Class PASPFeeAuditLog
 
 #Region " Mailout Information tab "
 
-    Private Sub MailoutEnableEditingButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutEditContactButton.Click
+    Private Sub MailoutEnableEditingButton_Click(sender As System.Object, e As System.EventArgs) Handles MailoutEditContactButton.Click
         MailoutEditingToggle(True)
     End Sub
 
-    Private Sub MailoutEditFacilityButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutEditFacilityButton.Click
+    Private Sub MailoutEditFacilityButton_Click(sender As System.Object, e As System.EventArgs) Handles MailoutEditFacilityButton.Click
         MailoutEditingToggle(True, False)
     End Sub
 
@@ -1834,7 +1834,7 @@ Public Class PASPFeeAuditLog
         Return facility
     End Function
 
-    Private Sub MailoutEditingToggle(ByVal enable As Boolean, Optional ByVal facilitySection As Boolean = True)
+    Private Sub MailoutEditingToggle(enable As Boolean, Optional facilitySection As Boolean = True)
         If facilitySection Then
 
             If enable Then MailoutStoreTempContact()
@@ -1887,19 +1887,19 @@ Public Class PASPFeeAuditLog
         End If
     End Sub
 
-    Private Sub MailoutCancelEditingContactButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutCancelEditingContactButton.Click
+    Private Sub MailoutCancelEditingContactButton_Click(sender As System.Object, e As System.EventArgs) Handles MailoutCancelEditingContactButton.Click
         MailoutFillContactFrom(tempContact)
         tempContact = Nothing
         MailoutEditingToggle(False)
     End Sub
 
-    Private Sub MailoutCancelEditFacilityButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutCancelEditFacilityButton.Click
+    Private Sub MailoutCancelEditFacilityButton_Click(sender As System.Object, e As System.EventArgs) Handles MailoutCancelEditFacilityButton.Click
         MailoutFillFacilityFrom(tempFacility)
         tempFacility = Nothing
         MailoutEditingToggle(False, False)
     End Sub
 
-    Private Sub MailoutFillContactFrom(ByVal contact As Contact)
+    Private Sub MailoutFillContactFrom(contact As Contact)
         With contact
             txtContactFirstName.Text = .FirstName
             txtContactLastName.Text = .LastName
@@ -1916,7 +1916,7 @@ Public Class PASPFeeAuditLog
         End With
     End Sub
 
-    Private Sub MailoutFillFacilityFrom(ByVal facility As Facility)
+    Private Sub MailoutFillFacilityFrom(facility As Facility)
         With facility
             txtInitialFacilityName.Text = .FacilityName
             txtInitailFacilityAddress.Text = .FacilityLocation.Address.Street
@@ -1939,13 +1939,13 @@ Public Class PASPFeeAuditLog
         End With
     End Sub
 
-    Private Sub MailoutReplaceContactWithFeeContactButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutReplaceContactWithFeeContactButton.Click
+    Private Sub MailoutReplaceContactWithFeeContactButton_Click(sender As System.Object, e As System.EventArgs) Handles MailoutReplaceContactWithFeeContactButton.Click
         MailoutEditingToggle(True)
         Dim contact As Contact = DAL.GetCurrentContact(AirsNumber, DAL.ContactKey.Fees)
         MailoutFillContactFrom(contact)
     End Sub
 
-    Private Sub MailoutReplaceFacilityInfoButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutReplaceFacilityInfoButton.Click
+    Private Sub MailoutReplaceFacilityInfoButton_Click(sender As System.Object, e As System.EventArgs) Handles MailoutReplaceFacilityInfoButton.Click
         Try
 
             MailoutEditingToggle(True, False)
@@ -1958,7 +1958,7 @@ Public Class PASPFeeAuditLog
         End Try
     End Sub
 
-    Private Sub MailoutSaveContactButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutSaveContactButton.Click
+    Private Sub MailoutSaveContactButton_Click(sender As System.Object, e As System.EventArgs) Handles MailoutSaveContactButton.Click
         If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
             MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " &
                             "Please double-check and try again." &
@@ -1985,7 +1985,7 @@ Public Class PASPFeeAuditLog
         End If
     End Sub
 
-    Private Sub MailoutSaveFacilityButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MailoutSaveFacilityButton.Click
+    Private Sub MailoutSaveFacilityButton_Click(sender As System.Object, e As System.EventArgs) Handles MailoutSaveFacilityButton.Click
         If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
             MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " &
                             "Please double-check and try again." &
@@ -2014,7 +2014,7 @@ Public Class PASPFeeAuditLog
 
 #End Region
 
-    Private Sub EditContactsButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditContactsButton.Click
+    Private Sub EditContactsButton_Click(sender As System.Object, e As System.EventArgs) Handles EditContactsButton.Click
         If AirsNumber.ToString Is Nothing OrElse (mtbAirsNumber.Text <> AirsNumber.FormattedString) Then
             MessageBox.Show("Please select a valid AIRS number first.",
                             "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -2028,7 +2028,7 @@ Public Class PASPFeeAuditLog
         OpenMultiForm(IAIPEditContacts, AirsNumber.ToString, parameters)
     End Sub
 
-    Private Sub ReloadButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ReloadButton.Click
+    Private Sub ReloadButton_Click(sender As System.Object, e As System.EventArgs) Handles ReloadButton.Click
         Try
             If FeeYearsComboBox.SelectedIndex = 0 Then
                 MessageBox.Show("Please select a Fee Year", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -2160,7 +2160,7 @@ Public Class PASPFeeAuditLog
         End Try
     End Sub
 
-    Private Sub btnUpdateFSAdmin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateFSAdmin.Click
+    Private Sub btnUpdateFSAdmin_Click(sender As System.Object, e As System.EventArgs) Handles btnUpdateFSAdmin.Click
         Try
             Dim ResultDoc As DialogResult
 
@@ -2231,7 +2231,7 @@ Public Class PASPFeeAuditLog
         End Try
     End Sub
 
-    Private Sub btnAddFSAdmin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddFSAdmin.Click
+    Private Sub btnAddFSAdmin_Click(sender As System.Object, e As System.EventArgs) Handles btnAddFSAdmin.Click
         Try
             If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
                 MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " &
@@ -2258,7 +2258,7 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnGECOViewPastContacts_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGECOViewPastContacts.Click
+    Private Sub btnGECOViewPastContacts_Click(sender As System.Object, e As System.EventArgs) Handles btnGECOViewPastContacts.Click
         Try
             Dim query As String = "Select * " &
             "from FS_ContactInfo " &
@@ -2326,7 +2326,7 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvGECOFeeContacts_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvGECOFeeContacts.MouseUp
+    Private Sub dgvGECOFeeContacts_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvGECOFeeContacts.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvGECOFeeContacts.HitTest(e.X, e.Y)
             If dgvGECOFeeContacts.RowCount > 0 And hti.RowIndex <> -1 Then
@@ -2439,7 +2439,7 @@ Public Class PASPFeeAuditLog
         End Try
     End Function
 
-    Private Sub btnTransactionNew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTransactionNew.Click
+    Private Sub btnTransactionNew_Click(sender As System.Object, e As System.EventArgs) Handles btnTransactionNew.Click
         Try
 
             If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) _
@@ -2541,7 +2541,7 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvTransactions_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvTransactions.MouseUp
+    Private Sub dgvTransactions_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvTransactions.MouseUp
         Try
 
             Dim hti As DataGridView.HitTestInfo = dgvTransactions.HitTest(e.X, e.Y)
@@ -2628,7 +2628,7 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnClearTransactions_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearTransactions.Click
+    Private Sub btnClearTransactions_Click(sender As System.Object, e As System.EventArgs) Handles btnClearTransactions.Click
         Try
             txtTransactionID.Clear()
             txtInvoiceID.Clear()
@@ -2649,7 +2649,7 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnClearEditableTransactionData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearEditableTransactionData.Click
+    Private Sub btnClearEditableTransactionData_Click(sender As System.Object, e As System.EventArgs) Handles btnClearEditableTransactionData.Click
         Try
             txtDepositNo.Clear()
             txtBatchNo.Clear()
@@ -2668,7 +2668,7 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnTransactionUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTransactionUpdate.Click
+    Private Sub btnTransactionUpdate_Click(sender As System.Object, e As System.EventArgs) Handles btnTransactionUpdate.Click
         Try
 
             If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) _
@@ -2728,7 +2728,7 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnTransactionDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTransactionDelete.Click
+    Private Sub btnTransactionDelete_Click(sender As System.Object, e As System.EventArgs) Handles btnTransactionDelete.Click
         Try
 
             If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) _
@@ -2774,7 +2774,7 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub InvoiceStatusCheck(ByVal invoiceID As String)
+    Sub InvoiceStatusCheck(invoiceID As String)
         Try
             SQL = "select " &
             "(invoiceTotal - PaymentTotal) as Balance " &
@@ -2831,7 +2831,7 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSaveFeeAudit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveNewFeeAudit.Click
+    Private Sub btnSaveFeeAudit_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveNewFeeAudit.Click
         Try
             Dim OpStatus As String = ""
             Dim ShutDown As String = ""
@@ -3234,7 +3234,7 @@ Public Class PASPFeeAuditLog
         End Try
     End Sub
 
-    Private Sub rdbEditNSPSExemptTrue_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles rdbEditNSPSExemptTrue.CheckedChanged
+    Private Sub rdbEditNSPSExemptTrue_CheckedChanged(sender As Object, e As System.EventArgs) Handles rdbEditNSPSExemptTrue.CheckedChanged
         Try
             Dim dgvRow As New DataGridViewRow
 
@@ -3266,7 +3266,7 @@ Public Class PASPFeeAuditLog
         End Try
     End Sub
 
-    Private Sub dgvEditExemptions_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvEditExemptions.MouseUp
+    Private Sub dgvEditExemptions_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvEditExemptions.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvEditExemptions.HitTest(e.X, e.Y)
             Dim i As Integer = 0
@@ -3290,7 +3290,7 @@ Public Class PASPFeeAuditLog
         Finally
         End Try
     End Sub
-    Private Sub btnGenerateInvoice_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewPrintableInvoice.Click
+    Private Sub btnGenerateInvoice_Click(sender As System.Object, e As System.EventArgs) Handles btnViewPrintableInvoice.Click
         Try
             Dim rpt As New ReportClass
             Dim Director As String = DAL.GetEpdManagerName(DAL.EpdManagementTypes.EpdDirector)
@@ -3623,14 +3623,14 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnViewInvoices_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewInvoices.Click
+    Private Sub btnViewInvoices_Click(sender As System.Object, e As System.EventArgs) Handles btnViewInvoices.Click
         Try
             ViewAllInvoices()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvInvoices_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvInvoices.MouseUp
+    Private Sub dgvInvoices_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvInvoices.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvInvoices.HitTest(e.X, e.Y)
             If dgvInvoices.RowCount > 0 And hti.RowIndex <> -1 Then
@@ -3678,7 +3678,7 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnAddNewInvoice_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNewInvoice.Click
+    Private Sub btnAddNewInvoice_Click(sender As System.Object, e As System.EventArgs) Handles btnAddNewInvoice.Click
         Try
             Dim InvoiceStatus As String = "0"
 
@@ -3732,7 +3732,7 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnVOIDInvoice_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnVOIDInvoice.Click
+    Private Sub btnVOIDInvoice_Click(sender As System.Object, e As System.EventArgs) Handles btnVOIDInvoice.Click
         Try
             Dim Payment As String = "0"
 
@@ -3788,7 +3788,7 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnVOIDAllUnpaid_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnVOIDAllUnpaid.Click
+    Private Sub btnVOIDAllUnpaid_Click(sender As System.Object, e As System.EventArgs) Handles btnVOIDAllUnpaid.Click
         Try
             Dim InvoiceID As String = ""
 
@@ -3842,7 +3842,7 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnRemoveVOID_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRemoveVOID.Click
+    Private Sub btnRemoveVOID_Click(sender As System.Object, e As System.EventArgs) Handles btnRemoveVOID.Click
         Try
             If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
                 MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " &
@@ -3872,7 +3872,7 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub chbEndFeeCollectoins_CheckStateChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbEndFeeCollectoins.CheckStateChanged
+    Private Sub chbEndFeeCollectoins_CheckStateChanged(sender As Object, e As System.EventArgs) Handles chbEndFeeCollectoins.CheckStateChanged
         Try
             'DTPDateCollectionsCeased
             If chbEndFeeCollectoins.Checked = True Then
@@ -3885,7 +3885,7 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnEditFeeAudit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditFeeAudit.Click
+    Private Sub btnEditFeeAudit_Click(sender As System.Object, e As System.EventArgs) Handles btnEditFeeAudit.Click
         Try
             Dim OpStatus As String = ""
             Dim ShutDown As String = ""
@@ -4239,7 +4239,7 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, SQL, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSelectAuditToEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSelectAuditToEdit.Click
+    Private Sub btnSelectAuditToEdit_Click(sender As System.Object, e As System.EventArgs) Handles btnSelectAuditToEdit.Click
         Try
             Dim AuditLevel As String = ""
             Dim NSPSExempt As String = ""
@@ -4503,10 +4503,10 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnExportAuditToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportAuditToExcel.Click
+    Private Sub btnExportAuditToExcel_Click(sender As System.Object, e As System.EventArgs) Handles btnExportAuditToExcel.Click
         dgvAuditHistory.ExportToExcel(Me)
     End Sub
-    Private Sub btnClearAuditData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearAuditData.Click
+    Private Sub btnClearAuditData_Click(sender As System.Object, e As System.EventArgs) Handles btnClearAuditData.Click
         Try
             ClearAuditData()
         Catch ex As Exception
@@ -4558,7 +4558,7 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnClearInvoiceData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearInvoiceData.Click
+    Private Sub btnClearInvoiceData_Click(sender As System.Object, e As System.EventArgs) Handles btnClearInvoiceData.Click
         Try
             ClearInvoices()
         Catch ex As Exception
@@ -4578,7 +4578,7 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnFindTransactions4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFindTransactions.Click
+    Private Sub btnFindTransactions4_Click(sender As System.Object, e As System.EventArgs) Handles btnFindTransactions.Click
         Try
 
             If rdbCurrentFeeyear.Checked = True Then
@@ -4721,7 +4721,7 @@ Public Class PASPFeeAuditLog
         End Try
     End Sub
 
-    Private Sub chbMakeEdits_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbMakeEdits.CheckedChanged
+    Private Sub chbMakeEdits_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbMakeEdits.CheckedChanged
         Try
             If chbMakeEdits.Checked = True Then
                 pnlInvoiceData.Enabled = True
@@ -4738,7 +4738,7 @@ Public Class PASPFeeAuditLog
     End Sub
 
 
-    Private Sub btnCalculateDays_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCalculateDays.Click
+    Private Sub btnCalculateDays_Click(sender As System.Object, e As System.EventArgs) Handles btnCalculateDays.Click
         Try
             Dim TotalFee As String = "0"
             Dim Days As String = "0"
@@ -4765,11 +4765,11 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnCheckInvoices_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCheckInvoices.Click
+    Private Sub btnCheckInvoices_Click(sender As System.Object, e As System.EventArgs) Handles btnCheckInvoices.Click
         Validate_FS_Invoices(Me.FeeYear, Me.AirsNumber.ShortString)
     End Sub
 
-    Private Sub chbChangeInvoiceNumber_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chbChangeInvoiceNumber.CheckedChanged
+    Private Sub chbChangeInvoiceNumber_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbChangeInvoiceNumber.CheckedChanged
         Try
             If chbChangeInvoiceNumber.Checked = True Then
                 txtInvoiceID.ReadOnly = False
@@ -4782,15 +4782,15 @@ Public Class PASPFeeAuditLog
         End Try
     End Sub
 
-    Private Sub LoadPanel_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LoadPanel.Enter
+    Private Sub LoadPanel_Enter(sender As System.Object, e As System.EventArgs) Handles LoadPanel.Enter
         Me.AcceptButton = ReloadButton
     End Sub
 
-    Private Sub LoadPanel_Leave(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LoadPanel.Leave
+    Private Sub LoadPanel_Leave(sender As System.Object, e As System.EventArgs) Handles LoadPanel.Leave
         Me.AcceptButton = Nothing
     End Sub
 
-    Private Sub ClearFormButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ClearFormButton.Click
+    Private Sub ClearFormButton_Click(sender As System.Object, e As System.EventArgs) Handles ClearFormButton.Click
         ClearForm()
         ClearAdminData()
         ClearAuditData()
@@ -4801,12 +4801,12 @@ Public Class PASPFeeAuditLog
 #Region " CodeFile "
     ' Code that was formerly in CodeFile.vb but is only used in this form anyway
 
-    Function Insert_FS_Admin(ByVal FeeYear As String, ByVal AIRSNumber As String,
-                         ByVal Enrolled As String,
-                         ByVal DateEnrolled As String, ByVal InitialMailOut As String,
-                         ByVal MailoutSent As String, ByVal DateMailOutSent As String,
-                         ByVal Submittal As String, ByVal DateSubmittal As String,
-                         ByVal Comment As String) As Boolean
+    Function Insert_FS_Admin(FeeYear As String, AIRSNumber As String,
+                         Enrolled As String,
+                         DateEnrolled As String, InitialMailOut As String,
+                         MailoutSent As String, DateMailOutSent As String,
+                         Submittal As String, DateSubmittal As String,
+                         Comment As String) As Boolean
         Try
             Dim AdminCheck As String = "0"
 
@@ -4942,12 +4942,12 @@ Public Class PASPFeeAuditLog
         End Try
     End Function
 
-    Private Function Update_FS_Admin(ByVal FeeYear As String, ByVal AIRSNumber As Apb.ApbFacilityId,
-                             ByVal Enrolled As Boolean,
-                             ByVal DateEnrolled As Date, ByVal InitialMailOut As Boolean,
-                             ByVal MailoutSent As Boolean, ByVal DateMailOutSent As Date,
-                             ByVal Submittal As Boolean, ByVal DateSubmittal As Date,
-                             ByVal Comment As String, ByVal Active As Boolean) As Boolean
+    Private Function Update_FS_Admin(FeeYear As String, AIRSNumber As Apb.ApbFacilityId,
+                             Enrolled As Boolean,
+                             DateEnrolled As Date, InitialMailOut As Boolean,
+                             MailoutSent As Boolean, DateMailOutSent As Date,
+                             Submittal As Boolean, DateSubmittal As Date,
+                             Comment As String, Active As Boolean) As Boolean
         Try
             If AIRSNumber Is Nothing OrElse Not IsNumeric(FeeYear) Then
                 Return False
@@ -5046,7 +5046,7 @@ Public Class PASPFeeAuditLog
         End Try
     End Function
 
-    Sub Validate_FS_Invoices(ByVal FeeYear As String, ByVal AirsNumber As String)
+    Sub Validate_FS_Invoices(FeeYear As String, AirsNumber As String)
         Try
             Dim SQL As String = "Update FS_FeeInvoice set " &
             "strInvoiceStatus = '1', " &
