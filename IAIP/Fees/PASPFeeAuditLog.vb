@@ -2014,7 +2014,7 @@ Public Class PASPFeeAuditLog
 
 #End Region
 
-    Private Sub EditContactsButton_Click(sender As System.Object, e As System.EventArgs) Handles EditContactsButton.Click
+    Private Sub EditContactsButton_Click(sender As Object, e As EventArgs) Handles EditContactsButton.Click
         If AirsNumber.ToString Is Nothing OrElse (mtbAirsNumber.Text <> AirsNumber.FormattedString) Then
             MessageBox.Show("Please select a valid AIRS number first.",
                             "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -4765,8 +4765,9 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnCheckInvoices_Click(sender As System.Object, e As System.EventArgs) Handles btnCheckInvoices.Click
-        Validate_FS_Invoices(Me.FeeYear, Me.AirsNumber.ShortString)
+
+    Private Sub btnCheckInvoices_Click(sender As Object, e As EventArgs) Handles btnCheckInvoices.Click
+        Validate_FS_Invoices(Me.FeeYear, Me.AirsNumber)
     End Sub
 
     Private Sub chbChangeInvoiceNumber_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbChangeInvoiceNumber.CheckedChanged
@@ -4978,7 +4979,7 @@ Public Class PASPFeeAuditLog
         End Try
     End Function
 
-    Sub Validate_FS_Invoices(FeeYear As String, AirsNumber As String)
+    Private Sub Validate_FS_Invoices(FeeYear As String, AirsNumber As Apb.ApbFacilityId)
         Try
             Dim SQL As String = "Update FS_FeeInvoice set " &
             "strInvoiceStatus = '1', " &
@@ -4993,19 +4994,19 @@ Public Class PASPFeeAuditLog
             Dim parameters As SqlParameter() = New SqlParameter() {
                 New SqlParameter("@Username", CurrentUser.AlphaName),
                 New SqlParameter("@FeeYear", FeeYear),
-                New SqlParameter("@AirsNumber", AirsNumber)
+                New SqlParameter("@AirsNumber", AirsNumber.DbFormattedString)
             }
 
             If Not DB.RunCommand(SQL, parameters) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Else
-                If Not DAL.Update_FS_Admin_Status(FeeYear, AirsNumber) Then
+                If Not DAL.Update_FS_Admin_Status(FeeYear, AirsNumber.ToString) Then
                     MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End If
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
